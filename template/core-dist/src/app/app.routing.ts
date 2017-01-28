@@ -6,7 +6,7 @@ const appRoutes: Routes = [
     path : 'examples', loadChildren : './examples/examples.module#ExamplesModule'
   },
   {
-    path : 'auth', loadChildren : './authentication/authentication.module#AuthenticationModule'
+    path : 'admin', loadChildren : './authentication/authentication.module#AuthenticationModule'
   },
   // {
   //   path : 'pages', loadChildren : () => new Promise(resolve => {
@@ -15,7 +15,8 @@ const appRoutes: Routes = [
   //   });
   // })
   // },
-  {path : '', redirectTo : '/examples/dashboard', pathMatch: 'full'},
+  {path: '', redirectTo: '/admin/login', pathMatch: 'full'},
+  //{path : '', redirectTo : '/examples/dashboard', pathMatch: 'full'},
   {path : '**', redirectTo : '/examples/dashboard'}
 ];
 
