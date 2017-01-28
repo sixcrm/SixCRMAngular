@@ -1,6 +1,6 @@
 <div id="login-page" class="flex-container align-center justify-center layout-column">
   <div class="flex-align align-start"></div>
-  <md-card class="flex-align">
+  <!--<md-card class="flex-align">
     <md-card-content>
       <form name="loginForm" (ngSubmit)="login()" novalidate>
         <div class="flex-container align-center justify-center layout-column">
@@ -18,11 +18,18 @@
         <button md-raised-button color="primary" type="submit">Sign In</button>
       </form>
     </md-card-content>
-  </md-card>
+  </md-card>-->
   <md-card class="flex-align">
+    <md-card-content>
+      <div class="flex-container align-center justify-center">
+        <button md-raised-button color="primary" (click)="authenticationService.login()">Sign In</button>
+      </div>
+    </md-card-content>
+  </md-card>
+  <!--<md-card class="flex-align">
     <md-card-content>
       Don't have an account? <span class="right-align"><a routerLink="/examples/authentication/register">Sign Up</a></span>
     </md-card-content>
-  </md-card>
+  </md-card>-->
   <div class="flex-align align-end"></div>
 </div>
