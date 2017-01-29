@@ -3,6 +3,7 @@ import {MdSidenav} from '@angular/material';
 import {Input} from '@angular/core/src/metadata/directives';
 import {NavigationService} from '../navigation.service';
 import {Title} from '@angular/platform-browser';
+import {Router} from '@angular/router';
 
 @Component({
   selector : 'app-topnav',
@@ -24,7 +25,7 @@ export class TopnavComponent implements OnInit {
   private _breadcrumbInterval: number;
   private _pageTitleInterval: number;
 
-  constructor(private _navigation: NavigationService, private _title: Title) {
+  constructor(private _navigation: NavigationService, private _title: Title, private router: Router) {
   }
 
   ngOnInit() {
@@ -102,6 +103,13 @@ export class TopnavComponent implements OnInit {
     this._searchVal = this._searchValOld;
   }
 
+  logout(){
+    // Remove token from localStorage
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('id_token');
+    this.router.navigate(['/']);
+
+  }
   private updateAutoBreadcrumbs() {
     this._navigation.currentRoute.take(1).subscribe(currentRoute => {
       this._autoBreadcrumbs = true;

@@ -11,14 +11,19 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private authenticationService: AuthenticationService) {
+    private auth: AuthenticationService) {
   }
 
   ngOnInit() {
   }
 
-  login() {
+  login(username, password) {
+    this.auth.login(username.value, password.value);
     this._router.navigateByUrl('/examples/dashboard');
+  }
+
+  googleLogin(){
+    this.auth.loginWithGoogle();
   }
 
   test(t: any) {
