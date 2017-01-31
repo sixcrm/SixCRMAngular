@@ -21,9 +21,7 @@
     <md-icon>keyboard_arrow_down</md-icon>
   </button>
   <md-menu #menu="mdMenu" x-position="before">
-    <button md-menu-item> Refresh</button>
-    <button md-menu-item> Settings</button>
-    <button md-menu-item> Help</button>
+    <button md-menu-item [routerLink]="['/profile']"> User profile </button>
     <button md-menu-item (click)="logout()"> Sign Out</button>
   </md-menu>
   <md-toolbar-row *ngIf="_navigation.mediumScreenAndDown && _breadcrumbs.length > 0 && !_autoBreadcrumbs">

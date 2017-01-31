@@ -15,6 +15,7 @@ import {SampleDialogComponent} from './examples/dialog/sample-dialog/sample-dial
 import {SampleMenuDialogComponent} from './examples/dialog/sample-menu-dialog/sample-menu-dialog.component';
 import {MdSnackBar} from '../../node_modules/@angular/material/snack-bar/snack-bar';
 import {CompletedDialogComponent} from './examples/wizard/completed-dialog/completed-dialog.component';
+import {AuthenticationModule} from "./authentication/authentication.module";
 
 @NgModule({
   declarations : [
@@ -27,6 +28,7 @@ import {CompletedDialogComponent} from './examples/wizard/completed-dialog/compl
     FormsModule,
     HttpModule,
     routing,
+    AuthenticationModule,
     AgmCoreModule.forRoot({
       apiKey : 'YOUR_API_KEY_HERE' // Enter your key here!
     }),

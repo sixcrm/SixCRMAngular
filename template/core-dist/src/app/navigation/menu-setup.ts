@@ -44,7 +44,7 @@ export const menuItemSetup: MenuItem[] = [
     new MenuItem('Google Maps', '/examples/google-maps')
   ]),
   // new MenuItem('Pages', null, [
-  //   new MenuItem('Login', '/auth/login'),
+  //   new MenuItem('Login', '/auth/auth'),
   //   new MenuItem('Register', '/auth/register'),
   // ]),
   new MenuItem('Menu', null, [

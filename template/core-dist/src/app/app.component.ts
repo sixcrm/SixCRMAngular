@@ -12,8 +12,11 @@ import 'hammerjs';
 export class AppComponent implements OnInit {
   private pageTitle: string;
 
-  constructor(private _navigation: NavigationService, private _router: Router, private _elementRef: ElementRef) {
-  }
+  constructor(
+    private _navigation: NavigationService,
+    private _router: Router,
+    private _elementRef: ElementRef
+  ) { }
 
   ngOnInit() {
     this._router.events.subscribe((event: Event) => {
