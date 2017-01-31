@@ -8,6 +8,7 @@ import {ChipComponent} from './layout/chip/chip.component';
 import {MaterialModule} from '@angular/material';
 import {ColorService} from './services/color.service';
 import {CodeHighlighterDirective} from './layout/code-highlighter/code-highlighter.directive';
+import {CampaignsService} from "./services/campaigns.service";
 
 @NgModule({
   declarations : [
@@ -20,7 +21,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule : SharedModule,
-      providers : [BaseService, ColorService]
+      providers : [BaseService, ColorService, CampaignsService]
     };
   }
 }

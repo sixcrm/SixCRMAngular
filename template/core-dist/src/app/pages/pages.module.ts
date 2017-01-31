@@ -1,11 +1,12 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {pagesRouting} from './pages.routing';
 import {SharedModule} from '../shared/shared.module';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import {NavigationModule} from '../navigation/navigation.module';
 import { CampaignsComponent } from './campaigns-page/campaigns.component';
+import {MaterialModule} from "@angular/material";
 
 @NgModule({
   imports : [
@@ -13,7 +14,9 @@ import { CampaignsComponent } from './campaigns-page/campaigns.component';
     SharedModule,
     NavigationModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    MaterialModule,
+    ReactiveFormsModule
   ],
   declarations : [ProfilePageComponent, CampaignsComponent]
 })

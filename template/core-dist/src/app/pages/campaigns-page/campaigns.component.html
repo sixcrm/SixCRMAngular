@@ -1,3 +1,28 @@
-<p>
-  campaigns works!
-</p>
+<div class="campaigns__search">
+  <md-input placeholder="search" [(ngModel)]="searchString" [formControl]="campaignsSearchControl"></md-input>
+  <button md-raised-button color="primary" (click)="search()">search</button>
+  <div class="campaigns__search__dropdown">
+    <li *ngFor="let campaignsSuggestion of campaignsSuggestions">
+      {{campaignsSuggestion}}
+    </li>
+  </div>
+</div>
+
+<table class="highlight">
+  <thead>
+  <tr>
+    <th data-field="id">Name</th>
+    <th data-field="name">Item Name</th>
+    <th data-field="price">Item Price</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let campaign of campaigns">
+    <td>{{campaign.name}}</td>
+    <td>{{campaign.itemName}}</td>
+    <td>{{campaign.itemPrice}}</td>
+  </tr>
+  </tbody>
+
+</table>
