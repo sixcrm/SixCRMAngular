@@ -17,11 +17,11 @@
 
   <span class="app-flex-filler"></span>
   <button md-icon-button [md-menu-trigger-for]="menu" id="user-dropdown-toggler">
-    John Smith
-    <md-icon>keyboard_arrow_down</md-icon>
+    <img class="topnav__dropdown__image" src="https://cdn.auth0.com/styleguide/latest/lib/logos/img/logo-grey.png">
   </button>
+
   <md-menu #menu="mdMenu" x-position="before">
-    <button md-menu-item [routerLink]="['/profile']"> User profile </button>
+    <button md-menu-item [routerLink]="['profile']"> User profile </button>
     <button md-menu-item (click)="logout()"> Sign Out</button>
   </md-menu>
   <md-toolbar-row *ngIf="_navigation.mediumScreenAndDown && _breadcrumbs.length > 0 && !_autoBreadcrumbs">

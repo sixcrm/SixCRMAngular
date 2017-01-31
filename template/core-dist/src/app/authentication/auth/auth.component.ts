@@ -12,10 +12,12 @@ export class AuthComponent implements OnInit {
   constructor(private auth: AuthenticationService, private router: Router) { }
 
   ngOnInit() {
-    if (!this.auth.authenticated()) {
-      this.auth.login();
-    } else {
-      this.router.navigate(['/dashboard']);
-    }
+    setTimeout( () => {
+      if (!this.auth.authenticated()) {
+        this.auth.login();
+      } else {
+        this.router.navigate(['/dashboard']);
+      }
+    }, 100);
   }
 }

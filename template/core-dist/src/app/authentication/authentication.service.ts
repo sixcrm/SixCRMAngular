@@ -2,8 +2,14 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
 import { myConfigN } from './auth.config';
+import {Subject} from "rxjs";
 
 declare var Auth0Lock: any;
+
+interface AuthResult {
+  accessToken: string;
+  idToken: string;
+}
 
 @Injectable()
 export class AuthenticationService {
@@ -11,6 +17,8 @@ export class AuthenticationService {
   private lock = new Auth0Lock(myConfigN.clientID, myConfigN.domain, {});
   private accessToken: string = 'access_token';
   private idToken: string = 'id_token';
+
+  public profileData$: Subject<any> = new Subject();
 
   constructor(private router: Router) {
     this.lock.on('authenticated', (authResult: AuthResult) => {
@@ -32,6 +40,12 @@ export class AuthenticationService {
     localStorage.removeItem(this.idToken);
 
     this.router.navigate(['/']);
+  }
+
+  public getProfileData(): void {
+    this.lock.getUserInfo(localStorage.getItem(this.accessToken), (error, profile) => {
+      this.profileData$.next(profile);
+    })
   }
 
   private setUser(authResult: AuthResult): void {
