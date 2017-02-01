@@ -37,4 +37,8 @@ export class CampaignsComponent implements OnInit {
   editCampaignModal(campaign: any) {
     console.log('open edit modal for', campaign.name);
   }
+
+  deleteCampaign(campaign: any) {
+    console.log('deleting campaign', campaign.name);
+  }
 }

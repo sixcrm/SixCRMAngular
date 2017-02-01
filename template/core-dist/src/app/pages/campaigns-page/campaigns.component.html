@@ -9,7 +9,7 @@
 </div>
 
 <table class="highlight">
-  <thead>
+  <thead class="campaigns__table__header">
   <tr>
     <th data-field="id">Name</th>
     <th data-field="name">Item Name</th>
@@ -24,7 +24,8 @@
     <td>{{campaign.itemName}}</td>
     <td>{{campaign.itemPrice}}</td>
     <td>
-      <md-icon class="campaigns__table__action" (click)="editCampaignModal(campaign)">mode_edit</md-icon>
+      <md-icon class="campaigns__table__body__action" (click)="editCampaignModal(campaign)">mode_edit</md-icon>
+      <md-icon class="campaigns__table__body__action" (click)="deleteCampaign(campaign)">delete</md-icon>
     </td>
   </tr>
   </tbody>
