@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
 import { myConfigN } from './auth.config';
-import {Subject} from "rxjs";
+import {Subject, BehaviorSubject} from "rxjs";
 
 declare var Auth0Lock: any;
 
@@ -18,13 +18,17 @@ export class AuthenticationService {
   private accessToken: string = 'access_token';
   private idToken: string = 'id_token';
 
-  public profileData$: Subject<any> = new Subject();
+  public profileData$: BehaviorSubject<any> = new BehaviorSubject<any>({});
 
   constructor(private router: Router) {
     this.lock.on('authenticated', (authResult: AuthResult) => {
       this.setUser(authResult);
       this.router.navigate(['/dashboard']);
     });
+
+    if (this.authenticated()) {
+      this.getProfileData();
+    }
   }
 
   public authenticated(): boolean {
@@ -51,5 +55,7 @@ export class AuthenticationService {
   private setUser(authResult: AuthResult): void {
     localStorage.setItem(this.accessToken, authResult.accessToken);
     localStorage.setItem(this.idToken, authResult.idToken);
+
+    this.getProfileData();
   }
 }

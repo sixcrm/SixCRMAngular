@@ -26,6 +26,8 @@ export class TopnavComponent implements OnInit {
   private _breadcrumbInterval: number;
   private _pageTitleInterval: number;
 
+  private _userProfile: any = {};
+
   constructor(
     private _navigation: NavigationService,
     private _title: Title,
@@ -90,6 +92,12 @@ export class TopnavComponent implements OnInit {
         this._title.setTitle(browserTitle);
       } else {
         this._title.setTitle(this._navigation.getAutoBrowserTitle(this._pageTitle));
+      }
+    });
+
+    this._authService.profileData$.subscribe((userProfile: any) => {
+      if (userProfile) {
+        this._userProfile = userProfile;
       }
     });
   }
