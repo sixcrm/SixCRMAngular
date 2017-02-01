@@ -1,9 +1,37 @@
 <div class="profile-page">
-  <img class="profile-page__image" src="{{profile.picture}}">
-  <div>
-    email address: {{ profile.email }}
-  </div>
-  <div>
-    created at: {{ profile.created_at }}
+  <img class="profile-page__image" src="{{ profile.picture }}">
+
+  <md-input
+    class="profile-page__input"
+    disabled
+    placeholder="Email Address"
+    value="{{profile.email}}">
+  </md-input>
+
+  <md-input
+    class="profile-page__input"
+    [disabled]="!editing"
+    placeholder="First Name"
+    [(ngModel)]="profile.firstName">
+  </md-input>
+
+  <md-input
+    class="profile-page__input"
+    [disabled]="!editing"
+    placeholder="Last Name"
+    [(ngModel)]="profile.lastName">
+  </md-input>
+
+  <md-input
+    class="profile-page__input"
+    disabled
+    placeholder="Created at"
+    value="{{ profile.createdAt }}">
+  </md-input>
+
+  <div class="profile-page__buttons">
+    <button *ngIf="!editing" md-raised-button color="primary" (click)="toggleEdit()">edit</button>
+    <button *ngIf="editing" md-raised-button color="primary" (click)="cancelEdit()">cancel</button>
+    <button *ngIf="editing" md-raised-button color="primary" (click)="save()">save</button>
   </div>
 </div>

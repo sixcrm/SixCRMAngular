@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NavigationService} from "../../navigation/navigation.service";
 import {AuthenticationService} from "../../authentication/authentication.service";
+import {Profile} from "../../shared/models/profile.model";
 
 @Component({
   selector: 'profile-page',
@@ -9,17 +10,33 @@ import {AuthenticationService} from "../../authentication/authentication.service
 })
 export class ProfilePageComponent implements OnInit {
 
-  private profile: any = {};
+  private profile: Profile = new Profile();
+  private profileCopy: Profile;
+  private editing: boolean = false;
 
   constructor(private navigation: NavigationService, private authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.navigation.toggleSidenav(false);
     this.authService.profileData$.subscribe((profileData: any) => {
-      this.profile = profileData;
-      console.log(this.profile);
+      if (profileData) {
+        this.profile = new Profile(profileData);
+      }
     });
     this.authService.getProfileData();
+  }
+
+  private toggleEdit(): void {
+    this.editing = !this.editing;
+    this.profileCopy = this.profile.copy();
+  }
+
+  private cancelEdit(): void {
+    this.editing = false;
+    this.profile = this.profileCopy;
+  }
+
+  private save(): void {
+
   }
 
 }
