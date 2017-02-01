@@ -10,3 +10,9 @@
     min-width: 200px;
   }
 }
+
+.campaigns__table {
+  &__action {
+    cursor: pointer;
+  }
+}

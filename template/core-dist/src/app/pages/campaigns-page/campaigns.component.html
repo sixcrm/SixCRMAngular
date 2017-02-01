@@ -14,6 +14,7 @@
     <th data-field="id">Name</th>
     <th data-field="name">Item Name</th>
     <th data-field="price">Item Price</th>
+    <th>Actions</th>
   </tr>
   </thead>
 
@@ -22,6 +23,9 @@
     <td>{{campaign.name}}</td>
     <td>{{campaign.itemName}}</td>
     <td>{{campaign.itemPrice}}</td>
+    <td>
+      <md-icon class="campaigns__table__action" (click)="editCampaignModal(campaign)">mode_edit</md-icon>
+    </td>
   </tr>
   </tbody>
 

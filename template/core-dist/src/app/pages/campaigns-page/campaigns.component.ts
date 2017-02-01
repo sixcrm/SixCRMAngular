@@ -33,4 +33,8 @@ export class CampaignsComponent implements OnInit {
     this.campaignService.getCampaigns(this.searchString);
     this.campaignsSuggestions = [];
   }
+
+  editCampaignModal(campaign: any) {
+    console.log('open edit modal for', campaign.name);
+  }
 }
