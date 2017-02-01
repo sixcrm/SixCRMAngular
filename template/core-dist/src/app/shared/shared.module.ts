@@ -9,6 +9,14 @@ import {MaterialModule} from '@angular/material';
 import {ColorService} from './services/color.service';
 import {CodeHighlighterDirective} from './layout/code-highlighter/code-highlighter.directive';
 import {CampaignsService} from "./services/campaigns.service";
+import {ProductsService} from "./services/products.service";
+import {MerchantProvidersService} from "./services/merchant-providers.service";
+import {FulfillmentProvidersService} from "./services/fulfillment-providers.service";
+import {AffiliatesService} from "./services/affiliates.service";
+import {CustomersService} from "./services/customers.service";
+import {SessionsService} from "./services/sessions.service";
+import {LoadBalancersService} from "./services/load-balancers.service";
+import {TransactionsService} from "./services/transactions.service";
 
 @NgModule({
   declarations : [
@@ -21,7 +29,19 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule : SharedModule,
-      providers : [BaseService, ColorService, CampaignsService]
+      providers : [
+        BaseService,
+        ColorService,
+        CampaignsService,
+        ProductsService,
+        MerchantProvidersService,
+        FulfillmentProvidersService,
+        AffiliatesService,
+        CustomersService,
+        SessionsService,
+        LoadBalancersService,
+        TransactionsService
+      ]
     };
   }
 }

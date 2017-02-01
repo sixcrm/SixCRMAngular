@@ -1,20 +1,20 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CampaignsComponent } from './campaigns.component';
+import { LoadBalancersComponent } from './load-balancers.component';
 
-describe('CampaignsComponent', () => {
-  let component: CampaignsComponent;
-  let fixture: ComponentFixture<CampaignsComponent>;
+describe('LoadBalancersComponent', () => {
+  let component: LoadBalancersComponent;
+  let fixture: ComponentFixture<LoadBalancersComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CampaignsComponent ]
+      declarations: [ LoadBalancersComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CampaignsComponent);
+    fixture = TestBed.createComponent(LoadBalancersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
