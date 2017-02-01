@@ -12,9 +12,9 @@ export class NavigationService {
 
   private _menuItems: Subject<MenuItem[]> = new BehaviorSubject(menuItemSetup);
   private _pageTitle: Subject<string> = new BehaviorSubject(null);
-  private _appTitle: Subject<string> = new BehaviorSubject('Core');
+  private _appTitle: Subject<string> = new BehaviorSubject('SixCRM');
   private _browserTitle: Subject<string> = new BehaviorSubject(null);
-  private _titleSeparator: Subject<string> = new BehaviorSubject('|');
+  private _titleSeparator: Subject<string> = new BehaviorSubject(null);
   private _currentRoute: Subject<string> = new BehaviorSubject(null);
   private _breadcrumbs: Subject<Array<{title: string, link: any[] | string}>> = new BehaviorSubject([]);
   private _windowSize: Subject<number> = new BehaviorSubject(NavigationService.largeViewportWidth);
