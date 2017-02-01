@@ -39,7 +39,7 @@ export class AuthenticationService {
     localStorage.removeItem(this.accessToken);
     localStorage.removeItem(this.idToken);
 
-    this.router.navigate(['/']);
+    this.router.navigate(['/auth']);
   }
 
   public getProfileData(): void {
