@@ -4,5 +4,6 @@
 // The build system defaults to the dev environment.
 
 export const environment = {
-  production: false
+  production: false,
+  endpoint: 'https://9xq4cs3cq1.execute-api.us-east-1.amazonaws.com/development/graph'
 };

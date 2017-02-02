@@ -52,6 +52,10 @@ export class AuthenticationService {
     })
   }
 
+  public getToken() {
+    return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOTNiMDg2YjgtNjM0My00MjcxLTg3ZDYtYjJhMDAxNDlmMDcwIiwiaWF0IjoxNDg2MDI3Mzc2fQ.WWso40RRK-xHIvMOm2NEFGEnQHkJH2KQq_FWShkQ0GM';
+  }
+
   private setUser(authResult: AuthResult): void {
     localStorage.setItem(this.accessToken, authResult.accessToken);
     localStorage.setItem(this.idToken, authResult.idToken);

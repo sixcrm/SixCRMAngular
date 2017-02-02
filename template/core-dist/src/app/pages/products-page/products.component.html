@@ -1,3 +1,5 @@
+<button md-fab class="button--add" (click)="openAddDialog()"> <md-icon>add</md-icon></button>
+
 <div class="products__search">
   <md-input placeholder="search" [(ngModel)]="searchString" [formControl]="productsSearchControl"></md-input>
   <button md-raised-button color="primary" (click)="search()">search</button>
@@ -19,10 +21,47 @@
     <td>{{product.name}}</td>
     <td>{{product.sku}}</td>
     <td>
-      <md-icon class="products__table__body__action" (click)="editProductModal(product)">mode_edit</md-icon>
+      <md-icon class="products__table__body__action" (click)="openEditDialog(product)">mode_edit</md-icon>
       <md-icon class="products__table__body__action" (click)="deleteProduct(product)">delete</md-icon>
     </td>
   </tr>
   </tbody>
 
 </table>
+
+<div *ngIf="showAddDialog" class="dialog">
+  <md-card class="dialog__card">
+    <md-card-title>Add new product</md-card-title>
+    <md-card-content>
+      <form>
+        <md-input placeholder="ID" [(ngModel)]="productAdd.id" name="id"></md-input>
+        <md-input placeholder="Name" [(ngModel)]="productAdd.name" name="name"></md-input>
+        <md-input placeholder="SKU" [(ngModel)]="productAdd.sku" name="sku"></md-input>
+      </form>
+      <span class="dialog__error" *ngIf="showAddFormError">All fields are required</span>
+    </md-card-content>
+    <div class="dialog__actions">
+      <button md-raised-button color="primary" (click)="saveAdded()">save</button>
+      <button md-raised-button color="primary" (click)="closeAddDialog()">close</button>
+    </div>
+  </md-card>
+</div>
+
+<div *ngIf="showEditDialog" class="dialog">
+  <md-card class="dialog__card">
+    <md-card-title>Edit product</md-card-title>
+    <md-card-content>
+      <form>
+        <md-input placeholder="Name" [disabled]="!editEnabled" [(ngModel)]="productEdit.name" name="name"></md-input>
+        <md-input placeholder="SKU" [disabled]="!editEnabled" [(ngModel)]="productEdit.sku" name="sku"></md-input>
+      </form>
+      <span class="dialog__error" *ngIf="showEditFormError">All fields are required</span>
+    </md-card-content>
+    <div class="dialog__actions">
+      <button *ngIf="!editEnabled" md-raised-button color="primary" (click)="enableEdit()">edit</button>
+      <button *ngIf="!editEnabled" md-raised-button color="primary" (click)="closeEditDialog()">close</button>
+      <button *ngIf="editEnabled" md-raised-button color="primary" (click)="saveEdited()">save</button>
+      <button *ngIf="editEnabled" md-raised-button color="primary" (click)="disableEdit()">cancel</button>
+    </div>
+  </md-card>
+</div>
