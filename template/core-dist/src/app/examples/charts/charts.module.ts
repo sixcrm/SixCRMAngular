@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ChartModule} from 'angular2-highcharts';
-import {GithubService} from '../../shared/services/github.service';
+import {GithubService} from '../dashboard/github.service';
 import {ServerLoadChartComponent} from './server-load-chart/server-load-chart.component';
 
 @NgModule({

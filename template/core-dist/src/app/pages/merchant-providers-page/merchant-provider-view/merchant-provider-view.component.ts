@@ -17,5 +17,4 @@ export class MerchantProviderViewComponent implements OnInit {
     this.merchantProvidersService.merchantProvider$.subscribe((data) => this.merchantProvider = data);
     this.route.params.subscribe((params) => this.merchantProvidersService.getMerchantProvider(params['id']));
   }
-
 }

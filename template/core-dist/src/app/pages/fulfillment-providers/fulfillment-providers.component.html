@@ -1,3 +1,33 @@
-<p>
-  fulfillment-providers works!
-</p>
+<div class="campaigns__search">
+  <md-input placeholder="search"></md-input>
+  <button md-raised-button color="primary" (click)="search()">search</button>
+</div>
+
+<table class="highlight">
+  <thead class="entities__table__header">
+  <tr>
+    <th data-field="name">name</th>
+    <th data-field="username">Username</th>
+    <th data-field="password">Password</th>
+    <th data-field="endpoint">Endpoint</th>
+    <th data-field="provider">Provider</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let fulfillmentProvider of fulfillmentProviders">
+    <td>{{fulfillmentProvider.name}}</td>
+    <td>{{fulfillmentProvider.username}}</td>
+    <td>{{fulfillmentProvider.password}}</td>
+    <td>{{fulfillmentProvider.endpoint}}</td>
+    <td>{{fulfillmentProvider.provider}}</td>
+    <td>
+      <md-icon class="entities__table__body__action" (click)="viewFulfillmentProvider(fulfillmentProvider)">visibility</md-icon>
+      <md-icon class="entities__table__body__action" (click)="editFulfillmentProvider(fulfillmentProvider)">mode_edit</md-icon>
+      <md-icon class="entities__table__body__action" (click)="deleteFulfillmentProvider(fulfillmentProvider)">delete</md-icon>
+    </td>
+  </tr>
+  </tbody>
+
+</table>

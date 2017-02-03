@@ -6,7 +6,7 @@ import {routing} from './app.routing';
 import {AppComponent} from './app.component';
 import {SharedModule} from './shared/shared.module';
 import {NavigationModule} from './navigation/navigation.module';
-import {GithubService} from './shared/services/github.service';
+import {GithubService} from './examples/dashboard/github.service';
 import {BaseService} from './shared/services/base.service';
 import {MaterialModule} from '@angular/material';
 import {AgmCoreModule} from 'angular2-google-maps/core';

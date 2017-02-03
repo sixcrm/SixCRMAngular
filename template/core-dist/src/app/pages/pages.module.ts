@@ -17,6 +17,7 @@ import { LoadBalancersComponent } from './load-balancers-page/load-balancers.com
 import { TransactionsComponent } from './transactions-page/transactions.component';
 import { CampaignViewComponent } from './campaigns-page/campaign-view/campaign-view.component';
 import { MerchantProviderViewComponent } from './merchant-providers-page/merchant-provider-view/merchant-provider-view.component';
+import { FulfillmentProviderViewComponent } from './fulfillment-providers/fulfillment-provider-view/fulfillment-provider-view.component';
 
 @NgModule({
   imports : [
@@ -40,7 +41,8 @@ import { MerchantProviderViewComponent } from './merchant-providers-page/merchan
     LoadBalancersComponent,
     TransactionsComponent,
     CampaignViewComponent,
-    MerchantProviderViewComponent
+    MerchantProviderViewComponent,
+    FulfillmentProviderViewComponent
   ]
 })
 export class PagesModule {

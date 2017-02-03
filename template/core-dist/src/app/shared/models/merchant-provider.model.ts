@@ -1,5 +1,6 @@
 export class MerchantProvider {
   id: string;
+  name: string;
   username: string;
   password: string;
   endpoint: string;
@@ -11,6 +12,7 @@ export class MerchantProvider {
     }
 
     this.id = obj.id || '';
+    this.name = obj.name || '';
     this.username = obj.username || '';
     this.password = obj.password || '';
     this.endpoint = obj.endpoint || '';

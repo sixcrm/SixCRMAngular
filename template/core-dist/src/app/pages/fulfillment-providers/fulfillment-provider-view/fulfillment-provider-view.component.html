@@ -1,0 +1,23 @@
+<md-card *ngIf="fulfillmentProvider">
+  <md-card-title>Fulfillment Provider View</md-card-title>
+  <md-card-content>
+    <div>
+      <md-input disabled placeholder="ID" value="{{fulfillmentProvider.id}}"></md-input>
+    </div>
+    <div>
+      <md-input disabled placeholder="Name" value="{{fulfillmentProvider.name}}"></md-input>
+    </div>
+    <div>
+      <md-input disabled placeholder="Username" value="{{fulfillmentProvider.username}}"></md-input>
+    </div>
+    <div>
+      <md-input disabled placeholder="Password" value="{{fulfillmentProvider.password}}"></md-input>
+    </div>
+    <div>
+      <md-input disabled placeholder="Endpoint" value="{{fulfillmentProvider.endpoint}}"></md-input>
+    </div>
+    <div>
+      <md-input disabled placeholder="Processor" value="{{fulfillmentProvider.provider}}"></md-input>
+    </div>
+  </md-card-content>
+</md-card>
