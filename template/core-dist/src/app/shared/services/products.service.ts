@@ -8,12 +8,14 @@ import {
 } from "./../utils/query-builder"
 import {environment} from '../../../environments/environment';
 import {AuthenticationService} from '../../authentication/authentication.service';
+import {AbstractEntityService} from './abstract-entity.service';
 
 @Injectable()
-export class ProductsService {
+export class ProductsService extends AbstractEntityService {
   products$: Subject<Product[]>;
 
-  constructor(private http: Http, private authService: AuthenticationService) {
+  constructor(private http: Http, authService: AuthenticationService) {
+    super(authService);
     this.products$ = new Subject<Product[]>();
   }
 
@@ -52,13 +54,5 @@ export class ProductsService {
         () => { this.getProducts() },
         (error) => { console.error(error) }
       );
-  }
-
-  private generateHeaders(): Headers {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', this.authService.getToken());
-
-    return headers;
   }
 }

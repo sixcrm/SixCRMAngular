@@ -1,19 +1,21 @@
 import {Injectable} from "@angular/core";
 import {Subject} from "rxjs";
 import {Campaign} from '../models/campaign.model';
-import {Http, Headers} from "@angular/http";
+import {Http} from "@angular/http";
 import {campaignsInfoListQuery, campaignQuery} from '../utils/query-builder';
 import {environment} from '../../../environments/environment';
 import {AuthenticationService} from '../../authentication/authentication.service';
+import {AbstractEntityService} from './abstract-entity.service';
 
 @Injectable()
-export class CampaignsService {
+export class CampaignsService extends AbstractEntityService {
 
   campaigns$: Subject<Campaign[]>;
   campaign$: Subject<Campaign>;
   campaignsSuggestions$: Subject<string[]>;
 
-  constructor(private http: Http, private authService: AuthenticationService) {
+  constructor(private http: Http, authService: AuthenticationService) {
+    super(authService);
     this.campaigns$ = new Subject<Campaign[]>();
     this.campaign$ = new Subject<Campaign>();
     this.campaignsSuggestions$ = new Subject<string[]>();
@@ -43,13 +45,5 @@ export class CampaignsService {
           console.error(error);
         }
       );
-  }
-
-  private generateHeaders(): Headers {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', this.authService.getToken());
-
-    return headers;
   }
 }

@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import {MerchantProvider} from '../models/merchant-provider.model';
 import {Subject} from 'rxjs';
-import {Http, Headers} from '@angular/http';
+import {Http} from '@angular/http';
 import {environment} from '../../../environments/environment';
 import {marchantProvidersListQuery, marchantProviderQuery} from '../utils/query-builder';
 import {AuthenticationService} from '../../authentication/authentication.service';
+import {AbstractEntityService} from './abstract-entity.service';
 
 @Injectable()
-export class MerchantProvidersService {
+export class MerchantProvidersService extends AbstractEntityService {
   merchantProviders$: Subject<MerchantProvider[]>;
   merchantProvider$: Subject<MerchantProvider>;
 
-  constructor(private http: Http, private authService: AuthenticationService) {
+  constructor(private http: Http, authService: AuthenticationService) {
+    super(authService);
     this.merchantProviders$ = new Subject<MerchantProvider[]>();
     this.merchantProvider$ = new Subject<MerchantProvider>();
   }
@@ -40,13 +42,5 @@ export class MerchantProvidersService {
           console.error(error);
         }
       )
-  }
-
-  private generateHeaders(): Headers {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', this.authService.getToken());
-
-    return headers;
   }
 }
