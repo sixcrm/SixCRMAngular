@@ -131,3 +131,18 @@ td,th {
     border-right: 1px solid #d0d0d0
   }
 }
+
+.entities__table {
+  &__header {
+
+  }
+
+  &__body {
+    font-size: 0;
+
+    &__action {
+      margin-right: 5px;
+      cursor: pointer;
+    }
+  }
+}

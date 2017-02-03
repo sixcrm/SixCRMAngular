@@ -6,13 +6,13 @@
 </div>
 
 <table class="highlight">
-  <thead class="products__table__header">
-  <tr>
-    <th data-field="id">ID</th>
-    <th data-field="name">Name</th>
-    <th data-field="price">SKU</th>
-    <th class="products__table__header__actions">Actions</th>
-  </tr>
+  <thead>
+    <tr>
+      <th data-field="id">ID</th>
+      <th data-field="name">Name</th>
+      <th data-field="price">SKU</th>
+      <th>Actions</th>
+    </tr>
   </thead>
 
   <tbody>
@@ -21,8 +21,8 @@
     <td>{{product.name}}</td>
     <td>{{product.sku}}</td>
     <td>
-      <md-icon class="products__table__body__action" (click)="openEditDialog(product)">mode_edit</md-icon>
-      <md-icon class="products__table__body__action" (click)="deleteProduct(product)">delete</md-icon>
+      <md-icon class="entities__table__body__action" (click)="openEditDialog(product)">mode_edit</md-icon>
+      <md-icon class="entities__table__body__action" (click)="deleteProduct(product)">delete</md-icon>
     </td>
   </tr>
   </tbody>

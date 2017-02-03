@@ -1,3 +1,31 @@
-<p>
-  merchant-providers works!
-</p>
+<div class="campaigns__search">
+  <md-input placeholder="search"></md-input>
+  <button md-raised-button color="primary" (click)="search()">search</button>
+</div>
+
+<table class="highlight">
+  <thead class="entities__table__header">
+  <tr>
+    <th data-field="id">Username</th>
+    <th data-field="numOfMerchProviders">Password</th>
+    <th data-field="numOfProdSchedules">Endpoint</th>
+    <th data-field="numOfProdSchedules">Processor</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let merchantProvider of merchantProviders">
+    <td>{{merchantProvider.username}}</td>
+    <td>{{merchantProvider.password}}</td>
+    <td>{{merchantProvider.endpoint}}</td>
+    <td>{{merchantProvider.processor}}</td>
+    <td>
+      <md-icon class="entities__table__body__action" (click)="viewMerchantProvider(merchantProvider)">visibility</md-icon>
+      <md-icon class="entities__table__body__action" (click)="editMerchantProvider(merchantProvider)">mode_edit</md-icon>
+      <md-icon class="entities__table__body__action" (click)="deleteMerchantProvider(merchantProvider)">delete</md-icon>
+    </td>
+  </tr>
+  </tbody>
+
+</table>

@@ -6,27 +6,6 @@
   }
 }
 
-.products__table {
-  &__header {
-
-    tr th {
-      width: 30%;
-    }
-    &__actions {
-      width: 10%;
-    }
-  }
-
-  &__body {
-    font-size: 0;
-
-    &__action {
-      width: 45%;
-      cursor: pointer;
-    }
-  }
-}
-
 .button--add {
   background-color: #1976d2;
   color: white;

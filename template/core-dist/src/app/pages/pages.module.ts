@@ -16,6 +16,7 @@ import { SessionsComponent } from './sessions-page/sessions.component';
 import { LoadBalancersComponent } from './load-balancers-page/load-balancers.component';
 import { TransactionsComponent } from './transactions-page/transactions.component';
 import { CampaignViewComponent } from './campaigns-page/campaign-view/campaign-view.component';
+import { MerchantProviderViewComponent } from './merchant-providers-page/merchant-provider-view/merchant-provider-view.component';
 
 @NgModule({
   imports : [
@@ -38,7 +39,8 @@ import { CampaignViewComponent } from './campaigns-page/campaign-view/campaign-v
     SessionsComponent,
     LoadBalancersComponent,
     TransactionsComponent,
-    CampaignViewComponent
+    CampaignViewComponent,
+    MerchantProviderViewComponent
   ]
 })
 export class PagesModule {

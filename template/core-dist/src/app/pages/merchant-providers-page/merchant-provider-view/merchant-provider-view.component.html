@@ -1,0 +1,20 @@
+<md-card *ngIf="merchantProvider">
+  <md-card-title>Merchant Provider View</md-card-title>
+  <md-card-content>
+    <div>
+      <md-input disabled placeholder="ID" value="{{merchantProvider.id}}"></md-input>
+    </div>
+    <div>
+      <md-input disabled placeholder="Username" value="{{merchantProvider.username}}"></md-input>
+    </div>
+    <div>
+      <md-input disabled placeholder="Password" value="{{merchantProvider.password}}"></md-input>
+    </div>
+    <div>
+      <md-input disabled placeholder="Endpoint" value="{{merchantProvider.endpoint}}"></md-input>
+    </div>
+    <div>
+      <md-input disabled placeholder="Processor" value="{{merchantProvider.processor}}"></md-input>
+    </div>
+  </md-card-content>
+</md-card>

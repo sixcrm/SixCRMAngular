@@ -52,3 +52,11 @@ export function campaignsInfoListQuery(): string {
       }
     }}`
 }
+
+export function marchantProvidersListQuery(): string {
+  return `{ merchantproviderlist { merchantproviders { name username password endpoint processor } } }`
+}
+
+export function marchantProviderQuery(id: string): string {
+  return `{ merchantprovider (id: "${id}") { id name username password endpoint processor } }`
+}
