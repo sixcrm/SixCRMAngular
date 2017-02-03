@@ -1,0 +1,42 @@
+<md-card *ngIf="customer">
+  <md-card-title>Customer View</md-card-title>
+  <md-card-content>
+    <md-input disabled placeholder="Email" value="{{customer.email}}"></md-input>
+    <md-input disabled placeholder="First Name" value="{{customer.firstName}}"></md-input>
+    <md-input disabled placeholder="Last Name" value="{{customer.lastName}}"></md-input>
+    <md-input disabled placeholder="Phone" value="{{customer.phone}}"></md-input>
+
+    <div class="content__block__first">
+      <md-card-subtitle>Address</md-card-subtitle>
+      <md-input disabled placeholder="Line 1" value="{{customer.address.line1}}"></md-input>
+      <md-input disabled placeholder="Line 2" value="{{customer.address.line2}}"></md-input>
+      <md-input disabled placeholder="City" value="{{customer.address.city}}"></md-input>
+      <md-input disabled placeholder="Zip" value="{{customer.address.state}}"></md-input>
+      <md-input disabled placeholder="State" value="{{customer.address.zip}}"></md-input>
+      <md-input disabled placeholder="Country" value="{{customer.address.country}}"></md-input>
+    </div>
+
+    <div class="content__block__first">
+      <md-card-subtitle>Credit Cards</md-card-subtitle>
+      <ng-container *ngFor="let creditCard of customer.creditCards">
+        <div class="content__block__second">
+          <md-card-subtitle>Credit Card</md-card-subtitle>
+          <md-input disabled placeholder="ID" value="{{creditCard.id}}"></md-input>
+          <md-input disabled placeholder="CC Number" value="{{creditCard.ccnumber}}"></md-input>
+          <md-input disabled placeholder="Expiration" value="{{creditCard.expiration}}"></md-input>
+          <md-input disabled placeholder="CCV" value="{{creditCard.ccv}}"></md-input>
+          <md-input disabled placeholder="Name" value="{{creditCard.name}}"></md-input>
+
+          <div class="content__block__third">
+            <md-card-subtitle>Address</md-card-subtitle>
+            <md-input disabled placeholder="Line 1" value="{{creditCard.address.line1}}"></md-input>
+            <md-input disabled placeholder="Line 2" value="{{creditCard.address.line2}}"></md-input>
+            <md-input disabled placeholder="City" value="{{creditCard.address.city}}"></md-input>
+            <md-input disabled placeholder="Zip" value="{{creditCard.address.state}}"></md-input>
+            <md-input disabled placeholder="State" value="{{creditCard.address.zip}}"></md-input>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </md-card-content>
+</md-card>

@@ -19,6 +19,7 @@ import { CampaignViewComponent } from './campaigns-page/campaign-view/campaign-v
 import { MerchantProviderViewComponent } from './merchant-providers-page/merchant-provider-view/merchant-provider-view.component';
 import { FulfillmentProviderViewComponent } from './fulfillment-providers/fulfillment-provider-view/fulfillment-provider-view.component';
 import { AffiliatesViewComponent } from './affiliates-page/affiliates-view/affiliates-view.component';
+import { CustomerViewComponent } from './customers-page/customer-view/customer-view.component';
 
 @NgModule({
   imports : [
@@ -44,7 +45,8 @@ import { AffiliatesViewComponent } from './affiliates-page/affiliates-view/affil
     CampaignViewComponent,
     MerchantProviderViewComponent,
     FulfillmentProviderViewComponent,
-    AffiliatesViewComponent
+    AffiliatesViewComponent,
+    CustomerViewComponent
   ]
 })
 export class PagesModule {

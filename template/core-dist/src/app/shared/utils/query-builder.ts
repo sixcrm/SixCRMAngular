@@ -76,3 +76,22 @@ export function affiliatesListQuery(): string {
 export function affiliateQuery(id: string): string {
   return `{ affiliate (id: "${id}") { id affiliate_id sub_id_1 sub_id_2 sub_id_3 sub_id_4 sub_id_5 click_id } }`
 }
+
+export function customersInfoListQuery(): string {
+  return `{
+    customerlist {
+      customers { id firstname lastname
+        address { city country }
+			}
+		}}`
+}
+
+export function customerQuery(id: string): string {
+  return `{
+    customer (id: "${id}") { id email firstname lastname phone
+      address { line1 line2 city state zip country }
+		  creditcards {	id ccnumber expiration ccv name
+			  address { line1 line2 city state zip }
+			}
+		} }`
+}

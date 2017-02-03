@@ -14,6 +14,7 @@ import {CampaignViewComponent} from './campaigns-page/campaign-view/campaign-vie
 import {MerchantProviderViewComponent} from './merchant-providers-page/merchant-provider-view/merchant-provider-view.component';
 import {FulfillmentProviderViewComponent} from './fulfillment-providers/fulfillment-provider-view/fulfillment-provider-view.component';
 import {AffiliatesViewComponent} from './affiliates-page/affiliates-view/affiliates-view.component';
+import {CustomerViewComponent} from './customers-page/customer-view/customer-view.component';
 
 export const pagesRouting = RouterModule.forChild([
   {
@@ -29,6 +30,7 @@ export const pagesRouting = RouterModule.forChild([
       { path : 'affiliates', component : AffiliatesComponent },
       { path : 'affiliates/:id', component : AffiliatesViewComponent },
       { path : 'customers', component : CustomersComponent },
+      { path : 'customers/:id', component : CustomerViewComponent },
       { path : 'sessions', component : SessionsComponent },
       { path : 'loadBalancer', component : LoadBalancersComponent },
       { path : 'transactions', component : TransactionsComponent },
