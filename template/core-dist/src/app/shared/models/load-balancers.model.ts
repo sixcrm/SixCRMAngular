@@ -1,6 +1,6 @@
 import {MerchantProviderConfiguration} from './merchant-provider-configuration.model';
 
-export class LoadBalancers {
+export class LoadBalancer {
   id: string;
   merchantProviderConfigurations: MerchantProviderConfiguration[];
 

@@ -1,19 +1,14 @@
 <div class="campaigns__search">
   <md-input placeholder="search" [(ngModel)]="searchString" [formControl]="campaignsSearchControl"></md-input>
   <button md-raised-button color="primary" (click)="search()">search</button>
-  <div class="campaigns__search__dropdown">
-    <li *ngFor="let campaignsSuggestion of campaignsSuggestions">
-      {{campaignsSuggestion}}
-    </li>
-  </div>
 </div>
 
 <table class="highlight">
   <thead class="campaigns__table__header">
   <tr>
     <th data-field="id">Name</th>
-    <th data-field="name">Item Name</th>
-    <th data-field="price">Item Price</th>
+    <th data-field="numOfMerchProviders">Number of Merchant Providers</th>
+    <th data-field="numOfProdSchedules">Number of Product Schedules</th>
     <th>Actions</th>
   </tr>
   </thead>
@@ -21,10 +16,11 @@
   <tbody>
   <tr *ngFor="let campaign of campaigns">
     <td>{{campaign.name}}</td>
-    <td>{{campaign.itemName}}</td>
-    <td>{{campaign.itemPrice}}</td>
+    <td>{{campaign.loadBalancer.merchantProviderConfigurations.length}}</td>
+    <td>{{campaign.productSchedules.length}}</td>
     <td>
-      <md-icon class="campaigns__table__body__action" (click)="editCampaignModal(campaign)">mode_edit</md-icon>
+      <md-icon class="campaigns__table__body__action" (click)="viewCampaign(campaign)">visibility</md-icon>
+      <md-icon class="campaigns__table__body__action" (click)="editCampaign(campaign)">mode_edit</md-icon>
       <md-icon class="campaigns__table__body__action" (click)="deleteCampaign(campaign)">delete</md-icon>
     </td>
   </tr>

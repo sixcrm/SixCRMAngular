@@ -15,6 +15,7 @@ import { CustomersComponent } from './customers-page/customers.component';
 import { SessionsComponent } from './sessions-page/sessions.component';
 import { LoadBalancersComponent } from './load-balancers-page/load-balancers.component';
 import { TransactionsComponent } from './transactions-page/transactions.component';
+import { CampaignViewComponent } from './campaigns-page/campaign-view/campaign-view.component';
 
 @NgModule({
   imports : [
@@ -36,7 +37,8 @@ import { TransactionsComponent } from './transactions-page/transactions.componen
     CustomersComponent,
     SessionsComponent,
     LoadBalancersComponent,
-    TransactionsComponent
+    TransactionsComponent,
+    CampaignViewComponent
   ]
 })
 export class PagesModule {

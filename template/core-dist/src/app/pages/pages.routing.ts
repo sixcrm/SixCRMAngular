@@ -10,21 +10,23 @@ import {SessionsComponent} from "./sessions-page/sessions.component";
 import {CustomersComponent} from "./customers-page/customers.component";
 import {TransactionsComponent} from "./transactions-page/transactions.component";
 import {LoadBalancersComponent} from "./load-balancers-page/load-balancers.component";
+import {CampaignViewComponent} from './campaigns-page/campaign-view/campaign-view.component';
 
 export const pagesRouting = RouterModule.forChild([
   {
     path : '', component : DefaultLayoutComponent, children : [
       { path : '', redirectTo : 'campaigns', pathMatch: 'full' },
       { path : 'campaigns', component : CampaignsComponent },
-    { path : 'products', component : ProductsComponent },
-    { path : 'merchantProviders', component : MerchantProvidersComponent },
-    { path : 'fulfillmentProviders', component : FulfillmentProvidersComponent },
-    { path : 'affiliates', component : AffiliatesComponent },
-    { path : 'customers', component : CustomersComponent },
-    { path : 'sessions', component : SessionsComponent },
-    { path : 'loadBalancers', component : LoadBalancersComponent },
-    { path : 'transactions', component : TransactionsComponent },
-    { path : 'profile', component : ProfilePageComponent },
+      { path : 'campaigns/:id', component : CampaignViewComponent },
+      { path : 'products', component : ProductsComponent },
+      { path : 'merchantProviders', component : MerchantProvidersComponent },
+      { path : 'fulfillmentProviders', component : FulfillmentProvidersComponent },
+      { path : 'affiliates', component : AffiliatesComponent },
+      { path : 'customers', component : CustomersComponent },
+      { path : 'sessions', component : SessionsComponent },
+      { path : 'loadBalancer', component : LoadBalancersComponent },
+      { path : 'transactions', component : TransactionsComponent },
+      { path : 'profile', component : ProfilePageComponent },
     ]
   }
 ]);

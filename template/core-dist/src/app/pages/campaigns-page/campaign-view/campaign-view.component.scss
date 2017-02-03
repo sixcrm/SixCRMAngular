@@ -1,0 +1,27 @@
+.content {
+
+  &__block {
+    &__first {
+      margin-top: 30px
+    }
+
+    &__second {
+      margin-top: 20px;
+      margin-left: 10px;
+    }
+
+    &__third {
+      margin-top: 15px;
+      margin-left: 20px;
+    }
+
+    &__fourth {
+      margin-top: 10px;
+      margin-left: 30px;
+    }
+  }
+}
+
+md-input {
+  margin: 0 5px 0 5px;
+}

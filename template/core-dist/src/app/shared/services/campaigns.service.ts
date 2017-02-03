@@ -1,39 +1,55 @@
 import {Injectable} from "@angular/core";
 import {Subject} from "rxjs";
+import {Campaign} from '../models/campaign.model';
+import {Http, Headers} from "@angular/http";
+import {campaignsInfoListQuery, campaignQuery} from '../utils/query-builder';
+import {environment} from '../../../environments/environment';
+import {AuthenticationService} from '../../authentication/authentication.service';
 
 @Injectable()
 export class CampaignsService {
 
-  campaigns$: Subject<any[]>;
+  campaigns$: Subject<Campaign[]>;
+  campaign$: Subject<Campaign>;
   campaignsSuggestions$: Subject<string[]>;
 
-  private campaignsHolder = [
-    {name: 'first name', itemName: 'first item name', itemPrice: 'first item price'},
-    {name: 'second name', itemName: 'second item name', itemPrice: 'second item price'},
-    {name: 'third name', itemName: 'third item name', itemPrice: 'third item price'},
-    {name: 'fourth name', itemName: 'fourth item name', itemPrice: 'fourth item price'},
-  ];
-
-  constructor() {
-    this.campaigns$ = new Subject();
-    this.campaignsSuggestions$ = new Subject();
+  constructor(private http: Http, private authService: AuthenticationService) {
+    this.campaigns$ = new Subject<Campaign[]>();
+    this.campaign$ = new Subject<Campaign>();
+    this.campaignsSuggestions$ = new Subject<string[]>();
   }
 
-  getCampaigns(searchString: string): void {
-    if (!searchString) {
-      this.campaigns$.next(this.campaignsHolder);
-    } else {
-      let queriedHolders = this.campaignsHolder.filter(campaign => campaign.name.includes(searchString));
-      this.campaigns$.next(queriedHolders);
-    }
+  getCampaigns(): void {
+    this.http.post(environment.endpoint, campaignsInfoListQuery(), { headers: this.generateHeaders() })
+      .subscribe(
+        (data) => {
+          let campaignData = data.json().data.campaignlist.campaigns;
+          this.campaigns$.next(campaignData.map(campaign => new Campaign(campaign)));
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
   }
 
-  getCampaignsSuggestions(searchString: string): void {
-    if (!searchString) {
-      this.campaignsSuggestions$.next([]);
-    } else {
-      let queriedHolders = this.campaignsHolder.filter(campaign => campaign.name.includes(searchString)).map(campaign => campaign.name);
-      this.campaignsSuggestions$.next(queriedHolders);
-    }
+  getCampaign(id: string): void {
+    this.http.post(environment.endpoint, campaignQuery(id), { headers: this.generateHeaders() })
+      .subscribe(
+        (data) => {
+          let campaignData = data.json().data.campaign;
+          this.campaign$.next(new Campaign(campaignData));
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+  }
+
+  private generateHeaders(): Headers {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', this.authService.getToken());
+
+    return headers;
   }
 }

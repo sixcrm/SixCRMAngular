@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {CampaignsService} from "../../shared/services/campaigns.service";
+import {Campaign} from '../../shared/models/campaign.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'campaigns',
@@ -11,34 +13,28 @@ export class CampaignsComponent implements OnInit {
 
   private campaignsSearchControl: FormControl = new FormControl();
   private searchString: string;
-  private campaigns: any[] = [];
-  private campaignsSuggestions: string[] = [];
+  private campaigns: Campaign[] = [];
 
-  constructor(private campaignService: CampaignsService) { }
+  constructor(private campaignService: CampaignsService, private router: Router) { }
 
   ngOnInit() {
-    this.campaignService.campaigns$.subscribe(campaigns => this.campaigns = campaigns);
-    this.campaignService.campaignsSuggestions$.subscribe(campaignsSuggestions => this.campaignsSuggestions = campaignsSuggestions);
-    this.campaignService.getCampaigns('');
-
-    this.campaignsSearchControl
-      .valueChanges
-      .debounceTime(200)
-      .subscribe(search => {
-        this.campaignService.getCampaignsSuggestions(search);
-      });
+    this.campaignService.campaigns$.subscribe(campaigns => this.campaigns = campaigns );
+    this.campaignService.getCampaigns();
   }
 
   search(): void {
-    this.campaignService.getCampaigns(this.searchString);
-    this.campaignsSuggestions = [];
+
   }
 
-  editCampaignModal(campaign: any) {
-    console.log('open edit modal for', campaign.name);
+  viewCampaign(campaign: Campaign): void {
+    this.router.navigateByUrl('/dashboard/campaigns/' + campaign.id);
   }
 
-  deleteCampaign(campaign: any) {
-    console.log('deleting campaign', campaign.name);
+  editCampaign(campaign: Campaign): void {
+
+  }
+
+  deleteCampaign(campaign: Campaign): void {
+
   }
 }

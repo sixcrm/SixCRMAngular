@@ -2,7 +2,7 @@ import {Schedule} from './schedule.model';
 
 export class ProductSchedule {
   id: string;
-  schedule: Schedule[];
+  schedules: Schedule[];
 
   constructor(obj?: any) {
     if (!obj) {
@@ -10,11 +10,11 @@ export class ProductSchedule {
     }
 
     this.id = obj.id;
-    this.schedule = [];
+    this.schedules = [];
 
     if (obj.schedule) {
       for (let i = 0; i < obj.schedule.length; i++) {
-        this.schedule.push(new Schedule(obj[i]));
+        this.schedules.push(new Schedule(obj.schedule[i]));
       }
     }
   }

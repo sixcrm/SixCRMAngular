@@ -1,9 +1,11 @@
 import {ProductSchedule} from './product-schedule.model';
+import {LoadBalancer} from './load-balancers.model';
 
 export class Campaign {
   id: string;
   name: string;
   productSchedules: ProductSchedule[];
+  loadBalancer: LoadBalancer;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -15,9 +17,11 @@ export class Campaign {
     this.productSchedules = [];
 
     if (obj.productschedules) {
-      for (let i = 0; i < obj.productschedules; i++) {
-        this.productSchedules.push(new ProductSchedule(obj[i]));
+      for (let i = 0; i < obj.productschedules.length; i++) {
+        this.productSchedules.push(new ProductSchedule(obj.productschedules[i]));
       }
     }
+
+    this.loadBalancer = new LoadBalancer(obj.loadbalancer);
   }
 }

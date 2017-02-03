@@ -61,5 +61,4 @@ export class ProductsService {
 
     return headers;
   }
-
 }

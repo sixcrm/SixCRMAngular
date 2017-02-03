@@ -1,0 +1,61 @@
+<md-card *ngIf="campaign">
+  <md-card-title>Campaign View</md-card-title>
+  <md-card-content>
+    <md-input disabled placeholder="Name" value="{{campaign.name}}"></md-input>
+
+    <div class="content__block__first">
+      <md-card-subtitle>Product Schedules</md-card-subtitle>
+      <ng-container *ngFor="let productSchedule of campaign.productSchedules">
+
+        <ng-container *ngFor="let schedule of productSchedule.schedules">
+          <div class="content__block__second">
+            <md-card-subtitle>Schedule</md-card-subtitle>
+            <md-input disabled placeholder="price" value="{{schedule.price}}"></md-input>
+            <md-input disabled placeholder="start" value="{{schedule.start}}"></md-input>
+            <md-input disabled placeholder="end" value="{{schedule.end}}"></md-input>
+            <md-input disabled placeholder="period" value="{{schedule.period}}"></md-input>
+
+            <div class="content__block__third">
+              <md-card-subtitle class="content__subtitle__third">Product</md-card-subtitle>
+              <md-input disabled placeholder="name" value="{{schedule.product.name}}"></md-input>
+              <md-input disabled placeholder="sku" value="{{schedule.product.sku}}"></md-input>
+              <md-input disabled placeholder="ship" value="{{schedule.product.ship}}"></md-input>
+              <md-input disabled placeholder="shippingDelay" value="{{schedule.product.shippingDelay}}"></md-input>
+
+              <div class="content__block__fourth">
+                <md-card-subtitle class="content__subtitle__fourt">Fulfillment Provider</md-card-subtitle>
+                <md-input disabled placeholder="name" value="{{schedule.product.fulfillmentProvider.name}}"></md-input>
+                <md-input disabled placeholder="provider" value="{{schedule.product.fulfillmentProvider.provider}}"></md-input>
+                <md-input disabled placeholder="username" value="{{schedule.product.fulfillmentProvider.username}}"></md-input>
+                <md-input disabled placeholder="password" value="{{schedule.product.fulfillmentProvider.password}}"></md-input>
+                <md-input disabled placeholder="endpoint" value="{{schedule.product.fulfillmentProvider.endpoint}}"></md-input>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+
+    <div class="content__block__first">
+      <md-card-subtitle>Load Balancer</md-card-subtitle>
+
+      <div class="content__block__second">
+        <md-card-subtitle>Merchant Provider Configurations</md-card-subtitle>
+        <ng-container *ngFor="let merchantProviderConfig of campaign.loadBalancer.merchantProviderConfigurations">
+          <div class="content__block__third">
+            <md-card-subtitle>Merchant Provider Configuration</md-card-subtitle>
+            <md-input disabled placeholder="distribution" value="{{merchantProviderConfig.distribution}}"></md-input>
+
+            <div class="content__block__fourth">
+              <md-card-subtitle class="content__subtitle__fourth">Merchant Provider</md-card-subtitle>
+              <md-input disabled placeholder="username" value="{{merchantProviderConfig.merchantProvider.username}}"></md-input>
+              <md-input disabled placeholder="password" value="{{merchantProviderConfig.merchantProvider.password}}"></md-input>
+              <md-input disabled placeholder="endpoint" value="{{merchantProviderConfig.merchantProvider.endpoint}}"></md-input>
+              <md-input disabled placeholder="processor" value="{{merchantProviderConfig.merchantProvider.processor}}"></md-input>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </md-card-content>
+</md-card>

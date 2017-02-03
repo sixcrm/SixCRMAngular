@@ -18,3 +18,37 @@ export function createProductMutation(id: string, name: string, sku: string): st
 export function editProductMutation(id: string, name: string, sku: string): string {
   return `mutation { updateproduct (product: { id: "${id}", name: "${name}", sku: "${sku}" }) {id name sku} }`;
 }
+
+export function campaignQuery(id: string): string {
+  return `{
+    campaign (id: "${id}") { id name
+      productschedules { id
+        schedule { price start end period
+          product { id name sku ship shipping_delay
+            fulfillment_provider { id name provider username password endpoint }
+          }
+        }
+      }
+      loadbalancer { id
+        merchantproviderconfigurations {
+          merchantprovider { id username password endpoint processor }
+          distribution
+        }
+      }
+    }}`
+}
+
+export function campaignsInfoListQuery(): string {
+  return `{
+    campaignlist {
+      campaigns { id name
+        productschedules { id }
+        loadbalancer { id
+          merchantproviderconfigurations {
+            merchantprovider { id }
+            distribution
+          }
+        }
+      }
+    }}`
+}
