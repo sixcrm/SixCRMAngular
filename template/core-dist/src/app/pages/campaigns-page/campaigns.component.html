@@ -19,9 +19,9 @@
     <td>{{campaign.loadBalancer.merchantProviderConfigurations.length}}</td>
     <td>{{campaign.productSchedules.length}}</td>
     <td>
-      <md-icon class="entities__table__body__action" (click)="viewCampaign(campaign)">visibility</md-icon>
-      <md-icon class="entities__table__body__action" (click)="editCampaign(campaign)">mode_edit</md-icon>
-      <md-icon class="entities__table__body__action" (click)="deleteCampaign(campaign)">delete</md-icon>
+      <md-icon class="entities__table__body__action" (click)="viewEntity(campaign.id)">visibility</md-icon>
+      <md-icon class="entities__table__body__action" (click)="editEntity(campaign)">mode_edit</md-icon>
+      <md-icon class="entities__table__body__action" (click)="deleteEntity(campaign.id)">delete</md-icon>
     </td>
   </tr>
   </tbody>

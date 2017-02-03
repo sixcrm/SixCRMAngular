@@ -14,45 +14,41 @@ import {AbstractEntityService} from './abstract-entity.service';
 export class ProductsService extends AbstractEntityService {
   products$: Subject<Product[]>;
 
-  constructor(private http: Http, authService: AuthenticationService) {
-    super(authService);
+  constructor(http: Http, authService: AuthenticationService) {
+    super(http, authService);
     this.products$ = new Subject<Product[]>();
   }
 
   getProducts(): void {
-    this.http.post(environment.endpoint, productsListQuery(false), { headers: this.generateHeaders() })
-      .subscribe(
-        (data) => {
-          let productsData = data.json().data.productlist.products;
-          this.products$.next(productsData.map(product => new Product(product)));
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
+    this.queryRequest(productsListQuery(false)).subscribe(
+      (data) => {
+        let productsData = data.json().data.productlist.products;
+        this.products$.next(productsData.map(product => new Product(product)));
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
   deleteProduct(id: string): void {
-    this.http.post(environment.endpoint, deleteProductMutation(id), { headers: this.generateHeaders()})
-      .subscribe(
-        () => { this.getProducts() },
-        (error) => { console.error(error) }
-      );
+    this.queryRequest(deleteProductMutation(id)).subscribe(
+      () => { this.getProducts() },
+      (error) => { console.error(error) }
+    );
   }
 
   createProduct(product: Product): void {
-    this.http.post(environment.endpoint, createProductMutation(product.id, product.name, product.sku), { headers: this.generateHeaders()})
-      .subscribe(
-        () => { this.getProducts() },
-        (error) => { console.error(error) }
-      );
+    this.queryRequest(createProductMutation(product.id, product.name, product.sku)).subscribe(
+      () => { this.getProducts() },
+      (error) => { console.error(error) }
+    );
   }
 
   editProduct(product: Product): void {
-    this.http.post(environment.endpoint, editProductMutation(product.id, product.name, product.sku), { headers: this.generateHeaders()})
-      .subscribe(
-        () => { this.getProducts() },
-        (error) => { console.error(error) }
-      );
+    this.queryRequest(editProductMutation(product.id, product.name, product.sku)).subscribe(
+      () => { this.getProducts() },
+      (error) => { console.error(error) }
+    );
   }
 }

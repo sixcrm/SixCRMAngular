@@ -2,20 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {CampaignsService} from "../../shared/services/campaigns.service";
 import {Campaign} from '../../shared/models/campaign.model';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
+import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 
 @Component({
   selector: 'campaigns',
   templateUrl: './campaigns.component.html',
   styleUrls: ['./campaigns.component.scss']
 })
-export class CampaignsComponent implements OnInit {
+export class CampaignsComponent extends AbstractEntityIndexComponent implements OnInit {
 
   private campaignsSearchControl: FormControl = new FormControl();
   private searchString: string;
   private campaigns: Campaign[] = [];
 
-  constructor(private campaignService: CampaignsService, private router: Router) { }
+  constructor(private campaignService: CampaignsService, router: Router, route: ActivatedRoute) {
+    super(campaignService, router, route);
+  }
 
   ngOnInit() {
     this.campaignService.campaigns$.subscribe(campaigns => this.campaigns = campaigns );
@@ -23,18 +26,6 @@ export class CampaignsComponent implements OnInit {
   }
 
   search(): void {
-
-  }
-
-  viewCampaign(campaign: Campaign): void {
-    this.router.navigateByUrl('/dashboard/campaigns/' + campaign.id);
-  }
-
-  editCampaign(campaign: Campaign): void {
-
-  }
-
-  deleteCampaign(campaign: Campaign): void {
 
   }
 }

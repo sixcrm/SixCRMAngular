@@ -14,36 +14,34 @@ export class CampaignsService extends AbstractEntityService {
   campaign$: Subject<Campaign>;
   campaignsSuggestions$: Subject<string[]>;
 
-  constructor(private http: Http, authService: AuthenticationService) {
-    super(authService);
+  constructor(http: Http, authService: AuthenticationService) {
+    super(http, authService);
     this.campaigns$ = new Subject<Campaign[]>();
     this.campaign$ = new Subject<Campaign>();
     this.campaignsSuggestions$ = new Subject<string[]>();
   }
 
   getCampaigns(): void {
-    this.http.post(environment.endpoint, campaignsInfoListQuery(), { headers: this.generateHeaders() })
-      .subscribe(
-        (data) => {
-          let campaignData = data.json().data.campaignlist.campaigns;
-          this.campaigns$.next(campaignData.map(campaign => new Campaign(campaign)));
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
+    this.queryRequest(campaignsInfoListQuery()).subscribe(
+      (data) => {
+        let campaignData = data.json().data.campaignlist.campaigns;
+        this.campaigns$.next(campaignData.map(campaign => new Campaign(campaign)));
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
   getCampaign(id: string): void {
-    this.http.post(environment.endpoint, campaignQuery(id), { headers: this.generateHeaders() })
-      .subscribe(
-        (data) => {
-          let campaignData = data.json().data.campaign;
-          this.campaign$.next(new Campaign(campaignData));
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
+    this.queryRequest(campaignQuery(id)).subscribe(
+      (data) => {
+        let campaignData = data.json().data.campaign;
+        this.campaign$.next(new Campaign(campaignData));
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 }

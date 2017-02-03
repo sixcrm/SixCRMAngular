@@ -23,9 +23,9 @@
     <td>{{merchantProvider.endpoint}}</td>
     <td>{{merchantProvider.processor}}</td>
     <td>
-      <md-icon class="entities__table__body__action" (click)="viewMerchantProvider(merchantProvider)">visibility</md-icon>
-      <md-icon class="entities__table__body__action" (click)="editMerchantProvider(merchantProvider)">mode_edit</md-icon>
-      <md-icon class="entities__table__body__action" (click)="deleteMerchantProvider(merchantProvider)">delete</md-icon>
+      <md-icon class="entities__table__body__action" (click)="viewEntity(merchantProvider.id)">visibility</md-icon>
+      <md-icon class="entities__table__body__action" (click)="editEntity(merchantProvider)">mode_edit</md-icon>
+      <md-icon class="entities__table__body__action" (click)="deleteEntity(merchantProvider.id)">delete</md-icon>
     </td>
   </tr>
   </tbody>
