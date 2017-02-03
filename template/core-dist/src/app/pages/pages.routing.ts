@@ -13,6 +13,7 @@ import {LoadBalancersComponent} from "./load-balancers-page/load-balancers.compo
 import {CampaignViewComponent} from './campaigns-page/campaign-view/campaign-view.component';
 import {MerchantProviderViewComponent} from './merchant-providers-page/merchant-provider-view/merchant-provider-view.component';
 import {FulfillmentProviderViewComponent} from './fulfillment-providers/fulfillment-provider-view/fulfillment-provider-view.component';
+import {AffiliatesViewComponent} from './affiliates-page/affiliates-view/affiliates-view.component';
 
 export const pagesRouting = RouterModule.forChild([
   {
@@ -26,6 +27,7 @@ export const pagesRouting = RouterModule.forChild([
       { path : 'fulfillmentProviders', component : FulfillmentProvidersComponent },
       { path : 'fulfillmentProviders/:id', component : FulfillmentProviderViewComponent },
       { path : 'affiliates', component : AffiliatesComponent },
+      { path : 'affiliates/:id', component : AffiliatesViewComponent },
       { path : 'customers', component : CustomersComponent },
       { path : 'sessions', component : SessionsComponent },
       { path : 'loadBalancer', component : LoadBalancersComponent },

@@ -68,3 +68,11 @@ export function fulfillmentProvidersListQuery(): string {
 export function fulfillmentProviderQuery(id: string): string {
   return `{ fulfillmentprovider (id: "${id}") { id name username password endpoint provider } }`
 }
+
+export function affiliatesListQuery(): string {
+  return `{ affiliatelist { affiliates { id affiliate_id sub_id_1 sub_id_2 sub_id_3 sub_id_4 sub_id_5 click_id } } }`
+}
+
+export function affiliateQuery(id: string): string {
+  return `{ affiliate (id: "${id}") { id affiliate_id sub_id_1 sub_id_2 sub_id_3 sub_id_4 sub_id_5 click_id } }`
+}

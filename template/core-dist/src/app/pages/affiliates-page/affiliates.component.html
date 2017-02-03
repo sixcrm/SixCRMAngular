@@ -1,3 +1,37 @@
-<p>
-  affiliates works!
-</p>
+<div class="campaigns__search">
+  <md-input placeholder="search"></md-input>
+  <button md-raised-button color="primary" (click)="search()">search</button>
+</div>
+
+<table class="highlight">
+  <thead class="entities__table__header">
+  <tr>
+    <th data-field="affiliateId">Affiliate ID</th>
+    <th data-field="subId1">Sub ID 1</th>
+    <th data-field="subId2">Sub ID 2</th>
+    <th data-field="subId3">Sub ID 3</th>
+    <th data-field="subId4">Sub ID 4</th>
+    <th data-field="subId5">Sub ID 5</th>
+    <th data-field="clickId">Click ID</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let affiliate of affiliates">
+    <td>{{affiliate.affiliateId}}</td>
+    <td>{{affiliate.subId1}}</td>
+    <td>{{affiliate.subId2}}</td>
+    <td>{{affiliate.subId3}}</td>
+    <td>{{affiliate.subId4}}</td>
+    <td>{{affiliate.subId5}}</td>
+    <td>{{affiliate.clickId}}</td>
+    <td>
+      <md-icon class="entities__table__body__action" (click)="viewEntity(affiliate.id)">visibility</md-icon>
+      <md-icon class="entities__table__body__action" (click)="editEntity(affiliate)">mode_edit</md-icon>
+      <md-icon class="entities__table__body__action" (click)="deleteEntity(affiliate.id)">delete</md-icon>
+    </td>
+  </tr>
+  </tbody>
+
+</table>
