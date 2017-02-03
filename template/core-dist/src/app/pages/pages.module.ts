@@ -20,6 +20,7 @@ import { MerchantProviderViewComponent } from './merchant-providers-page/merchan
 import { FulfillmentProviderViewComponent } from './fulfillment-providers/fulfillment-provider-view/fulfillment-provider-view.component';
 import { AffiliatesViewComponent } from './affiliates-page/affiliates-view/affiliates-view.component';
 import { CustomerViewComponent } from './customers-page/customer-view/customer-view.component';
+import { LoadBalancerViewComponent } from './load-balancers-page/load-balancer-view/load-balancer-view.component';
 
 @NgModule({
   imports : [
@@ -46,7 +47,8 @@ import { CustomerViewComponent } from './customers-page/customer-view/customer-v
     MerchantProviderViewComponent,
     FulfillmentProviderViewComponent,
     AffiliatesViewComponent,
-    CustomerViewComponent
+    CustomerViewComponent,
+    LoadBalancerViewComponent
   ]
 })
 export class PagesModule {

@@ -95,3 +95,26 @@ export function customerQuery(id: string): string {
 			}
 		} }`
 }
+
+
+export function loadBalancersInfoListQuery(): string {
+  return `{
+    loadbalancerlist {
+			loadbalancers { id
+			  merchantproviderconfigurations {
+					merchantprovider { endpoint processor }
+					distribution
+				}
+			}
+		}}`
+}
+
+export function loadBalancerQuery(id: string): string {
+  return `{
+    loadbalancer (id: "${id}") { id
+			  merchantproviderconfigurations {
+					merchantprovider { id username password endpoint processor }
+					distribution
+				}
+			} }`
+}

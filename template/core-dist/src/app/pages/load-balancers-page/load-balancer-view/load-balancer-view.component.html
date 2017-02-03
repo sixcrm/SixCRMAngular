@@ -1,0 +1,25 @@
+<md-card *ngIf="loadBalancer">
+  <md-card-title>Load Balancer</md-card-title>
+  <md-card-content>
+    <md-card-subtitle>Load Balancer</md-card-subtitle>
+    <md-input disabled placeholder="ID" value="{{loadBalancer.id}}"></md-input>
+
+    <div class="content__block__first">
+      <md-card-subtitle>Merchant Provider Configurations</md-card-subtitle>
+      <ng-container *ngFor="let merchantProviderConfig of loadBalancer.merchantProviderConfigurations">
+        <div class="content__block__second">
+          <md-card-subtitle>Merchant Provider Configuration</md-card-subtitle>
+          <md-input disabled placeholder="distribution" value="{{merchantProviderConfig.distribution}}"></md-input>
+
+          <div class="content__block__fourth">
+            <md-card-subtitle class="content__subtitle__fourth">Merchant Provider</md-card-subtitle>
+            <md-input disabled placeholder="username" value="{{merchantProviderConfig.merchantProvider.username}}"></md-input>
+            <md-input disabled placeholder="password" value="{{merchantProviderConfig.merchantProvider.password}}"></md-input>
+            <md-input disabled placeholder="endpoint" value="{{merchantProviderConfig.merchantProvider.endpoint}}"></md-input>
+            <md-input disabled placeholder="processor" value="{{merchantProviderConfig.merchantProvider.processor}}"></md-input>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </md-card-content>
+</md-card>

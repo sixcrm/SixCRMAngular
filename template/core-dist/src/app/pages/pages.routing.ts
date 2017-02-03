@@ -15,6 +15,7 @@ import {MerchantProviderViewComponent} from './merchant-providers-page/merchant-
 import {FulfillmentProviderViewComponent} from './fulfillment-providers/fulfillment-provider-view/fulfillment-provider-view.component';
 import {AffiliatesViewComponent} from './affiliates-page/affiliates-view/affiliates-view.component';
 import {CustomerViewComponent} from './customers-page/customer-view/customer-view.component';
+import {LoadBalancerViewComponent} from './load-balancers-page/load-balancer-view/load-balancer-view.component';
 
 export const pagesRouting = RouterModule.forChild([
   {
@@ -32,7 +33,8 @@ export const pagesRouting = RouterModule.forChild([
       { path : 'customers', component : CustomersComponent },
       { path : 'customers/:id', component : CustomerViewComponent },
       { path : 'sessions', component : SessionsComponent },
-      { path : 'loadBalancer', component : LoadBalancersComponent },
+      { path : 'loadBalancers', component : LoadBalancersComponent },
+      { path : 'loadBalancers/:id', component : LoadBalancerViewComponent },
       { path : 'transactions', component : TransactionsComponent },
       { path : 'profile', component : ProfilePageComponent },
     ]

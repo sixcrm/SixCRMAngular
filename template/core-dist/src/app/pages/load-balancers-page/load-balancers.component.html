@@ -1,3 +1,27 @@
-<p>
-  load-balancers works!
-</p>
+<div class="campaigns__search">
+  <md-input placeholder="search"></md-input>
+  <button md-raised-button color="primary" (click)="search()">search</button>
+</div>
+
+<table class="highlight">
+  <thead class="entities__table__header">
+  <tr>
+    <th data-field="ID">id</th>
+    <th data-field="numberOfConfigurations">Number Of Merchant Provider Configurations</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let loadBalancer of loadBalancers">
+    <td>{{loadBalancer.id}}</td>
+    <td>{{loadBalancer.merchantProviderConfigurations.length}}</td>
+    <td>
+      <md-icon class="entities__table__body__action" (click)="viewEntity(loadBalancer.id)">visibility</md-icon>
+      <md-icon class="entities__table__body__action" (click)="editEntity(loadBalancer)">mode_edit</md-icon>
+      <md-icon class="entities__table__body__action" (click)="deleteEntity(loadBalancer.id)">delete</md-icon>
+    </td>
+  </tr>
+  </tbody>
+
+</table>
