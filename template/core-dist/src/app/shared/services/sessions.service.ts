@@ -4,7 +4,7 @@ import {Subject} from 'rxjs';
 import {AbstractEntityService} from './abstract-entity.service';
 import {Http} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {sessionsInfoListQuery, sessionQuery} from '../utils/query-builder';
+import {sessionsInfoListQuery, sessionQuery, deleteSessionMutation} from '../utils/query-builder';
 
 @Injectable()
 export class SessionsService extends AbstractEntityService {
@@ -43,4 +43,13 @@ export class SessionsService extends AbstractEntityService {
     );
   }
 
+  deleteEntity(id: string): void {
+    this.queryRequest(deleteSessionMutation(id)).subscribe(
+      () => { this.getSessions() },
+      (error) => { console.error(error) }
+    );
+  }
+
+  editEntity(entity: Session): void {
+  }
 }

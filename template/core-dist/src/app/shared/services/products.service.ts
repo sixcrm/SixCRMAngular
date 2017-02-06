@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import {Product} from "../models/product.model";
 import {Subject} from "rxjs";
-import {Http, Headers} from "@angular/http";
+import {Http} from "@angular/http";
 import {
-  productsListQuery, deleteProductMutation, createProductMutation,
-  editProductMutation, productQuery
+  productsListQuery, deleteProductMutation, editProductMutation, productQuery
 } from "./../utils/query-builder"
-import {environment} from '../../../environments/environment';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {AbstractEntityService} from './abstract-entity.service';
 
@@ -46,21 +44,14 @@ export class ProductsService extends AbstractEntityService {
     );
   }
 
-  deleteProduct(id: string): void {
+  deleteEntity(id: string): void {
     this.queryRequest(deleteProductMutation(id)).subscribe(
       () => { this.getProducts() },
       (error) => { console.error(error) }
     );
   }
 
-  createProduct(product: Product): void {
-    this.queryRequest(createProductMutation(product.id, product.name, product.sku)).subscribe(
-      () => { this.getProducts() },
-      (error) => { console.error(error) }
-    );
-  }
-
-  editProduct(product: Product): void {
+  editEntity(product: Product): void {
     this.queryRequest(editProductMutation(product.id, product.name, product.sku)).subscribe(
       () => { this.getProducts() },
       (error) => { console.error(error) }

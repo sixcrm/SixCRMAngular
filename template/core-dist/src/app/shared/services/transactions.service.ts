@@ -4,7 +4,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {Http} from '@angular/http';
 import {Transaction} from '../models/transaction.model';
 import {Subject} from 'rxjs';
-import {transactionsInfoListQuery, transactionQuery} from '../utils/query-builder';
+import {transactionsInfoListQuery, transactionQuery, deleteTransactionMutation} from '../utils/query-builder';
 
 @Injectable()
 export class TransactionsService extends AbstractEntityService {
@@ -40,6 +40,16 @@ export class TransactionsService extends AbstractEntityService {
         console.error(error);
       }
     );
+  }
+
+  deleteEntity(id: string): void {
+    this.queryRequest(deleteTransactionMutation(id)).subscribe(
+      () => { this.getTransactions() },
+      (error) => { console.error(error) }
+    );
+  }
+
+  editEntity(entity: Transaction): void {
   }
 
 }

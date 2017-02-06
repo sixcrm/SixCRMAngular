@@ -4,7 +4,7 @@ import {Http} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {LoadBalancer} from '../models/load-balancers.model';
 import {Subject} from 'rxjs';
-import {loadBalancersInfoListQuery, loadBalancerQuery} from '../utils/query-builder';
+import {loadBalancersInfoListQuery, loadBalancerQuery, deleteLoadBalancerMutation} from '../utils/query-builder';
 
 @Injectable()
 export class LoadBalancersService extends AbstractEntityService {
@@ -40,6 +40,16 @@ export class LoadBalancersService extends AbstractEntityService {
         console.error(error);
       }
     );
+  }
+
+  deleteEntity(id: string): void {
+    this.queryRequest(deleteLoadBalancerMutation(id)).subscribe(
+      (success) => this.getLoadBalancers(),
+      (error) => console.error(error)
+    );
+  }
+
+  editEntity(entity: LoadBalancer): void {
   }
 
 }

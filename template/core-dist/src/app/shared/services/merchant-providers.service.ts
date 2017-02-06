@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import {MerchantProvider} from '../models/merchant-provider.model';
 import {Subject} from 'rxjs';
 import {Http} from '@angular/http';
-import {marchantProvidersListQuery, marchantProviderQuery} from '../utils/query-builder';
+import {
+  merchantProvidersListQuery, merchantProviderQuery,
+  deleteMerchantProviderMutation
+} from '../utils/query-builder';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {AbstractEntityService} from './abstract-entity.service';
 
@@ -18,7 +21,7 @@ export class MerchantProvidersService extends AbstractEntityService {
   }
 
   getMerchantProviders(): void {
-    this.queryRequest(marchantProvidersListQuery()).subscribe(
+    this.queryRequest(merchantProvidersListQuery()).subscribe(
       (data) => {
         let merchantProvidersData = data.json().data.merchantproviderlist.merchantproviders;
         this.merchantProviders$.next(merchantProvidersData.map(merchantProvider => new MerchantProvider(merchantProvider)));
@@ -30,7 +33,7 @@ export class MerchantProvidersService extends AbstractEntityService {
   }
 
   getMerchantProvider(id: string): void {
-    this.queryRequest(marchantProviderQuery(id)).subscribe(
+    this.queryRequest(merchantProviderQuery(id)).subscribe(
       (data) => {
         let merchantProviderData = data.json().data.merchantprovider;
         this.merchantProvider$.next(new MerchantProvider(merchantProviderData));
@@ -39,5 +42,15 @@ export class MerchantProvidersService extends AbstractEntityService {
         console.error(error);
       }
     )
+  }
+
+  deleteEntity(id: string): void {
+    this.queryRequest(deleteMerchantProviderMutation(id)).subscribe(
+      (success) => this.getMerchantProviders(),
+      (error) => console.error(error)
+    );
+  }
+
+  editEntity(entity: MerchantProvider): void {
   }
 }

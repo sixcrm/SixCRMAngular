@@ -4,7 +4,10 @@ import {Http} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Subject} from 'rxjs';
 import {FulfillmentProvider} from '../models/fulfillment-provider.model';
-import {fulfillmentProvidersListQuery, fulfillmentProviderQuery} from '../utils/query-builder';
+import {
+  fulfillmentProvidersListQuery, fulfillmentProviderQuery,
+  deleteFulfillmentProviderMutation
+} from '../utils/query-builder';
 
 @Injectable()
 export class FulfillmentProvidersService extends AbstractEntityService {
@@ -39,5 +42,15 @@ export class FulfillmentProvidersService extends AbstractEntityService {
         console.error(error);
       }
     )
+  }
+
+  deleteEntity(id: string): void {
+    this.queryRequest(deleteFulfillmentProviderMutation(id)).subscribe(
+      (success) => this.getFulfillmentProviders(),
+      (error) => console.error(error)
+    );
+  }
+
+  editEntity(entity: FulfillmentProvider): void {
   }
 }

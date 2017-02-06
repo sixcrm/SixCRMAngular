@@ -1,3 +1,7 @@
+function deleteMutation(entity: string, id: string) {
+  return `mutation { delete${entity} (id: "${id}") { id }}`
+}
+
 export function  productsListQuery(): string {
   return `{
     productlist {
@@ -15,7 +19,7 @@ export function productQuery(id: string): string {
 }
 
 export function deleteProductMutation(id: string): string {
-  return `mutation { deleteproduct (id: "${id}") { id }}`
+  return deleteMutation('product', id);
 }
 
 export function createProductMutation(id: string, name: string, sku: string): string {
@@ -60,12 +64,20 @@ export function campaignsInfoListQuery(): string {
     }}`
 }
 
-export function marchantProvidersListQuery(): string {
+export function deleteCampaignMutation(id: string): string {
+  return deleteMutation('campaign', id);
+}
+
+export function merchantProvidersListQuery(): string {
   return `{ merchantproviderlist { merchantproviders { id name username password endpoint processor } } }`
 }
 
-export function marchantProviderQuery(id: string): string {
+export function merchantProviderQuery(id: string): string {
   return `{ merchantprovider (id: "${id}") { id name username password endpoint processor } }`
+}
+
+export function deleteMerchantProviderMutation(id: string): string {
+  return deleteMutation('merchantprovider', id);
 }
 
 export function fulfillmentProvidersListQuery(): string {
@@ -76,12 +88,20 @@ export function fulfillmentProviderQuery(id: string): string {
   return `{ fulfillmentprovider (id: "${id}") { id name username password endpoint provider } }`
 }
 
+export function deleteFulfillmentProviderMutation(id: string): string {
+  return deleteMutation('fulfillmentprovider', id);
+}
+
 export function affiliatesListQuery(): string {
   return `{ affiliatelist { affiliates { id affiliate_id sub_id_1 sub_id_2 sub_id_3 sub_id_4 sub_id_5 click_id } } }`
 }
 
 export function affiliateQuery(id: string): string {
   return `{ affiliate (id: "${id}") { id affiliate_id sub_id_1 sub_id_2 sub_id_3 sub_id_4 sub_id_5 click_id } }`
+}
+
+export function deleteAffiliateMutation(id: string): string {
+  return deleteMutation('affiliates', id);
 }
 
 export function customersInfoListQuery(): string {
@@ -101,6 +121,10 @@ export function customerQuery(id: string): string {
 			  address { line1 line2 city state zip }
 			}
 		} }`
+}
+
+export function deleteCustomerMutation(id: string): string {
+  return deleteMutation('customer', id);
 }
 
 
@@ -124,6 +148,10 @@ export function loadBalancerQuery(id: string): string {
 					distribution
 				}
 			} }`
+}
+
+export function deleteLoadBalancerMutation(id: string): string {
+  return deleteMutation('loadbalancer', id);
 }
 
 export function transactionsInfoListQuery(): string {
@@ -150,6 +178,10 @@ export function transactionQuery(id: string): string {
       processor_response
     }
 	}`
+}
+
+export function deleteTransactionMutation(id: string): string {
+  return deleteMutation('transaction', id);
 }
 
 export function sessionsInfoListQuery(): string {
@@ -204,4 +236,8 @@ export function sessionQuery(id: string): string {
 				}
 			}
 	}`
+}
+
+export function deleteSessionMutation(id: string): string {
+  return deleteMutation('session', id);
 }

@@ -3,7 +3,7 @@ import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Http} from '@angular/http';
 import {Customer} from '../models/customer.model';
-import {customerQuery, customersInfoListQuery} from '../utils/query-builder';
+import {customerQuery, customersInfoListQuery, deleteCustomerMutation} from '../utils/query-builder';
 import {Subject} from 'rxjs';
 
 @Injectable()
@@ -40,5 +40,15 @@ export class CustomersService extends AbstractEntityService {
         console.error(error);
       }
     );
+  }
+
+  deleteEntity(id: string): void {
+    this.queryRequest(deleteCustomerMutation(id)).subscribe(
+      (success) => this.getCustomers(),
+      (error) => console.error(error)
+    );
+  }
+
+  editEntity(entity: Customer): void {
   }
 }

@@ -7,14 +7,9 @@ export abstract class AbstractEntityService {
 
   constructor(private http: Http, private authService: AuthenticationService) {};
 
-  public deleteEntity(id: string): void {
+  public abstract deleteEntity(id: string): void;
 
-  }
-
-  public editEntity(entity: any): void {
-
-  }
-
+  public abstract editEntity(entity: any): void;
 
   protected queryRequest(query: string): Observable<Response> {
     return this.http.post(environment.endpoint, query, { headers: this.generateHeaders()});

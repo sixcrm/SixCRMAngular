@@ -4,7 +4,7 @@ import {Subject} from 'rxjs';
 import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Http} from '@angular/http';
-import {affiliatesListQuery, affiliateQuery} from '../utils/query-builder';
+import {affiliatesListQuery, affiliateQuery, deleteAffiliateMutation} from '../utils/query-builder';
 
 @Injectable()
 export class AffiliatesService extends AbstractEntityService {
@@ -39,5 +39,15 @@ export class AffiliatesService extends AbstractEntityService {
         console.error(error);
       }
     )
+  }
+
+  deleteEntity(id: string): void {
+    this.queryRequest(deleteAffiliateMutation(id)).subscribe(
+      (success) => this.getAffiliates(),
+      (error) => console.error(error)
+    );
+  }
+
+  editEntity(entity: Affiliate): void {
   }
 }
