@@ -9,7 +9,7 @@ export class ProductSchedule {
       obj = {};
     }
 
-    this.id = obj.id;
+    this.id = obj.id || '';
     this.schedules = [];
 
     if (obj.schedule) {

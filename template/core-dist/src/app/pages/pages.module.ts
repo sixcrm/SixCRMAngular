@@ -21,6 +21,7 @@ import { FulfillmentProviderViewComponent } from './fulfillment-providers/fulfil
 import { AffiliatesViewComponent } from './affiliates-page/affiliates-view/affiliates-view.component';
 import { CustomerViewComponent } from './customers-page/customer-view/customer-view.component';
 import { LoadBalancerViewComponent } from './load-balancers-page/load-balancer-view/load-balancer-view.component';
+import { TransactionViewComponent } from './transactions-page/transaction-view/transaction-view.component';
 
 @NgModule({
   imports : [
@@ -48,7 +49,8 @@ import { LoadBalancerViewComponent } from './load-balancers-page/load-balancer-v
     FulfillmentProviderViewComponent,
     AffiliatesViewComponent,
     CustomerViewComponent,
-    LoadBalancerViewComponent
+    LoadBalancerViewComponent,
+    TransactionViewComponent
   ]
 })
 export class PagesModule {

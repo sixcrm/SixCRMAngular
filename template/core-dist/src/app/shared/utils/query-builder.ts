@@ -118,3 +118,29 @@ export function loadBalancerQuery(id: string): string {
 				}
 			} }`
 }
+
+export function transactionsInfoListQuery(): string {
+  return `{ transactionlist {	transactions { id date amount processor_response } } }`
+}
+
+export function transactionQuery(id: string): string {
+  return `{
+    transaction (id: "${id}") { id date amount
+      rebill { id billdate amount
+        parentsession { id
+          customer { id firstname lastname
+            address { line1 line2 city state zip }
+          }
+        }
+        product_schedules { id
+          schedule { price start end period
+            product { id name sku ship shipping_delay
+              fulfillment_provider {id name provider username password endpoint }
+            }
+          }
+        }
+      }
+      processor_response
+    }
+	}`
+}

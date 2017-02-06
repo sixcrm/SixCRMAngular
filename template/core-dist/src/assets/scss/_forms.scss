@@ -2,22 +2,28 @@
 
   &__block {
     &__first {
-      margin-top: 30px
+      margin-top: 30px;
+      margin-left: 15px;
     }
 
     &__second {
       margin-top: 20px;
-      margin-left: 10px;
+      margin-left: 15px;
     }
 
     &__third {
-      margin-top: 15px;
-      margin-left: 20px;
+      margin-top: 10px;
+      margin-left: 15px;
     }
 
     &__fourth {
-      margin-top: 10px;
-      margin-left: 30px;
+      margin-top: 15px;
+      margin-left: 15px;
+    }
+
+    &__fifth {
+      margin-top: 5px;
+      margin-left: 15px;
     }
   }
 }
