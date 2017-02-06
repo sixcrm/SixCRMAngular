@@ -3,13 +3,13 @@ import {MdSidenav} from '@angular/material';
 import {Input} from '@angular/core/src/metadata/directives';
 import {NavigationService} from '../navigation.service';
 import {Title} from '@angular/platform-browser';
-import {Router} from '@angular/router';
 import {AuthenticationService} from "../../authentication/authentication.service";
 
 @Component({
   selector : 'app-topnav',
   templateUrl : './topnav.component.html',
-  styleUrls : ['./topnav.component.scss']
+  styleUrls : ['./topnav.component.scss'],
+  host: {'(document:click)': 'hideDropdown($event)'},
 })
 export class TopnavComponent implements OnInit {
   @Input() sideNav: MdSidenav;
@@ -27,6 +27,8 @@ export class TopnavComponent implements OnInit {
   private _pageTitleInterval: number;
 
   private _userProfile: any = {};
+
+  private showDropdown: boolean = false;
 
   constructor(
     private _navigation: NavigationService,
@@ -133,6 +135,16 @@ export class TopnavComponent implements OnInit {
         this._title.setTitle(this._navigation.getAutoBrowserTitle(this._pageTitle));
       }
     });
+  }
+
+  private toggleDropdownMenu(): void {
+    this.showDropdown = !this.showDropdown;
+  }
+
+  private hideDropdown(event): void {
+    if (!event.target.attributes.class || event.target.attributes.class.value !== 'topnav__dropdown__image') {
+      this.showDropdown = false;
+    }
   }
 
 }

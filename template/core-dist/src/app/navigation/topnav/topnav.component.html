@@ -16,14 +16,15 @@
   </span>
 
   <span class="app-flex-filler"></span>
-    <button md-icon-button [md-menu-trigger-for]="menu" id="user-dropdown-toggler">
-    <img class="topnav__dropdown__image" [src]="_userProfile.picture">
-  </button>
+  <img (click)="toggleDropdownMenu()" class="topnav__dropdown__image" [src]="_userProfile.picture">
 
-  <md-menu #menu="mdMenu" x-position="before">
+  <div *ngIf="showDropdown" class="topnav__dropdown__menu">
     <button md-menu-item [routerLink]="['profile']"> User profile </button>
-    <button md-menu-item (click)="logout()"> Sign Out</button>
-  </md-menu>
+    <button md-menu-item (click)="logout()"> Sign Out </button>
+  </div>
+
+  <md-menu #menu="mdMenu"></md-menu>
+
   <md-toolbar-row *ngIf="_navigation.mediumScreenAndDown && _breadcrumbs.length > 0 && !_autoBreadcrumbs">
     <span class="breadcrumb-holder">
       <span *ngFor="let breadcrumb of _breadcrumbs" class="breadcrumb">
