@@ -23,6 +23,7 @@ import { CustomerViewComponent } from './customers-page/customer-view/customer-v
 import { LoadBalancerViewComponent } from './load-balancers-page/load-balancer-view/load-balancer-view.component';
 import { TransactionViewComponent } from './transactions-page/transaction-view/transaction-view.component';
 import { SessionViewComponent } from './sessions-page/session-view/session-view.component';
+import { ProductViewComponent } from './products-page/product-view/product-view.component';
 
 @NgModule({
   imports : [
@@ -52,7 +53,8 @@ import { SessionViewComponent } from './sessions-page/session-view/session-view.
     CustomerViewComponent,
     LoadBalancerViewComponent,
     TransactionViewComponent,
-    SessionViewComponent
+    SessionViewComponent,
+    ProductViewComponent
   ]
 })
 export class PagesModule {

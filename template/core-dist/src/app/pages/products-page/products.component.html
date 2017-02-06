@@ -1,67 +1,33 @@
-<button md-fab class="button--add" (click)="openAddDialog()"> <md-icon>add</md-icon></button>
+<button md-fab class="entity-index__button--add"> <md-icon>add</md-icon></button>
 
-<div class="products__search">
-  <md-input placeholder="search" [(ngModel)]="searchString" [formControl]="productsSearchControl"></md-input>
-  <button md-raised-button color="primary" (click)="search()">search</button>
+<div class="entity-index__search">
+  <md-input placeholder="search"></md-input>
+  <button md-raised-button color="primary">search</button>
 </div>
 
 <table class="highlight">
-  <thead>
-    <tr>
-      <th data-field="id">ID</th>
-      <th data-field="name">Name</th>
-      <th data-field="price">SKU</th>
-      <th>Actions</th>
-    </tr>
+  <thead class="entities__table__header">
+  <tr>
+    <th data-field="Name">Product Name</th>
+    <th data-field="Sku">SKU</th>
+    <th data-field="Ship">Ship</th>
+    <th data-field="Shipping Delay">Shipping Delay</th>
+    <th>Actions</th>
+  </tr>
   </thead>
 
   <tbody>
   <tr *ngFor="let product of products">
-    <td>{{product.id}}</td>
     <td>{{product.name}}</td>
     <td>{{product.sku}}</td>
+    <td>{{product.ship}}</td>
+    <td>{{product.shippingDelay}}</td>
     <td>
-      <md-icon class="entities__table__body__action" (click)="openEditDialog(product)">mode_edit</md-icon>
-      <md-icon class="entities__table__body__action" (click)="deleteProduct(product)">delete</md-icon>
+      <md-icon class="entities__table__body__action" (click)="viewEntity(product.id)">visibility</md-icon>
+      <md-icon class="entities__table__body__action" (click)="editEntity(product)">mode_edit</md-icon>
+      <md-icon class="entities__table__body__action" (click)="deleteEntity(product.id)">delete</md-icon>
     </td>
   </tr>
   </tbody>
 
 </table>
-
-<div *ngIf="showAddDialog" class="dialog">
-  <md-card class="dialog__card">
-    <md-card-title>Add new product</md-card-title>
-    <md-card-content>
-      <form>
-        <md-input placeholder="ID" [(ngModel)]="productAdd.id" name="id"></md-input>
-        <md-input placeholder="Name" [(ngModel)]="productAdd.name" name="name"></md-input>
-        <md-input placeholder="SKU" [(ngModel)]="productAdd.sku" name="sku"></md-input>
-      </form>
-      <span class="dialog__error" *ngIf="showAddFormError">All fields are required</span>
-    </md-card-content>
-    <div class="dialog__actions">
-      <button md-raised-button color="primary" (click)="saveAdded()">save</button>
-      <button md-raised-button color="primary" (click)="closeAddDialog()">close</button>
-    </div>
-  </md-card>
-</div>
-
-<div *ngIf="showEditDialog" class="dialog">
-  <md-card class="dialog__card">
-    <md-card-title>Edit product</md-card-title>
-    <md-card-content>
-      <form>
-        <md-input placeholder="Name" [disabled]="!editEnabled" [(ngModel)]="productEdit.name" name="name"></md-input>
-        <md-input placeholder="SKU" [disabled]="!editEnabled" [(ngModel)]="productEdit.sku" name="sku"></md-input>
-      </form>
-      <span class="dialog__error" *ngIf="showEditFormError">All fields are required</span>
-    </md-card-content>
-    <div class="dialog__actions">
-      <button *ngIf="!editEnabled" md-raised-button color="primary" (click)="enableEdit()">edit</button>
-      <button *ngIf="!editEnabled" md-raised-button color="primary" (click)="closeEditDialog()">close</button>
-      <button *ngIf="editEnabled" md-raised-button color="primary" (click)="saveEdited()">save</button>
-      <button *ngIf="editEnabled" md-raised-button color="primary" (click)="disableEdit()">cancel</button>
-    </div>
-  </md-card>
-</div>

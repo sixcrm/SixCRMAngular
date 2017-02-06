@@ -1,0 +1,18 @@
+<md-card *ngIf="product">
+  <md-card-title>Product View</md-card-title>
+  <md-card-content>
+    <md-input disabled placeholder="Name" value="{{product.name}}"></md-input>
+    <md-input disabled placeholder="SKU" value="{{product.sku}}"></md-input>
+    <md-input disabled placeholder="Ship" value="{{product.ship}}"></md-input>
+    <md-input disabled placeholder="Shipping Delay" value="{{product.shippingDelay}}"></md-input>
+
+    <div class="content__block__first">
+      <md-card-subtitle>Fulfillment provider</md-card-subtitle>
+      <md-input disabled placeholder="Name" value="{{product.fulfillmentProvider.name}}"></md-input>
+      <md-input disabled placeholder="Provider" value="{{product.fulfillmentProvider.provider}}"></md-input>
+      <md-input disabled placeholder="Username" value="{{product.fulfillmentProvider.username}}"></md-input>
+      <md-input disabled placeholder="Password" value="{{product.fulfillmentProvider.password}}"></md-input>
+      <md-input disabled placeholder="Endpoint" value="{{product.fulfillmentProvider.endpoint}}"></md-input>
+    </div>
+  </md-card-content>
+</md-card>

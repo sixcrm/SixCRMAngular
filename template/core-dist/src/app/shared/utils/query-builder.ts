@@ -1,10 +1,17 @@
-export function  productsListQuery(full?: boolean): string {
-  let fullQuery = '';
-  if (full) {
-    fullQuery = 'ship shipping_delay fulfillment_provider {id name provider username password endpoint}}';
-  }
+export function  productsListQuery(): string {
+  return `{
+    productlist {
+			products { id name sku ship shipping_delay
+				fulfillment_provider { id name provider username password endpoint }
+			}
+		}}`;
+}
 
-  return `{productlist {products {id name sku ${fullQuery}}}}`;
+export function productQuery(id: string): string {
+  return `{
+    product (id: "${id}") { id name sku ship shipping_delay
+      fulfillment_provider { id name provider username password endpoint }
+		} }`
 }
 
 export function deleteProductMutation(id: string): string {
