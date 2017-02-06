@@ -20,7 +20,6 @@ export class AffiliatesService extends AbstractEntityService {
   getAffiliates() {
     this.queryRequest(affiliatesListQuery()).subscribe(
       (data) => {
-        console.log(data);
         let affiliatesData = data.json().data.affiliatelist.affiliates;
         this.affiliates$.next(affiliatesData.map(affiliate => new Affiliate(affiliate)));
       },

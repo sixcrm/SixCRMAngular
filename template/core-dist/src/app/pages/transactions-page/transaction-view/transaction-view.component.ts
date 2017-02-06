@@ -16,7 +16,6 @@ export class TransactionViewComponent implements OnInit {
 
   ngOnInit() {
     this.transactionsService.transaction$.subscribe((transaction: Transaction) => {
-      console.log(transaction);
       this.transaction = transaction;
     });
     this.route.params.subscribe((params: Params) => {

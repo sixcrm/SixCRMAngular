@@ -144,3 +144,57 @@ export function transactionQuery(id: string): string {
     }
 	}`
 }
+
+export function sessionsInfoListQuery(): string {
+  return `{
+    sessionlist {
+			sessions { id
+			  customer { id firstname lastname }
+				product_schedules { id }
+				rebills { id 	}
+				campaign { id name }
+			}
+		}}`
+}
+
+export function sessionQuery(id: string): string {
+  return `{
+    session (id: "${id}") { id
+			  customer { id firstname lastname
+			    address { line1 line2 city state zip }
+				}
+				product_schedules { id
+					schedule { price start end period
+					  product { id name sku ship shipping_delay
+					    fulfillment_provider { id name provider username password endpoint }
+						}
+					}
+				}
+				rebills { id billdate
+				  product_schedules { id
+				    schedule { price start end period
+				      product { id name sku ship shipping_delay
+				        fulfillment_provider { id name provider username password endpoint }
+							}
+						}
+					}
+					transactions { id date processor_response amount }
+				}
+				campaign { id name
+					productschedules { id
+					  schedule { price start end period
+							product { id name sku ship shipping_delay
+							  fulfillment_provider { id name provider username password endpoint }
+							}
+						}
+					}
+					loadbalancer { id
+						merchantproviderconfigurations {
+							merchantprovider { id username password endpoint processor }
+							distribution
+						}
+					}
+				}
+			}
+	}`
+}

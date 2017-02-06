@@ -17,6 +17,7 @@ import {AffiliatesViewComponent} from './affiliates-page/affiliates-view/affilia
 import {CustomerViewComponent} from './customers-page/customer-view/customer-view.component';
 import {LoadBalancerViewComponent} from './load-balancers-page/load-balancer-view/load-balancer-view.component';
 import {TransactionViewComponent} from './transactions-page/transaction-view/transaction-view.component';
+import {SessionViewComponent} from './sessions-page/session-view/session-view.component';
 
 export const pagesRouting = RouterModule.forChild([
   {
@@ -34,6 +35,7 @@ export const pagesRouting = RouterModule.forChild([
       { path : 'customers', component : CustomersComponent },
       { path : 'customers/:id', component : CustomerViewComponent },
       { path : 'sessions', component : SessionsComponent },
+      { path : 'sessions/:id', component : SessionViewComponent },
       { path : 'loadBalancers', component : LoadBalancersComponent },
       { path : 'loadBalancers/:id', component : LoadBalancerViewComponent },
       { path : 'transactions', component : TransactionsComponent },

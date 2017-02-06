@@ -1,5 +1,6 @@
 import {ParentSession} from './parent-session.model';
 import {ProductSchedule} from './product-schedule.model';
+import {Transaction} from './transaction.model';
 
 export class Rebill {
   id: string;
@@ -7,6 +8,7 @@ export class Rebill {
   amount: string;
   parentSession: ParentSession;
   productSchedules: ProductSchedule[] = [];
+  transactions: Transaction[] = [];
 
   constructor(obj?: any) {
     if (!obj) {
@@ -21,6 +23,12 @@ export class Rebill {
     if (obj.product_schedules) {
       for (let i = 0; i < obj.product_schedules.length; i++) {
         this.productSchedules.push(new ProductSchedule(obj.product_schedules[i]));
+      }
+    }
+
+    if (obj.transactions) {
+      for (let i = 0; i < obj.transactions.length; i++) {
+        this.transactions.push(new Transaction(obj.transactions[i]));
       }
     }
   }

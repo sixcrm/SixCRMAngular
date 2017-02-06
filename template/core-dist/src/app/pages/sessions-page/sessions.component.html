@@ -1,3 +1,31 @@
-<p>
-  sessions works!
-</p>
+<div class="campaigns__search">
+  <md-input placeholder="search"></md-input>
+  <button md-raised-button color="primary" (click)="search()">search</button>
+</div>
+
+<table class="highlight">
+  <thead class="entities__table__header">
+  <tr>
+    <th data-field="customerName">Customer Name</th>
+    <th data-field="numOfProductSchedules">Number of Product Schedules</th>
+    <th data-field="numOfRebills">Number of Rebills</th>
+    <th data-field="campaignName">Campaign Name</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let session of sessions">
+    <td>{{session.customer.firstName + session.customer.lastName}}</td>
+    <td>{{session.productSchedules.length}}</td>
+    <td>{{session.rebills.length}}</td>
+    <td>{{session.campaign.name}}</td>
+    <td>
+      <md-icon class="entities__table__body__action" (click)="viewEntity(session.id)">visibility</md-icon>
+      <md-icon class="entities__table__body__action" (click)="editEntity(session)">mode_edit</md-icon>
+      <md-icon class="entities__table__body__action" (click)="deleteEntity(session.id)">delete</md-icon>
+    </td>
+  </tr>
+  </tbody>
+
+</table>
