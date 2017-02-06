@@ -1,12 +1,30 @@
-.entity-index__search {
-  float: right;
+.entity-index {
 
-  md-input {
-    width: 200px;
+  &__button--add {
+    background-color: #1976d2;
+    color: white !important;
   }
-}
 
-.entity-index__button--add {
-  background-color: #1976d2;
-  color: white !important;
+  &__search {
+    float: right;
+
+    md-input {
+      width: 200px;
+    }
+  }
+
+  &__table {
+    &__header {
+
+    }
+
+    &__body {
+      font-size: 0;
+
+      &__action {
+        margin-right: 5px;
+        cursor: pointer;
+      }
+    }
+  }
 }

@@ -1,10 +1,12 @@
-<div class="campaigns__search">
+<button md-fab class="entity-index__button--add"> <md-icon>add</md-icon></button>
+
+<div class="entity-index__search">
   <md-input placeholder="search"></md-input>
-  <button md-raised-button color="primary" (click)="search()">search</button>
+  <button md-raised-button color="primary">search</button>
 </div>
 
 <table class="highlight">
-  <thead class="entities__table__header">
+  <thead class="entity-index__table__header">
   <tr>
     <th data-field="name">name</th>
     <th data-field="username">Username</th>
@@ -23,9 +25,9 @@
     <td>{{fulfillmentProvider.endpoint}}</td>
     <td>{{fulfillmentProvider.provider}}</td>
     <td>
-      <md-icon class="entities__table__body__action" (click)="viewEntity(fulfillmentProvider.id)">visibility</md-icon>
-      <md-icon class="entities__table__body__action" (click)="editEntity(fulfillmentProvider)">mode_edit</md-icon>
-      <md-icon class="entities__table__body__action" (click)="deleteEntity(fulfillmentProvider.id)">delete</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="viewEntity(fulfillmentProvider.id)">visibility</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="editEntity(fulfillmentProvider)">mode_edit</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="deleteEntity(fulfillmentProvider.id)">delete</md-icon>
     </td>
   </tr>
   </tbody>

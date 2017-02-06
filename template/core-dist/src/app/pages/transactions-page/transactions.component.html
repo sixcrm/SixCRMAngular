@@ -1,10 +1,12 @@
-<div class="campaigns__search">
-  <md-input placeholder="search" ></md-input>
-  <button md-raised-button color="primary" (click)="search()">search</button>
+<button md-fab class="entity-index__button--add"> <md-icon>add</md-icon></button>
+
+<div class="entity-index__search">
+  <md-input placeholder="search"></md-input>
+  <button md-raised-button color="primary">search</button>
 </div>
 
 <table class="highlight">
-  <thead class="entities__table__header">
+  <thead class="entity-index__table__header">
   <tr>
     <th data-field="id">ID</th>
     <th data-field="data">Date</th>
@@ -21,9 +23,9 @@
     <td>{{transaction.amount}}</td>
     <td>{{transaction.processorResponse.message}}</td>
     <td>
-      <md-icon class="entities__table__body__action" (click)="viewEntity(transaction.id)">visibility</md-icon>
-      <md-icon class="entities__table__body__action" (click)="editEntity(transaction)">mode_edit</md-icon>
-      <md-icon class="entities__table__body__action" (click)="deleteEntity(transaction.id)">delete</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="viewEntity(transaction.id)">visibility</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="editEntity(transaction)">mode_edit</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="deleteEntity(transaction.id)">delete</md-icon>
     </td>
   </tr>
   </tbody>

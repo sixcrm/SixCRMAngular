@@ -6,7 +6,7 @@
 </div>
 
 <table class="highlight">
-  <thead class="entities__table__header">
+  <thead class="entity-index__table__header">
   <tr>
     <th data-field="Name">Product Name</th>
     <th data-field="Sku">SKU</th>
@@ -23,9 +23,9 @@
     <td>{{product.ship}}</td>
     <td>{{product.shippingDelay}}</td>
     <td>
-      <md-icon class="entities__table__body__action" (click)="viewEntity(product.id)">visibility</md-icon>
-      <md-icon class="entities__table__body__action" (click)="editEntity(product)">mode_edit</md-icon>
-      <md-icon class="entities__table__body__action" (click)="deleteEntity(product.id)">delete</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="viewEntity(product.id)">visibility</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="editEntity(product)">mode_edit</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="deleteEntity(product.id)">delete</md-icon>
     </td>
   </tr>
   </tbody>

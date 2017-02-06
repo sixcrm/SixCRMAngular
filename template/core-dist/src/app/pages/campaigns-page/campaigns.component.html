@@ -1,10 +1,12 @@
-<div class="campaigns__search">
-  <md-input placeholder="search" [(ngModel)]="searchString" [formControl]="campaignsSearchControl"></md-input>
-  <button md-raised-button color="primary" (click)="search()">search</button>
+<button md-fab class="entity-index__button--add"> <md-icon>add</md-icon></button>
+
+<div class="entity-index__search">
+  <md-input placeholder="search"></md-input>
+  <button md-raised-button color="primary">search</button>
 </div>
 
 <table class="highlight">
-  <thead class="entities__table__header">
+  <thead class="entity-index__table__header">
   <tr>
     <th data-field="id">Name</th>
     <th data-field="numOfMerchProviders">Number of Merchant Providers</th>
@@ -19,9 +21,9 @@
     <td>{{campaign.loadBalancer.merchantProviderConfigurations.length}}</td>
     <td>{{campaign.productSchedules.length}}</td>
     <td>
-      <md-icon class="entities__table__body__action" (click)="viewEntity(campaign.id)">visibility</md-icon>
-      <md-icon class="entities__table__body__action" (click)="editEntity(campaign)">mode_edit</md-icon>
-      <md-icon class="entities__table__body__action" (click)="deleteEntity(campaign.id)">delete</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="viewEntity(campaign.id)">visibility</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="editEntity(campaign)">mode_edit</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="deleteEntity(campaign.id)">delete</md-icon>
     </td>
   </tr>
   </tbody>
