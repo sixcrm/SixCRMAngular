@@ -1,36 +1,23 @@
+import {AccessKey} from './access-key.model';
+
 export class User {
-  userId: number;
+  id: string;
+  name: string;
+  auth0Id: string;
   email: string;
-  username: string;
-  password: string;
-  rememberMe: boolean;
-  resetCode: string;
-  firstName: string;
-  lastName: string;
-  userType: string;
-  loginAttempts: number = 0;
-  disabled = false;
-  lastLogin: string;
-  createdTime: string;
-  // List<Location> locations;
+  active: string;
+  accessKey: AccessKey;
 
-
-  constructor(data?: any) {
-    if(!data) {
-      data = {};
+  constructor(obj?: any) {
+    if(!obj) {
+      obj = {};
     }
-    this.userId = data.userId || 0;
-    this.email = data.email || '';
-    this.username = data.username || '';
-    this.password = data.password || '';
-    this.rememberMe = data.rememberMe || false;
-    this.resetCode = data.resetCode || null;
-    this.firstName = data.firstName || '';
-    this.lastName = data.lastName || '';
-    this.userType = data.userType || 'USER';
-    this.loginAttempts = data.loginAttempts || 0;
-    this.disabled = data.disabled || false;
-    this.lastLogin = data.lastLogin || '';
-    this.createdTime = data.createdTime || '';
+
+    this.id = obj.id || '';
+    this.name = obj.name || '';
+    this.auth0Id = obj.auth0_id || '';
+    this.email = obj.email || '';
+    this.active = obj.active || '';
+    this.accessKey = new AccessKey(obj.accesskey);
   }
 }

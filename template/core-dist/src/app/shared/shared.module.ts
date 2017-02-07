@@ -18,6 +18,7 @@ import {SessionsService} from "./services/sessions.service";
 import {LoadBalancersService} from "./services/load-balancers.service";
 import {TransactionsService} from "./services/transactions.service";
 import {CreditCardsService} from './services/credit-cards.service';
+import {UsersService} from './services/users.service';
 
 @NgModule({
   declarations : [
@@ -42,7 +43,8 @@ export class SharedModule {
         SessionsService,
         LoadBalancersService,
         TransactionsService,
-        CreditCardsService
+        CreditCardsService,
+        UsersService
       ]
     };
   }

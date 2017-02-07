@@ -245,8 +245,8 @@ export function deleteSessionMutation(id: string): string {
 export function creditCardsListQuery(): string {
   return `{
     creditcardlist {
-			creditcards { id ccnumber expiration ccv name
-			  address { line1 line2 city state zip }
+			creditcards { id expiration name
+			  address { city state }
 			}
 		}}`
 }
@@ -260,4 +260,24 @@ export function creditCardQuery(id: string): string {
 
 export function deleteCreditCardMutation(id: string): string {
   return deleteMutation('creditcard', id);
+}
+
+
+export function usersListQuery(): string {
+  return `{
+    userlist {
+			users { id auth0_id name email active }
+		}}`
+}
+
+export function userQuery(id: string): string {
+  return `
+    {
+      user (id: "${id}") { id auth0_id name email active
+        accesskey { id access_key secret_key }
+    } }`
+}
+
+export function deleteUserMutation(id: string): string {
+  return deleteMutation('user', id);
 }

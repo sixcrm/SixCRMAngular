@@ -21,6 +21,8 @@ import {SessionViewComponent} from './sessions-page/session-view/session-view.co
 import {ProductViewComponent} from './products-page/product-view/product-view.component';
 import {CreditCardsComponent} from './credit-cards-page/credit-cards.component';
 import {CreditCardViewComponent} from './credit-cards-page/credit-card-view/credit-card-view.component';
+import {UsersComponent} from './users-page/users.component';
+import {UserViewComponent} from './users-page/user-view/user-view.component';
 
 export const pagesRouting = RouterModule.forChild([
   {
@@ -46,6 +48,8 @@ export const pagesRouting = RouterModule.forChild([
       { path : 'transactions/:id', component : TransactionViewComponent },
       { path : 'creditCards', component : CreditCardsComponent },
       { path : 'creditCards/:id', component : CreditCardViewComponent },
+      { path : 'users', component : UsersComponent },
+      { path : 'users/:id', component : UserViewComponent },
       { path : 'profile', component : ProfilePageComponent },
     ]
   }

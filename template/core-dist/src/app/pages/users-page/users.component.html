@@ -1,0 +1,31 @@
+<button md-fab class="entity-index__button--add"> <md-icon>add</md-icon></button>
+
+<div class="entity-index__search">
+  <md-input placeholder="search"></md-input>
+  <button md-raised-button color="primary">search</button>
+</div>
+
+<table class="highlight">
+  <thead class="entity-index__table__header">
+  <tr>
+    <th data-field="name">Name</th>
+    <th data-field="email">Email</th>
+    <th data-field="active">Active</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let user of users">
+    <td>{{user.name}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.active}}</td>
+    <td>
+      <md-icon class="entity-index__table__body__action" (click)="viewEntity(user.id)">visibility</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="editEntity(user)">mode_edit</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="deleteEntity(user.id)">delete</md-icon>
+    </td>
+  </tr>
+  </tbody>
+
+</table>
