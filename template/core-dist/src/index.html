@@ -14,7 +14,8 @@
 
   <style>
     app-root > .background {
-      background-color: #1976D2;
+      background: -webkit-radial-gradient(#40404b, #111118) rgba(34,34,40,0.94);
+    background: radial-gradient(#40404b, #111118) rgba(34,34,40,0.94);
       display: block;
       position: absolute;
       top: 0;
@@ -38,58 +39,38 @@
       position: relative;
     }
 
-    .cube1, .cube2 {
-      background-color: #ffffff;
-      width: 30px;
-      height: 30px;
+    .sixLogo {
+
+      width: 80px;
+      height: 80px;
       position: absolute;
       top: 0;
       left: 0;
-
-      -webkit-animation: sk-cubemove 1.8s infinite ease-in-out;
-      animation: sk-cubemove 1.8s infinite ease-in-out;
+      -webkit-animation: six-icon 850ms infinite ease-in-out;
+      animation: six-icon 850ms infinite ease-in-out;
     }
 
-    .cube2 {
-      -webkit-animation-delay: -0.9s;
-      animation-delay: -0.9s;
-    }
 
-    @-webkit-keyframes sk-cubemove {
+
+    @-webkit-keyframes six-icon {
       25% {
-        -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5)
+        -webkit-transform:  rotate(-90deg);
       }
-      50% {
-        -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg)
-      }
-      75% {
-        -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5)
-      }
+
       100% {
-        -webkit-transform: rotate(-360deg)
+        -webkit-transform: rotate(-360deg) ;
       }
     }
 
-    @keyframes sk-cubemove {
+    @keyframes six-icon {
       25% {
-        transform: translateX(42px) rotate(-90deg) scale(0.5);
-        -webkit-transform: translateX(42px) rotate(-90deg) scale(0.5);
+        transform:  rotate(-90deg)
+        -webkit-transform:  rotate(-90deg);
       }
-      50% {
-        transform: translateX(42px) translateY(42px) rotate(-179deg);
-        -webkit-transform: translateX(42px) translateY(42px) rotate(-179deg);
-      }
-      50.1% {
-        transform: translateX(42px) translateY(42px) rotate(-180deg);
-        -webkit-transform: translateX(42px) translateY(42px) rotate(-180deg);
-      }
-      75% {
-        transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
-        -webkit-transform: translateX(0px) translateY(42px) rotate(-270deg) scale(0.5);
-      }
+
       100% {
-        transform: rotate(-360deg);
-        -webkit-transform: rotate(-360deg);
+        transform: rotate(-360deg) ;
+        -webkit-transform: rotate(-360deg) ;
       }
     }
   </style>
@@ -99,8 +80,9 @@
   <div class="background">
     <div class="wrapper">
       <div class="spinner">
-        <div class="cube1"></div>
-        <div class="cube2"></div>
+        <div class="sixLogo">
+          <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52.97 52.88"><title>sixIcon</title><path d="M45.21,7.67A26.38,26.38,0,0,0,28.59,0h0L14.85,13.75A17.23,17.23,0,1,0,26.48,9.19H25.34l4.79-4.75a22.23,22.23,0,1,1-19.48,6.31L20.85.52A26.48,26.48,0,1,0,45.21,7.67ZM26.48,13.44a13,13,0,1,1-9.23,3.86h0l.53-.53A12.94,12.94,0,0,1,26.48,13.44Z" transform="translate(0)" style="fill:#0199cc"/></svg>
+        </div>
       </div>
     </div>
   </div>
