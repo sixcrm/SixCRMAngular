@@ -15,10 +15,8 @@ export class ProductViewComponent implements OnInit {
   constructor(private productsService: ProductsService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.productsService.product$.subscribe((product: Product) => this.product = product);
-    this.route.params.subscribe((params: Params) => {
-      this.productsService.getProduct(params['id']);
-    });
+    this.productsService.entity$.subscribe((product: Product) => this.product = product);
+    this.route.params.subscribe((params: Params) => this.productsService.getEntity(params['id']));
   }
 
 }

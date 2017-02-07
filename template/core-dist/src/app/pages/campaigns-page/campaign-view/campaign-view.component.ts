@@ -15,11 +15,7 @@ export class CampaignViewComponent implements OnInit {
   constructor(private campaignsService: CampaignsService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.campaignsService.campaign$.subscribe((campaign: Campaign) => {
-      this.campaign = campaign;
-    });
-    this.route.params.subscribe((params: Params) => {
-      this.campaignsService.getCampaign(params['id']);
-    });
+    this.campaignsService.entity$.subscribe((campaign: Campaign) => this.campaign = campaign);
+    this.route.params.subscribe((params: Params) => this.campaignsService.getEntity(params['id']));
   }
 }

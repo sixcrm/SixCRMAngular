@@ -9,13 +9,12 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./affiliates-view.component.scss']
 })
 export class AffiliatesViewComponent implements OnInit {
-
   private affiliate: Affiliate;
 
   constructor(private affiliatesService: AffiliatesService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.affiliatesService.affiliate$.subscribe((data) => this.affiliate = data);
-    this.route.params.subscribe((params) => this.affiliatesService.getAffiliate(params['id']));
+    this.affiliatesService.entity$.subscribe((data) => this.affiliate = data);
+    this.route.params.subscribe((params) => this.affiliatesService.getEntity(params['id']));
   }
 }

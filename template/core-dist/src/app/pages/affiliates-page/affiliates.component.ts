@@ -17,7 +17,7 @@ export class AffiliatesComponent extends AbstractEntityIndexComponent implements
   }
 
   ngOnInit() {
-    this.affiliatesService.affiliates$.subscribe((data) => this.affiliates = data);
-    this.affiliatesService.getAffiliates();
+    this.affiliatesService.entities$.subscribe((data) => this.affiliates = data);
+    this.affiliatesService.getEntities();
   }
 }

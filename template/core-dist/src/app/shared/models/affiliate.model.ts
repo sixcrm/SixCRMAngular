@@ -1,3 +1,5 @@
+import {affiliatesListQuery, affiliateQuery, deleteAffiliateMutation} from '../utils/query-builder';
+
 export class Affiliate {
   id: string;
   affiliateId: string;

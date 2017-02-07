@@ -241,3 +241,23 @@ export function sessionQuery(id: string): string {
 export function deleteSessionMutation(id: string): string {
   return deleteMutation('session', id);
 }
+
+export function creditCardsListQuery(): string {
+  return `{
+    creditcardlist {
+			creditcards { id ccnumber expiration ccv name
+			  address { line1 line2 city state zip }
+			}
+		}}`
+}
+
+export function creditCardQuery(id: string): string {
+  return `{
+    creditcard (id: "${id}") { id ccnumber expiration ccv name
+		  address { line1 line2 city state zip country }
+		} }`
+}
+
+export function deleteCreditCardMutation(id: string): string {
+  return deleteMutation('creditcard', id);
+}

@@ -14,7 +14,7 @@ export class MerchantProviderViewComponent implements OnInit {
   constructor(private merchantProvidersService: MerchantProvidersService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.merchantProvidersService.merchantProvider$.subscribe((data) => this.merchantProvider = data);
-    this.route.params.subscribe((params) => this.merchantProvidersService.getMerchantProvider(params['id']));
+    this.merchantProvidersService.entity$.subscribe((data) => this.merchantProvider = data);
+    this.route.params.subscribe((params) => this.merchantProvidersService.getEntity(params['id']));
   }
 }

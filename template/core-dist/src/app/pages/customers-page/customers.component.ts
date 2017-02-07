@@ -18,8 +18,8 @@ export class CustomersComponent extends AbstractEntityIndexComponent implements 
   }
 
   ngOnInit() {
-    this.customersService.customers$.subscribe(customers => this.customers = customers );
-    this.customersService.getCustomers();
+    this.customersService.entities$.subscribe(customers => this.customers = customers );
+    this.customersService.getEntities();
   }
 
 }

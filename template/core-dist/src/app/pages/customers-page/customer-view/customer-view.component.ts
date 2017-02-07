@@ -15,11 +15,7 @@ export class CustomerViewComponent implements OnInit {
   constructor(private customersService: CustomersService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.customersService.customer$.subscribe((customer: Customer) => {
-      this.customer = customer;
-    });
-    this.route.params.subscribe((params: Params) => {
-      this.customersService.getCustomer(params['id']);
-    });
+    this.customersService.entity$.subscribe((data) => this.customer = data);
+    this.route.params.subscribe((params: Params) => this.customersService.getEntity(params['id']));
   }
 }

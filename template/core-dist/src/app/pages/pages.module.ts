@@ -24,6 +24,8 @@ import { LoadBalancerViewComponent } from './load-balancers-page/load-balancer-v
 import { TransactionViewComponent } from './transactions-page/transaction-view/transaction-view.component';
 import { SessionViewComponent } from './sessions-page/session-view/session-view.component';
 import { ProductViewComponent } from './products-page/product-view/product-view.component';
+import { CreditCardsComponent } from './credit-cards-page/credit-cards.component';
+import { CreditCardViewComponent } from './credit-cards-page/credit-card-view/credit-card-view.component';
 
 @NgModule({
   imports : [
@@ -54,7 +56,9 @@ import { ProductViewComponent } from './products-page/product-view/product-view.
     LoadBalancerViewComponent,
     TransactionViewComponent,
     SessionViewComponent,
-    ProductViewComponent
+    ProductViewComponent,
+    CreditCardsComponent,
+    CreditCardViewComponent
   ]
 })
 export class PagesModule {

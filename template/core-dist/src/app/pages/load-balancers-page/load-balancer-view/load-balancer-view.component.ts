@@ -14,9 +14,7 @@ export class LoadBalancerViewComponent implements OnInit {
   constructor(private loadBalancersService: LoadBalancersService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.loadBalancersService.loadBalancer$.subscribe((data) => { this.loadBalancer = data });
-    this.route.params.subscribe((params: Params) => {
-      this.loadBalancersService.getLoadBalancer(params['id']);
-    });
+    this.loadBalancersService.entity$.subscribe((data) => this.loadBalancer = data);
+    this.route.params.subscribe((params: Params) => this.loadBalancersService.getEntity(params['id']));
   }
 }

@@ -18,9 +18,7 @@ export class MerchantProvidersComponent extends AbstractEntityIndexComponent imp
   }
 
   ngOnInit() {
-    this.merchantProvidersService.merchantProviders$.subscribe((providers) => {
-      this.merchantProviders = providers;
-    });
-    this.merchantProvidersService.getMerchantProviders();
+    this.merchantProvidersService.entities$.subscribe((providers) => this.merchantProviders = providers);
+    this.merchantProvidersService.getEntities();
   }
 }

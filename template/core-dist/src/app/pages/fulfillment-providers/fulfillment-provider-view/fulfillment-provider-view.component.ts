@@ -15,7 +15,7 @@ export class FulfillmentProviderViewComponent implements OnInit {
   constructor(private fulfillmentProvidersService: FulfillmentProvidersService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.fulfillmentProvidersService.fulfillmentProvider$.subscribe((data) => this.fulfillmentProvider = data);
-    this.route.params.subscribe((params) => this.fulfillmentProvidersService.getFulfillmentProvider(params['id']));
+    this.fulfillmentProvidersService.entity$.subscribe((data) => this.fulfillmentProvider = data);
+    this.route.params.subscribe((params) => this.fulfillmentProvidersService.getEntity(params['id']));
   }
 }

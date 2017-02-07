@@ -15,10 +15,8 @@ export class SessionViewComponent implements OnInit {
   constructor(private sessionsService: SessionsService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.sessionsService.session$.subscribe((session: Session) => this.session = session);
-    this.route.params.subscribe((params: Params) => {
-      this.sessionsService.getSession(params['id']);
-    });
+    this.sessionsService.entity$.subscribe((session: Session) => this.session = session);
+    this.route.params.subscribe((params: Params) => this.sessionsService.getEntity(params['id']));
   }
 
 }

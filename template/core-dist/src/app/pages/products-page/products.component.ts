@@ -18,7 +18,7 @@ export class ProductsComponent extends AbstractEntityIndexComponent implements O
   }
 
   ngOnInit() {
-    this.productsService.products$.subscribe((data) => this.products = data);
-    this.productsService.getProducts();
+    this.productsService.entities$.subscribe((data) => this.products = data);
+    this.productsService.getEntities();
   }
 }

@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
-import {Session} from '../models/session.model';
 import {AbstractEntityService} from './abstract-entity.service';
+import {CreditCard} from '../models/credit-card.model';
 import {Http} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {sessionsInfoListQuery, sessionQuery, deleteSessionMutation} from '../utils/query-builder';
+import {creditCardsListQuery, creditCardQuery, deleteCreditCardMutation} from '../utils/query-builder';
 
 @Injectable()
-export class SessionsService extends AbstractEntityService<Session> {
-
+export class CreditCardsService extends AbstractEntityService<CreditCard> {
   constructor(http: Http, authService: AuthenticationService) {
     super(
       http,
       authService,
-      data => new Session(data),
-      sessionsInfoListQuery,
-      sessionQuery,
-      deleteSessionMutation
+      data => new CreditCard(data),
+      creditCardsListQuery,
+      creditCardQuery,
+      deleteCreditCardMutation
     );
   }
 }

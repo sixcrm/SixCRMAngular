@@ -18,8 +18,8 @@ export class LoadBalancersComponent extends AbstractEntityIndexComponent impleme
   }
 
   ngOnInit() {
-    this.loadBalancersService.loadBalancers$.subscribe((data) => this.loadBalancers = data );
-    this.loadBalancersService.getLoadBalancers();
+    this.loadBalancersService.entities$.subscribe((data) => this.loadBalancers = data );
+    this.loadBalancersService.getEntities();
   }
 
 }

@@ -1,0 +1,35 @@
+<button md-fab class="entity-index__button--add"> <md-icon>add</md-icon></button>
+
+<div class="entity-index__search">
+  <md-input placeholder="search"></md-input>
+  <button md-raised-button color="primary">search</button>
+</div>
+
+<table class="highlight">
+  <thead class="entity-index__table__header">
+  <tr>
+    <th data-field="Name">Name</th>
+    <th data-field="Expiration">Expiration</th>
+    <th data-field="Country">Country</th>
+    <th data-field="State">State</th>
+    <th data-field="City">City</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let creditCard of creditCards">
+    <td>{{creditCard.name}}</td>
+    <td>{{creditCard.expiration}}</td>
+    <td>{{creditCard.address.country}}</td>
+    <td>{{creditCard.address.state}}</td>
+    <td>{{creditCard.address.city}}</td>
+    <td>
+      <md-icon class="entity-index__table__body__action" (click)="viewEntity(creditCard.id)">visibility</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="editEntity(creditCard)">mode_edit</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="deleteEntity(creditCard.id)">delete</md-icon>
+    </td>
+  </tr>
+  </tbody>
+
+</table>

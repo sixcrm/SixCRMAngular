@@ -19,6 +19,8 @@ import {LoadBalancerViewComponent} from './load-balancers-page/load-balancer-vie
 import {TransactionViewComponent} from './transactions-page/transaction-view/transaction-view.component';
 import {SessionViewComponent} from './sessions-page/session-view/session-view.component';
 import {ProductViewComponent} from './products-page/product-view/product-view.component';
+import {CreditCardsComponent} from './credit-cards-page/credit-cards.component';
+import {CreditCardViewComponent} from './credit-cards-page/credit-card-view/credit-card-view.component';
 
 export const pagesRouting = RouterModule.forChild([
   {
@@ -42,6 +44,8 @@ export const pagesRouting = RouterModule.forChild([
       { path : 'loadBalancers/:id', component : LoadBalancerViewComponent },
       { path : 'transactions', component : TransactionsComponent },
       { path : 'transactions/:id', component : TransactionViewComponent },
+      { path : 'creditCards', component : CreditCardsComponent },
+      { path : 'creditCards/:id', component : CreditCardViewComponent },
       { path : 'profile', component : ProfilePageComponent },
     ]
   }

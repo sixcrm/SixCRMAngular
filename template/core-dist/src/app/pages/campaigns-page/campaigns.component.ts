@@ -11,9 +11,6 @@ import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
   styleUrls: ['./campaigns.component.scss']
 })
 export class CampaignsComponent extends AbstractEntityIndexComponent implements OnInit {
-
-  private campaignsSearchControl: FormControl = new FormControl();
-  private searchString: string;
   private campaigns: Campaign[] = [];
 
   constructor(private campaignService: CampaignsService, router: Router, route: ActivatedRoute) {
@@ -21,8 +18,8 @@ export class CampaignsComponent extends AbstractEntityIndexComponent implements 
   }
 
   ngOnInit() {
-    this.campaignService.campaigns$.subscribe(campaigns => this.campaigns = campaigns );
-    this.campaignService.getCampaigns();
+    this.campaignService.entities$.subscribe(campaigns => this.campaigns = campaigns );
+    this.campaignService.getEntities();
   }
 
   search(): void {

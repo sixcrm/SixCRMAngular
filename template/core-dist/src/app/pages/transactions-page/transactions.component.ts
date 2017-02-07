@@ -18,8 +18,8 @@ export class TransactionsComponent extends AbstractEntityIndexComponent implemen
   }
 
   ngOnInit() {
-    this.transactionsService.transactions$.subscribe((data) => this.transactions = data);
-    this.transactionsService.getTransactions();
+    this.transactionsService.entities$.subscribe((data) => this.transactions = data);
+    this.transactionsService.getEntities();
   }
 
 }

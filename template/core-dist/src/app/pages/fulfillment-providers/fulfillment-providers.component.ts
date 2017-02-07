@@ -17,7 +17,7 @@ export class FulfillmentProvidersComponent extends AbstractEntityIndexComponent 
   }
 
   ngOnInit() {
-    this.fulfillmentProvidersService.fulfillmentProviders$.subscribe((data) => this.fulfillmentProviders = data);
-    this.fulfillmentProvidersService.getFulfillmentProviders()
+    this.fulfillmentProvidersService.entities$.subscribe((data) => this.fulfillmentProviders = data);
+    this.fulfillmentProvidersService.getEntities()
   }
 }

@@ -3,7 +3,7 @@ import {AbstractEntityService} from '../shared/services/abstract-entity.service'
 
 export abstract class AbstractEntityIndexComponent {
 
-  constructor(private service: AbstractEntityService, private router: Router, private route: ActivatedRoute) {}
+  constructor(private service: AbstractEntityService<any>, private router: Router, private route: ActivatedRoute) {}
 
   viewEntity(id: string): void {
     this.router.navigate([id], { relativeTo: this.route});

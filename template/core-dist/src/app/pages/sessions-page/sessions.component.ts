@@ -18,8 +18,8 @@ export class SessionsComponent extends AbstractEntityIndexComponent implements O
   }
 
   ngOnInit() {
-    this.sessionsService.sessions$.subscribe((data) => this.sessions = data);
-    this.sessionsService.getSessions();
+    this.sessionsService.entities$.subscribe((data) => this.sessions = data);
+    this.sessionsService.getEntities();
   }
 
 }

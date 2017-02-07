@@ -15,12 +15,8 @@ export class TransactionViewComponent implements OnInit {
   constructor(private transactionsService: TransactionsService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.transactionsService.transaction$.subscribe((transaction: Transaction) => {
-      this.transaction = transaction;
-    });
-    this.route.params.subscribe((params: Params) => {
-      this.transactionsService.getTransaction(params['id']);
-    });
+    this.transactionsService.entity$.subscribe((transaction: Transaction) => this.transaction = transaction);
+    this.route.params.subscribe((params: Params) => this.transactionsService.getEntity(params['id']));
   }
 
 }

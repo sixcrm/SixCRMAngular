@@ -3,53 +3,19 @@ import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Http} from '@angular/http';
 import {Transaction} from '../models/transaction.model';
-import {Subject} from 'rxjs';
 import {transactionsInfoListQuery, transactionQuery, deleteTransactionMutation} from '../utils/query-builder';
 
 @Injectable()
-export class TransactionsService extends AbstractEntityService {
-  transactions$: Subject<Transaction[]>;
-  transaction$: Subject<Transaction>;
+export class TransactionsService extends AbstractEntityService<Transaction> {
 
   constructor(http: Http, authService: AuthenticationService) {
-    super(http, authService);
-
-    this.transactions$ = new Subject<Transaction[]>();
-    this.transaction$ = new Subject<Transaction>();
-  }
-
-  getTransactions(): void {
-    this.queryRequest(transactionsInfoListQuery()).subscribe(
-      (data) => {
-        let transactionsData = data.json().data.transactionlist.transactions;
-        this.transactions$.next(transactionsData.map(transaction => new Transaction(transaction)));
-      },
-      (error) => {
-        console.error(error);
-      }
+    super(
+      http,
+      authService,
+      data => new Transaction(data),
+      transactionsInfoListQuery,
+      transactionQuery,
+      deleteTransactionMutation
     );
   }
-
-  getTransaction(id: string): void {
-    this.queryRequest(transactionQuery(id)).subscribe(
-      (data) => {
-        let transactionData = data.json().data.transaction;
-        this.transaction$.next(new Transaction(transactionData));
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
-  }
-
-  deleteEntity(id: string): void {
-    this.queryRequest(deleteTransactionMutation(id)).subscribe(
-      () => { this.getTransactions() },
-      (error) => { console.error(error) }
-    );
-  }
-
-  editEntity(entity: Transaction): void {
-  }
-
 }
