@@ -299,3 +299,25 @@ export function smtpProviderQuery(id: string): string {
 export function deleteSmptProviderMutation(id: string): string {
   return deleteMutation('smtpprovider', id);
 }
+
+export function emailsListQuery(): string {
+  return `{
+    emaillist {
+			emails { id name subject body type
+			  smtp_provider { id name hostname ip_address username password port }
+			}
+		}}`
+}
+
+export function emailQuery(id: string): string {
+  return `
+    {
+      email (id: "${id}") { id name subject body type
+			  smtp_provider { id name hostname ip_address username password port }
+			}
+    }`
+}
+
+export function deleteEmailMutation(id: string): string {
+  return deleteMutation('email', id);
+}

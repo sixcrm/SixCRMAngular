@@ -30,6 +30,8 @@ import { UsersComponent } from './users-page/users.component';
 import { UserViewComponent } from './users-page/user-view/user-view.component';
 import { SmtpProvidersComponent } from './smtp-providers-page/smtp-providers.component';
 import { SmtpProviderViewComponent } from './smtp-providers-page/smtp-provider-view/smtp-provider-view.component';
+import { EmailsComponent } from './emails-page/emails.component';
+import { EmailViewComponent } from './emails-page/email-view/email-view.component';
 
 @NgModule({
   imports : [
@@ -66,7 +68,9 @@ import { SmtpProviderViewComponent } from './smtp-providers-page/smtp-provider-v
     UsersComponent,
     UserViewComponent,
     SmtpProvidersComponent,
-    SmtpProviderViewComponent
+    SmtpProviderViewComponent,
+    EmailsComponent,
+    EmailViewComponent
   ]
 })
 export class PagesModule {

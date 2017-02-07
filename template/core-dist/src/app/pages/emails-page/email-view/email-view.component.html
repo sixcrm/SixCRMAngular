@@ -1,0 +1,19 @@
+<md-card *ngIf="email">
+  <md-card-title>Email View</md-card-title>
+  <md-input disabled placeholder="Name" value="{{email.name}}"></md-input>
+  <md-input disabled placeholder="Subject" value="{{email.subject}}"></md-input>
+  <md-input disabled placeholder="Body" value="{{email.body}}"></md-input>
+  <md-input disabled placeholder="Type" value="{{email.type}}"></md-input>
+
+  <md-card-content>
+    <div class="content__block__first">
+      <md-card-subtitle>SMTP Provider</md-card-subtitle>
+      <md-input disabled placeholder="Name" value="{{email.smtpProvider.name}}"></md-input>
+      <md-input disabled placeholder="Hostname" value="{{email.smtpProvider.hostname}}"></md-input>
+      <md-input disabled placeholder="IP Address" value="{{email.smtpProvider.ipAddress}}"></md-input>
+      <md-input disabled placeholder="Username" value="{{email.smtpProvider.username}}"></md-input>
+      <md-input disabled placeholder="Password" value="{{email.smtpProvider.password}}"></md-input>
+      <md-input disabled placeholder="Port" value="{{email.smtpProvider.port}}"></md-input>
+    </div>
+  </md-card-content>
+</md-card>

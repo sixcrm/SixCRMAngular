@@ -25,6 +25,8 @@ import {UsersComponent} from './users-page/users.component';
 import {UserViewComponent} from './users-page/user-view/user-view.component';
 import {SmtpProvidersComponent} from './smtp-providers-page/smtp-providers.component';
 import {SmtpProviderViewComponent} from './smtp-providers-page/smtp-provider-view/smtp-provider-view.component';
+import {EmailsComponent} from './emails-page/emails.component';
+import {EmailViewComponent} from './emails-page/email-view/email-view.component';
 
 export const pagesRouting = RouterModule.forChild([
   {
@@ -54,6 +56,8 @@ export const pagesRouting = RouterModule.forChild([
       { path : 'users/:id', component : UserViewComponent },
       { path : 'smtpProviders', component : SmtpProvidersComponent },
       { path : 'smtpProviders/:id', component : SmtpProviderViewComponent },
+      { path : 'emails', component : EmailsComponent },
+      { path : 'emails/:id', component : EmailViewComponent },
       { path : 'profile', component : ProfilePageComponent },
     ]
   }
