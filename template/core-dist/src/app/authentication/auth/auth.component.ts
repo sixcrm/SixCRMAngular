@@ -18,6 +18,6 @@ export class AuthComponent implements OnInit {
       } else {
         this.router.navigate(['/dashboard']);
       }
-    }, 100);
+    }, 200);
   }
 }

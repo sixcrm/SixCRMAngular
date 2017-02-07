@@ -14,7 +14,15 @@ interface AuthResult {
 @Injectable()
 export class AuthenticationService {
 
-  private lock = new Auth0Lock(myConfigN.clientID, myConfigN.domain, {});
+  private lock = new Auth0Lock(
+    myConfigN.clientID,
+    myConfigN.domain,
+    {
+      theme: { logo: '/assets/favicons/favicon-icon.png'},
+      languageDictionary: {
+        title: 'SixCRM'
+      }
+    });
   private accessToken: string = 'access_token';
   private idToken: string = 'id_token';
 
