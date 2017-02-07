@@ -1,0 +1,11 @@
+<md-card *ngIf="smtpProvider">
+  <md-card-title>User View</md-card-title>
+  <md-card-content>
+    <md-input disabled placeholder="Name" value="{{smtpProvider.name}}"></md-input>
+    <md-input disabled placeholder="Hostname" value="{{smtpProvider.hostname}}"></md-input>
+    <md-input disabled placeholder="IP Address" value="{{smtpProvider.ipAddress}}"></md-input>
+    <md-input disabled placeholder="Username" value="{{smtpProvider.username}}"></md-input>
+    <md-input disabled placeholder="Password" value="{{smtpProvider.password}}"></md-input>
+    <md-input disabled placeholder="Port" value="{{smtpProvider.port}}"></md-input>
+  </md-card-content>
+</md-card>

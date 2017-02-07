@@ -19,6 +19,7 @@ import {LoadBalancersService} from "./services/load-balancers.service";
 import {TransactionsService} from "./services/transactions.service";
 import {CreditCardsService} from './services/credit-cards.service';
 import {UsersService} from './services/users.service';
+import {SmtpProvidersService} from './services/smtp-providers.service';
 
 @NgModule({
   declarations : [
@@ -44,7 +45,8 @@ export class SharedModule {
         LoadBalancersService,
         TransactionsService,
         CreditCardsService,
-        UsersService
+        UsersService,
+        SmtpProvidersService
       ]
     };
   }

@@ -281,3 +281,21 @@ export function userQuery(id: string): string {
 export function deleteUserMutation(id: string): string {
   return deleteMutation('user', id);
 }
+
+export function smtpProvidersListQuery(): string {
+  return `{
+    smtpproviderlist {
+			smtpproviders { id name hostname ip_address username port }
+		}}`
+}
+
+export function smtpProviderQuery(id: string): string {
+  return `
+    {
+      smtpprovider (id: "${id}") { id name hostname ip_address username password port }
+    }`
+}
+
+export function deleteSmptProviderMutation(id: string): string {
+  return deleteMutation('smtpprovider', id);
+}

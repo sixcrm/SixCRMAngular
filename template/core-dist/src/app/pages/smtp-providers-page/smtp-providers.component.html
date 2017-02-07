@@ -1,0 +1,35 @@
+<button md-fab class="entity-index__button--add"> <md-icon>add</md-icon></button>
+
+<div class="entity-index__search">
+  <md-input placeholder="search"></md-input>
+  <button md-raised-button color="primary">search</button>
+</div>
+
+<table class="highlight">
+  <thead class="entity-index__table__header">
+  <tr>
+    <th data-field="name">Name</th>
+    <th data-field="hostname">Hostname</th>
+    <th data-field="ip-address">IP Address</th>
+    <th data-field="username">Username</th>
+    <th data-field="port">Port</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let smtpProvider of smtpProviders">
+    <td>{{smtpProvider.name}}</td>
+    <td>{{smtpProvider.hostname}}</td>
+    <td>{{smtpProvider.ipAddress}}</td>
+    <td>{{smtpProvider.hostname}}</td>
+    <td>{{smtpProvider.port}}</td>
+    <td>
+      <md-icon class="entity-index__table__body__action" (click)="viewEntity(smtpProvider.id)">visibility</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="editEntity(smtpProvider)">mode_edit</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="deleteEntity(smtpProvider.id)">delete</md-icon>
+    </td>
+  </tr>
+  </tbody>
+
+</table>

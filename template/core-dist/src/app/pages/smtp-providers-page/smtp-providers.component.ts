@@ -1,0 +1,25 @@
+import { Component, OnInit } from '@angular/core';
+import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
+import {SmtpProvidersService} from '../../shared/services/smtp-providers.service';
+import {Router, ActivatedRoute} from '@angular/router';
+import {SmtpProvider} from '../../shared/models/smtp-provider.model';
+
+@Component({
+  selector: 'c-smtp-providers',
+  templateUrl: './smtp-providers.component.html',
+  styleUrls: ['./smtp-providers.component.scss']
+})
+export class SmtpProvidersComponent extends AbstractEntityIndexComponent implements OnInit {
+
+  private smtpProviders: SmtpProvider[] = [];
+
+  constructor(private smtpProvidersService: SmtpProvidersService, router: Router, route: ActivatedRoute) {
+    super(smtpProvidersService, router, route);
+  }
+
+  ngOnInit() {
+    this.smtpProvidersService.entities$.subscribe((data) => this.smtpProviders = data);
+    this.smtpProvidersService.getEntities();
+  }
+
+}

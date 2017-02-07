@@ -23,6 +23,8 @@ import {CreditCardsComponent} from './credit-cards-page/credit-cards.component';
 import {CreditCardViewComponent} from './credit-cards-page/credit-card-view/credit-card-view.component';
 import {UsersComponent} from './users-page/users.component';
 import {UserViewComponent} from './users-page/user-view/user-view.component';
+import {SmtpProvidersComponent} from './smtp-providers-page/smtp-providers.component';
+import {SmtpProviderViewComponent} from './smtp-providers-page/smtp-provider-view/smtp-provider-view.component';
 
 export const pagesRouting = RouterModule.forChild([
   {
@@ -50,6 +52,8 @@ export const pagesRouting = RouterModule.forChild([
       { path : 'creditCards/:id', component : CreditCardViewComponent },
       { path : 'users', component : UsersComponent },
       { path : 'users/:id', component : UserViewComponent },
+      { path : 'smtpProviders', component : SmtpProvidersComponent },
+      { path : 'smtpProviders/:id', component : SmtpProviderViewComponent },
       { path : 'profile', component : ProfilePageComponent },
     ]
   }
