@@ -8,6 +8,11 @@ export const menuItemSetup: MenuItem[] = [
   new MenuItem('Affiliates', 'affiliates'),
   new MenuItem('Customers', 'customers'),
   new MenuItem('Sessions', 'sessions'),
-  new MenuItem('Load balancers', 'loadBalancers'),
+  new MenuItem('Load Balancers', 'loadBalancers'),
   new MenuItem('Transactions', 'transactions'),
+  new MenuItem('Users', 'users'),
+  new MenuItem('Credit Cards', 'creditCards'),
+  new MenuItem('Emails', 'emails'),
+  new MenuItem('SMTP Providers', 'smtpProviders'),
+  new MenuItem('Access Keys', 'accessKeys'),
 ];
