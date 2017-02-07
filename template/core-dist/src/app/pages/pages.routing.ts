@@ -27,6 +27,8 @@ import {SmtpProvidersComponent} from './smtp-providers-page/smtp-providers.compo
 import {SmtpProviderViewComponent} from './smtp-providers-page/smtp-provider-view/smtp-provider-view.component';
 import {EmailsComponent} from './emails-page/emails.component';
 import {EmailViewComponent} from './emails-page/email-view/email-view.component';
+import {AccessKeysComponent} from './access-keys-page/access-keys.component';
+import {AccessKeyViewComponent} from './access-keys-page/access-key-view/access-key-view.component';
 
 export const pagesRouting = RouterModule.forChild([
   {
@@ -58,6 +60,8 @@ export const pagesRouting = RouterModule.forChild([
       { path : 'smtpProviders/:id', component : SmtpProviderViewComponent },
       { path : 'emails', component : EmailsComponent },
       { path : 'emails/:id', component : EmailViewComponent },
+      { path : 'accessKeys', component : AccessKeysComponent },
+      { path : 'accessKeys/:id', component : AccessKeyViewComponent },
       { path : 'profile', component : ProfilePageComponent },
     ]
   }

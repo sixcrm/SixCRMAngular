@@ -21,6 +21,7 @@ import {CreditCardsService} from './services/credit-cards.service';
 import {UsersService} from './services/users.service';
 import {SmtpProvidersService} from './services/smtp-providers.service';
 import {EmailsService} from './services/emails.service';
+import {AccessKeysService} from './services/access-keys.service';
 
 @NgModule({
   declarations : [
@@ -48,7 +49,8 @@ export class SharedModule {
         CreditCardsService,
         UsersService,
         SmtpProvidersService,
-        EmailsService
+        EmailsService,
+        AccessKeysService
       ]
     };
   }

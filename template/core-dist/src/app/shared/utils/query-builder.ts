@@ -321,3 +321,21 @@ export function emailQuery(id: string): string {
 export function deleteEmailMutation(id: string): string {
   return deleteMutation('email', id);
 }
+
+export function accessKeysListQuery(): string {
+  return `{
+    accesskeylist {
+			accesskeys { id access_key secret_key }
+		}}`
+}
+
+export function accessKeyQuery(id: string): string {
+  return `
+    {
+      accesskey (id: "${id}") { id access_key secret_key }
+    }`
+}
+
+export function deleteAccessKeyMutation(id: string): string {
+  return deleteMutation('accesskey', id);
+}

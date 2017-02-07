@@ -32,6 +32,8 @@ import { SmtpProvidersComponent } from './smtp-providers-page/smtp-providers.com
 import { SmtpProviderViewComponent } from './smtp-providers-page/smtp-provider-view/smtp-provider-view.component';
 import { EmailsComponent } from './emails-page/emails.component';
 import { EmailViewComponent } from './emails-page/email-view/email-view.component';
+import { AccessKeysComponent } from './access-keys-page/access-keys.component';
+import { AccessKeyViewComponent } from './access-keys-page/access-key-view/access-key-view.component';
 
 @NgModule({
   imports : [
@@ -70,7 +72,9 @@ import { EmailViewComponent } from './emails-page/email-view/email-view.componen
     SmtpProvidersComponent,
     SmtpProviderViewComponent,
     EmailsComponent,
-    EmailViewComponent
+    EmailViewComponent,
+    AccessKeysComponent,
+    AccessKeyViewComponent
   ]
 })
 export class PagesModule {

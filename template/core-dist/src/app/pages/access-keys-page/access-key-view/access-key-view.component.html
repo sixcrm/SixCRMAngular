@@ -1,0 +1,7 @@
+<md-card *ngIf="accessKey">
+  <md-card-subtitle>Access Key</md-card-subtitle>
+  <md-card-content>
+    <md-input disabled placeholder="Access Key" value="{{accessKey.accessKey}}"></md-input>
+    <md-input disabled placeholder="Secret Key" value="{{accessKey.secretKey}}"></md-input>
+  </md-card-content>
+</md-card>
