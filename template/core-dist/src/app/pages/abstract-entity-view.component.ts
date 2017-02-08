@@ -22,7 +22,7 @@ export abstract class AbstractEntityViewComponent<T> {
         this.service.getEntity(params['id']);
       }
 
-      if (params['type'] === 'add') {
+      if (params['type'] === 'addEntity') {
         this.mode = 'Add';
         this.addMode = true;
       }

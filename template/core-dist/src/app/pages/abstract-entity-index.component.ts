@@ -17,7 +17,7 @@ export abstract class AbstractEntityIndexComponent<T> {
     this.service.deleteEntity(id);
   }
 
-  add(): void {
-    this.router.navigate(['add'], { relativeTo: this.route});
+  addEntity(): void {
+    this.router.navigate(['addEntity'], { relativeTo: this.route});
   }
 }

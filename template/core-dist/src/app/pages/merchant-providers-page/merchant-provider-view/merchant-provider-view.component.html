@@ -1,23 +1,26 @@
 <md-card *ngIf="merchantProvider">
   <md-card-title>Merchant Provider View</md-card-title>
   <md-card-content>
-    <div>
-      <md-input disabled placeholder="ID" value="{{merchantProvider.id}}"></md-input>
+    <div *ngIf="addMode">
+      <md-input placeholder="ID" [(ngModel)]="merchantProvider.id" name="id"></md-input>
     </div>
     <div>
-      <md-input disabled placeholder="Name" value="{{merchantProvider.name}}"></md-input>
+      <md-input [disabled]="viewMode" placeholder="Name" [(ngModel)]="merchantProvider.name" name="name"></md-input>
     </div>
     <div>
-      <md-input disabled placeholder="Username" value="{{merchantProvider.username}}"></md-input>
+      <md-input [disabled]="viewMode" placeholder="Username" [(ngModel)]="merchantProvider.username" name="username"></md-input>
     </div>
     <div>
-      <md-input disabled placeholder="Password" value="{{merchantProvider.password}}"></md-input>
+      <md-input [disabled]="viewMode" placeholder="Password" [(ngModel)]="merchantProvider.password" name="password"></md-input>
     </div>
     <div>
-      <md-input disabled placeholder="Endpoint" value="{{merchantProvider.endpoint}}"></md-input>
+      <md-input [disabled]="viewMode" placeholder="Endpoint" [(ngModel)]="merchantProvider.endpoint" name="endpoint"></md-input>
     </div>
     <div>
-      <md-input disabled placeholder="Processor" value="{{merchantProvider.processor}}"></md-input>
+      <md-input [disabled]="viewMode" placeholder="Processor" [(ngModel)]="merchantProvider.processor" name="processor"></md-input>
     </div>
   </md-card-content>
+  <button md-raised-button color="primary" *ngIf="addMode" (click)="saveEntity(merchantProvider)"> Save </button>
+  <button md-raised-button color="primary" *ngIf="updateMode" (click)="updateEntity(merchantProvider)"> Update </button>
+  <button md-raised-button color="primary" *ngIf="updateMode" (click)="cancelUpdate()"> Cancel </button>
 </md-card>

@@ -1,4 +1,5 @@
 import {SmtpProvider} from '../models/smtp-provider.model';
+import {MerchantProvider} from '../models/merchant-provider.model';
 function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
 }
@@ -79,6 +80,26 @@ export function merchantProviderQuery(id: string): string {
 
 export function deleteMerchantProviderMutation(id: string): string {
   return deleteMutation('merchantprovider', id);
+}
+
+export function createMerchantProviderMutation(provider: MerchantProvider): string {
+  return `
+    mutation {
+		  createmerchantprovider (
+		    merchantprovider: { id: "${provider.id}", name: "${provider.name}", username: "${provider.username}", password: "${provider.password}", endpoint: "${provider.endpoint}", processor: "${provider.processor}"}) {
+			    id  name username password endpoint processor
+		  }
+	}`
+}
+
+export function updateMerchantProviderMutation(provider: MerchantProvider): string {
+  return `
+    mutation {
+		  updatemerchantprovider (
+		    merchantprovider: { id: "${provider.id}", name: "${provider.name}", username: "${provider.username}", password: "${provider.password}", endpoint: "${provider.endpoint}", processor: "${provider.processor}"}) {
+			    id  name username password endpoint processor
+		  }
+	}`
 }
 
 export function fulfillmentProvidersListQuery(): string {

@@ -20,5 +20,6 @@ export class MerchantProvidersComponent extends AbstractEntityIndexComponent<Mer
   ngOnInit() {
     this.merchantProvidersService.entities$.subscribe((providers) => this.merchantProviders = providers);
     this.merchantProvidersService.getEntities();
+    this.merchantProvidersService.entityDeleted$.subscribe(() => this.merchantProvidersService.getEntities());
   }
 }

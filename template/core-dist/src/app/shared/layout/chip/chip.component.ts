@@ -45,7 +45,7 @@ export class ChipComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     let chip = $(this._elementRef.nativeElement).find('.chips');
-    chip.on('chip.add', (e, chip) => {
+    chip.on('chip.addEntity', (e, chip) => {
       this.chipAdded.emit(chip);
     });
     chip.on('chip.delete', (e, chip) => {
