@@ -9,7 +9,7 @@ import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.scss']
 })
-export class TransactionsComponent extends AbstractEntityIndexComponent implements OnInit {
+export class TransactionsComponent extends AbstractEntityIndexComponent<Transaction> implements OnInit {
 
   private transactions: Transaction[] = [];
 

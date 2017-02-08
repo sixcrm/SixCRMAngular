@@ -9,7 +9,7 @@ import {Customer} from '../../shared/models/customer.model';
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.scss']
 })
-export class CustomersComponent extends AbstractEntityIndexComponent implements OnInit {
+export class CustomersComponent extends AbstractEntityIndexComponent<Customer> implements OnInit {
 
   private customers: Customer[] = [];
 

@@ -1,19 +1,23 @@
 import {ActivatedRoute, Router} from '@angular/router';
 import {AbstractEntityService} from '../shared/services/abstract-entity.service';
 
-export abstract class AbstractEntityIndexComponent {
+export abstract class AbstractEntityIndexComponent<T> {
 
-  constructor(private service: AbstractEntityService<any>, private router: Router, private route: ActivatedRoute) {}
+  constructor(private service: AbstractEntityService<T>, private router: Router, private route: ActivatedRoute) {}
 
   viewEntity(id: string): void {
-    this.router.navigate([id], { relativeTo: this.route});
+    this.router.navigate(['view', id], { relativeTo: this.route});
   }
 
-  editEntity(entity: any): void {
-    this.service.editEntity(entity);
+  updateEntity(id: string): void {
+    this.router.navigate(['update', id], { relativeTo: this.route});
   }
 
   deleteEntity(id: string): void {
     this.service.deleteEntity(id);
+  }
+
+  add(): void {
+    this.router.navigate(['add'], { relativeTo: this.route});
   }
 }

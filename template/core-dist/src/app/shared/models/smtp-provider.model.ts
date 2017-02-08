@@ -8,6 +8,10 @@ export class SmtpProvider {
   port: string;
 
   constructor(obj?: any) {
+    if (!obj) {
+      obj = {};
+    }
+
     this.id = obj.id || '';
     this.name = obj.name || '';
     this.hostname = obj.hostname || '';

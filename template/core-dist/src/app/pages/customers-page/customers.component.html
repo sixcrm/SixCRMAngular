@@ -24,7 +24,7 @@
     <td>{{customer.address.country}}</td>
     <td>
       <md-icon class="entity-index__table__body__action" (click)="viewEntity(customer.id)">visibility</md-icon>
-      <md-icon class="entity-index__table__body__action" (click)="editEntity(customer)">mode_edit</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="updateEntity(customer.id)">mode_edit</md-icon>
       <md-icon class="entity-index__table__body__action" (click)="deleteEntity(customer.id)">delete</md-icon>
     </td>
   </tr>

@@ -9,7 +9,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent extends AbstractEntityIndexComponent implements OnInit {
+export class UsersComponent extends AbstractEntityIndexComponent<User> implements OnInit {
 
   private users: User[];
 

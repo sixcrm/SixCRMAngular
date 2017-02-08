@@ -9,7 +9,7 @@ import {Router, ActivatedRoute} from '@angular/router';
   templateUrl: './load-balancers.component.html',
   styleUrls: ['./load-balancers.component.scss']
 })
-export class LoadBalancersComponent extends AbstractEntityIndexComponent implements OnInit {
+export class LoadBalancersComponent extends AbstractEntityIndexComponent<LoadBalancer> implements OnInit {
 
   private loadBalancers: LoadBalancer[] = [];
 

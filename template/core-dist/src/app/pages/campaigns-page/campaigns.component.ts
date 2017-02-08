@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl} from "@angular/forms";
 import {CampaignsService} from "../../shared/services/campaigns.service";
 import {Campaign} from '../../shared/models/campaign.model';
 import {Router, ActivatedRoute} from '@angular/router';
@@ -10,7 +9,7 @@ import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
   templateUrl: './campaigns.component.html',
   styleUrls: ['./campaigns.component.scss']
 })
-export class CampaignsComponent extends AbstractEntityIndexComponent implements OnInit {
+export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> implements OnInit {
   private campaigns: Campaign[] = [];
 
   constructor(private campaignService: CampaignsService, router: Router, route: ActivatedRoute) {

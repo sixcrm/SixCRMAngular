@@ -24,7 +24,7 @@
     <td>{{transaction.processorResponse.message}}</td>
     <td>
       <md-icon class="entity-index__table__body__action" (click)="viewEntity(transaction.id)">visibility</md-icon>
-      <md-icon class="entity-index__table__body__action" (click)="editEntity(transaction)">mode_edit</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="updateEntity(transaction.id)">mode_edit</md-icon>
       <md-icon class="entity-index__table__body__action" (click)="deleteEntity(transaction.id)">delete</md-icon>
     </td>
   </tr>

@@ -9,7 +9,7 @@ import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
   templateUrl: './fulfillment-providers.component.html',
   styleUrls: ['./fulfillment-providers.component.scss']
 })
-export class FulfillmentProvidersComponent extends AbstractEntityIndexComponent implements OnInit {
+export class FulfillmentProvidersComponent extends AbstractEntityIndexComponent<FulfillmentProvider> implements OnInit {
   private fulfillmentProviders: FulfillmentProvider[] = [];
 
   constructor(private fulfillmentProvidersService: FulfillmentProvidersService, router: Router, route: ActivatedRoute) {

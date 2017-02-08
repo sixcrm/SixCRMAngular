@@ -9,7 +9,7 @@ import {AccessKey} from '../../shared/models/access-key.model';
   templateUrl: './access-keys.component.html',
   styleUrls: ['./access-keys.component.scss']
 })
-export class AccessKeysComponent extends AbstractEntityIndexComponent implements OnInit {
+export class AccessKeysComponent extends AbstractEntityIndexComponent<AccessKey> implements OnInit {
 
   private accessKeys: AccessKey[];
 

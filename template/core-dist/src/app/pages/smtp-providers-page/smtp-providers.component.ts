@@ -9,7 +9,7 @@ import {SmtpProvider} from '../../shared/models/smtp-provider.model';
   templateUrl: './smtp-providers.component.html',
   styleUrls: ['./smtp-providers.component.scss']
 })
-export class SmtpProvidersComponent extends AbstractEntityIndexComponent implements OnInit {
+export class SmtpProvidersComponent extends AbstractEntityIndexComponent<SmtpProvider> implements OnInit {
 
   private smtpProviders: SmtpProvider[] = [];
 
@@ -19,6 +19,7 @@ export class SmtpProvidersComponent extends AbstractEntityIndexComponent impleme
 
   ngOnInit() {
     this.smtpProvidersService.entities$.subscribe((data) => this.smtpProviders = data);
+    this.smtpProvidersService.entityDeleted$.subscribe((data) => this.smtpProvidersService.getEntities());
     this.smtpProvidersService.getEntities();
   }
 

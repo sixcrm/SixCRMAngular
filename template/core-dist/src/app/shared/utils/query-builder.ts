@@ -1,3 +1,4 @@
+import {SmtpProvider} from '../models/smtp-provider.model';
 function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
 }
@@ -298,6 +299,26 @@ export function smtpProviderQuery(id: string): string {
 
 export function deleteSmptProviderMutation(id: string): string {
   return deleteMutation('smtpprovider', id);
+}
+
+export function createSmptProviderMutation(smtpProvider: SmtpProvider): string {
+  return `
+    mutation {
+		  createsmtpprovider (
+		    smtpprovider: { id: "${smtpProvider.id}", name: "${smtpProvider.name}", hostname: "${smtpProvider.hostname}", ip_address: "${smtpProvider.ipAddress}", username: "${smtpProvider.username}", password: "${smtpProvider.password}", port: "${smtpProvider.port}"}) {
+			    id name hostname ip_address username password port
+			}
+	}`
+}
+
+export function updateSmptProviderMutation(smtpProvider: SmtpProvider): string {
+  return `
+    mutation {
+		  updatesmtpprovider (
+		    smtpprovider: { id: "${smtpProvider.id}", name: "${smtpProvider.name}", hostname: "${smtpProvider.hostname}", ip_address: "${smtpProvider.ipAddress}", username: "${smtpProvider.username}", password: "${smtpProvider.password}", port: "${smtpProvider.port}"}) {
+			    id name hostname ip_address username password port
+			}
+	}`
 }
 
 export function emailsListQuery(): string {

@@ -22,7 +22,7 @@
     <td>{{user.active}}</td>
     <td>
       <md-icon class="entity-index__table__body__action" (click)="viewEntity(user.id)">visibility</md-icon>
-      <md-icon class="entity-index__table__body__action" (click)="editEntity(user)">mode_edit</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="updateEntity(user.id)">mode_edit</md-icon>
       <md-icon class="entity-index__table__body__action" (click)="deleteEntity(user.id)">delete</md-icon>
     </td>
   </tr>

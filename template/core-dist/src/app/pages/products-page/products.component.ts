@@ -9,7 +9,7 @@ import {Router, ActivatedRoute} from '@angular/router';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent extends AbstractEntityIndexComponent implements OnInit {
+export class ProductsComponent extends AbstractEntityIndexComponent<Product> implements OnInit {
 
   private products: Product[] = [];
 

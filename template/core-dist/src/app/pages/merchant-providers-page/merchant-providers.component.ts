@@ -9,7 +9,7 @@ import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
   templateUrl: './merchant-providers.component.html',
   styleUrls: ['./merchant-providers.component.scss']
 })
-export class MerchantProvidersComponent extends AbstractEntityIndexComponent implements OnInit {
+export class MerchantProvidersComponent extends AbstractEntityIndexComponent<MerchantProvider> implements OnInit {
 
   private merchantProviders: MerchantProvider[] = [];
 

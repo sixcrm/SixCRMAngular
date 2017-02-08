@@ -7,7 +7,9 @@ export abstract class AbstractEntityService<T> {
 
   entities$: Subject<T[]>;
   entity$: Subject<T>;
-  entityDeleted$: Subject<string>;
+  entityDeleted$: Subject<T>;
+  entityCreated$: Subject<T>;
+  entityUpdated$: Subject<T>;
 
   constructor(
     private http: Http,
@@ -15,11 +17,15 @@ export abstract class AbstractEntityService<T> {
     private toEntity?: (data: any) => T,
     private indexQuery?: () => string,
     private viewQuery?: (id: string) => string,
-    private deleteQuery?: (id: string) => string
+    private deleteQuery?: (id: string) => string,
+    private createQuery?: (entity: T) => string,
+    private updateQuery?: (entity: T) => string,
   ) {
     this.entities$ = new Subject<T[]>();
     this.entity$ = new Subject<T>();
-    this.entityDeleted$ = new Subject<string>();
+    this.entityDeleted$ = new Subject<T>();
+    this.entityCreated$ = new Subject<T>();
+    this.entityUpdated$ = new Subject<T>();
   };
 
   getEntities() {
@@ -57,14 +63,38 @@ export abstract class AbstractEntityService<T> {
   deleteEntity(id: string): void {
     this.queryRequest(this.deleteQuery(id)).subscribe(
       (data) => {
-        this.getEntities();
+        let json = data.json().data;
+        let entityKey = Object.keys(json)[0];
+        let entityData =json[entityKey];
+
+        this.entityDeleted$.next(this.toEntity(entityData));
       },
       (error) => console.error(error)
     );
   }
 
-  public editEntity(entity: any): void {
+  createEntity(entity: T): void {
+    this.queryRequest(this.createQuery(entity)).subscribe(
+      (data) => {
+        let json = data.json().data;
+        let entityKey = Object.keys(json)[0];
+        let entityData =json[entityKey];
 
+        this.entityCreated$.next(this.toEntity(entityData));
+      }
+    );
+  }
+
+  updateEntity(entity: T): void {
+    this.queryRequest(this.updateQuery(entity)).subscribe(
+      (data) => {
+        let json = data.json().data;
+        let entityKey = Object.keys(json)[0];
+        let entityData =json[entityKey];
+
+        this.entityUpdated$.next(this.toEntity(entityData));
+      }
+    );
   }
 
   protected queryRequest(query: string): Observable<Response> {

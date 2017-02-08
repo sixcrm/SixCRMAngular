@@ -24,7 +24,7 @@
     <td>{{session.campaign.name}}</td>
     <td>
       <md-icon class="entity-index__table__body__action" (click)="viewEntity(session.id)">visibility</md-icon>
-      <md-icon class="entity-index__table__body__action" (click)="editEntity(session)">mode_edit</md-icon>
+      <md-icon class="entity-index__table__body__action" (click)="updateEntity(session.id)">mode_edit</md-icon>
       <md-icon class="entity-index__table__body__action" (click)="deleteEntity(session.id)">delete</md-icon>
     </td>
   </tr>

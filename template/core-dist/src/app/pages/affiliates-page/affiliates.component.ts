@@ -9,7 +9,7 @@ import {Affiliate} from '../../shared/models/affiliate.model';
   templateUrl: './affiliates.component.html',
   styleUrls: ['./affiliates.component.scss']
 })
-export class AffiliatesComponent extends AbstractEntityIndexComponent implements OnInit {
+export class AffiliatesComponent extends AbstractEntityIndexComponent<Affiliate> implements OnInit {
   private affiliates: Affiliate[];
 
   constructor(private affiliatesService: AffiliatesService, router: Router, route: ActivatedRoute) {

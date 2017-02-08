@@ -9,7 +9,7 @@ import {Session} from '../../shared/models/session.model';
   templateUrl: './sessions.component.html',
   styleUrls: ['./sessions.component.scss']
 })
-export class SessionsComponent extends AbstractEntityIndexComponent implements OnInit {
+export class SessionsComponent extends AbstractEntityIndexComponent<Session> implements OnInit {
 
   private sessions: Session[] = [];
 

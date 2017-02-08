@@ -9,7 +9,7 @@ import {CreditCard} from '../../shared/models/credit-card.model';
   templateUrl: './credit-cards.component.html',
   styleUrls: ['./credit-cards.component.scss']
 })
-export class CreditCardsComponent extends AbstractEntityIndexComponent implements OnInit {
+export class CreditCardsComponent extends AbstractEntityIndexComponent<CreditCard> implements OnInit {
 
   private creditCards: CreditCard[] = [];
 

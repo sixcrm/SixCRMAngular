@@ -9,7 +9,7 @@ import {EmailsService} from '../../shared/services/emails.service';
   templateUrl: './emails.component.html',
   styleUrls: ['./emails.component.scss']
 })
-export class EmailsComponent extends AbstractEntityIndexComponent implements OnInit {
+export class EmailsComponent extends AbstractEntityIndexComponent<Email> implements OnInit {
 
   private emails: Email[];
 
