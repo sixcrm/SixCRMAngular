@@ -19,6 +19,7 @@ export class LoadBalancersComponent extends AbstractEntityIndexComponent<LoadBal
 
   ngOnInit() {
     this.loadBalancersService.entities$.subscribe((data) => this.loadBalancers = data );
+    this.loadBalancersService.entityDeleted$.subscribe(() => this.loadBalancersService.getEntities() );
     this.loadBalancersService.getEntities();
   }
 

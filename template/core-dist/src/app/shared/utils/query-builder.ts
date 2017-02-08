@@ -1,5 +1,7 @@
 import {SmtpProvider} from '../models/smtp-provider.model';
 import {MerchantProvider} from '../models/merchant-provider.model';
+import {LoadBalancer} from '../models/load-balancers.model';
+import {MerchantProviderConfiguration} from '../models/merchant-provider-configuration.model';
 function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
 }
@@ -170,6 +172,44 @@ export function loadBalancerQuery(id: string): string {
 					distribution
 				}
 			} }`
+}
+
+export function createLoadBalancerMutation(loadBalancer: LoadBalancer): string {
+  let providers: string = '';
+  for (let index in loadBalancer.merchantProviderConfigurations) {
+    let config = loadBalancer.merchantProviderConfigurations[index];
+    providers += `{id: "${config.merchantProvider.id}", distribution: "${config.distribution}"} `;
+  }
+
+  return `
+    mutation {
+		createloadbalancer ( loadbalancer: {id: "${loadBalancer.id}", merchantproviders: [${providers}] } ) {
+			id
+			merchantproviderconfigurations {
+				merchantprovider { id name username password endpoint processor }
+				distribution
+			}
+		}
+	}`
+}
+
+export function updateLoadBalancerMutation(loadBalancer: LoadBalancer): string {
+  let providers: string = '';
+  for (let index in loadBalancer.merchantProviderConfigurations) {
+    let config = loadBalancer.merchantProviderConfigurations[index];
+    providers += `{id: "${config.merchantProvider.id}", distribution: "${config.distribution}"} `;
+  }
+
+  return `
+    mutation {
+		updateloadbalancer ( loadbalancer: {id: "${loadBalancer.id}", merchantproviders: [${providers}] } ) {
+			id
+			merchantproviderconfigurations {
+				merchantprovider { id name username password endpoint processor }
+				distribution
+			}
+		}
+	}`
 }
 
 export function deleteLoadBalancerMutation(id: string): string {

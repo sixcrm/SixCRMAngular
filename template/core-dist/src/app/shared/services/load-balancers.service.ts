@@ -3,7 +3,10 @@ import {AbstractEntityService} from './abstract-entity.service';
 import {Http} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {LoadBalancer} from '../models/load-balancers.model';
-import {loadBalancersInfoListQuery, loadBalancerQuery, deleteLoadBalancerMutation} from '../utils/query-builder';
+import {
+  loadBalancersInfoListQuery, loadBalancerQuery, deleteLoadBalancerMutation,
+  createLoadBalancerMutation, updateLoadBalancerMutation
+} from '../utils/query-builder';
 
 @Injectable()
 export class LoadBalancersService extends AbstractEntityService<LoadBalancer> {
@@ -15,7 +18,9 @@ export class LoadBalancersService extends AbstractEntityService<LoadBalancer> {
       data => new LoadBalancer(data),
       loadBalancersInfoListQuery,
       loadBalancerQuery,
-      deleteLoadBalancerMutation
+      deleteLoadBalancerMutation,
+      createLoadBalancerMutation,
+      updateLoadBalancerMutation
     );
   }
 }

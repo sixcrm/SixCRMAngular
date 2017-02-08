@@ -18,4 +18,20 @@ export class LoadBalancer {
     }
 
   }
+
+  copy(): LoadBalancer {
+    return new LoadBalancer(this.inverse());
+  }
+
+  inverse(): any {
+    let configs = [];
+    for (let index in this.merchantProviderConfigurations) {
+      configs.push(this.merchantProviderConfigurations[index].inverse());
+    }
+
+    return {
+      id: this.id,
+      merchantproviderconfigurations: configs
+    }
+  }
 }

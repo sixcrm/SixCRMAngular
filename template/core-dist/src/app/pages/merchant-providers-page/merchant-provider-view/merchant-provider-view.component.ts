@@ -24,7 +24,7 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
         this.merchantProvider = entity;
 
         if (this.updateMode) {
-          this.merchantProviderBackup = Object.assign({}, this.merchantProvider);
+          this.merchantProviderBackup = this.merchantProvider.copy();
         }
       });
 
@@ -56,6 +56,6 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
   }
 
   private cancelUpdate(): void {
-    this.merchantProvider = Object.assign({}, this.merchantProviderBackup);
+    this.merchantProvider = this.merchantProviderBackup.copy();
   }
 }

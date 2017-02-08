@@ -74,6 +74,7 @@ export abstract class AbstractEntityService<T> {
   }
 
   createEntity(entity: T): void {
+    console.log(entity);
     this.queryRequest(this.createQuery(entity)).subscribe(
       (data) => {
         let json = data.json().data;

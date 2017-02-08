@@ -12,4 +12,15 @@ export class MerchantProviderConfiguration {
     this.distribution = obj.distribution || '';
     this.merchantProvider = new MerchantProvider(obj.merchantprovider);
   }
+
+  copy(): MerchantProviderConfiguration {
+    return new MerchantProviderConfiguration(this.inverse());
+  }
+
+  inverse(): any {
+    return {
+      distribution: this.distribution,
+      merchantprovider: this.merchantProvider.inverse()
+    }
+  }
 }

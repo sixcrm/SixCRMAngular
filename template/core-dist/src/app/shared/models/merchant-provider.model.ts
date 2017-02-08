@@ -18,4 +18,19 @@ export class MerchantProvider {
     this.endpoint = obj.endpoint || '';
     this.processor = obj.processor || '';
   }
+
+  copy(): MerchantProvider {
+    return new MerchantProvider(this.inverse());
+  }
+
+  inverse(): any {
+    return {
+      id: this.id,
+      name: this.name,
+      username: this.username,
+      password: this.password,
+      endpoint: this.endpoint,
+      processor: this.processor
+    }
+  }
 }
