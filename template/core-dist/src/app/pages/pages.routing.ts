@@ -34,34 +34,63 @@ export const pagesRouting = RouterModule.forChild([
   {
     path : '', component : DefaultLayoutComponent, children : [
       { path : '', redirectTo : 'campaigns', pathMatch: 'full' },
+
       { path : 'campaigns', component : CampaignsComponent },
-      { path : 'campaigns/:id', component : CampaignViewComponent },
+      { path : 'campaigns/:type', component : CampaignViewComponent },
+      { path : 'campaigns/:type/:id', component : CampaignViewComponent },
+
       { path : 'products', component : ProductsComponent },
-      { path : 'products/:id', component : ProductViewComponent },
+      { path : 'products/:type', component : ProductViewComponent },
+      { path : 'products/:type/:id', component : ProductViewComponent },
+
       { path : 'merchantProviders', component : MerchantProvidersComponent },
-      { path : 'merchantProviders/:id', component : MerchantProviderViewComponent },
+      { path : 'merchantProviders/:type', component : MerchantProviderViewComponent },
+      { path : 'merchantProviders/:type/:id', component : MerchantProviderViewComponent },
+
       { path : 'fulfillmentProviders', component : FulfillmentProvidersComponent },
-      { path : 'fulfillmentProviders/:id', component : FulfillmentProviderViewComponent },
+      { path : 'fulfillmentProviders/:type', component : FulfillmentProviderViewComponent },
+      { path : 'fulfillmentProviders/:type/:id', component : FulfillmentProviderViewComponent },
+
       { path : 'affiliates', component : AffiliatesComponent },
-      { path : 'affiliates/:id', component : AffiliatesViewComponent },
+      { path : 'affiliates/:type', component : AffiliatesViewComponent },
+      { path : 'affiliates/:type/:id', component : AffiliatesViewComponent },
+
       { path : 'customers', component : CustomersComponent },
-      { path : 'customers/:id', component : CustomerViewComponent },
+      { path : 'customers/:type', component : CustomerViewComponent },
+      { path : 'customers/:type/:id', component : CustomerViewComponent },
+
       { path : 'sessions', component : SessionsComponent },
-      { path : 'sessions/:id', component : SessionViewComponent },
+      { path : 'sessions/:type', component : SessionViewComponent },
+      { path : 'sessions/:type/:id', component : SessionViewComponent },
+
       { path : 'loadBalancers', component : LoadBalancersComponent },
-      { path : 'loadBalancers/:id', component : LoadBalancerViewComponent },
+      { path : 'loadBalancers/:type', component : LoadBalancerViewComponent },
+      { path : 'loadBalancers/:type/:id', component : LoadBalancerViewComponent },
+
       { path : 'transactions', component : TransactionsComponent },
-      { path : 'transactions/:id', component : TransactionViewComponent },
+      { path : 'transactions/:type', component : TransactionViewComponent },
+      { path : 'transactions/:type/:id', component : TransactionViewComponent },
+
       { path : 'creditCards', component : CreditCardsComponent },
-      { path : 'creditCards/:id', component : CreditCardViewComponent },
+      { path : 'creditCards/:type', component : CreditCardViewComponent },
+      { path : 'creditCards/:type/:id', component : CreditCardViewComponent },
+
       { path : 'users', component : UsersComponent },
-      { path : 'users/:id', component : UserViewComponent },
+      { path : 'users/:type', component : UserViewComponent },
+      { path : 'users/:type/:id', component : UserViewComponent },
+
       { path : 'smtpProviders', component : SmtpProvidersComponent },
-      { path : 'smtpProviders/:id', component : SmtpProviderViewComponent },
+      { path : 'smtpProviders/:type', component : SmtpProviderViewComponent },
+      { path : 'smtpProviders/:type/:id', component : SmtpProviderViewComponent },
+
       { path : 'emails', component : EmailsComponent },
       { path : 'emails/:id', component : EmailViewComponent },
+      { path : 'emails/:type/:id', component : EmailViewComponent },
+
       { path : 'accessKeys', component : AccessKeysComponent },
-      { path : 'accessKeys/:id', component : AccessKeyViewComponent },
+      { path : 'accessKeys/:type', component : AccessKeyViewComponent },
+      { path : 'accessKeys/:type/:id', component : AccessKeyViewComponent },
+
       { path : 'profile', component : ProfilePageComponent },
     ]
   }
