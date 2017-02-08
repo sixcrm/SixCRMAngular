@@ -31,6 +31,10 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
   ngOnInit(): void {
     this.entityViewSubscription = this.loadBalancersService.entity$.subscribe((entity: LoadBalancer) => {
         this.loadBalancer = entity;
+
+        if (this.updateMode) {
+          this.loadBalancerBackup = this.loadBalancer.copy();
+        }
       });
 
     this.entityCreatedSubscription = this.loadBalancersService.entityCreated$.subscribe((entity: LoadBalancer) => {
@@ -49,10 +53,6 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
 
     if (this.addMode) {
       this.loadBalancer = new LoadBalancer();
-    }
-
-    if (this.updateMode) {
-      this.loadBalancerBackup = this.loadBalancer.copy();
     }
 
     if (!this.viewMode) {
