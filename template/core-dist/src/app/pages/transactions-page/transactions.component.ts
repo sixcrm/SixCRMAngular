@@ -3,6 +3,7 @@ import {TransactionsService} from "../../shared/services/transactions.service";
 import {ActivatedRoute, Router} from '@angular/router';
 import {Transaction} from '../../shared/models/transaction.model';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
+import {MdDialog} from '@angular/material';
 
 @Component({
   selector: 'transactions',
@@ -13,8 +14,8 @@ export class TransactionsComponent extends AbstractEntityIndexComponent<Transact
 
   private transactions: Transaction[] = [];
 
-  constructor(private transactionsService: TransactionsService, router: Router, route: ActivatedRoute) {
-    super(transactionsService, router, route);
+  constructor(private transactionsService: TransactionsService, router: Router, route: ActivatedRoute, dialog: MdDialog) {
+    super(transactionsService, router, route, dialog);
   }
 
   ngOnInit() {

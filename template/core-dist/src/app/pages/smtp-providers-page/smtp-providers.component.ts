@@ -3,6 +3,7 @@ import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {SmtpProvidersService} from '../../shared/services/smtp-providers.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {SmtpProvider} from '../../shared/models/smtp-provider.model';
+import {MdDialog} from '@angular/material';
 
 @Component({
   selector: 'c-smtp-providers',
@@ -13,8 +14,8 @@ export class SmtpProvidersComponent extends AbstractEntityIndexComponent<SmtpPro
 
   private smtpProviders: SmtpProvider[] = [];
 
-  constructor(private smtpProvidersService: SmtpProvidersService, router: Router, route: ActivatedRoute) {
-    super(smtpProvidersService, router, route);
+  constructor(private smtpProvidersService: SmtpProvidersService, router: Router, route: ActivatedRoute, dialog: MdDialog) {
+    super(smtpProvidersService, router, route, dialog);
   }
 
   ngOnInit() {

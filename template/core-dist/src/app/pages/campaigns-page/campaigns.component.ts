@@ -3,6 +3,7 @@ import {CampaignsService} from "../../shared/services/campaigns.service";
 import {Campaign} from '../../shared/models/campaign.model';
 import {Router, ActivatedRoute} from '@angular/router';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
+import {MdDialog} from '@angular/material';
 
 @Component({
   selector: 'campaigns',
@@ -12,8 +13,8 @@ import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> implements OnInit {
   private campaigns: Campaign[] = [];
 
-  constructor(private campaignService: CampaignsService, router: Router, route: ActivatedRoute) {
-    super(campaignService, router, route);
+  constructor(private campaignService: CampaignsService, router: Router, route: ActivatedRoute, dialog: MdDialog) {
+    super(campaignService, router, route, dialog);
   }
 
   ngOnInit() {

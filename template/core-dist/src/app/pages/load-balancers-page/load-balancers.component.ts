@@ -3,6 +3,7 @@ import {LoadBalancersService} from "../../shared/services/load-balancers.service
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {LoadBalancer} from '../../shared/models/load-balancers.model';
 import {Router, ActivatedRoute} from '@angular/router';
+import {MdDialog} from '@angular/material';
 
 @Component({
   selector: 'load-balancers',
@@ -13,8 +14,8 @@ export class LoadBalancersComponent extends AbstractEntityIndexComponent<LoadBal
 
   private loadBalancers: LoadBalancer[] = [];
 
-  constructor(private loadBalancersService: LoadBalancersService, router: Router, route: ActivatedRoute) {
-    super(loadBalancersService, router, route);
+  constructor(private loadBalancersService: LoadBalancersService, router: Router, route: ActivatedRoute, dialog: MdDialog) {
+    super(loadBalancersService, router, route, dialog);
   }
 
   ngOnInit() {

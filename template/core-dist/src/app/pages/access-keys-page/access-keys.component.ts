@@ -3,6 +3,7 @@ import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {AccessKeysService} from '../../shared/services/access-keys.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {AccessKey} from '../../shared/models/access-key.model';
+import {MdDialog} from '@angular/material';
 
 @Component({
   selector: 'c-access-keys',
@@ -13,8 +14,8 @@ export class AccessKeysComponent extends AbstractEntityIndexComponent<AccessKey>
 
   private accessKeys: AccessKey[];
 
-  constructor(private accessKeysService: AccessKeysService, router: Router, route: ActivatedRoute) {
-    super(accessKeysService, router, route);
+  constructor(private accessKeysService: AccessKeysService, router: Router, route: ActivatedRoute, dialog: MdDialog) {
+    super(accessKeysService, router, route, dialog);
   }
 
   ngOnInit() {

@@ -1,12 +1,10 @@
 export class ProcessorResponse {
-  message: string;
+  message: string = '';
 
   constructor(obj?: any) {
-    if (!obj) {
-      obj = {};
+    if (obj) {
+      obj = JSON.parse(obj);
+      this.message = obj.message || '';
     }
-
-    obj = JSON.parse(obj);
-    this.message = obj.message || '';
   }
 }

@@ -17,10 +17,11 @@ import {MdSnackBar} from '../../node_modules/@angular/material/snack-bar/snack-b
 import {CompletedDialogComponent} from './examples/wizard/completed-dialog/completed-dialog.component';
 import {AuthenticationModule} from "./authentication/authentication.module";
 import {PagesModule} from "./pages/pages.module";
+import {DeleteDialogComponent} from './pages/delete-dialog.component';
 
 @NgModule({
   declarations : [
-    AppComponent, SampleDialogComponent, SampleMenuDialogComponent, CompletedDialogComponent
+    AppComponent, SampleDialogComponent, SampleMenuDialogComponent, CompletedDialogComponent, DeleteDialogComponent
   ],
   imports : [
     SharedModule.forRoot(),
@@ -38,7 +39,7 @@ import {PagesModule} from "./pages/pages.module";
     MaterialModule.forRoot()
   ],
   providers : [BaseService, GithubService, MdSnackBar],
-  entryComponents : [AppComponent, SampleDialogComponent, SampleMenuDialogComponent, CompletedDialogComponent],
+  entryComponents : [AppComponent, SampleDialogComponent, SampleMenuDialogComponent, CompletedDialogComponent, DeleteDialogComponent],
   bootstrap : [AppComponent]
 })
 export class AppModule {

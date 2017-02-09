@@ -3,6 +3,7 @@ import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Email} from '../../shared/models/email.model';
 import {EmailsService} from '../../shared/services/emails.service';
+import {MdDialog} from '@angular/material';
 
 @Component({
   selector: 'c-emails',
@@ -13,8 +14,8 @@ export class EmailsComponent extends AbstractEntityIndexComponent<Email> impleme
 
   private emails: Email[];
 
-  constructor(private emailsService: EmailsService, router: Router, route: ActivatedRoute) {
-    super(emailsService, router, route);
+  constructor(private emailsService: EmailsService, router: Router, route: ActivatedRoute, dialog: MdDialog) {
+    super(emailsService, router, route, dialog);
   }
 
   ngOnInit() {

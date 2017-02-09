@@ -3,6 +3,7 @@ import {ProductsService} from "../../shared/services/products.service";
 import {Product} from "../../shared/models/product.model";
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {Router, ActivatedRoute} from '@angular/router';
+import {MdDialog} from '@angular/material';
 
 @Component({
   selector: 'products',
@@ -13,8 +14,8 @@ export class ProductsComponent extends AbstractEntityIndexComponent<Product> imp
 
   private products: Product[] = [];
 
-  constructor(private productsService: ProductsService, router: Router, route: ActivatedRoute) {
-    super(productsService, router, route);
+  constructor(private productsService: ProductsService, router: Router, route: ActivatedRoute, dialog: MdDialog) {
+    super(productsService, router, route, dialog);
   }
 
   ngOnInit() {

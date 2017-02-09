@@ -3,6 +3,7 @@ import {SessionsService} from "../../shared/services/sessions.service";
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Session} from '../../shared/models/session.model';
+import {MdDialog} from '@angular/material';
 
 @Component({
   selector: 'sessions',
@@ -13,8 +14,8 @@ export class SessionsComponent extends AbstractEntityIndexComponent<Session> imp
 
   private sessions: Session[] = [];
 
-  constructor(private sessionsService: SessionsService, router: Router, route: ActivatedRoute) {
-    super(sessionsService, router, route);
+  constructor(private sessionsService: SessionsService, router: Router, route: ActivatedRoute, dialog: MdDialog) {
+    super(sessionsService, router, route, dialog);
   }
 
   ngOnInit() {

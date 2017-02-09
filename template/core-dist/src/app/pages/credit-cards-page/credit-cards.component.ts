@@ -3,6 +3,7 @@ import {CreditCardsService} from '../../shared/services/credit-cards.service';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {Router, ActivatedRoute} from '@angular/router';
 import {CreditCard} from '../../shared/models/credit-card.model';
+import {MdDialog} from '@angular/material';
 
 @Component({
   selector: 'c-credit-cards',
@@ -13,8 +14,8 @@ export class CreditCardsComponent extends AbstractEntityIndexComponent<CreditCar
 
   private creditCards: CreditCard[] = [];
 
-  constructor(private creditCardsService: CreditCardsService, router: Router, route: ActivatedRoute) {
-    super(creditCardsService, router, route);
+  constructor(private creditCardsService: CreditCardsService, router: Router, route: ActivatedRoute, dialog: MdDialog) {
+    super(creditCardsService, router, route, dialog);
   }
 
   ngOnInit() {
