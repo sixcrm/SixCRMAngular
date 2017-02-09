@@ -1,4 +1,6 @@
-$sidenav-width: 225px;
+@import "mixins";
+
+$sidenav-width: 250px;
 $topnav-height: 64px;
 
 main > .container {
@@ -45,20 +47,15 @@ md-sidenav-layout {
 md-nav-list.side-navigation {
   padding-top: 0;
 
-  > * > a[md-list-item] > .md-list-item {
-    font-size: 15px !important;
-  }
-
   a[md-list-item] {
     position: relative;
   }
 
   a[md-list-item] > .md-list-item {
+    @include font-body();
     color: white;
     -webkit-font-smoothing: antialiased;
-    font-weight: 500;
     line-height: 40px;
-    font-size: 14px;
     letter-spacing: .14px;
 
     > i.material-icons:last-child {

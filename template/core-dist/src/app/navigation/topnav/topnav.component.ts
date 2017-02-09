@@ -142,7 +142,7 @@ export class TopnavComponent implements OnInit {
   }
 
   private hideDropdown(event): void {
-    if (!event.target.attributes.class || event.target.attributes.class.value !== 'topnav__dropdown__image') {
+    if (!event.target.attributes.class || event.target.attributes.class.value !== 'topnav__dropdown__trigger') {
       this.showDropdown = false;
     }
   }

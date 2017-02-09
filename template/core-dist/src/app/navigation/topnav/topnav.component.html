@@ -5,11 +5,14 @@
   </button>
 
   <span class="app-flex-filler"></span>
-  <img (click)="toggleDropdownMenu()" class="topnav__dropdown__image" [src]="_userProfile.picture">
+  <span (click)="toggleDropdownMenu()" class="topnav__dropdown__trigger">{{_userProfile.name}}</span>
 
   <div *ngIf="showDropdown" class="topnav__dropdown__menu">
-    <button md-menu-item [routerLink]="['profile']"> User profile </button>
-    <button md-menu-item (click)="logout()"> Sign Out </button>
+    <button md-menu-item class="topnav__dropdown__menu__profile" [routerLink]="['profile']">
+      <img class="topnav__dropdown__menu__profile__image" [src]="_userProfile.picture">
+      <span>{{_userProfile.email}}</span>
+    </button>
+    <button md-menu-item (click)="logout()"> <span>sign out</span> </button>
   </div>
 
   <md-menu #menu="mdMenu"></md-menu>

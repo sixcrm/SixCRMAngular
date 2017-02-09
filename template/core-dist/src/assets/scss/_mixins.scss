@@ -25,3 +25,35 @@
 @mixin no-transition {
   @include transition(none);
 }
+
+@mixin font-headline {
+  font-size: 24pt;
+  font-weight: 400;
+}
+
+@mixin font-title {
+  font-size: 20pt;
+  font-weight: 500;
+}
+
+
+@mixin font-subheader {
+  font-size: 16pt;
+  font-weight: 400;
+}
+
+
+@mixin font-menu {
+  font-size: 14pt;
+  font-weight: 500;
+}
+
+@mixin font-body {
+  font-size: 14pt;
+  font-weight: 400;
+}
+
+@mixin font-caption {
+  font-size: 12pt;
+  font-weight: 400;
+}
