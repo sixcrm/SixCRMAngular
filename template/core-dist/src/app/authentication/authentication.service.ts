@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
-import { myConfigN } from './auth.config';
-import {Subject, BehaviorSubject} from "rxjs";
+import { BehaviorSubject} from "rxjs";
+import {environment} from '../../environments/environment';
 
 declare var Auth0Lock: any;
 
@@ -14,21 +14,23 @@ interface AuthResult {
 @Injectable()
 export class AuthenticationService {
 
-  private lock = new Auth0Lock(
-    myConfigN.clientID,
-    myConfigN.domain,
-    {
-      theme: { logo: '/assets/favicons/favicon-icon.png'},
-      languageDictionary: {
-        title: 'SixCRM'
-      }
-    });
+  private lock: any;
   private accessToken: string = 'access_token';
   private idToken: string = 'id_token';
 
   public profileData$: BehaviorSubject<any> = new BehaviorSubject<any>({});
 
   constructor(private router: Router) {
+    this.lock = new Auth0Lock(
+      environment.clientID,
+      environment.domain,
+      {
+        theme: { logo: '/assets/favicons/favicon-icon.png'},
+        languageDictionary: {
+          title: 'SixCRM'
+        }
+      });
+
     this.lock.on('authenticated', (authResult: AuthResult) => {
       this.setUser(authResult);
       this.router.navigate(['/dashboard']);

@@ -3,8 +3,10 @@
   "version": "1.2.0",
   "angular-cli": {},
   "scripts": {
-    "start": "ng serve -H 0.0.0.0",
-    "build.dev": "ng build --dev",
+    "start.dev": "ng serve -H 0.0.0.0 -environment=dev",
+    "start.prod": "ng serve -H 0.0.0.0 -environment=prod",
+    "build.dev": "ng build -environment=dev",
+    "build.prod": "ng build -environment=prod",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
     "pree2e": "webdriver-manager update",
