@@ -13,9 +13,6 @@ export class Transaction {
     this.date = obj.date || '';
     this.amount = obj.amount || '';
     this.processorResponse = new ProcessorResponse(obj.processor_response);
-
-    if (obj.rebill) {
-      this.rebill = new Rebill(obj.rebill);
-    }
+    this.rebill = new Rebill(obj.rebill);
   }
 }

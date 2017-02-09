@@ -5,7 +5,7 @@
     <md-input disabled placeholder="Amount" value="{{transaction.amount}}"></md-input>
     <md-input disabled placeholder="Processor Response Message" value="{{transaction.processorResponse.message}}"></md-input>
 
-    <div class="content__block__first">
+    <div class="content__block__first" *ngIf="transaction.rebill.id">
       <md-card-subtitle>Rebill</md-card-subtitle>
       <md-input disabled placeholder="Bill Date" value="{{transaction.rebill.billDate}}"></md-input>
       <md-input disabled placeholder="Amount" value="{{transaction.rebill.amount}}"></md-input>
