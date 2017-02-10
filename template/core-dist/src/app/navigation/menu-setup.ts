@@ -36,6 +36,7 @@ export const menuItemSetup: MenuItem[] = [
 
   new MenuItem('CRM', null, [
     new MenuItem('Products', 'products'),
+    new MenuItem('Product Schedules', 'productSchedule'),
     new MenuItem('Campaigns', null, [
       new MenuItem('Campaigns', 'campaigns'),
       new MenuItem('Emails', 'emails'),

@@ -1,0 +1,15 @@
+<md-card *ngIf="productSchedule">
+  <md-card-title>Product Schedule {{mode}}</md-card-title>
+  <md-card-content>
+    <ng-container *ngFor="let schedule of productSchedule.schedules">
+      <div>
+        <md-input disabled placeholder="Product Name" value="{{schedule.product.name}}"></md-input>
+        <md-input disabled placeholder="Start" value="{{schedule.start}}"></md-input>
+        <md-input disabled placeholder="Period" value="{{schedule.period}}"></md-input>
+        <span>Days</span>
+        <md-input disabled placeholder="Price" value="{{schedule.price}}"></md-input>
+        <md-input disabled placeholder="End" value="{{schedule.end}}"></md-input>
+      </div>
+    </ng-container>
+  </md-card-content>
+</md-card>

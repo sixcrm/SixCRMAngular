@@ -34,6 +34,34 @@ export function editProductMutation(id: string, name: string, sku: string): stri
   return `mutation { updateproduct (product: { id: "${id}", name: "${name}", sku: "${sku}" }) {id name sku} }`;
 }
 
+export function  productScheduleListQuery(): string {
+  return `{
+    productschedulelist {
+			productschedules { id
+			  schedule { price start end period
+			    product { id name sku ship shipping_delay
+			      fulfillment_provider { id name provider username password endpoint }
+					}
+				}
+			}
+		}}`;
+}
+
+export function productScheduleQuery(id: string): string {
+  return `{
+    productschedule (id: "${id}") { id
+			  schedule { price start end period
+			    product { id name sku ship shipping_delay
+			      fulfillment_provider { id name provider username password endpoint }
+					}
+				}
+		} }`
+}
+
+export function deleteProductScheduleMutation(id: string): string {
+  return deleteMutation('productschedule', id);
+}
+
 export function campaignQuery(id: string): string {
   return `{
     campaign (id: "${id}") { id name

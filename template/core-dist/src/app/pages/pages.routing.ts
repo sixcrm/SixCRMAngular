@@ -29,6 +29,8 @@ import {EmailsComponent} from './emails-page/emails.component';
 import {EmailViewComponent} from './emails-page/email-view/email-view.component';
 import {AccessKeysComponent} from './access-keys-page/access-keys.component';
 import {AccessKeyViewComponent} from './access-keys-page/access-key-view/access-key-view.component';
+import {ProductScheduleComponent} from './product-schedule-page/product-schedule.component';
+import {ProductScheduleViewComponent} from './product-schedule-page/product-schedule-view/product-schedule-view.component';
 
 export const pagesRouting = RouterModule.forChild([
   {
@@ -42,6 +44,10 @@ export const pagesRouting = RouterModule.forChild([
       { path : 'products', component : ProductsComponent },
       { path : 'products/:type', component : ProductViewComponent },
       { path : 'products/:type/:id', component : ProductViewComponent },
+
+      { path : 'productSchedule', component : ProductScheduleComponent },
+      { path : 'productSchedule/:type', component : ProductScheduleViewComponent },
+      { path : 'productSchedule/:type/:id', component : ProductScheduleViewComponent },
 
       { path : 'merchantProviders', component : MerchantProvidersComponent },
       { path : 'merchantProviders/:type', component : MerchantProviderViewComponent },

@@ -34,6 +34,8 @@ import { EmailsComponent } from './emails-page/emails.component';
 import { EmailViewComponent } from './emails-page/email-view/email-view.component';
 import { AccessKeysComponent } from './access-keys-page/access-keys.component';
 import { AccessKeyViewComponent } from './access-keys-page/access-key-view/access-key-view.component';
+import { ProductScheduleComponent } from './product-schedule-page/product-schedule.component';
+import { ProductScheduleViewComponent } from './product-schedule-page/product-schedule-view/product-schedule-view.component';
 
 @NgModule({
   imports : [
@@ -74,7 +76,9 @@ import { AccessKeyViewComponent } from './access-keys-page/access-key-view/acces
     EmailsComponent,
     EmailViewComponent,
     AccessKeysComponent,
-    AccessKeyViewComponent
+    AccessKeyViewComponent,
+    ProductScheduleComponent,
+    ProductScheduleViewComponent
   ]
 })
 export class PagesModule {
