@@ -1,6 +1,7 @@
 import {ActivatedRoute, Params} from '@angular/router';
 import {AbstractEntityService} from '../shared/services/abstract-entity.service';
 import {Subscription} from 'rxjs';
+import {ProgressBarService} from '../shared/services/progress-bar.service';
 
 export abstract class AbstractEntityViewComponent<T> {
 
@@ -8,18 +9,19 @@ export abstract class AbstractEntityViewComponent<T> {
   protected viewMode: boolean = false;
   protected updateMode: boolean = false;
   protected mode: string = '';
+  protected entityId: string = '';
 
   protected routeSubscription: Subscription;
   protected entityViewSubscription: Subscription;
   protected entityCreatedSubscription: Subscription;
   protected entityUpdatedSubscription: Subscription;
 
-  constructor(private service: AbstractEntityService<T>, route: ActivatedRoute) {
+  constructor(private service: AbstractEntityService<T>, route: ActivatedRoute, protected progressBarService?: ProgressBarService) {
     this.routeSubscription = route.params.subscribe((params: Params) => {
       if (params['type'] === 'view') {
         this.mode = 'View';
         this.viewMode = true;
-        this.service.getEntity(params['id']);
+        this.entityId = params['id'];
       }
 
       if (params['type'] === 'addEntity') {
@@ -30,20 +32,29 @@ export abstract class AbstractEntityViewComponent<T> {
       if (params['type'] == 'update') {
         this.mode = 'Update';
         this.updateMode = true;
-        this.service.getEntity(params['id']);
+        this.entityId = params['id'];
       }
     });
+  }
+
+  protected init(): void {
+    if (this.viewMode || this.updateMode) {
+      this.service.getEntity(this.entityId);
+      this.progressBarService.showTopProgressBar();
+    }
   }
 
   protected saveEntity(entity: T): void {
     if (this.addMode) {
       this.service.createEntity(entity);
+      this.progressBarService.showTopProgressBar();
     }
   }
 
   protected updateEntity(entity: T): void {
     if (this.updateMode) {
       this.service.updateEntity(entity);
+      this.progressBarService.showTopProgressBar();
     }
   }
 

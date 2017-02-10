@@ -22,6 +22,7 @@ import {UsersService} from './services/users.service';
 import {SmtpProvidersService} from './services/smtp-providers.service';
 import {EmailsService} from './services/emails.service';
 import {AccessKeysService} from './services/access-keys.service';
+import {ProgressBarService} from './services/progress-bar.service';
 
 @NgModule({
   declarations : [
@@ -50,7 +51,8 @@ export class SharedModule {
         UsersService,
         SmtpProvidersService,
         EmailsService,
-        AccessKeysService
+        AccessKeysService,
+        ProgressBarService
       ]
     };
   }

@@ -3,6 +3,7 @@ import {SmtpProvider} from '../../../shared/models/smtp-provider.model';
 import {SmtpProvidersService} from '../../../shared/services/smtp-providers.service';
 import {ActivatedRoute} from '@angular/router';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
+import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 
 @Component({
   selector: 'c-smtp-provider-view',
@@ -14,14 +15,19 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
   private smtpProvider: SmtpProvider;
   private smtpProviderBackup: SmtpProvider;
 
-  constructor(private smtpProvidersService: SmtpProvidersService, route: ActivatedRoute) {
-    super(smtpProvidersService, route);
+  constructor(
+    private smtpProvidersService: SmtpProvidersService,
+    route: ActivatedRoute,
+    progressBarService: ProgressBarService
+  ) {
+    super(smtpProvidersService, route, progressBarService);
   }
 
   ngOnInit(): void {
     this.entityViewSubscription = this.smtpProvidersService.entity$.subscribe(
       (entity: SmtpProvider) => {
         this.smtpProvider = entity;
+        this.progressBarService.hideTopProgressBar();
 
         if (this.updateMode) {
           this.smtpProviderBackup = Object.assign({}, this.smtpProvider);
@@ -33,7 +39,8 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
         this.smtpProvider = created;
         this.addMode = false;
         this.viewMode = true;
-        this.mode = 'Created'
+        this.mode = 'Created';
+        this.progressBarService.hideTopProgressBar();
       });
 
     this.entityUpdatedSubscription = this.smtpProvidersService.entityUpdated$.subscribe(
@@ -41,8 +48,11 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
         this.smtpProvider = updated;
         this.updateMode = false;
         this.viewMode = true;
-        this.mode = 'Updated'
+        this.mode = 'Updated';
+        this.progressBarService.hideTopProgressBar();
       });
+
+    this.init();
 
     if (this.addMode) {
       this.smtpProvider = new SmtpProvider();

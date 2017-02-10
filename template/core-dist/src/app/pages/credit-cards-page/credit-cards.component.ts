@@ -4,6 +4,7 @@ import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {Router, ActivatedRoute} from '@angular/router';
 import {CreditCard} from '../../shared/models/credit-card.model';
 import {MdDialog} from '@angular/material';
+import {ProgressBarService} from '../../shared/services/progress-bar.service';
 
 @Component({
   selector: 'c-credit-cards',
@@ -14,13 +15,24 @@ export class CreditCardsComponent extends AbstractEntityIndexComponent<CreditCar
 
   private creditCards: CreditCard[] = [];
 
-  constructor(private creditCardsService: CreditCardsService, router: Router, route: ActivatedRoute, dialog: MdDialog) {
-    super(creditCardsService, router, route, dialog);
+  constructor(
+    private creditCardsService: CreditCardsService,
+    router: Router,
+    route: ActivatedRoute,
+    dialog: MdDialog,
+    progressBarService: ProgressBarService
+  ) {
+    super(creditCardsService, router, route, dialog, progressBarService);
   }
 
   ngOnInit() {
-    this.creditCardsService.entities$.subscribe((data) => this.creditCards = data);
-    this.creditCardsService.getEntities();
+    this.creditCardsService.entities$.subscribe((data) => {
+      this.creditCards = data;
+      this.progressBarService.hideTopProgressBar();
+    });
+    this.creditCardsService.entityDeleted$.subscribe((data) => this.creditCardsService.getEntities());
+
+    this.init();
   }
 
 }

@@ -3,6 +3,7 @@ import {MerchantProvider} from '../../../shared/models/merchant-provider.model';
 import {MerchantProvidersService} from '../../../shared/services/merchant-providers.service';
 import {ActivatedRoute} from '@angular/router';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
+import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 
 @Component({
   selector: 'c-merchant-provider-view',
@@ -14,14 +15,19 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
   private merchantProvider: MerchantProvider;
   private merchantProviderBackup: MerchantProvider;
 
-  constructor(private merchantProvidersService: MerchantProvidersService, route: ActivatedRoute) {
-    super(merchantProvidersService, route);
+  constructor(
+    private merchantProvidersService: MerchantProvidersService,
+    route: ActivatedRoute,
+    progressBarService: ProgressBarService
+  ) {
+    super(merchantProvidersService, route, progressBarService);
   }
 
   ngOnInit(): void {
     this.entityViewSubscription = this.merchantProvidersService.entity$.subscribe(
       (entity: MerchantProvider) => {
         this.merchantProvider = entity;
+        this.progressBarService.hideTopProgressBar();
 
         if (this.updateMode) {
           this.merchantProviderBackup = this.merchantProvider.copy();
@@ -33,7 +39,8 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
         this.merchantProvider = entity;
         this.addMode = false;
         this.viewMode = true;
-        this.mode = 'Created'
+        this.mode = 'Created';
+        this.progressBarService.hideTopProgressBar();
       }
     );
 
@@ -42,9 +49,12 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
         this.merchantProvider = entity;
         this.updateMode = false;
         this.viewMode = true;
-        this.mode = 'Updated'
+        this.mode = 'Updated';
+        this.progressBarService.hideTopProgressBar()
       }
     );
+
+    this.init();
 
     if (this.addMode) {
       this.merchantProvider = new MerchantProvider();

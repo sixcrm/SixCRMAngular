@@ -4,6 +4,7 @@ import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Customer} from '../../shared/models/customer.model';
 import {MdDialog} from '@angular/material';
+import {ProgressBarService} from '../../shared/services/progress-bar.service';
 
 @Component({
   selector: 'customers',
@@ -14,13 +15,24 @@ export class CustomersComponent extends AbstractEntityIndexComponent<Customer> i
 
   private customers: Customer[] = [];
 
-  constructor(private customersService: CustomersService, router: Router, route: ActivatedRoute, dialog: MdDialog) {
-    super(customersService, router, route, dialog);
+  constructor(
+    private customersService: CustomersService,
+    router: Router,
+    route: ActivatedRoute,
+    dialog: MdDialog,
+    progressBarService: ProgressBarService
+  ) {
+    super(customersService, router, route, dialog, progressBarService);
   }
 
   ngOnInit() {
-    this.customersService.entities$.subscribe(customers => this.customers = customers );
-    this.customersService.getEntities();
+    this.customersService.entities$.subscribe(customers => {
+      this.customers = customers;
+      this.progressBarService.hideTopProgressBar();
+    });
+    this.customersService.entityDeleted$.subscribe((data) => this.customersService.getEntities());
+
+    this.init();
   }
 
 }

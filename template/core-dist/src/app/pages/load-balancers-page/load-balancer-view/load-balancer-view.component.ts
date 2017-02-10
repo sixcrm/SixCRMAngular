@@ -7,6 +7,7 @@ import {MerchantProviderConfiguration} from '../../../shared/models/merchant-pro
 import {MerchantProvidersService} from '../../../shared/services/merchant-providers.service';
 import {MerchantProvider} from '../../../shared/models/merchant-provider.model';
 import {Subscription} from 'rxjs';
+import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 
 @Component({
   selector: 'c-load-balancer-view',
@@ -23,14 +24,19 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
   constructor(
     private loadBalancersService: LoadBalancersService,
     private merchantProvidersService: MerchantProvidersService,
-    route: ActivatedRoute
+    route: ActivatedRoute,
+    progressBarService: ProgressBarService
   ) {
-    super(loadBalancersService, route);
+    super(loadBalancersService, route, progressBarService);
   }
 
   ngOnInit(): void {
     this.entityViewSubscription = this.loadBalancersService.entity$.subscribe((entity: LoadBalancer) => {
         this.loadBalancer = entity;
+
+        if (!this.addMode) {
+          this.progressBarService.hideTopProgressBar();
+        }
 
         if (this.updateMode) {
           this.loadBalancerBackup = this.loadBalancer.copy();
@@ -42,6 +48,7 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
         this.viewMode = true;
         this.addMode = false;
         this.mode = 'Created';
+        this.progressBarService.hideTopProgressBar();
       });
 
     this.entityUpdatedSubscription = this.loadBalancersService.entityUpdated$.subscribe((entity: LoadBalancer) => {
@@ -49,18 +56,30 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
         this.viewMode = true;
         this.updateMode = false;
         this.mode = 'Updated';
+        this.progressBarService.hideTopProgressBar();
       });
 
     if (this.addMode) {
       this.loadBalancer = new LoadBalancer();
     }
 
-    if (!this.viewMode) {
+    if (this.addMode || this.updateMode) {
       this.merchantProvidersSubscription = this.merchantProvidersService.entities$.subscribe(
-        (providers: MerchantProvider[]) => this.merchantProviders = providers
+        (providers: MerchantProvider[]) => {
+          this.merchantProviders = providers;
+
+          if (this.addMode) {
+            this.progressBarService.hideTopProgressBar();
+          }
+        }
       );
       this.merchantProvidersService.getEntities();
+      if (this.addMode) {
+        this.progressBarService.showTopProgressBar();
+      }
     }
+
+    this.init();
   }
 
   ngOnDestroy(): void {

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NavigationService} from '../../navigation.service';
+import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 
 @Component({
   templateUrl : './default.layout.component.html',
@@ -7,8 +8,9 @@ import {NavigationService} from '../../navigation.service';
 })
 export class DefaultLayoutComponent implements OnInit {
   private showSidenav: boolean;
+  private showTopProgress: boolean = false;
 
-  constructor(private _navigation: NavigationService) {
+  constructor(private _navigation: NavigationService, private progressBarService: ProgressBarService) {
   }
 
   ngOnInit() {
@@ -19,6 +21,8 @@ export class DefaultLayoutComponent implements OnInit {
         this.showSidenav = showSidenav;
       }
     });
+
+    this.progressBarService.showTopProgressBar$.subscribe((show: boolean) => this.showTopProgress = show);
   }
 
   private sidenavToggle(visible: boolean) {

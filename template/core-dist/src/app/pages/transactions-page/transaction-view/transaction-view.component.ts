@@ -1,22 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import {Transaction} from '../../../shared/models/transaction.model';
 import {TransactionsService} from '../../../shared/services/transactions.service';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
+import {ProgressBarService} from '../../../shared/services/progress-bar.service';
+import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 
 @Component({
   selector: 'c-transaction-view',
   templateUrl: './transaction-view.component.html',
   styleUrls: ['./transaction-view.component.scss']
 })
-export class TransactionViewComponent implements OnInit {
+export class TransactionViewComponent extends AbstractEntityViewComponent<Transaction> implements OnInit {
 
   private transaction: Transaction;
 
-  constructor(private transactionsService: TransactionsService, private route: ActivatedRoute) { }
+  constructor(
+    private transactionsService: TransactionsService,
+    route: ActivatedRoute,
+    progressBarService: ProgressBarService
+  ) {
+    super(transactionsService, route, progressBarService);
+  }
 
   ngOnInit() {
-    this.transactionsService.entity$.subscribe((transaction: Transaction) => this.transaction = transaction);
-    this.route.params.subscribe((params: Params) => this.transactionsService.getEntity(params['id']));
+    this.transactionsService.entity$.subscribe((transaction: Transaction) => {
+      this.transaction = transaction;
+      this.progressBarService.hideTopProgressBar();
+    });
+    this.init();
   }
 
 }

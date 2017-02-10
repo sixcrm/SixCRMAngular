@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Transaction} from '../../shared/models/transaction.model';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {MdDialog} from '@angular/material';
+import {ProgressBarService} from '../../shared/services/progress-bar.service';
 
 @Component({
   selector: 'transactions',
@@ -14,13 +15,24 @@ export class TransactionsComponent extends AbstractEntityIndexComponent<Transact
 
   private transactions: Transaction[] = [];
 
-  constructor(private transactionsService: TransactionsService, router: Router, route: ActivatedRoute, dialog: MdDialog) {
-    super(transactionsService, router, route, dialog);
+  constructor(
+    private transactionsService: TransactionsService,
+    router: Router,
+    route: ActivatedRoute,
+    dialog: MdDialog,
+    progressBarService: ProgressBarService
+  ) {
+    super(transactionsService, router, route, dialog, progressBarService);
   }
 
   ngOnInit() {
-    this.transactionsService.entities$.subscribe((data) => this.transactions = data);
-    this.transactionsService.getEntities();
+    this.transactionsService.entities$.subscribe((data) => {
+      this.transactions = data;
+      this.progressBarService.hideTopProgressBar();
+    });
+    this.transactionsService.entityDeleted$.subscribe((data) => this.transactionsService.getEntities());
+
+    this.init();
   }
 
 }

@@ -4,6 +4,7 @@ import {AccessKeysService} from '../../shared/services/access-keys.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {AccessKey} from '../../shared/models/access-key.model';
 import {MdDialog} from '@angular/material';
+import {ProgressBarService} from '../../shared/services/progress-bar.service';
 
 @Component({
   selector: 'c-access-keys',
@@ -14,13 +15,24 @@ export class AccessKeysComponent extends AbstractEntityIndexComponent<AccessKey>
 
   private accessKeys: AccessKey[];
 
-  constructor(private accessKeysService: AccessKeysService, router: Router, route: ActivatedRoute, dialog: MdDialog) {
-    super(accessKeysService, router, route, dialog);
+  constructor(
+    private accessKeysService: AccessKeysService,
+    router: Router,
+    route: ActivatedRoute,
+    dialog: MdDialog,
+    progressBarService: ProgressBarService
+  ) {
+    super(accessKeysService, router, route, dialog, progressBarService);
   }
 
   ngOnInit() {
-    this.accessKeysService.entities$.subscribe((data) => this.accessKeys = data);
-    this.accessKeysService.getEntities();
+    this.accessKeysService.entities$.subscribe((data) => {
+      this.accessKeys = data;
+      this.progressBarService.hideTopProgressBar()
+    });
+    this.accessKeysService.entityDeleted$.subscribe((data) => this.accessKeysService.getEntities());
+
+    this.init();
   }
 
 }

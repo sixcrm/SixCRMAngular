@@ -4,6 +4,7 @@ import {FulfillmentProvider} from '../../shared/models/fulfillment-provider.mode
 import {Router, ActivatedRoute} from '@angular/router';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {MdDialog} from '@angular/material';
+import {ProgressBarService} from '../../shared/services/progress-bar.service';
 
 @Component({
   selector: 'fulfillment-providers',
@@ -17,13 +18,19 @@ export class FulfillmentProvidersComponent extends AbstractEntityIndexComponent<
     private fulfillmentProvidersService: FulfillmentProvidersService,
     router: Router,
     route: ActivatedRoute,
-    dialog: MdDialog
+    dialog: MdDialog,
+    progressBarService: ProgressBarService
   ) {
-    super(fulfillmentProvidersService, router, route, dialog)
+    super(fulfillmentProvidersService, router, route, dialog, progressBarService)
   }
 
   ngOnInit() {
-    this.fulfillmentProvidersService.entities$.subscribe((data) => this.fulfillmentProviders = data);
-    this.fulfillmentProvidersService.getEntities()
+    this.fulfillmentProvidersService.entities$.subscribe((data) => {
+      this.fulfillmentProviders = data;
+      this.progressBarService.hideTopProgressBar();
+    });
+    this.fulfillmentProvidersService.entityDeleted$.subscribe((data) => this.fulfillmentProvidersService.getEntities());
+
+    this.init();
   }
 }

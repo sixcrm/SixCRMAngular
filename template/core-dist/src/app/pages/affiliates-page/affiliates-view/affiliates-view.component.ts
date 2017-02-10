@@ -2,19 +2,31 @@ import { Component, OnInit } from '@angular/core';
 import {Affiliate} from '../../../shared/models/affiliate.model';
 import {AffiliatesService} from '../../../shared/services/affiliates.service';
 import {ActivatedRoute} from '@angular/router';
+import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
+import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 
 @Component({
   selector: 'c-affiliates-view',
   templateUrl: './affiliates-view.component.html',
   styleUrls: ['./affiliates-view.component.scss']
 })
-export class AffiliatesViewComponent implements OnInit {
+export class AffiliatesViewComponent extends AbstractEntityViewComponent<Affiliate> implements OnInit {
   private affiliate: Affiliate;
 
-  constructor(private affiliatesService: AffiliatesService, private route: ActivatedRoute) { }
+  constructor(
+    private affiliatesService: AffiliatesService,
+    route: ActivatedRoute,
+    progressBarService: ProgressBarService
+  ) {
+    super(affiliatesService, route, progressBarService);
+  }
 
   ngOnInit() {
-    this.affiliatesService.entity$.subscribe((data) => this.affiliate = data);
-    this.route.params.subscribe((params) => this.affiliatesService.getEntity(params['id']));
+    this.affiliatesService.entity$.subscribe((data) => {
+      this.affiliate = data;
+      this.progressBarService.hideTopProgressBar();
+    });
+
+    this.init();
   }
 }

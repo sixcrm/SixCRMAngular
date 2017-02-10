@@ -4,6 +4,7 @@ import {Product} from "../../shared/models/product.model";
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {Router, ActivatedRoute} from '@angular/router';
 import {MdDialog} from '@angular/material';
+import {ProgressBarService} from '../../shared/services/progress-bar.service';
 
 @Component({
   selector: 'products',
@@ -14,12 +15,23 @@ export class ProductsComponent extends AbstractEntityIndexComponent<Product> imp
 
   private products: Product[] = [];
 
-  constructor(private productsService: ProductsService, router: Router, route: ActivatedRoute, dialog: MdDialog) {
-    super(productsService, router, route, dialog);
+  constructor(
+    private productsService: ProductsService,
+    router: Router,
+    route: ActivatedRoute,
+    dialog: MdDialog,
+    progressBarService: ProgressBarService
+  ) {
+    super(productsService, router, route, dialog, progressBarService);
   }
 
   ngOnInit() {
-    this.productsService.entities$.subscribe((data) => this.products = data);
-    this.productsService.getEntities();
+    this.productsService.entities$.subscribe((data) => {
+      this.products = data;
+      this.progressBarService.hideTopProgressBar();
+    });
+    this.productsService.entityDeleted$.subscribe((data) => this.productsService.getEntities());
+
+    this.init();
   }
 }

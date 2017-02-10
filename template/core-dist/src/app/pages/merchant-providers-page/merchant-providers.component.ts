@@ -4,6 +4,7 @@ import {MerchantProvider} from '../../shared/models/merchant-provider.model';
 import {Router, ActivatedRoute} from '@angular/router';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {MdDialog} from '@angular/material';
+import {ProgressBarService} from '../../shared/services/progress-bar.service';
 
 @Component({
   selector: 'merchant-providers',
@@ -14,13 +15,23 @@ export class MerchantProvidersComponent extends AbstractEntityIndexComponent<Mer
 
   private merchantProviders: MerchantProvider[] = [];
 
-  constructor(private merchantProvidersService: MerchantProvidersService, router: Router, route: ActivatedRoute, dialog: MdDialog) {
-    super(merchantProvidersService, router, route, dialog);
+  constructor(
+    private merchantProvidersService: MerchantProvidersService,
+    router: Router,
+    route: ActivatedRoute,
+    dialog: MdDialog,
+    progressBarService: ProgressBarService
+  ) {
+    super(merchantProvidersService, router, route, dialog, progressBarService);
   }
 
   ngOnInit() {
-    this.merchantProvidersService.entities$.subscribe((providers) => this.merchantProviders = providers);
-    this.merchantProvidersService.getEntities();
+    this.merchantProvidersService.entities$.subscribe((providers) => {
+      this.merchantProviders = providers;
+      this.progressBarService.hideTopProgressBar();
+    });
     this.merchantProvidersService.entityDeleted$.subscribe(() => this.merchantProvidersService.getEntities());
+
+    this.init();
   }
 }
