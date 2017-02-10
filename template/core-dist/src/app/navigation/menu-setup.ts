@@ -18,7 +18,7 @@ export const menuItemSetupBackup: MenuItem[] = [
 ];
 
 export const menuItemSetup: MenuItem[] = [
-  new MenuItem('Dashboard', ''),
+  new MenuItem('Dashboard', 'dashboard'),
 
   new MenuItem('Reports', null, [
     new MenuItem('Order Report', ''),

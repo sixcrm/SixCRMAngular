@@ -31,11 +31,12 @@ import {AccessKeysComponent} from './access-keys-page/access-keys.component';
 import {AccessKeyViewComponent} from './access-keys-page/access-key-view/access-key-view.component';
 import {ProductScheduleComponent} from './product-schedule-page/product-schedule.component';
 import {ProductScheduleViewComponent} from './product-schedule-page/product-schedule-view/product-schedule-view.component';
+import {DashboardComponent} from './dashboard-page/dashboard.component';
 
 export const pagesRouting = RouterModule.forChild([
   {
     path : '', component : DefaultLayoutComponent, children : [
-      { path : '', redirectTo : 'campaigns', pathMatch: 'full' },
+      { path : '', component : DashboardComponent },
 
       { path : 'campaigns', component : CampaignsComponent },
       { path : 'campaigns/:type', component : CampaignViewComponent },
