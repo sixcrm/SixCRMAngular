@@ -27,7 +27,6 @@ export class ProductScheduleComponent extends AbstractEntityIndexComponent<Produ
 
   ngOnInit() {
     this.productScheduleService.entities$.subscribe((schedules: ProductSchedule[]) => {
-      console.log(schedules);
       this.productSchedules = schedules;
       this.progressBarService.hideTopProgressBar();
     });

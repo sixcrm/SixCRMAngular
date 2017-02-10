@@ -4,11 +4,12 @@ table,td,th {
 
 table {
   width: 100%;
-  display: table
+  display: table;
+  border-collapse: collapse;
 }
 
 table.bordered>tbody>tr,table.bordered>thead>tr {
-  border-bottom: 1px solid #d0d0d0
+  border-bottom: 2px solid #9E9E9E
 }
 
 table.striped>tbody>tr:nth-child(odd) {

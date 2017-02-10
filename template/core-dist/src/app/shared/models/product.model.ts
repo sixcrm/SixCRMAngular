@@ -16,7 +16,7 @@ export class Product {
     this.id = obj.id || '';
     this.name = obj.name || '';
     this.sku = obj.sku || '';
-    this.ship = obj.ship || '';
+    this.ship = obj.ship || null;
     this.shippingDelay = obj.shipping_delay || '';
     this.fulfillmentProvider = new FulfillmentProvider(obj.fulfillment_provider);
   }

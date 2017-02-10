@@ -1,18 +1,38 @@
 <md-card *ngIf="product">
-  <md-card-title>Product View</md-card-title>
+  <md-card-title> <span>{{mode}} Product</span> </md-card-title>
   <md-card-content>
-    <md-input disabled placeholder="Name" value="{{product.name}}"></md-input>
-    <md-input disabled placeholder="SKU" value="{{product.sku}}"></md-input>
-    <md-input disabled placeholder="Ship" value="{{product.ship}}"></md-input>
-    <md-input disabled placeholder="Shipping Delay" value="{{product.shippingDelay}}"></md-input>
+    <md-input [disabled]="viewMode" placeholder="Name" [(ngModel)]="product.name"></md-input>
+    <md-input [disabled]="viewMode" placeholder="SKU" [(ngModel)]="product.sku"></md-input>
+    <span [class.input-active]="product.ship" style="width: 100px" *ngIf="!viewMode">
+      {{ product.ship || 'Ship'}}
+      <md-icon *ngIf="!viewMode" [md-menu-trigger-for]="shipMenu">keyboard_arrow_down</md-icon>
+    </span>
+    <md-input style="width: 100px" *ngIf="viewMode" [disabled]="viewMode" placeholder="Ship" [(ngModel)]="product.ship"></md-input>
+    <md-input [disabled]="viewMode" placeholder="Shipping Delay" [(ngModel)]="product.shippingDelay"></md-input>
 
-    <div class="content__block__first">
-      <md-card-subtitle>Fulfillment provider</md-card-subtitle>
-      <md-input disabled placeholder="Name" value="{{product.fulfillmentProvider.name}}"></md-input>
-      <md-input disabled placeholder="Provider" value="{{product.fulfillmentProvider.provider}}"></md-input>
-      <md-input disabled placeholder="Username" value="{{product.fulfillmentProvider.username}}"></md-input>
-      <md-input disabled placeholder="Password" value="{{product.fulfillmentProvider.password}}"></md-input>
-      <md-input disabled placeholder="Endpoint" value="{{product.fulfillmentProvider.endpoint}}"></md-input>
+    <md-menu #shipMenu="mdMenu" x-position="before">
+      <button md-menu-item (click)="setShip('True')"> True </button>
+      <button md-menu-item (click)="setShip('False')"> False </button>
+    </md-menu>
+
+    <div>
+      <md-card-subtitle>Fulfillment Provider</md-card-subtitle>
+      <span *ngIf="!viewMode" [class.input-active]="product.fulfillmentProvider.name" style="width: 220px">
+        {{ product.fulfillmentProvider.name || 'Select'}}
+        <md-icon *ngIf="!viewMode" [md-menu-trigger-for]="fulfillmentMenu">keyboard_arrow_down</md-icon>
+      </span>
+      <md-input *ngIf="viewMode" disabled value="{{product.fulfillmentProvider.name}}" style="width: 220px"></md-input>
     </div>
+
+    <md-menu #fulfillmentMenu="mdMenu" x-position="before">
+      <button *ngFor="let provider of fulfillmentProviders" md-menu-item (click)="setFulfillmentProvider(provider)">
+        {{provider.name}}
+      </button>
+    </md-menu>
   </md-card-content>
+  <md-card-actions align="end">
+    <button md-raised-button color="primary" *ngIf="addMode">Save</button>
+    <button md-raised-button color="primary" *ngIf="updateMode">Save</button>
+    <button md-raised-button color="primary" *ngIf="updateMode" (click)="cancelUpdate()">Cancel</button>
+  </md-card-actions>
 </md-card>
