@@ -37,7 +37,11 @@ export abstract class AbstractEntityService<T> {
         let entitiesKey = Object.keys(listData)[0];
         let entitiesData = listData[entitiesKey];
 
-        this.entities$.next(entitiesData.map(entity => this.toEntity(entity)));
+        if (entitiesData) {
+          this.entities$.next(entitiesData.map(entity => this.toEntity(entity)));
+        } else {
+          this.entities$.next([]);
+        }
       },
       (error) => {
         console.error(error);
@@ -74,7 +78,6 @@ export abstract class AbstractEntityService<T> {
   }
 
   createEntity(entity: T): void {
-    console.log(entity);
     this.queryRequest(this.createQuery(entity)).subscribe(
       (data) => {
         let json = data.json().data;

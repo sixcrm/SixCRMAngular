@@ -11,10 +11,10 @@ export class AuthComponent implements OnInit {
 
   constructor(private auth: AuthenticationService, private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     setTimeout( () => {
       if (!this.auth.authenticated()) {
-        this.auth.login();
+        this.auth.showLogin();
       } else {
         this.router.navigate(['/dashboard']);
       }

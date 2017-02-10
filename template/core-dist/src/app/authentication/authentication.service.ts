@@ -6,11 +6,6 @@ import {environment} from '../../environments/environment';
 
 declare var Auth0Lock: any;
 
-interface AuthResult {
-  accessToken: string;
-  idToken: string;
-}
-
 @Injectable()
 export class AuthenticationService {
 
@@ -25,15 +20,20 @@ export class AuthenticationService {
       environment.clientID,
       environment.domain,
       {
-        theme: { logo: '/assets/favicons/favicon-icon.png'},
+        auth: {
+          redirectUrl: environment.auth0RedirectUrl,
+          responseType: 'token'
+        },
+        theme: {
+          logo: '/assets/favicons/favicon-icon.png'
+        },
         languageDictionary: {
           title: 'SixCRM'
         }
       });
 
-    this.lock.on('authenticated', (authResult: AuthResult) => {
+    this.lock.on('authenticated', (authResult) => {
       this.setUser(authResult);
-      this.router.navigate(['/dashboard']);
     });
 
     if (this.authenticated()) {
@@ -45,15 +45,15 @@ export class AuthenticationService {
     return tokenNotExpired();
   }
 
-  public login(): void {
+  public showLogin(): void {
     this.lock.show();
   }
 
   public logout(): void {
+    this.router.navigate(['/']);
+
     localStorage.removeItem(this.accessToken);
     localStorage.removeItem(this.idToken);
-
-    this.router.navigate(['/auth']);
   }
 
   public getProfileData(): void {
@@ -62,11 +62,11 @@ export class AuthenticationService {
     })
   }
 
-  public getToken() {
+  public getToken(): string {
     return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOTNiMDg2YjgtNjM0My00MjcxLTg3ZDYtYjJhMDAxNDlmMDcwIiwiaWF0IjoxNDg2MDI3Mzc2fQ.WWso40RRK-xHIvMOm2NEFGEnQHkJH2KQq_FWShkQ0GM';
   }
 
-  private setUser(authResult: AuthResult): void {
+  private setUser(authResult): void {
     localStorage.setItem(this.accessToken, authResult.accessToken);
     localStorage.setItem(this.idToken, authResult.idToken);
 
