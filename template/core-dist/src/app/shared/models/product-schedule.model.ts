@@ -21,6 +21,18 @@ export class ProductSchedule implements Entity<ProductSchedule> {
   }
 
   copy(): ProductSchedule {
-    return null;
+    return new ProductSchedule(this.inverse());
+  }
+
+  inverse(): any {
+    let schedules = [];
+    for (let index in this.schedules) {
+      schedules.push(this.schedules[index].inverse());
+    }
+
+    return {
+      id: this.id,
+      schedule: schedules
+    }
   }
 }

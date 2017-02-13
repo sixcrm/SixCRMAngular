@@ -1,15 +1,38 @@
-<md-card *ngIf="productSchedule">
-  <md-card-title>Product Schedule {{mode}}</md-card-title>
-  <md-card-content>
-    <ng-container *ngFor="let schedule of productSchedule.schedules">
+<md-card class="entity-view__card" *ngIf="entity">
+  <md-card-title class="entity-view__card__title"> <span>{{mode}} Product Schedule</span> </md-card-title>
+  <md-card-content class="entity-view__card__content">
+    <ng-container *ngFor="let schedule of entity.schedules">
       <div>
-        <md-input disabled placeholder="Product Name" value="{{schedule.product.name}}"></md-input>
-        <md-input disabled placeholder="Start" value="{{schedule.start}}"></md-input>
-        <md-input disabled placeholder="Period" value="{{schedule.period}}"></md-input>
-        <span>Days</span>
-        <md-input disabled placeholder="Price" value="{{schedule.price}}"></md-input>
-        <md-input disabled placeholder="End" value="{{schedule.end}}"></md-input>
+        <span
+          *ngIf="!viewMode"
+          class="input--medium entity-view__card__content__span--dropdown"
+          [class.input--active]="schedule.product.name">
+            {{schedule.product.name || 'Select Product'}}
+          <md-icon [md-menu-trigger-for]="productsMenu">keyboard_arrow_down</md-icon>
+        </span>
+        <md-input *ngIf="viewMode" disabled placeholder="Product Name" value="{{schedule.product.name}}"></md-input>
+        <md-menu #productsMenu="mdMenu" x-position="before">
+          <button *ngFor="let product of products" md-menu-item (click)="setProductToSchedule(product, schedule)">
+            {{product.name}}
+          </button>
+        </md-menu>
+
+        <md-input [disabled]="viewMode" placeholder="Start" [(ngModel)]="schedule.start"></md-input>
+        <md-input [disabled]="viewMode" class="input--inline" placeholder="Period" [(ngModel)]="schedule.period"></md-input>
+        <span class="label--inline">Days</span>
+        <md-input [disabled]="viewMode" placeholder="Price" [(ngModel)]="schedule.price"><span md-prefix>$&nbsp;</span></md-input>
+        <md-input [disabled]="viewMode" placeholder="End" [(ngModel)]="schedule.end"></md-input>
       </div>
     </ng-container>
+
+    <div *ngIf="addMode || updateMode" class="add-new__container">
+      <button class="add-new__container__button" md-raised-button color="primary" (click)="addNewSchedule()">Add New</button>
+    </div>
   </md-card-content>
+
+  <md-card-actions align="end">
+    <button md-raised-button color="primary" *ngIf="addMode" (click)="saveEntity(entity)">Save</button>
+    <button md-raised-button color="primary" *ngIf="updateMode" (click)="updateEntity(entity)">Save</button>
+    <button md-raised-button color="primary" *ngIf="updateMode" (click)="cancelUpdate()">Cancel</button>
+  </md-card-actions>
 </md-card>

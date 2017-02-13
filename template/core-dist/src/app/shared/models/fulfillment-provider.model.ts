@@ -22,13 +22,17 @@ export class FulfillmentProvider implements Entity<FulfillmentProvider> {
   }
 
   copy(): FulfillmentProvider {
-    return new FulfillmentProvider({
+    return new FulfillmentProvider(this.inverse())
+  }
+
+  inverse(): any {
+    return {
       id: this.id,
       name: this.name,
       provider: this.provider,
       username: this.username,
       password: this.password,
       endpoint: this.endpoint
-    })
+    }
   }
 }

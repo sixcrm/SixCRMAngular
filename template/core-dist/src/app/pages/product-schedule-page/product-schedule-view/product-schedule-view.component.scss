@@ -1,5 +1,30 @@
-span {
-  margin-right: 30px;
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.38);
+md-input {
+  span {
+    margin: 0;
+  }
+}
+
+.input--inline {
+  margin-right: 0;
+}
+
+.label--inline {
+  margin: 0 35px 0 5px;
+}
+
+.add-new__container {
+  margin-top: 20px;
+
+   &__button {
+     display: block;
+     margin: auto;
+   }
+}
+
+.input--medium {
+  width: 200px;
+}
+
+.input--active {
+  color: black;
 }

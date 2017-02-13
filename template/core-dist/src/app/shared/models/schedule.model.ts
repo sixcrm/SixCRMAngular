@@ -21,6 +21,16 @@ export class Schedule implements Entity<Schedule>{
   }
 
   copy(): Schedule {
-    return null;
+    return new Schedule(this.inverse())
+  }
+
+  inverse(): any {
+    return {
+      price: this.price,
+      start: this.start,
+      end: this.end,
+      period: this.period,
+      product: this.product.inverse()
+    }
   }
 }

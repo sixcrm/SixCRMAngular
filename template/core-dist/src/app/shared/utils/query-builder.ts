@@ -3,6 +3,7 @@ import {MerchantProvider} from '../models/merchant-provider.model';
 import {LoadBalancer} from '../models/load-balancers.model';
 import {MerchantProviderConfiguration} from '../models/merchant-provider-configuration.model';
 import {Product} from '../models/product.model';
+import {ProductSchedule} from '../models/product-schedule.model';
 function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
 }
@@ -73,6 +74,42 @@ export function productScheduleQuery(id: string): string {
 
 export function deleteProductScheduleMutation(id: string): string {
   return deleteMutation('productschedule', id);
+}
+
+export function createProductScheduleMutation(schedule: ProductSchedule): string {
+  let schedules: string = '';
+  for (let index in schedule.schedules) {
+    let sch = schedule.schedules[index];
+    schedules += `{product_id: "${sch.product.id}", start: "${sch.start}", end: "${sch.end}", price: "${sch.price}", period: "${sch.period}"} `;
+  }
+
+  return `
+    mutation {
+		  createproductschedule (productschedule: { id: "${schedule.id}", schedule: [${schedules}]}) {
+        id
+        schedule { price start end period
+          product { id name }
+        }
+      }
+	  }`
+}
+
+export function updateProductScheduleMutation(schedule: ProductSchedule): string {
+  let schedules: string = '';
+  for (let index in schedule.schedules) {
+    let sch = schedule.schedules[index];
+    schedules += `{product_id: "${sch.product.id}", start: "${sch.start}", end: "${sch.end}", price: "${sch.price}", period: "${sch.period}"} `;
+  }
+
+  return `
+    mutation {
+		  updateproductschedule (productschedule: { id: "${schedule.id}", schedule: [${schedules}]}) {
+        id
+        schedule { price start end period
+          product { id name }
+        }
+      }
+	  }`
 }
 
 export function campaignQuery(id: string): string {

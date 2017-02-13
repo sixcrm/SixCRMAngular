@@ -23,13 +23,17 @@ export class Product implements Entity<Product> {
   }
 
   copy(): Product {
-    return new Product({
+    return new Product(this.inverse())
+  }
+
+  inverse(): any {
+    return {
       id: this.id,
       name: this.name,
       sku: this.sku,
       ship: this.ship,
       shipping_delay: this.shippingDelay,
-      fulfillment_provider: this.fulfillmentProvider.copy()
-    })
+      fulfillment_provider: this.fulfillmentProvider.inverse()
+    }
   }
 }

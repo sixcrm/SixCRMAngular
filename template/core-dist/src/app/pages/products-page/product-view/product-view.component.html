@@ -1,13 +1,13 @@
-<md-card *ngIf="entity">
-  <md-card-title> <span>{{mode}} Product</span> </md-card-title>
-  <md-card-content>
+<md-card class="entity-view__card" *ngIf="entity">
+  <md-card-title class="entity-view__card__title"> <span>{{mode}} Product</span> </md-card-title>
+  <md-card-content class="entity-view__card__content">
     <md-input [disabled]="viewMode" placeholder="Name" [(ngModel)]="entity.name"></md-input>
     <md-input [disabled]="viewMode" placeholder="SKU" [(ngModel)]="entity.sku"></md-input>
-    <span [class.input-active]="entity.ship" style="width: 100px" *ngIf="!viewMode">
+    <span [class.input--active]="entity.ship" class="input--small entity-view__card__content__span--dropdown" *ngIf="!viewMode">
       {{ entity.ship || 'Ship'}}
       <md-icon *ngIf="!viewMode" [md-menu-trigger-for]="shipMenu">keyboard_arrow_down</md-icon>
     </span>
-    <md-input style="width: 100px" *ngIf="viewMode" [disabled]="viewMode" placeholder="Ship" [(ngModel)]="entity.ship"></md-input>
+    <md-input class="input--small" *ngIf="viewMode" [disabled]="viewMode" placeholder="Ship" [(ngModel)]="entity.ship"></md-input>
     <md-input [disabled]="viewMode" placeholder="Shipping Delay" [(ngModel)]="entity.shippingDelay"></md-input>
 
     <md-menu #shipMenu="mdMenu" x-position="before">
@@ -17,11 +17,11 @@
 
     <div>
       <md-card-subtitle>Fulfillment Provider</md-card-subtitle>
-      <span *ngIf="!viewMode" [class.input-active]="entity.fulfillmentProvider.name" style="width: 220px">
+      <span *ngIf="!viewMode" class="input--medium entity-view__card__content__span--dropdown" [class.input--active]="entity.fulfillmentProvider.name">
         {{ entity.fulfillmentProvider.name || 'Select'}}
         <md-icon *ngIf="!viewMode" [md-menu-trigger-for]="fulfillmentMenu">keyboard_arrow_down</md-icon>
       </span>
-      <md-input *ngIf="viewMode" disabled value="{{entity.fulfillmentProvider.name}}" style="width: 220px"></md-input>
+      <md-input *ngIf="viewMode" class="input--medium" disabled value="{{entity.fulfillmentProvider.name}}"></md-input>
     </div>
 
     <md-menu #fulfillmentMenu="mdMenu" x-position="before">
