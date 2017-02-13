@@ -1,0 +1,214 @@
+<div class="registration--out">
+  <div *ngIf="showWelcome" class="registration--in">
+    <div class="registration--in__welcome">
+      <h1> Thank You! </h1>
+      <img src="assets/favicons/favicon-icon.png">
+      <h2>
+        Welcome to SixCRM!
+      </h2>
+      <p>
+        Please complete the following steps
+        <br>
+        to finalize your registration
+      </p>
+      <div>
+        <button md-raised-button color="primary" (click)="showFormScreen()">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showForm" class="registration--in">
+    <div *ngIf="selectedIndex !== 3" class="tab__header"> Registration </div>
+
+    <md-tab-group [(selectedIndex)]="selectedIndex">
+      <md-tab disabled label="Sign Up">
+        <div class="tab__content">
+          <table>
+           <td class="full">
+             <md-input placeholder="Username"></md-input>
+           </td>
+          </table>
+          <table>
+            <td class="half">
+              <md-input placeholder="First Name"></md-input>
+            </td>
+            <td class="half">
+              <md-input placeholder="Last Name"></md-input>
+            </td>
+          </table>
+          <table>
+            <td class="full">
+              <md-input placeholder="Username"></md-input>
+            </td>
+          </table>
+        </div>
+      </md-tab>
+      <md-tab disabled label="Address">
+        <div class="tab__content">
+          <table>
+            <td class="full">
+              <md-input placeholder="Address One"></md-input>
+            </td>
+          </table>
+          <table>
+            <td class="full">
+              <md-input placeholder="Address Two"></md-input>
+            </td>
+          </table>
+          <table>
+            <td class="half">
+              <md-input placeholder="Country"></md-input>
+            </td>
+            <td class="half">
+              <md-input placeholder="State"></md-input>
+            </td>
+          </table>
+          <table>
+            <td class="half">
+              <md-input placeholder="City"></md-input>
+            </td>
+            <td class="half">
+              <md-input placeholder="Postal Code"></md-input>
+            </td>
+          </table>
+        </div>
+      </md-tab>
+      <md-tab disabled label="Payment">
+        <div class="tab__content">
+          <table>
+            <td class="full">
+              <md-input placeholder="Credit Card Number"></md-input>
+            </td>
+          </table>
+          <md-card-subtitle>Expiration Date</md-card-subtitle>
+          <table>
+            <td class="half">
+              <md-input placeholder="Month"></md-input>
+            </td>
+            <td class="half">
+              <md-input placeholder="Year"></md-input>
+            </td>
+          </table>
+          <table>
+            <td class="full">
+              <md-input placeholder="CCV"></md-input>
+            </td>
+          </table>
+        </div>
+      </md-tab>
+      <md-tab disabled label="Confirmation">
+
+        <div class="tab__content">
+          <table>
+            <td class="full">
+              <md-input placeholder="Username"></md-input>
+            </td>
+          </table>
+          <table>
+            <td class="half">
+              <md-input placeholder="First Name"></md-input>
+            </td>
+            <td class="half">
+              <md-input placeholder="Last Name"></md-input>
+            </td>
+          </table>
+          <table>
+            <td class="full">
+              <md-input placeholder="Username"></md-input>
+            </td>
+          </table>
+
+          <table>
+            <td class="full">
+              <md-input placeholder="Address One"></md-input>
+            </td>
+          </table>
+          <table>
+            <td class="full">
+              <md-input placeholder="Address Two"></md-input>
+            </td>
+          </table>
+          <table>
+            <td class="half">
+              <md-input placeholder="Country"></md-input>
+            </td>
+            <td class="half">
+              <md-input placeholder="State"></md-input>
+            </td>
+          </table>
+          <table>
+            <td class="half">
+              <md-input placeholder="City"></md-input>
+            </td>
+            <td class="half">
+              <md-input placeholder="Postal Code"></md-input>
+            </td>
+          </table>
+
+          <table>
+            <td class="half">
+              <md-input placeholder="Credit Card Last Four"></md-input>
+            </td>
+            <td class="half">
+              <md-input placeholder="Postal Code"></md-input>
+            </td>
+          </table>
+          <table>
+            <td class="half">
+              <md-input placeholder="CCV"></md-input>
+            </td>
+            <td class="half">
+              <md-input placeholder="CC EXP"></md-input>
+            </td>
+          </table>
+        </div>
+
+      </md-tab>
+    </md-tab-group>
+
+    <div class="tab__buttons">
+      <button md-raised-button color="primary" (click)="previous()">Previous</button>
+      <button md-raised-button color="primary" (click)="next()">Next</button>
+    </div>
+  </div>
+
+  <div *ngIf="showTerms" class="registration--in">
+    <div class="screen__content">
+      <div class="screen__content__terms__title">
+        Terms and conditions
+      </div>
+
+      <div class="screen__content__terms__text">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum.
+      </div>
+
+      <div class="screen__content__terms__label">
+        Type Name to Agree:
+      </div>
+      <table>
+        <td class="half">
+          <md-input placeholder="First Name"></md-input>
+        </td>
+        <td class="half">
+          <md-input placeholder="Last Name"></md-input>
+        </td>
+      </table>
+      <div class="tab__buttons">
+        <button md-raised-button color="primary" (click)="previous()">Previous</button>
+        <button md-raised-button color="primary" (click)="complete()">Complete</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showThankYou" class="registration--in">
+    <div class="screen__content">
+
+      Thank you
+      <button md-raised-button color="primary">Re-send email confirmation</button>
+    </div>
+  </div>
+</div>

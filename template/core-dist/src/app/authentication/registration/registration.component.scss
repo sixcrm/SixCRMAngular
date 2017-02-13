@@ -1,0 +1,105 @@
+.registration {
+  &--out {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #4A4A4A;
+  }
+
+  &--in {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    margin: 0;
+    box-sizing: border-box;
+    padding: 20px 20px 60px 20px;
+    width: 90%;
+    height: 90%;
+    border-radius: 1%;
+    background-color: white;
+
+    &__welcome {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      text-align: center;
+    }
+  }
+}
+
+md-tab-group {
+  float: right;
+  width: 60%;
+  height: 100%;
+}
+
+
+.tab {
+  &__header {
+    float: right;
+    margin-bottom: 40px;
+    width: 60%;
+    border-bottom: solid 3px #0899CD;
+  }
+
+  &__content {
+    margin: 10px 40px 0 30px;
+  }
+
+  &__buttons {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+table {
+  td {
+    padding: 10px 15px 10px 15px;
+
+    .full {
+      width: 100%;
+    }
+
+    .half {
+      width: 50%;
+    }
+  }
+}
+
+md-input {
+  margin: 0 10px 0 10px;
+  width: 100%;
+}
+
+md-card-subtitle {
+  margin: 10px;
+}
+
+md-tab-header {
+  border: none;
+}
+
+.screen__content {
+  float: right;
+  width: 60%;
+  height: 100%;
+
+  &__terms {
+    &__title {
+      margin-bottom: 30px;
+      width: 100%;
+      border-bottom: solid 3px #0899CD;
+    }
+
+    &__text {
+      border: solid 1px #858585;
+      padding: 20px 10px;
+      color: #858585;
+    }
+
+    &__label {
+      margin-top: 30px;
+    }
+  }
+}
