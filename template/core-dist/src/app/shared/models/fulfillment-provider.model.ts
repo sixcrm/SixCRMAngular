@@ -1,4 +1,6 @@
-export class FulfillmentProvider {
+import {Entity} from './entity.interface';
+
+export class FulfillmentProvider implements Entity<FulfillmentProvider> {
   id: string;
   name: string;
   provider: string;

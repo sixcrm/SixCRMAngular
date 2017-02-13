@@ -1,4 +1,6 @@
-export class MerchantProvider {
+import {Entity} from './entity.interface';
+
+export class MerchantProvider implements Entity<MerchantProvider>{
   id: string;
   name: string;
   username: string;

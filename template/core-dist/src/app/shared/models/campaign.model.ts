@@ -1,7 +1,8 @@
 import {ProductSchedule} from './product-schedule.model';
 import {LoadBalancer} from './load-balancers.model';
+import {Entity} from './entity.interface';
 
-export class Campaign {
+export class Campaign implements Entity<Campaign>{
   id: string;
   name: string;
   productSchedules: ProductSchedule[];
@@ -23,5 +24,9 @@ export class Campaign {
     }
 
     this.loadBalancer = new LoadBalancer(obj.loadbalancer);
+  }
+
+  copy(): Campaign {
+    return null;
   }
 }

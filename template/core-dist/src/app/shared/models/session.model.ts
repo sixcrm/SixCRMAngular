@@ -2,8 +2,9 @@ import {Customer} from './customer.model';
 import {ProductSchedule} from './product-schedule.model';
 import {Rebill} from './rebill.model';
 import {Campaign} from './campaign.model';
+import {Entity} from './entity.interface';
 
-export class Session {
+export class Session implements Entity<Session> {
   id: string;
   customer: Customer;
   productSchedules: ProductSchedule[] = [];
@@ -30,5 +31,9 @@ export class Session {
         this.rebills.push(new Rebill(obj.rebills[i]))
       }
     }
+  }
+
+  copy(): Session {
+    return null;
   }
 }

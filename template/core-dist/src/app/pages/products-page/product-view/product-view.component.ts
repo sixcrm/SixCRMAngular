@@ -1,21 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Product} from '../../../shared/models/product.model';
 import {ProductsService} from '../../../shared/services/products.service';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {FulfillmentProvider} from '../../../shared/models/fulfillment-provider.model';
 import {FulfillmentProvidersService} from '../../../shared/services/fulfillment-providers.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'c-product-view',
   templateUrl: './product-view.component.html',
   styleUrls: ['./product-view.component.scss']
 })
-export class ProductViewComponent extends AbstractEntityViewComponent<Product> implements OnInit {
+export class ProductViewComponent extends AbstractEntityViewComponent<Product> implements OnInit, OnDestroy {
 
-  private productBackup: Product;
   private fulfillmentProviders: FulfillmentProvider[] = [];
+  private fulfillmentProvidersSubscription: Subscription;
 
   constructor(
     private productsService: ProductsService,
@@ -26,22 +27,13 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     super(productsService, route, progressBarService);
   }
 
-  ngOnInit() {
-    this.productsService.entity$.subscribe((product: Product) => {
-      this.entity = product;
-
-      if (this.updateMode) {
-        this.productBackup = product.copy();
-      }
-      this.progressBarService.hideTopProgressBar();
-    });
-
+  ngOnInit(): void {
     if (this.addMode) {
       this.entity = new Product();
     }
 
     if (this.addMode || this.updateMode) {
-      this.fulfillmentProvidersService.entities$.subscribe((data) => {
+      this.fulfillmentProvidersSubscription = this.fulfillmentProvidersService.entities$.subscribe((data) => {
         this.fulfillmentProviders = data;
 
         if (this.addMode) {
@@ -58,6 +50,14 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     this.init();
   }
 
+  ngOnDestroy(): void {
+    this.destroy();
+
+    if (this.fulfillmentProvidersSubscription) {
+      this.fulfillmentProvidersSubscription.unsubscribe();
+    }
+  }
+
   setShip(value: string): void {
     this.entity.ship = value;
   }
@@ -65,9 +65,4 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
   setFulfillmentProvider(provider: FulfillmentProvider): void {
     this.entity.fulfillmentProvider = provider;
   }
-
-  cancelUpdate(): void {
-    this.entity = this.productBackup.copy();
-  }
-
 }

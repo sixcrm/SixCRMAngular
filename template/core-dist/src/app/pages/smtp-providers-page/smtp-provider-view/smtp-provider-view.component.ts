@@ -12,7 +12,6 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
 })
 export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpProvider> implements OnInit, OnDestroy {
 
-  private smtpProvider: SmtpProvider;
   private smtpProviderBackup: SmtpProvider;
 
   constructor(
@@ -24,38 +23,10 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
   }
 
   ngOnInit(): void {
-    this.entityViewSubscription = this.smtpProvidersService.entity$.subscribe(
-      (entity: SmtpProvider) => {
-        this.smtpProvider = entity;
-        this.progressBarService.hideTopProgressBar();
-
-        if (this.updateMode) {
-          this.smtpProviderBackup = Object.assign({}, this.smtpProvider);
-        }
-      });
-
-    this.entityCreatedSubscription = this.smtpProvidersService.entityCreated$.subscribe(
-      (created: SmtpProvider) => {
-        this.smtpProvider = created;
-        this.addMode = false;
-        this.viewMode = true;
-        this.mode = 'Created';
-        this.progressBarService.hideTopProgressBar();
-      });
-
-    this.entityUpdatedSubscription = this.smtpProvidersService.entityUpdated$.subscribe(
-      (updated: SmtpProvider) => {
-        this.smtpProvider = updated;
-        this.updateMode = false;
-        this.viewMode = true;
-        this.mode = 'Updated';
-        this.progressBarService.hideTopProgressBar();
-      });
-
     this.init();
 
     if (this.addMode) {
-      this.smtpProvider = new SmtpProvider();
+      this.entity = new SmtpProvider();
     }
   }
 
@@ -64,6 +35,6 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
   }
 
   cancelUpdate(): void {
-    this.smtpProvider = Object.assign({}, this.smtpProviderBackup);
+    this.entity = Object.assign({}, this.smtpProviderBackup);
   }
 }

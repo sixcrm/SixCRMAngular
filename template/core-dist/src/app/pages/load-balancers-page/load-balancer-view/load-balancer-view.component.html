@@ -1,7 +1,7 @@
-<md-card *ngIf="loadBalancer">
+<md-card *ngIf="entity">
   <md-card-title>Load Balancer {{mode}}</md-card-title>
   <md-card-content>
-    <md-input [disabled]="!addMode" placeholder="ID" [(ngModel)]="loadBalancer.id" name="id"></md-input>
+    <md-input [disabled]="!addMode" placeholder="ID" [(ngModel)]="entity.id" name="id"></md-input>
 
     <div class="content__block__first">
       <md-card-subtitle>
@@ -17,7 +17,7 @@
         </button>
       </md-menu>
 
-      <ng-container *ngFor="let merchantProviderConfig of loadBalancer.merchantProviderConfigurations; let i = index">
+      <ng-container *ngFor="let merchantProviderConfig of entity.merchantProviderConfigurations; let i = index">
         <div class="content__block__second">
           <md-card-subtitle>Merchant Provider Configuration
             <button *ngIf="!viewMode" md-icon-button (click)="removeConfiguration(i)">
@@ -37,7 +37,7 @@
       </ng-container>
     </div>
   </md-card-content>
-  <button md-raised-button color="primary" *ngIf="addMode" (click)="saveEntity(loadBalancer)"> Save </button>
-  <button md-raised-button color="primary" *ngIf="updateMode" (click)="updateEntity(loadBalancer)"> Update </button>
+  <button md-raised-button color="primary" *ngIf="addMode" (click)="saveEntity(entity)"> Save </button>
+  <button md-raised-button color="primary" *ngIf="updateMode" (click)="updateEntity(entity)"> Update </button>
   <button md-raised-button color="primary" *ngIf="updateMode" (click)="cancelUpdate()"> Cancel </button>
 </md-card>

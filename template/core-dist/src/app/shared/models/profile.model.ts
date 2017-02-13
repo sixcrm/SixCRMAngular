@@ -1,4 +1,6 @@
-export class Profile {
+import {Entity} from './entity.interface';
+
+export class Profile implements Entity<Profile>{
 
   picture: string;
   email: string;

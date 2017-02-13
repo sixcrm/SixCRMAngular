@@ -2,8 +2,9 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {AbstractEntityService} from '../shared/services/abstract-entity.service';
 import {Subscription} from 'rxjs';
 import {ProgressBarService} from '../shared/services/progress-bar.service';
+import {Entity} from '../shared/models/entity.interface';
 
-export abstract class AbstractEntityViewComponent<T> {
+export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
 
   protected addMode: boolean = false;
   protected viewMode: boolean = false;
@@ -11,6 +12,7 @@ export abstract class AbstractEntityViewComponent<T> {
   protected mode: string = '';
   protected entityId: string = '';
   protected entity: T;
+  protected entityBackup: T;
 
   protected routeSubscription: Subscription;
   protected entityViewSubscription: Subscription;
@@ -36,6 +38,17 @@ export abstract class AbstractEntityViewComponent<T> {
         this.entityId = params['id'];
       }
     });
+  }
+
+  protected init(): void {
+    this.entityViewSubscription = this.service.entity$.subscribe((entity: T) => {
+      this.entity = entity;
+
+      if (this.updateMode) {
+        this.entityBackup = entity.copy();
+      }
+      this.progressBarService.hideTopProgressBar();
+    });
 
     this.entityCreatedSubscription = this.service.entityCreated$.subscribe((created: T) => {
       this.entity = created;
@@ -52,9 +65,7 @@ export abstract class AbstractEntityViewComponent<T> {
       this.mode = 'Updated';
       this.progressBarService.hideTopProgressBar();
     });
-  }
 
-  protected init(): void {
     if (this.viewMode || this.updateMode) {
       this.service.getEntity(this.entityId);
       this.progressBarService.showTopProgressBar();
@@ -73,6 +84,10 @@ export abstract class AbstractEntityViewComponent<T> {
       this.service.updateEntity(entity);
       this.progressBarService.showTopProgressBar();
     }
+  }
+
+  protected cancelUpdate(): void {
+    this.entity = this.entityBackup.copy();
   }
 
   protected destroy(): void {

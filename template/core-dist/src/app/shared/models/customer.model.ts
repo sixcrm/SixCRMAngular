@@ -1,7 +1,8 @@
 import {Address} from './address.model';
 import {CreditCard} from './credit-card.model';
+import {Entity} from './entity.interface';
 
-export class Customer {
+export class Customer implements Entity<Customer> {
   id: string;
   email: string;
   firstName: string;
@@ -27,5 +28,9 @@ export class Customer {
         this.creditCards.push(new CreditCard(obj.creditcards[i]));
       }
     }
+  }
+
+  copy(): Customer {
+    return null;
   }
 }

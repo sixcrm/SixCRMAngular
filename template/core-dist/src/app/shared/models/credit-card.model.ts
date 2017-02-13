@@ -1,5 +1,7 @@
 import {Address} from './address.model';
-export class CreditCard {
+import {Entity} from './entity.interface';
+
+export class CreditCard implements Entity<CreditCard> {
   id: string;
   ccnumber: string;
   expiration: string;
@@ -18,5 +20,9 @@ export class CreditCard {
     this.ccv = obj.ccv || '';
     this.name = obj. name || '';
     this.address = new Address(obj.address);
+  }
+
+  copy(): CreditCard {
+    return null;
   }
 }

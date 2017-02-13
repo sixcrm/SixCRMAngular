@@ -1,6 +1,7 @@
 import {Customer} from './customer.model';
+import {Entity} from './entity.interface';
 
-export class ParentSession {
+export class ParentSession implements Entity<ParentSession> {
   id: string;
   customer: Customer;
 
@@ -11,5 +12,9 @@ export class ParentSession {
 
     this.id = obj.id || '';
     this.customer = new Customer(obj.customer);
+  }
+
+  copy(): ParentSession {
+    return null;
   }
 }

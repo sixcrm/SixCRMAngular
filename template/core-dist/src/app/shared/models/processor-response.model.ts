@@ -1,4 +1,6 @@
-export class ProcessorResponse {
+import {Entity} from './entity.interface';
+
+export class ProcessorResponse implements Entity<ProcessorResponse> {
   message: string = '';
 
   constructor(obj?: any) {
@@ -6,5 +8,9 @@ export class ProcessorResponse {
       obj = JSON.parse(obj);
       this.message = obj.message || '';
     }
+  }
+
+  copy(): ProcessorResponse {
+    return null;
   }
 }

@@ -1,10 +1,12 @@
-export class Address {
+import {Entity} from './entity.interface';
+
+export class Address implements Entity<Address> {
   line1: string;
   line2: string;
   city: string;
   state: string;
   zip: string;
-  country: string
+  country: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -17,5 +19,9 @@ export class Address {
     this.state = obj.state || '';
     this.zip = obj.zip || '';
     this.country = obj.country || '';
+  }
+
+  copy(): Address {
+    return null;
   }
 }

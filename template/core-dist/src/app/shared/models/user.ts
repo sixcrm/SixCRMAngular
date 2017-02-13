@@ -1,6 +1,7 @@
 import {AccessKey} from './access-key.model';
+import {Entity} from './entity.interface';
 
-export class User {
+export class User implements Entity<User> {
   id: string;
   name: string;
   auth0Id: string;
@@ -19,5 +20,9 @@ export class User {
     this.email = obj.email || '';
     this.active = obj.active || '';
     this.accessKey = new AccessKey(obj.accesskey);
+  }
+
+  copy(): User {
+    return null;
   }
 }

@@ -1,5 +1,7 @@
 import {Product} from './product.model';
-export class Schedule {
+import {Entity} from './entity.interface';
+
+export class Schedule implements Entity<Schedule>{
   price: string;
   start: string;
   end: string;
@@ -16,5 +18,9 @@ export class Schedule {
     this.end = obj.end || '';
     this.period = obj.period || '';
     this.product = new Product(obj.product);
+  }
+
+  copy(): Schedule {
+    return null;
   }
 }

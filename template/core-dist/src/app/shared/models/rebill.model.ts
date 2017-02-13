@@ -1,8 +1,9 @@
 import {ParentSession} from './parent-session.model';
 import {ProductSchedule} from './product-schedule.model';
 import {Transaction} from './transaction.model';
+import {Entity} from './entity.interface';
 
-export class Rebill {
+export class Rebill implements Entity<Rebill> {
   id: string;
   billDate: string;
   amount: string;
@@ -31,5 +32,9 @@ export class Rebill {
         this.transactions.push(new Transaction(obj.transactions[i]));
       }
     }
+  }
+
+  copy(): Rebill {
+    return null;
   }
 }

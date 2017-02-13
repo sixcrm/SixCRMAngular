@@ -16,8 +16,6 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
 })
 export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadBalancer> implements OnInit, OnDestroy {
 
-  private loadBalancer: LoadBalancer;
-  private loadBalancerBackup: LoadBalancer;
   private merchantProviders: MerchantProvider[] = [];
   private merchantProvidersSubscription: Subscription;
 
@@ -31,36 +29,8 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
   }
 
   ngOnInit(): void {
-    this.entityViewSubscription = this.loadBalancersService.entity$.subscribe((entity: LoadBalancer) => {
-        this.loadBalancer = entity;
-
-        if (!this.addMode) {
-          this.progressBarService.hideTopProgressBar();
-        }
-
-        if (this.updateMode) {
-          this.loadBalancerBackup = this.loadBalancer.copy();
-        }
-      });
-
-    this.entityCreatedSubscription = this.loadBalancersService.entityCreated$.subscribe((entity: LoadBalancer) => {
-        this.loadBalancer = entity;
-        this.viewMode = true;
-        this.addMode = false;
-        this.mode = 'Created';
-        this.progressBarService.hideTopProgressBar();
-      });
-
-    this.entityUpdatedSubscription = this.loadBalancersService.entityUpdated$.subscribe((entity: LoadBalancer) => {
-        this.loadBalancer = entity;
-        this.viewMode = true;
-        this.updateMode = false;
-        this.mode = 'Updated';
-        this.progressBarService.hideTopProgressBar();
-      });
-
     if (this.addMode) {
-      this.loadBalancer = new LoadBalancer();
+      this.entity = new LoadBalancer();
     }
 
     if (this.addMode || this.updateMode) {
@@ -90,17 +60,13 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
     }
   }
 
-  private addNewConfiguration(merchantProvider: MerchantProvider): void {
-    this.loadBalancer.merchantProviderConfigurations.push(
+  addNewConfiguration(merchantProvider: MerchantProvider): void {
+    this.entity.merchantProviderConfigurations.push(
       new MerchantProviderConfiguration({merchantprovider: merchantProvider})
     );
   }
 
-  private removeConfiguration(index: number): void {
-    this.loadBalancer.merchantProviderConfigurations.splice(index, 1);
-  }
-
-  private cancelUpdate(): void {
-    this.loadBalancer = this.loadBalancerBackup.copy();
+  removeConfiguration(index: number): void {
+    this.entity.merchantProviderConfigurations.splice(index, 1);
   }
 }

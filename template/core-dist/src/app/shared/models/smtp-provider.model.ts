@@ -1,4 +1,6 @@
-export class SmtpProvider {
+import {Entity} from './entity.interface';
+
+export class SmtpProvider implements Entity<SmtpProvider> {
   id: string;
   name: string;
   hostname: string;
@@ -19,5 +21,9 @@ export class SmtpProvider {
     this.username = obj.username || '';
     this.password = obj.password || '';
     this.port = obj.port || '';
+  }
+
+  copy(): SmtpProvider {
+    return null;
   }
 }

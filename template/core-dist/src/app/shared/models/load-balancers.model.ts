@@ -1,6 +1,7 @@
 import {MerchantProviderConfiguration} from './merchant-provider-configuration.model';
+import {Entity} from './entity.interface';
 
-export class LoadBalancer {
+export class LoadBalancer implements Entity<LoadBalancer> {
   id: string;
   merchantProviderConfigurations: MerchantProviderConfiguration[];
 

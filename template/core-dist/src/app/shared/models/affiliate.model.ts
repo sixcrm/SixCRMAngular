@@ -1,6 +1,6 @@
-import {affiliatesListQuery, affiliateQuery, deleteAffiliateMutation} from '../utils/query-builder';
+import {Entity} from './entity.interface';
 
-export class Affiliate {
+export class Affiliate implements Entity<Affiliate> {
   id: string;
   affiliateId: string;
   subId1: string;
@@ -23,5 +23,9 @@ export class Affiliate {
     this.subId4 = obj.sub_id_4 || '';
     this.subId5 = obj.sub_id_5 || '';
     this.clickId = obj.click_id || '';
+  }
+
+  copy(): Affiliate {
+    return null;
   }
 }

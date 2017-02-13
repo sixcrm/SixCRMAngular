@@ -1,6 +1,7 @@
 import {FulfillmentProvider} from './fulfillment-provider.model';
+import {Entity} from './entity.interface';
 
-export class Product {
+export class Product implements Entity<Product> {
   id: string;
   name: string;
   sku: string;

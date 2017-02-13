@@ -1,6 +1,7 @@
 import {SmtpProvider} from './smtp-provider.model';
+import {Entity} from './entity.interface';
 
-export class Email {
+export class Email implements Entity<Email> {
   id: string;
   name: string;
   subject: string;
@@ -19,5 +20,9 @@ export class Email {
     this.body = obj.body || '';
     this.type = obj.type || '';
     this.smtpProvider = new SmtpProvider(obj.smtp_provider);
+  }
+
+  copy(): Email {
+    return null;
   }
 }
