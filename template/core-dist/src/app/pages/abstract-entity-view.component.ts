@@ -10,6 +10,7 @@ export abstract class AbstractEntityViewComponent<T> {
   protected updateMode: boolean = false;
   protected mode: string = '';
   protected entityId: string = '';
+  protected entity: T;
 
   protected routeSubscription: Subscription;
   protected entityViewSubscription: Subscription;
@@ -34,6 +35,22 @@ export abstract class AbstractEntityViewComponent<T> {
         this.updateMode = true;
         this.entityId = params['id'];
       }
+    });
+
+    this.entityCreatedSubscription = this.service.entityCreated$.subscribe((created: T) => {
+      this.entity = created;
+      this.addMode = false;
+      this.viewMode = true;
+      this.mode = 'Created';
+      this.progressBarService.hideTopProgressBar();
+    });
+
+    this.entityUpdatedSubscription = this.service.entityUpdated$.subscribe((updated: T) => {
+      this.entity = updated;
+      this.updateMode = false;
+      this.viewMode = true;
+      this.mode = 'Updated';
+      this.progressBarService.hideTopProgressBar();
     });
   }
 

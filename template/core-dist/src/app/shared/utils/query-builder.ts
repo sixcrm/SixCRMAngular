@@ -2,6 +2,7 @@ import {SmtpProvider} from '../models/smtp-provider.model';
 import {MerchantProvider} from '../models/merchant-provider.model';
 import {LoadBalancer} from '../models/load-balancers.model';
 import {MerchantProviderConfiguration} from '../models/merchant-provider-configuration.model';
+import {Product} from '../models/product.model';
 function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
 }
@@ -26,12 +27,24 @@ export function deleteProductMutation(id: string): string {
   return deleteMutation('product', id);
 }
 
-export function createProductMutation(id: string, name: string, sku: string): string {
-  return `mutation { createproduct (product: { id: "${id}", name: "${name}", sku: "${sku}" }) {id name sku} }`;
+export function createProductMutation(product: Product): string {
+  return `
+  mutation {
+    createproduct (product: { id: "${product.name}", name: "${product.name}", sku: "${product.sku}", ship: "${product.ship}", shipping_delay:"${product.shippingDelay}",  fulfillment_provider:"${product.fulfillmentProvider.id}" }) {
+      id name sku ship shipping_delay
+      fulfillment_provider { id name }
+    }
+  }`;
 }
 
-export function editProductMutation(id: string, name: string, sku: string): string {
-  return `mutation { updateproduct (product: { id: "${id}", name: "${name}", sku: "${sku}" }) {id name sku} }`;
+export function updateProductMutation(product: Product): string {
+  return `
+    mutation {
+      updateproduct (product: { id: "${product.id}", name: "${product.name}", sku: "${product.sku}", ship: "${product.ship}", shipping_delay:"${product.shippingDelay}",  fulfillment_provider:"${product.fulfillmentProvider.id}" }) {
+        id name sku ship shipping_delay
+        fulfillment_provider { id name }
+      }
+    }`;
 }
 
 export function  productScheduleListQuery(): string {

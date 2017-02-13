@@ -14,7 +14,6 @@ import {FulfillmentProvidersService} from '../../../shared/services/fulfillment-
 })
 export class ProductViewComponent extends AbstractEntityViewComponent<Product> implements OnInit {
 
-  private product: Product;
   private productBackup: Product;
   private fulfillmentProviders: FulfillmentProvider[] = [];
 
@@ -29,7 +28,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   ngOnInit() {
     this.productsService.entity$.subscribe((product: Product) => {
-      this.product = product;
+      this.entity = product;
 
       if (this.updateMode) {
         this.productBackup = product.copy();
@@ -38,7 +37,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     });
 
     if (this.addMode) {
-      this.product = new Product();
+      this.entity = new Product();
     }
 
     if (this.addMode || this.updateMode) {
@@ -60,15 +59,15 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
   }
 
   setShip(value: string): void {
-    this.product.ship = value;
+    this.entity.ship = value;
   }
 
   setFulfillmentProvider(provider: FulfillmentProvider): void {
-    this.product.fulfillmentProvider = provider;
+    this.entity.fulfillmentProvider = provider;
   }
 
   cancelUpdate(): void {
-    this.product = this.productBackup.copy();
+    this.entity = this.productBackup.copy();
   }
 
 }
