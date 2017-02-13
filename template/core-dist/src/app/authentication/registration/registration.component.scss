@@ -1,3 +1,4 @@
+
 .registration {
   &--out {
     position: absolute;
@@ -39,11 +40,23 @@ md-tab-group {
     float: right;
     margin-bottom: 40px;
     width: 60%;
-    border-bottom: solid 3px #0899CD;
+    border-bottom: solid 3px #2196F3;
   }
 
   &__content {
     margin: 10px 40px 0 30px;
+
+    p {
+      padding-left: 40px;
+    }
+  }
+
+  &__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    max-width: 40%;
   }
 
   &__buttons {
@@ -89,7 +102,7 @@ md-tab-header {
     &__title {
       margin-bottom: 30px;
       width: 100%;
-      border-bottom: solid 3px #0899CD;
+      border-bottom: solid 3px #2196F3;
     }
 
     &__text {
@@ -102,4 +115,8 @@ md-tab-header {
       margin-top: 30px;
     }
   }
+}
+
+.terms__actions {
+  
 }

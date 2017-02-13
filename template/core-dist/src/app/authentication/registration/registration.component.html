@@ -20,6 +20,8 @@
   <div *ngIf="showForm" class="registration--in">
     <div *ngIf="selectedIndex !== 3" class="tab__header"> Registration </div>
 
+    <img class="tab__image" src="/assets/images/icon-half-registration.svg">
+
     <md-tab-group [(selectedIndex)]="selectedIndex">
       <md-tab disabled label="Sign Up">
         <div class="tab__content">
@@ -173,12 +175,20 @@
   </div>
 
   <div *ngIf="showTerms" class="registration--in">
+    <img class="tab__image" src="/assets/images/icon-half-registration.svg">
+
     <div class="screen__content">
       <div class="screen__content__terms__title">
         Terms and conditions
       </div>
 
       <div class="screen__content__terms__text">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum.
+
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
         dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
         ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
@@ -205,10 +215,24 @@
   </div>
 
   <div *ngIf="showThankYou" class="registration--in">
+    <img class="tab__image" src="/assets/images/icon-half-registration.svg">
+
     <div class="screen__content">
 
-      Thank you
-      <button md-raised-button color="primary">Re-send email confirmation</button>
+      <h1>Thank you!</h1>
+      <h2>Registration Complete</h2>
+
+      <p>
+        Your account information has been recieved and is awaiting confirmation from our account administrators.
+        <br>
+        <br>
+        Expect to recieve an email confirmation once your application has been approved, this typically happens within one buisness day.
+      </p>
+
+      <div class="terms__actions">
+        <p> Haven't heard from us yet? </p>
+        <button md-raised-button color="primary">Re-send email confirmation</button>
+      </div>
     </div>
   </div>
 </div>
