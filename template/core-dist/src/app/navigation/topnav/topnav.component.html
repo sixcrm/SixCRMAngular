@@ -12,6 +12,7 @@
       <img class="topnav__dropdown__menu__profile__image" [src]="_userProfile.picture">
       <span>{{_userProfile.email}}</span>
     </button>
+    <button md-menu-item [routerLink]="['/register']"> <span>register</span> </button>
     <button md-menu-item (click)="logout()"> <span>sign out</span> </button>
   </div>
 
