@@ -10,6 +10,8 @@
 @import "assets/scss/_entity-index.scss";
 @import "assets/scss/_entity-view.scss";
 @import "assets/scss/_mixins.scss";
+@import "assets/scss/_tab.scss";
+@import "assets/scss/_menu.scss";
 
 /***************
   HTML Styles
@@ -19,7 +21,7 @@ body {
   @include font-body();
 
   margin: 0;
-  font-family: "Roboto";
+  font-family: "Roboto", serif;
 }
 main > .container {
   margin: 20px auto;

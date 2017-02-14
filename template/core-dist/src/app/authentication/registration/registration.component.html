@@ -1,20 +1,19 @@
 <div class="registration--out">
   <div *ngIf="showWelcome" class="registration--in">
     <div class="registration--in__welcome">
-      <h1> Thank You! </h1>
+      <h1> THANK YOU </h1>
 
-      <svg width="150px" height="150px" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52.97 52.88">
-        <defs>
-          <style>.cls-1{fill:#1976D2;}</style>
-        </defs>
+      <svg class="thank-you-icon" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52.97 52.88">
         <title>favicon</title>
-        <path class="cls-1"
-          d="M48.73,11.23A26.38,26.38,0,0,0,32.11,3.56l0,0L18.37,17.31A17.23,17.23,0,1,0,30,12.75c-0.38,0-.76,0-1.14,0L33.65,8a22.23,22.23,0,1,1-19.48,
-          6.31L24.37,4.08A26.48,26.48,0,1,0,48.73,11.23ZM30,17a13,13,0,1,1-9.23,3.86h0l0.53-.53A12.94,12.94,0,0,1,30,17Z" transform="translate(-3.52 -3.56)"/>
+        <path
+          d="M48.73,11.23A26.38,26.38,0,0,0,32.11,3.56l0,0L18.37,17.31A17.23,17.23,0,1,0,30,12.75c-0.38,0-.76,0-1.14,
+          0L33.65,8a22.23,22.23,0,1,1-19.48,6.31L24.37,4.08A26.48,26.48,0,1,0,48.73,11.23ZM30,17a13,13,0,1,1-9.23,
+          3.86h0l0.53-.53A12.94,12.94,0,0,1,30,17Z"
+          transform="translate(-3.52 -3.56)"/>
       </svg>
 
       <h2>
-        Welcome to SixCRM!
+        Welcome to SixCRM
       </h2>
       <p>
         Please complete the following steps
@@ -22,13 +21,13 @@
         to finalize your registration
       </p>
       <div>
-        <button md-raised-button color="primary" (click)="showFormScreen()">Continue</button>
+        <button md-raised-button (click)="showFormScreen()">Continue</button>
       </div>
     </div>
   </div>
 
   <div *ngIf="showForm" class="registration--in">
-    <div *ngIf="selectedIndex !== 3" class="tab__header"> Registration </div>
+    <div *ngIf="selectedIndex !== 3" class="tab__header"> <span>Registration</span> </div>
 
     <img class="tab__image" src="/assets/images/icon-half-registration.svg">
 
@@ -37,20 +36,20 @@
         <div class="tab__content">
           <table>
            <td class="full">
-             <md-input placeholder="Username"></md-input>
+             <md-input placeholder="Username" [(ngModel)]="username" name="username"></md-input>
            </td>
           </table>
           <table>
             <td class="half">
-              <md-input placeholder="First Name"></md-input>
+              <md-input placeholder="First Name" [(ngModel)]="firstName" name="firstName"></md-input>
             </td>
             <td class="half">
-              <md-input placeholder="Last Name"></md-input>
+              <md-input placeholder="Last Name" [(ngModel)]="lastName" name="lastName"></md-input>
             </td>
           </table>
           <table>
             <td class="full">
-              <md-input placeholder="Username"></md-input>
+              <md-input placeholder="Company" [(ngModel)]="company" name="company"></md-input>
             </td>
           </table>
         </div>
@@ -59,28 +58,42 @@
         <div class="tab__content">
           <table>
             <td class="full">
-              <md-input placeholder="Address One"></md-input>
+              <md-input placeholder="Address One"  [(ngModel)]="address1" name="address1"></md-input>
             </td>
           </table>
           <table>
             <td class="full">
-              <md-input placeholder="Address Two"></md-input>
+              <md-input placeholder="Address Two"  [(ngModel)]="address2" name="address2"></md-input>
             </td>
           </table>
+
+          <div class="dropdown__container">
+            <div class="dropdown__element">
+              <span [class.input--active]="country" class="tab__content__dropdown">
+                {{ country || 'Country'}}
+                <md-icon [md-menu-trigger-for]="countryMenu">keyboard_arrow_down</md-icon>
+              </span>
+              </div>
+              <div class="dropdown__element">
+              <span [class.input--active]="state" class="tab__content__dropdown">
+                {{ state || 'State'}}
+                <md-icon [md-menu-trigger-for]="stateMenu">keyboard_arrow_down</md-icon>
+              </span>
+            </div>
+          </div>
+          <md-menu #countryMenu="mdMenu" x-position="before">
+            <button *ngFor="let c of countries" md-menu-item (click)="setCountry(c)"> {{c}} </button>
+          </md-menu>
+          <md-menu #stateMenu="mdMenu" x-position="before">
+            <button *ngFor="let s of states" md-menu-item (click)="setState(s)"> {{s}} </button>
+          </md-menu>
+
           <table>
             <td class="half">
-              <md-input placeholder="Country"></md-input>
+              <md-input placeholder="City"  [(ngModel)]="city" name="city"></md-input>
             </td>
             <td class="half">
-              <md-input placeholder="State"></md-input>
-            </td>
-          </table>
-          <table>
-            <td class="half">
-              <md-input placeholder="City"></md-input>
-            </td>
-            <td class="half">
-              <md-input placeholder="Postal Code"></md-input>
+              <md-input placeholder="Postal Code" [(ngModel)]="postalCode" name="postalCode" pattern="^(0|[1-9][0-9]*)$"></md-input>
             </td>
           </table>
         </div>
@@ -89,21 +102,36 @@
         <div class="tab__content">
           <table>
             <td class="full">
-              <md-input placeholder="Credit Card Number"></md-input>
+              <md-input placeholder="Credit Card Number" [(ngModel)]="ccNumber" name="ccNumber"></md-input>
             </td>
           </table>
-          <md-card-subtitle>Expiration Date</md-card-subtitle>
-          <table>
-            <td class="half">
-              <md-input placeholder="Month"></md-input>
-            </td>
-            <td class="half">
-              <md-input placeholder="Year"></md-input>
-            </td>
-          </table>
+          <span class="tab__content__label">Expiration Date</span>
+
+          <div class="dropdown__container">
+            <div class="dropdown__element">
+              <span [class.input--active]="ccExpMonth" class="tab__content__dropdown">
+                {{ ccExpMonth || 'Month'}}
+                <md-icon [md-menu-trigger-for]="monthMenu">keyboard_arrow_down</md-icon>
+              </span>
+            </div>
+            <div class="dropdown__element">
+              <span [class.input--active]="ccExpYear" class="tab__content__dropdown">
+                {{ ccExpYear || 'Year'}}
+                <md-icon [md-menu-trigger-for]="yearMenu">keyboard_arrow_down</md-icon>
+              </span>
+            </div>
+          </div>
+
+          <md-menu #monthMenu="mdMenu" x-position="before">
+            <button *ngFor="let m of months" md-menu-item (click)="setCCExpMonth(m)"> {{m}} </button>
+          </md-menu>
+          <md-menu #yearMenu="mdMenu" x-position="before">
+            <button *ngFor="let y of years" md-menu-item (click)="setCCExpYear(y)"> {{y}} </button>
+          </md-menu>
+
           <table>
             <td class="full">
-              <md-input placeholder="CCV"></md-input>
+              <md-input placeholder="CCV"  [(ngModel)]="ccv" name="ccv"></md-input>
             </td>
           </table>
         </div>
@@ -113,64 +141,57 @@
         <div class="tab__content">
           <table>
             <td class="full">
-              <md-input placeholder="Username"></md-input>
+              <md-input readonly="true" placeholder="Username" value="{{username}}"></md-input>
             </td>
           </table>
           <table>
             <td class="half">
-              <md-input placeholder="First Name"></md-input>
+              <md-input readonly="true" placeholder="First Name" value="{{firstName}}"></md-input>
             </td>
             <td class="half">
-              <md-input placeholder="Last Name"></md-input>
+              <md-input readonly="true" placeholder="Last Name" value="{{lastName}}"></md-input>
             </td>
           </table>
           <table>
             <td class="full">
-              <md-input placeholder="Username"></md-input>
+              <md-input readonly="true" placeholder="Company" value="{{company}}"></md-input>
             </td>
           </table>
 
           <table>
             <td class="full">
-              <md-input placeholder="Address One"></md-input>
+              <md-input readonly="true" placeholder="Address One" value="{{address1}}"></md-input>
             </td>
           </table>
           <table>
             <td class="full">
-              <md-input placeholder="Address Two"></md-input>
-            </td>
-          </table>
-          <table>
-            <td class="half">
-              <md-input placeholder="Country"></md-input>
-            </td>
-            <td class="half">
-              <md-input placeholder="State"></md-input>
-            </td>
-          </table>
-          <table>
-            <td class="half">
-              <md-input placeholder="City"></md-input>
-            </td>
-            <td class="half">
-              <md-input placeholder="Postal Code"></md-input>
+              <md-input readonly="true" placeholder="Address Two" value="{{address2}}"></md-input>
             </td>
           </table>
 
           <table>
             <td class="half">
-              <md-input placeholder="Credit Card Last Four"></md-input>
+              <md-input readonly="true" placeholder="Country" value="{{country}}"></md-input>
             </td>
             <td class="half">
-              <md-input placeholder="Postal Code"></md-input>
+              <md-input readonly="true" placeholder="State" value="{{state}}"></md-input>
+            </td>
+          </table>
+
+          <table>
+            <td class="half">
+              <md-input readonly="true" placeholder="Credit Card Last Four" value="{{ccLastFour()}}"></md-input>
+            </td>
+            <td class="half">
+              <md-input readonly="true" placeholder="Postal Code" value="{{postalCode}}"></md-input>
             </td>
           </table>
           <table>
             <td class="half">
-              <md-input placeholder="CCV"></md-input>
+              <md-input readonly="true" placeholder="CCV" value="{{ccv}}"></md-input>
             </td>
             <td class="half">
-              <md-input placeholder="CC EXP"></md-input>
+              <md-input readonly="true" placeholder="CC EXP" value="{{ccExpMonth + '/' + ccExpYear}}"></md-input>
             </td>
           </table>
         </div>
@@ -179,8 +200,8 @@
     </md-tab-group>
 
     <div class="tab__buttons">
-      <button md-raised-button color="primary" (click)="previous()">Previous</button>
-      <button md-raised-button color="primary" (click)="next()">Next</button>
+      <span (click)="previous()">Previous</span>
+      <button [disabled]="!isValid(selectedIndex)" md-raised-button (click)="next()">Next</button>
     </div>
   </div>
 
@@ -189,7 +210,7 @@
 
     <div class="screen__content">
       <div class="screen__content__terms__title">
-        Terms and conditions
+        Terms and Conditions
       </div>
 
       <div class="screen__content__terms__text">
@@ -207,19 +228,12 @@
       </div>
 
       <div class="screen__content__terms__label">
-        Type Name to Agree:
+        Type full name to agree:
       </div>
-      <table>
-        <td class="half">
-          <md-input placeholder="First Name"></md-input>
-        </td>
-        <td class="half">
-          <md-input placeholder="Last Name"></md-input>
-        </td>
-      </table>
+      <md-input class="screen__content__terms__input--single" placeholder="Full Name" [(ngModel)]="fullName" name="fullName"></md-input>
       <div class="tab__buttons">
-        <button md-raised-button color="primary" (click)="previous()">Previous</button>
-        <button md-raised-button color="primary" (click)="complete()">Complete</button>
+        <span (click)="previous()">Previous</span>
+        <button [disabled]="!isValid(4)" md-raised-button (click)="complete()">Complete</button>
       </div>
     </div>
   </div>
@@ -227,21 +241,21 @@
   <div *ngIf="showThankYou" class="registration--in">
     <img class="tab__image" src="/assets/images/icon-half-registration.svg">
 
-    <div class="screen__content">
+    <div class="screen__content terms">
 
-      <h1>Thank you!</h1>
-      <h2>Registration Complete</h2>
+      <h1 class="terms__title"> THANK YOU </h1>
+      <h2 class="terms__subtitle"> Registration Complete </h2>
 
-      <p>
-        Your account information has been recieved and is awaiting confirmation from our account administrators.
+      <p class="terms__content">
+        Your account information has been receive and is awaiting confirmation from our account administrators.
         <br>
         <br>
-        Expect to recieve an email confirmation once your application has been approved, this typically happens within one buisness day.
+        Expect to receive an email confirmation once your application has been approved, this typically happens within one business day.
       </p>
 
       <div class="terms__actions">
-        <p> Haven't heard from us yet? </p>
-        <button md-raised-button color="primary">Re-send email confirmation</button>
+        <p class="terms__actions__label"> Haven't heard from us yet? </p>
+        <button md-raised-button>Re-send email confirmation</button>
       </div>
     </div>
   </div>

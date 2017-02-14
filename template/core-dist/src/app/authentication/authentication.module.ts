@@ -8,9 +8,16 @@ import {AuthGuard} from './auth-guard.service';
 import { RegistrationComponent } from './registration/registration.component';
 import {MaterialModule} from '@angular/material';
 import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
-  imports : [routing, RouterModule, MaterialModule, CommonModule],
+  imports : [
+    routing,
+    RouterModule,
+    MaterialModule,
+    CommonModule,
+    FormsModule
+  ],
   declarations : [
     AuthComponent,
     RegistrationComponent
