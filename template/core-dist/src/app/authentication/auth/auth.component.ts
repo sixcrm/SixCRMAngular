@@ -18,6 +18,6 @@ export class AuthComponent implements OnInit {
         this.auth.showLogin();
         this.showSpinner = false;
       }
-    }, 300);
+    }, 500);
   }
 }
