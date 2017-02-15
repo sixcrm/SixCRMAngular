@@ -6,6 +6,7 @@ import {ProductSchedule} from '../models/product-schedule.model';
 import {User} from '../models/user';
 import {CreditCard} from '../models/credit-card.model';
 import {FulfillmentProvider} from '../models/fulfillment-provider.model';
+import {Affiliate} from '../models/affiliate.model';
 
 function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
@@ -224,7 +225,25 @@ export function affiliateQuery(id: string): string {
 }
 
 export function deleteAffiliateMutation(id: string): string {
-  return deleteMutation('affiliates', id);
+  return deleteMutation('affiliate', id);
+}
+
+export function createAffiliateMutation(affiliate: Affiliate): string {
+  return `
+    mutation {
+      createaffiliate (affiliate: { id: "${affiliate.id}", affiliate_id: "${affiliate.affiliateId}", sub_id_1: "${affiliate.subId1}", sub_id_2: "${affiliate.subId2}", sub_id_3: "${affiliate.subId3}", sub_id_4: "${affiliate.subId4}", sub_id_5: "${affiliate.subId5}", click_id: "${affiliate.clickId}"}) { 
+        id affiliate_id sub_id_1 sub_id_2 sub_id_3 sub_id_4 sub_id_5 click_id
+      }
+	  }`
+}
+
+export function updateAffiliateMutation(affiliate: Affiliate): string {
+  return `
+    mutation {
+      updateaffiliate (affiliate: { id: "${affiliate.id}", affiliate_id: "${affiliate.affiliateId}", sub_id_1: "${affiliate.subId1}", sub_id_2: "${affiliate.subId2}", sub_id_3: "${affiliate.subId3}", sub_id_4: "${affiliate.subId4}", sub_id_5: "${affiliate.subId5}", click_id: "${affiliate.clickId}"}) { 
+        id affiliate_id sub_id_1 sub_id_2 sub_id_3 sub_id_4 sub_id_5 click_id
+      }
+	  }`
 }
 
 export function customersInfoListQuery(): string {

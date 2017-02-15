@@ -3,7 +3,10 @@ import {Affiliate} from '../models/affiliate.model';
 import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Http} from '@angular/http';
-import {affiliatesListQuery, affiliateQuery, deleteAffiliateMutation} from '../utils/query-builder';
+import {
+  affiliatesListQuery, affiliateQuery, deleteAffiliateMutation,
+  createAffiliateMutation, updateAffiliateMutation
+} from '../utils/query-builder';
 
 @Injectable()
 export class AffiliatesService extends AbstractEntityService<Affiliate> {
@@ -15,7 +18,9 @@ export class AffiliatesService extends AbstractEntityService<Affiliate> {
       data => new Affiliate(data),
       affiliatesListQuery,
       affiliateQuery,
-      deleteAffiliateMutation
+      deleteAffiliateMutation,
+      createAffiliateMutation,
+      updateAffiliateMutation
     );
   }
 }

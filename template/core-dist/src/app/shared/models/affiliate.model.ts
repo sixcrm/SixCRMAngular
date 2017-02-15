@@ -26,6 +26,15 @@ export class Affiliate implements Entity<Affiliate> {
   }
 
   copy(): Affiliate {
-    return null;
+    return new Affiliate({
+      id: this.id,
+      affiliate_id: this.affiliateId,
+      sub_id_1: this.subId1,
+      sub_id_2: this.subId2,
+      sub_id_3: this.subId3,
+      sub_id_4: this.subId4,
+      sub_id_5: this.subId5,
+      click_id: this.clickId
+    });
   }
 }
