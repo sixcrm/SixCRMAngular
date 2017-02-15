@@ -9,6 +9,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import {MaterialModule} from '@angular/material';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
+import {LoginGuard} from './login-guard.service';
 
 @NgModule({
   imports : [
@@ -25,6 +26,7 @@ import {FormsModule} from '@angular/forms';
   providers : [
     AuthenticationService,
     AuthGuard,
+    LoginGuard,
     AUTH_PROVIDERS,
   ]
 })

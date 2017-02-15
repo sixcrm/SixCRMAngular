@@ -1,0 +1,57 @@
+.background {
+  background: -webkit-radial-gradient(#40404b, #111118) rgba(34,34,40,0.94);
+  background: radial-gradient(#40404b, #111118) rgba(34,34,40,0.94);
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.background > .wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+}
+
+.background > .wrapper > .spinner {
+  margin: 100px auto;
+  width: 80px;
+  height: 80px;
+  position: relative;
+}
+
+.sixLogo {
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-animation: six-icon 850ms infinite ease-in-out;
+  animation: six-icon 850ms infinite ease-in-out;
+}
+
+@-webkit-keyframes six-icon {
+  25% {
+    -webkit-transform:  rotate(-90deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(-360deg) ;
+  }
+}
+
+@keyframes six-icon {
+  25% {
+    transform:  rotate(-90deg);
+    -webkit-transform:  rotate(-90deg);
+  }
+
+  100% {
+    transform: rotate(-360deg) ;
+    -webkit-transform: rotate(-360deg) ;
+  }
+}

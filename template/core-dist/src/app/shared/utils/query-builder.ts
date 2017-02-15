@@ -1,7 +1,6 @@
 import {SmtpProvider} from '../models/smtp-provider.model';
 import {MerchantProvider} from '../models/merchant-provider.model';
 import {LoadBalancer} from '../models/load-balancers.model';
-import {MerchantProviderConfiguration} from '../models/merchant-provider-configuration.model';
 import {Product} from '../models/product.model';
 import {ProductSchedule} from '../models/product-schedule.model';
 function deleteMutation(entity: string, id: string) {
@@ -418,8 +417,24 @@ export function userQuery(id: string): string {
     } }`
 }
 
+export function userQueryByEmail(email: string): string {
+  return `
+    {
+      user (email: "${email}") { id name auth0_id email active } }`
+}
+
 export function deleteUserMutation(id: string): string {
   return deleteMutation('user', id);
+}
+
+export function createUserByEmailAndA0(email: string, auth0Id: string): string {
+  return `
+    mutation {
+		  createuser (
+		    user: { id: "${email}", auth0_id: "${auth0Id}", name: "${email}", email:"${email}", active: "false" }) {
+			    id
+			}
+	}`
 }
 
 export function smtpProvidersListQuery(): string {

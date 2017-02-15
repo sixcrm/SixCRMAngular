@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../authentication.service';
-import { Router } from "@angular/router";
 
 @Component({
   selector : 'auth',
@@ -9,15 +8,16 @@ import { Router } from "@angular/router";
 })
 export class AuthComponent implements OnInit {
 
-  constructor(private auth: AuthenticationService, private router: Router) { }
+  showSpinner: boolean = true;
+
+  constructor(private auth: AuthenticationService) { }
 
   ngOnInit(): void {
     setTimeout( () => {
       if (!this.auth.authenticated()) {
         this.auth.showLogin();
-      } else {
-        this.router.navigate(['/dashboard']);
+        this.showSpinner = false;
       }
-    }, 200);
+    }, 300);
   }
 }
