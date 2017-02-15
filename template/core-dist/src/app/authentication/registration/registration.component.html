@@ -36,20 +36,28 @@
         <div class="tab__content">
           <table>
            <td class="full">
-             <md-input placeholder="Username" [(ngModel)]="username" name="username"></md-input>
+             <md-input [class.error]="isUsernameInvalid()" placeholder="Username" [(ngModel)]="username" name="username" required maxlength="32">
+               <md-hint class="error" *ngIf="isUsernameInvalid()">more than four characters please!</md-hint>
+             </md-input>
            </td>
           </table>
           <table>
             <td class="half">
-              <md-input placeholder="First Name" [(ngModel)]="firstName" name="firstName"></md-input>
+              <md-input [class.error]="isFirstNameInvalid()" placeholder="First Name" [(ngModel)]="firstName" name="firstName" required>
+                <md-hint class="error" *ngIf="isFirstNameInvalid()">more than two characters please!</md-hint>
+              </md-input>
             </td>
             <td class="half">
-              <md-input placeholder="Last Name" [(ngModel)]="lastName" name="lastName"></md-input>
+              <md-input [class.error]="isLastNameInvalid()" placeholder="Last Name" [(ngModel)]="lastName" name="lastName" required>
+                <md-hint class="error" *ngIf="isLastNameInvalid()">more than two characters please!</md-hint>
+              </md-input>
             </td>
           </table>
           <table>
             <td class="full">
-              <md-input placeholder="Company" [(ngModel)]="company" name="company"></md-input>
+              <md-input [class.error]="isCompanyInvalid()" placeholder="Company" [(ngModel)]="company" name="company" required>
+                <md-hint class="error" *ngIf="isCompanyInvalid()">more than four characters please!</md-hint>
+              </md-input>
             </td>
           </table>
         </div>
@@ -58,7 +66,7 @@
         <div class="tab__content">
           <table>
             <td class="full">
-              <md-input placeholder="Address One"  [(ngModel)]="address1" name="address1"></md-input>
+              <md-input placeholder="Address One"  [(ngModel)]="address1" name="address1" required></md-input>
             </td>
           </table>
           <table>
@@ -89,10 +97,10 @@
 
           <table>
             <td class="half">
-              <md-input placeholder="City"  [(ngModel)]="city" name="city"></md-input>
+              <md-input placeholder="City"  [(ngModel)]="city" name="city" required></md-input>
             </td>
             <td class="half">
-              <md-input placeholder="Postal Code" [(ngModel)]="postalCode" name="postalCode" pattern="^(0|[1-9][0-9]*)$"></md-input>
+              <md-input placeholder="Postal Code" [(ngModel)]="postalCode" name="postalCode" required></md-input>
             </td>
           </table>
         </div>
@@ -101,7 +109,9 @@
         <div class="tab__content">
           <table>
             <td class="full">
-              <md-input placeholder="Credit Card Number" [(ngModel)]="ccNumber" name="ccNumber"></md-input>
+              <md-input [class.error]="ccNumberError" placeholder="Credit Card Number" [(ngModel)]="ccNumber" name="ccNumber" (keydown)="checkCCNumber($event)" required maxlength="16">
+                <md-hint class="error" *ngIf="ccNumberError">only numbers please!</md-hint>
+              </md-input>
             </td>
           </table>
           <span class="tab__content__label">Expiration Date</span>
@@ -130,7 +140,9 @@
 
           <table>
             <td class="full">
-              <md-input placeholder="CCV"  [(ngModel)]="ccv" name="ccv"></md-input>
+              <md-input [class.error]="ccvError" placeholder="CCV" [(ngModel)]="ccv" name="ccv" (keydown)="checkCcv($event)" required maxlength="4">
+                <md-hint class="error" *ngIf="ccvError">only numbers please!</md-hint>
+              </md-input>
             </td>
           </table>
         </div>
@@ -229,7 +241,9 @@
       <div class="screen__content__terms__label">
         Type full name to agree:
       </div>
-      <md-input class="screen__content__terms__input--single" placeholder="Full Name" [(ngModel)]="fullName" name="fullName"></md-input>
+      <md-input class="screen__content__terms__input--single" placeholder="Full Name" [(ngModel)]="fullName" name="fullName">
+        <md-hint class="error" *ngIf="fullNameError">Full name must match {{firstName}} {{lastName}}</md-hint>
+      </md-input>
       <div class="tab__buttons">
         <span (click)="previous()">Previous</span>
         <button [disabled]="!isValid(4)" md-raised-button (click)="complete()">Complete</button>
@@ -254,7 +268,7 @@
 
       <div class="terms__actions">
         <p class="terms__actions__label"> Haven't heard from us yet? </p>
-        <button md-raised-button>Re-send email confirmation</button>
+        <button md-raised-button [disabled]="approvalResent" (click)="resendApproval()">Resend Approval Request</button>
       </div>
     </div>
   </div>

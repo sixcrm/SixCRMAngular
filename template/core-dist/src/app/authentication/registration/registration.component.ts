@@ -14,9 +14,13 @@ export class RegistrationComponent implements OnInit {
   private selectedIndex: number = 0;
 
   private username: string;
+  private usernameError: boolean = false;
   private firstName: string;
+  private firstNameError: boolean = false;
   private lastName: string;
+  private lastNameError: boolean = false;
   private company: string;
+  private companyError: boolean = false;
 
   private address1: string;
   private address2: string;
@@ -34,13 +38,18 @@ export class RegistrationComponent implements OnInit {
   private postalCode: string;
 
   private ccNumber: number;
+  private ccNumberError: boolean = false;
   private ccExpMonth: string;
   private months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   private ccExpYear: number;
   private years: number[] = [2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027];
-  private ccv: string;
+  private ccv: number;
+  private ccvError: boolean = false;
 
   private fullName: string;
+  private fullNameError: boolean = false;
+
+  private approvalResent: boolean = false;
 
   constructor() { }
 
@@ -76,6 +85,18 @@ export class RegistrationComponent implements OnInit {
   }
 
   next(): void {
+    if (this.selectedIndex === 0) {
+      if (!this.validateUserDetails()) {
+        return;
+      }
+    }
+
+    if (this.selectedIndex === 2) {
+      if (!this.validatePaymentDetails()) {
+        return;
+      }
+    }
+
     if  (this.selectedIndex === 3) {
       this.showTermsScreen();
     } else {
@@ -99,7 +120,15 @@ export class RegistrationComponent implements OnInit {
   }
 
   complete(): void {
-    this.showThankYouScreen();
+    if (this.fullName === `${this.firstName} ${this.lastName}`) {
+      this.showThankYouScreen();
+    } else {
+      this.fullNameError = true;
+    }
+  }
+
+  resendApproval(): void {
+    this.approvalResent = true;
   }
 
   setCCExpMonth(month: string): void {
@@ -128,7 +157,7 @@ export class RegistrationComponent implements OnInit {
     }
 
     if (index === 1) {
-      return !!(this.address1 && this.address2 && this.country && this.state && this.city && this.postalCode)
+      return !!(this.address1 && this.country && this.state && this.city && this.postalCode)
     }
 
     if (index === 2) {
@@ -140,6 +169,105 @@ export class RegistrationComponent implements OnInit {
     }
 
     return index === 3;
+  }
+
+  validateUserDetails(): boolean {
+    if (!!(this.username && this.firstName && this.lastName && this.company)) {
+      let valid: boolean = true;
+
+      valid = this.username.length < 4 ? false : valid;
+      this.usernameError = this.username.length < 4;
+
+      valid = this.firstName.length < 2 ? false : valid;
+      this.firstNameError = this.firstName.length < 2;
+
+      valid = this.lastName.length < 2 ? false : valid;
+      this.lastNameError = this.lastName.length < 2;
+
+      valid = this.company.length <4 ? false : valid;
+      this.companyError = this.company.length < 4;
+
+      return valid;
+    }
+
+    return false;
+  }
+
+  validatePaymentDetails(): boolean {
+    if (!!(this.ccNumber && this.ccExpMonth && this.ccExpYear && this.ccv)) {
+      let valid: boolean = true;
+
+      if (isNaN(this.ccNumber)) {
+        valid = false;
+        this.ccNumberError = true;
+        this.ccNumber = null;
+      }
+
+      if (isNaN(this.ccv)) {
+        valid = false;
+        this.ccvError = true;
+        this.ccv = null;
+      }
+
+      return valid;
+    }
+
+    return false;
+  }
+
+  checkCCNumber(event): void {
+    if (this.isAllowedNumeric(event)) {
+      this.ccNumberError = false;
+    }
+  }
+
+  checkCcv(event): void {
+    if (this.isAllowedNumeric(event)) {
+      this.ccvError = false;
+    }
+  }
+
+  isAllowedNumeric(event): boolean {
+    const pattern = /[0-9]|Backspace|ArrowRight|ArrowLeft/;
+
+    if (!pattern.test(event.key)) {
+      event.preventDefault();
+      return false;
+    }
+
+    return true;
+  }
+
+  isUsernameInvalid(): boolean {
+    if (!this.usernameError) {
+      return false;
+    }
+
+    return !this.username || this.username.length < 4;
+  }
+
+  isFirstNameInvalid(): boolean {
+    if (!this.firstNameError) {
+      return false;
+    }
+
+    return !this.firstName || this.firstName.length < 2;
+  }
+
+  isLastNameInvalid(): boolean {
+    if (!this.lastNameError) {
+      return false;
+    }
+
+    return !this.lastName || this.lastName.length < 2;
+  }
+
+  isCompanyInvalid(): boolean {
+    if (!this.companyError) {
+      return false;
+    }
+
+    return !this.company || this.company.length < 4;
   }
 
   isNumber(num: number): boolean {

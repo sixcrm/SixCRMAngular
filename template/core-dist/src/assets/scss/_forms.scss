@@ -31,3 +31,23 @@
 md-input {
   margin: 0 5px 0 5px;
 }
+
+.error {
+  color: #D00140 !important;
+
+  label {
+    color: #D00140 !important;
+  }
+
+  input {
+    color: #D00140 !important;
+  }
+
+  .md-input-underline {
+    background-color: #D00140 !important;
+
+    span {
+      background-color: #D00140 !important;
+    }
+  }
+}
