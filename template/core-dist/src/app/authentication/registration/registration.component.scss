@@ -244,43 +244,51 @@ md-card-subtitle {
 .thank-you-icon {
   width: 124px;
   height: 124px;
-  -webkit-animation: six-icon 850ms 1 ease-out;
-  animation: six-icon 850ms 1 ease-out;
-  fill:#0899cd;
+  -webkit-animation: change-fill 1250ms 1 ease-in, six-icon 1050ms 1 ease-out;
+  animation: change-fill 1250ms 1 ease-in, six-icon 1050ms 1 ease-out;
+  fill:#01cc20;
+}
+
+@-webkit-keyframes change-fill {
+  25% {
+    fill:#0899cd;
+  }
+  100% {
+    fill:#01cc20;
+  }
+}
+@keyframes change-fill {
+  25% {
+    fill:#0899cd;
+  }
+  100% {
+    fill:#01cc20;
+  }
 }
 
 @-webkit-keyframes six-icon {
-  10% {
-    transform: rotate(-10deg)
-  }
-
   25% {
-    -webkit-transform: rotate(-90deg);
-    fill: #09ccc2;
+    -webkit-transform:  rotate(-90deg);
   }
-
-  30% {
-    fill:#01cc20;
-  }
-
   100% {
-    -webkit-transform: rotate(-360deg);
-    fill:#0899cd;
+    -webkit-transform: rotate(-360deg) ;
+
   }
 }
+
 @keyframes six-icon {
   10% {
-    transform: rotate(-10deg) scale(1.05);
-  }
-  25% {
-    fill: #09ccc2;
+    transform:  rotate(-10deg) scale(1.05);
+    -webkit-transform:  rotate(-10deg) scale(1.05);
   }
   30% {
-    transform: rotate(-30deg) scale(1.1);
-    fill:#01cc20;
+    transform:  rotate(-30deg) scale(1.1);
+    -webkit-transform:  rotate(-30deg) scale(1.1);
   }
+
   100% {
-    transform: rotate(-360deg) scale(1);
-    fill:#0899cd;
+    transform: rotate(-360deg) scale(1) ;
+    -webkit-transform: rotate(-360deg) scale(1) ;
+
   }
 }
