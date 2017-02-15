@@ -5,6 +5,8 @@ import {Product} from '../models/product.model';
 import {ProductSchedule} from '../models/product-schedule.model';
 import {User} from '../models/user';
 import {CreditCard} from '../models/credit-card.model';
+import {FulfillmentProvider} from '../models/fulfillment-provider.model';
+
 function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
 }
@@ -193,6 +195,24 @@ export function fulfillmentProviderQuery(id: string): string {
 
 export function deleteFulfillmentProviderMutation(id: string): string {
   return deleteMutation('fulfillmentprovider', id);
+}
+
+export function createFulfillmentProviderMutation(provider: FulfillmentProvider): string {
+  return `
+    mutation {
+		  createfulfillmentprovider ( fulfillmentprovider: { id: "${provider.id}", name: "${provider.name}", username: "${provider.username}", password: "${provider.password}", endpoint: "${provider.endpoint}", provider: "${provider.provider}"}) {
+			  id name provider username password endpoint
+		  }
+	  }`
+}
+
+export function updateFulfillmentProviderMutation(provider: FulfillmentProvider): string {
+  return `
+    mutation {
+		  updatefulfillmentprovider ( fulfillmentprovider: { id: "${provider.id}", name: "${provider.name}", username: "${provider.username}", password: "${provider.password}", endpoint: "${provider.endpoint}", provider: "${provider.provider}"}) {
+			  id name provider username password endpoint
+		  }
+	  }`
 }
 
 export function affiliatesListQuery(): string {

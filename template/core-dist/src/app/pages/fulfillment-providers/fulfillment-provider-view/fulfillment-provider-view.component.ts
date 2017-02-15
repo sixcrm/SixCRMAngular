@@ -12,8 +12,6 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
 })
 export class FulfillmentProviderViewComponent extends AbstractEntityViewComponent<FulfillmentProvider> implements OnInit {
 
-  private fulfillmentProvider: FulfillmentProvider;
-
   constructor(
     private fulfillmentProvidersService: FulfillmentProvidersService,
     route: ActivatedRoute,
@@ -23,10 +21,9 @@ export class FulfillmentProviderViewComponent extends AbstractEntityViewComponen
   }
 
   ngOnInit() {
-    this.fulfillmentProvidersService.entity$.subscribe((data) => {
-      this.fulfillmentProvider = data;
-      this.progressBarService.hideTopProgressBar();
-    });
+    if (this.addMode) {
+      this.entity = new FulfillmentProvider();
+    }
 
     this.init();
   }

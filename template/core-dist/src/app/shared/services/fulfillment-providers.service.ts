@@ -5,7 +5,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {FulfillmentProvider} from '../models/fulfillment-provider.model';
 import {
   fulfillmentProvidersListQuery, fulfillmentProviderQuery,
-  deleteFulfillmentProviderMutation
+  deleteFulfillmentProviderMutation, createFulfillmentProviderMutation, updateFulfillmentProviderMutation
 } from '../utils/query-builder';
 
 @Injectable()
@@ -18,7 +18,9 @@ export class FulfillmentProvidersService extends AbstractEntityService<Fulfillme
       data => new FulfillmentProvider(data),
       fulfillmentProvidersListQuery,
       fulfillmentProviderQuery,
-      deleteFulfillmentProviderMutation
+      deleteFulfillmentProviderMutation,
+      createFulfillmentProviderMutation,
+      updateFulfillmentProviderMutation
     );
   }
 }

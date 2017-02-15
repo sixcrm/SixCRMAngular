@@ -1,23 +1,20 @@
-<md-card *ngIf="fulfillmentProvider">
-  <md-card-title>Fulfillment Provider View</md-card-title>
-  <md-card-content>
+<md-card class="entity-view__card" *ngIf="entity">
+  <md-card-title class="entity-view__card__title"> <span>{{mode}} Fulfillment Provider</span> </md-card-title>
+  <md-card-content class="entity-view__card__content">
     <div>
-      <md-input disabled placeholder="ID" value="{{fulfillmentProvider.id}}"></md-input>
+      <md-input [disabled]="viewMode" placeholder="ID" [(ngModel)]="entity.id" name="id"></md-input>
+      <md-input [disabled]="viewMode" placeholder="Name" [(ngModel)]="entity.name" name="name"></md-input>
     </div>
     <div>
-      <md-input disabled placeholder="Name" value="{{fulfillmentProvider.name}}"></md-input>
-    </div>
-    <div>
-      <md-input disabled placeholder="Username" value="{{fulfillmentProvider.username}}"></md-input>
-    </div>
-    <div>
-      <md-input disabled placeholder="Password" value="{{fulfillmentProvider.password}}"></md-input>
-    </div>
-    <div>
-      <md-input disabled placeholder="Endpoint" value="{{fulfillmentProvider.endpoint}}"></md-input>
-    </div>
-    <div>
-      <md-input disabled placeholder="Processor" value="{{fulfillmentProvider.provider}}"></md-input>
+      <md-input [disabled]="viewMode" placeholder="Username" [(ngModel)]="entity.username" name="username"></md-input>
+      <md-input [disabled]="viewMode" placeholder="Password" [(ngModel)]="entity.password" name="password"></md-input>
+      <md-input [disabled]="viewMode" placeholder="Endpoint" [(ngModel)]="entity.endpoint" name="endpoint"></md-input>
+      <md-input [disabled]="viewMode" placeholder="Processor" [(ngModel)]="entity.provider" name="provider"></md-input>
     </div>
   </md-card-content>
+  <md-card-actions align="end">
+    <button md-raised-button color="primary" *ngIf="addMode" (click)="saveEntity(entity)">Save</button>
+    <button md-raised-button color="primary" *ngIf="updateMode" (click)="updateEntity(entity)">Save</button>
+    <button md-raised-button color="primary" *ngIf="updateMode" (click)="cancelUpdate()">Cancel</button>
+  </md-card-actions>
 </md-card>
