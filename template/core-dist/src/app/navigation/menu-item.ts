@@ -1,6 +1,7 @@
 export class MenuItem {
   public title: string;
   public parent: MenuItem;
+  public icon: string;
 
   /* Allow creation using object or pass in each property individually */
   constructor(private titleOrData: string | {title: string, link?: string, children?: MenuItem[], queryParams?: Object, clickHandler?: Function}, public link: string, public children: MenuItem[] = [], public queryParams: Object = {}, public clickHandler: Function = null) {
@@ -16,5 +17,10 @@ export class MenuItem {
     for (let i = 0; i < this.children.length; i++) {
       this.children[i].parent = this;
     }
+  }
+
+  setIcon(icon: string): MenuItem {
+    this.icon = icon;
+    return this;
   }
 }
