@@ -71,13 +71,12 @@
             <div class="dropdown__element">
               <span [class.input--active]="country" class="tab__content__dropdown">
                 {{ country || 'Country'}}
-                <md-icon [md-menu-trigger-for]="countryMenu">keyboard_arrow_down</md-icon>
               </span>
               </div>
               <div class="dropdown__element">
-              <span [class.input--active]="state" class="tab__content__dropdown">
+              <span [md-menu-trigger-for]="stateMenu" [class.input--active]="state" class="tab__content__dropdown">
                 {{ state || 'State'}}
-                <md-icon [md-menu-trigger-for]="stateMenu">keyboard_arrow_down</md-icon>
+                <md-icon>keyboard_arrow_down</md-icon>
               </span>
             </div>
           </div>
@@ -109,15 +108,15 @@
 
           <div class="dropdown__container">
             <div class="dropdown__element">
-              <span [class.input--active]="ccExpMonth" class="tab__content__dropdown">
+              <span [class.input--active]="ccExpMonth" [md-menu-trigger-for]="monthMenu" class="tab__content__dropdown">
                 {{ ccExpMonth || 'Month'}}
-                <md-icon [md-menu-trigger-for]="monthMenu">keyboard_arrow_down</md-icon>
+                <md-icon>keyboard_arrow_down</md-icon>
               </span>
             </div>
             <div class="dropdown__element">
-              <span [class.input--active]="ccExpYear" class="tab__content__dropdown">
+              <span [class.input--active]="ccExpYear" [md-menu-trigger-for]="yearMenu" class="tab__content__dropdown">
                 {{ ccExpYear || 'Year'}}
-                <md-icon [md-menu-trigger-for]="yearMenu">keyboard_arrow_down</md-icon>
+                <md-icon>keyboard_arrow_down</md-icon>
               </span>
             </div>
           </div>

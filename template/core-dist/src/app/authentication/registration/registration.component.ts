@@ -20,16 +20,22 @@ export class RegistrationComponent implements OnInit {
 
   private address1: string;
   private address2: string;
-  private country: string;
-  private countries: string[] = ['Country 1', 'Country 2', 'Country 3', 'Country 4', 'Country 5', 'Country 6'];
+  private country: string = 'USA';
+  private countries: string[] = [];
   private state: string;
-  private states: string[] = ['State 1', 'State 2', 'State 3', 'State 4', 'State 5', 'State 6'];
+  private states: string[] = [
+    'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
+    'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan',
+    'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico',
+    'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina',
+    'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+  ];
   private city: string;
   private postalCode: string;
 
   private ccNumber: number;
-  private ccExpMonth: number;
-  private months: number[] = [1,2,3,4,5,6,7,8,9,10,11,12];
+  private ccExpMonth: string;
+  private months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   private ccExpYear: number;
   private years: number[] = [2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027];
   private ccv: string;
@@ -96,7 +102,7 @@ export class RegistrationComponent implements OnInit {
     this.showThankYouScreen();
   }
 
-  setCCExpMonth(month: number): void {
+  setCCExpMonth(month: string): void {
     this.ccExpMonth = month;
   }
 

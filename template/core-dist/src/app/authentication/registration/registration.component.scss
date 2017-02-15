@@ -76,6 +76,7 @@ md-tab-group {
       width: 100%;
       font-size: 14px;
       color: #9b9b9b;
+      cursor: pointer;
 
       md-icon {
         position: absolute;
@@ -257,6 +258,7 @@ md-card-subtitle {
     fill:#01cc20;
   }
 }
+
 @keyframes change-fill {
   25% {
     fill:#0899cd;
