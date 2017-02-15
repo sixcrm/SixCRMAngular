@@ -1,24 +1,24 @@
-<md-card *ngIf="session">
+<md-card *ngIf="entity">
   <md-card-title>Session View</md-card-title>
   <md-card-content>
     <div class="content__block__first">
-      <md-input disabled placeholder="First Name" value="{{session.customer.firstName}}"></md-input>
-      <md-input disabled placeholder="Last Name" value="{{session.customer.lastName}}"></md-input>
+      <md-input disabled placeholder="First Name" value="{{entity.customer.firstName}}"></md-input>
+      <md-input disabled placeholder="Last Name" value="{{entity.customer.lastName}}"></md-input>
 
       <div class="content__block__second">
         <md-card-subtitle>Address</md-card-subtitle>
-        <md-input disabled placeholder="Line 1" value="{{session.customer.address.line1}}"></md-input>
-        <md-input disabled placeholder="Line 2" value="{{session.customer.address.line2}}"></md-input>
-        <md-input disabled placeholder="City" value="{{session.customer.address.city}}"></md-input>
-        <md-input disabled placeholder="Zip" value="{{session.customer.address.state}}"></md-input>
-        <md-input disabled placeholder="State" value="{{session.customer.address.zip}}"></md-input>
-        <md-input disabled placeholder="Country" value="{{session.customer.address.country}}"></md-input>
+        <md-input disabled placeholder="Line 1" value="{{entity.customer.address.line1}}"></md-input>
+        <md-input disabled placeholder="Line 2" value="{{entity.customer.address.line2}}"></md-input>
+        <md-input disabled placeholder="City" value="{{entity.customer.address.city}}"></md-input>
+        <md-input disabled placeholder="Zip" value="{{entity.customer.address.state}}"></md-input>
+        <md-input disabled placeholder="State" value="{{entity.customer.address.zip}}"></md-input>
+        <md-input disabled placeholder="Country" value="{{entity.customer.address.country}}"></md-input>
       </div>
     </div>
 
     <div class="content__block__first">
       <md-card-subtitle>Product Schedules</md-card-subtitle>
-      <ng-container *ngFor="let productSchedule of session.productSchedules">
+      <ng-container *ngFor="let productSchedule of entity.productSchedules">
 
         <ng-container *ngFor="let schedule of productSchedule.schedules">
           <div class="content__block__second">
@@ -52,7 +52,7 @@
     <div class="content__block__first">
       <md-card-subtitle>Rebills</md-card-subtitle>
 
-      <ng-container *ngFor="let rebill of session.rebills">
+      <ng-container *ngFor="let rebill of entity.rebills">
         <div class="content__block__second">
           <md-card-subtitle>Rebill</md-card-subtitle>
           <md-input disabled placeholder="Bill Date" value="{{rebill.billDate}}"></md-input>
@@ -106,11 +106,11 @@
 
     <div class="content__block__first">
       <md-card-subtitle>Campaign</md-card-subtitle>
-      <md-input disabled placeholder="Name" value="{{session.campaign.name}}"></md-input>
+      <md-input disabled placeholder="Name" value="{{entity.campaign.name}}"></md-input>
 
       <div class="content__block__second">
         <md-card-subtitle>Product Schedules</md-card-subtitle>
-        <ng-container *ngFor="let productSchedule of session.campaign.productSchedules">
+        <ng-container *ngFor="let productSchedule of entity.campaign.productSchedules">
 
           <ng-container *ngFor="let schedule of productSchedule.schedules">
             <div class="content__block__third">
@@ -146,7 +146,7 @@
 
         <div class="content__block__third">
           <md-card-subtitle>Merchant Provider Configurations</md-card-subtitle>
-          <ng-container *ngFor="let merchantProviderConfig of session.campaign.loadBalancer.merchantProviderConfigurations">
+          <ng-container *ngFor="let merchantProviderConfig of entity.campaign.loadBalancer.merchantProviderConfigurations">
             <div class="content__block__fourth">
               <md-card-subtitle>Merchant Provider Configuration</md-card-subtitle>
               <md-input disabled placeholder="distribution" value="{{merchantProviderConfig.distribution}}"></md-input>

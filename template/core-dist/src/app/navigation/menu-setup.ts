@@ -42,6 +42,7 @@ export const menuItemSetup: MenuItem[] = [
       new MenuItem('Emails', 'emails'),
     ]),
     new MenuItem('Affiliates', 'affiliates'),
+    new MenuItem('Sessions', 'sessions'),
     new MenuItem('3rd Party Providers', null, [
       new MenuItem('Fulfillment Providers', 'fulfillmentProviders'),
       new MenuItem('SMTP Providers', 'smtpProviders'),
