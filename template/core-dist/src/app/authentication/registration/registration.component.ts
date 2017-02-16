@@ -67,7 +67,6 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
     this.authService.userUnderReg.subscribe((user: User) => {
       if (user !== null) {
-        console.log(user);
         if (user.termsAndConditions === '0.1') {
           this.showThankYouScreen();
         } else {

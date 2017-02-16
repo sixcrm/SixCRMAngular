@@ -445,7 +445,7 @@ export function deleteCreditCardMutation(id: string): string {
 export function createCreditCardMutation(cc: CreditCard): string {
   return `
     mutation {
-		  createcreditcard (creditcard: { ccnumber: "${cc.ccnumber}" expiration: "${cc.expiration}" ccv: "${cc.ccv}" name: "${cc.name}" address: { line1: "${cc.address.line1}" line2: "${cc.address.line2}" city: "${cc.address.city}" state: "${cc.address.state}" zip: "${cc.address.zip}" country: "${cc.address.country}" }, id: "${cc.id}" }) {
+		  createcreditcard (creditcard: { ccnumber: "${cc.ccnumber}" expiration: "${cc.expiration}" ccv: "${cc.ccv}" name: "${cc.name}" address: { line1: "${cc.address.line1}" line2: "${cc.address.line2}" city: "${cc.address.city}" state: "${cc.address.state}" zip: "${cc.address.zip}" country: "${cc.address.country}" } }) {
         id ccnumber expiration ccv name
         address { line1 line2 city state zip country }
       }
@@ -455,16 +455,15 @@ export function createCreditCardMutation(cc: CreditCard): string {
 export function usersListQuery(): string {
   return `{
     userlist {
-			users { id auth0_id name email active }
+			users { id auth0_id name email active termsandconditions }
 		}}`
 }
 
 export function userQuery(id: string): string {
   return `
     {
-      user (id: "${id}") { id auth0_id name email active
-        accesskey { id access_key secret_key }
-    } }`
+      user (id: "${id}") { id auth0_id name email active}
+    }`
 }
 
 export function userQueryByEmail(email: string): string {
@@ -481,7 +480,7 @@ export function createUserForRegistration(email: string, auth0Id: string): strin
   return `
     mutation {
 		  createuser (
-		    user: { id: "${email}", auth0_id: "${auth0Id}", name: "${email}", email:"${email}", active: "false", termsandconditions:"0" }) {
+		    user: { auth0_id: "${auth0Id}", name: "${email}", email:"${email}", active: "false", termsandconditions:"0" }) {
 			    id auth0_id name email active termsandconditions
 			}
 	}`

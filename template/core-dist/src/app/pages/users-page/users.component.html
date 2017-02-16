@@ -11,6 +11,7 @@
     <th data-field="name">Name</th>
     <th data-field="email">Email</th>
     <th data-field="active">Active</th>
+    <th data-field="active">Terms and Conditions</th>
     <th>Actions</th>
   </tr>
   </thead>
@@ -20,6 +21,7 @@
     <td>{{user.name}}</td>
     <td>{{user.email}}</td>
     <td>{{user.active}}</td>
+    <td>{{user.termsAndConditions}}</td>
     <td>
       <md-icon class="entity-index__table__body__action" (click)="viewEntity(user.id)">visibility</md-icon>
       <md-icon class="entity-index__table__body__action" (click)="updateEntity(user.id)">mode_edit</md-icon>

@@ -117,7 +117,7 @@ export class AuthenticationService {
         (data) => {
           localStorage.removeItem(this.activated);
           this.router.navigateByUrl('/register');
-          this.userUnderReg.next(new User(data.json().data.user));
+          this.userUnderReg.next(new User(data.json().data.createuser));
         });
   }
 
