@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthenticationService} from '../authentication.service';
+import {User} from '../../shared/models/user';
+import {Address} from '../../shared/models/address.model';
+import {CreditCard} from '../../shared/models/credit-card.model';
 
 @Component({
   selector: 'c-registration',
@@ -6,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
+  private showScreen: boolean = false;
 
   private showWelcome: boolean = true;
   private showForm: boolean = false;
@@ -41,6 +46,7 @@ export class RegistrationComponent implements OnInit {
   private ccNumberError: boolean = false;
   private ccExpMonth: string;
   private months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  private monthsMap = {'January': 1, 'February': 2, 'March': 3, 'April': 4, 'May': 5, 'June': 6, 'July': 7, 'August': 8, 'September': 9, 'October': 10, 'November': 11, 'December': 12};
   private ccExpYear: number;
   private years: number[] = [2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027];
   private ccv: number;
@@ -50,10 +56,25 @@ export class RegistrationComponent implements OnInit {
   private fullNameError: boolean = false;
 
   private approvalResent: boolean = false;
+  private regInProcess: boolean = false;
+  private userUnderRegistration: User;
 
-  constructor() { }
+  constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
+    this.authService.userUnderReg.subscribe((user: User) => {
+      if (user !== null) {
+        console.log(user);
+        if (user.termsAndConditions === '0.1') {
+          this.showThankYouScreen();
+        } else {
+          this.showWelcomeScreen();
+        }
+
+        this.showScreen = true;
+        this.userUnderRegistration = user;
+      }
+    });
   }
 
   showWelcomeScreen(): void {
@@ -121,7 +142,35 @@ export class RegistrationComponent implements OnInit {
 
   complete(): void {
     if (this.fullName === `${this.firstName} ${this.lastName}`) {
-      this.showThankYouScreen();
+      let address =  new Address({
+        line1: this.address1,
+        line2: this.address2,
+        country: this.country,
+        state: this.state,
+        zip: this.postalCode,
+        city: this.city});
+      let user: User = this.userUnderRegistration.copy();
+      user.name = this.fullName;
+      user.address = address.copy();
+
+      let cc: CreditCard = new CreditCard({
+        id: this.ccNumber,
+        ccnumber: this.ccNumber,
+        expiration: this.monthsMap[this.ccExpMonth] + '/' + this.ccExpYear,
+        ccv: this.ccv,
+        name: this.fullName
+      });
+      cc.address = address.copy();
+
+      this.regInProcess = true;
+      this.authService.updateUserForRegistration(user, cc).subscribe(
+        () => {
+          this.regInProcess = false;
+        },
+        () => {
+          this.regInProcess = false;
+        }
+      );
     } else {
       this.fullNameError = true;
     }

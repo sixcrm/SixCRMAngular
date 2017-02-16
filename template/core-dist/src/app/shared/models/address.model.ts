@@ -22,6 +22,17 @@ export class Address implements Entity<Address> {
   }
 
   copy(): Address {
-    return null;
+    return new Address(this.inverse());
+  }
+
+  inverse(): any {
+    return {
+      line1: this.line1,
+      line2: this.line2,
+      city: this.city,
+      state: this.state,
+      zip: this.zip,
+      country: this.country
+    }
   }
 }

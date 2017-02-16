@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
-import { BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {environment} from '../../environments/environment';
 import {Http, Headers} from '@angular/http';
-import {userQueryByEmail, createUserByEmailAndA0} from '../shared/utils/query-builder';
+import {
+  userQueryByEmail, createUserForRegistration, updateUserForRegistration,
+  createCreditCardMutation
+} from '../shared/utils/query-builder';
+import {User} from '../shared/models/user';
+import {CreditCard} from '../shared/models/credit-card.model';
 
 declare var Auth0Lock: any;
 
@@ -17,6 +22,7 @@ export class AuthenticationService {
   private activated: string = 'activated';
 
   public profileData$: BehaviorSubject<any> = new BehaviorSubject<any>({});
+  public userUnderReg: BehaviorSubject<any> = new BehaviorSubject<User>(null);
 
   constructor(private router: Router, private http: Http) {
     this.lock = new Auth0Lock(
@@ -90,25 +96,54 @@ export class AuthenticationService {
       (data) => {
         let user = data.json().data.user;
         if (!user) {
-          this.createUser(email);
-        } else if (!user.active || user.active !== 'true') {
-          localStorage.removeItem(this.activated);
-          this.router.navigateByUrl('/register');
+          this.createUserForRegistration(email);
         } else {
-          localStorage.setItem(this.activated, 'activated');
-          this.router.navigateByUrl('/dashboard');
+          if (user.active !== 'true') {
+            localStorage.removeItem(this.activated);
+            this.router.navigateByUrl('/register');
+            this.userUnderReg.next(new User(user));
+          } else {
+            localStorage.setItem(this.activated, 'activated');
+            this.router.navigateByUrl('/dashboard');
+          }
         }
       }
     );
   }
 
-  private createUser(email: string): void {
-    this.http.post(environment.endpoint, createUserByEmailAndA0(email, localStorage.getItem(this.idToken)), { headers: this.generateHeaders()})
+  private createUserForRegistration(email: string): void {
+    this.http.post(environment.endpoint, createUserForRegistration(email, localStorage.getItem(this.idToken)), { headers: this.generateHeaders()})
       .subscribe(
-        () => {
+        (data) => {
           localStorage.removeItem(this.activated);
           this.router.navigateByUrl('/register');
+          this.userUnderReg.next(new User(data.json().data.user));
         });
+  }
+
+  public updateUserForRegistration(user: User, cc: CreditCard): Observable<boolean> {
+    let subject: Subject<boolean> = new Subject<boolean>();
+
+    this.http.post(environment.endpoint, createCreditCardMutation(cc), { headers: this.generateHeaders()})
+      .subscribe(
+        () => {
+          this.http.post(environment.endpoint, updateUserForRegistration(user), { headers: this.generateHeaders()})
+            .subscribe(
+              (data) => {
+                this.userUnderReg.next(new User(data.json().data.updateuser));
+                subject.next(true);
+              },
+              () => {
+                subject.next(false);
+              }
+            );
+        },
+        () => {
+          subject.next(false);
+        }
+      );
+
+    return subject;
   }
 
   private generateHeaders(): Headers {

@@ -1,5 +1,5 @@
 <div class="registration--out">
-  <div *ngIf="showWelcome" class="registration--in">
+  <div *ngIf="showScreen && showWelcome" class="registration--in">
     <div class="registration--in__welcome">
       <h1> THANK YOU </h1>
 
@@ -26,7 +26,7 @@
     </div>
   </div>
 
-  <div *ngIf="showForm" class="registration--in">
+  <div *ngIf="showScreen && showForm" class="registration--in">
     <div *ngIf="selectedIndex !== 3" class="tab__header"> <span>Registration</span> </div>
 
     <img class="tab__image" src="/assets/images/icon-half-registration.svg">
@@ -216,7 +216,7 @@
     </div>
   </div>
 
-  <div *ngIf="showTerms" class="registration--in">
+  <div *ngIf="showScreen && showTerms" class="registration--in">
     <img class="tab__image" src="/assets/images/icon-half-registration.svg">
 
     <div class="screen__content">
@@ -246,12 +246,12 @@
       </md-input>
       <div class="tab__buttons">
         <span (click)="previous()">Previous</span>
-        <button [disabled]="!isValid(4)" md-raised-button (click)="complete()">Complete</button>
+        <button [disabled]="!isValid(4) || regInProcess" md-raised-button (click)="complete()">Complete</button>
       </div>
     </div>
   </div>
 
-  <div *ngIf="showThankYou" class="registration--in">
+  <div *ngIf="showScreen && showThankYou" class="registration--in">
     <img class="tab__image" src="/assets/images/icon-half-registration.svg">
 
     <div class="screen__content terms">
@@ -269,6 +269,7 @@
       <div class="terms__actions">
         <p class="terms__actions__label"> Haven't heard from us yet? </p>
         <button md-raised-button [disabled]="approvalResent" (click)="resendApproval()">Resend Approval Request</button>
+        <div (click)="authService.logout()">Sign Out</div>
       </div>
     </div>
   </div>

@@ -3,6 +3,8 @@ import {MerchantProvider} from '../models/merchant-provider.model';
 import {LoadBalancer} from '../models/load-balancers.model';
 import {Product} from '../models/product.model';
 import {ProductSchedule} from '../models/product-schedule.model';
+import {User} from '../models/user';
+import {CreditCard} from '../models/credit-card.model';
 function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
 }
@@ -401,6 +403,15 @@ export function deleteCreditCardMutation(id: string): string {
   return deleteMutation('creditcard', id);
 }
 
+export function createCreditCardMutation(cc: CreditCard): string {
+  return `
+    mutation {
+		  createcreditcard (creditcard: { ccnumber: "${cc.ccnumber}" expiration: "${cc.expiration}" ccv: "${cc.ccv}" name: "${cc.name}" address: { line1: "${cc.address.line1}" line2: "${cc.address.line2}" city: "${cc.address.city}" state: "${cc.address.state}" zip: "${cc.address.zip}" country: "${cc.address.country}" }, id: "${cc.id}" }) {
+        id ccnumber expiration ccv name
+        address { line1 line2 city state zip country }
+      }
+	  }`
+}
 
 export function usersListQuery(): string {
   return `{
@@ -420,19 +431,30 @@ export function userQuery(id: string): string {
 export function userQueryByEmail(email: string): string {
   return `
     {
-      user (email: "${email}") { id name auth0_id email active } }`
+      user (email: "${email}") { id name auth0_id email active termsandconditions } }`
 }
 
 export function deleteUserMutation(id: string): string {
   return deleteMutation('user', id);
 }
 
-export function createUserByEmailAndA0(email: string, auth0Id: string): string {
+export function createUserForRegistration(email: string, auth0Id: string): string {
   return `
     mutation {
 		  createuser (
-		    user: { id: "${email}", auth0_id: "${auth0Id}", name: "${email}", email:"${email}", active: "false" }) {
-			    id
+		    user: { id: "${email}", auth0_id: "${auth0Id}", name: "${email}", email:"${email}", active: "false", termsandconditions:"0" }) {
+			    id auth0_id name email active termsandconditions
+			}
+	}`
+}
+
+export function updateUserForRegistration(user: User): string {
+  return `
+    mutation {
+		  updateuser (
+		    user: { id: "${user.id}" name: "${user.name}" email: "${user.email}" auth0_id: "${user.auth0Id}" active: "${user.active}" termsandconditions: "0.1"
+		      address: {line1: "${user.address.line1}" line2: "${user.address.line2}" city: "${user.address.city}" state: "${user.address.state}" zip: "${user.address.zip}" country:"${user.address.country}"}}) {
+			    id auth0_id name email active termsandconditions
 			}
 	}`
 }
