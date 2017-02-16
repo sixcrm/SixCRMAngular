@@ -27,7 +27,9 @@
   </div>
 
   <div *ngIf="showScreen && showForm" class="registration--in">
-    <div *ngIf="selectedIndex !== 3" class="tab__header"> <span>Registration</span> </div>
+    <div class="tab__header">
+      <div *ngIf="selectedIndex !== 3" class="tab__header__content"> <img src="/assets/images/sixIcon.svg"> <span>Registration</span> </div>
+    </div>
 
     <img class="tab__image" src="/assets/images/icon-half-registration.svg">
 
