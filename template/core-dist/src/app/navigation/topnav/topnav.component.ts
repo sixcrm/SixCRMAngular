@@ -9,7 +9,7 @@ import {AuthenticationService} from "../../authentication/authentication.service
   selector : 'app-topnav',
   templateUrl : './topnav.component.html',
   styleUrls : ['./topnav.component.scss'],
-  host: {'(document:click)': 'hideDropdown($event)'},
+  host: {'(document:click)': 'hideElements($event)'},
 })
 export class TopnavComponent implements OnInit {
   @Input() sideNav: MdSidenav;
@@ -29,6 +29,7 @@ export class TopnavComponent implements OnInit {
   private _userProfile: any = {};
 
   private showDropdown: boolean = false;
+  private showSearchInput: boolean = false;
 
   constructor(
     private _navigation: NavigationService,
@@ -141,7 +142,11 @@ export class TopnavComponent implements OnInit {
     this.showDropdown = !this.showDropdown;
   }
 
-  private hideDropdown(event): void {
+  private toggleSearchInput(): void {
+    this.showSearchInput = !this.showSearchInput;
+  }
+
+  private hideElements(event): void {
     if (!event.target.attributes.class || event.target.attributes.class.value !== 'topnav__dropdown__trigger') {
       this.showDropdown = false;
     }
