@@ -28,6 +28,7 @@ export class RegistrationComponent implements OnInit {
   private companyError: boolean = false;
 
   private address1: string;
+  private address1Error: boolean = false;
   private address2: string;
   private country: string = 'USA';
   private countries: string[] = [];
@@ -40,16 +41,18 @@ export class RegistrationComponent implements OnInit {
     'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
   ];
   private city: string;
+  private cityError: boolean = false;
   private postalCode: string;
+  private postalCodeError: boolean = false;
 
-  private ccNumber: number;
+  private ccNumber: string;
   private ccNumberError: boolean = false;
   private ccExpMonth: string;
   private months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   private monthsMap = {'January': 1, 'February': 2, 'March': 3, 'April': 4, 'May': 5, 'June': 6, 'July': 7, 'August': 8, 'September': 9, 'October': 10, 'November': 11, 'December': 12};
   private ccExpYear: number;
   private years: number[] = [2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027];
-  private ccv: number;
+  private ccv: string;
   private ccvError: boolean = false;
 
   private fullName: string;
@@ -108,6 +111,12 @@ export class RegistrationComponent implements OnInit {
   next(): void {
     if (this.selectedIndex === 0) {
       if (!this.validateUserDetails()) {
+        return;
+      }
+    }
+
+    if (this.selectedIndex === 1) {
+      if (!this.validateAddress()) {
         return;
       }
     }
@@ -180,6 +189,25 @@ export class RegistrationComponent implements OnInit {
     this.approvalResent = true;
   }
 
+  getMonths(): string[] {
+    if (new Date().getFullYear() === this.ccExpYear) {
+      return this.months.slice(new Date().getMonth() + 1);
+    }
+
+    return this.months;
+  }
+
+  getYears(): number[] {
+    if (this.ccExpMonth) {
+      let month = new Date().getMonth();
+      if (this.monthsMap[this.ccExpMonth] <= month + 1) {
+        return this.years.slice(1);
+      }
+    }
+
+    return this.years
+  }
+
   setCCExpMonth(month: string): void {
     this.ccExpMonth = month;
   }
@@ -197,7 +225,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   ccLastFour(): number {
-    return this.ccNumber % 10000;
+    return +this.ccNumber % 10000;
   }
 
   isValid(index: number): boolean {
@@ -206,7 +234,7 @@ export class RegistrationComponent implements OnInit {
     }
 
     if (index === 1) {
-      return !!(this.address1 && this.country && this.state && this.city && this.postalCode)
+      return !!(this.address1 && this.country && this.state && this.city && this.postalCode);
     }
 
     if (index === 2) {
@@ -242,20 +270,40 @@ export class RegistrationComponent implements OnInit {
     return false;
   }
 
+  validateAddress(): boolean {
+    if (!!(this.address1 && this.country && this.state && this.city && this.postalCode)) {
+      let valid: boolean = true;
+
+      valid = this.address1.length < 4 ? false : valid;
+      this.address1Error = this.address1.length < 4;
+
+      valid = this.city.length < 2 ? false : valid;
+      this.cityError = this.city.length < 2;
+
+      if (isNaN(+this.postalCode) || this.postalCode.length < 5) {
+        valid = false;
+        this.postalCodeError = true;
+      }
+
+      return valid;
+    }
+
+    return false;
+  }
+
   validatePaymentDetails(): boolean {
     if (!!(this.ccNumber && this.ccExpMonth && this.ccExpYear && this.ccv)) {
       let valid: boolean = true;
 
-      if (isNaN(this.ccNumber)) {
+      if (isNaN(+this.ccNumber)) {
         valid = false;
         this.ccNumberError = true;
         this.ccNumber = null;
       }
 
-      if (isNaN(this.ccv)) {
+      if (isNaN(+this.ccv) || this.ccv.length < 3) {
         valid = false;
         this.ccvError = true;
-        this.ccv = null;
       }
 
       return valid;
@@ -267,12 +315,6 @@ export class RegistrationComponent implements OnInit {
   checkCCNumber(event): void {
     if (this.isAllowedNumeric(event)) {
       this.ccNumberError = false;
-    }
-  }
-
-  checkCcv(event): void {
-    if (this.isAllowedNumeric(event)) {
-      this.ccvError = false;
     }
   }
 
@@ -317,6 +359,38 @@ export class RegistrationComponent implements OnInit {
     }
 
     return !this.company || this.company.length < 4;
+  }
+
+  isAddressOneInvalid(): boolean {
+    if (!this.address1Error) {
+      return false;
+    }
+
+    return !this.address1 || this.address1.length < 4;
+  }
+
+  isCityInvalid(): boolean {
+    if (!this.cityError) {
+      return false;
+    }
+
+    return !this.city || this.city.length < 2;
+  }
+
+  isPostalCodeInvalid(): boolean {
+    if (!this.postalCodeError) {
+      return false;
+    }
+
+    return !this.postalCode || this.postalCode.length < 5;
+  }
+
+  isCcvInvalid(): boolean {
+    if (!this.ccvError) {
+      return false;
+    }
+
+    return !this.ccv || this.ccv.length < 3;
   }
 
   isNumber(num: number): boolean {

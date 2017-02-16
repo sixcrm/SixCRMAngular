@@ -66,7 +66,9 @@
         <div class="tab__content">
           <table>
             <td class="full">
-              <md-input placeholder="Address One"  [(ngModel)]="address1" name="address1" required></md-input>
+              <md-input [class.error]="isAddressOneInvalid()" placeholder="Address One"  [(ngModel)]="address1" name="address1" required>
+                <md-hint class="error" *ngIf="isAddressOneInvalid()">more than four characters please!</md-hint>
+              </md-input>
             </td>
           </table>
           <table>
@@ -97,10 +99,14 @@
 
           <table>
             <td class="half">
-              <md-input placeholder="City"  [(ngModel)]="city" name="city" required></md-input>
+              <md-input [class.error]="isCityInvalid()" placeholder="City" [(ngModel)]="city" name="city" required>
+                <md-hint class="error" *ngIf="isCityInvalid()">more than two characters please!</md-hint>
+              </md-input>
             </td>
             <td class="half">
-              <md-input placeholder="Postal Code" [(ngModel)]="postalCode" name="postalCode" required></md-input>
+              <md-input [class.error]="isPostalCodeInvalid()" placeholder="Postal Code" [(ngModel)]="postalCode" name="postalCode" (keydown)="isAllowedNumeric($event)" required maxlength="5">
+                <md-hint class="error" *ngIf="isPostalCodeInvalid()">five characters please!</md-hint>
+              </md-input>
             </td>
           </table>
         </div>
@@ -132,16 +138,16 @@
           </div>
 
           <md-menu #monthMenu="mdMenu" x-position="before">
-            <button *ngFor="let m of months" md-menu-item (click)="setCCExpMonth(m)"> {{m}} </button>
+            <button *ngFor="let m of getMonths()" md-menu-item (click)="setCCExpMonth(m)"> {{m}} </button>
           </md-menu>
           <md-menu #yearMenu="mdMenu" x-position="before">
-            <button *ngFor="let y of years" md-menu-item (click)="setCCExpYear(y)"> {{y}} </button>
+            <button *ngFor="let y of getYears()" md-menu-item (click)="setCCExpYear(y)"> {{y}} </button>
           </md-menu>
 
           <table>
             <td class="full">
-              <md-input [class.error]="ccvError" placeholder="CCV" [(ngModel)]="ccv" name="ccv" (keydown)="checkCcv($event)" required maxlength="4">
-                <md-hint class="error" *ngIf="ccvError">only numbers please!</md-hint>
+              <md-input [class.error]="isCcvInvalid()" placeholder="CCV" [(ngModel)]="ccv" name="ccv" (keydown)="isAllowedNumeric($event)" required maxlength="4">
+                <md-hint class="error" *ngIf="isCcvInvalid()">more then three characters please!</md-hint>
               </md-input>
             </td>
           </table>
@@ -202,7 +208,7 @@
               <md-input readonly="true" placeholder="CCV" value="{{ccv}}"></md-input>
             </td>
             <td class="half">
-              <md-input readonly="true" placeholder="CC EXP" value="{{ccExpMonth + '/' + ccExpYear}}"></md-input>
+              <md-input readonly="true" placeholder="CC EXP" value="{{monthsMap[ccExpMonth] + '/' + ccExpYear}}"></md-input>
             </td>
           </table>
         </div>
