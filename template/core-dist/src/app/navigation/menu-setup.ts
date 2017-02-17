@@ -59,4 +59,6 @@ export const menuItemSetup: MenuItem[] = [
     new MenuItem('Access Rules', ''),
     new MenuItem('Billing', ''),
   ]).setIcon('extension'),
+
+  new MenuItem('Search', 'search').setIcon('search'),
 ];

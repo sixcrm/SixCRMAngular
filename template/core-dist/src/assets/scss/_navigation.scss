@@ -236,6 +236,7 @@ header md-toolbar {
   margin-right: 16px;
   margin-left: -16px;
   width: 50px;
+  z-index: 1000;
   &[md-icon-button] {
     border-radius: 0;
     padding: 10px;

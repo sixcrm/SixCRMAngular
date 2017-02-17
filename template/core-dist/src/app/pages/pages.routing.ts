@@ -32,6 +32,7 @@ import {AccessKeyViewComponent} from './access-keys-page/access-key-view/access-
 import {ProductScheduleComponent} from './product-schedule-page/product-schedule.component';
 import {ProductScheduleViewComponent} from './product-schedule-page/product-schedule-view/product-schedule-view.component';
 import {DashboardComponent} from './dashboard-page/dashboard.component';
+import {SearchComponent} from './search-page/search.component';
 
 export const pagesRouting = RouterModule.forChild([
   {
@@ -99,6 +100,8 @@ export const pagesRouting = RouterModule.forChild([
       { path : 'accessKeys/:type/:id', component : AccessKeyViewComponent },
 
       { path : 'profile', component : ProfilePageComponent },
+
+      { path : 'search', component : SearchComponent },
     ]
   }
 ]);

@@ -38,6 +38,7 @@ import { ProductScheduleComponent } from './product-schedule-page/product-schedu
 import { ProductScheduleViewComponent } from './product-schedule-page/product-schedule-view/product-schedule-view.component';
 import { DashboardComponent } from './dashboard-page/dashboard.component';
 import { ChartsModule } from 'ng2-charts';
+import { SearchComponent } from './search-page/search.component';
 
 @NgModule({
   imports : [
@@ -82,7 +83,8 @@ import { ChartsModule } from 'ng2-charts';
     AccessKeyViewComponent,
     ProductScheduleComponent,
     ProductScheduleViewComponent,
-    DashboardComponent
+    DashboardComponent,
+    SearchComponent
   ]
 })
 export class PagesModule {
