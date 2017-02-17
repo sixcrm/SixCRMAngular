@@ -5,6 +5,7 @@ import {NavigationService} from '../navigation.service';
 import {Title} from '@angular/platform-browser';
 import {AuthenticationService} from "../../authentication/authentication.service";
 import {StringUtils} from '../../shared/utils/string-utils';
+import {Router} from '@angular/router';
 
 @Component({
   selector : 'app-topnav',
@@ -36,7 +37,9 @@ export class TopnavComponent implements OnInit {
   constructor(
     private _navigation: NavigationService,
     private _title: Title,
-    private _authService: AuthenticationService) {
+    private _authService: AuthenticationService,
+    private router: Router
+  ) {
   }
 
   ngOnInit() {
@@ -162,6 +165,12 @@ export class TopnavComponent implements OnInit {
   private hideElements(event): void {
     if (!event.target.attributes.class || event.target.attributes.class.value !== 'topnav__dropdown__trigger') {
       this.showDropdown = false;
+    }
+  }
+
+  search(event) {
+    if (event.key === 'Enter' && this.searchTerm && this.searchTerm.length > 0) {
+      this.router.navigate(['/dashboard', 'search', this.searchTerm])
     }
   }
 }

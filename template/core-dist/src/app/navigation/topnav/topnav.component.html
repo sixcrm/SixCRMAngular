@@ -8,7 +8,7 @@
 
   <button md-icon-button (click)="toggleSearchInput(searchField)"><md-icon>search</md-icon></button>
   <md-input-container id="topnav-search" [ngClass]="{'search-visible': showSearchInput}" [floatingPlaceholder]="false">
-    <input #searchField md-input class="search-field" placeholder="Search" type="text" (blur)="searchInputBlur()" [(ngModel)]="searchTerm">
+    <input #searchField md-input class="search-field" placeholder="Search" type="text" (blur)="searchInputBlur()" [(ngModel)]="searchTerm" (keydown)="search($event)">
   </md-input-container>
 
   <span (click)="toggleDropdownMenu()" class="topnav__dropdown__trigger">{{_userProfile.name}}</span>

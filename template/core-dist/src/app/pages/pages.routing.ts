@@ -102,6 +102,7 @@ export const pagesRouting = RouterModule.forChild([
       { path : 'profile', component : ProfilePageComponent },
 
       { path : 'search', component : SearchComponent },
+      { path : 'search/:searchTerm', component : SearchComponent },
     ]
   }
 ]);
