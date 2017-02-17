@@ -37,6 +37,7 @@ import { AccessKeyViewComponent } from './access-keys-page/access-key-view/acces
 import { ProductScheduleComponent } from './product-schedule-page/product-schedule.component';
 import { ProductScheduleViewComponent } from './product-schedule-page/product-schedule-view/product-schedule-view.component';
 import { DashboardComponent } from './dashboard-page/dashboard.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   imports : [
@@ -46,7 +47,8 @@ import { DashboardComponent } from './dashboard-page/dashboard.component';
     CommonModule,
     FormsModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ChartsModule
   ],
   declarations : [
     ProfilePageComponent,

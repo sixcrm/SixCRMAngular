@@ -1,3 +1,79 @@
-<p>
-  This Is Dashboard!
-</p>
+<div class="dashboard">
+  <div class="widgets__container">
+    <div class="flex-container layout-row layout-column-sm widgets__wrapper">
+      <core-widget icon="trending_up" [count]="367" description="New Sales" [color]="'#B8E78C'" [textColor]="'#000'"></core-widget>
+      <core-widget icon="thumb_up" [count]="28" description="Rebills" [color]="'#4C91DE'" [textColor]="'#fff'"></core-widget>
+      <core-widget icon="account_box" [count]="93" description="Refunds" [color]="'#8D31F8'" [textColor]="'#fff'"></core-widget>
+      <core-widget icon="equalizer" [count]="4" description="Canceled" [color]="'#F8E442'" [textColor]="'#000'"></core-widget>
+    </div>
+  </div>
+
+  <md-card class="dashboard__recent-sales">
+    <md-card-title>Recent Sales</md-card-title>
+    <md-card-content>
+      <md-list>
+        <md-list-item *ngFor="let sale of sales">
+          <p md-line> {{sale.campaign}} </p>
+          <p md-line> {{sale.product}} </p>
+          <p md-line> {{sale.link}} </p>
+          <p md-line> {{sale.rebill}} </p>
+        </md-list-item>
+      </md-list>
+    </md-card-content>
+  </md-card>
+
+  <div class="dashboard__charts flex-container layout-row layout-column-sm widgets__wrapper">
+    <div>
+      <md-card>
+        <md-card-title>Campaigns Overview</md-card-title>
+        <md-card-content>
+          <div class="canvas__parent--chart">
+            <canvas
+              baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [legend]="false"
+              [chartType]="barChartType"
+              [colors]="chartColors"></canvas>
+          </div>
+        </md-card-content>
+      </md-card>
+    </div>
+
+    <div>
+      <md-card>
+        <md-card-title>Fulfillments</md-card-title>
+        <md-card-content>
+          <div class="canvas__parent">
+            <canvas
+              baseChart
+              [data]="pieChartData"
+              [labels]="pieChartLabels"
+              [legend]="false"
+              [chartType]="pieChartType"
+            ></canvas>
+          </div>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+
+  <div class="dashboard__charts__line">
+    <md-card>
+      <md-card-title>Declines</md-card-title>
+      <md-card-content>
+        <div>
+          <canvas
+            baseChart
+            [datasets]="lineChartData"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [legend]="false"
+            [chartType]="lineChartType"
+            [colors]="lineChartColors"></canvas>
+        </div>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>
