@@ -5,8 +5,12 @@
   </button>
 
   <span class="app-flex-filler"></span>
-  <button md-icon-button class="topnav__search__trigger" (click)="toggleSearchInput()"> <md-icon>search</md-icon> </button>
-  <md-input class="topnav__search__input" *ngIf="showSearchInput" placeholder="Search"></md-input>
+
+  <button md-icon-button (click)="toggleSearchInput(searchField)"><md-icon>search</md-icon></button>
+  <md-input-container id="topnav-search" [ngClass]="{'search-visible': showSearchInput}" [floatingPlaceholder]="false">
+    <input #searchField md-input class="search-field" placeholder="Search" type="text" (blur)="searchInputBlur()" [(ngModel)]="searchTerm">
+  </md-input-container>
+
   <span (click)="toggleDropdownMenu()" class="topnav__dropdown__trigger">{{_userProfile.name}}</span>
 
   <div *ngIf="showDropdown" class="topnav__dropdown__menu">

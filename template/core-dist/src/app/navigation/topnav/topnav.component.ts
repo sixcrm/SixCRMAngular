@@ -4,6 +4,7 @@ import {Input} from '@angular/core/src/metadata/directives';
 import {NavigationService} from '../navigation.service';
 import {Title} from '@angular/platform-browser';
 import {AuthenticationService} from "../../authentication/authentication.service";
+import {StringUtils} from '../../shared/utils/string-utils';
 
 @Component({
   selector : 'app-topnav',
@@ -30,6 +31,7 @@ export class TopnavComponent implements OnInit {
 
   private showDropdown: boolean = false;
   private showSearchInput: boolean = false;
+  private searchTerm: string;
 
   constructor(
     private _navigation: NavigationService,
@@ -142,8 +144,19 @@ export class TopnavComponent implements OnInit {
     this.showDropdown = !this.showDropdown;
   }
 
-  private toggleSearchInput(): void {
+  private toggleSearchInput(input: HTMLInputElement): void {
     this.showSearchInput = !this.showSearchInput;
+    if(this.showSearchInput) {
+      window.setTimeout(() => {
+        input.focus();
+      }, 0);
+    }
+  }
+
+  searchInputBlur() {
+    if(StringUtils.isEmpty(this.searchTerm)) {
+      this.showSearchInput = false;
+    }
   }
 
   private hideElements(event): void {
@@ -151,5 +164,4 @@ export class TopnavComponent implements OnInit {
       this.showDropdown = false;
     }
   }
-
 }

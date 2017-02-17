@@ -268,3 +268,25 @@ header md-toolbar {
   width: calc(100% - 4rem);
   height: 100%;
 }
+
+#topnav-search {
+  width: 0;
+  overflow: hidden;
+  animation: .666s ease 0s normal forwards 1 fadeout;
+  opacity: 0;
+  visibility: hidden;
+  transition: width 0.4s cubic-bezier(0.35, 0, 0.25, 1);
+  &.search-visible {
+    width: 200px;
+    visibility: visible;
+    opacity: 1;
+    animation: .8s ease 0s normal forwards 1 fadein;
+  }
+
+  @media #{$medium-and-down} {
+    transition: none;
+    .md-input-placeholder.md-empty {
+      color: white;
+    }
+  }
+}
