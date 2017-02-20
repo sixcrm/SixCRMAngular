@@ -33,8 +33,4 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
 
     this.init();
   }
-
-  search(): void {
-
-  }
 }

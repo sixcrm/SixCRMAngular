@@ -12,18 +12,14 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
 })
 export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign> implements OnInit {
 
-  private campaign: Campaign;
-
   constructor(private campaignsService: CampaignsService, route: ActivatedRoute, progressBarService: ProgressBarService) {
     super(campaignsService, route, progressBarService);
   }
 
   ngOnInit() {
-    this.campaignsService.entity$.subscribe((campaign: Campaign) => {
-      this.campaign = campaign;
-      this.progressBarService.hideTopProgressBar();
-    });
-    this.campaignsService.entityDeleted$.subscribe((data) => this.campaignsService.getEntities());
+    if (this.addMode) {
+      this.entity = new Campaign();
+    }
 
     this.init();
   }
