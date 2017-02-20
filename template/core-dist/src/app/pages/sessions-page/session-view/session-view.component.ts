@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Session} from '../../../shared/models/session.model';
 import {SessionsService} from '../../../shared/services/sessions.service';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 
@@ -10,9 +10,7 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
   templateUrl: './session-view.component.html',
   styleUrls: ['./session-view.component.scss']
 })
-export class SessionViewComponent extends AbstractEntityViewComponent<Session> implements OnInit {
-
-  private session: Session;
+export class SessionViewComponent extends AbstractEntityViewComponent<Session> implements OnInit, OnDestroy {
 
   constructor(
     private sessionsService: SessionsService,
@@ -23,12 +21,14 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
   }
 
   ngOnInit() {
-    this.sessionsService.entity$.subscribe((session: Session) => {
-      this.session = session;
-      this.progressBarService.hideTopProgressBar();
-    });
+    if (this.addMode) {
+      this.entity = new Session();
+    }
 
     this.init();
   }
 
+  ngOnDestroy() {
+    this.destroy();
+  }
 }
