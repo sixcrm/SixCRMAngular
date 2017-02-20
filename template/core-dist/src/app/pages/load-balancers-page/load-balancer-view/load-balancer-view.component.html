@@ -1,6 +1,6 @@
-<md-card *ngIf="entity">
-  <md-card-title>Load Balancer {{mode}}</md-card-title>
-  <md-card-content>
+<md-card class="entity-view__card" *ngIf="entity">
+  <md-card-title class="entity-view__card__title"> <span>{{mode}} Load Balancer</span> </md-card-title>
+  <md-card-content class="entity-view__card__content">
     <md-input [disabled]="!addMode" placeholder="ID" [(ngModel)]="entity.id" name="id"></md-input>
 
     <div class="content__block__first">
@@ -37,7 +37,9 @@
       </ng-container>
     </div>
   </md-card-content>
-  <button md-raised-button color="primary" *ngIf="addMode" (click)="saveEntity(entity)"> Save </button>
-  <button md-raised-button color="primary" *ngIf="updateMode" (click)="updateEntity(entity)"> Update </button>
-  <button md-raised-button color="primary" *ngIf="updateMode" (click)="cancelUpdate()"> Cancel </button>
+  <md-card-actions align="end">
+    <button md-raised-button color="primary" *ngIf="addMode" (click)="saveEntity(entity)">Save</button>
+    <button md-raised-button color="primary" *ngIf="updateMode" (click)="updateEntity(entity)">Save</button>
+    <button md-raised-button color="primary" *ngIf="updateMode" (click)="cancelUpdate()">Cancel</button>
+  </md-card-actions>
 </md-card>
