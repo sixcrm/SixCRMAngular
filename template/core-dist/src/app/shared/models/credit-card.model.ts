@@ -23,6 +23,17 @@ export class CreditCard implements Entity<CreditCard> {
   }
 
   copy(): CreditCard {
-    return null;
+    return new CreditCard(this.inverse());
+  }
+
+  inverse(): any {
+    return {
+      id: this.id,
+      ccnumber: this.ccnumber,
+      expiration: this.expiration,
+      ccv: this.ccv,
+      name: this.name,
+      address: this.address.inverse()
+    };
   }
 }

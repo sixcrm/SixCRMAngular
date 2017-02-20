@@ -1,42 +1,23 @@
-<md-card *ngIf="customer">
-  <md-card-title>Customer View</md-card-title>
-  <md-card-content>
-    <md-input disabled placeholder="Email" value="{{customer.email}}"></md-input>
-    <md-input disabled placeholder="First Name" value="{{customer.firstName}}"></md-input>
-    <md-input disabled placeholder="Last Name" value="{{customer.lastName}}"></md-input>
-    <md-input disabled placeholder="Phone" value="{{customer.phone}}"></md-input>
+<md-card class="entity-view__card" *ngIf="entity">
+  <md-card-title class="entity-view__card__title"> <span>{{mode}} Customer</span> </md-card-title>
+  <md-card-content class="entity-view__card__content">
+    <md-input [disabled]="viewMode" placeholder="Email" [(ngModel)]="entity.email"></md-input>
+    <md-input [disabled]="viewMode" placeholder="First Name" [(ngModel)]="entity.firstName"></md-input>
+    <md-input [disabled]="viewMode" placeholder="Last Name" [(ngModel)]="entity.lastName"></md-input>
+    <md-input [disabled]="viewMode" placeholder="Phone" [(ngModel)]="entity.phone"></md-input>
 
-    <div class="content__block__first">
+    <div>
       <md-card-subtitle>Address</md-card-subtitle>
-      <md-input disabled placeholder="Line 1" value="{{customer.address.line1}}"></md-input>
-      <md-input disabled placeholder="Line 2" value="{{customer.address.line2}}"></md-input>
-      <md-input disabled placeholder="City" value="{{customer.address.city}}"></md-input>
-      <md-input disabled placeholder="Zip" value="{{customer.address.state}}"></md-input>
-      <md-input disabled placeholder="State" value="{{customer.address.zip}}"></md-input>
-      <md-input disabled placeholder="Country" value="{{customer.address.country}}"></md-input>
-    </div>
-
-    <div class="content__block__first">
-      <md-card-subtitle>Credit Cards</md-card-subtitle>
-      <ng-container *ngFor="let creditCard of customer.creditCards">
-        <div class="content__block__second">
-          <md-card-subtitle>Credit Card</md-card-subtitle>
-          <md-input disabled placeholder="ID" value="{{creditCard.id}}"></md-input>
-          <md-input disabled placeholder="CC Number" value="{{creditCard.ccnumber}}"></md-input>
-          <md-input disabled placeholder="Expiration" value="{{creditCard.expiration}}"></md-input>
-          <md-input disabled placeholder="CCV" value="{{creditCard.ccv}}"></md-input>
-          <md-input disabled placeholder="Name" value="{{creditCard.name}}"></md-input>
-
-          <div class="content__block__third">
-            <md-card-subtitle>Address</md-card-subtitle>
-            <md-input disabled placeholder="Line 1" value="{{creditCard.address.line1}}"></md-input>
-            <md-input disabled placeholder="Line 2" value="{{creditCard.address.line2}}"></md-input>
-            <md-input disabled placeholder="City" value="{{creditCard.address.city}}"></md-input>
-            <md-input disabled placeholder="Zip" value="{{creditCard.address.state}}"></md-input>
-            <md-input disabled placeholder="State" value="{{creditCard.address.zip}}"></md-input>
-          </div>
-        </div>
-      </ng-container>
+      <md-input [disabled]="viewMode" placeholder="Line 1" [(ngModel)]="entity.address.line1"></md-input>
+      <md-input [disabled]="viewMode" placeholder="Line 2" [(ngModel)]="entity.address.line2"></md-input>
+      <md-input [disabled]="viewMode" placeholder="City" [(ngModel)]="entity.address.city"></md-input>
+      <md-input [disabled]="viewMode" placeholder="Zip" [(ngModel)]="entity.address.state"></md-input>
+      <md-input [disabled]="viewMode" placeholder="State" [(ngModel)]="entity.address.zip"></md-input>
     </div>
   </md-card-content>
+  <md-card-actions align="end">
+    <button md-raised-button color="primary" *ngIf="addMode" (click)="saveEntity(entity)">Save</button>
+    <button md-raised-button color="primary" *ngIf="updateMode" (click)="updateEntity(entity)">Save</button>
+    <button md-raised-button color="primary" *ngIf="updateMode" (click)="cancelUpdate()">Cancel</button>
+  </md-card-actions>
 </md-card>

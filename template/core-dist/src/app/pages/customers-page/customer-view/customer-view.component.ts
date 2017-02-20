@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Customer} from '../../../shared/models/customer.model';
 import {CustomersService} from '../../../shared/services/customers.service';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 
@@ -10,20 +10,21 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
   templateUrl: './customer-view.component.html',
   styleUrls: ['./customer-view.component.scss']
 })
-export class CustomerViewComponent extends AbstractEntityViewComponent<Customer> implements OnInit {
-
-  private customer: Customer;
+export class CustomerViewComponent extends AbstractEntityViewComponent<Customer> implements OnInit, OnDestroy {
 
   constructor(private customersService: CustomersService, route: ActivatedRoute, progressBarService: ProgressBarService) {
     super(customersService, route, progressBarService);
   }
 
   ngOnInit() {
-    this.customersService.entity$.subscribe((data) => {
-      this.customer = data;
-      this.progressBarService.hideTopProgressBar();
-    });
+    if (this.addMode) {
+      this.entity = new Customer();
+    }
 
     this.init();
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 }
