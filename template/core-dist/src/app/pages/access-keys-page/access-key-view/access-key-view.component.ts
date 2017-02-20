@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AccessKey} from '../../../shared/models/access-key.model';
 import {AccessKeysService} from '../../../shared/services/access-keys.service';
 import {ActivatedRoute, Params} from '@angular/router';
@@ -10,7 +10,7 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
   templateUrl: './access-key-view.component.html',
   styleUrls: ['./access-key-view.component.scss']
 })
-export class AccessKeyViewComponent extends AbstractEntityViewComponent<AccessKey> implements OnInit {
+export class AccessKeyViewComponent extends AbstractEntityViewComponent<AccessKey> implements OnInit, OnDestroy {
 
   private accessKey: AccessKey;
 
@@ -29,6 +29,10 @@ export class AccessKeyViewComponent extends AbstractEntityViewComponent<AccessKe
     });
 
     this.init();
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 
 }

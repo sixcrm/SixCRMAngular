@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Affiliate} from '../../../shared/models/affiliate.model';
 import {AffiliatesService} from '../../../shared/services/affiliates.service';
 import {ActivatedRoute} from '@angular/router';
@@ -10,7 +10,7 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
   templateUrl: './affiliates-view.component.html',
   styleUrls: ['./affiliates-view.component.scss']
 })
-export class AffiliatesViewComponent extends AbstractEntityViewComponent<Affiliate> implements OnInit {
+export class AffiliatesViewComponent extends AbstractEntityViewComponent<Affiliate> implements OnInit, OnDestroy {
 
   constructor(
     private affiliatesService: AffiliatesService,
@@ -26,5 +26,9 @@ export class AffiliatesViewComponent extends AbstractEntityViewComponent<Affilia
     }
 
     this.init();
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 }

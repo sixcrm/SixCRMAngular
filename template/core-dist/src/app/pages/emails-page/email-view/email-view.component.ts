@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {EmailsService} from '../../../shared/services/emails.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Email} from '../../../shared/models/email.model';
@@ -10,7 +10,7 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
   templateUrl: './email-view.component.html',
   styleUrls: ['./email-view.component.scss']
 })
-export class EmailViewComponent extends AbstractEntityViewComponent<Email> implements OnInit {
+export class EmailViewComponent extends AbstractEntityViewComponent<Email> implements OnInit, OnDestroy {
 
   private email: Email;
 
@@ -24,6 +24,10 @@ export class EmailViewComponent extends AbstractEntityViewComponent<Email> imple
     }
 
     this.init();
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 
 }

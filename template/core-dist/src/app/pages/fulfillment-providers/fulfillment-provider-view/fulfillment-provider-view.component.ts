@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {FulfillmentProvider} from '../../../shared/models/fulfillment-provider.model';
 import {FulfillmentProvidersService} from '../../../shared/services/fulfillment-providers.service';
 import {ActivatedRoute} from '@angular/router';
@@ -10,7 +10,7 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
   templateUrl: './fulfillment-provider-view.component.html',
   styleUrls: ['./fulfillment-provider-view.component.scss']
 })
-export class FulfillmentProviderViewComponent extends AbstractEntityViewComponent<FulfillmentProvider> implements OnInit {
+export class FulfillmentProviderViewComponent extends AbstractEntityViewComponent<FulfillmentProvider> implements OnInit, OnDestroy {
 
   constructor(
     private fulfillmentProvidersService: FulfillmentProvidersService,
@@ -26,5 +26,9 @@ export class FulfillmentProviderViewComponent extends AbstractEntityViewComponen
     }
 
     this.init();
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 }

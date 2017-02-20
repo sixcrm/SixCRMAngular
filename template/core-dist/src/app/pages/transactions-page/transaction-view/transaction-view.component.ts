@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Transaction} from '../../../shared/models/transaction.model';
 import {TransactionsService} from '../../../shared/services/transactions.service';
 import {ActivatedRoute} from '@angular/router';
@@ -10,7 +10,7 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
   templateUrl: './transaction-view.component.html',
   styleUrls: ['./transaction-view.component.scss']
 })
-export class TransactionViewComponent extends AbstractEntityViewComponent<Transaction> implements OnInit {
+export class TransactionViewComponent extends AbstractEntityViewComponent<Transaction> implements OnInit, OnDestroy {
 
   constructor(
     private transactionsService: TransactionsService,
@@ -28,4 +28,7 @@ export class TransactionViewComponent extends AbstractEntityViewComponent<Transa
     this.init();
   }
 
+  ngOnDestroy() {
+    this.destroy();
+  }
 }

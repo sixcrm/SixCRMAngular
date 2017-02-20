@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {UsersService} from '../../../shared/services/users.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {User} from '../../../shared/models/user';
@@ -10,7 +10,7 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
   templateUrl: './user-view.component.html',
   styleUrls: ['./user-view.component.scss']
 })
-export class UserViewComponent extends AbstractEntityViewComponent<User> implements OnInit {
+export class UserViewComponent extends AbstractEntityViewComponent<User> implements OnInit, OnDestroy {
 
   private user: User;
 
@@ -24,6 +24,10 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
     }
 
     this.init();
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 
 }
