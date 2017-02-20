@@ -10,6 +10,10 @@ export class Transaction implements Entity<Transaction>{
   rebill: Rebill;
 
   constructor(obj?: any) {
+    if (!obj) {
+      obj = {};
+    }
+
     this.id = obj.id || '';
     this.date = obj.date || '';
     this.amount = obj.amount || '';

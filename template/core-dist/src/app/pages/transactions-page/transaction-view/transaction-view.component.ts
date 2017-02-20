@@ -12,8 +12,6 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
 })
 export class TransactionViewComponent extends AbstractEntityViewComponent<Transaction> implements OnInit {
 
-  private transaction: Transaction;
-
   constructor(
     private transactionsService: TransactionsService,
     route: ActivatedRoute,
@@ -23,10 +21,10 @@ export class TransactionViewComponent extends AbstractEntityViewComponent<Transa
   }
 
   ngOnInit() {
-    this.transactionsService.entity$.subscribe((transaction: Transaction) => {
-      this.transaction = transaction;
-      this.progressBarService.hideTopProgressBar();
-    });
+    if (this.addMode) {
+      this.entity = new Transaction();
+    }
+
     this.init();
   }
 
