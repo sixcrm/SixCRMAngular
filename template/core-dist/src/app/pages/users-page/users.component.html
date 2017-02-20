@@ -1,33 +1,38 @@
-<button md-fab class="entity-index__button--add"> <md-icon>add</md-icon></button>
+<md-card class="entity-index__card">
+  <md-card-title class="entity-index__card__title"> <span>User Index</span> </md-card-title>
+  <md-card-content class="entity-index__card__content">
+    <button md-raised-button color="primary" (click)="addEntity()">New User</button>
 
-<div class="entity-index__search">
-  <md-input placeholder="search"></md-input>
-  <button md-raised-button color="primary">search</button>
-</div>
+    <div class="entity-index__search">
+      <md-input placeholder="search"></md-input>
+      <button md-raised-button color="primary">search</button>
+    </div>
 
-<table class="highlight">
-  <thead class="entity-index__table__header">
-  <tr>
-    <th data-field="name">Name</th>
-    <th data-field="email">Email</th>
-    <th data-field="active">Active</th>
-    <th data-field="active">Terms and Conditions</th>
-    <th>Actions</th>
-  </tr>
-  </thead>
+    <table class="entity-index__table highlight">
+      <thead class="entity-index__table__header">
+        <tr>
+          <th data-field="name">Name <md-icon>keyboard_arrow_down</md-icon></th>
+          <th data-field="email">Email <md-icon>keyboard_arrow_down</md-icon></th>
+          <th data-field="active">Active <md-icon>keyboard_arrow_down</md-icon></th>
+          <th data-field="active">Terms and Conditions <md-icon>keyboard_arrow_down</md-icon></th>
+          <th>Actions</th>
+        </tr>
+      </thead>
 
-  <tbody>
-  <tr *ngFor="let user of users">
-    <td>{{user.name}}</td>
-    <td>{{user.email}}</td>
-    <td>{{user.active}}</td>
-    <td>{{user.termsAndConditions}}</td>
-    <td>
-      <md-icon class="entity-index__table__body__action" (click)="viewEntity(user.id)">visibility</md-icon>
-      <md-icon class="entity-index__table__body__action" (click)="updateEntity(user.id)">mode_edit</md-icon>
-      <md-icon class="entity-index__table__body__action" (click)="deleteEntity(user.id)">delete</md-icon>
-    </td>
-  </tr>
-  </tbody>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{user.name}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.active}}</td>
+          <td>{{user.termsAndConditions}}</td>
+          <td>
+            <md-icon class="entity-index__table__body__action" (click)="viewEntity(user.id)">visibility</md-icon>
+            <md-icon class="entity-index__table__body__action" (click)="updateEntity(user.id)">mode_edit</md-icon>
+            <md-icon class="entity-index__table__body__action" (click)="deleteEntity(user.id)">delete</md-icon>
+          </td>
+        </tr>
+      </tbody>
 
-</table>
+    </table>
+  </md-card-content>
+</md-card>

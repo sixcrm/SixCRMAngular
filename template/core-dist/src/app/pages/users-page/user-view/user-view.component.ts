@@ -19,10 +19,9 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
   }
 
   ngOnInit() {
-    this.usersService.entity$.subscribe((data) => {
-      this.user = data;
-      this.progressBarService.hideTopProgressBar();
-    });
+    if (this.addMode) {
+      this.entity = new User();
+    }
 
     this.init();
   }
