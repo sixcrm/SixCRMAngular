@@ -31,6 +31,7 @@ export class SmtpProvidersComponent extends AbstractEntityIndexComponent<SmtpPro
       this.progressBarService.hideTopProgressBar();
     });
     this.smtpProvidersService.entityDeleted$.subscribe((data) => this.smtpProvidersService.getEntities());
+
     this.init();
   }
 

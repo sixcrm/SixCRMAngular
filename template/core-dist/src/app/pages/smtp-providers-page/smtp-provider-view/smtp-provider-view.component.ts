@@ -12,8 +12,6 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
 })
 export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpProvider> implements OnInit, OnDestroy {
 
-  private smtpProviderBackup: SmtpProvider;
-
   constructor(
     private smtpProvidersService: SmtpProvidersService,
     route: ActivatedRoute,
@@ -23,18 +21,14 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
   }
 
   ngOnInit(): void {
-    this.init();
-
     if (this.addMode) {
       this.entity = new SmtpProvider();
     }
+
+    this.init();
   }
 
   ngOnDestroy(): void {
     this.destroy();
-  }
-
-  cancelUpdate(): void {
-    this.entity = Object.assign({}, this.smtpProviderBackup);
   }
 }
