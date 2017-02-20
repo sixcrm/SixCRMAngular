@@ -19,10 +19,9 @@ export class EmailViewComponent extends AbstractEntityViewComponent<Email> imple
   }
 
   ngOnInit() {
-    this.emailsService.entity$.subscribe((data) => {
-      this.email = data;
-      this.progressBarService.hideTopProgressBar();
-    });
+    if (this.addMode) {
+      this.entity = new Email();
+    }
 
     this.init();
   }

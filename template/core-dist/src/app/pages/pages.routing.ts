@@ -92,7 +92,7 @@ export const pagesRouting = RouterModule.forChild([
       { path : 'smtpProviders/:type/:id', component : SmtpProviderViewComponent },
 
       { path : 'emails', component : EmailsComponent },
-      { path : 'emails/:id', component : EmailViewComponent },
+      { path : 'emails/:type', component : EmailViewComponent },
       { path : 'emails/:type/:id', component : EmailViewComponent },
 
       { path : 'accessKeys', component : AccessKeysComponent },
