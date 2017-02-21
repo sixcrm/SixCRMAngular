@@ -104,7 +104,9 @@ export class AuthenticationService {
             this.userUnderReg.next(new User(user));
           } else {
             localStorage.setItem(this.activated, 'activated');
-            this.router.navigateByUrl('/dashboard');
+            if (this.router.url === '/') {
+              this.router.navigateByUrl('/dashboard');
+            }
           }
         }
       }
