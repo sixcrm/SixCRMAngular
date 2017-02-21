@@ -48,13 +48,6 @@ export class TopnavComponent implements OnInit {
     });
     this._navigation.showSidenav.subscribe(showSidenav => {
       this._showSidenav = showSidenav;
-      if(this.sideNav !== undefined) {
-        if(showSidenav && this.sideNav._isClosed) {
-          this.sideNav.open();
-        } else if(!showSidenav && this.sideNav._isOpened) {
-          this.sideNav.close();
-        }
-      }
     });
     this._navigation.breadcrumbs.subscribe(breadcrumbs => {
       if(breadcrumbs !== null) {

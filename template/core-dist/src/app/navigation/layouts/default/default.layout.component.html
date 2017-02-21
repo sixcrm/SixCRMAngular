@@ -1,13 +1,15 @@
 <md-sidenav-layout>
-  <md-sidenav #sidenav [mode]="_navigation.mediumScreenAndDown ? 'over' : 'side'" [opened]="showSidenav" (close)="sidenavToggle(false)" (open)="sidenavToggle(true)">
-    <app-sidenav></app-sidenav>
+  <md-sidenav (mouseenter)="hover(true)" (mouseleave)="hover(false)" #sidenav
+              [mode]="(_navigation.mediumScreenAndDown || showOnHover) ? 'over' : 'side'"
+              [opened]="showSidenav || !_navigation.mediumScreenAndDown">
+    <app-sidenav [isHovering]="isHovering || showSidenav || _navigation.mediumScreenAndDown"></app-sidenav>
   </md-sidenav>
   <header>
     <app-topnav [sideNav]="sidenav"></app-topnav>
   </header>
   <md-progress-bar *ngIf="showTopProgress" mode="query"></md-progress-bar>
 
-  <main>
+  <main [class.container--hover]="!showSidenav && showOnHover">
     <div class="container">
       <router-outlet></router-outlet>
       <div class="clearfix"></div>

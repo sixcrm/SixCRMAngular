@@ -9,12 +9,12 @@ import {Router} from '@angular/router';
 @Component({
   selector : 'c-sidenav-item',
   template : `
-    <a md-list-item *ngIf="!hasLink && !hasChildren && !hasQuery" (click)="clicked($event)"> <md-icon *ngIf='menuItem.icon'>{{menuItem.icon}}</md-icon>{{ menuItem.title }}</a>
-    <a md-list-item *ngIf="hasLink && !hasChildren && !hasQuery" [routerLink]="menuItem.link" routerLinkActive="active" (toggle)="true" (click)="clicked($event)"> <md-icon *ngIf='menuItem.icon'>{{menuItem.icon}}</md-icon> {{ menuItem.title }}</a>
-    <a md-list-item *ngIf="hasLink && !hasChildren && hasQuery" [routerLink]="menuItem.link" [queryParams]="menuItem.queryParams" routerLinkActive="active" (toggle)="true"> <md-icon *ngIf='menuItem.icon'>{{menuItem.icon}}</md-icon> {{ menuItem.title }}</a>
-    <a md-list-item class="nav-dropdown" *ngIf="hasChildren" (click)="toggleDropdown(!active)" [ngClass]="{ 'active' : active }" (click)="clicked($event)"> <md-icon *ngIf='menuItem.icon'>{{menuItem.icon}}</md-icon> {{ menuItem?.title }}<span class="app-flex-filler"></span><i class="material-icons"></i></a>
-    <md-nav-list *ngIf="hasChildren" class="nav-children {{levelClass}}" [ngClass]="{ 'active' : active }" [ngStyle]="{'height.px': height}">
-      <c-sidenav-item *ngFor="let menuItemChild of menuItem.children" [menuItem]="menuItemChild" [level]="level + 1" [parent]="_this"></c-sidenav-item>
+    <a md-list-item *ngIf="!hasLink && !hasChildren && !hasQuery" (click)="clicked($event)"> <md-icon [class.icon--solo]="!full" *ngIf='menuItem.icon'>{{menuItem.icon}}</md-icon> <span *ngIf="full">{{ menuItem.title }}</span></a>
+    <a md-list-item *ngIf="hasLink && !hasChildren && !hasQuery" [routerLink]="menuItem.link" routerLinkActive="active" (toggle)="true" (click)="clicked($event)"> <md-icon [class.icon--solo]="!full" *ngIf='menuItem.icon'>{{menuItem.icon}}</md-icon>  <span *ngIf="full">{{ menuItem.title }}</span></a>
+    <a md-list-item *ngIf="hasLink && !hasChildren && hasQuery" [routerLink]="menuItem.link" [queryParams]="menuItem.queryParams" routerLinkActive="active" (toggle)="true"> <md-icon [class.icon--solo]="!full" *ngIf='menuItem.icon'>{{menuItem.icon}}</md-icon>  <span *ngIf="full">{{ menuItem.title }}</span></a>
+    <a md-list-item class="nav-dropdown" *ngIf="hasChildren" (click)="toggleDropdown(!active)" [ngClass]="{ 'active' : active && full }" (click)="clicked($event)"> <md-icon [class.icon--solo]="!full" *ngIf='menuItem.icon'>{{menuItem.icon}}</md-icon>  <span *ngIf="full">{{ menuItem?.title }}</span><span class="app-flex-filler"></span><i *ngIf="full" class="material-icons"></i></a>
+    <md-nav-list *ngIf="hasChildren" class="nav-children {{levelClass}}" [ngClass]="{ 'active' : active && full }" [ngStyle]="{'height.px': height}">
+      <c-sidenav-item *ngFor="let menuItemChild of menuItem.children" [menuItem]="menuItemChild" [level]="level + 1" [parent]="_this" [full]="full"></c-sidenav-item>
     </md-nav-list>
   `,
   styleUrls : ['./sidenav-item.component.scss'],
@@ -25,6 +25,7 @@ export class SidenavItemComponent implements AfterViewInit, OnDestroy {
   @Input() level: number = 1;
   @Input() active: boolean = false;
   @Input() parent: SidenavItemComponent;
+  @Input() full: boolean = false;
 
   private _this: SidenavItemComponent = this;
   private _subscription: Subscription;

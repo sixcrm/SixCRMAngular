@@ -3,6 +3,7 @@ import {NavigationService} from '../navigation.service';
 import {MenuItem} from '../menu-item';
 import {SidenavItemComponent} from './sidenav-item/sidenav-item.component';
 import {ViewChildren} from '@angular/core/src/metadata/di';
+import {Input} from '@angular/core/src/metadata/directives';
 
 @Component({
   selector : 'app-sidenav',
@@ -24,6 +25,7 @@ import {ViewChildren} from '@angular/core/src/metadata/di';
 export class SidenavComponent implements OnInit {
   @ViewChildren(SidenavItemComponent) children: QueryList<SidenavItemComponent>;
 
+  @Input() private isHovering: boolean = false;
   private showSidenav: boolean = false;
   private menuItems: MenuItem[] = [];
   private _screenWidth: number = NavigationService.largeViewportWidth;

@@ -15,9 +15,9 @@ main > .container {
 }
 
 md-sidenav {
-  width: $sidenav-width;
   background-color: $primary-color;
   max-width: 70%;
+  min-width: 0 !important;
 
   @media #{$medium-and-down} {
     &.md-sidenav-opened {
@@ -27,11 +27,16 @@ md-sidenav {
 
   md-toolbar {
     box-shadow: 0 1px 0 rgba(0, 0, 0, .12);
+    padding: 0 10px;
 
     .logo {
       height: 40px;
       margin-top: 2px;
       margin-bottom: 2px;
+
+      &--small {
+
+      }
     }
   }
 }

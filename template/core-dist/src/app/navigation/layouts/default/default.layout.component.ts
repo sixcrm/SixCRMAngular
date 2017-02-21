@@ -9,6 +9,8 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
 export class DefaultLayoutComponent implements OnInit {
   private showSidenav: boolean;
   private showTopProgress: boolean = false;
+  private isHovering: boolean = false;
+  private showOnHover: boolean = false;
 
   constructor(private _navigation: NavigationService, private progressBarService: ProgressBarService) {
   }
@@ -27,6 +29,18 @@ export class DefaultLayoutComponent implements OnInit {
 
   private sidenavToggle(visible: boolean) {
     this._navigation.toggleSidenav(visible);
+  }
+
+  hover(value: boolean): void {
+    this.isHovering = value;
+
+    setTimeout(() => {
+      if (!this.showSidenav && this.isHovering) {
+        this.showOnHover = true;
+      } else {
+        this.showOnHover = false
+      }
+    }, 50)
   }
 
 }
