@@ -13,8 +13,6 @@ import {ProgressBarService} from '../../shared/services/progress-bar.service';
 })
 export class CreditCardsComponent extends AbstractEntityIndexComponent<CreditCard> implements OnInit {
 
-  private creditCards: CreditCard[] = [];
-
   constructor(
     private creditCardsService: CreditCardsService,
     router: Router,
@@ -26,10 +24,6 @@ export class CreditCardsComponent extends AbstractEntityIndexComponent<CreditCar
   }
 
   ngOnInit() {
-    this.creditCardsService.entities$.subscribe((data) => {
-      this.creditCards = data;
-      this.progressBarService.hideTopProgressBar();
-    });
     this.creditCardsService.entityDeleted$.subscribe((data) => this.creditCardsService.getEntities());
 
     this.init();

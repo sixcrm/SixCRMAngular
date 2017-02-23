@@ -12,7 +12,6 @@ import {ProgressBarService} from '../../shared/services/progress-bar.service';
   styleUrls: ['./affiliates.component.scss']
 })
 export class AffiliatesComponent extends AbstractEntityIndexComponent<Affiliate> implements OnInit {
-  private affiliates: Affiliate[];
 
   constructor(
     private affiliatesService: AffiliatesService,
@@ -25,10 +24,6 @@ export class AffiliatesComponent extends AbstractEntityIndexComponent<Affiliate>
   }
 
   ngOnInit() {
-    this.affiliatesService.entities$.subscribe((data) => {
-      this.affiliates = data;
-      this.progressBarService.hideTopProgressBar();
-    });
     this.affiliatesService.entityDeleted$.subscribe((data) => this.affiliatesService.getEntities());
 
     this.init();

@@ -13,8 +13,6 @@ import {MdDialog} from '@angular/material';
 })
 export class ProductScheduleComponent extends AbstractEntityIndexComponent<ProductSchedule> implements OnInit {
 
-  private productSchedules: ProductSchedule[] = [];
-
   constructor(
     private productScheduleService: ProductScheduleService,
     router: Router,
@@ -26,10 +24,6 @@ export class ProductScheduleComponent extends AbstractEntityIndexComponent<Produ
   }
 
   ngOnInit() {
-    this.productScheduleService.entities$.subscribe((schedules: ProductSchedule[]) => {
-      this.productSchedules = schedules;
-      this.progressBarService.hideTopProgressBar();
-    });
     this.productScheduleService.entityDeleted$.subscribe((data) => this.productScheduleService.getEntities());
 
     this.init();

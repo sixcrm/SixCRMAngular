@@ -13,8 +13,6 @@ import {ProgressBarService} from '../../shared/services/progress-bar.service';
 })
 export class MerchantProvidersComponent extends AbstractEntityIndexComponent<MerchantProvider> implements OnInit {
 
-  private merchantProviders: MerchantProvider[] = [];
-
   constructor(
     private merchantProvidersService: MerchantProvidersService,
     router: Router,
@@ -26,10 +24,6 @@ export class MerchantProvidersComponent extends AbstractEntityIndexComponent<Mer
   }
 
   ngOnInit() {
-    this.merchantProvidersService.entities$.subscribe((providers) => {
-      this.merchantProviders = providers;
-      this.progressBarService.hideTopProgressBar();
-    });
     this.merchantProvidersService.entityDeleted$.subscribe(() => this.merchantProvidersService.getEntities());
 
     this.init();

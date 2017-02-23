@@ -12,9 +12,9 @@ function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
 }
 
-export function  productsListQuery(): string {
+export function  productsListQuery(limit?:number, cursor?:string): string {
   return `{
-    productlist {
+    productlist ${pageParams(limit, cursor)} {
 			products { id name sku ship shipping_delay
 				fulfillment_provider { id name provider username password endpoint }
 			}
@@ -52,9 +52,9 @@ export function updateProductMutation(product: Product): string {
     }`;
 }
 
-export function  productScheduleListQuery(): string {
+export function  productScheduleListQuery(limit?:number, cursor?:string): string {
   return `{
-    productschedulelist {
+    productschedulelist ${pageParams(limit, cursor)} {
 			productschedules { id
 			  schedule { price start end period
 			    product { id name sku ship shipping_delay
@@ -135,9 +135,9 @@ export function campaignQuery(id: string): string {
     }}`
 }
 
-export function campaignsInfoListQuery(): string {
+export function campaignsInfoListQuery(limit?:number, cursor?:string): string {
   return `{
-    campaignlist {
+    campaignlist ${pageParams(limit, cursor)} {
       campaigns { id name
         productschedules { id }
         loadbalancer { id
@@ -154,8 +154,8 @@ export function deleteCampaignMutation(id: string): string {
   return deleteMutation('campaign', id);
 }
 
-export function merchantProvidersListQuery(): string {
-  return `{ merchantproviderlist { merchantproviders { id name username password endpoint processor } } }`
+export function merchantProvidersListQuery(limit?:number, cursor?:string): string {
+  return `{ merchantproviderlist ${pageParams(limit, cursor)} { merchantproviders { id name username password endpoint processor } } }`
 }
 
 export function merchantProviderQuery(id: string): string {
@@ -186,8 +186,8 @@ export function updateMerchantProviderMutation(provider: MerchantProvider): stri
 	}`
 }
 
-export function fulfillmentProvidersListQuery(): string {
-  return `{ fulfillmentproviderlist { fulfillmentproviders { id name provider username password endpoint } } }`
+export function fulfillmentProvidersListQuery(limit?:number, cursor?:string): string {
+  return `{ fulfillmentproviderlist ${pageParams(limit, cursor)} { fulfillmentproviders { id name provider username password endpoint } } }`
 }
 
 export function fulfillmentProviderQuery(id: string): string {
@@ -216,8 +216,8 @@ export function updateFulfillmentProviderMutation(provider: FulfillmentProvider)
 	  }`
 }
 
-export function affiliatesListQuery(): string {
-  return `{ affiliatelist { affiliates { id affiliate_id sub_id_1 sub_id_2 sub_id_3 sub_id_4 sub_id_5 click_id } } }`
+export function affiliatesListQuery(limit?:number, cursor?:string): string {
+  return `{ affiliatelist ${pageParams(limit, cursor)} { affiliates { id affiliate_id sub_id_1 sub_id_2 sub_id_3 sub_id_4 sub_id_5 click_id } } }`
 }
 
 export function affiliateQuery(id: string): string {
@@ -246,9 +246,9 @@ export function updateAffiliateMutation(affiliate: Affiliate): string {
 	  }`
 }
 
-export function customersInfoListQuery(): string {
+export function customersInfoListQuery(limit?:number, cursor?:string): string {
   return `{
-    customerlist {
+    customerlist ${pageParams(limit, cursor)} {
       customers { id firstname lastname
         address { city country }
 			}
@@ -270,9 +270,9 @@ export function deleteCustomerMutation(id: string): string {
 }
 
 
-export function loadBalancersInfoListQuery(): string {
+export function loadBalancersInfoListQuery(limit?:number, cursor?:string): string {
   return `{
-    loadbalancerlist {
+    loadbalancerlist ${pageParams(limit, cursor)} {
 			loadbalancers { id
 			  merchantproviderconfigurations {
 					merchantprovider { endpoint processor }
@@ -334,8 +334,8 @@ export function deleteLoadBalancerMutation(id: string): string {
   return deleteMutation('loadbalancer', id);
 }
 
-export function transactionsInfoListQuery(): string {
-  return `{ transactionlist {	transactions { id date amount processor_response } } }`
+export function transactionsInfoListQuery(limit?:number, cursor?:string): string {
+  return `{ transactionlist ${pageParams(limit, cursor)} {	transactions { id date amount processor_response } } }`
 }
 
 export function transactionQuery(id: string): string {
@@ -364,9 +364,9 @@ export function deleteTransactionMutation(id: string): string {
   return deleteMutation('transaction', id);
 }
 
-export function sessionsInfoListQuery(): string {
+export function sessionsInfoListQuery(limit?:number, cursor?:string): string {
   return `{
-    sessionlist {
+    sessionlist ${pageParams(limit, cursor)} {
 			sessions { id
 			  customer { id firstname lastname }
 				product_schedules { id }
@@ -422,9 +422,9 @@ export function deleteSessionMutation(id: string): string {
   return deleteMutation('session', id);
 }
 
-export function creditCardsListQuery(): string {
+export function creditCardsListQuery(limit?:number, cursor?:string): string {
   return `{
-    creditcardlist {
+    creditcardlist ${pageParams(limit, cursor)} {
 			creditcards { id expiration name
 			  address { city state }
 			}
@@ -452,10 +452,11 @@ export function createCreditCardMutation(cc: CreditCard): string {
 	  }`
 }
 
-export function usersListQuery(): string {
+export function usersListQuery(limit?: number, cursor?: string): string {
   return `{
-    userlist {
+    userlist ${pageParams(limit,cursor)} {
 			users { id auth0_id name email active termsandconditions }
+			pagination { count end_cursor has_next_page }
 		}}`
 }
 
@@ -497,9 +498,9 @@ export function updateUserForRegistration(user: User): string {
 	}`
 }
 
-export function smtpProvidersListQuery(): string {
+export function smtpProvidersListQuery(limit?:number, cursor?:string): string {
   return `{
-    smtpproviderlist {
+    smtpproviderlist ${pageParams(limit, cursor)} {
 			smtpproviders { id name hostname ip_address username port }
 		}}`
 }
@@ -535,9 +536,9 @@ export function updateSmptProviderMutation(smtpProvider: SmtpProvider): string {
 	}`
 }
 
-export function emailsListQuery(): string {
+export function emailsListQuery(limit?:number, cursor?:string): string {
   return `{
-    emaillist {
+    emaillist ${pageParams(limit, cursor)} {
 			emails { id name subject body type
 			  smtp_provider { id name hostname ip_address username password port }
 			}
@@ -557,9 +558,9 @@ export function deleteEmailMutation(id: string): string {
   return deleteMutation('email', id);
 }
 
-export function accessKeysListQuery(): string {
+export function accessKeysListQuery(limit?:number, cursor?:string): string {
   return `{
-    accesskeylist {
+    accesskeylist ${pageParams(limit, cursor)} {
 			accesskeys { id access_key secret_key }
 		}}`
 }
@@ -573,4 +574,11 @@ export function accessKeyQuery(id: string): string {
 
 export function deleteAccessKeyMutation(id: string): string {
   return deleteMutation('accesskey', id);
+}
+
+function pageParams(limit?: number, cursor?: string): string {
+  let lim = !!limit ? `limit: "${limit}"` : '';
+  let cur = !!cursor ? `cursor: "${cursor}"` : '';
+
+  return limit || cur ? `(${lim} ${cur})` : '';
 }

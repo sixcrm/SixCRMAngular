@@ -13,8 +13,6 @@ import {ProgressBarService} from '../../shared/services/progress-bar.service';
 })
 export class AccessKeysComponent extends AbstractEntityIndexComponent<AccessKey> implements OnInit {
 
-  private accessKeys: AccessKey[];
-
   constructor(
     private accessKeysService: AccessKeysService,
     router: Router,
@@ -26,10 +24,6 @@ export class AccessKeysComponent extends AbstractEntityIndexComponent<AccessKey>
   }
 
   ngOnInit() {
-    this.accessKeysService.entities$.subscribe((data) => {
-      this.accessKeys = data;
-      this.progressBarService.hideTopProgressBar()
-    });
     this.accessKeysService.entityDeleted$.subscribe((data) => this.accessKeysService.getEntities());
 
     this.init();

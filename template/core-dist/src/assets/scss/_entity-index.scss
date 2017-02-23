@@ -56,4 +56,30 @@
       }
     }
   }
+
+  &__pagination {
+
+    &__buttons {
+      margin-top: 25px;
+      text-align: center;
+
+      span {
+        margin: 0 15px;
+      }
+
+      &__limit {
+
+        &__input {
+          float: right;
+          width: 80px;
+          margin-left: 15px;
+        }
+
+        &__button {
+          float: right;
+          width: 100px;
+        }
+      }
+    }
+  }
 }

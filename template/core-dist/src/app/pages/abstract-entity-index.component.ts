@@ -6,6 +6,12 @@ import {ProgressBarService} from '../shared/services/progress-bar.service';
 
 export abstract class AbstractEntityIndexComponent<T> {
   private deleteDialogRef: MdDialogRef<DeleteDialogComponent>;
+  protected limit: number = 5;
+  protected newLimit: number = 5;
+  protected page: number = 0;
+  private hasMore: boolean;
+  private entities: T[] = [];
+  private entitiesHolder: T[] = [];
 
   constructor(
     private service: AbstractEntityService<T>,
@@ -13,11 +19,50 @@ export abstract class AbstractEntityIndexComponent<T> {
     private route: ActivatedRoute,
     private deleteDialog: MdDialog,
     protected progressBarService?: ProgressBarService
-  ) {}
+  ) { }
 
   init(): void {
+    this.service.entities$.subscribe((entities: T[]) => {
+      this.entitiesHolder = [...this.entitiesHolder, ...entities];
+      this.reshuffleEntities();
+      this.progressBarService.hideTopProgressBar();
+    });
+
+    // this.service.entitiesHasMore$.subscribe((hasMore: boolean) => this.hasMore = hasMore);
     this.service.getEntities();
     this.progressBarService.showTopProgressBar();
+  }
+
+  protected reshuffleEntities(): void {
+    let tempEntities = this.entitiesHolder.slice(this.page * this.limit, this.page * this.limit + this.limit);
+
+    this.entities = tempEntities;
+    // if (tempEntities.length >= this.limit) {
+    //   this.entities = tempEntities;
+    // } else {
+    //   if (this.hasMore) {
+    //     this.service.getEntities(this.limit - tempEntities.length);
+    //   }
+    // }
+  }
+
+  updateLimit(): void {
+    let firstElement: number = this.page * this.limit;
+
+    this.page = Math.floor(firstElement / this.newLimit);
+    this.limit = +this.newLimit;
+
+    this.reshuffleEntities();
+  }
+
+  next(): void {
+    this.page++;
+    this.reshuffleEntities();
+  }
+
+  previous(): void {
+    this.page--;
+    this.reshuffleEntities();
   }
 
   viewEntity(id: string): void {
@@ -42,5 +87,10 @@ export abstract class AbstractEntityIndexComponent<T> {
 
   addEntity(): void {
     this.router.navigate(['addEntity'], { relativeTo: this.route});
+  }
+
+  hasMorePages(): boolean {
+    let nextPage = this.page + 1;
+    return this.hasMore || this.entitiesHolder.slice(nextPage * this.limit, nextPage * this.limit + this.limit).length > 0;
   }
 }

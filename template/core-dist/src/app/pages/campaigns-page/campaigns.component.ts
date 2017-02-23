@@ -12,7 +12,6 @@ import {ProgressBarService} from '../../shared/services/progress-bar.service';
   styleUrls: ['./campaigns.component.scss']
 })
 export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> implements OnInit {
-  private campaigns: Campaign[] = [];
 
   constructor(
     private campaignService: CampaignsService,
@@ -25,10 +24,6 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
   }
 
   ngOnInit() {
-    this.campaignService.entities$.subscribe(campaigns => {
-      this.campaigns = campaigns;
-      this.progressBarService.hideTopProgressBar();
-    });
     this.campaignService.entityDeleted$.subscribe((data) => this.campaignService.getEntities());
 
     this.init();

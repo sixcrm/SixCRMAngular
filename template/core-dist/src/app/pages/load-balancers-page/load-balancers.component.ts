@@ -13,8 +13,6 @@ import {ProgressBarService} from '../../shared/services/progress-bar.service';
 })
 export class LoadBalancersComponent extends AbstractEntityIndexComponent<LoadBalancer> implements OnInit {
 
-  private loadBalancers: LoadBalancer[] = [];
-
   constructor(
     private loadBalancersService: LoadBalancersService,
     router: Router,
@@ -26,10 +24,6 @@ export class LoadBalancersComponent extends AbstractEntityIndexComponent<LoadBal
   }
 
   ngOnInit() {
-    this.loadBalancersService.entities$.subscribe((data) => {
-      this.loadBalancers = data;
-      this.progressBarService.hideTopProgressBar();
-    });
     this.loadBalancersService.entityDeleted$.subscribe(() => this.loadBalancersService.getEntities() );
 
     this.init();

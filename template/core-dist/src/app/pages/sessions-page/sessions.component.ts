@@ -13,8 +13,6 @@ import {ProgressBarService} from '../../shared/services/progress-bar.service';
 })
 export class SessionsComponent extends AbstractEntityIndexComponent<Session> implements OnInit {
 
-  private sessions: Session[] = [];
-
   constructor(
     private sessionsService: SessionsService,
     router: Router,
@@ -26,10 +24,6 @@ export class SessionsComponent extends AbstractEntityIndexComponent<Session> imp
   }
 
   ngOnInit() {
-    this.sessionsService.entities$.subscribe((data) => {
-      this.sessions = data;
-      this.progressBarService.hideTopProgressBar();
-    });
     this.sessionsService.entityDeleted$.subscribe((data) => this.sessionsService.getEntities());
 
     this.init();

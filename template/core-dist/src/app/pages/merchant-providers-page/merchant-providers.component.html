@@ -21,7 +21,7 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let merchantProvider of merchantProviders">
+        <tr *ngFor="let merchantProvider of entities">
           <td>{{merchantProvider.name}}</td>
           <td>{{merchantProvider.username}}</td>
           <td>{{merchantProvider.password}}</td>
@@ -34,8 +34,16 @@
           </td>
         </tr>
       </tbody>
-
     </table>
+
+    <div class="entity-index__pagination__buttons">
+      <button [disabled]="page <= 0" md-raised-button color="primary" (click)="previous()">previous</button>
+      <span> {{page + 1}} </span>
+      <button [disabled]="!hasMorePages()" md-raised-button color="primary" (click)="next()">next</button>
+
+      <md-input class="entity-index__pagination__buttons__limit__input" [(ngModel)]="newLimit" placeholder="Users Per Page"></md-input>
+      <button class="entity-index__pagination__buttons__limit__button" md-raised-button color="primary" (click)="updateLimit()">Update</button>
+    </div>
   </md-card-content>
 </md-card>
 

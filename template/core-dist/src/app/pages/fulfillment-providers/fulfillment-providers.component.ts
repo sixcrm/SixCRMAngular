@@ -12,7 +12,6 @@ import {ProgressBarService} from '../../shared/services/progress-bar.service';
   styleUrls: ['./fulfillment-providers.component.scss']
 })
 export class FulfillmentProvidersComponent extends AbstractEntityIndexComponent<FulfillmentProvider> implements OnInit {
-  private fulfillmentProviders: FulfillmentProvider[] = [];
 
   constructor(
     private fulfillmentProvidersService: FulfillmentProvidersService,
@@ -25,10 +24,6 @@ export class FulfillmentProvidersComponent extends AbstractEntityIndexComponent<
   }
 
   ngOnInit() {
-    this.fulfillmentProvidersService.entities$.subscribe((data) => {
-      this.fulfillmentProviders = data;
-      this.progressBarService.hideTopProgressBar();
-    });
     this.fulfillmentProvidersService.entityDeleted$.subscribe((data) => this.fulfillmentProvidersService.getEntities());
 
     this.init();

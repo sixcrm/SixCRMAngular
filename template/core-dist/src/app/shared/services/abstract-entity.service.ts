@@ -6,34 +6,39 @@ import {environment} from '../../../environments/environment';
 export abstract class AbstractEntityService<T> {
 
   entities$: Subject<T[]>;
+  entitiesHasMore$: Subject<boolean>;
   entity$: Subject<T>;
   entityDeleted$: Subject<T>;
   entityCreated$: Subject<T>;
   entityUpdated$: Subject<T>;
 
+  private cursor: string;
+
   constructor(
     private http: Http,
     private authService: AuthenticationService,
     private toEntity?: (data: any) => T,
-    private indexQuery?: () => string,
+    private indexQuery?: (limit?: number, cursor?: string) => string,
     private viewQuery?: (id: string) => string,
     private deleteQuery?: (id: string) => string,
     private createQuery?: (entity: T) => string,
     private updateQuery?: (entity: T) => string,
   ) {
     this.entities$ = new Subject<T[]>();
+    this.entitiesHasMore$ = new Subject<boolean>();
     this.entity$ = new Subject<T>();
     this.entityDeleted$ = new Subject<T>();
     this.entityCreated$ = new Subject<T>();
     this.entityUpdated$ = new Subject<T>();
   };
 
-  getEntities() {
-    this.queryRequest(this.indexQuery()).subscribe(
+  getEntities(limit?: number) {
+    this.queryRequest(this.indexQuery(limit, this.cursor)).subscribe(
       (data) => {
         let json = data.json().data;
         let listKey = Object.keys(json)[0];
         let listData = json[listKey];
+
         let entitiesKey = Object.keys(listData)[0];
         let entitiesData = listData[entitiesKey];
 
@@ -41,6 +46,11 @@ export abstract class AbstractEntityService<T> {
           this.entities$.next(entitiesData.map(entity => this.toEntity(entity)));
         } else {
           this.entities$.next([]);
+        }
+
+        if (listData.pagination) {
+          this.entitiesHasMore$.next(listData.pagination.has_next_page);
+          this.cursor = listData.pagination.end_cursor;
         }
       },
       (error) => {

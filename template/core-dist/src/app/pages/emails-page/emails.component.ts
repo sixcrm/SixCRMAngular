@@ -13,8 +13,6 @@ import {ProgressBarService} from '../../shared/services/progress-bar.service';
 })
 export class EmailsComponent extends AbstractEntityIndexComponent<Email> implements OnInit {
 
-  private emails: Email[];
-
   constructor(
     private emailsService: EmailsService,
     router: Router,
@@ -26,10 +24,6 @@ export class EmailsComponent extends AbstractEntityIndexComponent<Email> impleme
   }
 
   ngOnInit() {
-    this.emailsService.entities$.subscribe((data) => {
-      this.emails = data;
-      this.progressBarService.hideTopProgressBar();
-    });
     this.emailsService.entityDeleted$.subscribe((data) => this.emailsService.getEntities());
 
     this.init();

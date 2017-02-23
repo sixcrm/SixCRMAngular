@@ -13,8 +13,6 @@ import {ProgressBarService} from '../../shared/services/progress-bar.service';
 })
 export class SmtpProvidersComponent extends AbstractEntityIndexComponent<SmtpProvider> implements OnInit {
 
-  private smtpProviders: SmtpProvider[] = [];
-
   constructor(
     private smtpProvidersService: SmtpProvidersService,
     router: Router,
@@ -26,10 +24,6 @@ export class SmtpProvidersComponent extends AbstractEntityIndexComponent<SmtpPro
   }
 
   ngOnInit() {
-    this.smtpProvidersService.entities$.subscribe((data) => {
-      this.smtpProviders = data;
-      this.progressBarService.hideTopProgressBar();
-    });
     this.smtpProvidersService.entityDeleted$.subscribe((data) => this.smtpProvidersService.getEntities());
 
     this.init();
