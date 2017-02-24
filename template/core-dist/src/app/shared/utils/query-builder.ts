@@ -18,6 +18,7 @@ export function  productsListQuery(limit?:number, cursor?:string): string {
 			products { id name sku ship shipping_delay
 				fulfillment_provider { id name provider username password endpoint }
 			}
+			pagination { count end_cursor has_next_page }
 		}}`;
 }
 
@@ -62,6 +63,7 @@ export function  productScheduleListQuery(limit?:number, cursor?:string): string
 					}
 				}
 			}
+			pagination { count end_cursor has_next_page }
 		}}`;
 }
 
@@ -147,6 +149,7 @@ export function campaignsInfoListQuery(limit?:number, cursor?:string): string {
           }
         }
       }
+      pagination { count end_cursor has_next_page }
     }}`
 }
 
@@ -155,7 +158,7 @@ export function deleteCampaignMutation(id: string): string {
 }
 
 export function merchantProvidersListQuery(limit?:number, cursor?:string): string {
-  return `{ merchantproviderlist ${pageParams(limit, cursor)} { merchantproviders { id name username password endpoint processor } } }`
+  return `{ merchantproviderlist ${pageParams(limit, cursor)} { merchantproviders { id name username password endpoint processor } pagination { count end_cursor has_next_page } } }`
 }
 
 export function merchantProviderQuery(id: string): string {
@@ -187,7 +190,7 @@ export function updateMerchantProviderMutation(provider: MerchantProvider): stri
 }
 
 export function fulfillmentProvidersListQuery(limit?:number, cursor?:string): string {
-  return `{ fulfillmentproviderlist ${pageParams(limit, cursor)} { fulfillmentproviders { id name provider username password endpoint } } }`
+  return `{ fulfillmentproviderlist ${pageParams(limit, cursor)} { fulfillmentproviders { id name provider username password endpoint } pagination { count end_cursor has_next_page } } }`
 }
 
 export function fulfillmentProviderQuery(id: string): string {
@@ -217,7 +220,7 @@ export function updateFulfillmentProviderMutation(provider: FulfillmentProvider)
 }
 
 export function affiliatesListQuery(limit?:number, cursor?:string): string {
-  return `{ affiliatelist ${pageParams(limit, cursor)} { affiliates { id affiliate_id sub_id_1 sub_id_2 sub_id_3 sub_id_4 sub_id_5 click_id } } }`
+  return `{ affiliatelist ${pageParams(limit, cursor)} { affiliates { id affiliate_id sub_id_1 sub_id_2 sub_id_3 sub_id_4 sub_id_5 click_id } pagination { count end_cursor has_next_page } } }`
 }
 
 export function affiliateQuery(id: string): string {
@@ -252,6 +255,7 @@ export function customersInfoListQuery(limit?:number, cursor?:string): string {
       customers { id firstname lastname
         address { city country }
 			}
+			pagination { count end_cursor has_next_page }
 		}}`
 }
 
@@ -279,6 +283,7 @@ export function loadBalancersInfoListQuery(limit?:number, cursor?:string): strin
 					distribution
 				}
 			}
+			pagination { count end_cursor has_next_page }
 		}}`
 }
 
@@ -335,7 +340,7 @@ export function deleteLoadBalancerMutation(id: string): string {
 }
 
 export function transactionsInfoListQuery(limit?:number, cursor?:string): string {
-  return `{ transactionlist ${pageParams(limit, cursor)} {	transactions { id date amount processor_response } } }`
+  return `{ transactionlist ${pageParams(limit, cursor)} {	transactions { id date amount processor_response } pagination { count end_cursor has_next_page } } }`
 }
 
 export function transactionQuery(id: string): string {
@@ -373,6 +378,7 @@ export function sessionsInfoListQuery(limit?:number, cursor?:string): string {
 				rebills { id 	}
 				campaign { id name }
 			}
+			pagination { count end_cursor has_next_page }
 		}}`
 }
 
@@ -428,6 +434,7 @@ export function creditCardsListQuery(limit?:number, cursor?:string): string {
 			creditcards { id expiration name
 			  address { city state }
 			}
+			pagination { count end_cursor has_next_page }
 		}}`
 }
 
@@ -502,6 +509,7 @@ export function smtpProvidersListQuery(limit?:number, cursor?:string): string {
   return `{
     smtpproviderlist ${pageParams(limit, cursor)} {
 			smtpproviders { id name hostname ip_address username port }
+			pagination { count end_cursor has_next_page }
 		}}`
 }
 
@@ -542,6 +550,7 @@ export function emailsListQuery(limit?:number, cursor?:string): string {
 			emails { id name subject body type
 			  smtp_provider { id name hostname ip_address username password port }
 			}
+			pagination { count end_cursor has_next_page }
 		}}`
 }
 
@@ -562,6 +571,7 @@ export function accessKeysListQuery(limit?:number, cursor?:string): string {
   return `{
     accesskeylist ${pageParams(limit, cursor)} {
 			accesskeys { id access_key secret_key }
+			pagination { count end_cursor has_next_page }
 		}}`
 }
 
