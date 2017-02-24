@@ -6,8 +6,8 @@ import {ProgressBarService} from '../shared/services/progress-bar.service';
 
 export abstract class AbstractEntityIndexComponent<T> {
   private deleteDialogRef: MdDialogRef<DeleteDialogComponent>;
-  protected limit: number = 5;
-  protected newLimit: number = 5;
+  protected limit: number = 10;
+  protected newLimit: number = 10;
   protected page: number = 0;
   private hasMore: boolean;
   private entities: T[] = [];
@@ -28,22 +28,22 @@ export abstract class AbstractEntityIndexComponent<T> {
       this.progressBarService.hideTopProgressBar();
     });
 
-    // this.service.entitiesHasMore$.subscribe((hasMore: boolean) => this.hasMore = hasMore);
-    this.service.getEntities();
+    this.service.entitiesHasMore$.subscribe((hasMore: boolean) => this.hasMore = hasMore);
+    this.service.getEntities(this.limit);
     this.progressBarService.showTopProgressBar();
   }
 
   protected reshuffleEntities(): void {
     let tempEntities = this.entitiesHolder.slice(this.page * this.limit, this.page * this.limit + this.limit);
 
-    this.entities = tempEntities;
-    // if (tempEntities.length >= this.limit) {
-    //   this.entities = tempEntities;
-    // } else {
-    //   if (this.hasMore) {
-    //     this.service.getEntities(this.limit - tempEntities.length);
-    //   }
-    // }
+    if (tempEntities.length >= this.limit || !this.hasMore) {
+      this.entities = tempEntities;
+    } else {
+      if (this.hasMore) {
+        this.service.getEntities(this.limit - tempEntities.length);
+        this.progressBarService.showTopProgressBar();
+      }
+    }
   }
 
   updateLimit(): void {

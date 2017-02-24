@@ -42,15 +42,15 @@ export abstract class AbstractEntityService<T> {
         let entitiesKey = Object.keys(listData)[0];
         let entitiesData = listData[entitiesKey];
 
+        if (listData.pagination) {
+          this.entitiesHasMore$.next(listData.pagination.end_cursor !== '' && listData.pagination.has_next_page);
+          this.cursor = listData.pagination.end_cursor;
+        }
+
         if (entitiesData) {
           this.entities$.next(entitiesData.map(entity => this.toEntity(entity)));
         } else {
           this.entities$.next([]);
-        }
-
-        if (listData.pagination) {
-          this.entitiesHasMore$.next(listData.pagination.has_next_page);
-          this.cursor = listData.pagination.end_cursor;
         }
       },
       (error) => {
