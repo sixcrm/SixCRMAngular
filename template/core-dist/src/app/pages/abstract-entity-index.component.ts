@@ -3,22 +3,24 @@ import {AbstractEntityService} from '../shared/services/abstract-entity.service'
 import {DeleteDialogComponent} from './delete-dialog.component';
 import {MdDialog, MdDialogRef} from '@angular/material';
 import {ProgressBarService} from '../shared/services/progress-bar.service';
+import {PaginationService} from '../shared/services/pagination.service';
 
 export abstract class AbstractEntityIndexComponent<T> {
   private deleteDialogRef: MdDialogRef<DeleteDialogComponent>;
-  protected limit: number = 10;
-  protected newLimit: number = 10;
+  protected limit: number;
   protected page: number = 0;
   private hasMore: boolean;
   private entities: T[] = [];
   private entitiesHolder: T[] = [];
+  private paginationValues: number[] = [5, 10, 15, 20, 30, 40, 50];
 
   constructor(
     private service: AbstractEntityService<T>,
     private router: Router,
     private route: ActivatedRoute,
     private deleteDialog: MdDialog,
-    protected progressBarService?: ProgressBarService
+    protected progressBarService?: ProgressBarService,
+    protected paginationService?: PaginationService
   ) { }
 
   init(): void {
@@ -28,7 +30,9 @@ export abstract class AbstractEntityIndexComponent<T> {
       this.progressBarService.hideTopProgressBar();
     });
 
+    this.paginationService.limit$.subscribe((lim: number) => this.limit = lim);
     this.service.entitiesHasMore$.subscribe((hasMore: boolean) => this.hasMore = hasMore);
+    this.service.resetPagination();
     this.service.getEntities(this.limit);
     this.progressBarService.showTopProgressBar();
   }
@@ -46,12 +50,15 @@ export abstract class AbstractEntityIndexComponent<T> {
     }
   }
 
-  updateLimit(): void {
+  updateLimit(lim: number): void {
+    if (!lim) return;
+
     let firstElement: number = this.page * this.limit;
 
-    this.page = Math.floor(firstElement / this.newLimit);
-    this.limit = +this.newLimit;
+    this.page = Math.floor(firstElement / lim);
+    this.limit = lim;
 
+    this.paginationService.setLimit(lim);
     this.reshuffleEntities();
   }
 

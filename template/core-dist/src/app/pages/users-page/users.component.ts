@@ -5,6 +5,7 @@ import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MdDialog} from '@angular/material';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
+import {PaginationService} from '../../shared/services/pagination.service';
 
 @Component({
   selector: 'c-users',
@@ -18,9 +19,10 @@ export class UsersComponent extends AbstractEntityIndexComponent<User> implement
     router: Router,
     route: ActivatedRoute,
     dialog: MdDialog,
-    progressBarService: ProgressBarService
+    progressBarService: ProgressBarService,
+    paginationService: PaginationService
   ) {
-    super(usersService, router, route, dialog, progressBarService);
+    super(usersService, router, route, dialog, progressBarService, paginationService);
   }
 
   ngOnInit() {

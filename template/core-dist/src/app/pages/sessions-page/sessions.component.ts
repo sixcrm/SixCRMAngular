@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Session} from '../../shared/models/session.model';
 import {MdDialog} from '@angular/material';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
+import {PaginationService} from '../../shared/services/pagination.service';
 
 @Component({
   selector: 'sessions',
@@ -18,9 +19,10 @@ export class SessionsComponent extends AbstractEntityIndexComponent<Session> imp
     router: Router,
     route: ActivatedRoute,
     dialog: MdDialog,
-    progressBarService: ProgressBarService
+    progressBarService: ProgressBarService,
+    paginationService: PaginationService
   ) {
-    super(sessionsService, router, route, dialog, progressBarService);
+    super(sessionsService, router, route, dialog, progressBarService, paginationService);
   }
 
   ngOnInit() {

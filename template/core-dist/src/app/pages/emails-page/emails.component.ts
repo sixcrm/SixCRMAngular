@@ -5,6 +5,7 @@ import {Email} from '../../shared/models/email.model';
 import {EmailsService} from '../../shared/services/emails.service';
 import {MdDialog} from '@angular/material';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
+import {PaginationService} from '../../shared/services/pagination.service';
 
 @Component({
   selector: 'c-emails',
@@ -18,9 +19,10 @@ export class EmailsComponent extends AbstractEntityIndexComponent<Email> impleme
     router: Router,
     route: ActivatedRoute,
     dialog: MdDialog,
-    progressBarService: ProgressBarService
+    progressBarService: ProgressBarService,
+    paginationService: PaginationService
   ) {
-    super(emailsService, router, route, dialog, progressBarService);
+    super(emailsService, router, route, dialog, progressBarService, paginationService);
   }
 
   ngOnInit() {

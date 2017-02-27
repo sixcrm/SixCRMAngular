@@ -111,6 +111,10 @@ export abstract class AbstractEntityService<T> {
     );
   }
 
+  resetPagination(): void {
+    this.cursor = '';
+  }
+
   protected queryRequest(query: string): Observable<Response> {
     return this.http.post(environment.endpoint, query, { headers: this.generateHeaders()});
   }

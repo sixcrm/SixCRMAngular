@@ -24,6 +24,7 @@ import {EmailsService} from './services/emails.service';
 import {AccessKeysService} from './services/access-keys.service';
 import {ProgressBarService} from './services/progress-bar.service';
 import {ProductScheduleService} from './services/product-schedule.service';
+import {PaginationService} from './services/pagination.service';
 
 @NgModule({
   declarations : [
@@ -54,7 +55,8 @@ export class SharedModule {
         EmailsService,
         AccessKeysService,
         ProgressBarService,
-        ProductScheduleService
+        ProductScheduleService,
+        PaginationService
       ]
     };
   }

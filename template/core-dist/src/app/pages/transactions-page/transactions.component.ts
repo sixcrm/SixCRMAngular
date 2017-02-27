@@ -5,6 +5,7 @@ import {Transaction} from '../../shared/models/transaction.model';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {MdDialog} from '@angular/material';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
+import {PaginationService} from '../../shared/services/pagination.service';
 
 @Component({
   selector: 'transactions',
@@ -18,9 +19,11 @@ export class TransactionsComponent extends AbstractEntityIndexComponent<Transact
     router: Router,
     route: ActivatedRoute,
     dialog: MdDialog,
-    progressBarService: ProgressBarService
+    progressBarService: ProgressBarService,
+    paginationService: PaginationService
+
   ) {
-    super(transactionsService, router, route, dialog, progressBarService);
+    super(transactionsService, router, route, dialog, progressBarService, paginationService);
   }
 
   ngOnInit() {

@@ -5,6 +5,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {MdDialog} from '@angular/material';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
+import {PaginationService} from '../../shared/services/pagination.service';
 
 @Component({
   selector: 'campaigns',
@@ -18,9 +19,10 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
     router: Router,
     route: ActivatedRoute,
     dialog: MdDialog,
-    progressBarService: ProgressBarService
+    progressBarService: ProgressBarService,
+    paginationService: PaginationService
   ) {
-    super(campaignService, router, route, dialog, progressBarService);
+    super(campaignService, router, route, dialog, progressBarService, paginationService);
   }
 
   ngOnInit() {

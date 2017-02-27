@@ -5,6 +5,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {MdDialog} from '@angular/material';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
+import {PaginationService} from '../../shared/services/pagination.service';
 
 @Component({
   selector: 'merchant-providers',
@@ -18,9 +19,10 @@ export class MerchantProvidersComponent extends AbstractEntityIndexComponent<Mer
     router: Router,
     route: ActivatedRoute,
     dialog: MdDialog,
-    progressBarService: ProgressBarService
+    progressBarService: ProgressBarService,
+    paginationService: PaginationService
   ) {
-    super(merchantProvidersService, router, route, dialog, progressBarService);
+    super(merchantProvidersService, router, route, dialog, progressBarService, paginationService);
   }
 
   ngOnInit() {

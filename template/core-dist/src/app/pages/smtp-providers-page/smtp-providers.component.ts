@@ -5,6 +5,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {SmtpProvider} from '../../shared/models/smtp-provider.model';
 import {MdDialog} from '@angular/material';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
+import {PaginationService} from '../../shared/services/pagination.service';
 
 @Component({
   selector: 'c-smtp-providers',
@@ -18,9 +19,10 @@ export class SmtpProvidersComponent extends AbstractEntityIndexComponent<SmtpPro
     router: Router,
     route: ActivatedRoute,
     dialog: MdDialog,
-    progressBarService: ProgressBarService
+    progressBarService: ProgressBarService,
+    paginationService: PaginationService
   ) {
-    super(smtpProvidersService, router, route, dialog, progressBarService);
+    super(smtpProvidersService, router, route, dialog, progressBarService, paginationService);
   }
 
   ngOnInit() {

@@ -5,6 +5,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {CreditCard} from '../../shared/models/credit-card.model';
 import {MdDialog} from '@angular/material';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
+import {PaginationService} from '../../shared/services/pagination.service';
 
 @Component({
   selector: 'c-credit-cards',
@@ -18,9 +19,10 @@ export class CreditCardsComponent extends AbstractEntityIndexComponent<CreditCar
     router: Router,
     route: ActivatedRoute,
     dialog: MdDialog,
-    progressBarService: ProgressBarService
+    progressBarService: ProgressBarService,
+    paginationService: PaginationService
   ) {
-    super(creditCardsService, router, route, dialog, progressBarService);
+    super(creditCardsService, router, route, dialog, progressBarService, paginationService);
   }
 
   ngOnInit() {
