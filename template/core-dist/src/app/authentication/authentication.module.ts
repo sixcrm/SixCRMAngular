@@ -3,7 +3,6 @@ import {RouterModule} from '@angular/router';
 import {AuthenticationService} from './authentication.service';
 import {AuthComponent} from './auth/auth.component';
 import {routing} from './authentication.routing';
-import {AUTH_PROVIDERS} from 'angular2-jwt';
 import {AuthGuard} from './auth-guard.service';
 import { RegistrationComponent } from './registration/registration.component';
 import {MaterialModule} from '@angular/material';
@@ -26,8 +25,7 @@ import {LoginGuard} from './login-guard.service';
   providers : [
     AuthenticationService,
     AuthGuard,
-    LoginGuard,
-    AUTH_PROVIDERS,
+    LoginGuard
   ]
 })
 export class AuthenticationModule { }

@@ -1,13 +1,8 @@
 import {NgModule, ModuleWithProviders} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {BaseService} from './services/base.service';
-import {CalloutComponent} from './layout/callout/callout.component';
 import {WidgetComponent} from './layout/widget/widget.component';
-import {ChipComponent} from './layout/chip/chip.component';
 import {MaterialModule} from '@angular/material';
-import {ColorService} from './services/color.service';
-import {CodeHighlighterDirective} from './layout/code-highlighter/code-highlighter.directive';
 import {CampaignsService} from "./services/campaigns.service";
 import {ProductsService} from "./services/products.service";
 import {MerchantProvidersService} from "./services/merchant-providers.service";
@@ -27,10 +22,8 @@ import {ProductScheduleService} from './services/product-schedule.service';
 import {PaginationService} from './services/pagination.service';
 
 @NgModule({
-  declarations : [
-    CalloutComponent, WidgetComponent, ChipComponent, CodeHighlighterDirective
-  ],
-  exports : [CalloutComponent, WidgetComponent, ChipComponent, CodeHighlighterDirective],
+  declarations : [ WidgetComponent ],
+  exports : [ WidgetComponent ],
   imports : [FormsModule, CommonModule, MaterialModule]
 })
 export class SharedModule {
@@ -38,8 +31,6 @@ export class SharedModule {
     return {
       ngModule : SharedModule,
       providers : [
-        BaseService,
-        ColorService,
         CampaignsService,
         ProductsService,
         MerchantProvidersService,

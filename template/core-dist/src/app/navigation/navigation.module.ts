@@ -8,7 +8,6 @@ import {TopnavComponent} from './topnav/topnav.component';
 import {SharedModule} from '../shared/shared.module';
 import {NavigationService} from './navigation.service';
 import {SidenavItemComponent} from './sidenav/sidenav-item/sidenav-item.component';
-import {FooterComponent} from './footer/footer.component';
 import {DefaultLayoutComponent} from './layouts/default/default.layout.component';
 
 @NgModule({
@@ -19,8 +18,8 @@ import {DefaultLayoutComponent} from './layouts/default/default.layout.component
     SharedModule,
     FormsModule
   ],
-  declarations : [SidenavComponent, TopnavComponent, SidenavItemComponent, FooterComponent, DefaultLayoutComponent],
-  exports : [SidenavComponent, TopnavComponent, FooterComponent, DefaultLayoutComponent]
+  declarations : [SidenavComponent, TopnavComponent, SidenavItemComponent, DefaultLayoutComponent],
+  exports : [SidenavComponent, TopnavComponent, DefaultLayoutComponent]
 })
 export class NavigationModule {
   static forRoot(): ModuleWithProviders {

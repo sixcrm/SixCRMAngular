@@ -72,6 +72,11 @@ export class AuthenticationService {
 
   public getProfileData(full?: boolean): void {
     this.lock.getUserInfo(localStorage.getItem(this.accessToken), (error, profile) => {
+      if (error) {
+        this.logout();
+        return;
+      }
+
       this.profileData$.next(profile);
 
       if (full) {

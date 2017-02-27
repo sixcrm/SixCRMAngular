@@ -1,6 +1,5 @@
-import {Component, OnChanges, SimpleChanges, HostBinding} from '@angular/core';
+import {Component, HostBinding} from '@angular/core';
 import {Input} from '@angular/core/src/metadata/directives';
-import {ColorService} from '../../services/color.service';
 
 @Component({
   selector : 'core-widget',
