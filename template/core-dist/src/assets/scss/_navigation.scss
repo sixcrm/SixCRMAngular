@@ -2,6 +2,9 @@
 
 $sidenav-width: 250px;
 $topnav-height: 64px;
+$sidebar-color-light: #385F8D;
+$sidebar-color-middle: #2C486F;
+$sidebar-color-dark: #171F38;
 
 main > .container {
   @media #{$large-and-up} {
@@ -15,7 +18,7 @@ main > .container {
 }
 
 md-sidenav {
-  background-color: $primary-color;
+  background: linear-gradient($sidebar-color-light, $sidebar-color-dark);
   max-width: 70%;
   min-width: 0 !important;
 
@@ -28,6 +31,7 @@ md-sidenav {
   md-toolbar {
     box-shadow: 0 1px 0 rgba(0, 0, 0, .12);
     padding: 0 10px;
+    background: #385F8D;
 
     .logo {
       height: 40px;
@@ -80,7 +84,7 @@ md-nav-list.side-navigation {
 
   a.active:not(.nav-dropdown) > .md-list-item:not(:hover) {
     background-color: #267ED5 !important;
-    background-color: darken($primary-color, 4%) !important;
+    background-color: darken(#385F8D, 4%) !important;
   }
 
   .nav-children {
@@ -96,37 +100,37 @@ md-nav-list.side-navigation {
     $base-color-change: 2%;
     &.level1 a > .md-list-item {
       padding-left: $base-padding * 2;
-      background-color: darken($primary-color, $base-color-change);
+      background-color: darken($sidebar-color-middle, $base-color-change);
       &:hover, &.active {
-        background-color: darken($primary-color, $base-color-change * 2);
+        background-color: darken($sidebar-color-middle, $base-color-change * 2);
       }
     }
     &.level2 a > .md-list-item {
       padding-left: $base-padding * 3;
-      background-color: darken($primary-color, $base-color-change * 2);
+      background-color: darken($sidebar-color-middle, $base-color-change * 2);
       &:hover, &.active {
-        background-color: darken($primary-color, $base-color-change * 3);
+        background-color: darken($sidebar-color-middle, $base-color-change * 3);
       }
     }
     &.level3 a > .md-list-item {
       padding-left: $base-padding * 4;
-      background-color: darken($primary-color, $base-color-change * 3);
+      background-color: darken($sidebar-color-middle, $base-color-change * 3);
       &:hover, &.active {
-        background-color: darken($primary-color, $base-color-change * 4);
+        background-color: darken($sidebar-color-middle, $base-color-change * 4);
       }
     }
     &.level4 a > .md-list-item {
       padding-left: $base-padding * 5;
-      background-color: darken($primary-color, $base-color-change * 4);
+      background-color: darken($sidebar-color-middle, $base-color-change * 4);
       &:hover, &.active {
-        background-color: darken($primary-color, $base-color-change * 5);
+        background-color: darken($sidebar-color-middle, $base-color-change * 5);
       }
     }
     &.level5 a > .md-list-item {
       padding-left: $base-padding * 6;
-      background-color: darken($primary-color, $base-color-change * 5);
+      background-color: darken($sidebar-color-middle, $base-color-change * 5);
       &:hover, &.active {
-        background-color: darken($primary-color, $base-color-change * 6);
+        background-color: darken($sidebar-color-middle, $base-color-change * 6);
       }
     }
   }

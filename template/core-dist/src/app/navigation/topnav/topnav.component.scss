@@ -5,24 +5,64 @@
 
 .topnav {
   &__search {
+
     &__input {
       width: 200px;
+    }
+
+    &__icon {
+      color: #9B9A9B;
+    }
+  }
+
+  &__company {
+    &__icon {
+      color: #9B9A9B;
+      margin-left: 10px;
+      margin-right: 5px;
+    }
+
+    &__arrow {
+      margin-right: 15px;
+      cursor: pointer;
+    }
+
+    &__name {
+      font-size: 15px;
+    }
+  }
+
+  &__profile {
+
+    &__image {
+      margin-right: 8px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    &__hello {
+      margin-right: 10px;
+      font-size: 15px;
+      font-weight: 300;
+    }
+
+    &__name {
+      font-weight: 500;
+      font-size: 15px;
+    }
+
+    &__arrow {
+      cursor: pointer;
     }
   }
 
   &__dropdown {
-    &__trigger {
-      @include font-subheader();
-
-      &:hover {
-        cursor: pointer;
-      }
-    }
 
     &__menu {
       position: absolute;
-      top: 63px;
-      right: 0;
+      top: 64px;
+      right: 55px;
       z-index: 1000;
       background-color: white;
       box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
@@ -56,5 +96,17 @@
         margin-left: 55px;
       }
     }
+  }
+
+  &__separator {
+    margin-left: 15px;
+    margin-right: 15px;
+    width: 1px;
+    height: 70%;
+    background: #9B9A9B;
+  }
+
+  &__notifications {
+    color: #9B9A9B;
   }
 }

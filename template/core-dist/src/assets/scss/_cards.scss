@@ -40,6 +40,7 @@ md-dialog-container md-card, .md-tab-body md-card {
 md-card.widget {
   margin: 8px;
   padding: 16px;
+  background: linear-gradient(#385F8D, #171F38);
 
   @media #{$medium-only} {
     min-width: 33%;

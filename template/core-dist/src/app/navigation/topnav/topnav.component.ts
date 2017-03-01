@@ -157,7 +157,7 @@ export class TopnavComponent implements OnInit {
   }
 
   private hideElements(event): void {
-    if (!event.target.attributes.class || event.target.attributes.class.value !== 'topnav__dropdown__trigger') {
+    if (!event.target.attributes.class || event.target.attributes.class.value !== 'topnav__profile__arrow material-icons') {
       this.showDropdown = false;
     }
   }

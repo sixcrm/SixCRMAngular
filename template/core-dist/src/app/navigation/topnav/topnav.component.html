@@ -3,15 +3,31 @@
   <button md-icon-button (click)="toggleSidenav()" id="menu-toggler">
     <md-icon>menu</md-icon>
   </button>
+  <md-toolbar-row *ngIf="_navigation.mediumScreenAndDown && _breadcrumbs.length > 0 && !_autoBreadcrumbs">
+    <span class="breadcrumb-holder">
+      <span *ngFor="let breadcrumb of _breadcrumbs" class="breadcrumb">
+        <a *ngIf="breadcrumb.link !== null" [routerLink]="breadcrumb.link" class="breadcrumb-link">{{breadcrumb.title}}</a>
+        <a *ngIf="breadcrumb.link === null" class="breadcrumb-link">{{breadcrumb.title}}</a>
+      </span>
+      <span class="breadcrumb">{{_pageTitle}}</span>
+    </span>
+  </md-toolbar-row>
 
   <span class="app-flex-filler"></span>
 
-  <button md-icon-button (click)="toggleSearchInput(searchField)"><md-icon>search</md-icon></button>
+  <button md-icon-button (click)="toggleSearchInput(searchField)"><md-icon class="topnav__search__icon">search</md-icon></button>
   <md-input-container id="topnav-search" [ngClass]="{'search-visible': showSearchInput}" [floatingPlaceholder]="false">
     <input #searchField md-input class="search-field" placeholder="Search" type="text" (blur)="searchInputBlur()" [(ngModel)]="searchTerm" (keydown)="search($event)">
   </md-input-container>
 
-  <span (click)="toggleDropdownMenu()" class="topnav__dropdown__trigger">{{_userProfile.name}}</span>
+  <md-icon class="topnav__company__icon">domain</md-icon>
+  <span class="topnav__company__name">Big new LLC</span>
+  <md-icon class="topnav__company__arrow">keyboard_arrow_down</md-icon>
+
+  <img *ngIf="_userProfile.picture" class="topnav__profile__image" [src]="_userProfile.picture">
+  <span class="topnav__profile__hello">Hello, </span>
+  <span class="topnav__profile__name"> {{_userProfile.name}} </span>
+  <md-icon class="topnav__profile__arrow" (click)="toggleDropdownMenu()">keyboard_arrow_down</md-icon>
 
   <div *ngIf="showDropdown" class="topnav__dropdown__menu">
     <button md-menu-item class="topnav__dropdown__menu__profile" [routerLink]="['profile']">
@@ -24,13 +40,7 @@
 
   <md-menu #menu="mdMenu"></md-menu>
 
-  <md-toolbar-row *ngIf="_navigation.mediumScreenAndDown && _breadcrumbs.length > 0 && !_autoBreadcrumbs">
-    <span class="breadcrumb-holder">
-      <span *ngFor="let breadcrumb of _breadcrumbs" class="breadcrumb">
-        <a *ngIf="breadcrumb.link !== null" [routerLink]="breadcrumb.link" class="breadcrumb-link">{{breadcrumb.title}}</a>
-        <a *ngIf="breadcrumb.link === null" class="breadcrumb-link">{{breadcrumb.title}}</a>
-      </span>
-      <span class="breadcrumb">{{_pageTitle}}</span>
-    </span>
-  </md-toolbar-row>
+  <span class="topnav__separator"></span>
+
+  <md-icon class="topnav__notifications">chat</md-icon>
 </md-toolbar>

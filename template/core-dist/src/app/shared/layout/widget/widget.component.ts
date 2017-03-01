@@ -4,12 +4,12 @@ import {Input} from '@angular/core/src/metadata/directives';
 @Component({
   selector : 'core-widget',
   template : `
-   <md-card class="flex-item widget" [ngStyle]="{'background-color': color, 'color': textColor}">
+   <md-card class="flex-item widget" [ngStyle]="{'color': textColor}">
     <md-card-content class="layout-stretch-between layout-column">
-      <p [ngStyle]="{'background-color': color, 'color': textColor}" class="description" *ngIf="description">{{description}}</p>
+      <p [ngStyle]="{'color': textColor}" class="description" *ngIf="description">{{description}}</p>
       <div class="layout-row">
         <md-icon style="width: 100%" class="widget-icon" *ngIf="icon">{{icon}}</md-icon>
-        <p [ngStyle]="{'background-color': color, 'color': textColor}" class="counter">{{count}}</p>
+        <p [ngStyle]="{'color': textColor}" class="counter">{{count}}</p>
       </div>
     </md-card-content>
   </md-card>
