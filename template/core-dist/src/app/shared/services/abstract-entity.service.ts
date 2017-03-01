@@ -123,6 +123,7 @@ export abstract class AbstractEntityService<T> {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', this.authService.getToken());
+    // headers.append('Six-Account-Id', this.authService.getSixUserAccountId());
 
     return headers;
   }

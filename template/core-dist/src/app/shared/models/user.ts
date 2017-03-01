@@ -9,6 +9,7 @@ export class User implements Entity<User> {
   email: string;
   active: string;
   termsAndConditions: string;
+  picture: string;
   address: Address;
   accessKey: AccessKey;
 

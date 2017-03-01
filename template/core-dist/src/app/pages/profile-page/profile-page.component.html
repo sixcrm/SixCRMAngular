@@ -1,32 +1,18 @@
 <div class="profile-page">
-  <img class="profile-page__image" src="{{ profile.picture }}">
+  <img class="profile-page__image" src="{{ user.picture }}">
 
   <md-input
     class="profile-page__input"
     disabled
     placeholder="Email Address"
-    value="{{profile.email}}">
+    value="{{user.email}}">
   </md-input>
 
   <md-input
     class="profile-page__input"
     [disabled]="!editing"
-    placeholder="First Name"
-    [(ngModel)]="profile.firstName">
-  </md-input>
-
-  <md-input
-    class="profile-page__input"
-    [disabled]="!editing"
-    placeholder="Last Name"
-    [(ngModel)]="profile.lastName">
-  </md-input>
-
-  <md-input
-    class="profile-page__input"
-    disabled
-    placeholder="Created at"
-    value="{{ profile.createdAt }}">
+    placeholder="Name"
+    [(ngModel)]="user.name">
   </md-input>
 
   <div class="profile-page__buttons">

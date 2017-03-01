@@ -6,6 +6,7 @@ import {Title} from '@angular/platform-browser';
 import {AuthenticationService} from "../../authentication/authentication.service";
 import {StringUtils} from '../../shared/utils/string-utils';
 import {Router} from '@angular/router';
+import {User} from '../../shared/models/user';
 
 @Component({
   selector : 'app-topnav',
@@ -28,7 +29,7 @@ export class TopnavComponent implements OnInit {
   private _breadcrumbInterval: number;
   private _pageTitleInterval: number;
 
-  private _userProfile: any = {};
+  private _userProfile: User = new User();
 
   private showDropdown: boolean = false;
   private showSearchInput: boolean = false;
@@ -96,7 +97,7 @@ export class TopnavComponent implements OnInit {
       }
     });
 
-    this._authService.profileData$.subscribe((userProfile: any) => {
+    this._authService.userData$.subscribe((userProfile: User) => {
       if (userProfile) {
         this._userProfile = userProfile;
       }

@@ -65,7 +65,7 @@ export class RegistrationComponent implements OnInit {
   constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.authService.userUnderReg.subscribe((user: User) => {
+    this.authService.userUnderReg$.subscribe((user: User) => {
       if (user !== null) {
         if (user.termsAndConditions === '0.1') {
           this.showThankYouScreen();

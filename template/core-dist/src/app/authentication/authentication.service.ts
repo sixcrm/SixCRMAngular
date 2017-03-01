@@ -22,9 +22,10 @@ export class AuthenticationService {
   private idToken: string = 'id_token';
   private activated: string = 'activated';
   private jwtToken: string = 'jwt_token';
+  private sixUser: string = 'six_user';
 
-  public profileData$: BehaviorSubject<any> = new BehaviorSubject<any>({});
-  public userUnderReg: BehaviorSubject<any> = new BehaviorSubject<User>(null);
+  public userData$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
+  public userUnderReg$: BehaviorSubject<any> = new BehaviorSubject<User>(null);
 
   constructor(private router: Router, private http: Http) {
     this.lock = new Auth0Lock(
@@ -71,6 +72,7 @@ export class AuthenticationService {
     localStorage.removeItem(this.idToken);
     localStorage.removeItem(this.activated);
     localStorage.removeItem(this.jwtToken);
+    localStorage.removeItem(this.sixUser);
   }
 
   public getProfileData(full?: boolean): void {
@@ -80,16 +82,20 @@ export class AuthenticationService {
         return;
       }
 
-      this.profileData$.next(profile);
-
       if (full) {
-        this.acquireJWT(profile.email);
+        this.acquireJWT(profile);
       }
     })
   }
 
   public getToken(): string {
     return localStorage.getItem(this.jwtToken);
+  }
+
+  public getSixUserAccountId(): string {
+    let sixUser = localStorage.getItem(this.sixUser);
+
+    return sixUser ? (JSON.parse(sixUser)).id : '';
   }
 
   private setUser(authResult): void {
@@ -99,18 +105,23 @@ export class AuthenticationService {
     this.getProfileData(true);
   }
 
-  private getUserByEmail(email: string): void {
-    this.http.post(environment.endpoint, userQueryByEmail(email), { headers: this.generateHeaders()}).subscribe(
+  private getUserByEmail(profile: any): void {
+    this.http.post(environment.endpoint, userQueryByEmail(profile.email), { headers: this.generateHeaders()}).subscribe(
       (data) => {
         let user = data.json().data.user;
         if (!user) {
-          this.createUserForRegistration(email);
+          this.createUserForRegistration(profile.email);
         } else {
           if (user.active !== 'true') {
             localStorage.removeItem(this.activated);
             this.router.navigateByUrl('/register');
-            this.userUnderReg.next(new User(user));
+            this.userUnderReg$.next(new User(user));
           } else {
+            let activatedUser: User = new User(user);
+            activatedUser.picture = profile.picture;
+            this.userData$.next(activatedUser);
+
+            localStorage.setItem(this.sixUser, JSON.stringify(activatedUser.inverse()));
             localStorage.setItem(this.activated, 'activated');
             if (this.router.url === '/') {
               this.router.navigateByUrl('/dashboard');
@@ -127,7 +138,7 @@ export class AuthenticationService {
         (data) => {
           localStorage.removeItem(this.activated);
           this.router.navigateByUrl('/register');
-          this.userUnderReg.next(new User(data.json().data.createuser));
+          this.userUnderReg$.next(new User(data.json().data.createuser));
         });
   }
 
@@ -140,7 +151,7 @@ export class AuthenticationService {
           this.http.post(environment.endpoint, updateUserForRegistration(user), { headers: this.generateHeaders()})
             .subscribe(
               (data) => {
-                this.userUnderReg.next(new User(data.json().data.updateuser));
+                this.userUnderReg$.next(new User(data.json().data.updateuser));
                 subject.next(true);
               },
               () => {
@@ -156,7 +167,7 @@ export class AuthenticationService {
     return subject;
   }
 
-  public acquireJWT(email: string): void {
+  public acquireJWT(profile: any): void {
     let secretKey = 'MzM1YWE2YTYyYzZjMGMxYzYyOGFlZjEzYTk3ZTFlNjNiYTNhMTYxMg==';
     let accessKey = '13edf909931d0f37000e438e9d67a2e165fad5d0';
     let requestTime = new Date().getTime();
@@ -169,7 +180,7 @@ export class AuthenticationService {
       (res: Response) => {
         // localStorage.setItem(this.jwtToken, res.json().token);
         localStorage.setItem(this.jwtToken, 'deathstalker');
-        this.getUserByEmail(email)
+        this.getUserByEmail(profile)
       },
       (error) =>{
         console.error(error);
