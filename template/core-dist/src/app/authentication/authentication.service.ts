@@ -21,7 +21,7 @@ export class AuthenticationService {
   private accessToken: string = 'access_token';
   private idToken: string = 'id_token';
   private activated: string = 'activated';
-  private jwtToken: string = 'jwt_token';
+  private idTokenPayload: string = 'id_token_payload';
   private sixUser: string = 'six_user';
 
   public userData$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
@@ -35,8 +35,9 @@ export class AuthenticationService {
         auth: {
           redirectUrl: environment.auth0RedirectUrl,
           responseType: 'token',
-          params: {scope: 'openid email user_metadata app_metadata picture'}
-        },
+          params: {
+            scope: 'openid email user_metadata app_metadata picture'
+          }
         },
         theme: {
           logo: '/assets/favicons/favicon-icon.png'
@@ -51,7 +52,7 @@ export class AuthenticationService {
     });
 
     if (this.authenticated()) {
-      this.getProfileData(true);
+      this.getUserByEmail(JSON.parse(localStorage.getItem(this.idTokenPayload)));
     }
   }
 
@@ -73,25 +74,13 @@ export class AuthenticationService {
     localStorage.removeItem(this.accessToken);
     localStorage.removeItem(this.idToken);
     localStorage.removeItem(this.activated);
-    localStorage.removeItem(this.jwtToken);
+    localStorage.removeItem(this.idTokenPayload);
     localStorage.removeItem(this.sixUser);
   }
 
-  public getProfileData(full?: boolean): void {
-    this.lock.getUserInfo(localStorage.getItem(this.accessToken), (error, profile) => {
-      if (error) {
-        this.logout();
-        return;
-      }
-
-      if (full) {
-        this.acquireJWT(profile);
-      }
-    })
-  }
-
   public getToken(): string {
-    return localStorage.getItem(this.jwtToken);
+    // return 'deathstalker';
+    return localStorage.getItem(this.idToken);
   }
 
   public getSixUserAccountId(): string {
@@ -103,8 +92,9 @@ export class AuthenticationService {
   private setUser(authResult): void {
     localStorage.setItem(this.accessToken, authResult.accessToken);
     localStorage.setItem(this.idToken, authResult.idToken);
+    localStorage.setItem(this.idTokenPayload, JSON.stringify(authResult.idTokenPayload));
 
-    this.getProfileData(true);
+    this.getUserByEmail(authResult.idTokenPayload);
   }
 
   private getUserByEmail(profile: any): void {
@@ -167,26 +157,6 @@ export class AuthenticationService {
       );
 
     return subject;
-  }
-
-  public acquireJWT(profile: any): void {
-    let secretKey = 'MzM1YWE2YTYyYzZjMGMxYzYyOGFlZjEzYTk3ZTFlNjNiYTNhMTYxMg==';
-    let accessKey = '13edf909931d0f37000e438e9d67a2e165fad5d0';
-    let requestTime = new Date().getTime();
-    let signature = new Sha1().update(secretKey+requestTime).digest('hex');
-    let authString = `${accessKey}:${requestTime}:${signature}`;
-
-    let headers = this.generateAcquireJWTHeaders(authString);
-
-    this.http.get(environment.jwtEndpoint, { headers: headers} ).subscribe(
-      (res: Response) => {
-        // localStorage.setItem(this.jwtToken, res.json().token);
-        localStorage.setItem(this.jwtToken, 'deathstalker');
-        this.getUserByEmail(profile)
-      },
-      (error) =>{
-        console.error(error);
-      });
   }
 
   private generateAcquireJWTHeaders(authString: string): Headers {
