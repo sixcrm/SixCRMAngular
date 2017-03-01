@@ -3,13 +3,14 @@ import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {environment} from '../../environments/environment';
-import {Http, Headers} from '@angular/http';
+import {Http, Headers, Response} from '@angular/http';
 import {
   userQueryByEmail, createUserForRegistration, updateUserForRegistration,
   createCreditCardMutation
 } from '../shared/utils/query-builder';
 import {User} from '../shared/models/user';
 import {CreditCard} from '../shared/models/credit-card.model';
+let Sha1 = require('../../../node_modules/sha.js/sha1.js');
 
 declare var Auth0Lock: any;
 
@@ -20,6 +21,7 @@ export class AuthenticationService {
   private accessToken: string = 'access_token';
   private idToken: string = 'id_token';
   private activated: string = 'activated';
+  private jwtToken: string = 'jwt_token';
 
   public profileData$: BehaviorSubject<any> = new BehaviorSubject<any>({});
   public userUnderReg: BehaviorSubject<any> = new BehaviorSubject<User>(null);
@@ -68,6 +70,7 @@ export class AuthenticationService {
     localStorage.removeItem(this.accessToken);
     localStorage.removeItem(this.idToken);
     localStorage.removeItem(this.activated);
+    localStorage.removeItem(this.jwtToken);
   }
 
   public getProfileData(full?: boolean): void {
@@ -80,13 +83,13 @@ export class AuthenticationService {
       this.profileData$.next(profile);
 
       if (full) {
-        this.getUserByEmail(profile.email);
+        this.acquireJWT(profile.email);
       }
     })
   }
 
   public getToken(): string {
-    return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOTNiMDg2YjgtNjM0My00MjcxLTg3ZDYtYjJhMDAxNDlmMDcwIiwiaWF0IjoxNDg2MDI3Mzc2fQ.WWso40RRK-xHIvMOm2NEFGEnQHkJH2KQq_FWShkQ0GM';
+    return localStorage.getItem(this.jwtToken);
   }
 
   private setUser(authResult): void {
@@ -151,6 +154,34 @@ export class AuthenticationService {
       );
 
     return subject;
+  }
+
+  public acquireJWT(email: string): void {
+    let secretKey = 'MzM1YWE2YTYyYzZjMGMxYzYyOGFlZjEzYTk3ZTFlNjNiYTNhMTYxMg==';
+    let accessKey = '13edf909931d0f37000e438e9d67a2e165fad5d0';
+    let requestTime = new Date().getTime();
+    let signature = new Sha1().update(secretKey+requestTime).digest('hex');
+    let authString = `${accessKey}:${requestTime}:${signature}`;
+
+    let headers = this.generateAcquireJWTHeaders(authString);
+
+    this.http.get(environment.jwtEndpoint, { headers: headers} ).subscribe(
+      (res: Response) => {
+        // localStorage.setItem(this.jwtToken, res.json().token);
+        localStorage.setItem(this.jwtToken, 'deathstalker');
+        this.getUserByEmail(email)
+      },
+      (error) =>{
+        console.error(error);
+      });
+  }
+
+  private generateAcquireJWTHeaders(authString: string): Headers {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', authString);
+
+    return headers;
   }
 
   private generateHeaders(): Headers {
