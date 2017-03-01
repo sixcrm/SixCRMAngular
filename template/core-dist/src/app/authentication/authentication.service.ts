@@ -34,7 +34,9 @@ export class AuthenticationService {
       {
         auth: {
           redirectUrl: environment.auth0RedirectUrl,
-          responseType: 'token'
+          responseType: 'token',
+          params: {scope: 'openid email user_metadata app_metadata picture'}
+        },
         },
         theme: {
           logo: '/assets/favicons/favicon-icon.png'
