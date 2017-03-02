@@ -98,6 +98,11 @@ export class AuthenticationService {
   }
 
   private getUserByEmail(profile: any): void {
+    if (!profile) {
+      this.logout();
+      return;
+    }
+
     this.http.post(environment.endpoint, userQueryByEmail(profile.email), { headers: this.generateHeaders()}).subscribe(
       (data) => {
         let user = data.json().data.user;
