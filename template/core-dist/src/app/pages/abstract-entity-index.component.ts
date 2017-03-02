@@ -14,6 +14,9 @@ export abstract class AbstractEntityIndexComponent<T> {
   private entitiesHolder: T[] = [];
   private paginationValues: number[] = [5, 10, 15, 20, 30, 40, 50];
 
+  protected showEntityDetails: boolean = false;
+  protected showEntityId: string;
+
   constructor(
     private service: AbstractEntityService<T>,
     private router: Router,
@@ -73,7 +76,12 @@ export abstract class AbstractEntityIndexComponent<T> {
   }
 
   viewEntity(id: string): void {
-    this.router.navigate(['view', id], { relativeTo: this.route});
+
+    if (!this.showEntityDetails) {
+      this.showEntityId = id;
+      this.showEntityDetails = true;
+      this.progressBarService.showTopProgressBar();
+    }
   }
 
   updateEntity(id: string): void {
@@ -99,5 +107,9 @@ export abstract class AbstractEntityIndexComponent<T> {
   hasMorePages(): boolean {
     let nextPage = this.page + 1;
     return this.hasMore || this.entitiesHolder.slice(nextPage * this.limit, nextPage * this.limit + this.limit).length > 0;
+  }
+
+  hideEntityDetails(): void {
+    this.showEntityDetails = false;
   }
 }

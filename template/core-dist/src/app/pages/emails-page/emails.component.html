@@ -1,8 +1,7 @@
-<md-card class="entity-index__card">
-  <md-card-title class="entity-index__card__title"> <span>Emails Index</span> </md-card-title>
-  <md-card-content class="entity-index__card__content">
-    <button md-raised-button color="primary" (click)="addEntity()">New Email</button>
+<button md-raised-button color="primary" class="entity-index__add" (click)="addEntity()">Add New</button>
 
+<md-card class="entity-index__card">
+  <md-card-content class="entity-index__card__content">
     <table class="entity-index__table highlight">
       <thead class="entity-index__table__header">
         <tr>
@@ -21,9 +20,12 @@
           <td>{{email.type}}</td>
           <td>{{email.smtpProvider.name}}</td>
           <td>
-            <md-icon class="entity-index__table__body__action" (click)="viewEntity(email.id)">visibility</md-icon>
-            <md-icon class="entity-index__table__body__action" (click)="updateEntity(email.id)">mode_edit</md-icon>
-            <md-icon class="entity-index__table__body__action" (click)="deleteEntity(email.id)">delete</md-icon>
+            <button md-icon-button [md-menu-trigger-for]="actionsMenu"><md-icon>more_vert</md-icon></button>
+            <md-menu #actionsMenu="mdMenu" x-position="before">
+              <button md-menu-item (click)="viewEntity(entity.id)">view</button>
+              <button md-menu-item (click)="updateEntity(entity.id)">update</button>
+              <button md-menu-item (click)="deleteEntity(entity.id)">delete</button>
+            </md-menu>
           </td>
         </tr>
       </tbody>

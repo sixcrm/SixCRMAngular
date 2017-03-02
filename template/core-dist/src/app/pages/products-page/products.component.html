@@ -1,7 +1,7 @@
+<button md-raised-button color="primary" class="entity-index__add" (click)="addEntity()">Add New</button>
+
 <md-card class="entity-index__card">
-  <md-card-title class="entity-index__card__title"> <span>Product Index</span> </md-card-title>
   <md-card-content class="entity-index__card__content">
-    <button md-raised-button color="primary" (click)="addEntity()">New Product</button>
 
     <table class="entity-index__table highlight">
       <thead class="entity-index__table__header">
@@ -15,15 +15,18 @@
       </thead>
 
       <tbody>
-      <tr *ngFor="let product of entities">
-        <td>{{product.name}}</td>
-        <td>{{product.sku}}</td>
-        <td>{{product.ship}}</td>
-        <td>{{product.shippingDelay}}</td>
+      <tr *ngFor="let entity of entities">
+        <td>{{entity.name}}</td>
+        <td>{{entity.sku}}</td>
+        <td>{{entity.ship}}</td>
+        <td>{{entity.shippingDelay}}</td>
         <td>
-          <md-icon class="entity-index__table__body__action" (click)="viewEntity(product.id)">visibility</md-icon>
-          <md-icon class="entity-index__table__body__action" (click)="updateEntity(product.id)">mode_edit</md-icon>
-          <md-icon class="entity-index__table__body__action" (click)="deleteEntity(product.id)">delete</md-icon>
+          <button md-icon-button [md-menu-trigger-for]="actionsMenu"><md-icon>more_vert</md-icon></button>
+          <md-menu #actionsMenu="mdMenu" x-position="before">
+            <button md-menu-item (click)="viewEntity(entity.id)">view</button>
+            <button md-menu-item (click)="updateEntity(entity.id)">update</button>
+            <button md-menu-item (click)="deleteEntity(entity.id)">delete</button>
+          </md-menu>
         </td>
       </tr>
       </tbody>

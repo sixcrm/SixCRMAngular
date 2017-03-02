@@ -1,0 +1,65 @@
+<div class="entity">
+  <div class="entity__nav">
+    <md-icon class="entity__nav__close" (click)="closeDetails()">arrow_forward</md-icon>
+    <md-icon class="entity__nav__add">add</md-icon>
+    <md-icon class="entity__nav__more">more_vert</md-icon>
+  </div>
+
+  <div *ngIf="entity">
+    <div class="entity__caption">
+      {{entity.name}}
+    </div>
+
+    <div class="entity__content">
+      <md-tab-group>
+        <md-tab label="Details">
+
+          <div class="entity__content__general">
+            <div class="entity__content__general__title" (click)="toggleGeneralDetails()">
+              <span>GENERAL DETAILS</span>
+              <md-icon *ngIf="showGeneralDetails">keyboard_arrow_up</md-icon>
+              <md-icon *ngIf="!showGeneralDetails">keyboard_arrow_down</md-icon>
+            </div>
+          </div>
+
+          <div *ngIf="showGeneralDetails" class="entity__content__general__content">
+            <div>
+              <span>ID:</span><span>{{entity.id}}</span>
+            </div>
+
+            <div>
+              <span>Name:</span><span>{{entity.name}}</span>
+            </div>
+
+            <div>
+              <span>Email:</span><span>{{entity.email}}</span>
+            </div>
+
+            <div>
+              <span>Active:</span><span>{{entity.active}}</span>
+            </div>
+
+            <div>
+              <span>Terms and Conditions:</span><span>{{entity.termsAndConditions}}</span>
+            </div>
+
+            <div>
+              <span>State:</span><span>{{entity.address.state}}</span>
+            </div>
+
+            <div>
+              <span>City:</span><span>{{entity.address.city}}</span>
+            </div>
+
+            <div>
+              <span>Line 1:</span><span>{{entity.address.line1}}</span>
+            </div>
+          </div>
+        </md-tab>
+        <md-tab label="Edit">
+
+        </md-tab>
+      </md-tab-group>
+    </div>
+  </div>
+</div>

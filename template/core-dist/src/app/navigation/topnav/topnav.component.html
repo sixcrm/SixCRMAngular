@@ -1,5 +1,5 @@
-<md-progress-bar mode="indeterminate" color="primary" *ngIf="_isLoadingRoute"></md-progress-bar>
-<md-toolbar [color]="_navigation.mediumScreenAndDown ? 'primary' : null">
+<md-progress-bar mode="indeterminate" *ngIf="_isLoadingRoute"></md-progress-bar>
+<md-toolbar>
   <button md-icon-button (click)="toggleSidenav()" id="menu-toggler">
     <md-icon>menu</md-icon>
   </button>

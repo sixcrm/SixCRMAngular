@@ -1,7 +1,7 @@
+<button md-raised-button color="primary" class="entity-index__add" (click)="addEntity()">Add New</button>
+
 <md-card class="entity-index__card">
-  <md-card-title class="entity-index__card__title"> <span>Campaign Index</span> </md-card-title>
   <md-card-content class="entity-index__card__content">
-    <button md-raised-button color="primary" (click)="addEntity()">New Campaign</button>
 
     <table class="entity-index__table highlight">
       <thead class="entity-index__table__header">
@@ -14,14 +14,17 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let campaign of entities">
-          <td>{{campaign.name}}</td>
-          <td>{{campaign.loadBalancer.merchantProviderConfigurations.length}}</td>
-          <td>{{campaign.productSchedules.length}}</td>
+        <tr *ngFor="let entity of entities">
+          <td>{{entity.name}}</td>
+          <td>{{entity.loadBalancer.merchantProviderConfigurations.length}}</td>
+          <td>{{entity.productSchedules.length}}</td>
           <td>
-            <md-icon class="entity-index__table__body__action" (click)="viewEntity(campaign.id)">visibility</md-icon>
-            <md-icon class="entity-index__table__body__action" (click)="updateEntity(campaign.id)">mode_edit</md-icon>
-            <md-icon class="entity-index__table__body__action" (click)="deleteEntity(campaign.id)">delete</md-icon>
+            <button md-icon-button [md-menu-trigger-for]="actionsMenu"><md-icon>more_vert</md-icon></button>
+            <md-menu #actionsMenu="mdMenu" x-position="before">
+              <button md-menu-item (click)="viewEntity(entity.id)">view</button>
+              <button md-menu-item (click)="updateEntity(entity.id)">update</button>
+              <button md-menu-item (click)="deleteEntity(entity.id)">delete</button>
+            </md-menu>
           </td>
         </tr>
       </tbody>

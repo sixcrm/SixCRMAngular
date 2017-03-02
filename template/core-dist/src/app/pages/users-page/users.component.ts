@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, trigger, style, animate, transition, state} from '@angular/core';
 import {User} from '../../shared/models/user';
 import {UsersService} from '../../shared/services/users.service';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
@@ -10,7 +10,7 @@ import {PaginationService} from '../../shared/services/pagination.service';
 @Component({
   selector: 'c-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent extends AbstractEntityIndexComponent<User> implements OnInit {
 

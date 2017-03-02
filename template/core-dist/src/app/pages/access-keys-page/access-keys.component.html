@@ -10,13 +10,16 @@
   </thead>
 
   <tbody>
-  <tr *ngFor="let accessKey of entities">
-    <td>{{accessKey.accessKey}}</td>
-    <td>{{accessKey.secretKey}}</td>
+  <tr *ngFor="let entity of entities">
+    <td>{{entity.accessKey}}</td>
+    <td>{{entity.secretKey}}</td>
     <td>
-      <md-icon class="entity-index__table__body__action" (click)="viewEntity(accessKey.id)">visibility</md-icon>
-      <md-icon class="entity-index__table__body__action" (click)="updateEntity(accessKey.id)">mode_edit</md-icon>
-      <md-icon class="entity-index__table__body__action" (click)="deleteEntity(accessKey.id)">delete</md-icon>
+      <button md-icon-button [md-menu-trigger-for]="actionsMenu"><md-icon>more_vert</md-icon></button>
+      <md-menu #actionsMenu="mdMenu" x-position="before">
+        <button md-menu-item (click)="viewEntity(entity.id)">view</button>
+        <button md-menu-item (click)="updateEntity(entity.id)">update</button>
+        <button md-menu-item (click)="deleteEntity(entity.id)">delete</button>
+      </md-menu>
     </td>
   </tr>
   </tbody>

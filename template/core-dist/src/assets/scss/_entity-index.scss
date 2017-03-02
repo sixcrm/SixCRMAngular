@@ -1,6 +1,13 @@
 .entity-index {
 
+  &__add {
+    margin: 30px 0 30px 50px !important;
+    background: #498FE1;
+    font-size: 18px !important;
+  }
+
   &__card {
+    padding: 0;
 
     &__title {
       position: absolute;
@@ -31,29 +38,53 @@
   }
 
   &__table {
+    color: #666666;
 
     &__header {
+      box-shadow: 0 2px 5px #d0d0d0;
 
       tr th {
         position: relative;
+        padding: 30px 5px;
+
+        &:first-child {
+          padding-left: 45px;
+        }
+
+        &:last-child {
+          padding-right: 0;
+        }
 
         md-icon {
           position: absolute;
           bottom: 15px;
           cursor: pointer;
           width: 20px;
-          height: 20px;
+          height: 35px;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: solid 1px #d0d0d0;
+      }
+
+      tr td {
+        padding: 10px 5px;
+
+        &:first-child {
+          padding-left: 45px;
+        }
+
+        &:last-child {
+          padding-right: 0;
         }
       }
     }
 
     &__body {
       font-size: 0;
-
-      &__action {
-        margin-right: 5px;
-        cursor: pointer;
-      }
     }
   }
 

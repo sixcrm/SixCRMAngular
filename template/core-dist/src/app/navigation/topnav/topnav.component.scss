@@ -1,4 +1,8 @@
 @import "../../../assets/scss/mixins";
+@import "../../../assets/scss/variables";
+
+$main-color: #9B9A9B;
+
 :host {
   display: block;
 }
@@ -11,24 +15,40 @@
     }
 
     &__icon {
-      color: #9B9A9B;
+      color: $main-color;
+
+      @media #{$medium-and-down} {
+        color: #ffffff;
+      }
     }
   }
 
   &__company {
     &__icon {
-      color: #9B9A9B;
+      color: $main-color;
       margin-left: 10px;
       margin-right: 5px;
+
+      @media #{$medium-and-down} {
+        color: #ffffff;
+      }
     }
 
     &__arrow {
       margin-right: 15px;
       cursor: pointer;
+
+      @media #{$medium-and-down} {
+        color: #ffffff;
+      }
     }
 
     &__name {
       font-size: 15px;
+
+      @media #{$medium-and-down} {
+        color: #ffffff;
+      }
     }
   }
 
@@ -45,15 +65,27 @@
       margin-right: 10px;
       font-size: 15px;
       font-weight: 300;
+
+      @media #{$medium-and-down} {
+        color: #ffffff;
+      }
     }
 
     &__name {
       font-weight: 500;
       font-size: 15px;
+
+      @media #{$medium-and-down} {
+        color: #ffffff;
+      }
     }
 
     &__arrow {
       cursor: pointer;
+
+      @media #{$medium-and-down} {
+        color: #ffffff;
+      }
     }
   }
 
@@ -103,10 +135,18 @@
     margin-right: 15px;
     width: 1px;
     height: 70%;
-    background: #9B9A9B;
+    background: $main-color;
+
+    @media #{$medium-and-down} {
+      background: #ffffff;
+    }
   }
 
   &__notifications {
-    color: #9B9A9B;
+    color: $main-color;
+
+    @media #{$medium-and-down} {
+      color: #ffffff;
+    }
   }
 }

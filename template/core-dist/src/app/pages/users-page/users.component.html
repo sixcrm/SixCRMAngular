@@ -1,29 +1,34 @@
+<user *ngIf="showEntityDetails" [entityId]="showEntityId" (close)="hideEntityDetails()"></user>
+
+<button md-raised-button color="primary" class="entity-index__add" (click)="addEntity()">Add New</button>
+
 <md-card class="entity-index__card">
-  <md-card-title class="entity-index__card__title"> <span>User Index</span> </md-card-title>
   <md-card-content class="entity-index__card__content">
-    <button md-raised-button color="primary" (click)="addEntity()">New User</button>
 
     <table class="entity-index__table highlight">
       <thead class="entity-index__table__header">
         <tr>
-          <th data-field="name">Name <md-icon>keyboard_arrow_down</md-icon></th>
+          <th data-field="name"><span mdTooltip="Name">Name <md-icon>keyboard_arrow_down</md-icon></span></th>
           <th data-field="email">Email <md-icon>keyboard_arrow_down</md-icon></th>
           <th data-field="active">Active <md-icon>keyboard_arrow_down</md-icon></th>
           <th data-field="active">Terms and Conditions <md-icon>keyboard_arrow_down</md-icon></th>
-          <th>Actions</th>
+          <th></th>
         </tr>
       </thead>
 
       <tbody>
-        <tr *ngFor="let user of entities">
-          <td>{{user.name}}</td>
-          <td>{{user.email}}</td>
-          <td>{{user.active}}</td>
-          <td>{{user.termsAndConditions}}</td>
+        <tr *ngFor="let entity of entities; let i = index;">
+          <td (click)="viewEntity(entity.id)">{{entity.name}}</td>
+          <td (click)="viewEntity(entity.id)">{{entity.email}}</td>
+          <td (click)="viewEntity(entity.id)">{{entity.active}}</td>
+          <td (click)="viewEntity(entity.id)">{{entity.termsAndConditions}}</td>
           <td>
-            <md-icon class="entity-index__table__body__action" (click)="viewEntity(user.id)">visibility</md-icon>
-            <md-icon class="entity-index__table__body__action" (click)="updateEntity(user.id)">mode_edit</md-icon>
-            <md-icon class="entity-index__table__body__action" (click)="deleteEntity(user.id)">delete</md-icon>
+            <button md-icon-button [md-menu-trigger-for]="actionsMenu"><md-icon>more_vert</md-icon></button>
+            <md-menu #actionsMenu="mdMenu" x-position="before">
+              <button md-menu-item (click)="viewEntity(entity.id)">view</button>
+              <button md-menu-item (click)="updateEntity(entity.id)">update</button>
+              <button md-menu-item (click)="deleteEntity(entity.id)">delete</button>
+            </md-menu>
           </td>
         </tr>
       </tbody>
