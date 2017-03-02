@@ -1,3 +1,5 @@
+<product *ngIf="showEntityDetails" [entityId]="showEntityId" (close)="hideEntityDetails()"></product>
+
 <button md-raised-button color="primary" class="entity-index__add" (click)="addEntity()">Add New</button>
 
 <md-card class="entity-index__card">
@@ -16,10 +18,10 @@
 
       <tbody>
       <tr *ngFor="let entity of entities">
-        <td>{{entity.name}}</td>
-        <td>{{entity.sku}}</td>
-        <td>{{entity.ship}}</td>
-        <td>{{entity.shippingDelay}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.name}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.sku}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.ship}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.shippingDelay}}</td>
         <td>
           <button md-icon-button [md-menu-trigger-for]="actionsMenu"><md-icon>more_vert</md-icon></button>
           <md-menu #actionsMenu="mdMenu" x-position="before">

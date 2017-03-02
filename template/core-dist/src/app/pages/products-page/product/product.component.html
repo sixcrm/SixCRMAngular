@@ -31,49 +31,49 @@
               </div>
 
               <div>
-                <span>Email:</span><span>{{entity.email}}</span>
+                <span>SKU:</span><span>{{entity.sku}}</span>
               </div>
 
               <div>
-                <span>Active:</span><span>{{entity.active}}</span>
+                <span>Ship:</span><span>{{entity.ship}}</span>
               </div>
 
               <div>
-                <span>Terms and Conditions:</span><span>{{entity.termsAndConditions}}</span>
+                <span>Shipping Delay</span><span>{{entity.shippingDelay}}</span>
               </div>
             </div>
           </div>
 
           <div class="entity__content__general">
-            <div class="entity__content__general__title" (click)="toggleAddressDetails()">
-              <span>GENERAL DETAILS</span>
-              <md-icon *ngIf="showAddressDetails">keyboard_arrow_up</md-icon>
-              <md-icon *ngIf="!showAddressDetails">keyboard_arrow_down</md-icon>
+            <div class="entity__content__general__title" (click)="toggleFulfillmentProviderDetails()">
+              <span>FULFILLMENT PROVIDER</span>
+              <md-icon *ngIf="showFulfillmentProviderDetails">keyboard_arrow_up</md-icon>
+              <md-icon *ngIf="!showFulfillmentProviderDetails">keyboard_arrow_down</md-icon>
             </div>
 
-            <div *ngIf="showAddressDetails" class="entity__content__general__content">
+            <div *ngIf="showFulfillmentProviderDetails" class="entity__content__general__content">
               <div>
-                <span>Country:</span><span>{{entity.address.country}}</span>
+                <span>ID:</span><span>{{entity.fulfillmentProvider.id}}</span>
               </div>
 
               <div>
-                <span>State:</span><span>{{entity.address.state}}</span>
+                <span>Name:</span><span>{{entity.fulfillmentProvider.name}}</span>
               </div>
 
               <div>
-                <span>City:</span><span>{{entity.address.city}}</span>
+                <span>Username:</span><span>{{entity.fulfillmentProvider.username}}</span>
               </div>
 
               <div>
-                <span>Line 1:</span><span>{{entity.address.line1}}</span>
+                <span>Endpoint:</span><span>{{entity.fulfillmentProvider.endpoint}}</span>
               </div>
 
               <div>
-                <span>Line 2:</span><span>{{entity.address.line2}}</span>
+                <span>Password:</span><span>{{entity.fulfillmentProvider.password}}</span>
               </div>
 
               <div>
-                <span>Zip:</span><span>{{entity.address.zip}}</span>
+                <span>Provider:</span><span>{{entity.fulfillmentProvider.provider}}</span>
               </div>
             </div>
           </div>

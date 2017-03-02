@@ -11,11 +11,17 @@ import {UsersService} from '../../../shared/services/users.service';
 })
 export class UserComponent extends AbstractEntityComponent<User> implements OnInit {
 
+  showAddressDetails: boolean = true;
+
   constructor(usersService: UsersService, progressBarService: ProgressBarService) {
     super(usersService, progressBarService);
   }
 
   ngOnInit() {
     this.init();
+  }
+
+  toggleAddressDetails(): void {
+    this.showAddressDetails = !this.showAddressDetails;
   }
 }

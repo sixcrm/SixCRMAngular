@@ -40,6 +40,7 @@ import { DashboardComponent } from './dashboard-page/dashboard.component';
 import { ChartsModule } from 'ng2-charts';
 import { SearchComponent } from './search-page/search.component';
 import { UserComponent } from './users-page/user/user.component';
+import { ProductComponent } from './products-page/product/product.component';
 
 @NgModule({
   imports : [
@@ -86,7 +87,8 @@ import { UserComponent } from './users-page/user/user.component';
     ProductScheduleViewComponent,
     DashboardComponent,
     SearchComponent,
-    UserComponent
+    UserComponent,
+    ProductComponent
   ]
 })
 export class PagesModule {
