@@ -125,7 +125,7 @@ export class AuthenticationService {
       return;
     }
 
-    this.http.post(environment.endpoint, userQueryByEmail(profile.email), { headers: this.generateHeaders()}).subscribe(
+    this.http.post(environment.endpoint + '*', userQueryByEmail(profile.email), { headers: this.generateHeaders()}).subscribe(
       (data) => {
         let user = data.json().data.user;
         if (!user) {
@@ -140,9 +140,6 @@ export class AuthenticationService {
 
             let activatedUser: User = new User(user);
             activatedUser.picture = profile.picture;
-            activatedUser.acls.push(new Acl({account: {id: 'id1', name: 'name1'}}));
-            activatedUser.acls.push(new Acl({account: {id: 'id2', name: 'name2'}}));
-            activatedUser.acls.push(new Acl({account: {id: 'id3', name: 'name3'}}));
 
             this.updateSixUser(activatedUser);
 

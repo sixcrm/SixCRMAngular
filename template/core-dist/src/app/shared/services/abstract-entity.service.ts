@@ -120,6 +120,8 @@ export abstract class AbstractEntityService<T> {
 
     if (this.authService.getActiveAcl() && this.authService.getActiveAcl().account) {
       endpoint = endpoint + this.authService.getActiveAcl().account.id;
+    } else {
+      endpoint = endpoint + '*';
     }
 
     return this.http.post(endpoint, query, { headers: this.generateHeaders()});
