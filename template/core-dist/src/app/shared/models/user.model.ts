@@ -1,6 +1,7 @@
 import {AccessKey} from './access-key.model';
 import {Entity} from './entity.interface';
 import {Address} from './address.model';
+import {Acl} from './acl.model';
 
 export class User implements Entity<User> {
   id: string;
@@ -12,6 +13,7 @@ export class User implements Entity<User> {
   picture: string;
   address: Address;
   accessKey: AccessKey;
+  acls: Acl[];
 
   constructor(obj?: any) {
     if(!obj) {
@@ -26,6 +28,13 @@ export class User implements Entity<User> {
     this.termsAndConditions = obj.termsandconditions || '';
     this.address = new Address(obj.address);
     this.accessKey = new AccessKey(obj.accesskey);
+
+    this.acls = [];
+    if (obj.acl) {
+      for (let i = 0; i < obj.acl.length; i++) {
+        this.acls.push(new Acl(obj.acl[i]));
+      }
+    }
   }
 
   copy(): User {
@@ -33,6 +42,11 @@ export class User implements Entity<User> {
   }
 
   inverse(): any {
+    let acls = [];
+    for (let index in this.acls) {
+      acls.push(this.acls[index].inverse());
+    }
+
     return {
       id: this.id,
       name: this.name,
@@ -40,7 +54,8 @@ export class User implements Entity<User> {
       email: this.email,
       active: this.active,
       termsandconditions: this.termsAndConditions,
-      address: this.address.inverse()
+      address: this.address.inverse(),
+      acl: acls
     }
   }
 }

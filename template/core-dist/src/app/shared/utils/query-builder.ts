@@ -3,7 +3,7 @@ import {MerchantProvider} from '../models/merchant-provider.model';
 import {LoadBalancer} from '../models/load-balancers.model';
 import {Product} from '../models/product.model';
 import {ProductSchedule} from '../models/product-schedule.model';
-import {User} from '../models/user';
+import {User} from '../models/user.model';
 import {CreditCard} from '../models/credit-card.model';
 import {FulfillmentProvider} from '../models/fulfillment-provider.model';
 import {Affiliate} from '../models/affiliate.model';
@@ -462,7 +462,13 @@ export function createCreditCardMutation(cc: CreditCard): string {
 export function usersListQuery(limit?: number, cursor?: string): string {
   return `{
     userlist ${pageParams(limit,cursor)} {
-			users { id auth0_id name email active termsandconditions }
+			users { id auth0_id name email active termsandconditions
+			  acl {
+					account { id name active }
+					role { id name active }
+					signature
+				}
+			}
 			pagination { count end_cursor has_next_page }
 		}}`
 }
@@ -470,14 +476,21 @@ export function usersListQuery(limit?: number, cursor?: string): string {
 export function userQuery(id: string): string {
   return `
     {
-      user (id: "${id}") { id auth0_id name email active termsandconditions address { state city line1}}
+      user (id: "${id}") { id auth0_id name email active termsandconditions address { country state city line1 line2 zip}}
     }`
 }
 
 export function userQueryByEmail(email: string): string {
   return `
     {
-      user (email: "${email}") { id name auth0_id email active termsandconditions } }`
+      user (email: "${email}") { id name auth0_id email active termsandconditions
+        acl {
+					account { id name active }
+					role { id name active }
+					signature
+				}
+			}
+		}`
 }
 
 export function deleteUserMutation(id: string): string {

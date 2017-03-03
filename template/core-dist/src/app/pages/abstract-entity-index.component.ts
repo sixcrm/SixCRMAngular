@@ -53,6 +53,12 @@ export abstract class AbstractEntityIndexComponent<T> {
     }
   }
 
+  protected resetEntities(): void {
+    this.service.resetPagination();
+    this.entitiesHolder = [];
+    this.entities = [];
+  }
+
   updateLimit(lim: number): void {
     if (!lim) return;
 

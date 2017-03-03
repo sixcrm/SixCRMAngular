@@ -116,7 +116,13 @@ export abstract class AbstractEntityService<T> {
   }
 
   protected queryRequest(query: string): Observable<Response> {
-    return this.http.post(environment.endpoint, query, { headers: this.generateHeaders()});
+    let endpoint = environment.endpoint;
+
+    if (this.authService.getActiveAcl() && this.authService.getActiveAcl().account) {
+      endpoint = endpoint + this.authService.getActiveAcl().account.id;
+    }
+
+    return this.http.post(endpoint, query, { headers: this.generateHeaders()});
   }
 
   private generateHeaders(): Headers {

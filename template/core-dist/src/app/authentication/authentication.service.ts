@@ -3,14 +3,14 @@ import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {environment} from '../../environments/environment';
-import {Http, Headers, Response} from '@angular/http';
+import {Http, Headers} from '@angular/http';
 import {
   userQueryByEmail, createUserForRegistration, updateUserForRegistration,
   createCreditCardMutation
 } from '../shared/utils/query-builder';
-import {User} from '../shared/models/user';
+import {User} from '../shared/models/user.model';
 import {CreditCard} from '../shared/models/credit-card.model';
-let Sha1 = require('../../../node_modules/sha.js/sha1.js');
+import {Acl} from '../shared/models/acl.model';
 
 declare var Auth0Lock: any;
 
@@ -23,9 +23,12 @@ export class AuthenticationService {
   private activated: string = 'activated';
   private idTokenPayload: string = 'id_token_payload';
   private sixUser: string = 'six_user';
+  private activeAcl: string = 'active_acl';
 
   public userData$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
   public userUnderReg$: BehaviorSubject<any> = new BehaviorSubject<User>(null);
+  public activeAcl$: BehaviorSubject<Acl> = new BehaviorSubject<Acl>(new Acl());
+  public activeAclChanged$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private router: Router, private http: Http) {
     this.lock = new Auth0Lock(
@@ -76,6 +79,7 @@ export class AuthenticationService {
     localStorage.removeItem(this.activated);
     localStorage.removeItem(this.idTokenPayload);
     localStorage.removeItem(this.sixUser);
+    localStorage.removeItem(this.activeAcl);
   }
 
   public getToken(): string {
@@ -83,10 +87,28 @@ export class AuthenticationService {
     return localStorage.getItem(this.idToken);
   }
 
-  public getSixUserAccountId(): string {
+  public getSixUser(): User {
     let sixUser = localStorage.getItem(this.sixUser);
 
-    return sixUser ? (JSON.parse(sixUser)).id : '';
+    if (!sixUser) {
+      this.logout();
+    }
+
+    return new User(JSON.parse(sixUser));
+  }
+
+  public getAcls(): Acl[] {
+    return this.getSixUser().acls;
+  }
+
+  public getActiveAcl(): Acl {
+    return new Acl(JSON.parse(localStorage.getItem(this.activeAcl)));
+  }
+
+  public changeActiveAcl(acl: Acl): void {
+    localStorage.setItem(this.activeAcl, JSON.stringify(acl.inverse()));
+    this.activeAcl$.next(acl);
+    this.activeAclChanged$.next(true);
   }
 
   private setUser(authResult): void {
@@ -114,12 +136,18 @@ export class AuthenticationService {
             this.router.navigateByUrl('/register');
             this.userUnderReg$.next(new User(user));
           } else {
+            localStorage.setItem(this.activated, 'activated');
+
             let activatedUser: User = new User(user);
             activatedUser.picture = profile.picture;
-            this.userData$.next(activatedUser);
+            activatedUser.acls.push(new Acl({account: {id: 'id1', name: 'name1'}}));
+            activatedUser.acls.push(new Acl({account: {id: 'id2', name: 'name2'}}));
+            activatedUser.acls.push(new Acl({account: {id: 'id3', name: 'name3'}}));
 
-            localStorage.setItem(this.sixUser, JSON.stringify(activatedUser.inverse()));
-            localStorage.setItem(this.activated, 'activated');
+            this.updateSixUser(activatedUser);
+
+            this.getOrUpdateActiveAcl(activatedUser);
+
             if (this.router.url === '/') {
               this.router.navigateByUrl('/dashboard');
             }
@@ -127,6 +155,26 @@ export class AuthenticationService {
         }
       }
     );
+  }
+
+  private updateSixUser(user: User): void {
+    localStorage.setItem(this.sixUser, JSON.stringify(user.inverse()));
+    this.userData$.next(user);
+  }
+
+  private getOrUpdateActiveAcl(user: User): void {
+    let currentAcl: string = localStorage.getItem(this.activeAcl);
+
+    if (currentAcl) {
+      this.activeAcl$.next(new Acl(JSON.parse(currentAcl)));
+    } else {
+      let defaultAcl: Acl = user.acls[0];
+
+      if (defaultAcl) {
+        localStorage.setItem(this.activeAcl, JSON.stringify(defaultAcl.inverse()));
+        this.activeAcl$.next(defaultAcl);
+      }
+    }
   }
 
   private createUserForRegistration(email: string): void {

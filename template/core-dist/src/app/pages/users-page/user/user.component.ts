@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from '../../../shared/models/user';
+import {User} from '../../../shared/models/user.model';
 import {AbstractEntityComponent} from '../../abstract-entity-component';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {UsersService} from '../../../shared/services/users.service';

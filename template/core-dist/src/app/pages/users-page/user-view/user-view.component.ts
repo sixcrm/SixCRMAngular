@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {UsersService} from '../../../shared/services/users.service';
 import {ActivatedRoute, Params} from '@angular/router';
-import {User} from '../../../shared/models/user';
+import {User} from '../../../shared/models/user.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 

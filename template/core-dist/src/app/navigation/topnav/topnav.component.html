@@ -20,9 +20,15 @@
     <input #searchField md-input class="search-field" placeholder="Search" type="text" (blur)="searchInputBlur()" [(ngModel)]="searchTerm" (keydown)="search($event)">
   </md-input-container>
 
-  <md-icon class="topnav__company__icon">domain</md-icon>
-  <span class="topnav__company__name">Big new LLC</span>
-  <md-icon class="topnav__company__arrow">keyboard_arrow_down</md-icon>
+  <ng-container *ngIf="activeAcl">
+    <md-icon class="topnav__acl__icon">domain</md-icon>
+    <span class="topnav__acl__name">{{activeAcl.account.name}}</span>
+    <md-icon class="topnav__acl__arrow" (click)="toggleAclsMenu()">keyboard_arrow_down</md-icon>
+  </ng-container>
+
+  <div *ngIf="showAcls" class="topnav__acl__menu">
+    <div *ngFor="let acl of _authService.getAcls()" (click)="changeAcl(acl)">{{acl.account.name}}</div>
+  </div>
 
   <img *ngIf="_userProfile.picture" class="topnav__profile__image" [src]="_userProfile.picture">
   <span class="topnav__profile__hello">Hello, </span>

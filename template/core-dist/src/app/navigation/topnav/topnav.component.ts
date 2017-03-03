@@ -6,7 +6,8 @@ import {Title} from '@angular/platform-browser';
 import {AuthenticationService} from "../../authentication/authentication.service";
 import {StringUtils} from '../../shared/utils/string-utils';
 import {Router} from '@angular/router';
-import {User} from '../../shared/models/user';
+import {User} from '../../shared/models/user.model';
+import {Acl} from '../../shared/models/acl.model';
 
 @Component({
   selector : 'app-topnav',
@@ -34,6 +35,9 @@ export class TopnavComponent implements OnInit {
   private showDropdown: boolean = false;
   private showSearchInput: boolean = false;
   private searchTerm: string;
+
+  private activeAcl: Acl = new Acl();
+  private showAcls: boolean = false;
 
   constructor(
     private _navigation: NavigationService,
@@ -102,6 +106,8 @@ export class TopnavComponent implements OnInit {
         this._userProfile = userProfile;
       }
     });
+
+    this._authService.activeAcl$.subscribe((acl: Acl) => this.activeAcl = acl);
   }
 
   toggleSidenav() {
@@ -121,6 +127,10 @@ export class TopnavComponent implements OnInit {
     this._authService.logout();
   }
 
+  changeAcl(acl: Acl): void {
+    this._authService.changeActiveAcl(acl);
+  }
+
   private updateAutoBreadcrumbs() {
     this._navigation.currentRoute.take(1).subscribe(currentRoute => {
       this._autoBreadcrumbs = true;
@@ -135,6 +145,10 @@ export class TopnavComponent implements OnInit {
         this._title.setTitle(this._navigation.getAutoBrowserTitle(this._pageTitle));
       }
     });
+  }
+
+  private toggleAclsMenu(): void {
+    this.showAcls = !this.showAcls;
   }
 
   private toggleDropdownMenu(): void {
@@ -159,6 +173,10 @@ export class TopnavComponent implements OnInit {
   private hideElements(event): void {
     if (!event.target.attributes.class || event.target.attributes.class.value !== 'topnav__profile__arrow material-icons') {
       this.showDropdown = false;
+    }
+
+    if (!event.target.attributes.class || event.target.attributes.class.value !== 'topnav__acl__arrow material-icons') {
+      this.showAcls = false;
     }
   }
 

@@ -1,11 +1,12 @@
-import {Component, OnInit, trigger, style, animate, transition, state} from '@angular/core';
-import {User} from '../../shared/models/user';
+import {Component, OnInit} from '@angular/core';
+import {User} from '../../shared/models/user.model';
 import {UsersService} from '../../shared/services/users.service';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MdDialog} from '@angular/material';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {PaginationService} from '../../shared/services/pagination.service';
+import {AuthenticationService} from '../../authentication/authentication.service'
 
 @Component({
   selector: 'c-users',
@@ -15,6 +16,7 @@ import {PaginationService} from '../../shared/services/pagination.service';
 export class UsersComponent extends AbstractEntityIndexComponent<User> implements OnInit {
 
   constructor(
+    private authService: AuthenticationService,
     private usersService: UsersService,
     router: Router,
     route: ActivatedRoute,
@@ -28,6 +30,10 @@ export class UsersComponent extends AbstractEntityIndexComponent<User> implement
   ngOnInit() {
     this.usersService.entityDeleted$.subscribe(() =>{
       this.usersService.getEntities();
+    });
+    this.authService.activeAclChanged$.subscribe(() => {
+      this.resetEntities();
+      this.usersService.getEntities(this.limit);
     });
 
     this.init();

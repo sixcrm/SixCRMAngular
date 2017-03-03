@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../authentication.service';
-import {User} from '../../shared/models/user';
+import {User} from '../../shared/models/user.model';
 import {Address} from '../../shared/models/address.model';
 import {CreditCard} from '../../shared/models/credit-card.model';
 
