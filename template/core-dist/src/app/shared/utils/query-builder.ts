@@ -487,7 +487,6 @@ export function userQueryByEmail(email: string): string {
         acl {
 					account { id name active }
 					role { id name active }
-					signature
 				}
 			}
 		}`

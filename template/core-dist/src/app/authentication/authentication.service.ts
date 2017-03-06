@@ -175,7 +175,7 @@ export class AuthenticationService {
   }
 
   private createUserForRegistration(email: string): void {
-    this.http.post(environment.endpoint, createUserForRegistration(email, localStorage.getItem(this.idToken)), { headers: this.generateHeaders()})
+    this.http.post(environment.endpoint + '*', createUserForRegistration(email, localStorage.getItem(this.idToken)), { headers: this.generateHeaders()})
       .subscribe(
         (data) => {
           localStorage.removeItem(this.activated);
