@@ -23,7 +23,7 @@ export class User implements Entity<User> {
     this.id = obj.id || '';
     this.name = obj.name || '';
     this.auth0Id = obj.auth0_id || '';
-    this.email = obj.email || '';
+    this.email = obj.id || '';
     this.active = obj.active || '';
     this.termsAndConditions = obj.termsandconditions || '';
     this.address = new Address(obj.address);

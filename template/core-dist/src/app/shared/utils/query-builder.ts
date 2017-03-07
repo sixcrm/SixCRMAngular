@@ -462,7 +462,7 @@ export function createCreditCardMutation(cc: CreditCard): string {
 export function usersListQuery(limit?: number, cursor?: string): string {
   return `{
     userlist ${pageParams(limit,cursor)} {
-			users { id auth0_id name email active termsandconditions
+			users { id auth0_id name active termsandconditions
 			  acl {
 					account { id name active }
 					role { id name active }
@@ -475,25 +475,13 @@ export function usersListQuery(limit?: number, cursor?: string): string {
 export function userQuery(id: string): string {
   return `
     {
-      user (id: "${id}") { id auth0_id name email active termsandconditions address { country state city line1 line2 zip}}
+      user (id: "${id}") { id auth0_id name active termsandconditions address { country state city line1 line2 zip}}
     }`
-}
-
-export function userQueryByEmail(email: string): string {
-  return `
-    {
-      user (email: "${email}") { id name auth0_id email active termsandconditions
-        acl {
-					account { id name active }
-					role { id name active }
-				}
-			}
-		}`
 }
 
 export function userIntrospection(): string {
   return `{
-    userintrospection { id name auth0_id email active termsandconditions
+    userintrospection { id name auth0_id active termsandconditions
       acl {
         account { id name active }
         role { id name active 
@@ -513,8 +501,8 @@ export function createUserForRegistration(email: string, auth0Id: string): strin
   return `
     mutation {
 		  createuser (
-		    user: { auth0_id: "${auth0Id}", name: "${email}", email:"${email}", active: "false", termsandconditions:"0" }) {
-			    id auth0_id name email active termsandconditions
+		    user: {id: "${email}" auth0_id: "${auth0Id}", name: "${email}", active: "false", termsandconditions:"0" }) {
+			    id auth0_id name active termsandconditions
 			}
 	}`
 }
@@ -523,9 +511,9 @@ export function updateUserForRegistration(user: User): string {
   return `
     mutation {
 		  updateuser (
-		    user: { id: "${user.id}" name: "${user.name}" email: "${user.email}" auth0_id: "${user.auth0Id}" active: "${user.active}" termsandconditions: "0.1"
+		    user: { id: "${user.id}" name: "${user.name}" auth0_id: "${user.auth0Id}" active: "${user.active}" termsandconditions: "0.1"
 		      address: {line1: "${user.address.line1}" line2: "${user.address.line2}" city: "${user.address.city}" state: "${user.address.state}" zip: "${user.address.zip}" country:"${user.address.country}"}}) {
-			    id auth0_id name email active termsandconditions
+			    id auth0_id name active termsandconditions
 			}
 	}`
 }
