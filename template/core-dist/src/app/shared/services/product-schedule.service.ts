@@ -20,7 +20,8 @@ export class ProductScheduleService extends AbstractEntityService<ProductSchedul
       productScheduleQuery,
       deleteProductScheduleMutation,
       createProductScheduleMutation,
-      updateProductScheduleMutation
+      updateProductScheduleMutation,
+      'productschedule'
     )
   }
 }
