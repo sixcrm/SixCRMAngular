@@ -20,7 +20,8 @@ export class FulfillmentProvidersService extends AbstractEntityService<Fulfillme
       fulfillmentProviderQuery,
       deleteFulfillmentProviderMutation,
       createFulfillmentProviderMutation,
-      updateFulfillmentProviderMutation
+      updateFulfillmentProviderMutation,
+      'fulfillmentprovider'
     );
   }
 }

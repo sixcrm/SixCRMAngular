@@ -15,7 +15,10 @@ export class UsersService extends AbstractEntityService<User> {
       data => new User(data),
       usersListQuery,
       userQuery,
-      deleteUserMutation
+      deleteUserMutation,
+      null,
+      null,
+      'user'
     )
   }
 

@@ -20,7 +20,8 @@ export class MerchantProvidersService extends AbstractEntityService<MerchantProv
       merchantProviderQuery,
       deleteMerchantProviderMutation,
       createMerchantProviderMutation,
-      updateMerchantProviderMutation
+      updateMerchantProviderMutation,
+      'merchantprovider'
     );
   }
 }

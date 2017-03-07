@@ -15,7 +15,10 @@ export class AccessKeysService extends AbstractEntityService<AccessKey> {
       data => new AccessKey(data),
       accessKeysListQuery,
       accessKeyQuery,
-      deleteAccessKeyMutation
+      deleteAccessKeyMutation,
+      null,
+      null,
+      'accesskey'
     );
   }
 

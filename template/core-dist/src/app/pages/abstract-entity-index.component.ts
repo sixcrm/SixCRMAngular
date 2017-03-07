@@ -118,4 +118,8 @@ export abstract class AbstractEntityIndexComponent<T> {
   hideEntityDetails(): void {
     this.showEntityDetails = false;
   }
+
+  hasWritePermission(): boolean {
+    return this.service.hasWritePermission();
+  }
 }

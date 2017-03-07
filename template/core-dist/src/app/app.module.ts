@@ -10,7 +10,6 @@ import {MaterialModule} from '@angular/material';
 import {AgmCoreModule} from 'angular2-google-maps/core';
 import {Angulartics2Module, Angulartics2GoogleAnalytics} from 'angulartics2';
 import {AuthenticationModule} from "./authentication/authentication.module";
-import {PagesModule} from "./pages/pages.module";
 import {DeleteDialogComponent} from './pages/delete-dialog.component';
 
 @NgModule({

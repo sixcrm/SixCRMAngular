@@ -14,7 +14,10 @@ export class CreditCardsService extends AbstractEntityService<CreditCard> {
       data => new CreditCard(data),
       creditCardsListQuery,
       creditCardQuery,
-      deleteCreditCardMutation
+      deleteCreditCardMutation,
+      null,
+      null,
+      'creditcard'
     );
   }
 }

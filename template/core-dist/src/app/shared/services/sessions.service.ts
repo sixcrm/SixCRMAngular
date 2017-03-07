@@ -15,7 +15,10 @@ export class SessionsService extends AbstractEntityService<Session> {
       data => new Session(data),
       sessionsInfoListQuery,
       sessionQuery,
-      deleteSessionMutation
+      deleteSessionMutation,
+      null,
+      null,
+      'session'
     );
   }
 }

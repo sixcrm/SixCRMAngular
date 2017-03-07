@@ -15,7 +15,10 @@ export class CustomersService extends AbstractEntityService<Customer> {
       data => new Customer(data),
       customersInfoListQuery,
       customerQuery,
-      deleteCustomerMutation
+      deleteCustomerMutation,
+      null,
+      null,
+      'customer'
     );
   }
 }

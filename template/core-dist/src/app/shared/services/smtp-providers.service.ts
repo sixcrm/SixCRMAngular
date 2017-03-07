@@ -20,7 +20,8 @@ export class SmtpProvidersService extends AbstractEntityService<SmtpProvider> {
       smtpProviderQuery,
       deleteSmptProviderMutation,
       createSmptProviderMutation,
-      updateSmptProviderMutation
+      updateSmptProviderMutation,
+      'smtpprovider'
     );
   }
 }

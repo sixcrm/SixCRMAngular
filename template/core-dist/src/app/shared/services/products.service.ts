@@ -20,7 +20,8 @@ export class ProductsService extends AbstractEntityService<Product> {
       productQuery,
       deleteProductMutation,
       createProductMutation,
-      updateProductMutation
+      updateProductMutation,
+      'product'
     );
   }
 }

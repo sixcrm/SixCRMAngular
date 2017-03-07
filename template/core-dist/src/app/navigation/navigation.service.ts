@@ -2,15 +2,16 @@ import {Injectable} from '@angular/core';
 import {Subject, BehaviorSubject} from 'rxjs';
 import {MenuItem} from './menu-item';
 import {MdDialog} from '../../../node_modules/@angular/material/dialog/dialog';
-import {menuItemSetup} from './menu-setup';
+import {menuItems} from './menu-setup';
 import {StringUtils} from '../shared/utils/string-utils';
+import {AuthenticationService} from '../authentication/authentication.service';
 
 @Injectable()
 export class NavigationService {
   public static smallViewportWidth: number = 600;
   public static largeViewportWidth: number = 992;
 
-  private _menuItems: Subject<MenuItem[]> = new BehaviorSubject(menuItemSetup);
+  private _menuItems: Subject<MenuItem[]> = new BehaviorSubject([]);
   private _pageTitle: Subject<string> = new BehaviorSubject(null);
   private _appTitle: Subject<string> = new BehaviorSubject('SixCRM');
   private _browserTitle: Subject<string> = new BehaviorSubject(null);
@@ -22,7 +23,9 @@ export class NavigationService {
   private _fixedNavbar: Subject<boolean> = new BehaviorSubject(true);
   private _isRouteLoading: Subject<boolean> = new BehaviorSubject(true);
 
-  constructor(public dialog: MdDialog) {
+  constructor(public dialog: MdDialog, private authService: AuthenticationService) {
+    this.setMenuItems(menuItems(authService));
+    this.authService.activeAclChanged$.subscribe(() => this.setMenuItems(menuItems(authService)))
   }
 
   public get menuItems(): Subject<MenuItem[]> {

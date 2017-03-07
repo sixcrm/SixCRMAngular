@@ -33,67 +33,81 @@ import {ProductScheduleComponent} from './product-schedule-page/product-schedule
 import {ProductScheduleViewComponent} from './product-schedule-page/product-schedule-view/product-schedule-view.component';
 import {DashboardComponent} from './dashboard-page/dashboard.component';
 import {SearchComponent} from './search-page/search.component';
+import {UsersAclGuard} from './guards/users-acl-guard.service';
+import {ProductsAclGuard} from './guards/products-acl-guard.service';
+import {CampaignsAclGuard} from './guards/campaigns-acl-guard.service';
+import {ProductSchedulesAclGuard} from './guards/product-schedules-acl-guard.service';
+import {MerchantProvidersAclGuard} from './guards/merchant-providers-acl-guard.service';
+import {FulfillmentProvidersAclGuard} from './guards/fulfillment-providers-acl-guard.service';
+import {AffiliatesAclGuard} from './guards/affiliates-acl-guard.service';
+import {CustomersAclGuard} from './guards/customers-acl-guard.service';
+import {SessionsAclGuard} from './guards/sessionss-acl-guard.service';
+import {LoadBalancersAclGuard} from './guards/load-balancers-acl-guard.service';
+import {TransactionsAclGuard} from './guards/transactions-acl-guard.service';
+import {CreditCardsAclGuard} from './guards/creditcards-acl-guard.service';
+import {SmtpProvidersAclGuard} from './guards/smtp-providers-acl-guard.service';
+import {EmailsAclGuard} from './guards/emails-acl-guard.service';
 
 export const pagesRouting = RouterModule.forChild([
   {
     path : '', component : DefaultLayoutComponent, children : [
       { path : '', component : DashboardComponent },
 
-      { path : 'campaigns', component : CampaignsComponent },
-      { path : 'campaigns/:type', component : CampaignViewComponent },
-      { path : 'campaigns/:type/:id', component : CampaignViewComponent },
+      { path : 'campaigns', component : CampaignsComponent, canActivate: [CampaignsAclGuard] },
+      { path : 'campaigns/:type', component : CampaignViewComponent, canActivate: [CampaignsAclGuard] },
+      { path : 'campaigns/:type/:id', component : CampaignViewComponent, canActivate: [CampaignsAclGuard] },
 
-      { path : 'products', component : ProductsComponent },
-      { path : 'products/:type', component : ProductViewComponent },
-      { path : 'products/:type/:id', component : ProductViewComponent },
+      { path : 'products', component : ProductsComponent, canActivate: [ProductsAclGuard] },
+      { path : 'products/:type', component : ProductViewComponent, canActivate: [ProductsAclGuard] },
+      { path : 'products/:type/:id', component : ProductViewComponent, canActivate: [ProductsAclGuard] },
 
-      { path : 'productSchedule', component : ProductScheduleComponent },
-      { path : 'productSchedule/:type', component : ProductScheduleViewComponent },
-      { path : 'productSchedule/:type/:id', component : ProductScheduleViewComponent },
+      { path : 'productSchedule', component : ProductScheduleComponent, canActivate: [ProductSchedulesAclGuard] },
+      { path : 'productSchedule/:type', component : ProductScheduleViewComponent, canActivate: [ProductSchedulesAclGuard] },
+      { path : 'productSchedule/:type/:id', component : ProductScheduleViewComponent, canActivate: [ProductSchedulesAclGuard] },
 
-      { path : 'merchantProviders', component : MerchantProvidersComponent },
-      { path : 'merchantProviders/:type', component : MerchantProviderViewComponent },
-      { path : 'merchantProviders/:type/:id', component : MerchantProviderViewComponent },
+      { path : 'merchantProviders', component : MerchantProvidersComponent, canActivate: [MerchantProvidersAclGuard] },
+      { path : 'merchantProviders/:type', component : MerchantProviderViewComponent, canActivate: [MerchantProvidersAclGuard] },
+      { path : 'merchantProviders/:type/:id', component : MerchantProviderViewComponent, canActivate: [MerchantProvidersAclGuard] },
 
-      { path : 'fulfillmentProviders', component : FulfillmentProvidersComponent },
-      { path : 'fulfillmentProviders/:type', component : FulfillmentProviderViewComponent },
-      { path : 'fulfillmentProviders/:type/:id', component : FulfillmentProviderViewComponent },
+      { path : 'fulfillmentProviders', component : FulfillmentProvidersComponent, canActivate: [FulfillmentProvidersAclGuard] },
+      { path : 'fulfillmentProviders/:type', component : FulfillmentProviderViewComponent, canActivate: [FulfillmentProvidersAclGuard] },
+      { path : 'fulfillmentProviders/:type/:id', component : FulfillmentProviderViewComponent, canActivate: [FulfillmentProvidersAclGuard] },
 
-      { path : 'affiliates', component : AffiliatesComponent },
-      { path : 'affiliates/:type', component : AffiliatesViewComponent },
-      { path : 'affiliates/:type/:id', component : AffiliatesViewComponent },
+      { path : 'affiliates', component : AffiliatesComponent, canActivate: [AffiliatesAclGuard] },
+      { path : 'affiliates/:type', component : AffiliatesViewComponent, canActivate: [AffiliatesAclGuard] },
+      { path : 'affiliates/:type/:id', component : AffiliatesViewComponent, canActivate: [AffiliatesAclGuard] },
 
-      { path : 'customers', component : CustomersComponent },
-      { path : 'customers/:type', component : CustomerViewComponent },
-      { path : 'customers/:type/:id', component : CustomerViewComponent },
+      { path : 'customers', component : CustomersComponent, canActivate: [CustomersAclGuard] },
+      { path : 'customers/:type', component : CustomerViewComponent, canActivate: [CustomersAclGuard] },
+      { path : 'customers/:type/:id', component : CustomerViewComponent, canActivate: [CustomersAclGuard] },
 
-      { path : 'sessions', component : SessionsComponent },
-      { path : 'sessions/:type', component : SessionViewComponent },
-      { path : 'sessions/:type/:id', component : SessionViewComponent },
+      { path : 'sessions', component : SessionsComponent, canActivate: [SessionsAclGuard] },
+      { path : 'sessions/:type', component : SessionViewComponent, canActivate: [SessionsAclGuard] },
+      { path : 'sessions/:type/:id', component : SessionViewComponent, canActivate: [SessionsAclGuard] },
 
-      { path : 'loadBalancers', component : LoadBalancersComponent },
-      { path : 'loadBalancers/:type', component : LoadBalancerViewComponent },
-      { path : 'loadBalancers/:type/:id', component : LoadBalancerViewComponent },
+      { path : 'loadBalancers', component : LoadBalancersComponent, canActivate: [LoadBalancersAclGuard] },
+      { path : 'loadBalancers/:type', component : LoadBalancerViewComponent, canActivate: [LoadBalancersAclGuard] },
+      { path : 'loadBalancers/:type/:id', component : LoadBalancerViewComponent, canActivate: [LoadBalancersAclGuard] },
 
-      { path : 'transactions', component : TransactionsComponent },
-      { path : 'transactions/:type', component : TransactionViewComponent },
-      { path : 'transactions/:type/:id', component : TransactionViewComponent },
+      { path : 'transactions', component : TransactionsComponent, canActivate: [TransactionsAclGuard] },
+      { path : 'transactions/:type', component : TransactionViewComponent, canActivate: [TransactionsAclGuard] },
+      { path : 'transactions/:type/:id', component : TransactionViewComponent, canActivate: [TransactionsAclGuard] },
 
-      { path : 'creditCards', component : CreditCardsComponent },
-      { path : 'creditCards/:type', component : CreditCardViewComponent },
-      { path : 'creditCards/:type/:id', component : CreditCardViewComponent },
+      { path : 'creditCards', component : CreditCardsComponent, canActivate: [CreditCardsAclGuard] },
+      { path : 'creditCards/:type', component : CreditCardViewComponent, canActivate: [CreditCardsAclGuard] },
+      { path : 'creditCards/:type/:id', component : CreditCardViewComponent, canActivate: [CreditCardsAclGuard] },
 
-      { path : 'users', component : UsersComponent },
-      { path : 'users/:type', component : UserViewComponent },
-      { path : 'users/:type/:id', component : UserViewComponent },
+      { path : 'users', component : UsersComponent, canActivate: [UsersAclGuard] },
+      { path : 'users/:type', component : UserViewComponent, canActivate: [UsersAclGuard] },
+      { path : 'users/:type/:id', component : UserViewComponent, canActivate: [UsersAclGuard] },
 
-      { path : 'smtpProviders', component : SmtpProvidersComponent },
-      { path : 'smtpProviders/:type', component : SmtpProviderViewComponent },
-      { path : 'smtpProviders/:type/:id', component : SmtpProviderViewComponent },
+      { path : 'smtpProviders', component : SmtpProvidersComponent, canActivate: [SmtpProvidersAclGuard] },
+      { path : 'smtpProviders/:type', component : SmtpProviderViewComponent, canActivate: [SmtpProvidersAclGuard] },
+      { path : 'smtpProviders/:type/:id', component : SmtpProviderViewComponent, canActivate: [SmtpProvidersAclGuard] },
 
-      { path : 'emails', component : EmailsComponent },
-      { path : 'emails/:type', component : EmailViewComponent },
-      { path : 'emails/:type/:id', component : EmailViewComponent },
+      { path : 'emails', component : EmailsComponent, canActivate: [EmailsAclGuard] },
+      { path : 'emails/:type', component : EmailViewComponent, canActivate: [EmailsAclGuard]  },
+      { path : 'emails/:type/:id', component : EmailViewComponent, canActivate: [EmailsAclGuard]  },
 
       { path : 'accessKeys', component : AccessKeysComponent },
       { path : 'accessKeys/:type', component : AccessKeyViewComponent },

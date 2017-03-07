@@ -41,6 +41,20 @@ import { ChartsModule } from 'ng2-charts';
 import { SearchComponent } from './search-page/search.component';
 import { UserComponent } from './users-page/user/user.component';
 import { ProductComponent } from './products-page/product/product.component';
+import {UsersAclGuard} from './guards/users-acl-guard.service';
+import {ProductsAclGuard} from './guards/products-acl-guard.service';
+import {CampaignsAclGuard} from './guards/campaigns-acl-guard.service';
+import {ProductSchedulesAclGuard} from './guards/product-schedules-acl-guard.service';
+import {MerchantProvidersAclGuard} from './guards/merchant-providers-acl-guard.service';
+import {FulfillmentProvidersAclGuard} from './guards/fulfillment-providers-acl-guard.service';
+import {AffiliatesAclGuard} from './guards/affiliates-acl-guard.service';
+import {CustomersAclGuard} from './guards/customers-acl-guard.service';
+import {SessionsAclGuard} from './guards/sessionss-acl-guard.service';
+import {LoadBalancersAclGuard} from './guards/load-balancers-acl-guard.service';
+import {TransactionsAclGuard} from './guards/transactions-acl-guard.service';
+import {CreditCardsAclGuard} from './guards/creditcards-acl-guard.service';
+import {SmtpProvidersAclGuard} from './guards/smtp-providers-acl-guard.service';
+import {EmailsAclGuard} from './guards/emails-acl-guard.service';
 
 @NgModule({
   imports : [
@@ -89,6 +103,22 @@ import { ProductComponent } from './products-page/product/product.component';
     SearchComponent,
     UserComponent,
     ProductComponent
+  ],
+  providers: [
+    UsersAclGuard,
+    ProductsAclGuard,
+    CampaignsAclGuard,
+    ProductSchedulesAclGuard,
+    MerchantProvidersAclGuard,
+    FulfillmentProvidersAclGuard,
+    AffiliatesAclGuard,
+    CustomersAclGuard,
+    SessionsAclGuard,
+    LoadBalancersAclGuard,
+    TransactionsAclGuard,
+    CreditCardsAclGuard,
+    SmtpProvidersAclGuard,
+    EmailsAclGuard
   ]
 })
 export class PagesModule {

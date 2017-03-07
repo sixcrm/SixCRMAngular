@@ -23,6 +23,7 @@ export abstract class AbstractEntityService<T> {
     private deleteQuery?: (id: string) => string,
     private createQuery?: (entity: T) => string,
     private updateQuery?: (entity: T) => string,
+    private accessRole?: string
   ) {
     this.entities$ = new Subject<T[]>();
     this.entitiesHasMore$ = new Subject<boolean>();
@@ -32,7 +33,11 @@ export abstract class AbstractEntityService<T> {
     this.entityUpdated$ = new Subject<T>();
   };
 
-  getEntities(limit?: number) {
+  getEntities(limit?: number): void {
+    if (!this.hasViewPermission()) {
+      return;
+    }
+
     this.queryRequest(this.indexQuery(limit, this.cursor)).subscribe(
       (data) => {
         let json = data.json().data;
@@ -59,7 +64,11 @@ export abstract class AbstractEntityService<T> {
     )
   }
 
-  getEntity(id: string) {
+  getEntity(id: string): void {
+    if (!this.hasViewPermission()) {
+      return;
+    }
+
     this.queryRequest(this.viewQuery(id)).subscribe(
       (data) => {
         let json = data.json().data;
@@ -75,6 +84,10 @@ export abstract class AbstractEntityService<T> {
   }
 
   deleteEntity(id: string): void {
+    if (!this.hasWritePermission()) {
+      return;
+    }
+
     this.queryRequest(this.deleteQuery(id)).subscribe(
       (data) => {
         let json = data.json().data;
@@ -88,6 +101,10 @@ export abstract class AbstractEntityService<T> {
   }
 
   createEntity(entity: T): void {
+    if (!this.hasWritePermission()) {
+      return;
+    }
+
     this.queryRequest(this.createQuery(entity)).subscribe(
       (data) => {
         let json = data.json().data;
@@ -100,6 +117,10 @@ export abstract class AbstractEntityService<T> {
   }
 
   updateEntity(entity: T): void {
+    if (!this.hasWritePermission()) {
+      return;
+    }
+
     this.queryRequest(this.updateQuery(entity)).subscribe(
       (data) => {
         let json = data.json().data;
@@ -113,6 +134,14 @@ export abstract class AbstractEntityService<T> {
 
   resetPagination(): void {
     this.cursor = '';
+  }
+
+  hasWritePermission(): boolean {
+    return this.authService.hasPermissions(this.accessRole, 'write');
+  }
+
+  hasViewPermission(): boolean {
+    return this.authService.hasPermissions(this.accessRole, 'view');
   }
 
   protected queryRequest(query: string): Observable<Response> {

@@ -466,7 +466,6 @@ export function usersListQuery(limit?: number, cursor?: string): string {
 			  acl {
 					account { id name active }
 					role { id name active }
-					signature
 				}
 			}
 			pagination { count end_cursor has_next_page }
@@ -490,6 +489,20 @@ export function userQueryByEmail(email: string): string {
 				}
 			}
 		}`
+}
+
+export function userIntrospection(): string {
+  return `{
+    userintrospection { id name auth0_id email active termsandconditions
+      acl {
+        account { id name active }
+        role { id name active 
+          permissions { allow deny }
+        }
+      }
+      address { line1 line2 city state zip country }
+    }
+  }`
 }
 
 export function deleteUserMutation(id: string): string {

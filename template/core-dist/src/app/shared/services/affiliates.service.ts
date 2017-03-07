@@ -20,7 +20,8 @@ export class AffiliatesService extends AbstractEntityService<Affiliate> {
       affiliateQuery,
       deleteAffiliateMutation,
       createAffiliateMutation,
-      updateAffiliateMutation
+      updateAffiliateMutation,
+      'affiliate'
     );
   }
 }

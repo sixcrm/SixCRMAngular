@@ -20,7 +20,8 @@ export class LoadBalancersService extends AbstractEntityService<LoadBalancer> {
       loadBalancerQuery,
       deleteLoadBalancerMutation,
       createLoadBalancerMutation,
-      updateLoadBalancerMutation
+      updateLoadBalancerMutation,
+      'loadbalancer'
     );
   }
 }

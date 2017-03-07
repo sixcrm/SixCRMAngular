@@ -15,7 +15,10 @@ export class TransactionsService extends AbstractEntityService<Transaction> {
       data => new Transaction(data),
       transactionsInfoListQuery,
       transactionQuery,
-      deleteTransactionMutation
+      deleteTransactionMutation,
+      null,
+      null,
+      'transaction'
     );
   }
 }

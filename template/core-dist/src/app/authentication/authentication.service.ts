@@ -5,7 +5,7 @@ import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {environment} from '../../environments/environment';
 import {Http, Headers} from '@angular/http';
 import {
-  userQueryByEmail, createUserForRegistration, updateUserForRegistration,
+  userIntrospection, createUserForRegistration, updateUserForRegistration,
   createCreditCardMutation
 } from '../shared/utils/query-builder';
 import {User} from '../shared/models/user.model';
@@ -55,7 +55,7 @@ export class AuthenticationService {
     });
 
     if (this.authenticated()) {
-      this.getUserByEmail(JSON.parse(localStorage.getItem(this.idTokenPayload)));
+      this.getUserIntrospection(JSON.parse(localStorage.getItem(this.idTokenPayload)));
     }
   }
 
@@ -90,10 +90,6 @@ export class AuthenticationService {
   public getSixUser(): User {
     let sixUser = localStorage.getItem(this.sixUser);
 
-    if (!sixUser) {
-      this.logout();
-    }
-
     return new User(JSON.parse(sixUser));
   }
 
@@ -111,23 +107,52 @@ export class AuthenticationService {
     this.activeAclChanged$.next(true);
   }
 
+  public updateUserForRegistration(user: User, cc: CreditCard): Observable<boolean> {
+    let subject: Subject<boolean> = new Subject<boolean>();
+
+    this.http.post(environment.endpoint, createCreditCardMutation(cc), { headers: this.generateHeaders()})
+      .subscribe(
+        () => {
+          this.http.post(environment.endpoint, updateUserForRegistration(user), { headers: this.generateHeaders()})
+            .subscribe(
+              (data) => {
+                this.userUnderReg$.next(new User(data.json().data.updateuser));
+                subject.next(true);
+              },
+              () => {
+                subject.next(false);
+              }
+            );
+        },
+        () => {
+          subject.next(false);
+        }
+      );
+
+    return subject;
+  }
+
+  public hasPermissions(entity: string, operation: string): boolean {
+    return this.getSixUser().hasPermissions(entity, operation, this.getActiveAcl());
+  }
+
   private setUser(authResult): void {
     localStorage.setItem(this.accessToken, authResult.accessToken);
     localStorage.setItem(this.idToken, authResult.idToken);
     localStorage.setItem(this.idTokenPayload, JSON.stringify(authResult.idTokenPayload));
 
-    this.getUserByEmail(authResult.idTokenPayload);
+    this.getUserIntrospection(authResult.idTokenPayload);
   }
 
-  private getUserByEmail(profile: any): void {
+  private getUserIntrospection(profile: any): void {
     if (!profile) {
       this.logout();
       return;
     }
 
-    this.http.post(environment.endpoint + '*', userQueryByEmail(profile.email), { headers: this.generateHeaders()}).subscribe(
+    this.http.post(environment.endpoint + '*', userIntrospection(), { headers: this.generateHeaders()}).subscribe(
       (data) => {
-        let user = data.json().data.user;
+        let user = data.json().data.userintrospection;
         if (!user) {
           this.createUserForRegistration(profile.email);
         } else {
@@ -170,6 +195,7 @@ export class AuthenticationService {
       if (defaultAcl) {
         localStorage.setItem(this.activeAcl, JSON.stringify(defaultAcl.inverse()));
         this.activeAcl$.next(defaultAcl);
+        this.activeAclChanged$.next(true);
       }
     }
   }
@@ -182,31 +208,6 @@ export class AuthenticationService {
           this.router.navigateByUrl('/register');
           this.userUnderReg$.next(new User(data.json().data.createuser));
         });
-  }
-
-  public updateUserForRegistration(user: User, cc: CreditCard): Observable<boolean> {
-    let subject: Subject<boolean> = new Subject<boolean>();
-
-    this.http.post(environment.endpoint, createCreditCardMutation(cc), { headers: this.generateHeaders()})
-      .subscribe(
-        () => {
-          this.http.post(environment.endpoint, updateUserForRegistration(user), { headers: this.generateHeaders()})
-            .subscribe(
-              (data) => {
-                this.userUnderReg$.next(new User(data.json().data.updateuser));
-                subject.next(true);
-              },
-              () => {
-                subject.next(false);
-              }
-            );
-        },
-        () => {
-          subject.next(false);
-        }
-      );
-
-    return subject;
   }
 
   private generateAcquireJWTHeaders(authString: string): Headers {

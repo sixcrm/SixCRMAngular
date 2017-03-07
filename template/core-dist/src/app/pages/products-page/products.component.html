@@ -1,6 +1,6 @@
 <product *ngIf="showEntityDetails" [entityId]="showEntityId" (close)="hideEntityDetails()"></product>
 
-<button md-raised-button color="primary" class="entity-index__add" (click)="addEntity()">Add New</button>
+<button md-raised-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="addEntity()">Add New</button>
 
 <md-card class="entity-index__card">
   <md-card-content class="entity-index__card__content">

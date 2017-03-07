@@ -15,7 +15,10 @@ export class EmailsService extends AbstractEntityService<Email> {
       data => new Email(data),
       emailsListQuery,
       emailQuery,
-      deleteEmailMutation
+      deleteEmailMutation,
+      null,
+      null,
+      'email'
     )
   }
 

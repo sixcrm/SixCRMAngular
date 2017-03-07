@@ -15,7 +15,10 @@ export class CampaignsService extends AbstractEntityService<Campaign> {
       data => new Campaign(data),
       campaignsInfoListQuery,
       campaignQuery,
-      deleteCampaignMutation
+      deleteCampaignMutation,
+      null,
+      null,
+      'campaign'
     );
   }
 }
