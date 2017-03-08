@@ -144,6 +144,10 @@ export abstract class AbstractEntityService<T> {
     return this.authService.hasPermissions(this.accessRole, 'view');
   }
 
+  hasReadPermission(): boolean {
+    return this.authService.hasPermissions(this.accessRole, 'read');
+  }
+
   protected queryRequest(query: string): Observable<Response> {
     let endpoint = environment.endpoint;
 

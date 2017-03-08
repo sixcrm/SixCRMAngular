@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {MerchantProvidersService} from "../../shared/services/merchant-providers.service";
 import {MerchantProvider} from '../../shared/models/merchant-provider.model';
-import {Router, ActivatedRoute} from '@angular/router';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {MdDialog} from '@angular/material';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {PaginationService} from '../../shared/services/pagination.service';
+import {AuthenticationService} from '../../authentication/authentication.service';
 
 @Component({
   selector: 'merchant-providers',
@@ -16,13 +16,12 @@ export class MerchantProvidersComponent extends AbstractEntityIndexComponent<Mer
 
   constructor(
     private merchantProvidersService: MerchantProvidersService,
-    router: Router,
-    route: ActivatedRoute,
+    auth: AuthenticationService,
     dialog: MdDialog,
     progressBarService: ProgressBarService,
     paginationService: PaginationService
   ) {
-    super(merchantProvidersService, router, route, dialog, progressBarService, paginationService);
+    super(merchantProvidersService, auth, dialog, progressBarService, paginationService);
   }
 
   ngOnInit() {

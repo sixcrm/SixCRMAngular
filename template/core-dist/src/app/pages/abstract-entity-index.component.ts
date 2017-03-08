@@ -1,9 +1,9 @@
-import {ActivatedRoute, Router} from '@angular/router';
 import {AbstractEntityService} from '../shared/services/abstract-entity.service';
 import {DeleteDialogComponent} from './delete-dialog.component';
 import {MdDialog, MdDialogRef} from '@angular/material';
 import {ProgressBarService} from '../shared/services/progress-bar.service';
 import {PaginationService} from '../shared/services/pagination.service';
+import {AuthenticationService} from '../authentication/authentication.service';
 
 export abstract class AbstractEntityIndexComponent<T> {
   private deleteDialogRef: MdDialogRef<DeleteDialogComponent>;
@@ -18,9 +18,8 @@ export abstract class AbstractEntityIndexComponent<T> {
   protected showEntityId: string;
 
   constructor(
-    private service: AbstractEntityService<T>,
-    private router: Router,
-    private route: ActivatedRoute,
+    protected service: AbstractEntityService<T>,
+    protected authService: AuthenticationService,
     private deleteDialog: MdDialog,
     protected progressBarService?: ProgressBarService,
     protected paginationService?: PaginationService
@@ -91,7 +90,7 @@ export abstract class AbstractEntityIndexComponent<T> {
   }
 
   updateEntity(id: string): void {
-    this.router.navigate(['update', id], { relativeTo: this.route});
+
   }
 
   deleteEntity(id: string): void {
@@ -107,7 +106,15 @@ export abstract class AbstractEntityIndexComponent<T> {
   }
 
   addEntity(): void {
-    this.router.navigate(['addEntity'], { relativeTo: this.route});
+
+  }
+
+  copyEntity(id: string): void {
+
+  }
+
+  exportEntity(id: string): void {
+
   }
 
   hasMorePages(): boolean {

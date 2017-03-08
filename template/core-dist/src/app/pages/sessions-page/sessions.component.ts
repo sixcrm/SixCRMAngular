@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {SessionsService} from "../../shared/services/sessions.service";
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
-import {ActivatedRoute, Router} from '@angular/router';
 import {Session} from '../../shared/models/session.model';
 import {MdDialog} from '@angular/material';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {PaginationService} from '../../shared/services/pagination.service';
+import {AuthenticationService} from '../../authentication/authentication.service';
 
 @Component({
   selector: 'sessions',
@@ -16,13 +16,12 @@ export class SessionsComponent extends AbstractEntityIndexComponent<Session> imp
 
   constructor(
     private sessionsService: SessionsService,
-    router: Router,
-    route: ActivatedRoute,
+    auth: AuthenticationService,
     dialog: MdDialog,
     progressBarService: ProgressBarService,
     paginationService: PaginationService
   ) {
-    super(sessionsService, router, route, dialog, progressBarService, paginationService);
+    super(sessionsService, auth, dialog, progressBarService, paginationService);
   }
 
   ngOnInit() {

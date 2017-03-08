@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {SmtpProvidersService} from '../../shared/services/smtp-providers.service';
-import {Router, ActivatedRoute} from '@angular/router';
 import {SmtpProvider} from '../../shared/models/smtp-provider.model';
 import {MdDialog} from '@angular/material';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {PaginationService} from '../../shared/services/pagination.service';
+import {AuthenticationService} from '../../authentication/authentication.service';
 
 @Component({
   selector: 'c-smtp-providers',
@@ -16,13 +16,12 @@ export class SmtpProvidersComponent extends AbstractEntityIndexComponent<SmtpPro
 
   constructor(
     private smtpProvidersService: SmtpProvidersService,
-    router: Router,
-    route: ActivatedRoute,
+    auth: AuthenticationService,
     dialog: MdDialog,
     progressBarService: ProgressBarService,
     paginationService: PaginationService
   ) {
-    super(smtpProvidersService, router, route, dialog, progressBarService, paginationService);
+    super(smtpProvidersService, auth, dialog, progressBarService, paginationService);
   }
 
   ngOnInit() {

@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {User} from '../../shared/models/user.model';
 import {UsersService} from '../../shared/services/users.service';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
-import {ActivatedRoute, Router} from '@angular/router';
 import {MdDialog} from '@angular/material';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {PaginationService} from '../../shared/services/pagination.service';
@@ -16,15 +15,13 @@ import {AuthenticationService} from '../../authentication/authentication.service
 export class UsersComponent extends AbstractEntityIndexComponent<User> implements OnInit {
 
   constructor(
-    private authService: AuthenticationService,
     private usersService: UsersService,
-    router: Router,
-    route: ActivatedRoute,
+    auth: AuthenticationService,
     dialog: MdDialog,
     progressBarService: ProgressBarService,
     paginationService: PaginationService
   ) {
-    super(usersService, router, route, dialog, progressBarService, paginationService);
+    super(usersService, auth, dialog, progressBarService, paginationService);
   }
 
   ngOnInit() {

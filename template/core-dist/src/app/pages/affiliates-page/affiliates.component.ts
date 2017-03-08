@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {AffiliatesService} from "../../shared/services/affiliates.service";
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
-import {ActivatedRoute, Router} from '@angular/router';
 import {Affiliate} from '../../shared/models/affiliate.model';
 import {MdDialog} from '@angular/material';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {PaginationService} from '../../shared/services/pagination.service';
+import {AuthenticationService} from '../../authentication/authentication.service';
 
 @Component({
   selector: 'affiliates',
@@ -16,13 +16,12 @@ export class AffiliatesComponent extends AbstractEntityIndexComponent<Affiliate>
 
   constructor(
     private affiliatesService: AffiliatesService,
-    router: Router,
-    route: ActivatedRoute,
+    auth: AuthenticationService,
     dialog: MdDialog,
     progressBarService: ProgressBarService,
     paginationService: PaginationService
   ) {
-    super(affiliatesService, router, route, dialog, progressBarService, paginationService);
+    super(affiliatesService, auth, dialog, progressBarService, paginationService);
   }
 
   ngOnInit() {

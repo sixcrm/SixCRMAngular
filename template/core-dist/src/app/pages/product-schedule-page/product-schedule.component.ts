@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductScheduleService} from '../../shared/services/product-schedule.service';
-import {ActivatedRoute, Router} from '@angular/router';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {ProductSchedule} from '../../shared/models/product-schedule.model';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../shared/services/pagination.service';
+import {AuthenticationService} from '../../authentication/authentication.service';
 
 @Component({
   selector: 'c-product-schedule',
@@ -16,13 +16,12 @@ export class ProductScheduleComponent extends AbstractEntityIndexComponent<Produ
 
   constructor(
     private productScheduleService: ProductScheduleService,
-    router: Router,
-    route: ActivatedRoute,
+    auth: AuthenticationService,
     dialog: MdDialog,
     progressBarService: ProgressBarService,
     paginationService: PaginationService
   ) {
-    super(productScheduleService, router, route, dialog, progressBarService, paginationService);
+    super(productScheduleService, auth, dialog, progressBarService, paginationService);
   }
 
   ngOnInit() {

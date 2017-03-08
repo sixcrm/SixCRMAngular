@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {TransactionsService} from "../../shared/services/transactions.service";
-import {ActivatedRoute, Router} from '@angular/router';
 import {Transaction} from '../../shared/models/transaction.model';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {MdDialog} from '@angular/material';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {PaginationService} from '../../shared/services/pagination.service';
+import {AuthenticationService} from '../../authentication/authentication.service';
 
 @Component({
   selector: 'transactions',
@@ -16,14 +16,13 @@ export class TransactionsComponent extends AbstractEntityIndexComponent<Transact
 
   constructor(
     private transactionsService: TransactionsService,
-    router: Router,
-    route: ActivatedRoute,
+    auth: AuthenticationService,
     dialog: MdDialog,
     progressBarService: ProgressBarService,
     paginationService: PaginationService
 
   ) {
-    super(transactionsService, router, route, dialog, progressBarService, paginationService);
+    super(transactionsService, auth, dialog, progressBarService, paginationService);
   }
 
   ngOnInit() {

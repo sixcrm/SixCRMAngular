@@ -55,6 +55,8 @@ import {TransactionsAclGuard} from './guards/transactions-acl-guard.service';
 import {CreditCardsAclGuard} from './guards/creditcards-acl-guard.service';
 import {SmtpProvidersAclGuard} from './guards/smtp-providers-acl-guard.service';
 import {EmailsAclGuard} from './guards/emails-acl-guard.service';
+import { TableActionsComponent } from './components/table-actions/table-actions.component';
+import { TablePaginationComponent } from './components/table-pagination/table-pagination.component';
 
 @NgModule({
   imports : [
@@ -102,7 +104,9 @@ import {EmailsAclGuard} from './guards/emails-acl-guard.service';
     DashboardComponent,
     SearchComponent,
     UserComponent,
-    ProductComponent
+    ProductComponent,
+    TableActionsComponent,
+    TablePaginationComponent
   ],
   providers: [
     UsersAclGuard,
