@@ -28,10 +28,6 @@ export class UsersComponent extends AbstractEntityIndexComponent<User> implement
     this.usersService.entityDeleted$.subscribe(() =>{
       this.usersService.getEntities();
     });
-    this.authService.activeAclChanged$.subscribe(() => {
-      this.resetEntities();
-      this.usersService.getEntities(this.limit);
-    });
 
     this.init();
   }

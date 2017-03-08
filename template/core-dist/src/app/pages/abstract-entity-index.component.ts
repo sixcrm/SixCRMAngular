@@ -31,9 +31,12 @@ export abstract class AbstractEntityIndexComponent<T> {
       this.reshuffleEntities();
       this.progressBarService.hideTopProgressBar();
     });
-
     this.paginationService.limit$.subscribe((lim: number) => this.limit = lim);
     this.service.entitiesHasMore$.subscribe((hasMore: boolean) => this.hasMore = hasMore);
+    this.authService.activeAclChanged$.subscribe(() => {
+      this.resetEntities();
+      this.service.getEntities(this.limit);
+    });
     this.service.resetPagination();
     this.service.getEntities(this.limit);
     this.progressBarService.showTopProgressBar();
