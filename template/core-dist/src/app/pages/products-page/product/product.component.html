@@ -1,87 +1,89 @@
-<div class="entity">
-  <div class="entity__nav">
-    <md-icon class="entity__nav__close" (click)="closeDetails()">arrow_forward</md-icon>
-    <md-icon class="entity__nav__add">add</md-icon>
-    <md-icon class="entity__nav__more">more_vert</md-icon>
-  </div>
-
-  <div *ngIf="entity">
-    <div class="entity__caption">
-      {{entity.name}}
+<div class="entity--wrapper">
+  <div class="entity">
+    <div class="entity__nav">
+      <md-icon class="entity__nav__close" (click)="closeDetails()">arrow_forward</md-icon>
+      <md-icon class="entity__nav__add">add</md-icon>
+      <md-icon class="entity__nav__more">more_vert</md-icon>
     </div>
 
-    <div class="entity__content">
-      <md-tab-group>
-        <md-tab label="Details">
+    <div *ngIf="entity">
+      <div class="entity__caption">
+        {{entity.name}}
+      </div>
 
-          <div class="entity__content__general">
-            <div class="entity__content__general__title" (click)="toggleGeneralDetails()">
-              <span>GENERAL DETAILS</span>
-              <md-icon *ngIf="showGeneralDetails">keyboard_arrow_up</md-icon>
-              <md-icon *ngIf="!showGeneralDetails">keyboard_arrow_down</md-icon>
-            </div>
+      <div class="entity__content">
+        <md-tab-group>
+          <md-tab label="Details">
 
-            <div *ngIf="showGeneralDetails" class="entity__content__general__content">
-              <div>
-                <span>ID:</span><span>{{entity.id}}</span>
+            <div class="entity__content__general">
+              <div class="entity__content__general__title" (click)="toggleGeneralDetails()">
+                <span>GENERAL DETAILS</span>
+                <md-icon *ngIf="showGeneralDetails">keyboard_arrow_up</md-icon>
+                <md-icon *ngIf="!showGeneralDetails">keyboard_arrow_down</md-icon>
               </div>
 
-              <div>
-                <span>Name:</span><span>{{entity.name}}</span>
-              </div>
+              <div *ngIf="showGeneralDetails" class="entity__content__general__content">
+                <div>
+                  <span>ID:</span><span>{{entity.id}}</span>
+                </div>
 
-              <div>
-                <span>SKU:</span><span>{{entity.sku}}</span>
-              </div>
+                <div>
+                  <span>Name:</span><span>{{entity.name}}</span>
+                </div>
 
-              <div>
-                <span>Ship:</span><span>{{entity.ship}}</span>
-              </div>
+                <div>
+                  <span>SKU:</span><span>{{entity.sku}}</span>
+                </div>
 
-              <div>
-                <span>Shipping Delay</span><span>{{entity.shippingDelay}}</span>
-              </div>
-            </div>
-          </div>
+                <div>
+                  <span>Ship:</span><span>{{entity.ship}}</span>
+                </div>
 
-          <div class="entity__content__general">
-            <div class="entity__content__general__title" (click)="toggleFulfillmentProviderDetails()">
-              <span>FULFILLMENT PROVIDER</span>
-              <md-icon *ngIf="showFulfillmentProviderDetails">keyboard_arrow_up</md-icon>
-              <md-icon *ngIf="!showFulfillmentProviderDetails">keyboard_arrow_down</md-icon>
-            </div>
-
-            <div *ngIf="showFulfillmentProviderDetails" class="entity__content__general__content">
-              <div>
-                <span>ID:</span><span>{{entity.fulfillmentProvider.id}}</span>
-              </div>
-
-              <div>
-                <span>Name:</span><span>{{entity.fulfillmentProvider.name}}</span>
-              </div>
-
-              <div>
-                <span>Username:</span><span>{{entity.fulfillmentProvider.username}}</span>
-              </div>
-
-              <div>
-                <span>Endpoint:</span><span>{{entity.fulfillmentProvider.endpoint}}</span>
-              </div>
-
-              <div>
-                <span>Password:</span><span>{{entity.fulfillmentProvider.password}}</span>
-              </div>
-
-              <div>
-                <span>Provider:</span><span>{{entity.fulfillmentProvider.provider}}</span>
+                <div>
+                  <span>Shipping Delay</span><span>{{entity.shippingDelay}}</span>
+                </div>
               </div>
             </div>
-          </div>
-        </md-tab>
-        <md-tab label="Edit">
 
-        </md-tab>
-      </md-tab-group>
+            <div class="entity__content__general">
+              <div class="entity__content__general__title" (click)="toggleFulfillmentProviderDetails()">
+                <span>FULFILLMENT PROVIDER</span>
+                <md-icon *ngIf="showFulfillmentProviderDetails">keyboard_arrow_up</md-icon>
+                <md-icon *ngIf="!showFulfillmentProviderDetails">keyboard_arrow_down</md-icon>
+              </div>
+
+              <div *ngIf="showFulfillmentProviderDetails" class="entity__content__general__content">
+                <div>
+                  <span>ID:</span><span>{{entity.fulfillmentProvider.id}}</span>
+                </div>
+
+                <div>
+                  <span>Name:</span><span>{{entity.fulfillmentProvider.name}}</span>
+                </div>
+
+                <div>
+                  <span>Username:</span><span>{{entity.fulfillmentProvider.username}}</span>
+                </div>
+
+                <div>
+                  <span>Endpoint:</span><span>{{entity.fulfillmentProvider.endpoint}}</span>
+                </div>
+
+                <div>
+                  <span>Password:</span><span>{{entity.fulfillmentProvider.password}}</span>
+                </div>
+
+                <div>
+                  <span>Provider:</span><span>{{entity.fulfillmentProvider.provider}}</span>
+                </div>
+              </div>
+            </div>
+          </md-tab>
+          <md-tab label="Edit">
+
+          </md-tab>
+        </md-tab-group>
+      </div>
     </div>
   </div>
 </div>

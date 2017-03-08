@@ -238,6 +238,10 @@ header md-toolbar {
       color: $font-color;
     }
   }
+
+  .md-toolbar-layout {
+    z-index: 2;
+  }
 }
 
 [md-icon-button] {
