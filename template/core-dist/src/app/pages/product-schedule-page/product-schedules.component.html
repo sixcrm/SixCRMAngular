@@ -1,3 +1,5 @@
+<product-schedule *ngIf="showEntityDetails" [entityId]="showEntityId" (close)="hideEntityDetails()"></product-schedule>
+
 <button md-raised-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="addEntity()">Add New</button>
 
 <md-card class="entity-index__card">
@@ -14,8 +16,8 @@
 
       <tbody>
       <tr *ngFor="let entity of entities">
-        <td>{{entity.id}}</td>
-        <td>{{entity.schedules.length}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.id}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.schedules.length}}</td>
         <td>
           <table-actions
             [service]="service"

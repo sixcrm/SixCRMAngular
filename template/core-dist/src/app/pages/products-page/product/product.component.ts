@@ -11,18 +11,12 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
 })
 export class ProductComponent extends AbstractEntityComponent<Product> implements OnInit {
 
-  private showFulfillmentProviderDetails: boolean = true
-
   constructor(service: ProductsService, progressBarService?: ProgressBarService) {
     super(service, progressBarService);
   }
 
   ngOnInit() {
     this.init();
-  }
-
-  toggleFulfillmentProviderDetails(): void {
-    this.showFulfillmentProviderDetails = !this.showFulfillmentProviderDetails;
   }
 
 }

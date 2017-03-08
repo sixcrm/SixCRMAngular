@@ -1,0 +1,37 @@
+<div class="entity--wrapper">
+  <div class="entity">
+    <entity-view-topnav [service]="service" (close)="closeDetails()"></entity-view-topnav>
+
+    <div *ngIf="entity">
+      <div class="entity__caption">
+        {{entity.name}}
+      </div>
+
+      <div class="entity__content">
+        <md-tab-group>
+          <md-tab label="Details">
+
+            <entity-view-info
+              [title]="'GENERAL DETAILS'"
+              [data]="[
+                {name:'ID', value: entity.id},
+                {name:'Affiliate ID', value: entity.affiliateId},
+                {name:'Sub ID 1', value: entity.subId1},
+                {name:'Sub ID 2', value: entity.subId2},
+                {name:'Sub ID 3', value: entity.subId3},
+                {name:'Sub ID 4', value: entity.subId4},
+                {name:'Sub ID 5', value: entity.subId5},
+                {name:'Click ID', value: entity.clickId}
+              ]">
+            </entity-view-info>
+
+          </md-tab>
+          <md-tab label="Edit">
+
+          </md-tab>
+        </md-tab-group>
+      </div>
+    </div>
+  </div>
+</div>
+

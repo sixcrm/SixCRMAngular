@@ -1,0 +1,13 @@
+<div class="entity__content__general">
+  <div class="entity__content__general__title" (click)="toggle()">
+    <span>{{title}}</span>
+    <md-icon *ngIf="show">keyboard_arrow_up</md-icon>
+    <md-icon *ngIf="!show">keyboard_arrow_down</md-icon>
+  </div>
+
+  <div *ngIf="show" class="entity__content__general__content">
+    <div *ngFor="let pair of data">
+      <span>{{pair.name}}:</span><span>{{pair.value}}</span>
+    </div>
+  </div>
+</div>

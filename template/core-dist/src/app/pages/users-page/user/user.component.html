@@ -1,10 +1,6 @@
 <div class="entity--wrapper">
   <div class="entity">
-    <div class="entity__nav">
-      <md-icon class="entity__nav__close" (click)="closeDetails()">arrow_forward</md-icon>
-      <md-icon class="entity__nav__add">add</md-icon>
-      <md-icon class="entity__nav__more">more_vert</md-icon>
-    </div>
+    <entity-view-topnav [service]="service" (close)="closeDetails()"></entity-view-topnav>
 
     <div *ngIf="entity">
       <div class="entity__caption">
@@ -15,69 +11,29 @@
         <md-tab-group>
           <md-tab label="Details">
 
-            <div class="entity__content__general">
-              <div class="entity__content__general__title" (click)="toggleGeneralDetails()">
-                <span>GENERAL DETAILS</span>
-                <md-icon *ngIf="showGeneralDetails">keyboard_arrow_up</md-icon>
-                <md-icon *ngIf="!showGeneralDetails">keyboard_arrow_down</md-icon>
-              </div>
+            <entity-view-info
+              [title]="'GENERAL DETAILS'"
+              [data]="[
+                {name:'ID', value: entity.id},
+                {name:'Name', value: entity.name},
+                {name:'Email', value: entity.email},
+                {name:'Active', value: entity.account},
+                {name:'Terms And Conditions', value: entity.termsAndConditions}
+              ]">
+            </entity-view-info>
 
-              <div *ngIf="showGeneralDetails" class="entity__content__general__content">
-                <div>
-                  <span>ID:</span><span>{{entity.id}}</span>
-                </div>
+            <entity-view-info
+              [title]="'ADDRESS'"
+              [data]="[
+                {name:'Country', value: entity.address.country},
+                {name:'State', value: entity.address.state},
+                {name:'City', value: entity.address.city},
+                {name:'Line 1', value: entity.address.line1},
+                {name:'Line 2', value: entity.address.line2},
+                {name:'Zip', value: entity.address.zip}
+              ]">
+            </entity-view-info>
 
-                <div>
-                  <span>Name:</span><span>{{entity.name}}</span>
-                </div>
-
-                <div>
-                  <span>Email:</span><span>{{entity.email}}</span>
-                </div>
-
-                <div>
-                  <span>Active:</span><span>{{entity.active}}</span>
-                </div>
-
-                <div>
-                  <span>Terms and Conditions:</span><span>{{entity.termsAndConditions}}</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="entity__content__general">
-              <div class="entity__content__general__title" (click)="toggleAddressDetails()">
-                <span>GENERAL DETAILS</span>
-                <md-icon *ngIf="showAddressDetails">keyboard_arrow_up</md-icon>
-                <md-icon *ngIf="!showAddressDetails">keyboard_arrow_down</md-icon>
-              </div>
-
-              <div *ngIf="showAddressDetails" class="entity__content__general__content">
-                <div>
-                  <span>Country:</span><span>{{entity.address.country}}</span>
-                </div>
-
-                <div>
-                  <span>State:</span><span>{{entity.address.state}}</span>
-                </div>
-
-                <div>
-                  <span>City:</span><span>{{entity.address.city}}</span>
-                </div>
-
-                <div>
-                  <span>Line 1:</span><span>{{entity.address.line1}}</span>
-                </div>
-
-                <div>
-                  <span>Line 2:</span><span>{{entity.address.line2}}</span>
-                </div>
-
-                <div>
-                  <span>Zip:</span><span>{{entity.address.zip}}</span>
-                </div>
-              </div>
-            </div>
           </md-tab>
           <md-tab label="Edit">
 

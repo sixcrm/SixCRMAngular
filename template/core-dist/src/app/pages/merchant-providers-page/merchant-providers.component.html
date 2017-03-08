@@ -1,3 +1,5 @@
+<merchant-provider *ngIf="showEntityDetails" [entityId]="showEntityId" (close)="hideEntityDetails()"></merchant-provider>
+
 <button md-raised-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="addEntity()">Add New</button>
 
 <md-card class="entity-index__card">
@@ -11,17 +13,17 @@
           <th data-field="password">Password <md-icon>keyboard_arrow_down</md-icon></th>
           <th data-field="endpoint">Endpoint <md-icon>keyboard_arrow_down</md-icon></th>
           <th data-field="processor">Processor <md-icon>keyboard_arrow_down</md-icon></th>
-          <th>Actions</th>
+          <th></th>
         </tr>
       </thead>
 
       <tbody>
         <tr *ngFor="let entity of entities">
-          <td>{{entity.name}}</td>
-          <td>{{entity.username}}</td>
-          <td>{{entity.password}}</td>
-          <td>{{entity.endpoint}}</td>
-          <td>{{entity.processor}}</td>
+          <td (click)="viewEntity(entity.id)">{{entity.name}}</td>
+          <td (click)="viewEntity(entity.id)">{{entity.username}}</td>
+          <td (click)="viewEntity(entity.id)">{{entity.password}}</td>
+          <td (click)="viewEntity(entity.id)">{{entity.endpoint}}</td>
+          <td (click)="viewEntity(entity.id)">{{entity.processor}}</td>
           <td>
             <table-actions
               [service]="service"

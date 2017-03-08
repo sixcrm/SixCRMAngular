@@ -1,3 +1,5 @@
+<email *ngIf="showEntityDetails" [entityId]="showEntityId" (close)="hideEntityDetails()"></email>
+
 <button md-raised-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="addEntity()">Add New</button>
 
 <md-card class="entity-index__card">
@@ -15,10 +17,10 @@
 
       <tbody>
         <tr *ngFor="let email of entities">
-          <td>{{email.name}}</td>
-          <td>{{email.subject}}</td>
-          <td>{{email.type}}</td>
-          <td>{{email.smtpProvider.name}}</td>
+          <td (click)="viewEntity(entity.id)">{{email.name}}</td>
+          <td (click)="viewEntity(entity.id)">{{email.subject}}</td>
+          <td (click)="viewEntity(entity.id)">{{email.type}}</td>
+          <td (click)="viewEntity(entity.id)">{{email.smtpProvider.name}}</td>
           <td>
             <table-actions
               [service]="service"

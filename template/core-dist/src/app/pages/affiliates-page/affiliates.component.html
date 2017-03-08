@@ -1,3 +1,5 @@
+<affiliate *ngIf="showEntityDetails" [entityId]="showEntityId" (close)="hideEntityDetails()"></affiliate>
+
 <button md-raised-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="addEntity()">Add New</button>
 
 <md-card class="entity-index__card">
@@ -19,13 +21,13 @@
 
       <tbody>
       <tr *ngFor="let entity of entities">
-        <td>{{entity.affiliateId}}</td>
-        <td>{{entity.subId1}}</td>
-        <td>{{entity.subId2}}</td>
-        <td>{{entity.subId3}}</td>
-        <td>{{entity.subId4}}</td>
-        <td>{{entity.subId5}}</td>
-        <td>{{entity.clickId}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.affiliateId}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.subId1}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.subId2}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.subId3}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.subId4}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.subId5}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.clickId}}</td>
         <td>
           <table-actions
             [service]="service"

@@ -1,3 +1,5 @@
+<fulfillment-provider *ngIf="showEntityDetails" [entityId]="showEntityId" (close)="hideEntityDetails()"></fulfillment-provider>
+
 <button md-raised-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="addEntity()">Add New</button>
 
 <md-card class="entity-index__card">
@@ -17,11 +19,11 @@
 
       <tbody>
       <tr *ngFor="let entity of entities">
-        <td>{{entity.name}}</td>
-        <td>{{entity.username}}</td>
-        <td>{{entity.password}}</td>
-        <td>{{entity.endpoint}}</td>
-        <td>{{entity.provider}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.name}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.username}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.password}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.endpoint}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.provider}}</td>
         <td>
           <table-actions
             [service]="service"

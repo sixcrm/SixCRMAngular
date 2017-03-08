@@ -8,11 +8,11 @@ import {PaginationService} from '../../shared/services/pagination.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 
 @Component({
-  selector: 'c-product-schedule',
-  templateUrl: './product-schedule.component.html',
-  styleUrls: ['./product-schedule.component.scss']
+  selector: 'c-product-schedules',
+  templateUrl: './product-schedules.component.html',
+  styleUrls: ['./product-schedules.component.scss']
 })
-export class ProductScheduleComponent extends AbstractEntityIndexComponent<ProductSchedule> implements OnInit {
+export class ProductSchedulesComponent extends AbstractEntityIndexComponent<ProductSchedule> implements OnInit {
 
   constructor(
     private productScheduleService: ProductScheduleService,

@@ -5,7 +5,7 @@ import { DebugElement } from '@angular/core';
 
 import { ProductScheduleViewComponent } from './product-schedule-view.component';
 
-describe('ProductScheduleViewComponent', () => {
+describe('ProductSchedulesComponent', () => {
   let component: ProductScheduleViewComponent;
   let fixture: ComponentFixture<ProductScheduleViewComponent>;
 

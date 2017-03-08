@@ -1,3 +1,5 @@
+<session *ngIf="showEntityDetails" [entityId]="showEntityId" (close)="hideEntityDetails()"></session>
+
 <button md-raised-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="addEntity()">Add New</button>
 
 <md-card class="entity-index__card">
@@ -16,10 +18,10 @@
 
       <tbody>
       <tr *ngFor="let entity of entities">
-        <td>{{entity.customer.firstName + entity.customer.lastName}}</td>
-        <td>{{entity.productSchedules.length}}</td>
-        <td>{{entity.rebills.length}}</td>
-        <td>{{entity.campaign.name}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.customer.firstName + entity.customer.lastName}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.productSchedules.length}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.rebills.length}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.campaign.name}}</td>
         <td>
           <table-actions
             [service]="service"

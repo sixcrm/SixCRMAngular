@@ -1,0 +1,29 @@
+<div class="entity--wrapper">
+  <div class="entity">
+    <entity-view-topnav [service]="service" (close)="closeDetails()"></entity-view-topnav>
+
+    <div *ngIf="entity">
+      <div class="entity__caption">
+        {{entity.name}}
+      </div>
+
+      <div class="entity__content">
+        <md-tab-group>
+          <md-tab label="Details">
+
+            <entity-view-info
+              [title]="'GENERAL DETAILS'"
+              [data]="[
+                {name:'ID', value: entity.id}
+              ]">
+            </entity-view-info>
+
+          </md-tab>
+          <md-tab label="Edit">
+
+          </md-tab>
+        </md-tab-group>
+      </div>
+    </div>
+  </div>
+</div>

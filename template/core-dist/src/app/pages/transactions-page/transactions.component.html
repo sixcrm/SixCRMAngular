@@ -1,3 +1,5 @@
+<transaction *ngIf="showEntityDetails" [entityId]="showEntityId" (close)="hideEntityDetails()"></transaction>
+
 <button md-raised-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="addEntity()">Add New</button>
 
 <md-card class="entity-index__card">
@@ -10,16 +12,16 @@
           <th data-field="data">Date <md-icon>keyboard_arrow_down</md-icon></th>
           <th data-field="amount">Amount <md-icon>keyboard_arrow_down</md-icon></th>
           <th data-field="processorResponse">Processor Response <md-icon>keyboard_arrow_down</md-icon></th>
-          <th>Actions</th>
+          <th></th>
         </tr>
       </thead>
 
       <tbody>
       <tr *ngFor="let entity of entities">
-        <td>{{entity.id}}</td>
-        <td>{{entity.date}}</td>
-        <td>{{entity.amount}}</td>
-        <td>{{entity.processorResponse.message}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.id}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.date}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.amount}}</td>
+        <td (click)="viewEntity(entity.id)">{{entity.processorResponse.message}}</td>
         <td>
           <table-actions
             [service]="service"
