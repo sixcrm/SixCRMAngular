@@ -27,11 +27,9 @@
   </div>
 
   <div *ngIf="showScreen && showForm" class="registration--in">
-    <div class="tab__header">
-      <div *ngIf="selectedIndex !== 3" class="tab__header__content"> <img src="/assets/images/sixIcon.svg"> <span>Registration</span> </div>
-    </div>
 
-    <img class="tab__image" src="/assets/images/icon-half-registration.svg">
+    <div class="tab__image"></div>
+    <img class="tab__image--six" src="/assets/images/logo-white.svg">
 
     <md-tab-group [(selectedIndex)]="selectedIndex">
       <md-tab disabled label="Sign Up">
@@ -225,14 +223,16 @@
   </div>
 
   <div *ngIf="showScreen && showTerms" class="registration--in">
-    <img class="tab__image" src="/assets/images/icon-half-registration.svg">
 
-    <div class="screen__content">
-      <div class="screen__content__terms__title">
+    <div class="tab__image"></div>
+    <img class="tab__image--six" src="/assets/images/logo-white.svg">
+
+    <div class="terms">
+      <div class="terms__title">
         Terms and Conditions
       </div>
 
-      <div class="screen__content__terms__text">
+      <div class="terms__text">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
         dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
         ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
@@ -246,10 +246,10 @@
         mollit anim id est laborum.
       </div>
 
-      <div class="screen__content__terms__label">
+      <div class="terms__label">
         Type full name to agree:
       </div>
-      <md-input class="screen__content__terms__input--single" placeholder="Full Name" [(ngModel)]="fullName" name="fullName">
+      <md-input class="terms__input--single" placeholder="Full Name" [(ngModel)]="fullName" name="fullName">
         <md-hint class="error" *ngIf="fullNameError">Full name must match {{firstName}} {{lastName}}</md-hint>
       </md-input>
       <div class="tab__buttons">
@@ -260,22 +260,20 @@
   </div>
 
   <div *ngIf="showScreen && showThankYou" class="registration--in">
-    <img class="tab__image" src="/assets/images/icon-half-registration.svg">
+    <div class="thank-you">
 
-    <div class="screen__content terms">
+      <h1 class="thank-you__title"> THANK YOU </h1>
+      <h2 class="thank-you__subtitle"> Registration Complete </h2>
 
-      <h1 class="terms__title"> THANK YOU </h1>
-      <h2 class="terms__subtitle"> Registration Complete </h2>
-
-      <p class="terms__content">
+      <p class="thank-you__content">
         Your account information has been receive and is awaiting confirmation from our account administrators.
         <br>
         <br>
         Expect to receive an email confirmation once your application has been approved, this typically happens within one business day.
       </p>
 
-      <div class="terms__actions">
-        <p class="terms__actions__label"> Haven't heard from us yet? </p>
+      <div class="thank-you__actions">
+        <p class="thank-you__actions__label"> Haven't heard from us yet? </p>
         <button md-raised-button [disabled]="approvalResent" (click)="resendApproval()">Resend Approval Request</button>
         <div (click)="authService.logout()">Sign Out</div>
       </div>
