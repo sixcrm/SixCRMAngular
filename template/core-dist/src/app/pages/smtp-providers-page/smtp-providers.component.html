@@ -1,6 +1,8 @@
 <smtp-provider *ngIf="showEntityDetails" [entityId]="showEntityId" (close)="hideEntityDetails()"></smtp-provider>
 
-<button md-raised-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="addEntity()">Add New</button>
+<div class="entity-index__title">SMTP Providers</div>
+
+<button md-icon-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="addEntity()"><md-icon>add</md-icon></button>
 
 <md-card class="entity-index__card">
   <md-card-content class="entity-index__card__content">

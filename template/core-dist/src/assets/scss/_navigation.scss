@@ -6,6 +6,10 @@ $sidebar-color-light: #385F8D;
 $sidebar-color-middle: #2C486F;
 $sidebar-color-dark: #171F38;
 
+$sidebar-color: #fff;
+$sidebar-text-color: #9B9B9B;
+$sidebar-text-color-hover: #5AA3E8;
+
 .dashboard {
   margin: auto;
 
@@ -20,7 +24,6 @@ $sidebar-color-dark: #171F38;
 }
 
 md-sidenav {
-  background: linear-gradient($sidebar-color-light, $sidebar-color-dark);
   max-width: 70%;
   min-width: 0 !important;
 
@@ -34,25 +37,36 @@ md-sidenav {
     box-shadow: 0 1px 0 rgba(0, 0, 0, .12);
     padding: 0 10px;
     background: #385F8D;
-
-    .logo {
-      height: 40px;
-      margin-top: 2px;
-      margin-bottom: 2px;
-
-      &--small {
-
-      }
-    }
   }
 }
 
 md-sidenav-layout > .md-sidenav-content {
   height: 100vh;
+  overflow: visible;
 }
 
 md-sidenav-layout {
   background-color: rgb(250, 250, 250);
+}
+
+.side-navigation {
+  &__toggle {
+
+    &__container {
+      text-align: right;
+
+      &--center {
+        text-align: center;
+      }
+    }
+
+    &__button {
+
+      .rotated {
+        transform: rotate(180deg);
+      }
+    }
+  }
 }
 
 md-nav-list.side-navigation {
@@ -64,10 +78,14 @@ md-nav-list.side-navigation {
 
   a[md-list-item] > .md-list-item {
     @include font-body();
-    color: white;
+    color: $sidebar-text-color;
     -webkit-font-smoothing: antialiased;
     line-height: 40px;
     letter-spacing: .14px;
+
+    &:hover {
+      color: $sidebar-text-color-hover;
+    }
 
     > i.material-icons:last-child {
       line-height: 40px;
@@ -85,8 +103,7 @@ md-nav-list.side-navigation {
   }
 
   a.active:not(.nav-dropdown) > .md-list-item:not(:hover) {
-    background-color: #267ED5 !important;
-    background-color: darken(#385F8D, 4%) !important;
+    background-color: darken($sidebar-color, 4%) !important;
   }
 
   .nav-children {
@@ -102,37 +119,37 @@ md-nav-list.side-navigation {
     $base-color-change: 2%;
     &.level1 a > .md-list-item {
       padding-left: $base-padding * 2;
-      background-color: darken($sidebar-color-middle, $base-color-change);
+      background-color: darken(#ffffff, $base-color-change);
       &:hover, &.active {
-        background-color: darken($sidebar-color-middle, $base-color-change * 2);
+        background-color: darken($sidebar-color, $base-color-change * 2);
       }
     }
     &.level2 a > .md-list-item {
       padding-left: $base-padding * 3;
-      background-color: darken($sidebar-color-middle, $base-color-change * 2);
+      background-color: darken($sidebar-color, $base-color-change * 2);
       &:hover, &.active {
-        background-color: darken($sidebar-color-middle, $base-color-change * 3);
+        background-color: darken($sidebar-color, $base-color-change * 3);
       }
     }
     &.level3 a > .md-list-item {
       padding-left: $base-padding * 4;
-      background-color: darken($sidebar-color-middle, $base-color-change * 3);
+      background-color: darken($sidebar-color, $base-color-change * 3);
       &:hover, &.active {
-        background-color: darken($sidebar-color-middle, $base-color-change * 4);
+        background-color: darken($sidebar-color, $base-color-change * 4);
       }
     }
     &.level4 a > .md-list-item {
       padding-left: $base-padding * 5;
-      background-color: darken($sidebar-color-middle, $base-color-change * 4);
+      background-color: darken($sidebar-color, $base-color-change * 4);
       &:hover, &.active {
-        background-color: darken($sidebar-color-middle, $base-color-change * 5);
+        background-color: darken($sidebar-color, $base-color-change * 5);
       }
     }
     &.level5 a > .md-list-item {
       padding-left: $base-padding * 6;
-      background-color: darken($sidebar-color-middle, $base-color-change * 5);
+      background-color: darken($sidebar-color, $base-color-change * 5);
       &:hover, &.active {
-        background-color: darken($sidebar-color-middle, $base-color-change * 6);
+        background-color: darken($sidebar-color, $base-color-change * 6);
       }
     }
   }
@@ -169,11 +186,8 @@ md-nav-list.side-navigation {
 
 header md-toolbar {
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-  background-color: rgb(255, 255, 255);
-
-  @media #{$medium-and-down} {
-    background: $sidebar-color-light !important;
-  }
+  background: url("/assets/images/top-nav.svg") no-repeat !important;
+  background-size: auto 64px !important;
 
   md-toolbar-row:not(:first-child) {
     @media #{$medium-and-down} {

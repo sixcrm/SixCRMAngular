@@ -110,10 +110,6 @@ export class TopnavComponent implements OnInit {
     this._authService.activeAcl$.subscribe((acl: Acl) => this.activeAcl = acl);
   }
 
-  toggleSidenav() {
-    this._navigation.toggleSidenav(!this._showSidenav);
-  }
-
   searchBlur() {
     this._searchValOld = this._searchVal;
     this._searchVal = '';

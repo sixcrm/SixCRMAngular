@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="17px" viewBox="0 0 15 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>back</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M18.2655921,0.236671249 C19.2199686,-0.315049057 19.9936436,0.130234491 19.9936436,1.2356493 L19.9936439,15.7448743 C19.993644,16.848315 19.2216764,17.2965597 18.2655924,16.7438523 L5.71642285,9.48923955 C4.76204632,8.93751921 4.76033884,8.0439909 5.71642281,7.49128351 L18.2655921,0.236671249 Z" id="path-1"></path>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="14.9936439" height="16.9806015" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Nav-Icons" transform="translate(-6.000000, 0.000000)" stroke="#9B9B9B" stroke-width="4">
+            <g transform="translate(1.000000, 0.000000)" id="back">
+                <use mask="url(#mask-2)" transform="translate(12.496822, 8.490301) scale(-1, 1) translate(-12.496822, -8.490301) " xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>
