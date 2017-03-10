@@ -1,35 +1,34 @@
-<div class="entity--wrapper">
-  <div class="entity">
-    <entity-view-topnav [service]="service" (close)="closeDetails()"></entity-view-topnav>
+<div class="entity" [class.entity--full-screen]="fullScreen">
 
-    <div *ngIf="entity">
-      <div class="entity__caption">
-        {{entity.name}}
-      </div>
+  <entity-view-topnav [service]="service" (close)="closeDetails()"></entity-view-topnav>
 
-      <div class="entity__content">
-        <md-tab-group>
-          <md-tab label="Details">
+  <div *ngIf="entity">
+    <div class="entity__caption">
+      {{entity.name}}
+    </div>
 
-            <entity-view-info
-              [title]="'GENERAL DETAILS'"
-              [data]="[
-                {name:'ID', value: entity.id},
-                {name:'Name', value: entity.name},
-                {name:'Host Name', value: entity.hostname},
-                {name:'IP Address', value: entity.ipAddress},
-                {name:'username', value: entity.username},
-                {name:'password', value: entity.password},
-                {name:'port', value: entity.port}
-              ]">
-            </entity-view-info>
+    <div class="entity__content">
+      <md-tab-group>
+        <md-tab label="Details">
 
-          </md-tab>
-          <md-tab label="Edit">
+          <entity-view-info
+            [title]="'GENERAL DETAILS'"
+            [data]="[
+              {name:'ID', value: entity.id},
+              {name:'Name', value: entity.name},
+              {name:'Host Name', value: entity.hostname},
+              {name:'IP Address', value: entity.ipAddress},
+              {name:'username', value: entity.username},
+              {name:'password', value: entity.password},
+              {name:'port', value: entity.port}
+            ]">
+          </entity-view-info>
 
-          </md-tab>
-        </md-tab-group>
-      </div>
+        </md-tab>
+        <md-tab label="Edit">
+
+        </md-tab>
+      </md-tab-group>
     </div>
   </div>
 </div>

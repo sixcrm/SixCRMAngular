@@ -1,45 +1,44 @@
-<div class="entity--wrapper">
-  <div class="entity">
-    <entity-view-topnav [service]="service" (close)="closeDetails()"></entity-view-topnav>
+<div class="entity" [class.entity--full-screen]="fullScreen">
 
-    <div *ngIf="entity">
-      <div class="entity__caption">
-        {{entity.name}}
-      </div>
+  <entity-view-topnav [service]="service" (close)="closeDetails()"></entity-view-topnav>
 
-      <div class="entity__content">
-        <md-tab-group>
-          <md-tab label="Details">
+  <div *ngIf="entity">
+    <div class="entity__caption">
+      {{entity.name}}
+    </div>
 
-            <entity-view-info
-              [title]="'GENERAL DETAILS'"
-              [data]="[
-                {name:'ID', value: entity.id},
-                {name:'Name', value: entity.name},
-                {name:'CC Number', value: entity.ccnumber},
-                {name:'Expiration', value: entity.expiration},
-                {name:'CCV', value: entity.ccv}
-              ]">
-            </entity-view-info>
+    <div class="entity__content">
+      <md-tab-group>
+        <md-tab label="Details">
 
-            <entity-view-info
-              [title]="'ADDRESS DETAILS'"
-              [data]="[
-                {name:'Country', value: entity.address.country},
-                {name:'State', value: entity.address.state},
-                {name:'City', value: entity.address.city},
-                {name:'Line 1', value: entity.address.line1},
-                {name:'Line 2', value: entity.address.line2},
-                {name:'Zip', value: entity.address.zip}
-              ]">
-            </entity-view-info>
+          <entity-view-info
+            [title]="'GENERAL DETAILS'"
+            [data]="[
+              {name:'ID', value: entity.id},
+              {name:'Name', value: entity.name},
+              {name:'CC Number', value: entity.ccnumber},
+              {name:'Expiration', value: entity.expiration},
+              {name:'CCV', value: entity.ccv}
+            ]">
+          </entity-view-info>
 
-          </md-tab>
-          <md-tab label="Edit">
+          <entity-view-info
+            [title]="'ADDRESS DETAILS'"
+            [data]="[
+              {name:'Country', value: entity.address.country},
+              {name:'State', value: entity.address.state},
+              {name:'City', value: entity.address.city},
+              {name:'Line 1', value: entity.address.line1},
+              {name:'Line 2', value: entity.address.line2},
+              {name:'Zip', value: entity.address.zip}
+            ]">
+          </entity-view-info>
 
-          </md-tab>
-        </md-tab-group>
-      </div>
+        </md-tab>
+        <md-tab label="Edit">
+
+        </md-tab>
+      </md-tab-group>
     </div>
   </div>
 </div>

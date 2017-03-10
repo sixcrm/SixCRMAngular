@@ -181,4 +181,8 @@ export class TopnavComponent implements OnInit {
       this.router.navigate(['/dashboard', 'search', this.searchTerm])
     }
   }
+
+  toggleSidenav(): void {
+    this._navigation.toggleSidenav(!this._showSidenav);
+  }
 }

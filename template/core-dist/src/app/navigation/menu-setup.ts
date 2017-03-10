@@ -149,7 +149,7 @@ export function menuItems(authService: AuthenticationService): MenuItem[] {
   }
 
   if (settings.length > 0) {
-    items.push(new MenuItem('Settings', null, settings).setIcon('extension'));
+    items.push(new MenuItem('Settings', null, settings).setIcon('settings'));
   }
 
   // Add Search menu item

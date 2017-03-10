@@ -80,9 +80,4 @@ export class SidenavComponent implements OnInit {
       });
     }
   }
-
-  toggleSidenav(): void {
-    this._navigation.toggleSidenav(!this.showSidenav)
-  }
-
 }

@@ -56,19 +56,20 @@
 .entity {
   position:absolute;
   right: 0;
-  margin-top: 64px;
-  height: 100%;
-  width: 99%;
-  border-left: solid 1px gray;
-  border-bottom: solid 1px gray;
+  min-height: 100%;
+  width: 30%;
+  min-width: 380px;
   background: white;
   box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.15);
   z-index: 1;
   overflow: auto;
 
+  &--full-screen {
+    min-height: 100vh;
+  }
+
   &--wrapper {
     position: absolute;
-    top: -63px;
     right: 0;
     height: 100%;
     width: 30%;

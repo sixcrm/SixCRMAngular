@@ -4,8 +4,12 @@ import {MdDialog, MdDialogRef} from '@angular/material';
 import {ProgressBarService} from '../shared/services/progress-bar.service';
 import {PaginationService} from '../shared/services/pagination.service';
 import {AuthenticationService} from '../authentication/authentication.service';
+import {ViewChild} from '@angular/core/src/metadata/di';
 
 export abstract class AbstractEntityIndexComponent<T> {
+
+  @ViewChild('indexR') indexR;
+
   private deleteDialogRef: MdDialogRef<DeleteDialogComponent>;
   protected limit: number;
   protected page: number = 0;
@@ -16,6 +20,7 @@ export abstract class AbstractEntityIndexComponent<T> {
 
   protected showEntityDetails: boolean = false;
   protected showEntityId: string;
+  protected fullScreen: boolean = false;
 
   constructor(
     protected service: AbstractEntityService<T>,
@@ -89,6 +94,13 @@ export abstract class AbstractEntityIndexComponent<T> {
       this.showEntityId = id;
       this.showEntityDetails = true;
       this.progressBarService.showTopProgressBar();
+    }
+
+    if (this.indexR && this.indexR.nativeElement) {
+      let viewportHeight = window.innerHeight;
+      let indexHeight = this.indexR.nativeElement.offsetHeight;
+
+      this.fullScreen = indexHeight < viewportHeight;
     }
   }
 

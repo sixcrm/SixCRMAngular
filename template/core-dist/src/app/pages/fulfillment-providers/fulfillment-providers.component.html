@@ -1,52 +1,53 @@
-<fulfillment-provider *ngIf="showEntityDetails" [entityId]="showEntityId" (close)="hideEntityDetails()"></fulfillment-provider>
+<div #indexR class="entity-index">
+  <fulfillment-provider *ngIf="showEntityDetails" [entityId]="showEntityId" [fullScreen]="fullScreen" (close)="hideEntityDetails()"></fulfillment-provider>
 
-<div class="entity-index__title">Fulfillment Providers</div>
+  <div class="entity-index__title">Fulfillment Providers</div>
 
-<button md-icon-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="addEntity()"><md-icon>add</md-icon></button>
+  <button md-icon-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="addEntity()"><md-icon>add</md-icon></button>
 
-<md-card class="entity-index__card">
-  <md-card-content class="entity-index__card__content">
+  <md-card class="entity-index__card">
+    <md-card-content class="entity-index__card__content">
 
-    <table class="entity-index__table highlight">
-      <thead class="entity-index__table__header">
-      <tr>
-        <th data-field="name">Name</th>
-        <th data-field="username">Username</th>
-        <th data-field="password">Password</th>
-        <th data-field="endpoint">Endpoint</th>
-        <th data-field="provider">Provider</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
+      <table class="entity-index__table highlight">
+        <thead class="entity-index__table__header">
+        <tr>
+          <th data-field="name">Name</th>
+          <th data-field="username">Username</th>
+          <th data-field="password">Password</th>
+          <th data-field="endpoint">Endpoint</th>
+          <th data-field="provider">Provider</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
 
-      <tbody>
-      <tr *ngFor="let entity of entities">
-        <td (click)="viewEntity(entity.id)">{{entity.name}}</td>
-        <td (click)="viewEntity(entity.id)">{{entity.username}}</td>
-        <td (click)="viewEntity(entity.id)">{{entity.password}}</td>
-        <td (click)="viewEntity(entity.id)">{{entity.endpoint}}</td>
-        <td (click)="viewEntity(entity.id)">{{entity.provider}}</td>
-        <td>
-          <table-actions
-            [service]="service"
-            (viewClicked)="viewEntity(entity.id)"
-            (copyClicked)="copyEntity(entity.id)"
-            (exportClicked)="exportEntity(entity.id)">
-          </table-actions>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+        <tbody>
+        <tr *ngFor="let entity of entities">
+          <td (click)="viewEntity(entity.id)">{{entity.name}}</td>
+          <td (click)="viewEntity(entity.id)">{{entity.username}}</td>
+          <td (click)="viewEntity(entity.id)">{{entity.password}}</td>
+          <td (click)="viewEntity(entity.id)">{{entity.endpoint}}</td>
+          <td (click)="viewEntity(entity.id)">{{entity.provider}}</td>
+          <td>
+            <table-actions
+              [service]="service"
+              (viewClicked)="viewEntity(entity.id)"
+              (copyClicked)="copyEntity(entity.id)"
+              (exportClicked)="exportEntity(entity.id)">
+            </table-actions>
+          </td>
+        </tr>
+        </tbody>
+      </table>
 
-    <table-pagination
-      [limit]="limit"
-      [paginationValues]="paginationValues"
-      [previousDisabled]="page <= 0"
-      [nextDisabled]="!hasMorePages()"
-      (previous)="previous()"
-      (next)="next()"
-      (updateLimit)="updateLimit($event)">
-    </table-pagination>
-  </md-card-content>
-</md-card>
-
+      <table-pagination
+        [limit]="limit"
+        [paginationValues]="paginationValues"
+        [previousDisabled]="page <= 0"
+        [nextDisabled]="!hasMorePages()"
+        (previous)="previous()"
+        (next)="next()"
+        (updateLimit)="updateLimit($event)">
+      </table-pagination>
+    </md-card-content>
+  </md-card>
+</div>

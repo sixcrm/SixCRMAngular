@@ -1,6 +1,8 @@
 <md-progress-bar mode="indeterminate" *ngIf="_isLoadingRoute"></md-progress-bar>
 <md-toolbar>
-  <img src="/assets/images/logo-white.svg" class="topnav__logo">
+  <button md-icon-button (click)="toggleSidenav()" id="menu-toggler">
+    <img src="/assets/images/ic_sort.svg">
+  </button>
   <md-toolbar-row *ngIf="_navigation.mediumScreenAndDown && _breadcrumbs.length > 0 && !_autoBreadcrumbs">
     <span class="breadcrumb-holder">
       <span *ngFor="let breadcrumb of _breadcrumbs" class="breadcrumb">

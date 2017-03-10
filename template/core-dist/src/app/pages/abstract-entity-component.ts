@@ -6,6 +6,7 @@ import {ProgressBarService} from '../shared/services/progress-bar.service';
 export abstract class AbstractEntityComponent<T extends Entity<T>> {
 
   @Input() entityId: string;
+  @Input() fullScreen: boolean;
   @Output() close: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   entity: T;

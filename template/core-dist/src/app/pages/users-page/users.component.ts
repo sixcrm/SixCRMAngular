@@ -6,6 +6,7 @@ import {MdDialog} from '@angular/material';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {PaginationService} from '../../shared/services/pagination.service';
 import {AuthenticationService} from '../../authentication/authentication.service'
+import {ViewChild} from '@angular/core/src/metadata/di';
 
 @Component({
   selector: 'c-users',

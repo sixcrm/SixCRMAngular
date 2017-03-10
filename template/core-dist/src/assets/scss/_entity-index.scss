@@ -1,6 +1,7 @@
 $title-color: #979797;
 
 .entity-index {
+  position: relative;
 
   &__title {
     padding: 25px 70px;
@@ -10,7 +11,7 @@ $title-color: #979797;
 
   &__add {
     position: absolute !important;
-    top: 60px;
+    top: 130px;
     left: 10px;
     background: #498FE1;
     font-size: 18px !important;
@@ -22,6 +23,7 @@ $title-color: #979797;
   }
 
   &__card {
+    margin: 0;
     padding: 0;
 
     &__title {

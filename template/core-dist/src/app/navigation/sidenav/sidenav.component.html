@@ -1,9 +1,7 @@
+<md-toolbar>
+  <img *ngIf="isHovering" src="/assets/images/logo-white.svg" class="logo">
+  <img *ngIf="!isHovering" src="/assets/images/logo-white-small.svg" class="logo-small">
+</md-toolbar>
 <md-nav-list class="side-navigation" [ngStyle]="{'height': height}">
-  <div class="side-navigation__toggle__container"
-       [class.side-navigation__toggle__container--center]="!showSidenav && !isHovering">
-    <button md-icon-button (click)="toggleSidenav()" class="side-navigation__toggle__button">
-      <img [class.rotated]="showSidenav" src="/assets/images/back-sidenav.svg">
-    </button>
-  </div>
   <c-sidenav-item *ngFor="let menuItem of menuItems" [menuItem]="menuItem" [parent]="_this" [full]="isHovering"></c-sidenav-item>
 </md-nav-list>
