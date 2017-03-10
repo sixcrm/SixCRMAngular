@@ -4,4 +4,6 @@
 </md-toolbar>
 <md-nav-list class="side-navigation" [ngStyle]="{'height': height}">
   <c-sidenav-item *ngFor="let menuItem of menuItems" [menuItem]="menuItem" [parent]="_this" [full]="isHovering"></c-sidenav-item>
+
+  <span *ngIf="isHovering" class="side-navigation__version">version: {{versionNumber}}</span>
 </md-nav-list>

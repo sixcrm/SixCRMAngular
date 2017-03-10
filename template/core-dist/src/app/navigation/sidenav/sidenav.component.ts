@@ -4,6 +4,7 @@ import {MenuItem} from '../menu-item';
 import {SidenavItemComponent} from './sidenav-item/sidenav-item.component';
 import {ViewChildren} from '@angular/core/src/metadata/di';
 import {Input} from '@angular/core/src/metadata/directives';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector : 'app-sidenav',
@@ -31,6 +32,7 @@ export class SidenavComponent implements OnInit {
   private _screenWidth: number = NavigationService.largeViewportWidth;
   private _initialLoad: boolean = true; // Used to show slide in effect on page load for sidenav
   private _this: SidenavComponent = this;
+  private versionNumber: string = environment.version;
 
   constructor(private _navigation: NavigationService) {
   }

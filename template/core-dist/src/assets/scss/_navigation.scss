@@ -143,6 +143,15 @@ md-nav-list.side-navigation {
   }
 }
 
+.side-navigation {
+  &__version {
+    margin-top: 20px;
+    margin-left: 50px;
+    color: $sidebar-text-color;
+    font-size: 14px;
+  }
+}
+
 .side-navigation md-nav-list {
   position: relative;
 }
