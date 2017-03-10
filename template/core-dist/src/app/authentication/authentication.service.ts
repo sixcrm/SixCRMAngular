@@ -26,6 +26,7 @@ export class AuthenticationService {
   private activeAcl: string = 'active_acl';
 
   public userData$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
+  private userData: User;
   public userUnderReg$: BehaviorSubject<any> = new BehaviorSubject<User>(null);
   public activeAcl$: BehaviorSubject<Acl> = new BehaviorSubject<Acl>(new Acl());
   public activeAclChanged$: Subject<boolean> = new Subject<boolean>();
@@ -110,24 +111,29 @@ export class AuthenticationService {
   public updateUserForRegistration(user: User, cc: CreditCard): Observable<boolean> {
     let subject: Subject<boolean> = new Subject<boolean>();
 
-    this.http.post(environment.endpoint, createCreditCardMutation(cc), { headers: this.generateHeaders()})
-      .subscribe(
-        () => {
-          this.http.post(environment.endpoint, updateUserForRegistration(user), { headers: this.generateHeaders()})
-            .subscribe(
-              (data) => {
-                this.userUnderReg$.next(new User(data.json().data.updateuser));
-                subject.next(true);
-              },
-              () => {
-                subject.next(false);
-              }
-            );
-        },
-        () => {
-          subject.next(false);
-        }
-      );
+    if (!this.userData.acls || !this.userData.acls[0]) {
+      this.logout();
+    } else {
+      let endpoint = environment.endpoint + this.userData.acls[0].account.id;
+      this.http.post(endpoint, createCreditCardMutation(cc), {headers: this.generateHeaders()})
+        .subscribe(
+          () => {
+            this.http.post(endpoint, updateUserForRegistration(user), {headers: this.generateHeaders()})
+              .subscribe(
+                (data) => {
+                  this.userUnderReg$.next(new User(data.json().data.updateuser));
+                  subject.next(true);
+                },
+                () => {
+                  subject.next(false);
+                }
+              );
+          },
+          () => {
+            subject.next(false);
+          }
+        );
+    }
 
     return subject;
   }
@@ -153,13 +159,13 @@ export class AuthenticationService {
     this.http.post(environment.endpoint + '*', userIntrospection(), { headers: this.generateHeaders()}).subscribe(
       (data) => {
         let user = data.json().data.userintrospection;
-        if (!user) {
-          this.createUserForRegistration(profile.email);
-        } else {
+        if (user) {
           if (user.active !== 'true') {
             localStorage.removeItem(this.activated);
             this.router.navigateByUrl('/register');
-            this.userUnderReg$.next(new User(user));
+            this.userData = new User(user);
+            this.userData.auth0Id = this.getToken();
+            this.userUnderReg$.next(this.userData);
           } else {
             localStorage.setItem(this.activated, 'activated');
 
@@ -174,6 +180,8 @@ export class AuthenticationService {
               this.router.navigateByUrl('/dashboard');
             }
           }
+        } else {
+          this.logout();
         }
       }
     );
@@ -198,24 +206,6 @@ export class AuthenticationService {
         this.activeAclChanged$.next(true);
       }
     }
-  }
-
-  private createUserForRegistration(email: string): void {
-    this.http.post(environment.endpoint + '*', createUserForRegistration(email, localStorage.getItem(this.idToken)), { headers: this.generateHeaders()})
-      .subscribe(
-        (data) => {
-          localStorage.removeItem(this.activated);
-          this.router.navigateByUrl('/register');
-          this.userUnderReg$.next(new User(data.json().data.createuser));
-        });
-  }
-
-  private generateAcquireJWTHeaders(authString: string): Headers {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', authString);
-
-    return headers;
   }
 
   private generateHeaders(): Headers {
