@@ -22,6 +22,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   protected showEntityDetails: boolean = false;
   protected showEntityId: string;
   protected fullScreen: boolean = false;
+  protected mode: string;
 
   constructor(
     protected service: AbstractEntityService<T>,
@@ -77,17 +78,12 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
   viewEntity(id: string): void {
 
+    this.mode = 'view';
     this.showEntityId = id;
     this.showEntityDetails = true;
     this.progressBarService.showTopProgressBar();
 
-
-    if (this.indexR && this.indexR.nativeElement) {
-      let viewportHeight = window.innerHeight;
-      let indexHeight = this.indexR.nativeElement.offsetHeight;
-
-      this.fullScreen = indexHeight < viewportHeight;
-    }
+    this.calculateViewEntityHeight();
   }
 
   updateEntity(id: string): void {
@@ -107,7 +103,9 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   }
 
   addEntity(): void {
-
+    this.mode = 'add';
+    this.showEntityDetails = true;
+    this.calculateViewEntityHeight();
   }
 
   copyEntity(id: string): void {
@@ -163,6 +161,15 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     if (index > -1) {
       this.entitiesHolder.splice(index, 1);
       this.reshuffleEntities();
+    }
+  }
+
+  private calculateViewEntityHeight(): void {
+    if (this.indexR && this.indexR.nativeElement) {
+      let viewportHeight = window.innerHeight;
+      let indexHeight = this.indexR.nativeElement.offsetHeight;
+
+      this.fullScreen = indexHeight < viewportHeight;
     }
   }
 }

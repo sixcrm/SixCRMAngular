@@ -157,4 +157,21 @@
       }
     }
   }
+
+  &__edit {
+    padding: 18px;
+
+    &__content {
+      md-input {
+        margin: 5px 18px;
+        width: 300px;
+        font-size: 16px;
+      }
+    }
+
+    &__buttons {
+      margin: 18px;
+      text-align: right;
+    }
+  }
 }

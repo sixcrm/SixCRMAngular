@@ -4,11 +4,11 @@
 
     <div *ngIf="entity">
       <div class="entity__caption">
-        {{entity.name}}
+        {{entityId ? entity.name : 'Add New Fulfillment Provider'}}
       </div>
 
-      <div class="entity__content">
-        <md-tab-group>
+      <div *ngIf="mode === 'view'" class="entity__content">
+        <md-tab-group  [(selectedIndex)]="tabIndex">
           <md-tab label="Details">
 
             <entity-view-info
@@ -25,9 +25,35 @@
 
           </md-tab>
           <md-tab label="Edit">
-
+            <div class="entity__edit">
+              <div class="entity__edit__content">
+                <md-input [(ngModel)]="entityCopy.name" placeholder="Name"></md-input>
+                <md-input [(ngModel)]="entityCopy.provider" placeholder="Provider"></md-input>
+                <md-input [(ngModel)]="entityCopy.username" placeholder="Username"></md-input>
+                <md-input [(ngModel)]="entityCopy.password" placeholder="Password"></md-input>
+                <md-input [(ngModel)]="entityCopy.endpoint" placeholder="Endpoint"></md-input>
+              </div>
+              <div class="entity__edit__buttons">
+                <button md-raised-button (click)="update()">Update</button>
+                <button md-raised-button (click)="cancelUpdate()">Cancel</button>
+              </div>
+            </div>
           </md-tab>
         </md-tab-group>
+      </div>
+      <div *ngIf="mode === 'add'" class="entity__add">
+        <div class="entity__edit">
+          <div class="entity__edit__content">
+            <md-input [(ngModel)]="entity.name" placeholder="Name"></md-input>
+            <md-input [(ngModel)]="entity.provider" placeholder="Provider"></md-input>
+            <md-input [(ngModel)]="entity.username" placeholder="Username"></md-input>
+            <md-input [(ngModel)]="entity.password" placeholder="Password"></md-input>
+            <md-input [(ngModel)]="entity.endpoint" placeholder="Endpoint"></md-input>
+          </div>
+          <div class="entity__edit__buttons">
+            <button md-raised-button (click)="create()">Save</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

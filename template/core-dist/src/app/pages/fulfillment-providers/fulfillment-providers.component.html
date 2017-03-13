@@ -1,5 +1,12 @@
 <div #indexR class="entity-index">
-  <fulfillment-provider *ngIf="showEntityDetails" [entityId]="showEntityId" [fullScreen]="fullScreen" (close)="hideEntityDetails()" (deleteEntity)="deleteEntity($event)"></fulfillment-provider>
+  <fulfillment-provider
+    *ngIf="showEntityDetails"
+    [mode]="mode"
+    [entityId]="mode === 'view' ? showEntityId : ''"
+    [fullScreen]="fullScreen"
+    (close)="hideEntityDetails()"
+    (deleteEntity)="deleteEntity($event)">
+  </fulfillment-provider>
 
   <div class="entity-index__title">Fulfillment Providers</div>
 

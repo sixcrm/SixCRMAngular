@@ -11,8 +11,11 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
 })
 export class FulfillmentProviderComponent extends AbstractEntityComponent<FulfillmentProvider> implements OnInit {
 
-  constructor(service: FulfillmentProvidersService, progressBarService: ProgressBarService) {
-    super(service, progressBarService);
+  constructor(
+    service: FulfillmentProvidersService,
+    progressBarService: ProgressBarService,
+  ) {
+    super(service, progressBarService, () => { return new FulfillmentProvider() });
   }
 
   ngOnInit() {
