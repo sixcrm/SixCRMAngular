@@ -1,45 +1,47 @@
-<div class="entity" [class.entity--full-screen]="fullScreen">
+<div #entityContainer class="entity" [class.entity--full-screen]="fullScreen">
+  <div *ngIf="!loading" class="entity__body" [style.height]="height">
 
-  <entity-view-topnav [service]="service" (close)="closeDetails()"></entity-view-topnav>
+    <entity-view-topnav [service]="service" (close)="closeDetails()"></entity-view-topnav>
 
-  <div *ngIf="entity">
-    <div class="entity__caption">
-      {{entity.name}}
-    </div>
+    <div *ngIf="entity">
+      <div class="entity__caption">
+        {{entity.name}}
+      </div>
 
-    <div class="entity__content">
-      <md-tab-group>
-        <md-tab label="Details">
-
-          <entity-view-info
-            [title]="'GENERAL DETAILS'"
-            [data]="[
-              {name:'ID', value: entity.id},
-              {name:'Name', value: entity.name},
-              {name:'Subject', value: entity.username},
-              {name:'Body', value: entity.password},
-              {name:'Type', value: entity.endpoint}
-            ]">
-            </entity-view-info>
+      <div class="entity__content">
+        <md-tab-group>
+          <md-tab label="Details">
 
             <entity-view-info
-              [title]="'SMTP PROVIDER DETAILS'"
+              [title]="'GENERAL DETAILS'"
               [data]="[
-                {name:'ID', value: entity.smtpProvider.id},
-                {name:'Name', value: entity.smtpProvider.name},
-                {name:'Host Name', value: entity.smtpProvider.hostname},
-                {name:'IP Address', value: entity.smtpProvider.ipAddress},
-                {name:'username', value: entity.smtpProvider.username},
-                {name:'password', value: entity.smtpProvider.password},
-                {name:'port', value: entity.smtpProvider.port}
+                {name:'ID', value: entity.id},
+                {name:'Name', value: entity.name},
+                {name:'Subject', value: entity.username},
+                {name:'Body', value: entity.password},
+                {name:'Type', value: entity.endpoint}
               ]">
-            </entity-view-info>
+              </entity-view-info>
 
-        </md-tab>
-        <md-tab label="Edit">
+              <entity-view-info
+                [title]="'SMTP PROVIDER DETAILS'"
+                [data]="[
+                  {name:'ID', value: entity.smtpProvider.id},
+                  {name:'Name', value: entity.smtpProvider.name},
+                  {name:'Host Name', value: entity.smtpProvider.hostname},
+                  {name:'IP Address', value: entity.smtpProvider.ipAddress},
+                  {name:'username', value: entity.smtpProvider.username},
+                  {name:'password', value: entity.smtpProvider.password},
+                  {name:'port', value: entity.smtpProvider.port}
+                ]">
+              </entity-view-info>
 
-        </md-tab>
-      </md-tab-group>
+          </md-tab>
+          <md-tab label="Edit">
+
+          </md-tab>
+        </md-tab-group>
+      </div>
     </div>
   </div>
 </div>

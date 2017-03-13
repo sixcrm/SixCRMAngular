@@ -90,11 +90,10 @@ export abstract class AbstractEntityIndexComponent<T> {
 
   viewEntity(id: string): void {
 
-    if (!this.showEntityDetails) {
-      this.showEntityId = id;
-      this.showEntityDetails = true;
-      this.progressBarService.showTopProgressBar();
-    }
+    this.showEntityId = id;
+    this.showEntityDetails = true;
+    this.progressBarService.showTopProgressBar();
+
 
     if (this.indexR && this.indexR.nativeElement) {
       let viewportHeight = window.innerHeight;

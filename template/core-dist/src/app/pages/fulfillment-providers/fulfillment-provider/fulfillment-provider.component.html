@@ -1,32 +1,34 @@
-<div class="entity" [class.entity--full-screen]="fullScreen">
-  <entity-view-topnav [service]="service" (close)="closeDetails()"></entity-view-topnav>
+<div #entityContainer class="entity" [class.entity--full-screen]="fullScreen">
+  <div *ngIf="!loading" class="entity__body" [style.height]="height">
+    <entity-view-topnav [service]="service" (close)="closeDetails()"></entity-view-topnav>
 
-  <div *ngIf="entity">
-    <div class="entity__caption">
-      {{entity.name}}
-    </div>
+    <div *ngIf="entity">
+      <div class="entity__caption">
+        {{entity.name}}
+      </div>
 
-    <div class="entity__content">
-      <md-tab-group>
-        <md-tab label="Details">
+      <div class="entity__content">
+        <md-tab-group>
+          <md-tab label="Details">
 
-          <entity-view-info
-            [title]="'GENERAL DETAILS'"
-            [data]="[
-              {name:'ID', value: entity.id},
-              {name:'Name', value: entity.name},
-              {name:'Provider', value: entity.provider},
-              {name:'Username', value: entity.username},
-              {name:'Password', value: entity.password},
-              {name:'Endpoint', value: entity.endpoint}
-            ]">
-          </entity-view-info>
+            <entity-view-info
+              [title]="'GENERAL DETAILS'"
+              [data]="[
+                {name:'ID', value: entity.id},
+                {name:'Name', value: entity.name},
+                {name:'Provider', value: entity.provider},
+                {name:'Username', value: entity.username},
+                {name:'Password', value: entity.password},
+                {name:'Endpoint', value: entity.endpoint}
+              ]">
+            </entity-view-info>
 
-        </md-tab>
-        <md-tab label="Edit">
+          </md-tab>
+          <md-tab label="Edit">
 
-        </md-tab>
-      </md-tab-group>
+          </md-tab>
+        </md-tab-group>
+      </div>
     </div>
   </div>
 </div>

@@ -10,19 +10,6 @@ $sidebar-color: #fff;
 $sidebar-text-color: #9B9B9B;
 $sidebar-text-color-hover: #5AA3E8;
 
-.dashboard {
-  margin: auto;
-
-  @media #{$large-and-up} {
-    padding-top: 20px;
-    width: 90%;
-    max-width: none;
-  }
-  @media #{$medium-and-down} {
-    width: 95%;
-  }
-}
-
 md-sidenav {
   max-width: 70%;
   min-width: 0 !important;
@@ -50,6 +37,7 @@ md-sidenav {
 }
 
 md-sidenav-layout > .md-sidenav-content {
+  background-color: #E6EAF2 !important;
   height: 100vh;
 }
 
@@ -162,7 +150,7 @@ md-nav-list.side-navigation {
   position: absolute;
   width: $sidenav-width;
   height: 2px;
-  z-index: 3;
+  z-index: 10;
 }
 
 .side-navigation md-nav-list.nav-children:before, .side-navigation a.active:before {
@@ -182,9 +170,9 @@ md-nav-list.side-navigation {
 }
 
 header md-toolbar {
-  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
   background: url("/assets/images/top-nav.svg") no-repeat !important;
   background-size: auto 64px !important;
+  padding: 0 !important;
 
   md-toolbar-row:not(:first-child) {
     @media #{$medium-and-down} {
@@ -251,7 +239,9 @@ header md-toolbar {
   }
 
   .md-toolbar-layout {
-    z-index: 2;
+    padding: 0 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    z-index: 5;
   }
 }
 

@@ -6,3 +6,10 @@
 .container--hover {
   margin-left: 64px;
 }
+
+.progress-bar {
+  position: absolute;
+  top:64px;
+  width: 100%;
+  z-index: 1;
+}

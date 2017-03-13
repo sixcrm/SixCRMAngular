@@ -7,7 +7,7 @@
               [opened]="showSidenav || !_navigation.mediumScreenAndDown">
     <app-sidenav [isHovering]="isHovering || showSidenav || _navigation.mediumScreenAndDown"></app-sidenav>
   </md-sidenav>
-  <md-progress-bar *ngIf="showTopProgress" mode="query"></md-progress-bar>
+  <md-progress-bar class="progress-bar" *ngIf="showTopProgress" mode="query"></md-progress-bar>
 
   <main [class.container--hover]="!showSidenav && showOnHover">
     <div class="container">

@@ -1,43 +1,45 @@
-<div class="entity" [class.entity--full-screen]="fullScreen">
+<div #entityContainer class="entity" [class.entity--full-screen]="fullScreen">
+  <div *ngIf="!loading" class="entity__body" [style.height]="height">
 
-  <entity-view-topnav [service]="service" (close)="closeDetails()"></entity-view-topnav>
+    <entity-view-topnav [service]="service" (close)="closeDetails()"></entity-view-topnav>
 
-  <div *ngIf="entity">
-    <div class="entity__caption">
-      {{entity.name}}
-    </div>
+    <div *ngIf="entity">
+      <div class="entity__caption">
+        {{entity.name}}
+      </div>
 
-    <div class="entity__content">
-      <md-tab-group>
-        <md-tab label="Details">
+      <div class="entity__content">
+        <md-tab-group>
+          <md-tab label="Details">
 
-          <entity-view-info
-            [title]="'GENERAL DETAILS'"
-            [data]="[
-              {name:'ID', value: entity.id},
-              {name:'Name', value: entity.name},
-              {name:'SKU', value: entity.sku},
-              {name:'Ship', value: entity.ship},
-              {name:'Shipping Delay', value: entity.shippingDelay}
-            ]">
-          </entity-view-info>
+            <entity-view-info
+              [title]="'GENERAL DETAILS'"
+              [data]="[
+                {name:'ID', value: entity.id},
+                {name:'Name', value: entity.name},
+                {name:'SKU', value: entity.sku},
+                {name:'Ship', value: entity.ship},
+                {name:'Shipping Delay', value: entity.shippingDelay}
+              ]">
+            </entity-view-info>
 
-          <entity-view-info
-            [title]="'Fulfillment Provider'"
-            [data]="[
-              {name:'ID', value: entity.fulfillmentProvider.id},
-              {name:'Name', value: entity.fulfillmentProvider.name},
-              {name:'Username', value: entity.fulfillmentProvider.username},
-              {name:'Endpoint', value: entity.fulfillmentProvider.endpoint},
-              {name:'Password', value: entity.fulfillmentProvider.password},
-              {name:'Provider', value: entity.fulfillmentProvider.provider}
-            ]">
-          </entity-view-info>
-        </md-tab>
-        <md-tab label="Edit">
+            <entity-view-info
+              [title]="'Fulfillment Provider'"
+              [data]="[
+                {name:'ID', value: entity.fulfillmentProvider.id},
+                {name:'Name', value: entity.fulfillmentProvider.name},
+                {name:'Username', value: entity.fulfillmentProvider.username},
+                {name:'Endpoint', value: entity.fulfillmentProvider.endpoint},
+                {name:'Password', value: entity.fulfillmentProvider.password},
+                {name:'Provider', value: entity.fulfillmentProvider.provider}
+              ]">
+            </entity-view-info>
+          </md-tab>
+          <md-tab label="Edit">
 
-        </md-tab>
-      </md-tab-group>
+          </md-tab>
+        </md-tab-group>
+      </div>
     </div>
   </div>
 </div>

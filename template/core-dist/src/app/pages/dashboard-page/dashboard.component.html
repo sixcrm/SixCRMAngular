@@ -1,11 +1,22 @@
 <div class="dashboard">
-  <div class="widgets__container">
-    <div class="flex-container layout-row layout-column-sm widgets__wrapper">
-      <core-widget icon="trending_up" [count]="367" description="New Sales" [textColor]="'#fff'"></core-widget>
-      <core-widget icon="thumb_up" [count]="28" description="Rebills" [textColor]="'#fff'"></core-widget>
-      <core-widget icon="account_box" [count]="93" description="Refunds" [textColor]="'#fff'"></core-widget>
-      <core-widget icon="equalizer" [count]="4" description="Canceled" [textColor]="'#fff'"></core-widget>
-    </div>
+  <div class="dashboard__widgets">
+  <md-card class="dashboard__widgets__container">
+    <md-card-content>
+      <core-widget class="dashboard__widgets__container__widget" [count]="23" [description]="'Rebills'" [color]="'red'"></core-widget>
+
+      <span class="dashboard__widgets__container__divider"></span>
+
+      <core-widget class="dashboard__widgets__container__widget" [count]="76" [description]="'New Sales'" [color]="'blue'"></core-widget>
+
+      <span class="dashboard__widgets__container__divider"></span>
+
+      <core-widget class="dashboard__widgets__container__widget" [count]="93" [description]="'Refunds'" [color]="'green'"></core-widget>
+
+      <span class="dashboard__widgets__container__divider"></span>
+
+      <core-widget class="dashboard__widgets__container__widget" [count]="83" [description]="'Canceled'" [color]="'orange'"></core-widget>
+    </md-card-content>
+  </md-card>
   </div>
 
   <md-card class="dashboard__recent-sales">

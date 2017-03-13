@@ -1,41 +1,43 @@
-<div class="entity" [class.entity--full-screen]="fullScreen">
+<div #entityContainer class="entity" [class.entity--full-screen]="fullScreen">
+  <div *ngIf="!loading" class="entity__body" [style.height]="height">
 
-  <entity-view-topnav [service]="service" (close)="closeDetails()"></entity-view-topnav>
+    <entity-view-topnav [service]="service" (close)="closeDetails()"></entity-view-topnav>
 
-  <div *ngIf="entity">
-    <div class="entity__caption">
-      {{entity.name}}
-    </div>
+    <div *ngIf="entity">
+      <div class="entity__caption">
+        {{entity.name}}
+      </div>
 
-    <div class="entity__content">
-      <md-tab-group>
-        <md-tab label="Details">
+      <div class="entity__content">
+        <md-tab-group>
+          <md-tab label="Details">
 
-          <entity-view-info
-            [title]="'GENERAL DETAILS'"
-            [data]="[
-              {name:'ID', value: entity.id}
-            ]">
-          </entity-view-info>
+            <entity-view-info
+              [title]="'GENERAL DETAILS'"
+              [data]="[
+                {name:'ID', value: entity.id}
+              ]">
+            </entity-view-info>
 
-          <entity-view-info
-            [title]="'CUSTOMER DETAILS'"
-            [data]="[
-              {name:'ID', value: entity.customer.id},
-              {name:'Email', value: entity.customer.email},
-              {name:'First Name', value: entity.customer.firstName},
-              {name:'Last Name', value: entity.customer.lastName},
-              {name:'Phone', value: entity.customer.phone},
-              {name:'State', value: entity.customer.address.state},
-              {name:'City', value: entity.customer.address.city}
-            ]">
-          </entity-view-info>
+            <entity-view-info
+              [title]="'CUSTOMER DETAILS'"
+              [data]="[
+                {name:'ID', value: entity.customer.id},
+                {name:'Email', value: entity.customer.email},
+                {name:'First Name', value: entity.customer.firstName},
+                {name:'Last Name', value: entity.customer.lastName},
+                {name:'Phone', value: entity.customer.phone},
+                {name:'State', value: entity.customer.address.state},
+                {name:'City', value: entity.customer.address.city}
+              ]">
+            </entity-view-info>
 
-        </md-tab>
-        <md-tab label="Edit">
+          </md-tab>
+          <md-tab label="Edit">
 
-        </md-tab>
-      </md-tab-group>
+          </md-tab>
+        </md-tab-group>
+      </div>
     </div>
   </div>
 </div>
