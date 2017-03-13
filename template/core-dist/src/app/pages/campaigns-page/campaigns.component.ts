@@ -15,7 +15,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> implements OnInit {
 
   constructor(
-    private campaignService: CampaignsService,
+    campaignService: CampaignsService,
     auth: AuthenticationService,
     dialog: MdDialog,
     progressBarService: ProgressBarService,
@@ -25,8 +25,6 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
   }
 
   ngOnInit() {
-    this.campaignService.entityDeleted$.subscribe((data) => this.campaignService.getEntities());
-
     this.init();
   }
 }

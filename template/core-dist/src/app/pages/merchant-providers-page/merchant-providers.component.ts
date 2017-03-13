@@ -15,7 +15,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 export class MerchantProvidersComponent extends AbstractEntityIndexComponent<MerchantProvider> implements OnInit {
 
   constructor(
-    private merchantProvidersService: MerchantProvidersService,
+    merchantProvidersService: MerchantProvidersService,
     auth: AuthenticationService,
     dialog: MdDialog,
     progressBarService: ProgressBarService,
@@ -25,8 +25,6 @@ export class MerchantProvidersComponent extends AbstractEntityIndexComponent<Mer
   }
 
   ngOnInit() {
-    this.merchantProvidersService.entityDeleted$.subscribe(() => this.merchantProvidersService.getEntities());
-
     this.init();
   }
 }

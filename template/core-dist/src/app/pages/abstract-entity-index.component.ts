@@ -5,8 +5,9 @@ import {ProgressBarService} from '../shared/services/progress-bar.service';
 import {PaginationService} from '../shared/services/pagination.service';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {ViewChild} from '@angular/core/src/metadata/di';
+import {Entity} from '../shared/models/entity.interface';
 
-export abstract class AbstractEntityIndexComponent<T> {
+export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
   @ViewChild('indexR') indexR;
 
@@ -36,6 +37,11 @@ export abstract class AbstractEntityIndexComponent<T> {
       this.reshuffleEntities();
       this.progressBarService.hideTopProgressBar();
     });
+    this.service.entityDeleted$.subscribe((entity) => {
+      this.deleteEntityLocal(entity);
+      this.showEntityDetails = false;
+      this.progressBarService.hideTopProgressBar();
+    });
     this.paginationService.limit$.subscribe((lim: number) => this.limit = lim);
     this.service.entitiesHasMore$.subscribe((hasMore: boolean) => this.hasMore = hasMore);
     this.authService.activeAclChanged$.subscribe(() => {
@@ -45,25 +51,6 @@ export abstract class AbstractEntityIndexComponent<T> {
     this.service.resetPagination();
     this.service.getEntities(this.limit);
     this.progressBarService.showTopProgressBar();
-  }
-
-  protected reshuffleEntities(): void {
-    let tempEntities = this.entitiesHolder.slice(this.page * this.limit, this.page * this.limit + this.limit);
-
-    if (tempEntities.length >= this.limit || !this.hasMore) {
-      this.entities = tempEntities;
-    } else {
-      if (this.hasMore) {
-        this.service.getEntities(this.limit - tempEntities.length);
-        this.progressBarService.showTopProgressBar();
-      }
-    }
-  }
-
-  protected resetEntities(): void {
-    this.service.resetPagination();
-    this.entitiesHolder = [];
-    this.entities = [];
   }
 
   updateLimit(lim: number): void {
@@ -142,5 +129,40 @@ export abstract class AbstractEntityIndexComponent<T> {
 
   hasWritePermission(): boolean {
     return this.service.hasWritePermission();
+  }
+
+  protected reshuffleEntities(): void {
+    let tempEntities = this.entitiesHolder.slice(this.page * this.limit, this.page * this.limit + this.limit);
+
+    if (tempEntities.length >= this.limit || !this.hasMore) {
+      this.entities = tempEntities;
+    } else {
+      if (this.hasMore) {
+        this.service.getEntities(this.limit - tempEntities.length);
+        this.progressBarService.showTopProgressBar();
+      }
+    }
+  }
+
+  protected resetEntities(): void {
+    this.service.resetPagination();
+    this.entitiesHolder = [];
+    this.entities = [];
+  }
+
+  private deleteEntityLocal(entity): void {
+    let index: number = -1;
+
+    for (let i = 0 ; i < this.entitiesHolder.length ; i++) {
+      if (this.entitiesHolder[i].id === entity.id) {
+        index = i;
+        break;
+      }
+    }
+
+    if (index > -1) {
+      this.entitiesHolder.splice(index, 1);
+      this.reshuffleEntities();
+    }
   }
 }

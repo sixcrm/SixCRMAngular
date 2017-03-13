@@ -14,6 +14,7 @@ export abstract class AbstractEntityComponent<T extends Entity<T>> {
   }
   @Input() fullScreen: boolean;
   @Output() close: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() deleteEntity: EventEmitter<string> = new EventEmitter<string>();
 
   @ViewChild('entityContainer') entityContainer;
 
@@ -43,5 +44,9 @@ export abstract class AbstractEntityComponent<T extends Entity<T>> {
 
   toggleGeneralDetails(): void {
     this.showGeneralDetails = !this.showGeneralDetails;
+  }
+
+  emitDeleteEntity(): void {
+    this.deleteEntity.emit(this.id);
   }
 }

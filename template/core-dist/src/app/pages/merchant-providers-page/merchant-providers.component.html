@@ -1,5 +1,5 @@
 <div #indexR class="entity-index">
-  <merchant-provider *ngIf="showEntityDetails" [entityId]="showEntityId" [fullScreen]="fullScreen" (close)="hideEntityDetails()"></merchant-provider>
+  <merchant-provider *ngIf="showEntityDetails" [entityId]="showEntityId" [fullScreen]="fullScreen" (close)="hideEntityDetails()" (deleteEntity)="deleteEntity($event)"></merchant-provider>
 
   <div class="entity-index__title">Merchant Providers</div>
 

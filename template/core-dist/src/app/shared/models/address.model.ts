@@ -1,6 +1,7 @@
 import {Entity} from './entity.interface';
 
 export class Address implements Entity<Address> {
+  id: string;
   line1: string;
   line2: string;
   city: string;

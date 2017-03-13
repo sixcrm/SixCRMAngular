@@ -15,7 +15,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 export class AccessKeysComponent extends AbstractEntityIndexComponent<AccessKey> implements OnInit {
 
   constructor(
-    private accessKeysService: AccessKeysService,
+    accessKeysService: AccessKeysService,
     auth: AuthenticationService,
     dialog: MdDialog,
     progressBarService: ProgressBarService,
@@ -25,8 +25,6 @@ export class AccessKeysComponent extends AbstractEntityIndexComponent<AccessKey>
   }
 
   ngOnInit() {
-    this.accessKeysService.entityDeleted$.subscribe((data) => this.accessKeysService.getEntities());
-
     this.init();
   }
 

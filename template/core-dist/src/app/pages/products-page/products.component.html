@@ -1,5 +1,5 @@
 <div #indexR class="entity-index">
-  <product *ngIf="showEntityDetails" [entityId]="showEntityId" (close)="hideEntityDetails()" [fullScreen]="fullScreen"></product>
+  <product *ngIf="showEntityDetails" [entityId]="showEntityId" (close)="hideEntityDetails()" [fullScreen]="fullScreen" (deleteEntity)="deleteEntity($event)"></product>
 
   <div class="entity-index__title">Products</div>
 

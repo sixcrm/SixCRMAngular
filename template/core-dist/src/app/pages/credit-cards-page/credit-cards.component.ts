@@ -15,7 +15,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 export class CreditCardsComponent extends AbstractEntityIndexComponent<CreditCard> implements OnInit {
 
   constructor(
-    private creditCardsService: CreditCardsService,
+    creditCardsService: CreditCardsService,
     auth: AuthenticationService,
     dialog: MdDialog,
     progressBarService: ProgressBarService,
@@ -25,8 +25,6 @@ export class CreditCardsComponent extends AbstractEntityIndexComponent<CreditCar
   }
 
   ngOnInit() {
-    this.creditCardsService.entityDeleted$.subscribe((data) => this.creditCardsService.getEntities());
-
     this.init();
   }
 

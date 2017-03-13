@@ -1,5 +1,5 @@
 <div #indexR class="entity-index">
-  <transaction *ngIf="showEntityDetails" [entityId]="showEntityId" [fullScreen]="fullScreen" (close)="hideEntityDetails()"></transaction>
+  <transaction *ngIf="showEntityDetails" [entityId]="showEntityId" [fullScreen]="fullScreen" (close)="hideEntityDetails()" (deleteEntity)="deleteEntity($event)"></transaction>
 
   <div class="entity-index__title">Transactions</div>
 

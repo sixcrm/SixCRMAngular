@@ -15,7 +15,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 export class TransactionsComponent extends AbstractEntityIndexComponent<Transaction> implements OnInit {
 
   constructor(
-    private transactionsService: TransactionsService,
+    transactionsService: TransactionsService,
     auth: AuthenticationService,
     dialog: MdDialog,
     progressBarService: ProgressBarService,
@@ -26,8 +26,6 @@ export class TransactionsComponent extends AbstractEntityIndexComponent<Transact
   }
 
   ngOnInit() {
-    this.transactionsService.entityDeleted$.subscribe((data) => this.transactionsService.getEntities());
-
     this.init();
   }
 

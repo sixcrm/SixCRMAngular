@@ -1,5 +1,5 @@
 <div #indexR class="entity-index">
-  <credit-card *ngIf="showEntityDetails" [entityId]="showEntityId" [fullScreen]="fullScreen" (close)="hideEntityDetails()"></credit-card>
+  <credit-card *ngIf="showEntityDetails" [entityId]="showEntityId" [fullScreen]="fullScreen" (close)="hideEntityDetails()" (deleteEntity)="deleteEntity($event)"></credit-card>
 
   <div class="entity-index__title">Credit Cards</div>
 

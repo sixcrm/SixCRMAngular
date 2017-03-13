@@ -1,6 +1,7 @@
 import {Entity} from './entity.interface';
 
 export class ProcessorResponse implements Entity<ProcessorResponse> {
+  id: string = '';
   message: string = '';
 
   constructor(obj?: any) {

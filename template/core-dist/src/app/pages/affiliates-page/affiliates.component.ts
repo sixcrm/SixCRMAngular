@@ -15,7 +15,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 export class AffiliatesComponent extends AbstractEntityIndexComponent<Affiliate> implements OnInit {
 
   constructor(
-    private affiliatesService: AffiliatesService,
+    affiliatesService: AffiliatesService,
     auth: AuthenticationService,
     dialog: MdDialog,
     progressBarService: ProgressBarService,
@@ -25,8 +25,6 @@ export class AffiliatesComponent extends AbstractEntityIndexComponent<Affiliate>
   }
 
   ngOnInit() {
-    this.affiliatesService.entityDeleted$.subscribe((data) => this.affiliatesService.getEntities());
-
     this.init();
   }
 }

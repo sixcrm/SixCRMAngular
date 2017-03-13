@@ -14,9 +14,16 @@ export class EntityViewTopnavComponent implements OnInit {
   @Output()
   close: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  @Output()
+  del: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  deleteEntity(): void {
+    this.del.emit(true);
   }
 
 }

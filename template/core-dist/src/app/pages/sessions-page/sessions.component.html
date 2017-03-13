@@ -1,5 +1,5 @@
 <div #indexR class="entity-index">
-  <session *ngIf="showEntityDetails" [entityId]="showEntityId" (close)="hideEntityDetails()" [fullScreen]="fullScreen"></session>
+  <session *ngIf="showEntityDetails" [entityId]="showEntityId" (close)="hideEntityDetails()" [fullScreen]="fullScreen" (deleteEntity)="deleteEntity($event)"></session>
 
   <div class="entity-index__title">Sessions</div>
 

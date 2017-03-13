@@ -15,7 +15,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 export class LoadBalancersComponent extends AbstractEntityIndexComponent<LoadBalancer> implements OnInit {
 
   constructor(
-    private loadBalancersService: LoadBalancersService,
+    loadBalancersService: LoadBalancersService,
     auth: AuthenticationService,
     dialog: MdDialog,
     progressBarService: ProgressBarService,
@@ -25,8 +25,6 @@ export class LoadBalancersComponent extends AbstractEntityIndexComponent<LoadBal
   }
 
   ngOnInit() {
-    this.loadBalancersService.entityDeleted$.subscribe(() => this.loadBalancersService.getEntities() );
-
     this.init();
   }
 

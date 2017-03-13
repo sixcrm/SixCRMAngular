@@ -1,5 +1,5 @@
 <div #indexR class="entity-index">
-  <campaign *ngIf="showEntityDetails" [entityId]="showEntityId" [fullScreen]="fullScreen" (close)="hideEntityDetails()"></campaign>
+  <campaign *ngIf="showEntityDetails" [entityId]="showEntityId" [fullScreen]="fullScreen" (close)="hideEntityDetails()" (deleteEntity)="deleteEntity($event)"></campaign>
 
   <div class="entity-index__title">Campaigns</div>
 

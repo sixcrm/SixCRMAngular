@@ -1,5 +1,5 @@
 <div #indexR class="entity-index">
-  <affiliate *ngIf="showEntityDetails" [entityId]="showEntityId" [fullScreen]="fullScreen" (close)="hideEntityDetails()"></affiliate>
+  <affiliate *ngIf="showEntityDetails" [entityId]="showEntityId" [fullScreen]="fullScreen" (close)="hideEntityDetails()" (deleteEntity)="deleteEntity($event)"></affiliate>
 
   <div class="entity-index__title">Affiliates</div>
 

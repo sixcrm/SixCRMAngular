@@ -16,7 +16,7 @@ import {ViewChild} from '@angular/core/src/metadata/di';
 export class UsersComponent extends AbstractEntityIndexComponent<User> implements OnInit {
 
   constructor(
-    private usersService: UsersService,
+    usersService: UsersService,
     auth: AuthenticationService,
     dialog: MdDialog,
     progressBarService: ProgressBarService,
@@ -26,10 +26,6 @@ export class UsersComponent extends AbstractEntityIndexComponent<User> implement
   }
 
   ngOnInit() {
-    this.usersService.entityDeleted$.subscribe(() =>{
-      this.usersService.getEntities();
-    });
-
     this.init();
   }
 }

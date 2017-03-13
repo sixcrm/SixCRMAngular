@@ -4,6 +4,6 @@
   <md-icon *ngIf="service.hasWritePermission()" class="entity__nav__add">add</md-icon>
 
   <md-menu #topnavMenu="mdMenu">
-    <button *ngIf="service.hasWritePermission()" md-menu-item>delete</button>
+    <button *ngIf="service.hasWritePermission()" (click)="deleteEntity()" md-menu-item>delete</button>
   </md-menu>
 </div>

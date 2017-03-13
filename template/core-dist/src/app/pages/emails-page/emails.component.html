@@ -1,5 +1,5 @@
 <div #indexR class="entity-index">
-  <email *ngIf="showEntityDetails" [entityId]="showEntityId" [fullScreen]="fullScreen" (close)="hideEntityDetails()"></email>
+  <email *ngIf="showEntityDetails" [entityId]="showEntityId" [fullScreen]="fullScreen" (close)="hideEntityDetails()" (deleteEntity)="deleteEntity($event)"></email>
 
   <div class="entity-index__title">Emails</div>
 

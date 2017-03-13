@@ -1,6 +1,6 @@
 <div #indexR class="entity-index">
-  <smtp-provider *ngIf="showEntityDetails" [entityId]="showEntityId" [fullScreen]="fullScreen" (close)="hideEntityDetails()"></smtp-provider>
-  
+  <smtp-provider *ngIf="showEntityDetails" [entityId]="showEntityId" [fullScreen]="fullScreen" (close)="hideEntityDetails()" (deleteEntity)="deleteEntity($event)"></smtp-provider>
+
   <div class="entity-index__title">SMTP Providers</div>
 
   <button md-icon-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="addEntity()"><md-icon>add</md-icon></button>

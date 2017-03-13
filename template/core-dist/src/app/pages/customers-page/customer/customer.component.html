@@ -1,4 +1,4 @@
-<div #entityContainer class="entity" [class.entity--full-screen]="fullScreen">
+<div #entityContainer class="entity" [class.entity--full-screen]="fullScreen" (del)="emitDeleteEntity()">
   <div *ngIf="!loading" class="entity__body" [style.height]="height">
     <entity-view-topnav [service]="service" (close)="closeDetails()"></entity-view-topnav>
 

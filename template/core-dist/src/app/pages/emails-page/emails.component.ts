@@ -15,7 +15,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 export class EmailsComponent extends AbstractEntityIndexComponent<Email> implements OnInit {
 
   constructor(
-    private emailsService: EmailsService,
+    emailsService: EmailsService,
     auth: AuthenticationService,
     dialog: MdDialog,
     progressBarService: ProgressBarService,
@@ -25,8 +25,6 @@ export class EmailsComponent extends AbstractEntityIndexComponent<Email> impleme
   }
 
   ngOnInit() {
-    this.emailsService.entityDeleted$.subscribe((data) => this.emailsService.getEntities());
-
     this.init();
   }
 

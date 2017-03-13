@@ -15,7 +15,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 export class SessionsComponent extends AbstractEntityIndexComponent<Session> implements OnInit {
 
   constructor(
-    private sessionsService: SessionsService,
+    sessionsService: SessionsService,
     auth: AuthenticationService,
     dialog: MdDialog,
     progressBarService: ProgressBarService,
@@ -25,8 +25,6 @@ export class SessionsComponent extends AbstractEntityIndexComponent<Session> imp
   }
 
   ngOnInit() {
-    this.sessionsService.entityDeleted$.subscribe((data) => this.sessionsService.getEntities());
-
     this.init();
   }
 

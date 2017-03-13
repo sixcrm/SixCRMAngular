@@ -15,7 +15,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 export class SmtpProvidersComponent extends AbstractEntityIndexComponent<SmtpProvider> implements OnInit {
 
   constructor(
-    private smtpProvidersService: SmtpProvidersService,
+    smtpProvidersService: SmtpProvidersService,
     auth: AuthenticationService,
     dialog: MdDialog,
     progressBarService: ProgressBarService,
@@ -25,8 +25,6 @@ export class SmtpProvidersComponent extends AbstractEntityIndexComponent<SmtpPro
   }
 
   ngOnInit() {
-    this.smtpProvidersService.entityDeleted$.subscribe((data) => this.smtpProvidersService.getEntities());
-
     this.init();
   }
 
