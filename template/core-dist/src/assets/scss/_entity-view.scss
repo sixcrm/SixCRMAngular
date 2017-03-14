@@ -176,6 +176,42 @@
     &__content {
       padding: 0 18px;
 
+      &--invite {
+        padding: 0 18px;
+        font-size: 14px;
+
+        &__element {
+          margin-bottom: 15px;
+        }
+
+        &__label {
+          font-weight: 600;
+          margin-right: 7px;
+        }
+
+        &__select {
+          display: inline-block;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+          width: 210px;
+
+          md-icon {
+            float: right;
+            height: 18px;
+            vertical-align: middle;
+            cursor: pointer;
+          }
+        }
+
+        md-input {
+          display: inline-block;
+          width: 200px;
+        }
+
+        button {
+          margin-top: 15px;
+        }
+      }
+
       md-input {
         margin: 5px 18px;
         width: 300px;

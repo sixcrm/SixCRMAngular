@@ -518,6 +518,15 @@ export function updateUserForRegistration(user: User): string {
 	}`
 }
 
+export function inviteUserMutation(email: string, accountId: string, roleId: string): string {
+  return `
+    mutation {
+		  inviteuser (userinvite: {email: "${email}" account:"${accountId}" role:"${roleId}"}) {
+			  link
+		  }
+	  }`
+}
+
 export function smtpProvidersListQuery(limit?:number, cursor?:string): string {
   return `{
     smtpproviderlist ${pageParams(limit, cursor)} {
@@ -597,6 +606,14 @@ export function accessKeyQuery(id: string): string {
 
 export function deleteAccessKeyMutation(id: string): string {
   return deleteMutation('accesskey', id);
+}
+
+export function rolesListQuery(limit?: number, cursor?: string): string {
+  return `{
+    rolelist ${pageParams(limit, cursor)} {
+			roles { id name active }
+			pagination { count end_cursor has_next_page }
+		}}`
 }
 
 function pageParams(limit?: number, cursor?: string): string {

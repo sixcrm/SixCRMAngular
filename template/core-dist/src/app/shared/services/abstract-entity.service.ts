@@ -16,7 +16,7 @@ export abstract class AbstractEntityService<T> {
 
   constructor(
     private http: Http,
-    private authService: AuthenticationService,
+    protected authService: AuthenticationService,
     private toEntity?: (data: any) => T,
     private indexQuery?: (limit?: number, cursor?: string) => string,
     private viewQuery?: (id: string) => string,

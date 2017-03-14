@@ -1,6 +1,7 @@
 import {Permissions} from './permissions.model';
+import {Entity} from './entity.interface';
 
-export class AclRole {
+export class Role implements Entity<Role> {
 
   id: string;
   name: string;
@@ -25,6 +26,10 @@ export class AclRole {
     }
 
     return this.permissions.hasPermission(entity, operation);
+  }
+
+  copy(): Role {
+    return new Role(this.inverse());
   }
 
   inverse(): any {

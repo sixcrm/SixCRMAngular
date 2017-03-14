@@ -1,13 +1,14 @@
 <div #entityContainer class="entity" [class.entity--full-screen]="fullScreen">
   <div *ngIf="!loading" class="entity__body" [style.height]="height">
+
     <entity-view-topnav [service]="service" (close)="closeDetails()" (del)="emitDeleteEntity()"></entity-view-topnav>
 
     <div *ngIf="entity">
       <div class="entity__caption">
-        {{entity.name}}
+        {{ mode === 'view' ? entity.name : 'Invite New User' }}
       </div>
 
-      <div class="entity__content">
+      <div *ngIf="mode === 'view'" class="entity__content">
         <md-tab-group>
           <md-tab label="Details">
 
@@ -17,7 +18,7 @@
                 {name:'ID', value: entity.id},
                 {name:'Name', value: entity.name},
                 {name:'Email', value: entity.email},
-                {name:'Active', value: entity.account},
+                {name:'Active', value: entity.active},
                 {name:'Terms And Conditions', value: entity.termsAndConditions}
               ]">
             </entity-view-info>
@@ -39,6 +40,27 @@
 
           </md-tab>
         </md-tab-group>
+      </div>
+
+      <div *ngIf="mode === 'add'" class="entity__add">
+        <div class="entity__add__content--invite">
+          <div class="entity__add__content--invite__element">
+            <span class="entity__add__content--invite__label">Email:</span>
+            <md-input [disabled]="inviteSent" [(ngModel)]="email"></md-input>
+          </div>
+          <div class="entity__add__content--invite__element">
+            <span class="entity__add__content--invite__label">Role:</span>
+            <span class="entity__add__content--invite__select">
+              {{(role && role.name) || 'Select Role' }}
+              <md-icon *ngIf="!inviteSent" [md-menu-trigger-for]="rolesMenu">keyboard_arrow_down</md-icon>
+            </span>
+          </div>
+          <md-menu #rolesMenu="mdMenu">
+            <button md-menu-item *ngFor="let r of roles" (click)="setRole(r)">{{r.name}}</button>
+          </md-menu>
+
+          <button *ngIf="!inviteSent" [disabled]="!email || !role" md-raised-button (click)="sendInvite()">Invite</button>
+        </div>
       </div>
     </div>
   </div>

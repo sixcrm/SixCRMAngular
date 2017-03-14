@@ -1,4 +1,6 @@
-export class AclAccount {
+import {Entity} from './entity.interface';
+
+export class Account implements Entity<Account> {
 
   id: string;
   name: string;
@@ -12,6 +14,10 @@ export class AclAccount {
     this.id = obj.id || '';
     this.name = obj.name || '';
     this.active = obj.active || '';
+  }
+
+  copy(): Account {
+    return new Account(this.inverse());
   }
 
   inverse(): any {

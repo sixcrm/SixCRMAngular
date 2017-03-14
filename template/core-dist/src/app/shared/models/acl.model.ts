@@ -1,10 +1,10 @@
-import {AclAccount} from './acl-account.model';
-import {AclRole} from './acl-role.model';
+import {Account} from './account.model';
+import {Role} from './role.model';
 
 export class Acl {
   signature: string;
-  account: AclAccount;
-  role: AclRole;
+  account: Account;
+  role: Role;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -12,8 +12,8 @@ export class Acl {
     }
 
     this.signature = obj.signature || '';
-    this.account = new AclAccount(obj.account);
-    this.role = new AclRole(obj.role);
+    this.account = new Account(obj.account);
+    this.role = new Role(obj.role);
   }
 
   inverse(): any {
