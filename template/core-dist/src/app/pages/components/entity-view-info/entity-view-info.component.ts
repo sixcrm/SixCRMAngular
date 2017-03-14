@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'entity-view-info',
@@ -13,6 +13,15 @@ export class EntityViewInfoComponent implements OnInit {
   @Input()
   data: any[];
 
+  @Input()
+  options: any;
+
+  @Input()
+  optionsField: string;
+
+  @Output()
+  select: EventEmitter<any> = new EventEmitter<any>();
+
   show: boolean = true;
 
   constructor() { }
@@ -22,6 +31,10 @@ export class EntityViewInfoComponent implements OnInit {
 
   toggle(): void {
     this.show = !this.show;
+  }
+
+  selectOption(option): void {
+    this.select.emit(option);
   }
 
 }

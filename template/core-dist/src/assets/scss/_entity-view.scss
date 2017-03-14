@@ -117,12 +117,12 @@
 
     &__general {
       padding: 18px;
-      cursor: pointer;
 
       &__title {
         border-bottom: solid 1px gray;
+        line-height: 40px;
 
-        md-icon {
+        button {
           float: right;
           vertical-align: middle;
         }
@@ -159,19 +159,33 @@
   }
 
   &__edit {
-    padding: 18px;
 
     &__content {
+      padding: 18px;
+
       md-input {
         margin: 5px 18px;
         width: 300px;
         font-size: 16px;
       }
     }
+  }
 
-    &__buttons {
-      margin: 18px;
-      text-align: right;
+  &__add {
+
+    &__content {
+      padding: 0 18px;
+
+      md-input {
+        margin: 5px 18px;
+        width: 300px;
+        font-size: 16px;
+      }
     }
+  }
+
+  &__buttons {
+    margin: 18px;
+    text-align: right;
   }
 }

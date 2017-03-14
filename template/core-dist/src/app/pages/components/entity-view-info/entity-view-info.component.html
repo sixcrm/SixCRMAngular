@@ -1,8 +1,17 @@
 <div class="entity__content__general">
-  <div class="entity__content__general__title" (click)="toggle()">
+  <div class="entity__content__general__title">
     <span>{{title}}</span>
-    <md-icon *ngIf="show">keyboard_arrow_up</md-icon>
-    <md-icon *ngIf="!show">keyboard_arrow_down</md-icon>
+
+    <button *ngIf="show" md-icon-button (click)="toggle()"><md-icon>keyboard_arrow_up</md-icon></button>
+    <button *ngIf="!show" md-icon-button (click)="toggle()"><md-icon>keyboard_arrow_down</md-icon></button>
+
+    <ng-container *ngIf="options && optionsField">
+      <button md-icon-button [md-menu-trigger-for]="providersMenu"><md-icon>add</md-icon></button>
+
+      <md-menu #providersMenu="mdMenu">
+        <button md-menu-item *ngFor="let option of options" (click)="selectOption(option)">{{option[optionsField]}}</button>
+      </md-menu>
+    </ng-container>
   </div>
 
   <div *ngIf="show" class="entity__content__general__content">

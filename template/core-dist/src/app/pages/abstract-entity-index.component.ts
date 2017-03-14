@@ -38,17 +38,24 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
       this.reshuffleEntities();
       this.progressBarService.hideTopProgressBar();
     });
-    this.service.entityDeleted$.subscribe((entity) => {
+
+    this.service.entityDeleted$.subscribe((entity: T) => {
       this.deleteEntityLocal(entity);
       this.showEntityDetails = false;
       this.progressBarService.hideTopProgressBar();
     });
-    this.paginationService.limit$.subscribe((lim: number) => this.limit = lim);
+    this.service.entityCreated$.subscribe(() => this.reshuffleEntities());
+    this.service.entityUpdated$.subscribe((entity: T) => {
+      this.updateEntityLocal(entity);
+      this.progressBarService.hideTopProgressBar();
+    });
     this.service.entitiesHasMore$.subscribe((hasMore: boolean) => this.hasMore = hasMore);
+    this.paginationService.limit$.subscribe((lim: number) => this.limit = lim);
     this.authService.activeAclChanged$.subscribe(() => {
       this.resetEntities();
       this.service.getEntities(this.limit);
     });
+
     this.service.resetPagination();
     this.service.getEntities(this.limit);
     this.progressBarService.showTopProgressBar();
@@ -77,17 +84,12 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   }
 
   viewEntity(id: string): void {
-
     this.mode = 'view';
     this.showEntityId = id;
     this.showEntityDetails = true;
     this.progressBarService.showTopProgressBar();
 
     this.calculateViewEntityHeight();
-  }
-
-  updateEntity(id: string): void {
-
   }
 
   deleteEntity(id: string): void {
@@ -102,7 +104,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     });
   }
 
-  addEntity(): void {
+  openAddEntity(): void {
     this.mode = 'add';
     this.showEntityDetails = true;
     this.calculateViewEntityHeight();
@@ -148,20 +150,32 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     this.entities = [];
   }
 
-  private deleteEntityLocal(entity): void {
-    let index: number = -1;
-
-    for (let i = 0 ; i < this.entitiesHolder.length ; i++) {
-      if (this.entitiesHolder[i].id === entity.id) {
-        index = i;
-        break;
-      }
-    }
+  private deleteEntityLocal(entity: T): void {
+    let index: number = this.indexOfEntity(entity);
 
     if (index > -1) {
       this.entitiesHolder.splice(index, 1);
       this.reshuffleEntities();
     }
+  }
+
+  private updateEntityLocal(entity: T): void {
+    let index: number = this.indexOfEntity(entity);
+
+    if (index > -1) {
+      this.entitiesHolder[index] = entity;
+      this.reshuffleEntities();
+    }
+  }
+
+  private indexOfEntity(entity: T): number {
+    for (let i = 0 ; i < this.entitiesHolder.length ; i++) {
+      if (this.entitiesHolder[i].id === entity.id) {
+        return i;
+      }
+    }
+
+    return -1;
   }
 
   private calculateViewEntityHeight(): void {

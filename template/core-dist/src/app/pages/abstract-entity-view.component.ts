@@ -27,7 +27,7 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
         this.entityId = params['id'];
       }
 
-      if (params['type'] === 'addEntity') {
+      if (params['type'] === 'openAddEntity') {
         this.mode = 'Add';
         this.addMode = true;
       }

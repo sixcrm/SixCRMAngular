@@ -38,7 +38,7 @@ export function createProductMutation(product: Product): string {
   mutation {
     createproduct (product: { id: "${product.name}", name: "${product.name}", sku: "${product.sku}", ship: "${product.ship}", shipping_delay:"${product.shippingDelay}",  fulfillment_provider:"${product.fulfillmentProvider.id}" }) {
       id name sku ship shipping_delay
-      fulfillment_provider { id name }
+      fulfillment_provider { id name username endpoint password provider }
     }
   }`;
 }
@@ -48,7 +48,7 @@ export function updateProductMutation(product: Product): string {
     mutation {
       updateproduct (product: { id: "${product.id}", name: "${product.name}", sku: "${product.sku}", ship: "${product.ship}", shipping_delay:"${product.shippingDelay}",  fulfillment_provider:"${product.fulfillmentProvider.id}" }) {
         id name sku ship shipping_delay
-        fulfillment_provider { id name }
+        fulfillment_provider { id name username endpoint password provider }
       }
     }`;
 }
@@ -204,7 +204,7 @@ export function deleteFulfillmentProviderMutation(id: string): string {
 export function createFulfillmentProviderMutation(provider: FulfillmentProvider): string {
   return `
     mutation {
-		  createfulfillmentprovider ( fulfillmentprovider: { id: "${provider.id}", name: "${provider.name}", username: "${provider.username}", password: "${provider.password}", endpoint: "${provider.endpoint}", provider: "${provider.provider}"}) {
+		  createfulfillmentprovider ( fulfillmentprovider: { name: "${provider.name}", username: "${provider.username}", password: "${provider.password}", endpoint: "${provider.endpoint}", provider: "${provider.provider}"}) {
 			  id name provider username password endpoint
 		  }
 	  }`
