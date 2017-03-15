@@ -9,6 +9,7 @@ import {MaterialModule} from '@angular/material';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {LoginGuard} from './login-guard.service';
+import { InviteAcceptComponent } from './invite-accept/invite-accept.component';
 
 @NgModule({
   imports : [
@@ -20,7 +21,8 @@ import {LoginGuard} from './login-guard.service';
   ],
   declarations : [
     AuthComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    InviteAcceptComponent
   ],
   providers : [
     AuthenticationService,

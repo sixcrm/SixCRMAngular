@@ -5,8 +5,8 @@ import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {environment} from '../../environments/environment';
 import {Http, Headers} from '@angular/http';
 import {
-  userIntrospection, createUserForRegistration, updateUserForRegistration,
-  createCreditCardMutation
+  userIntrospection, updateUserForRegistration,
+  createCreditCardMutation, acceptInviteMutation
 } from '../shared/utils/query-builder';
 import {User} from '../shared/models/user.model';
 import {CreditCard} from '../shared/models/credit-card.model';
@@ -134,6 +134,44 @@ export class AuthenticationService {
           }
         );
     }
+
+    return subject;
+  }
+
+  public updateUserForAcceptInvite(user: User): Observable<boolean> {
+    let subject: Subject<boolean> = new Subject<boolean>();
+
+    if (!this.userData.acls || !this.userData.acls[0]) {
+      subject.next(false);
+    } else {
+      let endpoint = environment.endpoint + this.userData.acls[0].account.id;
+      this.http.post(endpoint, updateUserForRegistration(user), { headers: this.generateHeaders() })
+        .subscribe(
+          () => {
+            subject.next(true);
+          },
+          () => {
+            subject.next(false);
+          }
+        );
+    }
+
+    return subject;
+  }
+
+  public activateUser(token: string, param: string): Observable<User> {
+    let subject = new Subject<User>();
+
+    this.http.post(environment.endpoint + '*', acceptInviteMutation(token, param), { headers: this.generateHeaders() }).subscribe(
+      (data) => {
+        let user = data.json().data.acceptinvite;
+        subject.next(new User(user));
+      },
+      (error) => {
+        console.log(error);
+        subject.next(null);
+      }
+    );
 
     return subject;
   }

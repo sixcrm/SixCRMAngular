@@ -1,0 +1,55 @@
+<div class="invite-accept">
+  <div class="invite-accept__in">
+
+    <div class="invite-accept__in__header"></div>
+    <img class="invite-accept__in__header__logo" src="/assets/images/logo-white.svg">
+
+    <div class="invite-accept__in__content" *ngIf="welcomeScreen">
+      <div class="invite-accept__in__content__notification__primary">
+        You were invited to SIX CRM by [user placeholder] of [company placeholder]
+      </div>
+      <div class="invite-accept__in__content__notification__secondary">
+        Press "accept" below to continue
+      </div>
+
+      <div class="invite-accept__in__content__button">
+        <button md-raised-button (click)="acceptInvite()"> ACCEPT </button>
+      </div>
+    </div>
+
+    <div class="invite-accept__in__content" *ngIf="infoScreen">
+      <div class="invite-accept__in__content__info">
+        <md-input [class.error]="isFirstNameInvalid()" placeholder="First Name" [(ngModel)]="firstName">
+          <md-hint class="error" *ngIf="isFirstNameInvalid()">more than two characters please!</md-hint>
+        </md-input>
+        <md-input [class.error]="isLastNameInvalid()" placeholder="Last Name" [(ngModel)]="lastName">
+          <md-hint class="error" *ngIf="isLastNameInvalid()">more than two characters please!</md-hint>
+        </md-input>
+        <md-input [class.error]="isUsernameInvalid()" placeholder="Username" [(ngModel)]="username">
+          <md-hint class="error" *ngIf="isUsernameInvalid()">more than four characters please!</md-hint>
+        </md-input>
+      </div>
+
+      <div class="invite-accept__in__content__button">
+        <button
+          md-raised-button
+          [disabled]="isUsernameInvalid() || isFirstNameInvalid() || isLastNameInvalid()"
+          (click)="submitInfo()"> SUBMIT
+        </button>
+      </div>
+    </div>
+
+    <div class="invite-accept__in__content" *ngIf="completeScreen">
+      <div class="invite-accept__in__content__notification__primary">
+        Registration Complete
+      </div>
+      <div class="invite-accept__in__content__notification__secondary">
+        You will receive an email confirming your account shortly
+      </div>
+
+      <div class="invite-accept__in__content__button">
+        <button md-raised-button (click)="complete()"> COMPLETE </button>
+      </div>
+    </div>
+  </div>
+</div>
