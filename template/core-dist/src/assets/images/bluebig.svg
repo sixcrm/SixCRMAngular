@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="794px" height="64px" viewBox="0 0 794 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Oval 16</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="39.9013061%" y1="98.316202%" x2="65.2781947%" y2="98.3162045%" id="linearGradient-1">
+            <stop stop-color="#0A38D9" stop-opacity="0.978685462" offset="0%"></stop>
+            <stop stop-color="#00D0FE" stop-opacity="0.246348505" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Top-Nav-collapsed" fill="url(#linearGradient-1)">
+            <g id="Top-Nav-">
+                <g id="Oval-16">
+                    <g>
+                        <ellipse cx="215" cy="-1653.02857" rx="1898" ry="1735.31429"></ellipse>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
