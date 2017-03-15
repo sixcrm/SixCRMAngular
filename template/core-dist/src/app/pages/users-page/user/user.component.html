@@ -9,7 +9,7 @@
       </div>
 
       <div *ngIf="mode === 'view'" class="entity__content">
-        <md-tab-group>
+        <md-tab-group [(selectedIndex)]="tabIndex">
           <md-tab label="Details">
 
             <entity-view-info
@@ -37,7 +37,31 @@
 
           </md-tab>
           <md-tab label="Edit">
-
+            <div class="entity__edit">
+              <div class="entity__edit__content">
+                <div class="entity__edit__content__title"> GENERAL DETAILS </div>
+                <md-input [(ngModel)]="entityCopy.name" placeholder="Name"></md-input>
+                <md-input [(ngModel)]="entityCopy.email" placeholder="Email"></md-input>
+                <div class="entity__edit__content__checkbox">
+                  <span> Active: </span>
+                  <md-checkbox [checked]="entityCopy.active === 'true'" (change)="entityCopy.active = $event.checked ? 'true' : 'false'"></md-checkbox>
+                </div>
+                <md-input [(ngModel)]="entityCopy.termsAndConditions" placeholder="Terms And Conditions"></md-input>
+              </div>
+              <div class="entity__edit__content">
+                <div class="entity__edit__content__title"> ADDRESS </div>
+                <md-input [(ngModel)]="entityCopy.address.country" placeholder="Country"></md-input>
+                <md-input [(ngModel)]="entityCopy.address.state" placeholder="SKU"></md-input>
+                <md-input [(ngModel)]="entityCopy.address.city" placeholder="City"></md-input>
+                <md-input [(ngModel)]="entityCopy.address.line1" placeholder="Line 1"></md-input>
+                <md-input [(ngModel)]="entityCopy.address.line2" placeholder="Line 2"></md-input>
+                <md-input [(ngModel)]="entityCopy.address.zip" placeholder="Zip"></md-input>
+              </div>
+            </div>
+            <div class="entity__buttons">
+              <button md-raised-button (click)="update()">Update</button>
+              <button md-raised-button (click)="cancelUpdate()">Cancel</button>
+            </div>
           </md-tab>
         </md-tab-group>
       </div>

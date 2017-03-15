@@ -497,6 +497,21 @@ export function deleteUserMutation(id: string): string {
   return deleteMutation('user', id);
 }
 
+export function updateUserMutation(user: User): string {
+  return `
+    mutation {
+      updateuser (user: { id: "${user.id}", auth0_id: "${user.auth0Id}", name: "${user.name}", active:"${user.active}", termsandconditions:"${user.termsAndConditions}", address:{line1: "${user.address.line2}", line2:"${user.address.line1}", city:"${user.address.city}", state:"${user.address.state}", zip:"${user.address.zip}", country:"${user.address.country}"}}) {
+        id name auth0_id active
+        address { line1 line2 city state zip country }
+        acl {
+          account { id name active }
+          role { id name active }
+        }
+        termsandconditions
+		  }
+    }`;
+}
+
 export function createUserForRegistration(email: string, auth0Id: string): string {
   return `
     mutation {
