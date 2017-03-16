@@ -4,6 +4,19 @@
     <div class="invite-accept__in__header"></div>
     <img class="invite-accept__in__header__logo" src="/assets/images/logo-white.svg">
 
+    <div class="invite-accept__in__content" *ngIf="loginRequiredScreen">
+      <div class="invite-accept__in__content__notification__primary">
+        To accept this invite, you must be registered and logged in as
+      </div>
+
+      <div class="invite-accept__in__content__notification__primary--bold">{{email}}</div>
+
+      <div class="invite-accept__in__content__button">
+        <button md-raised-button (click)="goToLogin()"> Log In </button>
+        <button md-raised-button (click)="complete()"> Cancel </button>
+      </div>
+    </div>
+
     <div class="invite-accept__in__content" *ngIf="welcomeScreen">
       <div class="invite-accept__in__content__notification__primary">
         You were invited to SIX CRM by [user placeholder] of [company placeholder]

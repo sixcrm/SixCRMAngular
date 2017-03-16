@@ -12,7 +12,9 @@ export class InviteAcceptComponent implements OnInit {
 
   token: string;
   param: string;
+  email: string;
 
+  loginRequiredScreen: boolean;
   welcomeScreen: boolean;
   infoScreen: boolean;
   completeScreen: boolean;
@@ -35,12 +37,22 @@ export class InviteAcceptComponent implements OnInit {
       this.token = params['t'];
       this.param = params['p'];
 
-      if (!this.token || !this.param) {
+      let decParam = atob(this.param);
+
+      if (decParam && decParam.split(':')[0]) {
+        this.email = decParam.split(':')[0];
+      }
+
+      if (!this.token || !this.param || !this.email) {
         this.router.navigate(['/']);
+      } else {
+        this.validateLoggedInUser();
       }
     });
+  }
 
-    this.welcomeScreen = true;
+  goToLogin(): void {
+    this.authService.logout(this.router.url);
   }
 
   acceptInvite(): void {
@@ -48,7 +60,7 @@ export class InviteAcceptComponent implements OnInit {
       if (user) {
         this.user = user;
 
-        if (this.user.name) {
+        if (this.user.name && this.user.name.length >= 2) {
           this.welcomeScreen = false;
           this.infoScreen = false;
           this.completeScreen = true;
@@ -74,11 +86,14 @@ export class InviteAcceptComponent implements OnInit {
       this.usernameError = true;
     }
 
-    if (this.isFirstNameInvalid() || this.isLastNameInvalid() || this.isFirstNameInvalid()) {
+    if (this.isFirstNameInvalid() || this.isLastNameInvalid() || this.isUsernameInvalid()) {
       return;
     }
 
-    this.user.name = this.firstName + ' ' + this.lastName;
+    this.user.name = this.username;
+    this.user.auth0Id = 'auth0id';
+    this.user.active = 'true';
+
     this.authService.updateUserForAcceptInvite(this.user).subscribe((success) => {
       if (success) {
         this.welcomeScreen = false;
@@ -89,18 +104,33 @@ export class InviteAcceptComponent implements OnInit {
   }
 
   complete(): void {
-    this.authService.logout();
+    this.authService.refreshSixUser();
   }
 
-  isFirstNameInvalid(): boolean {
+  private validateLoggedInUser(): void {
+    if (this.authService.authenticated()) {
+      let loggedInEmail = this.authService.getUserEmail();
+
+      if (this.email === loggedInEmail) {
+        this.welcomeScreen = true;
+      } else {
+        this.loginRequiredScreen = true;
+      }
+
+    } else {
+      this.loginRequiredScreen = true;
+    }
+  }
+
+  private isFirstNameInvalid(): boolean {
     return this.firstNameError && this.firstName.length < 2;
   }
 
-  isLastNameInvalid(): boolean {
+  private isLastNameInvalid(): boolean {
     return this.lastNameError && this.lastName.length < 2;
   }
 
-  isUsernameInvalid(): boolean {
+  private isUsernameInvalid(): boolean {
     return this.usernameError && this.username.length < 4;
   }
 }

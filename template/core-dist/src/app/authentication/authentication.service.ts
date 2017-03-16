@@ -5,8 +5,11 @@ import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {environment} from '../../environments/environment';
 import {Http, Headers} from '@angular/http';
 import {
-  userIntrospection, updateUserForRegistration,
-  createCreditCardMutation, acceptInviteMutation
+  userIntrospection,
+  updateUserForRegistration,
+  createCreditCardMutation,
+  acceptInviteMutation,
+  updateUserForActivation
 } from '../shared/utils/query-builder';
 import {User} from '../shared/models/user.model';
 import {CreditCard} from '../shared/models/credit-card.model';
@@ -18,6 +21,7 @@ declare var Auth0Lock: any;
 export class AuthenticationService {
 
   private lock: any;
+  private redirectUrl: string = 'redirect_url';
   private accessToken: string = 'access_token';
   private idToken: string = 'id_token';
   private activated: string = 'activated';
@@ -72,7 +76,11 @@ export class AuthenticationService {
     this.lock.show();
   }
 
-  public logout(): void {
+  public logout(redirectUrl?: string): void {
+    if (redirectUrl) {
+      localStorage.setItem(this.redirectUrl, redirectUrl);
+    }
+
     this.router.navigate(['/']);
 
     localStorage.removeItem(this.accessToken);
@@ -92,6 +100,32 @@ export class AuthenticationService {
     let sixUser = localStorage.getItem(this.sixUser);
 
     return new User(JSON.parse(sixUser));
+  }
+
+  public getUserEmail(): string {
+    let payload = this.getPayload();
+
+    if (!payload) {
+      return '';
+    }
+
+    return payload.email;
+  }
+
+  public getUserPicture(): string {
+    let payload = this.getPayload();
+
+    if (!payload) {
+      return '';
+    }
+
+    return payload.picture;
+  }
+
+  public getPayload(): any {
+    let payload = localStorage.getItem(this.idTokenPayload);
+
+    return JSON.parse(payload);
   }
 
   public getAcls(): Acl[] {
@@ -141,20 +175,16 @@ export class AuthenticationService {
   public updateUserForAcceptInvite(user: User): Observable<boolean> {
     let subject: Subject<boolean> = new Subject<boolean>();
 
-    if (!this.userData.acls || !this.userData.acls[0]) {
-      subject.next(false);
-    } else {
-      let endpoint = environment.endpoint + this.userData.acls[0].account.id;
-      this.http.post(endpoint, updateUserForRegistration(user), { headers: this.generateHeaders() })
-        .subscribe(
-          () => {
-            subject.next(true);
-          },
-          () => {
-            subject.next(false);
-          }
-        );
-    }
+    let endpoint = environment.endpoint + this.getActiveAcl().account.id;
+    this.http.post(endpoint, updateUserForActivation(user), { headers: this.generateHeaders() })
+      .subscribe(
+        () => {
+          subject.next(true);
+        },
+        () => {
+          subject.next(false);
+        }
+      );
 
     return subject;
   }
@@ -164,7 +194,13 @@ export class AuthenticationService {
 
     this.http.post(environment.endpoint + '*', acceptInviteMutation(token, param), { headers: this.generateHeaders() }).subscribe(
       (data) => {
-        let user = data.json().data.acceptinvite;
+        let userData = data.json().data.acceptinvite;
+        let user: User = new User(userData);
+        user.picture = this.getUserPicture();
+
+        this.updateSixUser(user);
+        this.getOrUpdateActiveAcl(user);
+
         subject.next(new User(user));
       },
       (error) => {
@@ -180,20 +216,39 @@ export class AuthenticationService {
     return this.getSixUser().hasPermissions(entity, operation, this.getActiveAcl());
   }
 
+  public refreshSixUser(): void {
+    this.router.navigateByUrl('/');
+    localStorage.removeItem(this.activeAcl);
+    this.getUserData(JSON.parse(localStorage.getItem(this.idTokenPayload)));
+  }
+
   private setUser(authResult): void {
     localStorage.setItem(this.accessToken, authResult.accessToken);
     localStorage.setItem(this.idToken, authResult.idToken);
     localStorage.setItem(this.idTokenPayload, JSON.stringify(authResult.idTokenPayload));
 
-    this.getUserIntrospection(authResult.idTokenPayload);
+    this.getUserData(authResult.idTokenPayload);
   }
 
-  private getUserIntrospection(profile: any): void {
+  private getUserData(profile: any): void {
     if (!profile) {
       this.logout();
       return;
     }
 
+    let redirectUrl = localStorage.getItem(this.redirectUrl);
+    localStorage.removeItem(this.redirectUrl);
+
+    if (redirectUrl) {
+      setTimeout(() => {
+        this.router.navigateByUrl(redirectUrl);
+      }, 300);
+    } else {
+      this.getUserIntrospection(profile);
+    }
+  }
+
+  private getUserIntrospection(profile: any): void {
     this.http.post(environment.endpoint + '*', userIntrospection(), { headers: this.generateHeaders()}).subscribe(
       (data) => {
         let user = data.json().data.userintrospection;

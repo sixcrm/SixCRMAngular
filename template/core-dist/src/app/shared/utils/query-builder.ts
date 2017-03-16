@@ -533,6 +533,16 @@ export function updateUserForRegistration(user: User): string {
 	}`
 }
 
+export function updateUserForActivation(user: User): string {
+  return `
+    mutation {
+		  updateuser (
+		    user: { id: "${user.id}" name: "${user.name}" auth0_id: "${user.auth0Id}" active: "${user.active}" termsandconditions: "0.1"}) {
+			    id auth0_id name active termsandconditions
+			}
+	}`
+}
+
 export function inviteUserMutation(email: string, accountId: string, roleId: string): string {
   return `
     mutation {
