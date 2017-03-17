@@ -23,10 +23,6 @@ $main-color: #9B9A9B;
 
     &__icon {
       color: $main-color;
-
-      @media #{$medium-and-down} {
-        color: #ffffff;
-      }
     }
   }
 
@@ -35,27 +31,15 @@ $main-color: #9B9A9B;
       color: $main-color;
       margin-left: 10px;
       margin-right: 5px;
-
-      @media #{$medium-and-down} {
-        color: #ffffff;
-      }
     }
 
     &__arrow {
       margin-right: 15px;
       cursor: pointer;
-
-      @media #{$medium-and-down} {
-        color: #ffffff;
-      }
     }
 
     &__name {
       font-size: 15px;
-
-      @media #{$medium-and-down} {
-        color: #ffffff;
-      }
     }
 
     &__menu {
@@ -90,27 +74,15 @@ $main-color: #9B9A9B;
       margin-right: 10px;
       font-size: 15px;
       font-weight: 300;
-
-      @media #{$medium-and-down} {
-        color: #ffffff;
-      }
     }
 
     &__name {
       font-weight: 500;
       font-size: 15px;
-
-      @media #{$medium-and-down} {
-        color: #ffffff;
-      }
     }
 
     &__arrow {
       cursor: pointer;
-
-      @media #{$medium-and-down} {
-        color: #ffffff;
-      }
     }
   }
 
@@ -161,17 +133,9 @@ $main-color: #9B9A9B;
     width: 1px;
     height: 70%;
     background: $main-color;
-
-    @media #{$medium-and-down} {
-      background: #ffffff;
-    }
   }
 
   &__notifications {
     color: $main-color;
-
-    @media #{$medium-and-down} {
-      color: #ffffff;
-    }
   }
 }
