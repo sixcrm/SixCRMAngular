@@ -1,5 +1,12 @@
 <div #indexR class="entity-index">
-  <customer *ngIf="showEntityDetails" [entityId]="showEntityId" [fullScreen]="fullScreen" (close)="hideEntityDetails()" (deleteEntity)="deleteEntity($event)"></customer>
+  <customer
+    *ngIf="showEntityDetails"
+    [mode]="mode"
+    [entityId]="mode === 'view' ? showEntityId : ''"
+    [fullScreen]="fullScreen"
+    (close)="hideEntityDetails()"
+    (deleteEntity)="deleteEntity($event)">
+  </customer>
 
   <div class="entity-index__title">Customers</div>
 

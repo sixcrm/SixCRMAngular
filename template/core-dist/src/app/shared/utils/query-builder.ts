@@ -7,6 +7,7 @@ import {User} from '../models/user.model';
 import {CreditCard} from '../models/credit-card.model';
 import {FulfillmentProvider} from '../models/fulfillment-provider.model';
 import {Affiliate} from '../models/affiliate.model';
+import {Customer} from '../models/customer.model';
 
 function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
@@ -253,7 +254,7 @@ export function customersInfoListQuery(limit?:number, cursor?:string): string {
   return `{
     customerlist ${pageParams(limit, cursor)} {
       customers { id firstname lastname
-        address { city country }
+        address { city country state }
 			}
 			pagination { count end_cursor has_next_page }
 		}}`
@@ -266,13 +267,61 @@ export function customerQuery(id: string): string {
 		  creditcards {	id ccnumber expiration ccv name
 			  address { line1 line2 city state zip }
 			}
-		} }`
+		}
+  }`
 }
 
 export function deleteCustomerMutation(id: string): string {
   return deleteMutation('customer', id);
 }
 
+export function createCustomerMutation(customer: Customer): string {
+  let creditCards: string = '';
+  for (let index in customer.creditCards) {
+    let creditCard = customer.creditCards[index];
+    creditCards += `"${creditCard.id}" `;
+  }
+
+  return `
+    mutation {
+		  createcustomer (
+		    customer: {
+		      id: "${customer.email}" email: "${customer.email}" firstname: "${customer.firstName}" lastname: "${customer.lastName}" phone: "${customer.phone}"
+		      address: { line1: "${customer.address.line1}" city: "${customer.address.city}" state: "${customer.address.state}" zip: "${customer.address.zip}" country: "${customer.address.country}" }
+		      creditcards:[${creditCards}] }
+      ) {
+        id email firstname lastname phone
+        address { line1 city state zip country }
+			  creditcards { id ccnumber expiration ccv name
+				  address { line1 line2 city state zip }
+			  }
+		  }
+	  }`
+}
+
+export function updateCustomerMutation(customer: Customer): string {
+  let creditCards: string = '';
+  for (let index in customer.creditCards) {
+    let creditCard = customer.creditCards[index];
+    creditCards += `"${creditCard.id}" `;
+  }
+
+  return `
+    mutation {
+		  updatecustomer (
+		    customer: {
+		      id: "${customer.id}" email: "${customer.email}" firstname: "${customer.firstName}" lastname: "${customer.lastName}" phone: "${customer.phone}"
+		      address: { line1: "${customer.address.line1}" city: "${customer.address.city}" state: "${customer.address.state}" zip: "${customer.address.zip}" country: "${customer.address.country}" }
+		      creditcards:[${creditCards}] }
+      ) {
+		    id email firstname lastname phone
+		    address { line1 city state zip country }
+			  creditcards { id ccnumber expiration ccv name
+				  address { line1 line2 city state zip }
+			  }
+		  }
+	  }`
+}
 
 export function loadBalancersInfoListQuery(limit?:number, cursor?:string): string {
   return `{
@@ -431,7 +480,7 @@ export function deleteSessionMutation(id: string): string {
 export function creditCardsListQuery(limit?:number, cursor?:string): string {
   return `{
     creditcardlist ${pageParams(limit, cursor)} {
-			creditcards { id expiration name
+			creditcards { id ccnumber expiration ccv name
 			  address { city state }
 			}
 			pagination { count end_cursor has_next_page }

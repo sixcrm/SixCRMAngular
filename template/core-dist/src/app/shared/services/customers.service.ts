@@ -3,7 +3,13 @@ import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Http} from '@angular/http';
 import {Customer} from '../models/customer.model';
-import {customerQuery, customersInfoListQuery, deleteCustomerMutation} from '../utils/query-builder';
+import {
+  customerQuery,
+  customersInfoListQuery,
+  deleteCustomerMutation,
+  updateCustomerMutation,
+  createCustomerMutation
+} from '../utils/query-builder';
 
 @Injectable()
 export class CustomersService extends AbstractEntityService<Customer> {
@@ -16,8 +22,8 @@ export class CustomersService extends AbstractEntityService<Customer> {
       customersInfoListQuery,
       customerQuery,
       deleteCustomerMutation,
-      null,
-      null,
+      createCustomerMutation,
+      updateCustomerMutation,
       'customer'
     );
   }

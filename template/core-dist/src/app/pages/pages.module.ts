@@ -56,6 +56,7 @@ import {ProductScheduleComponent} from './product-schedule-page/product-schedule
 import {ProductSchedulesComponent} from './product-schedule-page/product-schedules.component';
 import {EntityViewTopnavComponent} from './components/entity-view-topnav/entity-view-topnav.component';
 import {EntityViewInfoComponent} from './components/entity-view-info/entity-view-info.component';
+import { EntityViewInfoArrayComponent } from './components/entity-view-info-array/entity-view-info-array.component';
 
 @NgModule({
   imports : [
@@ -104,7 +105,8 @@ import {EntityViewInfoComponent} from './components/entity-view-info/entity-view
     EmailComponent,
     CampaignComponent,
     EntityViewTopnavComponent,
-    EntityViewInfoComponent
+    EntityViewInfoComponent,
+    EntityViewInfoArrayComponent
   ],
   providers: [
     UsersAclGuard,

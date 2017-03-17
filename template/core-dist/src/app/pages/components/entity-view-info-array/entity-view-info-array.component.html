@@ -1,0 +1,26 @@
+<div class="entity__content__general">
+  <div class="entity__content__general__title">
+    <span>{{title}}</span>
+
+    <button *ngIf="show" md-icon-button (click)="toggle()"><md-icon>keyboard_arrow_up</md-icon></button>
+    <button *ngIf="!show" md-icon-button (click)="toggle()"><md-icon>keyboard_arrow_down</md-icon></button>
+
+    <ng-container *ngIf="editable">
+      <button md-icon-button [md-menu-trigger-for]="providersMenu"><md-icon>add</md-icon></button>
+
+      <md-menu #providersMenu="mdMenu">
+        <button md-menu-item *ngFor="let option of options" (click)="selectOption(option)">{{option[optionsField]}}</button>
+      </md-menu>
+    </ng-container>
+  </div>
+
+  <div *ngIf="show" class="entity__content__array">
+    <div *ngFor="let entity of entities" class="entity__content__array__item">
+      <div class="entity__content__array__item__subtitle">{{subtitle}} <md-icon *ngIf="editable" (click)="removeEntity(entity)">remove</md-icon></div>
+      <div class="entity__content__array__item__field" *ngFor="let field of fields; let i = index">
+        <span>{{labels[i]}}:</span><span>{{entity[field]}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
