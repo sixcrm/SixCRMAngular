@@ -88,7 +88,6 @@ export class AuthenticationService {
     localStorage.removeItem(this.activated);
     localStorage.removeItem(this.idTokenPayload);
     localStorage.removeItem(this.sixUser);
-    localStorage.removeItem(this.activeAcl);
   }
 
   public getToken(): string {
@@ -286,12 +285,12 @@ export class AuthenticationService {
   }
 
   private getOrUpdateActiveAcl(user: User): void {
-    let currentAcl: string = localStorage.getItem(this.activeAcl);
+    let currentAcl = new Acl(JSON.parse(localStorage.getItem(this.activeAcl)));
 
-    if (currentAcl) {
-      this.activeAcl$.next(new Acl(JSON.parse(currentAcl)));
+    if (this.containsAcl(user.acls, currentAcl)) {
+      this.activeAcl$.next(currentAcl);
     } else {
-      let defaultAcl: Acl = user.acls[0];
+      let defaultAcl: Acl = user.acls.filter((acl) => acl.account.name === 'Master Account')[0] || user.acls[0];
 
       if (defaultAcl) {
         localStorage.setItem(this.activeAcl, JSON.stringify(defaultAcl.inverse()));
@@ -299,6 +298,14 @@ export class AuthenticationService {
         this.activeAclChanged$.next(true);
       }
     }
+  }
+
+  private containsAcl(acls: Acl[], acl: Acl): boolean {
+    if (!acls || acls.length === 0 || !acl.account.id) {
+      return false;
+    }
+
+    return acls.filter((element) => element.account.id === acl.account.id).length !== 0;
   }
 
   private generateHeaders(): Headers {
