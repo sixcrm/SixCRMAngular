@@ -1,7 +1,7 @@
 <div #entityContainer class="entity" [class.entity--full-screen]="fullScreen">
   <div *ngIf="!loading" class="entity__body" [style.height]="height">
 
-    <entity-view-topnav [service]="service" (close)="closeDetails()" (del)="emitDeleteEntity()"></entity-view-topnav>
+    <entity-view-topnav [mode]="mode" [service]="service" (close)="closeDetails()" (del)="emitDeleteEntity()"></entity-view-topnav>
 
     <div *ngIf="entity">
       <div class="entity__caption">

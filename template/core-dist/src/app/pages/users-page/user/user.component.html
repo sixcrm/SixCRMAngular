@@ -1,7 +1,7 @@
 <div #entityContainer class="entity" [class.entity--full-screen]="fullScreen">
   <div *ngIf="!loading" class="entity__body" [style.height]="height">
 
-    <entity-view-topnav [service]="service" (close)="closeDetails()" (del)="emitDeleteEntity()"></entity-view-topnav>
+    <entity-view-topnav [mode]="mode" [service]="service" (close)="closeDetails()" (del)="emitDeleteEntity()"></entity-view-topnav>
 
     <div *ngIf="entity">
       <div class="entity__caption">
@@ -51,7 +51,7 @@
               <div class="entity__edit__content">
                 <div class="entity__edit__content__title"> ADDRESS </div>
                 <md-input [(ngModel)]="entityCopy.address.country" placeholder="Country"></md-input>
-                <md-input [(ngModel)]="entityCopy.address.state" placeholder="SKU"></md-input>
+                <md-input [(ngModel)]="entityCopy.address.state" placeholder="State"></md-input>
                 <md-input [(ngModel)]="entityCopy.address.city" placeholder="City"></md-input>
                 <md-input [(ngModel)]="entityCopy.address.line1" placeholder="Line 1"></md-input>
                 <md-input [(ngModel)]="entityCopy.address.line2" placeholder="Line 2"></md-input>

@@ -11,6 +11,9 @@ export class EntityViewTopnavComponent implements OnInit {
   @Input()
   service: AbstractEntityService<any>;
 
+  @Input()
+  mode: string;
+
   @Output()
   close: EventEmitter<boolean> = new EventEmitter<boolean>();
 
