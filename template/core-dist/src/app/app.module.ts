@@ -11,10 +11,11 @@ import {AgmCoreModule} from 'angular2-google-maps/core';
 import {Angulartics2Module, Angulartics2GoogleAnalytics} from 'angulartics2';
 import {AuthenticationModule} from "./authentication/authentication.module";
 import {DeleteDialogComponent} from './pages/delete-dialog.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 @NgModule({
   declarations : [
-    AppComponent, DeleteDialogComponent
+    AppComponent, DeleteDialogComponent, ErrorPageComponent
   ],
   imports : [
     SharedModule.forRoot(),
