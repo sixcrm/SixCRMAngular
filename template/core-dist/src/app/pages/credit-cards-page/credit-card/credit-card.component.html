@@ -1,15 +1,15 @@
 <div #entityContainer class="entity" [class.entity--full-screen]="fullScreen">
   <div *ngIf="!loading" class="entity__body" [style.height]="height">
 
-    <entity-view-topnav [service]="service" (close)="closeDetails()" (del)="emitDeleteEntity()"></entity-view-topnav>
+    <entity-view-topnav [mode]="mode" [service]="service" (close)="closeDetails()" (del)="emitDeleteEntity()"></entity-view-topnav>
 
     <div *ngIf="entity">
       <div class="entity__caption">
         {{entity.name}}
       </div>
 
-      <div class="entity__content">
-        <md-tab-group>
+      <div *ngIf="mode === 'view'" class="entity__content">
+        <md-tab-group [(selectedIndex)]="tabIndex">
           <md-tab label="Details">
 
             <entity-view-info
@@ -37,9 +37,52 @@
 
           </md-tab>
           <md-tab label="Edit">
-
+            <div class="entity__edit">
+              <div class="entity__edit__content">
+                <div class="entity__edit__content__title"> GENERAL DETAILS </div>
+                <md-input [(ngModel)]="entityCopy.name" placeholder="Name"></md-input>
+                <md-input [(ngModel)]="entityCopy.expiration" placeholder="Expiration"></md-input>
+                <md-input [(ngModel)]="entityCopy.ccnumber" placeholder="CC Number"></md-input>
+                <md-input [(ngModel)]="entityCopy.ccv" placeholder="CCV"></md-input>
+              </div>
+              <div class="entity__edit__content">
+                <div class="entity__edit__content__title"> ADDRESS </div>
+                <md-input [(ngModel)]="entityCopy.address.country" placeholder="Country"></md-input>
+                <md-input [(ngModel)]="entityCopy.address.state" placeholder="State"></md-input>
+                <md-input [(ngModel)]="entityCopy.address.city" placeholder="City"></md-input>
+                <md-input [(ngModel)]="entityCopy.address.line1" placeholder="Line 1"></md-input>
+                <md-input [(ngModel)]="entityCopy.address.line2" placeholder="Line 2"></md-input>
+                <md-input [(ngModel)]="entityCopy.address.zip" placeholder="Zip"></md-input>
+              </div>
+            </div>
+            <div class="entity__buttons">
+              <button md-raised-button (click)="update()">Update</button>
+              <button md-raised-button (click)="cancelUpdate()">Cancel</button>
+            </div>
           </md-tab>
         </md-tab-group>
+      </div>
+    </div>
+
+    <div *ngIf="mode === 'add'" class="entity__add">
+      <div class="entity__edit__content">
+        <div class="entity__edit__content__title"> GENERAL DETAILS </div>
+        <md-input [(ngModel)]="entity.name" placeholder="Name"></md-input>
+        <md-input [(ngModel)]="entity.expiration" placeholder="Expiration"></md-input>
+        <md-input [(ngModel)]="entity.ccnumber" placeholder="CC Number"></md-input>
+        <md-input [(ngModel)]="entity.ccv" placeholder="CCV"></md-input>
+      </div>
+      <div class="entity__edit__content">
+        <div class="entity__edit__content__title"> ADDRESS </div>
+        <md-input [(ngModel)]="entity.address.country" placeholder="Country"></md-input>
+        <md-input [(ngModel)]="entity.address.state" placeholder="State"></md-input>
+        <md-input [(ngModel)]="entity.address.city" placeholder="City"></md-input>
+        <md-input [(ngModel)]="entity.address.line1" placeholder="Line 1"></md-input>
+        <md-input [(ngModel)]="entity.address.line2" placeholder="Line 2"></md-input>
+        <md-input [(ngModel)]="entity.address.zip" placeholder="Zip"></md-input>
+      </div>
+      <div class="entity__buttons">
+        <button md-raised-button (click)="create()">Save</button>
       </div>
     </div>
   </div>

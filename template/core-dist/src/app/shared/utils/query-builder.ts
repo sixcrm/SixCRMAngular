@@ -481,7 +481,7 @@ export function creditCardsListQuery(limit?:number, cursor?:string): string {
   return `{
     creditcardlist ${pageParams(limit, cursor)} {
 			creditcards { id ccnumber expiration ccv name
-			  address { city state }
+			  address { country state city }
 			}
 			pagination { count end_cursor has_next_page }
 		}}`
@@ -502,6 +502,16 @@ export function createCreditCardMutation(cc: CreditCard): string {
   return `
     mutation {
 		  createcreditcard (creditcard: { ccnumber: "${cc.ccnumber}" expiration: "${cc.expiration}" ccv: "${cc.ccv}" name: "${cc.name}" address: { line1: "${cc.address.line1}" line2: "${cc.address.line2}" city: "${cc.address.city}" state: "${cc.address.state}" zip: "${cc.address.zip}" country: "${cc.address.country}" } }) {
+        id ccnumber expiration ccv name
+        address { line1 line2 city state zip country }
+      }
+	  }`
+}
+
+export function updateCreditCardMutation(cc: CreditCard): string {
+  return `
+    mutation {
+		  updatecreditcard (creditcard: { id: "${cc.id}" ccnumber: "${cc.ccnumber}" expiration: "${cc.expiration}" ccv: "${cc.ccv}" name: "${cc.name}" address: { line1: "${cc.address.line1}" line2: "${cc.address.line2}" city: "${cc.address.city}" state: "${cc.address.state}" zip: "${cc.address.zip}" country: "${cc.address.country}" } }) {
         id ccnumber expiration ccv name
         address { line1 line2 city state zip country }
       }

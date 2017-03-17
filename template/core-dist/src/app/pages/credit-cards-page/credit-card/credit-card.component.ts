@@ -12,7 +12,7 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
 export class CreditCardComponent extends AbstractEntityComponent<CreditCard> implements OnInit {
 
   constructor(service: CreditCardsService, progressBarService: ProgressBarService) {
-    super(service, progressBarService);
+    super(service, progressBarService, () => new CreditCard());
   }
 
   ngOnInit() {

@@ -3,7 +3,10 @@ import {AbstractEntityService} from './abstract-entity.service';
 import {CreditCard} from '../models/credit-card.model';
 import {Http} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {creditCardsListQuery, creditCardQuery, deleteCreditCardMutation} from '../utils/query-builder';
+import {
+  creditCardsListQuery, creditCardQuery, deleteCreditCardMutation,
+  createCreditCardMutation, updateCreditCardMutation
+} from '../utils/query-builder';
 
 @Injectable()
 export class CreditCardsService extends AbstractEntityService<CreditCard> {
@@ -15,8 +18,8 @@ export class CreditCardsService extends AbstractEntityService<CreditCard> {
       creditCardsListQuery,
       creditCardQuery,
       deleteCreditCardMutation,
-      null,
-      null,
+      createCreditCardMutation,
+      updateCreditCardMutation,
       'creditcard'
     );
   }
