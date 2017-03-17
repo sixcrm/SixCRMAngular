@@ -173,13 +173,14 @@ header {
 
   .header--with-sidenav {
     md-toolbar {
-      background: #fff url("/assets/images/bluesmall.svg") no-repeat !important;
+      background: #fff url("/assets/images/topbluesmall.png") no-repeat !important;
+      background-size: 644px 64px !important;
     }
   }
 
   md-toolbar {
-    background: #fff url("/assets/images/bluebig.svg") no-repeat !important;
-    background-size: auto 64px !important;
+    background: #fff url("/assets/images/topblue.png") no-repeat !important;
+    background-size: 827px 64px !important;
     padding: 0 !important;
 
     md-toolbar-row:not(:first-child) {
