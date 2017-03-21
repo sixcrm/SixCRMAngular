@@ -13,6 +13,10 @@ function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
 }
 
+export function  searchQuery(query: string): string {
+  return `{"query":"${query}", "return":"_all_fields"}`;
+}
+
 export function  productsListQuery(limit?:number, cursor?:string): string {
   return `{
     productlist ${pageParams(limit, cursor)} {

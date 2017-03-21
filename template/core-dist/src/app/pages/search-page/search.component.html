@@ -1,56 +1,50 @@
-<div class="search__search-box">
-  <md-card>
-    <md-card-content>
-      <md-input value="{{searchTerm}}">
-        <md-icon md-prefix>search</md-icon>
-      </md-input>
-      <button class="search__search-box__button--search" md-raised-button color="primary">Search</button>
+<md-sidenav-layout [style.height]="height" class="search__layout">
+  <md-sidenav class="search__sidenav" [mode]="'side'" [opened]="true">
+    <md-nav-list>
+        <md-input [(ngModel)]="queryString">
+          <md-icon md-prefix>search</md-icon>
+        </md-input>
+        <button class="search__search-box__button--search" md-raised-button color="primary" (click)="navigateSearch()">Search</button>
 
-      <span class="search__search-box__title"> Show Results for</span>
-      <span class="search__search-box__item"> CUSTOMERS </span>
-      <span class="search__search-box__item"> CAMPAIGNS </span>
-      <span class="search__search-box__item"> PRODUCTS </span>
-      <span class="search__search-box__item"> BILLING </span>
-      <span class="search__search-box__item"> FULFILLMENT </span>
+        <span class="search__sidenav__title"> Show Results for</span>
+        <span class="search__sidenav__item"> CUSTOMERS </span>
+        <span class="search__sidenav__item"> CAMPAIGNS </span>
+        <span class="search__sidenav__item"> PRODUCTS </span>
+        <span class="search__sidenav__item"> BILLING </span>
+        <span class="search__sidenav__item"> FULFILLMENT </span>
 
-      <div class="search__search-box__divider"></div>
+        <div class="search__sidenav__divider"></div>
 
-      <span class="search__search-box__title search__search-box__title--after"> Refined by </span>
-      <span class="search__search-box__subtitle"> Brand </span>
-      <md-checkbox class="search__search-box__item">Brand One</md-checkbox>
-      <md-checkbox class="search__search-box__item">Brand Two</md-checkbox>
-      <md-checkbox class="search__search-box__item">Brand Three</md-checkbox>
+        <span class="search__sidenav__title search__sidenav__title--after"> Refined by </span>
+        <span class="search__sidenav__subtitle"> Brand </span>
+        <md-checkbox class="search__sidenav__item">Brand One</md-checkbox>
+        <md-checkbox class="search__sidenav__item">Brand Two</md-checkbox>
+        <md-checkbox class="search__sidenav__item">Brand Three</md-checkbox>
 
-      <span class="search__search-box__subtitle"> Merchant </span>
-      <md-checkbox class="search__search-box__item">Merchant One</md-checkbox>
-      <md-checkbox class="search__search-box__item">Merchant Two</md-checkbox>
-      <md-checkbox class="search__search-box__item">Merchant Three</md-checkbox>
+        <span class="search__sidenav__subtitle"> Merchant </span>
+        <md-checkbox class="search__sidenav__item">Merchant One</md-checkbox>
+        <md-checkbox class="search__sidenav__item">Merchant Two</md-checkbox>
+        <md-checkbox class="search__sidenav__item">Merchant Three</md-checkbox>
 
-      <span class="search__search-box__subtitle"> Product Category </span>
-      <md-checkbox class="search__search-box__item">Diet</md-checkbox>
-      <md-checkbox class="search__search-box__item">Muscle</md-checkbox>
-      <md-checkbox class="search__search-box__item">Skin</md-checkbox>
+        <span class="search__sidenav__subtitle"> Product Category </span>
+        <md-checkbox class="search__sidenav__item">Diet</md-checkbox>
+        <md-checkbox class="search__sidenav__item">Muscle</md-checkbox>
+        <md-checkbox class="search__sidenav__item">Skin</md-checkbox>
 
-      <span class="search__search-box__subtitle"> Sale Type </span>
-      <md-checkbox class="search__search-box__item">Trial</md-checkbox>
-      <md-checkbox class="search__search-box__item">Straight</md-checkbox>
+        <span class="search__sidenav__subtitle"> Sale Type </span>
+        <md-checkbox class="search__sidenav__item">Trial</md-checkbox>
+        <md-checkbox class="search__sidenav__item">Straight</md-checkbox>
 
-      <span class="search__search-box__subtitle"> Date </span>
+        <span class="search__sidenav__subtitle"> Date </span>
+    </md-nav-list>
+  </md-sidenav>
 
-    </md-card-content>
-  </md-card>
-</div>
-
-<div class="search__results">
-  <md-card>
-    <md-card-title>Result <md-icon>keyboard_arrow_down</md-icon></md-card-title>
-  </md-card>
-
-  <md-card>
-    <md-card-title>Result <md-icon>keyboard_arrow_down</md-icon></md-card-title>
-  </md-card>
-
-  <md-card>
-    <md-card-title>Result <md-icon>keyboard_arrow_down</md-icon></md-card-title>
-  </md-card>
-</div>
+  <div class="search__content">
+    <md-card *ngFor="let result of (searchService.searchResults$ | async)">
+      <md-card-title> {{result.fields.entity_type[0]}} ID: {{result.id}}<md-icon>keyboard_arrow_down</md-icon></md-card-title>
+      <md-card-content>
+        {{getString(result.fields)}}
+      </md-card-content>
+    </md-card>
+  </div>
+</md-sidenav-layout>

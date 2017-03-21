@@ -54,7 +54,6 @@ export const pagesRouting = RouterModule.forChild([
       { path : 'accessKeys', component : AccessKeysComponent },
       { path : 'profile', component : ProfilePageComponent },
       { path : 'search', component : SearchComponent },
-      { path : 'search/:searchTerm', component : SearchComponent },
       { path : '**', redirectTo : '' },
     ]
   }

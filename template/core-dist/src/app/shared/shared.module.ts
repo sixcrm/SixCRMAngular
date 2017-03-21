@@ -21,6 +21,7 @@ import {ProgressBarService} from './services/progress-bar.service';
 import {ProductScheduleService} from './services/product-schedule.service';
 import {PaginationService} from './services/pagination.service';
 import {RolesService} from './services/roles.service';
+import {SearchService} from './services/search.service';
 
 @NgModule({
   declarations : [ WidgetComponent ],
@@ -49,7 +50,8 @@ export class SharedModule {
         ProgressBarService,
         ProductScheduleService,
         PaginationService,
-        RolesService
+        RolesService,
+        SearchService
       ]
     };
   }

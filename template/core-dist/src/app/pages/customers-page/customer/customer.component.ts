@@ -22,8 +22,6 @@ export class CustomerComponent extends AbstractEntityComponent<Customer> impleme
   ngOnInit() {
     this.init();
 
-    console.log(this.mode);
-
     this.creditCardsService.entities$.subscribe((cc: CreditCard[]) => this.creditCards = cc);
     this.creditCardsService.getEntities();
   }

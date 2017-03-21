@@ -178,7 +178,8 @@ export class TopnavComponent implements OnInit {
 
   search(event) {
     if (event.key === 'Enter' && this.searchTerm && this.searchTerm.length > 0) {
-      this.router.navigate(['/dashboard', 'search', this.searchTerm])
+      this.router.navigate(['/dashboard', 'search'], {queryParams: {query: this.searchTerm}});
+      this.searchTerm = '';
     }
   }
 

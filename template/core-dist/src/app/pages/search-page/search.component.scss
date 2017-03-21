@@ -1,26 +1,14 @@
 .search {
 
-  &__search-box {
-    position: fixed;
-    left: 0;
-    top: 0;
+  &__sidenav {
     width: 250px;
-    height: 100%;
-    box-sizing: border-box;
     font-family: Roboto, sans-serif;
 
-    md-card {
-      margin: 65px 0 0 0;
-      height: 100%;
-      min-height: 850px;
-
-      md-card-content {
-        display: flex;
-        flex-flow: column;
-        -webkit-flex-flow: column;
-        width: 200px;
-      }
-    }
+     md-nav-list {
+       display: flex;
+       flex-flow: column;
+       padding: 15px 25px;
+     }
 
     &__button {
 
@@ -55,7 +43,7 @@
     }
 
     &__divider {
-      position: absolute;
+      position: relative;
       left: 0;
       margin-top: 25px;
       width: 90%;
@@ -64,11 +52,11 @@
     }
   }
 
-  &__results {
-    padding-left: 200px;
+
+  &__content {
+    padding: 30px;
 
     md-card {
-      height: 200px;
 
       md-card-title {
         padding-bottom: 5px;
