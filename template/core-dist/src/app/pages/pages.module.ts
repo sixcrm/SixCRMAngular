@@ -57,6 +57,7 @@ import {ProductSchedulesComponent} from './product-schedule-page/product-schedul
 import {EntityViewTopnavComponent} from './components/entity-view-topnav/entity-view-topnav.component';
 import {EntityViewInfoComponent} from './components/entity-view-info/entity-view-info.component';
 import { EntityViewInfoArrayComponent } from './components/entity-view-info-array/entity-view-info-array.component';
+import { AutocompleteComponent } from './components/autocomplete/autocomplete.component';
 
 @NgModule({
   imports : [
@@ -106,7 +107,8 @@ import { EntityViewInfoArrayComponent } from './components/entity-view-info-arra
     CampaignComponent,
     EntityViewTopnavComponent,
     EntityViewInfoComponent,
-    EntityViewInfoArrayComponent
+    EntityViewInfoArrayComponent,
+    AutocompleteComponent
   ],
   providers: [
     UsersAclGuard,

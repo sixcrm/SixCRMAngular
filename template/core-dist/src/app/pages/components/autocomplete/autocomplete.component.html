@@ -1,0 +1,5 @@
+<div class="auto-complete">
+  <div class="auto-complete__option" *ngFor="let option of options" (click)="select.emit(option)">
+    {{option}}
+  </div>
+</div>

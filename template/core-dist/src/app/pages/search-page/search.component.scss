@@ -4,11 +4,27 @@
     width: 250px;
     font-family: Roboto, sans-serif;
 
-     md-nav-list {
-       display: flex;
-       flex-flow: column;
-       padding: 15px 25px;
-     }
+    &__query {
+
+      &__container {
+        position: relative;
+
+        autocomplete {
+          position: absolute;
+          z-index: 5;
+          width: 210px;
+          max-height: 230px;
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+          overflow: auto;
+        }
+      }
+    }
+
+    md-nav-list {
+      display: flex;
+      flex-flow: column;
+      padding: 15px 25px;
+    }
 
     &__button {
 

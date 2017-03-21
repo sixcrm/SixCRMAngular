@@ -153,10 +153,12 @@ export class TopnavComponent implements OnInit {
 
   private toggleSearchInput(input: HTMLInputElement): void {
     this.showSearchInput = !this.showSearchInput;
-    if(this.showSearchInput) {
+    if (this.showSearchInput) {
       window.setTimeout(() => {
         input.focus();
       }, 0);
+    } else {
+      this.searchTerm = '';
     }
   }
 

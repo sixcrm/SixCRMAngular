@@ -17,6 +17,10 @@ export function  searchQuery(query: string): string {
   return `{"query":"${query}", "return":"_all_fields"}`;
 }
 
+export function  suggestionsQuery(query: string): string {
+  return `{"query":"${query}", "suggester":"name"}`;
+}
+
 export function  productsListQuery(limit?:number, cursor?:string): string {
   return `{
     productlist ${pageParams(limit, cursor)} {

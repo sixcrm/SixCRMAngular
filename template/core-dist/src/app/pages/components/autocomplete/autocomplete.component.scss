@@ -1,0 +1,14 @@
+.auto-complete {
+  background: white;
+  color: black;
+  padding: 10px;
+
+  &__option {
+    padding: 5px 5px 5px 15px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+}

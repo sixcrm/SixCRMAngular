@@ -14,6 +14,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   private queryString: string;
   private height: string = '0';
   private paramsSub: Subscription;
+  private showAutocomplete: boolean = true;
+  private options: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -30,6 +32,11 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     this.searchService.searchResults$.subscribe(() => {
       this.progressBarService.hideTopProgressBar();
+    });
+
+    this.searchService.suggestionResults$.takeWhile(() => !!this.queryString).subscribe((data) => {
+      this.showAutocomplete = true;
+      this.options = data;
     });
 
     setTimeout(() => {
@@ -56,6 +63,32 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   getString(obj: any): string {
     return JSON.stringify(obj);
+  }
+
+  inputChanged(input): void {
+    this.queryString = input.srcElement.value;
+    this.searchService.searchSuggestions(this.queryString);
+
+    if (!this.queryString) {
+      this.options = [];
+      this.showAutocomplete = false;
+    }
+  };
+
+  optionSelected(option: string): void {
+    this.showAutocomplete = false;
+    this.options = [];
+    this.router.navigate(['/dashboard', 'search'], {queryParams: {query: option}})
+  }
+
+  hideAutoComplete(): void {
+    setTimeout(() => this.showAutocomplete = false, 100);
+  }
+
+  showAutoComplete(): void {
+    if (this.queryString) {
+      this.searchService.searchSuggestions(this.queryString);
+    }
   }
 
 }
