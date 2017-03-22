@@ -11,6 +11,88 @@ $main-color: #9B9A9B;
   height: 64px;
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 
+  &__items {
+    &--expanded {
+      display: inline-block;
+
+      @media #{$medium-and-down} {
+        display: none;
+      }
+
+      md-icon, img {
+        vertical-align: middle;
+      }
+    }
+
+    &--collapsed {
+      display: none;
+      margin-left: 15px;
+      line-height: 64px;
+
+      @media #{$medium-and-down} {
+        display: inline-block;
+      }
+
+      &__icon {
+        cursor: pointer;
+        vertical-align: middle;
+      }
+
+      &__menu {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        padding: 0 0 10px 0;
+        background: white;
+        box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+        z-index: 15;
+
+        &__profile {
+          display: inline-block;
+
+          &__image {
+            display: inline-block;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            vertical-align: middle;
+
+            &:hover {
+              cursor: pointer;
+            }
+          }
+
+          span {
+            margin-left: 10px !important;
+          }
+        }
+
+        &__label {
+          display: block;
+          margin-left: 10px;
+          font-size: 14px;
+          height: 20px;
+          line-height: 20px;
+          color: rgba(0, 0, 0, 0.3);
+        }
+
+        &__button {
+          padding: 0 18px;
+          width: 100%;
+          height: 48px;
+          line-height: 48px;
+          font-size: 16px;
+          box-sizing: border-box;
+
+          &:hover {
+            background: rgba(0, 0, 0, 0.033);
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
   &__logo {
     height: 45px;
   }
@@ -25,7 +107,7 @@ $main-color: #9B9A9B;
         z-index: 5;
         width: 210px;
         max-height: 230px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
         overflow: auto;
       }
     }
@@ -40,6 +122,12 @@ $main-color: #9B9A9B;
   }
 
   &__acl {
+
+    &__container {
+      display: inline-block;
+      position: relative;
+    }
+
     &__icon {
       color: $main-color;
       margin-left: 10px;
@@ -57,8 +145,8 @@ $main-color: #9B9A9B;
 
     &__menu {
       position: absolute;
-      top: 64px;
-      right: 285px;
+      top: 45px;
+      right: 20px;
       background: white;
       box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
       z-index: 1;
@@ -66,6 +154,7 @@ $main-color: #9B9A9B;
       div {
         padding: 10px 20px;
         cursor: pointer;
+        font-size: 14px;
 
         &:hover {
           background-color: rgba(0, 0, 0, 0.0588);
@@ -101,10 +190,15 @@ $main-color: #9B9A9B;
 
   &__dropdown {
 
+    &__container {
+      display: inline-block;
+      position: relative;
+    }
+
     &__menu {
       position: absolute;
-      top: 64px;
-      right: 55px;
+      top: 45px;
+      right: 0;
       z-index: 1000;
       background-color: white;
       box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
@@ -131,7 +225,7 @@ $main-color: #9B9A9B;
       }
 
       button {
-        @include font-menu();
+        font-size: 14px;
       }
 
       span {
@@ -141,10 +235,12 @@ $main-color: #9B9A9B;
   }
 
   &__separator {
+    display: inline-block;
     margin-left: 15px;
     margin-right: 15px;
     width: 1px;
-    height: 70%;
+    height: 40px;
+    vertical-align: middle;
     background: $main-color;
   }
 

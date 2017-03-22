@@ -311,12 +311,5 @@ header {
       opacity: 1;
       animation: .8s ease 0s normal forwards 1 fadein;
     }
-
-    @media #{$medium-and-down} {
-      transition: none;
-      .md-input-placeholder.md-empty {
-        color: white;
-      }
-    }
   }
 }

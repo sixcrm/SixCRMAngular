@@ -2,3 +2,10 @@
   max-height: 250px;
   overflow: auto;
 }
+
+.topnav__items--collapsed__menu {
+  .md-menu-content {
+    max-height: 400px;
+    overflow: auto;
+  }
+}

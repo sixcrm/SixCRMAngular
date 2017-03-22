@@ -32,6 +32,7 @@ export class TopnavComponent implements OnInit {
   private _userProfile: User = new User();
 
   private showDropdown: boolean = false;
+  private showCollapseMenu: boolean = false;
   private showSearchInput: boolean = false;
   private showAutoComplete: boolean = false;
   private searchTerm: string = '';
@@ -178,6 +179,10 @@ export class TopnavComponent implements OnInit {
     this.showDropdown = !this.showDropdown;
   }
 
+  toggleCollapseMenu(): void {
+    this.showCollapseMenu = !this.showCollapseMenu;
+  }
+
   toggleSearchInput(input: HTMLInputElement): void {
     this.showSearchInput = !this.showSearchInput;
     if (this.showSearchInput) {
@@ -212,6 +217,10 @@ export class TopnavComponent implements OnInit {
 
     if (!event.target.attributes.class || event.target.attributes.class.value !== 'topnav__acl__arrow material-icons') {
       this.showAcls = false;
+    }
+
+    if (!event.target.attributes.class || event.target.attributes.class.value !== 'topnav__items--collapsed__icon material-icons') {
+      this.showCollapseMenu = false;
     }
   }
 }

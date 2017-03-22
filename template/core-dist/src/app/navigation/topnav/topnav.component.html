@@ -33,32 +33,55 @@
     <autocomplete *ngIf="showSearchInput && showAutoComplete && options.length > 0" [options]="options" (select)="selectOption($event)"></autocomplete>
   </div>
 
-  <ng-container *ngIf="activeAcl">
-    <md-icon class="topnav__acl__icon">domain</md-icon>
-    <span class="topnav__acl__name">{{activeAcl.account.name}}</span>
-    <md-icon class="topnav__acl__arrow" (click)="toggleAclsMenu()">keyboard_arrow_down</md-icon>
-  </ng-container>
+  <div class="topnav__items--expanded">
+    <ng-container *ngIf="activeAcl">
+      <md-icon class="topnav__acl__icon">domain</md-icon>
+      <span class="topnav__acl__name">{{activeAcl.account.name}}</span>
 
-  <div *ngIf="showAcls" class="topnav__acl__menu">
-    <div *ngFor="let acl of _authService.getAcls()" (click)="changeAcl(acl)">{{acl.account.name}}</div>
+      <div class="topnav__acl__container">
+        <md-icon class="topnav__acl__arrow" (click)="toggleAclsMenu()">keyboard_arrow_down</md-icon>
+
+        <div *ngIf="showAcls" class="topnav__acl__menu">
+          <div *ngFor="let acl of _authService.getAcls()" (click)="changeAcl(acl)">{{acl.account.name}}</div>
+        </div>
+      </div>
+    </ng-container>
+
+    <img *ngIf="_userProfile.picture" class="topnav__profile__image" [src]="_userProfile.picture">
+    <span class="topnav__profile__hello">Hello, </span>
+    <span class="topnav__profile__name"> {{_userProfile.name}} </span>
+
+    <div class="topnav__dropdown__container">
+      <md-icon class="topnav__profile__arrow" (click)="toggleDropdownMenu()">keyboard_arrow_down</md-icon>
+
+      <div *ngIf="showDropdown" class="topnav__dropdown__menu">
+        <button md-menu-item class="topnav__dropdown__menu__profile" [routerLink]="['profile']">
+          <img class="topnav__dropdown__menu__profile__image" [src]="_userProfile.picture">
+          <span>{{_userProfile.email}}</span>
+        </button>
+        <button md-menu-item (click)="logout()"> <span>sign out</span> </button>
+      </div>
+    </div>
+
+    <md-menu #menu="mdMenu"></md-menu>
+
+    <span class="topnav__separator"></span>
+
+    <md-icon class="topnav__notifications">chat</md-icon>
   </div>
+  <div class="topnav__items--collapsed">
+    <md-icon class="topnav__items--collapsed__icon" (click)="toggleCollapseMenu()">more_vert</md-icon>
 
-  <img *ngIf="_userProfile.picture" class="topnav__profile__image" [src]="_userProfile.picture">
-  <span class="topnav__profile__hello">Hello, </span>
-  <span class="topnav__profile__name"> {{_userProfile.name}} </span>
-  <md-icon class="topnav__profile__arrow" (click)="toggleDropdownMenu()">keyboard_arrow_down</md-icon>
-
-  <div *ngIf="showDropdown" class="topnav__dropdown__menu">
-    <button md-menu-item class="topnav__dropdown__menu__profile" [routerLink]="['profile']">
-      <img class="topnav__dropdown__menu__profile__image" [src]="_userProfile.picture">
-      <span>{{_userProfile.email}}</span>
-    </button>
-    <button md-menu-item (click)="logout()"> <span>sign out</span> </button>
+    <div *ngIf="showCollapseMenu" class="topnav__items--collapsed__menu">
+      <div class="topnav__items--collapsed__menu__profile topnav__items--collapsed__menu__button" [routerLink]="['profile']">
+        <img class="topnav__items--collapsed__menu__profile__image" [src]="_userProfile.picture">
+        <span>{{_userProfile.email}}</span>
+      </div>
+      <span class="topnav__items--collapsed__menu__label">Accounts:</span>
+      <ng-container *ngFor="let acl of _authService.getAcls()">
+        <div class="topnav__items--collapsed__menu__button" (click)="changeAcl(acl)"><span>{{acl.account.name}}</span></div>
+      </ng-container>
+      <div class="topnav__items--collapsed__menu__button" (click)="logout()"> <span>sign out</span> </div>
+    </div>
   </div>
-
-  <md-menu #menu="mdMenu"></md-menu>
-
-  <span class="topnav__separator"></span>
-
-  <md-icon class="topnav__notifications">chat</md-icon>
 </md-toolbar>
