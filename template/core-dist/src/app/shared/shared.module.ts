@@ -22,10 +22,11 @@ import {ProductScheduleService} from './services/product-schedule.service';
 import {PaginationService} from './services/pagination.service';
 import {RolesService} from './services/roles.service';
 import {SearchService} from './services/search.service';
+import {AutocompleteComponent} from './components/autocomplete/autocomplete.component';
 
 @NgModule({
-  declarations : [ WidgetComponent ],
-  exports : [ WidgetComponent ],
+  declarations : [ WidgetComponent, AutocompleteComponent ],
+  exports : [ WidgetComponent, AutocompleteComponent ],
   imports : [FormsModule, CommonModule, MaterialModule]
 })
 export class SharedModule {

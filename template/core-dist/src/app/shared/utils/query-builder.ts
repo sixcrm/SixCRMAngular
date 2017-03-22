@@ -14,11 +14,41 @@ function deleteMutation(entity: string, id: string) {
 }
 
 export function  searchQuery(query: string): string {
-  return `{"query":"${query}", "return":"_all_fields"}`;
+  return `{
+		search (search: {query: "${query}"}) {
+			status { timems rid }
+			hits { found start
+				hit { id
+					fields {
+						account
+						active
+						address
+						alias
+						amount
+						email
+						entity_type
+						firstname
+						last_four
+						lastname
+						name
+						phone
+						sku
+						tracking_number
+					}
+				}
+			}
+		}
+	}`;
 }
 
-export function  suggestionsQuery(query: string): string {
-  return `{"query":"${query}", "suggester":"name"}`;
+export function  suggestionsQuery(query: string, field?: string): string {
+  return `{
+		suggest (suggest: {query: "${query}", suggester:"${field || 'name'}"}) {
+			status { timems rid }
+			suggest { query found
+				suggestions { suggestion score id }
+			}
+		} }`;
 }
 
 export function  productsListQuery(limit?:number, cursor?:string): string {

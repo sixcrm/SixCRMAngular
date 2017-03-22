@@ -10,6 +10,7 @@ export class SearchService {
 
   searchResults$: Subject<any[]>;
   suggestionResults$: Subject<string[]>;
+
   private suggestionInput$: Subject<string>;
 
   constructor(private http: Http, private authService: AuthenticationService) {
@@ -25,7 +26,7 @@ export class SearchService {
   searchByQuery(query: string): void {
     this.queryRequest(searchQuery(query)).subscribe(
       (response: Response) => {
-        let json = response.json();
+        let json = response.json().data.search;
         let data = json.hits.hit;
 
         this.searchResults$.next(data);
@@ -41,9 +42,9 @@ export class SearchService {
   }
 
   private fetchSuggestions(query: string): void {
-    this.suggestionRequest(suggestionsQuery(query)).subscribe(
+    this.queryRequest(suggestionsQuery(query)).subscribe(
       (response: Response) => {
-        let json = response.json();
+        let json = response.json().data.suggest;
         let data: string[] = json.suggest.suggestions.map(s => s.suggestion.substring(1, s.suggestion.length - 1));
 
         this.suggestionResults$.next(data);
@@ -55,19 +56,7 @@ export class SearchService {
   }
 
   private queryRequest(query: string): Observable<Response> {
-    let endpoint = environment.searchEndpoint;
-
-    if (this.authService.getActiveAcl() && this.authService.getActiveAcl().account) {
-      endpoint = endpoint + this.authService.getActiveAcl().account.id;
-    } else {
-      endpoint = endpoint + '*';
-    }
-
-    return this.http.post(endpoint, query, { headers: this.generateHeaders()});
-  }
-
-  private suggestionRequest(query: string): Observable<Response> {
-    let endpoint = environment.suggestEndpoint;
+    let endpoint = environment.endpoint;
 
     if (this.authService.getActiveAcl() && this.authService.getActiveAcl().account) {
       endpoint = endpoint + this.authService.getActiveAcl().account.id;
