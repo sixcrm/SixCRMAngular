@@ -14,7 +14,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   private queryString: string;
   private height: string = '0';
   private paramsSub: Subscription;
-  private showAutocomplete: boolean = true;
+  private showAutocomplete: boolean = false;
   private options: string[] = [];
 
   constructor(
@@ -35,7 +35,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     });
 
     this.searchService.suggestionResults$.takeWhile(() => !!this.queryString).subscribe((data) => {
-      this.showAutocomplete = true;
       this.options = data;
     });
 
@@ -71,7 +70,6 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     if (!this.queryString) {
       this.options = [];
-      this.showAutocomplete = false;
     }
   };
 
@@ -82,11 +80,13 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   hideAutoComplete(): void {
-    setTimeout(() => this.showAutocomplete = false, 100);
+    setTimeout(() => this.showAutocomplete = false, 150);
   }
 
   showAutoComplete(): void {
     if (this.queryString) {
+      this.options = [];
+      this.showAutocomplete = true;
       this.searchService.searchSuggestions(this.queryString);
     }
   }

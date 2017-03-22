@@ -8,6 +8,7 @@ import {StringUtils} from '../../shared/utils/string-utils';
 import {Router} from '@angular/router';
 import {User} from '../../shared/models/user.model';
 import {Acl} from '../../shared/models/acl.model';
+import {SearchService} from '../../shared/services/search.service';
 
 @Component({
   selector : 'app-topnav',
@@ -21,8 +22,6 @@ export class TopnavComponent implements OnInit {
   private _showSidenav: boolean;
   private _pageTitle: string;
   private _browserTitle: string;
-  private _searchVal: string = '';
-  private _searchValOld: string = '';
   private _isLoadingRoute: boolean = false;
   private _breadcrumbs: Array<{title: string, link: any[] | string}> = [];
   private _autoBreadcrumbs: boolean = true;
@@ -34,7 +33,9 @@ export class TopnavComponent implements OnInit {
 
   private showDropdown: boolean = false;
   private showSearchInput: boolean = false;
-  private searchTerm: string;
+  private showAutoComplete: boolean = false;
+  private searchTerm: string = '';
+  private options: string[] = [];
 
   private activeAcl: Acl = new Acl();
   private showAcls: boolean = false;
@@ -43,7 +44,8 @@ export class TopnavComponent implements OnInit {
     private _navigation: NavigationService,
     private _title: Title,
     private _authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private searchService: SearchService
   ) {
   }
 
@@ -108,15 +110,10 @@ export class TopnavComponent implements OnInit {
     });
 
     this._authService.activeAcl$.subscribe((acl: Acl) => this.activeAcl = acl);
-  }
 
-  searchBlur() {
-    this._searchValOld = this._searchVal;
-    this._searchVal = '';
-  }
-
-  searchFocus() {
-    this._searchVal = this._searchValOld;
+    this.searchService.suggestionResults$.subscribe(options => {
+      this.options = options;
+    })
   }
 
   logout(){
@@ -125,6 +122,71 @@ export class TopnavComponent implements OnInit {
 
   changeAcl(acl: Acl): void {
     this._authService.changeActiveAcl(acl);
+  }
+
+  selectOption(option: string): void {
+    this.searchTerm = option;
+    this.search();
+  }
+
+  searchInputChanged(input): void {
+    this.searchTerm = input.srcElement.value;
+    this.searchService.searchSuggestions(this.searchTerm);
+  }
+
+  searchInputBlur(): void {
+    setTimeout(() => {
+      if(StringUtils.isEmpty(this.searchTerm)) {
+        this.showSearchInput = false;
+      }
+
+      this.showAutoComplete = false;
+      this.options = [];
+    }, 150);
+  }
+
+  searchInputFocus(): void {
+    this.options = [];
+    this.showAutoComplete = true;
+
+    if (this.searchTerm) {
+      this.searchService.searchSuggestions(this.searchTerm);
+    }
+  }
+
+  onSearchKey(event): void {
+    if (event.key === 'Enter' && this.searchTerm && this.searchTerm.length > 0) {
+      this.search();
+    }
+  }
+
+  search(): void {
+    this.router.navigate(['/dashboard', 'search'], {queryParams: {query: this.searchTerm}});
+    this.searchTerm = '';
+    this.showSearchInput = false;
+  };
+
+  toggleSidenav(): void {
+    this._navigation.toggleSidenav(!this._showSidenav);
+  }
+
+  toggleAclsMenu(): void {
+    this.showAcls = !this.showAcls;
+  }
+
+  toggleDropdownMenu(): void {
+    this.showDropdown = !this.showDropdown;
+  }
+
+  toggleSearchInput(input: HTMLInputElement): void {
+    this.showSearchInput = !this.showSearchInput;
+    if (this.showSearchInput) {
+      window.setTimeout(() => {
+        input.focus();
+      }, 0);
+    } else {
+      this.searchTerm = '';
+    }
   }
 
   private updateAutoBreadcrumbs() {
@@ -143,31 +205,6 @@ export class TopnavComponent implements OnInit {
     });
   }
 
-  private toggleAclsMenu(): void {
-    this.showAcls = !this.showAcls;
-  }
-
-  private toggleDropdownMenu(): void {
-    this.showDropdown = !this.showDropdown;
-  }
-
-  private toggleSearchInput(input: HTMLInputElement): void {
-    this.showSearchInput = !this.showSearchInput;
-    if (this.showSearchInput) {
-      window.setTimeout(() => {
-        input.focus();
-      }, 0);
-    } else {
-      this.searchTerm = '';
-    }
-  }
-
-  searchInputBlur() {
-    if(StringUtils.isEmpty(this.searchTerm)) {
-      this.showSearchInput = false;
-    }
-  }
-
   private hideElements(event): void {
     if (!event.target.attributes.class || event.target.attributes.class.value !== 'topnav__profile__arrow material-icons') {
       this.showDropdown = false;
@@ -176,16 +213,5 @@ export class TopnavComponent implements OnInit {
     if (!event.target.attributes.class || event.target.attributes.class.value !== 'topnav__acl__arrow material-icons') {
       this.showAcls = false;
     }
-  }
-
-  search(event) {
-    if (event.key === 'Enter' && this.searchTerm && this.searchTerm.length > 0) {
-      this.router.navigate(['/dashboard', 'search'], {queryParams: {query: this.searchTerm}});
-      this.searchTerm = '';
-    }
-  }
-
-  toggleSidenav(): void {
-    this._navigation.toggleSidenav(!this._showSidenav);
   }
 }

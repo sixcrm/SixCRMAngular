@@ -17,6 +17,19 @@ $main-color: #9B9A9B;
 
   &__search {
 
+    &__container {
+      position: relative;
+
+      autocomplete {
+        position: absolute;
+        z-index: 5;
+        width: 210px;
+        max-height: 230px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        overflow: auto;
+      }
+    }
+
     &__input {
       width: 200px;
     }

@@ -16,9 +16,22 @@
   <span class="app-flex-filler"></span>
 
   <button md-icon-button (click)="toggleSearchInput(searchField)"><md-icon class="topnav__search__icon">search</md-icon></button>
-  <md-input-container id="topnav-search" [ngClass]="{'search-visible': showSearchInput}" [floatingPlaceholder]="false">
-    <input #searchField md-input class="search-field" placeholder="Search" type="text" (blur)="searchInputBlur()" [(ngModel)]="searchTerm" (keydown)="search($event)">
-  </md-input-container>
+  <div class="topnav__search__container">
+    <md-input-container id="topnav-search" [ngClass]="{'search-visible': showSearchInput}" [floatingPlaceholder]="false">
+      <input
+        #searchField
+        md-input
+        class="search-field"
+        placeholder="Search"
+        type="text"
+        (focus)="searchInputFocus()"
+        (blur)="searchInputBlur()"
+        [value]="searchTerm"
+        (input)="searchInputChanged($event)"
+        (keydown)="onSearchKey($event)">
+    </md-input-container>
+    <autocomplete *ngIf="showSearchInput && showAutoComplete && options.length > 0" [options]="options" (select)="selectOption($event)"></autocomplete>
+  </div>
 
   <ng-container *ngIf="activeAcl">
     <md-icon class="topnav__acl__icon">domain</md-icon>
