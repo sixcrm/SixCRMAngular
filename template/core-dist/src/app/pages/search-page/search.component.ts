@@ -123,12 +123,20 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   updateLimit(limit: number): void {
+    if (!limit) return;
+
+    let firstElement: number = this.page * this.limit;
+
+    this.page = Math.floor(firstElement / limit);
     this.limit = limit;
+
     this.reshuffleSearchResults();
   }
 
   hasMorePages(): boolean {
-    return true;
+    let nextPage = this.page + 1;
+
+    return this.hasMore || this.searchResults.slice(nextPage * this.limit, nextPage * this.limit + this.limit).length > 0;
   }
 
   private reshuffleSearchResults(): void {

@@ -55,7 +55,7 @@
           [limit]="limit"
           [paginationValues]="paginationValues"
           [previousDisabled]="page <= 0"
-          [nextDisabled]="!hasMore"
+          [nextDisabled]="!hasMorePages()"
           (previous)="previous()"
           (next)="next()"
           (updateLimit)="updateLimit($event)"></table-pagination>
