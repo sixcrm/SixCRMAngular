@@ -8,7 +8,7 @@ import {searchQuery, suggestionsQuery} from '../utils/query-builder';
 @Injectable()
 export class SearchService {
 
-  searchResults$: Subject<any[]>;
+  searchResults$: Subject<any>;
   suggestionResults$: Subject<string[]>;
 
   private suggestionInput$: Subject<string>;
@@ -23,11 +23,11 @@ export class SearchService {
     })
   }
 
-  searchByQuery(query: string): void {
-    this.queryRequest(searchQuery(query)).subscribe(
+  searchByQuery(query: string, start: number, count: number): void {
+    this.queryRequest(searchQuery(query, start, count)).subscribe(
       (response: Response) => {
         let json = response.json().data.search;
-        let data = json.hits.hit;
+        let data = json.hits;
 
         this.searchResults$.next(data);
       },
@@ -45,7 +45,7 @@ export class SearchService {
     this.queryRequest(suggestionsQuery(query)).subscribe(
       (response: Response) => {
         let json = response.json().data.suggest;
-        let data: string[] = json.suggest.suggestions.map(s => s.suggestion.substring(1, s.suggestion.length - 1));
+        let data: string[] = json.suggest.suggestions.map(s => s.suggestion);
 
         this.suggestionResults$.next(data);
       },

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="17px" viewBox="0 0 24 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 13</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Search-V3-Boxes-Copy-2" transform="translate(-653.000000, -980.000000)">
+            <g id="Group-13" transform="translate(653.000000, 977.000000)">
+                <g id="ic_laptop_mac">
+                    <g id="Icon-24px">
+                        <polygon id="Shape" points="0 0 24 0 24 24 0 24"></polygon>
+                        <path d="M20,18 C21.1,18 21.99,17.1 21.99,16 L22,5 C22,3.9 21.1,3 20,3 L4,3 C2.9,3 2,3.9 2,5 L2,16 C2,17.1 2.9,18 4,18 L0,18 C0,19.1 0.9,20 2,20 L22,20 C23.1,20 24,19.1 24,18 L20,18 L20,18 Z M4,5 L20,5 L20,16 L4,16 L4,5 L4,5 Z M12,19 C11.45,19 11,18.55 11,18 C11,17.45 11.45,17 12,17 C12.55,17 13,17.45 13,18 C13,18.55 12.55,19 12,19 L12,19 Z" id="Shape" fill="#757575"></path>
+                        <polygon id="Shape" fill="#757575" points="13.6666667 8.5 14.6208333 9.45416667 12.5875 11.4875 10.9208333 9.82083333 7.83333333 12.9125 8.42083333 13.5 10.9208333 11 12.5875 12.6666667 15.2125 10.0458333 16.1666667 11 16.1666667 8.5"></polygon>
+                    </g>
+                </g>
+                <g id="ic_trending_up" transform="translate(7.000000, 6.000000)">
+                    <g id="Icon-24px">
+                        <polygon id="Shape" points="0 0 10 0 10 10 0 10"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

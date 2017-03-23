@@ -13,9 +13,9 @@ function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
 }
 
-export function  searchQuery(query: string): string {
+export function  searchQuery(query: string, start: number, size: number): string {
   return `{
-		search (search: {query: "${query}"}) {
+		search (search: {query: "${query}" start: "${start}" size: "${size}"}) {
 			status { timems rid }
 			hits { found start
 				hit { id
@@ -43,7 +43,7 @@ export function  searchQuery(query: string): string {
 
 export function  suggestionsQuery(query: string, field?: string): string {
   return `{
-		suggest (suggest: {query: "${query}", suggester:"${field || 'name'}"}) {
+		suggest (suggest: {query: "${query}", suggester:"${field || 'suggestion_field_1'}"}) {
 			status { timems rid }
 			suggest { query found
 				suggestions { suggestion score id }

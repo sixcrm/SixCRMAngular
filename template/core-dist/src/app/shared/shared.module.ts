@@ -23,10 +23,11 @@ import {PaginationService} from './services/pagination.service';
 import {RolesService} from './services/roles.service';
 import {SearchService} from './services/search.service';
 import {AutocompleteComponent} from './components/autocomplete/autocomplete.component';
+import { HighlightPipe } from './pipes/highlight.pipe';
 
 @NgModule({
-  declarations : [ WidgetComponent, AutocompleteComponent ],
-  exports : [ WidgetComponent, AutocompleteComponent ],
+  declarations : [ WidgetComponent, AutocompleteComponent, HighlightPipe ],
+  exports : [ WidgetComponent, AutocompleteComponent, HighlightPipe ],
   imports : [FormsModule, CommonModule, MaterialModule]
 })
 export class SharedModule {

@@ -1,0 +1,26 @@
+<div class="search__content__results__item">
+  <div class="search__content__results__item__image">
+    <img src={{imageSrc()}}>
+  </div>
+
+  <div class="search__content__results__item__wrapper">
+    <div class="search__content__results__item__title" [innerHTML]="fields.name | highlight: queryString"></div>
+    <div class="search__content__results__item__subtitle">
+      {{entityType}}
+      <img src="/assets/images/result-item-timer.svg"> <span>date created</span>
+    </div>
+    <div class="search__content__results__item__fields">
+      <div class="search__content__results__item__fields__wrapper">{{entityType}} ID: <div>{{id}}</div></div>
+      <div class="search__content__results__item__fields__wrapper">{{entityType}} Name: <div>{{fields.name}}</div></div>
+      <div class="search__content__results__item__fields__wrapper" *ngIf="fields.firstname">First Name: <div>{{fields.firstname}}</div></div>
+      <div class="search__content__results__item__fields__wrapper" *ngIf="fields.lastname">Last Name: <div>{{fields.lastname}}</div></div>
+      <div class="search__content__results__item__fields__wrapper" *ngIf="fields.email">Email: <div>{{fields.email}}</div></div>
+      <div class="search__content__results__item__fields__wrapper" *ngIf="fields.phone">Phone: <div>{{fields.phone}}</div></div>
+      <div class="search__content__results__item__fields__wrapper" *ngIf="fields.sku">SKU: <div>{{fields.sku}}</div></div>
+      <div class="search__content__results__item__fields__wrapper" *ngIf="fields.amount">Amount: <div>{{fields.amount}}</div></div>
+      <div class="search__content__results__item__fields__wrapper" *ngIf="fields.account">Account: <div>{{fields.account}}</div></div>
+      <div class="search__content__results__item__fields__wrapper" *ngIf="fields.alias">Alias: <div>{{fields.alias}}</div></div>
+      <div class="search__content__results__item__fields__wrapper" *ngIf="fields.tracking_number">Tracking Number: <div>{{fields.tracking_number}}</div></div>
+    </div>
+  </div>
+</div>
