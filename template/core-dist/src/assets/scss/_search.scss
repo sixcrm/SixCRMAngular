@@ -119,10 +119,10 @@ $border-color: rgba(0, 0, 0, 0.2);
     &__results {
 
       &__item {
-
+        position: relative;
         margin: 20px;
         padding: 20px 20px 20px 0;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         font-size: 0;
 
         &__image {
@@ -139,9 +139,13 @@ $border-color: rgba(0, 0, 0, 0.2);
 
         &__wrapper {
           display: inline-block;
-          width: 85%;
+          width: 75%;
           height: 100%;
           vertical-align: top;
+
+          @media only screen and (max-width: 800px) {
+            width: 85%;
+          }
         }
 
         &__title {
@@ -169,6 +173,35 @@ $border-color: rgba(0, 0, 0, 0.2);
             margin-top: 10px;
             margin-right: 10px;
             color: $main-color;
+          }
+        }
+
+        &__buttons {
+          position: absolute;
+          bottom: 15px;
+          right: 15px;
+          font-size: 16px;
+          color: $main-color;
+
+          @media only screen and (max-width: 800px) {
+            display: block;
+            position: relative;
+            bottom: 0;
+            right: 0;
+            margin-top: 5px;
+            height: 24px;
+          }
+
+          span {
+            @media only screen and (max-width: 800px) {
+              position: absolute;
+              right: 0;
+            }
+
+            md-icon {
+              margin-right: 5px;
+              vertical-align: middle;
+            }
           }
         }
       }
