@@ -11,14 +11,14 @@
         </div>
         <button class="search__sidenav__button--search" md-raised-button color="primary" (click)="navigateSearch()">Search</button>
 
-        <md-checkbox class="search__sidenav__item">Campaign</md-checkbox>
-        <md-checkbox class="search__sidenav__item">Customer</md-checkbox>
-        <md-checkbox class="search__sidenav__item">User</md-checkbox>
-        <md-checkbox class="search__sidenav__item">Billing</md-checkbox>
-        <md-checkbox class="search__sidenav__item">Transaction</md-checkbox>
-        <md-checkbox class="search__sidenav__item">Product</md-checkbox>
-        <md-checkbox class="search__sidenav__item">Fulfillment</md-checkbox>
-        <md-checkbox class="search__sidenav__item">Product Schedule</md-checkbox>
+        <md-checkbox class="search__sidenav__item">Campaign ({{entityTypesCount['campaign'] || 0}})</md-checkbox>
+        <md-checkbox class="search__sidenav__item">Customer ({{entityTypesCount['customer'] || 0}})</md-checkbox>
+        <md-checkbox class="search__sidenav__item">User ({{entityTypesCount['user'] || 0}})</md-checkbox>
+        <md-checkbox class="search__sidenav__item">Billing ({{entityTypesCount['billing'] || 0}})</md-checkbox>
+        <md-checkbox class="search__sidenav__item">Transaction ({{entityTypesCount['transaction'] || 0}})</md-checkbox>
+        <md-checkbox class="search__sidenav__item">Product ({{entityTypesCount['product'] || 0}})</md-checkbox>
+        <md-checkbox class="search__sidenav__item">Fulfillment ({{entityTypesCount['fulfillment'] || 0}})</md-checkbox>
+        <md-checkbox class="search__sidenav__item">Product Schedule ({{entityTypesCount['productschedule'] || 0}})</md-checkbox>
 
         <div class="search__sidenav__divider"></div>
 

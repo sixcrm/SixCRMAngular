@@ -10,6 +10,7 @@ export class SearchService {
 
   searchResults$: Subject<any>;
   suggestionResults$: Subject<string[]>;
+  entityTypesCount$: Subject<any>;
 
   private suggestionInput$: Subject<string>;
 
@@ -17,6 +18,7 @@ export class SearchService {
     this.searchResults$ = new Subject<any[]>();
     this.suggestionResults$ = new Subject<string[]>();
     this.suggestionInput$ = new Subject<string>();
+    this.entityTypesCount$ = new Subject<any>();
 
     this.suggestionInput$.debounceTime(300).filter(q => !!q).subscribe((query) => {
       this.fetchSuggestions(query);

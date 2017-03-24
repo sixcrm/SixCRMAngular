@@ -27,6 +27,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   private searchResultsToDispaly: any[] = [];
   private hasMore: boolean = true;
 
+  private entityTypesCount: any = {};
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -51,6 +53,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.searchService.suggestionResults$.takeWhile(() => !!this.queryString).subscribe((data) => {
       this.options = data;
     });
+
+    this.searchService.entityTypesCount$.subscribe((data) => this.entityTypesCount = data);
   }
 
   ngOnDestroy() {

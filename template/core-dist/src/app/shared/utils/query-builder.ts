@@ -15,7 +15,7 @@ function deleteMutation(entity: string, id: string) {
 
 export function  searchQuery(query: string, start: number, size: number): string {
   return `{
-		search (search: {query: "${query}" start: "${start}" size: "${size}"}) {
+		search (search: {query: "${query}" facet:"{entity_type:{}}" start: "${start}" size: "${size}"}) {
 			status { timems rid }
 			hits { found start
 				hit { id
