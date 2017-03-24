@@ -131,7 +131,7 @@ export class TopnavComponent implements OnInit {
   }
 
   searchInputChanged(input): void {
-    this.searchTerm = input.srcElement.value;
+    this.searchTerm = input.target.value;
     this.searchService.searchSuggestions(this.searchTerm);
   }
 

@@ -80,7 +80,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   inputChanged(input): void {
-    this.queryString = input.srcElement.value;
+    this.queryString = input.target.value;
     this.searchService.searchSuggestions(this.queryString);
 
     if (!this.queryString) {
@@ -105,9 +105,10 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   showAutoComplete(): void {
+    this.options = [];
+    this.showAutocomplete = true;
+
     if (this.queryString) {
-      this.options = [];
-      this.showAutocomplete = true;
       this.searchService.searchSuggestions(this.queryString);
     }
   }
