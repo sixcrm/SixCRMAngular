@@ -1,14 +1,21 @@
-import { CorePage } from './app.po';
+import { AppPage } from './app.po';
 
-describe('core App', function() {
-  let page: CorePage;
+describe('App load', function() {
+  let page: AppPage;
 
   beforeEach(() => {
-    page = new CorePage();
+    page = new AppPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should load Auth component', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+
+    expect(page.getAuthComponent().isPresent()).toBeTruthy();
+  });
+
+  it('should load Auth0 Lock', () => {
+    page.navigateTo();
+
+    expect(page.getAuth0Lock().isPresent()).toBeTruthy();
   });
 });

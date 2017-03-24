@@ -1,11 +1,31 @@
-import { browser, element, by } from 'protractor/globals';
+import { browser, element, by } from 'protractor';
 
-export class CorePage {
+export class AppPage {
   navigateTo() {
     return browser.get('/');
   }
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+  getAuthComponent() {
+    return element(by.css('auth'));
+  }
+
+  getAuth0Lock() {
+    return element(by.css('.auth0-lock-widget-container'));
+  }
+
+  getEmailInput() {
+    return element(by.name('email'));
+  }
+
+  getPasswordInput() {
+    return element(by.name('password'));
+  }
+
+  getLoginButton() {
+    return element(by.css('.auth0-lock-submit'));
+  }
+
+  getErrorMessage() {
+    return element(by.css('.auth0-global-message-error'));
   }
 }
