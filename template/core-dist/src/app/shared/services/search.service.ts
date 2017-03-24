@@ -29,9 +29,28 @@ export class SearchService {
     this.queryRequest(searchQuery(query, start, count)).subscribe(
       (response: Response) => {
         let json = response.json().data.search;
-        let data = json.hits;
+        let hits = json.hits;
 
-        this.searchResults$.next(data);
+        hits.hit = hits.hit.map(hit => {
+          hit.fields = JSON.parse(hit.fields);
+          for (let property in hit.fields) {
+            hit.fields[property] = hit.fields[property][0];
+          }
+
+          return hit;
+        });
+
+        this.searchResults$.next(hits);
+
+        let facets = JSON.parse(json.facets);
+        let obj = {};
+        if (facets && facets.entity_type.buckets && facets.entity_type.buckets.length > 0) {
+          facets.entity_type.buckets.forEach(bucket => {
+            obj[bucket.value] = bucket.count
+          } );
+        }
+
+        this.entityTypesCount$.next(obj);
       },
       (error) => {
         console.error(error);

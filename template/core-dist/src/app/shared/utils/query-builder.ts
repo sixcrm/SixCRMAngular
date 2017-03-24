@@ -17,24 +17,10 @@ export function  searchQuery(query: string, start: number, size: number): string
   return `{
 		search (search: {query: "${query}" facet:"{entity_type:{}}" start: "${start}" size: "${size}"}) {
 			status { timems rid }
+			facets
 			hits { found start
 				hit { id
-					fields {
-						account
-						active
-						address
-						alias
-						amount
-						email
-						entity_type
-						firstname
-						last_four
-						lastname
-						name
-						phone
-						sku
-						tracking_number
-					}
+					fields
 				}
 			}
 		}
