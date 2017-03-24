@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="46px" height="44px" viewBox="0 0 46 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="20px" height="14px" viewBox="0 0 20 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
-    <title>ic_redeem</title>
+    <title>ic_Tag Bro</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Search-V3-Boxes-Copy-2" transform="translate(-386.000000, -432.000000)">
-            <g id="datatable" transform="translate(322.000000, 140.000000)">
-                <g id="results" transform="translate(22.000000, 79.000000)">
-                    <g id="ic_redeem" transform="translate(38.000000, 209.000000)">
-                        <g id="Icon-24px">
-                            <path d="M45,13.5 L40.095,13.5 C40.3425,12.8025 40.5,12.0375 40.5,11.25 C40.5,7.515 37.485,4.5 33.75,4.5 C31.3875,4.5 29.34,5.715 28.125,7.5375 L27,9.045 L25.875,7.515 C24.66,5.715 22.6125,4.5 20.25,4.5 C16.515,4.5 13.5,7.515 13.5,11.25 C13.5,12.0375 13.6575,12.8025 13.905,13.5 L9,13.5 C6.5025,13.5 4.5225,15.5025 4.5225,18 L4.5,42.75 C4.5,45.2475 6.5025,47.25 9,47.25 L45,47.25 C47.4975,47.25 49.5,45.2475 49.5,42.75 L49.5,18 C49.5,15.5025 47.4975,13.5 45,13.5 L45,13.5 Z M33.75,9 C34.9875,9 36,10.0125 36,11.25 C36,12.4875 34.9875,13.5 33.75,13.5 C32.5125,13.5 31.5,12.4875 31.5,11.25 C31.5,10.0125 32.5125,9 33.75,9 L33.75,9 Z M20.25,9 C21.4875,9 22.5,10.0125 22.5,11.25 C22.5,12.4875 21.4875,13.5 20.25,13.5 C19.0125,13.5 18,12.4875 18,11.25 C18,10.0125 19.0125,9 20.25,9 Z M45,42.75 L9,42.75 L9,38.25 L45,38.25 L45,42.75 Z M45,31.5 L9,31.5 L9,18 L20.43,18 L15.75,24.3675 L19.395,27 L24.75,19.71 L27,16.65 L29.25,19.71 L34.605,27 L38.25,24.3675 L33.57,18 L45,18 L45,31.5 L45,31.5 Z" id="Shape" fill="#757575"></path>
-                            <rect id="Rectangle-6" fill="#FFFFFF" x="9" y="30" width="36" height="10"></rect>
-                            <polygon id="Shape" points="0 0 54 0 54 54 0 54"></polygon>
-                        </g>
+        <g id="Mobile-Portrait" transform="translate(-109.000000, -431.000000)">
+            <g id="ic_Tag-Bro" transform="translate(108.000000, 427.000000)">
+                <g id="Icon" transform="translate(11.900000, 12.000000) rotate(20.000000) translate(-11.900000, -12.000000) translate(2.400000, 7.200000)">
+                    <path d="M5.68434189e-15,0.801978636 C5.68434189e-15,0.359058066 0.360138208,1.36424205e-13 0.79281354,1.36424205e-13 L13.2071865,1.36424205e-13 C13.6450453,1.36424205e-13 14.2674423,0.231513977 14.6039575,0.522821546 L18.0297354,3.48837891 C18.8665405,4.21276723 18.8649909,5.38857422 18.0297354,6.11162109 L14.6039575,9.07717845 C14.270401,9.36592482 13.6398618,9.6 13.2071865,9.6 L0.79281354,9.6 C0.354954712,9.6 5.68434189e-15,9.23539124 5.68434189e-15,8.79802136 L5.68434189e-15,0.801978636 Z" id="tag-outer" fill="#757575"></path>
+                    <g id="HOLE" transform="translate(14.153930, 3.304518)" stroke="#979797">
+                        <ellipse id="Oval" stroke-width="0.5" fill="#FFFFFF" cx="1.6" cy="1.6" rx="1.6" ry="1.6"></ellipse>
+                        <ellipse id="Oval-Copy" stroke-width="0.6" cx="1.6" cy="1.6" rx="1.06666667" ry="1.06666667"></ellipse>
                     </g>
+                    <rect id="tag-inner" fill="#FFFFFF" x="1" y="1" width="12.4" height="7.6" rx="1.2"></rect>
+                    <path d="M2.7,4.8 L11.7088845,4.8" id="Line" stroke="#757575" stroke-width="0.8" stroke-linecap="square"></path>
+                    <path d="M2.7,7 L11.7088845,7" id="Line-Copy" stroke="#757575" stroke-width="0.8" stroke-linecap="square"></path>
+                    <path d="M2.7,2.6 L8.50344725,2.6" id="Line" stroke="#757575" stroke-width="1.2" stroke-linecap="square"></path>
                 </g>
+                <rect id="container" x="0" y="0" width="24" height="24"></rect>
             </g>
         </g>
     </g>
