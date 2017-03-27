@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {Input} from '@angular/core/src/metadata/directives';
+import {Component, OnInit, EventEmitter} from '@angular/core';
+import {Input, Output} from '@angular/core/src/metadata/directives';
 
 @Component({
   selector: 'result-item',
@@ -13,6 +13,8 @@ export class ResultItemComponent implements OnInit {
   @Input() entityType: string;
   @Input() queryString: string;
 
+  @Output() showDetails: EventEmitter<any> = new EventEmitter<any>();
+
   constructor() { }
 
   ngOnInit() {
@@ -20,5 +22,9 @@ export class ResultItemComponent implements OnInit {
 
   imageSrc(): string {
     return `/assets/images/result-item-${this.entityType}.svg`;
+  }
+
+  showDetailsClicked(): void {
+    this.showDetails.emit({id: this.id, entityType: this.entityType});
   }
 }

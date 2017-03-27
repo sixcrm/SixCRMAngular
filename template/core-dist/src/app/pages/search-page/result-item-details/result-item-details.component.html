@@ -1,0 +1,48 @@
+<campaign
+  *ngIf="id && entityType === 'campaign'"
+  [mode]="'view'"
+  [entityId]="id"
+  (close)="close()">
+</campaign>
+
+<customer
+  *ngIf="id && entityType === 'customer'"
+  [mode]="'view'"
+  [entityId]="id"
+  (close)="close()">
+</customer>
+
+<user
+  *ngIf="id && entityType === 'user'"
+  [mode]="'view'"
+  [entityId]="id"
+  (close)="close()">
+</user>
+
+<transaction
+  *ngIf="id && entityType === 'transaction'"
+  [mode]="'view'"
+  [entityId]="id"
+  (close)="close()">
+</transaction>
+
+<product
+  *ngIf="id && entityType === 'product'"
+  [mode]="'view'"
+  [entityId]="id"
+  (close)="close()">
+</product>
+
+<fulfillment-provider
+  *ngIf="id && entityType === 'fulfillment'"
+  [mode]="'view'"
+  [entityId]="id"
+  (close)="close()">
+</fulfillment-provider>
+
+<product-schedule
+  *ngIf="id && entityType === 'productschedule'"
+  [mode]="'view'"
+  [entityId]="id"
+  (close)="close()">
+</product-schedule>

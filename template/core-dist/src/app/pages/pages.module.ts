@@ -58,6 +58,7 @@ import {EntityViewTopnavComponent} from './components/entity-view-topnav/entity-
 import {EntityViewInfoComponent} from './components/entity-view-info/entity-view-info.component';
 import { EntityViewInfoArrayComponent } from './components/entity-view-info-array/entity-view-info-array.component';
 import { ResultItemComponent } from './search-page/result-item/result-item.component';
+import { ResultItemDetailsComponent } from './search-page/result-item-details/result-item-details.component';
 
 @NgModule({
   imports : [
@@ -108,7 +109,8 @@ import { ResultItemComponent } from './search-page/result-item/result-item.compo
     EntityViewTopnavComponent,
     EntityViewInfoComponent,
     EntityViewInfoArrayComponent,
-    ResultItemComponent
+    ResultItemComponent,
+    ResultItemDetailsComponent
   ],
   providers: [
     UsersAclGuard,

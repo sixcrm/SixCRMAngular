@@ -186,6 +186,7 @@ $border-color: rgba(0, 0, 0, 0.2);
           right: 15px;
           font-size: 16px;
           color: $main-color;
+          cursor: pointer;
 
           @media only screen and (max-width: 800px) {
             display: block;

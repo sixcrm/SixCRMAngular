@@ -86,8 +86,15 @@
       </div>
 
       <ng-container *ngFor="let res of searchResultsToDispaly">
-        <result-item [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString"></result-item>
+        <result-item [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResult($event)"></result-item>
       </ng-container>
+
+      <result-item-details
+        *ngIf="showResultDetails"
+        [id]="resultId"
+        [entityType]="resultEntityType"
+        (closeDetails)="hideResultDetails()">
+      </result-item-details>
 
       <table-pagination
         *ngIf="searchResultsToDispaly.length >= 5"

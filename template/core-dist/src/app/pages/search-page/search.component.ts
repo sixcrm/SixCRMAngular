@@ -3,8 +3,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {SearchService} from '../../shared/services/search.service';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {Subscription, Subject} from 'rxjs';
-import {Campaign} from '../../shared/models/campaign.model';
-import {Product} from '../../shared/models/product.model';
 import {PaginationService} from '../../shared/services/pagination.service';
 
 @Component({
@@ -30,6 +28,10 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   private entityTypesCount: any = {};
   private checkboxClicked$: Subject<boolean> = new Subject<boolean>();
+
+  private showResultDetails: boolean = false;
+  private resultId: string;
+  private resultEntityType: string;
 
   private entityTypesChecked: any  = {
     campaign: false,
@@ -102,10 +104,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
   }
 
-  getString(obj: any): string {
-    return JSON.stringify(obj);
-  }
-
   inputChanged(input): void {
     this.queryString = input.target.value;
     this.searchService.searchSuggestions(this.queryString);
@@ -173,6 +171,13 @@ export class SearchComponent implements OnInit, OnDestroy {
     return this.hasMore || this.searchResults.slice(nextPage * this.limit, nextPage * this.limit + this.limit).length > 0;
   }
 
+  showResult(data: any): void {
+    this.resultId = data.id;
+    this.resultEntityType = data.entityType;
+    this.showResultDetails = true;
+    this.progressBarService.showTopProgressBar();
+  }
+
   private reshuffleSearchResults(): void {
     let tempResults = this.searchResults.slice(this.page * this.limit, this.page * this.limit + this.limit);
 
@@ -198,6 +203,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     return entityTypesCheckedArray;
+  }
+
+  private hideResultDetails(): void {
+    this.showResultDetails = false;
   }
 
 }

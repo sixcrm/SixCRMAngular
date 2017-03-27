@@ -23,7 +23,7 @@
       <div class="search__content__results__item__fields__wrapper" *ngIf="fields.tracking_number">Tracking Number: <div>{{fields.tracking_number}}</div></div>
     </div>
   </div>
-  <div class="search__content__results__item__buttons">
+  <div class="search__content__results__item__buttons" (click)="showDetailsClicked()">
     <span><md-icon>open_in_new</md-icon>View</span>
   </div>
 </div>
