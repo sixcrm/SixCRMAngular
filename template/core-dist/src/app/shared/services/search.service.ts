@@ -65,10 +65,10 @@ export class SearchService {
   private fetchSuggestions(query: string): void {
     this.queryRequest(suggestionsQuery(query)).subscribe(
       (response: Response) => {
-        let json = response.json().data.suggest;
-        let data: string[] = json.suggest.suggestions.map(s => s.suggestion);
+        let hit = response.json().data.search.hits.hit;
+        let suggestions: string[] = hit.map(h => JSON.parse(h.fields).suggestion_field_1[0]);
 
-        this.suggestionResults$.next(data);
+        this.suggestionResults$.next(suggestions);
       },
       (error) => {
         console.error(error);

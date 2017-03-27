@@ -27,14 +27,15 @@ export function  searchQuery(query: string, start: number, size: number): string
 	}`;
 }
 
-export function  suggestionsQuery(query: string, field?: string): string {
+export function  suggestionsQuery(query: string): string {
   return `{
-		suggest (suggest: {query: "${query}", suggester:"${field || 'suggestion_field_1'}"}) {
-			status { timems rid }
-			suggest { query found
-				suggestions { suggestion score id }
+		search (search: {query: "${query}*" queryOptions:"{fields:['suggestion_field_1']}" return:"suggestion_field_1" size:"10"}) {
+			hits {
+				found start
+				hit { fields }
 			}
-		} }`;
+		}
+	}`
 }
 
 export function  productsListQuery(limit?:number, cursor?:string): string {
