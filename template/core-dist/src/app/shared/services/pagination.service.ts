@@ -5,13 +5,19 @@ import {BehaviorSubject} from 'rxjs';
 export class PaginationService {
 
   limit$: BehaviorSubject<number>;
+  searchResultsLimit$: BehaviorSubject<number>;
 
   constructor() {
     this.limit$ = new BehaviorSubject(10);
+    this.searchResultsLimit$ = new BehaviorSubject(10);
   }
 
   setLimit(limit: number): void {
     this.limit$.next(limit)
+  }
+
+  setSearchResultsLimit(limit: number): void {
+    this.searchResultsLimit$.next(limit);
   }
 
 }

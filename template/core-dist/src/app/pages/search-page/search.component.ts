@@ -5,6 +5,7 @@ import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {Subscription} from 'rxjs';
 import {Campaign} from '../../shared/models/campaign.model';
 import {Product} from '../../shared/models/product.model';
+import {PaginationService} from '../../shared/services/pagination.service';
 
 @Component({
   selector: 'c-search',
@@ -19,7 +20,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   private showAutocomplete: boolean = false;
   private options: string[] = [];
 
-  private limit: number = 10;
+  private limit;
   private paginationValues: number[] = [5, 10, 15, 20, 30];
   private page: number = 0;
 
@@ -33,10 +34,15 @@ export class SearchComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private progressBarService: ProgressBarService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private paginationService: PaginationService
   ) {}
 
   ngOnInit() {
+    this.paginationService.searchResultsLimit$.subscribe((limit) => {
+      this.limit = limit;
+    });
+
     this.paramsSub = this.route.queryParams.subscribe((params) => {
       this.queryString = params['query'];
       this.currentRoute = this.queryString;
@@ -130,6 +136,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   updateLimit(limit: number): void {
     if (!limit) return;
 
+    this.paginationService.setSearchResultsLimit(limit);
+
     let firstElement: number = this.page * this.limit;
 
     this.page = Math.floor(firstElement / limit);
@@ -151,7 +159,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.searchResultsToDispaly = tempResults;
     }
     else {
-      if (this.hasMore) {
+      if (this.hasMore && this.queryString) {
         this.searchService.searchByQuery(this.queryString, this.searchResults.length, this.limit - tempResults.length);
         this.progressBarService.showTopProgressBar();
       }
