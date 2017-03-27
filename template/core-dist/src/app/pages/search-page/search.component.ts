@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SearchService} from '../../shared/services/search.service';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
-import {Subscription} from 'rxjs';
+import {Subscription, Subject} from 'rxjs';
 import {Campaign} from '../../shared/models/campaign.model';
 import {Product} from '../../shared/models/product.model';
 import {PaginationService} from '../../shared/services/pagination.service';
@@ -29,6 +29,18 @@ export class SearchComponent implements OnInit, OnDestroy {
   private hasMore: boolean = true;
 
   private entityTypesCount: any = {};
+  private checkboxClicked$: Subject<boolean> = new Subject<boolean>();
+
+  private entityTypesChecked: any  = {
+    campaign: false,
+    customer: false,
+    user: false,
+    billing: false,
+    transaction: false,
+    product: false,
+    fulfillment: false,
+    productschedule: false
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -61,6 +73,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     });
 
     this.searchService.entityTypesCount$.subscribe((data) => this.entityTypesCount = data);
+
+    this.checkboxClicked$.debounceTime(1000).subscribe(() => {
+      this.search();
+    });
   }
 
   ngOnDestroy() {
@@ -73,7 +89,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     if (this.queryString) {
       this.progressBarService.showTopProgressBar();
       this.searchResults = [];
-      this.searchService.searchByQuery(this.queryString, this.searchResults.length, this.limit);
+      this.searchService.searchByQuery(this.queryString, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
+      this.searchService.searchFacets(this.queryString);
     }
   }
 
@@ -108,6 +125,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     } else {
       this.router.navigate(['/dashboard', 'search'], {queryParams: {query: this.queryString}})
     }
+  }
+
+  checkboxClicked(): void {
+    this.checkboxClicked$.next(true);
   }
 
   hideAutoComplete(): void {
@@ -160,10 +181,23 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
     else {
       if (this.hasMore && this.queryString) {
-        this.searchService.searchByQuery(this.queryString, this.searchResults.length, this.limit - tempResults.length);
+        this.searchService.searchByQuery(this.queryString, this.searchResults.length, this.limit - tempResults.length, this.getCheckedEntityTypes());
+        this.searchService.searchFacets(this.queryString);
         this.progressBarService.showTopProgressBar();
       }
     }
+  }
+
+  private getCheckedEntityTypes(): string [] {
+    let entityTypesCheckedArray: string[] = [];
+
+    for (let entityType in this.entityTypesChecked) {
+      if (this.entityTypesChecked[entityType]) {
+        entityTypesCheckedArray.push(entityType);
+      }
+    }
+
+    return entityTypesCheckedArray;
   }
 
 }

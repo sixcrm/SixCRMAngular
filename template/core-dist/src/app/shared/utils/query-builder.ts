@@ -13,9 +13,17 @@ function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
 }
 
-export function  searchQuery(query: string, start: number, size: number): string {
+export function  searchQuery(query: string, start: number, size: number, entityTypes?: string[]): string {
+  let entityTypesQuery: string = '';
+
+  if (entityTypes && entityTypes.length > 0) {
+    entityTypesQuery = 'filterQuery:"(or ';
+    entityTypes.forEach(entityType => entityTypesQuery+= ` entity_type:'${entityType}' `);
+    entityTypesQuery+= ')"'
+  }
+
   return `{
-		search (search: {query: "${query}*" facet:"{entity_type:{}}" start: "${start}" size: "${size}"}) {
+		search (search: {query: "${query}*" facet:"{entity_type:{}}" ${entityTypesQuery} start: "${start}" size: "${size}"}) {
 			status { timems rid }
 			facets
 			hits { found start
@@ -23,6 +31,15 @@ export function  searchQuery(query: string, start: number, size: number): string
 					fields
 				}
 			}
+		}
+	}`;
+}
+
+export function  searchFacets(query: string): string {
+  return `{
+		search (search: {query: "${query}*" facet:"{entity_type:{}}" return:"_no_fields"}) {
+			status { timems rid }
+			facets
 		}
 	}`;
 }

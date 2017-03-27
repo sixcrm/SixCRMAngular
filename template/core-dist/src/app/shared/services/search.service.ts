@@ -3,7 +3,7 @@ import {Subject, Observable} from 'rxjs';
 import {Response, Headers, Http} from '@angular/http';
 import {environment} from '../../../environments/environment';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {searchQuery, suggestionsQuery} from '../utils/query-builder';
+import {searchQuery, suggestionsQuery, searchFacets} from '../utils/query-builder';
 
 @Injectable()
 export class SearchService {
@@ -25,8 +25,8 @@ export class SearchService {
     })
   }
 
-  searchByQuery(query: string, start: number, count: number): void {
-    this.queryRequest(searchQuery(query, start, count)).subscribe(
+  searchByQuery(query: string, start: number, count: number, entityTypes?: string[]): void {
+    this.queryRequest(searchQuery(query, start, count, entityTypes)).subscribe(
       (response: Response) => {
         let json = response.json().data.search;
         let hits = json.hits;
@@ -41,8 +41,19 @@ export class SearchService {
         });
 
         this.searchResults$.next(hits);
+      },
+      (error) => {
+        console.error(error);
+      }
+    )
+  }
 
+  searchFacets(query: string): void {
+    this.queryRequest(searchFacets(query)).subscribe(
+      (response: Response) => {
+        let json = response.json().data.search;
         let facets = JSON.parse(json.facets);
+
         let obj = {};
         if (facets && facets.entity_type.buckets && facets.entity_type.buckets.length > 0) {
           facets.entity_type.buckets.forEach(bucket => {
