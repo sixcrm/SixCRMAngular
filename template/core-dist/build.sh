@@ -22,11 +22,17 @@ NC='\033[0m'
 
 echo -e "${BLUE}Building production${NC}"
 
+node versioning.js $VERSION
+
 if npm run build.prod ; then
+
+   git checkout ./src/environments/
 
    echo -e "${GREEN}Build Successful${NC}"
 
 else
+
+  git checkout ./src/environments/
 
   echo -e "${RED}Build not successful...exiting..${NC}"
 
