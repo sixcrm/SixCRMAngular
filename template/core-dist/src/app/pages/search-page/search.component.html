@@ -88,6 +88,18 @@
       <ng-container *ngFor="let res of searchResultsToDispaly">
         <result-item [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString"></result-item>
       </ng-container>
+
+      <table-pagination
+        *ngIf="searchResultsToDispaly.length >= 5"
+        class="search__content__pagination--bottom"
+        [limit]="limit"
+        [paginationValues]="paginationValues"
+        [previousDisabled]="page <= 0"
+        [nextDisabled]="!hasMorePages()"
+        (previous)="previous()"
+        (next)="next()"
+        (updateLimit)="updateLimit($event)">
+      </table-pagination>
     </div>
   </div>
 </div>
