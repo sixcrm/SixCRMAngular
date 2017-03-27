@@ -1,6 +1,6 @@
 @import "mixins";
 
-$sidenav-width: 250px;
+$sidenav-width: 240px;
 $topnav-height: 64px;
 $sidebar-color-light: #385F8D;
 $sidebar-color-middle: #2C486F;
@@ -132,9 +132,13 @@ md-nav-list.side-navigation {
 }
 
 .side-navigation {
+  display: table;
+  height: calc(100% - 64px);
+
   &__version {
-    margin-top: 20px;
-    margin-left: 50px;
+    display: table-row;
+    height: 30px;
+    text-align: center;
     color: $sidebar-text-color;
     font-size: 14px;
   }
