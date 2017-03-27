@@ -10,37 +10,37 @@
         </div>
         <button class="search__sidenav__button--search" md-raised-button color="primary" (click)="navigateSearch()">Search</button>
 
-        <md-checkbox class="search__sidenav__item" [(ngModel)]="entityTypesChecked['campaign']" (change)="checkboxClicked()">
+        <md-checkbox *ngIf="entityTypesCount['campaign']" class="search__sidenav__item" [(ngModel)]="entityTypesChecked['campaign']" (change)="checkboxClicked()">
           Campaign
-          <span *ngIf="entityTypesCount['campaign']">({{entityTypesCount['campaign']}})</span>
+          <span>({{entityTypesCount['campaign']}})</span>
         </md-checkbox>
-        <md-checkbox class="search__sidenav__item" [(ngModel)]="entityTypesChecked['customer']" (change)="checkboxClicked()">
+        <md-checkbox *ngIf="entityTypesCount['customer']" class="search__sidenav__item" [(ngModel)]="entityTypesChecked['customer']" (change)="checkboxClicked()">
           Customer
-          <span *ngIf="entityTypesCount['customer']">({{entityTypesCount['customer']}})</span>
+          <span>({{entityTypesCount['customer']}})</span>
         </md-checkbox>
-        <md-checkbox class="search__sidenav__item" [(ngModel)]="entityTypesChecked['user']" (change)="checkboxClicked()">
+        <md-checkbox *ngIf="entityTypesCount['user']" class="search__sidenav__item" [(ngModel)]="entityTypesChecked['user']" (change)="checkboxClicked()">
           User
-          <span *ngIf="entityTypesCount['user']">({{entityTypesCount['user']}})</span>
+          <span>({{entityTypesCount['user']}})</span>
         </md-checkbox>
-        <md-checkbox class="search__sidenav__item" [(ngModel)]="entityTypesChecked['billing']" (change)="checkboxClicked()">
+        <md-checkbox *ngIf="entityTypesCount['billing']" class="search__sidenav__item" [(ngModel)]="entityTypesChecked['billing']" (change)="checkboxClicked()">
           Billing
-          <span *ngIf="entityTypesCount['billing']">({{entityTypesCount['billing']}})</span>
+          <span>({{entityTypesCount['billing']}})</span>
         </md-checkbox>
-        <md-checkbox class="search__sidenav__item" [(ngModel)]="entityTypesChecked['transaction']" (change)="checkboxClicked()">
+        <md-checkbox *ngIf="entityTypesCount['transaction']" class="search__sidenav__item" [(ngModel)]="entityTypesChecked['transaction']" (change)="checkboxClicked()">
           Transaction
-          <span *ngIf="entityTypesCount['transaction']">({{entityTypesCount['transaction']}})</span>
+          <span>({{entityTypesCount['transaction']}})</span>
         </md-checkbox>
-        <md-checkbox class="search__sidenav__item" [(ngModel)]="entityTypesChecked['product']" (change)="checkboxClicked()">
+        <md-checkbox *ngIf="entityTypesCount['product']" class="search__sidenav__item" [(ngModel)]="entityTypesChecked['product']" (change)="checkboxClicked()">
           Product
-          <span *ngIf="entityTypesCount['product']">({{entityTypesCount['product']}})</span>
+          <span>({{entityTypesCount['product']}})</span>
         </md-checkbox>
-        <md-checkbox class="search__sidenav__item" [(ngModel)]="entityTypesChecked['fulfillment']" (change)="checkboxClicked()">
+        <md-checkbox *ngIf="entityTypesCount['fulfillment']" class="search__sidenav__item" [(ngModel)]="entityTypesChecked['fulfillment']" (change)="checkboxClicked()">
           Fulfillment
-          <span *ngIf="entityTypesCount['fulfillment']">({{entityTypesCount['fulfillment']}})</span>
+          <span>({{entityTypesCount['fulfillment']}})</span>
         </md-checkbox>
-        <md-checkbox class="search__sidenav__item" [(ngModel)]="entityTypesChecked['productschedule']" (change)="checkboxClicked()">
+        <md-checkbox *ngIf="entityTypesCount['productschedule']" class="search__sidenav__item" [(ngModel)]="entityTypesChecked['productschedule']" (change)="checkboxClicked()">
           Product Schedule
-          <span *ngIf="entityTypesCount['productschedule']">({{entityTypesCount['productschedule']}})</span>
+          <span>({{entityTypesCount['productschedule']}})</span>
         </md-checkbox>
 
         <div class="search__sidenav__divider"></div>
