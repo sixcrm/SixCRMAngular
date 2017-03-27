@@ -21,22 +21,25 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
 
   constructor(private service: AbstractEntityService<T>, route: ActivatedRoute, protected progressBarService?: ProgressBarService) {
     this.routeSubscription = route.params.subscribe((params: Params) => {
-      if (params['type'] === 'view') {
-        this.mode = 'View';
-        this.viewMode = true;
-        this.entityId = params['id'];
-      }
+      // if (params['type'] === 'view') {
+      //   this.mode = 'View';
+      //   this.viewMode = true;
+      //   this.entityId = params['id'];
+      // }
+      //
+      // if (params['type'] === 'openAddEntity') {
+      //   this.mode = 'Add';
+      //   this.addMode = true;
+      // }
+      //
+      // if (params['type'] == 'update') {
+      //   this.mode = 'Update';
+      //   this.updateMode = true;
+      //   this.entityId = params['id'];
+      // }
 
-      if (params['type'] === 'openAddEntity') {
-        this.mode = 'Add';
-        this.addMode = true;
-      }
-
-      if (params['type'] == 'update') {
-        this.mode = 'Update';
-        this.updateMode = true;
-        this.entityId = params['id'];
-      }
+      this.viewMode = true;
+      this.entityId = params['id'];
     });
   }
 

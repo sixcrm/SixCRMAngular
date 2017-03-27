@@ -172,10 +172,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   showResult(data: any): void {
-    this.resultId = data.id;
-    this.resultEntityType = data.entityType;
-    this.showResultDetails = true;
-    this.progressBarService.showTopProgressBar();
+    this.router.navigate(['/dashboard', data.entityType + 's', data.id]);
   }
 
   private reshuffleSearchResults(): void {

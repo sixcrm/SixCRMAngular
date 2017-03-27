@@ -1,0 +1,13 @@
+<div class="product-view" *ngIf="entity">
+  <div>PRODUCT GENERAL INFO</div>
+  <div>ID: {{entity.id}}</div>
+  <div>Name: {{entity.name}}</div>
+  <div>Sku: {{entity.sku}}</div>
+  <div>Ship: {{entity.ship}}</div>
+  <div>Shipping Delay: {{entity.shippingDelay}}</div>
+
+  <div>FULFILMENT GENERAL INFO</div>
+  <div>Name: {{entity.fulfillmentProvider.name}}</div>
+  <div>Provider: {{entity.fulfillmentProvider.provider}}</div>
+  <div>Endpoint: {{entity.fulfillmentProvider.endpoint}}</div>
+</div>

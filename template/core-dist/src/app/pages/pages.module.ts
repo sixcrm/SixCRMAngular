@@ -59,6 +59,13 @@ import {EntityViewInfoComponent} from './components/entity-view-info/entity-view
 import { EntityViewInfoArrayComponent } from './components/entity-view-info-array/entity-view-info-array.component';
 import { ResultItemComponent } from './search-page/result-item/result-item.component';
 import { ResultItemDetailsComponent } from './search-page/result-item-details/result-item-details.component';
+import { ProductViewComponent } from './products-page/product-view/product-view.component';
+import { CampaignViewComponent } from './campaigns-page/campaign-view/campaign-view.component';
+import { CustomerViewComponent } from './customers-page/customer-view/customer-view.component';
+import { UserViewComponent } from './users-page/user-view/user-view.component';
+import { TransactionViewComponent } from './transactions-page/transaction-view/transaction-view.component';
+import { FulfillmentViewComponent } from './fulfillment-providers/fulfillment-view/fulfillment-view.component';
+import { ProductScheduleViewComponent } from './product-schedule-page/product-schedule-view/product-schedule-view.component';
 
 @NgModule({
   imports : [
@@ -110,7 +117,14 @@ import { ResultItemDetailsComponent } from './search-page/result-item-details/re
     EntityViewInfoComponent,
     EntityViewInfoArrayComponent,
     ResultItemComponent,
-    ResultItemDetailsComponent
+    ResultItemDetailsComponent,
+    ProductViewComponent,
+    CampaignViewComponent,
+    CustomerViewComponent,
+    UserViewComponent,
+    TransactionViewComponent,
+    FulfillmentViewComponent,
+    ProductScheduleViewComponent
   ],
   providers: [
     UsersAclGuard,
