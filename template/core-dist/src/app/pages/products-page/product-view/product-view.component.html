@@ -1,13 +1,56 @@
-<div class="product-view" *ngIf="entity">
-  <div>PRODUCT GENERAL INFO</div>
-  <div>ID: {{entity.id}}</div>
-  <div>Name: {{entity.name}}</div>
-  <div>Sku: {{entity.sku}}</div>
-  <div>Ship: {{entity.ship}}</div>
-  <div>Shipping Delay: {{entity.shippingDelay}}</div>
+<div class="entity-view">
+  <div class="entity-view__title">Product Details</div>
 
-  <div>FULFILMENT GENERAL INFO</div>
-  <div>Name: {{entity.fulfillmentProvider.name}}</div>
-  <div>Provider: {{entity.fulfillmentProvider.provider}}</div>
-  <div>Endpoint: {{entity.fulfillmentProvider.endpoint}}</div>
+  <div *ngIf="entity" class="entity-view__content">
+
+    <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>
+
+    <div class="entity-view__content__fields">
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">ID:</span>
+        <span>{{entity.id}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Name:</span>
+        <span>{{entity.name}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">SKU:</span>
+        <span>{{entity.sku}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Ship:</span>
+        <span>{{entity.ship}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Shipping Delay:</span>
+        <span>{{entity.shippingDelay}}</span>
+      </div>
+    </div>
+
+    <div class="entity-view__content__title"> Fulfillment Provider </div>
+
+    <div class="entity-view__content__fields">
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">ID:</span>
+        <span>{{entity.fulfillmentProvider.id}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Name:</span>
+        <span> {{entity.fulfillmentProvider.name}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Username:</span>
+        <span>{{entity.fulfillmentProvider.username}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Password:</span>
+        <span>{{entity.fulfillmentProvider.password}} </span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Endpoint:</span>
+        <span>{{entity.fulfillmentProvider.endpoint}}</span>
+      </div>
+    </div>
+  </div>
 </div>
