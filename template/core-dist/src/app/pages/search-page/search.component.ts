@@ -53,9 +53,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.paginationService.searchResultsLimit$.subscribe((limit) => {
-      this.limit = limit;
-    });
+    this.paginationService.searchResultsLimit$.subscribe((limit) => this.limit = limit);
 
     this.paramsSub = this.route.queryParams.subscribe((params) => {
       this.queryString = params['query'];
@@ -70,15 +68,11 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.progressBarService.hideTopProgressBar();
     });
 
-    this.searchService.suggestionResults$.takeWhile(() => !!this.queryString).subscribe((data) => {
-      this.options = data;
-    });
+    this.searchService.suggestionResults$.subscribe((data) => this.options = data);
 
     this.searchService.entityTypesCount$.subscribe((data) => this.entityTypesCount = data);
 
-    this.checkboxClicked$.debounceTime(1000).subscribe(() => {
-      this.search();
-    });
+    this.checkboxClicked$.debounceTime(1000).subscribe(() => this.search());
   }
 
   ngOnDestroy() {
