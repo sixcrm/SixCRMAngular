@@ -1,4 +1,41 @@
-<div class="product-schedule-view" *ngIf="entity">
-  <div>PRODUCT SCHEDULE GENERAL INFO</div>
-  <div>ID: {{entity.id}}</div>
+<div class="entity-view">
+  <div class="entity-view__title">Product Schedule Details</div>
+
+  <div *ngIf="entity" class="entity-view__content">
+
+    <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>
+
+    <div class="entity-view__content__fields">
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">ID:</span>
+        <span>{{entity.id}}</span>
+      </div>
+    </div>
+
+    <div class="entity-view__content__title"> Product Schedules </div>
+
+    <div *ngFor="let schedule of entity.schedules" class="entity-view__content__fields">
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Product:</span>
+        <span>{{schedule.product.name}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Start:</span>
+        <span>{{schedule.start}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">End:</span>
+        <span>{{schedule.end}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Price:</span>
+        <span>{{schedule.price}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Period:</span>
+        <span>{{schedule.period}}</span>
+      </div>
+    </div>
+  </div>
+
 </div>
