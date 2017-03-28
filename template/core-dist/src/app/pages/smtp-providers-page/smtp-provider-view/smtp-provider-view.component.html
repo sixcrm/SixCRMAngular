@@ -1,0 +1,41 @@
+<div class="entity-view">
+  <div class="entity-view__title"> SMTP Provider Details </div>
+
+  <div *ngIf="entity" class="entity-view__content">
+
+    <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>
+
+    <div class="entity-view__content__fields">
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">ID:</span>
+        <span>{{entity.id}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Name:</span>
+        <span>{{entity.name}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Host Name:</span>
+        <span>{{entity.hostname}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">IP Address:</span>
+        <span>{{entity.ipAddress}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Username:</span>
+        <span>{{entity.username}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Password:</span>
+        <span>{{entity.password}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Port:</span>
+        <span>{{entity.port}}</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+

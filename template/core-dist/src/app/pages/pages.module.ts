@@ -71,6 +71,7 @@ import { MerchantProviderViewComponent } from './merchant-providers-page/merchan
 import { LoadBalancerViewComponent } from './load-balancers-page/load-balancer-view/load-balancer-view.component';
 import { AffiliateViewComponent } from './affiliates-page/affiliate-view/affiliate-view.component';
 import { SessionViewComponent } from './sessions-page/session-view/session-view.component';
+import { SmtpProviderViewComponent } from './smtp-providers-page/smtp-provider-view/smtp-provider-view.component';
 
 @NgModule({
   imports : [
@@ -134,7 +135,8 @@ import { SessionViewComponent } from './sessions-page/session-view/session-view.
     MerchantProviderViewComponent,
     LoadBalancerViewComponent,
     AffiliateViewComponent,
-    SessionViewComponent
+    SessionViewComponent,
+    SmtpProviderViewComponent
   ],
   providers: [
     UsersAclGuard,

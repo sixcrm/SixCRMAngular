@@ -44,6 +44,7 @@ import {MerchantProviderViewComponent} from './merchant-providers-page/merchant-
 import {LoadBalancerViewComponent} from './load-balancers-page/load-balancer-view/load-balancer-view.component';
 import {AffiliateViewComponent} from './affiliates-page/affiliate-view/affiliate-view.component';
 import {SessionViewComponent} from './sessions-page/session-view/session-view.component';
+import {SmtpProviderViewComponent} from './smtp-providers-page/smtp-provider-view/smtp-provider-view.component';
 
 export const pagesRouting = RouterModule.forChild([
   {
@@ -74,6 +75,7 @@ export const pagesRouting = RouterModule.forChild([
       { path : 'users', component : UsersComponent, canActivate: [UsersAclGuard] },
       { path : 'users/:id', component : UserViewComponent, canActivate: [UsersAclGuard] },
       { path : 'smtpProviders', component : SmtpProvidersComponent, canActivate: [SmtpProvidersAclGuard] },
+      { path : 'smtpProviders/:id', component : SmtpProviderViewComponent, canActivate: [SmtpProvidersAclGuard] },
       { path : 'emails', component : EmailsComponent, canActivate: [EmailsAclGuard] },
       { path : 'accessKeys', component : AccessKeysComponent },
       { path : 'profile', component : ProfilePageComponent },
