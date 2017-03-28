@@ -1,9 +1,81 @@
-<div class="customer-view" *ngIf="entity">
-  <div>CUSTOMER GENERAL INFO</div>
+<div class="entity-view">
+  <div class="entity-view__title">Customer Details</div>
 
-  <div>ID: {{entity.id}}</div>
-  <div>Email: {{entity.email}}</div>
-  <div>First Name: {{entity.firstName}}</div>
-  <div>Last Name: {{entity.lastName}}</div>
-  <div>Phone: {{entity.phone}}</div>
+  <div *ngIf="entity" class="entity-view__content">
+
+    <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>
+
+    <div class="entity-view__content__fields">
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">ID:</span>
+        <span>{{entity.id}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">First Name:</span>
+        <span>{{entity.firstName}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Last Name:</span>
+        <span>{{entity.lastName}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Email:</span>
+        <span>{{entity.email}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Phone:</span>
+        <span>{{entity.phone}}</span>
+      </div>
+    </div>
+
+    <div class="entity-view__content__title"> Address </div>
+
+    <div class="entity-view__content__fields">
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Country:</span>
+        <span>{{entity.address.country}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">State:</span>
+        <span> {{entity.address.state}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">City:</span>
+        <span>{{entity.address.city}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Line 1:</span>
+        <span>{{entity.address.line1}} </span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Line 1:</span>
+        <span>{{entity.address.line2}} </span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Zip:</span>
+        <span>{{entity.address.zip}}</span>
+      </div>
+    </div>
+
+    <div class="entity-view__content__title"> Credit Cards </div>
+
+    <div *ngFor="let creditCard of entity.creditCards" class="entity-view__content__fields">
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Name:</span>
+        <span>{{creditCard.name}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">CC Number:</span>
+        <span>{{creditCard.ccnumber}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">CCV:</span>
+        <span>{{creditCard.ccv}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Expiration:</span>
+        <span>{{creditCard.expiration}}</span>
+      </div>
+    </div>
+  </div>
 </div>
