@@ -1,5 +1,78 @@
-<div class="campaign-view" *ngIf="entity">
-  <div>CAMPAIGN GENERAL INFO</div>
-  <div>ID: {{entity.id}}</div>
-  <div>Name: {{entity.name}}</div>
+<div class="entity-view">
+  <div class="entity-view__title">Campaign Details</div>
+
+  <div *ngIf="entity" class="entity-view__content">
+
+    <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>
+
+    <div class="entity-view__content__fields">
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">ID:</span>
+        <span>{{entity.id}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Name:</span>
+        <span>{{entity.name}}</span>
+      </div>
+    </div>
+
+    <div class="entity-view__content__title entity-view__content__title--first"> Product Schedules </div>
+
+    <ng-container *ngFor="let productSchedule of entity.productSchedules">
+      <div class="entity-view__content__fields__title">
+        <span>{{productSchedule.id}}</span>
+      </div>
+      <div *ngFor="let schedule of productSchedule.schedules" class="entity-view__content__fields">
+        <div class="entity-view__content__fields__item">
+          <span class="entity-view__content__fields__item__label">Product:</span>
+          <span>{{schedule.product.name}}</span>
+        </div>
+        <div class="entity-view__content__fields__item">
+          <span class="entity-view__content__fields__item__label">Start:</span>
+          <span>{{schedule.start}}</span>
+        </div>
+        <div class="entity-view__content__fields__item">
+          <span class="entity-view__content__fields__item__label">End:</span>
+          <span>{{schedule.end}}</span>
+        </div>
+        <div class="entity-view__content__fields__item">
+          <span class="entity-view__content__fields__item__label">Price:</span>
+          <span>{{schedule.price}}</span>
+        </div>
+        <div class="entity-view__content__fields__item">
+          <span class="entity-view__content__fields__item__label">Period:</span>
+          <span>{{schedule.period}}</span>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="entity-view__content__title entity-view__content__title--first"> Load Balancer </div>
+
+    <div *ngFor="let config of entity.loadBalancer.merchantProviderConfigurations" class="entity-view__content__fields">
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Distribution:</span>
+        <span>{{config.distribution}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Name:</span>
+        <span>{{config.merchantProvider.name}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Username:</span>
+        <span>{{config.merchantProvider.username}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Password:</span>
+        <span>{{config.merchantProvider.password}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Processor:</span>
+        <span>{{config.merchantProvider.processor}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Endpoint:</span>
+        <span>{{config.merchantProvider.endpoint}}</span>
+      </div>
+    </div>
+  </div>
 </div>

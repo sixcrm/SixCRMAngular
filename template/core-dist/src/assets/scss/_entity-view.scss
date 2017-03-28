@@ -35,12 +35,23 @@ $title-color: #979797;
     &__fields {
       margin : 15px 45px;
 
+      &__title {
+        margin: 25px 45px 0 45px;
+        font-size: 14px;
+        color: #5999E0;
+      }
+
       &__item {
         display: inline-block;
         margin: 10px 5px;
-        width: 250px;
+        width: 220px;
         font-size: 14px;
         vertical-align: top;
+        word-wrap: break-word;
+
+        &--title {
+          color: #5999E0;
+        }
 
         &__label {
           margin-right: 5px;
