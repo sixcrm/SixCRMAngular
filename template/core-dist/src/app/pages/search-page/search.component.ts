@@ -85,6 +85,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     if (this.queryString) {
       this.progressBarService.showTopProgressBar();
       this.searchResults = [];
+      this.page = 0;
       this.searchService.searchByQuery(this.queryString, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
       this.searchService.searchFacets(this.queryString);
     }
