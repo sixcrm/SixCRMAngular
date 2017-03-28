@@ -1,9 +1,32 @@
-<div class="fulfillment-view" *ngIf="entity">
-  <div>FULFILLMENT GENERAL INFO</div>
+<div class="entity-view">
+  <div class="entity-view__title">Fulfillment Provider Details</div>
 
-  <div>ID: {{entity.id}}</div>
-  <div>Name: {{entity.name}}</div>
-  <div>Username: {{entity.username}}</div>
-  <div>Password: {{entity.password}}</div>
-  <div>Endpoint: {{entity.endpoint}}</div>
+  <div *ngIf="entity" class="entity-view__content">
+
+    <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>
+
+    <div class="entity-view__content__fields">
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">ID:</span>
+        <span>{{entity.id}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Name:</span>
+        <span>{{entity.name}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Username:</span>
+        <span>{{entity.username}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Password:</span>
+        <span>{{entity.password}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Endpoint:</span>
+        <span>{{entity.endpoint}}</span>
+      </div>
+    </div>
+
+  </div>
 </div>
