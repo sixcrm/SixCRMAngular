@@ -40,6 +40,7 @@ import {TransactionViewComponent} from './transactions-page/transaction-view/tra
 import {FulfillmentViewComponent} from './fulfillment-providers/fulfillment-view/fulfillment-view.component';
 import {ProductScheduleViewComponent} from './product-schedule-page/product-schedule-view/product-schedule-view.component';
 import {CreditCardViewComponent} from './credit-cards-page/credit-card-view/credit-card-view.component';
+import {MerchantProviderViewComponent} from './merchant-providers-page/merchant-provider-view/merchant-provider-view.component';
 
 export const pagesRouting = RouterModule.forChild([
   {
@@ -52,6 +53,7 @@ export const pagesRouting = RouterModule.forChild([
       { path : 'productSchedule', component : ProductSchedulesComponent, canActivate: [ProductSchedulesAclGuard] },
       { path : 'productschedules/:id', component : ProductScheduleViewComponent, canActivate: [ProductSchedulesAclGuard] },
       { path : 'merchantProviders', component : MerchantProvidersComponent, canActivate: [MerchantProvidersAclGuard] },
+      { path : 'merchantProviders/:id', component : MerchantProviderViewComponent, canActivate: [MerchantProvidersAclGuard] },
       { path : 'fulfillmentProviders', component : FulfillmentProvidersComponent, canActivate: [FulfillmentProvidersAclGuard] },
       { path : 'fulfillments/:id', component : FulfillmentViewComponent, canActivate: [FulfillmentProvidersAclGuard] },
       { path : 'affiliates', component : AffiliatesComponent, canActivate: [AffiliatesAclGuard] },
