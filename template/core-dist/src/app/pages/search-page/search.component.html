@@ -89,13 +89,6 @@
         <result-item [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResult($event)"></result-item>
       </ng-container>
 
-      <!--<result-item-details-->
-        <!--*ngIf="showResultDetails"-->
-        <!--[id]="resultId"-->
-        <!--[entityType]="resultEntityType"-->
-        <!--(closeDetails)="hideResultDetails()">-->
-      <!--</result-item-details>-->
-
       <table-pagination
         *ngIf="searchResultsToDispaly.length >= 5"
         class="search__content__pagination--bottom"

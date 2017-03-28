@@ -29,10 +29,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   private entityTypesCount: any = {};
   private checkboxClicked$: Subject<boolean> = new Subject<boolean>();
 
-  private showResultDetails: boolean = false;
-  private resultId: string;
-  private resultEntityType: string;
-
   private entityTypesChecked: any  = {
     campaign: false,
     customer: false,
@@ -195,10 +191,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     return entityTypesCheckedArray;
-  }
-
-  private hideResultDetails(): void {
-    this.showResultDetails = false;
   }
 
 }
