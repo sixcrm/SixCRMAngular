@@ -68,6 +68,7 @@ import { FulfillmentViewComponent } from './fulfillment-providers/fulfillment-vi
 import { ProductScheduleViewComponent } from './product-schedule-page/product-schedule-view/product-schedule-view.component';
 import { CreditCardViewComponent } from './credit-cards-page/credit-card-view/credit-card-view.component';
 import { MerchantProviderViewComponent } from './merchant-providers-page/merchant-provider-view/merchant-provider-view.component';
+import { LoadBalancerViewComponent } from './load-balancers-page/load-balancer-view/load-balancer-view.component';
 
 @NgModule({
   imports : [
@@ -128,7 +129,8 @@ import { MerchantProviderViewComponent } from './merchant-providers-page/merchan
     FulfillmentViewComponent,
     ProductScheduleViewComponent,
     CreditCardViewComponent,
-    MerchantProviderViewComponent
+    MerchantProviderViewComponent,
+    LoadBalancerViewComponent
   ],
   providers: [
     UsersAclGuard,

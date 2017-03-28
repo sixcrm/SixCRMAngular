@@ -1,0 +1,44 @@
+<div class="entity-view">
+  <div class="entity-view__title">User Details</div>
+
+  <div *ngIf="entity" class="entity-view__content">
+
+    <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>
+
+    <div class="entity-view__content__fields">
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">ID:</span>
+        <span>{{entity.id}}</span>
+      </div>
+    </div>
+
+    <div class="entity-view__content__title"> Merchant Provider Configurations </div>
+
+    <div *ngFor="let config of entity.merchantProviderConfigurations" class="entity-view__content__fields">
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Distribution:</span>
+        <span>{{config.distribution}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Name:</span>
+        <span>{{config.merchantProvider.name}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Username:</span>
+        <span>{{config.merchantProvider.username}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Password:</span>
+        <span>{{config.merchantProvider.password}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Processor:</span>
+        <span>{{config.merchantProvider.processor}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Endpoint:</span>
+        <span>{{config.merchantProvider.endpoint}}</span>
+      </div>
+    </div>
+  </div>
+</div>
