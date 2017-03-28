@@ -70,6 +70,7 @@ import { CreditCardViewComponent } from './credit-cards-page/credit-card-view/cr
 import { MerchantProviderViewComponent } from './merchant-providers-page/merchant-provider-view/merchant-provider-view.component';
 import { LoadBalancerViewComponent } from './load-balancers-page/load-balancer-view/load-balancer-view.component';
 import { AffiliateViewComponent } from './affiliates-page/affiliate-view/affiliate-view.component';
+import { SessionViewComponent } from './sessions-page/session-view/session-view.component';
 
 @NgModule({
   imports : [
@@ -132,7 +133,8 @@ import { AffiliateViewComponent } from './affiliates-page/affiliate-view/affilia
     CreditCardViewComponent,
     MerchantProviderViewComponent,
     LoadBalancerViewComponent,
-    AffiliateViewComponent
+    AffiliateViewComponent,
+    SessionViewComponent
   ],
   providers: [
     UsersAclGuard,

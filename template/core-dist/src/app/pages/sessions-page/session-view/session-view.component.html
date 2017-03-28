@@ -1,0 +1,102 @@
+<div class="entity-view">
+  <div class="entity-view__title">Session Details</div>
+
+  <div *ngIf="entity" class="entity-view__content">
+
+    <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>
+
+    <div class="entity-view__content__fields">
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">ID:</span>
+        <span>{{entity.id}}</span>
+      </div>
+    </div>
+
+    <div class="entity-view__content__title"> Customer </div>
+
+    <div class="entity-view__content__fields">
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">ID:</span>
+        <span>{{entity.customer.id}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">First Name:</span>
+        <span> {{entity.customer.firstName}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Last Name:</span>
+        <span> {{entity.customer.lastName}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Email:</span>
+        <span> {{entity.customer.email}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">State:</span>
+        <span>{{entity.customer.address.state}} </span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">City:</span>
+        <span>{{entity.customer.address.city}}</span>
+      </div>
+    </div>
+
+    <div class="entity-view__content__title"> Product Schedules </div>
+
+    <ng-container *ngFor="let productSchedule of entity.productSchedules">
+      <div class="entity-view__content__fields__title">
+        <span>{{productSchedule.id}}</span>
+      </div>
+      <div *ngFor="let schedule of productSchedule.schedules" class="entity-view__content__fields">
+        <div class="entity-view__content__fields__item">
+          <span class="entity-view__content__fields__item__label">Product:</span>
+          <span>{{schedule.product.name}}</span>
+        </div>
+        <div class="entity-view__content__fields__item">
+          <span class="entity-view__content__fields__item__label">Start:</span>
+          <span>{{schedule.start}}</span>
+        </div>
+        <div class="entity-view__content__fields__item">
+          <span class="entity-view__content__fields__item__label">End:</span>
+          <span>{{schedule.end}}</span>
+        </div>
+        <div class="entity-view__content__fields__item">
+          <span class="entity-view__content__fields__item__label">Price:</span>
+          <span>{{schedule.price}}</span>
+        </div>
+        <div class="entity-view__content__fields__item">
+          <span class="entity-view__content__fields__item__label">Period:</span>
+          <span>{{schedule.period}}</span>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="entity-view__content__title"> Rebills </div>
+
+    <div *ngFor="let rebill of entity.rebills" class="entity-view__content__fields">
+      <div class="entity-view__content__fields__item entity-view__content__fields__item--title">
+        <span>{{rebill.id}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Bill Date:</span>
+        <span>{{rebill.billDate}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Amount:</span>
+        <span>{{rebill.amount}}</span>
+      </div>
+    </div>
+
+    <div class="entity-view__content__title"> Campaign </div>
+
+    <div class="entity-view__content__fields">
+      <div class="entity-view__content__fields__item entity-view__content__fields__item--title">
+        <span>{{entity.campaign.id}}</span>
+      </div>
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Name:</span>
+        <span> {{entity.campaign.name}}</span>
+      </div>
+    </div>
+  </div>
+</div>
