@@ -39,6 +39,7 @@ import {UserViewComponent} from './users-page/user-view/user-view.component';
 import {TransactionViewComponent} from './transactions-page/transaction-view/transaction-view.component';
 import {FulfillmentViewComponent} from './fulfillment-providers/fulfillment-view/fulfillment-view.component';
 import {ProductScheduleViewComponent} from './product-schedule-page/product-schedule-view/product-schedule-view.component';
+import {CreditCardViewComponent} from './credit-cards-page/credit-card-view/credit-card-view.component';
 
 export const pagesRouting = RouterModule.forChild([
   {
@@ -61,6 +62,7 @@ export const pagesRouting = RouterModule.forChild([
       { path : 'transactions', component : TransactionsComponent, canActivate: [TransactionsAclGuard] },
       { path : 'transactions/:id', component : TransactionViewComponent, canActivate: [TransactionsAclGuard] },
       { path : 'creditCards', component : CreditCardsComponent, canActivate: [CreditCardsAclGuard] },
+      { path : 'creditCards/:id', component : CreditCardViewComponent, canActivate: [CreditCardsAclGuard] },
       { path : 'users', component : UsersComponent, canActivate: [UsersAclGuard] },
       { path : 'users/:id', component : UserViewComponent, canActivate: [UsersAclGuard] },
       { path : 'smtpProviders', component : SmtpProvidersComponent, canActivate: [SmtpProvidersAclGuard] },

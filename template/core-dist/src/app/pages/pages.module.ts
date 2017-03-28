@@ -66,6 +66,7 @@ import { UserViewComponent } from './users-page/user-view/user-view.component';
 import { TransactionViewComponent } from './transactions-page/transaction-view/transaction-view.component';
 import { FulfillmentViewComponent } from './fulfillment-providers/fulfillment-view/fulfillment-view.component';
 import { ProductScheduleViewComponent } from './product-schedule-page/product-schedule-view/product-schedule-view.component';
+import { CreditCardViewComponent } from './credit-cards-page/credit-card-view/credit-card-view.component';
 
 @NgModule({
   imports : [
@@ -124,7 +125,8 @@ import { ProductScheduleViewComponent } from './product-schedule-page/product-sc
     UserViewComponent,
     TransactionViewComponent,
     FulfillmentViewComponent,
-    ProductScheduleViewComponent
+    ProductScheduleViewComponent,
+    CreditCardViewComponent
   ],
   providers: [
     UsersAclGuard,
