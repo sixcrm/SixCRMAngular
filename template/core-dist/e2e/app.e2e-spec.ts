@@ -1,21 +1,22 @@
-import { AppPage } from './app.po';
+import { AuthPage } from './po/auth.po';
+import {expectPresent} from './utils';
 
 describe('App load', function() {
-  let page: AppPage;
+  let authPage: AuthPage;
 
   beforeEach(() => {
-    page = new AppPage();
+    authPage = new AuthPage();
   });
 
   it('should load Auth component', () => {
-    page.navigateTo();
+    authPage.navigateTo();
 
-    expect(page.getAuthComponent().isPresent()).toBeTruthy();
+    expectPresent(authPage.getAuthComponent());
   });
 
   it('should load Auth0 Lock', () => {
-    page.navigateTo();
+    authPage.navigateTo();
 
-    expect(page.getAuth0Lock().isPresent()).toBeTruthy();
+    expectPresent(authPage.getAuth0Lock());
   });
 });
