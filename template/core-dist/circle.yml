@@ -1,0 +1,16 @@
+general:
+  branches:
+    only:
+      - development
+
+machine:
+  timezone:
+    America/Los_Angeles
+  node:
+    version: 7.6.0
+
+deployment:
+  development:
+    branch: Auth0
+    commands:
+      - ./build.sh
