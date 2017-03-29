@@ -5,10 +5,30 @@ $title-color: #979797;
   min-height: calc(100vh - 65px);
 
   &__title {
-    padding: 25px 50px;
+    padding: 20px 60px;
     font-size: 20px;
     font-weight: 500;
     color: $title-color;
+  }
+
+  &__change-mode {
+    position: absolute;
+    top: 42px;
+    left: 10px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+    background-color: #5999E0;
+    color: white;
+    z-index: 1;
+    cursor: pointer;
+
+    md-icon {
+      position: absolute;
+      top: 11px;
+      left: 11px;
+    }
   }
 
   &__content {
@@ -16,12 +36,12 @@ $title-color: #979797;
     border-top: 2px solid rgba(0, 0, 0, 0.12);
     box-sizing: border-box;
     width: 100%;
-    min-height: calc(100% - 75px);
+    min-height: calc(100% - 65px);
     background-color: white;
 
     &__title {
       background-color: #F3F3F3;
-      padding-left: 50px;
+      padding-left: 60px;
       height: 55px;
       line-height: 55px;
       font-size: 16px;
@@ -30,13 +50,20 @@ $title-color: #979797;
       &--first {
         margin-top: 50px;
       }
+
+      md-icon {
+        position: relative;
+        top: 7px;
+        margin-left: 20px;
+        cursor: pointer;
+      }
     }
 
     &__fields {
-      margin : 15px 45px;
+      margin : 15px 55px;
 
       &__title {
-        margin: 25px 45px 0 45px;
+        margin: 25px 55px 0 45px;
         font-size: 14px;
         color: #5999E0;
       }
@@ -48,6 +75,19 @@ $title-color: #979797;
         font-size: 14px;
         vertical-align: top;
         word-wrap: break-word;
+
+        .input--small {
+          width: 90px;
+        }
+
+        md-input {
+          margin: 0;
+          width: 110px;
+
+          div {
+            margin: 0;
+          }
+        }
 
         &--title {
           color: #5999E0;
@@ -75,6 +115,31 @@ $title-color: #979797;
           display: inline-block;
           margin: 0;
         }
+      }
+    }
+
+    &__buttons {
+      margin: 30px 60px;
+
+      div {
+        display: inline-block;
+        width: 110px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 500;
+      }
+
+      &__update {
+        background-color: #5999E0;
+        color: #ffffff;
+      }
+
+      &__cancel {
+        margin-left: 10px;
+        color: #757575;
       }
     }
   }

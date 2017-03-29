@@ -4,6 +4,8 @@ import {Product} from '../../../shared/models/product.model';
 import {ProductsService} from '../../../shared/services/products.service';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {ActivatedRoute} from '@angular/router';
+import {FulfillmentProvidersService} from '../../../shared/services/fulfillment-providers.service';
+import {FulfillmentProvider} from '../../../shared/models/fulfillment-provider.model';
 
 @Component({
   selector: 'product-view',
@@ -12,12 +14,23 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class ProductViewComponent extends AbstractEntityViewComponent<Product> implements OnInit {
 
-  constructor(service: ProductsService, route: ActivatedRoute, progressBar: ProgressBarService) {
-    super(service, route, progressBar);
+  fulfillmentProviders: FulfillmentProvider[] = [];
+
+  constructor(service: ProductsService, private fulfillmentProvidersService: FulfillmentProvidersService, route: ActivatedRoute, progressBarService: ProgressBarService) {
+    super(service, route, progressBarService);
   }
 
   ngOnInit() {
-    super.init();
+    this.init();
+
+    this.fulfillmentProvidersService.entities$.subscribe((entities: FulfillmentProvider[]) => {
+      this.fulfillmentProviders = entities;
+    });
+    this.fulfillmentProvidersService.getEntities();
+  }
+
+  selectFulfillmentProvider(provider): void {
+    this.entity.fulfillmentProvider = provider;
   }
 
 }

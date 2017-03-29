@@ -247,7 +247,7 @@ export function deleteFulfillmentProviderMutation(id: string): string {
 export function createFulfillmentProviderMutation(provider: FulfillmentProvider): string {
   return `
     mutation {
-		  createfulfillmentprovider ( fulfillmentprovider: { name: "${provider.name}", username: "${provider.username}", password: "${provider.password}", endpoint: "${provider.endpoint}", provider: "${provider.provider}"}) {
+		  createfulfillmentprovider ( fulfillmentprovider: { id:"${Math.random() + provider.name}" name: "${provider.name}", username: "${provider.username}", password: "${provider.password}", endpoint: "${provider.endpoint}", provider: "${provider.provider}"}) {
 			  id name provider username password endpoint
 		  }
 	  }`
