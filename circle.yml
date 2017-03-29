@@ -9,6 +9,10 @@ machine:
   node:
     version: 7.6.0
 
+test:
+  override:
+    - "true"
+
 deployment:
   development:
     branch: Auth0
