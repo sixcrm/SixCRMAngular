@@ -1,4 +1,5 @@
 import {browser, ElementFinder, protractor} from 'protractor';
+import {AuthPage} from './po/auth.po';
 
 export function navigateToHomepage() {
   browser.get('/');
@@ -34,4 +35,27 @@ export function expectUrlToContain(url: string) {
 
 export function expectUrlToEqual(url: string) {
   expect(browser.getCurrentUrl()).toBe(url);
+}
+
+export function doLogin(authPage: AuthPage, email: string, password: string) {
+  authPage.getEmailInput().sendKeys(email);
+  authPage.getPasswordInput().sendKeys(password);
+  authPage.getLoginButton().click();
+}
+
+export function waitForPresenceOfLoginFields(authPage: AuthPage) {
+  browser.wait(protractor.ExpectedConditions.presenceOf(authPage.getAlternativeLink()), 2000)
+    .then(() => {
+      authPage.getAlternativeLink().click();
+      waitForFields();
+    })
+    .catch(() => {
+      waitForFields();
+    });
+
+  function waitForFields() {
+    waitForPresenceOf(authPage.getEmailInput());
+    waitForPresenceOf(authPage.getPasswordInput());
+    waitForPresenceOf(authPage.getLoginButton());
+  }
 }

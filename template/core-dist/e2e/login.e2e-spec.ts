@@ -3,7 +3,7 @@ import {browser} from 'protractor';
 import {DashboardPage} from './po/dashboard.po';
 import {
   waitForUrlContains, waitForPresenceOf, navigateToHomepage, expectPresent, expectUrlToContain,
-  expectUrlToEqual
+  expectUrlToEqual, doLogin, waitForPresenceOfLoginFields
 } from './utils';
 
 describe('Login', function() {
@@ -66,15 +66,3 @@ describe('Login', function() {
     expectPresent(authPage.getAuth0Lock());
   })
 });
-
-function doLogin(authPage: AuthPage, email: string, password: string) {
-  authPage.getEmailInput().sendKeys(email);
-  authPage.getPasswordInput().sendKeys(password);
-  authPage.getLoginButton().click();
-}
-
-function waitForPresenceOfLoginFields(authPage: AuthPage) {
-  waitForPresenceOf(authPage.getEmailInput());
-  waitForPresenceOf(authPage.getPasswordInput());
-  waitForPresenceOf(authPage.getLoginButton());
-}

@@ -13,6 +13,10 @@ export class AuthPage {
     return element(by.css('.auth0-lock-widget-container'));
   }
 
+  getAlternativeLink() {
+    return element(by.css('.auth0-lock-alternative-link'));
+  }
+
   getEmailInput() {
     return element(by.name('email'));
   }
