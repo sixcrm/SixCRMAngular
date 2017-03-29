@@ -13,4 +13,4 @@ deployment:
   development:
     branch: Auth0
     commands:
-      - ./template/core-dist/build.sh
+      - ./build.sh
