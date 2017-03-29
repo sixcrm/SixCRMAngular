@@ -9,6 +9,10 @@ machine:
   node:
     version: 7.6.0
 
+dependencies:
+  pre:
+    - aws configure set preview.cloudfront true
+
 test:
   override:
     - "true"
