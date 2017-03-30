@@ -1,10 +1,12 @@
-import {AuthPage} from './po/auth.po';
+import {AuthPage} from '../po/auth.po';
 import {browser} from 'protractor';
-import {DashboardPage} from './po/dashboard.po';
+import {DashboardPage} from '../po/dashboard.po';
 import {
-  waitForUrlContains, waitForPresenceOf, navigateToHomepage, expectPresent, expectUrlToContain,
-  expectUrlToEqual, doLogin, waitForPresenceOfLoginFields
-} from './utils';
+  waitForPresenceOfLoginFields, waitForPresenceOf, waitForUrlContains,
+  navigateSuperuserToHomepage
+} from '../utils/navigation.utils';
+import {doLogin} from '../utils/action.utils';
+import {expectPresent, expectUrlToContain, expectUrlToEqual} from '../utils/assertation.utils';
 
 describe('Login', function() {
   let authPage: AuthPage;
@@ -51,13 +53,13 @@ describe('Login', function() {
   });
 
   it ('should navigate to /dashboard when valid token is present in local storage', () => {
-    navigateToHomepage();
+    navigateSuperuserToHomepage();
 
     expectUrlToContain('/dashboard');
   });
 
   it ('should display Auth0 lock and navigate to / when user logs out', () => {
-    navigateToHomepage();
+    navigateSuperuserToHomepage();
 
     dashboardPage.getCollapsedMenuButton().click();
     dashboardPage.getCollapsedMenuItems().last().click();
@@ -66,3 +68,4 @@ describe('Login', function() {
     expectPresent(authPage.getAuth0Lock());
   })
 });
+

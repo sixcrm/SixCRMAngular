@@ -1,5 +1,5 @@
-import { AuthPage } from './po/auth.po';
-import {expectPresent} from './utils';
+import { AuthPage } from '../po/auth.po';
+import {expectPresent} from '../utils/assertation.utils';
 
 describe('App load', function() {
   let authPage: AuthPage;

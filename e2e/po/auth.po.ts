@@ -14,7 +14,11 @@ export class AuthPage {
   }
 
   getAlternativeLink() {
-    return element(by.css('.auth0-lock-alternative-link'));
+    return element(by.linkText('Not your account?'));
+  }
+
+  getRegistrationLink() {
+    return element(by.linkText('Sign Up'));
   }
 
   getEmailInput() {
