@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -x
-
 # TO run this script: 'bash build.sh'
 
 BUCKET=admin.sixcrm.com
