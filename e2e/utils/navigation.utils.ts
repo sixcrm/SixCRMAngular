@@ -18,6 +18,14 @@ export function navigateRegisteruserToRegistration() {
   waitForUrlContains('register');
 }
 
+export function navigateRegisteruserToAcceptInvite(link: string) {
+  browser.get(link);
+  addRegisterUserToken();
+  browser.get(link);
+
+  waitForUrlContains('acceptinvite');
+}
+
 export function addSuperUserToken() {
   let jwt = createTestAuth0JWT('super.user@test.com');
   let content = getJwtContent('super.user@test.com');
@@ -30,6 +38,10 @@ export function addRegisterUserToken() {
   let content = getJwtContent('testingregistration@example.com');
 
   addToLocalStorage(jwt, content);
+}
+
+export function clearLocalStorage() {
+  browser.executeScript(`window.localStorage.clear();`);
 }
 
 export function addToLocalStorage(token: string, payload: any) {

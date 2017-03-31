@@ -3,7 +3,7 @@ import {browser} from 'protractor';
 import {DashboardPage} from '../po/dashboard.po';
 import {
   waitForPresenceOfLoginFields, waitForPresenceOf, waitForUrlContains,
-  navigateSuperuserToHomepage
+  navigateSuperuserToHomepage, clearLocalStorage
 } from '../utils/navigation.utils';
 import {doLogin} from '../utils/action.utils';
 import {expectPresent, expectUrlToContain, expectUrlToEqual} from '../utils/assertation.utils';
@@ -16,6 +16,10 @@ describe('Login', function() {
     authPage = new AuthPage();
     dashboardPage = new DashboardPage();
     browser.waitForAngularEnabled(true);
+  });
+
+  afterEach(() => {
+    clearLocalStorage();
   });
 
   it ('should fail login when wrong email and password are used', () => {

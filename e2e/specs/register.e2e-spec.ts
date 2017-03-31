@@ -3,7 +3,7 @@ import {RegisterPage} from '../po/register.po';
 import {browser} from 'protractor';
 import {
   waitForPresenceOfLoginFields, waitForUrlContains,
-  navigateRegisteruserToRegistration, waitForPresenceOf
+  navigateRegisteruserToRegistration, waitForPresenceOf, clearLocalStorage
 } from '../utils/navigation.utils';
 import {doLogin} from '../utils/action.utils';
 import {expectUrlToContain, expectPresent} from '../utils/assertation.utils';
@@ -40,7 +40,9 @@ describe('Register', function() {
     browser.waitForAngularEnabled(true);
   });
 
-  afterAll((done) => {
+  afterEach((done) => {
+    clearLocalStorage();
+
     let jwt = createTestAuth0JWT('super.user@test.com');
     let request = supertest('https://api.sixcrm.com/');
 
