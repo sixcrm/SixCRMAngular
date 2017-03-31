@@ -59,7 +59,7 @@ export class AuthenticationService {
       this.setUser(authResult);
     });
 
-    if (this.authenticated()) {
+    if (this.authenticated() && !this.router.url.includes('acceptinvite')) {
       this.getUserIntrospection(JSON.parse(localStorage.getItem(this.idTokenPayload)));
     }
   }
@@ -254,7 +254,11 @@ export class AuthenticationService {
         if (user) {
           if (user.active !== 'true') {
             localStorage.removeItem(this.activated);
-            this.router.navigateByUrl('/register');
+
+            if (!this.router.url.includes('acceptinvite')) {
+              this.router.navigateByUrl('/register');
+            }
+
             this.userData = new User(user);
             this.userData.auth0Id = this.getToken();
             this.userUnderReg$.next(this.userData);
