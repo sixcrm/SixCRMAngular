@@ -30,6 +30,10 @@ export class RegisterPage {
     return element(by.css('.tab__buttons')).all(by.css('button')).last();
   }
 
+  getPreviousButton() {
+    return element(by.css('.tab__buttons')).all(by.css('span')).first();
+  }
+
   getDropdownTriggers() {
     return element.all(by.css('.tab__content__dropdown'));
   }
