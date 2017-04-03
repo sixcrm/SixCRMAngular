@@ -12,6 +12,8 @@ machine:
 dependencies:
   pre:
     - aws configure set preview.cloudfront true
+  post:
+    - npm run start.dev
 
 test:
   override:
