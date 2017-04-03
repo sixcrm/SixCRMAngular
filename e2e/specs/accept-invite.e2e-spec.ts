@@ -114,8 +114,8 @@ describe('Accept Invite', function() {
     expect(acceptInvitePage.getAcceptButton().isEnabled()).toBeFalsy();
     expect(acceptInvitePage.getErrorHints().count()).toEqual(3);
     expect(acceptInvitePage.getErrorHints().get(0).getText()).toEqual('more than two characters please!');
-    expect(acceptInvitePage.getErrorHints().get(0).getText()).toEqual('more than two characters please!');
-    expect(acceptInvitePage.getErrorHints().get(0).getText()).toEqual('more than four characters please!');
+    expect(acceptInvitePage.getErrorHints().get(1).getText()).toEqual('more than two characters please!');
+    expect(acceptInvitePage.getErrorHints().get(2).getText()).toEqual('more than four characters please!');
   });
 
   it('should remove errors on registration form when inputs get corrected', () => {
