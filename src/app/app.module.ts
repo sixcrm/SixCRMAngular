@@ -4,7 +4,6 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {routing} from './app.routing';
 import {AppComponent} from './app.component';
-import {SharedModule} from './shared/shared.module';
 import {NavigationModule} from './navigation/navigation.module';
 import {MaterialModule} from '@angular/material';
 import {AgmCoreModule} from 'angular2-google-maps/core';
@@ -12,15 +11,16 @@ import {Angulartics2Module, Angulartics2GoogleAnalytics} from 'angulartics2';
 import {AuthenticationModule} from "./authentication/authentication.module";
 import {DeleteDialogComponent} from './pages/delete-dialog.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations : [
     AppComponent, DeleteDialogComponent, ErrorPageComponent
   ],
   imports : [
-    SharedModule.forRoot(),
     NavigationModule.forRoot(),
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     AuthenticationModule,

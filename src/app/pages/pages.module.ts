@@ -76,8 +76,8 @@ import { SmtpProviderViewComponent } from './smtp-providers-page/smtp-provider-v
 @NgModule({
   imports : [
     pagesRouting,
-    SharedModule,
-    NavigationModule,
+    SharedModule.forRoot(),
+    NavigationModule.forRoot(),
     CommonModule,
     FormsModule,
     MaterialModule.forRoot(),
