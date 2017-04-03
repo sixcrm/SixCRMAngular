@@ -15,7 +15,7 @@ import { InviteAcceptComponent } from './invite-accept/invite-accept.component';
   imports : [
     routing,
     RouterModule,
-    MaterialModule,
+    MaterialModule.forRoot(),
     CommonModule,
     FormsModule
   ],

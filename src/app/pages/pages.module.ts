@@ -80,7 +80,7 @@ import { SmtpProviderViewComponent } from './smtp-providers-page/smtp-provider-v
     NavigationModule,
     CommonModule,
     FormsModule,
-    MaterialModule,
+    MaterialModule.forRoot(),
     ReactiveFormsModule,
     ChartsModule
   ],

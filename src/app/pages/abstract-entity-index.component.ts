@@ -4,8 +4,8 @@ import {MdDialog, MdDialogRef} from '@angular/material';
 import {ProgressBarService} from '../shared/services/progress-bar.service';
 import {PaginationService} from '../shared/services/pagination.service';
 import {AuthenticationService} from '../authentication/authentication.service';
-import {ViewChild} from '@angular/core/src/metadata/di';
 import {Entity} from '../shared/models/entity.interface';
+import {ViewChild} from '@angular/core';
 
 export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 

@@ -1,6 +1,5 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, HostListener} from '@angular/core';
 import {NavigationService} from './navigation/navigation.service';
-import {HostListener} from '@angular/core/src/metadata/directives';
 import {Router, Event, NavigationStart, NavigationEnd} from '@angular/router';
 import 'hammerjs';
 

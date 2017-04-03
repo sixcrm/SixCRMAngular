@@ -1,6 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {MdSidenav} from '@angular/material';
-import {Input} from '@angular/core/src/metadata/directives';
 import {NavigationService} from '../navigation.service';
 import {Title} from '@angular/platform-browser';
 import {AuthenticationService} from "../../authentication/authentication.service";

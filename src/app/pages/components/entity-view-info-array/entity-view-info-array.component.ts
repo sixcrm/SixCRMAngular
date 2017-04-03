@@ -1,5 +1,4 @@
-import {Component, OnInit, Input, EventEmitter} from '@angular/core';
-import {Output} from '@angular/core/src/metadata/directives';
+import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'entity-view-info-array',

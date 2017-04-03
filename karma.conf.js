@@ -3,13 +3,14 @@
 
 module.exports = function (config) {
   config.set({
-    basePath: './',
-    frameworks: ['jasmine', 'angular-cli'],
+    basePath: '',
+    frameworks: ['jasmine', '@angular/cli'],
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
-      require('karma-remap-istanbul'),
-      require('angular-cli/plugins/karma')
+      require('karma-jasmine-html-reporter'),
+      require('karma-coverage-istanbul-reporter'),
+      require('@angular/cli/plugins/karma')
     ],
     customLaunchers: {
       // chrome setup for travis CI using chromium
@@ -22,16 +23,21 @@ module.exports = function (config) {
       { pattern: './src/test.ts', watched: false }
     ],
     preprocessors: {
-      './src/test.ts': ['angular-cli']
+      './src/test.ts': ['@angular/cli']
     },
-    remapIstanbulReporter: {
-      reports: {
-        html: 'coverage',
-        lcovonly: './coverage/coverage.lcov'
-      }
+    mime: {
+      'text/x-typescript': ['ts','tsx']
     },
-    angularCliConfig: './angular-cli.json',
-    reporters: ['progress', 'karma-remap-istanbul'],
+    coverageIstanbulReporter: {
+      reports: [ 'html', 'lcovonly' ],
+      fixWebpackSourcePaths: true
+    },
+    angularCli: {
+      environment: 'dev'
+    },
+    reporters: config.angularCli && config.angularCli.codeCoverage
+      ? ['progress', 'coverage-istanbul']
+      : ['progress', 'kjhtml'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,

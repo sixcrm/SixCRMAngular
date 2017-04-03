@@ -1,10 +1,9 @@
 import {Component, AfterViewInit, OnDestroy, Input, ViewChildren, QueryList} from '@angular/core';
-import {ActivatedRoute} from '@angular/router/src/router_state';
 import {MenuItem} from '../../menu-item';
 import {StringUtils} from '../../../shared/utils/string-utils';
 import {NavigationService} from '../../navigation.service';
 import {Subscription} from 'rxjs';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 
 @Component({
   selector : 'c-sidenav-item',

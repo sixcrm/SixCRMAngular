@@ -1,10 +1,9 @@
-import {Component, OnInit, trigger, state, animate, transition, style, QueryList} from '@angular/core';
+import {Component, OnInit, QueryList, Input, ViewChildren} from '@angular/core';
 import {NavigationService} from '../navigation.service';
 import {MenuItem} from '../menu-item';
 import {SidenavItemComponent} from './sidenav-item/sidenav-item.component';
-import {ViewChildren} from '@angular/core/src/metadata/di';
-import {Input} from '@angular/core/src/metadata/directives';
 import {environment} from '../../../environments/environment';
+import {trigger, state, transition, style, animate} from '@angular/animations';
 
 @Component({
   selector : 'app-sidenav',

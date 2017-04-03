@@ -31,6 +31,9 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
     MaterialModule.forRoot()
   ],
+  exports: [
+    MaterialModule
+  ],
   providers : [],
   entryComponents : [AppComponent, DeleteDialogComponent],
   bootstrap : [AppComponent]
