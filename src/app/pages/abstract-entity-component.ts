@@ -28,12 +28,12 @@ export abstract class AbstractEntityComponent<T extends Entity<T>> {
 
   @ViewChild('entityContainer') entityContainer;
 
-  protected entity: T;
-  protected entityCopy: T;
-  protected id: string;
-  protected loading: boolean = false;
-  protected height: string = '55px';
-  protected tabIndex: number = 0;
+  entity: T;
+  entityCopy: T;
+  id: string;
+  loading: boolean = false;
+  height: string = '55px';
+  tabIndex: number = 0;
 
   constructor(
     protected service: AbstractEntityService<T>,

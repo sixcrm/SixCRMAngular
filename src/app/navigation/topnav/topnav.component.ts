@@ -18,30 +18,30 @@ import {SearchService} from '../../shared/services/search.service';
 export class TopnavComponent implements OnInit {
   @Input() sideNav: MdSidenav;
 
-  private _showSidenav: boolean;
-  private _pageTitle: string;
-  private _browserTitle: string;
-  private _isLoadingRoute: boolean = false;
-  private _breadcrumbs: Array<{title: string, link: any[] | string}> = [];
-  private _autoBreadcrumbs: boolean = true;
+  _showSidenav: boolean;
+  _pageTitle: string;
+  _browserTitle: string;
+  _isLoadingRoute: boolean = false;
+  _breadcrumbs: Array<{title: string, link: any[] | string}> = [];
+  _autoBreadcrumbs: boolean = true;
 
   private _breadcrumbInterval: number;
   private _pageTitleInterval: number;
 
-  private _userProfile: User = new User();
+  _userProfile: User = new User();
 
-  private showDropdown: boolean = false;
-  private showCollapseMenu: boolean = false;
-  private showSearchInput: boolean = false;
-  private showAutoComplete: boolean = false;
-  private searchTerm: string = '';
-  private options: string[] = [];
+  showDropdown: boolean = false;
+  showCollapseMenu: boolean = false;
+  showSearchInput: boolean = false;
+  showAutoComplete: boolean = false;
+  searchTerm: string = '';
+  options: string[] = [];
 
-  private activeAcl: Acl = new Acl();
-  private showAcls: boolean = false;
+  activeAcl: Acl = new Acl();
+  showAcls: boolean = false;
 
   constructor(
-    private _navigation: NavigationService,
+    public _navigation: NavigationService,
     private _title: Title,
     private _authService: AuthenticationService,
     private router: Router,

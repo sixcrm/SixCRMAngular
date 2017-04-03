@@ -6,13 +6,13 @@ import {Entity} from '../shared/models/entity.interface';
 
 export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
 
-  protected addMode: boolean = false;
-  protected viewMode: boolean = false;
-  protected updateMode: boolean = false;
-  protected mode: string = '';
-  protected entityId: string = '';
-  protected entity: T;
-  protected entityBackup: T;
+  addMode: boolean = false;
+  viewMode: boolean = false;
+  updateMode: boolean = false;
+  mode: string = '';
+  entityId: string = '';
+  entity: T;
+  entityBackup: T;
 
   protected routeSubscription: Subscription;
   protected entityViewSubscription: Subscription;

@@ -11,18 +11,18 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
   @ViewChild('indexR') indexR;
 
-  private deleteDialogRef: MdDialogRef<DeleteDialogComponent>;
-  protected limit: number;
-  protected page: number = 0;
-  private hasMore: boolean;
-  private entities: T[] = [];
-  private entitiesHolder: T[] = [];
-  private paginationValues: number[] = [5, 10, 15, 20, 30, 40, 50];
+  deleteDialogRef: MdDialogRef<DeleteDialogComponent>;
+  limit: number;
+  page: number = 0;
+  hasMore: boolean;
+  entities: T[] = [];
+  entitiesHolder: T[] = [];
+  paginationValues: number[] = [5, 10, 15, 20, 30, 40, 50];
 
-  protected showEntityDetails: boolean = false;
-  protected showEntityId: string;
-  protected fullScreen: boolean = false;
-  protected mode: string;
+  showEntityDetails: boolean = false;
+  showEntityId: string;
+  fullScreen: boolean = false;
+  mode: string;
 
   constructor(
     protected service: AbstractEntityService<T>,

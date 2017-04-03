@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  private sales: any = [];
+  public sales: any = [];
 
   public pieChartLabels:string[] = ['label 1', 'label 2', 'label 3'];
   public pieChartData:number[] = [75, 20, 5];

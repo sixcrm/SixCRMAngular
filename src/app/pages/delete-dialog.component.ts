@@ -30,11 +30,11 @@ export class DeleteDialogComponent {
   ngOnInit() {
   }
 
-  private no(): void {
+  no(): void {
     this.dialogRef.close({success : false});
   }
 
-  private yes(): void {
+  yes(): void {
     this.dialogRef.close({success : true});
   }
 

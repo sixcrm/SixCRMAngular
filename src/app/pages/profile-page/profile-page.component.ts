@@ -9,9 +9,9 @@ import {User} from '../../shared/models/user.model';
 })
 export class ProfilePageComponent implements OnInit {
 
-  private user: User = new User();
-  private userCopy: User;
-  private editing: boolean = false;
+  user: User = new User();
+  userCopy: User;
+  editing: boolean = false;
 
   constructor(private authService: AuthenticationService) { }
 
@@ -23,17 +23,17 @@ export class ProfilePageComponent implements OnInit {
     });
   }
 
-  private toggleEdit(): void {
+  toggleEdit(): void {
     this.editing = !this.editing;
     this.userCopy = this.user.copy();
   }
 
-  private cancelEdit(): void {
+  cancelEdit(): void {
     this.editing = false;
     this.user = this.userCopy;
   }
 
-  private save(): void {
+  save(): void {
 
   }
 

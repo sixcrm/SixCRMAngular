@@ -7,12 +7,12 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
   styleUrls : ['./default.layout.component.scss']
 })
 export class DefaultLayoutComponent implements OnInit {
-  private showSidenav: boolean;
-  private showTopProgress: boolean = false;
-  private isHovering: boolean = false;
-  private showOnHover: boolean = false;
+  showSidenav: boolean;
+  showTopProgress: boolean = false;
+  isHovering: boolean = false;
+  showOnHover: boolean = false;
 
-  constructor(private _navigation: NavigationService, private progressBarService: ProgressBarService) {
+  constructor(public _navigation: NavigationService, private progressBarService: ProgressBarService) {
   }
 
   ngOnInit() {

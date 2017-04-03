@@ -20,9 +20,9 @@ export class TableActionsComponent implements OnInit {
   @Output()
   exportClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  private showView: boolean;
-  private showCopy: boolean;
-  private showExport: boolean;
+  showView: boolean;
+  showCopy: boolean;
+  showExport: boolean;
 
   constructor() {}
 

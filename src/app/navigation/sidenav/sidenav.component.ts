@@ -25,9 +25,9 @@ import {trigger, state, transition, style, animate} from '@angular/animations';
 export class SidenavComponent implements OnInit {
   @ViewChildren(SidenavItemComponent) children: QueryList<SidenavItemComponent>;
 
-  @Input() private isHovering: boolean = false;
+  @Input() isHovering: boolean = false;
   private showSidenav: boolean = false;
-  private menuItems: MenuItem[] = [];
+  menuItems: MenuItem[] = [];
   private _screenWidth: number = NavigationService.largeViewportWidth;
   private _initialLoad: boolean = true; // Used to show slide in effect on page load for sidenav
   private _this: SidenavComponent = this;

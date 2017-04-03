@@ -12,22 +12,22 @@ import {PaginationService} from '../../shared/services/pagination.service';
 })
 export class SearchComponent implements OnInit, OnDestroy {
 
-  private queryString: string;
-  private currentRoute: string;
-  private paramsSub: Subscription;
-  private showAutocomplete: boolean = false;
-  private options: string[] = [];
+  queryString: string;
+  currentRoute: string;
+  paramsSub: Subscription;
+  showAutocomplete: boolean = false;
+  options: string[] = [];
 
-  private limit;
-  private paginationValues: number[] = [5, 10, 15, 20, 30];
-  private page: number = 0;
+  limit;
+  paginationValues: number[] = [5, 10, 15, 20, 30];
+  page: number = 0;
 
-  private searchResults: any[] = [];
-  private searchResultsToDispaly: any[] = [];
-  private hasMore: boolean = true;
+  searchResults: any[] = [];
+  searchResultsToDispaly: any[] = [];
+  hasMore: boolean = true;
 
-  private entityTypesCount: any = {};
-  private checkboxClicked$: Subject<boolean> = new Subject<boolean>();
+  entityTypesCount: any = {};
+  checkboxClicked$: Subject<boolean> = new Subject<boolean>();
 
   private entityTypesChecked: any  = {
     campaign: false,

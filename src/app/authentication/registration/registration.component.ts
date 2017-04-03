@@ -10,13 +10,13 @@ import {CreditCard} from '../../shared/models/credit-card.model';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-  private showScreen: boolean = false;
+  showScreen: boolean = false;
 
-  private showWelcome: boolean = true;
-  private showForm: boolean = false;
-  private showTerms: boolean = false;
-  private showThankYou: boolean = false;
-  private selectedIndex: number = 0;
+  showWelcome: boolean = true;
+  showForm: boolean = false;
+  showTerms: boolean = false;
+  showThankYou: boolean = false;
+  selectedIndex: number = 0;
 
   private username: string;
   private usernameError: boolean = false;
