@@ -14,9 +14,18 @@ export class ResultItemComponent implements OnInit {
 
   @Output() showDetails: EventEmitter<any> = new EventEmitter<any>();
 
+  title: string = '';
+
   constructor() { }
 
   ngOnInit() {
+    if (this.fields.name) {
+      this.title = this.fields.name;
+    }
+
+    if (this.fields.firstname && this.fields.lastname) {
+      this.title = this.fields.firstname + ' ' + this.fields.lastname;
+    }
   }
 
   imageSrc(): string {

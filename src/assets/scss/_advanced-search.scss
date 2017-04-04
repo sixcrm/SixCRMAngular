@@ -1,0 +1,80 @@
+.advanced-search {
+  position: relative;
+  min-height: calc(100vh - 65px);
+
+  &__title {
+    padding: 20px 60px;
+    font-size: 20px;
+    font-weight: 500;
+    color: $title-color;
+  }
+
+  &__icon {
+    position: absolute;
+    top: 42px;
+    left: 10px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+    background-color: #5999E0;
+    color: white;
+    z-index: 1;
+    cursor: pointer;
+
+    md-icon {
+      position: absolute;
+      top: 11px;
+      left: 11px;
+    }
+  }
+
+  &__content {
+    position: absolute;
+    border-top: 2px solid rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
+    width: 100%;
+    min-height: calc(100% - 65px);
+    background-color: white;
+
+    &__title {
+      margin: 30px 70px 10px 70px;
+    }
+
+    &__fields {
+      position: relative;
+      display: flex;
+      padding: 10px 40px 50px 40px;
+      box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+
+      &__column {
+        display: flex;
+        flex-flow: column;
+        width: 33%;
+        padding: 0 30px;
+      }
+
+      &__input {
+        margin-bottom: 15px;
+        width: 100%;
+        max-width: 300px;
+        font-size: 14px;
+      }
+
+      &__button {
+        position: absolute;
+        right: 15px;
+        bottom: 15px;
+        background-color: #5999E0;
+        padding: 6px 22px;
+        font-size: 16px;
+        color: white;
+        cursor: pointer;
+      }
+    }
+
+    &__results {
+
+    }
+  }
+}

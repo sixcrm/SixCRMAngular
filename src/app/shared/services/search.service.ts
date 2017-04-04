@@ -3,7 +3,7 @@ import {Subject, Observable} from 'rxjs';
 import {Response, Headers, Http} from '@angular/http';
 import {environment} from '../../../environments/environment';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {searchQuery, suggestionsQuery, searchFacets} from '../utils/query-builder';
+import {searchQuery, suggestionsQuery, searchFacets, searchAdvancedQuery} from '../utils/query-builder';
 
 @Injectable()
 export class SearchService {
@@ -27,6 +27,29 @@ export class SearchService {
 
   searchByQuery(query: string, start: number, count: number, entityTypes?: string[]): void {
     this.queryRequest(searchQuery(query, start, count, entityTypes)).subscribe(
+      (response: Response) => {
+        let json = response.json().data.search;
+        let hits = json.hits;
+
+        hits.hit = hits.hit.map(hit => {
+          hit.fields = JSON.parse(hit.fields);
+          for (let property in hit.fields) {
+            hit.fields[property] = hit.fields[property][0];
+          }
+
+          return hit;
+        });
+
+        this.searchResults$.next(hits);
+      },
+      (error) => {
+        console.error(error);
+      }
+    )
+  }
+
+  searchAdvanced(options: any, start: number, count: number): void {
+    this.queryRequest(searchAdvancedQuery(options, start, count)).subscribe(
       (response: Response) => {
         let json = response.json().data.search;
         let hits = json.hits;

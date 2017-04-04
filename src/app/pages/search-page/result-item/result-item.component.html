@@ -4,14 +4,14 @@
   </div>
 
   <div class="search__content__results__item__wrapper">
-    <div class="search__content__results__item__title" [innerHTML]="fields.name | highlight: queryString"></div>
+    <div class="search__content__results__item__title" [innerHTML]="title | highlight: queryString"></div>
     <div class="search__content__results__item__subtitle">
       {{entityType}}
       <img src="/assets/images/result-item-timer.svg"> <span>date created</span>
     </div>
     <div class="search__content__results__item__fields">
-      <div class="search__content__results__item__fields__wrapper">{{entityType}} ID: <div>{{id}}</div></div>
-      <div class="search__content__results__item__fields__wrapper">{{entityType}} Name: <div>{{fields.name}}</div></div>
+      <div class="search__content__results__item__fields__wrapper" *ngIf="fields.name">{{entityType}} ID: <div>{{id}}</div></div>
+      <div class="search__content__results__item__fields__wrapper" *ngIf="fields.name">{{entityType}} Name: <div>{{fields.name}}</div></div>
       <div class="search__content__results__item__fields__wrapper" *ngIf="fields.firstname">First Name: <div>{{fields.firstname}}</div></div>
       <div class="search__content__results__item__fields__wrapper" *ngIf="fields.lastname">Last Name: <div>{{fields.lastname}}</div></div>
       <div class="search__content__results__item__fields__wrapper" *ngIf="fields.email">Email: <div>{{fields.email}}</div></div>

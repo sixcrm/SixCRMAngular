@@ -45,6 +45,7 @@ import {LoadBalancerViewComponent} from './load-balancers-page/load-balancer-vie
 import {AffiliateViewComponent} from './affiliates-page/affiliate-view/affiliate-view.component';
 import {SessionViewComponent} from './sessions-page/session-view/session-view.component';
 import {SmtpProviderViewComponent} from './smtp-providers-page/smtp-provider-view/smtp-provider-view.component';
+import {AdvancedSearchComponent} from './advanced-search-page/advanced-search.component';
 
 export const pagesRouting = RouterModule.forChild([
   {
@@ -80,6 +81,7 @@ export const pagesRouting = RouterModule.forChild([
       { path : 'accesskeys', component : AccessKeysComponent },
       { path : 'profile', component : ProfilePageComponent },
       { path : 'search', component : SearchComponent },
+      { path : 'advanced-search', component : AdvancedSearchComponent },
       { path : '**', redirectTo : '' },
     ]
   }

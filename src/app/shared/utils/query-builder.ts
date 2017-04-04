@@ -35,6 +35,37 @@ export function  searchQuery(query: string, start: number, size: number, entityT
 	}`;
 }
 
+export function  searchAdvancedQuery(options: any, start: number, size: number): string {
+
+  let fieldsQuery = '';
+  for (let field in options) {
+    if (options[field]) {
+
+      if (options[field] instanceof Array) {
+        let key = field;
+
+        for (let fieldInner in options[key]) {
+          if (options[key][fieldInner]) {
+            fieldsQuery += ` (prefix field=${key} '${options[key][fieldInner]}')`
+          }
+        }
+      } else {
+        fieldsQuery += ` (prefix field=${field} '${options[field]}')`
+      }
+    }
+  }
+
+  return `
+  {
+    search (search: {query: "(and${fieldsQuery})" queryParser: "structured" size:"10"}) {
+      hits {
+        found start
+        hit { fields }
+      }
+    }
+  }`;
+}
+
 export function  searchFacets(query: string): string {
   return `{
 		search (search: {query: "${query}*" facet:"{entity_type:{}}" return:"_no_fields"}) {
