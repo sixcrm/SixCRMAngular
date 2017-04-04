@@ -59,15 +59,22 @@ describe('Login', function() {
   it ('should navigate to /dashboard when valid token is present in local storage', () => {
     navigateSuperuserToHomepage();
 
+    browser.waitForAngularEnabled(false);
+
     expectUrlToContain('/dashboard');
   });
 
   it ('should display Auth0 lock and navigate to / when user logs out', () => {
     navigateSuperuserToHomepage();
 
+    browser.waitForAngularEnabled(false);
+
     dashboardPage.getCollapsedMenuButton().click();
+
+    browser.sleep(600);
     dashboardPage.getCollapsedMenuItems().last().click();
 
+    browser.sleep(600);
     expectUrlToEqual('http://localhost:4200/');
     expectPresent(authPage.getAuth0Lock());
   })

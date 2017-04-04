@@ -59,9 +59,13 @@ export class AuthenticationService {
       this.setUser(authResult);
     });
 
-    if (this.authenticated() && !this.router.url.includes('acceptinvite')) {
-      this.getUserIntrospection(JSON.parse(localStorage.getItem(this.idTokenPayload)));
-    }
+    // wait for router to load route so that we can check if we should trigger user introspection
+    setTimeout(() => {
+      if (this.authenticated() && !this.router.url.includes('acceptinvite')) {
+        this.getUserIntrospection(JSON.parse(localStorage.getItem(this.idTokenPayload)));
+      }
+    }, 1);
+
   }
 
   public authenticated(): boolean {

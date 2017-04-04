@@ -42,7 +42,10 @@ describe('Register', function() {
 
   afterEach((done) => {
     clearLocalStorage();
+    done();
+  });
 
+  afterAll((done) => {
     let jwt = createTestAuth0JWT('super.user@test.com');
     let request = supertest('https://api.sixcrm.com/');
 
