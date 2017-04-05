@@ -29,6 +29,9 @@ export class AuthenticationService {
   private sixUser: string = 'six_user';
   private activeAcl: string = 'active_acl';
 
+  private currentSixUser: User = new User();
+  private currentActiveAcl: Acl = new Acl();
+
   public userData$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
   private userData: User;
   public userUnderReg$: BehaviorSubject<any> = new BehaviorSubject<User>(null);
@@ -100,9 +103,11 @@ export class AuthenticationService {
   }
 
   public getSixUser(): User {
-    let sixUser = localStorage.getItem(this.sixUser);
+    if (!this.currentSixUser || !this.currentSixUser.id) {
+      this.currentSixUser = new User(localStorage.getItem(this.sixUser));
+    }
 
-    return new User(JSON.parse(sixUser));
+    return this.currentSixUser;
   }
 
   public getUserEmail(): string {
@@ -136,11 +141,16 @@ export class AuthenticationService {
   }
 
   public getActiveAcl(): Acl {
-    return new Acl(JSON.parse(localStorage.getItem(this.activeAcl)));
+    if (!this.currentActiveAcl || !this.currentActiveAcl.account || !this.currentActiveAcl.account.id) {
+      this.currentActiveAcl = new Acl(JSON.parse(localStorage.getItem(this.activeAcl)));
+    }
+
+    return this.currentActiveAcl;
   }
 
   public changeActiveAcl(acl: Acl): void {
     localStorage.setItem(this.activeAcl, JSON.stringify(acl.inverse()));
+    this.currentActiveAcl = acl;
     this.activeAcl$.next(acl);
     this.activeAclChanged$.next(true);
   }
@@ -222,6 +232,7 @@ export class AuthenticationService {
   public refreshSixUser(): void {
     this.router.navigateByUrl('/');
     localStorage.removeItem(this.activeAcl);
+    this.currentActiveAcl = new Acl();
     this.getUserData(JSON.parse(localStorage.getItem(this.idTokenPayload)));
   }
 
@@ -289,6 +300,7 @@ export class AuthenticationService {
 
   private updateSixUser(user: User): void {
     localStorage.setItem(this.sixUser, JSON.stringify(user.inverse()));
+    this.currentSixUser = user;
     this.userData$.next(user);
   }
 
@@ -302,6 +314,7 @@ export class AuthenticationService {
 
       if (defaultAcl) {
         localStorage.setItem(this.activeAcl, JSON.stringify(defaultAcl.inverse()));
+        this.currentActiveAcl = defaultAcl;
         this.activeAcl$.next(defaultAcl);
         this.activeAclChanged$.next(true);
       }

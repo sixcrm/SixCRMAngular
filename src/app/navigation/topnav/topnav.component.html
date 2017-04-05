@@ -78,9 +78,9 @@
         <span>{{_userProfile.email}}</span>
       </div>
       <span class="topnav__items--collapsed__menu__label">Accounts:</span>
-      <ng-container *ngFor="let acl of _authService.getAcls()">
+      <div *ngFor="let acl of _authService.getAcls()">
         <div class="topnav__items--collapsed__menu__button" (click)="changeAcl(acl)"><span>{{acl.account.name}}</span></div>
-      </ng-container>
+      </div>
       <div class="topnav__items--collapsed__menu__button" (click)="logout()"> <span>sign out</span> </div>
     </div>
   </div>
