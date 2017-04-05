@@ -12,13 +12,10 @@ machine:
 dependencies:
   pre:
     - aws configure set preview.cloudfront true
-  post:
-    - npm run start.dev:
-        background: true
 
 test:
   override:
-    - npm run e2e
+    - "true"
 
 deployment:
   development:

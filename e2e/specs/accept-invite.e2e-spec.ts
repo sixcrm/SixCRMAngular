@@ -163,7 +163,7 @@ describe('Accept Invite', function() {
     expect(acceptInvitePage.getRegistrationCompleteInstructions().getText()).toEqual('You will receive an email confirming your account shortly');
   });
 
- /* it('should navigate to dashboard after registration complete', () => {
+ it('should navigate to dashboard after registration complete', () => {
     navigateRegisteruserToAcceptInvite(link);
     browser.sleep(1000);
 
@@ -181,5 +181,5 @@ describe('Accept Invite', function() {
 
     waitForUrlContains('dashboard');
     expectUrlToContain('dashboard');
-  }) */
+  })
 });
