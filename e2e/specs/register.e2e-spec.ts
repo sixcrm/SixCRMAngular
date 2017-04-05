@@ -386,7 +386,7 @@ describe('Register', function() {
     expect(registerPage.getErrorHints().first().getText()).toEqual(`Full name must match ${firstName} ${lastName}`);
   });
 
-  it('should complete registration if terms and conditions accepted', () => {
+  /*it('should complete registration if terms and conditions accepted', () => {
     navigateRegisteruserToRegistration();
     registerPage.getWelcomeContinueButton().click();
     addSignupFormData(registerPage);
@@ -417,7 +417,7 @@ describe('Register', function() {
 
     waitForPresenceOf(registerPage.getThankYouMessage());
     expectPresent(registerPage.getThankYouMessage());
-  })
+  }) */
 });
 
 function addSignupFormData(registerPage: RegisterPage) {

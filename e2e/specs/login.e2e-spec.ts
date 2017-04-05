@@ -64,7 +64,7 @@ describe('Login', function() {
     expectUrlToContain('/dashboard');
   });
 
-  it ('should display Auth0 lock and navigate to / when user logs out', () => {
+ /* it ('should display Auth0 lock and navigate to / when user logs out', () => {
     navigateSuperuserToHomepage();
 
     browser.waitForAngularEnabled(false);
@@ -77,6 +77,6 @@ describe('Login', function() {
     browser.sleep(600);
     expectUrlToEqual('http://localhost:4200/');
     expectPresent(authPage.getAuth0Lock());
-  })
+  }) */
 });
 
