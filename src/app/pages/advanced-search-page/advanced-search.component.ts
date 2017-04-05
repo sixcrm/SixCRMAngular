@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {SearchService} from '../../shared/services/search.service';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {Router} from '@angular/router';
 
@@ -30,7 +29,7 @@ export class AdvancedSearchComponent implements OnInit {
 
   searchResults = [];
 
-  constructor(private searchService: SearchService, private progressBarService: ProgressBarService, private router: Router) { }
+  constructor(private progressBarService: ProgressBarService, private router: Router) { }
 
   ngOnInit() { }
 
@@ -43,6 +42,7 @@ export class AdvancedSearchComponent implements OnInit {
       lastname: this.searchOptions.lastName,
       phone: this.searchOptions.phoneNumber,
       email: this.searchOptions.emailAddress,
+      alias: this.searchOptions.orderId,
       address: [this.searchOptions.address1, this.searchOptions.address2, this.searchOptions.state, this.searchOptions.city, this.searchOptions.postalCode]
     };
 
