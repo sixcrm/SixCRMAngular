@@ -3,19 +3,27 @@ import {Subject, Observable} from 'rxjs';
 import {Response, Headers, Http} from '@angular/http';
 import {environment} from '../../../environments/environment';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {searchQuery, suggestionsQuery, searchFacets, searchAdvancedQuery} from '../utils/query-builder';
+import {
+  searchQuery, suggestionsQuery, searchFacets, searchAdvancedQuery,
+  searchAdvancedFacets
+} from '../utils/query-builder';
 
 @Injectable()
 export class SearchService {
 
   searchResults$: Subject<any>;
+  advanceSearchResults$: Subject<any>;
   suggestionResults$: Subject<string[]>;
   entityTypesCount$: Subject<any>;
 
   private suggestionInput$: Subject<string>;
 
+  private query: string;
+  private advanceQueryOptions: any;
+
   constructor(private http: Http, private authService: AuthenticationService) {
     this.searchResults$ = new Subject<any[]>();
+    this.advanceSearchResults$ = new Subject<any[]>();
     this.suggestionResults$ = new Subject<string[]>();
     this.suggestionInput$ = new Subject<string>();
     this.entityTypesCount$ = new Subject<any>();
@@ -26,7 +34,9 @@ export class SearchService {
   }
 
   searchByQuery(query: string, start: number, count: number, entityTypes?: string[]): void {
-    this.queryRequest(searchQuery(query, start, count, entityTypes)).subscribe(
+    this.query = query;
+
+    this.queryRequest(searchQuery(this.query, start, count, entityTypes)).subscribe(
       (response: Response) => {
         let json = response.json().data.search;
         let hits = json.hits;
@@ -48,8 +58,10 @@ export class SearchService {
     )
   }
 
-  searchAdvanced(options: any, start: number, count: number): void {
-    this.queryRequest(searchAdvancedQuery(options, start, count)).subscribe(
+  searchAdvanced(options: any, start: number, count: number, entityTypes?: string[]): void {
+    this.advanceQueryOptions = options;
+
+    this.queryRequest(searchAdvancedQuery(this.advanceQueryOptions, start, count, entityTypes)).subscribe(
       (response: Response) => {
         let json = response.json().data.search;
         let hits = json.hits;
@@ -73,6 +85,27 @@ export class SearchService {
 
   searchFacets(query: string): void {
     this.queryRequest(searchFacets(query)).subscribe(
+      (response: Response) => {
+        let json = response.json().data.search;
+        let facets = JSON.parse(json.facets);
+
+        let obj = {};
+        if (facets && facets.entity_type.buckets && facets.entity_type.buckets.length > 0) {
+          facets.entity_type.buckets.forEach(bucket => {
+            obj[bucket.value] = bucket.count
+          } );
+        }
+
+        this.entityTypesCount$.next(obj);
+      },
+      (error) => {
+        console.error(error);
+      }
+    )
+  }
+
+  searchAdvancedFacets(options: any): void {
+    this.queryRequest(searchAdvancedFacets(options)).subscribe(
       (response: Response) => {
         let json = response.json().data.search;
         let facets = JSON.parse(json.facets);

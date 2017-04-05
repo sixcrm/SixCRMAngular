@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SearchService} from '../../shared/services/search.service';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'advanced-search',
@@ -29,19 +30,15 @@ export class AdvancedSearchComponent implements OnInit {
 
   searchResults = [];
 
-  constructor(private searchService: SearchService, private progressBarService: ProgressBarService) { }
+  constructor(private searchService: SearchService, private progressBarService: ProgressBarService, private router: Router) { }
 
-  ngOnInit() {
-    this.searchService.searchResults$.subscribe((data) => {
-      this.searchResults = [];
-      this.searchResults = [...this.searchResults, ...data.hit];
-      this.progressBarService.hideTopProgressBar();
-    });
-  }
+  ngOnInit() { }
 
   search(): void {
     this.progressBarService.showTopProgressBar();
+
     let options = {
+      advanced: true,
       firstname: this.searchOptions.firstName,
       lastname: this.searchOptions.lastName,
       phone: this.searchOptions.phoneNumber,
@@ -49,7 +46,27 @@ export class AdvancedSearchComponent implements OnInit {
       address: [this.searchOptions.address1, this.searchOptions.address2, this.searchOptions.state, this.searchOptions.city, this.searchOptions.postalCode]
     };
 
-    this.searchService.searchAdvanced(options, 0, 1000);
+    Object.keys(options).forEach((key) => {
+      if (!options[key]) {
+        delete options[key];
+      }
+
+      if (options[key] && options[key] instanceof Array) {
+        let temp = [];
+        Object.keys(options[key]).forEach((innerKey) => {
+          if (options[key][innerKey]) {
+            temp.push(options[key][innerKey]);
+          }
+        });
+
+        delete options[key];
+        if (temp.length > 0) {
+          options[key] = temp;
+        }
+      }
+    });
+
+    this.router.navigate(['/dashboard', 'search'], {queryParams: options});
   }
 
 }

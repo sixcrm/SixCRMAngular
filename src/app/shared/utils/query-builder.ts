@@ -27,15 +27,51 @@ export function  searchQuery(query: string, start: number, size: number, entityT
 			status { timems rid }
 			facets
 			hits { found start
-				hit { id
-					fields
-				}
+				hit { id fields }
 			}
 		}
 	}`;
 }
 
-export function  searchAdvancedQuery(options: any, start: number, size: number): string {
+export function  searchAdvancedQuery(options: any, start: number, size: number, entityTypes?: string[]): string {
+  let fieldsQuery = '';
+  for (let field in options) {
+    if (options[field]) {
+
+      if (options[field] instanceof Array) {
+        let key = field;
+
+        for (let fieldInner in options[key]) {
+          if (options[key][fieldInner]) {
+            fieldsQuery += ` (prefix field=${key} '${options[key][fieldInner]}')`
+          }
+        }
+      } else {
+        fieldsQuery += ` (prefix field=${field} '${options[field]}')`
+      }
+    }
+  }
+
+  let entityTypesQuery: string = '';
+
+  if (entityTypes && entityTypes.length > 0) {
+    entityTypesQuery = 'filterQuery:"(or ';
+    entityTypes.forEach(entityType => entityTypesQuery+= ` entity_type:'${entityType}' `);
+    entityTypesQuery+= ')"'
+  }
+
+  return `
+  {
+    search (search: {query: "(and${fieldsQuery})" ${entityTypesQuery} queryParser: "structured" start: "${start}" size: "${size}"}) {
+      hits {
+        found start
+        hit { id fields }
+      }
+    }
+  }`;
+}
+
+export function  searchAdvancedFacets(options: any): string {
 
   let fieldsQuery = '';
   for (let field in options) {
@@ -57,11 +93,9 @@ export function  searchAdvancedQuery(options: any, start: number, size: number):
 
   return `
   {
-    search (search: {query: "(and${fieldsQuery})" queryParser: "structured" size:"10"}) {
-      hits {
-        found start
-        hit { fields }
-      }
+    search (search: {query: "(and${fieldsQuery})" queryParser: "structured" facet:"{entity_type:{}}" return:"_no_fields"}) {
+      status { timems rid }
+			facets
     }
   }`;
 }

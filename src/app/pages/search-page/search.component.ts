@@ -13,6 +13,8 @@ import {PaginationService} from '../../shared/services/pagination.service';
 export class SearchComponent implements OnInit, OnDestroy {
 
   queryString: string;
+  queryOptions: any;
+  isAdvancedSearch: boolean;
   currentRoute: string;
   paramsSub: Subscription;
   showAutocomplete: boolean = false;
@@ -52,8 +54,20 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.paginationService.searchResultsLimit$.subscribe((limit) => this.limit = limit);
 
     this.paramsSub = this.route.queryParams.subscribe((params) => {
-      this.queryString = params['query'];
-      this.currentRoute = this.queryString;
+      if (params['advanced']) {
+        this.isAdvancedSearch = true;
+        this.queryOptions = {};
+        Object.keys(params).forEach((key) => {
+          if (key !== 'advanced') {
+            this.queryOptions[key] = params[key];
+          }
+        });
+      } else {
+        this.isAdvancedSearch = false;
+        this.queryString = params['query'];
+        this.currentRoute = this.queryString;
+      }
+
       this.search();
     });
 
@@ -78,13 +92,21 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   search(): void {
-    if (this.queryString) {
-      this.progressBarService.showTopProgressBar();
-      this.searchResults = [];
-      this.page = 0;
+    if (this.isAdvancedSearch && this.queryOptions) {
+      this.prepareNewSearch();
+      this.searchService.searchAdvanced(this.queryOptions, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
+      this.searchService.searchAdvancedFacets(this.queryOptions);
+    } else if (this.queryString) {
+      this.prepareNewSearch();
       this.searchService.searchByQuery(this.queryString, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
       this.searchService.searchFacets(this.queryString);
     }
+  }
+
+  private prepareNewSearch(): void {
+    this.progressBarService.showTopProgressBar();
+    this.searchResults = [];
+    this.page = 0;
   }
 
   navigateSearch(): void {
@@ -173,9 +195,16 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.searchResultsToDispaly = tempResults;
     }
     else {
-      if (this.hasMore && this.queryString) {
-        this.searchService.searchByQuery(this.queryString, this.searchResults.length, this.limit - tempResults.length, this.getCheckedEntityTypes());
-        this.searchService.searchFacets(this.queryString);
+      if (this.hasMore && (this.queryString || this.queryOptions)) {
+
+        if (this.isAdvancedSearch) {
+          this.searchService.searchAdvanced(this.queryOptions, this.searchResults.length, this.limit - tempResults.length, this.getCheckedEntityTypes());
+          this.searchService.searchAdvancedFacets(this.queryOptions);
+        } else {
+          this.searchService.searchByQuery(this.queryString, this.searchResults.length, this.limit - tempResults.length, this.getCheckedEntityTypes());
+          this.searchService.searchFacets(this.queryString);
+        }
+
         this.progressBarService.showTopProgressBar();
       }
     }
