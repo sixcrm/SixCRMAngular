@@ -9,6 +9,8 @@ import {FulfillmentProvider} from '../models/fulfillment-provider.model';
 import {Affiliate} from '../models/affiliate.model';
 import {Customer} from '../models/customer.model';
 
+const uuidV4 = require('uuid/v4');
+
 function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
 }
@@ -144,7 +146,7 @@ export function deleteProductMutation(id: string): string {
 export function createProductMutation(product: Product): string {
   return `
   mutation {
-    createproduct (product: { id: "${product.name}", name: "${product.name}", sku: "${product.sku}", ship: "${product.ship}", shipping_delay:"${product.shippingDelay}",  fulfillment_provider:"${product.fulfillmentProvider.id}" }) {
+    createproduct (product: { id: "${generateUUID()}", name: "${product.name}", sku: "${product.sku}", ship: "${product.ship}", shipping_delay:"${product.shippingDelay}",  fulfillment_provider:"${product.fulfillmentProvider.id}" }) {
       id name sku ship shipping_delay
       fulfillment_provider { id name username endpoint password provider }
     }
@@ -281,7 +283,7 @@ export function createMerchantProviderMutation(provider: MerchantProvider): stri
   return `
     mutation {
 		  createmerchantprovider (
-		    merchantprovider: { id: "${provider.id}", name: "${provider.name}", username: "${provider.username}", password: "${provider.password}", endpoint: "${provider.endpoint}", processor: "${provider.processor}"}) {
+		    merchantprovider: { id: "${generateUUID()}", name: "${provider.name}", username: "${provider.username}", password: "${provider.password}", endpoint: "${provider.endpoint}", processor: "${provider.processor}"}) {
 			    id  name username password endpoint processor
 		  }
 	}`
@@ -312,7 +314,7 @@ export function deleteFulfillmentProviderMutation(id: string): string {
 export function createFulfillmentProviderMutation(provider: FulfillmentProvider): string {
   return `
     mutation {
-		  createfulfillmentprovider ( fulfillmentprovider: { id:"${Math.random() + provider.name}" name: "${provider.name}", username: "${provider.username}", password: "${provider.password}", endpoint: "${provider.endpoint}", provider: "${provider.provider}"}) {
+		  createfulfillmentprovider ( fulfillmentprovider: { id:"${generateUUID()}" name: "${provider.name}", username: "${provider.username}", password: "${provider.password}", endpoint: "${provider.endpoint}", provider: "${provider.provider}"}) {
 			  id name provider username password endpoint
 		  }
 	  }`
@@ -342,7 +344,7 @@ export function deleteAffiliateMutation(id: string): string {
 export function createAffiliateMutation(affiliate: Affiliate): string {
   return `
     mutation {
-      createaffiliate (affiliate: { id: "${affiliate.id}", affiliate_id: "${affiliate.affiliateId}", sub_id_1: "${affiliate.subId1}", sub_id_2: "${affiliate.subId2}", sub_id_3: "${affiliate.subId3}", sub_id_4: "${affiliate.subId4}", sub_id_5: "${affiliate.subId5}", click_id: "${affiliate.clickId}"}) { 
+      createaffiliate (affiliate: { id: "${generateUUID()}", affiliate_id: "${affiliate.affiliateId}", sub_id_1: "${affiliate.subId1}", sub_id_2: "${affiliate.subId2}", sub_id_3: "${affiliate.subId3}", sub_id_4: "${affiliate.subId4}", sub_id_5: "${affiliate.subId5}", click_id: "${affiliate.clickId}"}) { 
         id affiliate_id sub_id_1 sub_id_2 sub_id_3 sub_id_4 sub_id_5 click_id
       }
 	  }`
@@ -393,7 +395,7 @@ export function createCustomerMutation(customer: Customer): string {
     mutation {
 		  createcustomer (
 		    customer: {
-		      id: "${customer.email}" email: "${customer.email}" firstname: "${customer.firstName}" lastname: "${customer.lastName}" phone: "${customer.phone}"
+		      id: "${generateUUID()}" email: "${customer.email}" firstname: "${customer.firstName}" lastname: "${customer.lastName}" phone: "${customer.phone}"
 		      address: { line1: "${customer.address.line1}" city: "${customer.address.city}" state: "${customer.address.state}" zip: "${customer.address.zip}" country: "${customer.address.country}" }
 		      creditcards:[${creditCards}] }
       ) {
@@ -462,7 +464,7 @@ export function createLoadBalancerMutation(loadBalancer: LoadBalancer): string {
 
   return `
     mutation {
-		createloadbalancer ( loadbalancer: {id: "${loadBalancer.id}", merchantproviders: [${providers}] } ) {
+		createloadbalancer ( loadbalancer: {id: "${generateUUID()}", merchantproviders: [${providers}] } ) {
 			id
 			merchantproviderconfigurations {
 				merchantprovider { id name username password endpoint processor }
@@ -755,7 +757,7 @@ export function createSmptProviderMutation(smtpProvider: SmtpProvider): string {
   return `
     mutation {
 		  createsmtpprovider (
-		    smtpprovider: { id: "${smtpProvider.id}", name: "${smtpProvider.name}", hostname: "${smtpProvider.hostname}", ip_address: "${smtpProvider.ipAddress}", username: "${smtpProvider.username}", password: "${smtpProvider.password}", port: "${smtpProvider.port}"}) {
+		    smtpprovider: { id: "${generateUUID()}", name: "${smtpProvider.name}", hostname: "${smtpProvider.hostname}", ip_address: "${smtpProvider.ipAddress}", username: "${smtpProvider.username}", password: "${smtpProvider.password}", port: "${smtpProvider.port}"}) {
 			    id name hostname ip_address username password port
 			}
 	}`
@@ -826,4 +828,8 @@ function pageParams(limit?: number, cursor?: string): string {
   let cur = !!cursor ? `cursor: "${cursor}"` : '';
 
   return limit || cur ? `(${lim} ${cur})` : '';
+}
+
+function generateUUID(): string {
+  return uuidV4();
 }

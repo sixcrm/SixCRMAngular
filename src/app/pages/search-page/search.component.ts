@@ -13,7 +13,7 @@ import {PaginationService} from '../../shared/services/pagination.service';
 export class SearchComponent implements OnInit, OnDestroy {
 
   queryString: string;
-  queryOptions: any;
+  queryOptions: any[] = [];
   isAdvancedSearch: boolean;
   currentRoute: string;
   paramsSub: Subscription;
@@ -30,8 +30,9 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   entityTypesCount: any = {};
   checkboxClicked$: Subject<boolean> = new Subject<boolean>();
+  optionSelecte: Subject<boolean> = new Subject<boolean>();
 
-  private entityTypesChecked: any  = {
+  entityTypesChecked: any  = {
     campaign: false,
     customer: false,
     user: false,
@@ -40,6 +41,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     product: false,
     fulfillment: false,
     productschedule: false
+  };
+
+  queryOptsLabel = {
+    firstname: 'First Name', lastname: 'Last Name', phone: 'Phone Number', email: 'Email Address', alias: 'Order ID', address: 'Address'
   };
 
   constructor(
@@ -56,14 +61,15 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.paramsSub = this.route.queryParams.subscribe((params) => {
       if (params['advanced']) {
         this.isAdvancedSearch = true;
-        this.queryOptions = {};
+        this.queryOptions = [];
         Object.keys(params).forEach((key) => {
           if (key !== 'advanced') {
-            this.queryOptions[key] = params[key];
+            this.queryOptions.push({key: key, value: params[key], enabled: true});
           }
         });
       } else {
         this.isAdvancedSearch = false;
+        this.queryOptions = [];
         this.queryString = params['query'];
         this.currentRoute = this.queryString;
       }
@@ -93,19 +99,31 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   search(): void {
     if (this.isAdvancedSearch && this.queryOptions) {
+      let opt = {};
+      this.queryOptions.forEach(option => {
+        if (option.enabled) {
+          opt[option.key] = option.value;
+        }
+      });
+
       this.prepareNewSearch();
-      this.searchService.searchAdvanced(this.queryOptions, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
-      this.searchService.searchAdvancedFacets(this.queryOptions);
+
+      if (Object.keys(opt).length > 0) {
+        this.progressBarService.showTopProgressBar();
+        this.searchService.searchAdvanced(opt, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
+        this.searchService.searchAdvancedFacets(opt);
+      }
     } else if (this.queryString) {
-      this.prepareNewSearch();
+      this.progressBarService.showTopProgressBar();
       this.searchService.searchByQuery(this.queryString, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
       this.searchService.searchFacets(this.queryString);
     }
   }
 
   private prepareNewSearch(): void {
-    this.progressBarService.showTopProgressBar();
     this.searchResults = [];
+    this.searchResultsToDispaly = [];
+    this.entityTypesCount = {};
     this.page = 0;
   }
 
@@ -196,6 +214,11 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   openAdvancedSearch(): void {
     this.router.navigateByUrl('advanced-search');
+  }
+
+  changeEnabled(option: any): void {
+    option.enabled = !option.enabled;
+    this.checkboxClicked$.next(true);
   }
 
   private reshuffleSearchResults(): void {

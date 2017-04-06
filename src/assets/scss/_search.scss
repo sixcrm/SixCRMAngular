@@ -66,6 +66,58 @@ $border-color: rgba(0, 0, 0, 0.2);
       }
     }
 
+    &__options {
+      margin: 15px 0;
+    }
+
+    &__option {
+      margin-bottom: 5px;
+      height: 26px;
+      line-height: 26px;
+      font-size: 13px;
+      text-align: center;
+      border-radius: 15px;
+      border: 1px solid rgba(0, 0, 0, 0.3);
+
+      &__content {
+        position: relative;
+        display: inline-block;
+        padding: 0 5px;
+        box-sizing: border-box;
+      }
+
+      .content--disabled {
+        &::after {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 50%;
+          border-bottom: 2px solid rgba(0,0,0,0.5);
+          content: "";
+        }
+      }
+
+      &__label {
+        color: rgba(0,0,0,0.5);
+      }
+
+      &__value {
+        margin-left: 3px;
+        font-weight: 600;
+      }
+
+      md-icon {
+        height: 16px;
+        width: 16px;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        border-radius: 50%;
+        vertical-align: middle;
+        font-size: 16px;
+        color: rgba(0,0,0,0.5);
+        cursor: pointer;
+      }
+    }
+
     &__title {
       margin-top: 18px;
       margin-bottom: 5px;

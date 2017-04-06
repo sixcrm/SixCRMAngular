@@ -10,6 +10,16 @@
         </div>
         <div class="search__sidenav__button--advanced" (click)="openAdvancedSearch()"><span>ADVANCED SEARCH</span> <md-icon>keyboard_arrow_right</md-icon></div>
 
+        <div class="search__sidenav__options" *ngIf="queryOptions && queryOptions.length !== 0">
+          <div class="search__sidenav__option" *ngFor="let option of queryOptions">
+            <div [class.content--disabled]="!option.enabled" class="search__sidenav__option__content">
+              <span class="search__sidenav__option__label">{{queryOptsLabel[option.key]}}:</span>
+              <span class="search__sidenav__option__value">{{option.value}}</span>
+            </div>
+            <md-icon [style.transform]="option.enabled ? 'rotate(45deg)' : 'rotate(90deg)'" (click)="changeEnabled(option)">add</md-icon>
+          </div>
+        </div>
+
         <md-checkbox *ngIf="entityTypesCount['campaign']" class="search__sidenav__item" [(ngModel)]="entityTypesChecked['campaign']" (change)="checkboxClicked()">
           Campaign
           <span>({{entityTypesCount['campaign']}})</span>
@@ -42,8 +52,6 @@
           Product Schedule
           <span>({{entityTypesCount['productschedule']}})</span>
         </md-checkbox>
-
-        <div class="search__sidenav__divider"></div>
 
         <span class="search__sidenav__title search__sidenav__title--after"> Refined by Date </span>
         <span class="search__sidenav__subtitle"> Date </span>
