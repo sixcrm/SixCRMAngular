@@ -114,6 +114,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.searchService.searchAdvancedFacets(opt);
       }
     } else if (this.queryString) {
+      this.prepareNewSearch();
       this.progressBarService.showTopProgressBar();
       this.searchService.searchByQuery(this.queryString, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
       this.searchService.searchFacets(this.queryString);
@@ -146,7 +147,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   keyDown(event): void {
     if (event && event.key === 'Enter' && this.queryString) {
-      this.search();
+      this.navigateSearch();
     }
   }
 
