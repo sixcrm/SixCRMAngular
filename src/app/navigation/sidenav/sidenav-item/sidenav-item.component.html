@@ -2,11 +2,11 @@
   <md-icon [class.icon--solo]="!full" *ngIf='menuItem.icon'>{{menuItem.icon}}</md-icon>
   <span *ngIf="full">{{ menuItem.title }}</span>
 </a>
-<a md-list-item *ngIf="hasLink && !hasChildren && !hasQuery" [routerLink]="menuItem.link" routerLinkActive="active" (toggle)="true" (click)="clicked($event)">
+<a md-list-item *ngIf="hasLink && !hasChildren && !hasQuery" routerLinkActive="active" (toggle)="true" (click)="clicked($event)">
   <md-icon [class.icon--solo]="!full" *ngIf='menuItem.icon'>{{menuItem.icon}}</md-icon>
   <span *ngIf="full">{{ menuItem.title }}</span>
 </a>
-<a md-list-item *ngIf="hasLink && !hasChildren && hasQuery" [routerLink]="menuItem.link" [queryParams]="menuItem.queryParams" routerLinkActive="active" (toggle)="true">
+<a md-list-item *ngIf="hasLink && !hasChildren && hasQuery" routerLinkActive="active" (toggle)="true">
   <md-icon [class.icon--solo]="!full" *ngIf='menuItem.icon'>{{menuItem.icon}}</md-icon>
   <span *ngIf="full">{{ menuItem.title }}</span>
 </a>

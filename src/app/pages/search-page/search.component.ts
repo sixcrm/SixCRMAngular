@@ -113,7 +113,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     if (this.queryString === this.currentRoute) {
       this.search();
     } else {
-      this.router.navigate(['/dashboard', 'search'], {queryParams: {query: this.queryString}})
+      this.router.navigate(['/search'], {queryParams: {query: this.queryString}})
     }
   }
 
@@ -134,7 +134,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     if (this.queryString === this.currentRoute) {
       this.search();
     } else {
-      this.router.navigate(['/dashboard', 'search'], {queryParams: {query: this.queryString}})
+      this.router.navigate(['/search'], {queryParams: {query: this.queryString}})
     }
   }
 
@@ -185,7 +185,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   showResult(data: any): void {
-    this.router.navigate(['/dashboard', data.entityType + 's', data.id]);
+    this.router.navigate([data.entityType + 's', data.id]);
   }
 
   private reshuffleSearchResults(): void {

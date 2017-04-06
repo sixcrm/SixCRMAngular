@@ -38,12 +38,6 @@
         Search
       </div>
     </div>
-
-    <div class="advanced-search__content__results">
-      <ng-container *ngFor="let res of searchResults">
-        <result-item [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="''"></result-item>
-      </ng-container>
-    </div>
   </div>
 </div>
 

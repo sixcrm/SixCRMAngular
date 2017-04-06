@@ -84,6 +84,10 @@ export class SidenavItemComponent implements AfterViewInit, OnDestroy {
     if(this.menuItem.clickHandler !== null) {
       this.menuItem.clickHandler(event, this._navigation, this);
     }
+
+    if (this.menuItem.link) {
+      this._router.navigateByUrl(this.menuItem.link);
+    }
   }
 
   get height(): number {

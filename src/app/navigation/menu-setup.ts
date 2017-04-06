@@ -57,7 +57,7 @@ export function menuItems(authService: AuthenticationService): MenuItem[] {
   items.push(
     new MenuItem('Reports', null, [
       new MenuItem('Order Report', ''),
-      new MenuItem('Transactions Report', 'transactions'),
+      new MenuItem('Transactions Report', ''),
       new MenuItem('Fulfillment Report', ''),
       new MenuItem('Affiliate Report', ''),
       new MenuItem('Retention', ''),
@@ -83,7 +83,7 @@ export function menuItems(authService: AuthenticationService): MenuItem[] {
     crmItems.push(new MenuItem('Products', 'products'));
   }
   if (authService.hasPermissions('productschedule', 'view')) {
-    crmItems.push(new MenuItem('Product Schedules', 'productschedule'));
+    crmItems.push(new MenuItem('Product Schedules', 'productschedules'));
   }
 
   // Add campaign and email menu items to CRM menu
@@ -93,7 +93,7 @@ export function menuItems(authService: AuthenticationService): MenuItem[] {
     campaignItems.push(new MenuItem('Campaigns', 'campaigns'));
   }
   if (authService.hasPermissions('email', 'view')) {
-    campaignItems.push(new MenuItem('Emails', 'emails'));
+    campaignItems.push(new MenuItem('Emails', ''));
   }
 
   if (campaignItems.length > 0) {
@@ -105,6 +105,9 @@ export function menuItems(authService: AuthenticationService): MenuItem[] {
   }
   if (authService.hasPermissions('session', 'view')) {
     crmItems.push(new MenuItem('Sessions', 'sessions'));
+  }
+  if (authService.hasPermissions('transaction', 'view')) {
+    crmItems.push(new MenuItem('Transactions', 'transactions'));
   }
 
   // Add 3rd party providers to CRM menu

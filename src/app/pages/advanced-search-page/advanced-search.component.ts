@@ -27,8 +27,6 @@ export class AdvancedSearchComponent implements OnInit {
     ipAddress: ''
   };
 
-  searchResults = [];
-
   constructor(private progressBarService: ProgressBarService, private router: Router) { }
 
   ngOnInit() { }
@@ -66,7 +64,7 @@ export class AdvancedSearchComponent implements OnInit {
       }
     });
 
-    this.router.navigate(['/dashboard', 'search'], {queryParams: options});
+    this.router.navigate(['/search'], {queryParams: options});
   }
 
 }

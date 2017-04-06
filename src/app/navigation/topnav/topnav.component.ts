@@ -161,7 +161,7 @@ export class TopnavComponent implements OnInit {
   }
 
   search(): void {
-    this.router.navigate(['/dashboard', 'search'], {queryParams: {query: this.searchTerm}});
+    this.router.navigate(['/search'], {queryParams: {query: this.searchTerm}});
     this.searchTerm = '';
     this.showSearchInput = false;
   };
@@ -191,6 +191,10 @@ export class TopnavComponent implements OnInit {
     } else {
       this.searchTerm = '';
     }
+  }
+
+  navigateToProfile(): void {
+    this.router.navigateByUrl('/profile');
   }
 
   private updateAutoBreadcrumbs() {
