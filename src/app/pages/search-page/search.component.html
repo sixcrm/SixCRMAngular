@@ -3,12 +3,12 @@
     <div class="search__sidenav">
       <md-nav-list>
         <div class="search__sidenav__query__container">
-          <md-input (focus)="showAutoComplete()" [value]="queryString" (input)="inputChanged($event)" (blur)="hideAutoComplete()">
-            <md-icon class="search__sidenav__query__icon" md-prefix>search</md-icon>
+          <md-input (focus)="showAutoComplete()" [value]="queryString" (input)="inputChanged($event)" (keydown)="keyDown($event)" (blur)="hideAutoComplete()">
+            <md-icon class="search__sidenav__query__icon" md-prefix (click)="navigateSearch()">search</md-icon>
           </md-input>
           <autocomplete *ngIf="showAutocomplete && options.length > 0" (select)="optionSelected($event)" [options]="options"></autocomplete>
         </div>
-        <button class="search__sidenav__button--search" md-raised-button color="primary" (click)="navigateSearch()">Search</button>
+        <div class="search__sidenav__button--advanced" (click)="openAdvancedSearch()"><span>ADVANCED SEARCH</span> <md-icon>keyboard_arrow_right</md-icon></div>
 
         <md-checkbox *ngIf="entityTypesCount['campaign']" class="search__sidenav__item" [(ngModel)]="entityTypesChecked['campaign']" (change)="checkboxClicked()">
           Campaign

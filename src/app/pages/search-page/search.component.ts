@@ -126,6 +126,12 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
   };
 
+  keyDown(event): void {
+    if (event && event.key === 'Enter' && this.queryString) {
+      this.search();
+    }
+  }
+
   optionSelected(option: string): void {
     this.showAutocomplete = false;
     this.options = [];
@@ -186,6 +192,10 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   showResult(data: any): void {
     this.router.navigate([data.entityType + 's', data.id]);
+  }
+
+  openAdvancedSearch(): void {
+    this.router.navigateByUrl('advanced-search');
   }
 
   private reshuffleSearchResults(): void {

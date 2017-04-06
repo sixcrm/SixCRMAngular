@@ -38,6 +38,7 @@ $border-color: rgba(0, 0, 0, 0.2);
 
       &__icon {
         vertical-align: middle;
+        cursor: pointer;
       }
     }
 
@@ -49,9 +50,19 @@ $border-color: rgba(0, 0, 0, 0.2);
 
     &__button {
 
-      &--search {
-        margin-bottom: 20px !important;
-        width: 100%;
+      &--advanced {
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 12px;
+        cursor: pointer;
+
+        span {
+          vertical-align: middle;
+        }
+
+        md-icon {
+          vertical-align: middle;
+        }
       }
     }
 
