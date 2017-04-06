@@ -1,81 +1,157 @@
 <div class="entity-view">
-  <div class="entity-view__title">Customer Details</div>
+  <div class="entity-view__title">Customer</div>
+
+  <div *ngIf="service.hasWritePermission()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
   <div *ngIf="entity" class="entity-view__content">
 
-    <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>
+    <div class="entity-view__content__title"> General Details </div>
 
-    <div class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">ID:</span>
-        <span>{{entity.id}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">First Name:</span>
-        <span>{{entity.firstName}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Last Name:</span>
-        <span>{{entity.lastName}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Email:</span>
-        <span>{{entity.email}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Phone:</span>
-        <span>{{entity.phone}}</span>
-      </div>
-    </div>
+    <div class="entity-view__content__body">
+      <div class="entity-view__content__body__column">
+        <div class="entity-view__content__body__column__title">CONTACT INFORMATION</div>
 
-    <div class="entity-view__content__title"> Address </div>
+        <div class="entity-view__content__body__column__item">
+          <span class="entity-view__content__body__column__item__label">First Name:</span>
+          <span>{{entity.firstName}}</span>
+        </div>
+        <div class="entity-view__content__body__column__item">
+          <span class="entity-view__content__body__column__item__label">Last Name:</span>
+          <span>{{entity.lastName}}</span>
+        </div>
+        <div class="entity-view__content__body__column__item">
+          <span class="entity-view__content__body__column__item__label">Phone:</span>
+          <span>{{entity.phone}}</span>
+        </div>
+        <div class="entity-view__content__body__column__item">
+          <span class="entity-view__content__body__column__item__label">Email:</span>
+          <span>{{entity.email}}</span>
+        </div>
+      </div>
 
-    <div class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Country:</span>
-        <span>{{entity.address.country}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">State:</span>
-        <span> {{entity.address.state}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">City:</span>
-        <span>{{entity.address.city}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Line 1:</span>
-        <span>{{entity.address.line1}} </span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Line 1:</span>
-        <span>{{entity.address.line2}} </span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Zip:</span>
-        <span>{{entity.address.zip}}</span>
+      <div class="entity-view__content__body__column">
+        <div class="entity-view__content__body__column__title">SHIPPING ADDRESS</div>
+
+        <div class="entity-view__content__body__column__item">
+          <span class="entity-view__content__body__column__item__label">Address 1:</span>
+          <span>{{entity.address.line1}}</span>
+        </div>
+        <div class="entity-view__content__body__column__item">
+          <span class="entity-view__content__body__column__item__label">Address 2:</span>
+          <span>{{entity.address.line2}}</span>
+        </div>
+        <div class="entity-view__content__body__column__item">
+          <span class="entity-view__content__body__column__item__label">Postal Code:</span>
+          <span>{{entity.address.zip}}</span>
+        </div>
+        <div class="entity-view__content__body__column__item">
+          <span class="entity-view__content__body__column__item__label">City:</span>
+          <span>{{entity.address.city}}</span>
+        </div>
+        <div class="entity-view__content__body__column__item">
+          <span class="entity-view__content__body__column__item__label">State:</span>
+          <span>{{entity.address.state}}</span>
+        </div>
+        <div class="entity-view__content__body__column__item">
+          <span class="entity-view__content__body__column__item__label">Country:</span>
+          <span>{{entity.address.country}}</span>
+        </div>
       </div>
     </div>
 
     <div class="entity-view__content__title"> Credit Cards </div>
 
-    <div *ngFor="let creditCard of entity.creditCards" class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Name:</span>
-        <span>{{creditCard.name}}</span>
+    <div class="entity-view__content__body">
+      <ng-container *ngFor="let creditCard of entity.creditCards">
+        <div class="entity-view__content__body__section">
+        <div class="entity-view__content__body__section__title">
+          <span>{{creditCard.ccnumber.substring(creditCard.ccnumber.length-4, creditCard.ccnumber.length)}}</span>
+          <md-icon>more_vert</md-icon>
+        </div>
+        <div class="entity-view__content__body__column section__column">
+          <div class="entity-view__content__body__column__subtitle">BILLING ADDRESS</div>
+
+          <div class="entity-view__content__body__column__item">
+            <span class="entity-view__content__body__column__item__label">Name:</span>
+            <span>{{creditCard.name}}</span>
+          </div>
+
+          <div class="entity-view__content__body__column__item">
+            <span class="entity-view__content__body__column__item__label">Address 1:</span>
+            <span>{{creditCard.address.line1}}</span>
+          </div>
+          <div class="entity-view__content__body__column__item">
+            <span class="entity-view__content__body__column__item__label">Address 2:</span>
+            <span>{{creditCard.address.line2}}</span>
+          </div>
+          <div class="entity-view__content__body__column__item">
+            <span class="entity-view__content__body__column__item__label">Postal Code:</span>
+            <span>{{creditCard.address.zip}}</span>
+          </div>
+          <div class="entity-view__content__body__column__item">
+            <span class="entity-view__content__body__column__item__label">City:</span>
+            <span>{{creditCard.address.city}}</span>
+          </div>
+          <div class="entity-view__content__body__column__item">
+            <span class="entity-view__content__body__column__item__label">State:</span>
+            <span>{{creditCard.address.state}}</span>
+          </div>
+          <div class="entity-view__content__body__column__item">
+            <span class="entity-view__content__body__column__item__label">Country:</span>
+            <span>{{creditCard.address.country}}</span>
+          </div>
+        </div>
+
+        <div class="entity-view__content__body__column section__column">
+          <div class="entity-view__content__body__column__subtitle">PAYMENT</div>
+
+          <div class="entity-view__content__body__column__item">
+            <span class="entity-view__content__body__column__item__label">Card Last 4:</span>
+            <span>{{creditCard.ccnumber.substring(creditCard.ccnumber.length-4, creditCard.ccnumber.length)}}</span>
+          </div>
+          <div class="entity-view__content__body__column__item">
+            <span class="entity-view__content__body__column__item__label">Expiration:</span>
+            <span>{{creditCard.expiration}}</span>
+          </div>
+        </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="entity-view__content__title"> Sessions </div>
+    <div class="entity-view__content__placeholder"></div>
+
+    <div class="entity-view__content__title"> Transactions </div>
+    <div class="entity-view__content__placeholder"></div>
+
+
+    <div class="entity-view__content__title"> Rebills </div>
+    <div class="entity-view__content__placeholder"></div>
+
+    <div class="entity-view__content__title">
+      <span class="entity-view__content__title__label">Notes</span>
+      <span class="entity-view__content__title__action" (click)="newNote()">ADD</span>
+    </div>
+
+    <div *ngIf="note && showNewNote">
+      <div class="entity-view__content__title notes">
+        <span class="entity-view__content__title__label">New</span>
+        <span class="entity-view__content__title__action" (click)="saveNote()">SAVE</span>
       </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">CC Number:</span>
-        <span>{{creditCard.ccnumber}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">CCV:</span>
-        <span>{{creditCard.ccv}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Expiration:</span>
-        <span>{{creditCard.expiration}}</span>
+
+      <div class="notes__content">
+        <md-textarea [(ngModel)]="note.text"></md-textarea>
       </div>
     </div>
+
+    <div *ngFor="let n of notes" class="notes__saved">
+      <div class="entity-view__content__title notes">
+        <span class="entity-view__content__title__label">{{n.date}}</span>
+      </div>
+      <div class="notes__content">
+        {{n.text}}
+      </div>
+    </div>
+
   </div>
 </div>
