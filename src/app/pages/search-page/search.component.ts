@@ -44,7 +44,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   };
 
   queryOptsLabel = {
-    firstname: 'First Name', lastname: 'Last Name', phone: 'Phone Number', email: 'Email Address', alias: 'Order ID', address: 'Address'
+    firstname: 'First Name', lastname: 'Last Name', phone: 'Phone Number', email: 'Email Address', alias: 'Transaction Alias', address: 'Address'
   };
 
   constructor(

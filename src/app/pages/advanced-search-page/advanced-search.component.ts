@@ -19,7 +19,7 @@ export class AdvancedSearchComponent implements OnInit {
     address2: '',
     city: '',
     state: '',
-    orderId: '',
+    alias: '',
     postalCode: '',
     creditCardType: '',
     creditCardf6: '',
@@ -40,7 +40,7 @@ export class AdvancedSearchComponent implements OnInit {
       lastname: this.searchOptions.lastName,
       phone: this.searchOptions.phoneNumber,
       email: this.searchOptions.emailAddress,
-      alias: this.searchOptions.orderId,
+      alias: this.searchOptions.alias,
       address: [this.searchOptions.address1, this.searchOptions.address2, this.searchOptions.state, this.searchOptions.city, this.searchOptions.postalCode]
     };
 
