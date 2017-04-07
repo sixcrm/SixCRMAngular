@@ -30,7 +30,6 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   entityTypesCount: any = {};
   checkboxClicked$: Subject<boolean> = new Subject<boolean>();
-  optionSelecte: Subject<boolean> = new Subject<boolean>();
 
   entityTypesChecked: any  = {
     campaign: false,
@@ -44,7 +43,17 @@ export class SearchComponent implements OnInit, OnDestroy {
   };
 
   queryOptsLabel = {
-    firstname: 'First Name', lastname: 'Last Name', phone: 'Phone Number', email: 'Email Address', alias: 'Transaction Alias', address: 'Address'
+    firstname: 'First Name',
+    lastname: 'Last Name',
+    phone: 'Phone Number',
+    email: 'Email Address',
+    alias: 'Transaction Alias',
+    address: 'Address',
+    address_line_1: 'Address 1',
+    address_line_2: 'Address 2',
+    city: 'City',
+    state: 'State',
+    zip: 'Postal Code'
   };
 
   constructor(

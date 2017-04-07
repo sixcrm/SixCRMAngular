@@ -41,26 +41,16 @@ export class AdvancedSearchComponent implements OnInit {
       phone: this.searchOptions.phoneNumber,
       email: this.searchOptions.emailAddress,
       alias: this.searchOptions.alias,
-      address: [this.searchOptions.address1, this.searchOptions.address2, this.searchOptions.state, this.searchOptions.city, this.searchOptions.postalCode]
+      address_line_1: this.searchOptions.address1,
+      address_line_2: this.searchOptions.address2,
+      state: this.searchOptions.state,
+      city: this.searchOptions.city,
+      zip: this.searchOptions.postalCode
     };
 
     Object.keys(options).forEach((key) => {
       if (!options[key]) {
         delete options[key];
-      }
-
-      if (options[key] && options[key] instanceof Array) {
-        let temp = [];
-        Object.keys(options[key]).forEach((innerKey) => {
-          if (options[key][innerKey]) {
-            temp.push(options[key][innerKey]);
-          }
-        });
-
-        delete options[key];
-        if (temp.length > 0) {
-          options[key] = temp;
-        }
       }
     });
 
