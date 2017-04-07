@@ -214,8 +214,23 @@ $border-color: rgba(0, 0, 0, 0.2);
         }
 
         &__title {
-          font-size: 18px;
+          display: inline-block;
           margin-bottom: 5px;
+          height: 26px;
+          line-height: 26px;
+          font-size: 18px;
+          vertical-align: middle;
+        }
+
+        &__button {
+          margin-bottom: 5px;
+          margin-left: 20px;
+          height: 26px;
+          width:26px;
+          color: $main-color;
+          cursor: pointer;
+          font-size: 26px;
+          vertical-align: middle;
         }
 
         &__subtitle {

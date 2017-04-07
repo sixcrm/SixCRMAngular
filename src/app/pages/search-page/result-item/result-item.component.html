@@ -5,6 +5,7 @@
 
   <div class="search__content__results__item__wrapper">
     <div class="search__content__results__item__title" [innerHTML]="title | highlight: queryString"></div>
+    <md-icon class="search__content__results__item__button" (click)="showDetailsClicked()">open_in_new</md-icon>
     <div class="search__content__results__item__subtitle">
       {{entityType}}
       <img src="/assets/images/result-item-timer.svg"> <span>date created {{fields.created_at.substring(0,10)}}</span>
@@ -22,8 +23,5 @@
       <div class="search__content__results__item__fields__wrapper" *ngIf="fields.alias">Alias: <div>{{fields.alias}}</div></div>
       <div class="search__content__results__item__fields__wrapper" *ngIf="fields.tracking_number">Tracking Number: <div>{{fields.tracking_number}}</div></div>
     </div>
-  </div>
-  <div class="search__content__results__item__buttons" (click)="showDetailsClicked()">
-    <span><md-icon>open_in_new</md-icon>View</span>
   </div>
 </div>
