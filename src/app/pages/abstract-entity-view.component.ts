@@ -19,7 +19,7 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
   protected entityCreatedSubscription: Subscription;
   protected entityUpdatedSubscription: Subscription;
 
-  constructor(private service: AbstractEntityService<T>, route: ActivatedRoute, protected progressBarService?: ProgressBarService) {
+  constructor(public service: AbstractEntityService<T>, route: ActivatedRoute, protected progressBarService?: ProgressBarService) {
     this.routeSubscription = route.params.subscribe((params: Params) => {
       this.viewMode = true;
       this.entityId = params['id'];
