@@ -30,8 +30,10 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
   }
 
   saveNote(): void {
-    this.notes.push(this.note);
-    this.note = {date: '6/4/2017', text: ''};
+    if (this.note.text) {
+      this.notes.unshift(this.note);
+      this.showNewNote = false;
+    }
   }
 
 }

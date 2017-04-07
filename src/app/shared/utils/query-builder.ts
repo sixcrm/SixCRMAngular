@@ -520,19 +520,11 @@ export function transactionsInfoListQuery(limit?:number, cursor?:string): string
 
 export function transactionQuery(id: string): string {
   return `{
-    transaction (id: "${id}") { id date amount processor_response
-      rebill { id amount billdate
-        product_schedules { id
-          schedule { price start end period
-            product { id name sku ship shipping_delay
-              fulfillment_provider {id name provider username password endpoint }
-            }
-          }
-        }
-      }
+    transaction (id: "${id}") { id alias date amount processor_response created_at updated_at
+      rebill { id amount billdate }
       products { amount
         product { id name sku ship shipping_delay
-          fulfillment_provider {id name provider username password endpoint }
+          fulfillment_provider {id name}
         }
         shippingreceipt { id created modified status trackingnumber }
       }

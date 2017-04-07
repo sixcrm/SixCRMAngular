@@ -59,7 +59,7 @@
       </div>
     </div>
 
-    <div class="entity-view__content__title"> Credit Cards </div>
+    <div *ngIf="entity.creditCards.length > 0" class="entity-view__content__title"> Credit Cards </div>
 
     <div class="entity-view__content__body">
       <ng-container *ngFor="let creditCard of entity.creditCards">

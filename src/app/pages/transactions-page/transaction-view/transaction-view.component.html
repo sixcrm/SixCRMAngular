@@ -1,27 +1,101 @@
 <div class="entity-view">
-  <div class="entity-view__title">Transaction Details</div>
+  <div class="entity-view__title">Customer</div>
+
+  <div *ngIf="service.hasWritePermission()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
   <div *ngIf="entity" class="entity-view__content">
 
-    <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>
+    <div class="entity-view__content__title"> General Details </div>
 
-    <div class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">ID:</span>
-        <span>{{entity.id}}</span>
+    <div class="entity-view__content__body">
+      <div class="entity-view__content__body__column">
+        <div class="entity-view__content__body__column__title">TRANSACTION INFORMATION</div>
+
+        <div class="entity-view__content__body__column__item">
+          <span class="entity-view__content__body__column__item__label">Transaction Alias:</span>
+          <span>{{entity.alias}}</span>
+        </div>
+        <div class="entity-view__content__body__column__item">
+          <span class="entity-view__content__body__column__item__label">Date:</span>
+          <span>{{entity.date.substring(0, 10)}}</span>
+        </div>
+        <div class="entity-view__content__body__column__item">
+          <span class="entity-view__content__body__column__item__label">Amount:</span>
+          <span>{{entity.amount}}</span>
+        </div>
       </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Date:</span>
-        <span>{{entity.date}}</span>
+
+      <div class="entity-view__content__body__column">
+        <div class="entity-view__content__body__column__title">REBILL INFORMATION</div>
+
+        <div class="entity-view__content__body__column__item">
+          <span class="entity-view__content__body__column__item__label">Amount:</span>
+          <span>{{entity.rebill.amount}}</span>
+        </div>
+        <div class="entity-view__content__body__column__item">
+          <span class="entity-view__content__body__column__item__label">Bill Date:</span>
+          <span>{{entity.rebill.billDate}}</span>
+        </div>
       </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Amount:</span>
-        <span>{{entity.amount}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Processor Response:</span>
-        <span>{{entity.processorResponse.message}}</span>
-      </div>
+    </div>
+
+    <div *ngIf="entity.products.length > 0" class="entity-view__content__title"> Products </div>
+
+    <div class="entity-view__content__body">
+      <ng-container *ngFor="let product of entity.products">
+        <div class="entity-view__content__body__section">
+          <div class="entity-view__content__body__column section__column">
+            <div class="entity-view__content__body__column__item">
+              <span class="entity-view__content__body__column__item__label">Amount:</span>
+              <span>{{product.amount}}</span>
+            </div>
+
+            <div class="entity-view__content__body__column__title">PRODUCT INFORMATION</div>
+
+            <div class="entity-view__content__body__column__item">
+              <span class="entity-view__content__body__column__item__label">Name:</span>
+              <span>{{product.product.name}}</span>
+            </div>
+
+            <div class="entity-view__content__body__column__item">
+              <span class="entity-view__content__body__column__item__label">SKU:</span>
+              <span>{{product.product.sku}}</span>
+            </div>
+            <div class="entity-view__content__body__column__item">
+              <span class="entity-view__content__body__column__item__label">Ship:</span>
+              <span>{{product.product.ship}}</span>
+            </div>
+            <div class="entity-view__content__body__column__item">
+              <span class="entity-view__content__body__column__item__label">Shipping Delay:</span>
+              <span>{{product.product.shippingDelay}}</span>
+            </div>
+            <div class="entity-view__content__body__column__item">
+              <span class="entity-view__content__body__column__item__label">Fulfillment Provider:</span>
+              <span>{{product.product.fulfillmentProvider.name}}</span>
+            </div>
+
+            <div class="entity-view__content__body__column__title">SHIPPING RECEIPT</div>
+
+            <div class="entity-view__content__body__column__item">
+              <span class="entity-view__content__body__column__item__label">Created:</span>
+              <span>{{product.shippingReceipt.created}}</span>
+            </div>
+
+            <div class="entity-view__content__body__column__item">
+              <span class="entity-view__content__body__column__item__label">Modified:</span>
+              <span>{{product.shippingReceipt.modified}}</span>
+            </div>
+            <div class="entity-view__content__body__column__item">
+              <span class="entity-view__content__body__column__item__label">Status:</span>
+              <span>{{product.shippingReceipt.status}}</span>
+            </div>
+            <div class="entity-view__content__body__column__item">
+              <span class="entity-view__content__body__column__item__label">Tracking Number:</span>
+              <span>{{product.shippingReceipt.trackingNumber}}</span>
+            </div>
+          </div>
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>
