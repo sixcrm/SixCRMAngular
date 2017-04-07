@@ -7,7 +7,7 @@
     <div class="search__content__results__item__title" [innerHTML]="title | highlight: queryString"></div>
     <div class="search__content__results__item__subtitle">
       {{entityType}}
-      <img src="/assets/images/result-item-timer.svg"> <span>date created</span>
+      <img src="/assets/images/result-item-timer.svg"> <span>date created {{fields.created_at.substring(0,10)}}</span>
     </div>
     <div class="search__content__results__item__fields">
       <div class="search__content__results__item__fields__wrapper" *ngIf="fields.name">{{entityType}} ID: <div>{{id}}</div></div>

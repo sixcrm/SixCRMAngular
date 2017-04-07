@@ -143,18 +143,15 @@ $border-color: rgba(0, 0, 0, 0.2);
       color: #7C7C7C;
     }
 
-    &__divider {
-      position: relative;
-      left: 0;
-      margin-top: 25px;
-      width: 90%;
-      height: 2px;
-      background-color: #A6A6A6;
-    }
-
     md-checkbox > .md-checkbox-layout > .md-checkbox-inner-container {
       height: 16px;
       width: 16px;
+    }
+
+    &__radio-group {
+      md-radio-button {
+        display: block;
+      }
     }
   }
 

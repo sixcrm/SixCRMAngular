@@ -4,6 +4,7 @@ import {SearchService} from '../../shared/services/search.service';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {Subscription, Subject} from 'rxjs';
 import {PaginationService} from '../../shared/services/pagination.service';
+import {utc} from 'moment';
 
 @Component({
   selector: 'c-search',
@@ -12,23 +13,34 @@ import {PaginationService} from '../../shared/services/pagination.service';
 })
 export class SearchComponent implements OnInit, OnDestroy {
 
+  // quick search string
   queryString: string;
+
+  // advanced search options
   queryOptions: any[] = [];
+
+  // should advanced search or quick search be performed
   isAdvancedSearch: boolean;
+
   currentRoute: string;
   paramsSub: Subscription;
-  showAutocomplete: boolean = false;
-  options: string[] = [];
 
-  limit;
+  // should show quick search auto-complete
+  showAutocomplete: boolean = false;
+  autocompleteOptions: string[] = [];
+
+  // pagination limit
+  limit: number;
   paginationValues: number[] = [5, 10, 15, 20, 30];
   page: number = 0;
 
   searchResults: any[] = [];
-  searchResultsToDispaly: any[] = [];
+  searchResultsToDisplay: any[] = [];
   hasMore: boolean = true;
 
   entityTypesCount: any = {};
+  createdAtRange: string;
+
   checkboxClicked$: Subject<boolean> = new Subject<boolean>();
 
   entityTypesChecked: any  = {
@@ -68,9 +80,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.paginationService.searchResultsLimit$.subscribe((limit) => this.limit = limit);
 
     this.paramsSub = this.route.queryParams.subscribe((params) => {
+      this.queryOptions = [];
+
       if (params['advanced']) {
         this.isAdvancedSearch = true;
-        this.queryOptions = [];
         Object.keys(params).forEach((key) => {
           if (key !== 'advanced') {
             this.queryOptions.push({key: key, value: params[key], enabled: true});
@@ -78,7 +91,6 @@ export class SearchComponent implements OnInit, OnDestroy {
         });
       } else {
         this.isAdvancedSearch = false;
-        this.queryOptions = [];
         this.queryString = params['query'];
         this.currentRoute = this.queryString;
       }
@@ -93,7 +105,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.progressBarService.hideTopProgressBar();
     });
 
-    this.searchService.suggestionResults$.subscribe((data) => this.options = data);
+    this.searchService.suggestionResults$.subscribe((data) => this.autocompleteOptions = data);
 
     this.searchService.entityTypesCount$.subscribe((data) => this.entityTypesCount = data);
 
@@ -107,37 +119,19 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   search(): void {
-    if (this.isAdvancedSearch && this.queryOptions) {
-      let opt = {};
-      this.queryOptions.forEach(option => {
-        if (option.enabled) {
-          opt[option.key] = option.value;
-        }
-      });
-
+    if (this.isAdvancedSearch) {
+      let opt: any = this.transformSearchOptions();
       this.prepareNewSearch();
-
       if (Object.keys(opt).length > 0) {
-        this.progressBarService.showTopProgressBar();
-        this.searchService.searchAdvanced(opt, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
-        this.searchService.searchAdvancedFacets(opt);
+        this.performSearch(opt, this.createdAtRange, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
       }
     } else if (this.queryString) {
       this.prepareNewSearch();
-      this.progressBarService.showTopProgressBar();
-      this.searchService.searchByQuery(this.queryString, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
-      this.searchService.searchFacets(this.queryString);
+      this.performSearch(this.queryString, this.createdAtRange, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
     }
   }
 
-  private prepareNewSearch(): void {
-    this.searchResults = [];
-    this.searchResultsToDispaly = [];
-    this.entityTypesCount = {};
-    this.page = 0;
-  }
-
-  navigateSearch(): void {
+  quickSearch(): void {
     if (this.queryString === this.currentRoute) {
       this.search();
     } else {
@@ -145,31 +139,27 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
   }
 
-  inputChanged(input): void {
+  quickSearchInputChanged(input): void {
     this.queryString = input.target.value;
     this.searchService.searchSuggestions(this.queryString);
 
     if (!this.queryString) {
-      this.options = [];
+      this.autocompleteOptions = [];
     }
   };
 
-  keyDown(event): void {
+  quickSearchKeyDown(event): void {
     if (event && event.key === 'Enter' && this.queryString) {
-      this.navigateSearch();
+      this.quickSearch();
     }
   }
 
-  optionSelected(option: string): void {
+  suggestionSelected(option: string): void {
     this.showAutocomplete = false;
-    this.options = [];
+    this.autocompleteOptions = [];
     this.queryString = option;
 
-    if (this.queryString === this.currentRoute) {
-      this.search();
-    } else {
-      this.router.navigate(['/search'], {queryParams: {query: this.queryString}})
-    }
+    this.quickSearch();
   }
 
   checkboxClicked(): void {
@@ -181,7 +171,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   showAutoComplete(): void {
-    this.options = [];
+    this.autocompleteOptions = [];
     this.showAutocomplete = true;
 
     if (this.queryString) {
@@ -189,12 +179,12 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
   }
 
-  previous(): void {
+  previousPage(): void {
     this.page--;
     this.reshuffleSearchResults();
   }
 
-  next(): void {
+  nextPage(): void {
     this.page++;
     this.reshuffleSearchResults();
   }
@@ -218,7 +208,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     return this.hasMore || this.searchResults.slice(nextPage * this.limit, nextPage * this.limit + this.limit).length > 0;
   }
 
-  showResult(data: any): void {
+  showResultDetails(data: any): void {
     this.router.navigate([data.entityType + 's', data.id]);
   }
 
@@ -226,31 +216,77 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('advanced-search');
   }
 
-  changeEnabled(option: any): void {
+  toggleAdvancedSearchFieldEnabled(option: any): void {
     option.enabled = !option.enabled;
     this.checkboxClicked$.next(true);
+  }
+
+  dateFilterClicked(checked: boolean, option: number): void {
+    if (!checked) {
+      this.createdAtRange = '';
+    } else {
+      // option 1 is for today
+      if (option === 1) {
+        this.createdAtRange = `['${utc().hour(0).minutes(0).seconds(0).millisecond(0).format()}',}`;
+      }
+
+      // option 2 is for yesterday
+      if (option === 2) {
+        this.createdAtRange =
+          `['${utc().subtract('1','d').hour(0).minutes(0).seconds(0).millisecond(0).format()}','${utc().hour(0).minutes(0).seconds(0).millisecond(0).format()}']`;
+      }
+
+      // option 3 is for last 7 days
+      if (option === 3) {
+        this.createdAtRange = `['${utc().subtract('7','d').hour(0).minutes(0).seconds(0).millisecond(0).format()}',}`;
+      }
+
+      // option 4 is for last 30 days
+      if (option === 4) {
+        this.createdAtRange = `['${utc().subtract('30','d').hour(0).minutes(0).seconds(0).millisecond(0).format()}',}`;
+      }
+    }
+
+    this.checkboxClicked$.next(true);
+  }
+
+  private prepareNewSearch(): void {
+    this.searchResults = [];
+    this.searchResultsToDisplay = [];
+    this.entityTypesCount = {};
+    this.page = 0;
   }
 
   private reshuffleSearchResults(): void {
     let tempResults = this.searchResults.slice(this.page * this.limit, this.page * this.limit + this.limit);
 
     if (tempResults.length >= this.limit || !this.hasMore) {
-      this.searchResultsToDispaly = tempResults;
+      this.searchResultsToDisplay = tempResults;
     }
     else {
-      if (this.hasMore && (this.queryString || this.queryOptions)) {
+      if (this.hasMore) {
+        let query: any = this.isAdvancedSearch ? this.transformSearchOptions() : this.queryString;
 
-        if (this.isAdvancedSearch) {
-          this.searchService.searchAdvanced(this.queryOptions, this.searchResults.length, this.limit - tempResults.length, this.getCheckedEntityTypes());
-          this.searchService.searchAdvancedFacets(this.queryOptions);
-        } else {
-          this.searchService.searchByQuery(this.queryString, this.searchResults.length, this.limit - tempResults.length, this.getCheckedEntityTypes());
-          this.searchService.searchFacets(this.queryString);
-        }
-
-        this.progressBarService.showTopProgressBar();
+        this.performSearch(query, this.createdAtRange, this.searchResults.length, this.limit - tempResults.length, this.getCheckedEntityTypes());
       }
     }
+  }
+
+  private transformSearchOptions(): any {
+    let opt: any = {};
+    this.queryOptions.forEach(option => {
+      if (option.enabled) {
+        opt[option.key] = option.value;
+      }
+    });
+
+    return opt;
+  }
+
+  private performSearch(query: string|any, createdAtRange: string, offset: number, count: number, entityTypes: any): void {
+    this.progressBarService.showTopProgressBar();
+    this.searchService.searchByQuery(query, createdAtRange, offset, count, entityTypes);
+    this.searchService.searchFacets(query, createdAtRange);
   }
 
   private getCheckedEntityTypes(): string [] {

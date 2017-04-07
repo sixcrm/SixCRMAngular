@@ -3,10 +3,10 @@
     <div class="search__sidenav">
       <md-nav-list>
         <div class="search__sidenav__query__container">
-          <md-input (focus)="showAutoComplete()" [value]="queryString" (input)="inputChanged($event)" (keydown)="keyDown($event)" (blur)="hideAutoComplete()">
-            <md-icon class="search__sidenav__query__icon" md-prefix (click)="navigateSearch()">search</md-icon>
+          <md-input (focus)="showAutoComplete()" [value]="queryString" (input)="quickSearchInputChanged($event)" (keydown)="quickSearchKeyDown($event)" (blur)="hideAutoComplete()">
+            <md-icon class="search__sidenav__query__icon" md-prefix (click)="quickSearch()">search</md-icon>
           </md-input>
-          <autocomplete *ngIf="showAutocomplete && options.length > 0" (select)="optionSelected($event)" [options]="options"></autocomplete>
+          <autocomplete *ngIf="showAutocomplete && autocompleteOptions.length > 0" (select)="suggestionSelected($event)" [options]="autocompleteOptions"></autocomplete>
         </div>
         <div class="search__sidenav__button--advanced" (click)="openAdvancedSearch()"><span>ADVANCED SEARCH</span> <md-icon>keyboard_arrow_right</md-icon></div>
 
@@ -16,7 +16,7 @@
               <span class="search__sidenav__option__label">{{queryOptsLabel[option.key]}}:</span>
               <span class="search__sidenav__option__value">{{option.value}}</span>
             </div>
-            <md-icon [style.transform]="option.enabled ? 'rotate(45deg)' : 'rotate(90deg)'" (click)="changeEnabled(option)">add</md-icon>
+            <md-icon [style.transform]="option.enabled ? 'rotate(45deg)' : 'rotate(90deg)'" (click)="toggleAdvancedSearchFieldEnabled(option)">add</md-icon>
           </div>
         </div>
 
@@ -54,7 +54,10 @@
         </md-checkbox>
 
         <span class="search__sidenav__title search__sidenav__title--after"> Refined by Date </span>
-        <span class="search__sidenav__subtitle"> Date </span>
+        <md-checkbox #first class="search__sidenav__item" (change)="second.checked = false; third.checked = false; fourth.checked = false; dateFilterClicked(first.checked, 1)">Today</md-checkbox>
+        <md-checkbox #second class="search__sidenav__item" (change)="first.checked = false; third.checked = false; fourth.checked = false; dateFilterClicked(second.checked, 2)">Yesterday</md-checkbox>
+        <md-checkbox #third class="search__sidenav__item" (change)="first.checked = false; second.checked = false; fourth.checked = false; dateFilterClicked(third.checked, 3)">Last 7 days</md-checkbox>
+        <md-checkbox #fourth class="search__sidenav__item" (change)="first.checked = false; second.checked = false; third.checked = false; dateFilterClicked(fourth.checked, 4)">Last 30 days</md-checkbox>
 
         <span class="search__sidenav__title search__sidenav__title--after"> Refined by </span>
         <span class="search__sidenav__subtitle"> City </span>
@@ -73,25 +76,25 @@
           [paginationValues]="paginationValues"
           [previousDisabled]="page <= 0"
           [nextDisabled]="!hasMorePages()"
-          (previous)="previous()"
-          (next)="next()"
+          (previous)="previousPage()"
+          (next)="nextPage()"
           (updateLimit)="updateLimit($event)">
         </table-pagination>
       </div>
 
-      <ng-container *ngFor="let res of searchResultsToDispaly">
-        <result-item [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResult($event)"></result-item>
+      <ng-container *ngFor="let res of searchResultsToDisplay">
+        <result-item [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResultDetails($event)"></result-item>
       </ng-container>
 
       <table-pagination
-        *ngIf="searchResultsToDispaly.length >= 5"
+        *ngIf="searchResultsToDisplay.length >= 5"
         class="search__content__pagination--bottom"
         [limit]="limit"
         [paginationValues]="paginationValues"
         [previousDisabled]="page <= 0"
         [nextDisabled]="!hasMorePages()"
-        (previous)="previous()"
-        (next)="next()"
+        (previous)="previousPage()"
+        (next)="nextPage()"
         (updateLimit)="updateLimit($event)">
       </table-pagination>
     </div>

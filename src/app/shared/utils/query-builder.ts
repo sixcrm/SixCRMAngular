@@ -15,19 +15,23 @@ function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
 }
 
-export function  searchQuery(query: string, start: number, size: number, entityTypes?: string[]): string {
+export function  searchQuery(query: string, createdAtRange: string, start: number, size: number, entityTypes?: string[]): string {
   let entityTypesQuery: string = '';
 
   if (entityTypes && entityTypes.length > 0) {
-    entityTypesQuery = 'filterQuery:"(or ';
+    entityTypesQuery = '(or ';
     entityTypes.forEach(entityType => entityTypesQuery+= ` entity_type:'${entityType}' `);
-    entityTypesQuery+= ')"'
+    entityTypesQuery+= ')'
+  }
+
+  let filterQuery = entityTypesQuery;
+  if (createdAtRange) {
+    filterQuery = `(and created_at:${createdAtRange} ${entityTypesQuery})`
   }
 
   return `{
-		search (search: {query: "${query}*" facet:"{entity_type:{}}" ${entityTypesQuery} start: "${start}" size: "${size}"}) {
+		search (search: {query: "${query}*" filterQuery:"${filterQuery}" start: "${start}" size: "${size}"}) {
 			status { timems rid }
-			facets
 			hits { found start
 				hit { id fields }
 			}
@@ -35,8 +39,26 @@ export function  searchQuery(query: string, start: number, size: number, entityT
 	}`;
 }
 
-export function  searchAdvancedQuery(options: any, start: number, size: number, entityTypes?: string[]): string {
+export function  searchFacets(query: string, createdAtRange: string): string {
+  let filterQuery = '';
+  if (createdAtRange) {
+    filterQuery = 'created_at: ' + createdAtRange;
+  }
+
+  return `{
+		search (search: {query: "${query}*" filterQuery:"${filterQuery}" facet:"{entity_type:{}}" return:"_no_fields"}) {
+			status { timems rid }
+			facets
+		}
+	}`;
+}
+
+export function  searchAdvancedQuery(options: any, createdAtRange: string, start: number, size: number, entityTypes?: string[]): string {
   let fieldsQuery = '';
+  if (createdAtRange) {
+    fieldsQuery += ` created_at: ${createdAtRange} `;
+  }
+
   for (let field in options) {
     if (options[field]) {
 
@@ -54,17 +76,17 @@ export function  searchAdvancedQuery(options: any, start: number, size: number, 
     }
   }
 
-  let entityTypesQuery: string = '';
+  let filterQuery: string = '';
 
   if (entityTypes && entityTypes.length > 0) {
-    entityTypesQuery = 'filterQuery:"(or ';
-    entityTypes.forEach(entityType => entityTypesQuery+= ` entity_type:'${entityType}' `);
-    entityTypesQuery+= ')"'
+    filterQuery = '(or ';
+    entityTypes.forEach(entityType => filterQuery+= ` entity_type:'${entityType}' `);
+    filterQuery+= ')'
   }
 
   return `
   {
-    search (search: {query: "(and${fieldsQuery})" ${entityTypesQuery} queryParser: "structured" start: "${start}" size: "${size}"}) {
+    search (search: {query: "(and${fieldsQuery})" filterQuery: "${filterQuery}" queryParser: "structured" start: "${start}" size: "${size}"}) {
       hits {
         found start
         hit { id fields }
@@ -73,9 +95,13 @@ export function  searchAdvancedQuery(options: any, start: number, size: number, 
   }`;
 }
 
-export function  searchAdvancedFacets(options: any): string {
+export function  searchAdvancedFacets(options: any, createdAtRange: string): string {
 
-  let fieldsQuery = '';
+  let query = '';
+  if (createdAtRange) {
+    query += ` created_at: ${createdAtRange} `;
+  }
+
   for (let field in options) {
     if (options[field]) {
 
@@ -84,31 +110,22 @@ export function  searchAdvancedFacets(options: any): string {
 
         for (let fieldInner in options[key]) {
           if (options[key][fieldInner]) {
-            fieldsQuery += ` (prefix field=${key} '${options[key][fieldInner]}')`
+            query += ` (prefix field=${key} '${options[key][fieldInner]}')`
           }
         }
       } else {
-        fieldsQuery += ` (prefix field=${field} '${options[field]}')`
+        query += ` (prefix field=${field} '${options[field]}')`
       }
     }
   }
 
   return `
   {
-    search (search: {query: "(and${fieldsQuery})" queryParser: "structured" facet:"{entity_type:{}}" return:"_no_fields"}) {
+    search (search: {query: "(and${query})" queryParser: "structured" facet:"{entity_type:{}}" return:"_no_fields"}) {
       status { timems rid }
 			facets
     }
   }`;
-}
-
-export function  searchFacets(query: string): string {
-  return `{
-		search (search: {query: "${query}*" facet:"{entity_type:{}}" return:"_no_fields"}) {
-			status { timems rid }
-			facets
-		}
-	}`;
 }
 
 export function  suggestionsQuery(query: string): string {

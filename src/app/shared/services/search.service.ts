@@ -18,9 +18,6 @@ export class SearchService {
 
   private suggestionInput$: Subject<string>;
 
-  private query: string;
-  private advanceQueryOptions: any;
-
   constructor(private http: Http, private authService: AuthenticationService) {
     this.searchResults$ = new Subject<any[]>();
     this.advanceSearchResults$ = new Subject<any[]>();
@@ -33,10 +30,16 @@ export class SearchService {
     })
   }
 
-  searchByQuery(query: string, start: number, count: number, entityTypes?: string[]): void {
-    this.query = query;
+  searchByQuery(query: string | any, createdAtRange: string, start: number, count: number, entityTypes?: string[]): void {
+    let q = '';
 
-    this.queryRequest(searchQuery(this.query, start, count, entityTypes)).subscribe(
+    if (typeof query === 'string') {
+      q = searchQuery(query, createdAtRange, start, count, entityTypes);
+    } else {
+      q = searchAdvancedQuery(query, createdAtRange, start, count, entityTypes)
+    }
+
+    this.queryRequest(q).subscribe(
       (response: Response) => {
         let json = response.json().data.search;
         let hits = json.hits;
@@ -58,54 +61,16 @@ export class SearchService {
     )
   }
 
-  searchAdvanced(options: any, start: number, count: number, entityTypes?: string[]): void {
-    this.advanceQueryOptions = options;
+  searchFacets(query: string, createdAtRange: string): void {
+    let q = '';
 
-    this.queryRequest(searchAdvancedQuery(this.advanceQueryOptions, start, count, entityTypes)).subscribe(
-      (response: Response) => {
-        let json = response.json().data.search;
-        let hits = json.hits;
+    if (typeof query === 'string') {
+      q = searchFacets(query, createdAtRange);
+    } else {
+      q = searchAdvancedFacets(query, createdAtRange);
+    }
 
-        hits.hit = hits.hit.map(hit => {
-          hit.fields = JSON.parse(hit.fields);
-          for (let property in hit.fields) {
-            hit.fields[property] = hit.fields[property][0];
-          }
-
-          return hit;
-        });
-
-        this.searchResults$.next(hits);
-      },
-      (error) => {
-        console.error(error);
-      }
-    )
-  }
-
-  searchFacets(query: string): void {
-    this.queryRequest(searchFacets(query)).subscribe(
-      (response: Response) => {
-        let json = response.json().data.search;
-        let facets = JSON.parse(json.facets);
-
-        let obj = {};
-        if (facets && facets.entity_type.buckets && facets.entity_type.buckets.length > 0) {
-          facets.entity_type.buckets.forEach(bucket => {
-            obj[bucket.value] = bucket.count
-          } );
-        }
-
-        this.entityTypesCount$.next(obj);
-      },
-      (error) => {
-        console.error(error);
-      }
-    )
-  }
-
-  searchAdvancedFacets(options: any): void {
-    this.queryRequest(searchAdvancedFacets(options)).subscribe(
+    this.queryRequest(q).subscribe(
       (response: Response) => {
         let json = response.json().data.search;
         let facets = JSON.parse(json.facets);
