@@ -1,0 +1,25 @@
+.datepicker--custom {
+  position: relative;
+
+  & > input {
+    width: 200px;
+    font-size: 14px !important;
+  }
+
+  &__input {
+    display: inline-block;
+    margin: 15px 0;
+    width: 200px;
+    padding: 2px 5px;
+    font-size: 14px;
+    color: #7C7C7C;
+    border: 1px solid rgba(0,0,0,0.4);
+    cursor: pointer;
+  }
+
+  @import "bootstrap2";
+}
+
+.datepicker-visible > .daterangepicker {
+  display: flex !important;
+}

@@ -54,10 +54,11 @@
         </md-checkbox>
 
         <span class="search__sidenav__title search__sidenav__title--after"> Refined by Date </span>
-        <md-checkbox #first class="search__sidenav__item" (change)="second.checked = false; third.checked = false; fourth.checked = false; dateFilterClicked(first.checked, 1)">Today</md-checkbox>
-        <md-checkbox #second class="search__sidenav__item" (change)="first.checked = false; third.checked = false; fourth.checked = false; dateFilterClicked(second.checked, 2)">Yesterday</md-checkbox>
-        <md-checkbox #third class="search__sidenav__item" (change)="first.checked = false; second.checked = false; fourth.checked = false; dateFilterClicked(third.checked, 3)">Last 7 days</md-checkbox>
-        <md-checkbox #fourth class="search__sidenav__item" (change)="first.checked = false; second.checked = false; third.checked = false; dateFilterClicked(fourth.checked, 4)">Last 30 days</md-checkbox>
+        <div class="datepicker--custom" [class.datepicker-visible]="datepickerVisible">
+          <div (showDaterangepicker)="datepickerShown()" (hideDaterangepicker)="datepickerHidden()" (selected)="dateSelected($event)" daterangepicker>
+            <span class="datepicker--custom__input" name="daterange" >  {{ startDate.format().substring(0, 10) }} - {{ endDate.format().substring(0, 10) }} </span>
+          </div>
+        </div>
 
         <span class="search__sidenav__title search__sidenav__title--after"> Refined by </span>
         <span class="search__sidenav__subtitle"> City </span>

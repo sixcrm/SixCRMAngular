@@ -8,6 +8,7 @@ import {SearchComponent} from './search.component';
 import {searchRouting} from './search.routing';
 import {ResultItemComponent} from './result-item/result-item.component';
 import {PageComponentsModule} from '../components/pages-components.module';
+import {Daterangepicker} from 'ng2-daterangepicker';
 
 @NgModule({
   imports : [
@@ -18,7 +19,8 @@ import {PageComponentsModule} from '../components/pages-components.module';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule.forRoot()
+    MaterialModule.forRoot(),
+    Daterangepicker
   ],
   declarations : [
     SearchComponent,

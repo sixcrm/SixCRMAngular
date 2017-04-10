@@ -5,6 +5,7 @@ import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {Subscription, Subject} from 'rxjs';
 import {PaginationService} from '../../shared/services/pagination.service';
 import {utc} from 'moment';
+import {DaterangepickerConfig} from 'ng2-daterangepicker';
 
 @Component({
   selector: 'c-search',
@@ -68,15 +69,54 @@ export class SearchComponent implements OnInit, OnDestroy {
     zip: 'Postal Code'
   };
 
+  datepickerVisible: boolean = false;
+  startDate;
+  endDate;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private progressBarService: ProgressBarService,
     private searchService: SearchService,
-    private paginationService: PaginationService
-  ) {}
+    private paginationService: PaginationService,
+    private daterangepickerOptions: DaterangepickerConfig
+  ) {
+    this.startDate = utc().subtract(30,'d');
+    this.endDate = utc();
+
+    this.daterangepickerOptions.settings = {
+      parentEl: '.datepicker--custom',
+      startDate: this.startDate,
+      endDate: this.endDate,
+      locale: { format: 'YYYY-MM-DD' },
+      alwaysShowCalendars: true,
+      ranges: {
+        'Today': [utc(), utc()],
+        'Yesterday': [utc().subtract(1, 'd'), utc().subtract(1, 'd')],
+        'Last 7 days': [utc().subtract(7, 'd'), utc()],
+        'Last 30 days': [utc().subtract(30, 'd'), utc()],
+      }
+    };
+  }
+
+  datepickerShown() {
+    this.datepickerVisible = true;
+  }
+
+  datepickerHidden() {
+    this.datepickerVisible = false;
+  }
+
+  dateSelected(value: any): void {
+    this.startDate = utc(value.start);
+    this.endDate = utc(value.end);
+
+    this.createdAtRange = `['${this.startDate.format()}', '${this.endDate.format()}']`;
+    this.checkboxClicked$.next(true);
+  }
 
   ngOnInit() {
+
     this.paginationService.searchResultsLimit$.subscribe((limit) => this.limit = limit);
 
     this.paramsSub = this.route.queryParams.subscribe((params) => {
@@ -218,35 +258,6 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   toggleAdvancedSearchFieldEnabled(option: any): void {
     option.enabled = !option.enabled;
-    this.checkboxClicked$.next(true);
-  }
-
-  dateFilterClicked(checked: boolean, option: number): void {
-    if (!checked) {
-      this.createdAtRange = '';
-    } else {
-      // option 1 is for today
-      if (option === 1) {
-        this.createdAtRange = `['${utc().hour(0).minutes(0).seconds(0).millisecond(0).format()}',}`;
-      }
-
-      // option 2 is for yesterday
-      if (option === 2) {
-        this.createdAtRange =
-          `['${utc().subtract('1','d').hour(0).minutes(0).seconds(0).millisecond(0).format()}','${utc().hour(0).minutes(0).seconds(0).millisecond(0).format()}']`;
-      }
-
-      // option 3 is for last 7 days
-      if (option === 3) {
-        this.createdAtRange = `['${utc().subtract('7','d').hour(0).minutes(0).seconds(0).millisecond(0).format()}',}`;
-      }
-
-      // option 4 is for last 30 days
-      if (option === 4) {
-        this.createdAtRange = `['${utc().subtract('30','d').hour(0).minutes(0).seconds(0).millisecond(0).format()}',}`;
-      }
-    }
-
     this.checkboxClicked$.next(true);
   }
 
