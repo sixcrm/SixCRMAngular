@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Customer} from '../../../shared/models/customer.model';
 import {CustomersService} from '../../../shared/services/customers.service';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
@@ -13,7 +13,7 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
   templateUrl: './customer-view.component.html',
   styleUrls: ['./customer-view.component.scss']
 })
-export class CustomerViewComponent extends AbstractEntityViewComponent<Customer> implements OnInit {
+export class CustomerViewComponent extends AbstractEntityViewComponent<Customer> implements OnInit, OnDestroy {
   note = '';
   showNewNote: boolean = false;
 
@@ -30,26 +30,30 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
   }
 
   ngOnInit() {
-    this.init();
-
-    this.customerNotesService.entities$.subscribe((customerNotes: CustomerNote[]) => {
+    this.customerNotesService.entities$.takeUntil(this.unsubscribe$).subscribe((customerNotes: CustomerNote[]) => {
       this.notes = customerNotes.sort((a: CustomerNote, b: CustomerNote) => a.createdAt > b.createdAt ? -1 : 1);
     });
 
-    this.customerNotesService.entityCreated$.subscribe((note: CustomerNote) => {
+    this.customerNotesService.entityCreated$.takeUntil(this.unsubscribe$).subscribe((note: CustomerNote) => {
       this.progressBarService.hideTopProgressBar();
       this.notes.unshift(note);
       this.showNewNote = false;
     });
 
-    this.customerNotesService.entityDeleted$.subscribe((note: CustomerNote) => {
+    this.customerNotesService.entityDeleted$.takeUntil(this.unsubscribe$).subscribe((note: CustomerNote) => {
       this.progressBarService.hideTopProgressBar();
       this.deleteNoteLocally(note);
     });
 
-    this.service.entity$.subscribe(() => {
+    this.service.entity$.takeUntil(this.unsubscribe$).first().subscribe(() => {
       this.customerNotesService.getByCustomer(this.entityId);
-    })
+    });
+
+    this.init();
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 
   newNote(): void {

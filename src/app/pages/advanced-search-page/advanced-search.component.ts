@@ -24,7 +24,6 @@ export class AdvancedSearchComponent implements OnInit {
     creditCardType: '',
     creditCardf6: '',
     creditCardl4: '',
-    ipAddress: ''
   };
 
   constructor(private progressBarService: ProgressBarService, private router: Router) { }

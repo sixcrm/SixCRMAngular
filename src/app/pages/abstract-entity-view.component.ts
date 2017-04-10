@@ -1,6 +1,6 @@
 import {ActivatedRoute, Params} from '@angular/router';
 import {AbstractEntityService} from '../shared/services/abstract-entity.service';
-import {Subscription} from 'rxjs';
+import {Subject} from 'rxjs';
 import {ProgressBarService} from '../shared/services/progress-bar.service';
 import {Entity} from '../shared/models/entity.interface';
 
@@ -14,27 +14,24 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
   entity: T;
   entityBackup: T;
 
-  protected routeSubscription: Subscription;
-  protected entityViewSubscription: Subscription;
-  protected entityCreatedSubscription: Subscription;
-  protected entityUpdatedSubscription: Subscription;
+  protected unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(public service: AbstractEntityService<T>, route: ActivatedRoute, protected progressBarService?: ProgressBarService) {
-    this.routeSubscription = route.params.subscribe((params: Params) => {
+    route.params.takeUntil(this.unsubscribe$).subscribe((params: Params) => {
       this.viewMode = true;
       this.entityId = params['id'];
     });
   }
 
   protected init(): void {
-    this.entityViewSubscription = this.service.entity$.subscribe((entity: T) => {
+    this.service.entity$.takeUntil(this.unsubscribe$).subscribe((entity: T) => {
       this.entity = entity;
       this.entityBackup = entity.copy();
 
       this.progressBarService.hideTopProgressBar();
     });
 
-    this.entityCreatedSubscription = this.service.entityCreated$.subscribe((created: T) => {
+    this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe((created: T) => {
       this.entity = created;
       this.addMode = false;
       this.viewMode = true;
@@ -42,7 +39,7 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
       this.progressBarService.hideTopProgressBar();
     });
 
-    this.entityUpdatedSubscription = this.service.entityUpdated$.subscribe((updated: T) => {
+    this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe((updated: T) => {
       this.entity = updated;
       this.updateMode = false;
       this.viewMode = true;
@@ -75,21 +72,7 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
   }
 
   protected destroy(): void {
-    if (this.routeSubscription) {
-      this.routeSubscription.unsubscribe();
-    }
-
-    if (this.entityCreatedSubscription) {
-      this.entityCreatedSubscription.unsubscribe();
-    }
-
-    if (this.entityUpdatedSubscription) {
-      this.entityUpdatedSubscription.unsubscribe();
-    }
-
-    if (this.entityViewSubscription) {
-      this.entityViewSubscription.unsubscribe();
-    }
+    this.unsubscribe$.complete();
   }
 
   protected changeMode(): void {
