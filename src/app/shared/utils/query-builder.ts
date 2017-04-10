@@ -8,6 +8,7 @@ import {CreditCard} from '../models/credit-card.model';
 import {FulfillmentProvider} from '../models/fulfillment-provider.model';
 import {Affiliate} from '../models/affiliate.model';
 import {Customer} from '../models/customer.model';
+import {CustomerNote} from '../models/customer-note.model';
 
 const uuidV4 = require('uuid/v4');
 
@@ -447,6 +448,29 @@ export function updateCustomerMutation(customer: Customer): string {
 			  }
 		  }
 	  }`
+}
+
+export function customerNotesByCustomerQuery(id: string): string {
+  return `{
+    customernotelistbycustomer (customer: "${id}") {
+      customernotes { id body created_at updated_at}
+		}}`
+}
+
+export function createCustomerNoteMutation(customerNote: CustomerNote): string {
+
+  return `
+    mutation {
+		  createcustomernote (
+		    customernote: { id: "${generateUUID()}" customer: "${customerNote.customer.id}" user: "${customerNote.user.id}" body: "${customerNote.body}" }
+      ) {
+        id body created_at updated_at
+		  }
+	  }`
+}
+
+export function deleteCustomerNoteMutation(id: string): string {
+  return deleteMutation('customernote', id);
 }
 
 export function loadBalancersInfoListQuery(limit?:number, cursor?:string): string {

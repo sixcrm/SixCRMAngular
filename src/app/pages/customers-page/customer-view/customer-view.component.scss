@@ -1,7 +1,20 @@
-.customer-view {
-  margin: 25px;
+.notes {
+  background: #E6EAF2;
 
-  div {
-    margin-top: 15px;
+  &__content {
+    position: relative;
+    padding: 30px 60px;
+    font-size: 14px;
+
+    md-icon {
+      position: absolute;
+      top: 25px;
+      right: 10px;
+      cursor: pointer;
+    }
+
+    md-textarea {
+      width: 100%;
+    }
   }
 }

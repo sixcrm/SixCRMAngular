@@ -4,6 +4,9 @@ import {CustomersService} from '../../../shared/services/customers.service';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {ActivatedRoute} from '@angular/router';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
+import {CustomerNotesService} from '../../../shared/services/customer-notes.service';
+import {CustomerNote} from '../../../shared/models/customer-note.model';
+import {AuthenticationService} from '../../../authentication/authentication.service';
 
 @Component({
   selector: 'customer-view',
@@ -11,29 +14,78 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
   styleUrls: ['./customer-view.component.scss']
 })
 export class CustomerViewComponent extends AbstractEntityViewComponent<Customer> implements OnInit {
-
-  notes: any[] = [{date: '2/22/2017', text:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'}];
-  note: any = {date: '6/4/2017', text: ''};
+  note = '';
   showNewNote: boolean = false;
 
-  constructor(service: CustomersService, route: ActivatedRoute, progressBarService: ProgressBarService) {
+  notes: CustomerNote[] = [];
+
+  constructor(
+    service: CustomersService,
+    private customerNotesService: CustomerNotesService,
+    private authService: AuthenticationService,
+    route: ActivatedRoute,
+    progressBarService: ProgressBarService
+  ) {
     super(service, route, progressBarService);
   }
 
   ngOnInit() {
     this.init();
+
+    this.customerNotesService.entities$.subscribe((customerNotes: CustomerNote[]) => {
+      this.notes = customerNotes.sort((a: CustomerNote, b: CustomerNote) => a.createdAt > b.createdAt ? -1 : 1);
+    });
+
+    this.customerNotesService.entityCreated$.subscribe((note: CustomerNote) => {
+      this.progressBarService.hideTopProgressBar();
+      this.notes.unshift(note);
+      this.showNewNote = false;
+    });
+
+    this.customerNotesService.entityDeleted$.subscribe((note: CustomerNote) => {
+      this.progressBarService.hideTopProgressBar();
+      this.deleteNoteLocally(note);
+    });
+
+    this.service.entity$.subscribe(() => {
+      this.customerNotesService.getByCustomer(this.entityId);
+    })
   }
 
   newNote(): void {
+    this.note = '';
     this.showNewNote = true;
-    this.note = {date: '6/4/2017', text: ''};
   }
 
   saveNote(): void {
-    if (this.note.text) {
-      this.notes.unshift(this.note);
-      this.showNewNote = false;
+    if (this.note) {
+      let customerNote = new CustomerNote({customer: {id: this.entityId}, user: {id: this.authService.getSixUser().id}, body: this.note});
+      this.customerNotesService.createEntity(customerNote);
+      this.progressBarService.showTopProgressBar();
     }
   }
 
+  deleteNote(note: CustomerNote): void {
+    this.customerNotesService.deleteEntity(note.id);
+    this.progressBarService.showTopProgressBar();
+  }
+
+
+  private deleteNoteLocally(note: CustomerNote): void {
+    let indexOfNote = this.indexOfNote(note);
+
+    if (indexOfNote !== -1) {
+      this.notes.splice(indexOfNote, 1);
+    }
+  }
+
+  private indexOfNote(note: CustomerNote) {
+    for (let i = 0 ; i < this.notes.length ; i++) {
+      if (this.notes[i].id === note.id) {
+        return i;
+      }
+    }
+
+    return -1;
+  }
 }

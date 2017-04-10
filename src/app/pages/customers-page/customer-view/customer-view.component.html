@@ -124,7 +124,6 @@
     <div class="entity-view__content__title"> Transactions </div>
     <div class="entity-view__content__placeholder"></div>
 
-
     <div class="entity-view__content__title"> Rebills </div>
     <div class="entity-view__content__placeholder"></div>
 
@@ -133,24 +132,29 @@
       <span class="entity-view__content__title__action" (click)="newNote()">ADD</span>
     </div>
 
-    <div *ngIf="note && showNewNote">
+    <div *ngIf="showNewNote">
       <div class="entity-view__content__title notes">
         <span class="entity-view__content__title__label">New</span>
         <span class="entity-view__content__title__action" (click)="saveNote()">SAVE</span>
       </div>
 
       <div class="notes__content">
-        <md-textarea [(ngModel)]="note.text"></md-textarea>
+        <md-textarea [(ngModel)]="note"></md-textarea>
       </div>
     </div>
 
     <div *ngFor="let n of notes" class="notes__saved">
       <div class="entity-view__content__title notes">
-        <span class="entity-view__content__title__label">{{n.date}}</span>
+        <span class="entity-view__content__title__label">{{n.createdAt.substring(0,10)}}</span>
       </div>
       <div class="notes__content">
-        {{n.text}}
+        <span>{{n.body}}</span>
+        <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
       </div>
+
+      <md-menu #actionsMenu="mdMenu" x-position="before">
+        <button md-menu-item (click)="deleteNote(n)">delete</button>
+      </md-menu>
     </div>
 
   </div>
