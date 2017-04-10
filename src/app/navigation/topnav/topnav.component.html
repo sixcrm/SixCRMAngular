@@ -67,7 +67,10 @@
 
     <span class="topnav__separator"></span>
 
-    <md-icon class="topnav__notifications">chat</md-icon>
+    <div class="topnav__notifications" (click)="showNotifications()">
+      <md-icon>chat</md-icon>
+      <div *ngIf="notificationsCount && notificationsCount > 0" class="topnav__notifications__count"> {{notificationsCount}} </div>
+    </div>
   </div>
   <div class="topnav__items--collapsed">
     <md-icon class="topnav__items--collapsed__icon" (click)="toggleCollapseMenu()">more_vert</md-icon>

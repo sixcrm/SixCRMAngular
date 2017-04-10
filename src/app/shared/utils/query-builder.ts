@@ -856,6 +856,17 @@ export function rolesListQuery(limit?: number, cursor?: string): string {
 		}}`
 }
 
+export function notificationsListQuery(limit?:number, cursor?:string): string {
+  return `{
+    notificationlist ${pageParams(limit, cursor)} {
+			notifications { id type action message read_at created_at updated_at }
+		}}`
+}
+
+export function notificationCountQuery(): string {
+  return `{notificationcount {count}}`
+}
+
 function pageParams(limit?: number, cursor?: string): string {
   let lim = !!limit ? `limit: "${limit}"` : '';
   let cur = !!cursor ? `cursor: "${cursor}"` : '';

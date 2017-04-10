@@ -137,14 +137,26 @@ export abstract class AbstractEntityService<T> {
   }
 
   hasWritePermission(): boolean {
+    if (this.accessRole === 'default') {
+      return true;
+    }
+
     return this.authService.hasPermissions(this.accessRole, 'write');
   }
 
   hasViewPermission(): boolean {
+    if (this.accessRole === 'default') {
+      return true;
+    }
+
     return this.authService.hasPermissions(this.accessRole, 'view');
   }
 
   hasReadPermission(): boolean {
+    if (this.accessRole === 'default') {
+      return true;
+    }
+
     return this.authService.hasPermissions(this.accessRole, 'read');
   }
 

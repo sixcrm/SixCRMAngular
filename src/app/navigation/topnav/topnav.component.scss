@@ -244,6 +244,25 @@ $main-color: #9B9A9B;
   }
 
   &__notifications {
+    position: relative;
+    display: inline-block;
     color: $main-color;
+    cursor: pointer;
+
+    &__count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      border-radius: 50%;
+      background: #FE7274;
+      height: 12px;
+      width: 12px;
+      padding: 2px;
+      line-height: 12px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 12px;
+      color: #ffffff;
+    }
   }
 }

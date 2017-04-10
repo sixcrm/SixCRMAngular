@@ -25,6 +25,7 @@ import {SearchService} from './services/search.service';
 import {AutocompleteComponent} from './components/autocomplete/autocomplete.component';
 import { HighlightPipe } from './pipes/highlight.pipe';
 import {CustomerNotesService} from './services/customer-notes.service';
+import {NotificationsService} from './services/notifications.service';
 
 @NgModule({
   declarations : [ WidgetComponent, AutocompleteComponent, HighlightPipe ],
@@ -55,7 +56,8 @@ export class SharedModule {
         PaginationService,
         RolesService,
         SearchService,
-        CustomerNotesService
+        CustomerNotesService,
+        NotificationsService
       ]
     };
   }

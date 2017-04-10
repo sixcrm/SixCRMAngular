@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {User} from '../../shared/models/user.model';
 import {Acl} from '../../shared/models/acl.model';
 import {SearchService} from '../../shared/services/search.service';
+import {NotificationsService} from '../../shared/services/notifications.service';
 
 @Component({
   selector : 'app-topnav',
@@ -40,12 +41,15 @@ export class TopnavComponent implements OnInit {
   activeAcl: Acl = new Acl();
   showAcls: boolean = false;
 
+  notificationsCount: number;
+
   constructor(
     public _navigation: NavigationService,
     private _title: Title,
     private _authService: AuthenticationService,
     private router: Router,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private notificationsService: NotificationsService
   ) {
   }
 
@@ -113,7 +117,14 @@ export class TopnavComponent implements OnInit {
 
     this.searchService.suggestionResults$.subscribe(options => {
       this.options = options;
-    })
+    });
+
+    this.notificationsService.getNotificationCount();
+    this.notificationsService.notificationCount$.subscribe((count: number) => {
+      this.notificationsCount = count;
+    });
+
+    this.notificationsService.startPoolingNotifications();
   }
 
   logout(){
@@ -195,6 +206,10 @@ export class TopnavComponent implements OnInit {
 
   navigateToProfile(): void {
     this.router.navigateByUrl('/profile');
+  }
+
+  showNotifications(): void {
+    this.notificationsService.getEntities();
   }
 
   private updateAutoBreadcrumbs() {

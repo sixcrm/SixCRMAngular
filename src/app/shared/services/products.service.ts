@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {Product} from "../models/product.model";
-import {Subject} from "rxjs";
 import {Http} from "@angular/http";
 import {
   productsListQuery, deleteProductMutation, updateProductMutation, productQuery, createProductMutation
