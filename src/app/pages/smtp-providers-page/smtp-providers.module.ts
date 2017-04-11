@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {SharedModule} from '../../shared/shared.module';
-import {NavigationModule} from '../../navigation/navigation.module';
 import {MaterialModule} from '@angular/material';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {smtpProvidersRouting} from './smtp-providers.routing';
@@ -14,8 +12,6 @@ import {SmtpProviderViewComponent} from './smtp-provider-view/smtp-provider-view
 @NgModule({
   imports : [
     smtpProvidersRouting,
-    SharedModule.forRoot(),
-    NavigationModule.forRoot(),
     CommonModule,
     FormsModule,
     MaterialModule.forRoot(),

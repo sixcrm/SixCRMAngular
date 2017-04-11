@@ -5,11 +5,7 @@ import {SessionsAclGuard} from '../guards/sessions-acl-guard.service';
 import {SessionViewComponent} from './session-view/session-view.component';
 
 export const sessionsRouting = RouterModule.forChild([
-  {
-    path : '', component : DefaultLayoutComponent, children : [
-      { path : '', component : SessionsComponent, canActivate: [SessionsAclGuard] },
-      { path : ':id', component : SessionViewComponent, canActivate: [SessionsAclGuard] },
-    ]
-  }
+  { path : '', component : SessionsComponent, canActivate: [SessionsAclGuard] },
+  { path : ':id', component : SessionViewComponent, canActivate: [SessionsAclGuard] }
 ]);
 
