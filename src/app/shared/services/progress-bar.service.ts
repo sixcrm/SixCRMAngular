@@ -1,13 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
+import {Subject, BehaviorSubject} from 'rxjs';
 
 @Injectable()
 export class ProgressBarService {
-  showTopProgressBar$: Subject<boolean>;
+  showTopProgressBar$: Subject<boolean> = new BehaviorSubject(false);
 
-  constructor() {
-    this.showTopProgressBar$ = new Subject<boolean>();
-  }
+  constructor() {}
 
   public showTopProgressBar(): void {
     this.showTopProgressBar$.next(true);

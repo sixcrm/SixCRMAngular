@@ -3,7 +3,7 @@ import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Http} from '@angular/http';
 import {Notification} from './../models/notification.model'
-import {Subject, Observable} from 'rxjs';
+import {Subject, Observable, Subscription} from 'rxjs';
 import {notificationCountQuery, notificationsListQuery} from '../utils/query-builder';
 
 @Injectable()
@@ -11,6 +11,7 @@ export class NotificationsService extends AbstractEntityService<Notification> {
 
   notificationCount$: Subject<number> = new Subject<number>();
   poolingInterval = 30000;
+  notificationsSub: Subscription;
 
   constructor(http: Http, authService: AuthenticationService) {
     super(
@@ -27,9 +28,17 @@ export class NotificationsService extends AbstractEntityService<Notification> {
   }
 
   startPoolingNotifications(): void {
-    Observable.interval(this.poolingInterval).takeWhile(() => this.authService.authenticated()).subscribe(() => {
+    this.notificationsSub = Observable.interval(this.poolingInterval).takeWhile(() => this.authService.authenticated()).subscribe(() => {
       this.getNotificationCount();
     })
+  }
+
+  restartPoolingNotifications(): void {
+    if (this.notificationsSub) {
+      this.notificationsSub.unsubscribe();
+    }
+
+    this.startPoolingNotifications();
   }
 
   getNotificationCount(): void {

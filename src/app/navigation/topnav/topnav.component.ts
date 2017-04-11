@@ -209,7 +209,8 @@ export class TopnavComponent implements OnInit {
   }
 
   showNotifications(): void {
-    this.notificationsService.getEntities();
+    this.notificationsCount = 0;
+    this._navigation.toggleNotifications(true);
   }
 
   private updateAutoBreadcrumbs() {

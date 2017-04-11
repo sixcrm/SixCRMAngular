@@ -7,11 +7,12 @@
               [opened]="showSidenav || !_navigation.mediumScreenAndDown">
     <app-sidenav [isHovering]="isHovering || showSidenav || _navigation.mediumScreenAndDown"></app-sidenav>
   </md-sidenav>
-  <md-progress-bar class="progress-bar" *ngIf="showTopProgress" mode="query"></md-progress-bar>
+  <md-progress-bar class="progress-bar" *ngIf="progressBarService.showTopProgressBar$ | async" mode="query"></md-progress-bar>
 
-  <main [class.container--hover]="!showSidenav && showOnHover">
+  <main [class.container--hover]="!(_navigation.showSidenav | async) && showOnHover">
     <div class="container">
       <router-outlet></router-outlet>
+      <notifications-list *ngIf="_navigation.showNotifications | async" (close)="_navigation.toggleNotifications(false)"></notifications-list>
       <div class="clearfix"></div>
     </div>
   </main>

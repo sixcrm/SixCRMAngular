@@ -1,0 +1,75 @@
+.notifications-list {
+  position: absolute;
+  top: 1px;
+  right: 0;
+  width: 350px;
+  height: 100%;
+  min-height: calc(100vh - 66px);
+  z-index: 3000;
+  background-color: white;
+  box-shadow: -1px 0 4px rgba(0, 0, 0, 0.4);
+
+  &__topnav {
+
+    padding: 20px 10px;
+
+    span {
+      vertical-align: middle;
+      margin-left: 10px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    md-icon {
+      vertical-align: middle;
+      cursor: pointer;
+    }
+
+    &__options {
+      float: right;
+    }
+  }
+
+  &__content {
+
+    &__title {
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.12);
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.4);
+    }
+
+    &__notification {
+      display: flex;
+      padding: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      cursor: default;
+
+      &:hover {
+        background-color: #EBF2FE;
+      }
+
+      &__image {
+        width: 65px;
+
+        img {
+          vertical-align: middle;
+        }
+      }
+
+      &__message {
+        width: 200px;
+        padding: 5px 0;
+        font-size: 14px;
+      }
+
+      &__date {
+        width: 65px;
+        font-size: 10px;
+        text-align: right;
+        color: rgba(0, 0, 0, 0.4);
+      }
+    }
+  }
+}

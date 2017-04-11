@@ -8,7 +8,7 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
 })
 export class DefaultLayoutComponent implements OnInit {
   showSidenav: boolean;
-  showTopProgress: boolean = false;
+
   isHovering: boolean = false;
   showOnHover: boolean = false;
 
@@ -16,19 +16,7 @@ export class DefaultLayoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._navigation.showSidenav.subscribe(showSidenav => {
-      if(!showSidenav) {
-        this.showSidenav = showSidenav;
-      } else {
-        this.showSidenav = showSidenav;
-      }
-    });
-
-    this.progressBarService.showTopProgressBar$.subscribe((show: boolean) => this.showTopProgress = show);
-  }
-
-  private sidenavToggle(visible: boolean) {
-    this._navigation.toggleSidenav(visible);
+    this._navigation.showSidenav.subscribe(showSidenav => this.showSidenav = showSidenav);
   }
 
   hover(value: boolean): void {

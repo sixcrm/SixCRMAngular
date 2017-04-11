@@ -22,6 +22,7 @@ export class NavigationService {
   private _showSidenav: Subject<boolean> = new BehaviorSubject(this.largeScreen);
   private _fixedNavbar: Subject<boolean> = new BehaviorSubject(true);
   private _isRouteLoading: Subject<boolean> = new BehaviorSubject(true);
+  private _showNotifications: Subject<boolean> = new BehaviorSubject(false);
 
   constructor(public dialog: MdDialog, private authService: AuthenticationService) {
     this.setMenuItems(menuItems(authService));
@@ -165,6 +166,14 @@ export class NavigationService {
 
   public toggleSidenav(showSidenav: boolean): void {
     this._showSidenav.next(showSidenav);
+  }
+
+  public get showNotifications(): Subject<boolean> {
+    return this._showNotifications;
+  }
+
+  public toggleNotifications(visible: boolean): void {
+    this._showNotifications.next(visible);
   }
 
   public get fixedNavbar(): Subject<boolean> {
