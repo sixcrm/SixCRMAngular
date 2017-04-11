@@ -542,18 +542,18 @@ export function deleteLoadBalancerMutation(id: string): string {
 }
 
 export function transactionsInfoListQuery(limit?:number, cursor?:string): string {
-  return `{ transactionlist ${pageParams(limit, cursor)} {	transactions { id date amount processor_response } pagination { count end_cursor has_next_page } } }`
+  return `{ transactionlist ${pageParams(limit, cursor)} {	transactions { id amount processor_response } pagination { count end_cursor has_next_page } } }`
 }
 
 export function transactionQuery(id: string): string {
   return `{
-    transaction (id: "${id}") { id alias date amount processor_response created_at updated_at
-      rebill { id amount billdate }
+    transaction (id: "${id}") { id alias amount processor_response created_at updated_at
+      rebill { id amount }
       products { amount
         product { id name sku ship shipping_delay
           fulfillment_provider {id name}
         }
-        shippingreceipt { id created modified status trackingnumber }
+        shippingreceipt { id status trackingnumber created_at }
       }
     }
 	}`
@@ -589,7 +589,7 @@ export function sessionQuery(id: string): string {
 						}
 					}
 				}
-				rebills { id billdate
+				rebills { id
 				  product_schedules { id
 				    schedule { price start end period
 				      product { id name sku ship shipping_delay
@@ -597,7 +597,7 @@ export function sessionQuery(id: string): string {
 							}
 						}
 					}
-					transactions { id date processor_response amount }
+					transactions { id created_at processor_response amount }
 				}
 				campaign { id name
 					productschedules { id

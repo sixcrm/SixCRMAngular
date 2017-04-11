@@ -6,7 +6,6 @@ import {Products} from './products.model';
 export class Transaction implements Entity<Transaction>{
   id: string;
   alias: string;
-  date: string;
   amount: string;
   createdAt: string;
   updatedAt: string;
@@ -21,7 +20,6 @@ export class Transaction implements Entity<Transaction>{
 
     this.id = obj.id || '';
     this.alias = obj.alias || '';
-    this.date = obj.date || '';
     this.amount = obj.amount || '';
     this.createdAt = obj.created_at || '';
     this.updatedAt = obj.updated_at || '';

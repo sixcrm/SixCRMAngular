@@ -5,7 +5,7 @@ import {Entity} from './entity.interface';
 
 export class Rebill implements Entity<Rebill> {
   id: string;
-  billDate: string;
+  billAt: string;
   amount: string;
   parentSession: ParentSession;
   productSchedules: ProductSchedule[] = [];
@@ -17,7 +17,7 @@ export class Rebill implements Entity<Rebill> {
     }
 
     this.id = obj.id || '';
-    this.billDate = obj.billdate || '';
+    this.billAt = obj.bill_at || '';
     this.amount = obj.amount || '';
     this.parentSession = new ParentSession(obj.parentsession);
 
