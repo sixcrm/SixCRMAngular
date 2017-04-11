@@ -21,10 +21,10 @@ export class ResultItemComponent implements OnInit {
   ngOnInit() {
     if (this.fields.name) {
       this.title = this.fields.name;
-    }
-
-    if (this.fields.firstname && this.fields.lastname) {
+    } else if (this.fields.firstname && this.fields.lastname) {
       this.title = this.fields.firstname + ' ' + this.fields.lastname;
+    } else if (this.entityType === 'transaction') {
+      this.title = 'Transaction: ' + this.fields.alias;
     }
   }
 

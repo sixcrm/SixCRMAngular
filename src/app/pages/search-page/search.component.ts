@@ -90,6 +90,8 @@ export class SearchComponent implements OnInit, OnDestroy {
       endDate: this.endDate,
       locale: { format: 'MM/DD/YYYY' },
       alwaysShowCalendars: true,
+      applyClass: 'btn-success-custom',
+      linkedCalendars: false,
       ranges: {
         'Today': [utc(), utc()],
         'Yesterday': [utc().subtract(1, 'd'), utc().subtract(1, 'd')],

@@ -28,6 +28,16 @@
     }
   }
 
+  .btn-success-custom {
+    background-color: #357ebd;
+    border-color: #357ebd;
+    color: #ffffff;
+
+    &:hover {
+      color: #ffffff !important;
+    }
+  }
+
   @import "bootstrap2";
 }
 
