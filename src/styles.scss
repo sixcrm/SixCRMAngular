@@ -25,7 +25,7 @@ body {
   @include font-body();
 
   margin: 0;
-  font-family: "Roboto", serif;
+  font-family: Montserrat, serif;
 }
 
 p.box {
@@ -45,5 +45,12 @@ h5 > span {
   font-size: 14px;
   margin-left: 15px;
   color: #777;
+}
+
+div,
+span,
+md-card,
+button {
+  font-family: Montserrat, serif !important;
 }
 
