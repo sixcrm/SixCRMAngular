@@ -88,7 +88,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       parentEl: '.datepicker--custom',
       startDate: this.startDate,
       endDate: this.endDate,
-      locale: { format: 'YYYY-MM-DD' },
+      locale: { format: 'MM/DD/YYYY' },
       alwaysShowCalendars: true,
       ranges: {
         'Today': [utc(), utc()],
@@ -172,6 +172,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   quickSearch(): void {
+    this.showAutocomplete = false;
+
     if (this.queryString === this.currentRoute) {
       this.search();
     } else {
@@ -182,6 +184,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   quickSearchInputChanged(input): void {
     this.queryString = input.target.value;
     this.searchService.searchSuggestions(this.queryString);
+    this.showAutocomplete = true;
 
     if (!this.queryString) {
       this.autocompleteOptions = [];
@@ -195,7 +198,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   suggestionSelected(option: string): void {
-    this.showAutocomplete = false;
     this.autocompleteOptions = [];
     this.queryString = option;
 
@@ -259,6 +261,16 @@ export class SearchComponent implements OnInit, OnDestroy {
   toggleAdvancedSearchFieldEnabled(option: any): void {
     option.enabled = !option.enabled;
     this.checkboxClicked$.next(true);
+  }
+
+  hasAnyEntityType(): boolean {
+    for (let key in this.entityTypesCount) {
+      if (this.entityTypesCount[key]) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   private prepareNewSearch(): void {

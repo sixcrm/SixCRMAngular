@@ -8,13 +8,24 @@
 
   &__input {
     display: inline-block;
-    margin: 15px 0;
+    margin-bottom: 15px;
     width: 200px;
-    padding: 2px 5px;
     font-size: 14px;
     color: #7C7C7C;
-    border: 1px solid rgba(0,0,0,0.4);
+    border-bottom: 1px solid rgba(0,0,0,0.4);
     cursor: pointer;
+
+    span {
+      margin: 0 4px;
+    }
+
+    md-icon {
+      float: right;
+      height: 18px;
+      width: 18px;
+      font-size: 18px;
+      vertical-align: bottom;
+    }
   }
 
   @import "bootstrap2";

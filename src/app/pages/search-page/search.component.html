@@ -11,14 +11,19 @@
         <div class="search__sidenav__button--advanced" (click)="openAdvancedSearch()"><span>ADVANCED SEARCH</span> <md-icon>keyboard_arrow_right</md-icon></div>
 
         <div class="search__sidenav__options" *ngIf="queryOptions && queryOptions.length !== 0">
-          <div class="search__sidenav__option" *ngFor="let option of queryOptions">
-            <div [class.content--disabled]="!option.enabled" class="search__sidenav__option__content">
-              <span class="search__sidenav__option__label">{{queryOptsLabel[option.key]}}:</span>
-              <span class="search__sidenav__option__value">{{option.value}}</span>
+          <ng-container *ngFor="let option of queryOptions">
+            <div [class.option--disabled]="!option.enabled" class="search__sidenav__option">
+              <div class="search__sidenav__option__content">
+                <span class="search__sidenav__option__value">{{option.value}}</span>
+              </div>
+              <md-icon [style.transform]="option.enabled ? 'rotate(45deg)' : 'rotate(90deg)'" (click)="toggleAdvancedSearchFieldEnabled(option)">add</md-icon>
             </div>
-            <md-icon [style.transform]="option.enabled ? 'rotate(45deg)' : 'rotate(90deg)'" (click)="toggleAdvancedSearchFieldEnabled(option)">add</md-icon>
-          </div>
+          </ng-container>
         </div>
+
+        <div class="search__sidenav__title">REFINE RESULTS</div>
+
+        <div *ngIf="hasAnyEntityType()" class="search__sidenav__subtitle">Category</div>
 
         <md-checkbox *ngIf="entityTypesCount['campaign']" class="search__sidenav__item" [(ngModel)]="entityTypesChecked['campaign']" (change)="checkboxClicked()">
           Campaign
@@ -53,18 +58,13 @@
           <span>({{entityTypesCount['productschedule']}})</span>
         </md-checkbox>
 
-        <span class="search__sidenav__title search__sidenav__title--after"> Refined by Date </span>
+        <div class="search__sidenav__subtitle"> Refine by Date </div>
+        <div class="search__sidenav__date">Date</div>
         <div class="datepicker--custom" [class.datepicker-visible]="datepickerVisible">
           <div (showDaterangepicker)="datepickerShown()" (hideDaterangepicker)="datepickerHidden()" (selected)="dateSelected($event)" daterangepicker>
-            <span class="datepicker--custom__input" name="daterange" >  {{ startDate.format().substring(0, 10) }} - {{ endDate.format().substring(0, 10) }} </span>
+            <span class="datepicker--custom__input" name="daterange" >  {{ startDate.format('MM/DD/YYYY').substring(0,10) }} <span>to</span> {{ endDate.format('MM/DD/YYYY').substring(0, 10) }} <md-icon>keyboard_arrow_down</md-icon> </span>
           </div>
         </div>
-
-        <span class="search__sidenav__title search__sidenav__title--after"> Refined by </span>
-        <span class="search__sidenav__subtitle"> City </span>
-        <md-checkbox class="search__sidenav__item">Brand One</md-checkbox>
-        <md-checkbox class="search__sidenav__item">Brand Two</md-checkbox>
-        <md-checkbox class="search__sidenav__item">Brand Three</md-checkbox>
       </md-nav-list>
     </div>
 
