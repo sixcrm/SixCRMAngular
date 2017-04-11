@@ -7,6 +7,8 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
 import {CustomerNotesService} from '../../../shared/services/customer-notes.service';
 import {CustomerNote} from '../../../shared/models/customer-note.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
+import {utc} from 'moment';
+import {Session} from '../../../shared/models/session.model';
 
 @Component({
   selector: 'customer-view',
@@ -18,6 +20,8 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
   showNewNote: boolean = false;
 
   notes: CustomerNote[] = [];
+
+  sessions: Session[] = [];
 
   constructor(
     service: CustomersService,
@@ -74,6 +78,13 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
     this.progressBarService.showTopProgressBar();
   }
 
+  fetchDate(date: string): string {
+    return utc(date).format('DD/MM/YYYY')
+  }
+
+  fetchTime(date: string): string {
+    return utc(date).format('hh:mm')
+  }
 
   private deleteNoteLocally(note: CustomerNote): void {
     let indexOfNote = this.indexOfNote(note);

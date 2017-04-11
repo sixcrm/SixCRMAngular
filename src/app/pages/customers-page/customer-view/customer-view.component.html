@@ -143,9 +143,16 @@
       </div>
     </div>
 
-    <div *ngFor="let n of notes" class="notes__saved">
-      <div class="entity-view__content__title notes">
-        <span class="entity-view__content__title__label">{{n.createdAt.substring(0,10)}}</span>
+    <div *ngFor="let n of notes">
+      <div class="entity-view__content__title notes__title">
+        <span class="entity-view__content__title__label notes__title__label">{{n.user.name}}</span>
+
+        <div class="notes__title__date">
+          <md-icon>date_range</md-icon>
+          <span class="entity-view__content__title__label notes__title__label">{{fetchDate(n.createdAt)}}</span>
+          <md-icon>query_builder</md-icon>
+          <span class="entity-view__content__title__label notes__title__label">{{fetchTime(n.createdAt)}}</span>
+        </div>
       </div>
       <div class="notes__content">
         <span>{{n.body}}</span>

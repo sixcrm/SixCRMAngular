@@ -1,6 +1,27 @@
 .notes {
   background: #E6EAF2;
 
+  &__title {
+    padding: 0 60px;
+    color: rgba(0,0,0,0.6);
+
+    &__date {
+      display: inline-block;
+      float: right;
+      width: 210px;
+      text-align: left;
+
+      md-icon {
+        margin: 0 5px 0 15px;
+      }
+    }
+
+    &__label {
+      font-size: 12px;
+      font-weight: 400;
+    }
+  }
+
   &__content {
     position: relative;
     padding: 30px 60px;

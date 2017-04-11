@@ -453,7 +453,9 @@ export function updateCustomerMutation(customer: Customer): string {
 export function customerNotesByCustomerQuery(id: string): string {
   return `{
     customernotelistbycustomer (customer: "${id}") {
-      customernotes { id body created_at updated_at}
+      customernotes { id body created_at updated_at
+        user {id name }
+      }
 		}}`
 }
 
@@ -465,6 +467,7 @@ export function createCustomerNoteMutation(customerNote: CustomerNote): string {
 		    customernote: { id: "${generateUUID()}" customer: "${customerNote.customer.id}" user: "${customerNote.user.id}" body: "${customerNote.body}" }
       ) {
         id body created_at updated_at
+        user { id name }
 		  }
 	  }`
 }
