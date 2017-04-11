@@ -12,7 +12,7 @@ export class DefaultLayoutComponent implements OnInit {
   isHovering: boolean = false;
   showOnHover: boolean = false;
 
-  constructor(public _navigation: NavigationService, private progressBarService: ProgressBarService) {
+  constructor(public _navigation: NavigationService, public progressBarService: ProgressBarService) {
   }
 
   ngOnInit() {
