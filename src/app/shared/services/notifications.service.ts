@@ -4,7 +4,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {Http} from '@angular/http';
 import {Notification} from './../models/notification.model'
 import {Subject, Observable, Subscription} from 'rxjs';
-import {notificationCountQuery, notificationsListQuery} from '../utils/query-builder';
+import {notificationCountQuery, notificationsListQuery, updateNotificationMutation} from '../utils/query-builder';
 
 @Injectable()
 export class NotificationsService extends AbstractEntityService<Notification> {
@@ -22,7 +22,7 @@ export class NotificationsService extends AbstractEntityService<Notification> {
       null,
       null,
       null,
-      null,
+      updateNotificationMutation,
       'default'
     );
   }

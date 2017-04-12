@@ -3,6 +3,7 @@ import {NotificationsService} from '../../shared/services/notifications.service'
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {Notification} from '../../shared/models/notification.model';
 import {utc} from 'moment';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'notifications-list',
@@ -12,19 +13,26 @@ import {utc} from 'moment';
 export class NotificationsListComponent implements OnInit {
 
   @Output() close: EventEmitter<boolean> = new EventEmitter();
-  notifications: Notification[] = [];
 
   today: Notification[] = [];
   last7: Notification[] = [];
   month: Notification[] = [];
   other: Notification[] = [];
 
-  constructor(private notificationsService: NotificationsService, private progressBarService: ProgressBarService) { }
+  constructor(
+    private notificationsService: NotificationsService,
+    private progressBarService: ProgressBarService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.notificationsService.entities$.subscribe(notifications => {
       this.arrangeNotifications(notifications);
       this.progressBarService.hideTopProgressBar();
+    });
+
+    this.notificationsService.entityUpdated$.subscribe(notification => {
+      this.updateLocally(notification);
     });
 
     setTimeout(() => {
@@ -37,10 +45,6 @@ export class NotificationsListComponent implements OnInit {
 
   closeNotifications(): void {
     this.close.emit(true);
-  }
-
-  formatDate(date: string): string {
-    return utc(date).format('MMMM D')
   }
 
   arrangeNotifications(nots: Notification[]): void {
@@ -62,6 +66,44 @@ export class NotificationsListComponent implements OnInit {
         this.other.push(notification);
       }
     })
+  }
+
+  readNotification(notification: Notification): void {
+    this.notificationsService.updateEntity(notification);
+
+    if (notification.action && notification.action.indexOf('customer') !== -1) {
+      this.router.navigateByUrl(notification.action);
+    }
+  }
+
+  updateLocally(notification: Notification): void {
+    for (let i = 0 ; i < this.today.length ; i++) {
+      if (this.today[i].id === notification.id) {
+        this.today[i] = notification;
+        return;
+      }
+    }
+
+    for (let i = 0 ; i < this.last7.length ; i++) {
+      if (this.last7[i].id === notification.id) {
+        this.last7[i] = notification;
+        return;
+      }
+    }
+
+    for (let i = 0 ; i < this.month.length ; i++) {
+      if (this.month[i].id === notification.id) {
+        this.month[i] = notification;
+        return;
+      }
+    }
+
+    for (let i = 0 ; i < this.other.length ; i++) {
+      if (this.other[i].id === notification.id) {
+        this.other[i] = notification;
+        return;
+      }
+    }
   }
 
 }

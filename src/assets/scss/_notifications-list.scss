@@ -65,10 +65,21 @@
       }
 
       &__date {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-between;
         width: 65px;
         font-size: 10px;
-        text-align: right;
         color: rgba(0, 0, 0, 0.4);
+
+        div {
+          margin-top: 15px;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background: #FE7274;
+        }
       }
     }
   }

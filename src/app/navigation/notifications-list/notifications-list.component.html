@@ -10,10 +10,13 @@
       <div class="notifications-list__content__title">Today</div>
 
       <div *ngFor="let notification of today">
-        <div class="notifications-list__content__notification">
+        <div class="notifications-list__content__notification" (click)="readNotification(notification)">
           <div class="notifications-list__content__notification__image"><img src="assets/images/alert-icon.svg" alt=""></div>
           <div class="notifications-list__content__notification__message">{{notification.message}}</div>
-          <div class="notifications-list__content__notification__date">{{formatDate(notification.createdAt)}}</div>
+          <div class="notifications-list__content__notification__date">
+            <span>{{notification.createdAt.format('MMMM D')}}</span>
+            <div *ngIf="!notification.readAt"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -23,10 +26,13 @@
       <div class="notifications-list__content__title">Last 7 days</div>
 
       <div *ngFor="let notification of last7">
-        <div class="notifications-list__content__notification">
+        <div class="notifications-list__content__notification" (click)="readNotification(notification)">
           <div class="notifications-list__content__notification__image"><img src="assets/images/alert-icon.svg" alt=""></div>
           <div class="notifications-list__content__notification__message">{{notification.message}}</div>
-          <div class="notifications-list__content__notification__date">{{formatDate(notification.createdAt)}}</div>
+          <div class="notifications-list__content__notification__date">
+            <span>{{notification.createdAt.format('MMMM D')}}</span>
+            <div *ngIf="!notification.readAt"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -35,10 +41,13 @@
       <div class="notifications-list__content__title">Last Month</div>
 
       <div *ngFor="let notification of month">
-        <div class="notifications-list__content__notification">
+        <div class="notifications-list__content__notification" (click)="readNotification(notification)">
           <div class="notifications-list__content__notification__image"><img src="assets/images/alert-icon.svg" alt=""></div>
           <div class="notifications-list__content__notification__message">{{notification.message}}</div>
-          <div class="notifications-list__content__notification__date">{{formatDate(notification.createdAt)}}</div>
+          <div class="notifications-list__content__notification__date">
+            <span>{{notification.createdAt.format('MMMM D')}}</span>
+            <div *ngIf="!notification.readAt"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -47,10 +56,13 @@
       <div class="notifications-list__content__title">Last Month</div>
 
       <div *ngFor="let notification of other">
-        <div class="notifications-list__content__notification">
+        <div class="notifications-list__content__notification" (click)="readNotification(notification)">
           <div class="notifications-list__content__notification__image"><img src="assets/images/alert-icon.svg" alt=""></div>
           <div class="notifications-list__content__notification__message">{{notification.message}}</div>
-          <div class="notifications-list__content__notification__date">{{formatDate(notification.createdAt)}}</div>
+          <div class="notifications-list__content__notification__date">
+            <span>{{notification.createdAt.format('MMMM D')}}</span>
+            <div *ngIf="!notification.readAt"></div>
+          </div>
         </div>
       </div>
     </div>

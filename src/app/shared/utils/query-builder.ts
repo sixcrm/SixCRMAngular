@@ -9,6 +9,8 @@ import {FulfillmentProvider} from '../models/fulfillment-provider.model';
 import {Affiliate} from '../models/affiliate.model';
 import {Customer} from '../models/customer.model';
 import {CustomerNote} from '../models/customer-note.model';
+import {Notification} from '../models/notification.model';
+import {utc} from 'moment'
 
 const uuidV4 = require('uuid/v4');
 
@@ -862,12 +864,21 @@ export function rolesListQuery(limit?: number, cursor?: string): string {
 export function notificationsListQuery(limit?:number, cursor?:string): string {
   return `{
     notificationlist ${pageParams(limit, cursor)} {
-			notifications { id type action message read_at created_at updated_at }
+			notifications { id user account type action message read_at created_at updated_at }
 		}}`
 }
 
 export function notificationCountQuery(): string {
   return `{notificationcount {count}}`
+}
+
+export function updateNotificationMutation(notification: Notification): string {
+  return `
+    mutation {
+      updatenotification (notification: { id: "${notification.id}", user: "${notification.user}", account: "${notification.account}", type: "${notification.type}", action: "${notification.action}", message: "${notification.message}", read_at: "${utc().format()}"}) {
+			  id user account type action message read_at created_at updated_at
+		  }
+    }`;
 }
 
 function pageParams(limit?: number, cursor?: string): string {
