@@ -389,7 +389,7 @@ export function customersInfoListQuery(limit?:number, cursor?:string): string {
 
 export function customerQuery(id: string): string {
   return `{
-    customer (id: "${id}") { id email firstname lastname phone
+    customer (id: "${id}") { id email firstname lastname phone created_at
       address { line1 line2 city state zip country }
 		  creditcards {	id ccnumber expiration ccv name
 			  address { line1 line2 city state zip }

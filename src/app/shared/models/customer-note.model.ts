@@ -1,5 +1,6 @@
 import {Customer} from './customer.model';
 import {User} from './user.model';
+import {Moment, utc} from 'moment';
 
 export class CustomerNote {
 
@@ -8,8 +9,8 @@ export class CustomerNote {
   user: User;
   account: string;
   body: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Moment;
+  updatedAt: Moment;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -21,8 +22,8 @@ export class CustomerNote {
     this.user = new User(obj.user);
     this.account = obj.account;
     this.body = obj.body || '';
-    this.createdAt = obj.created_at || '';
-    this.updatedAt = obj.updated_at || '';
+    this.createdAt = utc(obj.created_at);
+    this.updatedAt = utc(obj.updated_at);
   }
 
 }

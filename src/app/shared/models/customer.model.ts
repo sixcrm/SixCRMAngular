@@ -1,6 +1,7 @@
 import {Address} from './address.model';
 import {CreditCard} from './credit-card.model';
 import {Entity} from './entity.interface';
+import {Moment, utc} from 'moment';
 
 export class Customer implements Entity<Customer> {
   id: string;
@@ -8,6 +9,7 @@ export class Customer implements Entity<Customer> {
   firstName: string;
   lastName: string;
   phone: string;
+  createdAt: Moment;
   address: Address;
   creditCards: CreditCard[] = [];
 
@@ -22,6 +24,7 @@ export class Customer implements Entity<Customer> {
     this.lastName = obj.lastname || '';
     this.phone = obj.phone || '';
     this.address = new Address(obj.address);
+    this.createdAt = utc(obj.created_at);
 
     if (obj.creditcards) {
       for (let i = 0; i < obj.creditcards.length; i++) {

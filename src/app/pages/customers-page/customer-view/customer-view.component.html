@@ -3,166 +3,151 @@
 
   <div *ngIf="service.hasWritePermission()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <div *ngIf="entity" class="entity-view__content">
-
-    <div class="entity-view__content__title"> General Details </div>
-
-    <div class="entity-view__content__body">
-      <div class="entity-view__content__body__column">
-        <div class="entity-view__content__body__column__title">CONTACT INFORMATION</div>
-
-        <div class="entity-view__content__body__column__item">
-          <span class="entity-view__content__body__column__item__label">First Name:</span>
-          <span>{{entity.firstName}}</span>
-        </div>
-        <div class="entity-view__content__body__column__item">
-          <span class="entity-view__content__body__column__item__label">Last Name:</span>
-          <span>{{entity.lastName}}</span>
-        </div>
-        <div class="entity-view__content__body__column__item">
-          <span class="entity-view__content__body__column__item__label">Phone:</span>
-          <span>{{entity.phone}}</span>
-        </div>
-        <div class="entity-view__content__body__column__item">
-          <span class="entity-view__content__body__column__item__label">Email:</span>
-          <span>{{entity.email}}</span>
-        </div>
+  <div  *ngIf="entity">
+    <div class="customer-view__info">
+      <div class="customer-view__info__image">
+        <img src="https://www.kwrwater.nl/wp-content/themes/kwr/assets/placeholders/no-profile-user.png" alt="">
       </div>
-
-      <div class="entity-view__content__body__column">
-        <div class="entity-view__content__body__column__title">SHIPPING ADDRESS</div>
-
-        <div class="entity-view__content__body__column__item">
-          <span class="entity-view__content__body__column__item__label">Address 1:</span>
-          <span>{{entity.address.line1}}</span>
-        </div>
-        <div class="entity-view__content__body__column__item">
-          <span class="entity-view__content__body__column__item__label">Address 2:</span>
-          <span>{{entity.address.line2}}</span>
-        </div>
-        <div class="entity-view__content__body__column__item">
-          <span class="entity-view__content__body__column__item__label">Postal Code:</span>
-          <span>{{entity.address.zip}}</span>
-        </div>
-        <div class="entity-view__content__body__column__item">
-          <span class="entity-view__content__body__column__item__label">City:</span>
-          <span>{{entity.address.city}}</span>
-        </div>
-        <div class="entity-view__content__body__column__item">
-          <span class="entity-view__content__body__column__item__label">State:</span>
-          <span>{{entity.address.state}}</span>
-        </div>
-        <div class="entity-view__content__body__column__item">
-          <span class="entity-view__content__body__column__item__label">Country:</span>
-          <span>{{entity.address.country}}</span>
+      <div class="customer-view__info__data">
+        <div class="customer-view__info__data__date">Created: {{entity.createdAt.format('MM/DD/YYYY')}}</div>
+        <div class="customer-view__info__data__name">{{entity.firstName}} {{entity.lastName}}</div>
+        <div class="customer-view__info__data__other">
+          <span *ngIf="entity.phone"><md-icon>phone</md-icon>{{entity.phone}}</span>
+          <span *ngIf="entity.email"><md-icon>email</md-icon>{{entity.email}}</span>
         </div>
       </div>
     </div>
 
-    <div *ngIf="entity.creditCards.length > 0" class="entity-view__content__title"> Credit Cards </div>
-
-    <div class="entity-view__content__body">
-      <ng-container *ngFor="let creditCard of entity.creditCards">
-        <div class="entity-view__content__body__section">
-        <div class="entity-view__content__body__section__title">
-          <span>{{creditCard.ccnumber.substring(creditCard.ccnumber.length-4, creditCard.ccnumber.length)}}</span>
-          <md-icon>more_vert</md-icon>
-        </div>
-        <div class="entity-view__content__body__column section__column">
-          <div class="entity-view__content__body__column__subtitle">BILLING ADDRESS</div>
-
-          <div class="entity-view__content__body__column__item">
-            <span class="entity-view__content__body__column__item__label">Name:</span>
-            <span>{{creditCard.name}}</span>
-          </div>
-
-          <div class="entity-view__content__body__column__item">
-            <span class="entity-view__content__body__column__item__label">Address 1:</span>
-            <span>{{creditCard.address.line1}}</span>
-          </div>
-          <div class="entity-view__content__body__column__item">
-            <span class="entity-view__content__body__column__item__label">Address 2:</span>
-            <span>{{creditCard.address.line2}}</span>
-          </div>
-          <div class="entity-view__content__body__column__item">
-            <span class="entity-view__content__body__column__item__label">Postal Code:</span>
-            <span>{{creditCard.address.zip}}</span>
-          </div>
-          <div class="entity-view__content__body__column__item">
-            <span class="entity-view__content__body__column__item__label">City:</span>
-            <span>{{creditCard.address.city}}</span>
-          </div>
-          <div class="entity-view__content__body__column__item">
-            <span class="entity-view__content__body__column__item__label">State:</span>
-            <span>{{creditCard.address.state}}</span>
-          </div>
-          <div class="entity-view__content__body__column__item">
-            <span class="entity-view__content__body__column__item__label">Country:</span>
-            <span>{{creditCard.address.country}}</span>
-          </div>
-        </div>
-
-        <div class="entity-view__content__body__column section__column">
-          <div class="entity-view__content__body__column__subtitle">PAYMENT</div>
-
-          <div class="entity-view__content__body__column__item">
-            <span class="entity-view__content__body__column__item__label">Card Last 4:</span>
-            <span>{{creditCard.ccnumber.substring(creditCard.ccnumber.length-4, creditCard.ccnumber.length)}}</span>
-          </div>
-          <div class="entity-view__content__body__column__item">
-            <span class="entity-view__content__body__column__item__label">Expiration:</span>
-            <span>{{creditCard.expiration}}</span>
-          </div>
-        </div>
-        </div>
-      </ng-container>
+    <div class="customer-view__navigation">
+      <span class="customer-view__navigation__label" [class.customer-view__navigation__label--active]="selectedIndex===0" (click)="setIndex(0)">GENERAL DETAILS</span>
+      <span class="customer-view__navigation__label" [class.customer-view__navigation__label--active]="selectedIndex===1" (click)="setIndex(1)">TRANSACTIONS</span>
+      <span class="customer-view__navigation__label" [class.customer-view__navigation__label--active]="selectedIndex===2" (click)="setIndex(2)">BILLING</span>
+      <span class="customer-view__navigation__label" [class.customer-view__navigation__label--active]="selectedIndex===3" (click)="setIndex(3)">SESSIONS</span>
     </div>
 
-    <div class="entity-view__content__title"> Sessions </div>
-    <div class="entity-view__content__placeholder"></div>
+    <md-tab-group [(selectedIndex)]="selectedIndex">
+      <md-tab>
+        <div class="customer-view__content">
+          <div class="customer-view__content__left">
+            <div class="row">
+              <md-card class="customer-view__content__card row__small">
+                <md-card-title>SHIPPING ADDRESS</md-card-title>
+                <md-card-content>
+                  <div class="customer-view__content__card__item"><span>Name: </span>{{entity.firstName}} {{entity.lastName}}</div>
+                  <div class="customer-view__content__card__item"><span>Address 1: </span>{{entity.address.line1}}</div>
+                  <div class="customer-view__content__card__item"><span>Address 2: </span>{{entity.address.line2}}</div>
+                  <div class="customer-view__content__card__item"><span>Postal Code: </span>{{entity.address.zip}}</div>
+                  <div class="customer-view__content__card__item"><span>City: </span>{{entity.address.city}}</div>
+                  <div class="customer-view__content__card__item"><span>State: </span>{{entity.address.state}}</div>
+                  <div class="customer-view__content__card__item"><span>Country: </span>{{entity.address.country}}</div>
+                </md-card-content>
+              </md-card>
 
-    <div class="entity-view__content__title"> Transactions </div>
-    <div class="entity-view__content__placeholder"></div>
+              <md-card *ngFor="let cc of entity.creditCards" class="customer-view__content__card row__medium">
+                <md-card-title>
+                  <md-icon>credit_card</md-icon>
+                  <span>{{cc.ccnumber.substring(cc.ccnumber.length-4, cc.ccnumber.length)}}</span>
+                  <md-icon class="customer-view__content__card__action">more_vert</md-icon>
+                </md-card-title>
+                <md-card-content>
+                  <div class="customer-view__content__card__column">
+                    <div class="customer-view__content__card__item"><span>Name: </span>{{cc.name}}</div>
+                    <div class="customer-view__content__card__item"><span>Address 1: </span>{{cc.address.line2}}</div>
+                    <div class="customer-view__content__card__item"><span>Address 2: </span>{{cc.address.line2}}</div>
+                    <div class="customer-view__content__card__item"><span>Postal Code: </span>{{cc.address.zip}}</div>
+                    <div class="customer-view__content__card__item"><span>City: </span>{{cc.address.city}}</div>
+                    <div class="customer-view__content__card__item"><span>State: </span>{{cc.address.state}}</div>
+                    <div class="customer-view__content__card__item"><span>Country: </span>{{cc.address.country}}</div>
+                  </div>
+                  <div class="customer-view__content__card__column customer-view__content__card__column--last">
+                    <div class="customer-view__content__card__item"><span>Last 4: </span>{{cc.ccnumber.substring(cc.ccnumber.length-4, cc.ccnumber.length)}}</div>
+                    <div class="customer-view__content__card__item"><span>Expiration: </span>{{cc.expiration}}</div>
+                  </div>
+                </md-card-content>
+              </md-card>
+            </div>
 
-    <div class="entity-view__content__title"> Rebills </div>
-    <div class="entity-view__content__placeholder"></div>
+            <div class="row">
+              <md-card class="customer-view__content__card customer-view__content__card--notes row__large">
+                <md-card-title>NOTES</md-card-title>
+                <md-card-content>
+                  <div *ngIf="showNewNote" class="notes">
+                    <div class="notes__title">
+                      <span class="notes__title__label">New Note</span>
+                      <span class="notes__title__save" (click)="saveNote()">SAVE</span>
+                    </div>
+                    <div class="notes__content">
+                      <md-textarea [(ngModel)]="note"></md-textarea>
+                    </div>
+                  </div>
 
-    <div class="entity-view__content__title">
-      <span class="entity-view__content__title__label">Notes</span>
-      <span class="entity-view__content__title__action" (click)="newNote()">ADD</span>
-    </div>
+                  <div class="notes" *ngFor="let n of notes">
+                    <div class="notes__title">
+                      <span class="notes__title__label">{{n.user.name}}</span>
+                      <md-icon>date_range</md-icon>
+                      <span class="notes__title__label">{{n.createdAt.format('MM/DD/YYYY')}}</span>
+                      <md-icon>query_builder</md-icon>
+                      <span class="notes__title__label">{{n.createdAt.format('HH:mm')}}</span>
+                      <md-icon class="notes__title__action" [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
 
-    <div *ngIf="showNewNote">
-      <div class="entity-view__content__title notes">
-        <span class="entity-view__content__title__label">New</span>
-        <span class="entity-view__content__title__action" (click)="saveNote()">SAVE</span>
-      </div>
+                      <md-menu #actionsMenu="mdMenu" x-position="before">
+                        <button md-menu-item (click)="deleteNote(n)">delete</button>
+                      </md-menu>
+                    </div>
+                    <div class="notes__content">
+                      <div><img src="assets/images/alert-icon.svg"></div>
+                      <span>{{n.body}}</span>
+                    </div>
+                  </div>
 
-      <div class="notes__content">
-        <md-textarea [(ngModel)]="note"></md-textarea>
-      </div>
-    </div>
+                  <div class="notes__button" (click)="newNote()">ADD</div>
+                </md-card-content>
+              </md-card>
 
-    <div *ngFor="let n of notes">
-      <div class="entity-view__content__title notes__title">
-        <span class="entity-view__content__title__label notes__title__label">{{n.user.name}}</span>
-
-        <div class="notes__title__date">
-          <md-icon>date_range</md-icon>
-          <span class="entity-view__content__title__label notes__title__label">{{fetchDate(n.createdAt)}}</span>
-          <md-icon>query_builder</md-icon>
-          <span class="entity-view__content__title__label notes__title__label">{{fetchTime(n.createdAt)}}</span>
+              <md-card class="customer-view__content__card row__medium">
+                <md-card-title>
+                  <md-icon>trending_up</md-icon>
+                  RECENT TRANSACTIONS
+                  <md-icon class="customer-view__content__card__action">more_vert</md-icon>
+                </md-card-title>
+                <md-card-content>
+                </md-card-content>
+              </md-card>
+            </div>
+          </div>
+          <div class="customer-view__content__right">
+            <md-card class="customer-view__content__card customer-view__content__card--events">
+              <md-card-title>
+                CUSTOMER EVENTS
+                <md-icon class="customer-view__content__card__action">more_vert</md-icon>
+              </md-card-title>
+              <md-card-content>
+                <div class="events">
+                  <div class="events__title">
+                    <span class="events__title__label">{{entity.createdAt.format('MM/DD/YYYY')}}</span>
+                  </div>
+                  <div class="events__content">
+                    <div><img src="assets/images/alert-icon.svg"></div>
+                    <span>{{entity.firstName}} {{entity.lastName}} user created</span>
+                  </div>
+                </div>
+              </md-card-content>
+            </md-card>
+          </div>
         </div>
-      </div>
-      <div class="notes__content">
-        <span>{{n.body}}</span>
-        <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-      </div>
+      </md-tab>
 
-      <md-menu #actionsMenu="mdMenu" x-position="before">
-        <button md-menu-item (click)="deleteNote(n)">delete</button>
-      </md-menu>
-    </div>
+      <md-tab>
+        <div class="tab--placeholder">TRANSACTIONS HERE</div>
+      </md-tab>
 
+      <md-tab>
+        <div class="tab--placeholder">BILLING HERE</div>
+      </md-tab>
+
+      <md-tab>
+        <div class="tab--placeholder">SESSIONS HERE</div>
+      </md-tab>
+    </md-tab-group>
   </div>
 </div>

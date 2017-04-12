@@ -1,22 +1,249 @@
-.notes {
-  background: #E6EAF2;
+.customer-view {
+  &__info {
+    height: 160px;
+    line-height: 160px;
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+    background-color: #fff;
 
-  &__title {
-    padding: 0 60px;
-    color: rgba(0,0,0,0.6);
-
-    &__date {
+    &__image {
       display: inline-block;
-      float: right;
-      width: 210px;
-      text-align: left;
+      margin: 0 20px 0 60px;
 
-      md-icon {
-        margin: 0 5px 0 15px;
+      img {
+        height: 100px;
+        border-radius: 50%;
+        vertical-align: middle;
       }
     }
 
+    &__data {
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+
+      &__date {
+        font-size: 12px;
+      }
+
+      &__name {
+        margin: 12px 0;
+        font-size: 28px;
+        font-weight: 500;
+      }
+
+      &__other {
+        font-size: 12px;
+
+        span {
+          margin-right: 20px;
+
+          md-icon {
+            margin-right: 5px;
+            font-size: 14px;
+            width: 14px;
+            height: 14px;
+            vertical-align: middle;
+          }
+        }
+      }
+    }
+  }
+
+  &__navigation {
+    height: 50px;
+    line-height: 50px;
+    padding-left: 30px;
+    background-color: #F3F3F3;
+    border-top: 1px solid rgba(0, 0, 0, 0.4);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+
     &__label {
+      margin: 0 20px;
+      font-size: 12px;
+      cursor: pointer;
+
+      &--active {
+        padding-bottom: 3px;
+        border-bottom: 2px solid #5B9BE1;
+      }
+    }
+  }
+
+  &__content {
+    display: flex;
+    padding: 10px;
+
+    &__card {
+      margin: 5px;
+      padding: 18px 12px;
+      box-sizing: border-box;
+
+      md-card-title {
+        margin-bottom: 0;
+        color: #5B9BE1;
+        font-size: 15px;
+        font-weight: 500;
+
+        md-icon {
+          height: 18px;
+          line-height: 18px;
+          vertical-align: middle;
+          font-size: 18px;
+        }
+
+        span {
+          vertical-align: middle;
+        }
+      }
+
+      &__column {
+        display: inline-block;
+        margin-right: 20px;
+        vertical-align: top;
+
+        &--last {
+          margin-right: 0;
+        }
+      }
+
+      &__item {
+        margin-top: 15px;
+        font-size: 12px;
+
+        span {
+          font-weight: 500;
+        }
+      }
+
+      &__action {
+        float: right;
+        width: 12px;
+        height: 18px;
+        vertical-align: middle;
+        font-size: 18px;
+        color: rgba(0,0,0,0.4);
+        cursor: pointer;
+      }
+
+      &--notes {
+        padding: 0;
+
+        md-card-title {
+          padding: 18px 12px;
+        }
+      }
+
+      &--events {
+        padding: 0;
+
+        md-card-title {
+          padding: 18px 12px;
+        }
+      }
+    }
+
+    &__left {
+      width: 82%;
+    }
+
+    &__right {
+      width: 18%;
+
+      md-card {
+        height: calc(100% - 10px);
+      }
+    }
+
+    .row {
+      display: flex;
+
+      &__small {
+        width: calc(25% - 10px);
+      }
+
+      &__medium {
+        width: calc(37.5% - 10px);
+      }
+
+      &__large {
+        width: calc(62.5% - 10px);
+      }
+    }
+  }
+}
+
+.notes {
+
+  &__title {
+    background-color: #E8E8E8;
+    color: rgba(0,0,0,0.6);
+    padding: 5px 18px;
+
+    md-icon {
+      margin: 0 5px 0 15px;
+      width: 16px;
+      height: 16px;
+      font-size: 16px;
+      vertical-align: middle;
+    }
+
+    &__label {
+      vertical-align: middle;
+      font-size: 12px;
+      font-weight: 400;
+    }
+
+    &__action {
+      float: right;
+      color: rgba(0,0,0,0.4);
+      cursor: pointer;
+    }
+
+    &__save {
+      float: right;
+      vertical-align: middle;
+      font-size: 12px;
+      font-weight: 400;
+      cursor: pointer;
+    }
+  }
+
+  &__content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 12px 18px 24px;
+    font-size: 12px;
+
+    span {
+      margin-left: 20px;
+    }
+
+    img {
+      height: 40px;
+    }
+
+    md-textarea {
+      width: 100%;
+    }
+  }
+
+  &__button {
+    padding: 10px 20px;
+    text-align: right;
+    cursor: pointer;
+  }
+}
+
+.events {
+
+  &__title {
+    background-color: #E8E8E8;
+    color: rgba(0,0,0,0.6);
+    padding: 5px 12px;
+
+    &__label {
+      vertical-align: middle;
       font-size: 12px;
       font-weight: 400;
     }
@@ -24,18 +251,22 @@
 
   &__content {
     position: relative;
-    padding: 30px 60px;
-    font-size: 14px;
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    font-size: 12px;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
 
-    md-icon {
-      position: absolute;
-      top: 25px;
-      right: 10px;
-      cursor: pointer;
+    span {
+      margin-left: 10px;
     }
 
-    md-textarea {
-      width: 100%;
+    img {
+      height: 40px;
     }
   }
+}
+
+.tab--placeholder {
+  min-height: 100vh;
 }
