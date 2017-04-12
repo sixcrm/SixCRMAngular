@@ -11,26 +11,26 @@
 
     <div class="advanced-search__content__fields">
       <div class="advanced-search__content__fields__column">
-        <md-input class="advanced-search__content__fields__input" placeholder="First Name" [(ngModel)]="searchOptions.firstName"></md-input>
-        <md-input class="advanced-search__content__fields__input" placeholder="Last Name" [(ngModel)]="searchOptions.lastName"></md-input>
-        <md-input class="advanced-search__content__fields__input" placeholder="Phone Number" [(ngModel)]="searchOptions.phoneNumber"></md-input>
-        <md-input class="advanced-search__content__fields__input" placeholder="Email Address" [(ngModel)]="searchOptions.emailAddress"></md-input>
-        <md-input [disabled]="true" class="advanced-search__content__fields__input" placeholder="Shipment Tracking Number" [(ngModel)]="searchOptions.shipTrackNumber"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="First Name" [(ngModel)]="searchOptions.firstname"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="Last Name" [(ngModel)]="searchOptions.lastname"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="Phone Number" [(ngModel)]="searchOptions.phone"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="Email Address" [(ngModel)]="searchOptions.email"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="Shipment Tracking Number" [(ngModel)]="searchOptions.tracking_number"></md-input>
       </div>
 
       <div class="advanced-search__content__fields__column">
-        <md-input class="advanced-search__content__fields__input" placeholder="Address 1" [(ngModel)]="searchOptions.address1"></md-input>
-        <md-input class="advanced-search__content__fields__input" placeholder="Address 2" [(ngModel)]="searchOptions.address2"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="Address 1" [(ngModel)]="searchOptions.address_line_1"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="Address 2" [(ngModel)]="searchOptions.address_line_2"></md-input>
         <md-input class="advanced-search__content__fields__input" placeholder="City" [(ngModel)]="searchOptions.city"></md-input>
-        <md-input class="advanced-search__content__fields__input" placeholder="Postal Code" [(ngModel)]="searchOptions.postalCode"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="Postal Code" [(ngModel)]="searchOptions.zip"></md-input>
         <md-input class="advanced-search__content__fields__input" placeholder="State" [(ngModel)]="searchOptions.state"></md-input>
       </div>
 
       <div class="advanced-search__content__fields__column">
         <md-input class="advanced-search__content__fields__input" placeholder="Transaction Alias" [(ngModel)]="searchOptions.alias"></md-input>
-        <md-input [disabled]="true" class="advanced-search__content__fields__input" placeholder="Credit Card Type" [(ngModel)]="searchOptions.creditCardType"></md-input>
-        <md-input [disabled]="true" class="advanced-search__content__fields__input" placeholder="Credit Card # first 6" [(ngModel)]="searchOptions.creditCardf6"></md-input>
-        <md-input [disabled]="true" class="advanced-search__content__fields__input" placeholder="Credit Card # last 4" [(ngModel)]="searchOptions.creditCardl4"></md-input>
+        <md-input [disabled]="true" class="advanced-search__content__fields__input" placeholder="Credit Card Type" [(ngModel)]="searchOptions.cctype"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="Credit Card # first 6" [(ngModel)]="searchOptions.first_six"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="Credit Card # last 4" [(ngModel)]="searchOptions.last_four"></md-input>
       </div>
 
       <div class="advanced-search__content__fields__button" (click)="search()">

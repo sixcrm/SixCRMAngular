@@ -10,20 +10,21 @@ import {Router} from '@angular/router';
 export class AdvancedSearchComponent implements OnInit {
 
   searchOptions = {
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
-    emailAddress: '',
-    shipTrackNumber: '',
-    address1: '',
-    address2: '',
+    advanced: true,
+    firstname: '',
+    lastname: '',
+    phone: '',
+    email: '',
+    tracking_number: '',
+    address_line_1: '',
+    address_line_2: '',
     city: '',
     state: '',
+    zip: '',
     alias: '',
-    postalCode: '',
-    creditCardType: '',
-    creditCardf6: '',
-    creditCardl4: '',
+    cctype: '',
+    first_six: '',
+    last_four: '',
   };
 
   constructor(private progressBarService: ProgressBarService, private router: Router) { }
@@ -33,27 +34,13 @@ export class AdvancedSearchComponent implements OnInit {
   search(): void {
     this.progressBarService.showTopProgressBar();
 
-    let options = {
-      advanced: true,
-      firstname: this.searchOptions.firstName,
-      lastname: this.searchOptions.lastName,
-      phone: this.searchOptions.phoneNumber,
-      email: this.searchOptions.emailAddress,
-      alias: this.searchOptions.alias,
-      address_line_1: this.searchOptions.address1,
-      address_line_2: this.searchOptions.address2,
-      state: this.searchOptions.state,
-      city: this.searchOptions.city,
-      zip: this.searchOptions.postalCode
-    };
-
-    Object.keys(options).forEach((key) => {
-      if (!options[key]) {
-        delete options[key];
+    Object.keys(this.searchOptions).forEach((key) => {
+      if (!this.searchOptions[key]) {
+        delete this.searchOptions[key];
       }
     });
 
-    this.router.navigate(['/search'], {queryParams: options});
+    this.router.navigate(['/search'], {queryParams: this.searchOptions});
   }
 
 }
