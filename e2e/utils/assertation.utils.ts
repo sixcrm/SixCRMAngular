@@ -4,6 +4,10 @@ export function expectPresent(element: ElementFinder) {
   expect(element.isPresent()).toBeTruthy();
 }
 
+export function expectNotPresent(element: ElementFinder) {
+  expect(element.isPresent()).toBeFalsy();
+}
+
 export function expectUrlToContain(url: string) {
   expect(browser.getCurrentUrl()).toContain(url);
 }

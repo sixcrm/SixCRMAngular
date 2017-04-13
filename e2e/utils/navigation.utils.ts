@@ -10,6 +10,14 @@ export function navigateSuperuserToHomepage() {
   waitForUrlContains('dashboard');
 }
 
+export function navigateSuperuserToAdvancedSearch() {
+  browser.get('/');
+  addSuperUserToken();
+  browser.get('/advanced-search');
+
+  waitForUrlContains('advanced-search');
+}
+
 export function navigateRegisteruserToRegistration() {
   browser.get('/');
   addRegisterUserToken();
@@ -52,6 +60,11 @@ export function addToLocalStorage(token: string, payload: any) {
 export function waitForPresenceOf(element: ElementFinder, timeout?: number) {
   let to = timeout || 5000;
   browser.wait(protractor.ExpectedConditions.presenceOf(element), to).catch(() => `Element ${element.locator()} is not present after ${to} ms`);
+}
+
+export function waitForNotPresenceOf(element: ElementFinder, timeout?: number) {
+  let to = timeout || 5000;
+  browser.wait(protractor.ExpectedConditions.stalenessOf(element), to).catch(() => `Element ${element.locator()} is present after ${to} ms`);
 }
 
 export function waitForUrlContains(partialUrl: string, timeout?: number) {
