@@ -1,3 +1,5 @@
+$card-title-color: #5B9BE1;
+
 .customer-view {
   &__info {
     height: 160px;
@@ -70,12 +72,11 @@
   }
 
   &__content {
-    display: flex;
     padding: 10px;
 
     &__card {
       margin: 5px;
-      padding: 18px 12px;
+      padding: 18px;
       box-sizing: border-box;
 
       md-card-title {
@@ -124,55 +125,69 @@
         color: rgba(0,0,0,0.4);
         cursor: pointer;
       }
-
-      &--notes {
-        padding: 0;
-
-        md-card-title {
-          padding: 18px 12px;
-        }
-      }
-
-      &--events {
-        padding: 0;
-
-        md-card-title {
-          padding: 18px 12px;
-        }
-      }
-    }
-
-    &__left {
-      width: 82%;
-    }
-
-    &__right {
-      width: 18%;
-
-      md-card {
-        height: calc(100% - 10px);
-      }
     }
 
     .row {
       display: flex;
 
+      &--inline {
+        font-size: 0;
+      }
+
       &__small {
-        width: calc(25% - 10px);
+        width: calc(20% - 10px);
       }
 
       &__medium {
-        width: calc(37.5% - 10px);
+        width: 30%;
       }
 
       &__large {
-        width: calc(62.5% - 10px);
+        width: 50%;
+
+        &--inline {
+          display: inline-block;
+          width: calc(50% - 10px);
+          vertical-align: top;
+        }
       }
     }
   }
 }
 
+.credit-cards {
+  padding: 0;
+
+  &__title {
+    padding: 18px 18px 5px;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+    padding: 15px 18px;
+    color: $card-title-color;
+
+    span {
+      vertical-align: middle;
+    }
+
+    md-icon {
+      height: 20px;
+      width: 20px;
+      font-size: 20px;
+      vertical-align: middle;
+    }
+  }
+}
+
 .notes {
+  padding: 0;
+
+  md-card-title {
+    padding: 18px;
+  }
 
   &__title {
     background-color: #E8E8E8;
@@ -216,7 +231,7 @@
     font-size: 12px;
 
     span {
-      margin-left: 20px;
+      margin: 0 20px;
     }
 
     img {
@@ -236,11 +251,16 @@
 }
 
 .events {
+  padding: 0;
+
+  md-card-title {
+    padding: 18px;
+  }
 
   &__title {
     background-color: #E8E8E8;
     color: rgba(0,0,0,0.6);
-    padding: 5px 12px;
+    padding: 5px 18px;
 
     &__label {
       vertical-align: middle;
@@ -253,7 +273,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    padding: 12px;
+    padding: 12px 18px;
     font-size: 12px;
     border-bottom: 1px solid rgba(0,0,0,0.15);
 
