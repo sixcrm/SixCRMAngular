@@ -165,19 +165,20 @@ $card-title-color: #5B9BE1;
   &__item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid rgba(0,0,0,0.15);
     padding: 15px 18px;
-    color: $card-title-color;
-
-    span {
-      vertical-align: middle;
-    }
+    font-size: 12px;
 
     md-icon {
       height: 20px;
       width: 20px;
       font-size: 20px;
-      vertical-align: middle;
+      color: $card-title-color;
+    }
+
+    img {
+      height: 30px;
     }
   }
 }

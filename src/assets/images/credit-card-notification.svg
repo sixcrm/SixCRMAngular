@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="46px" height="47px" viewBox="0 0 46 47" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>CC Icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="UI-Elements-Copy-7" transform="translate(-419.000000, -527.000000)">
+            <g id="Stacked-Group" transform="translate(85.000000, 390.000000)">
+                <g id="Credit-Cards" transform="translate(304.000000, 0.000000)">
+                    <g id="Group-4" transform="translate(0.000000, 137.000000)">
+                        <g id="CC-Row" transform="translate(30.000000, 0.000000)">
+                            <g id="CC-Icon">
+                                <ellipse id="Oval-4-Copy" fill="#4A90E2" cx="22.9626421" cy="23.1988473" rx="22.9626421" ry="23.1988473"></ellipse>
+                                <g id="ic_payment-copy" transform="translate(10.000000, 11.000000)">
+                                    <g id="Icon-24px">
+                                        <polygon id="Shape" points="0 0 25.0699997 0 25.0699997 24.0031912 0 24.0031912"></polygon>
+                                        <path d="M21.8916664,4.00053187 L5.17833328,4.00053187 C4.0188458,4.00053187 3.09961247,4.89065021 3.09961247,6.0007978 L3.08916664,18.0023934 C3.08916664,19.112541 4.0188458,20.0026593 5.17833328,20.0026593 L21.8916664,20.0026593 C23.0511539,20.0026593 23.9808331,19.112541 23.9808331,18.0023934 L23.9808331,6.0007978 C23.9808331,4.89065021 23.0511539,4.00053187 21.8916664,4.00053187 L21.8916664,4.00053187 Z M21.8916664,18.0023934 L5.17833328,18.0023934 L5.17833328,12.0015956 L21.8916664,12.0015956 L21.8916664,18.0023934 L21.8916664,18.0023934 Z M21.8916664,8.00106373 L5.17833328,8.00106373 L5.17833328,6.0007978 L21.8916664,6.0007978 L21.8916664,8.00106373 L21.8916664,8.00106373 Z" id="Shape" fill="#FFFFFF"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

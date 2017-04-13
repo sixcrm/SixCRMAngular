@@ -42,16 +42,40 @@
                 </md-card-content>
               </md-card>
 
-              <md-card class="customer-view__content__card credit-cards row__medium">
+              <md-card *ngIf="entity.creditCards && entity.creditCards.length !== 1" class="customer-view__content__card credit-cards row__medium">
                 <md-card-title class="credit-cards__title">
                   <span>CREDIT CARDS</span>
                   <md-icon class="customer-view__content__card__action">more_vert</md-icon>
                 </md-card-title>
                 <md-card-content>
                   <div *ngFor="let cc of entity.creditCards" class="credit-cards__item">
-                    <span> <md-icon>credit_card</md-icon> <span>{{cc.ccnumber.substring(cc.ccnumber.length-4, cc.ccnumber.length)}}</span></span>
+                    <img src="/assets/images/credit-card-notification.svg">
+                    <span>{{cc.ccnumber.substring(cc.ccnumber.length-4, cc.ccnumber.length)}}</span>
                     <span>Exp: {{cc.expiration}}</span>
                     <md-icon>remove_red_eye</md-icon>
+                  </div>
+                </md-card-content>
+              </md-card>
+
+              <md-card *ngIf="entity.creditCards && entity.creditCards.length === 1" class="customer-view__content__card row__medium">
+                <md-card-title>
+                  <md-icon>credit_card</md-icon>
+                  <span>{{entity.creditCards[0].ccnumber.substring(entity.creditCards[0].ccnumber.length-4, entity.creditCards[0].ccnumber.length)}}</span>
+                  <md-icon class="customer-view__content__card__action">more_vert</md-icon>
+                </md-card-title>
+                <md-card-content>
+                  <div class="customer-view__content__card__column">
+                    <div class="customer-view__content__card__item"><span>Name: </span>{{entity.creditCards[0].name}}</div>
+                    <div class="customer-view__content__card__item"><span>Address 1: </span>{{entity.creditCards[0].address.line2}}</div>
+                    <div class="customer-view__content__card__item"><span>Address 2: </span>{{entity.creditCards[0].address.line2}}</div>
+                    <div class="customer-view__content__card__item"><span>Postal Code: </span>{{entity.creditCards[0].address.zip}}</div>
+                    <div class="customer-view__content__card__item"><span>City: </span>{{entity.creditCards[0].address.city}}</div>
+                    <div class="customer-view__content__card__item"><span>State: </span>{{entity.creditCards[0].address.state}}</div>
+                    <div class="customer-view__content__card__item"><span>Country: </span>{{entity.creditCards[0].address.country}}</div>
+                  </div>
+                  <div class="customer-view__content__card__column customer-view__content__card__column--last">
+                    <div class="customer-view__content__card__item"><span>Last 4: </span>{{entity.creditCards[0].ccnumber.substring(entity.creditCards[0].ccnumber.length-4, entity.creditCards[0].ccnumber.length)}}</div>
+                    <div class="customer-view__content__card__item"><span>Expiration: </span>{{entity.creditCards[0].expiration}}</div>
                   </div>
                 </md-card-content>
               </md-card>
