@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {FulfillmentProvidersService} from "../../shared/services/fulfillment-providers.service";
 import {FulfillmentProvider} from '../../shared/models/fulfillment-provider.model';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
@@ -12,7 +12,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
   templateUrl: './fulfillment-providers.component.html',
   styleUrls: ['./fulfillment-providers.component.scss']
 })
-export class FulfillmentProvidersComponent extends AbstractEntityIndexComponent<FulfillmentProvider> implements OnInit {
+export class FulfillmentProvidersComponent extends AbstractEntityIndexComponent<FulfillmentProvider> implements OnInit, OnDestroy {
 
   constructor(
     fulfillmentProvidersService: FulfillmentProvidersService,
@@ -26,5 +26,9 @@ export class FulfillmentProvidersComponent extends AbstractEntityIndexComponent<
 
   ngOnInit() {
     this.init();
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 }

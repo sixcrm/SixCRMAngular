@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ProductScheduleService} from '../../shared/services/product-schedule.service';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {ProductSchedule} from '../../shared/models/product-schedule.model';
@@ -12,7 +12,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
   templateUrl: './product-schedules.component.html',
   styleUrls: ['./product-schedules.component.scss']
 })
-export class ProductSchedulesComponent extends AbstractEntityIndexComponent<ProductSchedule> implements OnInit {
+export class ProductSchedulesComponent extends AbstractEntityIndexComponent<ProductSchedule> implements OnInit, OnDestroy {
 
   constructor(
     productScheduleService: ProductScheduleService,
@@ -26,6 +26,10 @@ export class ProductSchedulesComponent extends AbstractEntityIndexComponent<Prod
 
   ngOnInit() {
     this.init();
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 
 }

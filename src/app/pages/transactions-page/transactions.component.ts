@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {TransactionsService} from "../../shared/services/transactions.service";
 import {Transaction} from '../../shared/models/transaction.model';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
@@ -12,7 +12,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.scss']
 })
-export class TransactionsComponent extends AbstractEntityIndexComponent<Transaction> implements OnInit {
+export class TransactionsComponent extends AbstractEntityIndexComponent<Transaction> implements OnInit, OnDestroy {
 
   constructor(
     transactionsService: TransactionsService,
@@ -27,6 +27,10 @@ export class TransactionsComponent extends AbstractEntityIndexComponent<Transact
 
   ngOnInit() {
     this.init();
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 
 }

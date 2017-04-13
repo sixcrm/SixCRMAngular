@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {CreditCardsService} from '../../shared/services/credit-cards.service';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {CreditCard} from '../../shared/models/credit-card.model';
@@ -12,7 +12,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
   templateUrl: './credit-cards.component.html',
   styleUrls: ['./credit-cards.component.scss']
 })
-export class CreditCardsComponent extends AbstractEntityIndexComponent<CreditCard> implements OnInit {
+export class CreditCardsComponent extends AbstractEntityIndexComponent<CreditCard> implements OnInit, OnDestroy {
 
   constructor(
     creditCardsService: CreditCardsService,
@@ -26,6 +26,10 @@ export class CreditCardsComponent extends AbstractEntityIndexComponent<CreditCar
 
   ngOnInit() {
     this.init();
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 
 }

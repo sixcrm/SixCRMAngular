@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {MerchantProvidersService} from "../../shared/services/merchant-providers.service";
 import {MerchantProvider} from '../../shared/models/merchant-provider.model';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
@@ -12,7 +12,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
   templateUrl: './merchant-providers.component.html',
   styleUrls: ['./merchant-providers.component.scss']
 })
-export class MerchantProvidersComponent extends AbstractEntityIndexComponent<MerchantProvider> implements OnInit {
+export class MerchantProvidersComponent extends AbstractEntityIndexComponent<MerchantProvider> implements OnInit, OnDestroy {
 
   constructor(
     merchantProvidersService: MerchantProvidersService,
@@ -26,5 +26,9 @@ export class MerchantProvidersComponent extends AbstractEntityIndexComponent<Mer
 
   ngOnInit() {
     this.init();
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 }

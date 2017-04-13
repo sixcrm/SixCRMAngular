@@ -1,6 +1,6 @@
 import {ActivatedRoute, Params} from '@angular/router';
 import {AbstractEntityService} from '../shared/services/abstract-entity.service';
-import {Subject} from 'rxjs';
+import {AsyncSubject} from 'rxjs';
 import {ProgressBarService} from '../shared/services/progress-bar.service';
 import {Entity} from '../shared/models/entity.interface';
 
@@ -14,7 +14,7 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
   entity: T;
   entityBackup: T;
 
-  protected unsubscribe$: Subject<void> = new Subject<void>();
+  protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
   constructor(public service: AbstractEntityService<T>, route: ActivatedRoute, protected progressBarService?: ProgressBarService) {
     route.params.takeUntil(this.unsubscribe$).subscribe((params: Params) => {
@@ -72,6 +72,7 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
   }
 
   protected destroy(): void {
+    this.unsubscribe$.next(true);
     this.unsubscribe$.complete();
   }
 

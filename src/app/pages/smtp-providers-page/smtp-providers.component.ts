@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {SmtpProvidersService} from '../../shared/services/smtp-providers.service';
 import {SmtpProvider} from '../../shared/models/smtp-provider.model';
@@ -12,7 +12,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
   templateUrl: './smtp-providers.component.html',
   styleUrls: ['./smtp-providers.component.scss']
 })
-export class SmtpProvidersComponent extends AbstractEntityIndexComponent<SmtpProvider> implements OnInit {
+export class SmtpProvidersComponent extends AbstractEntityIndexComponent<SmtpProvider> implements OnInit, OnDestroy {
 
   constructor(
     smtpProvidersService: SmtpProvidersService,
@@ -26,6 +26,10 @@ export class SmtpProvidersComponent extends AbstractEntityIndexComponent<SmtpPro
 
   ngOnInit() {
     this.init();
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {CampaignsService} from "../../shared/services/campaigns.service";
 import {Campaign} from '../../shared/models/campaign.model';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
@@ -12,7 +12,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
   templateUrl: './campaigns.component.html',
   styleUrls: ['./campaigns.component.scss']
 })
-export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> implements OnInit {
+export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> implements OnInit, OnDestroy {
 
   constructor(
     campaignService: CampaignsService,
@@ -26,5 +26,9 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
 
   ngOnInit() {
     this.init();
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 }

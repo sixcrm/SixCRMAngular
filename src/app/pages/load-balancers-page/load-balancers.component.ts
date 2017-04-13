@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {LoadBalancersService} from "../../shared/services/load-balancers.service";
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {LoadBalancer} from '../../shared/models/load-balancers.model';
@@ -12,7 +12,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
   templateUrl: './load-balancers.component.html',
   styleUrls: ['./load-balancers.component.scss']
 })
-export class LoadBalancersComponent extends AbstractEntityIndexComponent<LoadBalancer> implements OnInit {
+export class LoadBalancersComponent extends AbstractEntityIndexComponent<LoadBalancer> implements OnInit, OnDestroy {
 
   constructor(
     loadBalancersService: LoadBalancersService,
@@ -26,6 +26,10 @@ export class LoadBalancersComponent extends AbstractEntityIndexComponent<LoadBal
 
   ngOnInit() {
     this.init();
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 
 }

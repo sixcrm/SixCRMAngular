@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AffiliatesService} from "../../shared/services/affiliates.service";
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {Affiliate} from '../../shared/models/affiliate.model';
@@ -12,7 +12,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
   templateUrl: './affiliates.component.html',
   styleUrls: ['./affiliates.component.scss']
 })
-export class AffiliatesComponent extends AbstractEntityIndexComponent<Affiliate> implements OnInit {
+export class AffiliatesComponent extends AbstractEntityIndexComponent<Affiliate> implements OnInit, OnDestroy {
 
   constructor(
     affiliatesService: AffiliatesService,
@@ -26,5 +26,9 @@ export class AffiliatesComponent extends AbstractEntityIndexComponent<Affiliate>
 
   ngOnInit() {
     this.init();
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 }

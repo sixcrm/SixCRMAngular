@@ -6,6 +6,7 @@ import {PaginationService} from '../shared/services/pagination.service';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Entity} from '../shared/models/entity.interface';
 import {ViewChild} from '@angular/core';
+import {AsyncSubject} from 'rxjs';
 
 export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
@@ -24,6 +25,8 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   fullScreen: boolean = false;
   mode: string;
 
+  protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
+
   constructor(
     protected service: AbstractEntityService<T>,
     protected authService: AuthenticationService,
@@ -33,25 +36,25 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   ) { }
 
   init(): void {
-    this.service.entities$.subscribe((entities: T[]) => {
+    this.service.entities$.takeUntil(this.unsubscribe$).subscribe((entities: T[]) => {
       this.entitiesHolder = [...this.entitiesHolder, ...entities];
       this.reshuffleEntities();
       this.progressBarService.hideTopProgressBar();
     });
 
-    this.service.entityDeleted$.subscribe((entity: T) => {
+    this.service.entityDeleted$.takeUntil(this.unsubscribe$).subscribe((entity: T) => {
       this.deleteEntityLocal(entity);
       this.showEntityDetails = false;
       this.progressBarService.hideTopProgressBar();
     });
-    this.service.entityCreated$.subscribe(() => this.reshuffleEntities());
-    this.service.entityUpdated$.subscribe((entity: T) => {
+    this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe(() => this.reshuffleEntities());
+    this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe((entity: T) => {
       this.updateEntityLocal(entity);
       this.progressBarService.hideTopProgressBar();
     });
-    this.service.entitiesHasMore$.subscribe((hasMore: boolean) => this.hasMore = hasMore);
-    this.paginationService.limit$.subscribe((lim: number) => this.limit = lim);
-    this.authService.activeAclChanged$.subscribe(() => {
+    this.service.entitiesHasMore$.takeUntil(this.unsubscribe$).subscribe((hasMore: boolean) => this.hasMore = hasMore);
+    this.paginationService.limit$.takeUntil(this.unsubscribe$).subscribe((lim: number) => this.limit = lim);
+    this.authService.activeAclChanged$.takeUntil(this.unsubscribe$).subscribe(() => {
       this.resetEntities();
       this.service.getEntities(this.limit);
     });
@@ -59,6 +62,11 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     this.service.resetPagination();
     this.service.getEntities(this.limit);
     this.progressBarService.showTopProgressBar();
+  }
+
+  destroy(): void {
+    this.unsubscribe$.next(true);
+    this.unsubscribe$.complete();
   }
 
   updateLimit(lim: number): void {
@@ -95,7 +103,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   deleteEntity(id: string): void {
     this.deleteDialogRef = this.deleteDialog.open(DeleteDialogComponent, { disableClose : true });
 
-    this.deleteDialogRef.afterClosed().subscribe(result => {
+    this.deleteDialogRef.afterClosed().takeUntil(this.unsubscribe$).subscribe(result => {
       this.deleteDialogRef = null;
       if (result.success) {
         this.service.deleteEntity(id);
