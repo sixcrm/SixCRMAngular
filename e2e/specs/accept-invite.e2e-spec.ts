@@ -9,8 +9,10 @@ import {
 } from '../utils/navigation.utils';
 import {doLogin} from '../utils/action.utils';
 import {expectUrlToContain} from '../utils/assertation.utils';
+import {sha1} from '@angular/compiler/src/i18n/digest';
 
 var supertest = require('supertest');
+var crypto = require('crypto');
 
 describe('Accept Invite', function() {
   let authPage: AuthPage;
@@ -18,7 +20,7 @@ describe('Accept Invite', function() {
 
   let inviteeEmail = 'testingregistration@example.com';
   let inviteePassword = 'testingregistrationpassword';
-  let link = '/acceptinvite?t=776e2d57b9662e83c738655cebbe9451b53826bc&p=dGVzdGluZ3JlZ2lzdHJhdGlvbkBleGFtcGxlLmNvbTo0NzE5NzhjZC0zOTAxLTRlZjMtYjFmYS0wZjBkYzZjN2Y4Njg6MTExNmMwNTQtNDJiYi00YmY1LTg0MWUtZWUwYzQxM2ZhNjllOjE0OTA5NjU5NjM=';
+  let link = generateInviteLink();
 
   beforeEach(() => {
     authPage = new AuthPage();
@@ -40,6 +42,9 @@ describe('Accept Invite', function() {
 
   it('should display message with invitee\'s email if non logged in user tries to accept invite', () => {
     acceptInvitePage.navigateTo(link);
+
+    browser.pause();
+
     waitForUrlContains('acceptinvite');
 
     expect(acceptInvitePage.getAcceptInviteDialog().isPresent()).toBeTruthy();
@@ -183,3 +188,12 @@ describe('Accept Invite', function() {
     expectUrlToContain('dashboard');
   })
 });
+
+function generateInviteLink() {
+  let pre_encrypted_string = 'testingregistration@example.com:5db7ed46-75b1-4ecd-b489-e61ef5d1107a:1116c054-42bb-4bf5-841e-ee0c413fa69e:'+Math.floor(Date.now() / 1000);
+
+  let invite_token = crypto.createHash('sha1').update('awdawdadawt33209sfsiofjsef'+pre_encrypted_string).digest('hex');
+  let encoded_params = new Buffer(pre_encrypted_string).toString('base64');
+
+  return '/acceptinvite?t='+invite_token+'&p='+encoded_params;
+}
