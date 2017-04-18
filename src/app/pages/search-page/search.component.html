@@ -78,6 +78,7 @@
         <table-pagination
           class="search__content__pagination"
           [limit]="limit"
+          [paginationString]="paginationString()"
           [paginationValues]="paginationValues"
           [previousDisabled]="page <= 0"
           [nextDisabled]="!hasMorePages()"
