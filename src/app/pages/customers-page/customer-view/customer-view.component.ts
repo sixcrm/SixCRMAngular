@@ -62,6 +62,11 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
     this.showNewNote = true;
   }
 
+  closeNote(): void {
+    this.note = '';
+    this.showNewNote = false;
+  }
+
   saveNote(): void {
     if (this.note) {
       let customerNote = new CustomerNote({customer: {id: this.entityId}, user: {id: this.authService.getSixUser().id}, body: this.note});

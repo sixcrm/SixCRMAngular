@@ -1,0 +1,366 @@
+$card-title-color: #5B9BE1;
+
+.customer-view {
+  &__info {
+    height: 160px;
+    line-height: 160px;
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+    background-color: #fff;
+
+    &__image {
+      display: inline-block;
+      margin: 0 20px 0 60px;
+
+      img {
+        height: 100px;
+        border-radius: 50%;
+        vertical-align: middle;
+      }
+    }
+
+    &__data {
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+
+      &__date {
+        font-size: 12px;
+      }
+
+      &__name {
+        margin: 12px 0;
+        font-size: 28px;
+        font-weight: 500;
+      }
+
+      &__other {
+        font-size: 12px;
+
+        span {
+          margin-right: 20px;
+
+          md-icon {
+            margin-right: 5px;
+            font-size: 14px;
+            width: 14px;
+            height: 14px;
+            vertical-align: middle;
+          }
+        }
+      }
+    }
+  }
+
+  &__navigation {
+    height: 50px;
+    line-height: 50px;
+    padding-left: 30px;
+    background-color: #F3F3F3;
+    border-top: 1px solid rgba(0, 0, 0, 0.4);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+
+    &__label {
+      margin: 0 20px;
+      font-size: 12px;
+      cursor: pointer;
+
+      &--active {
+        padding-bottom: 3px;
+        border-bottom: 2px solid #5B9BE1;
+      }
+    }
+  }
+
+  &__content {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+
+    &__card {
+      margin: 5px;
+      padding: 18px;
+      box-sizing: border-box;
+
+      md-card-title {
+        margin-bottom: 0;
+        color: #5B9BE1;
+        font-size: 15px;
+        font-weight: 500;
+
+        md-icon {
+          height: 18px;
+          line-height: 18px;
+          vertical-align: middle;
+          font-size: 18px;
+        }
+
+        span {
+          vertical-align: middle;
+        }
+      }
+
+      &__column {
+        display: inline-block;
+        margin-right: 20px;
+        vertical-align: top;
+
+        &--last {
+          margin-right: 0;
+        }
+      }
+
+      &__item {
+        margin-top: 15px;
+        font-size: 12px;
+
+        span {
+          font-weight: 500;
+        }
+      }
+
+      &__action {
+        float: right;
+        width: 12px;
+        height: 18px;
+        vertical-align: middle;
+        font-size: 18px;
+        color: rgba(0,0,0,0.4);
+        cursor: pointer;
+      }
+    }
+
+    .row {
+      display: flex;
+      width: 50%;
+
+      &--inline {
+        font-size: 0;
+      }
+
+      &__small {
+        width: calc(20% - 10px);
+      }
+
+      &__medium {
+        width: 30%;
+      }
+
+      &__large {
+        width: 50%;
+
+        &--inline {
+          display: inline-block;
+          width: calc(50% - 10px);
+          vertical-align: top;
+        }
+      }
+    }
+
+    .column {
+      display: flex;
+      flex-wrap: wrap;
+      width: 50%;
+
+      &__small {
+        width: calc(35% - 10px);
+      }
+
+      &__medium {
+        width: calc(65% - 10px);
+      }
+
+      &__large {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.credit-cards {
+  padding: 0;
+
+  &__title {
+    padding: 18px 18px 5px;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+    padding: 15px 18px;
+    font-size: 12px;
+
+    md-icon {
+      height: 20px;
+      width: 20px;
+      font-size: 20px;
+      color: $card-title-color;
+    }
+
+    img {
+      height: 30px;
+    }
+  }
+}
+
+.notes {
+  padding: 0;
+  min-height: 105px;
+
+  md-card-title {
+    padding: 18px;
+  }
+
+  &__title {
+    background-color: #E8E8E8;
+    color: rgba(0,0,0,0.6);
+    padding: 5px 18px;
+
+    md-icon {
+      margin: 0 5px 0 15px;
+      width: 16px;
+      height: 16px;
+      font-size: 16px;
+      vertical-align: middle;
+    }
+
+    &__label {
+      vertical-align: middle;
+      font-size: 12px;
+      font-weight: 400;
+    }
+
+    &__save {
+      float: right;
+      vertical-align: middle;
+      font-size: 12px;
+      font-weight: 400;
+      cursor: pointer;
+    }
+  }
+
+  &__content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 12px 18px 24px;
+    font-size: 12px;
+
+    span {
+      margin: 0 20px;
+    }
+
+    img {
+      height: 40px;
+    }
+
+    &__action {
+      position: absolute;
+      top: 20px;
+      right: 12px;
+      color: rgba(0,0,0,0.4);
+      cursor: pointer;
+    }
+  }
+
+  &__button {
+    position: absolute;
+    top: 67px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    background-color: #4A90E2;
+    color: white;
+    z-index: 1;
+    cursor: pointer;
+
+    md-icon {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      width: 16px;
+      font-size: 16px;
+      height: 16px;
+    }
+  }
+
+  &__new {
+    position: absolute;
+    top: 62px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    width: 85%;
+    padding: 10px 10px 5px;
+    background: white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.4);
+
+    md-textarea {
+      width: 100%;
+
+      textarea {
+        height: 120px;
+      }
+
+    }
+
+    &__actions {
+
+      md-icon {
+        padding: 0 10px;
+        cursor: pointer;
+      }
+      &__close {
+        color: #D0021B;
+      }
+
+      &__done {
+        color: #60B003;
+      }
+    }
+  }
+}
+
+.events {
+  padding: 0;
+
+  md-card-title {
+    padding: 18px;
+  }
+
+  &__title {
+    background-color: #E8E8E8;
+    color: rgba(0,0,0,0.6);
+    padding: 5px 18px;
+
+    &__label {
+      vertical-align: middle;
+      font-size: 12px;
+      font-weight: 400;
+    }
+  }
+
+  &__content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 12px 18px;
+    font-size: 12px;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+
+    span {
+      margin-left: 10px;
+    }
+
+    img {
+      height: 40px;
+    }
+  }
+}
+
+.tab--placeholder {
+  min-height: 100vh;
+}

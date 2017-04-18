@@ -28,8 +28,8 @@
     <md-tab-group [(selectedIndex)]="selectedIndex">
       <md-tab>
         <div class="customer-view__content">
-            <div class="row">
-              <md-card class="customer-view__content__card row__small">
+            <div class="column">
+              <md-card class="customer-view__content__card column__small">
                 <md-card-title>SHIPPING ADDRESS</md-card-title>
                 <md-card-content>
                   <div class="customer-view__content__card__item"><span>Name: </span>{{entity.firstName}} {{entity.lastName}}</div>
@@ -42,7 +42,7 @@
                 </md-card-content>
               </md-card>
 
-              <md-card *ngIf="entity.creditCards && entity.creditCards.length !== 1" class="customer-view__content__card credit-cards row__medium">
+              <md-card *ngIf="entity.creditCards && entity.creditCards.length !== 1" class="customer-view__content__card credit-cards column__medium">
                 <md-card-title class="credit-cards__title">
                   <span>CREDIT CARDS</span>
                   <md-icon class="customer-view__content__card__action">more_vert</md-icon>
@@ -57,7 +57,7 @@
                 </md-card-content>
               </md-card>
 
-              <md-card *ngIf="entity.creditCards && entity.creditCards.length === 1" class="customer-view__content__card row__medium">
+              <md-card *ngIf="entity.creditCards && entity.creditCards.length === 1" class="customer-view__content__card column__medium">
                 <md-card-title>
                   <md-icon>credit_card</md-icon>
                   <span>{{entity.creditCards[0].ccnumber.substring(entity.creditCards[0].ccnumber.length-4, entity.creditCards[0].ccnumber.length)}}</span>
@@ -80,7 +80,54 @@
                 </md-card-content>
               </md-card>
 
-              <md-card class="customer-view__content__card events row__large">
+              <md-card class="customer-view__content__card column__large">
+                <md-card-title>
+                  <md-icon>trending_up</md-icon>
+                  RECENT TRANSACTIONS
+                  <md-icon class="customer-view__content__card__action">more_vert</md-icon>
+                </md-card-title>
+                <md-card-content>
+                </md-card-content>
+              </md-card>
+
+            </div>
+
+            <div class="column">
+              <md-card class="customer-view__content__card notes column__large">
+                <md-card-title>NOTES</md-card-title>
+                <md-card-content>
+                  <div *ngIf="showNewNote" class="notes__new">
+                    <md-textarea [(ngModel)]="note"></md-textarea>
+
+                    <div class="notes__new__actions">
+                      <md-icon (click)="closeNote()" class="notes__new__actions__close">clear</md-icon>
+                      <md-icon (click)="saveNote()" class="notes__new__actions__done">done</md-icon>
+                    </div>
+                  </div>
+
+                  <div class="notes" *ngFor="let n of notes">
+                    <div class="notes__title">
+                      <span class="notes__title__label">{{n.user.name}}</span>
+                      <md-icon>date_range</md-icon>
+                      <span class="notes__title__label">{{n.createdAt.format('MM/DD/YYYY')}}</span>
+                      <md-icon>query_builder</md-icon>
+                      <span class="notes__title__label">{{n.createdAt.format('HH:mm')}}</span>
+                    </div>
+                    <div class="notes__content">
+                      <div><img src="assets/images/alert-icon.svg"></div>
+                      <span>{{n.body}}</span>
+                      <md-icon class="notes__content__action" [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
+
+                      <md-menu #actionsMenu="mdMenu" x-position="before">
+                        <button md-menu-item (click)="deleteNote(n)">delete</button>
+                      </md-menu>
+                    </div>
+                  </div>
+                  <div *ngIf="!showNewNote" class="notes__button" (click)="newNote()"><md-icon>add</md-icon></div>
+                </md-card-content>
+              </md-card>
+
+              <md-card class="customer-view__content__card events column__large">
                 <md-card-title>
                   CUSTOMER EVENTS
                   <md-icon class="customer-view__content__card__action">more_vert</md-icon>
@@ -93,55 +140,6 @@
                     <div><img src="assets/images/alert-icon.svg"></div>
                     <span>{{entity.firstName}} {{entity.lastName}} user created</span>
                   </div>
-                </md-card-content>
-              </md-card>
-
-            </div>
-
-            <div class="row">
-              <md-card class="customer-view__content__card notes row__large">
-                <md-card-title>NOTES</md-card-title>
-                <md-card-content>
-                  <div *ngIf="showNewNote" class="notes">
-                    <div class="notes__title">
-                      <span class="notes__title__label">New Note</span>
-                      <span class="notes__title__save" (click)="saveNote()">SAVE</span>
-                    </div>
-                    <div class="notes__content">
-                      <md-textarea [(ngModel)]="note"></md-textarea>
-                    </div>
-                  </div>
-
-                  <div class="notes" *ngFor="let n of notes">
-                    <div class="notes__title">
-                      <span class="notes__title__label">{{n.user.name}}</span>
-                      <md-icon>date_range</md-icon>
-                      <span class="notes__title__label">{{n.createdAt.format('MM/DD/YYYY')}}</span>
-                      <md-icon>query_builder</md-icon>
-                      <span class="notes__title__label">{{n.createdAt.format('HH:mm')}}</span>
-                      <md-icon class="notes__title__action" [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-
-                      <md-menu #actionsMenu="mdMenu" x-position="before">
-                        <button md-menu-item (click)="deleteNote(n)">delete</button>
-                      </md-menu>
-                    </div>
-                    <div class="notes__content">
-                      <div><img src="assets/images/alert-icon.svg"></div>
-                      <span>{{n.body}}</span>
-                    </div>
-                  </div>
-
-                  <div class="notes__button" (click)="newNote()">ADD</div>
-                </md-card-content>
-              </md-card>
-
-              <md-card class="customer-view__content__card row__large">
-                <md-card-title>
-                  <md-icon>trending_up</md-icon>
-                  RECENT TRANSACTIONS
-                  <md-icon class="customer-view__content__card__action">more_vert</md-icon>
-                </md-card-title>
-                <md-card-content>
                 </md-card-content>
               </md-card>
             </div>
