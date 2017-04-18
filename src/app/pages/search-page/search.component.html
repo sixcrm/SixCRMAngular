@@ -70,7 +70,11 @@
 
     <div class="search__content">
       <div class="search__content__title">
-        <span>Search Results <span *ngIf="numberOfSearchResults && numberOfSearchResults > 0">({{numberOfSearchResults}})</span></span>
+        <span>Search Results
+          <span *ngIf="numberOfSearchResults && numberOfSearchResults > 0">({{numberOfSearchResults}})</span>
+        </span>
+        <md-icon *ngIf="numberOfSearchResults && numberOfSearchResults > 0" class="search__content__title__view--toggle" (click)="toggleView()">{{listMode
+          ? 'view_module' : 'view_headline'}}</md-icon>
         <table-pagination
           class="search__content__pagination"
           [limit]="limit"
@@ -83,8 +87,12 @@
         </table-pagination>
       </div>
 
-      <ng-container *ngFor="let res of searchResultsToDisplay">
-        <result-item [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResultDetails($event)"></result-item>
+      <ng-container *ngIf="listMode" >
+        <result-item *ngFor="let res of searchResultsToDisplay" [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResultDetails($event)"></result-item>
+      </ng-container>
+
+      <ng-container *ngIf="!listMode" >
+        <result-item-table *ngFor="let res of searchResultsToDisplay" [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResultDetails($event)"></result-item-table>
       </ng-container>
 
       <table-pagination

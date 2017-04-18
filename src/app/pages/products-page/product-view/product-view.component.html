@@ -1,7 +1,8 @@
 <div *ngIf="entity" class="entity-view">
   <div class="entity-view__title">Product {{entity.name}}</div>
 
-  <div *ngIf="service.hasWritePermission()" class="entity-view__change-mode" (click)="changeMode()"><md-icon>{{viewMode ? 'border_color' : 'reply'}}</md-icon></div>
+  <div *ngIf="service.hasWritePermission()" class="entity-view__change-mode" (click)="changeMode()"><md-icon>{{listMode
+    ? 'border_color' : 'reply'}}</md-icon></div>
 
   <div *ngIf="entity" class="entity-view__content">
 
@@ -14,22 +15,22 @@
       </div>
       <div class="entity-view__content__fields__item">
         <span class="entity-view__content__fields__item__label">Name:</span>
-        <span *ngIf="viewMode">{{entity.name}}</span>
+        <span *ngIf="listMode">{{entity.name}}</span>
         <md-input *ngIf="updateMode" [(ngModel)]="entity.name"></md-input>
       </div>
       <div class="entity-view__content__fields__item">
         <span class="entity-view__content__fields__item__label">SKU:</span>
-        <span *ngIf="viewMode">{{entity.sku}}</span>
+        <span *ngIf="listMode">{{entity.sku}}</span>
         <md-input *ngIf="updateMode" [(ngModel)]="entity.sku"></md-input>
       </div>
       <div class="entity-view__content__fields__item">
         <span class="entity-view__content__fields__item__label">Ship:</span>
-        <span *ngIf="viewMode">{{entity.ship}}</span>
+        <span *ngIf="listMode">{{entity.ship}}</span>
         <md-input *ngIf="updateMode" [(ngModel)]="entity.ship"></md-input>
       </div>
       <div class="entity-view__content__fields__item">
         <span class="entity-view__content__fields__item__label">Shipping Delay:</span>
-        <span *ngIf="viewMode">{{entity.shippingDelay}}</span>
+        <span *ngIf="listMode">{{entity.shippingDelay}}</span>
         <md-input class="input--small" *ngIf="updateMode" [(ngModel)]="entity.shippingDelay"></md-input>
       </div>
     </div>

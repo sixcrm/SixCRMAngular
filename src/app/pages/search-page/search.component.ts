@@ -45,6 +45,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   checkboxClicked$: Subject<boolean> = new Subject<boolean>();
 
+  listMode: boolean = true;
+
   entityTypesChecked: any  = {
     campaign: false,
     customer: false,
@@ -169,9 +171,12 @@ export class SearchComponent implements OnInit, OnDestroy {
       if (Object.keys(opt).length > 0) {
         this.performSearch(opt, this.createdAtRange, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
       }
-    } else if (this.queryString) {
+    } else {
       this.prepareNewSearch();
-      this.performSearch(this.queryString, this.createdAtRange, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
+
+      if (this.queryString) {
+        this.performSearch(this.queryString, this.createdAtRange, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
+      }
     }
   }
 
@@ -196,7 +201,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   };
 
   quickSearchKeyDown(event): void {
-    if (event && event.key === 'Enter' && this.queryString) {
+    if (event && event.key === 'Enter') {
       this.quickSearch();
     }
   }
@@ -275,6 +280,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     return false;
+  }
+
+  toggleView(): void {
+    this.listMode = !this.listMode;
   }
 
   private prepareNewSearch(): void {
