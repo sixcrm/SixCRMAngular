@@ -70,7 +70,7 @@
 
     <div class="search__content">
       <div class="search__content__title">
-        <span>Search Results</span>
+        <span>Search Results <span *ngIf="numberOfSearchResults && numberOfSearchResults > 0">({{numberOfSearchResults}})</span></span>
         <table-pagination
           class="search__content__pagination"
           [limit]="limit"

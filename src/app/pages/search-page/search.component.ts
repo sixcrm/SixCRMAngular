@@ -37,6 +37,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   searchResults: any[] = [];
   searchResultsToDisplay: any[] = [];
+  numberOfSearchResults: number = 0;
   hasMore: boolean = true;
 
   entityTypesCount: any = {};
@@ -142,6 +143,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     this.searchService.searchResults$.subscribe((data) => {
       this.searchResults = [...this.searchResults, ...data.hit];
+      this.numberOfSearchResults = data.found;
       this.hasMore = data.hit.length >= this.limit;
       this.reshuffleSearchResults();
       this.progressBarService.hideTopProgressBar();
@@ -278,6 +280,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   private prepareNewSearch(): void {
     this.searchResults = [];
     this.searchResultsToDisplay = [];
+    this.numberOfSearchResults = 0;
     this.entityTypesCount = {};
     this.page = 0;
   }

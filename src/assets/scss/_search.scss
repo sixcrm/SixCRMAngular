@@ -1,4 +1,4 @@
-$main-color: #979797;
+$main-color: #858585;
 $border-color: rgba(0, 0, 0, 0.2);
 
 .search {
@@ -171,8 +171,9 @@ $border-color: rgba(0, 0, 0, 0.2);
     &__title {
       line-height: 40px;
       padding: 10px 20px;
-      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       color: $main-color;
+      background: #E3E3E3;
       font-size: 22px;
     }
 
