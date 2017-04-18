@@ -24,4 +24,16 @@ export class SearchPage {
   getOneCheckbox() {
     return element(by.css('.md-checkbox-layout'));
   }
+
+  getQuickSearchInput() {
+    return element(by.css('.search__sidenav__query__container')).element(by.css('input'));
+  }
+
+  getQuickSearchButton() {
+    return element(by.css('.search__sidenav__query__icon'));
+  }
+
+  getSuggestions() {
+    return element(by.css('autocomplete'));
+  }
 }

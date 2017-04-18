@@ -102,6 +102,29 @@ describe('Search', function() {
     expect(searchPage.getCheckboxes().count()).toBeGreaterThan(0);
   });
 
+  it('should clear results list when search is empty string', () => {
+    browser.get('/search?query=test');
+
+    waitForUrlContains('/search?query=test');
+    waitForPresenceOf(searchPage.getOneSearchResult());
+
+    searchPage.getQuickSearchInput().clear();
+    searchPage.getQuickSearchButton().click();
+
+    browser.sleep(200);
+    expect(searchPage.getResults().count()).toBe(0);
+  });
+
+  it('should show suggestions when search', () => {
+    browser.get('/search');
+    waitForUrlContains('/search');
+
+    searchPage.getQuickSearchInput().sendKeys('t');
+    waitForPresenceOf(searchPage.getSuggestions());
+
+    expectPresent(searchPage.getSuggestions());
+  });
+
 });
 
 function login() {
