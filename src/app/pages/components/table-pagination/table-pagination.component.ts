@@ -19,6 +19,9 @@ export class TablePaginationComponent implements OnInit {
   @Input()
   previousDisabled: boolean;
 
+  @Input()
+  paginationString: string;
+
   @Output()
   next: EventEmitter<boolean> = new EventEmitter<boolean>();
 

@@ -286,6 +286,15 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.listMode = !this.listMode;
   }
 
+  paginationString(): string {
+    let upper = this.page * this.limit + this.limit;
+    if (upper > this.numberOfSearchResults) {
+      upper = this.numberOfSearchResults;
+    }
+
+    return `${this.page * this.limit + 1}-${upper} of ${this.numberOfSearchResults}`;
+  }
+
   private prepareNewSearch(): void {
     this.searchResults = [];
     this.searchResultsToDisplay = [];

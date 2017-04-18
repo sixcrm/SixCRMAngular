@@ -10,6 +10,8 @@
     </button>
   </md-menu>
 
+  <span *ngIf="paginationString">{{paginationString}}</span>
+
   <button class="entity-index__pagination__buttons__button--left" [disabled]="previousDisabled" md-icon-button (click)="previous.emit(true)">
     <md-icon>keyboard_arrow_left</md-icon>
   </button>
