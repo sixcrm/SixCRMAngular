@@ -1,6 +1,7 @@
 import {Moment, utc} from 'moment';
+import {Entity} from './entity.interface';
 
-export class Notification {
+export class Notification implements Entity<Notification> {
   id: string;
   user: string;
   account: string;
@@ -25,5 +26,23 @@ export class Notification {
     this.readAt = obj.read_at || '';
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+  }
+
+  copy(): Notification {
+    return new Notification(this.inverse())
+  }
+
+  inverse(): any {
+    return {
+      id: this.id,
+      user: this.user,
+      account: this.account,
+      type: this.type,
+      action: this.action,
+      message: this.message,
+      readAt: this.readAt,
+      createdAt: this.createdAt.format(),
+      updatedAt: this.updatedAt.format()
+    }
   }
 }

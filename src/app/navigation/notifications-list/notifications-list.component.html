@@ -2,7 +2,11 @@
   <div class="notifications-list__topnav">
     <md-icon (click)="closeNotifications()">keyboard_arrow_right</md-icon>
     <span>Notifications</span>
-    <md-icon class="notifications-list__topnav__options">more_vert</md-icon>
+    <md-icon class="notifications-list__topnav__options" [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
+
+    <md-menu #actionsMenu="mdMenu" x-position="before">
+      <button md-menu-item [routerLink]="['/notifications']">View All</button>
+    </md-menu>
   </div>
 
   <div class="notifications-list__content">

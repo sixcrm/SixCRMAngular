@@ -11,6 +11,7 @@ const appRoutes: Routes = [
     { path : 'search', loadChildren : './pages/search-page/search.module#SearchModule', canActivate: [AuthGuard] },
     { path : 'profile', loadChildren : './pages/profile-page/profile-page.module#ProfilePageModule', canActivate: [AuthGuard] },
     { path : 'advanced-search', loadChildren : './pages/advanced-search-page/advanced-search.module#AdvancedSearchModule', canActivate: [AuthGuard] },
+    { path : 'notifications', loadChildren : './pages/notifications-page/notifications.module#NotificationsModule', canActivate: [AuthGuard] },
     { path : 'affiliates', loadChildren : './pages/affiliates-page/affiliates.module#AffiliatesModule', canActivate: [AuthGuard] },
     { path : 'campaigns', loadChildren : './pages/campaigns-page/campaigns.module#CampaignsModule', canActivate: [AuthGuard] },
     { path : 'creditcards', loadChildren : './pages/credit-cards-page/credit-cards.module#CreditCardsModule', canActivate: [AuthGuard] },

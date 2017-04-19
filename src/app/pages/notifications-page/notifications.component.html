@@ -1,0 +1,7 @@
+<div *ngFor="let notification of entities">
+  <span>{{notification.user}}</span>
+  <span>{{notification.type}}</span>
+  <span>{{notification.action}}</span>
+  <span>{{notification.message}}</span>
+  <span>{{notification.createdAt.format()}}</span>
+</div>
