@@ -17,6 +17,14 @@ export class SearchPage {
     return element(by.css('.search__content__results__item'));
   }
 
+  getTableResults() {
+    return element.all(by.css('.search__content__results--table'));
+  }
+
+  getOneSearchTableResult() {
+    return element(by.css('.search__content__results--table'));
+  }
+
   getCheckboxes() {
     return element.all(by.css('.md-checkbox-layout'));
   }
@@ -35,5 +43,13 @@ export class SearchPage {
 
   getSuggestions() {
     return element(by.css('autocomplete'));
+  }
+
+  getViewModeToggle() {
+    return element(by.css('.search__content__title__view--toggle'));
+  }
+
+  getAdvancedSearchToggle() {
+    return element(by.css('.search__sidenav__button--advanced'));
   }
 }

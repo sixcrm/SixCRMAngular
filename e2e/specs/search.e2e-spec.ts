@@ -7,7 +7,8 @@ import {browser} from 'protractor';
 import {doLogin} from '../utils/action.utils';
 import {AuthPage} from '../po/auth.po';
 import {SearchPage} from '../po/search.po';
-import {AppPage} from '../po/App.po';
+import {AppPage} from '../po/app.po';
+import {AdvancedSearchPage} from '../po/advanced-search.po';
 
 let username = 'nikola.bosic@toptal.com';
 let password = '123456789';
@@ -19,11 +20,13 @@ describe('Search', function() {
 
   let authPage: AuthPage;
   let searchPage: SearchPage;
+  let advancedSearchPage: AdvancedSearchPage;
   let app: AppPage;
 
   beforeEach(() => {
     authPage = new AuthPage();
     searchPage = new SearchPage();
+    advancedSearchPage = new AdvancedSearchPage();
     app = new AppPage();
   });
 
@@ -100,6 +103,71 @@ describe('Search', function() {
 
     expect(searchPage.getResults().count()).toBeGreaterThan(0);
     expect(searchPage.getCheckboxes().count()).toBeGreaterThan(0);
+  });
+
+  it('should toggle between table and grid', () => {
+    browser.get('/search?query=t');
+
+    waitForUrlContains('/search?query=t');
+    waitForPresenceOf(searchPage.getOneSearchResult());
+
+    searchPage.getViewModeToggle().click();
+    waitForPresenceOf(searchPage.getOneSearchTableResult());
+
+    expect(searchPage.getTableResults().count()).toBeGreaterThan(0);
+    expect(searchPage.getResults().count()).toBe(0);
+
+    searchPage.getViewModeToggle().click();
+    waitForPresenceOf(searchPage.getOneSearchResult());
+
+    expect(searchPage.getTableResults().count()).toBe(0);
+    expect(searchPage.getResults().count()).toBeGreaterThan(0);
+  });
+
+  it('should toggle advanced search component', () => {
+    browser.get('/search');
+
+    waitForUrlContains('/search');
+
+    searchPage.getAdvancedSearchToggle().click();
+    waitForPresenceOf(advancedSearchPage.getComponent());
+
+    expectPresent(advancedSearchPage.getComponent());
+
+    searchPage.getAdvancedSearchToggle().click();
+    waitForNotPresenceOf(advancedSearchPage.getComponent());
+
+    expectNotPresent(advancedSearchPage.getComponent());
+  });
+
+  it('should hide advanced search component on quick search', () => {
+    browser.get('/search');
+
+    waitForUrlContains('/search');
+
+    searchPage.getAdvancedSearchToggle().click();
+    waitForPresenceOf(advancedSearchPage.getComponent());
+
+    searchPage.getQuickSearchInput().sendKeys('test');
+    searchPage.getQuickSearchButton().click();
+
+    waitForNotPresenceOf(advancedSearchPage.getComponent());
+    expectNotPresent(advancedSearchPage.getComponent());
+  });
+
+  it('should hide advanced search component on advanced search', () => {
+    browser.get('/search');
+
+    waitForUrlContains('/search');
+
+    searchPage.getAdvancedSearchToggle().click();
+    waitForPresenceOf(advancedSearchPage.getComponent());
+
+    advancedSearchPage.getSearchInputs().get(0).sendKeys('test');
+    advancedSearchPage.getSearchButton().click();
+
+    waitForNotPresenceOf(advancedSearchPage.getComponent());
+    expectNotPresent(advancedSearchPage.getComponent());
   });
 
   it('should clear results list when search is empty string', () => {

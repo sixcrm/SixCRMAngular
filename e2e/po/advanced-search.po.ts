@@ -5,6 +5,10 @@ export class AdvancedSearchPage {
     browser.get('/advanced-search')
   }
 
+  getComponent() {
+    return element(by.css('advanced-search'));
+  }
+
   getSearchInputs() {
     return element(by.css('.advanced-search__content__fields')).all(by.css('input'));
   }
