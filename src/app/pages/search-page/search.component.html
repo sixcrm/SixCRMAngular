@@ -14,6 +14,7 @@
           <ng-container *ngFor="let option of queryOptions">
             <div [class.option--disabled]="!option.enabled" class="search__sidenav__option">
               <div class="search__sidenav__option__content">
+                <span class="search__sidenav__option__label">{{queryOptsLabel[option.key]}}:</span>
                 <span class="search__sidenav__option__value">{{option.value}}</span>
               </div>
               <md-icon [style.transform]="option.enabled ? 'rotate(45deg)' : 'rotate(90deg)'" (click)="toggleAdvancedSearchFieldEnabled(option)">add</md-icon>

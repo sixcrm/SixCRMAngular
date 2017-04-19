@@ -76,7 +76,7 @@ $border-color: rgba(0, 0, 0, 0.2);
       margin: 5px;
       padding: 3px 7px;
       font-size: 12px;
-      text-align: center;
+      text-align: left;
       border-radius: 5px;
       border: 1px solid rgba(0, 0, 0, 0.3);
 
@@ -87,6 +87,9 @@ $border-color: rgba(0, 0, 0, 0.2);
       }
 
       &__label {
+        display: inline-block;
+        margin-right: 3px;
+        text-align: left;
         color: rgba(0,0,0,0.5);
       }
 
