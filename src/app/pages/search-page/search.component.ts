@@ -6,6 +6,7 @@ import {Subscription, Subject} from 'rxjs';
 import {PaginationService} from '../../shared/services/pagination.service';
 import {utc} from 'moment';
 import {DaterangepickerConfig} from 'ng2-daterangepicker';
+import {NavigationService} from '../../navigation/navigation.service';
 
 @Component({
   selector: 'c-search',
@@ -82,7 +83,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     private progressBarService: ProgressBarService,
     private searchService: SearchService,
     private paginationService: PaginationService,
-    private daterangepickerOptions: DaterangepickerConfig
+    private daterangepickerOptions: DaterangepickerConfig,
+    private navigationService: NavigationService
   ) {
     this.startDate = utc().subtract(30,'d');
     this.endDate = utc();
@@ -121,6 +123,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.navigationService.toggleSidenav(false);
 
     this.paginationService.searchResultsLimit$.subscribe((limit) => this.limit = limit);
 
