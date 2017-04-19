@@ -188,6 +188,16 @@ $border-color: rgba(0, 0, 0, 0.2);
         vertical-align: middle;
         cursor: pointer;
       }
+
+      &__options {
+        display: inline-block;
+        float: right;
+        font-size: 12px;
+
+        .search__content__pagination {
+          margin-left: 30px;
+        }
+      }
     }
 
     table-pagination > div {
@@ -312,6 +322,8 @@ $border-color: rgba(0, 0, 0, 0.2);
 
       &--table {
         display: flex;
+        box-sizing: border-box;
+        width: 100%;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         padding: 15px 30px;
         font-size: 14px;

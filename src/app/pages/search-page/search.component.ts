@@ -50,6 +50,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   listMode: boolean = true;
 
+  sortBy: string;
+
   entityTypesChecked: any  = {
     campaign: false,
     customer: false,
@@ -182,13 +184,13 @@ export class SearchComponent implements OnInit, OnDestroy {
       let opt: any = this.transformSearchOptions();
       this.prepareNewSearch();
       if (Object.keys(opt).length > 0) {
-        this.performSearch(opt, this.createdAtRange, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
+        this.performSearch(opt, this.createdAtRange, this.sortBy, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
       }
     } else {
       this.prepareNewSearch();
 
       if (this.queryString) {
-        this.performSearch(this.queryString, this.createdAtRange, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
+        this.performSearch(this.queryString, this.createdAtRange, this.sortBy, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
       }
     }
   }
@@ -310,6 +312,11 @@ export class SearchComponent implements OnInit, OnDestroy {
     return `${this.page * this.limit + 1}-${upper} of ${this.numberOfSearchResults}`;
   }
 
+  setSortBy(value: string): void {
+    this.sortBy = value;
+    this.search();
+  }
+
   private prepareNewSearch(): void {
     this.searchResults = [];
     this.searchResultsToDisplay = [];
@@ -328,7 +335,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       if (this.hasMore) {
         let query: any = this.isAdvancedSearch ? this.transformSearchOptions() : this.queryString;
 
-        this.performSearch(query, this.createdAtRange, this.searchResults.length, this.limit - tempResults.length, this.getCheckedEntityTypes());
+        this.performSearch(query, this.createdAtRange, this.sortBy, this.searchResults.length, this.limit - tempResults.length, this.getCheckedEntityTypes());
       }
     }
   }
@@ -344,9 +351,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     return opt;
   }
 
-  private performSearch(query: string|any, createdAtRange: string, offset: number, count: number, entityTypes: any): void {
+  private performSearch(query: string|any, createdAtRange: string, sortBy: string, offset: number, count: number, entityTypes: any): void {
     this.progressBarService.showTopProgressBar();
-    this.searchService.searchByQuery(query, createdAtRange, offset, count, entityTypes);
+    this.searchService.searchByQuery(query, createdAtRange, sortBy, offset, count, entityTypes);
     this.searchService.searchFacets(query, createdAtRange);
   }
 

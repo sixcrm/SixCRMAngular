@@ -30,13 +30,13 @@ export class SearchService {
     })
   }
 
-  searchByQuery(query: string | any, createdAtRange: string, start: number, count: number, entityTypes?: string[]): void {
+  searchByQuery(query: string | any, createdAtRange: string, sortBy: string, start: number, count: number, entityTypes?: string[]): void {
     let q = '';
 
     if (typeof query === 'string') {
-      q = searchQuery(query, createdAtRange, start, count, entityTypes);
+      q = searchQuery(query, createdAtRange, sortBy, start, count, entityTypes);
     } else {
-      q = searchAdvancedQuery(query, createdAtRange, start, count, entityTypes)
+      q = searchAdvancedQuery(query, createdAtRange, sortBy, start, count, entityTypes)
     }
 
     this.queryRequest(q).subscribe(

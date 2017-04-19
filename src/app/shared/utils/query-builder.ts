@@ -18,7 +18,7 @@ function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
 }
 
-export function  searchQuery(query: string, createdAtRange: string, start: number, size: number, entityTypes?: string[]): string {
+export function  searchQuery(query: string, createdAtRange: string, sortBy: string, start: number, size: number, entityTypes?: string[]): string {
   let entityTypesQuery: string = '';
 
   if (entityTypes && entityTypes.length > 0) {
@@ -32,8 +32,13 @@ export function  searchQuery(query: string, createdAtRange: string, start: numbe
     filterQuery = `(and created_at:${createdAtRange} ${entityTypesQuery})`
   }
 
+  let sort = '';
+  if (sortBy) {
+    sort = `sort:"${sortBy}"`;
+  }
+
   return `{
-		search (search: {query: "${query}*" filterQuery:"${filterQuery}" start: "${start}" size: "${size}"}) {
+		search (search: {query: "${query}*" filterQuery:"${filterQuery}" ${sort} start: "${start}" size: "${size}"}) {
 			status { timems rid }
 			hits { found start
 				hit { id fields }
@@ -56,7 +61,7 @@ export function  searchFacets(query: string, createdAtRange: string): string {
 	}`;
 }
 
-export function  searchAdvancedQuery(options: any, createdAtRange: string, start: number, size: number, entityTypes?: string[]): string {
+export function  searchAdvancedQuery(options: any, createdAtRange: string, sortBy: string, start: number, size: number, entityTypes?: string[]): string {
   let fieldsQuery = '';
   if (createdAtRange) {
     fieldsQuery += ` created_at: ${createdAtRange} `;
@@ -87,9 +92,14 @@ export function  searchAdvancedQuery(options: any, createdAtRange: string, start
     filterQuery+= ')'
   }
 
+  let sort = '';
+  if (sortBy) {
+    sort = `sort:"${sortBy}"`;
+  }
+
   return `
   {
-    search (search: {query: "(and${fieldsQuery})" filterQuery: "${filterQuery}" queryParser: "structured" start: "${start}" size: "${size}"}) {
+    search (search: {query: "(and${fieldsQuery})" filterQuery: "${filterQuery}" queryParser: "structured" ${sort} start: "${start}" size: "${size}"}) {
       hits {
         found start
         hit { id fields }
