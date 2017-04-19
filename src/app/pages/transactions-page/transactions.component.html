@@ -22,7 +22,7 @@
         <tbody>
         <tr *ngFor="let entity of entities">
           <td (click)="viewEntity(entity.id)">{{entity.id}}</td>
-          <td (click)="viewEntity(entity.id)">{{entity.date}}</td>
+          <td (click)="viewEntity(entity.id)">{{entity.createdAt.format('MM/DD/YYYY')}}</td>
           <td (click)="viewEntity(entity.id)">{{entity.amount}}</td>
           <td (click)="viewEntity(entity.id)">{{entity.processorResponse.message}}</td>
           <td>

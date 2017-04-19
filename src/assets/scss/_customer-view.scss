@@ -174,6 +174,48 @@ $card-title-color: #5B9BE1;
       }
     }
   }
+
+  &__transactions {
+    min-height: calc(100vh - 345px);
+    background: white;
+
+    table {
+      font-size: 13px;
+
+      tr {
+        td,th {
+          &:first-child {
+            padding-left: 50px;
+          }
+
+          &:last-child {
+            padding-right: 30px;
+            width: 40px;
+          }
+        }
+      }
+
+      thead {
+        border: none !important;
+
+        th {
+          padding: 30px 5px;
+          font-weight: 400;
+        }
+      }
+
+      tbody {
+
+        tr {
+          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        td {
+          padding: 5px;
+        }
+      }
+    }
+  }
 }
 
 .credit-cards {
