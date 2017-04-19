@@ -156,7 +156,7 @@ export function menuItems(authService: AuthenticationService): MenuItem[] {
   }
 
   // Add Search menu item
-  items.push(new MenuItem('Search', 'advanced-search').setIcon('search'));
+  items.push(new MenuItem('Search', 'search').setIcon('search'));
 
   return items;
 }

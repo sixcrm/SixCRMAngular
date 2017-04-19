@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ProgressBarService} from '../../shared/services/progress-bar.service';
+import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {Router} from '@angular/router';
 
 @Component({

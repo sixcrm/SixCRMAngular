@@ -7,10 +7,9 @@ import {DefaultLayoutComponent} from './navigation/layouts/default/default.layou
 const appRoutes: Routes = [
   { path : '', loadChildren : './authentication/authentication.module#AuthenticationModule' },
   { path : '', component : DefaultLayoutComponent, children : [
+    { path : '', loadChildren : './pages/search-page/search.module#SearchModule', canActivate: [AuthGuard] },
     { path : 'dashboard', loadChildren : './pages/dashboard-page/dashboard.module#DashboardModule', canActivate: [AuthGuard] },
-    { path : 'search', loadChildren : './pages/search-page/search.module#SearchModule', canActivate: [AuthGuard] },
     { path : 'profile', loadChildren : './pages/profile-page/profile-page.module#ProfilePageModule', canActivate: [AuthGuard] },
-    { path : 'advanced-search', loadChildren : './pages/advanced-search-page/advanced-search.module#AdvancedSearchModule', canActivate: [AuthGuard] },
     { path : 'notifications', loadChildren : './pages/notifications-page/notifications.module#NotificationsModule', canActivate: [AuthGuard] },
     { path : 'affiliates', loadChildren : './pages/affiliates-page/affiliates.module#AffiliatesModule', canActivate: [AuthGuard] },
     { path : 'campaigns', loadChildren : './pages/campaigns-page/campaigns.module#CampaignsModule', canActivate: [AuthGuard] },

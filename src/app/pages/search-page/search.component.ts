@@ -24,6 +24,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   // should advanced search or quick search be performed
   isAdvancedSearch: boolean;
 
+  showAdvancedSearch: boolean = false;
+
   currentRoute: string;
   paramsSub: Subscription;
 
@@ -134,6 +136,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
       if (params['advanced']) {
         this.isAdvancedSearch = true;
+        this.showAdvancedSearch = false;
+        this.queryString = '';
         Object.keys(params).forEach((key) => {
           if (key !== 'advanced') {
             this.queryOptions.push({key: key, value: params[key], enabled: true});
@@ -142,6 +146,10 @@ export class SearchComponent implements OnInit, OnDestroy {
       } else {
         this.isAdvancedSearch = false;
         this.queryString = params['query'];
+        if (this.queryString) {
+          this.showAdvancedSearch = false;
+        }
+
         this.currentRoute = this.queryString;
       }
 
@@ -248,12 +256,10 @@ export class SearchComponent implements OnInit, OnDestroy {
   updateLimit(limit: number): void {
     if (!limit) return;
 
-    this.paginationService.setSearchResultsLimit(limit);
-
     let firstElement: number = this.page * this.limit;
 
     this.page = Math.floor(firstElement / limit);
-    this.limit = limit;
+    this.paginationService.setSearchResultsLimit(limit);
 
     this.reshuffleSearchResults();
   }
@@ -268,8 +274,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.router.navigate([data.entityType + 's', data.id]);
   }
 
-  openAdvancedSearch(): void {
-    this.router.navigateByUrl('advanced-search');
+  toggleAdvancedSearch(): void {
+    this.showAdvancedSearch = !this.showAdvancedSearch;
   }
 
   toggleAdvancedSearchFieldEnabled(option: any): void {
@@ -292,6 +298,10 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   paginationString(): string {
+    if (!this.numberOfSearchResults || this.numberOfSearchResults === 0) {
+      return '';
+    }
+
     let upper = this.page * this.limit + this.limit;
     if (upper > this.numberOfSearchResults) {
       upper = this.numberOfSearchResults;

@@ -9,6 +9,7 @@ import {PageComponentsModule} from '../components/pages-components.module';
 import {Daterangepicker} from 'ng2-daterangepicker';
 import {SharedModule} from '../../shared/shared.module';
 import { ResultItemTableComponent } from './result-item-table/result-item-table.component';
+import {AdvancedSearchComponent} from './advanced-search/advanced-search.component';
 
 @NgModule({
   imports : [
@@ -24,7 +25,8 @@ import { ResultItemTableComponent } from './result-item-table/result-item-table.
   declarations : [
     SearchComponent,
     ResultItemComponent,
-    ResultItemTableComponent
+    ResultItemTableComponent,
+    AdvancedSearchComponent
   ],
   exports : [
   ],

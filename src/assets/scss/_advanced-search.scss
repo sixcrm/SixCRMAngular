@@ -1,6 +1,5 @@
 .advanced-search {
   position: relative;
-  min-height: calc(100vh - 65px);
 
   &__title {
     padding: 20px 60px;
@@ -30,11 +29,9 @@
   }
 
   &__content {
-    position: absolute;
     border-top: 2px solid rgba(0, 0, 0, 0.12);
     box-sizing: border-box;
     width: 100%;
-    min-height: calc(100% - 65px);
     background-color: white;
 
     &__title {

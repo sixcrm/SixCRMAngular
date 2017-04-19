@@ -8,7 +8,7 @@
           </md-input>
           <autocomplete *ngIf="showAutocomplete && autocompleteOptions.length > 0" (select)="suggestionSelected($event)" [options]="autocompleteOptions"></autocomplete>
         </div>
-        <div class="search__sidenav__button--advanced" (click)="openAdvancedSearch()"><span>ADVANCED SEARCH</span> <md-icon>keyboard_arrow_right</md-icon></div>
+        <div class="search__sidenav__button--advanced" (click)="toggleAdvancedSearch()"><span>ADVANCED SEARCH</span> <md-icon>{{showAdvancedSearch ? 'keyboard_arrow_left' : 'keyboard_arrow_right'}}</md-icon></div>
 
         <div class="search__sidenav__options" *ngIf="queryOptions && queryOptions.length !== 0">
           <ng-container *ngFor="let option of queryOptions">
@@ -70,6 +70,8 @@
     </div>
 
     <div class="search__content">
+      <advanced-search *ngIf="showAdvancedSearch"></advanced-search>
+
       <div class="search__content__title">
         <span>Search Results
           <span *ngIf="numberOfSearchResults && numberOfSearchResults > 0">({{numberOfSearchResults}})</span>
