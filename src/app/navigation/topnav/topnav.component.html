@@ -42,7 +42,7 @@
         <md-icon class="topnav__acl__arrow" (click)="toggleAclsMenu()">keyboard_arrow_down</md-icon>
 
         <div *ngIf="showAcls" class="topnav__acl__menu">
-          <div *ngFor="let acl of _authService.getAcls()" (click)="changeAcl(acl)">{{acl.account.name}}</div>
+          <div *ngFor="let acl of _authService.getAcls()" (click)="changeAcl(acl)"> <span>{{acl.account.name}}</span> </div>
         </div>
       </div>
     </ng-container>
@@ -55,10 +55,7 @@
       <md-icon class="topnav__profile__arrow" (click)="toggleDropdownMenu()">keyboard_arrow_down</md-icon>
 
       <div *ngIf="showDropdown" class="topnav__dropdown__menu">
-        <button md-menu-item class="topnav__dropdown__menu__profile" (click)="navigateToProfile()">
-          <img class="topnav__dropdown__menu__profile__image" [src]="_userProfile.picture">
-          <span>{{_userProfile.email}}</span>
-        </button>
+        <button md-menu-item (click)="navigateToProfile()"> <span>{{_userProfile.email}}</span> </button>
         <button md-menu-item (click)="logout()"> <span>sign out</span> </button>
       </div>
     </div>
