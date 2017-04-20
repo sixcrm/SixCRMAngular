@@ -43,8 +43,6 @@ describe('Accept Invite', function() {
   it('should display message with invitee\'s email if non logged in user tries to accept invite', () => {
     acceptInvitePage.navigateTo(link);
 
-    browser.pause();
-
     waitForUrlContains('acceptinvite');
 
     expect(acceptInvitePage.getAcceptInviteDialog().isPresent()).toBeTruthy();

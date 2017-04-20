@@ -3,12 +3,13 @@ import {
   waitForPresenceOfLoginFields, waitForPresenceOf, waitForNotPresenceOf
 } from '../utils/navigation.utils';
 import {expectUrlToContain, expectPresent, expectNotPresent} from '../utils/assertation.utils';
-import {browser} from 'protractor';
+import {browser, protractor} from 'protractor';
 import {doLogin} from '../utils/action.utils';
 import {AuthPage} from '../po/auth.po';
 import {SearchPage} from '../po/search.po';
 import {AppPage} from '../po/app.po';
 import {AdvancedSearchPage} from '../po/advanced-search.po';
+import {TopnavPage} from '../po/topnav.po';
 
 let username = 'nikola.bosic@toptal.com';
 let password = '123456789';
@@ -22,12 +23,14 @@ describe('Search', function() {
   let searchPage: SearchPage;
   let advancedSearchPage: AdvancedSearchPage;
   let app: AppPage;
+  let topnav: TopnavPage;
 
   beforeEach(() => {
     authPage = new AuthPage();
     searchPage = new SearchPage();
     advancedSearchPage = new AdvancedSearchPage();
     app = new AppPage();
+    topnav = new TopnavPage();
   });
 
   beforeAll(() => {
@@ -43,6 +46,20 @@ describe('Search', function() {
 
     waitForUrlContains('/search');
     expectUrlToContain('/search');
+  });
+
+  it ('should navigate to search page when search via topnav', () => {
+    browser.get('/dashboard');
+
+    topnav.getSearchButton().click();
+    browser.sleep(300);
+
+    waitForPresenceOf(topnav.getSearchInput());
+    topnav.getSearchInput().sendKeys('test');
+    topnav.getSearchInput().sendKeys(protractor.Key.ENTER);
+
+    waitForUrlContains('/search?query=test');
+    expectUrlToContain('/search?query=test');
   });
 
   it('should show progress bar and filter values when performing advanced search', () => {
@@ -124,29 +141,56 @@ describe('Search', function() {
     expect(searchPage.getResults().count()).toBeGreaterThan(0);
   });
 
+  it('should show advanced search when no search query is defined', () => {
+    browser.get('/search');
+
+    waitForUrlContains('/search');
+
+    waitForPresenceOf(advancedSearchPage.getComponent());
+    expectPresent(advancedSearchPage.getComponent());
+  });
+
+  it('should not show advanced search when search query is defined', () => {
+    browser.get('/search?query=test');
+
+    waitForUrlContains('/search');
+    browser.sleep(300);
+
+    expectNotPresent(advancedSearchPage.getComponent());
+  });
+
+  it('should not show advanced search when advanced search query is defined', () => {
+    browser.get('/search?advanced=true&firstname=test');
+
+    waitForUrlContains('/search');
+    browser.sleep(300);
+
+    expectNotPresent(advancedSearchPage.getComponent());
+  });
+
   it('should toggle advanced search component', () => {
     browser.get('/search');
 
     waitForUrlContains('/search');
 
-    searchPage.getAdvancedSearchToggle().click();
     waitForPresenceOf(advancedSearchPage.getComponent());
-
     expectPresent(advancedSearchPage.getComponent());
 
     searchPage.getAdvancedSearchToggle().click();
     waitForNotPresenceOf(advancedSearchPage.getComponent());
 
     expectNotPresent(advancedSearchPage.getComponent());
+
+    searchPage.getAdvancedSearchToggle().click();
+    waitForPresenceOf(advancedSearchPage.getComponent());
+
+    expectPresent(advancedSearchPage.getComponent());
   });
 
   it('should hide advanced search component on quick search', () => {
     browser.get('/search');
 
     waitForUrlContains('/search');
-
-    searchPage.getAdvancedSearchToggle().click();
-    waitForPresenceOf(advancedSearchPage.getComponent());
 
     searchPage.getQuickSearchInput().sendKeys('test');
     searchPage.getQuickSearchButton().click();
@@ -159,9 +203,6 @@ describe('Search', function() {
     browser.get('/search');
 
     waitForUrlContains('/search');
-
-    searchPage.getAdvancedSearchToggle().click();
-    waitForPresenceOf(advancedSearchPage.getComponent());
 
     advancedSearchPage.getSearchInputs().get(0).sendKeys('test');
     advancedSearchPage.getSearchButton().click();
