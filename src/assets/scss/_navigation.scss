@@ -1,6 +1,6 @@
 @import "mixins";
 
-$sidenav-width: 240px;
+$sidenav-width: 200px;
 $topnav-height: 64px;
 $sidebar-color-light: #385F8D;
 $sidebar-color-middle: #2C486F;
@@ -11,7 +11,7 @@ $sidebar-text-color: #9B9B9B;
 $sidebar-text-color-hover: #5AA3E8;
 
 md-sidenav {
-  max-width: 70%;
+  max-width: $sidenav-width;
   min-width: 0 !important;
 
   @media #{$medium-and-down} {
@@ -22,17 +22,45 @@ md-sidenav {
 
   md-toolbar {
     box-shadow: 0 1px 0 rgba(0, 0, 0, .12);
-    padding: 0 10px;
+    padding: 0 72px 0 18px;
     background: url("/assets/images/leftrailtop.png") no-repeat;
     background-size: 100% 100%;
 
     .logo {
-      width: 120px;
+      height: 40px;
     }
 
     .logo-small {
-      width: 44px;
+      height: 40px;
     }
+  }
+
+  .md-list-item {
+    padding-left: 25px !important;
+    padding-right: 35px !important;
+  }
+
+  md-icon {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    font-size: 20px !important;
+  }
+
+  .icon--solo {
+
+    md-icon {
+      margin-right: 0;
+    }
+  }
+
+  .icon--more {
+    margin-right: 0;
+    margin-left: auto;
+  }
+
+  .toolbar--small {
+    padding-right: 0;
   }
 }
 
@@ -46,7 +74,7 @@ md-sidenav-layout {
 }
 
 md-nav-list.side-navigation {
-  padding-top: 0;
+  padding-top: 32px;
 
   a[md-list-item] {
     position: relative;
@@ -92,19 +120,34 @@ md-nav-list.side-navigation {
     }
 
     $base-padding: 16px;
+    $base-padding-left: 25px;
+
     $base-color-change: 2%;
     &.level1 a > .md-list-item {
-      padding-left: $base-padding * 2;
+      padding-left: $base-padding-left + 8px !important;
+      padding-right: 15px !important;
       background-color: darken(#ffffff, $base-color-change);
+
       &:hover, &.active {
         background-color: darken($sidebar-color, $base-color-change * 2);
       }
+
+      .sidenav-item__text {
+        width: 132px;
+        font-size: 0.7em;
+      }
     }
     &.level2 a > .md-list-item {
-      padding-left: $base-padding * 3;
+      padding-left: $base-padding-left + 15px !important;
       background-color: darken($sidebar-color, $base-color-change * 2);
+
       &:hover, &.active {
         background-color: darken($sidebar-color, $base-color-change * 3);
+      }
+
+      .sidenav-item__text {
+        width: 140px;
+        font-size: 0.7em;
       }
     }
     &.level3 a > .md-list-item {
@@ -321,6 +364,7 @@ header {
 .sidenav-item {
 
   &__text {
-    font-size: 0.875em;
+    width: 90px;
+    font-size: 0.8em;
   }
 }
