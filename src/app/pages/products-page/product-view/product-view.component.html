@@ -1,8 +1,7 @@
 <div *ngIf="entity" class="entity-view">
   <div class="entity-view__title">Product {{entity.name}}</div>
 
-  <div *ngIf="service.hasWritePermission()" class="entity-view__change-mode" (click)="changeMode()"><md-icon>{{listMode
-    ? 'border_color' : 'reply'}}</md-icon></div>
+  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
   <div *ngIf="entity" class="entity-view__content">
 

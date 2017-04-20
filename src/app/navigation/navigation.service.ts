@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {Location} from '@angular/common';
 import {Subject, BehaviorSubject} from 'rxjs';
 import {MenuItem} from './menu-item';
 import {MdDialog} from '../../../node_modules/@angular/material/dialog/dialog';
@@ -24,7 +25,7 @@ export class NavigationService {
   private _isRouteLoading: Subject<boolean> = new BehaviorSubject(true);
   private _showNotifications: Subject<boolean> = new BehaviorSubject(false);
 
-  constructor(public dialog: MdDialog, private authService: AuthenticationService) {
+  constructor(public dialog: MdDialog, private authService: AuthenticationService, private location: Location) {
     this.setMenuItems(menuItems(authService));
     this.authService.activeAclChanged$.subscribe(() => this.setMenuItems(menuItems(authService)))
   }
@@ -258,6 +259,14 @@ export class NavigationService {
       }
     }
     return menuItem;
+  }
+
+  public back(): void {
+    this.location.back();
+  }
+
+  public forward(): void {
+    this.location.forward();
   }
 
   private static viewport(): ViewPort {

@@ -9,6 +9,7 @@ import {CustomerNote} from '../../../shared/models/customer-note.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {TransactionsService} from '../../../shared/services/transactions.service';
 import {Transaction} from '../../../shared/models/transaction.model';
+import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
   selector: 'customer-view',
@@ -29,6 +30,7 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
     private transactionsService: TransactionsService,
     private customerNotesService: CustomerNotesService,
     private authService: AuthenticationService,
+    public navigation: NavigationService,
     route: ActivatedRoute,
     progressBarService: ProgressBarService
   ) {

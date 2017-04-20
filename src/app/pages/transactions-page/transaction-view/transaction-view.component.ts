@@ -4,6 +4,7 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
 import {TransactionsService} from '../../../shared/services/transactions.service';
 import {ActivatedRoute} from '@angular/router';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
+import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
   selector: 'transaction-view',
@@ -12,7 +13,12 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
 })
 export class TransactionViewComponent extends AbstractEntityViewComponent<Transaction> implements OnInit {
 
-  constructor(service: TransactionsService, route: ActivatedRoute, progressBar: ProgressBarService) {
+  constructor(
+    service: TransactionsService,
+    route: ActivatedRoute,
+    progressBar: ProgressBarService,
+    public navigation: NavigationService
+  ) {
     super(service, route, progressBar);
   }
 

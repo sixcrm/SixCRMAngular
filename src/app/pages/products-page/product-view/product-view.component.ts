@@ -6,6 +6,7 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
 import {ActivatedRoute} from '@angular/router';
 import {FulfillmentProvidersService} from '../../../shared/services/fulfillment-providers.service';
 import {FulfillmentProvider} from '../../../shared/models/fulfillment-provider.model';
+import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
   selector: 'product-view',
@@ -16,7 +17,13 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   fulfillmentProviders: FulfillmentProvider[] = [];
 
-  constructor(service: ProductsService, private fulfillmentProvidersService: FulfillmentProvidersService, route: ActivatedRoute, progressBarService: ProgressBarService) {
+  constructor(
+    service: ProductsService,
+    private fulfillmentProvidersService: FulfillmentProvidersService,
+    route: ActivatedRoute,
+    progressBarService: ProgressBarService,
+    public navigation: NavigationService
+  ) {
     super(service, route, progressBarService);
   }
 
