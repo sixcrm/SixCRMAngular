@@ -24,7 +24,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   // should advanced search or quick search be performed
   isAdvancedSearch: boolean;
 
-  showAdvancedSearch: boolean = false;
+  showAdvancedSearch: boolean;
 
   currentRoute: string;
   paramsSub: Subscription;
@@ -135,10 +135,10 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     this.paramsSub = this.route.queryParams.subscribe((params) => {
       this.queryOptions = [];
+      this.showAdvancedSearch = !params['advanced'] && !params['query'];
 
       if (params['advanced']) {
         this.isAdvancedSearch = true;
-        this.showAdvancedSearch = false;
         this.queryString = '';
         Object.keys(params).forEach((key) => {
           if (key !== 'advanced') {
@@ -148,9 +148,6 @@ export class SearchComponent implements OnInit, OnDestroy {
       } else {
         this.isAdvancedSearch = false;
         this.queryString = params['query'];
-        if (this.queryString) {
-          this.showAdvancedSearch = false;
-        }
 
         this.currentRoute = this.queryString;
       }
