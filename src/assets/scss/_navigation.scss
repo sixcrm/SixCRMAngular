@@ -1,7 +1,7 @@
 @import "mixins";
 
 $sidenav-width: 200px;
-$topnav-height: 64px;
+$topnav-height: 70px;
 $sidebar-color-light: #385F8D;
 $sidebar-color-middle: #2C486F;
 $sidebar-color-dark: #171F38;
@@ -25,6 +25,7 @@ md-sidenav {
     padding: 0 72px 0 18px;
     background: url("/assets/images/leftrailtop.png") no-repeat;
     background-size: 100% 100%;
+    height: $topnav-height;
 
     .logo {
       height: 40px;
@@ -32,6 +33,14 @@ md-sidenav {
 
     .logo-small {
       height: 40px;
+    }
+
+    .md-toolbar-layout {
+      height: $topnav-height;
+
+      md-toolbar-row {
+        height: $topnav-height;
+      }
     }
   }
 
@@ -176,7 +185,7 @@ md-nav-list.side-navigation {
 
 .side-navigation {
   display: table;
-  height: calc(100% - 64px);
+  height: calc(100% - 70px);
 
   &__version {
     display: table-row;
@@ -221,14 +230,19 @@ header {
   .header--with-sidenav {
     md-toolbar {
       background: #fff url("/assets/images/topbluesmall.png") no-repeat !important;
-      background-size: 644px 64px !important;
+      background-size: 644px $topnav-height !important;
     }
   }
 
   md-toolbar {
     background: #fff url("/assets/images/topblue.png") no-repeat !important;
-    background-size: 827px 64px !important;
+    background-size: 827px $topnav-height !important;
     padding: 0 !important;
+    height: $topnav-height;
+
+    md-toolbar-row {
+      height: $topnav-height;
+    }
 
     md-toolbar-row:not(:first-child) {
       @media #{$medium-and-down} {
@@ -295,6 +309,7 @@ header {
     }
 
     .md-toolbar-layout {
+      height: $topnav-height;
       padding: 0 16px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
       z-index: 5;

@@ -94,7 +94,7 @@ export abstract class AbstractEntityComponent<T extends Entity<T>> {
 
   private calculateContainerHeight(): void {
     if (this.entityContainer) {
-      this.height = this.entityContainer.nativeElement.offsetHeight - 67 + 'px';
+      this.height = this.entityContainer.nativeElement.offsetHeight - 72 + 'px';
     }
   }
 }
