@@ -3,8 +3,7 @@
   top: 1px;
   right: 0;
   width: 350px;
-  height: 100%;
-  min-height: calc(100vh - 72px);
+  height: calc(100vh - 72px);
   z-index: 3000;
   background-color: white;
   box-shadow: -1px 0 4px rgba(0, 0, 0, 0.4);
@@ -31,6 +30,7 @@
   }
 
   &__content {
+    height: calc(100% - 115px);
 
     &__title {
       padding: 10px;
@@ -81,6 +81,20 @@
           background: #FE7274;
         }
       }
+    }
+  }
+
+  &__view-all {
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    height: 50px;
+    text-align: center;
+
+    span {
+      line-height: 50px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      color: #049AE4;
     }
   }
 }

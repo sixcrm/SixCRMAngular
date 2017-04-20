@@ -117,4 +117,9 @@ export class NotificationsListComponent implements OnInit {
     }
   }
 
+  navigateAllNotifications(): void {
+    this.router.navigateByUrl('/notifications');
+    this.close.emit(true);
+  }
+
 }

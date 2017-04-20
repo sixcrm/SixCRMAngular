@@ -5,7 +5,6 @@
     <md-icon class="notifications-list__topnav__options" [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
 
     <md-menu #actionsMenu="mdMenu" x-position="before">
-      <button md-menu-item [routerLink]="['/notifications']">View All</button>
     </md-menu>
   </div>
 
@@ -70,6 +69,10 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="notifications-list__view-all">
+    <span (click)="navigateAllNotifications()">See All Notifications</span>
   </div>
 
 </div>
