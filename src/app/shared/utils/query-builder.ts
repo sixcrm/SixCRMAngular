@@ -575,6 +575,15 @@ export function deleteTransactionMutation(id: string): string {
   return deleteMutation('transaction', id);
 }
 
+export function transactionsByCustomer(customerId: string, limit?:number, cursor?:string): string {
+  return `{
+		transactionlistbycustomer (customer:"${customerId}" ${pageParams(limit, cursor, true)}) {
+			transactions { id amount processor_response }
+			pagination { count end_cursor has_next_page }
+    }
+  }`
+}
+
 export function sessionsInfoListQuery(limit?:number, cursor?:string): string {
   return `{
     sessionlist ${pageParams(limit, cursor)} {
@@ -891,11 +900,23 @@ export function updateNotificationMutation(notification: Notification): string {
     }`;
 }
 
-function pageParams(limit?: number, cursor?: string): string {
+function pageParams(limit?: number, cursor?: string, noBraces?:boolean): string {
   let lim = !!limit ? `limit: "${limit}"` : '';
   let cur = !!cursor ? `cursor: "${cursor}"` : '';
 
-  return limit || cur ? `(${lim} ${cur})` : '';
+  let params = `${lim} ${cur}`;
+  if (!noBraces) {
+    params = `(${params})`;
+  }
+
+  return limit || cur ? `${params}` : '';
+}
+
+function pageParamsNoBraces(limit?: number, cursor?: string): string {
+  let lim = !!limit ? `limit: "${limit}"` : '';
+  let cur = !!cursor ? `cursor: "${cursor}"` : '';
+
+  return limit || cur ? `${lim} ${cur}` : '';
 }
 
 function generateUUID(): string {

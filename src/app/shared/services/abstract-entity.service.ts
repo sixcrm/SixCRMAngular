@@ -12,13 +12,13 @@ export abstract class AbstractEntityService<T> {
   entityCreated$: Subject<T>;
   entityUpdated$: Subject<T>;
 
-  private cursor: string;
+  protected cursor: string;
 
   constructor(
     private http: Http,
     protected authService: AuthenticationService,
     private toEntity?: (data: any) => T,
-    private indexQuery?: (limit?: number, cursor?: string) => string,
+    public indexQuery?: (limit?: number, cursor?: string) => string,
     private viewQuery?: (id: string) => string,
     private deleteQuery?: (id: string) => string,
     private createQuery?: (entity: T) => string,
@@ -34,34 +34,7 @@ export abstract class AbstractEntityService<T> {
   };
 
   getEntities(limit?: number): void {
-    if (!this.hasViewPermission()) {
-      return;
-    }
-
-    this.queryRequest(this.indexQuery(limit, this.cursor)).subscribe(
-      (data) => {
-        let json = data.json().data;
-        let listKey = Object.keys(json)[0];
-        let listData = json[listKey];
-
-        let entitiesKey = Object.keys(listData)[0];
-        let entitiesData = listData[entitiesKey];
-
-        if (listData.pagination) {
-          this.entitiesHasMore$.next(listData.pagination.end_cursor !== '' && listData.pagination.has_next_page);
-          this.cursor = listData.pagination.end_cursor;
-        }
-
-        if (entitiesData) {
-          this.entities$.next(entitiesData.map(entity => this.toEntity(entity)));
-        } else {
-          this.entities$.next([]);
-        }
-      },
-      (error) => {
-        console.error(error);
-      }
-    )
+    this.customEntitiesQuery(this.indexQuery(limit, this.cursor));
   }
 
   getEntity(id: string): void {
@@ -160,6 +133,38 @@ export abstract class AbstractEntityService<T> {
     return this.authService.hasPermissions(this.accessRole, 'read');
   }
 
+  protected customEntitiesQuery(query: string): void {
+    if (!this.hasViewPermission()) {
+      return;
+    }
+
+    this.queryRequest(query).subscribe(
+      (data) => {
+        let json = data.json().data;
+        let listKey = Object.keys(json)[0];
+        let listData = json[listKey];
+
+        let entitiesKey = Object.keys(listData)[0];
+        let entitiesData = listData[entitiesKey];
+
+        if (listData.pagination) {
+          this.entitiesHasMore$.next(listData.pagination.end_cursor !== '' && listData.pagination.has_next_page);
+          this.cursor = listData.pagination.end_cursor;
+        }
+
+        if (entitiesData) {
+          this.entities$.next(entitiesData.map(entity => this.toEntity(entity)));
+        } else {
+          this.entities$.next([]);
+        }
+      },
+      (error) => {
+        console.error(error);
+      }
+    )
+  }
+
+
   protected queryRequest(query: string): Observable<Response> {
     let endpoint = environment.endpoint;
 
@@ -176,7 +181,6 @@ export abstract class AbstractEntityService<T> {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', this.authService.getToken());
-    // headers.append('Six-Account-Id', this.authService.getSixUserAccountId());
 
     return headers;
   }

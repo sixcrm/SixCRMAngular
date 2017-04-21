@@ -20,7 +20,6 @@ export class TransactionsComponent extends AbstractEntityIndexComponent<Transact
     dialog: MdDialog,
     progressBarService: ProgressBarService,
     paginationService: PaginationService
-
   ) {
     super(transactionsService, auth, dialog, progressBarService, paginationService);
   }

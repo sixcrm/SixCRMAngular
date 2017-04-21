@@ -8,10 +8,14 @@ export class ProgressBarService {
   constructor() {}
 
   public showTopProgressBar(): void {
-    this.showTopProgressBar$.next(true);
+    setTimeout(() => {
+      this.showTopProgressBar$.next(true);
+    }, 1)
   }
 
   public hideTopProgressBar(): void {
-    this.showTopProgressBar$.next(false);
+    setTimeout(() => {
+      this.showTopProgressBar$.next(false);
+    }, 1)
   }
 }

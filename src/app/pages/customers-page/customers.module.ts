@@ -8,6 +8,7 @@ import {CustomerViewComponent} from './customer-view/customer-view.component';
 import {CustomerComponent} from './customer/customer.component';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {CustomersAclGuard} from '../guards/customers-acl-guard.service';
+import { CustomerTransactionsComponent } from './customer-view/customer-transactions/customer-transactions.component';
 
 @NgModule({
   imports : [
@@ -21,7 +22,8 @@ import {CustomersAclGuard} from '../guards/customers-acl-guard.service';
   declarations : [
     CustomersComponent,
     CustomerViewComponent,
-    CustomerComponent
+    CustomerComponent,
+    CustomerTransactionsComponent
   ],
   exports : [
     CustomerComponent

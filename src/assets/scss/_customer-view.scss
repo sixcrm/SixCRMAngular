@@ -177,6 +177,7 @@ $card-title-color: #5B9BE1;
 
   &__transactions {
     min-height: calc(100vh - 350px);
+    padding-bottom: 20px;
     background: white;
 
     table {

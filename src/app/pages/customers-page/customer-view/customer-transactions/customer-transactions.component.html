@@ -1,0 +1,37 @@
+<div class="customer-view__transactions">
+  <table class="highlight">
+    <thead>
+    <tr>
+      <th data-field="id">ID</th>
+      <th data-field="data">Date</th>
+      <th data-field="amount">Amount</th>
+      <th data-field="processorResponse">Processor Response</th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let transaction of entities">
+      <td [routerLink]="['/transactions', transaction.id]">{{transaction.id}}</td>
+      <td [routerLink]="['/transactions', transaction.id]">{{transaction.createdAt.format('MM/DD/YYYY')}}</td>
+      <td [routerLink]="['/transactions', transaction.id]">{{transaction.amount}}</td>
+      <td [routerLink]="['/transactions', transaction.id]">{{transaction.processorResponse.message}}</td>
+      <td>
+        <table-actions
+          [service]="service">
+        </table-actions>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <table-pagination
+    [limit]="limit"
+    [paginationValues]="paginationValues"
+    [previousDisabled]="page <= 0"
+    [nextDisabled]="!hasMorePages()"
+    (previous)="previous()"
+    (next)="next()"
+    (updateLimit)="updateLimit($event)">
+  </table-pagination>
+</div>

@@ -7,8 +7,6 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
 import {CustomerNotesService} from '../../../shared/services/customer-notes.service';
 import {CustomerNote} from '../../../shared/models/customer-note.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {TransactionsService} from '../../../shared/services/transactions.service';
-import {Transaction} from '../../../shared/models/transaction.model';
 import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
@@ -23,11 +21,8 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
   showNewNote: boolean = false;
   notes: CustomerNote[] = [];
 
-  transactions: Transaction[] = [];
-
   constructor(
     service: CustomersService,
-    private transactionsService: TransactionsService,
     private customerNotesService: CustomerNotesService,
     private authService: AuthenticationService,
     public navigation: NavigationService,
@@ -55,11 +50,6 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
 
     this.service.entity$.takeUntil(this.unsubscribe$).first().subscribe(() => {
       this.customerNotesService.getByCustomer(this.entityId);
-    });
-
-    this.transactionsService.entities$.takeUntil(this.unsubscribe$).subscribe((entities) => {
-      this.transactions = entities;
-      this.progressBarService.hideTopProgressBar();
     });
 
     this.init();
@@ -94,11 +84,6 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
 
   setIndex(index: number): void {
     this.selectedIndex = index;
-
-    if (this.selectedIndex === 1 && this.transactions.length === 0) {
-      this.transactionsService.getEntities(5);
-      this.progressBarService.showTopProgressBar();
-    }
   }
 
   private deleteNoteLocally(note: CustomerNote): void {
