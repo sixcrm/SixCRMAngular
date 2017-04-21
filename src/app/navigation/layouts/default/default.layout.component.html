@@ -12,7 +12,7 @@
   <main [class.container--hover]="!(_navigation.showSidenav | async) && showOnHover">
     <div class="container">
       <router-outlet></router-outlet>
-      <notifications-list *ngIf="_navigation.showNotifications | async" (close)="_navigation.toggleNotifications(false)"></notifications-list>
+      <notifications-quick *ngIf="_navigation.showNotifications | async" (close)="_navigation.toggleNotifications(false)"></notifications-quick>
       <div class="clearfix"></div>
     </div>
   </main>

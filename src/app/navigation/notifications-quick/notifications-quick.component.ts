@@ -1,17 +1,17 @@
 import {Component, Output, EventEmitter, OnInit, ElementRef} from '@angular/core';
-import {NotificationsService} from '../../shared/services/notifications.service';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {Notification} from '../../shared/models/notification.model';
 import {utc} from 'moment';
 import {Router} from '@angular/router';
+import {NotificationsQuickService} from '../../shared/services/notifications-quick.service';
 
 @Component({
-  selector: 'notifications-list',
-  templateUrl: './notifications-list.component.html',
-  styleUrls: ['./notifications-list.component.scss'],
+  selector: 'notifications-quick',
+  templateUrl: './notifications-quick.component.html',
+  styleUrls: ['./notifications-quick.component.scss'],
   host: {'(document:click)':'onClick($event)'}
 })
-export class NotificationsListComponent implements OnInit {
+export class NotificationsQuickComponent implements OnInit {
 
   @Output() close: EventEmitter<boolean> = new EventEmitter();
 
@@ -21,7 +21,7 @@ export class NotificationsListComponent implements OnInit {
   other: Notification[] = [];
 
   constructor(
-    private notificationsService: NotificationsService,
+    private notificationsService: NotificationsQuickService,
     private progressBarService: ProgressBarService,
     private router: Router,
     private elementRef: ElementRef

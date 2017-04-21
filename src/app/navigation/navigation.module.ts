@@ -9,7 +9,7 @@ import {SharedModule} from '../shared/shared.module';
 import {NavigationService} from './navigation.service';
 import {SidenavItemComponent} from './sidenav/sidenav-item/sidenav-item.component';
 import {DefaultLayoutComponent} from './layouts/default/default.layout.component';
-import { NotificationsListComponent } from './notifications-list/notifications-list.component';
+import {NotificationsQuickComponent} from './notifications-quick/notifications-quick.component';
 
 @NgModule({
   imports : [
@@ -19,7 +19,7 @@ import { NotificationsListComponent } from './notifications-list/notifications-l
     SharedModule,
     FormsModule
   ],
-  declarations : [SidenavComponent, TopnavComponent, SidenavItemComponent, DefaultLayoutComponent, NotificationsListComponent],
+  declarations : [SidenavComponent, TopnavComponent, SidenavItemComponent, DefaultLayoutComponent, NotificationsQuickComponent],
   exports : [SidenavComponent, TopnavComponent, DefaultLayoutComponent]
 })
 export class NavigationModule {

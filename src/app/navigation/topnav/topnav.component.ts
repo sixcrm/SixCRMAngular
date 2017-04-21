@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
 import {User} from '../../shared/models/user.model';
 import {Acl} from '../../shared/models/acl.model';
 import {SearchService} from '../../shared/services/search.service';
-import {NotificationsService} from '../../shared/services/notifications.service';
+import {NotificationsQuickService} from '../../shared/services/notifications-quick.service';
 
 @Component({
   selector : 'app-topnav',
@@ -49,7 +49,7 @@ export class TopnavComponent implements OnInit {
     private _authService: AuthenticationService,
     private router: Router,
     private searchService: SearchService,
-    private notificationsService: NotificationsService
+    private notificationsService: NotificationsQuickService
   ) {
   }
 

@@ -32,7 +32,8 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     protected authService: AuthenticationService,
     private deleteDialog: MdDialog,
     protected progressBarService?: ProgressBarService,
-    protected paginationService?: PaginationService
+    protected paginationService?: PaginationService,
+    protected infiniteScroll?: boolean
   ) { }
 
   init(): void {
@@ -140,6 +141,9 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   }
 
   protected reshuffleEntities(): void {
+    // if infinite scroll enabled, no reshuffling is needed
+    if (this.infiniteScroll) return;
+
     let tempEntities = this.entitiesHolder.slice(this.page * this.limit, this.page * this.limit + this.limit);
 
     if (tempEntities.length >= this.limit || !this.hasMore) {

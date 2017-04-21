@@ -1,6 +1,6 @@
 import {Headers, Response, Http} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {Observable, Subject} from 'rxjs';
+import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import {environment} from '../../../environments/environment';
 
 export abstract class AbstractEntityService<T> {
@@ -11,6 +11,7 @@ export abstract class AbstractEntityService<T> {
   entityDeleted$: Subject<T>;
   entityCreated$: Subject<T>;
   entityUpdated$: Subject<T>;
+  requestInProgress$: BehaviorSubject<boolean>;
 
   protected cursor: string;
 
@@ -31,6 +32,7 @@ export abstract class AbstractEntityService<T> {
     this.entityDeleted$ = new Subject<T>();
     this.entityCreated$ = new Subject<T>();
     this.entityUpdated$ = new Subject<T>();
+    this.requestInProgress$ = new BehaviorSubject<boolean>(false);
   };
 
   getEntities(limit?: number): void {
@@ -138,6 +140,7 @@ export abstract class AbstractEntityService<T> {
       return;
     }
 
+    this.requestInProgress$.next(true);
     this.queryRequest(query).subscribe(
       (data) => {
         let json = data.json().data;
@@ -160,6 +163,9 @@ export abstract class AbstractEntityService<T> {
       },
       (error) => {
         console.error(error);
+      },
+      () => {
+        this.requestInProgress$.next(false);
       }
     )
   }
