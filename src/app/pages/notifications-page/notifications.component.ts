@@ -31,7 +31,8 @@ export class NotificationsComponent extends AbstractEntityIndexComponent<Notific
     progressBarService: ProgressBarService,
     paginationService: PaginationService
   ) {
-    super(notificationsService, auth, dialog, progressBarService, paginationService, true);
+    super(notificationsService, auth, dialog, progressBarService, paginationService);
+    this.setInfiniteScroll(true);
   }
 
   ngOnInit() {

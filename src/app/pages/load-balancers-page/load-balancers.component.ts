@@ -6,6 +6,7 @@ import {MdDialog} from '@angular/material';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {PaginationService} from '../../shared/services/pagination.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'load-balancers',
@@ -19,9 +20,11 @@ export class LoadBalancersComponent extends AbstractEntityIndexComponent<LoadBal
     auth: AuthenticationService,
     dialog: MdDialog,
     progressBarService: ProgressBarService,
-    paginationService: PaginationService
+    paginationService: PaginationService,
+    router: Router,
+    activatedRoute: ActivatedRoute
   ) {
-    super(loadBalancersService, auth, dialog, progressBarService, paginationService);
+    super(loadBalancersService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
   }
 
   ngOnInit() {

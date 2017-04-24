@@ -4,6 +4,7 @@ import {LoadBalancer} from '../../../shared/models/load-balancers.model';
 import {LoadBalancersService} from '../../../shared/services/load-balancers.service';
 import {ActivatedRoute} from '@angular/router';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
+import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
   selector: 'load-balancer-view',
@@ -12,7 +13,7 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
 })
 export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadBalancer> implements OnInit {
 
-  constructor(service: LoadBalancersService, route: ActivatedRoute, progressBarService: ProgressBarService) {
+  constructor(service: LoadBalancersService, route: ActivatedRoute, progressBarService: ProgressBarService, public navigation: NavigationService) {
     super(service, route, progressBarService);
   }
 

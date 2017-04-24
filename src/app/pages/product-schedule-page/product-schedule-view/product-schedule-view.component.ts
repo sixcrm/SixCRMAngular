@@ -4,6 +4,7 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
 import {ProductScheduleService} from '../../../shared/services/product-schedule.service';
 import {ActivatedRoute} from '@angular/router';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
+import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
   selector: 'product-schedule-view',
@@ -12,7 +13,7 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
 })
 export class ProductScheduleViewComponent extends AbstractEntityViewComponent<ProductSchedule> implements OnInit {
 
-  constructor(service: ProductScheduleService, route: ActivatedRoute, progressBar: ProgressBarService) {
+  constructor(service: ProductScheduleService, route: ActivatedRoute, progressBar: ProgressBarService, public navigation: NavigationService) {
     super(service, route, progressBar);
   }
 

@@ -1,6 +1,8 @@
 <div class="entity-view">
   <div class="entity-view__title">Session Details</div>
 
+  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+
   <div *ngIf="entity" class="entity-view__content">
 
     <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>

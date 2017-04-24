@@ -6,6 +6,7 @@ import {MdDialog} from '@angular/material';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {PaginationService} from '../../shared/services/pagination.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
+import {Router, ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'customers',
@@ -19,9 +20,11 @@ export class CustomersComponent extends AbstractEntityIndexComponent<Customer> i
     auth: AuthenticationService,
     dialog: MdDialog,
     progressBarService: ProgressBarService,
-    paginationService: PaginationService
+    paginationService: PaginationService,
+    router: Router,
+    activatedRoute: ActivatedRoute
   ) {
-    super(customersService, auth, dialog, progressBarService, paginationService);
+    super(customersService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
   }
 
   ngOnInit() {

@@ -4,6 +4,7 @@ import {FulfillmentProvider} from '../../../shared/models/fulfillment-provider.m
 import {FulfillmentProvidersService} from '../../../shared/services/fulfillment-providers.service';
 import {ActivatedRoute} from '@angular/router';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
+import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
   selector: 'fulfillment-view',
@@ -12,7 +13,7 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
 })
 export class FulfillmentViewComponent extends AbstractEntityViewComponent<FulfillmentProvider> implements OnInit {
 
-  constructor(service: FulfillmentProvidersService, route: ActivatedRoute, progressBarService: ProgressBarService) {
+  constructor(service: FulfillmentProvidersService, route: ActivatedRoute, progressBarService: ProgressBarService, public navigation: NavigationService) {
     super(service, route, progressBarService);
   }
 

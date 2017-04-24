@@ -4,6 +4,7 @@ import {MerchantProvider} from '../../../shared/models/merchant-provider.model';
 import {MerchantProvidersService} from '../../../shared/services/merchant-providers.service';
 import {ActivatedRoute} from '@angular/router';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
+import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
   selector: 'merchant-provider-view',
@@ -12,7 +13,7 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
 })
 export class MerchantProviderViewComponent extends AbstractEntityViewComponent<MerchantProvider> implements OnInit {
 
-  constructor(service: MerchantProvidersService, route: ActivatedRoute, progressBarService: ProgressBarService) {
+  constructor(service: MerchantProvidersService, route: ActivatedRoute, progressBarService: ProgressBarService, public navigation: NavigationService) {
     super(service, route, progressBarService);
   }
 

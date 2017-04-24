@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {SmtpProvider} from '../../../shared/models/smtp-provider.model';
+import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
   selector: 'smtp-provider-view',
@@ -12,7 +13,7 @@ import {SmtpProvider} from '../../../shared/models/smtp-provider.model';
 })
 export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpProvider> implements OnInit {
 
-  constructor(service: SmtpProvidersService, route: ActivatedRoute, progressBarService: ProgressBarService) {
+  constructor(service: SmtpProvidersService, route: ActivatedRoute, progressBarService: ProgressBarService, public navigation: NavigationService) {
     super(service, route, progressBarService);
   }
 

@@ -4,6 +4,7 @@ import {Affiliate} from '../../../shared/models/affiliate.model';
 import {AffiliatesService} from '../../../shared/services/affiliates.service';
 import {ActivatedRoute} from '@angular/router';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
+import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
   selector: 'affiliate-view',
@@ -12,7 +13,7 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
 })
 export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliate> implements OnInit {
 
-  constructor(service: AffiliatesService, route: ActivatedRoute, progressBarService: ProgressBarService) {
+  constructor(service: AffiliatesService, route: ActivatedRoute, progressBarService: ProgressBarService, public navigation: NavigationService) {
     super(service, route, progressBarService);
   }
 

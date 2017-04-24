@@ -7,6 +7,7 @@ import {AuthenticationService} from '../authentication/authentication.service';
 import {Entity} from '../shared/models/entity.interface';
 import {ViewChild} from '@angular/core';
 import {AsyncSubject} from 'rxjs';
+import {Router, ActivatedRoute} from '@angular/router';
 
 export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
@@ -25,6 +26,8 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   fullScreen: boolean = false;
   mode: string;
 
+  protected infiniteScroll: boolean = false;
+
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
   constructor(
@@ -33,7 +36,8 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     private deleteDialog: MdDialog,
     protected progressBarService?: ProgressBarService,
     protected paginationService?: PaginationService,
-    protected infiniteScroll?: boolean
+    protected router?: Router,
+    protected activatedRoute?: ActivatedRoute
   ) { }
 
   init(): void {
@@ -70,6 +74,10 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     this.unsubscribe$.complete();
   }
 
+  setInfiniteScroll(infiniteScrool: boolean): void {
+    this.infiniteScroll = infiniteScrool;
+  }
+
   updateLimit(lim: number): void {
     if (!lim) return;
 
@@ -93,6 +101,10 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   }
 
   viewEntity(id: string): void {
+    this.router.navigate([id], {relativeTo: this.activatedRoute});
+  }
+
+  editEntity(id: string): void {
     this.mode = 'view';
     this.showEntityId = id;
     this.showEntityDetails = true;

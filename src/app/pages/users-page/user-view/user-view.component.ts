@@ -4,6 +4,7 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
 import {ActivatedRoute} from '@angular/router';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {UsersService} from '../../../shared/services/users.service';
+import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
   selector: 'user-view',
@@ -12,7 +13,7 @@ import {UsersService} from '../../../shared/services/users.service';
 })
 export class UserViewComponent extends AbstractEntityViewComponent<User> implements OnInit {
 
-  constructor(service: UsersService, route: ActivatedRoute, progressBar: ProgressBarService) {
+  constructor(service: UsersService, route: ActivatedRoute, progressBar: ProgressBarService, public navigation: NavigationService) {
     super(service, route, progressBar);
   }
 

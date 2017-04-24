@@ -4,6 +4,7 @@ import {CreditCard} from '../../../shared/models/credit-card.model';
 import {CreditCardsService} from '../../../shared/services/credit-cards.service';
 import {ActivatedRoute} from '@angular/router';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
+import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
   selector: 'credit-card-view',
@@ -12,7 +13,7 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
 })
 export class CreditCardViewComponent extends AbstractEntityViewComponent<CreditCard> implements OnInit {
 
-  constructor(service: CreditCardsService, route: ActivatedRoute, progressBarService: ProgressBarService) {
+  constructor(service: CreditCardsService, route: ActivatedRoute, progressBarService: ProgressBarService, public navigation: NavigationService) {
     super(service, route, progressBarService);
   }
 
