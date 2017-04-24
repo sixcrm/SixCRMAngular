@@ -1,0 +1,37 @@
+<div class="customer-view__transactions">
+  <table class="highlight">
+    <thead>
+    <tr>
+      <th>Customer Name </th>
+      <th>Campaign Name </th>
+      <th>Number of Product Schedules </th>
+      <th>Number of Rebills </th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let session of entities">
+      <td [routerLink]="['/sessions', session.id]">{{session.customer.firstName + session.customer.lastName}}</td>
+      <td [routerLink]="['/sessions', session.id]">{{session.productSchedules.length}}</td>
+      <td [routerLink]="['/sessions', session.id]">{{session.rebills.length}}</td>
+      <td [routerLink]="['/sessions', session.id]">{{session.campaign.name}}</td>
+      <td>
+        <table-actions
+          [service]="service">
+        </table-actions>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <table-pagination
+    [limit]="limit"
+    [paginationValues]="paginationValues"
+    [previousDisabled]="page <= 0"
+    [nextDisabled]="!hasMorePages()"
+    (previous)="previous()"
+    (next)="next()"
+    (updateLimit)="updateLimit($event)">
+  </table-pagination>
+</div>

@@ -21,8 +21,8 @@
     <div class="customer-view__navigation">
       <span class="customer-view__navigation__label" [class.customer-view__navigation__label--active]="selectedIndex===0" (click)="setIndex(0)">GENERAL DETAILS</span>
       <span class="customer-view__navigation__label" [class.customer-view__navigation__label--active]="selectedIndex===1" (click)="setIndex(1)">TRANSACTIONS</span>
-      <span class="customer-view__navigation__label" [class.customer-view__navigation__label--active]="selectedIndex===2" (click)="setIndex(2)">BILLING</span>
-      <span class="customer-view__navigation__label" [class.customer-view__navigation__label--active]="selectedIndex===3" (click)="setIndex(3)">SESSIONS</span>
+      <span class="customer-view__navigation__label" [class.customer-view__navigation__label--active]="selectedIndex===2" (click)="setIndex(2)">SESSIONS</span>
+      <span class="customer-view__navigation__label" [class.customer-view__navigation__label--active]="selectedIndex===3" (click)="setIndex(3)">BILLING</span>
     </div>
 
     <md-tab-group [(selectedIndex)]="selectedIndex">
@@ -151,11 +151,11 @@
       </md-tab>
 
       <md-tab>
-        <div class="tab--placeholder">BILLING HERE</div>
+        <customer-sessions *ngIf="entityId" [id]="entityId"></customer-sessions>
       </md-tab>
 
       <md-tab>
-        <div class="tab--placeholder">SESSIONS HERE</div>
+        <div class="tab--placeholder">BILLING HERE</div>
       </md-tab>
     </md-tab-group>
   </div>

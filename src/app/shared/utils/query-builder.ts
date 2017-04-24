@@ -597,6 +597,20 @@ export function sessionsInfoListQuery(limit?:number, cursor?:string): string {
 		}}`
 }
 
+export function sessionsByCustomer(customerId: string, limit?:number, cursor?:string): string {
+  return `{
+		sessionlistbycustomer (customer:"${customerId}" ${pageParams(limit, cursor, true)}) {
+			sessions { id
+			  customer { id firstname lastname }
+				product_schedules { id }
+				rebills { id 	}
+				campaign { id name }
+			}
+			pagination { count end_cursor has_next_page }
+    }
+  }`
+}
+
 export function sessionQuery(id: string): string {
   return `{
     session (id: "${id}") { id
