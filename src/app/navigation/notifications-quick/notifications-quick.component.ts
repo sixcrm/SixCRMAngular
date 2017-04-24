@@ -41,7 +41,7 @@ export class NotificationsQuickComponent implements OnInit {
       this.progressBarService.showTopProgressBar();
     }, 1);
 
-    this.notificationsService.getEntities();
+    this.notificationsService.getEntities(20);
     this.notificationsService.restartPoolingNotifications();
   }
 
