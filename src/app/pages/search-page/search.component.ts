@@ -1,19 +1,23 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SearchService} from '../../shared/services/search.service';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {Subscription, Subject} from 'rxjs';
 import {PaginationService} from '../../shared/services/pagination.service';
-import {utc} from 'moment';
+import {utc, Moment} from 'moment';
 import {DaterangepickerConfig} from 'ng2-daterangepicker';
 import {NavigationService} from '../../navigation/navigation.service';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'c-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
+  host: {'(document:click)': 'hideElements($event)'},
 })
 export class SearchComponent implements OnInit, OnDestroy {
+
+  @ViewChild('shareContainer') shareContainer;
 
   // quick search string
   queryString: string;
@@ -50,7 +54,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   listMode: boolean = true;
 
-  sortBy: string;
+  sortBy: string = '';
 
   entityTypesChecked: any  = {
     campaign: false,
@@ -62,6 +66,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     fulfillment: false,
     productschedule: false
   };
+
+  shareVisible: boolean = false;
+  shareSearch: boolean = false;
 
   queryOptsLabel = {
     firstname: 'First Name',
@@ -80,8 +87,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   };
 
   datepickerVisible: boolean = false;
-  startDate;
-  endDate;
+  startDate: Moment;
+  endDate: Moment;
 
   constructor(
     private route: ActivatedRoute,
@@ -95,37 +102,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.startDate = utc().subtract(30,'d');
     this.endDate = utc();
 
-    this.daterangepickerOptions.settings = {
-      parentEl: '.datepicker--custom',
-      startDate: this.startDate,
-      endDate: this.endDate,
-      locale: { format: 'MM/DD/YYYY' },
-      alwaysShowCalendars: true,
-      applyClass: 'btn-success-custom',
-      linkedCalendars: false,
-      ranges: {
-        'Today': [utc(), utc()],
-        'Yesterday': [utc().subtract(1, 'd'), utc().subtract(1, 'd')],
-        'Last 7 days': [utc().subtract(7, 'd'), utc()],
-        'Last 30 days': [utc().subtract(30, 'd'), utc()],
-      }
-    };
-  }
-
-  datepickerShown() {
-    this.datepickerVisible = true;
-  }
-
-  datepickerHidden() {
-    this.datepickerVisible = false;
-  }
-
-  dateSelected(value: any): void {
-    this.startDate = utc(value.start);
-    this.endDate = utc(value.end);
-
-    this.createdAtRange = `['${this.startDate.format()}', '${this.endDate.format()}']`;
-    this.checkboxClicked$.next(true);
+    this.setDatepickerOptions();
   }
 
   ngOnInit() {
@@ -136,12 +113,13 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.paramsSub = this.route.queryParams.subscribe((params) => {
       this.queryOptions = [];
       this.showAdvancedSearch = !params['advanced'] && !params['query'];
+      this.parseShareParams(params);
 
       if (params['advanced']) {
         this.isAdvancedSearch = true;
         this.queryString = '';
         Object.keys(params).forEach((key) => {
-          if (key !== 'advanced') {
+          if (key !== 'advanced' && key!=='startDate' && key!=='endDate' && key!=='page' && key!=='limit' && key !=='sortBy' && key !=='listMode' && key !=='filters') {
             this.queryOptions.push({key: key, value: params[key], enabled: true});
           }
         });
@@ -174,6 +152,62 @@ export class SearchComponent implements OnInit, OnDestroy {
     if (this.paramsSub) {
       this.paramsSub.unsubscribe();
     }
+  }
+
+  parseShareParams(params): void {
+    this.startDate = params['startDate'] ? utc(params['startDate']) : utc().subtract(30,'d');
+    this.endDate = params['endDate'] ? utc(params['endDate']) : utc();
+    this.createdAtRange = `['${this.startDate.format()}', '${this.endDate.format()}']`;
+    this.page = +params['page'] || 0;
+    this.limit = +params['limit'] || this.limit;
+    this.sortBy = params['sortBy'] || this.sortBy;
+    this.listMode = !params['listMode'] || params['listMode'] === 'true';
+    let filters = params['filters'] || '';
+    if (filters.split(',')) {
+      filters.split(',').forEach(filter => {
+        if (filter) {
+          this.entityTypesChecked[filter] = true
+        }
+      });
+    }
+
+    this.shareSearch = params['page'] && params['limit'];
+
+    this.setDatepickerOptions();
+  }
+
+  setDatepickerOptions(): void {
+    this.daterangepickerOptions.settings = {
+      parentEl: '.datepicker--custom',
+      startDate: this.startDate,
+      endDate: this.endDate,
+      locale: { format: 'MM/DD/YYYY' },
+      alwaysShowCalendars: true,
+      applyClass: 'btn-success-custom',
+      linkedCalendars: false,
+      ranges: {
+        'Today': [utc(), utc()],
+        'Yesterday': [utc().subtract(1, 'd'), utc().subtract(1, 'd')],
+        'Last 7 days': [utc().subtract(7, 'd'), utc()],
+        'Last 30 days': [utc().subtract(30, 'd'), utc()],
+      }
+    };
+  }
+
+  datepickerShown() {
+    this.datepickerVisible = true;
+  }
+
+  datepickerHidden() {
+    this.datepickerVisible = false;
+  }
+
+  dateSelected(value: any): void {
+    this.startDate = utc(value.start);
+    this.endDate = utc(value.end);
+
+    this.createdAtRange = `['${this.startDate.format()}', '${this.endDate.format()}']`;
+    this.checkboxClicked$.next(true);
   }
 
   search(): void {
@@ -314,12 +348,50 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.search();
   }
 
+  showShare(): void {
+    this.shareVisible = true;
+  }
+
+  copyUrlToClipboard(urlField): void {
+    urlField.select();
+    document.execCommand('copy');
+  }
+
+  getShareUrl(): string {
+    let url = environment.auth0RedirectUrl + '/search?';
+    if (this.isAdvancedSearch) {
+      url += `advanced=true`;
+
+      this.queryOptions.forEach(option => {
+        if (option.enabled) {
+          url += `&${option.key}=${option.value}`;
+        }
+      })
+    } else {
+      url += `query=${this.queryString}`;
+    }
+
+    let filters = '&filters=';
+    for (let key in this.entityTypesChecked) {
+      if (this.entityTypesChecked[key]) {
+        filters += `${key},`
+      }
+    }
+
+    return url + `&startDate=${this.startDate.format()}` + `&endDate=${this.endDate.format()}` + `&sortBy=${this.sortBy}` + `&page=${this.page}` + `&limit=${this.limit}` + `&listMode=${this.listMode}` + filters;
+  }
+
   private prepareNewSearch(): void {
     this.searchResults = [];
     this.searchResultsToDisplay = [];
     this.numberOfSearchResults = 0;
     this.entityTypesCount = {};
-    this.page = 0;
+
+    if (!this.shareSearch) {
+      this.page = 0;
+    } else {
+      this.shareSearch = false;
+    }
   }
 
   private reshuffleSearchResults(): void {
@@ -364,6 +436,16 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     return entityTypesCheckedArray;
+  }
+
+  private hideElements(event): void {
+    if (event.target.attributes.class && event.target.attributes.class.value === 'search__content__title__share__trigger material-icons') {
+      return;
+    }
+
+    if (this.shareContainer && !this.shareContainer.nativeElement.contains(event.target)) {
+      this.shareVisible = false;
+    }
   }
 
 }

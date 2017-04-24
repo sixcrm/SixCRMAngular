@@ -76,9 +76,7 @@
         <span>Search Results
           <span *ngIf="numberOfSearchResults && numberOfSearchResults > 0">({{numberOfSearchResults}})</span>
         </span>
-        <md-icon *ngIf="numberOfSearchResults && numberOfSearchResults > 0" class="search__content__title__view--toggle" (click)="toggleView()">
-          {{listMode ? 'view_headline' : 'view_module'}}
-        </md-icon>
+
         <div class="search__content__title__options">
           <span>Sort by:</span>
           <span>{{sortBy}}</span>
@@ -94,17 +92,20 @@
             <button md-menu-item (click)="setSortBy('default')">default</button>
           </md-menu>
 
-          <table-pagination
-            class="search__content__pagination"
-            [limit]="limit"
-            [paginationString]="paginationString()"
-            [paginationValues]="paginationValues"
-            [previousDisabled]="page <= 0"
-            [nextDisabled]="!hasMorePages()"
-            (previous)="previousPage()"
-            (next)="nextPage()"
-            (updateLimit)="updateLimit($event)">
-          </table-pagination>
+          <md-input placeholder="Filter Results"></md-input>
+
+          <div class="search__content__title__share">
+            <md-icon class="search__content__title__share__trigger" (click)="showShare()">link</md-icon>
+            <div #shareContainer class="search__content__title__share__container" *ngIf="shareVisible">
+              <div class="search__content__title__share__pointer"></div>
+              <div class="search__content__title__share__title">Share</div>
+              <div>
+                <input type="text" #urlField class="search__content__title__share__url" value="{{getShareUrl()}}" readonly>
+                <md-icon class="search__content__title__share__icon" md-tooltip="Copy to clipboard" (click)="copyUrlToClipboard(urlField)">content_copy</md-icon>
+              </div>
+            </div>
+          </div>
+          <md-icon (click)="toggleView()">{{listMode ? 'view_headline' : 'view_module'}}</md-icon>
         </div>
       </div>
 
@@ -117,7 +118,7 @@
       </ng-container>
 
       <table-pagination
-        *ngIf="searchResultsToDisplay.length >= 5"
+        *ngIf="searchResultsToDisplay.length > 0"
         class="search__content__pagination--bottom"
         [limit]="limit"
         [paginationString]="paginationString()"
