@@ -310,7 +310,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   setSortBy(value: string): void {
-    this.sortBy = value;
+    this.sortBy = value !== 'default' ? value: '' ;
     this.search();
   }
 

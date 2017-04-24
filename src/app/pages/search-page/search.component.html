@@ -89,6 +89,9 @@
           <md-menu #sortByMenu="mdMenu">
             <button md-menu-item (click)="setSortBy('created_at asc')">created at asc</button>
             <button md-menu-item (click)="setSortBy('created_at desc')">created at desc</button>
+            <button md-menu-item (click)="setSortBy('created_at desc')">updated at asc</button>
+            <button md-menu-item (click)="setSortBy('created_at desc')">updated at desc</button>
+            <button md-menu-item (click)="setSortBy('default')">default</button>
           </md-menu>
 
           <table-pagination
