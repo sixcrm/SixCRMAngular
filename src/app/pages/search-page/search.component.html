@@ -94,7 +94,7 @@
             <button md-menu-item (click)="setSortBy('default')">default</button>
           </md-menu>
 
-          <md-input placeholder="Filter Results"></md-input>
+          <md-input placeholder="Filter Results" [(ngModel)]="filterValue"></md-input>
 
           <div class="search__content__title__share">
             <md-icon class="search__content__title__share__trigger" (click)="showShare()">link</md-icon>
@@ -112,11 +112,11 @@
       </div>
 
       <ng-container *ngIf="listMode" >
-        <result-item *ngFor="let res of searchResultsToDisplay" [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResultDetails($event)"></result-item>
+        <result-item *ngFor="let res of searchResultsToDisplay | filterSearchResults: filterValue" [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResultDetails($event)"></result-item>
       </ng-container>
 
       <ng-container *ngIf="!listMode" >
-        <result-item-table *ngFor="let res of searchResultsToDisplay" [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResultDetails($event)"></result-item-table>
+        <result-item-table *ngFor="let res of searchResultsToDisplay | filterSearchResults: filterValue" [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResultDetails($event)"></result-item-table>
       </ng-container>
 
       <table-pagination

@@ -90,6 +90,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   startDate: Moment;
   endDate: Moment;
 
+  filterValue: string;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -388,6 +390,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.startDate = utc().subtract(30, 'd');
     this.endDate = utc();
     this.shareSearch = false;
+    this.filterValue = '';
     Object.keys(this.entityTypesChecked).forEach(entityType => this.entityTypesChecked[entityType] = false);
     this.prepareNewSearch();
     this.setDatepickerOptions();

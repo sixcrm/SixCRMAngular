@@ -27,10 +27,11 @@ import { HighlightPipe } from './pipes/highlight.pipe';
 import {CustomerNotesService} from './services/customer-notes.service';
 import {NotificationsService} from './services/notifications.service';
 import {NotificationsQuickService} from './services/notifications-quick.service';
+import { FilterSearchResultsPipe } from './pipes/filter-search-results.pipe';
 
 @NgModule({
-  declarations : [ WidgetComponent, AutocompleteComponent, HighlightPipe ],
-  exports : [ WidgetComponent, AutocompleteComponent, HighlightPipe ],
+  declarations : [ WidgetComponent, AutocompleteComponent, HighlightPipe, FilterSearchResultsPipe ],
+  exports : [ WidgetComponent, AutocompleteComponent, HighlightPipe, FilterSearchResultsPipe ],
   imports : [FormsModule, CommonModule, MaterialModule]
 })
 export class SharedModule {
