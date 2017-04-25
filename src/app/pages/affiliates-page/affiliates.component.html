@@ -1,7 +1,10 @@
 <div #indexR class="entity-index">
   <affiliate *ngIf="showEntityDetails" [entityId]="showEntityId" [fullScreen]="fullScreen" (close)="hideEntityDetails()" (deleteEntity)="deleteEntity($event)"></affiliate>
 
-  <div class="entity-index__title">Affiliates</div>
+  <div class="entity-index__title">
+    Affiliates
+    <md-input [(ngModel)]="filterValue" placeholder="Filter"></md-input>
+  </div>
 
   <button md-icon-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="openAddEntity()"><md-icon>add</md-icon></button>
 
@@ -23,7 +26,7 @@
         </thead>
 
         <tbody>
-        <tr *ngFor="let entity of entities">
+        <tr *ngFor="let entity of (entities | filterEntities: filterValue)">
           <td (click)="viewEntity(entity.id)">{{entity.affiliateId}}</td>
           <td (click)="viewEntity(entity.id)">{{entity.subId1}}</td>
           <td (click)="viewEntity(entity.id)">{{entity.subId2}}</td>

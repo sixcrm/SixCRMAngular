@@ -1,5 +1,10 @@
 <button md-fab class="entity-index__button--add" *ngIf="hasWritePermission()"> <md-icon>add</md-icon></button>
 
+<div class="entity-index__title">
+  Access Keys
+  <md-input [(ngModel)]="filterValue" placeholder="Filter"></md-input>
+</div>
+
 <table class="highlight">
   <thead class="entity-index__table__header">
   <tr>
@@ -10,7 +15,7 @@
   </thead>
 
   <tbody>
-  <tr *ngFor="let entity of entities">
+  <tr *ngFor="let entity of (entities | filterEntities: filterValue)">
     <td>{{entity.accessKey}}</td>
     <td>{{entity.secretKey}}</td>
     <td>

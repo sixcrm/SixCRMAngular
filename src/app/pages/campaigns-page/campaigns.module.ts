@@ -8,6 +8,7 @@ import {CampaignViewComponent} from './campaign-view/campaign-view.component';
 import {CampaignComponent} from './campaign/campaign.component';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {CampaignsAclGuard} from '../guards/campaigns-acl-guard.service';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
   imports : [
@@ -16,7 +17,8 @@ import {CampaignsAclGuard} from '../guards/campaigns-acl-guard.service';
     FormsModule,
     MaterialModule.forRoot(),
     ReactiveFormsModule,
-    PageComponentsModule
+    PageComponentsModule,
+    SharedModule
   ],
   declarations : [
     CampaignsComponent,

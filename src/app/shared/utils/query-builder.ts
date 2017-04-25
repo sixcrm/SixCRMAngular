@@ -392,7 +392,7 @@ export function updateAffiliateMutation(affiliate: Affiliate): string {
 export function customersInfoListQuery(limit?:number, cursor?:string): string {
   return `{
     customerlist ${pageParams(limit, cursor)} {
-      customers { id firstname lastname
+      customers { id firstname lastname created_at
         address { city country state }
 			}
 			pagination { count end_cursor has_next_page }

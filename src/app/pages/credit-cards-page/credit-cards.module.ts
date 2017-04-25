@@ -8,6 +8,7 @@ import {PageComponentsModule} from '../components/pages-components.module';
 import {CreditCardViewComponent} from './credit-card-view/credit-card-view.component';
 import {CreditCardComponent} from './credit-card/credit-card.component';
 import {CreditCardsAclGuard} from '../guards/creditcards-acl-guard.service';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
   imports : [
@@ -16,7 +17,8 @@ import {CreditCardsAclGuard} from '../guards/creditcards-acl-guard.service';
     FormsModule,
     MaterialModule.forRoot(),
     ReactiveFormsModule,
-    PageComponentsModule
+    PageComponentsModule,
+    SharedModule
   ],
   declarations : [
     CreditCardsComponent,

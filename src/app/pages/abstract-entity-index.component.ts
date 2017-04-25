@@ -25,6 +25,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   showEntityId: string;
   fullScreen: boolean = false;
   mode: string;
+  filterValue: string;
 
   protected infiniteScroll: boolean = false;
 

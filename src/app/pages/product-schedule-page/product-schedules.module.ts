@@ -8,6 +8,7 @@ import {ProductSchedulesComponent} from './product-schedules.component';
 import {ProductScheduleComponent} from './product-schedule/product-schedule.component';
 import {ProductSchedulesAclGuard} from '../guards/product-schedules-acl-guard.service';
 import {ProductScheduleViewComponent} from './product-schedule-view/product-schedule-view.component';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
   imports : [
@@ -16,7 +17,8 @@ import {ProductScheduleViewComponent} from './product-schedule-view/product-sche
     FormsModule,
     MaterialModule.forRoot(),
     ReactiveFormsModule,
-    PageComponentsModule
+    PageComponentsModule,
+    SharedModule
   ],
   declarations : [
     ProductSchedulesComponent,

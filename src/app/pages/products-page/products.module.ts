@@ -8,6 +8,7 @@ import {ProductViewComponent} from './product-view/product-view.component';
 import {ProductsAclGuard} from '../guards/products-acl-guard.service';
 import {ProductComponent} from './product/product.component';
 import {PageComponentsModule} from '../components/pages-components.module';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
   imports : [
@@ -16,7 +17,8 @@ import {PageComponentsModule} from '../components/pages-components.module';
     FormsModule,
     MaterialModule.forRoot(),
     ReactiveFormsModule,
-    PageComponentsModule
+    PageComponentsModule,
+    SharedModule
   ],
   declarations : [
     ProductsComponent,

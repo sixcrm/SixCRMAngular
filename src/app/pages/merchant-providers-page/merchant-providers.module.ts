@@ -8,6 +8,7 @@ import {MerchantProvidersComponent} from './merchant-providers.component';
 import {MerchantProviderComponent} from './merchant-provider/merchant-provider.component';
 import {MerchantProvidersAclGuard} from '../guards/merchant-providers-acl-guard.service';
 import {MerchantProviderViewComponent} from './merchant-provider-view/merchant-provider-view.component';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
   imports : [
@@ -16,7 +17,8 @@ import {MerchantProviderViewComponent} from './merchant-provider-view/merchant-p
     FormsModule,
     MaterialModule.forRoot(),
     ReactiveFormsModule,
-    PageComponentsModule
+    PageComponentsModule,
+    SharedModule
   ],
   declarations : [
     MerchantProvidersComponent,

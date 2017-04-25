@@ -24,7 +24,7 @@ export class Customer implements Entity<Customer> {
     this.lastName = obj.lastname || '';
     this.phone = obj.phone || '';
     this.address = new Address(obj.address);
-    this.createdAt = utc(obj.created_at);
+    this.createdAt = obj.created_at ? utc(obj.created_at) : null;
 
     if (obj.creditcards) {
       for (let i = 0; i < obj.creditcards.length; i++) {

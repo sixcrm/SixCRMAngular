@@ -10,6 +10,7 @@ import {PageComponentsModule} from '../components/pages-components.module';
 import {CustomersAclGuard} from '../guards/customers-acl-guard.service';
 import { CustomerTransactionsComponent } from './customer-view/customer-transactions/customer-transactions.component';
 import { CustomerSessionsComponent } from './customer-view/customer-sessions/customer-sessions.component';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
   imports : [
@@ -18,7 +19,8 @@ import { CustomerSessionsComponent } from './customer-view/customer-sessions/cus
     FormsModule,
     MaterialModule,
     ReactiveFormsModule,
-    PageComponentsModule
+    PageComponentsModule,
+    SharedModule
   ],
   declarations : [
     CustomersComponent,

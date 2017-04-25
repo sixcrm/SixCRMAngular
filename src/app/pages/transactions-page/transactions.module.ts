@@ -8,6 +8,7 @@ import {TransactionViewComponent} from './transaction-view/transaction-view.comp
 import {TransactionsAclGuard} from '../guards/transactions-acl-guard.service';
 import {TransactionComponent} from './transaction/transaction.component';
 import {PageComponentsModule} from '../components/pages-components.module';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
   imports : [
@@ -16,7 +17,8 @@ import {PageComponentsModule} from '../components/pages-components.module';
     FormsModule,
     MaterialModule.forRoot(),
     ReactiveFormsModule,
-    PageComponentsModule
+    PageComponentsModule,
+    SharedModule
   ],
   declarations : [
     TransactionsComponent,

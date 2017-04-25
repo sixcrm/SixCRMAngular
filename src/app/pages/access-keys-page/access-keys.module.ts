@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MaterialModule} from '@angular/material';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {AccessKeysComponent} from './access-keys.component';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
   imports : [
@@ -11,7 +12,8 @@ import {AccessKeysComponent} from './access-keys.component';
     FormsModule,
     MaterialModule.forRoot(),
     ReactiveFormsModule,
-    PageComponentsModule
+    PageComponentsModule,
+    SharedModule
   ],
   declarations : [
     AccessKeysComponent
