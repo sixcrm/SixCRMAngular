@@ -72,6 +72,7 @@ $title-color: #979797;
       tr th {
         position: relative;
         padding: 30px 5px;
+        cursor: pointer;
 
         &:first-child {
           padding-left: 45px;
@@ -84,7 +85,6 @@ $title-color: #979797;
         md-icon {
           position: absolute;
           bottom: 15px;
-          cursor: pointer;
           width: 20px;
           height: 35px;
         }

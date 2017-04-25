@@ -8,6 +8,7 @@ import {Entity} from '../shared/models/entity.interface';
 import {ViewChild} from '@angular/core';
 import {AsyncSubject} from 'rxjs';
 import {Router, ActivatedRoute} from '@angular/router';
+import {ColumnParams} from '../shared/models/column-params.model';
 
 export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
@@ -27,7 +28,10 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   mode: string;
   filterValue: string;
 
-  protected infiniteScroll: boolean = false;
+  infiniteScroll: boolean = false;
+
+  columnParams: ColumnParams[] = [];
+  sortedColumnParams: ColumnParams = new ColumnParams();
 
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
@@ -151,6 +155,17 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
   hasWritePermission(): boolean {
     return this.service.hasWritePermission();
+  }
+
+  setSortedColumnParams(params: ColumnParams): void {
+    if (params.sortApplied) {
+      params.sortOrder = params.sortOrder === 'asc' ? 'desc' : 'asc';
+    } else if (this.sortedColumnParams) {
+      this.sortedColumnParams.sortApplied = false;
+    }
+
+    params.sortApplied = true;
+    this.sortedColumnParams = params;
   }
 
   protected reshuffleEntities(): void {
