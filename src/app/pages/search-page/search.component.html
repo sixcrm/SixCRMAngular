@@ -66,6 +66,8 @@
             <span class="datepicker--custom__input" name="daterange" >  {{ startDate.format('MM/DD/YYYY').substring(0,10) }} <span>to</span> {{ endDate.format('MM/DD/YYYY').substring(0, 10) }} <md-icon>keyboard_arrow_down</md-icon> </span>
           </div>
         </div>
+
+        <div class="search__sidenav__reset" (click)="resetSearch()"> RESET SEARCH </div>
       </md-nav-list>
     </div>
 

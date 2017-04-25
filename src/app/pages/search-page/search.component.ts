@@ -119,7 +119,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.isAdvancedSearch = true;
         this.queryString = '';
         Object.keys(params).forEach((key) => {
-          if (key !== 'advanced' && key!=='startDate' && key!=='endDate' && key!=='page' && key!=='limit' && key !=='sortBy' && key !=='listMode' && key !=='filters') {
+          if (this.queryOptsLabel[key]) {
             this.queryOptions.push({key: key, value: params[key], enabled: true});
           }
         });
@@ -229,7 +229,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   quickSearch(): void {
     this.showAutocomplete = false;
 
-    if (this.queryString === this.currentRoute) {
+    if (this.queryString === this.currentRoute || this.isAdvancedSearch) {
       this.search();
     } else {
       this.router.navigate(['/search'], {queryParams: {query: this.queryString}})
@@ -378,7 +378,21 @@ export class SearchComponent implements OnInit, OnDestroy {
       }
     }
 
-    return url + `&startDate=${this.startDate.format()}` + `&endDate=${this.endDate.format()}` + `&sortBy=${this.sortBy}` + `&page=${this.page}` + `&limit=${this.limit}` + `&listMode=${this.listMode}` + filters;
+    return url + `&startDate=${this.startDate.format()}&endDate=${this.endDate.format()}&sortBy=${this.sortBy}&page=${this.page}&limit=${this.limit}&listMode=${this.listMode}` + filters;
+  }
+
+  resetSearch(): void {
+    this.isAdvancedSearch = false;
+    this.queryString = '';
+    this.sortBy = '';
+    this.startDate = utc().subtract(30, 'd');
+    this.endDate = utc();
+    this.shareSearch = false;
+    Object.keys(this.entityTypesChecked).forEach(entityType => this.entityTypesChecked[entityType] = false);
+    this.prepareNewSearch();
+    this.setDatepickerOptions();
+
+    this.router.navigate(['/search']);
   }
 
   private prepareNewSearch(): void {
