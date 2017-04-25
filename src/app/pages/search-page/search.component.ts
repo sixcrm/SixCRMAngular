@@ -164,6 +164,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.limit = +params['limit'] || this.limit;
     this.sortBy = params['sortBy'] || this.sortBy;
     this.listMode = !params['listMode'] || params['listMode'] === 'true';
+    this.filterValue = params['filterValue'] || '';
     let filters = params['filters'] || '';
     if (filters.split(',')) {
       filters.split(',').forEach(filter => {
@@ -380,7 +381,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       }
     }
 
-    return url + `&startDate=${this.startDate.format()}&endDate=${this.endDate.format()}&sortBy=${this.sortBy}&page=${this.page}&limit=${this.limit}&listMode=${this.listMode}` + filters;
+    return url + `&startDate=${this.startDate.format()}&endDate=${this.endDate.format()}&sortBy=${this.sortBy}&page=${this.page}&limit=${this.limit}&listMode=${this.listMode}&filterValue=${this.filterValue}` + filters;
   }
 
   resetSearch(): void {
