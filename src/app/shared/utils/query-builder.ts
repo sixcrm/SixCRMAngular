@@ -657,6 +657,35 @@ export function deleteSessionMutation(id: string): string {
   return deleteMutation('session', id);
 }
 
+export function rebillsListQuery(limit?: number, cursor?: string): string {
+  return `{
+		rebilllist ${pageParams(limit, cursor)} {
+			rebills { id bill_at amount created_at updated_at
+				parentsession { id
+					customer { id firstname lastname }
+				}
+				product_schedules { id }
+				transactions { id processor_response amount }
+			}
+			pagination { count end_cursor has_next_page }
+		}`
+}
+
+export function rebillsByCustomer(customerId: string, limit?: number, cursor?: string): string {
+  return `{
+		rebilllistbycustomer (customer:"${customerId}" ${pageParams(limit, cursor, true)}) {
+			rebills { id bill_at amount created_at updated_at
+				parentsession { id
+					customer { id firstname lastname }
+				}
+				product_schedules { id }
+				transactions { id processor_response amount }
+			}
+			pagination { count end_cursor has_next_page }
+		}
+  }`
+}
+
 export function creditCardsListQuery(limit?:number, cursor?:string): string {
   return `{
     creditcardlist ${pageParams(limit, cursor)} {

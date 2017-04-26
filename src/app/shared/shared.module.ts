@@ -30,6 +30,7 @@ import {NotificationsQuickService} from './services/notifications-quick.service'
 import { FilterSearchResultsPipe } from './pipes/filter-search-results.pipe';
 import { FilterEntitiesPipe } from './pipes/filter-entities.pipe';
 import { SortEntitiesPipe } from './pipes/sort-entities.pipe';
+import {RebillsService} from './services/rebills.service';
 
 @NgModule({
   declarations : [ WidgetComponent, AutocompleteComponent, HighlightPipe, FilterSearchResultsPipe, FilterEntitiesPipe, SortEntitiesPipe ],
@@ -62,7 +63,8 @@ export class SharedModule {
         SearchService,
         CustomerNotesService,
         NotificationsService,
-        NotificationsQuickService
+        NotificationsQuickService,
+        RebillsService
       ]
     };
   }

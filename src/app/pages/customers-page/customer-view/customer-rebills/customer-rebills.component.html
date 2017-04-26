@@ -1,0 +1,38 @@
+<div class="customer-view__transactions">
+  <table class="highlight">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Bill At</th>
+      <th>Created At</th>
+      <th>Amount</th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let entity of entities">
+      <td>{{entity.id}}</td>
+      <td>{{entity.billAt ? entity.billAt.format() : 'not billed'}}</td>
+      <td>{{entity.createdAt.format()}}</td>
+      <td>{{entity.amount}}</td>
+      <td>
+        <table-actions
+          [service]="service">
+        </table-actions>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <table-pagination
+    [limit]="limit"
+    [paginationValues]="paginationValues"
+    [previousDisabled]="page <= 0"
+    [nextDisabled]="!hasMorePages()"
+    (previous)="previous()"
+    (next)="next()"
+    (updateLimit)="updateLimit($event)">
+  </table-pagination>
+</div>
+

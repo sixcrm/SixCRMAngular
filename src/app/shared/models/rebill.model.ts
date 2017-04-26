@@ -2,11 +2,13 @@ import {ParentSession} from './parent-session.model';
 import {ProductSchedule} from './product-schedule.model';
 import {Transaction} from './transaction.model';
 import {Entity} from './entity.interface';
+import {Moment, utc} from 'moment';
 
 export class Rebill implements Entity<Rebill> {
   id: string;
-  billAt: string;
   amount: string;
+  billAt: Moment;
+  createdAt: Moment;
   parentSession: ParentSession;
   productSchedules: ProductSchedule[] = [];
   transactions: Transaction[] = [];
@@ -17,8 +19,9 @@ export class Rebill implements Entity<Rebill> {
     }
 
     this.id = obj.id || '';
-    this.billAt = obj.bill_at || '';
     this.amount = obj.amount || '';
+    this.billAt = obj.bill_at ? utc(obj.bill_at) : null;
+    this.createdAt = utc(obj.created_at);
     this.parentSession = new ParentSession(obj.parentsession);
 
     if (obj.product_schedules) {

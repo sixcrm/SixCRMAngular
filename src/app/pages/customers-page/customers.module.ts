@@ -11,6 +11,7 @@ import {CustomersAclGuard} from '../guards/customers-acl-guard.service';
 import { CustomerTransactionsComponent } from './customer-view/customer-transactions/customer-transactions.component';
 import { CustomerSessionsComponent } from './customer-view/customer-sessions/customer-sessions.component';
 import {SharedModule} from '../../shared/shared.module';
+import { CustomerRebillsComponent } from './customer-view/customer-rebills/customer-rebills.component';
 
 @NgModule({
   imports : [
@@ -27,7 +28,8 @@ import {SharedModule} from '../../shared/shared.module';
     CustomerViewComponent,
     CustomerComponent,
     CustomerTransactionsComponent,
-    CustomerSessionsComponent
+    CustomerSessionsComponent,
+    CustomerRebillsComponent
   ],
   exports : [
     CustomerComponent
