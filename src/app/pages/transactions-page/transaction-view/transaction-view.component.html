@@ -3,99 +3,107 @@
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <div *ngIf="entity" class="entity-view__content">
+  <div *ngIf="entity">
 
-    <div class="entity-view__content__title"> General Details </div>
-
-    <div class="entity-view__content__body">
-      <div class="entity-view__content__body__column">
-        <div class="entity-view__content__body__column__title">TRANSACTION INFORMATION</div>
-
-        <div class="entity-view__content__body__column__item">
-          <span class="entity-view__content__body__column__item__label">Transaction Alias:</span>
-          <span>{{entity.alias}}</span>
-        </div>
-        <div class="entity-view__content__body__column__item">
-          <span class="entity-view__content__body__column__item__label">Date:</span>
-          <span>{{entity.createdAt.format('MM/DD/YYYY')}}</span>
-        </div>
-        <div class="entity-view__content__body__column__item">
-          <span class="entity-view__content__body__column__item__label">Amount:</span>
-          <span>{{entity.amount}}</span>
-        </div>
+    <div class="transaction-view__info">
+      <div class="transaction-view__info__image">
+        <img src="https://www.kwrwater.nl/wp-content/themes/kwr/assets/placeholders/no-profile-user.png" alt="">
       </div>
-
-      <div class="entity-view__content__body__column">
-        <div class="entity-view__content__body__column__title">REBILL INFORMATION</div>
-
-        <div class="entity-view__content__body__column__item">
-          <span class="entity-view__content__body__column__item__label">Amount:</span>
-          <span>{{entity.rebill.amount}}</span>
-        </div>
-        <div class="entity-view__content__body__column__item">
-          <span class="entity-view__content__body__column__item__label">Bill Date:</span>
-          <span>{{entity.rebill.billAt}}</span>
-        </div>
+      <div class="transaction-view__info__data">
+        <div class="transaction-view__info__data__date">Created: {{entity.createdAt.format('MM/DD/YYYY')}} <span>{{entity.createdAt.format('HH:mm')}}</span></div>
+        <div class="transaction-view__info__data__name">{{entity.alias}}</div>
+        <div class="transaction-view__info__data__other">Merchant processor:</div>
       </div>
     </div>
 
-    <div *ngIf="entity.products.length > 0" class="entity-view__content__title"> Products </div>
+    <div class="transaction-view__navigation">
+      <span class="transaction-view__navigation__label customer-view__navigation__label--active">GENERAL DETAILS</span>
+    </div>
 
-    <div class="entity-view__content__body">
-      <ng-container *ngFor="let product of entity.products">
-        <div class="entity-view__content__body__section">
-          <div class="entity-view__content__body__column section__column">
-            <div class="entity-view__content__body__column__item item--single">
-              <span class="entity-view__content__body__column__item__label">Amount:</span>
-              <span>{{product.amount}}</span>
-            </div>
+    <div class="transaction-view__content">
 
-            <div class="entity-view__content__body__column__title">PRODUCT INFORMATION</div>
+      <md-card>
+        <md-card-title class="transaction-view__content__title">
+          <div class="transaction-view__content__title__main">Transaction details</div>
+          <div class="transaction-view__content__title__sub">general information</div>
+          <md-icon class="transaction-view__content__title__icon">more_vert</md-icon>
+        </md-card-title>
 
-            <div class="entity-view__content__body__column__item">
-              <span class="entity-view__content__body__column__item__label">Name:</span>
-              <span>{{product.product.name}}</span>
-            </div>
+        <md-card-content>
+          <div class="transaction-view__content__item">
+            <div class="transaction-view__content__item__label">Amount</div>
+            <div class="transaction-view__content__item__value">{{entity.amount}}</div>
+          </div>
 
-            <div class="entity-view__content__body__column__item">
-              <span class="entity-view__content__body__column__item__label">SKU:</span>
-              <span>{{product.product.sku}}</span>
-            </div>
-            <div class="entity-view__content__body__column__item">
-              <span class="entity-view__content__body__column__item__label">Ship:</span>
-              <span>{{product.product.ship}}</span>
-            </div>
-            <div class="entity-view__content__body__column__item">
-              <span class="entity-view__content__body__column__item__label">Shipping Delay:</span>
-              <span>{{product.product.shippingDelay}}</span>
-            </div>
-            <div class="entity-view__content__body__column__item">
-              <span class="entity-view__content__body__column__item__label">Fulfillment Provider:</span>
-              <span>{{product.product.fulfillmentProvider.name}}</span>
-            </div>
+          <div class="transaction-view__content__item">
+            <div class="transaction-view__content__item__label">ID</div>
+            <div class="transaction-view__content__item__value">{{entity.id}}</div>
+          </div>
 
-            <div class="entity-view__content__body__column__title">SHIPPING RECEIPT</div>
+          <div class="transaction-view__content__item">
+            <div class="transaction-view__content__item__label">Alias</div>
+            <div class="transaction-view__content__item__value">{{entity.alias}}</div>
+          </div>
 
-            <div class="entity-view__content__body__column__item">
-              <span class="entity-view__content__body__column__item__label">Created:</span>
-              <span>{{product.shippingReceipt.created}}</span>
-            </div>
+          <div class="transaction-view__content__item">
+            <div class="transaction-view__content__item__label">Merchant Processor</div>
+            <div class="transaction-view__content__item__value"></div>
+          </div>
+        </md-card-content>
+      </md-card>
 
-            <div class="entity-view__content__body__column__item">
-              <span class="entity-view__content__body__column__item__label">Modified:</span>
-              <span>{{product.shippingReceipt.modified}}</span>
-            </div>
-            <div class="entity-view__content__body__column__item">
-              <span class="entity-view__content__body__column__item__label">Status:</span>
-              <span>{{product.shippingReceipt.status}}</span>
-            </div>
-            <div class="entity-view__content__body__column__item">
-              <span class="entity-view__content__body__column__item__label">Tracking Number:</span>
-              <span>{{product.shippingReceipt.trackingNumber}}</span>
+      <md-card>
+        <md-card-title class="transaction-view__content__title">
+          <div class="transaction-view__content__title__main">Product information</div>
+          <div class="transaction-view__content__title__sub">Products sold this transaction</div>
+          <md-icon class="transaction-view__content__title__icon">more_vert</md-icon>
+        </md-card-title>
+
+        <md-card-content>
+          <div class="transaction-view__content__item__container--inline hoverable" *ngFor="let product of entity.products" [routerLink]="['/products', product.product.id]">
+            <div class="transaction-view__content__image"></div>
+            <div class="transaction-view__content__item transaction-view__content__item--inline">
+              <div class="transaction-view__content__item__label">{{product.product.name}}</div>
+              <div class="transaction-view__content__item__value">{{product.amount}}</div>
+              <md-icon>open_in_new</md-icon>
             </div>
           </div>
-        </div>
-      </ng-container>
+        </md-card-content>
+      </md-card>
+
+      <md-card>
+        <md-card-title class="transaction-view__content__title">
+          <div class="transaction-view__content__title__main">Transaction response</div>
+          <md-icon class="transaction-view__content__title__icon">more_vert</md-icon>
+        </md-card-title>
+
+        <md-card-content>
+          <div class="transaction-view__content__item__container--inline">
+            <div class="transaction-view__content__image"></div>
+            <div class="transaction-view__content__item transaction-view__content__item--inline">
+              <div class="transaction-view__content__item__label">{{entity.processorResponse.responseText}}</div>
+              <div class="transaction-view__content__item__label">Auth Code: {{entity.processorResponse.authCode}}</div>
+              <div class="transaction-view__content__item__value">ID: {{entity.processorResponse.transactionId}}</div>
+            </div>
+          </div>
+        </md-card-content>
+      </md-card>
+
+      <md-card>
+        <md-card-title class="transaction-view__content__title">
+          <div class="transaction-view__content__title__main">Rebill information</div>
+          <md-icon class="transaction-view__content__title__icon">more_vert</md-icon>
+        </md-card-title>
+
+        <md-card-content>
+          <div class="transaction-view__content__item">
+            <div class="transaction-view__content__item__label">Rebill ID</div>
+            <div class="transaction-view__content__item__value">{{entity.rebill.id}}</div>
+          </div>
+        </md-card-content>
+      </md-card>
+
     </div>
+
   </div>
 </div>

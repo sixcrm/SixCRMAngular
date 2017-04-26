@@ -110,7 +110,7 @@ $card-title-color: #5B9BE1;
       }
 
       &__item {
-        margin-top: 15px;
+        margin-top: 15px !important;
         font-size: 12px;
 
         span {
@@ -175,7 +175,7 @@ $card-title-color: #5B9BE1;
     }
   }
 
-  &__transactions {
+  &__table {
     min-height: calc(100vh - 350px);
     padding-bottom: 20px;
     background: white;
@@ -408,8 +408,4 @@ $card-title-color: #5B9BE1;
       height: 40px;
     }
   }
-}
-
-.tab--placeholder {
-  min-height: 100vh;
 }

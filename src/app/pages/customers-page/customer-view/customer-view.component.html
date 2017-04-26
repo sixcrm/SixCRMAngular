@@ -3,13 +3,13 @@
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <div  *ngIf="entity">
+  <div *ngIf="entity">
     <div class="customer-view__info">
       <div class="customer-view__info__image">
         <img src="https://www.kwrwater.nl/wp-content/themes/kwr/assets/placeholders/no-profile-user.png" alt="">
       </div>
       <div class="customer-view__info__data">
-        <div class="customer-view__info__data__date">Created: {{entity.createdAt.format('MM/DD/YYYY')}}</div>
+        <div class="customer-view__info__data__date">Created: {{entity.createdAt.format('MM/DD/YYYY')}} <span>{{entity.createdAt.format('HH:mm')}}</span></div>
         <div class="customer-view__info__data__name">{{entity.firstName}} {{entity.lastName}}</div>
         <div class="customer-view__info__data__other">
           <span *ngIf="entity.phone"><md-icon>phone</md-icon>{{entity.phone}}</span>
