@@ -1,9 +1,10 @@
 import {Component, Output, EventEmitter, OnInit, ElementRef} from '@angular/core';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
-import {Notification} from '../../shared/models/notification.model';
+import {Notification, compareNotifications} from '../../shared/models/notification.model';
 import {utc} from 'moment';
 import {Router} from '@angular/router';
 import {NotificationsQuickService} from '../../shared/services/notifications-quick.service';
+import {NotificationsByDate} from '../../shared/models/notifications-by-date.interface';
 
 @Component({
   selector: 'notifications-quick',
@@ -15,10 +16,12 @@ export class NotificationsQuickComponent implements OnInit {
 
   @Output() close: EventEmitter<boolean> = new EventEmitter();
 
-  today: Notification[] = [];
-  last7: Notification[] = [];
-  month: Notification[] = [];
-  other: Notification[] = [];
+  notsByDate: NotificationsByDate[] = [
+    {label: 'Today', nots: [], contains: (n: Notification) => utc(n.createdAt).isSame(utc(), 'day')},
+    {label: 'Last 7 days', nots: [], contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(7, 'd'))},
+    {label: 'Last 30 days', nots: [], contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(30, 'd'))},
+    {label: 'Other', nots: [], contains: (n: Notification) => true}
+  ];
 
   constructor(
     private notificationsService: NotificationsQuickService,
@@ -50,24 +53,19 @@ export class NotificationsQuickComponent implements OnInit {
   }
 
   arrangeNotifications(nots: Notification[]): void {
-    this.today = [];
-    this.last7 = [];
-    this.month = [];
-    this.other = [];
-
     nots.forEach(notification => {
-      let date = utc(notification.createdAt);
+      for (let i in this.notsByDate) {
+        if (this.notsByDate[i].contains(notification)) {
+          this.notsByDate[i].nots.push(notification);
 
-      if (date.isSame(utc(), 'day')) {
-        this.today.push(notification);
-      } else if (date.isAfter(utc().subtract(7, 'day'))) {
-        this.last7.push(notification);
-      } else if (date.isAfter(utc().subtract(1, 'month'))) {
-        this.month.push(notification);
-      } else {
-        this.other.push(notification);
+          return;
+        }
       }
-    })
+    });
+
+    for (let i in this.notsByDate) {
+      this.notsByDate[i].nots = this.notsByDate[i].nots.sort(compareNotifications);
+    }
   }
 
   readNotification(notification: Notification): void {
@@ -79,31 +77,14 @@ export class NotificationsQuickComponent implements OnInit {
   }
 
   updateLocally(notification: Notification): void {
-    for (let i = 0 ; i < this.today.length ; i++) {
-      if (this.today[i].id === notification.id) {
-        this.today[i] = notification;
-        return;
-      }
-    }
+    for (let i in this.notsByDate) {
+      for (let j in this.notsByDate[i].nots) {
 
-    for (let i = 0 ; i < this.last7.length ; i++) {
-      if (this.last7[i].id === notification.id) {
-        this.last7[i] = notification;
-        return;
-      }
-    }
+        if (this.notsByDate[i].nots[j].id === notification.id) {
+          this.notsByDate[i].nots[j] = notification;
 
-    for (let i = 0 ; i < this.month.length ; i++) {
-      if (this.month[i].id === notification.id) {
-        this.month[i] = notification;
-        return;
-      }
-    }
-
-    for (let i = 0 ; i < this.other.length ; i++) {
-      if (this.other[i].id === notification.id) {
-        this.other[i] = notification;
-        return;
+          return;
+        }
       }
     }
   }

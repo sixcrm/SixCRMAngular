@@ -46,3 +46,15 @@ export class Notification implements Entity<Notification> {
     }
   }
 }
+
+export function compareNotifications(f: Notification, s: Notification): number {
+  if (f.createdAt.isBefore(s.createdAt)) {
+    return 1;
+  }
+
+  if (f.createdAt.isAfter(s.createdAt)) {
+    return -1;
+  }
+
+  return 0;
+}
