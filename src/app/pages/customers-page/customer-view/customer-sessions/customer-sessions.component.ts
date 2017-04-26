@@ -7,6 +7,7 @@ import {PaginationService} from '../../../../shared/services/pagination.service'
 import {sessionsInfoListQuery, sessionsByCustomer} from '../../../../shared/utils/query-builder';
 import {Session} from '../../../../shared/models/session.model';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
+import {ColumnParams} from '../../../../shared/models/column-params.model';
 
 @Component({
   selector: 'customer-sessions',
@@ -25,6 +26,13 @@ export class CustomerSessionsComponent extends AbstractEntityIndexComponent<Sess
     paginationService: PaginationService
   ) {
     super(transactionsService, auth, dialog, progressBarService, paginationService);
+
+    this.columnParams = [
+      new ColumnParams('Customer Name', (e: Session) => `${e.customer.firstName} ${e.customer.lastName}`),
+      new ColumnParams('Campaign Name',(e: Session) => e.campaign.name),
+      new ColumnParams('Number of Product Schedules', (e: Session) => e.productSchedules.length.toString()),
+      new ColumnParams('Number of Rebills', (e: Session) => e.rebills.length.toString())
+    ];
   }
 
   ngOnInit() {

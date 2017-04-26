@@ -7,6 +7,7 @@ import {MdDialog} from '@angular/material';
 import {ProgressBarService} from '../../../../shared/services/progress-bar.service';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {rebillsListQuery, rebillsByCustomer} from '../../../../shared/utils/query-builder';
+import {ColumnParams} from '../../../../shared/models/column-params.model';
 
 @Component({
   selector: 'customer-rebills',
@@ -25,6 +26,13 @@ export class CustomerRebillsComponent extends AbstractEntityIndexComponent<Rebil
     paginationService: PaginationService
   ) {
     super(rebillsService, auth, dialog, progressBarService, paginationService);
+
+    this.columnParams = [
+      new ColumnParams('ID', (e: Rebill) => e.id),
+      new ColumnParams('Bill At',(e: Rebill) => e.billAt ? e.billAt.format() : 'not billed'),
+      new ColumnParams('Created At', (e: Rebill) => e.createdAt.format()),
+      new ColumnParams('Amount', (e: Rebill) => e.amount)
+    ];
   }
 
   ngOnInit() {

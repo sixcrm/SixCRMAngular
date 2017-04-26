@@ -7,6 +7,7 @@ import {MdDialog} from '@angular/material';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {transactionsByCustomer, transactionsInfoListQuery} from '../../../../shared/utils/query-builder';
+import {ColumnParams} from '../../../../shared/models/column-params.model';
 
 @Component({
   selector: 'customer-transactions',
@@ -25,6 +26,13 @@ export class CustomerTransactionsComponent extends AbstractEntityIndexComponent<
     paginationService: PaginationService
   ) {
     super(transactionsService, auth, dialog, progressBarService, paginationService);
+
+    this.columnParams = [
+      new ColumnParams('ID', (e: Transaction) => e.id),
+      new ColumnParams('Date',(e: Transaction) => e.createdAt.format('MM/DD/YYYY')),
+      new ColumnParams('Amount', (e: Transaction) => e.amount),
+      new ColumnParams('Processor Response', (e: Transaction) => e.processorResponse.message)
+    ];
   }
 
   ngOnInit() {

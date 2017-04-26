@@ -2,20 +2,17 @@
   <table class="highlight">
     <thead>
     <tr>
-      <th>Customer Name </th>
-      <th>Campaign Name </th>
-      <th>Number of Product Schedules </th>
-      <th>Number of Rebills </th>
+      <th *ngFor="let params of columnParams" (click)="setSortedColumnParams(params)">
+        {{params.label}}
+        <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+      </th>
       <th></th>
     </tr>
     </thead>
 
     <tbody>
-    <tr *ngFor="let session of entities">
-      <td [routerLink]="['/sessions', session.id]">{{session.customer.firstName + session.customer.lastName}}</td>
-      <td [routerLink]="['/sessions', session.id]">{{session.productSchedules.length}}</td>
-      <td [routerLink]="['/sessions', session.id]">{{session.rebills.length}}</td>
-      <td [routerLink]="['/sessions', session.id]">{{session.campaign.name}}</td>
+    <tr *ngFor="let entity of entities | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder">
+      <td *ngFor="let params of columnParams" [routerLink]="['/sessions', entity.id]">{{params.mappingFunction(entity)}}</td>
       <td>
         <table-actions
           [service]="service">

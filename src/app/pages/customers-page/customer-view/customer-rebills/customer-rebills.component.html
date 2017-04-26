@@ -2,20 +2,17 @@
   <table class="highlight">
     <thead>
     <tr>
-      <th>ID</th>
-      <th>Bill At</th>
-      <th>Created At</th>
-      <th>Amount</th>
+      <th *ngFor="let params of columnParams" (click)="setSortedColumnParams(params)">
+        {{params.label}}
+        <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+      </th>
       <th></th>
     </tr>
     </thead>
 
     <tbody>
-    <tr *ngFor="let entity of entities">
-      <td>{{entity.id}}</td>
-      <td>{{entity.billAt ? entity.billAt.format() : 'not billed'}}</td>
-      <td>{{entity.createdAt.format()}}</td>
-      <td>{{entity.amount}}</td>
+    <tr *ngFor="let entity of entities | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder">
+      <td *ngFor="let params of columnParams">{{params.mappingFunction(entity)}}</td>
       <td>
         <table-actions
           [service]="service">
