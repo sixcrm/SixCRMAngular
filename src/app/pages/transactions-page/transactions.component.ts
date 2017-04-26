@@ -7,6 +7,7 @@ import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {PaginationService} from '../../shared/services/pagination.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ColumnParams} from '../../shared/models/column-params.model';
 
 @Component({
   selector: 'transactions',
@@ -25,6 +26,13 @@ export class TransactionsComponent extends AbstractEntityIndexComponent<Transact
     activatedRoute: ActivatedRoute
   ) {
     super(transactionsService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
+
+    this.columnParams = [
+      new ColumnParams('ID', (e: Transaction) => e.id),
+      new ColumnParams('Date',(e: Transaction) => e.createdAt.format('MM/DD/YYYY')),
+      new ColumnParams('Amount', (e: Transaction) => e.amount),
+      new ColumnParams('Processor Response', (e: Transaction) => e.processorResponse.message)
+    ];
   }
 
   ngOnInit() {

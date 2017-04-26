@@ -7,6 +7,7 @@ import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {PaginationService} from '../../shared/services/pagination.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ColumnParams} from '../../shared/models/column-params.model';
 
 @Component({
   selector: 'load-balancers',
@@ -25,6 +26,11 @@ export class LoadBalancersComponent extends AbstractEntityIndexComponent<LoadBal
     activatedRoute: ActivatedRoute
   ) {
     super(loadBalancersService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
+
+    this.columnParams = [
+      new ColumnParams('ID', (e: LoadBalancer) => e.id),
+      new ColumnParams('Number Of Merchent Provider Configs',(e: LoadBalancer) => e.merchantProviderConfigurations.length.toString())
+    ];
   }
 
   ngOnInit() {

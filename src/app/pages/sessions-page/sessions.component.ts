@@ -7,6 +7,7 @@ import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {PaginationService} from '../../shared/services/pagination.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ColumnParams} from '../../shared/models/column-params.model';
 
 @Component({
   selector: 'sessions',
@@ -25,6 +26,13 @@ export class SessionsComponent extends AbstractEntityIndexComponent<Session> imp
     activatedRoute: ActivatedRoute
   ) {
     super(sessionsService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
+
+    this.columnParams = [
+      new ColumnParams('Customer Name', (e: Session) => e.customer.firstName + e.customer.lastName),
+      new ColumnParams('Campaign Name',(e: Session) => e.campaign.name),
+      new ColumnParams('Number of Product Schedules', (e: Session) => e.productSchedules.length.toString()),
+      new ColumnParams('Number of Rebills', (e: Session) => e.rebills.length.toString())
+    ];
   }
 
   ngOnInit() {

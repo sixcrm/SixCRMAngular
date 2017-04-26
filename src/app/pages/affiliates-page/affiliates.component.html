@@ -14,26 +14,19 @@
       <table class="entity-index__table highlight">
         <thead class="entity-index__table__header">
         <tr>
-          <th data-field="affiliateId">Affiliate ID <md-icon>keyboard_arrow_down</md-icon></th>
-          <th data-field="subId1">Sub ID 1 <md-icon>keyboard_arrow_down</md-icon></th>
-          <th data-field="subId2">Sub ID 2 <md-icon>keyboard_arrow_down</md-icon></th>
-          <th data-field="subId3">Sub ID 3 <md-icon>keyboard_arrow_down</md-icon></th>
-          <th data-field="subId4">Sub ID 4 <md-icon>keyboard_arrow_down</md-icon></th>
-          <th data-field="subId5">Sub ID 5 <md-icon>keyboard_arrow_down</md-icon></th>
-          <th data-field="clickId">Click ID <md-icon>keyboard_arrow_down</md-icon></th>
-          <th>Actions</th>
+          <ng-container *ngFor="let params of columnParams">
+            <th (click)="setSortedColumnParams(params)">
+              {{params.label}}
+              <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+            </th>
+          </ng-container>
+          <th></th>
         </tr>
         </thead>
 
         <tbody>
-        <tr *ngFor="let entity of (entities | filterEntities: filterValue)">
-          <td (click)="viewEntity(entity.id)">{{entity.affiliateId}}</td>
-          <td (click)="viewEntity(entity.id)">{{entity.subId1}}</td>
-          <td (click)="viewEntity(entity.id)">{{entity.subId2}}</td>
-          <td (click)="viewEntity(entity.id)">{{entity.subId3}}</td>
-          <td (click)="viewEntity(entity.id)">{{entity.subId4}}</td>
-          <td (click)="viewEntity(entity.id)">{{entity.subId5}}</td>
-          <td (click)="viewEntity(entity.id)">{{entity.clickId}}</td>
+        <tr *ngFor="let entity of (entities | filterEntities: filterValue | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder)">
+          <td (click)="viewEntity(entity.id)" *ngFor="let param of columnParams">{{param.mappingFunction(entity)}}</td>
           <td>
             <table-actions
               [service]="service"

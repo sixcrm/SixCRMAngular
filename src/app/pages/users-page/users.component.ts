@@ -28,10 +28,10 @@ export class UsersComponent extends AbstractEntityIndexComponent<User> implement
     super(usersService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
 
     this.columnParams = [
-      new ColumnParams('Name', (e) => e.name),
-      new ColumnParams('Email',(e) => e.email),
-      new ColumnParams('Active', (e) => e.active),
-      new ColumnParams('Terms and Conditions', (e) => e.termsAndConditions)
+      new ColumnParams('Name', (e: User) => e.name),
+      new ColumnParams('Email',(e: User) => e.email),
+      new ColumnParams('Active', (e: User) => e.active),
+      new ColumnParams('Terms and Conditions', (e: User) => e.termsAndConditions)
     ];
   }
 

@@ -14,20 +14,19 @@
       <table class="entity-index__table highlight">
         <thead class="entity-index__table__header">
           <tr>
-            <th data-field="customerName">Customer Name <md-icon>keyboard_arrow_down</md-icon> </th>
-            <th data-field="campaignName">Campaign Name <md-icon>keyboard_arrow_down</md-icon> </th>
-            <th data-field="numOfProductSchedules">Number of Product Schedules <md-icon>keyboard_arrow_down</md-icon> </th>
-            <th data-field="numOfRebills">Number of Rebills <md-icon>keyboard_arrow_down</md-icon> </th>
-            <th>Actions</th>
+            <ng-container *ngFor="let params of columnParams">
+              <th (click)="setSortedColumnParams(params)">
+                {{params.label}}
+                <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+              </th>
+            </ng-container>
+            <th></th>
           </tr>
         </thead>
 
         <tbody>
-        <tr *ngFor="let entity of (entities | filterEntities: filterValue)">
-          <td (click)="viewEntity(entity.id)">{{entity.customer.firstName + entity.customer.lastName}}</td>
-          <td (click)="viewEntity(entity.id)">{{entity.productSchedules.length}}</td>
-          <td (click)="viewEntity(entity.id)">{{entity.rebills.length}}</td>
-          <td (click)="viewEntity(entity.id)">{{entity.campaign.name}}</td>
+        <tr *ngFor="let entity of (entities | filterEntities: filterValue | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder)">
+          <td (click)="viewEntity(entity.id)" *ngFor="let param of columnParams">{{param.mappingFunction(entity)}}</td>
           <td>
             <table-actions
               [service]="service"

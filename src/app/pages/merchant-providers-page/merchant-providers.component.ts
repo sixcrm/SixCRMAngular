@@ -7,6 +7,7 @@ import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {PaginationService} from '../../shared/services/pagination.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ColumnParams} from '../../shared/models/column-params.model';
 
 @Component({
   selector: 'merchant-providers',
@@ -25,6 +26,14 @@ export class MerchantProvidersComponent extends AbstractEntityIndexComponent<Mer
     activatedRoute: ActivatedRoute
   ) {
     super(merchantProvidersService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
+
+    this.columnParams = [
+      new ColumnParams('Name', (e: MerchantProvider) => e.name),
+      new ColumnParams('Username',(e: MerchantProvider) => e.username),
+      new ColumnParams('Endpoint', (e: MerchantProvider) => e.endpoint),
+      new ColumnParams('Password', (e: MerchantProvider) => e.password),
+      new ColumnParams('Processor', (e: MerchantProvider) => e.processor)
+    ];
   }
 
   ngOnInit() {

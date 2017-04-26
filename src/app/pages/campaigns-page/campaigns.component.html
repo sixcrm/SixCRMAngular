@@ -14,28 +14,29 @@
       <table class="entity-index__table highlight">
         <thead class="entity-index__table__header">
           <tr>
-            <th data-field="id">Name <md-icon>keyboard_arrow_down</md-icon></th>
-            <th data-field="numOfMerchProviders">Number of Merchant Providers <md-icon>keyboard_arrow_down</md-icon></th>
-            <th data-field="numOfProdSchedules">Number of Product Schedules <md-icon>keyboard_arrow_down</md-icon></th>
-            <th>Actions</th>
+            <ng-container *ngFor="let params of columnParams">
+              <th (click)="setSortedColumnParams(params)">
+                {{params.label}}
+                <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+              </th>
+            </ng-container>
+            <th></th>
           </tr>
         </thead>
 
         <tbody>
-        <tr *ngFor="let entity of (entities | filterEntities: filterValue)">
-          <td (click)="viewEntity(entity.id)">{{entity.name}}</td>
-            <td (click)="viewEntity(entity.id)">{{entity.loadBalancer.merchantProviderConfigurations.length}}</td>
-            <td (click)="viewEntity(entity.id)">{{entity.productSchedules.length}}</td>
-            <td>
-              <table-actions
-                [service]="service"
-                (viewClicked)="viewEntity(entity.id)"
-                (copyClicked)="copyEntity(entity.id)"
-                (exportClicked)="exportEntity(entity.id)"
-                (editClicked)="editEntity(entity.id)"
-                (deleteClicked)="deleteEntity(entity.id)">
-              </table-actions>
-            </td>
+        <tr *ngFor="let entity of (entities | filterEntities: filterValue | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder)">
+          <td (click)="viewEntity(entity.id)" *ngFor="let param of columnParams">{{param.mappingFunction(entity)}}</td>
+          <td>
+            <table-actions
+              [service]="service"
+              (viewClicked)="viewEntity(entity.id)"
+              (copyClicked)="copyEntity(entity.id)"
+              (exportClicked)="exportEntity(entity.id)"
+              (editClicked)="editEntity(entity.id)"
+              (deleteClicked)="deleteEntity(entity.id)">
+            </table-actions>
+          </td>
           </tr>
         </tbody>
       </table>

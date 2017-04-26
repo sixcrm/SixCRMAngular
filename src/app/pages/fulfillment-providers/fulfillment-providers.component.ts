@@ -7,6 +7,7 @@ import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {PaginationService} from '../../shared/services/pagination.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ColumnParams} from '../../shared/models/column-params.model';
 
 @Component({
   selector: 'fulfillment-providers',
@@ -24,7 +25,15 @@ export class FulfillmentProvidersComponent extends AbstractEntityIndexComponent<
     router: Router,
     activatedRoute: ActivatedRoute
   ) {
-    super(fulfillmentProvidersService, auth, dialog, progressBarService, paginationService, router, activatedRoute)
+    super(fulfillmentProvidersService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
+
+    this.columnParams = [
+      new ColumnParams('Name', (e: FulfillmentProvider) => e.name),
+      new ColumnParams('Username',(e: FulfillmentProvider) => e.username),
+      new ColumnParams('Password', (e: FulfillmentProvider) => e.password),
+      new ColumnParams('Endpoint', (e: FulfillmentProvider) => e.endpoint),
+      new ColumnParams('Provider', (e: FulfillmentProvider) => e.provider)
+    ];
   }
 
   ngOnInit() {

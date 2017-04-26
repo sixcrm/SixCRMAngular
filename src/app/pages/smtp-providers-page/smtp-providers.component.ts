@@ -7,6 +7,7 @@ import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {PaginationService} from '../../shared/services/pagination.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ColumnParams} from '../../shared/models/column-params.model';
 
 @Component({
   selector: 'c-smtp-providers',
@@ -25,6 +26,14 @@ export class SmtpProvidersComponent extends AbstractEntityIndexComponent<SmtpPro
     activatedRoute: ActivatedRoute
   ) {
     super(smtpProvidersService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
+
+    this.columnParams = [
+      new ColumnParams('Name', (e: SmtpProvider) => e.name),
+      new ColumnParams('Hostname',(e: SmtpProvider) => e.hostname),
+      new ColumnParams('IP Address', (e: SmtpProvider) => e.ipAddress),
+      new ColumnParams('Username', (e: SmtpProvider) => e.username),
+      new ColumnParams('Port', (e: SmtpProvider) => e.port)
+    ];
   }
 
   ngOnInit() {

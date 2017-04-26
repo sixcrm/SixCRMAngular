@@ -30,8 +30,8 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
   infiniteScroll: boolean = false;
 
-  columnParams: ColumnParams[] = [];
-  sortedColumnParams: ColumnParams = new ColumnParams();
+  columnParams: ColumnParams<T>[] = [];
+  sortedColumnParams: ColumnParams<T> = new ColumnParams();
 
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
@@ -157,7 +157,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     return this.service.hasWritePermission();
   }
 
-  setSortedColumnParams(params: ColumnParams): void {
+  setSortedColumnParams(params: ColumnParams<T>): void {
     if (params.sortApplied) {
       params.sortOrder = params.sortOrder === 'asc' ? 'desc' : 'asc';
     } else if (this.sortedColumnParams) {

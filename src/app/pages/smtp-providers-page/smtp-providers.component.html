@@ -14,22 +14,19 @@
       <table class="entity-index__table highlight">
         <thead class="entity-index__table__header">
           <tr>
-            <th data-field="name">Name <md-icon>keyboard_arrow_down</md-icon> </th>
-            <th data-field="hostname">Hostname <md-icon>keyboard_arrow_down</md-icon> </th>
-            <th data-field="ip-address">IP Address <md-icon>keyboard_arrow_down</md-icon> </th>
-            <th data-field="username">Username <md-icon>keyboard_arrow_down</md-icon> </th>
-            <th data-field="port">Port <md-icon>keyboard_arrow_down</md-icon> </th>
-            <th>Actions</th>
+            <ng-container *ngFor="let params of columnParams">
+              <th (click)="setSortedColumnParams(params)">
+                {{params.label}}
+                <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+              </th>
+            </ng-container>
+            <th></th>
           </tr>
         </thead>
 
         <tbody>
-        <tr *ngFor="let entity of (entities | filterEntities: filterValue)">
-          <td (click)="viewEntity(entity.id)">{{entity.name}}</td>
-          <td (click)="viewEntity(entity.id)">{{entity.hostname}}</td>
-          <td (click)="viewEntity(entity.id)">{{entity.ipAddress}}</td>
-          <td (click)="viewEntity(entity.id)">{{entity.hostname}}</td>
-          <td (click)="viewEntity(entity.id)">{{entity.port}}</td>
+        <tr *ngFor="let entity of (entities | filterEntities: filterValue | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder)">
+          <td (click)="viewEntity(entity.id)" *ngFor="let param of columnParams">{{param.mappingFunction(entity)}}</td>
           <td>
             <table-actions
               [service]="service"
