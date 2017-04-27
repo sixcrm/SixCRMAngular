@@ -17,12 +17,8 @@
               [data]="[
                 {name:'ID', value: entity.id},
                 {name:'Affiliate ID', value: entity.affiliateId},
-                {name:'Sub ID 1', value: entity.subId1},
-                {name:'Sub ID 2', value: entity.subId2},
-                {name:'Sub ID 3', value: entity.subId3},
-                {name:'Sub ID 4', value: entity.subId4},
-                {name:'Sub ID 5', value: entity.subId5},
-                {name:'Click ID', value: entity.clickId}
+                {name:'Created At', value: entity.createdAt.format()},
+                {name:'Updated At', value: entity.updatedAt.format()}
               ]">
             </entity-view-info>
 

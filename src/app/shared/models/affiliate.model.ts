@@ -1,14 +1,11 @@
 import {Entity} from './entity.interface';
+import {Moment, utc} from 'moment';
 
 export class Affiliate implements Entity<Affiliate> {
   id: string;
   affiliateId: string;
-  subId1: string;
-  subId2: string;
-  subId3: string;
-  subId4: string;
-  subId5: string;
-  clickId: string;
+  createdAt: Moment;
+  updatedAt: Moment;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -17,24 +14,16 @@ export class Affiliate implements Entity<Affiliate> {
 
     this.id = obj.id || '';
     this.affiliateId = obj.affiliate_id || '';
-    this.subId1 = obj.sub_id_1 || '';
-    this.subId2 = obj.sub_id_2 || '';
-    this.subId3 = obj.sub_id_3 || '';
-    this.subId4 = obj.sub_id_4 || '';
-    this.subId5 = obj.sub_id_5 || '';
-    this.clickId = obj.click_id || '';
+    this.createdAt = utc(obj.created_at);
+    this.updatedAt = utc(obj.updated_at);
   }
 
   copy(): Affiliate {
     return new Affiliate({
       id: this.id,
       affiliate_id: this.affiliateId,
-      sub_id_1: this.subId1,
-      sub_id_2: this.subId2,
-      sub_id_3: this.subId3,
-      sub_id_4: this.subId4,
-      sub_id_5: this.subId5,
-      click_id: this.clickId
+      created_at: this.createdAt.format(),
+      updated_at: this.updatedAt.format()
     });
   }
 }

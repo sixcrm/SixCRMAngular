@@ -360,11 +360,11 @@ export function updateFulfillmentProviderMutation(provider: FulfillmentProvider)
 }
 
 export function affiliatesListQuery(limit?:number, cursor?:string): string {
-  return `{ affiliatelist ${pageParams(limit, cursor)} { affiliates { id affiliate_id sub_id_1 sub_id_2 sub_id_3 sub_id_4 sub_id_5 click_id } pagination { count end_cursor has_next_page } } }`
+  return `{ affiliatelist ${pageParams(limit, cursor)} { affiliates { id affiliate_id created_at updated_at } pagination { count end_cursor has_next_page } } }`
 }
 
 export function affiliateQuery(id: string): string {
-  return `{ affiliate (id: "${id}") { id affiliate_id sub_id_1 sub_id_2 sub_id_3 sub_id_4 sub_id_5 click_id } }`
+  return `{ affiliate (id: "${id}") { id affiliate_id created_at updated_at } }`
 }
 
 export function deleteAffiliateMutation(id: string): string {
@@ -374,8 +374,8 @@ export function deleteAffiliateMutation(id: string): string {
 export function createAffiliateMutation(affiliate: Affiliate): string {
   return `
     mutation {
-      createaffiliate (affiliate: { id: "${generateUUID()}", affiliate_id: "${affiliate.affiliateId}", sub_id_1: "${affiliate.subId1}", sub_id_2: "${affiliate.subId2}", sub_id_3: "${affiliate.subId3}", sub_id_4: "${affiliate.subId4}", sub_id_5: "${affiliate.subId5}", click_id: "${affiliate.clickId}"}) { 
-        id affiliate_id sub_id_1 sub_id_2 sub_id_3 sub_id_4 sub_id_5 click_id
+      createaffiliate (affiliate: { id: "${generateUUID()}", affiliate_id: "${affiliate.affiliateId}"}) { 
+        id affiliate_id created_at updated_at
       }
 	  }`
 }
@@ -383,8 +383,8 @@ export function createAffiliateMutation(affiliate: Affiliate): string {
 export function updateAffiliateMutation(affiliate: Affiliate): string {
   return `
     mutation {
-      updateaffiliate (affiliate: { id: "${affiliate.id}", affiliate_id: "${affiliate.affiliateId}", sub_id_1: "${affiliate.subId1}", sub_id_2: "${affiliate.subId2}", sub_id_3: "${affiliate.subId3}", sub_id_4: "${affiliate.subId4}", sub_id_5: "${affiliate.subId5}", click_id: "${affiliate.clickId}"}) { 
-        id affiliate_id sub_id_1 sub_id_2 sub_id_3 sub_id_4 sub_id_5 click_id
+      updateaffiliate (affiliate: { id: "${affiliate.id}", affiliate_id: "${affiliate.affiliateId}" }) { 
+        id affiliate_id created_at updated_at
       }
 	  }`
 }

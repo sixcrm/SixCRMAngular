@@ -28,13 +28,9 @@ export class AffiliatesComponent extends AbstractEntityIndexComponent<Affiliate>
     super(affiliatesService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
 
     this.columnParams = [
+      new ColumnParams('ID', (e: Affiliate) => e.id),
       new ColumnParams('Affiliate ID', (e: Affiliate) => e.affiliateId),
-      new ColumnParams('Sub ID 1',(e: Affiliate) => e.subId1),
-      new ColumnParams('Sub ID 2',(e: Affiliate) => e.subId2),
-      new ColumnParams('Sub ID 3',(e: Affiliate) => e.subId3),
-      new ColumnParams('Sub ID 4',(e: Affiliate) => e.subId4),
-      new ColumnParams('Sub ID 5',(e: Affiliate) => e.subId5),
-      new ColumnParams('Click ID', (e: Affiliate) => e.clickId)
+      new ColumnParams('Created At', (e: Affiliate) => e.createdAt.format())
     ];
   }
 
