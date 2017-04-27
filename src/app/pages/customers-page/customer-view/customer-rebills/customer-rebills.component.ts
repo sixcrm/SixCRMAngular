@@ -17,6 +17,7 @@ import {ColumnParams} from '../../../../shared/models/column-params.model';
 export class CustomerRebillsComponent extends AbstractEntityIndexComponent<Rebill> implements OnInit, OnDestroy {
 
   @Input() id: string;
+  filterValue: string;
 
   constructor(
     rebillsService: RebillsService,

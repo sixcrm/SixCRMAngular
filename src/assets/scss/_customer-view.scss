@@ -180,6 +180,16 @@ $card-title-color: #5B9BE1;
     padding-bottom: 20px;
     background: white;
 
+    &__filter {
+      float: right;
+      margin: 20px 30px 20px 20px;
+      font-size: 14px;
+
+      .md-input-wrapper {
+        margin: 0;
+      }
+    }
+
     table {
       font-size: 13px;
 
@@ -200,7 +210,7 @@ $card-title-color: #5B9BE1;
         border: none !important;
 
         th {
-          padding: 30px 5px;
+          padding: 5px 5px 30px;
           font-weight: 400;
           cursor: pointer;
 

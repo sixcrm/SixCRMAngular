@@ -17,6 +17,7 @@ import {ColumnParams} from '../../../../shared/models/column-params.model';
 export class CustomerTransactionsComponent extends AbstractEntityIndexComponent<Transaction> implements OnInit, OnDestroy {
 
   @Input() id: string;
+  filterValue: string;
 
   constructor(
     transactionsService: TransactionsService,
