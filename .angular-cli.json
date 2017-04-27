@@ -20,8 +20,7 @@
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
-        "../node_modules/google-material-color/dist/palette.js",
-        "../node_modules/chart.js/dist/Chart.bundle.js"
+        "../node_modules/google-material-color/dist/palette.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

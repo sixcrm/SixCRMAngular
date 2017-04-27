@@ -1,90 +1,43 @@
 <div class="dashboard">
-  <div class="dashboard__widgets">
-  <md-card class="dashboard__widgets__container">
-    <md-card-content>
-      <core-widget class="dashboard__widgets__container__widget" [count]="23" [description]="'Rebills'" [color]="'red'"></core-widget>
 
-      <span class="dashboard__widgets__container__divider"></span>
+  <div class="dashboard__filters">
+    <div class="dashboard__filters__date">
+      <div class="dashboard__filters__date__quick">
+        <span *ngFor="let dateFilter of dateFilters; let i = index"
+              class="dashboard__filters__date__quick__item"
+              [class.dashboard__filters__date__quick__item--active]="activeDataFilterIndex===i"
+              (click)="setActiveDateFilterIndex(i)">{{dateFilter.label}}</span>
+      </div>
+      <div class="dashboard__filters__date__range">
+        <span class="dashboard__filters__date__range__label">From</span>
+        <span class="dashboard__filters__date__range__value">{{dateFilters[activeDataFilterIndex].start.format('MMM D, YYYY')}}</span>
 
-      <core-widget class="dashboard__widgets__container__widget" [count]="76" [description]="'New Sales'" [color]="'blue'"></core-widget>
-
-      <span class="dashboard__widgets__container__divider"></span>
-
-      <core-widget class="dashboard__widgets__container__widget" [count]="93" [description]="'Refunds'" [color]="'green'"></core-widget>
-
-      <span class="dashboard__widgets__container__divider"></span>
-
-      <core-widget class="dashboard__widgets__container__widget" [count]="83" [description]="'Canceled'" [color]="'orange'"></core-widget>
-    </md-card-content>
-  </md-card>
-  </div>
-
-  <md-card class="dashboard__recent-sales">
-    <md-card-title>Recent Sales</md-card-title>
-    <md-card-content>
-      <md-list>
-        <md-list-item *ngFor="let sale of sales">
-          <p md-line> {{sale.campaign}} </p>
-          <p md-line> {{sale.product}} </p>
-          <p md-line> {{sale.link}} </p>
-          <p md-line> {{sale.rebill}} </p>
-        </md-list-item>
-      </md-list>
-    </md-card-content>
-  </md-card>
-
-  <div class="dashboard__charts flex-container layout-row layout-column-sm widgets__wrapper">
-    <div>
-      <md-card>
-        <md-card-title>Campaigns Overview</md-card-title>
-        <md-card-content>
-          <div class="canvas__parent--chart">
-            <canvas
-              baseChart
-              [datasets]="barChartData"
-              [labels]="barChartLabels"
-              [options]="barChartOptions"
-              [legend]="false"
-              [chartType]="barChartType"
-              [colors]="chartColors"></canvas>
-          </div>
-        </md-card-content>
-      </md-card>
+        <span class="dashboard__filters__date__range__label">To</span>
+        <span class="dashboard__filters__date__range__value">{{dateFilters[activeDataFilterIndex].end.format('MMM D, YYYY')}}</span>
+      </div>
     </div>
 
-    <div>
-      <md-card>
-        <md-card-title>Fulfillments</md-card-title>
-        <md-card-content>
-          <div class="canvas__parent">
-            <canvas class="canvas__parent--bar__canvas"
-              baseChart
-              [data]="pieChartData"
-              [labels]="pieChartLabels"
-              [legend]="false"
-              [chartType]="pieChartType"
-            ></canvas>
+    <div class="dashboard__filters__label">Filters</div>
+    <div class="dashboard__filters__input">
+      <md-input [value]="currentFilterTerm" (input)="filterTermInput($event)" (keydown)="onFilterKey($event)">
+        <div class="dashboard__filters__input__prefix" md-prefix>
+          <div *ngFor="let filterTerm of filterTerms" class="dashboard__filters__input__prefix__item">
+            <div class="dashboard__filters__input__prefix__item__image">C</div>
+            <div class="dashboard__filters__input__prefix__item__text">{{filterTerm}}</div>
+            <md-icon class="dashboard__filters__input__prefix__item__close" (click)="removeFilterTerm(filterTerm)">close</md-icon>
           </div>
-        </md-card-content>
-      </md-card>
-    </div>
-  </div>
-
-  <div class="dashboard__charts__line">
-    <md-card>
-      <md-card-title>Declines</md-card-title>
-      <md-card-content>
-        <div>
-          <canvas
-            baseChart
-            [datasets]="lineChartData"
-            [labels]="lineChartLabels"
-            [options]="lineChartOptions"
-            [legend]="false"
-            [chartType]="lineChartType"
-            [colors]="lineChartColors"></canvas>
         </div>
-      </md-card-content>
-    </md-card>
+      </md-input>
+    </div>
+  </div>
+
+  <div class="dashboard__chart">
+    <div class="dashboard__chart__title">
+      <div class="dashboard__chart__title__main">Product Sales</div>
+      <div class="dashboard__chart__title__sub">sales this week</div>
+      <md-icon>more_vert</md-icon>
+    </div>
+
+    <chart type="StockChart" [options]="chartOptions"></chart>
   </div>
 </div>
