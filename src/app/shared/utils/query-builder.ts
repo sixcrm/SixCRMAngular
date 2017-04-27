@@ -668,7 +668,21 @@ export function rebillsListQuery(limit?: number, cursor?: string): string {
 				transactions { id processor_response amount }
 			}
 			pagination { count end_cursor has_next_page }
-		}`
+		}
+  }`
+}
+
+export function rebillQuery(id: string): string {
+  return `{
+		rebill (id: "${id}") {
+			id bill_at amount created_at updated_at
+      parentsession { id
+        customer { id firstname lastname }
+      }
+      product_schedules { id }
+      transactions { id processor_response amount }
+    }
+  }`
 }
 
 export function rebillsByCustomer(customerId: string, limit?: number, cursor?: string): string {

@@ -109,6 +109,9 @@ export function menuItems(authService: AuthenticationService): MenuItem[] {
   if (authService.hasPermissions('transaction', 'view')) {
     crmItems.push(new MenuItem('Transactions', 'transactions'));
   }
+  if (authService.hasPermissions('rebill', 'view')) {
+    crmItems.push(new MenuItem('Rebills', 'rebills'));
+  }
 
   // Add 3rd party providers to CRM menu
   let thirdPartyProviders: MenuItem[] = [];

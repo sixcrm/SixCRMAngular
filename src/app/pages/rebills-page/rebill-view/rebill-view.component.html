@@ -1,0 +1,36 @@
+<div *ngIf="entity" class="entity-view">
+  <div class="entity-view__title">Rebill {{entity.id}}</div>
+
+  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+
+  <div *ngIf="entity" class="entity-view__content">
+
+    <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>
+
+    <div class="entity-view__content__fields">
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">ID:</span>
+        <span>{{entity.id}}</span>
+      </div>
+
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Amount:</span>
+        <span>{{entity.amount}}</span>
+      </div>
+
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Billed At:</span>
+        <span>{{entity.billAt ? entity.billAt.format() : 'not billed'}}</span>
+      </div>
+
+      <div class="entity-view__content__fields__item">
+        <span class="entity-view__content__fields__item__label">Created At:</span>
+        <span>{{entity.createdAt.format()}}</span>
+      </div>
+
+    </div>
+
+
+  </div>
+</div>
+

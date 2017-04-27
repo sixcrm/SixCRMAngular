@@ -3,7 +3,7 @@ import {AbstractEntityService} from './abstract-entity.service';
 import {Rebill} from '../models/rebill.model';
 import {Http} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {rebillsListQuery} from '../utils/query-builder';
+import {rebillsListQuery, rebillQuery} from '../utils/query-builder';
 
 @Injectable()
 export class RebillsService extends AbstractEntityService<Rebill>{
@@ -14,7 +14,7 @@ export class RebillsService extends AbstractEntityService<Rebill>{
       authService,
       data => new Rebill(data),
       rebillsListQuery,
-      null,
+      rebillQuery,
       null,
       null,
       null,

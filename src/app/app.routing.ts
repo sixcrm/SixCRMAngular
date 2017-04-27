@@ -20,6 +20,7 @@ const appRoutes: Routes = [
     { path : 'merchantproviders', loadChildren : './pages/merchant-providers-page/merchant-providers.module#MerchantProvidersModule', canActivate: [AuthGuard] },
     { path : 'productschedules', loadChildren : './pages/product-schedule-page/product-schedules.module#ProductSchedulesModule', canActivate: [AuthGuard] },
     { path : 'products', loadChildren : './pages/products-page/products.module#ProductsModule', canActivate: [AuthGuard] },
+    { path : 'rebills', loadChildren : './pages/rebills-page/rebills.module#RebillsModule', canActivate: [AuthGuard] },
     { path : 'sessions', loadChildren : './pages/sessions-page/sessions.module#SessionsModule', canActivate: [AuthGuard] },
     { path : 'smtpproviders', loadChildren : './pages/smtp-providers-page/smtp-providers.module#SmtpProvidersModule', canActivate: [AuthGuard] },
     { path : 'transactions', loadChildren : './pages/transactions-page/transactions.module#TransactionsModule', canActivate: [AuthGuard] },
