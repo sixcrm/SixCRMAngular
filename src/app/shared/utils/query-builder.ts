@@ -154,7 +154,7 @@ export function suggestionsQuery(query: string): string {
 }
 
 export function dashboardFiltersQuery(query: string): string {
-  let entityTypesQuery: string = `(or entity_type:'campaign')`;
+  let entityTypesQuery: string = `(or entity_type:'campaign' entity_type:'affiliate' entity_type:'merchantprovider' entity_type:'productschedule')`;
 
   return `{
 		search (search: {query: "${query}*" filterQuery:"${entityTypesQuery}"}) {
