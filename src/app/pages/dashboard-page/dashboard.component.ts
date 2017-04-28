@@ -198,6 +198,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     let terms: FilterTerm[] = [];
 
     results.forEach(result => {
+      if (this.filterTermsContain(result.id)) return;
+
       let type = result.fields.entity_type;
       let label = '';
 
@@ -223,6 +225,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
 
     return terms;
+  }
+
+  private filterTermsContain(id: string): boolean {
+    for (let i = 0; i < this.filterTerms.length; i++) {
+      if (this.filterTerms[i].id === id) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   private setTransactionSummaryChartData(summaries: TransactionSummary[]): void {
