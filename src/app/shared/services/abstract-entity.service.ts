@@ -172,13 +172,15 @@ export abstract class AbstractEntityService<T> {
 
 
   protected queryRequest(query: string): Observable<Response> {
-    let endpoint = environment.endpoint;
-
-    if (this.authService.getActiveAcl() && this.authService.getActiveAcl().account) {
-      endpoint = endpoint + this.authService.getActiveAcl().account.id;
-    } else {
-      endpoint = endpoint + '*';
-    }
+    let endpoint = environment.endpoint + 'ffdb91c2-d2dc-4301-86a4-a48f64c6c503';
+    // let endpoint = environment.endpoint;
+    //
+    //
+    // if (this.authService.getActiveAcl() && this.authService.getActiveAcl().account) {
+    //   endpoint = endpoint + this.authService.getActiveAcl().account.id;
+    // } else {
+    //   endpoint = endpoint + '*';
+    // }
 
     return this.http.post(endpoint, query, { headers: this.generateHeaders()});
   }

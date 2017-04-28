@@ -5,7 +5,7 @@ import {environment} from '../../../environments/environment';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {
   searchQuery, suggestionsQuery, searchFacets, searchAdvancedQuery,
-  searchAdvancedFacets
+  searchAdvancedFacets, dashboardFiltersQuery
 } from '../utils/query-builder';
 
 @Injectable()
@@ -14,19 +14,27 @@ export class SearchService {
   searchResults$: Subject<any>;
   advanceSearchResults$: Subject<any>;
   suggestionResults$: Subject<string[]>;
+  dashboardFilterResults$: Subject<any>;
   entityTypesCount$: Subject<any>;
 
   private suggestionInput$: Subject<string>;
+  private dashboardFilterInput$: Subject<string>;
 
   constructor(private http: Http, private authService: AuthenticationService) {
     this.searchResults$ = new Subject<any[]>();
     this.advanceSearchResults$ = new Subject<any[]>();
     this.suggestionResults$ = new Subject<string[]>();
     this.suggestionInput$ = new Subject<string>();
+    this.dashboardFilterInput$ = new Subject<string>();
+    this.dashboardFilterResults$ = new Subject<string[]>();
     this.entityTypesCount$ = new Subject<any>();
 
     this.suggestionInput$.debounceTime(300).filter(q => !!q).subscribe((query) => {
       this.fetchSuggestions(query);
+    });
+
+    this.dashboardFilterInput$.debounceTime(300).filter(q => !!q).subscribe((query) => {
+      this.fetchDashboardFilters(query);
     })
   }
 
@@ -41,17 +49,7 @@ export class SearchService {
 
     this.queryRequest(q).subscribe(
       (response: Response) => {
-        let json = response.json().data.search;
-        let hits = json.hits;
-
-        hits.hit = hits.hit.map(hit => {
-          hit.fields = JSON.parse(hit.fields);
-          for (let property in hit.fields) {
-            hit.fields[property] = hit.fields[property][0];
-          }
-
-          return hit;
-        });
+        let hits = this.parseSearchResults(response);
 
         this.searchResults$.next(hits);
       },
@@ -94,6 +92,10 @@ export class SearchService {
     this.suggestionInput$.next(query);
   }
 
+  searchDashboardFilters(query: string): void {
+    this.dashboardFilterInput$.next(query);
+  }
+
   private fetchSuggestions(query: string): void {
     this.queryRequest(suggestionsQuery(query)).subscribe(
       (response: Response) => {
@@ -104,6 +106,16 @@ export class SearchService {
       },
       (error) => {
         console.error(error);
+      }
+    )
+  }
+
+  private fetchDashboardFilters(query: string): void {
+    this.queryRequest(dashboardFiltersQuery(query)).subscribe(
+      (response: Response) => {
+        let hits = this.parseSearchResults(response);
+
+        this.dashboardFilterResults$.next(hits);
       }
     )
   }
@@ -128,4 +140,19 @@ export class SearchService {
     return headers;
   }
 
+  private parseSearchResults(response: Response): any {
+    let json = response.json().data.search;
+    let hits = json.hits;
+
+    hits.hit = hits.hit.map(hit => {
+      hit.fields = JSON.parse(hit.fields);
+      for (let property in hit.fields) {
+        hit.fields[property] = hit.fields[property][0];
+      }
+
+      return hit;
+    });
+
+    return hits;
+  }
 }

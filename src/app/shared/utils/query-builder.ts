@@ -11,6 +11,7 @@ import {Customer} from '../models/customer.model';
 import {CustomerNote} from '../models/customer-note.model';
 import {Notification} from '../models/notification.model';
 import {utc} from 'moment'
+import {FilterTerm} from '../../pages/dashboard-page/dashboard.component';
 
 const uuidV4 = require('uuid/v4');
 
@@ -18,7 +19,7 @@ function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
 }
 
-export function  searchQuery(query: string, createdAtRange: string, sortBy: string, start: number, size: number, entityTypes?: string[]): string {
+export function searchQuery(query: string, createdAtRange: string, sortBy: string, start: number, size: number, entityTypes?: string[]): string {
   let entityTypesQuery: string = '';
 
   if (entityTypes && entityTypes.length > 0) {
@@ -47,7 +48,7 @@ export function  searchQuery(query: string, createdAtRange: string, sortBy: stri
 	}`;
 }
 
-export function  searchFacets(query: string, createdAtRange: string): string {
+export function searchFacets(query: string, createdAtRange: string): string {
   let filterQuery = '';
   if (createdAtRange) {
     filterQuery = 'created_at: ' + createdAtRange;
@@ -61,7 +62,7 @@ export function  searchFacets(query: string, createdAtRange: string): string {
 	}`;
 }
 
-export function  searchAdvancedQuery(options: any, createdAtRange: string, sortBy: string, start: number, size: number, entityTypes?: string[]): string {
+export function searchAdvancedQuery(options: any, createdAtRange: string, sortBy: string, start: number, size: number, entityTypes?: string[]): string {
   let fieldsQuery = '';
   if (createdAtRange) {
     fieldsQuery += ` created_at: ${createdAtRange} `;
@@ -108,7 +109,7 @@ export function  searchAdvancedQuery(options: any, createdAtRange: string, sortB
   }`;
 }
 
-export function  searchAdvancedFacets(options: any, createdAtRange: string): string {
+export function searchAdvancedFacets(options: any, createdAtRange: string): string {
 
   let query = '';
   if (createdAtRange) {
@@ -141,7 +142,7 @@ export function  searchAdvancedFacets(options: any, createdAtRange: string): str
   }`;
 }
 
-export function  suggestionsQuery(query: string): string {
+export function suggestionsQuery(query: string): string {
   return `{
 		search (search: {query: "${query}*" queryOptions:"{fields:['suggestion_field_1']}" return:"suggestion_field_1" size:"10"}) {
 			hits {
@@ -152,7 +153,20 @@ export function  suggestionsQuery(query: string): string {
 	}`
 }
 
-export function  productsListQuery(limit?:number, cursor?:string): string {
+export function dashboardFiltersQuery(query: string): string {
+  let entityTypesQuery: string = `(or entity_type:'campaign')`;
+
+  return `{
+		search (search: {query: "${query}*" filterQuery:"${entityTypesQuery}"}) {
+			status { timems rid }
+			hits { found start
+				hit { id fields }
+			}
+		}
+	}`;
+}
+
+export function productsListQuery(limit?:number, cursor?:string): string {
   return `{
     productlist ${pageParams(limit, cursor)} {
 			products { id name sku ship shipping_delay
@@ -568,6 +582,36 @@ export function transactionQuery(id: string): string {
         shippingreceipt { id status trackingnumber created_at }
       }
     }
+	}`
+}
+
+export function transactionSummaryQuery(start: string, end: string, filterTerms: FilterTerm[]): string {
+  let filters = {};
+
+  filterTerms.forEach(term => {
+    if (filters[term.type]) {
+      filters[term.type].push(term.id);
+    } else {
+      filters[term.type] = [];
+      filters[term.type].push(term.id);
+    }
+  });
+
+  let filterString = '';
+
+  Object.keys(filters).forEach(key => {
+    let ids = '';
+
+    filters[key].forEach(id => ids += `"${id}",`);
+    filterString += ` ${key}:[${ids}]`;
+  });
+
+  return `{
+		transactionsummary (start:"${start}" end:"${end}" ${filterString}) {
+			transactions { datetime
+				byprocessorresult { processor_result amount count }
+			}
+		}
 	}`
 }
 

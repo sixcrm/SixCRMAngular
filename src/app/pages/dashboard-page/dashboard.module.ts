@@ -6,6 +6,7 @@ import {DashboardComponent} from './dashboard.component';
 import {SharedModule} from '../../shared/shared.module';
 import {ChartModule} from 'angular2-highcharts';
 import {HighchartsStatic} from 'angular2-highcharts/dist/HighchartsService';
+import {Daterangepicker} from 'ng2-daterangepicker';
 
 export function highchartsFactory() {
   return require('highcharts/highstock');
@@ -17,7 +18,8 @@ export function highchartsFactory() {
     SharedModule,
     CommonModule,
     MaterialModule.forRoot(),
-    ChartModule
+    ChartModule,
+    Daterangepicker
   ],
   declarations : [
     DashboardComponent

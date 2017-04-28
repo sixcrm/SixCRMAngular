@@ -39,20 +39,54 @@
             border-bottom: 2px solid black;
             color: black;
           }
+
+          &--disabled {
+            cursor: default;
+          }
         }
       }
 
       &__range {
         margin-left: auto;
 
-        &__value {
-          display: inline-block;
-          margin: 2px;
-          width: 80px;
-          border-bottom: 1px solid rgba(0,0,0,0.2);
-          font-size: 11px;
-          color: rgba(0,0,0,0.5);
+        .daterangepicker {
+          flex-wrap: wrap;
+          width: 500px;
+
+          .left {
+            margin-left: 5px;
+          }
+
+          .ranges {
+            flex-basis: 100%;
+            margin-right: 20px;
+            text-align: right;
+          }
+        }
+
+        &__input {
           cursor: pointer;
+
+          span {
+            vertical-align: middle;
+          }
+
+          &__label {
+
+          }
+
+          &__value {
+            margin: 0 5px 0 1px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            color: rgba(0,0,0,0.5);
+          }
+
+          md-icon {
+            vertical-align: middle;
+            width: 18px;
+            height: 18px;
+            font-size: 18px;
+          }
         }
       }
     }
@@ -89,6 +123,7 @@
         }
 
         &__prefix {
+          position: relative;
           display: flex;
           flex-wrap: wrap;
 
@@ -114,7 +149,7 @@
 
             &__text {
               margin: 5px;
-              font-size: 12px;
+              font-size: 11px;
             }
 
             md-icon {
@@ -133,6 +168,48 @@
         .md-input-underline {
           .md-input-ripple {
             background-color: #F16C00;
+          }
+        }
+      }
+
+      &__suggestions {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 100%;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        z-index: 5;
+        background-color: white;
+
+        &__item {
+          width: 150px;
+          padding: 15px 10px;
+          cursor: pointer;
+          font-size: 0;
+
+          &:hover {
+            background-color: #F16C00;
+            color: white;
+          }
+
+          &__image {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            background: #039BE5;
+            text-align: center;
+            font-size: 16px;
+            color: white;
+          }
+
+          &__text {
+            display: inline-block;
+            vertical-align: middle;
+            max-width: 110px;
+            font-size: 11px;
           }
         }
       }

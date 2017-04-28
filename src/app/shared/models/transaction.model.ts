@@ -8,6 +8,7 @@ export class Transaction implements Entity<Transaction>{
   id: string;
   alias: string;
   amount: string;
+  merchantProvider: string;
   createdAt: Moment;
   updatedAt: Moment;
   processorResponse: ProcessorResponse;
@@ -22,6 +23,7 @@ export class Transaction implements Entity<Transaction>{
     this.id = obj.id || '';
     this.alias = obj.alias || '';
     this.amount = obj.amount || '';
+    this.merchantProvider = obj.merchant_provider || '';
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
     this.processorResponse = new ProcessorResponse(obj.processor_response);
