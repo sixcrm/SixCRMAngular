@@ -14,7 +14,7 @@
           <div (showDaterangepicker)="datepickerVisible = true" (hideDaterangepicker)="datepickerVisible = false" (selected)="dateSelected($event)" daterangepicker>
             <div class="dashboard__filters__date__range__input" name="daterange" >
               <span>From <span class="dashboard__filters__date__range__input__value">{{ getStartDate().format('MMM D, YYYY') }}</span>
-                    To <span class="dashboard__filters__date__range__input__value">{{ getEndDate().format('MM D, YYYY') }}</span>
+                    To <span class="dashboard__filters__date__range__input__value">{{ getEndDate().format('MMM D, YYYY') }}</span>
               </span> <md-icon>keyboard_arrow_down</md-icon> </div>
           </div>
         </div>
