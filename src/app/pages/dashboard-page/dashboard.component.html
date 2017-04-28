@@ -17,17 +17,19 @@
       </div>
     </div>
 
-    <div class="dashboard__filters__label">Filters</div>
-    <div class="dashboard__filters__input">
-      <md-input [value]="currentFilterTerm" (input)="filterTermInput($event)" (keydown)="onFilterKey($event)">
-        <div class="dashboard__filters__input__prefix" md-prefix>
-          <div *ngFor="let filterTerm of filterTerms" class="dashboard__filters__input__prefix__item">
-            <div class="dashboard__filters__input__prefix__item__image">C</div>
-            <div class="dashboard__filters__input__prefix__item__text">{{filterTerm}}</div>
-            <md-icon class="dashboard__filters__input__prefix__item__close" (click)="removeFilterTerm(filterTerm)">close</md-icon>
+    <div class="dashboard__filters__query">
+      <div class="dashboard__filters__query__label">Filters</div>
+      <div class="dashboard__filters__query__input">
+        <md-input [value]="currentFilterTerm" (input)="filterTermInput($event)" (keydown)="onFilterKey($event)">
+          <div class="dashboard__filters__query__input__prefix" md-prefix>
+            <div *ngFor="let filterTerm of filterTerms" class="dashboard__filters__query__input__prefix__item">
+              <div class="dashboard__filters__query__input__prefix__item__image">C</div>
+              <div class="dashboard__filters__query__input__prefix__item__text">{{filterTerm}}</div>
+              <md-icon class="dashboard__filters__query__input__prefix__item__close" (click)="removeFilterTerm(filterTerm)">close</md-icon>
+            </div>
           </div>
-        </div>
-      </md-input>
+        </md-input>
+      </div>
     </div>
   </div>
 
