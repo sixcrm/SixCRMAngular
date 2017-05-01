@@ -4,25 +4,25 @@
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
   <div *ngIf="entity">
-    <div class="customer-view__info">
-      <div class="customer-view__info__image">
+    <div class="entity-view__info">
+      <div class="entity-view__info__image">
         <img src="https://www.kwrwater.nl/wp-content/themes/kwr/assets/placeholders/no-profile-user.png" alt="">
       </div>
-      <div class="customer-view__info__data">
-        <div class="customer-view__info__data__date">Created: {{entity.createdAt.format('MM/DD/YYYY')}} <span>{{entity.createdAt.format('HH:mm')}}</span></div>
-        <div class="customer-view__info__data__name">{{entity.firstName}} {{entity.lastName}}</div>
-        <div class="customer-view__info__data__other">
+      <div class="entity-view__info__data">
+        <div class="entity-view__info__data__date">Created: {{entity.createdAt.format('MM/DD/YYYY')}} <span>{{entity.createdAt.format('HH:mm')}}</span></div>
+        <div class="entity-view__info__data__name">{{entity.firstName}} {{entity.lastName}}</div>
+        <div class="entity-view__info__data__other">
           <span *ngIf="entity.phone"><md-icon>phone</md-icon>{{entity.phone}}</span>
           <span *ngIf="entity.email"><md-icon>email</md-icon>{{entity.email}}</span>
         </div>
       </div>
     </div>
 
-    <div class="customer-view__navigation">
-      <span class="customer-view__navigation__label" [class.customer-view__navigation__label--active]="selectedIndex===0" (click)="setIndex(0)">GENERAL DETAILS</span>
-      <span class="customer-view__navigation__label" [class.customer-view__navigation__label--active]="selectedIndex===1" (click)="setIndex(1)">TRANSACTIONS</span>
-      <span class="customer-view__navigation__label" [class.customer-view__navigation__label--active]="selectedIndex===2" (click)="setIndex(2)">BILLING</span>
-      <span class="customer-view__navigation__label" [class.customer-view__navigation__label--active]="selectedIndex===3" (click)="setIndex(3)">SESSIONS</span>
+    <div class="entity-view__navigation">
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===0" (click)="setIndex(0)">GENERAL DETAILS</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===1" (click)="setIndex(1)">TRANSACTIONS</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===2" (click)="setIndex(2)">BILLING</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===3" (click)="setIndex(3)">SESSIONS</span>
     </div>
 
     <md-tab-group [(selectedIndex)]="selectedIndex">

@@ -2,6 +2,7 @@ import {AccessKey} from './access-key.model';
 import {Entity} from './entity.interface';
 import {Address} from './address.model';
 import {Acl} from './acl.model';
+import {Moment, utc} from 'moment';
 
 export class User implements Entity<User> {
   id: string;
@@ -14,6 +15,8 @@ export class User implements Entity<User> {
   address: Address;
   accessKey: AccessKey;
   acls: Acl[];
+  createdAt: Moment;
+  updatedAt: Moment;
 
   constructor(obj?: any) {
     if(!obj) {
@@ -28,6 +31,8 @@ export class User implements Entity<User> {
     this.termsAndConditions = obj.termsandconditions || '';
     this.address = new Address(obj.address);
     this.accessKey = new AccessKey(obj.accesskey);
+    this.createdAt = utc(obj.created_at);
+    this.updatedAt = utc(obj.updated_at);
 
     this.acls = [];
     if (obj.acl) {

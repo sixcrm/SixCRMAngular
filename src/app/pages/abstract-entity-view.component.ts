@@ -14,6 +14,7 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
   entity: T;
   entityBackup: T;
 
+  protected fetchEntityOnInit: boolean = true;
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
   constructor(public service: AbstractEntityService<T>, route: ActivatedRoute, protected progressBarService?: ProgressBarService) {
@@ -47,7 +48,7 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
       this.progressBarService.hideTopProgressBar();
     });
 
-    if (this.viewMode || this.updateMode) {
+    if (this.fetchEntityOnInit && (this.viewMode || this.updateMode)) {
       this.service.getEntity(this.entityId);
       this.progressBarService.showTopProgressBar();
     }

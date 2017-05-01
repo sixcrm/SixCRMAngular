@@ -107,7 +107,7 @@ export class TopnavComponent implements OnInit {
       }
     });
 
-    this._authService.userData$.subscribe((userProfile: User) => {
+    this._authService.sixUser$.subscribe((userProfile: User) => {
       if (userProfile) {
         this._userProfile = userProfile;
       }

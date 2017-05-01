@@ -32,8 +32,8 @@ export class AuthenticationService {
   private currentSixUser: User = new User();
   private currentActiveAcl: Acl = new Acl();
 
-  public userData$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
-  private userData: User;
+  public sixUser$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
+  private user: User;
   public userUnderReg$: BehaviorSubject<any> = new BehaviorSubject<User>(null);
   public activeAcl$: BehaviorSubject<Acl> = new BehaviorSubject<Acl>(new Acl());
   public activeAclChanged$: Subject<boolean> = new Subject<boolean>();
@@ -158,10 +158,10 @@ export class AuthenticationService {
   public updateUserForRegistration(user: User, cc: CreditCard): Observable<boolean> {
     let subject: Subject<boolean> = new Subject<boolean>();
 
-    if (!this.userData.acls || !this.userData.acls[0]) {
+    if (!this.user.acls || !this.user.acls[0]) {
       this.logout();
     } else {
-      let endpoint = environment.endpoint + this.userData.acls[0].account.id;
+      let endpoint = environment.endpoint + this.user.acls[0].account.id;
       this.http.post(endpoint, createCreditCardMutation(cc), {headers: this.generateHeaders()})
         .subscribe(
           () => {
@@ -274,9 +274,9 @@ export class AuthenticationService {
               this.router.navigateByUrl('/register');
             }
 
-            this.userData = new User(user);
-            this.userData.auth0Id = this.getToken();
-            this.userUnderReg$.next(this.userData);
+            this.user = new User(user);
+            this.user.auth0Id = this.getToken();
+            this.userUnderReg$.next(this.user);
           } else {
             localStorage.setItem(this.activated, 'activated');
 
@@ -298,10 +298,10 @@ export class AuthenticationService {
     );
   }
 
-  private updateSixUser(user: User): void {
+  public updateSixUser(user: User): void {
     localStorage.setItem(this.sixUser, JSON.stringify(user.inverse()));
     this.currentSixUser = user;
-    this.userData$.next(user);
+    this.sixUser$.next(user);
   }
 
   private getOrUpdateActiveAcl(user: User): void {

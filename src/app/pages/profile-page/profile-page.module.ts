@@ -4,6 +4,7 @@ import {MaterialModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {profileRouting} from './profile-page.routing';
 import {ProfilePageComponent} from './profile-page.component';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
   imports : [
@@ -11,7 +12,8 @@ import {ProfilePageComponent} from './profile-page.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule.forRoot()
+    MaterialModule.forRoot(),
+    SharedModule
   ],
   declarations : [
     ProfilePageComponent

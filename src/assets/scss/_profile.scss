@@ -1,0 +1,239 @@
+.profile-page {
+
+  &__content {
+
+    &__general {
+      display: inline-block;
+      position: relative;
+      margin: 10px;
+      box-shadow: 0 0 3px rgba(0,0,0,0.3);
+      background: white;
+
+      &__title {
+        position: relative;
+        padding: 15px 15px 10px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+
+        &__main {
+          margin-bottom: 3px;
+          font-size: 20px;
+          color: #3E88E0;
+        }
+
+        &__sub {
+          font-size: 12px;
+          color: rgba(0, 0, 0, 0.6);
+        }
+
+        md-icon {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          font-size: 20px;
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      &__data {
+        width: 100%;
+        max-width: 700px;
+        padding: 35px 15px 50px;
+        font-size:14px;
+
+        md-input {
+          display: inline-block;
+          margin: 0 45px 10px 0;
+          width: calc(50% - 50px);
+        }
+
+        &__dropdown {
+          display: inline-block;
+          margin: 0 45px 10px 0;
+          width: calc(50% - 50px);
+
+          &--active {
+            color: rgba(0, 0, 0, 0.3);
+          }
+
+          span {
+            display: flex;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.11);
+            width: 50%;
+            min-width: 90px;
+            padding-bottom: 3px;
+            cursor: pointer;
+
+            md-icon {
+              margin-left: auto;
+              height: 16px;
+              width: 16px;
+              vertical-align: middle;
+              font-size: 16px;
+            }
+          }
+
+          .unselected {
+            color: rgba(0, 0, 0, 0.35)
+          }
+        }
+      }
+
+      &__button {
+        position: absolute;
+        right: 15px;
+        bottom: 10px;
+        border-radius: 4px;
+        padding: 8px 12px;
+        font-size: 14px;
+        box-shadow: 0 0 8px rgba(0,0,0,0.4);
+        background: #039BE5;
+        color: white;
+        cursor: pointer;
+      }
+    }
+
+    &__notifications {
+      display: flex;
+      margin: 5px;
+
+      &__item {
+        margin: 5px;
+        background: white;
+      }
+
+      &__title {
+        position: relative;
+        padding: 15px 35px 15px 15px;
+        border-bottom: 1px solid rgba(0,0,0,0.15);
+
+        &__main {
+          font-size: 16px;
+          margin-bottom: 3px;
+        }
+
+        &__sub {
+          font-size: 12px;
+          color: rgba(0,0,0,0.6)
+        }
+
+        md-icon {
+          position: absolute;
+          right: 10px;
+          top: 10px;
+        }
+      }
+
+      &__body {
+
+        .md-slide-toggle-content {
+          font-weight: 400;
+          margin-left: 5px;
+        }
+
+        md-slide-toggle {
+          padding-left: 15px;
+          padding-bottom: 10px;
+        }
+
+        md-input {
+          display: block;
+          margin: 50px 15px;
+          font-size: 14px;
+          width: 200px;
+
+          &:last-of-type {
+            width: 300px;
+          }
+        }
+      }
+    }
+
+    &__accounts {
+      display: inline-block;
+      position: relative;
+      margin: 10px;
+      width: 500px;
+      box-shadow: 0 0 3px rgba(0,0,0,0.3);
+      background: white;
+
+      &__title {
+        display: flex;
+        align-items: center;
+        padding: 2px 10px 10px 20px;
+
+        &__input {
+          margin-left: auto;
+          margin-right: 10px;
+          font-size: 14px;
+        }
+
+        md-icon {
+          color: rgba(0,0,0,0.6);
+          cursor: pointer;
+
+        }
+      }
+
+      &__selected {
+        display: flex;
+        align-items: center;
+        padding: 10px 10px 10px 20px;
+        border-bottom: 1px solid rgba(0,0,0,0.15);
+        background: #FFF3E0;
+
+        span {
+          color: #F78E22;
+          font-size: 12px;
+          font-weight: 500;
+        }
+
+        md-icon {
+          color: rgba(0,0,0,0.6);
+          cursor: pointer;
+
+          &:first-of-type {
+            margin-left: auto;
+            margin-right: 10px;
+          }
+        }
+      }
+
+      &__table {
+
+        table {
+          thead {
+            tr {
+              th {
+                font-size: 12px;
+                font-weight: 400;
+                color: rgba(0,0,0,0.4);
+              }
+            }
+          }
+
+          tbody {
+            tr {
+              td {
+                font-size: 12px;
+
+                &:first-of-type {
+                  width: 40px;
+                  padding-left: 20px;
+                }
+
+                .md-checkbox-inner-container {
+                  margin: 0 !important;
+                }
+              }
+            }
+          }
+        }
+
+        .selected {
+          background-color: rgba(0,0,0,0.05);
+        }
+      }
+    }
+  }
+}

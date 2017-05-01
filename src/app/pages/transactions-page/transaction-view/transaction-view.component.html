@@ -5,19 +5,19 @@
 
   <div *ngIf="entity">
 
-    <div class="transaction-view__info">
-      <div class="transaction-view__info__image">
+    <div class="entity-view__info">
+      <div class="entity-view__info__image">
         <img src="https://www.kwrwater.nl/wp-content/themes/kwr/assets/placeholders/no-profile-user.png" alt="">
       </div>
-      <div class="transaction-view__info__data">
-        <div class="transaction-view__info__data__date">Created: {{entity.createdAt.format('MM/DD/YYYY')}} <span>{{entity.createdAt.format('HH:mm')}}</span></div>
-        <div class="transaction-view__info__data__name">{{entity.alias}}</div>
-        <div class="transaction-view__info__data__other">Merchant processor: {{entity.merchantProvider}}</div>
+      <div class="entity-view__info__data">
+        <div class="entity-view__info__data__date">Created: {{entity.createdAt.format('MM/DD/YYYY')}} <span>{{entity.createdAt.format('HH:mm')}}</span></div>
+        <div class="entity-view__info__data__name">{{entity.alias}}</div>
+        <div class="entity-view__info__data__other">Merchant processor: {{entity.merchantProvider}}</div>
       </div>
     </div>
 
-    <div class="transaction-view__navigation">
-      <span class="transaction-view__navigation__label customer-view__navigation__label--active">GENERAL DETAILS</span>
+    <div class="entity-view__navigation">
+      <span class="entity-view__navigation__label entity-view__navigation__label--active">GENERAL DETAILS</span>
     </div>
 
     <div class="transaction-view__content">

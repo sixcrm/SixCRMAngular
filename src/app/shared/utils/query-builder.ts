@@ -801,7 +801,7 @@ export function usersListQuery(limit?: number, cursor?: string): string {
 export function userQuery(id: string): string {
   return `
     {
-      user (id: "${id}") { id auth0_id name active termsandconditions address { country state city line1 line2 zip}}
+      user (id: "${id}") { id auth0_id name active termsandconditions created_at updated_at address { country state city line1 line2 zip}}
     }`
 }
 

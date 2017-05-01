@@ -1,23 +1,141 @@
-<div class="profile-page">
-  <img class="profile-page__image" src="{{ user.picture }}">
+<div class="entity-view">
+  <div class="entity-view__title">User Profile</div>
 
-  <md-input
-    class="profile-page__input"
-    disabled
-    placeholder="Email Address"
-    value="{{user.email}}">
-  </md-input>
+  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <md-input
-    class="profile-page__input"
-    [disabled]="!editing"
-    placeholder="Name"
-    [(ngModel)]="user.name">
-  </md-input>
+  <div *ngIf="entity">
+    <div class="entity-view__info">
+      <div class="entity-view__info__image">
+        <img src="{{ entity.picture }}" alt="">
+      </div>
+      <div class="entity-view__info__data">
+        <div class="entity-view__info__data__date">Created: {{entity.createdAt.format('MM/DD/YYYY')}}</div>
+        <div class="entity-view__info__data__name">{{entity.name}}</div>
+        <div class="entity-view__info__data__other">
+          <span><md-icon>phone</md-icon>{{entity.phone || '000-000-000'}}</span>
+          <span><md-icon>email</md-icon>{{entity.email}}</span>
+        </div>
+      </div>
+    </div>
 
-  <div class="profile-page__buttons">
-    <button *ngIf="!editing" md-raised-button color="primary" (click)="toggleEdit()">edit</button>
-    <button *ngIf="editing" md-raised-button color="primary" (click)="cancelEdit()">cancel</button>
-    <button *ngIf="editing" md-raised-button color="primary" (click)="save()">save</button>
+    <div class="entity-view__navigation">
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===0" (click)="setIndex(0)">GENERAL DETAILS</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===1" (click)="setIndex(1)">NOTIFICATIONS</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===2" (click)="setIndex(2)">ACCOUNTS</span>
+    </div>
+
+    <div class="profile-page__content">
+      <md-tab-group [(selectedIndex)]="selectedIndex">
+        <md-tab>
+          <div class="profile-page__content__general">
+            <div class="profile-page__content__general__title">
+              <div class="profile-page__content__general__title__main">Profile</div>
+              <div class="profile-page__content__general__title__sub">general information</div>
+              <md-icon>more_vert</md-icon>
+            </div>
+
+            <div class="profile-page__content__general__data">
+              <md-input placeholder="First name" [(ngModel)]="entityBackup.name"></md-input>
+              <md-input placeholder="Last name"></md-input>
+              <md-input placeholder="Work phone"></md-input>
+              <md-input placeholder="Cell phone"></md-input>
+              <div class="profile-page__content__general__data__dropdown">
+            <span [md-menu-trigger-for]="timezoneMenu" [class.unselected]="!timezone">
+              {{timezone || 'Timezone'}}
+              <md-icon>keyboard_arrow_down</md-icon>
+            </span>
+              </div>
+
+              <md-menu #timezoneMenu="mdMenu" x-position="after">
+                <button md-menu-item *ngFor="let tz of timezones" (click)="timezone = tz"> {{tz}} </button>
+              </md-menu>
+
+              <md-input placeholder="Email" [(ngModel)]="entityBackup.email"></md-input>
+            </div>
+
+            <div class="profile-page__content__general__button">Update</div>
+          </div>
+        </md-tab>
+
+        <md-tab>
+          <div class="profile-page__content__notifications">
+            <div class="profile-page__content__notifications__item">
+              <div class="profile-page__content__notifications__title">
+                <div class="profile-page__content__notifications__title__main">Notification Toggle</div>
+                <div class="profile-page__content__notifications__title__sub">Toggle on/off when you receive notifications</div>
+              </div>
+
+              <div class="profile-page__content__notifications__body">
+                <md-slide-toggle [color]="'primary'">SixCRM</md-slide-toggle>
+                <md-slide-toggle [color]="'primary'">iOS App</md-slide-toggle>
+                <md-slide-toggle [color]="'primary'">SMS</md-slide-toggle>
+                <md-slide-toggle [color]="'primary'">E-Mail</md-slide-toggle>
+                <md-slide-toggle [color]="'primary'">Slack</md-slide-toggle>
+                <md-slide-toggle [color]="'primary'">Skype</md-slide-toggle>
+              </div>
+            </div>
+            <div class="profile-page__content__notifications__item">
+              <div class="profile-page__content__notifications__title">
+                <div class="profile-page__content__notifications__title__main">Devices</div>
+                <div class="profile-page__content__notifications__title__sub">Setup devices for notifications</div>
+                <md-icon>more_vert</md-icon>
+              </div>
+
+              <div class="profile-page__content__notifications__body">
+                <md-input placeholder="SMS number"></md-input>
+                <md-input placeholder="Email"></md-input>
+                <md-input placeholder="Skype"></md-input>
+                <md-input placeholder="Slack web hook"></md-input>
+              </div>
+            </div>
+            <div class="profile-page__content__notifications__item">
+              <div class="profile-page__content__notifications__title">
+                <div class="profile-page__content__notifications__title__main">Notification settings</div>
+                <div class="profile-page__content__notifications__title__sub">Select what notifications you want to receive</div>
+                <md-icon>more_vert</md-icon>
+              </div>
+            </div>
+          </div>
+        </md-tab>
+
+        <md-tab>
+          <div class="profile-page__content__accounts">
+            <div class="profile-page__content__accounts__title">
+              <span>Accounts</span>
+              <md-input class="profile-page__content__accounts__title__input" placeholder="Filter Results" [(ngModel)]="filterValue"></md-input>
+              <md-icon>more_vert</md-icon>
+            </div>
+
+            <div *ngIf="countSelectedAccs() > 0" class="profile-page__content__accounts__selected">
+              <span>{{countSelectedAccs()}} items selected</span>
+              <md-icon>delete</md-icon>
+              <md-icon>more_vert</md-icon>
+            </div>
+
+            <div class="profile-page__content__accounts__table">
+              <table class="highlight">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Account</th>
+                    <th>Role</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let acc of accounts | filterEntities: filterValue" [class.selected]="acc.selected">
+                    <td><md-checkbox [color]="'primary'" [(ngModel)]="acc.selected"></md-checkbox></td>
+                    <td>{{acc.entity.account.name}}</td>
+                    <td>{{acc.entity.role.name}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </md-tab>
+      </md-tab-group>
+    </div>
   </div>
 </div>
+
