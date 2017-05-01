@@ -607,7 +607,7 @@ export function transactionSummaryQuery(start: string, end: string, filterTerms:
   });
 
   return `{
-		transactionsummary (start:"${start}" end:"${end}" ${filterString}) {
+		transactionsummary (analyticsfilter:{ start:"${start}" end:"${end}" ${filterString} targetperiodcount: 24}) {
 			transactions { datetime
 				byprocessorresult { processor_result amount count }
 			}

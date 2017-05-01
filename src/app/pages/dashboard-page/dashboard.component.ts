@@ -244,7 +244,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     summaries.forEach(summary => {
       summary.results.forEach(result => {
-        let data = [summary.time.valueOf(), result.count];
+        let data = [summary.time.valueOf(), result.amount];
 
         switch (result.processorResult) {
           case ('success'): {
