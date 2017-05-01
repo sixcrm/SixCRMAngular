@@ -66,12 +66,7 @@
               </div>
 
               <div class="profile-page__content__notifications__body">
-                <md-slide-toggle [color]="'primary'">SixCRM</md-slide-toggle>
-                <md-slide-toggle [color]="'primary'">iOS App</md-slide-toggle>
-                <md-slide-toggle [color]="'primary'">SMS</md-slide-toggle>
-                <md-slide-toggle [color]="'primary'">E-Mail</md-slide-toggle>
-                <md-slide-toggle [color]="'primary'">Slack</md-slide-toggle>
-                <md-slide-toggle [color]="'primary'">Skype</md-slide-toggle>
+                <md-slide-toggle *ngFor="let device of notificationDevices" [(ngModel)]="device.selected" [color]="'primary'">{{device.name}}</md-slide-toggle>
               </div>
             </div>
             <div class="profile-page__content__notifications__item">
@@ -93,6 +88,28 @@
                 <div class="profile-page__content__notifications__title__main">Notification settings</div>
                 <div class="profile-page__content__notifications__title__sub">Select what notifications you want to receive</div>
                 <md-icon>more_vert</md-icon>
+              </div>
+
+              <div class="profile-page__content__notifications__body">
+                <table class="highlight">
+                  <thead>
+                    <tr>
+                      <th>Notifications</th>
+                      <ng-container *ngFor="let device of notificationDevices">
+                        <th *ngIf="device.selected">{{device.name}}</th>
+                      </ng-container>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr *ngFor="let option of notificationOptions">
+                      <td>{{option.name}}</td>
+                      <ng-container *ngFor="let device of notificationDevices">
+                        <td *ngIf="device.selected"><md-checkbox [color]="'primary'" [(ngModel)]="option.getDevice(device.name).selected"></md-checkbox></td>
+                      </ng-container>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>

@@ -23,6 +23,27 @@ export class ProfilePageComponent extends AbstractEntityViewComponent<User> impl
 
   accounts: EntitySelectable<Acl>[] = [];
 
+  notificationDevices: NotificationDevice[] = [
+    new NotificationDevice('SixCRM', true),
+    new NotificationDevice('iOS App'),
+    new NotificationDevice('SMS', true),
+    new NotificationDevice('E-Mail'),
+    new NotificationDevice('Slack', true),
+    new NotificationDevice('Skype')
+  ];
+
+  notificationOptions: NotificationOptions[] = [
+    new NotificationOptions('Invitation sent'),
+    new NotificationOptions('Invitation accepted'),
+    new NotificationOptions('Lead'),
+    new NotificationOptions('Order'),
+    new NotificationOptions('Upsell'),
+    new NotificationOptions('Decline'),
+    new NotificationOptions('Cancellation'),
+    new NotificationOptions('Rebill'),
+    new NotificationOptions('Mid')
+  ];
+
   constructor(
     service: UsersService,
     private authService: AuthenticationService,
@@ -62,6 +83,45 @@ export class ProfilePageComponent extends AbstractEntityViewComponent<User> impl
     return countSelected(this.accounts);
   }
 
+
+
+}
+
+export class NotificationOptions {
+  name: string;
+  devices: NotificationDevice[] = [];
+
+  constructor(name: string) {
+    this.name = name;
+    this.devices = [
+      new NotificationDevice('SixCRM', true),
+      new NotificationDevice('iOS App', name === 'Invitation sent'),
+      new NotificationDevice('SMS', name === 'Invitation sent'),
+      new NotificationDevice('E-Mail', name === 'Invitation sent'),
+      new NotificationDevice('Slack', name === 'Invitation sent'),
+      new NotificationDevice('Skype', name === 'Invitation sent')
+    ];
+  }
+
+  getDevice(name: string): NotificationDevice {
+    for (let i = 0; i < this.devices.length; i++) {
+      if (this.devices[i].name === name) {
+        return this.devices[i];
+      }
+    }
+
+    return null;
+  }
+}
+
+export class NotificationDevice {
+  name: string;
+  selected: boolean;
+
+  constructor(name: string, selected?: boolean) {
+    this.name = name;
+    this.selected = !!selected;
+  }
 }
 
 export class EntitySelectable<T> {

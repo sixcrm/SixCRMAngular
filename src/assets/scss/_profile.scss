@@ -126,6 +126,51 @@
 
       &__body {
 
+        .md-checkbox-checkmark-path {
+          stroke: black !important;
+        }
+
+        .md-checkbox-background {
+          background-color: white !important;
+          border-color: black;
+          border: 2px solid;
+        }
+
+        .md-checkbox-inner-container {
+          height: 18px !important;
+          width: 18px !important;
+        }
+
+        table {
+          thead {
+            tr {
+              th {
+                padding-left: 15px;
+                padding-right: 15px;
+                font-size: 12px;
+                font-weight: 400;
+                color: rgba(0,0,0,0.6);
+
+                &:last-of-type {
+                  padding-right: 45px;
+                }
+              }
+            }
+          }
+
+          tbody {
+
+            tr {
+              td {
+                padding-left: 15px;
+                padding-right: 15px;
+                font-size: 12px;
+                font-weight: 400;
+              }
+            }
+          }
+        }
+
         .md-slide-toggle-content {
           font-weight: 400;
           margin-left: 5px;
