@@ -615,6 +615,21 @@ export function transactionSummaryQuery(start: string, end: string, filterTerms:
 	}`
 }
 
+export function transactionOverviewQuery(start: string, end: string): string {
+  return `{
+		transactionoverview (analyticsfilter:{start:"${start}", end:"${end}"}) {
+			overview {
+				newsale { count amount }
+				rebill { count amount }
+				decline { count amount }
+				error { count amount }
+				main { count amount }
+				upsell { count amount }
+			}
+		}
+	}`
+}
+
 export function deleteTransactionMutation(id: string): string {
   return deleteMutation('transaction', id);
 }

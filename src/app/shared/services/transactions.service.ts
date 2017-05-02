@@ -5,16 +5,18 @@ import {Http} from '@angular/http';
 import {Transaction} from '../models/transaction.model';
 import {
   transactionsInfoListQuery, transactionQuery, deleteTransactionMutation,
-  transactionSummaryQuery
+  transactionSummaryQuery, transactionOverviewQuery
 } from '../utils/query-builder';
 import {Subject} from 'rxjs';
 import {TransactionSummary} from '../models/transaction-summary.model';
 import {FilterTerm} from '../../pages/dashboard-page/dashboard.component';
+import {TransactionOverview} from '../models/transaction-overview.model';
 
 @Injectable()
 export class TransactionsService extends AbstractEntityService<Transaction> {
 
   transactionsSummaries$: Subject<TransactionSummary[]>;
+  transactionsOverview$: Subject<TransactionOverview>;
 
   constructor(http: Http, authService: AuthenticationService) {
     super(
@@ -30,6 +32,7 @@ export class TransactionsService extends AbstractEntityService<Transaction> {
     );
 
     this.transactionsSummaries$ = new Subject();
+    this.transactionsOverview$ = new Subject();
   }
 
   getTransactionSummaries(start: string, end: string, filters: FilterTerm[]): void {
@@ -39,6 +42,21 @@ export class TransactionsService extends AbstractEntityService<Transaction> {
 
         if (transactions) {
           this.transactionsSummaries$.next(transactions.map(t => new TransactionSummary(t)))
+        }
+      },
+      (error) => {
+        console.error(error);
+      }
+    )
+  }
+
+  getTransactionOverview(start: string, end: string): void {
+    this.queryRequest(transactionOverviewQuery(start, end)).subscribe(
+      (data) => {
+        let overview = data.json().data.transactionoverview.overview;
+
+        if (overview) {
+          this.transactionsOverview$.next(new TransactionOverview(overview));
         }
       },
       (error) => {

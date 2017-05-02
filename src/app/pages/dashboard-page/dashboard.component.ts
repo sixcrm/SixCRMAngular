@@ -6,6 +6,7 @@ import {Subject} from 'rxjs';
 import {TransactionSummary} from '../../shared/models/transaction-summary.model';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {DaterangepickerConfig, DaterangePickerComponent} from 'ng2-daterangepicker';
+import {TransactionOverview} from '../../shared/models/transaction-overview.model';
 
 export interface FilterTerm {
   id: string;
@@ -39,12 +40,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
     {label: 'ALL', start: utc().subtract(10,'y'), end: utc()},
     {label: 'CUSTOM', start: utc(), end: utc()}
   ];
+  activeDateFilterIndex: number = 1;
 
-  activeDataFilterIndex: number = 1;
-
-  // successData = [[1266278400000,28.30], [1266364800000,28.35], [1266451200000,28.59], [1266537600000,28.45], [1266796800000,28.63], [1266883200000,28.15], [1266969600000,28.12]];
-  // declineData = [[1266278400000,28.00], [1266364800000,28.14], [1266451200000,28.29], [1266537600000,28.91], [1266796800000,28.51], [1266883200000,28.39], [1266969600000,28.23]];
-  // errorData = [[1266278400000,28.10], [1266364800000,28.24], [1266451200000,28.19], [1266537600000,28.63], [1266796800000,28.41], [1266883200000,28.49], [1266969600000,28.53]];
+  overviewOptions: any[] = [
+    {title: 'New Sales', mapToResult: (overview: TransactionOverview) => overview.newSale},
+    {title: 'Upsells', mapToResult: (overview: TransactionOverview) => overview.upsell},
+    {title: 'Main', mapToResult: (overview: TransactionOverview) => overview.main},
+    {title: 'Rebills', mapToResult: (overview: TransactionOverview) => overview.rebill},
+    {title: 'Declines', mapToResult: (overview: TransactionOverview) => overview.decline},
+    {title: 'Errors', mapToResult: (overview: TransactionOverview) => overview.error}
+  ];
 
   chart;
   chartOptions = {
@@ -69,22 +74,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
   declineData = [];
   errorData = [];
 
+  @ViewChild(DaterangePickerComponent)
+  dateRangePicker: DaterangePickerComponent;
   datepickerVisible: boolean = false;
 
-  @ViewChild(DaterangePickerComponent)
-  private dateRangePicker: DaterangePickerComponent;
-
   private unsubscribe$: Subject<boolean>;
-  private transactionsSummaryDebouncer$: Subject<boolean>;
+  private transactionsSummaryFetchDebouncer$: Subject<boolean>;
+  private transactionsOverviewFetchDebouncer$: Subject<boolean>;
 
   constructor(
     private searchService: SearchService,
-    private transactionsService: TransactionsService,
+    public transactionsService: TransactionsService,
     private progressBarService: ProgressBarService,
     private daterangepickerOptions: DaterangepickerConfig
   ) {
     this.unsubscribe$ = new Subject();
-    this.transactionsSummaryDebouncer$ = new Subject();
+    this.transactionsSummaryFetchDebouncer$ = new Subject();
+    this.transactionsOverviewFetchDebouncer$ = new Subject();
   }
 
   ngOnInit() {
@@ -107,9 +113,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.progressBarService.hideTopProgressBar();
     });
 
-    this.transactionsSummaryDebouncer$.takeUntil(this.unsubscribe$).debounceTime(500).subscribe(() => this.fetchTransactionSummary());
+    this.transactionsSummaryFetchDebouncer$.takeUntil(this.unsubscribe$).debounceTime(500).subscribe(() => this.fetchTransactionSummary());
+    this.transactionsOverviewFetchDebouncer$.takeUntil(this.unsubscribe$).debounceTime(500).subscribe(() => this.fetchTransactionOverview());
 
     this.fetchTransactionSummary();
+    this.fetchTransactionOverview();
   }
 
   ngOnDestroy() {
@@ -136,10 +144,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   setActiveDateFilterIndex(index: number): void {
     if (this.dateFilters[index].label === 'CUSTOM') return;
 
-    this.activeDataFilterIndex = index;
+    this.activeDateFilterIndex = index;
 
     this.setDatepickerDates();
-    this.transactionsSummaryDebouncer$.next(true);
+    this.transactionsSummaryFetchDebouncer$.next(true);
+    this.transactionsOverviewFetchDebouncer$.next(true);
   }
 
   addFilterTerm(filterTerm: FilterTerm): void {
@@ -147,7 +156,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.currentFilterTerm = '';
     this.filterTerms.push(filterTerm);
 
-    this.transactionsSummaryDebouncer$.next(true);
+    this.transactionsSummaryFetchDebouncer$.next(true);
   }
 
   removeFilterTerm(filterTerm: FilterTerm): void {
@@ -155,7 +164,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     if (index > -1) {
       this.filterTerms.splice(index,1);
-      this.transactionsSummaryDebouncer$.next(true);
+      this.transactionsSummaryFetchDebouncer$.next(true);
     }
   }
 
@@ -172,11 +181,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getStartDate(): Moment {
-    return this.dateFilters[this.activeDataFilterIndex].start;
+    return this.dateFilters[this.activeDateFilterIndex].start;
   }
 
   getEndDate(): Moment {
-    return this.dateFilters[this.activeDataFilterIndex].end;
+    return this.dateFilters[this.activeDateFilterIndex].end;
   }
 
   dateSelected(value: any): void {
@@ -185,13 +194,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.dateFilters[lastIndex].start = utc(value.start);
     this.dateFilters[lastIndex].end = utc(value.end);
 
-    this.activeDataFilterIndex = lastIndex;
-    this.transactionsSummaryDebouncer$.next(true);
+    this.activeDateFilterIndex = lastIndex;
+    this.transactionsSummaryFetchDebouncer$.next(true);
+    this.transactionsOverviewFetchDebouncer$.next(true);
   }
 
   private fetchTransactionSummary(): void {
     this.progressBarService.showTopProgressBar();
     this.transactionsService.getTransactionSummaries(this.getStartDate().format(), this.getEndDate().format(), this.filterTerms);
+  }
+
+  private fetchTransactionOverview(): void {
+    this.progressBarService.showTopProgressBar();
+    this.transactionsService.getTransactionOverview(this.getStartDate().format(), this.getEndDate().format());
   }
 
   private parseFilterSearchResults(results: any[]): FilterTerm[] {
