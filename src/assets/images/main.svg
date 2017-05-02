@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>pie_chart</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="0.54">
+        <g id="Dashboard-Desktop-No-Filtering-Copy" transform="translate(-618.000000, -298.000000)" fill="#000000">
+            <g id="Group-2" transform="translate(215.000000, 88.000000)">
+                <g id="Partials" transform="translate(290.000000, 189.000000)">
+                    <g id="pie_chart" transform="translate(113.000000, 21.000000)">
+                        <path d="M18,0 L18,40 C7.86,39 0,30.42 0,20 C0,9.58 7.86,1 18,0 Z M22.06,0 L22.06,17.98 L40,17.98 C39.06,8.5 31.52,0.94 22.06,0 Z M22.06,22.02 L22.06,40 C31.54,39.06 39.06,31.5 40,22.02 L22.06,22.02 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

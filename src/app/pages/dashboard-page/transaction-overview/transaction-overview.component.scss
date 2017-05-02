@@ -6,8 +6,9 @@
   text-align: center;
 
   &__image {
-    height: 40px;
-    width: 40px;
+    margin: 5px;
+    height: 35px;
+    width: 35px;
   }
 
   &__count {
@@ -16,11 +17,12 @@
 
   &__title {
     font-size: 16px;
-    margin: 5px 0;
+    margin-top: 5px 0;
   }
 
   &__amount {
     font-size: 12px;
     color: rgba(0, 0, 0, 0.5);
+    margin: 5px;
   }
 }

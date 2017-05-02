@@ -99,7 +99,7 @@
   </div>
 
   <div class="dashboard__overview">
-    <transaction-overview class="dashboard__overview__item" *ngFor="let option of overviewOptions" [title]="option.title" [mapToResult]="option.mapToResult" [overview]="(transactionsService.transactionsOverview$ | async)"></transaction-overview>
+    <transaction-overview class="dashboard__overview__item" *ngFor="let option of overviewOptions" [title]="option.title" [mapToResult]="option.mapToResult" [image]="option.image" [overview]="(transactionsService.transactionsOverview$ | async)"></transaction-overview>
   </div>
 
   <div class="dashboard__flex-placeholder"></div>

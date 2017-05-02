@@ -43,12 +43,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   activeDateFilterIndex: number = 1;
 
   overviewOptions: any[] = [
-    {title: 'New Sales', mapToResult: (overview: TransactionOverview) => overview.newSale},
-    {title: 'Upsells', mapToResult: (overview: TransactionOverview) => overview.upsell},
-    {title: 'Main', mapToResult: (overview: TransactionOverview) => overview.main},
-    {title: 'Rebills', mapToResult: (overview: TransactionOverview) => overview.rebill},
-    {title: 'Declines', mapToResult: (overview: TransactionOverview) => overview.decline},
-    {title: 'Errors', mapToResult: (overview: TransactionOverview) => overview.error}
+    {title: 'New Sales', mapToResult: (overview: TransactionOverview) => overview.newSale, image: 'newsale.svg'},
+    {title: 'Main', mapToResult: (overview: TransactionOverview) => overview.main, image: 'main.svg'},
+    {title: 'Upsells', mapToResult: (overview: TransactionOverview) => overview.upsell, image: 'upsell.svg'},
+    {title: 'Rebills', mapToResult: (overview: TransactionOverview) => overview.rebill, image: 'rebill.svg'},
+    {title: 'Declines', mapToResult: (overview: TransactionOverview) => overview.decline, image: 'decline.svg'},
+    {title: 'Errors', mapToResult: (overview: TransactionOverview) => overview.error, image: 'error.svg'}
   ];
 
   chart;

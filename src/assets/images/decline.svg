@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>monetization_on</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Dashboard-Desktop-No-Filtering-Copy" transform="translate(-618.000000, -484.000000)">
+            <g id="Group-2" transform="translate(215.000000, 88.000000)">
+                <g id="Declines" transform="translate(290.000000, 375.000000)">
+                    <g id="monetization_on" transform="translate(113.000000, 21.000000)">
+                        <path d="M20,0 C8.96,0 0,8.96 0,20 C0,31.04 8.96,40 20,40 C31.04,40 40,31.04 40,20 C40,8.96 31.04,0 20,0 Z" id="Shape" fill-opacity="0.54" fill="#000000"></path>
+                        <g id="highlight_off" transform="translate(8.000000, 9.000000)" fill="#FFFFFF">
+                            <path d="M15.108,7.2 L12,10.308 L8.892,7.2 L7.2,8.892 L10.308,12 L7.2,15.108 L8.892,16.8 L12,13.692 L15.108,16.8 L16.8,15.108 L13.692,12 L16.8,8.892 L15.108,7.2 Z M12,0 C5.364,0 0,5.364 0,12 C0,18.636 5.364,24 12,24 C18.636,24 24,18.636 24,12 C24,5.364 18.636,0 12,0 Z M12,21.6 C6.708,21.6 2.4,17.292 2.4,12 C2.4,6.708 6.708,2.4 12,2.4 C17.292,2.4 21.6,6.708 21.6,12 C21.6,17.292 17.292,21.6 12,21.6 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

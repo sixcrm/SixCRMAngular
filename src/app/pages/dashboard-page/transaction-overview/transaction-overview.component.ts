@@ -17,8 +17,10 @@ export class TransactionOverviewComponent implements OnInit {
   @Input()
   mapToResult: (overview: TransactionOverview) => TransactionOverviewResult;
 
+  @Input()
+  image: string;
+
   constructor() { }
 
   ngOnInit() { }
-
 }

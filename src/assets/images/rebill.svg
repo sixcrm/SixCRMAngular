@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>monetization_on</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Dashboard-Desktop-No-Filtering-Copy" transform="translate(-334.000000, -484.000000)">
+            <g id="Group-2" transform="translate(215.000000, 88.000000)">
+                <g id="Rebills" transform="translate(6.000000, 375.000000)">
+                    <g id="monetization_on" transform="translate(113.000000, 21.000000)">
+                        <path d="M20,0 C8.96,0 0,8.96 0,20 C0,31.04 8.96,40 20,40 C31.04,40 40,31.04 40,20 C40,8.96 31.04,0 20,0 Z" id="Shape" fill-opacity="0.54" fill="#000000"></path>
+                        <g id="refresh" transform="translate(7.000000, 8.000000)" fill="#FFFFFF">
+                            <path d="M22.1803313,3.81966906 C19.7506059,1.37337224 16.4447608,-0.00162529128 12.9968729,5.54137145e-07 C5.81264535,5.54137145e-07 0.01,5.81889981 0.01,13.0031274 C0.01,20.187355 5.81264535,26.0062542 12.9968729,26.0062542 C19.0595808,26.0062542 24.1145464,21.8615076 25.5611442,16.2539091 L22.1803313,16.2539091 C20.8081484,20.1496527 17.1272124,22.7556251 12.9968729,22.7554725 C7.6168292,22.7554725 3.2445278,18.3831711 3.2445278,13.0031274 C3.2445278,7.62308366 7.6168292,3.25078226 12.9968729,3.25078226 C15.6950218,3.25078226 18.1006002,4.37230195 19.8560223,6.14397799 L14.6222638,11.3777365 L25.9999998,11.3777365 L25.9999998,5.54137143e-07 L22.1803313,3.81966906 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
