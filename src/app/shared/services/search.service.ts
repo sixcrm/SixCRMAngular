@@ -5,7 +5,7 @@ import {environment} from '../../../environments/environment';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {
   searchQuery, suggestionsQuery, searchFacets, searchAdvancedQuery,
-  searchAdvancedFacets, dashboardFiltersQuery
+  searchAdvancedFacets, dashboardFiltersQuery, dashboardFiltersAdvancedQuery
 } from '../utils/query-builder';
 
 @Injectable()
@@ -94,6 +94,19 @@ export class SearchService {
 
   searchDashboardFilters(query: string): void {
     this.dashboardFilterInput$.next(query);
+  }
+
+  searchDashboardFiltersAdvanced(query: string, type: string): Observable<any> {
+    let obs: Subject<any> = new Subject();
+
+    this.queryRequest(dashboardFiltersAdvancedQuery(query, type)).subscribe(
+      (response: Response) => {
+        obs.next(this.parseSearchResults(response));
+        obs.complete();
+      }
+    );
+
+    return obs;
   }
 
   private fetchSuggestions(query: string): void {

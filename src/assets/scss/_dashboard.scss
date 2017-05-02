@@ -4,30 +4,55 @@
   padding: 20px;
 
   &__filters {
-    display: flex;
     margin-bottom: 10px;
     width: 100%;
-    padding: 0 50px;
     box-shadow: 0 0 5px rgba(0,0,0,0.2);
     box-sizing: border-box;
     background: white;
 
-    @media only screen and (max-width: 1440px) {
-      flex-wrap: wrap;
-      width: 65%;
-      padding: 20px 50px;
+    &__title {
+      position: relative;
+      margin-top: 15px;
+      padding: 0 10px 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+      &__main {
+        margin-bottom: 3px;
+      }
+
+      &__sub {
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.7);
+      }
+
+      &__icons {
+        position: absolute;
+        right: 10px;
+        top: 0;
+
+        md-icon {
+          color: rgba(0, 0, 0, 0.5);
+          cursor: pointer;
+
+          &:first-of-type {
+            transform: rotate(90deg);
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+
+    &__content {
+      display: flex;
+      margin-top: 20px;
     }
 
     &__date {
       display: flex;
       align-items: center;
-      width: 45%;
-      margin-right: 5px;
+      width: 50%;
+      margin: 0 5px;
       font-size: 12px;
-
-      @media only screen and (max-width: 1440px) {
-        width: 100%;
-      }
 
       &__quick {
         &__item {
@@ -37,8 +62,9 @@
 
           &--active {
             padding-bottom: 3px;
-            border-bottom: 2px solid black;
+            border-bottom: 2px solid #F16C00;
             color: black;
+            font-weight: 500;
           }
 
           &--disabled {
@@ -48,7 +74,11 @@
       }
 
       &__range {
-        margin-left: auto;
+        margin-left: 75px;
+
+        @media only screen and (max-width: 1400px) {
+          margin-left: auto;
+        }
 
         .daterangepicker {
           flex-wrap: wrap;
@@ -92,22 +122,24 @@
       }
     }
 
-
     &__query {
-      padding-top: 5px;
       margin-left: auto;
-      max-width: 50%;
-
-      @media only screen and (max-width: 1440px) {
-        margin: 50px 0 0 0;
-        max-width: 100%;
-      }
-
-      &__label {
-        font-size: 12px;
-      }
+      width: 50%;
+      z-index: 5;
 
       &__input {
+        transition: 0.2s ease-in-out;
+
+        &--advanced {
+          transform: translateY(60px);
+          transition: 0.5s ease-in-out;
+        }
+
+        md-input {
+          width: calc(100% - 140px);
+          font-size: 14px;
+        }
+
         .md-input-wrapper {
           margin-top: 0;
 
@@ -171,6 +203,10 @@
             background-color: #F16C00;
           }
         }
+
+        .md-input-placeholder.md-focused {
+          color: #F16C00 !important;
+        }
       }
 
       &__suggestions {
@@ -178,7 +214,6 @@
         top: calc(100% + 8px);
         left: 100%;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-        z-index: 5;
         background-color: white;
 
         &__item {
@@ -213,6 +248,80 @@
             font-size: 11px;
           }
         }
+      }
+    }
+
+    &__advanced {
+      margin: 0 5px;
+
+      &__row {
+        margin-top: 10px;
+
+        .first {
+          margin-right: 75px;
+
+          @media only screen and (max-width: 1400px) {
+            margin-right: calc(50% - 488px);
+          }
+        }
+
+        md-input {
+          font-size: 14px;
+        }
+      }
+
+      &__large {
+        width: 260px;
+      }
+
+      &__small {
+        width: 90px;
+      }
+
+      &__dropdown {
+        display: inline-block;
+        margin-right: 75px;
+        width: 260px;
+
+        @media only screen and (max-width: 1400px) {
+          margin-right: calc(50% - 488px);
+        }
+
+        &--active {
+          color: rgba(0, 0, 0, 0.3);
+        }
+
+        span {
+          display: flex;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.11);
+          padding-bottom: 5px;
+          font-size: 14px;
+          cursor: pointer;
+
+          md-icon {
+            margin-left: auto;
+            height: 16px;
+            width: 16px;
+            vertical-align: middle;
+            font-size: 16px;
+          }
+        }
+
+        .unselected {
+          color: rgba(0, 0, 0, 0.35)
+        }
+      }
+    }
+
+    &__advanced-button {
+      margin: 0 10px 10px;
+      text-align: right;
+      color: #039BE5;
+      font-size: 12px;
+
+      span {
+        cursor: pointer;
+        margin-left: 10px;
       }
     }
   }

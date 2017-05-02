@@ -40,10 +40,10 @@
               <md-input placeholder="Work phone"></md-input>
               <md-input placeholder="Cell phone"></md-input>
               <div class="profile-page__content__general__data__dropdown">
-            <span [md-menu-trigger-for]="timezoneMenu" [class.unselected]="!timezone">
-              {{timezone || 'Timezone'}}
-              <md-icon>keyboard_arrow_down</md-icon>
-            </span>
+                <span [md-menu-trigger-for]="timezoneMenu" [class.unselected]="!timezone">
+                  {{timezone || 'Timezone'}}
+                  <md-icon>keyboard_arrow_down</md-icon>
+                </span>
               </div>
 
               <md-menu #timezoneMenu="mdMenu" x-position="after">

@@ -1,46 +1,100 @@
 <div class="dashboard">
 
   <div class="dashboard__filters">
-    <div class="dashboard__filters__date">
-      <div class="dashboard__filters__date__quick">
-        <span *ngFor="let dateFilter of dateFilters; let i = index"
-              class="dashboard__filters__date__quick__item"
-              [class.dashboard__filters__date__quick__item--active]="activeDateFilterIndex===i"
-              (click)="setActiveDateFilterIndex(i)"
-              [class.dashboard__filter__data__quick__item--disabled]="dateFilter.label === 'CUSTOM'">{{dateFilter.label}}</span>
+    <div class="dashboard__filters__title">
+      <div class="dashboard__filters__title__main">Dashboard Filters</div>
+      <div class="dashboard__filters__title__sub">Filters will be applied to your Dashboard</div>
+      <div class="dashboard__filters__title__icons">
+        <md-icon>link</md-icon>
+        <md-icon>more_vert</md-icon>
       </div>
-      <div class="dashboard__filters__date__range">
-        <div class="datepicker--custom" [class.datepicker-visible]="datepickerVisible">
-          <div (showDaterangepicker)="datepickerVisible = true" (hideDaterangepicker)="datepickerVisible = false" (selected)="dateSelected($event)" daterangepicker>
-            <div class="dashboard__filters__date__range__input" name="daterange" >
-              <span>From <span class="dashboard__filters__date__range__input__value">{{ getStartDate().format('MMM D, YYYY') }}</span>
-                    To <span class="dashboard__filters__date__range__input__value">{{ getEndDate().format('MMM D, YYYY') }}</span>
-              </span> <md-icon>keyboard_arrow_down</md-icon> </div>
+    </div>
+    <div class="dashboard__filters__content">
+      <div class="dashboard__filters__date">
+        <div class="dashboard__filters__date__quick">
+          <span *ngFor="let dateFilter of dateFilters; let i = index"
+                class="dashboard__filters__date__quick__item"
+                [class.dashboard__filters__date__quick__item--active]="activeDateFilterIndex===i"
+                (click)="setActiveDateFilterIndex(i)"
+                [class.dashboard__filter__data__quick__item--disabled]="dateFilter.label === 'CUSTOM'">{{dateFilter.label}}</span>
+        </div>
+        <div class="dashboard__filters__date__range">
+          <div class="datepicker--custom" [class.datepicker-visible]="datepickerVisible">
+            <div (showDaterangepicker)="datepickerVisible = true" (hideDaterangepicker)="datepickerVisible = false" (selected)="dateSelected($event)" daterangepicker>
+              <div class="dashboard__filters__date__range__input" name="daterange" >
+                <span>From <span class="dashboard__filters__date__range__input__value">{{ getStartDate().format('MMM D, YYYY') }}</span>
+                      To <span class="dashboard__filters__date__range__input__value">{{ getEndDate().format('MMM D, YYYY') }}</span>
+                </span> <md-icon>keyboard_arrow_down</md-icon> </div>
+            </div>
           </div>
+        </div>
+      </div>
+
+      <div class="dashboard__filters__query">
+        <div class="dashboard__filters__query__input" [class.dashboard__filters__query__input--advanced]="advanced">
+          <md-input placeholder="Filters" [value]="currentFilterTerm" (input)="filterTermInput($event)" (blur)="filterTermInputBlur()" (focus)="filterTermInputFocus()">
+            <div class="dashboard__filters__query__input__prefix" md-prefix>
+              <div *ngFor="let filterTerm of filterTerms" class="dashboard__filters__query__input__prefix__item">
+                <div class="dashboard__filters__query__input__prefix__item__image">C</div>
+                <div class="dashboard__filters__query__input__prefix__item__text">{{filterTerm.label}}</div>
+                <md-icon class="dashboard__filters__query__input__prefix__item__close" (click)="removeFilterTerm(filterTerm)">close</md-icon>
+              </div>
+
+              <div class="dashboard__filters__query__suggestions">
+                <div class="dashboard__filters__query__suggestions__item" *ngFor="let suggestion of filterSearchResults" (click)="addFilterTerm(suggestion)">
+                  <div class="dashboard__filters__query__suggestions__item__image">{{suggestion.type.substring(0,1).toUpperCase()}}</div>
+                  <div class="dashboard__filters__query__suggestions__item__text">{{suggestion.label}}</div>
+                </div>
+              </div>
+            </div>
+          </md-input>
         </div>
       </div>
     </div>
 
-    <div class="dashboard__filters__query">
-      <div class="dashboard__filters__query__label">Filters</div>
-      <div class="dashboard__filters__query__input">
-        <md-input [value]="currentFilterTerm" (input)="filterTermInput($event)" (blur)="filterTermInputBlur()" (focus)="filterTermInputFocus()">
-          <div class="dashboard__filters__query__input__prefix" md-prefix>
-            <div *ngFor="let filterTerm of filterTerms" class="dashboard__filters__query__input__prefix__item">
-              <div class="dashboard__filters__query__input__prefix__item__image">C</div>
-              <div class="dashboard__filters__query__input__prefix__item__text">{{filterTerm.label}}</div>
-              <md-icon class="dashboard__filters__query__input__prefix__item__close" (click)="removeFilterTerm(filterTerm)">close</md-icon>
-            </div>
-
-            <div class="dashboard__filters__query__suggestions">
-              <div class="dashboard__filters__query__suggestions__item" *ngFor="let suggestion of filterSearchResults" (click)="addFilterTerm(suggestion)">
-                <div class="dashboard__filters__query__suggestions__item__image">{{suggestion.type.substring(0,1).toUpperCase()}}</div>
-                <div class="dashboard__filters__query__suggestions__item__text">{{suggestion.label}}</div>
-              </div>
-            </div>
-          </div>
-        </md-input>
+    <div *ngIf="advanced" class="dashboard__filters__advanced">
+      <div class="dashboard__filters__advanced__row">
+        <input-autocomplete [title]="'Campaign'" [entityType]="'campaign'" [value]="campaign ? campaign.label : ''" (selected)="campaign = $event"></input-autocomplete>
+        <input-autocomplete [title]="'Affiliate'" [entityType]="'affiliate'" [value]="affiliate ? affiliate.label : ''" (selected)="affiliate = $event"></input-autocomplete>
       </div>
+      <div class="dashboard__filters__advanced__row">
+        <input-autocomplete [title]="'Product Schedule'" [entityType]="'productschedule'" [value]="productschedule ? productschedule.label : ''" (selected)="productschedule = $event"></input-autocomplete>
+        <md-input class="dashboard__filters__advanced__small" placeholder="Sub ID 1"></md-input>
+        <md-input class="dashboard__filters__advanced__small" placeholder="Sub ID 2"></md-input>
+        <md-input class="dashboard__filters__advanced__small" placeholder="Sub ID 3"></md-input>
+        <md-input class="dashboard__filters__advanced__small" placeholder="Sub ID 4"></md-input>
+        <md-input class="dashboard__filters__advanced__small" placeholder="Sub ID 5"></md-input>
+      </div>
+
+      <div class="dashboard__filters__advanced__row">
+        <input-autocomplete [title]="'Merchant Provider'" [entityType]="'merchantprocessor'" [value]="merchantprocessor ? merchantprocessor.label : ''" (selected)="merchantprocessor = $event"></input-autocomplete>
+
+        <div class="dashboard__filters__advanced__dropdown">
+          <span [md-menu-trigger-for]="transactionTypeMenu" [class.unselected]="!transactionType">
+            {{transactionType || 'Transaction Type'}}
+            <md-icon>keyboard_arrow_down</md-icon>
+          </span>
+        </div>
+        <md-menu #transactionTypeMenu="mdMenu" x-position="after">
+          <button md-menu-item *ngFor="let tt of transactionTypes" (click)="transactionType = tt"> {{tt}} </button>
+        </md-menu>
+
+        <div class="dashboard__filters__advanced__dropdown">
+          <span [md-menu-trigger-for]="processorResultMenu" [class.unselected]="!processorResponse">
+            {{processorResponse || 'Processor Response'}}
+            <md-icon>keyboard_arrow_down</md-icon>
+          </span>
+        </div>
+        <md-menu #processorResultMenu="mdMenu" x-position="after">
+          <button md-menu-item *ngFor="let pr of processorResponses" (click)="processorResponse = pr"> {{pr}} </button>
+        </md-menu>
+      </div>
+    </div>
+
+    <div class="dashboard__filters__advanced-button">
+      <span *ngIf="!advanced" (click)="toggleAdvanced()">ADVANCED</span>
+      <span *ngIf="advanced" (click)="applyAdvancedFilters()">APPLY</span>
+      <span *ngIf="advanced" (click)="toggleAdvanced()">CLOSE</span>
     </div>
   </div>
 

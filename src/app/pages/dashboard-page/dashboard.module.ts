@@ -8,6 +8,7 @@ import {ChartModule} from 'angular2-highcharts';
 import {HighchartsStatic} from 'angular2-highcharts/dist/HighchartsService';
 import {Daterangepicker} from 'ng2-daterangepicker';
 import { TransactionOverviewComponent } from './transaction-overview/transaction-overview.component';
+import { InputAutocompleteComponent } from './input-autocomplete/input-autocomplete.component';
 
 export function highchartsFactory() {
   return require('highcharts/highstock');
@@ -24,7 +25,8 @@ export function highchartsFactory() {
   ],
   declarations : [
     DashboardComponent,
-    TransactionOverviewComponent
+    TransactionOverviewComponent,
+    InputAutocompleteComponent
   ],
   exports : [
   ],

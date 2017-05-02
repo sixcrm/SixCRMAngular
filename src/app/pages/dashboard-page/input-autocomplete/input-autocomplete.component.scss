@@ -1,0 +1,46 @@
+.input-autocomplete {
+  position: relative;
+  display: inline-block;
+
+  &__suggestions {
+    position: absolute;
+    top: 42px;
+    left: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    background-color: white;
+    z-index: 5;
+
+    &__item {
+      width: 150px;
+      padding: 15px 10px;
+      cursor: pointer;
+      font-size: 0;
+
+      &:hover {
+        background-color: #F16C00;
+        color: white;
+      }
+
+      &__image {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 10px;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        background: #039BE5;
+        text-align: center;
+        font-size: 16px;
+        color: white;
+      }
+
+      &__text {
+        display: inline-block;
+        vertical-align: middle;
+        max-width: 110px;
+        font-size: 11px;
+      }
+    }
+  }
+}

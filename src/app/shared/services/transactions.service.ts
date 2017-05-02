@@ -35,8 +35,8 @@ export class TransactionsService extends AbstractEntityService<Transaction> {
     this.transactionsOverview$ = new Subject();
   }
 
-  getTransactionSummaries(start: string, end: string, filters: FilterTerm[]): void {
-    this.queryRequest(transactionSummaryQuery(start, end, filters)).subscribe(
+  getTransactionSummaries(start: string, end: string, filters: FilterTerm[], additionalFilters?: any[]): void {
+    this.queryRequest(transactionSummaryQuery(start, end, filters, additionalFilters)).subscribe(
       (data) => {
         let transactions = data.json().data.transactionsummary.transactions;
 

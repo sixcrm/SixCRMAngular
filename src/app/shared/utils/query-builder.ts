@@ -166,6 +166,19 @@ export function dashboardFiltersQuery(query: string): string {
 	}`;
 }
 
+export function dashboardFiltersAdvancedQuery(query: string, type: string): string {
+  let entityTypesQuery: string = `(or entity_type:'${type}')`;
+
+  return `{
+		search (search: {query: "${query}*" filterQuery:"${entityTypesQuery}"}) {
+			status { timems rid }
+			hits { found start
+				hit { id fields }
+			}
+		}
+	}`;
+}
+
 export function productsListQuery(limit?:number, cursor?:string): string {
   return `{
     productlist ${pageParams(limit, cursor)} {
@@ -585,7 +598,7 @@ export function transactionQuery(id: string): string {
 	}`
 }
 
-export function transactionSummaryQuery(start: string, end: string, filterTerms: FilterTerm[]): string {
+export function transactionSummaryQuery(start: string, end: string, filterTerms: FilterTerm[], additionalFilters?: any[]): string {
   let filters = {};
 
   filterTerms.forEach(term => {
@@ -606,8 +619,18 @@ export function transactionSummaryQuery(start: string, end: string, filterTerms:
     filterString += ` ${key}:[${ids}]`;
   });
 
+  let additional = '';
+
+  if (additionalFilters) {
+    additionalFilters.forEach(filter => {
+      if (filter.value) {
+        additional += ` ${filter.key}:"${filter.value}" `;
+      }
+    });
+  }
+
   return `{
-		transactionsummary (analyticsfilter:{ start:"${start}" end:"${end}" ${filterString} targetperiodcount: 24}) {
+		transactionsummary (analyticsfilter:{ start:"${start}" end:"${end}" ${filterString} ${additional} targetperiodcount: 24}) {
 			transactions { datetime
 				byprocessorresult { processor_result amount count }
 			}
