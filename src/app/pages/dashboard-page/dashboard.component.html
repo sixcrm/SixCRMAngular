@@ -98,19 +98,26 @@
     </div>
   </div>
 
-  <div class="dashboard__overview">
-    <transaction-overview class="dashboard__overview__item" *ngFor="let option of overviewOptions" [title]="option.title" [mapToResult]="option.mapToResult" [image]="option.image" [overview]="(transactionsService.transactionsOverview$ | async)"></transaction-overview>
-  </div>
-
-  <div class="dashboard__flex-placeholder"></div>
-
-  <div class="dashboard__chart">
-    <div class="dashboard__chart__title">
-      <div class="dashboard__chart__title__main">Product Sales</div>
-      <div class="dashboard__chart__title__sub">sales this week</div>
-      <md-icon>more_vert</md-icon>
+  <div class="dashboard__column dashboard__column--left">
+    <div class="dashboard__overview__container">
+      <div class="dashboard__overview">
+        <transaction-overview class="dashboard__overview__item" *ngFor="let option of overviewOptions" [title]="option.title" [mapToResult]="option.mapToResult" [image]="option.image" [overview]="(analyticsService.transactionsOverview$ | async)"></transaction-overview>
+        <md-progress-bar *ngIf="!overviewOptions || overviewOptions.length === 0" mode="indeterminate"></md-progress-bar>
+      </div>
     </div>
 
-    <chart type="StockChart" [options]="chartOptions" (load)="saveChart($event.context)"></chart>
+    <div class="dashboard__chart">
+      <div class="dashboard__chart__title">
+        <div class="dashboard__chart__title__main">Product Sales</div>
+        <div class="dashboard__chart__title__sub">sales this week</div>
+        <md-icon>more_vert</md-icon>
+      </div>
+
+      <chart type="StockChart" [options]="chartOptions" (load)="saveChart($event.context)"></chart>
+    </div>
+  </div>
+
+  <div class="dashboard__column dashboard__column--right">
+    <funnel-graph></funnel-graph>
   </div>
 </div>

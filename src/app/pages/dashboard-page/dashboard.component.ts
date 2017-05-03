@@ -1,12 +1,12 @@
 import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {utc, Moment} from 'moment';
 import {SearchService} from '../../shared/services/search.service';
-import {TransactionsService} from '../../shared/services/transactions.service';
 import {Subject} from 'rxjs';
 import {TransactionSummary} from '../../shared/models/transaction-summary.model';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {DaterangepickerConfig, DaterangePickerComponent} from 'ng2-daterangepicker';
 import {TransactionOverview} from '../../shared/models/transaction-overview.model';
+import {AnalyticsService} from '../../shared/services/analytics.service';
 
 export interface FilterTerm {
   id: string;
@@ -85,9 +85,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(
     private searchService: SearchService,
-    public transactionsService: TransactionsService,
     private progressBarService: ProgressBarService,
-    private daterangepickerOptions: DaterangepickerConfig
+    private daterangepickerOptions: DaterangepickerConfig,
+    public analyticsService: AnalyticsService
   ) {
     this.unsubscribe$ = new Subject();
     this.transactionsSummaryFetchDebouncer$ = new Subject();
@@ -109,16 +109,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.filterSearchResults = this.parseFilterSearchResults(results.hit);
     });
 
-    this.transactionsService.transactionsSummaries$.takeUntil(this.unsubscribe$).subscribe(summaries => {
+    this.analyticsService.transactionsSummaries$.takeUntil(this.unsubscribe$).subscribe(summaries => {
       this.setTransactionSummaryChartData(summaries);
       this.progressBarService.hideTopProgressBar();
     });
 
     this.transactionsSummaryFetchDebouncer$.takeUntil(this.unsubscribe$).debounceTime(500).subscribe(() => this.fetchTransactionSummary());
-    this.transactionsOverviewFetchDebouncer$.takeUntil(this.unsubscribe$).debounceTime(500).subscribe(() => this.fetchTransactionOverview());
+    this.transactionsOverviewFetchDebouncer$.takeUntil(this.unsubscribe$).debounceTime(500).subscribe(() => {
+      this.fetchTransactionOverview();
+      this.fetchEventFunnel();
+    });
 
     this.fetchTransactionSummary();
     this.fetchTransactionOverview();
+    this.fetchEventFunnel();
   }
 
   ngOnDestroy() {
@@ -231,14 +235,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     this.progressBarService.showTopProgressBar();
-    this.transactionsService.getTransactionSummaries(this.getStartDate().format(), this.getEndDate().format(), filters, additionalFilters);
+    this.analyticsService.getTransactionSummaries(this.getStartDate().format(), this.getEndDate().format(), filters, additionalFilters);
   }
 
   private fetchTransactionOverview(): void {
     this.progressBarService.showTopProgressBar();
-    this.transactionsService.getTransactionOverview(this.getStartDate().format(), this.getEndDate().format());
+    this.analyticsService.getTransactionOverview(this.getStartDate().format(), this.getEndDate().format());
   }
 
+  private fetchEventFunnel(): void {
+    this.progressBarService.showTopProgressBar();
+    this.analyticsService.getEventFunnel(this.getStartDate().format(), this.getEndDate().format());
+  }
   private parseFilterSearchResults(results: any[]): FilterTerm[] {
     let terms: FilterTerm[] = [];
 

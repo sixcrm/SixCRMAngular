@@ -1,7 +1,24 @@
+$color-orange: #F16C00;
+
 .dashboard {
-  display: flex;
-  flex-wrap: wrap;
   padding: 20px;
+  font-size: 0;
+
+  &__column {
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+
+    &--left {
+      padding-right: 10px;
+      box-sizing: border-box;
+    }
+
+    &--right {
+      padding-left: 10px;
+      box-sizing: border-box;
+    }
+  }
 
   &__filters {
     margin-bottom: 10px;
@@ -13,11 +30,12 @@
     &__title {
       position: relative;
       margin-top: 15px;
-      padding: 0 10px 10px;
+      padding: 10px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 
       &__main {
         margin-bottom: 3px;
+        font-size: 18px;
       }
 
       &__sub {
@@ -28,7 +46,7 @@
       &__icons {
         position: absolute;
         right: 10px;
-        top: 0;
+        top: 10px;
 
         md-icon {
           color: rgba(0, 0, 0, 0.5);
@@ -62,7 +80,7 @@
 
           &--active {
             padding-bottom: 3px;
-            border-bottom: 2px solid #F16C00;
+            border-bottom: 2px solid $color-orange;
             color: black;
             font-weight: 500;
           }
@@ -124,7 +142,7 @@
 
     &__query {
       margin-left: auto;
-      width: 50%;
+      width: 45%;
       z-index: 5;
 
       &__input {
@@ -175,7 +193,7 @@
               height: 30px;
               line-height: 30px;
               border-radius: 20px;
-              background-color: #F16C00;
+              background-color: $color-orange;
               text-align: center;
               color: white;
             }
@@ -200,12 +218,12 @@
 
         .md-input-underline {
           .md-input-ripple {
-            background-color: #F16C00;
+            background-color: $color-orange;
           }
         }
 
         .md-input-placeholder.md-focused {
-          color: #F16C00 !important;
+          color: $color-orange !important;
         }
       }
 
@@ -223,7 +241,7 @@
           font-size: 0;
 
           &:hover {
-            background-color: #F16C00;
+            background-color: $color-orange;
             color: white;
           }
 
@@ -314,7 +332,7 @@
     }
 
     &__advanced-button {
-      margin: 0 10px 10px;
+      padding: 0 10px 10px;
       text-align: right;
       color: #039BE5;
       font-size: 12px;
@@ -330,35 +348,17 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin: 5px 0;
-    width: 50%;
-
-    @media only screen and (max-width: 1440px) {
-      width: 65%;
-    }
+    margin: 10px 0 5px;
 
     &__item {
-      width: calc(33.33% - 8px);
-      margin-bottom: 10px;
-    }
-  }
-
-  &__flex-placeholder {
-    width: 50%;
-
-    @media only screen and (max-width: 1440px) {
-      width: 35%;
+      width: calc(33.33% - 10px);
+      margin-bottom: 15px;
     }
   }
 
   &__chart {
-    width: 50%;
     box-shadow: 0 0 5px rgba(0,0,0,0.2);
     background-color: white;
-
-    @media only screen and (max-width: 1440px) {
-      width: 65%;
-    }
 
     &__title {
       position: relative;
@@ -392,6 +392,92 @@
       .highcharts-root {
         width: 100%;
         height: 100%;
+      }
+    }
+  }
+
+  &__funnel {
+    margin: 10px 0;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    background-color: white;
+
+    &__title {
+      position: relative;
+      padding: 20px 10px 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+      &__main {
+        margin-bottom: 5px;
+        font-size: 18px;
+      }
+
+      &__sub {
+        font-size: 12px;
+        color: rgba(0,0,0,0.6);
+      }
+
+      md-icon {
+        position: absolute;
+        right: 10px;
+        top: 16px;
+        width: 20px;
+        height: 20px;
+        font-size: 20px;
+        cursor: pointer;
+      }
+    }
+
+    .highcharts-container {
+      width: 100% !important;
+      height: 100% !important;
+
+      .highcharts-root {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    table {
+      font-size: 12px;
+      margin-bottom: 40px;
+
+      thead {
+        tr {
+          th {
+            padding: 15px;
+            color: rgba(0,0,0,0.4);
+            font-weight: 400;
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+          td {
+            padding: 15px;
+          }
+        }
+      }
+
+      .color-indicator {
+        display: inline-block;
+        margin-right: 15px;
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+      }
+    }
+
+    &__actions {
+      font-size: 14px;
+      padding: 15px 20px;
+      border-top: 1px solid rgba(0, 0, 0, 0.2);
+      color: $color-orange;
+
+      span {
+        cursor: pointer;
       }
     }
   }

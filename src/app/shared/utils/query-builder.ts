@@ -586,7 +586,7 @@ export function transactionsInfoListQuery(limit?:number, cursor?:string): string
 
 export function transactionQuery(id: string): string {
   return `{
-    transaction (id: "${id}") { id alias amount processor_response created_at updated_at
+    transaction (id: "${id}") { id alias amount processor_response created_at updated_at merchant_provider
       rebill { id amount }
       products { amount
         product { id name sku ship shipping_delay
@@ -636,6 +636,19 @@ export function transactionSummaryQuery(start: string, end: string, filterTerms:
 			}
 		}
 	}`
+}
+
+export function eventsFunelQuery(start: string, end: string): string {
+  return `{
+		eventfunnel (analyticsfilter:{start:"${start}", end:"${end}"}) {
+			funnel {
+				click { count percentage relative_percentage }
+				lead { count percentage relative_percentage }
+				main { count percentage relative_percentage }
+				upsell { count percentage relative_percentage }
+				confirm { count percentage relative_percentage }
+			}
+		}}`;
 }
 
 export function transactionOverviewQuery(start: string, end: string): string {

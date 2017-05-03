@@ -9,9 +9,17 @@ import {HighchartsStatic} from 'angular2-highcharts/dist/HighchartsService';
 import {Daterangepicker} from 'ng2-daterangepicker';
 import { TransactionOverviewComponent } from './transaction-overview/transaction-overview.component';
 import { InputAutocompleteComponent } from './input-autocomplete/input-autocomplete.component';
+import { FunnelGraphComponent } from './funnel-graph/funnel-graph.component';
 
 export function highchartsFactory() {
-  return require('highcharts/highstock');
+  let hc = require('highcharts');
+  let hcm = require('highcharts/highcharts-more');
+  let sg = require('highcharts/modules/solid-gauge');
+
+  hcm(hc);
+  sg(hc);
+
+  return hc;
 }
 
 @NgModule({
@@ -26,7 +34,8 @@ export function highchartsFactory() {
   declarations : [
     DashboardComponent,
     TransactionOverviewComponent,
-    InputAutocompleteComponent
+    InputAutocompleteComponent,
+    FunnelGraphComponent
   ],
   exports : [
   ],

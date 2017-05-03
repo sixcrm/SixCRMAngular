@@ -1,0 +1,56 @@
+<div class="dashboard__funnel">
+  <div class="dashboard__funnel__title">
+    <div class="dashboard__funnel__title__main">Event Funnel</div>
+    <div class="dashboard__funnel__title__sub">Events by Event Type</div>
+    <md-icon>more_vert</md-icon>
+  </div>
+
+  <chart [options]="chartOptions" (load)="saveChart($event.context)"></chart>
+
+  <table *ngIf="showTable" class="highlight">
+    <thead>
+      <tr>
+        <th>Events</th>
+        <th>Count</th>
+        <th>Percentage</th>
+        <th>Relative Percentage</th>
+      </tr>
+    </thead>
+
+    <tbody *ngIf="funnel">
+      <tr>
+        <td><div [style.background]="colors[0]" class="color-indicator"></div>Clicks</td>
+        <td>{{funnel.click.count}}</td>
+        <td>{{funnel.click.percentage || '-'}}</td>
+        <td>{{funnel.click.relativePercentage || '-'}}</td>
+      </tr>
+      <tr>
+        <td><div [style.background]="colors[1]" class="color-indicator"></div>Leads</td>
+        <td>{{funnel.lead.count}}</td>
+        <td>{{funnel.lead.percentage || '-'}}</td>
+        <td>{{funnel.lead.relativePercentage || '-'}}</td>
+      </tr>
+      <tr>
+        <td><div [style.background]="colors[2]" class="color-indicator"></div>Mains</td>
+        <td>{{funnel.main.count}}</td>
+        <td>{{funnel.main.percentage || '-'}}</td>
+        <td>{{funnel.main.relativePercentage || '-'}}</td>
+      </tr><tr>
+        <td><div [style.background]="colors[3]" class="color-indicator"></div>Upsells</td>
+        <td>{{funnel.upsell.count}}</td>
+        <td>{{funnel.upsell.percentage || '-'}}</td>
+        <td>{{funnel.upsell.relativePercentage || '-'}}</td>
+      </tr>
+      <tr>
+        <td><div [style.background]="colors[4]" class="color-indicator"></div>Confirmations</td>
+        <td>{{funnel.confirm.count}}</td>
+        <td>{{funnel.confirm.percentage || '-'}}</td>
+        <td>{{funnel.confirm.relativePercentage || '-'}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="dashboard__funnel__actions">
+    <span (click)="toggleTable()">{{showTable ? 'COLLAPSE' : 'SHOW TABLE'}}</span>
+  </div>
+</div>
