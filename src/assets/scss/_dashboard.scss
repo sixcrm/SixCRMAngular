@@ -354,6 +354,10 @@ $color-orange: #F16C00;
       width: calc(33.33% - 10px);
       margin-bottom: 15px;
     }
+
+    md-spinner {
+      margin: auto;
+    }
   }
 
   &__chart {

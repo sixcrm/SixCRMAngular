@@ -102,7 +102,7 @@
     <div class="dashboard__overview__container">
       <div class="dashboard__overview">
         <transaction-overview class="dashboard__overview__item" *ngFor="let option of overviewOptions" [title]="option.title" [mapToResult]="option.mapToResult" [image]="option.image" [overview]="(analyticsService.transactionsOverview$ | async)"></transaction-overview>
-        <md-progress-bar *ngIf="!overviewOptions || overviewOptions.length === 0" mode="indeterminate"></md-progress-bar>
+        <md-spinner *ngIf="!(analyticsService.transactionsOverview$ | async)"></md-spinner>
       </div>
     </div>
 
