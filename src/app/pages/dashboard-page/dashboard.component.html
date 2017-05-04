@@ -13,11 +13,12 @@
       <div class="dashboard__filters__content">
         <div class="dashboard__filters__date">
           <div class="dashboard__filters__date__quick">
-            <span *ngFor="let dateFilter of dateFilters; let i = index"
-                  class="dashboard__filters__date__quick__item"
-                  [class.dashboard__filters__date__quick__item--active]="activeDateFilterIndex===i"
-                  (click)="setActiveDateFilterIndex(i)"
-                  [class.dashboard__filter__data__quick__item--disabled]="dateFilter.label === 'CUSTOM'">{{dateFilter.label}}</span>
+            <ng-container *ngFor="let dateFilter of dateFilters; let i = index">
+              <span *ngIf="dateFilter.label !== 'CUSTOM'"
+                    class="dashboard__filters__date__quick__item"
+                    [class.dashboard__filters__date__quick__item--active]="activeDateFilterIndex===i"
+                    (click)="setActiveDateFilterIndex(i)">{{dateFilter.label}}</span>
+            </ng-container>
           </div>
           <div class="dashboard__filters__date__range">
             <div class="datepicker--custom" [class.datepicker-visible]="datepickerVisible">
@@ -117,6 +118,10 @@
       </div>
 
       <chart type="StockChart" [options]="chartOptions" (load)="saveChart($event.context)"></chart>
+    </div>
+
+    <div class="dashboard__boxes">
+      <dashboard-reports></dashboard-reports>
     </div>
   </div>
 

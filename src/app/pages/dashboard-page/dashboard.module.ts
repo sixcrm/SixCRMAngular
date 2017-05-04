@@ -10,6 +10,7 @@ import {Daterangepicker} from 'ng2-daterangepicker';
 import { TransactionOverviewComponent } from './transaction-overview/transaction-overview.component';
 import { InputAutocompleteComponent } from './input-autocomplete/input-autocomplete.component';
 import { FunnelGraphComponent } from './funnel-graph/funnel-graph.component';
+import { DashboardReportsComponent } from './dashboard-reports/dashboard-reports.component';
 
 export function highchartsFactory() {
   let hc = require('highcharts');
@@ -35,7 +36,8 @@ export function highchartsFactory() {
     DashboardComponent,
     TransactionOverviewComponent,
     InputAutocompleteComponent,
-    FunnelGraphComponent
+    FunnelGraphComponent,
+    DashboardReportsComponent
   ],
   exports : [
   ],

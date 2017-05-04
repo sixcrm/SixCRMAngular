@@ -32,6 +32,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   currentFilterTerm: string;
 
   dateFilters: DateFilter[] = [
+    {label: '1D', start: utc().subtract(1,'d'), end: utc()},
+    {label: '1W', start: utc().subtract(1,'w'), end: utc()},
     {label: '1M', start: utc().subtract(1,'M'), end: utc()},
     {label: '3M', start: utc().subtract(3,'M'), end: utc()},
     {label: '6M', start: utc().subtract(6,'M'), end: utc()},
@@ -40,7 +42,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     {label: 'ALL', start: utc().subtract(10,'y'), end: utc()},
     {label: 'CUSTOM', start: utc(), end: utc()}
   ];
-  activeDateFilterIndex: number = 1;
+  activeDateFilterIndex: number = 3;
 
   overviewOptions: any[] = [
     {title: 'New Sales', mapToResult: (overview: TransactionOverview) => overview.newSale, image: 'newsale.svg'},
