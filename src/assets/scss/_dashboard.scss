@@ -1,6 +1,7 @@
 $color-orange: #F16C00;
 
 .dashboard {
+  position: relative;
   padding: 20px;
   font-size: 0;
 
@@ -12,24 +13,43 @@ $color-orange: #F16C00;
     &--left {
       padding-right: 10px;
       box-sizing: border-box;
+
+      @media only screen and (max-width: 1440px) {
+        width: 60%;
+      }
     }
 
     &--right {
       padding-left: 10px;
       box-sizing: border-box;
+
+      @media only screen and (max-width: 1440px) {
+        position: absolute;
+        top: 20px;
+        width: 40%;
+        padding-right: 15px;
+      }
     }
   }
 
   &__filters {
-    margin-bottom: 10px;
-    width: 100%;
+    margin: 10px 0;
     box-shadow: 0 0 5px rgba(0,0,0,0.2);
     box-sizing: border-box;
     background: white;
 
+    &__container {
+      box-sizing: border-box;
+      width: 100%;
+
+      @media only screen and (max-width: 1440px) {
+        width: 60%;
+        padding-right: 10px;
+      }
+    }
+
     &__title {
       position: relative;
-      margin-top: 15px;
       padding: 10px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 
@@ -62,6 +82,7 @@ $color-orange: #F16C00;
 
     &__content {
       display: flex;
+      flex-wrap: wrap;
       margin-top: 20px;
     }
 
@@ -72,9 +93,17 @@ $color-orange: #F16C00;
       margin: 0 5px;
       font-size: 12px;
 
+      @media only screen and (max-width: 1440px) {
+        margin: 10px 0;
+        order: 2;
+        width: 100%;
+      }
+
       &__quick {
+        margin-left: 5px;
+
         &__item {
-          padding: 0 8px;
+          padding: 0 5px;
           color: rgba(0, 0, 0, 0.5);
           cursor: pointer;
 
@@ -94,8 +123,8 @@ $color-orange: #F16C00;
       &__range {
         margin-left: 75px;
 
-        @media only screen and (max-width: 1400px) {
-          margin-left: auto;
+        @media only screen and (max-width: 1440px) {
+          margin-left: 50px;
         }
 
         .daterangepicker {
@@ -145,17 +174,29 @@ $color-orange: #F16C00;
       width: 45%;
       z-index: 5;
 
+      @media only screen and (max-width: 1440px) {
+        order: 1;
+        width: 100%;
+      }
+
       &__input {
         transition: 0.2s ease-in-out;
 
         &--advanced {
-          transform: translateY(60px);
-          transition: 0.5s ease-in-out;
+          @media only screen and (min-width: 1441px) {
+            transform: translateY(50px);
+            transition: 0.5s ease-in-out;
+          }
         }
 
         md-input {
           width: calc(100% - 140px);
           font-size: 14px;
+
+          @media only screen and (max-width: 1440px) {
+            margin: 0 10px;
+            width: calc(100% - 20px);
+          }
         }
 
         .md-input-wrapper {
@@ -273,36 +314,113 @@ $color-orange: #F16C00;
       margin: 0 5px;
 
       &__row {
-        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+
+        .flex-break--first {
+          flex-basis: calc(100% - 350px);
+        }
+
+        .flex-break--second {
+          @media only screen and (max-width: 1440px) {
+            display: flex;
+            width: 50%;
+          }
+        }
+
+        .flex-break--third {
+          @media only screen and (min-width: 1441px) {
+            width: calc(100% - 650px);
+          }
+
+          @media only screen and (max-width: 1440px) {
+            width: 50%;
+            max-width: 275px;
+          }
+        }
 
         .first {
-          margin-right: 75px;
-
-          @media only screen and (max-width: 1400px) {
-            margin-right: calc(50% - 488px);
+          @media only screen and (min-width: 1441px) {
+            margin-right: 75px;
           }
         }
 
         md-input {
           font-size: 14px;
         }
+
+        .flex {
+          &--first {
+            @media only screen and (max-width: 1440px) {
+              order: 1;
+            }
+          }
+
+          &--second {
+            @media only screen and (max-width: 1440px) {
+              order: 2;
+            }
+          }
+
+          &--third {
+            @media only screen and (max-width: 1440px) {
+              order: 3;
+            }
+          }
+
+          &--fourth {
+            @media only screen and (max-width: 1440px) {
+              order: 4;
+            }
+          }
+
+          &--fifth {
+            @media only screen and (max-width: 1440px) {
+              order: 6;
+            }
+          }
+
+          &--sixth {
+            @media only screen and (max-width: 1440px) {
+              order: 5;
+            }
+          }
+
+          &--seventh {
+            @media only screen and (max-width: 1440px) {
+              order: 7;
+            }
+          }
+
+          &--eight {
+            @media only screen and (max-width: 1440px) {
+              order: 8;
+            }
+          }
+        }
       }
 
       &__large {
-        width: 260px;
+        max-width: 260px;
       }
 
       &__small {
-        width: 90px;
+        max-width: 90px;
       }
 
       &__dropdown {
         display: inline-block;
-        margin-right: 75px;
+        margin-right: 40px;
+        box-sizing: border-box;
         width: 260px;
 
-        @media only screen and (max-width: 1400px) {
-          margin-right: calc(50% - 488px);
+        @media only screen and (max-width: 1440px) {
+          margin-top: 15px;
+          margin-right: 0;
+          width: 50%;
+          max-width: 275px;
+          padding-left: 5px;
         }
 
         &--active {
@@ -313,6 +431,7 @@ $color-orange: #F16C00;
           display: flex;
           border-bottom: 1px solid rgba(0, 0, 0, 0.11);
           padding-bottom: 5px;
+          max-width: 180px;
           font-size: 14px;
           cursor: pointer;
 
@@ -337,9 +456,20 @@ $color-orange: #F16C00;
       color: #039BE5;
       font-size: 12px;
 
+      @media only screen and (max-width: 1440px) {
+        padding: 10px;
+      }
+
       span {
         cursor: pointer;
         margin-left: 10px;
+      }
+    }
+
+    input-autocomplete {
+      @media only screen and (max-width: 1440px) {
+        width: 50%;
+        max-width: 275px;
       }
     }
   }
@@ -445,12 +575,20 @@ $color-orange: #F16C00;
       font-size: 12px;
       margin-bottom: 40px;
 
+      @media only screen and (max-width: 1440px) {
+        font-size: 10px;
+      }
+
       thead {
         tr {
           th {
             padding: 15px;
             color: rgba(0,0,0,0.4);
             font-weight: 400;
+
+            @media only screen and (max-width: 1440px) {
+              padding: 10px;
+            }
           }
         }
       }
@@ -461,6 +599,10 @@ $color-orange: #F16C00;
 
           td {
             padding: 15px;
+
+            @media only screen and (max-width: 1440px) {
+              padding: 10px;
+            }
           }
         }
       }
@@ -471,6 +613,10 @@ $color-orange: #F16C00;
         height: 10px;
         width: 10px;
         border-radius: 50%;
+
+        @media only screen and (max-width: 1440px) {
+          margin-right: 5px;
+        }
       }
     }
 
