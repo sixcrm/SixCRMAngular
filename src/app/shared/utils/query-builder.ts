@@ -586,7 +586,8 @@ export function transactionsInfoListQuery(limit?:number, cursor?:string): string
 
 export function transactionQuery(id: string): string {
   return `{
-    transaction (id: "${id}") { id alias amount processor_response created_at updated_at merchant_provider
+    transaction (id: "${id}") { id alias amount processor_response created_at updated_at
+      merchant_provider { id name }
       rebill { id amount }
       products { amount
         product { id name sku ship shipping_delay

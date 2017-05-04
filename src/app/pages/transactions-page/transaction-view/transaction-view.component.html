@@ -12,7 +12,7 @@
       <div class="entity-view__info__data">
         <div class="entity-view__info__data__date">Created: {{entity.createdAt.format('MM/DD/YYYY')}} <span>{{entity.createdAt.format('HH:mm')}}</span></div>
         <div class="entity-view__info__data__name">{{entity.alias}}</div>
-        <div class="entity-view__info__data__other">Merchant processor: {{entity.merchantProvider}}</div>
+        <div class="entity-view__info__data__other">Merchant processor: {{entity.merchantProvider.name}}</div>
       </div>
     </div>
 
@@ -45,9 +45,10 @@
             <div class="transaction-view__content__item__value">{{entity.alias}}</div>
           </div>
 
-          <div class="transaction-view__content__item">
+          <div class="transaction-view__content__item" [class.hoverable]="entity.merchantProvider.id" (click)="navigateTo('merchantproviders', entity.merchantProvider.id)">
             <div class="transaction-view__content__item__label">Merchant Processor</div>
-            <div class="transaction-view__content__item__value"></div>
+            <div class="transaction-view__content__item__value">{{entity.merchantProvider.name}}</div>
+            <md-icon *ngIf="entity.merchantProvider.id">open_in_new</md-icon>
           </div>
         </md-card-content>
       </md-card>
