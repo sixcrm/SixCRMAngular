@@ -1,52 +1,6 @@
 import {MenuItem} from './menu-item';
 import {AuthenticationService} from '../authentication/authentication.service';
 
-export const menuItemSetup: MenuItem[] = [
-  new MenuItem('Dashboard', 'dashboard').setIcon('view_quilt'),
-
-  new MenuItem('Reports', null, [
-    new MenuItem('Order Report', ''),
-    new MenuItem('Transactions Report', 'transactions'),
-    new MenuItem('Fulfillment Report', ''),
-    new MenuItem('Affiliate Report', ''),
-    new MenuItem('Retention', ''),
-    new MenuItem('Projections', ''),
-  ]).setIcon('library_books'),
-
-  new MenuItem('Customers', null, [
-    new MenuItem('Customers', 'customers'),
-    new MenuItem('Credit Cards', 'creditcards')
-  ]).setIcon('account_box'),
-
-  new MenuItem('CRM', null, [
-    new MenuItem('Products', 'products'),
-    new MenuItem('Product Schedules', 'productschedule'),
-    new MenuItem('Campaigns', null, [
-      new MenuItem('Campaigns', 'campaigns'),
-      new MenuItem('Emails', 'emails'),
-    ]),
-    new MenuItem('Affiliates', 'affiliates'),
-    new MenuItem('Sessions', 'sessions'),
-    new MenuItem('3rd Party Providers', null, [
-      new MenuItem('Fulfillment Providers', 'fulfillmentproviders'),
-      new MenuItem('SMTP Providers', 'smtpproviders'),
-    ]),
-  ]).setIcon('account_balance'),
-
-  new MenuItem('Merchants', null, [
-    new MenuItem('Merchant Providers', 'merchantproviders'),
-    new MenuItem('Load Balancers', 'loadbalancers'),
-  ]).setIcon('payment'),
-
-  new MenuItem('Settings', null, [
-    new MenuItem('Users', 'users'),
-    new MenuItem('Access Rules', ''),
-    new MenuItem('Billing', ''),
-  ]).setIcon('extension'),
-
-  new MenuItem('Search', 'search').setIcon('search'),
-];
-
 export function menuItems(authService: AuthenticationService): MenuItem[] {
   let items: MenuItem[] = [];
 
@@ -66,16 +20,7 @@ export function menuItems(authService: AuthenticationService): MenuItem[] {
   );
 
   // Add customer menu items
-  let customerItems: MenuItem[] = [];
-  if (authService.hasPermissions('customer', 'view')) {
-    customerItems.push(new MenuItem('Customers', 'customers'));
-  }
-  if (authService.hasPermissions('creditcard', 'view')) {
-    customerItems.push(new MenuItem('Credit Cards', 'creditcards'));
-  }
-  if (customerItems.length > 0) {
-    items.push(new MenuItem('Customers', null, customerItems).setIcon('account_box'));
-  }
+  items.push(new MenuItem('Customers', 'customers').setIcon('account_box'));
 
   // Add CRM menu items
   let crmItems: MenuItem[] = [];
