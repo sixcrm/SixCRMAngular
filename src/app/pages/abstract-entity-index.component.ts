@@ -29,6 +29,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   filterValue: string;
 
   infiniteScroll: boolean = false;
+  shareLimit: boolean = true;
 
   columnParams: ColumnParams<T>[] = [];
   sortedColumnParams: ColumnParams<T> = new ColumnParams();
@@ -63,7 +64,11 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
       this.progressBarService.hideTopProgressBar();
     });
     this.service.entitiesHasMore$.takeUntil(this.unsubscribe$).subscribe((hasMore: boolean) => this.hasMore = hasMore);
-    this.paginationService.limit$.takeUntil(this.unsubscribe$).subscribe((lim: number) => this.limit = lim);
+    this.paginationService.limit$.takeUntil(this.unsubscribe$).subscribe((lim: number) => {
+      if (this.shareLimit) {
+        this.limit = lim
+      }
+    });
     this.authService.activeAclChanged$.takeUntil(this.unsubscribe$).subscribe(() => {
       this.resetEntities();
       this.service.getEntities(this.limit);

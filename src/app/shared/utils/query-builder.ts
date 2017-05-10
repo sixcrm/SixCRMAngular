@@ -1037,6 +1037,7 @@ export function notificationsListQuery(limit?:number, cursor?:string): string {
   return `{
     notificationlist ${pageParams(limit, cursor)} {
 			notifications { id user account type action message read_at created_at updated_at }
+			${paginationString()}
 		}}`
 }
 

@@ -37,6 +37,7 @@ export class NotificationsComponent extends AbstractEntityIndexComponent<Notific
   }
 
   ngOnInit() {
+    this.shareLimit = false;
     this.limit = 20;
 
     this.service.entities$.takeUntil(this.unsubscribe$).subscribe((entities: Notification[]) => {
@@ -56,7 +57,7 @@ export class NotificationsComponent extends AbstractEntityIndexComponent<Notific
   }
 
   onScroll(): void {
-    if (!this.loading) {
+    if (!this.loading && this.hasMore) {
       this.notificationsService.getEntities(this.limit);
     }
   }
