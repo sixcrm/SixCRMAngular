@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, OnDestroy, EventEmitter, ElementRef} from '@angular/core';
+import {Component, OnInit, Input, Output, OnDestroy, EventEmitter, ElementRef, ViewChild} from '@angular/core';
 import {SearchService} from '../../../shared/services/search.service';
 import {FilterTerm} from '../dashboard.component';
 import {Subject, Subscription} from 'rxjs';
@@ -10,15 +10,13 @@ import {Subject, Subscription} from 'rxjs';
   host: {'(document:click)':'onClick($event)'}
 })
 export class InputAutocompleteComponent implements OnInit, OnDestroy {
+  @ViewChild('inputField') inputField;
 
   @Input()
   title: string;
 
   @Input()
   entityType: string;
-
-  @Input()
-  value: string;
 
   @Output()
   selected: EventEmitter<FilterTerm> = new EventEmitter();
@@ -46,17 +44,14 @@ export class InputAutocompleteComponent implements OnInit, OnDestroy {
   select(filterTerm: FilterTerm): void {
     this.selected.emit(filterTerm);
     this.suggestions = [];
+    this.inputField.value = '';
   }
 
   input(event): void {
     if (event.target.value) {
-      this.debouncer$.next(event.target.value)
+      this.debouncer$.next(event.target.value);
     } else if (this.sub) {
       this.sub.unsubscribe();
-    }
-
-    if (this.value) {
-      this.selected.emit(null);
     }
   }
 

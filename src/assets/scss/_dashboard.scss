@@ -36,6 +36,7 @@ $color-orange: #F16C00;
     margin: 10px 0;
     box-shadow: 0 0 5px rgba(0,0,0,0.2);
     box-sizing: border-box;
+    padding-top: 20px;
     background: white;
 
     &__container {
@@ -48,53 +49,21 @@ $color-orange: #F16C00;
       }
     }
 
-    &__title {
-      position: relative;
-      padding: 10px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-
-      &__main {
-        margin-bottom: 3px;
-        font-size: 18px;
-      }
-
-      &__sub {
-        font-size: 12px;
-        color: rgba(0, 0, 0, 0.7);
-      }
-
-      &__icons {
-        position: absolute;
-        right: 10px;
-        top: 10px;
-
-        md-icon {
-          color: rgba(0, 0, 0, 0.5);
-          cursor: pointer;
-
-          &:first-of-type {
-            transform: rotate(90deg);
-            margin-right: 5px;
-          }
-        }
-      }
-    }
-
     &__content {
       display: flex;
       flex-wrap: wrap;
-      margin-top: 20px;
+      align-items: flex-start;
     }
 
     &__date {
       display: flex;
       align-items: center;
+      margin: 20px 5px;
       width: 50%;
-      margin: 0 5px;
       font-size: 12px;
 
       @media only screen and (max-width: 1440px) {
-        margin: 10px 0;
+        margin: 10px 60px 10px 0;
         order: 2;
         width: 100%;
       }
@@ -121,11 +90,7 @@ $color-orange: #F16C00;
       }
 
       &__range {
-        margin-left: 75px;
-
-        @media only screen and (max-width: 1440px) {
-          margin-left: 40px;
-        }
+        margin-left: 40px;
 
         .daterangepicker {
           flex-wrap: wrap;
@@ -170,6 +135,7 @@ $color-orange: #F16C00;
     }
 
     &__query {
+      position: relative;
       margin-left: auto;
       width: 45%;
       z-index: 5;
@@ -179,18 +145,54 @@ $color-orange: #F16C00;
         width: 100%;
       }
 
+      &__icons {
+        position: absolute;
+        right: 10px;
+        top: 20px;
+
+        @media only screen and (max-width: 1440px) {
+          transform: translateY(40px);
+        }
+
+        md-icon {
+          color: rgba(0, 0, 0, 0.5);
+          cursor: pointer;
+
+          &:first-of-type {
+            transform: rotate(90deg);
+            margin-right: 5px;
+          }
+        }
+      }
+
       &__input {
         transition: 0.2s ease-in-out;
+        width: calc(100% - 100px);
+
+        @media only screen and (max-width: 1440px) {
+          margin: 0 10px;
+          width: calc(100% - 20px);
+        }
 
         &--advanced {
           @media only screen and (min-width: 1441px) {
-            transform: translateY(50px);
+            transform: translateY(100px);
             transition: 0.5s ease-in-out;
+          }
+
+          md-input {
+            .md-input-prefix {
+              max-width: 100% !important;
+            }
+
+            .md-input-infix {
+              display: none;
+            }
           }
         }
 
         md-input {
-          width: calc(100% - 140px);
+          width: 100%;
           font-size: 14px;
 
           @media only screen and (max-width: 1440px) {
@@ -318,26 +320,9 @@ $color-orange: #F16C00;
         flex-wrap: wrap;
         align-items: center;
 
-        .flex-break--first {
-          flex-basis: calc(100% - 350px);
-        }
-
-        .flex-break--second {
-          @media only screen and (max-width: 1440px) {
-            display: flex;
-            width: 50%;
-          }
-        }
-
-        .flex-break--third {
-          @media only screen and (min-width: 1441px) {
-            width: calc(100% - 650px);
-          }
-
-          @media only screen and (max-width: 1440px) {
-            width: 50%;
-            max-width: 280px;
-          }
+        &--flex {
+          display: flex;
+          width: 100%;
         }
 
         .first {
@@ -348,56 +333,6 @@ $color-orange: #F16C00;
 
         md-input {
           font-size: 14px;
-        }
-
-        .flex {
-          &--first {
-            @media only screen and (max-width: 1440px) {
-              order: 1;
-            }
-          }
-
-          &--second {
-            @media only screen and (max-width: 1440px) {
-              order: 2;
-            }
-          }
-
-          &--third {
-            @media only screen and (max-width: 1440px) {
-              order: 3;
-            }
-          }
-
-          &--fourth {
-            @media only screen and (max-width: 1440px) {
-              order: 4;
-            }
-          }
-
-          &--fifth {
-            @media only screen and (max-width: 1440px) {
-              order: 6;
-            }
-          }
-
-          &--sixth {
-            @media only screen and (max-width: 1440px) {
-              order: 5;
-            }
-          }
-
-          &--seventh {
-            @media only screen and (max-width: 1440px) {
-              order: 7;
-            }
-          }
-
-          &--eight {
-            @media only screen and (max-width: 1440px) {
-              order: 8;
-            }
-          }
         }
       }
 
@@ -411,17 +346,11 @@ $color-orange: #F16C00;
 
       &__dropdown {
         display: inline-block;
-        margin-right: 40px;
-        margin-left: 5px;
         box-sizing: border-box;
-        width: 260px;
-
-        @media only screen and (max-width: 1440px) {
-          margin: 15px 0 0;
-          width: 50%;
-          max-width: 280px;
-          padding-left: 5px;
-        }
+        margin: 15px 0 0;
+        width: 50%;
+        max-width: 280px;
+        padding-left: 5px;
 
         &--active {
           color: rgba(0, 0, 0, 0.3);
@@ -451,14 +380,10 @@ $color-orange: #F16C00;
     }
 
     &__advanced-button {
-      padding: 0 10px 10px;
+      padding: 10px;
       text-align: right;
       color: #039BE5;
       font-size: 12px;
-
-      @media only screen and (max-width: 1440px) {
-        padding: 10px;
-      }
 
       span {
         cursor: pointer;
@@ -467,11 +392,8 @@ $color-orange: #F16C00;
     }
 
     input-autocomplete {
-      width: 320px;
-      @media only screen and (max-width: 1440px) {
-        width: 50%;
-        max-width: 280px;
-      }
+      width: 50%;
+      max-width: 280px;
     }
   }
 

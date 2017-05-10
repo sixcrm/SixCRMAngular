@@ -2,14 +2,6 @@
 
   <div class="dashboard__filters__container">
     <div class="dashboard__filters">
-      <div class="dashboard__filters__title">
-        <div class="dashboard__filters__title__main">Dashboard Filters</div>
-        <div class="dashboard__filters__title__sub">Filters will be applied to your Dashboard</div>
-        <div class="dashboard__filters__title__icons">
-          <md-icon>link</md-icon>
-          <md-icon>more_vert</md-icon>
-        </div>
-      </div>
       <div class="dashboard__filters__content">
         <div class="dashboard__filters__date">
           <div class="dashboard__filters__date__quick">
@@ -51,52 +43,65 @@
               </div>
             </md-input>
           </div>
+          <div class="dashboard__filters__query__icons">
+            <md-icon>link</md-icon>
+            <md-icon>more_vert</md-icon>
+          </div>
         </div>
       </div>
 
       <div *ngIf="advanced" class="dashboard__filters__advanced">
         <div class="dashboard__filters__advanced__row">
-          <input-autocomplete class="flex--first" [title]="'Campaign'" [entityType]="'campaign'" [value]="campaign ? campaign.label : ''" (selected)="campaign = $event"></input-autocomplete>
-          <input-autocomplete class="flex-break--first flex--second" [title]="'Affiliate'" [entityType]="'affiliate'" [value]="affiliate ? affiliate.label : ''" (selected)="affiliate = $event"></input-autocomplete>
 
-          <input-autocomplete class="flex--third" [title]="'Product Schedule'" [entityType]="'productschedule'" [value]="productschedule ? productschedule.label : ''" (selected)="productschedule = $event"></input-autocomplete>
-          <div class="flex-break--second flex--fourth">
-            <md-input class="dashboard__filters__advanced__small" placeholder="Sub ID 1"></md-input>
-            <md-input class="dashboard__filters__advanced__small" placeholder="Sub ID 2"></md-input>
-            <md-input class="dashboard__filters__advanced__small" placeholder="Sub ID 3"></md-input>
-          </div>
-          <div class="flex-break--third flex--fifth">
-            <md-input class="dashboard__filters__advanced__small" placeholder="Sub ID 4"></md-input>
-            <md-input class="dashboard__filters__advanced__small" placeholder="Sub ID 5"></md-input>
+          <div class="dashboard__filters__advanced__row--flex">
+            <input-autocomplete [title]="'Campaign'" [entityType]="'campaign'" (selected)="addFilterTerm($event)"></input-autocomplete>
+            <input-autocomplete [title]="'Affiliate'" [entityType]="'affiliate'" (selected)="addFilterTerm($event)"></input-autocomplete>
           </div>
 
-          <input-autocomplete class="flex--sixth" [title]="'Merchant Provider'" [entityType]="'merchantprocessor'" [value]="merchantprocessor ? merchantprocessor.label : ''" (selected)="merchantprocessor = $event"></input-autocomplete>
-
-          <div class="dashboard__filters__advanced__dropdown flex--seventh">
-            <span [md-menu-trigger-for]="transactionTypeMenu" [class.unselected]="!transactionType">
-              {{transactionType || 'Transaction Type'}}
-              <md-icon>keyboard_arrow_down</md-icon>
-            </span>
+          <div class="dashboard__filters__advanced__row--flex">
+            <input-autocomplete [title]="'Product Schedule'" [entityType]="'productschedule'" (selected)="addFilterTerm($event)"></input-autocomplete>
+            <div>
+              <md-input class="dashboard__filters__advanced__small" placeholder="Sub ID 1"></md-input>
+              <md-input class="dashboard__filters__advanced__small" placeholder="Sub ID 2"></md-input>
+              <md-input class="dashboard__filters__advanced__small" placeholder="Sub ID 3"></md-input>
+            </div>
           </div>
-          <md-menu #transactionTypeMenu="mdMenu" x-position="after">
-            <button md-menu-item *ngFor="let tt of transactionTypes" (click)="transactionType = tt"> {{tt}} </button>
-          </md-menu>
 
-          <div class="dashboard__filters__advanced__dropdown flex--eight">
-            <span [md-menu-trigger-for]="processorResultMenu" [class.unselected]="!processorResponse">
-              {{processorResponse || 'Processor Response'}}
-              <md-icon>keyboard_arrow_down</md-icon>
-            </span>
+          <div class="dashboard__filters__advanced__row--flex">
+            <input-autocomplete [title]="'Merchant Provider'" [entityType]="'merchantprocessor'" (selected)="addFilterTerm($event)"></input-autocomplete>
+
+            <div>
+              <md-input class="dashboard__filters__advanced__small" placeholder="Sub ID 4"></md-input>
+              <md-input class="dashboard__filters__advanced__small" placeholder="Sub ID 5"></md-input>
+            </div>
           </div>
-          <md-menu #processorResultMenu="mdMenu" x-position="after">
-            <button md-menu-item *ngFor="let pr of processorResponses" (click)="processorResponse = pr"> {{pr}} </button>
-          </md-menu>
+
+          <div class="dashboard__filters__advanced__row--flex">
+            <div class="dashboard__filters__advanced__dropdown">
+              <span class="unselected" [md-menu-trigger-for]="transactionTypeMenu">
+                Transaction Type
+                <md-icon>keyboard_arrow_down</md-icon>
+              </span>
+            </div>
+            <md-menu #transactionTypeMenu="mdMenu" x-position="after">
+              <button md-menu-item *ngFor="let tt of transactionTypes" (click)="addFilterTerm(tt)"> {{tt.label}} </button>
+            </md-menu>
+
+            <div class="dashboard__filters__advanced__dropdown">
+              <span class="unselected" [md-menu-trigger-for]="processorResultMenu">
+                Processor Response
+                <md-icon>keyboard_arrow_down</md-icon>
+              </span>
+            </div>
+            <md-menu #processorResultMenu="mdMenu" x-position="after">
+              <button md-menu-item *ngFor="let pr of processorResponses" (click)="addFilterTerm(pr)"> {{pr.label}} </button>
+            </md-menu>
+          </div>
         </div>
       </div>
 
       <div class="dashboard__filters__advanced-button">
         <span *ngIf="!advanced" (click)="toggleAdvanced()">ADVANCED</span>
-        <span *ngIf="advanced" (click)="applyAdvancedFilters()">APPLY</span>
         <span *ngIf="advanced" (click)="toggleAdvanced()">CLOSE</span>
       </div>
     </div>

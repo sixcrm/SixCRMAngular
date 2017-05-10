@@ -72,14 +72,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
   datepickerVisible: boolean = false;
 
   advanced: boolean = false;
-  transactionType: string;
-  transactionTypes: string[] = ['new', 'rebill'];
-  processorResponse: string;
-  processorResponses: string[] = ['success', 'decline', 'error'];
-  campaign: FilterTerm;
-  affiliate: FilterTerm;
-  productschedule: FilterTerm;
-  merchantprocessor: FilterTerm;
+  transactionTypes: FilterTerm[] = [
+    {id: 'new', label: 'New', type: 'transactiontype'},
+    {id: 'rebill', label: 'Rebill', type: 'transactiontype'}
+  ];
+  processorResponses: FilterTerm[] = [
+    {id: 'success', label: 'Success', type: 'processorresult'},
+    {id: 'decline', label: 'Decline', type: 'processorresult'},
+    {id: 'error', label: 'Error', type: 'processorresult'}
+  ];
 
   private unsubscribe$: Subject<boolean>;
   private transactionsSummaryFetchDebouncer$: Subject<boolean>;
@@ -208,36 +209,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   toggleAdvanced(): void {
     this.advanced = !this.advanced;
-
-    if (!this.advanced) {
-      this.processorResponse = '';
-      this.transactionType = '';
-      this.campaign = null;
-      this.productschedule = null;
-      this.affiliate = null;
-      this.merchantprocessor = null;
-    }
-  }
-
-  applyAdvancedFilters(): void {
-    this.fetchTransactionSummary();
   }
 
   private fetchTransactionSummary(): void {
     let filters: FilterTerm[] = this.filterTerms;
-    let additionalFilters;
-    if (this.advanced) {
-      filters = [];
-
-      if (this.campaign) filters.push(this.campaign);
-      if (this.affiliate) filters.push(this.affiliate);
-      if (this.merchantprocessor) filters.push(this.merchantprocessor);
-      if (this.productschedule) filters.push(this.productschedule);
-      additionalFilters = [{key: 'processorresult', value: this.processorResponse}, {key: 'transactiontype', value: this.transactionType}];
-    }
 
     this.progressBarService.showTopProgressBar();
-    this.analyticsService.getTransactionSummaries(this.getStartDate().format(), this.getEndDate().format(), filters, additionalFilters);
+    this.analyticsService.getTransactionSummaries(this.getStartDate().format(), this.getEndDate().format(), filters);
   }
 
   private fetchTransactionOverview(): void {
