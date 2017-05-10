@@ -1058,19 +1058,12 @@ function pageParams(limit?: number, cursor?: string, noBraces?:boolean): string 
   let lim = !!limit ? `limit: "${limit}"` : '';
   let cur = !!cursor ? `cursor: "${cursor}"` : '';
 
-  let params = `${lim} ${cur}`;
+  let params = `pagination: {${lim} ${cur}}`;
   if (!noBraces) {
-    params = `(pagination: {${params}})`;
+    params = `(${params})`;
   }
 
   return limit || cur ? `${params}` : '';
-}
-
-function pageParamsNoBraces(limit?: number, cursor?: string): string {
-  let lim = !!limit ? `limit: "${limit}"` : '';
-  let cur = !!cursor ? `cursor: "${cursor}"` : '';
-
-  return limit || cur ? `${lim} ${cur}` : '';
 }
 
 function generateUUID(): string {
