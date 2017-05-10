@@ -185,7 +185,7 @@ export function productsListQuery(limit?:number, cursor?:string): string {
 			products { id name sku ship shipping_delay
 				fulfillment_provider { id name provider username password endpoint }
 			}
-			pagination { count end_cursor has_next_page }
+			${paginationString()}
 		}}`;
 }
 
@@ -230,7 +230,7 @@ export function  productScheduleListQuery(limit?:number, cursor?:string): string
 					}
 				}
 			}
-			pagination { count end_cursor has_next_page }
+      ${paginationString()}
 		}}`;
 }
 
@@ -316,7 +316,7 @@ export function campaignsInfoListQuery(limit?:number, cursor?:string): string {
           }
         }
       }
-      pagination { count end_cursor has_next_page }
+      ${paginationString()}
     }}`
 }
 
@@ -325,7 +325,7 @@ export function deleteCampaignMutation(id: string): string {
 }
 
 export function merchantProvidersListQuery(limit?:number, cursor?:string): string {
-  return `{ merchantproviderlist ${pageParams(limit, cursor)} { merchantproviders { id name username password endpoint processor } pagination { count end_cursor has_next_page } } }`
+  return `{ merchantproviderlist ${pageParams(limit, cursor)} { merchantproviders { id name username password endpoint processor } ${paginationString()} } }`
 }
 
 export function merchantProviderQuery(id: string): string {
@@ -357,7 +357,7 @@ export function updateMerchantProviderMutation(provider: MerchantProvider): stri
 }
 
 export function fulfillmentProvidersListQuery(limit?:number, cursor?:string): string {
-  return `{ fulfillmentproviderlist ${pageParams(limit, cursor)} { fulfillmentproviders { id name provider username password endpoint } pagination { count end_cursor has_next_page } } }`
+  return `{ fulfillmentproviderlist ${pageParams(limit, cursor)} { fulfillmentproviders { id name provider username password endpoint } ${paginationString()} } }`
 }
 
 export function fulfillmentProviderQuery(id: string): string {
@@ -387,7 +387,7 @@ export function updateFulfillmentProviderMutation(provider: FulfillmentProvider)
 }
 
 export function affiliatesListQuery(limit?:number, cursor?:string): string {
-  return `{ affiliatelist ${pageParams(limit, cursor)} { affiliates { id affiliate_id created_at updated_at } pagination { count end_cursor has_next_page } } }`
+  return `{ affiliatelist ${pageParams(limit, cursor)} { affiliates { id affiliate_id created_at updated_at } ${paginationString()} } }`
 }
 
 export function affiliateQuery(id: string): string {
@@ -422,7 +422,7 @@ export function customersInfoListQuery(limit?:number, cursor?:string): string {
       customers { id firstname lastname created_at
         address { city country state }
 			}
-			pagination { count end_cursor has_next_page }
+			${paginationString()}
 		}}`
 }
 
@@ -524,7 +524,7 @@ export function loadBalancersInfoListQuery(limit?:number, cursor?:string): strin
 					distribution
 				}
 			}
-			pagination { count end_cursor has_next_page }
+			${paginationString()}
 		}}`
 }
 
@@ -581,7 +581,7 @@ export function deleteLoadBalancerMutation(id: string): string {
 }
 
 export function transactionsInfoListQuery(limit?:number, cursor?:string): string {
-  return `{ transactionlist ${pageParams(limit, cursor)} {	transactions { id amount processor_response } pagination { count end_cursor has_next_page } } }`
+  return `{ transactionlist ${pageParams(limit, cursor)} {	transactions { id amount processor_response } ${paginationString()} } }`
 }
 
 export function transactionQuery(id: string): string {
@@ -675,7 +675,7 @@ export function transactionsByCustomer(customerId: string, limit?:number, cursor
   return `{
 		transactionlistbycustomer (customer:"${customerId}" ${pageParams(limit, cursor, true)}) {
 			transactions { id amount processor_response }
-			pagination { count end_cursor has_next_page }
+			${paginationString()}
     }
   }`
 }
@@ -689,7 +689,7 @@ export function sessionsInfoListQuery(limit?:number, cursor?:string): string {
 				rebills { id 	}
 				campaign { id name }
 			}
-			pagination { count end_cursor has_next_page }
+			${paginationString()}
 		}}`
 }
 
@@ -702,7 +702,7 @@ export function sessionsByCustomer(customerId: string, limit?:number, cursor?:st
 				rebills { id 	}
 				campaign { id name }
 			}
-			pagination { count end_cursor has_next_page }
+			${paginationString()}
     }
   }`
 }
@@ -763,7 +763,7 @@ export function rebillsListQuery(limit?: number, cursor?: string): string {
 				product_schedules { id }
 				transactions { id processor_response amount }
 			}
-			pagination { count end_cursor has_next_page }
+			${paginationString()}
 		}
   }`
 }
@@ -791,7 +791,7 @@ export function rebillsByCustomer(customerId: string, limit?: number, cursor?: s
 				product_schedules { id }
 				transactions { id processor_response amount }
 			}
-			pagination { count end_cursor has_next_page }
+			${paginationString()}
 		}
   }`
 }
@@ -802,7 +802,7 @@ export function creditCardsListQuery(limit?:number, cursor?:string): string {
 			creditcards { id ccnumber expiration ccv name
 			  address { country state city }
 			}
-			pagination { count end_cursor has_next_page }
+		  ${paginationString()}
 		}}`
 }
 
@@ -846,7 +846,7 @@ export function usersListQuery(limit?: number, cursor?: string): string {
 					role { id name active }
 				}
 			}
-			pagination { count end_cursor has_next_page }
+			${paginationString()}
 		}}`
 }
 
@@ -948,7 +948,7 @@ export function smtpProvidersListQuery(limit?:number, cursor?:string): string {
   return `{
     smtpproviderlist ${pageParams(limit, cursor)} {
 			smtpproviders { id name hostname ip_address username port }
-			pagination { count end_cursor has_next_page }
+			${paginationString()}
 		}}`
 }
 
@@ -989,7 +989,7 @@ export function emailsListQuery(limit?:number, cursor?:string): string {
 			emails { id name subject body type
 			  smtp_provider { id name hostname ip_address username password port }
 			}
-			pagination { count end_cursor has_next_page }
+			${paginationString()}
 		}}`
 }
 
@@ -1010,7 +1010,7 @@ export function accessKeysListQuery(limit?:number, cursor?:string): string {
   return `{
     accesskeylist ${pageParams(limit, cursor)} {
 			accesskeys { id access_key secret_key }
-			pagination { count end_cursor has_next_page }
+			${paginationString()}
 		}}`
 }
 
@@ -1029,7 +1029,7 @@ export function rolesListQuery(limit?: number, cursor?: string): string {
   return `{
     rolelist ${pageParams(limit, cursor)} {
 			roles { id name active }
-			pagination { count end_cursor has_next_page }
+			${paginationString()}
 		}}`
 }
 
@@ -1059,7 +1059,7 @@ function pageParams(limit?: number, cursor?: string, noBraces?:boolean): string 
 
   let params = `${lim} ${cur}`;
   if (!noBraces) {
-    params = `(${params})`;
+    params = `(pagination: {${params}})`;
   }
 
   return limit || cur ? `${params}` : '';
@@ -1074,4 +1074,8 @@ function pageParamsNoBraces(limit?: number, cursor?: string): string {
 
 function generateUUID(): string {
   return uuidV4();
+}
+
+function paginationString(): string {
+  return 'pagination { count end_cursor has_next_page last_evaluated }';
 }
