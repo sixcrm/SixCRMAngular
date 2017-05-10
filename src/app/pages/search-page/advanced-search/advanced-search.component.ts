@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {Router} from '@angular/router';
 
@@ -26,6 +26,8 @@ export class AdvancedSearchComponent implements OnInit {
     first_six: '',
     last_four: '',
   };
+
+  @Input() active: boolean = true;
 
   constructor(private progressBarService: ProgressBarService, private router: Router) { }
 
