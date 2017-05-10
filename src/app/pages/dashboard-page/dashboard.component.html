@@ -50,7 +50,7 @@
         </div>
       </div>
 
-      <div *ngIf="advanced" class="dashboard__filters__advanced">
+      <div class="dashboard__filters__advanced" [class.dashboard__filters__advanced--inactive]="!advanced">
         <div class="dashboard__filters__advanced__row">
 
           <div class="dashboard__filters__advanced__row--flex">

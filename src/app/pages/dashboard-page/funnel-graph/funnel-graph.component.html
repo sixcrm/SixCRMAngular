@@ -7,7 +7,8 @@
 
   <chart [options]="chartOptions" (load)="saveChart($event.context)"></chart>
 
-  <table *ngIf="showTable" class="highlight">
+  <div class="dashboard__table" [class.dashboard__table--inactive]="!showTable || !funnel">
+  <table class="highlight">
     <thead>
       <tr>
         <th>Events</th>
@@ -49,8 +50,9 @@
       </tr>
     </tbody>
   </table>
+  </div>
 
   <div class="dashboard__funnel__actions">
-    <span (click)="toggleTable()">{{showTable ? 'COLLAPSE' : 'SHOW TABLE'}}</span>
+    <span *ngIf="funnel" (click)="toggleTable()">{{showTable ? 'COLLAPSE' : 'SHOW TABLE'}}</span>
   </div>
 </div>
