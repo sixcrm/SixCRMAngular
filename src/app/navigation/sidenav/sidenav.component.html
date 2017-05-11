@@ -5,5 +5,8 @@
 <md-nav-list class="side-navigation" [ngStyle]="{'height': height}">
   <c-sidenav-item *ngFor="let menuItem of menuItems" [menuItem]="menuItem" [parent]="_this" [full]="isHovering"></c-sidenav-item>
 
-  <div *ngIf="isHovering" class="side-navigation__version">version: {{versionNumber}}</div>
+  <div *ngIf="isHovering" class="side-navigation__version">
+    <img src="/assets/images/logo-blue.svg">
+    <span>Version - {{versionNumber}}</span>
+  </div>
 </md-nav-list>

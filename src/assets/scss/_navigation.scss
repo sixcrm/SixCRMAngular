@@ -190,9 +190,19 @@ md-nav-list.side-navigation {
   &__version {
     display: table-row;
     height: 30px;
-    text-align: center;
-    color: $sidebar-text-color;
-    font-size: 14px;
+
+    img {
+      height: 15px;
+      margin-right: 5px;
+      margin-left: 25px;
+      vertical-align: middle;
+    }
+
+    span {
+      vertical-align: middle;
+      color: $sidebar-text-color;
+      font-size: 11px;
+    }
   }
 }
 
