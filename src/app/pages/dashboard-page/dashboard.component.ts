@@ -121,6 +121,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.fetchTransactionSummary();
       this.fetchTransactionOverview();
       this.fetchEventFunnel();
+      this.fetchCampaignDelta();
     });
 
     this.termFilterDebouncer$.takeUntil(this.unsubscribe$).debounceTime(500).subscribe(() => {
@@ -322,6 +323,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.progressBarService.showTopProgressBar();
     this.analyticsService.getEventFunnel(this.getStartDate().format(), this.getEndDate().format());
   }
+
+  private fetchCampaignDelta(): void {
+    this.progressBarService.showTopProgressBar();
+    this.analyticsService.getCampaignDelta(this.getStartDate().format(), this.getEndDate().format());
+  }
+
   private parseFilterSearchResults(results: any[]): FilterTerm[] {
     let terms: FilterTerm[] = [];
 

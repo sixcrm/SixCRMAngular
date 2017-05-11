@@ -11,6 +11,7 @@ import { TransactionOverviewComponent } from './transaction-overview/transaction
 import { InputAutocompleteComponent } from './input-autocomplete/input-autocomplete.component';
 import { FunnelGraphComponent } from './funnel-graph/funnel-graph.component';
 import { DashboardReportsComponent } from './dashboard-reports/dashboard-reports.component';
+import { MoversCardComponent } from './movers-card/movers-card.component';
 
 export function highchartsFactory() {
   let hc = require('highcharts');
@@ -37,7 +38,8 @@ export function highchartsFactory() {
     TransactionOverviewComponent,
     InputAutocompleteComponent,
     FunnelGraphComponent,
-    DashboardReportsComponent
+    DashboardReportsComponent,
+    MoversCardComponent
   ],
   exports : [
   ],

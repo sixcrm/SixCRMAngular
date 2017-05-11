@@ -3,11 +3,15 @@ import {Observable, Subject} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {EventFunnel} from '../models/event-funnel.model';
-import {eventsFunelQuery, transactionSummaryQuery, transactionOverviewQuery} from '../utils/query-builder';
 import {Headers, Response, Http} from '@angular/http';
 import {TransactionOverview} from '../models/transaction-overview.model';
 import {TransactionSummary} from '../models/transaction-summary.model';
 import {FilterTerm} from '../../pages/dashboard-page/dashboard.component';
+import {
+  transactionSummaryQuery, transactionOverviewQuery, eventsFunelQuery,
+  campaignDeltaQuery
+} from '../utils/queries/analytics.queries';
+import {CampaignDelta} from '../models/campaign-delta.model';
 
 @Injectable()
 export class AnalyticsService {
@@ -15,11 +19,13 @@ export class AnalyticsService {
   eventFunnel$: Subject<EventFunnel>;
   transactionsSummaries$: Subject<TransactionSummary[]>;
   transactionsOverview$: Subject<TransactionOverview>;
+  campaignDelta$: Subject<CampaignDelta[]>;
 
   constructor(private authService: AuthenticationService, private http: Http) {
     this.eventFunnel$ = new Subject();
     this.transactionsSummaries$ = new Subject();
     this.transactionsOverview$ = new Subject();
+    this.campaignDelta$ = new Subject();
   }
 
   getTransactionSummaries(start: string, end: string, filters: FilterTerm[], additionalFilters?: any[]): void {
@@ -56,7 +62,19 @@ export class AnalyticsService {
     this.queryRequest(eventsFunelQuery(start, end)).subscribe((data) => {
       let funnel = data.json().data.eventfunnel.funnel;
 
-      this.eventFunnel$.next(new EventFunnel(funnel));
+      if (funnel) {
+        this.eventFunnel$.next(new EventFunnel(funnel));
+      }
+    })
+  }
+
+  getCampaignDelta(start: string, end: string): void {
+    this.queryRequest(campaignDeltaQuery(start, end)).subscribe(data => {
+      let campaigns = data.json().data.campaigndelta.campaigns;
+
+      if (campaigns) {
+        this.campaignDelta$.next(campaigns.map(d => new CampaignDelta(d)));
+      }
     })
   }
 

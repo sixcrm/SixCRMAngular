@@ -1,7 +1,10 @@
 $color-orange: #F16C00;
 
 .dashboard__reports {
-  width: calc(50% - 15px);
+  display: inline-block;
+  float: right;
+  vertical-align: top;
+  width: calc(50% - 10px);
   background: white;
   box-shadow: 0 0 5px rgba(0,0,0,0.2);
 
@@ -47,14 +50,14 @@ $color-orange: #F16C00;
       }
 
       &__sub {
-        font-size: 12px;
+        font-size: 11px;
         color: rgba(0,0,0,0.6);
       }
     }
   }
 
   &__actions {
-    margin-top: 20px;
+    margin-top: 14px;
     border-top: 1px solid rgba(0, 0, 0, 0.2);
     padding: 15px 20px;
     font-size: 12px;

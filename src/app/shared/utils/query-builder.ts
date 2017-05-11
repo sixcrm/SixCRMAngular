@@ -11,7 +11,6 @@ import {Customer} from '../models/customer.model';
 import {CustomerNote} from '../models/customer-note.model';
 import {Notification} from '../models/notification.model';
 import {utc} from 'moment'
-import {FilterTerm} from '../../pages/dashboard-page/dashboard.component';
 
 const uuidV4 = require('uuid/v4');
 
@@ -596,74 +595,6 @@ export function transactionQuery(id: string): string {
         shippingreceipt { id status trackingnumber created_at }
       }
     }
-	}`
-}
-
-export function transactionSummaryQuery(start: string, end: string, filterTerms: FilterTerm[], additionalFilters?: any[]): string {
-  let filters = {};
-
-  filterTerms.forEach(term => {
-    if (filters[term.type]) {
-      filters[term.type].push(term.id);
-    } else {
-      filters[term.type] = [];
-      filters[term.type].push(term.id);
-    }
-  });
-
-  let filterString = '';
-
-  Object.keys(filters).forEach(key => {
-    let ids = '';
-
-    filters[key].forEach(id => ids += `"${id}",`);
-    filterString += ` ${key}:[${ids}]`;
-  });
-
-  let additional = '';
-
-  if (additionalFilters) {
-    additionalFilters.forEach(filter => {
-      if (filter.value) {
-        additional += ` ${filter.key}:"${filter.value}" `;
-      }
-    });
-  }
-
-  return `{
-		transactionsummary (analyticsfilter:{ start:"${start}" end:"${end}" ${filterString} ${additional} targetperiodcount: 24}) {
-			transactions { datetime
-				byprocessorresult { processor_result amount count }
-			}
-		}
-	}`
-}
-
-export function eventsFunelQuery(start: string, end: string): string {
-  return `{
-		eventfunnel (analyticsfilter:{start:"${start}", end:"${end}"}) {
-			funnel {
-				click { count percentage relative_percentage }
-				lead { count percentage relative_percentage }
-				main { count percentage relative_percentage }
-				upsell { count percentage relative_percentage }
-				confirm { count percentage relative_percentage }
-			}
-		}}`;
-}
-
-export function transactionOverviewQuery(start: string, end: string): string {
-  return `{
-		transactionoverview (analyticsfilter:{start:"${start}", end:"${end}"}) {
-			overview {
-				newsale { count amount }
-				rebill { count amount }
-				decline { count amount }
-				error { count amount }
-				main { count amount }
-				upsell { count amount }
-			}
-		}
 	}`
 }
 
