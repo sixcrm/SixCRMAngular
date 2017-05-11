@@ -40,13 +40,20 @@ $color-orange: #F16C00;
 
   &__item {
     display: flex;
+    align-items: center;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     padding: 15px 10px;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.06);
+      cursor: pointer;
+    }
 
     &__text {
 
       &__main {
         font-size: 14px;
+        margin-bottom: 3px;
       }
 
       &__sub {

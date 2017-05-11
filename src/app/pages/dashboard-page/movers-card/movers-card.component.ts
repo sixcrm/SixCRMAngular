@@ -1,8 +1,8 @@
-import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {CampaignDelta} from '../../../shared/models/campaign-delta.model';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
-import {Subscription, Observable} from 'rxjs';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'movers-card',
@@ -10,10 +10,8 @@ import {Subscription, Observable} from 'rxjs';
   styleUrls: ['./movers-card.component.scss']
 })
 export class MoversCardComponent implements OnInit, OnDestroy {
-  @ViewChild('toggleButton') toggleButton;
-
   campaignDelta: CampaignDelta[] = [];
-  showAll: boolean = false;
+  height: string = '0';
 
   private sub: Subscription;
 
@@ -21,7 +19,13 @@ export class MoversCardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sub = this.analyticsService.campaignDelta$.subscribe(data => {
-      this.campaignDelta = data;
+      if (data && data.length > 5) {
+        this.campaignDelta = data.slice(0,5);
+      } else {
+        this.campaignDelta = data;
+      }
+
+      this.height = this.campaignDelta.length * 66 + 'px';
       this.progressBarService.hideTopProgressBar();
     })
   }
@@ -34,25 +38,5 @@ export class MoversCardComponent implements OnInit, OnDestroy {
 
   isDecing(campaign: CampaignDelta): boolean {
     return campaign.percentageChangeAmount.indexOf('-') === 0;
-  }
-
-  calculateHeight(): string {
-    let count = this.campaignDelta.length;
-
-    if (!this.showAll && count > 5) {
-      count = 5;
-    }
-
-    return count * 66 + 'px';
-  }
-
-  toggleShowAll(): void {
-    this.showAll = !this.showAll;
-
-    if (this.showAll) {
-      Observable.interval(5).take(160).subscribe(() => {
-        this.toggleButton.nativeElement.scrollIntoView();
-      })
-    }
   }
 }
