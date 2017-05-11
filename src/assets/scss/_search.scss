@@ -204,54 +204,7 @@ $border-color: rgba(0, 0, 0, 0.2);
       }
 
       &__share {
-        position: relative;
         display: inline-block;
-        margin: 0 15px;
-
-        &__trigger {
-          transform: rotate(90deg);
-        }
-
-        &__container {
-          position: absolute;
-          top: 32px;
-          right: -10px;
-          z-index: 5;
-          box-shadow: 0 0 10px rgba(0,0,0,0.3);
-          width: 370px;
-          padding-bottom: 3px;
-          background: white;
-          text-align: center;
-        }
-
-        &__pointer {
-          width: 14px;
-          height: 14px;
-          position: absolute;
-          top: -7px;
-          right: 15px;
-          background: white;
-          transform: rotate(45deg);
-        }
-
-        &__title {
-          border-bottom: 1px solid rgba(0,0,0,0.1);
-        }
-
-        &__url {
-          display: inline-block;
-          margin: 0 5px 0 15px;
-          width: 300px;
-          height: 20px;
-          line-height: 20px;
-          padding: 0 5px;
-          box-sizing: border-box;
-          border: 1px solid rgba(0,0,0,0.1);
-        }
-
-        &__icon {
-          margin: 0 15px 0 5px;
-        }
       }
 
       &__options {

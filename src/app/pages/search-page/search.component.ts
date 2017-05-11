@@ -12,13 +12,9 @@ import {environment} from '../../../environments/environment';
 @Component({
   selector: 'c-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss'],
-  host: {'(document:click)': 'hideElements($event)'},
+  styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit, OnDestroy {
-
-  @ViewChild('shareContainer') shareContainer;
-
   // quick search string
   queryString: string;
 
@@ -67,7 +63,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     productschedule: false
   };
 
-  shareVisible: boolean = false;
   shareSearch: boolean = false;
 
   queryOptsLabel = {
@@ -351,27 +346,26 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.search();
   }
 
-  showShare(): void {
-    this.shareVisible = true;
-  }
-
   copyUrlToClipboard(urlField): void {
     urlField.select();
     document.execCommand('copy');
   }
 
   getShareUrl(): string {
-    let url = environment.auth0RedirectUrl + '/search?';
+    let url = environment.auth0RedirectUrl + '/search';
+
     if (this.isAdvancedSearch) {
-      url += `advanced=true`;
+      url += `?advanced=true`;
 
       this.queryOptions.forEach(option => {
         if (option.enabled) {
           url += `&${option.key}=${option.value}`;
         }
       })
+    } else if (this.queryString) {
+      url += `?query=${this.queryString}`;
     } else {
-      url += `query=${this.queryString}`;
+      return url;
     }
 
     let filters = '&filters=';
@@ -455,15 +449,4 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     return entityTypesCheckedArray;
   }
-
-  private hideElements(event): void {
-    if (event.target.attributes.class && event.target.attributes.class.value === 'search__content__title__share__trigger material-icons') {
-      return;
-    }
-
-    if (this.shareContainer && !this.shareContainer.nativeElement.contains(event.target)) {
-      this.shareVisible = false;
-    }
-  }
-
 }

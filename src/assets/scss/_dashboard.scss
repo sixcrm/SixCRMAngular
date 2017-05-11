@@ -294,8 +294,10 @@ $color-orange: #F16C00;
 
     &__icons {
       position: absolute;
+      display: flex;
       right: 10px;
       top: 18px;
+      z-index: 5;
 
       @media only screen and (max-width: 1440px) {
         top: 10px;
@@ -307,11 +309,11 @@ $color-orange: #F16C00;
         font-size: 20px;
         color: rgba(0, 0, 0, 0.87);
         cursor: pointer;
+      }
 
-        &:first-of-type {
-          transform: rotate(90deg);
-          margin-right: 5px;
-        }
+      .share-link__container {
+        top: 22px !important;
+        right: -12px !important;
       }
     }
 

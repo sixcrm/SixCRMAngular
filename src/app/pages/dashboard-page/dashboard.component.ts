@@ -7,6 +7,8 @@ import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {DaterangepickerConfig, DaterangePickerComponent} from 'ng2-daterangepicker';
 import {TransactionOverview} from '../../shared/models/transaction-overview.model';
 import {AnalyticsService} from '../../shared/services/analytics.service';
+import {environment} from '../../../environments/environment';
+import {ActivatedRoute, Router} from '@angular/router';
 
 export interface FilterTerm {
   id: string;
@@ -20,6 +22,11 @@ interface DateFilter {
   end: Moment;
 }
 
+
+function flatDown(m: Moment) { return m.hours(0).minutes(0).seconds(0).millisecond(1) }
+function flatUp(m: Moment) { return m.hours(23).minutes(59).seconds(59).millisecond(999) }
+function areSame(m1: Moment, m2: Moment) { return flatDown(m1).isSame(flatDown(m2)) }
+
 @Component({
   selector: 'c-dashboard',
   templateUrl: './dashboard.component.html',
@@ -32,14 +39,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   currentFilterTerm: string;
 
   dateFilters: DateFilter[] = [
-    {label: '1D', start: utc().subtract(1,'d'), end: utc()},
-    {label: '1W', start: utc().subtract(1,'w'), end: utc()},
-    {label: '1M', start: utc().subtract(1,'M'), end: utc()},
-    {label: '3M', start: utc().subtract(3,'M'), end: utc()},
-    {label: '6M', start: utc().subtract(6,'M'), end: utc()},
-    {label: 'YTD', start: utc().startOf('year'), end: utc()},
-    {label: '1Y', start: utc().subtract(1,'y'), end: utc()},
-    {label: 'ALL', start: utc().subtract(10,'y'), end: utc()},
+    {label: '1D', start: flatDown(utc().subtract(1,'d')), end: utc()},
+    {label: '1W', start: flatDown(utc().subtract(1,'w')), end: utc()},
+    {label: '1M', start: flatDown(utc().subtract(1,'M')), end: utc()},
+    {label: '3M', start: flatDown(utc().subtract(3,'M')), end: utc()},
+    {label: '6M', start: flatDown(utc().subtract(6,'M')), end: utc()},
+    {label: 'YTD', start: flatDown(utc().startOf('year')), end: utc()},
+    {label: '1Y', start: flatDown(utc().subtract(1,'y')), end: utc()},
+    {label: 'ALL', start: flatDown(utc().subtract(10,'y')), end: utc()},
     {label: 'CUSTOM', start: utc(), end: utc()}
   ];
   activeDateFilterIndex: number = 3;
@@ -82,32 +89,25 @@ export class DashboardComponent implements OnInit, OnDestroy {
     {id: 'error', label: 'Error', type: 'processorresult'}
   ];
 
+  private dateFilterDebouncer$: Subject<boolean>;
+  private termFilterDebouncer$: Subject<boolean>;
+
   private unsubscribe$: Subject<boolean>;
-  private transactionsSummaryFetchDebouncer$: Subject<boolean>;
-  private transactionsOverviewFetchDebouncer$: Subject<boolean>;
 
   constructor(
     private searchService: SearchService,
     private progressBarService: ProgressBarService,
     private daterangepickerOptions: DaterangepickerConfig,
-    public analyticsService: AnalyticsService
+    public analyticsService: AnalyticsService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
+    this.dateFilterDebouncer$ = new Subject();
+    this.termFilterDebouncer$ = new Subject();
     this.unsubscribe$ = new Subject();
-    this.transactionsSummaryFetchDebouncer$ = new Subject();
-    this.transactionsOverviewFetchDebouncer$ = new Subject();
   }
 
   ngOnInit() {
-    this.daterangepickerOptions.settings = {
-      parentEl: '.datepicker--custom',
-      startDate: this.getStartDate(),
-      endDate: this.getEndDate(),
-      locale: { format: 'MM/DD/YYYY' },
-      alwaysShowCalendars: true,
-      applyClass: 'btn-success-custom',
-      linkedCalendars: false
-    };
-
     this.searchService.dashboardFilterResults$.takeUntil(this.unsubscribe$).subscribe(results => {
       this.filterSearchResults = this.parseFilterSearchResults(results.hit);
     });
@@ -117,15 +117,46 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.progressBarService.hideTopProgressBar();
     });
 
-    this.transactionsSummaryFetchDebouncer$.takeUntil(this.unsubscribe$).debounceTime(500).subscribe(() => this.fetchTransactionSummary());
-    this.transactionsOverviewFetchDebouncer$.takeUntil(this.unsubscribe$).debounceTime(500).subscribe(() => {
+    this.dateFilterDebouncer$.takeUntil(this.unsubscribe$).debounceTime(500).subscribe(() => {
+      this.fetchTransactionSummary();
       this.fetchTransactionOverview();
       this.fetchEventFunnel();
     });
 
-    this.fetchTransactionSummary();
-    this.fetchTransactionOverview();
-    this.fetchEventFunnel();
+    this.termFilterDebouncer$.takeUntil(this.unsubscribe$).debounceTime(500).subscribe(() => {
+      this.fetchTransactionSummary();
+    });
+
+    this.route.queryParams.takeUntil(this.unsubscribe$).subscribe(params => {
+      this.filterTerms = [];
+
+      this.extractDateFromParams(params);
+
+      Object.keys(params).forEach(key => {
+        if (key !== 'start' && key !== 'end') {
+          let group = JSON.parse(params[key]);
+
+          Object.keys(group).forEach(i => {
+            this.filterTerms.push({type: key, id: group[i].id, label: group[i].label})
+          });
+        }
+      });
+
+      this.initDatepicker();
+      this.dateFilterDebouncer$.next(true);
+    });
+  }
+
+  initDatepicker(): void {
+    this.daterangepickerOptions.settings = {
+      parentEl: '.datepicker--custom',
+      startDate: this.getStartDate(),
+      endDate: this.getEndDate(),
+      locale: { format: 'MM/DD/YYYY' },
+      alwaysShowCalendars: true,
+      applyClass: 'btn-success-custom',
+      linkedCalendars: false
+    };
   }
 
   ngOnDestroy() {
@@ -155,8 +186,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.activeDateFilterIndex = index;
 
     this.setDatepickerDates();
-    this.transactionsSummaryFetchDebouncer$.next(true);
-    this.transactionsOverviewFetchDebouncer$.next(true);
+    this.dateFilterDebouncer$.next(true);
   }
 
   addFilterTerm(filterTerm: FilterTerm): void {
@@ -164,7 +194,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.currentFilterTerm = '';
     this.filterTerms.push(filterTerm);
 
-    this.transactionsSummaryFetchDebouncer$.next(true);
+    this.termFilterDebouncer$.next(true);
+  }
+
+  resetFilters(): void {
+    this.filterTerms = [];
+    this.activeDateFilterIndex = 3;
+    this.dateFilterDebouncer$.next(true);
+    this.router.navigate(['dashboard']);
   }
 
   removeFilterTerm(filterTerm: FilterTerm): void {
@@ -172,7 +209,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     if (index > -1) {
       this.filterTerms.splice(index,1);
-      this.transactionsSummaryFetchDebouncer$.next(true);
+      this.termFilterDebouncer$.next(true);
     }
   }
 
@@ -196,19 +233,77 @@ export class DashboardComponent implements OnInit, OnDestroy {
     return this.dateFilters[this.activeDateFilterIndex].end;
   }
 
+  extractDateFromParams(params: any): void {
+    if (!params['start'] || !params['end']) {
+      this.activeDateFilterIndex = 3;
+
+      return;
+    }
+
+    let sDate = utc(params['start']);
+    let eDate = utc(params['end']);
+
+    let tempActive: number = -1;
+    for (let i = 0; i < this.dateFilters.length; i++) {
+      if (areSame(sDate, this.dateFilters[i].start) && areSame(eDate, this.dateFilters[i].end)) {
+        tempActive = i;
+        break;
+      }
+    }
+
+    let customDateIndex = this.dateFilters.length - 1;
+    this.activeDateFilterIndex = tempActive !== -1 ? tempActive : customDateIndex;
+
+    if (this.activeDateFilterIndex === customDateIndex) {
+      this.dateFilters[customDateIndex].start = sDate;
+      this.dateFilters[customDateIndex].end = eDate;
+    }
+  }
+
+  getShareUrl(): string {
+    let url = environment.auth0RedirectUrl + '/dashboard?';
+
+    let filters = [];
+    for (let i in this.filterTerms) {
+      let currentFilter = this.filterTerms[i];
+      let formattedFilter = {id: currentFilter.id, label: currentFilter.label};
+
+      if (filters[currentFilter.type]) {
+        filters[currentFilter.type].push(formattedFilter);
+      } else {
+        filters[currentFilter.type] = [formattedFilter];
+      }
+    }
+
+    let fString = '';
+    Object.keys(filters).forEach(key => {
+      let fs = `${key}=${JSON.stringify(filters[key])}`;
+
+      fString += fs + '&';
+    });
+
+    let dString = `start=${this.getStartDate().format()}&end=${this.getEndDate().format()}`;
+
+    return url + fString + dString;
+  }
+
   dateSelected(value: any): void {
     let lastIndex = this.dateFilters.length-1;
 
-    this.dateFilters[lastIndex].start = utc(value.start);
-    this.dateFilters[lastIndex].end = utc(value.end);
+    this.dateFilters[lastIndex].start = flatDown(utc(value.start));
+    this.dateFilters[lastIndex].end = flatUp(utc(value.end));
 
     this.activeDateFilterIndex = lastIndex;
-    this.transactionsSummaryFetchDebouncer$.next(true);
-    this.transactionsOverviewFetchDebouncer$.next(true);
+
+    this.dateFilterDebouncer$.next(true);
   }
 
   toggleAdvanced(): void {
     this.advanced = !this.advanced;
+  }
+
+  showResetButton(): boolean {
+    return (this.filterTerms && this.filterTerms.length > 0) || this.activeDateFilterIndex !== 3;
   }
 
   private fetchTransactionSummary(): void {

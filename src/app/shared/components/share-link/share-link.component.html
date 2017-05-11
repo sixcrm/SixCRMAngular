@@ -1,0 +1,11 @@
+<div class="share-link">
+  <md-icon class="share-link__trigger" (click)="showShare()">link</md-icon>
+  <div class="share-link__container" *ngIf="shareVisible">
+    <div class="share-link__pointer"></div>
+    <div class="share-link__title">Share</div>
+    <div class="share-link__url">
+      <input type="text" #urlField class="share-link__url__content" value="{{shareUrl}}" readonly>
+      <md-icon class="share-link__url__icon" md-tooltip="Copy to clipboard" (click)="copyUrlToClipboard(urlField)">content_copy</md-icon>
+    </div>
+  </div>
+</div>

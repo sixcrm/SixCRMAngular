@@ -96,17 +96,8 @@
 
           <md-input placeholder="Filter Results" [(ngModel)]="filterValue"></md-input>
 
-          <div class="search__content__title__share">
-            <md-icon class="search__content__title__share__trigger" (click)="showShare()">link</md-icon>
-            <div #shareContainer class="search__content__title__share__container" *ngIf="shareVisible">
-              <div class="search__content__title__share__pointer"></div>
-              <div class="search__content__title__share__title">Share</div>
-              <div>
-                <input type="text" #urlField class="search__content__title__share__url" value="{{getShareUrl()}}" readonly>
-                <md-icon class="search__content__title__share__icon" md-tooltip="Copy to clipboard" (click)="copyUrlToClipboard(urlField)">content_copy</md-icon>
-              </div>
-            </div>
-          </div>
+          <share-link class="search__content__title__share" [shareUrl]="getShareUrl()"></share-link>
+
           <md-icon (click)="toggleView()">{{listMode ? 'view_headline' : 'view_module'}}</md-icon>
         </div>
       </div>

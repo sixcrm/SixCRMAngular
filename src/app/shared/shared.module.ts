@@ -33,10 +33,28 @@ import { SortEntitiesPipe } from './pipes/sort-entities.pipe';
 import {RebillsService} from './services/rebills.service';
 import {AnalyticsService} from './services/analytics.service';
 import { ComingSoonComponent } from './components/coming-soon/coming-soon.component';
+import { ShareLinkComponent } from './components/share-link/share-link.component';
 
 @NgModule({
-  declarations : [ WidgetComponent, AutocompleteComponent, HighlightPipe, FilterSearchResultsPipe, FilterEntitiesPipe, SortEntitiesPipe, ComingSoonComponent ],
-  exports : [ WidgetComponent, AutocompleteComponent, HighlightPipe, FilterSearchResultsPipe, FilterEntitiesPipe, SortEntitiesPipe ],
+  declarations : [
+    WidgetComponent,
+    AutocompleteComponent,
+    HighlightPipe,
+    FilterSearchResultsPipe,
+    FilterEntitiesPipe,
+    SortEntitiesPipe,
+    ComingSoonComponent,
+    ShareLinkComponent
+  ],
+  exports : [
+    WidgetComponent,
+    AutocompleteComponent,
+    HighlightPipe,
+    FilterSearchResultsPipe,
+    FilterEntitiesPipe,
+    SortEntitiesPipe,
+    ShareLinkComponent
+  ],
   imports : [FormsModule, CommonModule, MaterialModule]
 })
 export class SharedModule {
