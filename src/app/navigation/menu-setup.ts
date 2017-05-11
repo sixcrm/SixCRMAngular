@@ -10,12 +10,12 @@ export function menuItems(authService: AuthenticationService): MenuItem[] {
   // Add reports
   items.push(
     new MenuItem('Reports', null, [
-      new MenuItem('Order Report', ''),
-      new MenuItem('Transactions Report', ''),
-      new MenuItem('Fulfillment Report', ''),
-      new MenuItem('Affiliate Report', ''),
-      new MenuItem('Retention', ''),
-      new MenuItem('Projections', ''),
+      new MenuItem('Order Report', 'reports/order'),
+      new MenuItem('Transactions Report', 'reports/transaction'),
+      new MenuItem('Fulfillment Report', 'reports/fulfillment'),
+      new MenuItem('Affiliate Report', 'reports/affiliate'),
+      new MenuItem('Retention', 'reports/retention'),
+      new MenuItem('Projections', 'reports/projection')
     ]).setIcon('library_books')
   );
 

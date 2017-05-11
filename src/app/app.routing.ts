@@ -25,6 +25,7 @@ const appRoutes: Routes = [
     { path : 'smtpproviders', loadChildren : './pages/smtp-providers-page/smtp-providers.module#SmtpProvidersModule', canActivate: [AuthGuard] },
     { path : 'transactions', loadChildren : './pages/transactions-page/transactions.module#TransactionsModule', canActivate: [AuthGuard] },
     { path : 'users', loadChildren : './pages/users-page/users.module#UsersModule', canActivate: [AuthGuard] },
+    { path : 'reports', loadChildren : './reports/reports.module#ReportsModule', canActivate: [AuthGuard] },
   ]},
   { path : '**', component : ErrorPageComponent }
 
