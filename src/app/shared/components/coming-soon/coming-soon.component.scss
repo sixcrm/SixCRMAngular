@@ -1,6 +1,7 @@
 .coming-soon {
   height: calc(100vh - 75px);
   text-align: center;
+  background-image: url("/assets/images/in-development.png");
 
   &__container {
     display: inline-block;
