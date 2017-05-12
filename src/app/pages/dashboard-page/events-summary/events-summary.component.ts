@@ -35,7 +35,7 @@ export class EventsSummaryComponent implements OnInit {
     },
     yAxis: {
       title: {
-        text: 'Events Number'
+        text: 'Events'
       }
     },
     tooltip: {

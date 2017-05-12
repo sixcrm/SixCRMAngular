@@ -15,15 +15,18 @@
           <th>Affiliate</th>
           <th>Count</th>
           <th>Percentage</th>
-          <th>Relative Percentage</th>
         </tr>
       </thead>
       <tbody *ngIf="affEvents">
+        <tr>
+          <td><div [style.background]="colors[0]" class="color-indicator"></div>Other</td>
+          <td>{{otherCount}}</td>
+          <td>{{otherPercentage}}%</td>
+        </tr>
         <tr *ngFor="let affiliate of affEvents.affiliates | subArray: maxNumber; let i = index" [routerLink]="['/affiliates', affiliate.affiliate]">
           <td><div [style.background]="colors[i]" class="color-indicator"></div>{{affiliate.affiliate.substring(0, 18) + '...'}}</td>
           <td>{{affiliate.count}}</td>
           <td>{{affiliate.percentage}}</td>
-          <td>{{calculateRelativePercentage(affiliate)}}</td>
         </tr>
       </tbody>
     </table>

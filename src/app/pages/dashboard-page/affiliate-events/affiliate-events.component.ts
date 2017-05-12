@@ -9,8 +9,11 @@ import {NavigationService} from '../../../navigation/navigation.service';
 })
 export class AffiliateEventsComponent implements OnInit {
 
-  colors: string[] = ['#1773DD', '#4484CD', '#4DABF5', '#98DBF9', '#FFAD33', '#F1862F', '#329262', '#109618', '#66AA00', '#AAAA11'];
+  colors: string[] = ['#1773DD', '#4484CD', '#4DABF5', '#98DBF9', '#FFAD33', '#F1862F', '#329262', '#109618', '#66AA00', '#AAAA11', '#98DBF9'];
   affEvents: AffiliateEvents;
+
+  otherCount = 0;
+  otherPercentage = 0;
 
   @Input() maxNumber: number;
 
@@ -118,9 +121,18 @@ export class AffiliateEventsComponent implements OnInit {
     let affs = this.affEvents.affiliates;
     let length = affs.length <= this.maxNumber ? affs.length : this.maxNumber;
 
+    let count = 0;
+    let percentage = 0;
     for (let i = 0 ; i < length; i++) {
-      data.push({name: affs[i].affiliate.substring(0, 8) + '...', y: affs[i].count, color: this.colors[i]});
+      data.push({name: affs[i].affiliate.substring(0, 8) + '...', y: affs[i].count, color: this.colors[i+1]});
+      count += affs[i].count;
+      percentage += +affs[i].percentage.substr(0, affs[i].percentage.length-1);
     }
+
+    this.otherCount = count;
+    this.otherPercentage = Math.round( (100 - percentage) * 100) / 100;
+
+    data.push({name: 'Other', y: this.otherCount, color: this.colors[0]});
 
     return data;
   }
