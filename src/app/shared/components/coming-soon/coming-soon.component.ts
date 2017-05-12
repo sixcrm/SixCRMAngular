@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
   selector: 'coming-soon',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ComingSoonComponent implements OnInit {
 
-  constructor() { }
+  constructor(private navigation: NavigationService) { }
 
   ngOnInit() {
   }
