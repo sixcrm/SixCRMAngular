@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>starticon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="atoms/list-items-2-icon" transform="translate(-16.000000, -15.000000)">
+            <g id="starticon" transform="translate(16.000000, 15.000000)">
+                <circle id="Oval" fill="#F5F5F5" cx="20" cy="20" r="20"></circle>
+                <path d="M19.99,10 C14.47,10 10,14.4449315 10,19.9217221 C10,25.3985127 14.47,29.8434442 19.99,29.8434442 C25.52,29.8434442 30,25.3985127 30,19.9217221 C30,14.4449315 25.52,10 19.99,10 Z M24.23,25.8747554 L20,23.3447162 L15.77,25.8747554 L16.89,21.102407 L13.16,17.8976908 L18.08,17.4809785 L20,12.9765166 L21.92,17.4710568 L26.84,17.8877691 L23.11,21.0924853 L24.23,25.8747554 Z" id="Shape" fill-opacity="0.54" fill="#000000"></path>
+            </g>
+        </g>
+    </g>
+</svg>
