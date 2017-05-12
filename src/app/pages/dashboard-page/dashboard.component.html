@@ -135,5 +135,6 @@
 
   <div class="dashboard__column dashboard__column--right">
     <funnel-graph></funnel-graph>
+    <affiliate-events [maxNumber]="10" [affiliateEvents]="analyticsService.affiliateEvents$ | async"></affiliate-events>
   </div>
 </div>

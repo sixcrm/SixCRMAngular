@@ -1,13 +1,13 @@
-<div class="dashboard__funnel">
-  <div class="dashboard__funnel__title">
-    <div class="dashboard__funnel__title__main">Event Funnel</div>
-    <div class="dashboard__funnel__title__sub">Events by Event Type</div>
+<div class="dashboard__table-chart">
+  <div class="dashboard__table-chart__title">
+    <div class="dashboard__table-chart__title__main">Event Funnel</div>
+    <div class="dashboard__table-chart__title__sub">Events by Event Type</div>
     <md-icon>more_vert</md-icon>
   </div>
 
   <chart [options]="chartOptions" (load)="saveChart($event.context)"></chart>
 
-  <div class="dashboard__table" [class.dashboard__table--inactive]="!showTable || !funnel">
+  <div class="dashboard__table" [style.height]="calculateHeight()" [class.dashboard__table--inactive]="!showTable || !funnel">
   <table class="highlight">
     <thead>
       <tr>
@@ -52,7 +52,9 @@
   </table>
   </div>
 
-  <div class="dashboard__funnel__actions">
+  <ng-content></ng-content>
+
+  <div class="dashboard__table-chart__actions">
     <span *ngIf="funnel" (click)="toggleTable()">{{showTable ? 'COLLAPSE' : 'SHOW TABLE'}}</span>
   </div>
 </div>

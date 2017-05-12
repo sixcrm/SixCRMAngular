@@ -34,6 +34,7 @@ import {RebillsService} from './services/rebills.service';
 import {AnalyticsService} from './services/analytics.service';
 import { ComingSoonComponent } from './components/coming-soon/coming-soon.component';
 import { ShareLinkComponent } from './components/share-link/share-link.component';
+import {SubArrayPipe} from './pipes/sub-array.pipe';
 
 @NgModule({
   declarations : [
@@ -44,7 +45,8 @@ import { ShareLinkComponent } from './components/share-link/share-link.component
     FilterEntitiesPipe,
     SortEntitiesPipe,
     ComingSoonComponent,
-    ShareLinkComponent
+    ShareLinkComponent,
+    SubArrayPipe
   ],
   exports : [
     WidgetComponent,
@@ -53,7 +55,8 @@ import { ShareLinkComponent } from './components/share-link/share-link.component
     FilterSearchResultsPipe,
     FilterEntitiesPipe,
     SortEntitiesPipe,
-    ShareLinkComponent
+    ShareLinkComponent,
+    SubArrayPipe
   ],
   imports : [FormsModule, CommonModule, MaterialModule]
 })

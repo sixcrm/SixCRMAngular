@@ -12,6 +12,9 @@ export class NavigationService {
   public static smallViewportWidth: number = 600;
   public static largeViewportWidth: number = 992;
 
+  public static laptopBreakpoint: number = 1440;
+  public static tabletBreakpoint: number = 900;
+
   private _menuItems: Subject<MenuItem[]> = new BehaviorSubject([]);
   private _pageTitle: Subject<string> = new BehaviorSubject(null);
   private _appTitle: Subject<string> = new BehaviorSubject('SixCRM');
@@ -211,6 +214,18 @@ export class NavigationService {
 
   public get largeScreen(): boolean {
     return window !== undefined ? window.matchMedia(`(min-width: ${NavigationService.largeViewportWidth}px)`).matches : false;
+  }
+
+  public isDesktop(): boolean {
+    return window !== undefined ? window.matchMedia(`(min-width: ${NavigationService.laptopBreakpoint + 1}px`).matches : false;
+  }
+
+  public isLaptop(): boolean {
+    return !this.isDesktop() && !this.isTablet();
+  }
+
+  public isTablet(): boolean {
+    return window !== undefined ? window.matchMedia(`(max-width: ${NavigationService.tabletBreakpoint}px`).matches : false;
   }
 
   private createPageTitle(item: MenuItem): string {

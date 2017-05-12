@@ -9,6 +9,7 @@ import {TransactionOverview} from '../../shared/models/transaction-overview.mode
 import {AnalyticsService} from '../../shared/services/analytics.service';
 import {environment} from '../../../environments/environment';
 import {ActivatedRoute, Router} from '@angular/router';
+import {FunnelGraphComponent} from './funnel-graph/funnel-graph.component';
 
 export interface FilterTerm {
   id: string;
@@ -122,6 +123,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.fetchTransactionOverview();
       this.fetchEventFunnel();
       this.fetchCampaignDelta();
+      this.fetchAffiliateEvents();
     });
 
     this.termFilterDebouncer$.takeUntil(this.unsubscribe$).debounceTime(500).subscribe(() => {
@@ -327,6 +329,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private fetchCampaignDelta(): void {
     this.progressBarService.showTopProgressBar();
     this.analyticsService.getCampaignDelta(this.getStartDate().format(), this.getEndDate().format());
+  }
+
+  private fetchAffiliateEvents(): void {
+    this.progressBarService.showTopProgressBar();
+    this.analyticsService.getAffiliateEvents(this.getStartDate().format(), this.getEndDate().format());
   }
 
   private parseFilterSearchResults(results: any[]): FilterTerm[] {

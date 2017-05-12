@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {EventFunnel} from '../../../shared/models/event-funnel.model';
 import {Subscription} from 'rxjs';
 import {AnalyticsService} from '../../../shared/services/analytics.service';
+import {NavigationService} from '../../../navigation/navigation.service';
 
 const hc = require('highcharts');
 
@@ -139,7 +140,7 @@ export class FunnelGraphComponent implements OnInit, OnDestroy {
   sub: Subscription;
   showTable: boolean = true;
 
-  constructor(private analyticsService: AnalyticsService) { }
+  constructor(private analyticsService: AnalyticsService, private navigation: NavigationService) { }
 
   ngOnInit() {
     this.sub = this.analyticsService.eventFunnel$.subscribe(funnel => {
@@ -162,7 +163,17 @@ export class FunnelGraphComponent implements OnInit, OnDestroy {
     this.showTable = !this.showTable;
   }
 
-  private redrawChartData(funnel: EventFunnel): void {
+  calculateHeight(): string {
+    let height = 46;
+    if (!this.navigation.isDesktop()) {
+      height = 34;
+    }
+
+    // funnel graph has 5 rows + header + some extra space between button and data
+    return 7 * height + 'px';
+  }
+
+  redrawChartData(funnel: EventFunnel): void {
     this.chart.series[0].points[0].update(funnel.click.percentage, true);
     this.chart.series[1].points[0].update(funnel.lead.percentage, true);
     this.chart.series[2].points[0].update(funnel.main.percentage, true);

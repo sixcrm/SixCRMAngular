@@ -9,9 +9,10 @@ import {TransactionSummary} from '../models/transaction-summary.model';
 import {FilterTerm} from '../../pages/dashboard-page/dashboard.component';
 import {
   transactionSummaryQuery, transactionOverviewQuery, eventsFunelQuery,
-  campaignDeltaQuery
+  campaignDeltaQuery, eventsByAffiliateQuery
 } from '../utils/queries/analytics.queries';
 import {CampaignDelta} from '../models/campaign-delta.model';
+import {AffiliateEvents} from '../models/affiliate-events.model';
 
 @Injectable()
 export class AnalyticsService {
@@ -20,12 +21,14 @@ export class AnalyticsService {
   transactionsSummaries$: Subject<TransactionSummary[]>;
   transactionsOverview$: Subject<TransactionOverview>;
   campaignDelta$: Subject<CampaignDelta[]>;
+  affiliateEvents$: Subject<AffiliateEvents>;
 
   constructor(private authService: AuthenticationService, private http: Http) {
     this.eventFunnel$ = new Subject();
     this.transactionsSummaries$ = new Subject();
     this.transactionsOverview$ = new Subject();
     this.campaignDelta$ = new Subject();
+    this.affiliateEvents$ = new Subject();
   }
 
   getTransactionSummaries(start: string, end: string, filters: FilterTerm[], additionalFilters?: any[]): void {
@@ -76,6 +79,16 @@ export class AnalyticsService {
         this.campaignDelta$.next(campaigns.map(d => new CampaignDelta(d)));
       }
     })
+  }
+
+  getAffiliateEvents(start: string, end: string): void {
+    this.queryRequest(eventsByAffiliateQuery(start, end)).subscribe(data => {
+      let events = data.json().data.eventsbyaffiliate;
+
+      if (events) {
+        this.affiliateEvents$.next(new AffiliateEvents(events));
+      }
+    });
   }
 
   private queryRequest(query: string): Observable<Response> {

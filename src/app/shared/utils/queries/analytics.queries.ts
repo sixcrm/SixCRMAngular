@@ -72,14 +72,20 @@ export function campaignDeltaQuery(start: string, end: string): string {
   return `
   {
 		campaigndelta (analyticsfilter:{${dateRange(start, end)}}) {
-			campaigns {
-				campaign,
-				campaign_name,
-				percent_change_amount,
-				percent_change_count
-			}
+			campaigns { campaign campaign_name percent_change_amount percent_change_count }
 		}
 	}`
+}
+
+export function eventsByAffiliateQuery(start: string, end: string): string {
+  return `
+  {
+		eventsbyaffiliate (analyticsfilter:{${dateRange(start, end)}}) {
+			count
+			affiliates { affiliate count percentage }
+		}
+	}
+  `
 }
 
 function dateRange(start: string, end: string): string {

@@ -12,6 +12,7 @@ import { InputAutocompleteComponent } from './input-autocomplete/input-autocompl
 import { FunnelGraphComponent } from './funnel-graph/funnel-graph.component';
 import { DashboardReportsComponent } from './dashboard-reports/dashboard-reports.component';
 import { MoversCardComponent } from './movers-card/movers-card.component';
+import { AffiliateEventsComponent } from './affiliate-events/affiliate-events.component';
 
 export function highchartsFactory() {
   let hc = require('highcharts');
@@ -39,7 +40,8 @@ export function highchartsFactory() {
     InputAutocompleteComponent,
     FunnelGraphComponent,
     DashboardReportsComponent,
-    MoversCardComponent
+    MoversCardComponent,
+    AffiliateEventsComponent
   ],
   exports : [
   ],
