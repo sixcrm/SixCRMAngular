@@ -1,0 +1,10 @@
+<div class="dashboard__chart">
+  <div class="dashboard__chart__title">
+    <div class="dashboard__chart__title__main">Events Summary</div>
+    <div class="dashboard__chart__title__sub">events summary</div>
+    <md-icon>more_vert</md-icon>
+  </div>
+
+  <chart [class.invisible]="!loaded" #chart [options]="options" (load)="loadChart(chart)"></chart>
+  <md-spinner *ngIf="!loaded"></md-spinner>
+</div>

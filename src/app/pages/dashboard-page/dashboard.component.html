@@ -118,15 +118,9 @@
       </div>
     </div>
 
-    <div class="dashboard__chart">
-      <div class="dashboard__chart__title">
-        <div class="dashboard__chart__title__main">Product Sales</div>
-        <div class="dashboard__chart__title__sub">sales this week</div>
-        <md-icon>more_vert</md-icon>
-      </div>
+    <events-summary [eventsSummary]="analyticsService.eventsSummary$ | async"></events-summary>
 
-      <chart type="StockChart" [options]="chartOptions" (load)="saveChart($event.context)"></chart>
-    </div>
+    <transaction-summary [transactionSummaries]="analyticsService.transactionsSummaries$ | async"></transaction-summary>
 
     <div class="dashboard__boxes">
       <movers-card></movers-card>

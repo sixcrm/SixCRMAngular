@@ -88,6 +88,21 @@ export function eventsByAffiliateQuery(start: string, end: string): string {
   `
 }
 
+export function eventsSummaryQuery(start: string, end: string): string {
+  return `
+  {
+		eventsummary (analyticsfilter:{${dateRange(start, end)} targetperiodcount:24}) {
+			events {
+				datetime,
+				byeventtype {
+					event_type,
+					count
+				}
+			}
+		}
+	}`
+}
+
 function dateRange(start: string, end: string): string {
-  return `start:"${start}", end:"${end}"`;
+  return `start:"${start}" end:"${end}"`;
 }

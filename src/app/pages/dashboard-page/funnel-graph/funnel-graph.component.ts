@@ -16,20 +16,14 @@ export class FunnelGraphComponent implements OnInit, OnDestroy {
   colors = ['#4383CC', '#4DABF5', '#9ADDFB', '#FDAB31', '#F28933'];
 
   chartOptions: any = {
-    title: {text: null},
-    credits: {enabled: false},
-    chart: {
-      type: 'solidgauge',
-      marginTop: 50
-    },
-
+    title: { text: null },
+    credits: { enabled: false },
+    chart: { type: 'solidgauge', marginTop: 50 },
     tooltip: {
       borderWidth: 0,
       backgroundColor: 'none',
       shadow: false,
-      style: {
-        fontSize: '16px'
-      },
+      style: { fontSize: '16px' },
       pointFormat: '{series.name}<br><span style="font-size:2em; color: {point.color}; font-weight: bold">{point.y}%</span>',
       positioner: function (labelWidth) {
         return {
@@ -70,12 +64,7 @@ export class FunnelGraphComponent implements OnInit, OnDestroy {
       }]
     },
 
-    yAxis: {
-      min: 0,
-      max: 100,
-      lineWidth: 0,
-      tickPositions: []
-    },
+    yAxis: { min: 0, max: 100, lineWidth: 0, tickPositions: [] },
 
     plotOptions: {
       solidgauge: {
@@ -88,51 +77,28 @@ export class FunnelGraphComponent implements OnInit, OnDestroy {
       }
     },
 
-    series: [{
+    series: [
+      {
         name: 'Clicks',
-        data: [{
-          color: this.colors[0],
-          radius: '112%',
-          innerRadius: '98%',
-          y: 0
-        }]
+        data: [{ color: this.colors[0], radius: '112%', innerRadius: '98%', y: 0}]
       },
       {
         name: 'Leads',
-        data: [{
-          color: this.colors[1],
-          radius: '97%',
-          innerRadius: '83%',
-          y: 0
-        }]
+        data: [{ color: this.colors[1], radius: '97%', innerRadius: '83%', y: 0 }]
       },
       {
         name: 'Mains',
-        data: [{
-          color: this.colors[4],
-          radius: '82%',
-          innerRadius: '68%',
-          y: 0
-        }]
+        data: [{ color: this.colors[4], radius: '82%', innerRadius: '68%', y: 0 }]
       },
       {
         name: 'Upsells',
-        data: [{
-          color: this.colors[3],
-          radius: '67%',
-          innerRadius: '53%',
-          y: 0
-        }]
+        data: [{ color: this.colors[3], radius: '67%', innerRadius: '53%', y: 0 }]
       },
       {
         name: 'Confirms',
-        data: [{
-          color: this.colors[2],
-          radius: '52%',
-          innerRadius: '38%',
-          y: 0
-        }]
-      }]
+        data: [{ color: this.colors[2], radius: '52%', innerRadius: '38%', y: 0 }]
+      }
+    ]
   };
 
   chart;

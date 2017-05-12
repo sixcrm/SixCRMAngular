@@ -1,0 +1,10 @@
+<div class="dashboard__chart">
+  <div class="dashboard__chart__title">
+    <div class="dashboard__chart__title__main">Product Sales</div>
+    <div class="dashboard__chart__title__sub">sales this week</div>
+    <md-icon>more_vert</md-icon>
+  </div>
+
+  <chart [class.invisible]="!loaded" type="StockChart" [options]="chartOptions" (load)="saveChart($event.context)"></chart>
+  <md-spinner *ngIf="!loaded"></md-spinner>
+</div>

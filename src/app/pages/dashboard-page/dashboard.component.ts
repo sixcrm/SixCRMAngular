@@ -2,14 +2,12 @@ import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {utc, Moment} from 'moment';
 import {SearchService} from '../../shared/services/search.service';
 import {Subject} from 'rxjs';
-import {TransactionSummary} from '../../shared/models/transaction-summary.model';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {DaterangepickerConfig, DaterangePickerComponent} from 'ng2-daterangepicker';
 import {TransactionOverview} from '../../shared/models/transaction-overview.model';
 import {AnalyticsService} from '../../shared/services/analytics.service';
 import {environment} from '../../../environments/environment';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FunnelGraphComponent} from './funnel-graph/funnel-graph.component';
 
 export interface FilterTerm {
   id: string;
@@ -61,20 +59,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     {title: 'Errors', mapToResult: (overview: TransactionOverview) => overview.error, image: 'error.svg'}
   ];
 
-  chart;
-  chartOptions = {
-    credits: {enabled: false},
-    rangeSelector: {enabled: false},
-    series: [
-      { name: 'successes', color: '#F28933' },
-      { name: 'declines', color: '#407CC1' },
-      { name: 'errors', color: '#9ADDFB' }
-    ]
-  };
-  successData = [];
-  declineData = [];
-  errorData = [];
-
   @ViewChild(DaterangePickerComponent)
   dateRangePicker: DaterangePickerComponent;
   datepickerVisible: boolean = false;
@@ -112,7 +96,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
 
     this.analyticsService.transactionsSummaries$.takeUntil(this.unsubscribe$).subscribe(summaries => {
-      this.setTransactionSummaryChartData(summaries);
       this.progressBarService.hideTopProgressBar();
     });
 
@@ -214,10 +197,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  saveChart(chartInstance): void {
-    this.chart = chartInstance;
-  }
-
   getStartDate(): Moment {
     return this.dateFilters[this.activeDateFilterIndex].start;
   }
@@ -312,14 +291,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.fetchTransactionOverview();
     this.fetchTransactionSummary();
     this.fetchAffiliateEvents();
+    this.fetchEventSummary();
     this.fetchCampaignDelta();
   }
 
   private fetchTransactionSummary(): void {
-    let filters: FilterTerm[] = this.filterTerms;
-
     this.progressBarService.showTopProgressBar();
-    this.analyticsService.getTransactionSummaries(this.getStartDate().format(), this.getEndDate().format(), filters);
+    this.analyticsService.getTransactionSummaries(this.getStartDate().format(), this.getEndDate().format(), this.filterTerms);
   }
 
   private fetchTransactionOverview(): void {
@@ -340,6 +318,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private fetchAffiliateEvents(): void {
     this.progressBarService.showTopProgressBar();
     this.analyticsService.getAffiliateEvents(this.getStartDate().format(), this.getEndDate().format());
+  }
+
+  private fetchEventSummary(): void {
+    this.progressBarService.showTopProgressBar();
+    this.analyticsService.getEventsSummary(this.getStartDate().format(), this.getEndDate().format());
   }
 
   private parseFilterSearchResults(results: any[]): FilterTerm[] {
@@ -383,40 +366,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     return false;
-  }
-
-  private setTransactionSummaryChartData(summaries: TransactionSummary[]): void {
-    this.successData = [];
-    this.declineData = [];
-    this.errorData = [];
-
-    summaries.forEach(summary => {
-      summary.results.forEach(result => {
-        let data = [summary.time.valueOf(), result.amount];
-
-        switch (result.processorResult) {
-          case ('success'): {
-            this.successData.push(data);
-            break;
-          }
-          case ('decline'): {
-            this.declineData.push(data);
-            break;
-          }
-          default: {
-            this.errorData.push(data);
-          }
-        }
-      })
-    });
-
-    this.redrawChartData()
-  }
-
-  private redrawChartData(): void {
-    this.chart.series[0].setData(this.successData, true);
-    this.chart.series[1].setData(this.declineData, true);
-    this.chart.series[2].setData(this.errorData, true);
   }
 
   private getFilterTermIndex(filterTerm: FilterTerm): number {
