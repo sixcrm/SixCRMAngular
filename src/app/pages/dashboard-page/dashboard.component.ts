@@ -90,7 +90,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     {id: 'error', label: 'Error', type: 'processorresult'}
   ];
 
-  private dateFilterDebouncer$: Subject<boolean>;
   private termFilterDebouncer$: Subject<boolean>;
 
   private unsubscribe$: Subject<boolean>;
@@ -103,7 +102,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router
   ) {
-    this.dateFilterDebouncer$ = new Subject();
     this.termFilterDebouncer$ = new Subject();
     this.unsubscribe$ = new Subject();
   }
@@ -118,35 +116,26 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.progressBarService.hideTopProgressBar();
     });
 
-    this.dateFilterDebouncer$.takeUntil(this.unsubscribe$).debounceTime(500).subscribe(() => {
-      this.fetchTransactionSummary();
-      this.fetchTransactionOverview();
-      this.fetchEventFunnel();
-      this.fetchCampaignDelta();
-      this.fetchAffiliateEvents();
-    });
-
-    this.termFilterDebouncer$.takeUntil(this.unsubscribe$).debounceTime(500).subscribe(() => {
-      this.fetchTransactionSummary();
-    });
+    this.termFilterDebouncer$
+      .takeUntil(this.unsubscribe$)
+      .filter(() => !this.advanced)
+      .debounceTime(500)
+      .subscribe(() => {
+        this.fetchTransactionSummary();
+      });
 
     this.route.queryParams.takeUntil(this.unsubscribe$).subscribe(params => {
       this.filterTerms = [];
 
-      this.extractDateFromParams(params);
+      if (params['f']) {
+        let data = JSON.parse(atob(params['f']));
 
-      Object.keys(params).forEach(key => {
-        if (key !== 'start' && key !== 'end') {
-          let group = JSON.parse(params[key]);
-
-          Object.keys(group).forEach(i => {
-            this.filterTerms.push({type: key, id: group[i].id, label: group[i].label})
-          });
-        }
-      });
+        this.extractDateFromParams(data);
+        this.extractFiltersFromParams(data);
+      }
 
       this.initDatepicker();
-      this.dateFilterDebouncer$.next(true);
+      this.fetchAll();
     });
   }
 
@@ -189,7 +178,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.activeDateFilterIndex = index;
 
     this.setDatepickerDates();
-    this.dateFilterDebouncer$.next(true);
+
+    this.fetchAll();
   }
 
   addFilterTerm(filterTerm: FilterTerm): void {
@@ -203,7 +193,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   resetFilters(): void {
     this.filterTerms = [];
     this.activeDateFilterIndex = 3;
-    this.dateFilterDebouncer$.next(true);
+    this.fetchAll();
     this.router.navigate(['dashboard']);
   }
 
@@ -236,15 +226,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
     return this.dateFilters[this.activeDateFilterIndex].end;
   }
 
-  extractDateFromParams(params: any): void {
-    if (!params['start'] || !params['end']) {
+  extractDateFromParams(data): void {
+    if (!data['start'] || !data['end']) {
       this.activeDateFilterIndex = 3;
 
       return;
     }
 
-    let sDate = utc(params['start']);
-    let eDate = utc(params['end']);
+    let sDate = utc(data['start']);
+    let eDate = utc(data['end']);
 
     let tempActive: number = -1;
     for (let i = 0; i < this.dateFilters.length; i++) {
@@ -263,10 +253,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  getShareUrl(): string {
-    let url = environment.auth0RedirectUrl + '/dashboard?';
+  extractFiltersFromParams(data: any) : void {
+    Object.keys(data).forEach(groupKey => {
+      if (groupKey !== 'start' && groupKey !== 'end') {
+        let group = data[groupKey];
 
-    let filters = [];
+        Object.keys(group).forEach(key => {
+          this.filterTerms.push({type: groupKey, id: group[key].id, label: group[key].label})
+        })
+      }
+    });
+  }
+
+  getShareUrl(): string {
+    let url = environment.auth0RedirectUrl + '/dashboard?f=';
+
+    let filters = {'start': this.getStartDate().format(), 'end': this.getEndDate().format()};
+
     for (let i in this.filterTerms) {
       let currentFilter = this.filterTerms[i];
       let formattedFilter = {id: currentFilter.id, label: currentFilter.label};
@@ -278,16 +281,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }
     }
 
-    let fString = '';
-    Object.keys(filters).forEach(key => {
-      let fs = `${key}=${JSON.stringify(filters[key])}`;
-
-      fString += fs + '&';
-    });
-
-    let dString = `start=${this.getStartDate().format()}&end=${this.getEndDate().format()}`;
-
-    return url + fString + dString;
+    return url + btoa(JSON.stringify(filters));
   }
 
   dateSelected(value: any): void {
@@ -298,7 +292,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     this.activeDateFilterIndex = lastIndex;
 
-    this.dateFilterDebouncer$.next(true);
+    this.fetchAll();
   }
 
   toggleAdvanced(): void {
@@ -307,6 +301,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   showResetButton(): boolean {
     return (this.filterTerms && this.filterTerms.length > 0) || this.activeDateFilterIndex !== 3;
+  }
+
+  applyFilters(): void {
+    this.fetchAll();
+  }
+
+  private fetchAll(): void {
+    this.fetchEventFunnel();
+    this.fetchTransactionOverview();
+    this.fetchTransactionSummary();
+    this.fetchAffiliateEvents();
+    this.fetchCampaignDelta();
   }
 
   private fetchTransactionSummary(): void {

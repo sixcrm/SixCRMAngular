@@ -102,6 +102,7 @@
       </div>
 
       <div class="dashboard__filters__advanced-button">
+        <span *ngIf="advanced" (click)="applyFilters()">APPLY</span>
         <span *ngIf="showResetButton()" (click)="resetFilters()">RESET</span>
         <span *ngIf="!advanced" (click)="toggleAdvanced()">ADVANCED</span>
         <span *ngIf="advanced" (click)="toggleAdvanced()">CLOSE</span>
