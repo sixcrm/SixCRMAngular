@@ -123,7 +123,7 @@
     <transaction-summary [transactionSummaries]="analyticsService.transactionsSummaries$ | async"></transaction-summary>
 
     <div class="dashboard__boxes">
-      <movers-card></movers-card>
+      <movers-card [campaigns]="analyticsService.campaignDelta$ | async"></movers-card>
       <dashboard-reports></dashboard-reports>
     </div>
 
@@ -131,7 +131,7 @@
   </div>
 
   <div class="dashboard__column dashboard__column--right">
-    <funnel-graph></funnel-graph>
+    <funnel-graph [eventFunnel]="analyticsService.eventFunnel$ | async"></funnel-graph>
 
     <affiliate-events
       [title]="'Events by Affiliate'"

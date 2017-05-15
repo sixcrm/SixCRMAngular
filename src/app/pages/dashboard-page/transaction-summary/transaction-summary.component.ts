@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import {TransactionSummary} from '../../../shared/models/transaction-summary.model';
 
 @Component({
@@ -6,7 +6,7 @@ import {TransactionSummary} from '../../../shared/models/transaction-summary.mod
   templateUrl: './transaction-summary.component.html',
   styleUrls: ['./transaction-summary.component.scss']
 })
-export class TransactionSummaryComponent implements OnInit {
+export class TransactionSummaryComponent implements OnInit, OnDestroy {
 
   @Input() set transactionSummaries(summaries: TransactionSummary[]) {
     if (summaries) {
@@ -37,8 +37,16 @@ export class TransactionSummaryComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    this.chartInstance = null;
+  }
+
   saveChart(chartInstance): void {
     this.chartInstance = chartInstance;
+
+    if (this.summaries) {
+      this.redrawChart();
+    }
   }
 
   private redrawChart(): void {

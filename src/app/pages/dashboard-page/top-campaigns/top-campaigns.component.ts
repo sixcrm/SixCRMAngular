@@ -10,6 +10,7 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 export class TopCampaignsComponent implements OnInit {
 
   @Input() campaigns: CampaignStats[];
+
   columnParams: ColumnParams<CampaignStats>[] = [
     new ColumnParams('Campaign', (c: CampaignStats) => c.campaign),
     new ColumnParams('Amount', (c: CampaignStats) => c.amount)

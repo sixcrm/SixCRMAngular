@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import {EventSummary} from '../../../shared/models/event-summary.model';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'events-summary',
@@ -16,10 +17,7 @@ export class EventsSummaryComponent implements OnInit {
   @Input() set eventsSummary(data: EventSummary[]) {
     if (data) {
       this.events = data;
-
-      if (this.chartInstance) {
-        this.redrawChart();
-      }
+      this.redraw();
     }
   };
 
@@ -62,9 +60,20 @@ export class EventsSummaryComponent implements OnInit {
 
   loadChart(chartInstance) {
     this.chartInstance = chartInstance;
+  }
 
-    if (this.events && this.events.length > 0) {
+  redraw(): void {
+    if (this.chartInstance) {
       this.redrawChart();
+    } else {
+
+      let sub = Observable.interval(50).subscribe(() => {
+        if (this.chartInstance) {
+          sub.unsubscribe();
+          this.redrawChart();
+        }
+      })
+
     }
   }
 

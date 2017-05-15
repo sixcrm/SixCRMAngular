@@ -1,7 +1,5 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {EventFunnel} from '../../../shared/models/event-funnel.model';
-import {Subscription} from 'rxjs';
-import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {NavigationService} from '../../../navigation/navigation.service';
 
 const hc = require('highcharts');
@@ -11,7 +9,7 @@ const hc = require('highcharts');
   templateUrl: './funnel-graph.component.html',
   styleUrls: ['./funnel-graph.component.scss']
 })
-export class FunnelGraphComponent implements OnInit, OnDestroy {
+export class FunnelGraphComponent implements OnInit {
 
   colors = ['#4383CC', '#4DABF5', '#9ADDFB', '#FDAB31', '#F28933'];
 
@@ -103,26 +101,28 @@ export class FunnelGraphComponent implements OnInit, OnDestroy {
 
   chart;
   funnel: EventFunnel;
-  sub: Subscription;
   showTable: boolean = true;
 
-  constructor(private analyticsService: AnalyticsService, private navigation: NavigationService) { }
-
-  ngOnInit() {
-    this.sub = this.analyticsService.eventFunnel$.subscribe(funnel => {
+  @Input() set eventFunnel(funnel: EventFunnel) {
+    if (funnel) {
       this.funnel = funnel;
-      this.redrawChartData(funnel)
-    });
-  }
 
-  ngOnDestroy() {
-    if (this.sub) {
-      this.sub.unsubscribe();
+      if (this.chart) {
+        this.redrawChartData();
+      }
     }
   }
 
+  constructor(private navigation: NavigationService) { }
+
+  ngOnInit() { }
+
   saveChart(chartInstance): void {
     this.chart = chartInstance;
+
+    if (this.funnel) {
+      this.redrawChartData();
+    }
   }
 
   toggleTable(): void {
@@ -139,11 +139,11 @@ export class FunnelGraphComponent implements OnInit, OnDestroy {
     return 7 * height + 'px';
   }
 
-  redrawChartData(funnel: EventFunnel): void {
-    this.chart.series[0].points[0].update(funnel.click.percentage, true);
-    this.chart.series[1].points[0].update(funnel.lead.percentage, true);
-    this.chart.series[2].points[0].update(funnel.main.percentage, true);
-    this.chart.series[3].points[0].update(funnel.upsell.percentage, true);
-    this.chart.series[4].points[0].update(funnel.confirm.percentage, true);
+  redrawChartData(): void {
+    this.chart.series[0].points[0].update(this.funnel.click.percentage, true);
+    this.chart.series[1].points[0].update(this.funnel.lead.percentage, true);
+    this.chart.series[2].points[0].update(this.funnel.main.percentage, true);
+    this.chart.series[3].points[0].update(this.funnel.upsell.percentage, true);
+    this.chart.series[4].points[0].update(this.funnel.confirm.percentage, true);
   }
 }

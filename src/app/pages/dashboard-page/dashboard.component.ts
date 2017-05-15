@@ -2,12 +2,12 @@ import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {utc, Moment} from 'moment';
 import {SearchService} from '../../shared/services/search.service';
 import {Subject} from 'rxjs';
-import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {DaterangepickerConfig, DaterangePickerComponent} from 'ng2-daterangepicker';
 import {TransactionOverview} from '../../shared/models/transaction-overview.model';
 import {AnalyticsService} from '../../shared/services/analytics.service';
 import {environment} from '../../../environments/environment';
 import {ActivatedRoute, Router} from '@angular/router';
+import {AnalyticsStorageService} from '../../shared/services/analytics-storage.service';
 
 export interface FilterTerm {
   id: string;
@@ -21,9 +21,9 @@ interface DateFilter {
   end: Moment;
 }
 
-
-function flatDown(m: Moment) { return m.hours(0).minutes(0).seconds(0).millisecond(1) }
-function flatUp(m: Moment) { return m.hours(23).minutes(59).seconds(59).millisecond(999) }
+function flatDown(m: Moment) { return m.hours(0).minutes(0).seconds(0).millisecond(0) }
+function flatUp(m: Moment) { return m.hours(23).minutes(59).seconds(59)}
+function lateToday() { return utc().hours(23).minutes(59).seconds(59)}
 function areSame(m1: Moment, m2: Moment) { return flatDown(m1).isSame(flatDown(m2)) }
 
 @Component({
@@ -38,14 +38,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   currentFilterTerm: string;
 
   dateFilters: DateFilter[] = [
-    {label: '1D', start: flatDown(utc().subtract(1,'d')), end: utc()},
-    {label: '1W', start: flatDown(utc().subtract(1,'w')), end: utc()},
-    {label: '1M', start: flatDown(utc().subtract(1,'M')), end: utc()},
-    {label: '3M', start: flatDown(utc().subtract(3,'M')), end: utc()},
-    {label: '6M', start: flatDown(utc().subtract(6,'M')), end: utc()},
-    {label: 'YTD', start: flatDown(utc().startOf('year')), end: utc()},
-    {label: '1Y', start: flatDown(utc().subtract(1,'y')), end: utc()},
-    {label: 'ALL', start: flatDown(utc().subtract(10,'y')), end: utc()},
+    {label: '1D', start: flatDown(utc().subtract(1,'d')), end: lateToday()},
+    {label: '1W', start: flatDown(utc().subtract(1,'w')), end: lateToday()},
+    {label: '1M', start: flatDown(utc().subtract(1,'M')), end: lateToday()},
+    {label: '3M', start: flatDown(utc().subtract(3,'M')), end: lateToday()},
+    {label: '6M', start: flatDown(utc().subtract(6,'M')), end: lateToday()},
+    {label: 'YTD', start: flatDown(utc().startOf('year')), end: lateToday()},
+    {label: '1Y', start: flatDown(utc().subtract(1,'y')), end: lateToday()},
+    {label: 'ALL', start: flatDown(utc().subtract(10,'y')), end: lateToday()},
     {label: 'CUSTOM', start: utc(), end: utc()}
   ];
   activeDateFilterIndex: number = 3;
@@ -80,11 +80,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(
     private searchService: SearchService,
-    private progressBarService: ProgressBarService,
     private daterangepickerOptions: DaterangepickerConfig,
     public analyticsService: AnalyticsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private analyticsStorageService: AnalyticsStorageService
   ) {
     this.termFilterDebouncer$ = new Subject();
     this.unsubscribe$ = new Subject();
@@ -93,10 +93,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.searchService.dashboardFilterResults$.takeUntil(this.unsubscribe$).subscribe(results => {
       this.filterSearchResults = this.parseFilterSearchResults(results.hit);
-    });
-
-    this.analyticsService.transactionsSummaries$.takeUntil(this.unsubscribe$).subscribe(summaries => {
-      this.progressBarService.hideTopProgressBar();
     });
 
     this.termFilterDebouncer$
@@ -115,6 +111,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
         this.extractDateFromParams(data);
         this.extractFiltersFromParams(data);
+      } else {
+        this.extractFiltersFromStorage();
       }
 
       this.initDatepicker();
@@ -137,6 +135,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsubscribe$.next(true);
     this.unsubscribe$.complete();
+    this.analyticsService.clearAllSubjects();
   }
 
   filterTermInput(event): void {
@@ -202,7 +201,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getEndDate(): Moment {
-    return this.dateFilters[this.activeDateFilterIndex].end;
+    return flatUp(this.dateFilters[this.activeDateFilterIndex].end);
   }
 
   extractDateFromParams(data): void {
@@ -212,8 +211,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
       return;
     }
 
-    let sDate = utc(data['start']);
-    let eDate = utc(data['end']);
+    let sDate = flatDown(utc(data['start']));
+    let eDate = flatUp(utc(data['end']));
 
     let tempActive: number = -1;
     for (let i = 0; i < this.dateFilters.length; i++) {
@@ -232,7 +231,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  extractFiltersFromParams(data: any) : void {
+  extractFiltersFromParams(data: any): void {
     Object.keys(data).forEach(groupKey => {
       if (groupKey !== 'start' && groupKey !== 'end') {
         let group = data[groupKey];
@@ -242,6 +241,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
         })
       }
     });
+  }
+
+  extractFiltersFromStorage(): void {
+    let start = this.analyticsStorageService.getStartDate();
+    let end = this.analyticsStorageService.getEndDate();
+
+    if (start && end) {
+      this.extractDateFromParams({start: start, end: end});
+    }
+
+    let filterTerms = this.analyticsStorageService.getFilterTerms();
+    if (filterTerms) {
+      this.filterTerms = filterTerms;
+    }
   }
 
   getShareUrl(): string {
@@ -298,42 +311,34 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private fetchTransactionSummary(): void {
-    this.progressBarService.showTopProgressBar();
     this.analyticsService.getTransactionSummaries(this.getStartDate().format(), this.getEndDate().format(), this.filterTerms);
   }
 
   private fetchTransactionOverview(): void {
-    this.progressBarService.showTopProgressBar();
     this.analyticsService.getTransactionOverview(this.getStartDate().format(), this.getEndDate().format());
   }
 
   private fetchEventFunnel(): void {
-    this.progressBarService.showTopProgressBar();
     this.analyticsService.getEventFunnel(this.getStartDate().format(), this.getEndDate().format());
   }
 
   private fetchCampaignDelta(): void {
-    this.progressBarService.showTopProgressBar();
     this.analyticsService.getCampaignDelta(this.getStartDate().format(), this.getEndDate().format());
   }
 
   private fetchAffiliateEvents(): void {
-    this.progressBarService.showTopProgressBar();
     this.analyticsService.getAffiliateEvents(this.getStartDate().format(), this.getEndDate().format());
   }
 
   private fetchAffiliateTransactions(): void {
-    this.progressBarService.showTopProgressBar();
     this.analyticsService.getAffiliateTransactions(this.getStartDate().format(), this.getEndDate().format());
   }
 
   private fetchEventSummary(): void {
-    this.progressBarService.showTopProgressBar();
     this.analyticsService.getEventsSummary(this.getStartDate().format(), this.getEndDate().format());
   }
 
   private fetchCampaignsByAmount(): void {
-    this.progressBarService.showTopProgressBar();
     this.analyticsService.getCampaignsByAmount(this.getStartDate().format(), this.getEndDate().format());
   }
 
