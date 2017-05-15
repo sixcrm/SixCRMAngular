@@ -17,6 +17,9 @@ export class AffiliateEventsComponent implements OnInit {
 
   @Input() maxNumber: number;
 
+  @Input() title: string;
+  @Input() subtitle: string;
+
   @Input() set affiliateEvents(events: AffiliateEvents) {
     if (events) {
       this.affEvents = events;
@@ -121,19 +124,19 @@ export class AffiliateEventsComponent implements OnInit {
     let affs = this.affEvents.affiliates;
     let length = affs.length <= this.maxNumber ? affs.length : this.maxNumber;
 
-    let count = 0;
-    let percentage = 0;
-    for (let i = 0 ; i < length; i++) {
-      data.push({name: affs[i].affiliate.substring(0, 8) + '...', y: affs[i].count, color: this.colors[i+1]});
-      count += affs[i].count;
-      percentage += +affs[i].percentage.substr(0, affs[i].percentage.length-1);
+    if (length > 0) {
+      let count = 0;
+      let percentage = 0;
+      for (let i = 0; i < length; i++) {
+        data.push({name: affs[i].affiliate.substring(0, 8) + '...', y: affs[i].count, color: this.colors[i + 1]});
+        count += affs[i].count;
+        percentage += +affs[i].percentage.substr(0, affs[i].percentage.length - 1);
+      }
+
+      this.otherCount = count;
+      this.otherPercentage = Math.round((100 - percentage) * 100) / 100;
+      data.push({name: 'Other', y: this.otherCount, color: this.colors[0]});
     }
-
-    this.otherCount = count;
-    this.otherPercentage = Math.round( (100 - percentage) * 100) / 100;
-
-    data.push({name: 'Other', y: this.otherCount, color: this.colors[0]});
-
     return data;
   }
 

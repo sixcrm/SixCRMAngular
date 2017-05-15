@@ -88,6 +88,17 @@ export function eventsByAffiliateQuery(start: string, end: string): string {
   `
 }
 
+export function transactionsByAffiliateQuery(start: string, end: string): string {
+  return `
+  {
+		transactionsbyaffiliate (analyticsfilter:{${dateRange(start, end)}}) {
+			count
+			affiliates { affiliate count percentage }
+		}
+	}
+  `
+}
+
 export function eventsSummaryQuery(start: string, end: string): string {
   return `
   {

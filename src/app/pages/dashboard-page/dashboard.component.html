@@ -130,6 +130,19 @@
 
   <div class="dashboard__column dashboard__column--right">
     <funnel-graph></funnel-graph>
-    <affiliate-events [maxNumber]="5" [affiliateEvents]="analyticsService.affiliateEvents$ | async"></affiliate-events>
+
+    <affiliate-events
+      [title]="'Events by Affiliate'"
+      [subtitle]="'Events from the top Affiliates'"
+      [maxNumber]="5"
+      [affiliateEvents]="analyticsService.affiliateEvents$ | async">
+    </affiliate-events>
+
+    <affiliate-events
+      [title]="'Transactions by Affiliate'"
+      [subtitle]="'Transactions from the top Affiliates'"
+      [maxNumber]="5"
+      [affiliateEvents]="analyticsService.affiliateTransactions$ | async">
+    </affiliate-events>
   </div>
 </div>

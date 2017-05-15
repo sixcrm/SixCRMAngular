@@ -293,6 +293,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.fetchAffiliateEvents();
     this.fetchEventSummary();
     this.fetchCampaignDelta();
+    this.fetchAffiliateTransactions();
   }
 
   private fetchTransactionSummary(): void {
@@ -318,6 +319,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private fetchAffiliateEvents(): void {
     this.progressBarService.showTopProgressBar();
     this.analyticsService.getAffiliateEvents(this.getStartDate().format(), this.getEndDate().format());
+  }
+
+  private fetchAffiliateTransactions(): void {
+    this.progressBarService.showTopProgressBar();
+    this.analyticsService.getAffiliateTransactions(this.getStartDate().format(), this.getEndDate().format());
   }
 
   private fetchEventSummary(): void {
