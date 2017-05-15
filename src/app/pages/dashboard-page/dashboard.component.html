@@ -126,6 +126,8 @@
       <movers-card></movers-card>
       <dashboard-reports></dashboard-reports>
     </div>
+
+    <top-campaigns [campaigns]="analyticsService.campaignsByAmount$ | async"></top-campaigns>
   </div>
 
   <div class="dashboard__column dashboard__column--right">

@@ -114,6 +114,15 @@ export function eventsSummaryQuery(start: string, end: string): string {
 	}`
 }
 
+export function campaignsByAmountQuery(start: string, end: string): string {
+  return `
+  {
+    campaignsbyamount (analyticsfilter:{${dateRange(start, end)}}) {
+      campaigns { campaign amount }
+    }
+  }`
+}
+
 function dateRange(start: string, end: string): string {
   return `start:"${start}" end:"${end}"`;
 }

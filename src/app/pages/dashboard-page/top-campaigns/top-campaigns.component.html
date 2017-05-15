@@ -1,0 +1,28 @@
+<div class="dashboard__table-chart">
+  <div class="dashboard__table-chart__title">
+    <div class="dashboard__table-chart__title__main">Top Campaigns</div>
+    <div class="dashboard__table-chart__title__sub">Clicks & Conversions</div>
+    <md-icon>more_vert</md-icon>
+  </div>
+
+  <table *ngIf="campaigns" class="highlight">
+    <thead>
+      <tr>
+        <th class="clickable" *ngFor="let params of columnParams" (click)="sort(params)">
+          {{params.label}}
+          <ng-container *ngIf="params.label === sortParams.label">
+            <md-icon *ngIf="sortOrder === 'asc'">keyboard_arrow_up</md-icon>
+            <md-icon *ngIf="sortOrder !== 'asc'">keyboard_arrow_down</md-icon>
+          </ng-container>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let campaign of campaigns | sortEntities: sortParams.mappingFunction: sortOrder" [routerLink]="['/campaigns', campaign.campaign]">
+        <td *ngFor="let params of columnParams">{{params.mappingFunction(campaign)}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <md-spinner *ngIf="!campaigns"></md-spinner>
+</div>

@@ -15,6 +15,7 @@ import { MoversCardComponent } from './movers-card/movers-card.component';
 import { AffiliateEventsComponent } from './affiliate-events/affiliate-events.component';
 import { EventsSummaryComponent } from './events-summary/events-summary.component';
 import { TransactionSummaryComponent } from './transaction-summary/transaction-summary.component';
+import { TopCampaignsComponent } from './top-campaigns/top-campaigns.component';
 
 export function highchartsFactory() {
   let hc = require('highcharts');
@@ -45,7 +46,8 @@ export function highchartsFactory() {
     MoversCardComponent,
     AffiliateEventsComponent,
     EventsSummaryComponent,
-    TransactionSummaryComponent
+    TransactionSummaryComponent,
+    TopCampaignsComponent
   ],
   exports : [
   ],

@@ -294,6 +294,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.fetchEventSummary();
     this.fetchCampaignDelta();
     this.fetchAffiliateTransactions();
+    this.fetchCampaignsByAmount();
   }
 
   private fetchTransactionSummary(): void {
@@ -329,6 +330,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private fetchEventSummary(): void {
     this.progressBarService.showTopProgressBar();
     this.analyticsService.getEventsSummary(this.getStartDate().format(), this.getEndDate().format());
+  }
+
+  private fetchCampaignsByAmount(): void {
+    this.progressBarService.showTopProgressBar();
+    this.analyticsService.getCampaignsByAmount(this.getStartDate().format(), this.getEndDate().format());
   }
 
   private parseFilterSearchResults(results: any[]): FilterTerm[] {
