@@ -91,8 +91,8 @@ export abstract class AbstractEntityService<T> {
     );
   }
 
-  updateEntity(entity: T): void {
-    if (!this.hasWritePermission()) {
+  updateEntity(entity: T, ignorePermissions?: boolean): void {
+    if (!ignorePermissions && !this.hasWritePermission()) {
       return;
     }
 

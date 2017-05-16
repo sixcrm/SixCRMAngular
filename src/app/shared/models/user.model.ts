@@ -7,6 +7,8 @@ import {Moment, utc} from 'moment';
 export class User implements Entity<User> {
   id: string;
   name: string;
+  firstName: string;
+  lastName: string;
   auth0Id: string;
   email: string;
   active: string;
@@ -25,6 +27,8 @@ export class User implements Entity<User> {
 
     this.id = obj.id || '';
     this.name = obj.name || '';
+    this.firstName = obj.first_name || '';
+    this.lastName = obj.last_name || '';
     this.auth0Id = obj.auth0_id || '';
     this.email = obj.id || '';
     this.active = obj.active || '';
@@ -55,6 +59,8 @@ export class User implements Entity<User> {
     return {
       id: this.id,
       name: this.name,
+      first_name: this.firstName,
+      last_name: this.lastName,
       auth0_id: this.auth0Id,
       email: this.email,
       active: this.active,

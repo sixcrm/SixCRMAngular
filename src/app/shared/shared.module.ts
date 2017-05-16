@@ -36,6 +36,7 @@ import { ComingSoonComponent } from './components/coming-soon/coming-soon.compon
 import { ShareLinkComponent } from './components/share-link/share-link.component';
 import {SubArrayPipe} from './pipes/sub-array.pipe';
 import {AnalyticsStorageService} from './services/analytics-storage.service';
+import {UserSettingsService} from './services/user-settings.service';
 
 @NgModule({
   declarations : [
@@ -90,7 +91,8 @@ export class SharedModule {
         NotificationsQuickService,
         RebillsService,
         AnalyticsService,
-        AnalyticsStorageService
+        AnalyticsStorageService,
+        UserSettingsService
       ]
     };
   }

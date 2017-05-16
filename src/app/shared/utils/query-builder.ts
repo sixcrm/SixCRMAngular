@@ -11,6 +11,7 @@ import {Customer} from '../models/customer.model';
 import {CustomerNote} from '../models/customer-note.model';
 import {Notification} from '../models/notification.model';
 import {utc} from 'moment'
+import {UserSettings} from '../models/user-settings';
 
 const uuidV4 = require('uuid/v4');
 
@@ -790,7 +791,7 @@ export function userQuery(id: string): string {
 
 export function userIntrospection(): string {
   return `{
-    userintrospection { id name auth0_id active termsandconditions
+    userintrospection { id name first_name last_name auth0_id active termsandconditions
       acl {
         account { id name active }
         role { id name active 
@@ -809,8 +810,8 @@ export function deleteUserMutation(id: string): string {
 export function updateUserMutation(user: User): string {
   return `
     mutation {
-      updateuser (user: { id: "${user.id}", auth0_id: "${user.auth0Id}", name: "${user.name}", active:"${user.active}", termsandconditions:"${user.termsAndConditions}", address:{line1: "${user.address.line2}", line2:"${user.address.line1}", city:"${user.address.city}", state:"${user.address.state}", zip:"${user.address.zip}", country:"${user.address.country}"}}) {
-        id name auth0_id active
+      updateuser (user: { id: "${user.id}", auth0_id: "${user.auth0Id}", name: "${user.name}", first_name: "${user.firstName}", last_name: "${user.lastName}", active:"${user.active}", termsandconditions:"${user.termsAndConditions}"}) {
+        id name auth0_id active first_name last_name
         address { line1 line2 city state zip country }
         acl {
           account { id name active }
@@ -819,16 +820,6 @@ export function updateUserMutation(user: User): string {
         termsandconditions
 		  }
     }`;
-}
-
-export function createUserForRegistration(email: string, auth0Id: string): string {
-  return `
-    mutation {
-		  createuser (
-		    user: {id: "${email}" auth0_id: "${auth0Id}", name: "${email}", active: "false", termsandconditions:"0" }) {
-			    id auth0_id name active termsandconditions
-			}
-	}`
 }
 
 export function updateUserForRegistration(user: User): string {
@@ -983,6 +974,56 @@ export function updateNotificationMutation(notification: Notification): string {
 			  id user account type action message read_at created_at updated_at
 		  }
     }`;
+}
+
+export function userSettingsQuery(id: string): string {
+  return `
+  {
+		usersetting (id: "${id}") {
+			id work_phone cell_phone timezone created_at updated_at
+			notifications { name receive data }
+		}
+	}`
+}
+
+export function updateUserSettingsMutation(userSettings: UserSettings): string {
+  let notificationString = '';
+  userSettings.notificationSettings.forEach(notification => {
+    notificationString += `{name: "${notification.name}", receive: ${notification.receive}`;
+    notificationString += notification.data ? `, data: "${notification.data}"` : '';
+    notificationString += '},'
+  });
+  if (notificationString) {
+    notificationString = `, notifications: [${notificationString}]`;
+  }
+
+  let updateString = `id: "${userSettings.id}", work_phone: "${userSettings.workPhone}", cell_phone: "${userSettings.cellPhone}", timezone: "${userSettings.timezone}" ${notificationString}`;
+
+  return `
+    mutation {
+		updateusersetting (usersetting: { ${updateString} }) {
+			id work_phone cell_phone timezone created_at updated_at
+			notifications { name receive data }
+		}
+	}
+  `
+}
+
+export function defaultNotificationSettingsQuery(): string {
+  return `
+    {
+		  notificationsettingdefault {
+        notification_groups { key name description display
+          notifications { key name description default }
+        }
+		  }
+	  }`
+}
+
+export function notificationSettingsQuery(id: string): string {
+  return `{
+    notificationsetting (id: "${id}") { id settings created_at updated_at }
+  }`
 }
 
 function pageParams(limit?: number, cursor?: string, noBraces?:boolean): string {

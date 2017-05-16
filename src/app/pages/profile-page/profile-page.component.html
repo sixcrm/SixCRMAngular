@@ -3,17 +3,17 @@
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <div *ngIf="entity">
+  <div *ngIf="user">
     <div class="entity-view__info">
       <div class="entity-view__info__image">
-        <img src="{{ entity.picture }}" alt="">
+        <img src="{{ user.picture }}" alt="">
       </div>
       <div class="entity-view__info__data">
-        <div class="entity-view__info__data__date">Created: {{entity.createdAt.format('MM/DD/YYYY')}}</div>
-        <div class="entity-view__info__data__name">{{entity.name}}</div>
+        <div class="entity-view__info__data__date">Created: {{user.createdAt.format('MM/DD/YYYY')}}</div>
+        <div class="entity-view__info__data__name">{{user.name}}</div>
         <div class="entity-view__info__data__other">
-          <span><md-icon>phone</md-icon>{{entity.phone || '000-000-000'}}</span>
-          <span><md-icon>email</md-icon>{{entity.email}}</span>
+          <span><md-icon>phone</md-icon>{{user.phone || '000-000-000'}}</span>
+          <span><md-icon>email</md-icon>{{user.email}}</span>
         </div>
       </div>
     </div>
@@ -27,7 +27,7 @@
     <div class="profile-page__content">
       <md-tab-group [(selectedIndex)]="selectedIndex">
         <md-tab>
-          <div class="profile-page__content__general">
+          <div *ngIf="userSettings" class="profile-page__content__general">
             <div class="profile-page__content__general__title">
               <div class="profile-page__content__general__title__main">Profile</div>
               <div class="profile-page__content__general__title__sub">general information</div>
@@ -35,25 +35,25 @@
             </div>
 
             <div class="profile-page__content__general__data">
-              <md-input placeholder="First name" [(ngModel)]="entityBackup.name"></md-input>
-              <md-input placeholder="Last name"></md-input>
-              <md-input placeholder="Work phone"></md-input>
-              <md-input placeholder="Cell phone"></md-input>
+              <md-input placeholder="First name" [(ngModel)]="userBackup.firstName"></md-input>
+              <md-input placeholder="Last name" [(ngModel)]="userBackup.lastName"></md-input>
+              <md-input placeholder="Work phone" [(ngModel)]="userSettingsBackup.workPhone"></md-input>
+              <md-input placeholder="Cell phone" [(ngModel)]="userSettingsBackup.cellPhone"></md-input>
               <div class="profile-page__content__general__data__dropdown">
-                <span [md-menu-trigger-for]="timezoneMenu" [class.unselected]="!timezone">
-                  {{timezone || 'Timezone'}}
+                <span [md-menu-trigger-for]="timezoneMenu" [class.unselected]="!userSettingsBackup.timezone">
+                  {{userSettingsBackup.timezone || 'Timezone'}}
                   <md-icon>keyboard_arrow_down</md-icon>
                 </span>
               </div>
 
               <md-menu #timezoneMenu="mdMenu" x-position="after">
-                <button md-menu-item *ngFor="let tz of timezones" (click)="timezone = tz"> {{tz}} </button>
+                <button md-menu-item *ngFor="let tz of timezones" (click)="userSettingsBackup.timezone = tz"> {{tz}} </button>
               </md-menu>
 
-              <md-input placeholder="Email" [(ngModel)]="entityBackup.email"></md-input>
+              <md-input placeholder="Email" [value]="user.email"></md-input>
             </div>
 
-            <div class="profile-page__content__general__button">Update</div>
+            <div class="profile-page__content__general__button" (click)="updateUserDetails()">Update</div>
           </div>
         </md-tab>
 
@@ -65,8 +65,12 @@
                 <div class="profile-page__content__notifications__title__sub">Toggle on/off when you receive notifications</div>
               </div>
 
-              <div class="profile-page__content__notifications__body">
-                <md-slide-toggle *ngFor="let device of notificationDevices" [(ngModel)]="device.selected" [color]="'primary'">{{device.name}}</md-slide-toggle>
+              <div *ngIf="userSettings" class="profile-page__content__notifications__body">
+                <md-slide-toggle
+                  *ngFor="let settings of userSettings.notificationSettings"
+                  [(ngModel)]="settings.receive"
+                  (change)="userSettingsFieldUpdated()"
+                  [color]="'primary'">{{deviceLabels[settings.name]}}</md-slide-toggle>
               </div>
             </div>
             <div class="profile-page__content__notifications__item">
@@ -77,10 +81,10 @@
               </div>
 
               <div class="profile-page__content__notifications__body">
-                <md-input placeholder="SMS number"></md-input>
-                <md-input placeholder="Email"></md-input>
-                <md-input placeholder="Skype"></md-input>
-                <md-input placeholder="Slack web hook"></md-input>
+                <md-input placeholder="SMS number" (input)="userSettingsFieldUpdated()" [(ngModel)]="getNotificationUserSettings('sms').data"></md-input>
+                <md-input placeholder="Email" (input)="userSettingsFieldUpdated()" [(ngModel)]="getNotificationUserSettings('email').data"></md-input>
+                <md-input placeholder="Skype" (input)="userSettingsFieldUpdated()" [(ngModel)]="getNotificationUserSettings('skype').data"></md-input>
+                <md-input placeholder="Slack web hook" (input)="userSettingsFieldUpdated()" [(ngModel)]="getNotificationUserSettings('slack').data"></md-input>
               </div>
             </div>
             <div class="profile-page__content__notifications__item">
@@ -92,22 +96,13 @@
 
               <div class="profile-page__content__notifications__body">
                 <table class="highlight">
-                  <thead>
-                    <tr>
-                      <th>Notifications</th>
-                      <ng-container *ngFor="let device of notificationDevices">
-                        <th *ngIf="device.selected">{{device.name}}</th>
-                      </ng-container>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    <tr *ngFor="let option of notificationOptions">
-                      <td>{{option.name}}</td>
-                      <ng-container *ngFor="let device of notificationDevices">
-                        <td *ngIf="device.selected"><md-checkbox [color]="'primary'" [(ngModel)]="option.getDevice(device.name).selected"></md-checkbox></td>
-                      </ng-container>
-                    </tr>
+                  <tbody *ngIf="notificationSettings && notificationSettings.settings">
+                    <ng-container *ngFor="let group of notificationSettings.settings.notificationGroups">
+                      <tr *ngFor="let notification of group.notifications">
+                        <td>{{notification.name}}</td>
+                        <td><md-checkbox [color]="'primary'" [(ngModel)]="notification.default"></md-checkbox></td>
+                      </tr>
+                    </ng-container>
                   </tbody>
                 </table>
               </div>

@@ -1,19 +1,21 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AuthenticationService} from "../../authentication/authentication.service";
 import {User} from '../../shared/models/user.model';
-import {AbstractEntityViewComponent} from '../abstract-entity-view.component';
 import {UsersService} from '../../shared/services/users.service';
 import {NavigationService} from '../../navigation/navigation.service';
-import {ActivatedRoute} from '@angular/router';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {Acl} from '../../shared/models/acl.model';
+import {Subject} from 'rxjs';
+import {UserSettings, NotificationUserSettings} from '../../shared/models/user-settings';
+import {UserSettingsService} from '../../shared/services/user-settings.service';
+import {NotificationSettings, NotificationSettingsData} from '../../shared/models/notification-settings.model';
 
 @Component({
   selector: 'profile-page',
   templateUrl: 'profile-page.component.html',
   styleUrls: ['profile-page.component.scss']
 })
-export class ProfilePageComponent extends AbstractEntityViewComponent<User> implements OnInit, OnDestroy {
+export class ProfilePageComponent implements OnInit, OnDestroy {
 
   timezone: string;
   timezones: string[] = ['PST', 'UTC', 'CEST'];
@@ -23,56 +25,85 @@ export class ProfilePageComponent extends AbstractEntityViewComponent<User> impl
 
   accounts: EntitySelectable<Acl>[] = [];
 
-  notificationDevices: NotificationDevice[] = [
-    new NotificationDevice('SixCRM', true),
-    new NotificationDevice('iOS App'),
-    new NotificationDevice('SMS', true),
-    new NotificationDevice('E-Mail'),
-    new NotificationDevice('Slack', true),
-    new NotificationDevice('Skype')
-  ];
+  user: User;
+  userBackup: User;
+  userSettings: UserSettings;
+  userSettingsBackup: UserSettings;
 
-  notificationOptions: NotificationOptions[] = [
-    new NotificationOptions('Invitation sent'),
-    new NotificationOptions('Invitation accepted'),
-    new NotificationOptions('Lead'),
-    new NotificationOptions('Order'),
-    new NotificationOptions('Upsell'),
-    new NotificationOptions('Decline'),
-    new NotificationOptions('Cancellation'),
-    new NotificationOptions('Rebill'),
-    new NotificationOptions('Mid')
-  ];
+  notificationSettings: NotificationSettings;
+  defaultNotificationSettings: NotificationSettingsData;
+
+  private userSettingsUpdateDebouncer: Subject<boolean> = new Subject();
+  private unsubscribe$: Subject<boolean> = new Subject();
+
+  deviceLabels = {
+    six: 'SixCRM',
+    email: 'E-Mail',
+    sms: 'SMS',
+    skype: 'Skype',
+    slack: 'Slack'
+  };
 
   constructor(
-    service: UsersService,
+    private userService: UsersService,
+    private userSettingsService: UserSettingsService,
     private authService: AuthenticationService,
     public navigation: NavigationService,
-    route: ActivatedRoute,
-    progressBarService: ProgressBarService
-  ) {
-    super(service, route, progressBarService);
-  }
+    private progressBarService: ProgressBarService
+  ) { }
 
   ngOnInit() {
+    this.userSettingsService.entity$.merge(this.userSettingsService.entityUpdated$).takeUntil(this.unsubscribe$).subscribe(userSettings => {
+      this.progressBarService.hideTopProgressBar();
+      this.userSettings = userSettings;
+      if (!this.userSettings.id) {
+        this.userSettings.id = this.user.id;
+      }
+
+      this.userSettingsBackup = this.userSettings.copy();
+    });
+
+    // six user observable is behaviour subject, and six user is fetched at app load (userintrospection)
     this.authService.sixUser$.takeUntil(this.unsubscribe$).subscribe((user: User) => {
-      this.entity = user;
-      this.entityBackup = this.entity.copy();
+      this.user = user;
+      this.userBackup = this.user.copy();
 
       this.accounts = [];
-      this.entity.acls.forEach(acl => this.accounts.push(new EntitySelectable(acl)));
+      this.user.acls.forEach(acl => this.accounts.push(new EntitySelectable(acl)));
+
+      if (this.user.id && !this.userSettings) {
+        this.userSettingsService.getEntity(this.user.id);
+      }
+
+      if (this.user.id && !this.notificationSettings) {
+        this.userSettingsService.fetchNotificationSettings(this.user.id);
+      }
     });
 
-    this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe((user: User) => {
-      this.authService.updateSixUser(user);
+    this.userService.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(user => this.authService.updateSixUser(user));
+
+    this.userSettingsService.defaultNotificationSettings$.takeUntil(this.unsubscribe$).subscribe(settings => {
+      this.defaultNotificationSettings = settings;
+      this.notificationSettings.settings = settings;
     });
 
-    this.fetchEntityOnInit = false;
-    this.init();
+    this.userSettingsService.notificationSettings$.takeUntil(this.unsubscribe$).subscribe(settings => {
+      this.notificationSettings = settings;
+
+      if (!this.notificationSettings.settings) {
+        this.userSettingsService.fetchDefaultNotificationSettings();
+      }
+    });
+
+    this.userSettingsUpdateDebouncer.takeUntil(this.unsubscribe$).debounceTime(2000).subscribe(() => {
+      this.progressBarService.showTopProgressBar();
+      this.userSettingsService.updateEntity(this.userSettings);
+    });
   }
 
   ngOnDestroy() {
-    this.destroy();
+    this.unsubscribe$.next(true);
+    this.unsubscribe$.complete();
   }
 
   setIndex(index: number): void {
@@ -83,44 +114,26 @@ export class ProfilePageComponent extends AbstractEntityViewComponent<User> impl
     return countSelected(this.accounts);
   }
 
-
-
-}
-
-export class NotificationOptions {
-  name: string;
-  devices: NotificationDevice[] = [];
-
-  constructor(name: string) {
-    this.name = name;
-    this.devices = [
-      new NotificationDevice('SixCRM', true),
-      new NotificationDevice('iOS App', name === 'Invitation sent'),
-      new NotificationDevice('SMS', name === 'Invitation sent'),
-      new NotificationDevice('E-Mail', name === 'Invitation sent'),
-      new NotificationDevice('Slack', name === 'Invitation sent'),
-      new NotificationDevice('Skype', name === 'Invitation sent')
-    ];
+  updateUserDetails(): void {
+    this.progressBarService.showTopProgressBar();
+    this.userService.updateEntity(this.userBackup, true);
+    this.userSettingsService.updateEntity(this.userSettingsBackup)
   }
 
-  getDevice(name: string): NotificationDevice {
-    for (let i = 0; i < this.devices.length; i++) {
-      if (this.devices[i].name === name) {
-        return this.devices[i];
+  getNotificationUserSettings(name: string): NotificationUserSettings {
+    if (!this.userSettings) return new NotificationUserSettings();
+
+    for (let i = 0; this.userSettings.notificationSettings.length; i++) {
+      if (this.userSettings.notificationSettings[i].name === name) {
+        return this.userSettings.notificationSettings[i];
       }
     }
 
-    return null;
+    return new NotificationUserSettings();
   }
-}
 
-export class NotificationDevice {
-  name: string;
-  selected: boolean;
-
-  constructor(name: string, selected?: boolean) {
-    this.name = name;
-    this.selected = !!selected;
+  userSettingsFieldUpdated(): void {
+    this.userSettingsUpdateDebouncer.next(true);
   }
 }
 

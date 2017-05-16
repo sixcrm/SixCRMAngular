@@ -299,6 +299,10 @@ export class AuthenticationService {
   }
 
   public updateSixUser(user: User): void {
+    if (!user.picture) {
+      user.picture = this.currentSixUser.picture;
+    }
+
     localStorage.setItem(this.sixUser, JSON.stringify(user.inverse()));
     this.currentSixUser = user;
     this.sixUser$.next(user);

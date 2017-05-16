@@ -8,7 +8,7 @@ import {NavigationService} from '../../../navigation/navigation.service';
 })
 export class ComingSoonComponent implements OnInit {
 
-  constructor(private navigation: NavigationService) { }
+  constructor(public navigation: NavigationService) { }
 
   ngOnInit() {
   }
