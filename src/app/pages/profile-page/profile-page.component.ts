@@ -38,6 +38,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
   deviceLabels = {
     six: 'SixCRM',
+    ios: 'iOS App',
     email: 'E-Mail',
     sms: 'SMS',
     skype: 'Skype',
