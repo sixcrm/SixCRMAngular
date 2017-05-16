@@ -255,6 +255,7 @@ $color-orange: #F16C00;
         left: 100%;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
         background-color: white;
+        z-index: 5;
 
         &__item {
           width: 150px;
