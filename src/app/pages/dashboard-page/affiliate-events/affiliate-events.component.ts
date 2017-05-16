@@ -86,8 +86,8 @@ export class AffiliateEventsComponent implements OnInit {
       height = 34;
     }
 
-    // every row + header
-    return (this.getCount() + 1) * height + 'px';
+    // every row + header + others
+    return (this.getCount() + 2) * height + 'px';
   }
 
   saveChart(chartInstance): void {
@@ -128,14 +128,16 @@ export class AffiliateEventsComponent implements OnInit {
       let count = 0;
       let percentage = 0;
       for (let i = 0; i < length; i++) {
-        data.push({name: affs[i].affiliate.substring(0, 8) + '...', y: affs[i].count, color: this.colors[i + 1]});
+        let perc = +affs[i].percentage.substr(0, affs[i].percentage.length - 1);
+        data.push({name: affs[i].affiliate.substring(0, 8) + '...', y: perc, color: this.colors[i + 1]});
+
         count += affs[i].count;
-        percentage += +affs[i].percentage.substr(0, affs[i].percentage.length - 1);
+        percentage += perc;
       }
 
       this.otherCount = count;
       this.otherPercentage = Math.round((100 - percentage) * 100) / 100;
-      data.push({name: 'Other', y: this.otherCount, color: this.colors[0]});
+      data.push({name: 'Other', y: this.otherPercentage, color: this.colors[0]});
     }
     return data;
   }
