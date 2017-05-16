@@ -7,30 +7,35 @@ import {EventSummary} from '../models/event-summary.model';
 import {CampaignDelta} from '../models/campaign-delta.model';
 import {CampaignStats} from '../models/campaign-stats.model';
 import {FilterTerm} from '../../pages/dashboard-page/dashboard.component';
+import {Moment, utc} from 'moment';
 
 export class AnalyticsStateEntry<T> {
   startDate: string;
   endDate: string;
   entry: T;
   filters: FilterTerm[] = [];
+  private createdAt: Moment;
 
   constructor(startDate: string, endDate: string, entry: T) {
     this.startDate = startDate;
     this.endDate = endDate;
     this.entry = entry;
+    this.createdAt = utc();
   }
 
   setFilters(filters: FilterTerm[]): AnalyticsStateEntry<T> {
-    if (!filters) {
-      this.filters = [];
-    } else {
+    if (filters) {
       this.filters = filters.slice();
     }
 
     return this;
   }
 
-  match(filters: FilterTerm[]): boolean {
+  isExpired(): boolean {
+    return this.createdAt.isSameOrBefore(utc().subtract(30, 'minutes'));
+  }
+
+  matchFilters(filters: FilterTerm[]): boolean {
     if (!filters) {
       filters = [];
     }
@@ -89,7 +94,7 @@ export class AnalyticsStorageService {
   getEventFunnel(start: string, end: string): EventFunnel {
     let funnelEntry: AnalyticsStateEntry<EventFunnel> = this.storage[this.eventFunnelKey];
 
-    if (!funnelEntry || funnelEntry.startDate !== start || funnelEntry.endDate !== end) return null;
+    if (this.isInvalid(funnelEntry, start, end)) return null;
 
     return funnelEntry.entry
   }
@@ -103,7 +108,7 @@ export class AnalyticsStorageService {
   getEventsByAffiliate(start: string, end: string): AffiliateEvents {
     let eventsEntry: AnalyticsStateEntry<AffiliateEvents> = this.storage[this.eventsByAffiliateKey];
 
-    if (!eventsEntry || eventsEntry.startDate !== start || eventsEntry.endDate !== end) return null;
+    if (this.isInvalid(eventsEntry, start, end)) return null;
 
     return eventsEntry.entry
   }
@@ -117,7 +122,7 @@ export class AnalyticsStorageService {
   getTransactionsByAffiliate(start: string, end: string): AffiliateEvents {
     let eventsEntry: AnalyticsStateEntry<AffiliateEvents> = this.storage[this.transactionsByAffiliateKey];
 
-    if (!eventsEntry || eventsEntry.startDate !== start || eventsEntry.endDate !== end) return null;
+    if (this.isInvalid(eventsEntry, start, end)) return null;
 
     return eventsEntry.entry
   }
@@ -131,9 +136,9 @@ export class AnalyticsStorageService {
   getTransactionSummaries(start: string, end: string, filters?: FilterTerm[]): TransactionSummary[] {
     let summariesEntry: AnalyticsStateEntry<TransactionSummary[]> = this.storage[this.transactionSummariesKey];
 
-    if (!summariesEntry || summariesEntry.startDate !== start || summariesEntry.endDate !== end) return null;
+    if (this.isInvalid(summariesEntry, start, end)) return null;
 
-    if (!summariesEntry.match(filters)) return null;
+    if (!summariesEntry.matchFilters(filters)) return null;
 
     return summariesEntry.entry
   }
@@ -148,7 +153,7 @@ export class AnalyticsStorageService {
   getTransactionOverview(start: string, end: string): TransactionOverview {
     let overviewEntry: AnalyticsStateEntry<TransactionOverview> = this.storage[this.transactionOverviewKey];
 
-    if (!overviewEntry || overviewEntry.startDate !== start || overviewEntry.endDate !== end) return null;
+    if (this.isInvalid(overviewEntry, start, end)) return null;
 
     return overviewEntry.entry
   }
@@ -162,7 +167,7 @@ export class AnalyticsStorageService {
   getEventSummary(start: string, end: string): EventSummary[] {
     let summaryEntry: AnalyticsStateEntry<EventSummary[]> = this.storage[this.eventSummaryKey];
 
-    if (!summaryEntry || summaryEntry.startDate !== start || summaryEntry.endDate !== end) return null;
+    if (this.isInvalid(summaryEntry, start, end)) return null;
 
     return summaryEntry.entry
   }
@@ -176,7 +181,7 @@ export class AnalyticsStorageService {
   getCampaignsDelta(start: string, end: string): CampaignDelta[] {
     let deltaEntry: AnalyticsStateEntry<CampaignDelta[]> = this.storage[this.campaignsDeltaKey];
 
-    if (!deltaEntry || deltaEntry.startDate !== start || deltaEntry.endDate !== end) return null;
+    if (this.isInvalid(deltaEntry, start, end)) return null;
 
     return deltaEntry.entry
   }
@@ -190,7 +195,7 @@ export class AnalyticsStorageService {
   getCampaignsByAmount(start: string, end: string): CampaignStats[] {
     let campaignEntry: AnalyticsStateEntry<CampaignStats[]> = this.storage[this.campaignsByAmountKey];
 
-    if (!campaignEntry || campaignEntry.startDate !== start || campaignEntry.endDate !== end) return null;
+    if (this.isInvalid(campaignEntry, start, end)) return null;
 
     return campaignEntry.entry
   }
@@ -199,6 +204,10 @@ export class AnalyticsStorageService {
     this.saveStartEnd(start, end);
 
     this.storage[this.campaignsByAmountKey] = new AnalyticsStateEntry(start, end, campaigns);
+  }
+
+  private isInvalid(entry: any, start: string, end: string): boolean {
+    return !entry || entry.startDate !== start || entry.endDate !== end || entry.isExpired();
   }
 
   private saveStartEnd(start: string, end: string): void {
