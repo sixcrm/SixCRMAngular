@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable, Subject, BehaviorSubject} from 'rxjs';
+import {Observable, BehaviorSubject} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {EventFunnel} from '../models/event-funnel.model';
@@ -41,7 +41,7 @@ export class AnalyticsService {
   }
 
   getTransactionSummaries(start: string, end: string, filters: FilterTerm[], additionalFilters?: any[]): void {
-    let summariesStorage = this.analyticsStorage.getTransactionSummaries(start, end);
+    let summariesStorage = this.analyticsStorage.getTransactionSummaries(start, end, filters);
 
     if (summariesStorage) {
       this.transactionsSummaries$.next(summariesStorage);
@@ -53,7 +53,7 @@ export class AnalyticsService {
           if (transactions) {
             let s = transactions.map(t => new TransactionSummary(t));
             this.transactionsSummaries$.next(s);
-            this.analyticsStorage.setTransactionSummaries(start, end, s);
+            this.analyticsStorage.setTransactionSummaries(start, end, s, filters);
           }
         },
         (error) => {

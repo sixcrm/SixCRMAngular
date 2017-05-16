@@ -251,7 +251,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.extractDateFromParams({start: start, end: end});
     }
 
-    let filterTerms = this.analyticsStorageService.getFilterTerms();
+    let filterTerms = this.analyticsStorageService.getFilters();
     if (filterTerms) {
       this.filterTerms = filterTerms;
     }
