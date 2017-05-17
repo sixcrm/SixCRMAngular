@@ -65,6 +65,7 @@ export class AnalyticsStorageService {
   private startKey: string = 'start_filter';
   private endKey: string = 'end_filter';
   private filters: string = 'additional_filters';
+  private lastUpdated: string = 'last_updated';
 
   private eventFunnelKey: string = 'event_funnel';
   private eventsByAffiliateKey: string = 'events_by_affiliate';
@@ -79,6 +80,10 @@ export class AnalyticsStorageService {
 
   constructor() {}
 
+  refresh(): void {
+    this.storage = {};
+  }
+
   getStartDate(): string {
     return this.storage[this.startKey];
   }
@@ -89,6 +94,10 @@ export class AnalyticsStorageService {
 
   getFilters(): FilterTerm[] {
     return this.storage[this.filters];
+  }
+
+  getLastUpdatedTime(): Moment {
+    return utc(this.storage[this.lastUpdated]);
   }
 
   getEventFunnel(start: string, end: string): EventFunnel {
@@ -213,6 +222,7 @@ export class AnalyticsStorageService {
   private saveStartEnd(start: string, end: string): void {
     this.storage[this.startKey] = start;
     this.storage[this.endKey] = end;
+    this.storage[this.lastUpdated] = utc();
   }
 
   private saveFilters(filters: FilterTerm[]): void {

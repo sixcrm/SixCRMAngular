@@ -299,6 +299,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.fetchAll();
   }
 
+  getLastUpdatedTime(): string {
+    return `Refresh Dashboard. Last update: ${this.analyticsStorageService.getLastUpdatedTime().format('LT')}`;
+  }
+
+  refresh(): void {
+    this.analyticsStorageService.refresh();
+    this.analyticsService.clearAllSubjects();
+    this.fetchAll();
+  }
+
   private fetchAll(): void {
     this.fetchEventFunnel();
     this.fetchTransactionOverview();

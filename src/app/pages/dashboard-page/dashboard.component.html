@@ -46,6 +46,7 @@
         </div>
 
         <div class="dashboard__filters__icons">
+          <md-icon class="refresh-icon" (click)="refresh()" md-tooltip="{{getLastUpdatedTime()}}" mdTooltipPosition="left">refresh</md-icon>
           <share-link [shareUrl]="getShareUrl()"></share-link>
           <md-icon>more_vert</md-icon>
         </div>
