@@ -42,7 +42,7 @@ export class NotificationGroup {
 }
 
 export class NotificationSettingsData {
-  notificationGroups: NotificationGroup[] = [];
+  notification_groups: NotificationGroup[] = [];
 
   constructor(obj?: any) {
     if (!obj) {
@@ -50,7 +50,7 @@ export class NotificationSettingsData {
     }
 
     if (obj.notification_groups) {
-      obj.notification_groups.forEach(group => this.notificationGroups.push(new NotificationGroup(group)));
+      obj.notification_groups.forEach(group => this.notification_groups.push(new NotificationGroup(group)));
     }
   }
 }
@@ -67,7 +67,7 @@ export class NotificationSettings {
     }
 
     this.id = obj.id || '';
-    this.settings = obj.settings ? new NotificationSettingsData(obj.settings) : null;
+    this.settings = obj.settings ? new NotificationSettingsData(JSON.parse(obj.settings)) : null;
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
   }

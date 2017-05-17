@@ -9,6 +9,7 @@ import {Subject} from 'rxjs';
 import {UserSettings, NotificationUserSettings} from '../../shared/models/user-settings';
 import {UserSettingsService} from '../../shared/services/user-settings.service';
 import {NotificationSettings, NotificationSettingsData} from '../../shared/models/notification-settings.model';
+import {NotificationSettingsService} from '../../shared/services/notification-settings.service';
 
 @Component({
   selector: 'profile-page',
@@ -34,6 +35,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   defaultNotificationSettings: NotificationSettingsData;
 
   private userSettingsUpdateDebouncer: Subject<boolean> = new Subject();
+  private notificationSettingsUpdateDebouncer: Subject<boolean> = new Subject();
   private unsubscribe$: Subject<boolean> = new Subject();
 
   deviceLabels = {
@@ -48,6 +50,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UsersService,
     private userSettingsService: UserSettingsService,
+    private notificationSettingsService: NotificationSettingsService,
     private authService: AuthenticationService,
     public navigation: NavigationService,
     private progressBarService: ProgressBarService
@@ -64,6 +67,31 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
       this.userSettingsBackup = this.userSettings.copy();
     });
 
+    this.userService.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(user => this.authService.updateSixUser(user));
+
+    this.notificationSettingsService.defaultNotificationSettings$.takeUntil(this.unsubscribe$).subscribe(settings => {
+      this.defaultNotificationSettings = settings;
+      this.notificationSettings.settings = settings;
+      this.notificationSettings.id = this.user.id;
+
+      console.log(this.notificationSettings);
+      this.notificationSettingsService.createEntity(this.notificationSettings);
+    });
+
+    this.notificationSettingsService.entity$.takeUntil(this.unsubscribe$).subscribe(settings => {
+      this.notificationSettings = settings;
+
+      if (!this.notificationSettings.settings) {
+        this.notificationSettingsService.fetchDefaultNotificationSettings();
+      }
+    });
+
+    this.notificationSettingsService.entityCreated$
+      .merge(this.notificationSettingsService.entityUpdated$).takeUntil(this.unsubscribe$).subscribe(settings => {
+        this.progressBarService.hideTopProgressBar();
+        this.notificationSettings = settings;
+      });
+
     // six user observable is behaviour subject, and six user is fetched at app load (userintrospection)
     this.authService.sixUser$.takeUntil(this.unsubscribe$).subscribe((user: User) => {
       this.user = user;
@@ -77,22 +105,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
       }
 
       if (this.user.id && !this.notificationSettings) {
-        this.userSettingsService.fetchNotificationSettings(this.user.id);
-      }
-    });
-
-    this.userService.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(user => this.authService.updateSixUser(user));
-
-    this.userSettingsService.defaultNotificationSettings$.takeUntil(this.unsubscribe$).subscribe(settings => {
-      this.defaultNotificationSettings = settings;
-      this.notificationSettings.settings = settings;
-    });
-
-    this.userSettingsService.notificationSettings$.takeUntil(this.unsubscribe$).subscribe(settings => {
-      this.notificationSettings = settings;
-
-      if (!this.notificationSettings.settings) {
-        this.userSettingsService.fetchDefaultNotificationSettings();
+        this.notificationSettingsService.getEntity(this.user.id);
       }
     });
 
@@ -100,6 +113,11 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
       this.progressBarService.showTopProgressBar();
       this.userSettingsService.updateEntity(this.userSettings);
     });
+
+    this.notificationSettingsUpdateDebouncer.takeUntil(this.unsubscribe$).debounceTime(2000).subscribe(() => {
+      this.progressBarService.showTopProgressBar();
+      this.notificationSettingsService.updateEntity(this.notificationSettings)
+    })
   }
 
   ngOnDestroy() {
@@ -135,6 +153,10 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
   userSettingsFieldUpdated(): void {
     this.userSettingsUpdateDebouncer.next(true);
+  }
+
+  notificationSettingsFieldUpdated(): void {
+    this.notificationSettingsUpdateDebouncer.next(true);
   }
 }
 

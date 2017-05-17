@@ -12,6 +12,7 @@ import {CustomerNote} from '../models/customer-note.model';
 import {Notification} from '../models/notification.model';
 import {utc} from 'moment'
 import {UserSettings} from '../models/user-settings';
+import {NotificationSettings} from '../models/notification-settings.model';
 
 const uuidV4 = require('uuid/v4');
 
@@ -1024,6 +1025,28 @@ export function notificationSettingsQuery(id: string): string {
   return `{
     notificationsetting (id: "${id}") { id settings created_at updated_at }
   }`
+}
+
+export function createNotificationSettingsMutation(notificationSettings: NotificationSettings): string {
+  let settings = JSON.stringify(notificationSettings.settings).replace(/"/g, '\\"');
+
+  return `
+    mutation {
+      createnotificationsetting (notificationsetting: { id: "${notificationSettings.id}", settings:"${settings}"}) {
+        id settings created_at updated_at
+      }
+    }`
+}
+
+export function updateNotificationSettingsMutation(notificationSettings: NotificationSettings): string {
+  let settings = JSON.stringify(notificationSettings.settings).replace(/"/g, '\\"');
+
+  return `
+    mutation {
+      updatenotificationsetting (notificationsetting: { id: "${notificationSettings.id}", settings:"${settings}"}) {
+        id settings created_at updated_at
+      }
+    }`
 }
 
 function pageParams(limit?: number, cursor?: string, noBraces?:boolean): string {

@@ -97,10 +97,10 @@
               <div class="profile-page__content__notifications__body">
                 <table class="highlight">
                   <tbody *ngIf="notificationSettings && notificationSettings.settings">
-                    <ng-container *ngFor="let group of notificationSettings.settings.notificationGroups">
+                    <ng-container *ngFor="let group of notificationSettings.settings.notification_groups">
                       <tr *ngFor="let notification of group.notifications">
                         <td>{{notification.name}}</td>
-                        <td><md-checkbox [color]="'primary'" [(ngModel)]="notification.default"></md-checkbox></td>
+                        <td><md-checkbox [color]="'primary'" (change)="notificationSettingsFieldUpdated()" [(ngModel)]="notification.default"></md-checkbox></td>
                       </tr>
                     </ng-container>
                   </tbody>
