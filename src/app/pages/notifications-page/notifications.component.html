@@ -15,6 +15,10 @@
 
   <div class="notifications__content">
 
+    <div class="notifications__content__no-results" *ngIf="isEmpty && !(notificationsService.requestInProgress$ | async)">
+      You don't have any notifications at this time...
+    </div>
+
     <div *ngFor="let notificationsByDate of notsByDate">
 
       <div *ngIf="notificationsByDate.nots.length > 0">

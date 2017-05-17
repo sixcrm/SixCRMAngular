@@ -33,6 +33,11 @@
     height: calc(100% - 115px);
     overflow: auto;
 
+    &__no-results {
+      padding: 30px 20px;
+      font-size: 14px;
+    }
+
     &__title {
       padding: 10px;
       background: rgba(0, 0, 0, 0.12);
@@ -135,6 +140,11 @@ notifications {
 
   &__content {
     height: calc(100% - 115px);
+
+    &__no-results {
+      padding: 30px 20px;
+      font-size: 14px;
+    }
 
     &__title {
       padding: 10px 20px;

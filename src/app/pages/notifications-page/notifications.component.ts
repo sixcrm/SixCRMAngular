@@ -17,6 +17,7 @@ import {NotificationsByDate} from '../../shared/models/notifications-by-date.int
 export class NotificationsComponent extends AbstractEntityIndexComponent<Notification> implements OnInit, OnDestroy {
 
   private loading: boolean;
+  private isEmpty: boolean = false;
 
   notsByDate: NotificationsByDate[] = [
     {label: 'Today', nots: [], contains: (n: Notification) => utc(n.createdAt).isSame(utc(), 'day')},
@@ -77,9 +78,16 @@ export class NotificationsComponent extends AbstractEntityIndexComponent<Notific
       }
     });
 
+    let empty: boolean = true;
     for (let i in this.notsByDate) {
       this.notsByDate[i].nots = this.notsByDate[i].nots.sort(compareNotifications);
+
+      if (this.notsByDate[i].nots.length > 0) {
+        empty = false;
+      }
     }
+
+    this.isEmpty = empty;
   }
 
   updateLocally(notification: Notification): void {

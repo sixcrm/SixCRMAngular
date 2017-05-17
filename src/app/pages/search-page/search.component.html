@@ -102,6 +102,7 @@
         </div>
       </div>
 
+      <div class="search__content__no-results" *ngIf="(searchResultsToDisplay | filterSearchResults: filterValue).length === 0">No Search Results...</div>
       <ng-container *ngIf="listMode" >
         <result-item *ngFor="let res of searchResultsToDisplay | filterSearchResults: filterValue" [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResultDetails($event)"></result-item>
       </ng-container>

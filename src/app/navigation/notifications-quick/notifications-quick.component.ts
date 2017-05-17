@@ -23,6 +23,8 @@ export class NotificationsQuickComponent implements OnInit {
     {label: 'Other', nots: [], contains: (n: Notification) => true}
   ];
 
+  isEmpty: boolean = false;
+
   constructor(
     private notificationsService: NotificationsQuickService,
     private progressBarService: ProgressBarService,
@@ -63,9 +65,15 @@ export class NotificationsQuickComponent implements OnInit {
       }
     });
 
+    let empty: boolean = true;
     for (let i in this.notsByDate) {
       this.notsByDate[i].nots = this.notsByDate[i].nots.sort(compareNotifications);
+      if (this.notsByDate[i].nots.length !== 0) {
+        empty = false;
+      }
     }
+
+    this.isEmpty = empty;
   }
 
   readNotification(notification: Notification): void {

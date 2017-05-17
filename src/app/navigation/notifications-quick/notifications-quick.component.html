@@ -9,6 +9,7 @@
   </div>
 
   <div class="notifications-list__content">
+    <div class="notifications-list__content__no-results" *ngIf="isEmpty">You don't have any notifications at this time</div>
     <div *ngFor="let notificationsByDate of notsByDate">
 
       <div *ngIf="notificationsByDate.nots.length > 0">
