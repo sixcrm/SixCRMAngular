@@ -22,11 +22,13 @@ export class DefaultLayoutComponent implements OnInit {
   hover(value: boolean): void {
     this.isHovering = value;
 
-    if (!this.showSidenav && this.isHovering) {
-      this.showOnHover = true;
-    } else {
-      this.showOnHover = false
-    }
+    setTimeout(() => {
+      if (!this.showSidenav && this.isHovering) {
+        this.showOnHover = true;
+      } else {
+        this.showOnHover = false
+      }
+    }, 50)
   }
 
 }
