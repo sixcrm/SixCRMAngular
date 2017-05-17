@@ -17,7 +17,7 @@ import {NotificationsByDate} from '../../shared/models/notifications-by-date.int
 export class NotificationsComponent extends AbstractEntityIndexComponent<Notification> implements OnInit, OnDestroy {
 
   private loading: boolean;
-  private isEmpty: boolean = false;
+  isEmpty: boolean = false;
 
   notsByDate: NotificationsByDate[] = [
     {label: 'Today', nots: [], contains: (n: Notification) => utc(n.createdAt).isSame(utc(), 'day')},
