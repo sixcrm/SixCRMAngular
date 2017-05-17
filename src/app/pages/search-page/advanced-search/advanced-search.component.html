@@ -11,7 +11,7 @@
 
     <div class="advanced-search__content__fields">
       <div class="advanced-search__content__fields__column">
-        <md-input class="advanced-search__content__fields__input" placeholder="First Name" [(ngModel)]="searchOptions.firstname"></md-input>
+        <md-input #firstInput class="advanced-search__content__fields__input" placeholder="First Name" [(ngModel)]="searchOptions.firstname"></md-input>
         <md-input class="advanced-search__content__fields__input" placeholder="Last Name" [(ngModel)]="searchOptions.lastname"></md-input>
         <md-input class="advanced-search__content__fields__input" placeholder="Phone Number" [(ngModel)]="searchOptions.phone"></md-input>
         <md-input class="advanced-search__content__fields__input" placeholder="Email Address" [(ngModel)]="searchOptions.email"></md-input>
@@ -33,7 +33,7 @@
         <md-input class="advanced-search__content__fields__input" placeholder="Credit Card # last 4" [(ngModel)]="searchOptions.last_four"></md-input>
       </div>
 
-      <div class="advanced-search__content__fields__button" (click)="search()">
+      <div class="advanced-search__content__fields__button" (click)="search(firstInput)">
         Search
       </div>
     </div>

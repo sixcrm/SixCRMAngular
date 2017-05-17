@@ -33,16 +33,19 @@ export class AdvancedSearchComponent implements OnInit {
 
   ngOnInit() { }
 
-  search(): void {
-    this.progressBarService.showTopProgressBar();
-
+  search(input): void {
     Object.keys(this.searchOptions).forEach((key) => {
       if (!this.searchOptions[key]) {
         delete this.searchOptions[key];
       }
     });
 
-    this.router.navigate(['/search'], {queryParams: this.searchOptions});
+    if (Object.keys(this.searchOptions).length > 1) {
+      this.progressBarService.showTopProgressBar();
+      this.router.navigate(['/search'], {queryParams: this.searchOptions});
+    } else {
+      input.focus();
+    }
   }
 
 }
