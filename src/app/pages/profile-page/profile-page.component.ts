@@ -74,7 +74,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
       this.notificationSettings.settings = settings;
       this.notificationSettings.id = this.user.id;
 
-      console.log(this.notificationSettings);
       this.notificationSettingsService.createEntity(this.notificationSettings);
     });
 
