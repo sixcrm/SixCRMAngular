@@ -786,7 +786,7 @@ export function usersListQuery(limit?: number, cursor?: string): string {
 export function userQuery(id: string): string {
   return `
     {
-      user (id: "${id}") { id auth0_id name active termsandconditions created_at updated_at address { country state city line1 line2 zip}}
+      user (id: "${id}") { id auth0_id name first_name last_name active termsandconditions created_at updated_at address { country state city line1 line2 zip}}
     }`
 }
 
@@ -827,7 +827,7 @@ export function updateUserForRegistration(user: User): string {
   return `
     mutation {
 		  updateuser (
-		    user: { id: "${user.id}" name: "${user.name}" auth0_id: "${user.auth0Id}" active: "${user.active}" termsandconditions: "0.1"
+		    user: { id: "${user.id}" name: "${user.name}" first_name: "${user.firstName}" last_name: "${user.lastName}" auth0_id: "${user.auth0Id}" active: "${user.active}" termsandconditions: "0.1"
 		      address: {line1: "${user.address.line1}" line2: "${user.address.line2}" city: "${user.address.city}" state: "${user.address.state}" zip: "${user.address.zip}" country:"${user.address.country}"}}) {
 			    id auth0_id name active termsandconditions
 			}

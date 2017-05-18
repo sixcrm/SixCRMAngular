@@ -33,9 +33,7 @@ export class UsersService extends AbstractEntityService<User> {
 
     this.queryRequest(inviteUserMutation(email, accountId, role.id)).subscribe(
       (data) => {
-        console.log(data);
         let info = data.json().data.userinvite;
-        console.log('User Invitation Response', info);
         subject.next(true);
       },
       (error) => {

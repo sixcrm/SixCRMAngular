@@ -159,6 +159,8 @@ export class RegistrationComponent implements OnInit {
         city: this.city});
       let user: User = this.userUnderRegistration.copy();
       user.name = this.fullName;
+      user.firstName = this.firstName;
+      user.lastName = this.lastName;
       user.address = address.copy();
 
       let cc: CreditCard = new CreditCard({
