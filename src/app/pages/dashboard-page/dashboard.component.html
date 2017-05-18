@@ -112,39 +112,39 @@
   </div>
 
   <div class="dashboard__column dashboard__column--left">
-    <div class="dashboard__overview__container">
-      <div class="dashboard__overview">
-        <transaction-overview class="dashboard__overview__item" *ngFor="let option of overviewOptions" [title]="option.title" [mapToResult]="option.mapToResult" [image]="option.image" [overview]="(analyticsService.transactionsOverview$ | async)"></transaction-overview>
-      </div>
-    </div>
+    <transaction-overview [date]="date"></transaction-overview>
 
-    <events-summary [eventsSummary]="analyticsService.eventsSummary$ | async"></events-summary>
+    <events-summary [date]="date"></events-summary>
 
-    <transaction-summary [transactionSummaries]="analyticsService.transactionsSummaries$ | async"></transaction-summary>
+    <transaction-summary [date]="date" [filters]="immutableFilterTerms"></transaction-summary>
 
     <div class="dashboard__boxes">
-      <movers-card [campaigns]="analyticsService.campaignDelta$ | async"></movers-card>
+      <movers-card [date]="date"></movers-card>
       <dashboard-reports></dashboard-reports>
     </div>
 
-    <top-campaigns [campaigns]="analyticsService.campaignsByAmount$ | async"></top-campaigns>
+    <top-campaigns [date]="date" ></top-campaigns>
   </div>
 
   <div class="dashboard__column dashboard__column--right">
-    <funnel-graph [eventFunnel]="analyticsService.eventFunnel$ | async"></funnel-graph>
+    <funnel-graph [date]="date"></funnel-graph>
 
     <affiliate-events
       [title]="'Events by Affiliate'"
       [subtitle]="'Events from the top Affiliates'"
       [maxNumber]="5"
-      [affiliateEvents]="analyticsService.affiliateEvents$ | async">
+      [date]="date"
+      (fetch)="analyticsService.getAffiliateEvents(date.start.format(), date.end.format())"
+      [fetchObservable]="analyticsService.affiliateEvents$">
     </affiliate-events>
 
     <affiliate-events
       [title]="'Transactions by Affiliate'"
       [subtitle]="'Transactions from the top Affiliates'"
       [maxNumber]="5"
-      [affiliateEvents]="analyticsService.affiliateTransactions$ | async">
+      [date]="date"
+      (fetch)="analyticsService.getAffiliateTransactions(date.start.format(), date.end.format())"
+      [fetchObservable]="analyticsService.affiliateTransactions$">
     </affiliate-events>
   </div>
 </div>

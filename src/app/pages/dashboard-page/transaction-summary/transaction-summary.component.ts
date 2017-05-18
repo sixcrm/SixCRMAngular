@@ -1,20 +1,23 @@
 import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import {TransactionSummary} from '../../../shared/models/transaction-summary.model';
+import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
+import {AnalyticsService} from '../../../shared/services/analytics.service';
+import {FilterTerm} from '../dashboard.component';
 
 @Component({
   selector: 'transaction-summary',
   templateUrl: './transaction-summary.component.html',
   styleUrls: ['./transaction-summary.component.scss']
 })
-export class TransactionSummaryComponent implements OnInit, OnDestroy {
+export class TransactionSummaryComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
-  @Input() set transactionSummaries(summaries: TransactionSummary[]) {
-    if (summaries) {
-      this.summaries = summaries;
+  filterTerms: FilterTerm[] = [];
 
-      if (this.chartInstance) {
-        this.redrawChart();
-      }
+  @Input() set filters(filters: FilterTerm[]) {
+    this.filterTerms = filters;
+
+    if (!this.shouldFetch && this.start && this.end) {
+      this.shouldFetch = true;
     }
   }
 
@@ -32,13 +35,30 @@ export class TransactionSummaryComponent implements OnInit, OnDestroy {
     ]
   };
 
-  constructor() { }
+  constructor(private analyticsService: AnalyticsService) {
+    super();
+  }
 
   ngOnInit() {
+    this.analyticsService.transactionsSummaries$.takeUntil(this.unsubscribe$).subscribe(summaries => {
+      this.summaries = summaries || [];
+
+      if (this.chartInstance) {
+        this.redrawChart();
+      }
+    })
   }
 
   ngOnDestroy() {
     this.chartInstance = null;
+    this.destroy();
+  }
+
+  fetch(): void {
+    if (this.shouldFetch) {
+      this.analyticsService.getTransactionSummaries(this.start.format(), this.end.format(), this.filterTerms);
+      this.shouldFetch = false;
+    }
   }
 
   saveChart(chartInstance): void {

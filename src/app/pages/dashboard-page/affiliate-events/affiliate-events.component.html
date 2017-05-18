@@ -1,4 +1,4 @@
-<div class="dashboard__table-chart">
+<div inViewport (inside)="notifyFetch()" class="dashboard__table-chart">
   <div class="dashboard__table-chart__title">
     <div class="dashboard__table-chart__title__main">{{title}}</div>
     <div class="dashboard__table-chart__title__sub">{{subtitle}}</div>

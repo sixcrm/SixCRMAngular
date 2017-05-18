@@ -1,13 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, Output, OnDestroy, EventEmitter} from '@angular/core';
 import {AffiliateEvents} from '../../../shared/models/affiliate-events.model';
 import {NavigationService} from '../../../navigation/navigation.service';
+import {Observable} from 'rxjs';
+import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
 
 @Component({
   selector: 'affiliate-events',
   templateUrl: './affiliate-events.component.html',
   styleUrls: ['./affiliate-events.component.scss']
 })
-export class AffiliateEventsComponent implements OnInit {
+export class AffiliateEventsComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
   colors: string[] = ['#1773DD', '#4484CD', '#4DABF5', '#98DBF9', '#FFAD33', '#F1862F', '#329262', '#109618', '#66AA00', '#AAAA11', '#98DBF9'];
   affEvents: AffiliateEvents;
@@ -20,14 +22,8 @@ export class AffiliateEventsComponent implements OnInit {
   @Input() title: string;
   @Input() subtitle: string;
 
-  @Input() set affiliateEvents(events: AffiliateEvents) {
-    if (events) {
-      this.affEvents = events;
-      if (this.chartInstance) {
-        this.redrawChartData();
-      }
-    }
-  }
+  @Output() fetch: EventEmitter<boolean> = new EventEmitter();
+  @Input() fetchObservable: Observable<AffiliateEvents>;
 
   showTable: boolean = true;
 
@@ -71,9 +67,28 @@ export class AffiliateEventsComponent implements OnInit {
 
   chartInstance;
 
-  constructor(private navigation: NavigationService) { }
+  constructor(private navigation: NavigationService) {
+    super();
+  }
 
   ngOnInit() {
+    this.fetchObservable.takeUntil(this.unsubscribe$).subscribe(events => {
+      this.affEvents = events;
+      if (this.chartInstance) {
+        this.redrawChartData();
+      }
+    })
+  }
+
+  ngOnDestroy() {
+    this.destroy();
+  }
+
+  notifyFetch(): void {
+    if (this.shouldFetch) {
+      this.fetch.emit(true);
+      this.shouldFetch = false;
+    }
   }
 
   toggleTable(): void {
@@ -105,12 +120,6 @@ export class AffiliateEventsComponent implements OnInit {
     if (!this.maxNumber) return affLength;
 
     return affLength <= this.maxNumber ? affLength : this.maxNumber;
-  }
-
-  calculateRelativePercentage(affiliate): string {
-    let percentage = (affiliate.count / this.affEvents.count) * 100;
-
-    return Math.round( percentage * 100 ) / 100 + '%';
   }
 
   private redrawChartData(): void {

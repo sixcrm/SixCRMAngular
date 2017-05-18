@@ -7,7 +7,6 @@ import {SharedModule} from '../../shared/shared.module';
 import {ChartModule} from 'angular2-highcharts';
 import {HighchartsStatic} from 'angular2-highcharts/dist/HighchartsService';
 import {Daterangepicker} from 'ng2-daterangepicker';
-import { TransactionOverviewComponent } from './transaction-overview/transaction-overview.component';
 import { InputAutocompleteComponent } from './input-autocomplete/input-autocomplete.component';
 import { FunnelGraphComponent } from './funnel-graph/funnel-graph.component';
 import { DashboardReportsComponent } from './dashboard-reports/dashboard-reports.component';
@@ -16,6 +15,8 @@ import { AffiliateEventsComponent } from './affiliate-events/affiliate-events.co
 import { EventsSummaryComponent } from './events-summary/events-summary.component';
 import { TransactionSummaryComponent } from './transaction-summary/transaction-summary.component';
 import { TopCampaignsComponent } from './top-campaigns/top-campaigns.component';
+import { TransactionOverviewCardComponent } from './transaction-overview/transaction-overview-card/transaction-overview-card.component';
+import { TransactionOverviewComponent } from './transaction-overview/transaction-overview.component';
 
 export function highchartsFactory() {
   let hc = require('highcharts');
@@ -39,7 +40,7 @@ export function highchartsFactory() {
   ],
   declarations : [
     DashboardComponent,
-    TransactionOverviewComponent,
+    TransactionOverviewCardComponent,
     InputAutocompleteComponent,
     FunnelGraphComponent,
     DashboardReportsComponent,
@@ -47,7 +48,8 @@ export function highchartsFactory() {
     AffiliateEventsComponent,
     EventsSummaryComponent,
     TransactionSummaryComponent,
-    TopCampaignsComponent
+    TopCampaignsComponent,
+    TransactionOverviewComponent
   ],
   exports : [
   ],

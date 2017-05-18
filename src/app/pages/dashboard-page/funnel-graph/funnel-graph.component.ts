@@ -1,6 +1,8 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import {EventFunnel} from '../../../shared/models/event-funnel.model';
 import {NavigationService} from '../../../navigation/navigation.service';
+import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
+import {AnalyticsService} from '../../../shared/services/analytics.service';
 
 const hc = require('highcharts');
 
@@ -9,7 +11,7 @@ const hc = require('highcharts');
   templateUrl: './funnel-graph.component.html',
   styleUrls: ['./funnel-graph.component.scss']
 })
-export class FunnelGraphComponent implements OnInit {
+export class FunnelGraphComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
   colors = ['#4383CC', '#4DABF5', '#9ADDFB', '#FDAB31', '#F28933'];
 
@@ -103,19 +105,30 @@ export class FunnelGraphComponent implements OnInit {
   funnel: EventFunnel;
   showTable: boolean = true;
 
-  @Input() set eventFunnel(funnel: EventFunnel) {
-    if (funnel) {
-      this.funnel = funnel;
-
-      if (this.chart) {
-        this.redrawChartData();
-      }
-    }
+  constructor(private navigation: NavigationService, private analyticsService: AnalyticsService) {
+    super();
   }
 
-  constructor(private navigation: NavigationService) { }
+  ngOnInit() {
+    this.analyticsService.eventFunnel$.takeUntil(this.unsubscribe$).subscribe(funnel => {
+      this.funnel = funnel;
 
-  ngOnInit() { }
+      if (this.chart && this.funnel) {
+        this.redrawChartData();
+      }
+    })
+  }
+
+  ngOnDestroy() {
+    this.destroy();
+  }
+
+  fetch(): void {
+    if (this.shouldFetch) {
+      this.analyticsService.getEventFunnel(this.start.format(), this.end.format());
+      this.shouldFetch = false;
+    }
+  }
 
   saveChart(chartInstance): void {
     this.chart = chartInstance;

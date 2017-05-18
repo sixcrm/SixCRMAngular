@@ -3,7 +3,6 @@ import {utc, Moment} from 'moment';
 import {SearchService} from '../../shared/services/search.service';
 import {Subject} from 'rxjs';
 import {DaterangepickerConfig, DaterangePickerComponent} from 'ng2-daterangepicker';
-import {TransactionOverview} from '../../shared/models/transaction-overview.model';
 import {AnalyticsService} from '../../shared/services/analytics.service';
 import {environment} from '../../../environments/environment';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -17,6 +16,11 @@ export interface FilterTerm {
 
 interface DateFilter {
   label: string;
+  start: Moment;
+  end: Moment;
+}
+
+interface DateMap {
   start: Moment;
   end: Moment;
 }
@@ -35,6 +39,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   filterTerms: FilterTerm[] = [];
   filterSearchResults: FilterTerm[] = [];
+  immutableFilterTerms: FilterTerm[] = [];
   currentFilterTerm: string;
 
   dateFilters: DateFilter[] = [
@@ -49,15 +54,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     {label: 'CUSTOM', start: utc(), end: utc()}
   ];
   activeDateFilterIndex: number = 3;
-
-  overviewOptions: any[] = [
-    {title: 'New Sales', mapToResult: (overview: TransactionOverview) => overview.newSale, image: 'newsale.svg'},
-    {title: 'Main', mapToResult: (overview: TransactionOverview) => overview.main, image: 'main.svg'},
-    {title: 'Upsells', mapToResult: (overview: TransactionOverview) => overview.upsell, image: 'upsell.svg'},
-    {title: 'Rebills', mapToResult: (overview: TransactionOverview) => overview.rebill, image: 'rebill.svg'},
-    {title: 'Declines', mapToResult: (overview: TransactionOverview) => overview.decline, image: 'decline.svg'},
-    {title: 'Errors', mapToResult: (overview: TransactionOverview) => overview.error, image: 'error.svg'}
-  ];
 
   @ViewChild(DaterangePickerComponent)
   dateRangePicker: DaterangePickerComponent;
@@ -74,8 +70,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     {id: 'error', label: 'Error', type: 'processorresult'}
   ];
 
-  private termFilterDebouncer$: Subject<boolean>;
+  date: DateMap;
 
+  private termFilterDebouncer$: Subject<boolean>;
   private unsubscribe$: Subject<boolean>;
 
   constructor(
@@ -100,7 +97,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .filter(() => !this.advanced)
       .debounceTime(500)
       .subscribe(() => {
-        this.fetchTransactionSummary();
+        this.fetchFilterDependents();
       });
 
     this.route.queryParams.takeUntil(this.unsubscribe$).subscribe(params => {
@@ -310,46 +307,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private fetchAll(): void {
-    this.fetchEventFunnel();
-    this.fetchTransactionOverview();
-    this.fetchTransactionSummary();
-    this.fetchAffiliateEvents();
-    this.fetchEventSummary();
-    this.fetchCampaignDelta();
-    this.fetchAffiliateTransactions();
-    this.fetchCampaignsByAmount();
+    this.date = {start: this.getStartDate(), end: this.getEndDate()};
+
+    this.immutableFilterTerms =  this.filterTerms.slice();;
   }
 
-  private fetchTransactionSummary(): void {
-    this.analyticsService.getTransactionSummaries(this.getStartDate().format(), this.getEndDate().format(), this.filterTerms);
-  }
-
-  private fetchTransactionOverview(): void {
-    this.analyticsService.getTransactionOverview(this.getStartDate().format(), this.getEndDate().format());
-  }
-
-  private fetchEventFunnel(): void {
-    this.analyticsService.getEventFunnel(this.getStartDate().format(), this.getEndDate().format());
-  }
-
-  private fetchCampaignDelta(): void {
-    this.analyticsService.getCampaignDelta(this.getStartDate().format(), this.getEndDate().format());
-  }
-
-  private fetchAffiliateEvents(): void {
-    this.analyticsService.getAffiliateEvents(this.getStartDate().format(), this.getEndDate().format());
-  }
-
-  private fetchAffiliateTransactions(): void {
-    this.analyticsService.getAffiliateTransactions(this.getStartDate().format(), this.getEndDate().format());
-  }
-
-  private fetchEventSummary(): void {
-    this.analyticsService.getEventsSummary(this.getStartDate().format(), this.getEndDate().format());
-  }
-
-  private fetchCampaignsByAmount(): void {
-    this.analyticsService.getCampaignsByAmount(this.getStartDate().format(), this.getEndDate().format());
+  private fetchFilterDependents(): void {
+    this.immutableFilterTerms = this.filterTerms.slice();
   }
 
   private parseFilterSearchResults(results: any[]): FilterTerm[] {
@@ -404,7 +368,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     return -1;
   }
 
-  setDatepickerDates(): void {
+  private setDatepickerDates(): void {
     if (this.dateRangePicker) {
       this.dateRangePicker.datePicker.setStartDate(this.getStartDate());
       this.dateRangePicker.datePicker.setEndDate(this.getEndDate());

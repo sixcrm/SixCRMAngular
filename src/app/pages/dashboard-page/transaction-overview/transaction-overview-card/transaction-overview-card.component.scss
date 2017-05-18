@@ -1,0 +1,28 @@
+.transaction-overview {
+  padding: 10px;
+  box-sizing: border-box;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  background: white;
+  text-align: center;
+
+  &__image {
+    margin: 5px;
+    height: 35px;
+    width: 35px;
+  }
+
+  &__count {
+    font-size: 24px;
+  }
+
+  &__title {
+    font-size: 16px;
+    margin-top: 5px 0;
+  }
+
+  &__amount {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.5);
+    margin: 5px;
+  }
+}

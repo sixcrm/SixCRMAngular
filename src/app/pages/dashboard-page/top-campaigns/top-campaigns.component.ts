@@ -1,15 +1,18 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
 import {CampaignStats} from '../../../shared/models/campaign-stats.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
+import {AnalyticsService} from '../../../shared/services/analytics.service';
+import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
 
 @Component({
   selector: 'top-campaigns',
   templateUrl: './top-campaigns.component.html',
-  styleUrls: ['./top-campaigns.component.scss']
+  styleUrls: ['./top-campaigns.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TopCampaignsComponent implements OnInit {
+export class TopCampaignsComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
-  @Input() campaigns: CampaignStats[];
+  campaigns: CampaignStats[];
 
   columnParams: ColumnParams<CampaignStats>[] = [
     new ColumnParams('Campaign', (c: CampaignStats) => c.campaign),
@@ -18,9 +21,25 @@ export class TopCampaignsComponent implements OnInit {
   sortParams: ColumnParams<CampaignStats> = new ColumnParams();
   sortOrder: string = 'asc';
 
-  constructor() { }
+  constructor(private analyticsService: AnalyticsService) {
+    super();
+  }
 
   ngOnInit() {
+    this.analyticsService.campaignsByAmount$.takeUntil(this.unsubscribe$).subscribe(campaigns => {
+      this.campaigns = campaigns;
+    })
+  }
+
+  ngOnDestroy() {
+    this.destroy();
+  }
+
+  fetch(): void {
+    if (this.shouldFetch) {
+      this.analyticsService.getCampaignsByAmount(this.start.format(), this.end.format());
+      this.shouldFetch = false;
+    }
   }
 
   sort(params: ColumnParams<CampaignStats>): void {

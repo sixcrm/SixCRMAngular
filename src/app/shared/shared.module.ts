@@ -38,6 +38,7 @@ import {SubArrayPipe} from './pipes/sub-array.pipe';
 import {AnalyticsStorageService} from './services/analytics-storage.service';
 import {UserSettingsService} from './services/user-settings.service';
 import {NotificationSettingsService} from './services/notification-settings.service';
+import { InViewportDirective } from './directives/in-viewport.directive';
 
 @NgModule({
   declarations : [
@@ -49,7 +50,8 @@ import {NotificationSettingsService} from './services/notification-settings.serv
     SortEntitiesPipe,
     ComingSoonComponent,
     ShareLinkComponent,
-    SubArrayPipe
+    SubArrayPipe,
+    InViewportDirective
   ],
   exports : [
     WidgetComponent,
@@ -59,7 +61,8 @@ import {NotificationSettingsService} from './services/notification-settings.serv
     FilterEntitiesPipe,
     SortEntitiesPipe,
     ShareLinkComponent,
-    SubArrayPipe
+    SubArrayPipe,
+    InViewportDirective
   ],
   imports : [FormsModule, CommonModule, MaterialModule]
 })

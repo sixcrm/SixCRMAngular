@@ -1,25 +1,20 @@
-import {Component, OnInit, Input, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {EventSummary} from '../../../shared/models/event-summary.model';
 import {Observable} from 'rxjs';
+import {AnalyticsService} from '../../../shared/services/analytics.service';
+import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
 
 @Component({
   selector: 'events-summary',
   templateUrl: './events-summary.component.html',
   styleUrls: ['./events-summary.component.scss']
 })
-export class EventsSummaryComponent implements OnInit {
+export class EventsSummaryComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
   colors = ['#4383CC', '#4DABF5', '#9ADDFB', '#FDAB31', '#F28933'];
   chartInstance;
   events: EventSummary[];
   loaded: boolean = false;
-
-  @Input() set eventsSummary(data: EventSummary[]) {
-    if (data) {
-      this.events = data;
-      this.redraw();
-    }
-  };
 
   options = {
     chart: {
@@ -53,9 +48,26 @@ export class EventsSummaryComponent implements OnInit {
     ]
   };
 
-  constructor() { }
+  constructor(private analyticsService: AnalyticsService) {
+    super();
+  }
 
   ngOnInit() {
+    this.analyticsService.eventsSummary$.takeUntil(this.unsubscribe$).subscribe(events => {
+      this.events = events;
+      this.redraw();
+    })
+  }
+
+  ngOnDestroy() {
+    this.destroy();
+  }
+
+  fetch() {
+    if (this.shouldFetch) {
+      this.analyticsService.getEventsSummary(this.start.format(), this.end.format());
+      this.shouldFetch = false;
+    }
   }
 
   loadChart(chartInstance) {
@@ -77,7 +89,9 @@ export class EventsSummaryComponent implements OnInit {
     }
   }
 
-  redrawChart() {
+  redrawChart(): void {
+    if (!this.events) return;
+
     let parsedDates = [];
     let parsedEvents = {};
 
