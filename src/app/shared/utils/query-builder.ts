@@ -964,6 +964,14 @@ export function notificationsListQuery(limit?:number, cursor?:string): string {
 		}}`
 }
 
+export function notificationsQuickListQuery(limit?:number, cursor?:string): string {
+  return `{
+    notificationlist ${pageParams(limit, null)} {
+			notifications { id user account type action message read_at created_at updated_at }
+			${paginationString()}
+		}}`
+}
+
 export function notificationCountQuery(): string {
   return `{notificationcount {count}}`
 }
@@ -1047,6 +1055,10 @@ export function updateNotificationSettingsMutation(notificationSettings: Notific
         id settings created_at updated_at
       }
     }`
+}
+
+export function sendTestNotification(): string {
+  return `{ notificationtest { result } }`
 }
 
 function pageParams(limit?: number, cursor?: string, noBraces?:boolean): string {

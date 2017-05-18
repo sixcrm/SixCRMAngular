@@ -5,16 +5,18 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {Http} from '@angular/http';
 import {
   notificationSettingsQuery, defaultNotificationSettingsQuery,
-  createNotificationSettingsMutation, updateNotificationSettingsMutation
+  createNotificationSettingsMutation, updateNotificationSettingsMutation,
+  sendTestNotification
 } from '../utils/query-builder';
 import {Subject} from 'rxjs';
+import {NotificationsQuickService} from './notifications-quick.service';
 
 @Injectable()
 export class NotificationSettingsService extends AbstractEntityService<NotificationSettings> {
 
   defaultNotificationSettings$: Subject<NotificationSettingsData> = new Subject();
 
-  constructor(http: Http, authService: AuthenticationService) {
+  constructor(http: Http, authService: AuthenticationService, private notificationsQuickService: NotificationsQuickService) {
     super(
       http,
       authService,
@@ -34,6 +36,17 @@ export class NotificationSettingsService extends AbstractEntityService<Notificat
         let obj = data.json().data.notificationsettingdefault;
 
         this.defaultNotificationSettings$.next(new NotificationSettingsData(obj));
+      },
+      (error) => {
+        console.error(error);
+      }
+    )
+  }
+
+  sendTestNotification(): void {
+    this.queryRequest(sendTestNotification()).subscribe(
+      () => {
+        this.notificationsQuickService.restartPoolingNotifications()
       },
       (error) => {
         console.error(error);

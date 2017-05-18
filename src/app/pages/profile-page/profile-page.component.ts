@@ -157,6 +157,10 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   notificationSettingsFieldUpdated(): void {
     this.notificationSettingsUpdateDebouncer.next(true);
   }
+
+  sendTestNotification(): void {
+    this.notificationSettingsService.sendTestNotification();
+  }
 }
 
 export class EntitySelectable<T> {

@@ -119,7 +119,6 @@ export class TopnavComponent implements OnInit {
       this.options = options;
     });
 
-    this.notificationsService.getNotificationCount();
     this.notificationsService.notificationCount$.subscribe((count: number) => {
       this.notificationsCount = count;
     });

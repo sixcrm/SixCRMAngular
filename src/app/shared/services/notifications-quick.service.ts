@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import {updateNotificationMutation, notificationsListQuery, notificationCountQuery} from '../utils/query-builder';
+import {
+  updateNotificationMutation, notificationCountQuery, notificationsQuickListQuery
+} from '../utils/query-builder';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Http} from '@angular/http';
 import {Subject, Subscription, Observable} from 'rxjs';
@@ -18,7 +20,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
       http,
       authService,
       data => new Notification(data),
-      notificationsListQuery,
+      notificationsQuickListQuery,
       null,
       null,
       null,
@@ -30,7 +32,9 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
   startPoolingNotifications(): void {
     this.notificationsSub = Observable.interval(this.poolingInterval).takeWhile(() => this.authService.authenticated()).subscribe(() => {
       this.getNotificationCount();
-    })
+    });
+
+    this.getNotificationCount();
   }
 
   restartPoolingNotifications(): void {
