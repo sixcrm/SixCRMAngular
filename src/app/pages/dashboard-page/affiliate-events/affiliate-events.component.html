@@ -34,6 +34,6 @@
 
   <div class="dashboard__table-chart__actions dashboard__table-chart__actions--no-border">
     <span (click)="toggleTable()">{{showTable ? 'COLLAPSE' : 'SHOW TABLE'}}</span>
-    <span>VIEW MORE</span>
+    <span [routerLink]="['/coming-soon']">VIEW MORE</span>
   </div>
 </div>

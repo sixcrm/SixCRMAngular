@@ -526,6 +526,18 @@ $color-orange: #F16C00;
       }
     }
 
+    .table--no-border {
+      margin-bottom: 0;
+
+      tbody {
+        tr {
+          &:last-of-type {
+            border: none;
+          }
+        }
+      }
+    }
+
     table {
       font-size: 12px;
       margin-bottom: 40px;

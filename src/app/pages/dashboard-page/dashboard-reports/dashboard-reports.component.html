@@ -38,11 +38,11 @@
 
   <div class="dashboard__reports__item" [routerLink]="['/reports', 'retention']">
     <img class="dashboard__reports__item__image" src="/assets/images/starticon.svg">
-    <div class="dashboard__reports__item__content">
+    <div class="dashboard__reports__item__content dashboard__reports__item__content--no-border">
       <div class="dashboard__reports__item__content__main">Retention</div>
       <div class="dashboard__reports__item__content__sub">Learn how long customers stay</div>
     </div>
   </div>
 
-  <div class="dashboard__reports__actions"><span>VIEW MORE</span></div>
+  <div class="dashboard__reports__actions"><span [routerLink]="['/coming-soon']">VIEW MORE</span></div>
 </div>

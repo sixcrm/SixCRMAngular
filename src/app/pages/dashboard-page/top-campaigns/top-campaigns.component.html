@@ -5,7 +5,7 @@
     <md-icon>more_vert</md-icon>
   </div>
 
-  <table *ngIf="campaigns" class="highlight">
+  <table *ngIf="campaigns" class="highlight table--no-border">
     <thead>
       <tr>
         <th class="clickable" *ngFor="let params of columnParams" (click)="sort(params)">
@@ -23,6 +23,8 @@
       </tr>
     </tbody>
   </table>
+
+  <div *ngIf="campaigns" class="dashboard__table-chart__actions"><span [routerLink]="['/coming-soon']">VIEW MORE</span></div>
 
   <md-spinner *ngIf="!campaigns"></md-spinner>
 </div>

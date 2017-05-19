@@ -3,6 +3,7 @@ import {ModuleWithProviders} from '@angular/core';
 import {AuthGuard} from './authentication/auth-guard.service';
 import {ErrorPageComponent} from './error-page/error-page.component';
 import {DefaultLayoutComponent} from './navigation/layouts/default/default.layout.component';
+import {ComingSoonComponent} from './shared/components/coming-soon/coming-soon.component';
 
 const appRoutes: Routes = [
   { path : '', loadChildren : './authentication/authentication.module#AuthenticationModule' },
@@ -26,6 +27,7 @@ const appRoutes: Routes = [
     { path : 'transactions', loadChildren : './pages/transactions-page/transactions.module#TransactionsModule', canActivate: [AuthGuard] },
     { path : 'users', loadChildren : './pages/users-page/users.module#UsersModule', canActivate: [AuthGuard] },
     { path : 'reports', loadChildren : './reports/reports.module#ReportsModule', canActivate: [AuthGuard] },
+    { path : 'coming-soon', component: ComingSoonComponent },
   ]},
   { path : '**', component : ErrorPageComponent }
 

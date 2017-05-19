@@ -43,7 +43,7 @@ $color-orange: #F16C00;
     display: flex;
     align-items: center;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    padding: 15px 10px;
+    padding: 14px 10px;
 
     &:hover {
       background: rgba(0, 0, 0, 0.06);
@@ -101,6 +101,9 @@ $color-orange: #F16C00;
     padding: 15px 20px;
     font-size: 12px;
     color: $color-orange;
-    cursor: pointer;
+
+    span {
+      cursor: pointer;
+    }
   }
 }

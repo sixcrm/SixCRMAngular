@@ -29,7 +29,7 @@ export class MoversCardComponent extends AbstractDashboardItem implements OnInit
         this.campaignDelta = campaigns;
       }
 
-      this.height = this.campaignDelta.length * 66 + 'px';
+      this.height = this.campaignDelta.length * 63 + 6 + 'px';
     })
   }
 
