@@ -13,7 +13,11 @@ export class InViewportDirective implements AfterViewInit, OnDestroy{
   constructor(private elementRef: ElementRef) { }
 
   ngAfterViewInit(): void {
-    Observable.interval(500).takeUntil(this.unsubscribe$).subscribe(() => {
+    if (this.isVisible()) {
+      this.inside.emit(true);
+    }
+
+    Observable.interval(250).takeUntil(this.unsubscribe$).subscribe(() => {
       if (this.isVisible()) {
         this.inside.emit(true);
       }
