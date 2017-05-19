@@ -14,21 +14,22 @@ export interface FilterTerm {
   type: string;
 }
 
-interface DateFilter {
+export interface DateFilter {
   label: string;
   start: Moment;
   end: Moment;
+  selected?: boolean;
 }
 
-interface DateMap {
+export interface DateMap {
   start: Moment;
   end: Moment;
 }
 
-function flatDown(m: Moment) { return m.hours(0).minutes(0).seconds(0).millisecond(0) }
-function flatUp(m: Moment) { return m.hours(23).minutes(59).seconds(59)}
-function lateToday() { return utc().hours(23).minutes(59).seconds(59)}
-function areSame(m1: Moment, m2: Moment) { return flatDown(m1).isSame(flatDown(m2)) }
+export function flatDown(m: Moment) { return m.hours(0).minutes(0).seconds(0).millisecond(0) }
+export function flatUp(m: Moment) { return m.hours(23).minutes(59).seconds(59)}
+export function lateToday() { return utc().hours(23).minutes(59).seconds(59)}
+export function areSame(m1: Moment, m2: Moment) { return flatDown(m1).isSame(flatDown(m2)) }
 
 @Component({
   selector: 'c-dashboard',

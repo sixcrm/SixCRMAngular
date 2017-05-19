@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, OnDestroy, EventEmitter, ElementRef, ViewChild} from '@angular/core';
-import {SearchService} from '../../../shared/services/search.service';
-import {FilterTerm} from '../dashboard.component';
+import {SearchService} from '../../services/search.service';
 import {Subject, Subscription} from 'rxjs';
+import {FilterTerm} from '../../../pages/dashboard-page/dashboard.component';
 
 @Component({
   selector: 'input-autocomplete',

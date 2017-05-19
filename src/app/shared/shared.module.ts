@@ -39,6 +39,12 @@ import {AnalyticsStorageService} from './services/analytics-storage.service';
 import {UserSettingsService} from './services/user-settings.service';
 import {NotificationSettingsService} from './services/notification-settings.service';
 import { InViewportDirective } from './directives/in-viewport.directive';
+import {TransactionReportService} from './services/analytics/transaction-report.service';
+import {TablePaginationComponent} from './components/table-pagination/table-pagination.component';
+import { AdvancedFilterComponent } from './components/advanced-filter/advanced-filter.component';
+import {InputAutocompleteComponent} from './components/input-autocomplete/input-autocomplete.component';
+import {ChartModule} from 'angular2-highcharts';
+import {Daterangepicker} from 'ng2-daterangepicker';
 
 @NgModule({
   declarations : [
@@ -51,7 +57,10 @@ import { InViewportDirective } from './directives/in-viewport.directive';
     ComingSoonComponent,
     ShareLinkComponent,
     SubArrayPipe,
-    InViewportDirective
+    InViewportDirective,
+    TablePaginationComponent,
+    AdvancedFilterComponent,
+    InputAutocompleteComponent
   ],
   exports : [
     WidgetComponent,
@@ -62,9 +71,12 @@ import { InViewportDirective } from './directives/in-viewport.directive';
     SortEntitiesPipe,
     ShareLinkComponent,
     SubArrayPipe,
-    InViewportDirective
+    InViewportDirective,
+    TablePaginationComponent,
+    AdvancedFilterComponent,
+    InputAutocompleteComponent
   ],
-  imports : [FormsModule, CommonModule, MaterialModule]
+  imports : [FormsModule, CommonModule, MaterialModule, ChartModule, Daterangepicker]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {
@@ -97,7 +109,8 @@ export class SharedModule {
         AnalyticsService,
         AnalyticsStorageService,
         UserSettingsService,
-        NotificationSettingsService
+        NotificationSettingsService,
+        TransactionReportService
       ]
     };
   }

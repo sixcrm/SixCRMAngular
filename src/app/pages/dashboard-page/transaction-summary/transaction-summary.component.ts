@@ -1,8 +1,8 @@
 import {Component, OnInit, Input, OnDestroy} from '@angular/core';
-import {TransactionSummary} from '../../../shared/models/transaction-summary.model';
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
-import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {FilterTerm} from '../dashboard.component';
+import {AnalyticsService} from '../../../shared/services/analytics.service';
+import {TransactionSummary} from '../../../shared/models/transaction-summary.model';
 
 @Component({
   selector: 'transaction-summary',
