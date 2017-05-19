@@ -11,7 +11,7 @@ export class ReportsAbstractComponent<T> {
   hasMore: boolean = true;
 
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject();
-  protected fetchFunction: () => void;
+  fetchFunction: () => void;
 
   constructor(protected paginationService: PaginationService) { }
 
