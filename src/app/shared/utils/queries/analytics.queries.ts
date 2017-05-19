@@ -90,13 +90,19 @@ export function eventsByAffiliateQuery(start: string, end: string): string {
 
 export function transactionsByAffiliateQuery(start: string, end: string): string {
   return `
-  {
-		transactionsbyaffiliate (analyticsfilter:{${dateRange(start, end)}}) {
-			count
-			affiliates { affiliate count percentage }
-		}
-	}
-  `
+    {
+        transactionsbyfacet (analyticsfilter:{${dateRange(start, end)}}, facet:"affiliate", pagination:{limit:5}) {
+          count,
+          facet_type,
+          facets {
+            facet,
+            count,
+            count_percentage,
+            amount,
+            amount_percentage
+          }
+        }
+      }`
 }
 
 export function eventsSummaryQuery(start: string, end: string): string {

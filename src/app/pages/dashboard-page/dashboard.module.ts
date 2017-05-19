@@ -16,6 +16,7 @@ import { TopCampaignsComponent } from './top-campaigns/top-campaigns.component';
 import { TransactionOverviewCardComponent } from './transaction-overview/transaction-overview-card/transaction-overview-card.component';
 import { TransactionOverviewComponent } from './transaction-overview/transaction-overview.component';
 import {TransactionSummaryComponent} from './transaction-summary/transaction-summary.component';
+import {TransactionByComponent} from './transaction-by/transaction-by.component';
 
 export function highchartsFactory() {
   let hc = require('highcharts');
@@ -47,7 +48,8 @@ export function highchartsFactory() {
     EventsSummaryComponent,
     TransactionSummaryComponent,
     TopCampaignsComponent,
-    TransactionOverviewComponent
+    TransactionOverviewComponent,
+    TransactionByComponent
   ],
   exports : [ ],
   providers: [{

@@ -138,13 +138,8 @@
       [fetchObservable]="analyticsService.affiliateEvents$">
     </affiliate-events>
 
-    <affiliate-events
-      [title]="'Transactions by Affiliate'"
-      [subtitle]="'Transactions from the top Affiliates'"
-      [maxNumber]="5"
-      [date]="date"
-      (fetch)="analyticsService.getAffiliateTransactions(date.start.format(), date.end.format())"
-      [fetchObservable]="analyticsService.affiliateTransactions$">
-    </affiliate-events>
+    <transaction-by
+      [date]="date">
+    </transaction-by>
   </div>
 </div>

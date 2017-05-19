@@ -12,10 +12,11 @@ import {
   campaignDeltaQuery, eventsByAffiliateQuery, eventsSummaryQuery, transactionsByAffiliateQuery, campaignsByAmountQuery
 } from '../utils/queries/analytics.queries';
 import {CampaignDelta} from '../models/campaign-delta.model';
-import {AffiliateEvents} from '../models/affiliate-events.model';
 import {EventSummary} from '../models/event-summary.model';
 import {CampaignStats} from '../models/campaign-stats.model';
 import {AnalyticsStorageService} from './analytics-storage.service';
+import {TransactionBy} from '../models/analytics/transaction-by.model';
+import {AffiliateEvents} from '../models/affiliate-events.model';
 
 @Injectable()
 export class AnalyticsService {
@@ -25,7 +26,7 @@ export class AnalyticsService {
   transactionsOverview$: BehaviorSubject<TransactionOverview>;
   campaignDelta$: BehaviorSubject<CampaignDelta[]>;
   affiliateEvents$: BehaviorSubject<AffiliateEvents>;
-  affiliateTransactions$: BehaviorSubject<AffiliateEvents>;
+  affiliateTransactions$: BehaviorSubject<TransactionBy>;
   eventsSummary$: BehaviorSubject<EventSummary[]>;
   campaignsByAmount$: BehaviorSubject<CampaignStats[]>;
 
@@ -147,10 +148,10 @@ export class AnalyticsService {
       this.affiliateTransactions$.next(eventsStorage);
     } else {
       this.queryRequest(transactionsByAffiliateQuery(start, end)).subscribe(data => {
-        let events = data.json().data.transactionsbyaffiliate;
+        let events = data.json().data.transactionsbyfacet;
 
         if (events) {
-          let e = new AffiliateEvents((events));
+          let e = new TransactionBy(events);
           this.affiliateTransactions$.next(e);
           this.analyticsStorage.setTransactionsByAffiliate(start, end, e);
         }

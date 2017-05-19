@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {EventFunnel} from '../models/event-funnel.model';
-import {AffiliateEvents} from '../models/affiliate-events.model';
 import {TransactionSummary} from '../models/transaction-summary.model';
 import {TransactionOverview} from '../models/transaction-overview.model';
 import {EventSummary} from '../models/event-summary.model';
@@ -8,6 +7,8 @@ import {CampaignDelta} from '../models/campaign-delta.model';
 import {CampaignStats} from '../models/campaign-stats.model';
 import {FilterTerm} from '../../pages/dashboard-page/dashboard.component';
 import {Moment, utc} from 'moment';
+import {TransactionBy} from '../models/analytics/transaction-by.model';
+import {AffiliateEvents} from '../models/affiliate-events.model';
 
 export class AnalyticsStateEntry<T> {
   startDate: string;
@@ -128,15 +129,15 @@ export class AnalyticsStorageService {
     this.storage[this.eventsByAffiliateKey] = new AnalyticsStateEntry(start, end, events);
   }
 
-  getTransactionsByAffiliate(start: string, end: string): AffiliateEvents {
-    let eventsEntry: AnalyticsStateEntry<AffiliateEvents> = this.storage[this.transactionsByAffiliateKey];
+  getTransactionsByAffiliate(start: string, end: string): TransactionBy {
+    let eventsEntry: AnalyticsStateEntry<TransactionBy> = this.storage[this.transactionsByAffiliateKey];
 
     if (this.isInvalid(eventsEntry, start, end)) return null;
 
     return eventsEntry.entry
   }
 
-  setTransactionsByAffiliate(start: string, end: string, events: AffiliateEvents): void {
+  setTransactionsByAffiliate(start: string, end: string, events: TransactionBy): void {
     this.saveStartEnd(start, end);
 
     this.storage[this.transactionsByAffiliateKey] = new AnalyticsStateEntry(start, end, events);

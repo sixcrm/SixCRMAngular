@@ -1,0 +1,38 @@
+<div inViewport (inside)="fetch()" class="dashboard__table-chart">
+  <div class="dashboard__table-chart__title">
+    <div class="dashboard__table-chart__title__main">Transactions by Affiliate</div>
+    <div class="dashboard__table-chart__title__sub">Transactions from top Affiliates</div>
+    <md-icon>more_vert</md-icon>
+  </div>
+
+  <chart *ngIf="transactionBy" #chart (load)="saveChart($event.context)" [options]="options"></chart>
+  <md-spinner *ngIf="!transactionBy"></md-spinner>
+
+  <div class="dashboard__table" [style.height]="calculateHeight()" [class.dashboard__table--inactive]="!showTable || !transactionBy">
+    <table class="highlight">
+      <thead>
+        <tr>
+          <th>Affiliate</th>
+          <th>Count</th>
+          <th>Count %</th>
+          <th>Amount</th>
+          <th>Amount %</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="transactionBy">
+        <tr *ngFor="let facet of transactionBy.facets | subArray: maxNumber + 2; let i = index" [routerLink]="['/affiliates', facet.facet]">
+          <td><div [style.background]="colors[i]" class="color-indicator"></div>{{facet.facet.substring(0, 12) + '...'}}</td>
+          <td>{{facet.count}}</td>
+          <td>{{facet.countPercentage}}%</td>
+          <td>{{facet.amount}}</td>
+          <td>{{facet.amountPercentage}}%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="dashboard__table-chart__actions dashboard__table-chart__actions--no-border">
+    <span (click)="toggleTable()">{{showTable ? 'COLLAPSE' : 'SHOW TABLE'}}</span>
+    <span [routerLink]="['/coming-soon']">VIEW MORE</span>
+  </div>
+</div>
