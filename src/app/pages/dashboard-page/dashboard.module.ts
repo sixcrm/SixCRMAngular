@@ -14,9 +14,9 @@ import { EventsSummaryComponent } from './events-summary/events-summary.componen
 import { TopCampaignsComponent } from './top-campaigns/top-campaigns.component';
 import { TransactionOverviewCardComponent } from './transaction-overview/transaction-overview-card/transaction-overview-card.component';
 import { TransactionOverviewComponent } from './transaction-overview/transaction-overview.component';
-import {TransactionSummaryComponent} from './transaction-summary/transaction-summary.component';
 import {TransactionByComponent} from './transaction-by/transaction-by.component';
 import {EventsByComponent} from './events-by/events-by.component';
+import {ChartsModule} from '../../charts/charts.module';
 
 export function highchartsFactory() {
   let hc = require('highcharts');
@@ -36,7 +36,8 @@ export function highchartsFactory() {
     CommonModule,
     MaterialModule.forRoot(),
     ChartModule,
-    Daterangepicker
+    Daterangepicker,
+    ChartsModule
   ],
   declarations : [
     DashboardComponent,
@@ -46,7 +47,6 @@ export function highchartsFactory() {
     MoversCardComponent,
     EventsByComponent,
     EventsSummaryComponent,
-    TransactionSummaryComponent,
     TopCampaignsComponent,
     TransactionOverviewComponent,
     TransactionByComponent

@@ -1,15 +1,15 @@
 import {Component, OnInit, Input, OnDestroy} from '@angular/core';
-import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
-import {FilterTerm} from '../dashboard.component';
-import {AnalyticsService} from '../../../shared/services/analytics.service';
-import {TransactionSummary} from '../../../shared/models/transaction-summary.model';
+import {AbstractDashboardItem} from '../../pages/dashboard-page/abstract-dashboard-item.component';
+import {FilterTerm} from '../../pages/dashboard-page/dashboard.component';
+import {TransactionSummary} from '../../shared/models/transaction-summary.model';
+import {AnalyticsService} from '../../shared/services/analytics.service';
 
 @Component({
-  selector: 'transaction-summary',
+  selector: 'transaction-summary-chart',
   templateUrl: './transaction-summary.component.html',
   styleUrls: ['./transaction-summary.component.scss']
 })
-export class TransactionSummaryComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
+export class TransactionSummaryChartComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
   filterTerms: FilterTerm[] = [];
 

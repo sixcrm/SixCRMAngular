@@ -6,6 +6,7 @@ import { TransactionsReportComponent } from './transactions-report/transactions-
 import { ReportTableComponent } from './components/report-table/report-table.component';
 import {MaterialModule} from '@angular/material';
 import {Daterangepicker} from 'ng2-daterangepicker';
+import {ChartsModule} from '../charts/charts.module';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import {Daterangepicker} from 'ng2-daterangepicker';
     SharedModule,
     reportsRouting,
     MaterialModule.forRoot(),
-    Daterangepicker
+    Daterangepicker,
+    ChartsModule
   ],
   declarations: [TransactionsReportComponent, ReportTableComponent],
   providers: [ ]
