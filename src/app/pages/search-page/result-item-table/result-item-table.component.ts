@@ -1,4 +1,5 @@
 import {Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
+import {Currency} from '../../../shared/utils/currency/currency';
 
 @Component({
   selector: 'result-item-table',
@@ -34,5 +35,9 @@ export class ResultItemTableComponent implements OnInit {
 
   imageSrc(): string {
     return `/assets/images/result-item-${this.entityType}.svg`;
+  }
+
+  formatCurrency(value): string {
+    return new Currency(value).usd();
   }
 }

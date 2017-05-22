@@ -3,7 +3,7 @@
     <img  class="transaction-overview__image" src="/assets/images/{{image}}">
     <div class="transaction-overview__count">{{mapToResult(overview).count}}</div>
     <div class="transaction-overview__title">{{title}}</div>
-    <div class="transaction-overview__amount">${{mapToResult(overview).amount}}</div>
+    <div class="transaction-overview__amount">{{mapToResult(overview).amount.usd()}}</div>
   </ng-container>
   <ng-template #loader>
     <md-spinner></md-spinner>

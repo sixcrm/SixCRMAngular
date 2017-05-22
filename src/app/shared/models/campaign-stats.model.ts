@@ -1,6 +1,8 @@
+import {Currency} from '../utils/currency/currency';
+
 export class CampaignStats {
   campaign: string;
-  amount: string;
+  amount: Currency;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -8,6 +10,6 @@ export class CampaignStats {
     }
 
     this.campaign = obj.campaign || '';
-    this.amount = obj.amount || 0;
+    this.amount = new Currency(obj.amount);
   }
 }

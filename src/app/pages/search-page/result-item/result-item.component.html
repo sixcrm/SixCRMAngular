@@ -18,7 +18,7 @@
       <div class="search__content__results__item__fields__wrapper" *ngIf="fields.email">Email: <div>{{fields.email}}</div></div>
       <div class="search__content__results__item__fields__wrapper" *ngIf="fields.phone">Phone: <div>{{fields.phone}}</div></div>
       <div class="search__content__results__item__fields__wrapper" *ngIf="fields.sku">SKU: <div>{{fields.sku}}</div></div>
-      <div class="search__content__results__item__fields__wrapper" *ngIf="fields.amount">Amount: <div>{{fields.amount}}</div></div>
+      <div class="search__content__results__item__fields__wrapper" *ngIf="fields.amount">Amount: <div>{{formatCurrency(fields.amount)}}</div></div>
       <div class="search__content__results__item__fields__wrapper" *ngIf="fields.account">Account: <div>{{fields.account}}</div></div>
       <div class="search__content__results__item__fields__wrapper" *ngIf="fields.alias">Alias: <div>{{fields.alias}}</div></div>
       <div class="search__content__results__item__fields__wrapper" *ngIf="fields.tracking_number">Tracking Number: <div>{{fields.tracking_number}}</div></div>

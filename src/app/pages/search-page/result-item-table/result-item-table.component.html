@@ -17,7 +17,7 @@
     </ng-container>
 
     <ng-container *ngIf="entityType === 'transaction'">
-      <div class="search__content__results--table__item"> {{fields.amount}} </div>
+      <div class="search__content__results--table__item"> {{formatCurrency(fields.amount)}} </div>
     </ng-container>
 
     <md-icon class="search__content__results--table__action"> more_vert </md-icon>

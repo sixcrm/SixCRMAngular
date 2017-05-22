@@ -4,11 +4,12 @@ import {Entity} from './entity.interface';
 import {Products} from './products.model';
 import {Moment, utc} from 'moment';
 import {MerchantProvider} from './merchant-provider.model';
+import {Currency} from '../utils/currency/currency';
 
 export class Transaction implements Entity<Transaction>{
   id: string;
   alias: string;
-  amount: string;
+  amount: Currency;
   merchantProvider: MerchantProvider;
   createdAt: Moment;
   updatedAt: Moment;
@@ -23,7 +24,7 @@ export class Transaction implements Entity<Transaction>{
 
     this.id = obj.id || '';
     this.alias = obj.alias || '';
-    this.amount = obj.amount || '';
+    this.amount = new Currency(obj.amount);
     this.merchantProvider = new MerchantProvider(obj.merchant_provider);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);

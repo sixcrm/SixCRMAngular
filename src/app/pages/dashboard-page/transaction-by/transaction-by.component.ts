@@ -128,7 +128,7 @@ export class TransactionByComponent extends AbstractDashboardItem implements OnI
     for (let i = 0; i < this.transactionBy.facets.length; i++) {
       let f = this.transactionBy.facets[i];
 
-      data.push({name: f.facet.substring(0, 8) + '...', y: +f.amount, color: this.colors[i]})
+      data.push({name: f.facet.substring(0, 8) + '...', y: +f.amount.amount, color: this.colors[i]})
     }
 
     return data;

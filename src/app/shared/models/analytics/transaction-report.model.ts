@@ -1,4 +1,5 @@
 import {Moment, utc} from 'moment'
+import {Currency} from '../../utils/currency/currency';
 
 export class TransactionReport {
   id: string;
@@ -8,7 +9,7 @@ export class TransactionReport {
   merchantProvider: string;
   campaign: string;
   affiliate: string;
-  amount: number;
+  amount: Currency;
   processorResult: string;
   account: string;
   transactionType: string;
@@ -32,7 +33,7 @@ export class TransactionReport {
     this.merchantProvider = obj.merchant_provider || '';
     this.campaign = obj.campaign || '';
     this.affiliate = obj.affiliate || '';
-    this.amount = obj.amount || 0;
+    this.amount = new Currency(obj.amount);
     this.processorResult = obj.processor_result || '';
     this.account = obj.account || '';
     this.transactionType = obj.transaction_type || '';

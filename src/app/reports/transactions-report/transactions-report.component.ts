@@ -40,7 +40,7 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
   ngOnInit() {
     this.columnParams = [
       new ColumnParams('Date', (e: TransactionReport) => e.date.format('MM/DD/YYYY')),
-      new ColumnParams('Amount', (e: TransactionReport) => e.amount),
+      new ColumnParams('Amount', (e: TransactionReport) => e.amount.usd()),
       new ColumnParams('Processor Result', (e: TransactionReport) => e.processorResult),
       new ColumnParams('Transaction Type', (e: TransactionReport) => e.transactionType),
       new ColumnParams('Transaction Subtype', (e: TransactionReport) => e.transactionSubtype)

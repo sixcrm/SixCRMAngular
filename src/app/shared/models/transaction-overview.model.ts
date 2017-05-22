@@ -1,3 +1,5 @@
+import {Currency} from '../utils/currency/currency';
+
 export class TransactionOverview {
 
   newSale: TransactionOverviewResult;
@@ -23,7 +25,7 @@ export class TransactionOverview {
 
 export class TransactionOverviewResult {
   count: number;
-  amount: number;
+  amount: Currency;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -31,6 +33,6 @@ export class TransactionOverviewResult {
     }
 
     this.count = obj.count || 0;
-    this.amount = obj.amount || 0;
+    this.amount = new Currency(obj.amount);
   }
 }

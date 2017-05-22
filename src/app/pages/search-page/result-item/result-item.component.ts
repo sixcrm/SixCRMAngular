@@ -1,4 +1,5 @@
 import {Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
+import {Currency} from '../../../shared/utils/currency/currency';
 
 @Component({
   selector: 'result-item',
@@ -34,5 +35,9 @@ export class ResultItemComponent implements OnInit {
 
   showDetailsClicked(): void {
     this.showDetails.emit({id: this.id, entityType: this.entityType});
+  }
+
+  formatCurrency(value): string {
+    return new Currency(value).usd();
   }
 }

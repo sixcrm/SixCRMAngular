@@ -1,8 +1,10 @@
+import {Currency} from '../../utils/currency/currency';
+
 export class TransactionByFacets {
   facet: string;
   count: number;
   countPercentage: number;
-  amount: number;
+  amount: Currency;
   amountPercentage: number;
 
   constructor(obj?: any) {
@@ -13,7 +15,7 @@ export class TransactionByFacets {
     this.facet = obj.facet || '';
     this.count = obj.count || 0;
     this.countPercentage = obj.count_percentage.replace('%', '') || 0;
-    this.amount = obj.amount || 0;
+    this.amount = new Currency(obj.amount);
     this.amountPercentage = obj.amount_percentage.replace('%', '') || 0;
   }
 }

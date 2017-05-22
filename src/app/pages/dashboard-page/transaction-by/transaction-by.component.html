@@ -24,7 +24,7 @@
           <td><div [style.background]="colors[i]" class="color-indicator"></div>{{facet.facet.substring(0, 12) + '...'}}</td>
           <td>{{facet.count}}</td>
           <td>{{facet.countPercentage}}%</td>
-          <td>{{facet.amount}}</td>
+          <td>{{facet.amount.usd()}}</td>
           <td>{{facet.amountPercentage}}%</td>
         </tr>
       </tbody>
