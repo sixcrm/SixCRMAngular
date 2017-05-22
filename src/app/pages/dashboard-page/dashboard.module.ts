@@ -10,13 +10,13 @@ import {Daterangepicker} from 'ng2-daterangepicker';
 import { FunnelGraphComponent } from './funnel-graph/funnel-graph.component';
 import { DashboardReportsComponent } from './dashboard-reports/dashboard-reports.component';
 import { MoversCardComponent } from './movers-card/movers-card.component';
-import { AffiliateEventsComponent } from './affiliate-events/affiliate-events.component';
 import { EventsSummaryComponent } from './events-summary/events-summary.component';
 import { TopCampaignsComponent } from './top-campaigns/top-campaigns.component';
 import { TransactionOverviewCardComponent } from './transaction-overview/transaction-overview-card/transaction-overview-card.component';
 import { TransactionOverviewComponent } from './transaction-overview/transaction-overview.component';
 import {TransactionSummaryComponent} from './transaction-summary/transaction-summary.component';
 import {TransactionByComponent} from './transaction-by/transaction-by.component';
+import {EventsByComponent} from './events-by/events-by.component';
 
 export function highchartsFactory() {
   let hc = require('highcharts');
@@ -44,7 +44,7 @@ export function highchartsFactory() {
     FunnelGraphComponent,
     DashboardReportsComponent,
     MoversCardComponent,
-    AffiliateEventsComponent,
+    EventsByComponent,
     EventsSummaryComponent,
     TransactionSummaryComponent,
     TopCampaignsComponent,

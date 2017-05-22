@@ -20,7 +20,7 @@ export class TransactionByFacets {
   }
 }
 
-export class TransactionBy {
+export class TransactionsBy {
   count: number;
   facetType: string;
   facets: TransactionByFacets[] = [];

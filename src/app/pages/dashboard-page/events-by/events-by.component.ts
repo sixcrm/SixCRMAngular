@@ -1,18 +1,18 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
+import {EventsBy} from '../../../shared/models/analytics/events-by.model';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
 import {AnalyticsService} from '../../../shared/services/analytics.service';
-import {TransactionsBy} from '../../../shared/models/analytics/transaction-by.model';
 
 @Component({
-  selector: 'transaction-by',
-  templateUrl: './transaction-by.component.html',
-  styleUrls: ['./transaction-by.component.scss']
+  selector: 'events-by',
+  templateUrl: './events-by.component.html',
+  styleUrls: ['./events-by.component.scss']
 })
-export class TransactionByComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
+export class EventsByComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
   colors: string[] = ['#1773DD', '#4484CD', '#4DABF5', '#98DBF9', '#FFAD33', '#F1862F', '#329262', '#109618', '#66AA00', '#AAAA11', '#98DBF9'];
-  transactionBy: TransactionsBy;
+  eventsBy: EventsBy;
 
   maxNumber = 5;
 
@@ -58,13 +58,13 @@ export class TransactionByComponent extends AbstractDashboardItem implements OnI
 
   chartInstance;
 
-  constructor(private navigation: NavigationService, private analyticsService: AnalyticsService) {
+  constructor(private analyticsService: AnalyticsService, private navigation: NavigationService) {
     super();
   }
 
   ngOnInit() {
-    this.analyticsService.transactionsBy$.takeUntil(this.unsubscribe$).subscribe(events => {
-      this.transactionBy = events;
+    this.analyticsService.eventsBy$.takeUntil(this.unsubscribe$).subscribe(events => {
+      this.eventsBy = events;
       if (this.chartInstance) {
         this.redrawChartData();
       }
@@ -81,7 +81,7 @@ export class TransactionByComponent extends AbstractDashboardItem implements OnI
 
   fetch(): void {
     if (this.shouldFetch) {
-      this.analyticsService.getTransactionsBy(this.start.format(), this.end.format());
+      this.analyticsService.getEventsBy(this.start.format(), this.end.format());
       this.shouldFetch = false;
     }
   }
@@ -99,18 +99,18 @@ export class TransactionByComponent extends AbstractDashboardItem implements OnI
   saveChart(chartInstance): void {
     this.chartInstance = chartInstance;
 
-    if (this.transactionBy) {
+    if (this.eventsBy) {
       this.redrawChartData();
     }
   }
 
   getCount(): number {
-    if (!this.transactionBy) return 0;
+    if (!this.eventsBy) return 0;
 
-    let affLength = this.transactionBy.facets.length;
-    if (!this.maxNumber) return affLength;
+    let length = this.eventsBy.facets.length;
+    if (!this.maxNumber) return length;
 
-    return affLength <= this.maxNumber ? affLength : this.maxNumber;
+    return length <= this.maxNumber ? length : this.maxNumber;
   }
 
   private redrawChartData(): void {
@@ -118,14 +118,14 @@ export class TransactionByComponent extends AbstractDashboardItem implements OnI
   }
 
   private parseData(): any[] {
-    if (!this.transactionBy) return [];
+    if (!this.eventsBy) return [];
 
     let data = [];
 
-    for (let i = 0; i < this.transactionBy.facets.length; i++) {
-      let f = this.transactionBy.facets[i];
+    for (let i = 0; i < this.eventsBy.facets.length; i++) {
+      let f = this.eventsBy.facets[i];
 
-      data.push({name: f.facet.substring(0, 8) + '...', y: +f.amount.amount, color: this.colors[i]})
+      data.push({name: f.facet.substring(0, 8) + '...', y: +f.count, color: this.colors[i]})
     }
 
     return data;

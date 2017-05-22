@@ -7,8 +7,8 @@ import {CampaignDelta} from '../models/campaign-delta.model';
 import {CampaignStats} from '../models/campaign-stats.model';
 import {FilterTerm} from '../../pages/dashboard-page/dashboard.component';
 import {Moment, utc} from 'moment';
-import {TransactionBy} from '../models/analytics/transaction-by.model';
-import {AffiliateEvents} from '../models/affiliate-events.model';
+import {TransactionsBy} from '../models/analytics/transaction-by.model';
+import {EventsBy} from '../models/analytics/events-by.model';
 
 export class AnalyticsStateEntry<T> {
   startDate: string;
@@ -69,8 +69,8 @@ export class AnalyticsStorageService {
   private lastUpdated: string = 'last_updated';
 
   private eventFunnelKey: string = 'event_funnel';
-  private eventsByAffiliateKey: string = 'events_by_affiliate';
-  private transactionsByAffiliateKey: string = 'transactions_by_affiliate';
+  private eventsByKey: string = 'events_by';
+  private transactionByKey: string = 'transactions_by';
   private transactionSummariesKey: string = 'transaction_summaries';
   private transactionOverviewKey: string = 'transaction_overview';
   private eventSummaryKey: string = 'event_summary';
@@ -115,32 +115,32 @@ export class AnalyticsStorageService {
     this.storage[this.eventFunnelKey] = new AnalyticsStateEntry(start, end, funnel)
   }
 
-  getEventsByAffiliate(start: string, end: string): AffiliateEvents {
-    let eventsEntry: AnalyticsStateEntry<AffiliateEvents> = this.storage[this.eventsByAffiliateKey];
+  getEventsBy(start: string, end: string): EventsBy {
+    let eventsEntry: AnalyticsStateEntry<EventsBy> = this.storage[this.eventsByKey];
 
     if (this.isInvalid(eventsEntry, start, end)) return null;
 
     return eventsEntry.entry
   }
 
-  setEventsByAffiliate(start: string, end: string, events: AffiliateEvents): void {
+  setEventsBy(start: string, end: string, events: EventsBy): void {
     this.saveStartEnd(start, end);
 
-    this.storage[this.eventsByAffiliateKey] = new AnalyticsStateEntry(start, end, events);
+    this.storage[this.eventsByKey] = new AnalyticsStateEntry(start, end, events);
   }
 
-  getTransactionsByAffiliate(start: string, end: string): TransactionBy {
-    let eventsEntry: AnalyticsStateEntry<TransactionBy> = this.storage[this.transactionsByAffiliateKey];
+  getTransactionsBy(start: string, end: string): TransactionsBy {
+    let eventsEntry: AnalyticsStateEntry<TransactionsBy> = this.storage[this.transactionByKey];
 
     if (this.isInvalid(eventsEntry, start, end)) return null;
 
     return eventsEntry.entry
   }
 
-  setTransactionsByAffiliate(start: string, end: string, events: TransactionBy): void {
+  setTransactionsBy(start: string, end: string, events: TransactionsBy): void {
     this.saveStartEnd(start, end);
 
-    this.storage[this.transactionsByAffiliateKey] = new AnalyticsStateEntry(start, end, events);
+    this.storage[this.transactionByKey] = new AnalyticsStateEntry(start, end, events);
   }
 
   getTransactionSummaries(start: string, end: string, filters?: FilterTerm[]): TransactionSummary[] {

@@ -129,14 +129,9 @@
   <div class="dashboard__column dashboard__column--right">
     <funnel-graph [date]="date"></funnel-graph>
 
-    <affiliate-events
-      [title]="'Events by Affiliate'"
-      [subtitle]="'Events from the top Affiliates'"
-      [maxNumber]="5"
-      [date]="date"
-      (fetch)="analyticsService.getAffiliateEvents(date.start.format(), date.end.format())"
-      [fetchObservable]="analyticsService.affiliateEvents$">
-    </affiliate-events>
+    <events-by
+      [date]="date">
+    </events-by>
 
     <transaction-by
       [date]="date">

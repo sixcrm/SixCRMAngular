@@ -1,5 +1,5 @@
-export class AffiliateData {
-  affiliate: string;
+export class EventsByFacets {
+  facet: string;
   count: number;
   percentage: string;
 
@@ -8,15 +8,16 @@ export class AffiliateData {
       obj = {};
     }
 
-    this.affiliate = obj.affiliate || '';
+    this.facet = obj.facet || '';
     this.count = obj.count ? Number(obj.count) : 0;
     this.percentage = obj.percentage || '-';
   }
 }
 
-export class AffiliateEvents {
+export class EventsBy {
   count: number;
-  affiliates: AffiliateData[] = [];
+  facetType: string;
+  facets: EventsByFacets[] = [];
 
   constructor(obj?: any) {
     if (!obj) {
@@ -24,9 +25,10 @@ export class AffiliateEvents {
     }
 
     this.count = obj.count || 0;
+    this.facetType = obj.facetType || '';
 
-    if (obj.affiliates || obj.affiliates.length > 0) {
-      obj.affiliates.forEach(affiliate => this.affiliates.push(new AffiliateData(affiliate)));
+    if (obj.facets || obj.facets.length > 0) {
+      obj.facets.forEach(facet => this.facets.push(new EventsByFacets(facet)));
     }
   }
 }

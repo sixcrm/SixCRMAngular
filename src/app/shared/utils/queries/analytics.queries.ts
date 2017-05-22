@@ -80,9 +80,14 @@ export function campaignDeltaQuery(start: string, end: string): string {
 export function eventsByAffiliateQuery(start: string, end: string): string {
   return `
   {
-		eventsbyaffiliate (analyticsfilter:{${dateRange(start, end)}}) {
-			count
-			affiliates { affiliate count percentage }
+		eventsbyfacet (analyticsfilter:{${dateRange(start, end)}}, facet:"affiliate", pagination:{limit:5}) {
+			count,
+			facet_type,
+			facets {
+				facet,
+				count,
+				percentage
+			}
 		}
 	}
   `

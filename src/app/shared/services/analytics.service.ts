@@ -15,8 +15,8 @@ import {CampaignDelta} from '../models/campaign-delta.model';
 import {EventSummary} from '../models/event-summary.model';
 import {CampaignStats} from '../models/campaign-stats.model';
 import {AnalyticsStorageService} from './analytics-storage.service';
-import {TransactionBy} from '../models/analytics/transaction-by.model';
-import {AffiliateEvents} from '../models/affiliate-events.model';
+import {TransactionsBy} from '../models/analytics/transaction-by.model';
+import {EventsBy} from '../models/analytics/events-by.model';
 
 @Injectable()
 export class AnalyticsService {
@@ -25,8 +25,8 @@ export class AnalyticsService {
   transactionsSummaries$: BehaviorSubject<TransactionSummary[]>;
   transactionsOverview$: BehaviorSubject<TransactionOverview>;
   campaignDelta$: BehaviorSubject<CampaignDelta[]>;
-  affiliateEvents$: BehaviorSubject<AffiliateEvents>;
-  affiliateTransactions$: BehaviorSubject<TransactionBy>;
+  eventsBy$: BehaviorSubject<EventsBy>;
+  transactionsBy$: BehaviorSubject<TransactionsBy>;
   eventsSummary$: BehaviorSubject<EventSummary[]>;
   campaignsByAmount$: BehaviorSubject<CampaignStats[]>;
 
@@ -35,9 +35,9 @@ export class AnalyticsService {
     this.transactionsSummaries$ = new BehaviorSubject(null);
     this.transactionsOverview$ = new BehaviorSubject(null);
     this.campaignDelta$ = new BehaviorSubject(null);
-    this.affiliateEvents$ = new BehaviorSubject(null);
+    this.eventsBy$ = new BehaviorSubject(null);
     this.eventsSummary$ = new BehaviorSubject(null);
-    this.affiliateTransactions$ = new BehaviorSubject(null);
+    this.transactionsBy$ = new BehaviorSubject(null);
     this.campaignsByAmount$ = new BehaviorSubject(null);
   }
 
@@ -123,37 +123,37 @@ export class AnalyticsService {
     }
   }
 
-  getAffiliateEvents(start: string, end: string): void {
-    let eventsStorage = this.analyticsStorage.getEventsByAffiliate(start, end);
+  getEventsBy(start: string, end: string): void {
+    let eventsStorage = this.analyticsStorage.getEventsBy(start, end);
 
     if (eventsStorage) {
-      this.affiliateEvents$.next(eventsStorage);
+      this.eventsBy$.next(eventsStorage);
     } else {
       this.queryRequest(eventsByAffiliateQuery(start, end)).subscribe(data => {
-        let events = data.json().data.eventsbyaffiliate;
+        let events = data.json().data.eventsbyfacet;
 
         if (events) {
-          let e = new AffiliateEvents(events);
-          this.affiliateEvents$.next(e);
-          this.analyticsStorage.setEventsByAffiliate(start, end, e);
+          let e = new EventsBy(events);
+          this.eventsBy$.next(e);
+          this.analyticsStorage.setEventsBy(start, end, e);
         }
       });
     }
   }
 
-  getAffiliateTransactions(start: string, end: string): void {
-    let eventsStorage = this.analyticsStorage.getTransactionsByAffiliate(start, end);
+  getTransactionsBy(start: string, end: string): void {
+    let transactionsBy = this.analyticsStorage.getTransactionsBy(start, end);
 
-    if (eventsStorage) {
-      this.affiliateTransactions$.next(eventsStorage);
+    if (transactionsBy) {
+      this.transactionsBy$.next(transactionsBy);
     } else {
       this.queryRequest(transactionsByAffiliateQuery(start, end)).subscribe(data => {
         let events = data.json().data.transactionsbyfacet;
 
         if (events) {
-          let e = new TransactionBy(events);
-          this.affiliateTransactions$.next(e);
-          this.analyticsStorage.setTransactionsByAffiliate(start, end, e);
+          let e = new TransactionsBy(events);
+          this.transactionsBy$.next(e);
+          this.analyticsStorage.setTransactionsBy(start, end, e);
         }
       });
     }
@@ -200,9 +200,9 @@ export class AnalyticsService {
     this.transactionsSummaries$.next(null);
     this.transactionsOverview$.next(null);
     this.campaignDelta$.next(null);
-    this.affiliateEvents$.next(null);
+    this.eventsBy$.next(null);
     this.eventsSummary$.next(null);
-    this.affiliateTransactions$.next(null);
+    this.transactionsBy$.next(null);
     this.campaignsByAmount$.next(null);
   }
 
