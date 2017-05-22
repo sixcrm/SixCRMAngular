@@ -20,7 +20,11 @@
       </div>
     </div>
 
-    <div class="advanced-filter__query">
+    <div *ngIf="groupByEnabled" class="advanced-filter__group-by">
+      <dropdown-component [options]="groupByFilters" [selected]="groupBy" [placeholder]="'Group by'" (onSelect)="groupBy = $event"></dropdown-component>
+    </div>
+
+    <div class="advanced-filter__query" [class.advanced-filter__query--no-group-by]="!groupByEnabled">
       <div class="advanced-filter__query__input" [class.advanced-filter__query__input--advanced]="advanced">
         <md-input placeholder="Filters" [value]="currentFilterTerm" (input)="filterTermInput($event)" (blur)="filterTermInputBlur()" (focus)="filterTermInputFocus()">
           <div class="advanced-filter__query__input__prefix" md-prefix>

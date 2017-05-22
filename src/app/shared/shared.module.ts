@@ -45,6 +45,7 @@ import { AdvancedFilterComponent } from './components/advanced-filter/advanced-f
 import {InputAutocompleteComponent} from './components/input-autocomplete/input-autocomplete.component';
 import {ChartModule} from 'angular2-highcharts';
 import {Daterangepicker} from 'ng2-daterangepicker';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
 
 @NgModule({
   declarations : [
@@ -60,7 +61,8 @@ import {Daterangepicker} from 'ng2-daterangepicker';
     InViewportDirective,
     TablePaginationComponent,
     AdvancedFilterComponent,
-    InputAutocompleteComponent
+    InputAutocompleteComponent,
+    DropdownComponent
   ],
   exports : [
     WidgetComponent,

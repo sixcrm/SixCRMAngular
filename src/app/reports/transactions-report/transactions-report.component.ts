@@ -71,6 +71,10 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
     this.dateMap = {start: this.start, end: this.end};
   }
 
+  groupByChanged(groupBy: string): void {
+
+  }
+
   addFilter(filter: FilterTerm): void {
     this.filterTerms.push(filter);
     this.immutableFilterTerms = this.filterTerms.slice();

@@ -17,12 +17,10 @@ $color-orange: #F16C00;
     display: flex;
     align-items: center;
     margin: 20px 5px;
-    width: 50%;
     font-size: 12px;
 
     @media only screen and (max-width: 1440px) {
-      margin: 10px 60px 10px 0;
-      width: 100%;
+      margin: 10px 20px 10px 0;
     }
 
     &__quick {
@@ -47,7 +45,7 @@ $color-orange: #F16C00;
     }
 
     &__range {
-      margin-left: 40px;
+      margin-left: 30px;
 
       .daterangepicker {
         flex-wrap: wrap;
@@ -91,14 +89,27 @@ $color-orange: #F16C00;
     }
   }
 
+  &__group-by {
+    display: inline-block;
+    margin: 20px;
+
+    @media only screen and (max-width: 1440px) {
+      margin: 10px;
+    }
+  }
+
   &__query {
     position: relative;
     margin-left: auto;
-    width: 45%;
+    width: 42%;
 
     @media only screen and (max-width: 1440px) {
       margin-top: 20px;
-      width: 100%;
+      width: 100% !important;
+    }
+
+    &--no-group-by {
+      width: 50%;
     }
 
     &__input {

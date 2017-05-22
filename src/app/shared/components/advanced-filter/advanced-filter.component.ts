@@ -31,10 +31,30 @@ export class AdvancedFilterComponent implements OnInit, OnDestroy {
   @Input() filterTerms: FilterTerm[] = [];
   @Input() refreshText: string = '';
   @Input() shareUrl: string = 'url';
+  @Input() groupByEnabled: boolean = false;
+
+  groupByFilters: string[] = [
+    "Merchant Provider",
+    "Affiliate",
+    "Campaign",
+    "Product Schedule",
+    "Session",
+    "Processor Result",
+    "Transaction Type",
+    "Transaction Sub-Type",
+    "Event Type",
+    "Sub-Affiliate 1",
+    "Sub-Affiliate 2",
+    "Sub-Affiliate 3",
+    "Sub-Affiliate 4",
+    "Sub-Affiliate 5"
+  ];
+  groupBy: string;
 
   filterSearchResults: FilterTerm[] = [];
 
   @Output() dateChanged: EventEmitter<DateMap> = new EventEmitter();
+  @Output() groupByChanged: EventEmitter<string> = new EventEmitter();
   @Output() filterTermAdded: EventEmitter<FilterTerm> = new EventEmitter();
   @Output() filterTermRemoved: EventEmitter<FilterTerm> = new EventEmitter();
   @Output() resetFilters: EventEmitter<boolean> = new EventEmitter();
