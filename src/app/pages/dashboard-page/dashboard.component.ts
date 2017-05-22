@@ -310,7 +310,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private fetchAll(): void {
     this.date = {start: this.getStartDate(), end: this.getEndDate()};
 
-    this.immutableFilterTerms =  this.filterTerms.slice();;
+    this.immutableFilterTerms =  this.filterTerms.slice();
   }
 
   private fetchFilterDependents(): void {

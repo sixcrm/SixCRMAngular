@@ -108,7 +108,7 @@ export class AdvancedFilterComponent implements OnInit, OnDestroy {
   }
 
   setActiveDate(start: Moment, end: Moment) {
-    this.dateChanged.emit({start: start, end: end});
+    this.dateChanged.emit({start: start, end: flatUp(end)});
   }
 
   addFilterTerm(filterTerm: FilterTerm): void {

@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import {AbstractDashboardItem} from '../../pages/dashboard-page/abstract-dashboard-item.component';
-import {FilterTerm} from '../../pages/dashboard-page/dashboard.component';
+import {FilterTerm, flatUp} from '../../pages/dashboard-page/dashboard.component';
 import {TransactionSummary} from '../../shared/models/transaction-summary.model';
 import {AnalyticsService} from '../../shared/services/analytics.service';
 
@@ -56,7 +56,7 @@ export class TransactionSummaryChartComponent extends AbstractDashboardItem impl
 
   fetch(): void {
     if (this.shouldFetch) {
-      this.analyticsService.getTransactionSummaries(this.start.format(), this.end.format(), this.filterTerms);
+      this.analyticsService.getTransactionSummaries(this.start.format(), flatUp(this.end).format(), this.filterTerms);
       this.shouldFetch = false;
     }
   }

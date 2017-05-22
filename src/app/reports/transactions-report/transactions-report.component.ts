@@ -7,7 +7,7 @@ import {ColumnParams} from '../../shared/models/column-params.model';
 import {ReportsAbstractComponent} from '../reports-abstract.component';
 import {PaginationService} from '../../shared/services/pagination.service';
 import {Router} from '@angular/router';
-import {DateMap, FilterTerm} from '../../pages/dashboard-page/dashboard.component';
+import {DateMap, FilterTerm, flatUp} from '../../pages/dashboard-page/dashboard.component';
 
 @Component({
   selector: 'transactions-report',
@@ -17,7 +17,7 @@ import {DateMap, FilterTerm} from '../../pages/dashboard-page/dashboard.componen
 export class TransactionsReportComponent extends ReportsAbstractComponent<TransactionReport> implements OnInit, OnDestroy {
 
   start: Moment = utc().subtract(3, 'M');
-  end: Moment = utc();
+  end: Moment = flatUp(utc());
   filterTerms: FilterTerm[] = [];
   immutableFilterTerms: FilterTerm[] = [];
 
