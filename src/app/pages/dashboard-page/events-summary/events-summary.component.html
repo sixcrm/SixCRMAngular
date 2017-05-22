@@ -5,6 +5,8 @@
     <md-icon>more_vert</md-icon>
   </div>
 
-  <chart [class.invisible]="!loaded" #chartI [options]="options" (load)="loadChart(chartI)"></chart>
+  <div [class.invisible]="!loaded">
+    <chart #chartI [options]="options" (load)="loadChart(chartI)"></chart>
+  </div>
   <md-spinner *ngIf="!loaded"></md-spinner>
 </div>

@@ -35,8 +35,12 @@ $color-orange: #F16C00;
   }
 
   &__container {
-    overflow: hidden;
-    transition: height 0.75s cubic-bezier(0.35, 0, 0.25, 1);
+    height: 320px;
+
+    md-spinner {
+      margin: auto;
+      padding-top: 110px;
+    }
   }
 
   &__item {

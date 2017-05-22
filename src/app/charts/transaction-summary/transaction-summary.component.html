@@ -5,6 +5,8 @@
     <md-icon>more_vert</md-icon>
   </div>
 
-  <chart style="display: block" [class.invisible]="!loaded" type="StockChart" [options]="chartOptions" (load)="saveChart($event.context)"></chart>
+  <div [class.invisible]="!loaded">
+    <chart style="display: block" type="StockChart" [options]="chartOptions" (load)="saveChart($event.context)"></chart>
+  </div>
   <md-spinner *ngIf="!loaded"></md-spinner>
 </div>

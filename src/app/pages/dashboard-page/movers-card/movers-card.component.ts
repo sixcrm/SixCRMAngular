@@ -10,8 +10,7 @@ import {AnalyticsService} from '../../../shared/services/analytics.service';
 })
 export class MoversCardComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
-  campaignDelta: CampaignDelta[] = [];
-  height: string = '0';
+  campaignDelta: CampaignDelta[];
 
   constructor(private analyticsService: AnalyticsService) {
     super();
@@ -19,17 +18,13 @@ export class MoversCardComponent extends AbstractDashboardItem implements OnInit
 
   ngOnInit() {
     this.analyticsService.campaignDelta$.takeUntil(this.unsubscribe$).subscribe(campaigns => {
-      if (!campaigns) {
-        campaigns = [];
+      if (campaigns) {
+        if (campaigns.length > 5) {
+          this.campaignDelta = campaigns.slice(0,5);
+        } else {
+          this.campaignDelta = campaigns;
+        }
       }
-
-      if (campaigns.length > 5) {
-        this.campaignDelta = campaigns.slice(0,5);
-      } else {
-        this.campaignDelta = campaigns;
-      }
-
-      this.height = this.campaignDelta.length * 63 + 6 + 'px';
     })
   }
 

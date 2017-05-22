@@ -24,7 +24,7 @@
     </tbody>
   </table>
 
-  <div *ngIf="campaigns" class="dashboard__table-chart__actions"><span [routerLink]="['/coming-soon']">VIEW MORE</span></div>
-
   <md-spinner *ngIf="!campaigns"></md-spinner>
+
+  <div class="dashboard__table-chart__actions"><span [routerLink]="['/coming-soon']">VIEW MORE</span></div>
 </div>

@@ -41,10 +41,12 @@ export class TransactionSummaryChartComponent extends AbstractDashboardItem impl
 
   ngOnInit() {
     this.analyticsService.transactionsSummaries$.takeUntil(this.unsubscribe$).subscribe(summaries => {
-      this.summaries = summaries || [];
+      if (summaries) {
+        this.summaries = summaries;
 
-      if (this.chartInstance) {
-        this.redrawChart();
+        if (this.chartInstance) {
+          this.redrawChart();
+        }
       }
     })
   }
@@ -64,12 +66,14 @@ export class TransactionSummaryChartComponent extends AbstractDashboardItem impl
   saveChart(chartInstance): void {
     this.chartInstance = chartInstance;
 
-    if (this.summaries) {
+    if (this.summaries && !this.loaded) {
       this.redrawChart();
     }
   }
 
   private redrawChart(): void {
+    if (!this.summaries) return;
+
     let data = {};
 
     this.summaries.forEach(summary => {

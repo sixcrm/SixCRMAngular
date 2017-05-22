@@ -5,20 +5,25 @@
     <md-icon>more_vert</md-icon>
   </div>
 
-  <div class="movers-card__container" [style.height]="height">
-    <div *ngFor="let campaign of campaignDelta" [routerLink]="['/campaigns', campaign.campaignId]" class="movers-card__item">
-      <div class="movers-card__item__text">
-        <div class="movers-card__item__text__main">{{campaign.campaignName}}</div>
-        <div class="movers-card__item__text__sub">{{campaign.campaignId.substring(0, 8) + '...'}}</div>
-      </div>
+  <div class="movers-card__container">
+    <ng-container *ngIf="campaignDelta; else loader">
+      <div *ngFor="let campaign of campaignDelta" [routerLink]="['/campaigns', campaign.campaignId]" class="movers-card__item">
+        <div class="movers-card__item__text">
+          <div class="movers-card__item__text__main">{{campaign.campaignName}}</div>
+          <div class="movers-card__item__text__sub">{{campaign.campaignId.substring(0, 8) + '...'}}</div>
+        </div>
 
-      <div class="movers-card__item__data">
-        <div [class.dec]="isDecing(campaign)" class="movers-card__item__data__percentage">
-          <span>{{campaign.percentageChangeAmount}} ({{campaign.percentageChangeCount}})</span>
-          <md-icon>{{isDecing(campaign) ? 'arrow_downward' : 'arrow_upward'}}</md-icon>
+        <div class="movers-card__item__data">
+          <div [class.dec]="isDecing(campaign)" class="movers-card__item__data__percentage">
+            <span>{{campaign.percentageChangeAmount}} ({{campaign.percentageChangeCount}})</span>
+            <md-icon>{{isDecing(campaign) ? 'arrow_downward' : 'arrow_upward'}}</md-icon>
+          </div>
         </div>
       </div>
-    </div>
+    </ng-container>
+    <ng-template #loader>
+      <md-spinner></md-spinner>
+    </ng-template>
   </div>
 
   <div class="movers-card__actions"><span [routerLink]="['/coming-soon']">VIEW MORE</span></div>

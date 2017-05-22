@@ -435,7 +435,8 @@ $color-orange: #F16C00;
     background-color: white;
 
     .invisible {
-      display: none;
+      overflow: hidden;
+      height: 0;
     }
 
     &__title {
