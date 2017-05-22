@@ -29,9 +29,9 @@ export class RebillsComponent extends AbstractEntityIndexComponent<Rebill> imple
 
     this.columnParams = [
       new ColumnParams('ID', (e: Rebill) => e.id),
-      new ColumnParams('Bill At',(e: Rebill) => e.billAt ? e.billAt.format() : 'not billed'),
-      new ColumnParams('Created At', (e: Rebill) => e.createdAt.format()),
-      new ColumnParams('Amount', (e: Rebill) => e.amount)
+      new ColumnParams('Bill At',(e: Rebill) => e.billAt ? e.billAt.format('MM/DD/YYYY') : 'not billed'),
+      new ColumnParams('Created At', (e: Rebill) => e.createdAt.format('MM/DD/YYYY')),
+      new ColumnParams('Amount', (e: Rebill) => e.amount.usd())
     ];
   }
 

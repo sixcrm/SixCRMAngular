@@ -3,10 +3,11 @@ import {ProductSchedule} from './product-schedule.model';
 import {Transaction} from './transaction.model';
 import {Entity} from './entity.interface';
 import {Moment, utc} from 'moment';
+import {Currency} from '../utils/currency/currency';
 
 export class Rebill implements Entity<Rebill> {
   id: string;
-  amount: string;
+  amount: Currency;
   billAt: Moment;
   createdAt: Moment;
   parentSession: ParentSession;
@@ -19,7 +20,7 @@ export class Rebill implements Entity<Rebill> {
     }
 
     this.id = obj.id || '';
-    this.amount = obj.amount || '';
+    this.amount = new Currency(obj.amount);
     this.billAt = obj.bill_at ? utc(obj.bill_at) : null;
     this.createdAt = utc(obj.created_at);
     this.parentSession = new ParentSession(obj.parentsession);
