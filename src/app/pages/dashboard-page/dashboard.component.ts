@@ -256,22 +256,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getShareUrl(): string {
-    let url = environment.auth0RedirectUrl + '/dashboard?f=';
-
-    let filters = {'start': this.getStartDate().format(), 'end': this.getEndDate().format()};
-
-    for (let i in this.filterTerms) {
-      let currentFilter = this.filterTerms[i];
-      let formattedFilter = {id: currentFilter.id, label: currentFilter.label};
-
-      if (filters[currentFilter.type]) {
-        filters[currentFilter.type].push(formattedFilter);
-      } else {
-        filters[currentFilter.type] = [formattedFilter];
-      }
-    }
-
-    return url + btoa(JSON.stringify(filters));
+    return environment.auth0RedirectUrl + '/dashboard?f=' + this.encodeParams();
   }
 
   dateSelected(value: any): void {
@@ -305,6 +290,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.analyticsStorageService.refresh();
     this.analyticsService.clearAllSubjects();
     this.fetchAll();
+  }
+
+  encodeParams(): string {
+    let filters = {'start': this.getStartDate().format(), 'end': this.getEndDate().format()};
+
+    for (let i in this.filterTerms) {
+      let currentFilter = this.filterTerms[i];
+      let formattedFilter = {id: currentFilter.id, label: currentFilter.label};
+
+      if (filters[currentFilter.type]) {
+        filters[currentFilter.type].push(formattedFilter);
+      } else {
+        filters[currentFilter.type] = [formattedFilter];
+      }
+    }
+
+    return btoa(JSON.stringify(filters))
   }
 
   private fetchAll(): void {

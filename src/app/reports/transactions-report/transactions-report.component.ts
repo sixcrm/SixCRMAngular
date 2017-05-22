@@ -6,8 +6,9 @@ import {utc, Moment} from 'moment';
 import {ColumnParams} from '../../shared/models/column-params.model';
 import {ReportsAbstractComponent} from '../reports-abstract.component';
 import {PaginationService} from '../../shared/services/pagination.service';
-import {Router} from '@angular/router';
-import {DateMap, FilterTerm, flatUp} from '../../pages/dashboard-page/dashboard.component';
+import {Router, ActivatedRoute} from '@angular/router';
+import {DateMap, FilterTerm, flatUp, flatDown} from '../../pages/dashboard-page/dashboard.component';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'transactions-report',
@@ -16,18 +17,19 @@ import {DateMap, FilterTerm, flatUp} from '../../pages/dashboard-page/dashboard.
 })
 export class TransactionsReportComponent extends ReportsAbstractComponent<TransactionReport> implements OnInit, OnDestroy {
 
-  start: Moment = utc().subtract(3, 'M');
-  end: Moment = flatUp(utc());
+  start: Moment;
+  end: Moment;
   filterTerms: FilterTerm[] = [];
   immutableFilterTerms: FilterTerm[] = [];
-
-  dateMap: DateMap = {start: this.start, end: this.end};
+  dateMap: DateMap;
+  shareUrl: string;
 
   constructor(
     private reportService: TransactionReportService,
     private progressBarService: ProgressBarService,
     paginationService: PaginationService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     super(paginationService);
 
@@ -57,6 +59,22 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
       this.reshuffle();
     });
 
+    this.route.queryParams.takeUntil(this.unsubscribe$).subscribe(params => {
+      this.filterTerms = [];
+      let data = {};
+
+      if (params['f']) {
+        data = JSON.parse(atob(params['f']));
+      }
+
+      this.extractDateFromParams(data);
+      this.extractFiltersFromParams(data);
+
+      this.immutableFilterTerms = this.filterTerms.slice();
+      this.dateMap = {start: flatDown(this.start), end: flatUp(this.end)};
+      this.getShareUrl();
+    });
+
     this.fetchFunction();
   }
 
@@ -69,6 +87,7 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
     this.end = date.end;
 
     this.dateMap = {start: this.start, end: this.end};
+    this.getShareUrl();
   }
 
   groupByChanged(groupBy: string): void {
@@ -78,6 +97,7 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
   addFilter(filter: FilterTerm): void {
     this.filterTerms.push(filter);
     this.immutableFilterTerms = this.filterTerms.slice();
+    this.getShareUrl();
   }
 
   removeFilter(filter: FilterTerm): void {
@@ -88,6 +108,7 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
     }
 
     this.immutableFilterTerms = this.filterTerms.slice();
+    this.getShareUrl();
   }
 
   reset(): void {
@@ -96,12 +117,60 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
     this.filterTerms = [];
     this.immutableFilterTerms = this.filterTerms.slice();
     this.dateMap = {start: this.start, end: this.end};
+    this.getShareUrl();
   }
 
   refresh(): void {
     this.reset();
 
     this.fetchFunction();
+  }
+
+  getShareUrl(): void {
+    let url = environment.auth0RedirectUrl + '/reports/transaction?f=';
+
+    let filters = {'start': this.start.format(), 'end': this.end.format()};
+
+    for (let i in this.filterTerms) {
+      let currentFilter = this.filterTerms[i];
+      let formattedFilter = {id: currentFilter.id, label: currentFilter.label};
+
+      if (filters[currentFilter.type]) {
+        filters[currentFilter.type].push(formattedFilter);
+      } else {
+        filters[currentFilter.type] = [formattedFilter];
+      }
+    }
+
+    this.shareUrl = url + btoa(JSON.stringify(filters));
+  }
+
+  navigate(report: TransactionReport): void {
+    this.router.navigate(['transactions', report.id]);
+  }
+
+  extractDateFromParams(data): void {
+    if (!data['start'] || !data['end']) {
+      this.start = utc().subtract(3, 'M');
+      this.end = flatUp(utc());
+
+      return;
+    }
+
+    this.start = utc(data['start']);
+    this.end = flatUp(utc(data['end']));
+  }
+
+  extractFiltersFromParams(data: any): void {
+    Object.keys(data).forEach(groupKey => {
+      if (groupKey !== 'start' && groupKey !== 'end') {
+        let group = data[groupKey];
+
+        Object.keys(group).forEach(key => {
+          this.filterTerms.push({type: groupKey, id: group[key].id, label: group[key].label})
+        })
+      }
+    });
   }
 
   private getFilterTermIndex(filterTerm: FilterTerm): number {
@@ -111,9 +180,5 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
     }
 
     return -1;
-  }
-
-  navigate(report: TransactionReport): void {
-    this.router.navigate(['transactions', report.id]);
   }
 }

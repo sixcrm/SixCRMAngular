@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'dashboard-reports',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard-reports.component.scss']
 })
 export class DashboardReportsComponent implements OnInit {
+
+  @Input() params: string;
 
   constructor() { }
 
