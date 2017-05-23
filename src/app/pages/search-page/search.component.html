@@ -96,6 +96,17 @@
 
           <md-input placeholder="Filter Results" [(ngModel)]="filterValue"></md-input>
 
+          <table-pagination
+            [limit]="limit"
+            [paginationString]="paginationString()"
+            [paginationValues]="paginationValues"
+            [previousDisabled]="page <= 0"
+            [nextDisabled]="!hasMorePages() || numberOfSearchResults === 0"
+            (previous)="previousPage()"
+            (next)="nextPage()"
+            (updateLimit)="updateLimit($event)">
+          </table-pagination>
+
           <share-link class="search__content__title__share" [shareUrl]="getShareUrl()"></share-link>
 
           <md-icon (click)="toggleView()">{{listMode ? 'view_headline' : 'view_module'}}</md-icon>
