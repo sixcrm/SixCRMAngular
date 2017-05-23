@@ -1,22 +1,37 @@
 <div class="reports-table">
   <div class="reports-table__title">
     <span>{{title}}</span>
-    <md-icon>more_vert</md-icon>
+    <md-input placeholder="Filter" [(ngModel)]="filterString"></md-input>
+    <table-pagination
+      [limit]="limit"
+      [paginationValues]="paginationValues"
+      [previousDisabled]="page <= 0"
+      [nextDisabled]="nextDisabled"
+      [paginationString]="paginationString"
+      (previous)="previous.emit($event)"
+      (next)="next.emit($event)"
+      (updateLimit)="updateLimit.emit($event)">
+    </table-pagination>
+    <md-icon class="reports-table__title__icon--more">more_vert</md-icon>
   </div>
 
   <div *ngIf="data && data.length > 0">
     <table class="highlight">
       <thead>
         <tr>
-          <th *ngFor="let params of columnParams">{{params.label}}</th>
-          <th></th>
+          <th *ngFor="let params of columnParams" (click)="setSortParams(params)">
+            {{params.label}}
+            <ng-container *ngIf="params.sortApplied">
+              <md-icon *ngIf="params.sortOrder === 'asc'; else downArrow;">keyboard_arrow_down</md-icon>
+              <ng-template #downArrow><md-icon>keyboard_arrow_up</md-icon></ng-template>
+            </ng-container>
+          </th>
         </tr>
       </thead>
 
       <tbody>
-        <tr *ngFor="let d of data" (click)="selected.emit(d)">
+        <tr *ngFor="let d of data | filterEntities: filterString | sortEntities: sortParams.mappingFunction: sortParams.sortOrder" (click)="selected.emit(d)">
           <td *ngFor="let params of columnParams">{{params.mappingFunction(d)}}</td>
-          <td><md-icon>more_vert</md-icon></td>
         </tr>
       </tbody>
     </table>

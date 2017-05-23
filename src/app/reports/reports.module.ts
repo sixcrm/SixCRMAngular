@@ -7,10 +7,12 @@ import { ReportTableComponent } from './components/report-table/report-table.com
 import {MaterialModule} from '@angular/material';
 import {Daterangepicker} from 'ng2-daterangepicker';
 import {ChartsModule} from '../charts/charts.module';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     SharedModule,
     reportsRouting,
     MaterialModule.forRoot(),

@@ -8,8 +8,10 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 })
 export class ReportTableComponent implements OnInit {
 
+  filterString: string;
+  sortParams: ColumnParams<any> = new ColumnParams();
+
   @Input() columnParams: ColumnParams<any>[] = [];
-  @Input() sortParams: ColumnParams<any>;
   @Input() data: any[] = [];
   @Input() title: string;
   @Output() selected: EventEmitter<any> = new EventEmitter();
@@ -28,4 +30,13 @@ export class ReportTableComponent implements OnInit {
 
   ngOnInit() { }
 
+  setSortParams(params: ColumnParams<any>): void {
+    if (this.sortParams.label === params.label) {
+      this.sortParams.sortOrder = this.sortParams.sortOrder !== 'asc' ? 'asc' : 'desc';
+    } else {
+      this.sortParams.sortApplied = false;
+      this.sortParams = params;
+      this.sortParams.sortApplied = true;
+    }
+  }
 }

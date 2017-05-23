@@ -42,10 +42,13 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
   ngOnInit() {
     this.columnParams = [
       new ColumnParams('Date', (e: TransactionReport) => e.date.format('MM/DD/YYYY')),
+      new ColumnParams('Affiliate', (e: TransactionReport) => e.affiliate),
+      new ColumnParams('Sub-Affiliate', (e: TransactionReport) => e.subAffiliate1),
+      new ColumnParams('Campaign', (e: TransactionReport) => e.campaign),
+      new ColumnParams('Product Schedule', (e: TransactionReport) => e.productSchedule),
+      new ColumnParams('Transaction Type', (e: TransactionReport) => e.transactionType),
       new ColumnParams('Amount', (e: TransactionReport) => e.amount.usd()),
       new ColumnParams('Processor Result', (e: TransactionReport) => e.processorResult),
-      new ColumnParams('Transaction Type', (e: TransactionReport) => e.transactionType),
-      new ColumnParams('Transaction Subtype', (e: TransactionReport) => e.transactionSubtype)
     ];
 
     this.reportService.transactions$.takeUntil(this.unsubscribe$).subscribe(reports => {
