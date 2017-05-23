@@ -8,7 +8,7 @@
     <md-icon class="search__content__results__item__button" (click)="showDetailsClicked()">open_in_new</md-icon>
     <div class="search__content__results__item__subtitle">
       {{entityType}}
-      <img src="/assets/images/result-item-timer.svg"> <span>date created {{fields.created_at.substring(0,10)}}</span>
+      <img src="/assets/images/result-item-timer.svg"> <span>date created {{fields.created_at | formatDateTime}}</span>
     </div>
     <div class="search__content__results__item__fields">
       <div class="search__content__results__item__fields__wrapper" *ngIf="fields.name">{{entityType}} ID: <div>{{id}}</div></div>

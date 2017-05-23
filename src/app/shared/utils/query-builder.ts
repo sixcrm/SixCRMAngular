@@ -800,6 +800,7 @@ export function userIntrospection(): string {
         }
       }
       address { line1 line2 city state zip country }
+      usersetting { timezone }
     }
   }`
 }
@@ -1010,11 +1011,11 @@ export function updateUserSettingsMutation(userSettings: UserSettings): string {
 
   return `
     mutation {
-		updateusersetting (usersetting: { ${updateString} }) {
-			id work_phone cell_phone timezone created_at updated_at
-			notifications { name receive data }
-		}
-	}
+      updateusersetting (usersetting: { ${updateString} }) {
+        id work_phone cell_phone timezone created_at updated_at
+        notifications { name receive data }
+      }
+	  }
   `
 }
 

@@ -14,6 +14,7 @@ import {
 import {User} from '../shared/models/user.model';
 import {CreditCard} from '../shared/models/credit-card.model';
 import {Acl} from '../shared/models/acl.model';
+import {UserSettings} from '../shared/models/user-settings';
 
 declare var Auth0Lock: any;
 
@@ -98,7 +99,6 @@ export class AuthenticationService {
   }
 
   public getToken(): string {
-    // return 'deathstalker';
     return localStorage.getItem(this.idToken);
   }
 
@@ -108,6 +108,26 @@ export class AuthenticationService {
     }
 
     return this.currentSixUser;
+  }
+
+  public getTimezone(): string {
+    let user = this.getSixUser();
+
+    if (user.userSettings && user.userSettings.timezone) {
+      return user.userSettings.timezone;
+    }
+
+    return 'America/Los_Angeles';
+  }
+
+  public updateUserSettings(settings: UserSettings): void {
+    let user = this.getSixUser();
+
+    if (user.id !== settings.id) return;
+
+    user.userSettings = settings;
+
+    this.updateSixUser(user);
   }
 
   public getUserEmail(): string {

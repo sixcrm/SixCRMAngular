@@ -9,7 +9,7 @@
         <img src="https://www.kwrwater.nl/wp-content/themes/kwr/assets/placeholders/no-profile-user.png" alt="">
       </div>
       <div class="entity-view__info__data">
-        <div class="entity-view__info__data__date">Created: {{entity.createdAt.format('MM/DD/YYYY')}} <span>{{entity.createdAt.format('HH:mm')}}</span></div>
+        <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
         <div class="entity-view__info__data__name">{{entity.firstName}} {{entity.lastName}}</div>
         <div class="entity-view__info__data__other">
           <span *ngIf="entity.phone"><md-icon>phone</md-icon>{{entity.phone}}</span>
@@ -109,9 +109,9 @@
                     <div class="notes__title">
                       <span class="notes__title__label">{{n.user.name}}</span>
                       <md-icon>date_range</md-icon>
-                      <span class="notes__title__label">{{n.createdAt.format('MM/DD/YYYY')}}</span>
+                      <span class="notes__title__label">{{n.createdAt | formatDateTime}}</span>
                       <md-icon>query_builder</md-icon>
-                      <span class="notes__title__label">{{n.createdAt.format('HH:mm')}}</span>
+                      <span class="notes__title__label">{{n.createdAt | formatDateTime: 'time'}}</span>
                     </div>
                     <div class="notes__content">
                       <div><img src="assets/images/alert-icon.svg"></div>
@@ -134,7 +134,7 @@
                 </md-card-title>
                 <md-card-content>
                   <div class="events__title">
-                    <span class="events__title__label">{{entity.createdAt.format('MM/DD/YYYY')}}</span>
+                    <span class="events__title__label">{{entity.createdAt | formatDateTime}}</span>
                   </div>
                   <div class="events__content">
                     <div><img src="assets/images/alert-icon.svg"></div>

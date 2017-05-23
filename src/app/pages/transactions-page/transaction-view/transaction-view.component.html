@@ -10,7 +10,7 @@
         <img src="https://www.kwrwater.nl/wp-content/themes/kwr/assets/placeholders/no-profile-user.png" alt="">
       </div>
       <div class="entity-view__info__data">
-        <div class="entity-view__info__data__date">Created: {{entity.createdAt.format('MM/DD/YYYY')}} <span>{{entity.createdAt.format('HH:mm')}}</span></div>
+        <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
         <div class="entity-view__info__data__name">{{entity.alias}}</div>
         <div class="entity-view__info__data__other">Merchant processor: {{entity.merchantProvider.name}}</div>
       </div>

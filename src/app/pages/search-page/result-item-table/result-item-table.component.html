@@ -2,7 +2,7 @@
   <img src="{{imageSrc()}}">
   <div class="search__content__results--table__items">
     <div class="search__content__results--table__item" [innerHTML]="title | highlight: queryString"></div>
-    <div class="search__content__results--table__item"> {{fields.created_at.substring(0,10)}} </div>
+    <div class="search__content__results--table__item"> {{fields.created_at | formatDateTime}} </div>
 
     <ng-container *ngIf="entityType === 'customer'">
       <div class="search__content__results--table__item"> {{fields.city}} </div>

@@ -46,6 +46,8 @@ import {InputAutocompleteComponent} from './components/input-autocomplete/input-
 import {ChartModule} from 'angular2-highcharts';
 import {Daterangepicker} from 'ng2-daterangepicker';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { FormatDateTimePipe } from './pipes/format-date-time.pipe';
+import {TimeService} from './services/time.service';
 
 @NgModule({
   declarations : [
@@ -62,7 +64,8 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
     TablePaginationComponent,
     AdvancedFilterComponent,
     InputAutocompleteComponent,
-    DropdownComponent
+    DropdownComponent,
+    FormatDateTimePipe
   ],
   exports : [
     WidgetComponent,
@@ -76,7 +79,8 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
     InViewportDirective,
     TablePaginationComponent,
     AdvancedFilterComponent,
-    InputAutocompleteComponent
+    InputAutocompleteComponent,
+    FormatDateTimePipe
   ],
   imports : [FormsModule, CommonModule, MaterialModule, ChartModule, Daterangepicker]
 })
@@ -112,7 +116,8 @@ export class SharedModule {
         AnalyticsStorageService,
         UserSettingsService,
         NotificationSettingsService,
-        TransactionReportService
+        TransactionReportService,
+        TimeService
       ]
     };
   }

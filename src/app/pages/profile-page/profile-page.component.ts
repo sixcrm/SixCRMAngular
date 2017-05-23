@@ -20,7 +20,7 @@ import {conformToMask} from 'angular2-text-mask';
 export class ProfilePageComponent implements OnInit, OnDestroy {
 
   timezone: string;
-  timezones: string[] = ['PST', 'UTC', 'CEST'];
+  timezones: string[] = ['America/Los_Angeles', 'America/New_York', 'Europe/Belgrade'];
   selectedIndex: number = 0;
 
   filterValue: string;
@@ -69,8 +69,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
       this.userSettingsBackup = this.userSettings.copy();
     });
-
-    this.userService.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(user => this.authService.updateSixUser(user));
 
     this.notificationSettingsService.defaultNotificationSettings$.takeUntil(this.unsubscribe$).subscribe(settings => {
       this.defaultNotificationSettings = settings;

@@ -19,6 +19,8 @@ export class UserSettingsService extends AbstractEntityService<UserSettings> {
       null,
       updateUserSettingsMutation,
       'default'
-    )
+    );
+
+    this.entityUpdated$.subscribe(settings => this.authService.updateUserSettings(settings))
   }
 }
