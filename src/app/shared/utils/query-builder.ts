@@ -959,7 +959,7 @@ export function rolesListQuery(limit?: number, cursor?: string): string {
 export function notificationsListQuery(limit?:number, cursor?:string): string {
   return `{
     notificationlist ${pageParams(limit, cursor)} {
-			notifications { id user account type action message read_at created_at updated_at }
+			notifications { id user account type action body read_at created_at updated_at }
 			${paginationString()}
 		}}`
 }
@@ -967,7 +967,7 @@ export function notificationsListQuery(limit?:number, cursor?:string): string {
 export function notificationsQuickListQuery(limit?:number, cursor?:string): string {
   return `{
     notificationlist ${pageParams(limit, null)} {
-			notifications { id user account type action message read_at created_at updated_at }
+			notifications { id user account type action body read_at created_at updated_at }
 			${paginationString()}
 		}}`
 }
@@ -979,8 +979,8 @@ export function notificationCountQuery(): string {
 export function updateNotificationMutation(notification: Notification): string {
   return `
     mutation {
-      updatenotification (notification: { id: "${notification.id}", user: "${notification.user}", account: "${notification.account}", type: "${notification.type}", action: "${notification.action}", message: "${notification.message}", read_at: "${utc().format()}"}) {
-			  id user account type action message read_at created_at updated_at
+      updatenotification (notification: { id: "${notification.id}", user: "${notification.user}", account: "${notification.account}", type: "${notification.type}", action: "${notification.action}", body: "${notification.body}", read_at: "${utc().format()}"}) {
+			  id user account type action body read_at created_at updated_at
 		  }
     }`;
 }

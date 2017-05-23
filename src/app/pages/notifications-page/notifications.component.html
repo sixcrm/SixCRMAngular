@@ -27,7 +27,7 @@
         <div *ngFor="let notification of notificationsByDate.nots">
           <div class="notifications__content__notification" (click)="readNotification(notification)">
             <div class="notifications__content__notification__image"><img src="assets/images/alert-icon.svg" alt=""></div>
-            <div class="notifications__content__notification__message">{{notification.message}}</div>
+            <div class="notifications__content__notification__message">{{notification.body}}</div>
             <div class="notifications__content__notification__date">
               <span>{{notification.createdAt.format('HH:m')}}</span>
               <div *ngIf="!notification.readAt"></div>
