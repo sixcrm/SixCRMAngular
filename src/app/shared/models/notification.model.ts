@@ -7,6 +7,7 @@ export class Notification implements Entity<Notification> {
   account: string;
   type: string;
   action: string;
+  title: string;
   body: string;
   readAt: string;
   createdAt: Moment;
@@ -22,6 +23,7 @@ export class Notification implements Entity<Notification> {
     this.account = obj.account || '';
     this.type = obj.type || '';
     this.action = obj.action || '';
+    this.title = obj.title || '';
     this.body = obj.body || '';
     this.readAt = obj.read_at || '';
     this.createdAt = utc(obj.created_at);
@@ -39,6 +41,7 @@ export class Notification implements Entity<Notification> {
       account: this.account,
       type: this.type,
       action: this.action,
+      title: this.title,
       body: this.body,
       readAt: this.readAt,
       createdAt: this.createdAt.format(),
