@@ -41,7 +41,7 @@
         padding: 35px 15px 50px;
         font-size:14px;
 
-        md-input {
+        md-input, md-input-container {
           display: inline-block;
           margin: 0 45px 10px 0;
           width: calc(50% - 50px);
@@ -196,12 +196,14 @@
           padding-bottom: 10px;
         }
 
-        md-input {
+        md-input, md-input-container {
           display: block;
           margin: 50px 15px;
           font-size: 14px;
           width: 200px;
+        }
 
+        md-input {
           &:last-of-type {
             width: 300px;
           }

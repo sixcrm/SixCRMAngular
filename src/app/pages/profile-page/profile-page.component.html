@@ -12,7 +12,7 @@
         <div class="entity-view__info__data__date">Created: {{user.createdAt.format('MM/DD/YYYY')}}</div>
         <div class="entity-view__info__data__name">{{user.name}}</div>
         <div class="entity-view__info__data__other">
-          <span><md-icon>phone</md-icon>{{user.phone || '000-000-000'}}</span>
+          <span><md-icon>phone</md-icon>{{getPhoneNumber()}}</span>
           <span><md-icon>email</md-icon>{{user.email}}</span>
         </div>
       </div>
@@ -37,8 +37,12 @@
             <div class="profile-page__content__general__data">
               <md-input placeholder="First name" [(ngModel)]="userBackup.firstName"></md-input>
               <md-input placeholder="Last name" [(ngModel)]="userBackup.lastName"></md-input>
-              <md-input placeholder="Work phone" [(ngModel)]="userSettingsBackup.workPhone"></md-input>
-              <md-input placeholder="Cell phone" [(ngModel)]="userSettingsBackup.cellPhone"></md-input>
+              <md-input-container>
+                <input md-input placeholder="Work phone" type="text" [textMask]="{mask: mask, guide: false}" [(ngModel)]="userSettingsBackup.workPhone">
+              </md-input-container>
+              <md-input-container>
+                <input md-input placeholder="Cell phone" type="text" [textMask]="{mask: mask, guide: false}" [(ngModel)]="userSettingsBackup.cellPhone">
+              </md-input-container>
               <div class="profile-page__content__general__data__dropdown">
                 <span [md-menu-trigger-for]="timezoneMenu" [class.unselected]="!userSettingsBackup.timezone">
                   {{userSettingsBackup.timezone || 'Timezone'}}
@@ -81,10 +85,12 @@
               </div>
 
               <div class="profile-page__content__notifications__body">
-                <md-input placeholder="SMS number" (input)="userSettingsFieldUpdated()" [(ngModel)]="getNotificationUserSettings('sms').data"></md-input>
-                <md-input placeholder="Email" (input)="userSettingsFieldUpdated()" [(ngModel)]="getNotificationUserSettings('email').data"></md-input>
-                <md-input placeholder="Skype" (input)="userSettingsFieldUpdated()" [(ngModel)]="getNotificationUserSettings('skype').data"></md-input>
-                <md-input placeholder="Slack web hook" (input)="userSettingsFieldUpdated()" [(ngModel)]="getNotificationUserSettings('slack').data"></md-input>
+                <md-input-container>
+                  <input md-input placeholder="SMS number" type="text" (blur)="userSettingsFieldUpdated()" [textMask]="{mask: mask, guide: false}" [(ngModel)]="getNotificationUserSettings('sms').data">
+                </md-input-container>
+                <md-input placeholder="Email" (blur)="userSettingsFieldUpdated()" [(ngModel)]="getNotificationUserSettings('email').data"></md-input>
+                <md-input placeholder="Skype" (blur)="userSettingsFieldUpdated()" [(ngModel)]="getNotificationUserSettings('skype').data"></md-input>
+                <md-input placeholder="Slack web hook" (blur)="userSettingsFieldUpdated()" [(ngModel)]="getNotificationUserSettings('slack').data"></md-input>
               </div>
             </div>
             <div class="profile-page__content__notifications__item">
