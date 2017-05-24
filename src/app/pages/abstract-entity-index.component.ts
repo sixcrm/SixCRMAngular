@@ -37,7 +37,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
   constructor(
-    protected service: AbstractEntityService<T>,
+    public service: AbstractEntityService<T>,
     protected authService: AuthenticationService,
     private deleteDialog: MdDialog,
     protected progressBarService?: ProgressBarService,
