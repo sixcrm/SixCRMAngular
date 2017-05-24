@@ -12,6 +12,7 @@ export class ResultItemComponent implements OnInit {
   @Input() fields: any = {};
   @Input() entityType: string;
   @Input() queryString: string;
+  @Input() listMode: boolean = true;
 
   @Output() showDetails: EventEmitter<any> = new EventEmitter<any>();
 

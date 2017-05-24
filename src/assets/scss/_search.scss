@@ -185,13 +185,14 @@ $border-color: rgba(0, 0, 0, 0.2);
 
   &__content {
     width: 100%;
+    background: #F3F3F3;
 
     &__title {
       line-height: 40px;
       padding: 10px 20px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       color: $main-color;
-      background: #E3E3E3;
+      background: #ffffff;
       font-size: 18px;
 
       span {
@@ -235,6 +236,7 @@ $border-color: rgba(0, 0, 0, 0.2);
     }
 
     &__results {
+      margin-top: 1px;
 
       &__item {
         position: relative;
@@ -242,6 +244,7 @@ $border-color: rgba(0, 0, 0, 0.2);
         padding: 20px 20px 20px 0;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         font-size: 0;
+        background: #ffffff;
 
         &__image {
           display: inline-block;
@@ -347,6 +350,7 @@ $border-color: rgba(0, 0, 0, 0.2);
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         padding: 15px 30px;
         font-size: 14px;
+        background: #ffffff;
         cursor: pointer;
 
         img {
@@ -355,7 +359,7 @@ $border-color: rgba(0, 0, 0, 0.2);
         }
 
         &:hover {
-          background: rgba(0, 0, 0, 0.06);
+          background: rgba(0, 0, 0, 0.02);
         }
 
         &__items {

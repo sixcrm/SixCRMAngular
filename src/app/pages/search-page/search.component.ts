@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SearchService} from '../../shared/services/search.service';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
@@ -8,6 +8,7 @@ import {utc, Moment} from 'moment';
 import {DaterangepickerConfig} from 'ng2-daterangepicker';
 import {NavigationService} from '../../navigation/navigation.service';
 import {environment} from '../../../environments/environment';
+import {AdvancedSearchComponent} from './advanced-search/advanced-search.component';
 
 @Component({
   selector: 'c-search',
@@ -227,7 +228,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   quickSearch(): void {
     this.showAutocomplete = false;
 
-    if (this.queryString === this.currentRoute || this.isAdvancedSearch) {
+    if (this.queryString === this.currentRoute) {
       this.search();
     } else {
       this.router.navigate(['/search'], {queryParams: {query: this.queryString}})
@@ -346,11 +347,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.search();
   }
 
-  copyUrlToClipboard(urlField): void {
-    urlField.select();
-    document.execCommand('copy');
-  }
-
   getShareUrl(): string {
     let url = environment.auth0RedirectUrl + '/search';
 
@@ -378,7 +374,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     return url + `&startDate=${this.startDate.format()}&endDate=${this.endDate.format()}&sortBy=${this.sortBy}&page=${this.page}&limit=${this.limit}&listMode=${this.listMode}&filterValue=${this.filterValue}` + filters;
   }
 
-  resetSearch(): void {
+  resetSearch(advancedSearchComponent: AdvancedSearchComponent): void {
     this.isAdvancedSearch = false;
     this.queryString = '';
     this.sortBy = '';
@@ -389,6 +385,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     Object.keys(this.entityTypesChecked).forEach(entityType => this.entityTypesChecked[entityType] = false);
     this.prepareNewSearch();
     this.setDatepickerOptions();
+    advancedSearchComponent.resetFields();
 
     this.router.navigate(['/search']);
   }

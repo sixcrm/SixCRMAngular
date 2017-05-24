@@ -33,6 +33,14 @@ export class AdvancedSearchComponent implements OnInit {
 
   ngOnInit() { }
 
+  resetFields(): void {
+    Object.keys(this.searchOptions).forEach(key => {
+      if (key !== 'advanced') {
+        this.searchOptions[key] = '';
+      }
+    })
+  }
+
   search(input): void {
     Object.keys(this.searchOptions).forEach((key) => {
       if (!this.searchOptions[key]) {

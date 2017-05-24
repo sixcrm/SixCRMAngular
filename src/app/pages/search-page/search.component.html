@@ -67,12 +67,12 @@
           </div>
         </div>
 
-        <div class="search__sidenav__reset" (click)="resetSearch()"> RESET SEARCH </div>
+        <div class="search__sidenav__reset" (click)="resetSearch(advancedSearch)"> RESET SEARCH </div>
       </md-nav-list>
     </div>
 
     <div class="search__content">
-      <advanced-search [active]="showAdvancedSearch"></advanced-search>
+      <advanced-search #advancedSearch [active]="showAdvancedSearch"></advanced-search>
 
       <div class="search__content__title">
         <span>Search Results
@@ -114,13 +114,10 @@
       </div>
 
       <div class="search__content__no-results" *ngIf="(searchResultsToDisplay | filterSearchResults: filterValue).length === 0">No search results</div>
-      <ng-container *ngIf="listMode" >
-        <result-item *ngFor="let res of searchResultsToDisplay | filterSearchResults: filterValue" [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResultDetails($event)"></result-item>
-      </ng-container>
 
-      <ng-container *ngIf="!listMode" >
-        <result-item-table *ngFor="let res of searchResultsToDisplay | filterSearchResults: filterValue" [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResultDetails($event)"></result-item-table>
-      </ng-container>
+      <div class="search__content__results">
+        <result-item *ngFor="let res of searchResultsToDisplay | filterSearchResults: filterValue" [listMode]="listMode" [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResultDetails($event)"></result-item>
+      </div>
 
       <table-pagination
         *ngIf="searchResultsToDisplay.length > 0"
