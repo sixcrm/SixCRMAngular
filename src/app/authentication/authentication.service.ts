@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
 import {BehaviorSubject, Observable, Subject} from "rxjs";
@@ -39,7 +40,7 @@ export class AuthenticationService {
   public activeAcl$: BehaviorSubject<Acl> = new BehaviorSubject<Acl>(new Acl());
   public activeAclChanged$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private router: Router, private http: Http) {
+  constructor(private router: Router, private http: Http, private location: Location) {
     this.lock = new Auth0Lock(
       environment.clientID,
       environment.domain,
@@ -96,6 +97,16 @@ export class AuthenticationService {
     localStorage.removeItem(this.activated);
     localStorage.removeItem(this.idTokenPayload);
     localStorage.removeItem(this.sixUser);
+  }
+
+  public logoutWithJwt(jwt: string, url: string): void {
+    localStorage.removeItem(this.accessToken);
+    localStorage.removeItem(this.idTokenPayload);
+    localStorage.removeItem(this.sixUser);
+    localStorage.removeItem(this.activated);
+    localStorage.setItem(this.idToken, jwt);
+
+    this.getUserIntrospectionExternal(url);
   }
 
   public getToken(): string {
@@ -301,7 +312,10 @@ export class AuthenticationService {
             localStorage.setItem(this.activated, 'activated');
 
             let activatedUser: User = new User(user);
-            activatedUser.picture = profile.picture;
+
+            if (profile) {
+              activatedUser.picture = profile.picture;
+            }
 
             this.updateSixUser(activatedUser);
 
@@ -311,6 +325,28 @@ export class AuthenticationService {
               this.router.navigateByUrl('/dashboard');
             }
           }
+        } else {
+          this.logout();
+        }
+      }
+    );
+  }
+
+  private getUserIntrospectionExternal(redirect: string): void {
+    this.http.post(environment.endpoint + '*', userIntrospection(), { headers: this.generateHeaders()}).subscribe(
+      (data) => {
+        let user = data.json().data.userintrospection;
+        if (user) {
+          localStorage.setItem(this.activated, 'activated');
+
+          let activatedUser: User = new User(user);
+
+          this.updateSixUser(activatedUser);
+
+          this.getOrUpdateActiveAcl(activatedUser);
+
+          this.location.replaceState(redirect);
+          this.router.navigateByUrl(redirect);
         } else {
           this.logout();
         }
