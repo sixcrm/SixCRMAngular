@@ -126,6 +126,8 @@ $card-title-color: #5B9BE1;
 
       tr {
         td,th {
+          cursor: pointer;
+
           &:first-child {
             padding-left: 50px;
           }
@@ -143,7 +145,6 @@ $card-title-color: #5B9BE1;
         th {
           padding: 5px 5px 30px;
           font-weight: 400;
-          cursor: pointer;
 
           md-icon {
             position: absolute;
