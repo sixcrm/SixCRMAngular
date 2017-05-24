@@ -8,7 +8,7 @@
   <table *ngIf="campaigns" class="highlight table--no-border">
     <thead>
       <tr>
-        <th class="clickable" *ngFor="let params of columnParams" (click)="sort(params)">
+        <th class="clickable" *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'" (click)="sort(params)">
           {{params.label}}
           <ng-container *ngIf="params.label === sortParams.label">
             <md-icon *ngIf="sortOrder === 'asc'">keyboard_arrow_up</md-icon>
@@ -19,7 +19,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let campaign of campaigns | sortEntities: sortParams.mappingFunction: sortOrder" [routerLink]="['/campaigns', campaign.campaign]">
-        <td *ngFor="let params of columnParams">{{params.mappingFunction(campaign)}}</td>
+        <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'">{{params.mappingFunction(campaign)}}</td>
       </tr>
     </tbody>
   </table>

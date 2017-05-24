@@ -47,7 +47,7 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
       new ColumnParams('Campaign', (e: TransactionReport) => e.campaign),
       new ColumnParams('Product Schedule', (e: TransactionReport) => e.productSchedule),
       new ColumnParams('Transaction Type', (e: TransactionReport) => e.transactionType),
-      new ColumnParams('Amount', (e: TransactionReport) => e.amount.usd()),
+      new ColumnParams('Amount', (e: TransactionReport) => e.amount.usd(), 'right'),
       new ColumnParams('Processor Result', (e: TransactionReport) => e.processorResult),
     ];
 

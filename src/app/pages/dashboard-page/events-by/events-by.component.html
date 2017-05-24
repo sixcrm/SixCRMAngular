@@ -13,15 +13,15 @@
       <thead>
         <tr>
           <th>Affiliate</th>
-          <th>Count</th>
-          <th>Percentage</th>
+          <th class="cell--align-right">Count</th>
+          <th class="cell--align-right">Percentage</th>
         </tr>
       </thead>
       <tbody *ngIf="eventsBy">
         <tr *ngFor="let facet of eventsBy.facets | subArray: maxNumber + 2; let i = index" [routerLink]="['/affiliates', facet.facet]">
           <td><div [style.background]="colors[i]" class="color-indicator"></div>{{facet.facet.substring(0, 18) + '...'}}</td>
-          <td>{{facet.count}}</td>
-          <td>{{facet.percentage}}</td>
+          <td class="cell--align-right">{{facet.count}}</td>
+          <td class="cell--align-right">{{facet.percentage}}</td>
         </tr>
       </tbody>
     </table>

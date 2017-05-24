@@ -29,8 +29,8 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
 
     this.columnParams = [
       new ColumnParams('ID', (e: Campaign) => e.id),
-      new ColumnParams('Number Of Merchant Providers',(e: Campaign) => e.loadBalancer.merchantProviderConfigurations.length.toString()),
-      new ColumnParams('Number Of Product Schedules', (e: Campaign) => e.productSchedules.length.toString())
+      new ColumnParams('Number Of Merchant Providers',(e: Campaign) => e.loadBalancer.merchantProviderConfigurations.length.toString(), 'right'),
+      new ColumnParams('Number Of Product Schedules', (e: Campaign) => e.productSchedules.length.toString(), 'right')
     ];
   }
 

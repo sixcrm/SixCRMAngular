@@ -35,14 +35,7 @@ export function menuItems(authService: AuthenticationService): MenuItem[] {
   let campaignItems: MenuItem[] = [];
 
   if (authService.hasPermissions('campaign', 'view')) {
-    campaignItems.push(new MenuItem('Campaigns', 'campaigns'));
-  }
-  if (authService.hasPermissions('email', 'view')) {
-    campaignItems.push(new MenuItem('Emails', ''));
-  }
-
-  if (campaignItems.length > 0) {
-    crmItems.push(new MenuItem('Campaigns', null, campaignItems));
+    crmItems.push(new MenuItem('Campaigns', 'campaigns'));
   }
 
   if (authService.hasPermissions('affiliate', 'view')) {

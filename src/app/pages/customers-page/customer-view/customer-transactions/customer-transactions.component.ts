@@ -28,10 +28,12 @@ export class CustomerTransactionsComponent extends AbstractEntityIndexComponent<
   ) {
     super(transactionsService, auth, dialog, progressBarService, paginationService);
 
+    let f = this.authService.getTimezone();
+
     this.columnParams = [
       new ColumnParams('ID', (e: Transaction) => e.id),
-      new ColumnParams('Date',(e: Transaction) => e.createdAt.format('MM/DD/YYYY')),
-      new ColumnParams('Amount', (e: Transaction) => e.amount.usd()),
+      new ColumnParams('Date',(e: Transaction) => e.createdAt.tz(f).format('MM/DD/YYYY')),
+      new ColumnParams('Amount', (e: Transaction) => e.amount.usd(), 'right'),
       new ColumnParams('Processor Response', (e: Transaction) => e.processorResponse.message)
     ];
   }

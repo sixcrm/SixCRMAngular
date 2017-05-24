@@ -13,19 +13,19 @@
       <thead>
         <tr>
           <th>Affiliate</th>
-          <th>Count</th>
-          <th>Count %</th>
-          <th>Amount</th>
-          <th>Amount %</th>
+          <th class="cell--align-right">Count</th>
+          <th class="cell--align-right">Count %</th>
+          <th class="cell--align-right">Amount</th>
+          <th class="cell--align-right">Amount %</th>
         </tr>
       </thead>
       <tbody *ngIf="transactionBy">
         <tr *ngFor="let facet of transactionBy.facets | subArray: maxNumber + 2; let i = index" [routerLink]="['/affiliates', facet.facet]">
           <td><div [style.background]="colors[i]" class="color-indicator"></div>{{facet.facet.substring(0, 12) + '...'}}</td>
-          <td>{{facet.count}}</td>
-          <td>{{facet.countPercentage}}%</td>
-          <td>{{facet.amount.usd()}}</td>
-          <td>{{facet.amountPercentage}}%</td>
+          <td class="cell--align-right">{{facet.count}}</td>
+          <td class="cell--align-right">{{facet.countPercentage}}%</td>
+          <td class="cell--align-right">{{facet.amount.usd()}}</td>
+          <td class="cell--align-right">{{facet.amountPercentage}}%</td>
         </tr>
       </tbody>
     </table>

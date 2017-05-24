@@ -27,10 +27,11 @@ export class AffiliatesComponent extends AbstractEntityIndexComponent<Affiliate>
   ) {
     super(affiliatesService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
 
+    let f = this.authService.getTimezone();
     this.columnParams = [
       new ColumnParams('ID', (e: Affiliate) => e.id),
       new ColumnParams('Affiliate ID', (e: Affiliate) => e.affiliateId),
-      new ColumnParams('Created At', (e: Affiliate) => e.createdAt.format())
+      new ColumnParams('Created At', (e: Affiliate) => e.createdAt.tz(f).format('MM/DD/YYYY'))
     ];
   }
 

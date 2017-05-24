@@ -31,7 +31,7 @@ export class ProductsComponent extends AbstractEntityIndexComponent<Product> imp
       new ColumnParams('Product Name', (e: Product) => e.name),
       new ColumnParams('SKU',(e: Product) => e.sku),
       new ColumnParams('Ship', (e: Product) => e.ship),
-      new ColumnParams('Shipping Delay', (e: Product) => e.shippingDelay)
+      new ColumnParams('Shipping Delay', (e: Product) => e.shippingDelay, 'right')
     ];
   }
 

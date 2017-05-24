@@ -11,37 +11,19 @@
   <md-card class="entity-index__card">
     <md-card-content class="entity-index__card__content">
 
-      <table class="entity-index__table highlight">
-        <thead class="entity-index__table__header">
-        <tr>
-          <ng-container *ngFor="let params of columnParams">
-            <th (click)="setSortedColumnParams(params)">
-              {{params.label}}
-              <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
-            </th>
-          </ng-container>
-          <th></th>
-        </tr>
-        </thead>
+      <entities-table
+        [data]="entities"
+        [columnParams]="columnParams"
+        [filterString]="filterValue"
+        (selected)="viewEntity($event.id)"
 
-        <tbody>
-        <tr *ngFor="let entity of (entities | filterEntities: filterValue | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder)">
-          <td (click)="viewEntity(entity.id)" *ngFor="let param of columnParams">{{param.mappingFunction(entity)}}</td>
-          <td>
-            <table-actions
-              [service]="service"
-              (viewClicked)="viewEntity(entity.id)"
-              (copyClicked)="copyEntity(entity.id)"
-              (exportClicked)="exportEntity(entity.id)"
-              (editClicked)="editEntity(entity.id)"
-              (deleteClicked)="deleteEntity(entity.id)">
-            </table-actions>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+        [service]="service"
+        (viewClicked)="viewEntity($event.id)"
+        (copyClicked)="copyEntity($event.id)"
+        (exportClicked)="exportEntity($event.id)"
+        (editClicked)="editEntity($event.id)"
+        (deleteClicked)="deleteEntity($event.id)"
 
-      <table-pagination
         [limit]="limit"
         [paginationValues]="paginationValues"
         [previousDisabled]="page <= 0"
@@ -49,7 +31,8 @@
         (previous)="previous()"
         (next)="next()"
         (updateLimit)="updateLimit($event)">
-      </table-pagination>
+      </entities-table>
+
     </md-card-content>
   </md-card>
 </div>

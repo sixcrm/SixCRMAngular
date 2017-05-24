@@ -29,7 +29,7 @@ export class LoadBalancersComponent extends AbstractEntityIndexComponent<LoadBal
 
     this.columnParams = [
       new ColumnParams('ID', (e: LoadBalancer) => e.id),
-      new ColumnParams('Number Of Merchent Provider Configs',(e: LoadBalancer) => e.merchantProviderConfigurations.length.toString())
+      new ColumnParams('Number Of Merchent Provider Configs',(e: LoadBalancer) => e.merchantProviderConfigurations.length.toString(), 'right')
     ];
   }
 
