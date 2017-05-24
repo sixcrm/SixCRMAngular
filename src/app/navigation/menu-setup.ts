@@ -1,12 +1,16 @@
 import {MenuItem} from './menu-item';
 import {AuthenticationService} from '../authentication/authentication.service';
+import {Acl} from '../shared/models/acl.model';
 
-export function menuItems(authService: AuthenticationService): MenuItem[] {
+export function menuItems(authService: AuthenticationService, acl: Acl): MenuItem[] {
   let items: MenuItem[] = [];
 
   // Add dashboard
-  items.push(new MenuItem('Dashboard', 'dashboard').setIcon('view_quilt'));
-
+  if (acl && acl.role.name == 'Customer Service') {
+    items.push(new MenuItem('Dashboard', 'search').setIcon('headset_mic'));
+  } else {
+    items.push(new MenuItem('Dashboard', 'dashboard').setIcon('view_quilt'));
+  }
   // Add reports
   items.push(
     new MenuItem('Reports', null, [
@@ -97,7 +101,9 @@ export function menuItems(authService: AuthenticationService): MenuItem[] {
   }
 
   // Add Search menu item
-  items.push(new MenuItem('Search', 'search').setIcon('search'));
+  if (acl.role.name !== 'Customer Service') {
+    items.push(new MenuItem('Search', 'search').setIcon('search'));
+  }
 
   return items;
 }

@@ -322,7 +322,12 @@ export class AuthenticationService {
             this.getOrUpdateActiveAcl(activatedUser);
 
             if (this.router.url === '/') {
-              this.router.navigateByUrl('/dashboard');
+              let redirect = '/dashboard';
+              if (this.getActiveAcl().role.name === 'Customer Service') {
+                redirect = '/search';
+              }
+
+              this.router.navigateByUrl(redirect);
             }
           }
         } else {

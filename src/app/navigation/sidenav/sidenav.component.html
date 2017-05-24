@@ -2,7 +2,7 @@
   <img *ngIf="isHovering" src="/assets/images/logo-white.svg" class="logo">
   <img *ngIf="!isHovering" src="/assets/images/logo-white-small.svg" class="logo-small">
 </md-toolbar>
-<md-nav-list class="side-navigation" [ngStyle]="{'height': height}">
+<md-nav-list class="side-navigation">
   <c-sidenav-item *ngFor="let menuItem of menuItems" [menuItem]="menuItem" [parent]="_this" [full]="isHovering"></c-sidenav-item>
 
   <div *ngIf="isHovering" class="side-navigation__version">

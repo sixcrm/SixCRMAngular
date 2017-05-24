@@ -60,18 +60,6 @@ export class SidenavComponent implements OnInit {
     });
   }
 
-  get height(): number {
-    let addedHeight = 0;
-    if(this.children) {
-      this.children.forEach(childComponent => {
-        if(childComponent.active) {
-          addedHeight += childComponent.height;
-        }
-      });
-    }
-    return (this.menuItems.length * 48) + addedHeight;
-  }
-
   toggle(active: boolean, child: SidenavItemComponent) {
     if(this.children) {
       this.children.forEach(childComponent => {
