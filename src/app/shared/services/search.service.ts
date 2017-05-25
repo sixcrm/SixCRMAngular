@@ -15,7 +15,7 @@ export class SearchService {
   advanceSearchResults$: Subject<any>;
   suggestionResults$: Subject<string[]>;
   dashboardFilterResults$: Subject<any>;
-  entityTypesCount$: Subject<any>;
+  facets$: Subject<any>;
 
   private suggestionInput$: Subject<string>;
   private dashboardFilterInput$: Subject<string>;
@@ -27,7 +27,7 @@ export class SearchService {
     this.suggestionInput$ = new Subject<string>();
     this.dashboardFilterInput$ = new Subject<string>();
     this.dashboardFilterResults$ = new Subject<string[]>();
-    this.entityTypesCount$ = new Subject<any>();
+    this.facets$ = new Subject<any>();
 
     this.suggestionInput$.debounceTime(300).filter(q => !!q).subscribe((query) => {
       this.fetchSuggestions(query);
@@ -80,7 +80,7 @@ export class SearchService {
           } );
         }
 
-        this.entityTypesCount$.next(obj);
+        this.facets$.next(obj);
       },
       (error) => {
         console.error(error);

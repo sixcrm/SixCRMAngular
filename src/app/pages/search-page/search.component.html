@@ -24,40 +24,14 @@
 
         <div class="search__sidenav__title">REFINE RESULTS</div>
 
-        <div *ngIf="hasAnyEntityType()" class="search__sidenav__subtitle">Category</div>
+        <div *ngIf="facets.length !== 0" class="search__sidenav__subtitle">Category</div>
 
-        <md-checkbox *ngIf="entityTypesCount['campaign'] || entityTypesChecked['campaign']" class="search__sidenav__item" [(ngModel)]="entityTypesChecked['campaign']" (change)="checkboxClicked()">
-          Campaign
-          <span>({{entityTypesCount['campaign'] || '0'}})</span>
-        </md-checkbox>
-        <md-checkbox *ngIf="entityTypesCount['customer'] || entityTypesChecked['customer']" class="search__sidenav__item" [(ngModel)]="entityTypesChecked['customer']" (change)="checkboxClicked()">
-          Customer
-          <span>({{entityTypesCount['customer'] || '0'}})</span>
-        </md-checkbox>
-        <md-checkbox *ngIf="entityTypesCount['user'] || entityTypesChecked['user']" class="search__sidenav__item" [(ngModel)]="entityTypesChecked['user']" (change)="checkboxClicked()">
-          User
-          <span>({{entityTypesCount['user'] || '0'}})</span>
-        </md-checkbox>
-        <md-checkbox *ngIf="entityTypesCount['billing'] || entityTypesChecked['billing']" class="search__sidenav__item" [(ngModel)]="entityTypesChecked['billing']" (change)="checkboxClicked()">
-          Billing
-          <span>({{entityTypesCount['billing'] || '0'}})</span>
-        </md-checkbox>
-        <md-checkbox *ngIf="entityTypesCount['transaction'] || entityTypesChecked['transaction']" class="search__sidenav__item" [(ngModel)]="entityTypesChecked['transaction']" (change)="checkboxClicked()">
-          Transaction
-          <span>({{entityTypesCount['transaction'] || '0'}})</span>
-        </md-checkbox>
-        <md-checkbox *ngIf="entityTypesCount['product'] || entityTypesChecked['product']" class="search__sidenav__item" [(ngModel)]="entityTypesChecked['product']" (change)="checkboxClicked()">
-          Product
-          <span>({{entityTypesCount['product'] || '0'}})</span>
-        </md-checkbox>
-        <md-checkbox *ngIf="entityTypesCount['fulfillment'] || entityTypesChecked['fulfillment']" class="search__sidenav__item" [(ngModel)]="entityTypesChecked['fulfillment']" (change)="checkboxClicked()">
-          Fulfillment
-          <span>({{entityTypesCount['fulfillment'] || '0'}})</span>
-        </md-checkbox>
-        <md-checkbox *ngIf="entityTypesCount['productschedule'] || entityTypesChecked['productschedule']" class="search__sidenav__item" [(ngModel)]="entityTypesChecked['productschedule']" (change)="checkboxClicked()">
-          Product Schedule
-          <span>({{entityTypesCount['productschedule'] || '0'}})</span>
-        </md-checkbox>
+        <ng-container *ngFor="let facet of facets">
+          <md-checkbox [(ngModel)]="facet.checked" class="search__sidenav__item" (change)="checkboxClicked()">
+            {{facet.name}}
+            <span>({{facet.count}})</span>
+          </md-checkbox>
+        </ng-container>
 
         <div class="search__sidenav__subtitle"> Refine by Date </div>
         <div class="search__sidenav__date">Date</div>

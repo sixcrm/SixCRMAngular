@@ -1,0 +1,43 @@
+<div class="entity-list">
+  <div class="entity-list__title">In {{entityType}}</div>
+
+  <div class="entity-list__item" *ngFor="let d of data">
+    <div class="entity-list__item__title">{{d.fields.name || d.fields.alias || d.firstname+d.lastname }}</div>
+
+    <div class="entity-list__item__fields">
+      <div class="entity-list__item__fields__single" *ngIf="d.fields.firstname">
+        <div class="entity-list__item__fields__key">First Name</div>
+        <div class="entity-list__item__fields__value">{{d.fields.firstname}}</div>
+      </div>
+
+      <div class="entity-list__item__fields__single" *ngIf="d.fields.lastname">
+        <div class="entity-list__item__fields__key">Last Name</div>
+        <div class="entity-list__item__fields__value">{{d.fields.lastname}}</div>
+      </div>
+
+      <div class="entity-list__item__fields__single" *ngIf="d.fields.sku">
+        <div class="entity-list__item__fields__key">SKU</div>
+        <div class="entity-list__item__fields__value">{{d.fields.sku}}</div>
+      </div>
+
+      <div class="entity-list__item__fields__single" *ngIf="d.fields.amount">
+        <div class="entity-list__item__fields__key">Amount</div>
+        <div class="entity-list__item__fields__value">{{d.fields.amount}}</div>
+      </div>
+
+      <div class="entity-list__item__fields__single" *ngIf="d.fields.tracking_number">
+        <div class="entity-list__item__fields__key">Amount</div>
+        <div class="entity-list__item__fields__value">{{d.fields.tracking_number}}</div>
+      </div>
+
+      <div class="entity-list__item__fields__single" *ngIf="d.fields.amount">
+        <div class="entity-list__item__fields__key">Amount</div>
+        <div class="entity-list__item__fields__value">{{d.fields.amount}}</div>
+      </div>
+    </div>
+  </div>
+
+  <md-spinner *ngIf="!data || data.length === 0"></md-spinner>
+
+  <div *ngIf="found > 3" class="entity-list__view-more">view more in {{entityType}}</div>
+</div>

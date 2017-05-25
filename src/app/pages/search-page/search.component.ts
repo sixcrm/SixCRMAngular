@@ -9,6 +9,13 @@ import {DaterangepickerConfig} from 'ng2-daterangepicker';
 import {NavigationService} from '../../navigation/navigation.service';
 import {environment} from '../../../environments/environment';
 import {AdvancedSearchComponent} from './advanced-search/advanced-search.component';
+import {firstIndexOf} from '../../shared/utils/array-utils';
+
+export interface FacetCount {
+  name: string;
+  count: number;
+  checked: boolean;
+}
 
 @Component({
   selector: 'c-search',
@@ -44,7 +51,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   numberOfSearchResults: number = 0;
   hasMore: boolean = true;
 
-  entityTypesCount: any = {};
+  facets: FacetCount[] = [];
   createdAtRange: string;
 
   checkboxClicked$: Subject<boolean> = new Subject<boolean>();
@@ -53,33 +60,12 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   sortBy: string = '';
 
-  entityTypesChecked: any  = {
-    campaign: false,
-    customer: false,
-    user: false,
-    billing: false,
-    transaction: false,
-    product: false,
-    fulfillment: false,
-    productschedule: false
-  };
-
   shareSearch: boolean = false;
 
   queryOptsLabel = {
-    firstname: 'First Name',
-    lastname: 'Last Name',
-    phone: 'Phone Number',
-    email: 'Email Address',
-    alias: 'Transaction Alias',
-    address_line_1: 'Address 1',
-    address_line_2: 'Address 2',
-    city: 'City',
-    state: 'State',
-    zip: 'Postal Code',
-    tracking_number: 'Tracking No',
-    first_six: 'First 6 #',
-    last_four: 'Last 4 #'
+    firstname: 'First Name', lastname: 'Last Name', phone: 'Phone Number', email: 'Email Address',
+    alias: 'Transaction Alias', address_line_1: 'Address 1', address_line_2: 'Address 2', city: 'City', state: 'State',
+    zip: 'Postal Code', tracking_number: 'Tracking No', first_six: 'First 6 #', last_four: 'Last 4 #'
   };
 
   datepickerVisible: boolean = false;
@@ -106,9 +92,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.navigationService.toggleSidenav(false);
 
-    this.paginationService.searchResultsLimit$.subscribe((limit) => this.limit = limit);
+    this.paginationService.searchResultsLimit$.subscribe(limit => this.limit = limit);
 
-    this.paramsSub = this.route.queryParams.subscribe((params) => {
+    this.paramsSub = this.route.queryParams.subscribe(params => {
       this.queryOptions = [];
       this.showAdvancedSearch = !params['advanced'] && !params['query'];
       this.parseShareParams(params);
@@ -116,7 +102,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       if (params['advanced']) {
         this.isAdvancedSearch = true;
         this.queryString = '';
-        Object.keys(params).forEach((key) => {
+        Object.keys(params).forEach(key => {
           if (this.queryOptsLabel[key]) {
             this.queryOptions.push({key: key, value: params[key], enabled: true});
           }
@@ -131,7 +117,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.search();
     });
 
-    this.searchService.searchResults$.subscribe((data) => {
+    this.searchService.searchResults$.subscribe(data => {
       this.searchResults = [...this.searchResults, ...data.hit];
       this.numberOfSearchResults = data.found;
       this.hasMore = data.hit.length >= this.limit;
@@ -139,9 +125,27 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.progressBarService.hideTopProgressBar();
     });
 
-    this.searchService.suggestionResults$.subscribe((data) => this.autocompleteOptions = data);
+    this.searchService.suggestionResults$.subscribe(data => this.autocompleteOptions = data);
 
-    this.searchService.entityTypesCount$.subscribe((data) => this.entityTypesCount = data);
+    this.searchService.facets$.subscribe(data => {
+      let temp: FacetCount[] = this.facets.filter(f => f.checked).map(f => { return {name: f.name, count: 0, checked: true} });
+      Object.keys(data).forEach(key => {
+        let index = firstIndexOf(temp, (el) => el.name === key);
+
+        if (index !== -1) {
+          temp[index].count = data[key];
+        } else {
+          temp.push({name: key, count: data[key], checked: false});
+        }
+      });
+
+      temp.sort((a, b) => {
+        if (a.name > b.name) return 1;
+        else return -1
+      });
+
+      this.facets = temp;
+    });
 
     this.checkboxClicked$.debounceTime(1000).subscribe(() => this.search());
   }
@@ -165,7 +169,12 @@ export class SearchComponent implements OnInit, OnDestroy {
     if (filters.split(',')) {
       filters.split(',').forEach(filter => {
         if (filter) {
-          this.entityTypesChecked[filter] = true
+          let index = firstIndexOf(this.facets, el => el.checked);
+          if (index !== -1) {
+            this.facets[index].checked = true;
+          } else {
+            this.facets.push({name: filter, count: 0, checked: true})
+          }
         }
       });
     }
@@ -315,16 +324,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.checkboxClicked$.next(true);
   }
 
-  hasAnyEntityType(): boolean {
-    for (let key in this.entityTypesCount) {
-      if (this.entityTypesCount[key]) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
   toggleView(): void {
     this.listMode = !this.listMode;
   }
@@ -365,11 +364,11 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     let filters = '&filters=';
-    for (let key in this.entityTypesChecked) {
-      if (this.entityTypesChecked[key]) {
+    Object.keys(this.facets).forEach(key => {
+      if (this.facets[key].checked) {
         filters += `${key},`
       }
-    }
+    });
 
     return url + `&startDate=${this.startDate.format()}&endDate=${this.endDate.format()}&sortBy=${this.sortBy}&page=${this.page}&limit=${this.limit}&listMode=${this.listMode}&filterValue=${this.filterValue}` + filters;
   }
@@ -382,7 +381,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.endDate = utc();
     this.shareSearch = false;
     this.filterValue = '';
-    Object.keys(this.entityTypesChecked).forEach(entityType => this.entityTypesChecked[entityType] = false);
+    this.facets = [];
+    this.searchResultsToDisplay = [];
     this.prepareNewSearch();
     this.setDatepickerOptions();
     advancedSearchComponent.resetFields();
@@ -392,9 +392,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   private prepareNewSearch(): void {
     this.searchResults = [];
-    this.searchResultsToDisplay = [];
     this.numberOfSearchResults = 0;
-    this.entityTypesCount = {};
 
     if (!this.shareSearch) {
       this.page = 0;
@@ -436,14 +434,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   private getCheckedEntityTypes(): string [] {
-    let entityTypesCheckedArray: string[] = [];
-
-    for (let entityType in this.entityTypesChecked) {
-      if (this.entityTypesChecked[entityType]) {
-        entityTypesCheckedArray.push(entityType);
-      }
-    }
-
-    return entityTypesCheckedArray;
+    return this.facets.filter(f => f.checked).map(f => f.name);
   }
 }
