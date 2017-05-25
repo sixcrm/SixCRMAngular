@@ -308,7 +308,10 @@ export class AuthenticationService {
 
             this.updateSixUser(activatedUser);
             this.getOrUpdateActiveAcl(activatedUser);
-            this.updateTimezone(user.usersetting.timezone);
+
+            if (user && user.usersetting) {
+              this.updateTimezone(user.usersetting.timezone);
+            }
 
             if (this.router.url === '/') {
               let redirect = '/dashboard';
