@@ -2,10 +2,31 @@ import {PaginationService} from '../shared/services/pagination.service';
 import {AsyncSubject} from 'rxjs';
 import {ColumnParams} from '../shared/models/column-params.model';
 
+export class ReportColumnParams<T> extends ColumnParams<T> {
+  isFilter: boolean;
+  entityType: string;
+
+  constructor(label?: string, mappingFunction?: (e: T) => string | number,  align?: string, order?: string, applied?: boolean) {
+    super(label, mappingFunction, align, order, applied);
+  }
+
+  setIsFilter(value: boolean) {
+    this.isFilter = value;
+
+    return this;
+  }
+
+  setEntityType(value: string) {
+    this.entityType = value;
+
+    return this;
+  }
+}
+
 export class ReportsAbstractComponent<T> {
   limit = 10;
   page = 0;
-  columnParams: ColumnParams<T>[] = [];
+  columnParams: ReportColumnParams<T>[] = [];
   reports: T[] = [];
   reportsToDisplay: T[] = [];
   hasMore: boolean = true;

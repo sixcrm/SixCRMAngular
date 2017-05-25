@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {ColumnParams} from '../../../shared/models/column-params.model';
+import {FilterTerm} from '../../../pages/dashboard-page/dashboard.component';
+import {ReportColumnParams} from '../../reports-abstract.component';
 
 @Component({
   selector: 'report-table',
@@ -9,12 +10,12 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 export class ReportTableComponent implements OnInit {
 
   filterString: string;
-  sortParams: ColumnParams<any> = new ColumnParams();
+  sortParams: ReportColumnParams<any> = new ReportColumnParams();
 
-  @Input() columnParams: ColumnParams<any>[] = [];
+  @Input() columnParams: ReportColumnParams<any>[] = [];
   @Input() data: any[] = [];
   @Input() title: string;
-  @Output() selected: EventEmitter<any> = new EventEmitter();
+  @Output() filterSelected: EventEmitter<FilterTerm> = new EventEmitter();
 
   @Input() paginationValues: number[] = [5, 10, 15, 20, 30, 50];
   @Input() page: number;
@@ -30,13 +31,19 @@ export class ReportTableComponent implements OnInit {
 
   ngOnInit() { }
 
-  setSortParams(params: ColumnParams<any>): void {
+  setSortParams(params: ReportColumnParams<any>): void {
     if (this.sortParams.label === params.label) {
       this.sortParams.sortOrder = this.sortParams.sortOrder !== 'asc' ? 'asc' : 'desc';
     } else {
       this.sortParams.sortApplied = false;
       this.sortParams = params;
       this.sortParams.sortApplied = true;
+    }
+  }
+
+  cellClicked(params: ReportColumnParams<any>, entity: any): void {
+    if (params.isFilter) {
+      this.filterSelected.emit({id: entity.id, label: params.mappingFunction(entity).toString(), type: params.entityType});
     }
   }
 }

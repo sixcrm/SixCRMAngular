@@ -4,7 +4,7 @@ import {TransactionReport} from '../../shared/models/analytics/transaction-repor
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {utc, Moment} from 'moment';
 import {ColumnParams} from '../../shared/models/column-params.model';
-import {ReportsAbstractComponent} from '../reports-abstract.component';
+import {ReportsAbstractComponent, ReportColumnParams} from '../reports-abstract.component';
 import {PaginationService} from '../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {DateMap, FilterTerm, flatUp, flatDown} from '../../pages/dashboard-page/dashboard.component';
@@ -41,14 +41,14 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
 
   ngOnInit() {
     this.columnParams = [
-      new ColumnParams('Date', (e: TransactionReport) => e.date.format('MM/DD/YYYY')),
-      new ColumnParams('Affiliate', (e: TransactionReport) => e.affiliate),
-      new ColumnParams('Sub-Affiliate', (e: TransactionReport) => e.subAffiliate1),
-      new ColumnParams('Campaign', (e: TransactionReport) => e.campaign),
-      new ColumnParams('Product Schedule', (e: TransactionReport) => e.productSchedule),
-      new ColumnParams('Transaction Type', (e: TransactionReport) => e.transactionType),
-      new ColumnParams('Amount', (e: TransactionReport) => e.amount.usd(), 'right'),
-      new ColumnParams('Processor Result', (e: TransactionReport) => e.processorResult),
+      new ReportColumnParams('Date', (e: TransactionReport) => e.date.format('MM/DD/YYYY')),
+      new ReportColumnParams('Affiliate', (e: TransactionReport) => e.affiliate).setIsFilter(true).setEntityType('affiliate'),
+      new ReportColumnParams('Sub-Affiliate', (e: TransactionReport) => e.subAffiliate1).setIsFilter(true).setEntityType('affiliate'),
+      new ReportColumnParams('Campaign', (e: TransactionReport) => e.campaign).setIsFilter(true).setEntityType('campaign'),
+      new ReportColumnParams('Product Schedule', (e: TransactionReport) => e.productSchedule).setIsFilter(true).setEntityType('productschedule'),
+      new ReportColumnParams('Transaction Type', (e: TransactionReport) => e.transactionType),
+      new ReportColumnParams('Amount', (e: TransactionReport) => e.amount.usd(), 'right'),
+      new ReportColumnParams('Processor Result', (e: TransactionReport) => e.processorResult),
     ];
 
     this.reportService.transactions$.takeUntil(this.unsubscribe$).subscribe(reports => {

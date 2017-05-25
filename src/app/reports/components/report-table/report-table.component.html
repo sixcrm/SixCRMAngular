@@ -30,8 +30,8 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let d of data | filterEntities: filterString | sortEntities: sortParams.mappingFunction: sortParams.sortOrder" (click)="selected.emit(d)">
-          <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'">{{params.mappingFunction(d)}}</td>
+        <tr *ngFor="let d of data | filterEntities: filterString | sortEntities: sortParams.mappingFunction: sortParams.sortOrder">
+          <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'" (click)="cellClicked(params, d)">{{params.mappingFunction(d)}}</td>
         </tr>
       </tbody>
     </table>
