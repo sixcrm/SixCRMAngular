@@ -1,35 +1,10 @@
 import {FilterTerm} from '../../../pages/dashboard-page/dashboard.component';
+import {parseFilterTerms, parseAdditionalFilters} from './helper.queries';
 
 export function transactionSummaryQuery(start: string, end: string, filterTerms: FilterTerm[], additionalFilters?: any[]): string {
-  let filters = {};
+  let filterString = parseFilterTerms(filterTerms);
 
-  filterTerms.forEach(term => {
-    if (filters[term.type]) {
-      filters[term.type].push(term.id);
-    } else {
-      filters[term.type] = [];
-      filters[term.type].push(term.id);
-    }
-  });
-
-  let filterString = '';
-
-  Object.keys(filters).forEach(key => {
-    let ids = '';
-
-    filters[key].forEach(id => ids += `"${id}",`);
-    filterString += ` ${key}:[${ids}]`;
-  });
-
-  let additional = '';
-
-  if (additionalFilters) {
-    additionalFilters.forEach(filter => {
-      if (filter.value) {
-        additional += ` ${filter.key}:"${filter.value}" `;
-      }
-    });
-  }
+  let additional = parseAdditionalFilters(additionalFilters);
 
   return `{
 		transactionsummary (analyticsfilter:{${dateRange(start, end)} ${filterString} ${additional} targetperiodcount: 24}) {

@@ -3,7 +3,6 @@ import {TransactionReportService} from '../../shared/services/analytics/transact
 import {TransactionReport} from '../../shared/models/analytics/transaction-report.model';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {utc, Moment} from 'moment';
-import {ColumnParams} from '../../shared/models/column-params.model';
 import {ReportsAbstractComponent, ReportColumnParams} from '../reports-abstract.component';
 import {PaginationService} from '../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
@@ -35,7 +34,9 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
 
     this.fetchFunction = () => {
       this.progressBarService.showTopProgressBar();
-      this.reportService.getTransactions(this.start.format(), this.end.format(), this.limit + 1, this.page * this.limit);
+      this.immutableFilterTerms = this.filterTerms.slice();
+      this.dateMap = {start: flatDown(this.start), end: flatUp(this.end)};
+      this.reportService.getTransactions(this.start.format(), this.end.format(), this.filterTerms, this.limit + 1, this.page * this.limit);
     }
   }
 
@@ -72,12 +73,15 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
 
       this.extractDateFromParams(data);
       this.extractFiltersFromParams(data);
-
-      this.immutableFilterTerms = this.filterTerms.slice();
-      this.dateMap = {start: flatDown(this.start), end: flatUp(this.end)};
       this.getShareUrl();
+      this.fetchFunction();
     });
+  }
 
+  resetAndFetch() {
+    this.reports = [];
+    this.hasMore = true;
+    this.page = 0;
     this.fetchFunction();
   }
 
@@ -89,7 +93,7 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
     this.start = date.start;
     this.end = date.end;
 
-    this.dateMap = {start: this.start, end: this.end};
+    this.resetAndFetch();
     this.getShareUrl();
   }
 
@@ -99,7 +103,7 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
 
   addFilter(filter: FilterTerm): void {
     this.filterTerms.push(filter);
-    this.immutableFilterTerms = this.filterTerms.slice();
+    this.resetAndFetch();
     this.getShareUrl();
   }
 
@@ -110,7 +114,7 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
       this.filterTerms.splice(index,1);
     }
 
-    this.immutableFilterTerms = this.filterTerms.slice();
+    this.resetAndFetch();
     this.getShareUrl();
   }
 
@@ -118,15 +122,12 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
     this.start = utc().subtract(3, 'M');
     this.end = utc();
     this.filterTerms = [];
-    this.immutableFilterTerms = this.filterTerms.slice();
-    this.dateMap = {start: this.start, end: this.end};
+    this.resetAndFetch();
     this.getShareUrl();
   }
 
   refresh(): void {
     this.reset();
-
-    this.fetchFunction();
   }
 
   getShareUrl(): void {

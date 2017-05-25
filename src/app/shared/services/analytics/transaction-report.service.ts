@@ -5,6 +5,7 @@ import {environment} from '../../../../environments/environment';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {transactionReportListQuery} from '../../utils/queries/reports.queries';
 import {Http, Headers, Response} from '@angular/http';
+import {FilterTerm} from '../../../pages/dashboard-page/dashboard.component';
 
 @Injectable()
 export class TransactionReportService {
@@ -15,8 +16,8 @@ export class TransactionReportService {
     this.transactions$ = new Subject();
   }
 
-  getTransactions(start: string, end: string, limit?: number, offset?: number, order?: string) {
-    this.queryRequest(transactionReportListQuery(start, end, limit, offset, order)).subscribe(
+  getTransactions(start: string, end: string, filters: FilterTerm[], limit?: number, offset?: number, order?: string) {
+    this.queryRequest(transactionReportListQuery(start, end, filters, limit, offset, order)).subscribe(
       (data) => {
         let transactions = data.json().data.listtransactions.transactions;
 
