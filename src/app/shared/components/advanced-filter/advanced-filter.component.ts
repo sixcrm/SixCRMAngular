@@ -15,6 +15,14 @@ import {AsyncSubject} from 'rxjs';
 })
 export class AdvancedFilterComponent implements OnInit, OnDestroy {
 
+  colors = {
+    affiliate: '#4484CD',
+    productschedule: '#4DABF5',
+    merchantprovider: '#98DBF9',
+    processorresponse: '#FFAD33',
+    transactiontype: '#F1862F'
+  };
+
   @Input() set date(date) {
     if (date) {
       this.startDate = date.start;

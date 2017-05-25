@@ -29,7 +29,7 @@
         <md-input placeholder="Filters" [value]="currentFilterTerm" (input)="filterTermInput($event)" (blur)="filterTermInputBlur()" (focus)="filterTermInputFocus()">
           <div class="advanced-filter__query__input__prefix" md-prefix>
             <div *ngFor="let filterTerm of filterTerms" class="advanced-filter__query__input__prefix__item">
-              <div class="advanced-filter__query__input__prefix__item__image">C</div>
+              <div class="advanced-filter__query__input__prefix__item__image" [style.background]="colors[filterTerm.type] || '#F16C00'">{{filterTerm.type.substring(0,1).toUpperCase()}}</div>
               <div class="advanced-filter__query__input__prefix__item__text">{{filterTerm.label}}</div>
               <md-icon class="advanced-filter__query__input__prefix__item__close" (click)="removeFilterTerm(filterTerm)">close</md-icon>
             </div>
