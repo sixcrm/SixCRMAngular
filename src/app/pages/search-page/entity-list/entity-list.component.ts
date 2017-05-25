@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {SearchService} from '../../../shared/services/search.service';
+import {AuthenticationService} from '../../../authentication/authentication.service';
+import {utc, tz} from 'moment-timezone';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'entity-list',
@@ -11,10 +13,30 @@ export class EntityListComponent implements OnInit {
   @Input() query: string;
   @Input() data: any[] = [];
   @Input() entityType: string;
-  @Input() found: number;
 
-  constructor(private searchService: SearchService) { }
+  showMore: boolean = false;
+  displayCount: number = 3;
+
+  constructor(private authService: AuthenticationService, private router: Router) { }
 
   ngOnInit() {
+  }
+
+  getName(entity): string {
+    return entity.fields.name || entity.fields.alias || `${entity.fields.firstname}  ${entity.fields.lastname}`;
+  }
+
+  toggleShowMore(): void {
+    this.showMore = !this.showMore;
+    this.displayCount = this.showMore ? 10 : 3;
+  }
+
+  format(date: string): string {
+    return utc(date).tz(this.authService.getTimezone()).format('MM/DD/YYYY');
+  }
+
+  navigateToEntity(entity): void {
+    console.log(entity);
+    this.router.navigate([`/${entity.fields.entity_type}s`, entity.id]);
   }
 }

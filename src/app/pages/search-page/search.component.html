@@ -71,6 +71,7 @@
           <md-input placeholder="Filter Results" [(ngModel)]="filterValue"></md-input>
 
           <table-pagination
+            *ngIf="!cardMode"
             [limit]="limit"
             [paginationString]="paginationString()"
             [paginationValues]="paginationValues"
@@ -83,28 +84,37 @@
 
           <share-link class="search__content__title__share" [shareUrl]="getShareUrl()"></share-link>
 
-          <md-icon (click)="toggleView()">{{listMode ? 'view_headline' : 'view_module'}}</md-icon>
+          <md-icon (click)="toggleView()">{{cardMode ? 'view_headline' : 'view_module'}}</md-icon>
         </div>
       </div>
 
-      <div class="search__content__no-results" *ngIf="(searchResultsToDisplay | filterSearchResults: filterValue).length === 0">No search results</div>
-
-      <div class="search__content__results">
-        <result-item *ngFor="let res of searchResultsToDisplay | filterSearchResults: filterValue" [listMode]="listMode" [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResultDetails($event)"></result-item>
+      <div *ngIf="cardMode; else table" class="search__content__results__container">
+        <div class="search__content__results__perfect-match">
+          <perfect-match *ngIf="searchResults" [entity]="searchResults[0]"></perfect-match>
+        </div>
+        <div class="search__content__results__cards">
+          <entity-list *ngFor="let facet of facets" [entityType]="facet.name" [data]="searchResults | filterByEntityType: facet.name | filterSearchResults: filterValue" [query]="queryString"></entity-list>
+        </div>
       </div>
 
-      <table-pagination
-        *ngIf="searchResultsToDisplay.length > 0"
-        class="search__content__pagination--bottom"
-        [limit]="limit"
-        [paginationString]="paginationString()"
-        [paginationValues]="paginationValues"
-        [previousDisabled]="page <= 0"
-        [nextDisabled]="!hasMorePages()"
-        (previous)="previousPage()"
-        (next)="nextPage()"
-        (updateLimit)="updateLimit($event)">
-      </table-pagination>
+      <ng-template #table>
+        <div class="search__content__results">
+          <result-item *ngFor="let res of searchResultsToDisplay | filterSearchResults: filterValue" [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResultDetails($event)"></result-item>
+        </div>
+
+        <table-pagination
+          *ngIf="searchResultsToDisplay.length > 0"
+          class="search__content__pagination--bottom"
+          [limit]="limit"
+          [paginationString]="paginationString()"
+          [paginationValues]="paginationValues"
+          [previousDisabled]="page <= 0"
+          [nextDisabled]="!hasMorePages()"
+          (previous)="previousPage()"
+          (next)="nextPage()"
+          (updateLimit)="updateLimit($event)">
+        </table-pagination>
+      </ng-template>
     </div>
   </div>
 </div>

@@ -607,7 +607,7 @@ export function deleteTransactionMutation(id: string): string {
 export function transactionsByCustomer(customerId: string, limit?:number, cursor?:string): string {
   return `{
 		transactionlistbycustomer (customer:"${customerId}" ${pageParams(limit, cursor, true)}) {
-			transactions { id amount processor_response }
+			transactions { id amount processor_response alias }
 			${paginationString()}
     }
   }`

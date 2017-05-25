@@ -36,4 +36,11 @@ export class CreditCard implements Entity<CreditCard> {
       address: this.address.inverse()
     };
   }
+
+
+  getLastFour(): string {
+    if (this.ccnumber.length <= 4) return this.ccnumber;
+
+    return this.ccnumber.substring(this.ccnumber.length - 4, this.ccnumber.length);
+  }
 }

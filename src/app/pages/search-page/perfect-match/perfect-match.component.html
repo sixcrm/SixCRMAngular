@@ -1,0 +1,22 @@
+<div class="perfect-match">
+
+  <div *ngIf="entity">
+    <div class="perfect-match__header">
+      <img src="{{imageSrc()}}">
+      <div class="perfect-match__header__title">
+        <div class="perfect-match__header__title__main">{{getName()}}</div>
+        <div class="perfect-match__header__title__sub">{{entity.fields.entity_type}}</div>
+      </div>
+      <div class="perfect-match__header__buttons">
+        <md-icon (click)="navigateToEntity()">open_in_new</md-icon>
+        <md-icon>more_vert</md-icon>
+      </div>
+    </div>
+
+    <perfect-customer *ngIf="entity.fields.entity_type === 'customer'" [id]="entity.id"></perfect-customer>
+
+    <div (click)="navigateToEntity()" class="perfect-match__view-more">
+      view {{entity.fields.entity_type}}
+    </div>
+  </div>
+</div>

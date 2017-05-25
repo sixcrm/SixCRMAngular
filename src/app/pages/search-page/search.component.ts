@@ -56,7 +56,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   checkboxClicked$: Subject<boolean> = new Subject<boolean>();
 
-  listMode: boolean = true;
+  cardMode: boolean = true;
 
   sortBy: string = '';
 
@@ -163,7 +163,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.page = +params['page'] || 0;
     this.limit = +params['limit'] || this.limit;
     this.sortBy = params['sortBy'] || this.sortBy;
-    this.listMode = !params['listMode'] || params['listMode'] === 'true';
+    this.cardMode = !params['cardMode'] || params['cardMode'] === 'true';
     this.filterValue = params['filterValue'] || '';
     let filters = params['filters'] || '';
     if (filters.split(',')) {
@@ -325,7 +325,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   toggleView(): void {
-    this.listMode = !this.listMode;
+    this.cardMode = !this.cardMode;
   }
 
   paginationString(): string {
@@ -370,7 +370,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       }
     });
 
-    return url + `&startDate=${this.startDate.format()}&endDate=${this.endDate.format()}&sortBy=${this.sortBy}&page=${this.page}&limit=${this.limit}&listMode=${this.listMode}&filterValue=${this.filterValue}` + filters;
+    return url + `&startDate=${this.startDate.format()}&endDate=${this.endDate.format()}&sortBy=${this.sortBy}&page=${this.page}&limit=${this.limit}&cardMode=${this.cardMode}&filterValue=${this.filterValue}` + filters;
   }
 
   resetSearch(advancedSearchComponent: AdvancedSearchComponent): void {

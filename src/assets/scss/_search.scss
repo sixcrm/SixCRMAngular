@@ -231,12 +231,26 @@ $border-color: rgba(0, 0, 0, 0.2);
       float: right;
     }
 
-    &__no-results {
-      margin: 25px;
-    }
-
     &__results {
       margin-top: 1px;
+
+      &__container {
+        font-size: 0;
+      }
+
+      &__perfect-match {
+        display: inline-block;
+        width: 45%;
+        vertical-align: top;
+        font-size: 14px;
+      }
+
+      &__cards {
+        display: inline-block;
+        width: 55%;
+        vertical-align: top;
+        font-size: 14px;
+      }
 
       &__item {
         position: relative;

@@ -1,32 +1,38 @@
 .entity-list {
   margin: 15px;
   background: #ffffff;
-  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 
   &__title {
-    padding: 10px;
-    font-size: 12px;
+    padding: 15px;
+    font-size: 14px;
     font-weight: 500;
-    color: rgba(0,0,0,0.6);
+    color: rgba(0, 0, 0, 0.3);
   }
 
   &__item {
-    border-top: 1px solid rgba(0,0,0,0.2);
-    padding: 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
 
     &__title {
       margin-bottom: 10px;
       color: #4089E0;
-      font-size: 16px;
+      font-size: 18px;
     }
 
     &__fields {
       display: flex;
-      font-size: 12px;
-      color: rgba(0,0,0,0.8);
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: rgba(0, 0, 0, 0.5);
 
       &__single {
-        margin-right: 15px;
+        margin: 5px 20px 5px 0;
       }
 
       &__key {
@@ -40,15 +46,12 @@
 
   }
 
-  md-spinner {
-    margin: 20px auto;
-  }
-
   &__view-more {
-    padding: 10px;
-    border-top: 1px solid rgba(0,0,0,0.2);
-    color: #4089E0;
+    padding: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    color: #3AB0EA;
     font-size: 12px;
     text-transform: uppercase;
+    cursor: pointer;
   }
 }
