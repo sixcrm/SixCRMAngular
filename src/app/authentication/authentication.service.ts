@@ -36,6 +36,7 @@ export class AuthenticationService {
 
   public sixUser$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
   private user: User;
+  private timezone: string = 'America/Los_Angeles';
   public userUnderReg$: BehaviorSubject<any> = new BehaviorSubject<User>(null);
   public activeAcl$: BehaviorSubject<Acl> = new BehaviorSubject<Acl>(new Acl());
   public activeAclChanged$: Subject<boolean> = new Subject<boolean>();
@@ -122,23 +123,11 @@ export class AuthenticationService {
   }
 
   public getTimezone(): string {
-    let user = this.getSixUser();
-
-    if (user.userSettings && user.userSettings.timezone) {
-      return user.userSettings.timezone;
-    }
-
-    return 'America/Los_Angeles';
+    return this.timezone || 'America/Los_Angeles';
   }
 
-  public updateUserSettings(settings: UserSettings): void {
-    let user = this.getSixUser();
-
-    if (user.id !== settings.id) return;
-
-    user.userSettings = settings;
-
-    this.updateSixUser(user);
+  public updateTimezone(timezone: string): void {
+    this.timezone = timezone || this.timezone || 'America/Los_Angeles';
   }
 
   public getUserEmail(): string {
@@ -318,8 +307,8 @@ export class AuthenticationService {
             }
 
             this.updateSixUser(activatedUser);
-
             this.getOrUpdateActiveAcl(activatedUser);
+            this.updateTimezone(user.usersetting.timezone);
 
             if (this.router.url === '/') {
               let redirect = '/dashboard';

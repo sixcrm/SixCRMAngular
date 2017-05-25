@@ -21,6 +21,6 @@ export class UserSettingsService extends AbstractEntityService<UserSettings> {
       'default'
     );
 
-    this.entityUpdated$.subscribe(settings => this.authService.updateUserSettings(settings))
+    this.entityUpdated$.subscribe(settings => this.authService.updateTimezone(settings.timezone))
   }
 }

@@ -15,7 +15,7 @@ export class CreditCard implements Entity<CreditCard> {
     }
 
     this.id = obj.id || '';
-    this.ccnumber = obj.ccnumber || '';
+    this.ccnumber = obj.number || '';
     this.expiration = obj.expiration || '';
     this.ccv = obj.ccv || '';
     this.name = obj. name || '';
@@ -29,7 +29,7 @@ export class CreditCard implements Entity<CreditCard> {
   inverse(): any {
     return {
       id: this.id,
-      ccnumber: this.ccnumber,
+      number: this.ccnumber,
       expiration: this.expiration,
       ccv: this.ccv,
       name: this.name,
