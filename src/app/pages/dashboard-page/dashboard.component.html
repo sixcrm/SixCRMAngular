@@ -1,114 +1,18 @@
 <div class="dashboard">
 
   <div class="dashboard__filters__container">
-    <div class="dashboard__filters">
-      <div class="dashboard__filters__content">
-        <div class="dashboard__filters__date">
-          <div class="dashboard__filters__date__quick">
-            <ng-container *ngFor="let dateFilter of dateFilters; let i = index">
-              <span *ngIf="dateFilter.label !== 'CUSTOM'"
-                    class="dashboard__filters__date__quick__item"
-                    [class.dashboard__filters__date__quick__item--active]="activeDateFilterIndex===i"
-                    (click)="setActiveDateFilterIndex(i)">{{dateFilter.label}}</span>
-            </ng-container>
-          </div>
-          <div class="dashboard__filters__date__range">
-            <div class="datepicker--custom" [class.datepicker-visible]="datepickerVisible">
-              <div (showDaterangepicker)="datepickerVisible = true" (hideDaterangepicker)="datepickerVisible = false" (selected)="dateSelected($event)" daterangepicker>
-                <div class="dashboard__filters__date__range__input" name="daterange" >
-                  <span>From <span class="dashboard__filters__date__range__input__value">{{ getStartDate().format('MMM D, YYYY') }}</span>
-                        To <span class="dashboard__filters__date__range__input__value">{{ getEndDate().format('MMM D, YYYY') }}</span>
-                  </span> <md-icon>keyboard_arrow_down</md-icon> </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="dashboard__filters__query">
-          <div class="dashboard__filters__query__input" [class.dashboard__filters__query__input--advanced]="advanced">
-            <md-input placeholder="Filters" [value]="currentFilterTerm" (input)="filterTermInput($event)" (blur)="filterTermInputBlur()" (focus)="filterTermInputFocus()">
-              <div class="dashboard__filters__query__input__prefix" md-prefix>
-                <div *ngFor="let filterTerm of filterTerms" class="dashboard__filters__query__input__prefix__item">
-                  <div class="dashboard__filters__query__input__prefix__item__image">C</div>
-                  <div class="dashboard__filters__query__input__prefix__item__text">{{filterTerm.label}}</div>
-                  <md-icon class="dashboard__filters__query__input__prefix__item__close" (click)="removeFilterTerm(filterTerm)">close</md-icon>
-                </div>
-
-                <div class="dashboard__filters__query__suggestions">
-                  <div class="dashboard__filters__query__suggestions__item" *ngFor="let suggestion of filterSearchResults" (click)="addFilterTerm(suggestion)">
-                    <div class="dashboard__filters__query__suggestions__item__image">{{suggestion.type.substring(0,1).toUpperCase()}}</div>
-                    <div class="dashboard__filters__query__suggestions__item__text">{{suggestion.label}}</div>
-                  </div>
-                </div>
-              </div>
-            </md-input>
-          </div>
-        </div>
-
-        <div class="dashboard__filters__icons">
-          <md-icon class="refresh-icon" (click)="refresh()" md-tooltip="{{getLastUpdatedTime()}}" mdTooltipPosition="left">refresh</md-icon>
-          <share-link [shareUrl]="getShareUrl()"></share-link>
-          <md-icon>more_vert</md-icon>
-        </div>
-      </div>
-
-      <div class="dashboard__filters__advanced" [class.dashboard__filters__advanced--inactive]="!advanced">
-        <div class="dashboard__filters__advanced__row">
-
-          <div class="dashboard__filters__advanced__row--flex">
-            <input-autocomplete [title]="'Campaign'" [entityType]="'campaign'" (selected)="addFilterTerm($event)"></input-autocomplete>
-            <input-autocomplete [title]="'Affiliate'" [entityType]="'affiliate'" (selected)="addFilterTerm($event)"></input-autocomplete>
-          </div>
-
-          <div class="dashboard__filters__advanced__row--flex">
-            <input-autocomplete [title]="'Product Schedule'" [entityType]="'productschedule'" (selected)="addFilterTerm($event)"></input-autocomplete>
-            <div>
-              <md-input class="dashboard__filters__advanced__small" placeholder="Sub ID 1"></md-input>
-              <md-input class="dashboard__filters__advanced__small" placeholder="Sub ID 2"></md-input>
-              <md-input class="dashboard__filters__advanced__small" placeholder="Sub ID 3"></md-input>
-            </div>
-          </div>
-
-          <div class="dashboard__filters__advanced__row--flex">
-            <input-autocomplete [title]="'Merchant Provider'" [entityType]="'merchantprocessor'" (selected)="addFilterTerm($event)"></input-autocomplete>
-
-            <div>
-              <md-input class="dashboard__filters__advanced__small" placeholder="Sub ID 4"></md-input>
-              <md-input class="dashboard__filters__advanced__small" placeholder="Sub ID 5"></md-input>
-            </div>
-          </div>
-
-          <div class="dashboard__filters__advanced__row--flex">
-            <div class="dashboard__filters__advanced__dropdown">
-              <span class="unselected" [md-menu-trigger-for]="transactionTypeMenu">
-                Transaction Type
-                <md-icon>keyboard_arrow_down</md-icon>
-              </span>
-            </div>
-            <md-menu #transactionTypeMenu="mdMenu" x-position="after">
-              <button md-menu-item *ngFor="let tt of transactionTypes" (click)="addFilterTerm(tt)"> {{tt.label}} </button>
-            </md-menu>
-
-            <div class="dashboard__filters__advanced__dropdown">
-              <span class="unselected" [md-menu-trigger-for]="processorResultMenu">
-                Processor Response
-                <md-icon>keyboard_arrow_down</md-icon>
-              </span>
-            </div>
-            <md-menu #processorResultMenu="mdMenu" x-position="after">
-              <button md-menu-item *ngFor="let pr of processorResponses" (click)="addFilterTerm(pr)"> {{pr.label}} </button>
-            </md-menu>
-          </div>
-        </div>
-      </div>
-
-      <div class="dashboard__filters__advanced-button">
-        <span *ngIf="advanced" (click)="applyFilters()">APPLY</span>
-        <span *ngIf="showResetButton()" (click)="resetFilters()">RESET</span>
-        <span *ngIf="!advanced" (click)="toggleAdvanced()">ADVANCED</span>
-        <span *ngIf="advanced" (click)="toggleAdvanced()">CLOSE</span>
-      </div>
-    </div>
+    <advanced-filter
+      [date]="date"
+      [filterTerms]="immutableFilterTerms"
+      [refreshText]="getLastUpdatedTime()"
+      [shareUrl]="shareUrl"
+      (dateChanged)="dateChanged($event)"
+      (filterTermAdded)="addFilterTerm($event)"
+      (filterTermRemoved)="removeFilterTerm($event)"
+      (resetFilters)="resetFilters()"
+      (applyFilters)="applyFilters()"
+      (refreshFilters)="refresh()">
+    </advanced-filter>
   </div>
 
   <div class="dashboard__column dashboard__column--left">
@@ -129,12 +33,8 @@
   <div class="dashboard__column dashboard__column--right">
     <funnel-graph [date]="date"></funnel-graph>
 
-    <events-by
-      [date]="date">
-    </events-by>
+    <events-by [date]="date"></events-by>
 
-    <transaction-by
-      [date]="date">
-    </transaction-by>
+    <transaction-by [date]="date"></transaction-by>
   </div>
 </div>

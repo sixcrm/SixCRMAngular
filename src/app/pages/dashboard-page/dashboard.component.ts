@@ -1,8 +1,7 @@
-import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {utc, Moment} from 'moment';
-import {SearchService} from '../../shared/services/search.service';
 import {Subject} from 'rxjs';
-import {DaterangepickerConfig, DaterangePickerComponent} from 'ng2-daterangepicker';
+import {DaterangepickerConfig} from 'ng2-daterangepicker';
 import {AnalyticsService} from '../../shared/services/analytics.service';
 import {environment} from '../../../environments/environment';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -41,43 +40,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
   filterTerms: FilterTerm[] = [];
   filterSearchResults: FilterTerm[] = [];
   immutableFilterTerms: FilterTerm[] = [];
-  currentFilterTerm: string;
+  date: DateMap;
 
-  dateFilters: DateFilter[] = [
-    {label: '1D', start: flatDown(utc().subtract(1,'d')), end: lateToday()},
-    {label: '1W', start: flatDown(utc().subtract(1,'w')), end: lateToday()},
-    {label: '1M', start: flatDown(utc().subtract(1,'M')), end: lateToday()},
-    {label: '3M', start: flatDown(utc().subtract(3,'M')), end: lateToday()},
-    {label: '6M', start: flatDown(utc().subtract(6,'M')), end: lateToday()},
-    {label: 'YTD', start: flatDown(utc().startOf('year')), end: lateToday()},
-    {label: '1Y', start: flatDown(utc().subtract(1,'y')), end: lateToday()},
-    {label: 'ALL', start: flatDown(utc().subtract(10,'y')), end: lateToday()},
-    {label: 'CUSTOM', start: utc(), end: utc()}
-  ];
-  activeDateFilterIndex: number = 3;
+  start: Moment = utc().subtract(3, 'M');
+  end: Moment = utc();
 
-  @ViewChild(DaterangePickerComponent)
-  dateRangePicker: DaterangePickerComponent;
+  shareUrl: string;
+
   datepickerVisible: boolean = false;
 
   advanced: boolean = false;
-  transactionTypes: FilterTerm[] = [
-    {id: 'new', label: 'New', type: 'transactiontype'},
-    {id: 'rebill', label: 'Rebill', type: 'transactiontype'}
-  ];
-  processorResponses: FilterTerm[] = [
-    {id: 'success', label: 'Success', type: 'processorresult'},
-    {id: 'decline', label: 'Decline', type: 'processorresult'},
-    {id: 'error', label: 'Error', type: 'processorresult'}
-  ];
-
-  date: DateMap;
 
   private termFilterDebouncer$: Subject<boolean>;
   private unsubscribe$: Subject<boolean>;
 
   constructor(
-    private searchService: SearchService,
     private daterangepickerOptions: DaterangepickerConfig,
     public analyticsService: AnalyticsService,
     private route: ActivatedRoute,
@@ -89,10 +66,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.searchService.dashboardFilterResults$.takeUntil(this.unsubscribe$).subscribe(results => {
-      this.filterSearchResults = this.parseFilterSearchResults(results.hit);
-    });
-
     this.termFilterDebouncer$
       .takeUntil(this.unsubscribe$)
       .filter(() => !this.advanced)
@@ -121,8 +94,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   initDatepicker(): void {
     this.daterangepickerOptions.settings = {
       parentEl: '.datepicker--custom',
-      startDate: this.getStartDate(),
-      endDate: this.getEndDate(),
+      startDate: this.start,
+      endDate: this.end,
       locale: { format: 'MM/DD/YYYY' },
       alwaysShowCalendars: true,
       applyClass: 'btn-success-custom',
@@ -136,35 +109,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.analyticsService.clearAllSubjects();
   }
 
-  filterTermInput(event): void {
-    this.currentFilterTerm = event.target.value;
-
-    this.performFilterSearch();
-  }
-
-  filterTermInputBlur(): void {
-    setTimeout(() => {
-      this.filterSearchResults = [];
-    }, 200)
-  }
-
-  filterTermInputFocus(): void {
-    this.performFilterSearch();
-  }
-
-  setActiveDateFilterIndex(index: number): void {
-    if (this.dateFilters[index].label === 'CUSTOM') return;
-
-    this.activeDateFilterIndex = index;
-
-    this.setDatepickerDates();
-
-    this.fetchAll();
-  }
-
   addFilterTerm(filterTerm: FilterTerm): void {
     this.filterSearchResults = [];
-    this.currentFilterTerm = '';
     this.filterTerms.push(filterTerm);
 
     this.termFilterDebouncer$.next(true);
@@ -172,7 +118,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   resetFilters(): void {
     this.filterTerms = [];
-    this.activeDateFilterIndex = 3;
     this.fetchAll();
     this.router.navigate(['dashboard']);
   }
@@ -186,47 +131,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  performFilterSearch(): void {
-    if (this.currentFilterTerm) {
-      this.searchService.searchDashboardFilters(this.currentFilterTerm);
-    } else {
-      this.filterSearchResults = [];
-    }
-  }
-
-  getStartDate(): Moment {
-    return this.dateFilters[this.activeDateFilterIndex].start;
-  }
-
-  getEndDate(): Moment {
-    return flatUp(this.dateFilters[this.activeDateFilterIndex].end);
-  }
-
   extractDateFromParams(data): void {
     if (!data['start'] || !data['end']) {
-      this.activeDateFilterIndex = 3;
+      this.start = utc().subtract(3, 'M');
+      this.end = flatUp(utc());
 
       return;
     }
 
-    let sDate = flatDown(utc(data['start']));
-    let eDate = flatUp(utc(data['end']));
-
-    let tempActive: number = -1;
-    for (let i = 0; i < this.dateFilters.length; i++) {
-      if (areSame(sDate, this.dateFilters[i].start) && areSame(eDate, this.dateFilters[i].end)) {
-        tempActive = i;
-        break;
-      }
-    }
-
-    let customDateIndex = this.dateFilters.length - 1;
-    this.activeDateFilterIndex = tempActive !== -1 ? tempActive : customDateIndex;
-
-    if (this.activeDateFilterIndex === customDateIndex) {
-      this.dateFilters[customDateIndex].start = sDate;
-      this.dateFilters[customDateIndex].end = eDate;
-    }
+    this.start = utc(data['start']);
+    this.end = flatUp(utc(data['end']));
   }
 
   extractFiltersFromParams(data: any): void {
@@ -255,27 +169,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  getShareUrl(): string {
-    return environment.auth0RedirectUrl + '/dashboard?f=' + this.encodeParams();
+  setShareUrl(): void {
+    this.shareUrl = environment.auth0RedirectUrl + '/dashboard?f=' + this.encodeParams();
   }
 
-  dateSelected(value: any): void {
-    let lastIndex = this.dateFilters.length-1;
-
-    this.dateFilters[lastIndex].start = flatDown(utc(value.start));
-    this.dateFilters[lastIndex].end = flatUp(utc(value.end));
-
-    this.activeDateFilterIndex = lastIndex;
+  dateChanged(date: DateMap): void {
+    this.start = date.start;
+    this.end = date.end;
 
     this.fetchAll();
-  }
-
-  toggleAdvanced(): void {
-    this.advanced = !this.advanced;
-  }
-
-  showResetButton(): boolean {
-    return (this.filterTerms && this.filterTerms.length > 0) || this.activeDateFilterIndex !== 3;
   }
 
   applyFilters(): void {
@@ -293,7 +195,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   encodeParams(): string {
-    let filters = {'start': this.getStartDate().format(), 'end': this.getEndDate().format()};
+    let filters = {'start': this.start.format(), 'end': this.end.format()};
 
     for (let i in this.filterTerms) {
       let currentFilter = this.filterTerms[i];
@@ -310,56 +212,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private fetchAll(): void {
-    this.date = {start: this.getStartDate(), end: this.getEndDate()};
-
+    this.date = {start: this.start, end: this.end};
     this.immutableFilterTerms =  this.filterTerms.slice();
+
+    this.setShareUrl();
   }
 
   private fetchFilterDependents(): void {
     this.immutableFilterTerms = this.filterTerms.slice();
-  }
 
-  private parseFilterSearchResults(results: any[]): FilterTerm[] {
-    let terms: FilterTerm[] = [];
-
-    results.forEach(result => {
-      if (this.filterTermsContain(result.id)) return;
-
-      let type = result.fields.entity_type;
-      let label = '';
-
-      switch (type) {
-        case 'customer' : {
-          label = `${result.fields.firstname} ${result.fields.lastname}`;
-          break;
-        }
-        case 'transaction' : {
-          label = result.fields.alias;
-          break;
-        }
-        case 'affiliate': {
-          label = result.fields.affiliate_id;
-          break;
-        }
-        default: {
-          label = result.fields.name;
-        }
-      }
-
-      terms.push({id: result.id, type: type, label: label});
-    });
-
-    return terms;
-  }
-
-  private filterTermsContain(id: string): boolean {
-    for (let i = 0; i < this.filterTerms.length; i++) {
-      if (this.filterTerms[i].id === id) {
-        return true;
-      }
-    }
-
-    return false;
+    this.setShareUrl();
   }
 
   private getFilterTermIndex(filterTerm: FilterTerm): number {
@@ -369,12 +231,5 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     return -1;
-  }
-
-  private setDatepickerDates(): void {
-    if (this.dateRangePicker) {
-      this.dateRangePicker.datePicker.setStartDate(this.getStartDate());
-      this.dateRangePicker.datePicker.setEndDate(this.getEndDate());
-    }
   }
 }
