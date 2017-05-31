@@ -6,29 +6,7 @@ import {AnalyticsService} from '../../shared/services/analytics.service';
 import {environment} from '../../../environments/environment';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AnalyticsStorageService} from '../../shared/services/analytics-storage.service';
-
-export interface FilterTerm {
-  id: string;
-  label: string;
-  type: string;
-}
-
-export interface DateFilter {
-  label: string;
-  start: Moment;
-  end: Moment;
-  selected?: boolean;
-}
-
-export interface DateMap {
-  start: Moment;
-  end: Moment;
-}
-
-export function flatDown(m: Moment) { return m.hours(0).minutes(0).seconds(0).millisecond(0) }
-export function flatUp(m: Moment) { return m.hours(23).minutes(59).seconds(59)}
-export function lateToday() { return utc().hours(23).minutes(59).seconds(59)}
-export function areSame(m1: Moment, m2: Moment) { return flatDown(m1).isSame(flatDown(m2)) }
+import {FilterTerm, DateMap, flatUp} from '../../shared/components/advanced-filter/advanced-filter.component';
 
 @Component({
   selector: 'c-dashboard',

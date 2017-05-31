@@ -6,8 +6,8 @@ import {utc, Moment} from 'moment';
 import {ReportsAbstractComponent, ReportColumnParams} from '../reports-abstract.component';
 import {PaginationService} from '../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
-import {DateMap, FilterTerm, flatUp, flatDown} from '../../pages/dashboard-page/dashboard.component';
 import {environment} from '../../../environments/environment';
+import {FilterTerm, DateMap, flatDown, flatUp} from '../../shared/components/advanced-filter/advanced-filter.component';
 
 @Component({
   selector: 'transactions-report',
