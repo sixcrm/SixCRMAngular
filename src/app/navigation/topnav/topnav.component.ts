@@ -29,9 +29,8 @@ export class TopnavComponent implements OnInit {
   private _breadcrumbInterval: number;
   private _pageTitleInterval: number;
 
-  _userProfile: User = new User();
+  userProfile: User = new User();
 
-  showDropdown: boolean = false;
   showCollapseMenu: boolean = false;
   showSearchInput: boolean = false;
   showAutoComplete: boolean = false;
@@ -39,7 +38,6 @@ export class TopnavComponent implements OnInit {
   options: string[] = [];
 
   activeAcl: Acl = new Acl();
-  showAcls: boolean = false;
 
   notificationsCount: number;
 
@@ -111,7 +109,7 @@ export class TopnavComponent implements OnInit {
 
     this._authService.sixUser$.subscribe((userProfile: User) => {
       if (userProfile) {
-        this._userProfile = userProfile;
+        this.userProfile = userProfile;
       }
     });
 
@@ -182,14 +180,6 @@ export class TopnavComponent implements OnInit {
     this._navigation.toggleSidenav(!this._showSidenav);
   }
 
-  toggleAclsMenu(): void {
-    this.showAcls = !this.showAcls;
-  }
-
-  toggleDropdownMenu(): void {
-    this.showDropdown = !this.showDropdown;
-  }
-
   toggleCollapseMenu(): void {
     this.showCollapseMenu = !this.showCollapseMenu;
   }
@@ -231,14 +221,6 @@ export class TopnavComponent implements OnInit {
   }
 
   private hideElements(event): void {
-    if (!event.target.attributes.class || event.target.attributes.class.value !== 'topnav__profile__arrow material-icons') {
-      this.showDropdown = false;
-    }
-
-    if (!event.target.attributes.class || event.target.attributes.class.value !== 'topnav__acl__arrow material-icons') {
-      this.showAcls = false;
-    }
-
     if (!event.target.attributes.class || event.target.attributes.class.value !== 'topnav__items--collapsed__icon material-icons') {
       this.showCollapseMenu = false;
     }

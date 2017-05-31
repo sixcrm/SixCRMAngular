@@ -46,20 +46,7 @@
       </simple-dropdown>
     </ng-container>
 
-    <img *ngIf="_userProfile.picture" class="topnav__profile__image" [src]="_userProfile.picture">
-    <span class="topnav__profile__hello">Hello, </span>
-    <span class="topnav__profile__name"> {{_userProfile.name}} </span>
-
-    <div class="topnav__dropdown__container">
-      <md-icon class="topnav__profile__arrow" (click)="toggleDropdownMenu()">keyboard_arrow_down</md-icon>
-
-      <div *ngIf="showDropdown" class="topnav__dropdown__menu">
-        <button md-menu-item (click)="navigateToProfile()"> <span>{{_userProfile.email}}</span> </button>
-        <button md-menu-item (click)="logout()"> <span>sign out</span> </button>
-      </div>
-    </div>
-
-    <md-menu #menu="mdMenu"></md-menu>
+    <profile-dropdown [userProfile]="userProfile"></profile-dropdown>
 
     <span class="topnav__separator"></span>
 
@@ -73,8 +60,8 @@
 
     <div *ngIf="showCollapseMenu" class="topnav__items--collapsed__menu">
       <div class="topnav__items--collapsed__menu__profile topnav__items--collapsed__menu__button" (click)="navigateToProfile()">
-        <img class="topnav__items--collapsed__menu__profile__image" [src]="_userProfile.picture">
-        <span>{{_userProfile.email}}</span>
+        <img class="topnav__items--collapsed__menu__profile__image" [src]="userProfile.picture">
+        <span>{{userProfile.email}}</span>
       </div>
       <span class="topnav__items--collapsed__menu__label">Accounts:</span>
       <div *ngFor="let acl of _authService.getAcls()">

@@ -1,13 +1,13 @@
 .simple-dropdown {
   position: relative;
   cursor: pointer;
+  height: 45px;
+  line-height: 45px;
 
   &__header {
     display: flex;
     align-items: center;
     padding-left: 15px;
-    height: 40px;
-    line-height: 40px;
 
     &--active {
       background: white;
@@ -37,7 +37,7 @@
     overflow: auto;
 
     &__element {
-      padding: 15px;
+      padding: 0 15px;
 
       &:hover {
         background: rgba(0, 0, 0, 0.033);

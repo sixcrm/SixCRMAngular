@@ -10,6 +10,7 @@ import {NavigationService} from './navigation.service';
 import {SidenavItemComponent} from './sidenav/sidenav-item/sidenav-item.component';
 import {DefaultLayoutComponent} from './layouts/default/default.layout.component';
 import {NotificationsQuickComponent} from './notifications-quick/notifications-quick.component';
+import { ProfileDropdownComponent } from './topnav/profile-dropdown/profile-dropdown.component';
 
 @NgModule({
   imports : [
@@ -19,7 +20,7 @@ import {NotificationsQuickComponent} from './notifications-quick/notifications-q
     SharedModule,
     FormsModule
   ],
-  declarations : [SidenavComponent, TopnavComponent, SidenavItemComponent, DefaultLayoutComponent, NotificationsQuickComponent],
+  declarations : [SidenavComponent, TopnavComponent, SidenavItemComponent, DefaultLayoutComponent, NotificationsQuickComponent, ProfileDropdownComponent],
   exports : [SidenavComponent, TopnavComponent, DefaultLayoutComponent]
 })
 export class NavigationModule {

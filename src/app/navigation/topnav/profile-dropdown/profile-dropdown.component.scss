@@ -1,0 +1,63 @@
+.profile-dropdown {
+  position: relative;
+  height: 70px;
+  cursor: pointer;
+
+  &--active {
+    background: rgba(0, 0, 0, 0.033);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    height: 70px;
+
+    &__image {
+      margin-right: 8px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    &__hello {
+      font-weight: 300;
+    }
+
+    &__name {
+      margin-left: 3px;
+    }
+
+    &__arrow {
+      transition: 0.2s ease-in-out;
+    }
+
+    .arrow--rotate {
+      transform: rotate(90deg);
+    }
+  }
+
+  &__menu {
+    position: absolute;
+    top: 70px;
+    height: 0;
+    overflow: hidden;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.12), -1px 1px 1px rgba(0, 0, 0, 0.12);
+    background: white;
+    width: 100%;
+    transition: 0.25s ease-in-out;
+
+    &--active {
+      height: 96px;
+    }
+
+    &__item {
+      padding: 15px;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.033);
+      }
+    }
+  }
+}
