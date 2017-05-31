@@ -48,6 +48,7 @@ import {Daterangepicker} from 'ng2-daterangepicker';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { FormatDateTimePipe } from './pipes/format-date-time.pipe';
 import {TimeService} from './services/time.service';
+import {SimpleDropdownComponent} from './components/simple-dropdown/simple-dropdown.component';
 
 @NgModule({
   declarations : [
@@ -65,7 +66,8 @@ import {TimeService} from './services/time.service';
     AdvancedFilterComponent,
     InputAutocompleteComponent,
     DropdownComponent,
-    FormatDateTimePipe
+    FormatDateTimePipe,
+    SimpleDropdownComponent
   ],
   exports : [
     WidgetComponent,
@@ -80,7 +82,8 @@ import {TimeService} from './services/time.service';
     TablePaginationComponent,
     AdvancedFilterComponent,
     InputAutocompleteComponent,
-    FormatDateTimePipe
+    FormatDateTimePipe,
+    SimpleDropdownComponent
   ],
   imports : [FormsModule, CommonModule, MaterialModule, ChartModule, Daterangepicker]
 })

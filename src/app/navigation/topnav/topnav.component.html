@@ -36,15 +36,14 @@
   <div class="topnav__items--expanded">
     <ng-container *ngIf="activeAcl">
       <md-icon class="topnav__acl__icon">domain</md-icon>
-      <span class="topnav__acl__name">{{activeAcl.account.name}}</span>
 
-      <div class="topnav__acl__container">
-        <md-icon class="topnav__acl__arrow" (click)="toggleAclsMenu()">keyboard_arrow_down</md-icon>
-
-        <div *ngIf="showAcls" class="topnav__acl__menu">
-          <div *ngFor="let acl of _authService.getAcls()" (click)="changeAcl(acl)"> <span>{{acl.account.name}}</span> </div>
-        </div>
-      </div>
+      <simple-dropdown
+        class="topnav__acl__dropdown"
+        [selectedOption]="activeAcl"
+        [options]="_authService.getAcls()"
+        [mapper]="mapAcl"
+        (optionSelected)="changeAcl($event)">
+      </simple-dropdown>
     </ng-container>
 
     <img *ngIf="_userProfile.picture" class="topnav__profile__image" [src]="_userProfile.picture">

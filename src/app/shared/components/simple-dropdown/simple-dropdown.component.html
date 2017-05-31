@@ -1,0 +1,12 @@
+<div class="simple-dropdown">
+
+  <div class="simple-dropdown__header" [class.simple-dropdown__header--active]="dropdownVisible" (click)="toggleDropdown()">
+    <div class="simple-dropdown__selected">{{mapper(selectedOption)}}</div>
+    <md-icon [class.icon--hidden]="dropdownVisible">keyboard_arrow_down</md-icon>
+  </div>
+
+  <div *ngIf="dropdownVisible" class="simple-dropdown__dropdown" >
+    <div class="simple-dropdown__dropdown__element" *ngFor="let option of options" (click)="select(option)"> {{mapper(option)}} </div>
+  </div>
+
+</div>

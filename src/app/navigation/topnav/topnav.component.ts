@@ -43,6 +43,8 @@ export class TopnavComponent implements OnInit {
 
   notificationsCount: number;
 
+  mapAcl = (acl: Acl) => acl.account.name;
+
   constructor(
     public _navigation: NavigationService,
     private _title: Title,

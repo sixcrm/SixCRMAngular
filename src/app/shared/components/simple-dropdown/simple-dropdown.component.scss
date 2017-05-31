@@ -1,0 +1,47 @@
+.simple-dropdown {
+  position: relative;
+  cursor: pointer;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    height: 40px;
+    line-height: 40px;
+
+    &--active {
+      background: white;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    md-icon {
+      margin-left: 5px;
+    }
+
+    .icon--hidden {
+      visibility: hidden;
+    }
+  }
+
+  &__selected {
+
+  }
+
+  &__dropdown {
+    position: absolute;
+    background: white;
+    width: 100%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    max-height: 385px;
+    overflow: auto;
+
+    &__element {
+      padding: 15px;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.033);
+      }
+    }
+  }
+}
