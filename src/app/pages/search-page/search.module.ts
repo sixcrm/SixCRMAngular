@@ -13,6 +13,7 @@ import { FilterByEntityTypePipe } from './pipes/filter-by-entity-type.pipe';
 import {EntityListComponent} from './entity-list/entity-list.component';
 import { PerfectMatchComponent } from './perfect-match/perfect-match.component';
 import { PerfectCustomerComponent } from './perfect-match/perfect-customer/perfect-customer.component';
+import { PerfectTransactionComponent } from './perfect-match/perfect-transaction/perfect-transaction.component';
 
 @NgModule({
   imports : [
@@ -32,7 +33,8 @@ import { PerfectCustomerComponent } from './perfect-match/perfect-customer/perfe
     EntityListComponent,
     FilterByEntityTypePipe,
     PerfectMatchComponent,
-    PerfectCustomerComponent
+    PerfectCustomerComponent,
+    PerfectTransactionComponent
   ],
   exports : [
   ],

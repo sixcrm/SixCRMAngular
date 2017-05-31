@@ -1,25 +1,23 @@
-import {Component, OnInit, Input, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {CustomersService} from '../../../../shared/services/customers.service';
 import {Customer} from '../../../../shared/models/customer.model';
-import {AsyncSubject} from 'rxjs';
 import {Transaction} from '../../../../shared/models/transaction.model';
 import {TransactionsService} from '../../../../shared/services/transactions.service';
 import {transactionsInfoListQuery, transactionsByCustomer} from '../../../../shared/utils/query-builder';
+import {AbstractPerfectMatch} from '../abstract-perfect-match.component';
 
 @Component({
   selector: 'perfect-customer',
   templateUrl: './perfect-customer.component.html',
   styleUrls: ['./perfect-customer.component.scss']
 })
-export class PerfectCustomerComponent implements OnInit, OnDestroy {
-
-  @Input() id: string;
-
+export class PerfectCustomerComponent extends AbstractPerfectMatch implements OnInit, OnDestroy {
   customer: Customer;
   transactions: Transaction[];
-  unsubscribe$: AsyncSubject<boolean> = new AsyncSubject();
 
-  constructor(private customersService: CustomersService, private transactionsService: TransactionsService) { }
+  constructor(private customersService: CustomersService, private transactionsService: TransactionsService) {
+    super();
+  }
 
   ngOnInit() {
     this.customersService.entity$.takeUntil(this.unsubscribe$).subscribe(customer => this.customer = customer);
@@ -38,9 +36,7 @@ export class PerfectCustomerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.unsubscribe$.next(true);
-    this.unsubscribe$.complete();
+    super.destroy();
     this.transactionsService.indexQuery = transactionsInfoListQuery;
   }
-
 }

@@ -14,6 +14,7 @@
     </div>
 
     <perfect-customer *ngIf="entity.fields.entity_type === 'customer'" [id]="entity.id"></perfect-customer>
+    <perfect-transaction *ngIf="entity.fields.entity_type === 'transaction'" [id]="entity.id"></perfect-transaction>
 
     <div (click)="navigateToEntity()" class="perfect-match__view-more">
       view {{entity.fields.entity_type}}
