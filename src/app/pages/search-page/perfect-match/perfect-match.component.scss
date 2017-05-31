@@ -1,5 +1,5 @@
 .perfect-match {
-  margin: 15px 5px 15px 15px;
+  margin: 15px;
   background: white;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 
@@ -28,8 +28,9 @@
       }
 
       &__sub {
-        font-size: 13px;
+        font-size: 14px;
         color: rgba(0, 0, 0, 0.7);
+        text-transform: capitalize;
       }
     }
 

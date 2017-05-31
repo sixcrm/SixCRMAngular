@@ -1,7 +1,5 @@
 .entity-list {
-  margin: 15px;
   background: #ffffff;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 
   &__title {
     padding: 15px;
@@ -20,9 +18,15 @@
     }
 
     &__title {
-      margin-bottom: 10px;
       color: #4089E0;
       font-size: 18px;
+    }
+
+    &__subtitle {
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.7);
+      text-transform: capitalize;
     }
 
     &__fields {
@@ -44,14 +48,5 @@
       }
     }
 
-  }
-
-  &__view-more {
-    padding: 15px;
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
-    color: #3AB0EA;
-    font-size: 12px;
-    text-transform: uppercase;
-    cursor: pointer;
   }
 }

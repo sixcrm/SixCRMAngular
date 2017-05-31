@@ -234,6 +234,22 @@ $border-color: rgba(0, 0, 0, 0.2);
     &__results {
       margin-top: 1px;
 
+      &__no-results {
+        padding: 15px;
+        color: rgba(0,0,0,0.6);
+        font-size: 14px;
+
+        &__string {
+          font-weight: 500;
+          text-transform: capitalize;
+        }
+
+        &__advanced {
+          color: #039BE5;
+          cursor: pointer;
+        }
+      }
+
       &__container {
         font-size: 0;
       }
@@ -247,9 +263,35 @@ $border-color: rgba(0, 0, 0, 0.2);
 
       &__cards {
         display: inline-block;
-        width: 55%;
+        margin: 15px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        width: calc(55% - 30px);
         vertical-align: top;
         font-size: 14px;
+
+        &__header {
+          display: flex;
+          background: white;
+        }
+
+        &__footer {
+          display: flex;
+          border-top: 1px solid rgba(0, 0, 0, 0.2);
+          background: white;
+        }
+
+        &__spinner {
+          background: white;
+
+          md-spinner {
+            margin: auto;
+            padding: 30px 0;
+          }
+        }
+
+        &__pagination {
+          margin-left: auto;
+        }
       }
 
       &__item {

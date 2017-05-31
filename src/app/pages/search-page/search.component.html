@@ -88,16 +88,47 @@
         </div>
       </div>
 
-      <div *ngIf="cardMode; else table" class="search__content__results__container">
-        <div class="search__content__results__perfect-match">
-          <perfect-match *ngIf="searchResults" [entity]="searchResults[0]"></perfect-match>
-        </div>
-        <div class="search__content__results__cards">
-          <entity-list *ngFor="let facet of facets" [entityType]="facet.name" [data]="searchResults | filterByEntityType: facet.name | filterSearchResults: filterValue" [query]="queryString"></entity-list>
-        </div>
-      </div>
+      <ng-container *ngIf="searchResultsToDisplay.length > 0 || fetchingData; else noresults">
+        <div *ngIf="cardMode; else table" class="search__content__results__container">
+          <div class="search__content__results__cards">
+            <div class="search__content__results__cards__header">
+              <table-pagination
+                *ngIf="searchResultsToDisplay.length > 0"
+                class="search__content__results__cards__pagination"
+                [limit]="limit"
+                [paginationString]="paginationString()"
+                [paginationValues]="paginationValues"
+                [previousDisabled]="page <= 0"
+                [nextDisabled]="!hasMorePages()"
+                (previous)="previousPage()"
+                (next)="nextPage()"
+                (updateLimit)="updateLimit($event)">
+              </table-pagination>
+            </div>
+            <entity-list *ngIf="searchResultsToDisplay.length > 0 && !fetchingData" [data]="searchResultsToDisplay | filterSearchResults: filterValue" [query]="queryString"></entity-list>
+            <div class="search__content__results__cards__spinner" *ngIf="searchResultsToDisplay.length === 0 && fetchingData"><md-spinner></md-spinner></div>
+            <div class="search__content__results__cards__footer">
+              <table-pagination
+                *ngIf="searchResultsToDisplay.length > 0"
+                class="search__content__results__cards__pagination"
+                [limit]="limit"
+                [paginationString]="paginationString()"
+                [paginationValues]="paginationValues"
+                [previousDisabled]="page <= 0"
+                [nextDisabled]="!hasMorePages()"
+                (previous)="previousPage()"
+                (next)="nextPage()"
+                (updateLimit)="updateLimit($event)">
+              </table-pagination>
+            </div>
+          </div>
 
-      <ng-template #table>
+          <div class="search__content__results__perfect-match">
+            <perfect-match *ngIf="searchResults" [entity]="searchResults[0]"></perfect-match>
+          </div>
+        </div>
+
+        <ng-template #table>
         <div class="search__content__results">
           <result-item *ngFor="let res of searchResultsToDisplay | filterSearchResults: filterValue" [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResultDetails($event)"></result-item>
         </div>
@@ -114,6 +145,14 @@
           (next)="nextPage()"
           (updateLimit)="updateLimit($event)">
         </table-pagination>
+      </ng-template>
+      </ng-container>
+
+      <ng-template #noresults>
+        <div *ngIf="searchPerformed" class="search__content__results__no-results">
+          Sorry, no results for <span class="search__content__results__no-results__string">{{queryStringOutput}}</span>. Please submit another search query, <br>
+          or try <span class="search__content__results__no-results__advanced" (click)="showAdvancedSearch = true">advanced search</span>.
+        </div>
       </ng-template>
     </div>
   </div>

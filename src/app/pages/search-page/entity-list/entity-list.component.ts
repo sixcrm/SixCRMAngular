@@ -12,10 +12,6 @@ export class EntityListComponent implements OnInit {
 
   @Input() query: string;
   @Input() data: any[] = [];
-  @Input() entityType: string;
-
-  showMore: boolean = false;
-  displayCount: number = 3;
 
   constructor(private authService: AuthenticationService, private router: Router) { }
 
@@ -26,17 +22,11 @@ export class EntityListComponent implements OnInit {
     return entity.fields.name || entity.fields.alias || `${entity.fields.firstname}  ${entity.fields.lastname}`;
   }
 
-  toggleShowMore(): void {
-    this.showMore = !this.showMore;
-    this.displayCount = this.showMore ? 10 : 3;
-  }
-
   format(date: string): string {
     return utc(date).tz(this.authService.getTimezone()).format('MM/DD/YYYY');
   }
 
   navigateToEntity(entity): void {
-    console.log(entity);
     this.router.navigate([`/${entity.fields.entity_type}s`, entity.id]);
   }
 }

@@ -1,8 +1,8 @@
 <div class="entity-list" *ngIf="data && data.length > 0">
-  <div class="entity-list__title">In {{entityType}}</div>
 
-  <div class="entity-list__item" *ngFor="let d of data | subArray: displayCount" (click)="navigateToEntity(d)">
+  <div class="entity-list__item" *ngFor="let d of data" (click)="navigateToEntity(d)">
     <div class="entity-list__item__title" [innerHTML]="getName(d) | highlight: query"></div>
+    <div class="entity-list__item__subtitle">{{d.fields.entity_type}}</div>
 
     <div class="entity-list__item__fields">
       <div class="entity-list__item__fields__single" *ngIf="d.fields.firstname">
@@ -45,15 +45,5 @@
         <div class="entity-list__item__fields__value">{{format(d.fields.created_at)}}</div>
       </div>
     </div>
-  </div>
-
-  <div *ngIf="data.length > 3" class="entity-list__view-more" (click)="toggleShowMore()">
-    <span *ngIf="!showMore; else showLess">
-      view more in {{entityType}}
-    </span>
-
-    <ng-template #showLess>
-      view less in {{entityType}}
-    </ng-template>
   </div>
 </div>

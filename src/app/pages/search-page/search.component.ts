@@ -29,6 +29,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   // advanced search options
   queryOptions: any[] = [];
 
+  // string to be displayed if there are no search results
+  queryStringOutput: string;
+
   // should advanced search or quick search be performed
   isAdvancedSearch: boolean;
 
@@ -74,6 +77,9 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   filterValue: string;
 
+  fetchingData: boolean = false;
+  searchPerformed: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -118,6 +124,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     });
 
     this.searchService.searchResults$.subscribe(data => {
+      this.fetchingData = false;
       this.searchResults = [...this.searchResults, ...data.hit];
       this.numberOfSearchResults = data.found;
       this.hasMore = data.hit.length >= this.limit;
@@ -390,8 +397,21 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.router.navigate(['/search']);
   }
 
+  getSearchQueryString(): string {
+    let q: string = '';
+
+    if (!this.isAdvancedSearch) {
+      q = this.queryString;
+    } else {
+      this.queryOptions.filter(option => option.enabled).forEach(option => q += `${option.value} `);
+    }
+
+    return `${q.trim()}`;
+  }
+
   private prepareNewSearch(): void {
     this.searchResults = [];
+    this.searchResultsToDisplay = [];
     this.numberOfSearchResults = 0;
 
     if (!this.shareSearch) {
@@ -429,6 +449,9 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   private performSearch(query: string|any, createdAtRange: string, sortBy: string, offset: number, count: number, entityTypes: any): void {
     this.progressBarService.showTopProgressBar();
+    this.fetchingData = true;
+    this.searchPerformed = true;
+    this.queryStringOutput = this.getSearchQueryString();
     this.searchService.searchByQuery(query, createdAtRange, sortBy, offset, count, entityTypes);
     this.searchService.searchFacets(query, createdAtRange);
   }
