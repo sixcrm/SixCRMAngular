@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   filterTerms: FilterTerm[] = [];
   filterSearchResults: FilterTerm[] = [];
-  immutableFilterTerms: FilterTerm[] = [];
+  dataFilterTerms: FilterTerm[] = [];
   date: DateMap;
 
   start: Moment = utc().subtract(3, 'M');
@@ -92,10 +92,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.filterTerms.push(filterTerm);
 
     this.termFilterDebouncer$.next(true);
+    this.setShareUrl();
   }
 
   resetFilters(): void {
     this.filterTerms = [];
+    this.start = utc().subtract(3,'M');
+    this.end = utc();
+    this.dataFilterTerms = [];
     this.fetchAll();
     this.router.navigate(['dashboard']);
   }
@@ -191,13 +195,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private fetchAll(): void {
     this.date = {start: this.start, end: this.end};
-    this.immutableFilterTerms =  this.filterTerms.slice();
+    this.dataFilterTerms =  this.filterTerms.slice();
 
     this.setShareUrl();
   }
 
   private fetchFilterDependents(): void {
-    this.immutableFilterTerms = this.filterTerms.slice();
+    this.dataFilterTerms = this.filterTerms.slice();
 
     this.setShareUrl();
   }

@@ -3,7 +3,7 @@
   <div class="dashboard__filters__container">
     <advanced-filter
       [date]="date"
-      [filterTerms]="immutableFilterTerms"
+      [filterTerms]="filterTerms"
       [refreshText]="getLastUpdatedTime()"
       [shareUrl]="shareUrl"
       (dateChanged)="dateChanged($event)"
@@ -20,7 +20,7 @@
 
     <events-summary [date]="date"></events-summary>
 
-    <transaction-summary-chart [date]="date" [filters]="immutableFilterTerms"></transaction-summary-chart>
+    <transaction-summary-chart [date]="date" [filters]="dataFilterTerms"></transaction-summary-chart>
 
     <div class="dashboard__boxes">
       <movers-card [date]="date"></movers-card>
