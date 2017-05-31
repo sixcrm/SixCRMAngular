@@ -31,6 +31,17 @@
         background-color: #0899CD;
         color: white;
       }
+
+      &__sign-out {
+        margin-top: 10px;
+        font-weight: 300;
+        font-size: 18px;
+        color: #9b9b9b;
+
+        span {
+          cursor: pointer;
+        }
+      }
     }
 
     @media only screen and (max-width : 500px) {
