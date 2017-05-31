@@ -56,7 +56,11 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
         let entityKey = Object.keys(json)[0];
         let entityData =json[entityKey];
 
-        this.notificationCount$.next(entityData.count);
+        if (!entityData || !entityData.count) {
+          this.notificationCount$.next(0);
+        } else {
+          this.notificationCount$.next(entityData.count);
+        }
       },
       (error) => {
         console.error(error);
