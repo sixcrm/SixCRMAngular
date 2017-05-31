@@ -6,7 +6,6 @@ import {EventFunnel} from '../models/event-funnel.model';
 import {Headers, Response, Http} from '@angular/http';
 import {TransactionOverview} from '../models/transaction-overview.model';
 import {TransactionSummary} from '../models/transaction-summary.model';
-import {FilterTerm} from '../../pages/dashboard-page/dashboard.component';
 import {
   transactionSummaryQuery, transactionOverviewQuery, eventsFunelQuery,
   campaignDeltaQuery, eventsByAffiliateQuery, eventsSummaryQuery, transactionsByAffiliateQuery, campaignsByAmountQuery
@@ -17,6 +16,7 @@ import {CampaignStats} from '../models/campaign-stats.model';
 import {AnalyticsStorageService} from './analytics-storage.service';
 import {TransactionsBy} from '../models/analytics/transaction-by.model';
 import {EventsBy} from '../models/analytics/events-by.model';
+import {FilterTerm} from '../components/advanced-filter/advanced-filter.component';
 
 @Injectable()
 export class AnalyticsService {

@@ -5,10 +5,10 @@ import {TransactionOverview} from '../models/transaction-overview.model';
 import {EventSummary} from '../models/event-summary.model';
 import {CampaignDelta} from '../models/campaign-delta.model';
 import {CampaignStats} from '../models/campaign-stats.model';
-import {FilterTerm} from '../../pages/dashboard-page/dashboard.component';
 import {Moment, utc} from 'moment';
 import {TransactionsBy} from '../models/analytics/transaction-by.model';
 import {EventsBy} from '../models/analytics/events-by.model';
+import {FilterTerm} from '../components/advanced-filter/advanced-filter.component';
 
 export class AnalyticsStateEntry<T> {
   startDate: string;

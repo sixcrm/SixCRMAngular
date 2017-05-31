@@ -1,12 +1,15 @@
 <div class="simple-dropdown">
 
-  <div class="simple-dropdown__header" [class.simple-dropdown__header--active]="dropdownVisible" (click)="toggleDropdown()">
-    <div class="simple-dropdown__selected">{{mapper(selectedOption)}}</div>
-    <md-icon [class.icon--hidden]="dropdownVisible">keyboard_arrow_down</md-icon>
-  </div>
+  <div class="simple-dropdown" [class.simple-dropdown--active]="dropdownVisible">
+    <div class="simple-dropdown__header" [class.simple-dropdown__header--active]="dropdownVisible" (click)="toggleDropdown()">
+      <md-icon *ngIf="icon" class="simple-dropdown__header__icon">{{icon}}</md-icon>
+      <span class="simple-dropdown__header__value">{{mapper(selectedOption)}}</span>
+      <md-icon class="simple-dropdown__header__arrow" [class.arrow--rotate]="dropdownVisible">keyboard_arrow_down</md-icon>
+    </div>
 
-  <div *ngIf="dropdownVisible" class="simple-dropdown__dropdown" >
-    <div class="simple-dropdown__dropdown__element" *ngFor="let option of options" (click)="select(option)"> {{mapper(option)}} </div>
+    <div [style.height]="getHeight()" class="simple-dropdown__menu">
+      <div class="simple-dropdown__menu__item" *ngFor="let option of options" (click)="select(option)"> {{mapper(option)}} </div>
+    </div>
   </div>
 
 </div>

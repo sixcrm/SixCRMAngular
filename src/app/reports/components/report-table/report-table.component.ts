@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {FilterTerm} from '../../../pages/dashboard-page/dashboard.component';
 import {ReportColumnParams} from '../../reports-abstract.component';
+import {FilterTerm} from '../../../shared/components/advanced-filter/advanced-filter.component';
 
 @Component({
   selector: 'report-table',

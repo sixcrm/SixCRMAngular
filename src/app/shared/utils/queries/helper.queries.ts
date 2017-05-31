@@ -1,4 +1,5 @@
-import {FilterTerm} from '../../../pages/dashboard-page/dashboard.component';
+
+import {FilterTerm} from '../../components/advanced-filter/advanced-filter.component';
 
 export function parseFilterTerms(filterTerms: FilterTerm[]): string {
   let filters = {};

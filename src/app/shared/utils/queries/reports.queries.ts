@@ -1,5 +1,5 @@
-import {FilterTerm} from '../../../pages/dashboard-page/dashboard.component';
 import {paginationQueryString, paginationString, parseFilterTerms, dateString} from './helper.queries';
+import {FilterTerm} from '../../components/advanced-filter/advanced-filter.component';
 
 export function transactionReportListQuery(start: string, end: string, filterTerms: FilterTerm[], limit: number, offset: number, order: string): string {
   let filterString = parseFilterTerms(filterTerms);

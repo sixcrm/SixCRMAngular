@@ -5,7 +5,7 @@ import {environment} from '../../../../environments/environment';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {transactionReportListQuery} from '../../utils/queries/reports.queries';
 import {Http, Headers, Response} from '@angular/http';
-import {FilterTerm} from '../../../pages/dashboard-page/dashboard.component';
+import {FilterTerm} from '../../components/advanced-filter/advanced-filter.component';
 
 @Injectable()
 export class TransactionReportService {

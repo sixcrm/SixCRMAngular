@@ -1,5 +1,5 @@
-import {FilterTerm} from '../../../pages/dashboard-page/dashboard.component';
 import {parseFilterTerms, parseAdditionalFilters} from './helper.queries';
+import {FilterTerm} from '../../components/advanced-filter/advanced-filter.component';
 
 export function transactionSummaryQuery(start: string, end: string, filterTerms: FilterTerm[], additionalFilters?: any[]): string {
   let filterString = parseFilterTerms(filterTerms);

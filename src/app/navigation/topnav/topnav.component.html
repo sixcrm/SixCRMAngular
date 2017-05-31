@@ -35,13 +35,13 @@
 
   <div class="topnav__items--expanded">
     <ng-container *ngIf="activeAcl">
-      <md-icon class="topnav__acl__icon">domain</md-icon>
 
       <simple-dropdown
         class="topnav__acl__dropdown"
         [selectedOption]="activeAcl"
         [options]="_authService.getAcls()"
         [mapper]="mapAcl"
+        [icon]="'domain'"
         (optionSelected)="changeAcl($event)">
       </simple-dropdown>
     </ng-container>
