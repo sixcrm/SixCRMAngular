@@ -1,4 +1,9 @@
 <div class="search">
+  <div *ngIf="authService.isActiveAclCustomerService()" class="search__header">
+    <div class="search__header__item search__header__item--active">CUSTOMER</div>
+    <div class="search__header__item">ORDER ENTRY</div>
+  </div>
+
   <div class="search__layout">
     <div class="search__sidenav">
       <md-nav-list>

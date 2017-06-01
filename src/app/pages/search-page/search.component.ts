@@ -10,6 +10,7 @@ import {NavigationService} from '../../navigation/navigation.service';
 import {environment} from '../../../environments/environment';
 import {AdvancedSearchComponent} from './advanced-search/advanced-search.component';
 import {firstIndexOf} from '../../shared/utils/array-utils';
+import {AuthenticationService} from '../../authentication/authentication.service';
 
 export interface FacetCount {
   name: string;
@@ -77,6 +78,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   searchPerformed: boolean = false;
 
   constructor(
+    public authService: AuthenticationService,
     private route: ActivatedRoute,
     private router: Router,
     private progressBarService: ProgressBarService,
