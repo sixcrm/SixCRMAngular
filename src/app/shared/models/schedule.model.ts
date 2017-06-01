@@ -1,11 +1,13 @@
 import {Product} from './product.model';
 import {Entity} from './entity.interface';
+import {Moment, utc} from 'moment';
+import {Currency} from '../utils/currency/currency';
 
 export class Schedule implements Entity<Schedule>{
   id: string;
-  price: string;
-  start: string;
-  end: string;
+  price: Currency;
+  start: Moment;
+  end: Moment;
   period: string;
   product: Product;
 
@@ -14,9 +16,9 @@ export class Schedule implements Entity<Schedule>{
       obj = {};
     }
 
-    this.price = obj.price || '';
-    this.start = obj.start || '';
-    this.end = obj.end || '';
+    this.price = new Currency(obj.price);
+    this.start = utc(obj.start);
+    this.end = utc(obj.end);
     this.period = obj.period || '';
     this.product = new Product(obj.product);
   }

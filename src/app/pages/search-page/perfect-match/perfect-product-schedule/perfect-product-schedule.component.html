@@ -1,0 +1,43 @@
+<div class="perfect-entity">
+
+  <div *ngIf="product; else spin">
+    <div class="perfect-entity__info">
+      <div class="perfect-entity__info__title">Product Schedule Info</div>
+
+      <div class="perfect-entity__info__fields">
+
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">Id:</span>
+          <span class="perfect-entity__info__fields__item__value">{{productSchedule.id}}</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="perfect-entity__table">
+      <div class="perfect-entity__table__title">Schedules</div>
+
+      <table class="highlight">
+        <thead>
+        <tr>
+          <th>Product</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let schedule of productSchedule.schedules">
+          <td>{{schedule.product.name}}</td>
+          <td>{{schedule.start | formatDateTime}}</td>
+          <td>{{schedule.end | formatDateTime}}</td>
+          <td>{{schedule.price.usd()}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <ng-template #spin><md-spinner></md-spinner></ng-template>
+</div>
+

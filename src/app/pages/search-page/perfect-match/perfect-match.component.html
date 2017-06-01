@@ -15,6 +15,9 @@
 
     <perfect-customer *ngIf="entity.fields.entity_type === 'customer'" [id]="entity.id"></perfect-customer>
     <perfect-transaction *ngIf="entity.fields.entity_type === 'transaction'" [id]="entity.id"></perfect-transaction>
+    <perfect-product *ngIf="entity.fields.entity_type === 'product'" [id]="entity.id"></perfect-product>
+    <perfect-product-schedule *ngIf="entity.fields.entity_type === 'productschedule'" [id]="entity.id"></perfect-product-schedule>
+    <perfect-rebill *ngIf="entity.fields.entity_type === 'rebill'" [id]="entity.id"></perfect-rebill>
 
     <div (click)="navigateToEntity()" class="perfect-match__view-more">
       view {{entity.fields.entity_type}}

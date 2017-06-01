@@ -23,15 +23,15 @@
       </div>
       <div class="entity-view__content__fields__item">
         <span class="entity-view__content__fields__item__label">Start:</span>
-        <span>{{schedule.start}}</span>
+        <span>{{schedule.start | formatDateTime}}</span>
       </div>
       <div class="entity-view__content__fields__item">
         <span class="entity-view__content__fields__item__label">End:</span>
-        <span>{{schedule.end}}</span>
+        <span>{{schedule.end | formatDateTime}}</span>
       </div>
       <div class="entity-view__content__fields__item">
         <span class="entity-view__content__fields__item__label">Price:</span>
-        <span>{{schedule.price}}</span>
+        <span>{{schedule.price.usd()}}</span>
       </div>
       <div class="entity-view__content__fields__item">
         <span class="entity-view__content__fields__item__label">Period:</span>

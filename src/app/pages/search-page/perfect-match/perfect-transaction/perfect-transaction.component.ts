@@ -17,9 +17,7 @@ export class PerfectTransactionComponent extends AbstractPerfectMatch implements
   }
 
   ngOnInit() {
-    this.transactionService.entity$.takeUntil(this.unsubscribe$).subscribe(transaction => {
-      this.transaction = transaction;
-    });
+    this.transactionService.entity$.takeUntil(this.unsubscribe$).subscribe(transaction => this.transaction = transaction);
 
     this.transactionService.getEntity(this.id);
   }
