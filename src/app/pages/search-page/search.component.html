@@ -4,7 +4,7 @@
     <div class="search__header__item">ORDER ENTRY</div>
   </div>
 
-  <div class="search__layout">
+  <div class="search__layout" [class.search__layout--customer-service]="authService.isActiveAclCustomerService()">
     <div class="search__sidenav">
       <md-nav-list>
         <div class="search__sidenav__query__container">
