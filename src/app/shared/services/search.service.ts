@@ -6,7 +6,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {
   searchQuery, suggestionsQuery, searchFacets, searchAdvancedQuery,
   searchAdvancedFacets, dashboardFiltersQuery, dashboardFiltersAdvancedQuery
-} from '../utils/query-builder';
+} from '../utils/queries/search.queries';
 
 @Injectable()
 export class SearchService {
@@ -39,12 +39,21 @@ export class SearchService {
   }
 
   searchByQuery(query: string | any, createdAtRange: string, sortBy: string, start: number, count: number, entityTypes?: string[]): void {
+    let types: string[] = entityTypes;
+    if (this.authService.isActiveAclCustomerService()) {
+      if (entityTypes && entityTypes.length > 0) {
+        types = types.filter(type => type === 'customer' || type === 'product' || type === 'productschedule' || type === 'transaction' || type === 'rebill');
+      } else {
+        types = ['customer', 'product', 'productschedule', 'transaction', 'rebill'];
+      }
+    }
+
     let q = '';
 
     if (typeof query === 'string') {
-      q = searchQuery(query, createdAtRange, sortBy, start, count, entityTypes);
+      q = searchQuery(query, createdAtRange, sortBy, start, count, types);
     } else {
-      q = searchAdvancedQuery(query, createdAtRange, sortBy, start, count, entityTypes)
+      q = searchAdvancedQuery(query, createdAtRange, sortBy, start, count, types)
     }
 
     this.queryRequest(q).subscribe(
@@ -59,13 +68,18 @@ export class SearchService {
     )
   }
 
-  searchFacets(query: string, createdAtRange: string): void {
+  searchFacets(query: string, createdAtRange: string, entityTypes?: string[]): void {
+    let types: string[] = entityTypes;
+    if (this.authService.isActiveAclCustomerService()) {
+      types = ['customer', 'product', 'productschedule', 'transaction', 'rebill'];
+    }
+
     let q = '';
 
     if (typeof query === 'string') {
-      q = searchFacets(query, createdAtRange);
+      q = searchFacets(query, createdAtRange, types);
     } else {
-      q = searchAdvancedFacets(query, createdAtRange);
+      q = searchAdvancedFacets(query, createdAtRange, types);
     }
 
     this.queryRequest(q).subscribe(

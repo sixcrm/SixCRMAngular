@@ -168,6 +168,10 @@ export class AuthenticationService {
     return this.currentActiveAcl;
   }
 
+  public isActiveAclCustomerService(): boolean {
+    return this.getActiveAcl().role.name === 'Customer Service';
+  }
+
   public changeActiveAcl(acl: Acl): void {
     localStorage.setItem(this.activeAcl, JSON.stringify(acl.inverse()));
     this.currentActiveAcl = acl;
@@ -315,7 +319,7 @@ export class AuthenticationService {
 
             if (this.router.url === '/') {
               let redirect = '/dashboard';
-              if (this.getActiveAcl().role.name === 'Customer Service') {
+              if (this.isActiveAclCustomerService()) {
                 redirect = '/search';
               }
 
