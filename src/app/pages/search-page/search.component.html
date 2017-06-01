@@ -149,9 +149,13 @@
       </ng-container>
 
       <ng-template #noresults>
-        <div *ngIf="searchPerformed" class="search__content__results__no-results">
-          Sorry, no results for <span class="search__content__results__no-results__string">{{queryStringOutput}}</span>. Please submit another search query, <br>
-          or try <span class="search__content__results__no-results__advanced" (click)="showAdvancedSearch = true">advanced search</span>.
+        <div class="search__content__results__no-results">
+          <span *ngIf="searchPerformed; else instructions">
+            Sorry, there were no results.
+          </span>
+          <ng-template #instructions>
+            Please enter a search query.
+          </ng-template>
         </div>
       </ng-template>
     </div>

@@ -238,16 +238,6 @@ $border-color: rgba(0, 0, 0, 0.2);
         padding: 15px;
         color: rgba(0,0,0,0.6);
         font-size: 14px;
-
-        &__string {
-          font-weight: 500;
-          text-transform: capitalize;
-        }
-
-        &__advanced {
-          color: #039BE5;
-          cursor: pointer;
-        }
       }
 
       &__container {

@@ -29,9 +29,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   // advanced search options
   queryOptions: any[] = [];
 
-  // string to be displayed if there are no search results
-  queryStringOutput: string;
-
   // should advanced search or quick search be performed
   isAdvancedSearch: boolean;
 
@@ -399,18 +396,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.router.navigate(['/search']);
   }
 
-  getSearchQueryString(): string {
-    let q: string = '';
-
-    if (!this.isAdvancedSearch) {
-      q = this.queryString;
-    } else {
-      this.queryOptions.filter(option => option.enabled).forEach(option => q += `${option.value} `);
-    }
-
-    return `${q.trim()}`;
-  }
-
   private prepareNewSearch(): void {
     this.searchResults = [];
     this.searchResultsToDisplay = [];
@@ -453,7 +438,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.progressBarService.showTopProgressBar();
     this.fetchingData = true;
     this.searchPerformed = true;
-    this.queryStringOutput = this.getSearchQueryString();
     this.searchService.searchByQuery(query, createdAtRange, sortBy, offset, count, entityTypes);
     this.searchService.searchFacets(query, createdAtRange);
   }
