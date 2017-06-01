@@ -8,6 +8,7 @@ import {PaginationService} from '../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {environment} from '../../../environments/environment';
 import {FilterTerm, DateMap, flatDown, flatUp} from '../../shared/components/advanced-filter/advanced-filter.component';
+import {scrollContentToTop} from '../../shared/utils/document.utils';
 
 @Component({
   selector: 'transactions-report',
@@ -105,6 +106,11 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
     this.filterTerms.push(filter);
     this.resetAndFetch();
     this.getShareUrl();
+  }
+
+  filterSelected(filter: FilterTerm): void {
+    this.addFilter(filter);
+    scrollContentToTop();
   }
 
   removeFilter(filter: FilterTerm): void {

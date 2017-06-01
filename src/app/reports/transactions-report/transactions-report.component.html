@@ -26,7 +26,7 @@
   [limit]="limit"
   [page]="page"
   [paginationString]="getPaginationString()"
-  (filterSelected)="addFilter($event)"
+  (filterSelected)="filterSelected($event)"
   (next)="fetchNext()"
   (previous)="fetchPrevious()"
   (updateLimit)="updateLimit($event)">
