@@ -1,56 +1,58 @@
-<div class="perfect-customer">
+<div class="perfect-entity">
 
   <div *ngIf="transaction; else spin">
-    <div class="perfect-customer__shipping">
-      <div class="perfect-customer__shipping__title">Transaction Info</div>
+    <div class="perfect-entity__info">
+      <div class="perfect-entity__info__title">Transaction Info</div>
 
-      <div class="perfect-customer__shipping__fields">
+      <div class="perfect-entity__info__fields">
 
-        <div class="perfect-customer__shipping__fields__item">
-          <span class="perfect-customer__shipping__fields__item__label">Alias:</span>
-          <span class="perfect-customer__shipping__fields__item__value">{{transaction.alias}}</span>
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">Alias:</span>
+          <span class="perfect-entity__info__fields__item__value">{{transaction.alias}}</span>
         </div>
 
-        <div class="perfect-customer__shipping__fields__item">
-          <span class="perfect-customer__shipping__fields__item__label">Amount:</span>
-          <span class="perfect-customer__shipping__fields__item__value">{{transaction.amount.usd()}}</span>
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">Amount:</span>
+          <span class="perfect-entity__info__fields__item__value">{{transaction.amount.usd()}}</span>
         </div>
 
-        <div class="perfect-customer__shipping__fields__item">
-          <span class="perfect-customer__shipping__fields__item__label">Merchant Provider:</span>
-          <span class="perfect-customer__shipping__fields__item__value">{{transaction.merchantProvider.name}}</span>
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">Merchant Provider:</span>
+          <span class="perfect-entity__info__fields__item__value">{{transaction.merchantProvider.name}}</span>
         </div>
 
-        <div class="perfect-customer__shipping__fields__item">
-          <span class="perfect-customer__shipping__fields__item__label">Processor Response:</span>
-          <span class="perfect-customer__shipping__fields__item__value">{{transaction.processorResponse.message}}</span>
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">Processor Response:</span>
+          <span class="perfect-entity__info__fields__item__value">{{transaction.processorResponse.message}}</span>
         </div>
 
-        <div class="perfect-customer__shipping__fields__item">
-          <span class="perfect-customer__shipping__fields__item__label">Created At:</span>
-          <span class="perfect-customer__shipping__fields__item__value">{{transaction.createdAt | formatDateTime}}</span>
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">Created At:</span>
+          <span class="perfect-entity__info__fields__item__value">{{transaction.createdAt | formatDateTime}}</span>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="perfect-customer__transactions" *ngIf="transaction.products.length > 0">
-    <div class="perfect-customer__transactions__title">Products</div>
+    <div class="perfect-entity__table" *ngIf="transaction.products.length > 0">
+      <div class="perfect-entity__table__title">Products</div>
 
-    <table class="highlight">
-      <thead>
+      <table class="highlight">
+        <thead>
         <tr>
-          <th>Amount</th>
           <th>Product Name</th>
+          <th class="cell--align-right">Amount</th>
+          <th>Receipt Status</th>
         </tr>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
         <tr *ngFor="let product of transaction.products" [routerLink]="['/products', product.id]">
-          <td>{{product.amount.usd()}}</td>
           <td>{{product.product.name}}</td>
+          <td class="cell--align-right">{{product.amount.usd()}}</td>
+          <td>{{product.shippingReceipt.status}}</td>
         </tr>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <ng-template #spin><md-spinner></md-spinner></ng-template>

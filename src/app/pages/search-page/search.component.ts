@@ -52,7 +52,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   searchResults: any[] = [];
   searchResultsToDisplay: any[] = [];
   numberOfSearchResults: number = 0;
-  hasMore: boolean = true;
 
   facets: FacetCount[] = [];
   createdAtRange: string;
@@ -127,7 +126,6 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.fetchingData = false;
       this.searchResults = [...this.searchResults, ...data.hit];
       this.numberOfSearchResults = data.found;
-      this.hasMore = data.hit.length >= this.limit;
       this.reshuffleSearchResults();
       this.progressBarService.hideTopProgressBar();
     });
@@ -312,10 +310,14 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.reshuffleSearchResults();
   }
 
+  canFetchMore(): boolean {
+    return this.searchResults.length < this.numberOfSearchResults;
+  }
+
   hasMorePages(): boolean {
     let nextPage = this.page + 1;
 
-    return this.hasMore || this.searchResults.slice(nextPage * this.limit, nextPage * this.limit + this.limit).length > 0;
+    return nextPage * this.limit < this.numberOfSearchResults;
   }
 
   showResultDetails(data: any): void {
@@ -424,11 +426,11 @@ export class SearchComponent implements OnInit, OnDestroy {
   private reshuffleSearchResults(): void {
     let tempResults = this.searchResults.slice(this.page * this.limit, this.page * this.limit + this.limit);
 
-    if (tempResults.length >= this.limit || !this.hasMore) {
+    if (tempResults.length >= this.limit || !this.canFetchMore()) {
       this.searchResultsToDisplay = tempResults;
     }
     else {
-      if (this.hasMore) {
+      if (this.canFetchMore()) {
         let query: any = this.isAdvancedSearch ? this.transformSearchOptions() : this.queryString;
 
         this.performSearch(query, this.createdAtRange, this.sortBy, this.searchResults.length, this.limit - tempResults.length, this.getCheckedEntityTypes());

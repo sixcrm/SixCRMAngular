@@ -1,50 +1,50 @@
-<div class="perfect-customer">
+<div class="perfect-entity">
 
   <div *ngIf="customer; else spin">
-    <div class="perfect-customer__shipping">
-      <div class="perfect-customer__shipping__title">Shipping Address</div>
+    <div class="perfect-entity__info">
+      <div class="perfect-entity__info__title">Shipping Address</div>
 
-      <div class="perfect-customer__shipping__fields">
+      <div class="perfect-entity__info__fields">
 
-        <div class="perfect-customer__shipping__fields__item">
-          <span class="perfect-customer__shipping__fields__item__label">Name:</span>
-          <span class="perfect-customer__shipping__fields__item__value">{{customer.firstName + ' ' + customer.lastName}}</span>
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">Name:</span>
+          <span class="perfect-entity__info__fields__item__value">{{customer.firstName + ' ' + customer.lastName}}</span>
         </div>
 
-        <div class="perfect-customer__shipping__fields__item">
-          <span class="perfect-customer__shipping__fields__item__label">City:</span>
-          <span class="perfect-customer__shipping__fields__item__value">{{customer.address.city}}</span>
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">City:</span>
+          <span class="perfect-entity__info__fields__item__value">{{customer.address.city}}</span>
         </div>
 
-        <div class="perfect-customer__shipping__fields__item">
-          <span class="perfect-customer__shipping__fields__item__label">Address 1:</span>
-          <span class="perfect-customer__shipping__fields__item__value">{{customer.address.line1}}</span>
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">Address 1:</span>
+          <span class="perfect-entity__info__fields__item__value">{{customer.address.line1}}</span>
         </div>
 
-        <div class="perfect-customer__shipping__fields__item">
-          <span class="perfect-customer__shipping__fields__item__label">State:</span>
-          <span class="perfect-customer__shipping__fields__item__value">{{customer.address.state}}</span>
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">State:</span>
+          <span class="perfect-entity__info__fields__item__value">{{customer.address.state}}</span>
         </div>
 
-        <div class="perfect-customer__shipping__fields__item">
-          <span class="perfect-customer__shipping__fields__item__label">Address 2:</span>
-          <span class="perfect-customer__shipping__fields__item__value">{{customer.address.line2}}</span>
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">Address 2:</span>
+          <span class="perfect-entity__info__fields__item__value">{{customer.address.line2}}</span>
         </div>
 
-        <div class="perfect-customer__shipping__fields__item">
-          <span class="perfect-customer__shipping__fields__item__label">Country:</span>
-          <span class="perfect-customer__shipping__fields__item__value">{{customer.address.country}}</span>
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">Country:</span>
+          <span class="perfect-entity__info__fields__item__value">{{customer.address.country}}</span>
         </div>
 
-        <div class="perfect-customer__shipping__fields__item">
-          <span class="perfect-customer__shipping__fields__item__label">Postal Code:</span>
-          <span class="perfect-customer__shipping__fields__item__value">{{customer.address.zip}}</span>
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">Postal Code:</span>
+          <span class="perfect-entity__info__fields__item__value">{{customer.address.zip}}</span>
         </div>
       </div>
     </div>
 
-    <div class="perfect-customer__transactions" *ngIf="transactions; else spinTransactions">
-      <div class="perfect-customer__transactions__title">Recent transactions</div>
+    <div class="perfect-entity__table" *ngIf="transactions; else spinTransactions">
+      <div class="perfect-entity__table__title">Recent transactions</div>
 
       <table class="highlight">
         <thead>
@@ -68,11 +68,11 @@
       <!--<md-spinner></md-spinner>-->
     </ng-template>
 
-    <div class="perfect-customer__credit-cards">
-      <div *ngFor="let ccard of customer.creditCards" class="perfect-customer__credit-cards__item">
+    <div class="perfect-entity__list">
+      <div *ngFor="let ccard of customer.creditCards" class="perfect-entity__list__item">
         <img src="/assets/images/credit-card-notification.svg">
-        <span class="perfect-customer__credit-cards__item__last">VISA{{ccard.getLastFour()}}</span>
-        <span class="perfect-customer__credit-cards__item__expiration">{{ccard.expiration}}</span>
+        <span class="perfect-entity__list__item__last">VISA {{ccard.getLastFour()}}</span>
+        <span class="perfect-entity__list__item__expiration">{{ccard.expiration}}</span>
         <md-icon [routerLink]="['/creditcards', ccard.id]">visibility</md-icon>
       </div>
     </div>
