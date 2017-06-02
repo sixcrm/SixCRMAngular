@@ -12,6 +12,7 @@ export class InviteAcceptComponent implements OnInit {
 
   token: string;
   param: string;
+  redirect: string;
   email: string;
 
   loginRequiredScreen: boolean;
@@ -36,6 +37,7 @@ export class InviteAcceptComponent implements OnInit {
     this.route.queryParams.subscribe((params: Params) => {
       this.token = params['t'];
       this.param = params['p'];
+      this.redirect = params['redirect'];
 
       let decParam = atob(this.param);
 
