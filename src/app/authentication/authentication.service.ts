@@ -236,7 +236,6 @@ export class AuthenticationService {
         user.picture = this.getUserPicture();
 
         this.updateSixUser(user);
-        this.getOrUpdateActiveAcl(user);
 
         subject.next(new User(user));
       },
@@ -256,6 +255,7 @@ export class AuthenticationService {
   public refreshSixUser(redirectUrl?: string): void {
     if (redirectUrl) {
       window.location.href = redirectUrl;
+      return;
     } else {
       this.router.navigateByUrl('/');
     }

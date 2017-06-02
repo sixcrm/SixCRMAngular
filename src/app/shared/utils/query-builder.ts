@@ -701,8 +701,7 @@ export function acceptInviteMutation(token: string, parameters: string): string 
   return `
     mutation {
 		acceptinvite (invite: {token: "${token}", parameters:"${parameters}"}) {
-			id name auth0_id active termsandconditions
-			acl {
+			id name auth0_id active termsandconditions acl {
 				account { id name active }
 				role { id name active }
 			}

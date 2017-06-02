@@ -106,7 +106,7 @@ export class InviteAcceptComponent implements OnInit {
   }
 
   complete(): void {
-    this.authService.refreshSixUser();
+    this.authService.refreshSixUser(this.redirect);
   }
 
   private validateLoggedInUser(): void {
