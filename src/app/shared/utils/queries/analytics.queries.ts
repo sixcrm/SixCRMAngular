@@ -8,8 +8,7 @@ export function transactionSummaryQuery(start: string, end: string, filterTerms:
 
   return `{
 		transactionsummary (analyticsfilter:{${dateRange(start, end)} ${filterString} ${additional} targetperiodcount: 24}) {
-			transactions { datetime
-				byprocessorresult { processor_result amount count }
+			transactions { datetime byprocessorresult { processor_result amount count }
 			}
 		}
 	}`
