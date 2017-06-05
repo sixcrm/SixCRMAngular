@@ -33,8 +33,8 @@
 
         <ng-container *ngFor="let facet of facets">
           <md-checkbox [(ngModel)]="facet.checked" class="search__sidenav__item" (change)="checkboxClicked()">
-            {{facet.name}}
-            <span>({{facet.count}})</span>
+            <span class="search__sidenav__item__name">{{facet.name}}</span>
+            <span class="search__sidenav__item__count">({{facet.count}})</span>
           </md-checkbox>
         </ng-container>
 

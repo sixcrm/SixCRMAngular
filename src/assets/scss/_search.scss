@@ -169,6 +169,10 @@ $border-color: rgba(0, 0, 0, 0.2);
       margin-bottom: 8px;
       font-size: 13px;
       color: #7C7C7C;
+
+      &__name {
+        text-transform: capitalize;
+      }
     }
 
     md-checkbox > .md-checkbox-layout > .md-checkbox-inner-container {
