@@ -23,7 +23,7 @@ function deleteMutation(entity: string, id: string) {
 export function productsListQuery(limit?:number, cursor?:string): string {
   return `{
     productlist ${pageParams(limit, cursor)} {
-			products { id name sku ship shipping_delay
+			products { id name sku ship shipping_delay,
 				fulfillment_provider { id name provider username password endpoint }
 			}
 			${paginationString()}
@@ -32,7 +32,7 @@ export function productsListQuery(limit?:number, cursor?:string): string {
 
 export function productQuery(id: string): string {
   return `{
-    product (id: "${id}") { id name sku ship shipping_delay
+    product (id: "${id}") { id name sku ship shipping_delay,
       fulfillment_provider { id name provider username password endpoint }
 		} }`
 }
@@ -45,7 +45,7 @@ export function createProductMutation(product: Product): string {
   return `
   mutation {
     createproduct (product: { id: "${generateUUID()}", name: "${product.name}", sku: "${product.sku}", ship: "${product.ship}", shipping_delay:"${product.shippingDelay}",  fulfillment_provider:"${product.fulfillmentProvider.id}" }) {
-      id name sku ship shipping_delay
+      id name sku ship shipping_delay,
       fulfillment_provider { id name username endpoint password provider }
     }
   }`;
@@ -55,7 +55,7 @@ export function updateProductMutation(product: Product): string {
   return `
     mutation {
       updateproduct (product: { id: "${product.id}", name: "${product.name}", sku: "${product.sku}", ship: "${product.ship}", shipping_delay:"${product.shippingDelay}",  fulfillment_provider:"${product.fulfillmentProvider.id}" }) {
-        id name sku ship shipping_delay
+        id name sku ship shipping_delay,
         fulfillment_provider { id name username endpoint password provider }
       }
     }`;
@@ -64,9 +64,9 @@ export function updateProductMutation(product: Product): string {
 export function  productScheduleListQuery(limit?:number, cursor?:string): string {
   return `{
     productschedulelist ${pageParams(limit, cursor)} {
-			productschedules { id
-			  schedule { price start end period
-			    product { id name sku ship shipping_delay
+			productschedules { id,
+			  schedule { price start end period,
+			    product { id name sku ship shipping_delay,
 			      fulfillment_provider { id name provider username password endpoint }
 					}
 				}
@@ -77,9 +77,9 @@ export function  productScheduleListQuery(limit?:number, cursor?:string): string
 
 export function productScheduleQuery(id: string): string {
   return `{
-    productschedule (id: "${id}") { id
-			  schedule { price start end period
-			    product { id name sku ship shipping_delay
+    productschedule (id: "${id}") { id,
+			  schedule { price start end period,
+			    product { id name sku ship shipping_delay,
 			      fulfillment_provider { id name provider username password endpoint }
 					}
 				}
@@ -100,8 +100,8 @@ export function createProductScheduleMutation(schedule: ProductSchedule): string
   return `
     mutation {
 		  createproductschedule (productschedule: { id: "${schedule.id}", schedule: [${schedules}]}) {
-        id
-        schedule { price start end period
+        id,
+        schedule { price start end period,
           product { id name }
         }
       }
@@ -118,8 +118,8 @@ export function updateProductScheduleMutation(schedule: ProductSchedule): string
   return `
     mutation {
 		  updateproductschedule (productschedule: { id: "${schedule.id}", schedule: [${schedules}]}) {
-        id
-        schedule { price start end period
+        id,
+        schedule { price start end period,
           product { id name }
         }
       }
@@ -129,14 +129,14 @@ export function updateProductScheduleMutation(schedule: ProductSchedule): string
 export function campaignQuery(id: string): string {
   return `{
     campaign (id: "${id}") { id name
-      productschedules { id
-        schedule { price start end period
-          product { id name sku ship shipping_delay
+      productschedules { id,
+        schedule { price start end period,
+          product { id name sku ship shipping_delay,
             fulfillment_provider { id name provider username password endpoint }
           }
         }
       }
-      loadbalancer { id
+      loadbalancer { id,
         merchantproviderconfigurations {
           merchantprovider { id username password endpoint processor }
           distribution
@@ -148,9 +148,9 @@ export function campaignQuery(id: string): string {
 export function campaignsInfoListQuery(limit?:number, cursor?:string): string {
   return `{
     campaignlist ${pageParams(limit, cursor)} {
-      campaigns { id name
+      campaigns { id name,
         productschedules { id }
-        loadbalancer { id
+        loadbalancer { id,
           merchantproviderconfigurations {
             merchantprovider { id }
             distribution
@@ -260,7 +260,7 @@ export function updateAffiliateMutation(affiliate: Affiliate): string {
 export function customersInfoListQuery(limit?:number, cursor?:string): string {
   return `{
     customerlist ${pageParams(limit, cursor)} {
-      customers { id firstname lastname created_at
+      customers { id firstname lastname created_at,
         address { city country state }
 			}
 			${paginationString()}
@@ -269,9 +269,9 @@ export function customersInfoListQuery(limit?:number, cursor?:string): string {
 
 export function customerQuery(id: string): string {
   return `{
-    customer (id: "${id}") { id email firstname lastname phone created_at
+    customer (id: "${id}") { id email firstname lastname phone created_at,
       address { line1 line2 city state zip country }
-		  creditcards {	id number expiration ccv name
+		  creditcards {	id number expiration ccv name,
 			  address { line1 line2 city state zip }
 			}
 		}
@@ -293,13 +293,13 @@ export function createCustomerMutation(customer: Customer): string {
     mutation {
 		  createcustomer (
 		    customer: {
-		      id: "${generateUUID()}" email: "${customer.email}" firstname: "${customer.firstName}" lastname: "${customer.lastName}" phone: "${customer.phone}"
+		      id: "${generateUUID()}" email: "${customer.email}" firstname: "${customer.firstName}" lastname: "${customer.lastName}" phone: "${customer.phone}",
 		      address: { line1: "${customer.address.line1}" city: "${customer.address.city}" state: "${customer.address.state}" zip: "${customer.address.zip}" country: "${customer.address.country}" }
 		      creditcards:[${creditCards}] }
       ) {
-        id email firstname lastname phone
+        id email firstname lastname phone,
         address { line1 city state zip country }
-			  creditcards { id number expiration ccv name
+			  creditcards { id number expiration ccv name,
 				  address { line1 line2 city state zip }
 			  }
 		  }
@@ -317,13 +317,13 @@ export function updateCustomerMutation(customer: Customer): string {
     mutation {
 		  updatecustomer (
 		    customer: {
-		      id: "${customer.id}" email: "${customer.email}" firstname: "${customer.firstName}" lastname: "${customer.lastName}" phone: "${customer.phone}"
+		      id: "${customer.id}" email: "${customer.email}" firstname: "${customer.firstName}" lastname: "${customer.lastName}" phone: "${customer.phone}",
 		      address: { line1: "${customer.address.line1}" city: "${customer.address.city}" state: "${customer.address.state}" zip: "${customer.address.zip}" country: "${customer.address.country}" }
 		      creditcards:[${creditCards}] }
       ) {
-		    id email firstname lastname phone
+		    id email firstname lastname phone,
 		    address { line1 city state zip country }
-			  creditcards { id number expiration ccv name
+			  creditcards { id number expiration ccv name,
 				  address { line1 line2 city state zip }
 			  }
 		  }
@@ -333,7 +333,7 @@ export function updateCustomerMutation(customer: Customer): string {
 export function customerNotesByCustomerQuery(id: string): string {
   return `{
     customernotelistbycustomer (customer: "${id}") {
-      customernotes { id body created_at updated_at
+      customernotes { id body created_at updated_at,
         user {id name }
       }
 		}}`
@@ -346,7 +346,7 @@ export function createCustomerNoteMutation(customerNote: CustomerNote): string {
 		  createcustomernote (
 		    customernote: { id: "${generateUUID()}" customer: "${customerNote.customer.id}" user: "${customerNote.user.id}" body: "${customerNote.body}" }
       ) {
-        id body created_at updated_at
+        id body created_at updated_at,
         user { id name }
 		  }
 	  }`
@@ -359,7 +359,7 @@ export function deleteCustomerNoteMutation(id: string): string {
 export function loadBalancersInfoListQuery(limit?:number, cursor?:string): string {
   return `{
     loadbalancerlist ${pageParams(limit, cursor)} {
-			loadbalancers { id
+			loadbalancers { id,
 			  merchantproviderconfigurations {
 					merchantprovider { endpoint processor }
 					distribution
@@ -371,7 +371,7 @@ export function loadBalancersInfoListQuery(limit?:number, cursor?:string): strin
 
 export function loadBalancerQuery(id: string): string {
   return `{
-    loadbalancer (id: "${id}") { id
+    loadbalancer (id: "${id}") { id,
 			  merchantproviderconfigurations {
 					merchantprovider { id username password endpoint processor }
 					distribution
@@ -389,10 +389,10 @@ export function createLoadBalancerMutation(loadBalancer: LoadBalancer): string {
   return `
     mutation {
 		createloadbalancer ( loadbalancer: {id: "${generateUUID()}", merchantproviders: [${providers}] } ) {
-			id
+			id,
 			merchantproviderconfigurations {
 				merchantprovider { id name username password endpoint processor }
-				distribution
+				distribution,
 			}
 		}
 	}`
@@ -408,7 +408,7 @@ export function updateLoadBalancerMutation(loadBalancer: LoadBalancer): string {
   return `
     mutation {
 		updateloadbalancer ( loadbalancer: {id: "${loadBalancer.id}", merchantproviders: [${providers}] } ) {
-			id
+			id,
 			merchantproviderconfigurations {
 				merchantprovider { id name username password endpoint processor }
 				distribution
@@ -427,11 +427,11 @@ export function transactionsInfoListQuery(limit?:number, cursor?:string): string
 
 export function transactionQuery(id: string): string {
   return `{
-    transaction (id: "${id}") { id alias amount processor_response created_at updated_at
+    transaction (id: "${id}") { id alias amount processor_response created_at updated_at,
       merchant_provider { id name }
       rebill { id amount }
-      products { amount
-        product { id name sku ship shipping_delay
+      products { amount,
+        product { id name sku ship shipping_delay,
           fulfillment_provider {id name}
         }
         shippingreceipt { id status trackingnumber created_at }
@@ -456,7 +456,7 @@ export function transactionsByCustomer(customerId: string, limit?:number, cursor
 export function sessionsInfoListQuery(limit?:number, cursor?:string): string {
   return `{
     sessionlist ${pageParams(limit, cursor)} {
-			sessions { id
+			sessions { id,
 			  customer { id firstname lastname }
 				product_schedules { id }
 				rebills { id 	}
@@ -469,7 +469,7 @@ export function sessionsInfoListQuery(limit?:number, cursor?:string): string {
 export function sessionsByCustomer(customerId: string, limit?:number, cursor?:string): string {
   return `{
 		sessionlistbycustomer (customer:"${customerId}" ${pageParams(limit, cursor, true)}) {
-			sessions { id
+			sessions { id,
 			  customer { id firstname lastname }
 				product_schedules { id }
 				rebills { id 	}
@@ -482,36 +482,36 @@ export function sessionsByCustomer(customerId: string, limit?:number, cursor?:st
 
 export function sessionQuery(id: string): string {
   return `{
-    session (id: "${id}") { id
-			  customer { id firstname lastname
+    session (id: "${id}") { id,
+			  customer { id firstname lastname,
 			    address { line1 line2 city state zip }
 				}
-				product_schedules { id
-					schedule { price start end period
-					  product { id name sku ship shipping_delay
+				product_schedules { id,
+					schedule { price start end period,
+					  product { id name sku ship shipping_delay,
 					    fulfillment_provider { id name provider username password endpoint }
 						}
 					}
 				}
-				rebills { id
-				  product_schedules { id
-				    schedule { price start end period
-				      product { id name sku ship shipping_delay
+				rebills { id,
+				  product_schedules { id,
+				    schedule { price start end period,
+				      product { id name sku ship shipping_delay,
 				        fulfillment_provider { id name provider username password endpoint }
 							}
 						}
 					}
 					transactions { id created_at processor_response amount }
 				}
-				campaign { id name
-					productschedules { id
-					  schedule { price start end period
-							product { id name sku ship shipping_delay
+				campaign { id name,
+					productschedules { id,
+					  schedule { price start end period,
+							product { id name sku ship shipping_delay,
 							  fulfillment_provider { id name provider username password endpoint }
 							}
 						}
 					}
-					loadbalancer { id
+					loadbalancer { id,
 						merchantproviderconfigurations {
 							merchantprovider { id username password endpoint processor }
 							distribution
@@ -529,8 +529,8 @@ export function deleteSessionMutation(id: string): string {
 export function rebillsListQuery(limit?: number, cursor?: string): string {
   return `{
 		rebilllist ${pageParams(limit, cursor)} {
-			rebills { id bill_at amount created_at updated_at
-				parentsession { id
+			rebills { id bill_at amount created_at updated_at,
+				parentsession { id,
 					customer { id firstname lastname }
 				}
 				product_schedules { id }
@@ -544,8 +544,8 @@ export function rebillsListQuery(limit?: number, cursor?: string): string {
 export function rebillQuery(id: string): string {
   return `{
 		rebill (id: "${id}") {
-			id bill_at amount created_at updated_at
-      parentsession { id
+			id bill_at amount created_at updated_at,
+      parentsession { id,
         customer { id firstname lastname }
       }
       product_schedules { id }
@@ -557,8 +557,8 @@ export function rebillQuery(id: string): string {
 export function rebillsByCustomer(customerId: string, limit?: number, cursor?: string): string {
   return `{
 		rebilllistbycustomer (customer:"${customerId}" ${pageParams(limit, cursor, true)}) {
-			rebills { id bill_at amount created_at updated_at
-				parentsession { id
+			rebills { id bill_at amount created_at updated_at,
+				parentsession { id,
 					customer { id firstname lastname }
 				}
 				product_schedules { id }
@@ -572,7 +572,7 @@ export function rebillsByCustomer(customerId: string, limit?: number, cursor?: s
 export function creditCardsListQuery(limit?:number, cursor?:string): string {
   return `{
     creditcardlist ${pageParams(limit, cursor)} {
-			creditcards { id number expiration ccv name
+			creditcards { id number expiration ccv name,
 			  address { country state city }
 			}
 		  ${paginationString()}
@@ -581,7 +581,7 @@ export function creditCardsListQuery(limit?:number, cursor?:string): string {
 
 export function creditCardQuery(id: string): string {
   return `{
-    creditcard (id: "${id}") { id number expiration ccv name
+    creditcard (id: "${id}") { id number expiration ccv name,
 		  address { line1 line2 city state zip country }
 		} }`
 }
@@ -594,7 +594,7 @@ export function createCreditCardMutation(cc: CreditCard): string {
   return `
     mutation {
 		  createcreditcard (creditcard: { number: "${cc.ccnumber}" expiration: "${cc.expiration}" ccv: "${cc.ccv}" name: "${cc.name}" address: { line1: "${cc.address.line1}" line2: "${cc.address.line2}" city: "${cc.address.city}" state: "${cc.address.state}" zip: "${cc.address.zip}" country: "${cc.address.country}" } }) {
-        id number expiration ccv name
+        id number expiration ccv name,
         address { line1 line2 city state zip country }
       }
 	  }`
@@ -604,7 +604,7 @@ export function updateCreditCardMutation(cc: CreditCard): string {
   return `
     mutation {
 		  updatecreditcard (creditcard: { id: "${cc.id}" number: "${cc.ccnumber}" expiration: "${cc.expiration}" ccv: "${cc.ccv}" name: "${cc.name}" address: { line1: "${cc.address.line1}" line2: "${cc.address.line2}" city: "${cc.address.city}" state: "${cc.address.state}" zip: "${cc.address.zip}" country: "${cc.address.country}" } }) {
-        id number expiration ccv name
+        id number expiration ccv name,
         address { line1 line2 city state zip country }
       }
 	  }`
@@ -613,7 +613,7 @@ export function updateCreditCardMutation(cc: CreditCard): string {
 export function usersListQuery(limit?: number, cursor?: string): string {
   return `{
     userlist ${pageParams(limit,cursor)} {
-			users { id auth0_id name active termsandconditions
+			users { id auth0_id name active termsandconditions,
 			  acl {
 					account { id name active }
 					role { id name active }
@@ -632,10 +632,10 @@ export function userQuery(id: string): string {
 
 export function userIntrospection(): string {
   return `{
-    userintrospection { id name first_name last_name auth0_id active termsandconditions
+    userintrospection { id name first_name last_name auth0_id active termsandconditions,
       acl {
         account { id name active }
-        role { id name active 
+        role { id name active,
           permissions { allow deny }
         }
       }
@@ -656,7 +656,7 @@ export function updateUserMutation(user: User): string {
   return `
     mutation {
       updateuser (user: { id: "${user.id}", auth0_id: "${user.auth0Id}", name: "${user.name}", ${fname} ${lname} active:"${user.active}", termsandconditions:"${user.termsAndConditions}"}) {
-        id name auth0_id active first_name last_name
+        id name auth0_id active first_name last_name,
         address { line1 line2 city state zip country }
         acl {
           account { id name active }
@@ -671,7 +671,7 @@ export function updateUserForRegistration(user: User): string {
   return `
     mutation {
 		  updateuser (
-		    user: { id: "${user.id}" name: "${user.name}" first_name: "${user.firstName}" last_name: "${user.lastName}" auth0_id: "${user.auth0Id}" active: "${user.active}" termsandconditions: "0.1"
+		    user: { id: "${user.id}" name: "${user.name}" first_name: "${user.firstName}" last_name: "${user.lastName}" auth0_id: "${user.auth0Id}" active: "${user.active}" termsandconditions: "0.1",
 		      address: {line1: "${user.address.line1}" line2: "${user.address.line2}" city: "${user.address.city}" state: "${user.address.state}" zip: "${user.address.zip}" country:"${user.address.country}"}}) {
 			    id auth0_id name active termsandconditions
 			}
@@ -752,7 +752,7 @@ export function updateSmptProviderMutation(smtpProvider: SmtpProvider): string {
 export function emailsListQuery(limit?:number, cursor?:string): string {
   return `{
     emaillist ${pageParams(limit, cursor)} {
-			emails { id name subject body type
+			emails { id name subject body type,
 			  smtp_provider { id name hostname ip_address username password port }
 			}
 			${paginationString()}
@@ -762,7 +762,7 @@ export function emailsListQuery(limit?:number, cursor?:string): string {
 export function emailQuery(id: string): string {
   return `
     {
-      email (id: "${id}") { id name subject body type
+      email (id: "${id}") { id name subject body type,
 			  smtp_provider { id name hostname ip_address username password port }
 			}
     }`
@@ -832,7 +832,7 @@ export function userSettingsQuery(id: string): string {
   return `
   {
 		usersetting (id: "${id}") {
-			id work_phone cell_phone timezone created_at updated_at
+			id work_phone cell_phone timezone created_at updated_at,
 			notifications { name receive data }
 		}
 	}`
@@ -858,7 +858,7 @@ export function updateUserSettingsMutation(userSettings: UserSettings): string {
   return `
     mutation {
       updateusersetting (usersetting: { ${updateString} }) {
-        id work_phone cell_phone timezone created_at updated_at
+        id work_phone cell_phone timezone created_at updated_at,
         notifications { name receive data }
       }
 	  }
@@ -869,7 +869,7 @@ export function defaultNotificationSettingsQuery(): string {
   return `
     {
 		  notificationsettingdefault {
-        notification_groups { key name description display
+        notification_groups { key name description display,
           notifications { key name description default }
         }
 		  }

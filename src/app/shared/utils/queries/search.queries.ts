@@ -11,7 +11,7 @@ export function searchQuery(query: string, createdAtRange: string, sortBy: strin
   return `{
 		search (search: {query: "${query}*" filterQuery:"${filterQuery}" ${sort} start: "${start}" size: "${size}"}) {
 			status { timems rid }
-			hits { found start
+			hits { found start,
 				hit { id fields }
 			}
 		}
@@ -49,7 +49,7 @@ export function searchAdvancedQuery(options: any, createdAtRange: string, sortBy
   {
     search (search: {query: "(and${fieldsQuery})" filterQuery: "${entityTypesQuery}" queryParser: "structured" ${sort} start: "${start}" size: "${size}"}) {
       hits {
-        found start
+        found start,
         hit { id fields }
       }
     }
@@ -80,7 +80,7 @@ export function suggestionsQuery(query: string): string {
   return `{
 		search (search: {query: "${query}*" queryOptions:"{fields:['suggestion_field_1']}" return:"suggestion_field_1" size:"10"}) {
 			hits {
-				found start
+				found start,
 				hit { fields }
 			}
 		}
@@ -93,7 +93,7 @@ export function dashboardFiltersQuery(query: string): string {
   return `{
 		search (search: {query: "${query}*" filterQuery:"${entityTypesQuery}"}) {
 			status { timems rid }
-			hits { found start
+			hits { found start,
 				hit { id fields }
 			}
 		}
@@ -106,7 +106,7 @@ export function dashboardFiltersAdvancedQuery(query: string, type: string): stri
   return `{
 		search (search: {query: "${query}*" filterQuery:"${entityTypesQuery}"}) {
 			status { timems rid }
-			hits { found start
+			hits { found start,
 				hit { id fields }
 			}
 		}
