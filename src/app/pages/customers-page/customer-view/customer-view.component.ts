@@ -8,6 +8,9 @@ import {CustomerNotesService} from '../../../shared/services/customer-notes.serv
 import {CustomerNote} from '../../../shared/models/customer-note.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {NavigationService} from '../../../navigation/navigation.service';
+import {AnalyticsService} from '../../../shared/services/analytics.service';
+import {Activity} from '../../../shared/models/analytics/activity.model';
+import {utc} from 'moment';
 
 @Component({
   selector: 'customer-view',
@@ -20,9 +23,11 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
   note = '';
   showNewNote: boolean = false;
   notes: CustomerNote[] = [];
+  activities: Activity[] = [];
 
   constructor(
     service: CustomersService,
+    private analyticsService: AnalyticsService,
     private customerNotesService: CustomerNotesService,
     private authService: AuthenticationService,
     public navigation: NavigationService,
@@ -37,6 +42,10 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
       this.notes = customerNotes.sort((a: CustomerNote, b: CustomerNote) => a.createdAt > b.createdAt ? -1 : 1);
     });
 
+    this.analyticsService.activitiesByCustomer$.takeUntil(this.unsubscribe$).subscribe((activities: Activity[]) => {
+      this.activities = activities;
+    });
+
     this.customerNotesService.entityCreated$.takeUntil(this.unsubscribe$).subscribe((note: CustomerNote) => {
       this.progressBarService.hideTopProgressBar();
       this.notes.unshift(note);
@@ -48,8 +57,9 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
       this.deleteNoteLocally(note);
     });
 
-    this.service.entity$.takeUntil(this.unsubscribe$).first().subscribe(() => {
+    this.service.entity$.takeUntil(this.unsubscribe$).first().subscribe((customer: Customer) => {
       this.customerNotesService.getByCustomer(this.entityId);
+      this.analyticsService.getActivityByCustomer(customer.createdAt.format(), utc().format(), this.entityId, 5, 0);
     });
 
     this.init();

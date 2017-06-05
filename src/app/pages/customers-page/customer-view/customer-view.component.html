@@ -133,12 +133,14 @@
                   <md-icon class="customer-view__content__card__action">more_vert</md-icon>
                 </md-card-title>
                 <md-card-content>
-                  <div class="events__title">
-                    <span class="events__title__label">{{entity.createdAt | formatDateTime}}</span>
-                  </div>
-                  <div class="events__content">
-                    <div><img src="assets/images/alert-icon.svg"></div>
-                    <span>{{entity.firstName}} {{entity.lastName}} user created</span>
+                  <div *ngFor="let activity of activities">
+                    <div class="events__title">
+                      <span class="events__title__label">{{activity.date | formatDateTime}}</span>
+                    </div>
+                    <div class="events__content">
+                      <div><img src="assets/images/alert-icon.svg"></div>
+                      <span>{{activity.action}} {{activity.actedUponType}} {{activity.actedUpon}}</span>
+                    </div>
                   </div>
                 </md-card-content>
               </md-card>

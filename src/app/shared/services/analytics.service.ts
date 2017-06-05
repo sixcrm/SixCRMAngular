@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable, BehaviorSubject} from 'rxjs';
+import {Observable, BehaviorSubject, Subject} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {EventFunnel} from '../models/event-funnel.model';
@@ -8,7 +8,8 @@ import {TransactionOverview} from '../models/transaction-overview.model';
 import {TransactionSummary} from '../models/transaction-summary.model';
 import {
   transactionSummaryQuery, transactionOverviewQuery, eventsFunelQuery,
-  campaignDeltaQuery, eventsByAffiliateQuery, eventsSummaryQuery, transactionsByAffiliateQuery, campaignsByAmountQuery
+  campaignDeltaQuery, eventsByAffiliateQuery, eventsSummaryQuery, transactionsByAffiliateQuery, campaignsByAmountQuery,
+  activitiesByCustomer
 } from '../utils/queries/analytics.queries';
 import {CampaignDelta} from '../models/campaign-delta.model';
 import {EventSummary} from '../models/event-summary.model';
@@ -18,6 +19,7 @@ import {TransactionsBy} from '../models/analytics/transaction-by.model';
 import {EventsBy} from '../models/analytics/events-by.model';
 import {FilterTerm} from '../components/advanced-filter/advanced-filter.component';
 import {downloadJSON} from '../utils/file-utils';
+import {Activity} from '../models/analytics/activity.model';
 
 @Injectable()
 export class AnalyticsService {
@@ -31,6 +33,8 @@ export class AnalyticsService {
   eventsSummary$: BehaviorSubject<EventSummary[]>;
   campaignsByAmount$: BehaviorSubject<CampaignStats[]>;
 
+  activitiesByCustomer$: Subject<Activity[]>;
+
   constructor(private authService: AuthenticationService, private analyticsStorage: AnalyticsStorageService, private http: Http) {
     this.eventFunnel$ = new BehaviorSubject(null);
     this.transactionsSummaries$ = new BehaviorSubject(null);
@@ -40,6 +44,8 @@ export class AnalyticsService {
     this.eventsSummary$ = new BehaviorSubject(null);
     this.transactionsBy$ = new BehaviorSubject(null);
     this.campaignsByAmount$ = new BehaviorSubject(null);
+
+    this.activitiesByCustomer$ = new Subject();
   }
 
   getTransactionSummaries(start: string, end: string, filters: FilterTerm[], download?: boolean): void {
@@ -227,6 +233,16 @@ export class AnalyticsService {
         }
       })
     }
+  }
+
+  getActivityByCustomer(start: string, end: string, customer: string, limit: number, offset: number) {
+    this.queryRequest(activitiesByCustomer(start, end, customer, limit, offset)).subscribe(data => {
+      let activities = data.json().data.listactivitybycustomer.activity;
+
+      if (activities) {
+        this.activitiesByCustomer$.next(activities.map(activity => new Activity(activity)));
+      }
+    })
   }
 
   clearAllSubjects(): void {

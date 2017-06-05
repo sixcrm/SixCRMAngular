@@ -108,6 +108,16 @@ export function campaignsByAmountQuery(start: string, end: string): string {
   }`
 }
 
+export function activitiesByCustomer(start: string, end: string, customer: string, limit: number, offset: number): string {
+  return `
+  {
+		listactivitybycustomer (analyticsfilter:{${dateRange(start, end)}, customer:"${customer}"}, pagination: {limit:${limit} , offset:${offset}}) {
+			activity { id datetime actor actor_type action acted_upon acted_upon_type associated_with associated_with_type }
+			pagination { order limit offset count }
+		}
+	}`
+}
+
 function dateRange(start: string, end: string): string {
   return `start:"${start}" end:"${end}"`;
 }
