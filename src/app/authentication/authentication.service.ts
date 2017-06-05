@@ -299,7 +299,7 @@ export class AuthenticationService {
           if (user.active !== 'true') {
             localStorage.removeItem(this.activated);
 
-            if (!this.router.url.includes('acceptinvite')) {
+            if (!this.router.url.includes('acceptinvite') && !this.router.url.includes('/register')) {
               this.router.navigateByUrl('/register');
             }
 

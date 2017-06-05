@@ -3,6 +3,7 @@ import {AuthenticationService} from '../authentication.service';
 import {User} from '../../shared/models/user.model';
 import {Address} from '../../shared/models/address.model';
 import {CreditCard} from '../../shared/models/credit-card.model';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'c-registration',
@@ -12,10 +13,13 @@ import {CreditCard} from '../../shared/models/credit-card.model';
 export class RegistrationComponent implements OnInit {
   showScreen: boolean = false;
 
-  showWelcome: boolean = true;
-  showForm: boolean = false;
-  showTerms: boolean = false;
-  showThankYou: boolean = false;
+  screenVisible = {
+    welcome: false,
+    form: false,
+    terms: false,
+    thankYou: false
+  };
+
   selectedIndex: number = 0;
 
   private username: string;
@@ -62,15 +66,25 @@ export class RegistrationComponent implements OnInit {
   private regInProcess: boolean = false;
   private userUnderRegistration: User;
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(private authService: AuthenticationService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.authService.userUnderReg$.subscribe((user: User) => {
       if (user !== null) {
         if (user.termsAndConditions === '0.1') {
-          this.showThankYouScreen();
+
+          this.activatedRoute.queryParams.take(1).subscribe((params) => {
+            let redirect = params['redirect'];
+
+            if (!redirect) {
+              this.show('thankYou');
+            } else {
+              window.location.href = redirect;
+            }
+          });
+
         } else {
-          this.showWelcomeScreen();
+          this.show('welcome');
         }
 
         this.showScreen = true;
@@ -79,32 +93,8 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
-  showWelcomeScreen(): void {
-    this.showWelcome = true;
-    this.showForm = false;
-    this.showTerms = false;
-    this.showThankYou = false;
-  }
-
-  showFormScreen(): void {
-    this.showWelcome = false;
-    this.showForm = true;
-    this.showTerms = false;
-    this.showThankYou = false;
-  }
-
-  showTermsScreen(): void {
-    this.showWelcome = false;
-    this.showForm = false;
-    this.showTerms = true;
-    this.showThankYou = false;
-  }
-
-  showThankYouScreen(): void {
-    this.showWelcome = false;
-    this.showForm = false;
-    this.showTerms = false;
-    this.showThankYou = true;
+  show(screen: string) {
+    Object.keys(this.screenVisible).forEach(key => this.screenVisible[key] = key === screen);
   }
 
   next(): void {
@@ -127,22 +117,22 @@ export class RegistrationComponent implements OnInit {
     }
 
     if  (this.selectedIndex === 3) {
-      this.showTermsScreen();
+      this.show('terms');
     } else {
       this.selectedIndex++;
     }
   }
 
   previous(): void {
-    if (this.showTerms) {
+    if (this.screenVisible['terms']) {
       this.selectedIndex = 3;
-      this.showFormScreen();
+      this.show('form');
 
       return;
     }
 
     if (this.selectedIndex === 0) {
-      this.showWelcomeScreen();
+      this.show('welcome');
     } else {
       this.selectedIndex--;
     }

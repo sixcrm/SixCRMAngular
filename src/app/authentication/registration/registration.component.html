@@ -1,5 +1,5 @@
 <div class="registration--out">
-  <div *ngIf="showScreen && showWelcome" class="registration--in">
+  <div *ngIf="showScreen && screenVisible['welcome']" class="registration--in">
     <div class="registration--in__welcome">
       <h1> THANK YOU </h1>
 
@@ -21,14 +21,14 @@
         to finalize your registration
       </p>
       <div>
-        <button md-raised-button (click)="showFormScreen()">Continue</button>
+        <button md-raised-button (click)="show('form')">Continue</button>
 
         <div class="registration--in__welcome__sign-out"><span (click)="authService.logout()">Sign Out</span></div>
       </div>
     </div>
   </div>
 
-  <div *ngIf="showScreen && showForm" class="registration--in">
+  <div *ngIf="showScreen && screenVisible['form']" class="registration--in">
 
     <div class="tab__image"></div>
     <img class="tab__image--six" src="/assets/images/logo-white.svg">
@@ -224,7 +224,7 @@
     </div>
   </div>
 
-  <div *ngIf="showScreen && showTerms" class="registration--in">
+  <div *ngIf="showScreen && screenVisible['terms']" class="registration--in">
 
     <div class="tab__image"></div>
     <img class="tab__image--six" src="/assets/images/logo-white.svg">
@@ -261,7 +261,7 @@
     </div>
   </div>
 
-  <div *ngIf="showScreen && showThankYou" class="registration--in">
+  <div *ngIf="showScreen && screenVisible['thankYou']" class="registration--in">
     <div class="thank-you">
 
       <h1 class="thank-you__title"> THANK YOU </h1>
