@@ -17,6 +17,7 @@ import { PerfectTransactionComponent } from './perfect-match/perfect-transaction
 import { PerfectProductComponent } from './perfect-match/perfect-product/perfect-product.component';
 import { PerfectRebillComponent } from './perfect-match/perfect-rebill/perfect-rebill.component';
 import { PerfectProductScheduleComponent } from './perfect-match/perfect-product-schedule/perfect-product-schedule.component';
+import { PerfectCampaignComponent } from './perfect-match/perfect-campaign/perfect-campaign.component';
 
 @NgModule({
   imports : [
@@ -40,7 +41,8 @@ import { PerfectProductScheduleComponent } from './perfect-match/perfect-product
     PerfectTransactionComponent,
     PerfectProductComponent,
     PerfectRebillComponent,
-    PerfectProductScheduleComponent
+    PerfectProductScheduleComponent,
+    PerfectCampaignComponent
   ],
   exports : [
   ],
