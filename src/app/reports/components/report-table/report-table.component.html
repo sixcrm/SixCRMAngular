@@ -12,7 +12,12 @@
       (next)="next.emit($event)"
       (updateLimit)="updateLimit.emit($event)">
     </table-pagination>
-    <md-icon class="reports-table__title__icon--more">more_vert</md-icon>
+    <md-icon class="reports-table__title__icon--more" [md-menu-trigger-for]="downloadOptions">more_vert</md-icon>
+    <md-menu #downloadOptions="mdMenu" x-position="before">
+      <button md-menu-item (click)="download.emit('json')"> Download JSON </button>
+      <button md-menu-item> Download CSV </button>
+      <button md-menu-item> Download Excel </button>
+    </md-menu>
   </div>
 
   <div *ngIf="data && data.length > 0">

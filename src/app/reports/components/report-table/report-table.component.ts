@@ -26,6 +26,7 @@ export class ReportTableComponent implements OnInit {
   @Output() next: EventEmitter<boolean> = new EventEmitter();
   @Output() previous: EventEmitter<boolean> = new EventEmitter();
   @Output() updateLimit: EventEmitter<number> = new EventEmitter();
+  @Output() download: EventEmitter<string> = new EventEmitter();
 
   constructor() { }
 

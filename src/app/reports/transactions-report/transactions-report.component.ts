@@ -37,7 +37,7 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
       this.progressBarService.showTopProgressBar();
       this.immutableFilterTerms = this.filterTerms.slice();
       this.dateMap = {start: flatDown(this.start), end: flatUp(this.end)};
-      this.reportService.getTransactions(this.start.format(), this.end.format(), this.filterTerms, this.limit + 1, this.page * this.limit);
+      this.reportService.getTransactions(this.start.format(), this.end.format(), this.filterTerms, false, this.limit + 1, this.page * this.limit);
     }
   }
 
@@ -181,6 +181,10 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
         })
       }
     });
+  }
+
+  download(format: string): void {
+    this.reportService.getTransactions(this.start.format(), this.end.format(), this.filterTerms, true, this.limit + 1, this.page * this.limit)
   }
 
   private getFilterTermIndex(filterTerm: FilterTerm): number {

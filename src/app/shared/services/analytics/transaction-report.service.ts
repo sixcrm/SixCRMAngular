@@ -6,6 +6,8 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {transactionReportListQuery} from '../../utils/queries/reports.queries';
 import {Http, Headers, Response} from '@angular/http';
 import {FilterTerm} from '../../components/advanced-filter/advanced-filter.component';
+import {downloadFile} from '../../utils/file-utils';
+
 
 @Injectable()
 export class TransactionReportService {
@@ -16,24 +18,32 @@ export class TransactionReportService {
     this.transactions$ = new Subject();
   }
 
-  getTransactions(start: string, end: string, filters: FilterTerm[], limit?: number, offset?: number, order?: string) {
-    this.queryRequest(transactionReportListQuery(start, end, filters, limit, offset, order)).subscribe(
+  getTransactions(start: string, end: string, filters: FilterTerm[], download?: boolean, limit?: number, offset?: number, order?: string) {
+    this.queryRequest(transactionReportListQuery(start, end, filters, download, limit, offset, order), download).subscribe(
       (data) => {
-        let transactions = data.json().data.listtransactions.transactions;
+        if (!download) {
+          let transactions = data.json().data.listtransactions.transactions;
 
-        if (transactions) {
-          this.transactions$.next(transactions.map(transaction => new TransactionReport(transaction)))
+          if (transactions) {
+            this.transactions$.next(transactions.map(transaction => new TransactionReport(transaction)))
+          }
+        } else {
+          downloadFile(JSON.stringify(data.json()), 'transactions-report.json', 'application/json');
         }
       })
   }
 
-  private queryRequest(query: string): Observable<Response> {
+  private queryRequest(query: string, download: boolean): Observable<Response> {
     let endpoint = environment.endpoint;
 
     if (this.authService.getActiveAcl() && this.authService.getActiveAcl().account) {
-      endpoint = endpoint + this.authService.getActiveAcl().account.id;
+      endpoint += this.authService.getActiveAcl().account.id;
     } else {
-      endpoint = endpoint + '*';
+      endpoint += '*';
+    }
+
+    if (download) {
+      endpoint += '?download=json';
     }
 
     return this.http.post(endpoint, query, { headers: this.generateHeaders()});
