@@ -39,6 +39,10 @@ export class MoversCardComponent extends AbstractDashboardItem implements OnInit
     }
   }
 
+  download(format: string): void {
+    this.analyticsService.getCampaignDelta(this.start.format(), this.end.format(), true);
+  }
+
   isDecing(campaign: CampaignDelta): boolean {
     return campaign.percentageChangeAmount.indexOf('-') === 0;
   }

@@ -2,7 +2,12 @@
   <div class="dashboard__table-chart__title">
     <div class="dashboard__table-chart__title__main">Transactions by Affiliate</div>
     <div class="dashboard__table-chart__title__sub">Transactions from top Affiliates</div>
-    <md-icon>more_vert</md-icon>
+    <md-icon [md-menu-trigger-for]="downloadOptions">more_vert</md-icon>
+    <md-menu #downloadOptions="mdMenu" x-position="before">
+      <button md-menu-item (click)="download('json')"> Download JSON </button>
+      <button md-menu-item> Download CSV </button>
+      <button md-menu-item> Download Excel </button>
+    </md-menu>
   </div>
 
   <chart *ngIf="transactionBy" #chart (load)="saveChart($event.context)" [options]="options"></chart>

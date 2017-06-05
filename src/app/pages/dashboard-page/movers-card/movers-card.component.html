@@ -2,7 +2,12 @@
   <div class="movers-card__title">
     <div class="movers-card__title__main">Campaigns Watch List</div>
     <div class="movers-card__title__sub">Campaigns on the move</div>
-    <md-icon>more_vert</md-icon>
+    <md-icon [md-menu-trigger-for]="downloadOptions">more_vert</md-icon>
+    <md-menu #downloadOptions="mdMenu" x-position="before">
+      <button md-menu-item (click)="download('json')"> Download JSON </button>
+      <button md-menu-item> Download CSV </button>
+      <button md-menu-item> Download Excel </button>
+    </md-menu>
   </div>
 
   <div class="movers-card__container">

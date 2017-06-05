@@ -86,6 +86,10 @@ export class TransactionByComponent extends AbstractDashboardItem implements OnI
     }
   }
 
+  download(format: string): void {
+    this.analyticsService.getTransactionsBy(this.start.format(), this.end.format(), true);
+  }
+
   calculateHeight(): string {
     let height = 46;
     if (!this.navigation.isDesktop()) {

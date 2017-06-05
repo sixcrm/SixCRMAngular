@@ -86,6 +86,10 @@ export class EventsByComponent extends AbstractDashboardItem implements OnInit, 
     }
   }
 
+  download(format: string): void {
+    this.analyticsService.getEventsBy(this.start.format(), this.end.format(), true);
+  }
+
   calculateHeight(): string {
     let height = 46;
     if (!this.navigation.isDesktop()) {

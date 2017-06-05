@@ -2,7 +2,12 @@
   <div class="dashboard__chart__title">
     <div class="dashboard__chart__title__main">Transactions</div>
     <div class="dashboard__chart__title__sub">transactions summary</div>
-    <md-icon>more_vert</md-icon>
+    <md-icon [md-menu-trigger-for]="downloadOptions">more_vert</md-icon>
+    <md-menu #downloadOptions="mdMenu" x-position="before">
+      <button md-menu-item (click)="download('json')"> Download JSON </button>
+      <button md-menu-item> Download CSV </button>
+      <button md-menu-item> Download Excel </button>
+    </md-menu>
   </div>
 
   <div [class.invisible]="!loaded">

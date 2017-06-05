@@ -70,6 +70,10 @@ export class EventsSummaryComponent extends AbstractDashboardItem implements OnI
     }
   }
 
+  download(format: string): void {
+    this.analyticsService.getEventsSummary(this.start.format(), this.end.format(), true);
+  }
+
   loadChart(chartInstance) {
     this.chartInstance = chartInstance;
   }

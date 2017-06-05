@@ -106,6 +106,10 @@ export class TransactionSummaryChartComponent extends AbstractDashboardItem impl
     }
   }
 
+  download(format: string): void {
+    this.analyticsService.getTransactionSummaries(this.start.format(), flatUp(this.end).format(), this.filterTerms, true);
+  }
+
   private redrawChart(): void {
     if (!this.summaries) return;
 
