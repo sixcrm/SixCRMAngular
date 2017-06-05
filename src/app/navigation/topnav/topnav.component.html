@@ -52,7 +52,11 @@
 
     <div class="topnav__notifications" (click)="showNotifications()">
       <md-icon class="topnav__notifications__icon">chat</md-icon>
-      <div *ngIf="notificationsCount && notificationsCount > 0" class="topnav__notifications__count"> {{notificationsCount}} </div>
+      <div *ngIf="notificationsCount && notificationsCount > 0" class="topnav__notifications__count">
+        <span>
+          {{notificationsCount}}
+        </span>
+      </div>
     </div>
   </div>
   <div class="topnav__items--collapsed">

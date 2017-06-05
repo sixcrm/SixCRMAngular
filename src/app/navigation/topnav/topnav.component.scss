@@ -141,14 +141,17 @@ $main-color: #9B9A9B;
       right: -5px;
       border-radius: 50%;
       background: #FE7274;
-      height: 12px;
-      width: 12px;
-      padding: 2px;
-      line-height: 12px;
+      height: 14px;
+      width: 14px;
+      line-height: 14px;
       text-align: center;
       font-weight: 600;
-      font-size: 12px;
+      font-size: 11px;
       color: #ffffff;
+
+      span {
+
+      }
     }
   }
 }
