@@ -74,7 +74,7 @@
                     <div class="customer-view__content__card__item"><span>Country: </span>{{entity.creditCards[0].address.country}}</div>
                   </div>
                   <div class="customer-view__content__card__column customer-view__content__card__column--last">
-                    <div class="customer-view__content__card__item"><span>Last 4: </span>{{entity.creditCards[0].ccnumber.substring(entity.creditCards[0].ccnumber.length-4, entity.creditCards[0].ccnumber.length)}}</div>
+                    <div class="customer-view__content__card__item"><span>Last 4: </span>{{entity.creditCards[0].ccnumber | creditCardFormat}}</div>
                     <div class="customer-view__content__card__item"><span>Expiration: </span>{{entity.creditCards[0].expiration}}</div>
                   </div>
                 </md-card-content>
