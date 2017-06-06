@@ -49,15 +49,15 @@
       <table class="highlight">
         <thead>
         <tr>
-          <th>Amount</th>
           <th>Alias</th>
+          <th class="cell--align-right">Amount</th>
           <th>Processor Response</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let transaction of transactions" [routerLink]="['/transactions', transaction.id]">
-          <td>{{transaction.amount.usd()}}</td>
           <td>{{transaction.alias}}</td>
+          <td class="cell--align-right">{{transaction.amount.usd()}}</td>
           <td>{{transaction.processorResponse.message}}</td>
         </tr>
         </tbody>
@@ -71,7 +71,7 @@
     <div class="perfect-entity__list">
       <div *ngFor="let ccard of customer.creditCards" class="perfect-entity__list__item">
         <img src="/assets/images/credit-card-notification.svg">
-        <span class="perfect-entity__list__item__last">VISA {{ccard.getLastFour()}}</span>
+        <span class="perfect-entity__list__item__last">{{ccard.getType() | uppercase}} {{ccard.ccnumber | creditCardFormat}}</span>
         <span class="perfect-entity__list__item__expiration">{{ccard.expiration}}</span>
         <md-icon [routerLink]="['/creditcards', ccard.id]">visibility</md-icon>
       </div>

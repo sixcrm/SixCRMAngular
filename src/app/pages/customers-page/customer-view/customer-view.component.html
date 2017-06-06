@@ -50,7 +50,7 @@
                 <md-card-content>
                   <div *ngFor="let cc of entity.creditCards" class="credit-cards__item">
                     <img src="/assets/images/credit-card-notification.svg">
-                    <span>{{cc.ccnumber | creditCardFormat: true}}</span>
+                    <span>{{cc.ccnumber.getType() | uppercase}} {{cc.ccnumber | creditCardFormat: true}}</span>
                     <span>Exp: {{cc.expiration}}</span>
                     <md-icon>remove_red_eye</md-icon>
                   </div>
@@ -60,7 +60,7 @@
               <md-card *ngIf="entity.creditCards && entity.creditCards.length === 1" class="customer-view__content__card column__medium">
                 <md-card-title>
                   <md-icon>credit_card</md-icon>
-                  <span>{{entity.creditCards[0].ccnumber | creditCardFormat: true}}</span>
+                  <span>{{entity.creditCards[0].getType() | uppercase}} {{entity.creditCards[0].ccnumber | creditCardFormat: true}}</span>
                   <md-icon class="customer-view__content__card__action">more_vert</md-icon>
                 </md-card-title>
                 <md-card-content>
