@@ -49,6 +49,7 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { FormatDateTimePipe } from './pipes/format-date-time.pipe';
 import {TimeService} from './services/time.service';
 import {SimpleDropdownComponent} from './components/simple-dropdown/simple-dropdown.component';
+import { CreditCardFormatPipe } from './pipes/credit-card-format.pipe';
 
 @NgModule({
   declarations : [
@@ -67,7 +68,8 @@ import {SimpleDropdownComponent} from './components/simple-dropdown/simple-dropd
     InputAutocompleteComponent,
     DropdownComponent,
     FormatDateTimePipe,
-    SimpleDropdownComponent
+    SimpleDropdownComponent,
+    CreditCardFormatPipe
   ],
   exports : [
     WidgetComponent,
@@ -83,7 +85,8 @@ import {SimpleDropdownComponent} from './components/simple-dropdown/simple-dropd
     AdvancedFilterComponent,
     InputAutocompleteComponent,
     FormatDateTimePipe,
-    SimpleDropdownComponent
+    SimpleDropdownComponent,
+    CreditCardFormatPipe
   ],
   imports : [FormsModule, CommonModule, MaterialModule, ChartModule, Daterangepicker]
 })
