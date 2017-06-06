@@ -195,159 +195,171 @@ $card-title-color: #5B9BE1;
   }
 }
 
-.notes {
-  padding: 0;
-  min-height: 105px;
+customer-notes {
+  padding: 5px;
+  width: 100%;
 
-  md-card-title {
-    padding: 18px;
-  }
+  .notes {
+    margin: 0;
+    padding: 0;
+    min-height: 105px;
 
-  &__title {
-    background-color: #E8E8E8;
-    color: rgba(0,0,0,0.6);
-    padding: 5px 18px;
-
-    md-icon {
-      margin: 0 5px 0 15px;
-      width: 16px;
-      height: 16px;
-      font-size: 16px;
-      vertical-align: middle;
+    md-card-title {
+      padding: 18px;
     }
 
-    &__label {
-      vertical-align: middle;
-      font-size: 12px;
-      font-weight: 400;
-    }
-
-    &__save {
-      float: right;
-      vertical-align: middle;
-      font-size: 12px;
-      font-weight: 400;
-      cursor: pointer;
-    }
-  }
-
-  &__content {
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 12px 18px 24px;
-    font-size: 12px;
-
-    span {
-      margin: 0 20px;
-    }
-
-    img {
-      height: 40px;
-    }
-
-    &__action {
-      position: absolute;
-      top: 20px;
-      right: 12px;
-      color: rgba(0,0,0,0.4);
-      cursor: pointer;
-    }
-  }
-
-  &__button {
-    position: absolute;
-    top: 67px;
-    right: 10px;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-    background-color: #4A90E2;
-    color: white;
-    z-index: 1;
-    cursor: pointer;
-
-    md-icon {
-      position: absolute;
-      top: 6px;
-      left: 6px;
-      width: 16px;
-      font-size: 16px;
-      height: 16px;
-    }
-  }
-
-  &__new {
-    position: absolute;
-    top: 62px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    width: 85%;
-    padding: 10px 10px 5px;
-    background: white;
-    box-shadow: 0 0 5px rgba(0,0,0,0.4);
-
-    md-textarea {
-      width: 100%;
-
-      textarea {
-        height: 120px;
-      }
-
-    }
-
-    &__actions {
+    &__title {
+      background-color: #E8E8E8;
+      color: rgba(0,0,0,0.6);
+      padding: 5px 18px;
 
       md-icon {
-        padding: 0 10px;
-        cursor: pointer;
-      }
-      &__close {
-        color: #D0021B;
+        margin: 0 5px 0 15px;
+        width: 16px;
+        height: 16px;
+        font-size: 16px;
+        vertical-align: middle;
       }
 
-      &__done {
-        color: #60B003;
+      &__label {
+        vertical-align: middle;
+        font-size: 12px;
+        font-weight: 400;
+      }
+
+      &__save {
+        float: right;
+        vertical-align: middle;
+        font-size: 12px;
+        font-weight: 400;
+        cursor: pointer;
+      }
+    }
+
+    &__content {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 12px 18px 24px;
+      font-size: 12px;
+
+      span {
+        margin: 0 20px;
+      }
+
+      img {
+        height: 40px;
+      }
+
+      &__action {
+        position: absolute;
+        top: 20px;
+        right: 12px;
+        color: rgba(0,0,0,0.4);
+        cursor: pointer;
+      }
+    }
+
+    &__button {
+      position: absolute;
+      top: 67px;
+      right: 10px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+      background-color: #4A90E2;
+      color: white;
+      z-index: 1;
+      cursor: pointer;
+
+      md-icon {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 16px;
+        font-size: 16px;
+        height: 16px;
+      }
+    }
+
+    &__new {
+      position: absolute;
+      top: 62px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      width: 85%;
+      padding: 10px 10px 5px;
+      background: white;
+      box-shadow: 0 0 5px rgba(0,0,0,0.4);
+
+      md-textarea {
+        width: 100%;
+
+        textarea {
+          height: 120px;
+        }
+
+      }
+
+      &__actions {
+
+        md-icon {
+          padding: 0 10px;
+          cursor: pointer;
+        }
+        &__close {
+          color: #D0021B;
+        }
+
+        &__done {
+          color: #60B003;
+        }
       }
     }
   }
 }
 
-.events {
-  padding: 0;
+customer-events {
+  padding: 5px;
+  width: 100%;
 
-  md-card-title {
-    padding: 18px;
-  }
+  .events {
+    margin: 0px;
+    padding: 0;
 
-  &__title {
-    background-color: #E8E8E8;
-    color: rgba(0,0,0,0.6);
-    padding: 5px 18px;
+    md-card-title {
+      padding: 18px;
+    }
 
-    &__label {
-      vertical-align: middle;
+    &__title {
+      background-color: #E8E8E8;
+      color: rgba(0,0,0,0.6);
+      padding: 5px 18px;
+
+      &__label {
+        vertical-align: middle;
+        font-size: 12px;
+        font-weight: 400;
+      }
+    }
+
+    &__content {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 12px 18px;
       font-size: 12px;
-      font-weight: 400;
-    }
-  }
+      border-bottom: 1px solid rgba(0,0,0,0.15);
 
-  &__content {
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 12px 18px;
-    font-size: 12px;
-    border-bottom: 1px solid rgba(0,0,0,0.15);
+      span {
+        margin-left: 10px;
+      }
 
-    span {
-      margin-left: 10px;
-    }
-
-    img {
-      height: 40px;
+      img {
+        height: 40px;
+      }
     }
   }
 }

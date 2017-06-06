@@ -93,57 +93,9 @@
             </div>
 
             <div class="column">
-              <md-card class="customer-view__content__card notes column__large">
-                <md-card-title>NOTES</md-card-title>
-                <md-card-content>
-                  <div *ngIf="showNewNote" class="notes__new">
-                    <md-textarea [(ngModel)]="note"></md-textarea>
+              <customer-notes [customer]="entity"></customer-notes>
 
-                    <div class="notes__new__actions">
-                      <md-icon (click)="closeNote()" class="notes__new__actions__close">clear</md-icon>
-                      <md-icon (click)="saveNote()" class="notes__new__actions__done">done</md-icon>
-                    </div>
-                  </div>
-
-                  <div class="notes" *ngFor="let n of notes">
-                    <div class="notes__title">
-                      <span class="notes__title__label">{{n.user.name}}</span>
-                      <md-icon>date_range</md-icon>
-                      <span class="notes__title__label">{{n.createdAt | formatDateTime}}</span>
-                      <md-icon>query_builder</md-icon>
-                      <span class="notes__title__label">{{n.createdAt | formatDateTime: 'time'}}</span>
-                    </div>
-                    <div class="notes__content">
-                      <div><img src="assets/images/alert-icon.svg"></div>
-                      <span>{{n.body}}</span>
-                      <md-icon class="notes__content__action" [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-
-                      <md-menu #actionsMenu="mdMenu" x-position="before">
-                        <button md-menu-item (click)="deleteNote(n)">delete</button>
-                      </md-menu>
-                    </div>
-                  </div>
-                  <div *ngIf="!showNewNote" class="notes__button" (click)="newNote()"><md-icon>add</md-icon></div>
-                </md-card-content>
-              </md-card>
-
-              <md-card class="customer-view__content__card events column__large">
-                <md-card-title>
-                  CUSTOMER EVENTS
-                  <md-icon class="customer-view__content__card__action">more_vert</md-icon>
-                </md-card-title>
-                <md-card-content>
-                  <div *ngFor="let activity of activities">
-                    <div class="events__title">
-                      <span class="events__title__label">{{activity.date | formatDateTime}}</span>
-                    </div>
-                    <div class="events__content">
-                      <div><img src="assets/images/alert-icon.svg"></div>
-                      <span>{{activity.action}} {{activity.actedUponType}} {{activity.actedUpon}}</span>
-                    </div>
-                  </div>
-                </md-card-content>
-              </md-card>
+              <customer-events [customer]="entity"></customer-events>
             </div>
           </div>
       </md-tab>

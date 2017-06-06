@@ -12,6 +12,8 @@ import { CustomerTransactionsComponent } from './customer-view/customer-transact
 import { CustomerSessionsComponent } from './customer-view/customer-sessions/customer-sessions.component';
 import {SharedModule} from '../../shared/shared.module';
 import { CustomerRebillsComponent } from './customer-view/customer-rebills/customer-rebills.component';
+import { CustomerNotesComponent } from './customer-view/customer-notes/customer-notes.component';
+import { CustomerEventsComponent } from './customer-view/customer-events/customer-events.component';
 
 @NgModule({
   imports : [
@@ -29,7 +31,9 @@ import { CustomerRebillsComponent } from './customer-view/customer-rebills/custo
     CustomerComponent,
     CustomerTransactionsComponent,
     CustomerSessionsComponent,
-    CustomerRebillsComponent
+    CustomerRebillsComponent,
+    CustomerNotesComponent,
+    CustomerEventsComponent
   ],
   exports : [
     CustomerComponent
