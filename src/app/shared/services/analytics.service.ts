@@ -237,10 +237,10 @@ export class AnalyticsService {
 
   getActivityByCustomer(start: string, end: string, customer: string, limit: number, offset: number) {
     this.queryRequest(activitiesByCustomer(start, end, customer, limit, offset)).subscribe(data => {
-      let activities = data.json().data.listactivitybycustomer.activity;
+      let activityList = data.json().data.listactivitybycustomer;
 
-      if (activities) {
-        this.activitiesByCustomer$.next(activities.map(activity => new Activity(activity)));
+      if (activityList && activityList.activity) {
+        this.activitiesByCustomer$.next(activityList.activity.map(activity => new Activity(activity)));
       }
     })
   }

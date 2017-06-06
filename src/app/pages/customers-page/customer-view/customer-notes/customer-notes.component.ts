@@ -4,7 +4,6 @@ import {CustomerNotesService} from '../../../../shared/services/customer-notes.s
 import {ProgressBarService} from '../../../../shared/services/progress-bar.service';
 import {AsyncSubject} from 'rxjs';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {Customer} from '../../../../shared/models/customer.model';
 
 @Component({
   selector: 'customer-notes',
@@ -13,7 +12,7 @@ import {Customer} from '../../../../shared/models/customer.model';
 })
 export class CustomerNotesComponent implements OnInit, OnDestroy {
 
-  @Input() customer: Customer;
+  @Input() customerId: string;
 
   notes: CustomerNote[] = [];
   showNewNote: boolean;
@@ -43,7 +42,7 @@ export class CustomerNotesComponent implements OnInit, OnDestroy {
       this.notes = customerNotes.sort((a: CustomerNote, b: CustomerNote) => a.createdAt > b.createdAt ? -1 : 1);
     });
 
-    this.customerNotesService.getByCustomer(this.customer.id);
+    this.customerNotesService.getByCustomer(this.customerId);
   }
 
   ngOnDestroy() {
@@ -63,7 +62,7 @@ export class CustomerNotesComponent implements OnInit, OnDestroy {
 
   saveNote(): void {
     if (this.note) {
-      let customerNote = new CustomerNote({customer: {id: this.customer.id}, user: {id: this.authService.getSixUser().id}, body: this.note});
+      let customerNote = new CustomerNote({customer: {id: this.customerId}, user: {id: this.authService.getSixUser().id}, body: this.note});
       this.customerNotesService.createEntity(customerNote);
       this.progressBarService.showTopProgressBar();
     }

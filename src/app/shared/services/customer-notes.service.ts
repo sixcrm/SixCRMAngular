@@ -35,8 +35,8 @@ export class CustomerNotesService extends AbstractEntityService<CustomerNote> {
         let listKey = Object.keys(json)[0];
         let listData = json[listKey];
 
-        let entitiesKey = Object.keys(listData)[0];
-        let entitiesData = listData[entitiesKey];
+        let entitiesKey = listData ? Object.keys(listData)[0] : null;
+        let entitiesData = entitiesKey ? listData[entitiesKey] : null;
 
         if (entitiesData) {
           this.entities$.next(entitiesData.map(entity => new CustomerNote(entity)));

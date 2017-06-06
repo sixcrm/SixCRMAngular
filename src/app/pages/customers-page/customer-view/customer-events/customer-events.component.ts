@@ -4,7 +4,6 @@ import {utc} from 'moment';
 import {Customer} from '../../../../shared/models/customer.model';
 import {AnalyticsService} from '../../../../shared/services/analytics.service';
 import {AsyncSubject} from 'rxjs';
-import {CustomersService} from '../../../../shared/services/customers.service';
 
 @Component({
   selector: 'customer-events',
