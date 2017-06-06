@@ -971,7 +971,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return _react2.default.createElement(
 	        'h2',
 	        { className: StyleSheet.heading },
-	        _react2.default.createElement('a', { name: typeName }),
+	        _react2.default.createElement('a', { id: typeName }),
 	        titleOverride || typeName
 	    );
 	}
@@ -3062,7 +3062,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    'a',
 	                    {
 	                        className: StyleSheet.typeRef,
-	                        href: 'api-docs#' + ref.typeName
+	                        href: 'documentation/graph#' + ref.typeName
 	                    },
 	                    ref.typeName
 	                );

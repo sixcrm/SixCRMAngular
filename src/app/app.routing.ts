@@ -7,7 +7,6 @@ import {ComingSoonComponent} from './shared/components/coming-soon/coming-soon.c
 
 const appRoutes: Routes = [
   { path : '', loadChildren : './authentication/authentication.module#AuthenticationModule' },
-  { path : 'api-docs', loadChildren : './pages/api-docs/api-docs.module#ApiDocsModule', canActivate: [AuthGuard] },
   { path : '', component : DefaultLayoutComponent, children : [
     { path : '', loadChildren : './pages/search-page/search.module#SearchModule', canActivate: [AuthGuard] },
     { path : 'dashboard', loadChildren : './pages/dashboard-page/dashboard.module#DashboardModule', canActivate: [AuthGuard] },
@@ -28,6 +27,7 @@ const appRoutes: Routes = [
     { path : 'transactions', loadChildren : './pages/transactions-page/transactions.module#TransactionsModule', canActivate: [AuthGuard] },
     { path : 'users', loadChildren : './pages/users-page/users.module#UsersModule', canActivate: [AuthGuard] },
     { path : 'reports', loadChildren : './reports/reports.module#ReportsModule', canActivate: [AuthGuard] },
+    { path : 'documentation', loadChildren : './pages/documentation/documentation.module#DocumentationModule', canActivate: [AuthGuard] },
     { path : 'coming-soon', component: ComingSoonComponent },
   ]},
   { path : '**', component : ErrorPageComponent }

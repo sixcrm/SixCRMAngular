@@ -20,7 +20,7 @@
 
   <script>
     var renderDocs = function(token, url) {
-      var rootElem = document.querySelector('api-docs');
+      var rootElem = document.getElementById('docs-graph');
       if (rootElem) {
         ReactDOM.render(React.createElement(GraphQLDocs.GraphQLDocs, {token: token, url: url}), rootElem);
       }

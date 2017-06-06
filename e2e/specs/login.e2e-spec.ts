@@ -6,7 +6,7 @@ import {
   navigateSuperuserToHomepage, clearLocalStorage
 } from '../utils/navigation.utils';
 import {doLogin} from '../utils/action.utils';
-import {expectPresent, expectUrlToContain, expectUrlToEqual} from '../utils/assertation.utils';
+import {expectPresent, expectUrlToContain} from '../utils/assertation.utils';
 
 describe('Login', function() {
   let authPage: AuthPage;
