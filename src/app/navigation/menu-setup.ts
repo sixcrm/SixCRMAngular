@@ -7,7 +7,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
 
   // Add dashboard
   if (acl && acl.role.name == 'Customer Service') {
-    items.push(new MenuItem('Dashboard', 'search').setIcon('headset_mic'));
+    items.push(new MenuItem('Dashboard', 'customer-service-dashboard').setIcon('headset_mic'));
   } else {
     items.push(new MenuItem('Dashboard', 'dashboard').setIcon('view_quilt'));
   }

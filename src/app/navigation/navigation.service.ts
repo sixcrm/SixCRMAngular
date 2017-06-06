@@ -34,7 +34,7 @@ export class NavigationService {
       if (!acl || !acl.account.id) return;
 
       if (acl.role.name === 'Customer Service') {
-        this.router.navigateByUrl('/search');
+        this.router.navigateByUrl('/customer-service-dashboard');
       }
 
       this.setMenuItems(menuItems(authService, acl));
