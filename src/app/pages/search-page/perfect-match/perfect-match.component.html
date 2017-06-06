@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <perfect-customer *ngIf="entity.fields.entity_type === 'customer'" [id]="'24f7c851-29d4-4af9-87c5-0298fa74c689'"></perfect-customer>
+    <perfect-customer *ngIf="entity.fields.entity_type === 'customer'" [id]="entity.id"></perfect-customer>
     <perfect-transaction *ngIf="entity.fields.entity_type === 'transaction'" [id]="entity.id"></perfect-transaction>
     <perfect-product *ngIf="entity.fields.entity_type === 'product'" [id]="entity.id"></perfect-product>
     <perfect-product-schedule *ngIf="entity.fields.entity_type === 'productschedule'" [id]="entity.id"></perfect-product-schedule>
