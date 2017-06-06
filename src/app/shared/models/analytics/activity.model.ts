@@ -10,6 +10,7 @@ export class Activity {
   actedUponType: string;
   associatedWith: string;
   associatedWithType: string;
+  english: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -25,5 +26,6 @@ export class Activity {
     this.actedUponType = obj.acted_upon_type || '';
     this.associatedWith = obj.associated_with || '';
     this.associatedWithType = obj.associated_with_type || '';
+    this.english = obj.english || '';
   }
 }

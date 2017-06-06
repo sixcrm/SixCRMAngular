@@ -112,7 +112,7 @@ export function activitiesByCustomer(start: string, end: string, customer: strin
   return `
   {
 		listactivitybycustomer (analyticsfilter:{${dateRange(start, end)}, customer:"${customer}"}, pagination: {limit:${limit} , offset:${offset}}) {
-			activity { id datetime actor actor_type action acted_upon acted_upon_type associated_with associated_with_type }
+			activity { id datetime actor actor_type action acted_upon acted_upon_type associated_with associated_with_type english }
 			pagination { order limit offset count }
 		}
 	}`
