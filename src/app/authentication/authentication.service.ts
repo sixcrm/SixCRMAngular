@@ -252,13 +252,8 @@ export class AuthenticationService {
     return this.getSixUser().hasPermissions(entity, operation, this.getActiveAcl());
   }
 
-  public refreshSixUser(redirectUrl?: string): void {
-    if (redirectUrl) {
-      window.location.href = redirectUrl;
-      return;
-    } else {
-      this.router.navigateByUrl('/');
-    }
+  public refreshSixUser(): void {
+    this.router.navigateByUrl('/');
 
     localStorage.removeItem(this.activeAcl);
     this.currentActiveAcl = new Acl();
