@@ -7,7 +7,7 @@ export class CreditCardFormatPipe implements PipeTransform {
 
   transform(number: string, showMask?: boolean): any {
     let lastFour = number.substr(number.length - 4);
-    let prefix = Array(13).join('*');
+    let prefix = '**** **** **** ';
 
     return showMask ? prefix + lastFour : lastFour;
   }

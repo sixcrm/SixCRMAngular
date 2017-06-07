@@ -13,9 +13,10 @@ $card-title-color: #5B9BE1;
       box-sizing: border-box;
 
       md-card-title {
+        display: flex;
         margin-bottom: 0;
         color: #5B9BE1;
-        font-size: 15px;
+        font-size: 16px;
         font-weight: 500;
 
         md-icon {
@@ -30,13 +31,17 @@ $card-title-color: #5B9BE1;
         }
       }
 
+      &__content {
+        display: flex;
+      }
+
       &__column {
-        display: inline-block;
         margin-right: 20px;
         vertical-align: top;
 
         &--last {
-          margin-right: 0;
+          margin-left: auto;;
+          margin-right: 30px;
         }
       }
 
@@ -50,7 +55,7 @@ $card-title-color: #5B9BE1;
       }
 
       &__action {
-        float: right;
+        margin-left: auto;
         width: 12px;
         height: 18px;
         vertical-align: middle;

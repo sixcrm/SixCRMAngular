@@ -12,7 +12,7 @@
         <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
         <div class="entity-view__info__data__name">{{entity.firstName}} {{entity.lastName}}</div>
         <div class="entity-view__info__data__other">
-          <span *ngIf="entity.phone"><md-icon>phone</md-icon>{{entity.phone}}</span>
+          <span *ngIf="entity.phone"><md-icon>phone</md-icon>{{getPhoneNumber()}}</span>
           <span *ngIf="entity.email"><md-icon>email</md-icon>{{entity.email}}</span>
         </div>
       </div>
@@ -30,7 +30,10 @@
         <div class="customer-view__content">
             <div class="column">
               <md-card class="customer-view__content__card column__small">
-                <md-card-title>SHIPPING ADDRESS</md-card-title>
+                <md-card-title>
+                  <span>SHIPPING ADDRESS</span>
+                  <md-icon class="customer-view__content__card__action">more_vert</md-icon>
+                </md-card-title>
                 <md-card-content>
                   <div class="customer-view__content__card__item"><span>Name: </span>{{entity.firstName}} {{entity.lastName}}</div>
                   <div class="customer-view__content__card__item"><span>Address 1: </span>{{entity.address.line1}}</div>
@@ -63,9 +66,9 @@
                   <span>{{entity.creditCards[0].getType() | uppercase}} {{entity.creditCards[0].ccnumber | creditCardFormat: true}}</span>
                   <md-icon class="customer-view__content__card__action">more_vert</md-icon>
                 </md-card-title>
-                <md-card-content>
+                <md-card-content class="customer-view__content__card__content">
                   <div class="customer-view__content__card__column">
-                    <div class="customer-view__content__card__item"><span>Name: </span>{{entity.creditCards[0].name}}</div>
+                    <div class="customer-view__content__card__item"><span>Billing Address: </span></div>
                     <div class="customer-view__content__card__item"><span>Address 1: </span>{{entity.creditCards[0].address.line2}}</div>
                     <div class="customer-view__content__card__item"><span>Address 2: </span>{{entity.creditCards[0].address.line2}}</div>
                     <div class="customer-view__content__card__item"><span>Postal Code: </span>{{entity.creditCards[0].address.zip}}</div>
@@ -74,6 +77,7 @@
                     <div class="customer-view__content__card__item"><span>Country: </span>{{entity.creditCards[0].address.country}}</div>
                   </div>
                   <div class="customer-view__content__card__column customer-view__content__card__column--last">
+                    <div class="customer-view__content__card__item"><span>Name: </span>{{entity.creditCards[0].name}}</div>
                     <div class="customer-view__content__card__item"><span>Last 4: </span>{{entity.creditCards[0].ccnumber | creditCardFormat}}</div>
                     <div class="customer-view__content__card__item"><span>Expiration: </span>{{entity.creditCards[0].expiration}}</div>
                   </div>
@@ -83,7 +87,7 @@
               <md-card class="customer-view__content__card column__large">
                 <md-card-title>
                   <md-icon>trending_up</md-icon>
-                  RECENT TRANSACTIONS
+                    Upcoming Billings
                   <md-icon class="customer-view__content__card__action">more_vert</md-icon>
                 </md-card-title>
                 <md-card-content>

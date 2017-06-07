@@ -5,6 +5,7 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
 import {ActivatedRoute} from '@angular/router';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {NavigationService} from '../../../navigation/navigation.service';
+import {conformToMask} from 'angular2-text-mask';
 
 @Component({
   selector: 'customer-view',
@@ -13,6 +14,8 @@ import {NavigationService} from '../../../navigation/navigation.service';
 })
 export class CustomerViewComponent extends AbstractEntityViewComponent<Customer> implements OnInit, OnDestroy {
   selectedIndex: number = 0;
+
+  mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
   constructor(
     service: CustomersService,
@@ -25,6 +28,12 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
 
   ngOnInit() {
     this.init();
+  }
+
+  getPhoneNumber(): string {
+    if (!this.entity || !this.entity.phone) return '';
+
+    return conformToMask(this.entity.phone, this.mask, {guide: false}).conformedValue;
   }
 
   ngOnDestroy() {
