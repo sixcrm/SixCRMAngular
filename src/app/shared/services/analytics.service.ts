@@ -237,7 +237,7 @@ export class AnalyticsService {
 
   getActivityByCustomer(start: string, end: string, customer: string, limit: number, offset: number) {
     this.queryRequest(activitiesByCustomer(start, end, customer, limit, offset)).subscribe(data => {
-      let activityList = data.json().data.listactivitybycustomer;
+      let activityList = data.json().data.listactivitybyidentifier;
 
       if (activityList && activityList.activity) {
         this.activitiesByCustomer$.next(activityList.activity.map(activity => new Activity(activity)));

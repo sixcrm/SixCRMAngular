@@ -1,36 +1,26 @@
-<div class="customer-view__table">
-  <md-input class="customer-view__table__filter" placeholder="Filter" [(ngModel)]="filterValue"></md-input>
-  <table class="highlight">
+<div class="customer-view__table customer-view__table--homepage">
+  <div class="customer-view__table__header customer-view__table__header--homepage">
+    <div class="customer-view__table__header__title">
+      <md-icon>trending_up</md-icon>
+      <span>UPCOMING TRANSACTIONS</span>
+    </div>
+    <md-icon class="customer-view__table__header__action alone">more_vert</md-icon>
+  </div>
+  <table class="highlight table__homepage">
     <thead>
     <tr>
       <th *ngFor="let params of columnParams" (click)="setSortedColumnParams(params)" [class.cell--align-right]="params.align === 'right'">
         {{params.label}}
         <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
       </th>
-      <th></th>
     </tr>
     </thead>
 
     <tbody>
     <tr *ngFor="let entity of entities | filterEntities: filterValue | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder">
       <td *ngFor="let params of columnParams" [routerLink]="['/rebills', entity.id]" [class.cell--align-right]="params.align === 'right'">{{params.mappingFunction(entity)}}</td>
-      <td>
-        <table-actions
-          [service]="service">
-        </table-actions>
-      </td>
     </tr>
     </tbody>
   </table>
-
-  <table-pagination
-    [limit]="limit"
-    [paginationValues]="paginationValues"
-    [previousDisabled]="page <= 0"
-    [nextDisabled]="!hasMorePages()"
-    (previous)="previous()"
-    (next)="next()"
-    (updateLimit)="updateLimit($event)">
-  </table-pagination>
 </div>
 

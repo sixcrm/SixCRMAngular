@@ -4,12 +4,12 @@ export class Activity {
   id: string;
   date: Moment;
   actor: string;
-  actorType: string;
+  actor_type: string;
   action: string;
-  actedUpon: string;
-  actedUponType: string;
-  associatedWith: string;
-  associatedWithType: string;
+  acted_upon: string;
+  acted_upon_type: string;
+  associated_with: string;
+  associated_with_type: string;
   english: string;
 
   constructor(obj?: any) {
@@ -20,12 +20,34 @@ export class Activity {
     this.id = obj.id || '';
     this.date = utc(obj.datetime);
     this.actor = obj.actor || '';
-    this.actorType = obj.actor_type || '';
+    this.actor_type = obj.actor_type || '';
     this.action = obj.action || '';
-    this.actedUpon = obj.acted_upon || '';
-    this.actedUponType = obj.acted_upon_type || '';
-    this.associatedWith = obj.associated_with || '';
-    this.associatedWithType = obj.associated_with_type || '';
+    this.acted_upon = obj.acted_upon || '';
+    this.acted_upon_type = obj.acted_upon_type || '';
+    this.associated_with = obj.associated_with || '';
+    this.associated_with_type = obj.associated_with_type || '';
     this.english = obj.english || '';
+  }
+
+  parse(): string {
+    let data = JSON.parse(this.english);
+    let sentence = data.english_template;
+
+    sentence = sentence.replace(`{action}`, this.action);
+
+    Object.keys(data).forEach(key => {
+      sentence = sentence.replace(`{${key}}`, this.getString(data[key]));
+    });
+
+    return sentence;
+  }
+
+  private getString(data: any) {
+    if (!data) return '';
+    if (data.user) return data.user;
+    if (data.firstName || data.lastName) return data.firstName + ' ' + data.lastName;
+    if (data.email) return data.email;
+
+    return data.id;
   }
 }

@@ -17,6 +17,8 @@ import {ColumnParams} from '../../../../shared/models/column-params.model';
 export class CustomerTransactionsComponent extends AbstractEntityIndexComponent<Transaction> implements OnInit, OnDestroy {
 
   @Input() id: string;
+  @Input() historical: boolean = true;
+
   filterValue: string;
 
   constructor(
@@ -48,4 +50,7 @@ export class CustomerTransactionsComponent extends AbstractEntityIndexComponent<
     this.destroy();
   }
 
+  getTitle(): string {
+    return this.historical ? 'HISTORICAL TRANSACTIONS' : 'UPCOMING TRANSACTIONS';
+  }
 }

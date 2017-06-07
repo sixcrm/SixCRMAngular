@@ -21,8 +21,7 @@
     <div class="entity-view__navigation">
       <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===0" (click)="setIndex(0)">GENERAL DETAILS</span>
       <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===1" (click)="setIndex(1)">TRANSACTIONS</span>
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===2" (click)="setIndex(2)">BILLING</span>
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===3" (click)="setIndex(3)">SESSIONS</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===3" (click)="setIndex(2)">SESSIONS</span>
     </div>
 
     <md-tab-group [(selectedIndex)]="selectedIndex">
@@ -140,15 +139,9 @@
                 </md-card-content>
               </md-card>
 
-              <md-card class="customer-view__content__card column__large">
-                <md-card-title>
-                  <md-icon>trending_up</md-icon>
-                    Upcoming Billings
-                  <md-icon class="customer-view__content__card__action">more_vert</md-icon>
-                </md-card-title>
-                <md-card-content>
-                </md-card-content>
-              </md-card>
+              <div class="column__large">
+                <customer-rebills [id]="entityId"></customer-rebills>
+              </div>
 
             </div>
 
@@ -171,15 +164,16 @@
       </md-tab>
 
       <md-tab>
-        <customer-transactions *ngIf="entityId" [id]="entityId"></customer-transactions>
+        <div class="tab-container">
+          <customer-transactions [historical]="false" [id]="entityId"></customer-transactions>
+          <customer-transactions [id]="entityId"></customer-transactions>
+        </div>
       </md-tab>
 
       <md-tab>
-        <customer-rebills *ngIf="entityId" [id]="entityId"></customer-rebills>
-      </md-tab>
-
-      <md-tab>
-        <customer-sessions *ngIf="entityId" [id]="entityId"></customer-sessions>
+        <div class="tab-container">
+          <customer-sessions [id]="entityId"></customer-sessions>
+        </div>
       </md-tab>
     </md-tab-group>
   </div>

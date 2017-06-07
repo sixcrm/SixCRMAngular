@@ -146,48 +146,96 @@ $card-title-color: #5B9BE1;
   }
 
   &__table {
-    min-height: calc(100vh - 350px);
+    margin: 10px;
     padding-bottom: 20px;
     background: white;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
 
-    &__filter {
-      float: right;
-      margin: 20px 30px 20px 20px;
-      font-size: 14px;
+    &--homepage {
+      margin: 5px;
+      box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+    }
 
-      .md-input-wrapper {
-        margin: 0;
+    &__header {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+
+      &--homepage {
+        padding: 18px;
+      }
+
+      &__title {
+        display: flex;
+        margin-bottom: 0;
+        color: #5B9BE1;
+        font-size: 16px;
+        font-weight: 500;
+
+        md-icon {
+          height: 18px;
+          line-height: 18px;
+          vertical-align: middle;
+          font-size: 18px;
+        }
+
+        span {
+          vertical-align: middle;
+        }
+      }
+
+      &__filter {
+        margin-left: auto;
+        font-size: 14px;
+
+        .md-input-wrapper {
+          margin: 0;
+        }
+      }
+
+      table-pagination > div {
+        margin: 0 5px;
+      }
+
+      &__action {
+        margin-right: 6px;
+        width: 18px;
+        height: 18px;
+        font-size: 18px;
+        color: rgba(0,0,0,0.5);
+        cursor: pointer;
+      }
+
+      .alone {
+        margin-left: auto;
       }
     }
 
-    table {
+    .table__custom {
       font-size: 13px;
 
       tr {
         td,th {
           cursor: pointer;
-
-          &:first-child {
-            padding-left: 50px;
-          }
+          padding: 5px 15px;
 
           &:last-child {
-            padding-right: 30px;
             width: 40px;
           }
         }
       }
 
       thead {
-        border: none !important;
 
         th {
-          padding: 5px 5px 30px;
           font-weight: 400;
 
           md-icon {
             position: absolute;
-            top: 26px;
+            width: 18px;
+            height: 18px;
+            font-size: 18px;
+            cursor: pointer;
           }
         }
       }
@@ -199,9 +247,49 @@ $card-title-color: #5B9BE1;
         }
 
         td {
-          padding: 5px;
+          md-icon {
+            width: 18px;
+            height: 18px;
+            font-size: 18px;
+            color: rgba(0,0,0,0.5);
+            cursor: pointer;
+          }
         }
       }
+    }
+
+    .table__homepage {
+      font-size: 13px;
+
+      tr {
+        td,th {
+          cursor: pointer;
+          padding: 5px 15px;
+
+          &:first-of-type {
+            padding-left: 18px;
+          }
+        }
+      }
+
+      thead {
+
+        th {
+          font-weight: 400;
+        }
+      }
+
+      tbody {
+
+        tr {
+          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+
+
+    table-pagination {
+      font-size: 12px;
     }
   }
 
@@ -546,4 +634,8 @@ customer-events {
       }
     }
   }
+}
+
+.tab-container {
+  min-height: calc(100vh - 370px);
 }

@@ -1,6 +1,18 @@
 <div class="customer-view__table">
-  <md-input class="customer-view__table__filter" placeholder="Filter" [(ngModel)]="filterValue"></md-input>
-  <table class="highlight">
+  <div class="customer-view__table__header">
+    <md-input class="customer-view__table__header__filter" placeholder="Filter" [(ngModel)]="filterValue"></md-input>
+    <table-pagination
+      [limit]="limit"
+      [paginationValues]="paginationValues"
+      [previousDisabled]="page <= 0"
+      [nextDisabled]="!hasMorePages()"
+      (previous)="previous()"
+      (next)="next()"
+      (updateLimit)="updateLimit($event)">
+    </table-pagination>
+    <md-icon class="customer-view__table__header__action">more_vert</md-icon>
+  </div>
+  <table class="highlight table__custom">
     <thead>
     <tr>
       <th *ngFor="let params of columnParams" (click)="setSortedColumnParams(params)" [class.cell--align-right]="params.align === 'right'">
