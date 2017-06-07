@@ -27,35 +27,86 @@
 
     <md-tab-group [(selectedIndex)]="selectedIndex">
       <md-tab>
-        <div class="customer-view__content">
+        <div *ngIf="!creditCardInputMode; else creditCardInput" class="customer-view__content">
             <div class="column">
               <md-card class="customer-view__content__card column__small">
                 <md-card-title>
                   <span>SHIPPING ADDRESS</span>
-                  <md-icon class="customer-view__content__card__action">more_vert</md-icon>
+                  <md-icon [md-menu-trigger-for]="addressOptions" class="customer-view__content__card__action">more_vert</md-icon>
+                  <md-menu #addressOptions="mdMenu" x-position="before">
+                    <button md-menu-item (click)="addressEditMode = true;"> edit </button>
+                  </md-menu>
                 </md-card-title>
                 <md-card-content>
                   <div class="customer-view__content__card__item"><span>Name: </span>{{entity.firstName}} {{entity.lastName}}</div>
-                  <div class="customer-view__content__card__item"><span>Address 1: </span>{{entity.address.line1}}</div>
-                  <div class="customer-view__content__card__item"><span>Address 2: </span>{{entity.address.line2}}</div>
-                  <div class="customer-view__content__card__item"><span>Postal Code: </span>{{entity.address.zip}}</div>
-                  <div class="customer-view__content__card__item"><span>City: </span>{{entity.address.city}}</div>
-                  <div class="customer-view__content__card__item"><span>State: </span>{{entity.address.state}}</div>
-                  <div class="customer-view__content__card__item"><span>Country: </span>{{entity.address.country}}</div>
+                  <div class="customer-view__content__card__item">
+                    <span>Address 1: </span>
+                    <span *ngIf="!addressEditMode; else line1">{{entity.address.line1}}</span>
+                    <ng-template #line1>
+                      <md-input [(ngModel)]="entity.address.line1"></md-input>
+                    </ng-template>
+                  </div>
+                  <div class="customer-view__content__card__item">
+                    <span>Address 2: </span>
+                    <span *ngIf="!addressEditMode; else line2">{{entity.address.line2}}</span>
+                    <ng-template #line2>
+                      <md-input [(ngModel)]="entity.address.line2"></md-input>
+                    </ng-template>
+                  </div>
+                  <div class="customer-view__content__card__item">
+                    <span>Postal Code: </span>
+                    <span *ngIf="!addressEditMode; else zip">{{entity.address.zip}}</span>
+                    <ng-template #zip>
+                      <md-input [(ngModel)]="entity.address.zip"></md-input>
+                    </ng-template>
+                  </div>
+                  <div class="customer-view__content__card__item">
+                    <span>City: </span>
+                    <span *ngIf="!addressEditMode; else city">{{entity.address.city}}</span>
+                    <ng-template #city>
+                      <md-input [(ngModel)]="entity.address.city"></md-input>
+                    </ng-template>
+                  </div>
+                  <div class="customer-view__content__card__item">
+                    <span>State: </span>
+                    <span *ngIf="!addressEditMode; else state">{{entity.address.state}}</span>
+                    <ng-template #state>
+                      <md-input [(ngModel)]="entity.address.state"></md-input>
+                    </ng-template>
+                  </div>
+                  <div class="customer-view__content__card__item">
+                    <span>Country: </span>
+                    <span *ngIf="!addressEditMode; else country">{{entity.address.country}}</span>
+                    <ng-template #country>
+                      <md-input [(ngModel)]="entity.address.country"></md-input>
+                    </ng-template>
+                  </div>
+
+                  <div *ngIf="addressEditMode" class="customer-view__content__card__actions">
+                    <div (click)="cancelAddressUpdate()">CANCEL</div>
+                    <div (click)="updateEntity(entity)">UPDATE</div>
+                  </div>
                 </md-card-content>
               </md-card>
 
               <md-card *ngIf="entity.creditCards && entity.creditCards.length !== 1" class="customer-view__content__card credit-cards column__medium">
                 <md-card-title class="credit-cards__title">
                   <span>CREDIT CARDS</span>
-                  <md-icon class="customer-view__content__card__action">more_vert</md-icon>
+                  <md-icon [md-menu-trigger-for]="creditCardOptions" class="customer-view__content__card__action">more_vert</md-icon>
+                  <md-menu #creditCardOptions="mdMenu" x-position="before">
+                    <button md-menu-item (click)="addNewCreditCard()"> new </button>
+                  </md-menu>
                 </md-card-title>
                 <md-card-content>
                   <div *ngFor="let cc of entity.creditCards" class="credit-cards__item">
                     <img src="/assets/images/credit-card-notification.svg">
-                    <span>{{cc.ccnumber.getType() | uppercase}} {{cc.ccnumber | creditCardFormat: true}}</span>
-                    <span>Exp: {{cc.expiration}}</span>
-                    <md-icon>remove_red_eye</md-icon>
+                    <span>{{cc.getType() | uppercase}} {{cc.ccnumber | creditCardFormat: true}}</span>
+                    <span>Exp: {{cc.expiration | creditCardExpiration}}</span>
+                    <md-icon [md-menu-trigger-for]="creditCardOptions">remove_red_eye</md-icon>
+                    <md-menu #creditCardOptions="mdMenu" x-position="before">
+                      <button md-menu-item (click)="editCreditCard(cc)"> edit </button>
+                      <button md-menu-item (click)="deleteCreditCard(cc)"> remove </button>
+                    </md-menu>
                   </div>
                 </md-card-content>
               </md-card>
@@ -64,12 +115,16 @@
                 <md-card-title>
                   <md-icon>credit_card</md-icon>
                   <span>{{entity.creditCards[0].getType() | uppercase}} {{entity.creditCards[0].ccnumber | creditCardFormat: true}}</span>
-                  <md-icon class="customer-view__content__card__action">more_vert</md-icon>
+                  <md-icon [md-menu-trigger-for]="creditCardOptions" class="customer-view__content__card__action">more_vert</md-icon>
+                  <md-menu #creditCardOptions="mdMenu" x-position="before">
+                    <button md-menu-item (click)="addNewCreditCard()"> new </button>
+                    <button md-menu-item (click)="editCreditCard(entity.creditCards[0])"> edit </button>
+                  </md-menu>
                 </md-card-title>
                 <md-card-content class="customer-view__content__card__content">
                   <div class="customer-view__content__card__column">
                     <div class="customer-view__content__card__item"><span>Billing Address: </span></div>
-                    <div class="customer-view__content__card__item"><span>Address 1: </span>{{entity.creditCards[0].address.line2}}</div>
+                    <div class="customer-view__content__card__item"><span>Address 1: </span>{{entity.creditCards[0].address.line1}}</div>
                     <div class="customer-view__content__card__item"><span>Address 2: </span>{{entity.creditCards[0].address.line2}}</div>
                     <div class="customer-view__content__card__item"><span>Postal Code: </span>{{entity.creditCards[0].address.zip}}</div>
                     <div class="customer-view__content__card__item"><span>City: </span>{{entity.creditCards[0].address.city}}</div>
@@ -78,8 +133,9 @@
                   </div>
                   <div class="customer-view__content__card__column customer-view__content__card__column--last">
                     <div class="customer-view__content__card__item"><span>Name: </span>{{entity.creditCards[0].name}}</div>
-                    <div class="customer-view__content__card__item"><span>Last 4: </span>{{entity.creditCards[0].ccnumber | creditCardFormat}}</div>
-                    <div class="customer-view__content__card__item"><span>Expiration: </span>{{entity.creditCards[0].expiration}}</div>
+                    <div class="customer-view__content__card__item"><span>Card Type: </span>{{entity.creditCards[0].getType() | uppercase}}</div>
+                    <div class="customer-view__content__card__item"><span>Card Number: </span>{{entity.creditCards[0].ccnumber | creditCardFormat: true}}</div>
+                    <div class="customer-view__content__card__item"><span>Expiration: </span>{{entity.creditCards[0].expiration | creditCardExpiration | creditCardExpiration}}</div>
                   </div>
                 </md-card-content>
               </md-card>
@@ -102,6 +158,16 @@
               <customer-events [customer]="entity"></customer-events>
             </div>
           </div>
+        <ng-template #creditCardInput>
+          <div class="customer-view__content">
+            <credit-card-input
+              [creditCard]="creditCardForInput"
+              (cancel)="cancelCreditCardInput()"
+              (updated)="creditCardUpdated($event)"
+              (created)="creditCardCreated($event)">
+            </credit-card-input>
+          </div>
+        </ng-template>
       </md-tab>
 
       <md-tab>

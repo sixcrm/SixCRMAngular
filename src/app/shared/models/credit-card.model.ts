@@ -37,8 +37,24 @@ export class CreditCard implements Entity<CreditCard> {
     };
   }
 
+  getMutation(): string {
+    let id = this.id ? `id:"${this.id}"` : '';
+    let expiration = this.expiration ? `expiration:"${this.expiration}"` : '';
+    let line1 = this.address.line1 ? `line1:"${this.address.line1}"` : '';
+    let line2 = this.address.line2 ? `line2:"${this.address.line2}"` : '';
+    let city = this.address.city ? `city:"${this.address.city}"` : '';
+    let state = this.address.state ? `state:"${this.address.state}"` : '';
+    let zip = this.address.zip ? `zip:"${this.address.zip}"` : '';
+    let country = this.address.country ? `country:"${this.address.country}"` : '';
+
+    return `
+      ${id} number: "${this.ccnumber}" ${expiration} ccv: "${this.ccv}" name: "${this.name}",
+      address: { ${line1} ${line2} ${city} ${state} ${zip} ${country} }
+    `
+  }
+
   getType(): string {
-    if (!this.ccnumber || this.ccnumber.length !== 16) return '';
+    if (!this.ccnumber || this.ccnumber.length !== 16) return 'other';
 
     let types = {
       electron: /^(4026|417500|4405|4508|4844|4913|4917)\d+$/,
@@ -60,6 +76,6 @@ export class CreditCard implements Entity<CreditCard> {
       }
     }
 
-    return '';
+    return 'other';
   }
 }

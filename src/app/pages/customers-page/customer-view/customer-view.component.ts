@@ -6,6 +6,8 @@ import {ActivatedRoute} from '@angular/router';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {conformToMask} from 'angular2-text-mask';
+import {CreditCard} from '../../../shared/models/credit-card.model';
+import {firstIndexOf} from '../../../shared/utils/array-utils';
 
 @Component({
   selector: 'customer-view',
@@ -17,6 +19,10 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
 
   mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
+  addressEditMode: boolean = false;
+  creditCardInputMode: boolean = false;
+  creditCardForInput: CreditCard;
+
   constructor(
     service: CustomersService,
     route: ActivatedRoute,
@@ -27,6 +33,8 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
   }
 
   ngOnInit() {
+    this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(() => this.addressEditMode = false);
+
     this.init();
   }
 
@@ -40,7 +48,63 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
     this.destroy();
   }
 
+  cancelAddressUpdate() {
+    this.addressEditMode = false;
+    this.cancelUpdate();
+  }
+
   setIndex(index: number): void {
     this.selectedIndex = index;
   }
+
+  addNewCreditCard(): void {
+    this.creditCardInputMode = true;
+    this.creditCardForInput = new CreditCard();
+  }
+
+  editCreditCard(creditCard: CreditCard): void {
+    this.creditCardInputMode = true;
+    this.creditCardForInput = creditCard.copy();
+  }
+
+  deleteCreditCard(ccard: CreditCard): void {
+    this.removeCreditCardLocally(ccard);
+    this.cancelCreditCardInput();
+    this.progressBarService.showTopProgressBar();
+    this.service.updateEntity(this.entity);
+  }
+
+  cancelCreditCardInput(): void {
+    this.creditCardInputMode = false;
+    this.creditCardForInput = null;
+  }
+
+  creditCardUpdated(ccard: CreditCard): void {
+    this.cancelCreditCardInput();
+    this.updateCreditCardLocally(ccard);
+  }
+
+  creditCardCreated(ccard: CreditCard): void {
+    this.entity.creditCards.push(ccard);
+    this.cancelCreditCardInput();
+    this.progressBarService.showTopProgressBar();
+    this.service.updateEntity(this.entity);
+  }
+
+  updateCreditCardLocally(ccard: CreditCard): void {
+    let index = firstIndexOf(this.entity.creditCards, el => el.id === ccard.id);
+
+    if (index >= 0) {
+      this.entity.creditCards[index] = ccard;
+    }
+  }
+
+  removeCreditCardLocally(ccard: CreditCard): void {
+    let index = firstIndexOf(this.entity.creditCards, el => el.id === ccard.id);
+
+    if (index >= 0) {
+      this.entity.creditCards.splice(index, 1);
+    }
+  }
+
 }

@@ -272,7 +272,7 @@ export function customerQuery(id: string): string {
     customer (id: "${id}") { id email firstname lastname phone created_at,
       address { line1 line2 city state zip country }
 		  creditcards {	id number expiration ccv name,
-			  address { line1 line2 city state zip }
+			  address { line1 line2 city state zip country }
 			}
 		}
   }`
@@ -283,19 +283,11 @@ export function deleteCustomerMutation(id: string): string {
 }
 
 export function createCustomerMutation(customer: Customer): string {
-  let creditCards: string = '';
-  for (let index in customer.creditCards) {
-    let creditCard = customer.creditCards[index];
-    creditCards += `"${creditCard.id}" `;
-  }
 
   return `
     mutation {
 		  createcustomer (
-		    customer: {
-		      id: "${generateUUID()}" email: "${customer.email}" firstname: "${customer.firstName}" lastname: "${customer.lastName}" phone: "${customer.phone}",
-		      address: { line1: "${customer.address.line1}" city: "${customer.address.city}" state: "${customer.address.state}" zip: "${customer.address.zip}" country: "${customer.address.country}" }
-		      creditcards:[${creditCards}] }
+		    customer: { ${customer.getMutation()} }
       ) {
         id email firstname lastname phone,
         address { line1 city state zip country }
@@ -307,24 +299,15 @@ export function createCustomerMutation(customer: Customer): string {
 }
 
 export function updateCustomerMutation(customer: Customer): string {
-  let creditCards: string = '';
-  for (let index in customer.creditCards) {
-    let creditCard = customer.creditCards[index];
-    creditCards += `"${creditCard.id}" `;
-  }
-
   return `
     mutation {
 		  updatecustomer (
-		    customer: {
-		      id: "${customer.id}" email: "${customer.email}" firstname: "${customer.firstName}" lastname: "${customer.lastName}" phone: "${customer.phone}",
-		      address: { line1: "${customer.address.line1}" city: "${customer.address.city}" state: "${customer.address.state}" zip: "${customer.address.zip}" country: "${customer.address.country}" }
-		      creditcards:[${creditCards}] }
+		    customer: { ${customer.getMutation()} }
       ) {
 		    id email firstname lastname phone,
-		    address { line1 city state zip country }
+		    address { line1 line2 city state zip country }
 			  creditcards { id number expiration ccv name,
-				  address { line1 line2 city state zip }
+				  address { line1 line2 city state zip country }
 			  }
 		  }
 	  }`
@@ -593,7 +576,7 @@ export function deleteCreditCardMutation(id: string): string {
 export function createCreditCardMutation(cc: CreditCard): string {
   return `
     mutation {
-		  createcreditcard (creditcard: { number: "${cc.ccnumber}" expiration: "${cc.expiration}" ccv: "${cc.ccv}" name: "${cc.name}" address: { line1: "${cc.address.line1}" line2: "${cc.address.line2}" city: "${cc.address.city}" state: "${cc.address.state}" zip: "${cc.address.zip}" country: "${cc.address.country}" } }) {
+		  createcreditcard (creditcard: { ${cc.getMutation()} }) {
         id number expiration ccv name,
         address { line1 line2 city state zip country }
       }
@@ -603,7 +586,7 @@ export function createCreditCardMutation(cc: CreditCard): string {
 export function updateCreditCardMutation(cc: CreditCard): string {
   return `
     mutation {
-		  updatecreditcard (creditcard: { id: "${cc.id}" number: "${cc.ccnumber}" expiration: "${cc.expiration}" ccv: "${cc.ccv}" name: "${cc.name}" address: { line1: "${cc.address.line1}" line2: "${cc.address.line2}" city: "${cc.address.city}" state: "${cc.address.state}" zip: "${cc.address.zip}" country: "${cc.address.country}" } }) {
+		  updatecreditcard (creditcard: { ${cc.getMutation()} }) {
         id number expiration ccv name,
         address { line1 line2 city state zip country }
       }

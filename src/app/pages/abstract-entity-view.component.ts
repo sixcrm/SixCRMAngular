@@ -62,10 +62,8 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
   }
 
   protected updateEntity(entity: T): void {
-    if (this.updateMode) {
-      this.service.updateEntity(entity);
-      this.progressBarService.showTopProgressBar();
-    }
+    this.service.updateEntity(entity);
+    this.progressBarService.showTopProgressBar();
   }
 
   protected cancelUpdate(): void {
