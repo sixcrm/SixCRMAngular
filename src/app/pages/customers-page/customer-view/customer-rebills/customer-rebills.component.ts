@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, Input} from '@angular/core';
+import {Component, OnInit, OnDestroy, Input, Output, EventEmitter} from '@angular/core';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {Rebill} from '../../../../shared/models/rebill.model';
 import {RebillsService} from '../../../../shared/services/rebills.service';
@@ -18,6 +18,8 @@ export class CustomerRebillsComponent extends AbstractEntityIndexComponent<Rebil
 
   @Input() id: string;
   @Input() homepageMode: boolean = false;
+
+  @Output() editRebill: EventEmitter<Rebill> = new EventEmitter();
 
   filterValue: string;
 
@@ -47,5 +49,9 @@ export class CustomerRebillsComponent extends AbstractEntityIndexComponent<Rebil
   ngOnDestroy() {
     this.service.indexQuery = rebillsListQuery;
     this.destroy();
+  }
+
+  updateRebill(rebill: Rebill) {
+    this.editRebill.next(rebill);
   }
 }

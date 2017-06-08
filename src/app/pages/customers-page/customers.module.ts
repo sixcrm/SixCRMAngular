@@ -17,6 +17,8 @@ import { CustomerEventsComponent } from './customer-view/customer-events/custome
 import { CreditCardInputComponent } from './customer-view/credit-card-input/credit-card-input.component';
 import {TextMaskModule} from 'angular2-text-mask';
 import { CustomerFulfillmentComponent } from './customer-view/customer-fulfillment/customer-fulfillment.component';
+import { CustomerRebillEditComponent } from './customer-view/customer-rebill-edit/customer-rebill-edit.component';
+import {Daterangepicker} from 'ng2-daterangepicker';
 
 @NgModule({
   imports : [
@@ -27,7 +29,8 @@ import { CustomerFulfillmentComponent } from './customer-view/customer-fulfillme
     ReactiveFormsModule,
     PageComponentsModule,
     SharedModule,
-    TextMaskModule
+    TextMaskModule,
+    Daterangepicker
   ],
   declarations : [
     CustomersComponent,
@@ -39,7 +42,8 @@ import { CustomerFulfillmentComponent } from './customer-view/customer-fulfillme
     CustomerNotesComponent,
     CustomerEventsComponent,
     CreditCardInputComponent,
-    CustomerFulfillmentComponent
+    CustomerFulfillmentComponent,
+    CustomerRebillEditComponent
   ],
   exports : [
     CustomerComponent

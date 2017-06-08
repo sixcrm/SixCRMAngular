@@ -8,6 +8,7 @@ import {NavigationService} from '../../../navigation/navigation.service';
 import {conformToMask} from 'angular2-text-mask';
 import {CreditCard} from '../../../shared/models/credit-card.model';
 import {firstIndexOf} from '../../../shared/utils/array-utils';
+import {Rebill} from '../../../shared/models/rebill.model';
 
 @Component({
   selector: 'customer-view',
@@ -24,6 +25,9 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
   creditCardForInput: CreditCard;
 
   customerInfoEditMode: boolean = false;
+
+  rebillEditMode: boolean = false;
+  rebillUnderEdit: Rebill;
 
   constructor(
     service: CustomersService,
@@ -115,6 +119,15 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
     if (index >= 0) {
       this.entity.creditCards.splice(index, 1);
     }
+  }
+
+  editRebillMode(rebill: Rebill): void {
+    this.rebillUnderEdit = rebill;
+    this.rebillEditMode = true;
+  }
+
+  cancelRebillMode(): void {
+    this.rebillEditMode = false;
   }
 
 }

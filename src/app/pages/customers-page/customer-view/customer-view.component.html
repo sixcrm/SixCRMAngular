@@ -30,7 +30,11 @@
         </div>
       </div>
       <div class="entity-view__info__edit">
-        <md-icon *ngIf="!customerInfoEditMode; else editActions" (click)="customerInfoEditMode = true">edit</md-icon>
+        <md-icon *ngIf="!customerInfoEditMode; else editActions" [md-menu-trigger-for]="mainMenu">more_vert</md-icon>
+        <md-menu #mainMenu="mdMenu" x-position="after">
+          <button md-menu-item (click)="customerInfoEditMode = true"> Edit Customer </button>
+        </md-menu>
+
         <ng-template #editActions>
           <div (click)="cancelInfoUpdate()">CANCEL</div>
           <div class="entity-view__info__edit__update" (click)="updateEntity(entity)">UPDATE</div>
@@ -54,7 +58,7 @@
                 <span>SHIPPING ADDRESS</span>
                 <md-icon [md-menu-trigger-for]="addressOptions" class="customer-view__content__card__action">more_vert</md-icon>
                 <md-menu #addressOptions="mdMenu" x-position="before">
-                  <button md-menu-item (click)="addressEditMode = true;"> edit </button>
+                  <button md-menu-item (click)="addressEditMode = true;"> Edit Shipping Address </button>
                 </md-menu>
               </md-card-title>
               <md-card-content>
@@ -114,7 +118,7 @@
                 <span>CREDIT CARDS</span>
                 <md-icon [md-menu-trigger-for]="creditCardOptions" class="customer-view__content__card__action">more_vert</md-icon>
                 <md-menu #creditCardOptions="mdMenu" x-position="before">
-                  <button md-menu-item (click)="addNewCreditCard()"> new </button>
+                  <button md-menu-item (click)="addNewCreditCard()"> Add Credit Card </button>
                 </md-menu>
               </md-card-title>
               <md-card-content>
@@ -124,8 +128,8 @@
                   <span class="credit-cards__item__expiration">Exp: {{cc.expiration | creditCardExpiration}}</span>
                   <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
                   <md-menu #creditCardOptions="mdMenu" x-position="before">
-                    <button md-menu-item (click)="editCreditCard(cc)"> edit </button>
-                    <button md-menu-item (click)="deleteCreditCard(cc)"> remove </button>
+                    <button md-menu-item (click)="editCreditCard(cc)"> Edit Credit Card </button>
+                    <button md-menu-item (click)="deleteCreditCard(cc)"> Remove Credit Card </button>
                   </md-menu>
                 </div>
               </md-card-content>
@@ -137,8 +141,8 @@
                 <span>{{entity.creditCards[0].getType() | uppercase}} {{entity.creditCards[0].ccnumber | creditCardFormat: true}}</span>
                 <md-icon [md-menu-trigger-for]="creditCardOptions" class="customer-view__content__card__action">more_vert</md-icon>
                 <md-menu #creditCardOptions="mdMenu" x-position="before">
-                  <button md-menu-item (click)="addNewCreditCard()"> new </button>
-                  <button md-menu-item (click)="editCreditCard(entity.creditCards[0])"> edit </button>
+                  <button md-menu-item (click)="addNewCreditCard()"> Add Credit Card </button>
+                  <button md-menu-item (click)="editCreditCard(entity.creditCards[0])"> Edit Credit Card </button>
                 </md-menu>
               </md-card-title>
               <md-card-content class="customer-view__content__card__content">
@@ -184,8 +188,15 @@
 
       <md-tab>
         <div class="tab-container">
-          <customer-rebills [id]="entityId"></customer-rebills>
-          <customer-transactions [id]="entityId"></customer-transactions>
+          <div [class.customer-view__content--invisible]="rebillEditMode">
+            <customer-rebills [id]="entityId" (editRebill)="editRebillMode($event)"></customer-rebills>
+            <customer-transactions [id]="entityId"></customer-transactions>
+          </div>
+          <customer-rebill-edit
+            *ngIf="rebillEditMode"
+            [value]="rebillUnderEdit"
+            (cancel)="cancelRebillMode()">
+          </customer-rebill-edit>
         </div>
       </md-tab>
 

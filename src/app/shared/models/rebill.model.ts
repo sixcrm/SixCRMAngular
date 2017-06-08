@@ -21,7 +21,7 @@ export class Rebill implements Entity<Rebill> {
 
     this.id = obj.id || '';
     this.amount = new Currency(obj.amount);
-    this.billAt = obj.bill_at ? utc(obj.bill_at) : null;
+    this.billAt = utc(obj.bill_at);
     this.createdAt = utc(obj.created_at);
     this.parentSession = new ParentSession(obj.parentsession);
 
@@ -39,6 +39,6 @@ export class Rebill implements Entity<Rebill> {
   }
 
   copy(): Rebill {
-    return null;
+    return JSON.parse(JSON.stringify(this));
   }
 }

@@ -36,6 +36,7 @@
       <td *ngIf="!homepageMode">
         <button md-icon-button [md-menu-trigger-for]="actionsMenu"><md-icon>more_vert</md-icon></button>
         <md-menu #actionsMenu="mdMenu" x-position="before">
+          <button md-menu-item (click)="updateRebill(entity)">Edit Transaction</button>
           <button md-menu-item (click)="deleteEntity(entity.id)">Cancel Transaction</button>
         </md-menu>
       </td>

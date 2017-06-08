@@ -25,7 +25,7 @@ export class CustomerEventsComponent implements OnInit, OnDestroy {
       this.activities = activities;
     });
 
-    this.analyticsService.getActivityByCustomer(this.customer.createdAt.format(), utc().format(), this.customer.id, 5, 0);
+    this.analyticsService.getActivityByCustomer(utc().subtract(6, 'M').format(), utc().format(), this.customer.id, 5, 0);
   }
 
   ngOnDestroy() {

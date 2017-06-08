@@ -13,6 +13,7 @@ import {Notification} from '../models/notification.model';
 import {utc} from 'moment'
 import {UserSettings} from '../models/user-settings';
 import {NotificationSettings} from '../models/notification-settings.model';
+import {Rebill} from '../models/rebill.model';
 
 const uuidV4 = require('uuid/v4');
 
@@ -554,6 +555,92 @@ export function rebillsByCustomer(customerId: string, limit?: number, cursor?: s
 
 export function deleteRebillMutation(id: string): string {
   return deleteMutation('rebill', id);
+}
+
+export function updateRebillMutation(rebill: Rebill): string {
+  let schedules = '';
+  Object.keys(rebill.productSchedules).forEach(key => {
+    schedules += ` "${rebill.productSchedules[key].id}",`
+  });
+
+  return `
+    mutation { 
+      updaterebill ( rebill: { id: "${rebill.id}", bill_at:"${ rebill.billAt.format() }", parentsession: "${rebill.parentSession.id}", amount:"${rebill.amount.amount}", product_schedules:[${schedules}] } ) { 
+        id,
+        bill_at,
+        amount,
+        created_at,
+        updated_at,
+        parentsession {
+          id, 
+          customer { 
+            id, 
+            firstname, 
+            lastname, 
+            address { 
+              line1, 
+              line2, 
+              city, 
+              state, 
+              zip 
+            } 
+          },
+          product_schedules {
+            id,
+            schedule {
+              price,
+              start,
+              end,
+              period,
+              product {
+                id,
+                name,
+                sku,
+                ship,
+                shipping_delay,
+                fulfillment_provider {
+                  id, 
+                  name,
+                  provider,
+                  username,
+                  password,
+                  endpoint
+                }
+              }
+            }
+          },
+        },
+        product_schedules {
+          id,
+          schedule {
+            price,
+            start,
+            end,
+            period,
+            product {
+              id,
+              name,
+              sku,
+              ship,
+              shipping_delay,
+              fulfillment_provider {
+                id, 
+                name,
+                provider,
+                username,
+                password,
+                endpoint
+              }
+            }
+          }
+        },
+        transactions {
+          id,
+          processor_response,
+          amount
+        }
+      } 
+    }`
 }
 
 export function creditCardsListQuery(limit?:number, cursor?:string): string {

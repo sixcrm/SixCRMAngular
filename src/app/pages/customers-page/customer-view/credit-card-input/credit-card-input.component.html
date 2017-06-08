@@ -1,48 +1,48 @@
-<div *ngIf="ccard" class="customer-view__cc-input">
-  <div class="customer-view__cc-input__title">
-    <div class="customer-view__cc-input__title--main">
+<div *ngIf="ccard" class="customer-view__edit">
+  <div class="customer-view__edit__title">
+    <div class="customer-view__edit__title--main">
       {{ ccard.id ? 'Edit' : 'Create New'}} Credit Card
     </div>
-    <div *ngIf="!ccard.id" class="customer-view__cc-input__title--sub">
+    <div *ngIf="!ccard.id" class="customer-view__edit__title--sub">
       Create a new credit card with the associated user
     </div>
   </div>
 
-  <div class="customer-view__cc-input__info">
+  <div class="customer-view__edit__info">
     <md-input placeholder="Name on Card" [(ngModel)]="ccard.name"></md-input>
     <input-credit-card [value]="ccard.ccnumber" [placeholder]="'Credit Card Number'" (result)="ccard.ccnumber = $event"></input-credit-card>
     <input-credit-card [value]="ccard.ccv" [mode]="'ccv'" [placeholder]="'CCV'" (result)="ccard.ccv = $event"></input-credit-card>
 
-    <div class="customer-view__cc-input__info__expiration">
-      <div class="customer-view__cc-input__info__expiration__item">
-        <span class="customer-view__cc-input__info__expiration__item__title">Expiration Date Month</span>
+    <div class="customer-view__edit__info__expiration">
+      <div class="customer-view__edit__info__expiration__item">
+        <span class="customer-view__edit__info__expiration__item__title">Expiration Date Month</span>
         <dropdown-component [selected]="expirationMonth" [placeholder]="'MM'" [options]="months" (onSelect)="selectMonth($event)"></dropdown-component>
       </div>
 
-      <div class="customer-view__cc-input__info__expiration__item">
-        <span class="customer-view__cc-input__info__expiration__item__title">Expiration Date Year</span>
+      <div class="customer-view__edit__info__expiration__item">
+        <span class="customer-view__edit__info__expiration__item__title">Expiration Date Year</span>
         <dropdown-component [selected]="expirationYear" [placeholder]="'YYYY'" [options]="years" (onSelect)="selectYear($event)"></dropdown-component>
       </div>
     </div>
   </div>
 
-  <div class="customer-view__cc-input__address">
-    <div class="customer-view__cc-input__address__title">Billing Address</div>
+  <div class="customer-view__edit__address">
+    <div class="customer-view__edit__address__title">Billing Address</div>
     <md-input placeholder="Address 1" [(ngModel)]="ccard.address.line1"></md-input>
     <md-input placeholder="Address 2" [(ngModel)]="ccard.address.line2"></md-input>
 
-    <div class="customer-view__cc-input__address__group">
+    <div class="customer-view__edit__address__group">
       <md-input placeholder="City" [(ngModel)]="ccard.address.city"></md-input>
       <dropdown-component [selected]="ccard.address.state" [placeholder]="'State'" (onSelect)="ccard.address.state = $event" [options]="states"></dropdown-component>
     </div>
 
-    <div class="customer-view__cc-input__address__group">
+    <div class="customer-view__edit__address__group">
       <md-input placeholder="Postal Code" [(ngModel)]="ccard.address.zip"></md-input>
       <dropdown-component [selected]="ccard.address.country" [placeholder]="'Country'"  (onSelect)="ccard.address.country = $event" [options]="['USA']"></dropdown-component>
     </div>
   </div>
 
-  <div class="customer-view__cc-input__actions">
+  <div class="customer-view__edit__actions">
     <div (click)="cancel.next(true)">CANCEL</div>
     <div *ngIf="ccard.id; else save" (click)="updateCreditCard()">UPDATE</div>
     <ng-template #save>
