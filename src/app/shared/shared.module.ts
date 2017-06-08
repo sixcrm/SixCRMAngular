@@ -96,7 +96,8 @@ import { CreditCardMaskPipe } from './pipes/credit-card-mask.pipe';
     DropdownComponent,
     CreditCardExpirationPipe,
     InputCreditCardComponent,
-    CreditCardMaskPipe
+    CreditCardMaskPipe,
+    ComingSoonComponent
   ],
   imports : [FormsModule, CommonModule, MaterialModule, ChartModule, Daterangepicker]
 })

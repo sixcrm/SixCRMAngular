@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
@@ -7,6 +7,8 @@ import {NavigationService} from '../../../navigation/navigation.service';
   styleUrls: ['./coming-soon.component.scss']
 })
 export class ComingSoonComponent implements OnInit {
+
+  @Input() inPage: boolean = false;
 
   constructor(public navigation: NavigationService) { }
 

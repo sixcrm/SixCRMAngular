@@ -655,3 +655,10 @@ customer-events {
 .tab-container {
   min-height: calc(100vh - 370px);
 }
+
+.customer-view__fulfillment {
+
+  .coming-soon {
+    height: calc(100vh - 345px) !important;
+  }
+}

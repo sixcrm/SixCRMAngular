@@ -1,5 +1,5 @@
 <div class="coming-soon">
-  <div (click)="navigation.back()" class="coming-soon__back-button"><md-icon>reply</md-icon></div>
+  <div *ngIf="!inPage" (click)="navigation.back()" class="coming-soon__back-button"><md-icon>reply</md-icon></div>
 
   <div class="coming-soon__container">
     <img class="coming-soon__image" src="/assets/images/logo-blue.svg">

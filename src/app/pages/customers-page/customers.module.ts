@@ -16,6 +16,7 @@ import { CustomerNotesComponent } from './customer-view/customer-notes/customer-
 import { CustomerEventsComponent } from './customer-view/customer-events/customer-events.component';
 import { CreditCardInputComponent } from './customer-view/credit-card-input/credit-card-input.component';
 import {TextMaskModule} from 'angular2-text-mask';
+import { CustomerFulfillmentComponent } from './customer-view/customer-fulfillment/customer-fulfillment.component';
 
 @NgModule({
   imports : [
@@ -37,7 +38,8 @@ import {TextMaskModule} from 'angular2-text-mask';
     CustomerRebillsComponent,
     CustomerNotesComponent,
     CustomerEventsComponent,
-    CreditCardInputComponent
+    CreditCardInputComponent,
+    CustomerFulfillmentComponent
   ],
   exports : [
     CustomerComponent
