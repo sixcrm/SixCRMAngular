@@ -48,5 +48,4 @@ export class CustomerRebillsComponent extends AbstractEntityIndexComponent<Rebil
     this.service.indexQuery = rebillsListQuery;
     this.destroy();
   }
-
 }

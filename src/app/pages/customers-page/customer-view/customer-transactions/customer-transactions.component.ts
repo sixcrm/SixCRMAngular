@@ -29,11 +29,10 @@ export class CustomerTransactionsComponent extends AbstractEntityIndexComponent<
   ) {
     super(transactionsService, auth, dialog, progressBarService, paginationService);
 
-    let f = this.authService.getTimezone();
-
     this.columnParams = [
       new ColumnParams('Alias', (e: Transaction) => e.alias),
       new ColumnParams('Processor Response', (e: Transaction) => e.processorResponse.message),
+      new ColumnParams('Number Of Products', (e: Transaction) => e.products.length),
       new ColumnParams('Amount', (e: Transaction) => e.amount.usd(), 'right')
     ];
   }

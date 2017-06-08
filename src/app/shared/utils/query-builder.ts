@@ -552,6 +552,10 @@ export function rebillsByCustomer(customerId: string, limit?: number, cursor?: s
   }`
 }
 
+export function deleteRebillMutation(id: string): string {
+  return deleteMutation('rebill', id);
+}
+
 export function creditCardsListQuery(limit?:number, cursor?:string): string {
   return `{
     creditcardlist ${pageParams(limit, cursor)} {
