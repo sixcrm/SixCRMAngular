@@ -392,6 +392,9 @@ $card-title-color: #5B9BE1;
             }
 
             &__options {
+              max-height: 140px;
+              overflow: auto;
+
               &__item {
                 padding: 6px 10px;
                 font-size: 14px;

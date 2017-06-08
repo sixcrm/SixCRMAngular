@@ -2,6 +2,7 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {CreditCard} from '../../../../shared/models/credit-card.model';
 import {CreditCardsService} from '../../../../shared/services/credit-cards.service';
 import {ProgressBarService} from '../../../../shared/services/progress-bar.service';
+import {getStates} from '../../../../shared/utils/address.utils';
 
 @Component({
   selector: 'credit-card-input',
@@ -16,6 +17,8 @@ export class CreditCardInputComponent implements OnInit {
 
   months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
   years = ['2017','2018','2019','2020','2021','2022','2023','2024','2025','2026','2027'];
+
+  private states: string[] = getStates();
 
   @Input() set creditCard(ccard: CreditCard) {
     if (ccard) {

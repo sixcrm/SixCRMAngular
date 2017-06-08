@@ -33,7 +33,7 @@
 
     <div class="customer-view__cc-input__address__group">
       <md-input placeholder="City" [(ngModel)]="ccard.address.city"></md-input>
-      <dropdown-component [selected]="ccard.address.state" [placeholder]="'State'" (onSelect)="ccard.address.state = $event" [options]="['Oregon', 'California']"></dropdown-component>
+      <dropdown-component [selected]="ccard.address.state" [placeholder]="'State'" (onSelect)="ccard.address.state = $event" [options]="states"></dropdown-component>
     </div>
 
     <div class="customer-view__cc-input__address__group">

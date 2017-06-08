@@ -4,6 +4,7 @@ import {User} from '../../shared/models/user.model';
 import {Address} from '../../shared/models/address.model';
 import {CreditCard} from '../../shared/models/credit-card.model';
 import {ActivatedRoute} from '@angular/router';
+import {getStates} from '../../shared/utils/address.utils';
 
 @Component({
   selector: 'c-registration',
@@ -37,13 +38,7 @@ export class RegistrationComponent implements OnInit {
   private country: string = 'USA';
   private countries: string[] = [];
   private state: string;
-  private states: string[] = [
-    'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
-    'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan',
-    'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico',
-    'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina',
-    'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-  ];
+  private states: string[] = getStates();
   private city: string;
   private cityError: boolean = false;
   private postalCode: string;
