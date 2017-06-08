@@ -24,11 +24,6 @@ export class ProfileDropdownComponent implements OnInit {
     this.dropdownVisible = false;
   }
 
-  navigateToGraphDocs(): void {
-    this.router.navigateByUrl('/documentation/graph');
-    this.dropdownVisible = false;
-  }
-
   logout(): void {
     this.authService.logout();
   }

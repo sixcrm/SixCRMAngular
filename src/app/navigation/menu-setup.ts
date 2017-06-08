@@ -98,9 +98,8 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
     settings.push(new MenuItem('Access Rules', ''));
   }
 
-  if (settings.length > 0) {
-    items.push(new MenuItem('Settings', null, settings).setIcon('settings'));
-  }
+  settings.push(new MenuItem('Documentation', null, [new MenuItem('GraphQL', 'documentation/graph')]));
+  items.push(new MenuItem('Settings', null, settings).setIcon('settings'));
 
   // Add Search menu item
   if (acl.role.name !== 'Customer Service') {
