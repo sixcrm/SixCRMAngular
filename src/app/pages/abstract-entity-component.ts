@@ -5,6 +5,13 @@ import {ProgressBarService} from '../shared/services/progress-bar.service';
 
 export abstract class AbstractEntityComponent<T extends Entity<T>> {
 
+  entity: T;
+  entityCopy: T;
+  id: string;
+  loadingData: boolean = false;
+  height: string = '55px';
+  tabIndex: number = 0;
+
   @Input() set entityId(id: string) {
     if (!id) {
       if (this.newEntity) {
@@ -17,7 +24,7 @@ export abstract class AbstractEntityComponent<T extends Entity<T>> {
 
     if (!this.id || this.id !== id) {
       this.id = id;
-      this.loading = true;
+      this.loadingData = true;
       this.service.getEntity(this.id);
     }
   }
@@ -27,13 +34,6 @@ export abstract class AbstractEntityComponent<T extends Entity<T>> {
   @Output() deleteEntity: EventEmitter<string> = new EventEmitter<string>();
 
   @ViewChild('entityContainer') entityContainer;
-
-  entity: T;
-  entityCopy: T;
-  id: string;
-  loading: boolean = false;
-  height: string = '55px';
-  tabIndex: number = 0;
 
   constructor(
     protected service: AbstractEntityService<T>,
@@ -46,7 +46,7 @@ export abstract class AbstractEntityComponent<T extends Entity<T>> {
       this.entity = entity;
       this.entityCopy = this.entity.copy();
       this.progressBarService.hideTopProgressBar();
-      this.loading = false;
+      this.loadingData = false;
       this.calculateContainerHeight();
     });
 
