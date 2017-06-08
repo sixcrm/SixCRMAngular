@@ -51,6 +51,8 @@ import {TimeService} from './services/time.service';
 import {SimpleDropdownComponent} from './components/simple-dropdown/simple-dropdown.component';
 import { CreditCardFormatPipe } from './pipes/credit-card-format.pipe';
 import { CreditCardExpirationPipe } from './pipes/credit-card-expiration.pipe';
+import { InputCreditCardComponent } from './components/input-credit-card/input-credit-card.component';
+import { CreditCardMaskPipe } from './pipes/credit-card-mask.pipe';
 
 @NgModule({
   declarations : [
@@ -71,7 +73,9 @@ import { CreditCardExpirationPipe } from './pipes/credit-card-expiration.pipe';
     FormatDateTimePipe,
     SimpleDropdownComponent,
     CreditCardFormatPipe,
-    CreditCardExpirationPipe
+    CreditCardExpirationPipe,
+    InputCreditCardComponent,
+    CreditCardMaskPipe
   ],
   exports : [
     WidgetComponent,
@@ -90,7 +94,9 @@ import { CreditCardExpirationPipe } from './pipes/credit-card-expiration.pipe';
     SimpleDropdownComponent,
     CreditCardFormatPipe,
     DropdownComponent,
-    CreditCardExpirationPipe
+    CreditCardExpirationPipe,
+    InputCreditCardComponent,
+    CreditCardMaskPipe
   ],
   imports : [FormsModule, CommonModule, MaterialModule, ChartModule, Daterangepicker]
 })

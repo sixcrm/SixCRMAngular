@@ -453,14 +453,23 @@ $card-title-color: #5B9BE1;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid rgba(0,0,0,0.15);
-    padding: 15px 18px;
+    padding: 15px 13px 15px 18px;
     font-size: 12px;
+
+    &__number {
+      margin-left: 10px;
+    }
+
+    &__expiration {
+      margin-left: auto;
+      margin-right: 15px;
+    }
 
     md-icon {
       height: 20px;
       width: 20px;
       font-size: 20px;
-      color: $card-title-color;
+      color: rgba(0,0,0,0.4);
       cursor: pointer;
     }
 

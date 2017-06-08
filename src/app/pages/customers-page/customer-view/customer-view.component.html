@@ -99,9 +99,9 @@
                 <md-card-content>
                   <div *ngFor="let cc of entity.creditCards" class="credit-cards__item">
                     <img src="/assets/images/credit-card-notification.svg">
-                    <span>{{cc.getType() | uppercase}} {{cc.ccnumber | creditCardFormat: true}}</span>
-                    <span>Exp: {{cc.expiration | creditCardExpiration}}</span>
-                    <md-icon [md-menu-trigger-for]="creditCardOptions">remove_red_eye</md-icon>
+                    <span class="credit-cards__item__number">{{cc.getType() | uppercase}} {{cc.ccnumber | creditCardFormat: true}}</span>
+                    <span class="credit-cards__item__expiration">Exp: {{cc.expiration | creditCardExpiration}}</span>
+                    <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
                     <md-menu #creditCardOptions="mdMenu" x-position="before">
                       <button md-menu-item (click)="editCreditCard(cc)"> edit </button>
                       <button md-menu-item (click)="deleteCreditCard(cc)"> remove </button>

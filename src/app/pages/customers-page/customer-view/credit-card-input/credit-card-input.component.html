@@ -10,8 +10,8 @@
 
   <div class="customer-view__cc-input__info">
     <md-input placeholder="Name on Card" [(ngModel)]="ccard.name"></md-input>
-    <md-input placeholder="Credit Card Number" [(ngModel)]="ccard.ccnumber"></md-input>
-    <md-input placeholder="CCV" [(ngModel)]="ccard.ccv"></md-input>
+    <input-credit-card [value]="ccard.ccnumber" [placeholder]="'Credit Card Number'" (result)="ccard.ccnumber = $event"></input-credit-card>
+    <input-credit-card [value]="ccard.ccv" [mode]="'ccv'" [placeholder]="'CCV'" (result)="ccard.ccv = $event"></input-credit-card>
 
     <div class="customer-view__cc-input__info__expiration">
       <div class="customer-view__cc-input__info__expiration__item">
