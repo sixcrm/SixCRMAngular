@@ -12,9 +12,29 @@
         <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
         <div class="entity-view__info__data__name">{{entity.firstName}} {{entity.lastName}}</div>
         <div class="entity-view__info__data__other">
-          <span *ngIf="entity.phone"><md-icon>phone</md-icon>{{getPhoneNumber()}}</span>
-          <span *ngIf="entity.email"><md-icon>email</md-icon>{{entity.email}}</span>
+          <div class="entity-view__info__data__other__item"><md-icon>phone</md-icon>
+            <md-input-container *ngIf="customerInfoEditMode; else phoneNoEdit">
+              <input class="phone-number" md-input type="text" [textMask]="{mask: mask, guide: false}" [(ngModel)]="entity.phone">
+            </md-input-container>
+            <ng-template #phoneNoEdit>
+              <span class="phone-number">{{getPhoneNumber()}}</span>
+            </ng-template>
+          </div>
+
+          <div class="entity-view__info__data__other__item"><md-icon>email</md-icon>
+            <md-input *ngIf="customerInfoEditMode; else emailNoEdit" [(ngModel)]="entity.email"></md-input>
+            <ng-template #emailNoEdit>
+              <span>{{entity.email}}</span>
+            </ng-template>
+          </div>
         </div>
+      </div>
+      <div class="entity-view__info__edit">
+        <md-icon *ngIf="!customerInfoEditMode; else editActions" (click)="customerInfoEditMode = true">edit</md-icon>
+        <ng-template #editActions>
+          <div (click)="cancelInfoUpdate()">CANCEL</div>
+          <div class="entity-view__info__edit__update" (click)="updateEntity(entity)">UPDATE</div>
+        </ng-template>
       </div>
     </div>
 

@@ -23,6 +23,8 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
   creditCardInputMode: boolean = false;
   creditCardForInput: CreditCard;
 
+  customerInfoEditMode: boolean = false;
+
   constructor(
     service: CustomersService,
     route: ActivatedRoute,
@@ -33,7 +35,10 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
   }
 
   ngOnInit() {
-    this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(() => this.addressEditMode = false);
+    this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(() => {
+      this.customerInfoEditMode = false;
+      this.addressEditMode = false;
+    });
 
     this.init();
   }
@@ -50,6 +55,11 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
 
   cancelAddressUpdate() {
     this.addressEditMode = false;
+    this.cancelUpdate();
+  }
+
+  cancelInfoUpdate() {
+    this.customerInfoEditMode = false;
     this.cancelUpdate();
   }
 

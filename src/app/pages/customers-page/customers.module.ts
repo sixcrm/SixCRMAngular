@@ -15,6 +15,7 @@ import { CustomerRebillsComponent } from './customer-view/customer-rebills/custo
 import { CustomerNotesComponent } from './customer-view/customer-notes/customer-notes.component';
 import { CustomerEventsComponent } from './customer-view/customer-events/customer-events.component';
 import { CreditCardInputComponent } from './customer-view/credit-card-input/credit-card-input.component';
+import {TextMaskModule} from 'angular2-text-mask';
 
 @NgModule({
   imports : [
@@ -24,7 +25,8 @@ import { CreditCardInputComponent } from './customer-view/credit-card-input/cred
     MaterialModule,
     ReactiveFormsModule,
     PageComponentsModule,
-    SharedModule
+    SharedModule,
+    TextMaskModule
   ],
   declarations : [
     CustomersComponent,
