@@ -8,6 +8,7 @@ import {MaterialModule} from '@angular/material';
 import {Daterangepicker} from 'ng2-daterangepicker';
 import {ChartsModule} from '../charts/charts.module';
 import {FormsModule} from '@angular/forms';
+import {AnalyticsAclGuard} from '../pages/guards/analytics-acl-guard.service';
 
 @NgModule({
   imports: [
@@ -20,6 +21,6 @@ import {FormsModule} from '@angular/forms';
     ChartsModule
   ],
   declarations: [TransactionsReportComponent, ReportTableComponent],
-  providers: [ ]
+  providers: [AnalyticsAclGuard]
 })
 export class ReportsModule { }

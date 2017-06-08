@@ -12,16 +12,18 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
     items.push(new MenuItem('Dashboard', 'dashboard').setIcon('view_quilt'));
   }
   // Add reports
-  items.push(
-    new MenuItem('Reports', null, [
-      new MenuItem('Order Report', 'reports/order'),
-      new MenuItem('Transactions Report', 'reports/transaction'),
-      new MenuItem('Fulfillment Report', 'reports/fulfillment'),
-      new MenuItem('Affiliate Report', 'reports/affiliate'),
-      new MenuItem('Retention', 'reports/retention'),
-      new MenuItem('Projections', 'reports/projection')
-    ]).setIcon('library_books')
-  );
+  if (authService.hasPermissions('analytics', 'view')) {
+    items.push(
+      new MenuItem('Reports', null, [
+        new MenuItem('Order Report', 'reports/order'),
+        new MenuItem('Transactions Report', 'reports/transaction'),
+        new MenuItem('Fulfillment Report', 'reports/fulfillment'),
+        new MenuItem('Affiliate Report', 'reports/affiliate'),
+        new MenuItem('Retention', 'reports/retention'),
+        new MenuItem('Projections', 'reports/projection')
+      ]).setIcon('library_books')
+    );
+  }
 
   // Add customer menu items
   items.push(new MenuItem('Customers', 'customers').setIcon('account_box'));
