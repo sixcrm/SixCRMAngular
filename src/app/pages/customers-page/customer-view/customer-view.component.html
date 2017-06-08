@@ -160,7 +160,7 @@
             </md-card>
 
             <div class="column__large">
-              <customer-rebills [id]="entityId"></customer-rebills>
+              <customer-rebills [homepageMode]="true" [id]="entityId"></customer-rebills>
             </div>
 
           </div>
@@ -183,7 +183,7 @@
 
       <md-tab>
         <div class="tab-container">
-          <customer-transactions [historical]="false" [id]="entityId"></customer-transactions>
+          <customer-rebills [id]="entityId"></customer-rebills>
           <customer-transactions [id]="entityId"></customer-transactions>
         </div>
       </md-tab>

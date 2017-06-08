@@ -34,12 +34,14 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   columnParams: ColumnParams<T>[] = [];
   sortedColumnParams: ColumnParams<T> = new ColumnParams();
 
+  loadingData: boolean = false;
+
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
   constructor(
     public service: AbstractEntityService<T>,
     protected authService: AuthenticationService,
-    private deleteDialog: MdDialog,
+    protected deleteDialog: MdDialog,
     protected progressBarService?: ProgressBarService,
     protected paginationService?: PaginationService,
     protected router?: Router,
@@ -48,6 +50,9 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
   init(): void {
     this.service.entities$.takeUntil(this.unsubscribe$).subscribe((entities: T[]) => {
+      if (!this.loadingData) return;
+
+      this.loadingData = false;
       this.entitiesHolder = [...this.entitiesHolder, ...entities];
       this.reshuffleEntities();
       this.progressBarService.hideTopProgressBar();
@@ -71,12 +76,16 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     });
     this.authService.activeAclChanged$.takeUntil(this.unsubscribe$).subscribe(() => {
       this.resetEntities();
+      this.loadingData = true;
+      this.progressBarService.showTopProgressBar();
       this.service.getEntities(this.limit);
     });
 
     this.service.resetPagination();
-    this.service.getEntities(this.limit);
+
+    this.loadingData = true;
     this.progressBarService.showTopProgressBar();
+    this.service.getEntities(this.limit);
   }
 
   destroy(): void {
@@ -183,8 +192,9 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
       this.entities = tempEntities;
     } else {
       if (this.hasMore) {
-        this.service.getEntities(this.limit - tempEntities.length);
         this.progressBarService.showTopProgressBar();
+        this.loadingData = true;
+        this.service.getEntities(this.limit - tempEntities.length);
       }
     }
   }

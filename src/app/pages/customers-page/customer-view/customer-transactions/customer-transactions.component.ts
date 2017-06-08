@@ -17,7 +17,6 @@ import {ColumnParams} from '../../../../shared/models/column-params.model';
 export class CustomerTransactionsComponent extends AbstractEntityIndexComponent<Transaction> implements OnInit, OnDestroy {
 
   @Input() id: string;
-  @Input() historical: boolean = true;
 
   filterValue: string;
 
@@ -33,10 +32,9 @@ export class CustomerTransactionsComponent extends AbstractEntityIndexComponent<
     let f = this.authService.getTimezone();
 
     this.columnParams = [
-      new ColumnParams('ID', (e: Transaction) => e.id),
-      new ColumnParams('Date',(e: Transaction) => e.createdAt.tz(f).format('MM/DD/YYYY')),
-      new ColumnParams('Amount', (e: Transaction) => e.amount.usd(), 'right'),
-      new ColumnParams('Processor Response', (e: Transaction) => e.processorResponse.message)
+      new ColumnParams('Alias', (e: Transaction) => e.alias),
+      new ColumnParams('Processor Response', (e: Transaction) => e.processorResponse.message),
+      new ColumnParams('Amount', (e: Transaction) => e.amount.usd(), 'right')
     ];
   }
 
@@ -48,9 +46,5 @@ export class CustomerTransactionsComponent extends AbstractEntityIndexComponent<
   ngOnDestroy() {
     this.service.indexQuery = transactionsInfoListQuery;
     this.destroy();
-  }
-
-  getTitle(): string {
-    return this.historical ? 'HISTORICAL TRANSACTIONS' : 'UPCOMING TRANSACTIONS';
   }
 }

@@ -17,6 +17,8 @@ import {ColumnParams} from '../../../../shared/models/column-params.model';
 export class CustomerRebillsComponent extends AbstractEntityIndexComponent<Rebill> implements OnInit, OnDestroy {
 
   @Input() id: string;
+  @Input() homepageMode: boolean = false;
+
   filterValue: string;
 
   constructor(
@@ -31,9 +33,8 @@ export class CustomerRebillsComponent extends AbstractEntityIndexComponent<Rebil
     let f = this.authService.getTimezone();
 
     this.columnParams = [
-      new ColumnParams('ID', (e: Rebill) => e.id),
+      new ColumnParams('Customer', (e: Rebill) => e.parentSession.customer.firstName + ' ' + e.parentSession.customer.lastName),
       new ColumnParams('Bill At',(e: Rebill) => e.billAt ? e.billAt.tz(f).format('MM/DD/YYYY') : 'not billed'),
-      new ColumnParams('Created At', (e: Rebill) => e.createdAt.tz(f).format('MM/DD/YYYY')),
       new ColumnParams('Amount', (e: Rebill) => e.amount.usd(), 'right')
     ];
   }
