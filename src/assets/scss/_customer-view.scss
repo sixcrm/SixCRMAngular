@@ -7,6 +7,10 @@ $card-title-color: #5B9BE1;
     align-items: flex-start;
     padding: 10px;
 
+    &--invisible {
+      display: none;
+    }
+
     &__card {
       margin: 5px;
       padding: 18px;
