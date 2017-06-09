@@ -33,17 +33,10 @@ export class NavigationService {
   constructor(public dialog: MdDialog,
               private authService: AuthenticationService,
               private location: Location,
-              private router: Router,
               private progressBarService: ProgressBarService
   ) {
     this.authService.activeAcl$.subscribe(acl => {
       if (!acl || !acl.account.id) return;
-
-      if (acl.role.name === 'Customer Service') {
-        this.router.navigateByUrl('/customer-service-dashboard');
-      } else {
-        this.router.navigateByUrl('/dashboard');
-      }
 
       this.setMenuItems(menuItems(authService, acl));
 

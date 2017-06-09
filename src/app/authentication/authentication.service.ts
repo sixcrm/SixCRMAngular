@@ -177,6 +177,12 @@ export class AuthenticationService {
     this.currentActiveAcl = acl;
     this.activeAcl$.next(acl);
     this.activeAclChanged$.next(true);
+
+    if (acl.role.name === 'Customer Service') {
+      this.router.navigateByUrl('/customer-service-dashboard');
+    } else {
+      this.router.navigateByUrl('/dashboard');
+    }
   }
 
   public updateUserForRegistration(user: User, cc: CreditCard): Observable<boolean> {
@@ -320,7 +326,7 @@ export class AuthenticationService {
             if (this.router.url === '/') {
               let redirect = '/dashboard';
               if (this.isActiveAclCustomerService()) {
-                redirect = '/search';
+                redirect = '/customer-service-dashboard';
               }
 
               this.router.navigateByUrl(redirect);
