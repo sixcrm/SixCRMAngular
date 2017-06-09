@@ -37,6 +37,9 @@
     </tbody>
   </table>
 
+  <md-spinner class="customer-view__spinner" *ngIf="loadingData && (!entities || entities.length === 0)"></md-spinner>
+  <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="customer-view__no-results customer-view__no-results--table">No transactions found</div>
+
   <table-pagination
     [limit]="limit"
     [paginationValues]="paginationValues"

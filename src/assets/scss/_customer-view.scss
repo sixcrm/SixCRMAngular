@@ -465,6 +465,14 @@ $card-title-color: #5B9BE1;
     padding: 0 15px;
     color: rgba(0, 0, 0, 0.6);
     font-size: 14px;
+
+    &--table {
+      margin-top: 15px;
+    }
+
+    &--credit-cards {
+      padding: 15px 20px;
+    }
   }
 
   &__spinner {
