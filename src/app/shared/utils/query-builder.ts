@@ -320,6 +320,7 @@ export function customerNotesByCustomerQuery(id: string, limit?: number, cursor?
       customernotes { id body created_at updated_at,
         user {id name }
       }
+      ${paginationString()}
 		}}`
 }
 
