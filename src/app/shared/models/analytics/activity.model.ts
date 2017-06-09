@@ -57,3 +57,15 @@ export class Activity {
     return entity_type;
   }
 }
+
+export function compareActivities(f: Activity, s: Activity): number {
+  if (f.date.isBefore(s.date)) {
+    return 1;
+  }
+
+  if (f.date.isAfter(s.date)) {
+    return -1;
+  }
+
+  return 0;
+}

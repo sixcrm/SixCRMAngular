@@ -12,10 +12,10 @@
     <div class="notifications-list__content__no-results" *ngIf="isEmpty">You don't have any notifications at this time</div>
     <div *ngFor="let notificationsByDate of notsByDate">
 
-      <div *ngIf="notificationsByDate.nots.length > 0">
+      <div *ngIf="notificationsByDate.entities.length > 0">
         <div class="notifications-list__content__title">{{notificationsByDate.label}}</div>
 
-        <div *ngFor="let notification of notificationsByDate.nots">
+        <div *ngFor="let notification of notificationsByDate.entities">
           <div class="notifications-list__content__notification" (click)="readNotification(notification)">
             <div class="notifications-list__content__notification__image"><img src="assets/images/alert-icon.svg" alt=""></div>
             <div class="notifications-list__content__notification__message">{{notification.body}}</div>

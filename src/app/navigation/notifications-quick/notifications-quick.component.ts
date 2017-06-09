@@ -4,7 +4,7 @@ import {Notification, compareNotifications} from '../../shared/models/notificati
 import {utc} from 'moment';
 import {Router} from '@angular/router';
 import {NotificationsQuickService} from '../../shared/services/notifications-quick.service';
-import {NotificationsByDate} from '../../shared/models/notifications-by-date.interface';
+import {EntitiesByDate} from '../../shared/models/entities-by-date.interface';
 
 @Component({
   selector: 'notifications-quick',
@@ -16,11 +16,11 @@ export class NotificationsQuickComponent implements OnInit {
 
   @Output() close: EventEmitter<boolean> = new EventEmitter();
 
-  notsByDate: NotificationsByDate[] = [
-    {label: 'Today', nots: [], contains: (n: Notification) => utc(n.createdAt).isSame(utc(), 'day')},
-    {label: 'Last 7 days', nots: [], contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(7, 'd'))},
-    {label: 'Last 30 days', nots: [], contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(30, 'd'))},
-    {label: 'Other', nots: [], contains: (n: Notification) => true}
+  notsByDate: EntitiesByDate<Notification>[] = [
+    {label: 'Today', entities: [], contains: (n: Notification) => utc(n.createdAt).isSame(utc(), 'day')},
+    {label: 'Last 7 days', entities: [], contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(7, 'd'))},
+    {label: 'Last 30 days', entities: [], contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(30, 'd'))},
+    {label: 'Other', entities: [], contains: (n: Notification) => true}
   ];
 
   isEmpty: boolean = false;
@@ -58,7 +58,7 @@ export class NotificationsQuickComponent implements OnInit {
     nots.forEach(notification => {
       for (let i in this.notsByDate) {
         if (this.notsByDate[i].contains(notification)) {
-          this.notsByDate[i].nots.push(notification);
+          this.notsByDate[i].entities.push(notification);
 
           return;
         }
@@ -67,8 +67,8 @@ export class NotificationsQuickComponent implements OnInit {
 
     let empty: boolean = true;
     for (let i in this.notsByDate) {
-      this.notsByDate[i].nots = this.notsByDate[i].nots.sort(compareNotifications);
-      if (this.notsByDate[i].nots.length !== 0) {
+      this.notsByDate[i].entities = this.notsByDate[i].entities.sort(compareNotifications);
+      if (this.notsByDate[i].entities.length !== 0) {
         empty = false;
       }
     }
@@ -86,10 +86,10 @@ export class NotificationsQuickComponent implements OnInit {
 
   updateLocally(notification: Notification): void {
     for (let i in this.notsByDate) {
-      for (let j in this.notsByDate[i].nots) {
+      for (let j in this.notsByDate[i].entities) {
 
-        if (this.notsByDate[i].nots[j].id === notification.id) {
-          this.notsByDate[i].nots[j] = notification;
+        if (this.notsByDate[i].entities[j].id === notification.id) {
+          this.notsByDate[i].entities[j] = notification;
 
           return;
         }

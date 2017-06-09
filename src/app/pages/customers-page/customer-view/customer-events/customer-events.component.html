@@ -10,14 +10,24 @@
          [infiniteScrollThrottle]="300"
          [scrollWindow]="false"
          (scrolled)="onScroll()">
+      <div *ngFor="let byDate of activitiesByDate">
+        <div *ngIf="byDate && byDate.entities && byDate.entities.length > 0">
+          <div class="events__title">
+            <span class="events__title__label">{{byDate.label}}</span>
+          </div>
 
-      <div *ngFor="let activity of activities">
-        <div class="events__title">
-          <span class="events__title__label">{{activity.date | formatDateTime}}</span>
-        </div>
-        <div class="events__content">
-          <div><img src="assets/images/alert-icon.svg"></div>
-          <single-event [data]="activity.parse()"></single-event>
+          <div *ngFor="let activity of byDate.entities">
+            <div class="events__content">
+              <div class="events__content__image"><img src="assets/images/alert-icon.svg"></div>
+
+              <div class="events__content__info">
+                <div>{{activity.date | formatDateTime: 'date-time'}}</div>
+                <div>
+                  <single-event [data]="activity.parse()"></single-event>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

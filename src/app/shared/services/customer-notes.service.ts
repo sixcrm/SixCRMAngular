@@ -23,30 +23,4 @@ export class CustomerNotesService extends AbstractEntityService<CustomerNote> {
       'customer'
     );
   }
-
-  getByCustomer(id: string): void {
-    if (!this.hasViewPermission()) {
-      return;
-    }
-
-    this.queryRequest(customerNotesByCustomerQuery(id)).subscribe(
-      (data) => {
-        let json = data.json().data;
-        let listKey = Object.keys(json)[0];
-        let listData = json[listKey];
-
-        let entitiesKey = listData ? Object.keys(listData)[0] : null;
-        let entitiesData = entitiesKey ? listData[entitiesKey] : null;
-
-        if (entitiesData) {
-          this.entities$.next(entitiesData.map(entity => new CustomerNote(entity)));
-        } else {
-          this.entities$.next([]);
-        }
-      },
-      (error) => {
-        console.error(error);
-      }
-    )
-  }
 }
