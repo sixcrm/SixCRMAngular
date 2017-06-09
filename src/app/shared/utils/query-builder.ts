@@ -314,9 +314,9 @@ export function updateCustomerMutation(customer: Customer): string {
 	  }`
 }
 
-export function customerNotesByCustomerQuery(id: string): string {
+export function customerNotesByCustomerQuery(id: string, limit?: number, cursor?: string): string {
   return `{
-    customernotelistbycustomer (customer: "${id}") {
+    customernotelistbycustomer (customer:"${id}" ${pageParams(limit, cursor, true)}) {
       customernotes { id body created_at updated_at,
         user {id name }
       }

@@ -4,14 +4,25 @@
     <md-icon class="customer-view__content__card__action">more_vert</md-icon>
   </md-card-title>
   <md-card-content>
-    <div *ngFor="let activity of activities">
-      <div class="events__title">
-        <span class="events__title__label">{{activity.date | formatDateTime}}</span>
+    <div class="events__container"
+         infiniteScroll
+         [infiniteScrollDistance]="2"
+         [infiniteScrollThrottle]="300"
+         [scrollWindow]="false"
+         (scrolled)="onScroll()">
+
+      <div *ngFor="let activity of activities">
+        <div class="events__title">
+          <span class="events__title__label">{{activity.date | formatDateTime}}</span>
+        </div>
+        <div class="events__content">
+          <div><img src="assets/images/alert-icon.svg"></div>
+          <span>{{activity.parse()}}</span>
+        </div>
       </div>
-      <div class="events__content">
-        <div><img src="assets/images/alert-icon.svg"></div>
-        <span>{{activity.parse()}}</span>
-      </div>
+
+      <md-spinner class="customer-view__spinner" *ngIf="loadingData"></md-spinner>
+      <div class="customer-view__no-results" *ngIf="!loadingData && (!activities || activities.length === 0)">No customer events found</div>
     </div>
   </md-card-content>
 </md-card>

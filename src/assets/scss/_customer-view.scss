@@ -460,6 +460,16 @@ $card-title-color: #5B9BE1;
       }
     }
   }
+
+  &__no-results {
+    padding: 0 15px;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+  }
+
+  &__spinner {
+    margin: 20px auto;
+  }
 }
 
 .credit-cards {
@@ -508,6 +518,11 @@ customer-notes {
     margin: 0;
     padding: 0;
     min-height: 105px;
+
+    &__container {
+      overflow: auto;
+      max-height: 420px;
+    }
 
     md-card-title {
       padding: 18px;
@@ -633,6 +648,12 @@ customer-events {
   .events {
     margin: 0px;
     padding: 0;
+
+    &__container {
+      padding-bottom: 20px;
+      max-height: 420px;
+      overflow: auto;
+    }
 
     md-card-title {
       padding: 18px;

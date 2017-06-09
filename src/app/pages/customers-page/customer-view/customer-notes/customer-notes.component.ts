@@ -2,15 +2,21 @@ import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import {CustomerNote} from '../../../../shared/models/customer-note.model';
 import {CustomerNotesService} from '../../../../shared/services/customer-notes.service';
 import {ProgressBarService} from '../../../../shared/services/progress-bar.service';
-import {AsyncSubject} from 'rxjs';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
+import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
+import {customerNotesByCustomerQuery} from '../../../../shared/utils/query-builder';
+import {ActivatedRoute, Router} from '@angular/router';
+import {PaginationService} from '../../../../shared/services/pagination.service';
+import {MdDialog} from '@angular/material';
+import {CustomersService} from '../../../../shared/services/customers.service';
+import {firstIndexOf} from '../../../../shared/utils/array-utils';
 
 @Component({
   selector: 'customer-notes',
   templateUrl: './customer-notes.component.html',
   styleUrls: ['./customer-notes.component.scss']
 })
-export class CustomerNotesComponent implements OnInit, OnDestroy {
+export class CustomerNotesComponent extends AbstractEntityIndexComponent<CustomerNote> implements OnInit, OnDestroy {
 
   @Input() customerId: string;
 
@@ -18,36 +24,50 @@ export class CustomerNotesComponent implements OnInit, OnDestroy {
   showNewNote: boolean;
   note: string;
 
-  private unsubscribe$: AsyncSubject<boolean> = new AsyncSubject();
-
   constructor(
-    private customerNotesService: CustomerNotesService,
-    private progressBarService: ProgressBarService,
-    private authService: AuthenticationService
-  ) { }
+    customerNotesService: CustomerNotesService,
+    auth: AuthenticationService,
+    dialog: MdDialog,
+    progressBarService: ProgressBarService,
+    paginationService: PaginationService,
+  ) {
+    super(customerNotesService, auth, dialog, progressBarService, paginationService);
+    this.setInfiniteScroll(true);
+  }
 
   ngOnInit() {
-    this.customerNotesService.entityDeleted$.takeUntil(this.unsubscribe$).subscribe((note: CustomerNote) => {
+    this.service.indexQuery = (limit?: number, cursor?: string) => customerNotesByCustomerQuery(this.customerId, limit, cursor);
+    this.shareLimit = false;
+    this.limit = 8;
+
+    this.service.entities$.takeUntil(this.unsubscribe$).subscribe(notes => {
+      this.hasMore = notes && notes.length === this.limit;
+      this.notes = [...this.notes, ...notes];
       this.progressBarService.hideTopProgressBar();
+    });
+
+    this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe(note => {
+      this.notes.unshift(note);
+      this.closeNote();
+      this.progressBarService.hideTopProgressBar();
+    });
+
+    this.service.entityDeleted$.takeUntil(this.unsubscribe$).subscribe(note => {
       this.deleteNoteLocally(note);
     });
 
-    this.customerNotesService.entityCreated$.takeUntil(this.unsubscribe$).subscribe((note: CustomerNote) => {
-      this.progressBarService.hideTopProgressBar();
-      this.notes.unshift(note);
-      this.showNewNote = false;
-    });
+    this.init();
+  }
 
-    this.customerNotesService.entities$.takeUntil(this.unsubscribe$).subscribe((customerNotes: CustomerNote[]) => {
-      this.notes = customerNotes.sort((a: CustomerNote, b: CustomerNote) => a.createdAt > b.createdAt ? -1 : 1);
-    });
-
-    this.customerNotesService.getByCustomer(this.customerId);
+  onScroll(): void {
+    if (!this.loadingData && this.hasMore) {
+      this.loadingData = true;
+      this.service.getEntities(this.limit);
+    }
   }
 
   ngOnDestroy() {
-    this.unsubscribe$.next(true);
-    this.unsubscribe$.complete();
+    this.destroy();
   }
 
   newNote(): void {
@@ -63,31 +83,16 @@ export class CustomerNotesComponent implements OnInit, OnDestroy {
   saveNote(): void {
     if (this.note) {
       let customerNote = new CustomerNote({customer: {id: this.customerId}, user: {id: this.authService.getSixUser().id}, body: this.note});
-      this.customerNotesService.createEntity(customerNote);
+      this.service.createEntity(customerNote);
       this.progressBarService.showTopProgressBar();
     }
   }
 
-  deleteNote(note: CustomerNote): void {
-    this.customerNotesService.deleteEntity(note.id);
-    this.progressBarService.showTopProgressBar();
-  }
+  deleteNoteLocally(note: CustomerNote): void {
+    let index = firstIndexOf(this.notes, (el) => el.id === note.id);
 
-  private deleteNoteLocally(note: CustomerNote): void {
-    let indexOfNote = this.indexOfNote(note);
-
-    if (indexOfNote !== -1) {
-      this.notes.splice(indexOfNote, 1);
+    if (index > -1) {
+      this.notes.splice(index, 1);
     }
-  }
-
-  private indexOfNote(note: CustomerNote) {
-    for (let i = 0 ; i < this.notes.length ; i++) {
-      if (this.notes[i].id === note.id) {
-        return i;
-      }
-    }
-
-    return -1;
   }
 }

@@ -10,23 +10,34 @@
       </div>
     </div>
 
-    <div class="notes" *ngFor="let n of notes">
-      <div class="notes__title">
-        <span class="notes__title__label">{{n.user.name}}</span>
-        <md-icon>date_range</md-icon>
-        <span class="notes__title__label">{{n.createdAt | formatDateTime}}</span>
-        <md-icon>query_builder</md-icon>
-        <span class="notes__title__label">{{n.createdAt | formatDateTime: 'time'}}</span>
-      </div>
-      <div class="notes__content">
-        <div><img src="assets/images/alert-icon.svg"></div>
-        <span>{{n.body}}</span>
-        <md-icon class="notes__content__action" [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
+    <div class="notes__container"
+         infiniteScroll
+         [infiniteScrollDistance]="2"
+         [infiniteScrollThrottle]="300"
+         [scrollWindow]="false"
+         (scrolled)="onScroll()">
 
-        <md-menu #actionsMenu="mdMenu" x-position="before">
-          <button md-menu-item (click)="deleteNote(n)">delete</button>
-        </md-menu>
+      <div class="notes" *ngFor="let n of notes">
+        <div class="notes__title">
+          <span class="notes__title__label">{{n.user.name}}</span>
+          <md-icon>date_range</md-icon>
+          <span class="notes__title__label">{{n.createdAt | formatDateTime}}</span>
+          <md-icon>query_builder</md-icon>
+          <span class="notes__title__label">{{n.createdAt | formatDateTime: 'time'}}</span>
+        </div>
+        <div class="notes__content">
+          <div><img src="assets/images/alert-icon.svg"></div>
+          <span>{{n.body}}</span>
+          <md-icon class="notes__content__action" [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
+
+          <md-menu #actionsMenu="mdMenu" x-position="before">
+            <button md-menu-item (click)="deleteEntity(n.id)">delete</button>
+          </md-menu>
+        </div>
       </div>
+
+      <md-spinner class="customer-view__spinner" *ngIf="loadingData"></md-spinner>
+      <div class="customer-view__no-results" *ngIf="!loadingData && (!notes || notes.length === 0)">No customer notes found</div>
     </div>
 
     <div *ngIf="!showNewNote" class="notes__button" (click)="newNote()"><md-icon>add</md-icon></div>

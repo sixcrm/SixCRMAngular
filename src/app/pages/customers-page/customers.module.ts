@@ -19,6 +19,7 @@ import {TextMaskModule} from 'angular2-text-mask';
 import { CustomerFulfillmentComponent } from './customer-view/customer-fulfillment/customer-fulfillment.component';
 import { CustomerRebillEditComponent } from './customer-view/customer-rebill-edit/customer-rebill-edit.component';
 import {Daterangepicker} from 'ng2-daterangepicker';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 @NgModule({
   imports : [
@@ -30,7 +31,8 @@ import {Daterangepicker} from 'ng2-daterangepicker';
     PageComponentsModule,
     SharedModule,
     TextMaskModule,
-    Daterangepicker
+    Daterangepicker,
+    InfiniteScrollModule
   ],
   declarations : [
     CustomersComponent,

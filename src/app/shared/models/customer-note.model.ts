@@ -1,8 +1,9 @@
 import {Customer} from './customer.model';
 import {User} from './user.model';
 import {Moment, utc} from 'moment';
+import {Entity} from './entity.interface';
 
-export class CustomerNote {
+export class CustomerNote implements Entity<CustomerNote>{
 
   id: string;
   customer: Customer;
@@ -24,6 +25,10 @@ export class CustomerNote {
     this.body = obj.body || '';
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+  }
+
+  copy(): CustomerNote {
+    return null;
   }
 
 }

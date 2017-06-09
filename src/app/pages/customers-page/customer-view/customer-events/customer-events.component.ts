@@ -14,6 +14,11 @@ export class CustomerEventsComponent implements OnInit, OnDestroy {
 
   @Input() customer: Customer;
 
+  limit: number = 8;
+  offset: number = 0;
+  hasMore: boolean;
+  loadingData: boolean = false;
+
   activities: Activity[] = [];
 
   private unsubscribe$: AsyncSubject<boolean> = new AsyncSubject();
@@ -22,10 +27,24 @@ export class CustomerEventsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.analyticsService.activitiesByCustomer$.takeUntil(this.unsubscribe$).subscribe((activities: Activity[]) => {
-      this.activities = activities;
+      this.hasMore = activities && activities.length === this.limit;
+      this.loadingData = false;
+      this.activities = [...this.activities, ...activities];
+      this.offset = this.activities.length;
     });
 
-    this.analyticsService.getActivityByCustomer(utc().subtract(6, 'M').format(), utc().format(), this.customer.id, 5, 0);
+    this.fetch();
+  }
+
+  fetch(): void {
+    this.loadingData = true;
+    this.analyticsService.getActivityByCustomer(utc().subtract(6, 'M').format(), utc().format(), this.customer.id, this.limit, this.offset);
+  }
+
+  onScroll(): void {
+    if (!this.loadingData && this.hasMore) {
+      this.fetch();
+    }
   }
 
   ngOnDestroy() {
