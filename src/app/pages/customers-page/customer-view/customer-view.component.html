@@ -9,7 +9,7 @@
         <img src="https://www.kwrwater.nl/wp-content/themes/kwr/assets/placeholders/no-profile-user.png" alt="">
       </div>
       <div class="entity-view__info__data">
-        <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+        <div class="entity-view__info__data__date">{{displayCreatedAt() ? 'Created:' : 'Updated:'}} {{(displayCreatedAt() ? entity.createdAt : entity.updatedAt) | formatDateTime: 'date-time'}}</div>
         <div class="entity-view__info__data__name">{{entity.firstName}} {{entity.lastName}}</div>
         <div class="entity-view__info__data__other">
           <div class="entity-view__info__data__other__item"><md-icon>phone</md-icon>

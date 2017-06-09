@@ -10,6 +10,7 @@ export class Customer implements Entity<Customer> {
   lastName: string;
   phone: string;
   createdAt: Moment;
+  updatedAt: Moment;
   address: Address;
   creditCards: CreditCard[] = [];
 
@@ -25,6 +26,7 @@ export class Customer implements Entity<Customer> {
     this.phone = obj.phone || '';
     this.address = new Address(obj.address);
     this.createdAt = utc(obj.created_at);
+    this.updatedAt = utc(obj.updated_at);
 
     if (obj.creditcards) {
       for (let i = 0; i < obj.creditcards.length; i++) {

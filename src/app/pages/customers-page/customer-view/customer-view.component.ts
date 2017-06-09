@@ -130,4 +130,8 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
     this.rebillEditMode = false;
   }
 
+  displayCreatedAt(): boolean {
+    return this.entity.createdAt.clone().isSame(this.entity.updatedAt);
+  }
+
 }

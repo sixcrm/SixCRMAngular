@@ -270,7 +270,7 @@ export function customersInfoListQuery(limit?:number, cursor?:string): string {
 
 export function customerQuery(id: string): string {
   return `{
-    customer (id: "${id}") { id email firstname lastname phone created_at,
+    customer (id: "${id}") { id email firstname lastname phone created_at updated_at,
       address { line1 line2 city state zip country }
 		  creditcards {	id number expiration ccv name,
 			  address { line1 line2 city state zip country }
@@ -305,7 +305,7 @@ export function updateCustomerMutation(customer: Customer): string {
 		  updatecustomer (
 		    customer: { ${customer.getMutation()} }
       ) {
-		    id email firstname lastname phone,
+		    id email firstname lastname phone created_at updated_at,
 		    address { line1 line2 city state zip country }
 			  creditcards { id number expiration ccv name,
 				  address { line1 line2 city state zip country }
