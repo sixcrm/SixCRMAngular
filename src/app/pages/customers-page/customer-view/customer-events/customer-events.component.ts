@@ -40,9 +40,8 @@ export class CustomerEventsComponent implements OnInit, OnDestroy {
     this.analyticsService.activitiesByCustomer$.takeUntil(this.unsubscribe$).subscribe((activities: Activity[]) => {
       this.hasMore = activities && activities.length === this.limit;
       this.loadingData = false;
-      // this.activities = [...this.activities, ...activities];
-      this.arrangeActivities(activities)
-      this.offset = this.activities.length;
+      this.offset += activities.length;
+      this.arrangeActivities(activities);
     });
 
     this.fetch();
