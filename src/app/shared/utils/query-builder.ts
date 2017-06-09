@@ -437,6 +437,30 @@ export function transactionsByCustomer(customerId: string, limit?:number, cursor
   }`
 }
 
+export function refundTransactionMutation(transactionId: string, refundAmount: number): string {
+  return `mutation {
+		refundtransaction(refund:{amount:${refundAmount}}, transaction:"${transactionId}") {
+			id alias amount processor_response created_at updated_at,
+      merchant_provider { id name username password endpoint processor created_at updated_at }
+			rebill { id amount bill_at,
+			  product_schedules { id,
+			    schedule { price start end period,
+						product { id name sku ship shipping_delay,
+							fulfillment_provider { id name provider username password endpoint }
+						}
+					}
+				}
+			}
+			products { amount,
+				product { id name sku ship shipping_delay,
+					fulfillment_provider { id name provider username password endpoint }
+				}
+				shippingreceipt { id status trackingnumber created_at updated_at }
+			}	
+		}
+	}`
+}
+
 export function sessionsInfoListQuery(limit?:number, cursor?:string): string {
   return `{
     sessionlist ${pageParams(limit, cursor)} {
@@ -565,81 +589,29 @@ export function updateRebillMutation(rebill: Rebill): string {
 
   return `
     mutation { 
-      updaterebill ( rebill: { id: "${rebill.id}", bill_at:"${ rebill.billAt.format() }", parentsession: "${rebill.parentSession.id}", amount:"${rebill.amount.amount}", product_schedules:[${schedules}] } ) { 
-        id,
-        bill_at,
-        amount,
-        created_at,
-        updated_at,
-        parentsession {
-          id, 
-          customer { 
-            id, 
-            firstname, 
-            lastname, 
-            address { 
-              line1, 
-              line2, 
-              city, 
-              state, 
-              zip 
-            } 
+      updaterebill ( rebill: { id: "${rebill.id}", bill_at:"${ rebill.billAt.format() }", parentsession: "${rebill.parentSession.id}", amount:"${rebill.amount.amount}", product_schedules:[${schedules}] } ) {
+        id bill_at amount created_at updated_at,
+        parentsession { id,
+          customer { id firstname lastname,
+            address { line1 line2 city state zip }
           },
-          product_schedules {
-            id,
-            schedule {
-              price,
-              start,
-              end,
-              period,
-              product {
-                id,
-                name,
-                sku,
-                ship,
-                shipping_delay,
-                fulfillment_provider {
-                  id, 
-                  name,
-                  provider,
-                  username,
-                  password,
-                  endpoint
-                }
-              }
-            }
-          },
-        },
-        product_schedules {
-          id,
-          schedule {
-            price,
-            start,
-            end,
-            period,
-            product {
-              id,
-              name,
-              sku,
-              ship,
-              shipping_delay,
-              fulfillment_provider {
-                id, 
-                name,
-                provider,
-                username,
-                password,
-                endpoint
+          product_schedules { id,
+            schedule { price start end period,
+              product { id name sku ship shipping_delay,
+                fulfillment_provider { id name provider username password endpoint }
               }
             }
           }
-        },
-        transactions {
-          id,
-          processor_response,
-          amount
         }
-      } 
+        product_schedules { id,
+          schedule { price start end period,
+            product { id name sku ship shipping_delay,
+              fulfillment_provider { id name provider username password endpoint }
+            }
+          }
+        },
+        transactions { id processor_response amount }
+      }
     }`
 }
 

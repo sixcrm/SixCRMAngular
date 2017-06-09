@@ -3,7 +3,7 @@ import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Http} from '@angular/http';
 import {Transaction} from '../models/transaction.model';
-import {transactionsInfoListQuery, transactionQuery, deleteTransactionMutation} from '../utils/query-builder';
+import {transactionsInfoListQuery, transactionQuery, deleteTransactionMutation, refundTransactionMutation} from '../utils/query-builder';
 
 @Injectable()
 export class TransactionsService extends AbstractEntityService<Transaction> {
@@ -19,6 +19,22 @@ export class TransactionsService extends AbstractEntityService<Transaction> {
       null,
       null,
       'transaction'
+    );
+  }
+
+  public refundTransaction(transactionId: string, refundAmount: number): void {
+    if (!this.hasWritePermission()) {
+      return;
+    }
+
+    this.queryRequest(refundTransactionMutation(transactionId, refundAmount)).subscribe(
+      (data) => {
+        let json = data.json().data;
+        let entityKey = Object.keys(json)[0];
+        let entityData =json[entityKey];
+
+        this.entityUpdated$.next(new Transaction(entityData));
+      }
     );
   }
 }

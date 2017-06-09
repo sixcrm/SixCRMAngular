@@ -8,6 +8,7 @@ import {AuthenticationService} from '../../../../authentication/authentication.s
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {transactionsByCustomer, transactionsInfoListQuery} from '../../../../shared/utils/query-builder';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'customer-transactions',
@@ -25,9 +26,10 @@ export class CustomerTransactionsComponent extends AbstractEntityIndexComponent<
     auth: AuthenticationService,
     dialog: MdDialog,
     progressBarService: ProgressBarService,
-    paginationService: PaginationService
+    paginationService: PaginationService,
+    router: Router
   ) {
-    super(transactionsService, auth, dialog, progressBarService, paginationService);
+    super(transactionsService, auth, dialog, progressBarService, paginationService, router);
 
     this.columnParams = [
       new ColumnParams('Alias', (e: Transaction) => e.alias),
