@@ -248,6 +248,8 @@ export class AnalyticsService {
 
       if (activityList && activityList.activity) {
         this.activitiesByCustomer$.next(activityList.activity.map(activity => new Activity(activity)));
+      } else {
+        this.activitiesByCustomer$.next([]);
       }
     })
   }
