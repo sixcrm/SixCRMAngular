@@ -139,7 +139,12 @@
               <md-card-content>
                 <div *ngFor="let cc of entity.creditCards" class="credit-cards__item">
                   <img src="/assets/images/credit-card-notification.svg">
-                  <span class="credit-cards__item__number">{{cc.getType() | uppercase}} {{cc.ccnumber | creditCardFormat: true}}</span>
+
+                  <div class="credit-cards__item__column">
+                    <span>{{cc.name}}</span>
+                    <span>{{cc.getType() | uppercase}} {{cc.ccnumber | creditCardFormat: true}}</span>
+                  </div>
+
                   <span class="credit-cards__item__expiration">Exp: {{cc.expiration | creditCardExpiration}}</span>
                   <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
                   <md-menu #creditCardOptions="mdMenu" x-position="before">
