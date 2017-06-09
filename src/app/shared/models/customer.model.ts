@@ -52,7 +52,9 @@ export class Customer implements Entity<Customer> {
       lastname: this.lastName,
       phone: this.phone,
       address: this.address.inverse(),
-      creditcards: ccards
+      creditcards: ccards,
+      created_at: this.createdAt.format(),
+      updated_at: this.updatedAt.format()
     }
   }
 

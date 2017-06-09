@@ -70,6 +70,15 @@ $blue-color: #4A90E2;
         margin: 12px 0;
         font-size: 28px;
         font-weight: 500;
+
+        .name {
+          display: inline-block;
+          width: 150px;
+        }
+
+        .md-input-wrapper {
+          margin: 0;
+        }
       }
 
       &__other {

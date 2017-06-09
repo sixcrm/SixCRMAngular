@@ -10,7 +10,22 @@
       </div>
       <div class="entity-view__info__data">
         <div class="entity-view__info__data__date">{{displayCreatedAt() ? 'Created:' : 'Updated:'}} {{(displayCreatedAt() ? entity.createdAt : entity.updatedAt) | formatDateTime: 'date-time'}}</div>
-        <div class="entity-view__info__data__name">{{entity.firstName}} {{entity.lastName}}</div>
+        <div class="entity-view__info__data__name">
+
+          <md-input-container *ngIf="customerInfoEditMode; else firstname">
+            <input class="name" md-input type="text" [(ngModel)]="entity.firstName">
+          </md-input-container>
+          <ng-template #firstname>
+            {{entity.firstName}}
+          </ng-template>
+
+          <md-input-container class="name" *ngIf="customerInfoEditMode; else lastname">
+            <input md-input type="text" [(ngModel)]="entity.lastName">
+          </md-input-container>
+          <ng-template #lastname>
+            {{entity.lastName}}
+          </ng-template>
+        </div>
         <div class="entity-view__info__data__other">
           <div class="entity-view__info__data__other__item"><md-icon>phone</md-icon>
             <md-input-container *ngIf="customerInfoEditMode; else phoneNoEdit">
