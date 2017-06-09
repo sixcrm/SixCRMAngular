@@ -9,6 +9,7 @@ import {conformToMask} from 'angular2-text-mask';
 import {CreditCard} from '../../../shared/models/credit-card.model';
 import {firstIndexOf} from '../../../shared/utils/array-utils';
 import {Rebill} from '../../../shared/models/rebill.model';
+import {AuthenticationService} from '../../../authentication/authentication.service';
 
 @Component({
   selector: 'customer-view',
@@ -33,7 +34,8 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
     service: CustomersService,
     route: ActivatedRoute,
     progressBarService: ProgressBarService,
-    public navigation: NavigationService
+    public navigation: NavigationService,
+    public authService: AuthenticationService
   ) {
     super(service, route, progressBarService);
   }

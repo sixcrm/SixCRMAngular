@@ -25,6 +25,11 @@ export class Permissions {
 
     let op = allowed.split('/')[1];
 
+    // if user has requested permission or user has all permissions
+    if (operation === op || op === '*') {
+      return true;
+    }
+
     // view is allowed if user has view, read, write or * (all) permissions
     if (operation === 'view' && (op === 'view' || op === 'read' || op === 'write' || op === '*')) {
       return true;
@@ -37,11 +42,6 @@ export class Permissions {
 
     // write is allowed if user has write or * (all) permissions
     if (operation === 'write' && (op === 'write' || op === '*')) {
-      return true;
-    }
-
-    // * (all) is allowed if user * (all) permissions
-    if (operation === '*' && op === '*') {
       return true;
     }
 

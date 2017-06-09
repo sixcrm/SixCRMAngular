@@ -12,17 +12,34 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
     items.push(new MenuItem('Dashboard', 'dashboard').setIcon('view_quilt'));
   }
   // Add reports
-  if (authService.hasPermissions('analytics', 'view')) {
-    items.push(
-      new MenuItem('Reports', null, [
-        new MenuItem('Order Report', 'reports/order'),
-        new MenuItem('Transactions Report', 'reports/transaction'),
-        new MenuItem('Fulfillment Report', 'reports/fulfillment'),
-        new MenuItem('Affiliate Report', 'reports/affiliate'),
-        new MenuItem('Retention', 'reports/retention'),
-        new MenuItem('Projections', 'reports/projection')
-      ]).setIcon('library_books')
-    );
+
+  let reportItems: MenuItem[] = [];
+  if (authService.hasPermissions('analytics', 'getOrders')) {
+    reportItems.push(new MenuItem('Order Report', 'reports/order'));
+  }
+
+  if (authService.hasPermissions('analytics', 'getTransactions')) {
+    reportItems.push(new MenuItem('Transactions Report', 'reports/transaction'));
+  }
+
+  if (authService.hasPermissions('analytics', 'getFullfillment')) {
+    reportItems.push(new MenuItem('Fulfillment Report', 'reports/fulfillment'));
+  }
+
+  if (authService.hasPermissions('analytics', 'getAffiliates')) {
+    reportItems.push(new MenuItem('Affiliate Report', 'reports/affiliate'));
+  }
+
+  if (authService.hasPermissions('analytics', 'getRetention')) {
+    reportItems.push(new MenuItem('Retention', 'reports/retention'));
+  }
+
+  if (authService.hasPermissions('analytics', 'getProjections')) {
+    reportItems.push(new MenuItem('Projections', 'reports/projection'));
+  }
+
+  if (reportItems.length > 0) {
+    items.push(new MenuItem('Reports', null, reportItems).setIcon('library_books'));
   }
 
   // Add customer menu items

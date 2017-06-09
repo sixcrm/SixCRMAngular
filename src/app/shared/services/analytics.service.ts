@@ -241,6 +241,8 @@ export class AnalyticsService {
   }
 
   getActivityByCustomer(start: string, end: string, customer: string, limit: number, offset: number) {
+    if (!this.hasPermission('getActivityByIdentifier')) return;
+
     this.queryRequest(activitiesByCustomer(start, end, customer, limit, offset)).subscribe(data => {
       let activityList = data.json().data.listactivitybyidentifier;
 
@@ -248,6 +250,10 @@ export class AnalyticsService {
         this.activitiesByCustomer$.next(activityList.activity.map(activity => new Activity(activity)));
       }
     })
+  }
+
+  hasPermission(operation: string): boolean {
+    return this.authService.hasPermissions('analytics', operation)
   }
 
   clearAllSubjects(): void {

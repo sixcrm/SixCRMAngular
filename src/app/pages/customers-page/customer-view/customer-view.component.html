@@ -175,7 +175,7 @@
           <div class="column">
             <customer-notes [customerId]="entityId"></customer-notes>
 
-            <customer-events [customer]="entity"></customer-events>
+            <customer-events *ngIf="authService.hasPermissions('analytics', 'getAcvtivityByIdentifier')" [customer]="entity"></customer-events>
           </div>
         </div>
         <div [class.customer-view__content--invisible]="!creditCardInputMode" class="customer-view__content">
