@@ -19,7 +19,7 @@
 
       <div class="notes" *ngFor="let n of notes">
         <div class="notes__title">
-          <span class="notes__title__label">{{n.user.name}}</span>
+          <span class="notes__title__label notes__title__label--link" [routerLink]="['/users', n.user.id]">{{n.user.name}}</span>
           <md-icon>date_range</md-icon>
           <span class="notes__title__label">{{n.createdAt | formatDateTime}}</span>
           <md-icon>query_builder</md-icon>

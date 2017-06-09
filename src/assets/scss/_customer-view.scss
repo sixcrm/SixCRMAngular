@@ -553,6 +553,11 @@ customer-notes {
         vertical-align: middle;
         font-size: 12px;
         font-weight: 400;
+
+        &--link {
+          cursor: pointer;
+          color: $card-title-color;
+        }
       }
 
       &__save {
