@@ -46,6 +46,11 @@ export class AnalyticsService {
     this.campaignsByAmount$ = new BehaviorSubject(null);
 
     this.activitiesByCustomer$ = new Subject();
+
+    this.authService.activeAclChanged$.subscribe(() => {
+      this.clearAllSubjects();
+      this.analyticsStorage.refresh();
+    });
   }
 
   getTransactionSummaries(start: string, end: string, filters: FilterTerm[], download?: boolean): void {

@@ -7,6 +7,7 @@ import {menuItems} from './menu-setup';
 import {StringUtils} from '../shared/utils/string-utils';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Router} from '@angular/router';
+import {ProgressBarService} from '../shared/services/progress-bar.service';
 
 @Injectable()
 export class NavigationService {
@@ -29,15 +30,24 @@ export class NavigationService {
   private _isRouteLoading: Subject<boolean> = new BehaviorSubject(true);
   private _showNotifications: Subject<boolean> = new BehaviorSubject(false);
 
-  constructor(public dialog: MdDialog, private authService: AuthenticationService, private location: Location, private router: Router) {
+  constructor(public dialog: MdDialog,
+              private authService: AuthenticationService,
+              private location: Location,
+              private router: Router,
+              private progressBarService: ProgressBarService
+  ) {
     this.authService.activeAcl$.subscribe(acl => {
       if (!acl || !acl.account.id) return;
 
       if (acl.role.name === 'Customer Service') {
         this.router.navigateByUrl('/customer-service-dashboard');
+      } else {
+        this.router.navigateByUrl('/dashboard');
       }
 
       this.setMenuItems(menuItems(authService, acl));
+
+      this.progressBarService.hideTopProgressBar();
     })
   }
 

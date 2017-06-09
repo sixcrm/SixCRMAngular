@@ -74,12 +74,6 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
         this.limit = lim
       }
     });
-    this.authService.activeAclChanged$.takeUntil(this.unsubscribe$).subscribe(() => {
-      this.resetEntities();
-      this.loadingData = true;
-      this.progressBarService.showTopProgressBar();
-      this.service.getEntities(this.limit);
-    });
 
     this.service.resetPagination();
 

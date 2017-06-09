@@ -3,6 +3,14 @@ $border-color: rgba(0, 0, 0, 0.2);
 
 .search {
 
+  .md-tab-label-container {
+    display: none;
+  }
+
+  .coming-soon {
+    height: calc(100vh - 128px) !important;
+  }
+
   &__header {
     border-bottom: 1px solid rgba(0,0,0,0.6);
     background: #F3F3F3;
