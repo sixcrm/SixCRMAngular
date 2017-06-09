@@ -5,10 +5,8 @@ import {ProgressBarService} from '../../../../shared/services/progress-bar.servi
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {customerNotesByCustomerQuery} from '../../../../shared/utils/query-builder';
-import {ActivatedRoute, Router} from '@angular/router';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {MdDialog} from '@angular/material';
-import {CustomersService} from '../../../../shared/services/customers.service';
 import {firstIndexOf} from '../../../../shared/utils/array-utils';
 
 @Component({
@@ -38,7 +36,7 @@ export class CustomerNotesComponent extends AbstractEntityIndexComponent<Custome
   ngOnInit() {
     this.service.indexQuery = (limit?: number, cursor?: string) => customerNotesByCustomerQuery(this.customerId, limit, cursor);
     this.shareLimit = false;
-    this.limit = 8;
+    this.limit = 50;
 
     this.service.entities$.takeUntil(this.unsubscribe$).subscribe(notes => {
       this.hasMore = notes && notes.length === this.limit;
