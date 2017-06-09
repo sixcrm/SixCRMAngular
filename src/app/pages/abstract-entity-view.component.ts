@@ -14,6 +14,7 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
   entity: T;
   entityBackup: T;
 
+  protected takeUpdated: boolean = true;
   protected fetchEntityOnInit: boolean = true;
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
@@ -41,7 +42,9 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
     });
 
     this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe((updated: T) => {
-      this.entity = updated;
+      if (this.takeUpdated) {
+        this.entity = updated;
+      }
       this.updateMode = false;
       this.viewMode = true;
       this.mode = 'Updated';

@@ -36,6 +36,7 @@ export class TransactionViewComponent extends AbstractEntityViewComponent<Transa
   }
 
   ngOnInit() {
+    this.takeUpdated = false;
     super.init();
   }
 
