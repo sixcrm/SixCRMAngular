@@ -20,6 +20,7 @@ import { CustomerFulfillmentComponent } from './customer-view/customer-fulfillme
 import { CustomerRebillEditComponent } from './customer-view/customer-rebill-edit/customer-rebill-edit.component';
 import {Daterangepicker} from 'ng2-daterangepicker';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import { SingleEventComponent } from './customer-view/customer-events/single-event/single-event.component';
 
 @NgModule({
   imports : [
@@ -45,7 +46,8 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
     CustomerEventsComponent,
     CreditCardInputComponent,
     CustomerFulfillmentComponent,
-    CustomerRebillEditComponent
+    CustomerRebillEditComponent,
+    SingleEventComponent
   ],
   exports : [
     CustomerComponent

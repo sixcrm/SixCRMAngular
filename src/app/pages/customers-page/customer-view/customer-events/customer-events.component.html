@@ -17,7 +17,7 @@
         </div>
         <div class="events__content">
           <div><img src="assets/images/alert-icon.svg"></div>
-          <span>{{activity.parse()}}</span>
+          <single-event [data]="activity.parse()"></single-event>
         </div>
       </div>
 

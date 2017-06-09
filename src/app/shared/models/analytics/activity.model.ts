@@ -29,25 +29,31 @@ export class Activity {
     this.english = obj.english || '';
   }
 
-  parse(): string {
+  parse(): any {
     let data = JSON.parse(this.english);
     let sentence = data.english_template;
 
-    sentence = sentence.replace(`{action}`, this.action);
+    let parsedData = {};
+    parsedData['{action}'] = {value: this.action};
+    parsedData['{actor}'] = {value: this.getName(data, 'actor', this.actor_type), type: this.actor_type, id: this.actor};
+    parsedData['{acted_upon}'] = {value: this.getName(data, 'acted_upon', this.acted_upon_type), type: this.acted_upon_type, id: this.acted_upon};
+    parsedData['{associated_with}'] = {value: this.getName(data, 'associated_with', this.associated_with_type), type: this.associated_with_type, id: this.associated_with};
 
-    Object.keys(data).forEach(key => {
-      sentence = sentence.replace(`{${key}}`, this.getString(data[key]));
-    });
-
-    return sentence;
+    return {template: sentence.slice(0, -1), values: parsedData};
   }
 
-  private getString(data: any) {
-    if (!data) return '';
-    if (data.user) return data.user;
-    if (data.firstName || data.lastName) return data.firstName + ' ' + data.lastName;
-    if (data.email) return data.email;
+  private getName(data: any, type: string, entity_type: string): string {
+    let info = data[type];
 
-    return data.id;
+    if (!info) return '';
+
+    if (entity_type === 'user') return info.id;
+    if (entity_type === 'transaction') return info.alias;
+    if (entity_type === 'creditcard') return 'credit card';
+    if (entity_type === 'customer') return info.firstname + ' ' + info.lastname;
+    if (info.name) return info.name;
+    if (info.email) return info.email;
+
+    return entity_type;
   }
 }
