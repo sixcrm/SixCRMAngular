@@ -23,6 +23,8 @@ export class NavigationService {
   private _isRouteLoading: Subject<boolean> = new BehaviorSubject(true);
   private _showNotifications: Subject<boolean> = new BehaviorSubject(false);
 
+  private showSidenavSelectedValue: boolean = this.largeScreen;
+
   constructor(public dialog: MdDialog,
               private authService: AuthenticationService,
               private location: Location,
@@ -66,7 +68,19 @@ export class NavigationService {
   }
 
   public toggleSidenav(showSidenav: boolean): void {
+    this.showSidenavSelectedValue = showSidenav;
     this._showSidenav.next(showSidenav);
+  }
+
+  public setSidenavAuto(value: boolean): void {
+    this.showSidenav.take(1).subscribe(v => {
+      this.showSidenavSelectedValue = v;
+      this._showSidenav.next(value);
+    })
+  }
+
+  public resetSidenavAuto(): void {
+    this.toggleSidenav(this.showSidenavSelectedValue);
   }
 
   public get showNotifications(): Subject<boolean> {

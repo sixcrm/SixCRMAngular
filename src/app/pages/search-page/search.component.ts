@@ -96,7 +96,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.navigationService.toggleSidenav(false);
+    this.navigationService.setSidenavAuto(false);
 
     this.paginationService.searchResultsLimit$.subscribe(limit => this.limit = limit);
 
@@ -160,6 +160,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     if (this.paramsSub) {
       this.paramsSub.unsubscribe();
     }
+    this.navigationService.resetSidenavAuto();
   }
 
   parseShareParams(params): void {
