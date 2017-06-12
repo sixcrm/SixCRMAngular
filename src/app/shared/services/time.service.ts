@@ -19,7 +19,7 @@ export class TimeService {
       } else if (formatString === 'time') {
         f = 'h:mm A';
       } else  {
-        f = 'MM/DD/YYYY';
+        f = formatString;
       }
     }
 

@@ -7,6 +7,7 @@ import {environment} from '../../../environments/environment';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AnalyticsStorageService} from '../../shared/services/analytics-storage.service';
 import {FilterTerm, DateMap, flatUp} from '../../shared/components/advanced-filter/advanced-filter.component';
+import {TimeService} from '../../shared/services/time.service';
 
 @Component({
   selector: 'c-dashboard',
@@ -37,7 +38,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     public analyticsService: AnalyticsService,
     private route: ActivatedRoute,
     private router: Router,
-    private analyticsStorageService: AnalyticsStorageService
+    private analyticsStorageService: AnalyticsStorageService,
+    private timeService: TimeService
   ) {
     this.termFilterDebouncer$ = new Subject();
     this.unsubscribe$ = new Subject();
@@ -167,7 +169,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getLastUpdatedTime(): string {
-    return `Refresh Dashboard. Last updated: ${this.analyticsStorageService.getLastUpdatedTime().format('LT')}`;
+    return `Refresh Dashboard. Last updated: ${this.timeService.format(this.analyticsStorageService.getLastUpdatedTime(), 'LT')}`;
   }
 
   refresh(): void {
