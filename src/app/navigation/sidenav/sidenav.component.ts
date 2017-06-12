@@ -26,15 +26,16 @@ export class SidenavComponent implements OnInit {
   @ViewChildren(SidenavItemComponent) children: QueryList<SidenavItemComponent>;
 
   @Input() isHovering: boolean = false;
-  private showSidenav: boolean = false;
+
   menuItems: MenuItem[] = [];
+  versionNumber: string = environment.version;
+  _this: SidenavComponent = this;
+
+  private showSidenav: boolean = false;
   private _screenWidth: number = NavigationService.largeViewportWidth;
   private _initialLoad: boolean = true; // Used to show slide in effect on page load for sidenav
-  private _this: SidenavComponent = this;
-  private versionNumber: string = environment.version;
 
-  constructor(private _navigation: NavigationService) {
-  }
+  constructor(private _navigation: NavigationService) { }
 
   ngOnInit() {
     this._navigation.showSidenav.subscribe(showSidenav => {

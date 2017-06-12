@@ -14,6 +14,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
   notificationCount$: Subject<number> = new Subject<number>();
   poolingInterval = 30000;
   notificationsSub: Subscription;
+  querySub: Subscription;
 
   constructor(http: Http, authService: AuthenticationService) {
     super(
@@ -42,6 +43,10 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
       this.notificationsSub.unsubscribe();
     }
 
+    if (this.querySub) {
+      this.querySub.unsubscribe();
+    }
+
     this.startPoolingNotifications();
   }
 
@@ -50,7 +55,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
       return;
     }
 
-    this.queryRequest(notificationCountQuery()).subscribe(
+    this.querySub = this.queryRequest(notificationCountQuery()).subscribe(
       (data) => {
         let json = data.json().data;
         let entityKey = Object.keys(json)[0];

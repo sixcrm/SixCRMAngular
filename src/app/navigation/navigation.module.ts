@@ -20,8 +20,19 @@ import { ProfileDropdownComponent } from './topnav/profile-dropdown/profile-drop
     SharedModule,
     FormsModule
   ],
-  declarations : [SidenavComponent, TopnavComponent, SidenavItemComponent, DefaultLayoutComponent, NotificationsQuickComponent, ProfileDropdownComponent],
-  exports : [SidenavComponent, TopnavComponent, DefaultLayoutComponent]
+  declarations : [
+    SidenavComponent,
+    TopnavComponent,
+    SidenavItemComponent,
+    DefaultLayoutComponent,
+    NotificationsQuickComponent,
+    ProfileDropdownComponent
+  ],
+  exports : [
+    SidenavComponent,
+    TopnavComponent,
+    DefaultLayoutComponent
+  ]
 })
 export class NavigationModule {
   static forRoot(): ModuleWithProviders {

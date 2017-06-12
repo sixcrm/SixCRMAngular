@@ -14,7 +14,7 @@
   <md-icon *ngIf='menuItem.icon'>{{menuItem.icon}}</md-icon>
   <span class="sidenav-item__text" *ngIf="full">{{ menuItem?.title }}</span>
   <span class="app-flex-filler"></span>
-  <md-icon class="icon--more" *ngIf="full">keyboard_arrow_down</md-icon>
+  <md-icon class="icon--more" [class.icon--more--rotate]="active" *ngIf="full">keyboard_arrow_down</md-icon>
 </a>
 <md-nav-list *ngIf="hasChildren" class="nav-children {{levelClass}}" [ngClass]="{ 'active' : active && full }" [ngStyle]="{'height.px': height}">
   <c-sidenav-item *ngFor="let menuItemChild of menuItem.children" [menuItem]="menuItemChild" [level]="level + 1" [parent]="_this" [full]="full"></c-sidenav-item>

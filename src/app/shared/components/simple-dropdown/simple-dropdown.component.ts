@@ -28,17 +28,27 @@ export class SimpleDropdownComponent implements OnInit {
   }
 
   toggleDropdown(): void {
+    if (!this.dropdownVisible && this.getOptions().length === 0) {
+      return;
+    }
+
     this.dropdownVisible = !this.dropdownVisible;
   }
 
   getHeight(): string {
-    if (!this.dropdownVisible || !this.options) return '0';
+    if (!this.dropdownVisible || !this.getOptions()) return '0';
 
-    return this.options.length * 48 + 'px';
+    return this.getOptions().length * 48 + 'px';
   }
 
   select(option: any): void {
     this.optionSelected.emit(option);
     this.dropdownVisible = false;
+  }
+
+  getOptions(): any[] {
+    if (!this.options) return [];
+
+    return this.options.filter(el => this.mapper(el) !== this.mapper(this.selectedOption))
   }
 }

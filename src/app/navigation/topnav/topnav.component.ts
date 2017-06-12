@@ -1,7 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {MdSidenav} from '@angular/material';
 import {NavigationService} from '../navigation.service';
-import {Title} from '@angular/platform-browser';
 import {AuthenticationService} from "../../authentication/authentication.service";
 import {StringUtils} from '../../shared/utils/string-utils';
 import {Router} from '@angular/router';
@@ -19,15 +18,8 @@ import {NotificationsQuickService} from '../../shared/services/notifications-qui
 export class TopnavComponent implements OnInit {
   @Input() sideNav: MdSidenav;
 
-  _showSidenav: boolean;
-  _pageTitle: string;
-  _browserTitle: string;
-  _isLoadingRoute: boolean = false;
-  _breadcrumbs: Array<{title: string, link: any[] | string}> = [];
-  _autoBreadcrumbs: boolean = true;
-
-  private _breadcrumbInterval: number;
-  private _pageTitleInterval: number;
+  showSidenav: boolean;
+  isLoadingRoute: boolean = false;
 
   userProfile: User = new User();
 
@@ -37,83 +29,31 @@ export class TopnavComponent implements OnInit {
   searchTerm: string = '';
   options: string[] = [];
 
-  activeAcl: Acl = new Acl();
-
   notificationsCount: number;
 
   mapAcl = (acl: Acl) => acl.account.name;
 
   constructor(
-    public _navigation: NavigationService,
-    private _title: Title,
-    private _authService: AuthenticationService,
+    public navigation: NavigationService,
+    public authService: AuthenticationService,
     private router: Router,
     private searchService: SearchService,
     private notificationsService: NotificationsQuickService
-  ) {
-  }
+  ) { }
 
   ngOnInit() {
-    this._navigation.isRouteLoading.subscribe(isRouteLoading => {
-      this._isLoadingRoute = isRouteLoading;
+    this.navigation.isRouteLoading.subscribe(isRouteLoading => {
+      this.isLoadingRoute = isRouteLoading;
     });
-    this._navigation.showSidenav.subscribe(showSidenav => {
-      this._showSidenav = showSidenav;
-    });
-    this._navigation.breadcrumbs.subscribe(breadcrumbs => {
-      if(breadcrumbs !== null) {
-        window.clearInterval(this._breadcrumbInterval);
-        this._autoBreadcrumbs = false;
-        this._breadcrumbs = breadcrumbs;
-      } else {
-        if(this._isLoadingRoute) {
-          this._breadcrumbInterval = window.setInterval(() => {
-            if(!this._isLoadingRoute) {
-              window.clearInterval(this._breadcrumbInterval);
-              this.updateAutoBreadcrumbs();
-            }
-          });
-        } else {
-          this.updateAutoBreadcrumbs();
-        }
-      }
-    });
-    this._navigation.pageTitle.subscribe(pageTitle => {
-      if(pageTitle !== null) {
-        window.clearInterval(this._pageTitleInterval);
-        this._pageTitle = pageTitle;
-        if(this._browserTitle === null) {
-          this._title.setTitle(this._navigation.getAutoBrowserTitle(pageTitle));
-        }
-      } else {
-        if(this._isLoadingRoute) {
-          this._pageTitleInterval = window.setInterval(() => {
-            if(!this._isLoadingRoute) {
-              window.clearInterval(this._pageTitleInterval);
-              this.updatePageTitle();
-            }
-          });
-        } else {
-          this.updatePageTitle();
-        }
-      }
-    });
-    this._navigation.browserTitle.subscribe(browserTitle => {
-      this._browserTitle = browserTitle;
-      if(browserTitle !== null) {
-        this._title.setTitle(browserTitle);
-      } else {
-        this._title.setTitle(this._navigation.getAutoBrowserTitle(this._pageTitle));
-      }
+    this.navigation.showSidenav.subscribe(showSidenav => {
+      this.showSidenav = showSidenav;
     });
 
-    this._authService.sixUser$.subscribe((userProfile: User) => {
+    this.authService.sixUser$.subscribe((userProfile: User) => {
       if (userProfile) {
         this.userProfile = userProfile;
       }
     });
-
-    this._authService.activeAcl$.subscribe((acl: Acl) => this.activeAcl = acl);
 
     this.searchService.suggestionResults$.subscribe(options => {
       this.options = options;
@@ -127,11 +67,11 @@ export class TopnavComponent implements OnInit {
   }
 
   logout(){
-    this._authService.logout();
+    this.authService.logout();
   }
 
   changeAcl(acl: Acl): void {
-    this._authService.changeActiveAcl(acl);
+    this.authService.changeActiveAcl(acl);
   }
 
   selectOption(option: string): void {
@@ -177,7 +117,7 @@ export class TopnavComponent implements OnInit {
   };
 
   toggleSidenav(): void {
-    this._navigation.toggleSidenav(!this._showSidenav);
+    this.navigation.toggleSidenav(!this.showSidenav);
   }
 
   toggleCollapseMenu(): void {
@@ -200,24 +140,8 @@ export class TopnavComponent implements OnInit {
   }
 
   showNotifications(): void {
-    this.notificationsCount = 0;
-    this._navigation.toggleNotifications(true);
-  }
-
-  private updateAutoBreadcrumbs() {
-    this._navigation.currentRoute.take(1).subscribe(currentRoute => {
-      this._autoBreadcrumbs = true;
-      this._breadcrumbs = this._navigation.getAutoBreadcrumbs(currentRoute);
-    });
-  }
-
-  private updatePageTitle() {
-    this._navigation.currentRoute.take(1).subscribe(currentRoute => {
-      this._pageTitle = this._navigation.getAutoPageTitle(currentRoute);
-      if(this._browserTitle === null) {
-        this._title.setTitle(this._navigation.getAutoBrowserTitle(this._pageTitle));
-      }
-    });
+    this.navigation.toggleNotifications(true);
+    this.notificationsService.restartPoolingNotifications();
   }
 
   private hideElements(event): void {

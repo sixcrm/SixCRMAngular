@@ -9,7 +9,6 @@ import 'hammerjs';
   styleUrls : ['app.component.sass']
 })
 export class AppComponent implements OnInit {
-  private pageTitle: string;
 
   constructor(
     private _navigation: NavigationService,
@@ -21,8 +20,6 @@ export class AppComponent implements OnInit {
     this._router.events.subscribe((event: Event) => {
       if(event instanceof NavigationStart) {
         this._navigation.setIsRouteLoading(true);
-        this._navigation.setBreadcrumbs(null); // Reset breadcrumbs before route change
-        this._navigation.setPageTitle(null); // Reset page title before route change
         if(this._navigation.mediumScreenAndDown) {
           this._navigation.toggleSidenav(false); // Hide nav on initial load if smaller than large screen
         }
@@ -34,9 +31,6 @@ export class AppComponent implements OnInit {
           routerOutletComponent.scrollIntoView(); // Scroll back to top after route change
         }
       }
-    });
-    this._navigation.pageTitle.subscribe(pageTitle => {
-      this.pageTitle = pageTitle;
     });
   }
 

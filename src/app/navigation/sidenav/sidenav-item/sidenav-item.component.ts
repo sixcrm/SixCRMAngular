@@ -18,7 +18,6 @@ export class SidenavItemComponent implements AfterViewInit, OnDestroy {
   @Input() parent: SidenavItemComponent;
   @Input() full: boolean = false;
 
-  private _this: SidenavItemComponent = this;
   private _subscription: Subscription;
 
   constructor(private _navigation: NavigationService, private _router: Router, private _activatedRoute: ActivatedRoute) {

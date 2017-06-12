@@ -3,7 +3,7 @@
   <button md-icon-button (click)="toggleSidenav()" id="menu-toggler">
     <img src="/assets/images/ic_sort.svg">
   </button>
-  <md-toolbar-row *ngIf="_navigation.mediumScreenAndDown && _breadcrumbs.length > 0 && !_autoBreadcrumbs">
+  <md-toolbar-row *ngIf="navigation.mediumScreenAndDown && _breadcrumbs.length > 0 && !_autoBreadcrumbs">
     <span class="breadcrumb-holder">
       <span *ngFor="let breadcrumb of _breadcrumbs" class="breadcrumb">
         <a *ngIf="breadcrumb.link !== null" [routerLink]="breadcrumb.link" class="breadcrumb-link">{{breadcrumb.title}}</a>
@@ -34,12 +34,12 @@
   </div>
 
   <div class="topnav__items--expanded">
-    <ng-container *ngIf="activeAcl">
+    <ng-container *ngIf="authService.activeAcl$ | async">
 
       <simple-dropdown
         class="topnav__acl__dropdown"
-        [selectedOption]="activeAcl"
-        [options]="_authService.getAcls()"
+        [selectedOption]="authService.activeAcl$ | async"
+        [options]="authService.getAcls()"
         [mapper]="mapAcl"
         [icon]="'domain'"
         (optionSelected)="changeAcl($event)">
@@ -68,7 +68,7 @@
         <span>{{userProfile.email}}</span>
       </div>
       <span class="topnav__items--collapsed__menu__label">Accounts:</span>
-      <div *ngFor="let acl of _authService.getAcls()">
+      <div *ngFor="let acl of authService.getAcls()">
         <div class="topnav__items--collapsed__menu__button" (click)="changeAcl(acl)"><span>{{acl.account.name}}</span></div>
       </div>
       <div class="topnav__items--collapsed__menu__button" (click)="logout()"> <span>sign out</span> </div>

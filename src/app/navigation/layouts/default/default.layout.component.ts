@@ -12,22 +12,17 @@ export class DefaultLayoutComponent implements OnInit {
   isHovering: boolean = false;
   showOnHover: boolean = false;
 
-  constructor(public _navigation: NavigationService, public progressBarService: ProgressBarService) {
-  }
+  constructor(public navigation: NavigationService, public progressBarService: ProgressBarService) { }
 
   ngOnInit() {
-    this._navigation.showSidenav.subscribe(showSidenav => this.showSidenav = showSidenav);
+    this.navigation.showSidenav.subscribe(showSidenav => this.showSidenav = showSidenav);
   }
 
   hover(value: boolean): void {
     this.isHovering = value;
 
     setTimeout(() => {
-      if (!this.showSidenav && this.isHovering) {
-        this.showOnHover = true;
-      } else {
-        this.showOnHover = false
-      }
+      this.showOnHover = !!(!this.showSidenav && this.isHovering);
     }, 50)
   }
 

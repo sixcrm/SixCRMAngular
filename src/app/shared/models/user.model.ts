@@ -33,6 +33,7 @@ export class User implements Entity<User> {
     this.email = obj.id || '';
     this.active = obj.active || '';
     this.termsAndConditions = obj.termsandconditions || '';
+    this.picture = obj.picture || '';
     this.address = new Address(obj.address);
     this.accessKey = new AccessKey(obj.accesskey);
     this.createdAt = utc(obj.created_at);
@@ -66,7 +67,10 @@ export class User implements Entity<User> {
       active: this.active,
       termsandconditions: this.termsAndConditions,
       address: this.address.inverse(),
-      acl: acls
+      picture: this.picture,
+      acl: acls,
+      created_at: this.createdAt.clone().format(),
+      updated_at: this.updatedAt.clone().format(),
     }
   }
 

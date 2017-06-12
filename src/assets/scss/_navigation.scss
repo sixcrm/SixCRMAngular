@@ -66,6 +66,11 @@ md-sidenav {
   .icon--more {
     margin-right: 0;
     margin-left: auto;
+    transition: 0.25s ease-in-out;
+
+    &--rotate {
+      transform: rotate(90deg);
+    }
   }
 
   .toolbar--small {

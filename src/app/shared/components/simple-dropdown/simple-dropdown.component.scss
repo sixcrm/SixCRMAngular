@@ -34,6 +34,10 @@
       width: 18px;
       height: 18px;
       transition: 0.2s ease-in-out;
+
+      &--disabled {
+        display: none;
+      }
     }
 
     .arrow--rotate {
