@@ -19,7 +19,6 @@ export class TopnavComponent implements OnInit {
   @Input() sideNav: MdSidenav;
 
   showSidenav: boolean;
-  isLoadingRoute: boolean = false;
 
   userProfile: User = new User();
 
@@ -42,9 +41,6 @@ export class TopnavComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.navigation.isRouteLoading.subscribe(isRouteLoading => {
-      this.isLoadingRoute = isRouteLoading;
-    });
     this.navigation.showSidenav.subscribe(showSidenav => {
       this.showSidenav = showSidenav;
     });

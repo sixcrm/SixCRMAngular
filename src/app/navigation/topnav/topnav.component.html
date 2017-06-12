@@ -1,4 +1,4 @@
-<!--<md-progress-bar mode="indeterminate" *ngIf="_isLoadingRoute"></md-progress-bar>-->
+<md-progress-bar class="topnav__route-loader" mode="indeterminate" *ngIf="navigation.isRouteLoading | async"></md-progress-bar>
 <md-toolbar class="topnav">
   <button md-icon-button (click)="toggleSidenav()" id="menu-toggler">
     <img src="/assets/images/ic_sort.svg">
