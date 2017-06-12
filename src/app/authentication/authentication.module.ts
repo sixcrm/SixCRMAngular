@@ -8,7 +8,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import {MaterialModule} from '@angular/material';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {LoginGuard} from './login-guard.service';
+import {RegisterGuard} from './register-guard.service';
 import { InviteAcceptComponent } from './invite-accept/invite-accept.component';
 
 @NgModule({
@@ -27,7 +27,7 @@ import { InviteAcceptComponent } from './invite-accept/invite-accept.component';
   providers : [
     AuthenticationService,
     AuthGuard,
-    LoginGuard
+    RegisterGuard
   ]
 })
 export class AuthenticationModule { }
