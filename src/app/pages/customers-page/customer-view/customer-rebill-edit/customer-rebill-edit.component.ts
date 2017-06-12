@@ -3,8 +3,8 @@ import {Rebill} from '../../../../shared/models/rebill.model';
 import {RebillsService} from '../../../../shared/services/rebills.service';
 import {Moment, utc} from 'moment';
 import {DaterangepickerConfig} from 'ng2-daterangepicker';
-import {createNumberMask} from 'text-mask-addons/dist/textMaskAddons';
 import {ProgressBarService} from '../../../../shared/services/progress-bar.service';
+import {getCurrencyMask, parseCurrencyMaskedValue} from '../../../../shared/utils/mask-utils';
 
 @Component({
   selector: 'customer-rebill-edit',
@@ -32,10 +32,7 @@ export class CustomerRebillEditComponent implements OnInit {
 
   datepickerVisible: boolean = false;
 
-  numberMask = createNumberMask({
-    prefix: '$',
-    allowDecimal: true
-  });
+  numberMask = getCurrencyMask();
 
   constructor(
     private rebillService: RebillsService,
@@ -60,21 +57,15 @@ export class CustomerRebillEditComponent implements OnInit {
   }
 
   saveRebill(): void {
-    let p;
-    if (this.price) {
-      let temp = this.price.slice(1).replace(/$|,/g, '');
-      p = temp ? +temp : 0;
-    } else {
-      p = 0;
-    }
+    let price = parseCurrencyMaskedValue(this.price);
 
-    if (p > this.rebill.amount.amount) {
+    if (price > this.rebill.amount.amount) {
       this.price = this.rebill.amount.amount;
       this.priceInput.nativeElement.focus();
       return;
     }
 
-    this.rebill.amount.amount = p;
+    this.rebill.amount.amount = price;
     this.rebill.billAt = this.date.clone();
     this.rebillService.entityUpdated$.take(1).subscribe(() => {
       this.progressBarService.hideTopProgressBar();

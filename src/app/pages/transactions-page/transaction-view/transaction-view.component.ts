@@ -5,7 +5,7 @@ import {TransactionsService} from '../../../shared/services/transactions.service
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {NavigationService} from '../../../navigation/navigation.service';
-import {createNumberMask} from 'text-mask-addons/dist/textMaskAddons';
+import {getCurrencyMask, parseCurrencyMaskedValue} from '../../../shared/utils/mask-utils';
 
 @Component({
   selector: 'transaction-view',
@@ -20,10 +20,7 @@ export class TransactionViewComponent extends AbstractEntityViewComponent<Transa
   amountToRefund;
   refundAllSelected: boolean = false;
 
-  numberMask = createNumberMask({
-    prefix: '$',
-    allowDecimal: true
-  });
+  numberMask = getCurrencyMask();
 
   constructor(
     private transactionsService: TransactionsService,
@@ -47,17 +44,7 @@ export class TransactionViewComponent extends AbstractEntityViewComponent<Transa
   }
 
   refundTransaction(): void {
-    let amount;
-
-    if (this.amountToRefund) {
-      let temp = this.amountToRefund.replace(/$|,/g, '');
-      if (temp.charAt(0) === '$') {
-        temp = temp.slice(1);
-      }
-      amount = temp ? +temp : 0;
-    } else {
-      amount = 0;
-    }
+    let amount = parseCurrencyMaskedValue(this.amountToRefund);
 
     if (amount > this.entity.amount.amount || amount === 0) {
       this.amountToRefund = '$0';
