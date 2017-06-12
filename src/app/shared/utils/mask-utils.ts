@@ -18,3 +18,7 @@ export function parseCurrencyMaskedValue(value: any): number {
 
   return 0;
 }
+
+export function getPhoneNumberMask(): any {
+  return ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+}

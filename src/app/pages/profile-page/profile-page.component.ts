@@ -11,6 +11,7 @@ import {UserSettingsService} from '../../shared/services/user-settings.service';
 import {NotificationSettings, NotificationSettingsData} from '../../shared/models/notification-settings.model';
 import {NotificationSettingsService} from '../../shared/services/notification-settings.service';
 import {conformToMask} from 'angular2-text-mask';
+import {getPhoneNumberMask} from '../../shared/utils/mask-utils';
 
 @Component({
   selector: 'profile-page',
@@ -35,7 +36,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   notificationSettings: NotificationSettings;
   defaultNotificationSettings: NotificationSettingsData;
 
-  public mask = ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  public mask = getPhoneNumberMask();
 
   private userSettingsUpdateDebouncer: Subject<boolean> = new Subject();
   private notificationSettingsUpdateDebouncer: Subject<boolean> = new Subject();
