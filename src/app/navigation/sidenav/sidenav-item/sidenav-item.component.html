@@ -10,6 +10,10 @@
   <md-icon *ngIf='menuItem.icon'>{{menuItem.icon}}</md-icon>
   <span class="sidenav-item__text" *ngIf="full">{{ menuItem.title }}</span>
 </a>
+<a md-list-item [class.icon--solo]="!full" *ngIf="hasClickHandler" routerLinkActive="active" (toggle)="true" (click)="menuItem.clickHandler()">
+  <md-icon *ngIf='menuItem.icon'>{{menuItem.icon}}</md-icon>
+  <span class="sidenav-item__text" *ngIf="full">{{ menuItem.title }}</span>
+</a>
 <a md-list-item [class.icon--solo]="!full" class="nav-dropdown" *ngIf="hasChildren" (click)="toggleDropdown(!active)" [ngClass]="{ 'active' : active && full }" (click)="clicked($event)">
   <md-icon *ngIf='menuItem.icon'>{{menuItem.icon}}</md-icon>
   <span class="sidenav-item__text" *ngIf="full">{{ menuItem?.title }}</span>

@@ -115,6 +115,12 @@ export class SidenavItemComponent implements AfterViewInit, OnDestroy {
     return !StringUtils.isEmpty(this.menuItem.link);
   }
 
+  get hasClickHandler(): boolean {
+    if (!this.menuItem) return false;
+
+    return !!(this.menuItem.clickHandler);
+  }
+
   get hasChildren(): boolean {
     if(!this.menuItem || this.hasLink) {
       return false;
