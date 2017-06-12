@@ -1,7 +1,7 @@
 general:
   branches:
     only:
-      - Auth0
+      - development
 
 machine:
   timezone:
@@ -19,6 +19,6 @@ test:
 
 deployment:
   development:
-    branch: Auth0
+    branch: development
     commands:
       - ./build.sh
