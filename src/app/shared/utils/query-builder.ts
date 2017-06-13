@@ -229,11 +229,11 @@ export function updateFulfillmentProviderMutation(provider: FulfillmentProvider)
 }
 
 export function affiliatesListQuery(limit?:number, cursor?:string): string {
-  return `{ affiliatelist ${pageParams(limit, cursor)} { affiliates { id affiliate_id created_at updated_at } ${paginationString()} } }`
+  return `{ affiliatelist ${pageParams(limit, cursor)} { affiliates { id name affiliate_id created_at updated_at } ${paginationString()} } }`
 }
 
 export function affiliateQuery(id: string): string {
-  return `{ affiliate (id: "${id}") { id affiliate_id created_at updated_at } }`
+  return `{ affiliate (id: "${id}") { id name affiliate_id created_at updated_at } }`
 }
 
 export function deleteAffiliateMutation(id: string): string {

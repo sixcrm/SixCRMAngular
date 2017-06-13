@@ -3,6 +3,7 @@ import {Moment, utc} from 'moment';
 
 export class Affiliate implements Entity<Affiliate> {
   id: string;
+  name: string;
   affiliateId: string;
   createdAt: Moment;
   updatedAt: Moment;
@@ -13,6 +14,7 @@ export class Affiliate implements Entity<Affiliate> {
     }
 
     this.id = obj.id || '';
+    this.name = obj.name || '';
     this.affiliateId = obj.affiliate_id || '';
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);

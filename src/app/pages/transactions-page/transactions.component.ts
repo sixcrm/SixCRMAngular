@@ -29,9 +29,9 @@ export class TransactionsComponent extends AbstractEntityIndexComponent<Transact
 
     let f = this.authService.getTimezone();
     this.columnParams = [
-      new ColumnParams('ID', (e: Transaction) => e.id),
-      new ColumnParams('Date',(e: Transaction) => e.createdAt.tz(f).format('MM/DD/YYYY')),
+      new ColumnParams('Alias', (e: Transaction) => e.alias),
       new ColumnParams('Amount', (e: Transaction) => e.amount.usd(), 'right'),
+      new ColumnParams('Date',(e: Transaction) => e.createdAt.tz(f).format('MM/DD/YYYY')),
       new ColumnParams('Processor Response', (e: Transaction) => e.processorResponse.message)
     ];
   }
