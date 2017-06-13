@@ -9,6 +9,7 @@ import {AffiliateComponent} from './affiliate/affiliate.component';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {AffiliatesAclGuard} from '../guards/affiliates-acl-guard.service';
 import {SharedModule} from '../../shared/shared.module';
+import { AffiliateTrackersComponent } from './affiliate-view/affiliate-trackers/affiliate-trackers.component';
 
 @NgModule({
   imports : [
@@ -23,7 +24,8 @@ import {SharedModule} from '../../shared/shared.module';
   declarations : [
     AffiliatesComponent,
     AffiliateViewComponent,
-    AffiliateComponent
+    AffiliateComponent,
+    AffiliateTrackersComponent
   ],
   exports : [
     AffiliateComponent

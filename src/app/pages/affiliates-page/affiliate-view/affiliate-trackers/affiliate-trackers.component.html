@@ -1,16 +1,7 @@
 <div class="entity-view__table-component">
-  <div class="entity-view__table-component__header">
-    <md-input class="entity-view__table-component__header__filter" placeholder="Filter" [(ngModel)]="filterValue"></md-input>
-    <table-pagination
-      [limit]="limit"
-      [paginationValues]="paginationValues"
-      [previousDisabled]="page <= 0"
-      [nextDisabled]="!hasMorePages()"
-      (previous)="previous()"
-      (next)="next()"
-      (updateLimit)="updateLimit($event)">
-    </table-pagination>
-    <md-icon class="entity-view__table-component__header__action">more_vert</md-icon>
+  <div class="entity-view__table-component__header entity-view__table-component__header--homepage">
+    <div class="entity-view__table-component__header__title">Associated Tracking</div>
+    <md-icon class="entity-view__table-component__header__action alone">more_vert</md-icon>
   </div>
   <table class="highlight table__custom">
     <thead>
@@ -25,18 +16,19 @@
 
     <tbody>
     <tr *ngFor="let entity of entities | filterEntities: filterValue | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder">
-      <td *ngFor="let params of columnParams" [routerLink]="['/sessions', entity.id]" [class.cell--align-right]="params.align === 'right'">{{params.mappingFunction(entity)}}</td>
+      <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'" [routerLink]="['/trackers', entity.id]">{{params.mappingFunction(entity)}}</td>
       <td>
-        <table-actions
-          [service]="service">
-        </table-actions>
+        <button md-icon-button [md-menu-trigger-for]="actionsMenu"><md-icon>more_vert</md-icon></button>
+        <md-menu #actionsMenu="mdMenu" x-position="before">
+          <button md-menu-item (click)="router.navigate(['trackers',entity.id])">View Tracker</button>
+        </md-menu>
       </td>
     </tr>
     </tbody>
   </table>
 
   <md-spinner class="entity-view__spinner" *ngIf="loadingData && (!entities || entities.length === 0)"></md-spinner>
-  <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">No upcoming transactions found</div>
+  <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">No transactions found</div>
 
   <table-pagination
     [limit]="limit"

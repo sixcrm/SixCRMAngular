@@ -36,8 +36,8 @@
         </div>
       </div>
 
-      <md-spinner class="customer-view__spinner" *ngIf="loadingData"></md-spinner>
-      <div class="customer-view__no-results" *ngIf="!loadingData && (!notes || notes.length === 0)">No customer notes found</div>
+      <md-spinner class="entity-view__spinner" *ngIf="loadingData"></md-spinner>
+      <div class="entity-view__no-results" *ngIf="!loadingData && (!notes || notes.length === 0)">No customer notes found</div>
     </div>
 
     <div *ngIf="!showNewNote" class="notes__button" (click)="newNote()"><md-icon>add</md-icon></div>

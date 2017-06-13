@@ -1,7 +1,7 @@
-<div class="customer-view__table">
-  <div class="customer-view__table__header">
-    <div class="customer-view__table__header__title">HISTORICAL TRANSACTIONS</div>
-    <md-input class="customer-view__table__header__filter" placeholder="Filter" [(ngModel)]="filterValue"></md-input>
+<div class="entity-view__table-component">
+  <div class="entity-view__table-component__header">
+    <div class="entity-view__table-component__header__title">HISTORICAL TRANSACTIONS</div>
+    <md-input class="entity-view__table-component__header__filter" placeholder="Filter" [(ngModel)]="filterValue"></md-input>
     <table-pagination
       [limit]="limit"
       [paginationValues]="paginationValues"
@@ -11,7 +11,7 @@
       (next)="next()"
       (updateLimit)="updateLimit($event)">
     </table-pagination>
-    <md-icon class="customer-view__table__header__action">more_vert</md-icon>
+    <md-icon class="entity-view__table-component__header__action">more_vert</md-icon>
   </div>
   <table class="highlight table__custom">
     <thead>
@@ -37,8 +37,8 @@
     </tbody>
   </table>
 
-  <md-spinner class="customer-view__spinner" *ngIf="loadingData && (!entities || entities.length === 0)"></md-spinner>
-  <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="customer-view__no-results customer-view__no-results--table">No transactions found</div>
+  <md-spinner class="entity-view__spinner" *ngIf="loadingData && (!entities || entities.length === 0)"></md-spinner>
+  <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">No transactions found</div>
 
   <table-pagination
     [limit]="limit"
