@@ -19,8 +19,6 @@
         "styles.scss"
       ],
       "scripts": [
-        "../node_modules/jquery/dist/jquery.js",
-        "../node_modules/google-material-color/dist/palette.js",
         "../src/assets/libs/graphql-docs.js"
       ],
       "environmentSource": "environments/environment.ts",

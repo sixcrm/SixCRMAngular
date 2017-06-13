@@ -15,7 +15,6 @@ import {
 import {User} from '../shared/models/user.model';
 import {CreditCard} from '../shared/models/credit-card.model';
 import {Acl} from '../shared/models/acl.model';
-import {UserSettings} from '../shared/models/user-settings';
 
 declare var Auth0Lock: any;
 

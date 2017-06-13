@@ -6,8 +6,6 @@ import {routing} from './app.routing';
 import {AppComponent} from './app.component';
 import {NavigationModule} from './navigation/navigation.module';
 import {MaterialModule} from '@angular/material';
-import {AgmCoreModule} from 'angular2-google-maps/core';
-import {Angulartics2Module, Angulartics2GoogleAnalytics} from 'angulartics2';
 import {AuthenticationModule} from "./authentication/authentication.module";
 import {DeleteDialogComponent} from './pages/delete-dialog.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
@@ -27,10 +25,6 @@ import {SharedModule} from './shared/shared.module';
     HttpModule,
     AuthenticationModule,
     routing,
-    AgmCoreModule.forRoot({
-      apiKey : 'YOUR_API_KEY_HERE' // Enter your key here!
-    }),
-    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
     MaterialModule.forRoot()
   ],
   exports: [
