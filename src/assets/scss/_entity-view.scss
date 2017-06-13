@@ -1,4 +1,4 @@
-$title-color: #979797;
+$title-color: #8D8888;
 $blue-color: #4A90E2;
 
 .entity-view {
@@ -7,7 +7,7 @@ $blue-color: #4A90E2;
   }
 
   &__title {
-    padding: 20px 60px;
+    padding: 20px 55px;
     font-size: 20px;
     font-weight: 500;
     color: $title-color;
@@ -15,10 +15,10 @@ $blue-color: #4A90E2;
 
   &__change-mode {
     position: absolute;
-    top: 47px;
+    top: 44px;
     left: 10px;
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
     background-color: $blue-color;
@@ -28,8 +28,8 @@ $blue-color: #4A90E2;
 
     md-icon {
       position: absolute;
-      top: 8px;
-      left: 8px;
+      top: 10px;
+      left: 10px;
       width: 18px;
       height: 18px;
       font-size: 18px;
@@ -342,6 +342,12 @@ $blue-color: #4A90E2;
         margin-left: 10px;
         color: #757575;
       }
+    }
+  }
+
+  &__coming-soon {
+    .coming-soon {
+      height: calc(100vh - 345px) !important;
     }
   }
 }

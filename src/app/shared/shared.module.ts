@@ -53,6 +53,7 @@ import { CreditCardFormatPipe } from './pipes/credit-card-format.pipe';
 import { CreditCardExpirationPipe } from './pipes/credit-card-expiration.pipe';
 import { InputCreditCardComponent } from './components/input-credit-card/input-credit-card.component';
 import { CreditCardMaskPipe } from './pipes/credit-card-mask.pipe';
+import {TrackersService} from './services/trackers.service';
 
 @NgModule({
   declarations : [
@@ -99,7 +100,13 @@ import { CreditCardMaskPipe } from './pipes/credit-card-mask.pipe';
     CreditCardMaskPipe,
     ComingSoonComponent
   ],
-  imports : [FormsModule, CommonModule, MaterialModule, ChartModule, Daterangepicker]
+  imports : [
+    FormsModule,
+    CommonModule,
+    MaterialModule,
+    ChartModule,
+    Daterangepicker
+  ]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {
@@ -134,7 +141,8 @@ export class SharedModule {
         UserSettingsService,
         NotificationSettingsService,
         TransactionReportService,
-        TimeService
+        TimeService,
+        TrackersService
       ]
     };
   }

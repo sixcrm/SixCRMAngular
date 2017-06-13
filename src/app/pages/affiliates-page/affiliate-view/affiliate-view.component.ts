@@ -13,12 +13,18 @@ import {NavigationService} from '../../../navigation/navigation.service';
 })
 export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliate> implements OnInit {
 
+  selectedIndex: number = 1;
+
   constructor(service: AffiliatesService, route: ActivatedRoute, progressBarService: ProgressBarService, public navigation: NavigationService) {
     super(service, route, progressBarService);
   }
 
   ngOnInit() {
     this.init();
+  }
+
+  setIndex(value: number): void {
+    this.selectedIndex = value;
   }
 
 }

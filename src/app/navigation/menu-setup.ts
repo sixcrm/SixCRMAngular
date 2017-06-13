@@ -53,16 +53,14 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   if (authService.hasPermissions('productschedule', 'view')) {
     crmItems.push(new MenuItem('Product Schedules', 'productschedules'));
   }
-
-  // Add campaign and email menu items to CRM menu
-  let campaignItems: MenuItem[] = [];
-
   if (authService.hasPermissions('campaign', 'view')) {
     crmItems.push(new MenuItem('Campaigns', 'campaigns'));
   }
-
   if (authService.hasPermissions('affiliate', 'view')) {
     crmItems.push(new MenuItem('Affiliates', 'affiliates'));
+  }
+  if (authService.hasPermissions('tracker', 'view')) {
+    crmItems.push(new MenuItem('Trackers', 'trackers'));
   }
   if (authService.hasPermissions('session', 'view')) {
     crmItems.push(new MenuItem('Sessions', 'sessions'));

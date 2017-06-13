@@ -258,6 +258,28 @@ export function updateAffiliateMutation(affiliate: Affiliate): string {
 	  }`
 }
 
+export function trackersListQuery(limit?: number, cursor?: string): string {
+  return `{
+		trackerlist ${pageParams(limit, cursor)} {
+			trackers { id event_type type body created_at updated_at,
+        affiliate { id }
+      }
+			${paginationString()}
+		} }`
+}
+
+export function trackerQuery(id: string): string {
+  return `{
+		tracker (id: "${id}") {
+		  id event_type type body created_at updated_at,
+      affiliate { id }
+    } }`
+}
+
+export function deleteTrackerMutation(id: string): string {
+  return deleteMutation('tracker', id);
+}
+
 export function customersInfoListQuery(limit?:number, cursor?:string): string {
   return `{
     customerlist ${pageParams(limit, cursor)} {
