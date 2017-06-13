@@ -1,0 +1,36 @@
+.queries {
+  &__title {
+    font-size: 26px;
+    margin: 20px 10px;
+    padding-top: 20px;
+  }
+
+  &__query {
+    margin-bottom: 20px;
+
+    &__name {
+
+    }
+
+    &__arg {
+
+      &__name {
+
+      }
+
+      &__type {
+        color: #5B9BE1;
+        cursor: pointer;
+      }
+    }
+
+    &__type {
+      color: #5B9BE1;
+      cursor: pointer;
+    }
+
+    &__desc {
+      margin: 3px 25px 0;
+    }
+  }
+}
