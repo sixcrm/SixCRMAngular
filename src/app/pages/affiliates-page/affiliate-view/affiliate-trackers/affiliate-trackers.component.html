@@ -16,7 +16,12 @@
 
     <tbody>
     <tr *ngFor="let entity of entities | filterEntities: filterValue | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder">
-      <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'" [routerLink]="['/trackers', entity.id]">{{params.mappingFunction(entity)}}</td>
+      <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'" [routerLink]="['/trackers', entity.id]">
+        <div class="codeblock" *ngIf="params.code; else noCode">
+          {{params.mappingFunction(entity)}}
+        </div>
+        <ng-template #noCode>{{params.mappingFunction(entity)}}</ng-template>
+      </td>
       <td>
         <button md-icon-button [md-menu-trigger-for]="actionsMenu"><md-icon>more_vert</md-icon></button>
         <md-menu #actionsMenu="mdMenu" x-position="before">

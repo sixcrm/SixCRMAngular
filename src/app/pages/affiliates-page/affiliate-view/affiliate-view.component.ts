@@ -13,7 +13,6 @@ import {NavigationService} from '../../../navigation/navigation.service';
 })
 export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliate> implements OnInit, OnDestroy {
 
-  selectedIndex: number = 1;
 
   constructor(service: AffiliatesService, route: ActivatedRoute, progressBarService: ProgressBarService, public navigation: NavigationService) {
     super(service, route, progressBarService);
@@ -25,10 +24,6 @@ export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliat
 
   ngOnDestroy() {
     this.destroy()
-  }
-
-  setIndex(value: number): void {
-    this.selectedIndex = value;
   }
 
 }

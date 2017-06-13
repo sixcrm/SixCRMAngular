@@ -5,6 +5,7 @@ export class ColumnParams<T> {
   align: string;
   sortOrder: string;
   sortApplied: boolean;
+  code: boolean;
 
   constructor(label?: string, mappingFunction?: (e: T) => string | number, align?: string, order?: string, applied?: boolean) {
     this.label = label;
@@ -12,5 +13,10 @@ export class ColumnParams<T> {
     this.align = align || 'left';
     this.sortOrder = order || 'asc';
     this.sortApplied = applied || false;
+  }
+
+  setCode(value: boolean): ColumnParams<T> {
+    this.code = value;
+    return this;
   }
 }

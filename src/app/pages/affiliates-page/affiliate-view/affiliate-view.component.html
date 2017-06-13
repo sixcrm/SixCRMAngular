@@ -12,28 +12,11 @@
       <div class="entity-view__info__data">
         <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
         <div class="entity-view__info__data__name">{{entity.name}}</div>
-        <div class="entity-view__info__data__other">UUID: {{entity.id}}</div>
+        <div class="entity-view__info__data__other">Affiliate ID: {{entity.affiliateId}}</div>
       </div>
     </div>
 
-    <div class="entity-view__navigation">
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">TRACKING</span>
-    </div>
-
-    <md-tab-group [(selectedIndex)]="selectedIndex">
-      <md-tab>
-        <coming-soon class="entity-view__coming-soon" [inPage]="true"></coming-soon>
-      </md-tab>
-
-      <md-tab>
-        <div class="tab-container">
-          <affiliate-trackers></affiliate-trackers>
-        </div>
-      </md-tab>
-
-    </md-tab-group>
-
+    <affiliate-trackers></affiliate-trackers>
   </div>
 </div>
 

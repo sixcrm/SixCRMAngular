@@ -32,8 +32,7 @@ export class AffiliatesComponent extends AbstractEntityIndexComponent<Affiliate>
       new ColumnParams('Name', (e: Affiliate) => e.name),
       new ColumnParams('Affiliate ID', (e: Affiliate) => e.affiliateId),
       new ColumnParams('Created At', (e: Affiliate) => e.createdAt.tz(f).format('MM/DD/YYYY')),
-      new ColumnParams('Updated At', (e: Affiliate) => e.updatedAt.tz(f).format('MM/DD/YYYY')),
-      new ColumnParams('UUID', (e: Affiliate) => e.id)
+      new ColumnParams('Updated At', (e: Affiliate) => e.updatedAt.tz(f).format('MM/DD/YYYY'))
     ];
   }
 

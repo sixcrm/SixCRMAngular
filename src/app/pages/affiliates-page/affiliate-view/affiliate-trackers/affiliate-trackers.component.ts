@@ -28,10 +28,10 @@ export class AffiliateTrackersComponent extends AbstractEntityIndexComponent<Tra
 
     this.columnParams = [
       new ColumnParams('Type', (e: Tracker) => e.type),
-      new ColumnParams('Event', (e: Tracker) => e.eventType.toString()),
+      new ColumnParams('Event', (e: Tracker) => e.eventType.toString() || 'all'),
       new ColumnParams('Created at', (e: Tracker) => e.createdAt.tz(tz).format('MM/DD/YYYY')),
       new ColumnParams('Updated at', (e: Tracker) => e.updateAt.tz(tz).format('MM/DD/YYYY')),
-      new ColumnParams('Tracking Data', (e: Tracker) => e.body),
+      new ColumnParams('Tracking Data', (e: Tracker) => e.body).setCode(true),
     ];
   }
 
