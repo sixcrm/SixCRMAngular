@@ -1,0 +1,33 @@
+<div class="entity-view">
+  <div class="entity-view__title">Tracker</div>
+
+  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+
+  <div *ngIf="entity">
+
+    <div class="entity-view__info">
+      <div class="entity-view__info__image">
+        <img src="https://www.kwrwater.nl/wp-content/themes/kwr/assets/placeholders/no-profile-user.png" alt="">
+      </div>
+      <div class="entity-view__info__data">
+        <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+        <div class="entity-view__info__data__name">Tracker</div>
+        <div class="entity-view__info__data__other">UUID: {{entity.id}}</div>
+      </div>
+    </div>
+
+    <div class="entity-view__navigation">
+      <span class="entity-view__navigation__label entity-view__navigation__label--active">GENERAL DETAILS</span>
+    </div>
+
+    <md-tab-group>
+      <md-tab>
+        <coming-soon class="entity-view__coming-soon" [inPage]="true"></coming-soon>
+      </md-tab>
+    </md-tab-group>
+
+  </div>
+</div>
+
+
+

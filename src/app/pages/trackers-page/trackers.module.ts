@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {TrackersAclGuard} from '../guards/trackers-acl-guard.service';
 import { TrackersComponent } from './trackers/trackers.component';
-import { TrackersViewComponent } from './trackers-view/trackers-view.component';
 import {trackersRouting} from './trackers.routing';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from '@angular/material';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {SharedModule} from '../../shared/shared.module';
+import {TrackerViewComponent} from './tracker-view/tracker-view.component';
 
 @NgModule({
   imports: [
@@ -21,7 +21,7 @@ import {SharedModule} from '../../shared/shared.module';
   ],
   declarations: [
     TrackersComponent,
-    TrackersViewComponent
+    TrackerViewComponent
   ],
   providers: [
     TrackersAclGuard

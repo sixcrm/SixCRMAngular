@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {Affiliate} from '../../../shared/models/affiliate.model';
 import {AffiliatesService} from '../../../shared/services/affiliates.service';
@@ -11,7 +11,7 @@ import {NavigationService} from '../../../navigation/navigation.service';
   templateUrl: './affiliate-view.component.html',
   styleUrls: ['./affiliate-view.component.scss']
 })
-export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliate> implements OnInit {
+export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliate> implements OnInit, OnDestroy {
 
   selectedIndex: number = 1;
 
@@ -21,6 +21,10 @@ export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliat
 
   ngOnInit() {
     this.init();
+  }
+
+  ngOnDestroy() {
+    this.destroy()
   }
 
   setIndex(value: number): void {
