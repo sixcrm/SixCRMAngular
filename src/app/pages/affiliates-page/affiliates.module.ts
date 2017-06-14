@@ -11,6 +11,7 @@ import {AffiliatesAclGuard} from '../guards/affiliates-acl-guard.service';
 import {SharedModule} from '../../shared/shared.module';
 import { AffiliateTrackersComponent } from './affiliate-view/affiliate-trackers/affiliate-trackers.component';
 import { AffiliateSessionsComponent } from './affiliate-view/affiliate-sessions/affiliate-sessions.component';
+import { AffiliateCampaignsComponent } from './affiliate-view/affiliate-campaigns/affiliate-campaigns.component';
 
 @NgModule({
   imports : [
@@ -27,7 +28,8 @@ import { AffiliateSessionsComponent } from './affiliate-view/affiliate-sessions/
     AffiliateViewComponent,
     AffiliateComponent,
     AffiliateTrackersComponent,
-    AffiliateSessionsComponent
+    AffiliateSessionsComponent,
+    AffiliateCampaignsComponent
   ],
   exports : [
     AffiliateComponent

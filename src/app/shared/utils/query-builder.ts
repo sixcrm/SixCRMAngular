@@ -150,8 +150,8 @@ export function campaignQuery(id: string): string {
 export function campaignsInfoListQuery(limit?:number, cursor?:string): string {
   return `{
     campaignlist ${pageParams(limit, cursor)} {
-      campaigns { id name,
-        productschedules { id }
+      campaigns { id name created_at updated_at,
+        productschedules { id schedule {price} }
         loadbalancer { id,
           merchantproviderconfigurations {
             merchantprovider { id }
@@ -531,7 +531,7 @@ export function sessionsByAffiliate(affiliateId: string, limit?:number, cursor?:
 		sessionlistbyaffiliate (affiliate:"${affiliateId}" ${pageParams(limit, cursor, true)}) {
 			sessions { id,
 			  customer { id firstname lastname }
-				product_schedules { id }
+				product_schedules { id schedule { price } }
 				rebills { id amount }
 				campaign { id name }
 			}

@@ -8,6 +8,7 @@ import {PaginationService} from '../../shared/services/pagination.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../shared/models/column-params.model';
+import {Currency} from '../../shared/utils/currency/currency';
 
 @Component({
   selector: 'campaigns',
@@ -27,10 +28,19 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
   ) {
     super(campaignService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
 
+    let f = this.authService.getTimezone();
     this.columnParams = [
       new ColumnParams('ID', (e: Campaign) => e.id),
-      new ColumnParams('Number Of Merchant Providers',(e: Campaign) => e.loadBalancer.merchantProviderConfigurations.length.toString(), 'right'),
-      new ColumnParams('Number Of Product Schedules', (e: Campaign) => e.productSchedules.length.toString(), 'right')
+      new ColumnParams('Name', (e: Campaign) => e.name),
+      new ColumnParams('Created at', (e: Campaign) => e.createdAt.tz(f).format('MM/DD/YYYY')),
+      new ColumnParams('Total Scheduled', (e: Campaign) =>
+        new Currency(
+          e.productSchedules
+          .map(p => p.schedules)
+          .reduce((a, b) => a.concat(b), [])
+          .map(s => +s.price.amount)
+          .reduce((a, b) => a+b, 0)).usd()
+        , 'right')
     ];
   }
 
