@@ -262,7 +262,7 @@ export function trackersListQuery(limit?: number, cursor?: string): string {
   return `{
 		trackerlist ${pageParams(limit, cursor)} {
 			trackers { id event_type type body created_at updated_at,
-        affiliate { id }
+        affiliates { id }
       }
 			${paginationString()}
 		} }`
@@ -272,7 +272,7 @@ export function trackerQuery(id: string): string {
   return `{
 		tracker (id: "${id}") {
 		  id event_type type body created_at updated_at,
-      affiliate { id }
+      affiliates { id affiliate_id name created_at updated_at }
     } }`
 }
 
@@ -504,6 +504,20 @@ export function sessionsByCustomer(customerId: string, limit?:number, cursor?:st
 			  customer { id firstname lastname }
 				product_schedules { id }
 				rebills { id 	}
+				campaign { id name }
+			}
+			${paginationString()}
+    }
+  }`
+}
+
+export function sessionsByAffiliate(affiliateId: string, limit?:number, cursor?:string): string {
+  return `{
+		sessionlistbyaffiliate (affiliate:"${affiliateId}" ${pageParams(limit, cursor, true)}) {
+			sessions { id,
+			  customer { id firstname lastname }
+				product_schedules { id }
+				rebills { id amount }
 				campaign { id name }
 			}
 			${paginationString()}

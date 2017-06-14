@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, Input, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {ProgressBarService} from '../../../../shared/services/progress-bar.service';
@@ -14,6 +14,8 @@ import {TrackersService} from '../../../../shared/services/trackers.service';
   styleUrls: ['./affiliate-trackers.component.scss']
 })
 export class AffiliateTrackersComponent extends AbstractEntityIndexComponent<Tracker> implements OnInit, OnDestroy {
+
+  @Input() affiliateId: string;
 
   constructor(
     trackersService: TrackersService,

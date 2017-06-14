@@ -4,7 +4,7 @@ import {utc, Moment} from 'moment';
 
 export class Tracker implements Entity<Tracker> {
   id: string;
-  affiliate: Affiliate;
+  affiliates: Affiliate[] = [];
   eventType: string[] = [];
   type: string;
   body: string;
@@ -17,7 +17,6 @@ export class Tracker implements Entity<Tracker> {
     }
 
     this.id = obj.id || '';
-    this.affiliate = new Affiliate(obj.affiliate);
     this.type = obj.type || '';
     this.body = obj.body || '';
     this.createdAt = utc(obj.created_at);
@@ -25,6 +24,9 @@ export class Tracker implements Entity<Tracker> {
 
     if (obj.event_type) {
       Object.keys(obj.event_type).forEach(key => this.eventType.push(obj.event_type[key]));
+    }
+    if (obj.affiliates) {
+      Object.keys(obj.affiliates).forEach(key => this.affiliates.push(new Affiliate(obj.affiliates[key])));
     }
   }
 

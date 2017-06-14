@@ -13,6 +13,7 @@ import {NavigationService} from '../../../navigation/navigation.service';
 })
 export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliate> implements OnInit, OnDestroy {
 
+  selectedIndex: number = 0;
 
   constructor(service: AffiliatesService, route: ActivatedRoute, progressBarService: ProgressBarService, public navigation: NavigationService) {
     super(service, route, progressBarService);
@@ -26,4 +27,7 @@ export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliat
     this.destroy()
   }
 
+  setIndex(value: number) {
+    this.selectedIndex = value;
+  }
 }

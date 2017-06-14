@@ -16,7 +16,27 @@
       </div>
     </div>
 
-    <affiliate-trackers></affiliate-trackers>
+    <div class="entity-view__navigation">
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">TRACKING</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">SESSIONS</span>
+    </div>
+
+    <md-tab-group [(selectedIndex)]="selectedIndex">
+
+      <md-tab>
+        <div class="tab-container">
+          <affiliate-trackers [affiliateId]="entity.id"></affiliate-trackers>
+        </div>
+      </md-tab>
+
+      <md-tab>
+        <div class="tab-container">
+          <affiliate-sessions [affiliateId]="entity.id"></affiliate-sessions>
+        </div>
+      </md-tab>
+
+    </md-tab-group>
+
   </div>
 </div>
 
