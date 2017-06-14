@@ -29,9 +29,9 @@ export class AffiliateCampaignsComponent extends AbstractEntityIndexComponent<Ca
 
     let f = this.authService.getTimezone();
     this.columnParams = [
-      new ColumnParams('ID', (e: Campaign) => e.id),
       new ColumnParams('Name', (e: Campaign) => e.name),
       new ColumnParams('Created at', (e: Campaign) => e.createdAt.tz(f).format('MM/DD/YYYY')),
+      new ColumnParams('Updated at', (e: Campaign) => e.updatedAt.tz(f).format('MM/DD/YYYY')),
       new ColumnParams('Total Scheduled', (e: Campaign) =>
           new Currency(
             e.productSchedules
