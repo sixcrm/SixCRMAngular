@@ -12,7 +12,6 @@ machine:
 dependencies:
   pre:
     - aws configure set preview.cloudfront true
-    - rm -rf node_modules
 
 test:
   override:
