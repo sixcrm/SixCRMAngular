@@ -1,0 +1,97 @@
+.tracker-view {
+
+  &__card {
+    display: inline-block;
+    margin: 10px;
+    max-width: 650px;
+    background: white;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+
+    &__header {
+      padding: 18px;
+      display: flex;
+
+      &__main {
+        color: #5B9BE1;
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      md-icon {
+        margin-left: auto;
+        width: 18px;
+        height: 18px;
+        font-size: 18px;
+        color: rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+      }
+    }
+
+    &__content {
+      padding: 0 20px 20px 20px;
+      font-size: 14px;
+
+      .dropdown-component {
+        display: inline-block;
+        font-size: 14px !important;
+
+        &__text {
+          color: black !important;
+        }
+      }
+
+      &__label {
+        margin-bottom: 8px;
+      }
+
+      &__type {
+        margin-bottom: 20px;
+      }
+
+      &__event-type {
+        margin-bottom: 20px;
+
+        .cancel {
+          vertical-align: middle;
+          margin-left: 10px;
+          color: rgba(0,0,0,0.3);
+          cursor: pointer;
+        }
+      }
+
+      &__link {
+        margin-bottom: 20px;
+
+        input {
+          width: 320px;
+          font-size: 12px;
+        }
+
+        md-icon {
+          margin-left: 10px;
+          vertical-align: middle;
+          color: rgba(0,0,0,0.5);
+          cursor: pointer;
+        }
+      }
+
+      &__body {
+        margin-bottom: 20px;
+
+        md-textarea {
+          width: 100%;
+          min-width: 610px;
+
+          textarea {
+            height: 160px;
+          }
+
+          .md-input-wrapper {
+            position: relative;
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+}

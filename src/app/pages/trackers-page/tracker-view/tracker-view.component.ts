@@ -5,6 +5,7 @@ import {TrackersService} from '../../../shared/services/trackers.service';
 import {ActivatedRoute} from '@angular/router';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {NavigationService} from '../../../navigation/navigation.service';
+import {firstIndexOf} from '../../../shared/utils/array-utils';
 
 @Component({
   selector: 'tracker-view',
@@ -13,7 +14,8 @@ import {NavigationService} from '../../../navigation/navigation.service';
 })
 export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> implements OnInit, OnDestroy {
 
-  selectedIndex: number = 1;
+  selectedIndex: number = 0;
+  editMode: boolean = false;
 
   constructor(service: TrackersService, route: ActivatedRoute, progressBarService: ProgressBarService, public navigation: NavigationService) {
     super(service, route, progressBarService);
@@ -31,5 +33,28 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
     this.selectedIndex = value;
   }
 
+  cancelEdit() {
+    this.editMode = false;
+    this.cancelUpdate();
+  }
+
+  removeEventType(type: string) {
+    let index = firstIndexOf(this.entity.eventType, (el) => el === type);
+
+    if (index >= 0) {
+      this.entity.eventType.splice(index, 1);
+    }
+  }
+
+  addEventType(type: string) {
+    if (firstIndexOf(this.entity.eventType, (el) => el === type) === -1) {
+      this.entity.eventType.push(type);
+    }
+  }
+
+  copyUrlToClipboard(urlField): void {
+    urlField.select();
+    document.execCommand('copy');
+  }
 }
 

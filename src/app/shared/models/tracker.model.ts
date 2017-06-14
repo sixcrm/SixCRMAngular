@@ -8,6 +8,7 @@ export class Tracker implements Entity<Tracker> {
   eventType: string[] = [];
   type: string;
   body: string;
+  link: string = '';
   createdAt: Moment;
   updateAt: Moment;
 
@@ -28,9 +29,29 @@ export class Tracker implements Entity<Tracker> {
     if (obj.affiliates) {
       Object.keys(obj.affiliates).forEach(key => this.affiliates.push(new Affiliate(obj.affiliates[key])));
     }
+
+    if (this.type === 'html') {
+      let obj = {};
+      obj['class'] = 'Tracker';
+      obj['method'] = 'view';
+      obj['tracker'] = {id: this.id};
+      this.link = 'https://api.sixcrm.com/publichtml/' + btoa(JSON.stringify(obj));
+    }
   }
 
   copy(): Tracker {
-    return null;
+    return new Tracker(this.inverse());
+  }
+
+  inverse(): any {
+    return {
+      id: this.id,
+      event_type: this.eventType,
+      type: this.type,
+      body: this.body,
+      affiliates: this.affiliates.map(affiliate => affiliate.inverse()),
+      created_at: this.createdAt.format(),
+      updated_at: this.updateAt.format()
+    }
   }
 }

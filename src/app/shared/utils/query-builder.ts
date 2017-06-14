@@ -14,6 +14,7 @@ import {utc} from 'moment'
 import {UserSettings} from '../models/user-settings';
 import {NotificationSettings} from '../models/notification-settings.model';
 import {Rebill} from '../models/rebill.model';
+import {Tracker} from '../models/tracker.model';
 
 const uuidV4 = require('uuid/v4');
 
@@ -278,6 +279,20 @@ export function trackerQuery(id: string): string {
 
 export function deleteTrackerMutation(id: string): string {
   return deleteMutation('tracker', id);
+}
+
+export function updateTrackerMutation(tracker: Tracker): string {
+  let eventTypes: string = '';
+  Object.keys(tracker.eventType).forEach(key => eventTypes += (eventTypes ? ',' : '') + tracker.eventType[key]);
+
+  let affiliate: string = tracker.affiliates[0] ? tracker.affiliates[0].id : '';
+
+  return `
+  mutation {
+		updatetracker (tracker: { id: "${tracker.id}", event_type: [${eventTypes}], affiliate: "${affiliate}", type: "${tracker.type}", body:"${tracker.body.replace(/"/g, '\\"')}"}) {
+			id type event_type body created_at updated_at,
+			affiliates { id affiliate_id name created_at updated_at }
+		} }`
 }
 
 export function customersInfoListQuery(limit?:number, cursor?:string): string {

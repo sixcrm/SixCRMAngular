@@ -33,8 +33,7 @@
     </tbody>
   </table>
 
-  <md-spinner class="entity-view__spinner" *ngIf="loadingData && (!entities || entities.length === 0)"></md-spinner>
-  <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">No affiliates found</div>
+  <div *ngIf="!entities || entities.length === 0" class="entity-view__no-results entity-view__no-results--table">No affiliates found</div>
 
   <table-pagination
     [limit]="limit"

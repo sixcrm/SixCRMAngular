@@ -20,8 +20,8 @@ export class TrackerAffiliatesComponent implements OnInit {
 
   limit: number = 10;
   page: number = 0;
-  hasMore: boolean;
   paginationValues: number[] = [5, 10, 15, 20, 30, 40, 50];
+  filterValue: string = '';
 
   constructor(private authService: AuthenticationService) { }
 
@@ -42,11 +42,11 @@ export class TrackerAffiliatesComponent implements OnInit {
     this.limit = limit;
   }
 
-  nextPage() {
+  next() {
     this.page++;
   }
 
-  previousPage() {
+  previous() {
     this.page++;
   }
 
