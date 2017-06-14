@@ -25,7 +25,7 @@
       <td>
         <button md-icon-button [md-menu-trigger-for]="actionsMenu"><md-icon>more_vert</md-icon></button>
         <md-menu #actionsMenu="mdMenu" x-position="before">
-          <button md-menu-item (click)="router.navigate(['/sessions',entity.id])">View Session</button>
+          <button md-menu-item [routerLink]="['/sessions', entity.id]">View Session</button>
         </md-menu>
       </td>
     </tr>

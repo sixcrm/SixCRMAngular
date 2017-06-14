@@ -23,6 +23,7 @@ export class Affiliate implements Entity<Affiliate> {
   copy(): Affiliate {
     return new Affiliate({
       id: this.id,
+      name: this.name,
       affiliate_id: this.affiliateId,
       created_at: this.createdAt.format(),
       updated_at: this.updatedAt.format()

@@ -8,6 +8,7 @@ import {MaterialModule} from '@angular/material';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {SharedModule} from '../../shared/shared.module';
 import {TrackerViewComponent} from './tracker-view/tracker-view.component';
+import { TrackerAffiliatesComponent } from './tracker-view/tracker-affiliates/tracker-affiliates.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import {TrackerViewComponent} from './tracker-view/tracker-view.component';
   ],
   declarations: [
     TrackersComponent,
-    TrackerViewComponent
+    TrackerViewComponent,
+    TrackerAffiliatesComponent
   ],
   providers: [
     TrackersAclGuard

@@ -243,8 +243,8 @@ export function deleteAffiliateMutation(id: string): string {
 export function createAffiliateMutation(affiliate: Affiliate): string {
   return `
     mutation {
-      createaffiliate (affiliate: { id: "${generateUUID()}", affiliate_id: "${affiliate.affiliateId}"}) { 
-        id affiliate_id created_at updated_at
+      createaffiliate (affiliate: { id: "${generateUUID()}", affiliate_id: "${affiliate.affiliateId}", name: "${affiliate.name}"}) { 
+        id name affiliate_id created_at updated_at
       }
 	  }`
 }
@@ -252,8 +252,8 @@ export function createAffiliateMutation(affiliate: Affiliate): string {
 export function updateAffiliateMutation(affiliate: Affiliate): string {
   return `
     mutation {
-      updateaffiliate (affiliate: { id: "${affiliate.id}", affiliate_id: "${affiliate.affiliateId}" }) { 
-        id affiliate_id created_at updated_at
+      updateaffiliate (affiliate: { id: "${affiliate.id}", affiliate_id: "${affiliate.affiliateId}", name: "${affiliate.name}" }) { 
+        id affiliate_id name created_at updated_at
       }
 	  }`
 }

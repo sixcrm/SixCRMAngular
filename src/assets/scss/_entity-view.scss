@@ -58,6 +58,10 @@ $blue-color: #4A90E2;
       display: inline-block;
       vertical-align: middle;
 
+      md-input {
+        margin: 0;
+      }
+
       &__date {
         font-size: 12px;
 
@@ -85,6 +89,10 @@ $blue-color: #4A90E2;
         display: flex;
         font-size: 12px;
 
+        &__label {
+          margin-right: 3px;
+        }
+
         .md-input-wrapper {
           margin: 0;
         }
@@ -95,10 +103,6 @@ $blue-color: #4A90E2;
           .phone-number {
             display: inline-block;
             width: 90px;
-          }
-
-          md-input {
-            margin: 0;
           }
 
           md-icon {

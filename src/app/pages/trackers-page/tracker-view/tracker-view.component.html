@@ -12,17 +12,29 @@
       <div class="entity-view__info__data">
         <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
         <div class="entity-view__info__data__name">Tracker</div>
-        <div class="entity-view__info__data__other">UUID: {{entity.id}}</div>
+      </div>
+
+      <div class="entity-view__info__edit">
+        <div *ngIf="!editMode; else editActions" class="entity-view__info__edit__update" (click)="editMode = true"> EDIT TRACKER </div>
+
+        <ng-template #editActions>
+          <div (click)="cancelInfoUpdate()">CANCEL</div>
+          <div class="entity-view__info__edit__update" (click)="updateEntity(entity)">UPDATE</div>
+        </ng-template>
       </div>
     </div>
 
     <div class="entity-view__navigation">
-      <span class="entity-view__navigation__label entity-view__navigation__label--active">GENERAL DETAILS</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">AFFILIATES</span>
     </div>
 
-    <md-tab-group>
+    <md-tab-group [(selectedIndex)]="selectedIndex">
       <md-tab>
         <coming-soon class="entity-view__coming-soon" [inPage]="true"></coming-soon>
+      </md-tab>
+      <md-tab>
+        <tracker-affiliates [affiliates]="entity.affiliates"></tracker-affiliates>
       </md-tab>
     </md-tab-group>
 

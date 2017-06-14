@@ -11,8 +11,30 @@
       </div>
       <div class="entity-view__info__data">
         <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
-        <div class="entity-view__info__data__name">{{entity.name}}</div>
-        <div class="entity-view__info__data__other">Affiliate ID: {{entity.affiliateId}}</div>
+
+        <div class="entity-view__info__data__name">
+          <md-input *ngIf="editMode; else nameNoEdit" [(ngModel)]="entity.name"></md-input>
+          <ng-template #nameNoEdit>
+            <span>{{entity.name}}</span>
+          </ng-template>
+        </div>
+
+        <div class="entity-view__info__data__other">
+          <span class="entity-view__info__data__other__label">Affiliate ID:</span>
+          <md-input *ngIf="editMode; else affidNoEdit" [(ngModel)]="entity.affiliateId"></md-input>
+          <ng-template #affidNoEdit>
+            <span>{{entity.affiliateId}}</span>
+          </ng-template>
+        </div>
+      </div>
+
+      <div class="entity-view__info__edit">
+        <div *ngIf="!editMode; else editActions" class="entity-view__info__edit__update" (click)="editMode = true"> EDIT AFFILIATE </div>
+
+        <ng-template #editActions>
+          <div (click)="cancelEdit()">CANCEL</div>
+          <div class="entity-view__info__edit__update" (click)="updateEntity(entity)">UPDATE</div>
+        </ng-template>
       </div>
     </div>
 

@@ -27,5 +27,9 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
     this.destroy()
   }
 
+  setIndex(value: number) {
+    this.selectedIndex = value;
+  }
+
 }
 

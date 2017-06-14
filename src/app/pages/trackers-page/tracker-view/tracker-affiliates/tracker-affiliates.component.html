@@ -1,6 +1,6 @@
 <div class="entity-view__table-component">
   <div class="entity-view__table-component__header entity-view__table-component__header--homepage">
-    <div class="entity-view__table-component__header__title">Associated Tracking</div>
+    <div class="entity-view__table-component__header__title">Associated Affiliates</div>
     <md-icon class="entity-view__table-component__header__action alone">more_vert</md-icon>
   </div>
   <table class="highlight table__custom">
@@ -16,7 +16,7 @@
 
     <tbody>
     <tr *ngFor="let entity of entities | filterEntities: filterValue | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder">
-      <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'" [routerLink]="['/trackers', entity.id]">
+      <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'" [routerLink]="['/affiliates', entity.id]">
         <div class="codeblock" *ngIf="params.code; else noCode">
           {{params.mappingFunction(entity)}}
         </div>
@@ -25,8 +25,8 @@
       <td>
         <button md-icon-button [md-menu-trigger-for]="actionsMenu"><md-icon>more_vert</md-icon></button>
         <md-menu #actionsMenu="mdMenu" x-position="before">
-          <button md-menu-item [routerLink]="['/trackers', entity.id]">View Tracker</button>
-          <button md-menu-item>Remove from Affiliate</button>
+          <button md-menu-item (click)="router.navigate(['/affiliates',entity.id])">View Affiliate</button>
+          <button md-menu-item (click)="removeAffiliate.emit(entity)">Remove from Tracker</button>
         </md-menu>
       </td>
     </tr>
@@ -34,7 +34,7 @@
   </table>
 
   <md-spinner class="entity-view__spinner" *ngIf="loadingData && (!entities || entities.length === 0)"></md-spinner>
-  <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">No trackers found</div>
+  <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">No affiliates found</div>
 
   <table-pagination
     [limit]="limit"
@@ -46,3 +46,5 @@
     (updateLimit)="updateLimit($event)">
   </table-pagination>
 </div>
+
+
