@@ -11,7 +11,15 @@
       </div>
       <div class="entity-view__info__data">
         <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
-        <div class="entity-view__info__data__name">Tracker</div>
+        <div class="entity-view__info__data__name">
+          <md-input-container *ngIf="editMode; else name">
+            <input md-input type="text" [(ngModel)]="entity.name">
+          </md-input-container>
+          <ng-template #name>
+            {{entity.name}}
+          </ng-template>
+        </div>
+
       </div>
 
       <div class="entity-view__info__edit">
@@ -19,7 +27,7 @@
 
         <ng-template #editActions>
           <div (click)="cancelEdit()">CANCEL</div>
-          <div class="entity-view__info__edit__update" (click)="updateEntity(entity)">UPDATE</div>
+          <div class="entity-view__info__edit__update" (click)="updateTracker()">UPDATE</div>
         </ng-template>
       </div>
     </div>
@@ -53,7 +61,7 @@
               </ng-template>
             </div>
 
-            <div *ngIf="entity.link" class="tracker-view__card__content__link">
+            <div *ngIf="entity.link && !editMode" class="tracker-view__card__content__link">
               <div class="tracker-view__card__content__label">Tracking link:</div>
               <input type="text" #urlField class="share-link__url__content" value="{{entity.link}}" readonly>
               <md-icon md-tooltip="Copy to clipboard" (click)="copyUrlToClipboard(urlField)">content_copy</md-icon>

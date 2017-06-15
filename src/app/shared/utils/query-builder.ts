@@ -302,7 +302,7 @@ export function updateTrackerMutation(tracker: Tracker): string {
   return `
   mutation {
 		updatetracker (tracker: { id: "${tracker.id}", event_type: [${eventTypes}], affiliates: [${affiliates}], name: "${tracker.name}", type: "${tracker.type}", body:"${tracker.body.replace(/"/g, '\\"')}"}) {
-			id type event_type body created_at updated_at,
+			id type event_type name body created_at updated_at,
 			affiliates { id affiliate_id name created_at updated_at }
 		} }`
 }

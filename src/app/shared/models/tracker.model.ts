@@ -49,6 +49,7 @@ export class Tracker implements Entity<Tracker> {
     return {
       id: this.id,
       event_type: this.eventType,
+      name: this.name,
       type: this.type,
       body: this.body,
       affiliates: this.affiliates.map(affiliate => affiliate.inverse()),

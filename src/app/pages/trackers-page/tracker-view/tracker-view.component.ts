@@ -52,6 +52,11 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
     }
   }
 
+  updateTracker() {
+    this.service.entityUpdated$.take(1).subscribe(() => this.editMode = false);
+    this.updateEntity(this.entity);
+  }
+
   copyUrlToClipboard(urlField): void {
     urlField.select();
     document.execCommand('copy');
