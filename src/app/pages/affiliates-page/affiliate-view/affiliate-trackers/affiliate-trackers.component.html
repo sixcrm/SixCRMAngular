@@ -1,7 +1,10 @@
 <div class="entity-view__table-component">
   <div class="entity-view__table-component__header entity-view__table-component__header--homepage">
     <div class="entity-view__table-component__header__title">Associated Tracking</div>
-    <md-icon class="entity-view__table-component__header__action alone">more_vert</md-icon>
+    <md-icon class="entity-view__table-component__header__action alone" [md-menu-trigger-for]="optionsMenu">more_vert</md-icon>
+    <md-menu #optionsMenu="mdMenu" x-position="before">
+      <button md-menu-item (click)="showAddTracker()">Associate Tracker</button>
+    </md-menu>
   </div>
   <table class="highlight table__custom">
     <thead>

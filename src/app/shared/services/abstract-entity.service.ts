@@ -135,7 +135,7 @@ export abstract class AbstractEntityService<T> {
     return this.authService.hasPermissions(this.accessRole, 'read');
   }
 
-  protected customEntitiesQuery(query: string): void {
+  customEntitiesQuery(query: string): void {
     if (!this.hasViewPermission()) {
       return;
     }
@@ -170,9 +170,26 @@ export abstract class AbstractEntityService<T> {
     )
   }
 
+  planeCustomEntitiesQuery(query: string): Observable<T[]> {
+    return this.queryRequest(query).map(
+      (data) => {
+        let json = data.json().data;
+        let listKey = Object.keys(json)[0];
+        let listData = json[listKey];
+
+        let entitiesKey = listData ? Object.keys(listData)[0] : null;
+        let entitiesData = entitiesKey ? listData[entitiesKey] : null;
+
+        if (entitiesData) {
+          return entitiesData.map(entity => this.toEntity(entity));
+        } else {
+          return [];
+        }
+      }
+    )
+  }
 
   protected queryRequest(query: string): Observable<Response> {
-    // let endpoint = environment.endpoint + 'ffdb91c2-d2dc-4301-86a4-a48f64c6c503';
     let endpoint = environment.endpoint;
 
 
