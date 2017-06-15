@@ -10,8 +10,8 @@
         <img src="/assets/images/result-item-transaction-white.svg" alt="">
       </div>
       <div class="entity-view__info__data">
-        <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
-        <div class="entity-view__info__data__name">
+        <div *ngIf="!addMode" class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+        <div *ngIf="!addMode; else createMessage" class="entity-view__info__data__name">
           <md-input-container *ngIf="editMode; else name">
             <input md-input type="text" [(ngModel)]="entity.name">
           </md-input-container>
@@ -19,10 +19,14 @@
             {{entity.name}}
           </ng-template>
         </div>
-
+        <ng-template #createMessage>
+          <div class="entity-view__info__data__name">
+            Create new Tracker
+          </div>
+        </ng-template>
       </div>
 
-      <div class="entity-view__info__edit">
+      <div *ngIf="!addMode" class="entity-view__info__edit">
         <div *ngIf="!editMode; else editActions" class="entity-view__info__edit__update" (click)="editMode = true"> EDIT TRACKER </div>
 
         <ng-template #editActions>
@@ -34,7 +38,7 @@
 
     <div class="entity-view__navigation">
       <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">AFFILIATES</span>
+      <span *ngIf="!addMode" class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">AFFILIATES</span>
     </div>
 
     <md-tab-group [(selectedIndex)]="selectedIndex">
@@ -47,10 +51,15 @@
           </div>
 
           <div class="tracker-view__card__content">
+            <div *ngIf="addMode" class="tracker-view__card__content__name">
+              <div class="tracker-view__card__content__label">Tracker Name:</div>
+              <md-input [(ngModel)]="entity.name"></md-input>
+            </div>
+
             <div class="tracker-view__card__content__type">
               <div class="tracker-view__card__content__label">Tracking type:</div>
               <dropdown-component
-                *ngIf="editMode; else typeNoEdit"
+                *ngIf="editMode || addMode; else typeNoEdit"
                 [selected]="entity.type"
                 [placeholder]="'Type'"
                 (onSelect)="entity.type = $event"
@@ -69,14 +78,14 @@
 
             <div class="tracker-view__card__content__event-type">
               <div class="tracker-view__card__content__label">Event type:</div>
-              <ng-container *ngIf="editMode; else eventTypeNormal">
+              <ng-container *ngIf="editMode || addMode; else eventTypeNormal">
                 <dropdown-component
                   [selected]="''"
                   [placeholder]="'add type'"
                   (onSelect)="addEventType($event)"
                   [options]="['upsell', 'lead', 'main']">
                 </dropdown-component>
-                <span *ngFor="let t of entity.eventType"> <md-icon class="cancel" *ngIf="editMode" (click)="removeEventType(t)">cancel</md-icon> {{t}} </span>
+                <span *ngFor="let t of entity.eventType"> <md-icon class="cancel" *ngIf="editMode || addMode" (click)="removeEventType(t)">cancel</md-icon> {{t}} </span>
               </ng-container>
               <ng-template #eventTypeNormal>
                 <span *ngIf="entity.eventType && entity.eventType.length === 0; else eventTypeList">All</span>
@@ -86,7 +95,7 @@
             <div class="tracker-view__card__content__body">
               <div class="tracker-view__card__content__label">Tracking data:</div>
 
-              <md-textarea class="codeblock" *ngIf="editMode; else bodyNoEdit" [(ngModel)]="entity.body"></md-textarea>
+              <md-textarea class="codeblock" *ngIf="editMode || addMode; else bodyNoEdit" [(ngModel)]="entity.body"></md-textarea>
 
               <ng-template #bodyNoEdit>
                 <div class="codeblock">
@@ -95,6 +104,10 @@
               </ng-template>
             </div>
           </div>
+        </div>
+
+        <div *ngIf="addMode" class="card-outside-button" (click)="saveTracker()">
+          SAVE
         </div>
 
       </md-tab>

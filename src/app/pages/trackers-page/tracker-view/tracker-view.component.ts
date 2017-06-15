@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Tracker} from '../../../shared/models/tracker.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {TrackersService} from '../../../shared/services/trackers.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {firstIndexOf} from '../../../shared/utils/array-utils';
@@ -27,17 +27,31 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
     route: ActivatedRoute,
     progressBarService: ProgressBarService,
     public navigation: NavigationService,
-    private deleteDialog: MdDialog
+    private deleteDialog: MdDialog,
+    private router: Router
   ) {
     super(service, route, progressBarService);
   }
 
   ngOnInit() {
     this.init();
+
+    if (this.addMode) {
+      this.entity = new Tracker();
+    }
   }
 
   ngOnDestroy() {
     this.destroy()
+  }
+
+  saveTracker(): void {
+    this.service.entityCreated$.take(1).subscribe(tracker => {
+      this.progressBarService.hideTopProgressBar();
+      this.router.navigate(['trackers', tracker.id]);
+      this.entity = tracker;
+    });
+    this.saveEntity(this.entity);
   }
 
   setIndex(value: number) {

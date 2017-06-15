@@ -3,7 +3,10 @@ import {Tracker} from '../models/tracker.model';
 import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Http} from '@angular/http';
-import {trackersListQuery, trackerQuery, deleteTrackerMutation, updateTrackerMutation} from '../utils/query-builder';
+import {
+  trackersListQuery, trackerQuery, deleteTrackerMutation, updateTrackerMutation,
+  createTrackerMutation
+} from '../utils/query-builder';
 
 @Injectable()
 export class TrackersService extends AbstractEntityService<Tracker> {
@@ -16,7 +19,7 @@ export class TrackersService extends AbstractEntityService<Tracker> {
       trackersListQuery,
       trackerQuery,
       deleteTrackerMutation,
-      null,
+      createTrackerMutation,
       updateTrackerMutation,
       'tracker'
     );

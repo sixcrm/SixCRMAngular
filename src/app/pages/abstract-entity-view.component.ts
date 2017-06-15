@@ -20,8 +20,13 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
 
   constructor(public service: AbstractEntityService<T>, route: ActivatedRoute, protected progressBarService?: ProgressBarService) {
     route.params.takeUntil(this.unsubscribe$).subscribe((params: Params) => {
-      this.viewMode = true;
-      this.entityId = params['id'];
+      if (params['id'] === 'add') {
+        this.addMode = true;
+      } else {
+        this.viewMode = true;
+        this.addMode = false;
+        this.entityId = params['id'];
+      }
     });
   }
 
@@ -30,14 +35,6 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
       this.entity = entity;
       this.entityBackup = entity.copy();
 
-      this.progressBarService.hideTopProgressBar();
-    });
-
-    this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe((created: T) => {
-      this.entity = created;
-      this.addMode = false;
-      this.viewMode = true;
-      this.mode = 'Created';
       this.progressBarService.hideTopProgressBar();
     });
 

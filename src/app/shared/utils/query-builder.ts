@@ -307,6 +307,22 @@ export function updateTrackerMutation(tracker: Tracker): string {
 		} }`
 }
 
+export function createTrackerMutation(tracker: Tracker): string {
+  let eventTypes: string = '';
+  Object.keys(tracker.eventType).forEach(key => eventTypes += (eventTypes ? ',' : '') + `"${tracker.eventType[key]}"`);
+
+  let affiliates: string = '';
+  Object.keys(tracker.affiliates).forEach(key => affiliates += (affiliates ? ',' : '') + `"${tracker.affiliates[key].id}"`);
+
+  return `
+    mutation {
+      createtracker (tracker: { event_type: [${eventTypes}], affiliates: [${affiliates}], name: "${tracker.name}", type: "${tracker.type}", body:"${tracker.body.replace(/"/g, '\\"')}"}) {
+        id type name body created_at updated_at
+        affiliates{ id name affiliate_id created_at updated_at }
+      }
+    }`
+}
+
 export function customersInfoListQuery(limit?:number, cursor?:string): string {
   return `{
     customerlist ${pageParams(limit, cursor)} {
