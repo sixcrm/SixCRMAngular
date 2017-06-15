@@ -13,7 +13,7 @@ import {MdDialogRef} from '@angular/material';
   template : `
     <md-card>
       <md-card-content>
-        Are you sure you want to delete?
+        {{text}}
       </md-card-content>
       <md-card-actions align="center">
         <button md-raised-button color="primary" (click)="yes()">Yes</button>
@@ -24,6 +24,8 @@ import {MdDialogRef} from '@angular/material';
   styles : []
 })
 export class DeleteDialogComponent {
+
+  text: string = 'Are you sure you want to delete?';
 
   constructor(public dialogRef: MdDialogRef<DeleteDialogComponent>) {}
 

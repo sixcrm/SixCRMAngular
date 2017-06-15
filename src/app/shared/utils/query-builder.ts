@@ -259,10 +259,21 @@ export function updateAffiliateMutation(affiliate: Affiliate): string {
 	  }`
 }
 
+export function trackersByAffiliateListQuery(affiliateId: string, limit?: number, cursor?: string): string {
+  return `
+    query {
+      trackerlistbyaffiliate (affiliate: "${affiliateId}" ${pageParams(limit, cursor, true)}) {
+        trackers{ id event_type type name body created_at updated_at,
+          affiliates { id name affiliate_id created_at updated_at }
+        }
+        ${paginationString()}
+      } }`
+}
+
 export function trackersListQuery(limit?: number, cursor?: string): string {
   return `{
 		trackerlist ${pageParams(limit, cursor)} {
-			trackers { id event_type type body created_at updated_at,
+			trackers { id event_type name type body created_at updated_at,
         affiliates { id }
       }
 			${paginationString()}
@@ -272,7 +283,7 @@ export function trackersListQuery(limit?: number, cursor?: string): string {
 export function trackerQuery(id: string): string {
   return `{
 		tracker (id: "${id}") {
-		  id event_type type body created_at updated_at,
+		  id event_type name type body created_at updated_at,
       affiliates { id affiliate_id name created_at updated_at }
     } }`
 }
@@ -283,13 +294,14 @@ export function deleteTrackerMutation(id: string): string {
 
 export function updateTrackerMutation(tracker: Tracker): string {
   let eventTypes: string = '';
-  Object.keys(tracker.eventType).forEach(key => eventTypes += (eventTypes ? ',' : '') + tracker.eventType[key]);
+  Object.keys(tracker.eventType).forEach(key => eventTypes += (eventTypes ? ',' : '') + `"${tracker.eventType[key]}"`);
 
-  let affiliate: string = tracker.affiliates[0] ? tracker.affiliates[0].id : '';
+  let affiliates: string = '';
+  Object.keys(tracker.affiliates).forEach(key => affiliates += (affiliates ? ',' : '') + `"${tracker.affiliates[key].id}"`);
 
   return `
   mutation {
-		updatetracker (tracker: { id: "${tracker.id}", event_type: [${eventTypes}], affiliate: "${affiliate}", type: "${tracker.type}", body:"${tracker.body.replace(/"/g, '\\"')}"}) {
+		updatetracker (tracker: { id: "${tracker.id}", event_type: [${eventTypes}], affiliates: [${affiliates}], name: "${tracker.name}", type: "${tracker.type}", body:"${tracker.body.replace(/"/g, '\\"')}"}) {
 			id type event_type body created_at updated_at,
 			affiliates { id affiliate_id name created_at updated_at }
 		} }`

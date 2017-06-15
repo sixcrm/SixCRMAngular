@@ -36,6 +36,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
   loadingData: boolean = false;
 
+  protected takeUpdated: boolean = true;
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
   constructor(
@@ -65,7 +66,9 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     });
     this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe(() => this.reshuffleEntities());
     this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe((entity: T) => {
-      this.updateEntityLocal(entity);
+      if (this.takeUpdated) {
+        this.updateEntityLocal(entity);
+      }
       this.progressBarService.hideTopProgressBar();
     });
     this.service.entitiesHasMore$.takeUntil(this.unsubscribe$).subscribe((hasMore: boolean) => this.hasMore = hasMore);
@@ -193,19 +196,19 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     }
   }
 
-  protected resetEntities(): void {
-    this.service.resetPagination();
-    this.entitiesHolder = [];
-    this.entities = [];
-  }
-
-  private deleteEntityLocal(entity: T): void {
+  protected deleteEntityLocal(entity: T): void {
     let index: number = this.indexOfEntity(entity);
 
     if (index > -1) {
       this.entitiesHolder.splice(index, 1);
       this.reshuffleEntities();
     }
+  }
+
+  protected resetEntities(): void {
+    this.service.resetPagination();
+    this.entitiesHolder = [];
+    this.entities = [];
   }
 
   private updateEntityLocal(entity: T): void {

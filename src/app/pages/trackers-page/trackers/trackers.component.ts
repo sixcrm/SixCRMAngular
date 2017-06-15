@@ -27,13 +27,10 @@ export class TrackersComponent extends AbstractEntityIndexComponent<Tracker> imp
   ) {
     super(trackersService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
 
-    let tz = auth.getTimezone();
-
     this.columnParams = [
+      new ColumnParams('Name', (e: Tracker) => e.name),
       new ColumnParams('Type', (e: Tracker) => e.type),
       new ColumnParams('Event', (e: Tracker) => e.eventType.toString() || 'all'),
-      new ColumnParams('Created at', (e: Tracker) => e.createdAt.tz(tz).format('MM/DD/YYYY')),
-      new ColumnParams('Updated at', (e: Tracker) => e.updateAt.tz(tz).format('MM/DD/YYYY')),
       new ColumnParams('Tracking Data', (e: Tracker) => e.body).setCode(true),
     ];
   }

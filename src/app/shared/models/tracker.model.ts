@@ -6,6 +6,7 @@ export class Tracker implements Entity<Tracker> {
   id: string;
   affiliates: Affiliate[] = [];
   eventType: string[] = [];
+  name: string;
   type: string;
   body: string;
   link: string = '';
@@ -19,6 +20,7 @@ export class Tracker implements Entity<Tracker> {
 
     this.id = obj.id || '';
     this.type = obj.type || '';
+    this.name = obj.name || '';
     this.body = obj.body || '';
     this.createdAt = utc(obj.created_at);
     this.updateAt = utc(obj.updated_at);
