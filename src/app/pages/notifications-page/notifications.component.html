@@ -21,7 +21,7 @@
 
     <div *ngFor="let notificationsByDate of notsByDate">
 
-      <div *ngIf="notificationsByDate.nots.length > 0">
+      <div *ngIf="notificationsByDate.entities.length > 0">
         <div class="notifications-list__content__title">Today</div>
 
         <div *ngFor="let notification of notificationsByDate.entities">
