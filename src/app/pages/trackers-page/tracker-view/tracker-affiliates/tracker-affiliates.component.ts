@@ -19,7 +19,7 @@ export class TrackerAffiliatesComponent implements OnInit {
     this.reshuffle();
   };
 
-  @Output() removeAffiliate: EventEmitter<Affiliate> = new EventEmitter();
+  @Output() dissociateAffiliate: EventEmitter<Affiliate> = new EventEmitter();
   @Output() associateAffiliate: EventEmitter<Affiliate> = new EventEmitter();
 
   entitiesHolder: Affiliate[] = [];

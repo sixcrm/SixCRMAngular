@@ -29,7 +29,7 @@
         <button md-icon-button [md-menu-trigger-for]="actionsMenu"><md-icon>more_vert</md-icon></button>
         <md-menu #actionsMenu="mdMenu" x-position="before">
           <button md-menu-item (click)="router.navigate(['/affiliates',entity.id])">View Affiliate</button>
-          <button md-menu-item (click)="removeAffiliate.emit(entity)">Remove from Tracker</button>
+          <button md-menu-item (click)="dissociateAffiliate.emit(entity)">Dissociate Affiliate</button>
         </md-menu>
       </td>
     </tr>
