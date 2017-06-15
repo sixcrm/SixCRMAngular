@@ -33,6 +33,11 @@ export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliat
     this.cancelUpdate();
   }
 
+  updateAffiliate() {
+    this.service.entityUpdated$.take(1).subscribe(() => this.editMode = false);
+    this.updateEntity(this.entity);
+  }
+
   setIndex(value: number) {
     this.selectedIndex = value;
   }
