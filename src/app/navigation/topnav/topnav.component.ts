@@ -137,7 +137,6 @@ export class TopnavComponent implements OnInit {
 
   showNotifications(): void {
     this.navigation.toggleNotifications(true);
-    this.notificationsService.restartPoolingNotifications();
   }
 
   private hideElements(event): void {

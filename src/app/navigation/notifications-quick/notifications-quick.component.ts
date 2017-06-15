@@ -35,6 +35,7 @@ export class NotificationsQuickComponent implements OnInit {
   ngOnInit() {
     this.notificationsService.entities$.subscribe(notifications => {
       this.arrangeNotifications(notifications);
+      this.notificationsService.restartPoolingNotifications();
       this.progressBarService.hideTopProgressBar();
     });
 
