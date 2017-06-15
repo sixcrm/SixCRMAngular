@@ -1,6 +1,6 @@
 <div class="dropdown-component">
-  <span class="dropdown-component__text" [class.dropdown-component__text--selected]="selected" [class.dropdown-component__text--unselected]="!selected" (click)="toggleDropdown()">{{selected || placeholder}} <md-icon>keyboard_arrow_down</md-icon></span>
+  <span class="dropdown-component__text" [class.dropdown-component__text--selected]="selected" [class.dropdown-component__text--unselected]="!selected" (click)="toggleDropdown()">{{selected ? mapper(selected) : placeholder}} <md-icon>keyboard_arrow_down</md-icon></span>
   <div class="dropdown-component__options" *ngIf="showDropdown">
-    <div class="dropdown-component__options__item" *ngFor="let option of options" (click)="select(option)">{{option}}</div>
+    <div class="dropdown-component__options__item" *ngFor="let option of options" (click)="select(option)">{{mapper(option)}}</div>
   </div>
 </div>

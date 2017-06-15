@@ -2,6 +2,10 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {Affiliate} from '../../../../shared/models/affiliate.model';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
+import {AffiliatesService} from '../../../../shared/services/affiliates.service';
+import {MdDialog, MdDialogRef} from '@angular/material';
+import {AssociateDialogComponent} from '../../../associate-dialog.component';
+import {firstIndexOf} from '../../../../shared/utils/array-utils';
 
 @Component({
   selector: 'tracker-affiliates',
@@ -10,9 +14,15 @@ import {AuthenticationService} from '../../../../authentication/authentication.s
 })
 export class TrackerAffiliatesComponent implements OnInit {
 
-  @Input() affiliates: Affiliate[] = [];
-  @Output() removeAffiliate: EventEmitter<Affiliate> = new EventEmitter();
+  @Input() set affiliates(affiliates: Affiliate[]) {
+    this.entitiesHolder = affiliates;
+    this.reshuffle();
+  };
 
+  @Output() removeAffiliate: EventEmitter<Affiliate> = new EventEmitter();
+  @Output() associateAffiliate: EventEmitter<Affiliate> = new EventEmitter();
+
+  entitiesHolder: Affiliate[] = [];
   entities: Affiliate[] = [];
 
   columnParams: ColumnParams<Affiliate>[] = [];
@@ -23,38 +33,59 @@ export class TrackerAffiliatesComponent implements OnInit {
   paginationValues: number[] = [5, 10, 15, 20, 30, 40, 50];
   filterValue: string = '';
 
-  constructor(private authService: AuthenticationService) { }
+  associateDialogRef: MdDialogRef<AssociateDialogComponent<Affiliate>>;
+
+  constructor(
+    private authService: AuthenticationService,
+    private affiliateService: AffiliatesService,
+    private associateDialog: MdDialog
+  ) { }
 
   ngOnInit() {
     let f = this.authService.getTimezone();
-
     this.columnParams = [
       new ColumnParams('Name', (e: Affiliate) => e.name),
       new ColumnParams('Affiliate ID', (e: Affiliate) => e.affiliateId),
       new ColumnParams('Created At', (e: Affiliate) => e.createdAt.tz(f).format('MM/DD/YYYY')),
       new ColumnParams('Updated At', (e: Affiliate) => e.updatedAt.tz(f).format('MM/DD/YYYY'))
     ];
-
-    this.reshuffle();
   }
 
-  updateLimit(limit: number) {
+  updateLimit(limit: number): void {
     this.limit = limit;
   }
 
-  next() {
+  next(): void {
     this.page++;
   }
 
-  previous() {
+  previous(): void {
     this.page++;
   }
 
-  hasMorePages() {
+  hasMorePages(): boolean {
     return this.entities.length > this.page * this.limit + this.limit;
   }
 
-  reshuffle() {
-    this.entities = this.affiliates.slice(this.page * this.limit, this.page * this.limit + this.limit);
+  reshuffle(): void {
+    this.entities = this.entitiesHolder.slice(this.page * this.limit, this.page * this.limit + this.limit);
+  }
+
+  showAddAffiliate(): void {
+    this.affiliateService.entities$.take(1).subscribe((affiliates: Affiliate[]) => {
+      this.associateDialogRef = this.associateDialog.open(AssociateDialogComponent);
+      this.associateDialogRef.componentInstance.options = affiliates.filter(affiliate => firstIndexOf(this.entities, (el) => el.id === affiliate.id) === -1);
+      this.associateDialogRef.componentInstance.placeholder = 'Affiliate';
+      this.associateDialogRef.componentInstance.text = 'Select affiliate to associate';
+      this.associateDialogRef.componentInstance.mapper = (el: Affiliate) => el.name;
+
+      this.associateDialogRef.afterClosed().take(1).subscribe(result => {
+        this.associateDialogRef = null;
+        if (result && result.entity) {
+          this.associateAffiliate.emit(result.entity);
+        }
+      });
+    });
+    this.affiliateService.getEntities();
   }
 }

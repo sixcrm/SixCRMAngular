@@ -1,0 +1,13 @@
+.associate__dropdown {
+
+  .dropdown-component {
+    margin-top: 20px;
+    margin-bottom: 60px;
+    font-size: 14px !important;
+
+    &__options {
+      max-height: 130px;
+      overflow: auto;
+    }
+  }
+}

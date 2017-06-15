@@ -11,10 +11,11 @@ import {DeleteDialogComponent} from './pages/delete-dialog.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SharedModule} from './shared/shared.module';
+import {AssociateDialogComponent} from './pages/associate-dialog.component';
 
 @NgModule({
   declarations : [
-    AppComponent, DeleteDialogComponent, ErrorPageComponent
+    AppComponent, DeleteDialogComponent, ErrorPageComponent, AssociateDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -31,7 +32,7 @@ import {SharedModule} from './shared/shared.module';
     MaterialModule
   ],
   providers : [],
-  entryComponents : [AppComponent, DeleteDialogComponent],
+  entryComponents : [AppComponent, DeleteDialogComponent, AssociateDialogComponent],
   bootstrap : [AppComponent]
 })
 export class AppModule {

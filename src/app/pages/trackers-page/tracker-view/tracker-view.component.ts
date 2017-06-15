@@ -6,6 +6,8 @@ import {ActivatedRoute} from '@angular/router';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {firstIndexOf} from '../../../shared/utils/array-utils';
+import {Affiliate} from '../../../shared/models/affiliate.model';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'tracker-view',
@@ -60,6 +62,13 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
   copyUrlToClipboard(urlField): void {
     urlField.select();
     document.execCommand('copy');
+  }
+
+  associateAffiliate(affiliate: Affiliate): void {
+    this.cancelEdit();
+
+    this.entity.affiliates.push(affiliate);
+    this.updateTracker();
   }
 }
 
