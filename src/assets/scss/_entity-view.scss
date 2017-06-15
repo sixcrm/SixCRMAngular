@@ -50,8 +50,14 @@ $blue-color: #4A90E2;
       padding: 20px;
       background: #E7EFF7;
 
-      .Shape {
-        fill: #fff;
+      &--profile {
+        padding: 0;
+
+        img {
+          height: 100px !important;
+          width: 100px !important;
+          border-radius: 50%;
+        }
       }
 
       img {

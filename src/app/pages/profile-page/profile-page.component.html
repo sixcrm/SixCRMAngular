@@ -5,15 +5,15 @@
 
   <div *ngIf="user">
     <div class="entity-view__info">
-      <div class="entity-view__info__image">
+      <div class="entity-view__info__image entity-view__info__image--profile">
         <img src="{{ user.picture }}" alt="">
       </div>
       <div class="entity-view__info__data">
         <div class="entity-view__info__data__date">Created: {{user.createdAt | formatDateTime}}</div>
         <div class="entity-view__info__data__name">{{user.name}}</div>
         <div class="entity-view__info__data__other">
-          <span><md-icon>phone</md-icon>{{getPhoneNumber()}}</span>
-          <span><md-icon>email</md-icon>{{user.email}}</span>
+          <span class="entity-view__info__data__other__item"><md-icon>phone</md-icon>{{getPhoneNumber()}}</span>
+          <span class="entity-view__info__data__other__item"><md-icon>email</md-icon>{{user.email}}</span>
         </div>
       </div>
     </div>
