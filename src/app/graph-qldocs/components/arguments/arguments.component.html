@@ -1,0 +1,8 @@
+<span *ngIf="args && args.length > 0">
+  (
+  <ng-container *ngFor="let arg of args; let i = index;">
+    {{arg.name}}: <span class="link" (click)="nav(arg.type)">{{arg.type.name || arg.type.ofType.name || arg.type.ofType.ofType.name}}</span>
+    <ng-container *ngIf="i !== args.length - 1">,</ng-container>
+  </ng-container>
+  )
+</span>

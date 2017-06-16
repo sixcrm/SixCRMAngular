@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {GraphqlDocsService, HeadersInput} from '../../graphql-docs.service';
 import {Type} from '../../models/type.model';
-import {firstIndexOf} from '../../../shared/utils/array-utils';
 
 @Component({
   selector: 'graphql-docs',
@@ -14,30 +13,28 @@ export class GraphqlDocsComponent implements OnInit {
   @Input() headers: HeadersInput[];
 
   types: Type[];
-
-  otherTypes: Type[];
-  queryType: Type;
-  mutationType: Type;
+  filterString: string;
 
   constructor(private graphqlService: GraphqlDocsService) { }
 
   ngOnInit() {
-    this.graphqlService.getSchemaTypes(this.endpoint, this.headers).subscribe(data => {
-      this.types = data.filter(t => t.name.indexOf('__') === -1);
+    this.graphqlService.getSchemaTypes(this.endpoint, this.headers).subscribe((data: Type[]) => {
+      // filter out meta types
+      this.types = data.filter(type => type.name.indexOf('__') === -1).sort((a, b) => {
 
-      let queryIndex = firstIndexOf(this.types, (el) => el.name === 'Query');
-      if (queryIndex > -1) {
-        this.queryType = this.types[queryIndex];
-        this.types.splice(queryIndex, 1);
-      }
+        // query should be on top of the list, then mutation, and then sort alphabetically
+        if (a.name === 'Query') return -1;
+        if (b.name === 'Query') return 1;
 
-      let mutationIndex = firstIndexOf(this.types, (el) => el.name === 'Mutation');
-      if (mutationIndex > -1) {
-        this.mutationType = this.types[mutationIndex];
-        this.types.splice(mutationIndex, 1);
-      }
+        if (a.name === 'Mutation') return -1;
+        if (b.name === 'Mutation') return 1;
 
-      this.otherTypes = this.types;
+        if (a.name < b.name) return -1;
+
+        if (a.name > b.name) return 1;
+
+        return 0;
+      });
     })
   }
 

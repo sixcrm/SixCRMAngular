@@ -1,0 +1,9 @@
+<div class="field">
+  <div class="field__name">
+    {{field.name}}
+    <doc-arguments [args]="field.args"></doc-arguments>
+    : <span class="link" (click)="nav()">{{field.type.name || field.type.ofType.name || field.type.ofType.ofType.name}}</span>
+    : {{field.type.kind || field.type.ofType.kind || field.type.ofType.ofType.kind }}
+  </div>
+  <div class="field__description">{{field.description}}</div>
+</div>
