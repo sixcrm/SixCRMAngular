@@ -752,7 +752,7 @@ export function usersListQuery(limit?: number, cursor?: string): string {
 export function userQuery(id: string): string {
   return `
     {
-      user (id: "${id}") { id auth0_id name first_name last_name active termsandconditions created_at updated_at address { country state city line1 line2 zip}}
+      user (id: "${id}") { id auth0_id name alias first_name last_name active termsandconditions created_at updated_at address { country state city line1 line2 zip}}
     }`
 }
 
@@ -781,8 +781,8 @@ export function updateUserMutation(user: User): string {
 
   return `
     mutation {
-      updateuser (user: { id: "${user.id}", auth0_id: "${user.auth0Id}", name: "${user.name}", ${fname} ${lname} active:"${user.active}", termsandconditions:"${user.termsAndConditions}"}) {
-        id name auth0_id active first_name last_name,
+      updateuser (user: { id: "${user.id}", auth0_id: "${user.auth0Id}", name: "${user.name}" alias: "${user.alias}" ${fname} ${lname} active:"${user.active}", termsandconditions:"${user.termsAndConditions}"}) {
+        id name alias auth0_id active first_name last_name,
         address { line1 line2 city state zip country }
         acl {
           account { id name active }
