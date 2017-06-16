@@ -115,7 +115,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
 
   settings.push(new MenuItem('Documentation', null, [
     new MenuItem('GraphQL', 'documentation/graph'),
-    new MenuItem('GraphQLC', 'documentation/graph-c'),
+    new MenuItem('GraphQL NG2', 'documentation/graph-ng2'),
     new MenuItem({title: 'Wiki', clickHandler: () => window.open('https://github.com/sixcrm/SixCRMIntegrations/wiki', '_blank').focus()}, '')
   ]));
   items.push(new MenuItem('Settings', null, settings).setIcon('settings'));

@@ -4,5 +4,5 @@ import {GraphDocsCComponent} from './graph-docs-c/graph-docs-c.component';
 
 export const documentationRouting = RouterModule.forChild([
   { path : 'graph', component : GraphDocsComponent },
-  { path : 'graph-c', component : GraphDocsCComponent }
+  { path : 'graph-ng2', component : GraphDocsCComponent }
 ]);
