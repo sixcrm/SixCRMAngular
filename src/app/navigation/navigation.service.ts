@@ -81,6 +81,8 @@ export class NavigationService {
 
   public setSidenavAuto(value: boolean): void {
     this.showSidenav.take(1).subscribe(v => {
+      if (v === value) return;
+
       this.showSidenavSelectedValue = v;
       this._showSidenav.next(value);
     })
