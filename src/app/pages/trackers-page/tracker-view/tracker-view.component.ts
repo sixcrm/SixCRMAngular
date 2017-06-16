@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {Tracker} from '../../../shared/models/tracker.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {TrackersService} from '../../../shared/services/trackers.service';
@@ -9,6 +9,8 @@ import {firstIndexOf} from '../../../shared/utils/array-utils';
 import {Affiliate} from '../../../shared/models/affiliate.model';
 import {DeleteDialogComponent} from '../../delete-dialog.component';
 import {MdDialog, MdDialogRef} from '@angular/material';
+import 'codemirror/mode/htmlmixed/htmlmixed';
+import {CodemirrorComponent} from 'ng2-codemirror';
 
 @Component({
   selector: 'tracker-view',
@@ -17,10 +19,20 @@ import {MdDialog, MdDialogRef} from '@angular/material';
 })
 export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> implements OnInit, OnDestroy {
 
+  @ViewChild(CodemirrorComponent) codemirroComponent: CodemirrorComponent;
+
   selectedIndex: number = 0;
   editMode: boolean = false;
 
   deleteDialogRef: MdDialogRef<DeleteDialogComponent>;
+
+  config = {
+    lineNumbers: true,
+    mode: {
+      name: "htmlmixed"
+    },
+    readOnly: true
+  };
 
   constructor(
     service: TrackersService,
@@ -60,7 +72,22 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
 
   cancelEdit() {
     this.editMode = false;
+    if (this.codemirroComponent) {
+      this.codemirroComponent.instance.setOption('readOnly', true);
+    }
     this.cancelUpdate();
+  }
+
+  enableEdit() {
+    this.editMode = true;
+    if (this.codemirroComponent) {
+      this.codemirroComponent.instance.setOption('readOnly', false);
+    }
+  }
+
+  setType(type: string) {
+    this.entity.type = type;
+    this.codemirroComponent.instance.setOption('readOnly', false);
   }
 
   removeEventType(type: string) {

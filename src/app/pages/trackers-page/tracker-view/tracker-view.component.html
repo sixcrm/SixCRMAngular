@@ -25,7 +25,7 @@
     </div>
 
     <div *ngIf="!addMode" class="entity-view__info__edit">
-      <div *ngIf="!editMode; else editActions" class="entity-view__info__edit__update" (click)="editMode = true"> EDIT TRACKER </div>
+      <div *ngIf="!editMode; else editActions" class="entity-view__info__edit__update" (click)="enableEdit()"> EDIT TRACKER </div>
 
       <ng-template #editActions>
         <div (click)="cancelEdit()">CANCEL</div>
@@ -60,7 +60,7 @@
               *ngIf="editMode || addMode; else typeNoEdit"
               [selected]="entity.type"
               [placeholder]="'Type'"
-              (onSelect)="entity.type = $event"
+              (onSelect)="setType($event)"
               [options]="['html', 'postback']">
             </dropdown-component>
             <ng-template #typeNoEdit>
@@ -93,13 +93,17 @@
           <div class="tracker-view__card__content__body">
             <div class="tracker-view__card__content__label">Tracking data:</div>
 
-            <md-textarea class="codeblock" *ngIf="editMode || addMode; else bodyNoEdit" [(ngModel)]="entity.body"></md-textarea>
+            <codemirror [class.invisible]="entity.type !== 'html'" [(ngModel)]="entity.body" [config]="config"></codemirror>
 
-            <ng-template #bodyNoEdit>
-              <div class="codeblock">
-                {{entity.body}}
-              </div>
-            </ng-template>
+            <ng-container *ngIf="entity.type !== 'html'">
+              <md-textarea class="codeblock" *ngIf="editMode || addMode; else bodyNoEdit" [(ngModel)]="entity.body"></md-textarea>
+
+              <ng-template #bodyNoEdit>
+                <div class="codeblock">
+                  {{entity.body}}
+                </div>
+              </ng-template>
+            </ng-container>
           </div>
         </div>
       </div>

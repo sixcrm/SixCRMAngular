@@ -2,6 +2,8 @@ import {Entity} from './entity.interface';
 import {Affiliate} from './affiliate.model';
 import {utc, Moment} from 'moment';
 
+let beautyHtml = require('js-beautify').html_beautify;
+
 export class Tracker implements Entity<Tracker> {
   id: string;
   affiliates: Affiliate[] = [];
@@ -21,7 +23,7 @@ export class Tracker implements Entity<Tracker> {
     this.id = obj.id || '';
     this.type = obj.type || '';
     this.name = obj.name || '';
-    this.body = obj.body || '';
+    this.body = obj.body ? (this.type === 'html' ? beautyHtml(obj.body) : obj.body) : '';
     this.createdAt = utc(obj.created_at);
     this.updateAt = utc(obj.updated_at);
 

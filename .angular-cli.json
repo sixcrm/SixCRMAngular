@@ -16,7 +16,8 @@
       "prefix": "",
       "mobile": false,
       "styles": [
-        "styles.scss"
+        "styles.scss",
+        "../node_modules/codemirror/lib/codemirror.css"
       ],
       "scripts": [
         "../src/assets/libs/graphql-docs.js"

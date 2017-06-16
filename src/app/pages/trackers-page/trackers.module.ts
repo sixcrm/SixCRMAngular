@@ -9,6 +9,7 @@ import {PageComponentsModule} from '../components/pages-components.module';
 import {SharedModule} from '../../shared/shared.module';
 import {TrackerViewComponent} from './tracker-view/tracker-view.component';
 import { TrackerAffiliatesComponent } from './tracker-view/tracker-affiliates/tracker-affiliates.component';
+import {CodemirrorModule} from 'ng2-codemirror';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { TrackerAffiliatesComponent } from './tracker-view/tracker-affiliates/tr
     MaterialModule.forRoot(),
     ReactiveFormsModule,
     PageComponentsModule,
-    SharedModule
+    SharedModule,
+    CodemirrorModule
   ],
   declarations: [
     TrackersComponent,
