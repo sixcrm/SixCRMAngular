@@ -5,6 +5,7 @@ import {TransactionSummaryChartComponent} from './transaction-summary/transactio
 import {ChartModule} from 'angular2-highcharts';
 import {SharedModule} from '../shared/shared.module';
 import {MaterialModule} from '@angular/material';
+import {RouterModule} from '@angular/router';
 
 export function hchartFactory() {
   return require('highcharts');
@@ -15,7 +16,8 @@ export function hchartFactory() {
     CommonModule,
     ChartModule,
     SharedModule,
-    MaterialModule
+    MaterialModule,
+    RouterModule
   ],
   declarations: [
     TransactionSummaryChartComponent
