@@ -107,10 +107,10 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
     settings.push(new MenuItem('Users', 'users'));
   }
   if (authService.hasPermissions('billing', 'view')) {
-    settings.push(new MenuItem('Billing', ''));
+    settings.push(new MenuItem('Billing', 'billing'));
   }
-  if (authService.hasPermissions('accessrule', 'view')) {
-    settings.push(new MenuItem('Access Rules', ''));
+  if (authService.hasPermissions('role', 'view')) {
+    settings.push(new MenuItem('Roles', 'roles'));
   }
 
   settings.push(new MenuItem('Documentation', null, [
