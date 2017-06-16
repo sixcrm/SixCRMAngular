@@ -758,7 +758,7 @@ export function userQuery(id: string): string {
 
 export function userIntrospection(): string {
   return `{
-    userintrospection { id name first_name last_name auth0_id active termsandconditions,
+    userintrospection { id name alias first_name last_name auth0_id active termsandconditions,
       acl {
         account { id name active }
         role { id name active,
@@ -797,7 +797,7 @@ export function updateUserForRegistration(user: User): string {
   return `
     mutation {
 		  updateuser (
-		    user: { id: "${user.id}" name: "${user.name}" first_name: "${user.firstName}" last_name: "${user.lastName}" auth0_id: "${user.auth0Id}" active: "${user.active}" termsandconditions: "0.1",
+		    user: { id: "${user.id}" name: "${user.name}" alias: "${user.alias}" first_name: "${user.firstName}" last_name: "${user.lastName}" auth0_id: "${user.auth0Id}" active: "${user.active}" termsandconditions: "0.1",
 		      address: {line1: "${user.address.line1}" line2: "${user.address.line2}" city: "${user.address.city}" state: "${user.address.state}" zip: "${user.address.zip}" country:"${user.address.country}"}}) {
 			    id auth0_id name active termsandconditions
 			}
