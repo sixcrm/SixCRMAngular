@@ -34,7 +34,7 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
   }
 
   ngOnInit() {
-    this.init();
+    this.init(() => this.navigation.goToNotFoundPage());
 
     if (this.addMode) {
       this.entity = new Tracker();

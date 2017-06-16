@@ -34,7 +34,7 @@ export class TransactionViewComponent extends AbstractEntityViewComponent<Transa
 
   ngOnInit() {
     this.takeUpdated = false;
-    super.init();
+    super.init(() => this.navigation.goToNotFoundPage());
   }
 
   navigateTo(root: string, path: string): void {

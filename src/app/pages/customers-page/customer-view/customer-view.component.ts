@@ -47,7 +47,7 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
       this.addressEditMode = false;
     });
 
-    this.init();
+    this.init(() => this.navigation.goToNotFoundPage());
   }
 
   getPhoneNumber(): string {

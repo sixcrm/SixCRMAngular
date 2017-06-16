@@ -1,123 +1,120 @@
-<div class="entity-view">
+<div *ngIf="entity; else spinner" class="entity-view">
   <div class="entity-view__title">Tracker</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <div *ngIf="entity">
-
-    <div class="entity-view__info">
-      <div class="entity-view__info__image">
-        <img src="/assets/images/result-item-transaction-white.svg" alt="">
-      </div>
-      <div class="entity-view__info__data">
-        <div *ngIf="!addMode" class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
-        <div *ngIf="!addMode; else createMessage" class="entity-view__info__data__name">
-          <md-input-container *ngIf="editMode; else name">
-            <input md-input type="text" [(ngModel)]="entity.name">
-          </md-input-container>
-          <ng-template #name>
-            {{entity.name}}
-          </ng-template>
-        </div>
-        <ng-template #createMessage>
-          <div class="entity-view__info__data__name">
-            Create new Tracker
-          </div>
+  <div class="entity-view__info">
+    <div class="entity-view__info__image">
+      <img src="/assets/images/result-item-transaction-white.svg" alt="">
+    </div>
+    <div class="entity-view__info__data">
+      <div *ngIf="!addMode" class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div *ngIf="!addMode; else createMessage" class="entity-view__info__data__name">
+        <md-input-container *ngIf="editMode; else name">
+          <input md-input type="text" [(ngModel)]="entity.name">
+        </md-input-container>
+        <ng-template #name>
+          {{entity.name}}
         </ng-template>
       </div>
-
-      <div *ngIf="!addMode" class="entity-view__info__edit">
-        <div *ngIf="!editMode; else editActions" class="entity-view__info__edit__update" (click)="editMode = true"> EDIT TRACKER </div>
-
-        <ng-template #editActions>
-          <div (click)="cancelEdit()">CANCEL</div>
-          <div class="entity-view__info__edit__update" (click)="updateTracker()">UPDATE</div>
-        </ng-template>
-      </div>
+      <ng-template #createMessage>
+        <div class="entity-view__info__data__name">
+          Create new Tracker
+        </div>
+      </ng-template>
     </div>
 
-    <div class="entity-view__navigation">
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
-      <span *ngIf="!addMode" class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">AFFILIATES</span>
+    <div *ngIf="!addMode" class="entity-view__info__edit">
+      <div *ngIf="!editMode; else editActions" class="entity-view__info__edit__update" (click)="editMode = true"> EDIT TRACKER </div>
+
+      <ng-template #editActions>
+        <div (click)="cancelEdit()">CANCEL</div>
+        <div class="entity-view__info__edit__update" (click)="updateTracker()">UPDATE</div>
+      </ng-template>
     </div>
-
-    <md-tab-group [(selectedIndex)]="selectedIndex">
-      <md-tab>
-
-        <div class="tracker-view__card">
-          <div class="tracker-view__card__header">
-            <div class="tracker-view__card__header__main">Tracker Details</div>
-            <md-icon>more_vert</md-icon>
-          </div>
-
-          <div class="tracker-view__card__content">
-            <div *ngIf="addMode" class="tracker-view__card__content__name">
-              <div class="tracker-view__card__content__label">Tracker Name:</div>
-              <md-input [(ngModel)]="entity.name"></md-input>
-            </div>
-
-            <div class="tracker-view__card__content__type">
-              <div class="tracker-view__card__content__label">Tracking type:</div>
-              <dropdown-component
-                *ngIf="editMode || addMode; else typeNoEdit"
-                [selected]="entity.type"
-                [placeholder]="'Type'"
-                (onSelect)="entity.type = $event"
-                [options]="['html', 'postback']">
-              </dropdown-component>
-              <ng-template #typeNoEdit>
-                <div>{{entity.type}}</div>
-              </ng-template>
-            </div>
-
-            <div *ngIf="entity.link && !editMode" class="tracker-view__card__content__link">
-              <div class="tracker-view__card__content__label">Tracking link:</div>
-              <input type="text" #urlField class="share-link__url__content" value="{{entity.link}}" readonly>
-              <md-icon md-tooltip="Copy to clipboard" (click)="copyUrlToClipboard(urlField)">content_copy</md-icon>
-            </div>
-
-            <div class="tracker-view__card__content__event-type">
-              <div class="tracker-view__card__content__label">Event type:</div>
-              <ng-container *ngIf="editMode || addMode; else eventTypeNormal">
-                <dropdown-component
-                  [selected]="''"
-                  [placeholder]="'add type'"
-                  (onSelect)="addEventType($event)"
-                  [options]="['upsell', 'lead', 'main']">
-                </dropdown-component>
-                <span *ngFor="let t of entity.eventType"> <md-icon class="cancel" *ngIf="editMode || addMode" (click)="removeEventType(t)">cancel</md-icon> {{t}} </span>
-              </ng-container>
-              <ng-template #eventTypeNormal>
-                <span *ngIf="entity.eventType && entity.eventType.length === 0; else eventTypeList">All</span>
-                <ng-template #eventTypeList>{{entity.eventType}}</ng-template>
-              </ng-template>
-            </div>
-            <div class="tracker-view__card__content__body">
-              <div class="tracker-view__card__content__label">Tracking data:</div>
-
-              <md-textarea class="codeblock" *ngIf="editMode || addMode; else bodyNoEdit" [(ngModel)]="entity.body"></md-textarea>
-
-              <ng-template #bodyNoEdit>
-                <div class="codeblock">
-                  {{entity.body}}
-                </div>
-              </ng-template>
-            </div>
-          </div>
-        </div>
-
-        <div *ngIf="addMode" class="card-outside-button" (click)="saveTracker()">
-          SAVE
-        </div>
-
-      </md-tab>
-      <md-tab>
-        <tracker-affiliates [affiliates]="entity.affiliates" (associateAffiliate)="associateAffiliate($event)" (dissociateAffiliate)="dissociateAffiliate($event)"></tracker-affiliates>
-      </md-tab>
-    </md-tab-group>
-
   </div>
+
+  <div class="entity-view__navigation">
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
+    <span *ngIf="!addMode" class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">AFFILIATES</span>
+  </div>
+
+  <md-tab-group [(selectedIndex)]="selectedIndex">
+    <md-tab>
+
+      <div class="tracker-view__card">
+        <div class="tracker-view__card__header">
+          <div class="tracker-view__card__header__main">Tracker Details</div>
+          <md-icon>more_vert</md-icon>
+        </div>
+
+        <div class="tracker-view__card__content">
+          <div *ngIf="addMode" class="tracker-view__card__content__name">
+            <div class="tracker-view__card__content__label">Tracker Name:</div>
+            <md-input [(ngModel)]="entity.name"></md-input>
+          </div>
+
+          <div class="tracker-view__card__content__type">
+            <div class="tracker-view__card__content__label">Tracking type:</div>
+            <dropdown-component
+              *ngIf="editMode || addMode; else typeNoEdit"
+              [selected]="entity.type"
+              [placeholder]="'Type'"
+              (onSelect)="entity.type = $event"
+              [options]="['html', 'postback']">
+            </dropdown-component>
+            <ng-template #typeNoEdit>
+              <div>{{entity.type}}</div>
+            </ng-template>
+          </div>
+
+          <div *ngIf="entity.link && !editMode" class="tracker-view__card__content__link">
+            <div class="tracker-view__card__content__label">Tracking link:</div>
+            <input type="text" #urlField class="share-link__url__content" value="{{entity.link}}" readonly>
+            <md-icon md-tooltip="Copy to clipboard" (click)="copyUrlToClipboard(urlField)">content_copy</md-icon>
+          </div>
+
+          <div class="tracker-view__card__content__event-type">
+            <div class="tracker-view__card__content__label">Event type:</div>
+            <ng-container *ngIf="editMode || addMode; else eventTypeNormal">
+              <dropdown-component
+                [selected]="''"
+                [placeholder]="'add type'"
+                (onSelect)="addEventType($event)"
+                [options]="['upsell', 'lead', 'main']">
+              </dropdown-component>
+              <span *ngFor="let t of entity.eventType"> <md-icon class="cancel" *ngIf="editMode || addMode" (click)="removeEventType(t)">cancel</md-icon> {{t}} </span>
+            </ng-container>
+            <ng-template #eventTypeNormal>
+              <span *ngIf="entity.eventType && entity.eventType.length === 0; else eventTypeList">All</span>
+              <ng-template #eventTypeList>{{entity.eventType}}</ng-template>
+            </ng-template>
+          </div>
+          <div class="tracker-view__card__content__body">
+            <div class="tracker-view__card__content__label">Tracking data:</div>
+
+            <md-textarea class="codeblock" *ngIf="editMode || addMode; else bodyNoEdit" [(ngModel)]="entity.body"></md-textarea>
+
+            <ng-template #bodyNoEdit>
+              <div class="codeblock">
+                {{entity.body}}
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="addMode" class="card-outside-button" (click)="saveTracker()">
+        SAVE
+      </div>
+
+    </md-tab>
+    <md-tab>
+      <tracker-affiliates [affiliates]="entity.affiliates" (associateAffiliate)="associateAffiliate($event)" (dissociateAffiliate)="dissociateAffiliate($event)"></tracker-affiliates>
+    </md-tab>
+  </md-tab-group>
 </div>
 
-
-
+<ng-template #spinner>
+  <md-spinner class="entity-view__spinner--main"></md-spinner>
+</ng-template>

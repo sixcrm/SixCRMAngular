@@ -30,8 +30,8 @@ const appRoutes: Routes = [
     { path : 'reports', loadChildren : './reports/reports.module#ReportsModule', canActivate: [AuthGuard] },
     { path : 'documentation', loadChildren : './pages/documentation/documentation.module#DocumentationModule', canActivate: [AuthGuard] },
     { path : 'coming-soon', component: ComingSoonComponent },
+    { path : '**', component : ErrorPageComponent }
   ]},
-  { path : '**', component : ErrorPageComponent }
 
 ];
 

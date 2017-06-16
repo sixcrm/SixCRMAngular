@@ -21,7 +21,7 @@ export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliat
   }
 
   ngOnInit() {
-    this.init();
+    this.init(() => this.navigation.goToNotFoundPage());
   }
 
   ngOnDestroy() {

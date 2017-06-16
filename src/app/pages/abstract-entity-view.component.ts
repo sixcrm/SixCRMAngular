@@ -30,8 +30,12 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
     });
   }
 
-  protected init(): void {
+  protected init(notFound?: () => void): void {
     this.service.entity$.takeUntil(this.unsubscribe$).subscribe((entity: T) => {
+      if (notFound && (!entity || !entity.id)) {
+        notFound();
+      }
+
       this.entity = entity;
       this.entityBackup = entity.copy();
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {NavigationService} from '../navigation/navigation.service';
 
 @Component({
   selector: 'error-page',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ErrorPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(public navigation: NavigationService) { }
 
   ngOnInit() {
   }

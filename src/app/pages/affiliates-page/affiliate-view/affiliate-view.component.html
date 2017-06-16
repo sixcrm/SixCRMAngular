@@ -1,72 +1,70 @@
-<div class="entity-view">
+<div  *ngIf="entity; else spinner" class="entity-view">
   <div class="entity-view__title">Affiliate</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <div *ngIf="entity">
+  <div class="entity-view__info">
+    <div class="entity-view__info__image">
+      <img src="/assets/images/result-item-customer-white.svg" alt="">
+    </div>
+    <div class="entity-view__info__data">
+      <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
 
-    <div class="entity-view__info">
-      <div class="entity-view__info__image">
-        <img src="/assets/images/result-item-customer-white.svg" alt="">
-      </div>
-      <div class="entity-view__info__data">
-        <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
-
-        <div class="entity-view__info__data__name">
-          <md-input *ngIf="editMode; else nameNoEdit" [(ngModel)]="entity.name"></md-input>
-          <ng-template #nameNoEdit>
-            <span>{{entity.name}}</span>
-          </ng-template>
-        </div>
-
-        <div class="entity-view__info__data__other">
-          <span class="entity-view__info__data__other__label">Affiliate ID:</span>
-          <md-input *ngIf="editMode; else affidNoEdit" [(ngModel)]="entity.affiliateId"></md-input>
-          <ng-template #affidNoEdit>
-            <span>{{entity.affiliateId}}</span>
-          </ng-template>
-        </div>
+      <div class="entity-view__info__data__name">
+        <md-input *ngIf="editMode; else nameNoEdit" [(ngModel)]="entity.name"></md-input>
+        <ng-template #nameNoEdit>
+          <span>{{entity.name}}</span>
+        </ng-template>
       </div>
 
-      <div class="entity-view__info__edit">
-        <div *ngIf="!editMode; else editActions" class="entity-view__info__edit__update" (click)="editMode = true"> EDIT AFFILIATE </div>
-
-        <ng-template #editActions>
-          <div (click)="cancelEdit()">CANCEL</div>
-          <div class="entity-view__info__edit__update" (click)="updateAffiliate()">UPDATE</div>
+      <div class="entity-view__info__data__other">
+        <span class="entity-view__info__data__other__label">Affiliate ID:</span>
+        <md-input *ngIf="editMode; else affidNoEdit" [(ngModel)]="entity.affiliateId"></md-input>
+        <ng-template #affidNoEdit>
+          <span>{{entity.affiliateId}}</span>
         </ng-template>
       </div>
     </div>
 
-    <div class="entity-view__navigation">
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">TRACKING</span>
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">SESSIONS</span>
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">CAMPAIGNS</span>
+    <div class="entity-view__info__edit">
+      <div *ngIf="!editMode; else editActions" class="entity-view__info__edit__update" (click)="editMode = true"> EDIT AFFILIATE </div>
+
+      <ng-template #editActions>
+        <div (click)="cancelEdit()">CANCEL</div>
+        <div class="entity-view__info__edit__update" (click)="updateAffiliate()">UPDATE</div>
+      </ng-template>
     </div>
-
-    <md-tab-group [(selectedIndex)]="selectedIndex">
-
-      <md-tab>
-        <div class="tab-container">
-          <affiliate-trackers [affiliate]="entity"></affiliate-trackers>
-        </div>
-      </md-tab>
-
-      <md-tab>
-        <div class="tab-container">
-          <affiliate-sessions [affiliateId]="entity.id"></affiliate-sessions>
-        </div>
-      </md-tab>
-
-      <md-tab>
-        <div class="tab-container">
-          <coming-soon [inPage]="true"></coming-soon>
-        </div>
-      </md-tab>
-
-    </md-tab-group>
-
   </div>
+
+  <div class="entity-view__navigation">
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">TRACKING</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">SESSIONS</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">CAMPAIGNS</span>
+  </div>
+
+  <md-tab-group [(selectedIndex)]="selectedIndex">
+
+    <md-tab>
+      <div class="tab-container">
+        <affiliate-trackers [affiliate]="entity"></affiliate-trackers>
+      </div>
+    </md-tab>
+
+    <md-tab>
+      <div class="tab-container">
+        <affiliate-sessions [affiliateId]="entity.id"></affiliate-sessions>
+      </div>
+    </md-tab>
+
+    <md-tab>
+      <div class="tab-container">
+        <coming-soon [inPage]="true"></coming-soon>
+      </div>
+    </md-tab>
+
+  </md-tab-group>
 </div>
 
-
+<ng-template #spinner>
+  <md-spinner class="entity-view__spinner--main"></md-spinner>
+</ng-template>
