@@ -43,7 +43,7 @@ export class TopCampaignsComponent extends AbstractDashboardItem implements OnIn
   }
 
   download(format: string): void {
-    this.analyticsService.getCampaignsByAmount(this.start.format(), this.end.format(), true);
+    this.analyticsService.getCampaignsByAmount(this.start.format(), this.end.format(), format);
   }
 
   sort(params: ColumnParams<CampaignStats>): void {

@@ -5,8 +5,8 @@
     <md-icon [md-menu-trigger-for]="downloadOptions">more_vert</md-icon>
     <md-menu #downloadOptions="mdMenu" x-position="before">
       <button md-menu-item (click)="download('json')"> Download JSON </button>
-      <button md-menu-item> Download CSV </button>
-      <button md-menu-item> Download Excel </button>
+      <button md-menu-item (click)="download('csv')"> Download CSV </button>
+      <button md-menu-item (click)="download('excel')"> Download Excel </button>
     </md-menu>
   </div>
 

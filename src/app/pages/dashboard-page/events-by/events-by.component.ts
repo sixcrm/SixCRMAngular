@@ -87,7 +87,7 @@ export class EventsByComponent extends AbstractDashboardItem implements OnInit, 
   }
 
   download(format: string): void {
-    this.analyticsService.getEventsBy(this.start.format(), this.end.format(), true);
+    this.analyticsService.getEventsBy(this.start.format(), this.end.format(), format);
   }
 
   calculateHeight(): string {

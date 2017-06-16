@@ -18,7 +18,7 @@ import {AnalyticsStorageService} from './analytics-storage.service';
 import {TransactionsBy} from '../models/analytics/transaction-by.model';
 import {EventsBy} from '../models/analytics/events-by.model';
 import {FilterTerm} from '../components/advanced-filter/advanced-filter.component';
-import {downloadJSON} from '../utils/file-utils';
+import {downloadFile} from '../utils/file-utils';
 import {Activity} from '../models/analytics/activity.model';
 
 @Injectable()
@@ -53,15 +53,15 @@ export class AnalyticsService {
     });
   }
 
-  getTransactionSummaries(start: string, end: string, filters: FilterTerm[], download?: boolean): void {
+  getTransactionSummaries(start: string, end: string, filters: FilterTerm[], downloadFormat?: string): void {
     let summariesStorage = this.analyticsStorage.getTransactionSummaries(start, end, filters);
 
-    if (!download && summariesStorage) {
+    if (!downloadFormat && summariesStorage) {
       this.transactionsSummaries$.next(summariesStorage);
     } else {
-      this.queryRequest(transactionSummaryQuery(start, end, filters), download).subscribe(
+      this.queryRequest(transactionSummaryQuery(start, end, filters), downloadFormat).subscribe(
         (data) => {
-          if (!download) {
+          if (!downloadFormat) {
             let transactions = data.json().data.transactionsummary.transactions;
 
             if (transactions) {
@@ -70,9 +70,8 @@ export class AnalyticsService {
               this.analyticsStorage.setTransactionSummaries(start, end, s, filters);
             }
           } else {
-            downloadJSON(data.json(), 'transactions-summary.json');
+            downloadFile(data, 'transactions-summary', downloadFormat);
           }
-
         },
         (error) => {
           console.error(error);
@@ -81,15 +80,15 @@ export class AnalyticsService {
     }
   }
 
-  getTransactionOverview(start: string, end: string, download?: boolean): void {
+  getTransactionOverview(start: string, end: string, downloadFormat?: string): void {
     let overviewStorage = this.analyticsStorage.getTransactionOverview(start, end);
 
-    if (!download && overviewStorage) {
+    if (!downloadFormat && overviewStorage) {
       this.transactionsOverview$.next(overviewStorage);
     } else {
-      this.queryRequest(transactionOverviewQuery(start, end), download).subscribe(
+      this.queryRequest(transactionOverviewQuery(start, end), downloadFormat).subscribe(
         (data) => {
-          if (!download) {
+          if (!downloadFormat) {
             let overview = data.json().data.transactionoverview.overview;
 
             if (overview) {
@@ -98,7 +97,7 @@ export class AnalyticsService {
               this.analyticsStorage.setTransactionOverview(start, end, o);
             }
           } else {
-            downloadJSON(data.json(), 'transactions-overview.json');
+            downloadFile(data, 'transactions-overview', downloadFormat);
           }
         },
         (error) => {
@@ -108,14 +107,14 @@ export class AnalyticsService {
     }
   }
 
-  getEventFunnel(start: string, end: string, download?: boolean): void {
+  getEventFunnel(start: string, end: string, downloadFormat?: string): void {
     let funnelStorage = this.analyticsStorage.getEventFunnel(start, end);
 
-    if (!download && funnelStorage) {
+    if (!downloadFormat && funnelStorage) {
       this.eventFunnel$.next(funnelStorage);
     } else {
-      this.queryRequest(eventsFunelQuery(start, end), download).subscribe((data) => {
-        if (!download) {
+      this.queryRequest(eventsFunelQuery(start, end), downloadFormat).subscribe((data) => {
+        if (!downloadFormat) {
           let funnel = data.json().data.eventfunnel.funnel;
 
           if (funnel) {
@@ -124,20 +123,20 @@ export class AnalyticsService {
             this.analyticsStorage.setEventFunnel(start, end, f);
           }
         } else {
-          downloadJSON(data.json(), 'events-by.json');
+          downloadFile(data, 'events-by', downloadFormat);
         }
       })
     }
   }
 
-  getCampaignDelta(start: string, end: string, download?: boolean): void {
+  getCampaignDelta(start: string, end: string, downloadFormat?: string): void {
     let deltaStorage = this.analyticsStorage.getCampaignsDelta(start, end);
 
-    if (!download && deltaStorage) {
+    if (!downloadFormat && deltaStorage) {
       this.campaignDelta$.next(deltaStorage);
     } else {
-      this.queryRequest(campaignDeltaQuery(start, end), download).subscribe(data => {
-        if (!download) {
+      this.queryRequest(campaignDeltaQuery(start, end), downloadFormat).subscribe(data => {
+        if (!downloadFormat) {
           let campaigns = data.json().data.campaigndelta.campaigns;
 
           if (campaigns) {
@@ -146,20 +145,20 @@ export class AnalyticsService {
             this.analyticsStorage.setCampaignsDelta(start, end, c);
           }
         } else {
-          downloadJSON(data.json(), 'campaigns-delta.json');
+          downloadFile(data, 'campaigns-delta', downloadFormat);
         }
       })
     }
   }
 
-  getEventsBy(start: string, end: string, download?: boolean): void {
+  getEventsBy(start: string, end: string, downloadFormat?: string): void {
     let eventsStorage = this.analyticsStorage.getEventsBy(start, end);
 
-    if (!download && eventsStorage) {
+    if (!downloadFormat && eventsStorage) {
       this.eventsBy$.next(eventsStorage);
     } else {
-      this.queryRequest(eventsByAffiliateQuery(start, end), download).subscribe(data => {
-        if (!download) {
+      this.queryRequest(eventsByAffiliateQuery(start, end), downloadFormat).subscribe(data => {
+        if (!downloadFormat) {
           let events = data.json().data.eventsbyfacet;
 
           if (events) {
@@ -168,20 +167,20 @@ export class AnalyticsService {
             this.analyticsStorage.setEventsBy(start, end, e);
           }
         } else {
-          downloadJSON(data.json(), 'events-by-affiliate.json');
+          downloadFile(data, 'events-by-affiliate', downloadFormat);
         }
       });
     }
   }
 
-  getTransactionsBy(start: string, end: string, download?: boolean): void {
+  getTransactionsBy(start: string, end: string, downloadFormat?: string): void {
     let transactionsBy = this.analyticsStorage.getTransactionsBy(start, end);
 
-    if (!download && transactionsBy) {
+    if (!downloadFormat && transactionsBy) {
       this.transactionsBy$.next(transactionsBy);
     } else {
-      this.queryRequest(transactionsByAffiliateQuery(start, end), download).subscribe(data => {
-        if (!download) {
+      this.queryRequest(transactionsByAffiliateQuery(start, end), downloadFormat).subscribe(data => {
+        if (!downloadFormat) {
           let events = data.json().data.transactionsbyfacet;
 
           if (events) {
@@ -190,20 +189,20 @@ export class AnalyticsService {
             this.analyticsStorage.setTransactionsBy(start, end, e);
           }
         } else {
-          downloadJSON(data.json(), 'transactions-by-affiliate.json');
+          downloadFile(data, 'transactions-by-affiliate', downloadFormat);
         }
       });
     }
   }
 
-  getEventsSummary(start: string, end: string, download?: boolean): void {
+  getEventsSummary(start: string, end: string, downloadFormat?: string): void {
     let summaryStorage = this.analyticsStorage.getEventSummary(start, end);
 
-    if (!download && summaryStorage) {
+    if (!downloadFormat && summaryStorage) {
       this.eventsSummary$.next(summaryStorage);
     } else {
-      this.queryRequest(eventsSummaryQuery(start, end), download).subscribe(data => {
-        if (!download) {
+      this.queryRequest(eventsSummaryQuery(start, end), downloadFormat).subscribe(data => {
+        if (!downloadFormat) {
           let events = data.json().data.eventsummary.events;
 
           if (events) {
@@ -212,20 +211,20 @@ export class AnalyticsService {
             this.analyticsStorage.setEventSummary(start, end, e);
           }
         } else {
-          downloadJSON(data.json(), 'events-summary.json');
+          downloadFile(data, 'events-summary', downloadFormat);
         }
       })
     }
   }
 
-  getCampaignsByAmount(start: string, end: string, download?: boolean): void {
+  getCampaignsByAmount(start: string, end: string, downloadFormat?: string): void {
     let campaignsStorage = this.analyticsStorage.getCampaignsByAmount(start, end);
 
-    if (!download && campaignsStorage) {
+    if (!downloadFormat && campaignsStorage) {
       this.campaignsByAmount$.next(campaignsStorage);
     } else {
-      this.queryRequest(campaignsByAmountQuery(start, end), download).subscribe(data => {
-        if (!download) {
+      this.queryRequest(campaignsByAmountQuery(start, end), downloadFormat).subscribe(data => {
+        if (!downloadFormat) {
           let campaigns = data.json().data.campaignsbyamount.campaigns;
 
           if (campaigns) {
@@ -234,7 +233,7 @@ export class AnalyticsService {
             this.analyticsStorage.setCampaignsByAmount(start, end, c);
           }
         } else {
-          downloadJSON(data.json(), 'campaigns-by-amount.json');
+          downloadFile(data, 'campaigns-by-amount', downloadFormat);
         }
       })
     }
@@ -269,7 +268,7 @@ export class AnalyticsService {
     this.campaignsByAmount$.next(null);
   }
 
-  private queryRequest(query: string, download?: boolean): Observable<Response> {
+  private queryRequest(query: string, downloadFormat?: string | boolean): Observable<Response> {
     let endpoint = environment.endpoint;
 
     if (this.authService.getActiveAcl() && this.authService.getActiveAcl().account) {
@@ -278,8 +277,8 @@ export class AnalyticsService {
       endpoint += '*';
     }
 
-    if (download) {
-      endpoint += '?download=json';
+    if (downloadFormat) {
+      endpoint += '?download=' + downloadFormat;
     }
 
     return this.http.post(endpoint, query, { headers: this.generateHeaders()});

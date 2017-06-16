@@ -131,7 +131,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
   }
 
   download(format: string): void {
-    this.analyticsService.getEventFunnel(this.start.format(), this.end.format(), true);
+    this.analyticsService.getEventFunnel(this.start.format(), this.end.format(), format);
   }
 
   saveChart(chartInstance): void {

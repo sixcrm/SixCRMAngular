@@ -87,7 +87,7 @@ export class TransactionByComponent extends AbstractDashboardItem implements OnI
   }
 
   download(format: string): void {
-    this.analyticsService.getTransactionsBy(this.start.format(), this.end.format(), true);
+    this.analyticsService.getTransactionsBy(this.start.format(), this.end.format(), format);
   }
 
   calculateHeight(): string {

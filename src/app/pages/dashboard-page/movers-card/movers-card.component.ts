@@ -40,7 +40,7 @@ export class MoversCardComponent extends AbstractDashboardItem implements OnInit
   }
 
   download(format: string): void {
-    this.analyticsService.getCampaignDelta(this.start.format(), this.end.format(), true);
+    this.analyticsService.getCampaignDelta(this.start.format(), this.end.format(), format);
   }
 
   isDecing(campaign: CampaignDelta): boolean {
