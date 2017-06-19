@@ -1,43 +1,89 @@
-<div class="entity-view">
-  <div class="entity-view__title"> SMTP Provider Details </div>
+<div *ngIf="entity; else spinner" class="entity-view">
+  <div class="entity-view__title">SMTP Provider</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <div *ngIf="entity" class="entity-view__content">
-
-    <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>
-
-    <div class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">ID:</span>
-        <span>{{entity.id}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Name:</span>
-        <span>{{entity.name}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Host Name:</span>
-        <span>{{entity.hostname}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">IP Address:</span>
-        <span>{{entity.ipAddress}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Username:</span>
-        <span>{{entity.username}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Password:</span>
-        <span>{{entity.password}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Port:</span>
-        <span>{{entity.port}}</span>
+  <div class="entity-view__info">
+    <div class="entity-view__info__image">
+      <img src="/assets/images/result-item-transaction-white.svg" alt="">
+    </div>
+    <div class="entity-view__info__data">
+      <div *ngIf="!addMode" class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div class="entity-view__info__data__name">
+        <span *ngIf="!addMode; else createMessage">
+          {{entityBackup.name}}
+        </span>
+        <ng-template #createMessage>
+          Create new SMTP Provider
+        </ng-template>
       </div>
     </div>
-
   </div>
+
+  <div class="entity-view__navigation">
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">CAMPAIGNS</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">EMAIL TEMPLATES</span>
+  </div>
+
+  <md-tab-group [(selectedIndex)]="selectedIndex">
+    <md-tab>
+
+      <div class="entity-view__card">
+        <div class="entity-view__card__header">
+          <div class="entity-view__card__header__title">SMTP Details</div>
+          <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
+          <md-menu #editOptions="mdMenu" x-position="before">
+            <button *ngIf="!addMode" md-menu-item (click)="editMode = true;"> Edit SMTP Details</button>
+          </md-menu>
+        </div>
+
+        <div class="entity-view__card__content">
+          <md-input-container class="entity-view__card__content__item">
+            <input md-input placeholder="Name" [(ngModel)]="entity.name" type="text">
+          </md-input-container>
+
+          <md-input-container class="entity-view__card__content__item">
+            <input md-input placeholder="Host" [(ngModel)]="entity.hostname" type="text">
+          </md-input-container>
+
+          <md-input-container class="entity-view__card__content__item">
+            <input md-input placeholder="IP Address" [(ngModel)]="entity.ipAddress" type="text">
+          </md-input-container>
+
+          <md-input-container class="entity-view__card__content__item">
+            <input md-input placeholder="Username" [(ngModel)]="entity.username" type="text">
+          </md-input-container>
+
+          <md-input-container class="entity-view__card__content__item">
+            <input md-input placeholder="Password" [(ngModel)]="entity.password" type="text">
+          </md-input-container>
+
+          <md-input-container class="entity-view__card__content__item">
+            <input md-input placeholder="Port" [(ngModel)]="entity.port" type="text">
+          </md-input-container>
+        </div>
+
+        <div *ngIf="editMode || addMode" class="entity-view__card__actions">
+          <div *ngIf="editMode" (click)="cancelEdit()">CANCEL</div>
+          <div (click)="saveProvider()">SAVE</div>
+        </div>
+      </div>
+
+
+    </md-tab>
+
+    <md-tab>
+      <coming-soon [inPage]="true"></coming-soon>
+    </md-tab>
+
+    <md-tab>
+      <coming-soon [inPage]="true"></coming-soon>
+    </md-tab>
+  </md-tab-group>
 </div>
+
+<ng-template #spinner>
+  <md-spinner class="entity-view__spinner--main"></md-spinner>
+</ng-template>
 

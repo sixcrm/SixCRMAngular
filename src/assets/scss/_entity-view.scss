@@ -539,6 +539,63 @@ $blue-color: #4A90E2;
       width: 170px !important;
     }
   }
+
+  &__card {
+    display: inline-block;
+    margin: 10px;
+    background: white;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    min-width: 300px;
+
+    &__header {
+      display: flex;
+      padding: 15px;
+      border-bottom: 1px solid rgba(0,0,0,0.14);
+
+      &__title {
+        color: #5B9BE1;
+      }
+
+      md-icon {
+        margin-left: auto;
+        width: 18px;
+        height: 18px;
+        font-size: 18px;
+        color: rgba(0,0,0,0.4);
+        cursor: pointer;
+      }
+    }
+
+    &__content {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+
+      &__item {
+        margin-top: 10px;
+        font-size: 16px;
+      }
+    }
+
+    &__actions {
+      display: flex;
+      padding: 15px;
+      font-size: 12px;
+
+      div {
+        cursor: pointer;
+
+        &:first-of-type {
+          margin-left: auto;
+          margin-right: 10px;
+        }
+
+        &:last-of-type {
+          color: #5B9BE1;
+        }
+      }
+    }
+  }
 }
 
 .tab-container {

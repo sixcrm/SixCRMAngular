@@ -847,7 +847,7 @@ export function smtpProvidersListQuery(limit?:number, cursor?:string): string {
 export function smtpProviderQuery(id: string): string {
   return `
     {
-      smtpprovider (id: "${id}") { id name hostname ip_address username password port }
+      smtpprovider (id: "${id}") { id name hostname ip_address username password port created_at updated_at}
     }`
 }
 
@@ -870,7 +870,7 @@ export function updateSmptProviderMutation(smtpProvider: SmtpProvider): string {
     mutation {
 		  updatesmtpprovider (
 		    smtpprovider: { id: "${smtpProvider.id}", name: "${smtpProvider.name}", hostname: "${smtpProvider.hostname}", ip_address: "${smtpProvider.ipAddress}", username: "${smtpProvider.username}", password: "${smtpProvider.password}", port: "${smtpProvider.port}"}) {
-			    id name hostname ip_address username password port
+			    id name hostname ip_address username password port created_at updated_at
 			}
 	}`
 }
