@@ -5,21 +5,31 @@
   }
 
   &__item {
-    margin-bottom: 22px;
+    margin-bottom: 24px;
     margin-left: 20px;
     font-size: 16px;
 
     &__title {
-      margin-bottom: 8px;
+      margin-bottom: 14px;
+      font-weight: 500;
       cursor: pointer;
+
+      span {
+        border-bottom: 1px solid;
+      }
     }
 
     &__child {
-      margin-left: 5px;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
       white-space: nowrap;
-      font-size: 12px;
+      font-size: 11px;
       cursor: pointer;
+
+      &:hover {
+        span {
+          border-bottom: 1px solid;
+        }
+      }
     }
   }
 }

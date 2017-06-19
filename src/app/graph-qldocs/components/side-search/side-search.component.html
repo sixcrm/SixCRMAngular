@@ -6,13 +6,13 @@
       <div
         (click)="nav(searchItem.name)"
         class="side-search__item__title">
-        {{searchItem.name}}
+        <span>{{searchItem.name === 'Query' ? 'Queries' : searchItem.name+'s'}}</span>
       </div>
       <div
         *ngFor="let child of searchItem.children | filterSearchItems: filterString"
         (click)="nav(child)"
         class="side-search__item__child">
-        - {{child}}
+        - <span>{{child}}</span>
       </div>
     </div>
   </ng-container>

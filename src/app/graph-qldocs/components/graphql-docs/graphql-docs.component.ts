@@ -18,7 +18,7 @@ export class GraphqlDocsComponent implements OnInit {
   searchItems: SearchItem[] = [
     {name: 'Query', children: []},
     {name: 'Mutation', children: []},
-    {name: 'Types', children: []}
+    {name: 'Type', children: []}
   ];
 
   loaded: boolean = false;
