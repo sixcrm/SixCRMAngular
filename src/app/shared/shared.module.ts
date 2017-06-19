@@ -54,6 +54,8 @@ import { CreditCardExpirationPipe } from './pipes/credit-card-expiration.pipe';
 import { InputCreditCardComponent } from './components/input-credit-card/input-credit-card.component';
 import { CreditCardMaskPipe } from './pipes/credit-card-mask.pipe';
 import {TrackersService} from './services/trackers.service';
+import { AutocompleteInputComponent } from './components/autocomplete-input/autocomplete-input.component';
+import { FilterStringsPipe } from './pipes/filter-strings.pipe';
 
 @NgModule({
   declarations : [
@@ -76,7 +78,9 @@ import {TrackersService} from './services/trackers.service';
     CreditCardFormatPipe,
     CreditCardExpirationPipe,
     InputCreditCardComponent,
-    CreditCardMaskPipe
+    CreditCardMaskPipe,
+    AutocompleteInputComponent,
+    FilterStringsPipe
   ],
   exports : [
     WidgetComponent,
@@ -98,7 +102,8 @@ import {TrackersService} from './services/trackers.service';
     CreditCardExpirationPipe,
     InputCreditCardComponent,
     CreditCardMaskPipe,
-    ComingSoonComponent
+    ComingSoonComponent,
+    AutocompleteInputComponent
   ],
   imports : [
     FormsModule,

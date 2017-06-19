@@ -44,15 +44,13 @@
                 <input md-input placeholder="Cell phone" type="text" [textMask]="{mask: mask, guide: false}" [(ngModel)]="userSettingsBackup.cellPhone">
               </md-input-container>
               <div class="profile-page__content__general__data__dropdown">
-                <span [md-menu-trigger-for]="timezoneMenu" [class.unselected]="!userSettingsBackup.timezone">
-                  {{userSettingsBackup.timezone || 'Timezone'}}
-                  <md-icon>keyboard_arrow_down</md-icon>
-                </span>
+                <autocomplete-input
+                  [initialValue]="userSettingsBackup.timezone"
+                  [options]="timezones"
+                  [placeholder]="'Set Timezone'"
+                  (selected)="userSettingsBackup.timezone = $event">
+                </autocomplete-input>
               </div>
-
-              <md-menu #timezoneMenu="mdMenu" x-position="after">
-                <button md-menu-item *ngFor="let tz of timezones" (click)="userSettingsBackup.timezone = tz"> {{tz}} </button>
-              </md-menu>
 
               <md-input placeholder="Email" [value]="user.email"></md-input>
             </div>

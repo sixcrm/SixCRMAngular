@@ -13,6 +13,8 @@ import {NotificationSettingsService} from '../../shared/services/notification-se
 import {conformToMask} from 'angular2-text-mask';
 import {getPhoneNumberMask} from '../../shared/utils/mask-utils';
 
+let moment = require('moment-timezone');
+
 @Component({
   selector: 'profile-page',
   templateUrl: 'profile-page.component.html',
@@ -21,7 +23,7 @@ import {getPhoneNumberMask} from '../../shared/utils/mask-utils';
 export class ProfilePageComponent implements OnInit, OnDestroy {
 
   timezone: string;
-  timezones: string[] = ['America/Los_Angeles', 'America/New_York', 'Europe/Belgrade'];
+  timezones: string[] = moment.tz.names();
   selectedIndex: number = 0;
 
   filterValue: string;
