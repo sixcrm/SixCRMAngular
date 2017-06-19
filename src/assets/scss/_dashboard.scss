@@ -14,8 +14,13 @@ $color-orange: #F16C00;
       padding-right: 10px;
       box-sizing: border-box;
 
-      @media only screen and (max-width: 1440px) {
+      @media only screen and (max-width: 1440px ) {
         width: 60%;
+      }
+
+      @media only screen and (max-width: 860px ) {
+        padding: 0;
+        width: 100%;
       }
     }
 
@@ -28,6 +33,13 @@ $color-orange: #F16C00;
         top: 10px;
         width: 40%;
         padding-right: 15px;
+      }
+
+      @media only screen and (max-width: 860px ) {
+        position: relative;
+        top: 0;
+        padding: 0;
+        width: 100%;
       }
     }
   }
@@ -46,6 +58,11 @@ $color-orange: #F16C00;
       @media only screen and (max-width: 1440px) {
         width: 60%;
         padding-right: 10px;
+      }
+
+      @media only screen and (max-width: 860px ) {
+        width: 100%;
+        padding: 0;
       }
     }
 
