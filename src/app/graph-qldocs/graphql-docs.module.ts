@@ -7,8 +7,9 @@ import { FieldComponent } from './components/field/field.component';
 import { ArgumentsComponent } from './components/arguments/arguments.component';
 import { InputFieldsComponent } from './components/input-fields/input-fields.component';
 import {MaterialModule} from '@angular/material';
-import { FilterTypesPipe } from './filter-types.pipe';
+import { FilterSearchItemsPipe } from './filter-types.pipe';
 import {FormsModule} from '@angular/forms';
+import { SideSearchComponent } from './components/side-search/side-search.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import {FormsModule} from '@angular/forms';
     FieldComponent,
     ArgumentsComponent,
     InputFieldsComponent,
-    FilterTypesPipe
+    FilterSearchItemsPipe,
+    SideSearchComponent
   ],
   providers: [
     GraphqlDocsService

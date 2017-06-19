@@ -1,0 +1,25 @@
+.side-search {
+  md-input {
+    margin: 30px 20px;
+    width: 180px;
+  }
+
+  &__item {
+    margin-bottom: 22px;
+    margin-left: 20px;
+    font-size: 16px;
+
+    &__title {
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+
+    &__child {
+      margin-left: 5px;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      font-size: 12px;
+      cursor: pointer;
+    }
+  }
+}

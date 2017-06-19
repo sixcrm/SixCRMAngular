@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {GraphqlDocsService, HeadersInput} from '../../graphql-docs.service';
 import {Type} from '../../models/type.model';
+import {sortTypes, sortFields} from '../../utils';
+import {SearchItem} from '../side-search/side-search.component';
 
 @Component({
   selector: 'graphql-docs',
@@ -13,29 +15,40 @@ export class GraphqlDocsComponent implements OnInit {
   @Input() headers: HeadersInput[];
 
   types: Type[];
-  filterString: string;
+  searchItems: SearchItem[] = [
+    {name: 'Query', children: []},
+    {name: 'Mutation', children: []},
+    {name: 'Types', children: []}
+  ];
+
+  loaded: boolean = false;
 
   constructor(private graphqlService: GraphqlDocsService) { }
 
   ngOnInit() {
     this.graphqlService.getSchemaTypes(this.endpoint, this.headers).subscribe((data: Type[]) => {
-      // filter out meta types
-      this.types = data.filter(type => type.name.indexOf('__') === -1).sort((a, b) => {
+      this.types = data
+        .filter(type => type.name.indexOf('__') === -1) // filter out meta types
+        .sort(sortTypes)  // sort types
+        .map(type => {  // sort fields
+          if (type.fields) {
+            type.fields = type.fields.sort(sortFields);
+          }
+          return type;
+        });
 
-        // query should be on top of the list, then mutation, and then sort alphabetically
-        if (a.name === 'Query') return -1;
-        if (b.name === 'Query') return 1;
-
-        if (a.name === 'Mutation') return -1;
-        if (b.name === 'Mutation') return 1;
-
-        if (a.name < b.name) return -1;
-
-        if (a.name > b.name) return 1;
-
-        return 0;
+      // parse side search items
+      Object.keys(this.types).forEach(key => {
+        if (this.types[key].name === 'Query') {
+          this.searchItems[0].children = this.types[key].fields.map(field => field.name);
+        } else if (this.types[key].name === 'Mutation') {
+          this.searchItems[1].children = this.types[key].fields.map(field => field.name);
+        } else {
+          this.searchItems[2].children.push(this.types[key].name)
+        }
       });
+
+      this.loaded = true;
     })
   }
-
 }

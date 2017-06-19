@@ -1,0 +1,19 @@
+<div class="side-search">
+  <md-input placeholder="Filter by name" [(ngModel)]="filterString"></md-input>
+
+  <ng-container *ngFor="let searchItem of searchItems">
+    <div *ngIf="searchItem.children && searchItem.children.length > 0" class="side-search__item">
+      <div
+        (click)="nav(searchItem.name)"
+        class="side-search__item__title">
+        {{searchItem.name}}
+      </div>
+      <div
+        *ngFor="let child of searchItem.children | filterSearchItems: filterString"
+        (click)="nav(child)"
+        class="side-search__item__child">
+        - {{child}}
+      </div>
+    </div>
+  </ng-container>
+</div>

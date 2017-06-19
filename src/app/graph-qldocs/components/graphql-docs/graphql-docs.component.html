@@ -1,9 +1,12 @@
 <div class="docs">
-  <div class="docs__sidenav">
-    <md-input placeholder="Filter by Type" [(ngModel)]="filterString"></md-input>
-  </div>
-  <div class="docs__content">
-    <doc-type *ngFor="let type of types | filterTypes: filterString" [type]="type"></doc-type>
-    <md-spinner *ngIf="!types"></md-spinner>
-  </div>
+  <md-spinner *ngIf="!loaded; else load"></md-spinner>
+
+  <ng-template #load>
+    <div class="docs__sidenav">
+      <side-search [searchItems]="searchItems"></side-search>
+    </div>
+    <div class="docs__content">
+      <doc-type *ngFor="let type of types" [type]="type"></doc-type>
+    </div>
+  </ng-template>
 </div>
