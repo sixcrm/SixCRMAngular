@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { documentationRouting } from './documentation.routing';
 import {GraphDocsComponent} from './graph-docs/graph-docs.component';
 import {GraphqlDocsModule} from '../../graph-qldocs/graphql-docs.module';
-import { GraphDocsCComponent } from './graph-docs-c/graph-docs-c.component';
 
 @NgModule({
   imports: [
@@ -11,6 +10,6 @@ import { GraphDocsCComponent } from './graph-docs-c/graph-docs-c.component';
     documentationRouting,
     GraphqlDocsModule
   ],
-  declarations: [GraphDocsComponent, GraphDocsCComponent]
+  declarations: [GraphDocsComponent]
 })
 export class DocumentationModule { }

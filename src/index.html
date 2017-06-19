@@ -14,19 +14,6 @@
   <script src="https://cdn.auth0.com/js/lock/10.8/lock.min.js"></script>
   <script src="https://use.fontawesome.com/1b12664dea.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.2/react.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.2/react-dom.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-  <script>
-    var renderDocs = function(token, url) {
-      var rootElem = document.getElementById('docs-graph');
-      if (rootElem) {
-        ReactDOM.render(React.createElement(GraphQLDocs.GraphQLDocs, {token: token, url: url}), rootElem);
-      }
-    }
-  </script>
-
   <style>
     app-root > .background {
       background: -webkit-radial-gradient(#40404b, #111118) rgba(34,34,40,0.94);

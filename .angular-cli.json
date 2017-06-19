@@ -19,9 +19,7 @@
         "styles.scss",
         "../node_modules/codemirror/lib/codemirror.css"
       ],
-      "scripts": [
-        "../src/assets/libs/graphql-docs.js"
-      ],
+      "scripts": [ ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

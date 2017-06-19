@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-
-declare var renderDocs: any;
+import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
   selector: 'graph-docs',
@@ -10,12 +9,20 @@ declare var renderDocs: any;
 })
 export class GraphDocsComponent implements OnInit {
 
-  constructor(private authService: AuthenticationService) { }
+  endpoint = 'https://api.sixcrm.com/graph/*';
+  headers = [
+    {key: 'Content-Type', value: 'application/json'},
+    {key: 'Authorization', value: this.authService.getToken()}
+  ];
+
+  constructor(private authService: AuthenticationService, private navigationService: NavigationService) {}
 
   ngOnInit() {
-    let url = 'https://api.sixcrm.com/graph/*';
+    this.navigationService.setSidenavAuto(false);
+  }
 
-    renderDocs(this.authService.getToken(), url);
+  ngOnDestroy() {
+    this.navigationService.resetSidenavAuto();
   }
 
 }
