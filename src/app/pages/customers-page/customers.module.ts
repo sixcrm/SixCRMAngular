@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import {customersRouting } from './customers.routing';
 import {MaterialModule} from '@angular/material';
 import {CustomersComponent} from './customers.component';
@@ -28,7 +28,6 @@ import { SingleEventComponent } from './customer-view/customer-events/single-eve
     CommonModule,
     FormsModule,
     MaterialModule,
-    ReactiveFormsModule,
     PageComponentsModule,
     SharedModule,
     TextMaskModule,

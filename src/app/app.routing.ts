@@ -27,6 +27,7 @@ const appRoutes: Routes = [
     { path : 'transactions', loadChildren : './pages/transactions-page/transactions.module#TransactionsModule', canActivate: [AuthGuard] },
     { path : 'users', loadChildren : './pages/users-page/users.module#UsersModule', canActivate: [AuthGuard] },
     { path : 'trackers', loadChildren : './pages/trackers-page/trackers.module#TrackersModule', canActivate: [AuthGuard] },
+    { path : 'emailtemplates', loadChildren : './pages/email-templates-page/email-templates.module#EmailTemplatesModule', canActivate: [AuthGuard] },
     { path : 'reports', loadChildren : './reports/reports.module#ReportsModule', canActivate: [AuthGuard] },
     { path : 'documentation', loadChildren : './pages/documentation/documentation.module#DocumentationModule', canActivate: [AuthGuard] },
     { path : 'coming-soon', component: ComingSoonComponent },

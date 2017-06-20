@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MaterialModule} from '@angular/material';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 import {SearchComponent} from './search.component';
 import {searchRouting} from './search.routing';
 import {ResultItemComponent} from './result-item/result-item.component';
@@ -26,7 +26,6 @@ import { PerfectCampaignComponent } from './perfect-match/perfect-campaign/perfe
     PageComponentsModule,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
     MaterialModule.forRoot(),
     Daterangepicker
   ],

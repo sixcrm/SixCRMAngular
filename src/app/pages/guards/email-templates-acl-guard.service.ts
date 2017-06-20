@@ -4,13 +4,13 @@ import {AbstractAclGuard} from './abstract-acl-guard.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 
 @Injectable()
-export class EmailsAclGuard extends AbstractAclGuard implements CanActivate {
+export class EmailTemplatesAclGuard extends AbstractAclGuard implements CanActivate {
 
   constructor(authService: AuthenticationService, router: Router) {
     super(authService, router);
   }
 
   canActivate(): boolean {
-    return super.hasPermission('email');
+    return super.hasPermission('emailtemplate');
   }
 }

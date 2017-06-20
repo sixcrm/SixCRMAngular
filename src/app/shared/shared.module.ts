@@ -15,7 +15,7 @@ import {TransactionsService} from "./services/transactions.service";
 import {CreditCardsService} from './services/credit-cards.service';
 import {UsersService} from './services/users.service';
 import {SmtpProvidersService} from './services/smtp-providers.service';
-import {EmailsService} from './services/emails.service';
+import {EmailTemplatesService} from './services/email-templates.service';
 import {AccessKeysService} from './services/access-keys.service';
 import {ProgressBarService} from './services/progress-bar.service';
 import {ProductScheduleService} from './services/product-schedule.service';
@@ -130,7 +130,7 @@ export class SharedModule {
         CreditCardsService,
         UsersService,
         SmtpProvidersService,
-        EmailsService,
+        EmailTemplatesService,
         AccessKeysService,
         ProgressBarService,
         ProductScheduleService,

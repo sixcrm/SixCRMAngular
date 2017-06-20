@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import {productsRouting} from './products.routing';
 import {MaterialModule} from '@angular/material';
 import {ProductsComponent} from './products.component';
@@ -16,7 +16,6 @@ import {SharedModule} from '../../shared/shared.module';
     CommonModule,
     FormsModule,
     MaterialModule.forRoot(),
-    ReactiveFormsModule,
     PageComponentsModule,
     SharedModule
   ],

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import {affiliatesRouting } from './affiliates.routing';
 import {MaterialModule} from '@angular/material';
 import {AffiliatesComponent} from './affiliates.component';
@@ -19,7 +19,6 @@ import { AffiliateCampaignsComponent } from './affiliate-view/affiliate-campaign
     CommonModule,
     FormsModule,
     MaterialModule.forRoot(),
-    ReactiveFormsModule,
     PageComponentsModule,
     SharedModule
   ],

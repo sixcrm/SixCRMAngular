@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import {transactionsRouting} from './transactions.routing';
 import {MaterialModule} from '@angular/material';
 import {TransactionsComponent} from './transactions.component';
@@ -17,7 +17,6 @@ import {TextMaskModule} from 'angular2-text-mask';
     CommonModule,
     FormsModule,
     MaterialModule.forRoot(),
-    ReactiveFormsModule,
     PageComponentsModule,
     SharedModule,
     TextMaskModule

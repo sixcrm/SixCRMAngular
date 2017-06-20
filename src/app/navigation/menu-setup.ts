@@ -56,6 +56,9 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   if (authService.hasPermissions('campaign', 'view')) {
     crmItems.push(new MenuItem('Campaigns', 'campaigns'));
   }
+  if (authService.hasPermissions('emailtemplate', 'view')) {
+    crmItems.push(new MenuItem('Email Templates', 'emailtemplates'));
+  }
   if (authService.hasPermissions('affiliate', 'view')) {
     crmItems.push(new MenuItem('Affiliates', 'affiliates'));
   }

@@ -875,27 +875,27 @@ export function updateSmptProviderMutation(smtpProvider: SmtpProvider): string {
 	}`
 }
 
-export function emailsListQuery(limit?:number, cursor?:string): string {
+export function emailTemplatesListQuery(limit?:number, cursor?:string): string {
   return `{
-    emaillist ${pageParams(limit, cursor)} {
-			emails { id name subject body type,
+    emailtemplatelist ${pageParams(limit, cursor)} {
+			emailtemplates { id name subject body type created_at updated_at,
 			  smtp_provider { id name hostname ip_address username password port }
 			}
 			${paginationString()}
 		}}`
 }
 
-export function emailQuery(id: string): string {
+export function emailTemplateQuery(id: string): string {
   return `
     {
-      email (id: "${id}") { id name subject body type,
+      emailtemplate (id: "${id}") { id name subject body type created_at updated_at,
 			  smtp_provider { id name hostname ip_address username password port }
 			}
     }`
 }
 
-export function deleteEmailMutation(id: string): string {
-  return deleteMutation('email', id);
+export function deleteEmailTemplateMutation(id: string): string {
+  return deleteMutation('emailtemplate', id);
 }
 
 export function accessKeysListQuery(limit?:number, cursor?:string): string {

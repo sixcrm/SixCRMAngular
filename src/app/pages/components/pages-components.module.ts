@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {ReactiveFormsModule, FormsModule} from '@angular/forms';
+import { FormsModule} from '@angular/forms';
 import {MaterialModule} from '@angular/material';
 import {TableActionsComponent} from './table-actions/table-actions.component';
 import {EntityViewTopnavComponent} from './entity-view-topnav/entity-view-topnav.component';
@@ -13,7 +13,6 @@ import {SharedModule} from '../../shared/shared.module';
   imports : [
     CommonModule,
     MaterialModule.forRoot(),
-    ReactiveFormsModule,
     SharedModule,
     FormsModule
   ],

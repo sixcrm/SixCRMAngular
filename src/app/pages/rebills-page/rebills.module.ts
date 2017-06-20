@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {rebillsRouting} from './rebills.routing';
 import {SharedModule} from '../../shared/shared.module';
 import {PageComponentsModule} from '../components/pages-components.module';
-import {ReactiveFormsModule, FormsModule} from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 import {MaterialModule} from '@angular/material';
 import {RebillsComponent} from './rebills.component';
 import {RebillsAclGuard} from '../guards/rebills-acl-guard.service';
@@ -15,7 +15,6 @@ import { RebillViewComponent } from './rebill-view/rebill-view.component';
     CommonModule,
     FormsModule,
     MaterialModule.forRoot(),
-    ReactiveFormsModule,
     PageComponentsModule,
     SharedModule
   ],
