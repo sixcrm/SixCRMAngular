@@ -15,6 +15,7 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
 
   editMode: boolean;
   selectedIndex: number = 0;
+  formInvalid: boolean;
 
   constructor(service: SmtpProvidersService,
               route: ActivatedRoute, progressBarService: ProgressBarService,
@@ -38,10 +39,17 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
 
   cancelEdit(): void {
     this.editMode = false;
+    this.formInvalid = false;
     this.cancelUpdate();
   }
 
-  saveProvider(): void {
+  saveProvider(valid: boolean): void {
+    if (!valid) {
+      this.formInvalid = true;
+      return;
+    }
+
+    this.formInvalid = false;
     if (this.addMode) {
       this.service.entityCreated$.take(1).subscribe(provider => {
         this.progressBarService.hideTopProgressBar();

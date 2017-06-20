@@ -45,6 +45,7 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
     this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe((updated: T) => {
       if (this.takeUpdated) {
         this.entity = updated;
+        this.entityBackup = this.entity.copy();
       }
       this.updateMode = false;
       this.viewMode = true;

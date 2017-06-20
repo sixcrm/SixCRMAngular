@@ -22,8 +22,7 @@
 
   <div class="entity-view__navigation">
     <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">CAMPAIGNS</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">EMAIL TEMPLATES</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">EMAIL TEMPLATES</span>
   </div>
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
@@ -38,43 +37,38 @@
           </md-menu>
         </div>
 
-        <div class="entity-view__card__content">
-          <md-input-container class="entity-view__card__content__item">
-            <input md-input placeholder="Name" [(ngModel)]="entity.name" type="text">
+        <form class="entity-view__card__content" #smtpInputForm="ngForm">
+          <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
+            <input required md-input [disabled]="!editMode && !addMode" placeholder="Name" [(ngModel)]="entity.name" name="name" type="text">
           </md-input-container>
 
-          <md-input-container class="entity-view__card__content__item">
-            <input md-input placeholder="Host" [(ngModel)]="entity.hostname" type="text">
+          <md-input-container [class.error]="formInvalid && !entity.hostname" class="entity-view__card__content__item">
+            <input required md-input [disabled]="!editMode && !addMode" placeholder="Host" [(ngModel)]="entity.hostname" name="host" type="text">
           </md-input-container>
 
-          <md-input-container class="entity-view__card__content__item">
-            <input md-input placeholder="IP Address" [(ngModel)]="entity.ipAddress" type="text">
+          <md-input-container [class.error]="formInvalid && !entity.ipAddress" class="entity-view__card__content__item">
+            <input required md-input [disabled]="!editMode && !addMode" placeholder="IP Address" [(ngModel)]="entity.ipAddress" name="ipAddress" type="text">
           </md-input-container>
 
-          <md-input-container class="entity-view__card__content__item">
-            <input md-input placeholder="Username" [(ngModel)]="entity.username" type="text">
+          <md-input-container [class.error]="formInvalid && !entity.username" class="entity-view__card__content__item">
+            <input required md-input [disabled]="!editMode && !addMode" placeholder="Username" [(ngModel)]="entity.username" name="username" type="text">
           </md-input-container>
 
-          <md-input-container class="entity-view__card__content__item">
-            <input md-input placeholder="Password" [(ngModel)]="entity.password" type="text">
+          <md-input-container [class.error]="formInvalid && !entity.password" class="entity-view__card__content__item">
+            <input required md-input [disabled]="!editMode && !addMode" placeholder="Password" [(ngModel)]="entity.password" name="password" type="text">
           </md-input-container>
 
-          <md-input-container class="entity-view__card__content__item">
-            <input md-input placeholder="Port" [(ngModel)]="entity.port" type="text">
+          <md-input-container [class.error]="formInvalid && !entity.port" class="entity-view__card__content__item">
+            <input required md-input [disabled]="!editMode && !addMode" placeholder="Port" [(ngModel)]="entity.port" name="port" type="text">
           </md-input-container>
-        </div>
+        </form>
 
         <div *ngIf="editMode || addMode" class="entity-view__card__actions">
           <div *ngIf="editMode" (click)="cancelEdit()">CANCEL</div>
-          <div (click)="saveProvider()">SAVE</div>
+          <div (click)="saveProvider(smtpInputForm.form.valid)">SAVE</div>
         </div>
       </div>
 
-
-    </md-tab>
-
-    <md-tab>
-      <coming-soon [inPage]="true"></coming-soon>
     </md-tab>
 
     <md-tab>

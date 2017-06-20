@@ -1,6 +1,7 @@
 @import "mixins";
 
 $sidenav-width: 200px;
+$sidenav-width-overflow: 215px;
 $topnav-height: 70px;
 $sidebar-color-light: #385F8D;
 $sidebar-color-middle: #2C486F;
@@ -11,7 +12,7 @@ $sidebar-text-color: #9B9B9B;
 $sidebar-text-color-hover: #5AA3E8;
 
 md-sidenav {
-  max-width: $sidenav-width;
+  max-width: $sidenav-width-overflow;
   min-width: 0 !important;
 
   @media #{$medium-and-down} {
