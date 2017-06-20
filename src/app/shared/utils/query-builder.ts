@@ -15,6 +15,7 @@ import {UserSettings} from '../models/user-settings';
 import {NotificationSettings} from '../models/notification-settings.model';
 import {Rebill} from '../models/rebill.model';
 import {Tracker} from '../models/tracker.model';
+import {EmailTemplate} from '../models/email-template.model';
 
 const uuidV4 = require('uuid/v4');
 
@@ -896,6 +897,24 @@ export function emailTemplateQuery(id: string): string {
 
 export function deleteEmailTemplateMutation(id: string): string {
   return deleteMutation('emailtemplate', id);
+}
+
+export function updateEmailTemplateMutation(emailTemplate: EmailTemplate): string {
+  return `mutation { 
+		updateemailtemplate (emailtemplate: { id: "${emailTemplate.id}", name: "${emailTemplate.name}", subject: "${emailTemplate.subject}", body: "${emailTemplate.body.replace(/"/g, '\\"')}", type: "${emailTemplate.type.toLowerCase()}", smtp_provider:"${emailTemplate.smtpProvider.id}"}) { 
+			id name subject body type created_at updated_at,
+			smtp_provider { id name hostname ip_address username password port },
+		} 
+	}`;
+}
+
+export function createEmailTemplateMutation(emailTemplate: EmailTemplate): string {
+  return `mutation { 
+		createemailtemplate (emailtemplate: { name: "${emailTemplate.name}", subject: "${emailTemplate.subject}", body: "${emailTemplate.body.replace(/"/g, '\\"')}", type: "${emailTemplate.type.toLowerCase()}", smtp_provider:"${emailTemplate.smtpProvider.id}"}) { 
+			id name subject body type created_at updated_at,
+			smtp_provider { id name hostname ip_address username password port },
+		} 
+	}`;
 }
 
 export function accessKeysListQuery(limit?:number, cursor?:string): string {

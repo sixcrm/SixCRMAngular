@@ -1,13 +1,32 @@
 .dropdown-component {
   position: relative;
-  font-size: 12px;
+  font-size: 14px;
 
   &__text {
     display: inline-block;
     min-width: 130px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    color: rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0.4);
     cursor: pointer;
+
+
+    &--selected {
+      color: rgba(0, 0, 0, 1);
+    }
+
+    &--disabled {
+      border-bottom: 0;
+      background: linear-gradient(to right, rgba(0, 0, 0, .26) 0, rgba(0, 0, 0, .26) 33%, transparent 0) repeat-x bottom;
+      background-size: 4px 1px;
+    }
+
+    &--with-placeholder {
+      margin-top: 20px;
+
+      &--disabled {
+        margin-top: 0;
+      }
+    }
 
     md-icon {
       float: right;
@@ -18,12 +37,22 @@
     }
   }
 
+  &__placeholder {
+    margin-bottom: 6px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.4);
+  }
+
   &__options {
     position: absolute;
     top: 22px;
     z-index: 5;
     background: white;
     box-shadow: 0 0 3px rgba(0,0,0,0.3);
+
+    &--with-placeholder {
+      top: 40px;
+    }
 
     &__item {
       padding: 5px;

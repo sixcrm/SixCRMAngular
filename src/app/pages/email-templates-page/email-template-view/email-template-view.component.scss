@@ -1,0 +1,25 @@
+.email-template-view {
+
+  &__dropdown {
+    width: 140px;
+
+    &:first-of-type {
+      margin-bottom: 10px;
+    }
+
+    &:last-of-type {
+      margin-bottom: 3px;
+    }
+  }
+
+  &__input {
+    max-width: 130px;
+  }
+
+  &__preview {
+
+    &__body {
+      margin-bottom: 60px;
+    }
+  }
+}

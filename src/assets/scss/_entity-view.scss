@@ -547,6 +547,12 @@ $blue-color: #4A90E2;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
     min-width: 300px;
 
+    &--large {
+      margin-bottom: 50px;
+      max-width: 900px;
+      width: calc(100vw - 250px);
+    }
+
     &__header {
       display: flex;
       padding: 15px;
@@ -554,6 +560,12 @@ $blue-color: #4A90E2;
 
       &__title {
         color: #5B9BE1;
+      }
+
+      &__subtitle {
+        margin-top: 4px;
+        font-size: 12px;
+        color: rgba(0,0,0,0.6);
       }
 
       md-icon {
@@ -573,7 +585,7 @@ $blue-color: #4A90E2;
 
       &__item {
         margin-top: 10px;
-        font-size: 16px;
+        font-size: 14px;
       }
     }
 

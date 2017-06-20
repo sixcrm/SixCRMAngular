@@ -55,17 +55,28 @@
           </div>
 
           <div class="tracker-view__card__content__type">
-            <div class="tracker-view__card__content__label">Tracking type:</div>
             <dropdown-component
-              *ngIf="editMode || addMode; else typeNoEdit"
+              [disabled]="!(editMode || addMode)"
               [selected]="entity.type"
-              [placeholder]="'Type'"
+              [placeholder]="'Tracking type'"
+              [showPlaceholder]="true"
               (onSelect)="setType($event)"
               [options]="['html', 'postback']">
             </dropdown-component>
-            <ng-template #typeNoEdit>
-              <div>{{entity.type}}</div>
-            </ng-template>
+          </div>
+
+          <div class="tracker-view__card__content__event-type">
+            <dropdown-component
+              [disabled]="!(editMode || addMode)"
+              [selected]="editMode || addMode ? '' : (entity.eventType && entity.eventType.length > 0 ? entity.eventType : 'all')"
+              [placeholder]="editMode || addMode ? 'add event type' : 'Event Type'"
+              [showPlaceholder]="true"
+              (onSelect)="addEventType($event)"
+              [options]="['upsell', 'lead', 'main']">
+            </dropdown-component>
+            <ng-container *ngIf="editMode || addMode; else eventTypeNormal">
+              <span *ngFor="let t of entity.eventType"> <md-icon class="cancel" *ngIf="editMode || addMode" (click)="removeEventType(t)">cancel</md-icon> {{t}} </span>
+            </ng-container>
           </div>
 
           <div *ngIf="entity.link && !editMode" class="tracker-view__card__content__link">
@@ -74,22 +85,6 @@
             <md-icon md-tooltip="Copy to clipboard" (click)="copyUrlToClipboard(urlField)">content_copy</md-icon>
           </div>
 
-          <div class="tracker-view__card__content__event-type">
-            <div class="tracker-view__card__content__label">Event type:</div>
-            <ng-container *ngIf="editMode || addMode; else eventTypeNormal">
-              <dropdown-component
-                [selected]="''"
-                [placeholder]="'add type'"
-                (onSelect)="addEventType($event)"
-                [options]="['upsell', 'lead', 'main']">
-              </dropdown-component>
-              <span *ngFor="let t of entity.eventType"> <md-icon class="cancel" *ngIf="editMode || addMode" (click)="removeEventType(t)">cancel</md-icon> {{t}} </span>
-            </ng-container>
-            <ng-template #eventTypeNormal>
-              <span *ngIf="entity.eventType && entity.eventType.length === 0; else eventTypeList">All</span>
-              <ng-template #eventTypeList>{{entity.eventType}}</ng-template>
-            </ng-template>
-          </div>
           <div class="tracker-view__card__content__body">
             <div class="tracker-view__card__content__label">Tracking data:</div>
 

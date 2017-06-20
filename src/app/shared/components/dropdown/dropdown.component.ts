@@ -11,7 +11,9 @@ export class DropdownComponent implements OnInit {
   @Input() options: string[] = [];
   @Input() selected: string;
   @Input() placeholder: string;
+  @Input() showPlaceholder: boolean;
   @Input() mapper: (el: any) => string = (el: any) => el;
+  @Input() disabled: boolean = false;
 
   @Output() onSelect: EventEmitter<string> = new EventEmitter();
 
@@ -28,6 +30,8 @@ export class DropdownComponent implements OnInit {
   }
 
   toggleDropdown(): void {
+    if (this.disabled) return;
+
     this.showDropdown = !this.showDropdown;
   }
 

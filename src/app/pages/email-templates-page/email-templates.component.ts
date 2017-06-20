@@ -31,7 +31,6 @@ export class EmailTemplatesComponent extends AbstractEntityIndexComponent<EmailT
       new ColumnParams('Name', (e: EmailTemplate) => e.name),
       new ColumnParams('Subject',(e: EmailTemplate) => e.subject),
       new ColumnParams('Type', (e: EmailTemplate) => e.type),
-      new ColumnParams('Body', (e: EmailTemplate) => e.body),
       new ColumnParams('SMTP Provider Name', (e: EmailTemplate) => e.smtpProvider.name)
     ];
   }
