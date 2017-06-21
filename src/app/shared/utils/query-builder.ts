@@ -16,6 +16,7 @@ import {NotificationSettings} from '../models/notification-settings.model';
 import {Rebill} from '../models/rebill.model';
 import {Tracker} from '../models/tracker.model';
 import {EmailTemplate} from '../models/email-template.model';
+import {Campaign} from '../models/campaign.model';
 
 const uuidV4 = require('uuid/v4');
 
@@ -131,21 +132,9 @@ export function updateProductScheduleMutation(schedule: ProductSchedule): string
 
 export function campaignQuery(id: string): string {
   return `{
-    campaign (id: "${id}") { id name
-      productschedules { id,
-        schedule { price start end period,
-          product { id name sku ship shipping_delay,
-            fulfillment_provider { id name provider username password endpoint }
-          }
-        }
-      }
-      loadbalancer { id,
-        merchantproviderconfigurations {
-          merchantprovider { id username password endpoint processor }
-          distribution
-        }
-      }
-    }}`
+    campaign (id: "${id}") 
+      ${campaignResponseQuery()}
+    }`
 }
 
 export function campaignsInfoListQuery(limit?:number, cursor?:string): string {
@@ -166,6 +155,45 @@ export function campaignsInfoListQuery(limit?:number, cursor?:string): string {
 
 export function deleteCampaignMutation(id: string): string {
   return deleteMutation('campaign', id);
+}
+
+export function createCampaignMutation(campaign: Campaign): string {
+  return `
+    mutation { 
+		  createcampaign ( campaign: { name: "${campaign.name}", loadbalancer: "${campaign.loadBalancer.id}", productschedules:[${campaign.productSchedules.map(s => `"${s.id}",`)}], emailtemplates:[${campaign.emailTemplates.map(t => `"${t.id}",`)}] } ) 
+			${campaignResponseQuery()}
+		}`
+}
+
+export function updateCampaignMutation(campaign: Campaign): string {
+  return `
+    mutation { 
+		  updatecampaign ( campaign: { id: "${campaign.id}", name: "${campaign.name}", loadbalancer: "${campaign.loadBalancer.id}", productschedules:[${campaign.productSchedules.map(s => `"${s.id}",`)}], emailtemplates:[${campaign.emailTemplates.map(t => `"${t.id}",`)}] } ) 
+			${campaignResponseQuery()}
+		}`
+}
+
+function campaignResponseQuery(): string {
+  return `
+    { id name
+      productschedules { id,
+        schedule { price start end period,
+          product { id name sku ship shipping_delay,
+            fulfillment_provider { id name provider username password endpoint }
+          }
+        }
+      }
+      loadbalancer { id,
+        merchantproviderconfigurations {
+          merchantprovider { id username password endpoint processor }
+          distribution
+        }
+      }
+      emailtemplates {
+        id name subject body type,
+        smtp_provider { id name hostname ip_address username password port }
+      }
+    }`
 }
 
 export function merchantProvidersListQuery(limit?:number, cursor?:string): string {

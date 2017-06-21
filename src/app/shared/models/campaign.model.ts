@@ -2,11 +2,13 @@ import {ProductSchedule} from './product-schedule.model';
 import {LoadBalancer} from './load-balancers.model';
 import {Entity} from './entity.interface';
 import {utc, Moment} from 'moment';
+import {EmailTemplate} from './email-template.model';
 
 export class Campaign implements Entity<Campaign>{
   id: string;
   name: string;
-  productSchedules: ProductSchedule[];
+  productSchedules: ProductSchedule[] = [];
+  emailTemplates: EmailTemplate[] = [];
   loadBalancer: LoadBalancer;
   createdAt: Moment;
   updatedAt: Moment;
@@ -23,15 +25,29 @@ export class Campaign implements Entity<Campaign>{
     this.updatedAt = utc(obj.updated_at);
 
     if (obj.productschedules) {
-      for (let i = 0; i < obj.productschedules.length; i++) {
-        this.productSchedules.push(new ProductSchedule(obj.productschedules[i]));
-      }
+      this.productSchedules = obj.productschedules.map(p => new ProductSchedule(p));
+    }
+
+    if (obj.emailtemplates) {
+      this.emailTemplates = obj.emailtemplates.map(e => new EmailTemplate(e));
     }
 
     this.loadBalancer = new LoadBalancer(obj.loadbalancer);
   }
 
   copy(): Campaign {
-    return null;
+    return new Campaign(this.inverse());
+  }
+
+  inverse(): any {
+    return {
+      id: this.id,
+      name: this.name,
+      productschedules: this.productSchedules.map(p => p.inverse()),
+      emailtemplates: this.emailTemplates.map(e => e.inverse()),
+      loadBalancer: this.loadBalancer.inverse(),
+      created_at: this.createdAt.clone().format(),
+      updated_at: this.createdAt.clone().format()
+    }
   }
 }

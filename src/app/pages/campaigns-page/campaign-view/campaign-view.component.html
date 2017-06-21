@@ -1,80 +1,68 @@
-<div class="entity-view">
-  <div class="entity-view__title">Campaign Details</div>
+<div *ngIf="entity; else spinner" class="entity-view">
+  <div class="entity-view__title">Campaign</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <div *ngIf="entity" class="entity-view__content">
-
-    <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>
-
-    <div class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">ID:</span>
-        <span>{{entity.id}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Name:</span>
-        <span>{{entity.name}}</span>
-      </div>
+  <div class="entity-view__info">
+    <div class="entity-view__info__image">
+      <img src="/assets/images/result-item-transaction-white.svg" alt="">
     </div>
-
-    <div class="entity-view__content__title entity-view__content__title--first"> Product Schedules </div>
-
-    <ng-container *ngFor="let productSchedule of entity.productSchedules">
-      <div class="entity-view__content__fields__title">
-        <span>{{productSchedule.id}}</span>
-      </div>
-      <div *ngFor="let schedule of productSchedule.schedules" class="entity-view__content__fields">
-        <div class="entity-view__content__fields__item">
-          <span class="entity-view__content__fields__item__label">Product:</span>
-          <span>{{schedule.product.name}}</span>
-        </div>
-        <div class="entity-view__content__fields__item">
-          <span class="entity-view__content__fields__item__label">Start:</span>
-          <span>{{schedule.start}}</span>
-        </div>
-        <div class="entity-view__content__fields__item">
-          <span class="entity-view__content__fields__item__label">End:</span>
-          <span>{{schedule.end}}</span>
-        </div>
-        <div class="entity-view__content__fields__item">
-          <span class="entity-view__content__fields__item__label">Price:</span>
-          <span>{{schedule.price}}</span>
-        </div>
-        <div class="entity-view__content__fields__item">
-          <span class="entity-view__content__fields__item__label">Period:</span>
-          <span>{{schedule.period}}</span>
-        </div>
-      </div>
-    </ng-container>
-
-    <div class="entity-view__content__title entity-view__content__title--first"> Load Balancer </div>
-
-    <div *ngFor="let config of entity.loadBalancer.merchantProviderConfigurations" class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Distribution:</span>
-        <span>{{config.distribution}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Name:</span>
-        <span>{{config.merchantProvider.name}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Username:</span>
-        <span>{{config.merchantProvider.username}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Password:</span>
-        <span>{{config.merchantProvider.password}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Processor:</span>
-        <span>{{config.merchantProvider.processor}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Endpoint:</span>
-        <span>{{config.merchantProvider.endpoint}}</span>
+    <div class="entity-view__info__data">
+      <div *ngIf="!addMode" class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div class="entity-view__info__data__name">
+        <span *ngIf="!addMode; else createMessage">
+          {{entityBackup.name}}
+        </span>
+        <ng-template #createMessage>
+          Create new Campaign
+        </ng-template>
       </div>
     </div>
   </div>
+
+  <div class="entity-view__navigation">
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">PRODUCT SCHEDULES</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">AFFILIATES</span>
+  </div>
+
+  <md-tab-group [(selectedIndex)]="selectedIndex">
+    <md-tab>
+
+      <div class="entity-view__card">
+        <div class="entity-view__card__header">
+          <div class="entity-view__card__header__title">Campaign general details</div>
+          <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
+          <md-menu #editOptions="mdMenu" x-position="before">
+            <button *ngIf="!addMode" md-menu-item (click)="setMode(modes.Update)"> Edit Campaign</button>
+          </md-menu>
+        </div>
+
+        <div class="entity-view__card__content">
+          <md-input-container class="entity-view__card__content__item">
+            <input required md-input [disabled]="viewMode" placeholder="Campaign name" [(ngModel)]="entity.name" type="text">
+          </md-input-container>
+        </div>
+
+        <div *ngIf="!viewMode" class="entity-view__card__actions">
+          <div *ngIf="updateMode" (click)="cancelUpdate()">CANCEL</div>
+          <div (click)="saveOrUpdate(entity)">SAVE</div>
+        </div>
+      </div>
+
+    </md-tab>
+
+    <md-tab>
+      <coming-soon [inPage]="true"></coming-soon>
+    </md-tab>
+
+    <md-tab>
+      <coming-soon [inPage]="true"></coming-soon>
+    </md-tab>
+  </md-tab-group>
 </div>
+
+<ng-template #spinner>
+  <md-spinner class="entity-view__spinner--main"></md-spinner>
+</ng-template>
+

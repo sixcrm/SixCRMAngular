@@ -3,7 +3,7 @@ import {Entity} from './entity.interface';
 
 export class LoadBalancer implements Entity<LoadBalancer> {
   id: string;
-  merchantProviderConfigurations: MerchantProviderConfiguration[];
+  merchantProviderConfigurations: MerchantProviderConfiguration[] = [];
 
   constructor(obj?: any) {
     if (!obj) {
@@ -11,11 +11,8 @@ export class LoadBalancer implements Entity<LoadBalancer> {
     }
 
     this.id = obj.id || '';
-    this.merchantProviderConfigurations = [];
     if (obj.merchantproviderconfigurations) {
-      for (let i = 0; i < obj.merchantproviderconfigurations.length; i++) {
-        this.merchantProviderConfigurations.push(new MerchantProviderConfiguration(obj.merchantproviderconfigurations[i]))
-      }
+      this.merchantProviderConfigurations = obj.merchantproviderconfigurations.map(c => new MerchantProviderConfiguration(c));
     }
 
   }
@@ -25,14 +22,9 @@ export class LoadBalancer implements Entity<LoadBalancer> {
   }
 
   inverse(): any {
-    let configs = [];
-    for (let index in this.merchantProviderConfigurations) {
-      configs.push(this.merchantProviderConfigurations[index].inverse());
-    }
-
     return {
       id: this.id,
-      merchantproviderconfigurations: configs
+      merchantproviderconfigurations: this.merchantProviderConfigurations.map(c => c.inverse())
     }
   }
 }

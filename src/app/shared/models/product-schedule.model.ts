@@ -3,7 +3,7 @@ import {Entity} from './entity.interface';
 
 export class ProductSchedule implements Entity<ProductSchedule> {
   id: string;
-  schedules: Schedule[];
+  schedules: Schedule[] = [];
 
   constructor(obj?: any) {
     if (!obj) {
@@ -14,9 +14,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
     this.schedules = [];
 
     if (obj.schedule) {
-      for (let i = 0; i < obj.schedule.length; i++) {
-        this.schedules.push(new Schedule(obj.schedule[i]));
-      }
+      this.schedules = obj.schedule.map(s => new Schedule(s));
     }
   }
 
@@ -25,14 +23,9 @@ export class ProductSchedule implements Entity<ProductSchedule> {
   }
 
   inverse(): any {
-    let schedules = [];
-    for (let index in this.schedules) {
-      schedules.push(this.schedules[index].inverse());
-    }
-
     return {
       id: this.id,
-      schedule: schedules
+      schedule: this.schedules.map(s => s.inverse())
     }
   }
 }

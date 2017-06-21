@@ -4,15 +4,22 @@ import {AsyncSubject} from 'rxjs';
 import {ProgressBarService} from '../shared/services/progress-bar.service';
 import {Entity} from '../shared/models/entity.interface';
 
-export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
+enum Modes {
+  Add,
+  View,
+  Update
+}
 
+export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
   addMode: boolean = false;
   viewMode: boolean = false;
   updateMode: boolean = false;
-  mode: string = '';
+
   entityId: string = '';
   entity: T;
   entityBackup: T;
+
+  modes = Modes;
 
   protected takeUpdated: boolean = true;
   protected fetchEntityOnInit: boolean = true;
@@ -21,10 +28,9 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
   constructor(public service: AbstractEntityService<T>, route: ActivatedRoute, protected progressBarService?: ProgressBarService) {
     route.params.takeUntil(this.unsubscribe$).subscribe((params: Params) => {
       if (params['id'] === 'add') {
-        this.addMode = true;
+        this.setMode(Modes.Add);
       } else {
-        this.viewMode = true;
-        this.addMode = false;
+        this.setMode(Modes.View);
         this.entityId = params['id'];
       }
     });
@@ -38,7 +44,6 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
 
       this.entity = entity;
       this.entityBackup = entity.copy();
-
       this.progressBarService.hideTopProgressBar();
     });
 
@@ -47,9 +52,14 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
         this.entity = updated;
         this.entityBackup = this.entity.copy();
       }
-      this.updateMode = false;
-      this.viewMode = true;
-      this.mode = 'Updated';
+      this.setMode(Modes.View);
+      this.progressBarService.hideTopProgressBar();
+    });
+
+    this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe((created: T) => {
+      this.entity = created;
+      this.entityBackup = this.entity.copy();
+      this.setMode(Modes.View);
       this.progressBarService.hideTopProgressBar();
     });
 
@@ -59,33 +69,40 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
     }
   }
 
-  protected saveEntity(entity: T): void {
+  saveOrUpdate(entity: T): void {
     if (this.addMode) {
-      this.service.createEntity(entity);
-      this.progressBarService.showTopProgressBar();
+      this.saveEntity(entity);
+      return;
+    }
+
+    if (this.updateMode) {
+      this.updateEntity(entity);
     }
   }
 
-  protected updateEntity(entity: T): void {
+  saveEntity(entity: T): void {
+    this.service.createEntity(entity);
+    this.progressBarService.showTopProgressBar();
+  }
+
+  updateEntity(entity: T): void {
     this.service.updateEntity(entity);
     this.progressBarService.showTopProgressBar();
   }
 
-  protected cancelUpdate(): void {
+  cancelUpdate(): void {
+    this.setMode(Modes.View);
     this.entity = this.entityBackup.copy();
+  }
+
+  setMode(mode: Modes): void {
+    this.viewMode = mode === Modes.View;
+    this.updateMode = mode === Modes.Update;
+    this.addMode = mode === Modes.Add;
   }
 
   protected destroy(): void {
     this.unsubscribe$.next(true);
     this.unsubscribe$.complete();
-  }
-
-  protected changeMode(): void {
-    this.viewMode = !this.viewMode;
-    this.updateMode = !this.updateMode;
-
-    if (this.viewMode) {
-      this.cancelUpdate();
-    }
   }
 }

@@ -13,6 +13,8 @@ import {NavigationService} from '../../../navigation/navigation.service';
 })
 export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign> implements OnInit {
 
+  selectedIndex: number = 0;
+
   constructor(
     service: CampaignsService,
     route: ActivatedRoute,
@@ -23,7 +25,15 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
   }
 
   ngOnInit() {
-    super.init();
+    super.init(() => this.navigation.goToNotFoundPage());
+
+    if (this.addMode) {
+      this.entity = new Campaign();
+      this.entityBackup = this.entity.copy();
+    }
   }
 
+  setIndex(value: number): void {
+    this.selectedIndex = value;
+  }
 }
