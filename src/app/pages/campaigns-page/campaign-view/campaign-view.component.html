@@ -29,31 +29,65 @@
   <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>
 
-      <div class="entity-view__card">
-        <div class="entity-view__card__header">
-          <div class="entity-view__card__header__title">Campaign general details</div>
-          <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
-          <md-menu #editOptions="mdMenu" x-position="before">
-            <button *ngIf="!addMode" md-menu-item (click)="setMode(modes.Update)"> Edit Campaign</button>
-          </md-menu>
+      <div class="flex-custom">
+        <div class="entity-view__card campaign-view__card">
+          <div class="entity-view__card__header">
+            <div class="entity-view__card__header__title">Campaign general details</div>
+            <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
+            <md-menu #editOptions="mdMenu" x-position="before">
+              <button *ngIf="!addMode" md-menu-item (click)="setMode(modes.Update)"> Edit Campaign</button>
+            </md-menu>
+          </div>
+
+          <div class="entity-view__card__content">
+            <md-input-container class="entity-view__card__content__item">
+              <input required md-input [disabled]="viewMode" placeholder="Campaign name" [(ngModel)]="entity.name" type="text">
+            </md-input-container>
+
+            <dropdown-component
+              class="dropdown-component--big campaign-view__dropdown"
+              [options]="loadBalancerService.entities$ | async"
+              [selected]="entity.loadBalancer"
+              [showPlaceholder]="true"
+              [placeholder]="'Load Balancer'"
+              [disabled]="viewMode"
+              [mapper]="loadBalancerMapper"
+              (onSelect)="entity.loadBalancer = $event">
+            </dropdown-component>
+          </div>
+
+          <div *ngIf="!viewMode" class="entity-view__card__actions">
+            <div *ngIf="updateMode" (click)="cancelUpdate()">CANCEL</div>
+            <div (click)="saveOrUpdate(entity)">SAVE</div>
+          </div>
         </div>
 
-        <div class="entity-view__card__content">
-          <md-input-container class="entity-view__card__content__item">
-            <input required md-input [disabled]="viewMode" placeholder="Campaign name" [(ngModel)]="entity.name" type="text">
-          </md-input-container>
-        </div>
-
-        <div *ngIf="!viewMode" class="entity-view__card__actions">
-          <div *ngIf="updateMode" (click)="cancelUpdate()">CANCEL</div>
-          <div (click)="saveOrUpdate(entity)">SAVE</div>
-        </div>
+        <table-memory
+          class="campaign-view__email-templates"
+          [data]="entity.emailTemplates"
+          [columnParams]="emailTemplateColumnParams"
+          [associateData]="emailTemplateService.entities$ | async"
+          [associateDataMapper]="emailTemplateMapper"
+          [title]="'Email Template'"
+          (associate)="associateEmailTemplate($event)"
+          (disassociate)="disassociateEmailTemplate($event)"
+          (view)="viewEmailTemplate($event)">
+        </table-memory>
       </div>
 
     </md-tab>
 
     <md-tab>
-      <coming-soon [inPage]="true"></coming-soon>
+      <table-memory
+        [data]="entity.productSchedules"
+        [columnParams]="productScheduleColumnParams"
+        [associateData]="productScheduleService.entities$ | async"
+        [associateDataMapper]="productScheduleMapper"
+        [title]="'Product Schedule'"
+        (associate)="associateProductSchedule($event)"
+        (disassociate)="disassociateProductSchedule($event)"
+        (view)="viewProductSchedule($event)">
+      </table-memory>
     </md-tab>
 
     <md-tab>

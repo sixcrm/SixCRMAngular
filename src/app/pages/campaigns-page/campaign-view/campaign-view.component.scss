@@ -1,7 +1,15 @@
 .campaign-view {
-  margin: 25px;
 
-  div {
-    margin-top: 15px;
+  &__email-templates {
+    flex-basis: 100%;
   }
+
+  &__card {
+    min-width: 320px;
+  }
+
+  &__dropdown {
+    margin-top: 10px;
+  }
+
 }

@@ -8,6 +8,7 @@ import {EntityViewInfoComponent} from './entity-view-info/entity-view-info.compo
 import {EntityViewInfoArrayComponent} from './entity-view-info-array/entity-view-info-array.component';
 import { EntitiesTableComponent } from './entities-table/entities-table.component';
 import {SharedModule} from '../../shared/shared.module';
+import { TableMemoryComponent } from './table-memory/table-memory.component';
 
 @NgModule({
   imports : [
@@ -21,14 +22,16 @@ import {SharedModule} from '../../shared/shared.module';
     EntityViewTopnavComponent,
     EntityViewInfoComponent,
     EntityViewInfoArrayComponent,
-    EntitiesTableComponent
+    EntitiesTableComponent,
+    TableMemoryComponent
   ],
   exports : [
     TableActionsComponent,
     EntityViewTopnavComponent,
     EntityViewInfoComponent,
     EntityViewInfoArrayComponent,
-    EntitiesTableComponent
+    EntitiesTableComponent,
+    TableMemoryComponent
   ],
   providers: [
 

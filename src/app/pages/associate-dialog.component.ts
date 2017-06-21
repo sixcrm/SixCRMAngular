@@ -14,7 +14,7 @@ import {MdDialogRef} from '@angular/material';
     <md-card>
       <md-card-content>
         {{text}}
-        <dropdown-component class="associate__dropdown" [mapper]="mapper" [options]="options" [selected]="entity" [placeholder]="placeholder" (onSelect)="entity = $event"></dropdown-component>
+        <dropdown-component class="associate__dropdown" [mapper]="mapper" [options]="options" [selected]="entity || {}" [placeholder]="placeholder" (onSelect)="entity = $event"></dropdown-component>
       </md-card-content>
       <md-card-actions align="center">
         <button md-raised-button color="primary" (click)="associate()">Associate</button>

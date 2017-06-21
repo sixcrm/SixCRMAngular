@@ -1,14 +1,14 @@
 .dropdown-component {
   position: relative;
   font-size: 14px;
+  width: 130px;
 
   &__text {
-    display: inline-block;
-    min-width: 130px;
+    display: flex;
+    align-items: center;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     color: rgba(0, 0, 0, 0.4);
     cursor: pointer;
-
 
     &--selected {
       color: rgba(0, 0, 0, 1);
@@ -29,7 +29,7 @@
     }
 
     md-icon {
-      float: right;
+      margin-left: auto;
       width: 18px;
       height: 18px;
       vertical-align: middle;

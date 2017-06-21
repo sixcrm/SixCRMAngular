@@ -68,7 +68,7 @@ export function updateProductMutation(product: Product): string {
 export function  productScheduleListQuery(limit?:number, cursor?:string): string {
   return `{
     productschedulelist ${pageParams(limit, cursor)} {
-			productschedules { id,
+			productschedules { id name,
 			  schedule { price start end period,
 			    product { id name sku ship shipping_delay,
 			      fulfillment_provider { id name provider username password endpoint }
@@ -81,7 +81,7 @@ export function  productScheduleListQuery(limit?:number, cursor?:string): string
 
 export function productScheduleQuery(id: string): string {
   return `{
-    productschedule (id: "${id}") { id,
+    productschedule (id: "${id}") { id name,
 			  schedule { price start end period,
 			    product { id name sku ship shipping_delay,
 			      fulfillment_provider { id name provider username password endpoint }
@@ -104,7 +104,7 @@ export function createProductScheduleMutation(schedule: ProductSchedule): string
   return `
     mutation {
 		  createproductschedule (productschedule: { id: "${schedule.id}", schedule: [${schedules}]}) {
-        id,
+        id name,
         schedule { price start end period,
           product { id name }
         }
@@ -141,7 +141,7 @@ export function campaignsInfoListQuery(limit?:number, cursor?:string): string {
   return `{
     campaignlist ${pageParams(limit, cursor)} {
       campaigns { id name created_at updated_at,
-        productschedules { id schedule {price} }
+        productschedules { id name schedule {price} }
         loadbalancer { id,
           merchantproviderconfigurations {
             merchantprovider { id }
@@ -176,7 +176,7 @@ export function updateCampaignMutation(campaign: Campaign): string {
 function campaignResponseQuery(): string {
   return `
     { id name
-      productschedules { id,
+      productschedules { id name,
         schedule { price start end period,
           product { id name sku ship shipping_delay,
             fulfillment_provider { id name provider username password endpoint }

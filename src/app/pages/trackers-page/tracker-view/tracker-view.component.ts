@@ -19,7 +19,7 @@ import {CodemirrorComponent} from 'ng2-codemirror';
 })
 export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> implements OnInit, OnDestroy {
 
-  @ViewChild(CodemirrorComponent) codemirroComponent: CodemirrorComponent;
+  @ViewChild(CodemirrorComponent) codemirrorComponent: CodemirrorComponent;
 
   selectedIndex: number = 0;
   editMode: boolean = false;
@@ -72,22 +72,22 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
 
   cancelEdit() {
     this.editMode = false;
-    if (this.codemirroComponent) {
-      this.codemirroComponent.instance.setOption('readOnly', true);
+    if (this.codemirrorComponent) {
+      this.codemirrorComponent.instance.setOption('readOnly', true);
     }
     this.cancelUpdate();
   }
 
   enableEdit() {
     this.editMode = true;
-    if (this.codemirroComponent) {
-      this.codemirroComponent.instance.setOption('readOnly', false);
+    if (this.codemirrorComponent) {
+      this.codemirrorComponent.instance.setOption('readOnly', false);
     }
   }
 
   setType(type: string) {
     this.entity.type = type;
-    this.codemirroComponent.instance.setOption('readOnly', false);
+    this.codemirrorComponent.instance.setOption('readOnly', false);
   }
 
   removeEventType(type: string) {

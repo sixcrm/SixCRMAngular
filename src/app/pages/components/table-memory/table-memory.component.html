@@ -1,0 +1,53 @@
+<div class="entity-view__table-component">
+  <div class="entity-view__table-component__header entity-view__table-component__header--homepage">
+    <div class="entity-view__table-component__header__title">Associated {{title}}s</div>
+    <md-icon class="entity-view__table-component__header__action alone" [md-menu-trigger-for]="optionsMenu">more_vert</md-icon>
+    <md-menu #optionsMenu="mdMenu" x-position="before">
+      <button md-menu-item (click)="showAssociateDialog()">Associate {{title}}</button>
+    </md-menu>
+  </div>
+  <table class="highlight table__custom">
+    <thead>
+    <tr>
+      <th *ngFor="let params of columnParams" (click)="setSortedColumnParams(params)" [class.cell--align-right]="params.align === 'right'">
+        {{params.label}}
+        <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+      </th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let entity of entities | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder">
+      <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'" (click)="view.emit(entity)">
+        <div class="codeblock" *ngIf="params.code; else noCode">
+          {{params.mappingFunction(entity)}}
+        </div>
+        <ng-template #noCode>{{params.mappingFunction(entity)}}</ng-template>
+      </td>
+      <td>
+        <button md-icon-button [md-menu-trigger-for]="actionsMenu"><md-icon>more_vert</md-icon></button>
+        <md-menu #actionsMenu="mdMenu" x-position="before">
+          <button md-menu-item (click)="view.emit(entity)">View {{title}}</button>
+          <button md-menu-item (click)="showDisassociateDialog(entity)">Dissociate {{title}}</button>
+        </md-menu>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!entities || entities.length === 0" class="entity-view__no-results entity-view__no-results--table">No {{title}}s found</div>
+
+  <table-pagination
+    [limit]="limit"
+    [paginationValues]="paginationValues"
+    [previousDisabled]="page <= 0"
+    [nextDisabled]="!hasMorePages()"
+    (previous)="previous()"
+    (next)="next()"
+    (updateLimit)="updateLimit($event)">
+  </table-pagination>
+</div>
+
+
+

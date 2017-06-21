@@ -51,3 +51,9 @@ md-input {
     }
   }
 }
+
+.dropdown-component--big {
+  .dropdown-component {
+    width: 100% !important;
+  }
+}
