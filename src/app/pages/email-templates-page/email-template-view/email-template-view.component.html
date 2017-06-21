@@ -65,7 +65,13 @@
             <input required md-input [disabled]="!editMode && !addMode" placeholder="Subject" [(ngModel)]="entity.subject" type="text">
           </md-input-container>
 
-          <div id="editor-id"></div>
+          <div class="email-template-view__label">Email Template Body</div>
+          <div [class.editor-container--hidden]="!editMode && !addMode" class="editor-container">
+            <div id="editor-id"></div>
+          </div>
+          <div *ngIf="!editMode && !addMode">
+            <div class="email-template-view__body" [innerHTML]="entity.body"></div>
+          </div>
         </div>
 
         <div *ngIf="editMode || addMode" class="entity-view__card__actions">
