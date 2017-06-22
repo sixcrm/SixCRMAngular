@@ -239,34 +239,6 @@ $card-title-color: #5B9BE1;
 
         dropdown-component {
           margin-left: 25px;
-
-          .dropdown-component {
-            margin-top: 18px;
-
-            span {
-              font-size: 14px;
-            }
-
-            &__options {
-              max-height: 140px;
-              overflow: auto;
-
-              &__item {
-                padding: 6px 10px;
-                font-size: 14px;
-              }
-            }
-
-            &__text {
-              &--selected {
-                color: black !important;
-              }
-
-              &--unselected {
-                color: rgba(0, 0, 0, 0.36) !important;
-              }
-            }
-          }
         }
       }
     }

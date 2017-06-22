@@ -52,8 +52,81 @@ md-input {
   }
 }
 
-.dropdown-component--big {
+dropdown-component {
+  display: block;
+  position: relative;
+
   .dropdown-component {
-    width: 100% !important;
+    font-size: 14px;
+    min-width: 130px;
+    width: auto;
+
+    .dropdown-component--big {
+      .dropdown-component {
+        width: 100% !important;
+      }
+    }
+
+    &__text {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      color: rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+
+      &--selected {
+        color: rgba(0, 0, 0, 1);
+      }
+
+      &--disabled {
+        border-bottom: 0;
+        background: linear-gradient(to right, rgba(0, 0, 0, .26) 0, rgba(0, 0, 0, .26) 33%, transparent 0) repeat-x bottom;
+        background-size: 4px 1px;
+      }
+
+      &--with-placeholder {
+        margin-top: 20px;
+
+        &--disabled {
+          margin-top: 0;
+        }
+      }
+
+      md-icon {
+        margin-left: auto;
+        width: 18px;
+        height: 18px;
+        vertical-align: middle;
+        font-size: 18px;
+      }
+    }
+
+    &__placeholder {
+      margin-bottom: 6px;
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.4);
+    }
+
+    &__options {
+      position: absolute;
+      top: 22px;
+      z-index: 5;
+      background: white;
+      box-shadow: 0 0 3px rgba(0,0,0,0.3);
+
+      &--with-placeholder {
+        top: 40px;
+      }
+
+      &__item {
+        padding: 5px;
+        cursor: pointer;
+
+        &:hover {
+          background: rgba(0,0,0,0.08);
+        }
+      }
+    }
   }
 }
+

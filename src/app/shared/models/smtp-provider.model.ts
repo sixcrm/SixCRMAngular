@@ -4,6 +4,8 @@ import {utc, Moment} from 'moment';
 export class SmtpProvider implements Entity<SmtpProvider> {
   id: string;
   name: string;
+  fromName: string;
+  fromEmail: string;
   hostname: string;
   ipAddress: string;
   username: string;
@@ -19,6 +21,8 @@ export class SmtpProvider implements Entity<SmtpProvider> {
 
     this.id = obj.id || '';
     this.name = obj.name || '';
+    this.fromEmail = obj.from_name || '';
+    this.fromName = obj.from_name || '';
     this.hostname = obj.hostname || '';
     this.ipAddress = obj.ip_address || '';
     this.username = obj.username || '';
@@ -36,6 +40,8 @@ export class SmtpProvider implements Entity<SmtpProvider> {
     return {
       id: this.id,
       name: this.name,
+      from_email: this.fromEmail,
+      from_name: this.fromName,
       hostname: this.hostname,
       ip_address: this.ipAddress,
       username: this.username,

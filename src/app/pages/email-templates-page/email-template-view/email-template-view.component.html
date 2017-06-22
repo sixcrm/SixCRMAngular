@@ -43,7 +43,6 @@
           </md-input-container>
 
           <dropdown-component class="email-template-view__dropdown"
-                              [showPlaceholder]="true"
                               [disabled]="!editMode && !addMode"
                               [options]="types"
                               [selected]="entity.type"
@@ -52,7 +51,6 @@
           </dropdown-component>
 
           <dropdown-component class="email-template-view__dropdown"
-                              [showPlaceholder]="true"
                               [disabled]="!editMode && !addMode"
                               [options]="smtpProviderService.entities$ | async"
                               [mapper]="smtpProviderMapper"

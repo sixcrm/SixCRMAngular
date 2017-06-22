@@ -16,12 +16,12 @@
     <div class="customer-view__edit__info__expiration">
       <div class="customer-view__edit__info__expiration__item">
         <span class="customer-view__edit__info__expiration__item__title">Expiration Date Month</span>
-        <dropdown-component [selected]="expirationMonth" [placeholder]="'MM'" [options]="months" (onSelect)="selectMonth($event)"></dropdown-component>
+        <dropdown-component [showFloatingPlaceholder]="false" [selected]="expirationMonth" [placeholder]="'MM'" [options]="months" (onSelect)="selectMonth($event)"></dropdown-component>
       </div>
 
       <div class="customer-view__edit__info__expiration__item">
         <span class="customer-view__edit__info__expiration__item__title">Expiration Date Year</span>
-        <dropdown-component [selected]="expirationYear" [placeholder]="'YYYY'" [options]="years" (onSelect)="selectYear($event)"></dropdown-component>
+        <dropdown-component [showFloatingPlaceholder]="false" [selected]="expirationYear" [placeholder]="'YYYY'" [options]="years" (onSelect)="selectYear($event)"></dropdown-component>
       </div>
     </div>
   </div>

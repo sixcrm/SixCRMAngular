@@ -59,7 +59,6 @@
               [disabled]="!(editMode || addMode)"
               [selected]="entity.type"
               [placeholder]="'Tracking type'"
-              [showPlaceholder]="true"
               (onSelect)="setType($event)"
               [options]="['html', 'postback']">
             </dropdown-component>
@@ -70,7 +69,6 @@
               [disabled]="!(editMode || addMode)"
               [selected]="editMode || addMode ? '' : (entity.eventType && entity.eventType.length > 0 ? entity.eventType : 'all')"
               [placeholder]="editMode || addMode ? 'add event type' : 'Event Type'"
-              [showPlaceholder]="true"
               (onSelect)="addEventType($event)"
               [options]="['upsell', 'lead', 'main']">
             </dropdown-component>

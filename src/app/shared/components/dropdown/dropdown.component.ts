@@ -11,7 +11,7 @@ export class DropdownComponent implements OnInit {
   @Input() options: string[] = [];
   @Input() selected: string;
   @Input() placeholder: string;
-  @Input() showPlaceholder: boolean;
+  @Input() showFloatingPlaceholder: boolean = true;
   @Input() mapper: (el: any) => string = (el: any) => el;
   @Input() disabled: boolean = false;
 
@@ -21,8 +21,7 @@ export class DropdownComponent implements OnInit {
 
   constructor(private elementRef: ElementRef) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   select(option: string): void {
     this.onSelect.emit(option);

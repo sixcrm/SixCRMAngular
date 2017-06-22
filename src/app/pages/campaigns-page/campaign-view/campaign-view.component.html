@@ -48,7 +48,6 @@
               class="dropdown-component--big campaign-view__dropdown"
               [options]="loadBalancerService.entities$ | async"
               [selected]="entity.loadBalancer"
-              [showPlaceholder]="true"
               [placeholder]="'Load Balancer'"
               [disabled]="viewMode"
               [mapper]="loadBalancerMapper"

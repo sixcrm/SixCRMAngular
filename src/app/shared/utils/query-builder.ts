@@ -191,7 +191,7 @@ function campaignResponseQuery(): string {
       }
       emailtemplates {
         id name subject body type,
-        smtp_provider { id name hostname ip_address username password port }
+        smtp_provider { id name hostname }
       }
     }`
 }
@@ -868,7 +868,9 @@ export function acceptInviteMutation(token: string, parameters: string): string 
 export function smtpProvidersListQuery(limit?:number, cursor?:string): string {
   return `{
     smtpproviderlist ${pageParams(limit, cursor)} {
-			smtpproviders { id name hostname ip_address username port }
+			smtpproviders {
+        ${smtpProviderResponseQuery()}
+      }
 			${paginationString()}
 		}}`
 }
@@ -876,7 +878,9 @@ export function smtpProvidersListQuery(limit?:number, cursor?:string): string {
 export function smtpProviderQuery(id: string): string {
   return `
     {
-      smtpprovider (id: "${id}") { id name hostname ip_address username password port created_at updated_at}
+      smtpprovider (id: "${id}") {
+        ${smtpProviderResponseQuery()}
+      }
     }`
 }
 
@@ -887,28 +891,34 @@ export function deleteSmptProviderMutation(id: string): string {
 export function createSmptProviderMutation(smtpProvider: SmtpProvider): string {
   return `
     mutation {
-		  createsmtpprovider (
-		    smtpprovider: { id: "${generateUUID()}", name: "${smtpProvider.name}", hostname: "${smtpProvider.hostname}", ip_address: "${smtpProvider.ipAddress}", username: "${smtpProvider.username}", password: "${smtpProvider.password}", port: "${smtpProvider.port}"}) {
-			    id name hostname ip_address username password port
-			}
-	}`
+		  createsmtpprovider ( ${smtpProviderInputQuery(smtpProvider)} ) {
+        ${smtpProviderResponseQuery()}
+      }
+	  }`
 }
 
 export function updateSmptProviderMutation(smtpProvider: SmtpProvider): string {
   return `
     mutation {
-		  updatesmtpprovider (
-		    smtpprovider: { id: "${smtpProvider.id}", name: "${smtpProvider.name}", hostname: "${smtpProvider.hostname}", ip_address: "${smtpProvider.ipAddress}", username: "${smtpProvider.username}", password: "${smtpProvider.password}", port: "${smtpProvider.port}"}) {
-			    id name hostname ip_address username password port created_at updated_at
-			}
-	}`
+		  updatesmtpprovider ( ${smtpProviderInputQuery(smtpProvider)} ) {
+        ${smtpProviderResponseQuery()}
+      }
+	  }`
+}
+
+function smtpProviderInputQuery(smtpProvider: SmtpProvider): string {
+  return `smtpprovider: { id: "${smtpProvider.id}", name: "${smtpProvider.name}", from_name: "${smtpProvider.fromName}", from_email: "${smtpProvider.fromEmail}", hostname: "${smtpProvider.hostname}", ip_address: "${smtpProvider.ipAddress}", username: "${smtpProvider.username}", password: "${smtpProvider.password}", port: "${smtpProvider.port}"}`;
+}
+
+function smtpProviderResponseQuery(): string {
+  return `id name from_name from_email hostname username password port created_at updated_at`
 }
 
 export function emailTemplatesListQuery(limit?:number, cursor?:string): string {
   return `{
     emailtemplatelist ${pageParams(limit, cursor)} {
 			emailtemplates { id name subject body type created_at updated_at,
-			  smtp_provider { id name hostname ip_address username password port }
+			  smtp_provider { ${smtpProviderResponseQuery()} }
 			}
 			${paginationString()}
 		}}`
@@ -918,7 +928,7 @@ export function emailTemplateQuery(id: string): string {
   return `
     {
       emailtemplate (id: "${id}") { id name subject body type created_at updated_at,
-			  smtp_provider { id name hostname ip_address username password port }
+			  smtp_provider { ${smtpProviderResponseQuery()} }
 			}
     }`
 }
