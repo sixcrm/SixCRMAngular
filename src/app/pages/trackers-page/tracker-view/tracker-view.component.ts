@@ -53,6 +53,9 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
 
     if (this.addMode) {
       this.entity = new Tracker();
+      this.affiliateService.getEntities();
+    } else {
+      this.service.entity$.take(1).subscribe(() => this.affiliateService.getEntities());
     }
 
     let f = this.authService.getTimezone();
@@ -62,8 +65,6 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
       new ColumnParams('Created At', (e: Affiliate) => e.createdAt.tz(f).format('MM/DD/YYYY')),
       new ColumnParams('Updated At', (e: Affiliate) => e.updatedAt.tz(f).format('MM/DD/YYYY'))
     ];
-
-    this.affiliateService.getEntities();
   }
 
   ngOnDestroy() {
