@@ -7,10 +7,11 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
 import {NavigationService} from '../../../navigation/navigation.service';
 import {firstIndexOf} from '../../../shared/utils/array-utils';
 import {Affiliate} from '../../../shared/models/affiliate.model';
-import {DeleteDialogComponent} from '../../delete-dialog.component';
-import {MdDialog, MdDialogRef} from '@angular/material';
 import 'codemirror/mode/htmlmixed/htmlmixed';
 import {CodemirrorComponent} from 'ng2-codemirror';
+import {AffiliatesService} from '../../../shared/services/affiliates.service';
+import {ColumnParams} from '../../../shared/models/column-params.model';
+import {AuthenticationService} from '../../../authentication/authentication.service';
 
 @Component({
   selector: 'tracker-view',
@@ -24,8 +25,6 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
   selectedIndex: number = 0;
   editMode: boolean = false;
 
-  deleteDialogRef: MdDialogRef<DeleteDialogComponent>;
-
   config = {
     lineNumbers: true,
     mode: {
@@ -34,12 +33,16 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
     readOnly: true
   };
 
+  affiliateMapper = (el: Affiliate) => el.name;
+  affiliateColumnParams: ColumnParams<Affiliate>[];
+
   constructor(
     service: TrackersService,
     route: ActivatedRoute,
     progressBarService: ProgressBarService,
     public navigation: NavigationService,
-    private deleteDialog: MdDialog,
+    public affiliateService: AffiliatesService,
+    public authService: AuthenticationService,
     private router: Router
   ) {
     super(service, route, progressBarService);
@@ -51,6 +54,16 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
     if (this.addMode) {
       this.entity = new Tracker();
     }
+
+    let f = this.authService.getTimezone();
+    this.affiliateColumnParams = [
+      new ColumnParams('Name', (e: Affiliate) => e.name),
+      new ColumnParams('Affiliate ID', (e: Affiliate) => e.affiliateId),
+      new ColumnParams('Created At', (e: Affiliate) => e.createdAt.tz(f).format('MM/DD/YYYY')),
+      new ColumnParams('Updated At', (e: Affiliate) => e.updatedAt.tz(f).format('MM/DD/YYYY'))
+    ];
+
+    this.affiliateService.getEntities();
   }
 
   ngOnDestroy() {
@@ -122,21 +135,17 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
   }
 
   dissociateAffiliate(affiliate: Affiliate): void {
-    this.deleteDialogRef = this.deleteDialog.open(DeleteDialogComponent, { disableClose : true });
-    this.deleteDialogRef.componentInstance.text = `Are you sure you want to dissociate ${affiliate.name}?`;
+    let index = firstIndexOf(this.entity.affiliates, (el) => el.id === affiliate.id);
 
-    this.deleteDialogRef.afterClosed().take(1).subscribe(result => {
-      this.deleteDialogRef = null;
-      if (result.success) {
-        let index = firstIndexOf(this.entity.affiliates, (el) => el.id === affiliate.id);
+    if (index >= 0) {
+      this.progressBarService.showTopProgressBar();
+      this.entity.affiliates.splice(index, 1);
+      this.service.updateEntity(this.entity);
+    }
+  }
 
-        if (index >= 0) {
-          this.progressBarService.showTopProgressBar();
-          this.entity.affiliates.splice(index, 1);
-          this.service.updateEntity(this.entity);
-        }
-      }
-    });
+  viewAffiliate(affiliate: Affiliate): void {
+    this.router.navigate(['/affiliates', affiliate.id]);
   }
 }
 

@@ -107,7 +107,15 @@
 
     </md-tab>
     <md-tab>
-      <tracker-affiliates [affiliates]="entity.affiliates" (associateAffiliate)="associateAffiliate($event)" (dissociateAffiliate)="dissociateAffiliate($event)"></tracker-affiliates>
+      <table-memory [data]="entity.affiliates"
+                    [columnParams]="affiliateColumnParams"
+                    [title]="'Affiliate'"
+                    [associateData]="affiliateService.entities$ | async"
+                    [associateDataMapper]="affiliateMapper"
+                    (view)="viewAffiliate($event)"
+                    (associate)="associateAffiliate($event)"
+                    (disassociate)="dissociateAffiliate($event)">
+      </table-memory>
     </md-tab>
   </md-tab-group>
 </div>

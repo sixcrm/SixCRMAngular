@@ -1,7 +1,10 @@
 <div class="entity-view__table-component">
   <div class="entity-view__table-component__header entity-view__table-component__header--homepage">
     <div class="entity-view__table-component__header__title">Associated {{title}}s</div>
-    <md-icon class="entity-view__table-component__header__action alone" [md-menu-trigger-for]="optionsMenu">more_vert</md-icon>
+    <md-input-container *ngIf="filterEnabled" class="entity-view__table-component__header__filter">
+      <input md-input placeholder="Filter" [(ngModel)]="filterString" type="text">
+    </md-input-container>
+    <md-icon class="entity-view__table-component__header__action" [class.alone]="!filterEnabled" [md-menu-trigger-for]="optionsMenu">more_vert</md-icon>
     <md-menu #optionsMenu="mdMenu" x-position="before">
       <button md-menu-item (click)="showAssociateDialog()">Associate {{title}}</button>
     </md-menu>
@@ -18,7 +21,7 @@
     </thead>
 
     <tbody>
-    <tr *ngFor="let entity of entities | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder">
+    <tr *ngFor="let entity of entities | filterEntitiesByParams: columnParams: filterString | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder">
       <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'" (click)="view.emit(entity)">
         <div class="codeblock" *ngIf="params.code; else noCode">
           {{params.mappingFunction(entity)}}

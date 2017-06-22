@@ -20,12 +20,15 @@ export class TableMemoryComponent implements OnInit {
   @Input() associateData: any[] = [];
   @Input() associateDataMapper: (el: any) => string = (el) => el;
   @Input() title: string;
+  @Input() filterEnabled: boolean = true;
 
   @Output() view: EventEmitter<boolean> = new EventEmitter();
   @Output() disassociate: EventEmitter<any> = new EventEmitter();
   @Output() associate: EventEmitter<any> = new EventEmitter();
 
   entitiesHolder: any[] = [];
+
+  filterString: string = '';
 
   entities: any[] = [];
   sortedColumnParams: ColumnParams<any> = new ColumnParams();

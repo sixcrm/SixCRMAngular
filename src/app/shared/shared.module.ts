@@ -56,6 +56,7 @@ import { CreditCardMaskPipe } from './pipes/credit-card-mask.pipe';
 import {TrackersService} from './services/trackers.service';
 import { AutocompleteInputComponent } from './components/autocomplete-input/autocomplete-input.component';
 import { FilterStringsPipe } from './pipes/filter-strings.pipe';
+import { FilterEntitiesByParamsPipe } from './pipes/filter-entities-by-params.pipe';
 
 @NgModule({
   declarations : [
@@ -80,7 +81,8 @@ import { FilterStringsPipe } from './pipes/filter-strings.pipe';
     InputCreditCardComponent,
     CreditCardMaskPipe,
     AutocompleteInputComponent,
-    FilterStringsPipe
+    FilterStringsPipe,
+    FilterEntitiesByParamsPipe
   ],
   exports : [
     WidgetComponent,
@@ -103,7 +105,8 @@ import { FilterStringsPipe } from './pipes/filter-strings.pipe';
     InputCreditCardComponent,
     CreditCardMaskPipe,
     ComingSoonComponent,
-    AutocompleteInputComponent
+    AutocompleteInputComponent,
+    FilterEntitiesByParamsPipe
   ],
   imports : [
     FormsModule,

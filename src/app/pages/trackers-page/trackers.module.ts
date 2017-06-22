@@ -8,7 +8,6 @@ import {MaterialModule} from '@angular/material';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {SharedModule} from '../../shared/shared.module';
 import {TrackerViewComponent} from './tracker-view/tracker-view.component';
-import { TrackerAffiliatesComponent } from './tracker-view/tracker-affiliates/tracker-affiliates.component';
 import {CodemirrorModule} from 'ng2-codemirror';
 
 @NgModule({
@@ -24,7 +23,6 @@ import {CodemirrorModule} from 'ng2-codemirror';
   declarations: [
     TrackersComponent,
     TrackerViewComponent,
-    TrackerAffiliatesComponent
   ],
   providers: [
     TrackersAclGuard

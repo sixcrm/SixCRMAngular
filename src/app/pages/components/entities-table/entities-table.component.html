@@ -12,7 +12,7 @@
   </thead>
 
   <tbody>
-  <tr *ngFor="let entity of (data | filterEntities: filterString | sortEntities: sortParams.mappingFunction: sortParams.sortOrder)">
+  <tr *ngFor="let entity of (data | filterEntitiesByParams: columnParams: filterString | sortEntities: sortParams.mappingFunction: sortParams.sortOrder)">
     <td (click)="selected.emit(entity)" *ngFor="let param of columnParams" [class.cell--align-right]="param.align === 'right'">
       <div class="codeblock" *ngIf="param.code; else noCode">
         {{param.mappingFunction(entity)}}
