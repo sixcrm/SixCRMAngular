@@ -73,12 +73,8 @@ function productResponseQuery(): string {
 export function  productScheduleListQuery(limit?:number, cursor?:string): string {
   return `{
     productschedulelist ${pageParams(limit, cursor)} {
-			productschedules { id name,
-			  schedule { price start end period,
-			    product { id name sku ship shipping_delay,
-			      fulfillment_provider { id name provider username password endpoint }
-					}
-				}
+			productschedules {
+  			${productScheduleResponseQuery()}
 			}
       ${paginationString()}
 		}}`;
@@ -86,12 +82,8 @@ export function  productScheduleListQuery(limit?:number, cursor?:string): string
 
 export function productScheduleQuery(id: string): string {
   return `{
-    productschedule (id: "${id}") { id name,
-			  schedule { price start end period,
-			    product { id name sku ship shipping_delay,
-			      fulfillment_provider { id name provider username password endpoint }
-					}
-				}
+    productschedule (id: "${id}") { id name created_at updated_at,
+			  ${productScheduleResponseQuery()}
 		} }`
 }
 
@@ -100,39 +92,32 @@ export function deleteProductScheduleMutation(id: string): string {
 }
 
 export function createProductScheduleMutation(schedule: ProductSchedule): string {
-  let schedules: string = '';
-  for (let index in schedule.schedules) {
-    let sch = schedule.schedules[index];
-    schedules += `{product_id: "${sch.product.id}", start: "${sch.start}", end: "${sch.end}", price: "${sch.price}", period: "${sch.period}"} `;
-  }
-
   return `
     mutation {
-		  createproductschedule (productschedule: { id: "${schedule.id}", schedule: [${schedules}]}) {
-        id name,
-        schedule { price start end period,
-          product { id name }
-        }
+		  createproductschedule (productschedule: { name: "${schedule.name}" schedule: [${productScheduleInputQuery(schedule)}]}) {
+        ${productScheduleResponseQuery()}
       }
 	  }`
 }
 
 export function updateProductScheduleMutation(schedule: ProductSchedule): string {
-  let schedules: string = '';
-  for (let index in schedule.schedules) {
-    let sch = schedule.schedules[index];
-    schedules += `{product_id: "${sch.product.id}", start: "${sch.start}", end: "${sch.end}", price: "${sch.price}", period: "${sch.period}"} `;
-  }
-
   return `
     mutation {
-		  updateproductschedule (productschedule: { id: "${schedule.id}", schedule: [${schedules}]}) {
-        id,
-        schedule { price start end period,
-          product { id name }
-        }
+		  updateproductschedule (productschedule: { id: "${schedule.id}", name: "${schedule.name}" schedule: [${productScheduleInputQuery(schedule)}]}) {
+        ${productScheduleResponseQuery()}
       }
 	  }`
+}
+
+function productScheduleResponseQuery(): string {
+  return `id name created_at updated_at schedule { price start end period product { id name ship } }`
+}
+
+function productScheduleInputQuery(productSchedule: ProductSchedule): string {
+  let schedules = '';
+  productSchedule.schedules.forEach(s => schedules += `{product_id: "${s.product.id}", start: "${s.start}", end: "${s.end}", price: "${s.price.amount}", period: "${s.period}"} `);
+
+  return schedules;
 }
 
 export function campaignQuery(id: string): string {

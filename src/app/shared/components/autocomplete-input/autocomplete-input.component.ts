@@ -18,14 +18,16 @@ export class AutocompleteInputComponent implements OnInit {
   };
   @Input() options: string[];
   @Input() placeholder: string;
-  @Output() selected: EventEmitter<string> = new EventEmitter();
+  @Input() showCancelButton: boolean = true;
+  @Input() mapFunction = (el: any) => el;
+  @Output() selected: EventEmitter<any> = new EventEmitter();
 
   constructor(private elementRef: ElementRef) { }
 
   ngOnInit() {
   }
 
-  optionSelected(option: string): void {
+  optionSelected(option: any): void {
     this.selected.emit(option);
     this.showOptions = false;
   }

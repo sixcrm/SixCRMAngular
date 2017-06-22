@@ -21,6 +21,7 @@ export class TableMemoryComponent implements OnInit {
   @Input() associateDataMapper: (el: any) => string = (el) => el;
   @Input() title: string;
   @Input() filterEnabled: boolean = true;
+  @Input() associationEnabled: boolean = true;
 
   @Output() view: EventEmitter<boolean> = new EventEmitter();
   @Output() disassociate: EventEmitter<any> = new EventEmitter();
@@ -81,7 +82,7 @@ export class TableMemoryComponent implements OnInit {
 
   showDisassociateDialog(entity): void {
     this.disassociateDialogRef = this.dialog.open(DeleteDialogComponent, { disableClose : true });
-    this.disassociateDialogRef.componentInstance.text = `Are you sure you want to dissociate ${entity.name || entity.id}?`;
+    this.disassociateDialogRef.componentInstance.text = `Are you sure you want to dissociate ${entity.name || entity.id || this.associateDataMapper(entity)}?`;
 
     this.disassociateDialogRef.afterClosed().take(1).subscribe(result => {
       this.disassociateDialogRef = null;

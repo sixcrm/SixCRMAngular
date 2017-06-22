@@ -6,7 +6,7 @@
     </md-input-container>
     <md-icon class="entity-view__table-component__header__action" [class.alone]="!filterEnabled" [md-menu-trigger-for]="optionsMenu">more_vert</md-icon>
     <md-menu #optionsMenu="mdMenu" x-position="before">
-      <button md-menu-item (click)="showAssociateDialog()">Associate {{title}}</button>
+      <button *ngIf="associationEnabled" md-menu-item (click)="showAssociateDialog()">Associate {{title}}</button>
     </md-menu>
   </div>
   <table class="highlight table__custom">

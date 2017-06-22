@@ -1,43 +1,127 @@
-<div class="entity-view">
-  <div class="entity-view__title">Product Schedule Details</div>
+<div *ngIf="entity; else spinner" class="entity-view">
+  <div class="entity-view__title">Product Schedule</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <div *ngIf="entity" class="entity-view__content">
+  <div class="entity-view__info">
+    <div class="entity-view__info__image">
+      <img src="/assets/images/result-item-transaction-white.svg" alt="">
+    </div>
+    <div class="entity-view__info__data">
+      <div *ngIf="!addMode" class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div class="entity-view__info__data__name">
+        <span *ngIf="!addMode; else createMessage">
 
-    <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>
+          <md-input-container *ngIf="updateMode; else viewName">
+            <input md-input [(ngModel)]="entity.name">
+          </md-input-container>
 
-    <div class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">ID:</span>
-        <span>{{entity.id}}</span>
+          <ng-template #viewName>
+            {{entityBackup.name}}
+          </ng-template>
+        </span>
+        <ng-template #createMessage>
+          Create new Product Schedule
+        </ng-template>
       </div>
     </div>
 
-    <div class="entity-view__content__title"> Product Schedules </div>
+    <div *ngIf="!addMode" class="entity-view__info__edit">
+      <div *ngIf="!updateMode; else editActions" class="entity-view__info__edit__update" (click)="setMode(modes.Update)"> EDIT PRODUCT SCHEDULE </div>
 
-    <div *ngFor="let schedule of entity.schedules" class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Product:</span>
-        <span>{{schedule.product.name}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Start:</span>
-        <span>{{schedule.start | formatDateTime}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">End:</span>
-        <span>{{schedule.end | formatDateTime}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Price:</span>
-        <span>{{schedule.price.usd()}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Period:</span>
-        <span>{{schedule.period}}</span>
-      </div>
+      <ng-template #editActions>
+        <div (click)="cancelUpdate()">CANCEL</div>
+        <div class="entity-view__info__edit__update" (click)="updateEntity(entity)">UPDATE</div>
+      </ng-template>
     </div>
   </div>
 
+  <div class="entity-view__navigation">
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">CAMPAIGNS</span>
+  </div>
+
+  <md-tab-group [(selectedIndex)]="selectedIndex">
+    <md-tab>
+
+      <div *ngIf="addMode" class="entity-view__card">
+        <div class="entity-view__card__header">
+          <div class="entity-view__card__header__title">Product Schedule details</div>
+        </div>
+
+        <div class="entity-view__card__content">
+          <md-input-container class="entity-view__card__content__item">
+            <input required md-input [disabled]="viewMode" placeholder="Product Schedule Name" [(ngModel)]="entity.name" type="text">
+          </md-input-container>
+        </div>
+
+        <div *ngIf="!viewMode" class="entity-view__card__actions">
+          <div (click)="saveEntity(entity)">SAVE</div>
+        </div>
+      </div>
+
+      <div class="entity-view__card">
+        <div class="entity-view__card__header">
+          <div class="entity-view__card__header__title">Add Product to Schedule</div>
+        </div>
+
+        <div class="entity-view__card__content product-schedule-view__container">
+
+          <div class="flex-custom" style="z-index: 2">
+            <autocomplete-input class="profile-page__content__general__data__dropdown"
+                                [initialValue]="scheduleToAdd.product.name"
+                                [options]="productsService.entities$ | async"
+                                [placeholder]="'Product Name'"
+                                [showCancelButton]="false"
+                                [mapFunction]="productMapper"
+                                (selected)="scheduleToAdd.product = $event">
+            </autocomplete-input>
+            <md-input-container>
+              <input md-input placeholder="Price" (keydown)="isAllowedNumeric($event)" [(ngModel)]="scheduleToAdd.price.amount" type="text">
+            </md-input-container>
+          </div>
+
+          <div class="flex-custom">
+            <md-input-container>
+              <input md-input placeholder="Start" (keydown)="isAllowedNumeric($event)" [(ngModel)]="scheduleToAdd.start" type="text">
+            </md-input-container>
+
+            <md-input-container>
+              <input md-input placeholder="End" (keydown)="isAllowedNumeric($event)" [(ngModel)]="scheduleToAdd.end" type="text">
+            </md-input-container>
+
+            <md-input-container>
+              <input md-input placeholder="Period" (keydown)="isAllowedNumeric($event)" [(ngModel)]="scheduleToAdd.period" type="text">
+            </md-input-container>
+          </div>
+
+        </div>
+
+        <div class="entity-view__card__actions">
+          <div (click)="clearAddSchedule()">CLEAR</div>
+          <div (click)="addSchedule()">ADD</div>
+        </div>
+      </div>
+
+      <table-memory [title]="'Schedule'"
+                    [data]="entity.schedules"
+                    [associationEnabled]="false"
+                    [columnParams]="scheduleColumnParams"
+                    [associateDataMapper]="scheduleMapper"
+                    (disassociate)="disassociateSchedule($event)">
+      </table-memory>
+
+    </md-tab>
+
+    <md-tab>
+      <coming-soon [inPage]="true"></coming-soon>
+    </md-tab>
+
+  </md-tab-group>
 </div>
+
+<ng-template #spinner>
+  <md-spinner class="entity-view__spinner--main"></md-spinner>
+</ng-template>
+
+
