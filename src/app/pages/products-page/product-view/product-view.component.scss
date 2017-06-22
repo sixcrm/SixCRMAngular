@@ -1,7 +1,15 @@
 .product-view {
-  margin: 25px;
+  &__group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
 
-  div {
-    margin-top: 15px;
+    dropdown-component {
+      padding-bottom: 4px;
+    }
+
+    md-input-container {
+      margin-right: 25px;
+    }
   }
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
 import {Transaction} from '../../../shared/models/transaction.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {TransactionsService} from '../../../shared/services/transactions.service';
@@ -12,7 +12,7 @@ import {getCurrencyMask, parseCurrencyMaskedValue} from '../../../shared/utils/m
   templateUrl: './transaction-view.component.html',
   styleUrls: ['./transaction-view.component.scss']
 })
-export class TransactionViewComponent extends AbstractEntityViewComponent<Transaction> implements OnInit {
+export class TransactionViewComponent extends AbstractEntityViewComponent<Transaction> implements OnInit, OnDestroy {
 
   @ViewChild('refundInput') refundInput;
 
@@ -35,6 +35,10 @@ export class TransactionViewComponent extends AbstractEntityViewComponent<Transa
   ngOnInit() {
     this.takeUpdated = false;
     super.init(() => this.navigation.goToNotFoundPage());
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 
   navigateTo(root: string, path: string): void {

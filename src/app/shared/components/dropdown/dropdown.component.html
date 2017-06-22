@@ -1,5 +1,7 @@
 <div class="dropdown-component" [class.dropdown-component--with-placeholder]="showFloatingPlaceholder && mapper(selected) && placeholder">
-  <div class="dropdown-component__placeholder" *ngIf="showFloatingPlaceholder && mapper(selected) && placeholder">{{placeholder}}</div>
+  <div class="dropdown-component__placeholder" *ngIf="showFloatingPlaceholder && mapper(selected) && placeholder">
+    {{placeholder}}{{required ? ' *' : ''}}
+  </div>
   <div class="dropdown-component__text"
         [class.dropdown-component__text--selected]="mapper(selected)"
         [class.dropdown-component__text--unselected]="!mapper(selected)"
@@ -7,7 +9,7 @@
         [class.dropdown-component__text--with-placeholder]="showFloatingPlaceholder && !mapper(selected) && placeholder"
         [class.dropdown-component__text--with-placeholder--disabled]="showFloatingPlaceholder && mapper(selected) && placeholder"
         (click)="toggleDropdown()">
-    <span>{{mapper(selected) ? mapper(selected) : placeholder}}</span>
+    <span>{{mapper(selected) ? mapper(selected) : placeholder + (required ? ' *' : '')}}</span>
     <md-icon>keyboard_arrow_down</md-icon>
   </div>
   <div class="dropdown-component__options" [class.dropdown-component__options--with-placeholder]="showFloatingPlaceholder && placeholder" *ngIf="showDropdown">

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {SmtpProvidersService} from '../../../shared/services/smtp-providers.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
@@ -11,7 +11,7 @@ import {NavigationService} from '../../../navigation/navigation.service';
   templateUrl: './smtp-provider-view.component.html',
   styleUrls: ['./smtp-provider-view.component.scss']
 })
-export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpProvider> implements OnInit {
+export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpProvider> implements OnInit, OnDestroy {
 
   editMode: boolean;
   selectedIndex: number = 0;
@@ -31,6 +31,10 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
     if (this.addMode) {
       this.entity = new SmtpProvider();
     }
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 
   setIndex(value: number): void {

@@ -30,9 +30,7 @@ import { AffiliateCampaignsComponent } from './affiliate-view/affiliate-campaign
     AffiliateSessionsComponent,
     AffiliateCampaignsComponent
   ],
-  exports : [
-    AffiliateComponent
-  ],
+  exports : [ ],
   providers: [
     AffiliatesAclGuard
   ]

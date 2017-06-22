@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {CampaignsService} from '../../../shared/services/campaigns.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
@@ -19,7 +19,7 @@ import {LoadBalancersService} from '../../../shared/services/load-balancers.serv
   templateUrl: './campaign-view.component.html',
   styleUrls: ['./campaign-view.component.scss']
 })
-export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign> implements OnInit {
+export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign> implements OnInit, OnDestroy {
 
   selectedIndex: number = 0;
 
@@ -62,6 +62,10 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
     } else {
       this.service.entity$.take(1).subscribe(() => this.fetchDependencies());
     }
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 
   fetchDependencies(): void {

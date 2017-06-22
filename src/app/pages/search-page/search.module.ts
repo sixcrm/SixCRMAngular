@@ -43,10 +43,8 @@ import { PerfectCampaignComponent } from './perfect-match/perfect-campaign/perfe
     PerfectProductScheduleComponent,
     PerfectCampaignComponent
   ],
-  exports : [
-  ],
-  providers: [
-  ]
+  exports : [ ],
+  providers: [ ]
 })
 export class SearchModule {
 }

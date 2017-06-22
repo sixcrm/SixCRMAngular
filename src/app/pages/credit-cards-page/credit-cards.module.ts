@@ -24,9 +24,7 @@ import {SharedModule} from '../../shared/shared.module';
     CreditCardViewComponent,
     CreditCardComponent
   ],
-  exports : [
-    CreditCardComponent
-  ],
+  exports : [ ],
   providers: [
     CreditCardsAclGuard
   ]

@@ -24,9 +24,7 @@ import {SharedModule} from '../../shared/shared.module';
     ProductScheduleViewComponent,
     ProductScheduleComponent
   ],
-  exports : [
-    ProductScheduleComponent
-  ],
+  exports : [ ],
   providers: [
     ProductSchedulesAclGuard
   ]

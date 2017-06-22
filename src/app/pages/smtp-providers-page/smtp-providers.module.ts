@@ -24,9 +24,7 @@ import {SharedModule} from '../../shared/shared.module';
     SmtpProviderViewComponent,
     SmtpProviderComponent
   ],
-  exports : [
-    SmtpProviderComponent
-  ],
+  exports : [ ],
   providers: [
     SmtpProvidersAclGuard
   ]

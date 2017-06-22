@@ -11,6 +11,7 @@ export class DropdownComponent implements OnInit {
   @Input() options: string[] = [];
   @Input() selected: string;
   @Input() placeholder: string;
+  @Input() required: boolean = false;
   @Input() showFloatingPlaceholder: boolean = true;
   @Input() mapper: (el: any) => string = (el: any) => el;
   @Input() disabled: boolean = false;

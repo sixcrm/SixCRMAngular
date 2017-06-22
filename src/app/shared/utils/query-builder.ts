@@ -27,8 +27,8 @@ function deleteMutation(entity: string, id: string) {
 export function productsListQuery(limit?:number, cursor?:string): string {
   return `{
     productlist ${pageParams(limit, cursor)} {
-			products { id name sku ship shipping_delay,
-				fulfillment_provider { id name provider username password endpoint }
+			products {
+			  ${productResponseQuery()}
 			}
 			${paginationString()}
 		}}`;
@@ -36,8 +36,8 @@ export function productsListQuery(limit?:number, cursor?:string): string {
 
 export function productQuery(id: string): string {
   return `{
-    product (id: "${id}") { id name sku ship shipping_delay,
-      fulfillment_provider { id name provider username password endpoint }
+    product (id: "${id}") {
+      ${productResponseQuery()}
 		} }`
 }
 
@@ -48,9 +48,8 @@ export function deleteProductMutation(id: string): string {
 export function createProductMutation(product: Product): string {
   return `
   mutation {
-    createproduct (product: { id: "${generateUUID()}", name: "${product.name}", sku: "${product.sku}", ship: "${product.ship}", shipping_delay:"${product.shippingDelay}",  fulfillment_provider:"${product.fulfillmentProvider.id}" }) {
-      id name sku ship shipping_delay,
-      fulfillment_provider { id name username endpoint password provider }
+    createproduct (product: { name: "${product.name}", sku: "${product.sku}", ship: "${product.ship}", shipping_delay:"${product.shippingDelay}",  fulfillment_provider:"${product.fulfillmentProvider.id}" }) {
+      ${productResponseQuery()}
     }
   }`;
 }
@@ -59,10 +58,16 @@ export function updateProductMutation(product: Product): string {
   return `
     mutation {
       updateproduct (product: { id: "${product.id}", name: "${product.name}", sku: "${product.sku}", ship: "${product.ship}", shipping_delay:"${product.shippingDelay}",  fulfillment_provider:"${product.fulfillmentProvider.id}" }) {
-        id name sku ship shipping_delay,
-        fulfillment_provider { id name username endpoint password provider }
+        ${productResponseQuery()}
       }
     }`;
+}
+
+function productResponseQuery(): string {
+  return `
+    id name sku ship shipping_delay,
+    fulfillment_provider { id name username endpoint password provider }
+  `
 }
 
 export function  productScheduleListQuery(limit?:number, cursor?:string): string {
@@ -160,7 +165,7 @@ export function deleteCampaignMutation(id: string): string {
 export function createCampaignMutation(campaign: Campaign): string {
   return `
     mutation { 
-		  createcampaign ( campaign: { name: "${campaign.name}", loadbalancer: "${campaign.loadBalancer.id}", productschedules:[${campaign.productSchedules.map(s => `"${s.id}",`)}], emailtemplates:[${campaign.emailTemplates.map(t => `"${t.id}",`)}] } ) 
+		  createcampaign ( campaign: { name: "${campaign.name}", loadbalancer: "${campaign.loadBalancer.id}", productschedules:[${campaign.productSchedules.map(s => `"${s.id}"`)}], emailtemplates:[${campaign.emailTemplates.map(t => t && t.id ? `"${t.id}"` : '')}] } ) 
 			${campaignResponseQuery()}
 		}`
 }
@@ -168,7 +173,7 @@ export function createCampaignMutation(campaign: Campaign): string {
 export function updateCampaignMutation(campaign: Campaign): string {
   return `
     mutation { 
-		  updatecampaign ( campaign: { id: "${campaign.id}", name: "${campaign.name}", loadbalancer: "${campaign.loadBalancer.id}", productschedules:[${campaign.productSchedules.map(s => `"${s.id}",`)}], emailtemplates:[${campaign.emailTemplates.map(t => `"${t.id}",`)}] } ) 
+		  updatecampaign ( campaign: { id: "${campaign.id}", name: "${campaign.name}", loadbalancer: "${campaign.loadBalancer.id}", productschedules:[${campaign.productSchedules.map(s => `"${s.id}"`)}], emailtemplates:[${campaign.emailTemplates.map(t => t && t.id ? `"${t.id}"` : '')}] } ) 
 			${campaignResponseQuery()}
 		}`
 }
@@ -292,8 +297,8 @@ export function trackersByAffiliateListQuery(affiliateId: string, limit?: number
   return `
     query {
       trackerlistbyaffiliate (affiliate: "${affiliateId}" ${pageParams(limit, cursor, true)}) {
-        trackers{ id event_type type name body created_at updated_at,
-          affiliates { id name affiliate_id created_at updated_at }
+        trackers {
+          ${trackerResponseQuery()}
         }
         ${paginationString()}
       } }`
@@ -312,9 +317,9 @@ export function trackersListQuery(limit?: number, cursor?: string): string {
 export function trackerQuery(id: string): string {
   return `{
 		tracker (id: "${id}") {
-		  id event_type name type body created_at updated_at,
-      affiliates { id affiliate_id name created_at updated_at }
-    } }`
+		  ${trackerResponseQuery()}
+    }
+  }`
 }
 
 export function deleteTrackerMutation(id: string): string {
@@ -331,9 +336,9 @@ export function updateTrackerMutation(tracker: Tracker): string {
   return `
   mutation {
 		updatetracker (tracker: { id: "${tracker.id}", event_type: [${eventTypes}], affiliates: [${affiliates}], name: "${tracker.name}", type: "${tracker.type}", body:"${tracker.body.replace(/"/g, '\\"')}"}) {
-			id type event_type name body created_at updated_at,
-			affiliates { id affiliate_id name created_at updated_at }
-		} }`
+      ${trackerResponseQuery()}
+		}
+  }`
 }
 
 export function createTrackerMutation(tracker: Tracker): string {
@@ -346,10 +351,13 @@ export function createTrackerMutation(tracker: Tracker): string {
   return `
     mutation {
       createtracker (tracker: { event_type: [${eventTypes}], affiliates: [${affiliates}], name: "${tracker.name}", type: "${tracker.type}", body:"${tracker.body.replace(/"/g, '\\"')}"}) {
-        id type name body created_at updated_at
-        affiliates{ id name affiliate_id created_at updated_at }
+        ${trackerResponseQuery()}
       }
     }`
+}
+
+function trackerResponseQuery(): string {
+  return ` id type event_type name body created_at updated_at affiliates { id name affiliate_id created_at updated_at }`
 }
 
 export function customersInfoListQuery(limit?:number, cursor?:string): string {

@@ -31,14 +31,6 @@
       padding: 0 20px 20px 20px;
       font-size: 14px;
 
-      .dropdown-component {
-        display: inline-block;
-        font-size: 14px !important;
-
-        &__text {
-          color: black !important;
-        }
-      }
 
       &__label {
         margin-bottom: 8px;
@@ -46,6 +38,8 @@
       }
 
       &__name {
+        margin-top: 10px;
+
         md-input {
           margin: 0;
 
@@ -117,5 +111,13 @@
         }
       }
     }
+  }
+
+  &__dropdown {
+
+    &--inline {
+      display: inline-block;
+    }
+
   }
 }

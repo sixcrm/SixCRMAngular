@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="14px" viewBox="0 0 20 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>ic_Tag Bro</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Mobile-Portrait" transform="translate(-109.000000, -431.000000)">
+            <g id="ic_Tag-Bro" transform="translate(108.000000, 427.000000)">
+                <g id="Icon" transform="translate(11.900000, 12.000000) rotate(20.000000) translate(-11.900000, -12.000000) translate(2.400000, 7.200000)">
+                    <path d="M5.68434189e-15,0.801978636 C5.68434189e-15,0.359058066 0.360138208,1.36424205e-13 0.79281354,1.36424205e-13 L13.2071865,1.36424205e-13 C13.6450453,1.36424205e-13 14.2674423,0.231513977 14.6039575,0.522821546 L18.0297354,3.48837891 C18.8665405,4.21276723 18.8649909,5.38857422 18.0297354,6.11162109 L14.6039575,9.07717845 C14.270401,9.36592482 13.6398618,9.6 13.2071865,9.6 L0.79281354,9.6 C0.354954712,9.6 5.68434189e-15,9.23539124 5.68434189e-15,8.79802136 L5.68434189e-15,0.801978636 Z" id="tag-outer" fill="#FFFFFF"></path>
+                    <g id="HOLE" transform="translate(14.153930, 3.304518)" stroke="#979797">
+                        <ellipse id="Oval" stroke-width="0.5" fill="#FFFFFF" cx="1.6" cy="1.6" rx="1.6" ry="1.6"></ellipse>
+                        <ellipse id="Oval-Copy" stroke-width="0.6" cx="1.6" cy="1.6" rx="1.06666667" ry="1.06666667"></ellipse>
+                    </g>
+                    <rect id="tag-inner" fill="#FFFFFF" x="1" y="1" width="12.4" height="7.6" rx="1.2"></rect>
+                    <path d="M2.7,4.8 L11.7088845,4.8" id="Line" stroke="#757575" stroke-width="0.8" stroke-linecap="square"></path>
+                    <path d="M2.7,7 L11.7088845,7" id="Line-Copy" stroke="#757575" stroke-width="0.8" stroke-linecap="square"></path>
+                    <path d="M2.7,2.6 L8.50344725,2.6" id="Line" stroke="#757575" stroke-width="1.2" stroke-linecap="square"></path>
+                </g>
+                <rect id="container" x="0" y="0" width="24" height="24"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

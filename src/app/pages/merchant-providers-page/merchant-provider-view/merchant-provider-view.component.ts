@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {MerchantProvider} from '../../../shared/models/merchant-provider.model';
 import {MerchantProvidersService} from '../../../shared/services/merchant-providers.service';
@@ -11,7 +11,7 @@ import {NavigationService} from '../../../navigation/navigation.service';
   templateUrl: './merchant-provider-view.component.html',
   styleUrls: ['./merchant-provider-view.component.scss']
 })
-export class MerchantProviderViewComponent extends AbstractEntityViewComponent<MerchantProvider> implements OnInit {
+export class MerchantProviderViewComponent extends AbstractEntityViewComponent<MerchantProvider> implements OnInit, OnDestroy {
 
   constructor(service: MerchantProvidersService, route: ActivatedRoute, progressBarService: ProgressBarService, public navigation: NavigationService) {
     super(service, route, progressBarService);
@@ -19,6 +19,10 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
 
   ngOnInit() {
     this.init();
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 
 }

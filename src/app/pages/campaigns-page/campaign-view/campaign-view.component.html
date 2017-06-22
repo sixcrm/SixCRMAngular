@@ -49,6 +49,7 @@
               [options]="loadBalancerService.entities$ | async"
               [selected]="entity.loadBalancer"
               [placeholder]="'Load Balancer'"
+              [required]="true"
               [disabled]="viewMode"
               [mapper]="loadBalancerMapper"
               (onSelect)="entity.loadBalancer = $event">

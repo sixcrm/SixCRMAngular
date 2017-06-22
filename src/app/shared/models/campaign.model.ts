@@ -45,7 +45,7 @@ export class Campaign implements Entity<Campaign>{
       name: this.name,
       productschedules: this.productSchedules.map(p => p.inverse()),
       emailtemplates: this.emailTemplates.map(e => e.inverse()),
-      loadBalancer: this.loadBalancer.inverse(),
+      loadbalancer: this.loadBalancer.inverse(),
       created_at: this.createdAt.clone().format(),
       updated_at: this.createdAt.clone().format()
     }

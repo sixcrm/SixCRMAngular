@@ -1,76 +1,101 @@
-<div *ngIf="entity" class="entity-view">
-  <div class="entity-view__title">Product {{entity.name}}</div>
+<div *ngIf="entity; else spinner" class="entity-view">
+  <div class="entity-view__title">Product</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <div *ngIf="entity" class="entity-view__content">
-
-    <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>
-
-    <div class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">ID:</span>
-        <span>{{entity.id}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Name:</span>
-        <span *ngIf="listMode">{{entity.name}}</span>
-        <md-input *ngIf="updateMode" [(ngModel)]="entity.name"></md-input>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">SKU:</span>
-        <span *ngIf="listMode">{{entity.sku}}</span>
-        <md-input *ngIf="updateMode" [(ngModel)]="entity.sku"></md-input>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Ship:</span>
-        <span *ngIf="listMode">{{entity.ship}}</span>
-        <md-input *ngIf="updateMode" [(ngModel)]="entity.ship"></md-input>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Shipping Delay:</span>
-        <span *ngIf="listMode">{{entity.shippingDelay}}</span>
-        <md-input class="input--small" *ngIf="updateMode" [(ngModel)]="entity.shippingDelay"></md-input>
-      </div>
+  <div class="entity-view__info">
+    <div class="entity-view__info__image">
+      <img src="/assets/images/result-item-transaction-white.svg" alt="">
     </div>
-
-    <div class="entity-view__content__title">
-      Fulfillment Provider
-      <md-icon *ngIf="updateMode" [md-menu-trigger-for]="providersMenu">add</md-icon>
-    </div>
-
-    <md-menu #providersMenu="mdMenu">
-      <button md-menu-item *ngFor="let provider of fulfillmentProviders" (click)="selectFulfillmentProvider(provider)">
-        {{provider.name}}
-      </button>
-    </md-menu>
-
-    <div class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">ID:</span>
-        <span>{{entity.fulfillmentProvider.id}}</span>
+    <div class="entity-view__info__data">
+      <div *ngIf="!addMode" class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div class="entity-view__info__data__name">
+        <span *ngIf="!addMode; else createMessage">
+          {{entityBackup.name}}
+        </span>
+        <ng-template #createMessage>
+          Create new Product
+        </ng-template>
       </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Name:</span>
-        <span> {{entity.fulfillmentProvider.name}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Username:</span>
-        <span>{{entity.fulfillmentProvider.username}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Password:</span>
-        <span>{{entity.fulfillmentProvider.password}} </span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Endpoint:</span>
-        <span>{{entity.fulfillmentProvider.endpoint}}</span>
-      </div>
-    </div>
-
-    <div *ngIf="updateMode" class="entity-view__content__buttons">
-      <div class="entity-view__content__buttons__update" (click)="updateEntity(entity)">Update</div>
-      <div class="entity-view__content__buttons__cancel" (click)="cancelUpdate()">Cancel</div>
     </div>
   </div>
+
+  <div class="entity-view__navigation">
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">SCHEDULES</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">CAMPAIGNS</span>
+  </div>
+
+  <md-tab-group [(selectedIndex)]="selectedIndex">
+    <md-tab>
+
+      <div class="flex-custom">
+        <div class="entity-view__card campaign-view__card">
+          <div class="entity-view__card__header">
+            <div class="entity-view__card__header__title">Product general details</div>
+            <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
+            <md-menu #editOptions="mdMenu" x-position="before">
+              <button *ngIf="!addMode" md-menu-item (click)="setMode(modes.Update)"> Edit Product</button>
+            </md-menu>
+          </div>
+
+          <div class="entity-view__card__content">
+            <div class="product-view__group">
+              <md-input-container class="entity-view__card__content__item">
+                <input required md-input [disabled]="viewMode" placeholder="Product name" [(ngModel)]="entity.name" type="text">
+              </md-input-container>
+
+              <dropdown-component
+                [options]="['true', 'false']"
+                [selected]="entity.ship"
+                [placeholder]="'Ship'"
+                [disabled]="viewMode"
+                (onSelect)="entity.ship = $event">
+              </dropdown-component>
+            </div>
+
+            <div class="product-view__group">
+              <md-input-container class="entity-view__card__content__item">
+                <input required md-input [disabled]="viewMode" placeholder="SKU" [(ngModel)]="entity.sku" type="text">
+              </md-input-container>
+
+              <md-input-container class="entity-view__card__content__item">
+                <input required md-input [disabled]="viewMode" placeholder="Shipping Delay" [(ngModel)]="entity.shippingDelay" type="text">
+              </md-input-container>
+            </div>
+
+
+            <dropdown-component
+              [options]="fulfillmentProvidersService.entities$ | async"
+              [selected]="entity.fulfillmentProvider"
+              [placeholder]="'Fulfillment Provider'"
+              [disabled]="viewMode"
+              [mapper]="fulfillmentProviderMapper"
+              (onSelect)="entity.fulfillmentProvider = $event">
+            </dropdown-component>
+          </div>
+
+          <div *ngIf="!viewMode" class="entity-view__card__actions">
+            <div *ngIf="updateMode" (click)="cancelUpdate()">CANCEL</div>
+            <div (click)="saveOrUpdate(entity)">SAVE</div>
+          </div>
+        </div>
+      </div>
+
+    </md-tab>
+
+    <md-tab>
+      <coming-soon [inPage]="true"></coming-soon>
+    </md-tab>
+
+    <md-tab>
+      <coming-soon [inPage]="true"></coming-soon>
+    </md-tab>
+  </md-tab-group>
 </div>
+
+<ng-template #spinner>
+  <md-spinner class="entity-view__spinner--main"></md-spinner>
+</ng-template>
+
+

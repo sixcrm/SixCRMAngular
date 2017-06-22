@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Rebill} from '../../../shared/models/rebill.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {RebillsService} from '../../../shared/services/rebills.service';
@@ -11,7 +11,7 @@ import {NavigationService} from '../../../navigation/navigation.service';
   templateUrl: './rebill-view.component.html',
   styleUrls: ['./rebill-view.component.scss']
 })
-export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> implements OnInit {
+export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> implements OnInit, OnDestroy {
 
   constructor(
     service: RebillsService,
@@ -24,5 +24,9 @@ export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> imp
 
   ngOnInit() {
     this.init();
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 }

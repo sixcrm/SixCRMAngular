@@ -1,3 +1,3 @@
 <div class="input-cc">
-  <md-input placeholder="{{placeholder}}" [ngModel]="inputValue | creditCardMask: !changed: mode" (ngModelChange)="change($event)" (keydown)="isAllowedNumeric($event)"></md-input>
+  <md-input required placeholder="{{placeholder}}" [ngModel]="inputValue | creditCardMask: !changed: mode" (ngModelChange)="change($event)" (keydown)="isAllowedNumeric($event)"></md-input>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {Product} from '../../../shared/models/product.model';
 import {ProductsService} from '../../../shared/services/products.service';
@@ -13,31 +13,36 @@ import {NavigationService} from '../../../navigation/navigation.service';
   templateUrl: './product-view.component.html',
   styleUrls: ['./product-view.component.scss']
 })
-export class ProductViewComponent extends AbstractEntityViewComponent<Product> implements OnInit {
+export class ProductViewComponent extends AbstractEntityViewComponent<Product> implements OnInit, OnDestroy {
 
-  fulfillmentProviders: FulfillmentProvider[] = [];
+  selectedIndex: number = 0;
+  fulfillmentProviderMapper = (el: FulfillmentProvider) => el.name;
 
   constructor(
     service: ProductsService,
-    private fulfillmentProvidersService: FulfillmentProvidersService,
     route: ActivatedRoute,
     progressBarService: ProgressBarService,
-    public navigation: NavigationService
+    public navigation: NavigationService,
+    public fulfillmentProvidersService: FulfillmentProvidersService
   ) {
     super(service, route, progressBarService);
   }
 
   ngOnInit() {
-    this.init();
-
-    this.fulfillmentProvidersService.entities$.subscribe((entities: FulfillmentProvider[]) => {
-      this.fulfillmentProviders = entities;
-    });
+    this.init(() => this.navigation.goToNotFoundPage());
+    if (this.addMode) {
+      this.entity = new Product();
+      this.entityBackup = new Product();
+    }
     this.fulfillmentProvidersService.getEntities();
   }
 
-  selectFulfillmentProvider(provider): void {
-    this.entity.fulfillmentProvider = provider;
+  ngOnDestroy() {
+    this.destroy();
+  }
+
+  setIndex(value: number) {
+    this.selectedIndex = value;
   }
 
 }

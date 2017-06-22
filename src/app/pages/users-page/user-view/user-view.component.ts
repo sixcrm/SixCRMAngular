@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {User} from '../../../shared/models/user.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {ActivatedRoute} from '@angular/router';
@@ -11,7 +11,7 @@ import {NavigationService} from '../../../navigation/navigation.service';
   templateUrl: './user-view.component.html',
   styleUrls: ['./user-view.component.scss']
 })
-export class UserViewComponent extends AbstractEntityViewComponent<User> implements OnInit {
+export class UserViewComponent extends AbstractEntityViewComponent<User> implements OnInit, OnDestroy {
 
   constructor(service: UsersService, route: ActivatedRoute, progressBar: ProgressBarService, public navigation: NavigationService) {
     super(service, route, progressBar);
@@ -19,6 +19,10 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
 
   ngOnInit() {
     super.init();
+  }
+
+  ngOnDestroy() {
+    this.destroy();
   }
 
 }

@@ -24,9 +24,7 @@ import {SharedModule} from '../../shared/shared.module';
     CampaignViewComponent,
     CampaignComponent
   ],
-  exports : [
-    CampaignComponent
-  ],
+  exports : [ ],
   providers: [
     CampaignsAclGuard
   ]

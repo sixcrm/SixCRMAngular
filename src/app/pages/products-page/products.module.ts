@@ -24,9 +24,7 @@ import {SharedModule} from '../../shared/shared.module';
     ProductViewComponent,
     ProductComponent
   ],
-  exports : [
-    ProductComponent
-  ],
+  exports : [ ],
   providers: [
     ProductsAclGuard
   ]

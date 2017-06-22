@@ -50,14 +50,15 @@
 
         <div class="tracker-view__card__content">
           <div *ngIf="addMode" class="tracker-view__card__content__name">
-            <div class="tracker-view__card__content__label">Tracker Name:</div>
-            <md-input [(ngModel)]="entity.name"></md-input>
+            <md-input placeholder="Tracker Name" [(ngModel)]="entity.name"></md-input>
           </div>
 
           <div class="tracker-view__card__content__type">
             <dropdown-component
+              class="tracker-view__dropdown--inline"
               [disabled]="!(editMode || addMode)"
               [selected]="entity.type"
+              [required]="true"
               [placeholder]="'Tracking type'"
               (onSelect)="setType($event)"
               [options]="['html', 'postback']">
@@ -66,6 +67,7 @@
 
           <div class="tracker-view__card__content__event-type">
             <dropdown-component
+              class="tracker-view__dropdown--inline"
               [disabled]="!(editMode || addMode)"
               [selected]="editMode || addMode ? '' : (entity.eventType && entity.eventType.length > 0 ? entity.eventType : 'all')"
               [placeholder]="editMode || addMode ? 'add event type' : 'Event Type'"

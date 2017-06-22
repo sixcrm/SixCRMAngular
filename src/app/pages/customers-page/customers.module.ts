@@ -48,9 +48,7 @@ import { SingleEventComponent } from './customer-view/customer-events/single-eve
     CustomerRebillEditComponent,
     SingleEventComponent
   ],
-  exports : [
-    CustomerComponent
-  ],
+  exports : [ ],
   providers: [
     CustomersAclGuard
   ]
