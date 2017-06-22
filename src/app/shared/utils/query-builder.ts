@@ -816,11 +816,13 @@ export function updateUserMutation(user: User): string {
 }
 
 export function updateUserForRegistration(user: User): string {
+  let address2: string = user.address.line2 ? `line2: "${user.address.line2}"` : '';
+
   return `
     mutation {
 		  updateuser (
 		    user: { id: "${user.id}" name: "${user.name}" alias: "${user.alias}" first_name: "${user.firstName}" last_name: "${user.lastName}" auth0_id: "${user.auth0Id}" active: "${user.active}" termsandconditions: "0.1",
-		      address: {line1: "${user.address.line1}" line2: "${user.address.line2}" city: "${user.address.city}" state: "${user.address.state}" zip: "${user.address.zip}" country:"${user.address.country}"}}) {
+		      address: {line1: "${user.address.line1}" ${address2} city: "${user.address.city}" state: "${user.address.state}" zip: "${user.address.zip}" country:"${user.address.country}"}}) {
 			    id auth0_id name active termsandconditions
 			}
 	}`
