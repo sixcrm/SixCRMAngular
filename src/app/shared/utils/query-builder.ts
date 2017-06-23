@@ -886,7 +886,7 @@ export function deleteSmptProviderMutation(id: string): string {
 export function createSmptProviderMutation(smtpProvider: SmtpProvider): string {
   return `
     mutation {
-		  createsmtpprovider ( ${smtpProviderInputQuery(smtpProvider)} ) {
+		  createsmtpprovider ( ${smtpProviderInputQuery(smtpProvider, false)} ) {
         ${smtpProviderResponseQuery()}
       }
 	  }`
@@ -895,14 +895,14 @@ export function createSmptProviderMutation(smtpProvider: SmtpProvider): string {
 export function updateSmptProviderMutation(smtpProvider: SmtpProvider): string {
   return `
     mutation {
-		  updatesmtpprovider ( ${smtpProviderInputQuery(smtpProvider)} ) {
+		  updatesmtpprovider ( ${smtpProviderInputQuery(smtpProvider, true)} ) {
         ${smtpProviderResponseQuery()}
       }
 	  }`
 }
 
-function smtpProviderInputQuery(smtpProvider: SmtpProvider): string {
-  return `smtpprovider: { id: "${smtpProvider.id}", name: "${smtpProvider.name}", from_name: "${smtpProvider.fromName}", from_email: "${smtpProvider.fromEmail}", hostname: "${smtpProvider.hostname}", ip_address: "${smtpProvider.ipAddress}", username: "${smtpProvider.username}", password: "${smtpProvider.password}", port: "${smtpProvider.port}"}`;
+function smtpProviderInputQuery(smtpProvider: SmtpProvider, includeID: boolean): string {
+  return `smtpprovider: { ${includeID ? `id: "${smtpProvider.id}",` : ''} name: "${smtpProvider.name}", from_name: "${smtpProvider.fromName}", from_email: "${smtpProvider.fromEmail}", hostname: "${smtpProvider.hostname}", username: "${smtpProvider.username}", password: "${smtpProvider.password}", port: ${smtpProvider.port}}`;
 }
 
 function smtpProviderResponseQuery(): string {

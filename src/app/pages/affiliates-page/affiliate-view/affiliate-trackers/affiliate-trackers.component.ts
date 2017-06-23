@@ -9,7 +9,7 @@ import {Tracker} from '../../../../shared/models/tracker.model';
 import {TrackersService} from '../../../../shared/services/trackers.service';
 import {trackersByAffiliateListQuery, trackersListQuery} from '../../../../shared/utils/query-builder';
 import {DeleteDialogComponent} from '../../../delete-dialog.component';
-import {firstIndexOf} from '../../../../shared/utils/array-utils';
+import {firstIndexOf} from '../../../../shared/utils/array.utils';
 import {AssociateDialogComponent} from '../../../associate-dialog.component';
 import {Affiliate} from '../../../../shared/models/affiliate.model';
 

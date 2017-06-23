@@ -2,7 +2,7 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MdDialogRef, MdDialog} from '@angular/material';
 import {AssociateDialogComponent} from '../../associate-dialog.component';
-import {firstIndexOf} from '../../../shared/utils/array-utils';
+import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {DeleteDialogComponent} from '../../delete-dialog.component';
 
 @Component({

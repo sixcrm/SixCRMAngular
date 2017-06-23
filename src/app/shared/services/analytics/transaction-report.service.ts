@@ -6,7 +6,7 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {transactionReportListQuery} from '../../utils/queries/reports.queries';
 import {Http, Headers, Response} from '@angular/http';
 import {FilterTerm} from '../../components/advanced-filter/advanced-filter.component';
-import {downloadJSON} from '../../utils/file-utils';
+import {downloadJSON} from '../../utils/file.utils';
 
 
 @Injectable()

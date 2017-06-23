@@ -5,7 +5,7 @@ import {TrackersService} from '../../../shared/services/trackers.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {NavigationService} from '../../../navigation/navigation.service';
-import {firstIndexOf} from '../../../shared/utils/array-utils';
+import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {Affiliate} from '../../../shared/models/affiliate.model';
 import 'codemirror/mode/htmlmixed/htmlmixed';
 import {CodemirrorComponent} from 'ng2-codemirror';

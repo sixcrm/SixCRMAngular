@@ -11,7 +11,7 @@ import {UserSettingsService} from '../../shared/services/user-settings.service';
 import {NotificationSettings, NotificationSettingsData} from '../../shared/models/notification-settings.model';
 import {NotificationSettingsService} from '../../shared/services/notification-settings.service';
 import {conformToMask} from 'angular2-text-mask';
-import {getPhoneNumberMask} from '../../shared/utils/mask-utils';
+import {getPhoneNumberMask} from '../../shared/utils/mask.utils';
 
 let moment = require('moment-timezone');
 

@@ -4,7 +4,7 @@ import {RebillsService} from '../../../../shared/services/rebills.service';
 import {Moment, utc} from 'moment';
 import {DaterangepickerConfig} from 'ng2-daterangepicker';
 import {ProgressBarService} from '../../../../shared/services/progress-bar.service';
-import {getCurrencyMask, parseCurrencyMaskedValue} from '../../../../shared/utils/mask-utils';
+import {getCurrencyMask, parseCurrencyMaskedValue} from '../../../../shared/utils/mask.utils';
 
 @Component({
   selector: 'customer-rebill-edit',

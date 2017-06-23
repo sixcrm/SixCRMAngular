@@ -9,7 +9,7 @@ import {DaterangepickerConfig} from 'ng2-daterangepicker';
 import {NavigationService} from '../../navigation/navigation.service';
 import {environment} from '../../../environments/environment';
 import {AdvancedSearchComponent} from './advanced-search/advanced-search.component';
-import {firstIndexOf} from '../../shared/utils/array-utils';
+import {firstIndexOf} from '../../shared/utils/array.utils';
 import {AuthenticationService} from '../../authentication/authentication.service';
 
 export interface FacetCount {

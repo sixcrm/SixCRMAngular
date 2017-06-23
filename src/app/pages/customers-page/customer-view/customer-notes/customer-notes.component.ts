@@ -7,7 +7,7 @@ import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.compo
 import {customerNotesByCustomerQuery} from '../../../../shared/utils/query-builder';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {MdDialog} from '@angular/material';
-import {firstIndexOf} from '../../../../shared/utils/array-utils';
+import {firstIndexOf} from '../../../../shared/utils/array.utils';
 
 @Component({
   selector: 'customer-notes',

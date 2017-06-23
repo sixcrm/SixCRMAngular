@@ -8,7 +8,7 @@ import {NavigationService} from '../../../navigation/navigation.service';
 import {EmailTemplatesService} from '../../../shared/services/email-templates.service';
 import {EmailTemplate} from '../../../shared/models/email-template.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
-import {firstIndexOf} from '../../../shared/utils/array-utils';
+import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {ProductScheduleService} from '../../../shared/services/product-schedule.service';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 import {LoadBalancer} from '../../../shared/models/load-balancers.model';

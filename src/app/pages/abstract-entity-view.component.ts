@@ -3,6 +3,7 @@ import {AbstractEntityService} from '../shared/services/abstract-entity.service'
 import {AsyncSubject} from 'rxjs';
 import {ProgressBarService} from '../shared/services/progress-bar.service';
 import {Entity} from '../shared/models/entity.interface';
+import {isAllowedNumeric} from '../shared/utils/form.utils';
 
 enum Modes {
   Add,
@@ -20,6 +21,8 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
   entityBackup: T;
 
   modes = Modes;
+
+  isNumeric = isAllowedNumeric;
 
   protected takeUpdated: boolean = true;
   protected fetchEntityOnInit: boolean = true;

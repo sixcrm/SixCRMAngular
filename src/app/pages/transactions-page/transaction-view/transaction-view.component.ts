@@ -5,7 +5,7 @@ import {TransactionsService} from '../../../shared/services/transactions.service
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {NavigationService} from '../../../navigation/navigation.service';
-import {getCurrencyMask, parseCurrencyMaskedValue} from '../../../shared/utils/mask-utils';
+import {getCurrencyMask, parseCurrencyMaskedValue} from '../../../shared/utils/mask.utils';
 
 @Component({
   selector: 'transaction-view',

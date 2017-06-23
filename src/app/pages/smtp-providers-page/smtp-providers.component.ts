@@ -29,10 +29,10 @@ export class SmtpProvidersComponent extends AbstractEntityIndexComponent<SmtpPro
 
     this.columnParams = [
       new ColumnParams('Name', (e: SmtpProvider) => e.name),
+      new ColumnParams('From Name',(e: SmtpProvider) => e.fromName),
+      new ColumnParams('From Email',(e: SmtpProvider) => e.fromEmail),
       new ColumnParams('Hostname',(e: SmtpProvider) => e.hostname),
-      new ColumnParams('IP Address', (e: SmtpProvider) => e.ipAddress),
       new ColumnParams('Username', (e: SmtpProvider) => e.username),
-      new ColumnParams('Port', (e: SmtpProvider) => e.port)
     ];
   }
 

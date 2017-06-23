@@ -10,7 +10,7 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ProductsService} from '../../../shared/services/products.service';
 import {Product} from '../../../shared/models/product.model';
-import {firstIndexOf} from '../../../shared/utils/array-utils';
+import {firstIndexOf} from '../../../shared/utils/array.utils';
 
 @Component({
   selector: 'product-schedule-view',

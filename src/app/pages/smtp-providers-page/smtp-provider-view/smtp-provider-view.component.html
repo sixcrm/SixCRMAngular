@@ -42,12 +42,16 @@
             <input required md-input [disabled]="!editMode && !addMode" placeholder="Name" [(ngModel)]="entity.name" name="name" type="text">
           </md-input-container>
 
-          <md-input-container [class.error]="formInvalid && !entity.hostname" class="entity-view__card__content__item">
-            <input required md-input [disabled]="!editMode && !addMode" placeholder="Host" [(ngModel)]="entity.hostname" name="host" type="text">
+          <md-input-container [class.error]="formInvalid && !entity.fromName" class="entity-view__card__content__item">
+            <input required md-input [disabled]="!editMode && !addMode" placeholder="From Name" [(ngModel)]="entity.fromName" name="fromName" type="text">
           </md-input-container>
 
-          <md-input-container [class.error]="formInvalid && !entity.ipAddress" class="entity-view__card__content__item">
-            <input required md-input [disabled]="!editMode && !addMode" placeholder="IP Address" [(ngModel)]="entity.ipAddress" name="ipAddress" type="text">
+          <md-input-container [class.error]="formInvalid && !entity.fromEmail" class="entity-view__card__content__item">
+            <input required md-input [disabled]="!editMode && !addMode" placeholder="From Email" [(ngModel)]="entity.fromEmail" name="fromEmail" type="text">
+          </md-input-container>
+
+          <md-input-container [class.error]="formInvalid && !entity.hostname" class="entity-view__card__content__item">
+            <input required md-input [disabled]="!editMode && !addMode" placeholder="Host" [(ngModel)]="entity.hostname" name="host" type="text">
           </md-input-container>
 
           <md-input-container [class.error]="formInvalid && !entity.username" class="entity-view__card__content__item">
@@ -59,7 +63,7 @@
           </md-input-container>
 
           <md-input-container [class.error]="formInvalid && !entity.port" class="entity-view__card__content__item">
-            <input required md-input [disabled]="!editMode && !addMode" placeholder="Port" [(ngModel)]="entity.port" name="port" type="text">
+            <input required md-input [disabled]="!editMode && !addMode" placeholder="Port" (keydown)="isNumeric($event)" [(ngModel)]="entity.port" name="port" type="text">
           </md-input-container>
         </form>
 

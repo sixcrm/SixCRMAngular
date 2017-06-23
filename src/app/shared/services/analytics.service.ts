@@ -18,7 +18,7 @@ import {AnalyticsStorageService} from './analytics-storage.service';
 import {TransactionsBy} from '../models/analytics/transaction-by.model';
 import {EventsBy} from '../models/analytics/events-by.model';
 import {FilterTerm} from '../components/advanced-filter/advanced-filter.component';
-import {downloadFile} from '../utils/file-utils';
+import {downloadFile} from '../utils/file.utils';
 import {Activity} from '../models/analytics/activity.model';
 
 @Injectable()

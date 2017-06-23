@@ -7,10 +7,10 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
 import {NavigationService} from '../../../navigation/navigation.service';
 import {conformToMask} from 'angular2-text-mask';
 import {CreditCard} from '../../../shared/models/credit-card.model';
-import {firstIndexOf} from '../../../shared/utils/array-utils';
+import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {Rebill} from '../../../shared/models/rebill.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {getPhoneNumberMask} from '../../../shared/utils/mask-utils';
+import {getPhoneNumberMask} from '../../../shared/utils/mask.utils';
 
 @Component({
   selector: 'customer-view',
