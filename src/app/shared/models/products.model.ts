@@ -16,4 +16,16 @@ export class Products {
     this.product = new Product(obj.product);
     this.shippingReceipt = new ShippingReceipt(obj.shippingreceipt);
   }
+
+  copy(): Products {
+    return new Products(this.inverse());
+  }
+
+  inverse(): any {
+    return {
+      amount: this.amount.amount,
+      product: this.product.inverse(),
+      shippingreceipt: this.shippingReceipt.inverse()
+    }
+  }
 }

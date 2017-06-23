@@ -15,6 +15,13 @@ export class ParentSession implements Entity<ParentSession> {
   }
 
   copy(): ParentSession {
-    return null;
+    return new ParentSession(this.inverse());
+  }
+
+  inverse(): any {
+    return {
+      id: this.id,
+      customer: this.customer.inverse()
+    }
   }
 }

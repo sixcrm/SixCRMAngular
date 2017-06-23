@@ -40,6 +40,19 @@ export class Transaction implements Entity<Transaction>{
   }
 
   copy(): Transaction {
-    return null;
+    return new Transaction(this.inverse());
+  }
+
+  inverse(): any {
+    return {
+      id: this.id,
+      alias: this.alias,
+      amount: this.amount.amount,
+      created_at: this.createdAt.clone().format(),
+      merchant_provider: this.merchantProvider.inverse(),
+      processor_response: this.processorResponse.inverse(),
+      rebill: this.rebill.inverse(),
+      products: this.products.map(p => p.inverse())
+    }
   }
 }

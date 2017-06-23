@@ -16,4 +16,18 @@ export class ShippingReceipt {
     this.status = obj.status || '';
     this.trackingNumber = obj.trackingnumber || '';
   }
+
+  copy(): ShippingReceipt {
+    return new ShippingReceipt(this.inverse());
+  }
+
+  inverse(): any {
+    return {
+      id: this.id,
+      created: this.created,
+      modified: this.modified,
+      status: this.status,
+      trackingnumber: this.trackingNumber
+    }
+  }
 }

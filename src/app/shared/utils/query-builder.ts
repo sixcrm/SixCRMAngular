@@ -591,44 +591,52 @@ export function sessionsByAffiliate(affiliateId: string, limit?:number, cursor?:
 }
 
 export function sessionQuery(id: string): string {
-  return `{
-    session (id: "${id}") { id,
-			  customer { id firstname lastname,
-			    address { line1 line2 city state zip }
+  return `
+  {
+		session (id: "${id}") {
+			id created_at updated_at,
+			customer { id firstname lastname address { line1 line2 city state zip country } }
+			affiliate { id affiliate_id created_at updated_at }
+			subaffiliate_1 { id affiliate_id created_at updated_at }
+			subaffiliate_2 { id affiliate_id created_at updated_at }
+			subaffiliate_3 { id affiliate_id created_at updated_at }
+			subaffiliate_4 { id affiliate_id created_at updated_at }
+			subaffiliate_5 { id affiliate_id created_at updated_at }
+			cid { id affiliate_id created_at updated_at }
+			product_schedules { id,
+				schedule {
+					price start end period,
+					product { id name sku ship shipping_delay,
+						fulfillment_provider { id name provider username password endpoint }
+					}
 				}
+			},
+			rebills { id bill_at amount,
 				product_schedules { id,
 					schedule { price start end period,
-					  product { id name sku ship shipping_delay,
-					    fulfillment_provider { id name provider username password endpoint }
+						product { id name sku ship shipping_delay,
+							fulfillment_provider { id name provider username password endpoint}
 						}
 					}
 				}
-				rebills { id,
-				  product_schedules { id,
-				    schedule { price start end period,
-				      product { id name sku ship shipping_delay,
-				        fulfillment_provider { id name provider username password endpoint }
-							}
+				transactions { id processor_response amount }
+			},
+			campaign { id name,
+				productschedules { id,
+					schedule { price start end period,
+						product { id name sku ship shipping_delay,
+							fulfillment_provider { id name provider username password endpoint }
 						}
 					}
-					transactions { id created_at processor_response amount }
 				}
-				campaign { id name,
-					productschedules { id,
-					  schedule { price start end period,
-							product { id name sku ship shipping_delay,
-							  fulfillment_provider { id name provider username password endpoint }
-							}
-						}
-					}
-					loadbalancer { id,
-						merchantproviderconfigurations {
-							merchantprovider { id username password endpoint processor }
-							distribution
-						}
+				loadbalancer { id,
+					merchantproviderconfigurations {
+						distribution,
+						merchantprovider { id username password endpoint processor }
 					}
 				}
 			}
+		}
 	}`
 }
 

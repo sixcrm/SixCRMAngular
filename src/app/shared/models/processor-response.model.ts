@@ -21,6 +21,18 @@ export class ProcessorResponse implements Entity<ProcessorResponse> {
   }
 
   copy(): ProcessorResponse {
-    return null;
+    return new ProcessorResponse(this.inverse());
+  }
+
+  inverse(): any {
+    return JSON.stringify({
+      id: this.id,
+      message: this.message,
+      results: {
+        responsetext: this.responseText,
+        authcode: this.authCode,
+        transactionid: this.transactionId
+      }
+    })
   }
 }

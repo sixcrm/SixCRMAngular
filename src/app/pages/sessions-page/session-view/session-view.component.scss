@@ -1,0 +1,17 @@
+.session-view {
+  &__item {
+    &--right {
+      margin-left: auto;
+      width: 100px;
+    }
+
+    &--left {
+      margin-top: 10px;
+      margin-right: 15px;
+    }
+  }
+
+  &__table {
+    min-width: 400px;
+  }
+}

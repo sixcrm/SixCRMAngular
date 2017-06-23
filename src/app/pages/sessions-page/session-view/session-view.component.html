@@ -1,104 +1,96 @@
-<div class="entity-view">
-  <div class="entity-view__title">Session Details</div>
+<div *ngIf="entity; else spinner" class="entity-view">
+  <div class="entity-view__title">Session</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <div *ngIf="entity" class="entity-view__content">
-
-    <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>
-
-    <div class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">ID:</span>
-        <span>{{entity.id}}</span>
-      </div>
+  <div class="entity-view__info">
+    <div class="entity-view__info__image">
+      <img src="/assets/images/result-item-transaction-white.svg" alt="">
     </div>
-
-    <div class="entity-view__content__title"> Customer </div>
-
-    <div class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">ID:</span>
-        <span>{{entity.customer.id}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">First Name:</span>
-        <span> {{entity.customer.firstName}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Last Name:</span>
-        <span> {{entity.customer.lastName}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Email:</span>
-        <span> {{entity.customer.email}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">State:</span>
-        <span>{{entity.customer.address.state}} </span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">City:</span>
-        <span>{{entity.customer.address.city}}</span>
-      </div>
-    </div>
-
-    <div class="entity-view__content__title"> Product Schedules </div>
-
-    <ng-container *ngFor="let productSchedule of entity.productSchedules">
-      <div class="entity-view__content__fields__title">
-        <span>{{productSchedule.id}}</span>
-      </div>
-      <div *ngFor="let schedule of productSchedule.schedules" class="entity-view__content__fields">
-        <div class="entity-view__content__fields__item">
-          <span class="entity-view__content__fields__item__label">Product:</span>
-          <span>{{schedule.product.name}}</span>
-        </div>
-        <div class="entity-view__content__fields__item">
-          <span class="entity-view__content__fields__item__label">Start:</span>
-          <span>{{schedule.start}}</span>
-        </div>
-        <div class="entity-view__content__fields__item">
-          <span class="entity-view__content__fields__item__label">End:</span>
-          <span>{{schedule.end}}</span>
-        </div>
-        <div class="entity-view__content__fields__item">
-          <span class="entity-view__content__fields__item__label">Price:</span>
-          <span>{{schedule.price}}</span>
-        </div>
-        <div class="entity-view__content__fields__item">
-          <span class="entity-view__content__fields__item__label">Period:</span>
-          <span>{{schedule.period}}</span>
-        </div>
-      </div>
-    </ng-container>
-
-    <div class="entity-view__content__title"> Rebills </div>
-
-    <div *ngFor="let rebill of entity.rebills" class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item entity-view__content__fields__item--title">
-        <span>{{rebill.id}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Bill Date:</span>
-        <span>{{rebill.billDate}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Amount:</span>
-        <span>{{rebill.amount}}</span>
-      </div>
-    </div>
-
-    <div class="entity-view__content__title"> Campaign </div>
-
-    <div class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item entity-view__content__fields__item--title">
-        <span>{{entity.campaign.id}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Name:</span>
-        <span> {{entity.campaign.name}}</span>
+    <div class="entity-view__info__data">
+      <div *ngIf="!addMode" class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div class="entity-view__info__data__name">
+        <span *ngIf="!addMode; else createMessage">
+          {{entityBackup.id}}
+        </span>
+        <ng-template #createMessage>
+          Create new Session
+        </ng-template>
       </div>
     </div>
   </div>
+
+  <div class="entity-view__navigation">
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">AFFILIATES</span>
+  </div>
+
+  <md-tab-group [(selectedIndex)]="selectedIndex">
+    <md-tab>
+      <div class="flex-custom">
+        <div class="entity-view__card">
+          <div class="entity-view__card__header">
+            <div class="entity-view__card__header__title">Customer Information</div>
+            <md-icon>more_vert</md-icon>
+          </div>
+
+          <div class="entity-view__card__content">
+            <md-input-container class="entity-view__card__content__item">
+              <input md-input disabled placeholder="First Name" [(ngModel)]="entity.customer.firstName" type="text">
+            </md-input-container>
+
+            <md-input-container class="entity-view__card__content__item">
+              <input md-input disabled placeholder="Last Name" [(ngModel)]="entity.customer.lastName" type="text">
+            </md-input-container>
+
+            <md-input-container class="entity-view__card__content__item">
+              <input md-input disabled placeholder="Address" [(ngModel)]="entity.customer.address.line1" type="text">
+            </md-input-container>
+
+            <md-input-container class="entity-view__card__content__item">
+              <input md-input disabled placeholder="City" [(ngModel)]="entity.customer.address.city" type="text">
+            </md-input-container>
+
+            <div class="flex-custom">
+              <dropdown-component class="session-view__item--left" [placeholder]="'State'" [disabled]="true" [selected]="entity.customer.address.state"></dropdown-component>
+
+              <md-input-container class="entity-view__card__content__item session-view__item--right">
+                <input md-input disabled placeholder="Postal Code" [(ngModel)]="entity.customer.address.zip" type="text">
+              </md-input-container>
+            </div>
+
+            <dropdown-component [placeholder]="'Country'" [disabled]="true" [selected]="entity.customer.address.country"></dropdown-component>
+          </div>
+        </div>
+
+        <table-memory class="session-view__table"
+                      [data]="entity.rebills"
+                      [filterEnabled]="false"
+                      [title]="'Rebill'"
+                      [columnParams]="rebillColumnParams"
+                      [associationEnabled]="false"
+                      (view)="viewRebill($event)">
+        </table-memory>
+
+        <table-memory class="session-view__table"
+                      [data]="[entity.campaign]"
+                      [filterEnabled]="false"
+                      [title]="'Campaign'"
+                      [columnParams]="campaignColumnParams"
+                      [associationEnabled]="false"
+                      (view)="viewCampaign($event)">
+        </table-memory>
+      </div>
+    </md-tab>
+
+    <md-tab>
+      <coming-soon [inPage]="true"></coming-soon>
+    </md-tab>
+  </md-tab-group>
 </div>
+
+<ng-template #spinner>
+  <md-spinner class="entity-view__spinner--main"></md-spinner>
+</ng-template>
+
+

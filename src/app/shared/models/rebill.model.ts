@@ -39,6 +39,18 @@ export class Rebill implements Entity<Rebill> {
   }
 
   copy(): Rebill {
-    return JSON.parse(JSON.stringify(this));
+    return new Rebill(this.inverse());
+  }
+
+  inverse(): any {
+    return {
+      id: this.id,
+      amount: this.amount.amount,
+      bill_at: this.billAt.clone().format(),
+      created_at: this.createdAt.clone().format(),
+      parentsession: this.parentSession.inverse(),
+      product_schedules: this.productSchedules.map(p => p.inverse()),
+      transactions: this.transactions.map(t => t.inverse())
+    }
   }
 }

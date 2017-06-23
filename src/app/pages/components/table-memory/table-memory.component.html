@@ -32,7 +32,7 @@
         <button md-icon-button [md-menu-trigger-for]="actionsMenu"><md-icon>more_vert</md-icon></button>
         <md-menu #actionsMenu="mdMenu" x-position="before">
           <button md-menu-item (click)="view.emit(entity)">View {{title}}</button>
-          <button md-menu-item (click)="showDisassociateDialog(entity)">Dissociate {{title}}</button>
+          <button *ngIf="associationEnabled" md-menu-item (click)="showDisassociateDialog(entity)">Dissociate {{title}}</button>
         </md-menu>
       </td>
     </tr>
