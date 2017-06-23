@@ -28,7 +28,7 @@
     <tr *ngFor="let entity of entities | filterEntities: filterValue | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder">
       <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'" [routerLink]="['/transactions', entity.id]">{{params.mappingFunction(entity)}}</td>
       <td>
-        <button md-icon-button [md-menu-trigger-for]="actionsMenu"><md-icon>more_vert</md-icon></button>
+        <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
         <md-menu #actionsMenu="mdMenu" x-position="before">
           <button md-menu-item (click)="router.navigate(['transactions',entity.id])">View Transaction</button>
         </md-menu>

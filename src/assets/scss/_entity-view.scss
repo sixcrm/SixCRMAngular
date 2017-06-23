@@ -376,10 +376,16 @@ $blue-color: #4A90E2;
     &__header {
       display: flex;
       align-items: center;
+      border-bottom: 1px solid rgba(0,0,0,0.14);
       padding: 10px;
 
       &--homepage {
-        padding: 18px;
+        padding: 15px;
+
+        .entity-view__table-component__header__title {
+          font-size: 14pt;
+          font-weight: 400;
+        }
       }
 
       &__title {
@@ -415,11 +421,10 @@ $blue-color: #4A90E2;
       }
 
       &__action {
-        margin-right: 6px;
         width: 18px;
         height: 18px;
         font-size: 18px;
-        color: rgba(0,0,0,0.5);
+        color: rgba(0,0,0,0.4);
         cursor: pointer;
       }
 
@@ -434,10 +439,10 @@ $blue-color: #4A90E2;
       tr {
         td,th {
           cursor: pointer;
-          padding: 5px 15px;
+          padding: 8px 20px;
 
           &:last-child {
-            width: 40px;
+            width: 1px;
           }
         }
       }
@@ -445,10 +450,16 @@ $blue-color: #4A90E2;
       thead {
 
         th {
+          position: relative;
           font-weight: 400;
+          padding-top: 15px;
+          padding-bottom: 15px;
+          color: rgba(0,0,0,0.5);
+          font-size: 10px;
 
           md-icon {
             position: absolute;
+            top: 12px;
             width: 18px;
             height: 18px;
             font-size: 18px;
@@ -467,43 +478,14 @@ $blue-color: #4A90E2;
           md-icon {
             width: 18px;
             height: 18px;
+            vertical-align: middle;
             font-size: 18px;
-            color: rgba(0,0,0,0.5);
+            color: rgba(0,0,0,0.4);
             cursor: pointer;
           }
         }
       }
     }
-
-    .table__homepage {
-      font-size: 13px;
-
-      tr {
-        td,th {
-          cursor: pointer;
-          padding: 5px 15px;
-
-          &:first-of-type {
-            padding-left: 18px;
-          }
-        }
-      }
-
-      thead {
-
-        th {
-          font-weight: 400;
-        }
-      }
-
-      tbody {
-
-        tr {
-          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-      }
-    }
-
 
     table-pagination {
       font-size: 12px;
