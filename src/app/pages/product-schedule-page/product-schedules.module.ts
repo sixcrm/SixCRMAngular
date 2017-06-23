@@ -9,6 +9,7 @@ import {ProductScheduleComponent} from './product-schedule/product-schedule.comp
 import {ProductSchedulesAclGuard} from '../guards/product-schedules-acl-guard.service';
 import {ProductScheduleViewComponent} from './product-schedule-view/product-schedule-view.component';
 import {SharedModule} from '../../shared/shared.module';
+import {TextMaskModule} from 'angular2-text-mask';
 
 @NgModule({
   imports : [
@@ -17,7 +18,8 @@ import {SharedModule} from '../../shared/shared.module';
     FormsModule,
     MaterialModule.forRoot(),
     PageComponentsModule,
-    SharedModule
+    SharedModule,
+    TextMaskModule
   ],
   declarations : [
     ProductSchedulesComponent,

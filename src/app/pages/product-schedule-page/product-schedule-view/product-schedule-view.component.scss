@@ -12,4 +12,18 @@
       margin-right: 55px;
     }
   }
+
+  md-input-container {
+    font-size: 14px;
+  }
+
+  &__details {
+    md-input-container {
+      font-size: 14px;
+    }
+
+    &__actions {
+      margin-top: 48px;
+    }
+  }
 }

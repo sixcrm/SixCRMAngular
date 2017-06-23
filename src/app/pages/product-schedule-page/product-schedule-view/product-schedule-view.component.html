@@ -44,62 +44,67 @@
   <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>
 
-      <div *ngIf="addMode" class="entity-view__card">
-        <div class="entity-view__card__header">
-          <div class="entity-view__card__header__title">Product Schedule details</div>
-        </div>
+      <div class="flex-custom">
 
-        <div class="entity-view__card__content">
-          <md-input-container class="entity-view__card__content__item">
-            <input required md-input [disabled]="viewMode" placeholder="Product Schedule Name" [(ngModel)]="entity.name" type="text">
-          </md-input-container>
-        </div>
+        <div *ngIf="addMode" class="entity-view__card product-schedule-view__details">
+          <div class="entity-view__card__header">
+            <div class="entity-view__card__header__title">Product Schedule details</div>
+          </div>
 
-        <div *ngIf="!viewMode" class="entity-view__card__actions">
-          <div (click)="saveEntity(entity)">SAVE</div>
-        </div>
-      </div>
-
-      <div class="entity-view__card">
-        <div class="entity-view__card__header">
-          <div class="entity-view__card__header__title">Add Product to Schedule</div>
-        </div>
-
-        <div class="entity-view__card__content product-schedule-view__container">
-
-          <div class="flex-custom" style="z-index: 2">
-            <autocomplete-input class="profile-page__content__general__data__dropdown"
-                                [initialValue]="scheduleToAdd.product.name"
-                                [options]="productsService.entities$ | async"
-                                [placeholder]="'Product Name'"
-                                [showCancelButton]="false"
-                                [mapFunction]="productMapper"
-                                (selected)="scheduleToAdd.product = $event">
-            </autocomplete-input>
+          <div class="entity-view__card__content">
             <md-input-container>
-              <input md-input placeholder="Price" (keydown)="isAllowedNumeric($event)" [(ngModel)]="scheduleToAdd.price.amount" type="text">
+              <input required md-input [disabled]="viewMode" placeholder="Product Schedule Name" [(ngModel)]="entity.name" type="text">
             </md-input-container>
           </div>
 
-          <div class="flex-custom">
-            <md-input-container>
-              <input md-input placeholder="Start" (keydown)="isAllowedNumeric($event)" [(ngModel)]="scheduleToAdd.start" type="text">
-            </md-input-container>
-
-            <md-input-container>
-              <input md-input placeholder="End" (keydown)="isAllowedNumeric($event)" [(ngModel)]="scheduleToAdd.end" type="text">
-            </md-input-container>
-
-            <md-input-container>
-              <input md-input placeholder="Period" (keydown)="isAllowedNumeric($event)" [(ngModel)]="scheduleToAdd.period" type="text">
-            </md-input-container>
+          <div *ngIf="!viewMode" class="entity-view__card__actions product-schedule-view__details__actions">
+            <div (click)="saveEntity(entity)">SAVE</div>
           </div>
-
         </div>
 
-        <div class="entity-view__card__actions">
-          <div (click)="clearAddSchedule()">CLEAR</div>
-          <div (click)="addSchedule()">ADD</div>
+        <div class="entity-view__card">
+          <div class="entity-view__card__header">
+            <div class="entity-view__card__header__title">Add Product to Schedule</div>
+          </div>
+
+          <form #scheduleInputForm="ngForm" class="entity-view__card__content product-schedule-view__container">
+
+            <div class="flex-custom" style="z-index: 2">
+              <autocomplete-input class="profile-page__content__general__data__dropdown"
+                                  [class.error]="formInvalid && !scheduleToAdd.product.id"
+                                  [initialValue]="scheduleToAdd.product.name"
+                                  [options]="productsService.entities$ | async"
+                                  [placeholder]="'Product Name'"
+                                  [showCancelButton]="false"
+                                  [mapFunction]="productMapper"
+                                  [required]="true"
+                                  (selected)="scheduleToAdd.product = $event">
+              </autocomplete-input>
+              <md-input-container [class.error]="formInvalid && !price">
+                <input required md-input placeholder="Price" [textMask]="{mask: numberMask, guide: false}" (keydown)="isNumeric($event)" name="price" [(ngModel)]="price" type="text">
+              </md-input-container>
+            </div>
+
+            <div class="flex-custom">
+              <md-input-container [class.error]="formInvalid && !scheduleToAdd.start">
+                <input required md-input placeholder="Start" (keydown)="isNumeric($event)" name="start" [(ngModel)]="scheduleToAdd.start" type="text">
+              </md-input-container>
+
+              <md-input-container>
+                <input md-input placeholder="End" (keydown)="isNumeric($event)" name="end" [(ngModel)]="scheduleToAdd.end" type="text">
+              </md-input-container>
+
+              <md-input-container [class.error]="formInvalid && !scheduleToAdd.period">
+                <input required md-input placeholder="Period" (keydown)="isNumeric($event)" name="period" [(ngModel)]="scheduleToAdd.period" type="text">
+              </md-input-container>
+            </div>
+
+          </form>
+
+          <div class="entity-view__card__actions">
+            <div (click)="clearAddSchedule()">CLEAR</div>
+            <div (click)="addSchedule(scheduleInputForm.form.valid)">ADD</div>
+          </div>
         </div>
       </div>
 

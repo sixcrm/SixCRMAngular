@@ -115,7 +115,7 @@ function productScheduleResponseQuery(): string {
 
 function productScheduleInputQuery(productSchedule: ProductSchedule): string {
   let schedules = '';
-  productSchedule.schedules.forEach(s => schedules += `{product_id: "${s.product.id}", start: "${s.start}", end: "${s.end}", price: "${s.price.amount}", period: "${s.period}"} `);
+  productSchedule.schedules.forEach(s => schedules += `{product_id: "${s.product.id}", start: "${s.start}", ${s.end ? `end: "${s.end}",` : ''} price: "${s.price.amount}", period: "${s.period}"} `);
 
   return schedules;
 }

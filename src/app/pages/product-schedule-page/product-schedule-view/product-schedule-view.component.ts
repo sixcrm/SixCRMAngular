@@ -11,6 +11,9 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {ProductsService} from '../../../shared/services/products.service';
 import {Product} from '../../../shared/models/product.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
+import {isAllowedNumeric} from '../../../shared/utils/form.utils';
+import {getCurrencyMask, parseCurrencyMaskedValue} from '../../../shared/utils/mask.utils';
+import {Currency} from '../../../shared/utils/currency/currency';
 
 @Component({
   selector: 'product-schedule-view',
@@ -31,8 +34,13 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
 
   scheduleToAdd: Schedule = new Schedule();
   scheduleMapper = (s: Schedule) => s.product.name;
-
   productMapper = (p: Product) => p.name;
+  isNumeric = isAllowedNumeric;
+
+  formInvalid: boolean;
+
+  numberMask = getCurrencyMask();
+  price: string;
 
   constructor(
     service: ProductScheduleService,
@@ -66,14 +74,25 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   }
 
   clearAddSchedule(): void {
+    this.price = '';
     this.scheduleToAdd = new Schedule();
   }
 
-  addSchedule(): void {
-    this.entity.schedules.push(this.scheduleToAdd);
+  addSchedule(valid: boolean): void {
+    this.formInvalid = !valid || !this.scheduleToAdd.product || !this.scheduleToAdd.product.id;
+    if (this.formInvalid) return;
 
     this.service.entityUpdated$.take(1).subscribe(() => this.clearAddSchedule());
-    this.updateEntity(this.entity);
+
+    this.scheduleToAdd.price.amount = parseCurrencyMaskedValue(this.price);
+    this.entity.schedules.push(this.scheduleToAdd);
+
+    if (!this.addMode) {
+      this.updateEntity(this.entity);
+    } else {
+      this.entity.schedules = this.entity.schedules.slice();
+      this.clearAddSchedule();
+    }
   }
 
   disassociateSchedule(schedule: Schedule) {
@@ -83,17 +102,6 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
       this.entity.schedules.splice(index, 1);
       this.updateEntity(this.entity);
     }
-  }
-
-  isAllowedNumeric(event): boolean {
-    const pattern = /[0-9]|Backspace|ArrowRight|ArrowLeft/;
-
-    if (!pattern.test(event.key)) {
-      event.preventDefault();
-      return false;
-    }
-
-    return true;
   }
 
 }
