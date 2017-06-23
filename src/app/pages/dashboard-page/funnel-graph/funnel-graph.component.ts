@@ -49,7 +49,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       }, {
         outerRadius: '82%',
         innerRadius: '68%',
-        backgroundColor: hc.Color(this.colors[4]).setOpacity(0.3).get(),
+        backgroundColor: hc.Color(this.colors[2]).setOpacity(0.3).get(),
         borderWidth: 0
       }, {
         outerRadius: '67%',
@@ -59,7 +59,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       },{
         outerRadius: '52%',
         innerRadius: '38%',
-        backgroundColor: hc.Color(this.colors[2]).setOpacity(0.3).get(),
+        backgroundColor: hc.Color(this.colors[4]).setOpacity(0.3).get(),
         borderWidth: 0
       }]
     },
@@ -88,7 +88,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       },
       {
         name: 'Mains',
-        data: [{ color: this.colors[4], radius: '82%', innerRadius: '68%', y: 0 }]
+        data: [{ color: this.colors[2], radius: '82%', innerRadius: '68%', y: 0 }]
       },
       {
         name: 'Upsells',
@@ -96,7 +96,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       },
       {
         name: 'Confirms',
-        data: [{ color: this.colors[2], radius: '52%', innerRadius: '38%', y: 0 }]
+        data: [{ color: this.colors[4], radius: '52%', innerRadius: '38%', y: 0 }]
       }
     ]
   };
