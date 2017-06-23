@@ -9,6 +9,7 @@ import {MerchantProviderComponent} from './merchant-provider/merchant-provider.c
 import {MerchantProvidersAclGuard} from '../guards/merchant-providers-acl-guard.service';
 import {MerchantProviderViewComponent} from './merchant-provider-view/merchant-provider-view.component';
 import {SharedModule} from '../../shared/shared.module';
+import {TextMaskModule} from 'angular2-text-mask';
 
 @NgModule({
   imports : [
@@ -17,16 +18,15 @@ import {SharedModule} from '../../shared/shared.module';
     FormsModule,
     MaterialModule.forRoot(),
     PageComponentsModule,
-    SharedModule
+    SharedModule,
+    TextMaskModule
   ],
   declarations : [
     MerchantProvidersComponent,
     MerchantProviderViewComponent,
     MerchantProviderComponent
   ],
-  exports : [
-    MerchantProviderComponent
-  ],
+  exports : [ ],
   providers: [
     MerchantProvidersAclGuard
   ]

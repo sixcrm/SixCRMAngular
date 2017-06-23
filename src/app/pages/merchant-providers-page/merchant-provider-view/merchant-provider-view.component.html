@@ -1,37 +1,92 @@
-<div class="entity-view">
-  <div class="entity-view__title">Merchant Provider Details</div>
+<div *ngIf="entity; else spinner" class="entity-view">
+  <div class="entity-view__title">Merchant Provider</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <div *ngIf="entity" class="entity-view__content">
+  <div class="entity-view__info">
+    <div class="entity-view__info__image">
+      <img src="/assets/images/result-item-transaction-white.svg" alt="">
+    </div>
+    <div class="entity-view__info__data">
+      <div *ngIf="!addMode" class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div class="entity-view__info__data__name">
+        <span *ngIf="!addMode; else createMessage">
 
-    <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>
+          <md-input-container *ngIf="updateMode; else viewName">
+            <input md-input [(ngModel)]="entity.name">
+          </md-input-container>
 
-    <div class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">ID:</span>
-        <span>{{entity.id}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Name:</span>
-        <span>{{entity.name}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Username:</span>
-        <span>{{entity.username}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Password:</span>
-        <span>{{entity.password}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Endpoint:</span>
-        <span>{{entity.endpoint}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Processor:</span>
-        <span>{{entity.processor}}</span>
+          <ng-template #viewName>
+            {{entityBackup.name}}
+          </ng-template>
+        </span>
+        <ng-template #createMessage>
+          Create new Merchant Provider
+        </ng-template>
       </div>
     </div>
   </div>
+
+  <div class="entity-view__navigation">
+    <span class="entity-view__navigation__label entity-view__navigation__label--active">GENERAL DETAILS</span>
+  </div>
+
+  <md-tab-group [(selectedIndex)]="selectedIndex">
+    <md-tab>
+
+      <div class="flex-custom">
+
+        <div class="entity-view__card">
+          <div class="entity-view__card__header">
+            <div class="entity-view__card__header__title">Add Product to Schedule</div>
+            <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
+            <md-menu #editOptions="mdMenu" x-position="before">
+              <button *ngIf="!addMode" md-menu-item (click)="setMode(modes.Update)"> Edit Product</button>
+            </md-menu>
+          </div>
+
+          <form #scheduleInputForm="ngForm" class="entity-view__card__content">
+
+            <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !entity.name">
+              <input [disabled]="viewMode" required md-input placeholder="Name" name="name" [(ngModel)]="entity.name" type="text">
+            </md-input-container>
+
+            <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !entity.username">
+              <input [disabled]="viewMode" required md-input placeholder="Username" name="username" [(ngModel)]="entity.username" type="text">
+            </md-input-container>
+
+            <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !entity.password">
+              <input [disabled]="viewMode" required md-input placeholder="Password" name="password" [(ngModel)]="entity.password" type="text">
+            </md-input-container>
+
+            <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !entity.endpoint">
+              <input [disabled]="viewMode" required md-input placeholder="Endpoint" name="endpoint" [(ngModel)]="entity.endpoint" type="text">
+            </md-input-container>
+
+            <dropdown-component [disabled]="true" [placeholder]="'Processor'" [selected]="entity.processor"></dropdown-component>
+
+          </form>
+
+          <div *ngIf="!viewMode" class="entity-view__card__actions">
+            <div *ngIf="updateMode" (click)="cancelUpdate()">CANCEL</div>
+            <div (click)="saveProvider(scheduleInputForm.form.valid)">SAVE</div>
+          </div>
+        </div>
+
+        <table-memory class="merchant-provider-view__load-balancers" [title]="'Load Balancer'"
+                      [data]="[]"
+                      [associationEnabled]="false"
+                      [columnParams]="loadBalancerColumnParams"
+                      [associateDataMapper]="loadBalancerMapper">
+        </table-memory>
+
+      </div>
+
+    </md-tab>
+
+  </md-tab-group>
 </div>
+
+<ng-template #spinner>
+  <md-spinner class="entity-view__spinner--main"></md-spinner>
+</ng-template>

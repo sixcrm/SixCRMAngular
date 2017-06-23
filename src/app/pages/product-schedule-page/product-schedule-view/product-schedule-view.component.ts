@@ -12,8 +12,7 @@ import {ProductsService} from '../../../shared/services/products.service';
 import {Product} from '../../../shared/models/product.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {isAllowedNumeric} from '../../../shared/utils/form.utils';
-import {getCurrencyMask, parseCurrencyMaskedValue} from '../../../shared/utils/mask.utils';
-import {Currency} from '../../../shared/utils/currency/currency';
+import {parseCurrencyMaskedValue} from '../../../shared/utils/mask.utils';
 
 @Component({
   selector: 'product-schedule-view',
@@ -39,8 +38,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
 
   formInvalid: boolean;
 
-  numberMask = getCurrencyMask();
-  price: string;
+  price: string = '';
 
   constructor(
     service: ProductScheduleService,

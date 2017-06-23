@@ -4,6 +4,7 @@ import {AsyncSubject} from 'rxjs';
 import {ProgressBarService} from '../shared/services/progress-bar.service';
 import {Entity} from '../shared/models/entity.interface';
 import {isAllowedNumeric} from '../shared/utils/form.utils';
+import {getCurrencyMask} from '../shared/utils/mask.utils';
 
 enum Modes {
   Add,
@@ -23,6 +24,7 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
   modes = Modes;
 
   isNumeric = isAllowedNumeric;
+  numberMask = getCurrencyMask();
 
   protected takeUpdated: boolean = true;
   protected fetchEntityOnInit: boolean = true;
