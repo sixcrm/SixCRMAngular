@@ -1,4 +1,5 @@
 import {Entity} from './entity.interface';
+import {Currency} from '../utils/currency/currency';
 
 export class MerchantProvider implements Entity<MerchantProvider>{
   id: string;
@@ -7,6 +8,7 @@ export class MerchantProvider implements Entity<MerchantProvider>{
   password: string;
   endpoint: string;
   processor: string;
+  monthlyCap: Currency;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -19,6 +21,7 @@ export class MerchantProvider implements Entity<MerchantProvider>{
     this.password = obj.password || '';
     this.endpoint = obj.endpoint || '';
     this.processor = obj.processor || '';
+    this.monthlyCap = new Currency(obj.monthlyCap);
   }
 
   copy(): MerchantProvider {
@@ -32,7 +35,8 @@ export class MerchantProvider implements Entity<MerchantProvider>{
       username: this.username,
       password: this.password,
       endpoint: this.endpoint,
-      processor: this.processor
+      processor: this.processor,
+      monthly_cap: this.monthlyCap.amount
     }
   }
 }

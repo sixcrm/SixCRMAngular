@@ -202,7 +202,7 @@ export function createMerchantProviderMutation(provider: MerchantProvider): stri
   return `
     mutation {
 		  createmerchantprovider (
-		    merchantprovider: { id: "${generateUUID()}", name: "${provider.name}", username: "${provider.username}", password: "${provider.password}", endpoint: "${provider.endpoint}", processor: "${provider.processor}"}) {
+		    merchantprovider: { name: "${provider.name}", username: "${provider.username}", password: "${provider.password}", endpoint: "${provider.endpoint}", processor: "${provider.processor}"}) {
 			    id  name username password endpoint processor
 		  }
 	}`
