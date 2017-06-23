@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {ProductScheduleService} from '../../../shared/services/product-schedule.service';
@@ -20,6 +20,8 @@ import {parseCurrencyMaskedValue} from '../../../shared/utils/mask.utils';
   styleUrls: ['./product-schedule-view.component.scss']
 })
 export class ProductScheduleViewComponent extends AbstractEntityViewComponent<ProductSchedule> implements OnInit, OnDestroy {
+
+  @ViewChild('endField') endField;
 
   selectedIndex: number = 0;
   scheduleColumnParams = [
@@ -79,6 +81,11 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   addSchedule(valid: boolean): void {
     this.formInvalid = !valid || !this.scheduleToAdd.product || !this.scheduleToAdd.product.id;
     if (this.formInvalid) return;
+
+    if (this.scheduleToAdd.end && this.scheduleToAdd.end < this.scheduleToAdd.start) {
+      this.endField.nativeElement.focus();
+      return;
+    }
 
     this.service.entityUpdated$.take(1).subscribe(() => this.clearAddSchedule());
 

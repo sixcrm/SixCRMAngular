@@ -91,7 +91,7 @@
               </md-input-container>
 
               <md-input-container>
-                <input md-input placeholder="End" (keydown)="isNumeric($event)" name="end" [(ngModel)]="scheduleToAdd.end" type="text">
+                <input #endField md-input placeholder="End" (keydown)="isNumeric($event)" name="end" [(ngModel)]="scheduleToAdd.end" type="text">
               </md-input-container>
 
               <md-input-container [class.error]="formInvalid && !scheduleToAdd.period">
