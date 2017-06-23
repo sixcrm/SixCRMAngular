@@ -29,7 +29,7 @@
   <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>
 
-      <div class="flex-custom">
+      <form #productInputForm="ngForm" class="flex-custom">
         <div class="entity-view__card campaign-view__card">
           <div class="entity-view__card__header">
             <div class="entity-view__card__header__title">Product general details</div>
@@ -41,46 +41,42 @@
 
           <div class="entity-view__card__content">
             <div class="product-view__group">
-              <md-input-container class="entity-view__card__content__item">
-                <input required md-input [disabled]="viewMode" placeholder="Product name" [(ngModel)]="entity.name" type="text">
+              <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
+                <input required md-input [disabled]="viewMode" placeholder="Product name" name="name" [(ngModel)]="entity.name" type="text">
               </md-input-container>
 
-              <dropdown-component
-                [options]="['true', 'false']"
-                [selected]="entity.ship"
-                [placeholder]="'Ship'"
-                [disabled]="viewMode"
-                (onSelect)="entity.ship = $event">
-              </dropdown-component>
+              <md-checkbox style="font-size: 14px;" [disabled]="viewMode" [checked]="entity.ship === 'true'" (change)="toggleShip()">Ship</md-checkbox>
             </div>
 
             <div class="product-view__group">
-              <md-input-container class="entity-view__card__content__item">
-                <input required md-input [disabled]="viewMode" placeholder="SKU" [(ngModel)]="entity.sku" type="text">
+              <md-input-container [class.error]="formInvalid && !entity.sku" class="entity-view__card__content__item">
+                <input required md-input [disabled]="viewMode" placeholder="SKU" name="sku" [(ngModel)]="entity.sku" type="text">
               </md-input-container>
 
-              <md-input-container class="entity-view__card__content__item">
-                <input required md-input [disabled]="viewMode" placeholder="Shipping Delay" [(ngModel)]="entity.shippingDelay" type="text">
+              <md-input-container [class.error]="formInvalid && !entity.shippingDelay" class="entity-view__card__content__item">
+                <input required md-input [disabled]="viewMode" placeholder="Shipping Delay" name="shippingDelay" [(ngModel)]="entity.shippingDelay" type="text">
               </md-input-container>
             </div>
 
-
-            <dropdown-component
-              [options]="fulfillmentProvidersService.entities$ | async"
-              [selected]="entity.fulfillmentProvider"
-              [placeholder]="'Fulfillment Provider'"
-              [disabled]="viewMode"
-              [mapper]="fulfillmentProviderMapper"
-              (onSelect)="entity.fulfillmentProvider = $event">
-            </dropdown-component>
+            <autocomplete-input class="product-autocomplete-input"
+                                [class.error]="formInvalid && (!entity.fulfillmentProvider || !entity.fulfillmentProvider.id)"
+                                [initialValue]="entity.fulfillmentProvider.name"
+                                [placeholder]="'Fulfillment Provider'"
+                                [options]="fulfillmentProvidersService.entities$ | async"
+                                [showCancelButton]="false"
+                                [mapFunction]="fulfillmentProviderMapper"
+                                [disabled]="viewMode"
+                                [required]="true"
+                                (selected)="entity.fulfillmentProvider = $event">
+            </autocomplete-input>
           </div>
 
           <div *ngIf="!viewMode" class="entity-view__card__actions">
             <div *ngIf="updateMode" (click)="cancelUpdate()">CANCEL</div>
-            <div (click)="saveOrUpdate(entity)">SAVE</div>
+            <div (click)="save(productInputForm.form.valid)">SAVE</div>
           </div>
         </div>
-      </div>
+      </form>
 
     </md-tab>
 

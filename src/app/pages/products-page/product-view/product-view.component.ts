@@ -18,6 +18,8 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
   selectedIndex: number = 0;
   fulfillmentProviderMapper = (el: FulfillmentProvider) => el.name;
 
+  formInvalid: boolean;
+
   constructor(
     service: ProductsService,
     route: ActivatedRoute,
@@ -32,7 +34,8 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     this.init(() => this.navigation.goToNotFoundPage());
     if (this.addMode) {
       this.entity = new Product();
-      this.entityBackup = new Product();
+      this.entity.ship = 'true';
+      this.entityBackup = this.entity.copy();
     }
     this.fulfillmentProvidersService.getEntities();
   }
@@ -43,6 +46,20 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   setIndex(value: number) {
     this.selectedIndex = value;
+  }
+
+  toggleShip() {
+    this.entity.ship = this.entity.ship === 'true' ? 'false' : 'true';
+  }
+
+  save(valid: boolean): void {
+    this.formInvalid = !valid;
+
+    if (this.formInvalid) {
+
+    } else {
+      this.saveOrUpdate(this.entity);
+    }
   }
 
 }

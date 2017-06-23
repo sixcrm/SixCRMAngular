@@ -1,3 +1,5 @@
+$error-color: #D00140 !important;
+
 .content {
 
   &__block {
@@ -33,21 +35,21 @@ md-input {
 }
 
 .error {
-  color: #D00140 !important;
+  color: $error-color;
 
   label {
-    color: #D00140 !important;
+    color: $error-color;
   }
 
   input {
-    color: #D00140 !important;
+    color: $error-color;
   }
 
   .md-input-underline {
-    background-color: #D00140 !important;
+    background-color: $error-color;
 
     span {
-      background-color: #D00140 !important;
+      background-color: $error-color;
     }
   }
 }
@@ -125,6 +127,55 @@ dropdown-component {
         &:hover {
           background: rgba(0,0,0,0.08);
         }
+      }
+    }
+  }
+}
+
+.product-autocomplete-input {
+  font-size: 14px;
+
+  md-input-container {
+    width: calc(100% - 25px);
+  }
+}
+
+.default-autocomplete-input {
+  position: relative;
+
+  &__input {
+    display: flex;
+    align-items: center;
+
+    md-icon {
+      margin-top: 8px;
+      margin-left: 12px;
+      width: 18px;
+      height: 18px;
+      font-size: 18px;
+      color: rgba(0,0,0,0.4);
+      cursor: pointer;
+    }
+  }
+
+  &__options {
+    position: absolute;
+    top: 38px;
+    left: -1px;
+    border: 1px solid rgba(0,0,0,0.3);
+    width: calc(100% - 30px);
+    max-height: 180px;
+    overflow: auto;
+    background: #fff;
+    color: black;
+    z-index: 1;
+
+    &__item {
+      padding: 5px 10px;
+      cursor: pointer;
+
+      &:hover {
+        background: rgba(0,0,0,0.05);
       }
     }
   }

@@ -20,6 +20,8 @@ export class AutocompleteInputComponent implements OnInit {
   @Input() placeholder: string;
   @Input() showCancelButton: boolean = true;
   @Input() mapFunction = (el: any) => el;
+  @Input() disabled: boolean = false;
+  @Input() required: boolean = false;
   @Output() selected: EventEmitter<any> = new EventEmitter();
 
   constructor(private elementRef: ElementRef) { }

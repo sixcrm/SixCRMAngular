@@ -1,7 +1,7 @@
 <div class="default-autocomplete-input">
   <div class="default-autocomplete-input__input">
     <md-input-container>
-      <input #input md-input placeholder="{{placeholder}}" type="text" (focus)="showOptions = true" [(ngModel)]="currentValue">
+      <input #input md-input [required]="required" [disabled]="disabled" placeholder="{{placeholder}}" type="text" (focus)="showOptions = true" [(ngModel)]="currentValue">
     </md-input-container>
     <md-icon *ngIf="showCancelButton" (click)="clearCurrentValue(input)">cancel</md-icon>
   </div>
