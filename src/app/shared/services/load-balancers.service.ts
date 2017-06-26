@@ -4,9 +4,9 @@ import {Http} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {LoadBalancer} from '../models/load-balancer.model';
 import {
-  loadBalancersInfoListQuery, loadBalancerQuery, deleteLoadBalancerMutation,
-  createLoadBalancerMutation, updateLoadBalancerMutation
-} from '../utils/query-builder';
+  loadBalancersInfoListQuery, loadBalancerQuery,
+  deleteLoadBalancerMutation, createLoadBalancerMutation, updateLoadBalancerMutation
+} from '../utils/queries/entities/load-balancer.queries';
 
 @Injectable()
 export class LoadBalancersService extends AbstractEntityService<LoadBalancer> {

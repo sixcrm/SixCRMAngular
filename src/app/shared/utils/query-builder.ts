@@ -1,8 +1,4 @@
 import {SmtpProvider} from '../models/smtp-provider.model';
-import {MerchantProvider} from '../models/merchant-provider/merchant-provider.model';
-import {LoadBalancer} from '../models/load-balancer.model';
-import {Product} from '../models/product.model';
-import {ProductSchedule} from '../models/product-schedule.model';
 import {User} from '../models/user.model';
 import {CreditCard} from '../models/credit-card.model';
 import {FulfillmentProvider} from '../models/fulfillment-provider.model';
@@ -17,114 +13,12 @@ import {Rebill} from '../models/rebill.model';
 import {Tracker} from '../models/tracker.model';
 import {EmailTemplate} from '../models/email-template.model';
 import {Campaign} from '../models/campaign.model';
+import {loadBalancerResponseQuery} from './queries/entities/load-balancer.queries';
 
 const uuidV4 = require('uuid/v4');
 
 function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
-}
-
-export function productsListQuery(limit?:number, cursor?:string): string {
-  return `{
-    productlist ${pageParams(limit, cursor)} {
-			products {
-			  ${productResponseQuery()}
-			}
-			${paginationString()}
-		}}`;
-}
-
-export function productQuery(id: string): string {
-  return `{
-    product (id: "${id}") {
-      ${productResponseQuery()}
-		} }`
-}
-
-export function deleteProductMutation(id: string): string {
-  return deleteMutation('product', id);
-}
-
-export function createProductMutation(product: Product): string {
-  return `
-  mutation {
-    createproduct (product: { name: "${product.name}", sku: "${product.sku}", ship: "${product.ship}", shipping_delay:"${product.shippingDelay}",  fulfillment_provider:"${product.fulfillmentProvider.id}" }) {
-      ${productResponseQuery()}
-    }
-  }`;
-}
-
-export function updateProductMutation(product: Product): string {
-  return `
-    mutation {
-      updateproduct (product: { id: "${product.id}", name: "${product.name}", sku: "${product.sku}", ship: "${product.ship}", shipping_delay:"${product.shippingDelay}",  fulfillment_provider:"${product.fulfillmentProvider.id}" }) {
-        ${productResponseQuery()}
-      }
-    }`;
-}
-
-function productResponseQuery(): string {
-  return `
-    id name sku ship shipping_delay,
-    fulfillment_provider { id name username endpoint password provider }
-  `
-}
-
-export function  productScheduleListQuery(limit?:number, cursor?:string): string {
-  return `{
-    productschedulelist ${pageParams(limit, cursor)} {
-			productschedules {
-  			${productScheduleResponseQuery()}
-			}
-      ${paginationString()}
-		}}`;
-}
-
-export function productScheduleQuery(id: string): string {
-  return `{
-    productschedule (id: "${id}") { id name created_at updated_at,
-			  ${productScheduleResponseQuery()}
-		} }`
-}
-
-export function deleteProductScheduleMutation(id: string): string {
-  return deleteMutation('productschedule', id);
-}
-
-export function createProductScheduleMutation(schedule: ProductSchedule): string {
-  return `
-    mutation {
-		  createproductschedule (productschedule: { name: "${schedule.name}" schedule: [${productScheduleInputQuery(schedule)}]}) {
-        ${productScheduleResponseQuery()}
-      }
-	  }`
-}
-
-export function updateProductScheduleMutation(schedule: ProductSchedule): string {
-  return `
-    mutation {
-		  updateproductschedule (productschedule: { id: "${schedule.id}", name: "${schedule.name}" schedule: [${productScheduleInputQuery(schedule)}]}) {
-        ${productScheduleResponseQuery()}
-      }
-	  }`
-}
-
-function productScheduleResponseQuery(): string {
-  return `
-    id name created_at updated_at,
-    schedule { price start end period,
-      product { id name ship }
-    }
-    loadbalancers {
-      ${loadBalancerResponseQuery()}
-    }`
-}
-
-function productScheduleInputQuery(productSchedule: ProductSchedule): string {
-  let schedules = '';
-  productSchedule.schedules.forEach(s => schedules += `{product_id: "${s.product.id}", start: "${s.start}", ${s.end ? `end: "${s.end}",` : ''} price: "${s.price.amount}", period: "${s.period}"} `);
-
-  return schedules;
 }
 
 export function campaignQuery(id: string): string {
@@ -182,58 +76,6 @@ function campaignResponseQuery(): string {
       id name subject body type,
       smtp_provider { id name hostname }
     }`
-}
-
-export function merchantProvidersListQuery(limit?:number, cursor?:string): string {
-  return `{
-    merchantproviderlist ${pageParams(limit, cursor)} {
-      merchantproviders {
-        ${merchantProviderResponseQuery()}
-      }
-      ${paginationString()}
-    }
-  }`
-}
-
-export function merchantProviderQuery(id: string): string {
-  return `{
-    merchantprovider (id: "${id}") {
-      ${merchantProviderResponseQuery()}
-    }
-  }`
-}
-
-export function deleteMerchantProviderMutation(id: string): string {
-  return deleteMutation('merchantprovider', id);
-}
-
-export function createMerchantProviderMutation(provider: MerchantProvider): string {
-  return `
-    mutation {
-		  createmerchantprovider (merchantprovider: { id: "${provider.id}"}) {
-        ${merchantProviderResponseQuery()}
-		  }
-	  }`
-}
-
-export function updateMerchantProviderMutation(provider: MerchantProvider): string {
-  return `
-    mutation {
-		  updatemerchantprovider (merchantprovider: { id: "${provider.id}"}) {
-			  ${merchantProviderResponseQuery()}
-		  }
-	  }`
-}
-
-function merchantProviderResponseQuery(): string {
-  return `
-    id name enabled created_at updated_at allow_prepaid accepted_payment_methods,
-    processor { name id },
-    processing { monthly_cap discount_rate transaction_fee reserve_rate maximum_chargeback_ratio,
-      transaction_counts { daily weekly monthly }
-    }
-    gateway { name username password endpoint additional }
-    customer_service { email url description }`
 }
 
 export function fulfillmentProvidersListQuery(limit?:number, cursor?:string): string {
@@ -444,59 +286,6 @@ export function createCustomerNoteMutation(customerNote: CustomerNote): string {
 
 export function deleteCustomerNoteMutation(id: string): string {
   return deleteMutation('customernote', id);
-}
-
-export function loadBalancersInfoListQuery(limit?:number, cursor?:string): string {
-  return `{
-    loadbalancerlist ${pageParams(limit, cursor)} {
-			loadbalancers { id merchantproviderconfigurations { merchantprovider { name } } }
-			${paginationString()}
-		}}`
-}
-
-export function loadBalancerQuery(id: string): string {
-  return `
-  {
-    loadbalancer (id: "${id}") {
-      ${loadBalancerResponseQuery()}
-    }
-  }`
-}
-
-export function createLoadBalancerMutation(loadBalancer: LoadBalancer): string {
-  let providers = loadBalancer.merchantProviderConfigurations.reduce((a,b) => `${a} {id: "${b.merchantProvider.id}", distribution: "${b.distribution}"} `, '');
-
-  return `
-    mutation {
-		createloadbalancer ( loadbalancer: {id: "${generateUUID()}", merchantproviders: [${providers}] } ) {
-			${loadBalancerResponseQuery()}
-		}
-	}`
-}
-
-export function updateLoadBalancerMutation(loadBalancer: LoadBalancer): string {
-  let providers = loadBalancer.merchantProviderConfigurations.reduce((a,b) => `${a} {id: "${b.merchantProvider.id}", distribution: "${b.distribution}"} `, '');
-
-  return `
-    mutation {
-		updateloadbalancer ( loadbalancer: {id: "${loadBalancer.id}", merchantproviders: [${providers}] } ) {
-      ${loadBalancerResponseQuery()}
-		}
-	}`
-}
-
-export function deleteLoadBalancerMutation(id: string): string {
-  return deleteMutation('loadbalancer', id);
-}
-
-function loadBalancerResponseQuery(): string {
-  return `
-    id created_at updated_at,
-    merchantproviderconfigurations { distribution
-      merchantprovider {
-        ${merchantProviderResponseQuery()}
-      }
-    }`
 }
 
 export function transactionsInfoListQuery(limit?:number, cursor?:string): string {

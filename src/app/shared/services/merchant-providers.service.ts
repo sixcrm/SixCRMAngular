@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import {MerchantProvider} from '../models/merchant-provider/merchant-provider.model';
 import {Http} from '@angular/http';
+import {AuthenticationService} from '../../authentication/authentication.service';
+import {AbstractEntityService} from './abstract-entity.service';
 import {
   merchantProvidersListQuery, merchantProviderQuery,
   deleteMerchantProviderMutation, createMerchantProviderMutation, updateMerchantProviderMutation
-} from '../utils/query-builder';
-import {AuthenticationService} from '../../authentication/authentication.service';
-import {AbstractEntityService} from './abstract-entity.service';
+} from '../utils/queries/entities/merchant-provider.queries';
 
 @Injectable()
 export class MerchantProvidersService extends AbstractEntityService<MerchantProvider> {

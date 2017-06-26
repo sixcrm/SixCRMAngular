@@ -5,9 +5,9 @@ import {Currency} from '../utils/currency/currency';
 export class Schedule implements Entity<Schedule>{
   id: string;
   price: Currency;
-  start: string;
-  end: string;
-  period: string;
+  start: number;
+  end: number;
+  period: number;
   product: Product;
 
   constructor(obj?: any) {
@@ -16,9 +16,9 @@ export class Schedule implements Entity<Schedule>{
     }
 
     this.price = new Currency(obj.price);
-    this.start = obj.start || '';
-    this.end = obj.end || '';
-    this.period = obj.period || '';
+    this.start = obj.start;
+    this.end = obj.end;
+    this.period = obj.period;
     this.product = new Product(obj.product);
   }
 

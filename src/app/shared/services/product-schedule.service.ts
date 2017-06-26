@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {AbstractEntityService} from './abstract-entity.service';
 import {ProductSchedule} from '../models/product-schedule.model';
-import {
-  productScheduleListQuery, productScheduleQuery, deleteProductScheduleMutation,
-  createProductScheduleMutation, updateProductScheduleMutation
-} from '../utils/query-builder';
 import {Http} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
+import {
+  productScheduleListQuery, productScheduleQuery,
+  deleteProductScheduleMutation, createProductScheduleMutation, updateProductScheduleMutation
+} from '../utils/queries/entities/product-schedule.queries';
 
 @Injectable()
 export class ProductScheduleService extends AbstractEntityService<ProductSchedule> {
