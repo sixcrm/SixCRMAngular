@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
-import {LoadBalancer} from '../../../shared/models/load-balancers.model';
+import {LoadBalancer} from '../../../shared/models/load-balancer.model';
 import {LoadBalancersService} from '../../../shared/services/load-balancers.service';
 import {ActivatedRoute} from '@angular/router';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';

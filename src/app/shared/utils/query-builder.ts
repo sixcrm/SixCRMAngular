@@ -1,6 +1,6 @@
 import {SmtpProvider} from '../models/smtp-provider.model';
-import {MerchantProvider} from '../models/merchant-provider.model';
-import {LoadBalancer} from '../models/load-balancers.model';
+import {MerchantProvider} from '../models/merchant-provider/merchant-provider.model';
+import {LoadBalancer} from '../models/load-balancer.model';
 import {Product} from '../models/product.model';
 import {ProductSchedule} from '../models/product-schedule.model';
 import {User} from '../models/user.model';
@@ -110,7 +110,14 @@ export function updateProductScheduleMutation(schedule: ProductSchedule): string
 }
 
 function productScheduleResponseQuery(): string {
-  return `id name created_at updated_at schedule { price start end period product { id name ship } }`
+  return `
+    id name created_at updated_at,
+    schedule { price start end period,
+      product { id name ship }
+    }
+    loadbalancers {
+      ${loadBalancerResponseQuery()}
+    }`
 }
 
 function productScheduleInputQuery(productSchedule: ProductSchedule): string {
@@ -122,22 +129,17 @@ function productScheduleInputQuery(productSchedule: ProductSchedule): string {
 
 export function campaignQuery(id: string): string {
   return `{
-    campaign (id: "${id}") 
+    campaign (id: "${id}") {
       ${campaignResponseQuery()}
-    }`
+    }
+  }`
 }
 
 export function campaignsInfoListQuery(limit?:number, cursor?:string): string {
   return `{
     campaignlist ${pageParams(limit, cursor)} {
-      campaigns { id name created_at updated_at,
-        productschedules { id name schedule {price} }
-        loadbalancer { id,
-          merchantproviderconfigurations {
-            merchantprovider { id }
-            distribution
-          }
-        }
+      campaigns {
+        ${campaignResponseQuery()}
       }
       ${paginationString()}
     }}`
@@ -150,48 +152,55 @@ export function deleteCampaignMutation(id: string): string {
 export function createCampaignMutation(campaign: Campaign): string {
   return `
     mutation { 
-		  createcampaign ( campaign: { name: "${campaign.name}", loadbalancer: "${campaign.loadBalancer.id}", productschedules:[${campaign.productSchedules.map(s => `"${s.id}"`)}], emailtemplates:[${campaign.emailTemplates.map(t => t && t.id ? `"${t.id}"` : '')}] } ) 
-			${campaignResponseQuery()}
+		  createcampaign ( campaign: { name: "${campaign.name}", loadbalancer: "${campaign.loadBalancer.id}", productschedules:[${campaign.productSchedules.map(s => `"${s.id}"`)}], emailtemplates:[${campaign.emailTemplates.map(t => t && t.id ? `"${t.id}"` : '')}] } ) {
+	  		${campaignResponseQuery()}
+      }
 		}`
 }
 
 export function updateCampaignMutation(campaign: Campaign): string {
   return `
     mutation { 
-		  updatecampaign ( campaign: { id: "${campaign.id}", name: "${campaign.name}", loadbalancer: "${campaign.loadBalancer.id}", productschedules:[${campaign.productSchedules.map(s => `"${s.id}"`)}], emailtemplates:[${campaign.emailTemplates.map(t => t && t.id ? `"${t.id}"` : '')}] } ) 
-			${campaignResponseQuery()}
+		  updatecampaign ( campaign: { id: "${campaign.id}", name: "${campaign.name}", loadbalancer: "${campaign.loadBalancer.id}", productschedules:[${campaign.productSchedules.map(s => `"${s.id}"`)}], emailtemplates:[${campaign.emailTemplates.map(t => t && t.id ? `"${t.id}"` : '')}] } ) {
+        ${campaignResponseQuery()}
+			}
 		}`
 }
 
 function campaignResponseQuery(): string {
   return `
-    { id name
-      productschedules { id name,
-        schedule { price start end period,
-          product { id name sku ship shipping_delay,
-            fulfillment_provider { id name provider username password endpoint }
-          }
+    id name created_at updated_at,
+    productschedules { id name,
+      loadbalancers { ${loadBalancerResponseQuery()} }
+      schedule { price start end period,
+        product { id name sku ship shipping_delay,
+          fulfillment_provider { id name provider username password endpoint }
         }
       }
-      loadbalancer { id,
-        merchantproviderconfigurations {
-          merchantprovider { id username password endpoint processor }
-          distribution
-        }
-      }
-      emailtemplates {
-        id name subject body type,
-        smtp_provider { id name hostname }
-      }
+    }
+    emailtemplates {
+      id name subject body type,
+      smtp_provider { id name hostname }
     }`
 }
 
 export function merchantProvidersListQuery(limit?:number, cursor?:string): string {
-  return `{ merchantproviderlist ${pageParams(limit, cursor)} { merchantproviders { id name username password endpoint processor } ${paginationString()} } }`
+  return `{
+    merchantproviderlist ${pageParams(limit, cursor)} {
+      merchantproviders {
+        ${merchantProviderResponseQuery()}
+      }
+      ${paginationString()}
+    }
+  }`
 }
 
 export function merchantProviderQuery(id: string): string {
-  return `{ merchantprovider (id: "${id}") { id name username password endpoint processor } }`
+  return `{
+    merchantprovider (id: "${id}") {
+      ${merchantProviderResponseQuery()}
+    }
+  }`
 }
 
 export function deleteMerchantProviderMutation(id: string): string {
@@ -201,21 +210,30 @@ export function deleteMerchantProviderMutation(id: string): string {
 export function createMerchantProviderMutation(provider: MerchantProvider): string {
   return `
     mutation {
-		  createmerchantprovider (
-		    merchantprovider: { name: "${provider.name}", username: "${provider.username}", password: "${provider.password}", endpoint: "${provider.endpoint}", processor: "${provider.processor}"}) {
-			    id  name username password endpoint processor
+		  createmerchantprovider (merchantprovider: { id: "${provider.id}"}) {
+        ${merchantProviderResponseQuery()}
 		  }
-	}`
+	  }`
 }
 
 export function updateMerchantProviderMutation(provider: MerchantProvider): string {
   return `
     mutation {
-		  updatemerchantprovider (
-		    merchantprovider: { id: "${provider.id}", name: "${provider.name}", username: "${provider.username}", password: "${provider.password}", endpoint: "${provider.endpoint}", processor: "${provider.processor}"}) {
-			    id  name username password endpoint processor
+		  updatemerchantprovider (merchantprovider: { id: "${provider.id}"}) {
+			  ${merchantProviderResponseQuery()}
 		  }
-	}`
+	  }`
+}
+
+function merchantProviderResponseQuery(): string {
+  return `
+    id name enabled created_at updated_at allow_prepaid accepted_payment_methods,
+    processor { name id },
+    processing { monthly_cap discount_rate transaction_fee reserve_rate maximum_chargeback_ratio,
+      transaction_counts { daily weekly monthly }
+    }
+    gateway { name username password endpoint additional }
+    customer_service { email url description }`
 }
 
 export function fulfillmentProvidersListQuery(limit?:number, cursor?:string): string {
@@ -431,66 +449,54 @@ export function deleteCustomerNoteMutation(id: string): string {
 export function loadBalancersInfoListQuery(limit?:number, cursor?:string): string {
   return `{
     loadbalancerlist ${pageParams(limit, cursor)} {
-			loadbalancers { id,
-			  merchantproviderconfigurations {
-					merchantprovider { endpoint processor }
-					distribution
-				}
-			}
+			loadbalancers { id merchantproviderconfigurations { merchantprovider { name } } }
 			${paginationString()}
 		}}`
 }
 
 export function loadBalancerQuery(id: string): string {
-  return `{
-    loadbalancer (id: "${id}") { id,
-			  merchantproviderconfigurations {
-					merchantprovider { id username password endpoint processor }
-					distribution
-				}
-			} }`
+  return `
+  {
+    loadbalancer (id: "${id}") {
+      ${loadBalancerResponseQuery()}
+    }
+  }`
 }
 
 export function createLoadBalancerMutation(loadBalancer: LoadBalancer): string {
-  let providers: string = '';
-  for (let index in loadBalancer.merchantProviderConfigurations) {
-    let config = loadBalancer.merchantProviderConfigurations[index];
-    providers += `{id: "${config.merchantProvider.id}", distribution: "${config.distribution}"} `;
-  }
+  let providers = loadBalancer.merchantProviderConfigurations.reduce((a,b) => `${a} {id: "${b.merchantProvider.id}", distribution: "${b.distribution}"} `, '');
 
   return `
     mutation {
 		createloadbalancer ( loadbalancer: {id: "${generateUUID()}", merchantproviders: [${providers}] } ) {
-			id,
-			merchantproviderconfigurations {
-				merchantprovider { id name username password endpoint processor }
-				distribution,
-			}
+			${loadBalancerResponseQuery()}
 		}
 	}`
 }
 
 export function updateLoadBalancerMutation(loadBalancer: LoadBalancer): string {
-  let providers: string = '';
-  for (let index in loadBalancer.merchantProviderConfigurations) {
-    let config = loadBalancer.merchantProviderConfigurations[index];
-    providers += `{id: "${config.merchantProvider.id}", distribution: "${config.distribution}"} `;
-  }
+  let providers = loadBalancer.merchantProviderConfigurations.reduce((a,b) => `${a} {id: "${b.merchantProvider.id}", distribution: "${b.distribution}"} `, '');
 
   return `
     mutation {
 		updateloadbalancer ( loadbalancer: {id: "${loadBalancer.id}", merchantproviders: [${providers}] } ) {
-			id,
-			merchantproviderconfigurations {
-				merchantprovider { id name username password endpoint processor }
-				distribution
-			}
+      ${loadBalancerResponseQuery()}
 		}
 	}`
 }
 
 export function deleteLoadBalancerMutation(id: string): string {
   return deleteMutation('loadbalancer', id);
+}
+
+function loadBalancerResponseQuery(): string {
+  return `
+    id created_at updated_at,
+    merchantproviderconfigurations { distribution
+      merchantprovider {
+        ${merchantProviderResponseQuery()}
+      }
+    }`
 }
 
 export function transactionsInfoListQuery(limit?:number, cursor?:string): string {
@@ -628,11 +634,8 @@ export function sessionQuery(id: string): string {
 							fulfillment_provider { id name provider username password endpoint }
 						}
 					}
-				}
-				loadbalancer { id,
-					merchantproviderconfigurations {
-						distribution,
-						merchantprovider { id username password endpoint processor }
+					loadbalancers {
+  					${loadBalancerResponseQuery()}					
 					}
 				}
 			}

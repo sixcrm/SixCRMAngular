@@ -1,5 +1,5 @@
 import {ProductSchedule} from './product-schedule.model';
-import {LoadBalancer} from './load-balancers.model';
+import {LoadBalancer} from './load-balancer.model';
 import {Entity} from './entity.interface';
 import {utc, Moment} from 'moment';
 import {EmailTemplate} from './email-template.model';

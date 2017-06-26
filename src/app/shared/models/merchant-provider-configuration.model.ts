@@ -1,4 +1,4 @@
-import {MerchantProvider} from './merchant-provider.model';
+import {MerchantProvider} from './merchant-provider/merchant-provider.model';
 import {Entity} from './entity.interface';
 
 export class MerchantProviderConfiguration implements Entity<MerchantProviderConfiguration> {

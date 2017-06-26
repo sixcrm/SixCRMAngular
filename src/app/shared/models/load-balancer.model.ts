@@ -1,8 +1,11 @@
 import {MerchantProviderConfiguration} from './merchant-provider-configuration.model';
 import {Entity} from './entity.interface';
+import {Moment, utc} from 'moment';
 
 export class LoadBalancer implements Entity<LoadBalancer> {
   id: string;
+  createdAt: Moment;
+  updatedAt: Moment;
   merchantProviderConfigurations: MerchantProviderConfiguration[] = [];
 
   constructor(obj?: any) {
@@ -11,6 +14,9 @@ export class LoadBalancer implements Entity<LoadBalancer> {
     }
 
     this.id = obj.id || '';
+    this.createdAt = utc(obj.created_at);
+    this.updatedAt = utc(obj.updated_at);
+
     if (obj.merchantproviderconfigurations) {
       this.merchantProviderConfigurations = obj.merchantproviderconfigurations.map(c => new MerchantProviderConfiguration(c));
     }
@@ -24,6 +30,8 @@ export class LoadBalancer implements Entity<LoadBalancer> {
   inverse(): any {
     return {
       id: this.id,
+      created_at: this.createdAt.clone().format(),
+      updated_at: this.updatedAt.clone().format(),
       merchantproviderconfigurations: this.merchantProviderConfigurations.map(c => c.inverse())
     }
   }

@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {MerchantProvidersService} from "../../shared/services/merchant-providers.service";
-import {MerchantProvider} from '../../shared/models/merchant-provider.model';
+import {MerchantProvider} from '../../shared/models/merchant-provider/merchant-provider.model';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {MdDialog} from '@angular/material';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
@@ -29,10 +29,8 @@ export class MerchantProvidersComponent extends AbstractEntityIndexComponent<Mer
 
     this.columnParams = [
       new ColumnParams('Name', (e: MerchantProvider) => e.name),
-      new ColumnParams('Username',(e: MerchantProvider) => e.username),
-      new ColumnParams('Endpoint', (e: MerchantProvider) => e.endpoint),
-      new ColumnParams('Password', (e: MerchantProvider) => e.password),
-      new ColumnParams('Processor', (e: MerchantProvider) => e.processor)
+      new ColumnParams('Endpoint', (e: MerchantProvider) => e.gateway.endpoint),
+      new ColumnParams('Processor name', (e: MerchantProvider) => e.processor.name)
     ];
   }
 

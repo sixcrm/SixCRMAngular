@@ -11,7 +11,7 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {ProductScheduleService} from '../../../shared/services/product-schedule.service';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
-import {LoadBalancer} from '../../../shared/models/load-balancers.model';
+import {LoadBalancer} from '../../../shared/models/load-balancer.model';
 import {LoadBalancersService} from '../../../shared/services/load-balancers.service';
 
 @Component({

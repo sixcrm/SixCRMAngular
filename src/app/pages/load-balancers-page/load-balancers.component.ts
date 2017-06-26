@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {LoadBalancersService} from "../../shared/services/load-balancers.service";
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
-import {LoadBalancer} from '../../shared/models/load-balancers.model';
+import {LoadBalancer} from '../../shared/models/load-balancer.model';
 import {MdDialog} from '@angular/material';
 import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {PaginationService} from '../../shared/services/pagination.service';

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {MerchantProvider} from '../models/merchant-provider.model';
+import {MerchantProvider} from '../models/merchant-provider/merchant-provider.model';
 import {Http} from '@angular/http';
 import {
   merchantProvidersListQuery, merchantProviderQuery,

@@ -1,4 +1,3 @@
-
 import {FilterTerm} from '../../components/advanced-filter/advanced-filter.component';
 
 export function parseFilterTerms(filterTerms: FilterTerm[]): string {

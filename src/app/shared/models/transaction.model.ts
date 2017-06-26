@@ -3,7 +3,7 @@ import {ProcessorResponse} from './processor-response.model';
 import {Entity} from './entity.interface';
 import {Products} from './products.model';
 import {Moment, utc} from 'moment';
-import {MerchantProvider} from './merchant-provider.model';
+import {MerchantProvider} from './merchant-provider/merchant-provider.model';
 import {Currency} from '../utils/currency/currency';
 
 export class Transaction implements Entity<Transaction>{

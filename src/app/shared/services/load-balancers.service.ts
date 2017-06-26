@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {AbstractEntityService} from './abstract-entity.service';
 import {Http} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {LoadBalancer} from '../models/load-balancers.model';
+import {LoadBalancer} from '../models/load-balancer.model';
 import {
   loadBalancersInfoListQuery, loadBalancerQuery, deleteLoadBalancerMutation,
   createLoadBalancerMutation, updateLoadBalancerMutation

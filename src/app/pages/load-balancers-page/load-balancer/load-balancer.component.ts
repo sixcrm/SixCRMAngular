@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AbstractEntityComponent} from '../../abstract-entity-component';
 import {LoadBalancersService} from '../../../shared/services/load-balancers.service';
 import {ProgressBarService} from '../../../shared/services/progress-bar.service';
-import {LoadBalancer} from '../../../shared/models/load-balancers.model';
+import {LoadBalancer} from '../../../shared/models/load-balancer.model';
 
 @Component({
   selector: 'load-balancer',
