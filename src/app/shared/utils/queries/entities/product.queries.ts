@@ -6,7 +6,7 @@ import {Product} from '../../../models/product.model';
 
 export function productsListQuery(limit?:number, cursor?:string): string {
   return `{
-    productlist (${paginationParamsQuery(limit, cursor)}) {
+    productlist ${paginationParamsQuery(limit, cursor)} {
 			products {
 			  ${productResponseQuery()}
 			}

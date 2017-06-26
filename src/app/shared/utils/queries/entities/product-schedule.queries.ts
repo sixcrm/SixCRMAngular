@@ -7,7 +7,7 @@ import {ProductSchedule} from '../../../models/product-schedule.model';
 
 export function  productScheduleListQuery(limit?:number, cursor?:string): string {
   return `{
-    productschedulelist (${paginationParamsQuery(limit, cursor)}) {
+    productschedulelist ${paginationParamsQuery(limit, cursor)} {
 			productschedules {
         ${productScheduleInfoResponseQuery()}
 			}

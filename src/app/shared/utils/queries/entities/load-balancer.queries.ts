@@ -7,7 +7,7 @@ import {LoadBalancer} from '../../../models/load-balancer.model';
 
 export function loadBalancersInfoListQuery(limit?:number, cursor?:string): string {
   return `{
-    loadbalancerlist (${paginationParamsQuery(limit, cursor)}) {
+    loadbalancerlist ${paginationParamsQuery(limit, cursor)} {
 			loadbalancers { 
 			  ${loadBalancerInfoResponseQuery()} 
       }

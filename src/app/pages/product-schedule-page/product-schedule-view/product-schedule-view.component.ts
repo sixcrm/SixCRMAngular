@@ -36,7 +36,6 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   scheduleToAdd: Schedule = new Schedule();
   scheduleMapper = (s: Schedule) => s.product.name;
   productMapper = (p: Product) => p.name;
-  isNumeric = isAllowedNumeric;
 
   formInvalid: boolean;
 

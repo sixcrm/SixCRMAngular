@@ -15,10 +15,36 @@ export function addId(id: string, includeId?: boolean): string {
 }
 
 export function paginationParamsQuery(limit?: number, cursor?: string): string {
-  let lim = !!limit ? `limit: "${limit}"` : '';
-  let cur = !!cursor ? `cursor: "${cursor}"` : '';
+  if (!cursor && !limit) return '';
 
-  let params = `pagination: {${lim} ${cur}}`;
+  let builder = new QueryBuilder('(pagination: {');
+  if (!!limit) builder.appendEnd(`limit:"${limit}"`);
+  if (!!cursor) builder.appendEnd(`cursor:"${cursor}"`);
+  builder.appendEnd('})');
 
-  return limit || cur ? `${params}` : '';
+  return builder.build();
+}
+
+export class QueryBuilder {
+  query: string;
+
+  constructor (query?: any) {
+    this.query = query || '';
+  }
+
+  appendEnd(query: any, separator?: string) {
+    this.query = `${this.query} ${separator ? separator : ''} ${query}`;
+
+    return this;
+  }
+
+  appendStart(query: any, separator?: string) {
+    this.query = `${query}${separator ? separator : ''} ${this.query}`;
+
+    return this;
+  }
+
+  build(): string {
+    return this.query;
+  }
 }

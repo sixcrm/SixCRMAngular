@@ -1,46 +1,74 @@
-<div class="entity-view">
-  <div class="entity-view__title">Load Balancer Details</div>
+<div *ngIf="entity; else spinner" class="entity-view">
+  <div class="entity-view__title">Load Balancer</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <div *ngIf="entity" class="entity-view__content">
-
-    <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>
-
-    <div class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">ID:</span>
-        <span>{{entity.id}}</span>
-      </div>
+  <div class="entity-view__info">
+    <div class="entity-view__info__image">
+      <img src="/assets/images/result-item-transaction-white.svg" alt="">
     </div>
-
-    <div class="entity-view__content__title"> Merchant Provider Configurations </div>
-
-    <div *ngFor="let config of entity.merchantProviderConfigurations" class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Distribution:</span>
-        <span>{{config.distribution}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Name:</span>
-        <span>{{config.merchantProvider.name}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Username:</span>
-        <span>{{config.merchantProvider.username}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Password:</span>
-        <span>{{config.merchantProvider.password}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Processor:</span>
-        <span>{{config.merchantProvider.processor}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Endpoint:</span>
-        <span>{{config.merchantProvider.endpoint}}</span>
+    <div class="entity-view__info__data">
+      <div *ngIf="!addMode" class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div class="entity-view__info__data__name">
+        <span *ngIf="!addMode; else createMessage">
+          {{entityBackup.id}}
+        </span>
+        <ng-template #createMessage>
+          Create new Load Balancer
+        </ng-template>
       </div>
     </div>
   </div>
+
+  <div class="entity-view__navigation">
+    <span class="entity-view__navigation__label entity-view__navigation__label--active">GENERAL DETAILS</span>
+  </div>
+
+  <md-tab-group [(selectedIndex)]="selectedIndex">
+    <md-tab>
+      <div class="entity-view__card">
+        <div class="entity-view__card__header">
+          <div class="entity-view__card__header__title">Add Merchant Provider</div>
+          <md-icon>more_vert</md-icon>
+        </div>
+        <form #merchantProviderInputForm="ngForm" class="entity-view__card__content">
+          <md-input-container style="width: 110px" class="entity-view__card__content__item" [class.error]="formInvalid && !providerToAdd.distribution">
+            <input required md-input placeholder="Distribution" name="distribution" (keydown)="isFloatNumeric($event)" [(ngModel)]="providerToAdd.distribution" type="text">
+          </md-input-container>
+
+          <autocomplete-input style="font-size: 14px;"
+                              [class.error]="formInvalid && !providerToAdd.merchantProvider.id"
+                              [initialValue]="providerToAdd.merchantProvider.name"
+                              [options]="merchantProviderService.entities$ | async"
+                              [placeholder]="'Merchant Provider'"
+                              [showCancelButton]="false"
+                              [mapFunction]="merchantProviderMapper"
+                              [required]="true"
+                              (selected)="providerToAdd.merchantProvider = $event">
+          </autocomplete-input>
+        </form>
+
+        <div class="entity-view__card__actions">
+          <div (click)="clearAddProvider()">CLEAR</div>
+          <div (click)="addProvider(merchantProviderInputForm.form.valid)">ADD</div>
+        </div>
+      </div>
+
+      <div class="flex-custom">
+        <table-memory class="load-balancer__merchant-providers" [title]="'Merchant Provider'"
+                      [data]="entity.merchantProviderConfigurations"
+                      [associationEnabled]="false"
+                      [associateDataMapper]="merchantProviderConfigMapper"
+                      [columnParams]="merchantProviderColumnParams"
+                      [filterEnabled]="false"
+                      (view)="navigateToMerchantProvider($event)"
+                      (disassociate)="disassociateMerchantProvider($event)">
+        </table-memory>
+      </div>
+    </md-tab>
+  </md-tab-group>
 </div>
+
+<ng-template #spinner>
+  <md-spinner class="entity-view__spinner--main"></md-spinner>
+</ng-template>

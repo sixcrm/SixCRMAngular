@@ -22,6 +22,7 @@ export class TableMemoryComponent implements OnInit {
   @Input() title: string;
   @Input() filterEnabled: boolean = true;
   @Input() associationEnabled: boolean = true;
+  @Input() dissociationEnabled: boolean = true;
 
   @Output() view: EventEmitter<boolean> = new EventEmitter();
   @Output() disassociate: EventEmitter<any> = new EventEmitter();
@@ -46,20 +47,28 @@ export class TableMemoryComponent implements OnInit {
 
   ngOnInit() { }
 
-  updateLimit(limit: number): void {
-    this.limit = limit;
+  updateLimit(lim: number): void {
+    if (!lim) return;
+
+    let firstElement: number = this.page * this.limit;
+    this.page = Math.floor(firstElement / lim);
+    this.limit = lim;
+
+    this.reshuffle();
   }
 
   next(): void {
     this.page++;
+    this.reshuffle();
   }
 
   previous(): void {
-    this.page++;
+    this.page--;
+    this.reshuffle();
   }
 
   hasMorePages(): boolean {
-    return this.entities.length > this.page * this.limit + this.limit;
+    return this.entitiesHolder.length > this.page * this.limit + this.limit;
   }
 
   reshuffle(): void {
@@ -102,6 +111,5 @@ export class TableMemoryComponent implements OnInit {
     params.sortApplied = true;
     this.sortedColumnParams = params;
   }
-
 
 }

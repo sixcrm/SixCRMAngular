@@ -6,7 +6,7 @@ import {
 
 export function merchantProvidersListQuery(limit?:number, cursor?:string): string {
   return `{
-    merchantproviderlist (${paginationParamsQuery(limit, cursor)}) {
+    merchantproviderlist ${paginationParamsQuery(limit, cursor)} {
       merchantproviders {
         ${merchantProviderInfoResponseQuery()}
       }

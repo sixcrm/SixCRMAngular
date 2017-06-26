@@ -3,7 +3,7 @@ import {AbstractEntityService} from '../shared/services/abstract-entity.service'
 import {AsyncSubject} from 'rxjs';
 import {ProgressBarService} from '../shared/services/progress-bar.service';
 import {Entity} from '../shared/models/entity.interface';
-import {isAllowedNumeric} from '../shared/utils/form.utils';
+import {isAllowedNumeric, isAllowedFloatNumeric} from '../shared/utils/form.utils';
 import {getCurrencyMask} from '../shared/utils/mask.utils';
 
 enum Modes {
@@ -24,6 +24,7 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
   modes = Modes;
 
   isNumeric = isAllowedNumeric;
+  isFloatNumeric = isAllowedFloatNumeric;
   numberMask = getCurrencyMask();
 
   protected takeUpdated: boolean = true;
