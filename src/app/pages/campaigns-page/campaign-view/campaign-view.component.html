@@ -43,17 +43,6 @@
             <md-input-container class="entity-view__card__content__item">
               <input required md-input [disabled]="viewMode" placeholder="Campaign name" [(ngModel)]="entity.name" type="text">
             </md-input-container>
-
-            <dropdown-component
-              class="dropdown-component--big campaign-view__dropdown"
-              [options]="loadBalancerService.entities$ | async"
-              [selected]="entity.loadBalancer"
-              [placeholder]="'Load Balancer'"
-              [required]="true"
-              [disabled]="viewMode"
-              [mapper]="loadBalancerMapper"
-              (onSelect)="entity.loadBalancer = $event">
-            </dropdown-component>
           </div>
 
           <div *ngIf="!viewMode" class="entity-view__card__actions">

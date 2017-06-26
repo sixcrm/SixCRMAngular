@@ -1,5 +1,4 @@
 import {ProductSchedule} from './product-schedule.model';
-import {LoadBalancer} from './load-balancer.model';
 import {Entity} from './entity.interface';
 import {utc, Moment} from 'moment';
 import {EmailTemplate} from './email-template.model';
@@ -9,7 +8,6 @@ export class Campaign implements Entity<Campaign>{
   name: string;
   productSchedules: ProductSchedule[] = [];
   emailTemplates: EmailTemplate[] = [];
-  loadBalancer: LoadBalancer;
   createdAt: Moment;
   updatedAt: Moment;
 
@@ -31,8 +29,6 @@ export class Campaign implements Entity<Campaign>{
     if (obj.emailtemplates) {
       this.emailTemplates = obj.emailtemplates.map(e => new EmailTemplate(e));
     }
-
-    this.loadBalancer = new LoadBalancer(obj.loadbalancer);
   }
 
   copy(): Campaign {
@@ -45,7 +41,6 @@ export class Campaign implements Entity<Campaign>{
       name: this.name,
       productschedules: this.productSchedules.map(p => p.inverse()),
       emailtemplates: this.emailTemplates.map(e => e.inverse()),
-      loadbalancer: this.loadBalancer.inverse(),
       created_at: this.createdAt.clone().format(),
       updated_at: this.createdAt.clone().format()
     }

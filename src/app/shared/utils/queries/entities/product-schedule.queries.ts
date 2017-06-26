@@ -46,7 +46,7 @@ export function updateProductScheduleMutation(schedule: ProductSchedule): string
 	  }`
 }
 
-function productScheduleResponseQuery(): string {
+export function productScheduleResponseQuery(): string {
   return `
     id name created_at updated_at,
     schedule { price start end period,
@@ -57,11 +57,11 @@ function productScheduleResponseQuery(): string {
     }`
 }
 
-function productScheduleInfoResponseQuery(): string {
+export function productScheduleInfoResponseQuery(): string {
   return `id name created_at updated_at schedule { price}`
 }
 
-function productScheduleInputQuery(productSchedule: ProductSchedule, includeId?: boolean): string {
+export function productScheduleInputQuery(productSchedule: ProductSchedule, includeId?: boolean): string {
   let schedules = productSchedule.schedules.reduce((a,b) => `${a} {product_id: "${b.product.id}", start: ${b.start}, ${b.end ? `end: ${b.end},` : ''} price: ${b.price.amount}, period: ${b.period}}, `, '');
 
   return `${addId(productSchedule.id, includeId)}, name: "${productSchedule.name}" schedule: [${schedules}]`;

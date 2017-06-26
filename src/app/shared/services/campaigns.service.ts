@@ -1,12 +1,12 @@
 import {Injectable} from "@angular/core";
 import {Campaign} from '../models/campaign.model';
 import {Http} from "@angular/http";
-import {
-  campaignsInfoListQuery, campaignQuery, deleteCampaignMutation,
-  createCampaignMutation, updateCampaignMutation
-} from '../utils/query-builder';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {AbstractEntityService} from './abstract-entity.service';
+import {
+  campaignsInfoListQuery, campaignQuery,
+  deleteCampaignMutation, createCampaignMutation, updateCampaignMutation
+} from '../utils/queries/entities/campaign.queries';
 
 @Injectable()
 export class CampaignsService extends AbstractEntityService<Campaign> {

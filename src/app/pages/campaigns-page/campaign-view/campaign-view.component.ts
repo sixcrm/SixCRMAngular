@@ -11,8 +11,6 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {ProductScheduleService} from '../../../shared/services/product-schedule.service';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
-import {LoadBalancer} from '../../../shared/models/load-balancer.model';
-import {LoadBalancersService} from '../../../shared/services/load-balancers.service';
 
 @Component({
   selector: 'campaign-view',
@@ -37,8 +35,6 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
     new ColumnParams('Products in schedule', (e: ProductSchedule) => e.schedules.length, 'right')
   ];
 
-  loadBalancerMapper = (el: LoadBalancer) => el.id;
-
   constructor(
     service: CampaignsService,
     route: ActivatedRoute,
@@ -46,7 +42,6 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
     public navigation: NavigationService,
     public emailTemplateService: EmailTemplatesService,
     public productScheduleService: ProductScheduleService,
-    public loadBalancerService: LoadBalancersService,
     private router: Router
   ) {
     super(service, route, progressBar);
@@ -71,7 +66,6 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
   fetchDependencies(): void {
     this.emailTemplateService.getEntities();
     this.productScheduleService.getEntities();
-    this.loadBalancerService.getEntities();
   }
 
   setIndex(value: number): void {

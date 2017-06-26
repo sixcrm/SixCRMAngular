@@ -12,70 +12,12 @@ import {NotificationSettings} from '../models/notification-settings.model';
 import {Rebill} from '../models/rebill.model';
 import {Tracker} from '../models/tracker.model';
 import {EmailTemplate} from '../models/email-template.model';
-import {Campaign} from '../models/campaign.model';
 import {loadBalancerResponseQuery} from './queries/entities/load-balancer.queries';
 
 const uuidV4 = require('uuid/v4');
 
 function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
-}
-
-export function campaignQuery(id: string): string {
-  return `{
-    campaign (id: "${id}") {
-      ${campaignResponseQuery()}
-    }
-  }`
-}
-
-export function campaignsInfoListQuery(limit?:number, cursor?:string): string {
-  return `{
-    campaignlist ${pageParams(limit, cursor)} {
-      campaigns {
-        ${campaignResponseQuery()}
-      }
-      ${paginationString()}
-    }}`
-}
-
-export function deleteCampaignMutation(id: string): string {
-  return deleteMutation('campaign', id);
-}
-
-export function createCampaignMutation(campaign: Campaign): string {
-  return `
-    mutation { 
-		  createcampaign ( campaign: { name: "${campaign.name}", loadbalancer: "${campaign.loadBalancer.id}", productschedules:[${campaign.productSchedules.map(s => `"${s.id}"`)}], emailtemplates:[${campaign.emailTemplates.map(t => t && t.id ? `"${t.id}"` : '')}] } ) {
-	  		${campaignResponseQuery()}
-      }
-		}`
-}
-
-export function updateCampaignMutation(campaign: Campaign): string {
-  return `
-    mutation { 
-		  updatecampaign ( campaign: { id: "${campaign.id}", name: "${campaign.name}", loadbalancer: "${campaign.loadBalancer.id}", productschedules:[${campaign.productSchedules.map(s => `"${s.id}"`)}], emailtemplates:[${campaign.emailTemplates.map(t => t && t.id ? `"${t.id}"` : '')}] } ) {
-        ${campaignResponseQuery()}
-			}
-		}`
-}
-
-function campaignResponseQuery(): string {
-  return `
-    id name created_at updated_at,
-    productschedules { id name,
-      loadbalancers { ${loadBalancerResponseQuery()} }
-      schedule { price start end period,
-        product { id name sku ship shipping_delay,
-          fulfillment_provider { id name provider username password endpoint }
-        }
-      }
-    }
-    emailtemplates {
-      id name subject body type,
-      smtp_provider { id name hostname }
-    }`
 }
 
 export function fulfillmentProvidersListQuery(limit?:number, cursor?:string): string {
