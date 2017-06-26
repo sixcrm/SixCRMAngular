@@ -42,25 +42,17 @@
             </md-menu>
           </div>
 
-          <form #scheduleInputForm="ngForm" class="entity-view__card__content">
+          <form #scheduleInputForm="ngForm" class="entity-view__card__content merchant-provider-view__details">
 
             <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !entity.name">
               <input [disabled]="viewMode" required md-input placeholder="Name" name="name" [(ngModel)]="entity.name" type="text">
             </md-input-container>
 
-            <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !entity.username">
-              <input [disabled]="viewMode" required md-input placeholder="Username" name="username" [(ngModel)]="entity.username" type="text">
-            </md-input-container>
+            <md-checkbox [disabled]="viewMode" class="entity-view__card__content__item" name="enabled" [(ngModel)]="entity.enabled">Enabled</md-checkbox>
 
-            <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !entity.password">
-              <input [disabled]="viewMode" required md-input placeholder="Password" name="password" [(ngModel)]="entity.password" type="text">
-            </md-input-container>
+            <md-checkbox [disabled]="viewMode" class="entity-view__card__content__item" name="allowPrepaid" [(ngModel)]="entity.allowPrepaid">Allow Prepaid</md-checkbox>
 
-            <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !entity.endpoint">
-              <input [disabled]="viewMode" required md-input placeholder="Endpoint" name="endpoint" [(ngModel)]="entity.endpoint" type="text">
-            </md-input-container>
-
-            <dropdown-component [disabled]="true" [placeholder]="'Processor'" [selected]="entity.processor"></dropdown-component>
+            <dropdown-component [disabled]="true" [placeholder]="'Processor'" [selected]="entity.processor.name"></dropdown-component>
 
           </form>
 

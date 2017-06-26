@@ -678,7 +678,7 @@ export function updateEmailTemplateMutation(emailTemplate: EmailTemplate): strin
   return `mutation { 
 		updateemailtemplate (emailtemplate: { id: "${emailTemplate.id}", name: "${emailTemplate.name}", subject: "${emailTemplate.subject}", body: "${emailTemplate.body.replace(/"/g, '\\"')}", type: "${emailTemplate.type.toLowerCase()}", smtp_provider:"${emailTemplate.smtpProvider.id}"}) { 
 			id name subject body type created_at updated_at,
-			smtp_provider { id name hostname ip_address username password port },
+			smtp_provider { ${smtpProviderResponseQuery()} },
 		} 
 	}`;
 }
@@ -687,7 +687,7 @@ export function createEmailTemplateMutation(emailTemplate: EmailTemplate): strin
   return `mutation { 
 		createemailtemplate (emailtemplate: { name: "${emailTemplate.name}", subject: "${emailTemplate.subject}", body: "${emailTemplate.body.replace(/"/g, '\\"')}", type: "${emailTemplate.type.toLowerCase()}", smtp_provider:"${emailTemplate.smtpProvider.id}"}) { 
 			id name subject body type created_at updated_at,
-			smtp_provider { id name hostname ip_address username password port },
+			smtp_provider { ${smtpProviderResponseQuery()} },
 		} 
 	}`;
 }

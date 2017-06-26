@@ -55,7 +55,7 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
       this.entity = new Tracker();
       this.affiliateService.getEntities();
     } else {
-      this.service.entity$.take(1).subscribe(() => this.affiliateService.getEntities());
+      this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(() => this.affiliateService.getEntities());
     }
 
     let f = this.authService.getTimezone();

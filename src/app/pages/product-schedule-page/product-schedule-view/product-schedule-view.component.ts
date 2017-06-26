@@ -59,9 +59,9 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
       this.entity = new ProductSchedule();
       this.entityBackup = new ProductSchedule();
       this.productsService.getEntities();
+    } else {
+      this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(() => this.productsService.getEntities())
     }
-
-    this.service.entity$.take(1).subscribe(() => this.productsService.getEntities())
   }
 
   ngOnDestroy() {

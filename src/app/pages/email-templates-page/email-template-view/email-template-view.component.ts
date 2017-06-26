@@ -40,9 +40,10 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     if (this.addMode) {
       this.entity = new EmailTemplate();
       this.entityBackup = new EmailTemplate();
+      this.smtpProviderService.getEntities();
+    } else {
+      this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(() => this.smtpProviderService.getEntities());
     }
-
-    this.smtpProviderService.getEntities();
   }
 
   ngOnDestroy() {

@@ -2,4 +2,14 @@
   &__load-balancers {
     flex-basis: 100%;
   }
+
+  &__details {
+    md-checkbox {
+      margin-bottom: 10px;
+    }
+
+    dropdown-component {
+      margin-top: 10px;
+    }
+  }
 }

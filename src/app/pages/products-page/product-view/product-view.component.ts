@@ -36,8 +36,10 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
       this.entity = new Product();
       this.entity.ship = 'true';
       this.entityBackup = this.entity.copy();
+      this.fulfillmentProvidersService.getEntities();
+    } else {
+      this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(() => this.fulfillmentProvidersService.getEntities());
     }
-    this.fulfillmentProvidersService.getEntities();
   }
 
   ngOnDestroy() {
