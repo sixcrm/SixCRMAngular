@@ -13,6 +13,12 @@ import {NavigationService} from '../../../navigation/navigation.service';
 })
 export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> implements OnInit, OnDestroy {
 
+  selectedIndex: number = 0;
+
+  billdate: string = 'asdf';
+  billamount: string = 'bbb';
+  parentsession: string = 'ccc';
+
   constructor(
     service: RebillsService,
     route: ActivatedRoute,
@@ -24,6 +30,12 @@ export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> imp
 
   ngOnInit() {
     this.init();
+
+    this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(entity => {
+      this.billdate = entity.billAt.format('MM/DD/YYYY');
+      this.billamount = entity.amount.usd();
+      this.parentsession = entity.parentSession.id;
+    })
   }
 
   ngOnDestroy() {

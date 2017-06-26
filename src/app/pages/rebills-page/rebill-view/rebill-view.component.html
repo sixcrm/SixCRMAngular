@@ -1,36 +1,54 @@
-<div *ngIf="entity" class="entity-view">
-  <div class="entity-view__title">Rebill {{entity.id}}</div>
+<div *ngIf="entity; else spinner" class="entity-view">
+  <div class="entity-view__title">Rebill</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <div *ngIf="entity" class="entity-view__content">
-
-    <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>
-
-    <div class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">ID:</span>
-        <span>{{entity.id}}</span>
-      </div>
-
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Amount:</span>
-        <span>{{entity.amount}}</span>
-      </div>
-
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Billed At:</span>
-        <span>{{entity.billAt ? entity.billAt.format() : 'not billed'}}</span>
-      </div>
-
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Created At:</span>
-        <span>{{entity.createdAt.format()}}</span>
-      </div>
-
+  <div class="entity-view__info">
+    <div class="entity-view__info__image">
+      <img src="/assets/images/result-item-transaction-white.svg" alt="">
     </div>
-
-
+    <div class="entity-view__info__data">
+      <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div class="entity-view__info__data__name">
+        <span>
+          {{entityBackup.id}}
+        </span>
+      </div>
+    </div>
   </div>
+
+  <div class="entity-view__navigation">
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
+  </div>
+
+  <md-tab-group [(selectedIndex)]="selectedIndex">
+    <md-tab>
+
+      <div class="entity-view__card campaign-view__card">
+        <div class="entity-view__card__header">
+          <div class="entity-view__card__header__title">Rebill Information</div>
+          <md-icon>more_vert</md-icon>
+        </div>
+
+        <div class="entity-view__card__content">
+          <md-input-container style="width: 120px;" class="entity-view__card__content__item">
+            <input disabled md-input placeholder="Billed at Date" [(ngModel)]="billdate" type="text">
+          </md-input-container>
+
+          <md-input-container style="width: 120px;" class="entity-view__card__content__item">
+            <input disabled md-input placeholder="Amount" [(ngModel)]="billamount" type="text">
+          </md-input-container>
+
+          <md-input-container class="entity-view__card__content__item">
+            <input disabled md-input placeholder="Parent Session" [(ngModel)]="parentsession" type="text">
+          </md-input-container>
+        </div>
+      </div>
+
+    </md-tab>
+  </md-tab-group>
 </div>
 
+<ng-template #spinner>
+  <md-spinner class="entity-view__spinner--main"></md-spinner>
+</ng-template>
