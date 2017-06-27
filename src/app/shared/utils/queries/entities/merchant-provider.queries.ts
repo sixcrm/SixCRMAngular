@@ -30,7 +30,7 @@ export function deleteMerchantProviderMutation(id: string): string {
 export function createMerchantProviderMutation(provider: MerchantProvider): string {
   return `
     mutation {
-		  createmerchantprovider (merchantprovider: { ${merchantProviderInputQuery(provider)} ) {
+		  createmerchantprovider (merchantprovider: { ${merchantProviderInputQuery(provider)} } ) {
         ${merchantProviderResponseQuery()}
 		  }
 	  }`
@@ -39,7 +39,7 @@ export function createMerchantProviderMutation(provider: MerchantProvider): stri
 export function updateMerchantProviderMutation(provider: MerchantProvider): string {
   return `
     mutation {
-		  updatemerchantprovider (merchantprovider: { ${merchantProviderInputQuery(provider, true)} ) {
+		  updatemerchantprovider (merchantprovider: { ${merchantProviderInputQuery(provider, true)} } ) {
 			  ${merchantProviderResponseQuery()}
 		  }
 	  }`
@@ -61,6 +61,40 @@ export function merchantProviderInfoResponseQuery(): string {
 }
 
 export function merchantProviderInputQuery(provider: MerchantProvider, includeId?: boolean): string {
-  return `${addId(provider.id, includeId)}`;
+  return `
+    ${addId(provider.id, includeId)},
+    name:"${provider.name}",
+    enabled:${provider.enabled},
+    allow_prepaid:${provider.allowPrepaid},
+    accepted_payment_methods:[${provider.acceptedPaymentMethods.map(m => `"${m}"`)}],
+    processing:{
+      monthly_cap: ${provider.processing.monthlyCap},
+      discount_rate: ${provider.processing.discountRate},
+      transaction_fee: ${provider.processing.transactionFee},
+      reserve_rate: ${provider.processing.reserveRate},
+      maximum_chargeback_ratio: ${provider.processing.maximumChargebackRatio},
+      transaction_counts: {
+        daily:${provider.processing.transactionCounts.daily},
+        weekly:${provider.processing.transactionCounts.weekly},
+        monthly:${provider.processing.transactionCounts.monthly}
+      }
+    },
+    processor:{
+      name:"NMA",
+      id:"Some ID"
+    },
+    gateway:{
+      name:"${provider.gateway.name}",
+      username:"${provider.gateway.username}",
+      password:"${provider.gateway.password}",
+      endpoint:"${provider.gateway.endpoint}",
+      additional:"${provider.gateway.additional.replace(/"/g, '\\"')}"
+    },
+    customer_service:{
+      email:"${provider.customerService.email}",
+      url:"${provider.customerService.url}",
+      description:"${provider.customerService.description.replace(/"/g, '\\"')}"
+    }
+  `;
 }
 

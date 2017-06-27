@@ -116,7 +116,7 @@
           </div>
 
           <form #processingInputForm="ngForm" class="entity-view__card__content merchant-provider-view__details">
-            <dropdown-component [disabled]="true" [placeholder]="'Processor'" [selected]="'NMI'"></dropdown-component>
+            <dropdown-component [disabled]="true" [placeholder]="'Processor'" [selected]="'NMA'"></dropdown-component>
 
             <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.username">
               <input [disabled]="viewMode" md-input placeholder="Username" name="username" [(ngModel)]="entity.gateway.username" type="text">
