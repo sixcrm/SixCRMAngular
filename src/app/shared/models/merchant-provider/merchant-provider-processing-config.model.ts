@@ -13,12 +13,12 @@ export class MerchantProviderProcessingConfig {
       obj = {};
     }
 
-    this.discountRate = obj.discount_rate || 0;
-    this.maximumChargebackRatio = obj.maximum_chargeback_ratio || 0;
-    this.monthlyCap = obj.monthly_cap || 0;
-    this.reserveRate = obj.reserve_rate || 0;
+    this.discountRate = obj.discount_rate;
+    this.maximumChargebackRatio = obj.maximum_chargeback_ratio;
+    this.monthlyCap = obj.monthly_cap;
+    this.reserveRate = obj.reserve_rate;
     this.transactionCounts = new MerchantProviderProcessingConfigCounts(obj.transaction_counts);
-    this.transactionFee = obj.transaction_fee || 0;
+    this.transactionFee = obj.transaction_fee;
   }
 
   copy(): MerchantProviderProcessingConfig {

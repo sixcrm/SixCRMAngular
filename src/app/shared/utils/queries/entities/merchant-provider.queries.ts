@@ -69,14 +69,14 @@ export function merchantProviderInputQuery(provider: MerchantProvider, includeId
     accepted_payment_methods:[${provider.acceptedPaymentMethods.map(m => `"${m}"`)}],
     processing:{
       monthly_cap: ${provider.processing.monthlyCap},
-      discount_rate: ${provider.processing.discountRate},
-      transaction_fee: ${provider.processing.transactionFee},
-      reserve_rate: ${provider.processing.reserveRate},
-      maximum_chargeback_ratio: ${provider.processing.maximumChargebackRatio},
+      ${provider.processing.discountRate ? `discount_rate: ${provider.processing.discountRate},` : ''}
+      ${provider.processing.transactionFee ? `transaction_fee: ${provider.processing.transactionFee},` : ''}
+      ${provider.processing.reserveRate ? `reserve_rate: ${provider.processing.reserveRate},` : ''}
+      ${provider.processing.maximumChargebackRatio ? `maximum_chargeback_ratio: ${provider.processing.maximumChargebackRatio},` : ''}
       transaction_counts: {
-        daily:${provider.processing.transactionCounts.daily},
-        weekly:${provider.processing.transactionCounts.weekly},
-        monthly:${provider.processing.transactionCounts.monthly}
+        ${provider.processing.transactionCounts.daily ? `daily: ${provider.processing.transactionCounts.daily},` : ''}
+        ${provider.processing.transactionCounts.weekly ? `weekly: ${provider.processing.transactionCounts.weekly},` : ''}
+        ${provider.processing.transactionCounts.monthly ? `monthly: ${provider.processing.transactionCounts.monthly},` : ''}
       }
     },
     processor:{
@@ -88,12 +88,12 @@ export function merchantProviderInputQuery(provider: MerchantProvider, includeId
       username:"${provider.gateway.username}",
       password:"${provider.gateway.password}",
       endpoint:"${provider.gateway.endpoint}",
-      additional:"${provider.gateway.additional.replace(/"/g, '\\"')}"
+      ${provider.gateway.additional ? `additional: "${provider.gateway.additional.replace(/"/g, '\\"')}",` : ''}
     },
     customer_service:{
-      email:"${provider.customerService.email}",
-      url:"${provider.customerService.url}",
-      description:"${provider.customerService.description.replace(/"/g, '\\"')}"
+      ${provider.customerService.email ? `email: "${provider.customerService.email}",` : ''}
+      ${provider.customerService.url ? `url: "${provider.customerService.url}",` : ''}
+      ${provider.customerService.description ? `description: "${provider.customerService.description.replace(/"/g, '\\"')}",` : ''}
     }
   `;
 }

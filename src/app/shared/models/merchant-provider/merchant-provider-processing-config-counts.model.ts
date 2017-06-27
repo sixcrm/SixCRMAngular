@@ -8,9 +8,9 @@ export class MerchantProviderProcessingConfigCounts {
       obj = {};
     }
 
-    this.daily = obj.daily || 0;
-    this.monthly = obj.monthly || 0;
-    this.weekly = obj.weekly || 0;
+    this.daily = obj.daily;
+    this.monthly = obj.monthly;
+    this.weekly = obj.weekly;
   }
 
   copy(): MerchantProviderProcessingConfigCounts {

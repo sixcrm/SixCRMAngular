@@ -11,7 +11,6 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {ProductsService} from '../../../shared/services/products.service';
 import {Product} from '../../../shared/models/product.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
-import {isAllowedNumeric} from '../../../shared/utils/form.utils';
 import {parseCurrencyMaskedValue} from '../../../shared/utils/mask.utils';
 
 @Component({

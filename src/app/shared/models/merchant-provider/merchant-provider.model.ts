@@ -22,9 +22,9 @@ export class MerchantProvider implements Entity<MerchantProvider>{
 
     this.id = obj.id || '';
     this.name = obj.name || '';
-    this.enabled = obj.enabled || false;
+    this.enabled = obj.enabled || true;
     this.allowPrepaid = obj.allow_prepaid || false;
-    this.acceptedPaymentMethods = obj.accepted_payment_methods || '';
+    this.acceptedPaymentMethods = obj.accepted_payment_methods || [];
     this.customerService = new MerchantProviderCustomerService(obj.customer_service);
     this.gateway = new MerchantProviderGateway(obj.gateway);
     this.processing = new MerchantProviderProcessingConfig(obj.processing);

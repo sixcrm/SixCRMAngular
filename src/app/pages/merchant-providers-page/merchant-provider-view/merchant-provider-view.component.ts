@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {MerchantProvider} from '../../../shared/models/merchant-provider/merchant-provider.model';
 import {MerchantProvidersService} from '../../../shared/services/merchant-providers.service';
@@ -14,6 +14,8 @@ import {LoadBalancer} from '../../../shared/models/load-balancer.model';
   styleUrls: ['./merchant-provider-view.component.scss']
 })
 export class MerchantProviderViewComponent extends AbstractEntityViewComponent<MerchantProvider> implements OnInit, OnDestroy {
+
+  @ViewChild('nameFieldAddMode') nameField;
 
   selectedIndex: number = 0;
   formInvalid: boolean;
@@ -31,11 +33,17 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
     if (this.addMode) {
       this.entity = new MerchantProvider();
       this.entityBackup = this.entity.copy();
+      setTimeout(() => {if (this.nameField && this.nameField.nativeElement) this.nameField.nativeElement.focus()}, 50);
     }
   }
 
   ngOnDestroy() {
     this.destroy();
+  }
+
+  cancelEdit(): void {
+    this.formInvalid = false;
+    this.cancelUpdate();
   }
 
   saveProvider(valid: boolean): void {
