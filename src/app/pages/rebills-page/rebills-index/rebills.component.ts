@@ -1,13 +1,13 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Rebill} from '../../shared/models/rebill.model';
-import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
-import {RebillsService} from '../../shared/services/rebills.service';
-import {AuthenticationService} from '../../authentication/authentication.service';
+import {Rebill} from '../../../shared/models/rebill.model';
+import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
+import {RebillsService} from '../../../shared/services/rebills.service';
+import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {PaginationService} from '../../shared/services/pagination.service';
-import {ProgressBarService} from '../../shared/services/progress-bar.service';
+import {PaginationService} from '../../../shared/services/pagination.service';
+import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {MdDialog} from '@angular/material';
-import {ColumnParams} from '../../shared/models/column-params.model';
+import {ColumnParams} from '../../../shared/models/column-params.model';
 
 @Component({
   selector: 'rebills',

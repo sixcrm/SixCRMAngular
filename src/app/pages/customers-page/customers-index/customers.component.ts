@@ -1,13 +1,13 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {CustomersService} from "../../shared/services/customers.service";
-import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
-import {Customer} from '../../shared/models/customer.model';
+import {CustomersService} from "../../../shared/services/customers.service";
+import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
+import {Customer} from '../../../shared/models/customer.model';
 import {MdDialog} from '@angular/material';
-import {ProgressBarService} from '../../shared/services/progress-bar.service';
-import {PaginationService} from '../../shared/services/pagination.service';
-import {AuthenticationService} from '../../authentication/authentication.service';
+import {ProgressBarService} from '../../../shared/services/progress-bar.service';
+import {PaginationService} from '../../../shared/services/pagination.service';
+import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Router, ActivatedRoute} from '@angular/router';
-import {ColumnParams} from '../../shared/models/column-params.model';
+import {ColumnParams} from '../../../shared/models/column-params.model';
 
 @Component({
   selector: 'customers',

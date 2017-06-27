@@ -1,5 +1,5 @@
 import {RouterModule} from '@angular/router';
-import {UsersComponent} from './users.component';
+import {UsersComponent} from './users-index/users.component';
 import {UsersAclGuard} from '../guards/users-acl-guard.service';
 import {UserViewComponent} from './user-view/user-view.component';
 

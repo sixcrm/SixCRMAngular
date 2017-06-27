@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {campaignsRouting } from './campaigns.routing';
 import {MaterialModule} from '@angular/material';
-import {CampaignsComponent} from './campaigns.component';
+import {CampaignsComponent} from './campaigns-index/campaigns.component';
 import {CampaignViewComponent} from './campaign-view/campaign-view.component';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {CampaignsAclGuard} from '../guards/campaigns-acl-guard.service';

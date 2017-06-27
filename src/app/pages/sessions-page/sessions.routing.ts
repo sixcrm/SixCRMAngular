@@ -1,5 +1,5 @@
 import {RouterModule} from '@angular/router';
-import {SessionsComponent} from './sessions.component';
+import {SessionsComponent} from './sessions-index/sessions.component';
 import {SessionsAclGuard} from '../guards/sessions-acl-guard.service';
 import {SessionViewComponent} from './session-view/session-view.component';
 

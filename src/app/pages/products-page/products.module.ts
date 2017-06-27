@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {productsRouting} from './products.routing';
 import {MaterialModule} from '@angular/material';
-import {ProductsComponent} from './products.component';
+import {ProductsComponent} from './products-index/products.component';
 import {ProductViewComponent} from './product-view/product-view.component';
 import {ProductsAclGuard} from '../guards/products-acl-guard.service';
 import {PageComponentsModule} from '../components/pages-components.module';

@@ -1,5 +1,5 @@
 import {RouterModule} from '@angular/router';
-import {EmailTemplatesComponent} from './email-templates.component';
+import {EmailTemplatesComponent} from './email-templates-index/email-templates.component';
 import {EmailTemplateViewComponent} from './email-template-view/email-template-view.component';
 import {EmailTemplatesAclGuard} from '../guards/email-templates-acl-guard.service';
 

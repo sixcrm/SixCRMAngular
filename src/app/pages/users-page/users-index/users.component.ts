@@ -1,13 +1,13 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {User} from '../../shared/models/user.model';
-import {UsersService} from '../../shared/services/users.service';
-import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
+import {User} from '../../../shared/models/user.model';
+import {UsersService} from '../../../shared/services/users.service';
+import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {MdDialog} from '@angular/material';
-import {ProgressBarService} from '../../shared/services/progress-bar.service';
-import {PaginationService} from '../../shared/services/pagination.service';
-import {AuthenticationService} from '../../authentication/authentication.service'
+import {ProgressBarService} from '../../../shared/services/progress-bar.service';
+import {PaginationService} from '../../../shared/services/pagination.service';
+import {AuthenticationService} from '../../../authentication/authentication.service'
 import {ActivatedRoute, Router} from '@angular/router';
-import {ColumnParams} from '../../shared/models/column-params.model';
+import {ColumnParams} from '../../../shared/models/column-params.model';
 
 @Component({
   selector: 'c-users',

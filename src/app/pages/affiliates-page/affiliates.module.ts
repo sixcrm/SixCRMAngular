@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {affiliatesRouting } from './affiliates.routing';
 import {MaterialModule} from '@angular/material';
-import {AffiliatesComponent} from './affiliates.component';
+import {AffiliatesComponent} from './affiliates-index/affiliates.component';
 import {AffiliateViewComponent} from './affiliate-view/affiliate-view.component';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {AffiliatesAclGuard} from '../guards/affiliates-acl-guard.service';

@@ -1,13 +1,13 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ProductScheduleService} from '../../shared/services/product-schedule.service';
-import {ProgressBarService} from '../../shared/services/progress-bar.service';
-import {ProductSchedule} from '../../shared/models/product-schedule.model';
-import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
+import {ProductScheduleService} from '../../../shared/services/product-schedule.service';
+import {ProgressBarService} from '../../../shared/services/progress-bar.service';
+import {ProductSchedule} from '../../../shared/models/product-schedule.model';
+import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {MdDialog} from '@angular/material';
-import {PaginationService} from '../../shared/services/pagination.service';
-import {AuthenticationService} from '../../authentication/authentication.service';
+import {PaginationService} from '../../../shared/services/pagination.service';
+import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ColumnParams} from '../../shared/models/column-params.model';
+import {ColumnParams} from '../../../shared/models/column-params.model';
 
 @Component({
   selector: 'c-product-schedules',

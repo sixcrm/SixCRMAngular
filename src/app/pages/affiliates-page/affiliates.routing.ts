@@ -1,5 +1,5 @@
 import {RouterModule} from '@angular/router';
-import {AffiliatesComponent} from './affiliates.component';
+import {AffiliatesComponent} from './affiliates-index/affiliates.component';
 import {AffiliatesAclGuard} from '../guards/affiliates-acl-guard.service';
 import {AffiliateViewComponent} from './affiliate-view/affiliate-view.component';
 

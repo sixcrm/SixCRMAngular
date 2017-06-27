@@ -7,11 +7,11 @@ import {ProgressBarService} from '../../../shared/services/progress-bar.service'
 import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
-  selector: 'fulfillment-view',
-  templateUrl: './fulfillment-view.component.html',
-  styleUrls: ['./fulfillment-view.component.scss']
+  selector: 'fulfillment-provider-view',
+  templateUrl: './fulfillment-provider-view.component.html',
+  styleUrls: ['./fulfillment-provider-view.component.scss']
 })
-export class FulfillmentViewComponent extends AbstractEntityViewComponent<FulfillmentProvider> implements OnInit, OnDestroy {
+export class FulfillmentProviderViewComponent extends AbstractEntityViewComponent<FulfillmentProvider> implements OnInit, OnDestroy {
 
   selectedIndex: number = 0;
   formInvalid: boolean;

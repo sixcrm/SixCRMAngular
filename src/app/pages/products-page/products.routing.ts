@@ -1,5 +1,5 @@
 import {RouterModule} from '@angular/router';
-import {ProductsComponent} from './products.component';
+import {ProductsComponent} from './products-index/products.component';
 import {ProductsAclGuard} from '../guards/products-acl-guard.service';
 import {ProductViewComponent} from './product-view/product-view.component';
 

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {customersRouting } from './customers.routing';
 import {MaterialModule} from '@angular/material';
-import {CustomersComponent} from './customers.component';
+import {CustomersComponent} from './customers-index/customers.component';
 import {CustomerViewComponent} from './customer-view/customer-view.component';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {CustomersAclGuard} from '../guards/customers-acl-guard.service';

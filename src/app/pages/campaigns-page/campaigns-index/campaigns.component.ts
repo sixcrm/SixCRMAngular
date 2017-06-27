@@ -1,14 +1,14 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {CampaignsService} from "../../shared/services/campaigns.service";
-import {Campaign} from '../../shared/models/campaign.model';
-import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
+import {CampaignsService} from "../../../shared/services/campaigns.service";
+import {Campaign} from '../../../shared/models/campaign.model';
+import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {MdDialog} from '@angular/material';
-import {ProgressBarService} from '../../shared/services/progress-bar.service';
-import {PaginationService} from '../../shared/services/pagination.service';
-import {AuthenticationService} from '../../authentication/authentication.service';
+import {ProgressBarService} from '../../../shared/services/progress-bar.service';
+import {PaginationService} from '../../../shared/services/pagination.service';
+import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ColumnParams} from '../../shared/models/column-params.model';
-import {Currency} from '../../shared/utils/currency/currency';
+import {ColumnParams} from '../../../shared/models/column-params.model';
+import {Currency} from '../../../shared/utils/currency/currency';
 
 @Component({
   selector: 'campaigns',

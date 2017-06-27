@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {MaterialModule} from '@angular/material';
 import {PageComponentsModule} from '../components/pages-components.module';
-import {EmailTemplatesComponent} from './email-templates.component';
+import {EmailTemplatesComponent} from './email-templates-index/email-templates.component';
 import {EmailTemplatesAclGuard} from '../guards/email-templates-acl-guard.service';
 import {SharedModule} from '../../shared/shared.module';
 import {emailTemplatesRouting} from './email-templates.routing';
