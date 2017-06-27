@@ -6,7 +6,6 @@ import {MaterialModule} from '@angular/material';
 import {SessionsComponent} from './sessions.component';
 import {SessionViewComponent} from './session-view/session-view.component';
 import {SessionsAclGuard} from '../guards/sessions-acl-guard.service';
-import {SessionComponent} from './session/session.component';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {SharedModule} from '../../shared/shared.module';
 
@@ -21,12 +20,9 @@ import {SharedModule} from '../../shared/shared.module';
   ],
   declarations : [
     SessionsComponent,
-    SessionViewComponent,
-    SessionComponent
+    SessionViewComponent
   ],
-  exports : [
-    SessionComponent
-  ],
+  exports : [ ],
   providers: [
     SessionsAclGuard
   ]

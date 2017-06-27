@@ -5,7 +5,6 @@ import {MaterialModule} from '@angular/material';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {productSchedulesRouting} from './product-schedules.routing';
 import {ProductSchedulesComponent} from './product-schedules.component';
-import {ProductScheduleComponent} from './product-schedule/product-schedule.component';
 import {ProductSchedulesAclGuard} from '../guards/product-schedules-acl-guard.service';
 import {ProductScheduleViewComponent} from './product-schedule-view/product-schedule-view.component';
 import {SharedModule} from '../../shared/shared.module';
@@ -23,8 +22,7 @@ import {TextMaskModule} from 'angular2-text-mask';
   ],
   declarations : [
     ProductSchedulesComponent,
-    ProductScheduleViewComponent,
-    ProductScheduleComponent
+    ProductScheduleViewComponent
   ],
   exports : [ ],
   providers: [

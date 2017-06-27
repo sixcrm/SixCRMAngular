@@ -5,7 +5,6 @@ import {campaignsRouting } from './campaigns.routing';
 import {MaterialModule} from '@angular/material';
 import {CampaignsComponent} from './campaigns.component';
 import {CampaignViewComponent} from './campaign-view/campaign-view.component';
-import {CampaignComponent} from './campaign/campaign.component';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {CampaignsAclGuard} from '../guards/campaigns-acl-guard.service';
 import {SharedModule} from '../../shared/shared.module';
@@ -21,8 +20,7 @@ import {SharedModule} from '../../shared/shared.module';
   ],
   declarations : [
     CampaignsComponent,
-    CampaignViewComponent,
-    CampaignComponent
+    CampaignViewComponent
   ],
   exports : [ ],
   providers: [

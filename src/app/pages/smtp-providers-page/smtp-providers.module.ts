@@ -5,7 +5,6 @@ import {MaterialModule} from '@angular/material';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {smtpProvidersRouting} from './smtp-providers.routing';
 import {SmtpProvidersComponent} from './smtp-providers.component';
-import {SmtpProviderComponent} from './smtp-provider/smtp-provider.component';
 import {SmtpProvidersAclGuard} from '../guards/smtp-providers-acl-guard.service';
 import {SmtpProviderViewComponent} from './smtp-provider-view/smtp-provider-view.component';
 import {SharedModule} from '../../shared/shared.module';
@@ -21,8 +20,7 @@ import {SharedModule} from '../../shared/shared.module';
   ],
   declarations : [
     SmtpProvidersComponent,
-    SmtpProviderViewComponent,
-    SmtpProviderComponent
+    SmtpProviderViewComponent
   ],
   exports : [ ],
   providers: [

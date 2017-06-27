@@ -5,7 +5,6 @@ import {affiliatesRouting } from './affiliates.routing';
 import {MaterialModule} from '@angular/material';
 import {AffiliatesComponent} from './affiliates.component';
 import {AffiliateViewComponent} from './affiliate-view/affiliate-view.component';
-import {AffiliateComponent} from './affiliate/affiliate.component';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {AffiliatesAclGuard} from '../guards/affiliates-acl-guard.service';
 import {SharedModule} from '../../shared/shared.module';
@@ -25,7 +24,6 @@ import { AffiliateCampaignsComponent } from './affiliate-view/affiliate-campaign
   declarations : [
     AffiliatesComponent,
     AffiliateViewComponent,
-    AffiliateComponent,
     AffiliateTrackersComponent,
     AffiliateSessionsComponent,
     AffiliateCampaignsComponent

@@ -5,7 +5,6 @@ import {MaterialModule} from '@angular/material';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {loadBalancersRouting} from './load-balancers.routing';
 import {LoadBalancersComponent} from './load-balancers.component';
-import {LoadBalancerComponent} from './load-balancer/load-balancer.component';
 import {LoadBalancersAclGuard} from '../guards/load-balancers-acl-guard.service';
 import {LoadBalancerViewComponent} from './load-balancer-view/load-balancer-view.component';
 import {SharedModule} from '../../shared/shared.module';
@@ -21,12 +20,9 @@ import {SharedModule} from '../../shared/shared.module';
   ],
   declarations : [
     LoadBalancersComponent,
-    LoadBalancerViewComponent,
-    LoadBalancerComponent
+    LoadBalancerViewComponent
   ],
-  exports : [
-    LoadBalancerComponent
-  ],
+  exports : [ ],
   providers: [
     LoadBalancersAclGuard
   ]
