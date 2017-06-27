@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import {AbstractEntityService} from './abstract-entity.service';
 import {User} from '../models/user.model';
 import {Http} from '@angular/http';
-import {
-  usersListQuery, userQuery, deleteUserMutation, inviteUserMutation,
-  updateUserMutation
-} from '../utils/query-builder';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Observable, Subject} from 'rxjs';
 import {Role} from '../models/role.model';
+import {
+  usersListQuery, userQuery, deleteUserMutation,
+  updateUserMutation, inviteUserMutation
+} from '../utils/queries/entities/user.queries';
 
 @Injectable()
 export class UsersService extends AbstractEntityService<User> {

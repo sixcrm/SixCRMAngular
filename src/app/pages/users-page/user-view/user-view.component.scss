@@ -1,7 +1,13 @@
 .user-view {
   margin: 25px;
 
-  div {
-    margin-top: 15px;
+  &__item {
+    margin-top: 10px;
+    font-size: 14px;
+
+    md-slide-toggle {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
   }
 }

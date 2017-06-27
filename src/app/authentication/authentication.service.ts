@@ -5,16 +5,14 @@ import { tokenNotExpired } from 'angular2-jwt';
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {environment} from '../../environments/environment';
 import {Http, Headers} from '@angular/http';
-import {
-  userIntrospection,
-  updateUserForRegistration,
-  createCreditCardMutation,
-  acceptInviteMutation,
-  updateUserForActivation
-} from '../shared/utils/query-builder';
+import {createCreditCardMutation} from '../shared/utils/query-builder';
 import {User} from '../shared/models/user.model';
 import {CreditCard} from '../shared/models/credit-card.model';
 import {Acl} from '../shared/models/acl.model';
+import {
+  updateUserForActivation, updateUserForRegistration,
+  userIntrospection, acceptInviteMutation
+} from '../shared/utils/queries/entities/user.queries';
 
 declare var Auth0Lock: any;
 

@@ -53,6 +53,10 @@ export class User implements Entity<User> {
     return new User(this.inverse());
   }
 
+  toggleActive(): void {
+    this.active = this.active === 'true' ? 'false' : 'true';
+  }
+
   inverse(): any {
     let acls = [];
     for (let index in this.acls) {

@@ -1,7 +1,5 @@
 import {SmtpProvider} from '../models/smtp-provider.model';
-import {User} from '../models/user.model';
 import {CreditCard} from '../models/credit-card.model';
-import {FulfillmentProvider} from '../models/fulfillment-provider.model';
 import {Affiliate} from '../models/affiliate.model';
 import {Customer} from '../models/customer.model';
 import {CustomerNote} from '../models/customer-note.model';
@@ -468,108 +466,6 @@ export function updateCreditCardMutation(cc: CreditCard): string {
         address { line1 line2 city state zip country }
       }
 	  }`
-}
-
-export function usersListQuery(limit?: number, cursor?: string): string {
-  return `{
-    userlist ${pageParams(limit,cursor)} {
-			users { id auth0_id name active termsandconditions,
-			  acl {
-					account { id name active }
-					role { id name active }
-				}
-			}
-			${paginationString()}
-		}}`
-}
-
-export function userQuery(id: string): string {
-  return `
-    {
-      user (id: "${id}") { id auth0_id name alias first_name last_name active termsandconditions created_at updated_at address { country state city line1 line2 zip}}
-    }`
-}
-
-export function userIntrospection(): string {
-  return `{
-    userintrospection { id name alias first_name last_name auth0_id active termsandconditions,
-      acl {
-        account { id name active }
-        role { id name active,
-          permissions { allow deny }
-        }
-      }
-      address { line1 line2 city state zip country }
-      usersetting { timezone }
-    }
-  }`
-}
-
-export function deleteUserMutation(id: string): string {
-  return deleteMutation('user', id);
-}
-
-export function updateUserMutation(user: User): string {
-  let fname = user.firstName ? `first_name: "${user.firstName}"` : '';
-  let lname = user.lastName ? `last_name: "${user.lastName}"` : '';
-
-  return `
-    mutation {
-      updateuser (user: { id: "${user.id}", auth0_id: "${user.auth0Id}", name: "${user.name}" alias: "${user.alias}" ${fname} ${lname} active:"${user.active}", termsandconditions:"${user.termsAndConditions}"}) {
-        id name alias auth0_id active first_name last_name,
-        address { line1 line2 city state zip country }
-        acl {
-          account { id name active }
-          role { id name active }
-        }
-        termsandconditions
-		  }
-    }`;
-}
-
-export function updateUserForRegistration(user: User): string {
-  let address2: string = user.address.line2 ? `line2: "${user.address.line2}"` : '';
-
-  return `
-    mutation {
-		  updateuser (
-		    user: { id: "${user.id}" name: "${user.name}" alias: "${user.alias}" first_name: "${user.firstName}" last_name: "${user.lastName}" auth0_id: "${user.auth0Id}" active: "${user.active}" termsandconditions: "0.1",
-		      address: {line1: "${user.address.line1}" ${address2} city: "${user.address.city}" state: "${user.address.state}" zip: "${user.address.zip}" country:"${user.address.country}"}}) {
-			    id auth0_id name active termsandconditions
-			}
-	}`
-}
-
-export function updateUserForActivation(user: User): string {
-  return `
-    mutation {
-		  updateuser (
-		    user: { id: "${user.id}" name: "${user.name}" auth0_id: "${user.auth0Id}" active: "${user.active}" termsandconditions: "0.1"}) {
-			    id auth0_id name active termsandconditions
-			}
-	}`
-}
-
-export function inviteUserMutation(email: string, accountId: string, roleId: string): string {
-  return `
-    mutation {
-		  inviteuser (userinvite: {email: "${email}" account:"${accountId}" role:"${roleId}"}) {
-			  link
-		  }
-	  }`
-}
-
-export function acceptInviteMutation(token: string, parameters: string): string {
-  return `
-    mutation {
-		acceptinvite (invite: {token: "${token}", parameters:"${parameters}"}) {
-			id name auth0_id active termsandconditions acl {
-				account { id name active }
-				role { id name active }
-			}
-			address { line1 line2 city state zip country }
-		}
-	}`
 }
 
 export function smtpProvidersListQuery(limit?:number, cursor?:string): string {

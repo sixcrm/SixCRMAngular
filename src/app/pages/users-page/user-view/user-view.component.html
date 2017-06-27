@@ -1,58 +1,67 @@
-<div class="entity-view">
-  <div class="entity-view__title">User Details</div>
+<div *ngIf="entity; else spinner" class="entity-view">
+  <div class="entity-view__title">User</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <div *ngIf="entity" class="entity-view__content">
-
-    <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>
-
-    <div class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">ID:</span>
-        <span>{{entity.id}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Name:</span>
-        <span>{{entity.name}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Email:</span>
-        <span>{{entity.email}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span [class.label--active]="entity.active==='true'" class="entity-view__content__fields__item__label label--toggle">Active:</span>
-        <md-slide-toggle class="entity-view__content__fields__item__toggle" [checked]="entity.active === 'true'" [disabled]="true"></md-slide-toggle>
-      </div>
+  <div class="entity-view__info">
+    <div class="entity-view__info__image">
+      <img src="/assets/images/result-item-customer-white.svg" alt="">
     </div>
-
-    <div class="entity-view__content__title"> Address </div>
-
-    <div class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Country:</span>
-        <span>{{entity.address.country}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">State:</span>
-        <span> {{entity.address.state}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">City:</span>
-        <span>{{entity.address.city}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Line 1:</span>
-        <span>{{entity.address.line1}} </span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Line 1:</span>
-        <span>{{entity.address.line2}} </span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Zip:</span>
-        <span>{{entity.address.zip}}</span>
+    <div class="entity-view__info__data">
+      <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div class="entity-view__info__data__name">
+        {{entityBackup.name}}
       </div>
     </div>
   </div>
+
+  <div class="entity-view__navigation">
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
+  </div>
+
+  <md-tab-group [(selectedIndex)]="selectedIndex">
+    <md-tab>
+
+      <div class="entity-view__card">
+        <div class="entity-view__card__header">
+          <div class="entity-view__card__header__title">User Details</div>
+          <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
+          <md-menu #editOptions="mdMenu" x-position="before">
+            <button md-menu-item (click)="setMode(modes.Update)"> Edit User Details </button>
+          </md-menu>
+        </div>
+
+        <div class="entity-view__card__content">
+          <md-input-container class="entity-view__card__content__item">
+            <input required md-input disabled placeholder="Name" [(ngModel)]="entity.name" type="text">
+          </md-input-container>
+
+          <md-input-container class="entity-view__card__content__item">
+            <input required md-input disabled placeholder="Email" [(ngModel)]="entity.email" type="text">
+          </md-input-container>
+
+
+          <md-input-container class="entity-view__card__content__item">
+            <input required md-input disabled placeholder="Terms and Conditions" [(ngModel)]="entity.termsAndConditions" type="text">
+          </md-input-container>
+
+          <div class="user-view__item flex-custom flex-custom--center">
+            <span>Activated</span>
+            <md-slide-toggle class="flex-align--right" [checked]="entity.active === 'true'" (change)="entity.toggleActive()" [disabled]="viewMode"></md-slide-toggle>
+          </div>
+
+        </div>
+
+        <div *ngIf="!viewMode" class="entity-view__card__actions">
+          <div *ngIf="updateMode" (click)="cancelUpdate()">CANCEL</div>
+          <div (click)="saveOrUpdate(entity)">SAVE</div>
+        </div>
+      </div>
+
+    </md-tab>
+  </md-tab-group>
 </div>
+
+<ng-template #spinner>
+  <md-spinner class="entity-view__spinner--main"></md-spinner>
+</ng-template>

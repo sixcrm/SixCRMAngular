@@ -13,6 +13,8 @@ import {NavigationService} from '../../../navigation/navigation.service';
 })
 export class UserViewComponent extends AbstractEntityViewComponent<User> implements OnInit, OnDestroy {
 
+  selectedIndex: number = 0;
+
   constructor(service: UsersService, route: ActivatedRoute, progressBar: ProgressBarService, public navigation: NavigationService) {
     super(service, route, progressBar);
   }
@@ -23,6 +25,10 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
 
   ngOnDestroy() {
     this.destroy();
+  }
+
+  setIndex(value: number) {
+    this.selectedIndex = value;
   }
 
 }
