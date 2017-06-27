@@ -13,16 +13,45 @@ import {NavigationService} from '../../../navigation/navigation.service';
 })
 export class FulfillmentViewComponent extends AbstractEntityViewComponent<FulfillmentProvider> implements OnInit, OnDestroy {
 
-  constructor(service: FulfillmentProvidersService, route: ActivatedRoute, progressBarService: ProgressBarService, public navigation: NavigationService) {
+  selectedIndex: number = 0;
+  formInvalid: boolean;
+
+  constructor(service: FulfillmentProvidersService,
+              route: ActivatedRoute,
+              progressBarService: ProgressBarService,
+              public navigation: NavigationService
+  ) {
     super(service, route, progressBarService);
   }
 
   ngOnInit() {
-    this.init();
+    this.init(() => this.navigation.goToNotFoundPage());
+
+    if (this.addMode) {
+      this.entity = new FulfillmentProvider();
+      this.entity.provider = 'HASHTAG';
+      this.entityBackup = this.entity.copy();
+    }
   }
 
   ngOnDestroy() {
     this.destroy();
+  }
+
+  setIndex(value): void {
+    this.selectedIndex = value;
+  }
+
+  cancelEdit(): void {
+    this.formInvalid = false;
+    this.cancelUpdate();
+  }
+
+  saveProvider(value: boolean): void {
+    this.formInvalid = !value;
+    if (this.formInvalid) return;
+
+    this.saveOrUpdate(this.entity);
   }
 
 }

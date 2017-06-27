@@ -1,34 +1,71 @@
-<div class="entity-view">
-  <div class="entity-view__title">Fulfillment Provider Details</div>
+<div *ngIf="entity; else spinner" class="entity-view">
+  <div class="entity-view__title">Fulfillment Provider</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <div *ngIf="entity" class="entity-view__content">
-
-    <div class="entity-view__content__title entity-view__content__title--first"> General Details </div>
-
-    <div class="entity-view__content__fields">
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">ID:</span>
-        <span>{{entity.id}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Name:</span>
-        <span>{{entity.name}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Username:</span>
-        <span>{{entity.username}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Password:</span>
-        <span>{{entity.password}}</span>
-      </div>
-      <div class="entity-view__content__fields__item">
-        <span class="entity-view__content__fields__item__label">Endpoint:</span>
-        <span>{{entity.endpoint}}</span>
+  <div class="entity-view__info">
+    <div class="entity-view__info__image">
+      <img src="/assets/images/result-item-transaction-white.svg" alt="">
+    </div>
+    <div class="entity-view__info__data">
+      <div *ngIf="!addMode" class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div class="entity-view__info__data__name">
+        <span *ngIf="!addMode; else createMessage">
+          {{entityBackup.name}}
+        </span>
+        <ng-template #createMessage>
+          Create new Fulfillment Provider
+        </ng-template>
       </div>
     </div>
-
   </div>
+
+  <div class="entity-view__navigation">
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
+  </div>
+
+  <md-tab-group [(selectedIndex)]="selectedIndex">
+    <md-tab>
+
+      <div class="entity-view__card">
+        <div class="entity-view__card__header">
+          <div class="entity-view__card__header__title">Fulfillment Provider Details</div>
+          <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
+          <md-menu #editOptions="mdMenu" x-position="before">
+            <button *ngIf="!addMode" md-menu-item (click)="setMode(modes.Update)"> Edit Fulfillment Provider Details</button>
+          </md-menu>
+        </div>
+
+        <form class="entity-view__card__content" #inputForm="ngForm">
+          <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
+            <input required md-input [disabled]="viewMode" placeholder="Name" [(ngModel)]="entity.name" name="name" type="text">
+          </md-input-container>
+
+          <md-input-container [class.error]="formInvalid && !entity.endpoint" class="entity-view__card__content__item">
+            <input required md-input [disabled]="viewMode" placeholder="Endpoint" [(ngModel)]="entity.endpoint" name="endpoint" type="text">
+          </md-input-container>
+
+          <md-input-container [class.error]="formInvalid && !entity.username" class="entity-view__card__content__item">
+            <input required md-input [disabled]="viewMode" placeholder="Username" [(ngModel)]="entity.username" name="username" type="text">
+          </md-input-container>
+
+          <md-input-container [class.error]="formInvalid && !entity.password" class="entity-view__card__content__item">
+            <input required md-input [disabled]="viewMode" placeholder="Password" [(ngModel)]="entity.password" name="password" type="text">
+          </md-input-container>
+
+          <dropdown-component [required]="true" [disabled]="false" [placeholder]="'Provider'" [selected]="entity.provider"></dropdown-component>
+        </form>
+
+        <div *ngIf="!viewMode" class="entity-view__card__actions">
+          <div *ngIf="updateMode" (click)="cancelEdit()">CANCEL</div>
+          <div (click)="saveProvider(inputForm.form.valid)">SAVE</div>
+        </div>
+      </div>
+
+    </md-tab>
+  </md-tab-group>
 </div>
+
+<ng-template #spinner>
+  <md-spinner class="entity-view__spinner--main"></md-spinner>
+</ng-template>

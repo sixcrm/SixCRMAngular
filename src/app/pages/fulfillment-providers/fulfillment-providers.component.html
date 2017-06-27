@@ -1,19 +1,10 @@
 <div #indexR class="entity-index">
-  <fulfillment-provider
-    *ngIf="showEntityDetails"
-    [mode]="mode"
-    [entityId]="mode === 'view' ? showEntityId : ''"
-    [fullScreen]="fullScreen"
-    (close)="hideEntityDetails()"
-    (deleteEntity)="deleteEntity($event)">
-  </fulfillment-provider>
-
   <div class="entity-index__title">
     Fulfillment Providers
     <md-input [(ngModel)]="filterValue" placeholder="Filter"></md-input>
   </div>
 
-  <button md-icon-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="openAddEntity()"><md-icon>add</md-icon></button>
+  <button md-icon-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" [routerLink]="['/fulfillmentproviders', 'add']"><md-icon>add</md-icon></button>
 
   <md-card class="entity-index__card">
     <md-card-content class="entity-index__card__content">

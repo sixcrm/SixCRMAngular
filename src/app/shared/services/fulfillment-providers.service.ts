@@ -4,9 +4,10 @@ import {Http} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {FulfillmentProvider} from '../models/fulfillment-provider.model';
 import {
-  fulfillmentProvidersListQuery, fulfillmentProviderQuery,
-  deleteFulfillmentProviderMutation, createFulfillmentProviderMutation, updateFulfillmentProviderMutation
-} from '../utils/query-builder';
+  fulfillmentProvidersListQuery,
+  fulfillmentProviderQuery, deleteFulfillmentProviderMutation, createFulfillmentProviderMutation,
+  updateFulfillmentProviderMutation
+} from '../utils/queries/entities/fulfillment-provider.queries';
 
 @Injectable()
 export class FulfillmentProvidersService extends AbstractEntityService<FulfillmentProvider> {

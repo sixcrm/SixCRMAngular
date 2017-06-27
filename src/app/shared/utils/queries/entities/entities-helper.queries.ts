@@ -1,3 +1,5 @@
+const uuidV4 = require('uuid/v4');
+
 export function paginationStringResponseQuery(): string {
   return 'count end_cursor has_next_page last_evaluated';
 }
@@ -23,6 +25,10 @@ export function paginationParamsQuery(limit?: number, cursor?: string): string {
   builder.appendEnd('})');
 
   return builder.build();
+}
+
+export function generateUUID(): string {
+  return uuidV4();
 }
 
 export class QueryBuilder {

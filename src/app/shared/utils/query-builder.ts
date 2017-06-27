@@ -20,36 +20,6 @@ function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
 }
 
-export function fulfillmentProvidersListQuery(limit?:number, cursor?:string): string {
-  return `{ fulfillmentproviderlist ${pageParams(limit, cursor)} { fulfillmentproviders { id name provider username password endpoint } ${paginationString()} } }`
-}
-
-export function fulfillmentProviderQuery(id: string): string {
-  return `{ fulfillmentprovider (id: "${id}") { id name username password endpoint provider } }`
-}
-
-export function deleteFulfillmentProviderMutation(id: string): string {
-  return deleteMutation('fulfillmentprovider', id);
-}
-
-export function createFulfillmentProviderMutation(provider: FulfillmentProvider): string {
-  return `
-    mutation {
-		  createfulfillmentprovider ( fulfillmentprovider: { id:"${generateUUID()}" name: "${provider.name}", username: "${provider.username}", password: "${provider.password}", endpoint: "${provider.endpoint}", provider: "${provider.provider}"}) {
-			  id name provider username password endpoint
-		  }
-	  }`
-}
-
-export function updateFulfillmentProviderMutation(provider: FulfillmentProvider): string {
-  return `
-    mutation {
-		  updatefulfillmentprovider ( fulfillmentprovider: { id: "${provider.id}", name: "${provider.name}", username: "${provider.username}", password: "${provider.password}", endpoint: "${provider.endpoint}", provider: "${provider.provider}"}) {
-			  id name provider username password endpoint
-		  }
-	  }`
-}
-
 export function affiliatesListQuery(limit?:number, cursor?:string): string {
   return `{ affiliatelist ${pageParams(limit, cursor)} { affiliates { id name affiliate_id created_at updated_at } ${paginationString()} } }`
 }
