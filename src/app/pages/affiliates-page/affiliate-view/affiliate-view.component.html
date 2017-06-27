@@ -1,5 +1,5 @@
 <div  *ngIf="entity; else spinner" class="entity-view">
-  <div class="entity-view__title">Affiliate</div>
+  <div class="entity-view__title">{{addMode ? 'Create new ' : ''}}Affiliate</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
@@ -10,39 +10,46 @@
     <div class="entity-view__info__data">
       <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
 
-      <div class="entity-view__info__data__name">
-        <md-input *ngIf="editMode; else nameNoEdit" [(ngModel)]="entity.name"></md-input>
-        <ng-template #nameNoEdit>
-          <span>{{entity.name}}</span>
-        </ng-template>
-      </div>
+      <form #inputForm="ngForm">
+        <div class="entity-view__info__data__name">
+          <span *ngIf="viewMode; else nameEdit">{{entity.name}}</span>
 
-      <div class="entity-view__info__data__other">
-        <span class="entity-view__info__data__other__label">Affiliate ID:</span>
-        <md-input *ngIf="editMode; else affidNoEdit" [(ngModel)]="entity.affiliateId"></md-input>
-        <ng-template #affidNoEdit>
-          <span>{{entity.affiliateId}}</span>
-        </ng-template>
-      </div>
+          <ng-template #nameEdit>
+            <md-input #nameInputField [class.error]="formInvalid && !entity.name" required [(ngModel)]="entity.name" name="name"></md-input>
+          </ng-template>
+        </div>
+
+        <div class="entity-view__info__data__other">
+          <span class="entity-view__info__data__other__label">Affiliate ID:</span>
+          <span *ngIf="viewMode; else affidEdit">{{entity.affiliateId}}</span>
+
+          <ng-template #affidEdit>
+            <md-input [class.error]="formInvalid && !entity.affiliateId" required [(ngModel)]="entity.affiliateId" name="affiliateId"></md-input>
+          </ng-template>
+        </div>
+      </form>
+
     </div>
 
     <div class="entity-view__info__edit">
-      <div *ngIf="!editMode; else editActions" class="entity-view__info__edit__update" (click)="editMode = true"> EDIT AFFILIATE </div>
+      <div *ngIf="viewMode; else editActions" class="entity-view__info__edit__update" (click)="editAffiliate()"> EDIT AFFILIATE </div>
 
       <ng-template #editActions>
-        <div (click)="cancelEdit()">CANCEL</div>
-        <div class="entity-view__info__edit__update" (click)="updateAffiliate()">UPDATE</div>
+        <div *ngIf="updateMode" (click)="cancelEdit()">CANCEL</div>
+        <div class="entity-view__info__edit__update" (click)="saveAffiliate(inputForm.form.valid)">{{updateMode ? 'UPDATE' : 'SAVE'}}</div>
       </ng-template>
     </div>
   </div>
 
   <div class="entity-view__navigation">
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">TRACKING</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">SESSIONS</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">CAMPAIGNS</span>
+    <div *ngIf="!addMode">
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">TRACKING</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">SESSIONS</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">CAMPAIGNS</span>
+    </div>
   </div>
 
-  <md-tab-group [(selectedIndex)]="selectedIndex">
+  <md-tab-group *ngIf="!addMode" [(selectedIndex)]="selectedIndex">
 
     <md-tab>
       <div class="tab-container">

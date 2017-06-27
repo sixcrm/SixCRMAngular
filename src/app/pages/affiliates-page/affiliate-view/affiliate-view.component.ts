@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {Affiliate} from '../../../shared/models/affiliate.model';
 import {AffiliatesService} from '../../../shared/services/affiliates.service';
@@ -13,8 +13,10 @@ import {NavigationService} from '../../../navigation/navigation.service';
 })
 export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliate> implements OnInit, OnDestroy {
 
+  @ViewChild('nameInputField') nameInput;
+
   selectedIndex: number = 0;
-  editMode: boolean = false;
+  formInvalid: boolean;
 
   constructor(service: AffiliatesService, route: ActivatedRoute, progressBarService: ProgressBarService, public navigation: NavigationService) {
     super(service, route, progressBarService);
@@ -22,6 +24,12 @@ export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliat
 
   ngOnInit() {
     this.init(() => this.navigation.goToNotFoundPage());
+
+    if (this.addMode) {
+      this.entity = new Affiliate();
+      this.entityBackup = this.entity.copy();
+      setTimeout(() => {if (this.nameInput) this.nameInput.focus()}, 100);
+    }
   }
 
   ngOnDestroy() {
@@ -29,13 +37,21 @@ export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliat
   }
 
   cancelEdit() {
-    this.editMode = false;
+    this.formInvalid = false;
     this.cancelUpdate();
   }
 
-  updateAffiliate() {
-    this.service.entityUpdated$.take(1).subscribe(() => this.editMode = false);
-    this.updateEntity(this.entity);
+  editAffiliate() {
+    setTimeout(() => {if (this.nameInput) this.nameInput.focus()}, 100);
+
+    this.setMode(this.modes.Update);
+  }
+
+  saveAffiliate(value: boolean) {
+    this.formInvalid = !value;
+    if(this.formInvalid) return;
+
+    this.saveOrUpdate(this.entity);
   }
 
   setIndex(value: number) {
