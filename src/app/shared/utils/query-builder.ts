@@ -201,7 +201,7 @@ export function deleteCustomerNoteMutation(id: string): string {
 }
 
 export function transactionsInfoListQuery(limit?:number, cursor?:string): string {
-  return `{ transactionlist ${pageParams(limit, cursor)} {	transactions { id amount processor_response } ${paginationString()} } }`
+  return `{ transactionlist ${pageParams(limit, cursor)} {	transactions { id amount alias created_at processor_response } ${paginationString()} } }`
 }
 
 export function transactionQuery(id: string): string {

@@ -31,7 +31,7 @@ export class TransactionsComponent extends AbstractEntityIndexComponent<Transact
     this.columnParams = [
       new ColumnParams('Alias', (e: Transaction) => e.alias),
       new ColumnParams('Amount', (e: Transaction) => e.amount.usd(), 'right'),
-      new ColumnParams('Date',(e: Transaction) => e.createdAt.tz(f).format('MM/DD/YYYY')),
+      new ColumnParams('Created At',(e: Transaction) => e.createdAt.tz(f).format('MM/DD/YYYY')),
       new ColumnParams('Processor Response', (e: Transaction) => e.processorResponse.message)
     ];
   }

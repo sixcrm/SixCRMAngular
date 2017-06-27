@@ -1,6 +1,4 @@
-<div #indexR class="entity-index">
-  <load-balancer *ngIf="showEntityDetails" [entityId]="showEntityId" [fullScreen]="fullScreen" (close)="hideEntityDetails()" (deleteEntity)="deleteEntity($event)"></load-balancer>
-
+<div class="entity-index">
   <div class="entity-index__title">
     Load Balancers
     <md-input [(ngModel)]="filterValue" placeholder="Filter"></md-input>
