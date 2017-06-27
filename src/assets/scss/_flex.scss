@@ -109,4 +109,18 @@
 
 .flex-custom {
   display: flex;
+
+  &--center {
+    align-items: center;
+  }
+
+  .flex-align {
+    &--right {
+      margin-left: auto;
+    }
+
+    &--left {
+      margin-right: auto;
+    }
+  }
 }

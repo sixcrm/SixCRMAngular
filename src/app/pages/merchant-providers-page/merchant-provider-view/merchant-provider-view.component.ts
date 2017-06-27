@@ -44,4 +44,8 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
 
     this.saveOrUpdate(this.entity);
   }
+
+  setIndex(value: number): void {
+    this.selectedIndex = value;
+  }
 }

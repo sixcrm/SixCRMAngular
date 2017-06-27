@@ -31,6 +31,20 @@ export class MerchantProvider implements Entity<MerchantProvider>{
     this.processor = new MerchantProviderProcessor(obj.processor);
   }
 
+  containsPaymentMethod(method: string): boolean {
+    return this.acceptedPaymentMethods.indexOf(method) !== -1;
+  }
+
+  togglePaymentMethod(method: string): void {
+    let index = this.acceptedPaymentMethods.indexOf(method);
+
+    if (index === -1) {
+      this.acceptedPaymentMethods.push(method);
+    } else {
+      this.acceptedPaymentMethods.splice(index,1);
+    }
+  }
+
   copy(): MerchantProvider {
     return new MerchantProvider(this.inverse());
   }

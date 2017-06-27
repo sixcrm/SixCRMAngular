@@ -4,12 +4,45 @@
   }
 
   &__details {
-    md-checkbox {
-      margin-bottom: 10px;
+    font-size: 14px;
+
+    &__selectable {
+      margin-top: 16px;
+
+      md-icon {
+        height: 18px;
+        width: 18px;
+        font-size: 18px;
+        color: rgba(0,0,0,0.55);
+        margin-right: 18px;
+      }
     }
 
+    &--align {
+      height: calc(100% - 50px);
+      box-sizing: border-box;
+    }
+
+    &__subtitle {
+      margin-top: 40px;
+      margin-bottom: 4px;
+      font-size: 16px;
+      color: rgba(0,0,0,0.4);
+    }
+
+    &__input {
+      &--numbers {
+        width: 146px;
+      }
+    }
     dropdown-component {
       margin-top: 10px;
+      margin-bottom: 5px;
+    }
+
+    md-slide-toggle {
+      margin-top: 0;
+      margin-bottom: 0;
     }
   }
 }
