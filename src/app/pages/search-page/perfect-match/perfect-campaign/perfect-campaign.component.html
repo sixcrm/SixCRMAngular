@@ -15,21 +15,19 @@
     </div>
 
     <div class="perfect-entity__table">
-      <div class="perfect-entity__table__title">Merchant Provider Configs</div>
+      <div class="perfect-entity__table__title">Product Schedules</div>
 
       <table class="highlight">
         <thead>
         <tr>
           <th>Name</th>
-          <th>Distribution</th>
-          <th>Processor</th>
+          <th>Number of Schedules</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let config of campaign.loadBalancer.merchantProviderConfigurations">
-          <td>{{config.merchantProvider.name}}</td>
-          <td>{{config.distribution}}</td>
-          <td>{{config.merchantProvider.processor}}</td>
+        <tr *ngFor="let schedule of campaign.productSchedules">
+          <td>{{schedule.name}}</td>
+          <td>{{schedule.schedules.length}}</td>
         </tr>
         </tbody>
       </table>
