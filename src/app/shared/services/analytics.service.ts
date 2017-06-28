@@ -62,7 +62,7 @@ export class AnalyticsService {
       this.queryRequest(transactionSummaryQuery(start, end, filters), downloadFormat).subscribe(
         (data) => {
           if (!downloadFormat) {
-            let transactions = data.json().data.transactionsummary.transactions;
+            let transactions = data.json().data.data.transactionsummary.transactions;
 
             if (transactions) {
               let s = transactions.map(t => new TransactionSummary(t));
@@ -89,7 +89,7 @@ export class AnalyticsService {
       this.queryRequest(transactionOverviewQuery(start, end), downloadFormat).subscribe(
         (data) => {
           if (!downloadFormat) {
-            let overview = data.json().data.transactionoverview.overview;
+            let overview = data.json().data.data.transactionoverview.overview;
 
             if (overview) {
               let o = new TransactionOverview(overview);
@@ -115,7 +115,7 @@ export class AnalyticsService {
     } else {
       this.queryRequest(eventsFunelQuery(start, end), downloadFormat).subscribe((data) => {
         if (!downloadFormat) {
-          let funnel = data.json().data.eventfunnel.funnel;
+          let funnel = data.json().data.data.eventfunnel.funnel;
 
           if (funnel) {
             let f = new EventFunnel(funnel);
@@ -137,7 +137,7 @@ export class AnalyticsService {
     } else {
       this.queryRequest(campaignDeltaQuery(start, end), downloadFormat).subscribe(data => {
         if (!downloadFormat) {
-          let campaigns = data.json().data.campaigndelta.campaigns;
+          let campaigns = data.json().data.data.campaigndelta.campaigns;
 
           if (campaigns) {
             let c = campaigns.map(d => new CampaignDelta(d));
@@ -159,7 +159,7 @@ export class AnalyticsService {
     } else {
       this.queryRequest(eventsByAffiliateQuery(start, end), downloadFormat).subscribe(data => {
         if (!downloadFormat) {
-          let events = data.json().data.eventsbyfacet;
+          let events = data.json().data.data.eventsbyfacet;
 
           if (events) {
             let e = new EventsBy(events);
@@ -181,7 +181,7 @@ export class AnalyticsService {
     } else {
       this.queryRequest(transactionsByAffiliateQuery(start, end), downloadFormat).subscribe(data => {
         if (!downloadFormat) {
-          let events = data.json().data.transactionsbyfacet;
+          let events = data.json().data.data.transactionsbyfacet;
 
           if (events) {
             let e = new TransactionsBy(events);
@@ -203,7 +203,7 @@ export class AnalyticsService {
     } else {
       this.queryRequest(eventsSummaryQuery(start, end), downloadFormat).subscribe(data => {
         if (!downloadFormat) {
-          let events = data.json().data.eventsummary.events;
+          let events = data.json().data.data.eventsummary.events;
 
           if (events) {
             let e = events.map(e => new EventSummary(e));
@@ -225,7 +225,7 @@ export class AnalyticsService {
     } else {
       this.queryRequest(campaignsByAmountQuery(start, end), downloadFormat).subscribe(data => {
         if (!downloadFormat) {
-          let campaigns = data.json().data.campaignsbyamount.campaigns;
+          let campaigns = data.json().data.data.campaignsbyamount.campaigns;
 
           if (campaigns) {
             let c = campaigns.map(c => new CampaignStats(c));
@@ -243,7 +243,7 @@ export class AnalyticsService {
     if (!this.hasPermission('getActivityByIdentifier')) return;
 
     this.queryRequest(activitiesByCustomer(start, end, customer, limit, offset)).subscribe(data => {
-      let activityList = data.json().data.listactivitybyidentifier;
+      let activityList = data.json().data.data.listactivitybyidentifier;
 
       if (activityList && activityList.activity) {
         this.activitiesByCustomer$.next(activityList.activity.map(activity => new Activity(activity)));

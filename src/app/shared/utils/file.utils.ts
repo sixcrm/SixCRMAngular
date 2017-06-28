@@ -16,13 +16,13 @@ export function downloadFile(data: any, name: string, format: string) {
 
   if (format === 'json') {
     f = 'application/json';
-    d = JSON.stringify(data.json());
+    d = data.json().data;
   } else if (format === 'csv') {
     f = 'application/csv';
-    d = data['_body'];
+    d = data.json().data;
   } else if (format === 'excel') {
     f = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-    d = data['_body'];
+    d = JSON.stringify(data.json().data);
     format = 'xlsx';
   }
 

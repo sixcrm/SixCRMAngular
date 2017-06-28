@@ -7,6 +7,7 @@ import {transactionReportListQuery} from '../../utils/queries/reports.queries';
 import {Http, Headers, Response} from '@angular/http';
 import {FilterTerm} from '../../components/advanced-filter/advanced-filter.component';
 import {downloadJSON} from '../../utils/file.utils';
+import {extractData} from '../http-wrapper.service';
 
 
 @Injectable()
@@ -22,7 +23,7 @@ export class TransactionReportService {
     this.queryRequest(transactionReportListQuery(start, end, filters, download, limit, offset, order), download).subscribe(
       (data) => {
         if (!download) {
-          let transactions = data.json().data.listtransactions.transactions;
+          let transactions = extractData(data).listtransactions.transactions;
 
           if (transactions) {
             this.transactions$.next(transactions.map(transaction => new TransactionReport(transaction)))

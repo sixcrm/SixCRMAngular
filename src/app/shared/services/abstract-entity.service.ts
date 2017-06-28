@@ -2,6 +2,7 @@ import {Headers, Response, Http} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import {environment} from '../../../environments/environment';
+import {extractData} from './http-wrapper.service';
 
 export abstract class AbstractEntityService<T> {
 
@@ -46,7 +47,7 @@ export abstract class AbstractEntityService<T> {
 
     this.queryRequest(this.viewQuery(id)).subscribe(
       (data) => {
-        let json = data.json().data;
+        let json = extractData(data);
         let entityKey = Object.keys(json)[0];
         let entityData =json[entityKey];
 
@@ -65,7 +66,7 @@ export abstract class AbstractEntityService<T> {
 
     this.queryRequest(this.deleteQuery(id)).subscribe(
       (data) => {
-        let json = data.json().data;
+        let json = extractData(data);
         let entityKey = Object.keys(json)[0];
         let entityData =json[entityKey];
 
@@ -82,7 +83,7 @@ export abstract class AbstractEntityService<T> {
 
     this.queryRequest(this.createQuery(entity)).subscribe(
       (data) => {
-        let json = data.json().data;
+        let json = extractData(data);
         let entityKey = Object.keys(json)[0];
         let entityData =json[entityKey];
 
@@ -98,7 +99,7 @@ export abstract class AbstractEntityService<T> {
 
     this.queryRequest(this.updateQuery(entity)).subscribe(
       (data) => {
-        let json = data.json().data;
+        let json = extractData(data);
         let entityKey = Object.keys(json)[0];
         let entityData =json[entityKey];
 
@@ -143,7 +144,7 @@ export abstract class AbstractEntityService<T> {
     this.requestInProgress$.next(true);
     this.queryRequest(query).subscribe(
       (data) => {
-        let json = data.json().data;
+        let json = extractData(data);
         let listKey = Object.keys(json)[0];
         let listData = json[listKey];
 
@@ -173,7 +174,7 @@ export abstract class AbstractEntityService<T> {
   planeCustomEntitiesQuery(query: string): Observable<T[]> {
     return this.queryRequest(query).map(
       (data) => {
-        let json = data.json().data;
+        let json = extractData(data);
         let listKey = Object.keys(json)[0];
         let listData = json[listKey];
 

@@ -7,6 +7,7 @@ import {
   searchQuery, suggestionsQuery, searchFacets, searchAdvancedQuery,
   searchAdvancedFacets, dashboardFiltersQuery, dashboardFiltersAdvancedQuery
 } from '../utils/queries/search.queries';
+import {extractData} from './http-wrapper.service';
 
 @Injectable()
 export class SearchService {
@@ -84,7 +85,7 @@ export class SearchService {
 
     this.queryRequest(q).subscribe(
       (response: Response) => {
-        let json = response.json().data.search;
+        let json = extractData(response).search;
         let facets = JSON.parse(json.facets);
 
         let obj = {};
@@ -126,7 +127,7 @@ export class SearchService {
   private fetchSuggestions(query: string): void {
     this.queryRequest(suggestionsQuery(query)).subscribe(
       (response: Response) => {
-        let hit = response.json().data.search.hits.hit;
+        let hit = extractData(response).search.hits.hit;
         let suggestions: string[] = hit.map(h => JSON.parse(h.fields).suggestion_field_1[0]);
 
         this.suggestionResults$.next(suggestions);
@@ -168,7 +169,7 @@ export class SearchService {
   }
 
   private parseSearchResults(response: Response): any {
-    let json = response.json().data.search;
+    let json = extractData(response).search;
     let hits = json.hits;
 
     hits.hit = hits.hit.map(hit => {

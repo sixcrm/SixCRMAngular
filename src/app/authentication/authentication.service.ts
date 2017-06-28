@@ -13,6 +13,7 @@ import {
   updateUserForActivation, updateUserForRegistration,
   userIntrospection, acceptInviteMutation
 } from '../shared/utils/queries/entities/user.queries';
+import {extractData} from '../shared/services/http-wrapper.service';
 
 declare var Auth0Lock: any;
 
@@ -195,7 +196,7 @@ export class AuthenticationService {
             this.http.post(endpoint, updateUserForRegistration(user), {headers: this.generateHeaders()})
               .subscribe(
                 (data) => {
-                  this.userUnderReg$.next(new User(data.json().data.updateuser));
+                  this.userUnderReg$.next(new User(extractData(data).updateuser));
                   subject.next(true);
                 },
                 () => {
@@ -234,7 +235,7 @@ export class AuthenticationService {
 
     this.http.post(environment.endpoint + '*', acceptInviteMutation(token, param), { headers: this.generateHeaders() }).subscribe(
       (data) => {
-        let userData = data.json().data.acceptinvite;
+        let userData = extractData(data).acceptinvite;
         let user: User = new User(userData);
         user.picture = this.getUserPicture();
 
@@ -292,7 +293,7 @@ export class AuthenticationService {
   private getUserIntrospection(profile: any): void {
     this.http.post(environment.endpoint + '*', userIntrospection(), { headers: this.generateHeaders()}).subscribe(
       (data) => {
-        let user = data.json().data.userintrospection;
+        let user = extractData(data).userintrospection;
         if (user) {
           if (user.active !== 'true') {
             localStorage.removeItem(this.activated);
@@ -339,7 +340,7 @@ export class AuthenticationService {
   private getUserIntrospectionExternal(redirect: string): void {
     this.http.post(environment.endpoint + '*', userIntrospection(), { headers: this.generateHeaders()}).subscribe(
       (data) => {
-        let user = data.json().data.userintrospection;
+        let user = extractData(data).userintrospection;
         if (user) {
           localStorage.setItem(this.activated, 'activated');
 
