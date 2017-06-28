@@ -3,7 +3,6 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
 import {FulfillmentProvider} from '../../../shared/models/fulfillment-provider.model';
 import {FulfillmentProvidersService} from '../../../shared/services/fulfillment-providers.service';
 import {ActivatedRoute} from '@angular/router';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
@@ -18,10 +17,9 @@ export class FulfillmentProviderViewComponent extends AbstractEntityViewComponen
 
   constructor(service: FulfillmentProvidersService,
               route: ActivatedRoute,
-              progressBarService: ProgressBarService,
               public navigation: NavigationService
   ) {
-    super(service, route, progressBarService);
+    super(service, route);
   }
 
   ngOnInit() {

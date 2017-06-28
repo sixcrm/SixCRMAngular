@@ -1,7 +1,6 @@
 import {Component, Input, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {ProgressBarService} from '../../../../shared/services/progress-bar.service';
 import {MdDialog, MdDialogRef} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
@@ -28,10 +27,9 @@ export class AffiliateTrackersComponent extends AbstractEntityIndexComponent<Tra
     trackersService: TrackersService,
     auth: AuthenticationService,
     dialog: MdDialog,
-    progressBarService: ProgressBarService,
     paginationService: PaginationService
   ) {
-    super(trackersService, auth, dialog, progressBarService, paginationService);
+    super(trackersService, auth, dialog, paginationService);
 
     this.columnParams = [
       new ColumnParams('Name', (e: Tracker) => e.name),
@@ -68,7 +66,6 @@ export class AffiliateTrackersComponent extends AbstractEntityIndexComponent<Tra
 
       if (index >= 0) {
         tracker.affiliates.splice(index, 1);
-        this.progressBarService.showTopProgressBar();
         this.service.entityUpdated$.take(1).subscribe(() => this.deleteEntityLocal(tracker));
         this.service.updateEntity(tracker);
       }

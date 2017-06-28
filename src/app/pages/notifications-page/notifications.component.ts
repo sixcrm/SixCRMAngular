@@ -3,7 +3,6 @@ import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
 import {Notification, compareNotifications} from '../../shared/models/notification.model';
 import {NotificationsService} from '../../shared/services/notifications.service';
 import {MdDialog} from '@angular/material';
-import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {PaginationService} from '../../shared/services/pagination.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {utc} from 'moment';
@@ -30,10 +29,9 @@ export class NotificationsComponent extends AbstractEntityIndexComponent<Notific
     public notificationsService: NotificationsService,
     auth: AuthenticationService,
     dialog: MdDialog,
-    progressBarService: ProgressBarService,
     paginationService: PaginationService
   ) {
-    super(notificationsService, auth, dialog, progressBarService, paginationService);
+    super(notificationsService, auth, dialog, paginationService);
     this.setInfiniteScroll(true);
   }
 
@@ -43,7 +41,6 @@ export class NotificationsComponent extends AbstractEntityIndexComponent<Notific
 
     this.service.entities$.takeUntil(this.unsubscribe$).subscribe((entities: Notification[]) => {
       this.arrangeNotifications(entities);
-      this.progressBarService.hideTopProgressBar();
     });
 
     this.notificationsService.requestInProgress$.takeUntil(this.unsubscribe$).subscribe(loading => this.loading = loading);

@@ -3,7 +3,6 @@ import {CreditCardsService} from '../../../shared/services/credit-cards.service'
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {CreditCard} from '../../../shared/models/credit-card.model';
 import {MdDialog} from '@angular/material';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -20,12 +19,11 @@ export class CreditCardsComponent extends AbstractEntityIndexComponent<CreditCar
     creditCardsService: CreditCardsService,
     auth: AuthenticationService,
     dialog: MdDialog,
-    progressBarService: ProgressBarService,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute
   ) {
-    super(creditCardsService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
+    super(creditCardsService, auth, dialog, paginationService, router, activatedRoute);
 
     this.columnParams = [
       new ColumnParams('Name', (e: CreditCard) => e.name),

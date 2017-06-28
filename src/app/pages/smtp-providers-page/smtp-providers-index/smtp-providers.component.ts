@@ -3,7 +3,6 @@ import {AbstractEntityIndexComponent} from '../../abstract-entity-index.componen
 import {SmtpProvidersService} from '../../../shared/services/smtp-providers.service';
 import {SmtpProvider} from '../../../shared/models/smtp-provider.model';
 import {MdDialog} from '@angular/material';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -20,12 +19,11 @@ export class SmtpProvidersComponent extends AbstractEntityIndexComponent<SmtpPro
     smtpProvidersService: SmtpProvidersService,
     auth: AuthenticationService,
     dialog: MdDialog,
-    progressBarService: ProgressBarService,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute
   ) {
-    super(smtpProvidersService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
+    super(smtpProvidersService, auth, dialog, paginationService, router, activatedRoute);
 
     this.columnParams = [
       new ColumnParams('Name', (e: SmtpProvider) => e.name),

@@ -3,7 +3,6 @@ import {LoadBalancersService} from "../../../shared/services/load-balancers.serv
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {LoadBalancer} from '../../../shared/models/load-balancer.model';
 import {MdDialog} from '@angular/material';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -20,12 +19,11 @@ export class LoadBalancersComponent extends AbstractEntityIndexComponent<LoadBal
     loadBalancersService: LoadBalancersService,
     auth: AuthenticationService,
     dialog: MdDialog,
-    progressBarService: ProgressBarService,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute
   ) {
-    super(loadBalancersService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
+    super(loadBalancersService, auth, dialog, paginationService, router, activatedRoute);
 
     this.columnParams = [
       new ColumnParams('ID', (e: LoadBalancer) => e.id),

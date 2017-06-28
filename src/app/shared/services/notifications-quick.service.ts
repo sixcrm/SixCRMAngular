@@ -3,10 +3,10 @@ import {
   updateNotificationMutation, notificationCountQuery, notificationsQuickListQuery
 } from '../utils/query-builder';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {Http} from '@angular/http';
 import {Subject, Subscription, Observable} from 'rxjs';
 import {AbstractEntityService} from './abstract-entity.service';
 import {Notification} from '../models/notification.model';
+import {HttpWrapperService} from './http-wrapper.service';
 
 @Injectable()
 export class NotificationsQuickService extends AbstractEntityService<Notification> {
@@ -16,7 +16,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
   notificationsSub: Subscription;
   querySub: Subscription;
 
-  constructor(http: Http, authService: AuthenticationService) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService) {
     super(
       http,
       authService,
@@ -55,7 +55,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
       return;
     }
 
-    this.querySub = this.queryRequest(notificationCountQuery()).subscribe(
+    this.querySub = this.queryRequest(notificationCountQuery(), true).subscribe(
       (data) => {
         let json = data.json().data;
         let entityKey = Object.keys(json)[0];

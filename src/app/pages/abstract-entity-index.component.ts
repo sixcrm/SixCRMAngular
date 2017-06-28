@@ -1,7 +1,6 @@
 import {AbstractEntityService} from '../shared/services/abstract-entity.service';
 import {DeleteDialogComponent} from './delete-dialog.component';
 import {MdDialog, MdDialogRef} from '@angular/material';
-import {ProgressBarService} from '../shared/services/progress-bar.service';
 import {PaginationService} from '../shared/services/pagination.service';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Entity} from '../shared/models/entity.interface';
@@ -43,7 +42,6 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     public service: AbstractEntityService<T>,
     protected authService: AuthenticationService,
     protected deleteDialog: MdDialog,
-    protected progressBarService?: ProgressBarService,
     protected paginationService?: PaginationService,
     protected router?: Router,
     protected activatedRoute?: ActivatedRoute
@@ -56,20 +54,17 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
       this.loadingData = false;
       this.entitiesHolder = [...this.entitiesHolder, ...entities];
       this.reshuffleEntities();
-      this.progressBarService.hideTopProgressBar();
     });
 
     this.service.entityDeleted$.takeUntil(this.unsubscribe$).subscribe((entity: T) => {
       this.deleteEntityLocal(entity);
       this.showEntityDetails = false;
-      this.progressBarService.hideTopProgressBar();
     });
     this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe(() => this.reshuffleEntities());
     this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe((entity: T) => {
       if (this.takeUpdated) {
         this.updateEntityLocal(entity);
       }
-      this.progressBarService.hideTopProgressBar();
     });
     this.service.entitiesHasMore$.takeUntil(this.unsubscribe$).subscribe((hasMore: boolean) => this.hasMore = hasMore);
     this.paginationService.limit$.takeUntil(this.unsubscribe$).subscribe((lim: number) => {
@@ -81,7 +76,6 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     this.service.resetPagination();
 
     this.loadingData = true;
-    this.progressBarService.showTopProgressBar();
     this.service.getEntities(this.limit);
   }
 
@@ -90,8 +84,8 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     this.unsubscribe$.complete();
   }
 
-  setInfiniteScroll(infiniteScrool: boolean): void {
-    this.infiniteScroll = infiniteScrool;
+  setInfiniteScroll(infiniteScroll: boolean): void {
+    this.infiniteScroll = infiniteScroll;
   }
 
   updateLimit(lim: number): void {
@@ -124,7 +118,6 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     this.mode = 'view';
     this.showEntityId = id;
     this.showEntityDetails = true;
-    this.progressBarService.showTopProgressBar();
 
     this.calculateViewEntityHeight();
   }
@@ -136,7 +129,6 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
       this.deleteDialogRef = null;
       if (result.success) {
         this.service.deleteEntity(id);
-        this.progressBarService.showTopProgressBar();
       }
     });
   }
@@ -189,7 +181,6 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
       this.entities = tempEntities;
     } else {
       if (this.hasMore) {
-        this.progressBarService.showTopProgressBar();
         this.loadingData = true;
         this.service.getEntities(this.limit - tempEntities.length);
       }

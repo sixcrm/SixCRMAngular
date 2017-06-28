@@ -2,7 +2,6 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {User} from '../../../shared/models/user.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {ActivatedRoute} from '@angular/router';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {UsersService} from '../../../shared/services/users.service';
 import {NavigationService} from '../../../navigation/navigation.service';
 
@@ -15,8 +14,8 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
 
   selectedIndex: number = 0;
 
-  constructor(service: UsersService, route: ActivatedRoute, progressBar: ProgressBarService, public navigation: NavigationService) {
-    super(service, route, progressBar);
+  constructor(service: UsersService, route: ActivatedRoute, public navigation: NavigationService) {
+    super(service, route);
   }
 
   ngOnInit() {

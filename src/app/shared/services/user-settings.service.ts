@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {Http} from '@angular/http';
 import {UserSettings} from '../models/user-settings';
 import { userSettingsQuery, updateUserSettingsMutation } from '../utils/query-builder';
+import {HttpWrapperService} from './http-wrapper.service';
 
 @Injectable()
 export class UserSettingsService extends AbstractEntityService<UserSettings> {
 
-  constructor(http: Http, authService: AuthenticationService) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService) {
     super(
       http,
       authService,

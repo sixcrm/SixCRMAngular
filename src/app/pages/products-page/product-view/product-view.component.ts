@@ -2,7 +2,6 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {Product} from '../../../shared/models/product.model';
 import {ProductsService} from '../../../shared/services/products.service';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {ActivatedRoute} from '@angular/router';
 import {FulfillmentProvidersService} from '../../../shared/services/fulfillment-providers.service';
 import {FulfillmentProvider} from '../../../shared/models/fulfillment-provider.model';
@@ -23,11 +22,10 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
   constructor(
     service: ProductsService,
     route: ActivatedRoute,
-    progressBarService: ProgressBarService,
     public navigation: NavigationService,
     public fulfillmentProvidersService: FulfillmentProvidersService
   ) {
-    super(service, route, progressBarService);
+    super(service, route);
   }
 
   ngOnInit() {

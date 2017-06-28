@@ -3,7 +3,6 @@ import {Tracker} from '../../../shared/models/tracker.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {TrackersService} from '../../../shared/services/trackers.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {Affiliate} from '../../../shared/models/affiliate.model';
@@ -39,13 +38,12 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
   constructor(
     service: TrackersService,
     route: ActivatedRoute,
-    progressBarService: ProgressBarService,
     public navigation: NavigationService,
     public affiliateService: AffiliatesService,
     public authService: AuthenticationService,
     private router: Router
   ) {
-    super(service, route, progressBarService);
+    super(service, route);
   }
 
   ngOnInit() {
@@ -73,7 +71,6 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
 
   saveTracker(): void {
     this.service.entityCreated$.take(1).subscribe(tracker => {
-      this.progressBarService.hideTopProgressBar();
       this.router.navigate(['trackers', tracker.id]);
       this.entity = tracker;
     });
@@ -139,7 +136,6 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
     let index = firstIndexOf(this.entity.affiliates, (el) => el.id === affiliate.id);
 
     if (index >= 0) {
-      this.progressBarService.showTopProgressBar();
       this.entity.affiliates.splice(index, 1);
       this.service.updateEntity(this.entity);
     }

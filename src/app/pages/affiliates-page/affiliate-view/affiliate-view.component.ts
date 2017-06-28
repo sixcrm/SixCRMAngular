@@ -3,7 +3,6 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
 import {Affiliate} from '../../../shared/models/affiliate.model';
 import {AffiliatesService} from '../../../shared/services/affiliates.service';
 import {ActivatedRoute} from '@angular/router';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
@@ -18,8 +17,8 @@ export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliat
   selectedIndex: number = 0;
   formInvalid: boolean;
 
-  constructor(service: AffiliatesService, route: ActivatedRoute, progressBarService: ProgressBarService, public navigation: NavigationService) {
-    super(service, route, progressBarService);
+  constructor(service: AffiliatesService, route: ActivatedRoute, public navigation: NavigationService) {
+    super(service, route);
   }
 
   ngOnInit() {

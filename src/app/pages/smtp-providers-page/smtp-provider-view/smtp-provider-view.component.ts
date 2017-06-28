@@ -1,7 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {SmtpProvidersService} from '../../../shared/services/smtp-providers.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {SmtpProvider} from '../../../shared/models/smtp-provider.model';
 import {NavigationService} from '../../../navigation/navigation.service';
@@ -18,11 +17,11 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
   formInvalid: boolean;
 
   constructor(service: SmtpProvidersService,
-              route: ActivatedRoute, progressBarService: ProgressBarService,
+              route: ActivatedRoute,
               public navigation: NavigationService,
               private router: Router
   ) {
-    super(service, route, progressBarService);
+    super(service, route);
   }
 
   ngOnInit() {
@@ -56,7 +55,6 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
     this.formInvalid = false;
     if (this.addMode) {
       this.service.entityCreated$.take(1).subscribe(provider => {
-        this.progressBarService.hideTopProgressBar();
         this.router.navigate(['smtpproviders', provider.id]);
         this.entity = provider;
         this.entityBackup = this.entity.copy();

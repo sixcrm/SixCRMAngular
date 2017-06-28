@@ -4,7 +4,6 @@ import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.compo
 import {CampaignsService} from '../../../../shared/services/campaigns.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {MdDialog} from '@angular/material';
-import {ProgressBarService} from '../../../../shared/services/progress-bar.service';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {Currency} from '../../../../shared/utils/currency/currency';
@@ -22,10 +21,9 @@ export class AffiliateCampaignsComponent extends AbstractEntityIndexComponent<Ca
     campaignsService: CampaignsService,
     auth: AuthenticationService,
     dialog: MdDialog,
-    progressBarService: ProgressBarService,
     paginationService: PaginationService
   ) {
-    super(campaignsService, auth, dialog, progressBarService, paginationService);
+    super(campaignsService, auth, dialog, paginationService);
 
     let f = this.authService.getTimezone();
     this.columnParams = [

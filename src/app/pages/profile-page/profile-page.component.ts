@@ -3,7 +3,6 @@ import {AuthenticationService} from "../../authentication/authentication.service
 import {User} from '../../shared/models/user.model';
 import {UsersService} from '../../shared/services/users.service';
 import {NavigationService} from '../../navigation/navigation.service';
-import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {Acl} from '../../shared/models/acl.model';
 import {Subject} from 'rxjs';
 import {UserSettings, NotificationUserSettings} from '../../shared/models/user-settings';
@@ -59,12 +58,10 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     private notificationSettingsService: NotificationSettingsService,
     private authService: AuthenticationService,
     public navigation: NavigationService,
-    private progressBarService: ProgressBarService
   ) { }
 
   ngOnInit() {
     this.userSettingsService.entity$.merge(this.userSettingsService.entityUpdated$).takeUntil(this.unsubscribe$).subscribe(userSettings => {
-      this.progressBarService.hideTopProgressBar();
       this.userSettings = userSettings;
       if (!this.userSettings.id) {
         this.userSettings.id = this.user.id;
@@ -91,7 +88,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
     this.notificationSettingsService.entityCreated$
       .merge(this.notificationSettingsService.entityUpdated$).takeUntil(this.unsubscribe$).subscribe(settings => {
-        this.progressBarService.hideTopProgressBar();
         this.notificationSettings = settings;
       });
 
@@ -113,12 +109,10 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     });
 
     this.userSettingsUpdateDebouncer.takeUntil(this.unsubscribe$).debounceTime(2000).subscribe(() => {
-      this.progressBarService.showTopProgressBar();
       this.userSettingsService.updateEntity(this.userSettings);
     });
 
     this.notificationSettingsUpdateDebouncer.takeUntil(this.unsubscribe$).debounceTime(2000).subscribe(() => {
-      this.progressBarService.showTopProgressBar();
       this.notificationSettingsService.updateEntity(this.notificationSettings)
     })
   }
@@ -137,7 +131,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   }
 
   updateUserDetails(): void {
-    this.progressBarService.showTopProgressBar();
     this.userService.updateEntity(this.userBackup, true);
     this.userSettingsService.updateEntity(this.userSettingsBackup)
   }

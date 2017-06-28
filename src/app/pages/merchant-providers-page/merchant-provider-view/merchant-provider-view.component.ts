@@ -3,7 +3,6 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
 import {MerchantProvider} from '../../../shared/models/merchant-provider/merchant-provider.model';
 import {MerchantProvidersService} from '../../../shared/services/merchant-providers.service';
 import {ActivatedRoute} from '@angular/router';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {LoadBalancer} from '../../../shared/models/load-balancer.model';
@@ -23,8 +22,8 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
   loadBalancerColumnParams = [new ColumnParams('ID', (e: LoadBalancer) => e.id)];
   loadBalancerMapper = (l: LoadBalancer) => l.id;
 
-  constructor(service: MerchantProvidersService, route: ActivatedRoute, progressBarService: ProgressBarService, public navigation: NavigationService) {
-    super(service, route, progressBarService);
+  constructor(service: MerchantProvidersService, route: ActivatedRoute, public navigation: NavigationService) {
+    super(service, route);
   }
 
   ngOnInit() {

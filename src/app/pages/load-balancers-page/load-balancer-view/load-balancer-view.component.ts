@@ -3,7 +3,6 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
 import {LoadBalancer} from '../../../shared/models/load-balancer.model';
 import {LoadBalancersService} from '../../../shared/services/load-balancers.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {MerchantProviderConfiguration} from '../../../shared/models/merchant-provider-configuration.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
@@ -33,12 +32,11 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
 
   constructor(service: LoadBalancersService,
               route: ActivatedRoute,
-              progressBarService: ProgressBarService,
               public navigation: NavigationService,
               public router: Router,
               public merchantProviderService: MerchantProvidersService
   ) {
-    super(service, route, progressBarService);
+    super(service, route);
   }
 
   ngOnInit() {
@@ -70,7 +68,6 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
 
     if (index > -1) {
       this.entity.merchantProviderConfigurations.splice(index, 1);
-      this.progressBarService.showTopProgressBar();
       this.updateEntity(this.entity);
     }
   }
@@ -85,7 +82,6 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
     if (this.formInvalid) return;
 
     this.entity.merchantProviderConfigurations.push(this.providerToAdd);
-    this.progressBarService.showTopProgressBar();
     this.service.updateEntity(this.entity);
   }
 }

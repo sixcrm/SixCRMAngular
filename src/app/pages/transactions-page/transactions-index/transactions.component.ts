@@ -3,7 +3,6 @@ import {TransactionsService} from "../../../shared/services/transactions.service
 import {Transaction} from '../../../shared/models/transaction.model';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {MdDialog} from '@angular/material';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -20,12 +19,11 @@ export class TransactionsComponent extends AbstractEntityIndexComponent<Transact
     transactionsService: TransactionsService,
     auth: AuthenticationService,
     dialog: MdDialog,
-    progressBarService: ProgressBarService,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute
   ) {
-    super(transactionsService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
+    super(transactionsService, auth, dialog, paginationService, router, activatedRoute);
 
     let f = this.authService.getTimezone();
     this.columnParams = [

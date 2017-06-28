@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import {Subject, Observable} from 'rxjs';
-import {Response, Headers, Http} from '@angular/http';
+import {Response, Headers} from '@angular/http';
 import {environment} from '../../../environments/environment';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {
   searchQuery, suggestionsQuery, searchFacets, searchAdvancedQuery,
   searchAdvancedFacets, dashboardFiltersQuery, dashboardFiltersAdvancedQuery
 } from '../utils/queries/search.queries';
-import {extractData} from './http-wrapper.service';
+import {extractData, HttpWrapperService} from './http-wrapper.service';
 
 @Injectable()
 export class SearchService {
@@ -21,7 +21,7 @@ export class SearchService {
   private suggestionInput$: Subject<string>;
   private dashboardFilterInput$: Subject<string>;
 
-  constructor(private http: Http, private authService: AuthenticationService) {
+  constructor(private http: HttpWrapperService, private authService: AuthenticationService) {
     this.searchResults$ = new Subject<any[]>();
     this.advanceSearchResults$ = new Subject<any[]>();
     this.suggestionResults$ = new Subject<string[]>();

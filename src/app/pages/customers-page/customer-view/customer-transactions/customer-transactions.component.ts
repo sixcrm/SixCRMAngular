@@ -1,7 +1,6 @@
 import {Component, Input, OnInit, OnDestroy} from '@angular/core';
 import {Transaction} from '../../../../shared/models/transaction.model';
 import {TransactionsService} from '../../../../shared/services/transactions.service';
-import {ProgressBarService} from '../../../../shared/services/progress-bar.service';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {MdDialog} from '@angular/material';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
@@ -25,11 +24,10 @@ export class CustomerTransactionsComponent extends AbstractEntityIndexComponent<
     transactionsService: TransactionsService,
     auth: AuthenticationService,
     dialog: MdDialog,
-    progressBarService: ProgressBarService,
     paginationService: PaginationService,
     router: Router
   ) {
-    super(transactionsService, auth, dialog, progressBarService, paginationService, router);
+    super(transactionsService, auth, dialog, paginationService, router);
 
     this.columnParams = [
       new ColumnParams('Alias', (e: Transaction) => e.alias),

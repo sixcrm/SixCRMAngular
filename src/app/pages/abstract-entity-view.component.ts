@@ -1,7 +1,6 @@
 import {ActivatedRoute, Params} from '@angular/router';
 import {AbstractEntityService} from '../shared/services/abstract-entity.service';
 import {AsyncSubject} from 'rxjs';
-import {ProgressBarService} from '../shared/services/progress-bar.service';
 import {Entity} from '../shared/models/entity.interface';
 import {isAllowedNumeric, isAllowedFloatNumeric} from '../shared/utils/form.utils';
 import {getCurrencyMask} from '../shared/utils/mask.utils';
@@ -31,7 +30,7 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
   protected fetchEntityOnInit: boolean = true;
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
-  constructor(public service: AbstractEntityService<T>, route: ActivatedRoute, protected progressBarService?: ProgressBarService) {
+  constructor(public service: AbstractEntityService<T>, route: ActivatedRoute) {
     route.params.takeUntil(this.unsubscribe$).subscribe((params: Params) => {
       if (params['id'] === 'add') {
         this.setMode(Modes.Add);
@@ -50,7 +49,6 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
 
       this.entity = entity;
       this.entityBackup = entity.copy();
-      this.progressBarService.hideTopProgressBar();
     });
 
     this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe((updated: T) => {
@@ -59,19 +57,16 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
         this.entityBackup = this.entity.copy();
       }
       this.setMode(Modes.View);
-      this.progressBarService.hideTopProgressBar();
     });
 
     this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe((created: T) => {
       this.entity = created;
       this.entityBackup = this.entity.copy();
       this.setMode(Modes.View);
-      this.progressBarService.hideTopProgressBar();
     });
 
     if (this.fetchEntityOnInit && (this.viewMode || this.updateMode)) {
       this.service.getEntity(this.entityId);
-      this.progressBarService.showTopProgressBar();
     }
   }
 
@@ -88,12 +83,10 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
 
   saveEntity(entity: T): void {
     this.service.createEntity(entity);
-    this.progressBarService.showTopProgressBar();
   }
 
   updateEntity(entity: T): void {
     this.service.updateEntity(entity);
-    this.progressBarService.showTopProgressBar();
   }
 
   cancelUpdate(): void {

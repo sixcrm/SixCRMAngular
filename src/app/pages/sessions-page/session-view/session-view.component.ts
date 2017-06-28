@@ -3,7 +3,6 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
 import {Session} from '../../../shared/models/session.model';
 import {SessionsService} from '../../../shared/services/sessions.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {Rebill} from '../../../shared/models/rebill.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
@@ -23,12 +22,11 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
 
   constructor(service: SessionsService,
               route: ActivatedRoute,
-              progressBarService: ProgressBarService,
               public navigation: NavigationService,
               private authService: AuthenticationService,
               private router: Router
   ) {
-    super(service, route, progressBarService);
+    super(service, route);
   }
 
   ngOnInit() {

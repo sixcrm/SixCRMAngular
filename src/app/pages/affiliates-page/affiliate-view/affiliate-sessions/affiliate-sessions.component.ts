@@ -3,7 +3,6 @@ import {Session} from '../../../../shared/models/session.model';
 import {SessionsService} from '../../../../shared/services/sessions.service';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {ProgressBarService} from '../../../../shared/services/progress-bar.service';
 import {MdDialog} from '@angular/material';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
@@ -23,10 +22,9 @@ export class AffiliateSessionsComponent extends AbstractEntityIndexComponent<Ses
     sessionService: SessionsService,
     auth: AuthenticationService,
     dialog: MdDialog,
-    progressBarService: ProgressBarService,
     paginationService: PaginationService
   ) {
-    super(sessionService, auth, dialog, progressBarService, paginationService);
+    super(sessionService, auth, dialog, paginationService);
 
     this.columnParams = [
       new ColumnParams('Customer', (e: Session) => `${e.customer.firstName} ${e.customer.lastName}`),

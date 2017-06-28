@@ -1,8 +1,8 @@
-import {Headers, Response, Http} from '@angular/http';
+import {Headers, Response} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {extractData} from './http-wrapper.service';
+import {extractData, HttpWrapperService} from './http-wrapper.service';
 
 export abstract class AbstractEntityService<T> {
 
@@ -17,7 +17,7 @@ export abstract class AbstractEntityService<T> {
   protected cursor: string;
 
   constructor(
-    private http: Http,
+    private http: HttpWrapperService,
     protected authService: AuthenticationService,
     private toEntity?: (data: any) => T,
     public indexQuery?: (limit?: number, cursor?: string) => string,
@@ -190,7 +190,7 @@ export abstract class AbstractEntityService<T> {
     )
   }
 
-  protected queryRequest(query: string): Observable<Response> {
+  protected queryRequest(query: string, ignoreProgress?: boolean): Observable<Response> {
     let endpoint = environment.endpoint;
 
 
@@ -200,7 +200,7 @@ export abstract class AbstractEntityService<T> {
       endpoint = endpoint + '*';
     }
 
-    return this.http.post(endpoint, query, { headers: this.generateHeaders()});
+    return this.http.post(endpoint, query, { headers: this.generateHeaders()}, ignoreProgress);
   }
 
   private generateHeaders(): Headers {

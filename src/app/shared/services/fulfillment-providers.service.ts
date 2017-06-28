@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {AbstractEntityService} from './abstract-entity.service';
-import {Http} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {FulfillmentProvider} from '../models/fulfillment-provider.model';
 import {
@@ -8,11 +7,12 @@ import {
   fulfillmentProviderQuery, deleteFulfillmentProviderMutation, createFulfillmentProviderMutation,
   updateFulfillmentProviderMutation
 } from '../utils/queries/entities/fulfillment-provider.queries';
+import {HttpWrapperService} from './http-wrapper.service';
 
 @Injectable()
 export class FulfillmentProvidersService extends AbstractEntityService<FulfillmentProvider> {
 
-  constructor(http: Http, authService: AuthenticationService) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService) {
     super(
       http,
       authService,

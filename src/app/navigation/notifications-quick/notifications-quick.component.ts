@@ -1,5 +1,4 @@
 import {Component, Output, EventEmitter, OnInit, ElementRef} from '@angular/core';
-import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {Notification, compareNotifications} from '../../shared/models/notification.model';
 import {utc} from 'moment';
 import {Router} from '@angular/router';
@@ -27,7 +26,6 @@ export class NotificationsQuickComponent implements OnInit {
 
   constructor(
     private notificationsService: NotificationsQuickService,
-    private progressBarService: ProgressBarService,
     private router: Router,
     private elementRef: ElementRef
   ) { }
@@ -36,16 +34,11 @@ export class NotificationsQuickComponent implements OnInit {
     this.notificationsService.entities$.subscribe(notifications => {
       this.arrangeNotifications(notifications);
       this.notificationsService.restartPoolingNotifications();
-      this.progressBarService.hideTopProgressBar();
     });
 
     this.notificationsService.entityUpdated$.subscribe(notification => {
       this.updateLocally(notification);
     });
-
-    setTimeout(() => {
-      this.progressBarService.showTopProgressBar();
-    }, 1);
 
     this.notificationsService.getEntities(20);
     this.notificationsService.restartPoolingNotifications();

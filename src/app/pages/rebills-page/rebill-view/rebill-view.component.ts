@@ -3,7 +3,6 @@ import {Rebill} from '../../../shared/models/rebill.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {RebillsService} from '../../../shared/services/rebills.service';
 import {ActivatedRoute} from '@angular/router';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
@@ -22,10 +21,9 @@ export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> imp
   constructor(
     service: RebillsService,
     route: ActivatedRoute,
-    progressBarService: ProgressBarService,
     public navigation: NavigationService
   ) {
-    super(service, route, progressBarService);
+    super(service, route);
   }
 
   ngOnInit() {

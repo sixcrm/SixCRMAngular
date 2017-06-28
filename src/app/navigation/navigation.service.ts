@@ -6,7 +6,6 @@ import {MdDialog} from '../../../node_modules/@angular/material/dialog/dialog';
 import {menuItems} from './menu-setup';
 import {StringUtils} from '../shared/utils/string-utils';
 import {AuthenticationService} from '../authentication/authentication.service';
-import {ProgressBarService} from '../shared/services/progress-bar.service';
 import {Router} from '@angular/router';
 
 @Injectable()
@@ -29,21 +28,17 @@ export class NavigationService {
   constructor(public dialog: MdDialog,
               private authService: AuthenticationService,
               private location: Location,
-              private progressBarService: ProgressBarService,
               private router: Router
   ) {
     this.authService.activeAcl$.subscribe(acl => {
       if (!acl || !acl.account.id) return;
 
       this.setMenuItems(menuItems(authService, acl));
-
-      this.progressBarService.hideTopProgressBar();
     })
   }
 
   public goToNotFoundPage(): void {
     this.router.navigate(['not-found'], {skipLocationChange: true});
-    this.progressBarService.hideTopProgressBar();
   }
 
   public get menuItems(): Subject<MenuItem[]> {

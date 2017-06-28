@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -29,7 +28,7 @@ export class AdvancedSearchComponent implements OnInit {
 
   @Input() active: boolean = true;
 
-  constructor(private progressBarService: ProgressBarService, private router: Router) { }
+  constructor(private router: Router) { }
 
   ngOnInit() { }
 
@@ -49,7 +48,6 @@ export class AdvancedSearchComponent implements OnInit {
     });
 
     if (Object.keys(this.searchOptions).length > 1) {
-      this.progressBarService.showTopProgressBar();
       this.router.navigate(['/search'], {queryParams: this.searchOptions});
     } else {
       input.focus();

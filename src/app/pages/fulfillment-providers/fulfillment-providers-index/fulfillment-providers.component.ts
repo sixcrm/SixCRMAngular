@@ -3,7 +3,6 @@ import {FulfillmentProvidersService} from "../../../shared/services/fulfillment-
 import {FulfillmentProvider} from '../../../shared/models/fulfillment-provider.model';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {MdDialog} from '@angular/material';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -20,12 +19,11 @@ export class FulfillmentProvidersComponent extends AbstractEntityIndexComponent<
     fulfillmentProvidersService: FulfillmentProvidersService,
     auth: AuthenticationService,
     dialog: MdDialog,
-    progressBarService: ProgressBarService,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute
   ) {
-    super(fulfillmentProvidersService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
+    super(fulfillmentProvidersService, auth, dialog, paginationService, router, activatedRoute);
 
     this.columnParams = [
       new ColumnParams('Name', (e: FulfillmentProvider) => e.name),

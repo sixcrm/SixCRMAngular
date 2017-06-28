@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import {Http, Headers} from '@angular/http';
+import {Headers} from '@angular/http';
 import {Observable} from 'rxjs';
 import {getSchemaQuery} from './queries/schema.query';
 import {Type} from './models/type.model';
+import {HttpWrapperService} from '../shared/services/http-wrapper.service';
 
 export interface HeadersInput {
   key: string;
@@ -12,7 +13,7 @@ export interface HeadersInput {
 @Injectable()
 export class GraphqlDocsService {
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpWrapperService) { }
 
   getSchemaTypes(endpoint: string, headersInput: HeadersInput[]): Observable<Type[]> {
     return this.http.post(endpoint, getSchemaQuery(), { headers: this.generateHeaders(headersInput)})

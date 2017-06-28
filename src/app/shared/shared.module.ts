@@ -17,7 +17,6 @@ import {UsersService} from './services/users.service';
 import {SmtpProvidersService} from './services/smtp-providers.service';
 import {EmailTemplatesService} from './services/email-templates.service';
 import {AccessKeysService} from './services/access-keys.service';
-import {ProgressBarService} from './services/progress-bar.service';
 import {ProductScheduleService} from './services/product-schedule.service';
 import {PaginationService} from './services/pagination.service';
 import {RolesService} from './services/roles.service';
@@ -135,7 +134,6 @@ export class SharedModule {
         SmtpProvidersService,
         EmailTemplatesService,
         AccessKeysService,
-        ProgressBarService,
         ProductScheduleService,
         PaginationService,
         RolesService,

@@ -1,7 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SearchService} from '../../shared/services/search.service';
-import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {Subscription, Subject} from 'rxjs';
 import {PaginationService} from '../../shared/services/pagination.service';
 import {utc, Moment} from 'moment';
@@ -83,7 +82,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     public authService: AuthenticationService,
     private route: ActivatedRoute,
     private router: Router,
-    private progressBarService: ProgressBarService,
     private searchService: SearchService,
     private paginationService: PaginationService,
     private daterangepickerOptions: DaterangepickerConfig,
@@ -128,7 +126,6 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.searchResults = [...this.searchResults, ...data.hit];
       this.numberOfSearchResults = data.found;
       this.reshuffleSearchResults();
-      this.progressBarService.hideTopProgressBar();
     });
 
     this.searchService.suggestionResults$.subscribe(data => this.autocompleteOptions = data);
@@ -444,7 +441,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   private performSearch(query: string|any, createdAtRange: string, sortBy: string, offset: number, count: number, entityTypes: any): void {
-    this.progressBarService.showTopProgressBar();
     this.fetchingData = true;
     this.searchPerformed = true;
     this.searchService.searchByQuery(query, createdAtRange, sortBy, offset, count, entityTypes);

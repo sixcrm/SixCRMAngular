@@ -3,7 +3,7 @@ import {Observable, BehaviorSubject, Subject} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {EventFunnel} from '../models/event-funnel.model';
-import {Headers, Response, Http} from '@angular/http';
+import {Headers, Response} from '@angular/http';
 import {TransactionOverview} from '../models/transaction-overview.model';
 import {TransactionSummary} from '../models/transaction-summary.model';
 import {
@@ -20,6 +20,7 @@ import {EventsBy} from '../models/analytics/events-by.model';
 import {FilterTerm} from '../components/advanced-filter/advanced-filter.component';
 import {downloadFile} from '../utils/file.utils';
 import {Activity} from '../models/analytics/activity.model';
+import {HttpWrapperService} from './http-wrapper.service';
 
 @Injectable()
 export class AnalyticsService {
@@ -35,7 +36,7 @@ export class AnalyticsService {
 
   activitiesByCustomer$: Subject<Activity[]>;
 
-  constructor(private authService: AuthenticationService, private analyticsStorage: AnalyticsStorageService, private http: Http) {
+  constructor(private authService: AuthenticationService, private analyticsStorage: AnalyticsStorageService, private http: HttpWrapperService) {
     this.eventFunnel$ = new BehaviorSubject(null);
     this.transactionsSummaries$ = new BehaviorSubject(null);
     this.transactionsOverview$ = new BehaviorSubject(null);

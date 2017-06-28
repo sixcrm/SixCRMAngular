@@ -1,7 +1,6 @@
 import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import {CustomerNote} from '../../../../shared/models/customer-note.model';
 import {CustomerNotesService} from '../../../../shared/services/customer-notes.service';
-import {ProgressBarService} from '../../../../shared/services/progress-bar.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {customerNotesByCustomerQuery} from '../../../../shared/utils/query-builder';
@@ -26,10 +25,9 @@ export class CustomerNotesComponent extends AbstractEntityIndexComponent<Custome
     customerNotesService: CustomerNotesService,
     auth: AuthenticationService,
     dialog: MdDialog,
-    progressBarService: ProgressBarService,
     paginationService: PaginationService,
   ) {
-    super(customerNotesService, auth, dialog, progressBarService, paginationService);
+    super(customerNotesService, auth, dialog, paginationService);
     this.setInfiniteScroll(true);
   }
 
@@ -41,13 +39,11 @@ export class CustomerNotesComponent extends AbstractEntityIndexComponent<Custome
     this.service.entities$.takeUntil(this.unsubscribe$).subscribe(notes => {
       this.hasMore = notes && notes.length === this.limit;
       this.notes = [...this.notes, ...notes];
-      this.progressBarService.hideTopProgressBar();
     });
 
     this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe(note => {
       this.notes.unshift(note);
       this.closeNote();
-      this.progressBarService.hideTopProgressBar();
     });
 
     this.service.entityDeleted$.takeUntil(this.unsubscribe$).subscribe(note => {
@@ -82,7 +78,6 @@ export class CustomerNotesComponent extends AbstractEntityIndexComponent<Custome
     if (this.note) {
       let customerNote = new CustomerNote({customer: {id: this.customerId}, user: {id: this.authService.getSixUser().id}, body: this.note});
       this.service.createEntity(customerNote);
-      this.progressBarService.showTopProgressBar();
     }
   }
 

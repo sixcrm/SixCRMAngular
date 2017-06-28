@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import {Role} from '../models/role.model';
 import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {Http} from '@angular/http';
 import {rolesListQuery} from '../utils/query-builder';
+import {HttpWrapperService} from './http-wrapper.service';
 
 @Injectable()
 export class RolesService extends AbstractEntityService<Role>{
 
-  constructor(http: Http, authService: AuthenticationService) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService) {
     super(
       http,
       authService,

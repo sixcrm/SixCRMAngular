@@ -1,6 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ProductScheduleService} from '../../../shared/services/product-schedule.service';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {MdDialog} from '@angular/material';
@@ -20,12 +19,11 @@ export class ProductSchedulesComponent extends AbstractEntityIndexComponent<Prod
     productScheduleService: ProductScheduleService,
     auth: AuthenticationService,
     dialog: MdDialog,
-    progressBarService: ProgressBarService,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute
   ) {
-    super(productScheduleService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
+    super(productScheduleService, auth, dialog, paginationService, router, activatedRoute);
 
     this.columnParams = [
       new ColumnParams('Name', (e: ProductSchedule) => e.name),

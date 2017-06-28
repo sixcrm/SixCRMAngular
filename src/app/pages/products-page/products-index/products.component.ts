@@ -3,7 +3,6 @@ import {ProductsService} from "../../../shared/services/products.service";
 import {Product} from "../../../shared/models/product.model";
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {MdDialog} from '@angular/material';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -20,12 +19,11 @@ export class ProductsComponent extends AbstractEntityIndexComponent<Product> imp
     productsService: ProductsService,
     auth: AuthenticationService,
     dialog: MdDialog,
-    progressBarService: ProgressBarService,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute
   ) {
-    super(productsService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
+    super(productsService, auth, dialog, paginationService, router, activatedRoute);
 
     this.columnParams = [
       new ColumnParams('Product Name', (e: Product) => e.name),

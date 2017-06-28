@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
-import {Http} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {AbstractEntityService} from './abstract-entity.service';
 import {CustomerNote} from '../models/customer-note.model';
-import {
-  customerNotesByCustomerQuery, createCustomerNoteMutation, deleteCustomerNoteMutation
-} from '../utils/query-builder';
+import {createCustomerNoteMutation, deleteCustomerNoteMutation} from '../utils/query-builder';
+import {HttpWrapperService} from './http-wrapper.service';
 
 @Injectable()
 export class CustomerNotesService extends AbstractEntityService<CustomerNote> {
 
-  constructor(http: Http, authService: AuthenticationService) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService) {
     super(
       http,
       authService,

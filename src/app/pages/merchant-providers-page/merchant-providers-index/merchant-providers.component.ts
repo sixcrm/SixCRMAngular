@@ -3,7 +3,6 @@ import {MerchantProvidersService} from "../../../shared/services/merchant-provid
 import {MerchantProvider} from '../../../shared/models/merchant-provider/merchant-provider.model';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {MdDialog} from '@angular/material';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -20,12 +19,11 @@ export class MerchantProvidersComponent extends AbstractEntityIndexComponent<Mer
     merchantProvidersService: MerchantProvidersService,
     auth: AuthenticationService,
     dialog: MdDialog,
-    progressBarService: ProgressBarService,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute
   ) {
-    super(merchantProvidersService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
+    super(merchantProvidersService, auth, dialog, paginationService, router, activatedRoute);
 
     this.columnParams = [
       new ColumnParams('Name', (e: MerchantProvider) => e.name),

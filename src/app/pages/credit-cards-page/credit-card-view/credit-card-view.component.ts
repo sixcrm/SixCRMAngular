@@ -3,7 +3,6 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
 import {CreditCard} from '../../../shared/models/credit-card.model';
 import {CreditCardsService} from '../../../shared/services/credit-cards.service';
 import {ActivatedRoute} from '@angular/router';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
@@ -13,8 +12,8 @@ import {NavigationService} from '../../../navigation/navigation.service';
 })
 export class CreditCardViewComponent extends AbstractEntityViewComponent<CreditCard> implements OnInit, OnDestroy {
 
-  constructor(service: CreditCardsService, route: ActivatedRoute, progressBarService: ProgressBarService, public navigation: NavigationService) {
-    super(service, route, progressBarService);
+  constructor(service: CreditCardsService, route: ActivatedRoute, public navigation: NavigationService) {
+    super(service, route);
   }
 
   ngOnInit() {

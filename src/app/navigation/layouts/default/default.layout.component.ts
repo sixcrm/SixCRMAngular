@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NavigationService} from '../../navigation.service';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
+import {HttpWrapperService} from '../../../shared/services/http-wrapper.service';
 
 @Component({
   templateUrl : './default.layout.component.html',
@@ -12,7 +12,7 @@ export class DefaultLayoutComponent implements OnInit {
   isHovering: boolean = false;
   showOnHover: boolean = false;
 
-  constructor(public navigation: NavigationService, public progressBarService: ProgressBarService) { }
+  constructor(public navigation: NavigationService, public http: HttpWrapperService) { }
 
   ngOnInit() {
     this.navigation.showSidenav.subscribe(showSidenav => this.showSidenav = showSidenav);

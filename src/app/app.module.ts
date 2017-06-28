@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {HttpModule, Http, XHRBackend, RequestOptions} from '@angular/http';
+import {HttpModule} from '@angular/http';
 import {routing} from './app.routing';
 import {AppComponent} from './app.component';
 import {NavigationModule} from './navigation/navigation.module';
@@ -13,10 +13,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SharedModule} from './shared/shared.module';
 import {AssociateDialogComponent} from './pages/associate-dialog.component';
 import {HttpWrapperService} from './shared/services/http-wrapper.service';
-
-export function httpFactory(x: XHRBackend, r: RequestOptions) {
-  return new HttpWrapperService(x, r);
-}
 
 @NgModule({
   declarations : [
@@ -37,11 +33,7 @@ export function httpFactory(x: XHRBackend, r: RequestOptions) {
     MaterialModule
   ],
   providers : [
-    {
-      provide: Http,
-      useFactory: httpFactory,
-      deps: [XHRBackend, RequestOptions]
-    }
+    HttpWrapperService
   ],
   entryComponents : [AppComponent, DeleteDialogComponent, AssociateDialogComponent],
   bootstrap : [AppComponent]

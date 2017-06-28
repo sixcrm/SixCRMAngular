@@ -1,7 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {CreditCard} from '../../../../shared/models/credit-card.model';
 import {CreditCardsService} from '../../../../shared/services/credit-cards.service';
-import {ProgressBarService} from '../../../../shared/services/progress-bar.service';
 import {getStates} from '../../../../shared/utils/address.utils';
 
 @Component({
@@ -35,7 +34,7 @@ export class CreditCardInputComponent implements OnInit {
   @Output() created: EventEmitter<CreditCard> = new EventEmitter();
   @Output() cancel: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(private creditCardService: CreditCardsService, private progressBarService: ProgressBarService) { }
+  constructor(private creditCardService: CreditCardsService) { }
 
   ngOnInit() { }
 
@@ -45,11 +44,9 @@ export class CreditCardInputComponent implements OnInit {
     }
 
     this.creditCardService.entityCreated$.take(1).subscribe(ccard => {
-      this.progressBarService.hideTopProgressBar();
       this.created.next(ccard)
     });
 
-    this.progressBarService.showTopProgressBar();
     this.creditCardService.createEntity(this.ccard);
   }
 
@@ -59,11 +56,9 @@ export class CreditCardInputComponent implements OnInit {
     }
 
     this.creditCardService.entityUpdated$.take(1).subscribe(ccard => {
-      this.progressBarService.hideTopProgressBar();
       this.updated.next(ccard)
     });
 
-    this.progressBarService.showTopProgressBar();
     this.creditCardService.updateEntity(this.ccard);
   }
 

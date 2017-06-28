@@ -1,7 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {TransactionReportService} from '../../shared/services/analytics/transaction-report.service';
 import {TransactionReport} from '../../shared/models/analytics/transaction-report.model';
-import {ProgressBarService} from '../../shared/services/progress-bar.service';
 import {utc, Moment} from 'moment';
 import {ReportsAbstractComponent, ReportColumnParams} from '../reports-abstract.component';
 import {PaginationService} from '../../shared/services/pagination.service';
@@ -26,7 +25,6 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
 
   constructor(
     private reportService: TransactionReportService,
-    private progressBarService: ProgressBarService,
     paginationService: PaginationService,
     private router: Router,
     private route: ActivatedRoute
@@ -34,7 +32,6 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
     super(paginationService);
 
     this.fetchFunction = () => {
-      this.progressBarService.showTopProgressBar();
       this.immutableFilterTerms = this.filterTerms.slice();
       this.dateMap = {start: flatDown(this.start), end: flatUp(this.end)};
       this.reportService.getTransactions(this.start.format(), this.end.format(), this.filterTerms, false, this.limit + 1, this.page * this.limit);
@@ -54,7 +51,6 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
     ];
 
     this.reportService.transactions$.takeUntil(this.unsubscribe$).subscribe(reports => {
-      this.progressBarService.hideTopProgressBar();
       this.reports = [...this.reports, ...reports];
 
       if (this.reports.length < this.limit + 1) {

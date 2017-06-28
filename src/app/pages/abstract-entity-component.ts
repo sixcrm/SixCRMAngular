@@ -1,7 +1,6 @@
 import {Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import {Entity} from '../shared/models/entity.interface';
 import {AbstractEntityService} from '../shared/services/abstract-entity.service';
-import {ProgressBarService} from '../shared/services/progress-bar.service';
 
 export abstract class AbstractEntityComponent<T extends Entity<T>> {
 
@@ -37,7 +36,6 @@ export abstract class AbstractEntityComponent<T extends Entity<T>> {
 
   constructor(
     protected service: AbstractEntityService<T>,
-    protected progressBarService?: ProgressBarService,
     protected newEntity?: () => T
   ) { }
 
@@ -45,20 +43,17 @@ export abstract class AbstractEntityComponent<T extends Entity<T>> {
     this.service.entity$.subscribe((entity: T) => {
       this.entity = entity;
       this.entityCopy = this.entity.copy();
-      this.progressBarService.hideTopProgressBar();
       this.loadingData = false;
       this.calculateContainerHeight();
     });
 
     this.service.entityUpdated$.subscribe((entity: T) => {
-      this.progressBarService.hideTopProgressBar();
       this.entity = entity;
       this.entityCopy = entity.copy();
       this.tabIndex = 0;
     });
 
     this.service.entityCreated$.subscribe((entity: T) => {
-      this.progressBarService.hideTopProgressBar();
       this.entity = entity;
       this.entityCopy = entity.copy();
       this.tabIndex = 0;
@@ -81,14 +76,12 @@ export abstract class AbstractEntityComponent<T extends Entity<T>> {
   update(): void {
     if (this.entityCopy.id) {
       this.service.updateEntity(this.entityCopy);
-      this.progressBarService.showTopProgressBar();
     }
   }
 
   create(): void {
     if (this.mode === 'add' && this.entity) {
       this.service.createEntity(this.entity);
-      this.progressBarService.showTopProgressBar();
     }
   }
 

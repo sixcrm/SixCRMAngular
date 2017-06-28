@@ -5,7 +5,6 @@ import {AbstractEntityIndexComponent} from '../../abstract-entity-index.componen
 import {AccessKey} from '../../../shared/models/access-key.model';
 import {AccessKeysService} from '../../../shared/services/access-keys.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {PaginationService} from '../../../shared/services/pagination.service';
 
 @Component({
@@ -19,12 +18,11 @@ export class AccessKeysComponent extends AbstractEntityIndexComponent<AccessKey>
     accessKeysService: AccessKeysService,
     auth: AuthenticationService,
     dialog: MdDialog,
-    progressBarService: ProgressBarService,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute
   ) {
-    super(accessKeysService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
+    super(accessKeysService, auth, dialog, paginationService, router, activatedRoute);
   }
 
   ngOnInit() {

@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import {SessionsService} from '../../../../shared/services/sessions.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {MdDialog} from '@angular/material';
-import {ProgressBarService} from '../../../../shared/services/progress-bar.service';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {sessionsInfoListQuery, sessionsByCustomer} from '../../../../shared/utils/query-builder';
 import {Session} from '../../../../shared/models/session.model';
@@ -23,10 +22,9 @@ export class CustomerSessionsComponent extends AbstractEntityIndexComponent<Sess
     transactionsService: SessionsService,
     auth: AuthenticationService,
     dialog: MdDialog,
-    progressBarService: ProgressBarService,
     paginationService: PaginationService
   ) {
-    super(transactionsService, auth, dialog, progressBarService, paginationService);
+    super(transactionsService, auth, dialog, paginationService);
 
     this.columnParams = [
       new ColumnParams('Customer Name', (e: Session) => `${e.customer.firstName} ${e.customer.lastName}`),

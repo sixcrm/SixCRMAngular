@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {environment} from '../../environments/environment';
-import {Http, Headers} from '@angular/http';
+import {Headers} from '@angular/http';
 import {createCreditCardMutation} from '../shared/utils/query-builder';
 import {User} from '../shared/models/user.model';
 import {CreditCard} from '../shared/models/credit-card.model';
@@ -13,7 +13,7 @@ import {
   updateUserForActivation, updateUserForRegistration,
   userIntrospection, acceptInviteMutation
 } from '../shared/utils/queries/entities/user.queries';
-import {extractData} from '../shared/services/http-wrapper.service';
+import {extractData, HttpWrapperService} from '../shared/services/http-wrapper.service';
 
 declare var Auth0Lock: any;
 
@@ -39,7 +39,7 @@ export class AuthenticationService {
   public activeAcl$: BehaviorSubject<Acl> = new BehaviorSubject<Acl>(new Acl());
   public activeAclChanged$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private router: Router, private http: Http, private location: Location) {
+  constructor(private router: Router, private http: HttpWrapperService, private location: Location) {
     this.lock = new Auth0Lock(
       environment.clientID,
       environment.domain,

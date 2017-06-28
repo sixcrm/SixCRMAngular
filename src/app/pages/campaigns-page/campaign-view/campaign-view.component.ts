@@ -1,7 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {CampaignsService} from '../../../shared/services/campaigns.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {Campaign} from '../../../shared/models/campaign.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {NavigationService} from '../../../navigation/navigation.service';
@@ -38,13 +37,12 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
   constructor(
     service: CampaignsService,
     route: ActivatedRoute,
-    progressBar: ProgressBarService,
     public navigation: NavigationService,
     public emailTemplateService: EmailTemplatesService,
     public productScheduleService: ProductScheduleService,
     private router: Router
   ) {
-    super(service, route, progressBar);
+    super(service, route);
   }
 
   ngOnInit() {

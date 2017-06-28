@@ -5,7 +5,6 @@ import {RebillsService} from '../../../shared/services/rebills.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PaginationService} from '../../../shared/services/pagination.service';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {MdDialog} from '@angular/material';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 
@@ -20,12 +19,11 @@ export class RebillsComponent extends AbstractEntityIndexComponent<Rebill> imple
     service: RebillsService,
     auth: AuthenticationService,
     dialog: MdDialog,
-    progressBarService: ProgressBarService,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute
   ) {
-    super(service, auth, dialog, progressBarService, paginationService, router, activatedRoute);
+    super(service, auth, dialog, paginationService, router, activatedRoute);
 
     let f = this.authService.getTimezone();
 

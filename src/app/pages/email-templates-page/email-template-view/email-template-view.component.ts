@@ -1,7 +1,6 @@
 import {Component, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
 import {EmailTemplate} from '../../../shared/models/email-template.model';
 import {EmailTemplatesService} from '../../../shared/services/email-templates.service';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
@@ -26,12 +25,11 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
   constructor(
     service: EmailTemplatesService,
     route: ActivatedRoute,
-    progressBarService: ProgressBarService,
     public navigation: NavigationService,
     public smtpProviderService: SmtpProvidersService,
     private router: Router
   ) {
-    super(service, route, progressBarService);
+    super(service, route);
   }
 
   ngOnInit() {
@@ -89,7 +87,6 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
 
     if (this.addMode) {
       this.service.entityCreated$.take(1).subscribe(entity => {
-        this.progressBarService.hideTopProgressBar();
         this.router.navigate(['/emailtemplates', entity.id]);
         this.addMode = false;
         this.entity = entity;

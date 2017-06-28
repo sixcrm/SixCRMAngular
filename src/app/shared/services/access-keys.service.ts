@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import {AbstractEntityService} from './abstract-entity.service';
-import {Http} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {AccessKey} from '../models/access-key.model';
 import {accessKeysListQuery, accessKeyQuery, deleteAccessKeyMutation} from '../utils/query-builder';
+import {HttpWrapperService} from './http-wrapper.service';
 
 @Injectable()
 export class AccessKeysService extends AbstractEntityService<AccessKey> {
 
-  constructor(http: Http, authService: AuthenticationService) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService) {
     super(
       http,
       authService,

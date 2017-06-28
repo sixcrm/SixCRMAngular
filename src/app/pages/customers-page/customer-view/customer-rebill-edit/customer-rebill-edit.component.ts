@@ -3,7 +3,6 @@ import {Rebill} from '../../../../shared/models/rebill.model';
 import {RebillsService} from '../../../../shared/services/rebills.service';
 import {Moment, utc} from 'moment';
 import {DaterangepickerConfig} from 'ng2-daterangepicker';
-import {ProgressBarService} from '../../../../shared/services/progress-bar.service';
 import {getCurrencyMask, parseCurrencyMaskedValue} from '../../../../shared/utils/mask.utils';
 
 @Component({
@@ -36,8 +35,7 @@ export class CustomerRebillEditComponent implements OnInit {
 
   constructor(
     private rebillService: RebillsService,
-    private daterangepickerOptions: DaterangepickerConfig,
-    private progressBarService: ProgressBarService
+    private daterangepickerOptions: DaterangepickerConfig
   ) { }
 
   ngOnInit() {
@@ -68,11 +66,9 @@ export class CustomerRebillEditComponent implements OnInit {
     this.rebill.amount.amount = price;
     this.rebill.billAt = this.date.clone();
     this.rebillService.entityUpdated$.take(1).subscribe(() => {
-      this.progressBarService.hideTopProgressBar();
       this.cancel.emit(true);
     });
 
-    this.progressBarService.showTopProgressBar();
     this.rebillService.updateEntity(this.rebill);
   }
 

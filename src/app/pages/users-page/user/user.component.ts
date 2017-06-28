@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from '../../../shared/models/user.model';
 import {AbstractEntityComponent} from '../../abstract-entity-component';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {UsersService} from '../../../shared/services/users.service';
 import {Role} from '../../../shared/models/role.model';
 import {RolesService} from '../../../shared/services/roles.service';
@@ -18,8 +17,8 @@ export class UserComponent extends AbstractEntityComponent<User> implements OnIn
   private roles: Role[];
   private inviteSent: boolean = false;
 
-  constructor(private usersService: UsersService, progressBarService: ProgressBarService, private rolesService: RolesService) {
-    super(usersService, progressBarService, () => new User());
+  constructor(private usersService: UsersService, private rolesService: RolesService) {
+    super(usersService, () => new User());
   }
 
   ngOnInit() {
@@ -35,13 +34,10 @@ export class UserComponent extends AbstractEntityComponent<User> implements OnIn
 
   private sendInvite(): void {
     if (this.email && this.role) {
-      this.progressBarService.showTopProgressBar();
       this.usersService.sendUserInvite(this.email, this.role).subscribe((success: boolean) => {
         if (success) {
           this.inviteSent = true;
         }
-
-        this.progressBarService.hideTopProgressBar();
       });
     }
   }

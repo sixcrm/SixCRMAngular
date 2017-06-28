@@ -4,7 +4,6 @@ import {AbstractEntityIndexComponent} from '../../abstract-entity-index.componen
 import {TrackersService} from '../../../shared/services/trackers.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {MdDialog} from '@angular/material';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
@@ -20,12 +19,11 @@ export class TrackersComponent extends AbstractEntityIndexComponent<Tracker> imp
     trackersService: TrackersService,
     auth: AuthenticationService,
     dialog: MdDialog,
-    progressBarService: ProgressBarService,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute
   ) {
-    super(trackersService, auth, dialog, progressBarService, paginationService, router, activatedRoute);
+    super(trackersService, auth, dialog, paginationService, router, activatedRoute);
 
     this.columnParams = [
       new ColumnParams('Name', (e: Tracker) => e.name),

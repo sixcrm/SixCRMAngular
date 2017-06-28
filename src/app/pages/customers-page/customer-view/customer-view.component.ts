@@ -1,7 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Customer} from '../../../shared/models/customer.model';
 import {CustomersService} from '../../../shared/services/customers.service';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {ActivatedRoute} from '@angular/router';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {NavigationService} from '../../../navigation/navigation.service';
@@ -34,11 +33,10 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
   constructor(
     service: CustomersService,
     route: ActivatedRoute,
-    progressBarService: ProgressBarService,
     public navigation: NavigationService,
     public authService: AuthenticationService
   ) {
-    super(service, route, progressBarService);
+    super(service, route);
   }
 
   ngOnInit() {
@@ -87,7 +85,6 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
   deleteCreditCard(ccard: CreditCard): void {
     this.removeCreditCardLocally(ccard);
     this.cancelCreditCardInput();
-    this.progressBarService.showTopProgressBar();
     this.service.updateEntity(this.entity);
   }
 
@@ -104,7 +101,6 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
   creditCardCreated(ccard: CreditCard): void {
     this.entity.creditCards.push(ccard);
     this.cancelCreditCardInput();
-    this.progressBarService.showTopProgressBar();
     this.service.updateEntity(this.entity);
   }
 

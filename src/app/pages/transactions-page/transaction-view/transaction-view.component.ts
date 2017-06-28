@@ -3,7 +3,6 @@ import {Transaction} from '../../../shared/models/transaction.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {TransactionsService} from '../../../shared/services/transactions.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ProgressBarService} from '../../../shared/services/progress-bar.service';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {getCurrencyMask, parseCurrencyMaskedValue} from '../../../shared/utils/mask.utils';
 
@@ -25,11 +24,10 @@ export class TransactionViewComponent extends AbstractEntityViewComponent<Transa
   constructor(
     private transactionsService: TransactionsService,
     route: ActivatedRoute,
-    progressBar: ProgressBarService,
     public navigation: NavigationService,
     private router: Router
   ) {
-    super(transactionsService, route, progressBar);
+    super(transactionsService, route);
   }
 
   ngOnInit() {
@@ -57,10 +55,8 @@ export class TransactionViewComponent extends AbstractEntityViewComponent<Transa
     }
 
     this.transactionsService.entityUpdated$.take(1).subscribe(() => {
-      this.progressBarService.hideTopProgressBar();
       this.setIndex(0)
     });
-    this.progressBarService.showTopProgressBar();
     this.transactionsService.refundTransaction(this.entity.id, amount);
   }
 
