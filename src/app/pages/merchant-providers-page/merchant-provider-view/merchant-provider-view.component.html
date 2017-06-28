@@ -132,10 +132,6 @@
               <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.endpoint">
                 <input required [disabled]="viewMode" md-input placeholder="Endpoint" name="endpoint" [(ngModel)]="entity.gateway.endpoint" type="text">
               </md-input-container>
-
-              <md-input-container class="entity-view__card__content__item">
-                <input [disabled]="viewMode" md-input placeholder="Additional" name="additional" [(ngModel)]="entity.gateway.additional" type="text">
-              </md-input-container>
             </div>
           </div>
 
@@ -155,8 +151,8 @@
                 <input [disabled]="viewMode" md-input placeholder="Email" name="email" [(ngModel)]="entity.customerService.email" type="text">
               </md-input-container>
 
-              <md-input-container style="margin-top: auto" class="entity-view__card__content__item">
-                <textarea style="height: 100px;" [disabled]="viewMode" md-input placeholder="Details" name="description" [(ngModel)]="entity.customerService.description" type="text"></textarea>
+              <md-input-container class="entity-view__card__content__item">
+                <input [disabled]="viewMode" md-input placeholder="Descriptor" name="description" [(ngModel)]="entity.customerService.description" type="text">
               </md-input-container>
 
             </div>
