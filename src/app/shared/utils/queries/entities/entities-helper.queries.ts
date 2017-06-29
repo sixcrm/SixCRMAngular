@@ -16,13 +16,17 @@ export function addId(id: string, includeId?: boolean): string {
   return includeId ? `id: "${id}"` : '';
 }
 
-export function paginationParamsQuery(limit?: number, cursor?: string): string {
+export function paginationParamsQuery(limit?: number, cursor?: string, ignoreBraces?: boolean): string {
   if (!cursor && !limit) return '';
 
-  let builder = new QueryBuilder('(pagination: {');
+  let builder = new QueryBuilder('pagination: {');
   if (!!limit) builder.appendEnd(`limit:"${limit}"`);
   if (!!cursor) builder.appendEnd(`cursor:"${cursor}"`);
-  builder.appendEnd('})');
+  builder.appendEnd('}');
+
+  if (!ignoreBraces) {
+    builder.appendStart('(').appendEnd(')')
+  }
 
   return builder.build();
 }

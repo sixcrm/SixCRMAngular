@@ -8,6 +8,7 @@ import {ProductViewComponent} from './product-view/product-view.component';
 import {ProductsAclGuard} from '../guards/products-acl-guard.service';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {SharedModule} from '../../shared/shared.module';
+import {ProductProductSchedulesComponent} from './product-view/product-product-schedules/product-product-schedules.component';
 
 @NgModule({
   imports : [
@@ -20,7 +21,8 @@ import {SharedModule} from '../../shared/shared.module';
   ],
   declarations : [
     ProductsComponent,
-    ProductViewComponent
+    ProductViewComponent,
+    ProductProductSchedulesComponent
   ],
   exports : [ ],
   providers: [

@@ -15,6 +15,16 @@ export function campaignsInfoListQuery(limit?:number, cursor?:string): string {
     }}`
 }
 
+export function campaignsByProductSchedule(id: string, limit?:number, cursor?:string): string {
+  return `{
+    campaignlistbyproductschedule (productschedule: "${id}", ${paginationParamsQuery(limit, cursor, true)}) {
+      campaigns {
+        ${campaignInfoResponseQuery()}
+      }
+      ${fullPaginationStringResponseQuery()}
+    }}`
+}
+
 export function campaignQuery(id: string): string {
   return `{
     campaign (id: "${id}") {

@@ -18,8 +18,6 @@ export class CustomerTransactionsComponent extends AbstractEntityIndexComponent<
 
   @Input() id: string;
 
-  filterValue: string;
-
   constructor(
     transactionsService: TransactionsService,
     auth: AuthenticationService,

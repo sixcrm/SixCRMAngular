@@ -1,0 +1,53 @@
+<div class="entity-view__table-component">
+  <div class="entity-view__table-component__header">
+    <div class="entity-view__table-component__header__title">Product Schedules</div>
+    <md-input class="entity-view__table-component__header__filter" placeholder="Filter" [(ngModel)]="filterValue"></md-input>
+    <table-pagination
+      [limit]="limit"
+      [paginationValues]="paginationValues"
+      [previousDisabled]="page <= 0"
+      [nextDisabled]="!hasMorePages()"
+      (previous)="previous()"
+      (next)="next()"
+      (updateLimit)="updateLimit($event)">
+    </table-pagination>
+    <md-icon class="entity-view__table-component__header__action">more_vert</md-icon>
+  </div>
+  <table class="highlight table__custom">
+    <thead>
+    <tr>
+      <th *ngFor="let params of columnParams" (click)="setSortedColumnParams(params)" [class.cell--align-right]="params.align === 'right'">
+        {{params.label}}
+        <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+      </th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let entity of entities | filterEntities: filterValue | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder">
+      <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'" [routerLink]="['/transactions', entity.id]">{{params.mappingFunction(entity)}}</td>
+      <td>
+        <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
+        <md-menu #actionsMenu="mdMenu" x-position="before">
+          <button md-menu-item [routerLink]="['/productschedules', entity.id]">View Product Schedule</button>
+        </md-menu>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <md-spinner class="entity-view__spinner" *ngIf="loadingData && (!entities || entities.length === 0)"></md-spinner>
+  <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">No transactions found</div>
+
+  <table-pagination
+    [limit]="limit"
+    [paginationValues]="paginationValues"
+    [previousDisabled]="page <= 0"
+    [nextDisabled]="!hasMorePages()"
+    (previous)="previous()"
+    (next)="next()"
+    (updateLimit)="updateLimit($event)">
+  </table-pagination>
+</div>
+

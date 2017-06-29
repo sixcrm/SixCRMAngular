@@ -16,7 +16,6 @@ import {ColumnParams} from '../../../../shared/models/column-params.model';
 export class CustomerSessionsComponent extends AbstractEntityIndexComponent<Session> implements OnInit {
 
   @Input() id: string;
-  filterValue: string;
 
   constructor(
     transactionsService: SessionsService,

@@ -16,6 +16,17 @@ export function  productScheduleListQuery(limit?:number, cursor?:string): string
   }`;
 }
 
+export function productSchedulesByProduct(id: string, limit?: number, cursor?: string): string {
+  return `{
+    productschedulelistbyproduct (product:"${id} "${paginationParamsQuery(limit, cursor, true)}) {
+			productschedules {
+        ${productScheduleInfoResponseQuery()}
+			}
+      ${fullPaginationStringResponseQuery()}
+		}
+  }`;
+}
+
 export function productScheduleQuery(id: string): string {
   return `{
     productschedule (id: "${id}") {

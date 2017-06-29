@@ -20,8 +20,6 @@ export class CustomerRebillsComponent extends AbstractEntityIndexComponent<Rebil
 
   @Output() editRebill: EventEmitter<Rebill> = new EventEmitter();
 
-  filterValue: string;
-
   constructor(
     rebillsService: RebillsService,
     auth: AuthenticationService,

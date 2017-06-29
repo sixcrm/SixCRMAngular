@@ -17,7 +17,7 @@ export class GraphqlDocsService {
 
   getSchemaTypes(endpoint: string, headersInput: HeadersInput[]): Observable<Type[]> {
     return this.http.post(endpoint, getSchemaQuery(), { headers: this.generateHeaders(headersInput)})
-      .map(response => response.json().data.__schema.types);
+      .map(response => response.json().response.data.__schema.types);
   }
 
   private generateHeaders(headersInput: HeadersInput[]): Headers {

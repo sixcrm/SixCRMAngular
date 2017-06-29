@@ -38,7 +38,7 @@ export class HttpWrapperService {
 
   setInProgress() {
     if (this.numberOfWaitingRequests++ === 0) {
-      this.requestInProgress$.next(true);
+      setTimeout(() => this.requestInProgress$.next(true), 1)
     }
   }
 
@@ -46,7 +46,7 @@ export class HttpWrapperService {
     if (this.numberOfWaitingRequests === 0) return;
 
     if (this.numberOfWaitingRequests-- === 1) {
-      this.requestInProgress$.next(false);
+      setTimeout(() => this.requestInProgress$.next(false), 1)
     }
   }
 }

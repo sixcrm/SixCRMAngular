@@ -9,6 +9,7 @@ import {ProductSchedulesAclGuard} from '../guards/product-schedules-acl-guard.se
 import {ProductScheduleViewComponent} from './product-schedule-view/product-schedule-view.component';
 import {SharedModule} from '../../shared/shared.module';
 import {TextMaskModule} from 'angular2-text-mask';
+import { ProductScheduleCampaignsComponent } from './product-schedule-view/product-schedule-campaigns/product-schedule-campaigns.component';
 
 @NgModule({
   imports : [
@@ -22,7 +23,8 @@ import {TextMaskModule} from 'angular2-text-mask';
   ],
   declarations : [
     ProductSchedulesComponent,
-    ProductScheduleViewComponent
+    ProductScheduleViewComponent,
+    ProductScheduleCampaignsComponent
   ],
   exports : [ ],
   providers: [
