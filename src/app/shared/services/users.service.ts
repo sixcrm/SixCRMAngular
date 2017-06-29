@@ -28,8 +28,7 @@ export class UsersService extends AbstractEntityService<User> {
     )
   }
 
-  sendUserInvite(email: string, role: Role): Observable<Response> {
-    let accountId = this.authService.getActiveAcl().account.id;
+  sendUserInvite(email: string, role: Role, accountId: string): Observable<Response> {
     return this.queryRequest(inviteUserMutation(email, accountId, role.id));
   }
 

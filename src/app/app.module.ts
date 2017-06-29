@@ -13,10 +13,15 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {SharedModule} from './shared/shared.module';
 import {AssociateDialogComponent} from './pages/associate-dialog.component';
 import {HttpWrapperService} from './shared/services/http-wrapper.service';
+import {InviteUserDialogComponent} from './pages/invite-user-dialog.component';
 
 @NgModule({
   declarations : [
-    AppComponent, DeleteDialogComponent, ErrorPageComponent, AssociateDialogComponent
+    AppComponent,
+    DeleteDialogComponent,
+    ErrorPageComponent,
+    AssociateDialogComponent,
+    InviteUserDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -35,7 +40,7 @@ import {HttpWrapperService} from './shared/services/http-wrapper.service';
   providers : [
     HttpWrapperService
   ],
-  entryComponents : [AppComponent, DeleteDialogComponent, AssociateDialogComponent],
+  entryComponents : [AppComponent, DeleteDialogComponent, AssociateDialogComponent, InviteUserDialogComponent],
   bootstrap : [AppComponent]
 })
 export class AppModule {

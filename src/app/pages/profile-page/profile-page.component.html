@@ -48,6 +48,7 @@
                   [initialValue]="userSettingsBackup.timezone"
                   [options]="timezones"
                   [placeholder]="'Set Timezone'"
+                  [showCancelButton]="false"
                   (selected)="userSettingsBackup.timezone = $event">
                 </autocomplete-input>
               </div>
@@ -138,6 +139,7 @@
                     <th></th>
                     <th>Account</th>
                     <th>Role</th>
+                    <th style="width: 30px"></th>
                   </tr>
                 </thead>
 
@@ -146,6 +148,10 @@
                     <td><md-checkbox [color]="'primary'" [(ngModel)]="acc.selected"></md-checkbox></td>
                     <td>{{acc.entity.account.name}}</td>
                     <td>{{acc.entity.role.name}}</td>
+                    <td><md-icon style="cursor: pointer" [md-menu-trigger-for]="accountOptions">more_vert</md-icon></td>
+                    <md-menu #accountOptions="mdMenu" x-position="before">
+                      <button md-menu-item (click)="inviteUser(acc.entity.account)"> Invite User to this Account </button>
+                    </md-menu>
                   </tr>
                 </tbody>
               </table>

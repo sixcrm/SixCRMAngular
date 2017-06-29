@@ -11,6 +11,11 @@ import {NotificationSettings, NotificationSettingsData} from '../../shared/model
 import {NotificationSettingsService} from '../../shared/services/notification-settings.service';
 import {conformToMask} from 'angular2-text-mask';
 import {getPhoneNumberMask} from '../../shared/utils/mask.utils';
+import {InviteUserDialogComponent} from '../invite-user-dialog.component';
+import {Role} from '../../shared/models/role.model';
+import {MdDialog, MdDialogRef} from '@angular/material';
+import {RolesService} from '../../shared/services/roles.service';
+import {Account} from '../../shared/models/account.model';
 
 let moment = require('moment-timezone');
 
@@ -52,12 +57,17 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     slack: 'Slack'
   };
 
+  inviteDialogRef: MdDialogRef<InviteUserDialogComponent>;
+  roles: Role[] = [];
+
   constructor(
     private userService: UsersService,
     private userSettingsService: UserSettingsService,
     private notificationSettingsService: NotificationSettingsService,
     private authService: AuthenticationService,
     public navigation: NavigationService,
+    private dialog: MdDialog,
+    private rolesService: RolesService
   ) { }
 
   ngOnInit() {
@@ -114,7 +124,11 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
     this.notificationSettingsUpdateDebouncer.takeUntil(this.unsubscribe$).debounceTime(2000).subscribe(() => {
       this.notificationSettingsService.updateEntity(this.notificationSettings)
-    })
+    });
+
+    // get available roles for user invite
+    this.rolesService.entities$.takeUntil(this.unsubscribe$).take(1).subscribe(roles => this.roles = roles);
+    this.rolesService.getEntities();
   }
 
   ngOnDestroy() {
@@ -171,6 +185,19 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     }
 
     return conformToMask(phone, this.mask, {guide: false}).conformedValue;
+  }
+
+  inviteUser(account: Account): void {
+    this.inviteDialogRef = this.dialog.open(InviteUserDialogComponent, { disableClose : true });
+    this.inviteDialogRef.componentInstance.options = this.roles;
+
+    this.inviteDialogRef.afterClosed().takeUntil(this.unsubscribe$).subscribe(result => {
+      this.inviteDialogRef = null;
+
+      if (result.email && result.role) {
+        this.userService.sendUserInvite(result.email, result.role, account.id).subscribe();
+      }
+    });
   }
 }
 
