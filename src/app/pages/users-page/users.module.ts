@@ -6,7 +6,6 @@ import {MaterialModule} from '@angular/material';
 import {UsersComponent} from './users-index/users.component';
 import {UserViewComponent} from './user-view/user-view.component';
 import {UsersAclGuard} from '../guards/users-acl-guard.service';
-import {UserComponent} from './user/user.component';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {SharedModule} from '../../shared/shared.module';
 
@@ -21,11 +20,9 @@ import {SharedModule} from '../../shared/shared.module';
   ],
   declarations : [
     UsersComponent,
-    UserViewComponent,
-    UserComponent
+    UserViewComponent
   ],
   exports : [
-    UserComponent
   ],
   providers: [
     UsersAclGuard
