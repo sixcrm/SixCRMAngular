@@ -12,7 +12,7 @@
         <div class="entity-view__info__data__date">Created: {{user.createdAt | formatDateTime}}</div>
         <div class="entity-view__info__data__name">{{user.name}}</div>
         <div class="entity-view__info__data__other">
-          <span class="entity-view__info__data__other__item"><md-icon>phone</md-icon>{{getPhoneNumber()}}</span>
+          <span *ngIf="phone" class="entity-view__info__data__other__item"><md-icon>phone</md-icon>{{phone}}</span>
           <span class="entity-view__info__data__other__item"><md-icon>email</md-icon>{{user.email}}</span>
         </div>
       </div>

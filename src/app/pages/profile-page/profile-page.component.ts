@@ -38,6 +38,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   userBackup: User;
   userSettings: UserSettings;
   userSettingsBackup: UserSettings;
+  phone: string;
 
   notificationSettings: NotificationSettings;
   defaultNotificationSettings: NotificationSettingsData;
@@ -78,6 +79,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
       }
 
       this.userSettingsBackup = this.userSettings.copy();
+      this.phone = this.getPhoneNumber();
     });
 
     this.notificationSettingsService.defaultNotificationSettings$.takeUntil(this.unsubscribe$).subscribe(settings => {
