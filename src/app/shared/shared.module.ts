@@ -1,7 +1,6 @@
 import {NgModule, ModuleWithProviders} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {WidgetComponent} from './layout/widget/widget.component';
 import {MaterialModule} from '@angular/material';
 import {CampaignsService} from "./services/campaigns.service";
 import {ProductsService} from "./services/products.service";
@@ -59,7 +58,6 @@ import { FilterEntitiesByParamsPipe } from './pipes/filter-entities-by-params.pi
 
 @NgModule({
   declarations : [
-    WidgetComponent,
     AutocompleteComponent,
     HighlightPipe,
     FilterSearchResultsPipe,
@@ -84,7 +82,6 @@ import { FilterEntitiesByParamsPipe } from './pipes/filter-entities-by-params.pi
     FilterEntitiesByParamsPipe
   ],
   exports : [
-    WidgetComponent,
     AutocompleteComponent,
     HighlightPipe,
     FilterSearchResultsPipe,
