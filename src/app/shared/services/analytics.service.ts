@@ -60,24 +60,19 @@ export class AnalyticsService {
     if (!downloadFormat && summariesStorage) {
       this.transactionsSummaries$.next(summariesStorage);
     } else {
-      this.queryRequest(transactionSummaryQuery(start, end, filters), downloadFormat).subscribe(
-        (data) => {
-          if (!downloadFormat) {
-            let transactions = extractData(data).transactionsummary.transactions;
+      this.queryRequest(transactionSummaryQuery(start, end, filters), downloadFormat).subscribe(data => {
+        if (!downloadFormat) {
+          let transactions = extractData(data).transactionsummary.transactions;
 
-            if (transactions) {
-              let s = transactions.map(t => new TransactionSummary(t));
-              this.transactionsSummaries$.next(s);
-              this.analyticsStorage.setTransactionSummaries(start, end, s, filters);
-            }
-          } else {
-            downloadFile(data, 'transactions-summary', downloadFormat);
+          if (transactions) {
+            let s = transactions.map(t => new TransactionSummary(t));
+            this.transactionsSummaries$.next(s);
+            this.analyticsStorage.setTransactionSummaries(start, end, s, filters);
           }
-        },
-        (error) => {
-          console.error(error);
+        } else {
+          downloadFile(data, 'transactions-summary', downloadFormat);
         }
-      )
+      })
     }
   }
 
@@ -87,24 +82,19 @@ export class AnalyticsService {
     if (!downloadFormat && overviewStorage) {
       this.transactionsOverview$.next(overviewStorage);
     } else {
-      this.queryRequest(transactionOverviewQuery(start, end), downloadFormat).subscribe(
-        (data) => {
-          if (!downloadFormat) {
-            let overview = extractData(data).transactionoverview.overview;
+      this.queryRequest(transactionOverviewQuery(start, end), downloadFormat).subscribe(data => {
+        if (!downloadFormat) {
+          let overview = extractData(data).transactionoverview.overview;
 
-            if (overview) {
-              let o = new TransactionOverview(overview);
-              this.transactionsOverview$.next(new TransactionOverview(overview));
-              this.analyticsStorage.setTransactionOverview(start, end, o);
-            }
-          } else {
-            downloadFile(data, 'transactions-overview', downloadFormat);
+          if (overview) {
+            let o = new TransactionOverview(overview);
+            this.transactionsOverview$.next(new TransactionOverview(overview));
+            this.analyticsStorage.setTransactionOverview(start, end, o);
           }
-        },
-        (error) => {
-          console.error(error);
+        } else {
+          downloadFile(data, 'transactions-overview', downloadFormat);
         }
-      )
+      })
     }
   }
 
@@ -114,7 +104,7 @@ export class AnalyticsService {
     if (!downloadFormat && funnelStorage) {
       this.eventFunnel$.next(funnelStorage);
     } else {
-      this.queryRequest(eventsFunelQuery(start, end), downloadFormat).subscribe((data) => {
+      this.queryRequest(eventsFunelQuery(start, end), downloadFormat).subscribe(data => {
         if (!downloadFormat) {
           let funnel = extractData(data).eventfunnel.funnel;
 

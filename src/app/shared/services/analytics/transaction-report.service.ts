@@ -4,11 +4,10 @@ import {Subject, Observable} from 'rxjs';
 import {environment} from '../../../../environments/environment';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {transactionReportListQuery} from '../../utils/queries/reports.queries';
-import { Headers, Response} from '@angular/http';
+import { Response} from '@angular/http';
 import {FilterTerm} from '../../components/advanced-filter/advanced-filter.component';
 import {downloadJSON} from '../../utils/file.utils';
 import {extractData, HttpWrapperService, generateHeaders} from '../http-wrapper.service';
-
 
 @Injectable()
 export class TransactionReportService {

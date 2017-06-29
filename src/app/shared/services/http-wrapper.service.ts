@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {Http, RequestOptionsArgs, Response, Headers} from '@angular/http';
 import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import {MdSnackBar} from '@angular/material';
-import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class HttpWrapperService {
@@ -25,11 +24,12 @@ export class HttpWrapperService {
         response.next(r);
         response.complete();
       },
-      (error) => {
+      error => {
         // handel error
         if (!ignoreProgress) this.setNotInProgress();
 
         this.snackBar.open(`${error.json().error_type}: ${error.json().message}`, 'close', {duration: 3000});
+        response.complete();
       }
     );
 

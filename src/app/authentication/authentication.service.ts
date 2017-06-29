@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {environment} from '../../environments/environment';
-import {Headers} from '@angular/http';
 import {createCreditCardMutation} from '../shared/utils/query-builder';
 import {User} from '../shared/models/user.model';
 import {CreditCard} from '../shared/models/credit-card.model';
@@ -221,9 +220,6 @@ export class AuthenticationService {
       .subscribe(
         () => {
           subject.next(true);
-        },
-        () => {
-          subject.next(false);
         }
       );
 
@@ -242,10 +238,6 @@ export class AuthenticationService {
         this.updateSixUser(user);
 
         subject.next(new User(user));
-      },
-      (error) => {
-        console.log(error);
-        subject.next(null);
       }
     );
 

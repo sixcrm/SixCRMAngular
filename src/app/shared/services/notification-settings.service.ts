@@ -31,27 +31,16 @@ export class NotificationSettingsService extends AbstractEntityService<Notificat
   }
 
   fetchDefaultNotificationSettings(): void {
-    this.queryRequest(defaultNotificationSettingsQuery()).subscribe(
-      (data) => {
-        let obj = extractData(data).notificationsettingdefault;
+    this.queryRequest(defaultNotificationSettingsQuery()).subscribe(data => {
+      let obj = extractData(data).notificationsettingdefault;
 
-        this.defaultNotificationSettings$.next(new NotificationSettingsData(obj));
-      },
-      (error) => {
-        console.error(error);
-      }
-    )
+      this.defaultNotificationSettings$.next(new NotificationSettingsData(obj));
+    })
   }
 
   sendTestNotification(): void {
-    this.queryRequest(sendTestNotification()).subscribe(
-      () => {
-        this.notificationsQuickService.restartPoolingNotifications()
-      },
-      (error) => {
-        console.error(error);
-      }
+    this.queryRequest(sendTestNotification()).subscribe(() =>
+      this.notificationsQuickService.restartPoolingNotifications()
     )
   }
-
 }

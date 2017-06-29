@@ -55,22 +55,17 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
       return;
     }
 
-    this.querySub = this.queryRequest(notificationCountQuery(), true).subscribe(
-      (data) => {
-        let json = extractData(data);
-        let entityKey = Object.keys(json)[0];
-        let entityData =json[entityKey];
+    this.querySub = this.queryRequest(notificationCountQuery(), true).subscribe(data => {
+      let json = extractData(data);
+      let entityKey = Object.keys(json)[0];
+      let entityData =json[entityKey];
 
-        if (!entityData || !entityData.count) {
-          this.notificationCount$.next(0);
-        } else {
-          this.notificationCount$.next(entityData.count);
-        }
-      },
-      (error) => {
-        console.error(error);
+      if (!entityData || !entityData.count) {
+        this.notificationCount$.next(0);
+      } else {
+        this.notificationCount$.next(entityData.count);
       }
-    )
+    })
   }
 
 }

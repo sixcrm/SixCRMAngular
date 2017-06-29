@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Subject, Observable} from 'rxjs';
-import {Response, Headers} from '@angular/http';
+import {Response} from '@angular/http';
 import {environment} from '../../../environments/environment';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {
@@ -57,16 +57,11 @@ export class SearchService {
       q = searchAdvancedQuery(query, createdAtRange, sortBy, start, count, types)
     }
 
-    this.queryRequest(q).subscribe(
-      (response: Response) => {
-        let hits = this.parseSearchResults(response);
+    this.queryRequest(q).subscribe(response => {
+      let hits = this.parseSearchResults(response);
 
-        this.searchResults$.next(hits);
-      },
-      (error) => {
-        console.error(error);
-      }
-    )
+      this.searchResults$.next(hits);
+    })
   }
 
   searchFacets(query: string, createdAtRange: string, entityTypes?: string[]): void {
@@ -83,24 +78,19 @@ export class SearchService {
       q = searchAdvancedFacets(query, createdAtRange, types);
     }
 
-    this.queryRequest(q).subscribe(
-      (response: Response) => {
-        let json = extractData(response).search;
-        let facets = JSON.parse(json.facets);
+    this.queryRequest(q).subscribe(response => {
+      let json = extractData(response).search;
+      let facets = JSON.parse(json.facets);
 
-        let obj = {};
-        if (facets && facets.entity_type.buckets && facets.entity_type.buckets.length > 0) {
-          facets.entity_type.buckets.forEach(bucket => {
-            obj[bucket.value] = bucket.count
-          } );
-        }
-
-        this.facets$.next(obj);
-      },
-      (error) => {
-        console.error(error);
+      let obj = {};
+      if (facets && facets.entity_type.buckets && facets.entity_type.buckets.length > 0) {
+        facets.entity_type.buckets.forEach(bucket => {
+          obj[bucket.value] = bucket.count
+        } );
       }
-    )
+
+      this.facets$.next(obj);
+    })
   }
 
   searchSuggestions(query: string): void {
@@ -125,27 +115,20 @@ export class SearchService {
   }
 
   private fetchSuggestions(query: string): void {
-    this.queryRequest(suggestionsQuery(query)).subscribe(
-      (response: Response) => {
-        let hit = extractData(response).search.hits.hit;
-        let suggestions: string[] = hit.map(h => JSON.parse(h.fields).suggestion_field_1[0]);
+    this.queryRequest(suggestionsQuery(query)).subscribe(response => {
+      let hit = extractData(response).search.hits.hit;
+      let suggestions: string[] = hit.map(h => JSON.parse(h.fields).suggestion_field_1[0]);
 
-        this.suggestionResults$.next(suggestions);
-      },
-      (error) => {
-        console.error(error);
-      }
-    )
+      this.suggestionResults$.next(suggestions);
+    })
   }
 
   private fetchDashboardFilters(query: string): void {
-    this.queryRequest(dashboardFiltersQuery(query)).subscribe(
-      (response: Response) => {
-        let hits = this.parseSearchResults(response);
+    this.queryRequest(dashboardFiltersQuery(query)).subscribe(response => {
+      let hits = this.parseSearchResults(response);
 
-        this.dashboardFilterResults$.next(hits);
-      }
-    )
+      this.dashboardFilterResults$.next(hits);
+    })
   }
 
   private queryRequest(query: string): Observable<Response> {

@@ -45,18 +45,13 @@ export abstract class AbstractEntityService<T> {
       return;
     }
 
-    this.queryRequest(this.viewQuery(id)).subscribe(
-      (data) => {
-        let json = extractData(data);
-        let entityKey = Object.keys(json)[0];
-        let entityData =json[entityKey];
+    this.queryRequest(this.viewQuery(id)).subscribe(data => {
+      let json = extractData(data);
+      let entityKey = Object.keys(json)[0];
+      let entityData =json[entityKey];
 
-        this.entity$.next(this.toEntity(entityData));
-      },
-      (error) => {
-        console.error(error);
-      }
-    )
+      this.entity$.next(this.toEntity(entityData));
+    })
   }
 
   deleteEntity(id: string): void {
@@ -64,16 +59,13 @@ export abstract class AbstractEntityService<T> {
       return;
     }
 
-    this.queryRequest(this.deleteQuery(id)).subscribe(
-      (data) => {
-        let json = extractData(data);
-        let entityKey = Object.keys(json)[0];
-        let entityData =json[entityKey];
+    this.queryRequest(this.deleteQuery(id)).subscribe(data => {
+      let json = extractData(data);
+      let entityKey = Object.keys(json)[0];
+      let entityData =json[entityKey];
 
-        this.entityDeleted$.next(this.toEntity(entityData));
-      },
-      (error) => console.error(error)
-    );
+      this.entityDeleted$.next(this.toEntity(entityData));
+    });
   }
 
   createEntity(entity: T): void {
@@ -81,15 +73,13 @@ export abstract class AbstractEntityService<T> {
       return;
     }
 
-    this.queryRequest(this.createQuery(entity)).subscribe(
-      (data) => {
-        let json = extractData(data);
-        let entityKey = Object.keys(json)[0];
-        let entityData =json[entityKey];
+    this.queryRequest(this.createQuery(entity)).subscribe(data => {
+      let json = extractData(data);
+      let entityKey = Object.keys(json)[0];
+      let entityData =json[entityKey];
 
-        this.entityCreated$.next(this.toEntity(entityData));
-      }
-    );
+      this.entityCreated$.next(this.toEntity(entityData));
+    });
   }
 
   updateEntity(entity: T, ignorePermissions?: boolean): void {
@@ -97,15 +87,13 @@ export abstract class AbstractEntityService<T> {
       return;
     }
 
-    this.queryRequest(this.updateQuery(entity)).subscribe(
-      (data) => {
-        let json = extractData(data);
-        let entityKey = Object.keys(json)[0];
-        let entityData =json[entityKey];
+    this.queryRequest(this.updateQuery(entity)).subscribe(data => {
+      let json = extractData(data);
+      let entityKey = Object.keys(json)[0];
+      let entityData =json[entityKey];
 
-        this.entityUpdated$.next(this.toEntity(entityData));
-      }
-    );
+      this.entityUpdated$.next(this.toEntity(entityData));
+    });
   }
 
   resetPagination(): void {
@@ -143,7 +131,7 @@ export abstract class AbstractEntityService<T> {
 
     this.requestInProgress$.next(true);
     this.queryRequest(query).subscribe(
-      (data) => {
+      data => {
         let json = extractData(data);
         let listKey = Object.keys(json)[0];
         let listData = json[listKey];
@@ -162,32 +150,30 @@ export abstract class AbstractEntityService<T> {
           this.entities$.next([]);
         }
       },
-      (error) => {
-        console.error(error);
+      () => {
+        // not handling error, wrapper will do that for us
       },
       () => {
-        this.requestInProgress$.next(false);
+        this.requestInProgress$.next(false)
       }
     )
   }
 
   planeCustomEntitiesQuery(query: string): Observable<T[]> {
-    return this.queryRequest(query).map(
-      (data) => {
-        let json = extractData(data);
-        let listKey = Object.keys(json)[0];
-        let listData = json[listKey];
+    return this.queryRequest(query).map(data => {
+      let json = extractData(data);
+      let listKey = Object.keys(json)[0];
+      let listData = json[listKey];
 
-        let entitiesKey = listData ? Object.keys(listData)[0] : null;
-        let entitiesData = entitiesKey ? listData[entitiesKey] : null;
+      let entitiesKey = listData ? Object.keys(listData)[0] : null;
+      let entitiesData = entitiesKey ? listData[entitiesKey] : null;
 
-        if (entitiesData) {
-          return entitiesData.map(entity => this.toEntity(entity));
-        } else {
-          return [];
-        }
+      if (entitiesData) {
+        return entitiesData.map(entity => this.toEntity(entity));
+      } else {
+        return [];
       }
-    )
+    })
   }
 
   protected queryRequest(query: string, ignoreProgress?: boolean): Observable<Response> {
