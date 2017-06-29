@@ -1,4 +1,7 @@
-import {fullPaginationStringResponseQuery, paginationParamsQuery, deleteMutationQuery} from './entities-helper.queries';
+import {
+  fullPaginationStringResponseQuery, paginationParamsQuery, deleteMutationQuery,
+  addId
+} from './entities-helper.queries';
 import {User} from '../../../models/user.model';
 
 export function usersListQuery(limit?: number, cursor?: string): string {
@@ -31,6 +34,15 @@ export function userIntrospection(): string {
 
 export function deleteUserMutation(id: string): string {
   return deleteMutationQuery('user', id);
+}
+
+export function createUserMutation(user: User): string {
+  return `
+    mutation {
+      createuser (user: { ${userInputQuery(user, true)} }) {
+        ${userResponseQuery()}
+      }
+    }`
 }
 
 export function updateUserMutation(user: User): string {
@@ -116,7 +128,7 @@ export function userInputQuery(user: User, light?: boolean): string {
     name: "${user.name}",
     ${user.firstName ? `first_name: "${user.firstName}",` : ''}
     ${user.lastName ? `last_name: "${user.lastName}",` : ''}
-    alias: "${user.alias}",
+    ${user.alias ? `alias: "${user.alias}",`: ''}
     active:"${user.active}",
     ${user.termsAndConditions ? `termsandconditions:"${user.termsAndConditions}",`: ''}
     ${light ? '' : address}

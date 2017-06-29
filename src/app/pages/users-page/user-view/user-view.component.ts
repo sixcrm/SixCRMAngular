@@ -13,13 +13,21 @@ import {NavigationService} from '../../../navigation/navigation.service';
 export class UserViewComponent extends AbstractEntityViewComponent<User> implements OnInit, OnDestroy {
 
   selectedIndex: number = 0;
+  formInvalid: boolean;
 
   constructor(service: UsersService, route: ActivatedRoute, public navigation: NavigationService) {
     super(service, route);
   }
 
   ngOnInit() {
-    super.init();
+    super.init(() => this.navigation.goToNotFoundPage());
+
+    if (this.addMode) {
+      this.entity = new User();
+      this.entity.active = 'true';
+      this.entity.termsAndConditions = '0.1';
+      this.entityBackup = this.entity.copy();
+    }
   }
 
   ngOnDestroy() {
@@ -28,6 +36,19 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
 
   setIndex(value: number) {
     this.selectedIndex = value;
+  }
+
+  saveUser(valid: boolean) {
+    if (this.addMode) {
+      this.formInvalid = !valid;
+      if (this.formInvalid) return;
+
+      this.entity.id = this.entity.email;
+      this.entity.auth0Id = this.entity.email;
+    }
+    this.formInvalid = false;
+
+    this.saveOrUpdate(this.entity);
   }
 
 }

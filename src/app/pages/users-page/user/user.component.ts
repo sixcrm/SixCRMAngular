@@ -34,11 +34,7 @@ export class UserComponent extends AbstractEntityComponent<User> implements OnIn
 
   private sendInvite(): void {
     if (this.email && this.role) {
-      this.usersService.sendUserInvite(this.email, this.role).subscribe((success: boolean) => {
-        if (success) {
-          this.inviteSent = true;
-        }
-      });
+      this.usersService.sendUserInvite(this.email, this.role).subscribe();
     }
   }
 }

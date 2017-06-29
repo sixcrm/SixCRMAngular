@@ -10,7 +10,7 @@
     <div class="entity-view__info__data">
       <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
       <div class="entity-view__info__data__name">
-        {{entityBackup.name}}
+        {{addMode ? 'Create new User' : entityBackup.name}}
       </div>
     </div>
   </div>
@@ -31,18 +31,18 @@
           </md-menu>
         </div>
 
-        <div class="entity-view__card__content">
-          <md-input-container class="entity-view__card__content__item">
-            <input required md-input disabled placeholder="Name" [(ngModel)]="entity.name" type="text">
+        <form #userInput="ngForm" class="entity-view__card__content">
+
+          <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
+            <input required md-input [disabled]="!addMode" placeholder="Name" name="name" [(ngModel)]="entity.name" type="text">
+          </md-input-container>
+
+          <md-input-container [class.error]="formInvalid && !entity.email" class="entity-view__card__content__item">
+            <input required md-input [disabled]="!addMode" placeholder="Email" name="email" [(ngModel)]="entity.email" type="text">
           </md-input-container>
 
           <md-input-container class="entity-view__card__content__item">
-            <input required md-input disabled placeholder="Email" [(ngModel)]="entity.email" type="text">
-          </md-input-container>
-
-
-          <md-input-container class="entity-view__card__content__item">
-            <input required md-input disabled placeholder="Terms and Conditions" [(ngModel)]="entity.termsAndConditions" type="text">
+            <input md-input [disabled]="!addMode" placeholder="Terms and Conditions" name="terms" [(ngModel)]="entity.termsAndConditions" type="text">
           </md-input-container>
 
           <div class="user-view__item flex-custom flex-custom--center">
@@ -50,11 +50,11 @@
             <md-slide-toggle class="flex-align--right" [checked]="entity.active === 'true'" (change)="entity.toggleActive()" [disabled]="viewMode"></md-slide-toggle>
           </div>
 
-        </div>
+        </form>
 
         <div *ngIf="!viewMode" class="entity-view__card__actions">
           <div *ngIf="updateMode" (click)="cancelUpdate()">CANCEL</div>
-          <div (click)="saveOrUpdate(entity)">SAVE</div>
+          <div (click)="saveUser(userInput.form.valid)">SAVE</div>
         </div>
       </div>
 
