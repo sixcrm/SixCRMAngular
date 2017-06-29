@@ -32,8 +32,7 @@ export class UsersService extends AbstractEntityService<User> {
     let accountId = this.authService.getActiveAcl().account.id;
 
     this.queryRequest(inviteUserMutation(email, accountId, role.id)).subscribe(
-      (data) => {
-        let info = data.json().data.userinvite;
+      () => {
         subject.next(true);
       },
       (error) => {

@@ -7,7 +7,7 @@ import {
   searchQuery, suggestionsQuery, searchFacets, searchAdvancedQuery,
   searchAdvancedFacets, dashboardFiltersQuery, dashboardFiltersAdvancedQuery
 } from '../utils/queries/search.queries';
-import {extractData, HttpWrapperService} from './http-wrapper.service';
+import {extractData, HttpWrapperService, generateHeaders} from './http-wrapper.service';
 
 @Injectable()
 export class SearchService {
@@ -157,15 +157,7 @@ export class SearchService {
       endpoint = endpoint + '*';
     }
 
-    return this.http.post(endpoint, query, { headers: this.generateHeaders()});
-  }
-
-  private generateHeaders(): Headers {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', this.authService.getToken());
-
-    return headers;
+    return this.http.post(endpoint, query, { headers: generateHeaders(this.authService.getToken())});
   }
 
   private parseSearchResults(response: Response): any {

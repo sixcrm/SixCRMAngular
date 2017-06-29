@@ -12,19 +12,27 @@ export function downloadJSON(data: any, name: string) {
 
 export function downloadFile(data: any, name: string, format: string) {
   let f;
-  let d;
+  let d = extractDownloadedContent(data);
 
-  if (format === 'json') {
-    f = 'application/json';
-    d = data.json().data;
-  } else if (format === 'csv') {
-    f = 'application/csv';
-    d = data.json().data;
-  } else if (format === 'excel') {
-    f = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-    d = JSON.stringify(data.json().data);
-    format = 'xlsx';
+  switch (format) {
+    case 'json': {
+      f = 'application/json';
+      break;
+    }
+    case 'csv': {
+      f = 'application/csv';
+      break;
+    }
+    case 'excel': {
+      f = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+      d = JSON.stringify(extractDownloadedContent(data));
+      break;
+    }
   }
 
   download(d, name + '.' + format, f);
+}
+
+function extractDownloadedContent(data) {
+  return data.json().response;
 }

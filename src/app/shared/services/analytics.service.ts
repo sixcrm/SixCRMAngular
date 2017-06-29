@@ -3,7 +3,7 @@ import {Observable, BehaviorSubject, Subject} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {EventFunnel} from '../models/event-funnel.model';
-import {Headers, Response} from '@angular/http';
+import {Response} from '@angular/http';
 import {TransactionOverview} from '../models/transaction-overview.model';
 import {TransactionSummary} from '../models/transaction-summary.model';
 import {
@@ -20,7 +20,7 @@ import {EventsBy} from '../models/analytics/events-by.model';
 import {FilterTerm} from '../components/advanced-filter/advanced-filter.component';
 import {downloadFile} from '../utils/file.utils';
 import {Activity} from '../models/analytics/activity.model';
-import {HttpWrapperService} from './http-wrapper.service';
+import {HttpWrapperService, extractData, generateHeaders} from './http-wrapper.service';
 
 @Injectable()
 export class AnalyticsService {
@@ -63,7 +63,7 @@ export class AnalyticsService {
       this.queryRequest(transactionSummaryQuery(start, end, filters), downloadFormat).subscribe(
         (data) => {
           if (!downloadFormat) {
-            let transactions = data.json().data.data.transactionsummary.transactions;
+            let transactions = extractData(data).transactionsummary.transactions;
 
             if (transactions) {
               let s = transactions.map(t => new TransactionSummary(t));
@@ -90,7 +90,7 @@ export class AnalyticsService {
       this.queryRequest(transactionOverviewQuery(start, end), downloadFormat).subscribe(
         (data) => {
           if (!downloadFormat) {
-            let overview = data.json().data.data.transactionoverview.overview;
+            let overview = extractData(data).transactionoverview.overview;
 
             if (overview) {
               let o = new TransactionOverview(overview);
@@ -116,7 +116,7 @@ export class AnalyticsService {
     } else {
       this.queryRequest(eventsFunelQuery(start, end), downloadFormat).subscribe((data) => {
         if (!downloadFormat) {
-          let funnel = data.json().data.data.eventfunnel.funnel;
+          let funnel = extractData(data).eventfunnel.funnel;
 
           if (funnel) {
             let f = new EventFunnel(funnel);
@@ -138,7 +138,7 @@ export class AnalyticsService {
     } else {
       this.queryRequest(campaignDeltaQuery(start, end), downloadFormat).subscribe(data => {
         if (!downloadFormat) {
-          let campaigns = data.json().data.data.campaigndelta.campaigns;
+          let campaigns = extractData(data).campaigndelta.campaigns;
 
           if (campaigns) {
             let c = campaigns.map(d => new CampaignDelta(d));
@@ -160,7 +160,7 @@ export class AnalyticsService {
     } else {
       this.queryRequest(eventsByAffiliateQuery(start, end), downloadFormat).subscribe(data => {
         if (!downloadFormat) {
-          let events = data.json().data.data.eventsbyfacet;
+          let events = extractData(data).eventsbyfacet;
 
           if (events) {
             let e = new EventsBy(events);
@@ -182,7 +182,7 @@ export class AnalyticsService {
     } else {
       this.queryRequest(transactionsByAffiliateQuery(start, end), downloadFormat).subscribe(data => {
         if (!downloadFormat) {
-          let events = data.json().data.data.transactionsbyfacet;
+          let events = extractData(data).transactionsbyfacet;
 
           if (events) {
             let e = new TransactionsBy(events);
@@ -204,7 +204,7 @@ export class AnalyticsService {
     } else {
       this.queryRequest(eventsSummaryQuery(start, end), downloadFormat).subscribe(data => {
         if (!downloadFormat) {
-          let events = data.json().data.data.eventsummary.events;
+          let events = extractData(data).eventsummary.events;
 
           if (events) {
             let e = events.map(e => new EventSummary(e));
@@ -226,7 +226,7 @@ export class AnalyticsService {
     } else {
       this.queryRequest(campaignsByAmountQuery(start, end), downloadFormat).subscribe(data => {
         if (!downloadFormat) {
-          let campaigns = data.json().data.data.campaignsbyamount.campaigns;
+          let campaigns = extractData(data).campaignsbyamount.campaigns;
 
           if (campaigns) {
             let c = campaigns.map(c => new CampaignStats(c));
@@ -244,7 +244,7 @@ export class AnalyticsService {
     if (!this.hasPermission('getActivityByIdentifier')) return;
 
     this.queryRequest(activitiesByCustomer(start, end, customer, limit, offset)).subscribe(data => {
-      let activityList = data.json().data.data.listactivitybyidentifier;
+      let activityList = extractData(data).listactivitybyidentifier;
 
       if (activityList && activityList.activity) {
         this.activitiesByCustomer$.next(activityList.activity.map(activity => new Activity(activity)));
@@ -282,14 +282,6 @@ export class AnalyticsService {
       endpoint += '?download=' + downloadFormat;
     }
 
-    return this.http.post(endpoint, query, { headers: this.generateHeaders()});
-  }
-
-  private generateHeaders(): Headers {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', this.authService.getToken());
-
-    return headers;
+    return this.http.post(endpoint, query, { headers: generateHeaders(this.authService.getToken())});
   }
 }

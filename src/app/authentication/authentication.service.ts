@@ -13,7 +13,7 @@ import {
   updateUserForActivation, updateUserForRegistration,
   userIntrospection, acceptInviteMutation
 } from '../shared/utils/queries/entities/user.queries';
-import {extractData, HttpWrapperService} from '../shared/services/http-wrapper.service';
+import {extractData, HttpWrapperService, generateHeaders} from '../shared/services/http-wrapper.service';
 
 declare var Auth0Lock: any;
 
@@ -190,10 +190,10 @@ export class AuthenticationService {
       this.logout();
     } else {
       let endpoint = environment.endpoint + this.user.acls[0].account.id;
-      this.http.post(endpoint, createCreditCardMutation(cc), {headers: this.generateHeaders()})
+      this.http.post(endpoint, createCreditCardMutation(cc), {headers: generateHeaders(this.getToken())})
         .subscribe(
           () => {
-            this.http.post(endpoint, updateUserForRegistration(user), {headers: this.generateHeaders()})
+            this.http.post(endpoint, updateUserForRegistration(user), {headers: generateHeaders(this.getToken())})
               .subscribe(
                 (data) => {
                   this.userUnderReg$.next(new User(extractData(data).updateuser));
@@ -217,7 +217,7 @@ export class AuthenticationService {
     let subject: Subject<boolean> = new Subject<boolean>();
 
     let endpoint = environment.endpoint + this.getActiveAcl().account.id;
-    this.http.post(endpoint, updateUserForActivation(user), { headers: this.generateHeaders() })
+    this.http.post(endpoint, updateUserForActivation(user), { headers: generateHeaders(this.getToken()) })
       .subscribe(
         () => {
           subject.next(true);
@@ -233,7 +233,7 @@ export class AuthenticationService {
   public activateUser(token: string, param: string): Observable<User> {
     let subject = new Subject<User>();
 
-    this.http.post(environment.endpoint + '*', acceptInviteMutation(token, param), { headers: this.generateHeaders() }).subscribe(
+    this.http.post(environment.endpoint + '*', acceptInviteMutation(token, param), { headers: generateHeaders(this.getToken()) }).subscribe(
       (data) => {
         let userData = extractData(data).acceptinvite;
         let user: User = new User(userData);
@@ -291,7 +291,7 @@ export class AuthenticationService {
   }
 
   private getUserIntrospection(profile: any): void {
-    this.http.post(environment.endpoint + '*', userIntrospection(), { headers: this.generateHeaders()}).subscribe(
+    this.http.post(environment.endpoint + '*', userIntrospection(), { headers: generateHeaders(this.getToken())}).subscribe(
       (data) => {
         let user = extractData(data).userintrospection;
         if (user) {
@@ -338,7 +338,7 @@ export class AuthenticationService {
   }
 
   private getUserIntrospectionExternal(redirect: string): void {
-    this.http.post(environment.endpoint + '*', userIntrospection(), { headers: this.generateHeaders()}).subscribe(
+    this.http.post(environment.endpoint + '*', userIntrospection(), { headers: generateHeaders(this.getToken())}).subscribe(
       (data) => {
         let user = extractData(data).userintrospection;
         if (user) {
@@ -392,13 +392,5 @@ export class AuthenticationService {
     }
 
     return acls.filter((element) => element.account.id === acl.account.id).length !== 0;
-  }
-
-  private generateHeaders(): Headers {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', this.getToken());
-
-    return headers;
   }
 }

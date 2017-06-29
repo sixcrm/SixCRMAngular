@@ -9,7 +9,7 @@ import {
 } from '../utils/query-builder';
 import {Subject} from 'rxjs';
 import {NotificationsQuickService} from './notifications-quick.service';
-import {HttpWrapperService} from './http-wrapper.service';
+import {HttpWrapperService, extractData} from './http-wrapper.service';
 
 @Injectable()
 export class NotificationSettingsService extends AbstractEntityService<NotificationSettings> {
@@ -33,7 +33,7 @@ export class NotificationSettingsService extends AbstractEntityService<Notificat
   fetchDefaultNotificationSettings(): void {
     this.queryRequest(defaultNotificationSettingsQuery()).subscribe(
       (data) => {
-        let obj = data.json().data.notificationsettingdefault;
+        let obj = extractData(data).notificationsettingdefault;
 
         this.defaultNotificationSettings$.next(new NotificationSettingsData(obj));
       },

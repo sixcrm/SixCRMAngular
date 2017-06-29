@@ -3,7 +3,7 @@ import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Transaction} from '../models/transaction.model';
 import {transactionsInfoListQuery, transactionQuery, deleteTransactionMutation, refundTransactionMutation} from '../utils/query-builder';
-import {HttpWrapperService} from './http-wrapper.service';
+import {HttpWrapperService, extractData} from './http-wrapper.service';
 
 @Injectable()
 export class TransactionsService extends AbstractEntityService<Transaction> {
@@ -29,7 +29,7 @@ export class TransactionsService extends AbstractEntityService<Transaction> {
 
     this.queryRequest(refundTransactionMutation(transactionId, refundAmount)).subscribe(
       (data) => {
-        let json = data.json().data;
+        let json = extractData(data);
         let entityKey = Object.keys(json)[0];
         let entityData =json[entityKey];
 

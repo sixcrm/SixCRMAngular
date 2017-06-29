@@ -2,7 +2,7 @@ import {Headers, Response} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {extractData, HttpWrapperService} from './http-wrapper.service';
+import {extractData, HttpWrapperService, generateHeaders} from './http-wrapper.service';
 
 export abstract class AbstractEntityService<T> {
 
@@ -200,14 +200,6 @@ export abstract class AbstractEntityService<T> {
       endpoint = endpoint + '*';
     }
 
-    return this.http.post(endpoint, query, { headers: this.generateHeaders()}, ignoreProgress);
-  }
-
-  private generateHeaders(): Headers {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', this.authService.getToken());
-
-    return headers;
+    return this.http.post(endpoint, query, { headers: generateHeaders(this.authService.getToken())}, ignoreProgress);
   }
 }

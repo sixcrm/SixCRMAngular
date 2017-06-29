@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Http, RequestOptionsArgs, Response} from '@angular/http';
+import {Http, RequestOptionsArgs, Response, Headers} from '@angular/http';
 import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import {MdSnackBar} from '@angular/material';
+import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class HttpWrapperService {
@@ -51,5 +52,13 @@ export class HttpWrapperService {
 }
 
 export function extractData(response: Response) {
-  return response.json().data.data;
+  return response.json().response.data;
+}
+
+export function generateHeaders(token: string, contentType?: string): Headers {
+  let headers = new Headers();
+  headers.append('Content-Type', contentType ? contentType : 'application/json');
+  headers.append('Authorization', token);
+
+  return headers;
 }

@@ -6,7 +6,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {Subject, Subscription, Observable} from 'rxjs';
 import {AbstractEntityService} from './abstract-entity.service';
 import {Notification} from '../models/notification.model';
-import {HttpWrapperService} from './http-wrapper.service';
+import {HttpWrapperService, extractData} from './http-wrapper.service';
 
 @Injectable()
 export class NotificationsQuickService extends AbstractEntityService<Notification> {
@@ -57,7 +57,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
 
     this.querySub = this.queryRequest(notificationCountQuery(), true).subscribe(
       (data) => {
-        let json = data.json().data;
+        let json = extractData(data);
         let entityKey = Object.keys(json)[0];
         let entityData =json[entityKey];
 
