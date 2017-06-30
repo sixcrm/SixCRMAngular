@@ -26,7 +26,7 @@
 
     <tbody>
     <tr *ngFor="let entity of entities | filterEntities: filterValue | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder">
-      <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'" [routerLink]="['/transactions', entity.id]">{{params.mappingFunction(entity)}}</td>
+      <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'" [routerLink]="['/productschedules', entity.id]">{{params.mappingFunction(entity)}}</td>
       <td>
         <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
         <md-menu #actionsMenu="mdMenu" x-position="before">
@@ -38,7 +38,7 @@
   </table>
 
   <md-spinner class="entity-view__spinner" *ngIf="loadingData && (!entities || entities.length === 0)"></md-spinner>
-  <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">No transactions found</div>
+  <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">No product schedules found</div>
 
   <table-pagination
     [limit]="limit"
