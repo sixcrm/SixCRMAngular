@@ -2,8 +2,11 @@ import { Injectable } from '@angular/core';
 import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Transaction} from '../models/transaction.model';
-import {transactionsInfoListQuery, transactionQuery, deleteTransactionMutation, refundTransactionMutation} from '../utils/query-builder';
 import {HttpWrapperService, extractData} from './http-wrapper.service';
+import {
+  transactionsInfoListQuery, deleteTransactionMutation,
+  transactionQuery, refundTransactionMutation
+} from '../utils/queries/entities/transaction.queries';
 
 @Injectable()
 export class TransactionsService extends AbstractEntityService<Transaction> {

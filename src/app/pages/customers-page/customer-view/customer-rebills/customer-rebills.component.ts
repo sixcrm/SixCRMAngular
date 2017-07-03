@@ -5,8 +5,8 @@ import {RebillsService} from '../../../../shared/services/rebills.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';
-import {rebillsListQuery, rebillsByCustomer} from '../../../../shared/utils/query-builder';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
+import {rebillsByCustomer, rebillsListQuery} from '../../../../shared/utils/queries/entities/rebill.queries';
 
 @Component({
   selector: 'customer-rebills',

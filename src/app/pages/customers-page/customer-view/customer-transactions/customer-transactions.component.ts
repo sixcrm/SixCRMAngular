@@ -5,9 +5,12 @@ import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.compo
 import {MdDialog} from '@angular/material';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {PaginationService} from '../../../../shared/services/pagination.service';
-import {transactionsByCustomer, transactionsInfoListQuery} from '../../../../shared/utils/query-builder';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {Router} from '@angular/router';
+import {
+  transactionsByCustomer,
+  transactionsInfoListQuery
+} from '../../../../shared/utils/queries/entities/transaction.queries';
 
 @Component({
   selector: 'customer-transactions',

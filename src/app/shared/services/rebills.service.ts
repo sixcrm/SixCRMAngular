@@ -2,8 +2,11 @@ import { Injectable } from '@angular/core';
 import {AbstractEntityService} from './abstract-entity.service';
 import {Rebill} from '../models/rebill.model';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {rebillsListQuery, rebillQuery, deleteRebillMutation, updateRebillMutation} from '../utils/query-builder';
 import {HttpWrapperService} from './http-wrapper.service';
+import {
+  rebillsListQuery, rebillQuery, deleteRebillMutation,
+  updateRebillMutation
+} from '../utils/queries/entities/rebill.queries';
 
 @Injectable()
 export class RebillsService extends AbstractEntityService<Rebill>{

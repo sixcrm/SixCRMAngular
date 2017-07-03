@@ -3,8 +3,11 @@ import {CustomersService} from '../../../../shared/services/customers.service';
 import {Customer} from '../../../../shared/models/customer.model';
 import {Transaction} from '../../../../shared/models/transaction.model';
 import {TransactionsService} from '../../../../shared/services/transactions.service';
-import {transactionsInfoListQuery, transactionsByCustomer} from '../../../../shared/utils/query-builder';
 import {AbstractPerfectMatch} from '../abstract-perfect-match.component';
+import {
+  transactionsByCustomer,
+  transactionsInfoListQuery
+} from '../../../../shared/utils/queries/entities/transaction.queries';
 
 @Component({
   selector: 'perfect-customer',
