@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import {Affiliate} from '../models/affiliate.model';
 import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {
-  affiliatesListQuery, affiliateQuery, deleteAffiliateMutation,
-  createAffiliateMutation, updateAffiliateMutation
-} from '../utils/query-builder';
 import {HttpWrapperService} from './http-wrapper.service';
+import {
+  affiliatesListQuery, affiliateQuery,
+  deleteAffiliateMutation, createAffiliateMutation, updateAffiliateMutation
+} from '../utils/queries/entities/affiliate.queries';
 
 @Injectable()
 export class AffiliatesService extends AbstractEntityService<Affiliate> {
