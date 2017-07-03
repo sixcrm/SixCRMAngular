@@ -1,50 +1,8 @@
-import {CreditCard} from '../models/credit-card.model';
 import {UserSettings} from '../models/user-settings';
 import {NotificationSettings} from '../models/notification-settings.model';
 
 function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
-}
-
-export function creditCardsListQuery(limit?:number, cursor?:string): string {
-  return `{
-    creditcardlist ${pageParams(limit, cursor)} {
-			creditcards { id number expiration ccv name,
-			  address { country state city }
-			}
-		  ${paginationString()}
-		}}`
-}
-
-export function creditCardQuery(id: string): string {
-  return `{
-    creditcard (id: "${id}") { id number expiration ccv name,
-		  address { line1 line2 city state zip country }
-		} }`
-}
-
-export function deleteCreditCardMutation(id: string): string {
-  return deleteMutation('creditcard', id);
-}
-
-export function createCreditCardMutation(cc: CreditCard): string {
-  return `
-    mutation {
-		  createcreditcard (creditcard: { ${cc.getMutation()} }) {
-        id number expiration ccv name,
-        address { line1 line2 city state zip country }
-      }
-	  }`
-}
-
-export function updateCreditCardMutation(cc: CreditCard): string {
-  return `
-    mutation {
-		  updatecreditcard (creditcard: { ${cc.getMutation()} }) {
-        id number expiration ccv name,
-        address { line1 line2 city state zip country }
-      }
-	  }`
 }
 
 export function accessKeysListQuery(limit?:number, cursor?:string): string {

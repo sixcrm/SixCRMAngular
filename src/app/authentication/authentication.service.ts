@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
 import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {environment} from '../../environments/environment';
-import {createCreditCardMutation} from '../shared/utils/query-builder';
 import {User} from '../shared/models/user.model';
 import {CreditCard} from '../shared/models/credit-card.model';
 import {Acl} from '../shared/models/acl.model';
@@ -13,6 +12,7 @@ import {
   userIntrospection, acceptInviteMutation
 } from '../shared/utils/queries/entities/user.queries';
 import {extractData, HttpWrapperService, generateHeaders} from '../shared/services/http-wrapper.service';
+import {createCreditCardMutation} from '../shared/utils/queries/entities/credit-card.queries';
 
 declare var Auth0Lock: any;
 
