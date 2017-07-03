@@ -57,26 +57,4 @@ export class Customer implements Entity<Customer> {
       updated_at: this.updatedAt.format()
     }
   }
-
-  getMutation(): string {
-    let line1 = this.address.line1 ? `line1:"${this.address.line1}"` : '';
-    let line2 = this.address.line2 ? `line2:"${this.address.line2}"` : '';
-    let city = this.address.city ? `city:"${this.address.city}"` : '';
-    let state = this.address.state ? `state:"${this.address.state}"` : '';
-    let zip = this.address.zip ? `zip:"${this.address.zip}"` : '';
-    let country = this.address.country ? `country:"${this.address.country}"` : '';
-    let creditCards: string = '';
-    for (let index in this.creditCards) {
-      let creditCard = this.creditCards[index];
-      if (creditCard.id) {
-        creditCards += `"${creditCard.id}" `;
-      }
-    }
-
-    return `
-      id: "${this.id}" email: "${this.email}" firstname: "${this.firstName}" lastname: "${this.lastName}" phone: "${this.phone}",
-      address: { ${line1} ${line2} ${city} ${state} ${zip} ${country} }
-      creditcards:[${creditCards}]
-    `
-  }
 }

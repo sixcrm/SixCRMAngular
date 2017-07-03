@@ -1,77 +1,17 @@
 import {SmtpProvider} from '../models/smtp-provider.model';
 import {CreditCard} from '../models/credit-card.model';
-import {Affiliate} from '../models/affiliate.model';
-import {Customer} from '../models/customer.model';
 import {CustomerNote} from '../models/customer-note.model';
 import {Notification} from '../models/notification.model';
 import {utc} from 'moment'
 import {UserSettings} from '../models/user-settings';
 import {NotificationSettings} from '../models/notification-settings.model';
 import {Rebill} from '../models/rebill.model';
-import {Tracker} from '../models/tracker.model';
 import {EmailTemplate} from '../models/email-template.model';
-import {loadBalancerResponseQuery} from './queries/entities/load-balancer.queries';
 
 const uuidV4 = require('uuid/v4');
 
 function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
-}
-
-export function customersInfoListQuery(limit?:number, cursor?:string): string {
-  return `{
-    customerlist ${pageParams(limit, cursor)} {
-      customers { id firstname lastname created_at,
-        address { city country state }
-			}
-			${paginationString()}
-		}}`
-}
-
-export function customerQuery(id: string): string {
-  return `{
-    customer (id: "${id}") { id email firstname lastname phone created_at updated_at,
-      address { line1 line2 city state zip country }
-		  creditcards {	id number expiration ccv name,
-			  address { line1 line2 city state zip country }
-			}
-		}
-  }`
-}
-
-export function deleteCustomerMutation(id: string): string {
-  return deleteMutation('customer', id);
-}
-
-export function createCustomerMutation(customer: Customer): string {
-
-  return `
-    mutation {
-		  createcustomer (
-		    customer: { ${customer.getMutation()} }
-      ) {
-        id email firstname lastname phone,
-        address { line1 city state zip country }
-			  creditcards { id number expiration ccv name,
-				  address { line1 line2 city state zip }
-			  }
-		  }
-	  }`
-}
-
-export function updateCustomerMutation(customer: Customer): string {
-  return `
-    mutation {
-		  updatecustomer (
-		    customer: { ${customer.getMutation()} }
-      ) {
-		    id email firstname lastname phone created_at updated_at,
-		    address { line1 line2 city state zip country }
-			  creditcards { id number expiration ccv name,
-				  address { line1 line2 city state zip country }
-			  }
-		  }
-	  }`
 }
 
 export function customerNotesByCustomerQuery(id: string, limit?: number, cursor?: string): string {
