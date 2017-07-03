@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Notification} from './../models/notification.model'
-import {notificationsListQuery, updateNotificationMutation} from '../utils/query-builder';
 import {HttpWrapperService} from './http-wrapper.service';
+import {notificationsListQuery, updateNotificationMutation} from '../utils/queries/entities/notification.queries';
 
 @Injectable()
 export class NotificationsService extends AbstractEntityService<Notification> {

@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import {NotificationSettings, NotificationSettingsData} from '../models/notification-settings.model';
 import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {
-  notificationSettingsQuery, defaultNotificationSettingsQuery,
-  createNotificationSettingsMutation, updateNotificationSettingsMutation,
-  sendTestNotification
-} from '../utils/query-builder';
 import {Subject} from 'rxjs';
 import {NotificationsQuickService} from './notifications-quick.service';
 import {HttpWrapperService, extractData} from './http-wrapper.service';
+import {
+  notificationSettingsQuery, createNotificationSettingsMutation,
+  updateNotificationSettingsMutation, defaultNotificationSettingsQuery, sendTestNotification
+} from '../utils/query-builder';
 
 @Injectable()
 export class NotificationSettingsService extends AbstractEntityService<NotificationSettings> {

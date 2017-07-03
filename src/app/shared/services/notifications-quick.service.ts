@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import {
-  updateNotificationMutation, notificationCountQuery, notificationsQuickListQuery
-} from '../utils/query-builder';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Subject, Subscription, Observable} from 'rxjs';
 import {AbstractEntityService} from './abstract-entity.service';
 import {Notification} from '../models/notification.model';
 import {HttpWrapperService, extractData} from './http-wrapper.service';
+import {
+  notificationsQuickListQuery, updateNotificationMutation,
+  notificationCountQuery
+} from '../utils/queries/entities/notification.queries';
 
 @Injectable()
 export class NotificationsQuickService extends AbstractEntityService<Notification> {

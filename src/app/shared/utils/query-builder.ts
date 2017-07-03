@@ -1,10 +1,6 @@
 import {CreditCard} from '../models/credit-card.model';
-import {Notification} from '../models/notification.model';
-import {utc} from 'moment'
 import {UserSettings} from '../models/user-settings';
 import {NotificationSettings} from '../models/notification-settings.model';
-
-const uuidV4 = require('uuid/v4');
 
 function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
@@ -76,35 +72,6 @@ export function rolesListQuery(limit?: number, cursor?: string): string {
 			roles { id name active }
 			${paginationString()}
 		}}`
-}
-
-export function notificationsListQuery(limit?:number, cursor?:string): string {
-  return `{
-    notificationlist ${pageParams(limit, cursor)} {
-			notifications { id user account type action title body read_at created_at updated_at }
-			${paginationString()}
-		}}`
-}
-
-export function notificationsQuickListQuery(limit?:number, cursor?:string): string {
-  return `{
-    notificationlist ${pageParams(limit, null)} {
-			notifications { id user account type action title body read_at created_at updated_at }
-			${paginationString()}
-		}}`
-}
-
-export function notificationCountQuery(): string {
-  return `{notificationcount {count}}`
-}
-
-export function updateNotificationMutation(notification: Notification): string {
-  return `
-    mutation {
-      updatenotification (notification: { id: "${notification.id}", user: "${notification.user}", account: "${notification.account}", type: "${notification.type}", action: "${notification.action}", title: "${notification.title}" body: "${notification.body}", read_at: "${utc().format()}"}) {
-			  id user account type action title body read_at created_at updated_at
-		  }
-    }`;
 }
 
 export function userSettingsQuery(id: string): string {
@@ -197,10 +164,6 @@ function pageParams(limit?: number, cursor?: string, noBraces?:boolean): string 
   }
 
   return limit || cur ? `${params}` : '';
-}
-
-function generateUUID(): string {
-  return uuidV4();
 }
 
 function paginationString(): string {
