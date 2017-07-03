@@ -1,11 +1,8 @@
-import {SmtpProvider} from '../models/smtp-provider.model';
 import {CreditCard} from '../models/credit-card.model';
 import {Notification} from '../models/notification.model';
 import {utc} from 'moment'
 import {UserSettings} from '../models/user-settings';
 import {NotificationSettings} from '../models/notification-settings.model';
-import {Rebill} from '../models/rebill.model';
-import {EmailTemplate} from '../models/email-template.model';
 
 const uuidV4 = require('uuid/v4');
 
@@ -52,96 +49,6 @@ export function updateCreditCardMutation(cc: CreditCard): string {
         address { line1 line2 city state zip country }
       }
 	  }`
-}
-
-export function smtpProvidersListQuery(limit?:number, cursor?:string): string {
-  return `{
-    smtpproviderlist ${pageParams(limit, cursor)} {
-			smtpproviders {
-        ${smtpProviderResponseQuery()}
-      }
-			${paginationString()}
-		}}`
-}
-
-export function smtpProviderQuery(id: string): string {
-  return `
-    {
-      smtpprovider (id: "${id}") {
-        ${smtpProviderResponseQuery()}
-      }
-    }`
-}
-
-export function deleteSmptProviderMutation(id: string): string {
-  return deleteMutation('smtpprovider', id);
-}
-
-export function createSmptProviderMutation(smtpProvider: SmtpProvider): string {
-  return `
-    mutation {
-		  createsmtpprovider ( ${smtpProviderInputQuery(smtpProvider, false)} ) {
-        ${smtpProviderResponseQuery()}
-      }
-	  }`
-}
-
-export function updateSmptProviderMutation(smtpProvider: SmtpProvider): string {
-  return `
-    mutation {
-		  updatesmtpprovider ( ${smtpProviderInputQuery(smtpProvider, true)} ) {
-        ${smtpProviderResponseQuery()}
-      }
-	  }`
-}
-
-function smtpProviderInputQuery(smtpProvider: SmtpProvider, includeID: boolean): string {
-  return `smtpprovider: { ${includeID ? `id: "${smtpProvider.id}",` : ''} name: "${smtpProvider.name}", from_name: "${smtpProvider.fromName}", from_email: "${smtpProvider.fromEmail}", hostname: "${smtpProvider.hostname}", username: "${smtpProvider.username}", password: "${smtpProvider.password}", port: ${smtpProvider.port}}`;
-}
-
-function smtpProviderResponseQuery(): string {
-  return `id name from_name from_email hostname username password port created_at updated_at`
-}
-
-export function emailTemplatesListQuery(limit?:number, cursor?:string): string {
-  return `{
-    emailtemplatelist ${pageParams(limit, cursor)} {
-			emailtemplates { id name subject body type created_at updated_at,
-			  smtp_provider { ${smtpProviderResponseQuery()} }
-			}
-			${paginationString()}
-		}}`
-}
-
-export function emailTemplateQuery(id: string): string {
-  return `
-    {
-      emailtemplate (id: "${id}") { id name subject body type created_at updated_at,
-			  smtp_provider { ${smtpProviderResponseQuery()} }
-			}
-    }`
-}
-
-export function deleteEmailTemplateMutation(id: string): string {
-  return deleteMutation('emailtemplate', id);
-}
-
-export function updateEmailTemplateMutation(emailTemplate: EmailTemplate): string {
-  return `mutation { 
-		updateemailtemplate (emailtemplate: { id: "${emailTemplate.id}", name: "${emailTemplate.name}", subject: "${emailTemplate.subject}", body: "${emailTemplate.body.replace(/"/g, '\\"')}", type: "${emailTemplate.type.toLowerCase()}", smtp_provider:"${emailTemplate.smtpProvider.id}"}) { 
-			id name subject body type created_at updated_at,
-			smtp_provider { ${smtpProviderResponseQuery()} },
-		} 
-	}`;
-}
-
-export function createEmailTemplateMutation(emailTemplate: EmailTemplate): string {
-  return `mutation { 
-		createemailtemplate (emailtemplate: { name: "${emailTemplate.name}", subject: "${emailTemplate.subject}", body: "${emailTemplate.body.replace(/"/g, '\\"')}", type: "${emailTemplate.type.toLowerCase()}", smtp_provider:"${emailTemplate.smtpProvider.id}"}) { 
-			id name subject body type created_at updated_at,
-			smtp_provider { ${smtpProviderResponseQuery()} },
-		} 
-	}`;
 }
 
 export function accessKeysListQuery(limit?:number, cursor?:string): string {
