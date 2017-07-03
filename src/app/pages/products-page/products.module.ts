@@ -9,6 +9,7 @@ import {ProductsAclGuard} from '../guards/products-acl-guard.service';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {SharedModule} from '../../shared/shared.module';
 import {ProductProductSchedulesComponent} from './product-view/product-product-schedules/product-product-schedules.component';
+import { ProductCampaignsComponent } from './product-view/product-campaigns/product-campaigns.component';
 
 @NgModule({
   imports : [
@@ -22,7 +23,8 @@ import {ProductProductSchedulesComponent} from './product-view/product-product-s
   declarations : [
     ProductsComponent,
     ProductViewComponent,
-    ProductProductSchedulesComponent
+    ProductProductSchedulesComponent,
+    ProductCampaignsComponent
   ],
   exports : [ ],
   providers: [

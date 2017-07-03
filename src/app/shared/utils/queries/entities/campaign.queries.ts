@@ -25,6 +25,16 @@ export function campaignsByProductSchedule(id: string, limit?:number, cursor?:st
     }}`
 }
 
+export function campaignsByProduct(id: string, limit?:number, cursor?:string): string {
+  return `{
+    campaignlistbyproduct (product: "${id}", ${paginationParamsQuery(limit, cursor, true)}) {
+      campaigns {
+        ${campaignInfoResponseQuery()}
+      }
+      ${fullPaginationStringResponseQuery()}
+    }}`
+}
+
 export function campaignQuery(id: string): string {
   return `{
     campaign (id: "${id}") {
