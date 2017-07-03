@@ -3,10 +3,10 @@ import {CustomerNote} from '../../../../shared/models/customer-note.model';
 import {CustomerNotesService} from '../../../../shared/services/customer-notes.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
-import {customerNotesByCustomerQuery} from '../../../../shared/utils/query-builder';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {MdDialog} from '@angular/material';
 import {firstIndexOf} from '../../../../shared/utils/array.utils';
+import {customerNotesByCustomerQuery} from '../../../../shared/utils/queries/entities/customer-note.queries';
 
 @Component({
   selector: 'customer-notes',

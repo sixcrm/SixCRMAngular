@@ -1,6 +1,5 @@
 import {SmtpProvider} from '../models/smtp-provider.model';
 import {CreditCard} from '../models/credit-card.model';
-import {CustomerNote} from '../models/customer-note.model';
 import {Notification} from '../models/notification.model';
 import {utc} from 'moment'
 import {UserSettings} from '../models/user-settings';
@@ -12,33 +11,6 @@ const uuidV4 = require('uuid/v4');
 
 function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
-}
-
-export function customerNotesByCustomerQuery(id: string, limit?: number, cursor?: string): string {
-  return `{
-    customernotelistbycustomer (customer:"${id}" ${pageParams(limit, cursor, true)}) {
-      customernotes { id body created_at updated_at,
-        user {id name }
-      }
-      ${paginationString()}
-		}}`
-}
-
-export function createCustomerNoteMutation(customerNote: CustomerNote): string {
-
-  return `
-    mutation {
-		  createcustomernote (
-		    customernote: { id: "${generateUUID()}" customer: "${customerNote.customer.id}" user: "${customerNote.user.id}" body: "${customerNote.body}" }
-      ) {
-        id body created_at updated_at,
-        user { id name }
-		  }
-	  }`
-}
-
-export function deleteCustomerNoteMutation(id: string): string {
-  return deleteMutation('customernote', id);
 }
 
 export function transactionsInfoListQuery(limit?:number, cursor?:string): string {
