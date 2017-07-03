@@ -31,9 +31,11 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
   }
 
   startPoolingNotifications(): void {
-    this.notificationsSub = Observable.interval(this.poolingInterval).takeWhile(() => this.authService.authenticated()).subscribe(() => {
-      this.getNotificationCount();
-    });
+    this.notificationsSub =
+      Observable
+        .interval(this.poolingInterval)
+        .takeWhile(() => this.authService.authenticated())
+        .subscribe(() => this.getNotificationCount());
 
     this.getNotificationCount();
   }

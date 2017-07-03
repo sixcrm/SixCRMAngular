@@ -59,7 +59,7 @@ export class TopnavComponent implements OnInit {
       this.notificationsCount = count;
     });
 
-    this.notificationsService.startPoolingNotifications();
+    this.notificationsService.restartPoolingNotifications();
   }
 
   logout(){

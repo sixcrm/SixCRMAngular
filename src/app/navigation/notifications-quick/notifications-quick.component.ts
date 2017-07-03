@@ -1,9 +1,10 @@
-import {Component, Output, EventEmitter, OnInit, ElementRef} from '@angular/core';
+import {Component, Output, EventEmitter, OnInit, ElementRef, OnDestroy} from '@angular/core';
 import {Notification, compareNotifications} from '../../shared/models/notification.model';
 import {utc} from 'moment';
 import {Router} from '@angular/router';
 import {NotificationsQuickService} from '../../shared/services/notifications-quick.service';
 import {EntitiesByDate} from '../../shared/models/entities-by-date.interface';
+import {AsyncSubject} from 'rxjs';
 
 @Component({
   selector: 'notifications-quick',
@@ -11,7 +12,7 @@ import {EntitiesByDate} from '../../shared/models/entities-by-date.interface';
   styleUrls: ['./notifications-quick.component.scss'],
   host: {'(document:click)':'onClick($event)'}
 })
-export class NotificationsQuickComponent implements OnInit {
+export class NotificationsQuickComponent implements OnInit, OnDestroy {
 
   @Output() close: EventEmitter<boolean> = new EventEmitter();
 
@@ -24,6 +25,8 @@ export class NotificationsQuickComponent implements OnInit {
 
   isEmpty: boolean = false;
 
+  private unsubscribe: AsyncSubject<boolean> = new AsyncSubject();
+
   constructor(
     private notificationsService: NotificationsQuickService,
     private router: Router,
@@ -31,17 +34,21 @@ export class NotificationsQuickComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.notificationsService.entities$.subscribe(notifications => {
+    this.notificationsService.entities$.takeUntil(this.unsubscribe).subscribe(notifications => {
       this.arrangeNotifications(notifications);
       this.notificationsService.restartPoolingNotifications();
     });
 
-    this.notificationsService.entityUpdated$.subscribe(notification => {
+    this.notificationsService.entityUpdated$.takeUntil(this.unsubscribe).subscribe(notification => {
       this.updateLocally(notification);
     });
 
     this.notificationsService.getEntities(20);
-    this.notificationsService.restartPoolingNotifications();
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.next(true);
+    this.unsubscribe.complete();
   }
 
   closeNotifications(): void {
