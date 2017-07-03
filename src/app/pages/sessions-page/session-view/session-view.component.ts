@@ -8,6 +8,7 @@ import {Rebill} from '../../../shared/models/rebill.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Campaign} from '../../../shared/models/campaign.model';
+import {Affiliate} from '../../../shared/models/affiliate.model';
 
 @Component({
   selector: 'session-view',
@@ -19,6 +20,9 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
   selectedIndex: number = 0;
   rebillColumnParams: ColumnParams<Rebill>[];
   campaignColumnParams: ColumnParams<Campaign>[];
+  affiliateColumnParams: ColumnParams<Affiliate>[];
+
+  affiliates: Affiliate[] = [];
 
   constructor(service: SessionsService,
               route: ActivatedRoute,
@@ -43,6 +47,14 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
       new ColumnParams('Name',(e: Campaign) => e.name),
       new ColumnParams('Created at', (e: Campaign) => e.createdAt.clone().tz(f).format('MM/DD/YYYY'))
     ];
+
+    this.affiliateColumnParams = [
+      new ColumnParams('Name',(e: Affiliate) => e.name),
+      new ColumnParams('Affiliate ID',(e: Affiliate) => e.affiliateId),
+      new ColumnParams('Created at', (e: Affiliate) => e.createdAt.clone().tz(f).format('MM/DD/YYYY'))
+    ];
+
+    this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe((s: Session) => this.affiliates = s.parseAffiliates());
   }
 
   ngOnDestroy() {
@@ -59,6 +71,10 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
 
   viewCampaign(campaign: Campaign): void {
     this.router.navigate(['/campaigns', campaign.id]);
+  }
+
+  viewAffiliate(affiliate: Affiliate): void {
+    this.router.navigate(['/affiliates', affiliate.id]);
   }
 
 }

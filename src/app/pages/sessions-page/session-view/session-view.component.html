@@ -69,6 +69,7 @@
                       [title]="'Rebill'"
                       [columnParams]="rebillColumnParams"
                       [associationEnabled]="false"
+                      [dissociationEnabled]="false"
                       (view)="viewRebill($event)">
         </table-memory>
 
@@ -78,13 +79,21 @@
                       [title]="'Campaign'"
                       [columnParams]="campaignColumnParams"
                       [associationEnabled]="false"
+                      [dissociationEnabled]="false"
                       (view)="viewCampaign($event)">
         </table-memory>
       </div>
     </md-tab>
 
     <md-tab>
-      <coming-soon [inPage]="true"></coming-soon>
+      <table-memory [data]="affiliates"
+                    [title]="'Affiliate'"
+                    [filterEnabled]="false"
+                    [columnParams]="affiliateColumnParams"
+                    [associationEnabled]="false"
+                    [dissociationEnabled]="false"
+                    (view)="viewAffiliate($event)">
+      </table-memory>
     </md-tab>
   </md-tab-group>
 </div>

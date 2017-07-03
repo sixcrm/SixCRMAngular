@@ -51,6 +51,19 @@ export class Session implements Entity<Session> {
     }
   }
 
+  parseAffiliates(): Affiliate[] {
+    let affiliates = [
+      this.affiliate,
+      this.subAffiliate1,
+      this.subAffiliate2,
+      this.subAffiliate3,
+      this.subAffiliate4,
+      this.subAffiliate5
+    ];
+
+    return affiliates.filter(a => a.id);
+  }
+
   copy(): Session {
     return new Session(this.inverse());
   }
