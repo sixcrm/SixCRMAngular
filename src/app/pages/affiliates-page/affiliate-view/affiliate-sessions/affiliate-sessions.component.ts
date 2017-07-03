@@ -6,8 +6,8 @@ import {AuthenticationService} from '../../../../authentication/authentication.s
 import {MdDialog} from '@angular/material';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
-import {sessionsByAffiliate, sessionsInfoListQuery} from '../../../../shared/utils/query-builder';
 import {Currency} from '../../../../shared/utils/currency/currency';
+import {sessionsByAffiliate, sessionsInfoListQuery} from '../../../../shared/utils/queries/entities/session.queries';
 
 @Component({
   selector: 'affiliate-sessions',

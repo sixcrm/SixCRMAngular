@@ -3,10 +3,10 @@ import {SessionsService} from '../../../../shared/services/sessions.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';
-import {sessionsInfoListQuery, sessionsByCustomer} from '../../../../shared/utils/query-builder';
 import {Session} from '../../../../shared/models/session.model';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
+import {sessionsByCustomer, sessionsInfoListQuery} from '../../../../shared/utils/queries/entities/session.queries';
 
 @Component({
   selector: 'customer-sessions',
