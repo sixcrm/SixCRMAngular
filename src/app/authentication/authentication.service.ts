@@ -2,17 +2,18 @@ import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
-import {BehaviorSubject, Observable, Subject} from "rxjs";
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {User} from '../shared/models/user.model';
 import {CreditCard} from '../shared/models/credit-card.model';
 import {Acl} from '../shared/models/acl.model';
 import {
   updateUserForActivation, updateUserForRegistration,
-  userIntrospection, acceptInviteMutation
+  userIntrospection, acceptInviteMutation, registerUser
 } from '../shared/utils/queries/entities/user.queries';
 import {extractData, HttpWrapperService, generateHeaders} from '../shared/services/http-wrapper.service';
 import {createCreditCardMutation} from '../shared/utils/queries/entities/credit-card.queries';
+import {Response} from '@angular/http';
 
 declare var Auth0Lock: any;
 
@@ -31,12 +32,12 @@ export class AuthenticationService {
   private currentSixUser: User = new User();
   private currentActiveAcl: Acl = new Acl();
 
-  public sixUser$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
   private user: User;
   private timezone: string = 'America/Los_Angeles';
+  public sixUser$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
+  public sixUserActivated$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   public userUnderReg$: BehaviorSubject<any> = new BehaviorSubject<User>(null);
   public activeAcl$: BehaviorSubject<Acl> = new BehaviorSubject<Acl>(new Acl());
-  public activeAclChanged$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private router: Router, private http: HttpWrapperService, private location: Location) {
     this.lock = new Auth0Lock(
@@ -75,8 +76,21 @@ export class AuthenticationService {
     return tokenNotExpired();
   }
 
+  public active(): boolean {
+    return !!localStorage.getItem(this.activated);
+  }
+
+  public setActive(value: boolean): void {
+    if (value) {
+      localStorage.setItem(this.activated, 'activated');
+      this.sixUserActivated$.next(true);
+    } else {
+      localStorage.removeItem(this.activated);
+    }
+  }
+
   public authenticatedAndActivated(): boolean {
-    return this.authenticated() && !!localStorage.getItem(this.activated);
+    return this.authenticated() && this.active();
   }
 
   public showLogin(): void {
@@ -173,13 +187,23 @@ export class AuthenticationService {
     localStorage.setItem(this.activeAcl, JSON.stringify(acl.inverse()));
     this.currentActiveAcl = acl;
     this.activeAcl$.next(acl);
-    this.activeAclChanged$.next(true);
 
     if (acl.role.name === 'Customer Service') {
       this.router.navigateByUrl('/customer-service-dashboard');
     } else {
       this.router.navigateByUrl('/dashboard');
     }
+  }
+
+  public registerUser(company: string, firstName: string, lastName: string): Observable<Response> {
+    let endpoint = environment.endpoint + this.getSixUser().acls[0].account.id;
+    let user = this.getSixUser();
+    user.name = company;
+    user.firstName = firstName;
+    user.lastName = lastName;
+    user.active = 'true';
+
+    return this.http.post(endpoint, registerUser(user), {headers: generateHeaders(this.getToken())});
   }
 
   public updateUserForRegistration(user: User, cc: CreditCard): Observable<boolean> {
@@ -289,38 +313,25 @@ export class AuthenticationService {
         if (user) {
           if (user.active !== 'true') {
             localStorage.removeItem(this.activated);
-
-            if (!this.router.url.includes('acceptinvite') && !this.router.url.includes('/register')) {
-              this.router.navigateByUrl('/register');
-            }
-
-            this.user = new User(user);
-            this.user.auth0Id = this.getToken();
-            this.userUnderReg$.next(this.user);
+            this.sixUserActivated$.next(false);
           } else {
             localStorage.setItem(this.activated, 'activated');
+            this.sixUserActivated$.next(true);
+          }
 
-            let activatedUser: User = new User(user);
+          let introspectionUser: User = new User(user);
+          if (profile) {
+            introspectionUser.picture = profile.picture;
+          }
+          this.updateSixUser(introspectionUser);
+          this.getOrUpdateActiveAcl(introspectionUser);
 
-            if (profile) {
-              activatedUser.picture = profile.picture;
-            }
+          if (user && user.usersetting) {
+            this.updateTimezone(user.usersetting.timezone);
+          }
 
-            this.updateSixUser(activatedUser);
-            this.getOrUpdateActiveAcl(activatedUser);
-
-            if (user && user.usersetting) {
-              this.updateTimezone(user.usersetting.timezone);
-            }
-
-            if (this.router.url === '/') {
-              let redirect = '/dashboard';
-              if (this.isActiveAclCustomerService()) {
-                redirect = '/customer-service-dashboard';
-              }
-
-              this.router.navigateByUrl(redirect);
-            }
+          if (this.router.url === '/' || !this.active()) {
+            this.router.navigateByUrl(this.isActiveAclCustomerService() ? '/customer-service-dashboard' : '/dashboard');
           }
         } else {
           this.logout();
@@ -335,11 +346,8 @@ export class AuthenticationService {
         let user = extractData(data).userintrospection;
         if (user) {
           localStorage.setItem(this.activated, 'activated');
-
           let activatedUser: User = new User(user);
-
           this.updateSixUser(activatedUser);
-
           this.getOrUpdateActiveAcl(activatedUser);
 
           this.location.replaceState(redirect);
@@ -373,7 +381,6 @@ export class AuthenticationService {
         localStorage.setItem(this.activeAcl, JSON.stringify(defaultAcl.inverse()));
         this.currentActiveAcl = defaultAcl;
         this.activeAcl$.next(defaultAcl);
-        this.activeAclChanged$.next(true);
       }
     }
   }

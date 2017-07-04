@@ -17,3 +17,7 @@
     </div>
   </main>
 </md-sidenav-layout>
+
+<div *ngIf="!(authService.sixUserActivated$ | async)" class="registration-form__container">
+  <registration-form></registration-form>
+</div>

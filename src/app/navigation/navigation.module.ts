@@ -11,6 +11,7 @@ import {SidenavItemComponent} from './sidenav/sidenav-item/sidenav-item.componen
 import {DefaultLayoutComponent} from './layouts/default/default.layout.component';
 import {NotificationsQuickComponent} from './notifications-quick/notifications-quick.component';
 import { ProfileDropdownComponent } from './topnav/profile-dropdown/profile-dropdown.component';
+import {AuthenticationModule} from '../authentication/authentication.module';
 
 @NgModule({
   imports : [
@@ -18,7 +19,8 @@ import { ProfileDropdownComponent } from './topnav/profile-dropdown/profile-drop
     RouterModule,
     CommonModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    AuthenticationModule
   ],
   declarations : [
     SidenavComponent,

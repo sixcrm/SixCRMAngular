@@ -10,6 +10,7 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {RegisterGuard} from './register-guard.service';
 import { InviteAcceptComponent } from './invite-accept/invite-accept.component';
+import { RegistrationFormComponent } from './registration-form/registration-form.component';
 
 @NgModule({
   imports : [
@@ -22,7 +23,11 @@ import { InviteAcceptComponent } from './invite-accept/invite-accept.component';
   declarations : [
     AuthComponent,
     RegistrationComponent,
-    InviteAcceptComponent
+    InviteAcceptComponent,
+    RegistrationFormComponent
+  ],
+  exports: [
+    RegistrationFormComponent
   ],
   providers : [
     AuthenticationService,

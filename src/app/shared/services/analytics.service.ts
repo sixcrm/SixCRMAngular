@@ -48,7 +48,7 @@ export class AnalyticsService {
 
     this.activitiesByCustomer$ = new Subject();
 
-    this.authService.activeAclChanged$.subscribe(() => {
+    this.authService.activeAcl$.subscribe(() => {
       this.clearAllSubjects();
       this.analyticsStorage.refresh();
     });

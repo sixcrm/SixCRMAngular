@@ -15,6 +15,12 @@ export class AuthGuard implements CanActivate {
       return false;
     }
 
+    // non activated users can land to dashboard
+    if (state.url.indexOf('/dashboard') !== -1 && this.authService.authenticated()) {
+      return true;
+    }
+
+    // routes other than dashboard require user to be activated
     if (this.authService.authenticatedAndActivated()) {
       return true;
     }

@@ -1,0 +1,109 @@
+.registration-form {
+  margin: 60px auto auto;
+  max-width: 350px;
+  padding-top: 30px;
+  background: linear-gradient(to bottom right, #428CE4, #0E3BD9);
+  color: white;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: 0 0 25px rgba(0,0,0,0.6);
+
+  &__header {
+    &__logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 120px;
+    }
+
+    &__clouds {
+      max-width: 350px;
+    }
+  }
+
+  &__title {
+    margin: 15px auto;
+    width: 255px;
+
+    &--secondary {
+      width: 260px;
+    }
+
+    &__main {
+      margin-bottom: 8px;
+      font-size: 16px;
+
+      &--secondary {
+        margin: 20px 0;
+        text-align: left;
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
+
+    &__sub {
+      margin-bottom: 20px;
+      font-size: 16px;
+
+      &--secondary {
+        font-size: 12px;
+        text-align: left;
+        margin: 25px 0;
+        font-weight: 500;
+      }
+    }
+
+    &__text {
+      text-align: justify;
+      font-size: 12px;
+
+      &--secondary {
+        font-size: 12px;
+        text-align: left;
+      }
+    }
+  }
+
+  &__form {
+    margin-top: 5px;
+    padding: 0 45px;
+    font-size: 12px;
+    width: 255px;
+
+    md-input-container {
+      width: 100%;
+
+      label {
+        color: #ffffff !important;
+      }
+
+      .md-input-underline {
+        border-color: white;
+
+        span {
+          background-color: white;
+        }
+      }
+    }
+
+    .form-error {
+      .md-input-underline {
+        border-color: #F05D5D;
+
+        span {
+          background-color: #F05D5D;
+        }
+      }
+    }
+  }
+
+  &__button {
+    display: inline-block;
+    margin: 25px 0 35px;
+    width: 200px;
+    padding: 10px;
+    background: #F57C00;
+    font-size: 12px;
+    cursor: pointer;
+  }
+}
