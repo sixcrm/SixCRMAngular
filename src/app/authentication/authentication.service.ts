@@ -5,14 +5,12 @@ import { tokenNotExpired } from 'angular2-jwt';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {User} from '../shared/models/user.model';
-import {CreditCard} from '../shared/models/credit-card.model';
 import {Acl} from '../shared/models/acl.model';
 import {
-  updateUserForActivation, updateUserForRegistration,
+  updateUserForActivation,
   userIntrospection, acceptInviteMutation, registerUser
 } from '../shared/utils/queries/entities/user.queries';
 import {extractData, HttpWrapperService, generateHeaders} from '../shared/services/http-wrapper.service';
-import {createCreditCardMutation} from '../shared/utils/queries/entities/credit-card.queries';
 import {Response} from '@angular/http';
 
 declare var Auth0Lock: any;
@@ -32,11 +30,9 @@ export class AuthenticationService {
   private currentSixUser: User = new User();
   private currentActiveAcl: Acl = new Acl();
 
-  private user: User;
   private timezone: string = 'America/Los_Angeles';
   public sixUser$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
   public sixUserActivated$: BehaviorSubject<boolean> = new BehaviorSubject(true);
-  public userUnderReg$: BehaviorSubject<any> = new BehaviorSubject<User>(null);
   public activeAcl$: BehaviorSubject<Acl> = new BehaviorSubject<Acl>(new Acl());
 
   constructor(private router: Router, private http: HttpWrapperService, private location: Location) {
@@ -206,36 +202,6 @@ export class AuthenticationService {
     return this.http.post(endpoint, registerUser(user), {headers: generateHeaders(this.getToken())});
   }
 
-  public updateUserForRegistration(user: User, cc: CreditCard): Observable<boolean> {
-    let subject: Subject<boolean> = new Subject<boolean>();
-
-    if (!this.user.acls || !this.user.acls[0]) {
-      this.logout();
-    } else {
-      let endpoint = environment.endpoint + this.user.acls[0].account.id;
-      this.http.post(endpoint, createCreditCardMutation(cc), {headers: generateHeaders(this.getToken())})
-        .subscribe(
-          () => {
-            this.http.post(endpoint, updateUserForRegistration(user), {headers: generateHeaders(this.getToken())})
-              .subscribe(
-                (data) => {
-                  this.userUnderReg$.next(new User(extractData(data).updateuser));
-                  subject.next(true);
-                },
-                () => {
-                  subject.next(false);
-                }
-              );
-          },
-          () => {
-            subject.next(false);
-          }
-        );
-    }
-
-    return subject;
-  }
-
   public updateUserForAcceptInvite(user: User): Observable<boolean> {
     let subject: Subject<boolean> = new Subject<boolean>();
 
@@ -330,7 +296,7 @@ export class AuthenticationService {
             this.updateTimezone(user.usersetting.timezone);
           }
 
-          if (this.router.url === '/' || !this.active()) {
+          if (this.router.url === '/' || (!this.active() && this.router.url.indexOf('/register') === -1)) {
             this.router.navigateByUrl(this.isActiveAclCustomerService() ? '/customer-service-dashboard' : '/dashboard');
           }
         } else {
@@ -345,7 +311,6 @@ export class AuthenticationService {
       (data) => {
         let user = extractData(data).userintrospection;
         if (user) {
-          localStorage.setItem(this.activated, 'activated');
           let activatedUser: User = new User(user);
           this.updateSixUser(activatedUser);
           this.getOrUpdateActiveAcl(activatedUser);

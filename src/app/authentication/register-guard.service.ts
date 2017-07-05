@@ -8,6 +8,8 @@ export class RegisterGuard implements CanActivate {
   constructor(private authService: AuthenticationService) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (this.authService.active()) return false;
+
     let jwt = route.queryParams['jwt'];
 
     if (jwt) {

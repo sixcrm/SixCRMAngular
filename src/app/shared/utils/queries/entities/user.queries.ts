@@ -54,18 +54,6 @@ export function updateUserMutation(user: User): string {
     }`;
 }
 
-export function updateUserForRegistration(user: User): string {
-  if (!user.termsAndConditions) user.termsAndConditions = '0.1';
-
-  return `
-    mutation {
-		  updateuser (
-		    user: { ${userInputQuery(user)} }) {
-			    ${userInfoResponseQuery()}
-			}
-	}`
-}
-
 export function registerUser(user: User): string {
   if (!user.termsAndConditions) user.termsAndConditions = '0.1';
 

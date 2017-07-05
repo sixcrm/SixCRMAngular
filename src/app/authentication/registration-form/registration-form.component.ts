@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {AuthenticationService} from '../authentication.service';
 import {User} from '../../shared/models/user.model';
 
@@ -8,6 +8,9 @@ import {User} from '../../shared/models/user.model';
   styleUrls: ['./registration-form.component.scss']
 })
 export class RegistrationFormComponent implements OnInit {
+
+  @Input() embedded: boolean = false;
+  @Output() completed: EventEmitter<boolean> = new EventEmitter();
 
   formInvalid: boolean;
 
@@ -19,8 +22,7 @@ export class RegistrationFormComponent implements OnInit {
 
   constructor(private authService: AuthenticationService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   submitRegistrationData(valid: boolean): void {
     this.formInvalid = !valid;
@@ -35,7 +37,11 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   complete(): void {
-    this.authService.setActive(true);
+    if (this.embedded) {
+      this.completed.emit(true);
+    } else {
+      this.authService.setActive(true);
+    }
   }
 
 }
