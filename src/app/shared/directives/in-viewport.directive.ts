@@ -1,5 +1,6 @@
 import {Directive, Output, EventEmitter, ElementRef, OnDestroy, AfterViewInit} from '@angular/core';
 import {Observable, AsyncSubject} from 'rxjs';
+import {AuthenticationService} from '../../authentication/authentication.service';
 
 @Directive({
   selector: '[inViewport]'
@@ -9,8 +10,11 @@ export class InViewportDirective implements AfterViewInit, OnDestroy{
   @Output('inside') inside: EventEmitter<boolean> = new EventEmitter();
 
   private unsubscribe$: AsyncSubject<boolean> = new AsyncSubject();
+  private registrationInProcess: boolean = false;
 
-  constructor(private elementRef: ElementRef) { }
+  constructor(private elementRef: ElementRef, private authService: AuthenticationService) {
+    this.authService.sixUserActivated$.takeUntil(this.unsubscribe$).subscribe(activated => this.registrationInProcess = !activated);
+  }
 
   ngAfterViewInit(): void {
     if (this.isVisible()) {
@@ -30,6 +34,8 @@ export class InViewportDirective implements AfterViewInit, OnDestroy{
   }
 
   isVisible(): boolean {
+    if (this.registrationInProcess) return true;
+
     let el = this.elementRef.nativeElement;
     let fromPoint = (x, y) => document.elementFromPoint(x, y);
 
