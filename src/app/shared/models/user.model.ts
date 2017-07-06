@@ -12,6 +12,7 @@ export class User implements Entity<User> {
   lastName: string;
   auth0Id: string;
   email: string;
+  company: string;
   active: string;
   termsAndConditions: string;
   picture: string;
@@ -33,6 +34,7 @@ export class User implements Entity<User> {
     this.lastName = obj.last_name || '';
     this.auth0Id = obj.auth0_id || '';
     this.email = obj.id || '';
+    this.company = obj.company || '';
     this.active = obj.active || '';
     this.termsAndConditions = obj.termsandconditions || '';
     this.picture = obj.picture || '';
@@ -71,6 +73,7 @@ export class User implements Entity<User> {
       last_name: this.lastName,
       auth0_id: this.auth0Id,
       email: this.email,
+      company: this.company,
       active: this.active,
       termsandconditions: this.termsAndConditions,
       address: this.address.inverse(),

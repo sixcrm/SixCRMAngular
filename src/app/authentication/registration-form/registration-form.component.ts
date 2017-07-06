@@ -14,21 +14,28 @@ export class RegistrationFormComponent implements OnInit {
 
   formInvalid: boolean;
 
+  company: string;
   firstName: string;
   lastName: string;
-  company: string;
+  email: string;
 
   showSuccessMessage: boolean = false;
 
   constructor(private authService: AuthenticationService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    let payload = this.authService.getPayload();
+
+    this.firstName = payload.given_name;
+    this.lastName = payload.family_name;
+    this.email = payload.email;
+  }
 
   submitRegistrationData(valid: boolean): void {
     this.formInvalid = !valid;
     if (this.formInvalid) return;
 
-    this.authService.registerUser(this.company, this.firstName, this.lastName).subscribe(res => {
+    this.authService.registerUser(this.company, this.email, this.firstName, this.lastName).subscribe(res => {
       let user = new User(res.json().response.data.updateuser);
       this.authService.updateSixUser(user);
 

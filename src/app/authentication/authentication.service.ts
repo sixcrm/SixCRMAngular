@@ -44,7 +44,7 @@ export class AuthenticationService {
           redirectUrl: environment.auth0RedirectUrl,
           responseType: 'token',
           params: {
-            scope: 'openid email user_metadata app_metadata picture'
+            scope: 'openid email name given_name family_name user_metadata app_metadata picture'
           }
         },
         theme: {
@@ -191,10 +191,12 @@ export class AuthenticationService {
     }
   }
 
-  public registerUser(company: string, firstName: string, lastName: string): Observable<Response> {
+  public registerUser(company: string, email: string, firstName: string, lastName: string): Observable<Response> {
     let endpoint = environment.endpoint + this.getSixUser().acls[0].account.id;
     let user = this.getSixUser();
-    user.name = company;
+    user.name = `${firstName} ${lastName}`;
+    user.company = company;
+    user.email = email;
     user.firstName = firstName;
     user.lastName = lastName;
     user.active = 'true';
