@@ -10,7 +10,7 @@
     </md-menu>
   </div>
 
-  <div [class.invisible]="loaded && (!events || events.length === 0)">
+  <div [class.invisible]="!loaded || (!events || events.length === 0)">
     <chart #chartI [options]="options" (load)="loadChart(chartI)"></chart>
   </div>
   <div class="dashboard__table-chart__no-data" *ngIf="loaded && (!events || events.length === 0)"> No Events Found</div>

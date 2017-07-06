@@ -93,6 +93,9 @@ export class TransactionSummaryChartComponent extends AbstractDashboardItem impl
 
   fetch(): void {
     if (this.shouldFetch) {
+      if (!this.summaries || this.summaries.length === 0) {
+        this.loaded = false;
+      }
       this.analyticsService.getTransactionSummaries(this.start.format(), flatUp(this.end).format(), this.filterTerms);
       this.shouldFetch = false;
     }

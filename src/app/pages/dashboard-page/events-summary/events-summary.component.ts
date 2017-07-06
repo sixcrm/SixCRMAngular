@@ -65,6 +65,10 @@ export class EventsSummaryComponent extends AbstractDashboardItem implements OnI
 
   fetch() {
     if (this.shouldFetch) {
+      if (!this.events || this.events.length === 0) {
+        this.loaded = false;
+      }
+
       this.analyticsService.getEventsSummary(this.start.format(), this.end.format());
       this.shouldFetch = false;
     }
