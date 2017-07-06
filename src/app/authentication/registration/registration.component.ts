@@ -28,8 +28,6 @@ export class RegistrationComponent implements OnInit {
   }
 
   registrationCompleted() {
-    console.log('hello there', this.redirectUrl);
-
     if (this.redirectUrl) {
       window.location.href = this.redirectUrl;
     } else {

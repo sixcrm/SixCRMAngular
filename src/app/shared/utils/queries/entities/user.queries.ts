@@ -72,7 +72,7 @@ export function updateUserForActivation(user: User): string {
   return `
     mutation {
 		  updateuser (
-		    user: { ${userInputQuery(user, true)} ) {
+		    user: { ${userInputQuery(user, true)} } ) {
 			    ${userInfoResponseQuery()}
 			}
 	}`

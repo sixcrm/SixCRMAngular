@@ -229,7 +229,7 @@ export class AuthenticationService {
 
         this.updateSixUser(user);
 
-        subject.next(new User(user));
+        subject.next(new User(userData));
       }
     );
 

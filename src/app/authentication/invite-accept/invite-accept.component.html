@@ -1,68 +1,68 @@
-<div class="invite-accept">
-  <div class="invite-accept__in">
-
-    <div class="invite-accept__in__header"></div>
-    <img class="invite-accept__in__header__logo" src="/assets/images/logo-white.svg">
-
-    <div class="invite-accept__in__content" *ngIf="loginRequiredScreen">
-      <div class="invite-accept__in__content__notification__primary">
-        To accept this invite, you must be registered and logged in as
-      </div>
-
-      <div class="invite-accept__in__content__notification__primary--bold">{{email}}</div>
-
-      <div class="invite-accept__in__content__button">
-        <button md-raised-button (click)="goToLogin()"> Log In </button>
-        <button md-raised-button (click)="complete()"> Cancel </button>
-      </div>
+<div class="accept-invite">
+  <div class="registration-form accept-invite__form">
+    <div class="registration-form__header">
+      <img class="registration-form__header__logo" src="/assets/images/sixlogo-circles.svg" alt="">
+      <img class="registration-form__header__clouds" src="/assets/images/clouds.svg" alt="">
     </div>
 
-    <div class="invite-accept__in__content" *ngIf="welcomeScreen">
-      <div class="invite-accept__in__content__notification__primary">
-        You were invited to SIX CRM by [user placeholder] of [company placeholder]
-      </div>
-      <div class="invite-accept__in__content__notification__secondary">
-        Press "accept" below to continue
+    <ng-container *ngIf="loginRequiredScreen">
+      <div style="margin: auto" class="title">
+        To accept this invite, you must be registered and logged in as <br><br>
+        {{email}}
       </div>
 
-      <div class="invite-accept__in__content__button">
-        <button md-raised-button (click)="acceptInvite()"> ACCEPT </button>
-      </div>
-    </div>
+      <div class="registration-form__button registration-form__button--no-margin accept-invite__button" (click)="goToLogin()">Log In</div>
+      <div class="registration-form__button--cancel" (click)="complete()">Cancel</div>
+    </ng-container>
 
-    <div class="invite-accept__in__content" *ngIf="infoScreen">
-      <div class="invite-accept__in__content__info">
-        <md-input [class.error]="isFirstNameInvalid()" placeholder="First Name" [(ngModel)]="firstName">
-          <md-hint class="error" *ngIf="isFirstNameInvalid()">more than two characters please!</md-hint>
-        </md-input>
-        <md-input [class.error]="isLastNameInvalid()" placeholder="Last Name" [(ngModel)]="lastName">
-          <md-hint class="error" *ngIf="isLastNameInvalid()">more than two characters please!</md-hint>
-        </md-input>
-        <md-input [class.error]="isUsernameInvalid()" placeholder="Username" [(ngModel)]="username">
-          <md-hint class="error" *ngIf="isUsernameInvalid()">more than four characters please!</md-hint>
-        </md-input>
+    <ng-container *ngIf="welcomeScreen">
+      <div style="margin: auto" class="title">
+        You were invited to SIX CRM by <br>
+        [user placeholder] <br>
+        of company <br>
+        [company placeholder]
+      </div>
+      <div style="margin-top: auto" class="subtitle">
+        Press "Accept" below to continue
       </div>
 
-      <div class="invite-accept__in__content__button">
-        <button
-          md-raised-button
-          [disabled]="isUsernameInvalid() || isFirstNameInvalid() || isLastNameInvalid()"
-          (click)="submitInfo()"> SUBMIT
-        </button>
-      </div>
-    </div>
+      <div class="registration-form__button registration-form__button--no-margin accept-invite__button--small-margin" (click)="acceptInvite()">Accept</div>
+      <div class="registration-form__button--cancel" (click)="complete()">Cancel</div>
+    </ng-container>
 
-    <div class="invite-accept__in__content" *ngIf="completeScreen">
-      <div class="invite-accept__in__content__notification__primary">
-        Registration Complete
+    <ng-container *ngIf="infoScreen">
+      <div class="registration-form__title">
+        <div class="registration-form__title__main">
+          Welcome!
+        </div>
+        <div class="registration-form__title__sub">
+          We're excited to have you join us
+        </div>
+        <div class="registration-form__title__text">
+          To accept your invite to Six CRM Please fill out the following information and you are all setup
+        </div>
       </div>
-      <div class="invite-accept__in__content__notification__secondary">
-        You will receive an email confirming your account shortly
+      <form #regForm="ngForm" class="registration-form__form">
+        <md-input-container [class.form-error]="formInvalid && !firstName">
+          <input md-input required placeholder="First Name" type="text" name="firstName" [(ngModel)]="firstName">
+        </md-input-container>
+
+        <md-input-container [class.form-error]="formInvalid && !lastName">
+          <input md-input required placeholder="Last Name" type="text" name="lastName" [(ngModel)]="lastName">
+        </md-input-container>
+      </form>
+      <div class="registration-form__button accept-invite__button--standalone" (click)="submitInfo(regForm.form.valid)">Continue</div>
+
+    </ng-container>
+
+    <ng-container *ngIf="completeScreen">
+      <div style="margin: auto;" class="title">
+        Your account is now active and you may begin exploring at your leisure.
       </div>
 
-      <div class="invite-accept__in__content__button">
-        <button md-raised-button (click)="complete()"> COMPLETE </button>
-      </div>
-    </div>
+      <div class="registration-form__button accept-invite__button--standalone" (click)="complete()">Complete</div>
+    </ng-container>
+
   </div>
+
 </div>

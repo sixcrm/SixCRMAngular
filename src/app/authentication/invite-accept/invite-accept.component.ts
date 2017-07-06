@@ -22,17 +22,16 @@ export class InviteAcceptComponent implements OnInit {
   user: User;
 
   firstName: string = '';
-  firstNameError: boolean;
-
   lastName: string = '';
-  lastNameError: boolean;
 
-  username: string = '';
-  usernameError: boolean;
+  formInvalid: boolean;
+  payload: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private authService: AuthenticationService) { }
 
   ngOnInit() {
+    this.payload = this.authService.getPayload();
+
     this.route.queryParams.subscribe((params: Params) => {
       this.token = params['t'];
       this.param = params['p'];
@@ -60,11 +59,14 @@ export class InviteAcceptComponent implements OnInit {
       if (user) {
         this.user = user;
 
-        if (this.user.name && this.user.name.length >= 2) {
+        if (this.user.firstName && this.user.lastName) {
           this.welcomeScreen = false;
           this.infoScreen = false;
           this.completeScreen = true;
         } else {
+          this.firstName = this.user.firstName || this.payload.first_name || '';
+          this.lastName = this.user.lastName || this.payload.last_name || '';
+
           this.welcomeScreen = false;
           this.infoScreen = true;
           this.completeScreen = false;
@@ -73,28 +75,16 @@ export class InviteAcceptComponent implements OnInit {
     });
   }
 
-  submitInfo(): void {
-    if (this.firstName.length < 2 ) {
-      this.firstNameError = true;
-    }
+  submitInfo(valid: boolean): void {
+    this.formInvalid = !valid;
+    if (this.formInvalid) return;
 
-    if (this.lastName.length < 2) {
-      this.lastNameError = true;
-    }
-
-    if (this.username.length < 4) {
-      this.usernameError = true;
-    }
-
-    if (this.isFirstNameInvalid() || this.isLastNameInvalid() || this.isUsernameInvalid()) {
-      return;
-    }
-
-    this.user.name = this.username;
-    this.user.auth0Id = 'auth0id';
+    this.user.firstName = this.firstName;
+    this.user.lastName = this.lastName;
+    this.user.auth0Id = this.payload.sub || 'auth0id';
     this.user.active = 'true';
 
-    this.authService.updateUserForAcceptInvite(this.user).subscribe((success) => {
+    this.authService.updateUserForAcceptInvite(this.user).subscribe(success => {
       if (success) {
         this.welcomeScreen = false;
         this.infoScreen = false;
@@ -120,17 +110,5 @@ export class InviteAcceptComponent implements OnInit {
     } else {
       this.loginRequiredScreen = true;
     }
-  }
-
-  private isFirstNameInvalid(): boolean {
-    return this.firstNameError && this.firstName.length < 2;
-  }
-
-  private isLastNameInvalid(): boolean {
-    return this.lastNameError && this.lastName.length < 2;
-  }
-
-  private isUsernameInvalid(): boolean {
-    return this.usernameError && this.username.length < 4;
   }
 }
