@@ -10,9 +10,10 @@
     </md-menu>
   </div>
 
-  <div [class.invisible]="!loaded">
+  <div [class.invisible]="loaded && (!events || events.length === 0)">
     <chart #chartI [options]="options" (load)="loadChart(chartI)"></chart>
   </div>
+  <div class="dashboard__table-chart__no-data" *ngIf="loaded && (!events || events.length === 0)"> No Events Found</div>
   <md-spinner *ngIf="!loaded"></md-spinner>
 
   <div class="dashboard__table-chart__actions"><span [routerLink]="['/coming-soon']">VIEW MORE</span></div>
