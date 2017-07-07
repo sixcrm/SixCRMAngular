@@ -31,7 +31,10 @@
         <div class="entity-view__card">
           <div class="entity-view__card__header">
             <div class="entity-view__card__header__title">Customer Information</div>
-            <md-icon>more_vert</md-icon>
+            <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
+            <md-menu #actionsMenu="mdMenu" x-position="before">
+              <button md-menu-item [routerLink]="['/customers', entity.customer.id]">View Customer</button>
+            </md-menu>
           </div>
 
           <div class="entity-view__card__content">

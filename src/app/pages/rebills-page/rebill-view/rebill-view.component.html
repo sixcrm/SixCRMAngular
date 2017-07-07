@@ -27,7 +27,11 @@
       <div class="entity-view__card campaign-view__card">
         <div class="entity-view__card__header">
           <div class="entity-view__card__header__title">Rebill Information</div>
-          <md-icon>more_vert</md-icon>
+          <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
+          <md-menu #actionsMenu="mdMenu" x-position="before">
+            <button md-menu-item (click)="goToCustomer()">View Customer</button>
+            <button md-menu-item (click)="goToSession()">View Session</button>
+          </md-menu>
         </div>
 
         <div class="entity-view__card__content">
@@ -41,6 +45,10 @@
 
           <md-input-container class="entity-view__card__content__item">
             <input disabled md-input placeholder="Parent Session" [(ngModel)]="parentsession" type="text">
+          </md-input-container>
+
+          <md-input-container class="entity-view__card__content__item">
+            <input disabled md-input placeholder="Customer" [(ngModel)]="customername" type="text">
           </md-input-container>
         </div>
       </div>

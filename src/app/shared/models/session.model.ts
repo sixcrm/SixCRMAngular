@@ -49,6 +49,17 @@ export class Session implements Entity<Session> {
         this.rebills.push(new Rebill(obj.rebills[i]))
       }
     }
+
+    this.transformAffiliates();
+  }
+
+  transformAffiliates(): void {
+    this.affiliate.name = this.affiliate.name || 'Affiliate';
+    this.subAffiliate1.name = this.subAffiliate1.name || 'Sub Affiliate 1';
+    this.subAffiliate2.name = this.subAffiliate2.name || 'Sub Affiliate 2';
+    this.subAffiliate3.name = this.subAffiliate3.name || 'Sub Affiliate 3';
+    this.subAffiliate4.name = this.subAffiliate4.name || 'Sub Affiliate 4';
+    this.subAffiliate5.name = this.subAffiliate5.name || 'Sub Affiliate 5';
   }
 
   parseAffiliates(): Affiliate[] {

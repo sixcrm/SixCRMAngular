@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Rebill} from '../../../shared/models/rebill.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {RebillsService} from '../../../shared/services/rebills.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
@@ -14,14 +14,17 @@ export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> imp
 
   selectedIndex: number = 0;
 
-  billdate: string = 'asdf';
-  billamount: string = 'bbb';
-  parentsession: string = 'ccc';
+  billdate: string;
+  billamount: string;
+  parentsession: string;
+  customername: string;
+  customerid: string;
 
   constructor(
     service: RebillsService,
     route: ActivatedRoute,
-    public navigation: NavigationService
+    public navigation: NavigationService,
+    public router: Router
   ) {
     super(service, route);
   }
@@ -33,7 +36,21 @@ export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> imp
       this.billdate = entity.billAt.format('MM/DD/YYYY');
       this.billamount = entity.amount.usd();
       this.parentsession = entity.parentSession.id;
+      this.customername = entity.parentSession.customer.firstName + ' ' + entity.parentSession.customer.lastName;
+      this.customerid = entity.parentSession.customer.id;
     })
+  }
+
+  goToSession() {
+    if (!this.parentsession) return;
+
+    this.router.navigate(['/sessions', this.parentsession]);
+  }
+
+  goToCustomer() {
+    if (!this.customerid) return;
+
+    this.router.navigate(['/customers', this.customerid]);
   }
 
   ngOnDestroy() {
