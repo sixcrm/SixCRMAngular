@@ -5,6 +5,19 @@ function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
 }
 
+export function updateAccountMutation(account: Account, name: string): string {
+  return `
+    mutation { 
+      updateaccount (account: { id: "${account.id}", name: "${name}", active: "true"}) { 
+        id,
+        name,
+        active,
+        created_at,
+        updated_at
+      } 
+    }`
+}
+
 export function accessKeysListQuery(limit?:number, cursor?:string): string {
   return `{
     accesskeylist ${pageParams(limit, cursor)} {

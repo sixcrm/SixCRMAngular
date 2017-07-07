@@ -33,10 +33,17 @@ export class RegistrationFormComponent implements OnInit {
     this.formInvalid = !valid;
     if (this.formInvalid) return;
 
+    this.authService.updateCurrentAccount(this.company).subscribe(res => {
+      this.register();
+    });
+  }
+
+  register() {
     this.authService.registerUser(this.company, this.firstName, this.lastName).subscribe(res => {
       let user = new User(res.json().response.data.updateuser);
       this.authService.updateSixUser(user);
-
+      this.authService.refreshActiveAcl();
+      
       this.showSuccessMessage = true;
     })
   }

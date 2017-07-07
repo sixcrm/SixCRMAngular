@@ -49,8 +49,10 @@ export class AnalyticsService {
     this.activitiesByCustomer$ = new Subject();
 
     this.authService.activeAcl$.subscribe(() => {
-      this.clearAllSubjects();
-      this.analyticsStorage.refresh();
+      if (this.authService.active()) {
+        this.clearAllSubjects();
+        this.analyticsStorage.refresh();
+      }
     });
   }
 

@@ -12,6 +12,7 @@ import {
 } from '../shared/utils/queries/entities/user.queries';
 import {extractData, HttpWrapperService, generateHeaders} from '../shared/services/http-wrapper.service';
 import {Response} from '@angular/http';
+import {updateAccountMutation} from '../shared/utils/query-builder';
 
 declare var Auth0Lock: any;
 
@@ -203,6 +204,13 @@ export class AuthenticationService {
     return this.http.post(endpoint, registerUser(user), {headers: generateHeaders(this.getToken())});
   }
 
+  public updateCurrentAccount(company: string): Observable<Response> {
+    let account = this.getSixUser().acls[0].account;
+    let endpoint = environment.endpoint + account.id;
+
+    return this.http.post(endpoint, updateAccountMutation(account, company), {headers: generateHeaders(this.getToken())});
+  }
+
   public updateUserForAcceptInvite(user: User): Observable<boolean> {
     let subject: Subject<boolean> = new Subject<boolean>();
 
@@ -333,6 +341,11 @@ export class AuthenticationService {
     localStorage.setItem(this.sixUser, JSON.stringify(user.inverse()));
     this.currentSixUser = user;
     this.sixUser$.next(user);
+  }
+
+  public refreshActiveAcl(): void {
+    localStorage.removeItem(this.activeAcl);
+    this.getOrUpdateActiveAcl(this.currentSixUser);
   }
 
   private getOrUpdateActiveAcl(user: User): void {
