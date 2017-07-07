@@ -27,6 +27,7 @@
   [page]="page"
   [paginationString]="getPaginationString()"
   (filterSelected)="filterSelected($event)"
+  (click)="viewTransaction($event)"
   (next)="fetchNext()"
   (previous)="fetchPrevious()"
   (updateLimit)="updateLimit($event)"

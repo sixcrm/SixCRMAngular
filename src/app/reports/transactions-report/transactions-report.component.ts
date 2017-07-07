@@ -183,6 +183,10 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
     this.reportService.getTransactions(this.start.format(), this.end.format(), this.filterTerms, true, this.limit + 1, this.page * this.limit)
   }
 
+  viewTransaction(transaction) {
+    this.router.navigate(['/transactions', transaction.id])
+  }
+
   private getFilterTermIndex(filterTerm: FilterTerm): number {
     for (let i = 0; i < this.filterTerms.length; i++) {
       if (filterTerm.id === this.filterTerms[i].id)

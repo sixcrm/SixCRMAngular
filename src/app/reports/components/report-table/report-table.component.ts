@@ -16,6 +16,7 @@ export class ReportTableComponent implements OnInit {
   @Input() data: any[] = [];
   @Input() title: string;
   @Output() filterSelected: EventEmitter<FilterTerm> = new EventEmitter();
+  @Output() click: EventEmitter<any> = new EventEmitter();
 
   @Input() paginationValues: number[] = [5, 10, 15, 20, 30, 50];
   @Input() page: number;
@@ -45,6 +46,8 @@ export class ReportTableComponent implements OnInit {
   cellClicked(params: ReportColumnParams<any>, entity: any): void {
     if (params.isFilter) {
       this.filterSelected.emit({id: entity.id, label: params.mappingFunction(entity).toString(), type: params.entityType});
+    } else {
+      this.click.emit(entity);
     }
   }
 }

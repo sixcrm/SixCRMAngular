@@ -98,7 +98,7 @@
           </md-card-title>
 
           <md-card-content>
-            <div class="transaction-view__content__item">
+            <div [routerLink]="['/rebills', entity.rebill.id]" class="transaction-view__content__item hoverable">
               <div class="transaction-view__content__item__label">Rebill ID</div>
               <div class="transaction-view__content__item__value">{{entity.rebill.id}}</div>
             </div>
