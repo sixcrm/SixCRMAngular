@@ -17,7 +17,6 @@ export class RegistrationFormComponent implements OnInit {
   company: string;
   firstName: string;
   lastName: string;
-  email: string;
 
   showSuccessMessage: boolean = false;
 
@@ -28,14 +27,13 @@ export class RegistrationFormComponent implements OnInit {
 
     this.firstName = payload.given_name;
     this.lastName = payload.family_name;
-    this.email = payload.email;
   }
 
   submitRegistrationData(valid: boolean): void {
     this.formInvalid = !valid;
     if (this.formInvalid) return;
 
-    this.authService.registerUser(this.company, this.email, this.firstName, this.lastName).subscribe(res => {
+    this.authService.registerUser(this.company, this.firstName, this.lastName).subscribe(res => {
       let user = new User(res.json().response.data.updateuser);
       this.authService.updateSixUser(user);
 

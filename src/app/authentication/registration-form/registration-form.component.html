@@ -28,10 +28,6 @@
       <md-input-container [class.form-error]="formInvalid && !lastName">
         <input md-input required placeholder="Last Name" type="text" name="lastName" [(ngModel)]="lastName">
       </md-input-container>
-
-      <md-input-container [class.form-error]="formInvalid && !lastName">
-        <input md-input required placeholder="Email" type="text" name="email" [(ngModel)]="email">
-      </md-input-container>
     </form>
     <div class="registration-form__button" (click)="submitRegistrationData(regForm.form.valid)">Continue</div>
 
