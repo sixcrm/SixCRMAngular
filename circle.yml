@@ -24,7 +24,7 @@ test:
 deployment:
   staging:
     branch: staging
-    comands:
+    commands:
       - ./deployment/build.sh staging
 
   development:
