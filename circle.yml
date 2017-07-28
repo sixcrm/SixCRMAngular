@@ -1,6 +1,7 @@
 general:
   branches:
     only:
+      - staging
       - development
 
 machine:
@@ -18,7 +19,12 @@ test:
     - "true"
 
 deployment:
+  staging:
+    branch: staging
+    comands:
+
   development:
     branch: development
     commands:
-      - ./build.sh
+      - ./deployment/build.sh
+      - ./deployment/utilities/merge_branches.sh development staging
