@@ -49,6 +49,8 @@ export class GraphqlDocsComponent implements OnInit {
       });
 
       this.loaded = true;
+
+      this.graphqlService.navigateByAnchor();
     })
   }
 }

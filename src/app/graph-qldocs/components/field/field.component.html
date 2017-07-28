@@ -1,10 +1,13 @@
 <div class="field">
-  <div class="field__name">
-    <a id="{{field.name}}"></a>
-    {{field.name}}
-    <doc-arguments [args]="field.args"></doc-arguments>
-    : <span class="link" (click)="nav()">{{field.type.name || field.type.ofType.name || field.type.ofType.ofType.name}}</span>
-    : {{field.type.kind || field.type.ofType.kind || field.type.ofType.ofType.kind }}
+  <div class="field__container">
+    <div class="field__name">
+      <a *ngIf="enableLink" id="{{field.name}}"></a>
+      {{field.name}}
+      <doc-arguments [args]="field.args"></doc-arguments>
+      : <span class="link" (click)="nav()">{{field.type.name || field.type.ofType.name || field.type.ofType.ofType.name}}</span>
+      : {{field.type.kind || field.type.ofType.kind || field.type.ofType.ofType.kind }}
+    </div>
+    <md-icon *ngIf="enableLink" class="field__copy-icon" md-tooltip="Share, Copy to clipboard" ngxClipboard [cbContent]="getShareLink()">content_copy</md-icon>
   </div>
   <div class="field__description">{{field.description}}</div>
 </div>

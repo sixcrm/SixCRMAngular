@@ -2,7 +2,18 @@
   margin-top: 12px;
   margin-left: 12px;
 
+  &__container {
+    display: flex;
+  }
+
   &__description {
     margin-top: 3px;
+  }
+
+  &__copy-icon {
+    margin-left: 20px;
+    font-size: 16px;
+    color: rgba(0,0,0,0.6);
+    cursor: pointer;
   }
 }

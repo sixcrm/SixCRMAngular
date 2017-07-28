@@ -4,6 +4,8 @@ import {Observable} from 'rxjs';
 import {getSchemaQuery} from './queries/schema.query';
 import {Type} from './models/type.model';
 import {HttpWrapperService} from '../shared/services/http-wrapper.service';
+import {ActivatedRoute} from '@angular/router';
+import {navigateToFieldByString} from './utils';
 
 export interface HeadersInput {
   key: string;
@@ -13,7 +15,21 @@ export interface HeadersInput {
 @Injectable()
 export class GraphqlDocsService {
 
-  constructor(private http: HttpWrapperService) { }
+  hash: string;
+
+  constructor(private http: HttpWrapperService, private route: ActivatedRoute) { }
+
+  navigateByAnchor() {
+    this.route.fragment.take(1).subscribe(fragment => {
+      this.hash = fragment;
+
+      setTimeout(() => {
+        if (this.hash) {
+          navigateToFieldByString(this.hash);
+        }
+      }, 500);
+    });
+  }
 
   getSchemaTypes(endpoint: string, headersInput: HeadersInput[]): Observable<Type[]> {
     return this.http.post(endpoint, getSchemaQuery(), { headers: this.generateHeaders(headersInput)})

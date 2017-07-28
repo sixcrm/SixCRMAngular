@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {Type} from '../../models/type.model';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'doc-type',
@@ -18,6 +19,10 @@ export class TypeComponent implements OnInit {
 
   toggleShow(): void {
     this.show = !this.show;
+  }
+
+  getShareLink(): string {
+    return environment.auth0RedirectUrl + '/documentation/graph#' + this.type.name;
   }
 
 }

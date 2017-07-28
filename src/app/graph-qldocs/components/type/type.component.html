@@ -1,13 +1,14 @@
 <div class="type">
-  <div (click)="toggleShow()" class="type__name">
+  <div class="type__name">
     <a id="{{type.name}}"></a>
     {{type.name}}
-    <md-icon >{{show ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+    <md-icon (click)="toggleShow()">{{show ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+    <md-icon md-tooltip="Share, Copy to clipboard" ngxClipboard [cbContent]="getShareLink()">content_copy</md-icon>
   </div>
 
   <div class="type__content" [class.type__content__collapse]="!show">
     <div class="type__description">{{type.description}}</div>
-    <doc-field *ngFor="let field of type.fields" [field]="field"></doc-field>
+    <doc-field *ngFor="let field of type.fields" [field]="field" [enableLink]="type.name === 'Query' || type.name ==='Mutation'"></doc-field>
     <doc-input-fields [inputFields]="type.inputFields"></doc-input-fields>
   </div>
 </div>
