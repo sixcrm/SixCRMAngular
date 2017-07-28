@@ -12,10 +12,10 @@ machine:
 
 dependencies:
   pre:
-    - openssl aes-256-cbc -d -in ./deployment/config/aws.$CIRCLE_BRANCH.encrypted -k $SIX_SKELETON_KEY >> ~/.circlerc
+    #  - openssl aes-256-cbc -d -in ./deployment/config/aws.$CIRCLE_BRANCH.encrypted -k $SIX_SKELETON_KEY >> ~/.circlerc
     - aws configure set preview.cloudfront true
   post:
-    - echo "$AWS_ACCOUNT $AWS_REGION $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY"
+    # - echo "$AWS_ACCOUNT $AWS_REGION $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY"
 
 test:
   override:
@@ -29,4 +29,5 @@ deployment:
   development:
     branch: development
     commands:
-      - ./deployment/merge_branches.sh development staging
+      - ./deployment/build.sh
+      # - ./deployment/merge_branches.sh development staging
