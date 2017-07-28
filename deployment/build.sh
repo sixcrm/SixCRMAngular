@@ -10,8 +10,8 @@ if [ "$1" = "production" ]; then
   BUCKET=
 	DISTRIBUTION_ID=
 elif [ "$1" = "staging" ]; then
-  BUCKET=
-	DISTRIBUTION_ID=
+  BUCKET=staging-admin.sixcrm.com
+	DISTRIBUTION_ID=E2SGEZF5528QQQ
 else
 	BUCKET=admin.sixcrm.com
 	DISTRIBUTION_ID=ECG7677RUQHZK

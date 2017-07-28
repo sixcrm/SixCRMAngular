@@ -25,6 +25,7 @@ deployment:
   staging:
     branch: staging
     comands:
+      - ./deployment/build.sh staging
 
   development:
     branch: development
