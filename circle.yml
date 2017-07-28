@@ -29,5 +29,5 @@ deployment:
   development:
     branch: development
     commands:
-      - ./deployment/build.sh
+      - ./deployment/build.sh development
       - ./deployment/merge_branches.sh development staging
