@@ -43,9 +43,9 @@
             <div class="search__sidenav__subtitle"> Date Range </div>
             <div class="search__sidenav__date">Date</div>
             <div class="datepicker--custom" [class.datepicker-visible]="datepickerVisible">
-              <div (showDaterangepicker)="datepickerShown()" (hideDaterangepicker)="datepickerHidden()" (selected)="dateSelected($event)" daterangepicker>
+              <!--<div (showDaterangepicker)="datepickerShown()" (hideDaterangepicker)="datepickerHidden()" (selected)="dateSelected($event)" daterangepicker>-->
                 <span class="datepicker--custom__input" name="daterange" >  {{ startDate.format('MM/DD/YYYY').substring(0,10) }} <span>to</span> {{ endDate.format('MM/DD/YYYY').substring(0, 10) }} <md-icon>keyboard_arrow_down</md-icon> </span>
-              </div>
+              <!--</div>-->
             </div>
 
             <div class="search__sidenav__reset" (click)="resetSearch(advancedSearch)"> RESET SEARCH </div>
