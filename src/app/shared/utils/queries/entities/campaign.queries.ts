@@ -67,14 +67,22 @@ export function updateCampaignMutation(campaign: Campaign): string {
 
 function campaignResponseQuery(): string {
   return `
-    id name created_at updated_at,
+    id name created_at updated_at allow_prepaid show_prepaid,
     productschedules {
       ${productScheduleResponseQuery()}
     }
     emailtemplates {
       id name subject body type,
       smtp_provider { id name hostname }
-    }`
+    }
+    affiliate_allow {
+				... on AffiliateGroup { id name }
+				... on Affiliate { id affiliate_id name created_at updated_at }
+			}
+			affiliate_deny {
+				... on AffiliateGroup { id name }
+				... on Affiliate { id affiliate_id name created_at updated_at }
+			}`
 }
 
 function campaignInfoResponseQuery(): string {
