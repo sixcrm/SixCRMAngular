@@ -17,7 +17,7 @@ elif [ "$1" = "staging" ]; then
 else
 	BUCKET=admin.sixcrm.com
 	DISTRIBUTION_ID=ECG7677RUQHZK
-  ENV=dev
+  ENV=prod
 fi
 
 VERSION=$(git rev-parse HEAD)
