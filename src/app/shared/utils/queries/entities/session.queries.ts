@@ -82,7 +82,7 @@ export function sessionResponseQuery(): string {
             fulfillment_provider { id name provider username password endpoint }
           }
         }
-        loadbalancers {
+        loadbalancer {
           ${loadBalancerResponseQuery()}
         }
       }
