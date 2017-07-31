@@ -43,6 +43,14 @@
             <md-input-container class="entity-view__card__content__item">
               <input required md-input [disabled]="viewMode" placeholder="Campaign name" [(ngModel)]="entity.name" type="text">
             </md-input-container>
+            <div class="flex-custom flex-custom--center prepaid-slider">
+              <span>Allow Prepaid</span>
+              <md-slide-toggle class="flex-align--right" [disabled]="viewMode" [(ngModel)]="entity.allowPrepaid" [color]="'primary'"></md-slide-toggle>
+            </div>
+            <div class="flex-custom flex-custom--center prepaid-slider">
+              <span>Show Prepaid</span>
+              <md-slide-toggle class="flex-align--right" [disabled]="viewMode" [(ngModel)]="entity.showPrepaid" [color]="'primary'"></md-slide-toggle>
+            </div>
           </div>
 
           <div *ngIf="!viewMode" class="entity-view__card__actions">

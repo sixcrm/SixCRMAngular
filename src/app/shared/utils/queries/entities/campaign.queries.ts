@@ -93,5 +93,5 @@ function campaignInfoResponseQuery(): string {
 }
 
 function campaignInputQuery(campaign: Campaign, includeId?: boolean): string {
-  return `${addId(campaign.id, includeId)} name: "${campaign.name}", productschedules:[${campaign.productSchedules.map(s => `"${s.id}"`)}], emailtemplates:[${campaign.emailTemplates.map(t => t && t.id ? `"${t.id}"` : '')}]`;
+  return `${addId(campaign.id, includeId)} name: "${campaign.name}", allow_prepaid: ${campaign.allowPrepaid}, show_prepaid: ${campaign.showPrepaid}, affiliate_allow:["*"], affiliate_deny:["ad58ea78-504f-4a7e-ad45-128b6e76dc57"], productschedules:[${campaign.productSchedules.map(s => `"${s.id}"`)}], emailtemplates:[${campaign.emailTemplates.map(t => t && t.id ? `"${t.id}"` : '')}]`;
 }
