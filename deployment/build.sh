@@ -9,12 +9,15 @@ SOURCE_DIR=dist/
 if [ "$1" = "production" ]; then
   BUCKET=
 	DISTRIBUTION_ID=
+  ENV = prod
 elif [ "$1" = "staging" ]; then
   BUCKET=staging-admin.sixcrm.com
 	DISTRIBUTION_ID=E2SGEZF5528QQQ
+  ENV = stage
 else
 	BUCKET=admin.sixcrm.com
 	DISTRIBUTION_ID=ECG7677RUQHZK
+  ENV = dev
 fi
 
 VERSION=$(git rev-parse HEAD)
@@ -29,11 +32,11 @@ BLUE='\033[0;34m'
 
 NC='\033[0m'
 
-echo -e "${BLUE}Building production${NC}"
+echo -e "${BLUE}Building ${NC}"
 
 node versioning.js $VERSION
 
-if npm run build.prod ; then
+if npm run build.${ENV} ; then
 
    echo -e "${GREEN}Build Successful${NC}"
 
