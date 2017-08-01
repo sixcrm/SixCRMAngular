@@ -3,7 +3,7 @@
     <a id="{{type.name}}"></a>
     {{type.name}}
     <md-icon (click)="toggleShow()">{{show ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
-    <md-icon md-tooltip="Share, Copy to clipboard" ngxClipboard [cbContent]="getShareLink()">link</md-icon>
+    <md-icon class="share-icon" md-tooltip="Share, Copy to clipboard" ngxClipboard [cbContent]="getShareLink()">link</md-icon>
   </div>
 
   <div class="type__content" [class.type__content__collapse]="!show">
