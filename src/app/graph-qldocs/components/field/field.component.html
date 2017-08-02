@@ -10,4 +10,5 @@
     <md-icon *ngIf="enableLink" class="field__copy-icon" md-tooltip="Share, Copy to clipboard" ngxClipboard [cbContent]="getShareLink()">link</md-icon>
   </div>
   <div class="field__description">{{field.description}}</div>
+  <div *ngIf="field.example" class="field__example">{{field.example}}</div>
 </div>

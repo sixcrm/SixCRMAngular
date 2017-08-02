@@ -8,4 +8,5 @@ export interface Field {
   type: TypeRef;
   isDeprecated: boolean;
   deprecationReason: string
+  example?: string;
 }

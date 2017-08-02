@@ -49,8 +49,60 @@ export class GraphqlDocsComponent implements OnInit {
       });
 
       this.loaded = true;
-
       this.graphqlService.navigateByAnchor();
+
+      let queryExamples = generateTypes(this.types, 'Query');
+      for (let i = 0; i < this.types[0].fields.length; i++) {
+        this.types[0].fields[i].example = queryExamples[i];
+      }
+
+      let mutationExamples = generateTypes(this.types, 'Mutation');
+      for (let i = 0; i < this.types[1].fields.length; i++) {
+        this.types[1].fields[i].example = mutationExamples[i];
+      }
     })
   }
+}
+
+function generateTypes(types: Type[], parent: string): string[] {
+  let examples = [];
+  types.filter(t => t.name === parent).forEach(type => {
+    examples = [...examples,...type.fields.map(t => `${type.name} { ${t.name} ${generateInput(t.args, types)} ${generateResponse(t.type, types)} }`)];
+  });
+
+  return examples;
+}
+
+function generateInput(input, types: Type[]): string {
+  if (!input || input.length === 0) return '';
+
+  return `(${input.map(i => `${i.name}: ${generateInputValue(i, types)}`)})`;
+}
+
+function generateInputValue(value, types: Type[]): string {
+  let inputType = value.type ? value.type.kind : value.ofType.kind;
+
+  if (inputType === 'LIST') return `[ ${extractScalar(value.type.ofType, value.name)} ]`;
+  if (inputType === 'SCALAR') return extractScalar(value.type, value.name);
+  if (inputType === 'NON_NULL') return extractScalar(value.type.ofType, value.name);
+  if (inputType === 'INPUT_OBJECT') return generateInput(types.filter(t => t.name === (value.type ? value.type.name : value.ofType.name))[0].inputFields, types);
+
+  return '';
+}
+
+function extractScalar(type, value) {
+  if (type && type.name === 'String') return `"${value}"`;
+  if (type && type.name === 'Boolean') return 'true';
+  if (type && type.name === 'Int') return '10';
+
+  return '""';
+}
+
+function generateResponse(type, types: Type[]) {
+  let fullType = types.filter(t => t.name === type.name)[0];
+  if (!fullType || !fullType.fields) return '';
+
+  let value = fullType.fields.filter(f => f.type.kind === 'SCALAR' || f.type.kind === 'NON_NULL').map(f => f.name).reduce((a,b)=> `${a} ${b}`, '');
+
+  return `{ ${value} }`
 }

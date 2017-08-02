@@ -1,5 +1,5 @@
 .field {
-  margin-top: 12px;
+  margin-top: 25px;
   margin-left: 12px;
 
   &__container {
@@ -16,5 +16,19 @@
     font-size: 16px;
     color: rgba(0,0,0,0.6);
     cursor: pointer;
+  }
+
+  &__example {
+    margin-left: 20px;
+    display: flex;
+    font-size: 12px;
+
+    div {
+
+    }
+
+    md-icon {
+
+    }
   }
 }
