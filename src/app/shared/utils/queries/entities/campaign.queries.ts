@@ -93,5 +93,14 @@ function campaignInfoResponseQuery(): string {
 }
 
 function campaignInputQuery(campaign: Campaign, includeId?: boolean): string {
-  return `${addId(campaign.id, includeId)} name: "${campaign.name}", allow_prepaid: ${campaign.allowPrepaid}, show_prepaid: ${campaign.showPrepaid}, affiliate_allow:["*"], affiliate_deny:["ad58ea78-504f-4a7e-ad45-128b6e76dc57"], productschedules:[${campaign.productSchedules.map(s => `"${s.id}"`)}], emailtemplates:[${campaign.emailTemplates.map(t => t && t.id ? `"${t.id}"` : '')}]`;
+  let affiliateAllowed = !campaign.affiliateAllow ? '' :
+    (campaign.affiliateAllow.length === 1 && campaign.affiliateAllow[0].id === '*') ? `"*"` :
+      campaign.affiliateAllow.reduce((a, b) => `${a} "${b.id}",`, '');
+
+  let affiliateDenied = !campaign.affiliateDeny ? '' :
+    (campaign.affiliateDeny.length === 1 && campaign.affiliateDeny[0].id === '*') ? `"*"` :
+      campaign.affiliateDeny.reduce((a, b) => `${a} "${b.id}",`, '');
+
+
+  return `${addId(campaign.id, includeId)} name: "${campaign.name}", affiliate_allow: [${affiliateAllowed}], affiliate_deny: [${affiliateDenied}], allow_prepaid: ${campaign.allowPrepaid}, show_prepaid: ${campaign.showPrepaid}, productschedules:[${campaign.productSchedules.map(s => `"${s.id}"`)}], emailtemplates:[${campaign.emailTemplates.map(t => t && t.id ? `"${t.id}"` : '')}]`;
 }

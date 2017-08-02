@@ -10,6 +10,8 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {ProductScheduleService} from '../../../shared/services/product-schedule.service';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
+import {Affiliate} from '../../../shared/models/affiliate.model';
+import {AffiliatesService} from '../../../shared/services/affiliates.service';
 
 @Component({
   selector: 'campaign-view',
@@ -34,13 +36,21 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
     new ColumnParams('Products in schedule', (e: ProductSchedule) => e.schedules.length, 'right')
   ];
 
+  affiliateMapper = (el: Affiliate) => el.name || el.id;
+  affiliateColumnParams = [
+    new ColumnParams('Name', (e: Affiliate) => e.name)
+  ];
+
+  allAffiliates: Affiliate[] = [];
+
   constructor(
     service: CampaignsService,
     route: ActivatedRoute,
     public navigation: NavigationService,
     public emailTemplateService: EmailTemplatesService,
     public productScheduleService: ProductScheduleService,
-    private router: Router
+    private router: Router,
+    private affiliateService: AffiliatesService
   ) {
     super(service, route);
   }
@@ -53,8 +63,16 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
       this.entityBackup = this.entity.copy();
       this.fetchDependencies()
     } else {
-      this.service.entity$.take(1).subscribe(() => this.fetchDependencies());
+      this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(() => this.fetchDependencies());
     }
+
+    this.affiliateService.entities$.takeUntil(this.unsubscribe$).take(1).subscribe((affiliates) => {
+      let starAffiliate = [new Affiliate()];
+      starAffiliate[0].name = 'All';
+      starAffiliate[0].id = '*';
+
+      this.allAffiliates = [...starAffiliate, ...affiliates];
+    });
   }
 
   ngOnDestroy() {
@@ -64,6 +82,7 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
   fetchDependencies(): void {
     this.emailTemplateService.getEntities();
     this.productScheduleService.getEntities();
+    this.affiliateService.getEntities();
   }
 
   setIndex(value: number): void {
@@ -81,9 +100,7 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
       this.entity.emailTemplates.splice(index, 1);
       this.entity.emailTemplates = this.entity.emailTemplates.slice();
 
-      if (!this.addMode) {
-        this.updateEntity(this.entity);
-      }
+      this.update();
     }
   }
 
@@ -93,9 +110,7 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
 
     this.entity.emailTemplates = list;
 
-    if (!this.addMode) {
-      this.updateEntity(this.entity);
-    }
+    this.update();
   }
 
   viewProductSchedule(productSchedule: ProductSchedule): void {
@@ -109,9 +124,7 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
       this.entity.productSchedules.splice(index, 1);
       this.entity.productSchedules = this.entity.productSchedules.slice();
 
-      if (!this.addMode) {
-        this.updateEntity(this.entity);
-      }
+      this.update();
     }
   }
 
@@ -121,6 +134,55 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
 
     this.entity.productSchedules = list;
 
+    this.update();
+  }
+
+  associateAllowAffiliate(affiliate: Affiliate): void {
+    let list = this.entity.affiliateAllow.slice();
+    if (affiliate.id === '*' || (list.length === 1 && list[0].id === '*')) {
+      list = [];
+    }
+    list.push(affiliate);
+
+    this.entity.affiliateAllow = list;
+
+    this.update();
+  }
+
+  disassociateAllowAffiliate(affiliate: Affiliate): void {
+    let index = firstIndexOf(this.entity.affiliateAllow, (el) => el.id === affiliate.id);
+
+    if (index > -1) {
+      this.entity.affiliateAllow.splice(index, 1);
+      this.entity.affiliateAllow = this.entity.affiliateAllow.slice();
+
+      this.update();
+    }
+  }
+
+  associateDeniedAffiliate(affiliate: Affiliate): void {
+    let list = this.entity.affiliateDeny.slice();
+    if (affiliate.id === '*' || (list.length === 1 && list[0].id === '*')) {
+      list = [];
+    }
+    list.push(affiliate);
+
+    this.entity.affiliateDeny = list;
+
+    this.update();
+  }
+
+  disassociateDeniedAffiliate(affiliate: Affiliate): void {
+    let index = firstIndexOf(this.entity.affiliateDeny, (el) => el.id === affiliate.id);
+
+    if (index > -1) {
+      this.entity.affiliateDeny.splice(index, 1);
+      this.entity.affiliateDeny = this.entity.affiliateDeny.slice();
+      this.update();
+    }
+  }
+
+  update(): void {
     if (!this.addMode) {
       this.updateEntity(this.entity);
     }

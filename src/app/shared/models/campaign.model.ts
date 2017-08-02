@@ -2,6 +2,7 @@ import {ProductSchedule} from './product-schedule.model';
 import {Entity} from './entity.interface';
 import {utc, Moment} from 'moment';
 import {EmailTemplate} from './email-template.model';
+import {Affiliate} from './affiliate.model';
 
 export class Campaign implements Entity<Campaign>{
   id: string;
@@ -10,6 +11,8 @@ export class Campaign implements Entity<Campaign>{
   showPrepaid: boolean;
   productSchedules: ProductSchedule[] = [];
   emailTemplates: EmailTemplate[] = [];
+  affiliateAllow: Affiliate[] = [];
+  affiliateDeny: Affiliate[] = [];
   createdAt: Moment;
   updatedAt: Moment;
 
@@ -34,6 +37,14 @@ export class Campaign implements Entity<Campaign>{
     if (obj.emailtemplates) {
       this.emailTemplates = obj.emailtemplates.map(e => new EmailTemplate(e));
     }
+
+    if (obj.affiliate_allow) {
+      this.affiliateAllow = obj.affiliate_allow.map(a => new Affiliate(a));
+    }
+
+    if (obj.affiliate_deny) {
+      this.affiliateDeny = obj.affiliate_deny.map(a => new Affiliate(a));
+    }
   }
 
   copy(): Campaign {
@@ -46,6 +57,8 @@ export class Campaign implements Entity<Campaign>{
       name: this.name,
       allow_prepaid: this.allowPrepaid,
       show_prepaid: this.showPrepaid,
+      affiliate_allow: this.affiliateAllow.map(a => a.inverse()),
+      affiliate_deny: this.affiliateDeny.map(a => a.inverse()),
       productschedules: this.productSchedules.map(p => p.inverse()),
       emailtemplates: this.emailTemplates.map(e => e.inverse()),
       created_at: this.createdAt.clone().format(),

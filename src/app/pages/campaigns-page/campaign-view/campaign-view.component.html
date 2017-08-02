@@ -88,7 +88,29 @@
     </md-tab>
 
     <md-tab>
-      <coming-soon [inPage]="true"></coming-soon>
+      <div class="flex-custom">
+        <table-memory
+          class="campaign-view__affiliate-table"
+          [data]="entity.affiliateAllow"
+          [columnParams]="affiliateColumnParams"
+          [associateData]="allAffiliates"
+          [associateDataMapper]="affiliateMapper"
+          (associate)="associateAllowAffiliate($event)"
+          (disassociate)="disassociateAllowAffiliate($event)"
+          [title]="'Affiliate Allowed'">
+        </table-memory>
+
+        <table-memory
+          class="campaign-view__affiliate-table"
+          [data]="entity.affiliateDeny"
+          [columnParams]="affiliateColumnParams"
+          [associateData]="allAffiliates"
+          [associateDataMapper]="affiliateMapper"
+          (associate)="associateDeniedAffiliate($event)"
+          (disassociate)="disassociateDeniedAffiliate($event)"
+          [title]="'Affiliate Denied'">
+        </table-memory>
+      </div>
     </md-tab>
   </md-tab-group>
 </div>
