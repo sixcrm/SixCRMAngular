@@ -1,0 +1,131 @@
+body {
+    background: rgba(0,0,0,0.4);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+    margin: 50px auto;
+    padding: 20px 40px;
+    width: 280px;
+    background: white;
+    box-shadow: 0 0 8px rgba(0,0,0,0.6) ;
+    text-align: center;
+}
+
+.container h1 {
+    margin-bottom: 40px;
+    font-size: 28px;
+}
+
+#form label, input {
+    margin: auto;
+    display: block;
+    width: 240px;
+    text-align: left;
+}
+
+#form label {
+    font-size: 10px;
+}
+
+#form label.error {
+    color: red;
+}
+
+#form input.error {
+    border-color: red;
+}
+
+#form .text-label {
+    margin-top: 30px;
+}
+
+#form input {
+    font-size: 16px;
+    border: 0;
+    border-bottom: 1px solid rgba(0,0,0,0.4);
+}
+
+#form input:focus {
+    outline: none;
+}
+
+#form button {
+    margin: 35px auto 0;
+    border:none;
+    width: 200px;
+    height: 35px;
+    background: #4A90E2;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.check {
+    margin: auto;
+}
+
+.loader {
+    height: 30px;
+    width: 30px;
+    font-size: 10px;
+    margin: auto;
+    text-indent: -9999em;
+    border-radius: 50%;
+    background: #ffffff;
+    background: -moz-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
+    background: -webkit-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
+    background: -o-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
+    background: -ms-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
+    background: linear-gradient(to right, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
+    position: relative;
+    -webkit-animation: load3 1.4s infinite linear;
+    animation: load3 1.4s infinite linear;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+}
+.loader:before {
+    width: 50%;
+    height: 50%;
+    background: #ffffff;
+    border-radius: 100% 0 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+}
+.loader:after {
+    background: #4A90E2;
+
+    width: 75%;
+    height: 75%;
+    border-radius: 50%;
+    content: '';
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+@-webkit-keyframes load3 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes load3 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
