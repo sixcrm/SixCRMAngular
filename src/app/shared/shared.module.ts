@@ -55,6 +55,7 @@ import {TrackersService} from './services/trackers.service';
 import { AutocompleteInputComponent } from './components/autocomplete-input/autocomplete-input.component';
 import { FilterStringsPipe } from './pipes/filter-strings.pipe';
 import { FilterEntitiesByParamsPipe } from './pipes/filter-entities-by-params.pipe';
+import {AutofocusDirective} from './directives/autofocus.directive';
 
 @NgModule({
   declarations : [
@@ -67,6 +68,7 @@ import { FilterEntitiesByParamsPipe } from './pipes/filter-entities-by-params.pi
     ShareLinkComponent,
     SubArrayPipe,
     InViewportDirective,
+    AutofocusDirective,
     TablePaginationComponent,
     AdvancedFilterComponent,
     InputAutocompleteComponent,
@@ -90,6 +92,7 @@ import { FilterEntitiesByParamsPipe } from './pipes/filter-entities-by-params.pi
     ShareLinkComponent,
     SubArrayPipe,
     InViewportDirective,
+    AutofocusDirective,
     TablePaginationComponent,
     AdvancedFilterComponent,
     InputAutocompleteComponent,

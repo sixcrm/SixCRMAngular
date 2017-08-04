@@ -6,8 +6,28 @@
     font-size: 14px !important;
 
     &__options {
-      max-height: 130px;
+      max-height: 200px;
       overflow: auto;
     }
   }
+}
+
+associate-dialog {
+  autocomplete-input {
+    .default-autocomplete-input {
+      margin-top: 10px;
+    }
+
+    .default-autocomplete-input__options {
+      width: 100%;
+    }
+
+    md-input-container {
+      width: 100%;
+    }
+  }
+}
+
+md-dialog-container {
+  overflow: visible !important;
 }
