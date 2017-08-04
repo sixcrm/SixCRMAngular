@@ -10,7 +10,7 @@ import {MdDialogRef} from '@angular/material';
         <autocomplete-input [initialValue]="entity ? mapper(entity) : ''" [options]="options" [placeholder]="placeholder" [showCancelButton]="false" [mapFunction]="mapper" (selected)="entity = $event"></autocomplete-input>
       </md-card-content>
       <md-card-actions align="center">
-        <button md-raised-button color="primary" (click)="associate()">Associate</button>
+        <button md-raised-button color="primary" (click)="associate()">{{associateButtonText}}</button>
         <button autoFocus md-raised-button color="primary" (click)="cancel()">Cancel</button>
       </md-card-actions>
     </md-card>
@@ -20,6 +20,7 @@ import {MdDialogRef} from '@angular/material';
 export class AssociateDialogComponent<T> {
 
   text: string = 'Select entity to associate';
+  associateButtonText: string = 'Associate';
   placeholder: string = 'Entity';
   options: T[] = [];
   entity: T;

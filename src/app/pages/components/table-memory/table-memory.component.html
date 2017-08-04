@@ -1,12 +1,12 @@
 <div class="entity-view__table-component">
   <div class="entity-view__table-component__header entity-view__table-component__header--homepage">
-    <div class="entity-view__table-component__header__title">Associated {{title}}</div>
+    <div class="entity-view__table-component__header__title">{{textOptions.title || 'Associated ' + title}}</div>
     <md-input-container *ngIf="filterEnabled" class="entity-view__table-component__header__filter">
       <input md-input placeholder="Filter" [(ngModel)]="filterString" type="text">
     </md-input-container>
     <md-icon class="entity-view__table-component__header__action" [class.alone]="!filterEnabled" [md-menu-trigger-for]="optionsMenu">more_vert</md-icon>
     <md-menu #optionsMenu="mdMenu" x-position="before">
-      <button *ngIf="associationEnabled" md-menu-item (click)="showAssociateDialog()">Associate {{title}}</button>
+      <button *ngIf="associationEnabled" md-menu-item (click)="showAssociateDialog()">{{textOptions.associateOptionText || 'Associate ' + title}}</button>
     </md-menu>
   </div>
   <table class="highlight table__custom">
@@ -31,15 +31,15 @@
       <td>
         <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
         <md-menu #actionsMenu="mdMenu" x-position="before">
-          <button md-menu-item (click)="view.emit(entity)">View {{title}}</button>
-          <button *ngIf="dissociationEnabled" md-menu-item (click)="showDisassociateDialog(entity)">Disassociate {{title}}</button>
+          <button md-menu-item (click)="view.emit(entity)">{{textOptions.viewOptionText || 'View ' + title}}</button>
+          <button *ngIf="dissociationEnabled" md-menu-item (click)="showDisassociateDialog(entity)">{{textOptions.disassociateOptionText || 'Disassociate ' + title}}</button>
         </md-menu>
       </td>
     </tr>
     </tbody>
   </table>
 
-  <div *ngIf="!entities || entities.length === 0" class="entity-view__no-results entity-view__no-results--table">No {{title}}s found</div>
+  <div *ngIf="!entities || entities.length === 0" class="entity-view__no-results entity-view__no-results--table">{{textOptions.noDataText || 'No ' + title + 's found'}}</div>
 
   <table-pagination
     [limit]="limit"

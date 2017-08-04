@@ -12,6 +12,7 @@ import {ProductScheduleService} from '../../../shared/services/product-schedule.
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 import {Affiliate} from '../../../shared/models/affiliate.model';
 import {AffiliatesService} from '../../../shared/services/affiliates.service';
+import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 
 @Component({
   selector: 'campaign-view',
@@ -42,6 +43,28 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
   ];
 
   allAffiliates: Affiliate[] = [];
+
+  affiliateAllowText: TableMemoryTextOptions = {
+    title: 'Affiliates allowed',
+    viewOptionText: 'View Affiliate',
+    associateOptionText: 'Add affiliate to allowed list',
+    disassociateOptionText: 'Remove affiliate from allowed list',
+    associateModalTitle: 'Select affiliate to add to allowed list',
+    disassociateModalTitle: 'Are you sure you want to remove',
+    associateModalButtonText: 'Add affiliate',
+    noDataText: 'No affiliates allowed'
+  };
+
+  affiliateDenyText: TableMemoryTextOptions = {
+    title: 'Affiliates denied',
+    viewOptionText: 'View Affiliate',
+    associateOptionText: 'Add affiliate to denied list',
+    disassociateOptionText: 'Remove affiliate from denied list',
+    associateModalTitle: 'Select affiliate to add to denied list',
+    disassociateModalTitle: 'Are you sure you want to remove',
+    associateModalButtonText: 'Add affiliate',
+    noDataText: 'No affiliates denied'
+  };
 
   constructor(
     service: CampaignsService,
@@ -174,6 +197,12 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
       this.entity.affiliateDeny = this.entity.affiliateDeny.slice();
       this.update();
     }
+  }
+
+  viewAffiliate(affiliate: Affiliate): void {
+    if (affiliate.id == '*') return;
+
+    this.router.navigate(['/affiliates', affiliate.id]);
   }
 
   update(): void {

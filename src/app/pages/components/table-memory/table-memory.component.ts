@@ -5,6 +5,17 @@ import {AssociateDialogComponent} from '../../associate-dialog.component';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {DeleteDialogComponent} from '../../delete-dialog.component';
 
+export interface TableMemoryTextOptions {
+  title?: string,
+  viewOptionText?: string,
+  associateOptionText?: string,
+  disassociateOptionText?: string,
+  associateModalTitle?: string,
+  disassociateModalTitle?: string,
+  associateModalButtonText?: string,
+  noDataText?: string
+}
+
 @Component({
   selector: 'table-memory',
   templateUrl: './table-memory.component.html',
@@ -23,6 +34,7 @@ export class TableMemoryComponent implements OnInit {
   @Input() filterEnabled: boolean = true;
   @Input() associationEnabled: boolean = true;
   @Input() dissociationEnabled: boolean = true;
+  @Input() textOptions: TableMemoryTextOptions = {};
 
   @Output() view: EventEmitter<boolean> = new EventEmitter();
   @Output() disassociate: EventEmitter<any> = new EventEmitter();
@@ -78,7 +90,8 @@ export class TableMemoryComponent implements OnInit {
   showAssociateDialog(): void {
     this.associateDialogRef = this.dialog.open(AssociateDialogComponent);
     this.associateDialogRef.componentInstance.options = this.associateData.filter(a => firstIndexOf(this.entities, (el) => el.id === a.id) === -1);
-    this.associateDialogRef.componentInstance.text = `Select ${this.title} to associate`;
+    this.associateDialogRef.componentInstance.text = this.textOptions.associateModalTitle || `Select ${this.title} to associate`;
+    this.associateDialogRef.componentInstance.associateButtonText = this.textOptions.associateModalButtonText || `Associate`;
     this.associateDialogRef.componentInstance.mapper = this.associateDataMapper;
 
     this.associateDialogRef.afterClosed().take(1).subscribe(result => {
@@ -91,7 +104,7 @@ export class TableMemoryComponent implements OnInit {
 
   showDisassociateDialog(entity): void {
     this.disassociateDialogRef = this.dialog.open(DeleteDialogComponent, { disableClose : true });
-    this.disassociateDialogRef.componentInstance.text = `Are you sure you want to dissociate ${entity.name || entity.id || this.associateDataMapper(entity)}?`;
+    this.disassociateDialogRef.componentInstance.text =  `${this.textOptions.disassociateModalTitle || 'Are you sure you want to dissociate'}  ${entity.name || entity.id || this.associateDataMapper(entity)}?`;
 
     this.disassociateDialogRef.afterClosed().take(1).subscribe(result => {
       this.disassociateDialogRef = null;

@@ -95,9 +95,12 @@
           [columnParams]="affiliateColumnParams"
           [associateData]="allAffiliates"
           [associateDataMapper]="affiliateMapper"
+          [textOptions]="affiliateAllowText"
           (associate)="associateAllowAffiliate($event)"
           (disassociate)="disassociateAllowAffiliate($event)"
-          [title]="'Affiliate Allowed'">
+          [title]="'Affiliate Allowed'"
+          (view)="viewAffiliate($event)"
+        >
         </table-memory>
 
         <table-memory
@@ -106,9 +109,12 @@
           [columnParams]="affiliateColumnParams"
           [associateData]="allAffiliates"
           [associateDataMapper]="affiliateMapper"
+          [textOptions]="affiliateDenyText"
           (associate)="associateDeniedAffiliate($event)"
           (disassociate)="disassociateDeniedAffiliate($event)"
-          [title]="'Affiliate Denied'">
+          [title]="'Affiliate Denied'"
+          (view)="viewAffiliate($event)"
+        >
         </table-memory>
       </div>
     </md-tab>
