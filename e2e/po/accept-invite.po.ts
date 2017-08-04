@@ -7,31 +7,31 @@ export class AcceptInvitePage {
   }
 
   getAcceptInviteDialog() {
-    return element(by.css('.invite-accept__in'))
+    return element(by.css('.accept-invite__form'))
   }
 
-  getInviteeEmail() {
-    return element(by.css('.invite-accept__in__content__notification__primary--bold'));
+  getTitle() {
+    return element(by.css('.title'));
   }
 
   getLoginButton() {
-    return element(by.css('.invite-accept__in__content__button')).all(by.css('button')).first();
+    return element(by.css('.accept-invite__button'))
   }
 
   getCancelButton() {
-    return element(by.css('.invite-accept__in__content__button')).all(by.css('button')).last();
+    return element(by.css('.registration-form__button--cancel'))
   }
 
   getWelcomeText() {
-    return element(by.css('.invite-accept__in__content__notification__primary'));
+    return element(by.css('.title'));
   }
 
   getWelcomeInstructions() {
-    return element(by.css('.invite-accept__in__content__notification__secondary'));
+    return element(by.css('.subtitle'));
   }
 
   getAcceptButton() {
-    return element(by.css('button'));
+    return element(by.css('.accept-invite__button--small-margin'));
   }
 
   getInputs() {

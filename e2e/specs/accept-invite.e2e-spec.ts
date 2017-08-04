@@ -48,8 +48,8 @@ describe('Accept Invite', function() {
     expect(acceptInvitePage.getAcceptInviteDialog().isPresent()).toBeTruthy();
     expect(acceptInvitePage.getLoginButton().isPresent()).toBeTruthy();
     expect(acceptInvitePage.getCancelButton().isPresent()).toBeTruthy();
-    expect(acceptInvitePage.getInviteeEmail().isPresent()).toBeTruthy();
-    expect(acceptInvitePage.getInviteeEmail().getText()).toBe(inviteeEmail);
+    expect(acceptInvitePage.getTitle().isPresent()).toBeTruthy();
+    expect(acceptInvitePage.getTitle().getText()).toContain(inviteeEmail);
   });
 
   it('should display message with invitee\'s email if different logged in user tries to accept invite', () => {
@@ -61,8 +61,8 @@ describe('Accept Invite', function() {
     expect(acceptInvitePage.getAcceptInviteDialog().isPresent()).toBeTruthy();
     expect(acceptInvitePage.getLoginButton().isPresent()).toBeTruthy();
     expect(acceptInvitePage.getCancelButton().isPresent()).toBeTruthy();
-    expect(acceptInvitePage.getInviteeEmail().isPresent()).toBeTruthy();
-    expect(acceptInvitePage.getInviteeEmail().getText()).toBe(inviteeEmail);
+    expect(acceptInvitePage.getTitle().isPresent()).toBeTruthy();
+    expect(acceptInvitePage.getTitle().getText()).toContain(inviteeEmail);
   });
 
   it('should redirect to accept invite and show welcome message if invitee gets logged in', () => {
@@ -78,22 +78,11 @@ describe('Accept Invite', function() {
     waitForUrlContains('acceptinvite');
 
     browser.sleep(1000);
-    expect(acceptInvitePage.getWelcomeText().getText()).toEqual('You were invited to SIX CRM by [user placeholder] of [company placeholder]')
-    expect(acceptInvitePage.getWelcomeInstructions().getText()).toEqual('Press "accept" below to continue');
-  });
-
-  it('should show welcome message if invitee is correctly logged in', () => {
-    navigateRegisteruserToAcceptInvite(link);
-
-    browser.sleep(1000);
-    expect(acceptInvitePage.getWelcomeText().getText()).toEqual('You were invited to SIX CRM by [user placeholder] of [company placeholder]')
-    expect(acceptInvitePage.getWelcomeInstructions().getText()).toEqual('Press "accept" below to continue');
+    expect(acceptInvitePage.getWelcomeText().getText()).toContain('[user placeholder]');
+    expect(acceptInvitePage.getWelcomeInstructions().getText()).toEqual('Press "Accept" below to continue');
   });
 
   it('should display \'registration lite\' form when user accepts invite', () => {
-    navigateRegisteruserToAcceptInvite(link);
-    browser.sleep(1000);
-
     acceptInvitePage.getAcceptButton().click();
 
     expect(acceptInvitePage.getInputs().count()).toBe(3);
