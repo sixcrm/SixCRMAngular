@@ -38,7 +38,7 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
 
   affiliateMapper = (el: Affiliate) => el.name || el.id;
   affiliateColumnParams = [
-    new ColumnParams('Name', (e: Affiliate) => e.name)
+    new ColumnParams('Name', (e: Affiliate) => e.name || e.id)
   ];
 
   allAffiliates: Affiliate[] = [];
@@ -139,9 +139,6 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
 
   associateAllowAffiliate(affiliate: Affiliate): void {
     let list = this.entity.affiliateAllow.slice();
-    if (affiliate.id === '*' || (list.length === 1 && list[0].id === '*')) {
-      list = [];
-    }
     list.push(affiliate);
 
     this.entity.affiliateAllow = list;
@@ -162,9 +159,6 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
 
   associateDeniedAffiliate(affiliate: Affiliate): void {
     let list = this.entity.affiliateDeny.slice();
-    if (affiliate.id === '*' || (list.length === 1 && list[0].id === '*')) {
-      list = [];
-    }
     list.push(affiliate);
 
     this.entity.affiliateDeny = list;
