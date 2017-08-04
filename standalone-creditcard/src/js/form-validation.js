@@ -33,6 +33,7 @@ function init() {
 
 function submitForm(form) {
     if (form.valid()) {
+        var btn = $('button');
         $('.text').css('display', 'none');
         $('.loader').css('display', 'block');
         btn.prop('disabled', 'true');
@@ -41,8 +42,7 @@ function submitForm(form) {
             $('.loader').css('display', 'none');
             $('.check').css('display', 'block');
 
-            var btn = $('button');
-            btn.css('background', '#7ED321');
+            $('button').css('background', '#7ED321');
         }, 2000)
     }
 }
