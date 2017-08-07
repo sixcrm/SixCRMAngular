@@ -3,6 +3,7 @@ general:
     only:
       - staging
       - development
+      - production
 
 machine:
   timezone:
@@ -22,10 +23,16 @@ test:
     - "true"
 
 deployment:
+  production:
+    branch: production
+    commands:
+      - echo "DEPLOY PRODUCTION (TO DO)"
+
   staging:
     branch: staging
     commands:
       - ./deployment/build.sh staging
+      - ./deployment/merge_branches.sh staging production
 
   development:
     branch: development
