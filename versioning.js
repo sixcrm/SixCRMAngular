@@ -1,6 +1,6 @@
 var fs = require('fs');
 
-var env = process.argv[3] === 'prod' ? '.prod' : (process.argv[3] === 'stage' ? '.stage' : '');
+var env = process.argv[3] === 'prod' ? '.prod' : (process.argv[3] === 'stage' ? '.stage' : '.dev');
 var envFile = './src/environments/environment' + env +'.ts';
 
 fs.readFile(envFile, 'utf8', function (err,data) {
