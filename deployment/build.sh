@@ -8,7 +8,7 @@ SOURCE_DIR=dist/
 
 if [ "$1" = "production" ]; then
   BUCKET=admin.sixcrm.com
-	DISTRIBUTION_ID=ECG7677RUQHZK
+	DISTRIBUTION_ID=E1HK8K7V5BNVFH
   ENV=prod
 elif [ "$1" = "staging" ]; then
   BUCKET=staging-admin.sixcrm.com

@@ -3,6 +3,7 @@ set -e
 set -u
 set -o pipefail
 
+git checkout .
 git fetch --all
 
 echo "Checking out..."
