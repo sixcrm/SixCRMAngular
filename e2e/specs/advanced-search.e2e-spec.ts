@@ -9,8 +9,8 @@ import {doLogin} from '../utils/action.utils';
 import {AuthPage} from '../po/auth.po';
 import {SearchPage} from '../po/search.po';
 
-let username = 'e2e-test-user@example.com';
-let password = 'e2etestuser';
+let username = 'nikola.bosic@toptal.com';
+let password = '123456789';
 
 describe('Advanced search', function() {
 

@@ -1,14 +1,12 @@
 import {AuthPage} from '../po/auth.po';
 import {browser} from 'protractor';
 import {createTestAuth0JWT} from '../utils/jwt.utils';
-import {deleteMutation} from '../utils/graph.utils';
+import {deleteUser} from '../utils/graph.utils';
 import {AcceptInvitePage} from '../po/accept-invite.po';
 import {
-  waitForUrlContains, navigateSuperuserToHomepage, waitForPresenceOfLoginFields,
-  navigateRegisteruserToAcceptInvite, clearLocalStorage
+  waitForUrlContains, navigateSuperuserToHomepage, waitForPresenceOfLoginFields, clearLocalStorage
 } from '../utils/navigation.utils';
 import {doLogin} from '../utils/action.utils';
-import {expectUrlToContain} from '../utils/assertation.utils';
 import {sha1} from '@angular/compiler/src/i18n/digest';
 
 var supertest = require('supertest');
@@ -36,7 +34,7 @@ describe('Accept Invite', function() {
 
     request.post('graph/*')
       .set('Authorization', jwt)
-      .send(deleteMutation(inviteeEmail))
+      .send(deleteUser(inviteeEmail))
       .end(() => done());
   });
 
@@ -82,97 +80,12 @@ describe('Accept Invite', function() {
     expect(acceptInvitePage.getWelcomeInstructions().getText()).toEqual('Press "Accept" below to continue');
   });
 
-  it('should display \'registration lite\' form when user accepts invite', () => {
-    acceptInvitePage.getAcceptButton().click();
+  it('should show welcome message when invitation accepted', () => {
 
-    expect(acceptInvitePage.getInputs().count()).toBe(3);
-    expect(acceptInvitePage.getAcceptButton().isPresent()).toBeTruthy();
-  });
-
-  it('should display errors on registration form when inputs are invalid', () => {
-    navigateRegisteruserToAcceptInvite(link);
-    browser.sleep(1000);
-
-    acceptInvitePage.getAcceptButton().click();
-
-    acceptInvitePage.getInputs().get(0).sendKeys('a');
-    acceptInvitePage.getInputs().get(1).sendKeys('a');
-    acceptInvitePage.getInputs().get(2).sendKeys('a');
-
-    browser.sleep(600);
-    acceptInvitePage.getAcceptButton().click();
-
-    browser.sleep(600);
-    expect(acceptInvitePage.getAcceptButton().isEnabled()).toBeFalsy();
-    expect(acceptInvitePage.getErrorHints().count()).toEqual(3);
-    expect(acceptInvitePage.getErrorHints().get(0).getText()).toEqual('more than two characters please!');
-    expect(acceptInvitePage.getErrorHints().get(1).getText()).toEqual('more than two characters please!');
-    expect(acceptInvitePage.getErrorHints().get(2).getText()).toEqual('more than four characters please!');
-  });
-
-  it('should remove errors on registration form when inputs get corrected', () => {
-    navigateRegisteruserToAcceptInvite(link);
-    browser.sleep(1000);
-
-    acceptInvitePage.getAcceptButton().click();
-
-    acceptInvitePage.getInputs().get(0).sendKeys('a');
-    acceptInvitePage.getInputs().get(1).sendKeys('a');
-    acceptInvitePage.getInputs().get(2).sendKeys('a');
-
-    browser.sleep(600);
-    acceptInvitePage.getAcceptButton().click();
-
-    browser.sleep(600);
-    acceptInvitePage.getInputs().get(0).sendKeys('regFirstName');
-    expect(acceptInvitePage.getAcceptButton().isEnabled()).toBeFalsy();
-
-    acceptInvitePage.getInputs().get(1).sendKeys('regLastName');
-    expect(acceptInvitePage.getAcceptButton().isEnabled()).toBeFalsy();
-
-    acceptInvitePage.getInputs().get(2).sendKeys('regUsername');
-
-    browser.sleep(600);
-    expect(acceptInvitePage.getAcceptButton().isEnabled()).toBeTruthy();
-  });
-
-  it('should display registration complete page on registration completed', () => {
-    navigateRegisteruserToAcceptInvite(link);
-    browser.sleep(1000);
-
-    acceptInvitePage.getAcceptButton().click();
-
-    acceptInvitePage.getInputs().get(0).sendKeys('regFirstName');
-    acceptInvitePage.getInputs().get(1).sendKeys('regLastName');
-    acceptInvitePage.getInputs().get(2).sendKeys('regUsername');
-
-    browser.sleep(600);
-    acceptInvitePage.getAcceptButton().click();
-
-    browser.sleep(600);
-
-    expect(acceptInvitePage.getRegistrationCompleteMessage().getText()).toEqual('Registration Complete');
-    expect(acceptInvitePage.getRegistrationCompleteInstructions().getText()).toEqual('You will receive an email confirming your account shortly');
   });
 
  it('should navigate to dashboard after registration complete', () => {
-    navigateRegisteruserToAcceptInvite(link);
-    browser.sleep(1000);
 
-    acceptInvitePage.getAcceptButton().click();
-
-    acceptInvitePage.getInputs().get(0).sendKeys('regFirstName');
-    acceptInvitePage.getInputs().get(1).sendKeys('regLastName');
-    acceptInvitePage.getInputs().get(2).sendKeys('regUsername');
-
-    browser.sleep(600);
-    acceptInvitePage.getAcceptButton().click();
-
-    browser.sleep(600);
-    acceptInvitePage.getAcceptButton().click();
-
-    waitForUrlContains('dashboard');
-    expectUrlToContain('dashboard');
   })
 });
 

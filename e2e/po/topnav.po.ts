@@ -9,4 +9,12 @@ export class TopnavPage {
   getSearchInput() {
     return element(by.css('app-topnav')).all(by.css('input')).first()
   }
+
+  getProfileName() {
+    return element(by.css('app-topnav')).element(by.css('.profile-dropdown__header__name'));
+  }
+
+  getCompanyName() {
+    return element(by.css('app-topnav')).element(by.css('.simple-dropdown__header__value'));
+  }
 }

@@ -1,21 +1,14 @@
 import {
-  clearLocalStorage, waitForUrlContains,
-  waitForPresenceOfLoginFields, waitForPresenceOf, waitForNotPresenceOf
+  clearLocalStorage, waitForUrlContains, waitForPresenceOf, waitForNotPresenceOf
 } from '../utils/navigation.utils';
 import {expectUrlToContain, expectPresent, expectNotPresent} from '../utils/assertation.utils';
 import {browser, protractor} from 'protractor';
-import {doLogin} from '../utils/action.utils';
+import {login} from '../utils/action.utils';
 import {AuthPage} from '../po/auth.po';
 import {SearchPage} from '../po/search.po';
 import {AppPage} from '../po/app.po';
 import {AdvancedSearchPage} from '../po/advanced-search.po';
 import {TopnavPage} from '../po/topnav.po';
-
-let username = 'nikola.bosic@toptal.com';
-let password = '123456789';
-
-let username2 = 'e2e-test-user@example.com';
-let password2 = 'e2etestuser';
 
 describe('Search', function() {
 
@@ -237,21 +230,3 @@ describe('Search', function() {
   });
 
 });
-
-function login() {
-  let authPage = new AuthPage();
-
-  authPage.navigateTo();
-
-  waitForPresenceOfLoginFields(authPage);
-
-  browser.sleep(2000);
-  browser.waitForAngularEnabled(false);
-
-  doLogin(authPage, username, password);
-
-  // Wait for angular is disabled, so we need to tell protractor to wait for page to load
-  waitForUrlContains('dashboard');
-
-  expectUrlToContain('/dashboard');
-}

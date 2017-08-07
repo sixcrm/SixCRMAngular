@@ -6,6 +6,10 @@ export class RegisterPage {
     browser.get('/register');
   }
 
+  getRegisterContainer() {
+    return element(by.css('.registration-form__container'));
+  }
+
   getWelcomeScreen() {
     return element(by.css('.registration-form__title'));
   }
@@ -15,14 +19,18 @@ export class RegisterPage {
   }
 
   getInputs() {
-    return element.all(by.css('input'));
+    return element(by.css('.registration-form__form')).all(by.css('input'));
   }
 
   getInvalidInputs() {
-    return element.all(by.css('input .ng-invalid'));
+    return element.all(by.css('input.ng-invalid'));
   }
 
   getContinueButton() {
     return element(by.css('.registration-form__button'));
+  }
+
+  getSuccessTitle() {
+    return element(by.css('.registration-form__title__main--secondary'));
   }
 }
