@@ -54,12 +54,12 @@
               <div class="flex-custom flex-custom--center merchant-provider-view__details__selectable">
                 <md-icon>power_settings_new</md-icon>
                 <span>Enabled</span>
-                <md-slide-toggle class="flex-align--right" [disabled]="viewMode" name="enabled" [(ngModel)]="entity.enabled"></md-slide-toggle>
+                <md-checkbox class="flex-align--right" [disabled]="viewMode" name="enabled" [(ngModel)]="entity.enabled"></md-checkbox>
               </div>
               <div class="flex-custom flex-custom--center merchant-provider-view__details__selectable">
                 <md-icon>credit_card</md-icon>
                 <span>Allow Prepaid cards</span>
-                <md-slide-toggle class="flex-align--right" [disabled]="viewMode" name="allowPrepaid" [(ngModel)]="entity.allowPrepaid"></md-slide-toggle>
+                <md-checkbox class="flex-align--right" [disabled]="viewMode" name="allowPrepaid" [(ngModel)]="entity.allowPrepaid"></md-checkbox>
               </div>
 
               <div class="merchant-provider-view__details__subtitle">

@@ -47,7 +47,7 @@
 
           <div class="user-view__item flex-custom flex-custom--center">
             <span>Activated</span>
-            <md-slide-toggle class="flex-align--right" [checked]="entity.active === 'true'" (change)="entity.toggleActive()" [disabled]="viewMode"></md-slide-toggle>
+            <md-checkbox class="flex-align--right" [checked]="entity.active === 'true'" (change)="entity.toggleActive()" [disabled]="viewMode"></md-checkbox>
           </div>
 
         </form>

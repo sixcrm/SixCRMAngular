@@ -68,12 +68,12 @@
                 <div class="profile-page__content__notifications__title__sub">Toggle on/off when you receive notifications</div>
               </div>
 
-              <div *ngIf="userSettings" class="profile-page__content__notifications__body">
-                <md-slide-toggle
+              <div *ngIf="userSettings" class="profile-page__content__notifications__body profile-page__content__notifications__body--toggles">
+                <md-checkbox
                   *ngFor="let settings of userSettings.notificationSettings"
                   [(ngModel)]="settings.receive"
                   (change)="userSettingsFieldUpdated()"
-                  [color]="'primary'">{{deviceLabels[settings.name]}}</md-slide-toggle>
+                  [color]="'primary'">{{deviceLabels[settings.name]}}</md-checkbox>
               </div>
             </div>
             <div class="profile-page__content__notifications__item">

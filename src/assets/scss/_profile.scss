@@ -103,6 +103,20 @@
 
       &__body {
 
+        &--toggles {
+          height: calc(100% - 70px);
+          display: flex;
+          flex-direction: column;
+
+          md-checkbox {
+            margin: auto 10px;
+
+            .md-checkbox-label {
+              font-size: 14px;
+            }
+          }
+        }
+
         .md-checkbox-checkmark-path {
           stroke: black !important;
         }
@@ -146,16 +160,6 @@
               }
             }
           }
-        }
-
-        .md-slide-toggle-content {
-          font-weight: 400;
-          margin-left: 5px;
-        }
-
-        md-slide-toggle {
-          padding-left: 15px;
-          padding-bottom: 10px;
         }
 
         md-input, md-input-container {
