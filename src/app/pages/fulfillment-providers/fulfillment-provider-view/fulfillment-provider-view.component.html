@@ -37,6 +37,8 @@
         </div>
 
         <form class="entity-view__card__content" #inputForm="ngForm">
+          <dropdown-component [required]="true" [disabled]="false" [placeholder]="'Provider'" [selected]="entity.provider"></dropdown-component>
+
           <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
             <input required md-input [disabled]="viewMode" placeholder="Name" [(ngModel)]="entity.name" name="name" type="text">
           </md-input-container>
@@ -52,8 +54,6 @@
           <md-input-container [class.error]="formInvalid && !entity.password" class="entity-view__card__content__item">
             <input required md-input [disabled]="viewMode" placeholder="Password" [(ngModel)]="entity.password" name="password" type="text">
           </md-input-container>
-
-          <dropdown-component [required]="true" [disabled]="false" [placeholder]="'Provider'" [selected]="entity.provider"></dropdown-component>
         </form>
 
         <div *ngIf="!viewMode" class="entity-view__card__actions">
