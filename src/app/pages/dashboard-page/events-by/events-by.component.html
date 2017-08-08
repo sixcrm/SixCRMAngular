@@ -10,10 +10,10 @@
     </md-menu>
   </div>
 
-  <chart *ngIf="eventsBy" #chart (load)="saveChart($event.context)" [options]="options"></chart>
+  <chart *ngIf="eventsBy && eventsBy.count > 0; else eventsByNoData" #chart (load)="saveChart($event.context)" [options]="options"></chart>
   <md-spinner *ngIf="!eventsBy"></md-spinner>
 
-  <div class="dashboard__table" [style.height]="calculateHeight()" [class.dashboard__table--inactive]="!showTable || !eventsBy">
+  <div *ngIf="eventsBy && eventsBy.count > 0" class="dashboard__table" [style.height]="calculateHeight()" [class.dashboard__table--inactive]="!showTable || !eventsBy">
     <table class="highlight">
       <thead>
         <tr>
@@ -32,8 +32,12 @@
     </table>
   </div>
 
+  <ng-template #eventsByNoData>
+    <div *ngIf="eventsBy" class="dashboard__table-chart__no-data"> No Events Found</div>
+  </ng-template>
+
   <div class="dashboard__table-chart__actions dashboard__table-chart__actions--no-border">
-    <span (click)="toggleTable()">{{showTable ? 'COLLAPSE' : 'SHOW TABLE'}}</span>
+    <span *ngIf="eventsBy && eventsBy.count > 0" (click)="toggleTable()">{{showTable ? 'COLLAPSE' : 'SHOW TABLE'}}</span>
     <span [routerLink]="['/coming-soon']">VIEW MORE</span>
   </div>
 </div>

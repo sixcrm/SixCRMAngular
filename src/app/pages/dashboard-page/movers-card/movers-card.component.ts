@@ -11,6 +11,7 @@ import {AnalyticsService} from '../../../shared/services/analytics.service';
 export class MoversCardComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
   campaignDelta: CampaignDelta[];
+  loading: boolean = false;
 
   constructor(private analyticsService: AnalyticsService) {
     super();
@@ -19,6 +20,7 @@ export class MoversCardComponent extends AbstractDashboardItem implements OnInit
   ngOnInit() {
     this.analyticsService.campaignDelta$.takeUntil(this.unsubscribe$).subscribe(campaigns => {
       if (campaigns) {
+        this.loading = false;
         if (campaigns.length > 5) {
           this.campaignDelta = campaigns.slice(0,5);
         } else {
@@ -34,6 +36,7 @@ export class MoversCardComponent extends AbstractDashboardItem implements OnInit
 
   fetch(): void {
     if (this.shouldFetch) {
+      this.loading = true;
       this.analyticsService.getCampaignDelta(this.start.format(), this.end.format());
       this.shouldFetch = false;
     }

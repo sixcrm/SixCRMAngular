@@ -17,6 +17,7 @@ export class EventsByComponent extends AbstractDashboardItem implements OnInit, 
   maxNumber = 5;
 
   showTable: boolean = true;
+  loading: boolean = false;
 
   options = {
     chart: {
@@ -68,6 +69,8 @@ export class EventsByComponent extends AbstractDashboardItem implements OnInit, 
       if (this.chartInstance) {
         this.redrawChartData();
       }
+
+      this.loading = false;
     })
   }
 
@@ -81,6 +84,7 @@ export class EventsByComponent extends AbstractDashboardItem implements OnInit, 
 
   fetch(): void {
     if (this.shouldFetch) {
+      this.loading = true;
       this.analyticsService.getEventsBy(this.start.format(), this.end.format());
       this.shouldFetch = false;
     }

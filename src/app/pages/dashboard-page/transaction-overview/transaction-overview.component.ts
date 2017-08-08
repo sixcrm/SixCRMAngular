@@ -25,7 +25,11 @@ export class TransactionOverviewComponent extends AbstractDashboardItem implemen
     super();
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.analyticsService.transactionsOverview$.takeUntil(this.unsubscribe$).subscribe(data =>
+      this.transactionOverview = data || new TransactionOverview({})
+    );
+  }
 
   fetch(): void {
     if (this.shouldFetch) {

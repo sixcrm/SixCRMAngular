@@ -20,7 +20,7 @@
     </md-menu>
   </div>
 
-  <div *ngIf="data && data.length > 0">
+  <div *ngIf="data; else transactionReportLoading">
     <table class="highlight">
       <thead>
         <tr>
@@ -53,5 +53,7 @@
     </table-pagination>
   </div>
 
-  <md-spinner *ngIf="!data || data.length === 0"></md-spinner>
+  <ng-template #transactionReportLoading>
+    <md-spinner></md-spinner>
+  </ng-template>
 </div>
