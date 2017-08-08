@@ -53,19 +53,19 @@
                 <input required md-input [disabled]="viewMode" placeholder="SKU" name="sku" [(ngModel)]="entity.sku" type="text">
               </md-input-container>
 
-              <md-input-container [class.error]="formInvalid && !entity.shippingDelay" class="entity-view__card__content__item">
-                <input required md-input [disabled]="viewMode" placeholder="Shipping Delay" name="shippingDelay" [(ngModel)]="entity.shippingDelay" type="text">
+              <md-input-container [class.error]="formInvalid && !entity.shippingDelay && entity.ship === 'true'" class="entity-view__card__content__item">
+                <input required md-input [disabled]="viewMode || entity.ship !== 'true'" placeholder="Shipping Delay" name="shippingDelay" [(ngModel)]="entity.shippingDelay" type="text">
               </md-input-container>
             </div>
 
             <autocomplete-input class="product-autocomplete-input"
-                                [class.error]="formInvalid && (!entity.fulfillmentProvider || !entity.fulfillmentProvider.id)"
+                                [class.error]="formInvalid && (!entity.fulfillmentProvider || !entity.fulfillmentProvider.id) && entity.ship === 'true'"
                                 [initialValue]="entity.fulfillmentProvider.name"
                                 [placeholder]="'Fulfillment Provider'"
                                 [options]="fulfillmentProvidersService.entities$ | async"
                                 [showCancelButton]="false"
                                 [mapFunction]="fulfillmentProviderMapper"
-                                [disabled]="viewMode"
+                                [disabled]="viewMode || entity.ship !==  'true'"
                                 [required]="true"
                                 (selected)="entity.fulfillmentProvider = $event">
             </autocomplete-input>
