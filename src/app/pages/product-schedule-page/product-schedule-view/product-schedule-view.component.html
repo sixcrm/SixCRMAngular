@@ -81,7 +81,7 @@
                                   (selected)="scheduleToAdd.product = $event">
               </autocomplete-input>
               <md-input-container [class.error]="formInvalid && !price">
-                <input required md-input placeholder="Price" [textMask]="{mask: numberMask, guide: false}" (keydown)="isNumeric($event)" name="price" [(ngModel)]="price" type="text">
+                <input required md-input placeholder="Price" [textMask]="{mask: numberMask, guide: false}" (keydown)="isCurrency($event)" name="price" [(ngModel)]="price" type="text">
               </md-input-container>
             </div>
 
