@@ -26,16 +26,16 @@ deployment:
   production:
     branch: production
     commands:
-      - ./deployment/build.sh production
+      - ./deployment/build.sh admin.sixcrm.com production
 
   staging:
     branch: staging
     commands:
-      - ./deployment/build.sh staging
+      - ./deployment/build.sh admin.sixcrm.com staging
       - ./deployment/merge_branches.sh staging production
 
   development:
     branch: development
     commands:
-      - ./deployment/build.sh development
+      - ./deployment/build.sh admin.sixcrm.com development
       - ./deployment/merge_branches.sh development staging
