@@ -37,5 +37,5 @@ deployment:
   development:
     branch: development
     commands:
-      - ./deployment/build.sh test-admin.sixcrm.com development
-      # - ./deployment/merge_branches.sh development staging
+      - ./deployment/build.sh admin.sixcrm.com development
+      - ./deployment/merge_branches.sh development staging
