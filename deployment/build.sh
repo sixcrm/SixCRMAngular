@@ -31,6 +31,14 @@ else
 
   if aws s3 mb s3://${BUCKET} --region ${AWS_REGION} ; then
     echo -e "${GREEN}Bucket ${BUCKET} successfully created...${NC}"
+
+    # Enable aws static website hosting
+    if aws s3 website s3://${BUCKET} --index-document index.html ; then
+      echo -e "${GREEN}Bucket ready for static website hosting...${NC}"
+    else
+      echo -e "${RED}Bucket static website hosting configuration failed...exiting...${NC}"
+      exit 1
+    fi
   else
     echo -e "${RED}Bucket ${BUCKET} creation unsuccessful...exiting...${NC}"
     exit 1
@@ -69,9 +77,16 @@ DISTRIBUTION_ID=$(aws cloudfront list-distributions | jq -r --arg BUCKET "$BUCKE
 if [ -z "$DISTRIBUTION_ID" ] ; then
   echo -e "${BLUE}CloudFront distribution does not exist, creating..."
 
-  exit 1;
+  DISTRIBUTION_ID=$(aws cloudfront create-distribution --origin-domain-name $BUCKET.s3.amazonaws.com | jq '.Distribution.Id')
+  if [-z "$DISTRIBUTION_ID"] ; then
+    echo -e "${RED}CloudFront distribution creation failed...exiting...${NC}"
+    exit 1;
+  else
+    echo -e "${GREEN}CloudFront distribution successfully created...${NC}"
+  fi
+
 else
-  echo -e "${BLUE}CloudFront distribution exists, ID=${DISTRIBUTION_ID}..."
+  echo -e "${BLUE}CloudFront distribution exists..."
 fi
 
 echo -e "${BLUE}Updating CloudFront${NC}"
