@@ -50,8 +50,6 @@ else
   exit 1
 fi
 
-exit 1
-
 # Upload to S3
 echo -e "${BLUE}Setting a version on the build${NC}"
 # dist/builtFiles => dist/version/buildFiles
