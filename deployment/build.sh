@@ -6,15 +6,12 @@ SOURCE_DIR=dist/
 # Set variables
 if [ "$2" = "production" ]; then
   BUCKET=$1
-	DISTRIBUTION_ID=E1HK8K7V5BNVFH
   ENV=prod
 elif [ "$2" = "staging" ]; then
   BUCKET=staging-$1
-	DISTRIBUTION_ID=E2SGEZF5528QQQ
   ENV=stage
 else
 	BUCKET=development-$1
-	DISTRIBUTION_ID=E2VUS6PRSO1ALB
   ENV=dev
 fi
 
@@ -67,6 +64,16 @@ else
 fi
 
 # Update CloudFront
+# Check if distribution for bucket exists
+DISTRIBUTION_ID=$(aws cloudfront list-distributions | jq -r --arg BUCKET "$BUCKET" '.DistributionList.Items[] | select(. | .Origins.Items[].Id | contains($BUCKET) ) | .Id')
+if [ -z "$DISTRIBUTION_ID" ] ; then
+  echo -e "${BLUE}CloudFront distribution does not exist, creating..."
+
+  exit 1;
+else
+  echo -e "${BLUE}CloudFront distribution exists, ID=${DISTRIBUTION_ID}..."
+fi
+
 echo -e "${BLUE}Updating CloudFront${NC}"
 ETag=$(aws cloudfront get-distribution --id $DISTRIBUTION_ID | jq '.ETag' | sed -e 's/^"//' -e 's/"$//')
 VERSION="/$VERSION"
