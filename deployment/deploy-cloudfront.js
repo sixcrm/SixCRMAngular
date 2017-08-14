@@ -5,7 +5,8 @@ const projectName = process.argv[2];
 
 var version;
 
-git.getVersion(v => {
+git.getVersion()
+  .then(v => {
     version = v;
     return Promise.resolve();
   })
