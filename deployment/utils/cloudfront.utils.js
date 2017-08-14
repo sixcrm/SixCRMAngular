@@ -17,7 +17,7 @@ exports.createDistributionIfNotExist = (projectName, branchName, version) => {
 };
 
 exports.updateDistribution = (distributionId, version) => {
-  console.log('Updating distribution', distributionId);
+  console.log(`Updating distribution ${distributionId}, version: ${version}`);
 
   return getDistributionConfig(distributionId)
     .then(config => {
@@ -68,7 +68,7 @@ function exists(bucketName) {
 }
 
 function createDistribution(bucketName, version) {
-  console.log(`Creating distribution form ${bucketName}`);
+  console.log(`Creating distribution form ${bucketName}, version: ${version}`);
 
   return new Promise((resolve, reject) => {
     let params = {
