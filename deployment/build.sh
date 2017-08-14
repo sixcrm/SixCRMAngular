@@ -1,21 +1,21 @@
 #!/bin/sh
 
 # TO run this script: 'bash build.sh'
+VERSION=$(git rev-parse HEAD)
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
 SOURCE_DIR=dist/
 
 # Set variables
-if [ "$2" = "production" ]; then
+if [ "$BRANCH" = "production" ]; then
   BUCKET=$1
   ENV=prod
-elif [ "$2" = "staging" ]; then
+elif [ "$BRANCH" = "staging" ]; then
   BUCKET=staging-$1
   ENV=stage
 else
 	BUCKET=development-$1
   ENV=dev
 fi
-
-VERSION=$(git rev-parse HEAD)
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
