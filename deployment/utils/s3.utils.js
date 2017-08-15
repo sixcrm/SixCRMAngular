@@ -71,13 +71,9 @@ function uploadFiles(bucketName, version) {
       let params = {
         Body: fs.createReadStream(file),
         Key: file.replace('dist/', `${version}/`),
+        ContentType: getContentType(file),
         Bucket: bucketName
       };
-
-      if (file.indexOf('index.html') !== -1) {
-        params['ContentType'] = 'text/html';
-        console.log(params);
-      }
 
       return new Promise((resolve, reject) => {
         s3.putObject(params, (error, data) => {
@@ -121,4 +117,16 @@ function createBucket(bucketName) {
     })
   })
 
+}
+
+function getContentType(file) {
+  if (file.length >= 5 && file.substring(file.length - 5, file.length) === '.html') return 'text/html';
+  if (file.length >= 3 && file.substring(file.length - 3, file.length) === '.js') return 'application/javascript';
+  if (file.length >= 4 && file.substring(file.length - 4, file.length) === '.txt') return 'text/plain';
+  if (file.length >= 4 && file.substring(file.length - 4, file.length) === '.png') return 'image/png';
+  if (file.length >= 4 && file.substring(file.length - 4, file.length) === '.svg') return 'image/svg+xml';
+  if (file.length >= 4 && file.substring(file.length - 4, file.length) === '.gif') return 'image/gif';
+  if (file.length >= 4 && file.substring(file.length - 4, file.length) === '.css') return 'text/css';
+
+  return 'binary/octet-stream';
 }
