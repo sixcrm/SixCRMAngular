@@ -26,6 +26,7 @@ deployment:
   production:
     branch: production
     commands:
+      - node versioning.js prod
       - ./deployment/build.sh
       - node deployment/deploy-s3.js admin.sixcrm.com
       - node deployment/deploy-cloudfront.js admin.sixcrm.com
@@ -33,6 +34,7 @@ deployment:
   staging:
     branch: staging
     commands:
+      - node versioning.js stage
       - ./deployment/build.sh
       - node deployment/deploy-s3.js admin.sixcrm.com
       - node deployment/deploy-cloudfront.js admin.sixcrm.com
@@ -41,6 +43,9 @@ deployment:
   development:
     branch: development
     commands:
+      # Set version
+      - node versioning.js dev
+
       # Build Angular App
       - ./deployment/build.sh
 
