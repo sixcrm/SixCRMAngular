@@ -26,14 +26,14 @@ deployment:
   production:
     branch: production
     commands:
-      - ./deployment/build.sh admin.sixcrm.com
+      - ./deployment/build.sh
       - node deployment/deploy-s3.js admin.sixcrm.com
       - node deployment/deploy-cloudfront.js admin.sixcrm.com
 
   staging:
     branch: staging
     commands:
-      - ./deployment/build.sh admin.sixcrm.com
+      - ./deployment/build.sh
       - node deployment/deploy-s3.js admin.sixcrm.com
       - node deployment/deploy-cloudfront.js admin.sixcrm.com
       - ./deployment/merge_branches.sh staging production
@@ -42,7 +42,7 @@ deployment:
     branch: development
     commands:
       # Build Angular App
-      - ./deployment/build.sh admin.sixcrm.com
+      - ./deployment/build.sh
 
       # Deploy App to S3
       - node deployment/deploy-s3.js admin.sixcrm.com

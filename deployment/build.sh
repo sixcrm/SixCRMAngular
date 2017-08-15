@@ -15,7 +15,7 @@ fi
 
 # Build angular 2 app
 echo -e "${BLUE}Building ${NC}"
-if npm run build.prod ; then
+if npm run build.${ENV} ; then
    echo -e "${GREEN}Build Successful${NC}"
 else
   echo -e "${RED}Build not successful...exiting..${NC}"
