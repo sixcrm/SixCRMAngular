@@ -74,6 +74,10 @@ function uploadFiles(bucketName, version) {
         Bucket: bucketName
       };
 
+      if (file.indexOf('index.html') !== -1) {
+        params[ContentType] = 'text/html';
+      }
+
       return new Promise((resolve, reject) => {
         s3.putObject(params, (error, data) => {
           if (error) return reject(error);
