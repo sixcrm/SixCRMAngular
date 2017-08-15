@@ -75,7 +75,8 @@ function uploadFiles(bucketName, version) {
       };
 
       if (file.indexOf('index.html') !== -1) {
-        params[ContentType] = 'text/html';
+        params['ContentType'] = 'text/html';
+        console.log(params);
       }
 
       return new Promise((resolve, reject) => {
