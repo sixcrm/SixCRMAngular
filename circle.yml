@@ -56,4 +56,4 @@ deployment:
       - node deployment/deploy-cloudfront.js admin.sixcrm.com
 
       # Promote changes
-      - ./deployment/merge_branches.sh development staging
+      # - ./deployment/merge_branches.sh development staging
