@@ -54,7 +54,7 @@
               </md-input-container>
 
               <md-input-container [class.error]="formInvalid && !entity.shippingDelay && entity.ship === 'true'" class="entity-view__card__content__item">
-                <input required md-input [disabled]="viewMode || entity.ship !== 'true'" placeholder="Shipping Delay" name="shippingDelay" [(ngModel)]="entity.shippingDelay" type="text">
+                <input required md-input [disabled]="viewMode || entity.ship !== 'true'" (keydown)="isNumeric($event)" placeholder="Shipping Delay (minutes)" name="shippingDelay" [(ngModel)]="entity.shippingDelay" type="number">
               </md-input-container>
             </div>
 
