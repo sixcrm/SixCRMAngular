@@ -105,4 +105,35 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     }
   }
 
+  endChanged() {
+    if (!this.scheduleToAdd.end) {
+      this.scheduleToAdd.period = 0;
+      return;
+    }
+
+    if (+this.scheduleToAdd.end > +(this.scheduleToAdd.start || 0)) {
+      this.scheduleToAdd.start = this.scheduleToAdd.start || 0;
+      this.scheduleToAdd.period = +this.scheduleToAdd.end - +this.scheduleToAdd.start;
+    }
+  }
+
+  startChanged() {
+    if (!this.scheduleToAdd.start) {
+      return;
+    }
+
+    if (+this.scheduleToAdd.start < +(this.scheduleToAdd.end || 0)) {
+      this.scheduleToAdd.period = this.scheduleToAdd.end - this.scheduleToAdd.start;
+    }
+  }
+
+  periodChanged() {
+    if (!this.scheduleToAdd.period) {
+      return;
+    }
+
+    this.scheduleToAdd.start = this.scheduleToAdd.start || 0;
+    this.scheduleToAdd.end = +this.scheduleToAdd.start + +this.scheduleToAdd.period;
+  }
+
 }
