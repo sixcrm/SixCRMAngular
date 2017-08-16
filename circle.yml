@@ -38,7 +38,7 @@ deployment:
       - ./deployment/build.sh
       - node deployment/deploy-s3.js admin.sixcrm.com
       - node deployment/deploy-cloudfront.js admin.sixcrm.com
-      - ./deployment/merge_branches.sh staging production
+      - node ./deployment/merge-branches.js
 
   development:
     branch: development
@@ -56,4 +56,4 @@ deployment:
       - node deployment/deploy-cloudfront.js admin.sixcrm.com
 
       # Promote changes
-      - ./deployment/merge_branches.sh development staging
+      - node ./deployment/merge-branches.js
