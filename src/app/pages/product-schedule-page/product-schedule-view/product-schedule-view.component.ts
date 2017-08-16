@@ -71,7 +71,10 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
 
   clearAddSchedule(): void {
     this.price = '';
+    let loopProduct = this.scheduleToAdd ? this.scheduleToAdd.product : new Product();
+
     this.scheduleToAdd = new Schedule();
+    this.scheduleToAdd.product = loopProduct.copy();
   }
 
   addSchedule(valid: boolean): void {
