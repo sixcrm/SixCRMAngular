@@ -9,7 +9,7 @@ git.getBranchName()
       .then(() => git.fetch('--all'))
       .then(() => git.checkout(to))
       .then(() => git.merge(from))
-      .then(() => git.pushOrigin())
+      .then(() => git.pushOrigin(to))
       .then(() => Promise.resolve({from: from, to: to}));
   })
   .then(response => console.log(`Successfully propagated from '${response.from}' to '${response.to}'`))

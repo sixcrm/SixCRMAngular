@@ -25,7 +25,9 @@ function updateVersion(file, version) {
     var result = data.replace(/0.0.0/g, version);
 
     fs.writeFile(file, result, 'utf8', function (err) {
-      if (err) return console.log(err);
+      if (err) return err;
+
+      console.log(`version successfully set to ${version}`);
     });
   });
 
