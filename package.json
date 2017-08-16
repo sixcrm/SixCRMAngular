@@ -56,10 +56,11 @@
     "text-mask-addons": "^3.5.1",
     "tinymce": "^4.6.4",
     "uuid": "^3.0.1",
-    "zone.js": "^0.8.4"
+    "zone.js": "^0.8.4",
+    "enhanced-resolve": "3.3.0"
   },
   "devDependencies": {
-    "@angular/cli": "1.2.4",
+    "@angular/cli": "1.0.0",
     "@angular/compiler-cli": "^4.0.0",
     "@angular/language-service": "^4.0.0",
     "@types/chai": "^3.4.34",
