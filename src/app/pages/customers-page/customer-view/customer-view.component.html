@@ -73,49 +73,30 @@
               </md-menu>
             </md-card-title>
             <md-card-content>
-              <div class="customer-view__content__card__item"><span>Name: </span>{{entity.firstName}} {{entity.lastName}}</div>
-              <div class="customer-view__content__card__item">
-                <span>Address 1: </span>
-                <span *ngIf="!addressEditMode; else line1">{{entity.address.line1}}</span>
-                <ng-template #line1>
-                  <md-input [(ngModel)]="entity.address.line1"></md-input>
-                </ng-template>
-              </div>
-              <div class="customer-view__content__card__item">
-                <span>Address 2: </span>
-                <span *ngIf="!addressEditMode; else line2">{{entity.address.line2}}</span>
-                <ng-template #line2>
-                  <md-input [(ngModel)]="entity.address.line2"></md-input>
-                </ng-template>
-              </div>
-              <div class="customer-view__content__card__item">
-                <span>Postal Code: </span>
-                <span *ngIf="!addressEditMode; else zip">{{entity.address.zip}}</span>
-                <ng-template #zip>
-                  <md-input [(ngModel)]="entity.address.zip"></md-input>
-                </ng-template>
-              </div>
-              <div class="customer-view__content__card__item">
-                <span>City: </span>
-                <span *ngIf="!addressEditMode; else city">{{entity.address.city}}</span>
-                <ng-template #city>
-                  <md-input [(ngModel)]="entity.address.city"></md-input>
-                </ng-template>
-              </div>
-              <div class="customer-view__content__card__item">
-                <span>State: </span>
-                <span *ngIf="!addressEditMode; else state">{{entity.address.state}}</span>
-                <ng-template #state>
-                  <md-input [(ngModel)]="entity.address.state"></md-input>
-                </ng-template>
-              </div>
-              <div class="customer-view__content__card__item">
-                <span>Country: </span>
-                <span *ngIf="!addressEditMode; else country">{{entity.address.country}}</span>
-                <ng-template #country>
-                  <md-input [(ngModel)]="entity.address.country"></md-input>
-                </ng-template>
-              </div>
+
+              <md-input-container>
+                <input disabled md-input placeholder="Full Name" [(ngModel)]="entity.firstName">
+              </md-input-container>
+
+              <md-input-container>
+                <input [disabled]="!addressEditMode" md-input placeholder="Address" [(ngModel)]="entity.address.line1">
+              </md-input-container>
+
+              <md-input-container>
+                <input [disabled]="!addressEditMode" md-input placeholder="City" [(ngModel)]="entity.address.city">
+              </md-input-container>
+
+              <md-input-container>
+                <input [disabled]="!addressEditMode" md-input placeholder="State" [(ngModel)]="entity.address.state">
+              </md-input-container>
+
+              <md-input-container>
+                <input [disabled]="!addressEditMode" md-input placeholder="Postal Code" [(ngModel)]="entity.address.zip">
+              </md-input-container>
+
+              <md-input-container>
+                <input [disabled]="!addressEditMode" md-input placeholder="Country" [(ngModel)]="entity.country">
+              </md-input-container>
 
               <div *ngIf="addressEditMode" class="customer-view__content__card__actions">
                 <div (click)="cancelAddressUpdate()">CANCEL</div>
