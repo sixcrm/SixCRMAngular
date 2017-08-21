@@ -1,171 +1,161 @@
 $card-title-color: #5B9BE1;
+$default-padding: 14px 12px 6px;
 
 .customer-view {
 
   &__content {
-    display: flex;
-    align-items: flex-start;
     padding: 10px;
 
     &--invisible {
       display: none;
     }
 
-    &__card {
-      margin: 5px;
-      padding: 18px;
-      box-sizing: border-box;
+    .column {
 
-      md-card-title {
-        display: flex;
-        margin-bottom: 0;
-        color: #5B9BE1;
-        font-size: 16px;
-        font-weight: 500;
-
-        md-icon {
-          height: 18px;
-          line-height: 18px;
-          vertical-align: middle;
-          font-size: 18px;
-        }
-
-        span {
-          vertical-align: middle;
-        }
+      &--small {
+        width: 24%;
       }
 
-      &__content {
-        display: flex;
+      &--medium {
+        width: 34%;
       }
 
-      &__column {
-        margin-right: 20px;
-        vertical-align: top;
-
-        &--last {
-          margin-left: auto;;
-          margin-right: 30px;
-        }
+      &--large {
+        width: 42%;
       }
+    }
+  }
 
-      &__item {
-        display: flex;
-        margin-top: 15px !important;
-        font-size: 12px;
+  &__card {
+    margin: 5px;
+    padding: 0;
+    box-sizing: border-box;
 
-        span:first-of-type {
-          margin-right: 5px;
-          font-weight: 500;
-          white-space: nowrap;
-        }
+    md-card-title {
+      position: relative;
+      margin-bottom: 0;
+      color: rgba(0, 0, 0, 0.4);
+      padding: $default-padding;
+      border-bottom: 1px solid rgba(0,0,0,0.2);
 
-        md-input {
-          margin: 0;
-
-          .md-input-wrapper {
-            margin: 0;
-          }
-        }
-      }
-
-      &__action {
-        margin-left: auto;
-        width: 12px;
-        height: 18px;
+      md-icon {
+        position: absolute;
+        right: 12px;
+        top: 16px;
+        width: 10px;
+        height: 20px;
+        line-height: 20px;
         vertical-align: middle;
-        font-size: 18px;
-        color: rgba(0,0,0,0.4);
+        font-size: 20px;
         cursor: pointer;
       }
 
-      &__actions {
-        margin-top: 20px;
-        display: flex;
+      .title {
+        margin-bottom: 5px;
+        font-size: 18px;
+        color: #5B9BE1;
+      }
+
+      .subtitle {
         font-size: 12px;
-
-        div {
-          cursor: pointer;
-
-          &:first-of-type {
-            margin: 0 10px 0 auto;
-          }
-
-          &:last-of-type {
-            color: $card-title-color;
-          }
-        }
       }
     }
 
-    .row {
-      display: flex;
+    md-card-content {
+      padding: 5px 12px 16px;
+    }
+
+    &__column {
       width: 50%;
 
-      &--inline {
-        font-size: 0;
+      &--first {
+        margin-right: 20px;
       }
+    }
 
-      &__small {
-        width: calc(20% - 10px);
-      }
-
-      &__medium {
-        width: 30%;
-      }
-
-      &__large {
+    &__address-row {
+      dropdown-component {
         width: 50%;
 
-        &--inline {
-          display: inline-block;
-          width: calc(50% - 10px);
-          vertical-align: top;
+        .dropdown-component {
+          min-width: 100%;
+        }
+      }
+
+      md-input-container {
+        width: 50%;
+        margin-left: 10px;
+      }
+    }
+
+    &__item {
+      display: flex;
+      margin-top: 15px !important;
+      font-size: 12px;
+
+      span:first-of-type {
+        margin-right: 5px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      md-input {
+        margin: 0;
+
+        .md-input-wrapper {
+          margin: 0;
         }
       }
     }
 
-    .column {
-      display: flex;
-      flex-wrap: wrap;
-      width: 50%;
-
-      &__small {
-        width: calc(35% - 10px);
-      }
-
-      &__medium {
-        width: calc(65% - 10px);
-      }
-
-      &__large {
-        width: 100%;
-      }
+    &__action {
+      margin-left: auto;
+      width: 12px;
+      height: 18px;
+      vertical-align: middle;
+      font-size: 18px;
+      color: rgba(0,0,0,0.4);
+      cursor: pointer;
     }
 
-    credit-card-input {
-      width: 50%;
-      max-width: 400px;
+    &__actions {
+      margin-top: 20px;
+      display: flex;
+      font-size: 12px;
+
+      div {
+        cursor: pointer;
+
+        &:first-of-type {
+          margin: 0 10px 0 auto;
+        }
+
+        &:last-of-type {
+          color: $card-title-color;
+        }
+      }
     }
   }
 
   &__edit {
+    max-width: 500px;
     margin-bottom: 100px;
     box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
     background: white;
 
     &__title {
-      padding: 15px;
+      padding: $default-padding;
       border-bottom: 1px solid rgba(0,0,0,0.14);
 
       &--main {
+        font-size: 18px;
         margin-bottom: 5px;
         color: $card-title-color;
       }
 
       &--sub {
         font-size: 12px;
-        color: rgba(0,0,0,0.6);
+        color: rgba(0,0,0,0.4);
       }
     }
 
@@ -284,6 +274,11 @@ $card-title-color: #5B9BE1;
       }
     }
   }
+
+  &__no-results {
+    border-top: 1px solid rgba(0,0,0,0.2);
+    padding: 12px;
+  }
 }
 
 .credit-cards {
@@ -331,101 +326,83 @@ $card-title-color: #5B9BE1;
 }
 
 customer-notes {
-  padding: 5px;
-  width: 100%;
-
   .notes {
-    margin: 0;
-    padding: 0;
-    min-height: 105px;
 
     &__container {
       overflow: auto;
-      max-height: 420px;
+      max-height: 300px;
     }
 
-    md-card-title {
-      padding: 18px;
+    md-card-content {
+      padding: 0;
     }
 
-    &__title {
-      background-color: #E8E8E8;
-      color: rgba(0,0,0,0.6);
-      padding: 5px 18px;
+    .note {
+      margin: 0;
+      padding: 0;
+      min-height: 105px;
 
-      md-icon {
-        margin: 0 5px 0 15px;
-        width: 16px;
-        height: 16px;
-        font-size: 16px;
-        vertical-align: middle;
-      }
+      &__title {
+        background-color: #E8E8E8;
+        color: rgba(0,0,0,0.6);
+        padding: 5px 18px;
 
-      &__label {
-        vertical-align: middle;
-        font-size: 12px;
-        font-weight: 400;
+        md-icon {
+          margin: 0 5px 0 15px;
+          width: 16px;
+          height: 16px;
+          font-size: 16px;
+          vertical-align: middle;
+        }
 
-        &--link {
+        &__label {
+          vertical-align: middle;
+          font-size: 12px;
+          font-weight: 400;
+
+          &--link {
+            cursor: pointer;
+            color: $card-title-color;
+          }
+        }
+
+        &__save {
+          float: right;
+          vertical-align: middle;
+          font-size: 12px;
+          font-weight: 400;
           cursor: pointer;
-          color: $card-title-color;
         }
       }
 
-      &__save {
-        float: right;
-        vertical-align: middle;
+      &__content {
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding: 12px 18px 24px;
         font-size: 12px;
-        font-weight: 400;
-        cursor: pointer;
+
+        span {
+          margin: 0 20px;
+        }
+
+        img {
+          height: 40px;
+        }
+
+        &__action {
+          position: absolute;
+          top: 20px;
+          right: 12px;
+          color: rgba(0,0,0,0.4);
+          cursor: pointer;
+        }
       }
     }
 
-    &__content {
-      position: relative;
-      display: flex;
-      align-items: center;
-      padding: 12px 18px 24px;
-      font-size: 12px;
-
-      span {
-        margin: 0 20px;
-      }
-
-      img {
-        height: 40px;
-      }
-
-      &__action {
-        position: absolute;
-        top: 20px;
-        right: 12px;
-        color: rgba(0,0,0,0.4);
-        cursor: pointer;
-      }
-    }
-
-    &__button {
-      position: absolute;
-      top: 67px;
-      right: 10px;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-      background-color: #4A90E2;
-      color: white;
-      z-index: 1;
-      cursor: pointer;
-
-      md-icon {
-        position: absolute;
-        top: 6px;
-        left: 6px;
-        width: 16px;
-        font-size: 16px;
-        height: 16px;
-      }
+    md-card-title {
+      padding: $default-padding;
+      border-bottom: none;
     }
 
     &__new {
@@ -468,20 +445,15 @@ customer-notes {
 
 customer-events {
   padding: 5px;
-  width: 100%;
+  width: 50%;
 
   .events {
     margin: 0;
-    padding: 0;
 
     &__container {
       padding-bottom: 20px;
       max-height: 420px;
       overflow: auto;
-    }
-
-    md-card-title {
-      padding: 18px;
     }
 
     &__title {
@@ -527,6 +499,26 @@ customer-events {
       img {
         height: 40px;
       }
+    }
+  }
+}
+
+.customer-transactions {
+
+  &__title-container {
+    padding: 6px 2px 0;
+
+    .title {
+      font-weight: 400;
+      font-size: 16px;
+      color: $card-title-color;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(0,0,0,0.4);
     }
   }
 }

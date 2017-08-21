@@ -1,6 +1,9 @@
 <div class="entity-view__table-component">
-  <div class="entity-view__table-component__header">
-    <div class="entity-view__table-component__header__title">HISTORICAL TRANSACTIONS</div>
+  <div style="padding-bottom: 6px;" class="entity-view__table-component__header">
+    <div class="customer-transactions__title-container">
+      <div class="title">Historical Transactions</div>
+      <div class="subtitle">Completed transactions</div>
+    </div>
     <md-input class="entity-view__table-component__header__filter" placeholder="Filter" [(ngModel)]="filterValue"></md-input>
     <table-pagination
       [limit]="limit"

@@ -10,6 +10,7 @@ import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {Rebill} from '../../../shared/models/rebill.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {getPhoneNumberMask} from '../../../shared/utils/mask.utils';
+import {getStates} from '../../../shared/utils/address.utils';
 
 @Component({
   selector: 'customer-view',
@@ -29,6 +30,8 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
 
   rebillEditMode: boolean = false;
   rebillUnderEdit: Rebill;
+
+  states: string[] = getStates();
 
   constructor(
     service: CustomersService,

@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../authentication.service';
-import {User} from '../../shared/models/user.model';
-import {Address} from '../../shared/models/address.model';
-import {CreditCard} from '../../shared/models/credit-card.model';
 import {ActivatedRoute, Router} from '@angular/router';
-import {getStates} from '../../shared/utils/address.utils';
 
 @Component({
   selector: 'c-registration',
@@ -19,9 +15,7 @@ export class RegistrationComponent implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthenticationService,
     private router: Router
-  ) {
-
-  }
+  ) { }
 
   ngOnInit() {
     this.route.queryParams.take(1).subscribe(params => this.redirectUrl = params['redirect']);

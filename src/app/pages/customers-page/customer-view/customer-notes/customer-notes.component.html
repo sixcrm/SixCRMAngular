@@ -1,5 +1,13 @@
-<md-card class="customer-view__content__card notes column__large">
-  <md-card-title>NOTES</md-card-title>
+<md-card class="customer-view__card notes">
+  <md-card-title>
+    <div class="title">Notes</div>
+    <div class="subtitle">Customer service notes</div>
+
+    <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
+    <md-menu #creditCardOptions="mdMenu" x-position="before">
+      <button md-menu-item (click)="newNote()"> Add New Note </button>
+    </md-menu>
+  </md-card-title>
   <md-card-content>
     <div *ngIf="showNewNote" class="notes__new">
       <md-textarea [(ngModel)]="note"></md-textarea>
@@ -17,18 +25,18 @@
          [scrollWindow]="false"
          (scrolled)="onScroll()">
 
-      <div class="notes" *ngFor="let n of notes">
-        <div class="notes__title">
-          <span class="notes__title__label notes__title__label--link" [routerLink]="['/users', n.user.id]">{{n.user.name}}</span>
+      <div class="note" *ngFor="let n of notes">
+        <div class="note__title">
+          <span class="note__title__label note__title__label--link" [routerLink]="['/users', n.user.id]">{{n.user.name}}</span>
           <md-icon>date_range</md-icon>
           <span class="notes__title__label">{{n.createdAt | formatDateTime}}</span>
           <md-icon>query_builder</md-icon>
-          <span class="notes__title__label">{{n.createdAt | formatDateTime: 'time'}}</span>
+          <span class="note__title__label">{{n.createdAt | formatDateTime: 'time'}}</span>
         </div>
-        <div class="notes__content">
+        <div class="note__content">
           <div><img src="assets/images/alert-icon.svg"></div>
           <span>{{n.body}}</span>
-          <md-icon class="notes__content__action" [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
+          <md-icon class="note__content__action" [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
 
           <md-menu #actionsMenu="mdMenu" x-position="before">
             <button md-menu-item (click)="deleteEntity(n.id)">delete</button>
@@ -37,9 +45,8 @@
       </div>
 
       <md-spinner class="entity-view__spinner" *ngIf="loadingData"></md-spinner>
-      <div class="entity-view__no-results" *ngIf="!loadingData && (!notes || notes.length === 0)">No customer notes found</div>
+      <div class="entity-view__no-results customer-view__no-results" *ngIf="!loadingData && (!notes || notes.length === 0)">No customer notes found</div>
     </div>
 
-    <div *ngIf="!showNewNote" class="notes__button" (click)="newNote()"><md-icon>add</md-icon></div>
   </md-card-content>
 </md-card>

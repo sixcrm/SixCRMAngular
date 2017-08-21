@@ -8,6 +8,9 @@ export class CreditCard implements Entity<CreditCard> {
   ccv: string;
   name: string;
   address: Address;
+  type: string;
+  expirationFormatted: string;
+  maskedNumber: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -20,6 +23,9 @@ export class CreditCard implements Entity<CreditCard> {
     this.ccv = obj.ccv || '';
     this.name = obj. name || '';
     this.address = new Address(obj.address);
+    this.type = this.getType().toUpperCase();
+    this.expirationFormatted = this.formatExpiration();
+    this.maskedNumber = this.maskNumber();
   }
 
   copy(): CreditCard {
@@ -61,5 +67,17 @@ export class CreditCard implements Entity<CreditCard> {
     }
 
     return 'other';
+  }
+
+  private formatExpiration() {
+    if (!this.expiration || this.expiration.length !== 4) return this.expiration;
+
+    return this.expiration.substr(0, 2) + '/' + this.expiration.substr(2, 4);
+  }
+
+  private maskNumber() {
+    if (this.ccnumber.length < 4) return Array(this.ccnumber.length).join('*');
+
+    return Array(this.ccnumber.length - 4).join('*') + this.ccnumber.substr(this.ccnumber.length - 4, this.ccnumber.length);
   }
 }

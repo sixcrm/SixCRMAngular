@@ -17,7 +17,7 @@ export class CreditCardInputComponent implements OnInit {
   months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
   years = ['2017','2018','2019','2020','2021','2022','2023','2024','2025','2026','2027'];
 
-  private states: string[] = getStates();
+  states: string[] = getStates();
 
   @Input() set creditCard(ccard: CreditCard) {
     if (ccard) {

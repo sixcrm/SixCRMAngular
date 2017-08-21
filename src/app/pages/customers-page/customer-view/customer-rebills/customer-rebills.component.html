@@ -1,7 +1,10 @@
 <div class="entity-view__table-component" [class.entity-view__table-component--homepage]="homepageMode">
-  <div class="entity-view__table-component__header">
+  <div style="padding-bottom: 6px;" class="entity-view__table-component__header">
     <div class="entity-view__table-component__header__title">
-      <span>UPCOMING TRANSACTIONS</span>
+      <div class="customer-transactions__title-container">
+        <div class="title">Upcoming Billings</div>
+        <div class="subtitle">Future rebills and upcoming transactions</div>
+      </div>
     </div>
 
     <md-input *ngIf="!homepageMode" class="entity-view__table-component__header__filter" placeholder="Filter" [(ngModel)]="filterValue"></md-input>
