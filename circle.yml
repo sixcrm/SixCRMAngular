@@ -55,5 +55,8 @@ deployment:
       # Add/Update CloudFront Distribution
       - node deployment/deploy-cloudfront.js admin.sixcrm.com
 
+      # Run e2e tests before propagation
+      - npm run e2e
+
       # Promote changes
       - node ./deployment/merge-branches.js
