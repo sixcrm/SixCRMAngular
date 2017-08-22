@@ -56,6 +56,7 @@ deployment:
       - node deployment/deploy-cloudfront.js admin.sixcrm.com
 
       # Run e2e tests before propagation
+      - npm run webdriver-update
       - npm run e2e.dev
 
       # Promote changes

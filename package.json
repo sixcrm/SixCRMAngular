@@ -16,7 +16,8 @@
     "e2e.dev": "protractor --baseUrl='https://development-admin.sixcrm.com'",
     "e2e.stage": "protractor --baseUrl='https://staging-admin.sixcrm.com'",
     "e2e.prod": "protractor --baseUrl='https://admin.sixcrm.com'",
-    "e2e-custom": "ng e2e"
+    "e2e-custom": "ng e2e",
+    "webdriver-update": "webdriver-manager update"
   },
   "repository": {
     "url": "",
