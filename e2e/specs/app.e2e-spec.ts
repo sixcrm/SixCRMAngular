@@ -18,10 +18,4 @@ describe('App load', function() {
 
     expectPresent(authPage.getAuthComponent());
   });
-
-  it('should load Auth0 Lock', () => {
-    authPage.navigateTo();
-
-    expectPresent(authPage.getAuth0Lock());
-  });
 });
