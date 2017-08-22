@@ -37,6 +37,15 @@ md-input {
 .error {
   color: $error-color;
 
+  .dropdown-component__text {
+    color: $error-color;
+    border-color: $error-color
+  }
+
+  .dropdown-component__options {
+    color: black;
+  }
+
   label {
     color: $error-color;
   }

@@ -45,7 +45,7 @@
       </div>
 
       <md-spinner class="entity-view__spinner" *ngIf="loadingData"></md-spinner>
-      <div class="entity-view__no-results customer-view__no-results" *ngIf="!loadingData && (!notes || notes.length === 0)">No customer notes found</div>
+      <div class="entity-view__no-results customer-view__no-results entity-view__no-results--small-padding" *ngIf="!loadingData && (!notes || notes.length === 0)">No customer notes found</div>
     </div>
 
   </md-card-content>

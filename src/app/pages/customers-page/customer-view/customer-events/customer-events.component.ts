@@ -20,8 +20,6 @@ export class CustomerEventsComponent implements OnInit, OnDestroy {
   hasMore: boolean;
   loadingData: boolean = false;
 
-  activities: Activity[] = [];
-
   isEmpty: boolean = false;
 
   activitiesByDate: EntitiesByDate<Activity>[] = [
@@ -44,7 +42,11 @@ export class CustomerEventsComponent implements OnInit, OnDestroy {
       this.arrangeActivities(activities);
     });
 
-    this.fetch();
+    if (this.customer.id) {
+      this.fetch();
+    } else {
+      this.isEmpty = true;
+    }
   }
 
   fetch(): void {

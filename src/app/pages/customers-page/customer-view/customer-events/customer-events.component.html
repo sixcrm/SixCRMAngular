@@ -34,7 +34,7 @@
       </div>
 
       <md-spinner class="entity-view__spinner" *ngIf="loadingData"></md-spinner>
-      <div class="entity-view__no-results" *ngIf="!loadingData && isEmpty">No customer events found</div>
+      <div class="entity-view__no-results entity-view__no-results--small-padding" *ngIf="!loadingData && isEmpty">No customer events found</div>
     </div>
   </md-card-content>
 </md-card>

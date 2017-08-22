@@ -40,7 +40,7 @@ export class CustomerTransactionsComponent extends AbstractEntityIndexComponent<
 
   ngOnInit() {
     this.service.indexQuery = (limit?: number, cursor?: string) => transactionsByCustomer(this.id, limit, cursor);
-    this.init();
+    this.init(!!this.id);
   }
 
   ngOnDestroy() {

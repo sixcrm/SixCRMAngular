@@ -22,7 +22,6 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
 
   mask = getPhoneNumberMask();
 
-  addressEditMode: boolean = false;
   creditCardInputMode: boolean = false;
   creditCardForInput: CreditCard;
 
@@ -32,6 +31,8 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
   rebillUnderEdit: Rebill;
 
   states: string[] = getStates();
+
+  formInvalid: boolean = false;
 
   constructor(
     service: CustomersService,
@@ -43,12 +44,16 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
   }
 
   ngOnInit() {
+    this.init(() => this.navigation.goToNotFoundPage());
+
     this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(() => {
       this.customerInfoEditMode = false;
-      this.addressEditMode = false;
     });
 
-    this.init(() => this.navigation.goToNotFoundPage());
+    if (this.addMode) {
+      this.entity = new Customer();
+      this.entityBackup = this.entity.copy();
+    }
   }
 
   getPhoneNumber(): string {
@@ -62,7 +67,6 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
   }
 
   cancelAddressUpdate() {
-    this.addressEditMode = false;
     this.cancelUpdate();
   }
 
@@ -136,4 +140,10 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
     return this.entity.createdAt.clone().isSame(this.entity.updatedAt);
   }
 
+  saveCustomer(formValid) {
+    this.formInvalid = !formValid || !this.entity.address.country || !this.entity.address.state;
+    if (this.formInvalid) return;
+
+    this.saveOrUpdate(this.entity);
+  }
 }

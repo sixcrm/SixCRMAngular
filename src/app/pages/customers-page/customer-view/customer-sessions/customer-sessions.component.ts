@@ -35,7 +35,8 @@ export class CustomerSessionsComponent extends AbstractEntityIndexComponent<Sess
 
   ngOnInit() {
     this.service.indexQuery = (limit?: number, cursor?: string) => sessionsByCustomer(this.id, limit, cursor);
-    this.init();
+
+    this.init(!!this.id);
   }
 
   ngOnDestroy() {

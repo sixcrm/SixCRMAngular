@@ -47,7 +47,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     protected activatedRoute?: ActivatedRoute
   ) { }
 
-  init(): void {
+  init(fetch: boolean = true): void {
     this.service.entities$.takeUntil(this.unsubscribe$).subscribe((entities: T[]) => {
       if (!this.loadingData) return;
 
@@ -75,8 +75,10 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
     this.service.resetPagination();
 
-    this.loadingData = true;
-    this.service.getEntities(this.limit);
+    if (fetch) {
+      this.loadingData = true;
+      this.service.getEntities(this.limit);
+    }
   }
 
   destroy(): void {

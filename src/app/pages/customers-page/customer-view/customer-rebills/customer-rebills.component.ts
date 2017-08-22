@@ -39,7 +39,8 @@ export class CustomerRebillsComponent extends AbstractEntityIndexComponent<Rebil
 
   ngOnInit() {
     this.service.indexQuery = (limit?: number, cursor?: string) => rebillsByCustomer(this.id, limit, cursor);
-    this.init();
+
+    this.init(!!this.id);
   }
 
   ngOnDestroy() {

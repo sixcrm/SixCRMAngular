@@ -50,7 +50,7 @@ export class CustomerNotesComponent extends AbstractEntityIndexComponent<Custome
       this.deleteNoteLocally(note);
     });
 
-    this.init();
+    this.init(!!this.customerId);
   }
 
   onScroll(): void {
