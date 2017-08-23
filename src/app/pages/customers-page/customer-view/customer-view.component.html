@@ -34,7 +34,7 @@
 
           <div class="entity-view__info__data__other__item">
             <md-icon>email</md-icon>
-            <md-input-container [class.error]="formInvalid && !userDataForm.form.controls.email.valid" *ngIf="!viewMode; else emailNoEdit">
+            <md-input-container style="width: 200px;" [class.error]="formInvalid && !userDataForm.form.controls.email.valid" *ngIf="!viewMode; else emailNoEdit">
               <input required md-input name="email" type="text" [(ngModel)]="entity.email">
             </md-input-container>
             <ng-template #emailNoEdit><span>{{entity.email}}</span></ng-template>
@@ -72,7 +72,7 @@
 
                 <form #addressDataForm="ngForm">
                   <md-input-container>
-                    <input required disabled md-input name="fullName" placeholder="Full Name" [(ngModel)]="entity.firstName">
+                    <input required disabled md-input name="fullName" placeholder="Full Name" [(ngModel)]="entity.fullName">
                   </md-input-container>
                   <md-input-container [class.error]="formInvalid && !addressDataForm.form.controls.address.valid">
                     <input required [disabled]="viewMode" md-input name="address" placeholder="Address" [(ngModel)]="entity.address.line1">
@@ -99,79 +99,7 @@
               </md-card-content>
             </md-card>
 
-            <md-card *ngIf="entity.creditCards && entity.creditCards.length !== 1" class="customer-view__card credit-cards column--medium">
-              <md-card-title class="credit-cards__title">
-                <div class="title">Billing Information</div>
-                <div class="subtitle">Billing address & credit card information</div>
-                <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
-                <md-menu #creditCardOptions="mdMenu" x-position="before">
-                  <button md-menu-item (click)="addNewCreditCard()"> Add Credit Card </button>
-                </md-menu>
-              </md-card-title>
-              <md-card-content>
-                <div *ngFor="let cc of entity.creditCards" class="credit-cards__item">
-                  <img src="/assets/images/credit-card-notification.svg">
-
-                  <div class="credit-cards__item__column">
-                    <span>{{cc.name}}</span>
-                    <span>{{cc.getType() | uppercase}} {{cc.ccnumber | creditCardFormat: true}}</span>
-                  </div>
-
-                  <span class="credit-cards__item__expiration">Exp: {{cc.expiration | creditCardExpiration}}</span>
-                  <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
-                  <md-menu #creditCardOptions="mdMenu" x-position="before">
-                    <button md-menu-item (click)="editCreditCard(cc)"> Edit Credit Card </button>
-                    <button md-menu-item (click)="deleteCreditCard(cc)"> Remove Credit Card </button>
-                  </md-menu>
-                </div>
-
-                <div class="entity-view__no-results entity-view__no-results--small-padding" *ngIf="!entity.creditCards || entity.creditCards.length === 0">No credit cards found</div>
-              </md-card-content>
-            </md-card>
-
-            <md-card *ngIf="entity.creditCards && entity.creditCards.length === 1" class="customer-view__card column--medium">
-              <md-card-title>
-                <div class="title">Billing Information</div>
-                <div class="subtitle">Billing address & credit card information</div>
-                <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
-                <md-menu #creditCardOptions="mdMenu" x-position="before">
-                  <button md-menu-item (click)="addNewCreditCard()"> Add Credit Card </button>
-                  <button md-menu-item (click)="editCreditCard(entity.creditCards[0])"> Edit Credit Card </button>
-                </md-menu>
-              </md-card-title>
-              <md-card-content class="flex-custom">
-                <div class="customer-view__card__column customer-view__card__column--first">
-                  <md-input-container>
-                    <input disabled md-input placeholder="Address" [(ngModel)]="entity.creditCards[0].address.line1">
-                  </md-input-container>
-                  <md-input-container>
-                    <input disabled md-input placeholder="City" [(ngModel)]="entity.creditCards[0].address.city">
-                  </md-input-container>
-
-                  <div class="flex-custom customer-view__card__address-row">
-                    <dropdown-component [disabled]="true" [selected]="entity.creditCards[0].address.state" [placeholder]="'State'" [options]="states"></dropdown-component>
-                    <md-input-container>
-                      <input disabled md-input placeholder="Postal Code" [(ngModel)]="entity.creditCards[0].address.zip">
-                    </md-input-container>
-                  </div>
-                  <dropdown-component [disabled]="true" [selected]="entity.creditCards[0].address.country" [placeholder]="'Country'" [options]="['USA']"></dropdown-component>
-                </div>
-                <div class="customer-view__card__column">
-                  <md-input-container>
-                    <input disabled md-input placeholder="Name" [(ngModel)]="entity.creditCards[0].name">
-                  </md-input-container>
-                  <md-input-container>
-                    <input disabled md-input placeholder="Type" [(ngModel)]="entity.creditCards[0].type">
-                  </md-input-container>
-                  <md-input-container>
-                    <input disabled md-input placeholder="Type" [(ngModel)]="entity.creditCards[0].maskedNumber">
-                  </md-input-container>
-                  <md-input-container>
-                    <input disabled md-input placeholder="Expiration" [(ngModel)]="entity.creditCards[0].expirationFormatted">
-                  </md-input-container>
-                </div>
-              </md-card-content>
-            </md-card>
+            <customer-credit-card-view class="column--medium" [creditCards]="entity.creditCards" (addCreditCard)="addNewCreditCard()" (editCreditCard)="editCreditCard($event)" (deleteCreditCard)="deleteCreditCard($event)"></customer-credit-card-view>
 
             <customer-notes class="column--large" [customerId]="entityId"></customer-notes>
           </div>

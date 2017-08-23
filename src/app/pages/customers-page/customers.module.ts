@@ -21,6 +21,7 @@ import {Daterangepicker} from 'ng2-daterangepicker';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import { SingleEventComponent } from './customer-view/customer-events/single-event/single-event.component';
 import { CustomerAddNewComponent } from './customer-view/customer-add-new/customer-add-new.component';
+import { CustomerCreditCardViewComponent } from './customer-view/customer-credit-card-view/customer-credit-card-view.component';
 
 @NgModule({
   imports : [
@@ -46,7 +47,8 @@ import { CustomerAddNewComponent } from './customer-view/customer-add-new/custom
     CustomerFulfillmentComponent,
     CustomerRebillEditComponent,
     SingleEventComponent,
-    CustomerAddNewComponent
+    CustomerAddNewComponent,
+    CustomerCreditCardViewComponent
   ],
   exports : [ ],
   providers: [

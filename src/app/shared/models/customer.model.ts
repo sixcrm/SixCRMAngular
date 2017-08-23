@@ -13,6 +13,7 @@ export class Customer implements Entity<Customer> {
   updatedAt: Moment;
   address: Address;
   creditCards: CreditCard[] = [];
+  fullName: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -23,6 +24,7 @@ export class Customer implements Entity<Customer> {
     this.email = obj.email || '';
     this.firstName = obj.firstname || '';
     this.lastName = obj.lastname || '';
+    this.fullName = `${this.firstName} ${this.lastName}`.trim();
     this.phone = obj.phone || '';
     this.address = new Address(obj.address);
     this.createdAt = utc(obj.created_at);
