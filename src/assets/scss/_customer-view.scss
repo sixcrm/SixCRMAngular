@@ -226,13 +226,18 @@ $default-padding: 14px 12px 6px;
     }
 
     &__address {
+      margin-top: 20px;
       display: flex;
       flex-direction: column;
       padding: 0 20px 20px 20px;
       font-size: 14px;
 
+      md-checkbox {
+        margin-left: auto;
+        color: rgba(0,0,0,0.6);
+      }
+
       &__title {
-        margin-top: 15px;
         font-size: 18px;
         color: $card-title-color;
       }
@@ -327,6 +332,7 @@ $default-padding: 14px 12px 6px;
 }
 
 .credit-cards {
+  width: 100%;
   padding: 0;
 
   &__title {

@@ -99,7 +99,7 @@
               </md-card-content>
             </md-card>
 
-            <customer-credit-card-view class="column--medium" [creditCards]="entity.creditCards" (addCreditCard)="addNewCreditCard()" (editCreditCard)="editCreditCard($event)" (deleteCreditCard)="deleteCreditCard($event)"></customer-credit-card-view>
+            <customer-credit-card-view class="flex-custom column--medium" [creditCards]="entity.creditCards" (addCreditCard)="addNewCreditCard()" (editCreditCard)="editCreditCard($event)" (deleteCreditCard)="deleteCreditCard($event)"></customer-credit-card-view>
 
             <customer-notes class="column--large" [customerId]="entityId"></customer-notes>
           </div>
@@ -113,6 +113,7 @@
         <div [class.customer-view__content--invisible]="!creditCardInputMode" class="customer-view__content">
           <credit-card-input
             [creditCard]="creditCardForInput"
+            [defaultAddress]="entity.address"
             (cancel)="cancelCreditCardInput()"
             (updated)="creditCardUpdated($event)"
             (created)="creditCardCreated($event)">

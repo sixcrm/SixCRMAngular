@@ -2,6 +2,7 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {CreditCard} from '../../../../shared/models/credit-card.model';
 import {CreditCardsService} from '../../../../shared/services/credit-cards.service';
 import {getStates} from '../../../../shared/utils/address.utils';
+import {Address} from '../../../../shared/models/address.model';
 
 @Component({
   selector: 'credit-card-input',
@@ -19,17 +20,18 @@ export class CreditCardInputComponent implements OnInit {
 
   states: string[] = getStates();
 
+  backupAddress: Address;
+
   @Input() set creditCard(ccard: CreditCard) {
     if (ccard) {
       this.ccard = ccard;
-
       if (this.ccard.expiration) {
         this.expirationMonth = this.ccard.expiration.substr(0, 2);
         this.expirationYear = '20' + this.ccard.expiration.substr(2, 4);
       }
     }
   };
-
+  @Input() defaultAddress: Address;
   @Output() updated: EventEmitter<CreditCard> = new EventEmitter();
   @Output() created: EventEmitter<CreditCard> = new EventEmitter();
   @Output() cancel: EventEmitter<boolean> = new EventEmitter();
@@ -68,6 +70,15 @@ export class CreditCardInputComponent implements OnInit {
 
   selectYear(year: string): void {
     this.expirationYear = year;
+  }
+
+  toggleSameShippingAddress(value) {
+    if (value.checked) {
+      this.backupAddress = this.ccard.address;
+      this.ccard.address = this.defaultAddress;
+    } else  {
+      this.ccard.address = this.backupAddress;
+    }
   }
 
 }
