@@ -2,6 +2,7 @@ export class MerchantProviderCustomerService {
   url: string;
   description: string;
   email: string;
+  phone: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -11,6 +12,7 @@ export class MerchantProviderCustomerService {
     this.url = obj.url || '';
     this.description = obj.description || '';
     this.email = obj.email || '';
+    this.phone = obj.phone || '';
   }
 
   copy(): MerchantProviderCustomerService {
@@ -21,7 +23,8 @@ export class MerchantProviderCustomerService {
     return {
       url: this.url,
       description: this.description,
-      email: this.email
+      email: this.email,
+      phone: this.phone
     }
   }
 }

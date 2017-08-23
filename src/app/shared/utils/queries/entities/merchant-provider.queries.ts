@@ -53,7 +53,7 @@ export function merchantProviderResponseQuery(): string {
       transaction_counts { daily weekly monthly }
     }
     gateway { name username password endpoint additional }
-    customer_service { email url description }`
+    customer_service { email url description phone }`
 }
 
 export function merchantProviderInfoResponseQuery(): string {
@@ -94,6 +94,7 @@ export function merchantProviderInputQuery(provider: MerchantProvider, includeId
       ${provider.customerService.email ? `email: "${provider.customerService.email}",` : ''}
       ${provider.customerService.url ? `url: "${provider.customerService.url}",` : ''}
       ${provider.customerService.description ? `description: "${provider.customerService.description.replace(/"/g, '\\"')}",` : ''}
+      ${provider.customerService.phone ? `phone: "${provider.customerService.phone}",` : ''}
     }
   `;
 }

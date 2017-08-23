@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {LoadBalancer} from '../../../shared/models/load-balancer.model';
+import {getPhoneNumberMask} from '../../../shared/utils/mask.utils';
 
 @Component({
   selector: 'merchant-provider-view',
@@ -21,6 +22,8 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
 
   loadBalancerColumnParams = [new ColumnParams('ID', (e: LoadBalancer) => e.id)];
   loadBalancerMapper = (l: LoadBalancer) => l.id;
+
+  mask = getPhoneNumberMask();
 
   constructor(service: MerchantProvidersService, route: ActivatedRoute, public navigation: NavigationService) {
     super(service, route);
