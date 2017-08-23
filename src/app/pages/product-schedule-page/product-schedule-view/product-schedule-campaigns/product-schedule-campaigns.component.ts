@@ -50,7 +50,7 @@ export class ProductScheduleCampaignsComponent extends AbstractEntityIndexCompon
 
   ngOnInit() {
     this.service.indexQuery = (limit?: number, cursor?: string) => campaignsByProductSchedule(this.id, limit, cursor);
-    this.init();
+    this.init(!!this.id);
   }
 
   ngOnDestroy() {
