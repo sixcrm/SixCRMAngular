@@ -7,3 +7,7 @@ export function getStates(): string[] {
     'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
   ];
 }
+
+export function getCountries(): string[] {
+  return ['USA'];
+}
