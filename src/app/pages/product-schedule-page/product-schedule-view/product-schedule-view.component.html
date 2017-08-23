@@ -72,11 +72,11 @@
             <div class="flex-custom" style="z-index: 2">
               <autocomplete-input class="profile-page__content__general__data__dropdown"
                                   [class.error]="formInvalid && !scheduleToAdd.product.id"
-                                  [initialValue]="scheduleToAdd.product.name"
+                                  [mapFunction]="productMapper"
+                                  [initialValue]="scheduleToAdd.product"
                                   [options]="productsService.entities$ | async"
                                   [placeholder]="'Product Name'"
                                   [showCancelButton]="false"
-                                  [mapFunction]="productMapper"
                                   [required]="true"
                                   (selected)="scheduleToAdd.product = $event">
               </autocomplete-input>

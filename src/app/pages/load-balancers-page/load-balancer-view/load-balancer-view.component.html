@@ -38,11 +38,11 @@
 
           <autocomplete-input style="font-size: 14px;"
                               [class.error]="formInvalid && !providerToAdd.merchantProvider.id"
-                              [initialValue]="providerToAdd.merchantProvider.name"
+                              [mapFunction]="merchantProviderMapper"
+                              [initialValue]="providerToAdd.merchantProvider"
                               [options]="merchantProviderService.entities$ | async"
                               [placeholder]="'Merchant Provider'"
                               [showCancelButton]="false"
-                              [mapFunction]="merchantProviderMapper"
                               [required]="true"
                               (selected)="providerToAdd.merchantProvider = $event">
           </autocomplete-input>

@@ -179,7 +179,7 @@ dropdown-component {
     overflow: auto;
     background: #fff;
     color: black;
-    z-index: 1;
+    z-index: 10;
 
     &__item {
       padding: 5px 10px;
@@ -188,6 +188,10 @@ dropdown-component {
       &:hover {
         background: rgba(0,0,0,0.05);
       }
+    }
+
+    .focused {
+      background-color: rgba(0,0,0,0.2);
     }
   }
 }

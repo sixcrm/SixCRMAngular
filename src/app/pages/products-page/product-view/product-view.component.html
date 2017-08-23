@@ -60,7 +60,7 @@
 
             <autocomplete-input class="product-autocomplete-input"
                                 [class.error]="formInvalid && (!entity.fulfillmentProvider || !entity.fulfillmentProvider.id) && entity.ship === 'true'"
-                                [initialValue]="entity.fulfillmentProvider.name"
+                                [initialValue]="entity.fulfillmentProvider"
                                 [placeholder]="'Fulfillment Provider'"
                                 [options]="fulfillmentProvidersService.entities$ | async"
                                 [showCancelButton]="false"

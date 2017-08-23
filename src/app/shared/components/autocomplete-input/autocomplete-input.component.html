@@ -1,14 +1,16 @@
 <div class="default-autocomplete-input">
   <div class="default-autocomplete-input__input">
     <md-input-container>
-      <input #input md-input [required]="required" [disabled]="disabled" placeholder="{{placeholder}}" type="text" (focus)="showOptions = true" [(ngModel)]="currentValue">
+      <input #input md-input autocomplete=off (ngModelChange)="change($event)" [ngModel]="currentValue" (keydown)="onKey($event)" [required]="required" (blur)="blurred()" (focus)="focused()" (click)="focused()" [disabled]="disabled" placeholder="{{placeholder}}" type="text">
     </md-input-container>
     <md-icon *ngIf="showCancelButton" (click)="clearCurrentValue(input)">cancel</md-icon>
   </div>
-  <div class="default-autocomplete-input__options" *ngIf="showOptions && (options | filterStrings : currentValue: mapFunction).length > 0">
-    <div class="default-autocomplete-input__options__item"
-         *ngFor="let option of options | filterStrings : currentValue : mapFunction"
-         (click)="optionSelected(option)">
+  <div #optionsContainer class="default-autocomplete-input__options" *ngIf="showOptions && filteredOptions.length > 0">
+    <div #autocompleteOption
+         class="default-autocomplete-input__options__item"
+         *ngFor="let option of filteredOptions; let i = index;"
+         (click)="optionSelected(option)"
+         [class.focused]="focusedOptionIndex === i">
       {{mapFunction(option)}}
     </div>
   </div>
