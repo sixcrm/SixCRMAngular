@@ -7,6 +7,11 @@ export class FulfillmentProvider implements Entity<FulfillmentProvider> {
   username: string;
   password: string;
   endpoint: string;
+  threePLKey: string;
+  facilityId: string;
+  threePLId: string;
+  customerId: string;
+  returnAddress: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -19,6 +24,11 @@ export class FulfillmentProvider implements Entity<FulfillmentProvider> {
     this.username = obj.username || '';
     this.password = obj.password || '';
     this.endpoint = obj.endpoint || '';
+    this.threePLKey = obj.threepl_kye || '';
+    this.facilityId = obj.facility_id || '';
+    this.threePLId = obj.threepl_id || '';
+    this.returnAddress = obj.return_address || '';
+    this.customerId = obj.customer_ic || '';
   }
 
   copy(): FulfillmentProvider {

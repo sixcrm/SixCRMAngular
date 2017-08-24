@@ -47,11 +47,18 @@ export function updateFulfillmentProviderMutation(provider: FulfillmentProvider)
 }
 
 export function fulfillmentProviderResponseQuery(): string {
-  return `id name username password endpoint provider`;
+  return `id name username password endpoint provider threepl_key facility_id threepl_id customer_id return_address,`;
 }
 
 export function fulfillmentProviderInputQuery(provider: FulfillmentProvider, includeId?: boolean): string {
   if (!provider.id) provider.id = generateUUID();
 
-  return `${addId(provider.id, includeId)}, name: "${provider.name}", username: "${provider.username}", password: "${provider.password}", endpoint: "${provider.endpoint}", provider: "${provider.provider}"`;
+  const endpoint = provider.endpoint ? `, endpoint: "${provider.endpoint}"` : '';
+  const threePLId = provider.threePLId ? `, threepl_id: "${provider.threePLId}"` : '';
+  const facilityId = provider.facilityId ? `, facility_id: "${provider.facilityId}"` : '';
+  const threePLKey = provider.threePLKey ? `, threepl_key: "${provider.threePLKey}"` : '';
+  const customerId = provider.customerId ? `, customer_id: "${provider.customerId}"` : '';
+  const returnAddress = provider.returnAddress ? `, return_address: "${provider.returnAddress}"` : '';
+
+  return `${addId(provider.id, includeId)}, name: "${provider.name}", username: "${provider.username}", password: "${provider.password}", provider: "${provider.provider}"${endpoint}${threePLId}${threePLKey}${facilityId}${customerId}${returnAddress}`;
 }
