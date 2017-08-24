@@ -116,7 +116,8 @@
                     [associationEnabled]="false"
                     [columnParams]="scheduleColumnParams"
                     [associateDataMapper]="scheduleMapper"
-                    (disassociate)="disassociateSchedule($event)">
+                    (disassociate)="disassociateSchedule($event)"
+                    (view)="navigateToProduct($event)">
       </table-memory>
 
     </md-tab>

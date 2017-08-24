@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {ProductScheduleService} from '../../../shared/services/product-schedule.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {Schedule} from '../../../shared/models/schedule.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
@@ -44,7 +44,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     route: ActivatedRoute,
     public navigation: NavigationService,
     public authService: AuthenticationService,
-    public productsService: ProductsService
+    public productsService: ProductsService,
+    private router: Router
   ) {
     super(service, route);
   }
@@ -137,6 +138,10 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
 
     this.scheduleToAdd.start = this.scheduleToAdd.start || 0;
     this.scheduleToAdd.end = +this.scheduleToAdd.start + +this.scheduleToAdd.period;
+  }
+
+  navigateToProduct(schedule: Schedule) {
+    this.router.navigate(['products', schedule.product.id])
   }
 
 }
