@@ -144,4 +144,9 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     this.router.navigate(['products', schedule.product.id])
   }
 
+  addProductToSchedule(product: Product): void {
+    this.scheduleToAdd.product = product;
+    this.price = product.defaultPrice.amount + '';
+  }
+
 }
