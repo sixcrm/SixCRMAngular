@@ -33,13 +33,13 @@
   </div>
 
   <div class="flex-custom">
-    <autocomplete-input [class.error]="formInvalid && !customer.address.state" [required]="true" [initialValue]="customer.address.state" [placeholder]="'State'" [showCancelButton]="false" [options]="states" (selected)="customer.address.state = $event"></autocomplete-input>
+    <autocomplete-input [class.error]="formInvalid && !customer.address.state" [strictFilteringStrategy]="true" [required]="true" [initialValue]="customer.address.state" [placeholder]="'State'" [showCancelButton]="false" [options]="states" (selected)="customer.address.state = $event"></autocomplete-input>
     <md-input-container [class.error]="formInvalid && !customer.address.zip">
       <input md-input name="postalCode" [(ngModel)]="customer.address.zip" placeholder="Postal Code" required type="text">
     </md-input-container>
   </div>
 
-  <autocomplete-input [class.error]="formInvalid && !customer.address.country" [required]="true" [initialValue]="customer.address.country" [placeholder]="'Country'" [showCancelButton]="false" [options]="countries" (selected)="customer.address.country = $event"></autocomplete-input>
+  <autocomplete-input [class.error]="formInvalid && !customer.address.country" [strictFilteringStrategy]="true" [required]="true" [initialValue]="customer.address.country" [placeholder]="'Country'" [showCancelButton]="false" [options]="countries" (selected)="customer.address.country = $event"></autocomplete-input>
 
   <div class="button-container">
     <div (click)="saveCustomer(customerAddForm.form)">Save Customer</div>

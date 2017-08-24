@@ -37,9 +37,20 @@ export class AutocompleteInputComponent implements OnInit {
   @Input() showCancelButton: boolean = true;
   @Input() disabled: boolean = false;
   @Input() required: boolean = false;
+  @Input() strictFilteringStrategy: boolean = false; // If is true will match ORegon but not califORnia when filtering string 'OR'. If false, will match both.
   @Output() selected: EventEmitter<any> = new EventEmitter();
 
   focusedOptionIndex: number = 0;
+
+  strictFilter = (option: any, filter: string) => {
+    let opt = this.mapFunction(option).substring(0, filter.length || 0);
+
+    return opt.toUpperCase() === filter.toUpperCase();
+  };
+
+  nonStrictFilter = (option: any, filter: string) => {
+    return this.mapFunction(option).toUpperCase().indexOf(filter.toUpperCase()) !== -1;
+  };
 
   constructor(private elementRef: ElementRef) { }
 
@@ -137,9 +148,10 @@ export class AutocompleteInputComponent implements OnInit {
       if (!this.allOptions || this.allOptions.length === 0 || !this.mapFunction) return [];
       if (!this.currentValue) return this.allOptions;
 
-      const fs = this.currentValue.toUpperCase();
+      const fs = this.currentValue;
+      const filter = this.strictFilteringStrategy ? this.strictFilter : this.nonStrictFilter;
 
-      return this.allOptions.filter(s => this.mapFunction(s).toUpperCase().indexOf(fs) !== -1);
+      return this.allOptions.filter(s => filter(s,fs));
     })()
   }
 }
