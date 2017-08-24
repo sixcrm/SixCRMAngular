@@ -10,7 +10,7 @@
         [class.dropdown-component__text--with-placeholder--disabled]="showFloatingPlaceholder && mapper(selected) && placeholder"
         (click)="toggleDropdown()">
     <span>{{mapper(selected) ? mapper(selected) : placeholder + (required ? ' *' : '')}}</span>
-    <md-icon>keyboard_arrow_down</md-icon>
+    <md-icon *ngIf="!disabled">keyboard_arrow_down</md-icon>
   </div>
   <div class="dropdown-component__options" [class.dropdown-component__options--with-placeholder]="showFloatingPlaceholder && placeholder" *ngIf="showDropdown">
     <div class="dropdown-component__options__item" *ngFor="let option of options" (click)="select(option)">{{mapper(option)}}</div>
