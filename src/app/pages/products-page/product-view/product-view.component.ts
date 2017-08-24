@@ -6,6 +6,8 @@ import {ActivatedRoute} from '@angular/router';
 import {FulfillmentProvidersService} from '../../../shared/services/fulfillment-providers.service';
 import {FulfillmentProvider} from '../../../shared/models/fulfillment-provider.model';
 import {NavigationService} from '../../../navigation/navigation.service';
+import {parseCurrencyMaskedValue} from '../../../shared/utils/mask.utils';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'product-view',
@@ -19,6 +21,8 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   formInvalid: boolean;
 
+  price: string = '';
+
   constructor(
     service: ProductsService,
     route: ActivatedRoute,
@@ -30,6 +34,10 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   ngOnInit() {
     this.init(() => this.navigation.goToNotFoundPage());
+
+    this.service.entity$.merge(this.service.entityCreated$).merge(this.service.entityUpdated$).takeUntil(this.unsubscribe$)
+      .subscribe(product => this.price = product.defaultPrice.amount + '');
+
     if (this.addMode) {
       this.entity = new Product();
       this.entity.ship = 'true';
@@ -63,6 +71,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     if (this.formInvalid) {
 
     } else {
+      this.entity.defaultPrice.amount = parseCurrencyMaskedValue(this.price);
       this.saveOrUpdate(this.entity);
     }
   }

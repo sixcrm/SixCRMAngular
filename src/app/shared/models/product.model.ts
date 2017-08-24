@@ -1,5 +1,6 @@
 import {FulfillmentProvider} from './fulfillment-provider.model';
 import {Entity} from './entity.interface';
+import {Currency} from '../utils/currency/currency';
 
 export class Product implements Entity<Product> {
   id: string;
@@ -7,6 +8,7 @@ export class Product implements Entity<Product> {
   sku: string;
   ship: string;
   shippingDelay: number;
+  defaultPrice: Currency;
   fulfillmentProvider: FulfillmentProvider;
 
   constructor(obj?: any) {
@@ -19,6 +21,7 @@ export class Product implements Entity<Product> {
     this.sku = obj.sku || '';
     this.ship = obj.ship || null;
     this.shippingDelay = obj.shipping_delay || 0;
+    this.defaultPrice = new Currency(obj.default_price);
     this.fulfillmentProvider = new FulfillmentProvider(obj.fulfillment_provider);
   }
 
@@ -33,6 +36,7 @@ export class Product implements Entity<Product> {
       sku: this.sku,
       ship: this.ship,
       shipping_delay: this.shippingDelay,
+      default_price: this.defaultPrice,
       fulfillment_provider: this.fulfillmentProvider.inverse()
     }
   }

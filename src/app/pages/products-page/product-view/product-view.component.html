@@ -40,18 +40,22 @@
           </div>
 
           <div class="entity-view__card__content">
-            <div class="product-view__group">
-              <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-                <input required md-input [disabled]="viewMode" placeholder="Product name" name="name" [(ngModel)]="entity.name" type="text">
-              </md-input-container>
-
-              <md-checkbox style="font-size: 14px;" [disabled]="viewMode" [checked]="entity.ship === 'true'" (change)="toggleShip()">Ship</md-checkbox>
-            </div>
+            <md-input-container style="margin-right: 25px;" [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
+              <input required md-input [disabled]="viewMode" placeholder="Product name" name="name" [(ngModel)]="entity.name" type="text">
+            </md-input-container>
 
             <div class="product-view__group">
               <md-input-container [class.error]="formInvalid && !entity.sku" class="entity-view__card__content__item">
                 <input required md-input [disabled]="viewMode" placeholder="SKU" name="sku" [(ngModel)]="entity.sku" type="text">
               </md-input-container>
+
+              <md-input-container class="entity-view__card__content__item">
+                <input md-input [disabled]="viewMode" placeholder="Default Price" name="defaultPrice" [textMask]="{mask: numberMask, guide: false}" (keydown)="isCurrency($event)" [(ngModel)]="price" type="text">
+              </md-input-container>
+            </div>
+
+            <div style="margin-top: 15px;" class="product-view__group">
+              <md-checkbox style="font-size: 14px;" [disabled]="viewMode" [checked]="entity.ship === 'true'" (change)="toggleShip()">Ship</md-checkbox>
 
               <md-input-container [class.error]="formInvalid && !entity.shippingDelay && entity.shippingDelay !== 0 && entity.ship === 'true'" class="entity-view__card__content__item">
                 <input required md-input [disabled]="viewMode || entity.ship !== 'true'" (keydown)="isNumeric($event)" placeholder="Shipping Delay (minutes)" name="shippingDelay" [(ngModel)]="entity.shippingDelay" type="number">
@@ -69,6 +73,7 @@
                                 [required]="true"
                                 (selected)="entity.fulfillmentProvider = $event">
             </autocomplete-input>
+
           </div>
 
           <div *ngIf="!viewMode" class="entity-view__card__actions">

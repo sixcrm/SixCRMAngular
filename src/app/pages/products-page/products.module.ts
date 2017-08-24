@@ -10,6 +10,7 @@ import {PageComponentsModule} from '../components/pages-components.module';
 import {SharedModule} from '../../shared/shared.module';
 import {ProductProductSchedulesComponent} from './product-view/product-product-schedules/product-product-schedules.component';
 import { ProductCampaignsComponent } from './product-view/product-campaigns/product-campaigns.component';
+import {TextMaskModule} from 'angular2-text-mask';
 
 @NgModule({
   imports : [
@@ -18,7 +19,8 @@ import { ProductCampaignsComponent } from './product-view/product-campaigns/prod
     FormsModule,
     MaterialModule.forRoot(),
     PageComponentsModule,
-    SharedModule
+    SharedModule,
+    TextMaskModule
   ],
   declarations : [
     ProductsComponent,
