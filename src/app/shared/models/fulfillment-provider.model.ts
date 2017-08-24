@@ -24,11 +24,11 @@ export class FulfillmentProvider implements Entity<FulfillmentProvider> {
     this.username = obj.username || '';
     this.password = obj.password || '';
     this.endpoint = obj.endpoint || '';
-    this.threePLKey = obj.threepl_kye || '';
+    this.threePLKey = obj.threepl_key || '';
     this.facilityId = obj.facility_id || '';
     this.threePLId = obj.threepl_id || '';
     this.returnAddress = obj.return_address || '';
-    this.customerId = obj.customer_ic || '';
+    this.customerId = obj.customer_id || '';
   }
 
   copy(): FulfillmentProvider {
