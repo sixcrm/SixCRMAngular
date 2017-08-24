@@ -50,5 +50,5 @@ export function productResponseQuery(): string {
 }
 
 export function productInputQuery(product: Product, includeId?: boolean): string {
-  return `${addId(product.id, includeId)} name: "${product.name}", sku: "${product.sku}", ship: "${product.ship}", ${product.shippingDelay || +product.shippingDelay>=0 ? `shipping_delay:"${product.shippingDelay}"` : ''}, ${product.fulfillmentProvider.id ? `fulfillment_provider:"${product.fulfillmentProvider.id}"` : ''}`
+  return `${addId(product.id, includeId)} name: "${product.name}", sku: "${product.sku}", ship: "${product.ship}" ${product.shippingDelay || product.shippingDelay===0 ? `, shipping_delay:"${product.shippingDelay}"` : ''} ${product.fulfillmentProvider.id ? `, fulfillment_provider:"${product.fulfillmentProvider.id}"` : ''}`
 }

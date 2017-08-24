@@ -53,7 +53,7 @@
                 <input required md-input [disabled]="viewMode" placeholder="SKU" name="sku" [(ngModel)]="entity.sku" type="text">
               </md-input-container>
 
-              <md-input-container [class.error]="formInvalid && !entity.shippingDelay && entity.ship === 'true'" class="entity-view__card__content__item">
+              <md-input-container [class.error]="formInvalid && !entity.shippingDelay && entity.shippingDelay !== 0 && entity.ship === 'true'" class="entity-view__card__content__item">
                 <input required md-input [disabled]="viewMode || entity.ship !== 'true'" (keydown)="isNumeric($event)" placeholder="Shipping Delay (minutes)" name="shippingDelay" [(ngModel)]="entity.shippingDelay" type="number">
               </md-input-container>
             </div>

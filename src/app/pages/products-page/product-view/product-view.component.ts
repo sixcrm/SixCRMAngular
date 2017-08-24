@@ -50,6 +50,11 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   toggleShip() {
     this.entity.ship = this.entity.ship === 'true' ? 'false' : 'true';
+    if (this.entity.ship === 'true') {
+      this.entity.shippingDelay = 0;
+    } else {
+      this.entity.shippingDelay = null;
+    }
   }
 
   save(valid: boolean): void {
