@@ -27,7 +27,7 @@
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>
-      <div class="flex-custom">
+      <div class="flex-custom session-view__card-container">
         <div class="entity-view__card">
           <div class="entity-view__card__header">
             <div class="entity-view__card__header__title">Customer Information</div>
@@ -66,25 +66,27 @@
           </div>
         </div>
 
-        <table-memory class="session-view__table"
-                      [data]="entity.rebills"
-                      [filterEnabled]="false"
-                      [title]="'Rebill'"
-                      [columnParams]="rebillColumnParams"
-                      [associationEnabled]="false"
-                      [dissociationEnabled]="false"
-                      (view)="viewRebill($event)">
-        </table-memory>
+        <div class="flex-custom flex-custom--wrap">
+          <table-memory class="session-view__table"
+                        [data]="entity.rebills"
+                        [filterEnabled]="false"
+                        [title]="'Rebill'"
+                        [columnParams]="rebillColumnParams"
+                        [associationEnabled]="false"
+                        [dissociationEnabled]="false"
+                        (view)="viewRebill($event)">
+          </table-memory>
 
-        <table-memory class="session-view__table"
-                      [data]="[entity.campaign]"
-                      [filterEnabled]="false"
-                      [title]="'Campaign'"
-                      [columnParams]="campaignColumnParams"
-                      [associationEnabled]="false"
-                      [dissociationEnabled]="false"
-                      (view)="viewCampaign($event)">
-        </table-memory>
+          <table-memory class="session-view__table"
+                        [data]="[entity.campaign]"
+                        [filterEnabled]="false"
+                        [title]="'Campaign'"
+                        [columnParams]="campaignColumnParams"
+                        [associationEnabled]="false"
+                        [dissociationEnabled]="false"
+                        (view)="viewCampaign($event)">
+          </table-memory>
+        </div>
       </div>
     </md-tab>
 
