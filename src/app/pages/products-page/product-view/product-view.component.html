@@ -58,7 +58,7 @@
               <md-checkbox style="font-size: 14px;" [disabled]="viewMode" [checked]="entity.ship === 'true'" (change)="toggleShip()">Ship</md-checkbox>
 
               <md-input-container [class.error]="formInvalid && !entity.shippingDelay && entity.shippingDelay !== 0 && entity.ship === 'true'" class="entity-view__card__content__item">
-                <input required md-input [disabled]="viewMode || entity.ship !== 'true'" (keydown)="isNumeric($event)" placeholder="Shipping Delay (minutes)" name="shippingDelay" [(ngModel)]="entity.shippingDelay" type="number">
+                <input [required]="entity.ship === 'true'" md-input [disabled]="viewMode || entity.ship !== 'true'" (keydown)="isNumeric($event)" placeholder="Shipping Delay (minutes)" name="shippingDelay" [(ngModel)]="entity.shippingDelay" type="number">
               </md-input-container>
             </div>
 
@@ -70,7 +70,7 @@
                                 [showCancelButton]="false"
                                 [mapFunction]="fulfillmentProviderMapper"
                                 [disabled]="viewMode || entity.ship !==  'true'"
-                                [required]="true"
+                                [required]="entity.ship === 'true'"
                                 (selected)="entity.fulfillmentProvider = $event">
             </autocomplete-input>
 
