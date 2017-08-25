@@ -11,6 +11,7 @@ export class InViewportDirective implements AfterViewInit, OnDestroy{
 
   private unsubscribe$: AsyncSubject<boolean> = new AsyncSubject();
   private registrationInProcess: boolean = false;
+  private period: number = 150;
 
   constructor(private elementRef: ElementRef, private authService: AuthenticationService) {
     this.authService.sixUserActivated$.takeUntil(this.unsubscribe$).subscribe(activated => this.registrationInProcess = !activated);
@@ -21,7 +22,7 @@ export class InViewportDirective implements AfterViewInit, OnDestroy{
       this.inside.emit(true);
     }
 
-    Observable.interval(250).takeUntil(this.unsubscribe$).subscribe(() => {
+    Observable.interval(this.period).takeUntil(this.unsubscribe$).subscribe(() => {
       if (this.isVisible()) {
         this.inside.emit(true);
       }
