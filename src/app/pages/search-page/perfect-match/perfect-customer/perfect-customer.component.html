@@ -44,33 +44,34 @@
     </div>
 
 
-    <server-error-message *ngIf="transactionsServerError; else transactionsData;"></server-error-message>
-    <ng-template #transactionsData>
-      <div class="perfect-entity__table" *ngIf="transactions; else spinTransactions">
+      <div class="perfect-entity__table" *ngIf="!transactionsLoading; else spinTransactions">
         <div class="perfect-entity__table__title">Recent transactions</div>
 
-        <table class="highlight">
-          <thead>
-          <tr>
-            <th>Alias</th>
-            <th class="cell--align-right">Amount</th>
-            <th>Processor Response</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let transaction of transactions" [routerLink]="['/transactions', transaction.id]">
-            <td>{{transaction.alias}}</td>
-            <td class="cell--align-right">{{transaction.amount.usd()}}</td>
-            <td>{{transaction.processorResponse.message}}</td>
-          </tr>
-          </tbody>
-        </table>
+        <server-error-message (refresh)="refreshTransactions()" *ngIf="transactionsServerError; else transactionsData;"></server-error-message>
+        <ng-template #transactionsData>
+          <table class="highlight">
+            <thead>
+              <tr>
+                <th>Alias</th>
+                <th class="cell--align-right">Amount</th>
+                <th>Processor Response</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let transaction of transactions" [routerLink]="['/transactions', transaction.id]">
+                <td>{{transaction.alias}}</td>
+                <td class="cell--align-right">{{transaction.amount.usd()}}</td>
+                <td>{{transaction.processorResponse.message}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-template>
+
       </div>
 
       <ng-template #spinTransactions>
         <md-spinner></md-spinner>
       </ng-template>
-    </ng-template>
 
     <div class="perfect-entity__list">
       <div *ngFor="let ccard of customer.creditCards" class="perfect-entity__list__item">

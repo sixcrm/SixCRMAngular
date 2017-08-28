@@ -20,6 +20,7 @@ export class PerfectCustomerComponent extends AbstractPerfectMatch implements On
   transactions: Transaction[];
 
   transactionsServerError: CustomServerError;
+  transactionsLoading: boolean = false;
 
   constructor(private customersService: CustomersService, private transactionsService: TransactionsService) {
     super();
@@ -36,6 +37,8 @@ export class PerfectCustomerComponent extends AbstractPerfectMatch implements On
       this.customer = customer
     });
     this.transactionsService.entities$.takeUntil(this.unsubscribe$).subscribe(transactions => {
+      this.transactionsLoading = false;
+
       if (transactions instanceof CustomServerError) {
         this.transactionsServerError = transactions;
         return;
@@ -52,9 +55,13 @@ export class PerfectCustomerComponent extends AbstractPerfectMatch implements On
     this.customersService.getEntity(this.id);
 
     this.transactionsService.indexQuery = (limit?: number, cursor?: string) => transactionsByCustomer(this.id, limit, cursor);
-    this.transactionsService.getEntities(5);
+    this.refreshTransactions();
   }
 
+  refreshTransactions() {
+    this.transactionsService.getEntities(5);
+    this.transactionsLoading = true;
+  }
   ngOnDestroy() {
     super.destroy();
     this.transactionsService.indexQuery = transactionsInfoListQuery;
