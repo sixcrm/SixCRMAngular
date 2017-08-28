@@ -1,0 +1,20 @@
+.server-error-message {
+  color: rgba(0,0,0,0.6);
+  padding: 20px;
+  text-align: center;
+
+  .error-title {
+    font-size: 24px;
+  }
+
+  .error-subtitle {
+    font-size: 16px;
+  }
+
+  .error-refresh {
+    margin-top: 20px;
+    font-size: 30px;
+    color: #039BE5;
+    cursor: pointer;
+  }
+}

@@ -3,6 +3,7 @@ import {NavigationService} from '../../../navigation/navigation.service';
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
 import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {TransactionsBy} from '../../../shared/models/analytics/transaction-by.model';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'transaction-by',
@@ -12,10 +13,7 @@ import {TransactionsBy} from '../../../shared/models/analytics/transaction-by.mo
 export class TransactionByComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
   colors: string[] = ['#1773DD', '#4484CD', '#4DABF5', '#98DBF9', '#FFAD33', '#F1862F', '#329262', '#109618', '#66AA00', '#AAAA11', '#98DBF9'];
-  transactionBy: TransactionsBy;
-
   maxNumber = 5;
-
   showTable: boolean = true;
 
   options = {
@@ -57,6 +55,7 @@ export class TransactionByComponent extends AbstractDashboardItem implements OnI
   };
 
   chartInstance;
+  transactionBy: TransactionsBy;
 
   constructor(private navigation: NavigationService, private analyticsService: AnalyticsService) {
     super();
@@ -64,6 +63,13 @@ export class TransactionByComponent extends AbstractDashboardItem implements OnI
 
   ngOnInit() {
     this.analyticsService.transactionsBy$.takeUntil(this.unsubscribe$).subscribe(events => {
+      if (events instanceof CustomServerError) {
+        this.serverError = events;
+        this.transactionBy = null;
+        return;
+      }
+
+      this.serverError = null;
       this.transactionBy = events;
       if (this.chartInstance) {
         this.redrawChartData();
@@ -77,6 +83,12 @@ export class TransactionByComponent extends AbstractDashboardItem implements OnI
 
   toggleTable(): void {
     this.showTable = !this.showTable;
+  }
+
+  refreshData() {
+    this.shouldFetch = true;
+    this.serverError = null;
+    this.fetch();
   }
 
   fetch(): void {

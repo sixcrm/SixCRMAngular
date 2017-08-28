@@ -1,8 +1,9 @@
-import {Component, OnInit, Input, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {EventFunnel} from '../../../shared/models/event-funnel.model';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
 import {AnalyticsService} from '../../../shared/services/analytics.service';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 const hc = require('highcharts');
 
@@ -110,7 +111,14 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
   }
 
   ngOnInit() {
-    this.analyticsService.eventFunnel$.takeUntil(this.unsubscribe$).subscribe(funnel => {
+    this.analyticsService.eventFunnel$.takeUntil(this.unsubscribe$).subscribe((funnel: EventFunnel | CustomServerError) => {
+      if (funnel instanceof CustomServerError) {
+        this.serverError = funnel;
+        this.funnel = null;
+        return;
+      }
+
+      this.serverError = null;
       this.funnel = funnel;
 
       if (this.chart && this.funnel) {
@@ -121,6 +129,12 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
 
   ngOnDestroy() {
     this.destroy();
+  }
+
+  refresh(): void {
+    this.shouldFetch = true;
+    this.serverError = null;
+    this.fetch();
   }
 
   fetch(): void {

@@ -10,8 +10,11 @@
     </md-menu>
   </div>
 
-  <table *ngIf="campaigns" class="highlight table--no-border">
-    <thead>
+  <server-error-message (refresh)="refreshData()" *ngIf="serverError; else data"></server-error-message>
+
+  <ng-template #data>
+    <table *ngIf="campaigns" class="highlight table--no-border">
+      <thead>
       <tr>
         <th class="clickable" *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'" (click)="sort(params)">
           {{params.label}}
@@ -21,15 +24,16 @@
           </ng-container>
         </th>
       </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
       <tr *ngFor="let campaign of campaigns | sortEntities: sortParams.mappingFunction: sortOrder" [routerLink]="['/campaigns', campaign.campaign]">
         <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'">{{params.mappingFunction(campaign)}}</td>
       </tr>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
 
-  <md-spinner *ngIf="!campaigns"></md-spinner>
+    <md-spinner *ngIf="!campaigns"></md-spinner>
+  </ng-template>
 
   <div class="dashboard__table-chart__actions"><span [routerLink]="['/coming-soon']">VIEW MORE</span></div>
 </div>

@@ -1,12 +1,16 @@
 <div inViewport (inside)="fetch()" class="dashboard__overview__container">
   <div class="dashboard__overview">
-    <transaction-overview-card
-      class="dashboard__overview__item"
-      *ngFor="let option of overviewOptions"
-      [title]="option.title"
-      [mapToResult]="option.mapToResult"
-      [image]="option.image"
-      [overview]="transactionOverview">
-    </transaction-overview-card>
+    <server-error-message (refresh)="refreshData()" class="dashboard__chart" style="width: 100%" *ngIf="serverError; else data"></server-error-message>
+
+    <ng-template #data>
+      <transaction-overview-card
+        class="dashboard__overview__item"
+        *ngFor="let option of overviewOptions"
+        [title]="option.title"
+        [mapToResult]="option.mapToResult"
+        [image]="option.image"
+        [overview]="transactionOverview">
+      </transaction-overview-card>
+    </ng-template>
   </div>
 </div>

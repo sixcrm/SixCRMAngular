@@ -5,6 +5,7 @@ import {Customer} from '../../../../shared/models/customer.model';
 import {AnalyticsService} from '../../../../shared/services/analytics.service';
 import {AsyncSubject} from 'rxjs';
 import {EntitiesByDate} from '../../../../shared/models/entities-by-date.interface';
+import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'customer-events',
@@ -19,6 +20,7 @@ export class CustomerEventsComponent implements OnInit, OnDestroy {
   offset: number = 0;
   hasMore: boolean;
   loadingData: boolean = false;
+  serverError: CustomServerError;
 
   isEmpty: boolean = false;
 
@@ -35,7 +37,20 @@ export class CustomerEventsComponent implements OnInit, OnDestroy {
   constructor(private analyticsService: AnalyticsService) { }
 
   ngOnInit() {
-    this.analyticsService.activitiesByCustomer$.takeUntil(this.unsubscribe$).subscribe((activities: Activity[]) => {
+    this.analyticsService.activitiesByCustomer$.takeUntil(this.unsubscribe$).subscribe(activities => {
+      if (activities instanceof CustomServerError) {
+        this.serverError = activities;
+        this.loadingData = false;
+        this.activitiesByDate.map(a => {
+          a.entities = [];
+
+          return a;
+        });
+
+        return;
+      }
+
+      this.serverError = null;
       this.hasMore = activities && activities.length === this.limit;
       this.loadingData = false;
       this.offset += activities.length;
@@ -50,6 +65,7 @@ export class CustomerEventsComponent implements OnInit, OnDestroy {
   }
 
   fetch(): void {
+    this.serverError = null;
     this.loadingData = true;
     this.analyticsService.getActivityByCustomer(utc().subtract(6, 'M').format(), utc().format(), this.customer.id, this.limit, this.offset);
   }

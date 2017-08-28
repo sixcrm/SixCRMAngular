@@ -6,35 +6,39 @@
   </md-card-title>
 
   <md-card-content>
-    <div class="events__container"
-         infiniteScroll
-         [infiniteScrollDistance]="2"
-         [infiniteScrollThrottle]="300"
-         [scrollWindow]="false"
-         (scrolled)="onScroll()">
-      <div *ngFor="let byDate of activitiesByDate">
-        <div *ngIf="byDate && byDate.entities && byDate.entities.length > 0">
-          <div class="events__title">
-            <span class="events__title__label">{{byDate.label}}</span>
-          </div>
+    <server-error-message (refresh)="fetch()" *ngIf="serverError; else data"></server-error-message>
 
-          <div *ngFor="let activity of byDate.entities">
-            <div class="events__content">
-              <div class="events__content__image"><img src="assets/images/alert-icon.svg"></div>
+    <ng-template #data>
+      <div class="events__container"
+           infiniteScroll
+           [infiniteScrollDistance]="2"
+           [infiniteScrollThrottle]="300"
+           [scrollWindow]="false"
+           (scrolled)="onScroll()">
+        <div *ngFor="let byDate of activitiesByDate">
+          <div *ngIf="byDate && byDate.entities && byDate.entities.length > 0">
+            <div class="events__title">
+              <span class="events__title__label">{{byDate.label}}</span>
+            </div>
 
-              <div class="events__content__info">
-                <div>{{activity.date | formatDateTime: 'date-time'}}</div>
-                <div>
-                  <single-event [data]="activity.parse()"></single-event>
+            <div *ngFor="let activity of byDate.entities">
+              <div class="events__content">
+                <div class="events__content__image"><img src="assets/images/alert-icon.svg"></div>
+
+                <div class="events__content__info">
+                  <div>{{activity.date | formatDateTime: 'date-time'}}</div>
+                  <div>
+                    <single-event [data]="activity.parse()"></single-event>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <md-spinner class="entity-view__spinner" *ngIf="loadingData"></md-spinner>
-      <div class="entity-view__no-results entity-view__no-results--small-padding" *ngIf="!loadingData && isEmpty">No customer events found</div>
-    </div>
+        <md-spinner class="entity-view__spinner" *ngIf="loadingData"></md-spinner>
+        <div class="entity-view__no-results entity-view__no-results--small-padding" *ngIf="!loadingData && isEmpty">No customer events found</div>
+      </div>
+    </ng-template>
   </md-card-content>
 </md-card>

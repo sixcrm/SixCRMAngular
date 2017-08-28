@@ -3,6 +3,7 @@ import {EventsBy} from '../../../shared/models/analytics/events-by.model';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
 import {AnalyticsService} from '../../../shared/services/analytics.service';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'events-by',
@@ -12,12 +13,10 @@ import {AnalyticsService} from '../../../shared/services/analytics.service';
 export class EventsByComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
   colors: string[] = ['#1773DD', '#4484CD', '#4DABF5', '#98DBF9', '#FFAD33', '#F1862F', '#329262', '#109618', '#66AA00', '#AAAA11', '#98DBF9'];
-  eventsBy: EventsBy;
 
   maxNumber = 5;
 
   showTable: boolean = true;
-  loading: boolean = false;
 
   options = {
     chart: {
@@ -58,6 +57,7 @@ export class EventsByComponent extends AbstractDashboardItem implements OnInit, 
   };
 
   chartInstance;
+  eventsBy: EventsBy;
 
   constructor(private analyticsService: AnalyticsService, private navigation: NavigationService) {
     super();
@@ -65,6 +65,14 @@ export class EventsByComponent extends AbstractDashboardItem implements OnInit, 
 
   ngOnInit() {
     this.analyticsService.eventsBy$.takeUntil(this.unsubscribe$).subscribe(events => {
+      if (events instanceof CustomServerError) {
+        this.loading = false;
+        this.eventsBy = null;
+        this.serverError = events;
+        return;
+      }
+
+      this.serverError = null;
       this.eventsBy = events;
       if (this.chartInstance) {
         this.redrawChartData();
@@ -80,6 +88,12 @@ export class EventsByComponent extends AbstractDashboardItem implements OnInit, 
 
   toggleTable(): void {
     this.showTable = !this.showTable;
+  }
+
+  refreshData() {
+    this.shouldFetch = true;
+    this.serverError = null;
+    this.fetch();
   }
 
   fetch(): void {

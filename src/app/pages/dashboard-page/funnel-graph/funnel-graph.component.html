@@ -10,7 +10,13 @@
     </md-menu>
   </div>
 
-  <chart [options]="chartOptions" (load)="saveChart($event.context)"></chart>
+  <ng-container *ngIf="!serverError; else error">
+    <chart [options]="chartOptions" (load)="saveChart($event.context)"></chart>
+  </ng-container>
+
+  <ng-template #error>
+    <server-error-message (refresh)="refresh()"></server-error-message>
+  </ng-template>
 
   <div class="dashboard__table" [style.height]="calculateHeight()" [class.dashboard__table--inactive]="!showTable || !funnel">
   <table class="highlight">

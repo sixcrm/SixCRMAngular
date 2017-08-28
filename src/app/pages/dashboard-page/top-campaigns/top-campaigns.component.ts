@@ -3,6 +3,7 @@ import {CampaignStats} from '../../../shared/models/campaign-stats.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'top-campaigns',
@@ -27,12 +28,25 @@ export class TopCampaignsComponent extends AbstractDashboardItem implements OnIn
 
   ngOnInit() {
     this.analyticsService.campaignsByAmount$.takeUntil(this.unsubscribe$).subscribe(campaigns => {
+      if (campaigns instanceof CustomServerError) {
+        this.serverError = campaigns;
+        this.campaigns = null;
+        return;
+      }
+
+      this.serverError = null;
       this.campaigns = campaigns;
     })
   }
 
   ngOnDestroy() {
     this.destroy();
+  }
+
+  refreshData() {
+    this.shouldFetch = true;
+    this.serverError = null;
+    this.fetch();
   }
 
   fetch(): void {

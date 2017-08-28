@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {CampaignDelta} from '../../../shared/models/campaign-delta.model';
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
 import {AnalyticsService} from '../../../shared/services/analytics.service';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'movers-card',
@@ -11,7 +12,6 @@ import {AnalyticsService} from '../../../shared/services/analytics.service';
 export class MoversCardComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
   campaignDelta: CampaignDelta[];
-  loading: boolean = false;
 
   constructor(private analyticsService: AnalyticsService) {
     super();
@@ -20,11 +20,19 @@ export class MoversCardComponent extends AbstractDashboardItem implements OnInit
   ngOnInit() {
     this.analyticsService.campaignDelta$.takeUntil(this.unsubscribe$).subscribe(campaigns => {
       if (campaigns) {
+        if (campaigns instanceof CustomServerError) {
+          this.serverError = campaigns;
+          this.loading = false;
+          this.campaignDelta = null;
+          return;
+        }
+
+        this.serverError = null;
         this.loading = false;
         if (campaigns.length > 5) {
           this.campaignDelta = campaigns.slice(0,5);
         } else {
-          this.campaignDelta = campaigns;
+          this.campaignDelta = campaigns.slice();
         }
       }
     })
@@ -32,6 +40,12 @@ export class MoversCardComponent extends AbstractDashboardItem implements OnInit
 
   ngOnDestroy() {
     this.destroy();
+  }
+
+  refreshData() {
+    this.shouldFetch = true;
+    this.serverError = null;
+    this.fetch();
   }
 
   fetch(): void {

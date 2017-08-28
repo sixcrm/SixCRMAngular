@@ -56,6 +56,7 @@ import { AutocompleteInputComponent } from './components/autocomplete-input/auto
 import { FilterStringsPipe } from './pipes/filter-strings.pipe';
 import { FilterEntitiesByParamsPipe } from './pipes/filter-entities-by-params.pipe';
 import {AutofocusDirective} from './directives/autofocus.directive';
+import {ServerErrorMessageComponent} from './components/server-error-message/server-error-message.component';
 
 @NgModule({
   declarations : [
@@ -81,7 +82,8 @@ import {AutofocusDirective} from './directives/autofocus.directive';
     CreditCardMaskPipe,
     AutocompleteInputComponent,
     FilterStringsPipe,
-    FilterEntitiesByParamsPipe
+    FilterEntitiesByParamsPipe,
+    ServerErrorMessageComponent
   ],
   exports : [
     AutocompleteComponent,
@@ -105,7 +107,8 @@ import {AutofocusDirective} from './directives/autofocus.directive';
     CreditCardMaskPipe,
     ComingSoonComponent,
     AutocompleteInputComponent,
-    FilterEntitiesByParamsPipe
+    FilterEntitiesByParamsPipe,
+    ServerErrorMessageComponent
   ],
   imports : [
     FormsModule,

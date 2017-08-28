@@ -10,34 +10,38 @@
     </md-menu>
   </div>
 
-  <chart *ngIf="eventsBy && eventsBy.count > 0; else eventsByNoData" #chart (load)="saveChart($event.context)" [options]="options"></chart>
-  <md-spinner *ngIf="!eventsBy"></md-spinner>
+  <server-error-message (refresh)="refreshData()" *ngIf="serverError; else data"></server-error-message>
 
-  <div *ngIf="eventsBy && eventsBy.count > 0" class="dashboard__table" [style.height]="calculateHeight()" [class.dashboard__table--inactive]="!showTable || !eventsBy">
-    <table class="highlight">
-      <thead>
+  <ng-template #data>
+    <chart *ngIf="eventsBy && eventsBy.count > 0; else eventsByNoData" #chart (load)="saveChart($event.context)" [options]="options"></chart>
+    <md-spinner *ngIf="!eventsBy"></md-spinner>
+
+    <div *ngIf="eventsBy && eventsBy.count > 0" class="dashboard__table" [style.height]="calculateHeight()" [class.dashboard__table--inactive]="!showTable || !eventsBy">
+      <table class="highlight">
+        <thead>
         <tr>
           <th>Affiliate</th>
           <th class="cell--align-right">Count</th>
           <th class="cell--align-right">Percentage</th>
         </tr>
-      </thead>
-      <tbody *ngIf="eventsBy">
+        </thead>
+        <tbody *ngIf="eventsBy">
         <tr *ngFor="let facet of eventsBy.facets | subArray: maxNumber + 2; let i = index" [routerLink]="['/affiliates', facet.facet]">
           <td><div [style.background]="colors[i]" class="color-indicator"></div>{{facet.facet.substring(0, 18) + '...'}}</td>
           <td class="cell--align-right">{{facet.count}}</td>
           <td class="cell--align-right">{{facet.percentage}}</td>
         </tr>
-      </tbody>
-    </table>
-  </div>
+        </tbody>
+      </table>
+    </div>
 
-  <ng-template #eventsByNoData>
-    <div *ngIf="eventsBy" class="dashboard__table-chart__no-data"> No Events Found</div>
+    <ng-template #eventsByNoData>
+      <div *ngIf="eventsBy" class="dashboard__table-chart__no-data"> No Events Found</div>
+    </ng-template>
+
+    <div class="dashboard__table-chart__actions dashboard__table-chart__actions--no-border">
+      <span *ngIf="eventsBy && eventsBy.count > 0" (click)="toggleTable()">{{showTable ? 'COLLAPSE' : 'SHOW TABLE'}}</span>
+      <span [routerLink]="['/coming-soon']">VIEW MORE</span>
+    </div>
   </ng-template>
-
-  <div class="dashboard__table-chart__actions dashboard__table-chart__actions--no-border">
-    <span *ngIf="eventsBy && eventsBy.count > 0" (click)="toggleTable()">{{showTable ? 'COLLAPSE' : 'SHOW TABLE'}}</span>
-    <span [routerLink]="['/coming-soon']">VIEW MORE</span>
-  </div>
 </div>

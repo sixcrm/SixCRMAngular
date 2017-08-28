@@ -10,12 +10,15 @@
     </md-menu>
   </div>
 
-  <chart *ngIf="transactionBy && transactionBy.count > 0; else transactionByNoData" #chart (load)="saveChart($event.context)" [options]="options"></chart>
-  <md-spinner *ngIf="!transactionBy"></md-spinner>
+  <server-error-message (refresh)="refreshData()" *ngIf="serverError; else data"></server-error-message>
 
-  <div *ngIf="transactionBy && transactionBy.count > 0" class="dashboard__table" [style.height]="calculateHeight()" [class.dashboard__table--inactive]="!showTable || !transactionBy">
-    <table class="highlight">
-      <thead>
+  <ng-template #data>
+    <chart *ngIf="transactionBy && transactionBy.count > 0; else transactionByNoData" #chart (load)="saveChart($event.context)" [options]="options"></chart>
+    <md-spinner *ngIf="!transactionBy"></md-spinner>
+
+    <div *ngIf="transactionBy && transactionBy.count > 0" class="dashboard__table" [style.height]="calculateHeight()" [class.dashboard__table--inactive]="!showTable || !transactionBy">
+      <table class="highlight">
+        <thead>
         <tr>
           <th>Affiliate</th>
           <th class="cell--align-right">Count</th>
@@ -23,8 +26,8 @@
           <th class="cell--align-right">Amount</th>
           <th class="cell--align-right">Amount %</th>
         </tr>
-      </thead>
-      <tbody *ngIf="transactionBy">
+        </thead>
+        <tbody *ngIf="transactionBy">
         <tr *ngFor="let facet of transactionBy.facets | subArray: maxNumber + 2; let i = index" [routerLink]="['/affiliates', facet.facet]">
           <td><div [style.background]="colors[i]" class="color-indicator"></div>{{facet.facet.substring(0, 12) + '...'}}</td>
           <td class="cell--align-right">{{facet.count}}</td>
@@ -32,16 +35,18 @@
           <td class="cell--align-right">{{facet.amount.usd()}}</td>
           <td class="cell--align-right">{{facet.amountPercentage}}%</td>
         </tr>
-      </tbody>
-    </table>
-  </div>
+        </tbody>
+      </table>
+    </div>
 
-  <ng-template #transactionByNoData>
-    <div *ngIf="transactionBy" class="dashboard__table-chart__no-data"> No Transactions Found</div>
+    <ng-template #transactionByNoData>
+      <div *ngIf="transactionBy" class="dashboard__table-chart__no-data"> No Transactions Found</div>
+    </ng-template>
+
+    <div class="dashboard__table-chart__actions dashboard__table-chart__actions--no-border">
+      <span *ngIf="transactionBy && transactionBy.count > 0" (click)="toggleTable()">{{showTable ? 'COLLAPSE' : 'SHOW TABLE'}}</span>
+      <span [routerLink]="['/coming-soon']">VIEW MORE</span>
+    </div>
+
   </ng-template>
-
-  <div class="dashboard__table-chart__actions dashboard__table-chart__actions--no-border">
-    <span *ngIf="transactionBy && transactionBy.count > 0" (click)="toggleTable()">{{showTable ? 'COLLAPSE' : 'SHOW TABLE'}}</span>
-    <span [routerLink]="['/coming-soon']">VIEW MORE</span>
-  </div>
 </div>

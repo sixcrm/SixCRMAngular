@@ -20,21 +20,22 @@ import {EventsBy} from '../models/analytics/events-by.model';
 import {FilterTerm} from '../components/advanced-filter/advanced-filter.component';
 import {downloadFile} from '../utils/file.utils';
 import {Activity} from '../models/analytics/activity.model';
-import {HttpWrapperService, extractData, generateHeaders} from './http-wrapper.service';
+import {HttpWrapperService, extractData, generateHeaders, FailStrategy} from './http-wrapper.service';
+import {CustomServerError} from '../models/errors/custom-server-error';
 
 @Injectable()
 export class AnalyticsService {
 
-  eventFunnel$: BehaviorSubject<EventFunnel>;
-  transactionsSummaries$: BehaviorSubject<TransactionSummary[]>;
-  transactionsOverview$: BehaviorSubject<TransactionOverview>;
-  campaignDelta$: BehaviorSubject<CampaignDelta[]>;
-  eventsBy$: BehaviorSubject<EventsBy>;
-  transactionsBy$: BehaviorSubject<TransactionsBy>;
-  eventsSummary$: BehaviorSubject<EventSummary[]>;
-  campaignsByAmount$: BehaviorSubject<CampaignStats[]>;
+  eventFunnel$: BehaviorSubject<EventFunnel | CustomServerError>;
+  transactionsSummaries$: BehaviorSubject<TransactionSummary[] | CustomServerError>;
+  transactionsOverview$: BehaviorSubject<TransactionOverview | CustomServerError>;
+  campaignDelta$: BehaviorSubject<CampaignDelta[] | CustomServerError>;
+  eventsBy$: BehaviorSubject<EventsBy | CustomServerError>;
+  transactionsBy$: BehaviorSubject<TransactionsBy | CustomServerError>;
+  eventsSummary$: BehaviorSubject<EventSummary[] | CustomServerError>;
+  campaignsByAmount$: BehaviorSubject<CampaignStats[] | CustomServerError>;
 
-  activitiesByCustomer$: Subject<Activity[]>;
+  activitiesByCustomer$: Subject<Activity[] | CustomServerError>;
 
   constructor(private authService: AuthenticationService, private analyticsStorage: AnalyticsStorageService, private http: HttpWrapperService) {
     this.eventFunnel$ = new BehaviorSubject(null);
@@ -57,192 +58,222 @@ export class AnalyticsService {
   }
 
   getTransactionSummaries(start: string, end: string, filters: FilterTerm[], downloadFormat?: string): void {
-    let summariesStorage = this.analyticsStorage.getTransactionSummaries(start, end, filters);
+    const summariesStorage = this.analyticsStorage.getTransactionSummaries(start, end, filters);
 
     if (!downloadFormat && summariesStorage) {
       this.transactionsSummaries$.next(summariesStorage);
-    } else {
-      this.queryRequest(transactionSummaryQuery(start, end, filters), downloadFormat).subscribe(data => {
-        if (!downloadFormat) {
-          let transactions = extractData(data).transactionsummary.transactions;
-
-          if (transactions) {
-            let s = transactions.map(t => new TransactionSummary(t));
-            this.transactionsSummaries$.next(s);
-            this.analyticsStorage.setTransactionSummaries(start, end, s, filters);
-          }
-        } else {
-          downloadFile(data, 'transactions-summary', downloadFormat);
-        }
-      })
+      return;
     }
+
+    this.queryRequest(transactionSummaryQuery(start, end, filters), downloadFormat).subscribe(data => {
+      if (downloadFormat) {
+        downloadFile(data, 'transactions-summary', downloadFormat);
+        return;
+      }
+
+      const result = this.handleResponse(
+        data,
+        this.transactionsSummaries$,
+        (t: any) => new TransactionSummary(t),
+        (data: any) => extractData(data).transactionsummary.transactions
+      );
+
+      if (result) {
+        this.analyticsStorage.setTransactionSummaries(start, end, result, filters);
+      }
+    })
   }
 
   getTransactionOverview(start: string, end: string, downloadFormat?: string): void {
-    let overviewStorage = this.analyticsStorage.getTransactionOverview(start, end);
-
+    const overviewStorage = this.analyticsStorage.getTransactionOverview(start, end);
     if (!downloadFormat && overviewStorage) {
       this.transactionsOverview$.next(overviewStorage);
-    } else {
-      this.queryRequest(transactionOverviewQuery(start, end), downloadFormat).subscribe(data => {
-        if (!downloadFormat) {
-          let overview = extractData(data).transactionoverview.overview;
-
-          if (overview) {
-            let o = new TransactionOverview(overview);
-            this.transactionsOverview$.next(new TransactionOverview(overview));
-            this.analyticsStorage.setTransactionOverview(start, end, o);
-          }
-        } else {
-          downloadFile(data, 'transactions-overview', downloadFormat);
-        }
-      })
+      return;
     }
+
+    this.queryRequest(transactionOverviewQuery(start, end), downloadFormat).subscribe(data => {
+      if (downloadFormat) {
+        downloadFile(data, 'transactions-overview', downloadFormat);
+        return;
+      }
+
+      const result = this.handleResponse(
+        data,
+        this.transactionsOverview$,
+        (t: any) => new TransactionOverview(t),
+        (data: any) => extractData(data).transactionoverview.overview
+      );
+
+      if (result) {
+        this.analyticsStorage.setTransactionOverview(start, end, result);
+      }
+    })
   }
 
   getEventFunnel(start: string, end: string, downloadFormat?: string): void {
-    let funnelStorage = this.analyticsStorage.getEventFunnel(start, end);
-
+    const funnelStorage = this.analyticsStorage.getEventFunnel(start, end);
     if (!downloadFormat && funnelStorage) {
       this.eventFunnel$.next(funnelStorage);
-    } else {
-      this.queryRequest(eventsFunelQuery(start, end), downloadFormat).subscribe(data => {
-        if (!downloadFormat) {
-          let funnel = extractData(data).eventfunnel.funnel;
-
-          if (funnel) {
-            let f = new EventFunnel(funnel);
-            this.eventFunnel$.next(f);
-            this.analyticsStorage.setEventFunnel(start, end, f);
-          }
-        } else {
-          downloadFile(data, 'events-by', downloadFormat);
-        }
-      })
+      return;
     }
+
+    this.queryRequest(eventsFunelQuery(start, end), downloadFormat).subscribe(data => {
+      if (downloadFormat) {
+        downloadFile(data, 'events-by', downloadFormat);
+        return;
+      }
+
+      const result = this.handleResponse(
+        data,
+        this.eventFunnel$,
+        (t: any) => new EventFunnel(t),
+        (data: any) => extractData(data).eventfunnel.funnel
+      );
+
+      if (result) {
+        this.analyticsStorage.setEventFunnel(start, end, result);
+      }
+    })
   }
 
   getCampaignDelta(start: string, end: string, downloadFormat?: string): void {
-    let deltaStorage = this.analyticsStorage.getCampaignsDelta(start, end);
-
+    const deltaStorage = this.analyticsStorage.getCampaignsDelta(start, end);
     if (!downloadFormat && deltaStorage) {
       this.campaignDelta$.next(deltaStorage);
-    } else {
-      this.queryRequest(campaignDeltaQuery(start, end), downloadFormat).subscribe(data => {
-        if (!downloadFormat) {
-          let campaigns = extractData(data).campaigndelta.campaigns;
-
-          if (campaigns) {
-            let c = campaigns.map(d => new CampaignDelta(d));
-            this.campaignDelta$.next(c);
-            this.analyticsStorage.setCampaignsDelta(start, end, c);
-          }
-        } else {
-          downloadFile(data, 'campaigns-delta', downloadFormat);
-        }
-      })
+      return;
     }
+
+    this.queryRequest(campaignDeltaQuery(start, end), downloadFormat).subscribe(data => {
+      if (downloadFormat) {
+        downloadFile(data, 'campaigns-delta', downloadFormat);
+        return;
+      }
+
+      const result = this.handleResponse(
+        data,
+        this.campaignDelta$,
+        (t: any) => new CampaignDelta(t),
+        (data: any) => extractData(data).campaigndelta.campaigns
+      );
+
+      if (result) {
+        this.analyticsStorage.setCampaignsDelta(start, end, result);
+      }
+    })
   }
 
   getEventsBy(start: string, end: string, downloadFormat?: string): void {
-    let eventsStorage = this.analyticsStorage.getEventsBy(start, end);
-
+    const eventsStorage = this.analyticsStorage.getEventsBy(start, end);
     if (!downloadFormat && eventsStorage) {
       this.eventsBy$.next(eventsStorage);
-    } else {
-      this.queryRequest(eventsByAffiliateQuery(start, end), downloadFormat).subscribe(data => {
-        if (!downloadFormat) {
-          let events = extractData(data).eventsbyfacet;
-
-          if (events) {
-            let e = new EventsBy(events);
-            this.eventsBy$.next(e);
-            this.analyticsStorage.setEventsBy(start, end, e);
-          }
-        } else {
-          downloadFile(data, 'events-by-affiliate', downloadFormat);
-        }
-      });
+      return
     }
+
+    this.queryRequest(eventsByAffiliateQuery(start, end), downloadFormat).subscribe(data => {
+      if (downloadFormat) {
+        downloadFile(data, 'events-by-affiliate', downloadFormat);
+        return;
+      }
+
+      const result = this.handleResponse(
+        data,
+        this.eventsBy$,
+        (t: any) => new EventsBy(t),
+        (data: any) => extractData(data).eventsbyfacet
+      );
+
+      if (result) {
+        this.analyticsStorage.setEventsBy(start, end, result);
+      }
+    });
   }
 
   getTransactionsBy(start: string, end: string, downloadFormat?: string): void {
-    let transactionsBy = this.analyticsStorage.getTransactionsBy(start, end);
-
-    if (!downloadFormat && transactionsBy) {
-      this.transactionsBy$.next(transactionsBy);
-    } else {
-      this.queryRequest(transactionsByAffiliateQuery(start, end), downloadFormat).subscribe(data => {
-        if (!downloadFormat) {
-          let events = extractData(data).transactionsbyfacet;
-
-          if (events) {
-            let e = new TransactionsBy(events);
-            this.transactionsBy$.next(e);
-            this.analyticsStorage.setTransactionsBy(start, end, e);
-          }
-        } else {
-          downloadFile(data, 'transactions-by-affiliate', downloadFormat);
-        }
-      });
+    const transactionsStorage = this.analyticsStorage.getTransactionsBy(start, end);
+    if (!downloadFormat && transactionsStorage) {
+      this.transactionsBy$.next(transactionsStorage);
+      return;
     }
+
+    this.queryRequest(transactionsByAffiliateQuery(start, end), downloadFormat).subscribe(data => {
+      if (downloadFormat) {
+        downloadFile(data, 'transactions-by-affiliate', downloadFormat);
+        return;
+      }
+
+      const result = this.handleResponse(
+        data,
+        this.transactionsBy$,
+        (t: any) => new TransactionsBy(t),
+        (data: any) => extractData(data).transactionsbyfacet
+      );
+
+      if (result) {
+        this.analyticsStorage.setTransactionsBy(start, end, result);
+      }
+    });
   }
 
   getEventsSummary(start: string, end: string, downloadFormat?: string): void {
-    let summaryStorage = this.analyticsStorage.getEventSummary(start, end);
-
+    const summaryStorage = this.analyticsStorage.getEventSummary(start, end);
     if (!downloadFormat && summaryStorage) {
       this.eventsSummary$.next(summaryStorage);
-    } else {
-      this.queryRequest(eventsSummaryQuery(start, end), downloadFormat).subscribe(data => {
-        if (!downloadFormat) {
-          let events = extractData(data).eventsummary.events;
-
-          if (events) {
-            let e = events.map(e => new EventSummary(e));
-            this.eventsSummary$.next(e);
-            this.analyticsStorage.setEventSummary(start, end, e);
-          }
-        } else {
-          downloadFile(data, 'events-summary', downloadFormat);
-        }
-      })
+      return;
     }
+
+    this.queryRequest(eventsSummaryQuery(start, end), downloadFormat).subscribe(data => {
+      if (downloadFormat) {
+        downloadFile(data, 'events-summary', downloadFormat);
+        return;
+      }
+
+      const result = this.handleResponse(
+        data,
+        this.eventsSummary$,
+        (t: any) => new EventSummary(t),
+        (data: any) => extractData(data).eventsummary.events
+      );
+      if (result) {
+        this.analyticsStorage.setEventSummary(start, end, result);
+      }
+    })
   }
 
   getCampaignsByAmount(start: string, end: string, downloadFormat?: string): void {
-    let campaignsStorage = this.analyticsStorage.getCampaignsByAmount(start, end);
-
+    const campaignsStorage = this.analyticsStorage.getCampaignsByAmount(start, end);
     if (!downloadFormat && campaignsStorage) {
       this.campaignsByAmount$.next(campaignsStorage);
-    } else {
-      this.queryRequest(campaignsByAmountQuery(start, end), downloadFormat).subscribe(data => {
-        if (!downloadFormat) {
-          let campaigns = extractData(data).campaignsbyamount.campaigns;
-
-          if (campaigns) {
-            let c = campaigns.map(c => new CampaignStats(c));
-            this.campaignsByAmount$.next(c);
-            this.analyticsStorage.setCampaignsByAmount(start, end, c);
-          }
-        } else {
-          downloadFile(data, 'campaigns-by-amount', downloadFormat);
-        }
-      })
+      return;
     }
+
+    this.queryRequest(campaignsByAmountQuery(start, end), downloadFormat).subscribe(data => {
+      if (downloadFormat) {
+        downloadFile(data, 'campaigns-by-amount', downloadFormat);
+        return;
+      }
+
+      const result = this.handleResponse(
+        data,
+        this.campaignsByAmount$,
+        (t: any) => new CampaignStats(t),
+        (data: any) => extractData(data).campaignsbyamount.campaigns
+      );
+      if (result) {
+        this.analyticsStorage.setCampaignsByAmount(start, end, result);
+      }
+    })
   }
 
   getActivityByCustomer(start: string, end: string, customer: string, limit: number, offset: number) {
     if (!this.hasPermission('getActivityByIdentifier')) return;
 
     this.queryRequest(activitiesByCustomer(start, end, customer, limit, offset)).subscribe(data => {
-      let activityList = extractData(data).listactivitybyidentifier;
-
-      if (activityList && activityList.activity) {
-        this.activitiesByCustomer$.next(activityList.activity.map(activity => new Activity(activity)));
-      } else {
-        this.activitiesByCustomer$.next([]);
-      }
+      this.handleResponse(
+        data,
+        this.activitiesByCustomer$,
+        (t: any) => new Activity(t),
+        (data: any) => extractData(data).listactivitybyidentifier.activity
+      );
     })
   }
 
@@ -261,7 +292,29 @@ export class AnalyticsService {
     this.campaignsByAmount$.next(null);
   }
 
-  private queryRequest(query: string, downloadFormat?: string | boolean): Observable<Response> {
+  private handleResponse(
+    response: Response | CustomServerError,
+    dataStream: Subject<any | CustomServerError>,
+    mapFunction: (el: any) => any,
+    extractFunction: (el: any) => any[]
+  ): any {
+    if (response instanceof CustomServerError) {
+      dataStream.next(response);
+
+      return;
+    }
+
+    const entities = extractFunction(response);
+    if (!entities) return null;
+
+    const e = entities instanceof Array ? entities.map(entity => mapFunction(entity)) : mapFunction(entities);
+    dataStream.next(e);
+
+    return e;
+  }
+
+  private queryRequest(query: string, downloadFormat?: string | boolean): Observable<Response | CustomServerError> {
+
     let endpoint = environment.endpoint;
 
     if (this.authService.getActiveAcl() && this.authService.getActiveAcl().account) {
@@ -274,6 +327,6 @@ export class AnalyticsService {
       endpoint += '?download=' + downloadFormat;
     }
 
-    return this.http.post(endpoint, query, { headers: generateHeaders(this.authService.getToken())});
+    return this.http.postWithError(endpoint, query, { headers: generateHeaders(this.authService.getToken())}, {failStrategy: FailStrategy.Soft});
   }
 }

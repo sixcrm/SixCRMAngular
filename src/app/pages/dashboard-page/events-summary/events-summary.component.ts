@@ -3,6 +3,7 @@ import {EventSummary} from '../../../shared/models/event-summary.model';
 import {Observable} from 'rxjs';
 import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'events-summary',
@@ -54,6 +55,14 @@ export class EventsSummaryComponent extends AbstractDashboardItem implements OnI
 
   ngOnInit() {
     this.analyticsService.eventsSummary$.takeUntil(this.unsubscribe$).subscribe(events => {
+      if (events instanceof CustomServerError) {
+        this.serverError = events;
+        this.events = null;
+        this.loaded = true;
+        return;
+      }
+
+      this.serverError = null;
       this.events = events;
       this.redraw();
     })
@@ -61,6 +70,12 @@ export class EventsSummaryComponent extends AbstractDashboardItem implements OnI
 
   ngOnDestroy() {
     this.destroy();
+  }
+
+  refreshData() {
+    this.shouldFetch = true;
+    this.serverError = null;
+    this.fetch();
   }
 
   fetch() {

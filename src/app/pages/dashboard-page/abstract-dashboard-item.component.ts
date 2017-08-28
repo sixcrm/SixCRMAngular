@@ -1,6 +1,7 @@
 import {Input} from '@angular/core';
 import {AsyncSubject} from 'rxjs';
 import {Moment} from 'moment';
+import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 
 export class AbstractDashboardItem {
 
@@ -8,6 +9,9 @@ export class AbstractDashboardItem {
   end: Moment;
   shouldFetch: boolean;
   unsubscribe$: AsyncSubject<boolean> = new AsyncSubject();
+
+  serverError: CustomServerError;
+  loading: boolean = false;
 
   @Input() set date(dates) {
     if (dates) {

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TransactionOverview} from '../../../shared/models/transaction-overview.model';
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
 import {AnalyticsService} from '../../../shared/services/analytics.service';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'transaction-overview',
@@ -26,9 +27,22 @@ export class TransactionOverviewComponent extends AbstractDashboardItem implemen
   }
 
   ngOnInit() {
-    this.analyticsService.transactionsOverview$.takeUntil(this.unsubscribe$).subscribe(data =>
-      this.transactionOverview = data || new TransactionOverview({})
-    );
+    this.analyticsService.transactionsOverview$.takeUntil(this.unsubscribe$).subscribe(data => {
+      if (data instanceof CustomServerError) {
+        this.serverError = data;
+        this.transactionOverview = null;
+        return;
+      }
+
+      this.serverError = null;
+      this.transactionOverview = data;
+    })
+  }
+
+  refreshData() {
+    this.shouldFetch = true;
+    this.serverError = null;
+    this.fetch();
   }
 
   fetch(): void {

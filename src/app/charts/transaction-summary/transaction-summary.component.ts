@@ -3,6 +3,7 @@ import {AbstractDashboardItem} from '../../pages/dashboard-page/abstract-dashboa
 import {TransactionSummary} from '../../shared/models/transaction-summary.model';
 import {AnalyticsService} from '../../shared/services/analytics.service';
 import {FilterTerm, flatUp} from '../../shared/components/advanced-filter/advanced-filter.component';
+import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'transaction-summary-chart',
@@ -77,8 +78,15 @@ export class TransactionSummaryChartComponent extends AbstractDashboardItem impl
   ngOnInit() {
     this.analyticsService.transactionsSummaries$.takeUntil(this.unsubscribe$).subscribe(summaries => {
       if (summaries) {
-        this.summaries = summaries;
+        if (summaries instanceof CustomServerError) {
+          this.serverError = summaries;
+          this.summaries = null;
+          this.loaded = true;
+          return;
+        }
 
+        this.serverError = null;
+        this.summaries = summaries;
         if (this.chartInstance) {
           this.redrawChart();
         }
@@ -89,6 +97,12 @@ export class TransactionSummaryChartComponent extends AbstractDashboardItem impl
   ngOnDestroy() {
     this.chartInstance = null;
     this.destroy();
+  }
+
+  refreshData() {
+    this.shouldFetch = true;
+    this.serverError = null;
+    this.fetch();
   }
 
   fetch(): void {

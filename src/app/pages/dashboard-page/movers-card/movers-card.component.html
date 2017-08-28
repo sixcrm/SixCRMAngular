@@ -11,26 +11,30 @@
   </div>
 
   <div class="movers-card__container">
-    <ng-container *ngIf="!loading; else moversLoader">
-      <div class="dashboard__table-chart__no-data" *ngIf="(!campaignDelta || campaignDelta.length === 0); else movers"> No Campaigns Found</div>
-      <ng-template #movers>
-        <div *ngFor="let campaign of campaignDelta" [routerLink]="['/campaigns', campaign.campaignId]" class="movers-card__item">
-          <div class="movers-card__item__text">
-            <div class="movers-card__item__text__main">{{campaign.campaignName}}</div>
-            <div class="movers-card__item__text__sub">{{campaign.campaignId.substring(0, 8) + '...'}}</div>
-          </div>
 
-          <div class="movers-card__item__data">
-            <div [class.dec]="isDecing(campaign)" class="movers-card__item__data__percentage">
-              <span>{{campaign.percentageChangeAmount}} ({{campaign.percentageChangeCount}})</span>
-              <md-icon>{{isDecing(campaign) ? 'arrow_downward' : 'arrow_upward'}}</md-icon>
+    <server-error-message (refresh)="refreshData()" *ngIf="serverError; else data"></server-error-message>
+    <ng-template #data>
+      <ng-container *ngIf="!loading; else moversLoader">
+        <div class="dashboard__table-chart__no-data" *ngIf="(!campaignDelta || campaignDelta.length === 0); else movers"> No Campaigns Found</div>
+        <ng-template #movers>
+          <div *ngFor="let campaign of campaignDelta" [routerLink]="['/campaigns', campaign.campaignId]" class="movers-card__item">
+            <div class="movers-card__item__text">
+              <div class="movers-card__item__text__main">{{campaign.campaignName}}</div>
+              <div class="movers-card__item__text__sub">{{campaign.campaignId.substring(0, 8) + '...'}}</div>
+            </div>
+
+            <div class="movers-card__item__data">
+              <div [class.dec]="isDecing(campaign)" class="movers-card__item__data__percentage">
+                <span>{{campaign.percentageChangeAmount}} ({{campaign.percentageChangeCount}})</span>
+                <md-icon>{{isDecing(campaign) ? 'arrow_downward' : 'arrow_upward'}}</md-icon>
+              </div>
             </div>
           </div>
-        </div>
+        </ng-template>
+      </ng-container>
+      <ng-template #moversLoader>
+        <md-spinner></md-spinner>
       </ng-template>
-    </ng-container>
-    <ng-template #moversLoader>
-      <md-spinner></md-spinner>
     </ng-template>
   </div>
 
