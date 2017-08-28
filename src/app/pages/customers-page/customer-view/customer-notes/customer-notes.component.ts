@@ -7,6 +7,7 @@ import {PaginationService} from '../../../../shared/services/pagination.service'
 import {MdDialog} from '@angular/material';
 import {firstIndexOf} from '../../../../shared/utils/array.utils';
 import {customerNotesByCustomerQuery} from '../../../../shared/utils/queries/entities/customer-note.queries';
+import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'customer-notes',
@@ -37,16 +38,34 @@ export class CustomerNotesComponent extends AbstractEntityIndexComponent<Custome
     this.limit = 50;
 
     this.service.entities$.takeUntil(this.unsubscribe$).subscribe(notes => {
+      if (notes instanceof CustomServerError) {
+        this.serverError = notes;
+        return;
+      }
+
+      this.serverError = null;
       this.hasMore = notes && notes.length === this.limit;
       this.notes = [...this.notes, ...notes];
     });
 
     this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe(note => {
+      if (note instanceof CustomServerError) {
+        this.serverError = note;
+        return;
+      }
+
+      this.serverError = null;
       this.notes.unshift(note);
       this.closeNote();
     });
 
     this.service.entityDeleted$.takeUntil(this.unsubscribe$).subscribe(note => {
+      if (note instanceof CustomServerError) {
+        this.serverError = note;
+        return;
+      }
+
+      this.serverError = null;
       this.deleteNoteLocally(note);
     });
 
@@ -79,6 +98,12 @@ export class CustomerNotesComponent extends AbstractEntityIndexComponent<Custome
       let customerNote = new CustomerNote({customer: {id: this.customerId}, user: {id: this.authService.getSixUser().id}, body: this.note});
       this.service.createEntity(customerNote);
     }
+  }
+
+  refreshData() {
+    this.loadingData = true;
+    this.serverError = null;
+    this.service.getEntities(this.limit);
   }
 
   deleteNoteLocally(note: CustomerNote): void {

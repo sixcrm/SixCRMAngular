@@ -33,6 +33,12 @@ export class CustomerSessionsComponent extends AbstractEntityIndexComponent<Sess
     ];
   }
 
+  refreshData() {
+    this.loadingData = true;
+    this.serverError = null;
+    this.service.getEntities(this.limit);
+  }
+
   ngOnInit() {
     this.service.indexQuery = (limit?: number, cursor?: string) => sessionsByCustomer(this.id, limit, cursor);
 

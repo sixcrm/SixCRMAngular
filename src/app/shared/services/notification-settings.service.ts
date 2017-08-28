@@ -9,11 +9,12 @@ import {
   notificationSettingsQuery, createNotificationSettingsMutation,
   updateNotificationSettingsMutation, defaultNotificationSettingsQuery, sendTestNotification
 } from '../utils/query-builder';
+import {CustomServerError} from '../models/errors/custom-server-error';
 
 @Injectable()
 export class NotificationSettingsService extends AbstractEntityService<NotificationSettings> {
 
-  defaultNotificationSettings$: Subject<NotificationSettingsData> = new Subject();
+  defaultNotificationSettings$: Subject<NotificationSettingsData | CustomServerError> = new Subject();
 
   constructor(http: HttpWrapperService, authService: AuthenticationService, private notificationsQuickService: NotificationsQuickService) {
     super(
@@ -31,7 +32,12 @@ export class NotificationSettingsService extends AbstractEntityService<Notificat
 
   fetchDefaultNotificationSettings(): void {
     this.queryRequest(defaultNotificationSettingsQuery()).subscribe(data => {
-      let obj = extractData(data).notificationsettingdefault;
+      if (data instanceof CustomServerError) {
+        this.defaultNotificationSettings$.next(data);
+        return;
+      }
+
+      const obj = extractData(data).notificationsettingdefault;
 
       this.defaultNotificationSettings$.next(new NotificationSettingsData(obj));
     })

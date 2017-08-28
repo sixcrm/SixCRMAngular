@@ -1,6 +1,7 @@
 import {Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
 import {AbstractEntityService} from '../../../shared/services/abstract-entity.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'entities-table',
@@ -15,6 +16,7 @@ export class EntitiesTableComponent implements OnInit {
   @Input() columnParams: ColumnParams<any>[] = [];
   @Input() data: any[] = [];
   @Input() filterString: string;
+  @Input() serverError: CustomServerError;
   @Output() selected: EventEmitter<any> = new EventEmitter();
 
   // actions
@@ -25,6 +27,7 @@ export class EntitiesTableComponent implements OnInit {
   @Output() exportClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() deleteClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() editClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() refreshData: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   // pagination
   @Input() limit: number;

@@ -13,11 +13,13 @@
         [data]="entities"
         [columnParams]="columnParams"
         [filterString]="filterValue"
+        [serverError]="serverError"
         (selected)="viewEntity($event.id)"
 
         [service]="service"
         (viewClicked)="viewEntity($event.id)"
         (deleteClicked)="deleteEntity($event.id)"
+        (refreshData)="refreshData()"
 
         [limit]="limit"
         [paginationValues]="paginationValues"

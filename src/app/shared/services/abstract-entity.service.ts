@@ -2,16 +2,17 @@ import {Headers, Response} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {extractData, HttpWrapperService, generateHeaders} from './http-wrapper.service';
+import {extractData, HttpWrapperService, generateHeaders, FailStrategy} from './http-wrapper.service';
+import {CustomServerError} from '../models/errors/custom-server-error';
 
 export abstract class AbstractEntityService<T> {
 
-  entities$: Subject<T[]>;
+  entities$: Subject<T[] | CustomServerError>;
   entitiesHasMore$: Subject<boolean>;
-  entity$: Subject<T>;
-  entityDeleted$: Subject<T>;
-  entityCreated$: Subject<T>;
-  entityUpdated$: Subject<T>;
+  entity$: Subject<T | CustomServerError>;
+  entityDeleted$: Subject<T | CustomServerError>;
+  entityCreated$: Subject<T | CustomServerError>;
+  entityUpdated$: Subject<T | CustomServerError>;
   requestInProgress$: BehaviorSubject<boolean>;
 
   protected cursor: string;
@@ -27,7 +28,7 @@ export abstract class AbstractEntityService<T> {
     private updateQuery?: (entity: T) => string,
     private accessRole?: string
   ) {
-    this.entities$ = new Subject<T[]>();
+    this.entities$ = new Subject<T[] | CustomServerError>();
     this.entitiesHasMore$ = new Subject<boolean>();
     this.entity$ = new Subject<T>();
     this.entityDeleted$ = new Subject<T>();
@@ -46,9 +47,14 @@ export abstract class AbstractEntityService<T> {
     }
 
     this.queryRequest(this.viewQuery(id)).subscribe(data => {
-      let json = extractData(data);
-      let entityKey = Object.keys(json)[0];
-      let entityData =json[entityKey];
+      if (data instanceof CustomServerError) {
+        this.entity$.next(data);
+        return;
+      }
+
+      const json = extractData(data);
+      const entityKey = Object.keys(json)[0];
+      const entityData =json[entityKey];
 
       this.entity$.next(this.toEntity(entityData));
     })
@@ -60,9 +66,14 @@ export abstract class AbstractEntityService<T> {
     }
 
     this.queryRequest(this.deleteQuery(id)).subscribe(data => {
-      let json = extractData(data);
-      let entityKey = Object.keys(json)[0];
-      let entityData =json[entityKey];
+      if (data instanceof CustomServerError) {
+        this.entityDeleted$.next(data);
+        return;
+      }
+
+      const json = extractData(data);
+      const entityKey = Object.keys(json)[0];
+      const entityData =json[entityKey];
 
       this.entityDeleted$.next(this.toEntity(entityData));
     });
@@ -74,9 +85,14 @@ export abstract class AbstractEntityService<T> {
     }
 
     this.queryRequest(this.createQuery(entity)).subscribe(data => {
-      let json = extractData(data);
-      let entityKey = Object.keys(json)[0];
-      let entityData =json[entityKey];
+      if (data instanceof CustomServerError) {
+        this.entityCreated$.next(data);
+        return;
+      }
+
+      const json = extractData(data);
+      const entityKey = Object.keys(json)[0];
+      const entityData =json[entityKey];
 
       this.entityCreated$.next(this.toEntity(entityData));
     });
@@ -88,9 +104,14 @@ export abstract class AbstractEntityService<T> {
     }
 
     this.queryRequest(this.updateQuery(entity)).subscribe(data => {
-      let json = extractData(data);
-      let entityKey = Object.keys(json)[0];
-      let entityData =json[entityKey];
+      if (data instanceof CustomServerError) {
+        this.entityUpdated$.next(data);
+        return;
+      }
+
+      const json = extractData(data);
+      const entityKey = Object.keys(json)[0];
+      const entityData =json[entityKey];
 
       this.entityUpdated$.next(this.toEntity(entityData));
     });
@@ -130,14 +151,18 @@ export abstract class AbstractEntityService<T> {
     }
 
     this.requestInProgress$.next(true);
-    this.queryRequest(query).subscribe(
-      data => {
-        let json = extractData(data);
-        let listKey = Object.keys(json)[0];
-        let listData = json[listKey];
+    this.queryRequest(query).subscribe(data => {
+        if (data instanceof CustomServerError) {
+          this.entities$.next(data);
+          return;
+        }
 
-        let entitiesKey = listData ? Object.keys(listData)[0] : null;
-        let entitiesData = entitiesKey ? listData[entitiesKey] : null;
+        const json = extractData(data);
+        const listKey = Object.keys(json)[0];
+        const listData = json[listKey];
+
+        const entitiesKey = listData ? Object.keys(listData)[0] : null;
+        const entitiesData = entitiesKey ? listData[entitiesKey] : null;
 
         if (listData && listData.pagination) {
           this.entitiesHasMore$.next(listData.pagination.end_cursor !== '' && listData.pagination.has_next_page);
@@ -161,12 +186,16 @@ export abstract class AbstractEntityService<T> {
 
   planeCustomEntitiesQuery(query: string): Observable<T[]> {
     return this.queryRequest(query).map(data => {
-      let json = extractData(data);
-      let listKey = Object.keys(json)[0];
-      let listData = json[listKey];
+      if (data instanceof CustomServerError) {
+        return [];
+      }
 
-      let entitiesKey = listData ? Object.keys(listData)[0] : null;
-      let entitiesData = entitiesKey ? listData[entitiesKey] : null;
+      const json = extractData(data);
+      const listKey = Object.keys(json)[0];
+      const listData = json[listKey];
+
+      const entitiesKey = listData ? Object.keys(listData)[0] : null;
+      const entitiesData = entitiesKey ? listData[entitiesKey] : null;
 
       if (entitiesData) {
         return entitiesData.map(entity => this.toEntity(entity));
@@ -176,9 +205,8 @@ export abstract class AbstractEntityService<T> {
     })
   }
 
-  protected queryRequest(query: string, ignoreProgress?: boolean): Observable<Response> {
+  protected queryRequest(query: string, ignoreProgress?: boolean): Observable<Response | CustomServerError> {
     let endpoint = environment.endpoint;
-
 
     if (this.authService.getActiveAcl() && this.authService.getActiveAcl().account) {
       endpoint = endpoint + this.authService.getActiveAcl().account.id;
@@ -186,6 +214,6 @@ export abstract class AbstractEntityService<T> {
       endpoint = endpoint + '*';
     }
 
-    return this.http.post(endpoint, query, { headers: generateHeaders(this.authService.getToken())}, ignoreProgress);
+    return this.http.postWithError(endpoint, query, { headers: generateHeaders(this.authService.getToken())}, {ignoreProgress: ignoreProgress, failStrategy: FailStrategy.Soft});
   }
 }

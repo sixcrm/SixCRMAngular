@@ -4,6 +4,7 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
 import {RebillsService} from '../../../shared/services/rebills.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'rebill-view',
@@ -33,6 +34,11 @@ export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> imp
     this.init();
 
     this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(entity => {
+      if (entity instanceof CustomServerError) {
+        this.router.navigate(['/error']);
+        return;
+      }
+
       this.billdate = entity.billAt.format('MM/DD/YYYY');
       this.billamount = entity.amount.usd();
       this.parentsession = entity.parentSession.id;

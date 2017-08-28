@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {SmtpProvider} from '../../../shared/models/smtp-provider.model';
 import {SmtpProvidersService} from '../../../shared/services/smtp-providers.service';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 declare var tinymce;
 
@@ -87,6 +88,11 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
 
     if (this.addMode) {
       this.service.entityCreated$.take(1).subscribe(entity => {
+        if (entity instanceof CustomServerError) {
+          this.router.navigate(['/error']);
+          return;
+        }
+
         this.router.navigate(['/emailtemplates', entity.id]);
         this.addMode = false;
         this.entity = entity;

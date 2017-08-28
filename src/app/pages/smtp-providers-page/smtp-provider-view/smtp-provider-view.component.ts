@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {SmtpProvider} from '../../../shared/models/smtp-provider.model';
 import {NavigationService} from '../../../navigation/navigation.service';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'smtp-provider-view',
@@ -55,6 +56,8 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
     this.formInvalid = false;
     if (this.addMode) {
       this.service.entityCreated$.take(1).subscribe(provider => {
+        if (provider instanceof CustomServerError) return;
+
         this.router.navigate(['smtpproviders', provider.id]);
         this.entity = provider;
         this.entityBackup = this.entity.copy();

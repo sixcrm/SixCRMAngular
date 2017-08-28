@@ -12,9 +12,36 @@
   }
 
   .error-refresh {
-    margin-top: 20px;
+    margin: 15px;
     font-size: 30px;
+    height: 30px;
+    width: 30px;
     color: #039BE5;
     cursor: pointer;
+    -webkit-animation: rotate 0.8s linear;
+    -moz-animation:    rotate 0.8s linear;
+    -o-animation:      rotate 0.8s linear;
+    animation:         rotate 0.8s linear;
   }
+}
+
+@-webkit-keyframes rotate {
+  0%   { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.4) }
+  100% { transform: rotate(360deg) scale(1); }
+}
+@-moz-keyframes rotate {
+  0%   { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.4) }
+  100% { transform: rotate(360deg) scale(1); }
+}
+@-o-keyframes rotate {
+  0%   { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.4) }
+  100% { transform: rotate(360deg) scale(1); }
+}
+@keyframes rotate {
+  0%   { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.4) }
+  100% { transform: rotate(360deg) scale(1); }
 }

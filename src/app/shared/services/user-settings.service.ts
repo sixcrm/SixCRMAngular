@@ -4,6 +4,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {UserSettings} from '../models/user-settings';
 import { userSettingsQuery, updateUserSettingsMutation } from '../utils/query-builder';
 import {HttpWrapperService} from './http-wrapper.service';
+import {CustomServerError} from '../models/errors/custom-server-error';
 
 @Injectable()
 export class UserSettingsService extends AbstractEntityService<UserSettings> {
@@ -21,6 +22,10 @@ export class UserSettingsService extends AbstractEntityService<UserSettings> {
       'default'
     );
 
-    this.entityUpdated$.subscribe(settings => this.authService.updateTimezone(settings.timezone))
+    this.entityUpdated$.subscribe(settings => {
+      if (settings instanceof CustomServerError) return;
+
+      this.authService.updateTimezone(settings.timezone)
+    })
   }
 }

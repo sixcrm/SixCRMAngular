@@ -7,6 +7,7 @@ import {
   transactionsInfoListQuery, deleteTransactionMutation,
   transactionQuery, refundTransactionMutation
 } from '../utils/queries/entities/transaction.queries';
+import {CustomServerError} from '../models/errors/custom-server-error';
 
 @Injectable()
 export class TransactionsService extends AbstractEntityService<Transaction> {
@@ -32,6 +33,11 @@ export class TransactionsService extends AbstractEntityService<Transaction> {
 
     this.queryRequest(refundTransactionMutation(transactionId, refundAmount)).subscribe(
       (data) => {
+        if (data instanceof CustomServerError) {
+          this.entityUpdated$.next(data);
+          return;
+        }
+
         let json = extractData(data);
         let entityKey = Object.keys(json)[0];
         let entityData =json[entityKey];

@@ -11,6 +11,7 @@ import {CodemirrorComponent} from 'ng2-codemirror';
 import {AffiliatesService} from '../../../shared/services/affiliates.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'tracker-view',
@@ -71,6 +72,8 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
 
   saveTracker(): void {
     this.service.entityCreated$.take(1).subscribe(tracker => {
+      if (tracker instanceof CustomServerError) return;
+
       this.router.navigate(['trackers', tracker.id]);
       this.entity = tracker;
     });

@@ -13,6 +13,7 @@ import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 import {Affiliate} from '../../../shared/models/affiliate.model';
 import {AffiliatesService} from '../../../shared/services/affiliates.service';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'campaign-view',
@@ -89,7 +90,12 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
       this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(() => this.fetchDependencies());
     }
 
-    this.affiliateService.entities$.takeUntil(this.unsubscribe$).take(1).subscribe((affiliates) => {
+    this.affiliateService.entities$.takeUntil(this.unsubscribe$).take(1).subscribe(affiliates => {
+      if (affiliates instanceof CustomServerError) {
+        this.allAffiliates = [];
+        return;
+      }
+
       let starAffiliate = [new Affiliate()];
       starAffiliate[0].name = 'All';
       starAffiliate[0].id = '*';

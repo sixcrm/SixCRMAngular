@@ -36,8 +36,12 @@
     </tbody>
   </table>
 
-  <md-spinner class="entity-view__spinner" *ngIf="loadingData && (!entities || entities.length === 0)"></md-spinner>
-  <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">No upcoming transactions found</div>
+  <server-error-message (refresh)="refreshData()" *ngIf="serverError; else message"></server-error-message>
+
+  <ng-template #message>
+    <md-spinner class="entity-view__spinner" *ngIf="loadingData"></md-spinner>
+    <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">No upcoming transactions found</div>
+  </ng-template>
 
   <table-pagination
     [limit]="limit"

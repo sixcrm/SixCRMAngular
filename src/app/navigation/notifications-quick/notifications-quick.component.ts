@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {NotificationsQuickService} from '../../shared/services/notifications-quick.service';
 import {EntitiesByDate} from '../../shared/models/entities-by-date.interface';
 import {AsyncSubject} from 'rxjs';
+import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'notifications-quick',
@@ -24,6 +25,7 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
   ];
 
   isEmpty: boolean = false;
+  serverError: CustomServerError;
 
   private unsubscribe: AsyncSubject<boolean> = new AsyncSubject();
 
@@ -35,11 +37,23 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.notificationsService.entities$.takeUntil(this.unsubscribe).subscribe(notifications => {
+      if (notifications instanceof CustomServerError) {
+        this.serverError = notifications;
+        return;
+      }
+
+      this.serverError = null;
       this.arrangeNotifications(notifications);
       this.notificationsService.restartPoolingNotifications();
     });
 
     this.notificationsService.entityUpdated$.takeUntil(this.unsubscribe).subscribe(notification => {
+      if (notification instanceof CustomServerError) {
+        this.serverError = notification;
+        return;
+      }
+
+      this.serverError = null;
       this.updateLocally(notification);
     });
 

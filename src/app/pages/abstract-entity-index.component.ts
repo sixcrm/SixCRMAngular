@@ -8,6 +8,7 @@ import {ViewChild} from '@angular/core';
 import {AsyncSubject} from 'rxjs';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../shared/models/column-params.model';
+import {CustomServerError} from '../shared/models/errors/custom-server-error';
 
 export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
@@ -35,6 +36,8 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
   loadingData: boolean = false;
 
+  serverError: CustomServerError;
+
   protected takeUpdated: boolean = true;
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
@@ -48,10 +51,17 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   ) { }
 
   init(fetch: boolean = true): void {
-    this.service.entities$.takeUntil(this.unsubscribe$).subscribe((entities: T[]) => {
+    this.service.entities$.takeUntil(this.unsubscribe$).subscribe((entities: (T[] | CustomServerError)) => {
       if (!this.loadingData) return;
 
+      if (entities instanceof CustomServerError) {
+        this.serverError = entities;
+        this.loadingData = false;
+        return;
+      }
+
       this.loadingData = false;
+      this.serverError = null;
       this.entitiesHolder = [...this.entitiesHolder, ...entities];
       this.reshuffleEntities();
     });
@@ -171,6 +181,12 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
     params.sortApplied = true;
     this.sortedColumnParams = params;
+  }
+
+  refreshData() {
+    this.loadingData = true;
+    this.serverError = null;
+    this.service.getEntities(this.limit);
   }
 
   protected reshuffleEntities(): void {

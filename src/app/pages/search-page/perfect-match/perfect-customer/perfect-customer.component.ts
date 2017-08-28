@@ -8,6 +8,7 @@ import {
   transactionsByCustomer,
   transactionsInfoListQuery
 } from '../../../../shared/utils/queries/entities/transaction.queries';
+import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'perfect-customer',
@@ -18,13 +19,29 @@ export class PerfectCustomerComponent extends AbstractPerfectMatch implements On
   customer: Customer;
   transactions: Transaction[];
 
+  transactionsServerError: CustomServerError;
+
   constructor(private customersService: CustomersService, private transactionsService: TransactionsService) {
     super();
   }
 
   ngOnInit() {
-    this.customersService.entity$.takeUntil(this.unsubscribe$).subscribe(customer => this.customer = customer);
+    this.customersService.entity$.takeUntil(this.unsubscribe$).subscribe(customer => {
+      if (customer instanceof CustomServerError) {
+        this.serverError = customer;
+        return;
+      }
+
+      this.serverError = null;
+      this.customer = customer
+    });
     this.transactionsService.entities$.takeUntil(this.unsubscribe$).subscribe(transactions => {
+      if (transactions instanceof CustomServerError) {
+        this.transactionsServerError = transactions;
+        return;
+      }
+
+      this.transactionsServerError = null;
       if (!transactions) {
         this.transactions = [];
       } else {

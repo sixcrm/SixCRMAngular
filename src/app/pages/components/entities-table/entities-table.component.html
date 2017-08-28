@@ -1,44 +1,48 @@
-<table class="entity-index__table highlight">
-  <thead class="entity-index__table__header">
-  <tr>
-    <ng-container *ngFor="let params of columnParams">
-      <th (click)="setSortParams(params)" [class.cell--align-right]="params.align === 'right'" [class.cell--codeblock]="params.code">
-        {{params.label}}
-        <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
-      </th>
-    </ng-container>
-    <th></th>
-  </tr>
-  </thead>
+<server-error-message (refresh)="refreshData.emit(true)" *ngIf="serverError; else tableData;"></server-error-message>
 
-  <tbody>
-  <tr *ngFor="let entity of (data | filterEntitiesByParams: columnParams: filterString | sortEntities: sortParams.mappingFunction: sortParams.sortOrder)">
-    <td (click)="selected.emit(entity)" *ngFor="let param of columnParams" [class.cell--align-right]="param.align === 'right'">
-      <div class="codeblock" *ngIf="param.code; else noCode">
-        {{param.mappingFunction(entity)}}
-      </div>
-      <ng-template #noCode>{{param.mappingFunction(entity)}}</ng-template>
-    </td>
-    <td>
-      <table-actions
-        [service]="service"
-        (viewClicked)="viewClicked.emit(entity)"
-        (copyClicked)="copyClicked.emit(entity)"
-        (exportClicked)="exportClicked.emit(entity)"
-        (editClicked)="editClicked.emit(entity)"
-        (deleteClicked)="deleteClicked.emit(entity)">
-      </table-actions>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<ng-template #tableData>
+  <table class="entity-index__table highlight">
+    <thead class="entity-index__table__header">
+    <tr>
+      <ng-container *ngFor="let params of columnParams">
+        <th (click)="setSortParams(params)" [class.cell--align-right]="params.align === 'right'" [class.cell--codeblock]="params.code">
+          {{params.label}}
+          <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+        </th>
+      </ng-container>
+      <th></th>
+    </tr>
+    </thead>
 
-<table-pagination
-  [limit]="limit"
-  [paginationValues]="paginationValues"
-  [previousDisabled]="previousDisabled"
-  [nextDisabled]="nextDisabled"
-  (previous)="previous.emit(true)"
-  (next)="next.emit(true)"
-  (updateLimit)="updateLimit.emit($event)">
-</table-pagination>
+    <tbody>
+    <tr *ngFor="let entity of (data | filterEntitiesByParams: columnParams: filterString | sortEntities: sortParams.mappingFunction: sortParams.sortOrder)">
+      <td (click)="selected.emit(entity)" *ngFor="let param of columnParams" [class.cell--align-right]="param.align === 'right'">
+        <div class="codeblock" *ngIf="param.code; else noCode">
+          {{param.mappingFunction(entity)}}
+        </div>
+        <ng-template #noCode>{{param.mappingFunction(entity)}}</ng-template>
+      </td>
+      <td>
+        <table-actions
+          [service]="service"
+          (viewClicked)="viewClicked.emit(entity)"
+          (copyClicked)="copyClicked.emit(entity)"
+          (exportClicked)="exportClicked.emit(entity)"
+          (editClicked)="editClicked.emit(entity)"
+          (deleteClicked)="deleteClicked.emit(entity)">
+        </table-actions>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <table-pagination
+    [limit]="limit"
+    [paginationValues]="paginationValues"
+    [previousDisabled]="previousDisabled"
+    [nextDisabled]="nextDisabled"
+    (previous)="previous.emit(true)"
+    (next)="next.emit(true)"
+    (updateLimit)="updateLimit.emit($event)">
+  </table-pagination>
+</ng-template>

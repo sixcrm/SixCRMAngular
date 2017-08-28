@@ -7,6 +7,7 @@ import {PaginationService} from '../../shared/services/pagination.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {utc} from 'moment';
 import {EntitiesByDate} from '../../shared/models/entities-by-date.interface';
+import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'notifications',
@@ -39,13 +40,23 @@ export class NotificationsComponent extends AbstractEntityIndexComponent<Notific
     this.shareLimit = false;
     this.limit = 20;
 
-    this.service.entities$.takeUntil(this.unsubscribe$).subscribe((entities: Notification[]) => {
+    this.service.entities$.takeUntil(this.unsubscribe$).subscribe(entities => {
+      if (entities instanceof CustomServerError) {
+        this.serverError = entities;
+        return;
+      }
+
+      this.serverError = null;
       this.arrangeNotifications(entities);
     });
 
     this.notificationsService.requestInProgress$.takeUntil(this.unsubscribe$).subscribe(loading => this.loading = loading);
 
-    this.notificationsService.entityUpdated$.subscribe(notification => this.updateLocally(notification));
+    this.notificationsService.entityUpdated$.subscribe(notification => {
+      if (notification instanceof CustomServerError) return;
+
+      this.updateLocally(notification)
+    });
 
     this.init();
   }

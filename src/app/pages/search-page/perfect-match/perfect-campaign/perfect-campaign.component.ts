@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractPerfectMatch} from '../abstract-perfect-match.component';
 import {Campaign} from '../../../../shared/models/campaign.model';
 import {CampaignsService} from '../../../../shared/services/campaigns.service';
+import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'perfect-campaign',
@@ -17,7 +18,15 @@ export class PerfectCampaignComponent extends AbstractPerfectMatch implements On
   }
 
   ngOnInit() {
-    this.campaignsService.entity$.takeUntil(this.unsubscribe$).subscribe(campaign => this.campaign = campaign);
+    this.campaignsService.entity$.takeUntil(this.unsubscribe$).subscribe(campaign => {
+      if (campaign instanceof CustomServerError) {
+        this.serverError = campaign;
+        return;
+      }
+
+      this.serverError = null;
+      this.campaign = campaign
+    });
 
     this.campaignsService.getEntity(this.id);
   }

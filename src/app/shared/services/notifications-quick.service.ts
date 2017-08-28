@@ -8,6 +8,7 @@ import {
   notificationsQuickListQuery, updateNotificationMutation,
   notificationCountQuery
 } from '../utils/queries/entities/notification.queries';
+import {CustomServerError} from '../models/errors/custom-server-error';
 
 @Injectable()
 export class NotificationsQuickService extends AbstractEntityService<Notification> {
@@ -59,6 +60,11 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
     }
 
     this.querySub = this.queryRequest(notificationCountQuery(), true).subscribe(data => {
+      if (data instanceof CustomServerError) {
+        this.notificationCount$.next(0);
+        return;
+      }
+
       let json = extractData(data);
       let entityKey = Object.keys(json)[0];
       let entityData =json[entityKey];

@@ -38,6 +38,12 @@ export class CustomerTransactionsComponent extends AbstractEntityIndexComponent<
     ];
   }
 
+  refreshData() {
+    this.loadingData = true;
+    this.serverError = null;
+    this.service.getEntities(this.limit);
+  }
+
   ngOnInit() {
     this.service.indexQuery = (limit?: number, cursor?: string) => transactionsByCustomer(this.id, limit, cursor);
     this.init(!!this.id);

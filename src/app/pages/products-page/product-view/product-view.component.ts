@@ -8,6 +8,7 @@ import {FulfillmentProvider} from '../../../shared/models/fulfillment-provider.m
 import {NavigationService} from '../../../navigation/navigation.service';
 import {parseCurrencyMaskedValue} from '../../../shared/utils/mask.utils';
 import {Observable} from 'rxjs';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'product-view',
@@ -36,7 +37,9 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     this.init(() => this.navigation.goToNotFoundPage());
 
     this.service.entity$.merge(this.service.entityCreated$).merge(this.service.entityUpdated$).takeUntil(this.unsubscribe$)
-      .subscribe(product => this.price = product.defaultPrice.amount + '');
+      .subscribe(product => {
+        this.price = product instanceof CustomServerError ? '' : product.defaultPrice.amount + '';
+      });
 
     if (this.addMode) {
       this.entity = new Product();

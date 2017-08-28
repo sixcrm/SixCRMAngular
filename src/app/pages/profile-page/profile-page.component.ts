@@ -16,6 +16,8 @@ import {Role} from '../../shared/models/role.model';
 import {MdDialog, MdDialogRef} from '@angular/material';
 import {RolesService} from '../../shared/services/roles.service';
 import {Account} from '../../shared/models/account.model';
+import {CustomServerError} from '../../shared/models/errors/custom-server-error';
+import {Router} from '@angular/router';
 
 let moment = require('moment-timezone');
 
@@ -68,12 +70,18 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     private authService: AuthenticationService,
     public navigation: NavigationService,
     private dialog: MdDialog,
-    private rolesService: RolesService
+    private rolesService: RolesService,
+    private router: Router
   ) { }
 
   ngOnInit() {
-    this.userSettingsService.entity$.merge(this.userSettingsService.entityUpdated$).takeUntil(this.unsubscribe$).subscribe(userSettings => {
-      this.userSettings = userSettings;
+    this.userSettingsService.entity$.merge(this.userSettingsService.entityUpdated$).takeUntil(this.unsubscribe$).subscribe(settings => {
+      if (settings instanceof CustomServerError) {
+        this.router.navigate(['/error']);
+        return;
+      }
+
+      this.userSettings = settings;
       if (!this.userSettings.id) {
         this.userSettings.id = this.user.id;
       }
@@ -83,6 +91,11 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     });
 
     this.notificationSettingsService.defaultNotificationSettings$.takeUntil(this.unsubscribe$).subscribe(settings => {
+      if (settings instanceof CustomServerError) {
+        this.router.navigate(['/error']);
+        return;
+      }
+
       this.defaultNotificationSettings = settings;
       this.notificationSettings.settings = settings;
       this.notificationSettings.id = this.user.id;
@@ -91,6 +104,11 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     });
 
     this.notificationSettingsService.entity$.takeUntil(this.unsubscribe$).subscribe(settings => {
+      if (settings instanceof CustomServerError) {
+        this.router.navigate(['/error']);
+        return;
+      }
+
       this.notificationSettings = settings;
 
       if (!this.notificationSettings.settings) {
@@ -100,6 +118,11 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
     this.notificationSettingsService.entityCreated$
       .merge(this.notificationSettingsService.entityUpdated$).takeUntil(this.unsubscribe$).subscribe(settings => {
+        if (settings instanceof CustomServerError) {
+          this.router.navigate(['/error']);
+          return;
+        }
+
         this.notificationSettings = settings;
       });
 
@@ -129,7 +152,14 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     });
 
     // get available roles for user invite
-    this.rolesService.entities$.takeUntil(this.unsubscribe$).take(1).subscribe(roles => this.roles = roles);
+    this.rolesService.entities$.takeUntil(this.unsubscribe$).take(1).subscribe(roles => {
+      if (roles instanceof CustomServerError) {
+        this.router.navigate(['/error']);
+        return;
+      }
+
+      this.roles = roles
+    });
     this.rolesService.getEntities();
   }
 

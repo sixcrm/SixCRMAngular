@@ -13,6 +13,7 @@
         [data]="entities"
         [columnParams]="columnParams"
         [filterString]="filterValue"
+        [serverError]="serverError"
         (selected)="viewEntity($event.id)"
 
         [service]="service"
@@ -21,6 +22,7 @@
         (exportClicked)="exportEntity($event.id)"
         (editClicked)="editEntity($event.id)"
         (deleteClicked)="deleteEntity($event.id)"
+        (refreshData)="refreshData()"
 
         [limit]="limit"
         [paginationValues]="paginationValues"

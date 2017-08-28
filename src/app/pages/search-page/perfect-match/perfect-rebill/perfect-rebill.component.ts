@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Rebill} from '../../../../shared/models/rebill.model';
 import {AbstractPerfectMatch} from '../abstract-perfect-match.component';
 import {RebillsService} from '../../../../shared/services/rebills.service';
+import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'perfect-rebill',
@@ -17,7 +18,15 @@ export class PerfectRebillComponent extends AbstractPerfectMatch implements OnIn
   }
 
   ngOnInit() {
-    this.rebillsService.entity$.takeUntil(this.unsubscribe$).subscribe(rebill => this.rebill = rebill);
+    this.rebillsService.entity$.takeUntil(this.unsubscribe$).subscribe(rebill => {
+      if (rebill instanceof CustomServerError) {
+        this.serverError = rebill;
+        return;
+      }
+
+      this.serverError = null;
+      this.rebill = rebill
+    });
 
     this.rebillsService.getEntity(this.id);
   }
