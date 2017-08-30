@@ -5,13 +5,12 @@
       <input md-input placeholder="Filter" [(ngModel)]="filterString" type="text">
     </md-input-container>
 
-    <md-icon *ngIf="!associationEnabled; else tableMenu" class="entity-view__table-component__header__action" [class.alone]="!filterEnabled">more_vert</md-icon>
-    <ng-template #tableMenu>
+    <ng-container *ngIf="associationEnabled">
       <md-icon class="entity-view__table-component__header__action" [class.alone]="!filterEnabled" [md-menu-trigger-for]="optionsMenu">more_vert</md-icon>
       <md-menu #optionsMenu="mdMenu" x-position="before">
         <button md-menu-item (click)="showAssociateDialog()">{{textOptions.associateOptionText || 'Associate ' + title}}</button>
       </md-menu>
-    </ng-template>
+    </ng-container>
   </div>
   <table class="highlight table__custom">
     <thead>

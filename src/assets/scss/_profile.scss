@@ -57,15 +57,12 @@
 
       &__button {
         position: absolute;
-        right: 15px;
-        bottom: 10px;
-        border-radius: 4px;
-        padding: 8px 12px;
+        right: 20px;
+        bottom: 15px;
+        color: #5B9BE1;
         font-size: 14px;
-        box-shadow: 0 0 8px rgba(0,0,0,0.4);
-        background: #039BE5;
-        color: white;
         cursor: pointer;
+        text-transform: uppercase;
       }
     }
 
