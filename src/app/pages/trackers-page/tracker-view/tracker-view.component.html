@@ -10,26 +10,12 @@
     <div class="entity-view__info__data">
       <div *ngIf="!addMode" class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
       <div *ngIf="!addMode; else createMessage" class="entity-view__info__data__name">
-        <md-input-container *ngIf="editMode; else name">
-          <input md-input type="text" [(ngModel)]="entity.name">
-        </md-input-container>
-        <ng-template #name>
-          {{entity.name}}
-        </ng-template>
+        {{entity.name}}
       </div>
       <ng-template #createMessage>
         <div class="entity-view__info__data__name">
           Create new Tracker
         </div>
-      </ng-template>
-    </div>
-
-    <div *ngIf="!addMode" class="entity-view__info__edit">
-      <div *ngIf="!editMode; else editActions" class="entity-view__info__edit__update" (click)="enableEdit()"> EDIT TRACKER </div>
-
-      <ng-template #editActions>
-        <div (click)="cancelEdit()">CANCEL</div>
-        <div class="entity-view__info__edit__update" (click)="updateTracker()">UPDATE</div>
       </ng-template>
     </div>
   </div>
@@ -45,11 +31,14 @@
       <div class="tracker-view__card">
         <div class="tracker-view__card__header">
           <div class="tracker-view__card__header__main">Tracker Details</div>
-          <!--<md-icon>more_vert</md-icon>-->
+          <md-icon [md-menu-trigger-for]="trackerOptions">more_vert</md-icon>
+          <md-menu #trackerOptions="mdMenu" x-position="before">
+            <button md-menu-item (click)="enableEdit()"> Edit Tracker </button>
+          </md-menu>
         </div>
 
         <div class="tracker-view__card__content">
-          <div *ngIf="addMode" class="tracker-view__card__content__name">
+          <div *ngIf="addMode || editMode" class="tracker-view__card__content__name">
             <md-input placeholder="Tracker Name" [(ngModel)]="entity.name"></md-input>
           </div>
 
@@ -100,11 +89,16 @@
               </ng-template>
             </ng-container>
           </div>
-        </div>
-      </div>
 
-      <div *ngIf="addMode" class="card-outside-button" (click)="saveTracker()">
-        SAVE
+          <div class="tracker-view__card__content__buttons" *ngIf="editMode">
+            <div class="tracker-cancel" (click)="cancelEdit()">CANCEL</div>
+            <div class="tracker-update" (click)="updateTracker()">UPDATE</div>
+          </div>
+          <div class="tracker-view__card__content__buttons" *ngIf="addMode" (click)="saveTracker()">
+            <div class="tracker-save">SAVE</div>
+          </div>
+
+        </div>
       </div>
 
     </md-tab>

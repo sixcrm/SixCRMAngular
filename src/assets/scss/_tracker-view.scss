@@ -110,6 +110,29 @@
           }
         }
       }
+
+      &__buttons {
+        display: flex;
+        text-align: right;
+
+        div {
+          cursor: pointer;
+        }
+
+        .tracker-cancel {
+          margin-right: 15px;
+          margin-left: auto;
+        }
+
+        .tracker-update {
+          color: #5B9BE1;
+        }
+
+        .tracker-save {
+          margin-left: auto;
+          color: #5B9BE1;
+        }
+      }
     }
   }
 
