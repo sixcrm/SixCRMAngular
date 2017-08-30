@@ -43,10 +43,10 @@
       </form>
 
       <div class="entity-view__info__edit">
-        <div *ngIf="viewMode" class="entity-view__info__edit__update" (click)="setMode(modes.Update)"> EDIT CUSTOMER</div>
+        <div *ngIf="viewMode" class="entity-view__info__edit__update" (click)="setMode(modes.Update)"> EDIT CUSTOMER DETAILS </div>
         <ng-container *ngIf="updateMode">
-          <div (click)="cancelInfoUpdate()">CANCEL</div>
-          <div class="entity-view__info__edit__update" (click)="saveCustomer(userDataForm.form.valid && addressDataForm.form.valid)">UPDATE</div>
+          <div (click)="cancelCustomerUpdate()">CANCEL</div>
+          <div class="entity-view__info__edit__update" (click)="updateCustomer(userDataForm.form.valid)">UPDATE</div>
         </ng-container>
       </div>
     </div>
@@ -66,7 +66,10 @@
               <md-card-title>
                 <div class="title">Shipping Information</div>
                 <div class="subtitle">Address where fulfillment will ship packages</div>
-                <md-icon>more_vert</md-icon>
+                <md-icon [md-menu-trigger-for]="shipOptions">more_vert</md-icon>
+                <md-menu #shipOptions="mdMenu" x-position="before">
+                  <button md-menu-item (click)="shippingInfoEditMode = true;"> Edit Shipping Information </button>
+                </md-menu>
               </md-card-title>
               <md-card-content>
 
@@ -75,26 +78,26 @@
                     <input required disabled md-input name="fullName" placeholder="Full Name" [(ngModel)]="entity.fullName">
                   </md-input-container>
                   <md-input-container [class.error]="formInvalid && !addressDataForm.form.controls.address.valid">
-                    <input required [disabled]="viewMode" md-input name="address" placeholder="Address" [(ngModel)]="entity.address.line1">
+                    <input required [disabled]="!shippingInfoEditMode" md-input name="address" placeholder="Address" [(ngModel)]="entity.address.line1">
                   </md-input-container>
                   <md-input-container [class.error]="formInvalid && !addressDataForm.form.controls.city.valid">
-                    <input required [disabled]="viewMode" md-input name="city" placeholder="City" [(ngModel)]="entity.address.city">
+                    <input required [disabled]="!shippingInfoEditMode" md-input name="city" placeholder="City" [(ngModel)]="entity.address.city">
                   </md-input-container>
 
                   <div class="flex-custom customer-view__card__address-row">
-                    <autocomplete-input [class.error]="formInvalid && !entity.address.state" [disabled]="viewMode" [strictFilteringStrategy]="true" [required]="true" [initialValue]="entity.address.state" [placeholder]="'State'" [showCancelButton]="false" [options]="states" (selected)="entity.address.state = $event"></autocomplete-input>
+                    <autocomplete-input [class.error]="formInvalid && !entity.address.state" [disabled]="!shippingInfoEditMode" [strictFilteringStrategy]="true" [required]="true" [initialValue]="entity.address.state" [placeholder]="'State'" [showCancelButton]="false" [options]="states" (selected)="entity.address.state = $event"></autocomplete-input>
 
                     <md-input-container [class.error]="formInvalid && !addressDataForm.form.controls.postalCode.valid">
-                      <input required [disabled]="viewMode" md-input name="postalCode" placeholder="Postal Code" [(ngModel)]="entity.address.zip">
+                      <input required [disabled]="!shippingInfoEditMode" md-input name="postalCode" placeholder="Postal Code" [(ngModel)]="entity.address.zip">
                     </md-input-container>
                   </div>
 
-                  <autocomplete-input [class.error]="formInvalid && !entity.address.country" [strictFilteringStrategy]="true" [disabled]="viewMode" [required]="true" [initialValue]="entity.address.country" [placeholder]="'Country'" [showCancelButton]="false" [options]="['USA']" (selected)="entity.address.country = $event"></autocomplete-input>
+                  <autocomplete-input [class.error]="formInvalid && !entity.address.country" [strictFilteringStrategy]="true" [disabled]="!shippingInfoEditMode" [required]="true" [initialValue]="entity.address.country" [placeholder]="'Country'" [showCancelButton]="false" [options]="['USA']" (selected)="entity.address.country = $event"></autocomplete-input>
                 </form>
 
-                <div *ngIf="updateMode" class="customer-view__card__actions">
-                  <div (click)="cancelAddressUpdate()">CANCEL</div>
-                  <div (click)="saveCustomer(userDataForm.form.valid && addressDataForm.form.valid)">UPDATE</div>
+                <div *ngIf="shippingInfoEditMode" class="customer-view__card__actions">
+                  <div (click)="cancelCustomerUpdate()">CANCEL</div>
+                  <div (click)="updateCustomer(addressDataForm.form.valid)">UPDATE</div>
                 </div>
               </md-card-content>
             </md-card>

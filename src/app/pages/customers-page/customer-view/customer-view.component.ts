@@ -25,14 +25,14 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
   creditCardInputMode: boolean = false;
   creditCardForInput: CreditCard;
 
-  customerInfoEditMode: boolean = false;
-
   rebillEditMode: boolean = false;
   rebillUnderEdit: Rebill;
 
   states: string[] = getStates();
 
   formInvalid: boolean = false;
+
+  shippingInfoEditMode: boolean = false;
 
   constructor(
     service: CustomersService,
@@ -47,7 +47,7 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
     this.init(() => this.navigation.goToNotFoundPage());
 
     this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(() => {
-      this.customerInfoEditMode = false;
+      this.shippingInfoEditMode = false;
     });
 
     if (this.addMode) {
@@ -66,12 +66,8 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
     this.destroy();
   }
 
-  cancelAddressUpdate() {
-    this.cancelUpdate();
-  }
-
-  cancelInfoUpdate() {
-    this.customerInfoEditMode = false;
+  cancelCustomerUpdate() {
+    this.shippingInfoEditMode = false;
     this.cancelUpdate();
   }
 
@@ -140,10 +136,11 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
     return this.entity.createdAt.clone().isSame(this.entity.updatedAt);
   }
 
-  saveCustomer(formValid) {
+  updateCustomer(formValid) {
     this.formInvalid = !formValid || !this.entity.address.country || !this.entity.address.state;
+
     if (this.formInvalid) return;
 
-    this.saveOrUpdate(this.entity);
+    this.updateEntity(this.entity);
   }
 }
