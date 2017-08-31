@@ -98,8 +98,10 @@ export function acceptInviteMutation(token: string, parameters: string): string 
 
 export function userResponseQuery(): string {
   return `
-    id name alias first_name last_name auth0_id active termsandconditions acl {
-    account { id name active }
+    id name alias first_name last_name auth0_id active termsandconditions,
+    acl {
+      id
+      account { id name active }
       role { id name active,
         permissions {allow deny} 
       }

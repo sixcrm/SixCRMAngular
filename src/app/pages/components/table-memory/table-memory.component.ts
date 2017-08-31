@@ -35,6 +35,7 @@ export class TableMemoryComponent implements OnInit {
   @Input() associationEnabled: boolean = true;
   @Input() dissociationEnabled: boolean = true;
   @Input() textOptions: TableMemoryTextOptions = {};
+  @Input() customAssociation: boolean = false;
 
   @Output() view: EventEmitter<boolean> = new EventEmitter();
   @Output() disassociate: EventEmitter<any> = new EventEmitter();
@@ -88,6 +89,11 @@ export class TableMemoryComponent implements OnInit {
   }
 
   showAssociateDialog(): void {
+    if (this.customAssociation) {
+      this.associate.emit(true);
+      return;
+    }
+
     this.associateDialogRef = this.dialog.open(AssociateDialogComponent);
     this.associateDialogRef.componentInstance.options = this.associateData.filter(a => firstIndexOf(this.entities, (el) => el.id === a.id) === -1);
     this.associateDialogRef.componentInstance.text = this.textOptions.associateModalTitle || `Select ${this.title} to associate`;

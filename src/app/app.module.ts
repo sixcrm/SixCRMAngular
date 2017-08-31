@@ -14,6 +14,7 @@ import {SharedModule} from './shared/shared.module';
 import {AssociateDialogComponent} from './pages/associate-dialog.component';
 import {HttpWrapperService} from './shared/services/http-wrapper.service';
 import {InviteUserDialogComponent} from './pages/invite-user-dialog.component';
+import {AddUserAclDialogComponent} from './pages/add-user-acl-dialog.component';
 
 @NgModule({
   declarations : [
@@ -21,7 +22,8 @@ import {InviteUserDialogComponent} from './pages/invite-user-dialog.component';
     DeleteDialogComponent,
     ErrorPageComponent,
     AssociateDialogComponent,
-    InviteUserDialogComponent
+    InviteUserDialogComponent,
+    AddUserAclDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -40,7 +42,7 @@ import {InviteUserDialogComponent} from './pages/invite-user-dialog.component';
   providers : [
     HttpWrapperService
   ],
-  entryComponents : [AppComponent, DeleteDialogComponent, AssociateDialogComponent, InviteUserDialogComponent],
+  entryComponents : [AppComponent, DeleteDialogComponent, AssociateDialogComponent, InviteUserDialogComponent, AddUserAclDialogComponent],
   bootstrap : [AppComponent]
 })
 export class AppModule {

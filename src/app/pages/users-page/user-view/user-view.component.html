@@ -22,40 +22,85 @@
   <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>
 
-      <div class="entity-view__card">
-        <div class="entity-view__card__header">
-          <div class="entity-view__card__header__title">User Details</div>
-          <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
-          <md-menu #editOptions="mdMenu" x-position="before">
-            <button md-menu-item (click)="setMode(modes.Update)"> Edit User Details </button>
-          </md-menu>
-        </div>
-
-        <form #userInput="ngForm" class="entity-view__card__content">
-
-          <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-            <input required md-input [disabled]="!addMode" placeholder="Name" name="name" [(ngModel)]="entity.name" type="text">
-          </md-input-container>
-
-          <md-input-container [class.error]="formInvalid && !entity.email" class="entity-view__card__content__item">
-            <input required md-input [disabled]="!addMode" placeholder="Email" name="email" [(ngModel)]="entity.email" type="text">
-          </md-input-container>
-
-          <md-input-container class="entity-view__card__content__item">
-            <input md-input [disabled]="!addMode" placeholder="Terms and Conditions" name="terms" [(ngModel)]="entity.termsAndConditions" type="text">
-          </md-input-container>
-
-          <div class="user-view__item flex-custom flex-custom--center">
-            <span>Activated</span>
-            <md-checkbox class="flex-align--right" [checked]="entity.active === 'true'" (change)="entity.toggleActive()" [disabled]="viewMode"></md-checkbox>
+      <div class="flex-custom flex-custom--wrap">
+        <div class="entity-view__card">
+          <div class="entity-view__card__header">
+            <div class="entity-view__card__header__title">User Details</div>
+            <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
+            <md-menu #editOptions="mdMenu" x-position="before">
+              <button md-menu-item (click)="setMode(modes.Update)"> Edit User Details </button>
+            </md-menu>
           </div>
 
-        </form>
+          <form #userInput="ngForm" class="entity-view__card__content">
 
-        <div *ngIf="!viewMode" class="entity-view__card__actions">
-          <div *ngIf="updateMode" (click)="cancelUpdate()">CANCEL</div>
-          <div (click)="saveUser(userInput.form.valid)">SAVE</div>
+            <div class="user-view__item flex-custom flex-custom--center">
+              <span>Activated</span>
+              <md-checkbox class="flex-align--right" [checked]="entity.active === 'true'" (change)="entity.toggleActive()" [disabled]="viewMode"></md-checkbox>
+            </div>
+
+            <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
+              <input required md-input [disabled]="viewMode" placeholder="Name" name="name" [(ngModel)]="entity.name" type="text">
+            </md-input-container>
+
+            <md-input-container [class.error]="formInvalid && !entity.email" class="entity-view__card__content__item">
+              <input required md-input [disabled]="!addMode" placeholder="Email" name="email" [(ngModel)]="entity.email" type="text">
+            </md-input-container>
+
+            <md-input-container class="entity-view__card__content__item">
+              <input md-input [disabled]="!addMode" placeholder="Terms and Conditions" name="terms" [(ngModel)]="entity.termsAndConditions" type="text">
+            </md-input-container>
+
+            <ng-container *ngIf="addMode">
+              <div class="user-view__item flex-custom flex-custom--center">
+                <span>New Account</span>
+                <md-checkbox class="flex-align--right" [checked]="newAccount" (change)="newAccount = !newAccount"></md-checkbox>
+              </div>
+
+              <ng-container *ngIf="!newAccount">
+                <autocomplete-input
+                  [class.error]="formInvalid && !accountToAdd.id"
+                  class="user-view__item"
+                  [initialValue]="accountToAdd"
+                  [options]="accounts"
+                  [placeholder]="'Account'"
+                  [mapFunction]="accountsMapFunction"
+                  [showCancelButton]="false"
+                  (selected)="accountToAdd = $event">
+                </autocomplete-input>
+
+                <autocomplete-input
+                  [class.error]="formInvalid && !roleToAdd.id"
+                  class="user-view__item"
+                  [initialValue]="roleToAdd"
+                  [options]="roles"
+                  [placeholder]="'Role'"
+                  [mapFunction]="rolesMapFunction"
+                  [showCancelButton]="false"
+                  (selected)="roleToAdd = $event">
+                </autocomplete-input>
+              </ng-container>
+            </ng-container>
+
+          </form>
+
+          <div *ngIf="!viewMode" class="entity-view__card__actions">
+            <div *ngIf="updateMode" (click)="cancelUpdate()">CANCEL</div>
+            <div (click)="saveUser(userInput.form.valid)">SAVE</div>
+          </div>
         </div>
+
+        <table-memory
+          class="user-view__acls-table"
+          *ngIf="!addMode"
+          [data]="entity.acls || []"
+          [columnParams]="aclColumnParams"
+          [title]="'Acl'"
+          [associateDataMapper]="aclMapper"
+          [customAssociation]="true"
+          (associate)="showAddAclModal()"
+          (disassociate)="removeAcl($event)">
+        </table-memory>
       </div>
 
     </md-tab>

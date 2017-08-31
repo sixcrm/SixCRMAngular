@@ -74,7 +74,7 @@ export class AutocompleteInputComponent implements OnInit {
   }
 
   blurred() {
-    this.emitSelected();
+
   }
 
   focused() {

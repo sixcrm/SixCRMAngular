@@ -58,6 +58,7 @@ import { FilterEntitiesByParamsPipe } from './pipes/filter-entities-by-params.pi
 import {AutofocusDirective} from './directives/autofocus.directive';
 import {ServerErrorMessageComponent} from './components/server-error-message/server-error-message.component';
 import {AccountsService} from './services/accounts.service';
+import {AclsService} from './services/acls.service';
 
 @NgModule({
   declarations : [
@@ -130,6 +131,7 @@ export class SharedModule {
         FulfillmentProvidersService,
         AffiliatesService,
         AccountsService,
+        AclsService,
         CustomersService,
         SessionsService,
         LoadBalancersService,
