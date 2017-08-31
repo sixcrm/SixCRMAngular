@@ -109,6 +109,9 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   if (authService.hasPermissions('user', 'view')) {
     settings.push(new MenuItem('Users', 'users'));
   }
+  if (authService.hasPermissions('account', 'view')) {
+    settings.push(new MenuItem('Accounts', 'accounts'));
+  }
   if (authService.hasPermissions('billing', 'view')) {
     settings.push(new MenuItem('Billing', 'billing'));
   }

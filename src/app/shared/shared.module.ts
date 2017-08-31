@@ -57,6 +57,7 @@ import { FilterStringsPipe } from './pipes/filter-strings.pipe';
 import { FilterEntitiesByParamsPipe } from './pipes/filter-entities-by-params.pipe';
 import {AutofocusDirective} from './directives/autofocus.directive';
 import {ServerErrorMessageComponent} from './components/server-error-message/server-error-message.component';
+import {AccountsService} from './services/accounts.service';
 
 @NgModule({
   declarations : [
@@ -128,6 +129,7 @@ export class SharedModule {
         MerchantProvidersService,
         FulfillmentProvidersService,
         AffiliatesService,
+        AccountsService,
         CustomersService,
         SessionsService,
         LoadBalancersService,

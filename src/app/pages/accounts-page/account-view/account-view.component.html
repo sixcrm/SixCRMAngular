@@ -1,0 +1,59 @@
+<div *ngIf="entity; else spinner" class="entity-view">
+  <div class="entity-view__title">Account</div>
+
+  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+
+  <div class="entity-view__info">
+    <div class="entity-view__info__image">
+      <img src="/assets/images/result-item-customer-white.svg" alt="">
+    </div>
+    <div class="entity-view__info__data">
+      <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div class="entity-view__info__data__name">
+        {{addMode ? 'Create new Account' : entityBackup.name}}
+      </div>
+    </div>
+  </div>
+
+  <div class="entity-view__navigation">
+    <span class="entity-view__navigation__label entity-view__navigation__label--active">GENERAL DETAILS</span>
+  </div>
+
+  <md-tab-group>
+    <md-tab>
+
+      <div class="entity-view__card">
+        <div class="entity-view__card__header">
+          <div class="entity-view__card__header__title">Account Details</div>
+          <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
+          <md-menu #editOptions="mdMenu" x-position="before">
+            <button md-menu-item (click)="setMode(modes.Update)"> Edit Account Details </button>
+          </md-menu>
+        </div>
+
+        <form #userInput="ngForm" class="entity-view__card__content">
+
+          <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
+            <input required md-input [disabled]="viewMode" placeholder="Name" name="name" [(ngModel)]="entity.name" type="text">
+          </md-input-container>
+
+          <div style="margin-top: 25px;" class="user-view__item flex-custom flex-custom--center">
+            <span>Activated</span>
+            <md-checkbox class="flex-align--right" [checked]="entity.active === 'true'" (change)="entity.toggleActive()" [disabled]="viewMode"></md-checkbox>
+          </div>
+
+        </form>
+
+        <div *ngIf="!viewMode" class="entity-view__card__actions">
+          <div *ngIf="updateMode" (click)="cancelUpdate()">CANCEL</div>
+          <div (click)="saveAccount(userInput.form.valid)">SAVE</div>
+        </div>
+      </div>
+
+    </md-tab>
+  </md-tab-group>
+</div>
+
+<ng-template #spinner>
+  <md-spinner class="entity-view__spinner--main"></md-spinner>
+</ng-template>
