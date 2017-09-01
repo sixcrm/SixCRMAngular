@@ -3,7 +3,7 @@ import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {HttpWrapperService} from './http-wrapper.service';
 import {Acl} from '../models/acl.model';
-import {createAclMutation, deleteAclMutation} from '../utils/queries/entities/acl.queries';
+import {createAclMutation, deleteAclMutation, updateAclMutation} from '../utils/queries/entities/acl.queries';
 
 @Injectable()
 export class AclsService extends AbstractEntityService<Acl> {
@@ -17,7 +17,7 @@ export class AclsService extends AbstractEntityService<Acl> {
       null,
       deleteAclMutation,
       createAclMutation,
-      null,
+      updateAclMutation,
       'account'
     );
   }

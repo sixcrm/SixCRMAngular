@@ -1,11 +1,13 @@
 import {Entity} from './entity.interface';
 import {Moment, utc} from 'moment';
+import {Acl} from './acl.model';
 
 export class Account implements Entity<Account> {
 
   id: string;
   name: string;
   active: string;
+  acls: Acl[];
   createdAt: Moment;
   updatedAt: Moment;
 
@@ -17,6 +19,12 @@ export class Account implements Entity<Account> {
     this.id = obj.id || '';
     this.name = obj.name || '';
     this.active = obj.active || '';
+
+    this.acls = [];
+    if (obj.acl) {
+      this.acls = obj.acl.map(acl => new Acl(acl));
+    }
+
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
   }

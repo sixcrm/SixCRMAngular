@@ -13,6 +13,7 @@ export interface TableMemoryTextOptions {
   associateModalTitle?: string,
   disassociateModalTitle?: string,
   associateModalButtonText?: string,
+  editOptionText?: string,
   noDataText?: string
 }
 
@@ -36,10 +37,12 @@ export class TableMemoryComponent implements OnInit {
   @Input() dissociationEnabled: boolean = true;
   @Input() textOptions: TableMemoryTextOptions = {};
   @Input() customAssociation: boolean = false;
+  @Input() editEnabled: boolean = false;
 
   @Output() view: EventEmitter<boolean> = new EventEmitter();
   @Output() disassociate: EventEmitter<any> = new EventEmitter();
   @Output() associate: EventEmitter<any> = new EventEmitter();
+  @Output() edit: EventEmitter<any> = new EventEmitter();
 
   entitiesHolder: any[] = [];
 
@@ -110,7 +113,7 @@ export class TableMemoryComponent implements OnInit {
 
   showDisassociateDialog(entity): void {
     this.disassociateDialogRef = this.dialog.open(DeleteDialogComponent, { disableClose : true });
-    this.disassociateDialogRef.componentInstance.text =  `${this.textOptions.disassociateModalTitle || 'Are you sure you want to dissociate'}  ${entity.name || entity.id || this.associateDataMapper(entity)}?`;
+    this.disassociateDialogRef.componentInstance.text =  `${this.textOptions.disassociateModalTitle || 'Are you sure you want to dissociate'}  ${this.associateDataMapper(entity) || entity.name || entity.id}?`;
 
     this.disassociateDialogRef.afterClosed().take(1).subscribe(result => {
       this.disassociateDialogRef = null;

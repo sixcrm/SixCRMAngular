@@ -7,7 +7,7 @@ export function accountsListQuery(limit?:number, cursor?:string): string {
   return `{
     accountlist ${paginationParamsQuery(limit, cursor)} {
       accounts {
-        ${accountResponseQuery()}
+        ${accountInfoResponseQuery()}
       }
       ${fullPaginationStringResponseQuery()}
     }
@@ -45,7 +45,11 @@ export function updateAccountMutation(account: Account): string {
 }
 
 export function accountResponseQuery(): string {
-  return 'id name active created_at updated_at';
+  return 'id name active created_at updated_at acl{ id account {id, name} role {id, name} user {id, name}}';
+}
+
+export function accountInfoResponseQuery(): string {
+  return 'id name active created_at updated_at acl{ id }';
 }
 
 export function accountInputQuery(account: Account, includeId?: boolean): string {

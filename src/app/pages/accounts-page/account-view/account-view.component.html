@@ -50,6 +50,21 @@
         </div>
       </div>
 
+      <table-memory
+        class="account-view__acls-table"
+        *ngIf="!addMode"
+        [data]="entity.acls || []"
+        [columnParams]="aclColumnParams"
+        [textOptions]="text"
+        [associateDataMapper]="aclMapper"
+        [customAssociation]="true"
+        [editEnabled]="true"
+        (view)="navigateToUser($event)"
+        (associate)="showAddAclModal()"
+        (disassociate)="removeAcl($event)"
+        (edit)="showEditAclModal($event)">
+      </table-memory>
+
     </md-tab>
   </md-tab-group>
 </div>
