@@ -36,10 +36,10 @@ export class TableActionsComponent implements OnInit {
 
   ngOnInit() {
     this.showView = this.service.hasViewPermission();
-    this.showCopy = this.service.hasWritePermission();
-    this.showExport = this.service.hasReadPermission();
     this.showDelete = this.service.hasWritePermission();
-    this.showEdit = this.service.hasWritePermission();
+    this.showCopy = false;
+    this.showExport = false;
+    this.showEdit = false;
   }
 
 }
