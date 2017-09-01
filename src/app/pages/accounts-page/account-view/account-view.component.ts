@@ -69,7 +69,7 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
     this.roleService.entities$.takeUntil(this.unsubscribe$).subscribe(roles => {
       if (roles instanceof CustomServerError) return;
 
-      const hasOwner = this.entity.acls.filter(acl => acl.role.name === 'Owner').length === 1;
+      const hasOwner = this.entity.acls.filter(acl => acl.role.name === 'Owner').length > 1;
       if (hasOwner) {
         this.roles = roles.filter(role => role.name !== 'Owner');
       } else {
