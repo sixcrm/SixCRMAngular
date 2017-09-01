@@ -97,6 +97,14 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
     this.formInvalid = !valid;
     if (this.formInvalid) return;
 
+    this.service.entityCreated$.take(1).takeUntil(this.unsubscribe$).subscribe(account => {
+      if (account instanceof CustomServerError) return;
+
+      this.router.navigate(['/accounts', account.id]);
+      this.userService.getEntities();
+      this.roleService.getEntities();
+    });
+
     this.saveOrUpdate(this.entity);
   }
 

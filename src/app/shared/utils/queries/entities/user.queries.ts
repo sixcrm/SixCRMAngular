@@ -102,6 +102,7 @@ export function userResponseQuery(): string {
     acl {
       id
       account { id name active }
+      user {id name }
       role { id name active,
         permissions {allow deny} 
       }

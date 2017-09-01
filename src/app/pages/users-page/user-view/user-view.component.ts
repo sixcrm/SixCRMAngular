@@ -14,6 +14,7 @@ import {AclsService} from '../../../shared/services/acls.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MdDialogRef, MdDialog} from '@angular/material';
 import {AddUserAclDialogComponent} from '../../add-user-acl-dialog.component';
+import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 
 @Component({
   selector: 'user-view',
@@ -33,6 +34,15 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
 
   accounts: Account[] = [];
   roles: Role[] = [];
+
+  text: TableMemoryTextOptions = {
+    title: 'Associated Accounts',
+    disassociateOptionText: `Remove Account from User`,
+    associateOptionText: 'Add Account to User',
+    viewOptionText: 'View Account',
+    disassociateModalTitle: 'Are you sure you want to remove account',
+    editOptionText: 'Edit User Role'
+  };
 
   accountsMapFunction = (account: Account) => account.name;
   rolesMapFunction = (role: Role) => role.name;
@@ -63,7 +73,7 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
     this.accountsService.entities$.takeUntil(this.unsubscribe$).subscribe(accounts => {
       if (accounts instanceof CustomServerError) return;
 
-      this.accounts = accounts.filter(acc => acc.name !== 'Master Account');
+      this.accounts = accounts;
     });
 
     this.rolesService.entities$.takeUntil(this.unsubscribe$).subscribe(roles => {
@@ -151,18 +161,20 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
     this.aclService.deleteEntity(acl.id);
   }
 
+  navigateToAccount(acl: Acl) {
+    this.router.navigate(['/accounts', acl.account.id])
+  }
+
   showAddAclModal() {
     this.addAclDialogRef = this.dialog.open(AddUserAclDialogComponent);
-    this.addAclDialogRef.componentInstance.roles = this.roles;
     this.addAclDialogRef.componentInstance.accounts = this.accounts;
+    this.addAclDialogRef.componentInstance.roles = this.roles;
 
     this.addAclDialogRef.afterClosed().take(1).subscribe(result => {
       this.addAclDialogRef = null;
-
-      if (result.account && result.account.id && result.role && result.role.id) {
+      if (result && result.account && result.account.id && result.role && result.role.id) {
         this.addAcl(result.account, result.role);
       }
-
     });
   }
 
@@ -176,6 +188,31 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
     acl.account = account;
     acl.role = role;
     this.aclService.createEntity(acl);
+  }
+
+
+  showEditAclModal(acl: Acl) {
+    this.addAclDialogRef = this.dialog.open(AddUserAclDialogComponent);
+    this.addAclDialogRef.componentInstance.account = acl.account;
+    this.addAclDialogRef.componentInstance.roles = this.roles;
+    this.addAclDialogRef.componentInstance.editMode = true;
+
+    this.addAclDialogRef.afterClosed().take(1).subscribe(result => {
+      this.addAclDialogRef = null;
+      if (result && result.role && result.role.id) {
+        acl.role = result.role;
+        this.updateAcl(acl);
+      }
+    });
+  }
+
+
+  updateAcl(acl: Acl) {
+    this.aclService.entityUpdated$.take(1).takeUntil(this.unsubscribe$).subscribe(() => {
+      this.service.getEntity(this.entity.id);
+    });
+
+    this.aclService.updateEntity(acl);
   }
 
 }

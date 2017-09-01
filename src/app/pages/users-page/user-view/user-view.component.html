@@ -93,11 +93,15 @@
         <table-memory
           class="user-view__acls-table"
           *ngIf="!addMode"
+          [textOptions]="text"
           [data]="entity.acls || []"
           [columnParams]="aclColumnParams"
           [title]="'Acl'"
           [associateDataMapper]="aclMapper"
           [customAssociation]="true"
+          [editEnabled]="true"
+          (edit)="showEditAclModal($event)"
+          (view)="navigateToAccount($event)"
           (associate)="showAddAclModal()"
           (disassociate)="removeAcl($event)">
         </table-memory>
