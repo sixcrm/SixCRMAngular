@@ -17,6 +17,7 @@ export class EntitiesTableComponent implements OnInit {
   @Input() data: any[] = [];
   @Input() filterString: string;
   @Input() serverError: CustomServerError;
+  @Input() customOptionText: string;
   @Output() selected: EventEmitter<any> = new EventEmitter();
 
   // actions
@@ -28,6 +29,7 @@ export class EntitiesTableComponent implements OnInit {
   @Output() deleteClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() editClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() refreshData: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() customOptionClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   // pagination
   @Input() limit: number;

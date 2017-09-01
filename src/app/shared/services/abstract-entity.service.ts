@@ -208,10 +208,12 @@ export abstract class AbstractEntityService<T> {
   protected queryRequest(query: string, ignoreProgress?: boolean): Observable<Response | CustomServerError> {
     let endpoint = environment.endpoint;
 
-    if (this.authService.getActiveAcl() && this.authService.getActiveAcl().account) {
-      endpoint = endpoint + this.authService.getActiveAcl().account.id;
+    if (this.authService.getActingAsAccount()) {
+      endpoint += this.authService.getActingAsAccount().id;
+    } else if (this.authService.getActiveAcl() && this.authService.getActiveAcl().account) {
+      endpoint += this.authService.getActiveAcl().account.id;
     } else {
-      endpoint = endpoint + '*';
+      endpoint += '*';
     }
 
     return this.http.postWithError(endpoint, query, { headers: generateHeaders(this.authService.getToken())}, {ignoreProgress: ignoreProgress, failStrategy: FailStrategy.Soft});

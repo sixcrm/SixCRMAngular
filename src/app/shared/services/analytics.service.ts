@@ -55,6 +55,10 @@ export class AnalyticsService {
         this.analyticsStorage.refresh();
       }
     });
+
+    this.authService.actingAsAccount$.subscribe(() => {
+      this.analyticsStorage.refresh();
+    })
   }
 
   getTransactionSummaries(start: string, end: string, filters: FilterTerm[], downloadFormat?: string): void {
@@ -317,7 +321,9 @@ export class AnalyticsService {
 
     let endpoint = environment.endpoint;
 
-    if (this.authService.getActiveAcl() && this.authService.getActiveAcl().account) {
+    if (this.authService.getActingAsAccount()) {
+      endpoint += this.authService.getActingAsAccount().id;
+    } else if (this.authService.getActiveAcl() && this.authService.getActiveAcl().account) {
       endpoint += this.authService.getActiveAcl().account.id;
     } else {
       endpoint += '*';

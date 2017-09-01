@@ -14,6 +14,30 @@ $main-color: #9B9A9B;
     position: absolute;
   }
 
+  &__acting-as {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 20px;
+    margin-right: 10px;
+    background: #C0111E;
+    color: white;
+    border-radius: 20px;
+
+    span {
+      margin-left: 8px;
+      font-weight: 500;
+    }
+
+    md-icon {
+      margin-left: 10px;
+      height: 30px;
+      width: 30px;
+      font-size: 30px;
+      cursor: pointer;
+    }
+  }
+
   &__items {
     &--expanded {
       display: flex;

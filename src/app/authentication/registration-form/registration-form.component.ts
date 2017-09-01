@@ -33,7 +33,7 @@ export class RegistrationFormComponent implements OnInit {
     this.formInvalid = !valid;
     if (this.formInvalid) return;
 
-    this.authService.updateCurrentAccount(this.company).subscribe(res => {
+    this.authService.updateCurrentAccount(this.company).subscribe(() => {
       this.register();
     });
   }
@@ -43,7 +43,7 @@ export class RegistrationFormComponent implements OnInit {
       let user = new User(res.json().response.data.updateuser);
       this.authService.updateSixUser(user);
       this.authService.refreshActiveAcl();
-      
+
       this.showSuccessMessage = true;
     })
   }

@@ -11,6 +11,9 @@ export class TableActionsComponent implements OnInit {
   @Input()
   service: AbstractEntityService<any>;
 
+  @Input()
+  customText: string;
+
   @Output()
   viewClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -25,6 +28,9 @@ export class TableActionsComponent implements OnInit {
 
   @Output()
   editClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  @Output()
+  customClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   showView: boolean;
   showCopy: boolean;

@@ -17,12 +17,14 @@
         (selected)="viewEntity($event.id)"
 
         [service]="service"
+        [customOptionText]="actAsOptionText"
         (viewClicked)="viewEntity($event.id)"
         (copyClicked)="copyEntity($event.id)"
         (exportClicked)="exportEntity($event.id)"
         (editClicked)="editEntity($event.id)"
         (deleteClicked)="deleteEntity($event.id)"
         (refreshData)="refreshData()"
+        (customOptionClicked)="actAs($event)"
 
         [limit]="limit"
         [paginationValues]="paginationValues"

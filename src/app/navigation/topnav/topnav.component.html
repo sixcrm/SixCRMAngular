@@ -6,7 +6,12 @@
 
   <span class="app-flex-filler"></span>
 
+  <div class="topnav__acting-as" *ngIf="authService.actingAsAccount$ | async">
+    Acting as: <span>{{(authService.actingAsAccount$ | async).name}}</span> <md-icon (click)="authService.stopActingAs(null)">close</md-icon>
+  </div>
+
   <button md-icon-button (click)="toggleSearchInput(searchField)"><md-icon class="topnav__search__icon">search</md-icon></button>
+
   <div class="topnav__search__container">
     <md-input-container id="topnav-search" [ngClass]="{'search-visible': showSearchInput}" [floatingPlaceholder]="false">
       <input

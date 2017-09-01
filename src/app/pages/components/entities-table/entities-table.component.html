@@ -25,11 +25,13 @@
       <td>
         <table-actions
           [service]="service"
+          [customText]="customOptionText"
           (viewClicked)="viewClicked.emit(entity)"
           (copyClicked)="copyClicked.emit(entity)"
           (exportClicked)="exportClicked.emit(entity)"
           (editClicked)="editClicked.emit(entity)"
-          (deleteClicked)="deleteClicked.emit(entity)">
+          (deleteClicked)="deleteClicked.emit(entity)"
+          (customClicked)="customOptionClicked.emit(entity)">
         </table-actions>
       </td>
     </tr>

@@ -13,6 +13,9 @@ import {
 import {extractData, HttpWrapperService, generateHeaders} from '../shared/services/http-wrapper.service';
 import {Response} from '@angular/http';
 import {updateAccountMutation} from '../shared/utils/query-builder';
+import {Account} from '../shared/models/account.model';
+import {YesNoDialogComponent} from '../pages/yes-no-dialog.component';
+import {MdDialogRef, MdDialog} from '@angular/material';
 
 declare var Auth0Lock: any;
 
@@ -30,13 +33,17 @@ export class AuthenticationService {
 
   private currentSixUser: User = new User();
   private currentActiveAcl: Acl = new Acl();
+  private actingAs: Account;
 
   private timezone: string = 'America/Los_Angeles';
   public sixUser$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
   public sixUserActivated$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   public activeAcl$: BehaviorSubject<Acl> = new BehaviorSubject<Acl>(new Acl());
+  public actingAsAccount$: BehaviorSubject<Account> = new BehaviorSubject<Account>(null);
 
-  constructor(private router: Router, private http: HttpWrapperService, private location: Location) {
+  private yesNoDialogRef: MdDialogRef<YesNoDialogComponent>;
+
+  constructor(private router: Router, private http: HttpWrapperService, private location: Location, private dialog: MdDialog) {
     this.lock = new Auth0Lock(
       environment.clientID,
       environment.domain,
@@ -67,6 +74,41 @@ export class AuthenticationService {
       }
     }, 1);
 
+    this.actingAsAccount$.subscribe(account => {
+      this.actingAs = account;
+    });
+
+  }
+
+  public startActingAs(account: Account) {
+    this.yesNoDialogRef = this.dialog.open(YesNoDialogComponent, { disableClose : true });
+    this.yesNoDialogRef.componentInstance.text = `By using this feature, all of your actions will affect the account '${account.name}'. Do you wish to proceed?`;
+
+    this.yesNoDialogRef.afterClosed().take(1).subscribe(result => {
+      this.yesNoDialogRef = null;
+
+      if (result.success) {
+        this.actingAsAccount$.next(account);
+      }
+    });
+  }
+
+  public stopActingAs() {
+    this.yesNoDialogRef = this.dialog.open(YesNoDialogComponent, { disableClose : true });
+    this.yesNoDialogRef.componentInstance.text = 'Stop acting as this Account?';
+
+    this.yesNoDialogRef.afterClosed().take(1).subscribe(result => {
+      this.yesNoDialogRef = null;
+
+      if (result.success) {
+        this.actingAsAccount$.next(null);
+        this.router.navigate(['/accounts']);
+      }
+    });
+  }
+
+  getActingAsAccount(): Account {
+    return this.actingAs;
   }
 
   public authenticated(): boolean {
@@ -181,6 +223,9 @@ export class AuthenticationService {
   }
 
   public changeActiveAcl(acl: Acl): void {
+    if (this.getActingAsAccount()) {
+      this.actingAsAccount$.next(null);
+    }
     localStorage.setItem(this.activeAcl, JSON.stringify(acl.inverse()));
     this.currentActiveAcl = acl;
     this.activeAcl$.next(acl);
