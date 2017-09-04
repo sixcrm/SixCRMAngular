@@ -11,7 +11,10 @@
       (next)="next()"
       (updateLimit)="updateLimit($event)">
     </table-pagination>
-    <!--<md-icon class="entity-view__table-component__header__action">more_vert</md-icon>-->
+    <md-icon class="entity-view__table-component__header__action" [md-menu-trigger-for]="optionsMenu">more_vert</md-icon>
+    <md-menu #optionsMenu="mdMenu" x-position="before">
+      <button md-menu-item (click)="showAddProductScheduleModal()">Add Product Schedule</button>
+    </md-menu>
   </div>
   <table class="highlight table__custom">
     <thead>
@@ -31,6 +34,7 @@
         <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
         <md-menu #actionsMenu="mdMenu" x-position="before">
           <button md-menu-item [routerLink]="['/productschedules', entity.id]">View Product Schedule</button>
+          <button md-menu-item (click)="removeProductSchedule(entity)">Remove Product Schedule</button>
         </md-menu>
       </td>
     </tr>

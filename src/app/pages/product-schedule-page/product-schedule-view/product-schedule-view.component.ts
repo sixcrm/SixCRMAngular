@@ -7,10 +7,8 @@ import {NavigationService} from '../../../navigation/navigation.service';
 import {Schedule} from '../../../shared/models/schedule.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {ProductsService} from '../../../shared/services/products.service';
 import {Product} from '../../../shared/models/product.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
-import {parseCurrencyMaskedValue} from '../../../shared/utils/mask.utils';
 
 @Component({
   selector: 'product-schedule-view',
@@ -33,7 +31,6 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
 
   scheduleToAdd: Schedule = new Schedule();
   scheduleMapper = (s: Schedule) => s.product.name;
-  productMapper = (p: Product) => p.name;
 
   formInvalid: boolean;
 
@@ -44,7 +41,6 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     route: ActivatedRoute,
     public navigation: NavigationService,
     public authService: AuthenticationService,
-    public productsService: ProductsService,
     private router: Router
   ) {
     super(service, route);
@@ -56,9 +52,6 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     if (this.addMode) {
       this.entity = new ProductSchedule();
       this.entityBackup = new ProductSchedule();
-      this.productsService.getEntities();
-    } else {
-      this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(() => this.productsService.getEntities())
     }
   }
 
@@ -78,19 +71,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     this.scheduleToAdd.product = loopProduct.copy();
   }
 
-  addSchedule(valid: boolean): void {
-    this.formInvalid = !valid || !this.scheduleToAdd.product || !this.scheduleToAdd.product.id;
-    if (this.formInvalid) return;
-
-    if (this.scheduleToAdd.end && this.scheduleToAdd.end < this.scheduleToAdd.start) {
-      this.endField.nativeElement.focus();
-      return;
-    }
-
-    this.service.entityUpdated$.take(1).subscribe(() => this.clearAddSchedule());
-
-    this.scheduleToAdd.price.amount = parseCurrencyMaskedValue(this.price);
-    this.entity.schedules.push(this.scheduleToAdd);
+  addScheduleToProduct(schedule: Schedule): void {
+    this.entity.schedules.push(schedule);
 
     if (!this.addMode) {
       this.updateEntity(this.entity);
@@ -109,44 +91,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     }
   }
 
-  endChanged() {
-    if (!this.scheduleToAdd.end) {
-      this.scheduleToAdd.period = 0;
-      return;
-    }
-
-    if (+this.scheduleToAdd.end > +(this.scheduleToAdd.start || 0)) {
-      this.scheduleToAdd.start = this.scheduleToAdd.start || 0;
-      this.scheduleToAdd.period = +this.scheduleToAdd.end - +this.scheduleToAdd.start;
-    }
-  }
-
-  startChanged() {
-    if (!this.scheduleToAdd.start) {
-      return;
-    }
-
-    if (+this.scheduleToAdd.start < +(this.scheduleToAdd.end || 0)) {
-      this.scheduleToAdd.period = this.scheduleToAdd.end - this.scheduleToAdd.start;
-    }
-  }
-
-  periodChanged() {
-    if (!this.scheduleToAdd.period) {
-      return;
-    }
-
-    this.scheduleToAdd.start = this.scheduleToAdd.start || 0;
-    this.scheduleToAdd.end = +this.scheduleToAdd.start + +this.scheduleToAdd.period;
-  }
-
   navigateToProduct(schedule: Schedule) {
     this.router.navigate(['products', schedule.product.id])
-  }
-
-  addProductToSchedule(product: Product): void {
-    this.scheduleToAdd.product = product;
-    this.price = product.defaultPrice.amount + '';
   }
 
 }

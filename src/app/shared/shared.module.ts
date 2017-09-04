@@ -59,6 +59,8 @@ import {AutofocusDirective} from './directives/autofocus.directive';
 import {ServerErrorMessageComponent} from './components/server-error-message/server-error-message.component';
 import {AccountsService} from './services/accounts.service';
 import {AclsService} from './services/acls.service';
+import { AddScheduleComponent } from './components/add-schedule/add-schedule.component';
+import {TextMaskModule} from 'angular2-text-mask';
 
 @NgModule({
   declarations : [
@@ -85,7 +87,8 @@ import {AclsService} from './services/acls.service';
     AutocompleteInputComponent,
     FilterStringsPipe,
     FilterEntitiesByParamsPipe,
-    ServerErrorMessageComponent
+    ServerErrorMessageComponent,
+    AddScheduleComponent
   ],
   exports : [
     AutocompleteComponent,
@@ -110,14 +113,16 @@ import {AclsService} from './services/acls.service';
     ComingSoonComponent,
     AutocompleteInputComponent,
     FilterEntitiesByParamsPipe,
-    ServerErrorMessageComponent
+    ServerErrorMessageComponent,
+    AddScheduleComponent
   ],
   imports : [
     FormsModule,
     CommonModule,
     MaterialModule,
     ChartModule,
-    Daterangepicker
+    Daterangepicker,
+    TextMaskModule
   ]
 })
 export class SharedModule {

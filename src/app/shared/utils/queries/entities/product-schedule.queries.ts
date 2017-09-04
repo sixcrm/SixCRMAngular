@@ -9,7 +9,7 @@ export function  productScheduleListQuery(limit?:number, cursor?:string): string
   return `{
     productschedulelist ${paginationParamsQuery(limit, cursor)} {
 			productschedules {
-        ${productScheduleInfoResponseQuery()}
+        ${productScheduleResponseQuery()}
 			}
       ${fullPaginationStringResponseQuery()}
 		}
@@ -20,7 +20,7 @@ export function productSchedulesByProduct(id: string, limit?: number, cursor?: s
   return `{
     productschedulelistbyproduct (product:"${id}" ${paginationParamsQuery(limit, cursor, true)}) {
 			productschedules {
-        ${productScheduleInfoResponseQuery()}
+        ${productScheduleResponseQuery()}
 			}
       ${fullPaginationStringResponseQuery()}
 		}

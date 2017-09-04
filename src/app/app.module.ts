@@ -17,6 +17,7 @@ import {InviteUserDialogComponent} from './pages/invite-user-dialog.component';
 import {AddUserAclDialogComponent} from './pages/add-user-acl-dialog.component';
 import {YesNoDialogComponent} from './pages/yes-no-dialog.component';
 import {MessageDialogComponent} from './pages/message-dialog.component';
+import {AddProductScheduleDialogComponent} from './pages/add-product-schedule-dialog.component';
 
 @NgModule({
   declarations : [
@@ -27,7 +28,8 @@ import {MessageDialogComponent} from './pages/message-dialog.component';
     InviteUserDialogComponent,
     AddUserAclDialogComponent,
     YesNoDialogComponent,
-    MessageDialogComponent
+    MessageDialogComponent,
+    AddProductScheduleDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -53,7 +55,8 @@ import {MessageDialogComponent} from './pages/message-dialog.component';
     InviteUserDialogComponent,
     AddUserAclDialogComponent,
     YesNoDialogComponent,
-    MessageDialogComponent
+    MessageDialogComponent,
+    AddProductScheduleDialogComponent
   ],
   bootstrap : [AppComponent]
 })
