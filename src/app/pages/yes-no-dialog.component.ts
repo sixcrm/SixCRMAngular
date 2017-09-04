@@ -1,15 +1,8 @@
 import {Component} from '@angular/core';
 import {MdDialogRef} from '@angular/material';
 
-/*
-
- Dialogs currently DO NOT WORK when declared (inside the "declarations" array of the NgModule) inside a lazy loaded ngModule.
- To fix this, just put all dialog components inside your main AppModule
- You will also NEED to add the dialog to the "entryComponents" array inside the ngModule as well!
-
- */
 @Component({
-  selector : 'c-sample-dialog',
+  selector : 'yes-no-dialog',
   template : `
     <md-card>
       <md-card-content>

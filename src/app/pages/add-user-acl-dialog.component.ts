@@ -9,7 +9,7 @@ import {User} from '../shared/models/user.model';
   template : `
     <md-card>
       <md-card-content style="display: flex; flex-direction: column">
-        <div style="margin-bottom: 25px;">Add User Acl</div>
+        <div style="margin-bottom: 25px;">{{text}}</div>
         <autocomplete-input *ngIf="accountView"
                             [disabled]="editMode"
                             [mapFunction]="userMapper"
@@ -30,14 +30,13 @@ import {User} from '../shared/models/user.model';
                             [required]="true"
                             (selected)="account = $event">
         </autocomplete-input>
-        <autocomplete-input [mapFunction]="roleMapper"
-                            [initialValue]="role"
-                            [options]="roles || []"
+        <dropdown-component [selected]="role"
                             [placeholder]="'Role'"
-                            [showCancelButton]="false"
-                            [required]="true"
-                            (selected)="role = $event">
-        </autocomplete-input>
+                            [options]="roles"
+                            [mapper]="roleMapper"
+                            (onSelect)="role = $event">
+        </dropdown-component>
+
       </md-card-content>
       <md-card-actions align="center">
         <button md-raised-button color="primary" (click)="add()">{{editMode ? 'Edit' : 'Add'}}</button>
@@ -49,6 +48,7 @@ import {User} from '../shared/models/user.model';
 })
 export class AddUserAclDialogComponent {
 
+  text: string = 'Add User Acl';
   role: Role = new Role();
   account: Account = new Account();
   user: User = new User();

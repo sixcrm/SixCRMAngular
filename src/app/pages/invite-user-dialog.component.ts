@@ -3,7 +3,7 @@ import {MdDialogRef} from '@angular/material';
 import {Role} from '../shared/models/role.model';
 
 @Component({
-  selector : 'associate-dialog',
+  selector : 'invite-user-dialog',
   template : `
     <md-card>
       <md-card-content style="display: flex; flex-direction: column">

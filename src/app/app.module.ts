@@ -16,6 +16,7 @@ import {HttpWrapperService} from './shared/services/http-wrapper.service';
 import {InviteUserDialogComponent} from './pages/invite-user-dialog.component';
 import {AddUserAclDialogComponent} from './pages/add-user-acl-dialog.component';
 import {YesNoDialogComponent} from './pages/yes-no-dialog.component';
+import {MessageDialogComponent} from './pages/message-dialog.component';
 
 @NgModule({
   declarations : [
@@ -25,7 +26,8 @@ import {YesNoDialogComponent} from './pages/yes-no-dialog.component';
     AssociateDialogComponent,
     InviteUserDialogComponent,
     AddUserAclDialogComponent,
-    YesNoDialogComponent
+    YesNoDialogComponent,
+    MessageDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -50,7 +52,8 @@ import {YesNoDialogComponent} from './pages/yes-no-dialog.component';
     AssociateDialogComponent,
     InviteUserDialogComponent,
     AddUserAclDialogComponent,
-    YesNoDialogComponent
+    YesNoDialogComponent,
+    MessageDialogComponent
   ],
   bootstrap : [AppComponent]
 })

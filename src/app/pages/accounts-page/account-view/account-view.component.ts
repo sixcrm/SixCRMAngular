@@ -15,6 +15,7 @@ import {RolesService} from '../../../shared/services/roles.service';
 import {UsersService} from '../../../shared/services/users.service';
 import {User} from '../../../shared/models/user.model';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {MessageDialogComponent} from '../../message-dialog.component';
 
 @Component({
   selector: 'account-view',
@@ -44,6 +45,8 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
   roles: Role[] = [];
   users: User[] = [];
 
+  isOwner = (acl: Acl) => acl.role.name === 'Owner';
+
   constructor(service: AccountsService,
               route: ActivatedRoute,
               public navigation: NavigationService,
@@ -69,12 +72,7 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
     this.roleService.entities$.takeUntil(this.unsubscribe$).subscribe(roles => {
       if (roles instanceof CustomServerError) return;
 
-      const hasOwner = this.entity.acls.filter(acl => acl.role.name === 'Owner').length > 1;
-      if (hasOwner) {
-        this.roles = roles.filter(role => role.name !== 'Owner');
-      } else {
-        this.roles = roles;
-      }
+      this.roles = roles.filter(role => role.name !== 'Owner');
     });
 
     this.service.entity$.takeUntil(this.unsubscribe$).subscribe(() => {
@@ -113,6 +111,11 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
   }
 
   removeAcl(acl: Acl) {
+    if (this.isOwner(acl)) {
+      this.showMessageDialog('You can not delete Owner user');
+      return;
+    }
+
     this.aclService.entityDeleted$.take(1).takeUntil(this.unsubscribe$).subscribe(() => {
       this.service.getEntity(this.entity.id);
     });
@@ -135,8 +138,15 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
   }
 
   showEditAclModal(acl: Acl) {
+    if (this.isOwner(acl)) {
+      this.showMessageDialog('You can not edit Owner user');
+      return;
+    }
+
     this.addAclDialogRef = this.dialog.open(AddUserAclDialogComponent);
+    this.addAclDialogRef.componentInstance.text = 'Edit User Acl';
     this.addAclDialogRef.componentInstance.roles = this.roles;
+    this.addAclDialogRef.componentInstance.role = acl.role;
     this.addAclDialogRef.componentInstance.user = acl.user;
     this.addAclDialogRef.componentInstance.accountView = true;
     this.addAclDialogRef.componentInstance.editMode = true;
@@ -168,5 +178,14 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
     });
 
     this.aclService.updateEntity(acl);
+  }
+
+  showMessageDialog(text: string) {
+    let messageDialogRef = this.dialog.open(MessageDialogComponent);
+    messageDialogRef.componentInstance.text = text;
+
+    messageDialogRef.afterClosed().take(1).subscribe(() => {
+      messageDialogRef = null;
+    });
   }
 }

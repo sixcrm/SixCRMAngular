@@ -38,6 +38,7 @@ export class TableMemoryComponent implements OnInit {
   @Input() textOptions: TableMemoryTextOptions = {};
   @Input() customAssociation: boolean = false;
   @Input() editEnabled: boolean = false;
+  @Input() ignoreDisassociate: (el: any) => boolean = (el: any) => false;
 
   @Output() view: EventEmitter<boolean> = new EventEmitter();
   @Output() disassociate: EventEmitter<any> = new EventEmitter();
@@ -112,6 +113,11 @@ export class TableMemoryComponent implements OnInit {
   }
 
   showDisassociateDialog(entity): void {
+    if (this.ignoreDisassociate(entity)) {
+      this.disassociate.emit(entity);
+      return;
+    }
+
     this.disassociateDialogRef = this.dialog.open(DeleteDialogComponent, { disableClose : true });
     this.disassociateDialogRef.componentInstance.text =  `${this.textOptions.disassociateModalTitle || 'Are you sure you want to dissociate'}  ${this.associateDataMapper(entity) || entity.name || entity.id}?`;
 

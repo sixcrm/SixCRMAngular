@@ -9,7 +9,7 @@ import {MdDialogRef} from '@angular/material';
 
  */
 @Component({
-  selector : 'c-sample-dialog',
+  selector : 'delete-dialog',
   template : `
     <md-card>
       <md-card-content>
