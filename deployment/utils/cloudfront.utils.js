@@ -48,7 +48,7 @@ exports.createInvalidation = (distributionId) => {
       InvalidationBatch: {
         CallerReference: `${Date.now()}`,
         Paths: {
-          Quantity: 0,
+          Quantity: 1,
           Items: ['/*']
         }
       }
