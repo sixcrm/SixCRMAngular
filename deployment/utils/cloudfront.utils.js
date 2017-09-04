@@ -33,10 +33,34 @@ exports.updateDistribution = (distributionId, version) => {
           if (error) reject(error);
 
           console.log(`Distribution ${distributionId} successfully updated`);
-          resolve();
+          resolve(distributionId);
         })
       })
     })
+};
+
+exports.createInvalidation = (distributionId) => {
+  console.log(`Creating invalidation, distribution ID: ${distributionId}`);
+
+  return new Promise((resolve, reject) => {
+    const params = {
+      DistributionId: distributionId,
+      InvalidationBatch: {
+        CallerReference: `${Date.now()}`,
+        Paths: {
+          Quantity: 0,
+          Item: ['/*']
+        }
+      }
+    };
+
+    cloudfront.createInvalidation(params, (error, data) => {
+      if (error) reject(error);
+
+      console.log(`Invalidation for distribution ID: '${distributionId}' created`);
+      resolve();
+    })
+  })
 };
 
 function getDistributionConfig(distributionId) {

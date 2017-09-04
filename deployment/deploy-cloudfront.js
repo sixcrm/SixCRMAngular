@@ -13,6 +13,7 @@ git.getVersion()
   .then(() => git.getBranchName())
   .then(branchName => cf.createDistributionIfNotExist(projectName, branchName, version))
   .then(distribution => cf.updateDistribution(distribution, version))
+  .then(distribution => cf.createInvalidation(distribution))
   .then(() => console.log('Cloudfront deploy finished'))
   .catch(error => {
     console.error(error);
