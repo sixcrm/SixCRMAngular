@@ -63,7 +63,7 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
               public navigation: NavigationService,
               private accountsService: AccountsService,
               private rolesService: RolesService,
-              private aclService: AclsService,
+              public aclService: AclsService,
               private router: Router,
               private dialog: MdDialog
   ) {

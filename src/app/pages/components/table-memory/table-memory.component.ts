@@ -39,6 +39,7 @@ export class TableMemoryComponent implements OnInit {
   @Input() customAssociation: boolean = false;
   @Input() editEnabled: boolean = false;
   @Input() ignoreDisassociate: (el: any) => boolean = (el: any) => false;
+  @Input() hasWritePermission: boolean = true;
 
   @Output() view: EventEmitter<boolean> = new EventEmitter();
   @Output() disassociate: EventEmitter<any> = new EventEmitter();

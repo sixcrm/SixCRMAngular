@@ -5,7 +5,7 @@
       <input md-input placeholder="Filter" [(ngModel)]="filterString" type="text">
     </md-input-container>
 
-    <ng-container *ngIf="associationEnabled">
+    <ng-container *ngIf="associationEnabled && hasWritePermission">
       <md-icon class="entity-view__table-component__header__action" [class.alone]="!filterEnabled" [md-menu-trigger-for]="optionsMenu">more_vert</md-icon>
       <md-menu #optionsMenu="mdMenu" x-position="before">
         <button md-menu-item (click)="showAssociateDialog()">{{textOptions.associateOptionText || 'Associate ' + title}}</button>
@@ -35,8 +35,8 @@
         <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
         <md-menu #actionsMenu="mdMenu" x-position="before">
           <button md-menu-item (click)="view.emit(entity)">{{textOptions.viewOptionText || 'View ' + title}}</button>
-          <button *ngIf="editEnabled" md-menu-item (click)="edit.emit(entity)">{{textOptions.editOptionText || 'Edit ' + title || ''}}</button>
-          <button *ngIf="dissociationEnabled" md-menu-item (click)="showDisassociateDialog(entity)">{{textOptions.disassociateOptionText || 'Disassociate ' + title || ''}}</button>
+          <button *ngIf="editEnabled && hasWritePermission" md-menu-item (click)="edit.emit(entity)">{{textOptions.editOptionText || 'Edit ' + title || ''}}</button>
+          <button *ngIf="dissociationEnabled && hasWritePermission" md-menu-item (click)="showDisassociateDialog(entity)">{{textOptions.disassociateOptionText || 'Disassociate ' + title || ''}}</button>
         </md-menu>
       </td>
     </tr>

@@ -101,6 +101,7 @@
           [customAssociation]="true"
           [editEnabled]="true"
           [ignoreDisassociate]="isOwner"
+          [hasWritePermission]="aclService.hasWritePermission()"
           (edit)="showEditAclModal($event)"
           (view)="navigateToAccount($event)"
           (associate)="showAddAclModal()"
