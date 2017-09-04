@@ -49,7 +49,7 @@ exports.createInvalidation = (distributionId) => {
         CallerReference: `${Date.now()}`,
         Paths: {
           Quantity: 0,
-          Item: ['/*']
+          Items: ['/*']
         }
       }
     };
