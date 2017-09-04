@@ -26,7 +26,7 @@ export function userQuery(id: string): string {
 export function userIntrospection(): string {
   return `{
     userintrospection {
-      ${userResponseQuery()},
+      ${userIntrospectionResponseQuery()},
       usersetting { timezone }
     }
   }`
@@ -103,6 +103,19 @@ export function userResponseQuery(): string {
       id
       account { id name active }
       user {id name }
+      role { id name active,
+        permissions {allow deny} 
+      }
+    }
+    address { line1 line2 city state zip country }`
+}
+
+export function userIntrospectionResponseQuery(): string {
+  return `
+    id name alias first_name last_name auth0_id active termsandconditions,
+    acl {
+      id
+      account { id name active }
       role { id name active,
         permissions {allow deny} 
       }
