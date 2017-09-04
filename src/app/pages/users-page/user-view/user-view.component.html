@@ -100,6 +100,7 @@
           [associateDataMapper]="aclMapper"
           [customAssociation]="true"
           [editEnabled]="true"
+          [ignoreDisassociate]="isOwner"
           (edit)="showEditAclModal($event)"
           (view)="navigateToAccount($event)"
           (associate)="showAddAclModal()"

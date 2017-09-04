@@ -15,6 +15,7 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MdDialogRef, MdDialog} from '@angular/material';
 import {AddUserAclDialogComponent} from '../../add-user-acl-dialog.component';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
+import {MessageDialogComponent} from '../../message-dialog.component';
 
 @Component({
   selector: 'user-view',
@@ -54,6 +55,8 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
   ];
 
   addAclDialogRef: MdDialogRef<AddUserAclDialogComponent>;
+
+  isOwner = (acl: Acl) => acl.role.name === 'Owner';
 
   constructor(service: UsersService,
               route: ActivatedRoute,
@@ -154,6 +157,11 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
   }
 
   removeAcl(acl: Acl) {
+    if (this.isOwner(acl)) {
+      this.showMessageDialog('You can not delete Owner user from Account');
+      return;
+    }
+
     this.aclService.entityDeleted$.take(1).takeUntil(this.unsubscribe$).subscribe(() => {
       this.service.getEntity(this.entity.id);
     });
@@ -192,8 +200,15 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
 
 
   showEditAclModal(acl: Acl) {
+    if (this.isOwner(acl)) {
+      this.showMessageDialog('You can not edit Owner user');
+      return;
+    }
+
     this.addAclDialogRef = this.dialog.open(AddUserAclDialogComponent);
+    this.addAclDialogRef.componentInstance.text = 'Edit User Acl';
     this.addAclDialogRef.componentInstance.account = acl.account;
+    this.addAclDialogRef.componentInstance.role = acl.role;
     this.addAclDialogRef.componentInstance.roles = this.roles;
     this.addAclDialogRef.componentInstance.editMode = true;
 
@@ -215,4 +230,12 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
     this.aclService.updateEntity(acl);
   }
 
+  showMessageDialog(text: string) {
+    let messageDialogRef = this.dialog.open(MessageDialogComponent);
+    messageDialogRef.componentInstance.text = text;
+
+    messageDialogRef.afterClosed().take(1).subscribe(() => {
+      messageDialogRef = null;
+    });
+  }
 }
