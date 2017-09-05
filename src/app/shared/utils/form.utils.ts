@@ -1,5 +1,5 @@
 export function isAllowedNumeric(event): boolean {
-  const pattern = /[0-9]|Backspace|ArrowRight|ArrowLeft/;
+  const pattern = /[0-9]|Backspace|ArrowRight|ArrowLeft|Tab/;
 
   if (!pattern.test(event.key)) {
     event.preventDefault();
@@ -10,7 +10,7 @@ export function isAllowedNumeric(event): boolean {
 }
 
 export function isAllowedCurrency(event): boolean {
-  const pattern = /[0-9]|\.|Backspace|ArrowRight|ArrowLeft/;
+  const pattern = /[0-9]|\.|Backspace|ArrowRight|ArrowLeft|Tab/;
 
   if (!pattern.test(event.key)) {
     event.preventDefault();
@@ -21,7 +21,7 @@ export function isAllowedCurrency(event): boolean {
 }
 
 export function isAllowedFloatNumeric(event): boolean {
-  const pattern = /[0-9]|\.|Backspace|ArrowRight|ArrowLeft/;
+  const pattern = /[0-9]|\.|Backspace|ArrowRight|ArrowLeft|Tab/;
 
   if (!pattern.test(event.key)) {
     event.preventDefault();
