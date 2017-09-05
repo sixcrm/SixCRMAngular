@@ -10,9 +10,11 @@ export function isAllowedNumeric(event): boolean {
 }
 
 export function isAllowedCurrency(event): boolean {
-  const pattern = /[0-9]|\.|Backspace|ArrowRight|ArrowLeft|Tab/;
+  return isAllowedFloatNumeric(event);
+}
 
-  if (!pattern.test(event.key)) {
+export function isAllowedEmail(event, currentValue: string): boolean {
+  if (event.key === '@' && (!currentValue || currentValue.indexOf('@') !== -1)) {
     event.preventDefault();
     return false;
   }

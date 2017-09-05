@@ -44,7 +44,7 @@
             </md-input-container>
 
             <md-input-container [class.error]="formInvalid && !entity.email" class="entity-view__card__content__item">
-              <input required md-input [disabled]="!addMode" placeholder="Email" name="email" [(ngModel)]="entity.email" type="text">
+              <input required md-input (keydown)="isEmail($event, entity.email)" [disabled]="!addMode" placeholder="Email" name="email" [(ngModel)]="entity.email" type="text">
             </md-input-container>
 
             <md-input-container class="entity-view__card__content__item">

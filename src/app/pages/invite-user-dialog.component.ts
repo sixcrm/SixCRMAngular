@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {MdDialogRef} from '@angular/material';
 import {Role} from '../shared/models/role.model';
+import {isAllowedEmail} from '../shared/utils/form.utils';
 
 @Component({
   selector : 'invite-user-dialog',
@@ -8,7 +9,9 @@ import {Role} from '../shared/models/role.model';
     <md-card>
       <md-card-content style="display: flex; flex-direction: column">
         <div>Invite new User</div>
-        <md-input style="margin: 20px 0 0 0;" placeholder="User Email" [(ngModel)]="email"></md-input>
+        <md-input-container style="margin: 20px 0 0 0;">
+          <input md-input (keydown)="isEmail($event, email)" placeholder="User Email" [(ngModel)]="email">
+        </md-input-container>
         <dropdown-component [mapper]="mapper" [options]="options" [selected]="role || {}" [placeholder]="'Role'" (onSelect)="role = $event"></dropdown-component>
       </md-card-content>
       <md-card-actions align="center">
@@ -25,6 +28,7 @@ export class InviteUserDialogComponent {
   role: Role;
   options: Role[] = [];
   mapper = (el: Role) => el.name;
+  isEmail = isAllowedEmail;
 
   constructor(public dialogRef: MdDialogRef<InviteUserDialogComponent>) {}
 

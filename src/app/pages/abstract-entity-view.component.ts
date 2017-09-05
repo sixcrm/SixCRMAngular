@@ -2,7 +2,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {AbstractEntityService} from '../shared/services/abstract-entity.service';
 import {AsyncSubject} from 'rxjs';
 import {Entity} from '../shared/models/entity.interface';
-import {isAllowedNumeric, isAllowedFloatNumeric, isAllowedCurrency} from '../shared/utils/form.utils';
+import {isAllowedNumeric, isAllowedFloatNumeric, isAllowedCurrency, isAllowedEmail} from '../shared/utils/form.utils';
 import {getCurrencyMask} from '../shared/utils/mask.utils';
 
 enum Modes {
@@ -23,6 +23,7 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
   modes = Modes;
 
   isNumeric = isAllowedNumeric;
+  isEmail = isAllowedEmail;
   isCurrency = isAllowedCurrency;
   isFloatNumeric = isAllowedFloatNumeric;
   numberMask = getCurrencyMask();
