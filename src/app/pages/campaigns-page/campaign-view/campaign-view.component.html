@@ -17,6 +17,11 @@
           Create new Campaign
         </ng-template>
       </div>
+
+      <div *ngIf="!addMode" class="entity-view__info__data__other">
+        <span class="entity-view__info__data__other__label">ID:</span>
+        <span>{{entity.id}}</span>
+      </div>
     </div>
   </div>
 
