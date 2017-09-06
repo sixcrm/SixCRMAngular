@@ -69,10 +69,10 @@ export function merchantProviderInputQuery(provider: MerchantProvider, includeId
     accepted_payment_methods:[${provider.acceptedPaymentMethods.map(m => `"${m}"`)}],
     processing:{
       monthly_cap: ${provider.processing.monthlyCap},
-      ${provider.processing.discountRate ? `discount_rate: ${provider.processing.discountRate},` : ''}
-      ${provider.processing.transactionFee ? `transaction_fee: ${provider.processing.transactionFee},` : ''}
-      ${provider.processing.reserveRate ? `reserve_rate: ${provider.processing.reserveRate},` : ''}
-      ${provider.processing.maximumChargebackRatio ? `maximum_chargeback_ratio: ${provider.processing.maximumChargebackRatio},` : ''}
+      ${provider.processing.discountRate ? `discount_rate: ${+provider.processing.discountRate},` : ''}
+      ${provider.processing.transactionFee ? `transaction_fee: ${+provider.processing.transactionFee},` : ''}
+      ${provider.processing.reserveRate ? `reserve_rate: ${+provider.processing.reserveRate},` : ''}
+      ${provider.processing.maximumChargebackRatio ? `maximum_chargeback_ratio: ${+provider.processing.maximumChargebackRatio},` : ''}
       transaction_counts: {
         ${provider.processing.transactionCounts.daily ? `daily: ${provider.processing.transactionCounts.daily},` : ''}
         ${provider.processing.transactionCounts.weekly ? `weekly: ${provider.processing.transactionCounts.weekly},` : ''}
