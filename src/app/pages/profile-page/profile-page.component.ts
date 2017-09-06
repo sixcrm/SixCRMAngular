@@ -34,7 +34,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
   filterValue: string;
 
-  accounts: EntitySelectable<Acl>[] = [];
+  accounts: Acl[] = [];
 
   user: User;
   userBackup: User;
@@ -131,8 +131,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
       this.user = user;
       this.userBackup = this.user.copy();
 
-      this.accounts = [];
-      this.user.acls.forEach(acl => this.accounts.push(new EntitySelectable(acl)));
+      this.accounts = this.user.acls.slice();
 
       if (this.user.id && !this.userSettings) {
         this.userSettingsService.getEntity(this.user.id);
@@ -154,7 +153,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     // get available roles for user invite
     this.rolesService.entities$.takeUntil(this.unsubscribe$).take(1).subscribe(roles => {
       if (roles instanceof CustomServerError) {
-        this.router.navigate(['/error']);
+        this.roles = [];
         return;
       }
 
@@ -170,10 +169,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
   setIndex(index: number): void {
     this.selectedIndex = index;
-  }
-
-  countSelectedAccs(): number {
-    return countSelected(this.accounts);
   }
 
   updateUserDetails(): void {
@@ -221,7 +216,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
   inviteUser(account: Account): void {
     this.inviteDialogRef = this.dialog.open(InviteUserDialogComponent, { disableClose : true });
-    this.inviteDialogRef.componentInstance.options = this.roles;
+    this.inviteDialogRef.componentInstance.options = this.roles.filter(role => role.name !== 'Owner');
 
     this.inviteDialogRef.afterClosed().takeUntil(this.unsubscribe$).subscribe(result => {
       this.inviteDialogRef = null;
@@ -231,26 +226,4 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
       }
     });
   }
-}
-
-export class EntitySelectable<T> {
-  selected: boolean;
-  entity: T;
-
-  constructor(entity: T, selected?: boolean) {
-    this.entity = entity;
-    this.selected = !!selected;
-  }
-}
-
-export function countSelected(selectables: EntitySelectable<any>[]): number {
-  if (!selectables || selectables.length === 0) return 0;
-
-  let selected = 0;
-
-  selectables.forEach(selectable => {
-    if (selectable.selected) selected++;
-  });
-
-  return selected;
 }

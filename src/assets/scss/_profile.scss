@@ -200,36 +200,13 @@
         }
       }
 
-      &__selected {
-        display: flex;
-        align-items: center;
-        padding: 10px 10px 10px 20px;
-        border-bottom: 1px solid rgba(0,0,0,0.15);
-        background: #FFF3E0;
-
-        span {
-          color: #F78E22;
-          font-size: 12px;
-          font-weight: 500;
-        }
-
-        md-icon {
-          color: rgba(0,0,0,0.6);
-          cursor: pointer;
-
-          &:first-of-type {
-            margin-left: auto;
-            margin-right: 10px;
-          }
-        }
-      }
-
       &__table {
 
         table {
           thead {
             tr {
               th {
+                padding: 15px 20px;
                 font-size: 12px;
                 font-weight: 400;
                 color: rgba(0,0,0,0.4);
@@ -240,23 +217,11 @@
           tbody {
             tr {
               td {
+                padding: 15px 20px;
                 font-size: 12px;
-
-                &:first-of-type {
-                  width: 40px;
-                  padding-left: 20px;
-                }
-
-                .md-checkbox-inner-container {
-                  margin: 0 !important;
-                }
               }
             }
           }
-        }
-
-        .selected {
-          background-color: rgba(0,0,0,0.05);
         }
       }
     }

@@ -123,20 +123,12 @@
             <div class="profile-page__content__accounts__title">
               <span>Accounts</span>
               <md-input class="profile-page__content__accounts__title__input" placeholder="Filter Results" [(ngModel)]="filterValue"></md-input>
-              <!--<md-icon>more_vert</md-icon>-->
-            </div>
-
-            <div *ngIf="countSelectedAccs() > 0" class="profile-page__content__accounts__selected">
-              <span>{{countSelectedAccs()}} items selected</span>
-              <md-icon>delete</md-icon>
-              <!--<md-icon>more_vert</md-icon>-->
             </div>
 
             <div class="profile-page__content__accounts__table">
               <table class="highlight">
                 <thead>
                   <tr>
-                    <th></th>
                     <th>Account</th>
                     <th>Role</th>
                     <th style="width: 30px"></th>
@@ -144,14 +136,18 @@
                 </thead>
 
                 <tbody>
-                  <tr *ngFor="let acc of accounts | filterEntities: filterValue" [class.selected]="acc.selected">
-                    <td><md-checkbox [color]="'primary'" [(ngModel)]="acc.selected"></md-checkbox></td>
-                    <td>{{acc.entity.account.name}}</td>
-                    <td>{{acc.entity.role.name}}</td>
-                    <td><md-icon style="cursor: pointer" [md-menu-trigger-for]="accountOptions">more_vert</md-icon></td>
-                    <md-menu #accountOptions="mdMenu" x-position="before">
-                      <button md-menu-item (click)="inviteUser(acc.entity.account)"> Invite User to this Account </button>
-                    </md-menu>
+                  <tr   *ngFor="let acc of accounts | filterEntities: filterValue">
+                    <td>{{acc.account.name}}</td>
+                    <td>{{acc.role.name}}</td>
+
+                    <td>
+                      <ng-container  *ngIf="acc.role.name === 'Owner' || acc.role.name === 'Administrator'">
+                        <md-icon style="cursor: pointer" [md-menu-trigger-for]="accountOptions">more_vert</md-icon>
+                        <md-menu #accountOptions="mdMenu" x-position="before">
+                          <button md-menu-item (click)="inviteUser(acc.account)"> Invite User to this Account </button>
+                        </md-menu>
+                      </ng-container>
+                    </td>
                   </tr>
                 </tbody>
               </table>
