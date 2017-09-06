@@ -83,7 +83,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   }
 
   disassociateSchedule(schedule: Schedule) {
-    let index = firstIndexOf(this.entity.schedules, (s: Schedule) => s.id === schedule.id);
+    let index = firstIndexOf(this.entity.schedules, (s: Schedule) => JSON.stringify(s) === JSON.stringify(schedule));
 
     if (index > -1) {
       this.entity.schedules.splice(index, 1);

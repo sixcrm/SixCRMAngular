@@ -4,7 +4,7 @@ import {MdDialog, MdDialogRef} from '@angular/material';
 import {PaginationService} from '../shared/services/pagination.service';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Entity} from '../shared/models/entity.interface';
-import {ViewChild} from '@angular/core';
+import {ViewChild, Output, EventEmitter} from '@angular/core';
 import {AsyncSubject} from 'rxjs';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../shared/models/column-params.model';
@@ -41,6 +41,8 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   protected takeUpdated: boolean = true;
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
+  @Output() allEntities: EventEmitter<T[]> = new EventEmitter();
+
   constructor(
     public service: AbstractEntityService<T>,
     protected authService: AuthenticationService,
@@ -63,14 +65,18 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
       this.loadingData = false;
       this.serverError = null;
       this.entitiesHolder = [...this.entitiesHolder, ...entities];
+      this.allEntities.emit(this.entitiesHolder);
       this.reshuffleEntities();
     });
-
     this.service.entityDeleted$.takeUntil(this.unsubscribe$).subscribe((entity: T) => {
       this.deleteEntityLocal(entity);
       this.showEntityDetails = false;
     });
-    this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe(() => this.reshuffleEntities());
+    this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe((entity: T) => {
+      this.entitiesHolder.unshift(entity);
+      this.allEntities.emit(this.entitiesHolder);
+      this.reshuffleEntities()
+    });
     this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe((entity: T) => {
       if (this.takeUpdated) {
         this.updateEntityLocal(entity);
@@ -210,6 +216,8 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
     if (index > -1) {
       this.entitiesHolder.splice(index, 1);
+      this.allEntities.emit(this.entitiesHolder);
+
       this.reshuffleEntities();
     }
   }
@@ -217,6 +225,8 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   protected resetEntities(): void {
     this.service.resetPagination();
     this.entitiesHolder = [];
+    this.allEntities.emit(this.entitiesHolder);
+
     this.entities = [];
   }
 

@@ -33,10 +33,13 @@
         <div class="entity-view__card campaign-view__card">
           <div class="entity-view__card__header">
             <div class="entity-view__card__header__title">Product general details</div>
-            <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
-            <md-menu #editOptions="mdMenu" x-position="before">
-              <button *ngIf="!addMode" md-menu-item (click)="setMode(modes.Update)"> Edit Product</button>
-            </md-menu>
+            <ng-container *ngIf="!addMode">
+              <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
+              <md-menu #editOptions="mdMenu" x-position="before">
+                <button md-menu-item (click)="setMode(modes.Update)"> Edit Product</button>
+                <button md-menu-item (click)="deleteProduct()"> Delete Product </button>
+              </md-menu>
+            </ng-container>
           </div>
 
           <div class="entity-view__card__content">
@@ -86,7 +89,7 @@
     </md-tab>
 
     <md-tab>
-      <product-product-schedules [id]="entity.id" [price]="entity.defaultPrice.amount + ''"></product-product-schedules>
+      <product-product-schedules [id]="entity.id" [price]="entity.defaultPrice.amount + ''" (allEntities)="setCanNotBeDeleted($event)"></product-product-schedules>
     </md-tab>
 
     <md-tab>

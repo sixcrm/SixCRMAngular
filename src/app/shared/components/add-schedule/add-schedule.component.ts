@@ -62,7 +62,6 @@ export class AddScheduleComponent implements OnInit {
   }
 
   addNewSchedule(valid: boolean): void {
-    console.log(valid, this.productScheduleToAdd);
     this.formInvalid = !valid
       || (this.addProductMode && (!this.scheduleToAdd.product && !this.scheduleToAdd.product.id)
       || (!this.addProductMode && !this.productScheduleToAdd.id) );

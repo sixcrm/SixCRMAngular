@@ -58,7 +58,9 @@ export class ProductProductSchedulesComponent extends AbstractEntityIndexCompone
     this.service.entityUpdated$.take(1).takeUntil(this.unsubscribe$).subscribe(entity => {
       if (entity instanceof CustomServerError) return;
 
-      this.entities = this.entities.filter(entity => entity.id !== productSchedule.id);
+      this.entitiesHolder = this.entitiesHolder.filter(entity => entity.id !== productSchedule.id);
+      this.allEntities.emit(this.entitiesHolder);
+      this.reshuffleEntities();
     });
 
     this.service.updateEntity(productSchedule);
@@ -74,13 +76,16 @@ export class ProductProductSchedulesComponent extends AbstractEntityIndexCompone
       this.service.indexQuery = (limit?:number, cursor?:string) => productSchedulesByProduct(this.id, limit, cursor);
       this.addProductScheduleDialog = null;
 
-      this.service.entityCreated$.take(1).takeUntil(this.unsubscribe$).subscribe(ps => {
-        if (ps instanceof CustomServerError) return;
-
-        this.entities.push(ps)
-      });
       if (result && result.id) {
-        this.service.createEntity(result)
+        this.service.entityUpdated$.take(1).takeUntil(this.unsubscribe$).subscribe(entity => {
+          if (entity instanceof CustomServerError) return;
+
+          this.entitiesHolder.unshift(entity);
+          this.allEntities.emit(this.entitiesHolder);
+          this.reshuffleEntities();
+        });
+
+        this.service.updateEntity(result)
       }
     });
   }

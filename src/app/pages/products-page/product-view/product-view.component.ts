@@ -7,8 +7,9 @@ import {FulfillmentProvidersService} from '../../../shared/services/fulfillment-
 import {FulfillmentProvider} from '../../../shared/models/fulfillment-provider.model';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {parseCurrencyMaskedValue} from '../../../shared/utils/mask.utils';
-import {Observable} from 'rxjs';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {MessageDialogComponent} from '../../message-dialog.component';
+import {MdDialog} from '@angular/material';
 
 @Component({
   selector: 'product-view',
@@ -24,11 +25,14 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   price: string = '';
 
+  canNotBeDeleted: boolean = true;
+
   constructor(
     service: ProductsService,
     route: ActivatedRoute,
     public navigation: NavigationService,
-    public fulfillmentProvidersService: FulfillmentProvidersService
+    public fulfillmentProvidersService: FulfillmentProvidersService,
+    private dialog: MdDialog
   ) {
     super(service, route);
   }
@@ -77,6 +81,33 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
       this.entity.defaultPrice.amount = parseCurrencyMaskedValue(this.price);
       this.saveOrUpdate(this.entity);
     }
+  }
+
+  deleteProduct(): void {
+    if (this.addMode) return;
+
+    if (this.canNotBeDeleted) {
+      this.showMessageDialog('You can not delete this products as long as it is associated with a product schedule.');
+    } else {
+      this.service.entityDeleted$.take(1).takeUntil(this.unsubscribe$).subscribe(() => {
+        this.navigation.back();
+      });
+
+      this.service.deleteEntity(this.entity.id);
+    }
+  }
+
+  showMessageDialog(text: string) {
+    let messageDialogRef = this.dialog.open(MessageDialogComponent);
+    messageDialogRef.componentInstance.text = text;
+
+    messageDialogRef.afterClosed().take(1).subscribe(() => {
+      messageDialogRef = null;
+    });
+  }
+
+  setCanNotBeDeleted(entities: any[]) {
+    this.canNotBeDeleted = entities && entities.length > 0;
   }
 
 }
