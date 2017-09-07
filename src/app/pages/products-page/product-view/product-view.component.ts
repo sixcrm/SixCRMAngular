@@ -87,7 +87,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     if (this.addMode) return;
 
     if (this.canNotBeDeleted) {
-      this.showMessageDialog('You can not delete this products as long as it is associated with a product schedule.');
+      this.showMessageDialog('You can not delete this product as long as it is associated with a product schedule.');
     } else {
       this.service.entityDeleted$.take(1).takeUntil(this.unsubscribe$).subscribe(() => {
         this.navigation.back();
