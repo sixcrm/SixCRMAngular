@@ -148,7 +148,7 @@
               </md-input-container>
 
               <md-input-container class="entity-view__card__content__item">
-                <input [disabled]="viewMode" md-input placeholder="Email" name="email" [(ngModel)]="entity.customerService.email" type="text">
+                <input [disabled]="viewMode" (keydown)="isEmail($event, entity.customerService.email)" md-input placeholder="Email" name="email" [(ngModel)]="entity.customerService.email" type="text">
               </md-input-container>
 
               <md-input-container class="entity-view__card__content__item">
