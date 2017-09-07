@@ -10,11 +10,12 @@ import {
 } from '../utils/queries/entities/user.queries';
 import {HttpWrapperService} from './http-wrapper.service';
 import {Response} from '@angular/http'
+import {MdSnackBar} from '@angular/material';
 
 @Injectable()
 export class UsersService extends AbstractEntityService<User> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
     super(
       http,
       authService,
@@ -24,7 +25,8 @@ export class UsersService extends AbstractEntityService<User> {
       deleteUserMutation,
       createUserMutation,
       updateUserMutation,
-      'user'
+      'user',
+      snackBar
     )
   }
 

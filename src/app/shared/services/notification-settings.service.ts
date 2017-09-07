@@ -10,13 +10,14 @@ import {
   updateNotificationSettingsMutation, defaultNotificationSettingsQuery, sendTestNotification
 } from '../utils/query-builder';
 import {CustomServerError} from '../models/errors/custom-server-error';
+import {MdSnackBar} from '@angular/material';
 
 @Injectable()
 export class NotificationSettingsService extends AbstractEntityService<NotificationSettings> {
 
   defaultNotificationSettings$: Subject<NotificationSettingsData | CustomServerError> = new Subject();
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService, private notificationsQuickService: NotificationsQuickService) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, private notificationsQuickService: NotificationsQuickService, snackBar: MdSnackBar) {
     super(
       http,
       authService,
@@ -26,7 +27,8 @@ export class NotificationSettingsService extends AbstractEntityService<Notificat
       null,
       createNotificationSettingsMutation,
       updateNotificationSettingsMutation,
-      'default'
+      'default',
+      snackBar
     )
   }
 

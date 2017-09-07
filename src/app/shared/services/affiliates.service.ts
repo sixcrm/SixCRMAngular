@@ -7,11 +7,12 @@ import {
   affiliatesListQuery, affiliateQuery,
   deleteAffiliateMutation, createAffiliateMutation, updateAffiliateMutation
 } from '../utils/queries/entities/affiliate.queries';
+import {MdSnackBar} from '@angular/material';
 
 @Injectable()
 export class AffiliatesService extends AbstractEntityService<Affiliate> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
     super(
       http,
       authService,
@@ -21,7 +22,8 @@ export class AffiliatesService extends AbstractEntityService<Affiliate> {
       deleteAffiliateMutation,
       createAffiliateMutation,
       updateAffiliateMutation,
-      'affiliate'
+      'affiliate',
+      snackBar
     );
   }
 }

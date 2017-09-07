@@ -7,11 +7,12 @@ import {
   deleteLoadBalancerMutation, createLoadBalancerMutation, updateLoadBalancerMutation
 } from '../utils/queries/entities/load-balancer.queries';
 import {HttpWrapperService} from './http-wrapper.service';
+import {MdSnackBar} from '@angular/material';
 
 @Injectable()
 export class LoadBalancersService extends AbstractEntityService<LoadBalancer> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
     super(
       http,
       authService,
@@ -21,7 +22,8 @@ export class LoadBalancersService extends AbstractEntityService<LoadBalancer> {
       deleteLoadBalancerMutation,
       createLoadBalancerMutation,
       updateLoadBalancerMutation,
-      'loadbalancer'
+      'loadbalancer',
+      snackBar
     );
   }
 }

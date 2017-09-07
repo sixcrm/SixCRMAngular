@@ -4,11 +4,12 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {HttpWrapperService} from './http-wrapper.service';
 import {Acl} from '../models/acl.model';
 import {createAclMutation, deleteAclMutation, updateAclMutation} from '../utils/queries/entities/acl.queries';
+import {MdSnackBar} from '@angular/material';
 
 @Injectable()
 export class AclsService extends AbstractEntityService<Acl> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
     super(
       http,
       authService,
@@ -18,7 +19,8 @@ export class AclsService extends AbstractEntityService<Acl> {
       deleteAclMutation,
       createAclMutation,
       updateAclMutation,
-      'account'
+      'useracl',
+      snackBar
     );
   }
 

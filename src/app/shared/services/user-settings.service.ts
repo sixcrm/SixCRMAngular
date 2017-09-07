@@ -5,11 +5,12 @@ import {UserSettings} from '../models/user-settings';
 import { userSettingsQuery, updateUserSettingsMutation } from '../utils/query-builder';
 import {HttpWrapperService} from './http-wrapper.service';
 import {CustomServerError} from '../models/errors/custom-server-error';
+import {MdSnackBar} from '@angular/material';
 
 @Injectable()
 export class UserSettingsService extends AbstractEntityService<UserSettings> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
     super(
       http,
       authService,
@@ -19,7 +20,8 @@ export class UserSettingsService extends AbstractEntityService<UserSettings> {
       null,
       null,
       updateUserSettingsMutation,
-      'default'
+      'default',
+      snackBar
     );
 
     this.entityUpdated$.subscribe(settings => {

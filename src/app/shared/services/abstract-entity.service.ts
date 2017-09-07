@@ -4,6 +4,7 @@ import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {extractData, HttpWrapperService, generateHeaders, FailStrategy} from './http-wrapper.service';
 import {CustomServerError} from '../models/errors/custom-server-error';
+import {MdSnackBar} from '@angular/material';
 
 export abstract class AbstractEntityService<T> {
 
@@ -20,13 +21,14 @@ export abstract class AbstractEntityService<T> {
   constructor(
     private http: HttpWrapperService,
     protected authService: AuthenticationService,
-    private toEntity?: (data: any) => T,
-    public indexQuery?: (limit?: number, cursor?: string) => string,
-    private viewQuery?: (id: string) => string,
-    private deleteQuery?: (id: string) => string,
-    private createQuery?: (entity: T) => string,
-    private updateQuery?: (entity: T) => string,
-    private accessRole?: string
+    private toEntity: (data: any) => T,
+    public indexQuery: (limit?: number, cursor?: string) => string,
+    private viewQuery: (id: string) => string,
+    private deleteQuery: (id: string) => string,
+    private createQuery: (entity: T) => string,
+    private updateQuery: (entity: T) => string,
+    private accessRole: string,
+    private snackBar: MdSnackBar
   ) {
     this.entities$ = new Subject<T[] | CustomServerError>();
     this.entitiesHasMore$ = new Subject<boolean>();
@@ -75,6 +77,7 @@ export abstract class AbstractEntityService<T> {
       const entityKey = Object.keys(json)[0];
       const entityData =json[entityKey];
 
+      this.snackBar.open('Deleted Successfully!', 'close', {duration: 3000});
       this.entityDeleted$.next(this.toEntity(entityData));
     });
   }
@@ -94,6 +97,7 @@ export abstract class AbstractEntityService<T> {
       const entityKey = Object.keys(json)[0];
       const entityData =json[entityKey];
 
+      this.snackBar.open('Created Successfully!', 'close', {duration: 3000});
       this.entityCreated$.next(this.toEntity(entityData));
     });
   }
@@ -113,6 +117,7 @@ export abstract class AbstractEntityService<T> {
       const entityKey = Object.keys(json)[0];
       const entityData =json[entityKey];
 
+      this.snackBar.open('Updated Successfully!', 'close', {duration: 3000});
       this.entityUpdated$.next(this.toEntity(entityData));
     });
   }

@@ -7,11 +7,12 @@ import {
   smtpProvidersListQuery, smtpProviderQuery,
   deleteSmptProviderMutation, createSmptProviderMutation, updateSmptProviderMutation
 } from '../utils/queries/entities/smtp-provider.queries';
+import {MdSnackBar} from '@angular/material';
 
 @Injectable()
 export class SmtpProvidersService extends AbstractEntityService<SmtpProvider> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
     super(
       http,
       authService,
@@ -21,7 +22,8 @@ export class SmtpProvidersService extends AbstractEntityService<SmtpProvider> {
       deleteSmptProviderMutation,
       createSmptProviderMutation,
       updateSmptProviderMutation,
-      'smtpprovider'
+      'smtpprovider',
+      snackBar
     );
   }
 }

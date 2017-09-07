@@ -9,6 +9,7 @@ import {
   notificationCountQuery
 } from '../utils/queries/entities/notification.queries';
 import {CustomServerError} from '../models/errors/custom-server-error';
+import {MdSnackBar} from '@angular/material';
 
 @Injectable()
 export class NotificationsQuickService extends AbstractEntityService<Notification> {
@@ -18,7 +19,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
   notificationsSub: Subscription;
   querySub: Subscription;
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
     super(
       http,
       authService,
@@ -28,7 +29,8 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
       null,
       null,
       updateNotificationMutation,
-      'default'
+      'default',
+      snackBar
     );
   }
 

@@ -8,11 +8,12 @@ import {
   updateFulfillmentProviderMutation
 } from '../utils/queries/entities/fulfillment-provider.queries';
 import {HttpWrapperService} from './http-wrapper.service';
+import {MdSnackBar} from '@angular/material';
 
 @Injectable()
 export class FulfillmentProvidersService extends AbstractEntityService<FulfillmentProvider> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
     super(
       http,
       authService,
@@ -22,7 +23,8 @@ export class FulfillmentProvidersService extends AbstractEntityService<Fulfillme
       deleteFulfillmentProviderMutation,
       createFulfillmentProviderMutation,
       updateFulfillmentProviderMutation,
-      'fulfillmentprovider'
+      'fulfillmentprovider',
+      snackBar
     );
   }
 }

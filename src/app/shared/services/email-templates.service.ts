@@ -7,11 +7,12 @@ import {
   emailTemplatesListQuery, emailTemplateQuery,
   deleteEmailTemplateMutation, createEmailTemplateMutation, updateEmailTemplateMutation
 } from '../utils/queries/entities/email-template.queries';
+import {MdSnackBar} from '@angular/material';
 
 @Injectable()
 export class EmailTemplatesService extends AbstractEntityService<EmailTemplate> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
     super(
       http,
       authService,
@@ -21,7 +22,8 @@ export class EmailTemplatesService extends AbstractEntityService<EmailTemplate> 
       deleteEmailTemplateMutation,
       createEmailTemplateMutation,
       updateEmailTemplateMutation,
-      'emailtemplate'
+      'emailtemplate',
+      snackBar
     )
   }
 

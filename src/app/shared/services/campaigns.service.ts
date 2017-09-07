@@ -7,11 +7,12 @@ import {
   deleteCampaignMutation, createCampaignMutation, updateCampaignMutation
 } from '../utils/queries/entities/campaign.queries';
 import {HttpWrapperService} from './http-wrapper.service';
+import {MdSnackBar} from '@angular/material';
 
 @Injectable()
 export class CampaignsService extends AbstractEntityService<Campaign> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
     super(
       http,
       authService,
@@ -21,7 +22,8 @@ export class CampaignsService extends AbstractEntityService<Campaign> {
       deleteCampaignMutation,
       createCampaignMutation,
       updateCampaignMutation,
-      'campaign'
+      'campaign',
+      snackBar
     );
   }
 }

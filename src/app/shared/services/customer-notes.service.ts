@@ -4,11 +4,12 @@ import {AbstractEntityService} from './abstract-entity.service';
 import {CustomerNote} from '../models/customer-note.model';
 import {HttpWrapperService} from './http-wrapper.service';
 import {deleteCustomerNoteMutation, createCustomerNoteMutation} from '../utils/queries/entities/customer-note.queries';
+import {MdSnackBar} from '@angular/material';
 
 @Injectable()
 export class CustomerNotesService extends AbstractEntityService<CustomerNote> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
     super(
       http,
       authService,
@@ -18,7 +19,8 @@ export class CustomerNotesService extends AbstractEntityService<CustomerNote> {
       deleteCustomerNoteMutation,
       createCustomerNoteMutation,
       null,
-      'customer'
+      'customer',
+      snackBar
     );
   }
 }

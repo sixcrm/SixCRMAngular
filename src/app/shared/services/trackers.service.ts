@@ -7,11 +7,12 @@ import {
   trackersListQuery, trackerQuery, deleteTrackerMutation,
   createTrackerMutation, updateTrackerMutation
 } from '../utils/queries/entities/tracker.queries';
+import {MdSnackBar} from '@angular/material';
 
 @Injectable()
 export class TrackersService extends AbstractEntityService<Tracker> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
     super(
       http,
       authService,
@@ -21,7 +22,8 @@ export class TrackersService extends AbstractEntityService<Tracker> {
       deleteTrackerMutation,
       createTrackerMutation,
       updateTrackerMutation,
-      'tracker'
+      'tracker',
+      snackBar
     );
   }
 }
