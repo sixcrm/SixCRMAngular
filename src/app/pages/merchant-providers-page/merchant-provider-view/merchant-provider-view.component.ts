@@ -25,6 +25,8 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
 
   mask = getPhoneNumberMask();
 
+  allCreditCards: string[] = ['American Express', 'Mastercard', 'Visa', 'Discover'];
+
   constructor(service: MerchantProvidersService, route: ActivatedRoute, public navigation: NavigationService) {
     super(service, route);
   }

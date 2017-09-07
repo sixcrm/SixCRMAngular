@@ -66,17 +66,9 @@
                 Accepted payment methods
               </div>
 
-              <div class="flex-custom flex-custom--center merchant-provider-view__details__selectable">
-                <span>American Express</span>
-                <md-checkbox class="flex-align--right" [disabled]="viewMode" [checked]="entity.containsPaymentMethod('American Express')" (change)="entity.togglePaymentMethod('American Express')"></md-checkbox>
-              </div>
-              <div class="flex-custom flex-custom--center merchant-provider-view__details__selectable">
-                <span>Mastercard</span>
-                <md-checkbox class="flex-align--right" [disabled]="viewMode" [checked]="entity.containsPaymentMethod('Mastercard')" (change)="entity.togglePaymentMethod('Mastercard')"></md-checkbox>
-              </div>
-              <div class="flex-custom flex-custom--center merchant-provider-view__details__selectable">
-                <span>Visa</span>
-                <md-checkbox class="flex-align--right" [disabled]="viewMode" [checked]="entity.containsPaymentMethod('Visa')" (change)="entity.togglePaymentMethod('Visa')"></md-checkbox>
+              <div *ngFor="let card of allCreditCards" class="flex-custom flex-custom--center merchant-provider-view__details__selectable">
+                <span>{{card}}</span>
+                <md-checkbox class="flex-align--right" [disabled]="viewMode" [checked]="entity.containsPaymentMethod(card)" (change)="entity.togglePaymentMethod(card)"></md-checkbox>
               </div>
             </div>
           </div>
