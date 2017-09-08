@@ -75,5 +75,5 @@ export function productScheduleInfoResponseQuery(): string {
 export function productScheduleInputQuery(productSchedule: ProductSchedule, includeId?: boolean): string {
   let schedules = productSchedule.schedules.reduce((a,b) => `${a} {product_id: "${b.product.id}", start: ${b.start}, ${b.end ? `end: ${b.end},` : ''} price: ${b.price.amount}, period: ${b.period}}, `, '');
 
-  return `${addId(productSchedule.id, includeId)}, name: "${productSchedule.name}" schedule: [${schedules}]`;
+  return `${addId(productSchedule.id, includeId)}, name: "${productSchedule.name}", ${productSchedule.loadBalancer.id ? `loadbalancer: "${productSchedule.loadBalancer.id}",` : ''} schedule: [${schedules}]`;
 }

@@ -6,7 +6,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
   id: string;
   name: string;
   schedules: Schedule[] = [];
-  loadBalancers: LoadBalancer[] = [];
+  loadBalancer: LoadBalancer;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -15,10 +15,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
 
     this.id = obj.id || '';
     this.name = obj.name || '';
-
-    if (obj.loadbalancers) {
-      this.loadBalancers = obj.loadbalancers.map(l => new LoadBalancer());
-    }
+    this.loadBalancer = new LoadBalancer(obj.loadbalancer);
 
     if (obj.schedule) {
       this.schedules = obj.schedule.map(s => new Schedule(s));
@@ -33,7 +30,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
     return {
       id: this.id,
       name: this.name,
-      loadbalancers: this.loadBalancers.map(l => l.inverse()),
+      loadbalancer: this.loadBalancer.inverse(),
       schedule: this.schedules.map(s => s.inverse())
     }
   }

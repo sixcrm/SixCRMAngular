@@ -11,14 +11,7 @@
       <div *ngIf="!addMode" class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
       <div class="entity-view__info__data__name">
         <span *ngIf="!addMode; else createMessage">
-
-          <md-input-container *ngIf="updateMode; else viewName">
-            <input md-input [(ngModel)]="entity.name">
-          </md-input-container>
-
-          <ng-template #viewName>
-            {{entityBackup.name}}
-          </ng-template>
+          {{entity.name}}
         </span>
         <ng-template #createMessage>
           Create new Product Schedule
@@ -31,14 +24,6 @@
       </div>
     </div>
 
-    <div *ngIf="!addMode" class="entity-view__info__edit">
-      <div *ngIf="!updateMode; else editActions" class="entity-view__info__edit__update" (click)="setMode(modes.Update)"> EDIT PRODUCT SCHEDULE </div>
-
-      <ng-template #editActions>
-        <div (click)="cancelUpdate()">CANCEL</div>
-        <div class="entity-view__info__edit__update" (click)="updateEntity(entity)">UPDATE</div>
-      </ng-template>
-    </div>
   </div>
 
   <div class="entity-view__navigation">
@@ -51,19 +36,38 @@
 
       <div class="flex-custom">
 
-        <div *ngIf="addMode" class="entity-view__card product-schedule-view__details">
+        <div class="entity-view__card product-schedule-view__details">
           <div class="entity-view__card__header">
             <div class="entity-view__card__header__title">Product Schedule details</div>
+            <ng-container *ngIf="!addMode">
+              <md-icon [md-menu-trigger-for]="shipOptions">more_vert</md-icon>
+              <md-menu #shipOptions="mdMenu" x-position="before">
+                <button md-menu-item (click)="setMode(modes.Update);"> Edit Product Schedule </button>
+              </md-menu>
+            </ng-container>
           </div>
 
-          <div class="entity-view__card__content">
-            <md-input-container>
-              <input required md-input [disabled]="viewMode" placeholder="Product Schedule Name" [(ngModel)]="entity.name" type="text">
+          <form #productScheduleInputForm="ngForm" style="font-size: 14px;" class="entity-view__card__content">
+            <md-input-container [class.error]="formInvalid && !entity.name">
+              <input [disabled]="viewMode" required md-input placeholder="Product Schedule Name" name="name" [(ngModel)]="entity.name" type="text">
             </md-input-container>
-          </div>
+
+            <autocomplete-input class="default-autocomplete-input--full-width"
+                                [class.error]="formInvalid && !entity.loadBalancer.id"
+                                [disabled]="viewMode"
+                                [mapFunction]="loadBalancerMapper"
+                                [initialValue]="entity.loadBalancer"
+                                [options]="loadBalancerService.entities$ | async"
+                                [placeholder]="'Load Balancer'"
+                                [showCancelButton]="false"
+                                [required]="true"
+                                (selected)="entity.loadBalancer = $event">
+            </autocomplete-input>
+          </form>
 
           <div *ngIf="!viewMode" class="entity-view__card__actions product-schedule-view__details__actions">
-            <div (click)="saveEntity(entity)">SAVE</div>
+            <div *ngIf="updateMode" (click)="cancelUpdate()">CANCEL</div>
+            <div (click)="saveSchedule(productScheduleInputForm.form.valid)">SAVE</div>
           </div>
         </div>
 

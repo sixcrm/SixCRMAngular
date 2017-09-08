@@ -3,7 +3,7 @@ import {DeleteDialogComponent} from './delete-dialog.component';
 import {MdDialog, MdDialogRef} from '@angular/material';
 import {PaginationService} from '../shared/services/pagination.service';
 import {AuthenticationService} from '../authentication/authentication.service';
-import {Entity} from '../shared/models/entity.abstract';
+import {Entity} from '../shared/models/entity.interface';
 import {ViewChild, Output, EventEmitter} from '@angular/core';
 import {AsyncSubject} from 'rxjs';
 import {Router, ActivatedRoute} from '@angular/router';
