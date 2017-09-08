@@ -39,6 +39,11 @@ export class FulfillmentProvider implements Entity<FulfillmentProvider> {
     return {
       id: this.id,
       name: this.name,
+      threepl_key: this.threePLKey,
+      threepl_id: this.threePLId,
+      facility_id: this.facilityId,
+      return_address: this.returnAddress,
+      customer_id: this.customerId,
       provider: this.provider,
       username: this.username,
       password: this.password,

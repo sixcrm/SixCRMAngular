@@ -38,14 +38,14 @@
         </div>
 
         <div class="tracker-view__card__content">
-          <div *ngIf="addMode || editMode" class="tracker-view__card__content__name">
+          <div *ngIf="addMode || updateMode" class="tracker-view__card__content__name">
             <md-input placeholder="Tracker Name" [(ngModel)]="entity.name"></md-input>
           </div>
 
           <div class="tracker-view__card__content__type">
             <dropdown-component
               class="tracker-view__dropdown--inline"
-              [disabled]="!(editMode || addMode)"
+              [disabled]="!(updateMode || addMode)"
               [selected]="entity.type"
               [required]="true"
               [placeholder]="'Tracking type'"
@@ -57,18 +57,18 @@
           <div class="tracker-view__card__content__event-type">
             <dropdown-component
               class="tracker-view__dropdown--inline"
-              [disabled]="!(editMode || addMode)"
-              [selected]="editMode || addMode ? '' : (entity.eventType && entity.eventType.length > 0 ? entity.eventType : 'all')"
-              [placeholder]="editMode || addMode ? 'add event type' : 'Event Type'"
+              [disabled]="!(updateMode || addMode)"
+              [selected]="updateMode || addMode ? '' : (entity.eventType && entity.eventType.length > 0 ? entity.eventType : 'all')"
+              [placeholder]="updateMode || addMode ? 'add event type' : 'Event Type'"
               (onSelect)="addEventType($event)"
               [options]="['upsell', 'lead', 'main']">
             </dropdown-component>
-            <ng-container *ngIf="editMode || addMode; else eventTypeNormal">
-              <span *ngFor="let t of entity.eventType"> <md-icon class="cancel" *ngIf="editMode || addMode" (click)="removeEventType(t)">cancel</md-icon> {{t}} </span>
+            <ng-container *ngIf="updateMode || addMode; else eventTypeNormal">
+              <span *ngFor="let t of entity.eventType"> <md-icon class="cancel" *ngIf="updateMode || addMode" (click)="removeEventType(t)">cancel</md-icon> {{t}} </span>
             </ng-container>
           </div>
 
-          <div *ngIf="entity.link && !editMode" class="tracker-view__card__content__link">
+          <div *ngIf="entity.link && !updateMode" class="tracker-view__card__content__link">
             <div class="tracker-view__card__content__label">Tracking link:</div>
             <input type="text" #urlField class="share-link__url__content" value="{{entity.link}}" readonly>
             <md-icon md-tooltip="Copy to clipboard" (click)="copyUrlToClipboard(urlField)">content_copy</md-icon>
@@ -80,7 +80,7 @@
             <codemirror [class.invisible]="entity.type !== 'html'" [(ngModel)]="entity.body" [config]="config"></codemirror>
 
             <ng-container *ngIf="entity.type !== 'html'">
-              <md-textarea class="codeblock" *ngIf="editMode || addMode; else bodyNoEdit" [(ngModel)]="entity.body"></md-textarea>
+              <md-textarea class="codeblock" *ngIf="updateMode || addMode; else bodyNoEdit" [(ngModel)]="entity.body"></md-textarea>
 
               <ng-template #bodyNoEdit>
                 <div class="codeblock">
@@ -90,7 +90,7 @@
             </ng-container>
           </div>
 
-          <div class="tracker-view__card__content__buttons" *ngIf="editMode">
+          <div class="tracker-view__card__content__buttons" *ngIf="updateMode">
             <div class="tracker-cancel" (click)="cancelEdit()">CANCEL</div>
             <div class="tracker-update" (click)="updateTracker()">UPDATE</div>
           </div>

@@ -5,6 +5,6 @@ import {AffiliateViewComponent} from './affiliate-view/affiliate-view.component'
 
 export const affiliatesRouting = RouterModule.forChild([
   { path : '', component : AffiliatesComponent, canActivate: [AffiliatesAclGuard] },
-  { path : ':id', component : AffiliateViewComponent, canActivate: [AffiliatesAclGuard] }
+  { path : ':id', component : AffiliateViewComponent, canActivate: [AffiliatesAclGuard], canDeactivate: [AffiliatesAclGuard] }
 ]);
 

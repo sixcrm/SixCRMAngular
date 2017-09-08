@@ -124,4 +124,8 @@ export class AddScheduleComponent implements OnInit {
     this.productScheduleToAdd = productSchedule;
   }
 
+  isTouched(): boolean {
+    return !!this.price || (JSON.stringify(new Schedule()) !== JSON.stringify(this.scheduleToAdd));
+  }
+
 }

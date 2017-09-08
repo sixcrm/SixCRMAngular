@@ -10,6 +10,7 @@ import {parseCurrencyMaskedValue} from '../../../shared/utils/mask.utils';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {MessageDialogComponent} from '../../message-dialog.component';
 import {MdDialog} from '@angular/material';
+import {Currency} from '../../../shared/utils/currency/currency';
 
 @Component({
   selector: 'product-view',
@@ -78,7 +79,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     if (this.formInvalid) {
 
     } else {
-      this.entity.defaultPrice.amount = parseCurrencyMaskedValue(this.price);
+      this.entity.defaultPrice = new Currency(parseCurrencyMaskedValue(this.price));
       this.saveOrUpdate(this.entity);
     }
   }
@@ -108,6 +109,11 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   setCanNotBeDeleted(entities: any[]) {
     this.canNotBeDeleted = entities && entities.length > 0;
+  }
+
+  canBeDeactivated(): boolean {
+    this.entity.defaultPrice = new Currency(parseCurrencyMaskedValue(this.price));
+    return super.canBeDeactivated();
   }
 
 }

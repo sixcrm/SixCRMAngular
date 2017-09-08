@@ -102,6 +102,33 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
     this.addMode = mode === Modes.Add;
   }
 
+  canBeDeactivated(): boolean {
+    if (this.viewMode) return true;
+    if (this.updateMode || this.addMode) return this.checkIfChanged();
+
+    return true;
+  }
+
+  checkIfChanged(): boolean {
+    let original = this.entity.copy();
+    let backup = this.entityBackup.copy();
+
+    if (original['createdAt']) {
+      delete original['createdAt'];
+      delete backup['createdAt'];
+    }
+
+    if (this.entity['updatedAt']) {
+      delete original['updatedAt'];
+      delete backup['updatedAt'];
+    }
+
+    const originalString = JSON.stringify(original);
+    const backupString = JSON.stringify(backup);
+
+    return originalString === backupString;
+  }
+
   protected destroy(): void {
     this.unsubscribe$.next(true);
     this.unsubscribe$.complete();

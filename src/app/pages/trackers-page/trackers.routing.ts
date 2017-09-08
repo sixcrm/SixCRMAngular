@@ -5,6 +5,6 @@ import {TrackersComponent} from './trackers-index/trackers.component';
 
 export const trackersRouting = RouterModule.forChild([
   { path : '', component : TrackersComponent, canActivate: [TrackersAclGuard] },
-  { path : ':id', component : TrackerViewComponent, canActivate: [TrackersAclGuard] }
+  { path : ':id', component : TrackerViewComponent, canActivate: [TrackersAclGuard], canDeactivate: [TrackersAclGuard] }
 ]);
 

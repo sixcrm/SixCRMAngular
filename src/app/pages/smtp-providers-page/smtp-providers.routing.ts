@@ -5,6 +5,6 @@ import {SmtpProviderViewComponent} from './smtp-provider-view/smtp-provider-view
 
 export const smtpProvidersRouting = RouterModule.forChild([
   { path : '', component : SmtpProvidersComponent, canActivate: [SmtpProvidersAclGuard] },
-  { path : ':id', component : SmtpProviderViewComponent, canActivate: [SmtpProvidersAclGuard] }
+  { path : ':id', component : SmtpProviderViewComponent, canActivate: [SmtpProvidersAclGuard], canDeactivate: [SmtpProvidersAclGuard] }
 ]);
 

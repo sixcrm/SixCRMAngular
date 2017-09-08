@@ -5,6 +5,6 @@ import {FulfillmentProviderViewComponent} from './fulfillment-provider-view/fulf
 
 export const fulfillmentProvidersRouting = RouterModule.forChild([
   { path : '', component : FulfillmentProvidersComponent, canActivate: [FulfillmentProvidersAclGuard] },
-  { path : ':id', component : FulfillmentProviderViewComponent, canActivate: [FulfillmentProvidersAclGuard] }
+  { path : ':id', component : FulfillmentProviderViewComponent, canActivate: [FulfillmentProvidersAclGuard], canDeactivate: [FulfillmentProvidersAclGuard] }
 ]);
 

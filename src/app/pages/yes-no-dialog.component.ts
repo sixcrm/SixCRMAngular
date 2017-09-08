@@ -9,8 +9,8 @@ import {MdDialogRef} from '@angular/material';
         {{text}}
       </md-card-content>
       <md-card-actions align="center">
-        <button md-raised-button color="primary" (click)="yes()">Yes</button>
-        <button md-raised-button color="primary" (click)="no()">No</button>
+        <button md-raised-button color="primary" (click)="yes()">{{yesText}}</button>
+        <button md-raised-button color="primary" (click)="no()">{{noText}}</button>
       </md-card-actions>
     </md-card>
   `,
@@ -19,6 +19,8 @@ import {MdDialogRef} from '@angular/material';
 export class YesNoDialogComponent {
 
   text: string = 'Are you sure?';
+  yesText: string = 'Yes';
+  noText: string = 'No';
 
   constructor(public dialogRef: MdDialogRef<YesNoDialogComponent>) {}
 

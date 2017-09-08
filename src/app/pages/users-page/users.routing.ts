@@ -5,6 +5,6 @@ import {UserViewComponent} from './user-view/user-view.component';
 
 export const usersRouting = RouterModule.forChild([
   { path : '', component : UsersComponent, canActivate: [UsersAclGuard] },
-  { path : ':id', component : UserViewComponent, canActivate: [UsersAclGuard] }
+  { path : ':id', component : UserViewComponent, canActivate: [UsersAclGuard], canDeactivate: [UsersAclGuard] }
 ]);
 

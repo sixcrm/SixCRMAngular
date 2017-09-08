@@ -5,6 +5,6 @@ import {CustomerViewComponent} from './customer-view/customer-view.component';
 
 export const customersRouting = RouterModule.forChild([
   { path : '', component : CustomersComponent, canActivate: [CustomersAclGuard] },
-  { path : ':id', component : CustomerViewComponent, canActivate: [CustomersAclGuard] }
+  { path : ':id', component : CustomerViewComponent, canActivate: [CustomersAclGuard], canDeactivate: [CustomersAclGuard] }
 ]);
 

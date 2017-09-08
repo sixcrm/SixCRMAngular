@@ -13,7 +13,6 @@ import {CustomServerError} from '../../../shared/models/errors/custom-server-err
 })
 export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpProvider> implements OnInit, OnDestroy {
 
-  editMode: boolean;
   selectedIndex: number = 0;
   formInvalid: boolean;
 
@@ -30,6 +29,7 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
 
     if (this.addMode) {
       this.entity = new SmtpProvider();
+      this.entityBackup = this.entity.copy();
     }
   }
 
@@ -42,7 +42,7 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
   }
 
   cancelEdit(): void {
-    this.editMode = false;
+    this.setMode(this.modes.View);
     this.formInvalid = false;
     this.cancelUpdate();
   }
@@ -64,7 +64,7 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
       });
       this.saveEntity(this.entity);
     } else {
-      this.service.entityUpdated$.take(1).subscribe(() => this.editMode = false);
+      this.service.entityUpdated$.take(1).subscribe(() => this.setMode(this.modes.View));
       this.updateEntity(this.entity);
     }
   }

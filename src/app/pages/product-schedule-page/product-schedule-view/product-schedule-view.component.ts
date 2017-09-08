@@ -9,6 +9,7 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Product} from '../../../shared/models/product.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
+import {AddScheduleComponent} from '../../../shared/components/add-schedule/add-schedule.component';
 
 @Component({
   selector: 'product-schedule-view',
@@ -18,6 +19,7 @@ import {firstIndexOf} from '../../../shared/utils/array.utils';
 export class ProductScheduleViewComponent extends AbstractEntityViewComponent<ProductSchedule> implements OnInit, OnDestroy {
 
   @ViewChild('endField') endField;
+  @ViewChild('addScheduleComponent') addScheduleComponent: AddScheduleComponent;
 
   selectedIndex: number = 0;
   scheduleColumnParams = [
@@ -93,6 +95,10 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
 
   navigateToProduct(schedule: Schedule) {
     this.router.navigate(['products', schedule.product.id])
+  }
+
+  canBeDeactivated() {
+    return super.canBeDeactivated() && !this.addScheduleComponent.isTouched();
   }
 
 }

@@ -5,6 +5,6 @@ import {AccountsAclGuard} from '../guards/accounts-acl-guard.service';
 
 export const accountsRouting = RouterModule.forChild([
   { path : '', component : AccountsComponent, canActivate: [AccountsAclGuard] },
-  { path : ':id', component : AccountViewComponent, canActivate: [AccountsAclGuard] }
+  { path : ':id', component : AccountViewComponent, canActivate: [AccountsAclGuard], canDeactivate: [AccountsAclGuard] }
 ]);
 

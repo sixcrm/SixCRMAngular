@@ -5,6 +5,6 @@ import {ProductViewComponent} from './product-view/product-view.component';
 
 export const productsRouting = RouterModule.forChild([
   { path : '', component : ProductsComponent, canActivate: [ProductsAclGuard] },
-  { path : ':id', component : ProductViewComponent, canActivate: [ProductsAclGuard] }
+  { path : ':id', component : ProductViewComponent, canActivate: [ProductsAclGuard], canDeactivate: [ProductsAclGuard] }
 ]);
 

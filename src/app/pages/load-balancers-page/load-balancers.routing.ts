@@ -5,6 +5,6 @@ import {LoadBalancerViewComponent} from './load-balancer-view/load-balancer-view
 
 export const loadBalancersRouting = RouterModule.forChild([
   { path : '', component : LoadBalancersComponent, canActivate: [LoadBalancersAclGuard] },
-  { path : ':id', component : LoadBalancerViewComponent, canActivate: [LoadBalancersAclGuard] }
+  { path : ':id', component : LoadBalancerViewComponent, canActivate: [LoadBalancersAclGuard], canDeactivate: [LoadBalancersAclGuard] }
 ]);
 

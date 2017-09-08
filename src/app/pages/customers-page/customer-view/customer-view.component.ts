@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {Customer} from '../../../shared/models/customer.model';
 import {CustomersService} from '../../../shared/services/customers.service';
 import {ActivatedRoute} from '@angular/router';
@@ -11,6 +11,7 @@ import {Rebill} from '../../../shared/models/rebill.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {getPhoneNumberMask} from '../../../shared/utils/mask.utils';
 import {getStates} from '../../../shared/utils/address.utils';
+import {CustomerAddNewComponent} from './customer-add-new/customer-add-new.component';
 
 @Component({
   selector: 'customer-view',
@@ -18,6 +19,8 @@ import {getStates} from '../../../shared/utils/address.utils';
   styleUrls: ['./customer-view.component.scss']
 })
 export class CustomerViewComponent extends AbstractEntityViewComponent<Customer> implements OnInit, OnDestroy {
+  @ViewChild('customerAddNew') customerAddNewComponent: CustomerAddNewComponent;
+
   selectedIndex: number = 0;
 
   mask = getPhoneNumberMask();
@@ -142,5 +145,18 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
     if (this.formInvalid) return;
 
     this.updateEntity(this.entity);
+  }
+
+  canBeDeactivated(): boolean {
+    if (this.addMode) {
+      this.entity = this.customerAddNewComponent.customer.copy();
+      return this.checkIfChanged();
+    }
+
+    if (this.shippingInfoEditMode) {
+      return this.checkIfChanged();
+    }
+
+    return super.canBeDeactivated();
   }
 }

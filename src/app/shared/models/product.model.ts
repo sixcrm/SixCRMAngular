@@ -36,7 +36,7 @@ export class Product implements Entity<Product> {
       sku: this.sku,
       ship: this.ship,
       shipping_delay: this.shippingDelay,
-      default_price: this.defaultPrice,
+      default_price: this.defaultPrice.amount,
       fulfillment_provider: this.fulfillmentProvider.inverse()
     }
   }

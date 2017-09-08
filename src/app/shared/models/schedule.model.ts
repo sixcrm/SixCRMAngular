@@ -28,7 +28,7 @@ export class Schedule implements Entity<Schedule>{
 
   inverse(): any {
     return {
-      price: this.price,
+      price: this.price.amount,
       start: this.start,
       end: this.end,
       period: this.period,

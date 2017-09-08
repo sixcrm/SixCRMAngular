@@ -39,11 +39,11 @@
 
         <div class="entity-view__card__content">
           <md-input-container class="entity-view__card__content__item email-template-view__input">
-            <input required md-input [disabled]="!editMode && !addMode" placeholder="Name" [(ngModel)]="entity.name" type="text">
+            <input required md-input [disabled]="!updateMode && !addMode" placeholder="Name" [(ngModel)]="entity.name" type="text">
           </md-input-container>
 
           <dropdown-component class="email-template-view__dropdown"
-                              [disabled]="!editMode && !addMode"
+                              [disabled]="!updateMode && !addMode"
                               [options]="types"
                               [selected]="entity.type"
                               [placeholder]="'Template Type'"
@@ -51,7 +51,7 @@
           </dropdown-component>
 
           <dropdown-component class="email-template-view__dropdown"
-                              [disabled]="!editMode && !addMode"
+                              [disabled]="!updateMode && !addMode"
                               [options]="smtpProviderService.entities$ | async"
                               [mapper]="smtpProviderMapper"
                               [selected]="entity.smtpProvider"
@@ -60,20 +60,20 @@
           </dropdown-component>
 
           <md-input-container class="entity-view__card__content__item">
-            <input required md-input [disabled]="!editMode && !addMode" placeholder="Subject" [(ngModel)]="entity.subject" type="text">
+            <input required md-input [disabled]="!updateMode && !addMode" placeholder="Subject" [(ngModel)]="entity.subject" type="text">
           </md-input-container>
 
           <div class="email-template-view__label">Email Template Body</div>
-          <div [class.editor-container--hidden]="!editMode && !addMode" class="editor-container">
+          <div [class.editor-container--hidden]="!updateMode && !addMode" class="editor-container">
             <div id="editor-id"></div>
           </div>
-          <div *ngIf="!editMode && !addMode">
+          <div *ngIf="!updateMode && !addMode">
             <div class="email-template-view__body" [innerHTML]="entity.body"></div>
           </div>
         </div>
 
-        <div *ngIf="editMode || addMode" class="entity-view__card__actions">
-          <div *ngIf="editMode" (click)="cancelEdit()">CANCEL</div>
+        <div *ngIf="updateMode || addMode" class="entity-view__card__actions">
+          <div *ngIf="updateMode" (click)="cancelEdit()">CANCEL</div>
           <div (click)="saveTemplate()">SAVE</div>
         </div>
       </div>

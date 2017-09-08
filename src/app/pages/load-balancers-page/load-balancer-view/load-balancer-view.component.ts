@@ -82,6 +82,10 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
     if (this.formInvalid) return;
 
     this.entity.merchantProviderConfigurations.push(this.providerToAdd);
-    this.service.updateEntity(this.entity);
+    this.saveOrUpdate(this.entity);
+  }
+
+  canBeDeactivated() {
+    return !this.providerToAdd.merchantProvider.id && !this.providerToAdd.distribution;
   }
 }

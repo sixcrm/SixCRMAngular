@@ -1,5 +1,5 @@
 import {Input, Output, EventEmitter, ViewChild} from '@angular/core';
-import {Entity} from '../shared/models/entity.interface';
+import {Entity} from '../shared/models/entity.abstract';
 import {AbstractEntityService} from '../shared/services/abstract-entity.service';
 
 export abstract class AbstractEntityComponent<T extends Entity<T>> {

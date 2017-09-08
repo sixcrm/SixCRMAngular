@@ -67,7 +67,7 @@
           </div>
         </div>
 
-        <add-schedule (addSchedule)="addScheduleToProduct($event)"></add-schedule>
+        <add-schedule #addScheduleComponent (addSchedule)="addScheduleToProduct($event)"></add-schedule>
       </div>
 
       <table-memory [title]="'Schedule'"

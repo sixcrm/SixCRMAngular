@@ -238,4 +238,10 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
       messageDialogRef = null;
     });
   }
+
+  canBeDeactivated() {
+    this.entity.id = this.entity.email;
+
+    return super.canBeDeactivated();
+  }
 }

@@ -5,6 +5,6 @@ import {ProductScheduleViewComponent} from './product-schedule-view/product-sche
 
 export const productSchedulesRouting = RouterModule.forChild([
   { path : '', component : ProductSchedulesComponent, canActivate: [ProductSchedulesAclGuard] },
-  { path : ':id', component : ProductScheduleViewComponent, canActivate: [ProductSchedulesAclGuard] }
+  { path : ':id', component : ProductScheduleViewComponent, canActivate: [ProductSchedulesAclGuard], canDeactivate: [ProductSchedulesAclGuard] }
 ]);
 

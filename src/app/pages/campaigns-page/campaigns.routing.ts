@@ -5,6 +5,6 @@ import {CampaignViewComponent} from './campaign-view/campaign-view.component';
 
 export const campaignsRouting = RouterModule.forChild([
   { path : '', component : CampaignsComponent, canActivate: [CampaignsAclGuard] },
-  { path : ':id', component : CampaignViewComponent, canActivate: [CampaignsAclGuard] }
+  { path : ':id', component : CampaignViewComponent, canActivate: [CampaignsAclGuard], canDeactivate: [CampaignsAclGuard] }
 ]);
 

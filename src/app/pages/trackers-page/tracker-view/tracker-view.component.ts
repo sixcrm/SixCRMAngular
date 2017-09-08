@@ -23,7 +23,6 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
   @ViewChild(CodemirrorComponent) codemirrorComponent: CodemirrorComponent;
 
   selectedIndex: number = 0;
-  editMode: boolean = false;
 
   config = {
     lineNumbers: true,
@@ -52,6 +51,7 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
 
     if (this.addMode) {
       this.entity = new Tracker();
+      this.entityBackup = this.entity.copy();
       this.affiliateService.getEntities();
     } else {
       this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(() => this.affiliateService.getEntities());
@@ -85,7 +85,7 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
   }
 
   cancelEdit() {
-    this.editMode = false;
+    this.setMode(this.modes.View);
     if (this.codemirrorComponent) {
       this.codemirrorComponent.instance.setOption('readOnly', true);
     }
@@ -93,7 +93,7 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
   }
 
   enableEdit() {
-    this.editMode = true;
+    this.setMode(this.modes.Update);
     if (this.codemirrorComponent) {
       this.codemirrorComponent.instance.setOption('readOnly', false);
     }
@@ -119,7 +119,9 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
   }
 
   updateTracker() {
-    this.service.entityUpdated$.take(1).subscribe(() => this.editMode = false);
+    this.service.entityUpdated$.take(1).subscribe(() => {
+      this.setMode(this.modes.View);
+    });
     this.updateEntity(this.entity);
   }
 

@@ -18,7 +18,6 @@ declare var tinymce;
 export class EmailTemplateViewComponent extends AbstractEntityViewComponent<EmailTemplate> implements OnInit, OnDestroy, AfterViewInit {
 
   selectedIndex: number = 0;
-  editMode: boolean;
   editor: any;
   types: string[] = ['allorders', 'initialorders', 'recurringorder', 'recurringfulfillment', 'recurringdecline', 'cancellation', 'returntomanufacturer', 'refundvoid'];
   smtpProviderMapper = (smtp: SmtpProvider) => smtp.name;
@@ -78,7 +77,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
   }
 
   enableEditMode(): void {
-    this.editMode = true;
+    this.setMode(this.modes.Update)
   }
 
   saveTemplate(): void {
@@ -101,7 +100,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
 
       this.saveEntity(this.entity);
     } else {
-      this.editMode = false;
+      this.setMode(this.modes.View);
       this.updateEntity(this.entity);
     }
   }
@@ -115,9 +114,16 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
   }
 
   cancelEdit(): void {
-    this.editMode = false;
+    this.setMode(this.modes.View);
     this.entity = this.entityBackup.copy();
+  }
 
+  canBeDeactivated(): boolean {
+    if (this.editor) {
+      this.entity.body = this.editor.getContent();
+    }
+
+    return super.canBeDeactivated();
   }
 
 }

@@ -5,6 +5,6 @@ import {MerchantProviderViewComponent} from './merchant-provider-view/merchant-p
 
 export const merchantProvidersRouting = RouterModule.forChild([
   { path : '', component : MerchantProvidersComponent, canActivate: [MerchantProvidersAclGuard] },
-  { path : ':id', component : MerchantProviderViewComponent, canActivate: [MerchantProvidersAclGuard] }
+  { path : ':id', component : MerchantProviderViewComponent, canActivate: [MerchantProvidersAclGuard], canDeactivate: [MerchantProvidersAclGuard] }
 ]);
 
