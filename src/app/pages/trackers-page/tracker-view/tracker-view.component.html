@@ -23,6 +23,7 @@
   <div class="entity-view__navigation">
     <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
     <span *ngIf="!addMode" class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">AFFILIATES</span>
+    <span *ngIf="!addMode" class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">CAMPAIGNS</span>
   </div>
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
@@ -111,6 +112,18 @@
                     (view)="viewAffiliate($event)"
                     (associate)="associateAffiliate($event)"
                     (disassociate)="dissociateAffiliate($event)">
+      </table-memory>
+    </md-tab>
+
+    <md-tab>
+      <table-memory [data]="entity.campaigns"
+                    [columnParams]="campaignColumnParams"
+                    [title]="'Campaign'"
+                    [associateData]="campaignService.entities$ | async"
+                    [associateDataMapper]="campaignMapper"
+                    (view)="viewCampaign($event)"
+                    (associate)="associateCampaign($event)"
+                    (disassociate)="dissociateCampaign($event)">
       </table-memory>
     </md-tab>
   </md-tab-group>

@@ -1,6 +1,7 @@
 import {Entity} from './entity.interface';
 import {Affiliate} from './affiliate.model';
 import {utc, Moment} from 'moment';
+import {Campaign} from './campaign.model';
 
 let beautyHtml = require('js-beautify').html_beautify;
 
@@ -12,6 +13,7 @@ export class Tracker implements Entity<Tracker> {
   type: string;
   body: string;
   link: string = '';
+  campaigns: Campaign[] = [];
   createdAt: Moment;
   updateAt: Moment;
 
@@ -27,11 +29,16 @@ export class Tracker implements Entity<Tracker> {
     this.createdAt = utc(obj.created_at);
     this.updateAt = utc(obj.updated_at);
 
-    if (obj.event_type) {
-      Object.keys(obj.event_type).forEach(key => this.eventType.push(obj.event_type[key]));
+    if (obj.campaigns) {
+      this.campaigns = obj.campaigns.map(c => new Campaign(c));
     }
+
+    if (obj.event_type) {
+      this.eventType = obj.event_type.slice();
+    }
+
     if (obj.affiliates) {
-      Object.keys(obj.affiliates).forEach(key => this.affiliates.push(new Affiliate(obj.affiliates[key])));
+      this.affiliates = obj.affiliates.map(a => new Affiliate(a));
     }
 
     if (this.type === 'html') {
@@ -55,6 +62,7 @@ export class Tracker implements Entity<Tracker> {
       type: this.type,
       body: this.body,
       affiliates: this.affiliates.map(affiliate => affiliate.inverse()),
+      campaigns: this.campaigns.map(campaign => campaign.inverse()),
       created_at: this.createdAt.format(),
       updated_at: this.updateAt.format()
     }
