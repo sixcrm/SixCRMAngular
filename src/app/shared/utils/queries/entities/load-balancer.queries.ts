@@ -48,7 +48,7 @@ export function deleteLoadBalancerMutation(id: string): string {
 
 export function loadBalancerResponseQuery(): string {
   return `
-    id created_at updated_at,
+    id name created_at updated_at,
     merchantproviderconfigurations { distribution
       merchantprovider {
         ${merchantProviderResponseQuery()}
@@ -57,11 +57,11 @@ export function loadBalancerResponseQuery(): string {
 }
 
 export function loadBalancerInfoResponseQuery(): string {
-  return `id merchantproviderconfigurations { merchantprovider { name } }`
+  return `id name merchantproviderconfigurations { merchantprovider { name } }`
 }
 
 export function loadBalancerInputQuery(loadBalancer: LoadBalancer, includeId?: boolean): string {
   let providers = loadBalancer.merchantProviderConfigurations.reduce((a,b) => `${a} {id: "${b.merchantProvider.id}", distribution: "${b.distribution}"} `, '');
 
-  return `${addId(loadBalancer.id, includeId)}, merchantproviders: [${providers}]`;
+  return `${addId(loadBalancer.id, includeId)}, ${loadBalancer.name ? `name: "${loadBalancer.name}",`: ''} merchantproviders: [${providers}]`;
 }

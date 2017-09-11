@@ -10,13 +10,23 @@
     <div class="entity-view__info__data">
       <div *ngIf="!addMode" class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
       <div class="entity-view__info__data__name">
-        <span *ngIf="!addMode; else createMessage">
-          {{entityBackup.id}}
+        <span *ngIf="viewMode; else createForm">
+          {{entityBackup.name}}
         </span>
-        <ng-template #createMessage>
-          Create new Load Balancer
+        <ng-template #createForm>
+          <md-input-container [class.error]="detailsFormInvalid && !entity.name">
+            <input required md-input placeholder="{{addMode ? 'Name' : ''}}" type="text" [(ngModel)]="entity.name">
+          </md-input-container>
         </ng-template>
       </div>
+    </div>
+
+    <div class="entity-view__info__edit">
+      <div *ngIf="viewMode; else editButtons" class="entity-view__info__edit__update" (click)="setMode(modes.Update)"> EDIT LOAD BALANCER</div>
+      <ng-template #editButtons>
+        <div *ngIf="updateMode" (click)="cancelUpdate()">CANCEL</div>
+        <div class="entity-view__info__edit__update" (click)="updateLoadBalancer()"> {{ addMode ? 'SAVE' : 'UPDATE'}}</div>
+      </ng-template>
     </div>
   </div>
 

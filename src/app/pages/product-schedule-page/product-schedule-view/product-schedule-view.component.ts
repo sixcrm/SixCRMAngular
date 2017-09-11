@@ -37,7 +37,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   scheduleMapper = (s: Schedule) => s.product.name;
 
   formInvalid: boolean;
-  loadBalancerMapper = (loadBalancer: LoadBalancer) => loadBalancer.id;
+  loadBalancerMapper = (loadBalancer: LoadBalancer) => loadBalancer.name || loadBalancer.id;
   price: string = '';
 
   constructor(

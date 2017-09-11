@@ -29,6 +29,7 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
   merchantProviderMapper = (e: MerchantProvider) => e.name;
 
   formInvalid: boolean;
+  detailsFormInvalid: boolean;
 
   constructor(service: LoadBalancersService,
               route: ActivatedRoute,
@@ -79,13 +80,26 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
 
   addProvider(valid: boolean): void {
     this.formInvalid = !valid;
+
     if (this.formInvalid) return;
 
     this.entity.merchantProviderConfigurations.push(this.providerToAdd);
-    this.saveOrUpdate(this.entity);
+    if (!this.addMode) {
+      this.updateEntity(this.entity);
+    } else {
+      this.entity.merchantProviderConfigurations = this.entity.merchantProviderConfigurations.slice();
+      this.clearAddProvider();
+    }
   }
 
   canBeDeactivated() {
-    return !this.providerToAdd.merchantProvider.id && !this.providerToAdd.distribution;
+    return !this.providerToAdd.merchantProvider.id && !this.providerToAdd.distribution && this.checkIfChanged();
+  }
+
+  updateLoadBalancer() {
+    this.detailsFormInvalid = !this.entity.name;
+    if (this.detailsFormInvalid) return;
+
+    this.saveOrUpdate(this.entity);
   }
 }

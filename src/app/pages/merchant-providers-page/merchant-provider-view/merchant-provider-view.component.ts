@@ -20,8 +20,8 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
   selectedIndex: number = 0;
   formInvalid: boolean;
 
-  loadBalancerColumnParams = [new ColumnParams('ID', (e: LoadBalancer) => e.id)];
-  loadBalancerMapper = (l: LoadBalancer) => l.id;
+  loadBalancerColumnParams = [new ColumnParams('ID', (e: LoadBalancer) => e.name || e.id)];
+  loadBalancerMapper = (l: LoadBalancer) => l.name || l.id;
 
   mask = getPhoneNumberMask();
 
