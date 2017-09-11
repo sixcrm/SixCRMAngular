@@ -52,7 +52,6 @@
                               [initialValue]="providerToAdd.merchantProvider"
                               [options]="merchantProviderService.entities$ | async"
                               [placeholder]="'Merchant Provider'"
-                              [showCancelButton]="false"
                               [required]="true"
                               (selected)="providerToAdd.merchantProvider = $event">
           </autocomplete-input>

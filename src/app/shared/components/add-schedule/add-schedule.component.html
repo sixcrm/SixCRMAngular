@@ -13,7 +13,6 @@
                           [initialValue]="scheduleToAdd.product"
                           [options]="productsService.entities$ | async"
                           [placeholder]="'Product Name'"
-                          [showCancelButton]="false"
                           [required]="true"
                           (selected)="addProductToSchedule($event)">
       </autocomplete-input>
@@ -24,7 +23,6 @@
                           [initialValue]="productScheduleToAdd"
                           [options]="productScheduleService.entities$ | async"
                           [placeholder]="'Product Schedule Name'"
-                          [showCancelButton]="false"
                           [required]="true"
                           (selected)="addNewProductSchedule($event)">
       </autocomplete-input>

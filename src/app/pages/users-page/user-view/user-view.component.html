@@ -65,7 +65,6 @@
                   [options]="accounts"
                   [placeholder]="'Account'"
                   [mapFunction]="accountsMapFunction"
-                  [showCancelButton]="false"
                   (selected)="accountToAdd = $event">
                 </autocomplete-input>
 
@@ -76,7 +75,6 @@
                   [options]="roles"
                   [placeholder]="'Role'"
                   [mapFunction]="rolesMapFunction"
-                  [showCancelButton]="false"
                   (selected)="roleToAdd = $event">
                 </autocomplete-input>
               </ng-container>

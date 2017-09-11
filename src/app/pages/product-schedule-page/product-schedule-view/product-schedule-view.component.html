@@ -59,7 +59,6 @@
                                 [initialValue]="entity.loadBalancer"
                                 [options]="loadBalancerService.entities$ | async"
                                 [placeholder]="'Load Balancer'"
-                                [showCancelButton]="false"
                                 [required]="true"
                                 (selected)="entity.loadBalancer = $event">
             </autocomplete-input>

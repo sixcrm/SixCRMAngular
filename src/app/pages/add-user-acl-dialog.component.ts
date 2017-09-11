@@ -16,7 +16,6 @@ import {User} from '../shared/models/user.model';
                             [initialValue]="user"
                             [options]="users || []"
                             [placeholder]="'User'"
-                            [showCancelButton]="false"
                             [required]="true"
                             (selected)="user = $event">
         </autocomplete-input>
@@ -26,7 +25,6 @@ import {User} from '../shared/models/user.model';
                             [initialValue]="account"
                             [options]="accounts || []"
                             [placeholder]="'Account'"
-                            [showCancelButton]="false"
                             [required]="true"
                             (selected)="account = $event">
         </autocomplete-input>

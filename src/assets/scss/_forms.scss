@@ -164,6 +164,10 @@ dropdown-component {
     display: flex;
     align-items: center;
 
+    .rotated {
+      transform: rotate(180deg);
+    }
+
     md-icon {
       margin-top: 8px;
       margin-left: 12px;
@@ -172,6 +176,7 @@ dropdown-component {
       font-size: 18px;
       color: rgba(0,0,0,0.4);
       cursor: pointer;
+      transition: all 250ms ease;
     }
   }
 

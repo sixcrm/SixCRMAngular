@@ -7,7 +7,7 @@ import {MdDialogRef} from '@angular/material';
     <md-card>
       <md-card-content>
         {{text}}
-        <autocomplete-input [initialValue]="entity ? entity : ''" [options]="options" [placeholder]="placeholder" [showCancelButton]="false" [mapFunction]="mapper" (selected)="entity = $event"></autocomplete-input>
+        <autocomplete-input [initialValue]="entity ? entity : ''" [options]="options" [placeholder]="placeholder" [mapFunction]="mapper" (selected)="entity = $event"></autocomplete-input>
       </md-card-content>
       <md-card-actions align="center">
         <button md-raised-button color="primary" (click)="associate()">{{associateButtonText}}</button>

@@ -30,7 +30,7 @@
     <md-tab>
 
       <form #productInputForm="ngForm" class="flex-custom">
-        <div class="entity-view__card campaign-view__card">
+        <div style="margin-bottom: 120px;" class="entity-view__card campaign-view__card">
           <div class="entity-view__card__header">
             <div class="entity-view__card__header__title">Product general details</div>
             <ng-container *ngIf="!addMode">
@@ -70,8 +70,8 @@
                                 [initialValue]="entity.fulfillmentProvider"
                                 [placeholder]="'Fulfillment Provider'"
                                 [options]="fulfillmentProvidersService.entities$ | async"
-                                [showCancelButton]="false"
                                 [mapFunction]="fulfillmentProviderMapper"
+                                [showArrow]="true"
                                 [disabled]="viewMode || entity.ship !==  'true'"
                                 [required]="entity.ship === 'true'"
                                 (selected)="entity.fulfillmentProvider = $event">

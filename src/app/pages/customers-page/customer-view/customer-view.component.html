@@ -85,14 +85,14 @@
                   </md-input-container>
 
                   <div class="flex-custom customer-view__card__address-row">
-                    <autocomplete-input [class.error]="formInvalid && !entity.address.state" [disabled]="!shippingInfoEditMode" [strictFilteringStrategy]="true" [required]="true" [initialValue]="entity.address.state" [placeholder]="'State'" [showCancelButton]="false" [options]="states" (selected)="entity.address.state = $event"></autocomplete-input>
+                    <autocomplete-input [class.error]="formInvalid && !entity.address.state" [disabled]="!shippingInfoEditMode" [strictFilteringStrategy]="true" [required]="true" [initialValue]="entity.address.state" [placeholder]="'State'" [options]="states" (selected)="entity.address.state = $event"></autocomplete-input>
 
                     <md-input-container [class.error]="formInvalid && !addressDataForm.form.controls.postalCode.valid">
                       <input required [disabled]="!shippingInfoEditMode" md-input name="postalCode" placeholder="Postal Code" [(ngModel)]="entity.address.zip">
                     </md-input-container>
                   </div>
 
-                  <autocomplete-input [class.error]="formInvalid && !entity.address.country" [strictFilteringStrategy]="true" [disabled]="!shippingInfoEditMode" [required]="true" [initialValue]="entity.address.country" [placeholder]="'Country'" [showCancelButton]="false" [options]="['USA']" (selected)="entity.address.country = $event"></autocomplete-input>
+                  <autocomplete-input [class.error]="formInvalid && !entity.address.country" [strictFilteringStrategy]="true" [disabled]="!shippingInfoEditMode" [required]="true" [initialValue]="entity.address.country" [placeholder]="'Country'" [options]="['USA']" (selected)="entity.address.country = $event"></autocomplete-input>
                 </form>
 
                 <div *ngIf="shippingInfoEditMode" class="customer-view__card__actions">

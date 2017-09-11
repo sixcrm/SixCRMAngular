@@ -34,7 +34,7 @@ export class AutocompleteInputComponent implements OnInit {
     }
   }
   @Input() placeholder: string;
-  @Input() showCancelButton: boolean = true;
+  @Input() showArrow: boolean = false;
   @Input() disabled: boolean = false;
   @Input() required: boolean = false;
   @Input() strictFilteringStrategy: boolean = false; // If is true will match ORegon but not califORnia when filtering string 'OR'. If false, will match both.
@@ -60,11 +60,6 @@ export class AutocompleteInputComponent implements OnInit {
   optionSelected(option: any): void {
     this.selected.emit(option);
     this.showOptions = false;
-  }
-
-  clearCurrentValue(input): void {
-    this.currentValue = '';
-    input.focus();
   }
 
   closeDropdown(event): void {
@@ -153,5 +148,9 @@ export class AutocompleteInputComponent implements OnInit {
 
       return this.allOptions.filter(s => filter(s,fs));
     })()
+  }
+
+  arrowClicked(input) {
+    input.focus();
   }
 }
