@@ -59,15 +59,22 @@
     <md-icon class="topnav__items--collapsed__icon" (click)="toggleCollapseMenu()">more_vert</md-icon>
 
     <div *ngIf="showCollapseMenu" class="topnav__items--collapsed__menu">
-      <div class="topnav__items--collapsed__menu__profile topnav__items--collapsed__menu__button" (click)="navigateToProfile()">
+      <div class="topnav__items--collapsed__menu__profile topnav__items--collapsed__menu__button">
         <img class="topnav__items--collapsed__menu__profile__image" [src]="userProfile.picture">
         <span>{{userProfile.email}}</span>
       </div>
       <span class="topnav__items--collapsed__menu__label">Accounts:</span>
       <div *ngFor="let acl of authService.getAcls()">
-        <div class="topnav__items--collapsed__menu__button" (click)="changeAcl(acl)"><span>{{acl.account.name}}</span></div>
+        <div
+          [style.font-weight]="(authService.activeAcl$ | async).id === acl.id ? 500 : 400"
+          class="topnav__items--collapsed__menu__button"
+          (click)="changeAcl(acl)">
+            <span>{{acl.account.name}}</span>
+        </div>
       </div>
-      <div class="topnav__items--collapsed__menu__button" (click)="logout()"> <span>sign out</span> </div>
+      <span class="topnav__items--collapsed__menu__label">Actions:</span>
+      <div class="topnav__items--collapsed__menu__button" (click)="navigateToProfile()"> User Settings </div>
+      <div class="topnav__items--collapsed__menu__button" (click)="logout()"> <span>Sign Out</span> </div>
     </div>
   </div>
 </md-toolbar>

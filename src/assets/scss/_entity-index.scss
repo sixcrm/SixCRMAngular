@@ -4,16 +4,16 @@ $title-color: #8D8888;
   position: relative;
 
   &__title {
-    position: relative;
-    padding: 20px 55px;
+    display: flex;
+    align-items: center;
+    padding: 10px 55px;
     font-size: 20px;
     font-weight: 500;
     color: $title-color;
 
     md-input {
-      position: absolute;
-      top: 10px;
-      right: 55px;
+      margin-left: auto;
+      padding-left: 10px;
       width: 220px;
       font-size: 14px;
       font-weight: 400;
@@ -26,7 +26,7 @@ $title-color: #8D8888;
 
   &__add {
     position: absolute !important;
-    top: 44px;
+    top: 45px;
     left: 10px;
     background: #498FE1;
     font-size: 18px !important;
@@ -58,6 +58,7 @@ $title-color: #8D8888;
 
     &__content {
       margin-top: 60px;
+      overflow-x: auto;
     }
   }
 
