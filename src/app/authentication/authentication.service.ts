@@ -139,6 +139,8 @@ export class AuthenticationService {
   public logout(redirectUrl?: string): void {
     if (redirectUrl) {
       localStorage.setItem(this.redirectUrl, redirectUrl);
+    } else {
+      localStorage.removeItem(this.redirectUrl);
     }
 
     this.router.navigate(['/']);
@@ -317,16 +319,16 @@ export class AuthenticationService {
     let redirectUrl = localStorage.getItem(this.redirectUrl);
     localStorage.removeItem(this.redirectUrl);
 
-    if (redirectUrl) {
+    if (redirectUrl && redirectUrl.indexOf('acceptinvite') !== -1) {
       setTimeout(() => {
         this.router.navigateByUrl(redirectUrl);
       }, 300);
     } else {
-      this.getUserIntrospection(profile);
+      this.getUserIntrospection(profile, redirectUrl);
     }
   }
 
-  private getUserIntrospection(profile: any): void {
+  private getUserIntrospection(profile: any, redirectUrl?: string): void {
     this.http.post(environment.endpoint + '*', userIntrospection(), { headers: generateHeaders(this.getToken())}).subscribe(
       (data) => {
         let user = extractData(data).userintrospection;
@@ -350,14 +352,24 @@ export class AuthenticationService {
             this.updateTimezone(user.usersetting.timezone);
           }
 
-          if (this.router.url === '/' || (!this.active() && this.router.url.indexOf('/register') === -1)) {
-            this.router.navigateByUrl(this.isActiveAclCustomerService() ? '/customer-service-dashboard' : '/dashboard');
-          }
+          this.redirectAfterIntrospection(redirectUrl);
+
         } else {
           this.logout();
         }
       }
     );
+  }
+
+  private redirectAfterIntrospection(redirectUrl?: string) {
+    if (this.active() && redirectUrl) {
+      this.router.navigateByUrl(redirectUrl);
+      return;
+    }
+
+    if (this.router.url === '/' || (!this.active() && this.router.url.indexOf('/register') === -1)) {
+      this.router.navigateByUrl(this.isActiveAclCustomerService() ? '/customer-service-dashboard' : '/dashboard');
+    }
   }
 
   private getUserIntrospectionExternal(redirect: string): void {
