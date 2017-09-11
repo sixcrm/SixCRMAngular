@@ -56,6 +56,22 @@ describe('Login', function() {
     expectUrlToContain('/dashboard');
   });
 
+  it ('should login and navigate to /customers when landed on /customers before login', () => {
+    browser.get('/customers');
+
+    waitForPresenceOfLoginFields(authPage);
+
+    browser.sleep(2000);
+    browser.waitForAngularEnabled(false);
+
+    doLogin(authPage, 'nikola.bosic@toptal.com', '123456789');
+
+    // Wait for angular is disabled, so we need to tell protractor to wait for page to load
+    waitForUrlContains('customers');
+
+    expectUrlToContain('/customers');
+  });
+
   it ('should navigate to /dashboard when valid token is present in local storage', () => {
     navigateSuperuserToHomepage();
 
@@ -64,7 +80,7 @@ describe('Login', function() {
     expectUrlToContain('/dashboard');
   });
 
- /* it ('should display Auth0 lock and navigate to / when user logs out', () => {
+  it ('should display Auth0 lock and navigate to / when user logs out', () => {
     navigateSuperuserToHomepage();
 
     browser.waitForAngularEnabled(false);
@@ -75,8 +91,7 @@ describe('Login', function() {
     dashboardPage.getCollapsedMenuItems().last().click();
 
     browser.sleep(600);
-    expectUrlToEqual('http://localhost:4200/');
     expectPresent(authPage.getAuth0Lock());
-  }) */
+  })
 });
 

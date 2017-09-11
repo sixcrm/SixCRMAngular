@@ -4,7 +4,7 @@ import {browser} from 'protractor';
 import {login} from '../utils/action.utils';
 import {SidenavPage} from '../po/sidenav.po';
 
-describe('Search', function() {
+describe('Navigation', function() {
 
   let sidenav: SidenavPage;
 
@@ -28,7 +28,7 @@ describe('Search', function() {
     waitForUrlContains('/dashboard');
 
     browser.sleep(100);
-    expect(sidenav.getItems().count()).toBe(33);
+    expect(sidenav.getItems().count()).toBe(34);
   });
 
   it('should navigate to dashboard', () => {
@@ -151,31 +151,38 @@ describe('Search', function() {
     expectUrlToContain('users');
   });
 
-  it('should navigate to billing', () => {
+  it('should navigate to accounts', () => {
     sidenav.getLink(27).click();
+
+    browser.sleep(100);
+    expectUrlToContain('accounts');
+  });
+
+  it('should navigate to billing', () => {
+    sidenav.getLink(28).click();
 
     browser.sleep(100);
     expectUrlToContain('billing');
   });
 
   it('should navigate to roles', () => {
-    sidenav.getLink(28).click();
+    sidenav.getLink(29).click();
 
     browser.sleep(100);
     expectUrlToContain('roles');
   });
 
   it('should navigate to graph docs', () => {
-    sidenav.getLink(29).click();
-    browser.sleep(500);
     sidenav.getLink(30).click();
+    browser.sleep(500);
+    sidenav.getLink(31).click();
 
     browser.sleep(100);
     expectUrlToContain('documentation/graph');
   });
 
   it('should navigate to search', () => {
-    sidenav.getLink(32).click();
+    sidenav.getLink(33).click();
 
     browser.sleep(100);
     expectUrlToContain('search');
