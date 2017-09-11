@@ -1,4 +1,4 @@
-import {Headers, Response} from '@angular/http';
+import {Response} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import {environment} from '../../../environments/environment';
