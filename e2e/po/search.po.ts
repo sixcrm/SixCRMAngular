@@ -5,16 +5,28 @@ export class SearchPage {
     browser.get('/search')
   }
 
+  getSpinner() {
+    return element(by.css('.search__content__results__cards__spinner'));
+  }
+
   getFilterValues() {
     return element.all(by.css('.search__sidenav__option__value'));
   }
 
+  getFilterValueButtons() {
+    return element(by.css('.search__sidenav__options')).all(by.css('md-icon'));
+  }
+
   getResults() {
-    return element.all(by.css('.search__content__results__item'));
+    return element.all(by.css('.entity-list__item'));
   }
 
   getOneSearchResult() {
-    return element(by.css('.search__content__results__item'));
+    return element(by.css('.search__content__results__cards')).element(by.css('entity-list__item'));
+  }
+
+  getPerfectMatch() {
+    return element(by.css('perfect-match'));
   }
 
   getTableResults() {
@@ -46,7 +58,7 @@ export class SearchPage {
   }
 
   getViewModeToggle() {
-    return element(by.css('.search__content__title__view--toggle'));
+    return element(by.css('.search__content__title__options')).all(by.css('md-icon')).last();
   }
 
   getAdvancedSearchToggle() {

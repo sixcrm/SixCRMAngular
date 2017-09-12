@@ -9,6 +9,11 @@ export class AdvancedSearchPage {
     return element(by.css('advanced-search'));
   }
 
+  getHiddenAdvancedSearch() {
+    return element(by.css('.advanced-search--inactive'));
+
+  }
+
   getSearchInputs() {
     return element(by.css('.advanced-search__content__fields')).all(by.css('input'));
   }

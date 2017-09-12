@@ -57,7 +57,7 @@ describe('Navigation', function() {
   it('should navigate to product schedules', () => {
     sidenav.getLink(11).click();
 
-    browser.sleep(100);
+    waitForUrlContains('productschedules');
     expectUrlToContain('productschedules');
   });
 
@@ -177,7 +177,7 @@ describe('Navigation', function() {
     browser.sleep(500);
     sidenav.getLink(31).click();
 
-    browser.sleep(100);
+    waitForUrlContains('documentation/graph');
     expectUrlToContain('documentation/graph');
   });
 

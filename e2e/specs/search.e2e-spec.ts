@@ -6,7 +6,6 @@ import {browser, protractor} from 'protractor';
 import {login} from '../utils/action.utils';
 import {AuthPage} from '../po/auth.po';
 import {SearchPage} from '../po/search.po';
-import {AppPage} from '../po/app.po';
 import {AdvancedSearchPage} from '../po/advanced-search.po';
 import {TopnavPage} from '../po/topnav.po';
 
@@ -15,14 +14,12 @@ describe('Search', function() {
   let authPage: AuthPage;
   let searchPage: SearchPage;
   let advancedSearchPage: AdvancedSearchPage;
-  let app: AppPage;
   let topnav: TopnavPage;
 
   beforeEach(() => {
     authPage = new AuthPage();
     searchPage = new SearchPage();
     advancedSearchPage = new AdvancedSearchPage();
-    app = new AppPage();
     topnav = new TopnavPage();
   });
 
@@ -62,14 +59,14 @@ describe('Search', function() {
 
     waitForUrlContains('/search?advanced=true&firstname=first&lastname=last&city=portland&last_four=1234');
 
+    waitForPresenceOf(searchPage.getSpinner());
+    expectPresent(searchPage.getSpinner());
+
     expect(searchPage.getFilterValues().count()).toEqual(4);
     expect(searchPage.getFilterValues().get(0).getText()).toEqual('first');
     expect(searchPage.getFilterValues().get(1).getText()).toEqual('last');
     expect(searchPage.getFilterValues().get(2).getText()).toEqual('portland');
     expect(searchPage.getFilterValues().get(3).getText()).toEqual('1234');
-
-    waitForPresenceOf(app.getProgressBar());
-    expectPresent(app.getProgressBar());
   });
 
   it('should hide progress bar when advanced search is performed', () => {
@@ -77,10 +74,19 @@ describe('Search', function() {
 
     waitForUrlContains('/search?advanced=true&firstname=first&lastname=last&city=portland&last_four=1234');
 
-    waitForPresenceOf(app.getProgressBar());
-    waitForNotPresenceOf(app.getProgressBar());
+    waitForPresenceOf(searchPage.getSpinner());
+    waitForNotPresenceOf(searchPage.getSpinner());
 
-    expectNotPresent(app.getProgressBar());
+    expectNotPresent(searchPage.getSpinner());
+  });
+
+  it('should show perfect match advanced search is performed', () => {
+    browser.get('/search?advanced=true&firstname=t');
+
+    waitForUrlContains('/search?advanced=true&firstname=t');
+
+    waitForPresenceOf(searchPage.getPerfectMatch());
+    expectPresent(searchPage.getPerfectMatch());
   });
 
   it('should perform search and display progress bar when filter value is toggled', () => {
@@ -88,10 +94,11 @@ describe('Search', function() {
 
     waitForUrlContains('/search?advanced=true&firstname=first&lastname=last&city=portland&last_four=1234');
 
-    searchPage.getFilterValues().first().click();
+    browser.sleep(300);
+    searchPage.getFilterValueButtons().first().click();
 
-    waitForPresenceOf(app.getProgressBar());
-    expectPresent(app.getProgressBar());
+    waitForNotPresenceOf(searchPage.getPerfectMatch());
+    expectNotPresent(searchPage.getPerfectMatch());
   });
 
   it('should perform search and display progress bar when category is toggled', () => {
@@ -102,8 +109,8 @@ describe('Search', function() {
     waitForPresenceOf(searchPage.getOneCheckbox());
     searchPage.getCheckboxes().first().click();
 
-    waitForPresenceOf(app.getProgressBar());
-    expectPresent(app.getProgressBar());
+    waitForPresenceOf(searchPage.getSpinner());
+    expectPresent(searchPage.getSpinner());
   });
 
   it('should perform search and show search results when search by first name = test', () => {
@@ -143,6 +150,7 @@ describe('Search', function() {
 
     waitForPresenceOf(advancedSearchPage.getComponent());
     expectPresent(advancedSearchPage.getComponent());
+    expectNotPresent(advancedSearchPage.getHiddenAdvancedSearch());
   });
 
   it('should not show advanced search when search query is defined', () => {
@@ -151,7 +159,7 @@ describe('Search', function() {
     waitForUrlContains('/search');
     browser.sleep(300);
 
-    expectNotPresent(advancedSearchPage.getComponent());
+    expectPresent(advancedSearchPage.getHiddenAdvancedSearch());
   });
 
   it('should not show advanced search when advanced search query is defined', () => {
@@ -160,7 +168,7 @@ describe('Search', function() {
     waitForUrlContains('/search');
     browser.sleep(300);
 
-    expectNotPresent(advancedSearchPage.getComponent());
+    expectPresent(advancedSearchPage.getHiddenAdvancedSearch());
   });
 
   it('should toggle advanced search component', () => {
@@ -172,14 +180,14 @@ describe('Search', function() {
     expectPresent(advancedSearchPage.getComponent());
 
     searchPage.getAdvancedSearchToggle().click();
-    waitForNotPresenceOf(advancedSearchPage.getComponent());
+    waitForPresenceOf(advancedSearchPage.getHiddenAdvancedSearch());
 
-    expectNotPresent(advancedSearchPage.getComponent());
+    expectPresent(advancedSearchPage.getHiddenAdvancedSearch());
 
     searchPage.getAdvancedSearchToggle().click();
-    waitForPresenceOf(advancedSearchPage.getComponent());
+    waitForNotPresenceOf(advancedSearchPage.getHiddenAdvancedSearch());
 
-    expectPresent(advancedSearchPage.getComponent());
+    expectNotPresent(advancedSearchPage.getHiddenAdvancedSearch());
   });
 
   it('should hide advanced search component on quick search', () => {
@@ -190,8 +198,8 @@ describe('Search', function() {
     searchPage.getQuickSearchInput().sendKeys('test');
     searchPage.getQuickSearchButton().click();
 
-    waitForNotPresenceOf(advancedSearchPage.getComponent());
-    expectNotPresent(advancedSearchPage.getComponent());
+    waitForPresenceOf(advancedSearchPage.getHiddenAdvancedSearch());
+    expectPresent(advancedSearchPage.getHiddenAdvancedSearch());
   });
 
   it('should hide advanced search component on advanced search', () => {
@@ -202,8 +210,8 @@ describe('Search', function() {
     advancedSearchPage.getSearchInputs().get(0).sendKeys('test');
     advancedSearchPage.getSearchButton().click();
 
-    waitForNotPresenceOf(advancedSearchPage.getComponent());
-    expectNotPresent(advancedSearchPage.getComponent());
+    waitForPresenceOf(advancedSearchPage.getHiddenAdvancedSearch());
+    expectPresent(advancedSearchPage.getHiddenAdvancedSearch());
   });
 
   it('should clear results list when search is empty string', () => {

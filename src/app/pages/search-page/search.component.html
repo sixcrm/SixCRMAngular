@@ -136,23 +136,23 @@
       </div>
 
       <ng-template #table>
-      <div class="search__content__results">
-        <result-item *ngFor="let res of searchResultsToDisplay | filterSearchResults: filterValue" [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResultDetails($event)"></result-item>
-      </div>
+        <div class="search__content__results">
+          <result-item *ngFor="let res of searchResultsToDisplay | filterSearchResults: filterValue" [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResultDetails($event)"></result-item>
+        </div>
 
-      <table-pagination
-        *ngIf="searchResultsToDisplay.length > 0"
-        class="search__content__pagination--bottom"
-        [limit]="limit"
-        [paginationString]="paginationString()"
-        [paginationValues]="paginationValues"
-        [previousDisabled]="page <= 0"
-        [nextDisabled]="!hasMorePages()"
-        (previous)="previousPage()"
-        (next)="nextPage()"
-        (updateLimit)="updateLimit($event)">
-      </table-pagination>
-    </ng-template>
+        <table-pagination
+          *ngIf="searchResultsToDisplay.length > 0"
+          class="search__content__pagination--bottom"
+          [limit]="limit"
+          [paginationString]="paginationString()"
+          [paginationValues]="paginationValues"
+          [previousDisabled]="page <= 0"
+          [nextDisabled]="!hasMorePages()"
+          (previous)="previousPage()"
+          (next)="nextPage()"
+          (updateLimit)="updateLimit($event)">
+        </table-pagination>
+      </ng-template>
     </ng-container>
 
     <ng-template #noresults>
