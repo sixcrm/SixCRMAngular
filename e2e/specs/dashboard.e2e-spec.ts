@@ -5,7 +5,8 @@ import {
   expectUrlToContain, expectNotPresent, expectDefined, expectPresent,
 } from '../utils/assertation.utils';
 import {AppPage} from '../po/app.po';
-import {waitForNotPresenceOf} from '../utils/navigation.utils';
+import {waitForNotPresenceOf, waitForUrlContains} from '../utils/navigation.utils';
+import {SidenavPage} from '../po/sidenav.po';
 
 describe('Dashboard', function() {
   let dashboard: DashboardPage;
@@ -78,10 +79,14 @@ describe('Dashboard', function() {
   });
 
   it('should cache dashboard results', () => {
-    browser.get('/customers');
+    const sidenav = new SidenavPage();
+
+    sidenav.getLink(8).click();
+    waitForUrlContains('customers');
     waitForNotPresenceOf(app.getProgressBar());
 
-    dashboard.navigateTo();
+    sidenav.getLink(0).click();
+    waitForUrlContains('dashboard');
 
     browser.sleep(50);
     expectNotPresent(app.getProgressBar());
