@@ -34,14 +34,14 @@ describe('Navigation', function() {
   it('should navigate to dashboard', () => {
     sidenav.getItems().get(0).click();
 
-    browser.sleep(100);
+    waitForUrlContains('dashboard');
     expectUrlToContain('dashboard');
   });
 
   it('should navigate to customers', () => {
     sidenav.getLink(8).click();
 
-    browser.sleep(100);
+    waitForUrlContains('customers');
     expectUrlToContain('customers');
   });
 
@@ -50,7 +50,7 @@ describe('Navigation', function() {
     browser.sleep(500);
     sidenav.getLink(10).click();
 
-    browser.sleep(100);
+    waitForUrlContains('products');
     expectUrlToContain('products');
   });
 
@@ -64,49 +64,49 @@ describe('Navigation', function() {
   it('should navigate to campaigns', () => {
     sidenav.getLink(12).click();
 
-    browser.sleep(100);
+    waitForUrlContains('campaigns');
     expectUrlToContain('campaigns');
   });
 
   it('should navigate to email templates', () => {
     sidenav.getLink(13).click();
 
-    browser.sleep(100);
+    waitForUrlContains('emailtemplates');
     expectUrlToContain('emailtemplates');
   });
 
   it('should navigate to affiliates', () => {
     sidenav.getLink(14).click();
 
-    browser.sleep(100);
+    waitForUrlContains('affiliates');
     expectUrlToContain('affiliates');
   });
 
   it('should navigate to trackers', () => {
     sidenav.getLink(15).click();
 
-    browser.sleep(100);
+    waitForUrlContains('trackers');
     expectUrlToContain('trackers');
   });
 
   it('should navigate to sessions', () => {
     sidenav.getLink(16).click();
 
-    browser.sleep(100);
+    waitForUrlContains('sessions');
     expectUrlToContain('sessions');
   });
 
   it('should navigate to transactions', () => {
     sidenav.getLink(17).click();
 
-    browser.sleep(100);
+    waitForUrlContains('transactions');
     expectUrlToContain('transactions');
   });
 
   it('should navigate to rebills', () => {
     sidenav.getLink(18).click();
 
-    browser.sleep(100);
+    waitForUrlContains('rebills');
     expectUrlToContain('rebills');
   });
 
@@ -115,14 +115,14 @@ describe('Navigation', function() {
     browser.sleep(500);
     sidenav.getLink(20).click();
 
-    browser.sleep(100);
+    waitForUrlContains('fulfillmentproviders');
     expectUrlToContain('fulfillmentproviders');
   });
 
   it('should navigate to smtp providers', () => {
     sidenav.getLink(21).click();
 
-    browser.sleep(100);
+    waitForUrlContains('smtpproviders');
     expectUrlToContain('smtpproviders');
   });
 
@@ -131,14 +131,14 @@ describe('Navigation', function() {
     browser.sleep(500);
     sidenav.getLink(23).click();
 
-    browser.sleep(100);
+    waitForUrlContains('merchantproviders');
     expectUrlToContain('merchantproviders');
   });
 
   it('should navigate to loadbalancers', () => {
     sidenav.getLink(24).click();
 
-    browser.sleep(100);
+    waitForUrlContains('loadbalancers');
     expectUrlToContain('loadbalancers');
   });
 
@@ -147,28 +147,28 @@ describe('Navigation', function() {
     browser.sleep(500);
     sidenav.getLink(26).click();
 
-    browser.sleep(100);
+    waitForUrlContains('users');
     expectUrlToContain('users');
   });
 
   it('should navigate to accounts', () => {
     sidenav.getLink(27).click();
 
-    browser.sleep(100);
+    waitForUrlContains('accounts');
     expectUrlToContain('accounts');
   });
 
   it('should navigate to billing', () => {
     sidenav.getLink(28).click();
 
-    browser.sleep(100);
+    waitForUrlContains('billing');
     expectUrlToContain('billing');
   });
 
   it('should navigate to roles', () => {
     sidenav.getLink(29).click();
 
-    browser.sleep(100);
+    waitForUrlContains('roles');
     expectUrlToContain('roles');
   });
 
@@ -184,7 +184,7 @@ describe('Navigation', function() {
   it('should navigate to search', () => {
     sidenav.getLink(33).click();
 
-    browser.sleep(100);
+    waitForUrlContains('search');
     expectUrlToContain('search');
   });
 });
