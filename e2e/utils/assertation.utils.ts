@@ -8,6 +8,10 @@ export function expectNotPresent(element: ElementFinder) {
   expect(element.isPresent()).toBeFalsy();
 }
 
+export function expectDefined(element: ElementFinder) {
+  expect(element).toBeDefined();
+}
+
 export function expectUrlToContain(url: string) {
   expect(browser.getCurrentUrl()).toContain(url);
 }
