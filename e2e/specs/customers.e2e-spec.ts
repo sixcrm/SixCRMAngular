@@ -5,12 +5,15 @@ import {expectDefined} from '../utils/assertation.utils';
 import {SidenavPage} from '../po/sidenav.po';
 import {browser} from 'protractor';
 import {AppPage} from '../po/app.po';
+import {CustomerPage} from '../po/customer.po';
 
 describe('Customers', function() {
   let page: EntityIndexPage;
+  let customerPage: CustomerPage;
 
   beforeEach(() => {
     page = new EntityIndexPage();
+    customerPage = new CustomerPage();
   });
 
   beforeAll(() => {
@@ -46,8 +49,8 @@ describe('Customers', function() {
     page.getAddButton().click();
     waitForUrlContains('customers/add');
 
-    expectDefined(page.getNewCustomerForm());
-    expect(page.getNewCustomerInputs().count()).toEqual(9);
+    expectDefined(customerPage.getNewCustomerForm());
+    expect(customerPage.getNewCustomerInputs().count()).toEqual(9);
   });
 
   it('should add new customer', () => {
@@ -57,24 +60,24 @@ describe('Customers', function() {
     const customerName = 'Customer Test fn';
     const customerLastname = 'Customer Test ln';
 
-    page.getNewCustomerInputs().get(0).sendKeys(customerName);
-    page.getNewCustomerInputs().get(1).sendKeys(customerLastname);
-    page.getNewCustomerInputs().get(2).sendKeys('123456789');
-    page.getNewCustomerInputs().get(3).sendKeys('testcustomer@example.com');
-    page.getNewCustomerInputs().get(4).sendKeys('test customer address');
-    page.getNewCustomerInputs().get(5).sendKeys('test customer city');
-    page.getNewCustomerInputs().get(6).sendKeys('a');
+    customerPage.getNewCustomerInputs().get(0).sendKeys(customerName);
+    customerPage.getNewCustomerInputs().get(1).sendKeys(customerLastname);
+    customerPage.getNewCustomerInputs().get(2).sendKeys('123456789');
+    customerPage.getNewCustomerInputs().get(3).sendKeys('testcustomer@example.com');
+    customerPage.getNewCustomerInputs().get(4).sendKeys('test customer address');
+    customerPage.getNewCustomerInputs().get(5).sendKeys('test customer city');
+    customerPage.getNewCustomerInputs().get(6).sendKeys('a');
     browser.sleep(200);
-    page.getFirstOption().click();
-    page.getNewCustomerInputs().get(7).sendKeys('21000');
-    page.getNewCustomerInputs().get(8).sendKeys('u');
+    customerPage.getFirstOption().click();
+    customerPage.getNewCustomerInputs().get(7).sendKeys('21000');
+    customerPage.getNewCustomerInputs().get(8).sendKeys('u');
     browser.sleep(200);
-    page.getFirstOption().click();
+    customerPage.getFirstOption().click();
 
     browser.sleep(200);
 
-    page.getNewCustomerSaveButton().click();
-    waitForPresenceOf(page.getCustomerName());
-    expect(page.getCustomerName().getText()).toEqual(`${customerName} ${customerLastname}`)
+    customerPage.getNewCustomerSaveButton().click();
+    waitForPresenceOf(customerPage.getCustomerName());
+    expect(customerPage.getCustomerName().getText()).toEqual(`${customerName} ${customerLastname}`)
   });
 });
