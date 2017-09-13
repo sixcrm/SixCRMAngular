@@ -11,9 +11,13 @@ machine:
   node:
     version: 7.6.0
 
+checkout:
+  post:
+    - git submodule sync
+    - git submodule update --init
+
 dependencies:
   pre:
-    - git submodule update --init --recursive
     - openssl aes-256-cbc -d -in ./deployment/config/aws.$CIRCLE_BRANCH.encrypted -k $SIX_SKELETON_KEY >> ~/.circlerc
     - aws configure set preview.cloudfront true
   post:
