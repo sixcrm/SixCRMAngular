@@ -20,8 +20,6 @@ dependencies:
   pre:
     - openssl aes-256-cbc -d -in ./deployment/config/aws.$CIRCLE_BRANCH.encrypted -k $SIX_SKELETON_KEY >> ~/.circlerc
     - aws configure set preview.cloudfront true
-  post:
-    - echo "$AWS_ACCOUNT $AWS_REGION $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY"
 
 test:
   override:
@@ -40,7 +38,7 @@ deployment:
     branch: staging
     commands:
       - node libs/deployment_scripts/src/versioning.js
-      - ./deployment/build.sh
+      - ./libs/deployment_scripts/src/build.sh
       - node libs/deployment_scripts/src/deploy-s3.js admin.sixcrm.com
       - node libs/deployment_scripts/src/deploy-cloudfront.js admin.sixcrm.com
       - node libs/deployment_scripts/src/merge-branches.js
@@ -52,7 +50,7 @@ deployment:
       - node libs/deployment_scripts/src/versioning.js
 
       # Build Angular App
-      - ./deployment/build.sh
+      - ./libs/deployment_scripts/src/build.sh
 
       # Deploy App to S3
       - node libs/deployment_scripts/src/deploy-s3.js admin.sixcrm.com
