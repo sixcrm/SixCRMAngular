@@ -1,0 +1,3 @@
+[submodule "libs/deployment_scripts"]
+	path = libs/deployment_scripts
+	url = https://nbosic91@bitbucket.org/sixcrm/cloudfronts3deployment.git

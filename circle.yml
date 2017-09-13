@@ -26,38 +26,38 @@ deployment:
   production:
     branch: production
     commands:
-      - node deployment/versioning.js
+      - node libs/deployment_scripts/src/versioning.js
       - ./deployment/build.sh
-      - node deployment/deploy-s3.js admin.sixcrm.com
-      - node deployment/deploy-cloudfront.js admin.sixcrm.com
+      - node libs/deployment_scripts/src/deploy-s3.js admin.sixcrm.com
+      - node libs/deployment_scripts/src/deploy-cloudfront.js admin.sixcrm.com
 
   staging:
     branch: staging
     commands:
-      - node deployment/versioning.js
+      - node libs/deployment_scripts/src/versioning.js
       - ./deployment/build.sh
-      - node deployment/deploy-s3.js admin.sixcrm.com
-      - node deployment/deploy-cloudfront.js admin.sixcrm.com
-      - node ./deployment/merge-branches.js
+      - node libs/deployment_scripts/src/deploy-s3.js admin.sixcrm.com
+      - node libs/deployment_scripts/src/deploy-cloudfront.js admin.sixcrm.com
+      - node libs/deployment_scripts/src/merge-branches.js
 
   development:
     branch: development
     commands:
       # Set version
-      - node deployment/versioning.js
+      - node libs/deployment_scripts/src/versioning.js
 
       # Build Angular App
       - ./deployment/build.sh
 
       # Deploy App to S3
-      - node deployment/deploy-s3.js admin.sixcrm.com
+      - node libs/deployment_scripts/src/deploy-s3.js admin.sixcrm.com
 
       # Add/Update CloudFront Distribution
-      - node deployment/deploy-cloudfront.js admin.sixcrm.com
+      - node libs/deployment_scripts/src/deploy-cloudfront.js admin.sixcrm.com
 
       # Run e2e tests before propagation
       # - npm run webdriver-update
       # - npm run e2e.dev
 
       # Promote changes
-      - node ./deployment/merge-branches.js
+      - node libs/deployment_scripts/src/merge-branches.js
