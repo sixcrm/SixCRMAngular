@@ -18,7 +18,6 @@ checkout:
 dependencies:
   pre:
     - openssl aes-256-cbc -d -in ./deployment/config/aws.$CIRCLE_BRANCH.encrypted -k $SIX_SKELETON_KEY >> ~/.circlerc
-    - aws configure set preview.cloudfront true
 
 test:
   override:
