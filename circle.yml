@@ -30,7 +30,7 @@ deployment:
       - node libs/deployment_scripts/src/versioning.js
       - ./libs/deployment_scripts/src/build.sh
       - node libs/deployment_scripts/src/deploy-s3.js admin.sixcrm.com
-      # - node libs/deployment_scripts/src/deploy-cloudfront.js admin.sixcrm.com
+      - node libs/deployment_scripts/src/deploy-cloudfront.js admin.sixcrm.com
 
   staging:
     branch: staging
