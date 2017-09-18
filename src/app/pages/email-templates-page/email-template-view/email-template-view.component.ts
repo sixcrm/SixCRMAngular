@@ -129,7 +129,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
 
   addToken(token: Token) {
     if (this.viewMode) return;
-    this.editor.execCommand('mceInsertContent', false, ` {{${token.path.toLowerCase()}}}`);
+    this.editor.execCommand('mceInsertContent', false, `{{${token.path.toLowerCase()}}}`);
   }
 
 }
