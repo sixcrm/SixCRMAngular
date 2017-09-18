@@ -1,6 +1,20 @@
 .token-view {
   &__path {
-    margin-bottom: 5px;
+    padding: 10px 15px;
     cursor: pointer;
+    border-top: 1px solid rgba(0,0,0,0.1);
+
+    &__title {
+      font-size: 14px;
+    }
+
+    &__description {
+
+    }
+
+    &__token {
+      margin: 2px 0;
+      font-size: 12px;
+    }
   }
 }

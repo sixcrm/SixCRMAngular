@@ -21,8 +21,10 @@ export class TokenListComponent implements OnInit {
 
   ngOnInit() {
     this.emailTemplatesService.tokens.take(1).subscribe(tokens => {
+      console.log(tokens);
+
       this.tokens = (tokens.properties || []).map(p => new Token(p, null, null));
-      this.tokenTypes = this.tokens.map(t => t.path);
+      this.tokenTypes = this.tokens.map(t => t.name);
 
       this.loaded = true;
     });
@@ -36,6 +38,8 @@ export class Token {
   path: string;
   subtokens: Token[] = [];
   parent: Token;
+  description: string;
+  title: string;
   isTerminal: boolean;
 
   constructor(obj: any, parent: Token, name: string) {
@@ -43,6 +47,8 @@ export class Token {
 
     this.name = (name && isNaN(+name)) ? name : obj.name || obj.title;
     this.name = this.name.replace(/\s/, '_');
+    this.title = obj.title;
+    this.description = obj.description;
 
     this.path = this.generatePath();
 
@@ -75,10 +81,11 @@ export class Token {
 
   generatePath() {
     if (this.parent) {
-      return this.parent.generatePath() + `.${this.name}`
+      const parentPath = this.parent.generatePath();
+      return parentPath + `${parentPath ? '.' : ''}${this.name}`
     }
 
-    return this.name;
+    return '';
   }
 
   contains(filter: string) {

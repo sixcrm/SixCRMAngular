@@ -9,7 +9,7 @@ export class FilterTokensTypePipe implements PipeTransform {
   transform(tokens: Token[], path: string, strict?: boolean): any {
     if (!path) return tokens;
 
-    return tokens.filter(t => strict ? t.path === path : t.path.indexOf(path) !== -1);
+    return tokens.filter(t => strict ? t.name === path : t.name.indexOf(path) !== -1);
   }
 
 }

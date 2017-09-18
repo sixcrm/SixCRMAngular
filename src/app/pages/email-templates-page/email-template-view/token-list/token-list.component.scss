@@ -12,8 +12,14 @@ dropdown-component {
   margin-left: auto;
 }
 
-.token-list__container {
-  margin-top: 20px;
-  overflow: auto;
-  max-height: 430px;
+.token-list {
+  &__container {
+    margin-top: 20px;
+    overflow: auto;
+    max-height: 430px;
+  }
+
+  &__header {
+    padding: 15px;
+  }
 }
