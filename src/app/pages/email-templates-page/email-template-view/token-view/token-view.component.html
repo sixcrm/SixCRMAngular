@@ -1,0 +1,5 @@
+<div class="token-view__content" *ngIf="token">
+  <div class="token-view__path" (click)="tokenSelected.emit(token)" *ngIf="token.isTerminal && token.contains(filter)">{{token.path | lowercase}}</div>
+
+  <token-view class="token-view__subtokens" (tokenSelected)="tokenSelected.emit($event)" *ngFor="let s of token.subtokens" [token]="s" [filter]="filter"></token-view>
+</div>

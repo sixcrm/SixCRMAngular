@@ -28,7 +28,7 @@
   <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>
 
-      <div class="entity-view__card entity-view__card--large">
+      <div class="entity-view__card input-form">
         <div class="entity-view__card__header">
           <div class="entity-view__card__header__title">Email Template Details</div>
           <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
@@ -78,6 +78,8 @@
         </div>
       </div>
 
+      <token-list [style.display]="viewMode ? 'none' : 'inline-block'" (tokenSelected)="addToken($event)" class="entity-view__card"></token-list>
+
     </md-tab>
 
     <md-tab>
@@ -87,7 +89,6 @@
             <div class="entity-view__card__header__title">Email Template Preview</div>
             <div class="entity-view__card__header__subtitle">preview how the template will look in an email</div>
           </div>
-          <!--<md-icon>more_vert</md-icon>-->
         </div>
 
         <div class="entity-view__card__content">

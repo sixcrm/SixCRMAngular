@@ -1,0 +1,14 @@
+<div *ngIf="loaded">
+
+  <div class="flex-custom">
+    <md-input-container>
+      <input type="text" placeholder="Search" md-input [(ngModel)]="filterString" autocomplete=off>
+    </md-input-container>
+
+    <dropdown-component [options]="tokenTypes" [placeholder]="'Select Token Type'" [showFloatingPlaceholder]="true" [selected]="selectedType" (onSelect)="selectedType = $event"></dropdown-component>
+  </div>
+
+  <div class="token-list__container">
+    <token-view *ngFor="let token of tokens | filterTokensType: selectedType: true" [token]="token" [filter]="filterString" (tokenSelected)="tokenSelected.emit($event)"></token-view>
+  </div>
+</div>

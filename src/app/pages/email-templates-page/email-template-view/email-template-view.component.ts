@@ -7,6 +7,7 @@ import {NavigationService} from '../../../navigation/navigation.service';
 import {SmtpProvider} from '../../../shared/models/smtp-provider.model';
 import {SmtpProvidersService} from '../../../shared/services/smtp-providers.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {Token} from './token-list/token-list.component';
 
 declare var tinymce;
 
@@ -124,6 +125,11 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     }
 
     return super.canBeDeactivated();
+  }
+
+  addToken(token: Token) {
+    if (this.viewMode) return;
+    this.editor.execCommand('mceInsertContent', false, ` {{${token.path.toLowerCase()}}}`);
   }
 
 }

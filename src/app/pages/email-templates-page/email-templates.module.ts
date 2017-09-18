@@ -8,6 +8,9 @@ import {EmailTemplatesAclGuard} from '../guards/email-templates-acl-guard.servic
 import {SharedModule} from '../../shared/shared.module';
 import {emailTemplatesRouting} from './email-templates.routing';
 import {EmailTemplateViewComponent} from './email-template-view/email-template-view.component';
+import { TokenListComponent } from './email-template-view/token-list/token-list.component';
+import { TokenViewComponent } from './email-template-view/token-view/token-view.component';
+import { FilterTokensTypePipe } from './email-template-view/filter-tokens-type.pipe';
 
 @NgModule({
   imports : [
@@ -20,7 +23,10 @@ import {EmailTemplateViewComponent} from './email-template-view/email-template-v
   ],
   declarations : [
     EmailTemplatesComponent,
-    EmailTemplateViewComponent
+    EmailTemplateViewComponent,
+    TokenListComponent,
+    TokenViewComponent,
+    FilterTokensTypePipe
   ],
   providers: [
     EmailTemplatesAclGuard
