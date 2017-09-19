@@ -5,6 +5,7 @@ import {environment} from '../../../environments/environment';
 import {extractData, HttpWrapperService, generateHeaders, FailStrategy} from './http-wrapper.service';
 import {CustomServerError} from '../models/errors/custom-server-error';
 import {MdSnackBar} from '@angular/material';
+import {ErrorSnackBarComponent, SnackBarType} from '../components/error-snack-bar/error-snack-bar.component';
 
 export abstract class AbstractEntityService<T> {
 
@@ -77,9 +78,17 @@ export abstract class AbstractEntityService<T> {
       const entityKey = Object.keys(json)[0];
       const entityData =json[entityKey];
 
-      this.snackBar.open('Deleted Successfully!', 'close', {duration: 3000});
+      this.openSnackBar('Deleted Successfully!');
       this.entityDeleted$.next(this.toEntity(entityData));
     });
+  }
+
+  openSnackBar(message: string) {
+    const ctx = this.snackBar.openFromComponent(ErrorSnackBarComponent, {duration: 2000});
+    const instance = ctx.instance;
+
+    instance.message = message;
+    instance.type = SnackBarType.success;
   }
 
   createEntity(entity: T): void {
@@ -97,7 +106,7 @@ export abstract class AbstractEntityService<T> {
       const entityKey = Object.keys(json)[0];
       const entityData =json[entityKey];
 
-      this.snackBar.open('Created Successfully!', 'close', {duration: 3000});
+      this.openSnackBar('Created Successfully!');
       this.entityCreated$.next(this.toEntity(entityData));
     });
   }
@@ -117,7 +126,7 @@ export abstract class AbstractEntityService<T> {
       const entityKey = Object.keys(json)[0];
       const entityData =json[entityKey];
 
-      this.snackBar.open('Updated Successfully!', 'close', {duration: 3000});
+      this.openSnackBar('Updated Successfully!');
       this.entityUpdated$.next(this.toEntity(entityData));
     });
   }

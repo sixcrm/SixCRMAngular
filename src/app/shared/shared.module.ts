@@ -61,6 +61,7 @@ import {AccountsService} from './services/accounts.service';
 import {AclsService} from './services/acls.service';
 import { AddScheduleComponent } from './components/add-schedule/add-schedule.component';
 import {TextMaskModule} from 'angular2-text-mask';
+import { ErrorSnackBarComponent } from './components/error-snack-bar/error-snack-bar.component';
 
 @NgModule({
   declarations : [
@@ -88,7 +89,8 @@ import {TextMaskModule} from 'angular2-text-mask';
     FilterStringsPipe,
     FilterEntitiesByParamsPipe,
     ServerErrorMessageComponent,
-    AddScheduleComponent
+    AddScheduleComponent,
+    ErrorSnackBarComponent
   ],
   exports : [
     AutocompleteComponent,

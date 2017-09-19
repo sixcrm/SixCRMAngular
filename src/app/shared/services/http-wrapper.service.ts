@@ -4,6 +4,7 @@ import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import {MdSnackBar} from '@angular/material';
 import {CustomServerError} from '../models/errors/custom-server-error';
 import {Router} from '@angular/router';
+import {ErrorSnackBarComponent, SnackBarType} from '../components/error-snack-bar/error-snack-bar.component';
 
 export enum FailStrategy {
   Ignore, Hard, Soft
@@ -41,7 +42,7 @@ export class HttpWrapperService {
         // handle error
         if (!ignoreProgress) this.setNotInProgress();
 
-        this.snackBar.open(`${error.json().error_type}: ${error.json().message}`, 'close', {duration: 3000});
+        this.handleError(error);
 
         if (failStrategy === FailStrategy.Hard) {
           this.router.navigateByUrl('/error');
@@ -72,7 +73,7 @@ export class HttpWrapperService {
         // handle error
         if (!ignoreProgress) this.setNotInProgress();
 
-        this.snackBar.open(`${error.json().error_type}: ${error.json().message}`, 'close', {duration: 3000});
+        this.handleError(error);
 
         if (failStrategy === FailStrategy.Hard) {
           this.router.navigateByUrl('/error');
@@ -87,6 +88,14 @@ export class HttpWrapperService {
     );
 
     return response;
+  }
+
+  handleError(error) {
+    const duration = error.json().code === 403 ? 6000 : 3000;
+
+    const instance = this.snackBar.openFromComponent(ErrorSnackBarComponent, {duration: duration}).instance;
+    instance.message = error.json().message;
+    instance.type = SnackBarType.error;
   }
 
   setInProgress() {

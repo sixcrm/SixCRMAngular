@@ -1,0 +1,15 @@
+.error-snack-bar {
+  color: white;
+  padding: 20px;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+
+  &--error {
+    background: #C31313;
+  }
+
+  &--success {
+    background: #316537;
+  }
+}
