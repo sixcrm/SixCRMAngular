@@ -9,11 +9,12 @@
     }
 
     &__description {
-
+      font-size: 12px;
+      color: rgba(0,0,0,0.6);
     }
 
     &__token {
-      margin: 2px 0;
+      margin: 3px 0;
       font-size: 12px;
     }
   }

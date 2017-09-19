@@ -21,8 +21,6 @@ export class TokenListComponent implements OnInit {
 
   ngOnInit() {
     this.emailTemplatesService.tokens.take(1).subscribe(tokens => {
-      console.log(tokens);
-
       this.tokens = (tokens.properties || []).map(p => new Token(p, null, null));
       this.tokenTypes = this.tokens.map(t => t.name);
 
@@ -50,7 +48,7 @@ export class Token {
     this.title = obj.title;
     this.description = obj.description;
 
-    this.path = this.generatePath();
+    this.path = this.generatePath().toLowerCase();
 
     this.parseSubtokens(obj);
 
