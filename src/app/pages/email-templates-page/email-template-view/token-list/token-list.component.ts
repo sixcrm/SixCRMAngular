@@ -89,6 +89,11 @@ export class Token {
   contains(filter: string) {
     if (!filter) return true;
 
-    return this.path.indexOf(filter) !== -1;
+    const f = filter.toLowerCase();
+    const name = this.parent ? `${this.parent.name} ${this.name}`.toLowerCase() : this.name.toLowerCase();
+    const path = this.path.toLowerCase();
+    const description = this.description ? this.description.toLowerCase() : '';
+
+    return path.indexOf(f) !== -1 || name.indexOf(f) !== -1 || description.indexOf(f) !== -1;
   }
 }
