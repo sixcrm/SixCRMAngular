@@ -10,8 +10,6 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {Product} from '../../../shared/models/product.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {AddScheduleComponent} from '../../../shared/components/add-schedule/add-schedule.component';
-import {LoadBalancersService} from '../../../shared/services/load-balancers.service';
-import {LoadBalancer} from '../../../shared/models/load-balancer.model';
 
 @Component({
   selector: 'product-schedule-view',
@@ -36,8 +34,6 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   scheduleToAdd: Schedule = new Schedule();
   scheduleMapper = (s: Schedule) => s.product.name;
 
-  formInvalid: boolean;
-  loadBalancerMapper = (loadBalancer: LoadBalancer) => loadBalancer.name || loadBalancer.id;
   price: string = '';
 
   constructor(
@@ -46,7 +42,6 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     public navigation: NavigationService,
     public authService: AuthenticationService,
     private router: Router,
-    public loadBalancerService: LoadBalancersService
   ) {
     super(service, route);
   }
@@ -57,11 +52,6 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     if (this.addMode) {
       this.entity = new ProductSchedule();
       this.entityBackup = new ProductSchedule();
-      this.loadBalancerService.getEntities();
-    } else {
-      this.service.entity$.take(1).takeUntil(this.unsubscribe$).subscribe(() => {
-        this.loadBalancerService.getEntities();
-      });
     }
   }
 
@@ -106,13 +96,6 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   }
 
   canBeDeactivated() {
-    return super.canBeDeactivated() && !this.addScheduleComponent.isTouched();
-  }
-
-  saveSchedule(valid) {
-    this.formInvalid = !valid;
-    if (this.formInvalid) return;
-
-    this.saveEntity(this.entity)
+    return super.canBeDeactivated() && (!this.addScheduleComponent || !this.addScheduleComponent.isTouched());
   }
 }
