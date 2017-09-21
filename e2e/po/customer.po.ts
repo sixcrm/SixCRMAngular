@@ -18,6 +18,6 @@ export class CustomerPage {
   }
 
   getNewCustomerSaveButton() {
-    return element(by.css('customer-add-new')).element(by.css('.button-container'))
+    return element(by.css('.entity-view__card__actions')).element(by.css('div'))
   }
 }
