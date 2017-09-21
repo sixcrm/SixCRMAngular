@@ -3,14 +3,9 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
 import {Product} from '../../../shared/models/product.model';
 import {ProductsService} from '../../../shared/services/products.service';
 import {ActivatedRoute} from '@angular/router';
-import {FulfillmentProvidersService} from '../../../shared/services/fulfillment-providers.service';
-import {FulfillmentProvider} from '../../../shared/models/fulfillment-provider.model';
 import {NavigationService} from '../../../navigation/navigation.service';
-import {parseCurrencyMaskedValue} from '../../../shared/utils/mask.utils';
-import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {MessageDialogComponent} from '../../message-dialog.component';
 import {MdDialog} from '@angular/material';
-import {Currency} from '../../../shared/utils/currency/currency';
 
 @Component({
   selector: 'product-view',
@@ -20,19 +15,12 @@ import {Currency} from '../../../shared/utils/currency/currency';
 export class ProductViewComponent extends AbstractEntityViewComponent<Product> implements OnInit, OnDestroy {
 
   selectedIndex: number = 0;
-  fulfillmentProviderMapper = (el: FulfillmentProvider) => el.name;
-
-  formInvalid: boolean;
-
-  price: string = '';
-
   canNotBeDeleted: boolean = true;
 
   constructor(
     service: ProductsService,
     route: ActivatedRoute,
     public navigation: NavigationService,
-    public fulfillmentProvidersService: FulfillmentProvidersService,
     private dialog: MdDialog
   ) {
     super(service, route);
@@ -41,18 +29,10 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
   ngOnInit() {
     this.init(() => this.navigation.goToNotFoundPage());
 
-    this.service.entity$.merge(this.service.entityCreated$).merge(this.service.entityUpdated$).takeUntil(this.unsubscribe$)
-      .subscribe(product => {
-        this.price = product instanceof CustomServerError ? '' : product.defaultPrice.amount + '';
-      });
-
     if (this.addMode) {
       this.entity = new Product();
       this.entity.ship = 'true';
       this.entityBackup = this.entity.copy();
-      this.fulfillmentProvidersService.getEntities();
-    } else {
-      this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(() => this.fulfillmentProvidersService.getEntities());
     }
   }
 
@@ -64,29 +44,11 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     this.selectedIndex = value;
   }
 
-  toggleShip() {
-    this.entity.ship = this.entity.ship === 'true' ? 'false' : 'true';
-    if (this.entity.ship === 'true') {
-      this.entity.shippingDelay = 0;
-    } else {
-      this.entity.shippingDelay = null;
-    }
-  }
-
-  save(valid: boolean): void {
-    this.formInvalid = !valid;
-
-    if (this.formInvalid) {
-
-    } else {
-      this.entity.defaultPrice = new Currency(parseCurrencyMaskedValue(this.price));
-      this.saveOrUpdate(this.entity);
-    }
+  save(): void {
+    this.saveOrUpdate(this.entity);
   }
 
   deleteProduct(): void {
-    if (this.addMode) return;
-
     if (this.canNotBeDeleted) {
       this.showMessageDialog('You can not delete this product as long as it is associated with a product schedule.');
     } else {
@@ -112,7 +74,6 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
   }
 
   canBeDeactivated(): boolean {
-    this.entity.defaultPrice = new Currency(parseCurrencyMaskedValue(this.price));
     return super.canBeDeactivated();
   }
 

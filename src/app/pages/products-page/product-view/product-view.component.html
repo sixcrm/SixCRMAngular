@@ -3,99 +3,54 @@
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <div class="entity-view__info">
-    <div class="entity-view__info__image">
-      <img src="/assets/images/result-item-transaction-white.svg" alt="">
-    </div>
-    <div class="entity-view__info__data">
-      <div *ngIf="!addMode" class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
-      <div class="entity-view__info__data__name">
-        <span *ngIf="!addMode; else createMessage">
+
+  <ng-container *ngIf="!addMode; else addProductTemplate">
+    <div class="entity-view__info">
+      <div class="entity-view__info__image">
+        <img src="/assets/images/result-item-transaction-white.svg" alt="">
+      </div>
+      <div class="entity-view__info__data">
+        <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+        <div class="entity-view__info__data__name">
           {{entityBackup.name}}
-        </span>
-        <ng-template #createMessage>
-          Create new Product
-        </ng-template>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="entity-view__navigation">
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">SCHEDULES</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">CAMPAIGNS</span>
-  </div>
+    <div class="entity-view__navigation">
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">SCHEDULES</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">CAMPAIGNS</span>
+    </div>
 
-  <md-tab-group [(selectedIndex)]="selectedIndex">
-    <md-tab>
+    <md-tab-group [(selectedIndex)]="selectedIndex">
+      <md-tab>
+        <product-add-new (changeMode)="setMode($event)"
+                         (cancelUpdate)="cancelUpdate()"
+                         (deleteEntity)="deleteProduct()"
+                         (saveEntity)="save($event)"
+                         [mode]="viewMode ? modes.View : modes.Update"
+                         [price]="entity.defaultPrice.amount + ''"
+                         [entity]="entity">
+        </product-add-new>
+      </md-tab>
 
-      <form #productInputForm="ngForm" class="flex-custom">
-        <div style="margin-bottom: 120px;" class="entity-view__card campaign-view__card">
-          <div class="entity-view__card__header">
-            <div class="entity-view__card__header__title">Product general details</div>
-            <ng-container *ngIf="!addMode">
-              <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
-              <md-menu #editOptions="mdMenu" x-position="before">
-                <button md-menu-item (click)="setMode(modes.Update)"> Edit Product</button>
-                <button md-menu-item (click)="deleteProduct()"> Delete Product </button>
-              </md-menu>
-            </ng-container>
-          </div>
+      <md-tab>
+        <product-product-schedules [id]="entity.id"
+                                   [price]="entity.defaultPrice.amount + ''"
+                                   (allEntities)="setCanNotBeDeleted($event)">
+        </product-product-schedules>
+      </md-tab>
 
-          <div class="entity-view__card__content">
-            <md-input-container style="margin-right: 25px;" [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-              <input required md-input [disabled]="viewMode" placeholder="Product name" name="name" [(ngModel)]="entity.name" type="text">
-            </md-input-container>
+      <md-tab>
+        <product-campaigns [id]="entity.id"></product-campaigns>
+      </md-tab>
+    </md-tab-group>
+  </ng-container>
 
-            <div class="product-view__group">
-              <md-input-container [class.error]="formInvalid && !entity.sku" class="entity-view__card__content__item">
-                <input required md-input [disabled]="viewMode" placeholder="SKU" name="sku" [(ngModel)]="entity.sku" type="text">
-              </md-input-container>
-
-              <md-input-container class="entity-view__card__content__item">
-                <input md-input [disabled]="viewMode" placeholder="Default Price" name="defaultPrice" [textMask]="{mask: numberMask, guide: false}" (keydown)="isCurrency($event)" [(ngModel)]="price" type="text">
-              </md-input-container>
-            </div>
-
-            <div style="margin-top: 15px;" class="product-view__group">
-              <md-checkbox style="font-size: 14px;" [disabled]="viewMode" [checked]="entity.ship === 'true'" (change)="toggleShip()">Ship</md-checkbox>
-
-              <md-input-container [class.error]="formInvalid && !entity.shippingDelay && entity.shippingDelay !== 0 && entity.ship === 'true'" class="entity-view__card__content__item">
-                <input [required]="entity.ship === 'true'" md-input [disabled]="viewMode || entity.ship !== 'true'" (keydown)="isNumeric($event)" placeholder="Shipping Delay (minutes)" name="shippingDelay" [(ngModel)]="entity.shippingDelay" type="number">
-              </md-input-container>
-            </div>
-
-            <autocomplete-input class="product-autocomplete-input"
-                                [class.error]="formInvalid && (!entity.fulfillmentProvider || !entity.fulfillmentProvider.id) && entity.ship === 'true'"
-                                [initialValue]="entity.fulfillmentProvider"
-                                [placeholder]="'Fulfillment Provider'"
-                                [options]="fulfillmentProvidersService.entities$ | async"
-                                [mapFunction]="fulfillmentProviderMapper"
-                                [showArrow]="true"
-                                [disabled]="viewMode || entity.ship !==  'true'"
-                                [required]="entity.ship === 'true'"
-                                (selected)="entity.fulfillmentProvider = $event">
-            </autocomplete-input>
-
-          </div>
-
-          <div *ngIf="!viewMode" class="entity-view__card__actions">
-            <div *ngIf="updateMode" (click)="cancelUpdate()">CANCEL</div>
-            <div (click)="save(productInputForm.form.valid)">SAVE</div>
-          </div>
-        </div>
-      </form>
-
-    </md-tab>
-
-    <md-tab>
-      <product-product-schedules [id]="entity.id" [price]="entity.defaultPrice.amount + ''" (allEntities)="setCanNotBeDeleted($event)"></product-product-schedules>
-    </md-tab>
-
-    <md-tab>
-      <product-campaigns [id]="entity.id"></product-campaigns>
-    </md-tab>
-  </md-tab-group>
+  <ng-template #addProductTemplate>
+    <product-add-new (saveEntity)="save($event)" [mode]="modes.Add" [entity]="entity" [price]="entity.defaultPrice.amount + ''"></product-add-new>
+  </ng-template>
 </div>
 
 <ng-template #spinner>

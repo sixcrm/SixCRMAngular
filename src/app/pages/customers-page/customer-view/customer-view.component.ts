@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {Customer} from '../../../shared/models/customer.model';
 import {CustomersService} from '../../../shared/services/customers.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {conformToMask} from 'angular2-text-mask';
@@ -32,16 +32,15 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
   rebillUnderEdit: Rebill;
 
   states: string[] = getStates();
-
   formInvalid: boolean = false;
-
   shippingInfoEditMode: boolean = false;
 
   constructor(
     service: CustomersService,
     route: ActivatedRoute,
     public navigation: NavigationService,
-    public authService: AuthenticationService
+    public authService: AuthenticationService,
+    public router: Router
   ) {
     super(service, route);
   }
@@ -51,6 +50,10 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
 
     this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(() => {
       this.shippingInfoEditMode = false;
+    });
+
+    this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe((customer: Customer) => {
+      this.router.navigate(['/customers', customer.id])
     });
 
     if (this.addMode) {

@@ -1,47 +1,54 @@
-<form class="customer-view__add-new" #customerAddForm="ngForm">
+<form class="entity-view__card" #customerAddForm="ngForm">
 
-  <div class="title">Add new Customer</div>
-
-  <div class="flex-custom">
-    <md-input-container [class.error]="formInvalid && !customer.firstName">
-      <input md-input name="firstName" [(ngModel)]="customer.firstName" placeholder="First Name" required type="text">
-    </md-input-container>
-
-    <md-input-container [class.error]="formInvalid && !customer.lastName">
-      <input md-input name="lastName" [(ngModel)]="customer.lastName" placeholder="Last Name" required type="text">
-    </md-input-container>
+  <div class="entity-view__card__header">
+    <div class="entity-view__card__header__title">
+      Add new Customer
+    </div>
   </div>
 
-  <div class="flex-custom">
-    <md-input-container [class.error]="formInvalid && !customer.phone">
-      <input md-input name="phone" [(ngModel)]="customer.phone" [textMask]="{mask: mask, guide: false}" placeholder="Phone" required type="text">
-    </md-input-container>
+  <div class="entity-view__card__content customer-add__content">
+    <div class="flex-custom">
+      <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.firstName">
+        <input md-input name="firstName" [(ngModel)]="customer.firstName" placeholder="First Name" required type="text">
+      </md-input-container>
 
-    <md-input-container [class.error]="formInvalid && !customer.email">
-      <input md-input name="email" [(ngModel)]="customer.email" placeholder="Email" required type="text">
-    </md-input-container>
+      <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.lastName">
+        <input md-input name="lastName" [(ngModel)]="customer.lastName" placeholder="Last Name" required type="text">
+      </md-input-container>
+    </div>
+
+    <div class="flex-custom">
+      <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.phone">
+        <input md-input name="phone" [(ngModel)]="customer.phone" [textMask]="{mask: mask, guide: false}" placeholder="Phone" required type="text">
+      </md-input-container>
+
+      <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.email">
+        <input md-input name="email" [(ngModel)]="customer.email" placeholder="Email" required type="text">
+      </md-input-container>
+    </div>
+
+    <div class="flex-custom">
+      <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.line1">
+        <input md-input name="address" [(ngModel)]="customer.address.line1" placeholder="Address" required type="text">
+      </md-input-container>
+
+      <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.city">
+        <input md-input name="city" [(ngModel)]="customer.address.city" placeholder="City" required type="text">
+      </md-input-container>
+    </div>
+
+    <div class="flex-custom">
+      <autocomplete-input class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.state" [strictFilteringStrategy]="true" [required]="true" [initialValue]="customer.address.state" [placeholder]="'State'" [options]="states" (selected)="customer.address.state = $event"></autocomplete-input>
+      <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.zip">
+        <input md-input name="postalCode" [(ngModel)]="customer.address.zip" placeholder="Postal Code" required type="text">
+      </md-input-container>
+    </div>
+
+    <autocomplete-input class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.country" [strictFilteringStrategy]="true" [required]="true" [initialValue]="customer.address.country" [placeholder]="'Country'" [options]="countries" (selected)="customer.address.country = $event"></autocomplete-input>
+
+    <div class="entity-view__card__actions">
+      <div (click)="saveCustomer(customerAddForm.form)">SAVE CUSTOMER</div>
+    </div>
   </div>
 
-  <div class="flex-custom">
-    <md-input-container [class.error]="formInvalid && !customer.address.line1">
-      <input md-input name="address" [(ngModel)]="customer.address.line1" placeholder="Address" required type="text">
-    </md-input-container>
-
-    <md-input-container [class.error]="formInvalid && !customer.address.city">
-      <input md-input name="city" [(ngModel)]="customer.address.city" placeholder="City" required type="text">
-    </md-input-container>
-  </div>
-
-  <div class="flex-custom">
-    <autocomplete-input [class.error]="formInvalid && !customer.address.state" [strictFilteringStrategy]="true" [required]="true" [initialValue]="customer.address.state" [placeholder]="'State'" [options]="states" (selected)="customer.address.state = $event"></autocomplete-input>
-    <md-input-container [class.error]="formInvalid && !customer.address.zip">
-      <input md-input name="postalCode" [(ngModel)]="customer.address.zip" placeholder="Postal Code" required type="text">
-    </md-input-container>
-  </div>
-
-  <autocomplete-input [class.error]="formInvalid && !customer.address.country" [strictFilteringStrategy]="true" [required]="true" [initialValue]="customer.address.country" [placeholder]="'Country'" [options]="countries" (selected)="customer.address.country = $event"></autocomplete-input>
-
-  <div class="button-container">
-    <div (click)="saveCustomer(customerAddForm.form)">Save Customer</div>
-  </div>
 </form>

@@ -5,7 +5,7 @@ import {Entity} from '../shared/models/entity.interface';
 import {isAllowedNumeric, isAllowedFloatNumeric, isAllowedCurrency, isAllowedEmail} from '../shared/utils/form.utils';
 import {getCurrencyMask} from '../shared/utils/mask.utils';
 
-enum Modes {
+export enum Modes {
   Add,
   View,
   Update

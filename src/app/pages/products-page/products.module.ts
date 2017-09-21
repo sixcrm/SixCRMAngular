@@ -11,6 +11,7 @@ import {SharedModule} from '../../shared/shared.module';
 import {ProductProductSchedulesComponent} from './product-view/product-product-schedules/product-product-schedules.component';
 import { ProductCampaignsComponent } from './product-view/product-campaigns/product-campaigns.component';
 import {TextMaskModule} from 'angular2-text-mask';
+import { ProductAddNewComponent } from './product-view/product-add-new/product-add-new.component';
 
 @NgModule({
   imports : [
@@ -26,7 +27,8 @@ import {TextMaskModule} from 'angular2-text-mask';
     ProductsComponent,
     ProductViewComponent,
     ProductProductSchedulesComponent,
-    ProductCampaignsComponent
+    ProductCampaignsComponent,
+    ProductAddNewComponent
   ],
   exports : [ ],
   providers: [
