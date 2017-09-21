@@ -1,11 +1,12 @@
 import {EntityIndexPage} from '../po/entity-index.po';
 import {login} from '../utils/action.utils';
 import {waitForUrlContains, waitForNotPresenceOf, waitForPresenceOf} from '../utils/navigation.utils';
-import {expectDefined} from '../utils/assertation.utils';
+import {expectDefined, expectUrlToContain} from '../utils/assertation.utils';
 import {SidenavPage} from '../po/sidenav.po';
 import {browser} from 'protractor';
 import {AppPage} from '../po/app.po';
 import {CustomerPage} from '../po/customer.po';
+import {generateUUID} from '../../src/app/shared/utils/queries/entities/entities-helper.queries';
 
 describe('Customers', function() {
   let page: EntityIndexPage;
@@ -80,4 +81,47 @@ describe('Customers', function() {
     waitForPresenceOf(customerPage.getCustomerName());
     expect(customerPage.getCustomerName().getText()).toEqual(`${customerName} ${customerLastname}`)
   });
+
+  it('should open customer view customer', () => {
+    new SidenavPage().getLink(8).click();
+    waitForUrlContains('customers');
+
+    browser.sleep(500);
+
+    customerPage.getCustomerFromTable(0).click();
+    waitForPresenceOf(customerPage.getCustomerName());
+    expectUrlToContain('customers/');
+  });
+
+  it('should update customer', () => {
+    customerPage.getCustomerUpdateButton().click();
+    browser.sleep(100);
+
+    const firstNameSuffix = generateUUID().substring(0,2);
+    const lastNameSuffix = generateUUID().substring(0,2);
+
+    customerPage.getCustomerNameInput().sendKeys(firstNameSuffix);
+    customerPage.getCustomerLastNameInput().sendKeys(lastNameSuffix);
+
+    customerPage.getCustomerUpdateButton().click();
+    browser.sleep(1000);
+
+    expect(customerPage.getCustomerFullName().getText()).toContain(firstNameSuffix);
+    expect(customerPage.getCustomerFullName().getText()).toContain(lastNameSuffix);
+  });
+
+  it('should add new note', () => {
+    const noteText = 'new note text ' + generateUUID();
+
+    customerPage.getCustomerNotesMenu().click();
+    browser.sleep(500);
+    customerPage.getAddNewNoteButton().click();
+    browser.sleep(200);
+
+    customerPage.getNoteTextArea().sendKeys(noteText);
+    customerPage.getConfirmNoteButton().click();
+    browser.sleep(1000);
+
+    expect(customerPage.getFirstNoteText().getText()).toEqual(noteText);
+  })
 });
