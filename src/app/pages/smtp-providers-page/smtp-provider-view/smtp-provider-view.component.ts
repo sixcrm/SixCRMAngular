@@ -5,6 +5,8 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
 import {SmtpProvider} from '../../../shared/models/smtp-provider.model';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {extractData} from '../../../shared/services/http-wrapper.service';
+import {SnackbarService} from '../../../shared/services/snackbar.service';
 
 @Component({
   selector: 'smtp-provider-view',
@@ -16,12 +18,13 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
   selectedIndex: number = 0;
   formInvalid: boolean;
 
-  constructor(service: SmtpProvidersService,
+  constructor(private smtpService: SmtpProvidersService,
               route: ActivatedRoute,
               public navigation: NavigationService,
-              private router: Router
+              private router: Router,
+              private snackbarService: SnackbarService
   ) {
-    super(service, route);
+    super(smtpService, route);
   }
 
   ngOnInit() {
@@ -31,6 +34,22 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
       this.entity = new SmtpProvider();
       this.entityBackup = this.entity.copy();
     }
+
+    this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe(() => this.validateProvider())
+  }
+
+  validateProvider(): void {
+    this.smtpService.validate(this.entity).subscribe(data => {
+      if (data instanceof CustomServerError) return;
+
+      const response = extractData(data).smtpvalidation.smtp_response;
+
+      if (response.errormessage) {
+        this.snackbarService.showErrorSnack(`SMTP Validation Failed: ${response.errormessage}`, 6000);
+      } else {
+        this.snackbarService.showSuccessSnack(`SMTP Validation Successful`, 3000);
+      }
+    });
   }
 
   ngOnDestroy() {

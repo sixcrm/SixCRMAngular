@@ -62,6 +62,7 @@ import {AclsService} from './services/acls.service';
 import { AddScheduleComponent } from './components/add-schedule/add-schedule.component';
 import {TextMaskModule} from 'angular2-text-mask';
 import { ErrorSnackBarComponent } from './components/error-snack-bar/error-snack-bar.component';
+import {SnackbarService} from './services/snackbar.service';
 
 @NgModule({
   declarations : [
@@ -162,7 +163,8 @@ export class SharedModule {
         NotificationSettingsService,
         TransactionReportService,
         TimeService,
-        TrackersService
+        TrackersService,
+        SnackbarService
       ]
     };
   }

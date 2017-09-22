@@ -5,6 +5,7 @@ import {MdSnackBar} from '@angular/material';
 import {CustomServerError} from '../models/errors/custom-server-error';
 import {Router} from '@angular/router';
 import {ErrorSnackBarComponent, SnackBarType} from '../components/error-snack-bar/error-snack-bar.component';
+import {SnackbarService} from './snackbar.service';
 
 export enum FailStrategy {
   Ignore, Hard, Soft
@@ -22,7 +23,7 @@ export class HttpWrapperService {
 
   numberOfWaitingRequests = 0;
 
-  constructor(private http: Http, private snackBar: MdSnackBar, private router: Router) { }
+  constructor(private http: Http, private snackbarService: SnackbarService, private router: Router) { }
 
   post(url: string, body: any, requestOptions: RequestOptionsArgs, requestBehaviourOptions?: RequestBehaviourOptions): Observable<Response> {
     const response: Subject<Response> = new Subject();
@@ -92,10 +93,7 @@ export class HttpWrapperService {
 
   handleError(error) {
     const duration = error.json().code === 403 ? 6000 : 3000;
-
-    const instance = this.snackBar.openFromComponent(ErrorSnackBarComponent, {duration: duration}).instance;
-    instance.message = error.json().message;
-    instance.type = SnackBarType.error;
+    this.snackbarService.showErrorSnack(error.json().message, duration);
   }
 
   setInProgress() {

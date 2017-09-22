@@ -5,9 +5,10 @@ import {SmtpProvider} from '../models/smtp-provider.model';
 import {HttpWrapperService} from './http-wrapper.service';
 import {
   smtpProvidersListQuery, smtpProviderQuery,
-  deleteSmptProviderMutation, createSmptProviderMutation, updateSmptProviderMutation
+  deleteSmptProviderMutation, createSmptProviderMutation, updateSmptProviderMutation, validateSmtpProviderQuery
 } from '../utils/queries/entities/smtp-provider.queries';
 import {MdSnackBar} from '@angular/material';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class SmtpProvidersService extends AbstractEntityService<SmtpProvider> {
@@ -25,5 +26,9 @@ export class SmtpProvidersService extends AbstractEntityService<SmtpProvider> {
       'smtpprovider',
       snackBar
     );
+  }
+
+  validate(smtpProvider: SmtpProvider): Observable<any> {
+    return this.queryRequest(validateSmtpProviderQuery(smtpProvider));
   }
 }

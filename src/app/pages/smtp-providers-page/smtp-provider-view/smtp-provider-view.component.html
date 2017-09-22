@@ -34,6 +34,7 @@
           <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
           <md-menu #editOptions="mdMenu" x-position="before">
             <button *ngIf="!addMode" md-menu-item (click)="setMode(modes.Update)"> Edit SMTP Details</button>
+            <button *ngIf="!addMode" md-menu-item (click)="validateProvider()"> Validate SMTP</button>
           </md-menu>
         </div>
 
