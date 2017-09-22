@@ -8,6 +8,7 @@ import {CampaignViewComponent} from './campaign-view/campaign-view.component';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {CampaignsAclGuard} from '../guards/campaigns-acl-guard.service';
 import {SharedModule} from '../../shared/shared.module';
+import { CampaignAddNewComponent } from './campaign-view/campaign-add-new/campaign-add-new.component';
 
 @NgModule({
   imports : [
@@ -20,7 +21,8 @@ import {SharedModule} from '../../shared/shared.module';
   ],
   declarations : [
     CampaignsComponent,
-    CampaignViewComponent
+    CampaignViewComponent,
+    CampaignAddNewComponent
   ],
   exports : [ ],
   providers: [

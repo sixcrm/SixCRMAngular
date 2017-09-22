@@ -3,127 +3,103 @@
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <div class="entity-view__info">
-    <div class="entity-view__info__image">
-      <img src="/assets/images/result-item-transaction-white.svg" alt="">
-    </div>
-    <div class="entity-view__info__data">
-      <div *ngIf="!addMode" class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
-      <div class="entity-view__info__data__name">
-        <span *ngIf="!addMode; else createMessage">
-          {{entityBackup.name}}
-        </span>
-        <ng-template #createMessage>
-          Create new Campaign
-        </ng-template>
-      </div>
+  <campaign-add-new *ngIf="addMode; else viewCampaignMode" [entity]="entity" [mode]="modes.Add" (save)="saveOrUpdate(entity)"></campaign-add-new>
 
-      <div *ngIf="!addMode" class="entity-view__info__data__other">
-        <span class="entity-view__info__data__other__label">ID:</span>
-        <span>{{entity.id}}</span>
+  <ng-template #viewCampaignMode>
+    <div class="entity-view__info">
+      <div class="entity-view__info__image">
+        <img src="/assets/images/result-item-transaction-white.svg" alt="">
+      </div>
+      <div class="entity-view__info__data">
+        <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+        <div class="entity-view__info__data__name">{{entityBackup.name}}</div>
+        <div class="entity-view__info__data__other">
+          <span class="entity-view__info__data__other__label">ID:</span>
+          <span>{{entity.id}}</span>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="entity-view__navigation">
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">PRODUCT SCHEDULES</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">AFFILIATES</span>
-  </div>
+    <div class="entity-view__navigation">
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">PRODUCT SCHEDULES</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">AFFILIATES</span>
+    </div>
 
-  <md-tab-group [(selectedIndex)]="selectedIndex">
-    <md-tab>
+    <md-tab-group [(selectedIndex)]="selectedIndex">
+      <md-tab>
 
-      <div class="flex-custom">
-        <div class="entity-view__card campaign-view__card">
-          <div class="entity-view__card__header">
-            <div class="entity-view__card__header__title">Campaign general details</div>
-            <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
-            <md-menu #editOptions="mdMenu" x-position="before">
-              <button *ngIf="!addMode" md-menu-item (click)="setMode(modes.Update)"> Edit Campaign</button>
-            </md-menu>
-          </div>
+        <div class="flex-custom flex-custom--wrap">
 
-          <div class="entity-view__card__content">
-            <md-input-container class="entity-view__card__content__item">
-              <input required md-input [disabled]="viewMode" placeholder="Campaign name" [(ngModel)]="entity.name" type="text">
-            </md-input-container>
-            <div class="flex-custom flex-custom--center prepaid-checkbox">
-              <span>Allow Prepaid</span>
-              <md-checkbox class="flex-align--right" [disabled]="viewMode" [(ngModel)]="entity.allowPrepaid"></md-checkbox>
-            </div>
-            <div class="flex-custom flex-custom--center prepaid-checkbox">
-              <span>Show Prepaid</span>
-              <md-checkbox class="flex-align--right" [disabled]="viewMode" [(ngModel)]="entity.showPrepaid"></md-checkbox>
-            </div>
-          </div>
+          <campaign-add-new [entity]="entity"
+                            [mode]="viewMode ? modes.View : modes.Update"
+                            (changeMode)="setMode($event)"
+                            (cancel)="cancelUpdate()"
+                            (save)="saveOrUpdate(entity)">
+          </campaign-add-new>
 
-          <div *ngIf="!viewMode" class="entity-view__card__actions">
-            <div *ngIf="updateMode" (click)="cancelUpdate()">CANCEL</div>
-            <div (click)="saveOrUpdate(entity)">SAVE</div>
-          </div>
+          <table-memory
+            class="campaign-view__email-templates"
+            [data]="entity.emailTemplates"
+            [columnParams]="emailTemplateColumnParams"
+            [associateData]="emailTemplateService.entities$ | async"
+            [associateDataMapper]="emailTemplateMapper"
+            [title]="'Email Template'"
+            (associate)="associateEmailTemplate($event)"
+            (disassociate)="disassociateEmailTemplate($event)"
+            (view)="viewEmailTemplate($event)">
+          </table-memory>
         </div>
 
+      </md-tab>
+
+      <md-tab>
         <table-memory
-          class="campaign-view__email-templates"
-          [data]="entity.emailTemplates"
-          [columnParams]="emailTemplateColumnParams"
-          [associateData]="emailTemplateService.entities$ | async"
-          [associateDataMapper]="emailTemplateMapper"
-          [title]="'Email Template'"
-          (associate)="associateEmailTemplate($event)"
-          (disassociate)="disassociateEmailTemplate($event)"
-          (view)="viewEmailTemplate($event)">
+          [data]="entity.productSchedules"
+          [columnParams]="productScheduleColumnParams"
+          [associateData]="productScheduleService.entities$ | async"
+          [associateDataMapper]="productScheduleMapper"
+          [title]="'Product Schedule'"
+          (associate)="associateProductSchedule($event)"
+          (disassociate)="disassociateProductSchedule($event)"
+          (view)="viewProductSchedule($event)">
         </table-memory>
-      </div>
+      </md-tab>
 
-    </md-tab>
+      <md-tab>
+        <div class="flex-custom">
+          <table-memory
+            class="campaign-view__affiliate-table"
+            [data]="entity.affiliateAllow"
+            [columnParams]="affiliateColumnParams"
+            [associateData]="allAffiliates"
+            [associateDataMapper]="affiliateMapper"
+            [textOptions]="affiliateAllowText"
+            (associate)="associateAllowAffiliate($event)"
+            (disassociate)="disassociateAllowAffiliate($event)"
+            [title]="'Affiliate Allowed'"
+            (view)="viewAffiliate($event)"
+          >
+          </table-memory>
 
-    <md-tab>
-      <table-memory
-        [data]="entity.productSchedules"
-        [columnParams]="productScheduleColumnParams"
-        [associateData]="productScheduleService.entities$ | async"
-        [associateDataMapper]="productScheduleMapper"
-        [title]="'Product Schedule'"
-        (associate)="associateProductSchedule($event)"
-        (disassociate)="disassociateProductSchedule($event)"
-        (view)="viewProductSchedule($event)">
-      </table-memory>
-    </md-tab>
+          <table-memory
+            class="campaign-view__affiliate-table"
+            [data]="entity.affiliateDeny"
+            [columnParams]="affiliateColumnParams"
+            [associateData]="allAffiliates"
+            [associateDataMapper]="affiliateMapper"
+            [textOptions]="affiliateDenyText"
+            (associate)="associateDeniedAffiliate($event)"
+            (disassociate)="disassociateDeniedAffiliate($event)"
+            [title]="'Affiliate Denied'"
+            (view)="viewAffiliate($event)"
+          >
+          </table-memory>
+        </div>
+      </md-tab>
+    </md-tab-group>
+  </ng-template>
 
-    <md-tab>
-      <div class="flex-custom">
-        <table-memory
-          class="campaign-view__affiliate-table"
-          [data]="entity.affiliateAllow"
-          [columnParams]="affiliateColumnParams"
-          [associateData]="allAffiliates"
-          [associateDataMapper]="affiliateMapper"
-          [textOptions]="affiliateAllowText"
-          (associate)="associateAllowAffiliate($event)"
-          (disassociate)="disassociateAllowAffiliate($event)"
-          [title]="'Affiliate Allowed'"
-          (view)="viewAffiliate($event)"
-        >
-        </table-memory>
-
-        <table-memory
-          class="campaign-view__affiliate-table"
-          [data]="entity.affiliateDeny"
-          [columnParams]="affiliateColumnParams"
-          [associateData]="allAffiliates"
-          [associateDataMapper]="affiliateMapper"
-          [textOptions]="affiliateDenyText"
-          (associate)="associateDeniedAffiliate($event)"
-          (disassociate)="disassociateDeniedAffiliate($event)"
-          [title]="'Affiliate Denied'"
-          (view)="viewAffiliate($event)"
-        >
-        </table-memory>
-      </div>
-    </md-tab>
-  </md-tab-group>
 </div>
 
 <ng-template #spinner>

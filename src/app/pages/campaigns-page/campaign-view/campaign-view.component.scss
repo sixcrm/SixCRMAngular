@@ -1,11 +1,7 @@
 .campaign-view {
 
   &__email-templates {
-    flex-basis: 100%;
-  }
-
-  &__card {
-    min-width: 320px;
+    max-width: 900px;
   }
 
   &__dropdown {
@@ -17,7 +13,6 @@
   }
 }
 
-.prepaid-checkbox {
-  margin: 10px 0;
-  font-size: 14px;
+campaign-add-new {
+  display: flex;
 }

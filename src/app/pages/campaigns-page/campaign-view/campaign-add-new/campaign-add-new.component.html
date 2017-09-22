@@ -1,0 +1,31 @@
+<div class="entity-view__card" [style.margin]="mode === modes.Add ? 'auto' : '10px'">
+  <div class="entity-view__card__header">
+    <div class="entity-view__card__header__title">{{mode === modes.Add ? 'Create new Campaign' : 'Campaign general details'}}</div>
+    <ng-container *ngIf="mode !== modes.Add">
+      <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
+      <md-menu #editOptions="mdMenu" x-position="before">
+        <button md-menu-item (click)="changeMode.emit(modes.Update)"> Edit Campaign</button>
+      </md-menu>
+    </ng-container>
+  </div>
+
+  <div class="entity-view__card__content">
+    <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
+      <input required md-input [disabled]="mode === modes.View" placeholder="Campaign name" [(ngModel)]="entity.name" type="text">
+    </md-input-container>
+    <div class="flex-custom flex-custom--center prepaid-checkbox">
+      <span>Allow Prepaid</span>
+      <md-checkbox class="flex-align--right" [disabled]="mode === modes.View" [(ngModel)]="entity.allowPrepaid"></md-checkbox>
+    </div>
+    <div class="flex-custom flex-custom--center prepaid-checkbox">
+      <span>Show Prepaid</span>
+      <md-checkbox class="flex-align--right" [disabled]="mode === modes.View" [(ngModel)]="entity.showPrepaid"></md-checkbox>
+    </div>
+  </div>
+
+  <div *ngIf="mode !== modes.View" class="entity-view__card__actions">
+    <div *ngIf="mode === modes.Update" (click)="cancel.emit(true)">CANCEL</div>
+    <div (click)="saveCampaign()">SAVE</div>
+  </div>
+</div>
+

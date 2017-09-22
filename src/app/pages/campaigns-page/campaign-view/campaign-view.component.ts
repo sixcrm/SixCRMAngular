@@ -85,7 +85,7 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
     if (this.addMode) {
       this.entity = new Campaign();
       this.entityBackup = this.entity.copy();
-      this.fetchDependencies()
+      this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe(() => this.fetchDependencies());
     } else {
       this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(() => this.fetchDependencies());
     }
