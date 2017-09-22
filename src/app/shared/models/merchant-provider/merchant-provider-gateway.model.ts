@@ -1,5 +1,6 @@
 export class MerchantProviderGateway {
   name: string;
+  processorId: string;
   endpoint: string;
   username: string;
   password: string;
@@ -11,6 +12,7 @@ export class MerchantProviderGateway {
     }
 
     this.name = obj.name || '';
+    this.processorId = obj.processor_id || '';
     this.endpoint = obj.endpoint || '';
     this.username = obj.username || '';
     this.password = obj.password || '';
@@ -24,6 +26,7 @@ export class MerchantProviderGateway {
   inverse(): any {
     return {
       name: this.name,
+      processor_id: this.processorId,
       endpoint: this.endpoint,
       username: this.username,
       password: this.password,

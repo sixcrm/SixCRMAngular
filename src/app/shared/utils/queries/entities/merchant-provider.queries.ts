@@ -52,7 +52,7 @@ export function merchantProviderResponseQuery(): string {
     processing { monthly_cap discount_rate transaction_fee reserve_rate maximum_chargeback_ratio,
       transaction_counts { daily weekly monthly }
     }
-    gateway { name username password endpoint additional }
+    gateway { name processor_id username password endpoint additional }
     customer_service { email url description phone }`
 }
 
@@ -85,6 +85,7 @@ export function merchantProviderInputQuery(provider: MerchantProvider, includeId
     },
     gateway:{
       name:"${provider.gateway.name}",
+      processor_id:"${provider.gateway.processorId}",
       username:"${provider.gateway.username}",
       password:"${provider.gateway.password}",
       endpoint:"${provider.gateway.endpoint}",
