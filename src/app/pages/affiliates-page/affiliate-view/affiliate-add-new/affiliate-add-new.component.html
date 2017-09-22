@@ -1,0 +1,20 @@
+<div class="entity-view__card" style="margin: auto">
+  <div class="entity-view__card__header">
+    <div class="entity-view__card__header__title">Create new Affiliate</div>
+  </div>
+
+  <div class="entity-view__card__content">
+    <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
+      <input required md-input placeholder="Affiliate name" [(ngModel)]="entity.name" type="text">
+    </md-input-container>
+
+    <md-input-container [class.error]="formInvalid && !entity.affiliateId" class="entity-view__card__content__item">
+      <input required md-input placeholder="Affiliate ID" [(ngModel)]="entity.affiliateId" type="text">
+    </md-input-container>
+  </div>
+
+  <div class="entity-view__card__actions">
+    <div (click)="saveAffiliate()">SAVE</div>
+  </div>
+</div>
+

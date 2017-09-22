@@ -27,7 +27,6 @@ export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliat
     if (this.addMode) {
       this.entity = new Affiliate();
       this.entityBackup = this.entity.copy();
-      setTimeout(() => {if (this.nameInput) this.nameInput.focus()}, 100);
     }
   }
 
