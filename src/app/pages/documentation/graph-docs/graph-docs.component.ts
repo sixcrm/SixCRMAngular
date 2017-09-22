@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {NavigationService} from '../../../navigation/navigation.service';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'graph-docs',
@@ -9,7 +10,7 @@ import {NavigationService} from '../../../navigation/navigation.service';
 })
 export class GraphDocsComponent implements OnInit {
 
-  endpoint = 'https://api.sixcrm.com/graph/*';
+  endpoint = environment.endpoint + '*';
   headers = [
     {key: 'Content-Type', value: 'application/json'},
     {key: 'Authorization', value: this.authService.getToken()}
