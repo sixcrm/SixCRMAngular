@@ -2,7 +2,7 @@
 
   <div class="token-view__path" (click)="tokenSelected.emit(token)" *ngIf="token.isTerminal && token.contains(filter)">
     <div class="token-view__path__title">{{token.parent ? token.parent.name + ' ' + token.name : token.title}}</div>
-    <div class="token-view__path__token"><span>{{</span>{{token.path}}<span>}}</span></div>
+    <div class="token-view__path__token"><span>{{</span>{{token.path}}<span>}}</span> <md-icon>add</md-icon></div>
     <div class="token-view__path__description">{{token.description}}</div>
   </div>
 

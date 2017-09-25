@@ -2,23 +2,32 @@ token-view {
   font-size: 14px;
 }
 
-md-input-container {
-  font-size: 14px;
-  margin-right: 40px;
-}
-
-dropdown-component {
-  width: 150px;
-  margin-left: auto;
-}
-
 .token-list {
   &__container {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
     overflow: auto;
     max-height: 430px;
   }
 
   &__header {
-    padding: 11px 15px;
+    padding: 2px 15px 15px;
+
+    .flex-custom {
+      align-items: center;
+    }
+
+    md-icon {
+      margin-left: auto;
+      color: rgba(0,0,0,0.5);
+    }
+
+    md-input-container {
+      width: 150px;
+      font-size: 14px;
+    }
+
+    dropdown-component {
+      width: 100%;
+    }
   }
 }
