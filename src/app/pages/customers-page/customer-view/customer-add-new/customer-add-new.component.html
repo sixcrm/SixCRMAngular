@@ -47,7 +47,8 @@
     <autocomplete-input class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.country" [strictFilteringStrategy]="true" [required]="true" [initialValue]="customer.address.country" [placeholder]="'Country'" [options]="countries" (selected)="customer.address.country = $event"></autocomplete-input>
 
     <div class="entity-view__card__actions">
-      <div (click)="saveCustomer(customerAddForm.form)">SAVE CUSTOMER</div>
+      <div (click)="cancel.emit(true)">CANCEL</div>
+      <div (click)="saveCustomer(customerAddForm.form)">CREATE</div>
     </div>
   </div>
 

@@ -49,8 +49,8 @@
     </div>
 
     <div *ngIf="mode !== view" class="entity-view__card__actions">
-      <div *ngIf="mode === update" (click)="cancelUpdate.emit(true)">CANCEL</div>
-      <div (click)="save(productInputForm.form.valid)">SAVE PRODUCT</div>
+      <div (click)="cancelUpdate.emit(true)">CANCEL</div>
+      <div (click)="save(productInputForm.form.valid)">{{mode === update ? 'UPDATE PRODUCT' : 'CREATE'}}</div>
     </div>
   </div>
 </form>

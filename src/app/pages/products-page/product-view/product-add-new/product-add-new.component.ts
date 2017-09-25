@@ -5,7 +5,7 @@ import {FulfillmentProvider} from '../../../../shared/models/fulfillment-provide
 import {FulfillmentProvidersService} from '../../../../shared/services/fulfillment-providers.service';
 import {parseCurrencyMaskedValue, getCurrencyMask} from '../../../../shared/utils/mask.utils';
 import {Currency} from '../../../../shared/utils/currency/currency';
-import {isAllowedCurrency} from '../../../../shared/utils/form.utils';
+import {isAllowedCurrency, isAllowedNumeric} from '../../../../shared/utils/form.utils';
 import {AsyncSubject} from 'rxjs';
 
 @Component({
@@ -28,6 +28,7 @@ export class ProductAddNewComponent implements OnInit, OnDestroy {
   view = Modes.View;
   numberMask = getCurrencyMask();
   isCurrency = isAllowedCurrency;
+  isNumeric = isAllowedNumeric;
 
   fulfillmentProviderMapper = (el: FulfillmentProvider) => el.name;
   formInvalid: boolean;

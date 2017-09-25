@@ -12,6 +12,7 @@ export class CustomerAddNewComponent implements OnInit {
 
   @Input() customer: Customer;
   @Output() save: EventEmitter<Customer> = new EventEmitter();
+  @Output() cancel: EventEmitter<boolean> = new EventEmitter();
 
   states: string[] = getStates();
   countries: string[] = getCountries();

@@ -7,6 +7,9 @@ import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
+import {Modes} from '../../abstract-entity-view.component';
+import {areEntitiesIdentical} from '../../../shared/utils/entity.utils';
+import {YesNoDialogComponent} from '../../yes-no-dialog.component';
 
 @Component({
   selector: 'products',
@@ -14,6 +17,11 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent extends AbstractEntityIndexComponent<Product> implements OnInit, OnDestroy {
+
+  private showAddDialog: boolean;
+  product: Product;
+  price: string;
+  modes = Modes;
 
   constructor(
     productsService: ProductsService,
@@ -31,6 +39,38 @@ export class ProductsComponent extends AbstractEntityIndexComponent<Product> imp
       new ColumnParams('Ship', (e: Product) => e.ship),
       new ColumnParams('Shipping Delay', (e: Product) => e.shippingDelay, 'right')
     ];
+  }
+
+  showDialog() {
+    this.product = new Product();
+    this.price = '';
+    this.showAddDialog = true;
+  }
+
+  hideDialog() {
+    if (areEntitiesIdentical(this.product, new Product())) {
+      this.showAddDialog = false;
+      return;
+    }
+
+    let yesNoDialogRef = this.deleteDialog.open(YesNoDialogComponent, { disableClose : true });
+    yesNoDialogRef.componentInstance.text = 'Are you sure you want to leave?';
+    yesNoDialogRef.componentInstance.secondaryText = 'You have unsaved changes, if you leave changes will be discarded.';
+    yesNoDialogRef.componentInstance.yesText = 'Proceed';
+    yesNoDialogRef.componentInstance.noText = 'Cancel';
+
+    yesNoDialogRef.afterClosed().take(1).subscribe(result => {
+      yesNoDialogRef = null;
+
+      if (result.success) {
+        this.showAddDialog = false;
+      }
+    });
+  }
+
+  saveProduct() {
+    this.service.createEntity(this.product);
+    this.showAddDialog = false;
   }
 
   ngOnInit() {
