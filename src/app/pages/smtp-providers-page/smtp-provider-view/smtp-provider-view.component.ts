@@ -7,6 +7,10 @@ import {NavigationService} from '../../../navigation/navigation.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {extractData} from '../../../shared/services/http-wrapper.service';
 import {SnackbarService} from '../../../shared/services/snackbar.service';
+import {MdDialog} from '@angular/material';
+import {SingleInputDialogComponent} from '../../../dialog-modals/single-input-dialog.component';
+import {isAllowedEmail} from '../../../shared/utils/form.utils';
+import {MessageDialogComponent} from '../../message-dialog.component';
 
 @Component({
   selector: 'smtp-provider-view',
@@ -22,7 +26,7 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
               route: ActivatedRoute,
               public navigation: NavigationService,
               private router: Router,
-              private snackbarService: SnackbarService
+              private dialog: MdDialog
   ) {
     super(smtpService, route);
   }
@@ -35,20 +39,38 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
       this.entityBackup = this.entity.copy();
     }
 
-    this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe(() => this.validateProvider())
+    this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe(() => this.openValidationDialog())
   }
 
-  validateProvider(): void {
-    this.smtpService.validate(this.entity).subscribe(data => {
+  openValidationDialog(): void {
+    let dialogRef = this.dialog.open(SingleInputDialogComponent, {disableClose: true});
+    dialogRef.componentInstance.text = 'Input email address to use for SMTP Provider Validation';
+    dialogRef.componentInstance.yesText = 'Validate';
+    dialogRef.componentInstance.noText = 'Cancel';
+    dialogRef.componentInstance.inputPlaceholder = 'Email';
+    dialogRef.componentInstance.keydownAllowFunction = isAllowedEmail;
+
+    dialogRef.afterClosed().takeUntil(this.unsubscribe$).take(1).subscribe(result => {
+      dialogRef = null;
+      if (result.content) {
+        this.validateProvider(result.content);
+      }
+    });
+  }
+
+  validateProvider(email: string): void {
+    this.smtpService.validate(this.entity, email).subscribe(data => {
       if (data instanceof CustomServerError) return;
 
       const response = extractData(data).smtpvalidation.smtp_response;
+      const responseMessage = response.errormessage ? `SMTP Validation Failed! ERROR: ${response.errormessage}` : 'SMTP Validation Successful!';
 
-      if (response.errormessage) {
-        this.snackbarService.showErrorSnack(`SMTP Validation Failed: ${response.errormessage}`, 6000);
-      } else {
-        this.snackbarService.showSuccessSnack(`SMTP Validation Successful`, 3000);
-      }
+      let dialogRef = this.dialog.open(MessageDialogComponent, {disableClose: true});
+      dialogRef.componentInstance.text = responseMessage;
+
+      dialogRef.afterClosed().takeUntil(this.unsubscribe$).take(1).subscribe(() => {
+        dialogRef = null;
+      });
     });
   }
 

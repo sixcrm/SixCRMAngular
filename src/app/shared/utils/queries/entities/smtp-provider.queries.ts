@@ -44,10 +44,10 @@ export function updateSmptProviderMutation(smtpProvider: SmtpProvider): string {
 	  }`
 }
 
-export function validateSmtpProviderQuery(smtpProvider: SmtpProvider): string {
+export function validateSmtpProviderQuery(smtpProvider: SmtpProvider, email: string): string {
   return `
   mutation {
-    smtpvalidation ( smtpvalidation: { email:"${smtpProvider.username}" , smtpprovider:"${smtpProvider.id}" }) {
+    smtpvalidation ( smtpvalidation: { email:"${email}" , smtpprovider:"${smtpProvider.id}" }) {
       send_properties{sender_email,sender_name,subject,body,recepient_emails},
       smtp_response,
       smtpprovider {id,name,hostname,username,password,from_email,from_name,port,created_at,updated_at}

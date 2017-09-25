@@ -28,7 +28,7 @@ export class SmtpProvidersService extends AbstractEntityService<SmtpProvider> {
     );
   }
 
-  validate(smtpProvider: SmtpProvider): Observable<any> {
-    return this.queryRequest(validateSmtpProviderQuery(smtpProvider));
+  validate(smtpProvider: SmtpProvider, email: string): Observable<any> {
+    return this.queryRequest(validateSmtpProviderQuery(smtpProvider, email));
   }
 }

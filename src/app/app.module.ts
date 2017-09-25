@@ -19,6 +19,7 @@ import {YesNoDialogComponent} from './pages/yes-no-dialog.component';
 import {MessageDialogComponent} from './pages/message-dialog.component';
 import {AddProductScheduleDialogComponent} from './pages/add-product-schedule-dialog.component';
 import {ErrorSnackBarComponent} from './shared/components/error-snack-bar/error-snack-bar.component';
+import {SingleInputDialogComponent} from './dialog-modals/single-input-dialog.component';
 
 @NgModule({
   declarations : [
@@ -30,7 +31,8 @@ import {ErrorSnackBarComponent} from './shared/components/error-snack-bar/error-
     AddUserAclDialogComponent,
     YesNoDialogComponent,
     MessageDialogComponent,
-    AddProductScheduleDialogComponent
+    AddProductScheduleDialogComponent,
+    SingleInputDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -58,7 +60,8 @@ import {ErrorSnackBarComponent} from './shared/components/error-snack-bar/error-
     YesNoDialogComponent,
     MessageDialogComponent,
     AddProductScheduleDialogComponent,
-    ErrorSnackBarComponent
+    ErrorSnackBarComponent,
+    SingleInputDialogComponent
   ],
   bootstrap : [AppComponent]
 })
