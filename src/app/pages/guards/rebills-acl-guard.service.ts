@@ -4,12 +4,17 @@ import {AbstractAclGuard} from './abstract-acl-guard.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {MdDialog} from '@angular/material';
 import {RebillViewComponent} from '../rebills-page/rebill-view/rebill-view.component';
+import {NavigationService} from '../../navigation/navigation.service';
 
 @Injectable()
 export class RebillsAclGuard extends AbstractAclGuard implements CanActivate, CanDeactivate<RebillViewComponent> {
 
-  constructor(authService: AuthenticationService, router: Router, dialog: MdDialog) {
-    super(authService, router, dialog);
+  constructor(authService: AuthenticationService,
+              router: Router,
+              dialog: MdDialog,
+              navigation: NavigationService
+  ) {
+    super(authService, router, dialog, navigation);
   }
 
   canActivate(): boolean {

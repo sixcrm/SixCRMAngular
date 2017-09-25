@@ -2,10 +2,15 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {Router} from '@angular/router';
 import {YesNoDialogComponent} from '../yes-no-dialog.component';
 import {MdDialog} from '@angular/material';
+import {NavigationService} from '../../navigation/navigation.service';
 
 export class AbstractAclGuard {
 
-  constructor(private authService: AuthenticationService, private router: Router, private dialog: MdDialog) { }
+  constructor(private authService: AuthenticationService,
+              private router: Router,
+              private dialog: MdDialog,
+              private navigation?: NavigationService
+  ) { }
 
   hasPermission(aclRole: string): boolean {
     if (this.authService.hasPermissions(aclRole, 'view')) {
@@ -22,7 +27,8 @@ export class AbstractAclGuard {
 
     return new Promise((resolve, reject) => {
       let yesNoDialogRef = this.dialog.open(YesNoDialogComponent, { disableClose : true });
-      yesNoDialogRef.componentInstance.text = 'Are you sure you want to leave? You have unsaved changes, if you leave changes will be discarded. ';
+      yesNoDialogRef.componentInstance.text = 'Are you sure you want to leave?';
+      yesNoDialogRef.componentInstance.secondaryText = 'You have unsaved changes, if you leave changes will be discarded.';
       yesNoDialogRef.componentInstance.yesText = 'Proceed';
       yesNoDialogRef.componentInstance.noText = 'Cancel';
 
@@ -31,9 +37,13 @@ export class AbstractAclGuard {
 
         if (result.success) {
           resolve(true);
-        }
 
-        resolve(false);
+        } else {
+          if (this.navigation) {
+            this.navigation.revertLocation();
+          }
+          resolve(false);
+        }
       });
     });
   }

@@ -25,6 +25,8 @@ export class NavigationService {
 
   private showSidenavSelectedValue: boolean = this.largeScreen;
 
+  private latestPath: string;
+
   constructor(public dialog: MdDialog,
               private authService: AuthenticationService,
               private location: Location,
@@ -167,7 +169,14 @@ export class NavigationService {
   }
 
   public back(): void {
+    this.latestPath = this.location.path();
+
     this.location.back();
+  }
+
+  public revertLocation(): void {
+    this.location.go(this.latestPath || '/');
+    this.setIsRouteLoading(false);
   }
 
   public forward(): void {

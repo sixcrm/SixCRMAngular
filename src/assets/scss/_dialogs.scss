@@ -40,3 +40,15 @@ md-dialog-container {
   }
 
 }
+
+.yes-no-dialog {
+  &__primary {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+
+  &__secondary {
+    text-align: center;
+  }
+}

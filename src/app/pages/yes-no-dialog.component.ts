@@ -6,7 +6,8 @@ import {MdDialogRef} from '@angular/material';
   template : `
     <md-card>
       <md-card-content>
-        {{text}}
+        <div class="yes-no-dialog__primary">{{text}}</div>
+        <div *ngIf="secondaryText" class="yes-no-dialog__secondary">{{secondaryText}}</div>
       </md-card-content>
       <md-card-actions align="center">
         <button md-raised-button color="primary" (click)="yes()">{{yesText}}</button>
@@ -19,6 +20,7 @@ import {MdDialogRef} from '@angular/material';
 export class YesNoDialogComponent {
 
   text: string = 'Are you sure?';
+  secondaryText: string;
   yesText: string = 'Yes';
   noText: string = 'No';
 
