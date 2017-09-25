@@ -18,7 +18,7 @@ import {YesNoDialogComponent} from '../../yes-no-dialog.component';
 })
 export class ProductsComponent extends AbstractEntityIndexComponent<Product> implements OnInit, OnDestroy {
 
-  private showAddDialog: boolean;
+  showAddDialog: boolean;
   product: Product;
   price: string;
   modes = Modes;
