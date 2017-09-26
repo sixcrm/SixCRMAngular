@@ -35,7 +35,7 @@
         (onSelect)="addEventType($event)"
         [options]="['upsell', 'lead', 'main']">
       </dropdown-component>
-      <ng-container *ngIf="mode !== modes.View; else eventTypeNormal">
+      <ng-container *ngIf="mode !== modes.View">
         <span *ngFor="let t of entity.eventType"> <md-icon class="cancel" (click)="removeEventType(t)">cancel</md-icon> {{t}} </span>
       </ng-container>
     </div>
@@ -61,7 +61,6 @@
         </ng-template>
       </ng-container>
     </div>
-
 
   </div>
 

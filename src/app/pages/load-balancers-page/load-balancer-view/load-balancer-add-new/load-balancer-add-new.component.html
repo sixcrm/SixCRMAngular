@@ -5,7 +5,7 @@
 
   <form class="entity-view__card__content">
     <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-      <input required md-input [disabled]="mode === modes.View" placeholder="Name" [(ngModel)]="entity.name" name="name" type="text">
+      <input required md-input placeholder="Name" [(ngModel)]="entity.name" name="name" type="text">
     </md-input-container>
   </form>
 
