@@ -16,7 +16,6 @@ export class SmtpProviderAddNewComponent implements OnInit {
   @Output() cancel: EventEmitter<boolean> = new EventEmitter();
   @Output() save: EventEmitter<SmtpProvider> = new EventEmitter();
   @Output() changeMode: EventEmitter<Modes> = new EventEmitter();
-  @Output() validateProvider: EventEmitter<boolean> = new EventEmitter();
 
   modes = Modes;
   formInvalid: boolean;
