@@ -25,6 +25,8 @@ export class MerchantProvidersComponent extends AbstractEntityIndexComponent<Mer
   ) {
     super(merchantProvidersService, auth, dialog, paginationService, router, activatedRoute);
 
+    this.entityFactory = () => new MerchantProvider();
+
     this.columnParams = [
       new ColumnParams('Name', (e: MerchantProvider) => e.name),
       new ColumnParams('Endpoint', (e: MerchantProvider) => e.gateway.endpoint),

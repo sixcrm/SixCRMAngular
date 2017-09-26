@@ -7,6 +7,7 @@ import {NavigationService} from '../../../navigation/navigation.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {LoadBalancer} from '../../../shared/models/load-balancer.model';
 import {getPhoneNumberMask} from '../../../shared/utils/mask.utils';
+import {MerchantProviderAddNewComponent} from './merchant-provider-add-new/merchant-provider-add-new.component';
 
 @Component({
   selector: 'merchant-provider-view',
@@ -16,16 +17,13 @@ import {getPhoneNumberMask} from '../../../shared/utils/mask.utils';
 export class MerchantProviderViewComponent extends AbstractEntityViewComponent<MerchantProvider> implements OnInit, OnDestroy {
 
   @ViewChild('nameFieldAddMode') nameField;
+  @ViewChild(MerchantProviderAddNewComponent) merchantProviderAddNewComponent: MerchantProviderAddNewComponent;
 
   selectedIndex: number = 0;
   formInvalid: boolean;
 
   loadBalancerColumnParams = [new ColumnParams('ID', (e: LoadBalancer) => e.name || e.id)];
   loadBalancerMapper = (l: LoadBalancer) => l.name || l.id;
-
-  mask = getPhoneNumberMask();
-
-  allCreditCards: string[] = ['American Express', 'Mastercard', 'Visa', 'Discover'];
 
   constructor(service: MerchantProvidersService, route: ActivatedRoute, public navigation: NavigationService) {
     super(service, route);
@@ -50,11 +48,11 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
     this.cancelUpdate();
   }
 
-  saveProvider(valid: boolean): void {
-    this.formInvalid = !valid || !this.entity.gateway.name;
+  saveProvider(entity: MerchantProvider): void {
+    this.formInvalid = !this.merchantProviderAddNewComponent.inputForm.valid || !entity.gateway.name;
     if (this.formInvalid) return;
 
-    this.saveOrUpdate(this.entity);
+    this.saveOrUpdate(entity);
   }
 
   setIndex(value: number): void {
