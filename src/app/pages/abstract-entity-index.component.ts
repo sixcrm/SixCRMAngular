@@ -76,7 +76,9 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe((entity: T) => {
       this.entitiesHolder.unshift(entity);
       this.allEntities.emit(this.entitiesHolder);
-      this.reshuffleEntities()
+      this.reshuffleEntities();
+
+      this.viewEntity(entity.id);
     });
     this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe((entity: T) => {
       if (this.takeUpdated) {
