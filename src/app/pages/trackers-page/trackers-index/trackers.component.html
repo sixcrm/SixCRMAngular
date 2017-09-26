@@ -4,7 +4,7 @@
     <md-input [(ngModel)]="filterValue" placeholder="Filter"></md-input>
   </div>
 
-  <button md-icon-button color="primary" [routerLink]="['/trackers', 'add']" *ngIf="hasWritePermission()" class="entity-index__add"><md-icon>add</md-icon></button>
+  <button md-icon-button color="primary" (click)="openAddMode()" *ngIf="hasWritePermission()" class="entity-index__add"><md-icon>add</md-icon></button>
 
   <md-card class="entity-index__card">
     <md-card-content class="entity-index__card__content">
@@ -32,4 +32,8 @@
 
     </md-card-content>
   </md-card>
+</div>
+
+<div *ngIf="addMode" class="full-overlay">
+  <tracker-add-new class="modal-center" [entity]="entity" [mode]="modes.Add" (cancel)="closeAddMode()" (save)="createEntity($event)"></tracker-add-new>
 </div>

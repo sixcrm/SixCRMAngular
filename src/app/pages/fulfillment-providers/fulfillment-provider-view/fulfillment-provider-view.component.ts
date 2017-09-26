@@ -13,7 +13,6 @@ import {NavigationService} from '../../../navigation/navigation.service';
 export class FulfillmentProviderViewComponent extends AbstractEntityViewComponent<FulfillmentProvider> implements OnInit, OnDestroy {
 
   selectedIndex: number = 0;
-  formInvalid: boolean;
 
   constructor(service: FulfillmentProvidersService,
               route: ActivatedRoute,
@@ -24,12 +23,6 @@ export class FulfillmentProviderViewComponent extends AbstractEntityViewComponen
 
   ngOnInit() {
     this.init(() => this.navigation.goToNotFoundPage());
-
-    if (this.addMode) {
-      this.entity = new FulfillmentProvider();
-      this.entity.provider = 'HASHTAG';
-      this.entityBackup = this.entity.copy();
-    }
   }
 
   ngOnDestroy() {
@@ -38,18 +31,6 @@ export class FulfillmentProviderViewComponent extends AbstractEntityViewComponen
 
   setIndex(value): void {
     this.selectedIndex = value;
-  }
-
-  cancelEdit(): void {
-    this.formInvalid = false;
-    this.cancelUpdate();
-  }
-
-  saveProvider(value: boolean): void {
-    this.formInvalid = !value;
-    if (this.formInvalid) return;
-
-    this.saveOrUpdate(this.entity);
   }
 
 }

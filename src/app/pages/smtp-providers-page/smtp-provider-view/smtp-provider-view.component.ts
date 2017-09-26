@@ -1,12 +1,11 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {SmtpProvidersService} from '../../../shared/services/smtp-providers.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {SmtpProvider} from '../../../shared/models/smtp-provider.model';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {extractData} from '../../../shared/services/http-wrapper.service';
-import {SnackbarService} from '../../../shared/services/snackbar.service';
 import {MdDialog} from '@angular/material';
 import {SingleInputDialogComponent} from '../../../dialog-modals/single-input-dialog.component';
 import {isAllowedEmail} from '../../../shared/utils/form.utils';
@@ -25,7 +24,6 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
   constructor(private smtpService: SmtpProvidersService,
               route: ActivatedRoute,
               public navigation: NavigationService,
-              private router: Router,
               private dialog: MdDialog
   ) {
     super(smtpService, route);
@@ -82,31 +80,4 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
     this.selectedIndex = value;
   }
 
-  cancelEdit(): void {
-    this.setMode(this.modes.View);
-    this.formInvalid = false;
-    this.cancelUpdate();
-  }
-
-  saveProvider(valid: boolean): void {
-    if (!valid) {
-      this.formInvalid = true;
-      return;
-    }
-
-    this.formInvalid = false;
-    if (this.addMode) {
-      this.service.entityCreated$.take(1).subscribe(provider => {
-        if (provider instanceof CustomServerError) return;
-
-        this.router.navigate(['smtpproviders', provider.id]);
-        this.entity = provider;
-        this.entityBackup = this.entity.copy();
-      });
-      this.saveEntity(this.entity);
-    } else {
-      this.service.entityUpdated$.take(1).subscribe(() => this.setMode(this.modes.View));
-      this.updateEntity(this.entity);
-    }
-  }
 }

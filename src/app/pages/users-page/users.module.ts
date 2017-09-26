@@ -8,6 +8,7 @@ import {UserViewComponent} from './user-view/user-view.component';
 import {UsersAclGuard} from '../guards/users-acl-guard.service';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {SharedModule} from '../../shared/shared.module';
+import { UserAddNewComponent } from './user-view/user-add-new/user-add-new.component';
 
 @NgModule({
   imports : [
@@ -20,7 +21,8 @@ import {SharedModule} from '../../shared/shared.module';
   ],
   declarations : [
     UsersComponent,
-    UserViewComponent
+    UserViewComponent,
+    UserAddNewComponent
   ],
   exports : [
   ],

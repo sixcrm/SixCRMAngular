@@ -25,12 +25,13 @@ export class FulfillmentProvidersComponent extends AbstractEntityIndexComponent<
   ) {
     super(fulfillmentProvidersService, auth, dialog, paginationService, router, activatedRoute);
 
+    this.entityFactory = () => new FulfillmentProvider({provider: 'HASHTAG'});
+
     this.columnParams = [
+      new ColumnParams('Provider', (e: FulfillmentProvider) => e.provider),
       new ColumnParams('Name', (e: FulfillmentProvider) => e.name),
       new ColumnParams('Username',(e: FulfillmentProvider) => e.username),
-      new ColumnParams('Password', (e: FulfillmentProvider) => e.password),
-      new ColumnParams('Endpoint', (e: FulfillmentProvider) => e.endpoint),
-      new ColumnParams('Provider', (e: FulfillmentProvider) => e.provider)
+      new ColumnParams('Password', (e: FulfillmentProvider) => e.password)
     ];
   }
 

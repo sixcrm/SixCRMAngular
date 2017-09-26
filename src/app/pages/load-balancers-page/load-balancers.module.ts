@@ -8,6 +8,7 @@ import {LoadBalancersComponent} from './load-balancers-index/load-balancers.comp
 import {LoadBalancersAclGuard} from '../guards/load-balancers-acl-guard.service';
 import {LoadBalancerViewComponent} from './load-balancer-view/load-balancer-view.component';
 import {SharedModule} from '../../shared/shared.module';
+import { LoadBalancerAddNewComponent } from './load-balancer-view/load-balancer-add-new/load-balancer-add-new.component';
 
 @NgModule({
   imports : [
@@ -20,7 +21,8 @@ import {SharedModule} from '../../shared/shared.module';
   ],
   declarations : [
     LoadBalancersComponent,
-    LoadBalancerViewComponent
+    LoadBalancerViewComponent,
+    LoadBalancerAddNewComponent
   ],
   exports : [ ],
   providers: [

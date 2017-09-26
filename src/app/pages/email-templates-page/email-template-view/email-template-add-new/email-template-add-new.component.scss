@@ -1,0 +1,59 @@
+.email-template-view {
+  &__card-container {
+    align-items: flex-start;
+
+    @media only screen and (max-width: 800px) {
+      flex-wrap: wrap;
+    }
+  }
+
+  &__dropdown {
+    width: 200px;
+
+    &:first-of-type {
+      margin-bottom: 10px;
+    }
+
+    &:last-of-type {
+      margin-bottom: 3px;
+    }
+  }
+
+  &__input {
+    max-width: 200px;
+  }
+
+  &__preview {
+
+    &__body {
+      margin-bottom: 60px;
+    }
+  }
+
+  &__body {
+    min-height: 200px;
+    border: 1px solid rgba(0,0,0,0.2);
+    padding: 5px;
+    font-size: 14px;
+  }
+
+  &__label {
+    margin-bottom: 3px;
+    margin-top: 6px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.4);
+  }
+}
+
+.editor-container {
+  height: auto;
+
+  &--hidden {
+    overflow: hidden;
+    height: 0;
+  }
+}
+
+.input-form {
+  width: 650px;
+}

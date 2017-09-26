@@ -8,14 +8,9 @@
       <img src="/assets/images/result-item-transaction-white.svg" alt="">
     </div>
     <div class="entity-view__info__data">
-      <div *ngIf="!addMode" class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
       <div class="entity-view__info__data__name">
-        <span *ngIf="!addMode; else createMessage">
-          {{entityBackup.name}}
-        </span>
-        <ng-template #createMessage>
-          Create new Fulfillment Provider
-        </ng-template>
+        <span>{{entityBackup.name}}</span>
       </div>
     </div>
   </div>
@@ -27,54 +22,12 @@
   <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>
 
-      <div class="entity-view__card">
-        <div class="entity-view__card__header">
-          <div class="entity-view__card__header__title">Fulfillment Provider Details</div>
-          <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
-          <md-menu #editOptions="mdMenu" x-position="before">
-            <button *ngIf="!addMode" md-menu-item (click)="setMode(modes.Update)"> Edit Fulfillment Provider Details</button>
-          </md-menu>
-        </div>
-
-        <form class="entity-view__card__content" #inputForm="ngForm">
-          <dropdown-component [required]="true" [disabled]="false" [placeholder]="'Provider'" [selected]="entity.provider"></dropdown-component>
-
-          <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-            <input required md-input [disabled]="viewMode" placeholder="Name" [(ngModel)]="entity.name" name="name" type="text">
-          </md-input-container>
-
-          <md-input-container [class.error]="formInvalid && !entity.username" class="entity-view__card__content__item">
-            <input required md-input [disabled]="viewMode" placeholder="Username" [(ngModel)]="entity.username" name="username" type="text">
-          </md-input-container>
-
-          <md-input-container [class.error]="formInvalid && !entity.password" class="entity-view__card__content__item">
-            <input required md-input [disabled]="viewMode" placeholder="Password" [(ngModel)]="entity.password" name="password" type="text">
-          </md-input-container>
-
-          <md-input-container [class.error]="formInvalid && !entity.threePLKey" class="entity-view__card__content__item">
-            <input required md-input [disabled]="viewMode" placeholder="ThreePL Key" [(ngModel)]="entity.threePLKey" name="threeplKey" type="text">
-          </md-input-container>
-
-          <md-input-container [class.error]="formInvalid && !entity.facilityId" class="entity-view__card__content__item">
-            <input required md-input [disabled]="viewMode" placeholder="Facility ID" [(ngModel)]="entity.facilityId" name="facilityId" type="text">
-          </md-input-container>
-
-          <md-input-container [class.error]="formInvalid && !entity.threePLId" class="entity-view__card__content__item">
-            <input required md-input [disabled]="viewMode" placeholder="ThreePL ID" [(ngModel)]="entity.threePLId" name="threeplId" type="text">
-          </md-input-container>
-
-          <md-input-container [class.error]="formInvalid && !entity.customerId" class="entity-view__card__content__item">
-            <input required md-input [disabled]="viewMode" placeholder="Customer ID" [(ngModel)]="entity.customerId" name="customerId" type="text">
-          </md-input-container>
-
-          <md-textarea [disabled]="viewMode" [class.error]="formInvalid && !entity.returnAddress" class="entity-view__card__content__item" required [(ngModel)]="entity.returnAddress" name="returnAddress" placeholder="Return Address"></md-textarea>
-        </form>
-
-        <div *ngIf="!viewMode" class="entity-view__card__actions">
-          <div *ngIf="updateMode" (click)="cancelEdit()">CANCEL</div>
-          <div (click)="saveProvider(inputForm.form.valid)">SAVE</div>
-        </div>
-      </div>
+      <fulfillment-provider-add-new [entity]="entity"
+                                    [mode]="viewMode ? modes.View : modes.Update"
+                                    (changeMode)="setMode($event)"
+                                    (cancel)="cancelUpdate()"
+                                    (save)="saveOrUpdate($event)">
+      </fulfillment-provider-add-new>
 
     </md-tab>
   </md-tab-group>

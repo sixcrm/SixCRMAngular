@@ -11,6 +11,7 @@ import {EmailTemplateViewComponent} from './email-template-view/email-template-v
 import { TokenListComponent } from './email-template-view/token-list/token-list.component';
 import { TokenViewComponent } from './email-template-view/token-view/token-view.component';
 import { FilterTokensTypePipe } from './email-template-view/filter-tokens-type.pipe';
+import { EmailTemplateAddNewComponent } from './email-template-view/email-template-add-new/email-template-add-new.component';
 
 @NgModule({
   imports : [
@@ -26,7 +27,8 @@ import { FilterTokensTypePipe } from './email-template-view/filter-tokens-type.p
     EmailTemplateViewComponent,
     TokenListComponent,
     TokenViewComponent,
-    FilterTokensTypePipe
+    FilterTokensTypePipe,
+    EmailTemplateAddNewComponent
   ],
   providers: [
     EmailTemplatesAclGuard

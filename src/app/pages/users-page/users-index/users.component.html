@@ -4,7 +4,7 @@
     <md-input [(ngModel)]="filterValue" placeholder="Filter"></md-input>
   </div>
 
-  <button md-icon-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" [routerLink]="['/users', 'add']"><md-icon>add</md-icon></button>
+  <button md-icon-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="openAddMode()"><md-icon>add</md-icon></button>
 
   <md-card class="entity-index__card">
     <md-card-content class="entity-index__card__content">
@@ -35,4 +35,15 @@
 
     </md-card-content>
   </md-card>
+</div>
+
+<div *ngIf="addMode" class="full-overlay">
+  <user-add-new class="modal-center"
+                [accounts]="accounts"
+                [roles]="roles"
+                [mode]="modes.Add"
+                [entity]="entity"
+                (save)="saveUser($event)"
+                (cancel)="closeAddMode()">
+  </user-add-new>
 </div>

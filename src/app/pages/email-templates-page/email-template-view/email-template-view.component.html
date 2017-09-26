@@ -29,60 +29,14 @@
     <md-tab>
 
       <div class="flex-custom email-template-view__card-container">
-        <div class="entity-view__card input-form">
-          <div class="entity-view__card__header">
-            <div>
-              <div class="entity-view__card__header__title">Email Template Details</div>
-              <div class="entity-view__card__header__subtitle">Edit HTML templates below or load defaults from right menu</div>
-            </div>
-            <ng-container *ngIf="!addMode">
-              <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
-              <md-menu #editOptions="mdMenu" x-position="before">
-                <button md-menu-item (click)="enableEditMode()"> Edit Email Template Details</button>
-              </md-menu>
-            </ng-container>
-          </div>
-
-          <div class="entity-view__card__content">
-            <md-input-container class="entity-view__card__content__item email-template-view__input">
-              <input required md-input [disabled]="!updateMode && !addMode" placeholder="Name" [(ngModel)]="entity.name" type="text">
-            </md-input-container>
-
-            <dropdown-component class="email-template-view__dropdown"
-                                [disabled]="!updateMode && !addMode"
-                                [options]="types"
-                                [selected]="entity.type"
-                                [placeholder]="'Template Type'"
-                                (onSelect)="entity.type = $event">
-            </dropdown-component>
-
-            <dropdown-component class="email-template-view__dropdown"
-                                [disabled]="!updateMode && !addMode"
-                                [options]="smtpProviderService.entities$ | async"
-                                [mapper]="smtpProviderMapper"
-                                [selected]="entity.smtpProvider"
-                                [placeholder]="'SMTP Provider'"
-                                (onSelect)="entity.smtpProvider = $event">
-            </dropdown-component>
-
-            <md-input-container class="entity-view__card__content__item">
-              <input required md-input [disabled]="!updateMode && !addMode" placeholder="Subject" [(ngModel)]="entity.subject" type="text">
-            </md-input-container>
-
-            <div class="email-template-view__label">Email Template Body</div>
-            <div [class.editor-container--hidden]="!updateMode && !addMode" class="editor-container">
-              <div id="editor-id"></div>
-            </div>
-            <div *ngIf="!updateMode && !addMode">
-              <div class="email-template-view__body" [innerHTML]="entity.body"></div>
-            </div>
-          </div>
-
-          <div *ngIf="updateMode || addMode" class="entity-view__card__actions">
-            <div *ngIf="updateMode" (click)="cancelEdit()">CANCEL</div>
-            <div (click)="saveTemplate()">SAVE</div>
-          </div>
-        </div>
+        <email-template-add-new [entity]="entity"
+                                [mode]="viewMode ? modes.View : modes.Update"
+                                [tokenSubject]="addTokenSubject"
+                                [editorRefreshSubject]="editorRefreshSubject"
+                                (cancel)="cancelEdit()"
+                                (changeMode)="setMode($event)"
+                                (save)="updateEntity($event)">
+        </email-template-add-new>
 
         <token-list [style.display]="viewMode ? 'none' : 'inline-block'" (tokenSelected)="addToken($event)" class="entity-view__card"></token-list>
       </div>

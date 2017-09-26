@@ -45,8 +45,6 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
     editOptionText: 'Edit User Role'
   };
 
-  accountsMapFunction = (account: Account) => account.name;
-  rolesMapFunction = (role: Role) => role.name;
   aclMapper = (acl: Acl) => `${acl.account.name}`;
 
   aclColumnParams = [
@@ -103,57 +101,6 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
 
   setIndex(value: number) {
     this.selectedIndex = value;
-  }
-
-  saveUser(valid: boolean) {
-    this.formInvalid = !valid || (!this.newAccount && !this.roleToAdd.id && !this.accountToAdd.id);
-
-    if (this.formInvalid) return;
-
-    if (this.addMode) {
-      this.entity.id = this.entity.email;
-      this.entity.auth0Id = this.entity.email;
-
-      this.aclService.entityCreated$.take(1).takeUntil(this.unsubscribe$).subscribe(() => {
-        this.router.navigate(['/users', this.entity.id]);
-        this.service.getEntity(this.entity.id);
-      });
-
-      this.accountsService.entityCreated$.take(1).takeUntil(this.unsubscribe$).subscribe(account => {
-        if (account instanceof CustomServerError) return;
-
-        const acl: Acl = new Acl();
-
-        acl.account = account;
-        acl.role = this.ownerRole;
-        acl.user = this.entity;
-
-        this.aclService.createEntity(acl);
-      });
-
-      this.service.entityCreated$.take(1).takeUntil(this.unsubscribe$).subscribe(user => {
-        if (user instanceof CustomServerError) return;
-
-        if (this.newAccount) {
-          const account: Account = new Account();
-          account.active = 'true';
-          account.name = this.entity.name + ' Account';
-
-          this.accountsService.createEntity(account);
-        } else {
-          const acl: Acl = new Acl();
-          acl.account = this.accountToAdd;
-          acl.role = this.roleToAdd;
-          acl.user = user;
-
-          this.aclService.createEntity(acl);
-        }
-      });
-
-      this.saveEntity(this.entity);
-    } else {
-      this.updateEntity(this.entity);
-    }
   }
 
   removeAcl(acl: Acl) {

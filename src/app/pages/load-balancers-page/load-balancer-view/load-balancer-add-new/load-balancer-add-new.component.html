@@ -1,0 +1,17 @@
+<div class="entity-view__card entity-view__card--create">
+  <div class="entity-view__card__header">
+    <div class="entity-view__card__header__title">Create new Load Balancer</div>
+  </div>
+
+  <form class="entity-view__card__content">
+    <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
+      <input required md-input [disabled]="mode === modes.View" placeholder="Name" [(ngModel)]="entity.name" name="name" type="text">
+    </md-input-container>
+  </form>
+
+  <div class="entity-view__card__actions">
+    <div (click)="cancel.emit(true)">CANCEL</div>
+    <div (click)="saveLoadBalancer()">SAVE</div>
+  </div>
+</div>
+

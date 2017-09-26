@@ -8,6 +8,7 @@ import {SmtpProvidersComponent} from './smtp-providers-index/smtp-providers.comp
 import {SmtpProvidersAclGuard} from '../guards/smtp-providers-acl-guard.service';
 import {SmtpProviderViewComponent} from './smtp-provider-view/smtp-provider-view.component';
 import {SharedModule} from '../../shared/shared.module';
+import { SmtpProviderAddNewComponent } from './smtp-provider-view/smtp-provider-add-new/smtp-provider-add-new.component';
 
 @NgModule({
   imports : [
@@ -20,7 +21,8 @@ import {SharedModule} from '../../shared/shared.module';
   ],
   declarations : [
     SmtpProvidersComponent,
-    SmtpProviderViewComponent
+    SmtpProviderViewComponent,
+    SmtpProviderAddNewComponent
   ],
   exports : [ ],
   providers: [

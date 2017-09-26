@@ -1,0 +1,56 @@
+<div class="entity-view__card input-form">
+  <div class="entity-view__card__header">
+    <div>
+      <div class="entity-view__card__header__title">Email Template Details</div>
+      <div class="entity-view__card__header__subtitle">Edit HTML templates below or load defaults from right menu</div>
+    </div>
+    <ng-container *ngIf="mode !== modes.Add">
+      <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
+      <md-menu #editOptions="mdMenu" x-position="before">
+        <button md-menu-item (click)="changeMode.emit(modes.Update)"> Edit Email Template Details</button>
+      </md-menu>
+    </ng-container>
+  </div>
+
+  <form form #emailTemplateInput="ngForm" class="entity-view__card__content">
+    <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item email-template-view__input">
+      <input required md-input [disabled]="mode === modes.View" placeholder="Name" name="name" [(ngModel)]="entity.name" type="text">
+    </md-input-container>
+
+    <dropdown-component class="email-template-view__dropdown"
+                        [class.error]="formInvalid && !entity.type"
+                        [disabled]="mode === modes.View"
+                        [options]="types"
+                        [selected]="entity.type"
+                        [placeholder]="'Template Type'"
+                        (onSelect)="entity.type = $event">
+    </dropdown-component>
+
+    <dropdown-component class="email-template-view__dropdown"
+                        [class.error]="formInvalid && !entity.smtpProvider.id"
+                        [disabled]="mode === modes.View"
+                        [options]="smtpProviderService.entities$ | async"
+                        [mapper]="smtpProviderMapper"
+                        [selected]="entity.smtpProvider"
+                        [placeholder]="'SMTP Provider'"
+                        (onSelect)="entity.smtpProvider = $event">
+    </dropdown-component>
+
+    <md-input-container [class.error]="formInvalid && !entity.subject" class="entity-view__card__content__item">
+      <input required md-input [disabled]="mode === modes.View" name="subject" placeholder="Subject" [(ngModel)]="entity.subject" type="text">
+    </md-input-container>
+
+    <div class="email-template-view__label">Email Template Body</div>
+    <div [class.editor-container--hidden]="mode === modes.View" class="editor-container">
+      <div id="editor-id"></div>
+    </div>
+    <div *ngIf="mode === modes.View">
+      <div class="email-template-view__body" [innerHTML]="entity.body"></div>
+    </div>
+  </form>
+
+  <div *ngIf="mode !== modes.View" class="entity-view__card__actions">
+    <div (click)="cancel.emit(true)">CANCEL</div>
+    <div (click)="saveEmailTemplate(emailTemplateInput.form.valid)">SAVE</div>
+  </div>
+</div>

@@ -145,7 +145,7 @@ export function userInputQuery(user: User, light?: boolean): string {
     ${user.firstName ? `first_name: "${user.firstName}",` : ''}
     ${user.lastName ? `last_name: "${user.lastName}",` : ''}
     ${user.alias ? `alias: "${user.alias}",`: ''}
-    active:"${user.active}",
+    active:"${user.active || 'false'}",
     ${user.termsAndConditions ? `termsandconditions:"${user.termsAndConditions}",`: ''}
     ${light ? '' : address}
   `

@@ -25,6 +25,8 @@ export class EmailTemplatesComponent extends AbstractEntityIndexComponent<EmailT
   ) {
     super(emailsService, auth, dialog, paginationService, router, activatedRoute);
 
+    this.entityFactory = () => new EmailTemplate();
+
     this.columnParams = [
       new ColumnParams('Name', (e: EmailTemplate) => e.name),
       new ColumnParams('Subject',(e: EmailTemplate) => e.subject),

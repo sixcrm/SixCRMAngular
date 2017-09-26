@@ -11,7 +11,7 @@ import {MdDialogRef} from '@angular/material';
       </md-card-content>
       <md-card-actions class="custom-dialog__buttons">
         <div (click)="no()">CANCEL</div>
-        <div (click)="associate()">{{associateButtonText}}</div>
+        <div (click)="associate()">{{associateButtonText | uppercase}}</div>
       </md-card-actions>
     </md-card>
   `,

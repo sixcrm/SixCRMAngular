@@ -25,6 +25,8 @@ export class TrackersComponent extends AbstractEntityIndexComponent<Tracker> imp
   ) {
     super(trackersService, auth, dialog, paginationService, router, activatedRoute);
 
+    this.entityFactory = () => new Tracker();
+
     this.columnParams = [
       new ColumnParams('Name', (e: Tracker) => e.name),
       new ColumnParams('Type', (e: Tracker) => e.type),

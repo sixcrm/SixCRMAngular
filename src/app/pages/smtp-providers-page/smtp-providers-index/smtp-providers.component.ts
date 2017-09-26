@@ -25,6 +25,8 @@ export class SmtpProvidersComponent extends AbstractEntityIndexComponent<SmtpPro
   ) {
     super(smtpProvidersService, auth, dialog, paginationService, router, activatedRoute);
 
+    this.entityFactory = () => new SmtpProvider();
+
     this.columnParams = [
       new ColumnParams('Name', (e: SmtpProvider) => e.name),
       new ColumnParams('From Name',(e: SmtpProvider) => e.fromName),

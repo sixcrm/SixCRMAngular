@@ -8,6 +8,7 @@ import {FulfillmentProvidersComponent} from './fulfillment-providers-index/fulfi
 import {FulfillmentProvidersAclGuard} from '../guards/fulfillment-providers-acl-guard.service';
 import {SharedModule} from '../../shared/shared.module';
 import {FulfillmentProviderViewComponent} from './fulfillment-provider-view/fulfillment-provider-view.component';
+import { FulfillmentProviderAddNewComponent } from './fulfillment-provider-view/fulfillment-provider-add-new/fulfillment-provider-add-new.component';
 
 @NgModule({
   imports : [
@@ -20,7 +21,8 @@ import {FulfillmentProviderViewComponent} from './fulfillment-provider-view/fulf
   ],
   declarations : [
     FulfillmentProvidersComponent,
-    FulfillmentProviderViewComponent
+    FulfillmentProviderViewComponent,
+    FulfillmentProviderAddNewComponent
   ],
   exports : [ ],
   providers: [

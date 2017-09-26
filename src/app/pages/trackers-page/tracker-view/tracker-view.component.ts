@@ -22,17 +22,7 @@ import {CampaignsService} from '../../../shared/services/campaigns.service';
 })
 export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> implements OnInit, OnDestroy {
 
-  @ViewChild(CodemirrorComponent) codemirrorComponent: CodemirrorComponent;
-
   selectedIndex: number = 0;
-
-  config = {
-    lineNumbers: true,
-    mode: {
-      name: "htmlmixed"
-    },
-    readOnly: true
-  };
 
   affiliateMapper = (el: Affiliate) => el.name;
   affiliateColumnParams: ColumnParams<Affiliate>[];
@@ -88,72 +78,15 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
     this.destroy()
   }
 
-  saveTracker(): void {
-    this.service.entityCreated$.take(1).subscribe(tracker => {
-      if (tracker instanceof CustomServerError) return;
-
-      this.router.navigate(['trackers', tracker.id]);
-      this.entity = tracker;
-    });
-    this.saveEntity(this.entity);
-  }
-
   setIndex(value: number) {
     this.selectedIndex = value;
   }
 
-  cancelEdit() {
-    this.setMode(this.modes.View);
-    if (this.codemirrorComponent) {
-      this.codemirrorComponent.instance.setOption('readOnly', true);
-    }
-    this.cancelUpdate();
-  }
-
-  enableEdit() {
-    this.setMode(this.modes.Update);
-    if (this.codemirrorComponent) {
-      this.codemirrorComponent.instance.setOption('readOnly', false);
-    }
-  }
-
-  setType(type: string) {
-    this.entity.type = type;
-    this.codemirrorComponent.instance.setOption('readOnly', false);
-  }
-
-  removeEventType(type: string) {
-    let index = firstIndexOf(this.entity.eventType, (el) => el === type);
-
-    if (index >= 0) {
-      this.entity.eventType.splice(index, 1);
-    }
-  }
-
-  addEventType(type: string) {
-    if (firstIndexOf(this.entity.eventType, (el) => el === type) === -1) {
-      this.entity.eventType.push(type);
-    }
-  }
-
-  updateTracker() {
-    this.service.entityUpdated$.take(1).subscribe(() => {
-      this.setMode(this.modes.View);
-    });
-
-    this.updateEntity(this.entity);
-  }
-
-  copyUrlToClipboard(urlField): void {
-    urlField.select();
-    document.execCommand('copy');
-  }
-
   associateAffiliate(affiliate: Affiliate): void {
-    this.cancelEdit();
+    this.cancelUpdate();
 
     this.entity.affiliates.push(affiliate);
-    this.updateTracker();
+    this.updateEntity(this.entity);
   }
 
   dissociateAffiliate(affiliate: Affiliate): void {
@@ -166,10 +99,10 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
   }
 
   associateCampaign(campaign: Campaign): void {
-    this.cancelEdit();
+    this.cancelUpdate();
 
     this.entity.campaigns.push(campaign);
-    this.updateTracker();
+    this.updateEntity(this.entity);
   }
 
   dissociateCampaign(campaign: Campaign): void {

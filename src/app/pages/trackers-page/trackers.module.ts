@@ -9,6 +9,7 @@ import {SharedModule} from '../../shared/shared.module';
 import {TrackerViewComponent} from './tracker-view/tracker-view.component';
 import {CodemirrorModule} from 'ng2-codemirror';
 import {TrackersComponent} from './trackers-index/trackers.component';
+import { TrackerAddNewComponent } from './tracker-view/tracker-add-new/tracker-add-new.component';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import {TrackersComponent} from './trackers-index/trackers.component';
   declarations: [
     TrackersComponent,
     TrackerViewComponent,
+    TrackerAddNewComponent,
   ],
   providers: [
     TrackersAclGuard

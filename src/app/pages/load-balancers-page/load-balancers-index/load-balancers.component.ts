@@ -25,6 +25,8 @@ export class LoadBalancersComponent extends AbstractEntityIndexComponent<LoadBal
   ) {
     super(loadBalancersService, auth, dialog, paginationService, router, activatedRoute);
 
+    this.entityFactory = () => new LoadBalancer();
+
     this.columnParams = [
       new ColumnParams('Name', (e: LoadBalancer) => e.name),
       new ColumnParams('Number Of Merchent Provider Configs',(e: LoadBalancer) => e.merchantProviderConfigurations.length.toString(), 'right')

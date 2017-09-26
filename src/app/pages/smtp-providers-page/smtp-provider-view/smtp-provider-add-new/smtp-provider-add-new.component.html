@@ -1,0 +1,46 @@
+<div class="entity-view__card" [class.entity-view__card--create]="mode === modes.Add">
+  <div class="entity-view__card__header">
+    <div class="entity-view__card__header__title">SMTP Details</div>
+    <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
+    <md-menu #editOptions="mdMenu" x-position="before">
+      <button *ngIf="mode !== modes.Add" md-menu-item (click)="changeMode.emit(modes.Update)"> Edit SMTP Details</button>
+      <button *ngIf="mode !== modes.Add" md-menu-item (click)="validateProvider.emit(true)"> Validate SMTP</button>
+    </md-menu>
+  </div>
+
+  <form class="entity-view__card__content" #smtpInputForm="ngForm">
+    <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
+      <input required md-input [disabled]="mode === modes.View" placeholder="Name" [(ngModel)]="entity.name" name="name" type="text">
+    </md-input-container>
+
+    <md-input-container [class.error]="formInvalid && !entity.fromName" class="entity-view__card__content__item">
+      <input required md-input [disabled]="mode === modes.View" placeholder="From Name" [(ngModel)]="entity.fromName" name="fromName" type="text">
+    </md-input-container>
+
+    <md-input-container [class.error]="formInvalid && !entity.fromEmail" class="entity-view__card__content__item">
+      <input required md-input [disabled]="mode === modes.View" placeholder="From Email" [(ngModel)]="entity.fromEmail" name="fromEmail" type="text">
+    </md-input-container>
+
+    <md-input-container [class.error]="formInvalid && !entity.hostname" class="entity-view__card__content__item">
+      <input required md-input [disabled]="mode === modes.View" placeholder="Host" [(ngModel)]="entity.hostname" name="host" type="text">
+    </md-input-container>
+
+    <md-input-container [class.error]="formInvalid && !entity.username" class="entity-view__card__content__item">
+      <input required md-input [disabled]="mode === modes.View" placeholder="Username" [(ngModel)]="entity.username" name="username" type="text">
+    </md-input-container>
+
+    <md-input-container [class.error]="formInvalid && !entity.password" class="entity-view__card__content__item">
+      <input required md-input [disabled]="mode === modes.View" placeholder="Password" [(ngModel)]="entity.password" name="password" type="text">
+    </md-input-container>
+
+    <md-input-container [class.error]="formInvalid && !entity.port" class="entity-view__card__content__item">
+      <input required md-input [disabled]="mode === modes.View" placeholder="Port" (keydown)="isNumeric($event)" [(ngModel)]="entity.port" name="port" type="text">
+    </md-input-container>
+  </form>
+
+  <div *ngIf="mode !== modes.View" class="entity-view__card__actions">
+    <div (click)="cancel.emit(true)">CANCEL</div>
+    <div (click)="saveProvider(smtpInputForm.form.valid)">SAVE</div>
+  </div>
+</div>
+
