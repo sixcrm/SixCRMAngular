@@ -1,13 +1,13 @@
-<div class="tracker-view__card">
-  <div class="tracker-view__card__header">
-    <div class="tracker-view__card__header__main">Tracker Details</div>
+<div class="entity-view__card tracker-view" [class.entity-view__card--create]="mode === modes.Add">
+  <div class="entity-view__card__header">
+    <div class="entity-view__card__header__title">Tracker Details</div>
     <md-icon [md-menu-trigger-for]="trackerOptions">more_vert</md-icon>
     <md-menu #trackerOptions="mdMenu" x-position="before">
       <button md-menu-item (click)="enableEdit()"> Edit Tracker </button>
     </md-menu>
   </div>
 
-  <div class="tracker-view__card__content">
+  <div class="entity-view__card__content">
     <div *ngIf="mode !== modes.View" class="tracker-view__card__content__name">
       <md-input-container [class.error]="formInvalid && !entity.name">
         <input md-input type="text" placeholder="Tracker Name" [(ngModel)]="entity.name">
@@ -62,11 +62,12 @@
       </ng-container>
     </div>
 
-    <div class="tracker-view__card__content__buttons" *ngIf="mode !== modes.View">
-      <div class="tracker-cancel" (click)="cancelEdit()">CANCEL</div>
-      <div class="tracker-update" (click)="saveTracker()">SAVE</div>
-    </div>
 
+  </div>
+
+  <div class="entity-view__card__actions" *ngIf="mode !== modes.View">
+    <div class="tracker-cancel" (click)="cancelEdit()">CANCEL</div>
+    <div class="tracker-update" (click)="saveTracker()">SAVE</div>
   </div>
 </div>
 

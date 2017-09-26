@@ -1,4 +1,4 @@
-<div class="entity-view__card" [style.margin]="mode === modes.Add ? 'auto' : '10px'">
+<div class="entity-view__card" [class.entity-view__card--create]="mode === modes.Add" [style.margin]="mode === modes.Add ? 'auto' : '10px'">
   <div class="entity-view__card__header">
     <div class="entity-view__card__header__title">{{mode === modes.Add ? 'Create new Campaign' : 'Campaign general details'}}</div>
     <ng-container *ngIf="mode !== modes.Add">

@@ -6,7 +6,6 @@ import {ActivatedRoute} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {LoadBalancer} from '../../../shared/models/load-balancer.model';
-import {getPhoneNumberMask} from '../../../shared/utils/mask.utils';
 import {MerchantProviderAddNewComponent} from './merchant-provider-add-new/merchant-provider-add-new.component';
 
 @Component({

@@ -1,5 +1,5 @@
 <form #merchantProviderForm="ngForm" [class.merchant-provider--create]="mode === modes.Add">
-  <div class="entity-view__card">
+  <div class="entity-view__card" [class.entity-view__card--create]="mode === modes.Add">
     <div class="entity-view__card__header">
       <div class="entity-view__card__header__title">Settings</div>
     </div>
@@ -32,7 +32,7 @@
     </div>
   </div>
 
-  <div class="entity-view__card">
+  <div class="entity-view__card" [class.entity-view__card--create]="mode === modes.Add">
     <div class="entity-view__card__header">
       <div class="entity-view__card__header__title">Processing</div>
     </div>
@@ -60,7 +60,7 @@
     </div>
   </div>
 
-  <div class="entity-view__card">
+  <div class="entity-view__card" [class.entity-view__card--create]="mode === modes.Add">
     <div class="entity-view__card__header">
       <div class="entity-view__card__header__title">Gateway information</div>
     </div>
@@ -96,7 +96,7 @@
     </div>
   </div>
 
-  <div class="entity-view__card">
+  <div class="entity-view__card" [class.entity-view__card--create]="mode === modes.Add">
     <div class="entity-view__card__header">
       <div class="entity-view__card__header__title">Customer Service</div>
     </div>

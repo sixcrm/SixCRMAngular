@@ -1,4 +1,4 @@
-<div *ngIf="entity" class="entity-view__card" [class.product-schedule-add--center]="mode === add">
+<div *ngIf="entity" class="entity-view__card" [class.product-schedule-add--center]="mode === add" [class.entity-view__card--create]="mode === add">
   <div class="entity-view__card__header">
     <div class="entity-view__card__header__title">{{mode === add ? 'Create new Product Schedule' : 'Product Schedule details'}}</div>
     <ng-container *ngIf="mode === view">
