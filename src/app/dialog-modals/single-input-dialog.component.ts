@@ -14,9 +14,9 @@ import {MdDialogRef} from '@angular/material';
         </md-input-container>
         
       </md-card-content>
-      <md-card-actions align="center">
-        <button md-raised-button color="primary" (click)="yes()">{{yesText}}</button>
-        <button md-raised-button color="primary" (click)="no()">{{noText}}</button>
+      <md-card-actions class="custom-dialog__buttons">
+        <div (click)="no()">{{noText | uppercase}}</div>
+        <div (click)="yes()">{{yesText | uppercase}}</div>
       </md-card-actions>
     </md-card>
   `,

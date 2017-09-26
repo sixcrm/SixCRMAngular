@@ -14,9 +14,9 @@ import {isAllowedEmail} from '../shared/utils/form.utils';
         </md-input-container>
         <dropdown-component [mapper]="mapper" [options]="options" [selected]="role || {}" [placeholder]="'Role'" (onSelect)="role = $event"></dropdown-component>
       </md-card-content>
-      <md-card-actions align="center">
-        <button md-raised-button color="primary" (click)="invite()">Invite</button>
-        <button md-raised-button color="primary" (click)="cancel()">Cancel</button>
+      <md-card-actions class="custom-dialog__buttons">
+        <div (click)="cancel()">CANCEL</div>
+        <div (click)="invite()">INVITE</div>
       </md-card-actions>
     </md-card>
   `,

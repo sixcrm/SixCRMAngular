@@ -1,4 +1,4 @@
-<form class="entity-view__card" #customerAddForm="ngForm">
+<form class="entity-view__card entity-view__card--create" #customerAddForm="ngForm">
 
   <div class="entity-view__card__header">
     <div class="entity-view__card__header__title">
@@ -45,11 +45,10 @@
     </div>
 
     <autocomplete-input class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.country" [strictFilteringStrategy]="true" [required]="true" [initialValue]="customer.address.country" [placeholder]="'Country'" [options]="countries" (selected)="customer.address.country = $event"></autocomplete-input>
-
-    <div class="entity-view__card__actions">
-      <div (click)="cancel.emit(true)">CANCEL</div>
-      <div (click)="saveCustomer(customerAddForm.form)">CREATE</div>
-    </div>
+  </div>
+  <div class="entity-view__card__actions">
+    <div (click)="cancel.emit(true)">CANCEL</div>
+    <div (click)="saveCustomer(customerAddForm.form)">CREATE</div>
   </div>
 
 </form>

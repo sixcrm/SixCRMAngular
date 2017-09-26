@@ -36,9 +36,9 @@ import {User} from '../shared/models/user.model';
         </dropdown-component>
 
       </md-card-content>
-      <md-card-actions align="center">
-        <button md-raised-button color="primary" (click)="add()">{{editMode ? 'Edit' : 'Add'}}</button>
-        <button md-raised-button color="primary" (click)="cancel()">Cancel</button>
+      <md-card-actions class="custom-dialog__buttons">
+        <div (click)="cancel()">CANCEL</div>
+        <div (click)="add()">{{editMode ? 'EDIT' : 'ADD'}}</div>
       </md-card-actions>
     </md-card>
   `,

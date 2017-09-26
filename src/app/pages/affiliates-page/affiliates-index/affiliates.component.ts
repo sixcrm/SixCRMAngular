@@ -25,6 +25,8 @@ export class AffiliatesComponent extends AbstractEntityIndexComponent<Affiliate>
   ) {
     super(affiliatesService, auth, dialog, paginationService, router, activatedRoute);
 
+    this.entityFactory = () => new Affiliate();
+
     let f = this.authService.getTimezone();
     this.columnParams = [
       new ColumnParams('Name', (e: Affiliate) => e.name),

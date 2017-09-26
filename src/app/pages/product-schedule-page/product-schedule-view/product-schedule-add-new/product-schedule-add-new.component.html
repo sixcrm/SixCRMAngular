@@ -27,7 +27,7 @@
   </form>
 
   <div *ngIf="mode !== view" class="entity-view__card__actions product-schedule-view__details__actions">
-    <div *ngIf="mode === update" (click)="cancel.emit(true)">CANCEL</div>
+    <div (click)="cancel.emit(true)">CANCEL</div>
     <div (click)="saveSchedule(productScheduleInputForm.form.valid)">SAVE</div>
   </div>
 </div>

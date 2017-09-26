@@ -9,9 +9,9 @@ import {MdDialogRef} from '@angular/material';
         <div class="yes-no-dialog__primary">{{text}}</div>
         <div *ngIf="secondaryText" class="yes-no-dialog__secondary">{{secondaryText}}</div>
       </md-card-content>
-      <md-card-actions align="center">
-        <button md-raised-button color="primary" (click)="yes()">{{yesText}}</button>
-        <button md-raised-button color="primary" (click)="no()">{{noText}}</button>
+      <md-card-actions class="custom-dialog__buttons">
+        <div (click)="no()">{{noText | uppercase}}</div>
+        <div (click)="yes()">{{yesText | uppercase}}</div>
       </md-card-actions>
     </md-card>
   `,

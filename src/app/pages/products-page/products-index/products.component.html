@@ -4,7 +4,7 @@
     <md-input [(ngModel)]="filterValue" placeholder="Filter"></md-input>
   </div>
 
-  <button md-icon-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="showDialog()"><md-icon>add</md-icon></button>
+  <button md-icon-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="openAddMode()"><md-icon>add</md-icon></button>
 
   <md-card class="entity-index__card">
     <md-card-content class="entity-index__card__content">
@@ -36,6 +36,6 @@
   </md-card>
 </div>
 
-<div *ngIf="showAddDialog" class="full-overlay">
-  <product-add-new [mode]="modes.Add" [entity]="product" [price]="price" (saveEntity)="saveProduct()" (cancelUpdate)="hideDialog()"></product-add-new>
+<div *ngIf="addMode" class="full-overlay">
+  <product-add-new class="modal-center" [mode]="modes.Add" [entity]="entity" [price]="price" (save)="createEntity($event)" (cancel)="closeAddMode()"></product-add-new>
 </div>

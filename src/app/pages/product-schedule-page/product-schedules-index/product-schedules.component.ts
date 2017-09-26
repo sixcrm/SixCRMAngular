@@ -25,6 +25,8 @@ export class ProductSchedulesComponent extends AbstractEntityIndexComponent<Prod
   ) {
     super(productScheduleService, auth, dialog, paginationService, router, activatedRoute);
 
+    this.entityFactory = () => new ProductSchedule();
+
     this.columnParams = [
       new ColumnParams('ID', (e: ProductSchedule) => e.id),
       new ColumnParams('Name', (e: ProductSchedule) => e.name),

@@ -18,10 +18,7 @@ import {YesNoDialogComponent} from '../../yes-no-dialog.component';
 })
 export class ProductsComponent extends AbstractEntityIndexComponent<Product> implements OnInit, OnDestroy {
 
-  showAddDialog: boolean;
-  product: Product;
   price: string;
-  modes = Modes;
 
   constructor(
     productsService: ProductsService,
@@ -33,6 +30,8 @@ export class ProductsComponent extends AbstractEntityIndexComponent<Product> imp
   ) {
     super(productsService, auth, dialog, paginationService, router, activatedRoute);
 
+    this.entityFactory = () => new Product();
+
     this.columnParams = [
       new ColumnParams('Product Name', (e: Product) => e.name),
       new ColumnParams('SKU',(e: Product) => e.sku),
@@ -41,36 +40,9 @@ export class ProductsComponent extends AbstractEntityIndexComponent<Product> imp
     ];
   }
 
-  showDialog() {
-    this.product = new Product();
+  openAddMode() {
+    super.openAddMode();
     this.price = '';
-    this.showAddDialog = true;
-  }
-
-  hideDialog() {
-    if (areEntitiesIdentical(this.product, new Product())) {
-      this.showAddDialog = false;
-      return;
-    }
-
-    let yesNoDialogRef = this.deleteDialog.open(YesNoDialogComponent, { disableClose : true });
-    yesNoDialogRef.componentInstance.text = 'Are you sure you want to leave?';
-    yesNoDialogRef.componentInstance.secondaryText = 'You have unsaved changes, if you leave changes will be discarded.';
-    yesNoDialogRef.componentInstance.yesText = 'Proceed';
-    yesNoDialogRef.componentInstance.noText = 'Cancel';
-
-    yesNoDialogRef.afterClosed().take(1).subscribe(result => {
-      yesNoDialogRef = null;
-
-      if (result.success) {
-        this.showAddDialog = false;
-      }
-    });
-  }
-
-  saveProduct() {
-    this.service.createEntity(this.product);
-    this.showAddDialog = false;
   }
 
   ngOnInit() {

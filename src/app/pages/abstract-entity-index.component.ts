@@ -4,15 +4,16 @@ import {MdDialog, MdDialogRef} from '@angular/material';
 import {PaginationService} from '../shared/services/pagination.service';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Entity} from '../shared/models/entity.interface';
-import {ViewChild, Output, EventEmitter} from '@angular/core';
+import {Output, EventEmitter} from '@angular/core';
 import {AsyncSubject} from 'rxjs';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../shared/models/column-params.model';
 import {CustomServerError} from '../shared/models/errors/custom-server-error';
+import {areEntitiesIdentical} from '../shared/utils/entity.utils';
+import {YesNoDialogComponent} from './yes-no-dialog.component';
+import {Modes} from './abstract-entity-view.component';
 
 export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
-
-  @ViewChild('indexR') indexR;
 
   deleteDialogRef: MdDialogRef<DeleteDialogComponent>;
   limit: number;
@@ -22,11 +23,12 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   entitiesHolder: T[] = [];
   paginationValues: number[] = [5, 10, 15, 20, 30, 40, 50];
 
-  showEntityDetails: boolean = false;
-  showEntityId: string;
-  fullScreen: boolean = false;
-  mode: string;
   filterValue: string;
+
+  addMode: boolean = false;
+  entityFactory: () => T;
+  entity: T;
+  modes = Modes;
 
   infiniteScroll: boolean = false;
   shareLimit: boolean = true;
@@ -70,7 +72,6 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     });
     this.service.entityDeleted$.takeUntil(this.unsubscribe$).subscribe((entity: T) => {
       this.deleteEntityLocal(entity);
-      this.showEntityDetails = false;
     });
     this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe((entity: T) => {
       this.entitiesHolder.unshift(entity);
@@ -133,28 +134,49 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   }
 
   editEntity(id: string): void {
-    this.mode = 'view';
-    this.showEntityId = id;
-    this.showEntityDetails = true;
 
-    this.calculateViewEntityHeight();
   }
 
   deleteEntity(id: string): void {
-    this.deleteDialogRef = this.deleteDialog.open(DeleteDialogComponent, { disableClose : true });
+    this.deleteDialogRef = this.deleteDialog.open(DeleteDialogComponent);
 
     this.deleteDialogRef.afterClosed().takeUntil(this.unsubscribe$).subscribe(result => {
       this.deleteDialogRef = null;
-      if (result.success) {
+      if (result && result.success) {
         this.service.deleteEntity(id);
       }
     });
   }
 
-  openAddEntity(): void {
-    this.mode = 'add';
-    this.showEntityDetails = true;
-    this.calculateViewEntityHeight();
+  openAddMode(): void {
+    this.entity = this.entityFactory();
+    this.addMode = true;
+  }
+
+  closeAddMode(): void {
+    if (!this.addMode || areEntitiesIdentical(this.entity, this.entityFactory())) {
+      this.addMode = false;
+      return;
+    }
+
+    let yesNoDialogRef = this.deleteDialog.open(YesNoDialogComponent, { disableClose : true });
+    yesNoDialogRef.componentInstance.text = 'Are you sure you want to leave?';
+    yesNoDialogRef.componentInstance.secondaryText = 'You have unsaved changes, if you leave changes will be discarded.';
+    yesNoDialogRef.componentInstance.yesText = 'Proceed';
+    yesNoDialogRef.componentInstance.noText = 'Cancel';
+
+    yesNoDialogRef.afterClosed().take(1).subscribe(result => {
+      yesNoDialogRef = null;
+
+      if (result.success) {
+        this.addMode = false;
+      }
+    });
+  }
+
+  createEntity(entity: T) {
+    this.service.createEntity(entity);
+    this.addMode = false;
   }
 
   copyEntity(id: string): void {
@@ -168,10 +190,6 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   hasMorePages(): boolean {
     let nextPage = this.page + 1;
     return this.hasMore || this.entitiesHolder.slice(nextPage * this.limit, nextPage * this.limit + this.limit).length > 0;
-  }
-
-  hideEntityDetails(): void {
-    this.showEntityDetails = false;
   }
 
   hasWritePermission(): boolean {
@@ -247,14 +265,5 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     }
 
     return -1;
-  }
-
-  private calculateViewEntityHeight(): void {
-    if (this.indexR && this.indexR.nativeElement) {
-      let viewportHeight = window.innerHeight;
-      let indexHeight = this.indexR.nativeElement.offsetHeight;
-
-      this.fullScreen = indexHeight < viewportHeight;
-    }
   }
 }

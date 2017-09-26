@@ -3,54 +3,47 @@
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-
-  <ng-container *ngIf="!addMode; else addProductTemplate">
-    <div class="entity-view__info">
-      <div class="entity-view__info__image">
-        <img src="/assets/images/result-item-transaction-white.svg" alt="">
-      </div>
-      <div class="entity-view__info__data">
-        <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
-        <div class="entity-view__info__data__name">
-          {{entityBackup.name}}
-        </div>
+  <div class="entity-view__info">
+    <div class="entity-view__info__image">
+      <img src="/assets/images/result-item-transaction-white.svg" alt="">
+    </div>
+    <div class="entity-view__info__data">
+      <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div class="entity-view__info__data__name">
+        {{entityBackup.name}}
       </div>
     </div>
+  </div>
 
-    <div class="entity-view__navigation">
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">SCHEDULES</span>
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">CAMPAIGNS</span>
-    </div>
+  <div class="entity-view__navigation">
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">SCHEDULES</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">CAMPAIGNS</span>
+  </div>
 
-    <md-tab-group [(selectedIndex)]="selectedIndex">
-      <md-tab>
-        <product-add-new (changeMode)="setMode($event)"
-                         (cancelUpdate)="cancelUpdate()"
-                         (deleteEntity)="deleteProduct()"
-                         (saveEntity)="save($event)"
-                         [mode]="viewMode ? modes.View : modes.Update"
-                         [price]="entity.defaultPrice.amount + ''"
-                         [entity]="entity">
-        </product-add-new>
-      </md-tab>
+  <md-tab-group [(selectedIndex)]="selectedIndex">
+    <md-tab>
+      <product-add-new (changeMode)="setMode($event)"
+                       (cancel)="cancelUpdate()"
+                       (deleteEntity)="deleteProduct()"
+                       (save)="save($event)"
+                       [mode]="viewMode ? modes.View : modes.Update"
+                       [price]="entity.defaultPrice.amount + ''"
+                       [entity]="entity">
+      </product-add-new>
+    </md-tab>
 
-      <md-tab>
-        <product-product-schedules [id]="entity.id"
-                                   [price]="entity.defaultPrice.amount + ''"
-                                   (allEntities)="setCanNotBeDeleted($event)">
-        </product-product-schedules>
-      </md-tab>
+    <md-tab>
+      <product-product-schedules [id]="entity.id"
+                                 [price]="entity.defaultPrice.amount + ''"
+                                 (allEntities)="setCanNotBeDeleted($event)">
+      </product-product-schedules>
+    </md-tab>
 
-      <md-tab>
-        <product-campaigns [id]="entity.id"></product-campaigns>
-      </md-tab>
-    </md-tab-group>
-  </ng-container>
-
-  <ng-template #addProductTemplate>
-    <product-add-new (saveEntity)="save($event)" [mode]="modes.Add" [entity]="entity" [price]="entity.defaultPrice.amount + ''"></product-add-new>
-  </ng-template>
+    <md-tab>
+      <product-campaigns [id]="entity.id"></product-campaigns>
+    </md-tab>
+  </md-tab-group>
 </div>
 
 <ng-template #spinner>

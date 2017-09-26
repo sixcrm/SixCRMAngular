@@ -26,6 +26,8 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
   ) {
     super(campaignService, auth, dialog, paginationService, router, activatedRoute);
 
+    this.entityFactory = () => new Campaign();
+
     let f = this.authService.getTimezone();
     this.columnParams = [
       new ColumnParams('Name', (e: Campaign) => e.name),

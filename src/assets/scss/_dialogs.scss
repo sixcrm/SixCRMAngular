@@ -1,3 +1,5 @@
+@import 'colors';
+
 .associate__dropdown {
 
   .dropdown-component {
@@ -50,5 +52,32 @@ md-dialog-container {
 
   &__secondary {
     text-align: center;
+  }
+}
+
+.custom-dialog {
+  &__buttons {
+    display: flex;
+    padding: 15px;
+    font-size: 12px;
+
+    div {
+      cursor: pointer;
+    }
+
+    div:first-of-type {
+      margin-left: auto;
+      margin-right: 20px;
+    }
+
+    div:last-of-type {
+      color: $main-color;
+    }
+
+    div:only-child {
+      margin-left: auto;
+      margin-right: 0;
+      color: $main-color;
+    }
   }
 }

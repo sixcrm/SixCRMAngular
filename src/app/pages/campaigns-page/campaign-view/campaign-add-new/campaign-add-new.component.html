@@ -24,7 +24,7 @@
   </div>
 
   <div *ngIf="mode !== modes.View" class="entity-view__card__actions">
-    <div *ngIf="mode === modes.Update" (click)="cancel.emit(true)">CANCEL</div>
+    <div (click)="cancel.emit(true)">CANCEL</div>
     <div (click)="saveCampaign()">SAVE</div>
   </div>
 </div>

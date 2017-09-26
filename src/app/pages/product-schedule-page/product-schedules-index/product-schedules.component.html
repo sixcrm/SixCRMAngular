@@ -5,7 +5,7 @@
     <md-input [(ngModel)]="filterValue" placeholder="Filter"></md-input>
   </div>
 
-  <button md-icon-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" [routerLink]="['/productschedules', 'add']"><md-icon>add</md-icon></button>
+  <button md-icon-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="openAddMode()"><md-icon>add</md-icon></button>
 
   <md-card class="entity-index__card">
     <md-card-content class="entity-index__card__content">
@@ -36,4 +36,8 @@
 
     </md-card-content>
   </md-card>
+</div>
+
+<div *ngIf="addMode" class="full-overlay">
+  <product-schedule-add-new class="modal-center" [mode]="modes.Add" [entity]="entity" (save)="createEntity($event)" (cancel)="closeAddMode()"></product-schedule-add-new>
 </div>

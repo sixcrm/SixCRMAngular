@@ -531,6 +531,22 @@ $blue-color: #4A90E2;
     min-width: 300px;
     vertical-align: top;
 
+    &--create {
+      .entity-view__card {
+        &__header {
+          padding: 25px;
+        }
+
+        &__content {
+          padding: 15px 25px 25px;
+        }
+
+        &__actions {
+          padding: 25px;
+        }
+      }
+    }
+
     &--large {
       margin-bottom: 50px;
       max-width: 900px;

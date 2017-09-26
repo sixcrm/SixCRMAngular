@@ -1,5 +1,5 @@
 <form *ngIf="entity" #productInputForm="ngForm" class="flex-custom">
-  <div style="margin-bottom: 120px;" class="entity-view__card" [class.flex-align--center]="mode === add">
+  <div style="margin-bottom: 120px;" class="entity-view__card" [class.entity-view__card--create]="mode === add" [class.flex-align--center]="mode === add">
     <div class="entity-view__card__header">
       <div class="entity-view__card__header__title">{{mode === add ? 'Create new Product' : 'Product general details'}}</div>
       <ng-container *ngIf="mode === view">
@@ -49,8 +49,8 @@
     </div>
 
     <div *ngIf="mode !== view" class="entity-view__card__actions">
-      <div (click)="cancelUpdate.emit(true)">CANCEL</div>
-      <div (click)="save(productInputForm.form.valid)">{{mode === update ? 'UPDATE PRODUCT' : 'CREATE'}}</div>
+      <div (click)="cancel.emit(true)">CANCEL</div>
+      <div (click)="saveProduct(productInputForm.form.valid)">{{mode === update ? 'UPDATE' : 'CREATE'}}</div>
     </div>
   </div>
 </form>

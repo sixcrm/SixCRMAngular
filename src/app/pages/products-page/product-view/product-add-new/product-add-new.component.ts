@@ -18,9 +18,9 @@ export class ProductAddNewComponent implements OnInit, OnDestroy {
   @Input() entity: Product;
   @Input() mode: Modes;
   @Input() price: string;
-  @Output() saveEntity: EventEmitter<Product> = new EventEmitter();
+  @Output() save: EventEmitter<Product> = new EventEmitter();
   @Output() deleteEntity: EventEmitter<Product> = new EventEmitter();
-  @Output() cancelUpdate: EventEmitter<boolean> = new EventEmitter();
+  @Output() cancel: EventEmitter<boolean> = new EventEmitter();
   @Output() changeMode: EventEmitter<Modes> = new EventEmitter();
 
   add = Modes.Add;
@@ -55,12 +55,12 @@ export class ProductAddNewComponent implements OnInit, OnDestroy {
     }
   }
 
-  save(valid: boolean): void {
+  saveProduct(valid: boolean): void {
     this.formInvalid = !valid;
 
     if (this.formInvalid) return;
 
     this.entity.defaultPrice = new Currency(parseCurrencyMaskedValue(this.price));
-    this.saveEntity.emit(this.entity);
+    this.save.emit(this.entity);
   }
 }

@@ -8,8 +8,8 @@ import {MdDialogRef} from '@angular/material';
       <md-card-content>
         {{text}}
       </md-card-content>
-      <md-card-actions align="center">
-        <button md-raised-button color="primary" (click)="ok()">Ok</button>
+      <md-card-actions class="custom-dialog__buttons">
+        <div (click)="ok()">OK</div>
       </md-card-actions>
     </md-card>
   `,

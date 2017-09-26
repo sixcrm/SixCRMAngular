@@ -11,6 +11,7 @@ export class AffiliateAddNewComponent implements OnInit {
   @Input() entity: Affiliate;
 
   @Output() save: EventEmitter<Affiliate> = new EventEmitter();
+  @Output() cancel: EventEmitter<boolean> = new EventEmitter();
 
   formInvalid: boolean;
 

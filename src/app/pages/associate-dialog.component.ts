@@ -9,9 +9,9 @@ import {MdDialogRef} from '@angular/material';
         {{text}}
         <autocomplete-input [initialValue]="entity ? entity : ''" [options]="options" [placeholder]="placeholder" [mapFunction]="mapper" (selected)="entity = $event"></autocomplete-input>
       </md-card-content>
-      <md-card-actions align="center">
-        <button md-raised-button color="primary" (click)="associate()">{{associateButtonText}}</button>
-        <button autoFocus md-raised-button color="primary" (click)="cancel()">Cancel</button>
+      <md-card-actions class="custom-dialog__buttons">
+        <div (click)="no()">CANCEL</div>
+        <div (click)="associate()">{{associateButtonText}}</div>
       </md-card-actions>
     </md-card>
   `,
