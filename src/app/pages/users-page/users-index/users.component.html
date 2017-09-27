@@ -37,7 +37,7 @@
   </md-card>
 </div>
 
-<div *ngIf="addMode" class="full-overlay">
+<div *ngIf="addMode" (click)="overlayClicked($event)" class="full-overlay">
   <user-add-new class="modal-center"
                 [accounts]="accounts"
                 [roles]="roles"

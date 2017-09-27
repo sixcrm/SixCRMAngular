@@ -35,6 +35,6 @@
   </md-card>
 </div>
 
-<div *ngIf="addMode" class="full-overlay">
+<div *ngIf="addMode" (click)="overlayClicked($event)" class="full-overlay">
   <email-template-add-new class="modal-center" [entity]="entity" [mode]="modes.Add" (cancel)="closeAddMode()" (save)="createEntity($event)"></email-template-add-new>
 </div>

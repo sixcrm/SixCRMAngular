@@ -35,6 +35,6 @@
   </md-card>
 </div>
 
-<div *ngIf="addMode" class="full-overlay">
+<div *ngIf="addMode" (click)="overlayClicked($event)" class="full-overlay">
   <customer-add-new class="modal-center" [customer]="entity" (save)="createEntity($event)" (cancel)="closeAddMode()"></customer-add-new>
 </div>

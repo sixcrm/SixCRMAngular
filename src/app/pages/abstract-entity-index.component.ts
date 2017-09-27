@@ -155,6 +155,12 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     this.addMode = true;
   }
 
+  overlayClicked(event: any): void {
+    if (event && event.target && event.target.className === 'full-overlay') {
+      this.closeAddMode();
+    }
+  }
+
   closeAddMode(): void {
     if (!this.addMode || areEntitiesIdentical(this.entity, this.entityFactory())) {
       this.addMode = false;
