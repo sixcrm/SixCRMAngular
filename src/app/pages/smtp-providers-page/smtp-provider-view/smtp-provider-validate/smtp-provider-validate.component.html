@@ -1,0 +1,38 @@
+<div class="entity-view__card smtp-validation">
+  <div class="entity-view__card__header">
+    <div class="entity-view__card__header__title">Validate SMTP Provider</div>
+  </div>
+
+  <div class="flex-custom">
+
+    <div class="smtp-validation__container entity-view__card__content">
+      <div class="smtp-validation__explanation">Please provide an email address below and Six will try to send you a test email from '{{entity.fromEmail}}' using provided SMTP Provider. <br><br> Results will be displayed in right column.</div>
+
+      <md-input-container class="entity-view__card__content__item">
+        <input required md-input placeholder="Receiver email address" (keydown)="isEmail($event, validationEmail)" [(ngModel)]="validationEmail" type="text">
+      </md-input-container>
+    </div>
+
+    <div class="smtp-validation__container smtp-validation__container--results entity-view__card__content">
+      <div>Validation Result:</div>
+      <md-spinner class="smtp-validation__spinner" *ngIf="validationInProgress"></md-spinner>
+      <div style="margin-top: 10px" *ngIf="validationFinished && !validationInProgress" [style.color]="validationSuccess ? '#316537' : '#C31313'">
+        {{validationSuccess ? 'SMTP Validation Successful' : 'SMTP Validation Failed!'}}
+      </div>
+
+      <div style="margin-top: 30px">Validation Message:</div>
+      <div class="smtp-validation__results">
+        <md-spinner class="smtp-validation__spinner" *ngIf="validationInProgress"></md-spinner>
+
+        <div *ngIf="!validationInProgress && validationFinished" class="flex-custom">
+          <textarea #responseMessage [style.color]="validationSuccess ? '#316537' : '#C31313'" rows="5" type="text" #urlField class="validation__explanation--message" value="{{validationMessage}}" readonly></textarea>
+          <md-icon md-tooltip="Copy to clipboard" (click)="copyUrlToClipboard(responseMessage)">content_copy</md-icon>
+        </div>
+      </div>
+      </div>
+  </div>
+
+  <div class="entity-view__card__actions">
+    <div (click)="validateProvider()">VALIDATE</div>
+  </div>
+</div>

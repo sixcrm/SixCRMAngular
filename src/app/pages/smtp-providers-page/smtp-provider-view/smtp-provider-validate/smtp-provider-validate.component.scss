@@ -1,0 +1,40 @@
+.smtp-validation {
+  max-width: 100%;
+  width: 700px;
+  font-size: 14px;
+  color: rgba(0,0,0,0.6);
+
+  &__explanation {
+    margin-bottom: 28px;
+
+    &--message {
+      margin: 15px 0;
+    }
+  }
+
+  &__spinner {
+    margin:  10px auto 0;
+    height: 30px;
+  }
+
+  &__container {
+    width: 50%;
+
+    &--results {
+      margin-left: 20px;
+    }
+  }
+
+  &__results {
+    margin-top: 10px;
+  }
+
+  textarea {
+    width: 100%;
+  }
+
+  md-icon {
+    margin: auto auto auto 10px;
+    cursor: pointer;
+  }
+}

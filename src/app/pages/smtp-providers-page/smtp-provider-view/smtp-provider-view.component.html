@@ -22,8 +22,8 @@
 
   <div class="entity-view__navigation">
     <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">SMTP VALIDATION</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">EMAIL TEMPLATES</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">EMAIL TEMPLATES</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">VALIDATION</span>
   </div>
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
@@ -37,35 +37,15 @@
       </smtp-provider-add-new>
 
     </md-tab>
-    <md-tab>
-      <div class="entity-view__card">
-        <div class="entity-view__card__header">
-          <div class="entity-view__card__header__title">Validate SMTP Provider</div>
-        </div>
-
-        <div class="entity-view__card__content">
-
-          <div class="validation-explanation">Please provide an email address below and Six will try to send you a test email from '{{entity.fromEmail}}' using provided SMTP Provider</div>
-
-          <md-input-container class="entity-view__card__content__item">
-            <input required md-input [disabled]="mode === modes.View" placeholder="Receiver email address" (keydown)="isEmail($event, validationEmail)" [(ngModel)]="validationEmail" type="text">
-          </md-input-container>
-
-          <md-spinner class="validation-spinner" *ngIf="validationInProgress"></md-spinner>
-          <div class="validation-explanation validation-explanation--message" [style.color]="validationSuccess ? '#316537' : '#C31313'" *ngIf="!validationInProgress && validationMessage"> {{ validationMessage }} </div>
-        </div>
-
-        <div class="entity-view__card__actions">
-          <div (click)="validateProvider()">VALIDATE</div>
-        </div>
-      </div>
-
-
-    </md-tab>
 
     <md-tab>
       <coming-soon [inPage]="true"></coming-soon>
     </md-tab>
+
+    <md-tab>
+      <smtp-provider-validate [entity]="entity"></smtp-provider-validate>
+    </md-tab>
+
   </md-tab-group>
 </div>
 
