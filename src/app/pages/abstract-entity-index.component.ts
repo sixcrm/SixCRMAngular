@@ -29,6 +29,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   entityFactory: () => T;
   entity: T;
   modes = Modes;
+  openInEditModeAfterCreation: boolean = false;
 
   infiniteScroll: boolean = false;
   shareLimit: boolean = true;
@@ -132,7 +133,12 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   }
 
   viewEntity(id: string): void {
-    this.router.navigate([id], {relativeTo: this.activatedRoute});
+    let options = {relativeTo: this.activatedRoute};
+    if (this.openInEditModeAfterCreation) {
+      options['queryParams'] = {edit: true};
+    }
+
+    this.router.navigate([id], options);
   }
 
   editEntity(id: string): void {
@@ -168,9 +174,9 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     }
 
     let yesNoDialogRef = this.deleteDialog.open(YesNoDialogComponent, { disableClose : true });
-    yesNoDialogRef.componentInstance.text = 'Are you sure you want to leave?';
-    yesNoDialogRef.componentInstance.secondaryText = 'You have unsaved changes, if you leave changes will be discarded.';
-    yesNoDialogRef.componentInstance.yesText = 'Proceed';
+    yesNoDialogRef.componentInstance.text = 'Are you sure you want to close creation modal?';
+    yesNoDialogRef.componentInstance.secondaryText = 'You have unsaved changes, if you close this modal changes will be discarded.';
+    yesNoDialogRef.componentInstance.yesText = 'Close';
     yesNoDialogRef.componentInstance.noText = 'Cancel';
 
     yesNoDialogRef.afterClosed().take(1).subscribe(result => {

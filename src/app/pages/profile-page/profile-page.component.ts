@@ -215,7 +215,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   }
 
   inviteUser(account: Account): void {
-    this.inviteDialogRef = this.dialog.open(InviteUserDialogComponent, { disableClose : true });
+    this.inviteDialogRef = this.dialog.open(InviteUserDialogComponent);
     this.inviteDialogRef.componentInstance.options = this.roles.filter(role => role.name !== 'Owner');
 
     this.inviteDialogRef.afterClosed().takeUntil(this.unsubscribe$).subscribe(result => {

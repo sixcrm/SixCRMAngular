@@ -29,7 +29,7 @@ export class AbstractAclGuard {
       let yesNoDialogRef = this.dialog.open(YesNoDialogComponent, { disableClose : true });
       yesNoDialogRef.componentInstance.text = 'Are you sure you want to leave?';
       yesNoDialogRef.componentInstance.secondaryText = 'You have unsaved changes, if you leave changes will be discarded.';
-      yesNoDialogRef.componentInstance.yesText = 'Proceed';
+      yesNoDialogRef.componentInstance.yesText = 'Leave';
       yesNoDialogRef.componentInstance.noText = 'Cancel';
 
       yesNoDialogRef.afterClosed().take(1).subscribe(result => {

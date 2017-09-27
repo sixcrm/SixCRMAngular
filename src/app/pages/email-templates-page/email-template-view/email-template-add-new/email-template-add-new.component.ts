@@ -78,6 +78,8 @@ export class EmailTemplateAddNewComponent implements OnInit, AfterViewInit, OnDe
   }
 
   setEditor(): void {
+    if (this.mode === this.modes.Add) return;
+
     setTimeout(() => {
       if (this.editor) {
         this.editor.remove();
@@ -100,9 +102,11 @@ export class EmailTemplateAddNewComponent implements OnInit, AfterViewInit, OnDe
   saveEmailTemplate(valid: boolean): void {
     if (this.editor) {
       this.entity.body = this.editor.getContent();
+    } else {
+      this.entity.body = this.entity.body || `This is sample body for email template`;
     }
 
-    this.formInvalid = !valid || !this.entity.smtpProvider.id || !this.entity.type || !this.entity.body;
+    this.formInvalid = !valid || !this.entity.smtpProvider.id || !this.entity.type || (this.mode !== this.modes.Add && !this.entity.body);
     if (this.formInvalid) return;
 
     this.save.emit(this.entity);

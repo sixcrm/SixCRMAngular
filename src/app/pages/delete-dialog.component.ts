@@ -16,8 +16,8 @@ import {MdDialogRef} from '@angular/material';
         {{text}}
       </md-card-content>
       <md-card-actions class="custom-dialog__buttons">
-        <div (click)="no()">NO</div>
-        <div (click)="yes()">YES</div>
+        <div (click)="no()">CANCEL</div>
+        <div (click)="yes()">DELETE</div>
       </md-card-actions>
     </md-card>
   `,

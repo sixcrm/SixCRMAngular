@@ -41,6 +41,12 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
         this.entityId = params['id'];
       }
     });
+
+    route.queryParams.takeUntil(this.unsubscribe$).subscribe((queryParams: Params) => {
+      if (queryParams['edit'] === 'true') {
+        this.setMode(Modes.Update);
+      }
+    })
   }
 
   protected init(notFound?: () => void): void {
