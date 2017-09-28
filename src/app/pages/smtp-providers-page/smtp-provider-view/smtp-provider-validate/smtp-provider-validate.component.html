@@ -14,20 +14,10 @@
     </div>
 
     <div class="smtp-validation__container smtp-validation__container--results entity-view__card__content">
-      <div>Validation Result:</div>
-      <md-spinner class="smtp-validation__spinner" *ngIf="validationInProgress"></md-spinner>
-      <div style="margin-top: 10px" *ngIf="validationFinished && !validationInProgress" [style.color]="validationSuccess ? '#316537' : '#C31313'">
-        {{validationSuccess ? 'SMTP Validation Successful' : 'SMTP Validation Failed!'}}
-      </div>
+      <div class="flex-custom">Validation Response: <md-icon md-tooltip="Copy validation response to clipboard" (click)="copyUrlToClipboard(responseMessage)">content_copy</md-icon></div>
 
-      <div style="margin-top: 30px">Validation Message:</div>
       <div class="smtp-validation__results">
-        <md-spinner class="smtp-validation__spinner" *ngIf="validationInProgress"></md-spinner>
-
-        <div *ngIf="!validationInProgress && validationFinished" class="flex-custom">
-          <textarea #responseMessage [style.color]="validationSuccess ? '#316537' : '#C31313'" rows="5" type="text" #urlField class="validation__explanation--message" value="{{validationMessage}}" readonly></textarea>
-          <md-icon md-tooltip="Copy to clipboard" (click)="copyUrlToClipboard(responseMessage)">content_copy</md-icon>
-        </div>
+        <textarea #responseMessage [style.color]="validationSuccess ? '#316537' : '#C31313'" rows="8" type="text" #urlField class="validation__explanation--message" value="{{validationResponse}}" readonly></textarea>
       </div>
       </div>
   </div>

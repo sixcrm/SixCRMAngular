@@ -19,9 +19,8 @@ export class SmtpProviderValidateComponent implements OnInit {
   validationEmail: string;
 
   validationInProgress: boolean;
-  validationMessage: string;
+  validationResponse: string;
   validationSuccess: boolean;
-  validationFinished: boolean;
 
   constructor(private smtpService: SmtpProvidersService) { }
 
@@ -38,9 +37,8 @@ export class SmtpProviderValidateComponent implements OnInit {
       if (data instanceof CustomServerError) return;
 
       const response = extractData(data).smtpvalidation.smtp_response;
-      this.validationMessage = response.errormessage;
-      this.validationSuccess = !response.errormessage;
-      this.validationFinished = true;
+      this.validationResponse = JSON.stringify(response);
+      this.validationSuccess = !response.error;
     });
   }
 

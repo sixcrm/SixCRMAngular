@@ -1,20 +1,15 @@
 .smtp-validation {
-  max-width: 100%;
+  max-width: calc(100% - 20px);
   width: 700px;
   font-size: 14px;
   color: rgba(0,0,0,0.6);
 
   &__explanation {
-    margin-bottom: 28px;
+    margin-bottom: 30px;
 
     &--message {
       margin: 15px 0;
     }
-  }
-
-  &__spinner {
-    margin:  10px auto 0;
-    height: 30px;
   }
 
   &__container {
@@ -22,6 +17,10 @@
 
     &--results {
       margin-left: 20px;
+    }
+
+    .flex-custom {
+      align-items: center;
     }
   }
 
