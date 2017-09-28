@@ -1,22 +1,55 @@
+export enum MerchantProviderGatewayType {
+  NMI,
+  Innovio,
+  Other
+}
+
 export class MerchantProviderGateway {
+  type: MerchantProviderGatewayType;
   name: string;
   processorId: string;
-  endpoint: string;
+  productId: string;
   username: string;
   password: string;
-  additional: string;
 
   constructor(obj?: any) {
     if (!obj) {
       obj = {};
     }
 
+    this.setType(obj.type);
     this.name = obj.name || '';
-    this.processorId = obj.processor_id || '';
-    this.endpoint = obj.endpoint || '';
+    this.processorId = this.isNMI() ? obj.processor_id : '';
+    this.productId = this.isInnovio() ? obj.product_id : '';
     this.username = obj.username || '';
     this.password = obj.password || '';
-    this.additional = obj.additional || '';
+  }
+
+  isNMI() {
+    return this.type === MerchantProviderGatewayType.NMI;
+  }
+
+  isInnovio() {
+    return this.type === MerchantProviderGatewayType.Innovio;
+  }
+
+  getType() {
+    if (this.isNMI())
+      return 'NMI';
+
+    if (this.isInnovio())
+      return 'Innovio';
+
+    return '';
+  }
+
+  setType(type: string) {
+    if (type === 'NMI')
+      this.type = MerchantProviderGatewayType.NMI;
+    else if (type === 'Innovio')
+      this.type = MerchantProviderGatewayType.Innovio;
+    else
+      this.type = MerchantProviderGatewayType.Other;
   }
 
   copy(): MerchantProviderGateway {
@@ -27,10 +60,9 @@ export class MerchantProviderGateway {
     return {
       name: this.name,
       processor_id: this.processorId,
-      endpoint: this.endpoint,
+      product_id: this.productId,
       username: this.username,
       password: this.password,
-      additional: this.additional
     }
   }
 }

@@ -67,18 +67,26 @@
 
     <div class="entity-view__card__content merchant-provider-view__details">
 
+      <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.name">
+        <input required [disabled]="mode === modes.View" md-input placeholder="Name" name="name" [(ngModel)]="entity.gateway.name" type="text">
+      </md-input-container>
+
       <dropdown-component
-        [class.error]="formInvalid && !entity.gateway.name"
+        [class.error]="formInvalid && !entity.gateway.type"
         [disabled]="mode === modes.View"
-        [options]="['NMI']"
-        [selected]="entity.gateway.name"
-        [placeholder]="'Name'"
-        (onSelect)="entity.gateway.name = $event">
+        [options]="allProviders"
+        [selected]="entity.gateway.getType()"
+        [placeholder]="'Type'"
+        (onSelect)="entity.gateway.setType($event)">
       </dropdown-component>
 
-      <ng-container *ngIf="entity.gateway.name === 'NMI'">
-        <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.processorId">
+      <ng-container *ngIf="entity.gateway.getType()">
+        <md-input-container *ngIf="entity.gateway.isNMI()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.processorId">
           <input required [disabled]="mode === modes.View" md-input placeholder="Processor ID" name="processorId" [(ngModel)]="entity.gateway.processorId" type="text">
+        </md-input-container>
+
+        <md-input-container *ngIf="entity.gateway.isInnovio()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.processorId">
+          <input required [disabled]="mode === modes.View" md-input placeholder="Product ID" name="productId" [(ngModel)]="entity.gateway.productId" type="text">
         </md-input-container>
 
         <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.username">
@@ -87,10 +95,6 @@
 
         <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.password">
           <input required [disabled]="mode === modes.View" md-input placeholder="Password" name="password" [(ngModel)]="entity.gateway.password" type="text">
-        </md-input-container>
-
-        <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.endpoint">
-          <input required [disabled]="mode === modes.View" md-input placeholder="Endpoint" name="endpoint" [(ngModel)]="entity.gateway.endpoint" type="text">
         </md-input-container>
       </ng-container>
     </div>

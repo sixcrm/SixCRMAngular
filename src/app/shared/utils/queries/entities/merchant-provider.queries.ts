@@ -48,16 +48,19 @@ export function updateMerchantProviderMutation(provider: MerchantProvider): stri
 export function merchantProviderResponseQuery(): string {
   return `
     id name enabled created_at updated_at allow_prepaid accepted_payment_methods,
-    processor { name id },
+    processor { name },
     processing { monthly_cap discount_rate transaction_fee reserve_rate maximum_chargeback_ratio,
       transaction_counts { daily weekly monthly }
     }
-    gateway { name processor_id username password endpoint additional }
+    gateway {
+      ... on NMI { name type username password processor_id }
+      ... on Innovio { name type username password product_id }
+    }
     customer_service { email url description phone }`
 }
 
 export function merchantProviderInfoResponseQuery(): string {
-  return ` id name enabled created_at updated_at gateway { endpoint } processor { name }`
+  return ` id name enabled created_at updated_at gateway { type name }`
 }
 
 export function merchantProviderInputQuery(provider: MerchantProvider, includeId?: boolean): string {
@@ -80,16 +83,14 @@ export function merchantProviderInputQuery(provider: MerchantProvider, includeId
       }
     },
     processor:{
-      name:"NMA",
-      id:"Some ID"
+      name:"NMA"
     },
     gateway:{
       name:"${provider.gateway.name}",
-      processor_id:"${provider.gateway.processorId}",
+      type:"${provider.gateway.isNMI() ? 'NMI' : 'Innovio'}",
+      ${provider.gateway.isNMI() ? `processor_id:"${provider.gateway.processorId}",` : `product_id: "${provider.gateway.productId}",`}
       username:"${provider.gateway.username}",
       password:"${provider.gateway.password}",
-      endpoint:"${provider.gateway.endpoint}",
-      ${provider.gateway.additional ? `additional: "${provider.gateway.additional.replace(/"/g, '\\"')}",` : ''}
     },
     customer_service:{
       ${provider.customerService.email ? `email: "${provider.customerService.email}",` : ''}

@@ -29,8 +29,8 @@ export class MerchantProvidersComponent extends AbstractEntityIndexComponent<Mer
 
     this.columnParams = [
       new ColumnParams('Name', (e: MerchantProvider) => e.name),
-      new ColumnParams('Endpoint', (e: MerchantProvider) => e.gateway.endpoint),
-      new ColumnParams('Processor name', (e: MerchantProvider) => e.processor.name)
+      new ColumnParams('Processor name', (e: MerchantProvider) => e.gateway.name),
+      new ColumnParams('Processor type', (e: MerchantProvider) => e.gateway.getType())
     ];
   }
 
