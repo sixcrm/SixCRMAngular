@@ -10,15 +10,11 @@ token-view {
   }
 
   &__header {
-    padding: 2px 15px 15px;
-
-    .flex-custom {
-      align-items: center;
-    }
+    padding: 5px 15px;
 
     md-icon {
-      margin-left: auto;
-      color: rgba(0,0,0,0.5);
+      margin: auto 0 auto auto;
+      color: rgba(0, 0, 0, 0.5);
     }
 
     md-input-container {
@@ -27,7 +23,7 @@ token-view {
     }
 
     dropdown-component {
-      width: 100%;
+
     }
   }
 }
