@@ -34,6 +34,8 @@ body {
   @include font-body();
 
   margin: 0 !important;
+
+  -webkit-font-smoothing: antialiased;
 }
 
 p.box {
