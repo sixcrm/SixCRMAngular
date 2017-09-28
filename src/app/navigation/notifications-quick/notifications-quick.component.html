@@ -20,7 +20,7 @@
             <div class="notifications-list__content__notification__image"><img src="assets/images/alert-icon.svg" alt=""></div>
             <div class="notifications-list__content__notification__message">{{notification.body}}</div>
             <div class="notifications-list__content__notification__date">
-              <span>{{notification.createdAt.format('MMMM D')}}</span>
+              <span>{{notification.createdAt.format('MMM Do')}}</span>
               <div *ngIf="!notification.readAt"></div>
             </div>
           </div>

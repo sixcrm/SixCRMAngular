@@ -22,14 +22,14 @@
     <div *ngFor="let notificationsByDate of notsByDate">
 
       <div *ngIf="notificationsByDate.entities.length > 0">
-        <div class="notifications-list__content__title">Today</div>
+        <div class="notifications-list__content__title">{{notificationsByDate.label}}</div>
 
         <div *ngFor="let notification of notificationsByDate.entities">
           <div class="notifications__content__notification" (click)="readNotification(notification)">
             <div class="notifications__content__notification__image"><img src="assets/images/alert-icon.svg" alt=""></div>
             <div class="notifications__content__notification__message">{{notification.body}}</div>
             <div class="notifications__content__notification__date">
-              <span>{{notification.createdAt.format('HH:m')}}</span>
+              <span>{{notification.createdAt.format('MMM Do')}}</span>
               <div *ngIf="!notification.readAt"></div>
             </div>
           </div>
