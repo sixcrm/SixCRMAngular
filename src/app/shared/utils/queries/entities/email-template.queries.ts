@@ -9,7 +9,7 @@ export function emailTemplatesListQuery(limit?:number, cursor?:string): string {
   return `{
     emailtemplatelist ${paginationParamsQuery(limit, cursor)} {
 			emailtemplates {
-			  ${emailTemplateResponseQuery()}
+			  ${emailTemplateInfoResponseQuery()}
 			}
 			${fullPaginationStringResponseQuery()}
 		}}`
@@ -44,10 +44,19 @@ export function createEmailTemplateMutation(emailTemplate: EmailTemplate): strin
 	}`;
 }
 
+export function emailTemplateInfoResponseQuery(): string {
+  return `id name subject type smtp_provider { name }`
+}
+
 export function emailTemplateResponseQuery(): string {
   return `id name subject body type created_at updated_at smtp_provider { ${smtpProviderResponseQuery()} }`
 }
 
 export function emailTemplateInputQuery(emailTemplate: EmailTemplate, includeId?: boolean): string {
-  return `${addId(emailTemplate.id, includeId)}, name: "${emailTemplate.name}", subject: "${emailTemplate.subject}", body: "${emailTemplate.body.replace(/"/g, '\\"')}", type: "${emailTemplate.type.toLowerCase()}", smtp_provider:"${emailTemplate.smtpProvider.id}"`;
+  let body = '';
+  if (emailTemplate.body) {
+    body = `body: "${emailTemplate.body.replace(/"/g, '\\"')}",`
+  }
+
+  return `${addId(emailTemplate.id, includeId)}, name: "${emailTemplate.name}", subject: "${emailTemplate.subject}", ${body} type: "${emailTemplate.type.toLowerCase()}", smtp_provider:"${emailTemplate.smtpProvider.id}"`;
 }

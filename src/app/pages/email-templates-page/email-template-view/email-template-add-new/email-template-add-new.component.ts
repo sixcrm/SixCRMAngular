@@ -102,11 +102,9 @@ export class EmailTemplateAddNewComponent implements OnInit, AfterViewInit, OnDe
   saveEmailTemplate(valid: boolean): void {
     if (this.editor) {
       this.entity.body = this.editor.getContent();
-    } else {
-      this.entity.body = this.entity.body || `This is sample body for email template`;
     }
 
-    this.formInvalid = !valid || !this.entity.smtpProvider.id || !this.entity.type || (this.mode !== this.modes.Add && !this.entity.body);
+    this.formInvalid = !valid || !this.entity.smtpProvider.id || !this.entity.type;
     if (this.formInvalid) return;
 
     this.save.emit(this.entity);
