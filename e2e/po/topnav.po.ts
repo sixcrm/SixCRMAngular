@@ -17,4 +17,13 @@ export class TopnavPage {
   getCompanyName() {
     return element(by.css('app-topnav')).element(by.css('.simple-dropdown__header__value'));
   }
+
+  getProfileMenuButton() {
+    return element(by.css('.profile-dropdown__header'));
+  }
+
+  getUserSettingsMenuOption() {
+    return element(by.css('.profile-dropdown__menu__item'));
+  }
+
 }
