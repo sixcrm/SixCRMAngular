@@ -83,13 +83,6 @@ describe('Customers', function() {
   });
 
   it('should open customer view customer', () => {
-    new SidenavPage().getLink(8).click();
-    waitForUrlContains('customers');
-
-    browser.sleep(500);
-
-    customerPage.getCustomerFromTable(0).click();
-    waitForPresenceOf(customerPage.getCustomerName());
     expectUrlToContain('customers/');
   });
 
@@ -115,7 +108,7 @@ describe('Customers', function() {
 
     customerPage.getCustomerNotesMenu().click();
     browser.sleep(500);
-    customerPage.getAddNewNoteButton().click();
+    customerPage.getFirstMenuButton().click();
     browser.sleep(200);
 
     customerPage.getNoteTextArea().sendKeys(noteText);
@@ -123,5 +116,16 @@ describe('Customers', function() {
     browser.sleep(1000);
 
     expect(customerPage.getFirstNoteText().getText()).toEqual(noteText);
+  });
+
+  it('should delete new note', () => {
+    customerPage.getFirstNoteMenuButton().click();
+    browser.sleep(200);
+    customerPage.getFirstMenuButton().click();
+    browser.sleep(200);
+    customerPage.getConfirmDeleteButton().click();
+    browser.sleep(1000);
+
+    expect(customerPage.getNotes().count()).toBe(0);
   })
 });

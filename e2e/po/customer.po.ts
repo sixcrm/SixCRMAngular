@@ -45,7 +45,7 @@ export class CustomerPage {
     return element(by.css('customer-notes')).element(by.css('md-card-title')).element(by.css('md-icon'));
   }
 
-  getAddNewNoteButton() {
+  getFirstMenuButton() {
     return element(by.css('.md-menu-content')).element(by.css('button'));
   }
 
@@ -57,7 +57,19 @@ export class CustomerPage {
     return element(by.css('.notes__new__actions__done'));
   }
 
+  getNotes() {
+    return element.all(by.css('.note__content'));
+  }
+
   getFirstNoteText() {
     return element(by.css('.note__content')).element(by.css('span'));
+  }
+
+  getFirstNoteMenuButton() {
+    return element(by.css('.note__content')).element(by.css('md-icon'));
+  }
+
+  getConfirmDeleteButton() {
+    return element(by.css('.custom-dialog__buttons')).all(by.css('div')).last();
   }
 }
