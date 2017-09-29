@@ -8,18 +8,25 @@
     <div class="smtp-validation__container entity-view__card__content">
       <div class="smtp-validation__explanation">Please provide an email address below and Six will try to send you a test email from '{{entity.fromEmail}}' using provided SMTP Provider. <br><br> Results will be displayed in right column.</div>
 
-      <md-input-container class="entity-view__card__content__item">
-        <input required md-input placeholder="Receiver email address" (keydown)="isEmail($event, validationEmail)" [(ngModel)]="validationEmail" type="text">
+      <md-input-container [class.error]="emailInvalid && !validEmail()" class="entity-view__card__content__item">
+        <input md-input required placeholder="Receiver email address" (keydown)="checkKey($event, validationEmail)" [(ngModel)]="validationEmail" type="text">
       </md-input-container>
+      <div class="input-error-message" *ngIf="emailInvalid && !validEmail()">Please enter a valid email address</div>
+
     </div>
 
     <div class="smtp-validation__container smtp-validation__container--results entity-view__card__content">
-      <div class="flex-custom">Validation Response: <md-icon md-tooltip="Copy validation response to clipboard" (click)="copyUrlToClipboard(responseMessage)">content_copy</md-icon></div>
-
       <div class="smtp-validation__results">
-        <textarea #responseMessage [style.color]="validationSuccess ? '#316537' : '#C31313'" rows="8" type="text" #urlField class="validation__explanation--message" value="{{validationResponse}}" readonly></textarea>
+        <textarea #responseMessage
+                  [style.color]="!validationResponse ? 'grey' : (validationSuccess ? '#316537' : '#C31313')"
+                  rows="9"
+                  #urlField class="validation__explanation--message"
+                  value="{{validationResponse || 'Validation Response'}}"
+                  readonly>
+        </textarea>
       </div>
-      </div>
+      <md-icon *ngIf="!validationInProgress && validationResponse" md-tooltip="Copy to clipboard" (click)="copyUrlToClipboard(responseMessage)">content_copy</md-icon>
+    </div>
   </div>
 
   <div class="entity-view__card__actions">

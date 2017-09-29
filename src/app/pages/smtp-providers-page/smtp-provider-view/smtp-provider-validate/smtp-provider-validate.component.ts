@@ -1,6 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {SmtpProvider} from '../../../../shared/models/smtp-provider.model';
-import {isAllowedEmail} from '../../../../shared/utils/form.utils';
+import {isAllowedEmail, isValidEmail} from '../../../../shared/utils/form.utils';
 import {extractData} from '../../../../shared/services/http-wrapper.service';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 import {SmtpProvidersService} from '../../../../shared/services/smtp-providers.service';
@@ -14,21 +14,26 @@ export class SmtpProviderValidateComponent implements OnInit {
 
   @Input() entity: SmtpProvider;
 
-  isEmail = isAllowedEmail;
-
   validationEmail: string;
 
   validationInProgress: boolean;
   validationResponse: string;
   validationSuccess: boolean;
 
+  emailInvalid: boolean;
+
   constructor(private smtpService: SmtpProvidersService) { }
 
   ngOnInit() {
   }
 
+  validEmail(): boolean {
+    return isValidEmail(this.validationEmail);
+  }
+
   validateProvider(): void {
-    if (!this.validationEmail) return;
+    this.emailInvalid = !this.validEmail();
+    if (this.emailInvalid) return;
 
     this.validationInProgress = true;
     this.smtpService.validate(this.entity, this.validationEmail).subscribe(data => {
@@ -40,6 +45,15 @@ export class SmtpProviderValidateComponent implements OnInit {
       this.validationResponse = JSON.stringify(response);
       this.validationSuccess = !response.error;
     });
+  }
+
+  checkKey(key, value) {
+    if (key.code === 'Enter') {
+      this.validateProvider();
+      return;
+    }
+
+    return isAllowedEmail(key, value);
   }
 
   copyUrlToClipboard(urlField): void {

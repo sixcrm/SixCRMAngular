@@ -5,7 +5,7 @@
   color: rgba(0,0,0,0.6);
 
   &__explanation {
-    margin-bottom: 30px;
+    margin-bottom: 23px;
 
     &--message {
       margin: 15px 0;
@@ -24,16 +24,12 @@
     }
   }
 
-  &__results {
-    margin-top: 10px;
-  }
-
   textarea {
     width: 100%;
   }
 
   md-icon {
-    margin: auto auto auto 10px;
+    margin: 5px 0 0 auto;
     cursor: pointer;
   }
 }
