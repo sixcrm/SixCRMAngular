@@ -82,10 +82,11 @@ describe('Register', function() {
 
 function removeUser(done) {
   let jwt = createTestAuth0JWT('super.user@test.com');
-  let request = supertest('https://api.sixcrm.com/');
+  let request = supertest('https://development-api.sixcrm.com/');
 
   request.post('graph/*')
     .set('Authorization', jwt)
     .send(deleteUser(registrationUsername))
+    .then(response => console.log(response))
     .end(() => done());
 }

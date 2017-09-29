@@ -18,7 +18,7 @@ export class CustomerPage {
   }
 
   getNewCustomerSaveButton() {
-    return element(by.css('.entity-view__card__actions')).element(by.css('div'))
+    return element(by.css('.entity-view__card__actions')).all(by.css('div')).last();
   }
 
   getCustomerFromTable(index) {
