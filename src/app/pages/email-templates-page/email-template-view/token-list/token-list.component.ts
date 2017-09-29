@@ -33,6 +33,7 @@ export class TokenListComponent implements OnInit {
 
 export class Token {
   name: string;
+  displayName: string
   path: string;
   subtokens: Token[] = [];
   parent: Token;
@@ -44,6 +45,7 @@ export class Token {
     this.parent = parent;
 
     this.name = (name && isNaN(+name)) ? name : obj.name || obj.title;
+    this.displayName = this.parseDisplayName(this.name);
     this.name = this.name.replace(/\s/, '_');
     this.title = obj.title;
     this.description = obj.description;
@@ -55,6 +57,14 @@ export class Token {
     if (this.subtokens.length === 0) {
       this.isTerminal = true;
     }
+  }
+
+  private parseDisplayName(name: string) {
+    if (name.toLowerCase() === 'id') {
+      return 'ID'
+    }
+
+    return name.replace(/_/, ' ');
   }
 
   private parseSubtokens(obj: any) {
