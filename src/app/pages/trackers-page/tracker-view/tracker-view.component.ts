@@ -24,7 +24,7 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
 
   selectedIndex: number = 0;
 
-  affiliateMapper = (el: Affiliate) => el.name;
+  affiliateMapper = (el: Affiliate) => el.name || el.affiliateId;
   affiliateColumnParams: ColumnParams<Affiliate>[];
 
   campaignMapper = (el: Affiliate) => el.name;
