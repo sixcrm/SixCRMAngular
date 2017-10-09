@@ -17,6 +17,16 @@ export interface TableMemoryTextOptions {
   noDataText?: string
 }
 
+export interface CustomMenuOption {
+  label: string,
+  option?: string
+}
+
+export interface CustomMenuOptionResult {
+  entity: any,
+  option: string
+}
+
 @Component({
   selector: 'table-memory',
   templateUrl: './table-memory.component.html',
@@ -40,11 +50,13 @@ export class TableMemoryComponent implements OnInit {
   @Input() editEnabled: boolean = false;
   @Input() ignoreDisassociate: (el: any) => boolean = (el: any) => false;
   @Input() hasWritePermission: boolean = true;
+  @Input() customMenuOptions: CustomMenuOption[] = [];
 
   @Output() view: EventEmitter<boolean> = new EventEmitter();
   @Output() disassociate: EventEmitter<any> = new EventEmitter();
   @Output() associate: EventEmitter<any> = new EventEmitter();
   @Output() edit: EventEmitter<any> = new EventEmitter();
+  @Output() customMenuOptionSelected: EventEmitter<CustomMenuOptionResult> = new EventEmitter();
 
   entitiesHolder: any[] = [];
 

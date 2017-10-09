@@ -9,6 +9,10 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {MerchantProvidersService} from '../../../shared/services/merchant-providers.service';
 import {MerchantProvider} from '../../../shared/models/merchant-provider/merchant-provider.model';
+import {CustomMenuOption, CustomMenuOptionResult} from '../../components/table-memory/table-memory.component';
+import {MdDialog} from '@angular/material';
+import {SingleInputDialogComponent} from '../../../dialog-modals/single-input-dialog.component';
+import {isAllowedFloatNumeric} from '../../../shared/utils/form.utils';
 
 @Component({
   selector: 'load-balancer-view',
@@ -31,11 +35,14 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
   formInvalid: boolean;
   detailsFormInvalid: boolean;
 
+  customOptions: CustomMenuOption[] = [{label: 'Update Distribution'}];
+
   constructor(service: LoadBalancersService,
               route: ActivatedRoute,
               public navigation: NavigationService,
               public router: Router,
-              public merchantProviderService: MerchantProvidersService
+              public merchantProviderService: MerchantProvidersService,
+              public dialog: MdDialog
   ) {
     super(service, route);
   }
@@ -101,5 +108,33 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
     if (this.detailsFormInvalid) return;
 
     this.saveOrUpdate(this.entity);
+  }
+
+  openEditMerchantProviderModal(option: CustomMenuOptionResult) {
+    const dialogRef = this.dialog.open(SingleInputDialogComponent);
+    dialogRef.componentInstance.text = `Update distribution of ${option.entity.merchantProvider.name}`;
+    dialogRef.componentInstance.inputContent = option.entity.distribution;
+    dialogRef.componentInstance.inputPlaceholder = 'Distribution';
+    dialogRef.componentInstance.yesText = 'Update';
+    dialogRef.componentInstance.noText = 'Cancel';
+    dialogRef.componentInstance.keydownAllowFunction = (key, currentValue) => {
+      return isAllowedFloatNumeric(key)
+    };
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.content) {
+        this.updateMerchantProvider(option.entity.merchantProvider, result.content);
+      }
+    })
+  }
+
+  updateMerchantProvider(merchantProvider: MerchantProvider, distribution: string) {
+    for (let i = 0; i < this.entity.merchantProviderConfigurations.length; i++) {
+      if (this.entity.merchantProviderConfigurations[i].merchantProvider.id === merchantProvider.id) {
+        this.entity.merchantProviderConfigurations[i].distribution = distribution;
+        this.updateEntity(this.entity);
+        break;
+      }
+    }
   }
 }

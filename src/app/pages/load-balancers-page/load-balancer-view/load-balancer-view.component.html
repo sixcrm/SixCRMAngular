@@ -64,12 +64,15 @@
       </div>
 
       <div class="flex-custom">
-        <table-memory class="load-balancer__merchant-providers" [title]="'Merchant Provider'"
+        <table-memory class="load-balancer__merchant-providers"
+                      [title]="'Merchant Provider'"
                       [data]="entity.merchantProviderConfigurations"
                       [associationEnabled]="false"
                       [associateDataMapper]="merchantProviderConfigMapper"
                       [columnParams]="merchantProviderColumnParams"
                       [filterEnabled]="false"
+                      [customMenuOptions]="customOptions"
+                      (customMenuOptionSelected)="openEditMerchantProviderModal($event)"
                       (view)="navigateToMerchantProvider($event)"
                       (disassociate)="disassociateMerchantProvider($event)">
         </table-memory>

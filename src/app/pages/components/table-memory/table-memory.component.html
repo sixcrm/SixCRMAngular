@@ -37,6 +37,7 @@
           <button md-menu-item (click)="view.emit(entity)">{{textOptions.viewOptionText || 'View ' + title}}</button>
           <button *ngIf="editEnabled && hasWritePermission" md-menu-item (click)="edit.emit(entity)">{{textOptions.editOptionText || 'Edit ' + title || ''}}</button>
           <button *ngIf="dissociationEnabled && hasWritePermission" md-menu-item (click)="showDisassociateDialog(entity)">{{textOptions.disassociateOptionText || 'Disassociate ' + title || ''}}</button>
+          <button *ngFor="let customOption of customMenuOptions" md-menu-item (click)="customMenuOptionSelected.emit({entity: entity, option: customOption.option})">{{customOption.label}}</button>
         </md-menu>
       </td>
     </tr>
