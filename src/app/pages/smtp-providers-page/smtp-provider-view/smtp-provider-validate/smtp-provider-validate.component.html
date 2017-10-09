@@ -20,12 +20,12 @@
         <textarea #responseMessage
                   [style.color]="!validationResponse ? 'grey' : (validationSuccess ? '#316537' : '#C31313')"
                   rows="9"
-                  #urlField class="validation__explanation--message"
+                  class="validation__explanation--message"
                   value="{{validationResponse || 'Validation Response'}}"
                   readonly>
         </textarea>
       </div>
-      <md-icon *ngIf="!validationInProgress && validationResponse" md-tooltip="Copy to clipboard" (click)="copyUrlToClipboard(responseMessage)">content_copy</md-icon>
+      <md-icon *ngIf="!validationInProgress && !!validationResponse" md-tooltip="Copy to clipboard" (click)="copyUrlToClipboard(responseMessage)">content_copy</md-icon>
     </div>
   </div>
 

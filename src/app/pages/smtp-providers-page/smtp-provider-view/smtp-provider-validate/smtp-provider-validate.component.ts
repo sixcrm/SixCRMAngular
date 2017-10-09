@@ -50,7 +50,7 @@ export class SmtpProviderValidateComponent implements OnInit {
   checkKey(key, value) {
     if (key.code === 'Enter') {
       this.validateProvider();
-      return;
+      return true;
     }
 
     return isAllowedEmail(key, value);
