@@ -84,37 +84,6 @@ export class AddScheduleComponent implements OnInit {
     this.clearAddScheduleWithLoop();
   }
 
-  endChanged() {
-    if (!this.scheduleToAdd.end) {
-      this.scheduleToAdd.period = 0;
-      return;
-    }
-
-    if (+this.scheduleToAdd.end > +(this.scheduleToAdd.start || 0)) {
-      this.scheduleToAdd.start = this.scheduleToAdd.start || 0;
-      this.scheduleToAdd.period = +this.scheduleToAdd.end - +this.scheduleToAdd.start;
-    }
-  }
-
-  startChanged() {
-    if (!this.scheduleToAdd.start) {
-      return;
-    }
-
-    if (+this.scheduleToAdd.start < +(this.scheduleToAdd.end || 0)) {
-      this.scheduleToAdd.period = this.scheduleToAdd.end - this.scheduleToAdd.start;
-    }
-  }
-
-  periodChanged() {
-    if (!this.scheduleToAdd.period) {
-      return;
-    }
-
-    this.scheduleToAdd.start = this.scheduleToAdd.start || 0;
-    this.scheduleToAdd.end = +this.scheduleToAdd.start + +this.scheduleToAdd.period;
-  }
-
   addProductToSchedule(product: Product): void {
     this.scheduleToAdd.product = product;
     this.price = product.defaultPrice.amount + '';
