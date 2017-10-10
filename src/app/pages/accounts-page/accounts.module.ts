@@ -8,6 +8,7 @@ import {SharedModule} from '../../shared/shared.module';
 import {AccountsAclGuard} from '../guards/accounts-acl-guard.service';
 import { AccountViewComponent } from './account-view/account-view.component';
 import {AccountsComponent} from './account-index/accounts.component';
+import { AccountAddNewComponent } from './account-view/account-add-new/account-add-new.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import {AccountsComponent} from './account-index/accounts.component';
     PageComponentsModule,
     SharedModule
   ],
-  declarations: [AccountViewComponent, AccountsComponent],
+  declarations: [AccountViewComponent, AccountsComponent, AccountAddNewComponent],
   providers: [AccountsAclGuard]
 })
 export class AccountsModule { }

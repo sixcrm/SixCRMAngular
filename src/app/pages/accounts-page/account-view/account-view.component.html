@@ -22,37 +22,17 @@
   <md-tab-group>
     <md-tab>
 
-      <div class="entity-view__card">
-        <div class="entity-view__card__header">
-          <div class="entity-view__card__header__title">Account Details</div>
-          <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
-          <md-menu #editOptions="mdMenu" x-position="before">
-            <button md-menu-item (click)="setMode(modes.Update)"> Edit Account Details </button>
-          </md-menu>
-        </div>
-
-        <form #userInput="ngForm" class="entity-view__card__content">
-
-          <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-            <input required md-input [disabled]="viewMode" placeholder="Name" name="name" [(ngModel)]="entity.name" type="text">
-          </md-input-container>
-
-          <div style="margin-top: 25px;" class="user-view__item flex-custom flex-custom--center">
-            <span>Activated</span>
-            <md-checkbox class="flex-align--right" [checked]="entity.active === 'true'" (change)="entity.toggleActive()" [disabled]="viewMode"></md-checkbox>
-          </div>
-
-        </form>
-
-        <div *ngIf="!viewMode" class="entity-view__card__actions">
-          <div *ngIf="updateMode" (click)="cancelUpdate()">CANCEL</div>
-          <div (click)="saveAccount(userInput.form.valid)">SAVE</div>
-        </div>
-      </div>
+      <account-add-new
+        [entity]="entity"
+        [mode]="viewMode ? modes.View : modes.Update"
+        (changeMode)="setMode($event)"
+        (cancel)="cancelUpdate()"
+        (save)="saveOrUpdate($event)"
+      >
+      </account-add-new>
 
       <table-memory
         class="account-view__acls-table"
-        *ngIf="!addMode"
         [data]="entity.acls || []"
         [columnParams]="aclColumnParams"
         [textOptions]="text"

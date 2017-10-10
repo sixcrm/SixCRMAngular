@@ -28,6 +28,8 @@ export class AccountsComponent  extends AbstractEntityIndexComponent<Account> im
   ) {
     super(affiliatesService, auth, dialog, paginationService, router, activatedRoute);
 
+    this.entityFactory = () => new Account();
+
     let f = this.authService.getTimezone();
     this.columnParams = [
       new ColumnParams('Name', (e: Account) => e.name),
