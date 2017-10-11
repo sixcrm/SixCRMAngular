@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="sixcrm-affiliate-id" content="whatever">
+    <title>Title</title>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-sha1/0.4.1/sha1.min.js"></script>
+    <script>
+      affiliateId="";
+      document.addEventListener("DOMContentLoaded",function(){var e=new RegExp("[\?&]sixcrm-affiliate_id=([^&#]*)").exec(location.href),t=document.head.querySelector("meta[name='sixcrm-affiliate_id']"),a=("; "+document.cookie).split("; sixcrm-affiliate_id="),i=2===a.length?a.pop().split(";").shift():"",n=e?e[1]:t?t.content:affiliateId||i,o=new Date;o.setTime(o.getTime()+864e5),document.cookie="sixcrm-affiliate_id="+n+"; expires="+o.toUTCString()+"; path=/",function(e){var t=Date.now(),a="1ud98uhc9h989811ud01yd81u2d1289duu1du1a0d9uula"+":"+t+":"+sha1("c3VwZXIudXNlckB0ZXN0LmNvbQ=="+t),i=new XMLHttpRequest;i.open("POST","https://development-api.sixcrm.com/"+"token/acquire/"+"*",!0),i.setRequestHeader("Authorization",a),i.onreadystatechange=function(){if(4===i.readyState&&200===i.status){var t=JSON.parse(i.responseText).response;e(t)}},i.send('{"campaign":"'+"df3cc861-3012-489c-9a91-8d259ce5d0b5"+'","affiliates":{"affiliate":"'+n+'"}}')}(function(e){var t=new XMLHttpRequest;t.open("POST","https://development-api.sixcrm.com/"+"tracking/"+"*",!0),t.setRequestHeader("Authorization",e),t.onreadystatechange=function(){if(4===t.readyState&&200===t.status){var e=JSON.parse(t.responseText).response.trackers;if(e&&e.length>0)for(var a,i=0;i<e.length;i++)(a=document.createElement("div")).innerHTML=e[i].body,document.body.appendChild(a)}},t.send('{"campaign":"'+"df3cc861-3012-489c-9a91-8d259ce5d0b5"+'","affiliate_id":"'+n+'"}')})},!1);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

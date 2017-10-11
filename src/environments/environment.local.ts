@@ -5,6 +5,7 @@
 
 export const environment = {
   production: false,
+  bareEndpoint: 'https://api.sixcrm.com/',
   endpoint: 'https://api.sixcrm.com/graph/',
   jwtEndpoint: 'https://api.sixcrm.com/token/acquire',
   clientID: 'JM1tC2j7tycbu62el3oBhyklpNbk5x6F',

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="sixcrm-affiliate_id" content="whatever">
+  <title>Example Pixel</title>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-sha1/0.4.1/sha1.min.js"></script>
+
+  <script>
+    var ADD_ACCOUNT_ID_HERE = 'd3fa3bf3-7824-49f4-8261-87674482bf1c';
+    var ADD_CAMPAIGN_ID_HERE = '70a6689a-5814-438b-b9fd-dd484d0812f9';
+    var ADD_ENDPOINT_HERE = 'https://development-api.sixcrm.com/';
+    var ADD_KEY_HERE='1ud98uhc9h989811ud01yd81u2d1289duu1du1a0d9uula';
+    var ADD_SECRET_HERE='c3VwZXIudXNlckB0ZXN0LmNvbQ=='
+  </script>
+
+  <script>
+    // affiliate id can be set directly
+    var affiliateId = '';
+
+    // when document is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      // look for sixcrm-affiliate_id in url
+      var urlAffiliate = new RegExp("[\\?&]sixcrm-affiliate_id=([^&#]*)").exec(location.href);
+
+      // look for sixcrm-affiliate_id in meta tags
+      var htmlAffiliate = document.head.querySelector("meta[name='sixcrm-affiliate_id']");
+
+      // look for sixcrm-affiliate_id in cookies
+      var cookies = ("; " + document.cookie).split("; sixcrm-affiliate_id=");
+      var cookieAffiliate = cookies.length === 2 ? cookies.pop().split(";").shift() : '';
+
+      // set affiliate id
+      var affId = urlAffiliate ? urlAffiliate[1] : htmlAffiliate ? htmlAffiliate.content : affiliateId ? affiliateId : cookieAffiliate;
+
+      // set cookie with affiliate id
+      var date = new Date();
+      date.setTime(date.getTime() + 24*60*60*1000);
+      document.cookie = 'sixcrm-affiliate_id='+affId+'; expires='+date.toUTCString()+'; path=/';
+
+      function acquireToken(callback) {
+        // prepare http request
+        var currentTime = Date.now();
+        var generatedToken = ADD_KEY_HERE+':'+currentTime+':'+sha1(ADD_SECRET_HERE+currentTime);
+        var http = new XMLHttpRequest();
+        http.open('POST', ADD_ENDPOINT_HERE + 'token/acquire/' + ADD_ACCOUNT_ID_HERE, true);
+        http.setRequestHeader('Authorization', generatedToken);
+
+        http.onreadystatechange = function() {
+          if(http.readyState ===4 && http.status === 200) {
+            var acquiredToken = JSON.parse(http.responseText).response;
+            callback(acquiredToken);
+          }
+        };
+
+        // make http request
+        http.send('{"campaign":"' + ADD_CAMPAIGN_ID_HERE + '","affiliates":{"affiliate":"' + affId + '"}}');
+      }
+
+      function getTrackers(token) {
+
+        // prepare http request
+        var http = new XMLHttpRequest();
+        http.open('POST', ADD_ENDPOINT_HERE + 'tracking/' + ADD_ACCOUNT_ID_HERE, true);
+        http.setRequestHeader('Authorization', token);
+
+        http.onreadystatechange = function() {
+          if(http.readyState ===4 && http.status === 200) {
+
+            // append each tracker to html body
+            var trackers = JSON.parse(http.responseText).response.trackers;
+            if (trackers && trackers.length > 0) {
+              var tracker;
+              for (var i = 0; i < trackers.length; i++) {
+                tracker = document.createElement('div');
+                tracker.innerHTML = trackers[i].body;
+                document.body.appendChild(tracker);
+              }
+            }
+          }
+        };
+
+        // make http request
+        http.send('{"campaign":"' + ADD_CAMPAIGN_ID_HERE + '","affiliate_id":"' + affId + '"}');
+      }
+
+      acquireToken(getTrackers);
+    }, false);
+  </script>
+</head>
+<body>
+</body>
+</html>

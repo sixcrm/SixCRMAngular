@@ -24,6 +24,7 @@
       <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
       <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">PRODUCT SCHEDULES</span>
       <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">AFFILIATES</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 3" (click)="setIndex(3)">TRACKING CODE</span>
     </div>
 
     <md-tab-group [(selectedIndex)]="selectedIndex">
@@ -96,6 +97,10 @@
           >
           </table-memory>
         </div>
+      </md-tab>
+
+      <md-tab>
+        <pixel-tracker [campaignId]="entityId"></pixel-tracker>
       </md-tab>
     </md-tab-group>
   </ng-template>

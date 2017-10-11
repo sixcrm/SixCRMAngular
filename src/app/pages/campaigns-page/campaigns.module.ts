@@ -9,6 +9,7 @@ import {PageComponentsModule} from '../components/pages-components.module';
 import {CampaignsAclGuard} from '../guards/campaigns-acl-guard.service';
 import {SharedModule} from '../../shared/shared.module';
 import { CampaignAddNewComponent } from './campaign-view/campaign-add-new/campaign-add-new.component';
+import { PixelTrackerComponent } from './campaign-view/pixel-tracker/pixel-tracker.component';
 
 @NgModule({
   imports : [
@@ -17,12 +18,13 @@ import { CampaignAddNewComponent } from './campaign-view/campaign-add-new/campai
     FormsModule,
     MaterialModule.forRoot(),
     PageComponentsModule,
-    SharedModule
+    SharedModule,
   ],
   declarations : [
     CampaignsComponent,
     CampaignViewComponent,
-    CampaignAddNewComponent
+    CampaignAddNewComponent,
+    PixelTrackerComponent
   ],
   exports : [ ],
   providers: [
