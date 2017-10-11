@@ -63,14 +63,12 @@ export class AddScheduleComponent implements OnInit {
 
   addNewSchedule(valid: boolean): void {
     this.formInvalid = !valid
+      || (+this.scheduleToAdd.start > +this.scheduleToAdd.end)
+      || (this.scheduleToAdd.period && (+this.scheduleToAdd.period < 1))
       || (this.addProductMode && (!this.scheduleToAdd.product && !this.scheduleToAdd.product.id)
       || (!this.addProductMode && !this.productScheduleToAdd.id) );
-    if (this.formInvalid) return;
 
-    if (this.scheduleToAdd.end && this.scheduleToAdd.end < this.scheduleToAdd.start) {
-      this.endField.nativeElement.focus();
-      return;
-    }
+    if (this.formInvalid) return;
 
     this.scheduleToAdd.price.amount = parseCurrencyMaskedValue(this.price);
 
