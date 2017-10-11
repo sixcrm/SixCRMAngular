@@ -1,3 +1,9 @@
+<div class="report__title">Transactions Report</div>
+
+<div class="chart-container">
+  <transaction-summary-chart [date]="dateMap" [filters]="immutableFilterTerms"></transaction-summary-chart>
+</div>
+
 <div class="filter-container">
   <advanced-filter
     [date]="dateMap"
@@ -15,9 +21,16 @@
   </advanced-filter>
 </div>
 
-<div class="chart-container">
-  <transaction-summary-chart [date]="dateMap" [filters]="immutableFilterTerms"></transaction-summary-chart>
-</div>
+<table-memory
+  [data]="[transactionsSum]"
+  [columnParams]="transactionsSumColumnParams"
+  [showHeader]="false"
+  [showPagination]="false"
+  [showMenuOptions]="false"
+  [associationEnabled]="false"
+  [dissociationEnabled]="false"
+  [editEnabled]="false">
+</table-memory>
 
 <report-table
   [title]="'Transaction Details'"

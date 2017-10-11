@@ -9,12 +9,14 @@ import {Daterangepicker} from 'ng2-daterangepicker';
 import {ChartsModule} from '../charts/charts.module';
 import {FormsModule} from '@angular/forms';
 import {AnalyticsAclGuard} from '../pages/guards/analytics-acl-guard.service';
+import {PageComponentsModule} from '../pages/components/pages-components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     SharedModule,
+    PageComponentsModule,
     reportsRouting,
     MaterialModule.forRoot(),
     Daterangepicker,

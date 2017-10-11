@@ -17,3 +17,16 @@ export function transactionReportListQuery(start: string, end: string, filterTer
 		}
 	}`
 }
+
+export function transactionsSumReport(start: string, end: string, filterTerms: FilterTerm[]): string {
+  let filterString = parseFilterTerms(filterTerms);
+
+  return `
+  {
+		transactionreport (analyticsfilter:{${dateString(start, end)} ${filterString}}) {
+			periods {
+        period, sale_count, sale_revenue, rebill_count, rebill_revenue, refund_expenses, refund_count, gross_revenue, declines_count, declines_revenue, chargeback_count, current_active_customer, count_alert_count
+      }
+		}
+	}`
+}

@@ -3,19 +3,22 @@ import {TransactionReport} from '../../models/analytics/transaction-report.model
 import {Subject, Observable} from 'rxjs';
 import {environment} from '../../../../environments/environment';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {transactionReportListQuery} from '../../utils/queries/reports.queries';
+import {transactionReportListQuery, transactionsSumReport} from '../../utils/queries/reports.queries';
 import { Response} from '@angular/http';
 import {FilterTerm} from '../../components/advanced-filter/advanced-filter.component';
 import {downloadJSON} from '../../utils/file.utils';
 import {extractData, HttpWrapperService, generateHeaders} from '../http-wrapper.service';
+import {TransactionsSum} from '../../models/analytics/transactions-sum.model';
 
 @Injectable()
 export class TransactionReportService {
 
   transactions$: Subject<TransactionReport[]>;
+  transactionsSum$: Subject<TransactionsSum>;
 
   constructor(private authService: AuthenticationService, private http: HttpWrapperService) {
     this.transactions$ = new Subject();
+    this.transactionsSum$ = new Subject();
   }
 
   getTransactions(start: string, end: string, filters: FilterTerm[], download?: boolean, limit?: number, offset?: number, order?: string) {
@@ -26,6 +29,21 @@ export class TransactionReportService {
 
           if (transactions) {
             this.transactions$.next(transactions.map(transaction => new TransactionReport(transaction)))
+          }
+        } else {
+          downloadJSON(data.json(), 'transactions-report.json');
+        }
+      })
+  }
+
+  getTransactionsSum(start: string, end: string, filters: FilterTerm[], download?: boolean) {
+    this.queryRequest(transactionsSumReport(start, end, filters), download).subscribe(
+      (data) => {
+        if (!download) {
+          let sum = extractData(data).transactionreport;
+
+          if (sum) {
+            this.transactionsSum$.next(new TransactionsSum(sum));
           }
         } else {
           downloadJSON(data.json(), 'transactions-report.json');

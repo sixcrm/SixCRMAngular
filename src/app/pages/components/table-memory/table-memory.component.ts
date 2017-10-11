@@ -45,6 +45,9 @@ export class TableMemoryComponent implements OnInit {
   @Input() filterEnabled: boolean = true;
   @Input() associationEnabled: boolean = true;
   @Input() dissociationEnabled: boolean = true;
+  @Input() showHeader: boolean = true;
+  @Input() showPagination: boolean = true;
+  @Input() showMenuOptions: boolean = true;
   @Input() textOptions: TableMemoryTextOptions = {};
   @Input() customAssociation: boolean = false;
   @Input() editEnabled: boolean = false;

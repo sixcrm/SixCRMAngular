@@ -8,6 +8,9 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {environment} from '../../../environments/environment';
 import {FilterTerm, DateMap, flatDown, flatUp} from '../../shared/components/advanced-filter/advanced-filter.component';
 import {scrollContentToTop} from '../../shared/utils/document.utils';
+import {ColumnParams} from '../../shared/models/column-params.model';
+import {TransactionsSumItem} from '../../shared/models/analytics/transactions-sum-item.model';
+import {Currency} from '../../shared/utils/currency/currency';
 
 @Component({
   selector: 'transactions-report',
@@ -23,6 +26,24 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
   dateMap: DateMap;
   shareUrl: string;
 
+  transactionsSumColumnParams = [
+    new ColumnParams('Data', (e: TransactionsSumItem) => 'TOTALS'),
+    new ColumnParams('Sales', (e: TransactionsSumItem) => e.saleCount, 'right'),
+    new ColumnParams('Sales Revenue', (e: TransactionsSumItem) => new Currency(e.saleRevenue).usd(), 'right'),
+    new ColumnParams('Rebill', (e: TransactionsSumItem) => e.rebillCount, 'right'),
+    new ColumnParams('Rebill Revenue', (e: TransactionsSumItem) => new Currency(e.rebillRevenue).usd(), 'right'),
+    new ColumnParams('Refunds', (e: TransactionsSumItem) => e.refundCount, 'right'),
+    new ColumnParams('Refund Expanses', (e: TransactionsSumItem) => '-' + new Currency(e.refundExpenses).usd(), 'right'),
+    new ColumnParams('Declines', (e: TransactionsSumItem) => e.declinesCount, 'right'),
+    new ColumnParams('Declines Revenue', (e: TransactionsSumItem) => new Currency(e.declinesRevenue).usd(), 'right'),
+    new ColumnParams('Gross Revenue', (e: TransactionsSumItem) => new Currency(e.grossRevenue).usd(), 'right'),
+    new ColumnParams('Chargeback', (e: TransactionsSumItem) => e.chargebackCount, 'right'),
+    new ColumnParams('Alerts', (e: TransactionsSumItem) => e.countAlertCount, 'right'),
+    new ColumnParams('Active Customers', (e: TransactionsSumItem) => e.currentActiveCustomer, 'right'),
+
+  ];
+  transactionsSum: TransactionsSumItem = new TransactionsSumItem();
+
   constructor(
     private reportService: TransactionReportService,
     paginationService: PaginationService,
@@ -35,6 +56,7 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
       this.immutableFilterTerms = this.filterTerms.slice();
       this.dateMap = {start: flatDown(this.start), end: flatUp(this.end)};
       this.reportService.getTransactions(this.start.format(), this.end.format(), this.filterTerms, false, this.limit + 1, this.page * this.limit);
+      this.reportService.getTransactionsSum(this.start.clone().format(), this.end.clone().format(), this.filterTerms);
     }
   }
 
@@ -49,6 +71,11 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
       new ReportColumnParams('Amount', (e: TransactionReport) => e.amount.usd(), 'right'),
       new ReportColumnParams('Processor Result', (e: TransactionReport) => e.processorResult),
     ];
+
+
+    this.reportService.transactionsSum$.takeUntil(this.unsubscribe$).subscribe(data => {
+      this.transactionsSum = data.sum;
+    });
 
     this.reportService.transactions$.takeUntil(this.unsubscribe$).subscribe(reports => {
       this.reports = [...this.reports, ...reports];
