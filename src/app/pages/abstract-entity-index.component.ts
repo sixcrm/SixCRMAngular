@@ -41,6 +41,8 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
   serverError: CustomServerError;
 
+  viewAfterCrate: boolean = true;
+
   protected takeUpdated: boolean = true;
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
@@ -79,7 +81,9 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
       this.allEntities.emit(this.entitiesHolder);
       this.reshuffleEntities();
 
-      this.viewEntity(entity.id);
+      if (this.viewAfterCrate) {
+        this.viewEntity(entity.id);
+      }
     });
     this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe((entity: T) => {
       if (this.takeUpdated) {

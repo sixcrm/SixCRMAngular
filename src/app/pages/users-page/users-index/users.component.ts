@@ -40,6 +40,7 @@ export class UsersComponent extends AbstractEntityIndexComponent<User> implement
     super(usersService, auth, dialog, paginationService, router, activatedRoute);
 
     this.entityFactory = () => new User();
+    this.viewAfterCrate = false;
 
     this.columnParams = [
       new ColumnParams('Name', (e: User) => e.name),
@@ -75,8 +76,8 @@ export class UsersComponent extends AbstractEntityIndexComponent<User> implement
 
   saveUser(response) {
     const user = response.user;
-    const account = response.account;
-    const role = response.role;
+    const account = response.accountToAdd;
+    const role = response.roleToAdd;
 
     this.entity.id = user.email;
     this.entity.auth0Id = user.email;
@@ -91,6 +92,10 @@ export class UsersComponent extends AbstractEntityIndexComponent<User> implement
       acl.user = user;
 
       this.aclService.createEntity(acl);
+    });
+
+    this.aclService.entityCreated$.takeUntil(this.unsubscribe$).subscribe(() => {
+      this.viewEntity(this.entity.id);
     });
 
     this.service.entityCreated$.take(1).takeUntil(this.unsubscribe$).subscribe(user => {
