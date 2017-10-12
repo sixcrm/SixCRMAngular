@@ -213,3 +213,24 @@ dropdown-component {
   }
 }
 
+.pixel-codemirror {
+  max-width: 800px;
+
+  .CodeMirror {
+    background: #faf8f0;
+  }
+
+  .CodeMirror-code {
+    max-width: 800px;
+  }
+
+  .CodeMirror-line {
+    white-space: normal;
+
+    span {
+      display: inline-block;
+      max-width: 800px;
+    }
+  }
+}
+

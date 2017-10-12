@@ -4,11 +4,11 @@
       <div class="entity-view__card__header__title">Tracking Code</div>
       <div class="entity-view__card__header__subtitle">Copy this code to your html page header</div>
     </div>
-    <md-icon md-tooltip="Copy to clipboard" (click)="copyScriptToClipboard(script)">content_copy</md-icon>
+    <md-icon md-tooltip="Copy to clipboard" ngxClipboard [cbContent]="scriptContent">content_copy</md-icon>
   </div>
 
   <div class="entity-view__card__content">
-    <textarea #script rows="20" cols="60" readonly [(ngModel)]="scriptContent"></textarea>
+    <codemirror #codemirror class="pixel-codemirror" *ngIf="showScript" [(ngModel)]="scriptContent" [config]="config"></codemirror>
   </div>
 
 </div>

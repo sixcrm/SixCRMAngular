@@ -3,6 +3,7 @@ import {Modes} from '../../../abstract-entity-view.component';
 import {Tracker} from '../../../../shared/models/tracker.model';
 import {CodemirrorComponent} from 'ng2-codemirror';
 import {firstIndexOf} from '../../../../shared/utils/array.utils';
+import 'codemirror/mode/htmlmixed/htmlmixed';
 
 @Component({
   selector: 'tracker-add-new',

@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Tracker} from '../../../shared/models/tracker.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {TrackersService} from '../../../shared/services/trackers.service';
@@ -6,12 +6,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {Affiliate} from '../../../shared/models/affiliate.model';
-import 'codemirror/mode/htmlmixed/htmlmixed';
-import {CodemirrorComponent} from 'ng2-codemirror';
 import {AffiliatesService} from '../../../shared/services/affiliates.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Campaign} from '../../../shared/models/campaign.model';
 import {CampaignsService} from '../../../shared/services/campaigns.service';
 

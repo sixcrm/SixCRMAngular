@@ -10,6 +10,8 @@ import {CampaignsAclGuard} from '../guards/campaigns-acl-guard.service';
 import {SharedModule} from '../../shared/shared.module';
 import { CampaignAddNewComponent } from './campaign-view/campaign-add-new/campaign-add-new.component';
 import { PixelTrackerComponent } from './campaign-view/pixel-tracker/pixel-tracker.component';
+import {CodemirrorModule} from 'ng2-codemirror';
+import {ClipboardModule} from 'ngx-clipboard/dist';
 
 @NgModule({
   imports : [
@@ -19,6 +21,8 @@ import { PixelTrackerComponent } from './campaign-view/pixel-tracker/pixel-track
     MaterialModule.forRoot(),
     PageComponentsModule,
     SharedModule,
+    CodemirrorModule,
+    ClipboardModule
   ],
   declarations : [
     CampaignsComponent,
