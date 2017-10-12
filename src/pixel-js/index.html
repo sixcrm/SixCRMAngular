@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="sixcrm-affiliate_id" content="whatever">
+  <meta name="affiliate_id" content="whatever">
   <title>Example Pixel</title>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-sha1/0.4.1/sha1.min.js"></script>
@@ -16,28 +16,25 @@
   </script>
 
   <script>
-    // affiliate id can be set directly
-    var affiliateId = '';
-
     // when document is ready
     document.addEventListener('DOMContentLoaded', function() {
       // look for sixcrm-affiliate_id in url
-      var urlAffiliate = new RegExp("[\\?&]sixcrm-affiliate_id=([^&#]*)").exec(location.href);
+      var urlAffiliate = new RegExp("[\\?&]affiliate_id=([^&#]*)").exec(location.href);
 
       // look for sixcrm-affiliate_id in meta tags
-      var htmlAffiliate = document.head.querySelector("meta[name='sixcrm-affiliate_id']");
+      var htmlAffiliate = document.head.querySelector("meta[name='affiliate_id']");
 
       // look for sixcrm-affiliate_id in cookies
-      var cookies = ("; " + document.cookie).split("; sixcrm-affiliate_id=");
+      var cookies = ("; " + document.cookie).split("; affiliate_id=");
       var cookieAffiliate = cookies.length === 2 ? cookies.pop().split(";").shift() : '';
 
       // set affiliate id
-      var affId = urlAffiliate ? urlAffiliate[1] : htmlAffiliate ? htmlAffiliate.content : affiliateId ? affiliateId : cookieAffiliate;
+      var selectedAffiliateId = urlAffiliate ? urlAffiliate[1] : htmlAffiliate ? htmlAffiliate.content : affiliateId ? affiliateId : cookieAffiliate;
 
       // set cookie with affiliate id
       var date = new Date();
       date.setTime(date.getTime() + 24*60*60*1000);
-      document.cookie = 'sixcrm-affiliate_id='+affId+'; expires='+date.toUTCString()+'; path=/';
+      document.cookie = 'affiliate_id='+selectedAffiliateId+'; expires='+date.toUTCString()+'; path=/';
 
       function acquireToken(callback) {
         // prepare http request
@@ -55,7 +52,7 @@
         };
 
         // make http request
-        http.send('{"campaign":"' + ADD_CAMPAIGN_ID_HERE + '","affiliates":{"affiliate":"' + affId + '"}}');
+        http.send('{"campaign":"' + ADD_CAMPAIGN_ID_HERE + '","affiliates":{"affiliate":"' + selectedAffiliateId + '"}}');
       }
 
       function getTrackers(token) {
@@ -82,7 +79,7 @@
         };
 
         // make http request
-        http.send('{"campaign":"' + ADD_CAMPAIGN_ID_HERE + '","affiliate_id":"' + affId + '"}');
+        http.send('{"campaign":"' + ADD_CAMPAIGN_ID_HERE + '","affiliate_id":"' + selectedAffiliateId + '"}');
       }
 
       acquireToken(getTrackers);
