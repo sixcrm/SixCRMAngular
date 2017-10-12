@@ -296,11 +296,15 @@ $color-orange: #F16C00;
   &__advanced {
     margin: 0 5px;
     height: 190px;
-    transition: height 0.75s cubic-bezier(0.35, 0, 0.25, 1);
+    transition: height 0.5s cubic-bezier(0.35, 0, 0.25, 1);
     overflow: hidden;
 
     &--inactive {
       height: 0 !important;
+    }
+
+    &--overflow-visible {
+      overflow: visible;
     }
 
     &__row {
@@ -382,5 +386,12 @@ $color-orange: #F16C00;
   input-autocomplete {
     width: 50%;
     max-width: 280px;
+  }
+
+  autocomplete-input {
+    .default-autocomplete-input {
+      margin-left: 5px;
+      font-size: 14px;
+    }
   }
 }

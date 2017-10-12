@@ -1,9 +1,6 @@
-<div class="input-autocomplete">
-  <md-input #inputField class="dashboard__filters__advanced__large first" placeholder="{{title}}" (input)="input($event)"></md-input>
-  <div class="input-autocomplete__suggestions">
-    <div class="input-autocomplete__suggestions__item" *ngFor="let suggestion of suggestions" (click)="select(suggestion)">
-      <div class="input-autocomplete__suggestions__item__image">{{suggestion.type.substring(0,1).toUpperCase()}}</div>
-      <div class="input-autocomplete__suggestions__item__text">{{suggestion.label}}</div>
-    </div>
-  </div>
-</div>
+<autocomplete-input [mapFunction]="suggestionMapper"
+                    [options]="suggestions"
+                    [placeholder]="title"
+                    (valueChanged)="input($event)"
+                    (selected)="select($event)">
+</autocomplete-input>

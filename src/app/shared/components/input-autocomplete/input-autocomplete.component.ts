@@ -10,8 +10,6 @@ import {FilterTerm} from '../advanced-filter/advanced-filter.component';
   host: {'(document:click)':'onClick($event)'}
 })
 export class InputAutocompleteComponent implements OnInit, OnDestroy {
-  @ViewChild('inputField') inputField;
-
   @Input()
   title: string;
 
@@ -22,6 +20,7 @@ export class InputAutocompleteComponent implements OnInit, OnDestroy {
   selected: EventEmitter<FilterTerm> = new EventEmitter();
 
   suggestions: FilterTerm[] = [];
+  suggestionMapper = (e: FilterTerm) => e.label;
 
   private unsubscribe$: Subject<boolean> = new Subject();
   private debouncer$: Subject<string> = new Subject();
@@ -44,7 +43,6 @@ export class InputAutocompleteComponent implements OnInit, OnDestroy {
   select(filterTerm: FilterTerm): void {
     this.selected.emit(filterTerm);
     this.suggestions = [];
-    this.inputField.value = '';
   }
 
   input(event): void {
@@ -99,8 +97,6 @@ export class InputAutocompleteComponent implements OnInit, OnDestroy {
       if (this.sub) {
         this.sub.unsubscribe();
       }
-
-      this.suggestions = [];
     }
   }
 

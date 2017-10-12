@@ -38,6 +38,7 @@ export class AutocompleteInputComponent implements OnInit {
   @Input() disabled: boolean = false;
   @Input() required: boolean = false;
   @Input() strictFilteringStrategy: boolean = false; // If is true will match ORegon but not califORnia when filtering string 'OR'. If false, will match both.
+  @Output() valueChanged: EventEmitter<any> = new EventEmitter();
   @Output() selected: EventEmitter<any> = new EventEmitter();
 
   focusedOptionIndex: number = 0;

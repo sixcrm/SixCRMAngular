@@ -1,7 +1,7 @@
 <div class="default-autocomplete-input">
   <div class="default-autocomplete-input__input">
     <md-input-container>
-      <input #input md-input autocomplete=off (ngModelChange)="change($event)" [ngModel]="currentValue" (keydown)="onKey($event)" [required]="required" (blur)="blurred()" (focus)="focused()" (click)="focused()" [disabled]="disabled" placeholder="{{placeholder}}" type="text">
+      <input #input md-input autocomplete=off (ngModelChange)="change($event)" (input)="valueChanged.emit($event)" [ngModel]="currentValue" (keydown)="onKey($event)" [required]="required" (blur)="blurred()" (focus)="focused()" (click)="focused()" [disabled]="disabled" placeholder="{{placeholder}}" type="text">
     </md-input-container>
     <md-icon [class.rotated]="showOptions" *ngIf="showArrow" (click)="arrowClicked(input)">keyboard_arrow_down</md-icon>
   </div>

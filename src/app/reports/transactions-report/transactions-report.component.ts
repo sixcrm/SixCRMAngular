@@ -8,7 +8,6 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {environment} from '../../../environments/environment';
 import {FilterTerm, DateMap, flatDown, flatUp} from '../../shared/components/advanced-filter/advanced-filter.component';
 import {scrollContentToTop} from '../../shared/utils/document.utils';
-import {ColumnParams} from '../../shared/models/column-params.model';
 import {TransactionsSumItem} from '../../shared/models/analytics/transactions-sum-item.model';
 import {Currency} from '../../shared/utils/currency/currency';
 
@@ -17,7 +16,7 @@ import {Currency} from '../../shared/utils/currency/currency';
   templateUrl: './transactions-report.component.html',
   styleUrls: ['./transactions-report.component.scss']
 })
-export class TransactionsReportComponent extends ReportsAbstractComponent<TransactionReport> implements OnInit, OnDestroy {
+export class TransactionsReportComponent extends ReportsAbstractComponent<TransactionsSumItem> implements OnInit, OnDestroy {
 
   start: Moment;
   end: Moment;
@@ -25,24 +24,6 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
   immutableFilterTerms: FilterTerm[] = [];
   dateMap: DateMap;
   shareUrl: string;
-
-  transactionsSumColumnParams = [
-    new ColumnParams('Data', (e: TransactionsSumItem) => 'TOTALS'),
-    new ColumnParams('Sales', (e: TransactionsSumItem) => e.saleCount, 'right'),
-    new ColumnParams('Sales Revenue', (e: TransactionsSumItem) => new Currency(e.saleRevenue).usd(), 'right'),
-    new ColumnParams('Rebill', (e: TransactionsSumItem) => e.rebillCount, 'right'),
-    new ColumnParams('Rebill Revenue', (e: TransactionsSumItem) => new Currency(e.rebillRevenue).usd(), 'right'),
-    new ColumnParams('Refunds', (e: TransactionsSumItem) => e.refundCount, 'right'),
-    new ColumnParams('Refund Expanses', (e: TransactionsSumItem) => '-' + new Currency(e.refundExpenses).usd(), 'right'),
-    new ColumnParams('Declines', (e: TransactionsSumItem) => e.declinesCount, 'right'),
-    new ColumnParams('Declines Revenue', (e: TransactionsSumItem) => new Currency(e.declinesRevenue).usd(), 'right'),
-    new ColumnParams('Gross Revenue', (e: TransactionsSumItem) => new Currency(e.grossRevenue).usd(), 'right'),
-    new ColumnParams('Chargeback', (e: TransactionsSumItem) => e.chargebackCount, 'right'),
-    new ColumnParams('Alerts', (e: TransactionsSumItem) => e.countAlertCount, 'right'),
-    new ColumnParams('Active Customers', (e: TransactionsSumItem) => e.currentActiveCustomer, 'right'),
-
-  ];
-  transactionsSum: TransactionsSumItem = new TransactionsSumItem();
 
   constructor(
     private reportService: TransactionReportService,
@@ -55,29 +36,29 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
     this.fetchFunction = () => {
       this.immutableFilterTerms = this.filterTerms.slice();
       this.dateMap = {start: flatDown(this.start), end: flatUp(this.end)};
-      this.reportService.getTransactions(this.start.format(), this.end.format(), this.filterTerms, false, this.limit + 1, this.page * this.limit);
-      this.reportService.getTransactionsSum(this.start.clone().format(), this.end.clone().format(), this.filterTerms);
+      this.reportService.getTransactionsSum(this.start.format(), this.end.format(), this.filterTerms, false, this.limit + 1, this.page * this.limit);
     }
   }
 
   ngOnInit() {
+
     this.columnParams = [
-      new ReportColumnParams('Date', (e: TransactionReport) => e.date.format('MM/DD/YYYY')),
-      new ReportColumnParams('Affiliate', (e: TransactionReport) => e.affiliate).setIsFilter(true).setEntityType('affiliate'),
-      new ReportColumnParams('Sub-Affiliate', (e: TransactionReport) => e.subAffiliate1).setIsFilter(true).setEntityType('affiliate'),
-      new ReportColumnParams('Campaign', (e: TransactionReport) => e.campaign).setIsFilter(true).setEntityType('campaign'),
-      new ReportColumnParams('Product Schedule', (e: TransactionReport) => e.productSchedule).setIsFilter(true).setEntityType('productschedule'),
-      new ReportColumnParams('Transaction Type', (e: TransactionReport) => e.transactionType),
-      new ReportColumnParams('Amount', (e: TransactionReport) => e.amount.usd(), 'right'),
-      new ReportColumnParams('Processor Result', (e: TransactionReport) => e.processorResult),
+      new ReportColumnParams('Date', (e: TransactionsSumItem) => e.period.format('MM/DD/YY')),
+      new ReportColumnParams('Sales', (e: TransactionsSumItem) => e.saleCount, 'right'),
+      new ReportColumnParams('Sales Revenue', (e: TransactionsSumItem) => new Currency(e.saleRevenue).usd(), 'right'),
+      new ReportColumnParams('Rebill', (e: TransactionsSumItem) => e.rebillCount, 'right'),
+      new ReportColumnParams('Rebill Revenue', (e: TransactionsSumItem) => new Currency(e.rebillRevenue).usd(), 'right'),
+      new ReportColumnParams('Refunds', (e: TransactionsSumItem) => e.refundCount, 'right'),
+      new ReportColumnParams('Refund Expanses', (e: TransactionsSumItem) => '-' + new Currency(e.refundExpenses).usd(), 'right'),
+      new ReportColumnParams('Declines', (e: TransactionsSumItem) => e.declinesCount, 'right'),
+      new ReportColumnParams('Declines Revenue', (e: TransactionsSumItem) => new Currency(e.declinesRevenue).usd(), 'right'),
+      new ReportColumnParams('Gross Revenue', (e: TransactionsSumItem) => new Currency(e.grossRevenue).usd(), 'right'),
+      new ReportColumnParams('Chargeback', (e: TransactionsSumItem) => e.chargebackCount, 'right'),
+      new ReportColumnParams('Alerts', (e: TransactionsSumItem) => e.countAlertCount, 'right'),
+      new ReportColumnParams('Active Customers', (e: TransactionsSumItem) => e.currentActiveCustomer, 'right'),
     ];
 
-
-    this.reportService.transactionsSum$.takeUntil(this.unsubscribe$).subscribe(data => {
-      this.transactionsSum = data.sum;
-    });
-
-    this.reportService.transactions$.takeUntil(this.unsubscribe$).subscribe(reports => {
+    this.reportService.transactionsSumItems$.takeUntil(this.unsubscribe$).subscribe(reports => {
       this.reports = [...this.reports, ...reports];
 
       if (this.reports.length < this.limit + 1) {
@@ -207,7 +188,7 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
   }
 
   download(format: string): void {
-    this.reportService.getTransactions(this.start.format(), this.end.format(), this.filterTerms, true, this.limit + 1, this.page * this.limit)
+    this.reportService.getTransactionsSum(this.start.format(), this.end.format(), this.filterTerms, true, this.limit + 1, this.page * this.limit)
   }
 
   viewTransaction(transaction) {

@@ -15,6 +15,7 @@ export class ReportTableComponent implements OnInit {
   @Input() columnParams: ReportColumnParams<any>[] = [];
   @Input() data: any[] = [];
   @Input() title: string;
+  @Input() showFilter: boolean = true;
   @Output() filterSelected: EventEmitter<FilterTerm> = new EventEmitter();
   @Output() click: EventEmitter<any> = new EventEmitter();
 

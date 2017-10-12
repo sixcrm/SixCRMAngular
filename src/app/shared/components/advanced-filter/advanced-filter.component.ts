@@ -104,6 +104,8 @@ export class AdvancedFilterComponent implements OnInit, OnDestroy {
     {id: 'error', label: 'Error', type: 'processorresult'}
   ];
 
+  visible: boolean;
+
   private unsubscribe$: AsyncSubject<boolean> = new AsyncSubject();
 
   dateFilters: DateFilter[] = [
@@ -169,6 +171,11 @@ export class AdvancedFilterComponent implements OnInit, OnDestroy {
 
   toggleAdvanced(): void {
     this.advanced = !this.advanced;
+    if (this.advanced) {
+      setTimeout(() => this.visible = true, 750);
+    } else {
+      this.visible = false;
+    }
   }
 
   filterTermInput(event): void {

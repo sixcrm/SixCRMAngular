@@ -21,26 +21,14 @@
   </advanced-filter>
 </div>
 
-<table-memory
-  [data]="[transactionsSum]"
-  [columnParams]="transactionsSumColumnParams"
-  [showHeader]="false"
-  [showPagination]="false"
-  [showMenuOptions]="false"
-  [associationEnabled]="false"
-  [dissociationEnabled]="false"
-  [editEnabled]="false">
-</table-memory>
-
 <report-table
-  [title]="'Transaction Details'"
+  [title]="'Transaction Summary Details'"
   [data]="reportsToDisplay"
   [columnParams]="columnParams"
   [limit]="limit"
   [page]="page"
   [paginationString]="getPaginationString()"
-  (filterSelected)="filterSelected($event)"
-  (click)="viewTransaction($event)"
+  [showFilter]="false"
   (next)="fetchNext()"
   (previous)="fetchPrevious()"
   (updateLimit)="updateLimit($event)"

@@ -8,17 +8,17 @@ import { Response} from '@angular/http';
 import {FilterTerm} from '../../components/advanced-filter/advanced-filter.component';
 import {downloadJSON} from '../../utils/file.utils';
 import {extractData, HttpWrapperService, generateHeaders} from '../http-wrapper.service';
-import {TransactionsSum} from '../../models/analytics/transactions-sum.model';
+import {TransactionsSumItem} from '../../models/analytics/transactions-sum-item.model';
 
 @Injectable()
 export class TransactionReportService {
 
   transactions$: Subject<TransactionReport[]>;
-  transactionsSum$: Subject<TransactionsSum>;
+  transactionsSumItems$: Subject<TransactionsSumItem[]>;
 
   constructor(private authService: AuthenticationService, private http: HttpWrapperService) {
     this.transactions$ = new Subject();
-    this.transactionsSum$ = new Subject();
+    this.transactionsSumItems$ = new Subject();
   }
 
   getTransactions(start: string, end: string, filters: FilterTerm[], download?: boolean, limit?: number, offset?: number, order?: string) {
@@ -36,17 +36,17 @@ export class TransactionReportService {
       })
   }
 
-  getTransactionsSum(start: string, end: string, filters: FilterTerm[], download?: boolean) {
-    this.queryRequest(transactionsSumReport(start, end, filters), download).subscribe(
+  getTransactionsSum(start: string, end: string, filters: FilterTerm[], download?: boolean, limit?: number, offset?: number, order?: string) {
+    this.queryRequest(transactionsSumReport(start, end, filters, download, limit, offset, order), download).subscribe(
       (data) => {
         if (!download) {
-          let sum = extractData(data).transactionreport;
+          let transactionsSumItems = extractData(data).transactionreport.periods;
 
-          if (sum) {
-            this.transactionsSum$.next(new TransactionsSum(sum));
+          if (transactionsSumItems) {
+            this.transactionsSumItems$.next(transactionsSumItems.map(t => new TransactionsSumItem(t)));
           }
         } else {
-          downloadJSON(data.json(), 'transactions-report.json');
+          downloadJSON(data.json().response, 'transaction-sums-report.json');
         }
       })
   }

@@ -1,8 +1,9 @@
 <div class="reports-table">
   <div class="reports-table__title">
     <span>{{title}}</span>
-    <md-input placeholder="Filter" [(ngModel)]="filterString"></md-input>
+    <md-input *ngIf="showFilter" placeholder="Filter" [(ngModel)]="filterString"></md-input>
     <table-pagination
+      [class.reports-table__pagination--right]="!showFilter"
       [limit]="limit"
       [paginationValues]="paginationValues"
       [previousDisabled]="page <= 0"
