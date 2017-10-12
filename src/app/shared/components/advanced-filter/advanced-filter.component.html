@@ -48,7 +48,10 @@
     <div class="advanced-filter__icons">
       <md-icon class="refresh-icon" (click)="refresh()" md-tooltip="{{refreshText}}" mdTooltipPosition="left">refresh</md-icon>
       <share-link [shareUrl]="shareUrl"></share-link>
-      <md-icon>more_vert</md-icon>
+      <md-icon [md-menu-trigger-for]="advancedOptions">more_vert</md-icon>
+      <md-menu #advancedOptions="mdMenu" x-position="before">
+        <button md-menu-item (click)="toggleAdvanced()"> {{advanced ? 'Hide' : 'Show'}} Advanced Search </button>
+      </md-menu>
     </div>
   </div>
 
@@ -102,10 +105,9 @@
     </div>
   </div>
 
-  <div class="advanced-filter__advanced-button">
+  <div *ngIf="advanced" class="advanced-filter__advanced-button">
     <span *ngIf="advanced" (click)="apply()">APPLY</span>
     <span *ngIf="showResetButton()" (click)="reset()">RESET</span>
-    <span *ngIf="!advanced" (click)="toggleAdvanced()">ADVANCED</span>
     <span *ngIf="advanced" (click)="toggleAdvanced()">CLOSE</span>
   </div>
 </div>
