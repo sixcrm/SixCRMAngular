@@ -43,6 +43,10 @@
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
+        <input [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="Daily Cap ($)" name="dailyCap" [(ngModel)]="entity.processing.transactionCounts.daily" type="text">
+      </md-input-container>
+
+      <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
         <input [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="Transaction Fee ($)" name="transactionFee" [(ngModel)]="entity.processing.transactionFee" type="text">
       </md-input-container>
 
