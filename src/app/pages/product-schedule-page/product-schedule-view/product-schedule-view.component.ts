@@ -10,6 +10,9 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {Product} from '../../../shared/models/product.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {AddScheduleComponent} from '../../../shared/components/add-schedule/add-schedule.component';
+import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
+import {AddProductScheduleDialogComponent} from '../../add-product-schedule-dialog.component';
+import {MdDialog} from '@angular/material';
 
 @Component({
   selector: 'product-schedule-view',
@@ -36,12 +39,18 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
 
   price: string = '';
 
+  tableTexts: TableMemoryTextOptions = {
+    title: 'Associated Schedules',
+    viewOptionText: 'View Product'
+  };
+
   constructor(
     service: ProductScheduleService,
     route: ActivatedRoute,
     public navigation: NavigationService,
     public authService: AuthenticationService,
     private router: Router,
+    private dialog: MdDialog
   ) {
     super(service, route);
   }
@@ -97,5 +106,23 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
 
   canBeDeactivated() {
     return super.canBeDeactivated() && (!this.addScheduleComponent || !this.addScheduleComponent.isTouched());
+  }
+
+  editSchedule(schedule: Schedule) {
+    let addProductScheduleDialog = this.dialog.open(AddProductScheduleDialogComponent);
+    addProductScheduleDialog.componentInstance.price = schedule.price.amount + '';
+    addProductScheduleDialog.componentInstance.scheduleToAdd = schedule;
+    addProductScheduleDialog.componentInstance.addProductMode = true;
+    addProductScheduleDialog.componentInstance.editMode = true;
+
+    addProductScheduleDialog.afterClosed().take(1).subscribe(result => {
+      addProductScheduleDialog = null;
+
+      if (result) {
+        this.service.updateEntity(this.entity);
+      } else {
+        this.entity = this.entityBackup.copy();
+      }
+    });
   }
 }

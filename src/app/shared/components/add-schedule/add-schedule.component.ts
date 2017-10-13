@@ -21,15 +21,16 @@ export class AddScheduleComponent implements OnInit {
   isFloatNumeric = isAllowedFloatNumeric;
   numberMask = getCurrencyMask();
 
-  scheduleToAdd: Schedule = new Schedule();
-  productScheduleToAdd: ProductSchedule = new ProductSchedule();
   productMapper = (p: Product) => p.name;
 
   formInvalid: boolean;
 
   @Input() price: string = '';
   @Input() addProductMode: boolean = true;
+  @Input() editMode: boolean = false;
   @Input() productId: string;
+  @Input() scheduleToAdd: Schedule = new Schedule();
+  @Input() productScheduleToAdd: ProductSchedule = new ProductSchedule();
 
   @Output() cancel: EventEmitter<boolean> = new EventEmitter();
   @Output() addSchedule: EventEmitter<Schedule> = new EventEmitter();

@@ -1,6 +1,6 @@
 <div class="entity-view__card">
   <div class="entity-view__card__header">
-    <div class="entity-view__card__header__title">Add Product to Schedule</div>
+    <div class="entity-view__card__header__title">{{editMode ? 'Edit Schedule' : 'Add Product to Schedule' }}</div>
   </div>
 
   <form #scheduleInputForm="ngForm" class="entity-view__card__content product-schedule-view__container">
@@ -52,7 +52,7 @@
   </form>
 
   <div class="entity-view__card__actions">
-    <div (click)="clearAddSchedule()">CLEAR</div>
-    <div (click)="addNewSchedule(scheduleInputForm.form.valid)">ADD</div>
+    <div (click)="clearAddSchedule()">{{editMode ? 'CANCEL' : 'CLEAR'}}</div>
+    <div (click)="addNewSchedule(scheduleInputForm.form.valid)">{{editMode ? 'SAVE' : 'ADD'}}</div>
   </div>
 </div>

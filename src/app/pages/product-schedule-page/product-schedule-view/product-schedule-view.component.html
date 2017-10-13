@@ -44,9 +44,12 @@
 
         <table-memory [title]="'Schedule'"
                       [data]="entity.schedules"
+                      [textOptions]="tableTexts"
                       [associationEnabled]="false"
                       [columnParams]="scheduleColumnParams"
                       [associateDataMapper]="scheduleMapper"
+                      [editEnabled]="true"
+                      (edit)="editSchedule($event)"
                       (disassociate)="disassociateSchedule($event)"
                       (view)="navigateToProduct($event)">
         </table-memory>
