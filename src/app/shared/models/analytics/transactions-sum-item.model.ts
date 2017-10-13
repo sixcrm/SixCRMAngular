@@ -20,7 +20,7 @@ export class TransactionsSumItem {
       obj = {};
     }
 
-    this.period = utc(obj.perid);
+    this.period = utc(obj.period);
     this.saleCount = obj.sale_count || 0;
     this.saleRevenue = obj.sale_revenue || 0;
     this.rebillCount = obj.rebill_count || 0;
