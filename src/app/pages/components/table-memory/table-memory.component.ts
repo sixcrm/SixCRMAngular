@@ -45,6 +45,7 @@ export class TableMemoryComponent implements OnInit {
   @Input() filterEnabled: boolean = true;
   @Input() associationEnabled: boolean = true;
   @Input() dissociationEnabled: boolean = true;
+  @Input() sortEnabled: boolean = true;
   @Input() showHeader: boolean = true;
   @Input() showPagination: boolean = true;
   @Input() showMenuOptions: boolean = true;
@@ -146,6 +147,8 @@ export class TableMemoryComponent implements OnInit {
   }
 
   setSortedColumnParams(params: ColumnParams<any>): void {
+    if (!this.sortEnabled) return;
+
     if (params.sortApplied) {
       params.sortOrder = params.sortOrder === 'asc' ? 'desc' : 'asc';
     } else if (this.sortedColumnParams) {

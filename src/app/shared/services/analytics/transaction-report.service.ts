@@ -3,7 +3,10 @@ import {TransactionReport} from '../../models/analytics/transaction-report.model
 import {Subject, Observable} from 'rxjs';
 import {environment} from '../../../../environments/environment';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {transactionReportListQuery, transactionsSumReport} from '../../utils/queries/reports.queries';
+import {
+  transactionReportListQuery, transactionsSumReport,
+  transactionsSumTotalReport
+} from '../../utils/queries/reports.queries';
 import { Response} from '@angular/http';
 import {FilterTerm} from '../../components/advanced-filter/advanced-filter.component';
 import {downloadJSON} from '../../utils/file.utils';
@@ -15,10 +18,12 @@ export class TransactionReportService {
 
   transactions$: Subject<TransactionReport[]>;
   transactionsSumItems$: Subject<TransactionsSumItem[]>;
+  transactionsSumTotal$: Subject<TransactionsSumItem>;
 
   constructor(private authService: AuthenticationService, private http: HttpWrapperService) {
     this.transactions$ = new Subject();
     this.transactionsSumItems$ = new Subject();
+    this.transactionsSumTotal$ = new Subject();
   }
 
   getTransactions(start: string, end: string, filters: FilterTerm[], download?: boolean, limit?: number, offset?: number, order?: string) {
@@ -40,13 +45,28 @@ export class TransactionReportService {
     this.queryRequest(transactionsSumReport(start, end, filters, download, limit, offset, order), download).subscribe(
       (data) => {
         if (!download) {
-          let transactionsSumItems = extractData(data).transactionreport.periods;
+          let transactionsSumItems = extractData(data).transactionsreporttimeseries.periods;
 
           if (transactionsSumItems) {
             this.transactionsSumItems$.next(transactionsSumItems.map(t => new TransactionsSumItem(t)));
           }
         } else {
           downloadJSON(data.json().response, 'transaction-sums-report.json');
+        }
+      })
+  }
+
+  getTransactionsSumTotal(start: string, end: string, filters: FilterTerm[], download?: boolean) {
+    this.queryRequest(transactionsSumTotalReport(start, end, filters), download).subscribe(
+      (data) => {
+        if (!download) {
+          let transactionsSumTotal = extractData(data).transactionsreportsummary;
+
+          if (transactionsSumTotal) {
+            this.transactionsSumTotal$.next(new TransactionsSumItem(transactionsSumTotal));
+          }
+        } else {
+          downloadJSON(data.json().response, 'transaction-sums-total-report.json');
         }
       })
   }

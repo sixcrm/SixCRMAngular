@@ -21,6 +21,17 @@
   </advanced-filter>
 </div>
 
+<table-memory
+  [data]="reportsTotal"
+  [columnParams]="columnParamsTotal"
+  [associationEnabled]="false"
+  [dissociationEnabled]="false"
+  [sortEnabled]="false"
+  [showHeader]="false"
+  [showMenuOptions]="false"
+  [showPagination]="false">
+</table-memory>
+
 <report-table
   [title]="'Transaction Summary Details'"
   [data]="reportsToDisplay"

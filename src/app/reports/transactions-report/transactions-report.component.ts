@@ -24,9 +24,11 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
   immutableFilterTerms: FilterTerm[] = [];
   dateMap: DateMap;
   shareUrl: string;
+  columnParamsTotal: ReportColumnParams<TransactionsSumItem>[] = [];
+  reportsTotal: TransactionsSumItem[] = [];
 
   constructor(
-    private reportService: TransactionReportService,
+    public reportService: TransactionReportService,
     paginationService: PaginationService,
     private router: Router,
     private route: ActivatedRoute
@@ -37,13 +39,13 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
       this.immutableFilterTerms = this.filterTerms.slice();
       this.dateMap = {start: flatDown(this.start), end: flatUp(this.end)};
       this.reportService.getTransactionsSum(this.start.format(), this.end.format(), this.filterTerms, false, this.limit + 1, this.page * this.limit);
+      this.reportService.getTransactionsSumTotal(this.start.format(), this.end.format(), this.filterTerms);
     }
   }
 
   ngOnInit() {
 
-    this.columnParams = [
-      new ReportColumnParams('Date', (e: TransactionsSumItem) => e.period.format('MM/DD/YY')),
+    this.columnParamsTotal = [
       new ReportColumnParams('Sales', (e: TransactionsSumItem) => e.saleCount, 'right'),
       new ReportColumnParams('Sales Revenue', (e: TransactionsSumItem) => new Currency(e.saleRevenue).usd(), 'right'),
       new ReportColumnParams('Rebill', (e: TransactionsSumItem) => e.rebillCount, 'right'),
@@ -58,6 +60,8 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
       new ReportColumnParams('Active Customers', (e: TransactionsSumItem) => e.currentActiveCustomer, 'right'),
     ];
 
+    this.columnParams = [new ReportColumnParams('Date', (e: TransactionsSumItem) => e.period.format('MM/DD/YY')), ...this.columnParamsTotal];
+
     this.reportService.transactionsSumItems$.takeUntil(this.unsubscribe$).subscribe(reports => {
       this.reports = [...this.reports, ...reports];
 
@@ -66,6 +70,10 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
       }
 
       this.reshuffle();
+    });
+
+    this.reportService.transactionsSumTotal$.takeUntil(this.unsubscribe$).subscribe(report => {
+      this.reportsTotal = [report];
     });
 
     this.route.queryParams.takeUntil(this.unsubscribe$).subscribe(params => {
