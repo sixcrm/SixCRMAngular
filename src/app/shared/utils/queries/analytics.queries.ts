@@ -46,7 +46,11 @@ export function campaignDeltaQuery(start: string, end: string): string {
   return `
   {
 		campaigndelta (analyticsfilter:{${dateRange(start, end)}}) {
-			campaigns { campaign campaign_name percent_change_amount percent_change_count }
+		  campaigns {
+				campaign { id, name },
+				percent_change_amount,
+				percent_change_count
+			}
 		}
 	}`
 }
