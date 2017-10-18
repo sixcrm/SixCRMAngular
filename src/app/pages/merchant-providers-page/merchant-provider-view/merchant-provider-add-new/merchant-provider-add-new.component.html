@@ -38,16 +38,20 @@
     </div>
 
     <div class="entity-view__card__content merchant-provider-view__details">
-      <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers" [class.error]="formInvalid && !entity.processing.transactionCounts.monthly">
-        <input required [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="Monthly Cap ($)" name="monthlyCap" [(ngModel)]="entity.processing.transactionCounts.monthly" type="text">
+      <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers" [class.error]="formInvalid && !entity.processing.monthlyCap">
+        <input required [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="Monthly Cap ($)" name="monthlyCap" [(ngModel)]="entity.processing.monthlyCap" type="text">
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="Weekly Cap ($)" name="weeklyCap" [(ngModel)]="entity.processing.transactionCounts.weekly" type="text">
+        <input [disabled]="mode === modes.View" (keydown)="isNumeric($event)" md-input placeholder="Monthly Cap (count)" name="monthlyCapCount" [(ngModel)]="entity.processing.transactionCounts.monthly" type="text">
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="Daily Cap ($)" name="dailyCap" [(ngModel)]="entity.processing.transactionCounts.daily" type="text">
+        <input [disabled]="mode === modes.View" (keydown)="isNumeric($event)" md-input placeholder="Weekly Cap (count)" name="weeklyCapCount" [(ngModel)]="entity.processing.transactionCounts.weekly" type="text">
+      </md-input-container>
+
+      <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
+        <input [disabled]="mode === modes.View" (keydown)="isNumeric($event)" md-input placeholder="Daily Cap (count)" name="dailyCapCount" [(ngModel)]="entity.processing.transactionCounts.daily" type="text">
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
@@ -93,7 +97,7 @@
           <input required [disabled]="mode === modes.View" md-input placeholder="Processor ID" name="processorId" [(ngModel)]="entity.gateway.processorId" type="text">
         </md-input-container>
 
-        <md-input-container *ngIf="entity.gateway.isInnovio()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.processorId">
+        <md-input-container *ngIf="entity.gateway.isInnovio()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.productId">
           <input required [disabled]="mode === modes.View" md-input placeholder="Product ID" name="productId" [(ngModel)]="entity.gateway.productId" type="text">
         </md-input-container>
 

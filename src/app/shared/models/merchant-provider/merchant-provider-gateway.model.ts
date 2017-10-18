@@ -5,6 +5,7 @@ export enum MerchantProviderGatewayType {
 }
 
 export class MerchantProviderGateway {
+  rawType: string;
   type: MerchantProviderGatewayType;
   name: string;
   processorId: string;
@@ -17,6 +18,7 @@ export class MerchantProviderGateway {
       obj = {};
     }
 
+    this.rawType = obj.type;
     this.setType(obj.type);
     this.name = obj.name || '';
     this.processorId = this.isNMI() ? obj.processor_id : '';
@@ -59,6 +61,7 @@ export class MerchantProviderGateway {
   inverse(): any {
     return {
       name: this.name,
+      type: this.rawType,
       processor_id: this.processorId,
       product_id: this.productId,
       username: this.username,

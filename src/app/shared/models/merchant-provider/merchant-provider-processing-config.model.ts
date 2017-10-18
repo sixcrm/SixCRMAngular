@@ -4,6 +4,7 @@ export class MerchantProviderProcessingConfig {
   discountRate: number;
   maximumChargebackRatio: number;
   reserveRate: number;
+  monthlyCap: string;
   transactionCounts: MerchantProviderProcessingConfigCounts;
   transactionFee: number;
 
@@ -15,6 +16,7 @@ export class MerchantProviderProcessingConfig {
     this.discountRate = obj.discount_rate;
     this.maximumChargebackRatio = obj.maximum_chargeback_ratio;
     this.reserveRate = obj.reserve_rate;
+    this.monthlyCap = obj.monthly_cap;
     this.transactionCounts = new MerchantProviderProcessingConfigCounts(obj.transaction_counts);
     this.transactionFee = obj.transaction_fee;
   }
@@ -28,6 +30,7 @@ export class MerchantProviderProcessingConfig {
       discount_rate: this.discountRate,
       maximum_chargeback_ratio: this.maximumChargebackRatio,
       reserve_rate: this.reserveRate,
+      monthly_cap: this.monthlyCap,
       transaction_counts: this.transactionCounts.inverse(),
       transaction_fee: this.transactionFee
     }

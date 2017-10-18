@@ -49,7 +49,7 @@ export function merchantProviderResponseQuery(): string {
   return `
     id name enabled created_at updated_at allow_prepaid accepted_payment_methods,
     processor { name },
-    processing { discount_rate transaction_fee reserve_rate maximum_chargeback_ratio,
+    processing { discount_rate transaction_fee reserve_rate maximum_chargeback_ratio monthly_cap,
       transaction_counts { daily weekly monthly }
     }
     gateway {
@@ -71,6 +71,7 @@ export function merchantProviderInputQuery(provider: MerchantProvider, includeId
     allow_prepaid:${provider.allowPrepaid},
     accepted_payment_methods:[${provider.acceptedPaymentMethods.map(m => `"${m}"`)}],
     processing:{
+      monthly_cap: ${provider.processing.monthlyCap},
       ${provider.processing.discountRate ? `discount_rate: ${+provider.processing.discountRate},` : ''}
       ${provider.processing.transactionFee ? `transaction_fee: ${+provider.processing.transactionFee},` : ''}
       ${provider.processing.reserveRate ? `reserve_rate: ${+provider.processing.reserveRate},` : ''}

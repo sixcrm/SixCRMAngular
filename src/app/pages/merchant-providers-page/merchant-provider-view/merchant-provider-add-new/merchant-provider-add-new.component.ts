@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {MerchantProvider} from '../../../../shared/models/merchant-provider/merchant-provider.model';
 import {Modes} from '../../../abstract-entity-view.component';
-import {isAllowedFloatNumeric, isAllowedEmail} from '../../../../shared/utils/form.utils';
+import {isAllowedFloatNumeric, isAllowedEmail, isAllowedNumeric} from '../../../../shared/utils/form.utils';
 import {getPhoneNumberMask} from '../../../../shared/utils/mask.utils';
 
 @Component({
@@ -24,6 +24,7 @@ export class MerchantProviderAddNewComponent implements OnInit {
   modes = Modes;
 
   isFloatNumeric = isAllowedFloatNumeric;
+  isNumeric = isAllowedNumeric;
   isEmail = isAllowedEmail;
   mask = getPhoneNumberMask();
 
