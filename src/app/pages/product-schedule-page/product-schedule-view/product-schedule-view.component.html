@@ -42,8 +42,7 @@
           <add-schedule #addScheduleComponent (addSchedule)="addScheduleToProduct($event)"></add-schedule>
         </div>
 
-        <table-memory [title]="'Schedule'"
-                      [data]="entity.schedules"
+        <table-memory [data]="entity.schedules"
                       [textOptions]="tableTexts"
                       [associationEnabled]="false"
                       [columnParams]="scheduleColumnParams"

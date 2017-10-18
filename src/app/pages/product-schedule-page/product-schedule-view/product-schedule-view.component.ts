@@ -40,8 +40,10 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   price: string = '';
 
   tableTexts: TableMemoryTextOptions = {
-    title: 'Associated Schedules',
-    viewOptionText: 'View Product'
+    title: 'Cycles',
+    editOptionText: 'Edit Cycle',
+    viewOptionText: 'View Product',
+    disassociateOptionText: 'Remove Cycle'
   };
 
   constructor(
