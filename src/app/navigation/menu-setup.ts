@@ -116,6 +116,9 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   if (authService.hasPermissions('account', 'view')) {
     settings.push(new MenuItem('Accounts', 'accounts'));
   }
+  if (authService.hasPermissions('accesskey', 'view')) {
+    settings.push(new MenuItem('Access Keys', 'accesskeys'));
+  }
   if (authService.hasPermissions('billing', 'view')) {
     settings.push(new MenuItem('Billing', 'billing'));
   }

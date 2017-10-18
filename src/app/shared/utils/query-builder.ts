@@ -18,25 +18,6 @@ export function updateAccountMutation(account: Account, name: string): string {
     }`
 }
 
-export function accessKeysListQuery(limit?:number, cursor?:string): string {
-  return `{
-    accesskeylist ${pageParams(limit, cursor)} {
-			accesskeys { id access_key secret_key }
-			${paginationString()}
-		}}`
-}
-
-export function accessKeyQuery(id: string): string {
-  return `
-    {
-      accesskey (id: "${id}") { id access_key secret_key }
-    }`
-}
-
-export function deleteAccessKeyMutation(id: string): string {
-  return deleteMutation('accesskey', id);
-}
-
 export function rolesListQuery(limit?: number, cursor?: string): string {
   return `{
     rolelist ${pageParams(limit, cursor)} {

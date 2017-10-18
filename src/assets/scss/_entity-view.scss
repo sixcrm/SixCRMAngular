@@ -836,3 +836,16 @@ $blue-color: #4A90E2;
     text-align: right;
   }
 }
+.access-key-notes {
+  width: 100%;
+  min-width: 380px;
+
+  textarea {
+    height: 100px;
+  }
+
+  .md-input-wrapper {
+    position: relative;
+    margin: 0;
+  }
+}
