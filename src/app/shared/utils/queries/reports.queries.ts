@@ -23,7 +23,7 @@ export function transactionsSumReport(start: string, end: string, filterTerms: F
 
   return `
   {
-		transactionsreporttimeseries (analyticsfilter:{${dateString(start, end)} ${filterString}} ${paginationString(limit, offset, order)}) {
+		transactionsummaryreport (analyticsfilter:{${dateString(start, end)} ${filterString}} ${paginationString(limit, offset, order)}) {
 			periods {
         period, sale_count, sale_revenue, rebill_count, rebill_revenue, refund_expenses, refund_count, gross_revenue, declines_count, declines_revenue, chargeback_count, current_active_customer, count_alert_count
       }
@@ -36,7 +36,7 @@ export function transactionsSumTotalReport(start: string, end: string, filterTer
 
   return `
   {
-		transactionsreportsummary (analyticsfilter:{${dateString(start, end)} ${filterString}}) {
+		transactionsummaryreportsummary (analyticsfilter:{${dateString(start, end)} ${filterString}}) {
       sale_count, sale_revenue, rebill_count, rebill_revenue, refund_expenses, refund_count, gross_revenue, declines_count, declines_revenue, chargeback_count, current_active_customer, count_alert_count
 		}
 	}`

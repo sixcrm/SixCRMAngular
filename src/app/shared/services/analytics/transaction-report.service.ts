@@ -45,7 +45,7 @@ export class TransactionReportService {
     this.queryRequest(transactionsSumReport(start, end, filters, download, limit, offset, order), download).subscribe(
       (data) => {
         if (!download) {
-          let transactionsSumItems = extractData(data).transactionsreporttimeseries.periods;
+          let transactionsSumItems = extractData(data).transactionsummaryreport.periods;
 
           if (transactionsSumItems) {
             this.transactionsSumItems$.next(transactionsSumItems.map(t => new TransactionsSumItem(t)));
@@ -60,7 +60,7 @@ export class TransactionReportService {
     this.queryRequest(transactionsSumTotalReport(start, end, filters), download).subscribe(
       (data) => {
         if (!download) {
-          let transactionsSumTotal = extractData(data).transactionsreportsummary;
+          let transactionsSumTotal = extractData(data).transactionsummaryreportsummary;
 
           if (transactionsSumTotal) {
             this.transactionsSumTotal$.next(new TransactionsSumItem(transactionsSumTotal));
