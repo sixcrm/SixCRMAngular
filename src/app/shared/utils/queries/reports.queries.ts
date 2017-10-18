@@ -8,10 +8,13 @@ export function transactionReportListQuery(start: string, end: string, filterTer
 
   return `
   {
-		listtransactions (analyticsfilter:{${dateString(start, end)} ${filterString}} ${paginationString(limit, offset, order)}) {
-			transactions{
-				id datetime customer creditcard merchant_provider campaign affiliate amount processor_result account transaction_type,
-			  product_schedule subaffiliate_1 subaffiliate_2 subaffiliate_3 subaffiliate_4 subaffiliate_5 transaction_subtype
+		transactionsreport (analyticsfilter:{${dateString(start, end)} ${filterString}} ${paginationString(limit, offset, order)}) {
+			transactions {
+				id, datetime, amount, processor_result, transaction_type, cycle, recycle, gateway_response, transaction_id_gateway,
+	      customer{ id firstname lastname },
+	      merchant_provider { id name },
+	      campaign { id name },
+	      affiliate { id name },
 			}
 			${pagination}
 		}

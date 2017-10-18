@@ -30,13 +30,13 @@ export class TransactionReportService {
     this.queryRequest(transactionReportListQuery(start, end, filters, download, limit, offset, order), download).subscribe(
       (data) => {
         if (!download) {
-          let transactions = extractData(data).listtransactions.transactions;
+          let transactions = extractData(data).transactionsreport.transactions;
 
           if (transactions) {
             this.transactions$.next(transactions.map(transaction => new TransactionReport(transaction)))
           }
         } else {
-          downloadJSON(data.json(), 'transactions-report.json');
+          downloadJSON(data.json(), 'transactions-details-report.json');
         }
       })
   }
@@ -51,7 +51,7 @@ export class TransactionReportService {
             this.transactionsSumItems$.next(transactionsSumItems.map(t => new TransactionsSumItem(t)));
           }
         } else {
-          downloadJSON(data.json().response, 'transaction-sums-report.json');
+          downloadJSON(data.json().response, 'transaction-summary-report.json');
         }
       })
   }
@@ -66,7 +66,7 @@ export class TransactionReportService {
             this.transactionsSumTotal$.next(new TransactionsSumItem(transactionsSumTotal));
           }
         } else {
-          downloadJSON(data.json().response, 'transaction-sums-total-report.json');
+          downloadJSON(data.json().response, 'transaction-summary-total-report.json');
         }
       })
   }

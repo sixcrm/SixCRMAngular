@@ -19,6 +19,10 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   }
 
   if (authService.hasPermissions('analytics', 'getTransactions')) {
+    reportItems.push(new MenuItem('Summary Report', 'reports/summary'));
+  }
+
+  if (authService.hasPermissions('analytics', 'getTransactions')) {
     reportItems.push(new MenuItem('Transactions Report', 'reports/transaction'));
   }
 

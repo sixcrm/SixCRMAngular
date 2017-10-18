@@ -7,9 +7,6 @@ import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
-import {Modes} from '../../abstract-entity-view.component';
-import {areEntitiesIdentical} from '../../../shared/utils/entity.utils';
-import {YesNoDialogComponent} from '../../yes-no-dialog.component';
 
 @Component({
   selector: 'products',

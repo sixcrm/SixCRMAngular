@@ -21,7 +21,7 @@
     </md-menu>
   </div>
 
-  <div *ngIf="data; else transactionReportLoading">
+  <div class="reports-table__table-container" *ngIf="data; else transactionReportLoading">
     <table class="highlight">
       <thead>
         <tr>
@@ -37,7 +37,12 @@
 
       <tbody>
         <tr *ngFor="let d of data | filterEntitiesByParams: columnParams: filterString | sortEntities: sortParams.mappingFunction: sortParams.sortOrder">
-          <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'" (click)="cellClicked(params, d)" [class.filter-cell]="params.isFilter">{{params.mappingFunction(d)}}</td>
+          <td *ngFor="let params of columnParams"
+              [class.cell--align-right]="params.align === 'right'"
+              [class.cell--link]="params.isLink"
+              (click)="onCellClicked(params, d)"
+              [class.filter-cell]="params.isFilter">
+            {{params.mappingFunction(d)}}</td>
         </tr>
       </tbody>
     </table>

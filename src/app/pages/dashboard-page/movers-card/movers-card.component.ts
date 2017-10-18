@@ -29,8 +29,8 @@ export class MoversCardComponent extends AbstractDashboardItem implements OnInit
 
         this.serverError = null;
         this.loading = false;
-        if (campaigns.length > 5) {
-          this.campaignDelta = campaigns.slice(0,5);
+        if (campaigns.length > 6) {
+          this.campaignDelta = campaigns.slice(0,6);
         } else {
           this.campaignDelta = campaigns.slice();
         }

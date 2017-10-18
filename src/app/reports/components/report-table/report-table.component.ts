@@ -1,6 +1,34 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {ReportColumnParams} from '../../reports-abstract.component';
 import {FilterTerm} from '../../../shared/components/advanced-filter/advanced-filter.component';
+import {ColumnParams} from '../../../shared/models/column-params.model';
+
+export class ReportColumnParams<T> extends ColumnParams<T> {
+  isFilter: boolean;
+  isLink: boolean;
+  entityType: string;
+
+  constructor(label?: string, mappingFunction?: (e: T) => string | number,  align?: string, order?: string, applied?: boolean) {
+    super(label, mappingFunction, align, order, applied);
+  }
+
+  setIsLink(value: boolean) {
+    this.isLink = value;
+
+    return this;
+  }
+
+  setIsFilter(value: boolean) {
+    this.isFilter = value;
+
+    return this;
+  }
+
+  setEntityType(value: string) {
+    this.entityType = value;
+
+    return this;
+  }
+}
 
 @Component({
   selector: 'report-table',
@@ -17,7 +45,7 @@ export class ReportTableComponent implements OnInit {
   @Input() title: string;
   @Input() showFilter: boolean = true;
   @Output() filterSelected: EventEmitter<FilterTerm> = new EventEmitter();
-  @Output() click: EventEmitter<any> = new EventEmitter();
+  @Output() cellClicked: EventEmitter<{params: ReportColumnParams<any>, entity: any}> = new EventEmitter();
 
   @Input() paginationValues: number[] = [5, 10, 15, 20, 30, 50];
   @Input() page: number;
@@ -44,11 +72,11 @@ export class ReportTableComponent implements OnInit {
     }
   }
 
-  cellClicked(params: ReportColumnParams<any>, entity: any): void {
+  onCellClicked(params: ReportColumnParams<any>, entity: any): void {
     if (params.isFilter) {
       this.filterSelected.emit({id: entity.id, label: params.mappingFunction(entity).toString(), type: params.entityType});
-    } else {
-      this.click.emit(entity);
     }
+
+    this.cellClicked.emit({params: params, entity: entity});
   }
 }

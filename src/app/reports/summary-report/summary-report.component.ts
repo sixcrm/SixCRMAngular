@@ -11,11 +11,11 @@ import {ReportColumnParams} from '../components/report-table/report-table.compon
 import {AuthenticationService} from '../../authentication/authentication.service';
 
 @Component({
-  selector: 'transactions-report',
-  templateUrl: './transactions-report.component.html',
-  styleUrls: ['./transactions-report.component.scss']
+  selector: 'summary-report',
+  templateUrl: './summary-report.component.html',
+  styleUrls: ['./summary-report.component.scss']
 })
-export class TransactionsReportComponent extends ReportsAbstractComponent<TransactionReport> implements OnInit, OnDestroy {
+export class SummaryReportComponent extends ReportsAbstractComponent<TransactionsSumItem> implements OnInit, OnDestroy {
 
   columnParamsTotal: ReportColumnParams<TransactionsSumItem>[] = [];
   reportsTotal: TransactionsSumItem[] = [];
@@ -34,11 +34,11 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
     this.fetchFunction = () => {
       this.immutableFilterTerms = this.filterTerms.slice();
       this.dateMap = {start: flatDown(this.start), end: flatUp(this.end)};
-      this.reportService.getTransactions(this.start.format(), this.end.format(), this.filterTerms, false, this.limit + 1, this.page * this.limit);
+      this.reportService.getTransactionsSum(this.start.format(), this.end.format(), this.filterTerms, false, this.limit + 1, this.page * this.limit);
       this.reportService.getTransactionsSumTotal(this.start.format(), this.end.format(), this.filterTerms);
     };
 
-    this.endpointExtension = 'transaction';
+    this.endpointExtension = 'summary';
 
     super.init();
 
@@ -60,17 +60,11 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
     const f = this.authService.getTimezone();
 
     this.columnParams = [
-      new ReportColumnParams('Date', (e: TransactionReport) => e.date.tz(f).format('MM/DD/YY [at] hh:mm')),
-      new ReportColumnParams('Customer', (e: TransactionReport) => `${e.customer.firstName} ${e.customer.lastName}`),
-      new ReportColumnParams('Campaign', (e: TransactionReport) => e.campaign.name),
-      new ReportColumnParams('Merchant Provider', (e: TransactionReport) => e.merchantProvider.name),
-      new ReportColumnParams('Affiliate', (e: TransactionReport) => e.affiliate.name),
-      new ReportColumnParams('Amount', (e: TransactionReport) => e.amount.usd(), 'right'),
-      new ReportColumnParams('Processor Result', (e: TransactionReport) => e.processorResult),
-      new ReportColumnParams('Transaction Type', (e: TransactionReport) => e.transactionType),
+      new ReportColumnParams('Date', (e: TransactionsSumItem) => e.period.tz(f).format('MM/DD/YY')).setIsLink(true),
+      ...this.columnParamsTotal
     ];
 
-    this.reportService.transactions$.takeUntil(this.unsubscribe$).subscribe(reports => {
+    this.reportService.transactionsSumItems$.takeUntil(this.unsubscribe$).subscribe(reports => {
       this.reports = [...this.reports, ...reports];
 
       if (this.reports.length < this.limit + 1) {
@@ -94,7 +88,15 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
   }
 
   download(format: string): void {
-    this.reportService.getTransactions(this.start.format(), this.end.format(), this.filterTerms, true, this.limit + 1, this.page * this.limit)
+    this.reportService.getTransactionsSum(this.start.format(), this.end.format(), this.filterTerms, true, this.limit + 1, this.page * this.limit)
   }
 
+  cellClicked(event: {params: ReportColumnParams<TransactionsSumItem>, entity: TransactionsSumItem}) {
+    if (event.params.label === 'Date') {
+      const s = event.entity.period.clone();
+      const e = s.clone().add(1, 'd').subtract(1, 's');
+
+      this.router.navigate(['/reports/transaction'], {queryParams: {f: this.encodeFilters({start: s, end: e}) }})
+    }
+  }
 }
