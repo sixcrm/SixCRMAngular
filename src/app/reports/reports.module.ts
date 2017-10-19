@@ -11,6 +11,7 @@ import {AnalyticsAclGuard} from '../pages/guards/analytics-acl-guard.service';
 import {PageComponentsModule} from '../pages/components/pages-components.module';
 import {SummaryReportComponent} from './summary-report/summary-report.component';
 import {TransactionsReportComponent} from './transactions-report/transactions-report.component';
+import { MerchantReportComponent } from './merchant-report/merchant-report.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,7 @@ import {TransactionsReportComponent} from './transactions-report/transactions-re
     Daterangepicker,
     ChartsModule
   ],
-  declarations: [SummaryReportComponent, TransactionsReportComponent, ReportTableComponent],
+  declarations: [SummaryReportComponent, TransactionsReportComponent, ReportTableComponent, MerchantReportComponent],
   providers: [AnalyticsAclGuard]
 })
 export class ReportsModule { }
