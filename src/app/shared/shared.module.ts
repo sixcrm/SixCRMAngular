@@ -63,6 +63,7 @@ import { AddScheduleComponent } from './components/add-schedule/add-schedule.com
 import {TextMaskModule} from 'angular2-text-mask';
 import { ErrorSnackBarComponent } from './components/error-snack-bar/error-snack-bar.component';
 import {SnackbarService} from './services/snackbar.service';
+import {MerchantReportService} from './services/analytics/merchant-report.service';
 
 @NgModule({
   declarations : [
@@ -162,6 +163,7 @@ export class SharedModule {
         UserSettingsService,
         NotificationSettingsService,
         TransactionReportService,
+        MerchantReportService,
         TimeService,
         TrackersService,
         SnackbarService

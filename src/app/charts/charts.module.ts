@@ -6,6 +6,7 @@ import {ChartModule} from 'angular2-highcharts';
 import {SharedModule} from '../shared/shared.module';
 import {MaterialModule} from '@angular/material';
 import {RouterModule} from '@angular/router';
+import {MerchantReportChartComponent} from './merchant-report-chart/merchant-report-chart.component';
 
 export function hchartFactory() {
   return require('highcharts');
@@ -20,10 +21,12 @@ export function hchartFactory() {
     RouterModule
   ],
   declarations: [
-    TransactionSummaryChartComponent
+    TransactionSummaryChartComponent,
+    MerchantReportChartComponent
   ],
   exports: [
-    TransactionSummaryChartComponent
+    TransactionSummaryChartComponent,
+    MerchantReportChartComponent
   ],
   providers: [{
     provide: HighchartsStatic,

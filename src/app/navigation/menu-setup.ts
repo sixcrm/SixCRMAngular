@@ -26,6 +26,10 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
     reportItems.push(new MenuItem('Transactions Report', 'reports/transaction'));
   }
 
+  if (authService.hasPermissions('analytics', 'getMerchants')) {
+    reportItems.push(new MenuItem('Merchants Report', 'reports/merchant'));
+  }
+
   if (authService.hasPermissions('analytics', 'getFullfillment')) {
     reportItems.push(new MenuItem('Fulfillment Report', 'reports/fulfillment'));
   }
