@@ -60,4 +60,8 @@ export class MerchantReportComponent extends ReportsAbstractComponent<MerchantRe
     this.destroy();
   }
 
+  download(format: string): void {
+    this.merchantReportService.getMerchants(this.start.format(), this.end.format(), this.filterTerms, true, this.limit + 1, this.page * this.limit)
+  }
+
 }

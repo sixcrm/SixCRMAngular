@@ -9,6 +9,7 @@ import {AccountsAclGuard} from '../guards/accounts-acl-guard.service';
 import { AccountViewComponent } from './account-view/account-view.component';
 import {AccountsComponent} from './account-index/accounts.component';
 import { AccountAddNewComponent } from './account-view/account-add-new/account-add-new.component';
+import {AccessKeysComponent} from '../access-keys-page/access-keys-index/access-keys.component';
 
 @NgModule({
   imports: [
@@ -17,9 +18,9 @@ import { AccountAddNewComponent } from './account-view/account-add-new/account-a
     FormsModule,
     MaterialModule.forRoot(),
     PageComponentsModule,
-    SharedModule
+    SharedModule,
   ],
-  declarations: [AccountViewComponent, AccountsComponent, AccountAddNewComponent],
+  declarations: [AccountViewComponent, AccountsComponent, AccountAddNewComponent, AccessKeysComponent],
   providers: [AccountsAclGuard]
 })
 export class AccountsModule { }

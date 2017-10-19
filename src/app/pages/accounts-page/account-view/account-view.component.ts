@@ -47,6 +47,8 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
 
   isOwner = (acl: Acl) => acl.role.name === 'Owner';
 
+  selectedIndex: number = 0;
+
   constructor(service: AccountsService,
               route: ActivatedRoute,
               public navigation: NavigationService,

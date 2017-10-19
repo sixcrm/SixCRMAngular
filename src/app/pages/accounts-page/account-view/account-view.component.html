@@ -16,10 +16,11 @@
   </div>
 
   <div class="entity-view__navigation">
-    <span class="entity-view__navigation__label entity-view__navigation__label--active">GENERAL DETAILS</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="selectedIndex = 0">GENERAL DETAILS</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="selectedIndex = 1">ACCESS KEYS</span>
   </div>
 
-  <md-tab-group>
+  <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>
 
       <account-add-new
@@ -46,6 +47,10 @@
         (edit)="showEditAclModal($event)">
       </table-memory>
 
+    </md-tab>
+
+    <md-tab>
+      <access-keys></access-keys>
     </md-tab>
   </md-tab-group>
 </div>

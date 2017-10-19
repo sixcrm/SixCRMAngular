@@ -140,12 +140,11 @@
                     <td>{{acc.role.name}}</td>
 
                     <td>
-                      <ng-container  *ngIf="acc.role.name === 'Owner' || acc.role.name === 'Administrator'">
-                        <md-icon style="cursor: pointer" [md-menu-trigger-for]="accountOptions">more_vert</md-icon>
-                        <md-menu #accountOptions="mdMenu" x-position="before">
-                          <button md-menu-item (click)="inviteUser(acc.account)"> Invite User to this Account </button>
-                        </md-menu>
-                      </ng-container>
+                      <md-icon style="cursor: pointer" [md-menu-trigger-for]="accountOptions">more_vert</md-icon>
+                      <md-menu #accountOptions="mdMenu" x-position="before">
+                        <button *ngIf="acc.role.name === 'Owner' || acc.role.name === 'Administrator'" md-menu-item (click)="inviteUser(acc.account)"> Invite User to this Account </button>
+                        <button md-menu-item [routerLink]="['/accounts', acc.account.id]"> View Account </button>
+                      </md-menu>
                     </td>
                   </tr>
                 </tbody>

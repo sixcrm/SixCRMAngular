@@ -7,9 +7,10 @@ import {AccessKeysService} from '../../../shared/services/access-keys.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
+import {TextMaskPipe} from '../../../shared/pipes/text-mask.pipe';
 
 @Component({
-  selector: 'c-access-keys',
+  selector: 'access-keys',
   templateUrl: './access-keys.component.html',
   styleUrls: ['./access-keys.component.scss']
 })
@@ -32,7 +33,7 @@ export class AccessKeysComponent extends AbstractEntityIndexComponent<AccessKey>
       new ColumnParams('Created At', (e: AccessKey) => e.createdAt.tz(f).format('MM/DD/YYYY')),
       new ColumnParams('Name', (e: AccessKey) => e.name),
       new ColumnParams('Access Key', (e: AccessKey) => e.accessKey),
-      new ColumnParams('Secret Key', (e: AccessKey) => e.secretKey),
+      new ColumnParams('Secret Key', (e: AccessKey) => new TextMaskPipe().transform(e.secretKey, true, 4))
     ];
 
   }
@@ -43,6 +44,24 @@ export class AccessKeysComponent extends AbstractEntityIndexComponent<AccessKey>
 
   ngOnDestroy() {
     this.destroy();
+  }
+
+  refreshData() {
+    this.loadingData = true;
+    this.serverError = null;
+    this.service.getEntities(this.limit);
+  }
+
+  editAccessKey(accessKey: AccessKey) {
+
+  }
+
+  viewAccessKey(accessKey: AccessKey) {
+
+  }
+
+  addAccessKey() {
+
   }
 
 }

@@ -1,48 +1,63 @@
-<div class="entity-index">
-  <div class="entity-index__title">
-    Access Keys
-    <md-input [(ngModel)]="filterValue" placeholder="Filter"></md-input>
+<div class="entity-view__table-component">
+  <div style="padding-bottom: 6px;" class="entity-view__table-component__header">
+    <div class="customer-transactions__title-container">
+      <div class="title">Access Keys</div>
+      <div class="subtitle">Access Keys associated with this account</div>
+    </div>
+    <md-input class="entity-view__table-component__header__filter" placeholder="Filter" [(ngModel)]="filterValue"></md-input>
+    <table-pagination
+      [limit]="limit"
+      [paginationValues]="paginationValues"
+      [previousDisabled]="page <= 0"
+      [nextDisabled]="!hasMorePages()"
+      (previous)="previous()"
+      (next)="next()"
+      (updateLimit)="updateLimit($event)">
+    </table-pagination>
+    <md-icon [md-menu-trigger-for]="optionsMenu" class="entity-view__table-component__header__action">more_vert</md-icon>
+    <md-menu #optionsMenu="mdMenu" x-position="before">
+      <button md-menu-item (click)="addAccessKey()">Add New Access Key</button>
+    </md-menu>
   </div>
+  <table class="highlight table__custom">
+    <thead>
+    <tr>
+      <th *ngFor="let params of columnParams" (click)="setSortedColumnParams(params)" [class.cell--align-right]="params.align === 'right'">
+        {{params.label}}
+        <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+      </th>
+      <th></th>
+    </tr>
+    </thead>
 
-  <button md-icon-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="openAddMode()"><md-icon>add</md-icon></button>
+    <tbody>
+    <tr *ngFor="let entity of entities | filterEntities: filterValue | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder">
+      <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'" [routerLink]="['/transactions', entity.id]">{{params.mappingFunction(entity)}}</td>
+      <td>
+        <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
+        <md-menu #actionsMenu="mdMenu" x-position="before">
+          <button md-menu-item (click)="viewAccessKey(entity)">View Access Key</button>
+          <button md-menu-item (click)="editAccessKey(entity)">Edit Access Key</button>
+        </md-menu>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 
-  <md-card class="entity-index__card">
-    <md-card-content class="entity-index__card__content">
+  <server-error-message (refresh)="refreshData()" *ngIf="serverError; else messages"></server-error-message>
+  <ng-template #messages>
+    <md-spinner class="entity-view__spinner" *ngIf="loadingData"></md-spinner>
+    <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">No access keys found</div>
+  </ng-template>
 
-      <entities-table
-        [data]="entities"
-        [columnParams]="columnParams"
-        [filterString]="filterValue"
-        [serverError]="serverError"
-        (selected)="viewEntity($event.id)"
-
-        [service]="service"
-        (viewClicked)="viewEntity($event.id)"
-        (copyClicked)="copyEntity($event.id)"
-        (exportClicked)="exportEntity($event.id)"
-        (editClicked)="editEntity($event.id)"
-        (deleteClicked)="deleteEntity($event.id)"
-        (refreshData)="refreshData()"
-
-        [limit]="limit"
-        [paginationValues]="paginationValues"
-        [previousDisabled]="page <= 0"
-        [nextDisabled]="!hasMorePages()"
-        (previous)="previous()"
-        (next)="next()"
-        (updateLimit)="updateLimit($event)">
-      </entities-table>
-
-    </md-card-content>
-  </md-card>
+  <table-pagination
+    [limit]="limit"
+    [paginationValues]="paginationValues"
+    [previousDisabled]="page <= 0"
+    [nextDisabled]="!hasMorePages()"
+    (previous)="previous()"
+    (next)="next()"
+    (updateLimit)="updateLimit($event)">
+  </table-pagination>
 </div>
 
-
-<div *ngIf="addMode" (click)="overlayClicked($event)" class="full-overlay">
-  <access-key-add-new class="modal-center"
-                      [mode]="modes.Add"
-                      [entity]="entity"
-                      (save)="service.createEntity($event)"
-                      (cancel)="closeAddMode()">
-  </access-key-add-new>
-</div>

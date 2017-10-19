@@ -64,6 +64,7 @@ import {TextMaskModule} from 'angular2-text-mask';
 import { ErrorSnackBarComponent } from './components/error-snack-bar/error-snack-bar.component';
 import {SnackbarService} from './services/snackbar.service';
 import {MerchantReportService} from './services/analytics/merchant-report.service';
+import {TextMaskPipe} from './pipes/text-mask.pipe';
 
 @NgModule({
   declarations : [
@@ -92,7 +93,8 @@ import {MerchantReportService} from './services/analytics/merchant-report.servic
     FilterEntitiesByParamsPipe,
     ServerErrorMessageComponent,
     AddScheduleComponent,
-    ErrorSnackBarComponent
+    ErrorSnackBarComponent,
+    TextMaskPipe
   ],
   exports : [
     AutocompleteComponent,
@@ -118,7 +120,8 @@ import {MerchantReportService} from './services/analytics/merchant-report.servic
     AutocompleteInputComponent,
     FilterEntitiesByParamsPipe,
     ServerErrorMessageComponent,
-    AddScheduleComponent
+    AddScheduleComponent,
+    TextMaskPipe
   ],
   imports : [
     FormsModule,
