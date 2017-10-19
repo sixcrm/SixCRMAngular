@@ -1,13 +1,16 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {utc, Moment} from 'moment';
-import {Subject} from 'rxjs';
-import {DaterangepickerConfig} from 'ng2-daterangepicker';
-import {AnalyticsService} from '../../shared/services/analytics.service';
-import {environment} from '../../../environments/environment';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AnalyticsStorageService} from '../../shared/services/analytics-storage.service';
-import {FilterTerm, DateMap, flatUp} from '../../shared/components/advanced-filter/advanced-filter.component';
-import {TimeService} from '../../shared/services/time.service';
+import 'rxjs/add/operator/takeUntil';
+
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Moment, utc } from 'moment';
+import { DaterangepickerConfig } from 'ng2-daterangepicker';
+import { Subject } from 'rxjs';
+
+import { environment } from '../../../environments/environment';
+import { DateMap, FilterTerm, flatUp } from '../../shared/components/advanced-filter/advanced-filter.component';
+import { AnalyticsStorageService } from '../../shared/services/analytics-storage.service';
+import { AnalyticsService } from '../../shared/services/analytics.service';
+import { TimeService } from '../../shared/services/time.service';
 
 @Component({
   selector: 'c-dashboard',
