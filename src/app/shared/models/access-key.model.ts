@@ -1,5 +1,6 @@
 import {Entity} from './entity.interface';
 import {Moment, utc} from 'moment';
+import {TextMaskPipe} from '../pipes/text-mask.pipe';
 
 export class AccessKey implements Entity<AccessKey> {
   id: string;
@@ -7,6 +8,7 @@ export class AccessKey implements Entity<AccessKey> {
   notes: string;
   accessKey: string;
   secretKey: string;
+  secretKeyMasked: string;
   createdAt: Moment;
   updatedAt: Moment;
 
@@ -19,6 +21,7 @@ export class AccessKey implements Entity<AccessKey> {
     this.name = obj.name || '';
     this.accessKey = obj.access_key || '';
     this.secretKey = obj.secret_key || '';
+    this.secretKeyMasked = new TextMaskPipe().transform(this.secretKey, true, 4);
     this.notes = obj.notes || '';
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.created_at);

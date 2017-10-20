@@ -49,5 +49,5 @@ export function accessKeyResponseQuery(): string {
 }
 
 export function accessKeyInputQuery(accessKey: AccessKey, includeId?: boolean): string {
-  return `${addId(accessKey.id, includeId)}, name:"${accessKey.name}", access_key:"${accessKey.accessKey}", secret_key:"${accessKey.secretKey}", ${accessKey.notes ? `notes:"${accessKey.notes}"`: '' }`;
+  return `${addId(accessKey.id, includeId)}, ${accessKey.name ? `name:"${accessKey.name}",`: '' } ${accessKey.notes ? `notes:"${accessKey.notes}"`: '' }`;
 }

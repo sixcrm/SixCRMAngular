@@ -8,6 +8,7 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {TextMaskPipe} from '../../../shared/pipes/text-mask.pipe';
+import {AccessKeyDetailsDialogComponent} from '../../../dialog-modals/access-key-details-dialog.component';
 
 @Component({
   selector: 'access-keys',
@@ -27,6 +28,7 @@ export class AccessKeysComponent extends AbstractEntityIndexComponent<AccessKey>
     super(accessKeysService, auth, dialog, paginationService, router, activatedRoute);
 
     this.entityFactory = () => new AccessKey();
+    this.viewAfterCrate = false;
 
     let f = this.authService.getTimezone();
     this.columnParams = [
@@ -53,15 +55,30 @@ export class AccessKeysComponent extends AbstractEntityIndexComponent<AccessKey>
   }
 
   editAccessKey(accessKey: AccessKey) {
+    let accessKeyDetailsDialog = this.deleteDialog.open(AccessKeyDetailsDialogComponent);
+    accessKeyDetailsDialog.componentInstance.accessKey = accessKey.copy();
+    accessKeyDetailsDialog.componentInstance.editMode = true;
 
+    accessKeyDetailsDialog.afterClosed().take(1).subscribe(result => {
+      accessKeyDetailsDialog = null;
+
+      if (result) {
+        this.service.updateEntity(result);
+      }
+    });
   }
 
   viewAccessKey(accessKey: AccessKey) {
+    let accessKeyDetailsDialog = this.deleteDialog.open(AccessKeyDetailsDialogComponent);
+    accessKeyDetailsDialog.componentInstance.accessKey = accessKey.copy();
 
+    accessKeyDetailsDialog.afterClosed().take(1).subscribe(() => {
+      accessKeyDetailsDialog = null;
+    });
   }
 
   addAccessKey() {
-
+    this.service.createEntity(new AccessKey());
   }
 
 }

@@ -38,6 +38,7 @@
         <md-menu #actionsMenu="mdMenu" x-position="before">
           <button md-menu-item (click)="viewAccessKey(entity)">View Access Key</button>
           <button md-menu-item (click)="editAccessKey(entity)">Edit Access Key</button>
+          <button md-menu-item (click)="deleteEntity(entity.id)">Delete Access Key</button>
         </md-menu>
       </td>
     </tr>
