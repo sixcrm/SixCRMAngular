@@ -17,6 +17,7 @@
 
   <div class="entity-view__navigation">
     <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">VALIDATE</span>
   </div>
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
@@ -30,6 +31,13 @@
       </fulfillment-provider-add-new>
 
     </md-tab>
+
+    <md-tab>
+      <div (click)="validateFulfillmentProvider()">validate</div>
+      <div>Validation response:</div>
+      <div>{{fulfillmentProviderService.validationResponse$ | async}}</div>
+    </md-tab>
+
   </md-tab-group>
 </div>
 

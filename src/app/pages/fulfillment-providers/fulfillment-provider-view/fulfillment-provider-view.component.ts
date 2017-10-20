@@ -14,11 +14,11 @@ export class FulfillmentProviderViewComponent extends AbstractEntityViewComponen
 
   selectedIndex: number = 0;
 
-  constructor(service: FulfillmentProvidersService,
+  constructor(private fulfillmentProviderService: FulfillmentProvidersService,
               route: ActivatedRoute,
               public navigation: NavigationService
   ) {
-    super(service, route);
+    super(fulfillmentProviderService, route);
   }
 
   ngOnInit() {
@@ -32,5 +32,10 @@ export class FulfillmentProviderViewComponent extends AbstractEntityViewComponen
   setIndex(value): void {
     this.selectedIndex = value;
   }
+
+  validateFulfillmentProvider() {
+    this.fulfillmentProviderService.validateFulfillmentProvider(this.entity);
+  }
+
 
 }

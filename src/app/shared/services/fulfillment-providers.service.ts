@@ -5,13 +5,17 @@ import {FulfillmentProvider} from '../models/fulfillment-provider.model';
 import {
   fulfillmentProvidersListQuery,
   fulfillmentProviderQuery, deleteFulfillmentProviderMutation, createFulfillmentProviderMutation,
-  updateFulfillmentProviderMutation
+  updateFulfillmentProviderMutation, validateFulfillmentProviderQuery
 } from '../utils/queries/entities/fulfillment-provider.queries';
-import {HttpWrapperService} from './http-wrapper.service';
+import { extractData, HttpWrapperService } from './http-wrapper.service';
 import {MdSnackBar} from '@angular/material';
+import { CustomServerError } from '../models/errors/custom-server-error';
+import { Subject } from '../../../../template/core-dist/node_modules/rxjs/Subject';
 
 @Injectable()
 export class FulfillmentProvidersService extends AbstractEntityService<FulfillmentProvider> {
+
+  validationResponse$: Subject<string> = new Subject();
 
   constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
     super(
@@ -27,4 +31,20 @@ export class FulfillmentProvidersService extends AbstractEntityService<Fulfillme
       snackBar
     );
   }
+
+  validateFulfillmentProvider(fulfillmentProvider: FulfillmentProvider): void {
+    if (!this.hasWritePermission()) {
+      return;
+    }
+    this.queryRequest(validateFulfillmentProviderQuery(fulfillmentProvider)).subscribe(data => {
+      if (data instanceof CustomServerError) {
+        return;
+      }
+
+      const json = extractData(data).fulfillmentprovidervalidation.response;
+
+      this.validationResponse$.next(json);
+    });
+  }
+
 }

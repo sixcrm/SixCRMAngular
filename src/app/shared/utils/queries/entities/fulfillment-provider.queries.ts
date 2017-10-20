@@ -50,6 +50,16 @@ export function fulfillmentProviderResponseQuery(): string {
   return `id name username password endpoint provider threepl_key facility_id threepl_id customer_id return_address,`;
 }
 
+export function validateFulfillmentProviderQuery(provider: FulfillmentProvider): string {
+  return `
+    mutation {
+      fulfillmentprovidervalidation ( fulfillmentprovidervalidation: { fulfillmentprovider: "${provider.id}"}) {
+        response
+      }
+    }`
+}
+
+
 export function fulfillmentProviderInputQuery(provider: FulfillmentProvider, includeId?: boolean): string {
   if (!provider.id) provider.id = generateUUID();
 
