@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import {Subject, Observable} from 'rxjs';
 import {environment} from '../../../../environments/environment';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {affiliateReportListQuery, affiliteReportSummaryQuery} from '../../utils/queries/reports.queries';
+import {
+  affiliateReportListQuery, affiliteReportSummaryQuery,
+  subaffiliateReportListQuery
+} from '../../utils/queries/reports.queries';
 import { Response} from '@angular/http';
 import {FilterTerm} from '../../components/advanced-filter/advanced-filter.component';
 import {downloadJSON} from '../../utils/file.utils';
@@ -13,10 +16,12 @@ import {AffiliateReport} from '../../models/analytics/affiliate-report.model';
 export class AffiliateReportService {
 
   affiliates$: Subject<AffiliateReport[]>;
+  subaffiliates$: Subject<AffiliateReport[]>;
   affiliateSummary$: Subject<AffiliateReport>;
 
   constructor(private authService: AuthenticationService, private http: HttpWrapperService) {
     this.affiliates$ = new Subject();
+    this.subaffiliates$ = new Subject();
     this.affiliateSummary$ = new Subject();
   }
 
@@ -46,6 +51,21 @@ export class AffiliateReportService {
           }
         } else {
           downloadJSON(data.json().response, 'transaction-summary-total-report.json');
+        }
+      })
+  }
+
+  getSubffiliatesReport(start: string, end: string, filters: FilterTerm[], download?: boolean, limit?: number, offset?: number, order?: string) {
+    this.queryRequest(subaffiliateReportListQuery(start, end, filters, download, limit, offset, order), download).subscribe(
+      (data) => {
+        if (!download) {
+          let subaffiliates = extractData(data).affiliatereportsubaffiliates.subaffiliates;
+
+          if (subaffiliates) {
+            this.subaffiliates$.next(subaffiliates.map(subaffiliate => new AffiliateReport(subaffiliate)))
+          }
+        } else {
+          downloadJSON(data.json(), 'subaffiliate-details-report.json');
         }
       })
   }

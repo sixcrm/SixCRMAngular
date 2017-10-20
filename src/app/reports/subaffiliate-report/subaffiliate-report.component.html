@@ -1,4 +1,4 @@
-<div class="report__title">Affiliates Report</div>
+<div class="report__title">Subaffiliates Report</div>
 
 <div class="filter-container">
   <advanced-filter
@@ -17,27 +17,14 @@
   </advanced-filter>
 </div>
 
-<table-memory
-  [title]="'affiliate'"
-  [data]="reportsTotal"
-  [columnParams]="columnParamsTotal"
-  [associationEnabled]="false"
-  [dissociationEnabled]="false"
-  [sortEnabled]="false"
-  [showHeader]="false"
-  [showMenuOptions]="false"
-  [showPagination]="false">
-</table-memory>
-
 <report-table
-  [title]="'Affiliates Summary Details'"
+  [title]="'Subaffiliates Summary Details'"
   [data]="reportsToDisplay"
   [columnParams]="columnParams"
   [limit]="limit"
   [page]="page"
   [paginationString]="getPaginationString()"
   [showFilter]="false"
-  (cellClicked)="clicked($event)"
   (next)="fetchNext()"
   (previous)="fetchPrevious()"
   (updateLimit)="updateLimit($event)"

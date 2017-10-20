@@ -46,6 +46,14 @@ export function paginationString(limit: number, offset: number, order: string): 
   return `pagination:{${ord} ${lim} ${off}}`
 }
 
+export function paginationFullString(limit: number, offset: number, order: string): string {
+  let ord = `order:"${order ? order : 'asc'}"`;
+  let lim = 'limit: ' + (limit ? limit : '20');
+  let off = `offset:${offset ? offset : 0}`;
+
+  return `pagination:{${ord} ${lim} ${off}}`
+}
+
 export function dateString(start: string, end: string) {
   return `start:"${start}", end:"${end}"`;
 }

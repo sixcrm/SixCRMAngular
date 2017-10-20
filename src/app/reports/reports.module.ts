@@ -13,6 +13,7 @@ import {SummaryReportComponent} from './summary-report/summary-report.component'
 import {TransactionsReportComponent} from './transactions-report/transactions-report.component';
 import { MerchantReportComponent } from './merchant-report/merchant-report.component';
 import { AffiliateReportComponent } from './affiliate-report/affiliate-report.component';
+import {SubaffiliateReportComponent} from './subaffiliate-report/subaffiliate-report.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,14 @@ import { AffiliateReportComponent } from './affiliate-report/affiliate-report.co
     Daterangepicker,
     ChartsModule
   ],
-  declarations: [SummaryReportComponent, TransactionsReportComponent, ReportTableComponent, MerchantReportComponent, AffiliateReportComponent],
+  declarations: [
+    SummaryReportComponent,
+    TransactionsReportComponent,
+    ReportTableComponent,
+    MerchantReportComponent,
+    AffiliateReportComponent,
+    SubaffiliateReportComponent
+  ],
   providers: [AnalyticsAclGuard]
 })
 export class ReportsModule { }

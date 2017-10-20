@@ -156,12 +156,10 @@ export abstract class ReportsAbstractComponent<T> {
   reshuffle(): void {
     let temp = this.reports.slice(this.page * this.limit, this.page * this.limit + this.limit);
 
-    if (temp.length >= this.limit) {
+    if (temp.length >= this.limit || !this.hasMore) {
       this.reportsToDisplay = temp;
     } else {
-      if (this.hasMore) {
-        this.fetchFunction();
-      }
+      this.fetchFunction();
     }
   }
 

@@ -1,4 +1,7 @@
-import {paginationQueryString, paginationString, parseFilterTerms, dateString} from './helper.queries';
+import {
+  paginationQueryString, paginationString, parseFilterTerms, dateString,
+  paginationFullString
+} from './helper.queries';
 import {FilterTerm} from '../../components/advanced-filter/advanced-filter.component';
 
 export function transactionReportListQuery(start: string, end: string, filterTerms: FilterTerm[], download: boolean, limit: number, offset: number, order: string): string {
@@ -81,6 +84,23 @@ export function affiliateReportListQuery(start: string, end: string, filterTerms
   {
 		affiliatereport (analyticsfilter:{${dateString(start, end)} ${filterString}} ${paginationString(limit, offset, order)}) {
 			affiliates {
+			  affiliate { id },
+				count_click, count_partials, partials_percent, decline_count, declines_percent, count_sales, sales_percent, count_upsell, upsell_percent, sum_upsell, sum_amount
+			}
+			${pagination}
+		}
+	}`
+}
+
+export function subaffiliateReportListQuery(start: string, end: string, filterTerms: FilterTerm[], download: boolean, limit: number, offset: number, order: string): string {
+  let filterString = parseFilterTerms(filterTerms);
+
+  let pagination = !download ? paginationQueryString() : '';
+
+  return `
+  {
+		affiliatereportsubaffiliates (analyticsfilter:{${dateString(start, end)} ${filterString}} ${paginationFullString(limit, offset, order)}) {
+			subaffiliates {
 			  affiliate { id },
 				count_click, count_partials, partials_percent, decline_count, declines_percent, count_sales, sales_percent, count_upsell, upsell_percent, sum_upsell, sum_amount
 			}
