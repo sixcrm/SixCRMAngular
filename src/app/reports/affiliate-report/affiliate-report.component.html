@@ -1,0 +1,44 @@
+<div class="report__title">Affiliates Report</div>
+
+<div class="filter-container">
+  <advanced-filter
+    [date]="dateMap"
+    [filterTerms]="filterTerms"
+    [refreshText]="'Refresh Report'"
+    [shareUrl]="shareUrl"
+    [groupByEnabled]="true"
+    (dateChanged)="dateChanged($event)"
+    (groupByChanged)="groupByChanged($event)"
+    (filterTermAdded)="addFilter($event)"
+    (filterTermRemoved)="removeFilter($event)"
+    (resetFilters)="reset()"
+    (applyFilters)="fetchFunction()"
+    (refreshFilters)="refresh()">
+  </advanced-filter>
+</div>
+
+<table-memory
+  [title]="affiliate"
+  [data]="reportsTotal"
+  [columnParams]="columnParamsTotal"
+  [associationEnabled]="false"
+  [dissociationEnabled]="false"
+  [sortEnabled]="false"
+  [showHeader]="false"
+  [showMenuOptions]="false"
+  [showPagination]="false">
+</table-memory>
+
+<report-table
+  [title]="'Affiliates Summary Details'"
+  [data]="reportsToDisplay"
+  [columnParams]="columnParams"
+  [limit]="limit"
+  [page]="page"
+  [paginationString]="getPaginationString()"
+  [showFilter]="false"
+  (next)="fetchNext()"
+  (previous)="fetchPrevious()"
+  (updateLimit)="updateLimit($event)"
+  (download)="download($event)">
+</report-table>

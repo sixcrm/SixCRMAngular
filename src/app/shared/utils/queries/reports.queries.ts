@@ -60,3 +60,31 @@ export function merchantReportListQuery(start: string, end: string, filterTerms:
 		}
 	}`
 }
+
+export function affiliteReportSummaryQuery(start: string, end: string, filterTerms: FilterTerm[]): string {
+  let filterString = parseFilterTerms(filterTerms);
+
+  return `
+  {
+		affiliatereportsummary (analyticsfilter:{${dateString(start, end)} ${filterString}} ) {
+      count_click, count_partials, partials_percent, decline_count, declines_percent, count_sales, sales_percent, count_upsell, upsell_percent, sum_upsell, sum_amount
+		}
+	}`
+}
+
+export function affiliateReportListQuery(start: string, end: string, filterTerms: FilterTerm[], download: boolean, limit: number, offset: number, order: string): string {
+  let filterString = parseFilterTerms(filterTerms);
+
+  let pagination = !download ? paginationQueryString() : '';
+
+  return `
+  {
+		affiliatereport (analyticsfilter:{${dateString(start, end)} ${filterString}} ${paginationString(limit, offset, order)}) {
+			affiliates {
+			  affiliate { id },
+				count_click, count_partials, partials_percent, decline_count, declines_percent, count_sales, sales_percent, count_upsell, upsell_percent, sum_upsell, sum_amount
+			}
+			${pagination}
+		}
+	}`
+}

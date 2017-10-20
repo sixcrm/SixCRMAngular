@@ -12,6 +12,7 @@ import {PageComponentsModule} from '../pages/components/pages-components.module'
 import {SummaryReportComponent} from './summary-report/summary-report.component';
 import {TransactionsReportComponent} from './transactions-report/transactions-report.component';
 import { MerchantReportComponent } from './merchant-report/merchant-report.component';
+import { AffiliateReportComponent } from './affiliate-report/affiliate-report.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,7 @@ import { MerchantReportComponent } from './merchant-report/merchant-report.compo
     Daterangepicker,
     ChartsModule
   ],
-  declarations: [SummaryReportComponent, TransactionsReportComponent, ReportTableComponent, MerchantReportComponent],
+  declarations: [SummaryReportComponent, TransactionsReportComponent, ReportTableComponent, MerchantReportComponent, AffiliateReportComponent],
   providers: [AnalyticsAclGuard]
 })
 export class ReportsModule { }

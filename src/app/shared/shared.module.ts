@@ -65,6 +65,7 @@ import { ErrorSnackBarComponent } from './components/error-snack-bar/error-snack
 import {SnackbarService} from './services/snackbar.service';
 import {MerchantReportService} from './services/analytics/merchant-report.service';
 import {TextMaskPipe} from './pipes/text-mask.pipe';
+import {AffiliateReportService} from './services/analytics/affiliate-report.service';
 
 @NgModule({
   declarations : [
@@ -167,6 +168,7 @@ export class SharedModule {
         NotificationSettingsService,
         TransactionReportService,
         MerchantReportService,
+        AffiliateReportService,
         TimeService,
         TrackersService,
         SnackbarService
