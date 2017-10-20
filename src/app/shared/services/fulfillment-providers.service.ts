@@ -10,7 +10,7 @@ import {
 import { extractData, HttpWrapperService } from './http-wrapper.service';
 import {MdSnackBar} from '@angular/material';
 import { CustomServerError } from '../models/errors/custom-server-error';
-import { Subject } from '../../../../template/core-dist/node_modules/rxjs/Subject';
+import {Subject} from 'rxjs';
 
 @Injectable()
 export class FulfillmentProvidersService extends AbstractEntityService<FulfillmentProvider> {
