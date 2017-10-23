@@ -48,6 +48,17 @@ export class Notification implements Entity<Notification> {
       updatedAt: this.updatedAt.format()
     }
   }
+
+  getIconName(): string {
+    switch (this.type) {
+      case 'acl':
+        return 'usericon_action.svg';
+      case 'invitation_sent':
+        return 'newuser_icon.svg';
+      default:
+        return 'alert-icon.svg';
+    }
+  }
 }
 
 export function compareNotifications(f: Notification, s: Notification): number {
