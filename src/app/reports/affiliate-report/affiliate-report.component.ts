@@ -37,6 +37,8 @@ export class AffiliateReportComponent  extends ReportsAbstractComponent<Affiliat
 
     this.endpointExtension = 'affiliate';
 
+    this.reportsToDisplay = [new AffiliateReport({affiliate: new Affiliate({id: '9409628f-cb75-4d20-886b-b7a1e0885844', name: 'test-affiliate'})})];
+
     super.init();
 
     this.columnParamsTotal = [

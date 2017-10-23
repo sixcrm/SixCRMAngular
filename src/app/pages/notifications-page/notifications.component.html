@@ -1,17 +1,16 @@
+<div class="entity-view">
+  <div class="entity-view__title">  Alerts & Notifications</div>
+  <div class="entity-view__navigation">
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===0" (click)="setIndex(0)">NOTIFICATIONS</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===1" (click)="setIndex(1)">ALERTS</span>
+  </div>
+</div>
 <div class="notifications"
      infiniteScroll
      [infiniteScrollDistance]="2"
      [infiniteScrollThrottle]="300"
      [scrollWindow]="false"
      (scrolled)="onScroll()">
-
-  <div class="notifications__topnav">
-    <span>Notifications</span>
-    <md-icon class="notifications__topnav__options" [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-
-    <md-menu #actionsMenu="mdMenu" x-position="before">
-    </md-menu>
-  </div>
 
   <div class="notifications__content">
 
@@ -22,7 +21,7 @@
     <div *ngFor="let notificationsByDate of notsByDate">
 
       <div *ngIf="notificationsByDate.entities.length > 0">
-        <div class="notifications-list__content__title">{{notificationsByDate.label}}</div>
+        <div class="notifications__content__title">{{notificationsByDate.label}}</div>
 
         <div *ngFor="let notification of notificationsByDate.entities">
           <div class="notifications__content__notification" (click)="readNotification(notification)">

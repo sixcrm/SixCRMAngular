@@ -1,31 +1,34 @@
 .notifications-list {
   position: absolute;
-  top: 1px;
+  top: 0;
   right: 0;
   width: 350px;
-  height: calc(100vh - 72px);
+  height: calc(100vh - 71px);
   z-index: 3000;
   background-color: white;
-  box-shadow: -1px 0 4px rgba(0, 0, 0, 0.4);
+  box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.3);
 
   &__topnav {
 
-    padding: 20px 10px;
+    padding: 10px 10px 30px;
 
     span {
       vertical-align: middle;
       margin-left: 10px;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 500;
+      color: rgba(0,0,0,0.65);
     }
 
     md-icon {
       vertical-align: middle;
       cursor: pointer;
+      color: rgba(0,0,0,0.65);
     }
 
     &__options {
       float: right;
+      color: #9B9A9B;
     }
   }
 
@@ -40,7 +43,7 @@
 
     &__title {
       padding: 10px;
-      background: rgba(0, 0, 0, 0.12);
+      background: rgba(0, 0, 0, 0.07);
       font-size: 12px;
       font-weight: 500;
       color: rgba(0, 0, 0, 0.4);
@@ -60,6 +63,7 @@
         width: 65px;
 
         img {
+          height: 40px;
           vertical-align: middle;
         }
       }
@@ -107,39 +111,18 @@
 
 notifications {
   display: block;
-  padding: 30px;
+}
+
+.notifications-header {
+
 }
 
 .notifications {
-  height: calc(100vh - 132px);
-  max-width: 700px;
+  height: calc(100vh - 115px - 70px);
   overflow: auto;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
-  background: white;
-
-  &__topnav {
-
-    padding: 20px 10px;
-
-    span {
-      vertical-align: middle;
-      margin-left: 10px;
-      font-size: 16px;
-      font-weight: 500;
-    }
-
-    md-icon {
-      vertical-align: middle;
-      cursor: pointer;
-    }
-
-    &__options {
-      float: right;
-    }
-  }
+  background: #EEF0F2;
 
   &__content {
-    height: calc(100% - 115px);
 
     &__no-results {
       padding: 30px 20px;
@@ -147,18 +130,21 @@ notifications {
     }
 
     &__title {
-      padding: 10px 20px;
-      background: rgba(0, 0, 0, 0.12);
+      padding: 10px 10px 10px 50px;
+      background: rgba(0, 0, 0, 0.05);
       font-size: 12px;
       font-weight: 500;
-      color: rgba(0, 0, 0, 0.4);
+      color: rgba(0, 0, 0, 0.5);
     }
 
     &__notification {
       display: flex;
+      margin: 20px 20px 20px 50px;
       padding: 10px 20px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-      cursor: default;
+      max-width: 700px;
+      cursor: pointer;
+      background: white;
+      box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
 
       &:hover {
         background-color: #EBF2FE;
@@ -169,11 +155,11 @@ notifications {
 
         img {
           vertical-align: middle;
+          height: 40px;
         }
       }
 
       &__message {
-        width: 200px;
         padding: 5px 0;
         font-size: 14px;
       }

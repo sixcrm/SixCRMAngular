@@ -2,14 +2,17 @@
   <div class="notifications-list__topnav">
     <md-icon (click)="closeNotifications()">keyboard_arrow_right</md-icon>
     <span>Notifications</span>
-    <md-icon class="notifications-list__topnav__options" [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-
-    <md-menu #actionsMenu="mdMenu" x-position="before">
-    </md-menu>
+    <md-icon class="notifications-list__topnav__options">more_vert</md-icon>
   </div>
 
   <div class="notifications-list__content">
     <div class="notifications-list__content__no-results" *ngIf="isEmpty">You don't have any notifications at this time</div>
+
+    <ng-container *ngIf="alerts && alerts.length > 0" >
+      <div class="notifications-list__content__title">Alerts</div>
+      <alert-component class="notifications-list__content__alert" *ngFor="let alert of alerts" [alert]="alert"></alert-component>
+    </ng-container>
+
     <div *ngFor="let notificationsByDate of notsByDate">
 
       <div *ngIf="notificationsByDate.entities.length > 0">

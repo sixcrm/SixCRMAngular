@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityIndexComponent} from '../abstract-entity-index.component';
-import {Notification, compareNotifications} from '../../shared/models/notification.model';
+import {Notification} from '../../shared/models/notification.model';
 import {NotificationsService} from '../../shared/services/notifications.service';
 import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../shared/services/pagination.service';
@@ -8,7 +8,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {utc} from 'moment';
 import {EntitiesByDate} from '../../shared/models/entities-by-date.interface';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
-import {Router, ActivatedRoute} from '@angular/router';
+import {arrangeNotificationsByDate, isEmpty, updateLocally} from '../../shared/utils/notification.utils';
 
 @Component({
   selector: 'notifications',
@@ -19,6 +19,8 @@ export class NotificationsComponent extends AbstractEntityIndexComponent<Notific
 
   private loading: boolean;
   isEmpty: boolean = false;
+
+  selectedIndex: number = 0;
 
   notsByDate: EntitiesByDate<Notification>[] = [
     {label: 'Today', entities: [], contains: (n: Notification) => utc(n.createdAt).isSame(utc(), 'day')},
@@ -56,7 +58,7 @@ export class NotificationsComponent extends AbstractEntityIndexComponent<Notific
     this.notificationsService.entityUpdated$.subscribe(notification => {
       if (notification instanceof CustomServerError) return;
 
-      this.updateLocally(notification)
+      updateLocally(notification, this.notsByDate)
     });
 
     this.init();
@@ -77,38 +79,11 @@ export class NotificationsComponent extends AbstractEntityIndexComponent<Notific
   }
 
   arrangeNotifications(nots: Notification[]): void {
-    nots.forEach(notification => {
-      for (let i in this.notsByDate) {
-        if (this.notsByDate[i].contains(notification)) {
-          this.notsByDate[i].entities.push(notification);
-
-          return;
-        }
-      }
-    });
-
-    let empty: boolean = true;
-    for (let i in this.notsByDate) {
-      this.notsByDate[i].entities = this.notsByDate[i].entities.sort(compareNotifications);
-
-      if (this.notsByDate[i].entities.length > 0) {
-        empty = false;
-      }
-    }
-
-    this.isEmpty = empty;
+    this.notsByDate = arrangeNotificationsByDate(nots, this.notsByDate);
+    this.isEmpty = isEmpty(this.notsByDate);
   }
 
-  updateLocally(notification: Notification): void {
-    for (let i in this.notsByDate) {
-      for (let j in this.notsByDate[i].entities) {
-
-        if (this.notsByDate[i].entities[j].id === notification.id) {
-          this.notsByDate[i].entities[j] = notification;
-
-          return;
-        }
-      }
-    }
+  setIndex(value: number): void {
+    this.selectedIndex = value;
   }
 }

@@ -1,11 +1,12 @@
 import {Component, Output, EventEmitter, OnInit, ElementRef, OnDestroy} from '@angular/core';
-import {Notification, compareNotifications} from '../../shared/models/notification.model';
+import {Notification} from '../../shared/models/notification.model';
 import {utc} from 'moment';
 import {Router} from '@angular/router';
 import {NotificationsQuickService} from '../../shared/services/notifications-quick.service';
 import {EntitiesByDate} from '../../shared/models/entities-by-date.interface';
 import {AsyncSubject} from 'rxjs';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
+import {arrangeNotificationsByDate, isEmpty, updateLocally} from '../../shared/utils/notification.utils';
 
 @Component({
   selector: 'notifications-quick',
@@ -26,6 +27,7 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
 
   isEmpty: boolean = false;
   serverError: CustomServerError;
+  alerts: Notification[] = [];
 
   private unsubscribe: AsyncSubject<boolean> = new AsyncSubject();
 
@@ -54,7 +56,7 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
       }
 
       this.serverError = null;
-      this.updateLocally(notification);
+      updateLocally(notification, this.notsByDate)
     });
 
     this.notificationsService.getEntities(20);
@@ -70,25 +72,8 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
   }
 
   arrangeNotifications(nots: Notification[]): void {
-    nots.forEach(notification => {
-      for (let i in this.notsByDate) {
-        if (this.notsByDate[i].contains(notification)) {
-          this.notsByDate[i].entities.push(notification);
-
-          return;
-        }
-      }
-    });
-
-    let empty: boolean = true;
-    for (let i in this.notsByDate) {
-      this.notsByDate[i].entities = this.notsByDate[i].entities.sort(compareNotifications);
-      if (this.notsByDate[i].entities.length !== 0) {
-        empty = false;
-      }
-    }
-
-    this.isEmpty = empty;
+    this.notsByDate = arrangeNotificationsByDate(nots, this.notsByDate);
+    this.isEmpty = isEmpty(this.notsByDate);
   }
 
   readNotification(notification: Notification): void {
@@ -96,19 +81,6 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
 
     if (notification.action && notification.action.indexOf('customer') !== -1) {
       this.router.navigateByUrl(notification.action);
-    }
-  }
-
-  updateLocally(notification: Notification): void {
-    for (let i in this.notsByDate) {
-      for (let j in this.notsByDate[i].entities) {
-
-        if (this.notsByDate[i].entities[j].id === notification.id) {
-          this.notsByDate[i].entities[j] = notification;
-
-          return;
-        }
-      }
     }
   }
 

@@ -1,0 +1,13 @@
+<div class="notifications__alert">
+  <div class="notifications__alert__image">
+    <img src="assets/images/alertIcon.svg" alt="">
+  </div>
+  <div class="notifications__alert__content">
+    <div> ALERT: {{alert.title}} </div>
+    <div> {{alert.body}} </div>
+  </div>
+</div>
+<div class="notifications__alert__actions">
+  <div (click)="viewAlert()">View</div>
+  <div (click)="clearAlert()">Clear message</div>
+</div>
