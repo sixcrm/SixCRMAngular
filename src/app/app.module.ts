@@ -21,6 +21,7 @@ import {AddProductScheduleDialogComponent} from './pages/add-product-schedule-di
 import {ErrorSnackBarComponent} from './shared/components/error-snack-bar/error-snack-bar.component';
 import {SingleInputDialogComponent} from './dialog-modals/single-input-dialog.component';
 import {AccessKeyDetailsDialogComponent} from './dialog-modals/access-key-details-dialog.component';
+import {ClipboardModule} from 'ngx-clipboard/dist';
 
 @NgModule({
   declarations : [
@@ -45,7 +46,8 @@ import {AccessKeyDetailsDialogComponent} from './dialog-modals/access-key-detail
     HttpModule,
     AuthenticationModule,
     routing,
-    MaterialModule.forRoot()
+    MaterialModule.forRoot(),
+    ClipboardModule
   ],
   exports: [
     MaterialModule
