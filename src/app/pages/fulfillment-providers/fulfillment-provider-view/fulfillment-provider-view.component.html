@@ -33,9 +33,7 @@
     </md-tab>
 
     <md-tab>
-      <div (click)="validateFulfillmentProvider()">validate</div>
-      <div>Validation response:</div>
-      <div>{{fulfillmentProviderService.validationResponse$ | async}}</div>
+      <fulfillment-provider-validation [entity]="entity"></fulfillment-provider-validation>
     </md-tab>
 
   </md-tab-group>

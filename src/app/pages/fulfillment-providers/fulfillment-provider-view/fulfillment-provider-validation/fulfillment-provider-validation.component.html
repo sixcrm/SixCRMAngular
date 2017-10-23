@@ -1,0 +1,25 @@
+<div class="entity-view__card fulfillment-view__validation">
+  <div class="entity-view__card__header">
+    <div class="entity-view__card__header__title">Validate Fulfillment Provider</div>
+  </div>
+
+  <div class="entity-view__card__content">
+
+    <div class="fulfillment-view__validation__explanation">Check if fulfillment provider is enabled and provided credentials/parameters are valid</div>
+
+    <textarea #responseMessage
+              [style.color]="!validationResponse ? 'grey' : (validationSuccess ? '#316537' : '#C31313')"
+              rows="9"
+              class="validation__explanation--message"
+              value="{{validationResponse || 'Validation Response'}}"
+              readonly>
+    </textarea>
+
+    <md-icon *ngIf="!validationInProgress && !!validationResponse" md-tooltip="Copy to clipboard" (click)="copyToClipboard(responseMessage)">content_copy</md-icon>
+
+  </div>
+
+  <div class="entity-view__card__actions">
+    <div (click)="validateProvider()">VALIDATE</div>
+  </div>
+</div>

@@ -32,10 +32,4 @@ export class FulfillmentProviderViewComponent extends AbstractEntityViewComponen
   setIndex(value): void {
     this.selectedIndex = value;
   }
-
-  validateFulfillmentProvider() {
-    this.fulfillmentProviderService.validateFulfillmentProvider(this.entity);
-  }
-
-
 }
