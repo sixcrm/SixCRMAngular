@@ -92,6 +92,8 @@ export class HttpWrapperService {
   }
 
   handleError(error) {
+    if (!error.json().message) return;
+
     const duration = error.json().code === 403 ? 6000 : 3000;
     this.snackbarService.showErrorSnack(error.json().message, duration);
   }
