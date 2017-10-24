@@ -12,7 +12,7 @@ import {DefaultLayoutComponent} from './layouts/default/default.layout.component
 import {NotificationsQuickComponent} from './notifications-quick/notifications-quick.component';
 import { ProfileDropdownComponent } from './topnav/profile-dropdown/profile-dropdown.component';
 import {AuthenticationModule} from '../authentication/authentication.module';
-import { AlertComponent } from './notifications-quick/alert/alert.component';
+import { AlertsQuickComponent } from './alerts-quick/alerts-quick.component';
 
 @NgModule({
   imports : [
@@ -30,7 +30,7 @@ import { AlertComponent } from './notifications-quick/alert/alert.component';
     DefaultLayoutComponent,
     NotificationsQuickComponent,
     ProfileDropdownComponent,
-    AlertComponent
+    AlertsQuickComponent
   ],
   exports : [
     SidenavComponent,

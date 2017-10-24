@@ -66,6 +66,8 @@ import {SnackbarService} from './services/snackbar.service';
 import {MerchantReportService} from './services/analytics/merchant-report.service';
 import {TextMaskPipe} from './pipes/text-mask.pipe';
 import {AffiliateReportService} from './services/analytics/affiliate-report.service';
+import {AlertsService} from './services/alerts.service';
+import {AlertComponent} from './components/alert/alert.component';
 
 @NgModule({
   declarations : [
@@ -95,7 +97,8 @@ import {AffiliateReportService} from './services/analytics/affiliate-report.serv
     ServerErrorMessageComponent,
     AddScheduleComponent,
     ErrorSnackBarComponent,
-    TextMaskPipe
+    TextMaskPipe,
+    AlertComponent
   ],
   exports : [
     AutocompleteComponent,
@@ -122,7 +125,8 @@ import {AffiliateReportService} from './services/analytics/affiliate-report.serv
     FilterEntitiesByParamsPipe,
     ServerErrorMessageComponent,
     AddScheduleComponent,
-    TextMaskPipe
+    TextMaskPipe,
+    AlertComponent
   ],
   imports : [
     FormsModule,
@@ -160,6 +164,7 @@ export class SharedModule {
         SearchService,
         CustomerNotesService,
         NotificationsService,
+        AlertsService,
         NotificationsQuickService,
         RebillsService,
         AnalyticsService,

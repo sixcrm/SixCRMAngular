@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {Subject, Subscription, Observable} from 'rxjs';
+import {Subscription, Observable, BehaviorSubject} from 'rxjs';
 import {AbstractEntityService} from './abstract-entity.service';
 import {Notification} from '../models/notification.model';
 import {HttpWrapperService, extractData} from './http-wrapper.service';
 import {
   notificationsQuickListQuery, updateNotificationMutation,
-  notificationCountQuery
+  notificationCountQuery, alertsListQuery
 } from '../utils/queries/entities/notification.queries';
 import {CustomServerError} from '../models/errors/custom-server-error';
 import {MdSnackBar} from '@angular/material';
@@ -14,10 +14,12 @@ import {MdSnackBar} from '@angular/material';
 @Injectable()
 export class NotificationsQuickService extends AbstractEntityService<Notification> {
 
-  notificationCount$: Subject<number> = new Subject<number>();
+  notificationCount$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  alerts$: BehaviorSubject<Notification[]> = new BehaviorSubject([]);
   poolingInterval = 30000;
   notificationsSub: Subscription;
-  querySub: Subscription;
+  countSub: Subscription;
+  alertSub: Subscription;
 
   constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
     super(
@@ -39,9 +41,13 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
       Observable
         .interval(this.poolingInterval)
         .takeWhile(() => this.authService.authenticated())
-        .subscribe(() => this.getNotificationCount());
+        .subscribe(() => {
+          this.getNotificationCount();
+          this.getAlerts();
+        });
 
     this.getNotificationCount();
+    this.getAlerts();
   }
 
   restartPoolingNotifications(): void {
@@ -49,8 +55,12 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
       this.notificationsSub.unsubscribe();
     }
 
-    if (this.querySub) {
-      this.querySub.unsubscribe();
+    if (this.countSub) {
+      this.countSub.unsubscribe();
+    }
+
+    if (this.alertSub) {
+      this.alertSub.unsubscribe();
     }
 
     this.startPoolingNotifications();
@@ -61,7 +71,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
       return;
     }
 
-    this.querySub = this.queryRequest(notificationCountQuery(), true).subscribe(data => {
+    this.countSub = this.queryRequest(notificationCountQuery(), true).subscribe(data => {
       if (data instanceof CustomServerError) {
         this.notificationCount$.next(0);
         return;
@@ -75,6 +85,26 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
         this.notificationCount$.next(0);
       } else {
         this.notificationCount$.next(entityData.count);
+      }
+    })
+  }
+
+  getAlerts(): void {
+    if (!this.authService.authenticated()) {
+      return;
+    }
+
+    this.alertSub = this.queryRequest(alertsListQuery(), true).subscribe(data => {
+      if (data instanceof CustomServerError) {
+        return;
+      }
+
+      let alerts = extractData(data).notificationlistbytype.notifications;
+
+      if (alerts) {
+        this.alerts$.next(alerts.map(alert => new Notification(alert)));
+      } else {
+        this.alerts$.next([]);
       }
     })
   }

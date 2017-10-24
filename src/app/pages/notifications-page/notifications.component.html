@@ -5,38 +5,46 @@
     <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===1" (click)="setIndex(1)">ALERTS</span>
   </div>
 </div>
-<div class="notifications"
-     infiniteScroll
-     [infiniteScrollDistance]="2"
-     [infiniteScrollThrottle]="300"
-     [scrollWindow]="false"
-     (scrolled)="onScroll()">
+<md-tab-group class="no-header" [(selectedIndex)]="selectedIndex">
+  <md-tab>
+    <div class="notifications"
+         infiniteScroll
+         [infiniteScrollDistance]="2"
+         [infiniteScrollThrottle]="300"
+         [scrollWindow]="false"
+         (scrolled)="onScroll()">
 
-  <div class="notifications__content">
+      <div class="notifications__content">
 
-    <div class="notifications__content__no-results" *ngIf="isEmpty && !(notificationsService.requestInProgress$ | async)">
-      You don't have any notifications at this time...
-    </div>
+        <div class="notifications__content__no-results" *ngIf="isEmpty && !(notificationsService.requestInProgress$ | async)">
+          You don't have any notifications at this time...
+        </div>
 
-    <div *ngFor="let notificationsByDate of notsByDate">
+        <div *ngFor="let notificationsByDate of notsByDate">
 
-      <div *ngIf="notificationsByDate.entities.length > 0">
-        <div class="notifications__content__title">{{notificationsByDate.label}}</div>
+          <div *ngIf="notificationsByDate.entities.length > 0">
+            <div class="notifications__content__title">{{notificationsByDate.label}}</div>
 
-        <div *ngFor="let notification of notificationsByDate.entities">
-          <div class="notifications__content__notification" (click)="readNotification(notification)">
-            <div class="notifications__content__notification__image"><img src="assets/images/{{notification.getIconName()}}" alt=""></div>
-            <div class="notifications__content__notification__message">{{notification.body}}</div>
-            <div class="notifications__content__notification__date">
-              <span>{{notification.createdAt.format('MMM Do')}}</span>
-              <div *ngIf="!notification.readAt"></div>
+            <div *ngFor="let notification of notificationsByDate.entities">
+              <div class="notifications__content__notification" (click)="readNotification(notification)">
+                <div class="notifications__content__notification__image"><img src="assets/images/{{notification.getIconName()}}" alt=""></div>
+                <div class="notifications__content__notification__message">{{notification.body}}</div>
+                <div class="notifications__content__notification__date">
+                  <span>{{notification.createdAt.format('MMM Do')}}</span>
+                  <div *ngIf="!notification.readAt"></div>
+                </div>
+              </div>
             </div>
           </div>
+
         </div>
+
+        <md-spinner *ngIf="notificationsService.requestInProgress$ | async"></md-spinner>
       </div>
-
     </div>
+  </md-tab>
 
-    <md-spinner *ngIf="notificationsService.requestInProgress$ | async"></md-spinner>
-  </div>
-</div>
+  <md-tab>
+    
+  </md-tab>
+</md-tab-group>

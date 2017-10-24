@@ -33,3 +33,12 @@
 registration-form {
   margin: auto;
 }
+
+alerts-quick {
+  display: block;
+  z-index: 4;
+  width: 350px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}

@@ -195,3 +195,9 @@ snack-bar-container {
   padding: 0 !important;
   margin-bottom: 30px;
 }
+
+.no-header {
+  md-tab-header {
+    display: none;
+  }
+}
