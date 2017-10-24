@@ -15,7 +15,7 @@ import {Subject} from 'rxjs';
 @Injectable()
 export class FulfillmentProvidersService extends AbstractEntityService<FulfillmentProvider> {
 
-  validationResponse$: Subject<string> = new Subject();
+  validationResponse$: Subject<any> = new Subject();
 
   constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
     super(

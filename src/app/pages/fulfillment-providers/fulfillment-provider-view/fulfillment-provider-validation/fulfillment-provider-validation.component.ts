@@ -20,8 +20,8 @@ export class FulfillmentProviderValidationComponent implements OnInit {
   ngOnInit() {
     this.fulfillmentProviderService.validationResponse$.subscribe(response => {
       this.validationInProgress = false;
-      this.validationResponse = response;
-      this.validationSuccess = false;
+      this.validationResponse = response.error_message || response.message;
+      this.validationSuccess = !response.error_message;
     })
   }
 

@@ -9,7 +9,6 @@
       <button md-menu-item (click)="download('excel')"> Download Excel </button>
     </md-menu>
   </div>
-
   <server-error-message (refresh)="refreshData()" *ngIf="serverError; else data"></server-error-message>
 
   <ng-template #data>
