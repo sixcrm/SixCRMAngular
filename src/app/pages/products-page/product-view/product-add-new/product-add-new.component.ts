@@ -56,7 +56,7 @@ export class ProductAddNewComponent implements OnInit, OnDestroy {
   }
 
   saveProduct(valid: boolean): void {
-    this.formInvalid = !valid;
+    this.formInvalid = !valid || (this.entity.ship === 'true' && (!this.entity.fulfillmentProvider || !this.entity.fulfillmentProvider.id));
 
     if (this.formInvalid) return;
 
