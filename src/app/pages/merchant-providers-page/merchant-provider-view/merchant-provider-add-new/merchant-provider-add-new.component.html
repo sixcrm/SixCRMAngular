@@ -80,7 +80,7 @@
     <div class="entity-view__card__content merchant-provider-view__details">
 
       <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.name">
-        <input required [disabled]="mode === modes.View" md-input placeholder="Name" name="name" [(ngModel)]="entity.gateway.name" type="text">
+        <input required [disabled]="mode === modes.View" md-input placeholder="Name" name="gatewayName" [(ngModel)]="entity.gateway.name" type="text">
       </md-input-container>
 
       <dropdown-component
