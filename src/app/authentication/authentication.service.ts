@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import 'rxjs/Rx';
 import {environment} from '../../environments/environment';
 import {User} from '../shared/models/user.model';
 import {Acl} from '../shared/models/acl.model';

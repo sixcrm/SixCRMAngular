@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {YesNoDialogComponent} from '../yes-no-dialog.component';
 import {MdDialog} from '@angular/material';
 import {NavigationService} from '../../navigation/navigation.service';
+import 'rxjs/Rx';
 
 export class AbstractAclGuard {
 
