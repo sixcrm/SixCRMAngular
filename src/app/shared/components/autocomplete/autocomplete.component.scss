@@ -1,11 +1,11 @@
 .auto-complete {
   background: white;
   color: black;
-  padding: 10px;
 
   &__option {
-    padding: 5px 5px 5px 15px;
+    padding: 10px 25px;
     cursor: pointer;
+    font-size: 14px;
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.1);
