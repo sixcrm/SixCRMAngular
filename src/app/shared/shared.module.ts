@@ -68,6 +68,7 @@ import {TextMaskPipe} from './pipes/text-mask.pipe';
 import {AffiliateReportService} from './services/analytics/affiliate-report.service';
 import {AlertsService} from './services/alerts.service';
 import {AlertComponent} from './components/alert/alert.component';
+import { TableLoaderComponent } from './components/table-loader/table-loader.component';
 
 @NgModule({
   declarations : [
@@ -98,7 +99,8 @@ import {AlertComponent} from './components/alert/alert.component';
     AddScheduleComponent,
     ErrorSnackBarComponent,
     TextMaskPipe,
-    AlertComponent
+    AlertComponent,
+    TableLoaderComponent
   ],
   exports : [
     AutocompleteComponent,
@@ -126,7 +128,8 @@ import {AlertComponent} from './components/alert/alert.component';
     ServerErrorMessageComponent,
     AddScheduleComponent,
     TextMaskPipe,
-    AlertComponent
+    AlertComponent,
+    TableLoaderComponent
   ],
   imports : [
     FormsModule,

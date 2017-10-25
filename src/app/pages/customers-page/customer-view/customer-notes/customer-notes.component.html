@@ -46,7 +46,7 @@
 
       <server-error-message (refresh)="refreshData()" *ngIf="serverError; else message"></server-error-message>
       <ng-template #message>
-        <md-spinner class="entity-view__spinner" *ngIf="loadingData"></md-spinner>
+        <table-loader *ngIf="loadingData"></table-loader>
         <div class="entity-view__no-results customer-view__no-results entity-view__no-results--small-padding" *ngIf="!loadingData && (!notes || notes.length === 0)">No customer notes found</div>
       </ng-template>
     </div>

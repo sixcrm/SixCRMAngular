@@ -37,7 +37,8 @@
     </tbody>
   </table>
 
-  <md-spinner class="entity-view__spinner" *ngIf="loadingData && (!entities || entities.length === 0)"></md-spinner>
+  <table-loader *ngIf="loadingData && (!entities || entities.length === 0)"></table-loader>
+
   <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">No campaigns found</div>
 
   <table-pagination

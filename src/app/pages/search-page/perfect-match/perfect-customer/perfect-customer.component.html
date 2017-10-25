@@ -70,7 +70,7 @@
       </div>
 
       <ng-template #spinTransactions>
-        <md-spinner></md-spinner>
+        <table-loader></table-loader>
       </ng-template>
 
     <div class="perfect-entity__list">
@@ -83,5 +83,5 @@
     </div>
   </div>
 
-  <ng-template #spin><md-spinner></md-spinner></ng-template>
+  <ng-template #spin><table-loader [rowHeight]="30"></table-loader></ng-template>
 </div>

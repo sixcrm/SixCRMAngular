@@ -32,7 +32,7 @@
       </tbody>
     </table>
 
-    <md-spinner *ngIf="!campaigns"></md-spinner>
+    <table-loader *ngIf="!campaigns"></table-loader>
   </ng-template>
 
   <div class="dashboard__table-chart__actions"><span [routerLink]="['/coming-soon']">VIEW MORE</span></div>
