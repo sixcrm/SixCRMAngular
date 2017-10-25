@@ -28,9 +28,9 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   scheduleColumnParams = [
     new ColumnParams('Name', (e: Schedule) => e.product.name),
     new ColumnParams('Price', (e: Schedule) => e.price.usd(), 'right'),
-    new ColumnParams('Start', (e: Schedule) => e.start, 'right'),
-    new ColumnParams('End', (e: Schedule) => e.end, 'right'),
-    new ColumnParams('Period', (e: Schedule) => e.period, 'right'),
+    new ColumnParams('Start', (e: Schedule) => e.start + '', 'right'),
+    new ColumnParams('End', (e: Schedule) => e.end === null ? '' : e.end + '', 'right'),
+    new ColumnParams('Period', (e: Schedule) => e.period + '', 'right'),
     new ColumnParams('Ship', (e: Schedule) => e.product.ship)
   ];
 

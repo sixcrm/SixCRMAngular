@@ -17,7 +17,7 @@ export class Schedule implements Entity<Schedule>{
 
     this.price = new Currency(obj.price);
     this.start = obj.start || 0;
-    this.end = obj.end || 30;
+    this.end = obj.end === undefined ? 30 : obj.end;
     this.period = obj.period || 30;
     this.product = new Product(obj.product);
   }
