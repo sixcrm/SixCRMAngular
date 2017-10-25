@@ -10,7 +10,11 @@
 
     <ng-container *ngIf="alerts && alerts.length > 0" >
       <div class="notifications-list__content__title">Alerts</div>
-      <alert-component class="notifications-list__content__alert" *ngFor="let alert of alerts" [alert]="alert"></alert-component>
+      <alert-component class="notifications-list__content__alert"
+                       *ngFor="let alert of alerts"
+                       [alert]="alert"
+                       [enableClear]="false">
+      </alert-component>
     </ng-container>
 
     <div *ngFor="let notificationsByDate of notsByDate">

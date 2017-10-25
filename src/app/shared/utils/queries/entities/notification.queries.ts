@@ -14,7 +14,7 @@ export function notificationsListQuery(limit?:number, cursor?:string): string {
 
 export function alertsListQuery(limit?: number, cursor?: string): string {
   return `{
-    notificationlistbytype ( type:"alert", user: true, ${paginationParamsQuery(limit, cursor, true)} ) {
+    notificationlistbytype ( type:"alert", user: true ) {
 			notifications {
 			  ${notificationsResponseQuery()}
 			}

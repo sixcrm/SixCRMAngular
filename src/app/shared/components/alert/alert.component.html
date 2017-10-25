@@ -8,6 +8,6 @@
   </div>
 </div>
 <div class="notifications__alert__actions">
-  <div (click)="viewAlert()">View</div>
-  <div (click)="clearAlert()">Clear message</div>
+  <div *ngIf="enableView" (click)="viewAlert()">View</div>
+  <div *ngIf="enableClear" (click)="clearAlert()">Dismiss</div>
 </div>

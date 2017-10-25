@@ -9,7 +9,10 @@ import {Notification} from '../../models/notification.model';
 export class AlertComponent implements OnInit {
 
   @Input() alert: Notification;
+  @Input() enableClear: boolean = true;
+  @Input() enableView: boolean = true;
   @Output() clear: EventEmitter<Notification> = new EventEmitter();
+  @Output() view: EventEmitter<Notification> = new EventEmitter();
 
   constructor() { }
 
@@ -17,7 +20,7 @@ export class AlertComponent implements OnInit {
   }
 
   viewAlert(): void {
-
+    this.view.emit(this.alert);
   }
 
   clearAlert(): void {

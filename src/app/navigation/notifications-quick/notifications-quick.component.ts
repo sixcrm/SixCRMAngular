@@ -72,7 +72,8 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
   }
 
   arrangeNotifications(nots: Notification[]): void {
-    this.notsByDate = arrangeNotificationsByDate(nots, this.notsByDate);
+    this.alerts = nots.filter(n => n.type === 'alert');
+    this.notsByDate = arrangeNotificationsByDate(nots.filter(n => n.type !== 'alert'), this.notsByDate);
     this.isEmpty = isEmpty(this.notsByDate);
   }
 
