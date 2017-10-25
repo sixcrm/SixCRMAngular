@@ -200,6 +200,10 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     this.notificationSettingsService.sendTestNotification();
   }
 
+  sendTestAlert(): void {
+    this.notificationSettingsService.sendTestAlert();
+  }
+
   getPhoneNumber(): string {
     if (!this.userSettings) return '';
 

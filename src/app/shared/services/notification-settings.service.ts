@@ -7,7 +7,7 @@ import {NotificationsQuickService} from './notifications-quick.service';
 import {HttpWrapperService, extractData} from './http-wrapper.service';
 import {
   notificationSettingsQuery, createNotificationSettingsMutation,
-  updateNotificationSettingsMutation, defaultNotificationSettingsQuery, sendTestNotification
+  updateNotificationSettingsMutation, defaultNotificationSettingsQuery, sendTestNotification, sendTestAlert
 } from '../utils/query-builder';
 import {CustomServerError} from '../models/errors/custom-server-error';
 import {MdSnackBar} from '@angular/material';
@@ -47,6 +47,12 @@ export class NotificationSettingsService extends AbstractEntityService<Notificat
 
   sendTestNotification(): void {
     this.queryRequest(sendTestNotification()).subscribe(() =>
+      this.notificationsQuickService.restartPoolingNotifications()
+    )
+  }
+
+  sendTestAlert(): void {
+    this.queryRequest(sendTestAlert()).subscribe(() =>
       this.notificationsQuickService.restartPoolingNotifications()
     )
   }

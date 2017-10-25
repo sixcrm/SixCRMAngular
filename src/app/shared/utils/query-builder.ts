@@ -106,6 +106,10 @@ export function sendTestNotification(): string {
   return `{ notificationtest { result } }`
 }
 
+export function sendTestAlert(): string {
+  return `{ alerttest { result } }`
+}
+
 function pageParams(limit?: number, cursor?: string, noBraces?:boolean): string {
   let lim = !!limit ? `limit: "${limit}"` : '';
   let cur = !!cursor ? `cursor: "${cursor}"` : '';
