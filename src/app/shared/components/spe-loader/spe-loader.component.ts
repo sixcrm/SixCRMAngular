@@ -15,7 +15,7 @@ export class SpeLoaderComponent implements OnInit {
   tabs: number[] = [];
   cards: number[] = [];
 
-  constructor(private navigation: NavigationService) { }
+  constructor(public navigation: NavigationService) { }
 
   ngOnInit() {
 

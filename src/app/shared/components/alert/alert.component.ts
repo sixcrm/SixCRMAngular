@@ -15,7 +15,7 @@ export class AlertComponent implements OnInit {
   @Output() clear: EventEmitter<Notification> = new EventEmitter();
   @Output() view: EventEmitter<Notification> = new EventEmitter();
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(public authService: AuthenticationService) { }
 
   ngOnInit() { }
 
