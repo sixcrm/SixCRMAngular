@@ -14,7 +14,7 @@
 
   <ng-template #data>
     <chart *ngIf="eventsBy && eventsBy.count > 0; else eventsByNoData" #chart (load)="saveChart($event.context)" [options]="options"></chart>
-    <md-spinner *ngIf="!eventsBy"></md-spinner>
+    <chart *ngIf="!eventsBy" [options]="loaderOptions"></chart>
 
     <div *ngIf="eventsBy && eventsBy.count > 0" class="dashboard__table" [style.height]="calculateHeight()" [class.dashboard__table--inactive]="!showTable || !eventsBy">
       <table class="highlight">

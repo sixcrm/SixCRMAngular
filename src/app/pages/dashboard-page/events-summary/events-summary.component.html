@@ -18,7 +18,7 @@
     </div>
 
     <div class="dashboard__table-chart__no-data" *ngIf="loaded && (!events || events.length === 0)"> No Events Found</div>
-    <md-spinner *ngIf="!loaded"></md-spinner>
+    <chart *ngIf="!loaded" [options]="loaderOptions"></chart>
 
     <div class="dashboard__table-chart__actions"><span [routerLink]="['/coming-soon']">VIEW MORE</span></div>
   </ng-template>

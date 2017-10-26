@@ -56,6 +56,41 @@ export class EventsByComponent extends AbstractDashboardItem implements OnInit, 
     }]
   };
 
+  loaderOptions = {
+    chart: {
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      type: 'pie'
+    },
+    title: {
+      text: null
+    },
+    credits: {
+      enabled: false
+    },
+    plotOptions: {
+      pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: false,
+        }
+      }
+    },
+    series: [{
+      name: 'Percentage',
+      colorByPoint: true,
+      data: [
+        {name: '', y: 40, color: '#C3C3C3'},
+        {name: '', y: 25, color: '#CBCBCB'},
+        {name: '', y: 15, color: '#D8D8D8'},
+        {name: '', y: 12, color: '#ECECEC'},
+        {name: '', y: 8, color: '#E2E2E2'}
+      ]
+    }]
+  };
+
   chartInstance;
   eventsBy: EventsBy;
 

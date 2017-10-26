@@ -71,6 +71,29 @@ export class TransactionSummaryChartComponent extends AbstractDashboardItem impl
     }
   };
 
+  loaderOptions = {
+    credits: {enabled: false},
+    title: {
+      text: null
+    },
+    yAxis: {
+      title: {
+        text: null
+      },
+      labels: {
+        enabled: false
+      }
+    },
+    xAxis: {
+      labels: {
+        enabled: false
+      }
+    },
+    series: [
+      { color: '#C3C3C3', data: [[0,1],[1,2],[2,3],[3,2],[4,1],[5,2],[6,2],[7,3],[8,2],[9,3]] },
+    ]
+  };
+
   constructor(private analyticsService: AnalyticsService) {
     super();
   }

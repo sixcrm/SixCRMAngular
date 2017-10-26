@@ -69,6 +69,7 @@ import {AffiliateReportService} from './services/analytics/affiliate-report.serv
 import {AlertsService} from './services/alerts.service';
 import {AlertComponent} from './components/alert/alert.component';
 import { TableLoaderComponent } from './components/table-loader/table-loader.component';
+import { SpeLoaderComponent } from './components/spe-loader/spe-loader.component';
 
 @NgModule({
   declarations : [
@@ -100,7 +101,8 @@ import { TableLoaderComponent } from './components/table-loader/table-loader.com
     ErrorSnackBarComponent,
     TextMaskPipe,
     AlertComponent,
-    TableLoaderComponent
+    TableLoaderComponent,
+    SpeLoaderComponent
   ],
   exports : [
     AutocompleteComponent,
@@ -129,7 +131,8 @@ import { TableLoaderComponent } from './components/table-loader/table-loader.com
     AddScheduleComponent,
     TextMaskPipe,
     AlertComponent,
-    TableLoaderComponent
+    TableLoaderComponent,
+    SpeLoaderComponent
   ],
   imports : [
     FormsModule,

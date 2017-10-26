@@ -13,6 +13,8 @@ import {CustomServerError} from '../../../shared/models/errors/custom-server-err
 export class EventsSummaryComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
   colors = ['#4383CC', '#4DABF5', '#9ADDFB', '#FDAB31', '#F28933'];
+  loaderColors = ['#C3C3C3', '#CBCBCB', '#D8D8D8', '#ECECEC', '#E2E2E2'];
+
   chartInstance;
   events: EventSummary[];
   loaded: boolean = false;
@@ -46,6 +48,46 @@ export class EventsSummaryComponent extends AbstractDashboardItem implements OnI
       { name: 'Order', color: this.colors[2] },
       { name: 'Lead', color: this.colors[1] },
       { name: 'Click', color: this.colors[0] }
+    ]
+  };
+
+  loaderOptions = {
+    chart: {
+      type: 'area'
+    },
+    title: {
+      text: null
+    },
+    credits: {
+      enabled: false
+    },
+    yAxis: {
+      title: {
+        text: null
+      },
+      labels: {
+        enabled: false
+      }
+    },
+    xAxis: {
+      labels: {
+        enabled: false
+      }
+    },
+    tooltip: {
+      split: true
+    },
+    plotOptions: {
+      area: {
+        stacking: 'normal'
+      }
+    },
+    series: [
+      { name: 'Confirm', color: this.loaderColors[4], data: [8,6,7,8,9,10] },
+      { name: 'Upsell', color: this.loaderColors[3], data: [7,5,6,7,8,9] },
+      { name: 'Order', color: this.loaderColors[2], data: [5,4,5,6,7,8] },
+      { name: 'Lead', color: this.loaderColors[1], data: [4,3,4,5,6,7] },
+      { name: 'Click', color: this.loaderColors[0], data: [3,2,3,4,5,6] }
     ]
   };
 

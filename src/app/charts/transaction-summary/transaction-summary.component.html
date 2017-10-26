@@ -17,7 +17,8 @@
       <chart style="display: block" type="StockChart" [options]="chartOptions" (load)="saveChart($event.context)"></chart>
     </div>
     <div class="dashboard__table-chart__no-data" *ngIf="loaded && (!summaries || summaries.length === 0)"> No Transactions Found</div>
-    <md-spinner *ngIf="!loaded"></md-spinner>
+    <chart *ngIf="!loaded" style="display: block" [options]="loaderOptions"></chart>
+
 
     <div class="dashboard__table-chart__actions"><span [routerLink]="['/reports', 'transaction']">VIEW MORE</span></div>
   </ng-template>
