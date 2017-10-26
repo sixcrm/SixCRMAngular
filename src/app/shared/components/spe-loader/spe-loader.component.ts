@@ -1,4 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
+import {NavigationService} from '../../../navigation/navigation.service';
 
 @Component({
   selector: 'spe-loader',
@@ -14,7 +15,7 @@ export class SpeLoaderComponent implements OnInit {
   tabs: number[] = [];
   cards: number[] = [];
 
-  constructor() { }
+  constructor(private navigation: NavigationService) { }
 
   ngOnInit() {
 
