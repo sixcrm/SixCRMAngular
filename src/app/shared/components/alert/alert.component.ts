@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Notification} from '../../models/notification.model';
+import {AuthenticationService} from '../../../authentication/authentication.service';
 
 @Component({
   selector: 'alert-component',
@@ -14,10 +15,9 @@ export class AlertComponent implements OnInit {
   @Output() clear: EventEmitter<Notification> = new EventEmitter();
   @Output() view: EventEmitter<Notification> = new EventEmitter();
 
-  constructor() { }
+  constructor(private authService: AuthenticationService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   viewAlert(): void {
     this.view.emit(this.alert);

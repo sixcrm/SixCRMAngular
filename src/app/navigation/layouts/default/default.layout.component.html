@@ -13,7 +13,7 @@
     <div class="container">
       <router-outlet></router-outlet>
       <notifications-quick *ngIf="navigation.showNotifications | async" (close)="navigation.toggleNotifications(false)"></notifications-quick>
-      <alerts-quick></alerts-quick>
+      <alerts-quick *ngIf="!(navigation.showNotifications | async)" [style.top]="alertTopOffsetCurrent + 'px'"></alerts-quick>
       <div class="clearfix"></div>
     </div>
   </main>
@@ -22,3 +22,4 @@
 <div *ngIf="!(authService.sixUserActivated$ | async)" class="registration-form__container">
   <registration-form></registration-form>
 </div>
+

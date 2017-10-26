@@ -45,7 +45,20 @@
 
     div {
       padding: 10px;
+    }
+
+    .view {
       cursor: pointer;
+    }
+
+    .dismiss {
+      cursor: pointer;
+    }
+
+    .date {
+      font-size: 12px;
+      margin-left: auto;
+      color: rgba(0,0,0,0.4);
     }
   }
 }

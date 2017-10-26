@@ -16,6 +16,8 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
   isHovering: boolean = false;
   showOnHover: boolean = false;
 
+  alertTopOffsetCurrent: number = 0;
+
   constructor(public navigation: NavigationService, public http: HttpWrapperService, public authService: AuthenticationService) { }
 
   ngOnInit() {
@@ -26,6 +28,11 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
     this.sidenav.onCloseStart.filter(() => this.navigation.mediumScreenAndDown).subscribe(() => {
       this.navigation.toggleSidenav(false);
     });
+
+    document.getElementsByClassName('md-sidenav-content')[0].addEventListener('scroll', (event) => {
+      const scrollTop = event.srcElement.scrollTop;
+      this.alertTopOffsetCurrent = scrollTop < 70 ? 0 : scrollTop - 70;
+    })
   }
 
   hover(value: boolean): void {
