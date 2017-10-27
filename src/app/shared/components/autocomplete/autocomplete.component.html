@@ -1,5 +1,8 @@
-<div class="auto-complete">
-  <div class="auto-complete__option" *ngFor="let option of options" (click)="select.emit(option)">
+<div #autocompleteContainer class="auto-complete">
+  <div #autocompleteOptions class="auto-complete__option"
+       *ngFor="let option of options; let i = index;"
+       [class.focused]="i === focusedOptionIndex"
+       (click)="select.emit(option)">
     {{option}}
   </div>
 </div>

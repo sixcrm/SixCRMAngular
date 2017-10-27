@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SearchService} from '../../shared/services/search.service';
 import {Subscription, Subject} from 'rxjs';
@@ -10,6 +10,7 @@ import {environment} from '../../../environments/environment';
 import {AdvancedSearchComponent} from './advanced-search/advanced-search.component';
 import {firstIndexOf} from '../../shared/utils/array.utils';
 import {AuthenticationService} from '../../authentication/authentication.service';
+import {AutocompleteComponent} from '../../shared/components/autocomplete/autocomplete.component';
 
 export interface FacetCount {
   name: string;
@@ -23,6 +24,8 @@ export interface FacetCount {
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit, OnDestroy {
+  @ViewChild('autocomplete') autocomplete: AutocompleteComponent;
+
   // quick search string
   queryString: string;
 
@@ -260,7 +263,16 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   quickSearchKeyDown(event): void {
     if (event && event.key === 'Enter') {
+
+      if (this.autocomplete && this.autocomplete.getSelected()) {
+        this.queryString = this.autocomplete.getSelected();
+      }
+
       this.quickSearch();
+    }
+
+    if (event.key === 'Tab' && this.autocomplete) {
+      event.preventDefault();
     }
   }
 

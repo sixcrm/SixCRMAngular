@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, ViewChild} from '@angular/core';
 import {MdSidenav} from '@angular/material';
 import {NavigationService} from '../navigation.service';
 import {AuthenticationService} from "../../authentication/authentication.service";
@@ -8,6 +8,7 @@ import {User} from '../../shared/models/user.model';
 import {Acl} from '../../shared/models/acl.model';
 import {SearchService} from '../../shared/services/search.service';
 import {NotificationsQuickService} from '../../shared/services/notifications-quick.service';
+import {AutocompleteComponent} from '../../shared/components/autocomplete/autocomplete.component';
 
 @Component({
   selector : 'app-topnav',
@@ -17,6 +18,7 @@ import {NotificationsQuickService} from '../../shared/services/notifications-qui
 })
 export class TopnavComponent implements OnInit {
   @Input() sideNav: MdSidenav;
+  @ViewChild('autocomplete') autocomplete: AutocompleteComponent;
 
   showSidenav: boolean;
 
@@ -102,7 +104,16 @@ export class TopnavComponent implements OnInit {
 
   onSearchKey(event): void {
     if (event.key === 'Enter' && this.searchTerm && this.searchTerm.length > 0) {
+
+      if (this.autocomplete && this.autocomplete.getSelected()) {
+        this.searchTerm = this.autocomplete.getSelected();
+      }
+
       this.search();
+    }
+
+    if (event.key === 'Tab' && this.autocomplete) {
+      event.preventDefault();
     }
   }
 

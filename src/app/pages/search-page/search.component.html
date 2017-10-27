@@ -13,7 +13,7 @@
               <md-input (focus)="showAutoComplete()" [value]="queryString" (input)="quickSearchInputChanged($event)" (keydown)="quickSearchKeyDown($event)" (blur)="hideAutoComplete()">
                 <md-icon class="search__sidenav__query__icon" md-prefix (click)="quickSearch()">search</md-icon>
               </md-input>
-              <autocomplete *ngIf="showAutocomplete && autocompleteOptions.length > 0" (select)="suggestionSelected($event)" [options]="autocompleteOptions"></autocomplete>
+              <autocomplete #autocomplete *ngIf="showAutocomplete && autocompleteOptions.length > 0" (select)="suggestionSelected($event)" [options]="autocompleteOptions"></autocomplete>
             </div>
             <div class="search__sidenav__button--advanced" (click)="toggleAdvancedSearch()"><span>ADVANCED SEARCH</span> <md-icon>{{showAdvancedSearch ? 'keyboard_arrow_left' : 'keyboard_arrow_right'}}</md-icon></div>
 
