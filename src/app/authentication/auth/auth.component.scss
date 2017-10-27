@@ -1,6 +1,6 @@
 .background {
-  background: -webkit-radial-gradient(#40404b, #111118) rgba(34,34,40,0.94);
-  background: radial-gradient(#40404b, #111118) rgba(34,34,40,0.94);
+  background: -webkit-radial-gradient(#0A38D9, #067BE9) rgba(34,34,40,0.94);
+  background: radial-gradient(#0A38D9, #067BE9) rgba(34,34,40,0.94);
   display: block;
   position: absolute;
   top: 0;
@@ -11,8 +11,9 @@
 
 .background > .wrapper {
   position: fixed;
-  top: 50%;
+  top: 40%;
   left: 50%;
+  margin-left: -40px;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
 }
@@ -25,8 +26,8 @@
 }
 
 .sixLogo {
-  width: 80px;
-  height: 80px;
+  width: 180px;
+  height: 180px;
   position: absolute;
   top: 0;
   left: 0;
@@ -40,18 +41,18 @@
   }
 
   100% {
-    -webkit-transform: rotate(-360deg) ;
+    -webkit-transform: rotate(-360deg);
   }
 }
 
 @keyframes six-icon {
   25% {
-    transform:  rotate(-90deg);
+    transform: rotate(-90deg);
     -webkit-transform:  rotate(-90deg);
   }
 
   100% {
-    transform: rotate(-360deg) ;
+    transform: rotate(-360deg);
     -webkit-transform: rotate(-360deg) ;
   }
 }

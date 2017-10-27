@@ -1,0 +1,10 @@
+.auth0-lock-overlay {
+  opacity: 1 !important;
+  background: -webkit-radial-gradient(#0A38D9, #067BE9) rgba(34,34,40,0.94) !important;
+  background: radial-gradient(#0A38D9, #067BE9) rgba(34,34,40,0.94) !important;
+}
+
+.auth0-lock-widget {
+  box-shadow: 0 0 40px 4px rgba(0,0,0,0.3) !important;
+  transition-delay: 0.1s !important;
+}
