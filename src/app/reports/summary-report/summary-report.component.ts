@@ -20,6 +20,9 @@ export class SummaryReportComponent extends ReportsAbstractComponent<Transaction
   columnParamsTotal: ReportColumnParams<TransactionsSumItem>[] = [];
   reportsTotal: TransactionsSumItem[] = [];
 
+  reportsLoading: boolean = true;
+  reportsSummaryLoading: boolean = true;
+
   constructor(
     public reportService: TransactionReportService,
     paginationService: PaginationService,
@@ -65,6 +68,8 @@ export class SummaryReportComponent extends ReportsAbstractComponent<Transaction
     ];
 
     this.reportService.transactionsSumItems$.takeUntil(this.unsubscribe$).subscribe(reports => {
+      this.reportsLoading = false;
+
       this.reports = [...this.reports, ...reports];
 
       if (this.reports.length < this.limit + 1) {
@@ -75,6 +80,7 @@ export class SummaryReportComponent extends ReportsAbstractComponent<Transaction
     });
 
     this.reportService.transactionsSumTotal$.takeUntil(this.unsubscribe$).subscribe(report => {
+      this.reportsSummaryLoading = false;
       this.reportsTotal = [report];
     });
   }

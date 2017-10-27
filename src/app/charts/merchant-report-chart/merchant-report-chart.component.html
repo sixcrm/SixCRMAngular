@@ -7,7 +7,8 @@
   <div [class.invisible]="!loaded || (!reportsToDisplay || reportsToDisplay.length === 0)">
     <chart style="display: block" [options]="chartOptions" (load)="saveChart($event.context)"></chart>
   </div>
+  <chart style="display: block" *ngIf="!loaded" [options]="loaderOptions"></chart>
+
 
   <div class="dashboard__table-chart__no-data" *ngIf="loaded && (!reportsToDisplay || reportsToDisplay.length === 0)"> No Merchants Found</div>
-  <md-spinner *ngIf="!loaded"></md-spinner>
 </div>

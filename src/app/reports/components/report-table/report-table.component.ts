@@ -44,6 +44,7 @@ export class ReportTableComponent implements OnInit {
   @Input() data: any[] = [];
   @Input() title: string;
   @Input() showFilter: boolean = true;
+  @Input() loading: boolean;
   @Output() filterSelected: EventEmitter<FilterTerm> = new EventEmitter();
   @Output() cellClicked: EventEmitter<{params: ReportColumnParams<any>, entity: any}> = new EventEmitter();
 

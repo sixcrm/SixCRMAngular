@@ -43,9 +43,9 @@
     </tr>
     </tbody>
   </table>
+  <table-loader *ngIf="loading" [numberOfRows]="loadingNumberOfRows"></table-loader>
 
-  <div *ngIf="!entities || entities.length === 0" class="entity-view__no-results entity-view__no-results--table">{{textOptions.noDataText || 'No ' + title + 's found'}}</div>
-
+  <div *ngIf="!loading && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">{{textOptions.noDataText || 'No ' + title + 's found'}}</div>
   <table-pagination
     *ngIf="showPagination"
     [limit]="limit"

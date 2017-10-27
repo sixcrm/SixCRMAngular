@@ -14,6 +14,8 @@ import {ReportColumnParams} from '../components/report-table/report-table.compon
 })
 export class MerchantReportComponent extends ReportsAbstractComponent<MerchantReport> implements OnInit, OnDestroy {
 
+  loading: boolean = true;
+
   constructor(
     public merchantReportService: MerchantReportService,
     paginationService: PaginationService,
@@ -45,6 +47,8 @@ export class MerchantReportComponent extends ReportsAbstractComponent<MerchantRe
     ];
 
     this.merchantReportService.merchants$.takeUntil(this.unsubscribe$).subscribe(reports => {
+      this.loading = false;
+
       this.reports = [...this.reports, ...reports];
 
       if (this.reports.length < this.limit + 1) {

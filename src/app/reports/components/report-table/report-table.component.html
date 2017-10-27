@@ -47,6 +47,8 @@
       </tbody>
     </table>
 
+    <table-loader *ngIf="loading"></table-loader>
+
     <table-pagination
       [limit]="limit"
       [paginationValues]="paginationValues"

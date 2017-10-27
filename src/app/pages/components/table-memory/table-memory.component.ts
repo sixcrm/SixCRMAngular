@@ -55,6 +55,8 @@ export class TableMemoryComponent implements OnInit {
   @Input() ignoreDisassociate: (el: any) => boolean = (el: any) => false;
   @Input() hasWritePermission: boolean = true;
   @Input() customMenuOptions: CustomMenuOption[] = [];
+  @Input() loading: boolean;
+  @Input() loadingNumberOfRows: number = 3;
 
   @Output() view: EventEmitter<boolean> = new EventEmitter();
   @Output() disassociate: EventEmitter<any> = new EventEmitter();

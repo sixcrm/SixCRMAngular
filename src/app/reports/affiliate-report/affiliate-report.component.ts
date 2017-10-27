@@ -18,6 +18,8 @@ export class AffiliateReportComponent  extends ReportsAbstractComponent<Affiliat
   columnParamsTotal: ReportColumnParams<AffiliateReport>[] = [];
   reportsTotal: AffiliateReport[] = [];
 
+  reportSummaryLoading: boolean = true;
+
   constructor(
     public affiliateReportService: AffiliateReportService,
     paginationService: PaginationService,
@@ -36,8 +38,6 @@ export class AffiliateReportComponent  extends ReportsAbstractComponent<Affiliat
     };
 
     this.endpointExtension = 'affiliate';
-
-    this.reportsToDisplay = [new AffiliateReport({affiliate: new Affiliate({id: '9409628f-cb75-4d20-886b-b7a1e0885844', name: 'test-affiliate'})})];
 
     super.init();
 
@@ -71,6 +71,7 @@ export class AffiliateReportComponent  extends ReportsAbstractComponent<Affiliat
     });
 
     this.affiliateReportService.affiliateSummary$.takeUntil(this.unsubscribe$).subscribe(reports => {
+      this.reportSummaryLoading = false;
       this.reportsTotal = [reports];
     });
 

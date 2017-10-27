@@ -19,6 +19,8 @@
 
 <table-memory
   [data]="reportsTotal"
+  [loading]="reportsSummaryLoading"
+  [loadingNumberOfRows]="1"
   [columnParams]="columnParamsTotal"
   [associationEnabled]="false"
   [dissociationEnabled]="false"
@@ -31,6 +33,7 @@
 <report-table
   [title]="'Transaction Summary Details'"
   [data]="reportsToDisplay"
+  [loading]="reportsLoading"
   [columnParams]="columnParams"
   [limit]="limit"
   [page]="page"
