@@ -41,4 +41,6 @@ export function updateLocally(notification: Notification, notsByDate: EntitiesBy
       }
     }
   }
+
+  return arrangeNotificationsByDate([notification], notsByDate);
 }

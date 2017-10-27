@@ -17,6 +17,7 @@ export class AlertsQuickComponent implements OnInit, OnDestroy {
   count: number;
 
   private sub: Subscription;
+  private updateSub: Subscription;
 
   constructor(private notificationQuickService: NotificationsQuickService) { }
 
@@ -25,6 +26,20 @@ export class AlertsQuickComponent implements OnInit, OnDestroy {
       this.all = notifications;
 
       this.filterAlerts();
+    });
+
+    this.updateSub = this.notificationQuickService.entityUpdated$.subscribe(entity => {
+      if (entity instanceof CustomServerError) {
+        return;
+      }
+
+      let index = firstIndexOf(this.all, el => el.id === entity.id);
+
+      if (index >= 0) {
+        this.all.splice(index, 1);
+
+        this.filterAlerts();
+      }
     })
   }
 
@@ -38,23 +53,13 @@ export class AlertsQuickComponent implements OnInit, OnDestroy {
     if (this.sub) {
       this.sub.unsubscribe();
     }
+
+    if (this.updateSub) {
+      this.updateSub.unsubscribe();
+    }
   }
 
   dismissAlert(notification: Notification) {
     this.notificationQuickService.updateEntity(notification);
-
-    this.notificationQuickService.entityUpdated$.take(1).subscribe(entity => {
-      if (entity instanceof CustomServerError) {
-        return;
-      }
-
-      let index = firstIndexOf(this.all, el => el.id === entity.id);
-
-      if (index >= 0) {
-        this.all.splice(index, 1);
-
-        this.filterAlerts();
-      }
-    })
   }
 }

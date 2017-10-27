@@ -7,6 +7,7 @@ import {EntitiesByDate} from '../../shared/models/entities-by-date.interface';
 import {AsyncSubject} from 'rxjs';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {arrangeNotificationsByDate, isEmpty, updateLocally} from '../../shared/utils/notification.utils';
+import {firstIndexOf} from '../../shared/utils/array.utils';
 
 @Component({
   selector: 'notifications-quick',
@@ -56,10 +57,22 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
       }
 
       this.serverError = null;
-      updateLocally(notification, this.notsByDate)
+
+      this.updateAlerts(notification);
+      this.notsByDate = updateLocally(notification, this.notsByDate)
     });
 
     this.notificationsService.getEntities(20);
+  }
+
+  updateAlerts(notification: Notification): void {
+    if (notification.type === 'alert' && notification.readAt) {
+      let index = firstIndexOf(this.alerts, (el) => el.id === notification.id);
+
+      if (index > -1) {
+        this.alerts.splice(index, 1);
+      }
+    }
   }
 
   ngOnDestroy() {
@@ -72,12 +85,14 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
   }
 
   arrangeNotifications(nots: Notification[]): void {
-    this.alerts = nots.filter(n => n.type === 'alert');
-    this.notsByDate = arrangeNotificationsByDate(nots.filter(n => n.type !== 'alert'), this.notsByDate);
+    this.alerts = nots.filter(n => n.type === 'alert' && !n.readAt);
+    this.notsByDate = arrangeNotificationsByDate(nots.filter(n => n.type !== 'alert' || n.readAt), this.notsByDate);
     this.isEmpty = isEmpty(this.notsByDate);
   }
 
   readNotification(notification: Notification): void {
+    if (notification.readAt) return;
+
     this.notificationsService.updateEntity(notification);
 
     if (notification.action && notification.action.indexOf('customer') !== -1) {
