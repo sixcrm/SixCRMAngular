@@ -6,6 +6,7 @@ export class Notification implements Entity<Notification> {
   user: string;
   account: string;
   type: string;
+  category: string;
   action: string;
   title: string;
   body: string;
@@ -22,6 +23,7 @@ export class Notification implements Entity<Notification> {
     this.user = obj.user || '';
     this.account = obj.account || '';
     this.type = obj.type || '';
+    this.category = obj.category || '';
     this.action = obj.action || '';
     this.title = obj.title || '';
     this.body = obj.body || '';
@@ -40,6 +42,7 @@ export class Notification implements Entity<Notification> {
       user: this.user,
       account: this.account,
       type: this.type,
+      category: this.category,
       action: this.action,
       title: this.title,
       body: this.body,
