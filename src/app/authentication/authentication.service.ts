@@ -41,6 +41,7 @@ export class AuthenticationService {
   public sixUserActivated$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   public activeAcl$: BehaviorSubject<Acl> = new BehaviorSubject<Acl>(new Acl());
   public actingAsAccount$: BehaviorSubject<Account> = new BehaviorSubject<Account>(null);
+  public newSessionStarted$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   private yesNoDialogRef: MdDialogRef<YesNoDialogComponent>;
 
@@ -65,6 +66,13 @@ export class AuthenticationService {
       });
 
     this.lock.on('authenticated', (authResult) => {
+      let sub = this.activeAcl$.subscribe(acl => {
+        if (acl && acl.id) {
+          this.newSessionStarted$.next(true);
+          sub.unsubscribe();
+        }
+      });
+
       this.setUser(authResult);
     });
 

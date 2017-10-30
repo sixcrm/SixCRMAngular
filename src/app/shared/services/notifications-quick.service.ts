@@ -6,7 +6,7 @@ import {Notification} from '../models/notification.model';
 import {HttpWrapperService, extractData} from './http-wrapper.service';
 import {
   notificationsQuickListQuery, updateNotificationMutation,
-  notificationCountQuery, alertsListQuery
+  notificationCountQuery, alertsListQuery, notificationsPersistentListQuery
 } from '../utils/queries/entities/notification.queries';
 import {CustomServerError} from '../models/errors/custom-server-error';
 import {MdSnackBar} from '@angular/material';
@@ -16,6 +16,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
 
   notificationCount$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   alerts$: BehaviorSubject<Notification[]> = new BehaviorSubject([]);
+  notificationsPersistent$: BehaviorSubject<Notification[]> = new BehaviorSubject([]);
   poolingInterval = 30000;
   notificationsSub: Subscription;
   countSub: Subscription;
@@ -105,6 +106,26 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
         this.alerts$.next(alerts.map(alert => new Notification(alert)));
       } else {
         this.alerts$.next([]);
+      }
+    })
+  }
+
+  getPersistantNotifications(): void {
+    if (!this.authService.authenticated()) {
+      return;
+    }
+
+    this.alertSub = this.queryRequest(notificationsPersistentListQuery(), true).subscribe(data => {
+      if (data instanceof CustomServerError) {
+        return;
+      }
+
+      let alerts = extractData(data).notificationlistbytype.notifications;
+
+      if (alerts) {
+        this.notificationsPersistent$.next(alerts.map(alert => new Notification(alert)));
+      } else {
+        this.notificationsPersistent$.next([]);
       }
     })
   }

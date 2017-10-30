@@ -13,7 +13,10 @@
     <div class="container">
       <router-outlet></router-outlet>
       <notifications-quick *ngIf="navigation.showNotifications | async" (close)="navigation.toggleNotifications(false)"></notifications-quick>
-      <alerts-quick [style.display]="!(navigation.showNotifications | async) ? 'block' : 'none'" [style.top]="alertTopOffsetCurrent + 'px'"></alerts-quick>
+      <div class="notifications-popup" [style.display]="!(navigation.showNotifications | async) ? 'block' : 'none'" [style.top]="alertTopOffsetCurrent + 'px'">
+        <persistent-notifications-quick></persistent-notifications-quick>
+        <alerts-quick></alerts-quick>
+      </div>
       <div class="clearfix"></div>
     </div>
   </main>

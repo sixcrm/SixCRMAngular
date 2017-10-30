@@ -22,6 +22,16 @@ export function alertsListQuery(limit?: number, cursor?: string): string {
 		}}`
 }
 
+export function notificationsPersistentListQuery(): string {
+  return `{
+    notificationlistbytype ( type:"persistent", user: true ) {
+			notifications {
+			  ${notificationsResponseQuery()}
+			}
+			${fullPaginationStringResponseQuery()}
+		}}`
+}
+
 export function notificationsQuickListQuery(limit?:number, cursor?:string): string {
   return `{
     notificationlist ${paginationParamsQuery(limit, null)} {

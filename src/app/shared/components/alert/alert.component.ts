@@ -12,6 +12,7 @@ export class AlertComponent implements OnInit {
   @Input() alert: Notification;
   @Input() enableClear: boolean = true;
   @Input() enableView: boolean = true;
+  @Input() persistent: boolean;
   @Output() clear: EventEmitter<Notification> = new EventEmitter();
   @Output() view: EventEmitter<Notification> = new EventEmitter();
 

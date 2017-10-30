@@ -13,6 +13,7 @@ import {NotificationsQuickComponent} from './notifications-quick/notifications-q
 import { ProfileDropdownComponent } from './topnav/profile-dropdown/profile-dropdown.component';
 import {AuthenticationModule} from '../authentication/authentication.module';
 import { AlertsQuickComponent } from './alerts-quick/alerts-quick.component';
+import { PersistentNotificationsQuickComponent } from './persistent-notifications-quick/persistent-notifications-quick.component';
 
 @NgModule({
   imports : [
@@ -30,7 +31,8 @@ import { AlertsQuickComponent } from './alerts-quick/alerts-quick.component';
     DefaultLayoutComponent,
     NotificationsQuickComponent,
     ProfileDropdownComponent,
-    AlertsQuickComponent
+    AlertsQuickComponent,
+    PersistentNotificationsQuickComponent
   ],
   exports : [
     SidenavComponent,

@@ -1,0 +1,6 @@
+<alert-component *ngFor="let n of filteredPersistentNotifications"
+                 [alert]="n"
+                 [enableView]="false"
+                 [persistent]="true"
+                 (clear)="dismissPersistent($event)">
+</alert-component>
