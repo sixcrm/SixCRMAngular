@@ -114,7 +114,7 @@
           </div>
           <entity-list *ngIf="searchResultsToDisplay.length > 0 && !fetchingData" [data]="searchResultsToDisplay | filterSearchResults: filterValue" [query]="queryString"></entity-list>
           <div class="search__content__results__cards__spinner" *ngIf="searchResultsToDisplay.length === 0 && fetchingData">
-            <table-loader [rowHeight]="50" [rowMarginVertical]="50"></table-loader>
+            <search-loader></search-loader>
           </div>
           <div class="search__content__results__cards__footer">
             <table-pagination
