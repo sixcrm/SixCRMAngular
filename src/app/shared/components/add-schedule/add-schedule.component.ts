@@ -63,8 +63,13 @@ export class AddScheduleComponent implements OnInit {
   }
 
   addNewSchedule(valid: boolean): void {
+    const endValid =
+      !this.scheduleToAdd.end
+      || +this.scheduleToAdd.end === 0
+      || +this.scheduleToAdd.end >= +this.scheduleToAdd.start;
+
     this.formInvalid = !valid
-      || (+this.scheduleToAdd.start > +this.scheduleToAdd.end)
+      || !endValid
       || (this.scheduleToAdd.period && (+this.scheduleToAdd.period < 1))
       || (this.addProductMode && (!this.scheduleToAdd.product && !this.scheduleToAdd.product.id)
       || (!this.addProductMode && !this.productScheduleToAdd.id) );
