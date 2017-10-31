@@ -1,6 +1,26 @@
-alert-component {
-  display: block;
-  margin: 10px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-  background: white;
+.persistent-notification {
+  display: flex;
+  align-items: center;
+  font-family: Roboto, sans-serif;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  background: #F7EBCF;
+
+  strong {
+    margin-right: 5px;
+
+  }
+  div {
+    font-size: 16px;
+    padding: 10px 25px;
+  }
+
+  md-icon {
+    margin-right: 25px;
+    margin-left: auto;
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+    color: rgba(0,0,0,0.5);
+    cursor: pointer;
+  }
 }

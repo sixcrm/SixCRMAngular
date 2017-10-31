@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Notification} from '../../shared/models/notification.model';
 import {NotificationsQuickService} from '../../shared/services/notifications-quick.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {Subscription} from 'rxjs';
+import {Subscription, Subject} from 'rxjs';
 
 @Component({
   selector: 'persistent-notifications-quick',
@@ -17,12 +17,14 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
   sessionSub: Subscription;
   notificationsSub: Subscription;
 
+  notificationsFiltered$: Subject<boolean> = new Subject();
+
   private hiddenNotifications: string = 'hidden_notifications';
 
   constructor(private notificationsService: NotificationsQuickService, private authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.notificationsService.getPersistantNotifications();
+    this.notificationsService.getPersistentNotifications();
 
     this.sessionSub = this.authService.newSessionStarted$.subscribe(started => {
       if (started) {
@@ -59,6 +61,8 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
     const hiddenNotifications = this.getHiddenNotificationIDs();
 
     this.filteredPersistentNotifications = this.persistentNotifications.filter(n => hiddenNotifications.indexOf(n.id) === -1);
+
+    this.notificationsFiltered$.next(true);
   }
 
   ngOnDestroy() {

@@ -1,6 +1,4 @@
-<alert-component *ngFor="let n of filteredPersistentNotifications"
-                 [alert]="n"
-                 [enableView]="false"
-                 [persistent]="true"
-                 (clear)="dismissPersistent($event)">
-</alert-component>
+<div class="persistent-notification" *ngFor="let n of filteredPersistentNotifications">
+  <div><strong>New:</strong>{{n.body}}</div>
+  <md-icon (click)="dismissPersistent(n)">close</md-icon>
+</div>

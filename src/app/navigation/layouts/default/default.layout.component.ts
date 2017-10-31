@@ -1,8 +1,9 @@
-import {Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
+import {Component, OnInit, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import {NavigationService} from '../../navigation.service';
 import {HttpWrapperService} from '../../../shared/services/http-wrapper.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {MdSidenav} from '@angular/material';
+import {PersistentNotificationsQuickComponent} from '../../persistent-notifications-quick/persistent-notifications-quick.component';
 
 @Component({
   templateUrl : './default.layout.component.html',
@@ -10,6 +11,8 @@ import {MdSidenav} from '@angular/material';
 })
 export class DefaultLayoutComponent implements OnInit, AfterViewInit {
   @ViewChild('sidenav') sidenav: MdSidenav;
+  @ViewChild('persistentNotifications') persistentNotifications: PersistentNotificationsQuickComponent;
+  @ViewChild('persistentNotificationsContainer') persistentNotificationsContainer: ElementRef;
 
   showSidenav: boolean;
 
@@ -18,10 +21,27 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
 
   alertTopOffsetCurrent: number = 0;
 
-  constructor(public navigation: NavigationService, public http: HttpWrapperService, public authService: AuthenticationService) { }
+  constructor(
+    public navigation: NavigationService,
+    public http: HttpWrapperService,
+    public authService: AuthenticationService
+  ) { }
 
   ngOnInit() {
     this.navigation.showSidenav.subscribe(showSidenav => this.showSidenav = showSidenav);
+
+    this.persistentNotifications.notificationsFiltered$.subscribe(() => {
+
+      // height of md-sidenav-content is 100vh, to avoid double scrollbar, height must be reduced by persistent
+      // notifications container height
+      setTimeout(() => {
+        const elementHeight = this.persistentNotificationsContainer.nativeElement.offsetHeight;
+
+        (<any>(document.getElementsByClassName('md-sidenav-content')[0])).style.height =
+          `calc(100vh - ${elementHeight}px)`;
+      }, 100)
+
+    })
   }
 
   ngAfterViewInit() {

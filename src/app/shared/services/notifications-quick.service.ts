@@ -110,12 +110,12 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
     })
   }
 
-  getPersistantNotifications(): void {
+  getPersistentNotifications(): void {
     if (!this.authService.authenticated()) {
       return;
     }
 
-    this.alertSub = this.queryRequest(notificationsPersistentListQuery(), true).subscribe(data => {
+    this.queryRequest(notificationsPersistentListQuery(), true).take(1).subscribe(data => {
       if (data instanceof CustomServerError) {
         return;
       }

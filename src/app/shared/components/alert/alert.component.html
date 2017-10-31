@@ -1,5 +1,5 @@
 <div class="notifications__alert">
-  <div class="notifications__alert__image" [style.background]="persistent ? '#4A90E2' : '#CD0524'">
+  <div class="notifications__alert__image">
     <img src="assets/images/alertIcon.svg" alt="">
   </div>
   <div class="notifications__alert__content">
@@ -9,6 +9,6 @@
 </div>
 <div class="notifications__alert__actions">
   <div class="view" *ngIf="enableView" (click)="viewAlert()">View</div>
-  <div class="dismiss" *ngIf="enableClear" (click)="clearAlert()">{{ persistent ? 'Hide' : 'Dismiss'}}</div>
+  <div class="dismiss" *ngIf="enableClear" (click)="clearAlert()">Dismiss</div>
   <div class="date">{{ alert.createdAt.tz(authService.getTimezone()).format('MM/DD/YYYY h:mm a') }}</div>
 </div>

@@ -1,4 +1,9 @@
+<div #persistentNotificationsContainer>
+  <persistent-notifications-quick #persistentNotifications></persistent-notifications-quick>
+</div>
+
 <md-sidenav-layout>
+
   <header>
     <app-topnav [class.header--hover]="!showSidenav && showOnHover" [class.header--with-sidenav]="showSidenav" [sideNav]="sidenav"></app-topnav>
   </header>
@@ -14,7 +19,6 @@
       <router-outlet></router-outlet>
       <notifications-quick *ngIf="navigation.showNotifications | async" (close)="navigation.toggleNotifications(false)"></notifications-quick>
       <div class="notifications-popup" [style.display]="!(navigation.showNotifications | async) ? 'block' : 'none'" [style.top]="alertTopOffsetCurrent + 'px'">
-        <persistent-notifications-quick></persistent-notifications-quick>
         <alerts-quick></alerts-quick>
       </div>
       <div class="clearfix"></div>
