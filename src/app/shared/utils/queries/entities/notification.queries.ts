@@ -56,7 +56,7 @@ export function updateNotificationMutation(notification: Notification): string {
 }
 
 export function notificationsResponseQuery(): string {
-  return 'id user account type action title body read_at created_at updated_at';
+  return 'id user account type category action title body read_at created_at updated_at';
 }
 
 export function notificationInputQuery(notification: Notification): string {
