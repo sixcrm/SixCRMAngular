@@ -14,7 +14,7 @@ export function notificationsListQuery(limit?:number, cursor?:string): string {
 
 export function alertsListQuery(limit?: number, cursor?: string): string {
   return `{
-    notificationlistbytype ( type:"alert", user: true ) {
+    notificationlistbytypes ( types:["alert"], user: true ) {
 			notifications {
 			  ${notificationsResponseQuery()}
 			}
@@ -24,7 +24,7 @@ export function alertsListQuery(limit?: number, cursor?: string): string {
 
 export function notificationsPersistentListQuery(): string {
   return `{
-    notificationlistbytype ( type:"persistent", user: true ) {
+    notificationlistbytypes ( types:["persistent"], user: true ) {
 			notifications {
 			  ${notificationsResponseQuery()}
 			}
@@ -60,5 +60,5 @@ export function notificationsResponseQuery(): string {
 }
 
 export function notificationInputQuery(notification: Notification): string {
-  return `id: "${notification.id}", user: "${notification.user}", account: "${notification.account}", type: "${notification.type}", action: "${notification.action}", title: "${notification.title}" body: "${notification.body}", read_at: "${utc().format()}"`;
+  return `id: "${notification.id}", user: "${notification.user}", account: "${notification.account}", type: "${notification.type}", ${notification.category ? `category: "${notification.category}", ` : ''}action: "${notification.action}", title: "${notification.title}" body: "${notification.body}", read_at: "${utc().format()}"`;
 }
