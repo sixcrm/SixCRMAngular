@@ -60,7 +60,8 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
   filterNotifications(): void {
     const hiddenNotifications = this.getHiddenNotificationIDs();
 
-    this.filteredPersistentNotifications = this.persistentNotifications.filter(n => hiddenNotifications.indexOf(n.id) === -1);
+    const filtered = this.persistentNotifications.filter(n => hiddenNotifications.indexOf(n.id) === -1);
+    this.filteredPersistentNotifications = filtered && filtered.length > 0 ? [filtered[0]] : [];
 
     this.notificationsFiltered$.next(true);
   }
