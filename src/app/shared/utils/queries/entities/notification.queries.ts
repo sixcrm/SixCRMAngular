@@ -4,7 +4,7 @@ import {Notification} from '../../../models/notification.model'
 
 export function notificationsListQuery(limit?:number, cursor?:string): string {
   return `{
-    notificationlist ${paginationParamsQuery(limit, cursor)} {
+    notificationlist ( types:["alerts","persistent"] ${paginationParamsQuery(limit, cursor, true)} ) {
 			notifications {
 			  ${notificationsResponseQuery()}
 			}
