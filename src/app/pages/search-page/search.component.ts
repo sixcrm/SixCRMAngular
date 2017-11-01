@@ -386,7 +386,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     let filters = '&filters=';
     Object.keys(this.facets).forEach(key => {
       if (this.facets[key].checked) {
-        filters += `${key},`
+        filters += `${this.facets[key].name},`
       }
     });
 
