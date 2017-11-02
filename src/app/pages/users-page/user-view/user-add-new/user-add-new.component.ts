@@ -46,6 +46,8 @@ export class UserAddNewComponent implements OnInit {
     const account = this.newAccount ? null : this.accountToAdd;
     const role = this.newAccount ? null : this.roleToAdd;
 
+    this.entity.termsAndConditions = '0.1';
+
     this.save.emit({user: this.entity, accountToAdd: account, roleToAdd: role});
   }
 
