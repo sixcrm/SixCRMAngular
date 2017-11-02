@@ -53,15 +53,21 @@ export class Notification implements Entity<Notification> {
   }
 
   getIconName(): string {
-    switch (this.type) {
+    if (this.type === 'alert') {
+      return 'alert-notification-icon.svg';
+    }
+
+    switch (this.category) {
       case 'acl':
-        return 'usericon_action.svg';
       case 'invitation_sent':
         return 'newuser_icon.svg';
-      case 'alert':
-        return 'alert-notification-icon.svg';
+      case 'merchant':
+      case 'payment':
+        return 'merchant_icon.svg';
+      case 'fulfillment':
+        return 'fulfillment_icon.svg';
       default:
-        return 'alert-icon.svg';
+        return 'usericon_action.svg';
     }
   }
 
