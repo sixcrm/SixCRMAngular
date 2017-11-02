@@ -64,6 +64,10 @@ export class Notification implements Entity<Notification> {
         return 'alert-icon.svg';
     }
   }
+
+  getActionText(): string {
+    return `action: ${this.action}`;
+  }
 }
 
 export function compareNotifications(f: Notification, s: Notification): number {

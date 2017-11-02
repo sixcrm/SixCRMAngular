@@ -12,7 +12,7 @@ import {Subscription, Subject} from 'rxjs';
 export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy {
 
   persistentNotifications: Notification[] = [];
-  filteredPersistentNotifications: Notification[] = [];
+  filteredPersistentNotification: Notification;
 
   sessionSub: Subscription;
   notificationsSub: Subscription;
@@ -61,7 +61,7 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
     const hiddenNotifications = this.getHiddenNotificationIDs();
 
     const filtered = this.persistentNotifications.filter(n => hiddenNotifications.indexOf(n.id) === -1);
-    this.filteredPersistentNotifications = filtered && filtered.length > 0 ? [filtered[0]] : [];
+    this.filteredPersistentNotification = filtered && filtered.length > 0 ? filtered[0] : undefined;
 
     this.notificationsFiltered$.next(true);
   }
@@ -80,6 +80,10 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
     this.hideNotification(notification);
 
     this.filterNotifications();
+  }
+
+  performAction(notification: Notification): void {
+
   }
 
 }

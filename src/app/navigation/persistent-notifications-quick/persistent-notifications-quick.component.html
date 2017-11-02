@@ -1,8 +1,11 @@
-<div class="persistent-notification" *ngFor="let n of filteredPersistentNotifications">
+<div class="persistent-notification" *ngIf="filteredPersistentNotification">
   <img alt="" src="assets/images/alert-icon.svg">
   <div>
     <strong>New:</strong>
-    {{n.body}}
+    {{filteredPersistentNotification.body}}
+    <span class="persistent-notification__action" (click)="performAction(filteredPersistentNotification)">
+      {{filteredPersistentNotification.getActionText()}}
+    </span>
   </div>
-  <md-icon (click)="dismissPersistent(n)">close</md-icon>
+  <md-icon (click)="dismissPersistent(filteredPersistentNotification)">close</md-icon>
 </div>
