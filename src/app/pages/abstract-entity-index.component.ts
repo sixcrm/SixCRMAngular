@@ -51,7 +51,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
   constructor(
     public service: AbstractEntityService<T>,
-    protected authService: AuthenticationService,
+    public authService: AuthenticationService,
     protected deleteDialog: MdDialog,
     protected paginationService?: PaginationService,
     protected router?: Router,

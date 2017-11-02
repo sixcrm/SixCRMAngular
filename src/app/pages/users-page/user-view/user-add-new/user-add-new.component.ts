@@ -14,6 +14,7 @@ export class UserAddNewComponent implements OnInit {
 
   @Input() entity: User;
   @Input() mode: Modes;
+  @Input() editEnabled: boolean = true;
   @Input() accounts: Account[] = [];
   @Input() roles: Role[] = [];
 

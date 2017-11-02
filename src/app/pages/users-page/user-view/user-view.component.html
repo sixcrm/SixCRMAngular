@@ -26,6 +26,7 @@
 
         <user-add-new [entity]="entity"
                       [mode]="viewMode ? modes.View : modes.Update"
+                      [editEnabled]="authService.isActiveAclMasterAccount()"
                       (cancel)="cancelUpdate()"
                       (save)="updateEntity($event.user)"
                       (changeMode)="setMode($event)">
@@ -33,7 +34,7 @@
 
         <table-memory
           class="user-view__acls-table"
-          *ngIf="!addMode"
+          *ngIf="authService.isActiveAclMasterAccount()"
           [textOptions]="text"
           [data]="entity.acls || []"
           [columnParams]="aclColumnParams"
@@ -55,5 +56,5 @@
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="1" [cardsExpression]="'300px;430px'" [title]="'User'"></spe-loader>
+  <spe-loader [numberOfTabs]="1" [cardsExpression]="authService.isActiveAclMasterAccount() ? '250px;430px' : '250px'" [title]="'User'"></spe-loader>
 </ng-template>

@@ -233,6 +233,10 @@ export class AuthenticationService {
     return this.getActiveAcl().role.name === 'Customer Service';
   }
 
+  public isActiveAclMasterAccount(): boolean {
+    return this.getActiveAcl().account.id === '*';
+  }
+
   public changeActiveAcl(acl: Acl): void {
     if (this.getActingAsAccount()) {
       this.actingAsAccount$.next(null);

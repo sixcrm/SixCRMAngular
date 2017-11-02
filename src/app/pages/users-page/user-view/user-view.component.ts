@@ -16,6 +16,7 @@ import {MdDialogRef, MdDialog} from '@angular/material';
 import {AddUserAclDialogComponent} from '../../add-user-acl-dialog.component';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {MessageDialogComponent} from '../../message-dialog.component';
+import {AuthenticationService} from '../../../authentication/authentication.service';
 
 @Component({
   selector: 'user-view',
@@ -59,6 +60,7 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
   constructor(service: UsersService,
               route: ActivatedRoute,
               public navigation: NavigationService,
+              public authService: AuthenticationService,
               private accountsService: AccountsService,
               private rolesService: RolesService,
               public aclService: AclsService,
