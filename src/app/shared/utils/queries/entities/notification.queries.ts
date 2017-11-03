@@ -4,7 +4,7 @@ import {Notification} from '../../../models/notification.model'
 
 export function notificationsListQuery(limit?:number, cursor?:string): string {
   return `{
-    notificationlist ( types:["alerts","persistent"] ${paginationParamsQuery(limit, cursor, true)} ) {
+    notificationlist ${paginationParamsQuery(limit, cursor)} {
 			notifications {
 			  ${notificationsResponseQuery()}
 			}
@@ -24,7 +24,7 @@ export function alertsListQuery(limit?: number, cursor?: string): string {
 
 export function notificationsPersistentListQuery(): string {
   return `{
-    notificationlistbytypes ( types:["persistent"], user: true ) {
+    notificationlistbytypes ( types:["persistent"], onlyUnexpired: true, user: true ) {
 			notifications {
 			  ${notificationsResponseQuery()}
 			}
@@ -56,7 +56,7 @@ export function updateNotificationMutation(notification: Notification): string {
 }
 
 export function notificationsResponseQuery(): string {
-  return 'id user account type category action title body read_at created_at updated_at';
+  return 'id user account type category action title body read_at expires_at created_at updated_at';
 }
 
 export function notificationInputQuery(notification: Notification): string {
