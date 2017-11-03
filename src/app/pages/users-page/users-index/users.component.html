@@ -17,6 +17,7 @@
         (selected)="viewEntity($event.id)"
 
         [service]="service"
+        [showDelete]="authService.isActiveAclMasterAccount()"
         (viewClicked)="viewEntity($event.id)"
         (copyClicked)="copyEntity($event.id)"
         (exportClicked)="exportEntity($event.id)"

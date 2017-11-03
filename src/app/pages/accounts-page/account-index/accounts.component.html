@@ -18,6 +18,7 @@
 
         [service]="service"
         [customOptionText]="actAsOptionText"
+        [showDelete]="authService.isActiveAclMasterAccount()"
         (viewClicked)="viewEntity($event.id)"
         (copyClicked)="copyEntity($event.id)"
         (exportClicked)="exportEntity($event.id)"

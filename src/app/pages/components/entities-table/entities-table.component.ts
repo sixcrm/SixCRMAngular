@@ -23,6 +23,9 @@ export class EntitiesTableComponent implements OnInit {
   // actions
   @Input() service: AbstractEntityService<any>;
 
+  @Input() showView: boolean = true;
+  @Input() showDelete: boolean = true;
+
   @Output() viewClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() copyClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() exportClicked: EventEmitter<boolean> = new EventEmitter<boolean>();

@@ -32,17 +32,21 @@ export class TableActionsComponent implements OnInit {
   @Output()
   customClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  showView: boolean;
+  @Input()
+  showView: boolean = true;
+
+  @Input()
+  showDelete: boolean = true;
+
+  showEdit: boolean;
   showCopy: boolean;
   showExport: boolean;
-  showDelete: boolean;
-  showEdit: boolean;
 
   constructor() {}
 
   ngOnInit() {
-    this.showView = this.service.hasViewPermission();
-    this.showDelete = this.service.hasWritePermission();
+    this.showView = this.showView && this.service.hasViewPermission();
+    this.showDelete = this.showDelete && this.service.hasWritePermission();
     this.showCopy = false;
     this.showExport = false;
     this.showEdit = false;

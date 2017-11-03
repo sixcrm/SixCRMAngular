@@ -26,6 +26,8 @@
         <table-actions
           [service]="service"
           [customText]="customOptionText"
+          [showView]="showView"
+          [showDelete]="showDelete"
           (viewClicked)="viewClicked.emit(entity)"
           (copyClicked)="copyClicked.emit(entity)"
           (exportClicked)="exportClicked.emit(entity)"
