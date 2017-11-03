@@ -81,8 +81,13 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
     });
 
     this.service.entity$.takeUntil(this.unsubscribe$).subscribe(() => {
-      this.userService.getEntities();
-      this.roleService.getEntities();
+      if (this.authService.isActiveAclMasterAccount() || this.isOwnerOrAdministrator()) {
+        this.roleService.getEntities();
+      }
+
+      if (this.authService.isActiveAclMasterAccount()) {
+        this.userService.getEntities();
+      }
     });
 
     if (this.addMode) {

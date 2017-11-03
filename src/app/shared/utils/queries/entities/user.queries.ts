@@ -106,6 +106,7 @@ export function userResponseQuery(): string {
       role { id name active,
         permissions {allow deny} 
       }
+      pending
     }
     address { line1 line2 city state zip country }`
 }

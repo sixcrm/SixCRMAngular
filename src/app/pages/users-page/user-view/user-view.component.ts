@@ -93,8 +93,10 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
       this.entityBackup = this.entity.copy();
     }
 
-    this.accountsService.getEntities();
-    this.rolesService.getEntities();
+    if (this.authService.isActiveAclMasterAccount()) {
+      this.accountsService.getEntities();
+      this.rolesService.getEntities();
+    }
   }
 
   ngOnDestroy() {
