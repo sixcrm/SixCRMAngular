@@ -6,6 +6,7 @@ import {profileRouting} from './profile-page.routing';
 import {ProfilePageComponent} from './profile-page.component';
 import {SharedModule} from '../../shared/shared.module';
 import {TextMaskModule} from 'angular2-text-mask';
+import {PageComponentsModule} from '../components/pages-components.module';
 
 @NgModule({
   imports : [
@@ -14,6 +15,7 @@ import {TextMaskModule} from 'angular2-text-mask';
     FormsModule,
     MaterialModule.forRoot(),
     SharedModule,
+    PageComponentsModule,
     TextMaskModule
   ],
   declarations : [

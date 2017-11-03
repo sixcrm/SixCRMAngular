@@ -54,6 +54,7 @@ export class TableMemoryComponent implements OnInit {
   @Input() editEnabled: boolean = false;
   @Input() ignoreDisassociate: (el: any) => boolean = (el: any) => false;
   @Input() hasWritePermission: boolean = true;
+  @Input() customTopMenuOptions: string[] = [];
   @Input() customMenuOptions: CustomMenuOption[] = [];
   @Input() loading: boolean;
   @Input() loadingNumberOfRows: number = 3;
@@ -62,6 +63,7 @@ export class TableMemoryComponent implements OnInit {
   @Output() disassociate: EventEmitter<any> = new EventEmitter();
   @Output() associate: EventEmitter<any> = new EventEmitter();
   @Output() edit: EventEmitter<any> = new EventEmitter();
+  @Output() customTopMenuOptionSelected: EventEmitter<string> = new EventEmitter();
   @Output() customMenuOptionSelected: EventEmitter<CustomMenuOptionResult> = new EventEmitter();
 
   entitiesHolder: any[] = [];

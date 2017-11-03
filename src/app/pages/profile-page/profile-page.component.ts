@@ -11,13 +11,11 @@ import {NotificationSettings, NotificationSettingsData} from '../../shared/model
 import {NotificationSettingsService} from '../../shared/services/notification-settings.service';
 import {conformToMask} from 'angular2-text-mask';
 import {getPhoneNumberMask} from '../../shared/utils/mask.utils';
-import {InviteUserDialogComponent} from '../invite-user-dialog.component';
 import {Role} from '../../shared/models/role.model';
-import {MdDialog, MdDialogRef} from '@angular/material';
 import {RolesService} from '../../shared/services/roles.service';
-import {Account} from '../../shared/models/account.model';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {Router} from '@angular/router';
+import {ColumnParams} from '../../shared/models/column-params.model';
 
 let moment = require('moment-timezone');
 
@@ -51,6 +49,11 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   private notificationSettingsUpdateDebouncer: Subject<boolean> = new Subject();
   private unsubscribe$: Subject<boolean> = new Subject();
 
+  accountColumnParams = [
+    new ColumnParams('Account', (e: Acl) => e.account.name),
+    new ColumnParams('Role', (e: Acl) => e.role.name)
+  ];
+
   deviceLabels = {
     six: 'SixCRM',
     ios: 'iOS App',
@@ -60,7 +63,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     slack: 'Slack'
   };
 
-  inviteDialogRef: MdDialogRef<InviteUserDialogComponent>;
   roles: Role[] = [];
 
   constructor(
@@ -69,7 +71,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     private notificationSettingsService: NotificationSettingsService,
     private authService: AuthenticationService,
     public navigation: NavigationService,
-    private dialog: MdDialog,
     private rolesService: RolesService,
     private router: Router
   ) { }
@@ -218,16 +219,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     return conformToMask(phone, this.mask, {guide: false}).conformedValue;
   }
 
-  inviteUser(account: Account): void {
-    this.inviteDialogRef = this.dialog.open(InviteUserDialogComponent);
-    this.inviteDialogRef.componentInstance.options = this.roles.filter(role => role.name !== 'Owner');
-
-    this.inviteDialogRef.afterClosed().takeUntil(this.unsubscribe$).subscribe(result => {
-      this.inviteDialogRef = null;
-
-      if (result.email && result.role) {
-        this.userService.sendUserInvite(result.email, result.role, account.id).subscribe();
-      }
-    });
+  viewAccount(account: Acl) {
+    this.router.navigate(['/accounts', account.account.id]);
   }
 }

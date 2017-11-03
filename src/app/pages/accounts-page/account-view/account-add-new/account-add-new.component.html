@@ -1,7 +1,7 @@
 <div class="entity-view__card">
   <div class="entity-view__card__header">
     <div class="entity-view__card__header__title">Account Details</div>
-    <ng-container *ngIf="mode === modes.View">
+    <ng-container *ngIf="mode === modes.View && editEnabled">
       <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
       <md-menu #editOptions="mdMenu" x-position="before">
         <button md-menu-item (click)="changeMode.emit(modes.Update)"> Edit Account Details </button>

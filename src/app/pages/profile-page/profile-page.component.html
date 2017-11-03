@@ -119,40 +119,15 @@
         </md-tab>
 
         <md-tab>
-          <div class="profile-page__content__accounts">
-            <div class="profile-page__content__accounts__title">
-              <span>Accounts</span>
-              <md-input class="profile-page__content__accounts__title__input" placeholder="Filter Results" [(ngModel)]="filterValue"></md-input>
-            </div>
-
-            <div class="profile-page__content__accounts__table">
-              <table class="highlight">
-                <thead>
-                  <tr>
-                    <th>Account</th>
-                    <th>Role</th>
-                    <th style="width: 30px"></th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <tr   *ngFor="let acc of accounts | filterEntities: filterValue">
-                    <td>{{acc.account.name}}</td>
-                    <td>{{acc.role.name}}</td>
-
-                    <td>
-                      <md-icon style="cursor: pointer" [md-menu-trigger-for]="accountOptions">more_vert</md-icon>
-                      <md-menu #accountOptions="mdMenu" x-position="before">
-                        <button *ngIf="acc.role.name === 'Owner' || acc.role.name === 'Administrator'" md-menu-item (click)="inviteUser(acc.account)"> Invite User to this Account </button>
-                        <button md-menu-item [routerLink]="['/accounts', acc.account.id]"> View Account </button>
-                      </md-menu>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-          </div>
+          <table-memory
+            class="accounts-table"
+            [data]="accounts"
+            [columnParams]="accountColumnParams"
+            [associationEnabled]="false"
+            [dissociationEnabled]="false"
+            (view)="viewAccount($event)"
+            [title]="'Account'">
+          </table-memory>
         </md-tab>
       </md-tab-group>
     </div>

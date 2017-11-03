@@ -11,6 +11,7 @@ export class AccountAddNewComponent implements OnInit {
 
   @Input() entity: Account;
   @Input() mode: Modes;
+  @Input() editEnabled: boolean = true;
 
   @Output() cancel: EventEmitter<boolean> = new EventEmitter();
   @Output() save: EventEmitter<Account> = new EventEmitter();

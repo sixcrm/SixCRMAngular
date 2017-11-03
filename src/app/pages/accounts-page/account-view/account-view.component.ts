@@ -6,7 +6,7 @@ import {AccountsService} from '../../../shared/services/accounts.service';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {Acl} from '../../../shared/models/acl.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
-import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
+import {TableMemoryTextOptions, CustomMenuOption} from '../../components/table-memory/table-memory.component';
 import {MdDialog, MdDialogRef} from '@angular/material';
 import {AddUserAclDialogComponent} from '../../add-user-acl-dialog.component';
 import {Role} from '../../../shared/models/role.model';
@@ -16,6 +16,8 @@ import {UsersService} from '../../../shared/services/users.service';
 import {User} from '../../../shared/models/user.model';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {MessageDialogComponent} from '../../message-dialog.component';
+import {InviteUserDialogComponent} from '../../invite-user-dialog.component';
+import {AuthenticationService} from '../../../authentication/authentication.service';
 
 @Component({
   selector: 'account-view',
@@ -56,7 +58,8 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
               private dialog: MdDialog,
               private userService: UsersService,
               private aclService: AclsService,
-              private roleService: RolesService
+              private roleService: RolesService,
+              public authService: AuthenticationService
   ) {
     super(service, route);
   }
@@ -189,5 +192,24 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
     messageDialogRef.afterClosed().take(1).subscribe(() => {
       messageDialogRef = null;
     });
+  }
+
+  inviteUser(): void {
+    let inviteDialogRef = this.dialog.open(InviteUserDialogComponent);
+    inviteDialogRef.componentInstance.options = this.roles.filter(role => role.name !== 'Owner');
+
+    inviteDialogRef.afterClosed().take(1).subscribe(result => {
+      inviteDialogRef = null;
+
+      if (result.email && result.role) {
+        this.userService.sendUserInvite(result.email, result.role, this.entityId).subscribe();
+      }
+    });
+  }
+
+  isOwnerOrAdministrator(): boolean {
+    return this.authService.getActiveAcl()
+      && this.authService.getActiveAcl().account.id === this.entityId
+      && (this.authService.getActiveAcl().role.name === 'Owner' || this.authService.getActiveAcl().role.name === 'Administrator');
   }
 }
