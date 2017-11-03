@@ -11,8 +11,6 @@ import {NotificationSettings, NotificationSettingsData} from '../../shared/model
 import {NotificationSettingsService} from '../../shared/services/notification-settings.service';
 import {conformToMask} from 'angular2-text-mask';
 import {getPhoneNumberMask} from '../../shared/utils/mask.utils';
-import {Role} from '../../shared/models/role.model';
-import {RolesService} from '../../shared/services/roles.service';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {Router} from '@angular/router';
 import {ColumnParams} from '../../shared/models/column-params.model';
@@ -63,15 +61,12 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     slack: 'Slack'
   };
 
-  roles: Role[] = [];
-
   constructor(
     private userService: UsersService,
     private userSettingsService: UserSettingsService,
     private notificationSettingsService: NotificationSettingsService,
     private authService: AuthenticationService,
     public navigation: NavigationService,
-    private rolesService: RolesService,
     private router: Router
   ) { }
 
@@ -150,17 +145,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     this.notificationSettingsUpdateDebouncer.takeUntil(this.unsubscribe$).debounceTime(2000).subscribe(() => {
       this.notificationSettingsService.updateEntity(this.notificationSettings)
     });
-
-    // get available roles for user invite
-    this.rolesService.entities$.takeUntil(this.unsubscribe$).take(1).subscribe(roles => {
-      if (roles instanceof CustomServerError) {
-        this.roles = [];
-        return;
-      }
-
-      this.roles = roles
-    });
-    this.rolesService.getEntities();
   }
 
   ngOnDestroy() {
