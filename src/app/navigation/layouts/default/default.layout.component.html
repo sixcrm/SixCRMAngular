@@ -30,3 +30,7 @@
   <registration-form></registration-form>
 </div>
 
+<div *ngIf="(authService.sixUserActivated$ | async) && (tacService.termsAndConditionsOutdated$ | async)" class="registration-form__container">
+  <terms-and-conditions></terms-and-conditions>
+</div>
+

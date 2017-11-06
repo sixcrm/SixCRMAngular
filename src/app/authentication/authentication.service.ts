@@ -17,6 +17,7 @@ import {updateAccountMutation} from '../shared/utils/query-builder';
 import {Account} from '../shared/models/account.model';
 import {YesNoDialogComponent} from '../pages/yes-no-dialog.component';
 import {MdDialogRef, MdDialog} from '@angular/material';
+import {TermsAndConditionsControllerService} from '../shared/services/terms-and-conditions-controller.service';
 
 declare var Auth0Lock: any;
 
@@ -45,7 +46,13 @@ export class AuthenticationService {
 
   private yesNoDialogRef: MdDialogRef<YesNoDialogComponent>;
 
-  constructor(private router: Router, private http: HttpWrapperService, private location: Location, private dialog: MdDialog) {
+  constructor(
+    private router: Router,
+    private http: HttpWrapperService,
+    private location: Location,
+    private dialog: MdDialog,
+    private tacService: TermsAndConditionsControllerService
+  ) {
     this.lock = new Auth0Lock(
       environment.clientID,
       environment.domain,
@@ -360,6 +367,7 @@ export class AuthenticationService {
           }
           this.updateSixUser(introspectionUser);
           this.getOrUpdateActiveAcl(introspectionUser);
+          this.tacService.setTermsAndConditionsOutdated(introspectionUser.termsAndConditionsOutdated);
 
           if (user && user.usersetting) {
             this.updateTimezone(user.usersetting.timezone);

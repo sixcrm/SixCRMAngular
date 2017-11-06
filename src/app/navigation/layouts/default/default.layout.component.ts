@@ -4,6 +4,7 @@ import {HttpWrapperService} from '../../../shared/services/http-wrapper.service'
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {MdSidenav} from '@angular/material';
 import {PersistentNotificationsQuickComponent} from '../../persistent-notifications-quick/persistent-notifications-quick.component';
+import {TermsAndConditionsControllerService} from '../../../shared/services/terms-and-conditions-controller.service';
 
 @Component({
   templateUrl : './default.layout.component.html',
@@ -24,7 +25,8 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
   constructor(
     public navigation: NavigationService,
     public http: HttpWrapperService,
-    public authService: AuthenticationService
+    public authService: AuthenticationService,
+    public tacService: TermsAndConditionsControllerService
   ) { }
 
   ngOnInit() {

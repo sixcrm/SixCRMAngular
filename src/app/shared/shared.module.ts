@@ -70,6 +70,7 @@ import {AlertsService} from './services/alerts.service';
 import {AlertComponent} from './components/alert/alert.component';
 import { TableLoaderComponent } from './components/table-loader/table-loader.component';
 import { SpeLoaderComponent } from './components/spe-loader/spe-loader.component';
+import {TermsAndConditionsControllerService} from './services/terms-and-conditions-controller.service';
 
 @NgModule({
   declarations : [
@@ -182,7 +183,8 @@ export class SharedModule {
         AffiliateReportService,
         TimeService,
         TrackersService,
-        SnackbarService
+        SnackbarService,
+        TermsAndConditionsControllerService
       ]
     };
   }

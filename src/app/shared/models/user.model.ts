@@ -15,6 +15,7 @@ export class User implements Entity<User> {
   company: string;
   active: string;
   termsAndConditions: string;
+  termsAndConditionsOutdated: boolean;
   picture: string;
   address: Address;
   accessKey: AccessKey;
@@ -37,6 +38,7 @@ export class User implements Entity<User> {
     this.company = obj.company || '';
     this.active = obj.active || '';
     this.termsAndConditions = obj.termsandconditions || '';
+    this.termsAndConditionsOutdated = obj.termsandconditions_outdated;
     this.picture = obj.picture || '';
     this.address = new Address(obj.address);
     this.accessKey = new AccessKey(obj.accesskey);
@@ -76,6 +78,7 @@ export class User implements Entity<User> {
       company: this.company,
       active: this.active,
       termsandconditions: this.termsAndConditions,
+      termsandconditions_outdated: this.termsAndConditionsOutdated,
       address: this.address.inverse(),
       picture: this.picture,
       acl: acls,

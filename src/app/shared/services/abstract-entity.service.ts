@@ -2,7 +2,10 @@ import {Response} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {extractData, HttpWrapperService, generateHeaders, FailStrategy} from './http-wrapper.service';
+import {
+  extractData, HttpWrapperService, generateHeaders, FailStrategy,
+  RequestBehaviourOptions
+} from './http-wrapper.service';
 import {CustomServerError} from '../models/errors/custom-server-error';
 import {MdSnackBar} from '@angular/material';
 import {ErrorSnackBarComponent, SnackBarType} from '../components/error-snack-bar/error-snack-bar.component';
@@ -219,7 +222,7 @@ export abstract class AbstractEntityService<T> {
     })
   }
 
-  protected queryRequest(query: string, ignoreProgress?: boolean): Observable<Response | CustomServerError> {
+  protected queryRequest(query: string, requestBehaviourOptions?: RequestBehaviourOptions): Observable<Response | CustomServerError> {
     let endpoint = environment.endpoint;
 
     if (this.authService.getActingAsAccount()) {
@@ -230,6 +233,6 @@ export abstract class AbstractEntityService<T> {
       endpoint += '*';
     }
 
-    return this.http.postWithError(endpoint, query, { headers: generateHeaders(this.authService.getToken())}, {ignoreProgress: ignoreProgress, failStrategy: FailStrategy.Soft});
+    return this.http.postWithError(endpoint, query, { headers: generateHeaders(this.authService.getToken())}, requestBehaviourOptions);
   }
 }

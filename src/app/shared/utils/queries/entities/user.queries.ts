@@ -79,6 +79,25 @@ export function updateUserForActivation(user: User): string {
 	}`
 }
 
+export function updateUserForAcceptTaC(userId: string): string {
+  return `
+    mutation {
+      updateusertermsandconditions( user: { id: "${userId}" } ) {
+        ${userInfoResponseQuery()}
+      }
+    }`
+}
+
+export function latestTermsAndConditions(): string {
+  return `
+    {
+      latesttermsandconditions {
+        text,
+        version
+      }
+    }`
+}
+
 export function inviteUserMutation(email: string, accountId: string, roleId: string): string {
   return `
     mutation {

@@ -1,0 +1,22 @@
+<div class="registration-form">
+  <div class="registration-form__header">
+    <img class="registration-form__header__logo" src="/assets/images/sixlogo-circles.svg" alt="">
+    <img class="registration-form__header__clouds" src="/assets/images/clouds.svg" alt="">
+  </div>
+
+  <div>
+    <div class="registration-form__title">
+      <div class="registration-form__title__main">
+        Terms and conditions have been updated!
+      </div>
+      <div class="registration-form__title__text registration-form__title__text--tac">
+        To continue using SIX you must accept new terms and conditions
+      </div>
+    </div>
+    <div class="registration-form__form registration-form__form--tac">
+      {{termsAndConditionsText}}
+    </div>
+    <div class="registration-form__button" (click)="acceptTermsAndConditions()">Agree</div>
+
+  </div>
+</div>

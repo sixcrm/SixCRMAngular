@@ -6,7 +6,8 @@ import {Observable} from 'rxjs';
 import {Role} from '../models/role.model';
 import {
   usersListQuery, userQuery, deleteUserMutation,
-  updateUserMutation, inviteUserMutation, createUserMutation, inviteResendMutation
+  updateUserMutation, inviteUserMutation, createUserMutation, inviteResendMutation, updateUserForAcceptTaC,
+  latestTermsAndConditions
 } from '../utils/queries/entities/user.queries';
 import {HttpWrapperService} from './http-wrapper.service';
 import {Response} from '@angular/http'
@@ -37,6 +38,14 @@ export class UsersService extends AbstractEntityService<User> {
 
   resendUserInvite(acl: Acl): Observable<Response> {
     return this.queryRequest(inviteResendMutation(acl));
+  }
+
+  updateUserForAcceptTermsAndConditions(user: User): Observable<Response> {
+    return this.queryRequest(updateUserForAcceptTaC(user.id), {ignoreTermsAndConditions: true});
+  }
+
+  getLatestTermsAndConditions(): Observable<Response> {
+    return this.queryRequest(latestTermsAndConditions(), {ignoreTermsAndConditions: true});
   }
 
 }
