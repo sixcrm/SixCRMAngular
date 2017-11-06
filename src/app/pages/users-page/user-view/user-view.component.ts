@@ -50,7 +50,8 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
 
   aclColumnParams = [
     new ColumnParams('Account', (e: Acl) => e.account.name),
-    new ColumnParams('Role', (e: Acl) => e.role.name)
+    new ColumnParams('Role', (e: Acl) => e.role.name),
+    new ColumnParams('Status', (e: Acl) => e.pending || 'Active')
   ];
 
   addAclDialogRef: MdDialogRef<AddUserAclDialogComponent>;

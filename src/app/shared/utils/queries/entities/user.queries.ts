@@ -3,6 +3,7 @@ import {
   addId
 } from './entities-helper.queries';
 import {User} from '../../../models/user.model';
+import {Acl} from '../../../models/acl.model';
 
 export function usersListQuery(limit?: number, cursor?: string): string {
   return `{
@@ -85,6 +86,15 @@ export function inviteUserMutation(email: string, accountId: string, roleId: str
 			  link
 		  }
 	  }`
+}
+
+export function inviteResendMutation(acl: Acl): string {
+  return `
+    mutation {
+		inviteresend (userinvite: {acl: "${acl.id}"}) {
+			link
+		}
+	}`
 }
 
 export function acceptInviteMutation(token: string, parameters: string): string {

@@ -6,7 +6,10 @@ import {AccountsService} from '../../../shared/services/accounts.service';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {Acl} from '../../../shared/models/acl.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
-import {TableMemoryTextOptions, CustomMenuOption} from '../../components/table-memory/table-memory.component';
+import {
+  TableMemoryTextOptions, CustomMenuOption,
+  CustomMenuOptionResult
+} from '../../components/table-memory/table-memory.component';
 import {MdDialog, MdDialogRef} from '@angular/material';
 import {AddUserAclDialogComponent} from '../../add-user-acl-dialog.component';
 import {Role} from '../../../shared/models/role.model';
@@ -18,6 +21,7 @@ import {CustomServerError} from '../../../shared/models/errors/custom-server-err
 import {MessageDialogComponent} from '../../message-dialog.component';
 import {InviteUserDialogComponent} from '../../invite-user-dialog.component';
 import {AuthenticationService} from '../../../authentication/authentication.service';
+import {SnackbarService} from '../../../shared/services/snackbar.service';
 
 @Component({
   selector: 'account-view',
@@ -35,12 +39,18 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
     editOptionText: 'Edit User Role'
   };
 
+  menuOptions: CustomMenuOption[] = [
+    {label: 'View User', option: 'view', show: (acl: Acl) => !acl.pending},
+    {label: 'Resend Invite', option: 'resend', show: (acl: Acl) => !!acl.pending}
+  ];
+
   formInvalid: boolean;
   aclMapper = (acl: Acl) => `${acl.user.name}`;
 
   aclColumnParams = [
     new ColumnParams('User', (e: Acl) => e.user.name),
-    new ColumnParams('Role', (e: Acl) => e.role.name)
+    new ColumnParams('Role', (e: Acl) => e.role.name),
+    new ColumnParams('Status', (e: Acl) => e.pending || 'Active')
   ];
 
   addAclDialogRef: MdDialogRef<AddUserAclDialogComponent>;
@@ -59,6 +69,7 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
               private userService: UsersService,
               private aclService: AclsService,
               private roleService: RolesService,
+              private snackbarService: SnackbarService,
               public authService: AuthenticationService
   ) {
     super(service, route);
@@ -117,6 +128,8 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
   }
 
   navigateToUser(acl: Acl) {
+    if (acl.pending) return;
+
     this.router.navigate(['/users', acl.user.id])
   }
 
@@ -207,8 +220,16 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
       inviteDialogRef = null;
 
       if (result.email && result.role) {
-        this.userService.sendUserInvite(result.email, result.role, this.entityId).subscribe();
+        this.userService.sendUserInvite(result.email, result.role, this.entityId).subscribe(() => {
+          this.service.getEntity(this.entityId);
+        });
       }
+    });
+  }
+
+  resendInvite(acl: Acl): void {
+    this.userService.resendUserInvite(acl).subscribe(() => {
+      this.snackbarService.showSuccessSnack('Invitation Successfully Resent!', 3000);
     });
   }
 
@@ -216,5 +237,16 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
     return this.authService.getActiveAcl()
       && this.authService.getActiveAcl().account.id === this.entityId
       && (this.authService.getActiveAcl().role.name === 'Owner' || this.authService.getActiveAcl().role.name === 'Administrator');
+  }
+
+  menuItemSelected(result: CustomMenuOptionResult): void {
+
+    if (result.option === 'view') {
+      this.navigateToUser(result.entity);
+    }
+
+    if (result.option === 'resend') {
+      this.resendInvite(result.entity)
+    }
   }
 }

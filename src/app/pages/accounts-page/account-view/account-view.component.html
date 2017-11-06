@@ -41,15 +41,17 @@
         [associateDataMapper]="aclMapper"
         [customAssociation]="true"
         [associationEnabled]="authService.isActiveAclMasterAccount()"
-        [editEnabled]="isOwnerOrAdministrator() || authService.isActiveAclMasterAccount()"
+        [editEnabled]="false"
+        [viewEnabled]="false"
         [dissociationEnabled]="isOwnerOrAdministrator() || authService.isActiveAclMasterAccount()"
         [ignoreDisassociate]="isOwner"
         [customTopMenuOptions]="(isOwnerOrAdministrator() || authService.isActiveAclMasterAccount()) ? ['Invite User'] : []"
-        (customTopMenuOptionSelected)="inviteUser()"
+        [customMenuOptions]="menuOptions"
         (view)="navigateToUser($event)"
+        (customMenuOptionSelected)="menuItemSelected($event)"
+        (customTopMenuOptionSelected)="inviteUser()"
         (associate)="showAddAclModal()"
-        (disassociate)="removeAcl($event)"
-        (edit)="showEditAclModal($event)">
+        (disassociate)="removeAcl($event)">
       </table-memory>
 
     </md-tab>

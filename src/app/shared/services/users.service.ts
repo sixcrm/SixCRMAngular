@@ -6,11 +6,12 @@ import {Observable} from 'rxjs';
 import {Role} from '../models/role.model';
 import {
   usersListQuery, userQuery, deleteUserMutation,
-  updateUserMutation, inviteUserMutation, createUserMutation
+  updateUserMutation, inviteUserMutation, createUserMutation, inviteResendMutation
 } from '../utils/queries/entities/user.queries';
 import {HttpWrapperService} from './http-wrapper.service';
 import {Response} from '@angular/http'
 import {MdSnackBar} from '@angular/material';
+import {Acl} from '../models/acl.model';
 
 @Injectable()
 export class UsersService extends AbstractEntityService<User> {
@@ -32,6 +33,10 @@ export class UsersService extends AbstractEntityService<User> {
 
   sendUserInvite(email: string, role: Role, accountId: string): Observable<Response> {
     return this.queryRequest(inviteUserMutation(email, accountId, role.id));
+  }
+
+  resendUserInvite(acl: Acl): Observable<Response> {
+    return this.queryRequest(inviteResendMutation(acl));
   }
 
 }

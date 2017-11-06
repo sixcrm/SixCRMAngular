@@ -35,10 +35,12 @@
       <td *ngIf="showMenuOptions">
         <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
         <md-menu #actionsMenu="mdMenu" x-position="before">
-          <button md-menu-item (click)="view.emit(entity)">{{textOptions.viewOptionText || 'View ' + title}}</button>
+          <button *ngIf="viewEnabled" md-menu-item (click)="view.emit(entity)">{{textOptions.viewOptionText || 'View ' + title}}</button>
           <button *ngIf="editEnabled && hasWritePermission" md-menu-item (click)="edit.emit(entity)">{{textOptions.editOptionText || 'Edit ' + title || ''}}</button>
+          <ng-container *ngFor="let customOption of customMenuOptions">
+            <button *ngIf="!customOption.show || customOption.show(entity)" md-menu-item (click)="customMenuOptionSelected.emit({entity: entity, option: customOption.option})">{{customOption.label}}</button>
+          </ng-container>
           <button *ngIf="dissociationEnabled && hasWritePermission" md-menu-item (click)="showDisassociateDialog(entity)">{{textOptions.disassociateOptionText || 'Disassociate ' + title || ''}}</button>
-          <button *ngFor="let customOption of customMenuOptions" md-menu-item (click)="customMenuOptionSelected.emit({entity: entity, option: customOption.option})">{{customOption.label}}</button>
         </md-menu>
       </td>
     </tr>

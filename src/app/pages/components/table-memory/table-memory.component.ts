@@ -20,6 +20,7 @@ export interface TableMemoryTextOptions {
 export interface CustomMenuOption {
   label: string,
   option?: string
+  show?: (el: any) => boolean;
 }
 
 export interface CustomMenuOptionResult {
@@ -43,6 +44,7 @@ export class TableMemoryComponent implements OnInit {
   @Input() associateDataMapper: (el: any) => string = (el) => el;
   @Input() title: string;
   @Input() filterEnabled: boolean = true;
+  @Input() viewEnabled: boolean = true;
   @Input() associationEnabled: boolean = true;
   @Input() dissociationEnabled: boolean = true;
   @Input() sortEnabled: boolean = true;

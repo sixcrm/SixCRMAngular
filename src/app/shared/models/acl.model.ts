@@ -5,6 +5,7 @@ import {User} from './user.model';
 export class Acl {
   signature: string;
   id: string;
+  pending: string;
   user: User;
   account: Account;
   role: Role;
@@ -15,6 +16,7 @@ export class Acl {
     }
 
     this.id = obj.id || '';
+    this.pending = obj.pending || '';
     this.signature = obj.signature || '';
     this.user = new User(obj.user);
     this.account = new Account(obj.account);
@@ -24,6 +26,7 @@ export class Acl {
   inverse(): any {
     return {
       id: this.id,
+      pending: this.pending,
       signature: this.signature,
       user: this.user.inverse(),
       account: this.account.inverse(),
