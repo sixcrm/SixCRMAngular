@@ -79,20 +79,11 @@ export function updateUserForActivation(user: User): string {
 	}`
 }
 
-export function updateUserForAcceptTaC(userId: string): string {
-  return `
-    mutation {
-      updateusertermsandconditions( user: { id: "${userId}" } ) {
-        ${userInfoResponseQuery()}
-      }
-    }`
-}
-
 export function latestTermsAndConditions(): string {
   return `
     {
       latesttermsandconditions {
-        text,
+        content,
         version
       }
     }`
@@ -142,7 +133,7 @@ export function userResponseQuery(): string {
 
 export function userIntrospectionResponseQuery(): string {
   return `
-    id name alias first_name last_name auth0_id active termsandconditions,
+    id name alias first_name last_name auth0_id active termsandconditions termsandconditions_outdated,
     acl {
       id
       account { id name active }
