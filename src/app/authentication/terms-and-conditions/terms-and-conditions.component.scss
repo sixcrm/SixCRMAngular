@@ -1,3 +1,7 @@
+.registration-form {
+  max-width: 420px;
+}
+
 .registration-form__title__text--tac {
   text-align: center;
   margin: 15px 0;
@@ -5,7 +9,7 @@
 
 .registration-form__form--tac {
   display: block;
-  margin: auto;
+  margin: 40px auto 15px;
   box-sizing: border-box;
   width: 100%;
   padding: 15px;
