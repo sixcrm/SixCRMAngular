@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {TermsAndConditionsControllerService} from '../../shared/services/terms-and-conditions-controller.service';
 import {AuthenticationService} from '../authentication.service';
 import {UsersService} from '../../shared/services/users.service';
+import {Acl} from '../../shared/models/acl.model';
+import {User} from '../../shared/models/user.model';
 
 interface TermsAndConditions {
-  content?: string,
-  version?: string
+  version?: string,
+  title?: string,
+  body?: string
 }
 
 @Component({
@@ -16,6 +19,8 @@ interface TermsAndConditions {
 export class TermsAndConditionsComponent implements OnInit {
 
   termsAndConditions: TermsAndConditions = {};
+  activeAcl: Acl;
+  activeUser: User;
 
   constructor(
     private tacService: TermsAndConditionsControllerService,
@@ -24,6 +29,9 @@ export class TermsAndConditionsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.activeAcl = this.authService.getActiveAcl();
+    this.activeUser = this.authService.getSixUser();
+
     this.userService.getLatestTermsAndConditions().take(1).subscribe((response) => {
       this.termsAndConditions = response.json().response.data.latesttermsandconditions;
     })

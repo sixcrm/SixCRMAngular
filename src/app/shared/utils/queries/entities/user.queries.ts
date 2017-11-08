@@ -79,12 +79,13 @@ export function updateUserForActivation(user: User): string {
 	}`
 }
 
-export function latestTermsAndConditions(): string {
+export function latestTermsAndConditions(role?: string): string {
   return `
     {
-      latesttermsandconditions {
-        content,
-        version
+      latesttermsandconditions ${role ? `( role: "${role}" )` : ''} {
+        version,
+        title,
+        body
       }
     }`
 }
