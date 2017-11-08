@@ -7,7 +7,7 @@ import {SnackbarService} from './snackbar.service';
 import {TermsAndConditionsControllerService} from './terms-and-conditions-controller.service';
 
 export enum FailStrategy {
-  Ignore, Hard, Soft
+  Ignore, Hard, Soft, HardStandalone
 }
 
 export interface RequestBehaviourOptions {
@@ -57,6 +57,10 @@ export class HttpWrapperService {
 
         if (failStrategy === FailStrategy.Hard) {
           this.router.navigateByUrl('/error');
+        }
+
+        if (failStrategy === FailStrategy.HardStandalone) {
+          this.router.navigateByUrl('/404');
         }
 
         response.complete();

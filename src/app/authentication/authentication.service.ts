@@ -11,7 +11,7 @@ import {
   updateUserForActivation,
   userIntrospection, acceptInviteMutation, registerUser
 } from '../shared/utils/queries/entities/user.queries';
-import {extractData, HttpWrapperService, generateHeaders} from '../shared/services/http-wrapper.service';
+import {extractData, HttpWrapperService, generateHeaders, FailStrategy} from '../shared/services/http-wrapper.service';
 import {Response} from '@angular/http';
 import {updateAccountMutation} from '../shared/utils/query-builder';
 import {Account} from '../shared/models/account.model';
@@ -293,7 +293,11 @@ export class AuthenticationService {
   public activateUser(token: string, param: string): Observable<User> {
     let subject = new Subject<User>();
 
-    this.http.post(environment.endpoint + '*', acceptInviteMutation(token, param), { headers: generateHeaders(this.getToken()) }).subscribe(
+    this.http.post(
+      environment.endpoint + '*', acceptInviteMutation(token, param),
+      { headers: generateHeaders(this.getToken()) },
+      { failStrategy: FailStrategy.HardStandalone }
+    ).subscribe(
       (data) => {
         let userData = extractData(data).acceptinvite;
         let user: User = new User(userData);

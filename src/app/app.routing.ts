@@ -8,6 +8,7 @@ import {TermsAndConditionsGuard} from './authentication/terms-and-conditions-gua
 
 const appRoutes: Routes = [
   { path : '', loadChildren : './authentication/authentication.module#AuthenticationModule' },
+  { path : '404', component : ErrorPageComponent },
   { path : '', component : DefaultLayoutComponent, children : [
     { path : '', loadChildren : './pages/search-page/search.module#SearchModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'dashboard', loadChildren : './pages/dashboard-page/dashboard.module#DashboardModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },

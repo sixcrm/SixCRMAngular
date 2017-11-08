@@ -137,6 +137,7 @@ export function userIntrospectionResponseQuery(): string {
     id name alias first_name last_name auth0_id active termsandconditions termsandconditions_outdated,
     acl {
       id
+      termsandconditions_outdated
       account { id name active }
       role { id name active,
         permissions {allow deny} 
