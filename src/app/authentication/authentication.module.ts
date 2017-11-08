@@ -12,6 +12,7 @@ import {RegisterGuard} from './register-guard.service';
 import { InviteAcceptComponent } from './invite-accept/invite-accept.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
+import {TermsAndConditionsGuard} from './terms-and-conditions-guard.service';
 
 @NgModule({
   imports : [
@@ -35,6 +36,7 @@ import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-co
   providers : [
     AuthenticationService,
     AuthGuard,
+    TermsAndConditionsGuard,
     RegisterGuard
   ]
 })

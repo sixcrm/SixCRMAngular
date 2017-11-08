@@ -4,6 +4,7 @@ import {AuthenticationService} from '../authentication.service';
 import {UsersService} from '../../shared/services/users.service';
 import {Acl} from '../../shared/models/acl.model';
 import {User} from '../../shared/models/user.model';
+import {Router} from '@angular/router';
 
 interface TermsAndConditions {
   version?: string,
@@ -23,9 +24,9 @@ export class TermsAndConditionsComponent implements OnInit {
   activeUser: User;
 
   constructor(
-    private tacService: TermsAndConditionsControllerService,
     private authService: AuthenticationService,
-    private userService: UsersService
+    private userService: UsersService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -42,8 +43,15 @@ export class TermsAndConditionsComponent implements OnInit {
     user.termsAndConditions = this.termsAndConditions.version;
 
     this.userService.updateUserForAcceptTermsAndConditions(user).take(1).subscribe(() => {
-      this.tacService.setTermsAndConditionsOutdated(false);
+      user.termsAndConditionsOutdated = false;
+      this.authService.updateSixUser(user);
+
+      this.router.navigate(['/dashboard']);
     });
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 
 }

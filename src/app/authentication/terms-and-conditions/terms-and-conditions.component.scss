@@ -1,21 +1,52 @@
 .registration-form {
   max-width: 420px;
+
+  &__title__text--tac {
+    text-align: center;
+    margin: 15px 0;
+  }
+
+  &__form--tac {
+    display: block;
+    margin: 40px auto 15px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 15px;
+    text-align: justify;
+    max-height: 200px;
+    overflow: auto;
+    color: black;
+    background: white;
+  }
+
+  &__button {
+    margin-bottom: 5px;
+  }
+
+  &__header__clouds {
+    width: 100%;
+    max-width: 420px;
+  }
 }
 
-.registration-form__title__text--tac {
-  text-align: center;
-  margin: 15px 0;
-}
+.terms-and-conditions {
 
-.registration-form__form--tac {
-  display: block;
-  margin: 40px auto 15px;
-  box-sizing: border-box;
-  width: 100%;
-  padding: 15px;
-  text-align: justify;
-  max-height: 200px;
-  overflow: auto;
-  color: black;
-  background: white;
+  &__container {
+    position: absolute;
+    display: block;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0,0,0,0.2);
+  }
+
+  &__title {
+    font-size: 14px;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  &__body {
+    text-align: justify;
+  }
+
 }

@@ -1,19 +1,29 @@
-<div class="registration-form">
-  <div>
+<div class="terms-and-conditions__container">
 
-    <div class="registration-form__title">
-      <div class="registration-form__title__main">
-        Terms and conditions have been updated!
-      </div>
-      <div class="registration-form__title__text registration-form__title__text--tac">
-        To continue using SIX you must accept new terms and conditions
-      </div>
+  <div class="registration-form">
+    <div class="registration-form__header">
+      <img class="registration-form__header__logo" src="/assets/images/sixlogo-circles.svg" alt="">
+      <img class="registration-form__header__clouds" src="/assets/images/clouds.svg" alt="">
     </div>
-    <div class="registration-form__form registration-form__form--tac">
-      <div>{{termsAndConditions.title}}</div>
-      <div>{{termsAndConditions.body}}</div>
-    </div>
-    <div class="registration-form__button" (click)="acceptTermsAndConditions()">Agree</div>
 
+    <div>
+
+      <div class="registration-form__title">
+        <div class="registration-form__title__main">
+          Terms and conditions have been updated!
+        </div>
+        <div class="registration-form__title__text registration-form__title__text--tac">
+          To continue using SIX you must accept new terms and conditions
+        </div>
+      </div>
+      <div class="registration-form__form registration-form__form--tac">
+        <div class="terms-and-conditions__title">{{termsAndConditions.title}}</div>
+        <div class="terms-and-conditions__body">{{termsAndConditions.body}}</div>
+      </div>
+      <div class="registration-form__button" (click)="acceptTermsAndConditions()">Agree</div>
+      <div class="registration-form__button--cancel" (click)="logout()">Log out</div>
+
+    </div>
   </div>
+
 </div>

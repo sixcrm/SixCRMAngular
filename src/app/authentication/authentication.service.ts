@@ -17,7 +17,6 @@ import {updateAccountMutation} from '../shared/utils/query-builder';
 import {Account} from '../shared/models/account.model';
 import {YesNoDialogComponent} from '../pages/yes-no-dialog.component';
 import {MdDialogRef, MdDialog} from '@angular/material';
-import {TermsAndConditionsControllerService} from '../shared/services/terms-and-conditions-controller.service';
 
 declare var Auth0Lock: any;
 
@@ -51,7 +50,6 @@ export class AuthenticationService {
     private http: HttpWrapperService,
     private location: Location,
     private dialog: MdDialog,
-    private tacService: TermsAndConditionsControllerService
   ) {
     this.lock = new Auth0Lock(
       environment.clientID,
@@ -367,7 +365,6 @@ export class AuthenticationService {
           }
           this.updateSixUser(introspectionUser);
           this.getOrUpdateActiveAcl(introspectionUser);
-          this.tacService.setTermsAndConditionsOutdated(introspectionUser.termsAndConditionsOutdated);
 
           if (user && user.usersetting) {
             this.updateTimezone(user.usersetting.timezone);
@@ -385,6 +382,11 @@ export class AuthenticationService {
   private redirectAfterIntrospection(redirectUrl?: string) {
     if (this.active() && redirectUrl) {
       this.router.navigateByUrl(redirectUrl);
+      return;
+    }
+
+    if (this.getSixUser().termsAndConditionsOutdated) {
+      this.router.navigateByUrl('/terms-and-conditions');
       return;
     }
 
