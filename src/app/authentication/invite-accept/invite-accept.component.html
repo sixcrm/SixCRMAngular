@@ -18,9 +18,10 @@
     <ng-container *ngIf="welcomeScreen">
       <div style="margin: auto" class="title">
         You were invited to SIX CRM by <br>
-        [user placeholder] <br>
-        of company <br>
-        [company placeholder]
+        {{invitor}} <br><br>
+        to be {{role}} <br>
+        for {{account}} <br>
+
       </div>
       <div style="margin-top: auto" class="subtitle">
         Press "Accept" below to continue

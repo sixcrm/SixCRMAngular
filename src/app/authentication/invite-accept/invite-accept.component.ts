@@ -13,6 +13,9 @@ export class InviteAcceptComponent implements OnInit {
   token: string;
   param: string;
   email: string;
+  invitor: string;
+  account: string;
+  role: string;
 
   loginRequiredScreen: boolean;
   welcomeScreen: boolean;
@@ -40,6 +43,15 @@ export class InviteAcceptComponent implements OnInit {
 
       if (decParam && decParam.split(':')[0]) {
         this.email = decParam.split(':')[0];
+      }
+      if (decParam && decParam.split(':')[2]) {
+        this.invitor = decParam.split(':')[2];
+      }
+      if (decParam && decParam.split(':')[3]) {
+        this.account = decParam.split(':')[3];
+      }
+      if (decParam && decParam.split(':')[4]) {
+        this.role = decParam.split(':')[4];
       }
 
       if (!this.token || !this.param || !this.email) {
