@@ -19,6 +19,15 @@ export function updateAclMutation(acl: Acl): string {
 	  }`
 }
 
+export function updateUserAclTermsAndConditions(userAcl: Acl, version: string): string {
+  return `
+    mutation {
+		  updateuseracltermsandconditions (useracltermsandconditions: { useracl: "${userAcl.id}", version: "${version}"}) {
+			  id
+		  }
+	}`
+}
+
 export function deleteAclMutation(id: string): string {
   return deleteMutationQuery('useracl', id);
 }

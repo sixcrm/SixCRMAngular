@@ -44,8 +44,8 @@ export class UsersService extends AbstractEntityService<User> {
     return this.queryRequest(updateUserMutation(user), {ignoreTermsAndConditions: true});
   }
 
-  getLatestTermsAndConditions(): Observable<Response> {
-    return this.queryRequest(latestTermsAndConditions(), {ignoreTermsAndConditions: true});
+  getLatestTermsAndConditions(role?: string): Observable<Response> {
+    return this.queryRequest(latestTermsAndConditions(role), {ignoreTermsAndConditions: true});
   }
 
 }

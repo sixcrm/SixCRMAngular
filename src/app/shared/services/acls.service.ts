@@ -3,8 +3,13 @@ import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {HttpWrapperService} from './http-wrapper.service';
 import {Acl} from '../models/acl.model';
-import {createAclMutation, deleteAclMutation, updateAclMutation} from '../utils/queries/entities/acl.queries';
+import {
+  createAclMutation, deleteAclMutation, updateAclMutation,
+  updateUserAclTermsAndConditions
+} from '../utils/queries/entities/acl.queries';
 import {MdSnackBar} from '@angular/material';
+import {Response} from '@angular/http';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class AclsService extends AbstractEntityService<Acl> {
@@ -22,6 +27,10 @@ export class AclsService extends AbstractEntityService<Acl> {
       'useracl',
       snackBar
     );
+  }
+
+  updateUserAclTermsAndConditions(acl: Acl, version: string): Observable<Response> {
+    return this.queryRequest(updateUserAclTermsAndConditions(acl, version), {ignoreTermsAndConditions: true})
   }
 
 }

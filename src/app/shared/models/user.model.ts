@@ -97,6 +97,20 @@ export class User implements Entity<User> {
     return masterAcl.role.hasPermission(entity, operation) || currentAcl.role.hasPermission(entity, operation);
   }
 
+  getAclWithId(id: string): Acl {
+    if (!id || !this.acls || this.acls.length === 0) {
+      return null;
+    }
+
+    const filtered = this.acls.filter(acl => acl.id === id);
+
+    if (filtered && filtered[0]) {
+      return filtered[0];
+    }
+
+    return null;
+  }
+
   private getMasterAccountAcl(): Acl {
     let masterAcl = this.acls.filter(acl => acl.account.name === 'Master Account');
 

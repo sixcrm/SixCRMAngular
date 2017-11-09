@@ -246,15 +246,17 @@ export class AuthenticationService {
     if (this.getActingAsAccount()) {
       this.actingAsAccount$.next(null);
     }
-    localStorage.setItem(this.activeAcl, JSON.stringify(acl.inverse()));
-    this.currentActiveAcl = acl;
-    this.activeAcl$.next(acl);
+
+    this.setActiveAcl(acl);
 
     if (acl.role.name === 'Customer Service') {
       this.router.navigateByUrl('/customer-service-dashboard');
+    } else if (acl.role.name === 'Owner' && acl.termsAndConditionsOutdated) {
+      this.router.navigateByUrl('/terms-and-conditions');
     } else {
       this.router.navigateByUrl('/dashboard');
     }
+
   }
 
   public registerUser(company: string, firstName: string, lastName: string): Observable<Response> {
@@ -368,7 +370,7 @@ export class AuthenticationService {
             introspectionUser.picture = profile.picture;
           }
           this.updateSixUser(introspectionUser);
-          this.getOrUpdateActiveAcl(introspectionUser);
+          this.updateActiveAcl(introspectionUser);
 
           if (user && user.usersetting) {
             this.updateTimezone(user.usersetting.timezone);
@@ -389,7 +391,7 @@ export class AuthenticationService {
       return;
     }
 
-    if (this.getSixUser().termsAndConditionsOutdated) {
+    if (this.getSixUser().termsAndConditionsOutdated || this.getActiveAcl().termsAndConditionsOutdated) {
       this.router.navigateByUrl('/terms-and-conditions');
       return;
     }
@@ -406,7 +408,7 @@ export class AuthenticationService {
         if (user) {
           let activatedUser: User = new User(user);
           this.updateSixUser(activatedUser);
-          this.getOrUpdateActiveAcl(activatedUser);
+          this.updateActiveAcl(activatedUser);
 
           this.location.replaceState(redirect);
           this.router.navigateByUrl(redirect);
@@ -429,30 +431,29 @@ export class AuthenticationService {
 
   public refreshActiveAcl(): void {
     localStorage.removeItem(this.activeAcl);
-    this.getOrUpdateActiveAcl(this.currentSixUser);
+    this.updateActiveAcl(this.currentSixUser);
   }
 
-  private getOrUpdateActiveAcl(user: User): void {
-    let currentAcl = new Acl(JSON.parse(localStorage.getItem(this.activeAcl)));
+  private updateActiveAcl(user: User): void {
+    const currentAclId = new Acl(JSON.parse(localStorage.getItem(this.activeAcl))).id;
+    const currentAcl = user.getAclWithId(currentAclId);
 
-    if (this.containsAcl(user.acls, currentAcl)) {
-      this.activeAcl$.next(currentAcl);
+    if (currentAcl) {
+      this.setActiveAcl(currentAcl);
     } else {
       let defaultAcl: Acl = user.acls.filter((acl) => acl.account.name === 'Master Account')[0] || user.acls[0];
 
       if (defaultAcl) {
-        localStorage.setItem(this.activeAcl, JSON.stringify(defaultAcl.inverse()));
-        this.currentActiveAcl = defaultAcl;
-        this.activeAcl$.next(defaultAcl);
+        this.setActiveAcl(defaultAcl);
       }
     }
   }
 
-  private containsAcl(acls: Acl[], acl: Acl): boolean {
-    if (!acls || acls.length === 0 || !acl.account.id) {
-      return false;
-    }
+  private setActiveAcl(acl: Acl): void {
+    if (!acl) return;
 
-    return acls.filter((element) => element.account.id === acl.account.id).length !== 0;
+    localStorage.setItem(this.activeAcl, JSON.stringify(acl.inverse()));
+    this.currentActiveAcl = acl.copy();
+    this.activeAcl$.next(acl.copy());
   }
 }

@@ -9,6 +9,7 @@ export class Acl {
   user: User;
   account: Account;
   role: Role;
+  termsAndConditionsOutdated: boolean;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -21,6 +22,11 @@ export class Acl {
     this.user = new User(obj.user);
     this.account = new Account(obj.account);
     this.role = new Role(obj.role);
+    this.termsAndConditionsOutdated = !!obj.termsandconditions_outdated;
+  }
+
+  copy(): Acl {
+    return new Acl(this.inverse());
   }
 
   inverse(): any {
@@ -30,7 +36,8 @@ export class Acl {
       signature: this.signature,
       user: this.user.inverse(),
       account: this.account.inverse(),
-      role: this.role.inverse()
+      role: this.role.inverse(),
+      termsandconditions_outdated: this.termsAndConditionsOutdated
     }
   }
 }
