@@ -17,18 +17,14 @@
 
     <ng-container *ngIf="welcomeScreen">
       <div style="margin: auto" class="title">
-        You were invited to SIX CRM by <br>
-        {{invitor}} <br><br>
-        to be {{role}} <br>
-        for {{account}} <br>
-
+        Would you like to accept {{invitor}}'s invite to account "{{account}}" with role "{{role}}"?
       </div>
       <div style="margin-top: auto" class="subtitle">
         Press "Accept" below to continue
       </div>
 
       <div class="registration-form__button registration-form__button--no-margin accept-invite__button--small-margin" (click)="acceptInvite()">Accept</div>
-      <div class="registration-form__button--cancel" (click)="complete()">Cancel</div>
+      <div class="registration-form__button--cancel" (click)="complete()">Log out</div>
     </ng-container>
 
     <ng-container *ngIf="infoScreen">
@@ -58,10 +54,10 @@
 
     <ng-container *ngIf="completeScreen">
       <div style="margin: auto;" class="title">
-        Your account is now active and you may begin exploring at your leisure.
+        Great!  We've added you to the account.
       </div>
 
-      <div class="registration-form__button accept-invite__button--standalone" (click)="complete()">Complete</div>
+      <div class="registration-form__button accept-invite__button--standalone" (click)="complete()">Continue</div>
     </ng-container>
 
   </div>
