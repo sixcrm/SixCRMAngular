@@ -1,5 +1,5 @@
 <div class="error-page__wrapper">
-  <div class="error-page__back-button" (click)="navigation.back()"><md-icon>reply</md-icon></div>
+  <div *ngIf="showNavigation" class="error-page__back-button" (click)="navigation.back()"><md-icon>reply</md-icon></div>
 
   <div class="error-page">
     <div class="error-page__header">

@@ -5,10 +5,11 @@ import {ErrorPageComponent} from './error-page/error-page.component';
 import {DefaultLayoutComponent} from './navigation/layouts/default/default.layout.component';
 import {ComingSoonComponent} from './shared/components/coming-soon/coming-soon.component';
 import {TermsAndConditionsGuard} from './authentication/terms-and-conditions-guard.service';
+import {ErrorPageStandaloneComponent} from './error-page-standalone/error-page-standalone.component';
 
 const appRoutes: Routes = [
   { path : '', loadChildren : './authentication/authentication.module#AuthenticationModule' },
-  { path : '404', component : ErrorPageComponent },
+  { path : '404', component : ErrorPageStandaloneComponent },
   { path : '', component : DefaultLayoutComponent, children : [
     { path : '', loadChildren : './pages/search-page/search.module#SearchModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'dashboard', loadChildren : './pages/dashboard-page/dashboard.module#DashboardModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
@@ -33,10 +34,10 @@ const appRoutes: Routes = [
     { path : 'emailtemplates', loadChildren : './pages/email-templates-page/email-templates.module#EmailTemplatesModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'reports', loadChildren : './reports/reports.module#ReportsModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'documentation', loadChildren : './pages/documentation/documentation.module#DocumentationModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
-    { path : 'coming-soon', component: ComingSoonComponent },
-    { path : 'roles', component: ComingSoonComponent },
-    { path : 'billing', component: ComingSoonComponent },
-    { path : '**', component : ErrorPageComponent }
+    { path : 'coming-soon', component: ComingSoonComponent, canActivate: [AuthGuard] },
+    { path : 'roles', component: ComingSoonComponent, canActivate: [AuthGuard] },
+    { path : 'billing', component: ComingSoonComponent, canActivate: [AuthGuard] },
+    { path : '**', component : ErrorPageComponent, canActivate: [AuthGuard] }
   ]},
 
 ];

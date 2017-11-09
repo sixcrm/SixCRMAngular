@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {NavigationService} from '../navigation/navigation.service';
 
 @Component({
@@ -7,6 +7,8 @@ import {NavigationService} from '../navigation/navigation.service';
   styleUrls: ['./error-page.component.scss']
 })
 export class ErrorPageComponent implements OnInit {
+
+  @Input() showNavigation: boolean = true;
 
   constructor(public navigation: NavigationService) { }
 

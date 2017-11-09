@@ -22,6 +22,7 @@ import {ErrorSnackBarComponent} from './shared/components/error-snack-bar/error-
 import {SingleInputDialogComponent} from './dialog-modals/single-input-dialog.component';
 import {AccessKeyDetailsDialogComponent} from './dialog-modals/access-key-details-dialog.component';
 import {ClipboardModule} from 'ngx-clipboard/dist';
+import { ErrorPageStandaloneComponent } from './error-page-standalone/error-page-standalone.component';
 
 @NgModule({
   declarations : [
@@ -35,7 +36,8 @@ import {ClipboardModule} from 'ngx-clipboard/dist';
     MessageDialogComponent,
     AddProductScheduleDialogComponent,
     SingleInputDialogComponent,
-    AccessKeyDetailsDialogComponent
+    AccessKeyDetailsDialogComponent,
+    ErrorPageStandaloneComponent
   ],
   imports : [
     NavigationModule.forRoot(),
