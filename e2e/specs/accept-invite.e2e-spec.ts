@@ -8,6 +8,7 @@ import {
 } from '../utils/navigation.utils';
 import {doLogin} from '../utils/action.utils';
 import {sha1} from '@angular/compiler/src/i18n/digest';
+import {ErrorPage} from '../po/error-page.po';
 
 var supertest = require('supertest');
 var crypto = require('crypto');
@@ -15,14 +16,16 @@ var crypto = require('crypto');
 describe('Accept Invite', function() {
   let authPage: AuthPage;
   let acceptInvitePage: AcceptInvitePage;
+  let errorPage: ErrorPage;
 
   let inviteeEmail = 'testingregistration@example.com';
   let inviteePassword = 'testingregistrationpassword';
-  let link = generateInviteLink();
+  let link = generateDummyInviteLink();
 
   beforeEach(() => {
     authPage = new AuthPage();
     acceptInvitePage = new AcceptInvitePage();
+    errorPage = new ErrorPage();
     browser.waitForAngularEnabled(true);
   });
 
@@ -30,7 +33,7 @@ describe('Accept Invite', function() {
     clearLocalStorage();
 
     let jwt = createTestAuth0JWT('super.user@test.com');
-    let request = supertest('https://api.sixcrm.com/');
+    let request = supertest('https://development-api.sixcrm.com/');
 
     request.post('graph/*')
       .set('Authorization', jwt)
@@ -76,21 +79,22 @@ describe('Accept Invite', function() {
     waitForUrlContains('acceptinvite');
 
     browser.sleep(1000);
-    expect(acceptInvitePage.getWelcomeText().getText()).toContain('[user placeholder]');
+    expect(acceptInvitePage.getWelcomeText().getText()).toContain(`Would you like to accept test@test.com's invite to account "test-account" with role "test-role"`);
     expect(acceptInvitePage.getWelcomeInstructions().getText()).toEqual('Press "Accept" below to continue');
   });
 
-  it('should show welcome message when invitation accepted', () => {
+  it('should show 404 when try to accept non existing invite', () => {
+    acceptInvitePage.getAcceptButton().click();
 
+    waitForUrlContains('404');
+
+    expect(errorPage.getTitle().getText()).toEqual('Strong Effort.')
   });
-
- it('should navigate to dashboard after registration complete', () => {
-
-  })
 });
 
-function generateInviteLink() {
-  let pre_encrypted_string = 'testingregistration@example.com:5db7ed46-75b1-4ecd-b489-e61ef5d1107a:1116c054-42bb-4bf5-841e-ee0c413fa69e:'+Math.floor(Date.now() / 1000);
+function generateDummyInviteLink() {
+  let pre_encrypted_string =
+    'testingregistration@example.com:5db7ed46-75b1-4ecd-b489-e61ef5d1107a:test@test.com:test-account:test-role:'+Math.floor(Date.now() / 1000);
 
   let invite_token = crypto.createHash('sha1').update('awdawdadawt33209sfsiofjsef'+pre_encrypted_string).digest('hex');
   let encoded_params = new Buffer(pre_encrypted_string).toString('base64');
