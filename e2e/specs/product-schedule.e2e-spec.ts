@@ -24,9 +24,9 @@ describe('Product Schedules', function() {
 
   it('should navigate to products page', () => {
     const sidenav = new SidenavPage();
-    sidenav.getLink(9).click();
-    browser.sleep(500);
     sidenav.getLink(11).click();
+    browser.sleep(500);
+    sidenav.getLink(13).click();
     waitForUrlContains('productschedules');
     expectUrlToContain('productschedules');
   });
@@ -46,7 +46,7 @@ describe('Product Schedules', function() {
   it('should render product schedules index table headers', () => {
     expect(page.getTableHeaders().get(0).getText()).toEqual('ID');
     expect(page.getTableHeaders().get(1).getText()).toEqual('Name');
-    expect(page.getTableHeaders().get(2).getText()).toEqual('Number Of Product Schedules');
+    expect(page.getTableHeaders().get(2).getText()).toEqual('Number Of Cycles');
   });
 
   it('should render add modal when add button is clicked', () => {
@@ -109,7 +109,7 @@ describe('Product Schedules', function() {
     productSchedulePage.getTableRowOptionsButton().click();
     browser.sleep(500);
 
-    productSchedulePage.getMenuButton(1).click();
+    productSchedulePage.getMenuButton(2).click();
     browser.sleep(500);
     productSchedulePage.getConfirmDeleteButton().click();
     browser.sleep(2000);
