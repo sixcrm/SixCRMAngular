@@ -391,14 +391,22 @@ export class AuthenticationService {
       return;
     }
 
-    if (this.getSixUser().termsAndConditionsOutdated || this.getActiveAcl().termsAndConditionsOutdated) {
+    if (this.shouldRedirectToTermsAndConditions()) {
       this.router.navigateByUrl('/terms-and-conditions');
       return;
     }
 
-    if (this.router.url === '/' || (!this.active() && this.router.url.indexOf('/register') === -1)) {
+    if (this.shouldRedirectToDashboard()) {
       this.router.navigateByUrl(this.isActiveAclCustomerService() ? '/customer-service-dashboard' : '/dashboard');
     }
+  }
+
+  private shouldRedirectToTermsAndConditions(): boolean {
+    return this.active() && (this.getSixUser().termsAndConditionsOutdated || this.getActiveAcl().termsAndConditionsOutdated)
+  }
+
+  private shouldRedirectToDashboard(): boolean {
+    return this.router.url === '/' || (!this.active() && this.router.url.indexOf('/register') === -1)
   }
 
   private getUserIntrospectionExternal(redirect: string): void {
