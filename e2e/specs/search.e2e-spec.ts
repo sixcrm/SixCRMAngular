@@ -102,9 +102,9 @@ describe('Search', function() {
   });
 
   it('should perform search and display progress bar when category is toggled', () => {
-    browser.get('/search?advanced=true&firstname=test');
+    browser.get('/search?advanced=true&firstname=r');
 
-    waitForUrlContains('/search?advanced=true&firstname=test');
+    waitForUrlContains('/search?advanced=true&firstname=r');
 
     waitForPresenceOf(searchPage.getOneCheckbox());
     searchPage.getCheckboxes().first().click();
@@ -113,10 +113,10 @@ describe('Search', function() {
     expectPresent(searchPage.getSpinner());
   });
 
-  it('should perform search and show search results when search by first name = test', () => {
-    browser.get('/search?advanced=true&firstname=test');
+  it('should perform search and show search results when search by first name = r', () => {
+    browser.get('/search?advanced=true&firstname=r');
 
-    waitForUrlContains('/search?advanced=true&firstname=test');
+    waitForUrlContains('/search?advanced=true&firstname=r');
     waitForPresenceOf(searchPage.getOneSearchResult());
     waitForPresenceOf(searchPage.getOneCheckbox());
 
@@ -231,7 +231,7 @@ describe('Search', function() {
     browser.get('/search');
     waitForUrlContains('/search');
 
-    searchPage.getQuickSearchInput().sendKeys('t');
+    searchPage.getQuickSearchInput().sendKeys('e');
     waitForPresenceOf(searchPage.getSuggestions());
 
     expectPresent(searchPage.getSuggestions());
