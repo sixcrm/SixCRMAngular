@@ -52,10 +52,10 @@ describe('Dashboard', function() {
     dashboard.getAdvancedFilterReload().click();
 
     browser.sleep(50);
-    expectPresent(dashboard.getTransactionOverviewLoader());
+    expectPresent(app.getProgressBar());
 
-    browser.sleep(2000);
-    expectNotPresent(dashboard.getTransactionOverviewLoader());
+    browser.sleep(6000);
+    expectNotPresent(app.getProgressBar());
   });
 
   it('should reload when advanced filter date is changed in less than 6 seconds', () => {
@@ -68,20 +68,10 @@ describe('Dashboard', function() {
     expectNotPresent(app.getProgressBar());
   });
 
-  it('should reset is clicked in less than 6 seconds', () => {
-    dashboard.getResetButton().click();
-
-    browser.sleep(50);
-    expectPresent(app.getProgressBar());
-
-    browser.sleep(6000);
-    expectNotPresent(app.getProgressBar());
-  });
-
   it('should cache dashboard results', () => {
     const sidenav = new SidenavPage();
 
-    sidenav.getLink(8).click();
+    sidenav.getLink(10).click();
     waitForUrlContains('customers');
     waitForNotPresenceOf(app.getProgressBar());
 
@@ -93,7 +83,3 @@ describe('Dashboard', function() {
     expectNotPresent(dashboard.getTransactionOverviewLoader());
   })
 });
-
-function getLoader(component) {
-  return component.element(by.css('md-spinner'))
-}
