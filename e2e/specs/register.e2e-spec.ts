@@ -2,51 +2,58 @@ import {AuthPage} from '../po/auth.po';
 import {RegisterPage} from '../po/register.po';
 import {browser} from 'protractor';
 import {waitForPresenceOfLoginFields, waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
-import {doLogin} from '../utils/action.utils';
+import {doSignUp} from '../utils/action.utils';
 import {expectUrlToContain, expectPresent} from '../utils/assertation.utils';
-import {createTestAuth0JWT} from '../utils/jwt.utils';
-import {deleteUser} from '../utils/graph.utils';
 import {TopnavPage} from '../po/topnav.po';
+import {TermsAndConditionsPage} from '../po/terms-and-conditions.po';
 
-var supertest = require('supertest');
-
-let registrationUsername = 'testingregistration@example.com';
+let registrationUsername = `tr${new Date().getTime()}@example.com`;
 let registrationPassword = 'testingregistrationpassword';
 
 describe('Register', function() {
   let authPage: AuthPage;
   let registerPage: RegisterPage;
   let appTopNav: TopnavPage;
+  let termsAndConditionsPage: TermsAndConditionsPage;
 
   beforeEach(() => {
     authPage = new AuthPage();
     registerPage = new RegisterPage();
     appTopNav = new TopnavPage();
+    termsAndConditionsPage = new TermsAndConditionsPage();
   });
 
-  afterAll((done) => {
+  afterAll(() => {
     browser.waitForAngularEnabled(true);
 
-    removeUser(done);
     clearLocalStorage();
   });
 
-  beforeAll((done) => {
-    removeUser(done);
-
+  beforeAll(() => {
     browser.waitForAngularEnabled(false);
     browser.get('/');
     clearLocalStorage();
   });
 
-  it('should redirect to /dashboard and show registration form when non existing user logs in', () => {
+  it('should redirect to /terms-and-conditions', () => {
     authPage.navigateTo();
 
     waitForPresenceOfLoginFields(authPage);
 
-    doLogin(authPage, registrationUsername, registrationPassword);
+    doSignUp(authPage, registrationUsername, registrationPassword);
 
     // Wait for angular is disabled, so we need to tell protractor to wait for page to load
+    waitForUrlContains('terms-and-conditions');
+
+    expectUrlToContain('/terms-and-conditions');
+    expectPresent(termsAndConditionsPage.getModal());
+  });
+
+  it('should redirect to /dashboard when accept user and owner terms and conditions', () => {
+    termsAndConditionsPage.getAcceptButton().click();
+    browser.sleep(3000);
+    termsAndConditionsPage.getAcceptButton().click();
+
     waitForUrlContains('dashboard');
 
     expectUrlToContain('/dashboard');
@@ -79,14 +86,3 @@ describe('Register', function() {
     expect(registerPage.getSuccessTitle().getText()).toContain('Your account is now active and you may begin exploring at your leisure.')
   });
 });
-
-function removeUser(done) {
-  let jwt = createTestAuth0JWT('super.user@test.com');
-  let request = supertest('https://development-api.sixcrm.com/');
-
-  request.post('graph/*')
-    .set('Authorization', jwt)
-    .send(deleteUser(registrationUsername))
-    .then(response => console.log(response))
-    .end(() => done());
-}

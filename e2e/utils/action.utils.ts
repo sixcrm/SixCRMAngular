@@ -12,6 +12,13 @@ export function doLogin(authPage: AuthPage, email: string, password: string) {
   authPage.getLoginButton().click();
 }
 
+export function doSignUp(authPage: AuthPage, email: string, password: string) {
+  authPage.getSignupButton().click();
+  authPage.getEmailInput().sendKeys(email);
+  authPage.getPasswordInput().sendKeys(password);
+  authPage.getLoginButton().click();
+}
+
 export function doRegister(authPage: AuthPage, email: string, password: string) {
   doLogin(authPage, email, password);
 }
