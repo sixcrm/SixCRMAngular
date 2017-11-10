@@ -19,11 +19,11 @@ describe('Campaigns', function() {
     waitForUrlContains('dashboard');
   });
 
-  it('should navigate to products page', () => {
+  it('should navigate to campaigns page', () => {
     const sidenav = new SidenavPage();
-    sidenav.getLink(9).click();
+    sidenav.getLink(11).click();
     browser.sleep(500);
-    sidenav.getLink(12).click();
+    sidenav.getLink(14).click();
     waitForUrlContains('campaigns');
     expectUrlToContain('campaigns');
   });
