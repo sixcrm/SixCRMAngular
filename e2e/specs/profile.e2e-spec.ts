@@ -46,6 +46,7 @@ describe('App load', function() {
     browser.sleep(500);
 
     expect(profilePage.getSendTestNotificationButton()).toBeDefined();
+    expect(profilePage.getSendTestAlertButton()).toBeDefined();
   });
 
   it('should reset notifications counter', () => {
@@ -58,5 +59,19 @@ describe('App load', function() {
     browser.sleep(2000);
 
     expect(notificationsPage.getNotificationCounter().getText()).toEqual('1');
+  });
+
+  it('should send test alert', () => {
+    profilePage.getSendTestAlertButton().click();
+    browser.sleep(2000);
+
+    expect(notificationsPage.getAlerts().count()).toEqual(1);
+  });
+
+  it('should dismiss test alert', () => {
+    notificationsPage.getFirstAlertDismissButton().click();
+    browser.sleep(2000);
+
+    expect(notificationsPage.getAlerts().count()).toEqual(0);
   });
 });

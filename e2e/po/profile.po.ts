@@ -15,6 +15,10 @@ export class ProfilePage {
   }
 
   getSendTestNotificationButton() {
-    return element(by.css('.card-outside-button'));
+    return element.all(by.css('.card-outside-button')).first();
+  }
+
+  getSendTestAlertButton() {
+    return element.all(by.css('.card-outside-button')).last();
   }
 }
