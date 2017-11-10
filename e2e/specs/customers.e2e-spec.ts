@@ -23,7 +23,8 @@ describe('Customers', function() {
     login();
     waitForUrlContains('dashboard');
 
-    new SidenavPage().getLink(8).click();
+    new SidenavPage().getLink(10).click();
+    browser.sleep(200);
     waitForUrlContains('customers');
   });
 
@@ -48,7 +49,6 @@ describe('Customers', function() {
 
   it('should open add new customer form when click on button', () => {
     page.getAddButton().click();
-    waitForUrlContains('customers/add');
 
     expectDefined(customerPage.getNewCustomerForm());
     expect(customerPage.getNewCustomerInputs().count()).toEqual(9);
@@ -56,7 +56,7 @@ describe('Customers', function() {
 
   it('should add new customer', () => {
     const appPage = new AppPage();
-    waitForNotPresenceOf(appPage.getProgressBar());
+    waitForUrlContains('customers');
 
     const customerName = 'Customer Test fn';
     const customerLastname = 'Customer Test ln';
@@ -78,7 +78,10 @@ describe('Customers', function() {
     browser.sleep(200);
 
     customerPage.getNewCustomerSaveButton().click();
+
     waitForPresenceOf(customerPage.getCustomerName());
+    waitForNotPresenceOf(appPage.getProgressBar());
+    browser.sleep(200);
     expect(customerPage.getCustomerName().getText()).toEqual(`${customerName} ${customerLastname}`)
   });
 
