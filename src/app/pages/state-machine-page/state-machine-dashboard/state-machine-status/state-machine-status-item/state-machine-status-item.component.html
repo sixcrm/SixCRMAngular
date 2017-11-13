@@ -3,7 +3,7 @@
        [style.border-color]="item.state ? (item.state === 'a' ? 'green' : item.state === 'b' ? 'orange' : 'red') : 'gray'">
     <div class="status-item__main__count">{{item.count}}</div>
     <div class="status-item__main__label">{{item.label}}</div>
-    <div class="status-item__main__view-link">VIEW</div>
+    <div class="status-item__main__view-link" [routerLink]="[item.label.toLowerCase()]">VIEW</div>
   </div>
 
   <div class="status-item__additional">

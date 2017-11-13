@@ -13,6 +13,7 @@ import { AngleArrowComponent } from './state-machine-dashboard/angle-arrow/angle
 import { StateMachineStatusComponent } from './state-machine-dashboard/state-machine-status/state-machine-status.component';
 import { StateMachineStatusItemComponent } from './state-machine-dashboard/state-machine-status/state-machine-status-item/state-machine-status-item.component';
 import { StateMachineDetailsComponent } from './state-machine-dashboard/state-machine-details/state-machine-details.component';
+import { StateMachineLiveComponent } from './state-machine-live/state-machine-live.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { StateMachineDetailsComponent } from './state-machine-dashboard/state-ma
     ArrowComponent, DottedLineComponent,
     AngleArrowComponent, StateMachineStatusComponent,
     StateMachineStatusItemComponent,
-    StateMachineDetailsComponent
+    StateMachineDetailsComponent,
+    StateMachineLiveComponent
   ],
   providers: [StateMachineAclGuard]
 })

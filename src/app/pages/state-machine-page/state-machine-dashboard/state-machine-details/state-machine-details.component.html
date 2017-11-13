@@ -36,6 +36,6 @@
       {{item.description}}
     </div>
 
-    <div class="state-machine-details__info__view-live">VIEW LIVE QUEUE</div>
+    <div class="state-machine-details__info__view-live" [routerLink]="[item.label.toLowerCase()]">VIEW LIVE QUEUE</div>
   </div>
 </div>
