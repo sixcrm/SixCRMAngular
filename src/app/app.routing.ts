@@ -13,6 +13,8 @@ const appRoutes: Routes = [
   { path : '', component : DefaultLayoutComponent, children : [
     { path : '', loadChildren : './pages/search-page/search.module#SearchModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'dashboard', loadChildren : './pages/dashboard-page/dashboard.module#DashboardModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
+    { path : 'state-machine',
+      loadChildren : './pages/state-machine-page/state-machine.module#StateMachineModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'profile', loadChildren : './pages/profile-page/profile-page.module#ProfilePageModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'notifications', loadChildren : './pages/notifications-page/notifications.module#NotificationsModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'affiliates', loadChildren : './pages/affiliates-page/affiliates.module#AffiliatesModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },

@@ -1,0 +1,41 @@
+<div class="entity-view__card">
+  <div class="entity-view__card__header">
+    <div>
+      <div class="entity-view__card__header__title">State Machine Flow</div>
+      <div class="entity-view__card__header__subtitle">Below is rough flow of all data in SIX, click an element to load details below</div>
+    </div>
+  </div>
+
+  <div class="entity-view__card__content">
+    <div class="schema__container">
+      <div class="schema__column">
+        <div class="schema__item"
+             [class.schema__item--focused]="items[0].selected"
+             (click)="select(items[0])"
+        >{{items[0].label}}</div>
+        <dotted-line></dotted-line>
+        <div class="schema__item"
+             [class.schema__item--focused]="items[1].selected"
+             (click)="select(items[1])"
+        >{{items[1].label}}</div>
+        <angle-arrow></angle-arrow>
+      </div>
+
+      <div class="schema__column middle-column">
+        <dotted-line class="rotated-line"></dotted-line>
+      </div>
+
+      <div class="schema__column">
+        <ng-container *ngFor="let item of items; let i = index;">
+          <div *ngIf="item.schemaPosition === 'right'"
+               class="schema__item"
+               [class.schema__item--focused]="item.selected"
+               (click)="select(item)"
+          >{{item.label}}</div>
+          <arrow *ngIf="item.schemaPosition === 'right' && i + 1 < items.length"></arrow>
+
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

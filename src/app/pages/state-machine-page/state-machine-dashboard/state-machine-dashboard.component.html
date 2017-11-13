@@ -1,0 +1,17 @@
+<div class="filter-container">
+
+  <advanced-filter
+    [date]="date"
+    [filterTerms]="filterTerms"
+    [refreshText]="'Refresh State Machine'"
+    [shareUrl]="''">
+  </advanced-filter>
+
+</div>
+
+<div class="schema-status-container">
+  <state-machine-schema [items]="items" (itemSelected)="select($event)"></state-machine-schema>
+  <state-machine-status [items]="items"></state-machine-status>
+</div>
+
+<state-machine-details *ngIf="selectedItem" [item]="selectedItem"></state-machine-details>

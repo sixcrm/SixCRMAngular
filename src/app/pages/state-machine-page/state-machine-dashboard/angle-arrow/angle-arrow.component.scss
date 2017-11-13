@@ -1,0 +1,33 @@
+.angle-arrow {
+
+  .body-first {
+    margin: 5px 0 0;
+    display: inline-block;
+    height: 64px;
+    width: 4px;
+    background: #9B9B9B;
+  }
+
+  .body-second {
+    margin:0;
+    display: inline-block;
+    width: 80px;
+    height: 4px;
+    background: #9B9B9B;
+  }
+
+  .container-second {
+    display: flex;
+    align-items: center;
+    margin-top: -10px;
+  }
+
+  .arrow-right {
+    margin:0;
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 20px solid #9B9B9B;
+  }
+}

@@ -1,0 +1,31 @@
+<div class="status-item__container">
+  <div class="status-item__main"
+       [style.border-color]="item.state ? (item.state === 'a' ? 'green' : item.state === 'b' ? 'orange' : 'red') : 'gray'">
+    <div class="status-item__main__count">{{item.count}}</div>
+    <div class="status-item__main__label">{{item.label}}</div>
+    <div class="status-item__main__view-link">VIEW</div>
+  </div>
+
+  <div class="status-item__additional">
+    <div class="status-item__additional__box">
+      <div class="status-item__additional__title">Avg Time in Queue</div>
+      <div class="arrow-container">
+        <div class="status-item__additional__value">{{item.avgTimeInSeconds | formatDuration}}</div>
+        <div class="arrow"
+             [style.border-bottom-color]="item.state ? (item.state === 'a' ? 'green' : item.state === 'b' ? 'orange' : 'red') : 'gray'"
+             [style.transform]="item.state && (item.state === 'b' || item.state === 'c') ? 'rotate(180deg)' : 'rotate(0)'">
+        </div>
+      </div>
+    </div>
+    <div class="status-item__additional__box status-item__additional__box--border">
+      <div class="status-item__additional__title">Failure Rate</div>
+      <div class="arrow-container">
+        <div class="status-item__additional__value">{{item.failureRate}}%</div>
+        <div class="arrow"
+             [style.border-bottom-color]="item.state ? (item.state === 'a' ? 'green' : item.state === 'b' ? 'orange' : 'red') : 'gray'"
+             [style.transform]="item.state && (item.state === 'b' || item.state === 'c') ? 'rotate(180deg)' : 'rotate(0)'">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

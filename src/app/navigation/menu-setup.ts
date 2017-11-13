@@ -6,13 +6,17 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   let items: MenuItem[] = [];
 
   // Add dashboard
-  if (acl && acl.role.name == 'Customer Service') {
+  if (acl && acl.role.name === 'Customer Service') {
     items.push(new MenuItem('Dashboard', 'customer-service-dashboard').setIcon('headset_mic'));
   } else {
     items.push(new MenuItem('Dashboard', 'dashboard').setIcon('view_quilt'));
   }
-  // Add reports
 
+  if (acl && acl.isOwnerOrMaster()) {
+    items.push(new MenuItem('State', 'state-machine').setIcon('view_quilt'));
+  }
+
+  // Add reports
   let reportItems: MenuItem[] = [];
   if (authService.hasPermissions('analytics', 'getOrders')) {
     reportItems.push(new MenuItem('Order Report', 'reports/order'));

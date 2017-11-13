@@ -1,0 +1,41 @@
+<div class="state-machine-details__container">
+  <div class="state-machine-details__info">
+    <div class="state-machine-details__info__count">
+      {{item.count}}
+    </div>
+
+    <div class="state-machine-details__info__title">
+      Total Orders in {{item.label}} Queue
+    </div>
+
+    <div class="state-machine-details__info__details">
+      <div class="state-machine-details__info__details__box">
+        <div class="item-title">Avg. Time in Queue</div>
+        <div class="value-container">
+          <div class="item-value">{{item.avgTimeInSeconds | formatDuration}}</div>
+          <div class="arrow"
+               [style.border-bottom-color]="item.state ? (item.state === 'a' ? 'green' : item.state === 'b' ? 'orange' : 'red') : 'gray'"
+               [style.transform]="item.state && (item.state === 'b' || item.state === 'c') ? 'rotate(180deg)' : 'rotate(0)'">
+          </div>
+        </div>
+      </div>
+
+      <div class="state-machine-details__info__details__box">
+        <div class="item-title">Failure Rate</div>
+        <div class="value-container">
+          <div class="item-value">{{item.failureRate}}%</div>
+          <div class="arrow"
+               [style.border-bottom-color]="item.state ? (item.state === 'a' ? 'green' : item.state === 'b' ? 'orange' : 'red') : 'gray'"
+               [style.transform]="item.state && (item.state === 'b' || item.state === 'c') ? 'rotate(180deg)' : 'rotate(0)'">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="state-machine-details__info__description">
+      {{item.description}}
+    </div>
+
+    <div class="state-machine-details__info__view-live">VIEW LIVE QUEUE</div>
+  </div>
+</div>

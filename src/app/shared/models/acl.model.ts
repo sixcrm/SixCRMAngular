@@ -40,4 +40,8 @@ export class Acl {
       termsandconditions_outdated: this.termsAndConditionsOutdated
     }
   }
+
+  isOwnerOrMaster(): boolean {
+    return this.account.name === 'Master Account' || this.role.name === 'Owner';
+  }
 }
