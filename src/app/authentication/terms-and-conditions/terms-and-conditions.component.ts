@@ -26,6 +26,8 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
   activeUser: User;
   sub: Subscription;
 
+  mapAcl = (acl: Acl) => acl.account.name;
+
   constructor(
     private authService: AuthenticationService,
     private userService: UsersService,
@@ -114,4 +116,7 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
     this.authService.logout();
   }
 
+  changeAcl(acl: Acl): void {
+    this.authService.changeActiveAcl(acl);
+  }
 }

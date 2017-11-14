@@ -13,6 +13,7 @@ import { InviteAcceptComponent } from './invite-accept/invite-accept.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 import {TermsAndConditionsGuard} from './terms-and-conditions-guard.service';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   imports : [
@@ -20,7 +21,8 @@ import {TermsAndConditionsGuard} from './terms-and-conditions-guard.service';
     RouterModule,
     MaterialModule.forRoot(),
     CommonModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   declarations : [
     AuthComponent,

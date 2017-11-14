@@ -1,34 +1,3 @@
-.registration-form {
-  max-width: 420px;
-
-  &__title__text--tac {
-    text-align: center;
-    margin: 15px 0;
-  }
-
-  &__form--tac {
-    display: block;
-    margin: 40px auto 15px;
-    box-sizing: border-box;
-    width: 100%;
-    padding: 15px;
-    text-align: justify;
-    max-height: 200px;
-    overflow: auto;
-    color: black;
-    background: white;
-  }
-
-  &__button {
-    margin-bottom: 5px;
-  }
-
-  &__header__clouds {
-    width: 100%;
-    max-width: 420px;
-  }
-}
-
 .terms-and-conditions {
 
   &__container {
@@ -39,14 +8,97 @@
     background: rgba(0,0,0,0.2);
   }
 
-  &__title {
-    font-size: 14px;
-    margin-bottom: 12px;
+  &__modal {
+    position: relative;
+    margin: 10px auto auto;
+    max-width: 1000px;
+    padding-top: 30px;
+    background: linear-gradient(to bottom right, #067AE9, #0938C6);
     text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 0 25px rgba(0,0,0,0.3);
+  }
+
+  &__acl-dropdown {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 200px;
+    font-size: 13px;
+    background: white;
+  }
+
+  &__header {
+    position: relative;
+    margin: 40px auto 20px;
+    max-width: 400px;
+    width: 100%;
+
+    &__logo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      height: 100px;
+    }
+
+    &__clouds {
+      width: 100%;
+    }
+
   }
 
   &__body {
-    text-align: justify;
+    margin: 0 auto 20px;
+    width: 100%;
+    max-width: 520px;
+    color: white;
   }
 
+  &__title {
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  &__content {
+    background: white;
+    color: black;
+    font-size: 14px;
+    text-align: left;
+
+    &__title {
+      height: 20px;
+      padding: 10px;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    &__body {
+      padding: 10px;
+      overflow: auto;
+      height: 200px;
+      font-size: 10px;
+    }
+  }
+
+  &__button {
+    display: inline-block;
+    margin: 25px 0 5px;
+    width: 90px;
+    padding: 8px;
+    background: #F57C00;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+
+    &--cancel {
+      display: inline-block;
+      margin: 0 0 25px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      color: #E6AB4C;
+    }
+  }
 }
+

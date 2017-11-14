@@ -1,29 +1,41 @@
 <div class="terms-and-conditions__container">
 
-  <div class="registration-form">
-    <div class="registration-form__header">
-      <img class="registration-form__header__logo" src="/assets/images/sixlogo-circles.svg" alt="">
-      <img class="registration-form__header__clouds" src="/assets/images/clouds.svg" alt="">
+  <div class="terms-and-conditions__modal">
+
+    <div class="terms-and-conditions__header">
+      <img class="terms-and-conditions__header__logo" src="/assets/images/sixlogo-circles.svg" alt="">
+      <img class="terms-and-conditions__header__clouds" src="/assets/images/clouds.svg" alt="">
     </div>
 
-    <div>
+    <simple-dropdown
+      *ngIf="(authService.activeAcl$ | async) && !(activeUser && activeUser.termsAndConditionsOutdated)"
+      class="terms-and-conditions__acl-dropdown"
+      [selectedOption]="authService.activeAcl$ | async"
+      [options]="authService.getAcls()"
+      [mapper]="mapAcl"
+      [icon]="'domain'"
+      (optionSelected)="changeAcl($event)">
+    </simple-dropdown>
 
-      <div class="registration-form__title">
-        <div class="registration-form__title__main">
-          Terms and Conditions have been updated!
-        </div>
-        <div class="registration-form__title__text registration-form__title__text--tac">
-          To continue using SIX you must accept new Terms and Conditions
-        </div>
+    <div class="terms-and-conditions__body">
+
+      <div class="terms-and-conditions__title">
+        Please accept our terms and conditions to get started.
       </div>
-      <div class="registration-form__form registration-form__form--tac">
-        <div class="terms-and-conditions__title">{{termsAndConditions.title}}</div>
-        <div class="terms-and-conditions__body">{{termsAndConditions.body}}</div>
+
+      <div class="terms-and-conditions__content">
+        <div class="terms-and-conditions__content__title">{{termsAndConditions.title}}</div>
+        <div class="terms-and-conditions__content__body">{{termsAndConditions.body}}</div>
       </div>
-      <div class="registration-form__button" (click)="acceptTermsAndConditions()">Agree</div>
-      <div class="registration-form__button--cancel" (click)="logout()">Log out</div>
+
+      <div class="terms-and-conditions__button" (click)="acceptTermsAndConditions()">Accept</div>
+
+      <div>
+        <div class="terms-and-conditions__button--cancel" (click)="logout()">No Thanks</div>
+      </div>
 
     </div>
+
   </div>
 
 </div>

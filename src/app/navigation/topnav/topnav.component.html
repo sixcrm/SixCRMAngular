@@ -31,7 +31,6 @@
 
   <div class="topnav__items--expanded">
     <ng-container *ngIf="authService.activeAcl$ | async">
-
       <simple-dropdown
         class="topnav__acl__dropdown"
         [selectedOption]="authService.activeAcl$ | async"
