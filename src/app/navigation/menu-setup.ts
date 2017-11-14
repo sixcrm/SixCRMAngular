@@ -12,7 +12,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
     items.push(new MenuItem('Dashboard', 'dashboard').setIcon('view_quilt'));
   }
 
-  if (acl && acl.isOwnerOrMaster()) {
+  if (acl && acl.role.name !== 'Customer Service') {
     items.push(new MenuItem('State', 'state-machine').setIcon('view_quilt'));
   }
 

@@ -14,33 +14,27 @@ export class Permissions {
     this.deny = obj.deny || [];
   }
 
-  // This function can be more efficient, but is written like this to be as descriptive as possible.
   hasPermission(entity: string, operation: string): boolean {
     let allowed = this.getFromAllowed(entity);
 
-    // if entity is not in allowed list, user has no permissions on that entity
     if (!allowed) {
       return false;
     }
 
     let op = allowed.split('/')[1];
 
-    // if user has requested permission or user has all permissions
     if (operation === op || op === '*') {
       return true;
     }
 
-    // view is allowed if user has view, read, write or * (all) permissions
     if (operation === 'view' && (op === 'view' || op === 'read' || op === 'write' || op === '*')) {
       return true;
     }
 
-    // read is allowed if user has read, write or * (all) permissions
     if (operation === 'read' && (op === 'read' || op === 'write' || op === '*')) {
       return true;
     }
 
-    // write is allowed if user has write or * (all) permissions
     if (operation === 'write' && (op === 'write' || op === '*')) {
       return true;
     }
@@ -51,7 +45,7 @@ export class Permissions {
   private getFromAllowed(entity: string): string {
     let allowed = this.allow.filter(a => a.indexOf(entity + '/') !== -1);
 
-    return allowed[0] ? allowed[0] : '';
+    return allowed[0] ? allowed[0] : null;
   }
 
   inverse(): any {
