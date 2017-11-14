@@ -21,6 +21,7 @@ export class InviteAcceptComponent implements OnInit {
   welcomeScreen: boolean;
   infoScreen: boolean;
   completeScreen: boolean;
+  showAclInstructions: boolean;
 
   user: User;
 
@@ -70,6 +71,8 @@ export class InviteAcceptComponent implements OnInit {
     this.authService.activateUser(this.token, this.param).subscribe((user: User) =>{
       if (user) {
         this.user = user;
+
+        this.showAclInstructions = user.acls && user.acls.length > 1;
 
         if (this.user.firstName && this.user.lastName) {
           this.welcomeScreen = false;

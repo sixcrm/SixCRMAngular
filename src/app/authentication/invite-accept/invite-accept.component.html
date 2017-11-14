@@ -57,6 +57,8 @@
         Great!  We've added you to the account.
       </div>
 
+      <div *ngIf="showAclInstructions" class="registration-form__instructions"></div>
+
       <div class="registration-form__button accept-invite__button--standalone" (click)="complete()">Continue</div>
     </ng-container>
 
