@@ -5,9 +5,9 @@ import {AuthenticationService} from '../../authentication/authentication.service
 @Injectable()
 export class StateMachineAclGuard implements CanActivate {
 
-  constructor(private authService: AuthenticationService) { }
+  constructor() { }
 
   canActivate(): boolean {
-    return this.authService.getActiveAcl().isOwnerOrMaster();
+    return true;
   }
 }
