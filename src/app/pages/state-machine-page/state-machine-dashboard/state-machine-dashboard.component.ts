@@ -13,7 +13,6 @@ import {StateMachineItem} from "./state-machine-item";
 export class StateMachineDashboardComponent implements OnInit, OnDestroy {
 
   date: DateMap;
-  filterTerms: FilterTerm[];
 
   items: StateMachineItem[] = [
     {
@@ -90,16 +89,14 @@ export class StateMachineDashboardComponent implements OnInit, OnDestroy {
 
   fetchFunction() {
     this.prepareFetch();
-    this.filterTerms = [];
-    this.date = {start: utc(), end: utc()};
   }
 
   ngOnInit() {
 
     this.route.queryParams.takeUntil(this.unsubscribe$).subscribe(params => {
+      this.date = {start: utc().subtract(3, 'M'), end: utc()};
       this.fetchFunction();
     });
-
 
   }
 
@@ -123,5 +120,9 @@ export class StateMachineDashboardComponent implements OnInit, OnDestroy {
     if (selected && selected.length > 0) {
       this.selectedItem = selected[0];
     }
+  }
+
+  changeDate(map: DateMap): void {
+    this.date = {start: map.start.clone(), end: map.end.clone()};
   }
 }
