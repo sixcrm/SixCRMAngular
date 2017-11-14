@@ -1,3 +1,9 @@
-<div>
-  Live {{queueName}} Queue!
+<div class="state-machine-live__details">
+  <state-machine-details
+    [queue]="queue"
+    [timeseries]="timeseries"
+    [showPolling]="true"
+    [isPolling]="polling"
+    (togglePolling)="$event ? startPolling() : pausePolling()">
+  </state-machine-details>
 </div>

@@ -10,14 +10,14 @@
     <div class="schema__container">
       <div class="schema__column">
         <div class="schema__item"
-             [class.schema__item--focused]="items[0].selected"
-             (click)="select(items[0])"
-        >{{items[0].label}}</div>
+             [class.schema__item--focused]="queues[0].selected"
+             (click)="select(queues[0])"
+        >{{queues[0].label}}</div>
         <dotted-line></dotted-line>
         <div class="schema__item"
-             [class.schema__item--focused]="items[1].selected"
-             (click)="select(items[1])"
-        >{{items[1].label}}</div>
+             [class.schema__item--focused]="queues[1].selected"
+             (click)="select(queues[1])"
+        >{{queues[1].label}}</div>
         <angle-arrow></angle-arrow>
       </div>
 
@@ -26,13 +26,13 @@
       </div>
 
       <div class="schema__column">
-        <ng-container *ngFor="let item of items; let i = index;">
+        <ng-container *ngFor="let item of queues; let i = index;">
           <div *ngIf="item.schemaPosition === 'right'"
                class="schema__item"
                [class.schema__item--focused]="item.selected"
                (click)="select(item)"
           >{{item.label}}</div>
-          <arrow *ngIf="item.schemaPosition === 'right' && i + 1 < items.length"></arrow>
+          <arrow *ngIf="item.schemaPosition === 'right' && i + 1 < queues.length"></arrow>
 
         </ng-container>
       </div>

@@ -1,6 +1,6 @@
 <div class="schema-status-container">
-  <state-machine-schema [items]="items" (itemSelected)="select($event)"></state-machine-schema>
-  <state-machine-status [items]="items"></state-machine-status>
+  <state-machine-schema [queues]="queues" (queueSelected)="select($event)"></state-machine-schema>
+  <state-machine-status [queues]="queues"></state-machine-status>
 </div>
 
 <div class="filter-container">
@@ -13,4 +13,7 @@
   </advanced-filter>
 </div>
 
-<state-machine-details *ngIf="selectedItem" [item]="selectedItem"></state-machine-details>
+<state-machine-details
+  [queue]="selectedQueue"
+  [timeseries]="timeseries">
+</state-machine-details>

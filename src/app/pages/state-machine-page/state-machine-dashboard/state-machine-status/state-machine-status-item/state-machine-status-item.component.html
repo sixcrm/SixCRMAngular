@@ -1,29 +1,29 @@
 <div class="status-item__container">
   <div class="status-item__main"
-       [style.border-color]="item.state ? (item.state === 'a' ? 'green' : item.state === 'b' ? 'orange' : 'red') : 'gray'">
-    <div class="status-item__main__count">{{item.count}}</div>
-    <div class="status-item__main__label">{{item.label}}</div>
-    <div class="status-item__main__view-link" [routerLink]="[item.label.toLowerCase()]">VIEW</div>
+       [style.border-color]="queue.state ? (queue.state === 'a' ? 'green' : queue.state === 'b' ? 'orange' : 'red') : 'gray'">
+    <div class="status-item__main__count">{{queue.count}}</div>
+    <div class="status-item__main__label">{{queue.label}}</div>
+    <div class="status-item__main__view-link" [routerLink]="[queue.label.toLowerCase()]">VIEW</div>
   </div>
 
   <div class="status-item__additional">
     <div class="status-item__additional__box">
       <div class="status-item__additional__title">Avg. Time in Queue</div>
       <div class="arrow-container">
-        <div class="status-item__additional__value">{{item.avgTimeInSeconds | formatDuration}}</div>
+        <div class="status-item__additional__value">{{queue.avgTimeInSeconds | formatDuration}}</div>
         <div class="arrow"
-             [style.border-bottom-color]="item.state ? (item.state === 'a' ? 'green' : item.state === 'b' ? 'orange' : 'red') : 'gray'"
-             [style.transform]="item.state && (item.state === 'b' || item.state === 'c') ? 'rotate(180deg)' : 'rotate(0)'">
+             [style.border-bottom-color]="queue.state ? (queue.state === 'a' ? 'green' : queue.state === 'b' ? 'orange' : 'red') : 'gray'"
+             [style.transform]="queue.state && (queue.state === 'b' || queue.state === 'c') ? 'rotate(180deg)' : 'rotate(0)'">
         </div>
       </div>
     </div>
     <div class="status-item__additional__box status-item__additional__box--border">
       <div class="status-item__additional__title">Failure Rate</div>
       <div class="arrow-container">
-        <div class="status-item__additional__value">{{item.failureRate}}%</div>
+        <div class="status-item__additional__value">{{queue.failureRate}}%</div>
         <div class="arrow"
-             [style.border-bottom-color]="item.state ? (item.state === 'a' ? 'green' : item.state === 'b' ? 'orange' : 'red') : 'gray'"
-             [style.transform]="item.state && (item.state === 'b' || item.state === 'c') ? 'rotate(180deg)' : 'rotate(0)'">
+             [style.border-bottom-color]="queue.state ? (queue.state === 'a' ? 'green' : queue.state === 'b' ? 'orange' : 'red') : 'gray'"
+             [style.transform]="queue.state && (queue.state === 'b' || queue.state === 'c') ? 'rotate(180deg)' : 'rotate(0)'">
         </div>
       </div>
     </div>

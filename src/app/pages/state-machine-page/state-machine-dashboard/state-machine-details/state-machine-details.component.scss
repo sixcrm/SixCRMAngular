@@ -1,12 +1,13 @@
 .state-machine-details {
   &__container {
+    display: flex;
     padding: 25px;
     background: white;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
   }
 
   &__info {
-    max-width: 340px;
+    max-width: 300px;
 
     &__title {
       font-weight: 500;
@@ -68,6 +69,33 @@
       color: white;
       font-size: 14px;
       box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
+    }
+  }
+
+  &__timeseries {
+    margin-left: 15px;
+    width: calc(100% - 300px);
+  }
+
+  &__polling {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    md-icon {
+      margin-right: 8px;
+      border: 2px solid #F2751C;
+      border-radius: 50%;
+      height: 38px;
+      width: 38px;
+      color: #F2751C;
+      font-size: 38px;
+    }
+
+    span {
+      font-weight: 300;
+      font-size: 18px;
     }
   }
 }

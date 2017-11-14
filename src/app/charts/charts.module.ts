@@ -7,6 +7,7 @@ import {SharedModule} from '../shared/shared.module';
 import {MaterialModule} from '@angular/material';
 import {RouterModule} from '@angular/router';
 import {MerchantReportChartComponent} from './merchant-report-chart/merchant-report-chart.component';
+import { StateMachineDetailsChartComponent } from './state-machine-details-chart/state-machine-details-chart.component';
 
 export function hchartFactory() {
   return require('highcharts');
@@ -22,11 +23,13 @@ export function hchartFactory() {
   ],
   declarations: [
     TransactionSummaryChartComponent,
-    MerchantReportChartComponent
+    MerchantReportChartComponent,
+    StateMachineDetailsChartComponent
   ],
   exports: [
     TransactionSummaryChartComponent,
-    MerchantReportChartComponent
+    MerchantReportChartComponent,
+    StateMachineDetailsChartComponent
   ],
   providers: [{
     provide: HighchartsStatic,

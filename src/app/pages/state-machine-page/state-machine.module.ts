@@ -14,6 +14,8 @@ import { StateMachineStatusComponent } from './state-machine-dashboard/state-mac
 import { StateMachineStatusItemComponent } from './state-machine-dashboard/state-machine-status/state-machine-status-item/state-machine-status-item.component';
 import { StateMachineDetailsComponent } from './state-machine-dashboard/state-machine-details/state-machine-details.component';
 import { StateMachineLiveComponent } from './state-machine-live/state-machine-live.component';
+import {StateMachineService} from './state-machine.service';
+import {ChartsModule} from '../../charts/charts.module';
 
 @NgModule({
   imports: [
@@ -21,7 +23,8 @@ import { StateMachineLiveComponent } from './state-machine-live/state-machine-li
     stateMachineRouting,
     SharedModule,
     MaterialModule.forRoot(),
-    Daterangepicker
+    Daterangepicker,
+    ChartsModule
   ],
   declarations: [
     StateMachineDashboardComponent,
@@ -32,6 +35,6 @@ import { StateMachineLiveComponent } from './state-machine-live/state-machine-li
     StateMachineDetailsComponent,
     StateMachineLiveComponent
   ],
-  providers: [StateMachineAclGuard]
+  providers: [StateMachineAclGuard, StateMachineService]
 })
 export class StateMachineModule { }

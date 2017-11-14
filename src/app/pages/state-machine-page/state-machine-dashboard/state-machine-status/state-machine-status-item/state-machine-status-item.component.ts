@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {StateMachineItem} from "../../state-machine-item";
+import {StateMachineQueue} from '../../../../../shared/models/state-machine/state-machine-queue';
 
 @Component({
   selector: 'state-machine-status-item',
@@ -8,7 +8,7 @@ import {StateMachineItem} from "../../state-machine-item";
 })
 export class StateMachineStatusItemComponent implements OnInit {
 
-  @Input() item: StateMachineItem;
+  @Input() queue: StateMachineQueue;
 
   constructor() { }
 

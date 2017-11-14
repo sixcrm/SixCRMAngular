@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {StateMachineItem} from "../state-machine-item";
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {StateMachineTimeseries} from '../../../../shared/models/state-machine/state-machine-timeseries.model';
+import {StateMachineQueue} from '../../../../shared/models/state-machine/state-machine-queue';
 
 @Component({
   selector: 'state-machine-details',
@@ -8,7 +9,12 @@ import {StateMachineItem} from "../state-machine-item";
 })
 export class StateMachineDetailsComponent implements OnInit {
 
-  @Input() item: StateMachineItem;
+  @Input() queue: StateMachineQueue;
+  @Input() showPolling: boolean;
+  @Input() isPolling: boolean;
+  @Input() timeseries: StateMachineTimeseries[];
+
+  @Output() togglePolling: EventEmitter<boolean> = new EventEmitter();
 
   constructor() { }
 

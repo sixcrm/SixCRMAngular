@@ -1,41 +1,50 @@
 <div class="state-machine-details__container">
   <div class="state-machine-details__info">
     <div class="state-machine-details__info__count">
-      {{item.count}}
+      {{queue.count}}
     </div>
 
     <div class="state-machine-details__info__title">
-      Total Orders in {{item.label}} Queue
+      Total Orders in {{queue.label}} Queue
     </div>
 
     <div class="state-machine-details__info__details">
       <div class="state-machine-details__info__details__box">
-        <div class="item-title">Avg. Time in Queue</div>
+        <div class="queue-title">Avg. Time in Queue</div>
         <div class="value-container">
-          <div class="item-value">{{item.avgTimeInSeconds | formatDuration}}</div>
+          <div class="queue-value">{{queue.avgTimeInSeconds | formatDuration}}</div>
           <div class="arrow"
-               [style.border-bottom-color]="item.state ? (item.state === 'a' ? 'green' : item.state === 'b' ? 'orange' : 'red') : 'gray'"
-               [style.transform]="item.state && (item.state === 'b' || item.state === 'c') ? 'rotate(180deg)' : 'rotate(0)'">
+               [style.border-bottom-color]="queue.state ? (queue.state === 'a' ? 'green' : queue.state === 'b' ? 'orange' : 'red') : 'gray'"
+               [style.transform]="queue.state && (queue.state === 'b' || queue.state === 'c') ? 'rotate(180deg)' : 'rotate(0)'">
           </div>
         </div>
       </div>
 
       <div class="state-machine-details__info__details__box">
-        <div class="item-title">Failure Rate</div>
+        <div class="queue-title">Failure Rate</div>
         <div class="value-container">
-          <div class="item-value">{{item.failureRate}}%</div>
+          <div class="queue-value">{{queue.failureRate}}%</div>
           <div class="arrow"
-               [style.border-bottom-color]="item.state ? (item.state === 'a' ? 'green' : item.state === 'b' ? 'orange' : 'red') : 'gray'"
-               [style.transform]="item.state && (item.state === 'b' || item.state === 'c') ? 'rotate(180deg)' : 'rotate(0)'">
+               [style.border-bottom-color]="queue.state ? (queue.state === 'a' ? 'green' : queue.state === 'b' ? 'orange' : 'red') : 'gray'"
+               [style.transform]="queue.state && (queue.state === 'b' || queue.state === 'c') ? 'rotate(180deg)' : 'rotate(0)'">
           </div>
         </div>
       </div>
     </div>
 
     <div class="state-machine-details__info__description">
-      {{item.description}}
+      {{queue.description}}
     </div>
 
-    <div class="state-machine-details__info__view-live" [routerLink]="[item.label.toLowerCase()]">VIEW LIVE QUEUE</div>
+    <div class="state-machine-details__info__view-live" [routerLink]="[queue.label.toLowerCase()]">VIEW LIVE QUEUE</div>
+
+    <div *ngIf="showPolling" class="state-machine-details__polling" (click)="togglePolling.emit(!isPolling)">
+      <md-icon>{{isPolling ? 'pause' : 'play_arrow'}}</md-icon>
+      <span> {{isPolling ? 'PAUSE' : 'START'}} LIVE POLLING</span>
+    </div>
+  </div>
+
+  <div class="state-machine-details__timeseries">
+    <state-machine-details-chart [timeseries]="timeseries"></state-machine-details-chart>
   </div>
 </div>

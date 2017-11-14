@@ -1,4 +1,4 @@
-export interface StateMachineItem {
+export interface StateMachineQueue {
   label: string,
   count: number,
   avgTimeInSeconds: number,

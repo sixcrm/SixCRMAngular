@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {StateMachineItem} from "../state-machine-item";
+import {StateMachineQueue} from '../../../../shared/models/state-machine/state-machine-queue';
 
 @Component({
   selector: 'state-machine-schema',
@@ -8,16 +8,16 @@ import {StateMachineItem} from "../state-machine-item";
 })
 export class StateMachineSchemaComponent implements OnInit {
 
-  @Input() items: StateMachineItem[] = [];
-  @Output() itemSelected: EventEmitter<StateMachineItem> = new EventEmitter();
+  @Input() queues: StateMachineQueue[] = [];
+  @Output() queueSelected: EventEmitter<StateMachineQueue> = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  select(item: StateMachineItem) {
-    this.itemSelected.emit(item);
+  select(item: StateMachineQueue) {
+    this.queueSelected.emit(item);
   }
 
 }
