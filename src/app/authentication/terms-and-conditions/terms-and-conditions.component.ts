@@ -29,7 +29,7 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
   mapAcl = (acl: Acl) => acl.account.name;
 
   constructor(
-    private authService: AuthenticationService,
+    public authService: AuthenticationService,
     private userService: UsersService,
     private aclService: AclsService,
     private router: Router
