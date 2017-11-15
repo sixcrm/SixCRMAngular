@@ -27,7 +27,7 @@
 
     <div class="terms-and-conditions__content">
       <div class="terms-and-conditions__content__title">{{termsAndConditions.title}}</div>
-      <div class="terms-and-conditions__content__body">{{termsAndConditions.body}}</div>
+      <div class="terms-and-conditions__content__body" [innerHtml]="termsAndConditions.body | htmlSanitizer"></div>
     </div>
 
     <div class="terms-and-conditions__button" (click)="acceptTermsAndConditions()">Accept</div>

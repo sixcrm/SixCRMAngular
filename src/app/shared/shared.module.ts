@@ -72,6 +72,7 @@ import { TableLoaderComponent } from './components/table-loader/table-loader.com
 import { SpeLoaderComponent } from './components/spe-loader/spe-loader.component';
 import {TermsAndConditionsControllerService} from './services/terms-and-conditions-controller.service';
 import { FormatDurationPipe } from './pipes/format-duration.pipe';
+import { HtmlSanitizerPipe } from './pipes/html-sanitizer.pipe';
 
 @NgModule({
   declarations : [
@@ -105,7 +106,8 @@ import { FormatDurationPipe } from './pipes/format-duration.pipe';
     AlertComponent,
     TableLoaderComponent,
     SpeLoaderComponent,
-    FormatDurationPipe
+    FormatDurationPipe,
+    HtmlSanitizerPipe
   ],
   exports : [
     AutocompleteComponent,
@@ -136,7 +138,8 @@ import { FormatDurationPipe } from './pipes/format-duration.pipe';
     AlertComponent,
     TableLoaderComponent,
     SpeLoaderComponent,
-    FormatDurationPipe
+    FormatDurationPipe,
+    HtmlSanitizerPipe
   ],
   imports : [
     FormsModule,
