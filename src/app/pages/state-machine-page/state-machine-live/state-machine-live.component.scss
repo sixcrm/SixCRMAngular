@@ -1,3 +1,31 @@
-.state-machine-live__details {
-  padding: 15px;
+.state-machine-live {
+  &__breadcrumb {
+    display: flex;
+    align-items: center;
+    padding: 15px 50px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    font-size: 16px;
+
+    .root {
+      color: rgba(0,0,0,0.4);
+      cursor: pointer;
+    }
+
+    md-icon {
+      margin: 0 8px;
+      height: 22px;
+      width: 22px;
+      font-size: 22px;
+      color: rgba(0,0,0,0.6);
+    }
+
+    .queue {
+      text-transform: capitalize;
+      cursor: pointer;
+    }
+  }
+
+  &__details {
+    padding: 20px 25px;
+  }
 }

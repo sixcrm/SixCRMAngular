@@ -5,14 +5,14 @@
     </div>
 
     <div class="state-machine-details__info__title">
-      Total Orders in {{queue.label}} Queue
+      Total Orders in <span style="text-transform: capitalize">{{queue.label}}</span> Queue
     </div>
 
     <div class="state-machine-details__info__details">
       <div class="state-machine-details__info__details__box">
-        <div class="queue-title">Avg. Time in Queue</div>
+        <div class="item-title">Avg. Time in Queue</div>
         <div class="value-container">
-          <div class="queue-value">{{queue.avgTimeInSeconds | formatDuration}}</div>
+          <div class="item-value">{{queue.avgTimeInSeconds | formatDuration}}</div>
           <div class="arrow"
                [style.border-bottom-color]="queue.state ? (queue.state === 'a' ? 'green' : queue.state === 'b' ? 'orange' : 'red') : 'gray'"
                [style.transform]="queue.state && (queue.state === 'b' || queue.state === 'c') ? 'rotate(180deg)' : 'rotate(0)'">
@@ -21,9 +21,9 @@
       </div>
 
       <div class="state-machine-details__info__details__box">
-        <div class="queue-title">Failure Rate</div>
+        <div class="item-title">Failure Rate</div>
         <div class="value-container">
-          <div class="queue-value">{{queue.failureRate}}%</div>
+          <div class="item-value">{{queue.failureRate}}%</div>
           <div class="arrow"
                [style.border-bottom-color]="queue.state ? (queue.state === 'a' ? 'green' : queue.state === 'b' ? 'orange' : 'red') : 'gray'"
                [style.transform]="queue.state && (queue.state === 'b' || queue.state === 'c') ? 'rotate(180deg)' : 'rotate(0)'">
@@ -36,15 +36,31 @@
       {{queue.description}}
     </div>
 
-    <div class="state-machine-details__info__view-live" [routerLink]="[queue.label.toLowerCase()]">VIEW LIVE QUEUE</div>
-
-    <div *ngIf="showPolling" class="state-machine-details__polling" (click)="togglePolling.emit(!isPolling)">
-      <md-icon>{{isPolling ? 'pause' : 'play_arrow'}}</md-icon>
+    <div *ngIf="!standalone; else downstream" class="state-machine-details__info__button" [routerLink]="[queue.label.toLowerCase()]">VIEW LIVE QUEUE</div>
+    <ng-template #downstream>
+      <ng-container *ngIf="queue.downstreamQueues && queue.downstreamQueues.length > 0">
+        <div class="state-machine-details__info__downstream">
+          <div class="state-machine-details__info__downstream__text">DOWNSTREAM QUEUE</div>
+          <div *ngFor="let d of queue.downstreamQueues"
+               class="state-machine-details__info__button state-machine-details__info__button--downstream"
+               [routerLink]="['/state-machine', d.toLowerCase()]">
+            {{d}} QUEUE
+          </div>
+        </div>
+      </ng-container>
+    </ng-template>
+    <div *ngIf="standalone" class="state-machine-details__polling" (click)="togglePolling.emit(!isPolling)">
+      <md-icon>{{isPolling ? 'play_circle_outline' : 'pause_circle_outline'}}</md-icon>
       <span> {{isPolling ? 'PAUSE' : 'START'}} LIVE POLLING</span>
     </div>
   </div>
 
   <div class="state-machine-details__timeseries">
+    <advanced-filter
+      [date]="date"
+      [embedded]="true"
+      (dateChanged)="dateChanged.emit($event)">
+    </advanced-filter>
     <state-machine-details-chart [timeseries]="timeseries"></state-machine-details-chart>
   </div>
 </div>

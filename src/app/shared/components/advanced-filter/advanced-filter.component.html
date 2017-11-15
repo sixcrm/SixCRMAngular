@@ -1,6 +1,6 @@
-<div class="advanced-filter">
+<div class="advanced-filter" [class.advanced-filter--embedded]="embedded">
   <div class="advanced-filter__content">
-    <div class="advanced-filter__date" [class.advanced-filter__date--only]="onlyDates">
+    <div class="advanced-filter__date">
       <div class="advanced-filter__date__quick">
         <ng-container *ngFor="let df of dateFilters">
             <span class="advanced-filter__date__quick__item"
@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <ng-container *ngIf="!onlyDates">
+    <ng-container *ngIf="!embedded">
       <div *ngIf="groupByEnabled" class="advanced-filter__group-by">
         <dropdown-component [options]="groupByFilters" [selected]="groupBy" [placeholder]="'Group by'" (onSelect)="groupBy = $event"></dropdown-component>
       </div>
@@ -58,7 +58,7 @@
 
   </div>
 
-  <ng-container *ngIf="!onlyDates">
+  <ng-container *ngIf="!embedded">
     <div class="advanced-filter__advanced" [class.advanced-filter__advanced--inactive]="!advanced" [class.advanced-filter__advanced--overflow-visible]="visible">
       <div class="advanced-filter__advanced__row">
 

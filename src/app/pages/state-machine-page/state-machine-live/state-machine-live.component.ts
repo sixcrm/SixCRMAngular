@@ -6,6 +6,7 @@ import {StateMachineQueue} from '../../../shared/models/state-machine/state-mach
 import {NavigationService} from '../../../navigation/navigation.service';
 import {utc} from 'moment';
 import {StateMachineTimeseries} from '../../../shared/models/state-machine/state-machine-timeseries.model';
+import {DateMap} from '../../../shared/components/advanced-filter/advanced-filter.component';
 
 @Component({
   selector: 'state-machine-live',
@@ -13,6 +14,8 @@ import {StateMachineTimeseries} from '../../../shared/models/state-machine/state
   styleUrls: ['./state-machine-live.component.scss']
 })
 export class StateMachineLiveComponent implements OnInit, OnDestroy {
+
+  date: DateMap;
 
   queueName: string;
   queue: StateMachineQueue;
@@ -27,6 +30,8 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.date = {start: utc().subtract(3, 'M'), end: utc()};
+
     this.stateMachineService.queues$.takeUntil(this.unsubscribe$).subscribe(queues => {
 
       const filtered = queues.filter(q => q.label.toLowerCase() === this.queueName.toLowerCase());
@@ -58,7 +63,7 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
   }
 
   fetchTimeseries(): void {
-    this.stateMachineService.getTimeseries(this.queue.label, utc().subtract(3, 'M'), utc())
+    this.stateMachineService.getTimeseries(this.queue.label, this.date.start.clone(), this.date.end.clone())
   }
 
   startPolling(): void {
@@ -67,6 +72,11 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
 
   pausePolling(): void {
     this.polling = false;
+  }
+
+  changeDate(map: DateMap): void {
+    this.date = {start: map.start.clone(), end: map.end.clone()};
+    this.fetchTimeseries();
   }
 
   ngOnDestroy() {

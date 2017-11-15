@@ -13,7 +13,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   }
 
   if (acl && acl.role.name !== 'Customer Service') {
-    items.push(new MenuItem('State', 'state-machine').setIcon('view_quilt'));
+    items.push(new MenuItem('State', 'state-machine').setIcon('device_hub'));
   }
 
   // Add reports

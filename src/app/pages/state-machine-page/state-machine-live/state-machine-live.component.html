@@ -1,9 +1,17 @@
+<div class="state-machine-live__breadcrumb">
+  <div class="root" [routerLink]="['/state-machine']">State Machine</div>
+  <md-icon>keyboard_arrow_right</md-icon>
+  <div class="queue">{{queueName}} Queue</div>
+</div>
+
 <div class="state-machine-live__details">
   <state-machine-details
     [queue]="queue"
     [timeseries]="timeseries"
-    [showPolling]="true"
+    [standalone]="true"
     [isPolling]="polling"
+    [date]="date"
+    (dateChanged)="changeDate($event)"
     (togglePolling)="$event ? startPolling() : pausePolling()">
   </state-machine-details>
 </div>

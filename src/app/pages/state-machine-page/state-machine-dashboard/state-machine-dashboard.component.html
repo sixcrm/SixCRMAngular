@@ -3,17 +3,9 @@
   <state-machine-status [queues]="queues"></state-machine-status>
 </div>
 
-<div class="filter-container">
-  <advanced-filter
-    [date]="date"
-    [onlyDates]="true"
-    [refreshText]="'Refresh State Machine'"
-    [shareUrl]="''"
-    (dateChanged)="changeDate($event)">
-  </advanced-filter>
-</div>
-
 <state-machine-details
   [queue]="selectedQueue"
+  [date]="date"
+  (dateChanged)="changeDate($event)"
   [timeseries]="timeseries">
 </state-machine-details>

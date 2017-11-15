@@ -44,62 +44,68 @@ function generateTimeseries(start: Moment, end: Moment): StateMachineTimeseries[
 function generateQueues(): StateMachineQueue[] {
   return [
     {
-      label: 'RECOVER',
+      label: 'recover',
       count: 1200,
       schemaPosition: 'left',
       selected:false,
       avgTimeInSeconds: 30,
       failureRate: 14,
-      state: 'a'
+      state: 'a',
+      downstreamQueues: ['BILL', 'FAILED']
     },
     {
-      label: 'FAILED',
+      label: 'failed',
       count: 80,
       schemaPosition: 'left',
       selected:false,
       avgTimeInSeconds: 25,
       failureRate: 17,
-      state: 'a'
+      state: 'a',
+      downstreamQueues: ['PENDING']
     },
     {
-      label: 'BILL',
+      label: 'bill',
       count: 1134,
       schemaPosition: 'right',
       selected:true,
       avgTimeInSeconds: 26,
       failureRate: 15,
       state: 'b',
-      description: 'This section of the SIX state machine is the entry point for all of the orders coming into your SIX account.'
+      description: 'This section of the SIX state machine is the entry point for all of the orders coming into your SIX account.',
+      downstreamQueues: ['HOLD']
     },
     {
-      label: 'HOLD',
+      label: 'hold',
       count: 125,
       schemaPosition: 'right',
       selected:false,
       avgTimeInSeconds: 20,
       failureRate: 8,
-      state: 'a'
+      state: 'a',
+      downstreamQueues: ['PENDING']
     },
     {
-      label: 'PENDING',
+      label: 'pending',
       count: 5534,
       schemaPosition: 'right',
       selected:false,
       avgTimeInSeconds: 22,
       failureRate: 12,
-      state: 'c'
+      state: 'c',
+      downstreamQueues: ['SHIPPED']
     },
     {
-      label: 'SHIPPED',
+      label: 'shipped',
       count: 6135,
       schemaPosition: 'right',
       selected:false,
       avgTimeInSeconds: 15,
       failureRate: 18,
-      state: 'a'
+      state: 'a',
+      downstreamQueues: ['DELIVERED']
     },
     {
-      label: 'DELIVERED',
+      label: 'delivered',
       count: 7175,
       schemaPosition: 'right',
       selected:false,
