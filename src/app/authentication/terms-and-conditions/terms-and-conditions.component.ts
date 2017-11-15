@@ -25,6 +25,7 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
   activeAcl: Acl;
   activeUser: User;
   sub: Subscription;
+  updateMode: boolean;
 
   mapAcl = (acl: Acl) => acl.account.name;
 
@@ -48,7 +49,7 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
     this.activeAcl = this.authService.getActiveAcl().copy();
 
     if (this.activeUser.termsAndConditionsOutdated) {
-      this.fetchUser()
+      this.fetchUser();
     } else if (this.activeAcl.role.name === 'Owner' && this.activeAcl.termsAndConditionsOutdated) {
       this.fetchOwner();
     }

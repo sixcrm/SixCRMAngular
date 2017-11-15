@@ -1,39 +1,39 @@
 <div class="terms-and-conditions__container">
 
-  <div class="terms-and-conditions__modal">
+  <div class="terms-and-conditions__header">
+    <img class="terms-and-conditions__header__logo" src="/assets/images/logo-white-small.svg" alt="">
+    <img class="terms-and-conditions__header__cloud terms-and-conditions__header__cloud--one" src="/assets/images/cloud1.svg" alt="">
+    <img class="terms-and-conditions__header__cloud terms-and-conditions__header__cloud--two" src="/assets/images/cloud2.svg" alt="">
+    <img class="terms-and-conditions__header__cloud terms-and-conditions__header__cloud--three" src="/assets/images/cloud1.svg" alt="">
+    <img class="terms-and-conditions__header__cloud terms-and-conditions__header__cloud--four" src="/assets/images/cloud2.svg" alt="">
+  </div>
 
-    <div class="terms-and-conditions__header">
-      <img class="terms-and-conditions__header__logo" src="/assets/images/sixlogo-circles.svg" alt="">
-      <img class="terms-and-conditions__header__clouds" src="/assets/images/clouds.svg" alt="">
+  <simple-dropdown
+    *ngIf="(authService.activeAcl$ | async) && !(activeUser && activeUser.termsAndConditionsOutdated)"
+    class="terms-and-conditions__acl-dropdown"
+    [selectedOption]="authService.activeAcl$ | async"
+    [small]="true"
+    [options]="authService.getAcls()"
+    [mapper]="mapAcl"
+    [icon]="'domain'"
+    (optionSelected)="changeAcl($event)">
+  </simple-dropdown>
+
+  <div class="terms-and-conditions__body">
+
+    <div class="terms-and-conditions__title">
+      Please accept our Terms and Conditions to get started.
     </div>
 
-    <simple-dropdown
-      *ngIf="(authService.activeAcl$ | async) && !(activeUser && activeUser.termsAndConditionsOutdated)"
-      class="terms-and-conditions__acl-dropdown"
-      [selectedOption]="authService.activeAcl$ | async"
-      [options]="authService.getAcls()"
-      [mapper]="mapAcl"
-      [icon]="'domain'"
-      (optionSelected)="changeAcl($event)">
-    </simple-dropdown>
+    <div class="terms-and-conditions__content">
+      <div class="terms-and-conditions__content__title">{{termsAndConditions.title}}</div>
+      <div class="terms-and-conditions__content__body">{{termsAndConditions.body}}</div>
+    </div>
 
-    <div class="terms-and-conditions__body">
+    <div class="terms-and-conditions__button" (click)="acceptTermsAndConditions()">Accept</div>
 
-      <div class="terms-and-conditions__title">
-        Please accept our terms and conditions to get started.
-      </div>
-
-      <div class="terms-and-conditions__content">
-        <div class="terms-and-conditions__content__title">{{termsAndConditions.title}}</div>
-        <div class="terms-and-conditions__content__body">{{termsAndConditions.body}}</div>
-      </div>
-
-      <div class="terms-and-conditions__button" (click)="acceptTermsAndConditions()">Accept</div>
-
-      <div>
-        <div class="terms-and-conditions__button--cancel" (click)="logout()">No Thanks</div>
-      </div>
-
+    <div>
+      <div class="terms-and-conditions__button--cancel" (click)="logout()">Log out</div>
     </div>
 
   </div>
