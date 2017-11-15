@@ -126,4 +126,8 @@ export class InviteAcceptComponent implements OnInit {
       this.loginRequiredScreen = true;
     }
   }
+
+  logout(): void {
+    this.authService.logout();
+  }
 }

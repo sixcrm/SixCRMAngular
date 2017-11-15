@@ -1,5 +1,5 @@
 <div class="accept-invite">
-  <div class="registration-form accept-invite__form">
+  <div class="registration-form accept-invite__form" [class.accept-invite__form--instructions]="showAclInstructions && completeScreen">
     <div class="registration-form__header">
       <img class="registration-form__header__logo" src="/assets/images/sixlogo-circles.svg" alt="">
       <img class="registration-form__header__clouds" src="/assets/images/clouds.svg" alt="">
@@ -12,7 +12,7 @@
       </div>
 
       <div class="registration-form__button registration-form__button--no-margin accept-invite__button" (click)="goToLogin()">Log In</div>
-      <div class="registration-form__button--cancel" (click)="complete()">Log out</div>
+      <div class="registration-form__button--cancel" (click)="logout()">Log out</div>
     </ng-container>
 
     <ng-container *ngIf="welcomeScreen">
@@ -24,7 +24,7 @@
       </div>
 
       <div class="registration-form__button registration-form__button--no-margin accept-invite__button--small-margin" (click)="acceptInvite()">Accept</div>
-      <div class="registration-form__button--cancel" (click)="complete()">Log out</div>
+      <div class="registration-form__button--cancel" (click)="logout()">Log out</div>
     </ng-container>
 
     <ng-container *ngIf="infoScreen">
@@ -57,7 +57,32 @@
         Great!  We've added you to the account.
       </div>
 
-      <div *ngIf="showAclInstructions" class="registration-form__instructions"></div>
+      <div *ngIf="showAclInstructions" class="instructions">
+
+        <div class="instructions__header">
+          <div class="instructions__menu">
+            <div class="instructions__menu__item instructions__menu__first"><md-icon class="domain domain--blue">domain</md-icon><span>Big new LLC</span> <md-icon class="key">keyboard_arrow_left</md-icon></div>
+            <div class="instructions__menu__item"><md-icon class="domain domain--green">domain</md-icon><span>ABC Corp</span></div>
+            <div class="instructions__menu__item"><md-icon class="domain domain--orange">domain</md-icon><span>Bigger LLC</span></div>
+          </div>
+          <div class="instructions__profile">
+            <img src="" alt="">
+            <div>Hello, John Smith</div>
+            <md-icon class="key">keyboard_arrow_down</md-icon>
+          </div>
+          <div class="instructions__notifications">
+            <md-icon>chat</md-icon>
+            <div class="instructions__notifications__count">5</div>
+          </div>
+        </div>
+
+        <div class="instructions__content">
+          <div class="instructions__content__box">
+            <div class="point"></div>
+            Switching between this and your other SIX accounts is easy. Just click the account button in the upper right hand side of the SIX and select the account you wish to access.
+          </div>
+        </div>
+      </div>
 
       <div class="registration-form__button accept-invite__button--standalone" (click)="complete()">Continue</div>
     </ng-container>
