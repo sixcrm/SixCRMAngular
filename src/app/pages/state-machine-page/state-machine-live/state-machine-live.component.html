@@ -15,13 +15,17 @@
     (togglePolling)="$event ? startPolling() : pausePolling()">
   </state-machine-details>
 
-  <table-memory [title]="'Bill Queue Messages'"
-                [data]="messages"
-                [columnParams]="messageColumnParams"
-                [filterEnabled]="false"
-                [dissociationEnabled]="false"
-                [associationEnabled]="false"
-                [textOptions]="tableTextOptions"
-                (view)="viewMessage($event)">
-  </table-memory>
+  <div class="table-container">
+    <table-memory [title]="'Bill Queue Messages'"
+                  [data]="messages"
+                  [columnParams]="messageColumnParams"
+                  [filterEnabled]="false"
+                  [dissociationEnabled]="false"
+                  [associationEnabled]="false"
+                  [textOptions]="tableTextOptions"
+                  (view)="viewMessage($event)">
+    </table-memory>
+
+    <state-machine-message *ngIf="showMessage" [message]="messageToShow" (close)="hideMessage()"></state-machine-message>
+  </div>
 </div>

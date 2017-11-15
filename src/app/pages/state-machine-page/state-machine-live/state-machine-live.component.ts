@@ -37,6 +37,9 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
 
   tableTextOptions: TableMemoryTextOptions = {title: 'Queue Messages', viewOptionText: 'Show Messages'};
 
+  showMessage: boolean;
+  messageToShow: QueueMessage;
+
   constructor(
     private route: ActivatedRoute,
     public stateMachineService: StateMachineService,
@@ -63,8 +66,10 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
 
       if (filtered && filtered.length === 1) {
         this.queue = filtered[0];
-        this.fetchTimeseries();
         this.messages = [];
+        this.showMessage = false;
+        this.messageToShow = null;
+        this.fetchTimeseries();
         this.startPolling();
       } else {
         this.navigation.goToNotFoundPage();
@@ -130,7 +135,14 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
     this.fetchTimeseries();
   }
 
-  viewMessage(message: QueueMessage): void { }
+  viewMessage(message: QueueMessage): void {
+    this.messageToShow = message;
+    this.showMessage = true;
+  }
+
+  hideMessage(): void {
+    this.showMessage = false;
+  }
 
   ngOnDestroy() {
     this.unsubscribe$.next(true);

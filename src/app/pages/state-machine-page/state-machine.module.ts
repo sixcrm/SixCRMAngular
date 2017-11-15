@@ -17,6 +17,7 @@ import { StateMachineLiveComponent } from './state-machine-live/state-machine-li
 import {StateMachineService} from './state-machine.service';
 import {ChartsModule} from '../../charts/charts.module';
 import {PageComponentsModule} from '../components/pages-components.module';
+import { StateMachineMessageComponent } from './state-machine-live/state-machine-message/state-machine-message.component';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import {PageComponentsModule} from '../components/pages-components.module';
     AngleArrowComponent, StateMachineStatusComponent,
     StateMachineStatusItemComponent,
     StateMachineDetailsComponent,
-    StateMachineLiveComponent
+    StateMachineLiveComponent,
+    StateMachineMessageComponent
   ],
   providers: [StateMachineAclGuard, StateMachineService]
 })
