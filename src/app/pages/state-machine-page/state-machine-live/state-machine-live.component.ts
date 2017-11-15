@@ -7,6 +7,11 @@ import {NavigationService} from '../../../navigation/navigation.service';
 import {utc} from 'moment';
 import {StateMachineTimeseries} from '../../../shared/models/state-machine/state-machine-timeseries.model';
 import {DateMap} from '../../../shared/components/advanced-filter/advanced-filter.component';
+import {Subscription, Observable} from 'rxjs';
+import {ColumnParams} from '../../../shared/models/column-params.model';
+import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
+import {QueueMessage} from '../../../shared/models/state-machine/queue-message.model';
+import {AuthenticationService} from '../../../authentication/authentication.service';
 
 @Component({
   selector: 'state-machine-live',
@@ -20,16 +25,36 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
   queueName: string;
   queue: StateMachineQueue;
   timeseries: StateMachineTimeseries[];
-  polling: boolean = true;
+  polling: boolean;
+  pollingInterval: number = 5000;
+  intervalSub: Subscription;
+  fetchSub: Subscription;
+  messages: QueueMessage[] = [];
+
   private unsubscribe$: AsyncSubject<boolean> = new AsyncSubject();
+
+  messageColumnParams = [];
+
+  tableTextOptions: TableMemoryTextOptions = {title: 'Queue Messages', viewOptionText: 'Show Messages'};
 
   constructor(
     private route: ActivatedRoute,
     public stateMachineService: StateMachineService,
-    private navigation: NavigationService
+    private navigation: NavigationService,
+    private authService: AuthenticationService
   ) {}
 
   ngOnInit() {
+    let f = this.authService.getTimezone();
+
+    this.messageColumnParams = [
+      new ColumnParams('Transaction ID', (e: QueueMessage) => e.transactionId),
+      new ColumnParams('Created at', (e: QueueMessage) => e.createdAt.tz(f).format('MM/DD [at] h:mm:ss a')),
+      new ColumnParams('Faults', (e: QueueMessage) => e.faults),
+      new ColumnParams('Account ID', (e: QueueMessage) => e.accountId),
+      new ColumnParams('Merchant ID', (e: QueueMessage) => e.merchantId)
+    ];
+
     this.date = {start: utc().subtract(3, 'M'), end: utc()};
 
     this.stateMachineService.queues$.takeUntil(this.unsubscribe$).subscribe(queues => {
@@ -39,6 +64,8 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
       if (filtered && filtered.length === 1) {
         this.queue = filtered[0];
         this.fetchTimeseries();
+        this.messages = [];
+        this.startPolling();
       } else {
         this.navigation.goToNotFoundPage();
       }
@@ -66,18 +93,44 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
     this.stateMachineService.getTimeseries(this.queue.label, this.date.start.clone(), this.date.end.clone())
   }
 
+  fetchMessages(): void {
+    if (this.fetchSub) {
+      this.fetchSub.unsubscribe();
+    }
+
+    this.fetchSub = this.stateMachineService.getMessages(this.queueName).take(1).subscribe(data => {
+      this.messages = [...data, ...this.messages];
+    });
+  }
+
   startPolling(): void {
     this.polling = true;
+
+    if (this.intervalSub) {
+      this.intervalSub.unsubscribe();
+    }
+
+    this.fetchMessages();
+
+    this.intervalSub = Observable.interval(this.pollingInterval).takeUntil(this.unsubscribe$).subscribe(() => {
+      this.fetchMessages();
+    })
   }
 
   pausePolling(): void {
     this.polling = false;
+
+    if (this.intervalSub) {
+      this.intervalSub.unsubscribe();
+    }
   }
 
   changeDate(map: DateMap): void {
     this.date = {start: map.start.clone(), end: map.end.clone()};
     this.fetchTimeseries();
   }
+
+  viewMessage(message: QueueMessage): void { }
 
   ngOnDestroy() {
     this.unsubscribe$.next(true);

@@ -16,6 +16,7 @@ import { StateMachineDetailsComponent } from './state-machine-dashboard/state-ma
 import { StateMachineLiveComponent } from './state-machine-live/state-machine-live.component';
 import {StateMachineService} from './state-machine.service';
 import {ChartsModule} from '../../charts/charts.module';
+import {PageComponentsModule} from '../components/pages-components.module';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import {ChartsModule} from '../../charts/charts.module';
     SharedModule,
     MaterialModule.forRoot(),
     Daterangepicker,
-    ChartsModule
+    ChartsModule,
+    PageComponentsModule
   ],
   declarations: [
     StateMachineDashboardComponent,

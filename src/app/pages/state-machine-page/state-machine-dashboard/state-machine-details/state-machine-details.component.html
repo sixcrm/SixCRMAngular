@@ -50,7 +50,7 @@
       </ng-container>
     </ng-template>
     <div *ngIf="standalone" class="state-machine-details__polling" (click)="togglePolling.emit(!isPolling)">
-      <md-icon>{{isPolling ? 'play_circle_outline' : 'pause_circle_outline'}}</md-icon>
+      <md-icon>{{isPolling ? 'pause_circle_outline' : 'play_circle_outline'}}</md-icon>
       <span> {{isPolling ? 'PAUSE' : 'START'}} LIVE POLLING</span>
     </div>
   </div>

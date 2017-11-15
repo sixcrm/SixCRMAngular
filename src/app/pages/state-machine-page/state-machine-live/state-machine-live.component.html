@@ -14,4 +14,14 @@
     (dateChanged)="changeDate($event)"
     (togglePolling)="$event ? startPolling() : pausePolling()">
   </state-machine-details>
+
+  <table-memory [title]="'Bill Queue Messages'"
+                [data]="messages"
+                [columnParams]="messageColumnParams"
+                [filterEnabled]="false"
+                [dissociationEnabled]="false"
+                [associationEnabled]="false"
+                [textOptions]="tableTextOptions"
+                (view)="viewMessage($event)">
+  </table-memory>
 </div>

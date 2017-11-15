@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import {Moment} from 'moment';
 import {StateMachineTimeseries} from '../../shared/models/state-machine/state-machine-timeseries.model';
-import {Subject} from 'rxjs';
+import {Subject, Observable} from 'rxjs';
 import {StateMachineQueue} from '../../shared/models/state-machine/state-machine-queue';
+import {QueueMessage} from '../../shared/models/state-machine/queue-message.model';
+import {utc} from 'moment';
 
 @Injectable()
 export class StateMachineService {
@@ -12,13 +14,33 @@ export class StateMachineService {
 
   constructor() { }
 
-  getTimeseries(type: string, start: Moment, end: Moment): void {
+  getTimeseries(queue: string, start: Moment, end: Moment): void {
     this.timeseries$.next(generateTimeseries(start.clone(), end.clone()));
   }
 
   getQueues(): void {
     this.queues$.next(generateQueues());
   }
+
+  getMessages(queue: string): Observable<QueueMessage[]> {
+    return Observable.of(
+      [
+        generateMessage(queue),
+        generateMessage(queue)
+      ]
+    );
+  }
+}
+
+function generateMessage(queue: string): QueueMessage {
+  return new QueueMessage({
+    transaction_id: `T_ID_${Math.floor(Math.random() * 200) + 1000}`,
+    created_at: utc(),
+    faults: Math.floor(Math.random() * 3),
+    account_id: `ACC_ID_${Math.floor(Math.random() * 200)}`,
+    merchant_id: `MRCH_ID_${Math.floor(Math.random() * 200)}`,
+    message: `${queue} message ${Math.floor(Math.random() * 200)}`
+  })
 }
 
 function generateTimeseries(start: Moment, end: Moment): StateMachineTimeseries[] {
