@@ -306,6 +306,7 @@ export class AuthenticationService {
         user.picture = this.getUserPicture();
 
         this.updateSixUser(user);
+        this.updateActiveAcl(user);
 
         subject.next(new User(userData));
       }
