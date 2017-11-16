@@ -24,9 +24,9 @@ describe('Product Schedules', function() {
 
   it('should navigate to products page', () => {
     const sidenav = new SidenavPage();
-    sidenav.getLink(11).click();
+    sidenav.getLink(12).click();
     browser.sleep(500);
-    sidenav.getLink(13).click();
+    sidenav.getLink(14).click();
     waitForUrlContains('productschedules');
     expectUrlToContain('productschedules');
   });

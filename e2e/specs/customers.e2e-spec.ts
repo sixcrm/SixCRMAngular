@@ -23,7 +23,7 @@ describe('Customers', function() {
     login();
     waitForUrlContains('dashboard');
 
-    new SidenavPage().getLink(10).click();
+    new SidenavPage().getLink(11).click();
     browser.sleep(200);
     waitForUrlContains('customers');
   });

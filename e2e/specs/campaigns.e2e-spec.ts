@@ -21,9 +21,9 @@ describe('Campaigns', function() {
 
   it('should navigate to campaigns page', () => {
     const sidenav = new SidenavPage();
-    sidenav.getLink(11).click();
+    sidenav.getLink(12).click();
     browser.sleep(500);
-    sidenav.getLink(14).click();
+    sidenav.getLink(15).click();
     waitForUrlContains('campaigns');
     expectUrlToContain('campaigns');
   });

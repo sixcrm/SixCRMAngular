@@ -13,6 +13,7 @@
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
     "pree2e": "webdriver-manager update",
+    "e2e.smoke": "protractor --specs e2e/specs/app.e2e-spec.ts,e2e/specs/login.e2e-spec.ts,e2e/specs/navigation.e2e-spec.ts",
     "e2e.local": "protractor",
     "e2e.dev": "protractor --baseUrl='https://development-admin.sixcrm.com'",
     "e2e.stage": "protractor --baseUrl='https://staging-admin.sixcrm.com'",

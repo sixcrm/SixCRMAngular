@@ -91,7 +91,8 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
       if (this.activeAcl.role.name === 'Owner' && this.authService.getActiveAcl().termsAndConditionsOutdated) {
         this.fetchOwner();
       } else {
-        this.router.navigate(['/dashboard']);
+        const redirectRoute = this.authService.isActiveAclCustomerService() ? '/customer-service-dashboard' :'/dashboard';
+        this.router.navigate([redirectRoute]);
       }
     });
   }

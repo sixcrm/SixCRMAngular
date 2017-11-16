@@ -1,4 +1,4 @@
-import {waitForUrlContains, waitForPresenceOf} from '../utils/navigation.utils';
+import {waitForUrlContains} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
 import {SidenavPage} from '../po/sidenav.po';
 import {login} from '../utils/action.utils';
@@ -24,9 +24,9 @@ describe('Products', function() {
 
   it('should navigate to products page', () => {
     const sidenav = new SidenavPage();
-    sidenav.getLink(11).click();
-    browser.sleep(500);
     sidenav.getLink(12).click();
+    browser.sleep(500);
+    sidenav.getLink(13).click();
     waitForUrlContains('products');
     expectUrlToContain('products');
   });
