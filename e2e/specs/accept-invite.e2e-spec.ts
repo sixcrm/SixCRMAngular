@@ -91,7 +91,7 @@ describe('Accept Invite', function() {
     expect(errorPage.getTitle().getText()).toEqual('Strong Effort.')
   });
 
-  fit('should send proper invite for existing user', (doneCallback) => {
+  it('should send proper invite for existing user', (doneCallback) => {
 
     let jwt = createTestAuth0JWT('e2e-test-admin@sixcrm.com');
     let request = supertest(environment.bareEndpoint);
@@ -115,7 +115,7 @@ describe('Accept Invite', function() {
       });
   });
 
-  fit('should display message when logged in user opens proper invite link', () => {
+  it('should display message when logged in user opens proper invite link', () => {
     acceptInvitePage.getLoginButton().click();
 
     waitForPresenceOfLoginFields(authPage);
@@ -129,7 +129,7 @@ describe('Accept Invite', function() {
     expect(acceptInvitePage.getWelcomeInstructions().getText()).toEqual('Press "Accept" below to continue');
   });
 
-  fit('should accept invite and display welcome message message', () => {
+  it('should accept invite and display welcome message message', () => {
     browser.waitForAngularEnabled(false);
 
     acceptInvitePage.getAcceptButton().click();
@@ -139,7 +139,7 @@ describe('Accept Invite', function() {
     expect(acceptInvitePage.getWelcomeText().getText()).toContain(`Great! We've added you to the account.`);
   });
 
-  fit('should navigate to dashboard after invite accepted', () => {
+  it('should navigate to dashboard after invite accepted', () => {
     browser.waitForAngularEnabled(false);
 
     acceptInvitePage.getContinueButton().click();
@@ -150,7 +150,7 @@ describe('Accept Invite', function() {
     expectUrlToContain('dashboard');
   });
 
-  fit('should login as admin and open profile page', () => {
+  it('should login as admin and open profile page', () => {
     browser.waitForAngularEnabled(false);
     browser.driver.manage().window().setSize(1440, 900);
 
@@ -168,7 +168,7 @@ describe('Accept Invite', function() {
     expectUrlToContain('profile');
   });
 
-  fit('should open account page', () => {
+  it('should open account page', () => {
     browser.waitForAngularEnabled(false);
 
     profilePage.getAccountsTabButton().click();
@@ -179,13 +179,13 @@ describe('Accept Invite', function() {
     expectUrlToContain('/accounts/d3fa3bf3-7111-49f4-8261-87674482bf1c');
   });
 
-  fit('should have more than one user', () => {
+  it('should have more than one user', () => {
     browser.waitForAngularEnabled(false);
 
     expect(accountPage.getAssociatedUsers().count()).toBeGreaterThan(2);
   });
 
-  fit('should remove all except owner user', (doneFunction) => {
+  it('should remove all except owner user', (doneFunction) => {
     browser.waitForAngularEnabled(false);
 
     accountPage.getAssociatedUsers().count().then(count =>{
