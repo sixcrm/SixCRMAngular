@@ -34,6 +34,10 @@ export class AcceptInvitePage {
     return element(by.css('.accept-invite__button--small-margin'));
   }
 
+  getContinueButton() {
+    return element(by.css('.accept-invite__button--standalone'));
+  }
+
   getInputs() {
     return element.all(by.css('input'));
   }

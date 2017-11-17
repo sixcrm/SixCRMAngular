@@ -14,6 +14,14 @@ export class ProfilePage {
     return element.all(by.css('.entity-view__navigation__label')).get(1);
   }
 
+  getAccountsTabButton() {
+    return element.all(by.css('.entity-view__navigation__label')).get(2);
+  }
+
+  getFirstAccount() {
+    return element(by.css('td'));
+  }
+
   getSendTestNotificationButton() {
     return element.all(by.css('.card-outside-button')).first();
   }

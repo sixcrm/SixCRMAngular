@@ -3,8 +3,11 @@ import {expectUrlToContain} from './assertation.utils';
 import {waitForUrlContains, waitForPresenceOfLoginFields} from './navigation.utils';
 import {browser} from 'protractor';
 
-let username = 'nikola.bosic@toptal.com';
+let username = 'e2e-test-admin@sixcrm.com';
 let password = '123456789';
+
+let usernameU = 'e2e-test-user@sixcrm.com';
+let passwordU = '123456789';
 
 export function doLogin(authPage: AuthPage, email: string, password: string) {
   authPage.getEmailInput().sendKeys(email);
@@ -23,7 +26,7 @@ export function doRegister(authPage: AuthPage, email: string, password: string) 
   doLogin(authPage, email, password);
 }
 
-export function login() {
+export function login(user?: boolean) {
   let authPage = new AuthPage();
 
   authPage.navigateTo();
@@ -33,7 +36,7 @@ export function login() {
   browser.sleep(2000);
   browser.waitForAngularEnabled(false);
 
-  doLogin(authPage, username, password);
+  doLogin(authPage, user ? usernameU : username, user ? passwordU : password);
 
   // Wait for angular is disabled, so we need to tell protractor to wait for page to load
   waitForUrlContains('dashboard');

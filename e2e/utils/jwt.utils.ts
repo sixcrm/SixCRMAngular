@@ -74,6 +74,17 @@ export function getJwtContent(email: string): any {
         "iat": now
       };
 
+    case 'e2e-test-admin@sixcrm.com':
+      return {
+        "email": email,
+        "email_verified": false,
+        "iss": "https://sixcrm.auth0.com/",
+        "sub": "",
+        "aud": "",
+        "exp": (now + 3600),
+        "iat": now
+      };
+
     case 'unknown.user@test.com':
       return {
         "email": email,

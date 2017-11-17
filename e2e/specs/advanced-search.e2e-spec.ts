@@ -1,16 +1,12 @@
 import {AdvancedSearchPage} from '../po/advanced-search.po';
 import {
-  clearLocalStorage, waitForUrlContains,
-  waitForPresenceOfLoginFields
+  clearLocalStorage, waitForUrlContains
 } from '../utils/navigation.utils';
 import {expectUrlToContain} from '../utils/assertation.utils';
 import {browser} from 'protractor';
-import {doLogin} from '../utils/action.utils';
+import {login} from '../utils/action.utils';
 import {AuthPage} from '../po/auth.po';
 import {SearchPage} from '../po/search.po';
-
-let username = 'nikola.bosic@toptal.com';
-let password = '123456789';
 
 describe('Advanced search', function() {
 
@@ -25,8 +21,8 @@ describe('Advanced search', function() {
   });
 
   beforeAll(() => {
-    clearLocalStorage();
     login();
+    clearLocalStorage();
   });
 
   afterAll(() => {
@@ -249,21 +245,3 @@ describe('Advanced search', function() {
   });
 
 });
-
-function login() {
-  let authPage = new AuthPage();
-
-  authPage.navigateTo();
-
-  waitForPresenceOfLoginFields(authPage);
-
-  browser.sleep(2000);
-  browser.waitForAngularEnabled(false);
-
-  doLogin(authPage, username, password);
-
-  // Wait for angular is disabled, so we need to tell protractor to wait for page to load
-  waitForUrlContains('dashboard');
-
-  expectUrlToContain('/dashboard');
-}

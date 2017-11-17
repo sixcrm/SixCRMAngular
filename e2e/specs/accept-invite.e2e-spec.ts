@@ -1,14 +1,19 @@
 import {AuthPage} from '../po/auth.po';
 import {browser} from 'protractor';
 import {createTestAuth0JWT} from '../utils/jwt.utils';
-import {deleteUser} from '../utils/graph.utils';
+import {sendInvite} from '../utils/graph.utils';
 import {AcceptInvitePage} from '../po/accept-invite.po';
 import {
   waitForUrlContains, navigateSuperuserToHomepage, waitForPresenceOfLoginFields, clearLocalStorage
 } from '../utils/navigation.utils';
-import {doLogin} from '../utils/action.utils';
+import {doLogin, login} from '../utils/action.utils';
 import {sha1} from '@angular/compiler/src/i18n/digest';
 import {ErrorPage} from '../po/error-page.po';
+import {environment} from '../../src/environments/environment';
+import {expectUrlToContain} from '../utils/assertation.utils';
+import {TopnavPage} from '../po/topnav.po';
+import {ProfilePage} from '../po/profile.po';
+import {AccountPage} from '../po/account.po';
 
 var supertest = require('supertest');
 var crypto = require('crypto');
@@ -17,6 +22,9 @@ describe('Accept Invite', function() {
   let authPage: AuthPage;
   let acceptInvitePage: AcceptInvitePage;
   let errorPage: ErrorPage;
+  let profilePage: ProfilePage;
+  let topnavPage: TopnavPage;
+  let accountPage: AccountPage;
 
   let inviteeEmail = 'testingregistration@example.com';
   let inviteePassword = 'testingregistrationpassword';
@@ -26,19 +34,11 @@ describe('Accept Invite', function() {
     authPage = new AuthPage();
     acceptInvitePage = new AcceptInvitePage();
     errorPage = new ErrorPage();
+    profilePage = new ProfilePage();
+    topnavPage = new TopnavPage();
+    accountPage = new AccountPage();
+
     browser.waitForAngularEnabled(true);
-  });
-
-  afterEach((done) => {
-    clearLocalStorage();
-
-    let jwt = createTestAuth0JWT('super.user@test.com');
-    let request = supertest('https://development-api.sixcrm.com/');
-
-    request.post('graph/*')
-      .set('Authorization', jwt)
-      .send(deleteUser(inviteeEmail))
-      .end(() => done());
   });
 
   it('should display message with invitee\'s email if non logged in user tries to accept invite', () => {
@@ -89,6 +89,118 @@ describe('Accept Invite', function() {
     waitForUrlContains('404');
 
     expect(errorPage.getTitle().getText()).toEqual('Strong Effort.')
+  });
+
+  fit('should send proper invite for existing user', (doneCallback) => {
+
+    let jwt = createTestAuth0JWT('e2e-test-admin@sixcrm.com');
+    let request = supertest(environment.bareEndpoint);
+
+    request.post('graph/d3fa3bf3-7111-49f4-8261-87674482bf1c')
+      .set('Authorization', jwt)
+      .send(sendInvite())
+      .end((err, response) => {
+        let link = response.body.response.data.inviteuser.link;
+        const envUrl = environment.auth0RedirectUrl;
+
+        if (envUrl === 'http://localhost:4200') {
+          link = link.replace('https://development-admin.sixcrm.com', 'http://localhost:4200');
+        }
+
+        browser.get(link);
+        browser.sleep(1000);
+        expect(acceptInvitePage.getTitle().getText()).toContain('e2e-test-user@sixcrm.com');
+
+        doneCallback();
+      });
+  });
+
+  fit('should display message when logged in user opens proper invite link', () => {
+    acceptInvitePage.getLoginButton().click();
+
+    waitForPresenceOfLoginFields(authPage);
+    browser.waitForAngularEnabled(false);
+
+    doLogin(authPage, 'e2e-test-user@sixcrm.com', '123456789');
+    waitForUrlContains('acceptinvite');
+
+    browser.sleep(1000);
+    expect(acceptInvitePage.getWelcomeText().getText()).toContain(`Would you like to accept e2e-test-admin@sixcrm.com's invite to account "E2E Test Acc" with role "Administrator"?`);
+    expect(acceptInvitePage.getWelcomeInstructions().getText()).toEqual('Press "Accept" below to continue');
+  });
+
+  fit('should accept invite and display welcome message message', () => {
+    browser.waitForAngularEnabled(false);
+
+    acceptInvitePage.getAcceptButton().click();
+
+    browser.sleep(1000);
+
+    expect(acceptInvitePage.getWelcomeText().getText()).toContain(`Great! We've added you to the account.`);
+  });
+
+  fit('should navigate to dashboard after invite accepted', () => {
+    browser.waitForAngularEnabled(false);
+
+    acceptInvitePage.getContinueButton().click();
+
+    browser.sleep(1000);
+
+    waitForUrlContains('dashboard');
+    expectUrlToContain('dashboard');
+  });
+
+  fit('should login as admin and open profile page', () => {
+    browser.waitForAngularEnabled(false);
+    browser.driver.manage().window().setSize(1440, 900);
+
+    browser.get('/');
+    clearLocalStorage();
+    login();
+    waitForUrlContains('dashboard');
+    expectUrlToContain('dashboard');
+
+    topnavPage.getProfileMenuButton().click();
+    browser.sleep(200);
+
+    topnavPage.getUserSettingsMenuOption().click();
+    browser.sleep(200);
+    expectUrlToContain('profile');
+  });
+
+  fit('should open account page', () => {
+    browser.waitForAngularEnabled(false);
+
+    profilePage.getAccountsTabButton().click();
+    browser.sleep(600);
+    profilePage.getFirstAccount().click();
+    browser.sleep(600);
+    waitForUrlContains('/accounts/d3fa3bf3-7111-49f4-8261-87674482bf1c');
+    expectUrlToContain('/accounts/d3fa3bf3-7111-49f4-8261-87674482bf1c');
+  });
+
+  fit('should have more than one user', () => {
+    browser.waitForAngularEnabled(false);
+
+    expect(accountPage.getAssociatedUsers().count()).toBeGreaterThan(2);
+  });
+
+  fit('should remove all except owner user', (doneFunction) => {
+    browser.waitForAngularEnabled(false);
+
+    accountPage.getAssociatedUsers().count().then(count =>{
+      for (let i = 0; i < count - 2; i++) {
+        accountPage.getLastUserButton().click();
+        browser.sleep(200);
+        accountPage.getRemoveUserButton().click();
+        browser.sleep(200);
+        accountPage.getConfirmDeleteButton().click();
+        browser.sleep(2000);
+      }
+
+      expect(accountPage.getAssociatedUsers().count()).toBe(2);
+      doneFunction();
+    });
   });
 });
 
