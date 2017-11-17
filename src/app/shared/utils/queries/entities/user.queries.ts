@@ -68,7 +68,7 @@ export function registerUser(user: User): string {
 }
 
 export function updateUserForActivation(user: User): string {
-  if (!user.termsAndConditions) user.termsAndConditions = '0';
+  if (!user.termsAndConditions) user.termsAndConditions = '0.0';
 
   return `
     mutation {
