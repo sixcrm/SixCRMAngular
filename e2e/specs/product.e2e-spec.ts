@@ -1,4 +1,4 @@
-import {waitForUrlContains} from '../utils/navigation.utils';
+import {waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
 import {SidenavPage} from '../po/sidenav.po';
 import {login} from '../utils/action.utils';
@@ -18,6 +18,7 @@ describe('Products', function() {
   beforeAll(() => {
     browser.driver.manage().window().setSize(1440, 900);
 
+    clearLocalStorage();
     login();
     waitForUrlContains('dashboard');
   });

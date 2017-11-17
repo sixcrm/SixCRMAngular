@@ -16,6 +16,7 @@ describe('Navigation', function() {
   beforeAll(() => {
     browser.driver.manage().window().setSize(1440, 1440);
 
+    clearLocalStorage();
     login();
   });
 

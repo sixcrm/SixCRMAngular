@@ -25,6 +25,7 @@ describe('Advanced search', function() {
   });
 
   beforeAll(() => {
+    clearLocalStorage();
     login();
   });
 

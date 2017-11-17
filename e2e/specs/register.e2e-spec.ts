@@ -46,12 +46,13 @@ describe('Register', function() {
     waitForUrlContains('terms-and-conditions');
 
     expectUrlToContain('/terms-and-conditions');
-    expectPresent(termsAndConditionsPage.getModal());
+    expectPresent(termsAndConditionsPage.getContainer());
   });
 
   it('should redirect to /dashboard when accept user and owner terms and conditions', () => {
+    browser.sleep(2000);
     termsAndConditionsPage.getAcceptButton().click();
-    browser.sleep(3000);
+    browser.sleep(2000);
     termsAndConditionsPage.getAcceptButton().click();
 
     waitForUrlContains('dashboard');
@@ -81,7 +82,7 @@ describe('Register', function() {
 
   it('should render registration success', () => {
     registerPage.getContinueButton().click();
-    browser.sleep(2000);
+    browser.sleep(3000);
 
     expect(registerPage.getSuccessTitle().getText()).toContain('Your account is now active and you may begin exploring at your leisure.')
   });

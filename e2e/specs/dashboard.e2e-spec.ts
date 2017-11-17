@@ -5,7 +5,7 @@ import {
   expectUrlToContain, expectNotPresent, expectDefined, expectPresent,
 } from '../utils/assertation.utils';
 import {AppPage} from '../po/app.po';
-import {waitForNotPresenceOf, waitForUrlContains} from '../utils/navigation.utils';
+import {waitForNotPresenceOf, waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
 import {SidenavPage} from '../po/sidenav.po';
 
 describe('Dashboard', function() {
@@ -19,6 +19,7 @@ describe('Dashboard', function() {
 
   beforeAll(() => {
     browser.driver.manage().window().setSize(1440, 900);
+    clearLocalStorage();
   });
 
   it('should navigate to dashboard after login', () => {

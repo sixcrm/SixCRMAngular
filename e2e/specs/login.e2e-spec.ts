@@ -16,9 +16,7 @@ describe('Login', function() {
     authPage = new AuthPage();
     dashboardPage = new DashboardPage();
     browser.waitForAngularEnabled(true);
-  });
-
-  afterEach(() => {
+    browser.get('/');
     clearLocalStorage();
   });
 
@@ -90,7 +88,7 @@ describe('Login', function() {
     browser.sleep(600);
     dashboardPage.getCollapsedMenuItems().last().click();
 
-    browser.sleep(600);
+    browser.sleep(1000);
     expectPresent(authPage.getAuth0Lock());
   })
 });

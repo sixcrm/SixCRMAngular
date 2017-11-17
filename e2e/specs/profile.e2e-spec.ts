@@ -1,4 +1,4 @@
-import {waitForUrlContains} from '../utils/navigation.utils';
+import {waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
 import {ProfilePage} from '../po/profile.po';
 import {TopnavPage} from '../po/topnav.po';
 import {login} from '../utils/action.utils';
@@ -20,6 +20,7 @@ describe('App load', function() {
   beforeAll(() => {
     browser.driver.manage().window().setSize(1440, 900);
 
+    clearLocalStorage();
     login();
     waitForUrlContains('dashboard');
   });

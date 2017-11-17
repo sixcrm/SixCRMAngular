@@ -1,6 +1,9 @@
 import {EntityIndexPage} from '../po/entity-index.po';
 import {login} from '../utils/action.utils';
-import {waitForUrlContains, waitForNotPresenceOf, waitForPresenceOf} from '../utils/navigation.utils';
+import {
+  waitForUrlContains, waitForNotPresenceOf, waitForPresenceOf,
+  clearLocalStorage
+} from '../utils/navigation.utils';
 import {expectDefined, expectUrlToContain} from '../utils/assertation.utils';
 import {SidenavPage} from '../po/sidenav.po';
 import {browser} from 'protractor';
@@ -20,9 +23,12 @@ describe('Customers', function() {
   beforeAll(() => {
     browser.driver.manage().window().setSize(1440, 900);
 
+    clearLocalStorage();
     login();
     waitForUrlContains('dashboard');
+  });
 
+  it('should navigate to customers index page', () => {
     new SidenavPage().getLink(11).click();
     browser.sleep(200);
     waitForUrlContains('customers');

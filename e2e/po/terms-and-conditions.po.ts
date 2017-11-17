@@ -7,10 +7,10 @@ export class TermsAndConditionsPage {
   }
 
   getAcceptButton() {
-    return element(by.css('.registration-form__button'));
+    return element(by.css('.terms-and-conditions__button'));
   }
 
-  getModal() {
+  getContainer() {
     return element(by.css('.terms-and-conditions__container'));
   }
 }
