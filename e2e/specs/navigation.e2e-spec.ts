@@ -28,7 +28,7 @@ describe('Navigation', function() {
     sidenav.get();
     waitForUrlContains('/dashboard');
 
-    browser.sleep(100);
+    browser.sleep(500);
     expect(sidenav.getItems().count()).toBe(37);
   });
 
