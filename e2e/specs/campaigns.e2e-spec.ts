@@ -6,7 +6,7 @@ import {browser} from 'protractor';
 import {expectUrlToContain, expectDefined} from '../utils/assertation.utils';
 import {CampaignPage} from '../po/campaign.po';
 
-fdescribe('Campaigns', function() {
+describe('Campaigns', function() {
   let page: EntityIndexPage;
   let campaignPage: CampaignPage;
 
