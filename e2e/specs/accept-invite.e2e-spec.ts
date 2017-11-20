@@ -145,6 +145,10 @@ describe('Accept Invite', function() {
     expect(acceptInvitePage.getWelcomeText().getText()).toContain(`Great! We've added you to the account.`);
   });
 
+  it('should show acl switch graphics', () => {
+    expect(acceptInvitePage.getAclSwitchGraphics().isPresent()).toBeTruthy();
+  });
+
   it('should navigate to dashboard after invite accepted', () => {
     browser.waitForAngularEnabled(false);
 
@@ -212,6 +216,10 @@ describe('Accept Invite', function() {
     browser.sleep(1000);
 
     expect(acceptInvitePage.getWelcomeText().getText()).toContain(`Great! We've added you to the account.`);
+  });
+
+  it('should not show acl switch graphics', () => {
+    expect(acceptInvitePage.getAclSwitchGraphics().isPresent()).toBeFalsy();
   });
 
   it('should navigate to terms and conditions', () => {

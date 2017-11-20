@@ -42,6 +42,10 @@ export class AcceptInvitePage {
     return element.all(by.css('input'));
   }
 
+  getAclSwitchGraphics() {
+    return element(by.css('.instructions'));
+  }
+
   getErrorHints() {
     return element.all(by.css('md-hint'));
   }
