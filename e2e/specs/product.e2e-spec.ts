@@ -18,6 +18,7 @@ describe('Products', function() {
   beforeAll(() => {
     browser.driver.manage().window().setSize(1440, 900);
 
+    browser.get('/');
     clearLocalStorage();
     login();
     waitForUrlContains('dashboard');

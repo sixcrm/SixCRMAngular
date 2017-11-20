@@ -19,12 +19,12 @@ describe('Dashboard', function() {
 
   beforeAll(() => {
     browser.driver.manage().window().setSize(1440, 900);
+    browser.get('/');
     clearLocalStorage();
+    login();
   });
 
   it('should navigate to dashboard after login', () => {
-    login();
-
     expectUrlToContain('dashboard');
   });
 

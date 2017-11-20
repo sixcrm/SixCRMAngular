@@ -21,8 +21,9 @@ describe('Advanced search', function() {
   });
 
   beforeAll(() => {
-    login();
+    browser.get('/');
     clearLocalStorage();
+    login();
   });
 
   afterAll(() => {

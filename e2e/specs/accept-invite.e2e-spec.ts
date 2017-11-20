@@ -6,7 +6,7 @@ import {AcceptInvitePage} from '../po/accept-invite.po';
 import {
   waitForUrlContains, navigateSuperuserToHomepage, waitForPresenceOfLoginFields, clearLocalStorage
 } from '../utils/navigation.utils';
-import {doLogin, login, doRegister, doSignUp} from '../utils/action.utils';
+import {doLogin, login, doSignUp} from '../utils/action.utils';
 import {sha1} from '@angular/compiler/src/i18n/digest';
 import {ErrorPage} from '../po/error-page.po';
 import {environment} from '../../src/environments/environment';
