@@ -10,6 +10,10 @@ export class EntityViewPage {
     return element(by.css('.entity-view__info__data__name')).element(by.css('span'));
   }
 
+  getEntityNameHeaderSolo() {
+    return element(by.css('.entity-view__info__data__name'));
+  }
+
   getEntityNameFormHeader() {
     return element(by.css('.entity-view__info__data__name')).element(by.css('input'));
   }
@@ -60,5 +64,9 @@ export class EntityViewPage {
 
   getAssociateButton() {
     return element.all(by.css('.custom-dialog__buttons')).all(by.css('div')).last();
+  }
+
+  getTabLabels() {
+    return element.all(by.css('.entity-view__navigation__label'));
   }
 }

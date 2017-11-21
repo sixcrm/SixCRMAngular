@@ -18,4 +18,16 @@ export class EntityIndexPage {
     return element.all(by.css('th'));
   }
 
+  getTableRows() {
+    return element(by.css('tbody')).all(by.css('tr'));
+  }
+
+  getTableRow(row: number) {
+    return element(by.css('tbody')).all(by.css('tr')).get(row);
+  }
+
+  getCell(row: number, cell: number) {
+    return this.getTableRow(row).all(by.css('td')).get(cell);
+  }
+
 }
