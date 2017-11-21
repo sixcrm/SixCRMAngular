@@ -30,16 +30,16 @@ deployment:
     commands:
       - node libs/deployment_scripts/src/versioning.js
       - ./libs/deployment_scripts/src/build-angular.sh
-      - node libs/deployment_scripts/src/deploy-s3.js admin.sixcrm.com deployment/deploy-config.json
-      - node libs/deployment_scripts/src/deploy-cloudfront.js admin.sixcrm.com deployment/deploy-config.json
+      - node libs/deployment_scripts/src/deploy-s3.js deployment/deploy-config.json
+      - node libs/deployment_scripts/src/deploy-cloudfront.js deployment/deploy-config.json
 
   staging:
     branch: staging
     commands:
       - node libs/deployment_scripts/src/versioning.js
       - ./libs/deployment_scripts/src/build-angular.sh
-      - node libs/deployment_scripts/src/deploy-s3.js admin.sixcrm.com deployment/deploy-config.json
-      - node libs/deployment_scripts/src/deploy-cloudfront.js admin.sixcrm.com deployment/deploy-config.json
+      - node libs/deployment_scripts/src/deploy-s3.js deployment/deploy-config.json
+      - node libs/deployment_scripts/src/deploy-cloudfront.js deployment/deploy-config.json
 
       - npm run webdriver-update
       - npm run e2e.stage
@@ -56,10 +56,10 @@ deployment:
       - ./libs/deployment_scripts/src/build-angular.sh
 
       # Deploy App to S3
-      - node libs/deployment_scripts/src/deploy-s3.js admin.sixcrm.com deployment/deploy-config.json
+      - node libs/deployment_scripts/src/deploy-s3.js deployment/deploy-config.json
 
       # Add/Update CloudFront Distribution
-      - node libs/deployment_scripts/src/deploy-cloudfront.js admin.sixcrm.com deployment/deploy-config.json
+      - node libs/deployment_scripts/src/deploy-cloudfront.js deployment/deploy-config.json
 
       # Run e2e tests before propagation
       - npm run webdriver-update
