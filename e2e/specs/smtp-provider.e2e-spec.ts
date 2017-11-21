@@ -3,19 +3,19 @@ import {EntityIndexPage} from '../po/entity-index.po';
 import {SidenavPage} from '../po/sidenav.po';
 import {login} from '../utils/action.utils';
 import {browser} from 'protractor';
-import {expectUrlToContain, expectDefined, expectPresent} from '../utils/assertation.utils';
+import {expectUrlToContain, expectDefined, expectNotPresent, expectPresent} from '../utils/assertation.utils';
 import {EntityViewPage} from '../po/entity-view.po';
-import {FulfillmentProviderPage} from '../po/fullfilment-provider.po';
+import {SmtpProviderPage} from '../po/smtp-provider.po';
 
-describe('Fulfillment Provider', function() {
+describe('SMTP Provider', function() {
   let page: EntityIndexPage;
   let view: EntityViewPage;
-  let fulfillmentView: FulfillmentProviderPage;
+  let smtpPage: SmtpProviderPage;
 
   beforeEach(() => {
     page = new EntityIndexPage();
     view = new EntityViewPage();
-    fulfillmentView = new FulfillmentProviderPage();
+    smtpPage = new SmtpProviderPage();
   });
 
   beforeAll(() => {
@@ -33,9 +33,9 @@ describe('Fulfillment Provider', function() {
     browser.sleep(500);
     sidenav.getLink(22).click();
     browser.sleep(500);
-    sidenav.getLink(23).click();
-    waitForUrlContains('fulfillmentproviders');
-    expectUrlToContain('fulfillmentproviders');
+    sidenav.getLink(24).click();
+    waitForUrlContains('smtpproviders');
+    expectUrlToContain('smtpproviders');
   });
 
   it('should render providers index component', () => {
@@ -43,7 +43,7 @@ describe('Fulfillment Provider', function() {
   });
 
   it('should render providers index title', () => {
-    expect(page.getTitle().getText()).toContain('Fulfillment Provider')
+    expect(page.getTitle().getText()).toContain('SMTP Providers')
   });
 
   it('should render providers index add button', () => {
@@ -51,10 +51,11 @@ describe('Fulfillment Provider', function() {
   });
 
   it('should render providers index table headers', () => {
-    expect(page.getTableHeaders().get(0).getText()).toEqual('Provider');
-    expect(page.getTableHeaders().get(1).getText()).toEqual('Name');
-    expect(page.getTableHeaders().get(2).getText()).toEqual('Username');
-    expect(page.getTableHeaders().get(3).getText()).toEqual('Password');
+    expect(page.getTableHeaders().get(0).getText()).toEqual('Name');
+    expect(page.getTableHeaders().get(1).getText()).toEqual('From Name');
+    expect(page.getTableHeaders().get(2).getText()).toEqual('From Email');
+    expect(page.getTableHeaders().get(3).getText()).toEqual('Hostname');
+    expect(page.getTableHeaders().get(4).getText()).toEqual('Username');
   });
 
   it('should render add modal when add button is clicked', () => {
@@ -71,15 +72,12 @@ describe('Fulfillment Provider', function() {
 
   it('should remove error when proper name is entered', () => {
     view.getAddNewModalInputs().get(0).sendKeys('e2e test provider');
-    view.getAddNewModalInputs().get(1).sendKeys('e2e username');
-    view.getAddNewModalInputs().get(2).sendKeys('e2epassword');
-    view.getAddNewModalInputs().get(3).sendKeys('e2ethrepl');
-    view.getAddNewModalInputs().get(4).sendKeys('e2efacility');
-    view.getAddNewModalInputs().get(5).sendKeys('e2ethrepplid');
-    view.getAddNewModalInputs().get(6).sendKeys('e2ecustomer');
-
-    view.getAddNewModalTextarea().click();
-    view.getAddNewModalTextarea().sendKeys('some address');
+    view.getAddNewModalInputs().get(1).sendKeys('e2efromname');
+    view.getAddNewModalInputs().get(2).sendKeys('e2efromemail');
+    view.getAddNewModalInputs().get(3).sendKeys('e2ehost');
+    view.getAddNewModalInputs().get(4).sendKeys('e2eusername');
+    view.getAddNewModalInputs().get(5).sendKeys('e2epassword');
+    view.getAddNewModalInputs().get(6).sendKeys('e2eport');
 
     expect(view.getAddNewModalErrorInputs().count()).toBe(0);
   });
@@ -87,8 +85,8 @@ describe('Fulfillment Provider', function() {
   it('should save provider and open it', () => {
     view.getAddNewModalSave().click();
 
-    waitForUrlContains('fulfillmentproviders/');
-    expectUrlToContain('fulfillmentproviders/');
+    waitForUrlContains('smtpproviders/');
+    expectUrlToContain('smtpproviders/');
   });
 
   it('should render provider name correctly', () => {
@@ -97,7 +95,7 @@ describe('Fulfillment Provider', function() {
   });
 
   it('should render correct number of tab labels', () => {
-    expect(view.getTabLabels().count()).toEqual(2);
+    expect(view.getTabLabels().count()).toEqual(3);
   });
 
   it('should update provider name', () => {
@@ -110,15 +108,24 @@ describe('Fulfillment Provider', function() {
     expect(view.getEntityNameHeaderSolo().getText()).toEqual('e2e test provider updated');
   });
 
-  it('should validate provider', () => {
-    view.getTabLabels().get(1).click();
+  it('should not validate provider if email is not provided', () => {
+    view.getTabLabels().get(2).click();
     browser.sleep(1000);
     view.getAddNewModalSave().click();
-    browser.sleep(2000);
+
+    expect(smtpPage.getInputValidationErrorMessage().getText()).toEqual('Please enter a valid email address')
   });
 
-  it('should show copy icon', () => {
-    expectPresent(fulfillmentView.getCopyIcon());
-  })
+  it('should remove error when email is provided', () => {
+    smtpPage.getEmailInput().sendKeys('test-validation-address@sixcrm.com');
 
+    expectNotPresent(smtpPage.getInputValidationErrorMessage());
+  });
+
+  it('should validate provider', () => {
+    view.getAddNewModalSave().click();
+    browser.sleep(2000);
+
+    expectPresent(smtpPage.getCopyIcon());
+  })
 });
