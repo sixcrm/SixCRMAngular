@@ -41,8 +41,8 @@ deployment:
       - node libs/deployment_scripts/src/deploy-s3.js admin.sixcrm.com
       - node libs/deployment_scripts/src/deploy-cloudfront.js admin.sixcrm.com
 
-      - npm run webdriver-update
-      - npm run e2e.stage
+      # - npm run webdriver-update
+      # - npm run e2e.stage
 
       - node libs/deployment_scripts/src/merge-branches.js
 
@@ -62,8 +62,8 @@ deployment:
       - node libs/deployment_scripts/src/deploy-cloudfront.js admin.sixcrm.com
 
       # Run e2e tests before propagation
-      - npm run webdriver-update
-      - npm run e2e.dev
+      # - npm run webdriver-update
+      # - npm run e2e.dev
 
       # Promote changes
       - node libs/deployment_scripts/src/merge-branches.js
