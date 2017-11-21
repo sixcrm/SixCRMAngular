@@ -30,21 +30,21 @@ deployment:
     commands:
       - node libs/deployment_scripts/src/versioning.js
       - ./libs/deployment_scripts/src/build.sh
-      - node libs/deployment_scripts/src/deploy-s3.js admin.sixcrm.com
-      - node libs/deployment_scripts/src/deploy-cloudfront.js admin.sixcrm.com
+      - node libs/deployment_scripts/src/deploy-s3.js admin.sixcrm.com deployment/deploy-config.json
+      - node libs/deployment_scripts/src/deploy-cloudfront.js admin.sixcrm.com deployment/deploy-config.json
 
   staging:
     branch: staging
     commands:
       - node libs/deployment_scripts/src/versioning.js
       - ./libs/deployment_scripts/src/build.sh
-      - node libs/deployment_scripts/src/deploy-s3.js admin.sixcrm.com
-      - node libs/deployment_scripts/src/deploy-cloudfront.js admin.sixcrm.com
+      - node libs/deployment_scripts/src/deploy-s3.js admin.sixcrm.com deployment/deploy-config.json
+      - node libs/deployment_scripts/src/deploy-cloudfront.js admin.sixcrm.com deployment/deploy-config.json
 
       - npm run webdriver-update
       - npm run e2e.stage
 
-      - node libs/deployment_scripts/src/merge-branches.js
+      - node libs/deployment_scripts/src/merge-branches.js deployment/deploy-config.json
 
   development:
     branch: development
@@ -56,14 +56,14 @@ deployment:
       - ./libs/deployment_scripts/src/build.sh
 
       # Deploy App to S3
-      - node libs/deployment_scripts/src/deploy-s3.js admin.sixcrm.com
+      - node libs/deployment_scripts/src/deploy-s3.js admin.sixcrm.com deployment/deploy-config.json
 
       # Add/Update CloudFront Distribution
-      - node libs/deployment_scripts/src/deploy-cloudfront.js admin.sixcrm.com
+      - node libs/deployment_scripts/src/deploy-cloudfront.js admin.sixcrm.com deployment/deploy-config.json
 
       # Run e2e tests before propagation
       - npm run webdriver-update
       - npm run e2e.dev
 
       # Promote changes
-      - node libs/deployment_scripts/src/merge-branches.js
+      - node libs/deployment_scripts/src/merge-branches.js deployment/deploy-config.json
