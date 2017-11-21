@@ -30,8 +30,24 @@ export class EntityViewPage {
     return element(by.css('.modal-center')).all(by.css('input'));
   }
 
+  getAddNewModalTextarea() {
+    return element(by.css('.modal-center')).element(by.css('.md-input-element-textarea'));
+  }
+
+  getAddNewModalDropdowns() {
+    return element(by.css('.modal-center')).all(by.css('.dropdown-component'));
+  }
+
+  getAddNewModalDropdownOptions(dropdown: number, option: number) {
+    return element(by.css('.modal-center')).all(by.css('.dropdown-component')).get(dropdown).all(by.css('.dropdown-component__options__item')).get(option);
+  }
+
   getAddNewModalInvalidInputs() {
     return element.all(by.css('.ng-invalid'));
+  }
+
+  getAddNewModalErrorInputs() {
+    return element.all(by.css('.error'));
   }
 
   getAddNewModalSave() {
@@ -68,5 +84,13 @@ export class EntityViewPage {
 
   getTabLabels() {
     return element.all(by.css('.entity-view__navigation__label'));
+  }
+
+  getFirstCardMenuButton() {
+    return element(by.css('.entity-view__card__header')).element(by.css('md-icon'))
+  }
+
+  gitFirstCardInputs() {
+    return element(by.css('.entity-view__card')).all(by.css('input'))
   }
 }
