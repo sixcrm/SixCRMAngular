@@ -23,12 +23,7 @@ export class StateMachineService {
   }
 
   getMessages(queue: string): Observable<QueueMessage[]> {
-    return Observable.of(
-      [
-        generateMessage(queue),
-        generateMessage(queue)
-      ]
-    );
+    return Observable.of([]);
   }
 }
 
