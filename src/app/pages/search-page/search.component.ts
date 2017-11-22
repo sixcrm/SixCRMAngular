@@ -90,7 +90,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     private daterangepickerOptions: DaterangepickerConfig,
     private navigationService: NavigationService
   ) {
-    this.startDate = utc().subtract(30,'d');
+    this.startDate = utc().subtract(6,'M');
     this.endDate = utc();
 
     this.setDatepickerOptions();
@@ -164,7 +164,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   parseShareParams(params): void {
-    this.startDate = params['startDate'] ? utc(params['startDate']) : utc().subtract(30,'d');
+    this.startDate = params['startDate'] ? utc(params['startDate']) : utc().subtract(6,'M');
     this.endDate = params['endDate'] ? utc(params['endDate']) : utc();
     this.createdAtRange = `['${this.startDate.format()}', '${this.endDate.format()}']`;
     this.page = +params['page'] || 0;
