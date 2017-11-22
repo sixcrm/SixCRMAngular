@@ -12,6 +12,7 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {QueueMessage} from '../../../shared/models/state-machine/queue-message.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
+import {firstIndexOf} from '../../../shared/utils/array.utils';
 
 @Component({
   selector: 'state-machine-live',
@@ -26,7 +27,7 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
   queue: StateMachineQueue;
   timeseries: StateMachineTimeseries[];
   polling: boolean;
-  pollingInterval: number = 5000;
+  pollingInterval: number = 60000;
   intervalSub: Subscription;
   fetchSub: Subscription;
   messages: QueueMessage[] = [];
@@ -104,7 +105,13 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
     }
 
     this.fetchSub = this.stateMachineService.getMessages(this.queueName).take(1).subscribe(data => {
-      this.messages = [...data, ...this.messages];
+      data.forEach(m => {
+        if (firstIndexOf(this.messages, (e) => e.id === m.id) === -1) {
+          this.messages.push(m);
+        }
+      });
+
+      this.messages = this.messages.slice();
     });
   }
 

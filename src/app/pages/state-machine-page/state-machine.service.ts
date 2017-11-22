@@ -5,6 +5,12 @@ import {Subject, Observable} from 'rxjs';
 import {StateMachineQueue} from '../../shared/models/state-machine/state-machine-queue';
 import {QueueMessage} from '../../shared/models/state-machine/queue-message.model';
 import {utc} from 'moment';
+import {AuthenticationService} from '../../authentication/authentication.service';
+import {RequestBehaviourOptions, generateHeaders, HttpWrapperService} from '../../shared/services/http-wrapper.service';
+import {CustomServerError} from '../../shared/models/errors/custom-server-error';
+import {Response} from '@angular/http';
+import {environment} from '../../../environments/environment';
+import {getQueueMessages} from '../../shared/utils/queries/queue.queries';
 
 @Injectable()
 export class StateMachineService {
@@ -12,7 +18,7 @@ export class StateMachineService {
   timeseries$: Subject<StateMachineTimeseries[]> = new Subject();
   queues$: Subject<StateMachineQueue[]> = new Subject();
 
-  constructor() { }
+  constructor(private authService: AuthenticationService, private http: HttpWrapperService) { }
 
   getTimeseries(queue: string, start: Moment, end: Moment): void {
     this.timeseries$.next(generateTimeseries(start.clone(), end.clone()));
@@ -23,12 +29,27 @@ export class StateMachineService {
   }
 
   getMessages(queue: string): Observable<QueueMessage[]> {
-    return Observable.of(
-      [
-        generateMessage(queue),
-        generateMessage(queue)
-      ]
-    );
+    return this.queryRequest(getQueueMessages(queue)).map(res => {
+      if (res instanceof CustomServerError) {
+        return [];
+      }
+
+      return res.json().response.data.listqueuemessage.queuemessages.map(m => new QueueMessage(JSON.parse(m.message)));
+    })
+  }
+
+  protected queryRequest(query: string, requestBehaviourOptions?: RequestBehaviourOptions): Observable<Response | CustomServerError> {
+    let endpoint = environment.endpoint;
+
+    if (this.authService.getActingAsAccount()) {
+      endpoint += this.authService.getActingAsAccount().id;
+    } else if (this.authService.getActiveAcl() && this.authService.getActiveAcl().account) {
+      endpoint += this.authService.getActiveAcl().account.id;
+    } else {
+      endpoint += '*';
+    }
+
+    return this.http.postWithError(endpoint, query, { headers: generateHeaders(this.authService.getToken())}, requestBehaviourOptions);
   }
 }
 
