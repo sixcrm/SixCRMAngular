@@ -18,7 +18,7 @@ export function rebillsListQuery(limit?: number, cursor?: string): string {
 export function rebillQuery(id: string): string {
   return `{
 		rebill (id: "${id}") {
-			${rebillInfoResponseQuery()}
+			${rebillResponseQuery()}
     }
   }`
 }
@@ -52,7 +52,10 @@ export function rebillResponseQuery(): string {
     id bill_at amount created_at updated_at,
     parentsession { id,
       customer { id firstname lastname,
-        address { line1 line2 city state zip }
+        address { line1 line2 city state zip },
+        creditcards {	id number expiration ccv name,
+          address { line1 line2 city state zip country }
+        }
       },
       product_schedules { id,
         schedule { price start end period,

@@ -12,7 +12,9 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {QueueMessage} from '../../../shared/models/state-machine/queue-message.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {firstIndexOf} from '../../../shared/utils/array.utils';
+import {Rebill} from '../../../shared/models/rebill.model';
+import {RebillsService} from '../../../shared/services/rebills.service';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'state-machine-live',
@@ -36,16 +38,16 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
 
   messageColumnParams = [];
 
-  tableTextOptions: TableMemoryTextOptions = {title: 'Queue Messages', viewOptionText: 'Show Messages'};
+  tableTextOptions: TableMemoryTextOptions = {viewOptionText: 'Show Messages'};
 
-  showMessage: boolean;
-  messageToShow: QueueMessage;
+  rebill: Rebill;
 
   constructor(
     private route: ActivatedRoute,
     public stateMachineService: StateMachineService,
     private navigation: NavigationService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private rebillService: RebillsService
   ) {}
 
   ngOnInit() {
@@ -67,9 +69,16 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
 
       if (filtered && filtered.length === 1) {
         this.queue = filtered[0];
-        this.messages = [];
-        this.showMessage = false;
-        this.messageToShow = null;
+        this.messages = [
+          new QueueMessage(
+            {
+              id: '11eda586-8d1d-4740-bdfb-88203f11fa59',
+              transaction_id: '63fb053a-dd16-4efe-b108-75749c2c4914',
+              account: '*'
+            }
+          )
+        ];
+        this.rebill = null;
         this.fetchTimeseries();
         this.startPolling();
       } else {
@@ -89,6 +98,15 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
         this.fetchQueue();
       }
     });
+
+    this.rebillService.entity$.takeUntil(this.unsubscribe$).subscribe(rebill => {
+      if (rebill instanceof CustomServerError) {
+        this.rebill = null;
+        return;
+      }
+
+      this.rebill = rebill;
+    })
   }
 
   fetchQueue(): void {
@@ -105,13 +123,7 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
     }
 
     this.fetchSub = this.stateMachineService.getMessages(this.queueName).take(1).subscribe(data => {
-      data.forEach(m => {
-        if (firstIndexOf(this.messages, (e) => e.id === m.id) === -1) {
-          this.messages.push(m);
-        }
-      });
-
-      this.messages = this.messages.slice();
+      this.messages = [...data, ...this.messages];
     });
   }
 
@@ -143,12 +155,11 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
   }
 
   viewMessage(message: QueueMessage): void {
-    this.messageToShow = message;
-    this.showMessage = true;
+    this.rebillService.getEntity(message.id);
   }
 
   hideMessage(): void {
-    this.showMessage = false;
+    this.rebill = null;
   }
 
   ngOnDestroy() {

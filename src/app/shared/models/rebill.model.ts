@@ -2,8 +2,15 @@ import {ParentSession} from './parent-session.model';
 import {ProductSchedule} from './product-schedule.model';
 import {Transaction} from './transaction.model';
 import {Entity} from './entity.interface';
-import {Moment, utc} from 'moment';
 import {Currency} from '../utils/currency/currency';
+import {Moment, utc} from 'moment'
+
+export interface RebillStateHistory {
+  name: string;
+  enter?: Moment;
+  exit?: Moment;
+  errorMessage?: string;
+}
 
 export class Rebill implements Entity<Rebill> {
   id: string;
@@ -13,6 +20,7 @@ export class Rebill implements Entity<Rebill> {
   parentSession: ParentSession;
   productSchedules: ProductSchedule[] = [];
   transactions: Transaction[] = [];
+  history: RebillStateHistory[] = [];
 
   constructor(obj?: any) {
     if (!obj) {
@@ -36,6 +44,8 @@ export class Rebill implements Entity<Rebill> {
         this.transactions.push(new Transaction(obj.transactions[i]));
       }
     }
+
+    this.generateHistory();
   }
 
   copy(): Rebill {
@@ -52,5 +62,15 @@ export class Rebill implements Entity<Rebill> {
       product_schedules: this.productSchedules.map(p => p.inverse()),
       transactions: this.transactions.map(t => t.inverse())
     }
+  }
+
+  generateHistory() {
+    this.history = [
+      {name: 'bill', enter: utc(), exit: utc()},
+      {name: 'hold', enter: utc(), exit: utc()},
+      {name: 'pending', enter: utc(), exit: utc()},
+      {name: 'shipped', enter: utc(), errorMessage: 'Cannot locate package'},
+      {name: 'delivered'},
+    ]
   }
 }

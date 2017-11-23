@@ -1,0 +1,98 @@
+<div class="flex-custom">
+  <div class="column--small">
+    <md-card class="customer-view__card">
+      <md-card-title>
+        <div class="title">Message</div>
+        <div class="subtitle">History</div>
+      </md-card-title>
+
+      <md-card-content class="history-container">
+        <div class="flex-custom" *ngFor="let event of rebill.history; let i = index">
+
+          <div>
+            <md-icon class="warning-icon" *ngIf="event.errorMessage">warning</md-icon>
+            <div *ngIf="!event.errorMessage && event.exit" class="done-icon">
+              <md-icon>done</md-icon>
+            </div>
+            <div class="number-icon" *ngIf="!event.errorMessage && !event.exit">
+              <div>{{i + 1}}</div>
+            </div>
+
+            <div *ngIf="i < rebill.history.length - 1" class="line"></div>
+          </div>
+
+          <div class="info-container">
+            <div class="name">{{event.name}}</div>
+            <div class="time" *ngIf="event.enter">
+              <div>Entered {{event.name}} Queue:</div>
+              {{event.enter.format('MM/DD/YYYY h:mm a')}}
+            </div>
+            <div class="warning" *ngIf="event.errorMessage">{{event.errorMessage}}</div>
+          </div>
+        </div>
+      </md-card-content>
+    </md-card>
+  </div>
+
+  <div class="column--large">
+    <md-card class="customer-view__card">
+      <md-card-title>
+        <div class="title">Customer Information</div>
+        <div class="subtitle">Address where fulfillment will ship packages</div>
+      </md-card-title>
+
+      <md-card-content>
+        <div>
+          <div class="half">
+            <md-input-container class="full">
+              <input required disabled md-input name="fullName" placeholder="Full Name" [(ngModel)]="rebill.parentSession.customer.fullName">
+            </md-input-container>
+          </div>
+
+          <div class="flex-custom full">
+            <md-input-container class="half">
+              <input required disabled md-input name="address" placeholder="Address" [(ngModel)]="rebill.parentSession.customer.address.line1">
+            </md-input-container>
+            <md-input-container class="half space-left">
+              <input required disabled md-input name="city" placeholder="City" [(ngModel)]="rebill.parentSession.customer.address.city">
+            </md-input-container>
+          </div>
+
+          <div class="flex-custom full">
+            <div class="flex-custom half">
+              <md-input-container class="half">
+                <input required disabled md-input name="postalCode" placeholder="State" [(ngModel)]="rebill.parentSession.customer.address.state">
+              </md-input-container>
+
+              <md-input-container class="half space-left">
+                <input required disabled md-input name="postalCode" placeholder="Postal Code" [(ngModel)]="rebill.parentSession.customer.address.zip">
+              </md-input-container>
+            </div>
+
+            <md-input-container class="half space-left">
+              <input required disabled md-input name="postalCode" placeholder="Country" [(ngModel)]="rebill.parentSession.customer.address.country">
+            </md-input-container>
+          </div>
+        </div>
+      </md-card-content>
+    </md-card>
+
+    <customer-credit-card-view
+      [creditCards]="rebill.parentSession.customer.creditCards"
+      [ripped]="true">
+    </customer-credit-card-view>
+  </div>
+
+  <div class="column--small">
+    <table-memory [data]="getSchedules()"
+                  [columnParams]="columnParams"
+                  [textOptions]="textOptions"
+                  [dissociationEnabled]="false"
+                  [associationEnabled]="false"
+                  [showPagination]="false"
+                  [filterEnabled]="false"
+                  (view)="viewProduct($event)">
+    </table-memory>
+  </div>
+
+</div>

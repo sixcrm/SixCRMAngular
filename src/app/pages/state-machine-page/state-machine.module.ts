@@ -17,17 +17,19 @@ import { StateMachineLiveComponent } from './state-machine-live/state-machine-li
 import {StateMachineService} from './state-machine.service';
 import {ChartsModule} from '../../charts/charts.module';
 import {PageComponentsModule} from '../components/pages-components.module';
-import { StateMachineMessageComponent } from './state-machine-live/state-machine-message/state-machine-message.component';
+import { StateMachineRebillComponent } from './state-machine-live/state-machine-rebill/state-machine-rebill.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     stateMachineRouting,
     SharedModule,
-    MaterialModule.forRoot(),
+    MaterialModule,
     Daterangepicker,
     ChartsModule,
-    PageComponentsModule
+    PageComponentsModule,
+    FormsModule
   ],
   declarations: [
     StateMachineDashboardComponent,
@@ -37,7 +39,7 @@ import { StateMachineMessageComponent } from './state-machine-live/state-machine
     StateMachineStatusItemComponent,
     StateMachineDetailsComponent,
     StateMachineLiveComponent,
-    StateMachineMessageComponent
+    StateMachineRebillComponent
   ],
   providers: [StateMachineAclGuard, StateMachineService]
 })

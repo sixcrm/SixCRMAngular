@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {CreditCard} from '../../../../shared/models/credit-card.model';
+import {CreditCard} from '../../models/credit-card.model';
 
 @Component({
   selector: 'customer-credit-card-view',
@@ -9,6 +9,7 @@ import {CreditCard} from '../../../../shared/models/credit-card.model';
 export class CustomerCreditCardViewComponent implements OnInit {
 
   @Input() creditCards: CreditCard[];
+  @Input() ripped: boolean;
   @Output() addCreditCard: EventEmitter<boolean> = new EventEmitter();
   @Output() editCreditCard: EventEmitter<CreditCard> = new EventEmitter();
   @Output() deleteCreditCard: EventEmitter<CreditCard> = new EventEmitter();

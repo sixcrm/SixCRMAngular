@@ -2,10 +2,14 @@
   <md-card-title class="credit-cards__title">
     <div class="title">Billing Information</div>
     <div class="subtitle">Billing address & credit card information</div>
-    <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
-    <md-menu #creditCardOptions="mdMenu" x-position="before">
-      <button md-menu-item (click)="addCreditCard.emit(true)"> Add Credit Card </button>
-    </md-menu>
+
+    <ng-container *ngIf="!ripped">
+      <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
+      <md-menu #creditCardOptions="mdMenu" x-position="before">
+        <button md-menu-item (click)="addCreditCard.emit(true)"> Add Credit Card </button>
+      </md-menu>
+    </ng-container>
+
   </md-card-title>
   <md-card-content>
     <div *ngFor="let cc of creditCards" class="credit-cards__item">
@@ -17,11 +21,13 @@
       </div>
 
       <span class="credit-cards__item__expiration">Exp: {{cc.expiration | creditCardExpiration}}</span>
-      <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
-      <md-menu #creditCardOptions="mdMenu" x-position="before">
-        <button md-menu-item (click)="editCreditCard.emit(cc)"> Edit Credit Card </button>
-        <button md-menu-item (click)="deleteCreditCard.emit(cc)"> Remove Credit Card </button>
-      </md-menu>
+      <ng-container *ngIf="!ripped">
+        <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
+        <md-menu #creditCardOptions="mdMenu" x-position="before">
+          <button md-menu-item (click)="editCreditCard.emit(cc)"> Edit Credit Card </button>
+          <button md-menu-item (click)="deleteCreditCard.emit(cc)"> Remove Credit Card </button>
+        </md-menu>
+      </ng-container>
     </div>
 
     <div class="entity-view__no-results entity-view__no-results--small-padding" *ngIf="!creditCards || creditCards.length === 0">No credit cards found</div>
@@ -32,18 +38,20 @@
   <md-card-title>
     <div class="title">Billing Information</div>
     <div class="subtitle">Billing address & credit card information</div>
-    <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
-    <md-menu #creditCardOptions="mdMenu" x-position="before">
-      <button md-menu-item (click)="addCreditCard.emit(true)"> Add Credit Card </button>
-      <button md-menu-item (click)="editCreditCard.emit(creditCards[0])"> Edit Credit Card </button>
-    </md-menu>
+    <ng-container *ngIf="!ripped">
+      <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
+      <md-menu #creditCardOptions="mdMenu" x-position="before">
+        <button md-menu-item (click)="addCreditCard.emit(true)"> Add Credit Card </button>
+        <button md-menu-item (click)="editCreditCard.emit(creditCards[0])"> Edit Credit Card </button>
+      </md-menu>
+    </ng-container>
   </md-card-title>
   <md-card-content class="flex-custom">
     <div class="customer-view__card__column customer-view__card__column--first">
-      <md-input-container>
+      <md-input-container [class.small]="ripped">
         <input disabled md-input placeholder="Address" [(ngModel)]="creditCards[0].address.line1">
       </md-input-container>
-      <md-input-container>
+      <md-input-container [class.small]="ripped">
         <input disabled md-input placeholder="City" [(ngModel)]="creditCards[0].address.city">
       </md-input-container>
 
@@ -56,16 +64,16 @@
       <dropdown-component [disabled]="true" [selected]="creditCards[0].address.country" [placeholder]="'Country'" [options]="['USA']"></dropdown-component>
     </div>
     <div class="customer-view__card__column">
-      <md-input-container>
+      <md-input-container [class.small]="ripped">
         <input disabled md-input placeholder="Name" [(ngModel)]="creditCards[0].name">
       </md-input-container>
-      <md-input-container>
+      <md-input-container [class.small]="ripped">
         <input disabled md-input placeholder="Type" [(ngModel)]="creditCards[0].type">
       </md-input-container>
-      <md-input-container>
+      <md-input-container [class.small]="ripped">
         <input disabled md-input placeholder="Type" [(ngModel)]="creditCards[0].maskedNumber">
       </md-input-container>
-      <md-input-container>
+      <md-input-container [class.small]="ripped">
         <input disabled md-input placeholder="Expiration" [(ngModel)]="creditCards[0].expirationFormatted">
       </md-input-container>
     </div>
