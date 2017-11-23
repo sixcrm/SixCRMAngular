@@ -10,7 +10,7 @@ import {RequestBehaviourOptions, generateHeaders, HttpWrapperService} from '../.
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {Response} from '@angular/http';
 import {environment} from '../../../environments/environment';
-import {getQueueMessages} from '../../shared/utils/queries/queue.queries';
+import {getQueueMessages, getQueueSummary} from '../../shared/utils/queries/queue.queries';
 
 @Injectable()
 export class StateMachineService {
@@ -20,8 +20,15 @@ export class StateMachineService {
 
   constructor(private authService: AuthenticationService, private http: HttpWrapperService) { }
 
-  getTimeseries(queue: string, start: Moment, end: Moment): void {
-    this.timeseries$.next(generateTimeseries(start.clone(), end.clone()));
+  getTimeseries(queue: string, start: string, end: string): void {
+    this.queryRequest(getQueueSummary(queue, start, end)).subscribe(res => {
+      if (res instanceof CustomServerError) {
+        this.timeseries$.next([]);
+        return;
+      }
+
+      this.timeseries$.next(res.json().response.data.queuesummary.summary.map(t => new StateMachineTimeseries(t)))
+    });
   }
 
   getQueues(): void {

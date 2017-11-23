@@ -2,7 +2,7 @@ import {Moment, utc} from 'moment';
 
 export class StateMachineTimeseries {
 
-  period: Moment;
+  datetime: Moment;
   count: number;
 
   constructor(obj?: any) {
@@ -10,7 +10,7 @@ export class StateMachineTimeseries {
       obj = {};
     }
 
-    this.period = utc(obj.period);
+    this.datetime = utc(obj.datetime);
     this.count = obj.count || 0;
   }
 }

@@ -114,7 +114,7 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
   }
 
   fetchTimeseries(): void {
-    this.stateMachineService.getTimeseries(this.queue.label, this.date.start.clone(), this.date.end.clone())
+    this.stateMachineService.getTimeseries(this.queue.label, this.date.start.clone().format(), this.date.end.clone().format())
   }
 
   fetchMessages(): void {

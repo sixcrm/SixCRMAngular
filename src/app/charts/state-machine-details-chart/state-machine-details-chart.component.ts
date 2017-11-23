@@ -12,7 +12,7 @@ export class StateMachineDetailsChartComponent implements OnInit {
   stateMachineTimeseries: StateMachineTimeseries[] = [];
 
   @Input() set timeseries(timeseries: StateMachineTimeseries[]) {
-    if (timeseries && timeseries.length > 0) {
+    if (timeseries) {
       this.stateMachineTimeseries = timeseries;
     }
 
@@ -53,7 +53,7 @@ export class StateMachineDetailsChartComponent implements OnInit {
     if (!this.stateMachineTimeseries) return;
 
     const values = this.stateMachineTimeseries.map(s => s.count);
-    const dates = this.stateMachineTimeseries.map(s => s.period.clone().format('MM/DD'));
+    const dates = this.stateMachineTimeseries.map(s => s.datetime.clone().format('MM/DD'));
     this.chartInstance.xAxis[0].update({categories: dates}, true);
     this.chartInstance.series[0].setData(values, true);
   }

@@ -46,7 +46,7 @@ export class StateMachineDashboardComponent implements OnInit, OnDestroy {
 
   fetch() {
     this.prepareFetch();
-    this.stateMachineService.getTimeseries(this.selectedQueue.label, this.date.start.clone(), this.date.end.clone());
+    this.stateMachineService.getTimeseries(this.selectedQueue.label, this.date.start.clone().format(), this.date.end.clone().format());
   }
 
   select(queue: StateMachineQueue) {
