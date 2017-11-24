@@ -39,6 +39,10 @@
       <md-card-title>
         <div class="title">Customer Information</div>
         <div class="subtitle">Address where fulfillment will ship packages</div>
+        <md-icon [md-menu-trigger-for]="shipOptions">more_vert</md-icon>
+        <md-menu #shipOptions="mdMenu" x-position="before">
+          <button md-menu-item [routerLink]="['/customers', rebill.parentSession.customer.id]"> View Customer </button>
+        </md-menu>
       </md-card-title>
 
       <md-card-content>
