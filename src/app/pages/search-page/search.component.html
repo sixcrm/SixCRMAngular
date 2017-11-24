@@ -41,7 +41,9 @@
             </ng-container>
 
             <div class="search__sidenav__subtitle"> Date Range </div>
-            <div class="search__sidenav__date">Date</div>
+            <md-checkbox (change)="dateCheckboxClicked()" [(ngModel)]="applyDateFilter" class="search__sidenav__item search__sidenav__item--date">
+              <span class="search__sidenav__item__name"> Date </span>
+            </md-checkbox>
             <div class="datepicker--custom" [class.datepicker-visible]="datepickerVisible">
               <div (showDaterangepicker)="datepickerShown()" (hideDaterangepicker)="datepickerHidden()" (selected)="dateSelected($event)" daterangepicker>
                 <span class="datepicker--custom__input" name="daterange" >  {{ startDate.format('MM/DD/YYYY').substring(0,10) }} <span>to</span> {{ endDate.format('MM/DD/YYYY').substring(0, 10) }} <md-icon>keyboard_arrow_down</md-icon> </span>

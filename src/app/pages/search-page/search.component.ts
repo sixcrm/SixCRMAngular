@@ -73,6 +73,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   datepickerVisible: boolean = false;
   startDate: Moment;
   endDate: Moment;
+  applyDateFilter: boolean;
 
   filterValue: string;
 
@@ -90,7 +91,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     private daterangepickerOptions: DaterangepickerConfig,
     private navigationService: NavigationService
   ) {
-    this.startDate = utc().subtract(12,'M');
+    this.startDate = utc().subtract(1,'M');
     this.endDate = utc();
 
     this.setDatepickerOptions();
@@ -164,7 +165,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   parseShareParams(params): void {
-    this.startDate = params['startDate'] ? utc(params['startDate']) : utc().subtract(12,'M');
+    this.applyDateFilter = params['startDate'] && params['endDate'];
+    this.startDate = params['startDate'] ? utc(params['startDate']) : utc().subtract(1,'M');
     this.endDate = params['endDate'] ? utc(params['endDate']) : utc();
     this.createdAtRange = `['${this.startDate.format()}', '${this.endDate.format()}']`;
     this.page = +params['page'] || 0;
@@ -220,7 +222,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   dateSelected(value: any): void {
     this.startDate = utc(value.start);
     this.endDate = utc(value.end);
-
+    this.applyDateFilter = true;
     this.createdAtRange = `['${this.startDate.format()}', '${this.endDate.format()}']`;
     this.checkboxClicked$.next(true);
   }
@@ -284,6 +286,10 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   checkboxClicked(): void {
+    this.checkboxClicked$.next(true);
+  }
+
+  dateCheckboxClicked(): void {
     this.checkboxClicked$.next(true);
   }
 
@@ -390,14 +396,17 @@ export class SearchComponent implements OnInit, OnDestroy {
       }
     });
 
-    return url + `&startDate=${this.startDate.format()}&endDate=${this.endDate.format()}&sortBy=${this.sortBy}&page=${this.page}&limit=${this.limit}&cardMode=${this.cardMode}&filterValue=${this.filterValue}` + filters;
+    const dateFilter = this.applyDateFilter ? `&startDate=${this.startDate.format()}&endDate=${this.endDate.format()}` : ''
+
+    return url + dateFilter + `&sortBy=${this.sortBy}&page=${this.page}&limit=${this.limit}&cardMode=${this.cardMode}&filterValue=${this.filterValue}` + filters;
   }
 
   resetSearch(advancedSearchComponent: AdvancedSearchComponent): void {
     this.isAdvancedSearch = false;
+    this.applyDateFilter = false;
     this.queryString = '';
     this.sortBy = '';
-    this.startDate = utc().subtract(30, 'd');
+    this.startDate = utc().subtract(1, 'M');
     this.endDate = utc();
     this.shareSearch = false;
     this.filterValue = '';
@@ -455,8 +464,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   private performSearch(query: string|any, createdAtRange: string, sortBy: string, offset: number, count: number, entityTypes: any): void {
     this.fetchingData = true;
     this.searchPerformed = true;
-    this.searchService.searchByQuery(query, createdAtRange, sortBy, offset, count, entityTypes);
-    this.searchService.searchFacets(query, createdAtRange);
+    this.searchService.searchByQuery(query, this.applyDateFilter ? createdAtRange : '', sortBy, offset, count, entityTypes);
+    this.searchService.searchFacets(query, this.applyDateFilter ? createdAtRange : '');
   }
 
   private getCheckedEntityTypes(): string [] {
