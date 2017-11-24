@@ -66,7 +66,9 @@ export function rebillResponseQuery(): string {
         }
       }
     },
-    transactions { id processor_response amount }`
+    transactions { id processor_response amount },
+    history { state entered_at exited_at error_message }
+  `
 }
 
 export function rebillInfoResponseQuery(): string {
