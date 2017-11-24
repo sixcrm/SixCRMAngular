@@ -87,7 +87,24 @@
     </customer-credit-card-view>
   </div>
 
-  <div class="column--small">
+  <div class="column--medium">
+
+    <md-card class="customer-view__card">
+      <md-card-title>
+        <div class="title">Rebill Properties</div>
+        <div class="subtitle">Details of client rebill</div>
+      </md-card-title>
+
+      <md-card-content class="properties-container">
+        <div><span>Rebill ID:</span>{{rebill.id}}</div>
+        <div class="clickable" [routerLink]="['/sessions', rebill.parentSession.id]"><span>Parent Session ID:</span>{{rebill.parentSession.id}}</div>
+        <div><span>Created at:</span>{{rebill.createdAt.tz(authService.getTimezone()).format('MM/DD/YYYY h:mm a')}}</div>
+        <div><span>Last Updated:</span>{{rebill.updatedAt.tz(authService.getTimezone()).format('MM/DD/YYYY h:mm a')}}</div>
+        <div><span>Total Billing Amount:</span>{{rebill.amount.usd()}}</div>
+        <div class="clickable" [routerLink]="['/campaigns', rebill.parentSession.campaign.id]"><span>Associated Campaign:</span>{{rebill.parentSession.campaign.name}}</div>
+      </md-card-content>
+    </md-card>
+
     <table-memory [data]="getSchedules()"
                   [columnParams]="columnParams"
                   [textOptions]="textOptions"

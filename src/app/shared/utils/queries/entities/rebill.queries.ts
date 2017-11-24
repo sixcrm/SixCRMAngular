@@ -56,14 +56,8 @@ export function rebillResponseQuery(): string {
         creditcards {	id number expiration ccv name,
           address { line1 line2 city state zip country }
         }
-      },
-      product_schedules { id,
-        schedule { price start end period,
-          product { id name sku ship shipping_delay,
-            fulfillment_provider { id name provider username password endpoint }
-          }
-        }
       }
+      campaign { id, name }
     }
     product_schedules { id,
       schedule { price start end period,

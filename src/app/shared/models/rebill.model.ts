@@ -17,6 +17,7 @@ export class Rebill implements Entity<Rebill> {
   amount: Currency;
   billAt: Moment;
   createdAt: Moment;
+  updatedAt: Moment;
   parentSession: ParentSession;
   productSchedules: ProductSchedule[] = [];
   transactions: Transaction[] = [];
@@ -31,18 +32,15 @@ export class Rebill implements Entity<Rebill> {
     this.amount = new Currency(obj.amount);
     this.billAt = utc(obj.bill_at);
     this.createdAt = utc(obj.created_at);
+    this.updatedAt = utc(obj.updated_at);
     this.parentSession = new ParentSession(obj.parentsession);
 
     if (obj.product_schedules) {
-      for (let i = 0; i < obj.product_schedules.length; i++) {
-        this.productSchedules.push(new ProductSchedule(obj.product_schedules[i]));
-      }
+      this.productSchedules = obj.product_schedules.map(ps => new ProductSchedule(ps));
     }
 
     if (obj.transactions) {
-      for (let i = 0; i < obj.transactions.length; i++) {
-        this.transactions.push(new Transaction(obj.transactions[i]));
-      }
+      this.transactions = obj.transactions.map(t => new Transaction(t));
     }
 
     this.generateHistory();
@@ -58,6 +56,7 @@ export class Rebill implements Entity<Rebill> {
       amount: this.amount.amount,
       bill_at: this.billAt.clone().format(),
       created_at: this.createdAt.clone().format(),
+      updated_at: this.updatedAt.clone().format(),
       parentsession: this.parentSession.inverse(),
       product_schedules: this.productSchedules.map(p => p.inverse()),
       transactions: this.transactions.map(t => t.inverse())

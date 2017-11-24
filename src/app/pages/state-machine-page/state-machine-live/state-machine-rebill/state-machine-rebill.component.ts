@@ -4,6 +4,7 @@ import {Schedule} from '../../../../shared/models/schedule.model';
 import {TableMemoryTextOptions} from '../../../components/table-memory/table-memory.component';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {Router} from '@angular/router';
+import {AuthenticationService} from '../../../../authentication/authentication.service';
 
 @Component({
   selector: 'state-machine-rebill',
@@ -24,7 +25,7 @@ export class StateMachineRebillComponent implements OnInit {
     new ColumnParams('SKU', (e: Schedule) => e.product.sku)
   ];
 
-  constructor(private router: Router) {}
+  constructor(public authService: AuthenticationService, private router: Router) {}
 
   ngOnInit() {
   }

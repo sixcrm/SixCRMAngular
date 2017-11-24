@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AsyncSubject} from "rxjs/AsyncSubject";
 import {StateMachineService} from '../state-machine.service';
 import {StateMachineQueue} from '../../../shared/models/state-machine/state-machine-queue';
@@ -44,6 +44,7 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     public stateMachineService: StateMachineService,
     private navigation: NavigationService,
     private authService: AuthenticationService,
@@ -106,7 +107,13 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
       }
 
       this.rebill = rebill;
-    })
+    });
+
+    this.route.queryParams.takeUntil(this.unsubscribe$).subscribe(params => {
+      if (params && params['rebill']) {
+        this.rebillService.getEntity(params['rebill']);
+      }
+    });
   }
 
   fetchQueue(): void {
@@ -155,11 +162,12 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
   }
 
   viewMessage(message: QueueMessage): void {
-    this.rebillService.getEntity(message.id);
+    this.router.navigate(['/state-machine', this.queueName], {queryParams: {rebill: message.id}});
   }
 
   hideMessage(): void {
     this.rebill = null;
+    this.router.navigate(['/state-machine', this.queueName]);
   }
 
   ngOnDestroy() {
