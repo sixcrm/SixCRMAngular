@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="affiliate_id" content="whatever">
+  <title>Example Pixel</title>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-sha1/0.4.1/sha1.min.js"></script>
+
+  <script>
+    var ADD_ACCOUNT_ID_HERE = 'd3fa3bf3-7824-49f4-8261-87674482bf1c';
+    var ADD_CAMPAIGN_ID_HERE = '70a6689a-5814-438b-b9fd-dd484d0812f9';
+    var ADD_ENDPOINT_HERE = 'https://development-api.sixcrm.com/';
+    var ADD_KEY_HERE='1ud98uhc9h989811ud01yd81u2d1289duu1du1a0d9uula';
+    var ADD_SECRET_HERE='c3VwZXIudXNlckB0ZXN0LmNvbQ=='
+  </script>
+
+  <script>
+    function getAffiliateId(){var e=new RegExp("[\?&]affiliate_id=([^&#]*)").exec(location.href),t=document.head.querySelector("meta[name='affiliate_id']"),i=("; "+document.cookie).split("; affiliate_id="),a=2===i.length?i.pop().split(";").shift():"",n=e?e[1]:t?t.content:affiliateId||a,o=new Date;return o.setTime(o.getTime()+864e5),document.cookie="affiliate_id="+n+"; expires="+o.toUTCString()+"; path=/",n}function getTrackers(e){var t=new XMLHttpRequest;t.open("POST","https://development-api.sixcrm.com/tracking/d3fa3bf3-7824-49f4-8261-87674482bf1c",!0),t.setRequestHeader("Authorization",e),t.onreadystatechange=function(){if(4===t.readyState&&200===t.status){var e=JSON.parse(t.responseText).response.trackers;if(e&&e.length>0)for(var i,a=0;a<e.length;a++)(i=document.createElement("div")).innerHTML=e[a].body,document.body.appendChild(i)}},t.send('{"campaign":"70a6689a-5814-438b-b9fd-dd484d0812f9","affiliate_id":"'+getAffiliateId()+'"}')}
+  </script>
+
+  <script>
+    function acquireToken() {
+      // prepare http request
+      var currentTime = Date.now();
+      var generatedToken = ADD_KEY_HERE+':'+currentTime+':'+sha1(ADD_SECRET_HERE+currentTime);
+      var http = new XMLHttpRequest();
+      http.open('POST', ADD_ENDPOINT_HERE + 'token/acquire/' + ADD_ACCOUNT_ID_HERE, true);
+      http.setRequestHeader('Authorization', generatedToken);
+
+      http.onreadystatechange = function() {
+        if(http.readyState ===4 && http.status === 200) {
+          var acquiredToken = JSON.parse(http.responseText).response;
+          getTrackers(acquiredToken);
+        }
+      };
+
+      // make http request
+      http.send('{"campaign":"' + ADD_CAMPAIGN_ID_HERE + '","affiliates":{"affiliate":"' + getAffiliateId() + '"}}');
+    }
+
+    // when document is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      acquireToken();
+    }, false);
+  </script>
+</head>
+<body>
+</body>
+</html>
