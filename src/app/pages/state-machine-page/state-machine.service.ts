@@ -3,7 +3,6 @@ import {Moment} from 'moment';
 import {StateMachineTimeseries} from '../../shared/models/state-machine/state-machine-timeseries.model';
 import {Subject, Observable} from 'rxjs';
 import {StateMachineQueue} from '../../shared/models/state-machine/state-machine-queue';
-import {QueueMessage} from '../../shared/models/state-machine/queue-message.model';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {RequestBehaviourOptions, generateHeaders, HttpWrapperService} from '../../shared/services/http-wrapper.service';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';

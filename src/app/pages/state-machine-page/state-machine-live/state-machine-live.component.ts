@@ -8,7 +8,6 @@ import {utc} from 'moment';
 import {StateMachineTimeseries} from '../../../shared/models/state-machine/state-machine-timeseries.model';
 import {DateMap} from '../../../shared/components/advanced-filter/advanced-filter.component';
 import {Subscription, Observable} from 'rxjs';
-import {QueueMessage} from '../../../shared/models/state-machine/queue-message.model';
 import {Rebill} from '../../../shared/models/rebill.model';
 import {RebillsService} from '../../../shared/services/rebills.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
