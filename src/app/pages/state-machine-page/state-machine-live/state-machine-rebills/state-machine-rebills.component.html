@@ -1,0 +1,9 @@
+<table-memory [title]="'Bill Queue Messages'"
+              [showHeader]="false"
+              [data]="entities"
+              [columnParams]="columnParams"
+              [dissociationEnabled]="false"
+              [textOptions]="tableTextOptions"
+              (view)="viewRebill.emit($event)">
+</table-memory>
+

@@ -4,13 +4,12 @@ import {StateMachineTimeseries} from '../../shared/models/state-machine/state-ma
 import {Subject, Observable} from 'rxjs';
 import {StateMachineQueue} from '../../shared/models/state-machine/state-machine-queue';
 import {QueueMessage} from '../../shared/models/state-machine/queue-message.model';
-import {utc} from 'moment';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {RequestBehaviourOptions, generateHeaders, HttpWrapperService} from '../../shared/services/http-wrapper.service';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {Response} from '@angular/http';
 import {environment} from '../../../environments/environment';
-import {getQueueMessages, getQueueSummary} from '../../shared/utils/queries/queue.queries';
+import {getQueueSummary} from '../../shared/utils/queries/queue.queries';
 
 @Injectable()
 export class StateMachineService {
@@ -35,16 +34,6 @@ export class StateMachineService {
     this.queues$.next(generateQueues());
   }
 
-  getMessages(queue: string): Observable<QueueMessage[]> {
-    return this.queryRequest(getQueueMessages(queue)).map(res => {
-      if (res instanceof CustomServerError) {
-        return [];
-      }
-
-      return res.json().response.data.listqueuemessage.queuemessages.map(m => new QueueMessage(JSON.parse(m.message)));
-    })
-  }
-
   protected queryRequest(query: string, requestBehaviourOptions?: RequestBehaviourOptions): Observable<Response | CustomServerError> {
     let endpoint = environment.endpoint;
 
@@ -58,17 +47,6 @@ export class StateMachineService {
 
     return this.http.postWithError(endpoint, query, { headers: generateHeaders(this.authService.getToken())}, requestBehaviourOptions);
   }
-}
-
-function generateMessage(queue: string): QueueMessage {
-  return new QueueMessage({
-    transaction_id: `T_ID_${Math.floor(Math.random() * 200) + 1000}`,
-    created_at: utc(),
-    faults: Math.floor(Math.random() * 3),
-    account_id: `ACC_ID_${Math.floor(Math.random() * 200)}`,
-    merchant_id: `MRCH_ID_${Math.floor(Math.random() * 200)}`,
-    message: `${queue} message ${Math.floor(Math.random() * 200)}`
-  })
 }
 
 function generateTimeseries(start: Moment, end: Moment): StateMachineTimeseries[] {

@@ -374,6 +374,11 @@ $default-padding: 14px 12px 6px;
       height: 30px;
     }
   }
+
+  md-card-content {
+    overflow-y: auto;
+    max-height: 225px;
+  }
 }
 
 customer-notes {

@@ -19,6 +19,7 @@ import {ChartsModule} from '../../charts/charts.module';
 import {PageComponentsModule} from '../components/pages-components.module';
 import { StateMachineRebillComponent } from './state-machine-live/state-machine-rebill/state-machine-rebill.component';
 import {FormsModule} from '@angular/forms';
+import {StateMachineRebillsComponent} from './state-machine-live/state-machine-rebills/state-machine-rebills.component';
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import {FormsModule} from '@angular/forms';
     StateMachineStatusItemComponent,
     StateMachineDetailsComponent,
     StateMachineLiveComponent,
-    StateMachineRebillComponent
+    StateMachineRebillComponent,
+    StateMachineRebillsComponent
   ],
   providers: [StateMachineAclGuard, StateMachineService]
 })

@@ -1,12 +1,3 @@
-export function getQueueMessages(queueName: string): string {
-  return `
-		query {
-		  listqueuemessage ( queuename: "${queueName}" ){
-		    queuemessages {id, queue, message}
-      }
-    }`
-}
-
 export function getQueueSummary(queueName: string, start: string, end: string, limit?: string, offset?: string): string {
   return `
     query {

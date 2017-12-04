@@ -11,10 +11,10 @@
 
           <div>
             <md-icon class="warning-icon" *ngIf="event.errorMessage">warning</md-icon>
-            <div *ngIf="!event.errorMessage && event.exit" class="done-icon">
+            <div *ngIf="!event.errorMessage && event.enteredAt" class="done-icon">
               <md-icon>done</md-icon>
             </div>
-            <div class="number-icon" *ngIf="!event.errorMessage && !event.exit">
+            <div class="number-icon" *ngIf="!event.errorMessage && !event.enteredAt">
               <div>{{i + 1}}</div>
             </div>
 
@@ -22,10 +22,10 @@
           </div>
 
           <div class="info-container">
-            <div class="name">{{event.name}}</div>
-            <div class="time" *ngIf="event.enter">
-              <div>Entered {{event.name}} Queue:</div>
-              {{event.enter.format('MM/DD/YYYY h:mm a')}}
+            <div class="name">{{event.state}}</div>
+            <div class="time" *ngIf="event.enteredAt">
+              <div>Entered {{event.state}} Queue:</div>
+              {{event.enteredAt.format('MM/DD/YYYY h:mm a')}}
             </div>
             <div class="warning" *ngIf="event.errorMessage">{{event.errorMessage}}</div>
           </div>
@@ -82,6 +82,7 @@
     </md-card>
 
     <customer-credit-card-view
+      [class.customer-credit-card-view--multiple]="rebill.parentSession.customer.creditCards.length > 1"
       [creditCards]="rebill.parentSession.customer.creditCards"
       [ripped]="true">
     </customer-credit-card-view>

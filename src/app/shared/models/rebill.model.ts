@@ -4,13 +4,7 @@ import {Transaction} from './transaction.model';
 import {Entity} from './entity.interface';
 import {Currency} from '../utils/currency/currency';
 import {Moment, utc} from 'moment'
-
-export interface RebillStateHistory {
-  name: string;
-  enter?: Moment;
-  exit?: Moment;
-  errorMessage?: string;
-}
+import {RebillStateHistory} from './rebill-state-history.model';
 
 export class Rebill implements Entity<Rebill> {
   id: string;
@@ -43,7 +37,9 @@ export class Rebill implements Entity<Rebill> {
       this.transactions = obj.transactions.map(t => new Transaction(t));
     }
 
-    this.generateHistory();
+    if (obj.history) {
+      this.history = obj.history.map(h => new RebillStateHistory(h));
+    }
   }
 
   copy(): Rebill {
@@ -63,13 +59,4 @@ export class Rebill implements Entity<Rebill> {
     }
   }
 
-  generateHistory() {
-    this.history = [
-      {name: 'bill', enter: utc(), exit: utc()},
-      {name: 'hold', enter: utc(), exit: utc()},
-      {name: 'pending', enter: utc(), exit: utc()},
-      {name: 'shipped', enter: utc(), errorMessage: 'Cannot locate package'},
-      {name: 'delivered'},
-    ]
-  }
 }

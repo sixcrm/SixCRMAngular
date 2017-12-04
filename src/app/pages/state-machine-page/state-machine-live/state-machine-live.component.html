@@ -16,21 +16,13 @@
   </state-machine-details>
 
   <div class="state-machine-live__breadcrumb state-machine-live__breadcrumb--separator">
-    <div class="root" [class.root--active]="!rebill" (click)="hideMessage()">Queue Messages</div>
+    <div class="root" [class.root--active]="!rebill" (click)="hideRebill()">Queue Messages</div>
     <md-icon *ngIf="rebill">keyboard_arrow_right</md-icon>
     <div *ngIf="rebill" class="queue"> Rebill ID: {{rebill.id}}</div>
   </div>
 
   <div class="table-container">
-    <table-memory *ngIf="!rebill"
-                  [title]="'Bill Queue Messages'"
-                  [showHeader]="false"
-                  [data]="messages"
-                  [columnParams]="messageColumnParams"
-                  [dissociationEnabled]="false"
-                  [textOptions]="tableTextOptions"
-                  (view)="viewMessage($event)">
-    </table-memory>
+    <state-machine-rebills [style.display]="rebill ? 'none' : 'block'" [queueName]="queueName" (viewRebill)="viewRebill($event)"></state-machine-rebills>
     <state-machine-rebill *ngIf="rebill" [rebill]="rebill"></state-machine-rebill>
   </div>
 </div>

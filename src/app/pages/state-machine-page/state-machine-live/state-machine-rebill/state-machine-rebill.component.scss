@@ -92,6 +92,7 @@ table-memory {
     div {
       margin-bottom: 2px;
       font-weight: 500;
+      text-transform: capitalize;
     }
   }
 
@@ -107,6 +108,10 @@ table-memory {
 customer-credit-card-view {
   display: block;
   margin-top: 10px;
+}
+
+.customer-credit-card-view--multiple {
+  margin-right: 10px;
 }
 
 .properties-container {

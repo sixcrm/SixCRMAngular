@@ -81,6 +81,14 @@ export function rebillInfoResponseQuery(): string {
     transactions { id processor_response amount }`
 }
 
+export function rebillListByState(queueName: string, limit?: number, cursor?: string): string {
+  return `
+    query {rebilllistbystate (state:"${queueName}" ${paginationParamsQuery(limit, cursor, true)}){
+		  rebills { id, bill_at, amount, created_at, updated_at },
+		  pagination {count, end_cursor, has_next_page}}
+    }`
+}
+
 export function rebillInputQuery(rebill: Rebill, includeId?: boolean): string {
   let schedules = rebill.productSchedules.map(p => p.id).reduce((a,b) => `${a} "${b}",`, '');
 
