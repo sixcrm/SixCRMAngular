@@ -234,9 +234,10 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
   }
 
   isOwnerOrAdministrator(): boolean {
-    return this.authService.getActiveAcl()
+    return !!this.authService.getActingAsAccount()
+      || (this.authService.getActiveAcl()
       && this.authService.getActiveAcl().account.id === this.entityId
-      && (this.authService.getActiveAcl().role.name === 'Owner' || this.authService.getActiveAcl().role.name === 'Administrator');
+      && (this.authService.getActiveAcl().role.name === 'Owner' || this.authService.getActiveAcl().role.name === 'Administrator'));
   }
 
   menuItemSelected(result: CustomMenuOptionResult): void {

@@ -40,7 +40,7 @@
         [textOptions]="text"
         [associateDataMapper]="aclMapper"
         [customAssociation]="true"
-        [associationEnabled]="authService.isActiveAclMasterAccount()"
+        [associationEnabled]="isOwnerOrAdministrator() || authService.isActiveAclMasterAccount()"
         [editEnabled]="false"
         [viewEnabled]="false"
         [dissociationEnabled]="isOwnerOrAdministrator() || authService.isActiveAclMasterAccount()"
