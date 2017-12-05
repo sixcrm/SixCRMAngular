@@ -38,7 +38,6 @@ const appRoutes: Routes = [
     { path : 'documentation', loadChildren : './pages/documentation/documentation.module#DocumentationModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'coming-soon', component: ComingSoonComponent, canActivate: [AuthGuard] },
     { path : 'roles', component: ComingSoonComponent, canActivate: [AuthGuard] },
-    { path : 'billing', component: ComingSoonComponent, canActivate: [AuthGuard] },
     { path : '**', component : ErrorPageComponent, canActivate: [AuthGuard] }
   ]},
 
