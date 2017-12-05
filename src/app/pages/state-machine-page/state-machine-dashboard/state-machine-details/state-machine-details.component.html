@@ -49,7 +49,7 @@
         </div>
       </ng-container>
     </ng-template>
-    <div *ngIf="standalone" class="state-machine-details__polling" (click)="togglePolling.emit(!isPolling)">
+    <div *ngIf="standalone && enableLivePolling" class="state-machine-details__polling" (click)="togglePolling.emit(!isPolling)">
       <md-icon>{{isPolling ? 'pause_circle_outline' : 'play_circle_outline'}}</md-icon>
       <span> {{isPolling ? 'PAUSE' : 'START'}} LIVE POLLING</span>
     </div>

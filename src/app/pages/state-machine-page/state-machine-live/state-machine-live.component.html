@@ -10,6 +10,7 @@
     [timeseries]="timeseries"
     [standalone]="true"
     [isPolling]="polling"
+    [enableLivePolling]="enableLivePooling"
     [date]="date"
     (dateChanged)="changeDate($event)"
     (togglePolling)="$event ? startPolling() : pausePolling()">

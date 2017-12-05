@@ -14,6 +14,7 @@ export class StateMachineDetailsComponent implements OnInit {
   @Input() isPolling: boolean;
   @Input() timeseries: StateMachineTimeseries[];
   @Input() date: any;
+  @Input() enableLivePolling: boolean;
 
   @Output() togglePolling: EventEmitter<boolean> = new EventEmitter();
   @Output() dateChanged: EventEmitter<any> = new EventEmitter();

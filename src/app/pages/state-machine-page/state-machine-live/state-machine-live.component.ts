@@ -28,6 +28,7 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
   pollingInterval: number = 60000;
   intervalSub: Subscription;
   fetchSub: Subscription;
+  enableLivePooling: boolean = false;
 
   private unsubscribe$: AsyncSubject<boolean> = new AsyncSubject();
 
