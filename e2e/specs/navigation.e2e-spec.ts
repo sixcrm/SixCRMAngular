@@ -30,7 +30,7 @@ describe('Navigation', function() {
     waitForUrlContains('/dashboard');
 
     browser.sleep(500);
-    expect(sidenav.getItems().count()).toBe(37);
+    expect(sidenav.getItems().count()).toBe(36);
   });
 
   it('should navigate to dashboard', () => {
@@ -167,31 +167,24 @@ describe('Navigation', function() {
     expectUrlToContain('accounts');
   });
 
-  it('should navigate to billing', () => {
-    sidenav.getLink(31).click();
-
-    waitForUrlContains('billing');
-    expectUrlToContain('billing');
-  });
-
   it('should navigate to roles', () => {
-    sidenav.getLink(32).click();
+    sidenav.getLink(31).click();
 
     waitForUrlContains('roles');
     expectUrlToContain('roles');
   });
 
   it('should navigate to graph docs', () => {
-    sidenav.getLink(33).click();
+    sidenav.getLink(32).click();
     browser.sleep(500);
-    sidenav.getLink(34).click();
+    sidenav.getLink(33).click();
 
     waitForUrlContains('documentation/graph');
     expectUrlToContain('documentation/graph');
   });
 
   it('should navigate to search', () => {
-    sidenav.getLink(36).click();
+    sidenav.getLink(35).click();
 
     waitForUrlContains('search');
     expectUrlToContain('search');
