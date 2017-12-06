@@ -40,7 +40,7 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
   };
 
   menuOptions: CustomMenuOption[] = [
-    {label: 'View User', option: 'view', show: (acl: Acl) => !acl.pending},
+    {label: 'View User', option: 'view', show: (acl: Acl) => !acl.pending && this.authService.isActiveAclMasterAccount()},
     {label: 'Resend Invite', option: 'resend', show: (acl: Acl) => !!acl.pending}
   ];
 
@@ -128,7 +128,7 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
   }
 
   navigateToUser(acl: Acl) {
-    if (acl.pending) return;
+    if (acl.pending || !this.authService.isActiveAclMasterAccount()) return;
 
     this.router.navigate(['/users', acl.user.id])
   }

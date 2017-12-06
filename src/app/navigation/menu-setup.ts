@@ -118,7 +118,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
 
   // Add Settings menu item
   let settings: MenuItem[] = [];
-  if (authService.hasPermissions('user', 'view')) {
+  if (authService.hasPermissions('user', 'view') && authService.isActiveAclMasterAccount()) {
     settings.push(new MenuItem('Users', 'users'));
   }
   if (authService.hasPermissions('account', 'view')) {

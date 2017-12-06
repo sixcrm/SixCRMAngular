@@ -7,7 +7,7 @@ import 'rxjs/Rx';
 
 export class AbstractAclGuard {
 
-  constructor(private authService: AuthenticationService,
+  constructor(protected authService: AuthenticationService,
               private router: Router,
               private dialog: MdDialog,
               private navigation?: NavigationService

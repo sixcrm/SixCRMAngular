@@ -23,36 +23,38 @@
   <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>
 
-      <account-add-new
-        [entity]="entity"
-        [mode]="viewMode ? modes.View : modes.Update"
-        [editEnabled]="isOwnerOrAdministrator() || authService.isActiveAclMasterAccount()"
-        (changeMode)="setMode($event)"
-        (cancel)="cancelUpdate()"
-        (save)="saveOrUpdate($event)"
-      >
-      </account-add-new>
+      <div class="flex-custom">
+        <account-add-new
+          [entity]="entity"
+          [mode]="viewMode ? modes.View : modes.Update"
+          [editEnabled]="isOwnerOrAdministrator() || authService.isActiveAclMasterAccount()"
+          (changeMode)="setMode($event)"
+          (cancel)="cancelUpdate()"
+          (save)="saveOrUpdate($event)">
+        </account-add-new>
 
-      <table-memory
-        class="account-view__acls-table"
-        [data]="entity.acls || []"
-        [columnParams]="aclColumnParams"
-        [textOptions]="text"
-        [associateDataMapper]="aclMapper"
-        [customAssociation]="true"
-        [associationEnabled]="isOwnerOrAdministrator() || authService.isActiveAclMasterAccount()"
-        [editEnabled]="false"
-        [viewEnabled]="false"
-        [dissociationEnabled]="isOwnerOrAdministrator() || authService.isActiveAclMasterAccount()"
-        [ignoreDisassociate]="isOwner"
-        [customTopMenuOptions]="(isOwnerOrAdministrator() || authService.isActiveAclMasterAccount()) ? ['Invite User'] : []"
-        [customMenuOptions]="menuOptions"
-        (view)="navigateToUser($event)"
-        (customMenuOptionSelected)="menuItemSelected($event)"
-        (customTopMenuOptionSelected)="inviteUser()"
-        (associate)="showAddAclModal()"
-        (disassociate)="removeAcl($event)">
-      </table-memory>
+        <table-memory
+          class="account-view__acls-table"
+          [data]="entity.acls || []"
+          [columnParams]="aclColumnParams"
+          [textOptions]="text"
+          [associateDataMapper]="aclMapper"
+          [customAssociation]="true"
+          [associationEnabled]="authService.isActiveAclMasterAccount()"
+          [editEnabled]="authService.isActiveAclMasterAccount() || isOwnerOrAdministrator()"
+          [viewEnabled]="false"
+          [dissociationEnabled]="isOwnerOrAdministrator() || authService.isActiveAclMasterAccount()"
+          [ignoreDisassociate]="isOwner"
+          [customTopMenuOptions]="(isOwnerOrAdministrator() || authService.isActiveAclMasterAccount()) ? ['Invite User'] : []"
+          [customMenuOptions]="menuOptions"
+          (view)="navigateToUser($event)"
+          (edit)="showEditAclModal($event)"
+          (customMenuOptionSelected)="menuItemSelected($event)"
+          (customTopMenuOptionSelected)="inviteUser()"
+          (associate)="showAddAclModal()"
+          (disassociate)="removeAcl($event)">
+        </table-memory>
+      </div>
 
     </md-tab>
 
