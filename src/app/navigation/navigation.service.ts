@@ -36,6 +36,10 @@ export class NavigationService {
       if (!acl || !acl.account.id) return;
 
       this.setMenuItems(menuItems(authService, acl));
+    });
+
+    this.authService.actingAsAccount$.subscribe(() => {
+      this.setMenuItems(menuItems(authService, this.authService.getActiveAcl()));
     })
   }
 
