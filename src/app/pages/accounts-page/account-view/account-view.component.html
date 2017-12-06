@@ -17,13 +17,13 @@
 
   <div class="entity-view__navigation">
     <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="selectedIndex = 0">GENERAL DETAILS</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="selectedIndex = 1">ACCESS KEYS</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="selectedIndex = 1">USERS</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="selectedIndex = 2">ACCESS KEYS</span>
   </div>
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>
 
-      <div class="flex-custom">
         <account-add-new
           [entity]="entity"
           [mode]="viewMode ? modes.View : modes.Update"
@@ -33,31 +33,30 @@
           (save)="saveOrUpdate($event)">
         </account-add-new>
 
-        <table-memory
-          class="account-view__acls-table"
-          [data]="entity.acls || []"
-          [columnParams]="aclColumnParams"
-          [textOptions]="text"
-          [associateDataMapper]="aclMapper"
-          [customAssociation]="true"
-          [associationEnabled]="authService.isActiveAclMasterAccount()"
-          [editEnabled]="authService.isActiveAclMasterAccount() || isOwnerOrAdministrator()"
-          [viewEnabled]="false"
-          [dissociationEnabled]="isOwnerOrAdministrator() || authService.isActiveAclMasterAccount()"
-          [ignoreDisassociate]="isOwner"
-          [customTopMenuOptions]="(isOwnerOrAdministrator() || authService.isActiveAclMasterAccount()) ? ['Invite User'] : []"
-          [customMenuOptions]="menuOptions"
-          (view)="navigateToUser($event)"
-          (edit)="showEditAclModal($event)"
-          (customMenuOptionSelected)="menuItemSelected($event)"
-          (customTopMenuOptionSelected)="inviteUser()"
-          (associate)="showAddAclModal()"
-          (disassociate)="removeAcl($event)">
-        </table-memory>
-      </div>
-
     </md-tab>
-
+    <md-tab>
+      <table-memory
+        class="account-view__acls-table"
+        [data]="entity.acls || []"
+        [columnParams]="aclColumnParams"
+        [textOptions]="text"
+        [associateDataMapper]="aclMapper"
+        [customAssociation]="true"
+        [associationEnabled]="authService.isActiveAclMasterAccount()"
+        [editEnabled]="authService.isActiveAclMasterAccount() || isOwnerOrAdministrator()"
+        [viewEnabled]="false"
+        [dissociationEnabled]="isOwnerOrAdministrator() || authService.isActiveAclMasterAccount()"
+        [ignoreDisassociate]="isOwner"
+        [customTopMenuOptions]="(isOwnerOrAdministrator() || authService.isActiveAclMasterAccount()) ? ['Invite User'] : []"
+        [customMenuOptions]="menuOptions"
+        (view)="navigateToUser($event)"
+        (edit)="showEditAclModal($event)"
+        (customMenuOptionSelected)="menuItemSelected($event)"
+        (customTopMenuOptionSelected)="inviteUser()"
+        (associate)="showAddAclModal()"
+        (disassociate)="removeAcl($event)">
+      </table-memory>
+    </md-tab>
     <md-tab>
       <access-keys></access-keys>
     </md-tab>
@@ -65,5 +64,5 @@
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="1" [cardsExpression]="'300px;470px'" [title]="'Account'"></spe-loader>
+  <spe-loader [numberOfTabs]="1" [cardsExpression]="'300px'" [title]="'Account'"></spe-loader>
 </ng-template>
