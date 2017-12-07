@@ -28,7 +28,7 @@ describe('Accounts', function() {
     const sidenav = new SidenavPage();
     sidenav.getLink(28).click();
     browser.sleep(500);
-    sidenav.getLink(30).click();
+    sidenav.getLink(29).click();
     waitForUrlContains('account');
     expectUrlToContain('account');
   });
@@ -70,6 +70,6 @@ describe('Accounts', function() {
   });
 
   it('should render correct number of tab labels', () => {
-    expect(view.getTabLabels().count()).toEqual(2);
+    expect(view.getTabLabels().count()).toEqual(3);
   })
 });

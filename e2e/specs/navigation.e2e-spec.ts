@@ -30,7 +30,7 @@ describe('Navigation', function() {
     waitForUrlContains('/dashboard');
 
     browser.sleep(500);
-    expect(sidenav.getItems().count()).toBe(36);
+    expect(sidenav.getItems().count()).toBe(35);
   });
 
   it('should navigate to dashboard', () => {
@@ -151,40 +151,33 @@ describe('Navigation', function() {
     expectUrlToContain('loadbalancers');
   });
 
-  it('should navigate to users', () => {
+  it('should navigate to accounts', () => {
     sidenav.getLink(28).click();
     browser.sleep(500);
     sidenav.getLink(29).click();
-
-    waitForUrlContains('users');
-    expectUrlToContain('users');
-  });
-
-  it('should navigate to accounts', () => {
-    sidenav.getLink(30).click();
 
     waitForUrlContains('accounts');
     expectUrlToContain('accounts');
   });
 
   it('should navigate to roles', () => {
-    sidenav.getLink(31).click();
+    sidenav.getLink(30).click();
 
     waitForUrlContains('roles');
     expectUrlToContain('roles');
   });
 
   it('should navigate to graph docs', () => {
-    sidenav.getLink(32).click();
+    sidenav.getLink(31).click();
     browser.sleep(500);
-    sidenav.getLink(33).click();
+    sidenav.getLink(32).click();
 
     waitForUrlContains('documentation/graph');
     expectUrlToContain('documentation/graph');
   });
 
   it('should navigate to search', () => {
-    sidenav.getLink(35).click();
+    sidenav.getLink(34).click();
 
     waitForUrlContains('search');
     expectUrlToContain('search');

@@ -18,4 +18,8 @@ export class AccountPage {
     return element(by.css('.custom-dialog__buttons')).all(by.css('div')).last();
   }
 
+  getTabs() {
+    return element.all(by.css('.entity-view__navigation__label'));
+  }
+
 }

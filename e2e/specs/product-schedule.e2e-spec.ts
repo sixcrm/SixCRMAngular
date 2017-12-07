@@ -6,7 +6,7 @@ import {browser} from 'protractor';
 import {expectUrlToContain, expectDefined} from '../utils/assertation.utils';
 import {ProductSchedulePage} from '../po/product-schedule.po';
 
-describe('Product Schedules', function() {
+fdescribe('Product Schedules', function() {
   let page: EntityIndexPage;
   let productSchedulePage: ProductSchedulePage;
 
@@ -46,9 +46,9 @@ describe('Product Schedules', function() {
   });
 
   it('should render product schedules index table headers', () => {
-    expect(page.getTableHeaders().get(0).getText()).toEqual('ID');
-    expect(page.getTableHeaders().get(1).getText()).toEqual('Name');
-    expect(page.getTableHeaders().get(2).getText()).toEqual('Number Of Cycles');
+    expect(page.getTableHeaders().get(0).getText()).toEqual('Name');
+    expect(page.getTableHeaders().get(1).getText()).toEqual('Load Balancer');
+    expect(page.getTableHeaders().get(2).getText()).toEqual('Number of Cycles');
   });
 
   it('should render add modal when add button is clicked', () => {

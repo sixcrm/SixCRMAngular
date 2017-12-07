@@ -140,7 +140,7 @@ describe('Accept Invite', function() {
 
     acceptInvitePage.getAcceptButton().click();
 
-    browser.sleep(1000);
+    browser.sleep(1500);
 
     expect(acceptInvitePage.getWelcomeText().getText()).toContain(`Great! We've added you to the account.`);
   });
@@ -273,6 +273,9 @@ describe('Accept Invite', function() {
 
   it('should have more than one user', () => {
     browser.waitForAngularEnabled(false);
+
+    accountPage.getTabs().get(1).click();
+    browser.slee(200);
 
     expect(accountPage.getAssociatedUsers().count()).toBeGreaterThan(2);
   });

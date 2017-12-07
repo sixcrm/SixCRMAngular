@@ -47,7 +47,7 @@ describe('Campaigns', function() {
 
   it('should render campaigns index table headers', () => {
     expect(page.getTableHeaders().get(0).getText()).toEqual('Name');
-    expect(page.getTableHeaders().get(1).getText()).toEqual('Total products');
+    expect(page.getTableHeaders().get(1).getText()).toEqual('Total Products');
     expect(page.getTableHeaders().get(2).getText()).toEqual('Total Scheduled');
     expect(page.getTableHeaders().get(3).getText()).toEqual('Created at');
   });
