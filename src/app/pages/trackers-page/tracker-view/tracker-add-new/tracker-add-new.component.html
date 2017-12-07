@@ -1,6 +1,6 @@
 <div class="entity-view__card tracker-view" [class.entity-view__card--create]="mode === modes.Add">
   <div class="entity-view__card__header">
-    <div class="entity-view__card__header__title">Tracker Details</div>
+    <div class="entity-view__card__header__title">{{mode === modes.Add ? 'Add New Tracker' : 'Tracker Details'}}</div>
     <md-icon [md-menu-trigger-for]="trackerOptions">more_vert</md-icon>
     <md-menu #trackerOptions="mdMenu" x-position="before">
       <button md-menu-item (click)="enableEdit()"> Edit Tracker </button>
@@ -20,7 +20,7 @@
         [disabled]="mode === modes.View"
         [selected]="entity.type"
         [required]="true"
-        [placeholder]="'Tracking type'"
+        [placeholder]="'Tracking Type'"
         (onSelect)="setType($event)"
         [options]="['html', 'postback']">
       </dropdown-component>
@@ -31,7 +31,7 @@
         class="tracker-view__dropdown--inline"
         [disabled]="mode === modes.View"
         [selected]="mode !== modes.View ? '' : (entity.eventType && entity.eventType.length > 0 ? entity.eventType : 'all')"
-        [placeholder]="mode !== modes.View ? 'add event type' : 'Event Type'"
+        [placeholder]="mode !== modes.View ? 'Add Event Type' : 'Event Type'"
         (onSelect)="addEventType($event)"
         [options]="['upsell', 'lead', 'main']">
       </dropdown-component>
@@ -41,13 +41,13 @@
     </div>
 
     <div *ngIf="entity.link && mode !== modes.Update" class="tracker-view__card__content__link">
-      <div class="tracker-view__card__content__label">Tracking link:</div>
+      <div class="tracker-view__card__content__label">Tracking Link:</div>
       <input type="text" #urlField class="share-link__url__content" value="{{entity.link}}" readonly>
       <md-icon md-tooltip="Copy to clipboard" (click)="copyUrlToClipboard(urlField)">content_copy</md-icon>
     </div>
 
     <div class="tracker-view__card__content__body">
-      <div class="tracker-view__card__content__label">Tracking data:</div>
+      <div class="tracker-view__card__content__label">Tracking Data:</div>
 
       <codemirror [class.invisible]="entity.type !== 'html'" [(ngModel)]="entity.body" [config]="config"></codemirror>
 

@@ -28,9 +28,9 @@ export class ProductSchedulesComponent extends AbstractEntityIndexComponent<Prod
     this.entityFactory = () => new ProductSchedule();
 
     this.columnParams = [
-      new ColumnParams('ID', (e: ProductSchedule) => e.id),
       new ColumnParams('Name', (e: ProductSchedule) => e.name),
-      new ColumnParams('Number Of Cycles', (e: ProductSchedule) => e.schedules.length.toString(), 'right')
+      new ColumnParams('Load Balancer', (e: ProductSchedule) => e.loadBalancer.name),
+      new ColumnParams('Number of Cycles', (e: ProductSchedule) => e.schedules.length.toString(), 'right')
     ];
   }
 

@@ -1,7 +1,7 @@
 <form *ngIf="entity" #productInputForm="ngForm" class="flex-custom">
   <div style="margin-bottom: 120px;" class="entity-view__card" [class.entity-view__card--create]="mode === add" [class.flex-align--center]="mode === add">
     <div class="entity-view__card__header">
-      <div class="entity-view__card__header__title">{{mode === add ? 'Create new Product' : 'Product general details'}}</div>
+      <div class="entity-view__card__header__title">{{mode === add ? 'Create New Product' : 'Product General Details'}}</div>
       <ng-container *ngIf="mode === view">
         <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
         <md-menu #editOptions="mdMenu" x-position="before">
@@ -13,7 +13,7 @@
 
     <div class="entity-view__card__content">
       <md-input-container style="margin-right: 25px;" [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-        <input required md-input [disabled]="mode === view" placeholder="Product name" name="name" [(ngModel)]="entity.name" type="text">
+        <input required md-input [disabled]="mode === view" placeholder="Product Name" name="name" [(ngModel)]="entity.name" type="text">
       </md-input-container>
 
       <div class="product-view__group">

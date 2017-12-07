@@ -1,6 +1,6 @@
 <div class="entity-view__card" [class.entity-view__card--create]="mode === modes.Add">
   <div class="entity-view__card__header">
-    <div class="entity-view__card__header__title">{{mode === modes.Add ? 'Create new Fulfillment Provider' : 'Fulfillment Details'}}</div>
+    <div class="entity-view__card__header__title">{{mode === modes.Add ? 'Create New Fulfillment Provider' : 'Fulfillment Details'}}</div>
     <ng-container *ngIf="mode !== modes.Add">
       <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
       <md-menu #editOptions="mdMenu" x-position="before">
