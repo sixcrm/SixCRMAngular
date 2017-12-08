@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Moment} from 'moment';
+import {Moment, utc} from 'moment';
 import {StateMachineTimeseries} from '../../shared/models/state-machine/state-machine-timeseries.model';
 import {Subject, Observable} from 'rxjs';
 import {StateMachineQueue} from '../../shared/models/state-machine/state-machine-queue';
@@ -8,7 +8,7 @@ import {RequestBehaviourOptions, generateHeaders, HttpWrapperService} from '../.
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {Response} from '@angular/http';
 import {environment} from '../../../environments/environment';
-import {getQueueSummary} from '../../shared/utils/queries/queue.queries';
+import {getQueueSummary, getQueueState} from '../../shared/utils/queries/queue.queries';
 
 @Injectable()
 export class StateMachineService {
@@ -25,12 +25,19 @@ export class StateMachineService {
         return;
       }
 
-      this.timeseries$.next(res.json().response.data.queuesummary.summary.map(t => new StateMachineTimeseries(t)))
+      this.timeseries$.next(res.json().response.data.rebillsummary.summary.map(t => new StateMachineTimeseries(t)))
     });
   }
 
-  getQueues(): void {
+  getQueueStates(): void {
     this.queues$.next(generateQueues());
+  }
+
+  getQueueState(queueName: string): Observable<Response> {
+    const start = utc();
+    const end = utc().subtract(1, 'd');
+
+    return this.queryRequest(getQueueState(queueName, start.format(), end.format()))
   }
 
   protected queryRequest(query: string, requestBehaviourOptions?: RequestBehaviourOptions): Observable<Response | CustomServerError> {
@@ -72,73 +79,80 @@ function generateQueues(): StateMachineQueue[] {
   return [
     {
       label: 'recover',
-      count: 1200,
+      count: 0,
       schemaPosition: 'left',
       selected:false,
-      avgTimeInSeconds: 30,
-      failureRate: 14,
+      avgTimeInSeconds: 0,
+      failureRate: 0,
       state: 'a',
-      downstreamQueues: ['BILL', 'FAILED']
+      downstreamQueues: ['BILL', 'FAILED'],
+      loaded: false
     },
     {
       label: 'failed',
-      count: 80,
+      count: 0,
       schemaPosition: 'left',
       selected:false,
-      avgTimeInSeconds: 25,
-      failureRate: 17,
+      avgTimeInSeconds: 0,
+      failureRate: 0,
       state: 'a',
-      downstreamQueues: ['PENDING']
+      downstreamQueues: ['PENDING'],
+      loaded: false
     },
     {
       label: 'bill',
-      count: 1134,
+      count: 0,
       schemaPosition: 'right',
       selected:true,
-      avgTimeInSeconds: 26,
-      failureRate: 15,
+      avgTimeInSeconds: 0,
+      failureRate: 0,
       state: 'b',
       description: 'This section of the SIX state machine is the entry point for all of the orders coming into your SIX account.',
-      downstreamQueues: ['HOLD']
+      downstreamQueues: ['HOLD'],
+      loaded: false
     },
     {
       label: 'hold',
-      count: 125,
+      count: 0,
       schemaPosition: 'right',
       selected:false,
-      avgTimeInSeconds: 20,
-      failureRate: 8,
-      state: 'a',
-      downstreamQueues: ['PENDING']
+      avgTimeInSeconds: 0,
+      failureRate: 0,
+      state: 'b',
+      downstreamQueues: ['PENDING'],
+      loaded: false
     },
     {
       label: 'pending',
-      count: 5534,
+      count: 0,
       schemaPosition: 'right',
       selected:false,
-      avgTimeInSeconds: 22,
-      failureRate: 12,
-      state: 'c',
-      downstreamQueues: ['SHIPPED']
+      avgTimeInSeconds: 0,
+      failureRate: 0,
+      state: 'a',
+      downstreamQueues: ['SHIPPED'],
+      loaded: false
     },
     {
       label: 'shipped',
-      count: 6135,
+      count: 0,
       schemaPosition: 'right',
       selected:false,
-      avgTimeInSeconds: 15,
-      failureRate: 18,
-      state: 'a',
-      downstreamQueues: ['DELIVERED']
+      avgTimeInSeconds: 0,
+      failureRate: 0,
+      state: 'c',
+      downstreamQueues: ['DELIVERED'],
+      loaded: false
     },
     {
       label: 'delivered',
-      count: 7175,
+      count: 0,
       schemaPosition: 'right',
       selected:false,
-      avgTimeInSeconds: 35,
-      failureRate: 20,
-      state: 'a'
+      avgTimeInSeconds: 0,
+      state: 'a',
+      failureRate: 0,
+      loaded: false
     }
   ];
 }

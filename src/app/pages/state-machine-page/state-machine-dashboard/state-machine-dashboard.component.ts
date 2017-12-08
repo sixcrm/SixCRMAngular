@@ -35,7 +35,7 @@ export class StateMachineDashboardComponent implements OnInit, OnDestroy {
       this.timeseries = timeseries;
     });
 
-    this.stateMachineService.getQueues();
+    this.stateMachineService.getQueueStates();
     this.fetch();
   }
 

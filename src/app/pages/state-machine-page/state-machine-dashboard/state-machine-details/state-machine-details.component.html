@@ -1,8 +1,7 @@
 <div class="state-machine-details__container">
   <div class="state-machine-details__info">
-    <div class="state-machine-details__info__count">
-      {{queue.count}}
-    </div>
+    <div *ngIf="queue.loaded" class="state-machine-details__info__count">{{queue.count}}</div>
+    <div *ngIf="!queue.loaded" class="placeholder placeholder--large"></div>
 
     <div class="state-machine-details__info__title">
       Total Orders in <span style="text-transform: capitalize">{{queue.label}}</span> Queue
@@ -12,7 +11,8 @@
       <div class="state-machine-details__info__details__box">
         <div class="item-title">Avg. Time in Queue</div>
         <div class="value-container">
-          <div class="item-value">{{queue.avgTimeInSeconds | formatDuration}}</div>
+          <div *ngIf="queue.loaded" class="item-value">{{queue.avgTimeInSeconds | formatDuration}}</div>
+          <div *ngIf="!queue.loaded" class="placeholder placeholder--small"></div>
           <div class="arrow"
                [style.border-bottom-color]="queue.state ? (queue.state === 'a' ? 'green' : queue.state === 'b' ? 'orange' : 'red') : 'gray'"
                [style.transform]="queue.state && (queue.state === 'b' || queue.state === 'c') ? 'rotate(180deg)' : 'rotate(0)'">
@@ -23,7 +23,9 @@
       <div class="state-machine-details__info__details__box">
         <div class="item-title">Failure Rate</div>
         <div class="value-container">
-          <div class="item-value">{{queue.failureRate}}%</div>
+          <div *ngIf="queue.loaded" class="item-value">{{queue.failureRate}}%</div>
+          <div *ngIf="!queue.loaded" class="placeholder placeholder--small"></div>
+
           <div class="arrow"
                [style.border-bottom-color]="queue.state ? (queue.state === 'a' ? 'green' : queue.state === 'b' ? 'orange' : 'red') : 'gray'"
                [style.transform]="queue.state && (queue.state === 'b' || queue.state === 'c') ? 'rotate(180deg)' : 'rotate(0)'">

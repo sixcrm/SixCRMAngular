@@ -33,6 +33,7 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
   private unsubscribe$: AsyncSubject<boolean> = new AsyncSubject();
 
   rebill: Rebill;
+  sub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,6 +54,7 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
         this.queue = filtered[0];
         this.rebill = null;
         this.fetchTimeseries();
+        this.fetchQueueState();
         this.startPolling();
       } else {
         this.navigation.goToNotFoundPage();
@@ -88,8 +90,27 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
     });
   }
 
+  fetchQueueState(): void {
+    this.queue.loaded = false;
+
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
+
+    this.sub = this.stateMachineService.getQueueState(this.queue.label).subscribe(res => {
+      const state = res.json().response.data.queuestate;
+
+      this.queue.count = state.count;
+      this.queue.avgTimeInSeconds = state.average_time;
+      this.queue.failureRate = state.failure_rate;
+
+      this.queue.loaded = true;
+    })
+  }
+
+
   fetchQueue(): void {
-    this.stateMachineService.getQueues();
+    this.stateMachineService.getQueueStates();
   }
 
   fetchTimeseries(): void {

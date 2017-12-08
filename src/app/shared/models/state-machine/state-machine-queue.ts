@@ -8,4 +8,5 @@ export interface StateMachineQueue {
   state?: 'a' | 'b' | 'c',
   description?: string,
   downstreamQueues?: string[];
+  loaded?: boolean
 }
