@@ -84,7 +84,6 @@ function generateQueues(): StateMachineQueue[] {
       selected:false,
       avgTimeInSeconds: 0,
       failureRate: 0,
-      state: 'a',
       downstreamQueues: ['BILL', 'FAILED'],
       loaded: false
     },
@@ -95,7 +94,6 @@ function generateQueues(): StateMachineQueue[] {
       selected:false,
       avgTimeInSeconds: 0,
       failureRate: 0,
-      state: 'a',
       downstreamQueues: ['PENDING'],
       loaded: false
     },
@@ -106,7 +104,6 @@ function generateQueues(): StateMachineQueue[] {
       selected:true,
       avgTimeInSeconds: 0,
       failureRate: 0,
-      state: 'b',
       description: 'This section of the SIX state machine is the entry point for all of the orders coming into your SIX account.',
       downstreamQueues: ['HOLD'],
       loaded: false
@@ -118,7 +115,6 @@ function generateQueues(): StateMachineQueue[] {
       selected:false,
       avgTimeInSeconds: 0,
       failureRate: 0,
-      state: 'b',
       downstreamQueues: ['PENDING'],
       loaded: false
     },
@@ -129,7 +125,6 @@ function generateQueues(): StateMachineQueue[] {
       selected:false,
       avgTimeInSeconds: 0,
       failureRate: 0,
-      state: 'a',
       downstreamQueues: ['SHIPPED'],
       loaded: false
     },
@@ -140,7 +135,6 @@ function generateQueues(): StateMachineQueue[] {
       selected:false,
       avgTimeInSeconds: 0,
       failureRate: 0,
-      state: 'c',
       downstreamQueues: ['DELIVERED'],
       loaded: false
     },
@@ -150,7 +144,6 @@ function generateQueues(): StateMachineQueue[] {
       schemaPosition: 'right',
       selected:false,
       avgTimeInSeconds: 0,
-      state: 'a',
       failureRate: 0,
       loaded: false
     }

@@ -1,6 +1,6 @@
 <div class="status-item__container">
   <div class="status-item__main"
-       [style.border-color]="'rgba(0,0,0,0.3)'">
+       [style.border-color]="queue.failureColor || 'rgba(0,0,0,0.3)'">
     <div *ngIf="!queue.loaded" class="placeholder"></div>
     <div *ngIf="queue.loaded" class="status-item__main__count">{{queue.count}}</div>
     <div class="status-item__main__label">{{queue.label}}</div>
@@ -14,8 +14,8 @@
         <div *ngIf="!queue.loaded" class="placeholder"></div>
         <div *ngIf="queue.loaded" class="status-item__additional__value">{{queue.avgTimeInSeconds | formatDuration}}</div>
         <div class="arrow"
-             [style.border-bottom-color]="'rgba(0,0,0,0.3)'"
-             [style.transform]="queue.state && (queue.state === 'b' || queue.state === 'c') ? 'rotate(180deg)' : 'rotate(0)'">
+             [style.border-bottom-color]="queue.avgTimeColor || 'rgba(0,0,0,0.3)'"
+             [style.transform]="(queue.avgTimeColor === 'RED' || queue.avgTimeColor == 'ORANGE') ? 'rotate(180deg)' : 'rotate(0)'">
         </div>
       </div>
     </div>
@@ -25,8 +25,8 @@
         <div *ngIf="!queue.loaded" class="placeholder"></div>
         <div *ngIf="queue.loaded" class="status-item__additional__value">{{queue.failureRate}}%</div>
         <div class="arrow"
-             [style.border-bottom-color]="'rgba(0,0,0,0.3)'"
-             [style.transform]="queue.state && (queue.state === 'b' || queue.state === 'c') ? 'rotate(180deg)' : 'rotate(0)'">
+             [style.border-bottom-color]="queue.failureColor || 'rgba(0,0,0,0.3)'"
+             [style.transform]="(queue.failureColor === 'RED' || queue.failureColor == 'ORANGE') ? 'rotate(180deg)' : 'rotate(0)'">
         </div>
       </div>
     </div>

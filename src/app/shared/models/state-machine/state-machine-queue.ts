@@ -2,10 +2,11 @@ export interface StateMachineQueue {
   label: string,
   count: number,
   avgTimeInSeconds: number,
+  avgTimeColor?: string,
   failureRate: number,
+  failureColor?: string,
   schemaPosition: 'left' | 'right',
   selected: boolean,
-  state?: 'a' | 'b' | 'c',
   description?: string,
   downstreamQueues?: string[];
   loaded?: boolean

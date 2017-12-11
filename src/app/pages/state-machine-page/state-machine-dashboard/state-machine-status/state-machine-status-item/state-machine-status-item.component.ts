@@ -23,6 +23,8 @@ export class StateMachineStatusItemComponent implements OnInit, OnDestroy {
       this.queue.count = state.count;
       this.queue.avgTimeInSeconds = state.average_time;
       this.queue.failureRate = state.failure_rate;
+      this.queue.avgTimeColor = state.average_time_color;
+      this.queue.failureColor = state.failure_rate_color;
       this.queue.loaded = true;
     })
   }

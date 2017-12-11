@@ -14,8 +14,8 @@
           <div *ngIf="queue.loaded" class="item-value">{{queue.avgTimeInSeconds | formatDuration}}</div>
           <div *ngIf="!queue.loaded" class="placeholder placeholder--small"></div>
           <div class="arrow"
-               [style.border-bottom-color]="queue.state ? (queue.state === 'a' ? 'green' : queue.state === 'b' ? 'orange' : 'red') : 'gray'"
-               [style.transform]="queue.state && (queue.state === 'b' || queue.state === 'c') ? 'rotate(180deg)' : 'rotate(0)'">
+               [style.border-bottom-color]="queue.avgTimeColor || 'rgba(0,0,0,0.3)'"
+               [style.transform]="(queue.avgTimeColor === 'RED' || queue.avgTimeColor == 'ORANGE') ? 'rotate(180deg)' : 'rotate(0)'">
           </div>
         </div>
       </div>
@@ -27,8 +27,8 @@
           <div *ngIf="!queue.loaded" class="placeholder placeholder--small"></div>
 
           <div class="arrow"
-               [style.border-bottom-color]="queue.state ? (queue.state === 'a' ? 'green' : queue.state === 'b' ? 'orange' : 'red') : 'gray'"
-               [style.transform]="queue.state && (queue.state === 'b' || queue.state === 'c') ? 'rotate(180deg)' : 'rotate(0)'">
+               [style.border-bottom-color]="queue.failureColor || 'rgba(0,0,0,0.3)'"
+               [style.transform]="(queue.failureColor === 'RED' || queue.failureColor == 'ORANGE') ? 'rotate(180deg)' : 'rotate(0)'">
           </div>
         </div>
       </div>
