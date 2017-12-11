@@ -6,7 +6,7 @@
     <tr>
       <ng-container *ngFor="let params of columnParams">
         <th (click)="setSortParams(params)" [class.cell--align-right]="params.align === 'right'" [class.cell--codeblock]="params.code">
-          {{params.label}}
+          {{params.label | translate}}
           <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
         </th>
       </ng-container>

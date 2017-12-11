@@ -4,12 +4,12 @@
     <div *ngIf="!queue.loaded" class="placeholder"></div>
     <div *ngIf="queue.loaded" class="status-item__main__count">{{queue.count}}</div>
     <div class="status-item__main__label">{{queue.label}}</div>
-    <div class="status-item__main__view-link" [routerLink]="[queue.label.toLowerCase()]">VIEW</div>
+    <div class="status-item__main__view-link" [routerLink]="[queue.label.toLowerCase()]">{{'ORDERENGINE_STATUS_VIEW' | translate}}</div>
   </div>
 
   <div class="status-item__additional">
     <div class="status-item__additional__box">
-      <div class="status-item__additional__title">Avg. Time in Queue</div>
+      <div class="status-item__additional__title">{{'ORDERENGINE_STATUS_AVGTIME' | translate}}</div>
       <div class="arrow-container">
         <div *ngIf="!queue.loaded" class="placeholder"></div>
         <div *ngIf="queue.loaded" class="status-item__additional__value">{{queue.avgTimeInSeconds | formatDuration}}</div>
@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="status-item__additional__box status-item__additional__box--border">
-      <div class="status-item__additional__title">Failure Rate</div>
+      <div class="status-item__additional__title">{{'ORDERENGINE_STATUS_FAILURERATE' | translate}}</div>
       <div class="arrow-container">
         <div *ngIf="!queue.loaded" class="placeholder"></div>
         <div *ngIf="queue.loaded" class="status-item__additional__value">{{queue.failureRate}}%</div>

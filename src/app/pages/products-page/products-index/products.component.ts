@@ -30,10 +30,10 @@ export class ProductsComponent extends AbstractEntityIndexComponent<Product> imp
     this.entityFactory = () => new Product();
 
     this.columnParams = [
-      new ColumnParams('Product Name', (e: Product) => e.name),
-      new ColumnParams('SKU',(e: Product) => e.sku),
-      new ColumnParams('Ship', (e: Product) => e.ship),
-      new ColumnParams('Shipping Delay', (e: Product) => e.shippingDelay, 'right')
+      new ColumnParams('PRODUCT_INDEX_HEADER_NAME', (e: Product) => e.name),
+      new ColumnParams('PRODUCT_INDEX_HEADER_SKU',(e: Product) => e.sku),
+      new ColumnParams('PRODUCT_INDEX_HEADER_SHIP', (e: Product) => e.ship),
+      new ColumnParams('PRODUCT_INDEX_HEADER_DELAY', (e: Product) => e.shippingDelay, 'right')
     ];
   }
 

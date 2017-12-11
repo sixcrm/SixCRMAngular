@@ -9,13 +9,15 @@ import {EntityViewInfoArrayComponent} from './entity-view-info-array/entity-view
 import { EntitiesTableComponent } from './entities-table/entities-table.component';
 import {SharedModule} from '../../shared/shared.module';
 import { TableMemoryComponent } from './table-memory/table-memory.component';
+import {TranslationModule} from '../../translation/translation.module';
 
 @NgModule({
   imports : [
     CommonModule,
     MaterialModule.forRoot(),
     SharedModule,
-    FormsModule
+    FormsModule,
+    TranslationModule
   ],
   declarations : [
     TableActionsComponent,

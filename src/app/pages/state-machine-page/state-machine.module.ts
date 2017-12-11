@@ -20,6 +20,7 @@ import {PageComponentsModule} from '../components/pages-components.module';
 import { StateMachineRebillComponent } from './state-machine-live/state-machine-rebill/state-machine-rebill.component';
 import {FormsModule} from '@angular/forms';
 import {StateMachineRebillsComponent} from './state-machine-live/state-machine-rebills/state-machine-rebills.component';
+import {TranslationModule} from '../../translation/translation.module';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import {StateMachineRebillsComponent} from './state-machine-live/state-machine-r
     Daterangepicker,
     ChartsModule,
     PageComponentsModule,
-    FormsModule
+    FormsModule,
+    TranslationModule
   ],
   declarations: [
     StateMachineDashboardComponent,

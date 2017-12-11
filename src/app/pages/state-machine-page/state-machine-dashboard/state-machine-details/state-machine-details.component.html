@@ -4,12 +4,12 @@
     <div *ngIf="!queue.loaded" class="placeholder placeholder--large"></div>
 
     <div class="state-machine-details__info__title">
-      Total Orders in <span style="text-transform: capitalize">{{queue.label}}</span> Queue
+      {{'ORDERENGINE_DETAILS_TITLE' | translate}} <span style="text-transform: capitalize">{{queue.label}}</span>
     </div>
 
     <div class="state-machine-details__info__details">
       <div class="state-machine-details__info__details__box">
-        <div class="item-title">Avg. Time in Queue</div>
+        <div class="item-title">{{'ORDERENGINE_DETAILS_AVGTIME' | translate}}</div>
         <div class="value-container">
           <div *ngIf="queue.loaded" class="item-value">{{queue.avgTimeInSeconds | formatDuration}}</div>
           <div *ngIf="!queue.loaded" class="placeholder placeholder--small"></div>
@@ -21,7 +21,7 @@
       </div>
 
       <div class="state-machine-details__info__details__box">
-        <div class="item-title">Failure Rate</div>
+        <div class="item-title">{{'ORDERENGINE_DETAILS_FAILURERATE' | translate}}</div>
         <div class="value-container">
           <div *ngIf="queue.loaded" class="item-value">{{queue.failureRate}}%</div>
           <div *ngIf="!queue.loaded" class="placeholder placeholder--small"></div>
@@ -38,22 +38,22 @@
       {{queue.description}}
     </div>
 
-    <div *ngIf="!standalone; else downstream" class="state-machine-details__info__button" [routerLink]="[queue.label.toLowerCase()]">VIEW LIVE QUEUE</div>
+    <div *ngIf="!standalone; else downstream" class="state-machine-details__info__button" [routerLink]="[queue.label.toLowerCase()]">{{'ORDERENGINE_DETAILS_VIEW' | translate}}</div>
     <ng-template #downstream>
       <ng-container *ngIf="queue.downstreamQueues && queue.downstreamQueues.length > 0">
         <div class="state-machine-details__info__downstream">
-          <div class="state-machine-details__info__downstream__text">DOWNSTREAM QUEUE</div>
+          <div class="state-machine-details__info__downstream__text">{{'ORDERENGINE_DETAILS_DOWNSTREAM' | translate}}</div>
           <div *ngFor="let d of queue.downstreamQueues"
                class="state-machine-details__info__button state-machine-details__info__button--downstream"
                [routerLink]="['/state-machine', d.toLowerCase()]">
-            {{d}} QUEUE
+            {{d}}
           </div>
         </div>
       </ng-container>
     </ng-template>
     <div *ngIf="standalone && enableLivePolling" class="state-machine-details__polling" (click)="togglePolling.emit(!isPolling)">
       <md-icon>{{isPolling ? 'pause_circle_outline' : 'play_circle_outline'}}</md-icon>
-      <span> {{isPolling ? 'PAUSE' : 'START'}} LIVE POLLING</span>
+      <span> {{isPolling ? 'PAUSE' : 'START'}} {{'ORDERENGINE_DETAILS_LIVEPOLLING' | translate}}</span>
     </div>
   </div>
 

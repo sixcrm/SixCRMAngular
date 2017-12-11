@@ -17,9 +17,9 @@
   </state-machine-details>
 
   <div class="state-machine-live__breadcrumb state-machine-live__breadcrumb--separator">
-    <div class="root" [class.root--active]="!rebill" (click)="hideRebill()">Queue Messages</div>
+    <div class="root" [class.root--active]="!rebill" (click)="hideRebill()">{{'ORDERENGINE_REBILLS_SNACK_MAIN' | translate}}</div>
     <md-icon *ngIf="rebill">keyboard_arrow_right</md-icon>
-    <div *ngIf="rebill" class="queue"> Rebill ID: {{rebill.id}}</div>
+    <div *ngIf="rebill" class="queue"> {{'ORDERENGINE_REBILLS_SNACK_SUB' | translate}}: {{rebill.id}}</div>
   </div>
 
   <div class="table-container">

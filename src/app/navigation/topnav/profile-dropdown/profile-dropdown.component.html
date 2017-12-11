@@ -1,13 +1,13 @@
 <div class="profile-dropdown" [class.profile-dropdown--active]="dropdownVisible">
   <div class="profile-dropdown__header" [class.profile-dropdown__header--active]="dropdownVisible" (click)="toggleDropdownMenu()">
     <img *ngIf="userProfile.picture" class="profile-dropdown__header__image" [src]="userProfile.picture">
-    <span class="profile-dropdown__header__hello">Hello,</span>
+    <span class="profile-dropdown__header__hello">{{'TOPNAV_GREETING' | translate}},</span>
     <span class="profile-dropdown__header__name">{{userProfile.name}}</span>
     <md-icon class="profile-dropdown__header__arrow" [class.arrow--rotate]="dropdownVisible">keyboard_arrow_down</md-icon>
   </div>
 
   <div [class.profile-dropdown__menu--active]="dropdownVisible" class="profile-dropdown__menu">
-    <div class="profile-dropdown__menu__item" (click)="navigateToProfile()"> <span>User Settings</span> </div>
-    <div class="profile-dropdown__menu__item" (click)="logout()"> <span>Sign Out</span> </div>
+    <div class="profile-dropdown__menu__item" (click)="navigateToProfile()"> <span>{{'TOPNAV_SETTINGS' | translate}}</span> </div>
+    <div class="profile-dropdown__menu__item" (click)="logout()"> <span>{{'TOPNAV_SIGNOUT' | translate}}</span> </div>
   </div>
 </div>

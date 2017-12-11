@@ -7,7 +7,7 @@
   <span class="app-flex-filler"></span>
 
   <div class="topnav__acting-as" *ngIf="authService.actingAsAccount$ | async">
-    Acting as: <span>{{(authService.actingAsAccount$ | async).name}}</span> <md-icon (click)="authService.stopActingAs(null)">close</md-icon>
+    {{'TOPNAV_ACTINGAS' | translate}} <span>{{(authService.actingAsAccount$ | async).name}}</span> <md-icon (click)="authService.stopActingAs(null)">close</md-icon>
   </div>
 
   <button md-icon-button (click)="toggleSearchInput(searchField)"><md-icon class="topnav__search__icon">search</md-icon></button>
@@ -18,7 +18,7 @@
         #searchField
         md-input
         class="search-field"
-        placeholder="Search"
+        placeholder="{{'TOPNAV_SEARCH' | translate}}"
         type="text"
         (focus)="searchInputFocus()"
         (blur)="searchInputBlur()"
@@ -60,7 +60,7 @@
         <img class="topnav__items--collapsed__menu__profile__image" [src]="userProfile.picture">
         <span>{{userProfile.email}}</span>
       </div>
-      <span class="topnav__items--collapsed__menu__label">Accounts:</span>
+      <span class="topnav__items--collapsed__menu__label">{{'TOPNAV_MOBILE_ACCOUNTS' | translate}}:</span>
       <div *ngFor="let acl of authService.getAcls()">
         <div
           [style.font-weight]="(authService.activeAcl$ | async).id === acl.id ? 500 : 400"
@@ -69,9 +69,9 @@
             <span>{{acl.account.name}}</span>
         </div>
       </div>
-      <span class="topnav__items--collapsed__menu__label">Actions:</span>
-      <div class="topnav__items--collapsed__menu__button" (click)="navigateToProfile()"> User Settings </div>
-      <div class="topnav__items--collapsed__menu__button" (click)="logout()"> <span>Sign Out</span> </div>
+      <span class="topnav__items--collapsed__menu__label">{{'TOPNAV_MOBILE_ACTIONS' | translate}}:</span>
+      <div class="topnav__items--collapsed__menu__button" (click)="navigateToProfile()">{{'TOPNAV_MOBILE_SETTINGS' | translate}}</div>
+      <div class="topnav__items--collapsed__menu__button" (click)="logout()"> <span>{{'TOPNAV_MOBILE_SIGNOUT' | translate}}</span> </div>
     </div>
   </div>
 </md-toolbar>

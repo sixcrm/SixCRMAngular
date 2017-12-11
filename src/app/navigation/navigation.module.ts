@@ -14,6 +14,7 @@ import { ProfileDropdownComponent } from './topnav/profile-dropdown/profile-drop
 import {AuthenticationModule} from '../authentication/authentication.module';
 import { AlertsQuickComponent } from './alerts-quick/alerts-quick.component';
 import { PersistentNotificationsQuickComponent } from './persistent-notifications-quick/persistent-notifications-quick.component';
+import {TranslationModule} from '../translation/translation.module';
 
 @NgModule({
   imports : [
@@ -22,7 +23,8 @@ import { PersistentNotificationsQuickComponent } from './persistent-notification
     CommonModule,
     SharedModule,
     FormsModule,
-    AuthenticationModule
+    AuthenticationModule,
+    TranslationModule
   ],
   declarations : [
     SidenavComponent,

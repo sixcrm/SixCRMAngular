@@ -2,8 +2,8 @@
   <div class="column--small">
     <md-card class="customer-view__card">
       <md-card-title>
-        <div class="title">Message</div>
-        <div class="subtitle">History</div>
+        <div class="title">{{'ORDERENGINE_REBILL_HISTORY_TITLE' | translate}}</div>
+        <div class="subtitle">{{'ORDERENGINE_REBILL_HISTORY_SUBTITLE' | translate}}</div>
       </md-card-title>
 
       <md-card-content class="history-container">
@@ -24,7 +24,7 @@
           <div class="info-container">
             <div class="name">{{event.state}}</div>
             <div class="time" *ngIf="event.enteredAt">
-              <div>Entered {{event.state}} Queue:</div>
+              <div>{{'ORDERENGINE_REBILL_HISTORY_ENTER' | translate}} {{event.state}}:</div>
               {{event.enteredAt.format('MM/DD/YYYY h:mm a')}}
             </div>
             <div class="warning" *ngIf="event.errorMessage">{{event.errorMessage}}</div>
@@ -92,17 +92,17 @@
 
     <md-card class="customer-view__card">
       <md-card-title>
-        <div class="title">Rebill Properties</div>
-        <div class="subtitle">Details of client rebill</div>
+        <div class="title">{{'ORDERENGINE_REBILL_PROPERTIES_TITLE' | translate}}</div>
+        <div class="subtitle">{{'ORDERENGINE_REBILL_PROPERTIES_SUBTITLE' | translate}}</div>
       </md-card-title>
 
       <md-card-content class="properties-container">
-        <div><span>Rebill ID:</span>{{rebill.id}}</div>
-        <div class="clickable" [routerLink]="['/sessions', rebill.parentSession.id]"><span>Parent Session ID:</span>{{rebill.parentSession.id}}</div>
-        <div><span>Created at:</span>{{rebill.createdAt.tz(authService.getTimezone()).format('MM/DD/YYYY h:mm a')}}</div>
-        <div><span>Last Updated:</span>{{rebill.updatedAt.tz(authService.getTimezone()).format('MM/DD/YYYY h:mm a')}}</div>
-        <div><span>Total Billing Amount:</span>{{rebill.amount.usd()}}</div>
-        <div class="clickable" [routerLink]="['/campaigns', rebill.parentSession.campaign.id]"><span>Associated Campaign:</span>{{rebill.parentSession.campaign.name}}</div>
+        <div><span>{{'ORDERENGINE_REBILL_PROPERTIES_REBILL' | translate}}:</span>{{rebill.id}}</div>
+        <div class="clickable" [routerLink]="['/sessions', rebill.parentSession.id]"><span>{{'ORDERENGINE_REBILL_PROPERTIES_PARENTSESSION' | translate}}:</span>{{rebill.parentSession.id}}</div>
+        <div><span>{{'ORDERENGINE_REBILL_PROPERTIES_CREATED' | translate}}:</span>{{rebill.createdAt.tz(authService.getTimezone()).format('MM/DD/YYYY h:mm a')}}</div>
+        <div><span>{{'ORDERENGINE_REBILL_PROPERTIES_UPDATED' | translate}}:</span>{{rebill.updatedAt.tz(authService.getTimezone()).format('MM/DD/YYYY h:mm a')}}</div>
+        <div><span>{{'ORDERENGINE_REBILL_PROPERTIES_AMOUNT' | translate}}:</span>{{rebill.amount.usd()}}</div>
+        <div class="clickable" [routerLink]="['/campaigns', rebill.parentSession.campaign.id]"><span>{{'ORDERENGINE_REBILL_PROPERTIES_CAMPAIGN' | translate}}:</span>{{rebill.parentSession.campaign.name}}</div>
       </md-card-content>
     </md-card>
 

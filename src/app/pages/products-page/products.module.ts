@@ -12,6 +12,7 @@ import {ProductProductSchedulesComponent} from './product-view/product-product-s
 import { ProductCampaignsComponent } from './product-view/product-campaigns/product-campaigns.component';
 import {TextMaskModule} from 'angular2-text-mask';
 import { ProductAddNewComponent } from './product-view/product-add-new/product-add-new.component';
+import {TranslationModule} from '../../translation/translation.module';
 
 @NgModule({
   imports : [
@@ -21,7 +22,8 @@ import { ProductAddNewComponent } from './product-view/product-add-new/product-a
     MaterialModule.forRoot(),
     PageComponentsModule,
     SharedModule,
-    TextMaskModule
+    TextMaskModule,
+    TranslationModule
   ],
   declarations : [
     ProductsComponent,
