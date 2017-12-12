@@ -1,10 +1,10 @@
 <div class="entity-view__card">
   <div class="entity-view__card__header">
-    <div class="entity-view__card__header__title">Account Details</div>
+    <div class="entity-view__card__header__title">{{ 'ACCOUNT_DETAILS_TITLE' | translate}}</div>
     <ng-container *ngIf="mode === modes.View && editEnabled">
       <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
       <md-menu #editOptions="mdMenu" x-position="before">
-        <button md-menu-item (click)="changeMode.emit(modes.Update)"> Edit Account Details </button>
+        <button md-menu-item (click)="changeMode.emit(modes.Update)">{{ 'ACCOUNT_DETAILS_EDIT' | translate}}</button>
       </md-menu>
     </ng-container>
   </div>
@@ -12,18 +12,18 @@
   <div class="entity-view__card__content">
 
     <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-      <input required md-input [disabled]="mode === modes.View" placeholder="Name" [(ngModel)]="entity.name" type="text">
+      <input required md-input [disabled]="mode === modes.View" placeholder="{{ 'ACCOUNT_DETAILS_nAME' | translate}}" [(ngModel)]="entity.name" type="text">
     </md-input-container>
 
     <div style="margin-top: 25px;" class="user-view__item flex-custom flex-custom--center">
-      <span>Activated</span>
+      <span>{{ 'ACCOUNT_DETAILS_ACTIVATED' | translate}}</span>
       <md-checkbox class="flex-align--right" [checked]="entity && entity.active === 'true'" (change)="entity.toggleActive()" [disabled]="mode === modes.View"></md-checkbox>
     </div>
 
   </div>
 
   <div *ngIf="mode !== modes.View" class="entity-view__card__actions">
-    <div *ngIf="mode === modes.Update" (click)="cancel.emit(true)">CANCEL</div>
-    <div (click)="saveAccount()">SAVE</div>
+    <div *ngIf="mode === modes.Update" (click)="cancel.emit(true)">{{ 'ACCOUNT_DETAILS_CANCEL' | translate}}</div>
+    <div (click)="saveAccount()">{{ 'ACCOUNT_DETAILS_SAVE' | translate}}</div>
   </div>
 </div>

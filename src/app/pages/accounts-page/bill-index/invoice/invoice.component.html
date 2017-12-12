@@ -4,20 +4,20 @@
       {{bill.periodStart.clone().tz(authService.timezone).format('MMM DD')}} - {{bill.periodEnd.clone().tz(authService.timezone).format('MMM DD, YYYY')}}
     </div>
 
-    <div class="invoice__header__due" *ngIf="!bill.paid">Due: {{bill.availableAt.clone().tz(authService.timezone).format('MMM DD YYYY')}}</div>
-    <div class="invoice__header__due" *ngIf="bill.paid">Ending Balance: {{bill.endingBalance.usd()}}</div>
+    <div class="invoice__header__due" *ngIf="!bill.paid">{{ 'ACCOUNT_BILLING_DUE' | translate}}: {{bill.availableAt.clone().tz(authService.timezone).format('MMM DD YYYY')}}</div>
+    <div class="invoice__header__due" *ngIf="bill.paid">{{ 'ACCOUNT_BILLING_BALANCE' | translate}}: {{bill.endingBalance.usd()}}</div>
 
     <md-icon>{{collapsed ? 'keyboard_arrow_down' : 'keyboard_arrow_up'}}</md-icon>
   </div>
   <div *ngIf="!collapsed" class="invoice__details">
-    <div class="invoice__details__id">Invoice #: {{bill.id}}</div>
+    <div class="invoice__details__id">{{ 'ACCOUNT_BILLING_INVOICETITLE' | translate}} #: {{bill.id}}</div>
 
     <table class="highlight">
       <thead>
         <tr>
-          <th>Description</th>
-          <th class="cell--align-right">Amount</th>
-          <th>Created</th>
+          <th>{{ 'ACCOUNT_BILLING_HEADER_DESCRIPTION' | translate}}</th>
+          <th class="cell--align-right">{{ 'ACCOUNT_BILLING_HEADER_AMOUNT' | translate}}</th>
+          <th>{{ 'ACCOUNT_BILLING_HEADER_CREATED' | translate}}</th>
         </tr>
       </thead>
 
@@ -31,9 +31,9 @@
     </table>
 
     <div class="invoice__details__buttons">
-      <div *ngIf="!bill.paid">PAY</div>
-      <div>PRINT</div>
-      <div *ngIf="authService.isActiveAclMasterAccount()" style="margin-left: 25px;" (click)="update.emit(bill)">UPDATE</div>
+      <div *ngIf="!bill.paid">{{ 'ACCOUNT_BILLING_PAY' | translate}}</div>
+      <div>{{ 'ACCOUNT_BILLING_PRINT' | translate}}</div>
+      <div *ngIf="authService.isActiveAclMasterAccount()" style="margin-left: 25px;" (click)="update.emit(bill)">{{ 'ACCOUNT_BILLING_UPDATE' | translate}}</div>
     </div>
   </div>
 </div>

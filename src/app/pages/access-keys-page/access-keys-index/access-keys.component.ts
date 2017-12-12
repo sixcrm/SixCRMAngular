@@ -32,10 +32,10 @@ export class AccessKeysComponent extends AbstractEntityIndexComponent<AccessKey>
 
     let f = this.authService.getTimezone();
     this.columnParams = [
-      new ColumnParams('Created At', (e: AccessKey) => e.createdAt.tz(f).format('MM/DD/YYYY')),
-      new ColumnParams('Name', (e: AccessKey) => e.name),
-      new ColumnParams('Access Key', (e: AccessKey) => e.accessKey),
-      new ColumnParams('Secret Key', (e: AccessKey) => new TextMaskPipe().transform(e.secretKey, true, 4))
+      new ColumnParams('ACCOUNT_KEYS_HEADER_CREATED', (e: AccessKey) => e.createdAt.tz(f).format('MM/DD/YYYY')),
+      new ColumnParams('ACCOUNT_KEYS_HEADER_NAME', (e: AccessKey) => e.name),
+      new ColumnParams('ACCOUNT_KEYS_HEADER_ACCESS', (e: AccessKey) => e.accessKey),
+      new ColumnParams('ACCOUNT_KEYS_HEADER_SECRET', (e: AccessKey) => new TextMaskPipe().transform(e.secretKey, true, 4))
     ];
 
   }

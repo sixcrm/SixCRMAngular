@@ -31,26 +31,26 @@ import {SnackbarService} from '../../../shared/services/snackbar.service';
 export class AccountViewComponent extends AbstractEntityViewComponent<Account> implements OnInit, OnDestroy {
 
   text: TableMemoryTextOptions = {
-    title: 'Associated Users',
-    disassociateOptionText: `Remove User from Account`,
-    associateOptionText: 'Add User to Account',
-    viewOptionText: 'View User',
-    disassociateModalTitle: 'Are you sure you want to remove user',
-    editOptionText: 'Edit User Role'
+    title: 'ACCOUNT_USERS_TITLE',
+    disassociateOptionText: `ACCOUNT_USERS_REMOVE`,
+    associateOptionText: 'ACCOUNT_USERS_ADD',
+    viewOptionText: 'ACCOUNT_USERS_VIEW',
+    disassociateModalTitle: 'ACCOUNT_USERS_REMOVEMESSAGE',
+    editOptionText: 'ACCOUNT_USERS_EDIT'
   };
 
   menuOptions: CustomMenuOption[] = [
-    {label: 'View User', option: 'view', show: (acl: Acl) => !acl.pending && this.authService.isActiveAclMasterAccount()},
-    {label: 'Resend Invite', option: 'resend', show: (acl: Acl) => !!acl.pending}
+    {label: 'ACCOUNT_USERS_VIEW', option: 'view', show: (acl: Acl) => !acl.pending && this.authService.isActiveAclMasterAccount()},
+    {label: 'ACCOUNT_USERS_INVITE', option: 'resend', show: (acl: Acl) => !!acl.pending}
   ];
 
   formInvalid: boolean;
   aclMapper = (acl: Acl) => `${acl.user.name}`;
 
   aclColumnParams = [
-    new ColumnParams('User', (e: Acl) => e.user.name),
-    new ColumnParams('Role', (e: Acl) => e.role.name),
-    new ColumnParams('Status', (e: Acl) => e.pending || 'Active')
+    new ColumnParams('ACCOUNT_USERS_HEADER_NAME', (e: Acl) => e.user.name),
+    new ColumnParams('ACCOUNT_USERS_HEADER_ROLE', (e: Acl) => e.role.name),
+    new ColumnParams('ACCOUNT_USERS_HEADER_STATUS', (e: Acl) => e.pending || 'Active')
   ];
 
   addAclDialogRef: MdDialogRef<AddUserAclDialogComponent>;

@@ -7,12 +7,12 @@ import {AccessKey} from '../shared/models/access-key.model';
   template : `
   <div class="access-key-details-container">
     <md-input-container>
-      <input [readonly]="!editMode" md-input placeholder="Name" [(ngModel)]="accessKey.name" type="text">
+      <input [readonly]="!editMode" md-input placeholder="{{ 'ACCOUNT_KEYS_HEADER_NAME' | translate}}" [(ngModel)]="accessKey.name" type="text">
     </md-input-container>
     
     <div class="flex-custom" *ngIf="!editMode">
       <md-input-container>
-        <input #accessKeyInput readonly md-input placeholder="Access Key" [(ngModel)]="accessKey.accessKey" type="text">
+        <input #accessKeyInput readonly md-input placeholder="{{ 'ACCOUNT_KEYS_HEADER_ACCESS' | translate}}" [(ngModel)]="accessKey.accessKey" type="text">
       </md-input-container>
       <md-icon ngxClipboard [cbContent]="accessKey.accessKey" (click)="selectInput(accessKeyInput)">content_copy</md-icon>
     </div>
@@ -20,18 +20,18 @@ import {AccessKey} from '../shared/models/access-key.model';
     <div *ngIf="!editMode">
       <div class="flex-custom" >
         <md-input-container>
-          <input #secretKeyInput readonly md-input placeholder="Secret Key" [(ngModel)]="showSecret ? accessKey.secretKey : accessKey.secretKeyMasked" type="text">
+          <input #secretKeyInput readonly md-input placeholder="{{ 'ACCOUNT_KEYS_HEADER_SECRET' | translate}}" [(ngModel)]="showSecret ? accessKey.secretKey : accessKey.secretKeyMasked" type="text">
         </md-input-container>
         <md-icon ngxClipboard [cbContent]="accessKey.secretKey" (click)="selectInput(secretKeyInput)">content_copy</md-icon>
       </div>
       <div class="show-more" (click)="toggleShowSecret()">{{showSecret ? 'hide' : 'show'}}</div>
     </div>
     
-    <md-textarea [readonly]="!editMode" placeholder="Notes" [(ngModel)]="accessKey.notes" type="text"></md-textarea>
+    <md-textarea [readonly]="!editMode" placeholder="{{ 'ACCOUNT_KEYS_HEADER_NOTES' | translate}}" [(ngModel)]="accessKey.notes" type="text"></md-textarea>
   
     <div class="access-key-details-actions">
-      <div (click)="cancel()">{{editMode ? 'CANCEL' : 'CLOSE'}}</div>
-      <div *ngIf="editMode" (click)="update(accessKey)">UPDATE</div>
+      <div (click)="cancel()">{{(editMode ? 'ACCOUNT_KEYS_CANCEL' : 'ACCOUNT_KEYS_CLOSE') | translate}}</div>
+      <div *ngIf="editMode" (click)="update(accessKey)">{{ 'ACCOUNT_KEYS_UPDATE' | translate}}</div>
     </div>
   </div>
   `,

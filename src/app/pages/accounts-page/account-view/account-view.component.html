@@ -16,10 +16,10 @@
   </div>
 
   <div class="entity-view__navigation">
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="selectedIndex = 0">GENERAL DETAILS</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="selectedIndex = 1">USERS</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="selectedIndex = 2">ACCESS KEYS</span>
-    <span *ngIf="showBilling()" class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 3" (click)="selectedIndex = 3">BILLING</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="selectedIndex = 0">{{ 'ACCOUNT_TAB_GENERAL' | translate}}</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="selectedIndex = 1">{{ 'ACCOUNT_TAB_USERS' | translate}}</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="selectedIndex = 2">{{ 'ACCOUNT_TAB_KEYS' | translate}}</span>
+    <span *ngIf="showBilling()" class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 3" (click)="selectedIndex = 3">{{ 'ACCOUNT_TAB_BILLING' | translate}}</span>
   </div>
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
@@ -48,7 +48,7 @@
         [viewEnabled]="false"
         [dissociationEnabled]="isOwnerOrAdministrator() || authService.isActiveAclMasterAccount()"
         [ignoreDisassociate]="isOwner"
-        [customTopMenuOptions]="(isOwnerOrAdministrator() || authService.isActiveAclMasterAccount()) ? ['Invite User'] : []"
+        [customTopMenuOptions]="(isOwnerOrAdministrator() || authService.isActiveAclMasterAccount()) ? ['ACCOUNT_USERS_INVITE'] : []"
         [customMenuOptions]="menuOptions"
         (view)="navigateToUser($event)"
         (edit)="showEditAclModal($event)"

@@ -1,10 +1,9 @@
 <div class="entity-view__table-component">
   <div style="padding-bottom: 6px;" class="entity-view__table-component__header">
     <div class="customer-transactions__title-container">
-      <div class="title">Access Keys</div>
-      <div class="subtitle">Access Keys associated with this account</div>
+      <div class="title">{{ 'ACCOUNT_KEYS_TITLE' | translate}}</div>
     </div>
-    <md-input class="entity-view__table-component__header__filter" placeholder="Filter" [(ngModel)]="filterValue"></md-input>
+    <md-input class="entity-view__table-component__header__filter" placeholder="{{ 'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filterValue"></md-input>
     <table-pagination
       [limit]="limit"
       [paginationValues]="paginationValues"
@@ -16,14 +15,14 @@
     </table-pagination>
     <md-icon [md-menu-trigger-for]="optionsMenu" class="entity-view__table-component__header__action">more_vert</md-icon>
     <md-menu #optionsMenu="mdMenu" x-position="before">
-      <button md-menu-item (click)="addAccessKey()">Add New Access Key</button>
+      <button md-menu-item (click)="addAccessKey()">{{ 'ACCOUNT_KEYS_ADD' | translate}}</button>
     </md-menu>
   </div>
   <table class="highlight table__custom">
     <thead>
     <tr>
       <th *ngFor="let params of columnParams" (click)="setSortedColumnParams(params)" [class.cell--align-right]="params.align === 'right'">
-        {{params.label}}
+        {{params.label | translate}}
         <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
       </th>
       <th></th>
@@ -36,9 +35,9 @@
       <td>
         <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
         <md-menu #actionsMenu="mdMenu" x-position="before">
-          <button md-menu-item (click)="viewAccessKey(entity)">View Access Key</button>
-          <button md-menu-item (click)="editAccessKey(entity)">Edit Access Key</button>
-          <button md-menu-item (click)="deleteEntity(entity.id)">Delete Access Key</button>
+          <button md-menu-item (click)="viewAccessKey(entity)">{{ 'ACCOUNT_KEYS_VIEW' | translate}}</button>
+          <button md-menu-item (click)="editAccessKey(entity)">{{ 'ACCOUNT_KEYS_EDIT' | translate}}</button>
+          <button md-menu-item (click)="deleteEntity(entity.id)">{{ 'ACCOUNT_KEYS_REMOVE' | translate}}</button>
         </md-menu>
       </td>
     </tr>

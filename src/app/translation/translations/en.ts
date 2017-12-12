@@ -110,6 +110,82 @@ export const TRANSLATIONS = {
   singlepage: {
     created: 'Created'
   },
+  account: {
+    index: {
+      title: 'Accounts',
+      header: {
+        name: 'Name',
+        active: 'Active',
+        created: 'Created',
+        updated: 'Updated'
+      }
+    },
+    tab: {
+      general: 'GENERAL DETALS',
+      users: 'USERS',
+      keys: 'ACCESS KEYS',
+      billing: 'BILLING'
+    },
+    details: {
+      title: 'Account Details',
+      edit: 'Edit Account Details',
+      name: 'Name',
+      activated: 'Activated',
+      cancel: 'Cancel',
+      save: 'Save'
+    },
+    users: {
+      title: 'Associated Users',
+      add: 'Add User to Account',
+      invite: 'Invite User to Account',
+      header: {
+        name: 'Name',
+        role: 'Role',
+        status: 'Status',
+      },
+      edit: 'Edit User Role',
+      view: 'View User',
+      remove: 'Remove User from the Account',
+      removemessage: 'Are you sure you want to remove this User from the account?'
+    },
+    keys: {
+      title: 'Access Keys',
+      header: {
+        name: 'Name',
+        access: 'Access Key',
+        secret: 'Secret Key',
+        created: 'Created',
+        notes: 'Notes'
+      },
+      add: 'Add Access Keys',
+      view: 'View Access Keys',
+      edit: 'Edit Access Keys',
+      remove: 'Remove Access Keys',
+      cancel: 'CANCEL',
+      close: 'CLOSE',
+      update: 'UPDATE'
+    },
+    billing: {
+      actions: 'ACCOUNT ACTIONS',
+      auto: 'Enable Automatic Payments',
+      actioncancel: 'CANCEL ACCOUNT',
+      actionpay: 'PAY BILL',
+      current: 'Current Invoice',
+      past: 'Past Invoices',
+      invoicetitle: 'Invoice',
+      due: 'Due',
+      balance: 'Ending Balance',
+      header: {
+        description: 'Description',
+        amount: 'Amount',
+        created: 'Created'
+      },
+      pay: 'PAY',
+      print: 'PRINT',
+      update: 'UPDATE',
+      create: 'CREATE INVOICE'
+    }
+  },
   product: {
     index: {
       title: 'Products',

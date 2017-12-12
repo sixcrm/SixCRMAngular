@@ -23,6 +23,7 @@ import {SingleInputDialogComponent} from './dialog-modals/single-input-dialog.co
 import {AccessKeyDetailsDialogComponent} from './dialog-modals/access-key-details-dialog.component';
 import {ClipboardModule} from 'ngx-clipboard/dist';
 import { ErrorPageStandaloneComponent } from './error-page-standalone/error-page-standalone.component';
+import {TranslationModule} from './translation/translation.module';
 
 @NgModule({
   declarations : [
@@ -49,7 +50,8 @@ import { ErrorPageStandaloneComponent } from './error-page-standalone/error-page
     AuthenticationModule,
     routing,
     MaterialModule.forRoot(),
-    ClipboardModule
+    ClipboardModule,
+    TranslationModule
   ],
   exports: [
     MaterialModule

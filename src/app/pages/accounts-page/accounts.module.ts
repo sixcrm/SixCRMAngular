@@ -14,6 +14,7 @@ import { BillIndexComponent } from './bill-index/bills.component';
 import { BillViewComponent } from './bill-view/bill-view.component';
 import { InvoiceComponent } from './bill-index/invoice/invoice.component';
 import { AddUpdateInvoiceComponent } from './bill-index/add-update-invoice/add-update-invoice.component';
+import {TranslationModule} from '../../translation/translation.module';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { AddUpdateInvoiceComponent } from './bill-index/add-update-invoice/add-u
     MaterialModule.forRoot(),
     PageComponentsModule,
     SharedModule,
+    TranslationModule
   ],
   declarations: [
     AccountViewComponent,

@@ -1,15 +1,15 @@
 <div class="entity-view__table-component">
   <div *ngIf="showHeader" class="entity-view__table-component__header entity-view__table-component__header--homepage">
-    <div class="entity-view__table-component__header__title">{{textOptions.title || 'Associated ' + title}}</div>
+    <div class="entity-view__table-component__header__title">{{textOptions.title || 'Associated ' + title | translate}}</div>
     <md-input-container *ngIf="filterEnabled" class="entity-view__table-component__header__filter">
-      <input md-input placeholder="Filter" [(ngModel)]="filterString" type="text">
+      <input md-input placeholder="{{ 'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filterString" type="text">
     </md-input-container>
 
     <ng-container *ngIf="(associationEnabled || customTopMenuOptions.length > 0) && hasWritePermission">
       <md-icon class="entity-view__table-component__header__action" [class.alone]="!filterEnabled" [md-menu-trigger-for]="optionsMenu">more_vert</md-icon>
       <md-menu #optionsMenu="mdMenu" x-position="before">
-        <button *ngIf="associationEnabled" md-menu-item (click)="showAssociateDialog()">{{textOptions.associateOptionText || 'Associate ' + title}}</button>
-        <button *ngFor="let customOption of customTopMenuOptions" md-menu-item (click)="customTopMenuOptionSelected.emit(customOption)">{{customOption}}</button>
+        <button *ngIf="associationEnabled" md-menu-item (click)="showAssociateDialog()">{{textOptions.associateOptionText || 'Associate ' + title | translate}}</button>
+        <button *ngFor="let customOption of customTopMenuOptions" md-menu-item (click)="customTopMenuOptionSelected.emit(customOption)">{{customOption | translate}}</button>
       </md-menu>
     </ng-container>
   </div>
@@ -17,7 +17,7 @@
     <thead>
     <tr>
       <th *ngFor="let params of columnParams" (click)="setSortedColumnParams(params)" [class.cell--align-right]="params.align === 'right'">
-        {{params.label}}
+        {{params.label | translate}}
         <md-icon *ngIf="sortEnabled && params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
       </th>
       <th *ngIf="showMenuOptions"></th>
@@ -28,19 +28,19 @@
     <tr *ngFor="let entity of entities | filterEntitiesByParams: columnParams: filterString | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder">
       <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'" (click)="view.emit(entity)">
         <div class="codeblock" *ngIf="params.code; else noCode">
-          {{params.mappingFunction(entity)}}
+          {{params.mappingFunction(entity) | translate}}
         </div>
         <ng-template #noCode>{{params.mappingFunction(entity)}}</ng-template>
       </td>
       <td *ngIf="showMenuOptions">
         <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
         <md-menu #actionsMenu="mdMenu" x-position="before">
-          <button *ngIf="viewEnabled" md-menu-item (click)="view.emit(entity)">{{textOptions.viewOptionText || 'View ' + title}}</button>
-          <button *ngIf="editEnabled && hasWritePermission" md-menu-item (click)="edit.emit(entity)">{{textOptions.editOptionText || 'Edit ' + title || ''}}</button>
+          <button *ngIf="viewEnabled" md-menu-item (click)="view.emit(entity)">{{textOptions.viewOptionText || 'View ' + title | translate}}</button>
+          <button *ngIf="editEnabled && hasWritePermission" md-menu-item (click)="edit.emit(entity)">{{textOptions.editOptionText || 'Edit ' + title || '' | translate}}</button>
           <ng-container *ngFor="let customOption of customMenuOptions">
-            <button *ngIf="!customOption.show || customOption.show(entity)" md-menu-item (click)="customMenuOptionSelected.emit({entity: entity, option: customOption.option})">{{customOption.label}}</button>
+            <button *ngIf="!customOption.show || customOption.show(entity)" md-menu-item (click)="customMenuOptionSelected.emit({entity: entity, option: customOption.option})">{{customOption.label | translate}}</button>
           </ng-container>
-          <button *ngIf="dissociationEnabled && hasWritePermission" md-menu-item (click)="showDisassociateDialog(entity)">{{textOptions.disassociateOptionText || 'Disassociate ' + title || ''}}</button>
+          <button *ngIf="dissociationEnabled && hasWritePermission" md-menu-item (click)="showDisassociateDialog(entity)">{{textOptions.disassociateOptionText || 'Disassociate ' + title || '' | translate}}</button>
         </md-menu>
       </td>
     </tr>
@@ -48,7 +48,7 @@
   </table>
   <table-loader *ngIf="loading" [numberOfRows]="loadingNumberOfRows"></table-loader>
 
-  <div *ngIf="!loading && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">{{textOptions.noDataText || 'No ' + title + 's found'}}</div>
+  <div *ngIf="!loading && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">{{textOptions.noDataText || 'No ' + title + 's found' | translate}}</div>
   <table-pagination
     *ngIf="showPagination"
     [limit]="limit"
