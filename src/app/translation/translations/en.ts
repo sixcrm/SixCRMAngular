@@ -28,7 +28,7 @@ export const TRANSLATIONS = {
     },
     customer: 'Customers',
     crm: {
-      title: 'CMR',
+      title: 'CRM',
       product: 'Products',
       productschedule: 'Product Schedules',
       campaign: 'Campaigns',
