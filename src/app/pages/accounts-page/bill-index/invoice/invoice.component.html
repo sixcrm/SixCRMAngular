@@ -1,7 +1,7 @@
 <div class="invoice">
   <div (click)="collapsed = !collapsed" class="invoice__header">
     <div class="invoice__header__range">
-      {{bill.periodStart.clone().tz(authService.timezone).format('MMM DD')}} - {{bill.periodEnd.clone().tz(authService.timezone).format('MMM DD, YYYY')}}
+      {{bill.periodStart.clone().tz(authService.getTimezone()).format('MMM DD')}} - {{bill.periodEnd.clone().tz(authService.getTimezone()).format('MMM DD, YYYY')}}
     </div>
 
     <div class="invoice__header__due" *ngIf="!bill.paid">{{ 'ACCOUNT_BILLING_DUE' | translate}}: {{bill.availableAt.clone().tz(authService.timezone).format('MMM DD YYYY')}}</div>
@@ -25,7 +25,7 @@
         <tr *ngFor="let detail of bill.detail">
           <td>{{detail.description}}</td>
           <td class="cell--align-right">{{detail.amount.usd()}}</td>
-          <td>{{detail.createdAt.clone().tz(authService.timezone).format('MM/DD/YYYY')}}</td>
+          <td>{{detail.createdAt.clone().tz(authService.getTimezone()).format('MM/DD/YYYY')}}</td>
         </tr>
       </tbody>
     </table>
