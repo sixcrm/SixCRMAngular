@@ -1,0 +1,78 @@
+.bills {
+  margin: 10px;
+  background: #ffffff;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.14), 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
+  padding: 15px;
+
+  .title {
+    font-size: 20px;
+    color: rgba(0,0,0,0.87);
+    margin: 25px 0;
+  }
+
+  invoice {
+    margin: 10px 0;
+  }
+
+  &__actions {
+    display: inline-block;
+    margin-bottom: 20px;
+
+    &__title {
+      margin-bottom: 14px;
+      color: rgba(0,0,0,0.87);
+      font-size: 16px;
+    }
+
+    md-checkbox {
+      span {
+        color: #393939;
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
+
+    &__buttons {
+      display: flex;
+      margin-top: 14px;
+      border-top: 1px solid rgba(0,0,0,0.12);
+
+      div {
+        margin-top: 14px;
+        border-radius: 2px;
+        font-size: 12px;
+        color: white;
+        font-weight: 500;
+        width: 128px;
+        height: 34px;
+        text-align: center;
+        line-height: 34px;
+        cursor: pointer;
+
+        &:first-of-type {
+          background: #9B9B9B;
+        }
+
+        &:last-of-type {
+          margin-left: 15px;
+          background: #4A90E2;
+        }
+      }
+    }
+
+  }
+
+  &__new {
+    margin-top: 14px;
+    background: #4A90E2;
+    border-radius: 2px;
+    font-size: 12px;
+    color: white;
+    font-weight: 500;
+    width: 128px;
+    height: 34px;
+    text-align: center;
+    line-height: 34px;
+    cursor: pointer;
+  }
+}

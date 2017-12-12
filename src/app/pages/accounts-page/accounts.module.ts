@@ -10,6 +10,10 @@ import { AccountViewComponent } from './account-view/account-view.component';
 import {AccountsComponent} from './account-index/accounts.component';
 import { AccountAddNewComponent } from './account-view/account-add-new/account-add-new.component';
 import {AccessKeysComponent} from '../access-keys-page/access-keys-index/access-keys.component';
+import { BillIndexComponent } from './bill-index/bills.component';
+import { BillViewComponent } from './bill-view/bill-view.component';
+import { InvoiceComponent } from './bill-index/invoice/invoice.component';
+import { AddUpdateInvoiceComponent } from './bill-index/add-update-invoice/add-update-invoice.component';
 
 @NgModule({
   imports: [
@@ -20,7 +24,16 @@ import {AccessKeysComponent} from '../access-keys-page/access-keys-index/access-
     PageComponentsModule,
     SharedModule,
   ],
-  declarations: [AccountViewComponent, AccountsComponent, AccountAddNewComponent, AccessKeysComponent],
+  declarations: [
+    AccountViewComponent,
+    AccountsComponent,
+    AccountAddNewComponent,
+    AccessKeysComponent,
+    BillIndexComponent,
+    BillViewComponent,
+    InvoiceComponent,
+    AddUpdateInvoiceComponent
+  ],
   providers: [AccountsAclGuard]
 })
 export class AccountsModule { }

@@ -19,6 +19,7 @@
     <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="selectedIndex = 0">GENERAL DETAILS</span>
     <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="selectedIndex = 1">USERS</span>
     <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="selectedIndex = 2">ACCESS KEYS</span>
+    <span *ngIf="showBilling()" class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 3" (click)="selectedIndex = 3">BILLING</span>
   </div>
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
@@ -59,6 +60,10 @@
     </md-tab>
     <md-tab>
       <access-keys></access-keys>
+    </md-tab>
+
+    <md-tab *ngIf="showBilling()">
+      <bills></bills>
     </md-tab>
   </md-tab-group>
 </div>

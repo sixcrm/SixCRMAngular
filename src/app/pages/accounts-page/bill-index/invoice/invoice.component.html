@@ -1,0 +1,39 @@
+<div class="invoice">
+  <div (click)="collapsed = !collapsed" class="invoice__header">
+    <div class="invoice__header__range">
+      {{bill.periodStart.clone().tz(authService.timezone).format('MMM DD')}} - {{bill.periodEnd.clone().tz(authService.timezone).format('MMM DD, YYYY')}}
+    </div>
+
+    <div class="invoice__header__due" *ngIf="!bill.paid">Due: {{bill.availableAt.clone().tz(authService.timezone).format('MMM DD YYYY')}}</div>
+    <div class="invoice__header__due" *ngIf="bill.paid">Ending Balance: {{bill.endingBalance.usd()}}</div>
+
+    <md-icon>{{collapsed ? 'keyboard_arrow_down' : 'keyboard_arrow_up'}}</md-icon>
+  </div>
+  <div *ngIf="!collapsed" class="invoice__details">
+    <div class="invoice__details__id">Invoice #: {{bill.id}}</div>
+
+    <table class="highlight">
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th class="cell--align-right">Amount</th>
+          <th>Created</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let detail of bill.detail">
+          <td>{{detail.description}}</td>
+          <td class="cell--align-right">{{detail.amount.usd()}}</td>
+          <td>{{detail.createdAt.clone().tz(authService.timezone).format('MM/DD/YYYY')}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="invoice__details__buttons">
+      <div *ngIf="!bill.paid">PAY</div>
+      <div>PRINT</div>
+      <div *ngIf="authService.isActiveAclMasterAccount()" style="margin-left: 25px;" (click)="update.emit(bill)">UPDATE</div>
+    </div>
+  </div>
+</div>

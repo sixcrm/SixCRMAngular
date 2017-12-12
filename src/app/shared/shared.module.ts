@@ -74,6 +74,7 @@ import {TermsAndConditionsControllerService} from './services/terms-and-conditio
 import { FormatDurationPipe } from './pipes/format-duration.pipe';
 import { HtmlSanitizerPipe } from './pipes/html-sanitizer.pipe';
 import {CustomerCreditCardViewComponent} from './components/customer-credit-card-view/customer-credit-card-view.component';
+import {BillsService} from './services/bills.service';
 
 @NgModule({
   declarations : [
@@ -193,7 +194,8 @@ export class SharedModule {
         TimeService,
         TrackersService,
         SnackbarService,
-        TermsAndConditionsControllerService
+        TermsAndConditionsControllerService,
+        BillsService
       ]
     };
   }

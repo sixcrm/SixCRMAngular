@@ -14,7 +14,7 @@ import {Acl} from '../../../shared/models/acl.model';
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.scss']
 })
-export class AccountsComponent  extends AbstractEntityIndexComponent<Account> implements OnInit, OnDestroy {
+export class AccountsComponent extends AbstractEntityIndexComponent<Account> implements OnInit, OnDestroy {
 
   actAsOptionText: string;
 

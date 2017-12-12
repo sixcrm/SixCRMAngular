@@ -250,4 +250,10 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
       this.resendInvite(result.entity)
     }
   }
+
+  showBilling(): boolean {
+    const acl = this.authService.getActiveAcl();
+
+    return this.authService.isActiveAclMasterAccount() || (acl && acl.account.id === this.entityId && acl.role.name === 'Owner');
+  }
 }
