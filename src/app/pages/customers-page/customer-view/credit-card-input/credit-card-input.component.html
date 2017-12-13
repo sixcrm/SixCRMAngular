@@ -49,7 +49,7 @@
 
     <div class="customer-view__edit__address__group">
       <md-input required placeholder="Postal Code" [(ngModel)]="ccard.address.zip"></md-input>
-      <dropdown-component [required]="true" [selected]="ccard.address.country" [placeholder]="'Country'"  (onSelect)="ccard.address.country = $event" [options]="['USA']"></dropdown-component>
+      <dropdown-component [required]="true" [selected]="ccard.address.country" [placeholder]="'Country'"  (onSelect)="ccard.address.country = $event" [options]="['US']"></dropdown-component>
     </div>
   </div>
 

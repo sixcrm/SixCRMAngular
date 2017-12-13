@@ -92,7 +92,7 @@
                     </md-input-container>
                   </div>
 
-                  <autocomplete-input [class.error]="formInvalid && !entity.address.country" [strictFilteringStrategy]="true" [disabled]="!shippingInfoEditMode" [required]="true" [initialValue]="entity.address.country" [placeholder]="'Country'" [options]="['USA']" (selected)="entity.address.country = $event"></autocomplete-input>
+                  <autocomplete-input [class.error]="formInvalid && !entity.address.country" [strictFilteringStrategy]="true" [disabled]="!shippingInfoEditMode" [required]="true" [initialValue]="entity.address.country" [placeholder]="'Country'" [options]="['US']" (selected)="entity.address.country = $event"></autocomplete-input>
                 </form>
 
                 <div *ngIf="shippingInfoEditMode" class="customer-view__card__actions">

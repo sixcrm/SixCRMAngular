@@ -11,6 +11,6 @@ export function getQueueState(queuename: string, start: string, end: string): st
   return `
     query {
       queuestate (analyticsfilter:{start:"${start}", end:"${end}"}, pagination: { limit:1, offset:0 }, queuename:"${queuename}", period:"minute")
-        { count average_time failure_rate }
+        { count, failure_rate, success_rate, error_rate, expired_rate, average_time, average_time_color, failure_rate_color }
     }`
 }
