@@ -16,6 +16,11 @@ export class Bill implements Entity<Bill> {
   updatedAt: Moment;
   endingBalance: Currency;
 
+  periodStartValue: string;
+  periodEndValue: string;
+  availableAtValue: string;
+  amountValue: string;
+
   constructor(obj?: any) {
     if (!obj) {
       obj = {};
@@ -37,6 +42,11 @@ export class Bill implements Entity<Bill> {
     }
 
     this.endingBalance = new Currency(this.detail.reduce((a,b) => a + b.amount.amount, 0));
+
+    this.periodStartValue = this.periodStart.format('MM/DD/YYYY');
+    this.periodEndValue = this.periodEnd.format('MM/DD/YYYY');
+    this.availableAtValue = this.availableAt.format('MM/DD/YYYY');
+    this.amountValue = this.endingBalance.usd();
   }
 
   copy() {

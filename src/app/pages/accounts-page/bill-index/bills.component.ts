@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 import {Bill} from '../../../shared/models/bill.model';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {BillsService} from '../../../shared/services/bills.service';
@@ -14,10 +14,14 @@ import {Router, ActivatedRoute} from '@angular/router';
 })
 export class BillIndexComponent  extends AbstractEntityIndexComponent<Bill> implements OnInit, OnDestroy {
 
+  overdue: Bill[] = [];
   paid: Bill[] = [];
   unpaid: Bill[] = [];
+
   addMode: boolean;
   billToUpdate: Bill;
+
+  @Input() focused: boolean;
 
   constructor(
     billsService: BillsService,
@@ -38,9 +42,10 @@ export class BillIndexComponent  extends AbstractEntityIndexComponent<Bill> impl
   ngOnInit() {
     this.init();
 
-    this.allEntities.takeUntil(this.unsubscribe$).subscribe(bills => {
-      this.paid = bills.filter(bill => bill.paid);
-      this.unpaid = bills.filter(bill => !bill.paid);
+    this.allEntities.takeUntil(this.unsubscribe$).subscribe((bills: Bill[]) => {
+      this.overdue = bills.filter(bill => bill.outstanding);
+      this.paid = bills.filter(bill => !bill.outstanding && bill.paid);
+      this.unpaid = bills.filter(bill => !bill.outstanding && !bill.paid);
     })
   }
 
@@ -53,7 +58,7 @@ export class BillIndexComponent  extends AbstractEntityIndexComponent<Bill> impl
     this.addMode = true;
   }
 
-  updateInvoice(bill: Bill): void {
+  viewInvoice(bill: Bill): void {
     this.billToUpdate = bill.copy();
     this.addMode = true;
   }

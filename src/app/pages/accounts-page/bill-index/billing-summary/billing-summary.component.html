@@ -1,0 +1,22 @@
+<div class="billing-summary">
+
+  <div class="data">
+    <div *ngIf="!loading; else loader" class="billing-summary__details">
+      <div class="billing-summary__details__count">1,032</div>
+      <div class="billing-summary__details__amount">/$91,02</div>
+    </div>
+
+    <ng-template #loader>
+      <div class="loader">
+        <div></div>
+      </div>
+    </ng-template>
+
+    <div class="billing-summary__title">{{'ACCOUNT_BILLING_SUMMARY_TITLE' | translate}}</div>
+    <div class="billing-summary__description">{{'ACCOUNT_BILLING_SUMMARY_DESCRIPTION' | translate}}</div>
+
+  </div>
+
+  <!--<billing-chart *ngIf="focused" [data]="counts"></billing-chart>-->
+
+</div>

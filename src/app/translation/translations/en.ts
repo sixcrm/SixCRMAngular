@@ -166,24 +166,47 @@ export const TRANSLATIONS = {
       update: 'UPDATE'
     },
     billing: {
-      actions: 'ACCOUNT ACTIONS',
-      auto: 'Enable Automatic Payments',
-      actioncancel: 'CANCEL ACCOUNT',
-      actionpay: 'PAY BILL',
-      current: 'Current Invoice',
+      currenttitle: 'Current Invoice',
+      currentsubtitle: 'Billings due',
+      pasttitle: 'Current Invoice',
+      pastsubtitle: 'Completed billings',
+      overduewarning: 'Invoice Overdue',
+      overduetext: 'You currently have an overdue invoice for',
       past: 'Past Invoices',
-      invoicetitle: 'Invoice',
-      due: 'Due',
-      balance: 'Ending Balance',
+      view: 'View Invoice',
       header: {
-        description: 'Description',
-        amount: 'Amount',
-        created: 'Created'
+        issue: 'Issue Date',
+        start: 'Period Start',
+        end: 'Period Ending',
+        balance: 'Balance',
+        status: 'Status',
+        due: 'Due Date'
       },
-      pay: 'PAY',
-      print: 'PRINT',
-      update: 'UPDATE',
-      create: 'CREATE INVOICE'
+      pay: 'PAY NOW',
+      create: 'CREATE INVOICE',
+      summary: {
+        title: 'Current Transaction Count',
+        description: 'View Current Transaction cound and amount. Pay and view invoices. View transactions over time and predict the future.',
+        nodata: 'No Transactions Found'
+      },
+      details: {
+        title: 'Invoice Summary',
+        subtitle: 'Billing Information',
+        start: 'Period Start',
+        end: 'Period End',
+        amount: 'Amount',
+        due: 'Due Date',
+        edit: 'Edit Invoice',
+        back: 'BACK TO INVOICES',
+        table: {
+          title: 'Invoice Details',
+          subtitle: 'Itemized Breakdown of Charges',
+          description: 'Description',
+          created: 'Created',
+          amount: 'Amount',
+          total: 'Total'
+        }
+      }
     }
   },
   product: {

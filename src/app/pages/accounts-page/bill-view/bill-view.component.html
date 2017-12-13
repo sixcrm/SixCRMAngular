@@ -1,3 +1,76 @@
-<p>
-  bill-view works!
-</p>
+<div class="bill-view">
+  <div class="entity-view__card">
+    <div class="entity-view__card__header">
+      <div>
+        <div class="entity-view__card__header__title">{{ 'ACCOUNT_BILLING_DETAILS_TITLE' | translate}}</div>
+        <div class="subtitle">{{'ACCOUNT_BILLING_DETAILS_SUBTITLE' | translate}}</div>
+      </div>
+
+      <ng-container *ngIf="authService.isActiveAclMasterAccount()">
+        <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
+        <md-menu #editOptions="mdMenu" x-position="before">
+          <button md-menu-item>{{ 'ACCOUNT_BILLING_DETAILS_EDIT' | translate}}</button>
+        </md-menu>
+      </ng-container>
+    </div>
+
+    <div class="entity-view__card__content">
+
+      <md-input-container class="entity-view__card__content__item">
+        <input required md-input disabled placeholder="{{ 'ACCOUNT_BILLING_DETAILS_START' | translate}}" [(ngModel)]="bill.periodStartValue" type="text">
+      </md-input-container>
+
+      <md-input-container class="entity-view__card__content__item">
+        <input required md-input disabled placeholder="{{ 'ACCOUNT_BILLING_DETAILS_END' | translate}}" [(ngModel)]="bill.periodEndValue" type="text">
+      </md-input-container>
+
+      <md-input-container class="entity-view__card__content__item">
+        <input required md-input disabled placeholder="{{ 'ACCOUNT_BILLING_DETAILS_AMOUNT' | translate}}" [(ngModel)]="bill.amountValue" type="text">
+      </md-input-container>
+
+      <md-input-container class="entity-view__card__content__item">
+        <input required md-input disabled placeholder="{{ 'ACCOUNT_BILLING_DETAILS_DUE' | translate}}" [(ngModel)]="bill.availableAtValue" type="text">
+      </md-input-container>
+
+    </div>
+
+    <div class="entity-view__card__actions">
+      <div (click)="cancel.emit(true)">{{ 'ACCOUNT_BILLING_DETAILS_BACK' | translate}}</div>
+    </div>
+
+  </div>
+
+  <div class="entity-view__table-component">
+    <div class="entity-view__table-component__header entity-view__table-component__header--homepage">
+      <div>
+        <div class="entity-view__table-component__header__title">{{ 'ACCOUNT_BILLING_DETAILS_TABLE_TITLE' | translate}}</div>
+        <div class="subtitle">{{'ACCOUNT_BILLING_DETAILS_TABLE_SUBTITLE' | translate}}</div>
+      </div>
+    </div>
+    <table class="highlight table__custom">
+      <thead>
+      <tr>
+        <th>{{'ACCOUNT_BILLING_DETAILS_TABLE_DESCRIPTION' | translate}}</th>
+        <th class="cell--align-right">{{'ACCOUNT_BILLING_DETAILS_TABLE_AMOUNT' | translate}}</th>
+        <th>{{'ACCOUNT_BILLING_DETAILS_TABLE_CREATED' | translate}}</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let detail of bill.detail">
+        <td>{{detail.description}}</td>
+        <td class="cell--align-right">{{detail.amount.usd()}}</td>
+        <td>{{detail.createdAt.format('MM/DD/YYYY')}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="sum">
+      <div>{{'ACCOUNT_BILLING_DETAILS_TABLE_TOTAL' | translate}}: {{bill.amountValue}}</div>
+    </div>
+    <div class="pay">
+      <div>{{'ACCOUNT_BILLING_PAY' | translate}}</div>
+    </div>
+  </div>
+
+</div>

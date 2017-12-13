@@ -61,6 +61,7 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
   isOwner = (acl: Acl) => acl.role.name === 'Owner';
 
   selectedIndex: number = 0;
+  isBillingFocused: boolean;
 
   constructor(service: AccountsService,
               route: ActivatedRoute,
@@ -257,5 +258,10 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
     const acl = this.authService.getActiveAcl();
 
     return this.authService.isActiveAclMasterAccount() || (acl && acl.account.id === this.entityId && this.billsService.hasReadPermission());
+  }
+
+  focusBilling(): void {
+    this.selectedIndex = 3;
+    setTimeout(() => {this.isBillingFocused = true}, 500)
   }
 }

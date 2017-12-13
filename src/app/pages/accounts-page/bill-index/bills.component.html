@@ -1,26 +1,12 @@
 <div [style.display]="addMode ? 'none' : 'block'" class="bills">
-  <div class="bills__actions">
-    <div class="bills__actions__title">{{ 'ACCOUNT_BILLING_ACTIONS' | translate}}</div>
-    <md-checkbox><span>{{ 'ACCOUNT_BILLING_AUTO' | translate}}</span></md-checkbox>
-    <div class="bills__actions__buttons">
-      <div>{{ 'ACCOUNT_BILLING_ACTIONCANCEL' | translate}}</div>
-      <div>{{ 'ACCOUNT_BILLING_ACTIONPAY' | translate}}</div>
-    </div>
-  </div>
 
-  <div>
-    <div class="title">{{ 'ACCOUNT_BILLING_CURRENT' | translate}}</div>
+  <billing-summary [focused]="focused"></billing-summary>
 
-    <invoice *ngFor="let unpaidBill of unpaid" [bill]="unpaidBill" (update)="updateInvoice($event)"></invoice>
-  </div>
-
-  <div>
-    <div class="title">{{ 'ACCOUNT_BILLING_PAST' | translate}}</div>
-
-    <invoice *ngFor="let paidBill of paid" [bill]="paidBill" (update)="updateInvoice($event)"></invoice>
-  </div>
+  <invoice-overdue *ngFor="let bill of paid" [bill]="bill"></invoice-overdue>
+  <invoice-table [data]="paid" [type]="'CURRENT'" (view)="viewInvoice($event)"></invoice-table>
+  <invoice-table [data]="unpaid" [type]="'PAST'" (view)="viewInvoice($event)"></invoice-table>
 
   <div class="bills__new" (click)="createNewInvoice()" *ngIf="authService.isActiveAclMasterAccount()">{{ 'ACCOUNT_BILLING_CREATE' | translate}}</div>
 </div>
 
-<add-update-invoice [style.display]="addMode ? 'block' : 'none'" [bill]="billToUpdate" (cancel)="addMode = false;"></add-update-invoice>
+<bill-view *ngIf="addMode" [bill]="billToUpdate" (cancel)="addMode = false"></bill-view>
