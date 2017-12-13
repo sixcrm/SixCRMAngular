@@ -43,7 +43,7 @@ export class Permissions {
   }
 
   private getFromAllowed(entity: string): string {
-    let allowed = this.allow.filter(a => a.indexOf(entity + '/') !== -1);
+    let allowed = this.allow.filter(a => a.split('/')[0] === entity);
 
     return allowed[0] ? allowed[0] : null;
   }

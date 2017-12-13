@@ -22,6 +22,7 @@ import {MessageDialogComponent} from '../../message-dialog.component';
 import {InviteUserDialogComponent} from '../../invite-user-dialog.component';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {SnackbarService} from '../../../shared/services/snackbar.service';
+import {BillsService} from '../../../shared/services/bills.service';
 
 @Component({
   selector: 'account-view',
@@ -70,7 +71,8 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
               private aclService: AclsService,
               private roleService: RolesService,
               private snackbarService: SnackbarService,
-              public authService: AuthenticationService
+              public authService: AuthenticationService,
+              private billsService: BillsService
   ) {
     super(service, route);
   }
@@ -254,6 +256,6 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
   showBilling(): boolean {
     const acl = this.authService.getActiveAcl();
 
-    return this.authService.isActiveAclMasterAccount() || (acl && acl.account.id === this.entityId && acl.role.name === 'Owner');
+    return this.authService.isActiveAclMasterAccount() || (acl && acl.account.id === this.entityId && this.billsService.hasReadPermission());
   }
 }

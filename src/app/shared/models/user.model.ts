@@ -88,13 +88,11 @@ export class User implements Entity<User> {
   }
 
   hasPermissions(entity: string, operation: string, currentAcl?: Acl): boolean {
-    let masterAcl = this.getMasterAccountAcl();
-
     if (!currentAcl) {
       currentAcl = new Acl();
     }
 
-    return masterAcl.role.hasPermission(entity, operation) || currentAcl.role.hasPermission(entity, operation);
+    return currentAcl.role.hasPermission(entity, operation);
   }
 
   getAclWithId(id: string): Acl {
@@ -109,15 +107,5 @@ export class User implements Entity<User> {
     }
 
     return null;
-  }
-
-  private getMasterAccountAcl(): Acl {
-    let masterAcl = this.acls.filter(acl => acl.account.name === 'Master Account');
-
-    if (masterAcl[0]) {
-      return masterAcl[0];
-    }
-
-    return new Acl();
   }
 }
