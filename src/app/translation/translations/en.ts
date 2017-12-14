@@ -168,7 +168,7 @@ export const TRANSLATIONS = {
     billing: {
       currenttitle: 'Current Invoice',
       currentsubtitle: 'Billings due',
-      pasttitle: 'Current Invoice',
+      pasttitle: 'Past Invoice',
       pastsubtitle: 'Completed billings',
       overduewarning: 'Invoice Overdue',
       overduetext: 'You currently have an overdue invoice for',
