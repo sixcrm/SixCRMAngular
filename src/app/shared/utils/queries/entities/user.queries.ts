@@ -152,7 +152,7 @@ export function userInfoResponseQuery(): string {
 
 export function userInputQuery(user: User, light?: boolean): string {
   let address = `
-    address:{
+    ,address:{
       line1: "${user.address.line1}",
       ${user.address.line2 ? `line2:"${user.address.line2}",` : ''}
       city:"${user.address.city}",
@@ -168,7 +168,7 @@ export function userInputQuery(user: User, light?: boolean): string {
     ${user.firstName ? `first_name: "${user.firstName}",` : ''}
     ${user.lastName ? `last_name: "${user.lastName}",` : ''}
     ${user.alias ? `alias: "${user.alias}",`: ''}
-    active:"${user.active || 'false'}",
+    active:${user.active || 'false'},
     ${user.termsAndConditions ? `termsandconditions:"${user.termsAndConditions}",`: ''}
     ${light ? '' : address}
   `
