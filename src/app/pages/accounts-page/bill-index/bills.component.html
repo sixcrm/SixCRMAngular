@@ -2,7 +2,7 @@
 
   <billing-summary [focused]="focused"></billing-summary>
 
-  <invoice-overdue *ngFor="let bill of paid" [bill]="bill"></invoice-overdue>
+  <invoice-overdue *ngFor="let over of overdue" [bill]="over"></invoice-overdue>
   <invoice-table [data]="paid" [type]="'CURRENT'" (view)="viewInvoice($event)"></invoice-table>
   <invoice-table [data]="unpaid" [type]="'PAST'" (view)="viewInvoice($event)"></invoice-table>
 
