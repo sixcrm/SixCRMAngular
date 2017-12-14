@@ -32,19 +32,27 @@
         <input md-input name="address" [(ngModel)]="customer.address.line1" placeholder="Address" required type="text">
       </md-input-container>
 
+      <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.line2">
+        <input md-input name="address" [(ngModel)]="customer.address.line2" placeholder="Address 2" type="text">
+      </md-input-container>
+
+    </div>
+
+    <div class="flex-custom">
+      <autocomplete-input class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.state" [strictFilteringStrategy]="true" [required]="true" [initialValue]="customer.address.state" [placeholder]="'State'" [options]="states" (selected)="customer.address.state = $event"></autocomplete-input>
+
       <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.city">
         <input md-input name="city" [(ngModel)]="customer.address.city" placeholder="City" required type="text">
       </md-input-container>
     </div>
 
     <div class="flex-custom">
-      <autocomplete-input class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.state" [strictFilteringStrategy]="true" [required]="true" [initialValue]="customer.address.state" [placeholder]="'State'" [options]="states" (selected)="customer.address.state = $event"></autocomplete-input>
-      <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.zip">
-        <input md-input name="postalCode" [(ngModel)]="customer.address.zip" placeholder="Postal Code" required type="text">
+      <autocomplete-input class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.country" [strictFilteringStrategy]="true" [required]="true" [initialValue]="customer.address.country" [placeholder]="'Country'" [options]="countries" (selected)="customer.address.country = $event"></autocomplete-input>
+
+      <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !isValidZip(customer.address.zip)">
+        <input md-input (keydown)="isNumeric($event)" maxlength="5" name="postalCode" [(ngModel)]="customer.address.zip" placeholder="Postal Code" required type="text">
       </md-input-container>
     </div>
-
-    <autocomplete-input class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.country" [strictFilteringStrategy]="true" [required]="true" [initialValue]="customer.address.country" [placeholder]="'Country'" [options]="countries" (selected)="customer.address.country = $event"></autocomplete-input>
   </div>
   <div class="entity-view__card__actions">
     <div (click)="cancel.emit(true)">CANCEL</div>

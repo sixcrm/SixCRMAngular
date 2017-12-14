@@ -143,7 +143,7 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
   }
 
   updateCustomer(formValid) {
-    this.formInvalid = !formValid || !this.entity.address.country || !this.entity.address.state;
+    this.formInvalid = !formValid || !this.entity.address.country || !this.entity.address.state || !this.isValidZip(this.entity.address.zip);
 
     if (this.formInvalid) return;
 
@@ -161,5 +161,15 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
     }
 
     return super.canBeDeactivated();
+  }
+
+  isValidZip(value: string): boolean {
+    if (!value) return false;
+
+    if (isNaN(+value)) {
+      return false;
+    }
+
+    return value.length === 5;
   }
 }

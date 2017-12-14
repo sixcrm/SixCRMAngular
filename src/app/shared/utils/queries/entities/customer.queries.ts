@@ -3,6 +3,7 @@ import {
   addId
 } from './entities-helper.queries';
 import {Customer} from '../../../models/customer.model';
+import {stateCode, countryCode} from '../../address.utils';
 
 export function customersInfoListQuery(limit?:number, cursor?:string): string {
   return `{
@@ -72,9 +73,9 @@ export function customerInputQuery(customer: Customer, includeId?: boolean): str
         ${customer.address.line1 ? `line1:"${customer.address.line1}"` : ''}
         ${customer.address.line2 ? `line2:"${customer.address.line2}"` : ''}
         ${customer.address.city ? `city:"${customer.address.city}"` : ''}
-        ${customer.address.state ? `state:"${customer.address.state}"` : ''}
+        ${customer.address.state ? `state:"${stateCode(customer.address.state)}"` : ''}
         ${customer.address.zip ? `zip:"${customer.address.zip}"` : ''}
-        ${customer.address.country ? `country:"${customer.address.country}"` : ''}
+        ${customer.address.country ? `country:"${countryCode(customer.address.country)}"` : ''}
       }
     `
 }

@@ -1,4 +1,5 @@
 import {Entity} from './entity.interface';
+import {stateName, countryName} from '../utils/address.utils';
 
 export class Address implements Entity<Address> {
   id: string;
@@ -17,9 +18,9 @@ export class Address implements Entity<Address> {
     this.line1 = obj.line1 || '';
     this.line2 = obj.line2 || '';
     this.city = obj.city || '';
-    this.state = obj.state || '';
+    this.state = stateName(obj.state);
     this.zip = obj.zip || '';
-    this.country = obj.country || '';
+    this.country = countryName(obj.country);
   }
 
   copy(): Address {
