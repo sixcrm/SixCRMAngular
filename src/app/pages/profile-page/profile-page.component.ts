@@ -206,4 +206,8 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   viewAccount(account: Acl) {
     this.router.navigate(['/accounts', account.account.id]);
   }
+
+  setLanguage(language: string) {
+
+  }
 }

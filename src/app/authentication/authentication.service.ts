@@ -358,7 +358,7 @@ export class AuthenticationService {
       (data) => {
         let user = extractData(data).userintrospection;
         if (user) {
-          if (user.active !== 'true') {
+          if (user.active !== 'true' && user.active !== true) {
             localStorage.removeItem(this.activated);
             this.sixUserActivated$.next(false);
           } else {

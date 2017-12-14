@@ -53,6 +53,16 @@
               </div>
 
               <md-input placeholder="Email" [value]="user.email"></md-input>
+
+              <div class="profile-page__content__general__data__dropdown">
+
+                <autocomplete-input
+                  [initialValue]="'English'"
+                  [options]="['English']"
+                  [placeholder]="'Select Language'"
+                  (selected)="setLanguage($event)">
+                </autocomplete-input>
+              </div>
             </div>
 
             <div class="profile-page__content__general__button" (click)="updateUserDetails()">Update</div>
