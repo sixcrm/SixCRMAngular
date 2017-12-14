@@ -124,6 +124,9 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   if (authService.hasPermissions('account', 'view')) {
     settings.push(new MenuItem('SIDENAV_SETTINGS_ACCOUNT', 'accounts'));
   }
+  if (authService.hasPermissions('bill', 'view') && authService.isActiveAclMasterAccount()) {
+    settings.push(new MenuItem('SIDENAV_SETTINGS_BILL', 'bills'));
+  }
   if (authService.hasPermissions('role', 'view')) {
     settings.push(new MenuItem('SIDENAV_SETTINGS_ROLE', 'roles'));
   }

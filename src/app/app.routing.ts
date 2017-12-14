@@ -19,6 +19,7 @@ const appRoutes: Routes = [
     { path : 'notifications', loadChildren : './pages/notifications-page/notifications.module#NotificationsModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'affiliates', loadChildren : './pages/affiliates-page/affiliates.module#AffiliatesModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'accounts', loadChildren : './pages/accounts-page/accounts.module#AccountsModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
+    { path : 'bills', loadChildren : './pages/bills-page/bills.module#BillsModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'campaigns', loadChildren : './pages/campaigns-page/campaigns.module#CampaignsModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'creditcards', loadChildren : './pages/credit-cards-page/credit-cards.module#CreditCardsModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'customers', loadChildren : './pages/customers-page/customers.module#CustomersModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },

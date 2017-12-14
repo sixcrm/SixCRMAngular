@@ -10,13 +10,8 @@ import { AccountViewComponent } from './account-view/account-view.component';
 import {AccountsComponent} from './account-index/accounts.component';
 import { AccountAddNewComponent } from './account-view/account-add-new/account-add-new.component';
 import {AccessKeysComponent} from '../access-keys-page/access-keys-index/access-keys.component';
-import { BillIndexComponent } from './bill-index/bills.component';
-import { BillViewComponent } from './bill-view/bill-view.component';
+import {BillsModule} from '../bills-page/bills.module';
 import {TranslationModule} from '../../translation/translation.module';
-import { InvoiceTableComponent } from './bill-index/invoice-table/invoice-table.component';
-import { InvoiceOverdueComponent } from './bill-index/invoice-overdue/invoice-overdue.component';
-import { BillingSummaryComponent } from './bill-index/billing-summary/billing-summary.component';
-import {ChartsModule} from '../../charts/charts.module';
 
 @NgModule({
   imports: [
@@ -27,18 +22,13 @@ import {ChartsModule} from '../../charts/charts.module';
     PageComponentsModule,
     SharedModule,
     TranslationModule,
-    ChartsModule
+    BillsModule
   ],
   declarations: [
     AccountViewComponent,
     AccountsComponent,
     AccountAddNewComponent,
-    AccessKeysComponent,
-    BillIndexComponent,
-    BillViewComponent,
-    InvoiceTableComponent,
-    InvoiceOverdueComponent,
-    BillingSummaryComponent,
+    AccessKeysComponent
   ],
   providers: [AccountsAclGuard]
 })

@@ -50,14 +50,15 @@ export function billResponseQuery(): string {
 }
 
 export function billInputQuery(bill: Bill, includeId?: boolean): string {
-  const details = bill.detail.reduce((a, b) => `${a ? ',': ''} {created_at: ${b.createdAt.clone().format()}, description: ${b.description}, amount: ${b.amount.amount}}`, '');
+  const details = bill.detail.reduce((a, b) => `${a ? ',': ''} {created_at: "${b.createdAt.clone().format()}", description: "${b.description}", amount: ${b.amount.amount}}`, '');
 
   return `
       ${addId(bill.id, includeId)},
+      account: "${bill.account}",
       detail: [${details}],
-      paid: ${bill.paid},
-      period_end_at: ${bill.periodEnd.clone().format()},
-      period_start_at: ${bill.periodStart.clone().format()},
-      available_at: ${bill.availableAt.clone().format()},
+      paid: ${!!bill.paid},
+      period_end_at: "${bill.periodEnd.clone().format()}",
+      period_start_at: "${bill.periodStart.clone().format()}",
+      available_at: "${bill.availableAt.clone().format()}",
     `
 }

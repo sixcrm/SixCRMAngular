@@ -5,6 +5,7 @@ import {Currency} from '../utils/currency/currency';
 
 export class Bill implements Entity<Bill> {
   id: string;
+  account: string;
   paid: boolean;
   paidResult: string;
   outstanding: boolean;
@@ -16,9 +17,6 @@ export class Bill implements Entity<Bill> {
   updatedAt: Moment;
   endingBalance: Currency;
 
-  periodStartValue: string;
-  periodEndValue: string;
-  availableAtValue: string;
   amountValue: string;
 
   constructor(obj?: any) {
@@ -27,6 +25,7 @@ export class Bill implements Entity<Bill> {
     }
 
     this.id = obj.id || '';
+    this.account = obj.account || '';
     this.paid = obj.paid;
     this.paidResult = obj.paid_result;
     this.outstanding = obj.outstanding;
@@ -43,10 +42,7 @@ export class Bill implements Entity<Bill> {
 
     this.endingBalance = new Currency(this.detail.reduce((a,b) => a + b.amount.amount, 0));
 
-    this.periodStartValue = this.periodStart.format('MM/DD/YYYY');
-    this.periodEndValue = this.periodEnd.format('MM/DD/YYYY');
-    this.availableAtValue = this.availableAt.format('MM/DD/YYYY');
-    this.amountValue = this.endingBalance.usd();
+    this.amountValue = this.endingBalance.amount + '';
   }
 
   copy() {

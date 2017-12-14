@@ -24,6 +24,8 @@ import {AccessKeyDetailsDialogComponent} from './dialog-modals/access-key-detail
 import {ClipboardModule} from 'ngx-clipboard/dist';
 import { ErrorPageStandaloneComponent } from './error-page-standalone/error-page-standalone.component';
 import {TranslationModule} from './translation/translation.module';
+import {AddBillDetailsDialogComponent} from './dialog-modals/add-bill-details-dialog.component';
+import {TextMaskModule} from 'angular2-text-mask';
 
 @NgModule({
   declarations : [
@@ -38,7 +40,8 @@ import {TranslationModule} from './translation/translation.module';
     AddProductScheduleDialogComponent,
     SingleInputDialogComponent,
     AccessKeyDetailsDialogComponent,
-    ErrorPageStandaloneComponent
+    ErrorPageStandaloneComponent,
+    AddBillDetailsDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -51,7 +54,8 @@ import {TranslationModule} from './translation/translation.module';
     routing,
     MaterialModule.forRoot(),
     ClipboardModule,
-    TranslationModule
+    TranslationModule,
+    TextMaskModule
   ],
   exports: [
     MaterialModule
@@ -70,7 +74,8 @@ import {TranslationModule} from './translation/translation.module';
     AddProductScheduleDialogComponent,
     ErrorSnackBarComponent,
     SingleInputDialogComponent,
-    AccessKeyDetailsDialogComponent
+    AccessKeyDetailsDialogComponent,
+    AddBillDetailsDialogComponent
   ],
   bootstrap : [AppComponent]
 })

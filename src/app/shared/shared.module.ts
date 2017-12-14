@@ -75,6 +75,8 @@ import { FormatDurationPipe } from './pipes/format-duration.pipe';
 import { HtmlSanitizerPipe } from './pipes/html-sanitizer.pipe';
 import {CustomerCreditCardViewComponent} from './components/customer-credit-card-view/customer-credit-card-view.component';
 import {BillsService} from './services/bills.service';
+import { SimpleDatepickerComponent } from './components/simple-datepicker/simple-datepicker.component';
+import {TranslationModule} from '../translation/translation.module';
 
 @NgModule({
   declarations : [
@@ -110,7 +112,8 @@ import {BillsService} from './services/bills.service';
     SpeLoaderComponent,
     FormatDurationPipe,
     HtmlSanitizerPipe,
-    CustomerCreditCardViewComponent
+    CustomerCreditCardViewComponent,
+    SimpleDatepickerComponent
   ],
   exports : [
     AutocompleteComponent,
@@ -143,7 +146,8 @@ import {BillsService} from './services/bills.service';
     SpeLoaderComponent,
     FormatDurationPipe,
     HtmlSanitizerPipe,
-    CustomerCreditCardViewComponent
+    CustomerCreditCardViewComponent,
+    SimpleDatepickerComponent
   ],
   imports : [
     FormsModule,
@@ -151,7 +155,8 @@ import {BillsService} from './services/bills.service';
     MaterialModule,
     ChartModule,
     Daterangepicker,
-    TextMaskModule
+    TextMaskModule,
+    TranslationModule
   ]
 })
 export class SharedModule {

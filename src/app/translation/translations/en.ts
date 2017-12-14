@@ -53,6 +53,7 @@ export const TRANSLATIONS = {
       title: 'Settings',
       user: 'Users',
       account: 'Accounts',
+      bill: 'Bills',
       role: 'Roles',
       documentation: {
         title: 'Documentation',
@@ -183,31 +184,55 @@ export const TRANSLATIONS = {
         due: 'Due Date'
       },
       pay: 'PAY NOW',
-      create: 'CREATE INVOICE',
       summary: {
         title: 'Current Transaction Count',
         description: 'View Current Transaction cound and amount. Pay and view invoices. View transactions over time and predict the future.',
         nodata: 'No Transactions Found'
-      },
-      details: {
-        title: 'Invoice Summary',
-        subtitle: 'Billing Information',
-        start: 'Period Start',
-        end: 'Period End',
-        amount: 'Amount',
-        due: 'Due Date',
-        edit: 'Edit Invoice',
-        back: 'BACK TO INVOICES',
-        table: {
-          title: 'Invoice Details',
-          subtitle: 'Itemized Breakdown of Charges',
-          description: 'Description',
-          created: 'Created',
-          amount: 'Amount',
-          total: 'Total'
-        }
       }
     }
+  },
+  bill: {
+    index: {
+      title: 'Bills',
+      header: {
+        start: 'Period Start',
+        end: 'Period End',
+        overdue: 'Overdue',
+        balance: 'Balance',
+      }
+    },
+    tab: {
+      general: 'GENERAL DETALS',
+      users: 'USERS',
+      keys: 'ACCESS KEYS',
+      billing: 'BILLING'
+    },
+    details: {
+      title: 'Invoice Summary',
+      subtitle: 'Billing Information',
+      start: 'Period Start',
+      end: 'Period End',
+      amount: 'Amount',
+      due: 'Due Date',
+      edit: 'Edit Invoice',
+      back: 'BACK TO INVOICES',
+      table: {
+        title: 'Invoice Details',
+        subtitle: 'Itemized Breakdown of Charges',
+        description: 'Description',
+        created: 'Created',
+        amount: 'Amount',
+        total: 'Total'
+      },
+      pay: 'PAY NOW',
+      detailedit: 'Edit',
+      detailremove: 'Remove',
+      account: 'Account',
+      createtitle: 'Create new Bill',
+      cancel: 'CANCEL',
+      save: 'SAVE'
+    },
+    title: 'Bill'
   },
   product: {
     index: {

@@ -5,8 +5,6 @@
   <invoice-overdue *ngFor="let over of overdue" [bill]="over"></invoice-overdue>
   <invoice-table [data]="paid" [type]="'CURRENT'" (view)="viewInvoice($event)"></invoice-table>
   <invoice-table [data]="unpaid" [type]="'PAST'" (view)="viewInvoice($event)"></invoice-table>
-
-  <div class="bills__new" (click)="createNewInvoice()" *ngIf="authService.isActiveAclMasterAccount()">{{ 'ACCOUNT_BILLING_CREATE' | translate}}</div>
 </div>
 
-<bill-view *ngIf="addMode" [bill]="billToUpdate" (cancel)="addMode = false"></bill-view>
+<bill-body *ngIf="addMode" [bill]="billToUpdate" [embedded]="true" (cancel)="addMode = false"></bill-body>

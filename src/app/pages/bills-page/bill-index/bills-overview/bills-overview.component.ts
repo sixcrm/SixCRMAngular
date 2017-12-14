@@ -1,18 +1,18 @@
 import {Component, OnInit, OnDestroy, Input} from '@angular/core';
-import {Bill} from '../../../shared/models/bill.model';
-import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
-import {BillsService} from '../../../shared/services/bills.service';
-import {AuthenticationService} from '../../../authentication/authentication.service';
+import {Bill} from '../../../../shared/models/bill.model';
+import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
+import {BillsService} from '../../../../shared/services/bills.service';
+import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {MdDialog} from '@angular/material';
-import {PaginationService} from '../../../shared/services/pagination.service';
+import {PaginationService} from '../../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
 
 @Component({
-  selector: 'bills',
-  templateUrl: './bills.component.html',
-  styleUrls: ['./bills.component.scss']
+  selector: 'bills-overview',
+  templateUrl: './bills-overview.component.html',
+  styleUrls: ['./bills-overview.component.scss']
 })
-export class BillIndexComponent  extends AbstractEntityIndexComponent<Bill> implements OnInit, OnDestroy {
+export class BillsOverviewComponent  extends AbstractEntityIndexComponent<Bill> implements OnInit, OnDestroy {
 
   overdue: Bill[] = [];
   paid: Bill[] = [];
