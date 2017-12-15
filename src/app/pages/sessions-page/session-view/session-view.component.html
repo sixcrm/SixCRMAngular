@@ -39,30 +39,30 @@
 
           <div class="entity-view__card__content">
             <md-input-container class="entity-view__card__content__item">
-              <input md-input disabled placeholder="First Name" [(ngModel)]="entity.customer.firstName" type="text">
+              <input md-input disabled placeholder="{{'FORMINPUTS_FIRSTNAME' | translate}}" [(ngModel)]="entity.customer.firstName" type="text">
             </md-input-container>
 
             <md-input-container class="entity-view__card__content__item">
-              <input md-input disabled placeholder="Last Name" [(ngModel)]="entity.customer.lastName" type="text">
+              <input md-input disabled placeholder="{{'FORMINPUTS_LASTNAME' | translate}}" [(ngModel)]="entity.customer.lastName" type="text">
             </md-input-container>
 
             <md-input-container class="entity-view__card__content__item">
-              <input md-input disabled placeholder="Address" [(ngModel)]="entity.customer.address.line1" type="text">
+              <input md-input disabled placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="entity.customer.address.line1" type="text">
             </md-input-container>
 
             <md-input-container class="entity-view__card__content__item">
-              <input md-input disabled placeholder="City" [(ngModel)]="entity.customer.address.city" type="text">
+              <input md-input disabled placeholder="{{'FORMINPUTS_CITY' | translate}}" [(ngModel)]="entity.customer.address.city" type="text">
             </md-input-container>
 
             <div class="flex-custom">
-              <dropdown-component class="session-view__item--left" [placeholder]="'State'" [disabled]="true" [selected]="entity.customer.address.state"></dropdown-component>
+              <dropdown-component class="session-view__item--left" [placeholder]="'FORMINPUTS_STATE' | translate" [disabled]="true" [selected]="entity.customer.address.state"></dropdown-component>
 
               <md-input-container class="entity-view__card__content__item session-view__item--right">
-                <input md-input disabled placeholder="Postal Code" [(ngModel)]="entity.customer.address.zip" type="text">
+                <input md-input disabled placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="entity.customer.address.zip" type="text">
               </md-input-container>
             </div>
 
-            <dropdown-component [placeholder]="'Country'" [disabled]="true" [selected]="entity.customer.address.country"></dropdown-component>
+            <dropdown-component [placeholder]="'FORMINPUTS_COUNTRY' | translate" [disabled]="true" [selected]="entity.customer.address.country"></dropdown-component>
           </div>
         </div>
 

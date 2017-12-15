@@ -105,6 +105,28 @@ export const TRANSLATIONS = {
       }
     }
   },
+  forminputs: {
+    fullname: 'Full Name',
+    firstname: 'First Name',
+    phone: 'Phone',
+    email: 'Email',
+    lastname: 'Last Name',
+    address: 'Address',
+    address2: 'Address2',
+    city: 'City',
+    state: 'State',
+    zip: 'ZIP Code',
+    country: 'Country',
+    creditcard: {
+      name: 'Name on Card',
+      type: 'Type',
+      number: 'Number',
+      expiration: 'Expiration',
+      ccv: 'CCV',
+      monthshort: 'MM',
+      yearshort: 'YYYY'
+    }
+  },
   indexpage: {
     filter: 'Filter'
   },

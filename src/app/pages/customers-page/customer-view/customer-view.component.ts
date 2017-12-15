@@ -12,6 +12,7 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {getPhoneNumberMask} from '../../../shared/utils/mask.utils';
 import {getStates} from '../../../shared/utils/address.utils';
 import {CustomerAddNewComponent} from './customer-add-new/customer-add-new.component';
+import {isValidZip, isAllowedZip} from '../../../shared/utils/form.utils';
 
 @Component({
   selector: 'customer-view',
@@ -34,6 +35,9 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
   states: string[] = getStates();
   formInvalid: boolean = false;
   shippingInfoEditMode: boolean = false;
+
+  isZip = isValidZip;
+  isAllowedZipKey = isAllowedZip;
 
   constructor(
     service: CustomersService,
@@ -143,7 +147,7 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
   }
 
   updateCustomer(formValid) {
-    this.formInvalid = !formValid || !this.entity.address.country || !this.entity.address.state || !this.isValidZip(this.entity.address.zip);
+    this.formInvalid = !formValid || !this.entity.address.country || !this.entity.address.state || !this.isZip(this.entity.address.zip);
 
     if (this.formInvalid) return;
 
@@ -161,15 +165,5 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
     }
 
     return super.canBeDeactivated();
-  }
-
-  isValidZip(value: string): boolean {
-    if (!value) return false;
-
-    if (isNaN(+value)) {
-      return false;
-    }
-
-    return value.length === 5;
   }
 }

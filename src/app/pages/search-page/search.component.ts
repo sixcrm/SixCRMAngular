@@ -67,7 +67,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   queryOptsLabel = {
     firstname: 'First Name', lastname: 'Last Name', phone: 'Phone Number', email: 'Email Address',
     alias: 'Transaction Alias', address_line_1: 'Address 1', address_line_2: 'Address 2', city: 'City', state: 'State',
-    zip: 'Postal Code', tracking_number: 'Tracking No', first_six: 'First 6 #', last_four: 'Last 4 #'
+    zip: 'ZIP Code', tracking_number: 'Tracking No', first_six: 'First 6 #', last_four: 'Last 4 #'
   };
 
   datepickerVisible: boolean = false;

@@ -39,42 +39,44 @@
       <md-card-title>
         <div class="title">Customer Information</div>
         <div class="subtitle">Address where fulfillment will ship packages</div>
-        <md-icon [md-menu-trigger-for]="shipOptions">more_vert</md-icon>
-        <md-menu #shipOptions="mdMenu" x-position="before">
-          <button md-menu-item [routerLink]="['/customers', rebill.parentSession.customer.id]"> View Customer </button>
-        </md-menu>
+        <div *ngIf="rebill.parentSession.customer.id">
+          <md-icon [md-menu-trigger-for]="shipOptions">more_vert</md-icon>
+          <md-menu #shipOptions="mdMenu" x-position="before">
+            <button md-menu-item [routerLink]="['/customers', rebill.parentSession.customer.id]"> View Customer </button>
+          </md-menu>
+        </div>
       </md-card-title>
 
       <md-card-content>
         <div>
           <div class="half">
             <md-input-container class="full">
-              <input required disabled md-input name="fullName" placeholder="Full Name" [(ngModel)]="rebill.parentSession.customer.fullName">
+              <input required disabled md-input name="fullName" placeholder="{{'FORMINPUTS_FULLNAME' | translate}}" [(ngModel)]="rebill.parentSession.customer.fullName">
             </md-input-container>
           </div>
 
           <div class="flex-custom full">
             <md-input-container class="half">
-              <input required disabled md-input name="address" placeholder="Address" [(ngModel)]="rebill.parentSession.customer.address.line1">
+              <input required disabled md-input name="address" placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="rebill.parentSession.customer.address.line1">
             </md-input-container>
             <md-input-container class="half space-left">
-              <input required disabled md-input name="city" placeholder="City" [(ngModel)]="rebill.parentSession.customer.address.city">
+              <input required disabled md-input name="city" placeholder="{{'FORMINPUTS_CITY' | translate}}" [(ngModel)]="rebill.parentSession.customer.address.city">
             </md-input-container>
           </div>
 
           <div class="flex-custom full">
             <div class="flex-custom half">
               <md-input-container class="half">
-                <input required disabled md-input name="postalCode" placeholder="State" [(ngModel)]="rebill.parentSession.customer.address.state">
+                <input required disabled md-input name="state" placeholder="{{'FORMINPUTS_STATE' | translate}}" [(ngModel)]="rebill.parentSession.customer.address.state">
               </md-input-container>
 
               <md-input-container class="half space-left">
-                <input required disabled md-input name="postalCode" placeholder="Postal Code" [(ngModel)]="rebill.parentSession.customer.address.zip">
+                <input required disabled md-input name="postalCode" placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="rebill.parentSession.customer.address.zip">
               </md-input-container>
             </div>
 
             <md-input-container class="half space-left">
-              <input required disabled md-input name="postalCode" placeholder="Country" [(ngModel)]="rebill.parentSession.customer.address.country">
+              <input required disabled md-input name="country" placeholder="{{'FORMINPUTS_COUNTRY' | translate}}" [(ngModel)]="rebill.parentSession.customer.address.country">
             </md-input-container>
           </div>
         </div>

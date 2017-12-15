@@ -10,8 +10,8 @@
 
   <div class="customer-view__edit__info">
     <md-input required placeholder="Name on Card" [(ngModel)]="ccard.name"></md-input>
-    <input-credit-card [value]="ccard.ccnumber" [placeholder]="'Credit Card Number'" (result)="ccard.ccnumber = $event"></input-credit-card>
-    <input-credit-card [value]="ccard.ccv" [mode]="'ccv'" [placeholder]="'CCV'" (result)="ccard.ccv = $event"></input-credit-card>
+    <input-credit-card [value]="ccard.ccnumber" [placeholder]="'FORMINPUTS_CREDITCARD_NUMBER' | translate" (result)="ccard.ccnumber = $event"></input-credit-card>
+    <input-credit-card [value]="ccard.ccv" [mode]="'ccv'" [placeholder]="'FORMINPUTS_CREDITCARD_CCV' | translate" (result)="ccard.ccv = $event"></input-credit-card>
 
     <div class="customer-view__edit__info__expiration">
       <div class="customer-view__edit__info__expiration__item">
@@ -20,7 +20,7 @@
           [showFloatingPlaceholder]="false"
           [selected]="expirationMonth"
           [required]="true"
-          [placeholder]="'MM'"
+          [placeholder]="'FORMINPUTS_CREDITCARD_MONTHSHORT' | translate"
           [options]="months"
           (onSelect)="selectMonth($event)">
         </dropdown-component>
@@ -28,7 +28,7 @@
 
       <div class="customer-view__edit__info__expiration__item">
         <span class="customer-view__edit__info__expiration__item__title">Expiration Date Year</span>
-        <dropdown-component [showFloatingPlaceholder]="false" [selected]="expirationYear" [placeholder]="'YYYY'" [options]="years" (onSelect)="selectYear($event)"></dropdown-component>
+        <dropdown-component [showFloatingPlaceholder]="false" [selected]="expirationYear" [placeholder]="'FORMINPUTS_CREDITCARD_YEARSHORT' | translate" [options]="years" (onSelect)="selectYear($event)"></dropdown-component>
       </div>
     </div>
   </div>
@@ -39,17 +39,17 @@
       <md-checkbox (change)="toggleSameShippingAddress($event)">Same as customer address</md-checkbox>
     </div>
 
-    <md-input required placeholder="Address 1" [(ngModel)]="ccard.address.line1"></md-input>
-    <md-input placeholder="Address 2" [(ngModel)]="ccard.address.line2"></md-input>
+    <md-input required placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="ccard.address.line1"></md-input>
+    <md-input placeholder="{{'FORMINPUTS_ADDRESS2' | translate}}" [(ngModel)]="ccard.address.line2"></md-input>
 
     <div class="customer-view__edit__address__group">
-      <md-input required placeholder="City" [(ngModel)]="ccard.address.city"></md-input>
+      <md-input required placeholder="{{'FORMINPUTS_CITY' | translate}}" [(ngModel)]="ccard.address.city"></md-input>
       <dropdown-component [required]="true" [selected]="ccard.address.state" [placeholder]="'State'" (onSelect)="ccard.address.state = $event" [options]="states"></dropdown-component>
     </div>
 
     <div class="customer-view__edit__address__group">
-      <md-input required placeholder="Postal Code" [(ngModel)]="ccard.address.zip"></md-input>
-      <dropdown-component [required]="true" [selected]="ccard.address.country" [placeholder]="'Country'"  (onSelect)="ccard.address.country = $event" [options]="['USA']"></dropdown-component>
+      <md-input required placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="ccard.address.zip"></md-input>
+      <dropdown-component [required]="true" [selected]="ccard.address.country" [placeholder]="'Country'"  (onSelect)="ccard.address.country = $event" [options]="countries"></dropdown-component>
     </div>
   </div>
 

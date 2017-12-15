@@ -39,3 +39,18 @@ export function isValidEmail(email): boolean {
   let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return regex.test(email);
 }
+
+export function isAllowedZip(event): boolean {
+  const pattern = /[0-9]|Backspace|ArrowRight|ArrowLeft|Tab|-/;
+
+  if (!pattern.test(event.key)) {
+    event.preventDefault();
+    return false;
+  }
+
+  return true;
+}
+
+export function isValidZip(value: string): boolean {
+  return /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(value);
+}

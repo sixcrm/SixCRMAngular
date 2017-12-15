@@ -121,7 +121,7 @@ export function stateCode(name: string): string {
 }
 
 export function getCountries(): string[] {
-  return ['USA'];
+  return ['United States'];
 }
 
 export function getCountryCodes(): string[] {

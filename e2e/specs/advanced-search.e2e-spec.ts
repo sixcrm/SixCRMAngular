@@ -155,7 +155,7 @@ describe('Advanced search', function() {
     expect(searchPage.getFilterValues().first().getText()).toEqual('portland');
   });
 
-  it('should navigate to search results when search by postal code', () => {
+  it('should navigate to search results when search by zip', () => {
     browser.get('/advanced-search');
     waitForUrlContains('/advanced-search');
 

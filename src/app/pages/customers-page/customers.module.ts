@@ -21,6 +21,7 @@ import {Daterangepicker} from 'ng2-daterangepicker';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import { SingleEventComponent } from './customer-view/customer-events/single-event/single-event.component';
 import { CustomerAddNewComponent } from './customer-view/customer-add-new/customer-add-new.component';
+import {TranslationModule} from '../../translation/translation.module';
 
 @NgModule({
   imports : [
@@ -32,7 +33,8 @@ import { CustomerAddNewComponent } from './customer-view/customer-add-new/custom
     SharedModule,
     TextMaskModule,
     Daterangepicker,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    TranslationModule
   ],
   declarations : [
     CustomersComponent,

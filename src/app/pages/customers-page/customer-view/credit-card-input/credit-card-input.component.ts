@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {CreditCard} from '../../../../shared/models/credit-card.model';
 import {CreditCardsService} from '../../../../shared/services/credit-cards.service';
-import {getStates} from '../../../../shared/utils/address.utils';
+import {getStates, getCountries} from '../../../../shared/utils/address.utils';
 import {Address} from '../../../../shared/models/address.model';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 
@@ -20,6 +20,7 @@ export class CreditCardInputComponent implements OnInit {
   years = ['2017','2018','2019','2020','2021','2022','2023','2024','2025','2026','2027'];
 
   states: string[] = getStates();
+  countries: string[] = getCountries();
 
   backupAddress: Address;
 

@@ -8,6 +8,7 @@ import {SessionViewComponent} from './session-view/session-view.component';
 import {SessionsAclGuard} from '../guards/sessions-acl-guard.service';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {SharedModule} from '../../shared/shared.module';
+import {TranslationModule} from '../../translation/translation.module';
 
 @NgModule({
   imports : [
@@ -16,7 +17,8 @@ import {SharedModule} from '../../shared/shared.module';
     FormsModule,
     MaterialModule.forRoot(),
     PageComponentsModule,
-    SharedModule
+    SharedModule,
+    TranslationModule
   ],
   declarations : [
     SessionsComponent,

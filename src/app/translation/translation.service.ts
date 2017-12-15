@@ -34,7 +34,14 @@ export class TranslationService {
 
   parseTranslation(obj: any, keys: string[]): string {
     if (!keys || keys.length === 0) {
-      return obj;
+
+      if (!obj) return '';
+
+      if (typeof obj === 'string') {
+        return obj;
+      }
+
+      return '';
     }
 
     const key = keys.shift();
