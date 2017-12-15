@@ -9,7 +9,7 @@ export function fulfillmentProvidersListQuery(limit?:number, cursor?:string): st
   return `{
     fulfillmentproviderlist ${paginationParamsQuery(limit, cursor)} {
       fulfillmentproviders {
-        ${fulfillmentProviderResponseQuery()}
+        ${fulfillmentProviderInfoResponseQuery()}
       }
       ${fullPaginationStringResponseQuery()}
     }
@@ -46,8 +46,12 @@ export function updateFulfillmentProviderMutation(provider: FulfillmentProvider)
 	  }`
 }
 
+export function fulfillmentProviderInfoResponseQuery(): string {
+  return `id name username password endpoint threepl_key facility_id threepl_id customer_id return_address,`;
+}
+
 export function fulfillmentProviderResponseQuery(): string {
-  return `id name username password endpoint provider threepl_key facility_id threepl_id customer_id return_address,`;
+  return `id name username password endpoint provider {name} threepl_key facility_id threepl_id customer_id return_address,`;
 }
 
 export function validateFulfillmentProviderQuery(provider: FulfillmentProvider): string {
@@ -70,5 +74,5 @@ export function fulfillmentProviderInputQuery(provider: FulfillmentProvider, inc
   const customerId = provider.customerId ? `, customer_id: "${provider.customerId}"` : '';
   const returnAddress = provider.returnAddress ? `, return_address: "${provider.returnAddress}"` : '';
 
-  return `${addId(provider.id, includeId)}, name: "${provider.name}", username: "${provider.username}", password: "${provider.password}", provider: "${provider.provider}"${endpoint}${threePLId}${threePLKey}${facilityId}${customerId}${returnAddress}`;
+  return `${addId(provider.id, includeId)}, name: "${provider.name}" provider: {name: "${provider.provider}"}, username: "${provider.username}", password: "${provider.password}"${endpoint}${threePLId}${threePLKey}${facilityId}${customerId}${returnAddress}`;
 }

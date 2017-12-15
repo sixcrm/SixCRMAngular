@@ -62,7 +62,7 @@ export function rebillResponseQuery(): string {
     product_schedules { id,
       schedule { price start end period,
         product { id name sku ship shipping_delay,
-          fulfillment_provider { id name provider username password endpoint }
+          fulfillment_provider { id name provider {name} username password endpoint }
         }
       }
     },

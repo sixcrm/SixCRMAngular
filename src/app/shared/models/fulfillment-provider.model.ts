@@ -20,7 +20,7 @@ export class FulfillmentProvider implements Entity<FulfillmentProvider> {
 
     this.id = obj.id || '';
     this.name = obj.name || '';
-    this.provider = obj.provider || '';
+    this.provider = obj.provider ? obj.provider.name : '';
     this.username = obj.username || '';
     this.password = obj.password || '';
     this.endpoint = obj.endpoint || '';
@@ -44,7 +44,7 @@ export class FulfillmentProvider implements Entity<FulfillmentProvider> {
       facility_id: this.facilityId,
       return_address: this.returnAddress,
       customer_id: this.customerId,
-      provider: this.provider,
+      provider: {name: this.provider},
       username: this.username,
       password: this.password,
       endpoint: this.endpoint
