@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {StateMachineTimeseries} from '../../shared/models/state-machine/state-machine-timeseries.model';
+import {Moment, utc} from 'moment';
 
 @Component({
   selector: 'state-machine-details-chart',
@@ -59,8 +60,11 @@ export class StateMachineDetailsChartComponent implements OnInit {
         enabled: false
       }
     },
+    tooltip: {
+      enabled: false
+    },
     series: [
-      { showInLegend: false, name: 'count', color: '#F28933' },
+      { showInLegend: false, name: 'count', color: 'rgba(0,0,0,0.12)' },
     ]
   };
 
@@ -103,8 +107,25 @@ export class StateMachineDetailsChartComponent implements OnInit {
   updateEmptyChart() {
     if (!this.chartEmptyInstance) return;
 
-    this.chartEmptyInstance.xAxis[0].update({min: this.date.start.clone().valueOf(), max: this.date.end.clone().valueOf()}, true);
-    this.chartEmptyInstance.yAxis[0].update({min: 0, max: 1000}, true);
+    const values = [50,40,45,30,40,35,40,35,50,60,55,60];
+    const dates = this.getTimesBetween(this.date.start.clone(), this.date.end.clone()).map(t => t.clone().format('DD.[ ]MMM'));
+    this.chartEmptyInstance.xAxis[0].update({categories: dates}, true);
+    this.chartEmptyInstance.series[0].setData(values, true);
+  }
+
+  getTimesBetween(start: Moment, end: Moment) {
+    const diffInHours = end.diff(start, 'hours');
+    const step = diffInHours / 12;
+
+    const times = [start.clone()];
+
+    for (let i = 1; i < 11; i++) {
+      times.push(times[i-1].clone().add(step, 'h'));
+    }
+
+    times.push(end.clone());
+
+    return times;
   }
 
 }

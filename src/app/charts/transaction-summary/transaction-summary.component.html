@@ -1,5 +1,5 @@
-<div inViewport (inside)="fetch()" class="dashboard__chart">
-  <div class="dashboard__chart__title">
+<div inViewport (inside)="fetch()" class="dashboard__chart" [class.dashboard__chart--embedded]="embedded">
+  <div *ngIf="!embedded" class="dashboard__chart__title">
     <div class="dashboard__chart__title__main">Transactions</div>
     <div class="dashboard__chart__title__sub">transactions summary</div>
     <md-icon [md-menu-trigger-for]="downloadOptions">more_vert</md-icon>
@@ -19,8 +19,7 @@
     <div class="dashboard__table-chart__no-data" *ngIf="loaded && (!summaries || summaries.length === 0)"> No Transactions Found</div>
     <chart *ngIf="!loaded" style="display: block" [options]="loaderOptions"></chart>
 
-
-    <div class="dashboard__table-chart__actions"><span [routerLink]="['/reports', 'transaction']">VIEW MORE</span></div>
+    <div *ngIf="!embedded" class="dashboard__table-chart__actions"><span [routerLink]="['/reports', 'transaction']">VIEW MORE</span></div>
   </ng-template>
 
 </div>

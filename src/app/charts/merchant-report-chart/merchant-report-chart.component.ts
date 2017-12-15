@@ -49,9 +49,12 @@ export class MerchantReportChartComponent implements OnInit {
     yAxis: {
       title: {text: 'Dollars' }
     },
+    tooltip: {
+      enabled: false
+    },
     series: [
       {
-        name: 'Sale Gross Revenue',
+        showInLegend: false,
         data: [
           {y: 5, color: this.loaderColors[0]},
           {y: 6, color: this.loaderColors[1]},

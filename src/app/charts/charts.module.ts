@@ -9,7 +9,6 @@ import {RouterModule} from '@angular/router';
 import {MerchantReportChartComponent} from './merchant-report-chart/merchant-report-chart.component';
 import { StateMachineDetailsChartComponent } from './state-machine-details-chart/state-machine-details-chart.component';
 import {TranslationModule} from '../translation/translation.module';
-import { BillingChartComponent } from './billing-chart/billing-chart.component';
 
 export function hchartFactory() {
   return require('highcharts');
@@ -27,14 +26,12 @@ export function hchartFactory() {
   declarations: [
     TransactionSummaryChartComponent,
     MerchantReportChartComponent,
-    StateMachineDetailsChartComponent,
-    BillingChartComponent
+    StateMachineDetailsChartComponent
   ],
   exports: [
     TransactionSummaryChartComponent,
     MerchantReportChartComponent,
-    StateMachineDetailsChartComponent,
-    BillingChartComponent
+    StateMachineDetailsChartComponent
   ],
   providers: [{
     provide: HighchartsStatic,

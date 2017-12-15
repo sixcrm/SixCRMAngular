@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, OnDestroy} from '@angular/core';
+import {Component, OnInit, Input, Output, OnDestroy, EventEmitter} from '@angular/core';
 import {AbstractDashboardItem} from '../../pages/dashboard-page/abstract-dashboard-item.component';
 import {TransactionSummary} from '../../shared/models/transaction-summary.model';
 import {AnalyticsService} from '../../shared/services/analytics.service';
@@ -21,6 +21,11 @@ export class TransactionSummaryChartComponent extends AbstractDashboardItem impl
       this.shouldFetch = true;
     }
   }
+
+  @Input() embedded: boolean = false;
+  @Input() cumulative: boolean = false;
+
+  @Output() sum: EventEmitter<number> = new EventEmitter();
 
   summaries: TransactionSummary[];
   loaded: boolean = false;
@@ -89,8 +94,11 @@ export class TransactionSummaryChartComponent extends AbstractDashboardItem impl
         enabled: false
       }
     },
+    tooltip: {
+      enabled: false
+    },
     series: [
-      { color: '#C3C3C3', data: [[0,1],[1,2],[2,3],[3,2],[4,1],[5,2],[6,2],[7,3],[8,2],[9,3]] },
+      { showInLegend: false, color: 'rgba(0,0,0,0.3)', data: [[0,50],[1,40],[2,45],[3,30],[4,40],[5,35],[6,40],[7,35],[8,50],[9,60],[10,55],[11,60]] },
     ]
   };
 
@@ -159,7 +167,14 @@ export class TransactionSummaryChartComponent extends AbstractDashboardItem impl
       summary.results.forEach(result => {
 
         if (data[result.processorResult]) {
-          data[result.processorResult].push([summary.time.valueOf(), result.amount])
+          let previousResult = 0;
+
+          if (this.cumulative) {
+            const d = data[result.processorResult];
+            previousResult = d[d.length - 1][1];
+          }
+
+          data[result.processorResult].push([summary.time.valueOf(), previousResult + result.amount])
         } else {
           data[result.processorResult] = [[summary.time.valueOf(), result.amount]];
         }
@@ -167,10 +182,19 @@ export class TransactionSummaryChartComponent extends AbstractDashboardItem impl
       })
     });
 
+    this.emitSum(data);
+
     this.chartInstance.series[0].setData(data['success'], true);
     this.chartInstance.series[1].setData(data['decline'], true);
     this.chartInstance.series[2].setData(data['error'], true);
 
     this.loaded = true;
+  }
+
+  private emitSum(data) {
+    const success = data['success'];
+    const sum = success.length > 0 ? success[success.length - 1][1] : 0;
+
+    this.sum.emit(sum.toFixed(0));
   }
 }

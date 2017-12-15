@@ -262,6 +262,6 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
 
   focusBilling(): void {
     this.selectedIndex = 3;
-    setTimeout(() => {this.isBillingFocused = true}, 500)
+    setTimeout(() => {this.isBillingFocused = true}, 300)
   }
 }
