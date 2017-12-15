@@ -2,10 +2,11 @@ import {utc, Moment} from 'moment';
 import {BillDetails} from './bill-details.model';
 import {Entity} from './entity.interface';
 import {Currency} from '../utils/currency/currency';
+import {Account} from './account.model';
 
 export class Bill implements Entity<Bill> {
   id: string;
-  account: string;
+  account: Account;
   paid: boolean;
   paidResult: string;
   outstanding: boolean;
@@ -25,7 +26,7 @@ export class Bill implements Entity<Bill> {
     }
 
     this.id = obj.id || '';
-    this.account = obj.account || '';
+    this.account = new Account(obj.account);
     this.paid = obj.paid;
     this.paidResult = obj.paid_result;
     this.outstanding = obj.outstanding;
@@ -52,6 +53,7 @@ export class Bill implements Entity<Bill> {
   inverse(): any {
     return {
       id: this.id,
+      account: this.account.inverse(),
       paid: this.paid,
       paid_result: this.paidResult,
       outstanding: this.outstanding,

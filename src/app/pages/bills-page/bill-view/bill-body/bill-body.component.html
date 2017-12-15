@@ -22,15 +22,15 @@
       <autocomplete-input
         *ngIf="authService.isActiveAclMasterAccount()"
         class="entity-view__card__content__item"
-        [class.error]="formInvalid && !selectedAccount.id"
+        [class.error]="formInvalid && !bill.account.id"
         [disabled]="!editMode && !addMode"
         [strictFilteringStrategy]="true"
         [required]="true"
         [mapFunction]="accountMapper"
-        [initialValue]="selectedAccount"
+        [initialValue]="bill.account"
         [placeholder]="'BILL_DETAILS_ACCOUNT' | translate"
         [options]="accounts"
-        (selected)="selectedAccount = $event">
+        (selected)="bill.account = $event">
       </autocomplete-input>
 
       <simple-datepicker [identifier]="'first'" [initialDate]="bill.periodStart.clone()" [disabled]="!editMode && !addMode" [pholder]="'BILL_DETAILS_START'" (dateChanged)="bill.periodStart = $event.clone()"></simple-datepicker>

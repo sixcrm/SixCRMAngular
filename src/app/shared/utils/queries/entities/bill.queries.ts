@@ -46,7 +46,7 @@ export function updateBillMutation(bill: Bill): string {
 }
 
 export function billResponseQuery(): string {
-  return 'id, paid, paid_result, outstanding, period_start_at, period_end_at, available_at, created_at, updated_at, detail {amount, description, created_at}'
+  return 'id, account {id, name}, paid, paid_result, outstanding, period_start_at, period_end_at, available_at, created_at, updated_at, detail {amount, description, created_at}'
 }
 
 export function billInputQuery(bill: Bill, includeId?: boolean): string {
@@ -54,7 +54,7 @@ export function billInputQuery(bill: Bill, includeId?: boolean): string {
 
   return `
       ${addId(bill.id, includeId)},
-      account: "${bill.account}",
+      account: "${bill.account.id}",
       detail: [${details}],
       paid: ${!!bill.paid},
       period_end_at: "${bill.periodEnd.clone().format()}",

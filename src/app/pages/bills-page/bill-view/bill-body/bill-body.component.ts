@@ -29,7 +29,6 @@ export class BillBodyComponent implements OnInit {
   accounts: Account[] = [];
 
   editMode: boolean;
-  selectedAccount: Account = new Account();
   accountMapper = (account: Account) => account.name;
   formInvalid: boolean;
 
@@ -66,10 +65,8 @@ export class BillBodyComponent implements OnInit {
     this.editMode = false;
 
     if (this.authService.isActiveAclMasterAccount()) {
-      this.formInvalid = !this.selectedAccount.id;
+      this.formInvalid = !this.bill.account.id;
       if (this.formInvalid) return;
-
-      this.bill.account = this.selectedAccount.id;
     }
 
     this.save.emit(this.bill);
