@@ -62,8 +62,8 @@ deployment:
       - node libs/deployment_scripts/src/deploy-cloudfront.js deployment/deploy-config.json
 
       # Run e2e tests before propagation
-      - npm run webdriver-update
-      - npm run e2e.dev
+      # - npm run webdriver-update
+      # - npm run e2e.dev
 
       # Promote changes
       - node libs/deployment_scripts/src/merge-branches.js deployment/deploy-config.json

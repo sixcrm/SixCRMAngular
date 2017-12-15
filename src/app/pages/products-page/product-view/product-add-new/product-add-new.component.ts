@@ -47,16 +47,12 @@ export class ProductAddNewComponent implements OnInit, OnDestroy {
   }
 
   toggleShip() {
-    this.entity.ship = this.entity.ship === 'true' ? 'false' : 'true';
-    if (this.entity.ship === 'true') {
-      this.entity.shippingDelay = 0;
-    } else {
-      this.entity.shippingDelay = null;
-    }
+    this.entity.ship = !this.entity.ship;
+    this.entity.shippingDelay = 0;
   }
 
   saveProduct(valid: boolean): void {
-    this.formInvalid = !valid || (this.entity.ship === 'true' && (!this.entity.fulfillmentProvider || !this.entity.fulfillmentProvider.id));
+    this.formInvalid = !valid || (this.entity.ship && (!this.entity.fulfillmentProvider || !this.entity.fulfillmentProvider.id));
 
     if (this.formInvalid) return;
 

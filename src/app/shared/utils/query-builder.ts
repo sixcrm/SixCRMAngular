@@ -8,7 +8,7 @@ function deleteMutation(entity: string, id: string) {
 export function updateAccountMutation(account: Account, name: string): string {
   return `
     mutation { 
-      updateaccount (account: { id: "${account.id}", name: "${name}", active: "true"}) { 
+      updateaccount (account: { id: "${account.id}", name: "${name}", active: true}) { 
         id,
         name,
         active,

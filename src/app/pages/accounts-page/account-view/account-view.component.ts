@@ -106,7 +106,7 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
 
     if (this.addMode) {
       this.entity = new Account();
-      this.entity.active = 'true';
+      this.entity.active = true;
       this.entityBackup = this.entity.copy();
     }
   }

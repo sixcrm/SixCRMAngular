@@ -6,7 +6,7 @@ export class Product implements Entity<Product> {
   id: string;
   name: string;
   sku: string;
-  ship: string;
+  ship: boolean;
   shippingDelay: number;
   defaultPrice: Currency;
   fulfillmentProvider: FulfillmentProvider;
@@ -19,7 +19,7 @@ export class Product implements Entity<Product> {
     this.id = obj.id || '';
     this.name = obj.name || '';
     this.sku = obj.sku || '';
-    this.ship = obj.ship || null;
+    this.ship = (obj.ship === 'true');
     this.shippingDelay = obj.shipping_delay || 0;
     this.defaultPrice = new Currency(obj.default_price);
     this.fulfillmentProvider = new FulfillmentProvider(obj.fulfillment_provider);

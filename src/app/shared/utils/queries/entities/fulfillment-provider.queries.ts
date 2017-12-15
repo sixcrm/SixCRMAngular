@@ -9,7 +9,7 @@ export function fulfillmentProvidersListQuery(limit?:number, cursor?:string): st
   return `{
     fulfillmentproviderlist ${paginationParamsQuery(limit, cursor)} {
       fulfillmentproviders {
-        ${fulfillmentProviderInfoResponseQuery()}
+        ${fulfillmentProviderResponseQuery()}
       }
       ${fullPaginationStringResponseQuery()}
     }
@@ -44,10 +44,6 @@ export function updateFulfillmentProviderMutation(provider: FulfillmentProvider)
 			  ${fulfillmentProviderResponseQuery()}
 		  }
 	  }`
-}
-
-export function fulfillmentProviderInfoResponseQuery(): string {
-  return `id name username password endpoint threepl_key facility_id threepl_id customer_id return_address,`;
 }
 
 export function fulfillmentProviderResponseQuery(): string {

@@ -50,5 +50,5 @@ export function productResponseQuery(): string {
 }
 
 export function productInputQuery(product: Product, includeId?: boolean): string {
-  return `${addId(product.id, includeId)} name: "${product.name}", sku: "${product.sku}", ship: "${product.ship}" ${product.defaultPrice.amount || product.defaultPrice.amount===0 ? `, default_price:${product.defaultPrice.amount}` : ''} ${product.shippingDelay || product.shippingDelay===0 ? `, shipping_delay:"${product.shippingDelay}"` : ''} ${product.fulfillmentProvider.id ? `, fulfillment_provider:"${product.fulfillmentProvider.id}"` : ''}`
+  return `${addId(product.id, includeId)} name: "${product.name}", sku: "${product.sku}", ship: ${!!product.ship} ${product.defaultPrice.amount || product.defaultPrice.amount===0 ? `, default_price:${product.defaultPrice.amount}` : ''} ${product.shippingDelay || product.shippingDelay===0 ? `, shipping_delay:${product.shippingDelay}` : ''} ${product.fulfillmentProvider.id ? `, fulfillment_provider:"${product.fulfillmentProvider.id}"` : ''}`
 }

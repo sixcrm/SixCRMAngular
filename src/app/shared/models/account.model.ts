@@ -6,7 +6,7 @@ export class Account implements Entity<Account> {
 
   id: string;
   name: string;
-  active: string;
+  active: boolean;
   acls: Acl[];
   createdAt: Moment;
   updatedAt: Moment;
@@ -18,7 +18,7 @@ export class Account implements Entity<Account> {
 
     this.id = obj.id || '';
     this.name = obj.name || '';
-    this.active = obj.active || '';
+    this.active = obj.active;
 
     this.acls = [];
     if (obj.acl) {
@@ -30,7 +30,7 @@ export class Account implements Entity<Account> {
   }
 
   toggleActive(): void {
-    this.active = this.active === 'true' ? 'false' : 'true';
+    this.active = !this.active;
   }
 
   copy(): Account {

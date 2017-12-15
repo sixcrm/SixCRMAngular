@@ -17,7 +17,7 @@
 
     <div style="margin-top: 25px;" class="user-view__item flex-custom flex-custom--center">
       <span>{{ 'ACCOUNT_DETAILS_ACTIVATED' | translate}}</span>
-      <md-checkbox class="flex-align--right" [checked]="entity && entity.active === 'true'" (change)="entity.toggleActive()" [disabled]="mode === modes.View"></md-checkbox>
+      <md-checkbox class="flex-align--right" [checked]="entity && entity.active" (change)="entity.toggleActive()" [disabled]="mode === modes.View"></md-checkbox>
     </div>
 
   </div>

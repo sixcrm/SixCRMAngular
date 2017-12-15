@@ -53,5 +53,5 @@ export function accountInfoResponseQuery(): string {
 }
 
 export function accountInputQuery(account: Account, includeId?: boolean): string {
-  return `${addId(account.id, includeId)}, name: "${account.name}", active: "${account.active || 'false'}"`;
+  return `${addId(account.id, includeId)}, name: "${account.name}", active: ${account.active || 'false'}`;
 }

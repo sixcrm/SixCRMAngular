@@ -31,7 +31,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
     if (this.addMode) {
       this.entity = new Product();
-      this.entity.ship = 'true';
+      this.entity.ship = true;
       this.entityBackup = this.entity.copy();
     }
   }
