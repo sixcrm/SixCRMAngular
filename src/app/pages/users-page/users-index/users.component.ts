@@ -103,7 +103,7 @@ export class UsersComponent extends AbstractEntityIndexComponent<User> implement
 
       if (!account || !role) {
         const newAccount: Account = new Account();
-        newAccount.active = 'true';
+        newAccount.active = true;
         newAccount.name = this.entity.name + ' Account';
 
         this.accountsService.createEntity(newAccount);

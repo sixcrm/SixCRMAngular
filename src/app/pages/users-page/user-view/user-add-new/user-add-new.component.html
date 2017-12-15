@@ -13,7 +13,7 @@
 
     <div class="user-view__item flex-custom flex-custom--center">
       <span>Activated</span>
-      <md-checkbox class="flex-align--right" [checked]="entity.active === 'true'" (change)="entity.toggleActive()" [disabled]="mode === modes.View"></md-checkbox>
+      <md-checkbox class="flex-align--right" [checked]="entity.active" (change)="entity.toggleActive()" [disabled]="mode === modes.View"></md-checkbox>
     </div>
 
     <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">

@@ -89,7 +89,7 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
 
     if (this.addMode) {
       this.entity = new User();
-      this.entity.active = 'true';
+      this.entity.active = true;
       this.entity.termsAndConditions = '0.1';
       this.entityBackup = this.entity.copy();
     }

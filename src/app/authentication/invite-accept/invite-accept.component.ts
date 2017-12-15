@@ -97,7 +97,7 @@ export class InviteAcceptComponent implements OnInit {
     this.user.firstName = this.firstName;
     this.user.lastName = this.lastName;
     this.user.auth0Id = this.payload.sub || 'auth0id';
-    this.user.active = 'true';
+    this.user.active = true;
 
     this.authService.updateUserForAcceptInvite(this.user).subscribe(success => {
       if (success) {

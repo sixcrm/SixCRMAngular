@@ -266,7 +266,7 @@ export class AuthenticationService {
     user.company = company;
     user.firstName = firstName;
     user.lastName = lastName;
-    user.active = 'true';
+    user.active = true;
 
     return this.http.post(endpoint, registerUser(user), {headers: generateHeaders(this.getToken())});
   }
@@ -358,7 +358,7 @@ export class AuthenticationService {
       (data) => {
         let user = extractData(data).userintrospection;
         if (user) {
-          if (user.active !== 'true' && user.active !== true) {
+          if (!user.active) {
             localStorage.removeItem(this.activated);
             this.sixUserActivated$.next(false);
           } else {

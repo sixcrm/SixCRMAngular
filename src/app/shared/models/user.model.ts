@@ -13,7 +13,7 @@ export class User implements Entity<User> {
   auth0Id: string;
   email: string;
   company: string;
-  active: string;
+  active: boolean;
   termsAndConditions: string;
   termsAndConditionsOutdated: boolean;
   picture: string;
@@ -36,7 +36,7 @@ export class User implements Entity<User> {
     this.auth0Id = obj.auth0_id || '';
     this.email = obj.id || '';
     this.company = obj.company || '';
-    this.active = obj.active || '';
+    this.active = obj.active;
     this.termsAndConditions = obj.termsandconditions || '';
     this.termsAndConditionsOutdated = obj.termsandconditions_outdated;
     this.picture = obj.picture || '';
@@ -58,7 +58,7 @@ export class User implements Entity<User> {
   }
 
   toggleActive(): void {
-    this.active = this.active === 'true' ? 'false' : 'true';
+    this.active = !this.active;
   }
 
   inverse(): any {
