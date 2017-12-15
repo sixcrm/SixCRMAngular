@@ -189,13 +189,12 @@ export const TRANSLATIONS = {
       update: 'UPDATE'
     },
     billing: {
-      currenttitle: 'Current Invoice',
+      currenttitle: 'Current Invoices',
       currentsubtitle: 'Billings due',
-      pasttitle: 'Past Invoice',
+      pasttitle: 'Past Invoices',
       pastsubtitle: 'Completed billings',
       overduewarning: 'Invoice Overdue',
       overduetext: 'You currently have an overdue invoice for',
-      past: 'Past Invoices',
       view: 'View Invoice',
       header: {
         issue: 'Issue Date',
