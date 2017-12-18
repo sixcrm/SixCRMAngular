@@ -1,7 +1,7 @@
 <div class="entity-view__table-component">
   <div style="padding-bottom: 6px;" class="entity-view__table-component__header">
     <div class="customer-transactions__title-container">
-      <div class="title">{{ 'ACCOUNT_KEYS_TITLE' | translate}}</div>
+      <div class="title">{{ 'USER_SIGNINGSTRINGS_TITLE' | translate}}</div>
     </div>
     <md-input class="entity-view__table-component__header__filter" placeholder="{{ 'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filterValue"></md-input>
     <table-pagination
@@ -15,7 +15,7 @@
     </table-pagination>
     <md-icon [md-menu-trigger-for]="optionsMenu" class="entity-view__table-component__header__action">more_vert</md-icon>
     <md-menu #optionsMenu="mdMenu" x-position="before">
-      <button md-menu-item (click)="addAccessKey()">{{ 'ACCOUNT_KEYS_ADD' | translate}}</button>
+      <button md-menu-item (click)="addOrUpdateSigningString()">{{ 'USER_SIGNINGSTRINGS_ADD' | translate}}</button>
     </md-menu>
   </div>
   <table class="highlight table__custom">
@@ -35,9 +35,9 @@
       <td>
         <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
         <md-menu #actionsMenu="mdMenu" x-position="before">
-          <button md-menu-item (click)="viewAccessKey(entity)">{{ 'ACCOUNT_KEYS_VIEW' | translate}}</button>
-          <button md-menu-item (click)="editAccessKey(entity)">{{ 'ACCOUNT_KEYS_EDIT' | translate}}</button>
-          <button md-menu-item (click)="deleteEntity(entity.id)">{{ 'ACCOUNT_KEYS_REMOVE' | translate}}</button>
+          <button md-menu-item ngxClipboard [cbContent]="entity.signingString">{{ 'USER_SIGNINGSTRINGS_COPY' | translate}}</button>
+          <button md-menu-item (click)="addOrUpdateSigningString(entity)">{{ 'USER_SIGNINGSTRINGS_EDIT' | translate}}</button>
+          <button md-menu-item (click)="deleteEntity(entity.id)">{{ 'USER_SIGNINGSTRINGS_REMOVE' | translate}}</button>
         </md-menu>
       </td>
     </tr>
@@ -47,7 +47,7 @@
   <server-error-message (refresh)="refreshData()" *ngIf="serverError; else messages"></server-error-message>
   <ng-template #messages>
     <md-spinner class="entity-view__spinner" *ngIf="loadingData"></md-spinner>
-    <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">No access keys found</div>
+    <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">{{'USER_SIGNINGSTRINGS_NODATA' | translate}}</div>
   </ng-template>
 
   <table-pagination

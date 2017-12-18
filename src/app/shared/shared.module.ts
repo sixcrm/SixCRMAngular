@@ -77,6 +77,7 @@ import {CustomerCreditCardViewComponent} from './components/customer-credit-card
 import {BillsService} from './services/bills.service';
 import { SimpleDatepickerComponent } from './components/simple-datepicker/simple-datepicker.component';
 import {TranslationModule} from '../translation/translation.module';
+import {UserSigningStringsService} from "./services/user-signing-string.service";
 
 @NgModule({
   declarations : [
@@ -200,7 +201,8 @@ export class SharedModule {
         TrackersService,
         SnackbarService,
         TermsAndConditionsControllerService,
-        BillsService
+        BillsService,
+        UserSigningStringsService
       ]
     };
   }

@@ -7,6 +7,9 @@ import {ProfilePageComponent} from './profile-page.component';
 import {SharedModule} from '../../shared/shared.module';
 import {TextMaskModule} from 'angular2-text-mask';
 import {PageComponentsModule} from '../components/pages-components.module';
+import {TranslationModule} from "../../translation/translation.module";
+import {UserSigningStringsComponent} from "./user-signing-strings/user-signing-strings.component";
+import {ClipboardModule} from "ngx-clipboard/dist";
 
 @NgModule({
   imports : [
@@ -16,10 +19,13 @@ import {PageComponentsModule} from '../components/pages-components.module';
     MaterialModule.forRoot(),
     SharedModule,
     PageComponentsModule,
-    TextMaskModule
+    TextMaskModule,
+    TranslationModule,
+    ClipboardModule
   ],
   declarations : [
-    ProfilePageComponent
+    ProfilePageComponent,
+    UserSigningStringsComponent
   ],
   exports : [
   ],

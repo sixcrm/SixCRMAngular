@@ -22,6 +22,7 @@
       <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===0" (click)="setIndex(0)">GENERAL DETAILS</span>
       <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===1" (click)="setIndex(1)">NOTIFICATIONS</span>
       <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===2" (click)="setIndex(2)">ACCOUNTS</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===3" (click)="setIndex(3)">SIGNING STRINGS</span>
     </div>
 
     <div class="profile-page__content">
@@ -138,6 +139,10 @@
             (view)="viewAccount($event)"
             [title]="'Account'">
           </table-memory>
+        </md-tab>
+
+        <md-tab>
+          <user-signing-strings></user-signing-strings>
         </md-tab>
       </md-tab-group>
     </div>

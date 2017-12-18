@@ -24,7 +24,7 @@ export class AccessKey implements Entity<AccessKey> {
     this.secretKeyMasked = new TextMaskPipe().transform(this.secretKey, true, 4);
     this.notes = obj.notes || '';
     this.createdAt = utc(obj.created_at);
-    this.updatedAt = utc(obj.created_at);
+    this.updatedAt = utc(obj.updated_at);
   }
 
   copy(): AccessKey {
