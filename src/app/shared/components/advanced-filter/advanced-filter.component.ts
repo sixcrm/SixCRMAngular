@@ -96,13 +96,13 @@ export class AdvancedFilterComponent implements OnInit, OnDestroy {
   currentFilterTerm: string = '';
   advanced: boolean = false;
   transactionTypes: FilterTerm[] = [
-    {id: 'new', label: 'New', type: 'transactiontype'},
-    {id: 'rebill', label: 'Rebill', type: 'transactiontype'}
+    {id: 'new', label: 'ADVANCEDFILTER_NEW', type: 'transactiontype'},
+    {id: 'rebill', label: 'ADVANCEDFILTER_REBILL', type: 'transactiontype'}
   ];
   processorResponses: FilterTerm[] = [
-    {id: 'success', label: 'Success', type: 'processorresult'},
-    {id: 'decline', label: 'Decline', type: 'processorresult'},
-    {id: 'error', label: 'Error', type: 'processorresult'}
+    {id: 'success', label: 'ADVANCEDFILTER_SUCCESS', type: 'processorresult'},
+    {id: 'decline', label: 'ADVANCEDFILTER_DECLINE', type: 'processorresult'},
+    {id: 'error', label: 'ADVANCEDFILTER_ERROR', type: 'processorresult'}
   ];
 
   visible: boolean;
