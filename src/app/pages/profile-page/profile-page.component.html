@@ -1,5 +1,5 @@
 <div class="entity-view">
-  <div class="entity-view__title">User Profile</div>
+  <div class="entity-view__title">{{'PROFILE_TITLE' | translate}}</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
@@ -9,7 +9,7 @@
         <img src="{{ user.picture }}" alt="">
       </div>
       <div class="entity-view__info__data">
-        <div class="entity-view__info__data__date">Created: {{user.createdAt | formatDateTime}}</div>
+        <div class="entity-view__info__data__date">{{'PROFILE_CREATED' | translate}}: {{user.createdAt | formatDateTime}}</div>
         <div class="entity-view__info__data__name">{{user.name}}</div>
         <div class="entity-view__info__data__other">
           <span *ngIf="phone" class="entity-view__info__data__other__item"><md-icon>phone</md-icon>{{phone}}</span>
@@ -19,10 +19,10 @@
     </div>
 
     <div class="entity-view__navigation">
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===0" (click)="setIndex(0)">GENERAL DETAILS</span>
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===1" (click)="setIndex(1)">NOTIFICATIONS</span>
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===2" (click)="setIndex(2)">ACCOUNTS</span>
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===3" (click)="setIndex(3)">SIGNING STRINGS</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===0" (click)="setIndex(0)">{{'PROFILE_TABS_GENERAL' | translate}}</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===1" (click)="setIndex(1)">{{'PROFILE_TABS_NOTIFICATIONS' | translate}}</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===2" (click)="setIndex(2)">{{'PROFILE_TABS_ACCOUNTS' | translate}}</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===3" (click)="setIndex(3)">{{'PROFILE_TABS_SIGNINGSTRINGS' | translate}}</span>
     </div>
 
     <div class="profile-page__content">
@@ -30,43 +30,43 @@
         <md-tab>
           <div *ngIf="userSettings" class="profile-page__content__general">
             <div class="profile-page__content__general__title">
-              <div class="profile-page__content__general__title__main">Profile</div>
-              <div class="profile-page__content__general__title__sub">general information</div>
+              <div class="profile-page__content__general__title__main">{{'PROFILE_DETAILS_TITLE' | translate}}</div>
+              <div class="profile-page__content__general__title__sub">{{'PROFILE_DETAILS_SUBTITLE' | translate}}</div>
               <!--<md-icon>more_vert</md-icon>-->
             </div>
 
             <div class="profile-page__content__general__data">
-              <md-input placeholder="First Name" [(ngModel)]="userBackup.firstName"></md-input>
-              <md-input placeholder="Last Name" [(ngModel)]="userBackup.lastName"></md-input>
+              <md-input placeholder="{{'PROFILE_DETAILS_FIRSTNAME' | translate}}" [(ngModel)]="userBackup.firstName"></md-input>
+              <md-input placeholder="{{'PROFILE_DETAILS_LASTNAME' | translate}}" [(ngModel)]="userBackup.lastName"></md-input>
               <md-input-container>
-                <input md-input placeholder="Work Phone" type="text" [textMask]="{mask: mask, guide: false}" [(ngModel)]="userSettingsBackup.workPhone">
+                <input md-input placeholder="{{'PROFILE_DETAILS_WORKPHONE' | translate}}" type="text" [textMask]="{mask: mask, guide: false}" [(ngModel)]="userSettingsBackup.workPhone">
               </md-input-container>
               <md-input-container>
-                <input md-input placeholder="Cell Phone" type="text" [textMask]="{mask: mask, guide: false}" [(ngModel)]="userSettingsBackup.cellPhone">
+                <input md-input placeholder="{{'PROFILE_DETAILS_CELLPHONE' | translate}}" type="text" [textMask]="{mask: mask, guide: false}" [(ngModel)]="userSettingsBackup.cellPhone">
               </md-input-container>
               <div class="profile-page__content__general__data__dropdown">
                 <autocomplete-input
                   [initialValue]="userSettingsBackup.timezone"
                   [options]="timezones"
-                  [placeholder]="'Set Timezone'"
+                  [placeholder]="'PROFILE_DETAILS_TIMEZONE' | translate"
                   (selected)="userSettingsBackup.timezone = $event">
                 </autocomplete-input>
               </div>
 
-              <md-input placeholder="Email" [value]="user.email"></md-input>
+              <md-input placeholder="{{'PROFILE_DETAILS_EMAIL' | translate}}" [value]="user.email"></md-input>
 
               <div class="profile-page__content__general__data__dropdown">
 
                 <autocomplete-input
                   [initialValue]="'English'"
                   [options]="['English']"
-                  [placeholder]="'Select Language'"
+                  [placeholder]="'PROFILE_DETAILS_LANGUAGE' | translate"
                   (selected)="setLanguage($event)">
                 </autocomplete-input>
               </div>
             </div>
 
-            <div class="profile-page__content__general__button" (click)="updateUserDetails()">Update</div>
+            <div class="profile-page__content__general__button" (click)="updateUserDetails()">{{'PROFILE_DETAILS_UPDATE' | translate}}</div>
           </div>
         </md-tab>
 
@@ -74,8 +74,8 @@
           <div class="profile-page__content__notifications">
             <div class="profile-page__content__notifications__item">
               <div class="profile-page__content__notifications__title">
-                <div class="profile-page__content__notifications__title__main">Notification Toggle</div>
-                <div class="profile-page__content__notifications__title__sub">Toggle on/off when you receive notifications</div>
+                <div class="profile-page__content__notifications__title__main">{{'PROFILE_NOTIFICATIONS_TITLE' | translate}}</div>
+                <div class="profile-page__content__notifications__title__sub">{{'PROFILE_NOTIFICATIONS_SUBTITLE' | translate}}</div>
               </div>
 
               <div *ngIf="userSettings" class="profile-page__content__notifications__body profile-page__content__notifications__body--toggles">
@@ -88,24 +88,24 @@
             </div>
             <div class="profile-page__content__notifications__item">
               <div class="profile-page__content__notifications__title">
-                <div class="profile-page__content__notifications__title__main">Devices</div>
-                <div class="profile-page__content__notifications__title__sub">Setup devices for notifications</div>
+                <div class="profile-page__content__notifications__title__main">{{'PROFILE_NOTIFICATIONS_DEVICES_TITLE' | translate}}</div>
+                <div class="profile-page__content__notifications__title__sub">{{'PROFILE_NOTIFICATIONS_DEVICES_SUBTITLE' | translate}}</div>
                 <!--<md-icon>more_vert</md-icon>-->
               </div>
 
               <div class="profile-page__content__notifications__body">
                 <md-input-container>
-                  <input md-input placeholder="SMS number" type="text" (blur)="userSettingsFieldUpdated()" [textMask]="{mask: mask, guide: false}" [(ngModel)]="getNotificationUserSettings('sms').data">
+                  <input md-input placeholder="{{'PROFILE_NOTIFICATIONS_DEVICES_SMS' | translate}}" type="text" (blur)="userSettingsFieldUpdated()" [textMask]="{mask: mask, guide: false}" [(ngModel)]="getNotificationUserSettings('sms').data">
                 </md-input-container>
-                <md-input placeholder="Email" (blur)="userSettingsFieldUpdated()" [(ngModel)]="getNotificationUserSettings('email').data"></md-input>
-                <md-input placeholder="Skype" (blur)="userSettingsFieldUpdated()" [(ngModel)]="getNotificationUserSettings('skype').data"></md-input>
-                <md-input placeholder="Slack web hook" (blur)="userSettingsFieldUpdated()" [(ngModel)]="getNotificationUserSettings('slack').data"></md-input>
+                <md-input placeholder="{{'PROFILE_NOTIFICATIONS_DEVICES_EMAIL' | translate}}" (blur)="userSettingsFieldUpdated()" [(ngModel)]="getNotificationUserSettings('email').data"></md-input>
+                <md-input placeholder="{{'PROFILE_NOTIFICATIONS_DEVICES_SKYPE' | translate}}" (blur)="userSettingsFieldUpdated()" [(ngModel)]="getNotificationUserSettings('skype').data"></md-input>
+                <md-input placeholder="{{'PROFILE_NOTIFICATIONS_DEVICES_SLACK' | translate}}" (blur)="userSettingsFieldUpdated()" [(ngModel)]="getNotificationUserSettings('slack').data"></md-input>
               </div>
             </div>
             <div class="profile-page__content__notifications__item">
               <div class="profile-page__content__notifications__title">
-                <div class="profile-page__content__notifications__title__main">Notification settings</div>
-                <div class="profile-page__content__notifications__title__sub">Select what notifications you want to receive</div>
+                <div class="profile-page__content__notifications__title__main">{{'PROFILE_NOTIFICATIONS_SETTINGS_TITLE' | translate}}</div>
+                <div class="profile-page__content__notifications__title__sub">{{'PROFILE_NOTIFICATIONS_SETTINGS_SUBTITLE' | translate}}</div>
                 <!--<md-icon>more_vert</md-icon>-->
               </div>
 
@@ -124,8 +124,8 @@
             </div>
           </div>
 
-          <div class="card-outside-button" (click)="sendTestNotification()">Send test notification</div>
-          <div class="card-outside-button" (click)="sendTestAlert()">Send test alert</div>
+          <div class="card-outside-button" (click)="sendTestNotification()">{{'PROFILE_NOTIFICATIONS_TESTNOTIFICATION' | translate}}</div>
+          <div class="card-outside-button" (click)="sendTestAlert()">{{'PROFILE_NOTIFICATIONS_TESTALERT' | translate}}</div>
 
         </md-tab>
 
@@ -137,7 +137,7 @@
             [associationEnabled]="false"
             [dissociationEnabled]="false"
             (view)="viewAccount($event)"
-            [title]="'Account'">
+            [textOptions]="accountTextOptions">
           </table-memory>
         </md-tab>
 

@@ -14,6 +14,7 @@ import {getPhoneNumberMask} from '../../shared/utils/mask.utils';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {Router} from '@angular/router';
 import {ColumnParams} from '../../shared/models/column-params.model';
+import {TableMemoryTextOptions} from "../components/table-memory/table-memory.component";
 
 let moment = require('moment-timezone');
 
@@ -48,9 +49,14 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   private unsubscribe$: Subject<boolean> = new Subject();
 
   accountColumnParams = [
-    new ColumnParams('Account', (e: Acl) => e.account.name),
-    new ColumnParams('Role', (e: Acl) => e.role.name)
+    new ColumnParams('PROFILE_ACCOUNTS_ACCOUNTNAME', (e: Acl) => e.account.name),
+    new ColumnParams('PROFILE_ACCOUNTS_ROLENAME', (e: Acl) => e.role.name)
   ];
+
+  accountTextOptions: TableMemoryTextOptions = {
+    title: 'PROFILE_ACCOUNTS_TITLE',
+    viewOptionText: 'PROFILE_ACCOUNTS_VIEW'
+  };
 
   deviceLabels = {
     six: 'SixCRM',

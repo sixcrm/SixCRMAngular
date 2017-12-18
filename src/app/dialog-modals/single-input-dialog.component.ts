@@ -6,17 +6,17 @@ import {MdDialogRef} from '@angular/material';
   template : `
     <md-card>
       <md-card-content>
-        <div style="margin-bottom: 10px;">{{text}}</div>
-        <div style="margin-bottom: 10px;" *ngIf="secondaryText">{{secondaryText}}</div>
+        <div style="margin-bottom: 10px;">{{text | translate}}</div>
+        <div style="margin-bottom: 10px;" *ngIf="secondaryText">{{secondaryText | translate}}</div>
         
         <md-input-container>
-          <input md-input (keydown)="keydownAllowFunction($event, inputContent)" placeholder="{{inputPlaceholder}}" [(ngModel)]="inputContent" type="text">
+          <input md-input (keydown)="keydownAllowFunction($event, inputContent)" placeholder="{{inputPlaceholder | translate}}" [(ngModel)]="inputContent" type="text">
         </md-input-container>
         
       </md-card-content>
       <md-card-actions class="custom-dialog__buttons">
-        <div (click)="no()">{{noText | uppercase}}</div>
-        <div (click)="yes()">{{yesText | uppercase}}</div>
+        <div (click)="no()">{{noText | translate}}</div>
+        <div (click)="yes()">{{yesText | translate}}</div>
       </md-card-actions>
     </md-card>
   `,

@@ -133,6 +133,66 @@ export const TRANSLATIONS = {
   singlepage: {
     created: 'Created'
   },
+  profile: {
+    title: 'Profile',
+    created: 'Created',
+    tabs: {
+      general: 'GENERAL',
+      notifications: 'NOTIFICATIONS',
+      accounts: 'ACCOUNTS',
+      signingstrings: 'SIGNING STRINGS'
+    },
+    details: {
+      title: 'Profile',
+      subtitle: 'general information',
+      firstname: 'First Name',
+      lastname: 'Last Name',
+      workphone: 'Work Phone',
+      cellphone: 'Cell Phone',
+      timezone: 'Timezone',
+      email: 'Email',
+      language: 'Language',
+      update: 'Update'
+    },
+    notifications: {
+      title: 'Notification toggle',
+      subtitle: 'toggle on/of when to receive notifications',
+      testalert: 'Send test alert',
+      testnotification: 'Send test notification',
+      devices: {
+        title: 'Devices',
+        subtitle: 'setup devices for notifications',
+        sms: 'SMS',
+        email: 'Email',
+        skype: 'Skype',
+        slack: 'Slack web hook'
+      },
+      settings : {
+        title: 'Notification settigns',
+        subtitle: 'Select what notifications you want to receive'
+      }
+    },
+    accounts: {
+      title: 'Your Accounts',
+      accountname: 'Name',
+      rolename: 'Role',
+      view: 'View Account'
+    },
+    signingstrings: {
+      title: 'Your Signing Strings',
+      name: 'Name',
+      signingstring: 'Signing String',
+      used: 'Last time Used',
+      add: 'Add new Signing String',
+      copy: 'Copy to clipboard',
+      remove: 'Remove',
+      edit: 'Edit',
+      updatetext: 'Update Signing String',
+      addtext: 'Add new Signing String',
+      cancel: 'Cancel',
+      save: 'Save'
+    }
+  },
   account: {
     index: {
       title: 'Accounts',

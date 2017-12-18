@@ -31,9 +31,9 @@ export class UserSigningStringsComponent extends AbstractEntityIndexComponent<Us
 
     let f = this.authService.getTimezone();
     this.columnParams = [
-      new ColumnParams('USER_SIGNINGSTRINGS_NAME', (e: UserSigningString) => e.name),
-      new ColumnParams('USER_SIGNINGSTRINGS_SIGNINGSTRING', (e: UserSigningString) => e.signingString),
-      new ColumnParams('USER_SIGNINGSTRINGS_HEADER_USED', (e: UserSigningString) => e.usedAt ? e.usedAt.tz(f).format('MM/DD/YYYY') : 'never'),
+      new ColumnParams('PROFILE_SIGNINGSTRINGS_NAME', (e: UserSigningString) => e.name),
+      new ColumnParams('PROFILE_SIGNINGSTRINGS_SIGNINGSTRING', (e: UserSigningString) => e.signingString),
+      new ColumnParams('PROFILE_SIGNINGSTRINGS_USED', (e: UserSigningString) => e.usedAt ? e.usedAt.tz(f).format('MM/DD/YYYY') : 'never'),
     ];
 
   }
@@ -60,11 +60,11 @@ export class UserSigningStringsComponent extends AbstractEntityIndexComponent<Us
 
   addOrUpdateSigningString(userSigningStrings?: UserSigningString) {
     let dialogRef = this.deleteDialog.open(SingleInputDialogComponent);
-    dialogRef.componentInstance.text = `${userSigningStrings ? 'Update' : 'Add'} signing strings name`;
-    dialogRef.componentInstance.inputPlaceholder = 'Name';
+    dialogRef.componentInstance.text = userSigningStrings ? 'PROFILE_SIGNINGSTRINGS_UPDATETEXT' : 'PROFILE_SIGNINGSTRINGS_ADDTEXT';
+    dialogRef.componentInstance.inputPlaceholder = 'PROFILE_SIGNINGSTRINGS_NAME';
     dialogRef.componentInstance.inputContent = userSigningStrings ? userSigningStrings.name : '';
-    dialogRef.componentInstance.yesText = userSigningStrings ? 'Update' : 'Add';
-    dialogRef.componentInstance.noText = 'Cancel';
+    dialogRef.componentInstance.yesText = 'PROFILE_SIGNINGSTRINGS_SAVE';
+    dialogRef.componentInstance.noText = 'PROFILE_SIGNINGSTRINGS_CANCEL';
 
     dialogRef.afterClosed().subscribe(result => {
       dialogRef = null;
