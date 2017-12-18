@@ -1,4 +1,4 @@
-<div class="report__title">Transactions Report</div>
+<div class="report__title">{{'TRANSACTIONREPORT_TITLE' | translate}}</div>
 
 <div class="filter-container">
   <advanced-filter
@@ -31,7 +31,7 @@
 </table-memory>
 
 <report-table
-  [title]="'Transaction Summary Details'"
+  [title]="'TRANSACTIONREPORT_TABLETITLE' | translate"
   [data]="reportsToDisplay"
   [loading]="reportsLoading"
   [columnParams]="columnParams"

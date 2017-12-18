@@ -323,6 +323,67 @@ export const TRANSLATIONS = {
     downloadcsv: 'Download CSV',
     downloadexcel: 'Download Excel'
   },
+  summaryreport: {
+    title: 'Summary Report',
+    tabletitle: 'Transaction Summary Details',
+    sales: 'Sales',
+    salesrevenue: 'Sales Revenue',
+    rebill: 'Rebill',
+    rebillrevenue: 'Rebill Revenue',
+    refunds: 'Refunds',
+    refundexpenses: 'Refund Expenses',
+    declines: 'Declines',
+    declinesrevenue: 'Declines Revenue',
+    grossrevenue: 'Gross Revenue',
+    chargebacks: 'Chargebacks',
+    alerts: 'Alerts',
+    activecustomers: 'Active Customers',
+    date: 'Date'
+  },
+  transactionreport: {
+    title: 'Transactions Report',
+    tabletitle: 'Transaction Details',
+    customer: 'Customer',
+    campaign: 'Campaign',
+    merchantprovider: 'Merchant Provider',
+    affiliate: 'Affiliate',
+    amount: 'Amount',
+    processorresult: 'Processor Result',
+    transactiontype: 'Transaction Type'
+  },
+  merchantreport: {
+    title: 'Merchant Report',
+    tabletitle: 'Transaction Details',
+    merchantprovider: 'Merchant Provider',
+    salescount: 'Sales Count',
+    salesgrossrevenue: 'Sales Gross Revenue',
+    refundexpenses: 'Refund Expenses',
+    refundcount: 'Refund Count',
+    netrevenue:'Net Revenue',
+    mtdsalescount: 'MTD Sales Count',
+    mtdgrosscount: 'MTD Gross Count',
+    chart: {
+      title: 'Merchant Processing',
+      subtitle: 'Current loads and balance',
+      nodata: 'No Merchants Found'
+    }
+  },
+  affiliatereport: {
+    title: 'Affiliate Report',
+    tabletitle: 'Affiliate Summary Details',
+    clickscount: 'Clicks Count',
+    partialscount: 'Partials Count',
+    affiliate: 'Affiliate',
+    partialspercentage: 'Partials Percentage',
+    declienscount: 'Declines Count',
+    declinespercentage: 'Declines Percentage',
+    salescount: 'Sales Count',
+    salespercentage: 'Sales Percentage',
+    upsellcount: 'Upsell Count',
+    upsellpercentage: 'Upsell Percentage',
+    upsellsum: 'Upsell Sum',
+    amountsum: 'Amount Sum'
+  },
   account: {
     index: {
       title: 'Accounts',

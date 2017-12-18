@@ -36,14 +36,14 @@ export class MerchantReportComponent extends ReportsAbstractComponent<MerchantRe
     super.init();
 
     this.columnParams = [
-      new ReportColumnParams('Merchant Provider', (e: MerchantReport) => e.merchantProvider),
-      new ReportColumnParams('Sales count', (e: MerchantReport) => e.saleCount, 'right'),
-      new ReportColumnParams('Sales Gross Revenue', (e: MerchantReport) => e.saleGrossRevenue.usd(), 'right'),
-      new ReportColumnParams('Refund Expenses', (e: MerchantReport) => '-' + e.refundExpenses.usd(), 'right'),
-      new ReportColumnParams('Refund Count', (e: MerchantReport) => e.refundCount, 'right'),
-      new ReportColumnParams('Net Revenue', (e: MerchantReport) => e.netRevenue.usd(), 'right'),
-      new ReportColumnParams('MTD Sales Count', (e: MerchantReport) => e.mtdSalesCount, 'right'),
-      new ReportColumnParams('MTD Gross Count', (e: MerchantReport) => e.mtdGrossCount, 'right'),
+      new ReportColumnParams('MERCHANTREPORT_MERCHANTPROVIDER', (e: MerchantReport) => e.merchantProvider),
+      new ReportColumnParams('MERCHANTREPORT_SALESCOUNT', (e: MerchantReport) => e.saleCount, 'right'),
+      new ReportColumnParams('MERCHANTREPORT_SALESGROSSREVENUE', (e: MerchantReport) => e.saleGrossRevenue.usd(), 'right'),
+      new ReportColumnParams('MERCHANTREPORT_REFUNDEXPENSES', (e: MerchantReport) => '-' + e.refundExpenses.usd(), 'right'),
+      new ReportColumnParams('MERCHANTREPORT_REFUNDCOUNT', (e: MerchantReport) => e.refundCount, 'right'),
+      new ReportColumnParams('MERCHANTREPORT_NETREVENUE', (e: MerchantReport) => e.netRevenue.usd(), 'right'),
+      new ReportColumnParams('MERCHANTREPORT_MTDSALESCOUNT', (e: MerchantReport) => e.mtdSalesCount, 'right'),
+      new ReportColumnParams('MERCHANTREPORT_MTDGROSSCOUNT', (e: MerchantReport) => e.mtdGrossCount, 'right'),
     ];
 
     this.merchantReportService.merchants$.takeUntil(this.unsubscribe$).subscribe(reports => {

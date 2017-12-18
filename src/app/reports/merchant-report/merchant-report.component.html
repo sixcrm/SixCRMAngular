@@ -1,4 +1,4 @@
-<div class="report__title">Merchant Report</div>
+<div class="report__title">{{'MERCHANTREPORT_TITLE' | translate}}</div>
 
 <merchant-report-chart [reports]="reportsToDisplay"></merchant-report-chart>
 
@@ -20,7 +20,7 @@
 </div>
 
 <report-table
-  [title]="'Transaction Summary Details'"
+  [title]="'MERCHANTREPORT_TABLETITLE' | translate"
   [data]="reportsToDisplay"
   [loading]="loading"
   [columnParams]="columnParams"

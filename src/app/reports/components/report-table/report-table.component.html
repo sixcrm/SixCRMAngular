@@ -1,6 +1,6 @@
 <div class="reports-table">
   <div class="reports-table__title">
-    <span>{{title}}</span>
+    <span>{{title | translate}}</span>
     <md-input *ngIf="showFilter" placeholder="Filter" [(ngModel)]="filterString"></md-input>
     <table-pagination
       [class.reports-table__pagination--right]="!showFilter"
@@ -15,9 +15,9 @@
     </table-pagination>
     <md-icon class="reports-table__title__icon--more" [md-menu-trigger-for]="downloadOptions">more_vert</md-icon>
     <md-menu #downloadOptions="mdMenu" x-position="before">
-      <button md-menu-item (click)="download.emit('json')"> Download JSON </button>
-      <button md-menu-item> Download CSV </button>
-      <button md-menu-item> Download Excel </button>
+      <button md-menu-item (click)="download.emit('json')"> {{'CHART_DOWNLOADJSON' | translate}}</button>
+      <button md-menu-item> {{'CHART_DOWNLOADCSV' | translate}}</button>
+      <button md-menu-item> {{'CHART_DOWNLOADEXCEL' | translate}}</button>
     </md-menu>
   </div>
 
@@ -26,7 +26,7 @@
       <thead>
         <tr>
           <th *ngFor="let params of columnParams" (click)="setSortParams(params)" [class.cell--align-right]="params.align === 'right'">
-            {{params.label}}
+            {{params.label | translate}}
             <ng-container *ngIf="params.sortApplied">
               <md-icon *ngIf="params.sortOrder === 'asc'; else downArrow;">keyboard_arrow_down</md-icon>
               <ng-template #downArrow><md-icon>keyboard_arrow_up</md-icon></ng-template>

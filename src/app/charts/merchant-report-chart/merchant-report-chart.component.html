@@ -1,7 +1,7 @@
 <div class="dashboard__chart">
   <div class="dashboard__chart__title">
-    <div class="dashboard__chart__title__main">Merchant processing</div>
-    <div class="dashboard__chart__title__sub">Current loads and balance</div>
+    <div class="dashboard__chart__title__main">{{'MERCHANTREPORT_CHART_TITLE' | translate}}</div>
+    <div class="dashboard__chart__title__sub">{{'MERCHANTREPORT_CHART_SUBTITLE' | translate}}</div>
   </div>
 
   <div [class.invisible]="!loaded || (!reportsToDisplay || reportsToDisplay.length === 0)">
@@ -10,5 +10,5 @@
   <chart style="display: block" *ngIf="!loaded" [options]="loaderOptions"></chart>
 
 
-  <div class="dashboard__table-chart__no-data" *ngIf="loaded && (!reportsToDisplay || reportsToDisplay.length === 0)"> No Merchants Found</div>
+  <div class="dashboard__table-chart__no-data" *ngIf="loaded && (!reportsToDisplay || reportsToDisplay.length === 0)">{{'MERCHANTREPORT_CHART_NODATA' | translate}}</div>
 </div>

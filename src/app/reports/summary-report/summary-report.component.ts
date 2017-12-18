@@ -46,24 +46,24 @@ export class SummaryReportComponent extends ReportsAbstractComponent<Transaction
     super.init();
 
     this.columnParamsTotal = [
-      new ReportColumnParams('Sales', (e: TransactionsSumItem) => e.saleCount, 'right'),
-      new ReportColumnParams('Sales Revenue', (e: TransactionsSumItem) => new Currency(e.saleRevenue).usd(), 'right'),
-      new ReportColumnParams('Rebill', (e: TransactionsSumItem) => e.rebillCount, 'right'),
-      new ReportColumnParams('Rebill Revenue', (e: TransactionsSumItem) => new Currency(e.rebillRevenue).usd(), 'right'),
-      new ReportColumnParams('Refunds', (e: TransactionsSumItem) => e.refundCount, 'right'),
-      new ReportColumnParams('Refund Expanses', (e: TransactionsSumItem) => '-' + new Currency(e.refundExpenses).usd(), 'right'),
-      new ReportColumnParams('Declines', (e: TransactionsSumItem) => e.declinesCount, 'right'),
-      new ReportColumnParams('Declines Revenue', (e: TransactionsSumItem) => new Currency(e.declinesRevenue).usd(), 'right'),
-      new ReportColumnParams('Gross Revenue', (e: TransactionsSumItem) => new Currency(e.grossRevenue).usd(), 'right'),
-      new ReportColumnParams('Chargeback', (e: TransactionsSumItem) => e.chargebackCount, 'right'),
-      new ReportColumnParams('Alerts', (e: TransactionsSumItem) => e.countAlertCount, 'right'),
-      new ReportColumnParams('Active Customers', (e: TransactionsSumItem) => e.currentActiveCustomer, 'right'),
+      new ReportColumnParams('SUMMARYREPORT_SALES', (e: TransactionsSumItem) => e.saleCount, 'right'),
+      new ReportColumnParams('SUMMARYREPORT_SALESREVENUE', (e: TransactionsSumItem) => new Currency(e.saleRevenue).usd(), 'right'),
+      new ReportColumnParams('SUMMARYREPORT_REBILL', (e: TransactionsSumItem) => e.rebillCount, 'right'),
+      new ReportColumnParams('SUMMARYREPORT_REBILLREVENUE', (e: TransactionsSumItem) => new Currency(e.rebillRevenue).usd(), 'right'),
+      new ReportColumnParams('SUMMARYREPORT_REFUNDS', (e: TransactionsSumItem) => e.refundCount, 'right'),
+      new ReportColumnParams('SUMMARYREPORT_REFUNDEXPENSES', (e: TransactionsSumItem) => '-' + new Currency(e.refundExpenses).usd(), 'right'),
+      new ReportColumnParams('SUMMARYREPORT_DECLIENS', (e: TransactionsSumItem) => e.declinesCount, 'right'),
+      new ReportColumnParams('SUMMARYREPORT_DECLINESREVENUE', (e: TransactionsSumItem) => new Currency(e.declinesRevenue).usd(), 'right'),
+      new ReportColumnParams('SUMMARYREPORT_GROSSREVENUE', (e: TransactionsSumItem) => new Currency(e.grossRevenue).usd(), 'right'),
+      new ReportColumnParams('SUMMARYREPORT_CHARGEBACKS', (e: TransactionsSumItem) => e.chargebackCount, 'right'),
+      new ReportColumnParams('SUMMARYREPORT_ALERTS', (e: TransactionsSumItem) => e.countAlertCount, 'right'),
+      new ReportColumnParams('SUMMARYREPORT_ACTIVECUSTOMERS', (e: TransactionsSumItem) => e.currentActiveCustomer, 'right'),
     ];
 
     const f = this.authService.getTimezone();
 
     this.columnParams = [
-      new ReportColumnParams('Date', (e: TransactionsSumItem) => e.period.tz(f).format('MM/DD/YY')).setIsLink(true),
+      new ReportColumnParams('SUMMARYREPORT_DATE', (e: TransactionsSumItem) => e.period.tz(f).format('MM/DD/YY')).setIsLink(true),
       ...this.columnParamsTotal
     ];
 
@@ -98,7 +98,7 @@ export class SummaryReportComponent extends ReportsAbstractComponent<Transaction
   }
 
   cellClicked(event: {params: ReportColumnParams<TransactionsSumItem>, entity: TransactionsSumItem}) {
-    if (event.params.label === 'Date') {
+    if (event.params.label === 'SUMMARYREPORT_DATE') {
       const s = event.entity.period.clone();
       const e = s.clone().add(1, 'd').subtract(1, 's');
 

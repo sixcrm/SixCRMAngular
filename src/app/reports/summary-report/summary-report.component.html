@@ -1,4 +1,4 @@
-<div class="report__title">Summary Report</div>
+<div class="report__title">{{'SUMMARYREPORT_TITLE' | translate}}</div>
 
 <div class="chart-container">
   <transaction-summary-chart [date]="dateMap" [filters]="immutableFilterTerms"></transaction-summary-chart>
@@ -35,7 +35,7 @@
 </table-memory>
 
 <report-table
-  [title]="'Transaction Summary Details'"
+  [title]="'SUMMARYREPORT_TABLETITLE'"
   [data]="reportsToDisplay"
   [loading]="reportsLoading"
   [columnParams]="columnParams"

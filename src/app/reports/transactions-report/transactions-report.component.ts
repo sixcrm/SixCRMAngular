@@ -46,31 +46,31 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
     super.init();
 
     this.columnParamsTotal = [
-      new ReportColumnParams('Sales', (e: TransactionsSumItem) => e.saleCount, 'right'),
-      new ReportColumnParams('Sales Revenue', (e: TransactionsSumItem) => new Currency(e.saleRevenue).usd(), 'right'),
-      new ReportColumnParams('Rebill', (e: TransactionsSumItem) => e.rebillCount, 'right'),
-      new ReportColumnParams('Rebill Revenue', (e: TransactionsSumItem) => new Currency(e.rebillRevenue).usd(), 'right'),
-      new ReportColumnParams('Refunds', (e: TransactionsSumItem) => e.refundCount, 'right'),
-      new ReportColumnParams('Refund Expanses', (e: TransactionsSumItem) => '-' + new Currency(e.refundExpenses).usd(), 'right'),
-      new ReportColumnParams('Declines', (e: TransactionsSumItem) => e.declinesCount, 'right'),
-      new ReportColumnParams('Declines Revenue', (e: TransactionsSumItem) => new Currency(e.declinesRevenue).usd(), 'right'),
-      new ReportColumnParams('Gross Revenue', (e: TransactionsSumItem) => new Currency(e.grossRevenue).usd(), 'right'),
-      new ReportColumnParams('Chargeback', (e: TransactionsSumItem) => e.chargebackCount, 'right'),
-      new ReportColumnParams('Alerts', (e: TransactionsSumItem) => e.countAlertCount, 'right'),
-      new ReportColumnParams('Active Customers', (e: TransactionsSumItem) => e.currentActiveCustomer, 'right'),
+      new ReportColumnParams('SUMMARYREPORT_SALES', (e: TransactionsSumItem) => e.saleCount, 'right'),
+      new ReportColumnParams('SUMMARYREPORT_SALESREVENUE', (e: TransactionsSumItem) => new Currency(e.saleRevenue).usd(), 'right'),
+      new ReportColumnParams('SUMMARYREPORT_REBILL', (e: TransactionsSumItem) => e.rebillCount, 'right'),
+      new ReportColumnParams('SUMMARYREPORT_REBILLREVENUE', (e: TransactionsSumItem) => new Currency(e.rebillRevenue).usd(), 'right'),
+      new ReportColumnParams('SUMMARYREPORT_REFUNDS', (e: TransactionsSumItem) => e.refundCount, 'right'),
+      new ReportColumnParams('SUMMARYREPORT_REFUNDEXPENSES', (e: TransactionsSumItem) => '-' + new Currency(e.refundExpenses).usd(), 'right'),
+      new ReportColumnParams('SUMMARYREPORT_DECLIENS', (e: TransactionsSumItem) => e.declinesCount, 'right'),
+      new ReportColumnParams('SUMMARYREPORT_DECLINESREVENUE', (e: TransactionsSumItem) => new Currency(e.declinesRevenue).usd(), 'right'),
+      new ReportColumnParams('SUMMARYREPORT_GROSSREVENUE', (e: TransactionsSumItem) => new Currency(e.grossRevenue).usd(), 'right'),
+      new ReportColumnParams('SUMMARYREPORT_CHARGEBACKS', (e: TransactionsSumItem) => e.chargebackCount, 'right'),
+      new ReportColumnParams('SUMMARYREPORT_ALERTS', (e: TransactionsSumItem) => e.countAlertCount, 'right'),
+      new ReportColumnParams('SUMMARYREPORT_ACTIVECUSTOMERS', (e: TransactionsSumItem) => e.currentActiveCustomer, 'right'),
     ];
 
     const f = this.authService.getTimezone();
 
     this.columnParams = [
-      new ReportColumnParams('Date', (e: TransactionReport) => e.date.tz(f).format('MM/DD/YY [at] hh:mm')),
-      new ReportColumnParams('Customer', (e: TransactionReport) => `${e.customer.firstName} ${e.customer.lastName}`),
-      new ReportColumnParams('Campaign', (e: TransactionReport) => e.campaign.name),
-      new ReportColumnParams('Merchant Provider', (e: TransactionReport) => e.merchantProvider.name),
-      new ReportColumnParams('Affiliate', (e: TransactionReport) => e.affiliate.name),
-      new ReportColumnParams('Amount', (e: TransactionReport) => e.amount.usd(), 'right'),
-      new ReportColumnParams('Processor Result', (e: TransactionReport) => e.processorResult),
-      new ReportColumnParams('Transaction Type', (e: TransactionReport) => e.transactionType),
+      new ReportColumnParams('SUMMARYREPORT_DATE', (e: TransactionReport) => e.date.tz(f).format('MM/DD/YY [at] hh:mm')),
+      new ReportColumnParams('TRANSACTIONREPORT_CUSTOMER', (e: TransactionReport) => `${e.customer.firstName} ${e.customer.lastName}`),
+      new ReportColumnParams('TRANSACTIONREPORT_CAMPAIGN', (e: TransactionReport) => e.campaign.name),
+      new ReportColumnParams('TRANSACTIONREPORT_MERCHANTPROVIDER', (e: TransactionReport) => e.merchantProvider.name),
+      new ReportColumnParams('TRANSACTIONREPORT_AFFILIATE', (e: TransactionReport) => e.affiliate.name),
+      new ReportColumnParams('TRANSACTIONREPORT_AMOUNT', (e: TransactionReport) => e.amount.usd(), 'right'),
+      new ReportColumnParams('TRANSACTIONREPORT_PROCESSORRESULT', (e: TransactionReport) => e.processorResult),
+      new ReportColumnParams('TRANSACTIONREPORT_TRANSACTIONTYPE', (e: TransactionReport) => e.transactionType),
     ];
 
     this.reportService.transactions$.takeUntil(this.unsubscribe$).subscribe(reports => {

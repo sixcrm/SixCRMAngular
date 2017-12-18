@@ -42,21 +42,21 @@ export class AffiliateReportComponent  extends ReportsAbstractComponent<Affiliat
     super.init();
 
     this.columnParamsTotal = [
-      new ReportColumnParams('Clicks count', (e: AffiliateReport) => e.countClick, 'right'),
-      new ReportColumnParams('Partials Count', (e: AffiliateReport) => e.countPartials, 'right'),
-      new ReportColumnParams('Partials Percent', (e: AffiliateReport) => e.partialsPercent.toFixed(2) + '%', 'right'),
-      new ReportColumnParams('Declines Count', (e: AffiliateReport) => e.declineCount, 'right'),
-      new ReportColumnParams('Declines Percent', (e: AffiliateReport) => e.declinesPercent.toFixed(2) + '%', 'right'),
-      new ReportColumnParams('Sales Count', (e: AffiliateReport) => e.countSales, 'right'),
-      new ReportColumnParams('Sales Percent', (e: AffiliateReport) => e.salesPercent.toFixed(2) + '%', 'right'),
-      new ReportColumnParams('Upsell Count', (e: AffiliateReport) => e.countUpsell, 'right'),
-      new ReportColumnParams('Upsells Percent', (e: AffiliateReport) => e.upsellPercent.toFixed(2) + '%', 'right'),
-      new ReportColumnParams('Upsell Sum', (e: AffiliateReport) => e.sumUpsell.usd(), 'right'),
-      new ReportColumnParams('Amount Sum', (e: AffiliateReport) => e.sumAmount.usd(), 'right'),
+      new ReportColumnParams('AFFILIATEREPORT_CLICKSCOUNT', (e: AffiliateReport) => e.countClick, 'right'),
+      new ReportColumnParams('AFFILIATEREPORT_PARTIALSCOUNT', (e: AffiliateReport) => e.countPartials, 'right'),
+      new ReportColumnParams('AFFILIATEREPORT_PARTIALSPERCENTAGE', (e: AffiliateReport) => e.partialsPercent.toFixed(2) + '%', 'right'),
+      new ReportColumnParams('AFFILIATEREPORT_DECLINESCOUNT', (e: AffiliateReport) => e.declineCount, 'right'),
+      new ReportColumnParams('AFFILIATEREPORT_DECILNESPERCENTAGE', (e: AffiliateReport) => e.declinesPercent.toFixed(2) + '%', 'right'),
+      new ReportColumnParams('AFFILIATEREPORT_SALESCOUNT', (e: AffiliateReport) => e.countSales, 'right'),
+      new ReportColumnParams('AFFILIATEREPORT_SALESPERCENTAGE', (e: AffiliateReport) => e.salesPercent.toFixed(2) + '%', 'right'),
+      new ReportColumnParams('AFFILIATEREPORT_UPSELLCOUNT', (e: AffiliateReport) => e.countUpsell, 'right'),
+      new ReportColumnParams('AFFILIATEREPORT_UPSELLPERCENTAGE', (e: AffiliateReport) => e.upsellPercent.toFixed(2) + '%', 'right'),
+      new ReportColumnParams('AFFILIATEREPORT_UPSELLSUM', (e: AffiliateReport) => e.sumUpsell.usd(), 'right'),
+      new ReportColumnParams('AFFILIATEREPORT_AMOUNTSUM', (e: AffiliateReport) => e.sumAmount.usd(), 'right'),
     ];
 
     this.columnParams = [
-      new ReportColumnParams('Affiliate', (e: AffiliateReport) => e.affiliate.name).setIsLink(true),
+      new ReportColumnParams('AFFILIATEREPORT_AFFILIATE', (e: AffiliateReport) => e.affiliate.name).setIsLink(true),
       ...this.columnParamsTotal
     ];
 

@@ -14,6 +14,7 @@ import {TransactionsReportComponent} from './transactions-report/transactions-re
 import { MerchantReportComponent } from './merchant-report/merchant-report.component';
 import { AffiliateReportComponent } from './affiliate-report/affiliate-report.component';
 import {SubaffiliateReportComponent} from './subaffiliate-report/subaffiliate-report.component';
+import {TranslationModule} from "../translation/translation.module";
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import {SubaffiliateReportComponent} from './subaffiliate-report/subaffiliate-re
     reportsRouting,
     MaterialModule.forRoot(),
     Daterangepicker,
-    ChartsModule
+    ChartsModule,
+    TranslationModule
   ],
   declarations: [
     SummaryReportComponent,
