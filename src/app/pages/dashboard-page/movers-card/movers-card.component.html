@@ -1,12 +1,12 @@
 <div inViewport (inside)="fetch()" class="movers-card">
   <div class="movers-card__title">
-    <div class="movers-card__title__main">Campaigns Watch List</div>
-    <div class="movers-card__title__sub">Campaigns on the move</div>
+    <div class="movers-card__title__main">{{'DASHBOARD_MOVERS_TITLE' | translate}}</div>
+    <div class="movers-card__title__sub">{{'DASHBOARD_MOVERS_SUBTITLE' | translate}}</div>
     <md-icon [md-menu-trigger-for]="downloadOptions">more_vert</md-icon>
     <md-menu #downloadOptions="mdMenu" x-position="before">
-      <button md-menu-item (click)="download('json')"> Download JSON </button>
-      <button md-menu-item (click)="download('csv')"> Download CSV </button>
-      <button md-menu-item (click)="download('excel')"> Download Excel </button>
+      <button md-menu-item (click)="download('json')">{{'CHART_DOWNLOADJSON' | translate}}</button>
+      <button md-menu-item (click)="download('csv')">{{'CHART_DOWNLOADCSV' | translate}}</button>
+      <button md-menu-item (click)="download('excel')">{{'CHART_DOWNLOADEXCEL' | translate}}</button>
     </md-menu>
   </div>
 
@@ -15,7 +15,7 @@
     <server-error-message (refresh)="refreshData()" *ngIf="serverError; else data"></server-error-message>
     <ng-template #data>
       <ng-container *ngIf="!loading; else moversLoader">
-        <div class="dashboard__table-chart__no-data" *ngIf="(!campaignDelta || campaignDelta.length === 0); else movers"> No Campaigns Found</div>
+        <div class="dashboard__table-chart__no-data" *ngIf="(!campaignDelta || campaignDelta.length === 0); else movers">{{'DASHBOARD_MOVERS_NODATA' | translate}}</div>
         <ng-template #movers>
           <div *ngFor="let campaign of campaignDelta" [routerLink]="['/campaigns', campaign.campaignId]" class="movers-card__item">
             <div class="movers-card__item__text">
@@ -38,5 +38,5 @@
     </ng-template>
   </div>
 
-  <div class="movers-card__actions"><span [routerLink]="['/coming-soon']">VIEW MORE</span></div>
+  <div class="movers-card__actions"><span [routerLink]="['/coming-soon']">{{'CHART_VIEWMORE' | translate}}</span></div>
 </div>

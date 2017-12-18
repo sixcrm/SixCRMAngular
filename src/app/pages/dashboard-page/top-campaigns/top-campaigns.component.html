@@ -1,15 +1,14 @@
 <div inViewport (inside)="fetch()" class="dashboard__table-chart">
   <div class="dashboard__table-chart__title">
-    <div class="dashboard__table-chart__title__main">Top Campaigns</div>
-    <div class="dashboard__table-chart__title__sub">Clicks & Conversions</div>
+    <div class="dashboard__table-chart__title__main">{{'DASHBOARD_TOPCAMPAIGNS_TITLE' | translate}}</div>
+    <div class="dashboard__table-chart__title__sub">{{'DASHBOARD_TOPCAMPAIGNS_SUBTITLE' | translate}}</div>
     <md-icon [md-menu-trigger-for]="downloadOptions">more_vert</md-icon>
     <md-menu #downloadOptions="mdMenu" x-position="before">
-      <button md-menu-item (click)="download('json')"> Download JSON </button>
-      <button md-menu-item (click)="download('csv')"> Download CSV </button>
-      <button md-menu-item (click)="download('excel')"> Download Excel </button>
+      <button md-menu-item (click)="download('json')">{{'CHART_DOWNLOADJSON' | translate}}</button>
+      <button md-menu-item (click)="download('csv')">{{'CHART_DOWNLOADCSV' | translate}}</button>
+      <button md-menu-item (click)="download('excel')">{{'CHART_DOWNLOADEXCEL' | translate}}</button>
     </md-menu>
   </div>
-
   <server-error-message (refresh)="refreshData()" *ngIf="serverError; else data"></server-error-message>
 
   <ng-template #data>
@@ -17,7 +16,7 @@
       <thead>
       <tr>
         <th class="clickable" *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'" (click)="sort(params)">
-          {{params.label}}
+          {{params.label | translate}}
           <ng-container *ngIf="params.label === sortParams.label">
             <md-icon *ngIf="sortOrder === 'asc'">keyboard_arrow_up</md-icon>
             <md-icon *ngIf="sortOrder !== 'asc'">keyboard_arrow_down</md-icon>
@@ -35,5 +34,5 @@
     <table-loader *ngIf="!campaigns"></table-loader>
   </ng-template>
 
-  <div class="dashboard__table-chart__actions"><span [routerLink]="['/coming-soon']">VIEW MORE</span></div>
+  <div class="dashboard__table-chart__actions"><span [routerLink]="['/coming-soon']">{{'CHART_VIEWMORE' | translate}}</span></div>
 </div>

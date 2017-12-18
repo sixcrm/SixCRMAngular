@@ -16,8 +16,8 @@ export class TopCampaignsComponent extends AbstractDashboardItem implements OnIn
   campaigns: CampaignStats[];
 
   columnParams: ColumnParams<CampaignStats>[] = [
-    new ColumnParams('Campaign', (c: CampaignStats) => c.campaign),
-    new ColumnParams('Amount', (c: CampaignStats) => c.amount.usd(), 'right')
+    new ColumnParams('DASHBOARD_TOPCAMPAIGNS_CAMPAIGN', (c: CampaignStats) => c.campaign),
+    new ColumnParams('DASHBOARD_TOPCAMPAIGNS_AMOUNT', (c: CampaignStats) => c.amount.usd(), 'right')
   ];
   sortParams: ColumnParams<CampaignStats> = new ColumnParams();
   sortOrder: string = 'asc';

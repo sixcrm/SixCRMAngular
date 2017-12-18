@@ -1,12 +1,12 @@
 <div inViewport (inside)="fetch()" class="dashboard__table-chart">
   <div class="dashboard__table-chart__title">
-    <div class="dashboard__table-chart__title__main">Event Funnel</div>
-    <div class="dashboard__table-chart__title__sub">Events by Event Type</div>
+    <div class="dashboard__table-chart__title__main">{{'DASHBOARD_EVENTSFUNNEL_TITLE' | translate}}</div>
+    <div class="dashboard__table-chart__title__sub">{{'DASHBOARD_EVENTSFUNNEL_SUBTITLE' | translate}}</div>
     <md-icon [md-menu-trigger-for]="downloadOptions">more_vert</md-icon>
     <md-menu #downloadOptions="mdMenu" x-position="before">
-      <button md-menu-item (click)="download('json')"> Download JSON </button>
-      <button md-menu-item (click)="download('csv')"> Download CSV </button>
-      <button md-menu-item (click)="download('excel')"> Download Excel </button>
+      <button md-menu-item (click)="download('json')">{{'CHART_DOWNLOADJSON' | translate}}</button>
+      <button md-menu-item (click)="download('csv')">{{'CHART_DOWNLOADCSV' | translate}}</button>
+      <button md-menu-item (click)="download('excel')">{{'CHART_DOWNLOADEXCEL' | translate}}</button>
     </md-menu>
   </div>
 
@@ -22,10 +22,10 @@
   <table class="highlight">
     <thead>
       <tr>
-        <th>Events</th>
-        <th class="cell--align-right">Count</th>
-        <th class="cell--align-right">Percentage</th>
-        <th class="cell--align-right">Relative Percentage</th>
+        <th>{{'DASHBOARD_EVENTSFUNNEL_EVENT' | translate}}</th>
+        <th class="cell--align-right">{{'DASHBOARD_EVENTSFUNNEL_COUNT' | translate}}</th>
+        <th class="cell--align-right">{{'DASHBOARD_EVENTSFUNNEL_PERCENTAGE' | translate}}</th>
+        <th class="cell--align-right">{{'DASHBOARD_EVENTSFUNNEL_RELATIVEPERCENTAGE' | translate}}</th>
       </tr>
     </thead>
 
@@ -66,6 +66,6 @@
   <ng-content></ng-content>
 
   <div class="dashboard__table-chart__actions">
-    <span *ngIf="funnel" (click)="toggleTable()">{{showTable ? 'COLLAPSE' : 'SHOW TABLE'}}</span>
+    <span *ngIf="funnel" (click)="toggleTable()">{{(showTable ? 'CHART_COLLAPSE' : 'CHART_SHOWTABLE') | translate}}</span>
   </div>
 </div>

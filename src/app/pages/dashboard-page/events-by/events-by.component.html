@@ -1,12 +1,12 @@
 <div inViewport (inside)="fetch()" class="dashboard__table-chart">
   <div class="dashboard__table-chart__title">
-    <div class="dashboard__table-chart__title__main">Events by Affiliate</div>
-    <div class="dashboard__table-chart__title__sub">Events from the top Affiliates</div>
+    <div class="dashboard__table-chart__title__main">{{'DASHBOARD_EVENTSBYAFFILIATE_TITLE' | translate}}</div>
+    <div class="dashboard__chart__title__sub">{{'DASHBOARD_EVENTSBYAFFILIATE_TITLE' | translate}}</div>
     <md-icon [md-menu-trigger-for]="downloadOptions">more_vert</md-icon>
     <md-menu #downloadOptions="mdMenu" x-position="before">
-      <button md-menu-item (click)="download('json')"> Download JSON </button>
-      <button md-menu-item (click)="download('csv')"> Download CSV </button>
-      <button md-menu-item (click)="download('excel')"> Download Excel </button>
+      <button md-menu-item (click)="download('json')">{{'CHART_DOWNLOADJSON' | translate}}</button>
+      <button md-menu-item (click)="download('csv')">{{'CHART_DOWNLOADCSV' | translate}}</button>
+      <button md-menu-item (click)="download('excel')">{{'CHART_DOWNLOADEXCEL' | translate}}</button>
     </md-menu>
   </div>
 
@@ -20,9 +20,9 @@
       <table class="highlight">
         <thead>
         <tr>
-          <th>Affiliate</th>
-          <th class="cell--align-right">Count</th>
-          <th class="cell--align-right">Percentage</th>
+          <th>{{'DASHBOARD_EVENTSBYAFFILIATE_AFFILIATE' | translate}}</th>
+          <th class="cell--align-right">{{'DASHBOARD_EVENTSBYAFFILIATE_COUNT' | translate}}</th>
+          <th class="cell--align-right">{{'DASHBOARD_EVENTSBYAFFILIATE_PERCENTAGE' | translate}}</th>
         </tr>
         </thead>
         <tbody *ngIf="eventsBy">
@@ -36,12 +36,12 @@
     </div>
 
     <ng-template #eventsByNoData>
-      <div *ngIf="eventsBy" class="dashboard__table-chart__no-data"> No Events Found</div>
+      <div *ngIf="eventsBy" class="dashboard__table-chart__no-data">{{'DASHBOARD_EVENTSBYAFFILIATE_NODATA' | translate}}</div>
     </ng-template>
 
     <div class="dashboard__table-chart__actions dashboard__table-chart__actions--no-border">
-      <span *ngIf="eventsBy && eventsBy.count > 0" (click)="toggleTable()">{{showTable ? 'COLLAPSE' : 'SHOW TABLE'}}</span>
-      <span [routerLink]="['/coming-soon']">VIEW MORE</span>
+      <span *ngIf="eventsBy && eventsBy.count > 0" (click)="toggleTable()">{{(showTable ? 'CHART_COLLAPSE' : 'CHART_SHOWTABLE') | translate}}</span>
+      <span [routerLink]="['/coming-soon']">{{'CHART_VIEWMORE' | translate}}</span>
     </div>
   </ng-template>
 </div>

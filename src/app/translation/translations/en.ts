@@ -237,6 +237,92 @@ export const TRANSLATIONS = {
       save: 'Save'
     }
   },
+  dashboard: {
+    eventsfunnel: {
+      title: 'Events Funnel',
+      subtitle: 'Events by Event type',
+      event: 'Event',
+      count: 'Count',
+      percentage: 'Percentage',
+      relativepercentage: 'Relative Percentage'
+    },
+    eventsummary: {
+      title: 'Events',
+      subtitle: 'events summary',
+      nodata: 'No Events Found'
+    },
+    eventsbyaffiliate: {
+      title: 'Events by Affiliate',
+      subtitle: 'Events from the top Affiliates',
+      affiliate: 'Affiliate',
+      count: 'Count',
+      percentage: 'Percentage',
+      nodata: 'No Events Found'
+    },
+    transactionbyaffiliate: {
+      title: 'Transactions by Affiliate',
+      subtitle: 'Transactions from the top Affiliates',
+      affiliate: 'Affiliate',
+      count: 'Count',
+      countp: 'Count%',
+      amount: 'Amount',
+      amountp: 'Amount%',
+      nodata: 'No Transactions Found'
+    },
+    transactionsummary: {
+      title: 'Transactions',
+      subtitle: 'transactions summary',
+      nodata: 'No Transactions Found'
+    },
+    movers: {
+      title: 'Campaigns Watch List',
+      subtitle: 'campaigns on the move',
+      nodata: 'No Campaigns Found'
+    },
+    topcampaigns: {
+      title: 'Top Campaigns',
+      subtitle: 'Clicks & Conversions',
+      nodata: 'No Campaigns Found',
+      campaign: 'Campaign',
+      amount: 'Amount'
+    },
+    reports: {
+      title: 'Reports',
+      subtitle: 'Popular reports to monitor metrics',
+      order: {
+        title: 'Order Report',
+        subtitle: 'Quick reports about orders'
+      },
+      summary: {
+        title: 'Summary Report',
+        subtitle: 'View summary information about transactions'
+      },
+      transactions: {
+        title: 'Transaction Report',
+        subtitle: 'View information about transactions'
+      },
+      fulfillment: {
+        title: 'Fulfillment Report',
+        subtitle: 'Fulfillment overview for campaigns'
+      },
+      affiliate: {
+        title: 'Affiliate Report',
+        subtitle: 'Performance metrics about affiliates'
+      },
+      retention: {
+        title: 'Retention',
+        subtitle: 'Learn how log customers stay'
+      }
+    }
+  },
+  chart: {
+    viewmore: 'VIEW MORE',
+    collapse: 'COLLAPSE',
+    showtable: 'SHOW TABLE',
+    downloadjson: 'Download JSON',
+    downloadcsv: 'Download CSV',
+    downloadexcel: 'Download Excel'
+  },
   account: {
     index: {
       title: 'Accounts',

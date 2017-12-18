@@ -17,6 +17,7 @@ import { TransactionOverviewComponent } from './transaction-overview/transaction
 import {TransactionByComponent} from './transaction-by/transaction-by.component';
 import {EventsByComponent} from './events-by/events-by.component';
 import {ChartsModule} from '../../charts/charts.module';
+import {TranslationModule} from "../../translation/translation.module";
 
 export function highchartsFactory() {
   let hc = require('highcharts');
@@ -37,7 +38,8 @@ export function highchartsFactory() {
     MaterialModule.forRoot(),
     ChartModule,
     Daterangepicker,
-    ChartsModule
+    ChartsModule,
+    TranslationModule
   ],
   declarations : [
     DashboardComponent,

@@ -1,56 +1,56 @@
 <div class="dashboard__reports">
   <div class="dashboard__reports__title">
-    <div class="dashboard__reports__title__main">Reports</div>
-    <div class="dashboard__reports__title__sub">Popular reports to monitor metrics</div>
+    <div class="dashboard__reports__title__main">{{'DASHBOARD_REPORTS_TITLE' | translate}}</div>
+    <div class="dashboard__reports__title__sub">{{'DASHBOARD_REPORTS_SUBTITLE' | translate}}</div>
   </div>
 
   <div class="dashboard__reports__item" [routerLink]="['/reports', 'order']">
     <img class="dashboard__reports__item__image" src="/assets/images/starticon.svg">
     <div class="dashboard__reports__item__content">
-      <div class="dashboard__reports__item__content__main">Order Report</div>
-      <div class="dashboard__reports__item__content__sub">Quick reports about orders</div>
+      <div class="dashboard__reports__item__content__main">{{'DASHBOARD_REPORTS_ORDER_TITLE' | translate}}</div>
+      <div class="dashboard__reports__item__content__sub">{{'DASHBOARD_REPORTS_ORDER_SUBTITLE' | translate}}</div>
     </div>
   </div>
 
   <div class="dashboard__reports__item" [routerLink]="['/reports', 'summary']">
     <img class="dashboard__reports__item__image" src="/assets/images/starticon.svg">
     <div class="dashboard__reports__item__content">
-      <div class="dashboard__reports__item__content__main">Summary Report</div>
-      <div class="dashboard__reports__item__content__sub">View summary information on transactions</div>
+      <div class="dashboard__reports__item__content__main">{{'DASHBOARD_REPORTS_SUMMARY_TITLE' | translate}}</div>
+      <div class="dashboard__reports__item__content__sub">{{'DASHBOARD_REPORTS_SUMMARY_SUBTITLE' | translate}}</div>
     </div>
   </div>
 
   <div class="dashboard__reports__item" [routerLink]="['/reports', 'transaction']">
     <img class="dashboard__reports__item__image" src="/assets/images/starticon.svg">
     <div class="dashboard__reports__item__content">
-      <div class="dashboard__reports__item__content__main">Transactions Report</div>
-      <div class="dashboard__reports__item__content__sub">View information on transactions</div>
+      <div class="dashboard__reports__item__content__main">{{'DASHBOARD_REPORTS_TRANSACTIONS_TITLE' | translate}}</div>
+      <div class="dashboard__reports__item__content__sub">{{'DASHBOARD_REPORTS_TRANSACTIONS_SUBTITLE' | translate}}</div>
     </div>
   </div>
 
   <div class="dashboard__reports__item" [routerLink]="['/reports', 'fulfillment']">
     <img class="dashboard__reports__item__image" src="/assets/images/starticon.svg">
     <div class="dashboard__reports__item__content">
-      <div class="dashboard__reports__item__content__main">Fulfillment Report</div>
-      <div class="dashboard__reports__item__content__sub">Fulfillment overview for campaigns</div>
+      <div class="dashboard__reports__item__content__main">{{'DASHBOARD_REPORTS_FULFILLMENT_TITLE' | translate}}</div>
+      <div class="dashboard__reports__item__content__sub">{{'DASHBOARD_REPORTS_FULFILLMENT_SUBTITLE' | translate}}</div>
     </div>
   </div>
 
   <div class="dashboard__reports__item" [routerLink]="['/reports', 'affiliate']">
     <img class="dashboard__reports__item__image" src="/assets/images/starticon.svg">
     <div class="dashboard__reports__item__content">
-      <div class="dashboard__reports__item__content__main">Affiliate Report</div>
-      <div class="dashboard__reports__item__content__sub">Performance metrics about Affiliates</div>
+      <div class="dashboard__reports__item__content__main">{{'DASHBOARD_REPORTS_FULFILLMENT_TITLE' | translate}}</div>
+      <div class="dashboard__reports__item__content__sub">{{'DASHBOARD_REPORTS_FULFILLMENT_SUBTITLE' | translate}}</div>
     </div>
   </div>
 
   <div class="dashboard__reports__item" [routerLink]="['/reports', 'retention']">
     <img class="dashboard__reports__item__image" src="/assets/images/starticon.svg">
     <div class="dashboard__reports__item__content dashboard__reports__item__content--no-border">
-      <div class="dashboard__reports__item__content__main">Retention</div>
-      <div class="dashboard__reports__item__content__sub">Learn how long customers stay</div>
+      <div class="dashboard__reports__item__content__main">{{'DASHBOARD_REPORTS_RETENTION_TITLE' | translate}}</div>
+      <div class="dashboard__reports__item__content__sub">{{'DASHBOARD_REPORTS_RETENTION_SUBTITLE' | translate}}</div>
     </div>
   </div>
 
-  <div class="dashboard__reports__actions"><span [routerLink]="['/coming-soon']">VIEW MORE</span></div>
+  <div class="dashboard__reports__actions"><span [routerLink]="['/coming-soon']">{{'CHART_VIEWMORE' | translate}}</span></div>
 </div>
