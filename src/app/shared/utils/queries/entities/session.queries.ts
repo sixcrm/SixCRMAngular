@@ -61,7 +61,7 @@ export function sessionResponseQuery(): string {
       schedule {
         price start end period,
         product { id name sku ship shipping_delay,
-          fulfillment_provider { id name provider {name} username password endpoint }
+          fulfillment_provider { id name provider {name} }
         }
       }
     },
@@ -69,7 +69,7 @@ export function sessionResponseQuery(): string {
       product_schedules { id,
         schedule { price start end period,
           product { id name sku ship shipping_delay,
-            fulfillment_provider { id name provider {name} username password endpoint}
+            fulfillment_provider { id name provider {name} }
           }
         }
       }
@@ -79,7 +79,7 @@ export function sessionResponseQuery(): string {
       productschedules { id,
         schedule { price start end period,
           product { id name sku ship shipping_delay,
-            fulfillment_provider { id name provider {name} username password endpoint }
+            fulfillment_provider { id name provider {name} }
           }
         }
         loadbalancer {

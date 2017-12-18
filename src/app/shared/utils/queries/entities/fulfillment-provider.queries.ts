@@ -47,7 +47,7 @@ export function updateFulfillmentProviderMutation(provider: FulfillmentProvider)
 }
 
 export function fulfillmentProviderResponseQuery(): string {
-  return `id name username password endpoint provider {name} threepl_key facility_id threepl_id customer_id return_address,`;
+  return `id, name, provider { ... on Hashtag { name } ... on ThreePL { name } }, created_at, updated_at `;
 }
 
 export function validateFulfillmentProviderQuery(provider: FulfillmentProvider): string {

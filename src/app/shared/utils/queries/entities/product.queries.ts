@@ -46,7 +46,7 @@ export function updateProductMutation(product: Product): string {
 }
 
 export function productResponseQuery(): string {
-  return `id name sku ship shipping_delay default_price fulfillment_provider { id name username endpoint password provider {name} }`
+  return `id name sku ship shipping_delay default_price fulfillment_provider { id name provider {name} }`
 }
 
 export function productInputQuery(product: Product, includeId?: boolean): string {
