@@ -8,7 +8,7 @@ import {getCurrencyMask} from '../shared/utils/mask.utils';
   template : `
     <md-card>
       <md-card-content>
-        <div style="margin-bottom: 10px;">{{'BILL_DETAILS_ADD_TITLE' | translate}}</div>
+        <div style="margin-bottom: 10px;">{{'BILL_DETAILS_ADDITEM_TITLE' | translate}}</div>
         
         <div>
           <md-input-container>
@@ -22,8 +22,8 @@ import {getCurrencyMask} from '../shared/utils/mask.utils';
         </div>
       </md-card-content>
       <md-card-actions class="custom-dialog__buttons">
-        <div (click)="no()">{{'BILL_DETAILS_ADD_CANCEL' | translate}}</div>
-        <div (click)="yes()">{{'BILL_DETAILS_ADD_SAVE' | translate}}</div>
+        <div (click)="no()">{{'BILL_DETAILS_ADDITEM_CANCEL' | translate}}</div>
+        <div (click)="yes()">{{'BILL_DETAILS_ADDITEM_SAVE' | translate}}</div>
       </md-card-actions>
     </md-card>
   `,

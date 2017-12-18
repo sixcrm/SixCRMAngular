@@ -251,7 +251,12 @@ export const TRANSLATIONS = {
       account: 'Account',
       createtitle: 'Create new Bill',
       cancel: 'CANCEL',
-      save: 'SAVE'
+      save: 'SAVE',
+      additem: {
+        title: 'Add New Item',
+        save: 'Save',
+        cancel: 'Cancel'
+      }
     },
     title: 'Bill'
   },
