@@ -1,20 +1,33 @@
-<div class="notifications"
-     infiniteScroll
-     [infiniteScrollDistance]="2"
-     [infiniteScrollThrottle]="300"
-     [scrollWindow]="false"
-     (scrolled)="onScroll()">
+<div class="notifications notifications-list notifications-list--standalone">
 
-  <div class="notifications__content">
-
-    <div class="notifications__content__no-results" *ngIf="isEmpty && !(notificationsService.requestInProgress$ | async)">
-      You don't have any alerts at this time...
+  <div class="notifications-list__topnav notifications-list__topnav--standalone">
+    <span>{{'NOTIFICATIONSQUICK_TITLE' | translate}}</span>
+    <div class="notifications-list__topnav__options notifications-list__topnav__options--standalone">
+      <div [routerLink]="['/profile']" [queryParams]="{tab: 'notifications'}">{{'NOTIFICATIONSQUICK_SETTINGS' | translate}}</div>
     </div>
+  </div>
+
+  <div class="notifications-list__content notifications-list__content--standalone"
+       infiniteScroll
+       [infiniteScrollDistance]="2"
+       [infiniteScrollThrottle]="300"
+       [scrollWindow]="false"
+       (scrolled)="onScroll()">
+    <div class="notifications-list__content__no-results" *ngIf="isEmpty">{{'NOTIFICATIONSQUICK_NORESULTS' | translate}}</div>
+
+    <ng-container *ngIf="alerts && alerts.length > 0" >
+      <div class="notifications-list__content__title">{{'NOTIFICATIONSQUICK_ALERTS' | translate}}</div>
+      <alert-component class="notifications-list__content__alert"
+                       *ngFor="let alert of alerts"
+                       (clear)="readNotification($event)"
+                       [alert]="alert">
+      </alert-component>
+    </ng-container>
 
     <div *ngFor="let notificationsByDate of notsByDate">
 
       <div *ngIf="notificationsByDate.entities.length > 0">
-        <div class="notifications__content__title">{{notificationsByDate.label}}</div>
+        <div class="notifications-list__content__title notifications-list__content__title--standalone">{{notificationsByDate.label | translate}}</div>
 
         <div *ngFor="let notification of notificationsByDate.entities">
           <alert-component [alert]="notification" [enableClear]="false"></alert-component>
@@ -23,6 +36,10 @@
 
     </div>
 
-    <md-spinner *ngIf="notificationsService.requestInProgress$ | async"></md-spinner>
+    <div *ngIf="notificationsService.requestInProgress$ | async" class="spinner">
+      <md-spinner></md-spinner>
+    </div>
+
   </div>
+
 </div>

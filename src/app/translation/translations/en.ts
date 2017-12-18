@@ -106,6 +106,11 @@ export const TRANSLATIONS = {
     }
   },
   notifications: {
+    title: 'Notifications & Alerts',
+    tab: {
+      notifications: 'NOTIFICATIONS',
+      alerts: 'ALERTS'
+    },
     today: 'Earlier Today',
     yesterday: 'Yesterday',
     days3: 'Past 3 days',

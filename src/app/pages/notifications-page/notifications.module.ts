@@ -7,6 +7,7 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import { NotificationsSectionComponent } from './notifications-section/notifications-section.component';
 import { AlertsSectionComponent } from './alerts-section/alerts-section.component';
 import {SharedModule} from '../../shared/shared.module';
+import {TranslationModule} from "../../translation/translation.module";
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import {SharedModule} from '../../shared/shared.module';
     CommonModule,
     MaterialModule,
     InfiniteScrollModule,
-    SharedModule
+    SharedModule,
+    TranslationModule
   ],
   declarations: [NotificationsComponent, NotificationsSectionComponent, AlertsSectionComponent]
 })

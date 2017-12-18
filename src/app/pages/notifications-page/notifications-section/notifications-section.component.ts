@@ -23,18 +23,23 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
   selectedIndex: number = 0;
 
   notsByDate: EntitiesByDate<Notification>[] = [
-    {label: 'Today', entities: [], contains: (n: Notification) => utc(n.createdAt).isSame(utc(), 'day')},
+    {label: 'NOTIFICATIONS_TODAY', entities: [], contains: (n: Notification) => utc(n.createdAt).isSame(utc(), 'day')},
     {
-      label: 'Last 7 days',
+      label: 'NOTIFICATIONS_YESTERDAY',
       entities: [],
-      contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(7, 'd'))
+      contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(1, 'd').hour(0).minute(0).second(0))
     },
     {
-      label: 'Last 30 days',
+      label: 'NOTIFICATIONS_DAYS3',
       entities: [],
-      contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(30, 'd'))
+      contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(3, 'd').hour(0).minute(0).second(0))
     },
-    {label: 'Other', entities: [], contains: (n: Notification) => true}
+    {
+      label: 'NOTIFICATIONS_WEEK',
+      entities: [],
+      contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(7, 'd').hour(0).minute(0).second(0))
+    },
+    {label: 'NOTIFICATIONS_OTHER', entities: [], contains: (n: Notification) => true}
   ];
 
   constructor(public notificationsService: NotificationsService,

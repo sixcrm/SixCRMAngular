@@ -12,6 +12,16 @@ export function notificationsListQuery(limit?:number, cursor?:string): string {
 		}}`
 }
 
+export function plainNotificationsListQuery(limit?: number, cursor?: string): string {
+  return `{
+    notificationlistbytypes ( types:["notification"], user: true, ${paginationParamsQuery(limit, cursor, true)} ) {
+			notifications {
+			  ${notificationsResponseQuery()}
+			}
+			${fullPaginationStringResponseQuery()}
+		}}`
+}
+
 export function alertsListQuery(limit?: number, cursor?: string): string {
   return `{
     notificationlistbytypes ( types:["alert"], user: true ) {
