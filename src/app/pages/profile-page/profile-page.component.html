@@ -18,12 +18,7 @@
       </div>
     </div>
 
-    <div class="entity-view__navigation">
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===0" (click)="setIndex(0)">{{'PROFILE_TABS_GENERAL' | translate}}</span>
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===1" (click)="setIndex(1)">{{'PROFILE_TABS_NOTIFICATIONS' | translate}}</span>
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===2" (click)="setIndex(2)">{{'PROFILE_TABS_ACCOUNTS' | translate}}</span>
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===3" (click)="setIndex(3)">{{'PROFILE_TABS_SIGNINGSTRINGS' | translate}}</span>
-    </div>
+    <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
     <div class="profile-page__content">
       <md-tab-group [(selectedIndex)]="selectedIndex">

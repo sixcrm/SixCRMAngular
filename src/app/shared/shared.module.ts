@@ -78,6 +78,7 @@ import {BillsService} from './services/bills.service';
 import { SimpleDatepickerComponent } from './components/simple-datepicker/simple-datepicker.component';
 import {TranslationModule} from '../translation/translation.module';
 import {UserSigningStringsService} from "./services/user-signing-string.service";
+import { TabHeaderComponent } from './components/tab-header/tab-header.component';
 
 @NgModule({
   declarations : [
@@ -114,7 +115,8 @@ import {UserSigningStringsService} from "./services/user-signing-string.service"
     FormatDurationPipe,
     HtmlSanitizerPipe,
     CustomerCreditCardViewComponent,
-    SimpleDatepickerComponent
+    SimpleDatepickerComponent,
+    TabHeaderComponent
   ],
   exports : [
     AutocompleteComponent,
@@ -148,7 +150,8 @@ import {UserSigningStringsService} from "./services/user-signing-string.service"
     FormatDurationPipe,
     HtmlSanitizerPipe,
     CustomerCreditCardViewComponent,
-    SimpleDatepickerComponent
+    SimpleDatepickerComponent,
+    TabHeaderComponent
   ],
   imports : [
     FormsModule,

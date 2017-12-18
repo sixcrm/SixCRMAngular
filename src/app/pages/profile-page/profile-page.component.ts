@@ -15,6 +15,7 @@ import {CustomServerError} from '../../shared/models/errors/custom-server-error'
 import {Router} from '@angular/router';
 import {ColumnParams} from '../../shared/models/column-params.model';
 import {TableMemoryTextOptions} from "../components/table-memory/table-memory.component";
+import {TabHeaderElement} from "../../shared/components/tab-header/tab-header.component";
 
 let moment = require('moment-timezone');
 
@@ -66,6 +67,13 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     skype: 'Skype',
     slack: 'Slack'
   };
+
+  tabHeaders: TabHeaderElement[] = [
+    {name: 'general', label: 'PROFILE_TABS_GENERAL'},
+    {name: 'notifications', label: 'PROFILE_TABS_NOTIFICATIONS'},
+    {name: 'accounts', label: 'PROFILE_TABS_ACCOUNTS'},
+    {name: 'signingstrings', label: 'PROFILE_TABS_SIGNINGSTRINGS'}
+  ];
 
   constructor(
     private userService: UsersService,

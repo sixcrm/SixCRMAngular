@@ -4,7 +4,7 @@
     <div class="notifications-list__topnav__options">
       <div>{{'NOTIFICATIONSQUICK_MARK' | translate}}</div>
       <div class="notifications-list__topnav__options__separator"></div>
-      <div>{{'NOTIFICATIONSQUICK_SETTINGS' | translate}}</div>
+      <div [routerLink]="['/profile']" [queryParams]="{tab: 'notifications'}">{{'NOTIFICATIONSQUICK_SETTINGS' | translate}}</div>
     </div>
   </div>
 
