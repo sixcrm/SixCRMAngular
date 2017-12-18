@@ -105,6 +105,16 @@ export const TRANSLATIONS = {
       }
     }
   },
+  notificationsquick: {
+    title: 'NOTIFICATIONS',
+    mark: 'Mark All as Read',
+    settings: 'Settings',
+    viewall: 'See All Notifications',
+    alerts: 'Alerts',
+    noresults: 'No Notifications Found',
+    view: 'View',
+    dismiss: 'Dismiss'
+  },
   forminputs: {
     fullname: 'Full Name',
     firstname: 'First Name',

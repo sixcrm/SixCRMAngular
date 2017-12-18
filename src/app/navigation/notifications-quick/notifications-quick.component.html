@@ -1,15 +1,18 @@
 <div class="notifications-list">
   <div class="notifications-list__topnav">
-    <md-icon (click)="closeNotifications()">keyboard_arrow_right</md-icon>
-    <span>Notifications</span>
-    <md-icon class="notifications-list__topnav__options">more_vert</md-icon>
+    <span>{{'NOTIFICATIONSQUICK_TITLE' | translate}}</span>
+    <div class="notifications-list__topnav__options">
+      <div>{{'NOTIFICATIONSQUICK_MARK' | translate}}</div>
+      <div class="notifications-list__topnav__options__separator"></div>
+      <div>{{'NOTIFICATIONSQUICK_SETTINGS' | translate}}</div>
+    </div>
   </div>
 
   <div class="notifications-list__content">
-    <div class="notifications-list__content__no-results" *ngIf="isEmpty">You don't have any notifications at this time</div>
+    <div class="notifications-list__content__no-results" *ngIf="isEmpty">{{'NOTIFICATIONSQUICK_NORESULTS' | translate}}</div>
 
     <ng-container *ngIf="alerts && alerts.length > 0" >
-      <div class="notifications-list__content__title">Alerts</div>
+      <div class="notifications-list__content__title">{{'NOTIFICATIONSQUICK_ALERTS' | translate}}</div>
       <alert-component class="notifications-list__content__alert"
                        *ngFor="let alert of alerts"
                        (clear)="readNotification($event)"
@@ -25,10 +28,14 @@
         <div *ngFor="let notification of notificationsByDate.entities">
           <div class="notifications-list__content__notification" (click)="readNotification(notification)">
             <div class="notifications-list__content__notification__image"><img src="assets/images/{{notification.getIconName()}}" alt=""></div>
-            <div class="notifications-list__content__notification__message">{{notification.body}}</div>
-            <div class="notifications-list__content__notification__date">
-              <span>{{notification.createdAt.format('MMM Do')}}</span>
-              <div *ngIf="!notification.readAt"></div>
+            <div class="notifications-list__content__notification__message">
+              <div>{{notification.body}}</div>
+              <div class="notifications-list__content__notification__message__date">
+                {{notification.createdAt.format('MMMM Do [at] h:mm A')}}
+              </div>
+            </div>
+            <div class="notifications-list__content__notification__read">
+              <div [class.unread]="!notification.readAt"></div>
             </div>
           </div>
         </div>
@@ -38,7 +45,7 @@
   </div>
 
   <div class="notifications-list__view-all">
-    <span (click)="navigateAllNotifications()">See All Notifications</span>
+    <span (click)="navigateAllNotifications()">{{'NOTIFICATIONSQUICK_VIEWALL' | translate}}</span>
   </div>
 
 </div>

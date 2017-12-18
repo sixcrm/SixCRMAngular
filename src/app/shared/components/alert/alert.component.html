@@ -8,7 +8,7 @@
   </div>
 </div>
 <div class="notifications__alert__actions">
-  <div class="view" *ngIf="enableView" (click)="viewAlert()">View</div>
-  <div class="dismiss" *ngIf="enableClear" (click)="clearAlert()">Dismiss</div>
+  <div class="view" *ngIf="enableView" (click)="viewAlert()">{{'NOTIFICATIONSQUICK_VIEW' | translate}}</div>
+  <div class="dismiss" *ngIf="enableClear" (click)="clearAlert()">{{'NOTIFICATIONSQUICK_DISMISS' | translate}}</div>
   <div class="date">{{ alert.createdAt.tz(authService.getTimezone()).format('MM/DD/YYYY h:mm a') }}</div>
 </div>

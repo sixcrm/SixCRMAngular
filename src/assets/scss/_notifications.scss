@@ -4,36 +4,45 @@
   right: 0;
   width: 350px;
   height: calc(100vh - 71px);
-  z-index: 3000;
+  z-index: 4;
   background-color: white;
   box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.3);
 
   &__topnav {
-
-    padding: 10px 10px 30px;
+    display: flex;
+    padding: 14px 10px;
+    align-items: center;
 
     span {
-      vertical-align: middle;
       margin-left: 10px;
-      font-size: 18px;
+      font-size: 13px;
       font-weight: 500;
-      color: rgba(0,0,0,0.65);
-    }
-
-    md-icon {
-      vertical-align: middle;
-      cursor: pointer;
-      color: rgba(0,0,0,0.65);
+      color: #39393A;
     }
 
     &__options {
-      float: right;
-      color: #9B9A9B;
+      display: flex;
+      margin-left: auto;
+      color: #049AE4;
+      font-size: 12px;
+      font-weight: 500;
+
+      &__separator {
+        display: inline-block;
+        margin: 0 5px;
+        width: 2px;
+        height: 12px;
+        background: #049AE4;
+      }
+
+      div {
+        cursor: pointer;
+      }
     }
   }
 
   &__content {
-    height: calc(100% - 115px);
+    height: calc(100% - 96px);
     overflow: auto;
 
     &__no-results {
@@ -42,16 +51,15 @@
     }
 
     &__title {
-      padding: 10px;
-      background: rgba(0, 0, 0, 0.07);
-      font-size: 12px;
+      padding: 6px 10px;
+      background: #F5F5F5;
+      font-size: 13px;
       font-weight: 500;
-      color: rgba(0, 0, 0, 0.4);
+      color: #9B9B9B;
     }
 
     &__notification {
       display: flex;
-      padding: 10px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.12);
       cursor: default;
 
@@ -60,36 +68,44 @@
       }
 
       &__image {
-        width: 65px;
+        display: flex;
+        margin: 0 18px;
 
         img {
-          height: 40px;
-          vertical-align: middle;
+          margin:auto;
+          height: 32px;
         }
       }
 
       &__message {
-        width: 200px;
-        padding: 5px 0;
+        width: 100%;
+        padding: 8px 0;
         font-size: 14px;
+
+        &__date {
+          margin-top: 5px;
+          font-size: 12px;
+          color: #898989;
+        }
       }
 
-      &__date {
+      &__read {
         display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        justify-content: space-between;
-        width: 65px;
-        font-size: 10px;
-        color: rgba(0, 0, 0, 0.4);
+        margin: 0 18px;
 
         div {
-          margin-top: 15px;
+          display: inline-block;
+          margin: auto;
           width: 10px;
           height: 10px;
           border-radius: 50%;
-          background: #FE7274;
+          border: 1px solid #9B9B9B
         }
+
+        .unread {
+          background: #9B9B9B;
+        }
+
       }
     }
   }

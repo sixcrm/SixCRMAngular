@@ -20,9 +20,10 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
   @Output() close: EventEmitter<boolean> = new EventEmitter();
 
   notsByDate: EntitiesByDate<Notification>[] = [
-    {label: 'Today', entities: [], contains: (n: Notification) => utc(n.createdAt).isSame(utc(), 'day')},
-    {label: 'Last 7 days', entities: [], contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(7, 'd'))},
-    {label: 'Last 30 days', entities: [], contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(30, 'd'))},
+    {label: 'Earlier Today', entities: [], contains: (n: Notification) => utc(n.createdAt).isSame(utc(), 'day')},
+    {label: 'Yesterday', entities: [], contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(1, 'd').hours(0).minutes(0).seconds(0))},
+    {label: 'Past 3 days', entities: [], contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(3, 'd').hours(0).minutes(0).seconds(0))},
+    {label: 'Past week', entities: [], contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(7, 'd').hours(0).minutes(0).seconds(0))},
     {label: 'Other', entities: [], contains: (n: Notification) => true}
   ];
 
@@ -78,10 +79,6 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsubscribe.next(true);
     this.unsubscribe.complete();
-  }
-
-  closeNotifications(): void {
-    this.close.emit(true);
   }
 
   arrangeNotifications(nots: Notification[]): void {
