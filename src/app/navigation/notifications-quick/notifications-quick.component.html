@@ -23,7 +23,7 @@
     <div *ngFor="let notificationsByDate of notsByDate">
 
       <div *ngIf="notificationsByDate.entities.length > 0">
-        <div class="notifications-list__content__title">{{notificationsByDate.label}}</div>
+        <div class="notifications-list__content__title">{{notificationsByDate.label | translate}}</div>
 
         <div *ngFor="let notification of notificationsByDate.entities">
           <div class="notifications-list__content__notification" (click)="readNotification(notification)">

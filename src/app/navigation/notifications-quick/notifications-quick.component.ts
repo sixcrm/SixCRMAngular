@@ -20,11 +20,11 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
   @Output() close: EventEmitter<boolean> = new EventEmitter();
 
   notsByDate: EntitiesByDate<Notification>[] = [
-    {label: 'Earlier Today', entities: [], contains: (n: Notification) => utc(n.createdAt).isSame(utc(), 'day')},
-    {label: 'Yesterday', entities: [], contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(1, 'd').hours(0).minutes(0).seconds(0))},
-    {label: 'Past 3 days', entities: [], contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(3, 'd').hours(0).minutes(0).seconds(0))},
-    {label: 'Past week', entities: [], contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(7, 'd').hours(0).minutes(0).seconds(0))},
-    {label: 'Other', entities: [], contains: (n: Notification) => true}
+    {label: 'NOTIFICATIONS_TODAY', entities: [], contains: (n: Notification) => utc(n.createdAt).isSame(utc(), 'day')},
+    {label: 'NOTIFICATIONS_YESTERDAY', entities: [], contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(1, 'd').hours(0).minutes(0).seconds(0))},
+    {label: 'NOTIFICATIONS_DAYS3', entities: [], contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(3, 'd').hours(0).minutes(0).seconds(0))},
+    {label: 'NOTIFICATIONS_WEEK', entities: [], contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(7, 'd').hours(0).minutes(0).seconds(0))},
+    {label: 'NOTIFICATIONS_OTHER', entities: [], contains: (n: Notification) => true}
   ];
 
   isEmpty: boolean = false;

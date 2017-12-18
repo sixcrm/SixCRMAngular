@@ -105,6 +105,13 @@ export const TRANSLATIONS = {
       }
     }
   },
+  notifications: {
+    today: 'Earlier Today',
+    yesterday: 'Yesterday',
+    days3: 'Past 3 days',
+    week: 'Past week',
+    other: 'Other'
+  },
   notificationsquick: {
     title: 'NOTIFICATIONS',
     mark: 'Mark All as Read',
