@@ -23,8 +23,8 @@ export class TabHeaderComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.sub = this.route.queryParams.subscribe((params) => {
-      const tab = params['tab'];
+    this.sub = this.route.fragment.subscribe((fragment) => {
+      const tab = fragment;
 
       if (!tab) return;
 

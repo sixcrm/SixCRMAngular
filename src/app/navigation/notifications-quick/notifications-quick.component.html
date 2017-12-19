@@ -2,7 +2,7 @@
   <div class="notifications-list__topnav">
     <span>{{'NOTIFICATIONSQUICK_TITLE' | translate}}</span>
     <div class="notifications-list__topnav__options">
-      <div [routerLink]="['/profile']" [queryParams]="{tab: 'notifications'}">{{'NOTIFICATIONSQUICK_SETTINGS' | translate}}</div>
+      <div [routerLink]="['/profile']" fragment="notifications">{{'NOTIFICATIONSQUICK_SETTINGS' | translate}}</div>
     </div>
   </div>
 
