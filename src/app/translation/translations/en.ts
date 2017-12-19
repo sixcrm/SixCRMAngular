@@ -212,7 +212,7 @@ export const TRANSLATIONS = {
         slack: 'Slack web hook'
       },
       settings : {
-        title: 'Notification settigns',
+        title: 'Notification settings',
         subtitle: 'Select what notifications you want to receive'
       }
     },
