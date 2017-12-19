@@ -31,7 +31,7 @@ export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> imp
   }
 
   ngOnInit() {
-    this.init();
+    this.init(() => this.navigation.goToNotFoundPage());
 
     this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(entity => {
       if (entity instanceof CustomServerError) {

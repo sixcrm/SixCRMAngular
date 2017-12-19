@@ -29,7 +29,7 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
   }
 
   ngOnInit() {
-    this.init();
+    this.init(() => this.navigation.goToNotFoundPage());
 
     if (this.addMode) {
       this.entity = new MerchantProvider();
