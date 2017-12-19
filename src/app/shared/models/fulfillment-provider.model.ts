@@ -1,17 +1,13 @@
 import {Entity} from './entity.interface';
+import {FulfillmentproviderData} from "./fulfillment-provider-data.model";
+import {Moment, utc} from 'moment';
 
 export class FulfillmentProvider implements Entity<FulfillmentProvider> {
   id: string;
   name: string;
-  provider: string;
-  username: string;
-  password: string;
-  endpoint: string;
-  threePLKey: string;
-  facilityId: string;
-  threePLId: string;
-  customerId: string;
-  returnAddress: string;
+  provider: FulfillmentproviderData;
+  createdAt: Moment;
+  updatedAt: Moment;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -20,15 +16,9 @@ export class FulfillmentProvider implements Entity<FulfillmentProvider> {
 
     this.id = obj.id || '';
     this.name = obj.name || '';
-    this.provider = obj.provider ? obj.provider.name : '';
-    this.username = obj.username || '';
-    this.password = obj.password || '';
-    this.endpoint = obj.endpoint || '';
-    this.threePLKey = obj.threepl_key || '';
-    this.facilityId = obj.facility_id || '';
-    this.threePLId = obj.threepl_id || '';
-    this.returnAddress = obj.return_address || '';
-    this.customerId = obj.customer_id || '';
+    this.provider = new FulfillmentproviderData(obj.provider);
+    this.createdAt = utc(obj.created_at);
+    this.updatedAt = utc(obj.updated_at);
   }
 
   copy(): FulfillmentProvider {
@@ -39,15 +29,9 @@ export class FulfillmentProvider implements Entity<FulfillmentProvider> {
     return {
       id: this.id,
       name: this.name,
-      threepl_key: this.threePLKey,
-      threepl_id: this.threePLId,
-      facility_id: this.facilityId,
-      return_address: this.returnAddress,
-      customer_id: this.customerId,
-      provider: {name: this.provider},
-      username: this.username,
-      password: this.password,
-      endpoint: this.endpoint
+      provider: this.provider.inverse(),
+      created_at: this.createdAt.format(),
+      updated_at: this.updatedAt.format()
     }
   }
 }

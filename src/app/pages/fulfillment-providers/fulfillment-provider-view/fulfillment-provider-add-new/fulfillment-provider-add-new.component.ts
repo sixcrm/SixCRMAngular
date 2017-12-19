@@ -1,6 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FulfillmentProvider} from '../../../../shared/models/fulfillment-provider.model';
 import {Modes} from '../../../abstract-entity-view.component';
+import {isAllowedNumeric} from "../../../../shared/utils/form.utils";
 
 @Component({
   selector: 'fulfillment-provider-add-new',
@@ -18,6 +19,7 @@ export class FulfillmentProviderAddNewComponent implements OnInit {
 
   modes = Modes;
   formInvalid: boolean;
+  isNumeric = isAllowedNumeric;
 
   constructor() { }
 
@@ -25,7 +27,7 @@ export class FulfillmentProviderAddNewComponent implements OnInit {
   }
 
   saveProvider(value: boolean): void {
-    this.formInvalid = !value;
+    this.formInvalid = !value || !this.entity.provider.name;
     if (this.formInvalid) return;
 
     this.save.emit(this.entity);

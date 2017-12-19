@@ -31,7 +31,7 @@ export function deleteFulfillmentProviderMutation(id: string): string {
 export function createFulfillmentProviderMutation(provider: FulfillmentProvider): string {
   return `
     mutation {
-		  createfulfillmentprovider ( fulfillmentprovider: { ${fulfillmentProviderInputQuery(provider, true)} }) {
+		  createfulfillmentprovider ( fulfillmentprovider: { ${fulfillmentProviderInputQuery(provider, false)} }) {
 			  ${fulfillmentProviderResponseQuery()}
 		  }
 	  }`
@@ -47,7 +47,7 @@ export function updateFulfillmentProviderMutation(provider: FulfillmentProvider)
 }
 
 export function fulfillmentProviderResponseQuery(): string {
-  return `id, name, provider { ... on Hashtag { name } ... on ThreePL { name } }, created_at, updated_at `;
+  return `id, name, provider { ... on Hashtag { name, username, password, threepl_customer_id, threepl_key } ... on ThreePL { name, username, password, threepl_customer_id, threepl_key, threepl_id, threepl_facility_id } }, created_at, updated_at`;
 }
 
 export function validateFulfillmentProviderQuery(provider: FulfillmentProvider): string {
@@ -61,14 +61,10 @@ export function validateFulfillmentProviderQuery(provider: FulfillmentProvider):
 
 
 export function fulfillmentProviderInputQuery(provider: FulfillmentProvider, includeId?: boolean): string {
-  if (!provider.id) provider.id = generateUUID();
+  let hash = '';
+  if (provider.provider.name === 'ThreePL') {
+    hash = `, threepl_facility_id:${provider.provider.threeplFacilityId}, threepl_id:${provider.provider.threeplId}`
+  }
 
-  const endpoint = provider.endpoint ? `, endpoint: "${provider.endpoint}"` : '';
-  const threePLId = provider.threePLId ? `, threepl_id: "${provider.threePLId}"` : '';
-  const facilityId = provider.facilityId ? `, facility_id: "${provider.facilityId}"` : '';
-  const threePLKey = provider.threePLKey ? `, threepl_key: "${provider.threePLKey}"` : '';
-  const customerId = provider.customerId ? `, customer_id: "${provider.customerId}"` : '';
-  const returnAddress = provider.returnAddress ? `, return_address: "${provider.returnAddress}"` : '';
-
-  return `${addId(provider.id, includeId)}, name: "${provider.name}" provider: {name: "${provider.provider}"}, username: "${provider.username}", password: "${provider.password}"${endpoint}${threePLId}${threePLKey}${facilityId}${customerId}${returnAddress}`;
+  return `${addId(provider.id, includeId)} name: "${provider.name}", provider: {name: "${provider.provider.name}", username: "${provider.provider.username}", password: "${provider.provider.password}", threepl_customer_id: ${provider.provider.threeplCustomerId}, threepl_key: "${provider.provider.threeplKey}${hash}"}`;
 }
