@@ -89,11 +89,11 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
 
   // Add 3rd party providers to CRM menu
   let thirdPartyProviders: MenuItem[] = [];
-  if (authService.hasPermissions('SIDENAV_CRM_PROVIDERS_FULFILLMENT', 'view')) {
-    thirdPartyProviders.push(new MenuItem('Fulfillment Providers', 'fulfillmentproviders'))
+  if (authService.hasPermissions('fulfillmentprovider', 'view')) {
+    thirdPartyProviders.push(new MenuItem('SIDENAV_CRM_PROVIDERS_FULFILLMENT', 'fulfillmentproviders'))
   }
-  if (authService.hasPermissions('SIDENAV_CRM_PROVIDERS_SMTP', 'view')) {
-    thirdPartyProviders.push(new MenuItem('SMTP Providers', 'smtpproviders'))
+  if (authService.hasPermissions('smtpprovider', 'view')) {
+    thirdPartyProviders.push(new MenuItem('SIDENAV_CRM_PROVIDERS_SMTP', 'smtpproviders'))
   }
   if (thirdPartyProviders.length > 0) {
     crmItems.push(new MenuItem('SIDENAV_CRM_PROVIDERS_TITLE', null, thirdPartyProviders));
