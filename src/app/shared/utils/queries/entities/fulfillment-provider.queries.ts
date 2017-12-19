@@ -53,7 +53,7 @@ export function fulfillmentProviderResponseQuery(): string {
 export function validateFulfillmentProviderQuery(provider: FulfillmentProvider): string {
   return `
     mutation {
-      fulfillmentprovidervalidation ( fulfillmentprovidervalidation: { fulfillmentprovider: "${provider.id}"}) {
+      fulfillmentprovidervalidation ( id: "${provider.id}" ) {
         response
       }
     }`
