@@ -93,8 +93,8 @@
       </dropdown-component>
 
       <ng-container *ngIf="entity.gateway.getType()">
-        <md-input-container *ngIf="entity.gateway.isNMI()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.processorId">
-          <input required [disabled]="mode === modes.View" md-input placeholder="Processor ID" name="processorId" [(ngModel)]="entity.gateway.processorId" type="text">
+        <md-input-container *ngIf="entity.gateway.isNMI()" class="entity-view__card__content__item">
+          <input [disabled]="mode === modes.View" md-input placeholder="Processor ID" name="processorId" [(ngModel)]="entity.gateway.processorId" type="text">
         </md-input-container>
 
         <md-input-container *ngIf="entity.gateway.isInnovio()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.productId">
