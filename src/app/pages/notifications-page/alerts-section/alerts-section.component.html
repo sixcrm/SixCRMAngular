@@ -15,15 +15,6 @@
        (scrolled)="onScroll()">
     <div class="notifications-list__content__no-results" *ngIf="isEmpty">{{'NOTIFICATIONSQUICK_NORESULTS' | translate}}</div>
 
-    <ng-container *ngIf="alerts && alerts.length > 0" >
-      <div class="notifications-list__content__title">{{'NOTIFICATIONSQUICK_ALERTS' | translate}}</div>
-      <alert-component class="notifications-list__content__alert"
-                       *ngFor="let alert of alerts"
-                       (clear)="readNotification($event)"
-                       [alert]="alert">
-      </alert-component>
-    </ng-container>
-
     <div *ngFor="let notificationsByDate of notsByDate">
 
       <div *ngIf="notificationsByDate.entities.length > 0">
