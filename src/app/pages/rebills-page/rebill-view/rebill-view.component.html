@@ -1,5 +1,5 @@
 <div *ngIf="entity; else spinner" class="entity-view">
-  <div class="entity-view__title">Rebill</div>
+  <div class="entity-view__title">{{'REBILL_TITLE' | translate}}</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
@@ -8,7 +8,7 @@
       <img src="/assets/images/result-item-transaction-white.svg" alt="">
     </div>
     <div class="entity-view__info__data">
-      <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div class="entity-view__info__data__date">{{'SINGLEPAGE_CREATED' | translate}}: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
       <div class="entity-view__info__data__name">
         <span>
           {{entityBackup.id}}
@@ -18,8 +18,8 @@
   </div>
 
   <div class="entity-view__navigation">
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">SHIPPING RECEIPTS</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">{{'REBILL_TAB_GENERAL' | translate}}</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">{{'REBILL_TAB_RECEIPTS' | translate}}</span>
   </div>
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
@@ -27,29 +27,29 @@
 
       <div class="entity-view__card campaign-view__card">
         <div class="entity-view__card__header">
-          <div class="entity-view__card__header__title">Rebill Information</div>
+          <div class="entity-view__card__header__title">{{'REBILL_INFO_TITLE' | translate}}</div>
           <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
           <md-menu #actionsMenu="mdMenu" x-position="before">
-            <button md-menu-item (click)="goToCustomer()">View Customer</button>
-            <button md-menu-item (click)="goToSession()">View Session</button>
+            <button md-menu-item (click)="goToCustomer()">{{'REBILL_INFO_CUSTOMERVIEW' | translate}}</button>
+            <button md-menu-item (click)="goToSession()">{{'REBILL_INFO_SESSIONVIEW' | translate}}</button>
           </md-menu>
         </div>
 
         <div class="entity-view__card__content">
           <md-input-container style="width: 120px;" class="entity-view__card__content__item">
-            <input disabled md-input placeholder="Billed at Date" [(ngModel)]="billdate" type="text">
+            <input disabled md-input placeholder="{{'REBILL_INFO_BILL' | translate}}" [(ngModel)]="billdate" type="text">
           </md-input-container>
 
           <md-input-container style="width: 120px;" class="entity-view__card__content__item">
-            <input disabled md-input placeholder="Amount" [(ngModel)]="billamount" type="text">
+            <input disabled md-input placeholder="{{'REBILL_INFO_AMOUNT' | translate}}" [(ngModel)]="billamount" type="text">
           </md-input-container>
 
           <md-input-container class="entity-view__card__content__item">
-            <input disabled md-input placeholder="Parent Session" [(ngModel)]="entity.parentSession.id" type="text">
+            <input disabled md-input placeholder="{{'REBILL_INFO_PARENTSESSION' | translate}}" [(ngModel)]="entity.parentSession.id" type="text">
           </md-input-container>
 
           <md-input-container class="entity-view__card__content__item">
-            <input disabled md-input placeholder="Customer" [(ngModel)]="customername" type="text">
+            <input disabled md-input placeholder="{{'REBILL_INFO_CUSTOMER' | translate}}" [(ngModel)]="customername" type="text">
           </md-input-container>
         </div>
       </div>

@@ -28,10 +28,10 @@ export class RebillsComponent extends AbstractEntityIndexComponent<Rebill> imple
     let f = this.authService.getTimezone();
 
     this.columnParams = [
-      new ColumnParams('ID', (e: Rebill) => e.id),
-      new ColumnParams('Bill At',(e: Rebill) => e.billAt ? e.billAt.tz(f).format('MM/DD/YYYY') : 'not billed'),
-      new ColumnParams('Created At', (e: Rebill) => e.createdAt.tz(f).format('MM/DD/YYYY')),
-      new ColumnParams('Amount', (e: Rebill) => e.amount.usd(), 'right')
+      new ColumnParams('REBILL_INDEX_HEADER_ID', (e: Rebill) => e.id),
+      new ColumnParams('REBILL_INDEX_HEADER_BILL',(e: Rebill) => e.billAt ? e.billAt.tz(f).format('MM/DD/YYYY') : 'not billed'),
+      new ColumnParams('REBILL_INDEX_HEADER_CREATED', (e: Rebill) => e.createdAt.tz(f).format('MM/DD/YYYY')),
+      new ColumnParams('REBILL_INDEX_HEADER_AMOUNT', (e: Rebill) => e.amount.usd(), 'right')
     ];
   }
 

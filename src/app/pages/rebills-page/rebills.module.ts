@@ -8,6 +8,7 @@ import {MaterialModule} from '@angular/material';
 import {RebillsComponent} from './rebills-index/rebills.component';
 import {RebillsAclGuard} from '../guards/rebills-acl-guard.service';
 import { RebillViewComponent } from './rebill-view/rebill-view.component';
+import {TranslationModule} from '../../translation/translation.module';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { RebillViewComponent } from './rebill-view/rebill-view.component';
     FormsModule,
     MaterialModule.forRoot(),
     PageComponentsModule,
+    TranslationModule,
     SharedModule
   ],
   declarations: [RebillsComponent, RebillViewComponent],

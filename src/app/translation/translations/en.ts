@@ -627,6 +627,29 @@ export const TRANSLATIONS = {
     }
   },
   rebill: {
+    title: 'Rebill',
+    index: {
+      title: 'Rebills',
+      header: {
+        id: 'ID',
+        bill: 'Bill at',
+        created: 'Created at',
+        amount: 'Amount'
+      }
+    },
+    tab: {
+      general: 'GENERAL DETAILS',
+      receipts: 'SHIPPING RECEIPTS'
+    },
+    info: {
+      title: 'Rebill Information',
+      billed: 'Billed at date',
+      amount: 'Amount',
+      parentsession: 'Parent Session',
+      customer: 'Customer',
+      customerview: 'View Customer',
+      sessionview: 'View Session'
+    },
     shippingreceipt: {
       title: 'Associated Shipping Receipts',
       nodata: 'No Shipping Receipts found',
