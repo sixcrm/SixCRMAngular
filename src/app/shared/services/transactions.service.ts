@@ -44,7 +44,7 @@ export class TransactionsService extends AbstractEntityService<Transaction> {
         let entityKey = Object.keys(json)[0];
         let entityData =json[entityKey];
 
-        this.entityUpdated$.next(new Transaction(entityData));
+        this.entityUpdated$.next(new Transaction(entityData.transaction));
       }
     );
   }

@@ -530,6 +530,14 @@ export const TRANSLATIONS = {
       campaign: 'CAMPAIGNS'
     }
   },
+  transaction: {
+    product: {
+      title: 'Associated Products',
+      name: 'Name',
+      sku: 'SKU',
+      amount: 'Amount'
+    }
+  },
   rebill: {
     shippingreceipt: {
       title: 'Associated Shipping Receipts',

@@ -21,105 +21,80 @@
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>
-      <div class="transaction-view__content">
+      <div class="transaction-view">
 
-        <md-card>
-          <md-card-title class="transaction-view__content__title">
-            <div class="transaction-view__content__title__main">Transaction details</div>
-            <div class="transaction-view__content__title__sub">general information</div>
-            <!--<md-icon class="transaction-view__content__title__icon">more_vert</md-icon>-->
-          </md-card-title>
+        <div class="entity-view__card">
+          <div class="entity-view__card__header">
+            <div class="entity-view__card__header__title">Transaction Details</div>
+            <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
+            <md-menu #actionsMenu="mdMenu" x-position="before">
+              <button md-menu-item (click)="goToRebill()">View Rebill</button>
+              <button md-menu-item (click)="goToMerchantProvider()">View Merchant Provider</button>
+            </md-menu>
+          </div>
 
-          <md-card-content>
-            <div class="transaction-view__content__item">
-              <div class="transaction-view__content__item__label">Amount</div>
-              <div class="transaction-view__content__item__value">{{entity.amount.usd()}}</div>
-            </div>
+          <div class="entity-view__card__content">
+            <md-input-container class="entity-view__card__content__item">
+              <input disabled md-input placeholder="Alias" [(ngModel)]="entity.alias" type="text">
+            </md-input-container>
 
-            <div class="transaction-view__content__item">
-              <div class="transaction-view__content__item__label">ID</div>
-              <div class="transaction-view__content__item__value">{{entity.id}}</div>
-            </div>
+            <md-input-container class="entity-view__card__content__item">
+              <input disabled md-input placeholder="Amount" [(ngModel)]="amount" type="text">
+            </md-input-container>
 
-            <div class="transaction-view__content__item">
-              <div class="transaction-view__content__item__label">Alias</div>
-              <div class="transaction-view__content__item__value">{{entity.alias}}</div>
-            </div>
+            <md-input-container class="entity-view__card__content__item">
+              <input disabled md-input placeholder="Merchant Processor" [(ngModel)]="entity.merchantProvider.name" type="text">
+            </md-input-container>
 
-            <div class="transaction-view__content__item" [class.hoverable]="entity.merchantProvider.id" (click)="navigateTo('merchantproviders', entity.merchantProvider.id)">
-              <div class="transaction-view__content__item__label">Merchant Processor</div>
-              <div class="transaction-view__content__item__value">{{entity.merchantProvider.name}}</div>
-              <md-icon *ngIf="entity.merchantProvider.id">open_in_new</md-icon>
-            </div>
-          </md-card-content>
-        </md-card>
+          </div>
+        </div>
 
-        <md-card>
-          <md-card-title class="transaction-view__content__title">
-            <div class="transaction-view__content__title__main">Product information</div>
-            <div class="transaction-view__content__title__sub">Products sold this transaction</div>
-            <!--<md-icon class="transaction-view__content__title__icon">more_vert</md-icon>-->
-          </md-card-title>
+        <div class="entity-view__card">
+          <div class="entity-view__card__header">
+            <div class="entity-view__card__header__title">Processor Response</div>
+          </div>
 
-          <md-card-content>
-            <div class="transaction-view__content__item__container--inline hoverable" *ngFor="let product of entity.products" [routerLink]="['/products', product.product.id]">
-              <div class="transaction-view__content__image"></div>
-              <div class="transaction-view__content__item transaction-view__content__item--inline">
-                <div class="transaction-view__content__item__label">{{product.product.name}}</div>
-                <div class="transaction-view__content__item__value">{{product.amount.usd()}}</div>
-                <md-icon>open_in_new</md-icon>
-              </div>
-            </div>
-          </md-card-content>
-        </md-card>
+          <div class="entity-view__card__content">
+            <md-input-container class="entity-view__card__content__item">
+              <input disabled md-input placeholder="Auth Code" [(ngModel)]="entity.processorResponse.authCode" type="text">
+            </md-input-container>
 
-        <md-card>
-          <md-card-title class="transaction-view__content__title">
-            <div class="transaction-view__content__title__main">Transaction response</div>
-            <!--<md-icon class="transaction-view__content__title__icon">more_vert</md-icon>-->
-          </md-card-title>
+            <md-input-container class="entity-view__card__content__item">
+              <input disabled md-input placeholder="Message" [(ngModel)]="entity.processorResponse.message" type="text">
+            </md-input-container>
 
-          <md-card-content>
-            <div class="transaction-view__content__item__container--inline">
-              <div class="transaction-view__content__image"></div>
-              <div class="transaction-view__content__item transaction-view__content__item--inline">
-                <div class="transaction-view__content__item__label">{{entity.processorResponse.responseText}}</div>
-                <div class="transaction-view__content__item__label">Auth Code: {{entity.processorResponse.authCode}}</div>
-                <div class="transaction-view__content__item__value">ID: {{entity.processorResponse.transactionId}}</div>
-              </div>
-            </div>
-          </md-card-content>
-        </md-card>
+            <md-input-container class="entity-view__card__content__item">
+              <input disabled md-input placeholder="Response Text" [(ngModel)]="entity.processorResponse.responseText" type="text">
+            </md-input-container>
+          </div>
+        </div>
 
-        <md-card>
-          <md-card-title class="transaction-view__content__title">
-            <div class="transaction-view__content__title__main">Rebill information</div>
-            <!--<md-icon class="transaction-view__content__title__icon">more_vert</md-icon>-->
-          </md-card-title>
-
-          <md-card-content>
-            <div [routerLink]="['/rebills', entity.rebill.id]" class="transaction-view__content__item hoverable">
-              <div class="transaction-view__content__item__label">Rebill ID</div>
-              <div class="transaction-view__content__item__value">{{entity.rebill.id}}</div>
-            </div>
-          </md-card-content>
-        </md-card>
+        <table-memory
+          [data]="entity.products"
+          [columnParams]="productColumnParams"
+          [textOptions]="productTextOptions"
+          [associationEnabled]="false"
+          [dissociationEnabled]="false"
+          [editEnabled]="false"
+          [filterEnabled]="false"
+          (view)="goToProduct($event)">
+        </table-memory>
 
       </div>
     </md-tab>
 
     <md-tab>
       <div class="transaction-view__content">
-        <md-card>
-          <md-card-title class="transaction-view__content__title">
-            <div class="transaction-view__content__title__main">Refund Transaction</div>
-          </md-card-title>
 
-          <md-card-content>
-            <div class="transaction-view__content__item transaction-view__content__item--no-border">
-              <div class="transaction-view__content__item__label">Total Amount</div>
-              <div class="transaction-view__content__item__value transaction-view__content__item__value--big">{{entity.amount.usd()}}</div>
-            </div>
+        <div class="entity-view__card">
+          <div class="entity-view__card__header">
+            <div class="entity-view__card__header__title">Refund Transaction</div>
+          </div>
+
+          <div class="entity-view__card__content">
+            <md-input-container class="entity-view__card__content__item">
+              <input disabled md-input placeholder="Total Amount" [(ngModel)]="amount" type="text">
+            </md-input-container>
 
             <div class="transaction-view__content__item transaction-view__content__item--no-border">
               <div class="transaction-view__content__item__label">Amount to Refund</div>
@@ -129,14 +104,14 @@
 
               <md-checkbox [(ngModel)]="refundAllSelected" (change)="refundAllSelect()">Refund All</md-checkbox>
             </div>
+          </div>
 
-          </md-card-content>
-
-          <div class="transaction-view__content__refund__actions">
+          <div class="entity-view__card__actions">
             <div (click)="setIndex(0)">CANCEL</div>
             <div (click)="refundTransaction()">REFUND</div>
           </div>
-        </md-card>
+        </div>
+
       </div>
     </md-tab>
 

@@ -5,6 +5,10 @@ import {TransactionsService} from '../../../shared/services/transactions.service
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {getCurrencyMask, parseCurrencyMaskedValue} from '../../../shared/utils/mask.utils';
+import {ColumnParams} from '../../../shared/models/column-params.model';
+import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
+import {Products} from '../../../shared/models/products.model';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'transaction-view',
@@ -21,6 +25,20 @@ export class TransactionViewComponent extends AbstractEntityViewComponent<Transa
 
   numberMask = getCurrencyMask();
 
+  amount: string;
+
+  productColumnParams: ColumnParams<Products>[] = [
+    new ColumnParams('TRANSACTION_PRODUCT_NAME', (e: Products) => e.product.name),
+    new ColumnParams('TRANSACTION_PRODUCT_SKU', (e: Products) => e.product.sku),
+    new ColumnParams('TRANSACTION_PRODUCT_AMOUNT', (e: Products) => e.amount.usd(), 'right')
+  ];
+
+  productTextOptions: TableMemoryTextOptions = {
+    title: 'TRANSACTION_PRODUCT_TITLE',
+    viewOptionText: 'TRANSACTION_PRODUCT_VIEW',
+    noDataText: 'TRANSACTION_PRODUCT_NODATA'
+  };
+
   constructor(
     private transactionsService: TransactionsService,
     route: ActivatedRoute,
@@ -33,6 +51,14 @@ export class TransactionViewComponent extends AbstractEntityViewComponent<Transa
   ngOnInit() {
     this.takeUpdated = false;
     super.init(() => this.navigation.goToNotFoundPage());
+
+    this.service.entity$.merge(this.service.entityUpdated$).takeUntil(this.unsubscribe$).subscribe(transaction => {
+      if (transaction instanceof CustomServerError) {
+        return;
+      }
+
+      this.amount = transaction.amount.usd();
+    })
   }
 
   ngOnDestroy() {
@@ -75,5 +101,17 @@ export class TransactionViewComponent extends AbstractEntityViewComponent<Transa
     }
 
     this.selectedIndex = index;
+  }
+
+  goToRebill() {
+    this.router.navigate(['/rebills', this.entity.rebill.id])
+  }
+
+  goToMerchantProvider() {
+    this.router.navigate(['/merchantproviders', this.entity.merchantProvider.id])
+  }
+
+  goToProduct(products: Products) {
+    this.router.navigate(['/products', products.product.id])
   }
 }

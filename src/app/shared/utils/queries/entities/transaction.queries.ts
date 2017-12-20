@@ -36,8 +36,9 @@ export function transactionsByCustomer(customerId: string, limit?:number, cursor
 
 export function refundTransactionMutation(transactionId: string, refundAmount: number): string {
   return `mutation {
-		refundtransaction(refund:{amount:${refundAmount}}, transaction:"${transactionId}") {
-			${transactionInfoResponseQuery()}
+		refund(refund:{amount:"${refundAmount}", transaction:"${transactionId}"}) {
+			transaction {${transactionResponseQuery()}},
+			processor_response
 		}
 	}`
 }
