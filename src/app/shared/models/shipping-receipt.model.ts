@@ -1,9 +1,11 @@
+import {Moment, utc} from 'moment';
+
 export class ShippingReceipt {
   id: string;
-  created: string;
-  modified: string;
   status: string;
   trackingNumber: string;
+  createdAt: Moment;
+  updatedAt: Moment;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -11,10 +13,10 @@ export class ShippingReceipt {
     }
 
     this.id = obj.id || '';
-    this.created = obj.created || '';
-    this.modified = obj.modified || '';
     this.status = obj.status || '';
     this.trackingNumber = obj.trackingnumber || '';
+    this.createdAt = utc(obj.created_at);
+    this.updatedAt = utc(obj.updated_at);
   }
 
   copy(): ShippingReceipt {
@@ -24,10 +26,10 @@ export class ShippingReceipt {
   inverse(): any {
     return {
       id: this.id,
-      created: this.created,
-      modified: this.modified,
       status: this.status,
-      trackingnumber: this.trackingNumber
+      trackingnumber: this.trackingNumber,
+      created_at: this.createdAt.format(),
+      updated_at: this.updatedAt.format()
     }
   }
 }

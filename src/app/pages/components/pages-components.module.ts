@@ -10,6 +10,7 @@ import { EntitiesTableComponent } from './entities-table/entities-table.componen
 import {SharedModule} from '../../shared/shared.module';
 import { TableMemoryComponent } from './table-memory/table-memory.component';
 import {TranslationModule} from '../../translation/translation.module';
+import {ClipboardModule} from 'ngx-clipboard/dist';
 
 @NgModule({
   imports : [
@@ -17,7 +18,8 @@ import {TranslationModule} from '../../translation/translation.module';
     MaterialModule.forRoot(),
     SharedModule,
     FormsModule,
-    TranslationModule
+    TranslationModule,
+    ClipboardModule
   ],
   declarations : [
     TableActionsComponent,

@@ -61,24 +61,17 @@ export function rebillResponseQuery(): string {
     }
     product_schedules { id,
       schedule { price start end period,
-        product { id name sku ship shipping_delay,
-          fulfillment_provider { id name provider {name} }
-        }
+        product { id name sku }
       }
     },
     transactions { id processor_response amount },
+    shippingreceipts { id, status, trackingnumber, created_at, updated_at },
     history { state entered_at exited_at error_message }
   `
 }
 
 export function rebillInfoResponseQuery(): string {
-  return `
-    id bill_at amount created_at updated_at,
-    parentsession { id,
-      customer { id firstname lastname }
-    }
-    product_schedules { id }
-    transactions { id processor_response amount }`
+  return `id bill_at amount created_at updated_at`
 }
 
 export function rebillListByState(queueName: string, limit?: number, cursor?: string): string {

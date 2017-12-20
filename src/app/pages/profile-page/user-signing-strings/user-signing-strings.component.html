@@ -31,11 +31,13 @@
 
     <tbody>
     <tr *ngFor="let entity of entities | filterEntities: filterValue | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder">
-      <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'">{{params.mappingFunction(entity)}}</td>
+      <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'">
+        {{params.mappingFunction(entity)}}
+        <md-icon *ngIf="params.copy" class="copy-icon" md-tooltip="Copy to clipboard" ngxClipboard [cbContent]="params.mappingFunction(entity)">content_copy</md-icon>
+      </td>
       <td>
         <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
         <md-menu #actionsMenu="mdMenu" x-position="before">
-          <button md-menu-item ngxClipboard [cbContent]="entity.signingString">{{ 'PROFILE_SIGNINGSTRINGS_COPY' | translate}}</button>
           <button md-menu-item (click)="addOrUpdateSigningString(entity)">{{ 'PROFILE_SIGNINGSTRINGS_EDIT' | translate}}</button>
           <button md-menu-item (click)="deleteEntity(entity.id)">{{ 'PROFILE_SIGNINGSTRINGS_REMOVE' | translate}}</button>
         </md-menu>

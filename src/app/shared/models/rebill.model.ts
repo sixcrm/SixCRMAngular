@@ -5,6 +5,7 @@ import {Entity} from './entity.interface';
 import {Currency} from '../utils/currency/currency';
 import {Moment, utc} from 'moment'
 import {RebillStateHistory} from './rebill-state-history.model';
+import {ShippingReceipt} from './shipping-receipt.model';
 
 export class Rebill implements Entity<Rebill> {
   id: string;
@@ -16,6 +17,7 @@ export class Rebill implements Entity<Rebill> {
   productSchedules: ProductSchedule[] = [];
   transactions: Transaction[] = [];
   history: RebillStateHistory[] = [];
+  shippingReceipts: ShippingReceipt[] = [];
 
   constructor(obj?: any) {
     if (!obj) {
@@ -37,6 +39,10 @@ export class Rebill implements Entity<Rebill> {
       this.transactions = obj.transactions.map(t => new Transaction(t));
     }
 
+    if (obj.shippingreceipts) {
+      this.shippingReceipts = obj.shippingreceipts.map(r => new ShippingReceipt(r));
+    }
+
     if (obj.history) {
       this.history = obj.history.map(h => new RebillStateHistory(h));
     }
@@ -55,6 +61,7 @@ export class Rebill implements Entity<Rebill> {
       updated_at: this.updatedAt.clone().format(),
       parentsession: this.parentSession.inverse(),
       product_schedules: this.productSchedules.map(p => p.inverse()),
+      shippingreceipts: this.shippingReceipts.map(r => r.inverse()),
       transactions: this.transactions.map(t => t.inverse())
     }
   }

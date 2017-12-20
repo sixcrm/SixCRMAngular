@@ -32,7 +32,7 @@ export class UserSigningStringsComponent extends AbstractEntityIndexComponent<Us
     let f = this.authService.getTimezone();
     this.columnParams = [
       new ColumnParams('PROFILE_SIGNINGSTRINGS_NAME', (e: UserSigningString) => e.name),
-      new ColumnParams('PROFILE_SIGNINGSTRINGS_SIGNINGSTRING', (e: UserSigningString) => e.signingString),
+      new ColumnParams('PROFILE_SIGNINGSTRINGS_SIGNINGSTRING', (e: UserSigningString) => e.signingString).setCopyOption(true),
       new ColumnParams('PROFILE_SIGNINGSTRINGS_USED', (e: UserSigningString) => e.usedAt ? e.usedAt.tz(f).format('MM/DD/YYYY') : 'never'),
     ];
 
@@ -50,12 +50,6 @@ export class UserSigningStringsComponent extends AbstractEntityIndexComponent<Us
     this.loadingData = true;
     this.serverError = null;
     this.service.getEntities(this.limit);
-  }
-
-  editAccessKey(userSigningString: UserSigningString) {
-  }
-
-  viewAccessKey(userSigningString: UserSigningString) {
   }
 
   addOrUpdateSigningString(userSigningStrings?: UserSigningString) {

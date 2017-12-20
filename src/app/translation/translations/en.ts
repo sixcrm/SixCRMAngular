@@ -232,7 +232,6 @@ export const TRANSLATIONS = {
       signingstring: 'Signing String',
       used: 'Last time Used',
       add: 'Add new Signing String',
-      copy: 'Copy to clipboard',
       remove: 'Remove',
       edit: 'Edit',
       updatetext: 'Update Signing String',
@@ -529,6 +528,16 @@ export const TRANSLATIONS = {
       general: 'GENERAL DETAILS',
       schedule: 'SCHEDULES',
       campaign: 'CAMPAIGNS'
+    }
+  },
+  rebill: {
+    shippingreceipt: {
+      title: 'Associated Shipping Receipts',
+      nodata: 'No Shipping Receipts found',
+      status: 'Status',
+      trackingnumber: 'Tracking Number',
+      created: 'Created At',
+      updated: 'Updated At'
     }
   }
 };
