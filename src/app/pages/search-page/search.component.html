@@ -1,7 +1,7 @@
 <div class="search">
   <div *ngIf="authService.isActiveAclCustomerService()" class="search__header">
-    <div class="search__header__item" [class.search__header__item--active]="selectedIndex === 0" (click)="setIndex(0)">CUSTOMER</div>
-    <div class="search__header__item" [class.search__header__item--active]="selectedIndex === 1" (click)="setIndex(1)">ORDER ENTRY</div>
+    <div class="search__header__item" [class.search__header__item--active]="selectedIndex === 0" (click)="setIndex(0)">{{'SEARCH_TAB_CUSTOMER' | translate}}</div>
+    <div class="search__header__item" [class.search__header__item--active]="selectedIndex === 1" (click)="setIndex(1)">{{'SEARCH_TAB_ORDER' | translate}}</div>
   </div>
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
@@ -15,7 +15,7 @@
               </md-input>
               <autocomplete #autocomplete *ngIf="showAutocomplete && autocompleteOptions.length > 0" (select)="suggestionSelected($event)" [options]="autocompleteOptions"></autocomplete>
             </div>
-            <div class="search__sidenav__button--advanced" (click)="toggleAdvancedSearch()"><span>ADVANCED SEARCH</span> <md-icon>{{showAdvancedSearch ? 'keyboard_arrow_left' : 'keyboard_arrow_right'}}</md-icon></div>
+            <div class="search__sidenav__button--advanced" (click)="toggleAdvancedSearch()"><span>{{'SEARCH_ADVANCED_TOGGLE' | translate}}</span> <md-icon>{{showAdvancedSearch ? 'keyboard_arrow_left' : 'keyboard_arrow_right'}}</md-icon></div>
 
             <div class="search__sidenav__options" *ngIf="queryOptions && queryOptions.length !== 0">
               <ng-container *ngFor="let option of queryOptions">
@@ -29,9 +29,9 @@
               </ng-container>
             </div>
 
-            <div class="search__sidenav__title">REFINE RESULTS</div>
+            <div class="search__sidenav__title">{{'SEARCH_REFINED' | translate}}</div>
 
-            <div *ngIf="facets.length !== 0" class="search__sidenav__subtitle">Category</div>
+            <div *ngIf="facets.length !== 0" class="search__sidenav__subtitle">{{'SEARCH_CATEGORY' | translate}}</div>
 
             <ng-container *ngFor="let facet of facets">
               <md-checkbox [(ngModel)]="facet.checked" class="search__sidenav__item" (change)="checkboxClicked()">
@@ -40,17 +40,17 @@
               </md-checkbox>
             </ng-container>
 
-            <div class="search__sidenav__subtitle"> Date Range </div>
+            <div class="search__sidenav__subtitle">{{'SEARCH_DATE_RANGE' | translate}}</div>
             <md-checkbox (change)="dateCheckboxClicked()" [(ngModel)]="applyDateFilter" class="search__sidenav__item search__sidenav__item--date">
-              <span class="search__sidenav__item__name"> Date </span>
+              <span class="search__sidenav__item__name"> {{'SEARCH_DATE_TOGGLE' | translate}} </span>
             </md-checkbox>
             <div class="datepicker--custom" [class.datepicker-visible]="datepickerVisible">
               <div (showDaterangepicker)="datepickerShown()" (hideDaterangepicker)="datepickerHidden()" (selected)="dateSelected($event)" daterangepicker>
-                <span class="datepicker--custom__input" name="daterange" >  {{ startDate.format('MM/DD/YYYY').substring(0,10) }} <span>to</span> {{ endDate.format('MM/DD/YYYY').substring(0, 10) }} <md-icon>keyboard_arrow_down</md-icon> </span>
+                <span class="datepicker--custom__input" name="daterange" >  {{ startDate.format('MM/DD/YYYY').substring(0,10) }} <span>{{'SEARCH_DATE_TO' | translate}}</span> {{ endDate.format('MM/DD/YYYY').substring(0, 10) }} <md-icon>keyboard_arrow_down</md-icon> </span>
               </div>
             </div>
 
-            <div class="search__sidenav__reset" (click)="resetSearch(advancedSearch)"> RESET SEARCH </div>
+            <div class="search__sidenav__reset" (click)="resetSearch(advancedSearch)">{{'SEARCH_RESET' | translate}}</div>
           </md-nav-list>
         </div>
 
@@ -58,23 +58,23 @@
     <advanced-search #advancedSearch [active]="showAdvancedSearch"></advanced-search>
 
     <div class="search__content__title">
-      <span>Search Results
+      <span>{{'SEARCH_RESULTS' | translate}}
         <span *ngIf="numberOfSearchResults && numberOfSearchResults > 0">({{numberOfSearchResults}})</span>
       </span>
 
       <div class="search__content__title__options">
-        <span>Sort by:</span>
+        <span>{{'SEARCH_SORT_TITLE' | translate}}:</span>
         <span>{{sortBy}}</span>
         <button md-icon-button [md-menu-trigger-for]="sortByMenu">
           <md-icon>arrow_drop_down</md-icon>
         </button>
 
         <md-menu #sortByMenu="mdMenu">
-          <button md-menu-item (click)="setSortBy('created_at asc')">created at asc</button>
-          <button md-menu-item (click)="setSortBy('created_at desc')">created at desc</button>
-          <button md-menu-item (click)="setSortBy('created_at desc')">updated at asc</button>
-          <button md-menu-item (click)="setSortBy('created_at desc')">updated at desc</button>
-          <button md-menu-item (click)="setSortBy('default')">default</button>
+          <button md-menu-item (click)="setSortBy('created_at asc')">{{'SEARCH_SORT_CREATEASC' | translate}}</button>
+          <button md-menu-item (click)="setSortBy('created_at desc')">{{'SEARCH_SORT_CREATEDESC' | translate}}</button>
+          <button md-menu-item (click)="setSortBy('created_at desc')">{{'SEARCH_SORT_UPDATEASC' | translate}}</button>
+          <button md-menu-item (click)="setSortBy('created_at desc')">{{'SEARCH_SORT_UPDATEDESC' | translate}}</button>
+          <button md-menu-item (click)="setSortBy('def')">{{'SEARCH_SORT_DEFAULT' | translate}}</button>
         </md-menu>
 
         <md-input placeholder="Filter Results" [(ngModel)]="filterValue"></md-input>
@@ -162,10 +162,10 @@
     <ng-template #noresults>
       <div class="search__content__results__no-results">
         <span *ngIf="searchPerformed; else instructions">
-          Sorry, there were no results.
+          {{'SEARCH_NODATA' | translate}}
         </span>
         <ng-template #instructions>
-          Please enter a search query.
+          {{'SEARCH_ENTERSEARCH' | translate}}
         </ng-template>
       </div>
     </ng-template>

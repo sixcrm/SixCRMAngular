@@ -2,12 +2,12 @@
 
   <div *ngIf="productSchedule; else spin">
     <div class="perfect-entity__info">
-      <div class="perfect-entity__info__title">Product Schedule Info</div>
+      <div class="perfect-entity__info__title">{{'SEARCH_PERFECT_SCHEDULE_TITLE' | translate}}</div>
 
       <div class="perfect-entity__info__fields">
 
         <div class="perfect-entity__info__fields__item">
-          <span class="perfect-entity__info__fields__item__label">Id:</span>
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_ADVANCED_ID' | translate}}:</span>
           <span class="perfect-entity__info__fields__item__value">{{productSchedule.id}}</span>
         </div>
 
@@ -15,15 +15,15 @@
     </div>
 
     <div class="perfect-entity__table">
-      <div class="perfect-entity__table__title">Schedules</div>
+      <div class="perfect-entity__table__title">{{'SEARCH_PERFECT_SCHEDULE_SCHEDULES' | translate}}</div>
 
       <table class="highlight">
         <thead>
         <tr>
-          <th>Product</th>
-          <th>Start</th>
-          <th>End</th>
-          <th>Price</th>
+          <th>{{'SEARCH_ADVANCED_PRODUCT' | translate}}</th>
+          <th>{{'SEARCH_ADVANCED_START' | translate}}</th>
+          <th>{{'SEARCH_ADVANCED_END' | translate}}</th>
+          <th>{{'SEARCH_ADVANCED_PRICE' | translate}}</th>
         </tr>
         </thead>
         <tbody>

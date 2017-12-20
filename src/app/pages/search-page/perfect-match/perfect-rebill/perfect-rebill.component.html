@@ -2,27 +2,27 @@
 
   <div *ngIf="rebill; else spin">
     <div class="perfect-entity__info">
-      <div class="perfect-entity__info__title">Rebill Info</div>
+      <div class="perfect-entity__info__title">{{'SEARCH_PERFECT_REBILL_TITLE' | translate}}</div>
 
       <div class="perfect-entity__info__fields">
 
         <div class="perfect-entity__info__fields__item">
-          <span class="perfect-entity__info__fields__item__label">Amount:</span>
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_ADVANCED_AMOUNT' | translate}}:</span>
           <span class="perfect-entity__info__fields__item__value">{{rebill.amount.usd()}}</span>
         </div>
 
         <div class="perfect-entity__info__fields__item">
-          <span class="perfect-entity__info__fields__item__label">Parent Session:</span>
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_ADVANCED_PARENTSESSION' | translate}}:</span>
           <span class="perfect-entity__info__fields__item__value">{{rebill.parentSession.id}}</span>
         </div>
 
         <div class="perfect-entity__info__fields__item">
-          <span class="perfect-entity__info__fields__item__label">Bill At:</span>
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_ADVANCED_BILL' | translate}}:</span>
           <span class="perfect-entity__info__fields__item__value">{{rebill.billAt | formatDateTime}}</span>
         </div>
 
         <div class="perfect-entity__info__fields__item">
-          <span class="perfect-entity__info__fields__item__label">Created At:</span>
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_ADVANCED_CREATED' | translate}}:</span>
           <span class="perfect-entity__info__fields__item__value">{{rebill.createdAt | formatDateTime}}</span>
         </div>
 
@@ -30,14 +30,14 @@
     </div>
 
     <div class="perfect-entity__table">
-      <div class="perfect-entity__table__title">Transactions</div>
+      <div class="perfect-entity__table__title">{{'SEARCH_PERFECT_REBILL_TRANSACTIONS' | translate}}</div>
 
       <table class="highlight">
         <thead>
         <tr>
-          <th>Amount</th>
-          <th>Alias</th>
-          <th>Processor Response</th>
+          <th>{{'SEARCH_ADVANCED_AMOUNT' | translate}}</th>
+          <th>{{'SEARCH_ADVANCED_ALIAS' | translate}}</th>
+          <th>{{'SEARCH_ADVANCED_RESPONSE' | translate}}</th>
         </tr>
         </thead>
         <tbody>

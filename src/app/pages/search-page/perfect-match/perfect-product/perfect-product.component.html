@@ -2,32 +2,32 @@
 
   <div *ngIf="product; else spin">
     <div class="perfect-entity__info">
-      <div class="perfect-entity__info__title">Product Info</div>
+      <div class="perfect-entity__info__title">{{'SEARCH_PERFECT_PRODUCT_TITLE' | translate}}</div>
 
       <div class="perfect-entity__info__fields">
 
         <div class="perfect-entity__info__fields__item">
-          <span class="perfect-entity__info__fields__item__label">Name:</span>
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_ADVANCED_NAME' | translate}}:</span>
           <span class="perfect-entity__info__fields__item__value">{{product.name}}</span>
         </div>
 
         <div class="perfect-entity__info__fields__item">
-          <span class="perfect-entity__info__fields__item__label">SKU:</span>
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_ADVANCED_SKU' | translate}}:</span>
           <span class="perfect-entity__info__fields__item__value">{{product.sku}}</span>
         </div>
 
         <div class="perfect-entity__info__fields__item">
-          <span class="perfect-entity__info__fields__item__label">Ship:</span>
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_ADVANCED_SHIP' | translate}}:</span>
           <span class="perfect-entity__info__fields__item__value">{{product.ship}}</span>
         </div>
 
         <div class="perfect-entity__info__fields__item">
-          <span class="perfect-entity__info__fields__item__label">Shipping Delay:</span>
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_ADVANCED_SHIPDELAY' | translate}}:</span>
           <span class="perfect-entity__info__fields__item__value">{{product.shippingDelay}}</span>
         </div>
 
         <div class="perfect-entity__info__fields__item">
-          <span class="perfect-entity__info__fields__item__label">Fulfillment Provider:</span>
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_ADVANCED_FULFILLMENTPROVIDER' | translate}}:</span>
           <span class="perfect-entity__info__fields__item__value">{{product.fulfillmentProvider.name}}</span>
         </div>
       </div>

@@ -2,12 +2,12 @@
 
   <div *ngIf="campaign; else spin">
     <div class="perfect-entity__info">
-      <div class="perfect-entity__info__title">Campaign Info</div>
+      <div class="perfect-entity__info__title">{{'SEARCH_PERFECT_CAMPAIGN_TITLE' | translate}}</div>
 
       <div class="perfect-entity__info__fields">
 
         <div class="perfect-entity__info__fields__item">
-          <span class="perfect-entity__info__fields__item__label">Name:</span>
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_ADVANCED_NAME' | translate}}:</span>
           <span class="perfect-entity__info__fields__item__value">{{campaign.name}}</span>
         </div>
 
@@ -15,13 +15,13 @@
     </div>
 
     <div class="perfect-entity__table">
-      <div class="perfect-entity__table__title">Product Schedules</div>
+      <div class="perfect-entity__table__title">{{'SEARCH_PERFECT_CAMPAIGN_SCHEDULES' | translate}}</div>
 
       <table class="highlight">
         <thead>
         <tr>
-          <th>Name</th>
-          <th>Number of Schedules</th>
+          <th>{{'SEARCH_ADVANCED_NAME' | translate}}</th>
+          <th>{{'SEARCH_ADVANCED_SCHEDULESNUM' | translate}}</th>
         </tr>
         </thead>
         <tbody>
@@ -34,6 +34,6 @@
     </div>
   </div>
 
-  <ng-template #spin><md-spinner></md-spinner></ng-template>
+  <ng-template #spin><table-loader [rowHeight]="30"></table-loader></ng-template>
 </div>
 

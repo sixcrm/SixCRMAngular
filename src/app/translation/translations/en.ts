@@ -387,6 +387,94 @@ export const TRANSLATIONS = {
     upsellsum: 'Upsell Sum',
     amountsum: 'Amount Sum'
   },
+  search: {
+    tab: {
+      customer: 'CUSTOMER',
+      order: 'ORDER ENTRY'
+    },
+    advanced: {
+      toggle: 'ADVANCED SEARCH',
+      search: 'Search',
+      firstname: 'First Name',
+      lastname: 'Last Name',
+      phone: 'Phone Number',
+      email: 'Email Address',
+      trackingnumber: 'Shipment Tracking Number',
+      address1: 'Address 1',
+      address2: 'Address 2',
+      city: 'City',
+      zip: 'ZIP Code',
+      state: 'State',
+      country: 'Country',
+      alias: 'Transaction Alias',
+      cctype: 'Credit Card Type',
+      ccf6: 'Credit Card # first 6',
+      ccl4: 'Credit Card # last 4',
+      amount: 'Amount',
+      created: 'Created at',
+      sku: 'SKU',
+      name: 'Name',
+      response: 'Processor Response',
+      status: 'Receipt Status',
+      merchantprovider: 'Merchant Provider',
+      fulfillmentprovider: 'Fulfillment Provider',
+      ship: 'Ship',
+      shipdelay: 'Shipping Delay',
+      schedulesnum: 'Number of Schedules',
+      bill: 'Billed at',
+      parentsession: 'Parent Session',
+      product: 'Product',
+      start: 'Start',
+      end: 'End',
+      price: 'Price',
+      id: 'ID'
+    },
+    category: 'Category',
+    refined: 'REFINED RESULTS',
+    reset: 'RESET SEARCH',
+    date: {
+      range: 'Date Range',
+      toggle: 'Date',
+      to: 'to'
+    },
+    results: 'Search Results',
+    sort: {
+      title: 'Sort By',
+      createasc: 'created at asc',
+      createdesc: 'created at desc',
+      updateasc: 'updated at asc',
+      updatedesc: 'updated at desc',
+      def: 'default'
+    },
+    nodata: 'Sorry, there were no results.',
+    entersearch: 'Please enter a search query.',
+    perfect: {
+      view: 'VIEW',
+      customer: {
+        shipaddress: 'Shipping Address',
+        recenttransactions: 'Recent Transactions',
+      },
+      transaction: {
+        title: 'Transaction Info',
+        product: 'Products'
+      },
+      product: {
+        title: 'Product Info'
+      },
+      campaign: {
+        title: 'Campaign Info',
+        schedules: 'Product Schedules'
+      },
+      rebill: {
+        title: 'Rebill Info',
+        transactions: 'Transactions'
+      },
+      schedule: {
+        title: 'Product Schedule Info',
+        schedules: 'Schedules'
+      }
+    }
+  },
   account: {
     index: {
       title: 'Accounts',

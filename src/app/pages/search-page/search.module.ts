@@ -19,6 +19,7 @@ import { PerfectRebillComponent } from './perfect-match/perfect-rebill/perfect-r
 import { PerfectProductScheduleComponent } from './perfect-match/perfect-product-schedule/perfect-product-schedule.component';
 import { PerfectCampaignComponent } from './perfect-match/perfect-campaign/perfect-campaign.component';
 import { SearchLoaderComponent } from './search-loader/search-loader.component';
+import {TranslationModule} from '../../translation/translation.module';
 
 @NgModule({
   imports : [
@@ -28,7 +29,8 @@ import { SearchLoaderComponent } from './search-loader/search-loader.component';
     CommonModule,
     FormsModule,
     MaterialModule.forRoot(),
-    Daterangepicker
+    Daterangepicker,
+    TranslationModule
   ],
   declarations : [
     SearchComponent,

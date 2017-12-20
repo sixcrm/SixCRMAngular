@@ -2,42 +2,42 @@
 
   <div *ngIf="customer; else spin">
     <div class="perfect-entity__info">
-      <div class="perfect-entity__info__title">Shipping Address</div>
+      <div class="perfect-entity__info__title">{{'SEARCH_PERFECT_CUSTOMER_SHIPADDRESS' | translate}}</div>
 
       <div class="perfect-entity__info__fields">
 
         <div class="perfect-entity__info__fields__item">
-          <span class="perfect-entity__info__fields__item__label">Name:</span>
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_ADVANCED_NAME' | translate}}:</span>
           <span class="perfect-entity__info__fields__item__value">{{customer.firstName + ' ' + customer.lastName}}</span>
         </div>
 
         <div class="perfect-entity__info__fields__item">
-          <span class="perfect-entity__info__fields__item__label">City:</span>
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_ADVANCED_CITY' | translate}}:</span>
           <span class="perfect-entity__info__fields__item__value">{{customer.address.city}}</span>
         </div>
 
         <div class="perfect-entity__info__fields__item">
-          <span class="perfect-entity__info__fields__item__label">Address 1:</span>
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_ADVANCED_ADDRESS1' | translate}}:</span>
           <span class="perfect-entity__info__fields__item__value">{{customer.address.line1}}</span>
         </div>
 
         <div class="perfect-entity__info__fields__item">
-          <span class="perfect-entity__info__fields__item__label">State:</span>
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_ADVANCED_STATE' | translate}}:</span>
           <span class="perfect-entity__info__fields__item__value">{{customer.address.state}}</span>
         </div>
 
         <div class="perfect-entity__info__fields__item">
-          <span class="perfect-entity__info__fields__item__label">Address 2:</span>
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_ADVANCED_ADDRESS2' | translate}}:</span>
           <span class="perfect-entity__info__fields__item__value">{{customer.address.line2}}</span>
         </div>
 
         <div class="perfect-entity__info__fields__item">
-          <span class="perfect-entity__info__fields__item__label">Country:</span>
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_ADVANCED_COUNTRY' | translate}}:</span>
           <span class="perfect-entity__info__fields__item__value">{{customer.address.country}}</span>
         </div>
 
         <div class="perfect-entity__info__fields__item">
-          <span class="perfect-entity__info__fields__item__label">ZIP Code:</span>
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_ADVANCED_ZIP' | translate}}:</span>
           <span class="perfect-entity__info__fields__item__value">{{customer.address.zip}}</span>
         </div>
       </div>
@@ -45,16 +45,16 @@
 
 
       <div class="perfect-entity__table" *ngIf="!transactionsLoading; else spinTransactions">
-        <div class="perfect-entity__table__title">Recent transactions</div>
+        <div class="perfect-entity__table__title">{{'SEARCH_PERFECT_CUSTOMER_RECENTTRANSACTIONS' | translate}}</div>
 
         <server-error-message (refresh)="refreshTransactions()" *ngIf="transactionsServerError; else transactionsData;"></server-error-message>
         <ng-template #transactionsData>
           <table class="highlight">
             <thead>
               <tr>
-                <th>Alias</th>
-                <th class="cell--align-right">Amount</th>
-                <th>Processor Response</th>
+                <th>{{'SEARCH_ADVANCED_ALIAS' | translate}}</th>
+                <th class="cell--align-right">{{'SEARCH_ADVANCED_AMOUNT' | translate}}</th>
+                <th>{{'SEARCH_ADVANCED_RESPONSE' | translate}}</th>
               </tr>
             </thead>
             <tbody>

@@ -4,30 +4,30 @@
 
     <div class="advanced-search__content__fields">
       <div class="advanced-search__content__fields__column">
-        <md-input #firstInput class="advanced-search__content__fields__input" placeholder="First Name" [(ngModel)]="searchOptions.firstname"></md-input>
-        <md-input class="advanced-search__content__fields__input" placeholder="Last Name" [(ngModel)]="searchOptions.lastname"></md-input>
-        <md-input class="advanced-search__content__fields__input" placeholder="Phone Number" [(ngModel)]="searchOptions.phone"></md-input>
-        <md-input class="advanced-search__content__fields__input" placeholder="Email Address" [(ngModel)]="searchOptions.email"></md-input>
-        <md-input class="advanced-search__content__fields__input" placeholder="Shipment Tracking Number" [(ngModel)]="searchOptions.tracking_number"></md-input>
+        <md-input #firstInput class="advanced-search__content__fields__input" placeholder="{{'SEARCH_ADVANCED_FIRSTNAME' | translate}}" [(ngModel)]="searchOptions.firstname"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="{{'SEARCH_ADVANCED_LASTNAME' | translate}}" [(ngModel)]="searchOptions.lastname"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="{{'SEARCH_ADVANCED_PHONE' | translate}}" [(ngModel)]="searchOptions.phone"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="{{'SEARCH_ADVANCED_EMAIL' | translate}}" [(ngModel)]="searchOptions.email"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="{{'SEARCH_ADVANCED_TRACKINGNUMBER' | translate}}" [(ngModel)]="searchOptions.tracking_number"></md-input>
       </div>
 
       <div class="advanced-search__content__fields__column">
-        <md-input class="advanced-search__content__fields__input" placeholder="Address 1" [(ngModel)]="searchOptions.address_line_1"></md-input>
-        <md-input class="advanced-search__content__fields__input" placeholder="Address 2" [(ngModel)]="searchOptions.address_line_2"></md-input>
-        <md-input class="advanced-search__content__fields__input" placeholder="City" [(ngModel)]="searchOptions.city"></md-input>
-        <md-input class="advanced-search__content__fields__input" placeholder="ZIP Code" [(ngModel)]="searchOptions.zip"></md-input>
-        <md-input class="advanced-search__content__fields__input" placeholder="State" [(ngModel)]="searchOptions.state"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="{{'SEARCH_ADVANCED_ADDRESS1' | translate}}" [(ngModel)]="searchOptions.address_line_1"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="{{'SEARCH_ADVANCED_ADDRESS2' | translate}}" [(ngModel)]="searchOptions.address_line_2"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="{{'SEARCH_ADVANCED_CITY' | translate}}" [(ngModel)]="searchOptions.city"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="{{'SEARCH_ADVANCED_ZIP' | translate}}" [(ngModel)]="searchOptions.zip"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="{{'SEARCH_ADVANCED_STATE' | translate}}" [(ngModel)]="searchOptions.state"></md-input>
       </div>
 
       <div class="advanced-search__content__fields__column">
-        <md-input class="advanced-search__content__fields__input" placeholder="Transaction Alias" [(ngModel)]="searchOptions.alias"></md-input>
-        <md-input [disabled]="true" class="advanced-search__content__fields__input" placeholder="Credit Card Type" [(ngModel)]="searchOptions.cctype"></md-input>
-        <md-input class="advanced-search__content__fields__input" placeholder="Credit Card # first 6" [(ngModel)]="searchOptions.first_six"></md-input>
-        <md-input class="advanced-search__content__fields__input" placeholder="Credit Card # last 4" [(ngModel)]="searchOptions.last_four"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="{{'SEARCH_ADVANCED_ALIAS' | translate}}" [(ngModel)]="searchOptions.alias"></md-input>
+        <md-input [disabled]="true" class="advanced-search__content__fields__input" placeholder="{{'SEARCH_ADVANCED_CCTYPE' | translate}}" [(ngModel)]="searchOptions.cctype"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="{{'SEARCH_ADVANCED_CCF6' | translate}}" [(ngModel)]="searchOptions.first_six"></md-input>
+        <md-input class="advanced-search__content__fields__input" placeholder="{{'SEARCH_ADVANCED_CCL4' | translate}}" [(ngModel)]="searchOptions.last_four"></md-input>
       </div>
 
       <div class="advanced-search__content__fields__button" (click)="search(firstInput)">
-        Search
+        {{'SEARCH_ADVANCED_SEARCH' | translate}}
       </div>
     </div>
   </div>

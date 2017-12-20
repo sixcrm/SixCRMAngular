@@ -9,7 +9,6 @@
       </div>
       <div class="perfect-match__header__buttons">
         <md-icon (click)="navigateToEntity()">open_in_new</md-icon>
-        <md-icon>more_vert</md-icon>
       </div>
     </div>
 
@@ -21,7 +20,7 @@
     <perfect-campaign *ngIf="entity.fields.entity_type === 'campaign'" [id]="entity.id"></perfect-campaign>
 
     <div (click)="navigateToEntity()" class="perfect-match__view-more">
-      view {{entity.fields.entity_type}}
+      {{'SEARCH_PERFECT_VIEW' | translate}} {{entity.fields.entity_type}}
     </div>
   </div>
 </div>
