@@ -22,6 +22,9 @@ export class AlertsSectionComponent extends AbstractEntityIndexComponent<Notific
 
   selectedIndex: number = 0;
 
+  filter: string;
+  filterMapper = (notification: Notification) => `${notification.body} ${notification.title}`;
+
   notsByDate: EntitiesByDate<Notification>[] = [
     {label: 'NOTIFICATIONS_TODAY', entities: [], contains: (n: Notification) => utc(n.createdAt).isSame(utc(), 'day')},
     {

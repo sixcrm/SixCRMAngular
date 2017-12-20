@@ -8,11 +8,13 @@ import { NotificationsSectionComponent } from './notifications-section/notificat
 import { AlertsSectionComponent } from './alerts-section/alerts-section.component';
 import {SharedModule} from '../../shared/shared.module';
 import {TranslationModule} from "../../translation/translation.module";
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
     notificationsRouting,
     CommonModule,
+    FormsModule,
     MaterialModule,
     InfiniteScrollModule,
     SharedModule,

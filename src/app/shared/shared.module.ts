@@ -140,6 +140,7 @@ import { TabHeaderComponent } from './components/tab-header/tab-header.component
     CreditCardMaskPipe,
     ComingSoonComponent,
     AutocompleteInputComponent,
+    FilterStringsPipe,
     FilterEntitiesByParamsPipe,
     ServerErrorMessageComponent,
     AddScheduleComponent,

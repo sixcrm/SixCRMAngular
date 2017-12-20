@@ -10,8 +10,9 @@
 
   &--standalone{
     position: relative;
-    width: 600px;
+    width: 720px;
     max-width: 100%;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.13);
   }
 
   &__topnav {
@@ -172,6 +173,18 @@
   height: calc(100vh - 235px);
   overflow: auto;
   margin: 25px;
+
+  &__filter {
+    width: 720px;
+    margin: 25px;
+    box-shadow: 0 0 2px 0 rgba(0,0,0,0.04), 0 2px 2px 0 rgba(0,0,0,0.02), 0 1px 3px 0 rgba(0,0,0,0.1);
+    border-radius: 2px;
+    box-sizing: border-box;
+    background: #fff;
+    max-width: 100%;
+    padding: 6px 20px;
+    font-size: 14px;
+  }
 
   .spinner {
     padding: 15px;

@@ -1,3 +1,9 @@
+<div class="notifications__filter">
+  <md-input-container>
+    <input md-input placeholder="Filter" [(ngModel)]="filter" type="text">
+  </md-input-container>
+</div>
+
 <div class="notifications notifications-list notifications-list--standalone">
 
   <div class="notifications-list__topnav notifications-list__topnav--standalone">
@@ -20,7 +26,7 @@
       <div *ngIf="notificationsByDate.entities.length > 0">
         <div class="notifications-list__content__title notifications-list__content__title--standalone">{{notificationsByDate.label | translate}}</div>
 
-        <div *ngFor="let notification of notificationsByDate.entities">
+        <div *ngFor="let notification of notificationsByDate.entities | filterStrings: filter: filterMapper">
           <alert-component [alert]="notification" [enableClear]="false"></alert-component>
         </div>
       </div>
