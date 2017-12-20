@@ -90,7 +90,7 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
   }
 
   readNotification(notification: Notification): void {
-    this.notificationsService.updateEntity(notification);
+    this.notificationsService.updateEntity(notification, {ignoreSnack: true});
   }
 
   arrangeNotifications(nots: Notification[]): void {

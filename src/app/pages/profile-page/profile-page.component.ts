@@ -171,7 +171,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   }
 
   updateUserDetails(): void {
-    this.userService.updateEntity(this.userBackup, true);
+    this.userService.updateEntity(this.userBackup, {ignorePermissions: true});
     this.userSettingsService.updateEntity(this.userSettingsBackup)
   }
 

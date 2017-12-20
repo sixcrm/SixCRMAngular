@@ -114,12 +114,12 @@ export abstract class AbstractEntityService<T> {
     });
   }
 
-  updateEntity(entity: T, ignorePermissions?: boolean): void {
-    if (!ignorePermissions && !this.hasWritePermission()) {
+  updateEntity(entity: T, options?: {ignoreSnack?: boolean, ignoreProgress?: boolean, ignorePermissions?: boolean}): void {
+    if ((!options || !options.ignorePermissions) && !this.hasWritePermission()) {
       return;
     }
 
-    this.queryRequest(this.updateQuery(entity)).subscribe(data => {
+    this.queryRequest(this.updateQuery(entity), {ignoreProgress: options && options.ignoreProgress}).subscribe(data => {
       if (data instanceof CustomServerError) {
         this.entityUpdated$.next(data);
         return;
@@ -129,7 +129,10 @@ export abstract class AbstractEntityService<T> {
       const entityKey = Object.keys(json)[0];
       const entityData =json[entityKey];
 
-      this.openSnackBar('Updated Successfully!');
+      if (!options || !options.ignoreSnack) {
+        this.openSnackBar('Updated Successfully!');
+      }
+
       this.entityUpdated$.next(this.toEntity(entityData));
     });
   }
