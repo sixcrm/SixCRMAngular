@@ -180,7 +180,8 @@ export const TRANSLATIONS = {
     filter: 'Filter'
   },
   singlepage: {
-    created: 'Created'
+    created: 'Created',
+    updated: 'Updated'
   },
   profile: {
     title: 'Profile',
