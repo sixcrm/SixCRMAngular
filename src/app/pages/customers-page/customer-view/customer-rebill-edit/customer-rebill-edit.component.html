@@ -1,16 +1,16 @@
 <div *ngIf="rebill" class="customer-view__edit customer-rebill-edit">
   <div class="customer-view__edit__title">
     <div class="customer-view__edit__title--main">
-      Edit Transaction
+      {{'CUSTOMER_REBILLEDIT_TITLE' | translate}}
     </div>
     <div class="customer-view__edit__title--sub">
-      modify an upcoming transaction
+      {{'CUSTOMER_REBILLEDIT_SUBTITLE' | translate}}
     </div>
   </div>
 
   <div class="customer-rebill-edit__data">
     <div class="customer-rebill-edit__data__date">
-      <div class="customer-rebill-edit__data__date__title">Transaction Date</div>
+      <div class="customer-rebill-edit__data__date__title">{{'CUSTOMER_REBILLEDIT_DATE' | translate}}</div>
 
       <div class="datepicker--custom" [class.datepicker-visible]="datepickerVisible">
         <div (showDaterangepicker)="datepickerShown()" (hideDaterangepicker)="datepickerHidden()" (selected)="dateSelected($event)" daterangepicker>
@@ -18,7 +18,7 @@
         </div>
       </div>
 
-      <div class="customer-rebill-edit__data__date__title">Price</div>
+      <div class="customer-rebill-edit__data__date__title">{{'CUSTOMER_REBILLEDIT_PRICE' | translate}}</div>
       <md-input-container class="no-margin">
         <input #priceInput md-input type="text" [textMask]="{mask: numberMask, guide: false}" [(ngModel)]="price">
       </md-input-container>
@@ -26,7 +26,7 @@
   </div>
 
   <div class="customer-view__edit__actions">
-    <div (click)="cancel.emit(false)">CANCEL</div>
-    <div (click)="saveRebill()">SAVE</div>
+    <div (click)="cancel.emit(false)">{{'CUSTOMER_REBILLEDIT_CANCEL' | translate}}</div>
+    <div (click)="saveRebill()">{{'CUSTOMER_REBILLEDIT_SAVE' | translate}}</div>
   </div>
 </div>

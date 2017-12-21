@@ -31,10 +31,10 @@ export class CustomerTransactionsComponent extends AbstractEntityIndexComponent<
     super(transactionsService, auth, dialog, paginationService, router);
 
     this.columnParams = [
-      new ColumnParams('Alias', (e: Transaction) => e.alias),
-      new ColumnParams('Processor Response', (e: Transaction) => e.processorResponse.message),
-      new ColumnParams('Number Of Products', (e: Transaction) => e.products.length),
-      new ColumnParams('Amount', (e: Transaction) => e.amount.usd(), 'right')
+      new ColumnParams('CUSTOMER_TRANSACTION_ALIAS', (e: Transaction) => e.alias),
+      new ColumnParams('CUSTOMER_TRANSACTION_RESPONSE', (e: Transaction) => e.processorResponse.message),
+      new ColumnParams('CUSTOMER_TRANSACTION_PRODUCTNUM', (e: Transaction) => e.products.length),
+      new ColumnParams('CUSTOMER_TRANSACTION_AMOUNT', (e: Transaction) => e.amount.usd(), 'right')
     ];
   }
 

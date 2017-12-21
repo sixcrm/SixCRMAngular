@@ -1,10 +1,10 @@
 <div *ngIf="ccard" class="customer-view__edit">
   <div class="customer-view__edit__title">
     <div class="customer-view__edit__title--main">
-      {{ ccard.id ? 'Edit' : 'Create New'}} Credit Card
+      {{ (ccard.id ? 'CUSTOMER_CREDITCARD_EDITTITLE' : 'CUSTOMER_CREDITCARD_CREATETITLE') | translate}}
     </div>
     <div *ngIf="!ccard.id" class="customer-view__edit__title--sub">
-      Create a new credit card with the associated user
+      {{'CUSTOMER_CREDITCARD_CREATETEXT' | translate}}
     </div>
   </div>
 
@@ -15,7 +15,7 @@
 
     <div class="customer-view__edit__info__expiration">
       <div class="customer-view__edit__info__expiration__item">
-        <span class="customer-view__edit__info__expiration__item__title">Expiration Date Month</span>
+        <span class="customer-view__edit__info__expiration__item__title">{{'CUSTOMER_CREDITCARD_EXPIRATIONMONTH' | translate}}</span>
         <dropdown-component
           [showFloatingPlaceholder]="false"
           [selected]="expirationMonth"
@@ -27,7 +27,7 @@
       </div>
 
       <div class="customer-view__edit__info__expiration__item">
-        <span class="customer-view__edit__info__expiration__item__title">Expiration Date Year</span>
+        <span class="customer-view__edit__info__expiration__item__title">{{'CUSTOMER_CREDITCARD_EXPIRATIONYEAR' | translate}}</span>
         <dropdown-component [showFloatingPlaceholder]="false" [selected]="expirationYear" [placeholder]="'FORMINPUTS_CREDITCARD_YEARSHORT' | translate" [options]="years" (onSelect)="selectYear($event)"></dropdown-component>
       </div>
     </div>
@@ -35,8 +35,8 @@
 
   <div class="customer-view__edit__address">
     <div class="flex-custom">
-      <div class="customer-view__edit__address__title">Billing Address</div>
-      <md-checkbox (change)="toggleSameShippingAddress($event)">Same as customer address</md-checkbox>
+      <div class="customer-view__edit__address__title">{{'CUSTOMER_CREDITCARD_BILLINGADDRESS' | translate}}</div>
+      <md-checkbox (change)="toggleSameShippingAddress($event)">{{'CUSTOMER_CREDITCARD_SAMEADDRESS' | translate}}</md-checkbox>
     </div>
 
     <md-input required placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="ccard.address.line1"></md-input>
@@ -54,10 +54,10 @@
   </div>
 
   <div class="customer-view__edit__actions">
-    <div (click)="cancel.next(true)">CANCEL</div>
-    <div *ngIf="ccard.id; else save" (click)="updateCreditCard()">UPDATE</div>
+    <div (click)="cancel.next(true)">{{'CUSTOMER_CREDITCARD_CANCEL' | translate}}</div>
+    <div *ngIf="ccard.id; else save" (click)="updateCreditCard()">{{'CUSTOMER_CREDITCARD_UPDATE' | translate}}</div>
     <ng-template #save>
-      <div (click)="createCreditCard()">SAVE</div>
+      <div (click)="createCreditCard()">{{'CUSTOMER_CREDITCARD_SAVE' | translate}}</div>
     </ng-template>
   </div>
 </div>

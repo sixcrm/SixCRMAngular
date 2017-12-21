@@ -1,11 +1,11 @@
 <md-card class="customer-view__card notes">
   <md-card-title>
-    <div class="title">Notes</div>
-    <div class="subtitle">Customer service notes</div>
+    <div class="title">{{'CUSTOMER_NOTES_TITLE' | translate}}</div>
+    <div class="subtitle">{{'CUSTOMER_NOTES_SUBTITLE' | translate}}</div>
 
     <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
     <md-menu #creditCardOptions="mdMenu" x-position="before">
-      <button md-menu-item (click)="newNote()"> Add New Note </button>
+      <button md-menu-item (click)="newNote()">{{'CUSTOMER_NOTES_ADD' | translate}}</button>
     </md-menu>
   </md-card-title>
   <md-card-content>
@@ -39,7 +39,7 @@
           <md-icon class="note__content__action" [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
 
           <md-menu #actionsMenu="mdMenu" x-position="before">
-            <button md-menu-item (click)="deleteEntity(n.id)">delete</button>
+            <button md-menu-item (click)="deleteEntity(n.id)">{{'CUSTOMER_NOTES_DEL' | translate}}</button>
           </md-menu>
         </div>
       </div>
@@ -47,7 +47,7 @@
       <server-error-message (refresh)="refreshData()" *ngIf="serverError; else message"></server-error-message>
       <ng-template #message>
         <table-loader *ngIf="loadingData"></table-loader>
-        <div class="entity-view__no-results customer-view__no-results entity-view__no-results--small-padding" *ngIf="!loadingData && (!notes || notes.length === 0)">No customer notes found</div>
+        <div class="entity-view__no-results customer-view__no-results entity-view__no-results--small-padding" *ngIf="!loadingData && (!notes || notes.length === 0)">{{'CUSTOMER_NOTES_NODATA' | translate}}</div>
       </ng-template>
     </div>
 

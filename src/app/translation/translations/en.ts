@@ -555,6 +555,104 @@ export const TRANSLATIONS = {
       }
     }
   },
+  customer: {
+    title: 'Customer',
+    index: {
+      title: 'Customers',
+      header: {
+        firstname: 'First Name',
+        lastname: 'Last Name',
+        state: 'State',
+        city: 'City'
+      }
+    },
+    tab: {
+      general: 'GENERAL DETAILS',
+      transaction: 'TRANSACTIONS',
+      session: 'SESSIONS',
+      fulfillment: 'FULFILLMENT'
+    },
+    info: {
+      createtitle: 'Create new Customer',
+      shiptitle: 'Shipping Information',
+      shipsubtitle: 'Address where fulfillment will ship packages',
+      edit: 'EDIT CUSTOMER',
+      shipedit: 'Edit Shipping Address',
+      cancel: 'CANCEL',
+      save: 'SAVE',
+      update: 'UPDATE'
+    },
+    notes: {
+      title: 'Notes',
+      subtitle: 'Customer service notes',
+      add: 'Add New Note',
+      del: 'Delete Note',
+      nodata: 'No Notes found.'
+    },
+    rebill: {
+      title: 'Upcoming Rebills',
+      subtitle: 'Future Rebills and Upcoming Transactions',
+      name: 'Name',
+      billed: 'Bill at',
+      amount: 'Amount',
+      cancel: 'Cancel Transaction',
+      edit: 'Edit Transaction',
+      nodata: 'No Upcoming Transactions found.'
+    },
+    rebilledit: {
+      title: 'Edit Transaction',
+      subtitle: 'modify an upcoming transaction',
+      date: 'Transaction Date',
+      cancel: 'CANCEL',
+      save: 'SAVE',
+      price: 'Price'
+    },
+    events: {
+      title: 'Customer Events',
+      subtitle: 'Sessions, Transactions and Leads',
+      nodata: 'No Events found.',
+      today: 'Today',
+      days7: 'Last 7 days',
+      days30: 'Last 30 days',
+      days90: 'Last 90 days',
+      other: 'Other'
+    },
+    transaction: {
+      title: 'Historical Transactions',
+      subtitle: 'Completed Transactions',
+      nodata: 'No Transactions Found.',
+      alias: 'Alias',
+      response: 'Processor Response',
+      productnum: 'Number of Products',
+      amount: 'Amount'
+    },
+    session: {
+      title: 'Sessions',
+      view: 'View Session',
+      nodata: 'No Sessions found.',
+      name: 'Name',
+      campaign: 'Campaign',
+      productschedulenum: 'Number of Product Schedules',
+      rebillnum: 'Number of Rebills'
+    },
+    creditcard: {
+      title: 'Billing Information',
+      subtitle: 'Billing Address & Credit Card information',
+      addoption: 'Add Credit Card',
+      editoption: 'Edit Credit Card',
+      removeoption: 'Remove Credit Card',
+      edittitle: 'Edit Credit Card',
+      createtitle: 'Create new Credit Card',
+      createtext: 'Create new Credit Card with the associated user',
+      expirationmonth: 'Expiration Date Month',
+      expirationyear: 'Expiration Date Year',
+      billingaddress: 'Billing Address',
+      sameaddress: 'Same as Customer Address',
+      cancel: 'Cancel',
+      update: 'Update',
+      save: 'Save'
+    }
+  },
   bill: {
     index: {
       title: 'Bills',

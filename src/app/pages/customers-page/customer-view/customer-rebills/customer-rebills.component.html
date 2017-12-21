@@ -2,8 +2,8 @@
   <div style="padding-bottom: 6px;" class="entity-view__table-component__header">
     <div class="entity-view__table-component__header__title">
       <div class="customer-transactions__title-container">
-        <div class="title">Upcoming Billings</div>
-        <div class="subtitle">Future rebills and upcoming transactions</div>
+        <div class="title">{{'CUSTOMER_REBILL_TITLE' | translate}}</div>
+        <div class="subtitle">{{'CUSTOMER_REBILL_SUBTITLE' | translate}}</div>
       </div>
     </div>
 
@@ -19,13 +19,12 @@
       (updateLimit)="updateLimit($event)">
     </table-pagination>
 
-    <!--<md-icon class="entity-view__table-component__header__action" [class.alone]="homepageMode">more_vert</md-icon>-->
   </div>
   <table class="highlight table__custom">
     <thead>
     <tr>
       <th *ngFor="let params of columnParams" (click)="setSortedColumnParams(params)" [class.cell--align-right]="params.align === 'right'">
-        {{params.label}}
+        {{params.label | translate}}
         <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
       </th>
       <th *ngIf="!homepageMode"></th>
@@ -38,8 +37,8 @@
       <td *ngIf="!homepageMode">
         <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
         <md-menu #actionsMenu="mdMenu" x-position="before">
-          <button md-menu-item (click)="updateRebill(entity)">Edit Transaction</button>
-          <button md-menu-item (click)="deleteEntity(entity.id)">Cancel Transaction</button>
+          <button md-menu-item (click)="updateRebill(entity)">{{'CUSTOMER_REBILL_EDIT' | translate}}</button>
+          <button md-menu-item (click)="deleteEntity(entity.id)">{{'CUSTOMER_REBILL_CANCEL' | translate}}</button>
         </md-menu>
       </td>
     </tr>
@@ -49,7 +48,7 @@
   <server-error-message (refresh)="refreshData()" *ngIf="serverError; else message"></server-error-message>
   <ng-template #message>
     <table-loader *ngIf="loadingData && (!entities || entities.length === 0)"></table-loader>
-    <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">No upcoming transactions found</div>
+    <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">{{'CUSTOMER_REBILL_NODATA' | translate}}</div>
   </ng-template>
 
   <table-pagination

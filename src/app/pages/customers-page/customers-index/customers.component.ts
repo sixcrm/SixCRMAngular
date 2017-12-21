@@ -28,10 +28,10 @@ export class CustomersComponent extends AbstractEntityIndexComponent<Customer> i
     this.entityFactory = () => new Customer();
 
     this.columnParams = [
-      new ColumnParams('First Name', (e: Customer) => e.firstName),
-      new ColumnParams('Last Name',(e: Customer) => e.lastName),
-      new ColumnParams('State', (e: Customer) => e.address.state),
-      new ColumnParams('City', (e: Customer) => e.address.city)
+      new ColumnParams('CUSTOMER_INDEX_HEADER_FIRSTNAME', (e: Customer) => e.firstName),
+      new ColumnParams('CUSTOMER_INDEX_HEADER_LASTNAME',(e: Customer) => e.lastName),
+      new ColumnParams('CUSTOMER_INDEX_HEADER_STATE', (e: Customer) => e.address.state),
+      new ColumnParams('CUSTOMER_INDEX_HEADER_CITY', (e: Customer) => e.address.city)
     ];
   }
 

@@ -1,5 +1,5 @@
 <div *ngIf="entity; else spinner" class="entity-view">
-  <div class="entity-view__title">Customer</div>
+  <div class="entity-view__title">{{'CUSTOMER_TITLE' | translate}}</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
@@ -10,7 +10,7 @@
         <img src="/assets/images/result-item-customer-white.svg" alt="">
       </div>
       <form #userDataForm="ngForm" class="entity-view__info__data">
-        <div class="entity-view__info__data__date">{{displayCreatedAt() ? 'Created:' : 'Updated:'}} {{(displayCreatedAt() ? entity.createdAt : entity.updatedAt) | formatDateTime: 'date-time'}}</div>
+        <div class="entity-view__info__data__date">{{(displayCreatedAt() ? 'SINGLEPAGE_CREATED' : 'SINGLEPAGE_UPDATED') | translate}}: {{(displayCreatedAt() ? entity.createdAt : entity.updatedAt) | formatDateTime: 'date-time'}}</div>
 
         <div class="entity-view__info__data__name">
           <md-input-container [class.error]="formInvalid && !userDataForm.form.controls.firstName.valid" class="name" *ngIf="!viewMode; else firstname">
@@ -43,19 +43,19 @@
       </form>
 
       <div class="entity-view__info__edit">
-        <div *ngIf="viewMode" class="entity-view__info__edit__update" (click)="setMode(modes.Update)"> EDIT CUSTOMER DETAILS </div>
+        <div *ngIf="viewMode" class="entity-view__info__edit__update" (click)="setMode(modes.Update)">{{'CUSTOMER_INFO_EDIT' | translate}}</div>
         <ng-container *ngIf="updateMode">
-          <div (click)="cancelCustomerUpdate()">CANCEL</div>
-          <div class="entity-view__info__edit__update" (click)="updateCustomer(userDataForm.form.valid)">UPDATE</div>
+          <div (click)="cancelCustomerUpdate()">{{'CUSTOMER_INFO_CANCEL' | translate}}</div>
+          <div class="entity-view__info__edit__update" (click)="updateCustomer(userDataForm.form.valid)">{{'CUSTOMER_INFO_UPDATE' | translate}}</div>
         </ng-container>
       </div>
     </div>
 
     <div class="entity-view__navigation">
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===0" (click)="setIndex(0)">GENERAL DETAILS</span>
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===1" (click)="setIndex(1)">TRANSACTIONS</span>
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===2" (click)="setIndex(2)">SESSIONS</span>
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===3" (click)="setIndex(3)">FULFILLMENT</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===0" (click)="setIndex(0)">{{'CUSTOMER_TAB_GENERAL' | translate}}</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===1" (click)="setIndex(1)">{{'CUSTOMER_TAB_TRANSACTION' | translate}}</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===2" (click)="setIndex(2)">{{'CUSTOMER_TAB_SESSION' | translate}}</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===3" (click)="setIndex(3)">{{'CUSTOMER_TAB_FULFILLMENT' | translate}}</span>
     </div>
 
     <md-tab-group [(selectedIndex)]="selectedIndex">
@@ -64,11 +64,11 @@
           <div class="flex-custom">
             <md-card class="customer-view__card column--small">
               <md-card-title>
-                <div class="title">Shipping Information</div>
-                <div class="subtitle">Address where fulfillment will ship packages</div>
+                <div class="title">{{'CUSTOMER_INFO_SHIPTITLE' | translate}}</div>
+                <div class="subtitle">{{'CUSTOMER_INFO_SHIPSUBTITLE' | translate}}</div>
                 <md-icon [md-menu-trigger-for]="shipOptions">more_vert</md-icon>
                 <md-menu #shipOptions="mdMenu" x-position="before">
-                  <button md-menu-item (click)="shippingInfoEditMode = true;"> Edit Shipping Information </button>
+                  <button md-menu-item (click)="shippingInfoEditMode = true;">{{'CUSTOMER_INFO_SHIPEDIT' | translate}}</button>
                 </md-menu>
               </md-card-title>
               <md-card-content>

@@ -1,8 +1,7 @@
 <md-card class="customer-view__card events">
   <md-card-title>
-    <div class="title">Customer Events</div>
-    <div class="subtitle">Sessions, transactions and leads</div>
-    <!--<md-icon>more_vert</md-icon>-->
+    <div class="title">{{'CUSTOMER_EVENTS_TITLE' | translate}}</div>
+    <div class="subtitle">{{'CUSTOMER_EVENTS_SUBTITLE' | translate}}</div>
   </md-card-title>
 
   <md-card-content>
@@ -18,7 +17,7 @@
         <div *ngFor="let byDate of activitiesByDate">
           <div *ngIf="byDate && byDate.entities && byDate.entities.length > 0">
             <div class="events__title">
-              <span class="events__title__label">{{byDate.label}}</span>
+              <span class="events__title__label">{{byDate.label | translate}}</span>
             </div>
 
             <div *ngFor="let activity of byDate.entities">
@@ -37,7 +36,7 @@
         </div>
 
         <table-loader *ngIf="loadingData"></table-loader>
-        <div class="entity-view__no-results entity-view__no-results--small-padding" *ngIf="!loadingData && isEmpty">No customer events found</div>
+        <div class="entity-view__no-results entity-view__no-results--small-padding" *ngIf="!loadingData && isEmpty">{{'CUSTOMER_EVENTS_NODATA' | translate}}</div>
       </div>
     </ng-template>
   </md-card-content>

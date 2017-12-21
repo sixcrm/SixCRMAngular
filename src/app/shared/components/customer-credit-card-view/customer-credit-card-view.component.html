@@ -1,12 +1,12 @@
 <md-card *ngIf="creditCards && creditCards.length !== 1" class="customer-view__card credit-cards">
   <md-card-title class="credit-cards__title">
-    <div class="title">Billing Information</div>
-    <div class="subtitle">Billing address & credit card information</div>
+    <div class="title">{{'CUSTOMER_CREDITCARD_TITLE' | translate}}</div>
+    <div class="subtitle">{{'CUSTOMER_CREDITCARD_SUBTITLE' | translate}}</div>
 
     <ng-container *ngIf="!ripped">
       <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
       <md-menu #creditCardOptions="mdMenu" x-position="before">
-        <button md-menu-item (click)="addCreditCard.emit(true)"> Add Credit Card </button>
+        <button md-menu-item (click)="addCreditCard.emit(true)">{{'CUSTOMER_CREDITCARD_ADDOPTION' | translate}}</button>
       </md-menu>
     </ng-container>
 
@@ -20,29 +20,29 @@
         <span>{{cc.getType() | uppercase}} {{cc.ccnumber | creditCardFormat: true}}</span>
       </div>
 
-      <span class="credit-cards__item__expiration">Exp: {{cc.expiration | creditCardExpiration}}</span>
+      <span class="credit-cards__item__expiration">{{'CUSTOMER_CREDITCARD_EXPIRATION' | translate}}: {{cc.expiration | creditCardExpiration}}</span>
       <ng-container *ngIf="!ripped">
         <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
         <md-menu #creditCardOptions="mdMenu" x-position="before">
-          <button md-menu-item (click)="editCreditCard.emit(cc)"> Edit Credit Card </button>
-          <button md-menu-item (click)="deleteCreditCard.emit(cc)"> Remove Credit Card </button>
+          <button md-menu-item (click)="editCreditCard.emit(cc)">{{'CUSTOMER_CREDITCARD_EDITOPTION' | translate}}</button>
+          <button md-menu-item (click)="deleteCreditCard.emit(cc)">{{'CUSTOMER_CREDITCARD_REMOVEOPTION' | translate}}</button>
         </md-menu>
       </ng-container>
     </div>
 
-    <div class="entity-view__no-results entity-view__no-results--small-padding" *ngIf="!creditCards || creditCards.length === 0">No credit cards found</div>
+    <div class="entity-view__no-results entity-view__no-results--small-padding" *ngIf="!creditCards || creditCards.length === 0">{{'CUSTOMER_CREDITCARD_NODATA' | translate}}</div>
   </md-card-content>
 </md-card>
 
 <md-card *ngIf="creditCards && creditCards.length === 1" class="customer-view__card">
   <md-card-title>
-    <div class="title">Billing Information</div>
-    <div class="subtitle">Billing address & credit card information</div>
+    <div class="title">{{'CUSTOMER_CREDITCARD_TITLE' | translate}}</div>
+    <div class="subtitle">{{'CUSTOMER_CREDITCARD_SUBTITLE' | translate}}</div>
     <ng-container *ngIf="!ripped">
       <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
       <md-menu #creditCardOptions="mdMenu" x-position="before">
-        <button md-menu-item (click)="addCreditCard.emit(true)"> Add Credit Card </button>
-        <button md-menu-item (click)="editCreditCard.emit(creditCards[0])"> Edit Credit Card </button>
+        <button md-menu-item (click)="addCreditCard.emit(true)">{{'CUSTOMER_CREDITCARD_ADDOPTION' | translate}}</button>
+        <button md-menu-item (click)="editCreditCard.emit(creditCards[0])">{{'CUSTOMER_CREDITCARD_EDITOPTION' | translate}}</button>
       </md-menu>
     </ng-container>
   </md-card-title>

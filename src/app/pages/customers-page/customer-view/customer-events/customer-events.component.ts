@@ -25,11 +25,11 @@ export class CustomerEventsComponent implements OnInit, OnDestroy {
   isEmpty: boolean = false;
 
   activitiesByDate: EntitiesByDate<Activity>[] = [
-    {label: 'Today', entities: [], contains: (a: Activity) => utc(a.date).isSame(utc(), 'day')},
-    {label: 'Last 7 days', entities: [], contains: (a: Activity) => utc(a.date).isAfter(utc().subtract(7, 'd'))},
-    {label: 'Last 30 days', entities: [], contains: (a: Activity) => utc(a.date).isAfter(utc().subtract(30, 'd'))},
-    {label: 'Last 90 days', entities: [], contains: (a: Activity) => utc(a.date).isAfter(utc().subtract(90, 'd'))},
-    {label: 'Other', entities: [], contains: (a: Activity) => true}
+    {label: 'CUSTOMER_EVENTS_TODAY', entities: [], contains: (a: Activity) => utc(a.date).isSame(utc(), 'day')},
+    {label: 'CUSTOMER_EVENTS_DAYS7', entities: [], contains: (a: Activity) => utc(a.date).isAfter(utc().subtract(7, 'd'))},
+    {label: 'CUSTOMER_EVENTS_DAYS30', entities: [], contains: (a: Activity) => utc(a.date).isAfter(utc().subtract(30, 'd'))},
+    {label: 'CUSTOMER_EVENTS_DAYS90', entities: [], contains: (a: Activity) => utc(a.date).isAfter(utc().subtract(90, 'd'))},
+    {label: 'CUSTOMER_EVENTS_OTHER', entities: [], contains: (a: Activity) => true}
   ];
 
   private unsubscribe$: AsyncSubject<boolean> = new AsyncSubject();

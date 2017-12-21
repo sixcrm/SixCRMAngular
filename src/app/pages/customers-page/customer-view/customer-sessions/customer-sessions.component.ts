@@ -26,10 +26,10 @@ export class CustomerSessionsComponent extends AbstractEntityIndexComponent<Sess
     super(transactionsService, auth, dialog, paginationService);
 
     this.columnParams = [
-      new ColumnParams('Customer Name', (e: Session) => `${e.customer.firstName} ${e.customer.lastName}`),
-      new ColumnParams('Campaign Name',(e: Session) => e.campaign.name),
-      new ColumnParams('Number of Product Schedules', (e: Session) => e.productSchedules.length.toString(), 'right'),
-      new ColumnParams('Number of Rebills', (e: Session) => e.rebills.length.toString(), 'right')
+      new ColumnParams('CUSTOMER_SESSION_NAME', (e: Session) => `${e.customer.firstName} ${e.customer.lastName}`),
+      new ColumnParams('CUSTOMER_SESSION_CAMPAIGN',(e: Session) => e.campaign.name),
+      new ColumnParams('CUSTOMER_SESSION_PRODUCTSCHEDULENUM', (e: Session) => e.productSchedules.length.toString(), 'right'),
+      new ColumnParams('CUSTOMER_SESSION_REBILLNUM', (e: Session) => e.rebills.length.toString(), 'right')
     ];
   }
 

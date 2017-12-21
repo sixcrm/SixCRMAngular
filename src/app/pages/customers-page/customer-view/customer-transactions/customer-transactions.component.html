@@ -1,8 +1,8 @@
 <div class="entity-view__table-component">
   <div style="padding-bottom: 6px;" class="entity-view__table-component__header">
     <div class="customer-transactions__title-container">
-      <div class="title">Historical Transactions</div>
-      <div class="subtitle">Completed transactions</div>
+      <div class="title">{{'CUSTOMER_TRANSACTION_TITLE' | translate}}</div>
+      <div class="subtitle">{{'CUSTOMER_TRANSACTION_SUBTITLE' | translate}}</div>
     </div>
     <md-input class="entity-view__table-component__header__filter" placeholder="Filter" [(ngModel)]="filterValue"></md-input>
     <table-pagination
@@ -20,7 +20,7 @@
     <thead>
     <tr>
       <th *ngFor="let params of columnParams" (click)="setSortedColumnParams(params)" [class.cell--align-right]="params.align === 'right'">
-        {{params.label}}
+        {{params.label | translate}}
         <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
       </th>
       <th></th>
@@ -33,7 +33,7 @@
       <td>
         <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
         <md-menu #actionsMenu="mdMenu" x-position="before">
-          <button md-menu-item (click)="router.navigate(['transactions',entity.id])">View Transaction</button>
+          <button md-menu-item (click)="router.navigate(['transactions',entity.id])">{{'CUSTOMER_TRANSACTION_VIEW' | translate}}</button>
         </md-menu>
       </td>
     </tr>
@@ -43,7 +43,7 @@
   <server-error-message (refresh)="refreshData()" *ngIf="serverError; else messages"></server-error-message>
   <ng-template #messages>
     <table-loader *ngIf="loadingData"></table-loader>
-    <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">No transactions found</div>
+    <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">{{'CUSTOMER_TRANSACTION_NODATA' | translate}}</div>
   </ng-template>
 
   <table-pagination
