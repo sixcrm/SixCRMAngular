@@ -1,5 +1,5 @@
 <div *ngIf="entity; else spinner" class="entity-view">
-  <div class="entity-view__title">Transaction</div>
+  <div class="entity-view__title">{{'TRANSACTION_TITLE' | translate}}</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
@@ -8,15 +8,15 @@
       <img src="/assets/images/result-item-transaction-white.svg" alt="">
     </div>
     <div class="entity-view__info__data">
-      <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div class="entity-view__info__data__date">{{'SINGLEPAGE_CREATED' | translate}}: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
       <div class="entity-view__info__data__name">{{entity.alias}}</div>
-      <div class="entity-view__info__data__other">Merchant processor: {{entity.merchantProvider.name}}</div>
+      <div class="entity-view__info__data__other">{{'TRANSACTION_INFO_MERCHANTPROVIDER' | translate}}: {{entity.merchantProvider.name}}</div>
     </div>
   </div>
 
   <div class="entity-view__navigation">
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">REFUND TRANSACTION</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">{{'TRANSACTION_TAB_GENERAL' | translate}}</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">{{'TRANSACTION_TAB_REFUND' | translate}}</span>
   </div>
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
@@ -25,25 +25,25 @@
 
         <div class="entity-view__card">
           <div class="entity-view__card__header">
-            <div class="entity-view__card__header__title">Transaction Details</div>
+            <div class="entity-view__card__header__title">{{'TRANSACTION_INFO_TITLE' | translate}}</div>
             <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
             <md-menu #actionsMenu="mdMenu" x-position="before">
-              <button md-menu-item (click)="goToRebill()">View Rebill</button>
-              <button md-menu-item (click)="goToMerchantProvider()">View Merchant Provider</button>
+              <button md-menu-item (click)="goToRebill()">{{'TRANSACTION_INFO_REBILLVIEW' | translate}}</button>
+              <button md-menu-item (click)="goToMerchantProvider()">{{'TRANSACTION_INFO_MERCHANTPROVIDERVIEW' | translate}}</button>
             </md-menu>
           </div>
 
           <div class="entity-view__card__content">
             <md-input-container class="entity-view__card__content__item">
-              <input disabled md-input placeholder="Alias" [(ngModel)]="entity.alias" type="text">
+              <input disabled md-input placeholder="{{'TRANSACTION_INFO_ALIAS' | translate}}" [(ngModel)]="entity.alias" type="text">
             </md-input-container>
 
             <md-input-container class="entity-view__card__content__item">
-              <input disabled md-input placeholder="Amount" [(ngModel)]="amount" type="text">
+              <input disabled md-input placeholder="{{'TRANSACTION_INFO_AMOUNT' | translate}}" [(ngModel)]="amount" type="text">
             </md-input-container>
 
             <md-input-container class="entity-view__card__content__item">
-              <input disabled md-input placeholder="Merchant Processor" [(ngModel)]="entity.merchantProvider.name" type="text">
+              <input disabled md-input placeholder="{{'TRANSACTION_INFO_MERCHANTPROVIDER' | translate}}" [(ngModel)]="entity.merchantProvider.name" type="text">
             </md-input-container>
 
           </div>
@@ -51,20 +51,20 @@
 
         <div class="entity-view__card">
           <div class="entity-view__card__header">
-            <div class="entity-view__card__header__title">Processor Response</div>
+            <div class="entity-view__card__header__title">{{'TRANSACTION_PROCESSOR_TITLE' | translate}}</div>
           </div>
 
           <div class="entity-view__card__content">
             <md-input-container class="entity-view__card__content__item">
-              <input disabled md-input placeholder="Auth Code" [(ngModel)]="entity.processorResponse.authCode" type="text">
+              <input disabled md-input placeholder="{{'TRANSACTION_PROCESSOR_CODE' | translate}}" [(ngModel)]="entity.processorResponse.authCode" type="text">
             </md-input-container>
 
             <md-input-container class="entity-view__card__content__item">
-              <input disabled md-input placeholder="Message" [(ngModel)]="entity.processorResponse.message" type="text">
+              <input disabled md-input placeholder="{{'TRANSACTION_PROCESSOR_MESSAGE' | translate}}" [(ngModel)]="entity.processorResponse.message" type="text">
             </md-input-container>
 
             <md-input-container class="entity-view__card__content__item">
-              <input disabled md-input placeholder="Response Text" [(ngModel)]="entity.processorResponse.responseText" type="text">
+              <input disabled md-input placeholder="{{'TRANSACTION_PROCESSOR_TEXT' | translate}}" [(ngModel)]="entity.processorResponse.responseText" type="text">
             </md-input-container>
           </div>
         </div>
@@ -88,27 +88,27 @@
 
         <div class="entity-view__card">
           <div class="entity-view__card__header">
-            <div class="entity-view__card__header__title">Refund Transaction</div>
+            <div class="entity-view__card__header__title">{{'TRANSACTION_REFUND_TITLE' | translate}}</div>
           </div>
 
           <div class="entity-view__card__content">
             <md-input-container class="entity-view__card__content__item">
-              <input disabled md-input placeholder="Total Amount" [(ngModel)]="amount" type="text">
+              <input disabled md-input placeholder="{{'TRANSACTION_REFUND_AMOUNT' | translate}}" [(ngModel)]="amount" type="text">
             </md-input-container>
 
             <div class="transaction-view__content__item transaction-view__content__item--no-border">
-              <div class="transaction-view__content__item__label">Amount to Refund</div>
+              <div class="transaction-view__content__item__label">{{'TRANSACTION_REFUND_AMOUNTTOREFUND' | translate}}</div>
               <md-input-container>
                 <input #refundInput md-input type="text" [textMask]="{mask: numberMask, guide: false}" [(ngModel)]="amountToRefund">
               </md-input-container>
 
-              <md-checkbox [(ngModel)]="refundAllSelected" (change)="refundAllSelect()">Refund All</md-checkbox>
+              <md-checkbox [(ngModel)]="refundAllSelected" (change)="refundAllSelect()">{{'TRANSACTION_REFUND_REFUNDALL' | translate}}</md-checkbox>
             </div>
           </div>
 
           <div class="entity-view__card__actions">
-            <div (click)="setIndex(0)">CANCEL</div>
-            <div (click)="refundTransaction()">REFUND</div>
+            <div (click)="setIndex(0)">{{'TRANSACTION_REFUND_CANCEL' | translate}}</div>
+            <div (click)="refundTransaction()">{{'TRANSACTION_REFUND_CONFIRM' | translate}}</div>
           </div>
         </div>
 

@@ -619,6 +619,42 @@ export const TRANSLATIONS = {
     }
   },
   transaction: {
+    title: 'Transaction',
+    index: {
+      title: 'Transactions',
+      header: {
+        alias: 'Alias',
+        amount: 'Amount',
+        created: 'Created at',
+        response: 'Processor Response'
+      }
+    },
+    tab: {
+      general: 'GENERAL DETAILS',
+      refund: 'REFUND TRANSACTION'
+    },
+    info: {
+      title: 'Transaction Details',
+      rebillview: 'View Rebill',
+      merchantproviderview: 'View Merchant Provider',
+      alias: 'Alias',
+      amount: 'Amount',
+      merchantprovider: 'Merchant Provider'
+    },
+    processor: {
+      title: 'Processor Response',
+      code: 'Auth Code',
+      message: 'Processor Message',
+      text: 'Processor Text'
+    },
+    refund: {
+      title: 'Refund Transaction',
+      amount: 'Amount',
+      amounttorefund: 'Amount to Refund',
+      refundall: 'Refund All',
+      cancel: 'CANCEL',
+      confirm: 'REFUND'
+    },
     product: {
       title: 'Associated Products',
       name: 'Name',

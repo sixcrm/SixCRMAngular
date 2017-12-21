@@ -9,6 +9,7 @@ import {TransactionsAclGuard} from '../guards/transactions-acl-guard.service';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {SharedModule} from '../../shared/shared.module';
 import {TextMaskModule} from 'angular2-text-mask';
+import {TranslationModule} from '../../translation/translation.module';
 
 @NgModule({
   imports : [
@@ -18,7 +19,8 @@ import {TextMaskModule} from 'angular2-text-mask';
     MaterialModule.forRoot(),
     PageComponentsModule,
     SharedModule,
-    TextMaskModule
+    TextMaskModule,
+    TranslationModule
   ],
   declarations : [
     TransactionsComponent,
