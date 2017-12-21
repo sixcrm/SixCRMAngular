@@ -1,17 +1,14 @@
 <div *ngIf="entity; else spinner" class="entity-view">
-  <div class="entity-view__title">Campaign</div>
+  <div class="entity-view__title"> {{'CAMPAIGN_TITLE' | translate}} </div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <campaign-add-new *ngIf="addMode; else viewCampaignMode" [entity]="entity" [mode]="modes.Add" (save)="saveOrUpdate(entity)"></campaign-add-new>
-
-  <ng-template #viewCampaignMode>
     <div class="entity-view__info">
       <div class="entity-view__info__image">
         <img src="/assets/images/result-item-transaction-white.svg" alt="">
       </div>
       <div class="entity-view__info__data">
-        <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+        <div class="entity-view__info__data__date"> {{'SINGLEPAGE_CREATED' | translate}} : {{entity.createdAt | formatDateTime: 'date-time'}}</div>
         <div class="entity-view__info__data__name">{{entityBackup.name}}</div>
         <div class="entity-view__info__data__other">
           <span class="entity-view__info__data__other__label">ID:</span>
@@ -21,10 +18,10 @@
     </div>
 
     <div class="entity-view__navigation">
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">PRODUCT SCHEDULES</span>
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">AFFILIATES</span>
-      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 3" (click)="setIndex(3)">TRACKING CODE</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)"> {{'CAMPAIGN_TAB_GENERAL' | translate}} </span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">{{'CAMPAIGN_TAB_PRODUCTSCHEDULES' | translate}}</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">{{'CAMPAIGN_TAB_AFFILIATES' | translate}}</span>
+      <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 3" (click)="setIndex(3)">{{'CAMPAIGN_TAB_TRACKINGCODE' | translate}}</span>
     </div>
 
     <md-tab-group [(selectedIndex)]="selectedIndex">
@@ -44,8 +41,8 @@
             [data]="entity.emailTemplates"
             [columnParams]="emailTemplateColumnParams"
             [associateData]="emailTemplateService.entities$ | async"
+            [textOptions]="emailText"
             [associateDataMapper]="emailTemplateMapper"
-            [title]="'Email Template'"
             (associate)="associateEmailTemplate($event)"
             (disassociate)="disassociateEmailTemplate($event)"
             (view)="viewEmailTemplate($event)">
@@ -60,7 +57,7 @@
           [columnParams]="productScheduleColumnParams"
           [associateData]="productScheduleService.entities$ | async"
           [associateDataMapper]="productScheduleMapper"
-          [title]="'Product Schedule'"
+          [textOptions]="productscheduleText"
           (associate)="associateProductSchedule($event)"
           (disassociate)="disassociateProductSchedule($event)"
           (view)="viewProductSchedule($event)">
@@ -103,11 +100,10 @@
         <pixel-tracker [campaignId]="entityId"></pixel-tracker>
       </md-tab>
     </md-tab-group>
-  </ng-template>
 
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="4" [cardsExpression]="'300px;450px'" [title]="'Campaign'"></spe-loader>
+  <spe-loader [numberOfTabs]="4" [cardsExpression]="'300px;450px'" [title]="'CAMPAIGN_TITLE' | translate"></spe-loader>
 </ng-template>
 

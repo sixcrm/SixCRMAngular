@@ -1,10 +1,10 @@
 <div class="entity-view__card">
   <div class="entity-view__card__header">
     <div>
-      <div class="entity-view__card__header__title">Tracking Code</div>
-      <div class="entity-view__card__header__subtitle">Copy this code to your html page header</div>
+      <div class="entity-view__card__header__title">{{'CAMPAIGN_TRACKING_TITLE' | translate}}</div>
+      <div class="entity-view__card__header__subtitle">{{'CAMPAIGN_TRACKING_SUBTITLE' | translate}}</div>
     </div>
-    <md-icon md-tooltip="Copy to clipboard" ngxClipboard [cbContent]="scriptContent">content_copy</md-icon>
+    <md-icon md-tooltip="{{'CAMPAIGN_TRACKING_COPY' | translate}}" ngxClipboard [cbContent]="scriptContent">content_copy</md-icon>
   </div>
 
   <div class="entity-view__card__content">

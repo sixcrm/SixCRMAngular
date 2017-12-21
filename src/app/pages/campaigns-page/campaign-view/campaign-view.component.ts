@@ -26,45 +26,67 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
 
   emailTemplateMapper = (el: EmailTemplate) => el.name;
   emailTemplateColumnParams = [
-    new ColumnParams('Name', (e: EmailTemplate) => e.name),
-    new ColumnParams('Subject',(e: EmailTemplate) => e.subject),
-    new ColumnParams('Type', (e: EmailTemplate) => e.type),
-    new ColumnParams('SMTP Provider Name', (e: EmailTemplate) => e.smtpProvider.name)
+    new ColumnParams('CAMPAIGN_EMAIL_NAME', (e: EmailTemplate) => e.name),
+    new ColumnParams('CAMPAIGN_EMAIL_SUBJECT',(e: EmailTemplate) => e.subject),
+    new ColumnParams('CAMPAIGN_EMAIL_TYPE', (e: EmailTemplate) => e.type),
+    new ColumnParams('CAMPAIGN_EMAIL_SMTPPROVIDER', (e: EmailTemplate) => e.smtpProvider.name)
   ];
 
   productScheduleMapper = (el: ProductSchedule) => el.name;
   productScheduleColumnParams = [
-    new ColumnParams('Name', (e: ProductSchedule) => e.name),
-    new ColumnParams('Products in Schedule', (e: ProductSchedule) => e.schedules.length, 'right')
+    new ColumnParams('CAMPAIGN_PRODUCTSCHEDULE_NAME', (e: ProductSchedule) => e.name),
+    new ColumnParams('CAMPAIGN_PRODUCTSCHEDULE_PRODUCTNUMBER', (e: ProductSchedule) => e.schedules.length, 'right')
   ];
 
   affiliateMapper = (el: Affiliate) => el.name || el.id;
   affiliateColumnParams = [
-    new ColumnParams('Name', (e: Affiliate) => e.name || e.id)
+    new ColumnParams('CAMPAIGN_AFFILIATE_NAME', (e: Affiliate) => e.name || e.id)
   ];
 
   allAffiliates: Affiliate[] = [];
 
+  emailText: TableMemoryTextOptions = {
+    title: 'CAMPAIGN_EMAIL_TITLE',
+    viewOptionText: 'CAMPAIGN_EMAIL_VIEW',
+    associateOptionText: 'CAMPAIGN_EMAIL_ADD',
+    disassociateOptionText: 'CAMPAIGN_EMAIL_REMOVE',
+    associateModalTitle: 'CAMPAIGN_EMAIL_ADDTEXT',
+    disassociateModalTitle: 'CAMPAIGN_EMAIL_REMOVETEXT',
+    associateModalButtonText: 'CAMPAIGN_EMAIL_ADDBUTTON',
+    noDataText: 'CAMPAIGN_EMAIL_NODATA'
+  };
+
+  productscheduleText: TableMemoryTextOptions = {
+    title: 'CAMPAIGN_PRODUCTSCHEDULE_TITLE',
+    viewOptionText: 'CAMPAIGN_PRODUCTSCHEDULE_VIEW',
+    associateOptionText: 'CAMPAIGN_PRODUCTSCHEDULE_ADD',
+    disassociateOptionText: 'CAMPAIGN_PRODUCTSCHEDULE_REMOVE',
+    associateModalTitle: 'CAMPAIGN_PRODUCTSCHEDULE_ADDTEXT',
+    disassociateModalTitle: 'CAMPAIGN_PRODUCTSCHEDULE_REMOVETEXT',
+    associateModalButtonText: 'CAMPAIGN_PRODUCTSCHEDULE_ADDBUTTON',
+    noDataText: 'CAMPAIGN_PRODUCTSCHEDULE_NODATA'
+  };
+
   affiliateAllowText: TableMemoryTextOptions = {
-    title: 'Affiliates allowed',
-    viewOptionText: 'View Affiliate',
-    associateOptionText: 'Add affiliate to allowed list',
-    disassociateOptionText: 'Remove affiliate from allowed list',
-    associateModalTitle: 'Select affiliate to add to allowed list',
-    disassociateModalTitle: 'Are you sure you want to remove',
-    associateModalButtonText: 'Add affiliate',
-    noDataText: 'No affiliates allowed'
+    title: 'CAMPAIGN_AFFILIATEALLOWED_TITLE',
+    viewOptionText: 'CAMPAIGN_AFFILIATEALLOWED_VIEW',
+    associateOptionText: 'CAMPAIGN_AFFILIATEALLOWED_ADD',
+    disassociateOptionText: 'CAMPAIGN_AFFILIATEALLOWED_REMOVE',
+    associateModalTitle: 'CAMPAIGN_AFFILIATEALLOWED_ADDTEXT',
+    disassociateModalTitle: 'CAMPAIGN_AFFILIATEALLOWED_REMOVETEXT',
+    associateModalButtonText: 'CAMPAIGN_AFFILIATEALLOWED_ADDBUTTON',
+    noDataText: 'CAMPAIGN_AFFILIATEALLOWED_NODATA'
   };
 
   affiliateDenyText: TableMemoryTextOptions = {
-    title: 'Affiliates denied',
-    viewOptionText: 'View Affiliate',
-    associateOptionText: 'Add affiliate to denied list',
-    disassociateOptionText: 'Remove affiliate from denied list',
-    associateModalTitle: 'Select affiliate to add to denied list',
-    disassociateModalTitle: 'Are you sure you want to remove',
-    associateModalButtonText: 'Add affiliate',
-    noDataText: 'No affiliates denied'
+    title: 'CAMPAIGN_AFFILIATEDENIED_TITLE',
+    viewOptionText: 'CAMPAIGN_AFFILIATEDENIED_VIEW',
+    associateOptionText: 'CAMPAIGN_AFFILIATEDENIED_ADD',
+    disassociateOptionText: 'CAMPAIGN_AFFILIATEDENIED_REMOVE',
+    associateModalTitle: 'CAMPAIGN_AFFILIATEDENIED_ADDTEXT',
+    disassociateModalTitle: 'CAMPAIGN_AFFILIATEDENIED_REMOVETEXT',
+    associateModalButtonText: 'CAMPAIGN_AFFILIATEDENIED_ADDBUTTON',
+    noDataText: 'CAMPAIGN_AFFILIATEDENIED_NODATA'
   };
 
   constructor(

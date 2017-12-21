@@ -30,9 +30,9 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
 
     let f = this.authService.getTimezone();
     this.columnParams = [
-      new ColumnParams('Name', (e: Campaign) => e.name),
-      new ColumnParams('Total Products', (e: Campaign) => e.productSchedules.map(p => p.schedules.length).reduce((a, b) => a+b, 0) + '', 'right'),
-      new ColumnParams('Total Scheduled', (e: Campaign) =>
+      new ColumnParams('CAMPAIGN_INDEX_HEADER_NAME', (e: Campaign) => e.name),
+      new ColumnParams('CAMPAIGN_INDEX_HEADER_PRODUCTNUM', (e: Campaign) => e.productSchedules.map(p => p.schedules.length).reduce((a, b) => a+b, 0) + '', 'right'),
+      new ColumnParams('CAMPAIGN_INDEX_HEADER_SCHEDULEDNUM', (e: Campaign) =>
         new Currency(
           e.productSchedules
           .map(p => p.schedules)
@@ -40,7 +40,7 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
           .map(s => +s.price.amount)
           .reduce((a, b) => a+b, 0)).usd()
         , 'right'),
-      new ColumnParams('Created at', (e: Campaign) => e.createdAt.tz(f).format('MM/DD/YYYY'))
+      new ColumnParams('CAMPAIGN_INDEX_HEADER_CREATED', (e: Campaign) => e.createdAt.tz(f).format('MM/DD/YYYY'))
     ];
   }
 

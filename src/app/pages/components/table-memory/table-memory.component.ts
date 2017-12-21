@@ -142,7 +142,7 @@ export class TableMemoryComponent implements OnInit {
     }
 
     this.disassociateDialogRef = this.dialog.open(DeleteDialogComponent, { disableClose : true });
-    this.disassociateDialogRef.componentInstance.text =  `${this.textOptions.disassociateModalTitle || 'Are you sure you want to dissociate'}  ${this.associateDataMapper(entity) || entity.name || entity.id}?`;
+    this.disassociateDialogRef.componentInstance.text =  `${this.textOptions.disassociateModalTitle || 'Are you sure you want to dissociate?'}`;
 
     this.disassociateDialogRef.afterClosed().take(1).subscribe(result => {
       this.disassociateDialogRef = null;

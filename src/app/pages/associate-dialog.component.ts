@@ -6,12 +6,12 @@ import {MdDialogRef} from '@angular/material';
   template : `
     <md-card>
       <md-card-content>
-        {{text}}
-        <autocomplete-input [initialValue]="entity ? entity : ''" [options]="options" [placeholder]="placeholder" [mapFunction]="mapper" (selected)="entity = $event"></autocomplete-input>
+        {{text | translate}}
+        <autocomplete-input [initialValue]="entity ? entity : ''" [options]="options" [placeholder]="placeholder | translate" [mapFunction]="mapper" (selected)="entity = $event"></autocomplete-input>
       </md-card-content>
       <md-card-actions class="custom-dialog__buttons">
         <div (click)="cancel()">CANCEL</div>
-        <div (click)="associate()">{{associateButtonText | uppercase}}</div>
+        <div (click)="associate()">{{associateButtonText | translate}}</div>
       </md-card-actions>
     </md-card>
   `,

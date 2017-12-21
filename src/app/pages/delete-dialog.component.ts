@@ -13,7 +13,7 @@ import {MdDialogRef} from '@angular/material';
   template : `
     <md-card>
       <md-card-content>
-        {{text}}
+        {{text | translate}}
       </md-card-content>
       <md-card-actions class="custom-dialog__buttons">
         <div (click)="no()">CANCEL</div>

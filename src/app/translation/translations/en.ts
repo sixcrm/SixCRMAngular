@@ -710,6 +710,90 @@ export const TRANSLATIONS = {
       nodata: 'No Campaigns found.'
     }
   },
+  campaign: {
+    title: 'Campaign',
+    index: {
+      title: 'Campaigns',
+      header: {
+        name: 'Name',
+        created: 'Created at',
+        productnum: 'Total Products',
+        schedulednum: 'Total Scheduled',
+      }
+    },
+    tab: {
+      general: 'GENERAL DETAILS',
+      productschedules: 'PRODUCT SCHEDULES',
+      affiliates: 'AFFILIATES',
+      trackingcode: 'TRACKING CODE'
+    },
+    info: {
+      createtitle: 'Create new Campaign',
+      title: 'Campaign Details',
+      name: 'Name',
+      allowprepaid: 'Allow Prepaid',
+      showprepaid: 'Show Prepaid',
+      cancel: 'CANCEL',
+      save: 'SAVE',
+      edit: 'Edit Campaign'
+    },
+    email: {
+      title: 'Associated Email Templates',
+      nodata: 'No Email Templates found.',
+      name: 'Name',
+      subject: 'Subject',
+      type: 'Type',
+      smtpprovider: 'SMTP Provider',
+      add: 'Associate Email Template',
+      addtext: 'Select Email Template',
+      addbutton: 'ADD',
+      view: 'View Email Template',
+      remove: 'Disassociate Email Template',
+      removetext: 'Are you sure you want to delete?'
+    },
+    productschedule: {
+      title: 'Associated Product Schedules',
+      nodata: 'No Product Schedules found.',
+      name: 'Name',
+      productnumber: 'Products in Schedule',
+      add: 'Associate Product Schedule',
+      addtext: 'Select Product Schedule',
+      addbutton: 'ADD',
+      view: 'View Product Schedule',
+      remove: 'Disassociate Product Schedule',
+      removetext: 'Are you sure you want to delete?'
+    },
+    affiliate: {
+      name: 'Name'
+    },
+    affiliateallowed: {
+      title: 'Allowed Affiliates',
+      nodata: 'No Affiliates allowed.',
+      name: 'Name',
+      add: 'Add Affiliate to allowed list',
+      addtext: 'Select Affiliate',
+      addbutton: 'ADD',
+      view: 'View Affiliate',
+      remove: 'Remove Affiliate from allowed list',
+      removetext: 'Are you sure you want to delete?'
+    },
+    affiliatedenied: {
+      title: 'Denied Affiliates',
+      nodata: 'No Affiliates denied.',
+      name: 'Name',
+      add: 'Add Affiliate to denied list',
+      addtext: 'Select Affiliate',
+      addbutton: 'ADD',
+      view: 'View Affiliate',
+      remove: 'Remove Affiliate from denied list',
+      removetext: 'Are you sure you want to delete?'
+    },
+    tracking: {
+      title: 'Tracking Code',
+      subtitle: 'Copy this Code to your HTML page header',
+      copy: 'Copy to clipboard'
+    }
+  },
   transaction: {
     title: 'Transaction',
     index: {
