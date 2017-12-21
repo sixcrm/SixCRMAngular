@@ -63,9 +63,10 @@
         [textOptions]="shippingReceiptText"
         [associationEnabled]="false"
         [editEnabled]="false"
-        [viewEnabled]="false"
+        [viewEnabled]="true"
         [dissociationEnabled]="false"
-        [showMenuOptions]="false">
+        [showMenuOptions]="false"
+        (view)="goToShippingReceipt($event)">
       </table-memory>
     </md-tab>
   </md-tab-group>

@@ -1,6 +1,7 @@
 import {Moment, utc} from 'moment';
+import {Entity} from './entity.interface';
 
-export class ShippingReceipt {
+export class ShippingReceipt implements Entity<ShippingReceipt> {
   id: string;
   status: string;
   trackingNumber: string;

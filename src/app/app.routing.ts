@@ -30,6 +30,7 @@ const appRoutes: Routes = [
     { path : 'products', loadChildren : './pages/products-page/products.module#ProductsModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'rebills', loadChildren : './pages/rebills-page/rebills.module#RebillsModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'sessions', loadChildren : './pages/sessions-page/sessions.module#SessionsModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
+    { path : 'shippingreceipts', loadChildren : './pages/shipping-receipts-page/shipping-receipts.module#ShippingReceiptsModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'smtpproviders', loadChildren : './pages/smtp-providers-page/smtp-providers.module#SmtpProvidersModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'transactions', loadChildren : './pages/transactions-page/transactions.module#TransactionsModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'users', loadChildren : './pages/users-page/users.module#UsersModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },

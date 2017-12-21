@@ -86,6 +86,9 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   if (authService.hasPermissions('rebill', 'view')) {
     crmItems.push(new MenuItem('SIDENAV_CRM_REBILL', 'rebills'));
   }
+  if (authService.hasPermissions('shippingreceipt', 'view')) {
+    crmItems.push(new MenuItem('SIDENAV_CRM_SHIPPINGRECEIPT', 'shippingreceipts'));
+  }
 
   // Add 3rd party providers to CRM menu
   let thirdPartyProviders: MenuItem[] = [];

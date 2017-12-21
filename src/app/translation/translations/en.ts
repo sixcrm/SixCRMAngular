@@ -38,6 +38,7 @@ export const TRANSLATIONS = {
       session: 'Sessions',
       transaction: 'Transactions',
       rebill: 'Rebills',
+      shippingreceipt: 'Shipping Receipts',
       providers: {
         title: '3rd Party Providers',
         fulfillment: 'Fulfillment Providers',
@@ -693,6 +694,26 @@ export const TRANSLATIONS = {
       trackingnumber: 'Tracking Number',
       created: 'Created At',
       updated: 'Updated At'
+    }
+  },
+  shippingreceipt: {
+    title: 'Shipping Receipt',
+    index: {
+      title: 'Shipping Receipts',
+      header: {
+        status: 'Status',
+        number: 'Tracking Number',
+        created: 'Created at',
+        updated: 'Updated at'
+      }
+    },
+    tab: {
+      general: 'GENERAL DETAILS'
+    },
+    info: {
+      title: 'Shipping Receipt Details',
+      status: 'Status',
+      number: 'Tracking Number'
     }
   }
 };

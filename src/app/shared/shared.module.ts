@@ -79,6 +79,7 @@ import { SimpleDatepickerComponent } from './components/simple-datepicker/simple
 import {TranslationModule} from '../translation/translation.module';
 import {UserSigningStringsService} from "./services/user-signing-string.service";
 import { TabHeaderComponent } from './components/tab-header/tab-header.component';
+import {ShippingReceiptsService} from './services/shipping-receipts.service';
 
 @NgModule({
   declarations : [
@@ -206,7 +207,8 @@ export class SharedModule {
         SnackbarService,
         TermsAndConditionsControllerService,
         BillsService,
-        UserSigningStringsService
+        UserSigningStringsService,
+        ShippingReceiptsService
       ]
     };
   }
