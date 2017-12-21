@@ -640,15 +640,74 @@ export const TRANSLATIONS = {
       count: 'Number of Schedules',
       add: 'Add new Product Schedule',
       view: 'View Product Schedule',
-      remove: 'Remove from Product Schedule'
+      remove: 'Remove from Product Schedule',
+      nodata: 'No Product Schedules found.'
     },
     campaign: {
       title: 'Campaigns',
       name: 'Name',
       created: 'Created at',
       productnum: 'Total Products',
-      schedulenum: 'Total Scheduled',
-      view: 'View Campaign'
+      schedulednum: 'Total Scheduled',
+      view: 'View Campaign',
+      nodata: 'No Campaigns found.'
+    }
+  },
+  productschedule: {
+    title: 'Product Schedule',
+    index: {
+      title: 'Product Schedules',
+      header: {
+        name: 'Name',
+        loadbalancer: 'Load Balancer',
+        numofcycles: 'Number of Cycles'
+      }
+    },
+    tab: {
+      general: 'GENERAL DETAILS',
+      campaign: 'CAMPAIGNS'
+    },
+    info: {
+      createtitle: 'Create new Product Schedule',
+      title: 'Product Schedule Details',
+      name: 'Product Schedule Name',
+      loadbalancer: 'Load Balancer',
+      cancel: 'CANCEL',
+      save: 'SAVE',
+      edit: 'Edit Product Schedule'
+    },
+    cycle: {
+      addtitle: 'Add Cycle',
+      edittitle: 'Edit Cycle',
+      title: 'Cycles',
+      add: 'ADD',
+      clear: 'CLEAR',
+      save: 'SAVE',
+      cancel: 'CANCEL',
+      name: 'Product Name',
+      schedulename: 'Product Schedule Name',
+      price: 'Price',
+      pricetip: 'Price for period of time',
+      start: 'Start',
+      starttip: 'Start of period (0 is immediate)',
+      end: 'End',
+      endtip: 'Ends & switches to next product schedule',
+      period: 'Period',
+      periodtip: 'Recurring billing & shipping period',
+      ship: 'Ship',
+      nodata: 'No Cycles found.',
+      view: 'View Product',
+      edit: 'Edit Cycle',
+      remove: 'Remove Cycle'
+    },
+    campaign: {
+      title: 'Campaigns',
+      name: 'Name',
+      created: 'Created at',
+      productnum: 'Total Products',
+      schedulednum: 'Total Scheduled',
+      view: 'View Campaign',
+      nodata: 'No Campaigns found.'
     }
   },
   transaction: {

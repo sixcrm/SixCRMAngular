@@ -28,9 +28,9 @@ export class ProductSchedulesComponent extends AbstractEntityIndexComponent<Prod
     this.entityFactory = () => new ProductSchedule();
 
     this.columnParams = [
-      new ColumnParams('Name', (e: ProductSchedule) => e.name),
-      new ColumnParams('Load Balancer', (e: ProductSchedule) => e.loadBalancer.name),
-      new ColumnParams('Number of Cycles', (e: ProductSchedule) => e.schedules.length.toString(), 'right')
+      new ColumnParams('PRODUCTSCHEDULE_INDEX_HEADER_NAME', (e: ProductSchedule) => e.name),
+      new ColumnParams('PRODUCTSCHEDULE_INDEX_HEADER_LOADBALANCER', (e: ProductSchedule) => e.loadBalancer.name),
+      new ColumnParams('PRODUCTSCHEDULE_INDEX_HEADER_NUMOFCYCLES', (e: ProductSchedule) => e.schedules.length.toString(), 'right')
     ];
   }
 

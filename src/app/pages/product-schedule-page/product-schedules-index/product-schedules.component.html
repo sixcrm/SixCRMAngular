@@ -1,8 +1,8 @@
 <div class="entity-index">
 
   <div class="entity-index__title">
-    Product Schedules
-    <md-input [(ngModel)]="filterValue" placeholder="Filter"></md-input>
+    {{'PRODUCTSCHEDULE_INDEX_TITLE' | translate}}
+    <md-input [(ngModel)]="filterValue" placeholder="{{'INDEXPAGE_FILTER' | translate}}"></md-input>
   </div>
 
   <button md-icon-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="openAddMode()"><md-icon>add</md-icon></button>

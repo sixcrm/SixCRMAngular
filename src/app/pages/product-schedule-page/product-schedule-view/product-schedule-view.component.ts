@@ -26,12 +26,12 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
 
   selectedIndex: number = 0;
   scheduleColumnParams = [
-    new ColumnParams('Name', (e: Schedule) => e.product.name),
-    new ColumnParams('Price', (e: Schedule) => e.price.usd(), 'right'),
-    new ColumnParams('Start', (e: Schedule) => e.start + '', 'right'),
-    new ColumnParams('End', (e: Schedule) => e.end === null ? '' : e.end + '', 'right'),
-    new ColumnParams('Period', (e: Schedule) => e.period + '', 'right'),
-    new ColumnParams('Ship', (e: Schedule) => e.product.ship + '')
+    new ColumnParams('PRODUCTSCHEDULE_CYCLE_NAME', (e: Schedule) => e.product.name),
+    new ColumnParams('PRODUCTSCHEDULE_CYCLE_PRICE', (e: Schedule) => e.price.usd(), 'right'),
+    new ColumnParams('PRODUCTSCHEDULE_CYCLE_START', (e: Schedule) => e.start + '', 'right'),
+    new ColumnParams('PRODUCTSCHEDULE_CYCLE_END', (e: Schedule) => e.end === null ? '' : e.end + '', 'right'),
+    new ColumnParams('PRODUCTSCHEDULE_CYCLE_PERIOD', (e: Schedule) => e.period + '', 'right'),
+    new ColumnParams('PRODUCTSCHEDULE_CYCLE_SHIP', (e: Schedule) => e.product.ship + '')
   ];
 
   scheduleToAdd: Schedule = new Schedule();
@@ -40,10 +40,11 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   price: string = '';
 
   tableTexts: TableMemoryTextOptions = {
-    title: 'Cycles',
-    editOptionText: 'Edit Cycle',
-    viewOptionText: 'View Product',
-    disassociateOptionText: 'Remove Cycle'
+    title: 'PRODUCTSCHEDULE_CYCLE_TITLE',
+    editOptionText: 'PRODUCTSCHEDULE_CYCLE_EDIT',
+    viewOptionText: 'PRODUCTSCHEDULE_CYCLE_VIEW',
+    disassociateOptionText: 'PRODUCTSCHEDULE_CYCLE_REMOVE',
+    noDataText: 'PRODUCTSCHEDULE_CYCLE_NODATA'
   };
 
   constructor(

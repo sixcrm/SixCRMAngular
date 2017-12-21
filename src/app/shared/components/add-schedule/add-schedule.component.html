@@ -1,6 +1,6 @@
 <div class="entity-view__card">
   <div class="entity-view__card__header">
-    <div class="entity-view__card__header__title">{{editMode ? 'Edit Cycle' : 'Add Cycle' }}</div>
+    <div class="entity-view__card__header__title">{{(editMode ? 'PRODUCTSCHEDULE_CYCLE_EDITTITLE' : 'PRODUCTSCHEDULE_CYCLE_ADDTITLE') | translate}}</div>
   </div>
 
   <form #scheduleInputForm="ngForm" class="entity-view__card__content product-schedule-view__container">
@@ -12,7 +12,7 @@
                           [mapFunction]="productMapper"
                           [initialValue]="scheduleToAdd.product"
                           [options]="productsService.entities$ | async"
-                          [placeholder]="'Product Name'"
+                          [placeholder]="'PRODUCTSCHEDULE_CYCLE_NAME' | translate"
                           [required]="true"
                           (selected)="addProductToSchedule($event)">
       </autocomplete-input>
@@ -22,37 +22,37 @@
                           [mapFunction]="productMapper"
                           [initialValue]="productScheduleToAdd"
                           [options]="productScheduleService.entities$ | async"
-                          [placeholder]="'Product Schedule Name'"
+                          [placeholder]="'PRODUCTSCHEDULE_CYCLE_SCHEDULENAME' | translate"
                           [required]="true"
                           (selected)="addNewProductSchedule($event)">
       </autocomplete-input>
 
       <md-input-container [class.error]="formInvalid && !price">
-        <input required md-input placeholder="Price" [textMask]="{mask: numberMask, guide: false}" (keydown)="isCurrency($event)" name="price" [(ngModel)]="price" type="text">
-        <div class="helper-text">Price for period of time</div>
+        <input required md-input placeholder="{{'PRODUCTSCHEDULE_CYCLE_PRICE' | translate}}" [textMask]="{mask: numberMask, guide: false}" (keydown)="isCurrency($event)" name="price" [(ngModel)]="price" type="text">
+        <div class="helper-text">{{'PRODUCTSCHEDULE_CYCLE_PRICETIP' | translate}}</div>
       </md-input-container>
     </div>
 
     <div style="margin-top: 15px;" class="flex-custom">
       <md-input-container [class.error]="formInvalid && (+scheduleToAdd.start > +scheduleToAdd.end)">
-        <input required md-input placeholder="Start" (keydown)="isNumeric($event)" name="start" [(ngModel)]="scheduleToAdd.start" type="text">
-        <div class="helper-text">Start of period (0 is immediate)</div>
+        <input required md-input placeholder="{{'PRODUCTSCHEDULE_CYCLE_START' | translate}}" (keydown)="isNumeric($event)" name="start" [(ngModel)]="scheduleToAdd.start" type="text">
+        <div class="helper-text">{{'PRODUCTSCHEDULE_CYCLE_STARTTIP' | translate}}</div>
       </md-input-container>
 
       <md-input-container [class.error]="formInvalid && (+scheduleToAdd.start > +scheduleToAdd.end)">
-        <input #endField md-input placeholder="End" (keydown)="isNumeric($event)" name="end" [(ngModel)]="scheduleToAdd.end" type="text">
-        <div class="helper-text">Ends & switches to next product schedule</div>
+        <input #endField md-input placeholder="{{'PRODUCTSCHEDULE_CYCLE_END' | translate}}" (keydown)="isNumeric($event)" name="end" [(ngModel)]="scheduleToAdd.end" type="text">
+        <div class="helper-text">{{'PRODUCTSCHEDULE_CYCLE_ENDTIP' | translate}}</div>
       </md-input-container>
     </div>
     <md-input-container style="margin-top: 15px;" [class.error]="formInvalid && (!scheduleToAdd.period || +scheduleToAdd.period < 1)">
-      <input required md-input placeholder="Period" (keydown)="isNumeric($event)" name="period" [(ngModel)]="scheduleToAdd.period" type="text">
-      <div class="helper-text">Recurring billing & shipping period</div>
+      <input required md-input placeholder="{{'PRODUCTSCHEDULE_CYCLE_PERIOD' | translate}}" (keydown)="isNumeric($event)" name="period" [(ngModel)]="scheduleToAdd.period" type="text">
+      <div class="helper-text">{{'PRODUCTSCHEDULE_CYCLE_PERIODTIP' | translate}}</div>
     </md-input-container>
 
   </form>
 
   <div class="entity-view__card__actions">
-    <div (click)="clearAddSchedule()">{{editMode ? 'CANCEL' : 'CLEAR'}}</div>
-    <div (click)="addNewSchedule(scheduleInputForm.form.valid)">{{editMode ? 'SAVE' : 'ADD'}}</div>
+    <div (click)="clearAddSchedule()">{{(editMode ? 'PRODUCTSCHEDULE_CYCLE_CANCEL' : 'PRODUCTSCHEDULE_CYCLE_CLEAR') | translate}}</div>
+    <div (click)="addNewSchedule(scheduleInputForm.form.valid)">{{(editMode ? 'PRODUCTSCHEDULE_CYCLE_SAVE' : 'PRODUCTSCHEDULE_CYCLE_ADD') | translate}}</div>
   </div>
 </div>
