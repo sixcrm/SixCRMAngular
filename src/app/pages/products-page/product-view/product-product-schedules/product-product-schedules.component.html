@@ -1,7 +1,7 @@
 <div class="entity-view__table-component">
   <div class="entity-view__table-component__header">
-    <div class="entity-view__table-component__header__title">Product Schedules</div>
-    <md-input class="entity-view__table-component__header__filter" placeholder="Filter" [(ngModel)]="filterValue"></md-input>
+    <div class="entity-view__table-component__header__title">{{'PRODUCT_SCHEDULES_TITLE' | translate}}</div>
+    <md-input class="entity-view__table-component__header__filter" placeholder="{{'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filterValue"></md-input>
     <table-pagination
       [limit]="limit"
       [paginationValues]="paginationValues"
@@ -13,14 +13,14 @@
     </table-pagination>
     <md-icon class="entity-view__table-component__header__action" [md-menu-trigger-for]="optionsMenu">more_vert</md-icon>
     <md-menu #optionsMenu="mdMenu" x-position="before">
-      <button md-menu-item (click)="showAddProductScheduleModal()">Add Product Schedule</button>
+      <button md-menu-item (click)="showAddProductScheduleModal()">{{'PRODUCT_SCHEDULES_ADD' | translate}}</button>
     </md-menu>
   </div>
   <table class="highlight table__custom">
     <thead>
     <tr>
       <th *ngFor="let params of columnParams" (click)="setSortedColumnParams(params)" [class.cell--align-right]="params.align === 'right'">
-        {{params.label}}
+        {{params.label | translate}}
         <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
       </th>
       <th></th>
@@ -33,8 +33,8 @@
       <td>
         <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
         <md-menu #actionsMenu="mdMenu" x-position="before">
-          <button md-menu-item [routerLink]="['/productschedules', entity.id]">View Product Schedule</button>
-          <button md-menu-item (click)="removeProductSchedule(entity)">Remove Product Schedule</button>
+          <button md-menu-item [routerLink]="['/productschedules', entity.id]">{{'PRODUCT_SCHEDULES_VIEW' | translate}}</button>
+          <button md-menu-item (click)="removeProductSchedule(entity)">{{'PRODUCT_SCHEDULES_REMOVE' | translate}}</button>
         </md-menu>
       </td>
     </tr>
@@ -42,7 +42,7 @@
   </table>
 
   <table-loader *ngIf="loadingData && (!entities || entities.length === 0)"></table-loader>
-  <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">No product schedules found</div>
+  <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">{{'PRODUCT_SCHEDULES_NODATA' | translate}}</div>
 
   <table-pagination
     [limit]="limit"

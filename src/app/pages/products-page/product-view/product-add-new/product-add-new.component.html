@@ -1,43 +1,43 @@
 <form *ngIf="entity" #productInputForm="ngForm" class="flex-custom">
   <div style="margin-bottom: 120px;" class="entity-view__card" [class.entity-view__card--create]="mode === add" [class.flex-align--center]="mode === add">
     <div class="entity-view__card__header">
-      <div class="entity-view__card__header__title">{{mode === add ? 'Create New Product' : 'Product General Details'}}</div>
+      <div class="entity-view__card__header__title">{{(mode === add ? 'PRODUCT_INFO_CREATETITLE' : 'PRODUCT_INFO_TITLE') | translate}}</div>
       <ng-container *ngIf="mode === view">
         <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
         <md-menu #editOptions="mdMenu" x-position="before">
-          <button md-menu-item (click)="changeMode.emit(update)"> Edit Product</button>
-          <button md-menu-item (click)="deleteEntity.emit(entity)"> Delete Product </button>
+          <button md-menu-item (click)="changeMode.emit(update)">{{'PRODUCT_INFO_EDIT' | translate}}</button>
+          <button md-menu-item (click)="deleteEntity.emit(entity)">{{'PRODUCT_INFO_DEL' | translate}}</button>
         </md-menu>
       </ng-container>
     </div>
 
     <div class="entity-view__card__content">
       <md-input-container style="margin-right: 25px;" [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-        <input required md-input [disabled]="mode === view" placeholder="Product Name" name="name" [(ngModel)]="entity.name" type="text">
+        <input required md-input [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text">
       </md-input-container>
 
       <div class="product-view__group">
         <md-input-container [class.error]="formInvalid && !entity.sku" class="entity-view__card__content__item">
-          <input required md-input [disabled]="mode === view" placeholder="SKU" name="sku" [(ngModel)]="entity.sku" type="text">
+          <input required md-input [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_SKU' | translate}}" name="sku" [(ngModel)]="entity.sku" type="text">
         </md-input-container>
 
         <md-input-container class="entity-view__card__content__item">
-          <input md-input [disabled]="mode === view" placeholder="Default Price" name="defaultPrice" [textMask]="{mask: numberMask, guide: false}" (keydown)="isCurrency($event)" [(ngModel)]="price" type="text">
+          <input md-input [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_DEFAULTPRICE' | translate}}" name="defaultPrice" [textMask]="{mask: numberMask, guide: false}" (keydown)="isCurrency($event)" [(ngModel)]="price" type="text">
         </md-input-container>
       </div>
 
       <div style="margin-top: 15px;" class="product-view__group">
-        <md-checkbox style="font-size: 14px;" [disabled]="mode === view" [checked]="entity.ship" (change)="toggleShip()">Ship</md-checkbox>
+        <md-checkbox style="font-size: 14px;" [disabled]="mode === view" [checked]="entity.ship" (change)="toggleShip()">{{'PRODUCT_INFO_SHIP' | translate}}</md-checkbox>
 
         <md-input-container [class.error]="formInvalid && !entity.shippingDelay && entity.shippingDelay !== 0 && entity.ship" class="entity-view__card__content__item">
-          <input [required]="entity.ship" md-input [disabled]="mode === view || !entity.ship" (keydown)="isNumeric($event)" placeholder="Shipping Delay (minutes)" name="shippingDelay" [(ngModel)]="entity.shippingDelay" type="number">
+          <input [required]="entity.ship" md-input [disabled]="mode === view || !entity.ship" (keydown)="isNumeric($event)" placeholder="{{'PRODUCT_INFO_SHIPDELAY' | translate}}" name="shippingDelay" [(ngModel)]="entity.shippingDelay" type="number">
         </md-input-container>
       </div>
 
       <autocomplete-input class="product-autocomplete-input"
                           [class.error]="formInvalid && (!entity.fulfillmentProvider || !entity.fulfillmentProvider.id) && entity.ship"
                           [initialValue]="entity.fulfillmentProvider"
-                          [placeholder]="'Fulfillment Provider'"
+                          [placeholder]="'PRODUCT_INFO_FULFILLMENTPROVIDER' | translate"
                           [options]="fulfillmentProviderService.entities$ | async"
                           [mapFunction]="fulfillmentProviderMapper"
                           [showArrow]="true"
@@ -49,8 +49,8 @@
     </div>
 
     <div *ngIf="mode !== view" class="entity-view__card__actions">
-      <div (click)="cancel.emit(true)">CANCEL</div>
-      <div (click)="saveProduct(productInputForm.form.valid)">{{mode === update ? 'UPDATE' : 'CREATE'}}</div>
+      <div (click)="cancel.emit(true)">{{'PRODUCT_INFO_CANCEL' | translate}}</div>
+      <div (click)="saveProduct(productInputForm.form.valid)">{{(mode === update ? 'PRODUCT_INFO_UPDATE' : 'PRODUCT_INFO_CREATE') | translate}}</div>
     </div>
   </div>
 </form>

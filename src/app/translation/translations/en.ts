@@ -604,6 +604,7 @@ export const TRANSLATIONS = {
     title: 'Bill'
   },
   product: {
+    title: 'Product',
     index: {
       title: 'Products',
       header: {
@@ -617,6 +618,37 @@ export const TRANSLATIONS = {
       general: 'GENERAL DETAILS',
       schedule: 'SCHEDULES',
       campaign: 'CAMPAIGNS'
+    },
+    info: {
+      title: 'Product Details',
+      createtitle: 'Create new Product',
+      name: 'Product Name',
+      sku: 'SKU',
+      defaultprice: 'Default Price',
+      ship: 'Ship',
+      shipdelay: 'Shipping Delay (minutes)',
+      fulfillmentprovider: 'Fulfillment Provider',
+      edit: 'Edit Product',
+      del: 'Delete Product',
+      cancel: 'CANCEL',
+      update: 'UPDATE',
+      create: 'CREATE'
+    },
+    schedules: {
+      title: 'Product Schedules',
+      name: 'Name',
+      count: 'Number of Schedules',
+      add: 'Add new Product Schedule',
+      view: 'View Product Schedule',
+      remove: 'Remove from Product Schedule'
+    },
+    campaign: {
+      title: 'Campaigns',
+      name: 'Name',
+      created: 'Created at',
+      productnum: 'Total Products',
+      schedulenum: 'Total Scheduled',
+      view: 'View Campaign'
     }
   },
   transaction: {

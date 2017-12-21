@@ -1,5 +1,5 @@
 <div *ngIf="entity; else spinner" class="entity-view">
-  <div class="entity-view__title">Product</div>
+  <div class="entity-view__title">{{'PRODUCT_TITLE' | translate}}</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
@@ -47,5 +47,5 @@
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="3" [cardsExpression]="'435px'" [title]="'Product'"></spe-loader>
+  <spe-loader [numberOfTabs]="3" [cardsExpression]="'435px'" [title]="'PRODUCT_TITLE' | translate"></spe-loader>
 </ng-template>
