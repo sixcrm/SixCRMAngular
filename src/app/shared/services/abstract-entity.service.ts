@@ -43,8 +43,8 @@ export abstract class AbstractEntityService<T> {
     this.requestInProgress$ = new BehaviorSubject<boolean>(false);
   };
 
-  getEntities(limit?: number): void {
-    this.customEntitiesQuery(this.indexQuery(limit, this.cursor));
+  getEntities(limit?: number, requestBehaviourOptions?: RequestBehaviourOptions): void {
+    this.customEntitiesQuery(this.indexQuery(limit, this.cursor), requestBehaviourOptions);
   }
 
   getEntity(id: string): void {
@@ -165,13 +165,13 @@ export abstract class AbstractEntityService<T> {
     return this.authService.hasPermissions(this.accessRole, 'read');
   }
 
-  customEntitiesQuery(query: string): void {
+  customEntitiesQuery(query: string, requestBehaviourOptions?: RequestBehaviourOptions): void {
     if (!this.hasViewPermission()) {
       return;
     }
 
     this.requestInProgress$.next(true);
-    this.queryRequest(query).subscribe(data => {
+    this.queryRequest(query, requestBehaviourOptions).subscribe(data => {
         if (data instanceof CustomServerError) {
           this.entities$.next(data);
           return;

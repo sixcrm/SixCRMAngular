@@ -30,6 +30,7 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
   isEmpty: boolean = false;
   serverError: CustomServerError;
   alerts: Notification[] = [];
+  loaded: boolean;
 
   private unsubscribe: AsyncSubject<boolean> = new AsyncSubject();
 
@@ -48,6 +49,7 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
 
       this.serverError = null;
       this.arrangeNotifications(notifications);
+      this.loaded = true;
       this.notificationsService.restartPoolingNotifications();
     });
 
@@ -63,7 +65,7 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
       this.notsByDate = updateLocally(notification, this.notsByDate)
     });
 
-    this.notificationsService.getEntities(20);
+    this.notificationsService.getEntities(20, {ignoreProgress: true});
   }
 
   updateAlerts(notification: Notification): void {
@@ -90,7 +92,7 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
   readNotification(notification: Notification): void {
     if (notification.readAt) return;
 
-    this.notificationsService.updateEntity(notification);
+    this.notificationsService.updateEntity(notification, {ignoreSnack: true, ignoreProgress: true});
 
     if (notification.action && notification.action.indexOf('customer') !== -1) {
       this.router.navigateByUrl(notification.action);
