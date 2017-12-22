@@ -1,16 +1,16 @@
 <div class="entity-view__table-component">
   <div class="entity-view__table-component__header entity-view__table-component__header--homepage">
-    <div class="entity-view__table-component__header__title">Associated Tracking</div>
+    <div class="entity-view__table-component__header__title">{{'AFFILIATE_TRACKING_TITLE' | translate}}</div>
     <md-icon class="entity-view__table-component__header__action alone" [md-menu-trigger-for]="optionsMenu">more_vert</md-icon>
     <md-menu #optionsMenu="mdMenu" x-position="before">
-      <button md-menu-item (click)="showAddTracker()">Associate Tracker</button>
+      <button md-menu-item (click)="showAddTracker()">{{'AFFILIATE_TRACKING_ASSOCIATE' | translate}}</button>
     </md-menu>
   </div>
   <table class="highlight table__custom">
     <thead>
     <tr>
       <th *ngFor="let params of columnParams" (click)="setSortedColumnParams(params)" [class.cell--align-right]="params.align === 'right'" [class.cell--codeblock]="params.code">
-        {{params.label}}
+        {{params.label | translate}}
         <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
       </th>
       <th></th>
@@ -28,8 +28,8 @@
       <td>
         <button md-icon-button [md-menu-trigger-for]="actionsMenu"><md-icon>more_vert</md-icon></button>
         <md-menu #actionsMenu="mdMenu" x-position="before">
-          <button md-menu-item [routerLink]="['/trackers', entity.id]">View Tracker</button>
-          <button md-menu-item (click)="dissociate(entity)">Dissociate Tracker</button>
+          <button md-menu-item [routerLink]="['/trackers', entity.id]">{{'AFFILIATE_TRACKING_VIEW' | translate}}</button>
+          <button md-menu-item (click)="dissociate(entity)">{{'AFFILIATE_TRACKING_DISASSOCIATE' | translate}}</button>
         </md-menu>
       </td>
     </tr>
@@ -37,7 +37,7 @@
   </table>
 
   <table-loader *ngIf="loadingData && (!entities || entities.length === 0)"></table-loader>
-  <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">No trackers found</div>
+  <div *ngIf="!loadingData && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">{{'AFFILIATE_TRACKING_NODATA' | translate}}</div>
 
   <table-pagination
     [limit]="limit"

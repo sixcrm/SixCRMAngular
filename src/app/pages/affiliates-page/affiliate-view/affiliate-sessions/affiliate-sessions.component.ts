@@ -27,16 +27,16 @@ export class AffiliateSessionsComponent extends AbstractEntityIndexComponent<Ses
     super(sessionService, auth, dialog, paginationService);
 
     this.columnParams = [
-      new ColumnParams('Customer', (e: Session) => `${e.customer.firstName} ${e.customer.lastName}`),
-      new ColumnParams('Campaign', (e: Session) => e.campaign.name),
-      new ColumnParams('Total Rebills', (e: Session) =>
+      new ColumnParams('AFFILIATE_SESSION_CUSTOMER', (e: Session) => `${e.customer.firstName} ${e.customer.lastName}`),
+      new ColumnParams('AFFILIATE_SESSION_CAMPAIGN', (e: Session) => e.campaign.name),
+      new ColumnParams('AFFILIATE_SESSION_REBILLTOTAL', (e: Session) =>
         new Currency(
           e.rebills
             .map(r => r.amount.amount)
             .reduce((a, b) => a + b, 0))
             .usd(),
         'right'),
-      new ColumnParams('Total Scheduled', (e: Session) =>
+      new ColumnParams('AFFILIATE_SESSION_SCHEDULEDTOTAL', (e: Session) =>
         new Currency(
           e.productSchedules
             .map(p => p.schedules)

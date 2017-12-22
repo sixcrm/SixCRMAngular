@@ -35,10 +35,10 @@ export class AffiliateTrackersComponent extends AbstractEntityIndexComponent<Tra
     super(trackersService, auth, dialog, paginationService);
 
     this.columnParams = [
-      new ColumnParams('Name', (e: Tracker) => e.name),
-      new ColumnParams('Type', (e: Tracker) => e.type),
-      new ColumnParams('Event', (e: Tracker) => e.eventType.toString() || 'all'),
-      new ColumnParams('Tracking Data', (e: Tracker) => e.body).setCode(true),
+      new ColumnParams('AFFILIATE_TRACKING_NAME', (e: Tracker) => e.name),
+      new ColumnParams('AFFILIATE_TRACKING_TYPE', (e: Tracker) => e.type),
+      new ColumnParams('AFFILIATE_TRACKING_EVENT', (e: Tracker) => e.eventType.toString() || 'all'),
+      new ColumnParams('AFFILIATE_TRACKING_DATA', (e: Tracker) => e.body).setCode(true),
     ];
   }
 
@@ -55,7 +55,7 @@ export class AffiliateTrackersComponent extends AbstractEntityIndexComponent<Tra
 
   dissociate(tracker: Tracker): void {
     this.deleteDialogRef = this.deleteDialog.open(DeleteDialogComponent, { disableClose : true });
-    this.deleteDialogRef.componentInstance.text = `Are you sure you want to dissociate ${tracker.name}?`;
+    this.deleteDialogRef.componentInstance.text = 'AFFILIATE_TRACKING_DISASSOCIATETEXT';
 
     this.deleteDialogRef.afterClosed().take(1).subscribe(result => {
       this.deleteDialogRef = null;
@@ -79,8 +79,7 @@ export class AffiliateTrackersComponent extends AbstractEntityIndexComponent<Tra
     this.service.planeCustomEntitiesQuery(trackersListQuery()).subscribe((trackers: Tracker[]) => {
       this.associateDialogRef = this.deleteDialog.open(AssociateDialogComponent);
       this.associateDialogRef.componentInstance.options = trackers.filter(tracker => firstIndexOf(this.entities, (el) => el.id === tracker.id) === -1);
-      this.associateDialogRef.componentInstance.placeholder = 'Tracker';
-      this.associateDialogRef.componentInstance.text = 'Select tracker to associate';
+      this.associateDialogRef.componentInstance.text = 'AFFILIATE_TRACKING_ASSOCIATETEXT';
       this.associateDialogRef.componentInstance.mapper = (el: Tracker) => el.name;
 
       this.associateDialogRef.afterClosed().take(1).subscribe(result => {

@@ -932,6 +932,56 @@ export const TRANSLATIONS = {
       subtitle: 'preview how the template will look in an email'
     }
   },
+  affiliate: {
+    title: 'Affiliate',
+    index: {
+      title: 'Affiliates',
+      header: {
+        name: 'Name',
+        affiliateid: 'Affiliate ID',
+        created: 'Created at',
+        updated: 'Updated at'
+      }
+    },
+    tab: {
+      tracking: 'TRACKING',
+      session: 'SESSIONS',
+      campaign: 'CAMPAIGNS'
+    },
+    info: {
+      createtitle: 'Create new Affiliate',
+      name: 'Affiliate Name',
+      id: 'Affiliate ID',
+      edit: 'EDIT AFFILIATE',
+      cancel: 'CANCEL',
+      save: 'SAVE',
+      update: 'UPDATE'
+    },
+    tracking: {
+      title: 'Associated Trackers',
+      name: 'Name',
+      type: 'Type',
+      event: 'Event',
+      data: 'Tracking Data',
+      nodata: 'No Trackers found.',
+      associate: 'Associate Tracker',
+      associatetext: 'Select Tracker',
+      confirm: 'ASSOCIATE',
+      cancel: 'CANCEL',
+      view: 'View Tracker',
+      disassociate: 'Disassociate Tracker',
+      disassociatetext: 'Ar you sure you want to delete?'
+    },
+    session: {
+      title: 'Associated Sessions',
+      customer: 'Customer',
+      campaign: 'Campaign',
+      rebilltotal: 'Total Rebills',
+      scheduledtotal: 'Total Scheduled',
+      nodata: 'No Sessions found.',
+      view: 'View Session',
+    }
+  },
   transaction: {
     title: 'Transaction',
     index: {

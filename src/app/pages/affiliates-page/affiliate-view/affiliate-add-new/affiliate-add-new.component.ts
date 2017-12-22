@@ -1,6 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Affiliate} from '../../../../shared/models/affiliate.model';
-import {Modes} from '../../../abstract-entity-view.component';
 
 @Component({
   selector: 'affiliate-add-new',

@@ -12,6 +12,7 @@ import { AffiliateTrackersComponent } from './affiliate-view/affiliate-trackers/
 import { AffiliateSessionsComponent } from './affiliate-view/affiliate-sessions/affiliate-sessions.component';
 import { AffiliateCampaignsComponent } from './affiliate-view/affiliate-campaigns/affiliate-campaigns.component';
 import { AffiliateAddNewComponent } from './affiliate-view/affiliate-add-new/affiliate-add-new.component';
+import {TranslationModule} from '../../translation/translation.module';
 
 @NgModule({
   imports : [
@@ -20,7 +21,8 @@ import { AffiliateAddNewComponent } from './affiliate-view/affiliate-add-new/aff
     FormsModule,
     MaterialModule.forRoot(),
     PageComponentsModule,
-    SharedModule
+    SharedModule,
+    TranslationModule
   ],
   declarations : [
     AffiliatesComponent,

@@ -1,21 +1,21 @@
 <div class="entity-view__card entity-view__card--create" style="margin: auto">
   <div class="entity-view__card__header">
-    <div class="entity-view__card__header__title">Create New Affiliate</div>
+    <div class="entity-view__card__header__title">{{'AFFILIATE_INFO_CREATETITLE' | translate}}</div>
   </div>
 
   <div class="entity-view__card__content">
     <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-      <input required md-input placeholder="Affiliate Name" [(ngModel)]="entity.name" type="text">
+      <input required md-input placeholder="{{'AFFILIATE_INFO_NAME' | translate}}" [(ngModel)]="entity.name" type="text">
     </md-input-container>
 
     <md-input-container [class.error]="formInvalid && !entity.affiliateId" class="entity-view__card__content__item">
-      <input required md-input placeholder="Affiliate ID" [(ngModel)]="entity.affiliateId" type="text">
+      <input required md-input placeholder="{{'AFFILIATE_INFO_ID' | translate}}" [(ngModel)]="entity.affiliateId" type="text">
     </md-input-container>
   </div>
 
   <div class="entity-view__card__actions">
-    <div (click)="cancel.emit(true)">CANCEL</div>
-    <div (click)="saveAffiliate()">SAVE</div>
+    <div (click)="cancel.emit(true)">{{'AFFILIATE_INFO_CANCEL' | translate}}</div>
+    <div (click)="saveAffiliate()">{{'AFFILIATE_INFO_SAVE' | translate}}</div>
   </div>
 </div>
 
