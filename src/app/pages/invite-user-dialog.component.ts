@@ -8,15 +8,15 @@ import {isAllowedEmail} from '../shared/utils/form.utils';
   template : `
     <md-card>
       <md-card-content style="display: flex; flex-direction: column">
-        <div>Invite new User</div>
+        <div>{{'INVITEUSER_TITLE' | translate}}</div>
         <md-input-container style="margin: 20px 0 0 0;">
-          <input md-input (keydown)="isEmail($event, email)" placeholder="User Email" [(ngModel)]="email">
+          <input md-input (keydown)="isEmail($event, email)" placeholder="{{'INVITEUSER_EMAIL' | translate}}" [(ngModel)]="email">
         </md-input-container>
-        <dropdown-component [mapper]="mapper" [options]="options" [selected]="role || {}" [placeholder]="'Role'" (onSelect)="role = $event"></dropdown-component>
+        <dropdown-component [mapper]="mapper" [options]="options" [selected]="role || {}" [placeholder]="'INVITEUSER_ROLE' | translate" (onSelect)="role = $event"></dropdown-component>
       </md-card-content>
       <md-card-actions class="custom-dialog__buttons">
-        <div (click)="cancel()">CANCEL</div>
-        <div (click)="invite()">INVITE</div>
+        <div (click)="cancel()">{{'INVITEUSER_CANCEL' | translate}}</div>
+        <div (click)="invite()">{{'INVITEUSER_INVITE' | translate}}</div>
       </md-card-actions>
     </md-card>
   `,

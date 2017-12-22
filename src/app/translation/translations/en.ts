@@ -177,11 +177,24 @@ export const TRANSLATIONS = {
     }
   },
   indexpage: {
-    filter: 'Filter'
+    filter: 'Filter',
+    del: 'Delete',
+    view: 'View',
+    exp: 'Export',
+    edit: 'Edit',
+    copy: 'Copy'
   },
   singlepage: {
     created: 'Created',
-    updated: 'Updated'
+    updated: 'Updated',
+    createcanceltitle: 'Are you sure you want to close creation modal?',
+    createcanceltext: 'You have unsaved changes, if you close this modal changes will be discarded.',
+    createcancelclose: 'CLOSE',
+    createcancelcancel: 'CANCEL',
+    leavetitle: 'Are you sure you want to leave?',
+    leavetext: 'You have unsaved changes, if you close this modal changes will be discarded.',
+    leavecancel: 'CANCEL',
+    leaveleave: 'LEAVE'
   },
   profile: {
     title: 'Profile',
@@ -1393,5 +1406,17 @@ export const TRANSLATIONS = {
       nodata: 'No Load Balancers found.',
       name: 'Name'
     },
+  },
+  deletedialog: {
+    text: 'Are you sure you want to delete?',
+    del: 'DELETE',
+    cancel: 'CANCEL'
+  },
+  inviteuser: {
+    title: 'Invite new User',
+    email: 'User Email',
+    role: 'Role',
+    cancel: 'CANCEL',
+    invite: 'INVITE'
   }
 };

@@ -28,10 +28,10 @@ export class AbstractAclGuard {
 
     return new Promise((resolve, reject) => {
       let yesNoDialogRef = this.dialog.open(YesNoDialogComponent, { disableClose : true });
-      yesNoDialogRef.componentInstance.text = 'Are you sure you want to leave?';
-      yesNoDialogRef.componentInstance.secondaryText = 'You have unsaved changes, if you leave changes will be discarded.';
-      yesNoDialogRef.componentInstance.yesText = 'Leave';
-      yesNoDialogRef.componentInstance.noText = 'Cancel';
+      yesNoDialogRef.componentInstance.text = 'SINGLEPAGE_LEAVETITLE';
+      yesNoDialogRef.componentInstance.secondaryText = 'SINGLEPAGE_LEAVETEXT';
+      yesNoDialogRef.componentInstance.yesText = 'SINGLEPAGE_LEAVELEAVE';
+      yesNoDialogRef.componentInstance.noText = 'SINGLEPAGE_LEAVECANCEL';
 
       yesNoDialogRef.afterClosed().take(1).subscribe(result => {
         yesNoDialogRef = null;

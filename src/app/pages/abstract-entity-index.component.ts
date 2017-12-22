@@ -179,10 +179,11 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     }
 
     let yesNoDialogRef = this.deleteDialog.open(YesNoDialogComponent, { disableClose : true });
-    yesNoDialogRef.componentInstance.text = 'Are you sure you want to close creation modal?';
-    yesNoDialogRef.componentInstance.secondaryText = 'You have unsaved changes, if you close this modal changes will be discarded.';
-    yesNoDialogRef.componentInstance.yesText = 'Close';
-    yesNoDialogRef.componentInstance.noText = 'Cancel';
+    yesNoDialogRef.componentInstance.text = 'SINGLEPAGE_CREATECANCELTITLE';
+    yesNoDialogRef.componentInstance.secondaryText = 'SINGLEPAGE_CREATECANCELTEXT';
+    yesNoDialogRef.componentInstance.yesText = 'SINGLEPAGE_CREATECANCELCLOSE';
+    yesNoDialogRef.componentInstance.noText = 'SINGLEPAGE_CREATECANCELCANCEL';
+
 
     yesNoDialogRef.afterClosed().take(1).subscribe(result => {
       yesNoDialogRef = null;

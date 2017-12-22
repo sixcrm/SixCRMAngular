@@ -6,12 +6,12 @@ import {MdDialogRef} from '@angular/material';
   template : `
     <md-card>
       <md-card-content>
-        <div class="yes-no-dialog__primary">{{text}}</div>
-        <div *ngIf="secondaryText" class="yes-no-dialog__secondary">{{secondaryText}}</div>
+        <div class="yes-no-dialog__primary">{{text | translate}}</div>
+        <div *ngIf="secondaryText" class="yes-no-dialog__secondary">{{secondaryText | translate}}</div>
       </md-card-content>
       <md-card-actions class="custom-dialog__buttons">
-        <div (click)="no()">{{noText | uppercase}}</div>
-        <div (click)="yes()">{{yesText | uppercase}}</div>
+        <div (click)="no()">{{noText | translate}}</div>
+        <div (click)="yes()">{{yesText | translate}}</div>
       </md-card-actions>
     </md-card>
   `,

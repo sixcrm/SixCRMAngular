@@ -1,9 +1,9 @@
 <button md-icon-button [md-menu-trigger-for]="actionsMenu"><md-icon>more_vert</md-icon></button>
 <md-menu #actionsMenu="mdMenu" x-position="before">
-  <button *ngIf="showView" md-menu-item (click)="viewClicked.emit(true)">view</button>
-  <button *ngIf="showEdit" md-menu-item (click)="editClicked.emit(true)">edit</button>
-  <button *ngIf="showDelete" md-menu-item (click)="deleteClicked.emit(true)">delete</button>
-  <button *ngIf="showCopy" md-menu-item (click)="copyClicked.emit(true)">copy</button>
-  <button *ngIf="showExport" md-menu-item (click)="exportClicked.emit(true)">export</button>
-  <button *ngIf="customText" md-menu-item (click)="customClicked.emit(true)">{{customText}}</button>
+  <button *ngIf="showView" md-menu-item (click)="viewClicked.emit(true)">{{'INDEXPAGE_VIEW' | translate}}</button>
+  <button *ngIf="showEdit" md-menu-item (click)="editClicked.emit(true)">{{'INDEXPAGE_EDIT' | translate}}</button>
+  <button *ngIf="showDelete" md-menu-item (click)="deleteClicked.emit(true)">{{'INDEXPAGE_DEL' | translate}}</button>
+  <button *ngIf="showCopy" md-menu-item (click)="copyClicked.emit(true)">{{'INDEXPAGE_COPY' | translate}}</button>
+  <button *ngIf="showExport" md-menu-item (click)="exportClicked.emit(true)">{{'INDEXPAGE_EXP' | translate}}</button>
+  <button *ngIf="customText" md-menu-item (click)="customClicked.emit(true)">{{customText | translate}}</button>
 </md-menu>

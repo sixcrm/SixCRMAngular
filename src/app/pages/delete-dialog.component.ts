@@ -16,8 +16,8 @@ import {MdDialogRef} from '@angular/material';
         {{text | translate}}
       </md-card-content>
       <md-card-actions class="custom-dialog__buttons">
-        <div (click)="no()">CANCEL</div>
-        <div (click)="yes()">DELETE</div>
+        <div (click)="no()">{{'DELETEDIALOG_CANCEL' | translate}}</div>
+        <div (click)="yes()">{{'DELETEDIALOG_DEL' | translate}}</div>
       </md-card-actions>
     </md-card>
   `,
@@ -25,7 +25,7 @@ import {MdDialogRef} from '@angular/material';
 })
 export class DeleteDialogComponent {
 
-  text: string = 'Are you sure you want to delete?';
+  text: string = 'DELETEDIALOG_TEXT';
 
   constructor(public dialogRef: MdDialogRef<DeleteDialogComponent>) {}
 
