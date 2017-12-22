@@ -28,11 +28,11 @@ export class SmtpProvidersComponent extends AbstractEntityIndexComponent<SmtpPro
     this.entityFactory = () => new SmtpProvider();
 
     this.columnParams = [
-      new ColumnParams('Name', (e: SmtpProvider) => e.name),
-      new ColumnParams('From Name',(e: SmtpProvider) => e.fromName),
-      new ColumnParams('From Email',(e: SmtpProvider) => e.fromEmail),
-      new ColumnParams('Hostname',(e: SmtpProvider) => e.hostname),
-      new ColumnParams('Username', (e: SmtpProvider) => e.username),
+      new ColumnParams('SMTP_INDEX_HEADER_NAME', (e: SmtpProvider) => e.name),
+      new ColumnParams('SMTP_INDEX_HEADER_FROMNAME',(e: SmtpProvider) => e.fromName),
+      new ColumnParams('SMTP_INDEX_HEADER_FROMEMAIL',(e: SmtpProvider) => e.fromEmail),
+      new ColumnParams('SMTP_INDEX_HEADER_HOSTNAME',(e: SmtpProvider) => e.hostname),
+      new ColumnParams('SMTP_INDEX_HEADER_USERNAME', (e: SmtpProvider) => e.username),
     ];
   }
 

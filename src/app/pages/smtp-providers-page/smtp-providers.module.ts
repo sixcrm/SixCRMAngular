@@ -10,6 +10,7 @@ import {SmtpProviderViewComponent} from './smtp-provider-view/smtp-provider-view
 import {SharedModule} from '../../shared/shared.module';
 import { SmtpProviderAddNewComponent } from './smtp-provider-view/smtp-provider-add-new/smtp-provider-add-new.component';
 import { SmtpProviderValidateComponent } from './smtp-provider-view/smtp-provider-validate/smtp-provider-validate.component';
+import {TranslationModule} from '../../translation/translation.module';
 
 @NgModule({
   imports : [
@@ -18,7 +19,8 @@ import { SmtpProviderValidateComponent } from './smtp-provider-view/smtp-provide
     FormsModule,
     MaterialModule.forRoot(),
     PageComponentsModule,
-    SharedModule
+    SharedModule,
+    TranslationModule
   ],
   declarations : [
     SmtpProvidersComponent,

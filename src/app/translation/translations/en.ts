@@ -1255,5 +1255,46 @@ export const TRANSLATIONS = {
       response: 'Validation Response',
       validate: 'VALIDATE'
     }
+  },
+  smtp: {
+    title: 'SMTP Provider',
+    index: {
+      title: 'SMTP Providers',
+      header: {
+        name: 'Name',
+        fromname: 'From Name',
+        fromemail: 'From Email',
+        hostname: 'Hostname',
+        username: 'Username'
+      }
+    },
+    tab: {
+      general: 'GENERAL DETAILS',
+      emailtemplate: 'EMAIL TEMPLATES',
+      validate: 'VALIDATE'
+    },
+    info: {
+      title: 'SMTP Details',
+      createtitle: 'Create new SMTP Provider',
+      edit: 'Edit SMTP Provider Details',
+      name: 'Name',
+      fromname: 'From Name',
+      fromemail: 'From Email',
+      host: 'Host',
+      username: 'Username',
+      password: 'Password',
+      port: 'Port',
+      cancel: 'CANCEL',
+      save: 'SAVE'
+    },
+    validate: {
+      title: 'Validate SMTP Provider',
+      text: 'Please provide an email address below and SIX will try to send you a test email using provided SMTP Provider. Email will be sent from ',
+      textsecond: 'Results will be displayed in right column.',
+      email: 'Receiver email address',
+      emailtip: 'Please enter a valid email address',
+      response: 'Validation Response',
+      validate: 'VALIDATE'
+    }
   }
 };

@@ -1,17 +1,18 @@
 <div class="entity-view__card smtp-validation">
   <div class="entity-view__card__header">
-    <div class="entity-view__card__header__title">Validate SMTP Provider</div>
+    <div class="entity-view__card__header__title">{{'SMTP_VALIDATE_TITLE' | translate}}</div>
   </div>
 
   <div class="flex-custom">
 
     <div class="smtp-validation__container entity-view__card__content">
-      <div class="smtp-validation__explanation">Please provide an email address below and Six will try to send you a test email from '{{entity.fromEmail}}' using provided SMTP Provider. <br><br> Results will be displayed in right column.</div>
+      <div class="smtp-validation__explanation"> {{'SMTP_VALIDATE_TEXT' | translate}} '{{entity.fromEmail}}'.
+        <br><br> {{'SMTP_VALIDATE_TEXTSECOND' | translate}}</div>
 
       <md-input-container [class.error]="emailInvalid && !validEmail()" class="entity-view__card__content__item">
-        <input md-input required placeholder="Receiver email address" (keydown)="checkKey($event, validationEmail)" [(ngModel)]="validationEmail" type="text">
+        <input md-input required placeholder="{{'SMTP_VALIDATE_EMAIL' | translate}}" (keydown)="checkKey($event, validationEmail)" [(ngModel)]="validationEmail" type="text">
       </md-input-container>
-      <div class="input-error-message" *ngIf="emailInvalid && !validEmail()">Please enter a valid email address</div>
+      <div class="input-error-message" *ngIf="emailInvalid && !validEmail()">{{'SMTP_VALIDATE_EMAILTIP' | translate}}</div>
 
     </div>
 
@@ -21,7 +22,7 @@
                   [style.color]="!validationResponse ? 'grey' : (validationSuccess ? '#316537' : '#C31313')"
                   rows="9"
                   class="validation__explanation--message"
-                  value="{{validationResponse || 'Validation Response'}}"
+                  value="{{validationResponse || ('SMTP_VALIDATE_RESPONSE' | translate)}}"
                   readonly>
         </textarea>
       </div>
@@ -30,6 +31,6 @@
   </div>
 
   <div class="entity-view__card__actions">
-    <div (click)="validateProvider()">VALIDATE</div>
+    <div (click)="validateProvider()">{{'SMTP_VALIDATE_VALIDATE' | translate}}</div>
   </div>
 </div>
