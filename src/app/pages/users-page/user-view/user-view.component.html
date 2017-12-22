@@ -1,5 +1,5 @@
 <div *ngIf="entity; else spinner" class="entity-view">
-  <div class="entity-view__title">User</div>
+  <div class="entity-view__title">{{'USER_TITLE' | translate}}</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
@@ -8,15 +8,13 @@
       <img src="/assets/images/result-item-customer-white.svg" alt="">
     </div>
     <div class="entity-view__info__data">
-      <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
-      <div class="entity-view__info__data__name">
-        {{addMode ? 'Create new User' : entityBackup.name}}
-      </div>
+      <div class="entity-view__info__data__date">{{'SINGLEPAGE_CREATED' | translate}}: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div class="entity-view__info__data__name"> {{entityBackup.name}}</div>
     </div>
   </div>
 
   <div class="entity-view__navigation">
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">{{'USER_TAB_GENERAL' | translate}}</span>
   </div>
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
@@ -56,5 +54,5 @@
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="1" [cardsExpression]="authService.isActiveAclMasterAccount() ? '250px;430px' : '250px'" [title]="'User'"></spe-loader>
+  <spe-loader [numberOfTabs]="1" [cardsExpression]="authService.isActiveAclMasterAccount() ? '250px;430px' : '250px'" [title]="'USER_TITLE' | translate"></spe-loader>
 </ng-template>

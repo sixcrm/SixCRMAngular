@@ -43,10 +43,10 @@ export class UsersComponent extends AbstractEntityIndexComponent<User> implement
     this.viewAfterCrate = false;
 
     this.columnParams = [
-      new ColumnParams('Name', (e: User) => e.name),
-      new ColumnParams('Email',(e: User) => e.email),
-      new ColumnParams('Active', (e: User) => e.active + ''),
-      new ColumnParams('Terms and Conditions', (e: User) => e.termsAndConditions)
+      new ColumnParams('USER_INDEX_HEADER_NAME', (e: User) => e.name),
+      new ColumnParams('USER_INDEX_HEADER_EMAIL',(e: User) => e.email),
+      new ColumnParams('USER_INDEX_HEADER_ACTIVE', (e: User) => e.active + ''),
+      new ColumnParams('USER_INDEX_HEADER_TERMS', (e: User) => e.termsAndConditions)
     ];
   }
 

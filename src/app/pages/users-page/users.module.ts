@@ -9,6 +9,7 @@ import {UsersAclGuard} from '../guards/users-acl-guard.service';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {SharedModule} from '../../shared/shared.module';
 import { UserAddNewComponent } from './user-view/user-add-new/user-add-new.component';
+import {TranslationModule} from '../../translation/translation.module';
 
 @NgModule({
   imports : [
@@ -17,7 +18,8 @@ import { UserAddNewComponent } from './user-view/user-add-new/user-add-new.compo
     FormsModule,
     MaterialModule.forRoot(),
     PageComponentsModule,
-    SharedModule
+    SharedModule,
+    TranslationModule
   ],
   declarations : [
     UsersComponent,

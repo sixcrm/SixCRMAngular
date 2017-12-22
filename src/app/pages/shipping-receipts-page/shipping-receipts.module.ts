@@ -9,6 +9,7 @@ import {shippingReceiptRouting} from './shipping-receipts.routing';
 import {ShippingReceiptViewComponent} from './shipping-receipts-view/shipping-receipt-view.component';
 import {ShippingReceiptsComponent} from './shipping-receipts-index/shipping-receipts.component';
 import {ClipboardModule} from 'ngx-clipboard/dist';
+import {ShippingReceiptsAclGuard} from '../guards/shipping-receipts-acl-guard.service';
 
 @NgModule({
   imports : [
@@ -26,6 +27,6 @@ import {ClipboardModule} from 'ngx-clipboard/dist';
     ShippingReceiptsComponent
   ],
   exports : [ ],
-  providers: [ ]
+  providers: [ShippingReceiptsAclGuard]
 })
 export class ShippingReceiptsModule { }

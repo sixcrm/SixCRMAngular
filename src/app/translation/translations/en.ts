@@ -556,6 +556,45 @@ export const TRANSLATIONS = {
       }
     }
   },
+  user: {
+    title: 'User',
+    index: {
+      title: 'Users',
+      header: {
+        name: 'Name',
+        email: 'Email',
+        active: 'Active',
+        terms: 'Terms and Conditions'
+      }
+    },
+    tab: {
+      general: 'GENERAL DETALS'
+    },
+    details: {
+      title: 'User Details',
+      createtitle: 'Create new User',
+      account: 'Account',
+      newaccount: 'New Account',
+      edit: 'Edit User Details',
+      activated: 'Activated',
+      role: 'Role',
+      name: 'Name',
+      email: 'Email',
+      cancel: 'CANCEL',
+      save: 'SAVE'
+    },
+    account: {
+      title: 'Associated Accounts',
+      add: 'Add Account to User',
+      account: 'Account',
+      role: 'Role',
+      status: 'Status',
+      edit: 'Edit Role',
+      view: 'View Account',
+      remove: 'Remove Account from the User',
+      removetext: 'Are you sure you want to remove this Account from the User?'
+    },
+  },
   customer: {
     title: 'Customer',
     index: {

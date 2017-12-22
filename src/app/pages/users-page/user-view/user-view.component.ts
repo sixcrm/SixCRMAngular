@@ -28,7 +28,6 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
   selectedIndex: number = 0;
   formInvalid: boolean;
 
-  newAccount: boolean = true;
   accountToAdd: Account = new Account();
   roleToAdd: Role = new Role();
 
@@ -38,20 +37,20 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
   roles: Role[] = [];
 
   text: TableMemoryTextOptions = {
-    title: 'Associated Accounts',
-    disassociateOptionText: `Remove Account from User`,
-    associateOptionText: 'Add Account to User',
-    viewOptionText: 'View Account',
-    disassociateModalTitle: 'Are you sure you want to remove account',
-    editOptionText: 'Edit User Role'
+    title: 'USER_ACCOUNT_TITLE',
+    disassociateOptionText: `USER_ACCOUNT_REMOVE`,
+    associateOptionText: 'USER_ACCOUNT_ADD',
+    viewOptionText: 'USER_ACCOUNT_VIEW',
+    disassociateModalTitle: 'USER_ACCOUNT_REMOVETEXT',
+    editOptionText: 'USER_ACCOUNT_EDIT'
   };
 
   aclMapper = (acl: Acl) => `${acl.account.name}`;
 
   aclColumnParams = [
-    new ColumnParams('Account', (e: Acl) => e.account.name),
-    new ColumnParams('Role', (e: Acl) => e.role.name),
-    new ColumnParams('Status', (e: Acl) => e.pending || 'Active')
+    new ColumnParams('USER_ACCOUNT_ACCOUNT', (e: Acl) => e.account.name),
+    new ColumnParams('USER_ACCOUNT_ROLE', (e: Acl) => e.role.name),
+    new ColumnParams('USER_ACCOUNT_STATUS', (e: Acl) => e.pending || 'Active')
   ];
 
   addAclDialogRef: MdDialogRef<AddUserAclDialogComponent>;
