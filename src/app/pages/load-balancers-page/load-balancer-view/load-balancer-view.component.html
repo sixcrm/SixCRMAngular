@@ -1,5 +1,5 @@
 <div *ngIf="entity; else spinner" class="entity-view">
-  <div class="entity-view__title">Load Balancer</div>
+  <div class="entity-view__title">{{'LOADBALANCER_TITLE' | translate}}</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
@@ -8,42 +8,41 @@
       <img src="/assets/images/result-item-transaction-white.svg" alt="">
     </div>
     <div class="entity-view__info__data">
-      <div *ngIf="!addMode" class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div *ngIf="!addMode" class="entity-view__info__data__date">{{'SINGLEPAGE_CREATED' | translate}}: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
       <div class="entity-view__info__data__name">
         <span *ngIf="viewMode; else createForm">
           {{entityBackup.name}}
         </span>
         <ng-template #createForm>
           <md-input-container [class.error]="detailsFormInvalid && !entity.name">
-            <input required md-input placeholder="{{addMode ? 'Name' : ''}}" type="text" [(ngModel)]="entity.name">
+            <input required md-input placeholder="{{(addMode ? 'LOADBALANCER_INFO_NAME' : '') | translate}}" type="text" [(ngModel)]="entity.name">
           </md-input-container>
         </ng-template>
       </div>
     </div>
 
     <div class="entity-view__info__edit">
-      <div *ngIf="viewMode; else editButtons" class="entity-view__info__edit__update" (click)="setMode(modes.Update)"> EDIT LOAD BALANCER</div>
+      <div *ngIf="viewMode; else editButtons" class="entity-view__info__edit__update" (click)="setMode(modes.Update)">{{'LOADBALANCER_INFO_EDIT' | translate}}</div>
       <ng-template #editButtons>
-        <div *ngIf="updateMode" (click)="cancelUpdate()">CANCEL</div>
-        <div class="entity-view__info__edit__update" (click)="updateLoadBalancer()"> {{ addMode ? 'SAVE' : 'UPDATE'}}</div>
+        <div *ngIf="updateMode" (click)="cancelUpdate()">{{'LOADBALANCER_INFO_CANCEL' | translate}}</div>
+        <div class="entity-view__info__edit__update" (click)="updateLoadBalancer()"> {{ addMode ? 'LOADBALANCER_INFO_SAVE' : 'LOADBALANCER_INFO_UPDATE'}}</div>
       </ng-template>
     </div>
   </div>
 
   <div class="entity-view__navigation">
-    <span class="entity-view__navigation__label entity-view__navigation__label--active">GENERAL DETAILS</span>
+    <span class="entity-view__navigation__label entity-view__navigation__label--active">{{'LOADBALANCER_TAB_GENERAL' | translate}}</span>
   </div>
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>
       <div class="entity-view__card">
         <div class="entity-view__card__header">
-          <div class="entity-view__card__header__title">Add Merchant Provider</div>
-          <!--<md-icon>more_vert</md-icon>-->
+          <div class="entity-view__card__header__title">{{'LOADBALANCER_MERCHANT_ADDTITLE' | translate}}</div>
         </div>
         <form #merchantProviderInputForm="ngForm" class="entity-view__card__content">
           <md-input-container style="width: 110px" class="entity-view__card__content__item" [class.error]="formInvalid && !providerToAdd.distribution">
-            <input required md-input placeholder="Distribution" name="distribution" (keydown)="isFloatNumeric($event)" [(ngModel)]="providerToAdd.distribution" type="text">
+            <input required md-input placeholder="{{'LOADBALANCER_MERCHANT_DISTRIBUTION' | translate}}" name="distribution" (keydown)="isFloatNumeric($event)" [(ngModel)]="providerToAdd.distribution" type="text">
           </md-input-container>
 
           <autocomplete-input style="font-size: 14px;"
@@ -51,21 +50,21 @@
                               [mapFunction]="merchantProviderMapper"
                               [initialValue]="providerToAdd.merchantProvider"
                               [options]="merchantProviderService.entities$ | async"
-                              [placeholder]="'Merchant Provider'"
+                              [placeholder]="'LOADBALANCER_MERCHANT_MERCHANT' | translate"
                               [required]="true"
                               (selected)="providerToAdd.merchantProvider = $event">
           </autocomplete-input>
         </form>
 
         <div class="entity-view__card__actions">
-          <div (click)="clearAddProvider()">CLEAR</div>
-          <div (click)="addProvider(merchantProviderInputForm.form.valid)">ADD</div>
+          <div (click)="clearAddProvider()">{{'LOADBALANCER_MERCHANT_CLEAR' | translate}}</div>
+          <div (click)="addProvider(merchantProviderInputForm.form.valid)">{{'LOADBALANCER_MERCHANT_ADD' | translate}}</div>
         </div>
       </div>
 
       <div class="flex-custom">
         <table-memory class="load-balancer__merchant-providers"
-                      [title]="'Merchant Provider'"
+                      [textOptions]="merchantText"
                       [data]="entity.merchantProviderConfigurations"
                       [associationEnabled]="false"
                       [associateDataMapper]="merchantProviderConfigMapper"
@@ -82,5 +81,5 @@
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="1" [numberOfCards]="1" [title]="'Load Balancer'"></spe-loader>
+  <spe-loader [numberOfTabs]="1" [numberOfCards]="1" [title]="'LOADBALANCER_TITLE' | translate"></spe-loader>
 </ng-template>

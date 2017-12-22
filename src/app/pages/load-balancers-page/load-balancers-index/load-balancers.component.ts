@@ -28,8 +28,8 @@ export class LoadBalancersComponent extends AbstractEntityIndexComponent<LoadBal
     this.entityFactory = () => new LoadBalancer();
 
     this.columnParams = [
-      new ColumnParams('Name', (e: LoadBalancer) => e.name),
-      new ColumnParams('Number Of Merchent Provider Configs',(e: LoadBalancer) => e.merchantProviderConfigurations.length.toString(), 'right')
+      new ColumnParams('LOADBALANCER_INDEX_HEADER_NAME', (e: LoadBalancer) => e.name),
+      new ColumnParams('LOADBALANCER_INDEX_HEADER_MERCHANTNUM',(e: LoadBalancer) => e.merchantProviderConfigurations.length.toString(), 'right')
     ];
   }
 

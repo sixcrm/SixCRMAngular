@@ -9,7 +9,10 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {MerchantProvidersService} from '../../../shared/services/merchant-providers.service';
 import {MerchantProvider} from '../../../shared/models/merchant-provider/merchant-provider.model';
-import {CustomMenuOption, CustomMenuOptionResult} from '../../components/table-memory/table-memory.component';
+import {
+  CustomMenuOption, CustomMenuOptionResult,
+  TableMemoryTextOptions
+} from '../../components/table-memory/table-memory.component';
 import {MdDialog} from '@angular/material';
 import {SingleInputDialogComponent} from '../../../dialog-modals/single-input-dialog.component';
 import {isAllowedFloatNumeric} from '../../../shared/utils/form.utils';
@@ -24,10 +27,17 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
   selectedIndex: number = 0;
 
   merchantProviderColumnParams = [
-    new ColumnParams('Merchant Provider', (e: MerchantProviderConfiguration) => e.merchantProvider.name),
-    new ColumnParams('Distribution',(e: MerchantProviderConfiguration) => e.distribution, 'right')
+    new ColumnParams('LOADBALANCER_MERCHANT_MERCHANT', (e: MerchantProviderConfiguration) => e.merchantProvider.name),
+    new ColumnParams('LOADBALANCER_MERCHANT_DISTRIBUTION',(e: MerchantProviderConfiguration) => e.distribution, 'right')
   ];
   merchantProviderConfigMapper = (e: MerchantProviderConfiguration) => e.merchantProvider.name;
+  merchantText: TableMemoryTextOptions = {
+    title: 'LOADBALANCER_MERCHANT_TITLE',
+    viewOptionText: 'LOADBALANCER_MERCHANT_VIEW',
+    disassociateOptionText: 'LOADBALANCER_MERCHANT_DISASSOCIATE',
+    disassociateModalTitle: 'LOADBALANCER_MERCHANT_DISASSOCIATETEXT',
+    noDataText: 'LOADBALANCER_MERCHANT_NODATA'
+  };
 
   providerToAdd: MerchantProviderConfiguration = new MerchantProviderConfiguration();
   merchantProviderMapper = (e: MerchantProvider) => e.name;
@@ -35,7 +45,7 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
   formInvalid: boolean;
   detailsFormInvalid: boolean;
 
-  customOptions: CustomMenuOption[] = [{label: 'Update Distribution'}];
+  customOptions: CustomMenuOption[] = [{label: 'LOADBALANCER_MERCHANT_EDIT'}];
 
   constructor(service: LoadBalancersService,
               route: ActivatedRoute,

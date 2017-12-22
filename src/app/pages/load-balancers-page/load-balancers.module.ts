@@ -9,6 +9,7 @@ import {LoadBalancersAclGuard} from '../guards/load-balancers-acl-guard.service'
 import {LoadBalancerViewComponent} from './load-balancer-view/load-balancer-view.component';
 import {SharedModule} from '../../shared/shared.module';
 import { LoadBalancerAddNewComponent } from './load-balancer-view/load-balancer-add-new/load-balancer-add-new.component';
+import {TranslationModule} from '../../translation/translation.module';
 
 @NgModule({
   imports : [
@@ -17,7 +18,8 @@ import { LoadBalancerAddNewComponent } from './load-balancer-view/load-balancer-
     FormsModule,
     MaterialModule.forRoot(),
     PageComponentsModule,
-    SharedModule
+    SharedModule,
+    TranslationModule
   ],
   declarations : [
     LoadBalancersComponent,

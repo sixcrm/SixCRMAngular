@@ -1296,5 +1296,40 @@ export const TRANSLATIONS = {
       response: 'Validation Response',
       validate: 'VALIDATE'
     }
+  },
+  loadbalancer: {
+    title: 'Load Balancer',
+    index: {
+      title: 'Load Balancers',
+      header: {
+        name: 'Name',
+        merchantnum: 'Number of Merchant Providers'
+      }
+    },
+    tab: {
+      general: 'GENERAL DETAILS'
+    },
+    info: {
+      createtitle: 'Create new Load Balancer',
+      name: 'Name',
+      edit: 'EDIT LOAD BALANCER',
+      cancel: 'CANCEL',
+      update: 'UPDATE',
+      save: 'SAVE'
+    },
+    merchant: {
+      addtitle: 'Add Merchant Provider',
+      distribution: 'Distribution',
+      merchant: 'Merchant Provider',
+      add: 'ADD',
+      update: 'UPDATE',
+      clear: 'CLEAR',
+      title: 'Associated Merchant Providers',
+      view: 'View Merchant Provider',
+      edit: 'Update Distribution',
+      disassociate: 'Disassociate Merchant Provider',
+      disassociatetext: 'Are you sure you want to delete?',
+      nodata: 'No Merchant Providers found.'
+    }
   }
 };
