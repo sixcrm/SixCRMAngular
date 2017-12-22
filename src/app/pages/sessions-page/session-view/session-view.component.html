@@ -1,5 +1,5 @@
 <div *ngIf="entity; else spinner" class="entity-view">
-  <div class="entity-view__title">Session</div>
+  <div class="entity-view__title">{{'SESSION_TITLE' | translate}}</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
@@ -8,21 +8,16 @@
       <img src="/assets/images/result-item-transaction-white.svg" alt="">
     </div>
     <div class="entity-view__info__data">
-      <div *ngIf="!addMode" class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div class="entity-view__info__data__date">{{'SINGLEPAGE_CREATED' | translate}}: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
       <div class="entity-view__info__data__name">
-        <span *ngIf="!addMode; else createMessage">
-          {{entityBackup.id}}
-        </span>
-        <ng-template #createMessage>
-          Create new Session
-        </ng-template>
+        {{entityBackup.id}}
       </div>
     </div>
   </div>
 
   <div class="entity-view__navigation">
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">AFFILIATES</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">{{'SESSION_TAB_GENERAL' | translate}}</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">{{'SESSION_TAB_AFFILIATE' | translate}}</span>
   </div>
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
@@ -30,10 +25,10 @@
       <div class="flex-custom session-view__card-container">
         <div class="entity-view__card">
           <div class="entity-view__card__header">
-            <div class="entity-view__card__header__title">Customer Information</div>
+            <div class="entity-view__card__header__title">{{'SESSION_CUSTOMER_TITLE' | translate}}</div>
             <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
             <md-menu #actionsMenu="mdMenu" x-position="before">
-              <button md-menu-item [routerLink]="['/customers', entity.customer.id]">View Customer</button>
+              <button md-menu-item [routerLink]="['/customers', entity.customer.id]">{{'SESSION_CUSTOMER_VIEW' | translate}}</button>
             </md-menu>
           </div>
 
@@ -70,7 +65,7 @@
           <table-memory class="session-view__table"
                         [data]="entity.rebills"
                         [filterEnabled]="false"
-                        [title]="'Rebill'"
+                        [textOptions]="rebillText"
                         [columnParams]="rebillColumnParams"
                         [associationEnabled]="false"
                         [dissociationEnabled]="false"
@@ -80,7 +75,7 @@
           <table-memory class="session-view__table"
                         [data]="[entity.campaign]"
                         [filterEnabled]="false"
-                        [title]="'Campaign'"
+                        [textOptions]="campaignText"
                         [columnParams]="campaignColumnParams"
                         [associationEnabled]="false"
                         [dissociationEnabled]="false"
@@ -92,7 +87,7 @@
 
     <md-tab>
       <table-memory [data]="affiliates"
-                    [title]="'Affiliate'"
+                    [textOptions]="affiliateText"
                     [filterEnabled]="false"
                     [columnParams]="affiliateColumnParams"
                     [associationEnabled]="false"
@@ -104,7 +99,7 @@
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="2" [numberOfCards]="3" [title]="'Session'"></spe-loader>
+  <spe-loader [numberOfTabs]="2" [numberOfCards]="3" [title]="'SESSION_TITLE' | translate"></spe-loader>
 </ng-template>
 
 

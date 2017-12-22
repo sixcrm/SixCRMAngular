@@ -9,6 +9,7 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Campaign} from '../../../shared/models/campaign.model';
 import {Affiliate} from '../../../shared/models/affiliate.model';
+import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 
 @Component({
   selector: 'session-view',
@@ -18,9 +19,28 @@ import {Affiliate} from '../../../shared/models/affiliate.model';
 export class SessionViewComponent extends AbstractEntityViewComponent<Session> implements OnInit, OnDestroy {
 
   selectedIndex: number = 0;
+
   rebillColumnParams: ColumnParams<Rebill>[];
+  rebillText: TableMemoryTextOptions = {
+    title: 'SESSION_REBILL_TITLE',
+    viewOptionText: 'SESSION_REBILL_VIEW',
+    noDataText: 'SESSION_REBILL_NODATA'
+  };
+
   campaignColumnParams: ColumnParams<Campaign>[];
+  campaignText: TableMemoryTextOptions = {
+    title: 'SESSION_CAMPAIGN_TITLE',
+    viewOptionText: 'SESSION_CAMPAIGN_VIEW',
+    noDataText: 'SESSION_CAMPAIGN_NODATA'
+  };
+
   affiliateColumnParams: ColumnParams<Affiliate>[];
+  affiliateText: TableMemoryTextOptions = {
+    title: 'SESSION_AFFILIATE_TITLE',
+    viewOptionText: 'SESSION_REBILL_VIEW',
+    noDataText: 'SESSION_REBILL_NODATA'
+  };
+
 
   affiliates: Affiliate[] = [];
 
@@ -38,20 +58,20 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
 
     let f = this.authService.getTimezone();
     this.rebillColumnParams = [
-      new ColumnParams('Bill At',(e: Rebill) => e.billAt ? e.billAt.clone().tz(f).format('MM/DD/YYYY') : 'not billed'),
-      new ColumnParams('Amount', (e: Rebill) => e.amount.usd(), 'right')
+      new ColumnParams('SESSION_REBILL_BILLED',(e: Rebill) => e.billAt ? e.billAt.clone().tz(f).format('MM/DD/YYYY') : 'not billed'),
+      new ColumnParams('SESSION_REBILL_AMOUNT', (e: Rebill) => e.amount.usd(), 'right')
     ];
 
 
     this.campaignColumnParams = [
-      new ColumnParams('Name',(e: Campaign) => e.name),
-      new ColumnParams('Created at', (e: Campaign) => e.createdAt.clone().tz(f).format('MM/DD/YYYY'))
+      new ColumnParams('SESSION_CAMPAIGN_NAME',(e: Campaign) => e.name),
+      new ColumnParams('SESSION_CAMPAIGN_CREATED', (e: Campaign) => e.createdAt.clone().tz(f).format('MM/DD/YYYY'))
     ];
 
     this.affiliateColumnParams = [
-      new ColumnParams('Name',(e: Affiliate) => e.name),
-      new ColumnParams('Affiliate ID',(e: Affiliate) => e.affiliateId),
-      new ColumnParams('Created at', (e: Affiliate) => e.createdAt.clone().tz(f).format('MM/DD/YYYY'))
+      new ColumnParams('SESSION_AFFILIATE_NAME',(e: Affiliate) => e.name),
+      new ColumnParams('SESSION_AFFILIATE_ID',(e: Affiliate) => e.affiliateId),
+      new ColumnParams('SESSION_AFFILIATE_CREATED', (e: Affiliate) => e.createdAt.clone().tz(f).format('MM/DD/YYYY'))
     ];
 
     this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe((s: Session) => this.affiliates = s.parseAffiliates());

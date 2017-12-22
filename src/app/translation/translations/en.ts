@@ -1041,6 +1041,48 @@ export const TRANSLATIONS = {
       disassociatetext: 'Are you sure you want to delete?'
     },
   },
+  session: {
+    title: 'Session',
+    index: {
+      title: 'Sessions',
+      header: {
+        campaign: 'Campaign Name',
+        customer: 'Customer Name',
+        schedulesnum: 'Number of Product Schedules',
+        rebillsnum: 'Number of Rebills'
+      }
+    },
+    tab: {
+      general: 'GENERAL DETAILS',
+      affiliate: 'AFFILAITES',
+    },
+    customer: {
+      title: 'Customer Information',
+      view: 'View Customer'
+    },
+    rebill: {
+      title: 'Associated Rebills',
+      billed: 'Bill at',
+      amount: 'Amount',
+      nodata: 'No Rebills found.',
+      view: 'View Rebill',
+    },
+    campaign: {
+      title: 'Associated Campaigns',
+      name: 'Name',
+      created: 'Created at',
+      nodata: 'No Campaigns found.',
+      view: 'View Campaign',
+    },
+    affiliate: {
+      title: 'Associated Affiliates',
+      name: 'Name',
+      id: 'Affiliate ID',
+      created: 'Created at',
+      nodata: 'No Affiliates found.',
+      view: 'View Affiliate',
+    }
+  },
   transaction: {
     title: 'Transaction',
     index: {
