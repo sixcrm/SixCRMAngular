@@ -1,5 +1,5 @@
 <div *ngIf="entity; else spinner" class="entity-view">
-  <div class="entity-view__title">Tracker</div>
+  <div class="entity-view__title">{{'TRACKER_TITLE' | translate}}</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
@@ -8,22 +8,15 @@
       <img src="/assets/images/result-item-transaction-white.svg" alt="">
     </div>
     <div class="entity-view__info__data">
-      <div *ngIf="!addMode" class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
-      <div *ngIf="!addMode; else createMessage" class="entity-view__info__data__name">
-        {{entity.name}}
-      </div>
-      <ng-template #createMessage>
-        <div class="entity-view__info__data__name">
-          Create new Tracker
-        </div>
-      </ng-template>
+      <div class="entity-view__info__data__date">{{'SINGLEPAGE_CREATED' | translate}}: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div class="entity-view__info__data__name">{{entity.name}}</div>
     </div>
   </div>
 
   <div class="entity-view__navigation">
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
-    <span *ngIf="!addMode" class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">AFFILIATES</span>
-    <span *ngIf="!addMode" class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">CAMPAIGNS</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">{{'TRACKER_TAB_GENERAL' | translate}}</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">{{'TRACKER_TAB_AFFILIATE' | translate}}</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">{{'TRACKER_TAB_CAMPAIGN' | translate}}</span>
   </div>
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
@@ -35,9 +28,9 @@
     <md-tab>
       <table-memory [data]="entity.affiliates"
                     [columnParams]="affiliateColumnParams"
-                    [title]="'Affiliate'"
                     [associateData]="affiliateService.entities$ | async"
                     [associateDataMapper]="affiliateMapper"
+                    [textOptions]="affiliateText"
                     (view)="viewAffiliate($event)"
                     (associate)="associateAffiliate($event)"
                     (disassociate)="dissociateAffiliate($event)">
@@ -47,9 +40,9 @@
     <md-tab>
       <table-memory [data]="entity.campaigns"
                     [columnParams]="campaignColumnParams"
-                    [title]="'Campaign'"
                     [associateData]="campaignService.entities$ | async"
                     [associateDataMapper]="campaignMapper"
+                    [textOptions]="campaignText"
                     (view)="viewCampaign($event)"
                     (associate)="associateCampaign($event)"
                     (disassociate)="dissociateCampaign($event)">

@@ -970,7 +970,7 @@ export const TRANSLATIONS = {
       cancel: 'CANCEL',
       view: 'View Tracker',
       disassociate: 'Disassociate Tracker',
-      disassociatetext: 'Ar you sure you want to delete?'
+      disassociatetext: 'Are you sure you want to delete?'
     },
     session: {
       title: 'Associated Sessions',
@@ -981,6 +981,65 @@ export const TRANSLATIONS = {
       nodata: 'No Sessions found.',
       view: 'View Session',
     }
+  },
+  tracker: {
+    title: 'Tracker',
+    index: {
+      title: 'Trackers',
+      header: {
+        name: 'Name',
+        type: 'Type',
+        event: 'Event',
+        data: 'Tracking Data'
+      }
+    },
+    tab: {
+      general: 'GENERAL DETAILS',
+      affiliate: 'AFFILAITES',
+      campaign: 'CAMPAIGNS'
+    },
+    info: {
+      createtitle: 'Create new Tracker',
+      title: 'Tracker Details',
+      name: 'Tracker Name',
+      type: 'Tracking Type',
+      eventtype: 'Event Type',
+      eventtypeadd: 'Add Event Type',
+      data: 'Tracking Data',
+      link: 'Tracking Link',
+      save: 'SAVE',
+      cancel: 'CANCEL',
+      edit: 'Edit Tracker'
+    },
+    affiliate: {
+      title: 'Associated Affiliates',
+      name: 'Name',
+      id: 'Affiliate ID',
+      created: 'Created at',
+      updated: 'Updated at',
+      nodata: 'No Affiliates found.',
+      associate: 'Associate Affiliate',
+      associatetext: 'Select Affiliate',
+      confirm: 'ASSOCIATE',
+      cancel: 'CANCEL',
+      view: 'View Affiliate',
+      disassociate: 'Disassociate Affiliate',
+      disassociatetext: 'Are you sure you want to delete?'
+    },
+    campaign: {
+      title: 'Associated Campaigns',
+      name: 'Name',
+      created: 'Created at',
+      updated: 'Updated at',
+      nodata: 'No Campaigns found.',
+      associate: 'Associate Campaign',
+      associatetext: 'Select Campaign',
+      confirm: 'ASSOCIATE',
+      cancel: 'CANCEL',
+      view: 'View Campaign',
+      disassociate: 'Disassociate Campaign',
+      disassociatetext: 'Are you sure you want to delete?'
+    },
   },
   transaction: {
     title: 'Transaction',

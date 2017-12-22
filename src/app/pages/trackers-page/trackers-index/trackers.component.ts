@@ -28,10 +28,10 @@ export class TrackersComponent extends AbstractEntityIndexComponent<Tracker> imp
     this.entityFactory = () => new Tracker();
 
     this.columnParams = [
-      new ColumnParams('Name', (e: Tracker) => e.name),
-      new ColumnParams('Type', (e: Tracker) => e.type),
-      new ColumnParams('Event', (e: Tracker) => e.eventType.toString() || 'all'),
-      new ColumnParams('Tracking Data', (e: Tracker) => e.body).setCode(true),
+      new ColumnParams('TRACKER_INDEX_HEADER_NAME', (e: Tracker) => e.name),
+      new ColumnParams('TRACKER_INDEX_HEADER_TYPE', (e: Tracker) => e.type),
+      new ColumnParams('TRACKER_INDEX_HEADER_EVENT', (e: Tracker) => e.eventType.toString() || 'all'),
+      new ColumnParams('TRACKER_INDEX_HEADER_DATA', (e: Tracker) => e.body).setCode(true),
     ];
   }
 

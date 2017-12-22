@@ -10,6 +10,7 @@ import {TrackerViewComponent} from './tracker-view/tracker-view.component';
 import {CodemirrorModule} from 'ng2-codemirror';
 import {TrackersComponent} from './trackers-index/trackers.component';
 import { TrackerAddNewComponent } from './tracker-view/tracker-add-new/tracker-add-new.component';
+import {TranslationModule} from '../../translation/translation.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { TrackerAddNewComponent } from './tracker-view/tracker-add-new/tracker-a
     MaterialModule.forRoot(),
     PageComponentsModule,
     SharedModule,
-    CodemirrorModule
+    CodemirrorModule,
+    TranslationModule
   ],
   declarations: [
     TrackersComponent,

@@ -11,6 +11,7 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Campaign} from '../../../shared/models/campaign.model';
 import {CampaignsService} from '../../../shared/services/campaigns.service';
+import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 
 @Component({
   selector: 'tracker-view',
@@ -23,9 +24,29 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
 
   affiliateMapper = (el: Affiliate) => el.name || el.affiliateId;
   affiliateColumnParams: ColumnParams<Affiliate>[];
+  affiliateText: TableMemoryTextOptions = {
+    title: 'TRACKER_AFFILIATE_TITLE',
+    viewOptionText: 'TRACKER_AFFILIATE_VIEW',
+    associateOptionText: 'TRACKER_AFFILIATE_ASSOCIATE',
+    disassociateOptionText: 'TRACKER_AFFILIATE_DISASSOCIATE',
+    associateModalTitle: 'TRACKER_AFFILIATE_ASSOCIATETEXT',
+    disassociateModalTitle: 'TRACKER_AFFILIATE_DISASSOCIATETEXT',
+    associateModalButtonText: 'TRACKER_AFFILIATE_CONFIRM',
+    noDataText: 'TRACKER_AFFILIATE_NODATA',
+  };
 
   campaignMapper = (el: Affiliate) => el.name;
   campaignColumnParams: ColumnParams<Campaign>[];
+  campaignText: TableMemoryTextOptions = {
+    title: 'TRACKER_CAMPAIGN_TITLE',
+    viewOptionText: 'TRACKER_CAMPAIGN_VIEW',
+    associateOptionText: 'TRACKER_CAMPAIGN_ASSOCIATE',
+    disassociateOptionText: 'TRACKER_CAMPAIGN_DISASSOCIATE',
+    associateModalTitle: 'TRACKER_CAMPAIGN_ASSOCIATETEXT',
+    disassociateModalTitle: 'TRACKER_CAMPAIGN_DISASSOCIATETEXT',
+    associateModalButtonText: 'TRACKER_CAMPAIGN_CONFIRM',
+    noDataText: 'TRACKER_CAMPAIGN_NODATA',
+  };
 
   constructor(
     service: TrackersService,
@@ -58,16 +79,16 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
     const f = this.authService.getTimezone();
 
     this.affiliateColumnParams = [
-      new ColumnParams('Name', (e: Affiliate) => e.name),
-      new ColumnParams('Affiliate ID', (e: Affiliate) => e.affiliateId),
-      new ColumnParams('Created At', (e: Affiliate) => e.createdAt.tz(f).format('MM/DD/YYYY')),
-      new ColumnParams('Updated At', (e: Affiliate) => e.updatedAt.tz(f).format('MM/DD/YYYY'))
+      new ColumnParams('TRACKER_AFFILIATE_NAME', (e: Affiliate) => e.name),
+      new ColumnParams('TRACKER_AFFILIATE_ID', (e: Affiliate) => e.affiliateId),
+      new ColumnParams('TRACKER_AFFILIATE_CREATED', (e: Affiliate) => e.createdAt.tz(f).format('MM/DD/YYYY')),
+      new ColumnParams('TRACKER_AFFILIATE_UPDATED', (e: Affiliate) => e.updatedAt.tz(f).format('MM/DD/YYYY'))
     ];
 
     this.campaignColumnParams = [
-      new ColumnParams('Name', (e: Campaign) => e.name),
-      new ColumnParams('Created At', (e: Campaign) => e.createdAt.tz(f).format('MM/DD/YYYY')),
-      new ColumnParams('Updated At', (e: Campaign) => e.updatedAt.tz(f).format('MM/DD/YYYY'))
+      new ColumnParams('TRACKER_CAMPAIGN_NAME', (e: Campaign) => e.name),
+      new ColumnParams('TRACKER_CAMPAIGN_CREATED', (e: Campaign) => e.createdAt.tz(f).format('MM/DD/YYYY')),
+      new ColumnParams('TRACKER_CAMPAIGN_UPDATED', (e: Campaign) => e.updatedAt.tz(f).format('MM/DD/YYYY'))
     ];
   }
 

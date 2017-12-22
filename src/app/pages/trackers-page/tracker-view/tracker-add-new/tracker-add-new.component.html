@@ -1,16 +1,16 @@
 <div class="entity-view__card tracker-view" [class.entity-view__card--create]="mode === modes.Add">
   <div class="entity-view__card__header">
-    <div class="entity-view__card__header__title">{{mode === modes.Add ? 'Add New Tracker' : 'Tracker Details'}}</div>
-    <md-icon [md-menu-trigger-for]="trackerOptions">more_vert</md-icon>
+    <div class="entity-view__card__header__title">{{(mode === modes.Add ? 'TRACKER_INFO_CREATETITLE' : 'TRACKER_INFO_TITLE') | translate}}</div>
+    <md-icon *ngIf="mode !== modes.Add" [md-menu-trigger-for]="trackerOptions">more_vert</md-icon>
     <md-menu #trackerOptions="mdMenu" x-position="before">
-      <button md-menu-item (click)="enableEdit()"> Edit Tracker </button>
+      <button md-menu-item (click)="enableEdit()">{{'TRACKER_INFO_EDIT' | translate}}</button>
     </md-menu>
   </div>
 
   <div class="entity-view__card__content">
     <div *ngIf="mode !== modes.View" class="tracker-view__card__content__name">
       <md-input-container [class.error]="formInvalid && !entity.name">
-        <input md-input type="text" placeholder="Tracker Name" [(ngModel)]="entity.name">
+        <input md-input type="text" placeholder="{{'TRACKER_INFO_NAME' | translate}}" [(ngModel)]="entity.name">
       </md-input-container>
     </div>
 
@@ -20,7 +20,7 @@
         [disabled]="mode === modes.View"
         [selected]="entity.type"
         [required]="true"
-        [placeholder]="'Tracking Type'"
+        [placeholder]="'TRACKER_INFO_TYPE' | translate"
         (onSelect)="setType($event)"
         [options]="['html', 'postback']">
       </dropdown-component>
@@ -31,7 +31,7 @@
         class="tracker-view__dropdown--inline"
         [disabled]="mode === modes.View"
         [selected]="mode !== modes.View ? '' : (entity.eventType && entity.eventType.length > 0 ? entity.eventType : 'all')"
-        [placeholder]="mode !== modes.View ? 'Add Event Type' : 'Event Type'"
+        [placeholder]="(mode !== modes.View ? 'TRACKER_INFO_EVENTTYPEADD' : 'TRACKER_INFO_EVENTTYPE') | translate"
         (onSelect)="addEventType($event)"
         [options]="['upsell', 'lead', 'main']">
       </dropdown-component>
@@ -41,13 +41,13 @@
     </div>
 
     <div *ngIf="entity.link && mode !== modes.Update" class="tracker-view__card__content__link">
-      <div class="tracker-view__card__content__label">Tracking Link:</div>
+      <div class="tracker-view__card__content__label">{{'TRACKER_INFO_LINK' | translate}}:</div>
       <input type="text" #urlField class="share-link__url__content" value="{{entity.link}}" readonly>
       <md-icon md-tooltip="Copy to clipboard" (click)="copyUrlToClipboard(urlField)">content_copy</md-icon>
     </div>
 
     <div class="tracker-view__card__content__body">
-      <div class="tracker-view__card__content__label">Tracking Data:</div>
+      <div class="tracker-view__card__content__label">{{'TRACKER_INFO_DATA' | translate}}:</div>
 
       <codemirror [class.invisible]="entity.type !== 'html'" [(ngModel)]="entity.body" [config]="config"></codemirror>
 
@@ -65,8 +65,8 @@
   </div>
 
   <div class="entity-view__card__actions" *ngIf="mode !== modes.View">
-    <div class="tracker-cancel" (click)="cancelEdit()">CANCEL</div>
-    <div class="tracker-update" (click)="saveTracker()">SAVE</div>
+    <div class="tracker-cancel" (click)="cancelEdit()">{{'TRACKER_INFO_CANCEL' | translate}}</div>
+    <div class="tracker-update" (click)="saveTracker()">{{'TRACKER_INFO_SAVE' | translate}}</div>
   </div>
 </div>
 
