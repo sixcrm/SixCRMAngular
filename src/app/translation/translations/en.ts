@@ -1218,5 +1218,42 @@ export const TRANSLATIONS = {
       status: 'Status',
       number: 'Tracking Number'
     }
+  },
+  fulfillment: {
+    title: 'Fulfillment Provider',
+    index: {
+      title: 'Fulfillment Providers',
+      header: {
+        name: 'Name',
+        provider: 'Provider',
+        username: 'Username',
+        password: 'Password'
+      }
+    },
+    tab: {
+      general: 'GENERAL DETAILS',
+      validate: 'VALIDATE'
+    },
+    info: {
+      title: 'Fulfillment Details',
+      createtitle: 'Create new Fulfillment Provider',
+      edit: 'Edit Fulfillment Provider Details',
+      provider: 'Provider',
+      name: 'Name',
+      username: 'Username',
+      password: 'Password',
+      threeplkey: 'ThreePL Key',
+      customerid: 'Customer ID',
+      facilityid: 'Facility ID',
+      threeplid: 'ThreePL ID',
+      cancel: 'CANCEL',
+      save: 'SAVE'
+    },
+    validate: {
+      title: 'Validate Fulfillment Provider',
+      text: 'Check if Fulfillment Provider is enabled and provided credentials/parameters are valid',
+      response: 'Validation Response',
+      validate: 'VALIDATE'
+    }
   }
 };

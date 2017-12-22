@@ -10,6 +10,7 @@ import {SharedModule} from '../../shared/shared.module';
 import {FulfillmentProviderViewComponent} from './fulfillment-provider-view/fulfillment-provider-view.component';
 import { FulfillmentProviderAddNewComponent } from './fulfillment-provider-view/fulfillment-provider-add-new/fulfillment-provider-add-new.component';
 import { FulfillmentProviderValidationComponent } from './fulfillment-provider-view/fulfillment-provider-validation/fulfillment-provider-validation.component';
+import {TranslationModule} from '../../translation/translation.module';
 
 @NgModule({
   imports : [
@@ -18,7 +19,8 @@ import { FulfillmentProviderValidationComponent } from './fulfillment-provider-v
     FormsModule,
     MaterialModule.forRoot(),
     PageComponentsModule,
-    SharedModule
+    SharedModule,
+    TranslationModule
   ],
   declarations : [
     FulfillmentProvidersComponent,

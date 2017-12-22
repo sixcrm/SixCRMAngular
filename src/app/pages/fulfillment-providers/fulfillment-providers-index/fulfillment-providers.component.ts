@@ -28,10 +28,10 @@ export class FulfillmentProvidersComponent extends AbstractEntityIndexComponent<
     this.entityFactory = () => new FulfillmentProvider({});
 
     this.columnParams = [
-      new ColumnParams('Name', (e: FulfillmentProvider) => e.name),
-      new ColumnParams('Provider', (e: FulfillmentProvider) => e.provider.name),
-      new ColumnParams('Username',(e: FulfillmentProvider) => e.provider.username),
-      new ColumnParams('Password', (e: FulfillmentProvider) => e.provider.password)
+      new ColumnParams('FULFILLMENT_INDEX_HEADER_NAME', (e: FulfillmentProvider) => e.name),
+      new ColumnParams('FULFILLMENT_INDEX_HEADER_PROVIDER', (e: FulfillmentProvider) => e.provider.name),
+      new ColumnParams('FULFILLMENT_INDEX_HEADER_USERNAME',(e: FulfillmentProvider) => e.provider.username),
+      new ColumnParams('FULFILLMENT_INDEX_HEADER_PASSWORD', (e: FulfillmentProvider) => e.provider.password)
     ];
   }
 

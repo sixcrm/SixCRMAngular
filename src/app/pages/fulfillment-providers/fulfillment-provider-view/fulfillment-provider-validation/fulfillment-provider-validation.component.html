@@ -1,17 +1,17 @@
 <div class="entity-view__card fulfillment-view__validation">
   <div class="entity-view__card__header">
-    <div class="entity-view__card__header__title">Validate Fulfillment Provider</div>
+    <div class="entity-view__card__header__title">{{'FULFILLMENT_VALIDATE_TITLE' | translate}}</div>
   </div>
 
   <div class="entity-view__card__content">
 
-    <div class="fulfillment-view__validation__explanation">Check if fulfillment provider is enabled and provided credentials/parameters are valid</div>
+    <div class="fulfillment-view__validation__explanation">{{'FULFILLMENT_VALIDATE_TEXT' | translate}}</div>
 
     <textarea #responseMessage
               [style.color]="!validationResponse ? 'grey' : (validationSuccess ? '#316537' : '#C31313')"
               rows="9"
               class="validation__explanation--message"
-              value="{{validationResponse || 'Validation Response'}}"
+              value="{{validationResponse || ('FULFILLMENT_VALIDATE_RESPONSE' | translate)}}"
               readonly>
     </textarea>
 
@@ -20,6 +20,6 @@
   </div>
 
   <div class="entity-view__card__actions">
-    <div (click)="validateProvider()">VALIDATE</div>
+    <div (click)="validateProvider()">{{'FULFILLMENT_VALIDATE_VALIDATE' | translate}}</div>
   </div>
 </div>
