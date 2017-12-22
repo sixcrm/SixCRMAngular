@@ -1,29 +1,27 @@
 <form #merchantProviderForm="ngForm" [class.merchant-provider--create]="mode === modes.Add">
   <div class="entity-view__card" [class.entity-view__card--create]="mode === modes.Add">
     <div class="entity-view__card__header">
-      <div class="entity-view__card__header__title">Settings</div>
+      <div class="entity-view__card__header__title">{{'MERCHANT_INFO_SETTINGS_TITLE' | translate}}</div>
     </div>
 
     <div class="entity-view__card__content merchant-provider-view__details">
 
       <md-input-container *ngIf="mode === modes.Add" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.name">
-        <input required md-input placeholder="Name" name="name" [(ngModel)]="entity.name" type="text">
+        <input required md-input placeholder="{{'MERCHANT_INFO_SETTINGS_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text">
       </md-input-container>
 
       <div class="flex-custom flex-custom--center merchant-provider-view__details__selectable">
         <md-icon>power_settings_new</md-icon>
-        <span>Enabled</span>
+        <span>{{'MERCHANT_INFO_SETTINGS_ENABLED' | translate}}</span>
         <md-checkbox class="flex-align--right" [disabled]="mode === modes.View" name="enabled" [(ngModel)]="entity.enabled"></md-checkbox>
       </div>
       <div class="flex-custom flex-custom--center merchant-provider-view__details__selectable">
         <md-icon>credit_card</md-icon>
-        <span>Allow Prepaid cards</span>
+        <span>{{'MERCHANT_INFO_SETTINGS_ALLOWPREPAID' | translate}}</span>
         <md-checkbox class="flex-align--right" [disabled]="mode === modes.View" name="allowPrepaid" [(ngModel)]="entity.allowPrepaid"></md-checkbox>
       </div>
 
-      <div class="merchant-provider-view__details__subtitle">
-        Accepted payment methods
-      </div>
+      <div class="merchant-provider-view__details__subtitle">{{'MERCHANT_INFO_SETTINGS_ACCEPTED' | translate}}</div>
 
       <div *ngFor="let card of allCreditCards" class="flex-custom flex-custom--center merchant-provider-view__details__selectable">
         <span>{{card}}</span>
@@ -34,53 +32,53 @@
 
   <div class="entity-view__card" [class.entity-view__card--create]="mode === modes.Add">
     <div class="entity-view__card__header">
-      <div class="entity-view__card__header__title">Processing</div>
+      <div class="entity-view__card__header__title">{{'MERCHANT_INFO_PROCESSING_TITLE' | translate}}</div>
     </div>
 
     <div class="entity-view__card__content merchant-provider-view__details">
       <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers" [class.error]="formInvalid && !entity.processing.monthlyCap">
-        <input required [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="Monthly Cap ($)" name="monthlyCap" [(ngModel)]="entity.processing.monthlyCap" type="text">
+        <input required [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_MONTHLYCAPD' | translate}}" name="monthlyCap" [(ngModel)]="entity.processing.monthlyCap" type="text">
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isNumeric($event)" md-input placeholder="Monthly Cap (count)" name="monthlyCapCount" [(ngModel)]="entity.processing.transactionCounts.monthly" type="text">
+        <input [disabled]="mode === modes.View" (keydown)="isNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_MONTHLYCAPC' | translate}}" name="monthlyCapCount" [(ngModel)]="entity.processing.transactionCounts.monthly" type="text">
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isNumeric($event)" md-input placeholder="Weekly Cap (count)" name="weeklyCapCount" [(ngModel)]="entity.processing.transactionCounts.weekly" type="text">
+        <input [disabled]="mode === modes.View" (keydown)="isNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_WEEKLYCAP' | translate}}" name="weeklyCapCount" [(ngModel)]="entity.processing.transactionCounts.weekly" type="text">
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isNumeric($event)" md-input placeholder="Daily Cap (count)" name="dailyCapCount" [(ngModel)]="entity.processing.transactionCounts.daily" type="text">
+        <input [disabled]="mode === modes.View" (keydown)="isNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_DAILYCAP' | translate}}" name="dailyCapCount" [(ngModel)]="entity.processing.transactionCounts.daily" type="text">
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="Transaction Fee ($)" name="transactionFee" [(ngModel)]="entity.processing.transactionFee" type="text">
+        <input [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_TRANSACTIONFEE' | translate}}" name="transactionFee" [(ngModel)]="entity.processing.transactionFee" type="text">
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="Discount Rate (%)" name="discountRate" [(ngModel)]="entity.processing.discountRate" type="text">
+        <input [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_DISCOUNTRATE' | translate}}" name="discountRate" [(ngModel)]="entity.processing.discountRate" type="text">
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="Max chargeback ratio (%)" name="maxChargebackRatio" [(ngModel)]="entity.processing.maximumChargebackRatio" type="text">
+        <input [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_CHARGEBACK' | translate}}" name="maxChargebackRatio" [(ngModel)]="entity.processing.maximumChargebackRatio" type="text">
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="Reserve rate (%)" name="reserveRate" [(ngModel)]="entity.processing.reserveRate" type="text">
+        <input [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_RESERVE' | translate}}" name="reserveRate" [(ngModel)]="entity.processing.reserveRate" type="text">
       </md-input-container>
     </div>
   </div>
 
   <div class="entity-view__card" [class.entity-view__card--create]="mode === modes.Add">
     <div class="entity-view__card__header">
-      <div class="entity-view__card__header__title">Gateway information</div>
+      <div class="entity-view__card__header__title">{{'MERCHANT_INFO_GATEWAY_TITLE' | translate}}</div>
     </div>
 
     <div class="entity-view__card__content merchant-provider-view__details">
 
       <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.name">
-        <input required [disabled]="mode === modes.View" md-input placeholder="Name" name="gatewayName" [(ngModel)]="entity.gateway.name" type="text">
+        <input required [disabled]="mode === modes.View" md-input placeholder="{{'MERCHANT_INFO_GATEWAY_NAME' | translate}}" name="gatewayName" [(ngModel)]="entity.gateway.name" type="text">
       </md-input-container>
 
       <dropdown-component
@@ -88,25 +86,25 @@
         [disabled]="mode === modes.View"
         [options]="allProviders"
         [selected]="entity.gateway.getType()"
-        [placeholder]="'Type'"
+        [placeholder]="'MERCHANT_INFO_GATEWAY_TYPE' | translate"
         (onSelect)="entity.gateway.setType($event)">
       </dropdown-component>
 
       <ng-container *ngIf="entity.gateway.getType()">
         <md-input-container *ngIf="entity.gateway.isNMI()" class="entity-view__card__content__item">
-          <input [disabled]="mode === modes.View" md-input placeholder="Processor ID" name="processorId" [(ngModel)]="entity.gateway.processorId" type="text">
+          <input [disabled]="mode === modes.View" md-input placeholder="{{'MERCHANT_INFO_GATEWAY_PROCESSORID' | translate}}" name="processorId" [(ngModel)]="entity.gateway.processorId" type="text">
         </md-input-container>
 
         <md-input-container *ngIf="entity.gateway.isInnovio()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.productId">
-          <input required [disabled]="mode === modes.View" md-input placeholder="Product ID" name="productId" [(ngModel)]="entity.gateway.productId" type="text">
+          <input required [disabled]="mode === modes.View" md-input placeholder="{{'MERCHANT_INFO_GATEWAY_PRODUCTID' | translate}}" name="productId" [(ngModel)]="entity.gateway.productId" type="text">
         </md-input-container>
 
         <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.username">
-          <input required [disabled]="mode === modes.View" md-input placeholder="Username" name="username" [(ngModel)]="entity.gateway.username" type="text">
+          <input required [disabled]="mode === modes.View" md-input placeholder="{{'MERCHANT_INFO_GATEWAY_USERNAME' | translate}}" name="username" [(ngModel)]="entity.gateway.username" type="text">
         </md-input-container>
 
         <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.password">
-          <input required [disabled]="mode === modes.View" md-input placeholder="Password" name="password" [(ngModel)]="entity.gateway.password" type="text">
+          <input required [disabled]="mode === modes.View" md-input placeholder="{{'MERCHANT_INFO_GATEWAY_PASSWORD' | translate}}" name="password" [(ngModel)]="entity.gateway.password" type="text">
         </md-input-container>
       </ng-container>
     </div>
@@ -114,32 +112,32 @@
 
   <div class="entity-view__card" [class.entity-view__card--create]="mode === modes.Add">
     <div class="entity-view__card__header">
-      <div class="entity-view__card__header__title">Customer Service</div>
+      <div class="entity-view__card__header__title">{{'MERCHANT_INFO_SERVICE_TITLE' | translate}}</div>
     </div>
 
     <div class="entity-view__card__content merchant-provider-view__details merchant-provider-view__details--align">
 
       <md-input-container class="entity-view__card__content__item">
-        <input [disabled]="mode === modes.View" md-input placeholder="URI" name="url" [(ngModel)]="entity.customerService.url" type="text">
+        <input [disabled]="mode === modes.View" md-input placeholder="{{'MERCHANT_INFO_SERVICE_URI' | translate}}" name="url" [(ngModel)]="entity.customerService.url" type="text">
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item">
-        <input [disabled]="mode === modes.View" (keydown)="isEmail($event, entity.customerService.email)" md-input placeholder="Email" name="email" [(ngModel)]="entity.customerService.email" type="text">
+        <input [disabled]="mode === modes.View" (keydown)="isEmail($event, entity.customerService.email)" md-input placeholder="{{'MERCHANT_INFO_SERVICE_EMAIL' | translate}}" name="email" [(ngModel)]="entity.customerService.email" type="text">
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item">
-        <input [disabled]="mode === modes.View" md-input placeholder="Phone" [textMask]="{mask: mask, guide: false}" name="phone" [(ngModel)]="entity.customerService.phone" type="text">
+        <input [disabled]="mode === modes.View" md-input placeholder="Phone" [textMask]="{mask: mask, guide: false}" name="{{'MERCHANT_INFO_SERVICE_PHONE' | translate}}" [(ngModel)]="entity.customerService.phone" type="text">
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item">
-        <input [disabled]="mode === modes.View" md-input placeholder="Descriptor" name="description" [(ngModel)]="entity.customerService.description" type="text">
+        <input [disabled]="mode === modes.View" md-input placeholder="Descriptor" name="{{'MERCHANT_INFO_SERVICE_DESCRIPTION' | translate}}" [(ngModel)]="entity.customerService.description" type="text">
       </md-input-container>
 
     </div>
 
     <div *ngIf="mode === modes.Add" class="entity-view__card__actions">
-      <div (click)="cancel.emit(true)">CANCEL</div>
-      <div (click)="saveProvider(merchantProviderForm.form.valid)">SAVE</div>
+      <div (click)="cancel.emit(true)">{{'MERCHANT_INFO_CANCEL' | translate}}</div>
+      <div (click)="saveProvider(merchantProviderForm.form.valid)">{{'MERCHANT_INFO_SAVE' | translate}}</div>
     </div>
   </div>
 </form>

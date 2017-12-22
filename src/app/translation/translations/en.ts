@@ -1331,5 +1331,67 @@ export const TRANSLATIONS = {
       disassociatetext: 'Are you sure you want to delete?',
       nodata: 'No Merchant Providers found.'
     }
+  },
+  merchant: {
+    title: 'Merchant Provider',
+    index: {
+      title: 'Merchant Providers',
+      header: {
+        name: 'Name',
+        processor: 'Processor Name',
+        type: 'Processor Type'
+      }
+    },
+    tab: {
+      general: 'GENERAL DETAILS',
+      processing: 'PROCESSING',
+      loadbalancer: 'LOAD BALANCING',
+    },
+    info: {
+      edit: 'EDIT MERCHANT PROVIDER',
+      cancel: 'CANCEL',
+      update: 'UPDATE',
+      save: 'SAVE',
+      settings: {
+        title: 'Settings',
+        name: 'Name',
+        enabled: 'Enabled',
+        allowprepaid: 'Allow Prepaid cards',
+        accepted: 'Accepted paypment methods',
+      },
+      processing: {
+        title: 'Processing',
+        monthlycapd: 'Monthly Cap ($)',
+        monthlycapc: 'Monthly Cap (count)',
+        weeklycap: 'Weekly Cap (count)',
+        dailycap: 'Daily Cap (count)',
+        transactionfee: 'Transaction Fee ($)',
+        discountrate: 'Discount Rate (%)',
+        chargeback: 'Max chargeback ratio (%)',
+        reserve: 'Reserve rate (%)'
+      },
+      gateway: {
+        title: 'Gateway information',
+        name: 'Name',
+        type: 'Type',
+        processorid: 'Processor ID',
+        productid: 'Product ID',
+        username: 'Username',
+        password: 'Password'
+      },
+      service: {
+        title: 'Customer Service',
+        uri: 'URI',
+        email: 'Email',
+        phone: 'Phone',
+        description: 'Description'
+      }
+    },
+    loadbalancer: {
+      title: 'Associated Load Balancers',
+      view: 'View Load Balancer',
+      nodata: 'No Load Balancers found.',
+      name: 'Name'
+    },
   }
 };

@@ -7,6 +7,7 @@ import {NavigationService} from '../../../navigation/navigation.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {LoadBalancer} from '../../../shared/models/load-balancer.model';
 import {MerchantProviderAddNewComponent} from './merchant-provider-add-new/merchant-provider-add-new.component';
+import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 
 @Component({
   selector: 'merchant-provider-view',
@@ -21,8 +22,15 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
   selectedIndex: number = 0;
   formInvalid: boolean;
 
-  loadBalancerColumnParams = [new ColumnParams('ID', (e: LoadBalancer) => e.name || e.id)];
+  loadBalancerColumnParams = [
+    new ColumnParams('MERCHANT_LOADBALANCER_NAME', (e: LoadBalancer) => e.name || e.id)
+  ];
   loadBalancerMapper = (l: LoadBalancer) => l.name || l.id;
+  loadbalancerText: TableMemoryTextOptions = {
+    title: 'MERCHANT_LOADBALANCER_TITLE',
+    viewOptionText: 'MERCHANT_LOADBALANCER_VIEW',
+    noDataText: 'MERCHANT_LOADBALANCER_NODATA'
+  };
 
   constructor(service: MerchantProvidersService, route: ActivatedRoute, public navigation: NavigationService) {
     super(service, route);

@@ -10,6 +10,7 @@ import {MerchantProviderViewComponent} from './merchant-provider-view/merchant-p
 import {SharedModule} from '../../shared/shared.module';
 import {TextMaskModule} from 'angular2-text-mask';
 import { MerchantProviderAddNewComponent } from './merchant-provider-view/merchant-provider-add-new/merchant-provider-add-new.component';
+import {TranslationModule} from '../../translation/translation.module';
 
 @NgModule({
   imports : [
@@ -19,7 +20,8 @@ import { MerchantProviderAddNewComponent } from './merchant-provider-view/mercha
     MaterialModule.forRoot(),
     PageComponentsModule,
     SharedModule,
-    TextMaskModule
+    TextMaskModule,
+    TranslationModule
   ],
   declarations : [
     MerchantProvidersComponent,
