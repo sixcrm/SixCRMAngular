@@ -12,6 +12,7 @@ import { TokenListComponent } from './email-template-view/token-list/token-list.
 import { TokenViewComponent } from './email-template-view/token-view/token-view.component';
 import { FilterTokensTypePipe } from './email-template-view/filter-tokens-type.pipe';
 import { EmailTemplateAddNewComponent } from './email-template-view/email-template-add-new/email-template-add-new.component';
+import {TranslationModule} from '../../translation/translation.module';
 
 @NgModule({
   imports : [
@@ -20,7 +21,8 @@ import { EmailTemplateAddNewComponent } from './email-template-view/email-templa
     MaterialModule.forRoot(),
     PageComponentsModule,
     SharedModule,
-    emailTemplatesRouting
+    emailTemplatesRouting,
+    TranslationModule
   ],
   declarations : [
     EmailTemplatesComponent,

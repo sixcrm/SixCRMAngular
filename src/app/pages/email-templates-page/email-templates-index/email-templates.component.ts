@@ -29,10 +29,10 @@ export class EmailTemplatesComponent extends AbstractEntityIndexComponent<EmailT
     this.openInEditModeAfterCreation = true;
 
     this.columnParams = [
-      new ColumnParams('Name', (e: EmailTemplate) => e.name),
-      new ColumnParams('Subject',(e: EmailTemplate) => e.subject),
-      new ColumnParams('Type', (e: EmailTemplate) => e.type),
-      new ColumnParams('SMTP Provider Name', (e: EmailTemplate) => e.smtpProvider.name)
+      new ColumnParams('EMAILTEMPLATE_INDEX_HEADER_NAME', (e: EmailTemplate) => e.name),
+      new ColumnParams('EMAILTEMPLATE_INDEX_HEADER_SUBJECT',(e: EmailTemplate) => e.subject),
+      new ColumnParams('EMAILTEMPLATE_INDEX_HEADER_TYPE', (e: EmailTemplate) => e.type),
+      new ColumnParams('EMAILTEMPLATE_INDEX_HEADER_SMTPPROVIDER', (e: EmailTemplate) => e.smtpProvider.name)
     ];
   }
 

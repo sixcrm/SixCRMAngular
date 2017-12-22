@@ -1,5 +1,5 @@
 <div *ngIf="entity; else spinner" class="entity-view">
-  <div class="entity-view__title">Email Template</div>
+  <div class="entity-view__title">{{'EMAILTEMPLATE_TITLE' | translate}}</div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
@@ -8,21 +8,16 @@
       <img src="/assets/images/result-item-transaction-white.svg" alt="">
     </div>
     <div class="entity-view__info__data">
-      <div *ngIf="!addMode" class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div *ngIf="!addMode" class="entity-view__info__data__date">{{'SINGLEPAGE_CREATED' | translate}}: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
       <div class="entity-view__info__data__name">
-        <span *ngIf="!addMode; else createMessage">
-          {{entityBackup.name}}
-        </span>
-        <ng-template #createMessage>
-          Create new Email Template
-        </ng-template>
+        {{entityBackup.name}}
       </div>
     </div>
   </div>
 
   <div class="entity-view__navigation">
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL DETAILS</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">PREVIEW</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">{{'EMAILTEMPLATE_TAB_GENERAL' | translate}}</span>
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">{{'EMAILTEMPLATE_TAB_PREVIEW' | translate}}</span>
   </div>
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
@@ -47,8 +42,8 @@
       <div class="entity-view__card entity-view__card--large">
         <div class="entity-view__card__header">
           <div>
-            <div class="entity-view__card__header__title">Email Template Preview</div>
-            <div class="entity-view__card__header__subtitle">preview how the template will look in an email</div>
+            <div class="entity-view__card__header__title">{{'EMAILTEMPLATE_PREVIEW_TITLE' | translate}}</div>
+            <div class="entity-view__card__header__subtitle">{{'EMAILTEMPLATE_PREVIEW_SUBTITLE' | translate}}</div>
           </div>
         </div>
 
@@ -61,7 +56,7 @@
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="2" [cardsExpression]="'650px'" [title]="'Email Template'"></spe-loader>
+  <spe-loader [numberOfTabs]="2" [cardsExpression]="'650px'" [title]="'EMAILTEMPLATE_TITLE' | translate"></spe-loader>
 </ng-template>
 
 

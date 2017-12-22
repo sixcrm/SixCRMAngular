@@ -893,6 +893,45 @@ export const TRANSLATIONS = {
       copy: 'Copy to clipboard'
     }
   },
+  emailtemplate: {
+    title: 'Email Template',
+    index: {
+      title: 'Email Templates',
+      header: {
+        name: 'Name',
+        subject: 'Subject',
+        type: 'Type',
+        smtpprovider: 'SMTP Provider'
+      }
+    },
+    tab: {
+      general: 'GENERAL DETAILS',
+      preview: 'PREVIEW'
+    },
+    info: {
+      createtitle: 'Create new Email Template',
+      title: 'Email Template Details',
+      subtitle: 'Edit HTML templates below or load defaults from right menu',
+      edit: 'Edit Email Template',
+      name: 'Name',
+      type: 'Template Type',
+      smtpprovider: 'SMTP Provider',
+      subject: 'Subject',
+      body: 'Email ',
+      cancel: 'CANCEL',
+      save: 'SAVE'
+    },
+    token: {
+      title: 'Tokens',
+      subtitle: 'Choose any of the following tokens to add into your email template',
+      type: 'Even Type',
+      search: 'Search'
+    },
+    preview: {
+      title: 'Email Template Preview',
+      subtitle: 'preview how the template will look in an email'
+    }
+  },
   transaction: {
     title: 'Transaction',
     index: {

@@ -2,17 +2,17 @@
 
   <div class="entity-view__card__header">
     <div>
-      <div class="entity-view__card__header__title">Tokens</div>
-      <div class="entity-view__card__header__subtitle">Choose any of the following tokens to add into your email template.</div>
+      <div class="entity-view__card__header__title">{{'EMAILTEMPLATE_TOKEN_TITLE' | translate}}</div>
+      <div class="entity-view__card__header__subtitle">{{'EMAILTEMPLATE_TOKEN_SUBTITLE' | translate}}</div>
     </div>
   </div>
   <div class="token-list__header">
     <div class="flex-custom">
-      <dropdown-component [options]="tokenTypes" [placeholder]="'Event Type'" [showFloatingPlaceholder]="true" [selected]="selectedType" (onSelect)="selectedType = $event"></dropdown-component>
+      <dropdown-component [options]="tokenTypes" [placeholder]="'EMAILTEMPLATE_TOKEN_TYPE' | translate" [showFloatingPlaceholder]="true" [selected]="selectedType" (onSelect)="selectedType = $event"></dropdown-component>
 
       <md-icon>search</md-icon>
       <md-input-container>
-        <input type="text" placeholder="Search" md-input [(ngModel)]="filterString" autocomplete=off>
+        <input type="text" placeholder="{{'EMAILTEMPLATE_TOKEN_SEARCH' | translate}}" md-input [(ngModel)]="filterString" autocomplete=off>
       </md-input-container>
     </div>
   </div>
