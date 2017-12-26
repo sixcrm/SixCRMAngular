@@ -10,4 +10,12 @@ export class FulfillmentProviderPage {
     return element(by.css('.validation__explanation--message'));
   }
 
+  getProviderTypeDropdown() {
+    return element(by.css('fulfillment-provider-add-new')).element(by.css('.dropdown-component'));
+  }
+
+  getDropdownItem(num: number) {
+    return element(by.css('fulfillment-provider-add-new')).all(by.css('.dropdown-component__options__item')).get(num);
+  }
+
 }

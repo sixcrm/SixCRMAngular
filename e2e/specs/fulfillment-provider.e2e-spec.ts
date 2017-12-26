@@ -31,9 +31,9 @@ describe('Fulfillment Provider', function() {
     const sidenav = new SidenavPage();
     sidenav.getLink(12).click();
     browser.sleep(500);
-    sidenav.getLink(22).click();
-    browser.sleep(500);
     sidenav.getLink(23).click();
+    browser.sleep(500);
+    sidenav.getLink(24).click();
     waitForUrlContains('fulfillmentproviders');
     expectUrlToContain('fulfillmentproviders');
   });
@@ -51,8 +51,8 @@ describe('Fulfillment Provider', function() {
   });
 
   it('should render providers index table headers', () => {
-    expect(page.getTableHeaders().get(0).getText()).toEqual('Provider');
-    expect(page.getTableHeaders().get(1).getText()).toEqual('Name');
+    expect(page.getTableHeaders().get(0).getText()).toEqual('Name');
+    expect(page.getTableHeaders().get(1).getText()).toEqual('Provider');
     expect(page.getTableHeaders().get(2).getText()).toEqual('Username');
     expect(page.getTableHeaders().get(3).getText()).toEqual('Password');
   });
@@ -61,6 +61,13 @@ describe('Fulfillment Provider', function() {
     page.getAddButton().click();
 
     expectDefined(view.getAddNewModal());
+  });
+
+  it('should select provider type', () => {
+    fulfillmentView.getProviderTypeDropdown().click();
+    browser.sleep(200);
+    fulfillmentView.getDropdownItem(0).click();
+    browser.sleep(200);
   });
 
   it('should show error when try to save without name', () => {
