@@ -65,7 +65,7 @@ describe('Session', function() {
   });
 
 
-  it('should render transaction id', () => {
+  it('should render session id', () => {
     browser.sleep(2000);
 
     expectPresent(view.getEntityNameHeader());

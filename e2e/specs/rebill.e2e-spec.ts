@@ -51,8 +51,8 @@ describe('Rebill', function() {
 
   it('should render rebills index table headers', () => {
     expect(page.getTableHeaders().get(0).getText()).toEqual('ID');
-    expect(page.getTableHeaders().get(1).getText()).toEqual('Bill At');
-    expect(page.getTableHeaders().get(2).getText()).toEqual('Created At');
+    expect(page.getTableHeaders().get(1).getText()).toEqual('Bill at');
+    expect(page.getTableHeaders().get(2).getText()).toEqual('Created at');
     expect(page.getTableHeaders().get(3).getText()).toEqual('Amount');
   });
 
@@ -73,6 +73,6 @@ describe('Rebill', function() {
   });
 
   it('should render correct number of tab labels', () => {
-    expect(view.getTabLabels().count()).toEqual(1);
+    expect(view.getTabLabels().count()).toEqual(2);
   })
 });

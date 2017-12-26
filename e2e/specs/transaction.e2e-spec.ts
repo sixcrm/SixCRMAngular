@@ -52,7 +52,7 @@ describe('Transactions', function() {
   it('should render transactions index table headers', () => {
     expect(page.getTableHeaders().get(0).getText()).toEqual('Alias');
     expect(page.getTableHeaders().get(1).getText()).toEqual('Amount');
-    expect(page.getTableHeaders().get(2).getText()).toEqual('Created At');
+    expect(page.getTableHeaders().get(2).getText()).toEqual('Created at');
     expect(page.getTableHeaders().get(3).getText()).toEqual('Processor Response');
   });
 
