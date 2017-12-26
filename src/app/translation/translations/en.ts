@@ -703,7 +703,8 @@ export const TRANSLATIONS = {
       sameaddress: 'Same as Customer Address',
       cancel: 'Cancel',
       update: 'Update',
-      save: 'Save'
+      save: 'Save',
+      nodata: 'No Credit Cards found.'
     }
   },
   bill: {

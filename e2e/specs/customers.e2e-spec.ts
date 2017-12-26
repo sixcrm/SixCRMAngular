@@ -58,7 +58,7 @@ describe('Customers', function() {
     page.getAddButton().click();
 
     expectDefined(customerPage.getNewCustomerForm());
-    expect(customerPage.getNewCustomerInputs().count()).toEqual(9);
+    expect(customerPage.getNewCustomerInputs().count()).toEqual(10);
   });
 
   it('should add new customer', () => {
@@ -72,15 +72,16 @@ describe('Customers', function() {
     customerPage.getNewCustomerInputs().get(1).sendKeys(customerLastname);
     customerPage.getNewCustomerInputs().get(2).sendKeys('123456789');
     customerPage.getNewCustomerInputs().get(3).sendKeys('testcustomer@example.com');
-    customerPage.getNewCustomerInputs().get(4).sendKeys('test customer address');
-    customerPage.getNewCustomerInputs().get(5).sendKeys('test customer city');
+    customerPage.getNewCustomerInputs().get(4).sendKeys('1 test customer address');
+    customerPage.getNewCustomerInputs().get(5).sendKeys('2 test customer address');
     customerPage.getNewCustomerInputs().get(6).sendKeys('a');
     browser.sleep(200);
     customerPage.getFirstOption().click();
-    customerPage.getNewCustomerInputs().get(7).sendKeys('21000');
+    customerPage.getNewCustomerInputs().get(7).sendKeys('test customer city');
     customerPage.getNewCustomerInputs().get(8).sendKeys('u');
     browser.sleep(200);
     customerPage.getFirstOption().click();
+    customerPage.getNewCustomerInputs().get(9).sendKeys('21000');
 
     browser.sleep(200);
 
