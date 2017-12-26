@@ -553,6 +553,7 @@ export const TRANSLATIONS = {
       overduewarning: 'Invoice Overdue',
       overduetext: 'You currently have an overdue invoice for',
       view: 'View Invoice',
+      noresults: 'No Billings found.',
       header: {
         issue: 'Issue Date',
         start: 'Period Start',
