@@ -8,7 +8,7 @@ import {login} from '../utils/action.utils';
 import {AccountPage} from '../po/account.po';
 import {MaterialItems} from '../po/material.items';
 
-fdescribe('Accounts', function() {
+describe('Accounts', function() {
   let page: EntityIndexPage;
   let view: EntityViewPage;
   let selectedAccount: any;

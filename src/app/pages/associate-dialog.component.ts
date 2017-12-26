@@ -20,7 +20,7 @@ import {MdDialogRef} from '@angular/material';
 export class AssociateDialogComponent<T> {
 
   text: string = 'Select entity to associate';
-  associateButtonText: string = 'Associate';
+  associateButtonText: string = 'ASSOCIATE';
   placeholder: string = 'Entity';
   options: T[] = [];
   entity: T;

@@ -48,8 +48,8 @@ describe('Affiliates', function() {
   it('should render affiliates index table headers', () => {
     expect(page.getTableHeaders().get(0).getText()).toEqual('Name');
     expect(page.getTableHeaders().get(1).getText()).toEqual('Affiliate ID');
-    expect(page.getTableHeaders().get(2).getText()).toEqual('Created At');
-    expect(page.getTableHeaders().get(3).getText()).toEqual('Updated At');
+    expect(page.getTableHeaders().get(2).getText()).toEqual('Created');
+    expect(page.getTableHeaders().get(3).getText()).toEqual('Updated');
   });
 
   it('should render add modal when add button is clicked', () => {
@@ -103,7 +103,9 @@ describe('Affiliates', function() {
 
     view.getAssociationInput().click();
     view.getAssociationInput().sendKeys('t');
-    browser.sleep(1000);
+    browser.sleep(200);
+    view.getAssociatedInputOption().click();
+    browser.sleep(200);
 
     view.getAssociateButton().click();
 
