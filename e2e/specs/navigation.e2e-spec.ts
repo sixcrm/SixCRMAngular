@@ -30,7 +30,7 @@ describe('Navigation', function() {
     waitForUrlContains('/dashboard');
 
     browser.sleep(500);
-    expect(sidenav.getItems().count()).toBe(35);
+    expect(sidenav.getItems().count()).toBe(36);
   });
 
   it('should navigate to dashboard', () => {
@@ -119,65 +119,72 @@ describe('Navigation', function() {
     expectUrlToContain('rebills');
   });
 
-  it('should navigate to fulfillment providers', () => {
+  it('should navigate to shippingreceipts', () => {
     sidenav.getLink(22).click();
-    browser.sleep(500);
+
+    waitForUrlContains('shippingreceipts');
+    expectUrlToContain('shippingreceipts');
+  });
+
+  it('should navigate to fulfillment providers', () => {
     sidenav.getLink(23).click();
+    browser.sleep(500);
+    sidenav.getLink(24).click();
 
     waitForUrlContains('fulfillmentproviders');
     expectUrlToContain('fulfillmentproviders');
   });
 
   it('should navigate to smtp providers', () => {
-    sidenav.getLink(24).click();
+    sidenav.getLink(25).click();
 
     waitForUrlContains('smtpproviders');
     expectUrlToContain('smtpproviders');
   });
 
   it('should navigate to merchant providers', () => {
-    sidenav.getLink(25).click();
-    browser.sleep(500);
     sidenav.getLink(26).click();
+    browser.sleep(500);
+    sidenav.getLink(27).click();
 
     waitForUrlContains('merchantproviders');
     expectUrlToContain('merchantproviders');
   });
 
   it('should navigate to loadbalancers', () => {
-    sidenav.getLink(27).click();
+    sidenav.getLink(28).click();
 
     waitForUrlContains('loadbalancers');
     expectUrlToContain('loadbalancers');
   });
 
   it('should navigate to accounts', () => {
-    sidenav.getLink(28).click();
-    browser.sleep(500);
     sidenav.getLink(29).click();
+    browser.sleep(500);
+    sidenav.getLink(30).click();
 
     waitForUrlContains('accounts');
     expectUrlToContain('accounts');
   });
 
   it('should navigate to roles', () => {
-    sidenav.getLink(30).click();
+    sidenav.getLink(31).click();
 
     waitForUrlContains('roles');
     expectUrlToContain('roles');
   });
 
   it('should navigate to graph docs', () => {
-    sidenav.getLink(31).click();
-    browser.sleep(500);
     sidenav.getLink(32).click();
+    browser.sleep(500);
+    sidenav.getLink(33).click();
 
     waitForUrlContains('documentation/graph');
     expectUrlToContain('documentation/graph');
   });
 
   it('should navigate to search', () => {
-    sidenav.getLink(34).click();
+    sidenav.getLink(35).click();
 
     waitForUrlContains('search');
     expectUrlToContain('search');
