@@ -8,7 +8,7 @@ import {SearchPage} from '../po/search.po';
 import {AdvancedSearchPage} from '../po/advanced-search.po';
 import {TopnavPage} from '../po/topnav.po';
 
-xdescribe('Search', function() {
+fdescribe('Search', function() {
 
   let authPage: AuthPage;
   let searchPage: SearchPage;
@@ -60,8 +60,7 @@ xdescribe('Search', function() {
 
     waitForUrlContains('/search?advanced=true&firstname=first&lastname=last&city=portland&last_four=1234');
 
-    waitForPresenceOf(searchPage.getSpinner());
-    expectPresent(searchPage.getSpinner());
+    browser.sleep(600);
 
     expect(searchPage.getFilterValues().count()).toEqual(4);
     expect(searchPage.getFilterValues().get(0).getText()).toEqual('first');
@@ -82,9 +81,9 @@ xdescribe('Search', function() {
   });
 
   it('should show perfect match advanced search is performed', () => {
-    browser.get('/search?advanced=true&firstname=t');
+    browser.get('/search?query=t');
 
-    waitForUrlContains('/search?advanced=true&firstname=t');
+    waitForUrlContains('/search?query=t');
 
     waitForPresenceOf(searchPage.getPerfectMatch());
     expectPresent(searchPage.getPerfectMatch());
@@ -114,10 +113,10 @@ xdescribe('Search', function() {
     expectPresent(searchPage.getSpinner());
   });
 
-  it('should perform search and show search results when search by first name = r', () => {
-    browser.get('/search?advanced=true&firstname=r');
+  it('should perform search and show search results when search by query "t"', () => {
+    browser.get('/search?query=t');
 
-    waitForUrlContains('/search?advanced=true&firstname=r');
+    waitForUrlContains('/search?query=t');
     waitForPresenceOf(searchPage.getOneSearchResult());
     waitForPresenceOf(searchPage.getOneCheckbox());
 
