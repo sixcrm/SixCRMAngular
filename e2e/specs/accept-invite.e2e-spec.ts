@@ -107,11 +107,10 @@ describe('Accept Invite', function() {
       .send(sendInvite('e2e-test-user@sixcrm.com'))
       .end((err, response) => {
         let link = response.body.response.data.inviteuser.link;
-        const envUrl = environment.auth0RedirectUrl;
 
-        if (envUrl === 'http://localhost:4200') {
-          link = link.replace('https://development-admin.sixcrm.com', 'http://localhost:4200');
-        }
+        link = link.replace('https://development-admin.sixcrm.com', '');
+        link = link.replace('https://staging-admin.sixcrm.com', '');
+        link = link.replace('https://admin.sixcrm.com', '');
 
         browser.get(link);
         browser.sleep(1000);
@@ -266,7 +265,7 @@ describe('Accept Invite', function() {
     profilePage.getAccountsTabButton().click();
     browser.sleep(600);
     profilePage.getFirstAccount().click();
-    browser.sleep(600);
+    browser.sleep(1200);
     waitForUrlContains('/accounts/d3fa3bf3-7111-49f4-8261-87674482bf1c');
     expectUrlToContain('/accounts/d3fa3bf3-7111-49f4-8261-87674482bf1c');
   });
@@ -275,13 +274,15 @@ describe('Accept Invite', function() {
     browser.waitForAngularEnabled(false);
 
     accountPage.getTabs().get(1).click();
-    browser.slee(200);
+    browser.sleep(600);
 
     expect(accountPage.getAssociatedUsers().count()).toBeGreaterThan(2);
   });
 
   it('should remove all except owner user', (doneFunction) => {
     browser.waitForAngularEnabled(false);
+
+    browser.sleep(600);
 
     accountPage.getAssociatedUsers().count().then(count =>{
       for (let i = 0; i < count - 2; i++) {
