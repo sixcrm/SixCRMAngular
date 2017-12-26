@@ -645,7 +645,6 @@ export const TRANSLATIONS = {
     rebill: {
       title: 'Upcoming Rebills',
       subtitle: 'Future Rebills and Upcoming Transactions',
-      name: 'Name',
       billed: 'Bill at',
       amount: 'Amount',
       cancel: 'Cancel Transaction',

@@ -31,7 +31,6 @@ export class CustomerRebillsComponent extends AbstractEntityIndexComponent<Rebil
     let f = this.authService.getTimezone();
 
     this.columnParams = [
-      new ColumnParams('CUSTOMER_REBILL_NAME', (e: Rebill) => e.parentSession.customer.firstName + ' ' + e.parentSession.customer.lastName),
       new ColumnParams('CUSTOMER_REBILL_BILLED',(e: Rebill) => e.billAt ? e.billAt.tz(f).format('MM/DD/YYYY') : 'not billed'),
       new ColumnParams('CUSTOMER_REBILL_AMOUNT', (e: Rebill) => e.amount.usd(), 'right')
     ];
