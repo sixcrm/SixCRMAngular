@@ -5,15 +5,21 @@ import {browser} from 'protractor';
 import {expectUrlToContain, expectDefined, expectNotPresent} from '../utils/assertation.utils';
 import {EntityViewPage} from '../po/entity-view.po';
 import {login} from '../utils/action.utils';
+import {AccountPage} from '../po/account.po';
+import {MaterialItems} from '../po/material.items';
 
-describe('Accounts', function() {
+fdescribe('Accounts', function() {
   let page: EntityIndexPage;
   let view: EntityViewPage;
   let selectedAccount: any;
+  let accountPage: AccountPage;
+  let material: MaterialItems;
 
   beforeEach(() => {
     page = new EntityIndexPage();
     view = new EntityViewPage();
+    accountPage = new AccountPage();
+    material = new MaterialItems();
   });
 
   beforeAll(() => {
@@ -26,9 +32,9 @@ describe('Accounts', function() {
 
   it('should navigate to accounts page', () => {
     const sidenav = new SidenavPage();
-    sidenav.getLink(28).click();
-    browser.sleep(500);
     sidenav.getLink(29).click();
+    browser.sleep(500);
+    sidenav.getLink(30).click();
     waitForUrlContains('account');
     expectUrlToContain('account');
   });
@@ -48,8 +54,8 @@ describe('Accounts', function() {
   it('should render accounts index table headers', () => {
     expect(page.getTableHeaders().get(0).getText()).toEqual('Name');
     expect(page.getTableHeaders().get(1).getText()).toEqual('Active');
-    expect(page.getTableHeaders().get(2).getText()).toEqual('Created At');
-    expect(page.getTableHeaders().get(3).getText()).toEqual('Updated At');
+    expect(page.getTableHeaders().get(2).getText()).toEqual('Created');
+    expect(page.getTableHeaders().get(3).getText()).toEqual('Updated');
   });
 
   it('should open account when clicked clicked', () => {
@@ -70,6 +76,41 @@ describe('Accounts', function() {
   });
 
   it('should render correct number of tab labels', () => {
-    expect(view.getTabLabels().count()).toEqual(3);
+    expect(view.getTabLabels().count()).toEqual(4);
+  });
+
+  it('should render access keys', () => {
+    view.getTabLabels().get(2).click();
+
+    browser.sleep(600);
+
+    expect(accountPage.getAccessKeysRows().count()).toEqual(0);
+  });
+
+  it('should add access keys pair', () => {
+    accountPage.getAccessKeysOptionsButton().click();
+
+    browser.sleep(200);
+
+    material.getMenuButton(0).click();
+
+    browser.sleep(600);
+    expect(accountPage.getAccessKeysRows().count()).toEqual(1);
+  });
+
+  it('should remove access keys', (doneFunction) => {
+    accountPage.getAccessKeysRows().count().then(count =>{
+      for (let i = 0; i < count; i++) {
+        accountPage.getLastAccessKeysButton().click();
+        browser.sleep(200);
+        material.getMenuButton(2).click();
+        browser.sleep(200);
+        accountPage.getConfirmDeleteButton().click();
+        browser.sleep(2000);
+      }
+
+      expect(accountPage.getAccessKeysRows().count()).toBe(0);
+      doneFunction();
+    });
   })
 });

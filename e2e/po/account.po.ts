@@ -22,4 +22,15 @@ export class AccountPage {
     return element.all(by.css('.entity-view__navigation__label'));
   }
 
+  getAccessKeysOptionsButton() {
+    return element(by.css('access-keys')).element(by.css('.entity-view__table-component__header__action'));
+  }
+
+  getAccessKeysRows() {
+    return element(by.css('access-keys')).element(by.css('tbody')).all(by.css('tr'));
+  }
+
+  getLastAccessKeysButton() {
+    return element(by.css('access-keys')).element(by.css('tbody')).all(by.css('tr')).last().element(by.css('md-icon'));
+  }
 }
