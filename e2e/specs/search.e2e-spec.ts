@@ -8,7 +8,7 @@ import {SearchPage} from '../po/search.po';
 import {AdvancedSearchPage} from '../po/advanced-search.po';
 import {TopnavPage} from '../po/topnav.po';
 
-fdescribe('Search', function() {
+describe('Search', function() {
 
   let authPage: AuthPage;
   let searchPage: SearchPage;
