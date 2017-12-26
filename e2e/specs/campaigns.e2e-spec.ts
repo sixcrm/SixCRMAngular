@@ -78,6 +78,7 @@ describe('Campaigns', function() {
   });
 
   it('should render campaign name correctly', () => {
+    browser.sleep(1200);
     expect(campaignPage.getCampaignNameInHeader().getText()).toEqual('e2e test campaign');
   });
 
@@ -87,7 +88,7 @@ describe('Campaigns', function() {
     campaignPage.getEditButton().click();
     browser.sleep(200);
     campaignPage.getCampaignNameInCard().sendKeys(' updated');
-    campaignPage.getCampaignFormSaveButton();
+    campaignPage.getCampaignFormSaveButton().click();
 
     browser.sleep(2000);
     expect(campaignPage.getCampaignNameInHeader().getText()).toEqual('e2e test campaign updated');
