@@ -72,7 +72,7 @@ describe('Dashboard', function() {
   it('should cache dashboard results', () => {
     const sidenav = new SidenavPage();
 
-    sidenav.getLink(10).click();
+    sidenav.getLink(11).click();
     waitForUrlContains('customers');
     waitForNotPresenceOf(app.getProgressBar());
 
