@@ -31,9 +31,9 @@ describe('SMTP Provider', function() {
     const sidenav = new SidenavPage();
     sidenav.getLink(12).click();
     browser.sleep(500);
-    sidenav.getLink(22).click();
+    sidenav.getLink(23).click();
     browser.sleep(500);
-    sidenav.getLink(24).click();
+    sidenav.getLink(25).click();
     waitForUrlContains('smtpproviders');
     expectUrlToContain('smtpproviders');
   });
