@@ -1,15 +1,14 @@
 import {
-  clearLocalStorage, waitForUrlContains, waitForPresenceOf, waitForNotPresenceOf
+  clearLocalStorage, waitForUrlContains, waitForPresenceOf, waitForNotPresenceOf, navigateSuperuserToHomepage
 } from '../utils/navigation.utils';
 import {expectUrlToContain, expectPresent, expectNotPresent} from '../utils/assertation.utils';
 import {browser, protractor} from 'protractor';
-import {login} from '../utils/action.utils';
 import {AuthPage} from '../po/auth.po';
 import {SearchPage} from '../po/search.po';
 import {AdvancedSearchPage} from '../po/advanced-search.po';
 import {TopnavPage} from '../po/topnav.po';
 
-describe('Search', function() {
+xdescribe('Search', function() {
 
   let authPage: AuthPage;
   let searchPage: SearchPage;
@@ -25,10 +24,10 @@ describe('Search', function() {
 
   beforeAll(() => {
     browser.driver.manage().window().setSize(1440, 900);
-
+    browser.waitForAngularEnabled(false);
     browser.get('/');
     clearLocalStorage();
-    login();
+    navigateSuperuserToHomepage();
   });
 
   afterAll(() => {

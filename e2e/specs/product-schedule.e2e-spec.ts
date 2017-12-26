@@ -6,7 +6,7 @@ import {browser} from 'protractor';
 import {expectUrlToContain, expectDefined} from '../utils/assertation.utils';
 import {ProductSchedulePage} from '../po/product-schedule.po';
 
-describe('Product Schedules', function() {
+xdescribe('Product Schedules', function() {
   let page: EntityIndexPage;
   let productSchedulePage: ProductSchedulePage;
 
