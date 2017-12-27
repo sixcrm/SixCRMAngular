@@ -1442,5 +1442,28 @@ export const TRANSLATIONS = {
       text: 'You\'re complimentary 90 days begins now!',
       complete: 'Complete'
     }
+  },
+  acceptinvite: {
+    badlogin: 'To accept this invite, you must be registered and logged in as',
+    login: 'Log In',
+    text1: 'Would you like to accept',
+    text2: 'invite to account',
+    text3: 'with role',
+    explanation: 'Press "Accept" below to continue',
+    accept: 'Accept',
+    logout: 'Log Out',
+    form: {
+      title: 'Welcome!',
+      subtitle: 'We\'re excited to have you join us',
+      text: 'To accept your invite to Six CRM Please fill out the following information and you are all setup',
+      firstname: 'First Name',
+      lastname: 'Last Name',
+      cont: 'Continue'
+    },
+    thankyou: {
+      title: 'Great!  We\'ve added you to the account.',
+      switchtext: 'Switching between this and your other SIX accounts is easy. Just click the account button in the upper right hand side of the SIX and select the account you wish to access.',
+      cont: 'Continue'
+    }
   }
 };

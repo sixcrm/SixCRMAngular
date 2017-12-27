@@ -7,54 +7,55 @@
 
     <ng-container *ngIf="loginRequiredScreen">
       <div style="margin: auto" class="title">
-        To accept this invite, you must be registered and logged in as <br><br>
+        {{'ACCEPTINVITE_BADLOGIN' | translate}}
+        <br><br>
         {{email}}
       </div>
 
-      <div class="registration-form__button registration-form__button--no-margin accept-invite__button" (click)="goToLogin()">Log In</div>
+      <div class="registration-form__button registration-form__button--no-margin accept-invite__button" (click)="goToLogin()">{{'ACCEPTINVITE_LOGIN' | translate}}</div>
       <div class="registration-form__button--cancel" (click)="logout()">Log Out</div>
     </ng-container>
 
     <ng-container *ngIf="welcomeScreen">
       <div style="margin: auto" class="title">
-        Would you like to accept {{invitor}}'s invite to account "{{account}}" with role "{{role}}"?
+        {{'ACCEPTINVITE_TEXT1' | translate}} {{invitor}}'s {{'ACCEPTINVITE_TEXT2' | translate}} "{{account}}" {{'ACCEPTINVITE_TEXT3' | translate}} "{{role}}"?
       </div>
       <div style="margin-top: auto" class="subtitle">
-        Press "Accept" below to continue
+        {{'ACCEPTINVITE_EXPLANATION' | translate}}
       </div>
 
-      <div class="registration-form__button registration-form__button--no-margin accept-invite__button--small-margin" (click)="acceptInvite()">Accept</div>
-      <div class="registration-form__button--cancel" (click)="logout()">Log Out</div>
+      <div class="registration-form__button registration-form__button--no-margin accept-invite__button--small-margin" (click)="acceptInvite()">{{'ACCEPTINVITE_ACCEPT' | translate}}</div>
+      <div class="registration-form__button--cancel" (click)="logout()">{{'ACCEPTINVITE_LOGOUT' | translate}}</div>
     </ng-container>
 
     <ng-container *ngIf="infoScreen">
       <div class="registration-form__title">
         <div class="registration-form__title__main">
-          Welcome!
+          {{'ACCEPTINVITE_FORM_TITLE' | translate}}
         </div>
         <div class="registration-form__title__sub">
-          We're excited to have you join us
+          {{'ACCEPTINVITE_FORM_SUBTITLE' | translate}}
         </div>
         <div class="registration-form__title__text">
-          To accept your invite to Six CRM Please fill out the following information and you are all setup
+          {{'ACCEPTINVITE_FORM_TEXT' | translate}}
         </div>
       </div>
       <form #regForm="ngForm" class="registration-form__form">
         <md-input-container [class.form-error]="formInvalid && !firstName">
-          <input md-input required placeholder="First Name" type="text" name="firstName" [(ngModel)]="firstName">
+          <input md-input required placeholder="{{'ACCEPTINVITE_FORM_FIRSTNAME' | translate}}" type="text" name="firstName" [(ngModel)]="firstName">
         </md-input-container>
 
         <md-input-container [class.form-error]="formInvalid && !lastName">
-          <input md-input required placeholder="Last Name" type="text" name="lastName" [(ngModel)]="lastName">
+          <input md-input required placeholder="{{'ACCEPTINVITE_FORM_LASTNAME' | translate}}" type="text" name="lastName" [(ngModel)]="lastName">
         </md-input-container>
       </form>
-      <div class="registration-form__button accept-invite__button--standalone" (click)="submitInfo(regForm.form.valid)">Continue</div>
+      <div class="registration-form__button accept-invite__button--standalone" (click)="submitInfo(regForm.form.valid)">{{'ACCEPTINVITE_FORM_CONT' | translate}}</div>
 
     </ng-container>
 
     <ng-container *ngIf="completeScreen">
       <div style="margin: auto;" class="title title--final">
-        Great!  We've added you to the account.
+        {{'ACCEPTINVITE_THANKYOU_TITLE' | translate}}
       </div>
 
       <div *ngIf="showAclInstructions" class="instructions">
@@ -79,12 +80,12 @@
         <div class="instructions__content">
           <div class="instructions__content__box">
             <div class="point"></div>
-            Switching between this and your other SIX accounts is easy. Just click the account button in the upper right hand side of the SIX and select the account you wish to access.
+            {{'ACCEPTINVITE_THANKYOU_SWITCHTEXT' | translate}}
           </div>
         </div>
       </div>
 
-      <div class="registration-form__button accept-invite__button--standalone" (click)="complete()">Continue</div>
+      <div class="registration-form__button accept-invite__button--standalone" (click)="complete()">{{'ACCEPTINVITE_THANKYOU_CONT' | translate}}</div>
     </ng-container>
 
   </div>
