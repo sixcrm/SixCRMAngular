@@ -20,7 +20,7 @@
         {{params.label | translate}}
         <md-icon *ngIf="sortEnabled && params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
       </th>
-      <th *ngIf="showMenuOptions"></th>
+      <th></th>
     </tr>
     </thead>
 
@@ -37,16 +37,18 @@
           </div>
         </ng-template>
       </td>
-      <td *ngIf="showMenuOptions">
-        <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-        <md-menu #actionsMenu="mdMenu" x-position="before">
-          <button *ngIf="viewEnabled" md-menu-item (click)="view.emit(entity)">{{textOptions.viewOptionText || 'View ' + title | translate}}</button>
-          <button *ngIf="editEnabled && hasWritePermission" md-menu-item (click)="edit.emit(entity)">{{textOptions.editOptionText || 'Edit ' + title || '' | translate}}</button>
-          <ng-container *ngFor="let customOption of customMenuOptions">
-            <button *ngIf="!customOption.show || customOption.show(entity)" md-menu-item (click)="customMenuOptionSelected.emit({entity: entity, option: customOption.option})">{{customOption.label | translate}}</button>
-          </ng-container>
-          <button *ngIf="dissociationEnabled && hasWritePermission" md-menu-item (click)="showDisassociateDialog(entity)">{{textOptions.disassociateOptionText || 'Disassociate ' + title || '' | translate}}</button>
-        </md-menu>
+      <td>
+        <ng-container *ngIf="showMenuOptions">
+          <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
+          <md-menu #actionsMenu="mdMenu" x-position="before">
+            <button *ngIf="viewEnabled" md-menu-item (click)="view.emit(entity)">{{textOptions.viewOptionText || 'View ' + title | translate}}</button>
+            <button *ngIf="editEnabled && hasWritePermission" md-menu-item (click)="edit.emit(entity)">{{textOptions.editOptionText || 'Edit ' + title || '' | translate}}</button>
+            <ng-container *ngFor="let customOption of customMenuOptions">
+              <button *ngIf="!customOption.show || customOption.show(entity)" md-menu-item (click)="customMenuOptionSelected.emit({entity: entity, option: customOption.option})">{{customOption.label | translate}}</button>
+            </ng-container>
+            <button *ngIf="dissociationEnabled && hasWritePermission" md-menu-item (click)="showDisassociateDialog(entity)">{{textOptions.disassociateOptionText || 'Disassociate ' + title || '' | translate}}</button>
+          </md-menu>
+        </ng-container>
       </td>
     </tr>
     </tbody>
