@@ -41,31 +41,31 @@
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_MONTHLYCAPC' | translate}}" name="monthlyCapCount" [(ngModel)]="entity.processing.transactionCounts.monthly" type="text">
+        <input required [disabled]="mode === modes.View" (keydown)="isNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_MONTHLYCAPC' | translate}}" name="monthlyCapCount" [(ngModel)]="entity.processing.transactionCounts.monthly" type="text">
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_WEEKLYCAP' | translate}}" name="weeklyCapCount" [(ngModel)]="entity.processing.transactionCounts.weekly" type="text">
+        <input required [disabled]="mode === modes.View" (keydown)="isNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_WEEKLYCAP' | translate}}" name="weeklyCapCount" [(ngModel)]="entity.processing.transactionCounts.weekly" type="text">
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_DAILYCAP' | translate}}" name="dailyCapCount" [(ngModel)]="entity.processing.transactionCounts.daily" type="text">
+        <input required [disabled]="mode === modes.View" (keydown)="isNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_DAILYCAP' | translate}}" name="dailyCapCount" [(ngModel)]="entity.processing.transactionCounts.daily" type="text">
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_TRANSACTIONFEE' | translate}}" name="transactionFee" [(ngModel)]="entity.processing.transactionFee" type="text">
+        <input required [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_TRANSACTIONFEE' | translate}}" name="transactionFee" [(ngModel)]="entity.processing.transactionFee" type="text">
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_DISCOUNTRATE' | translate}}" name="discountRate" [(ngModel)]="entity.processing.discountRate" type="text">
+        <input required [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_DISCOUNTRATE' | translate}}" name="discountRate" [(ngModel)]="entity.processing.discountRate" type="text">
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_CHARGEBACK' | translate}}" name="maxChargebackRatio" [(ngModel)]="entity.processing.maximumChargebackRatio" type="text">
+        <input required [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_CHARGEBACK' | translate}}" name="maxChargebackRatio" [(ngModel)]="entity.processing.maximumChargebackRatio" type="text">
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_RESERVE' | translate}}" name="reserveRate" [(ngModel)]="entity.processing.reserveRate" type="text">
+        <input required [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="{{'MERCHANT_INFO_PROCESSING_RESERVE' | translate}}" name="reserveRate" [(ngModel)]="entity.processing.reserveRate" type="text">
       </md-input-container>
     </div>
   </div>
