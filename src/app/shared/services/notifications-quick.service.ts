@@ -17,7 +17,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
   notificationCount$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   alerts$: BehaviorSubject<Notification[]> = new BehaviorSubject([]);
   notificationsPersistent$: BehaviorSubject<Notification[]> = new BehaviorSubject([]);
-  poolingInterval = 30000;
+  poolingInterval = 60000;
   notificationsSub: Subscription;
   countSub: Subscription;
   alertSub: Subscription;
