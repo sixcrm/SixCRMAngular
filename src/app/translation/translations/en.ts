@@ -245,14 +245,15 @@ export const TRANSLATIONS = {
       title: 'Your Signing Strings',
       name: 'Name',
       signingstring: 'Signing String',
-      used: 'Last time Used',
+      used: 'Last time used',
       add: 'Add new Signing String',
       remove: 'Remove',
       edit: 'Edit',
       updatetext: 'Update Signing String',
       addtext: 'Add new Signing String',
       cancel: 'Cancel',
-      save: 'Save'
+      save: 'Save',
+      nodata: 'No Signing Strings found.'
     }
   },
   dashboard: {
