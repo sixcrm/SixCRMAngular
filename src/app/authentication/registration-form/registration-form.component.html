@@ -7,45 +7,44 @@
   <div *ngIf="!showSuccessMessage; else successMessage">
     <div class="registration-form__title">
       <div class="registration-form__title__main">
-        Welcome!
+        {{'REGISTER_FORM_TITLE' | translate}}
       </div>
       <div class="registration-form__title__sub">
-        We're excited to have you join us
+        {{'REGISTER_FORM_SUBTITLE' | translate}}
       </div>
       <div class="registration-form__title__text">
-        To get started with your 90 day trial simply enter your company name and verify your information.
+        {{'REGISTER_FORM_TEXT' | translate}}
       </div>
     </div>
     <form #regForm="ngForm" class="registration-form__form">
       <md-input-container [class.form-error]="formInvalid && !company">
-        <input md-input required placeholder="Company name" type="text" name="company" [(ngModel)]="company">
+        <input md-input required placeholder="{{'REGISTER_FORM_COMPANY' | translate}}" type="text" name="company" [(ngModel)]="company">
       </md-input-container>
 
       <md-input-container [class.form-error]="formInvalid && !firstName">
-        <input md-input required placeholder="First Name" type="text" name="firstName" [(ngModel)]="firstName">
+        <input md-input required placeholder="{{'REGISTER_FORM_FIRSTNAME' | translate}}" type="text" name="firstName" [(ngModel)]="firstName">
       </md-input-container>
 
       <md-input-container [class.form-error]="formInvalid && !lastName">
-        <input md-input required placeholder="Last Name" type="text" name="lastName" [(ngModel)]="lastName">
+        <input md-input required placeholder="{{'REGISTER_FORM_LASTNAME' | translate}}" type="text" name="lastName" [(ngModel)]="lastName">
       </md-input-container>
     </form>
-    <div class="registration-form__button" (click)="submitRegistrationData(regForm.form.valid)">Continue</div>
+    <div class="registration-form__button" (click)="submitRegistrationData(regForm.form.valid)">{{'REGISTER_FORM_CONT' | translate}}</div>
 
   </div>
   <ng-template #successMessage>
     <div class="registration-form__title registration-form__title--secondary">
       <div class="registration-form__title__main--secondary">
-        Your account is now active and you may begin exploring at your leisure.
+        {{'REGISTER_THANKYOU_TITLE' | translate}}
       </div>
       <div class="registration-form__title__text--secondary">
-        HOWEVER, we still need some accounting details to complete your registration. Remember, you won't be able
-        to take transactions until your account registration is complete. Click complete to go to your billing profile.
+        {{'REGISTER_THANKYOU_SUBTITLE' | translate}}
       </div>
       <div class="registration-form__title__sub--secondary">
-        You're complimentary 90 days begins now!
+        {{'REGISTER_THANKYOU_TEXT' | translate}}
       </div>
     </div>
 
-    <div class="registration-form__button" (click)="complete()">Complete</div>
+    <div class="registration-form__button" (click)="complete()">{{'REGISTER_THANKYOU_COMPLETE' | translate}}</div>
   </ng-template>
 </div>

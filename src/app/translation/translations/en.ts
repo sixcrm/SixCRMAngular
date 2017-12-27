@@ -1419,5 +1419,27 @@ export const TRANSLATIONS = {
     role: 'Role',
     cancel: 'CANCEL',
     invite: 'INVITE'
+  },
+  terms: {
+    title: 'Please accept our Terms and Conditions to get started.',
+    accept: 'Accept',
+    logout: 'Log Out'
+  },
+  register: {
+    form: {
+      title: 'Welcome!',
+      subtitle: 'We\'re excited to have you join us',
+      text: 'To get started with your 90 day trial simply enter your company name and verify your information.',
+      company: 'Company Name',
+      firstname: 'First Name',
+      lastname: 'Last Name',
+      cont: 'Continue'
+    },
+    thankyou: {
+      title: 'Your account is now active and you may begin exploring at your leisure.',
+      subtitle: 'HOWEVER, we still need some accounting details to complete your registration. Remember, you won\'t be able to take transactions until your account registration is complete. Click complete to go to your billing profile.',
+      text: 'You\'re complimentary 90 days begins now!',
+      complete: 'Complete'
+    }
   }
 };

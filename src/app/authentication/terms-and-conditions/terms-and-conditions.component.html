@@ -22,7 +22,7 @@
   <div class="terms-and-conditions__body">
 
     <div class="terms-and-conditions__title">
-      Please accept our Terms and Conditions to get started.
+      {{'TERMS_TITLE' | translate}}
     </div>
 
     <div class="terms-and-conditions__content">
@@ -30,10 +30,10 @@
       <div class="terms-and-conditions__content__body" [innerHtml]="termsAndConditions.body | htmlSanitizer"></div>
     </div>
 
-    <div class="terms-and-conditions__button" (click)="acceptTermsAndConditions()">Accept</div>
+    <div class="terms-and-conditions__button" (click)="acceptTermsAndConditions()">{{'TERMS_ACCEPT' | translate}}</div>
 
     <div>
-      <div class="terms-and-conditions__button--cancel" (click)="logout()">Log Out</div>
+      <div class="terms-and-conditions__button--cancel" (click)="logout()">{{'TERMS_LOGOUT' | translate}}</div>
     </div>
 
   </div>

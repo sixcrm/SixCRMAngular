@@ -14,6 +14,7 @@ import { RegistrationFormComponent } from './registration-form/registration-form
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 import {TermsAndConditionsGuard} from './terms-and-conditions-guard.service';
 import {SharedModule} from '../shared/shared.module';
+import {TranslationModule} from '../translation/translation.module';
 
 @NgModule({
   imports : [
@@ -22,7 +23,8 @@ import {SharedModule} from '../shared/shared.module';
     MaterialModule.forRoot(),
     CommonModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    TranslationModule
   ],
   declarations : [
     AuthComponent,
