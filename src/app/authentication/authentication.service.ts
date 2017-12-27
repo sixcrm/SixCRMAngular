@@ -379,7 +379,7 @@ export class AuthenticationService {
             this.updateTimezone(user.usersetting.timezone);
           }
 
-          this.userSettings$.next(user.settings);
+          this.userSettings$.next(user.usersetting);
 
           this.redirectAfterIntrospection(redirectUrl);
 
