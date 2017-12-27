@@ -222,6 +222,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   }
 
   setLanguage(language: string) {
-
+    this.userSettingsBackup.language = language;
   }
 }

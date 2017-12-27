@@ -30,7 +30,7 @@ export function userSettingsQuery(id: string): string {
   return `
   {
 		usersetting (id: "${id}") {
-			id work_phone cell_phone timezone created_at updated_at,
+			id work_phone cell_phone timezone language created_at updated_at,
 			notifications { name receive data }
 		}
 	}`
@@ -50,13 +50,14 @@ export function updateUserSettingsMutation(userSettings: UserSettings): string {
   let wphone = userSettings.workPhone ? `work_phone: "${userSettings.workPhone}"` : '';
   let cphone = userSettings.cellPhone ? `cell_phone: "${userSettings.cellPhone}"` : '';
   let tzone = userSettings.timezone ? `timezone: "${userSettings.timezone}"` : '';
+  let language = userSettings.language ? `language: "${userSettings.language}"` : '';
 
-  let updateString = `id: "${userSettings.id}" ${wphone} ${cphone} ${tzone} ${notificationString}`;
+  let updateString = `id: "${userSettings.id}" ${wphone} ${cphone} ${tzone} ${notificationString} ${language}`;
 
   return `
     mutation {
       updateusersetting (usersetting: { ${updateString} }) {
-        id work_phone cell_phone timezone created_at updated_at,
+        id work_phone cell_phone timezone language created_at updated_at,
         notifications { name receive data }
       }
 	  }

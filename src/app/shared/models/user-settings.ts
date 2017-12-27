@@ -29,6 +29,7 @@ export class UserSettings {
   workPhone: string;
   cellPhone: string;
   timezone: string;
+  language: string;
   notificationSettings: NotificationUserSettings[] = [];
   createdAt: Moment;
   updatedAt: Moment;
@@ -42,6 +43,7 @@ export class UserSettings {
     this.workPhone = obj.work_phone || '';
     this.cellPhone = obj.cell_phone || '';
     this.timezone = obj.timezone || '';
+    this.language = obj.language || '';
 
     if (obj.notifications) {
       obj.notifications.forEach(notification => this.notificationSettings.push(new NotificationUserSettings(notification)));
@@ -64,6 +66,7 @@ export class UserSettings {
       work_phone: this.workPhone,
       cell_phone: this.cellPhone,
       timezone: this.timezone,
+      language: this.language,
       notifications: notifications,
       created_at: this.createdAt.format(),
       updated_at: this.createdAt.format(),

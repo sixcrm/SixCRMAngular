@@ -53,8 +53,8 @@
               <div class="profile-page__content__general__data__dropdown">
 
                 <autocomplete-input
-                  [initialValue]="'English'"
-                  [options]="['English']"
+                  [initialValue]="userSettingsBackup.language || 'English'"
+                  [options]="['English', 'French']"
                   [placeholder]="'PROFILE_DETAILS_LANGUAGE' | translate"
                   (selected)="setLanguage($event)">
                 </autocomplete-input>
