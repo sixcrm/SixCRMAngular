@@ -230,7 +230,7 @@
         "skype": "Skype",
         "slack": "Slack web hook"
       },
-      "settings ": {
+      "settings": {
         "title": "Notification settings",
         "subtitle": "Select what notifications you want to receive"
       }

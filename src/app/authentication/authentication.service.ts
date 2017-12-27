@@ -17,6 +17,7 @@ import {updateAccountMutation} from '../shared/utils/query-builder';
 import {Account} from '../shared/models/account.model';
 import {YesNoDialogComponent} from '../pages/yes-no-dialog.component';
 import {MdDialogRef, MdDialog} from '@angular/material';
+import {UserSettings} from '../shared/models/user-settings';
 
 declare var Auth0Lock: any;
 
@@ -38,6 +39,7 @@ export class AuthenticationService {
 
   private timezone: string = 'America/Los_Angeles';
   public sixUser$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
+  public userSettings$: Subject<UserSettings> = new Subject();
   public sixUserActivated$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   public activeAcl$: BehaviorSubject<Acl> = new BehaviorSubject<Acl>(new Acl());
   public actingAsAccount$: BehaviorSubject<Account> = new BehaviorSubject<Account>(null);
@@ -376,6 +378,8 @@ export class AuthenticationService {
           if (user && user.usersetting) {
             this.updateTimezone(user.usersetting.timezone);
           }
+
+          this.userSettings$.next(user.settings);
 
           this.redirectAfterIntrospection(redirectUrl);
 

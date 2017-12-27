@@ -52,12 +52,13 @@
 
               <div class="profile-page__content__general__data__dropdown">
 
-                <autocomplete-input
-                  [initialValue]="userSettingsBackup.language || 'English'"
-                  [options]="['English', 'French']"
+                <dropdown-component
+                  [selected]="userSettingsBackup.language || 'English'"
                   [placeholder]="'PROFILE_DETAILS_LANGUAGE' | translate"
-                  (selected)="setLanguage($event)">
-                </autocomplete-input>
+                  [options]="['English', 'French']"
+                  (onSelect)="setLanguage($event)">
+                </dropdown-component>
+
               </div>
             </div>
 

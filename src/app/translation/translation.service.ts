@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {UserSettingsService} from '../shared/services/user-settings.service';
 import {CustomServerError} from '../shared/models/errors/custom-server-error';
+import {AuthenticationService} from '../authentication/authentication.service';
 
 const EN = require('./translations/en.json');
 const FR = require('./translations/fr.json');
@@ -12,7 +13,7 @@ export class TranslationService {
   private translations;
   public translationChanged$: Subject<boolean> = new Subject();
 
-  constructor(private userSettingsService: UserSettingsService) {
+  constructor(private userSettingsService: UserSettingsService, private authService: AuthenticationService) {
     this.updateTranslation();
 
     this.userSettingsService.entity$.merge(this.userSettingsService.entityUpdated$).subscribe(userSettings => {
@@ -21,6 +22,14 @@ export class TranslationService {
       }
 
       this.updateTranslation(userSettings.language);
+    });
+
+    this.authService.userSettings$.subscribe(userSettings => {
+
+      if (userSettings && userSettings.language) {
+        this.updateTranslation(userSettings.language);
+      }
+
     })
   }
 
@@ -33,7 +42,6 @@ export class TranslationService {
       }
       default: {
         this.translations = EN;
-        break;
       }
     }
 
