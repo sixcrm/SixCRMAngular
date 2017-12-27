@@ -11,9 +11,9 @@
       <div class="entity-view__info__data">
         <div *ngIf="!addMode" class="entity-view__info__data__date">{{'SINGLEPAGE_CREATED' | translate}}: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
         <div class="entity-view__info__data__name">
-          <div *ngIf="viewMode; else editableMode">
+          <span *ngIf="viewMode; else editableMode">
             {{entityBackup.name}}
-          </div>
+          </span>
           <ng-template #editableMode>
             <md-input-container *ngIf="updateMode || addMode; else viewName" [class.error]="formInvalid && !entity.name">
               <input required #nameFieldAddMode md-input name="name" [(ngModel)]="entity.name">

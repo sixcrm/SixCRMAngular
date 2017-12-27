@@ -6,7 +6,7 @@ import {browser} from 'protractor';
 import {expectUrlToContain} from '../utils/assertation.utils';
 import {NotificationsQuickPage} from '../po/notifications-quick.po';
 
-describe('App load', function() {
+describe('Profile', function() {
   let profilePage: ProfilePage;
   let topnavPage: TopnavPage;
   let notificationsPage: NotificationsQuickPage;
