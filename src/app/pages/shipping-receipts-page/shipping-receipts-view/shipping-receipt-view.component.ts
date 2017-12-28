@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {ShippingReceipt} from '../../../shared/models/shipping-receipt.model';
 import {ShippingReceiptsService} from '../../../shared/services/shipping-receipts.service';
@@ -22,8 +22,15 @@ export class ShippingReceiptViewComponent extends AbstractEntityViewComponent<Sh
   constructor(service: ShippingReceiptsService,
               route: ActivatedRoute,
               public navigation: NavigationService,
+              private router: Router
   ) {
     super(service, route);
+  }
+
+  goToFulfillmentProvider(): void {
+    if (this.entity.fulfillmentProvider.id) {
+      this.router.navigate(['/fulfillmentproviders', this.entity.fulfillmentProvider.id])
+    }
   }
 
   ngOnInit() {

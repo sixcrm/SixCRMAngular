@@ -25,23 +25,63 @@
   <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>
 
-      <div class="entity-view__card">
-        <div class="entity-view__card__header">
-          <div class="entity-view__card__header__title">{{'SHIPPINGRECEIPT_INFO_TITLE' | translate}}</div>
-        </div>
+      <div class="flex-custom">
 
-        <div class="entity-view__card__content">
-          <md-input-container class="entity-view__card__content__item">
-            <input md-input disabled placeholder="{{'SHIPPINGRECEIPT_INFO_STATUS' | translate}}" [(ngModel)]="entity.status" type="text">
-          </md-input-container>
+        <div class="entity-view__card">
+          <div class="entity-view__card__header">
+            <div class="entity-view__card__header__title">{{'SHIPPINGRECEIPT_INFO_TITLE' | translate}}</div>
+            <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
+            <md-menu #actionsMenu="mdMenu" x-position="before">
+              <button md-menu-item (click)="goToFulfillmentProvider()">{{'SHIPPINGRECEIPT_INFO_FULFILLMENTPROVIDERVIEW' | translate}}</button>
+            </md-menu>
+          </div>
 
-          <div class="flex-custom">
-            <md-input-container class="entity-view__card__content__item number-input">
-              <input md-input disabled placeholder="{{'SHIPPINGRECEIPT_INFO_NUMBER' | translate}}" [(ngModel)]="entity.trackingNumber" type="text">
+          <div class="entity-view__card__content">
+            <md-input-container class="entity-view__card__content__item">
+              <input md-input disabled placeholder="{{'SHIPPINGRECEIPT_INFO_STATUS' | translate}}" [(ngModel)]="entity.status" type="text">
             </md-input-container>
-            <md-icon *ngIf="entity.trackingNumber" class="copy-icon" md-tooltip="Copy to clipboard" ngxClipboard [cbContent]="entity.trackingNumber">content_copy</md-icon>
+
+            <div class="flex-custom">
+              <md-input-container class="entity-view__card__content__item number-input">
+                <input md-input disabled placeholder="{{'SHIPPINGRECEIPT_INFO_NUMBER' | translate}}" [(ngModel)]="entity.trackingNumber" type="text">
+              </md-input-container>
+              <md-icon *ngIf="entity.trackingNumber" class="copy-icon" md-tooltip="Copy to clipboard" ngxClipboard [cbContent]="entity.trackingNumber">content_copy</md-icon>
+            </div>
+
+            <md-input-container class="entity-view__card__content__item">
+              <input md-input disabled placeholder="{{'SHIPPINGRECEIPT_INFO_FULFILLMENTPROVIDER' | translate}}" [(ngModel)]="entity.fulfillmentProvider.name" type="text">
+            </md-input-container>
           </div>
         </div>
+
+        <div class="entity-view__card">
+          <div class="entity-view__card__header">
+            <div class="entity-view__card__header__title">{{'SHIPPINGRECEIPT_HISTORY_TITLE' | translate}}</div>
+          </div>
+
+          <div class="history-container">
+            <div class="flex-custom" *ngFor="let event of entity.history; let i = index">
+
+              <div>
+                <div class="done-icon">
+                  <md-icon>done</md-icon>
+                </div>
+
+                <div *ngIf="i < entity.history.length - 1" class="line"></div>
+              </div>
+
+              <div class="info-container">
+                <div class="name">{{event.state}}</div>
+                <div class="time" *ngIf="event.createdAt">
+                  <div>{{'SHIPPINGRECEIPT_HISTORY_ENTERED' | translate}} {{event.state}}:</div>
+                  {{event.createdAt.format('MM/DD/YYYY h:mm a')}}
+                </div>
+                <div class="warning">{{event.detail}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </md-tab>

@@ -1232,7 +1232,13 @@
       "info": {
         "title": "Shipping Receipt Details",
         "status": "Status",
-        "number": "Tracking Number"
+        "number": "Tracking Number",
+        "fulfillmentprovider": "Fulfillment Provider",
+        "fulfillmentproviderview": "Fulfillment Provider"
+      },
+      "history": {
+        "title": "Shipping Receipt State History",
+        "entered": "Entered"
       }
     },
     "fulfillment": {
