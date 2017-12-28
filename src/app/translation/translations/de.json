@@ -14,13 +14,13 @@
     },
     "sidenav": {
       "dashboard": "Dashboard",
-      "orderengine": "State",
+      "orderengine": "SIX-Antrieb",
       "reports": {
         "title": "Reports",
         "order": "Order Report",
         "summary": "Summary Report",
         "transaction": "Transaktionen Report",
-        "merchant": "Merchants Report",
+        "merchant": "Händler Report",
         "affiliate": "Vertriebspartner Report",
         "fulfillment": "Fulfillment Report",
         "retention": "Retention",
@@ -66,7 +66,7 @@
     },
     "orderengine": {
       "schema": {
-        "title": "State Machine Fluss",
+        "title": "SIX-Antrieb Fluss",
         "subtitle": "Unten finden Sie einen Fluss von allen Neubelastungen in SIX. Falls Sie Details einer bestimmten Reihe sehen wollen, klicken Sie den Namen der Reihe."
       },
       "status": {
@@ -95,13 +95,13 @@
           "enter": "Eingegeben"
         },
         "properties": {
-          "title": "Rebill Properties",
+          "title": "Neubelastung Properties",
           "subtitle": "Details of client rebill",
           "rebill": "Neuzubelastung ID",
-          "parentsession": "Parent Session ID",
-          "created": "Created at",
-          "updated": "Last Updated",
-          "amount": "Total Billing Amount",
+          "parentsession": "Muttersession ID",
+          "created": "Geschafft am",
+          "updated": "Aktualisiert am",
+          "amount": "Gesamtbetrag",
           "campaign": "Associated Campaign"
         }
       }
@@ -120,7 +120,7 @@
     },
     "notificationsquick": {
       "title": "NOTIFICATIONS",
-      "settings": "Settings",
+      "settings": "Einstellungen",
       "viewall": "See All Notifications",
       "alerts": "Alerts",
       "noresults": "No Notifications Found",
@@ -149,36 +149,36 @@
       "transactiontype": "Transaction Type",
       "processorresponse": "Processor Response",
       "new": "New",
-      "rebill": "Rebill",
+      "rebill": "Neubelastung",
       "success": "Success",
       "decline": "Decline",
       "error": "Error"
     },
     "forminputs": {
-      "fullname": "Full Name",
-      "firstname": "First Name",
-      "phone": "Phone",
+      "fullname": "Name",
+      "firstname": "Vorname",
+      "phone": "Telefonummer",
       "email": "Email",
-      "lastname": "Last Name",
-      "address": "Address",
-      "address2": "Address2",
-      "city": "City",
-      "state": "State",
-      "zip": "ZIP Code",
-      "country": "Country",
+      "lastname": "Nachname",
+      "address": "Addresse",
+      "address2": "Addresse 2",
+      "city": "Stadt",
+      "state": "Bundesstadt",
+      "zip": "PLZ",
+      "country": "Land",
       "creditcard": {
-        "name": "Name on Card",
-        "type": "Type",
-        "number": "Number",
-        "expiration": "Expiration",
-        "ccv": "CCV",
+        "name": "Karteninhaber",
+        "type": "Karte",
+        "number": "Kartennummer",
+        "expiration": "Gültig bis",
+        "ccv": "Kartenprüfziffer",
         "monthshort": "MM",
-        "yearshort": "YYYY"
+        "yearshort": "JJJJ"
       }
     },
     "indexpage": {
       "filter": "Filter",
-      "del": "Delete",
+      "del": "Löschen",
       "view": "View",
       "exp": "Export",
       "edit": "Edit",
@@ -186,7 +186,7 @@
     },
     "singlepage": {
       "created": "Created",
-      "updated": "Updated",
+      "updated": "Aktualisiert",
       "createcanceltitle": "Are you sure you want to close creation modal?",
       "createcanceltext": "You have unsaved changes, if you close this modal changes will be discarded.",
       "createcancelclose": "CLOSE",
@@ -208,8 +208,8 @@
       "details": {
         "title": "Profile",
         "subtitle": "general information",
-        "firstname": "First Name",
-        "lastname": "Last Name",
+        "firstname": "Vorname",
+        "lastname": "Nachname",
         "workphone": "Work Phone",
         "cellphone": "Cell Phone",
         "timezone": "Timezone",
@@ -248,11 +248,11 @@
         "used": "Last time used",
         "add": "Add new Signing String",
         "remove": "Remove",
-        "edit": "Edit",
+        "edit": "Bearbeiten",
         "updatetext": "Update Signing String",
         "addtext": "Add new Signing String",
         "cancel": "Cancel",
-        "save": "Save",
+        "save": "Speichern",
         "nodata": "No Signing Strings found."
       }
     },
@@ -347,8 +347,8 @@
       "tabletitle": "Transaction Summary Details",
       "sales": "Sales",
       "salesrevenue": "Sales Revenue",
-      "rebill": "Rebill",
-      "rebillrevenue": "Rebill Revenue",
+      "rebill": "Neubelastung",
+      "rebillrevenue": "Neubelastung Revenue",
       "refunds": "Refunds",
       "refundexpenses": "Refund Expenses",
       "declines": "Declines",
@@ -384,7 +384,7 @@
       "chart": {
         "title": "Merchant Processing",
         "subtitle": "Current loads and balance",
-        "nodata": "No Merchants Found"
+        "nodata": "No Händler Found"
       }
     },
     "affiliatereport": {
@@ -411,15 +411,15 @@
       "advanced": {
         "toggle": "ADVANCED SEARCH",
         "search": "Search",
-        "firstname": "First Name",
-        "lastname": "Last Name",
+        "firstname": "Vorname",
+        "lastname": "Nachname",
         "phone": "Phone Number",
         "email": "Email Address",
         "trackingnumber": "Shipment Tracking Number",
         "address1": "Address 1",
         "address2": "Address 2",
         "city": "City",
-        "zip": "ZIP Code",
+        "zip": "Postleitzahl",
         "state": "State",
         "country": "Country",
         "alias": "Transaction Alias",
@@ -427,7 +427,7 @@
         "ccf6": "Credit Card # first 6",
         "ccl4": "Credit Card # last 4",
         "amount": "Amount",
-        "created": "Created at",
+        "created": "Geschafft am",
         "sku": "SKU",
         "name": "Name",
         "response": "Processor Response",
@@ -438,7 +438,7 @@
         "shipdelay": "Shipping Delay",
         "schedulesnum": "Number of Schedules",
         "bill": "Billed at",
-        "parentsession": "Parent Session",
+        "parentsession": "Muttersession",
         "product": "Product",
         "start": "Start",
         "end": "End",
@@ -456,10 +456,10 @@
       "results": "Search Results",
       "sort": {
         "title": "Sort By",
-        "createasc": "created at asc",
-        "createdesc": "created at desc",
-        "updateasc": "updated at asc",
-        "updatedesc": "updated at desc",
+        "createasc": "Erstellungsdatum (Aufstiegend)",
+        "createdesc": "Erstellungsdatum (Abstiegend)",
+        "updateasc": "Aktualisiert (Aufstiegend)",
+        "updatedesc": "Aktualisiert (Abstiegend)",
         "def": "default"
       },
       "nodata": "Sorry, there were no results.",
@@ -482,7 +482,7 @@
           "schedules": "Product Schedules"
         },
         "rebill": {
-          "title": "Rebill Info",
+          "title": "Neubelastung Info",
           "Transaktionen": "Transaktionen"
         },
         "schedule": {
@@ -498,7 +498,7 @@
           "name": "Name",
           "active": "Active",
           "created": "Created",
-          "updated": "Updated"
+          "updated": "Aktualisiert"
         }
       },
       "tab": {
@@ -596,7 +596,7 @@
         "name": "Name",
         "email": "Email",
         "cancel": "CANCEL",
-        "save": "SAVE"
+        "save": "SPEICHERN"
       },
       "account": {
         "title": "Associated Konten",
@@ -615,8 +615,8 @@
       "index": {
         "title": "Customers",
         "header": {
-          "firstname": "First Name",
-          "lastname": "Last Name",
+          "firstname": "Vorname",
+          "lastname": "Nachname",
           "state": "State",
           "city": "City"
         }
@@ -634,14 +634,14 @@
         "edit": "EDIT CUSTOMER",
         "shipedit": "Edit Shipping Address",
         "cancel": "CANCEL",
-        "save": "SAVE",
+        "save": "SPEICHERN",
         "update": "UPDATE"
       },
       "notes": {
         "title": "Notes",
         "subtitle": "Customer service notes",
         "add": "Add New Note",
-        "del": "Delete Note",
+        "del": "Löschen Note",
         "nodata": "No Notes found."
       },
       "rebill": {
@@ -658,7 +658,7 @@
         "subtitle": "modify an upcoming transaction",
         "date": "Transaction Date",
         "cancel": "CANCEL",
-        "save": "SAVE",
+        "save": "SPEICHERN",
         "price": "Price"
       },
       "events": {
@@ -704,7 +704,7 @@
         "sameaddress": "Same as Customer Address",
         "cancel": "Cancel",
         "update": "Update",
-        "save": "Save",
+        "save": "Speichern",
         "nodata": "No Credit Cards found.",
         "expiration": "Expiration"
       }
@@ -743,15 +743,15 @@
           "total": "Total"
         },
         "pay": "PAY NOW",
-        "detailedit": "Edit",
+        "detailedit": "Bearbeiten",
         "detailremove": "Remove",
         "account": "Account",
         "createtitle": "Create new Bill",
         "cancel": "CANCEL",
-        "save": "SAVE",
+        "save": "SPEICHERN",
         "additem": {
           "title": "Add New Item",
-          "save": "Save",
+          "save": "Speichern",
           "cancel": "Cancel"
         }
       },
@@ -783,7 +783,7 @@
         "shipdelay": "Shipping Delay (minutes)",
         "fulfillmentprovider": "Fulfillment Provider",
         "edit": "Edit Product",
-        "del": "Delete Product",
+        "del": "Löschen Product",
         "cancel": "CANCEL",
         "update": "UPDATE",
         "create": "CREATE"
@@ -800,7 +800,7 @@
       "campaign": {
         "title": "Kampagnen",
         "name": "Name",
-        "created": "Created at",
+        "created": "Geschafft am",
         "productnum": "Total Products",
         "schedulednum": "Total Scheduled",
         "view": "View Campaign",
@@ -827,7 +827,7 @@
         "name": "Product Schedule Name",
         "loadbalancer": "Lastverteiler (Load Balancer)",
         "cancel": "CANCEL",
-        "save": "SAVE",
+        "save": "SPEICHERN",
         "edit": "Edit Product Schedule"
       },
       "cycle": {
@@ -836,7 +836,7 @@
         "title": "Cycles",
         "add": "ADD",
         "clear": "CLEAR",
-        "save": "SAVE",
+        "save": "SPEICHERN",
         "cancel": "CANCEL",
         "name": "Product Name",
         "schedulename": "Product Schedule Name",
@@ -857,7 +857,7 @@
       "campaign": {
         "title": "Kampagnen",
         "name": "Name",
-        "created": "Created at",
+        "created": "Geschafft am",
         "productnum": "Total Products",
         "schedulednum": "Total Scheduled",
         "view": "View Campaign",
@@ -870,7 +870,7 @@
         "title": "Kampagnen",
         "header": {
           "name": "Name",
-          "created": "Created at",
+          "created": "Geschafft am",
           "productnum": "Total Products",
           "schedulednum": "Total Scheduled"
         }
@@ -888,7 +888,7 @@
         "allowprepaid": "Allow Prepaid",
         "showprepaid": "Show Prepaid",
         "cancel": "CANCEL",
-        "save": "SAVE",
+        "save": "SPEICHERN",
         "edit": "Edit Campaign"
       },
       "email": {
@@ -903,7 +903,7 @@
         "addbutton": "ADD",
         "view": "View Email Template",
         "remove": "Disassociate Email Template",
-        "removetext": "Are you sure you want to delete?"
+        "removetext": "Are you sure you want to Löschen?"
       },
       "productschedule": {
         "title": "Associated Product Schedules",
@@ -915,7 +915,7 @@
         "addbutton": "ADD",
         "view": "View Product Schedule",
         "remove": "Disassociate Product Schedule",
-        "removetext": "Are you sure you want to delete?"
+        "removetext": "Are you sure you want to Löschen?"
       },
       "affiliate": {
         "name": "Name"
@@ -929,7 +929,7 @@
         "addbutton": "ADD",
         "view": "View Affiliate",
         "remove": "Remove Affiliate from allowed list",
-        "removetext": "Are you sure you want to delete?"
+        "removetext": "Are you sure you want to Löschen?"
       },
       "affiliatedenied": {
         "title": "Denied Vertriebspartner",
@@ -940,7 +940,7 @@
         "addbutton": "ADD",
         "view": "View Affiliate",
         "remove": "Remove Affiliate from denied list",
-        "removetext": "Are you sure you want to delete?"
+        "removetext": "Are you sure you want to Löschen?"
       },
       "tracking": {
         "title": "Tracking Code",
@@ -974,7 +974,7 @@
         "subject": "Subject",
         "body": "Email ",
         "cancel": "CANCEL",
-        "save": "SAVE"
+        "save": "SPEICHERN"
       },
       "token": {
         "title": "Tokens",
@@ -994,8 +994,8 @@
         "header": {
           "name": "Name",
           "affiliateid": "Affiliate ID",
-          "created": "Created at",
-          "updated": "Updated at"
+          "created": "Geschafft am",
+          "updated": "Aktualisiert am"
         }
       },
       "tab": {
@@ -1009,7 +1009,7 @@
         "id": "Affiliate ID",
         "edit": "EDIT AFFILIATE",
         "cancel": "CANCEL",
-        "save": "SAVE",
+        "save": "SPEICHERN",
         "update": "UPDATE"
       },
       "tracking": {
@@ -1025,7 +1025,7 @@
         "cancel": "CANCEL",
         "view": "View Tracker",
         "disassociate": "Disassociate Tracker",
-        "disassociatetext": "Are you sure you want to delete?"
+        "disassociatetext": "Are you sure you want to Löschen?"
       },
       "session": {
         "title": "Associated Sessions",
@@ -1062,7 +1062,7 @@
         "eventtypeadd": "Add Event Type",
         "data": "Tracking Data",
         "link": "Tracking Link",
-        "save": "SAVE",
+        "save": "SPEICHERN",
         "cancel": "CANCEL",
         "edit": "Edit Tracker"
       },
@@ -1070,8 +1070,8 @@
         "title": "Associated Vertriebspartner",
         "name": "Name",
         "id": "Affiliate ID",
-        "created": "Created at",
-        "updated": "Updated at",
+        "created": "Geschafft am",
+        "updated": "Aktualisiert am",
         "nodata": "No Vertriebspartner found.",
         "associate": "Associate Affiliate",
         "associatetext": "Select Affiliate",
@@ -1079,13 +1079,13 @@
         "cancel": "CANCEL",
         "view": "View Affiliate",
         "disassociate": "Disassociate Affiliate",
-        "disassociatetext": "Are you sure you want to delete?"
+        "disassociatetext": "Are you sure you want to Löschen?"
       },
       "campaign": {
         "title": "Associated Kampagnen",
         "name": "Name",
-        "created": "Created at",
-        "updated": "Updated at",
+        "created": "Geschafft am",
+        "updated": "Aktualisiert am",
         "nodata": "No Kampagnen found.",
         "associate": "Associate Campaign",
         "associatetext": "Select Campaign",
@@ -1093,7 +1093,7 @@
         "cancel": "CANCEL",
         "view": "View Campaign",
         "disassociate": "Disassociate Campaign",
-        "disassociatetext": "Are you sure you want to delete?"
+        "disassociatetext": "Are you sure you want to Löschen?"
       }
     },
     "session": {
@@ -1120,12 +1120,12 @@
         "billed": "Bill at",
         "amount": "Amount",
         "nodata": "No Neubelastung found.",
-        "view": "View Rebill"
+        "view": "View Neubelastung"
       },
       "campaign": {
         "title": "Associated Kampagnen",
         "name": "Name",
-        "created": "Created at",
+        "created": "Geschafft am",
         "nodata": "No Kampagnen found.",
         "view": "View Campaign"
       },
@@ -1133,7 +1133,7 @@
         "title": "Associated Vertriebspartner",
         "name": "Name",
         "id": "Affiliate ID",
-        "created": "Created at",
+        "created": "Geschafft am",
         "nodata": "No Vertriebspartner found.",
         "view": "View Affiliate"
       }
@@ -1145,7 +1145,7 @@
         "header": {
           "alias": "Alias",
           "amount": "Amount",
-          "created": "Created at",
+          "created": "Geschafft am",
           "response": "Processor Response"
         }
       },
@@ -1155,7 +1155,7 @@
       },
       "info": {
         "title": "Transaction Details",
-        "rebillview": "View Rebill",
+        "rebillview": "View Neubelastung",
         "merchantproviderview": "View Merchant Anbieter",
         "alias": "Alias",
         "amount": "Amount",
@@ -1183,13 +1183,13 @@
       }
     },
     "rebill": {
-      "title": "Rebill",
+      "title": "Neubelastung",
       "index": {
         "title": "Neubelastung",
         "header": {
           "id": "ID",
           "bill": "Bill at",
-          "created": "Created at",
+          "created": "Geschafft am",
           "amount": "Amount"
         }
       },
@@ -1198,10 +1198,10 @@
         "receipts": "SHIPPING RECEIPTS"
       },
       "info": {
-        "title": "Rebill Information",
+        "title": "Neubelastung Information",
         "billed": "Billed at date",
         "amount": "Amount",
-        "parentsession": "Parent Session",
+        "parentsession": "Muttersession",
         "customer": "Customer",
         "customerview": "View Customer",
         "sessionview": "View Session"
@@ -1211,8 +1211,8 @@
         "nodata": "No Shipping Receipts found",
         "status": "Status",
         "trackingnumber": "Tracking Number",
-        "created": "Created At",
-        "updated": "Updated At"
+        "created": "Geschafft am",
+        "updated": "Aktualisiert am"
       }
     },
     "shippingreceipt": {
@@ -1222,8 +1222,8 @@
         "header": {
           "status": "Status",
           "number": "Tracking Number",
-          "created": "Created at",
-          "updated": "Updated at"
+          "created": "Geschafft am",
+          "updated": "Aktualisiert am"
         }
       },
       "tab": {
@@ -1269,7 +1269,7 @@
         "facilityid": "Facility ID",
         "threeplid": "ThreePL ID",
         "cancel": "CANCEL",
-        "save": "SAVE"
+        "save": "SPEICHERN"
       },
       "validate": {
         "title": "Validate Fulfillment Provider",
@@ -1307,7 +1307,7 @@
         "password": "Password",
         "port": "Port",
         "cancel": "CANCEL",
-        "save": "SAVE"
+        "save": "SPEICHERN"
       },
       "validate": {
         "title": "Validate SMTP Provider",
@@ -1332,12 +1332,12 @@
         "general": "GENERAL DETAILS"
       },
       "info": {
-        "createtitle": "Create new Lastverteiler (Load Balancer)",
+        "createtitle": "Neue Lastverteiler (Load Balancer)",
         "name": "Name",
         "edit": "EDIT Lastverteiler (Load Balancer)",
         "cancel": "CANCEL",
         "update": "UPDATE",
-        "save": "SAVE"
+        "save": "SPEICHERN"
       },
       "merchant": {
         "addtitle": "Merchant Anbieter hinzufugen",
@@ -1350,7 +1350,7 @@
         "view": "View Merchant Anbieter",
         "edit": "Update Distribution",
         "disassociate": "Disassociate Merchant Anbieter",
-        "disassociatetext": "Are you sure you want to delete?",
+        "disassociatetext": "Are you sure you want to Löschen?",
         "nodata": "No Merchant Anbieter found."
       }
     },
@@ -1373,9 +1373,9 @@
         "edit": "EDIT Merchant Anbieter",
         "cancel": "CANCEL",
         "update": "UPDATE",
-        "save": "SAVE",
+        "save": "SPEICHERN",
         "settings": {
-          "title": "Settings",
+          "title": "Einstellungen",
           "name": "Name",
           "enabled": "Enabled",
           "allowprepaid": "Allow Prepaid cards",
@@ -1416,9 +1416,9 @@
         "name": "Name"
       }
     },
-    "deletedialog": {
-      "text": "Are you sure you want to delete?",
-      "del": "DELETE",
+    "Löschendialog": {
+      "text": "Are you sure you want to Löschen?",
+      "del": "Löschen",
       "cancel": "CANCEL"
     },
     "inviteuser": {
@@ -1439,8 +1439,8 @@
         "subtitle": "We're excited to have you join us",
         "text": "To get started with your 90 day trial simply enter your company name and verify your information.",
         "company": "Company Name",
-        "firstname": "First Name",
-        "lastname": "Last Name",
+        "firstname": "Vorname",
+        "lastname": "Nachname",
         "cont": "Continue"
       },
       "thankyou": {
@@ -1463,8 +1463,8 @@
         "title": "Welcome!",
         "subtitle": "We're excited to have you join us",
         "text": "To accept your invite to Six CRM Please fill out the following information and you are all setup",
-        "firstname": "First Name",
-        "lastname": "Last Name",
+        "firstname": "Vorname",
+        "lastname": "Nachname",
         "cont": "Continue"
       },
       "thankyou": {
