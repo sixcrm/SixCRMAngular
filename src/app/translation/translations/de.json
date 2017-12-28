@@ -1322,7 +1322,7 @@
     "loadbalancer": {
       "title": "Lastverteiler (Load Balancer)",
       "index": {
-        "title": "Lastverteilungen (Lastverteiler (Load Balancer)s)",
+        "title": "Lastverteilungen (Load Balancers)",
         "header": {
           "name": "Name",
           "merchantnum": "Number of Merchant Anbieter"
