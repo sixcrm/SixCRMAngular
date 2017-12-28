@@ -46,7 +46,7 @@ export class AffiliateReportComponent  extends ReportsAbstractComponent<Affiliat
       new ReportColumnParams('AFFILIATEREPORT_PARTIALSCOUNT', (e: AffiliateReport) => e.countPartials, 'right'),
       new ReportColumnParams('AFFILIATEREPORT_PARTIALSPERCENTAGE', (e: AffiliateReport) => e.partialsPercent.toFixed(2) + '%', 'right'),
       new ReportColumnParams('AFFILIATEREPORT_DECLINESCOUNT', (e: AffiliateReport) => e.declineCount, 'right'),
-      new ReportColumnParams('AFFILIATEREPORT_DECILNESPERCENTAGE', (e: AffiliateReport) => e.declinesPercent.toFixed(2) + '%', 'right'),
+      new ReportColumnParams('AFFILIATEREPORT_DECLINESPERCENTAGE', (e: AffiliateReport) => e.declinesPercent.toFixed(2) + '%', 'right'),
       new ReportColumnParams('AFFILIATEREPORT_SALESCOUNT', (e: AffiliateReport) => e.countSales, 'right'),
       new ReportColumnParams('AFFILIATEREPORT_SALESPERCENTAGE', (e: AffiliateReport) => e.salesPercent.toFixed(2) + '%', 'right'),
       new ReportColumnParams('AFFILIATEREPORT_UPSELLCOUNT', (e: AffiliateReport) => e.countUpsell, 'right'),
