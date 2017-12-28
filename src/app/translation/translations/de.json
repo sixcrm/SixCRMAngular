@@ -54,8 +54,8 @@
         "title": "Einstellungen",
         "user": "Nutzer",
         "account": "Konten",
-        "bill": "Bills",
-        "role": "Roles",
+        "bill": "Rechnungen",
+        "role": "Rolllen",
         "documentation": {
           "title": "Dokumentation",
           "graphql": "GraphQL",
@@ -70,34 +70,34 @@
         "subtitle": "Unten finden Sie einen Fluss von allen Neubelastungen in SIX. Falls Sie Details einer bestimmten Reihe sehen wollen, klicken Sie den Namen der Reihe."
       },
       "status": {
-        "failurerate": "Failure Rate",
-        "avgtime": "Avg. Time in Queue",
-        "view": "View"
+        "failurerate": "Durchfallquote",
+        "avgtime": "Durchschnittszeit in der Reihe",
+        "view": "Ansehen" 
       },
       "details": {
-        "title": "Total Orders in",
-        "failurerate": "Failure Rate",
-        "avgtime": "Avg. Time in Queue",
-        "view": "VIEW LIVE QUEUE",
-        "downstream": "DOWNSTREAM QUEUE",
-        "nodata": "Insufficient Data"
+        "title": "Gesamte Aufträge",
+        "failurerate": "Durchfallquote",
+        "avgtime": "Durchsnittszeit in der Reihe",
+        "view": "AKTUELLE SICHT DIESER REIHE",
+        "downstream": "NÄCHSTE REIHE",
+        "nodata": "Unzureichende Daten"
       },
       "Neubelastung": {
         "snack": {
-          "main": "Queue Messages",
-          "sub": "Rebill ID"
+          "main": "Queue Nachrichten",
+          "sub": "Neuzubelastung ID"
         }
       },
       "rebill": {
         "history": {
-          "title": "Messages",
+          "title": "Nachrichten",
           "subtitle": "History",
           "enter": "Entered"
         },
         "properties": {
           "title": "Rebill Properties",
           "subtitle": "Details of client rebill",
-          "rebill": "Rebill ID",
+          "rebill": "Neuzubelastung ID",
           "parentsession": "Parent Session ID",
           "created": "Created at",
           "updated": "Last Updated",
@@ -711,7 +711,7 @@
     },
     "bill": {
       "index": {
-        "title": "Bills",
+        "title": "Rechnungen",
         "header": {
           "start": "Period Start",
           "end": "Period End",
