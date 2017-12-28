@@ -48,7 +48,7 @@
       "merchant": {
         "title": "Händler",
         "merchantprovider": "Merchant Anbieter",
-        "loadbalancer": "Lastverteilungen (Lastverteiler (Load Balancer))"
+        "loadbalancer": "Lastverteilungen (Load Balancers)"
       },
       "settings": {
         "title": "Einstellungen",
@@ -80,7 +80,7 @@
         "avgtime": "Durchsnittszeit in der Reihe",
         "view": "AKTUELLE SICHT DIESER REIHE",
         "downstream": "NÄCHSTE REIHE",
-        "nodata": "Unzureichende Daten"
+        "nodata": "Unzureichende Dateien"
       },
       "Neubelastung": {
         "snack": {
@@ -91,8 +91,8 @@
       "rebill": {
         "history": {
           "title": "Nachrichten",
-          "subtitle": "History",
-          "enter": "Entered"
+          "subtitle": "Geschichte",
+          "enter": "Eingegeben"
         },
         "properties": {
           "title": "Rebill Properties",
@@ -145,7 +145,7 @@
       "subid4": "Sub ID 4",
       "subid5": "Sub ID 5",
       "productschedule": "Product Schedule",
-      "merchantprovider": "Merchant Provider",
+      "merchantprovider": "Merchant Anbieter",
       "transactiontype": "Transaction Type",
       "processorresponse": "Processor Response",
       "new": "New",
@@ -364,7 +364,7 @@
       "tabletitle": "Transaction Details",
       "customer": "Customer",
       "campaign": "Campaign",
-      "merchantprovider": "Merchant Provider",
+      "merchantprovider": "Merchant Anbieter",
       "affiliate": "Affiliate",
       "amount": "Amount",
       "processorresult": "Processor Result",
@@ -373,7 +373,7 @@
     "merchantreport": {
       "title": "Merchant Report",
       "tabletitle": "Transaction Details",
-      "merchantprovider": "Merchant Provider",
+      "merchantprovider": "Merchant Anbieter",
       "salescount": "Sales Count",
       "salesgrossrevenue": "Sales Gross Revenue",
       "refundexpenses": "Refund Expenses",
@@ -432,7 +432,7 @@
         "name": "Name",
         "response": "Processor Response",
         "status": "Receipt Status",
-        "merchantprovider": "Merchant Provider",
+        "merchantprovider": "Merchant Anbieter",
         "fulfillmentprovider": "Fulfillment Provider",
         "ship": "Ship",
         "shipdelay": "Shipping Delay",
@@ -1156,10 +1156,10 @@
       "info": {
         "title": "Transaction Details",
         "rebillview": "View Rebill",
-        "merchantproviderview": "View Merchant Provider",
+        "merchantproviderview": "View Merchant Anbieter",
         "alias": "Alias",
         "amount": "Amount",
-        "merchantprovider": "Merchant Provider"
+        "merchantprovider": "Merchant Anbieter"
       },
       "processor": {
         "title": "Processor Response",
@@ -1237,8 +1237,8 @@
         "fulfillmentproviderview": "Fulfillment Provider"
       },
       "history": {
-        "title": "Shipping Receipt State History",
-        "entered": "Entered"
+        "title": "Shipping Receipt State Geschichte",
+        "Eingegeben": "Eingegeben"
       }
     },
     "fulfillment": {
@@ -1340,22 +1340,22 @@
         "save": "SAVE"
       },
       "merchant": {
-        "addtitle": "Add Merchant Provider",
+        "addtitle": "Merchant Anbieter hinzufugen",
         "distribution": "Distribution",
-        "merchant": "Merchant Provider",
+        "merchant": "Merchant Anbieter",
         "add": "ADD",
         "update": "UPDATE",
         "clear": "CLEAR",
         "title": "Associated Merchant Anbieter",
-        "view": "View Merchant Provider",
+        "view": "View Merchant Anbieter",
         "edit": "Update Distribution",
-        "disassociate": "Disassociate Merchant Provider",
+        "disassociate": "Disassociate Merchant Anbieter",
         "disassociatetext": "Are you sure you want to delete?",
         "nodata": "No Merchant Anbieter found."
       }
     },
     "merchant": {
-      "title": "Merchant Provider",
+      "title": "Merchant Anbieter",
       "index": {
         "title": "Merchant Anbieter",
         "header": {
@@ -1370,7 +1370,7 @@
         "loadbalancer": "LOAD BALANCING"
       },
       "info": {
-        "edit": "EDIT MERCHANT PROVIDER",
+        "edit": "EDIT Merchant Anbieter",
         "cancel": "CANCEL",
         "update": "UPDATE",
         "save": "SAVE",
@@ -1412,7 +1412,7 @@
       "loadbalancer": {
         "title": "Associated Lastverteilungen",
         "view": "View Lastverteiler (Load Balancer)",
-        "nodata": "No Lastverteilungen found.",
+        "nodata": "Keine Lastverteilungen gefunden.",
         "name": "Name"
       }
     },
