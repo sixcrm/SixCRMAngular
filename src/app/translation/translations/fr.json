@@ -17,10 +17,10 @@
     "orderengine": "La State",
     "reports": {
       "title": "La Rep",
-      "order": "La Order",
-      "summary": "La Summary",
-      "transaction": "La Transactions",
-      "merchant": "La Merchants",
+      "order": "највећи",
+      "summary": "电脑",
+      "transaction": "よやかなゆ",
+      "merchant": "العَرَبِيَّة",
       "affiliate": "La Affiliates",
       "fulfillment": "La Fulfillment",
       "retention": "La Retention",
@@ -705,7 +705,8 @@
       "cancel": "Cancel",
       "update": "Update",
       "save": "Save",
-      "nodata": "No Credit Cards found."
+      "nodata": "No Credit Cards found.",
+      "expiration": "Expiration"
     }
   },
   "bill": {

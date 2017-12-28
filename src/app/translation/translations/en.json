@@ -705,7 +705,8 @@
       "cancel": "Cancel",
       "update": "Update",
       "save": "Save",
-      "nodata": "No Credit Cards found."
+      "nodata": "No Credit Cards found.",
+      "expiration": "Expiration"
     }
   },
   "bill": {
