@@ -4,9 +4,12 @@ import {UserSettingsService} from '../shared/services/user-settings.service';
 import {CustomServerError} from '../shared/models/errors/custom-server-error';
 import {AuthenticationService} from '../authentication/authentication.service';
 
-const EN = require('./translations/en.json');
-const FR = require('./translations/fr.json');
-const DE = require('./translations/de.json');
+const languages = require('./translations/languages.json');
+const allTranslations = languages.map(l => {
+  l['translations'] = require('./translations/'+l.filename);
+
+  return l;
+});
 
 @Injectable()
 export class TranslationService {
@@ -35,24 +38,14 @@ export class TranslationService {
   }
 
   getLanguages(): string[] {
-    return ['English', 'French', 'German'];
+    return languages.map(l => l.name);
   }
 
   updateTranslation(language?: string) {
+    language = language || 'English';
 
-    switch (language) {
-      case 'French': {
-        this.translations = FR;
-        break;
-      }
-      case 'German': {
-        this.translations = DE;
-        break;
-      }
-      default: {
-        this.translations = EN;
-      }
-    }
+    const trans = allTranslations.find((el) => el.name === language) || allTranslations.find((el) => el.name === 'English');
+    this.translations = trans.translations;
 
     this.translationChanged$.next(true);
   }

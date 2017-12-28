@@ -1,0 +1,14 @@
+[
+  {
+    "name": "English",
+    "filename": "en.json"
+  },
+  {
+    "name": "German",
+    "filename": "de.json"
+  },
+  {
+    "name": "French",
+    "filename": "fr.json"
+  }
+]
