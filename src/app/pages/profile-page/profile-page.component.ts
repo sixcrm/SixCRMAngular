@@ -16,6 +16,7 @@ import {Router} from '@angular/router';
 import {ColumnParams} from '../../shared/models/column-params.model';
 import {TableMemoryTextOptions} from "../components/table-memory/table-memory.component";
 import {TabHeaderElement} from "../../shared/components/tab-header/tab-header.component";
+import {TranslationService} from '../../translation/translation.service';
 
 let moment = require('moment-timezone');
 
@@ -81,7 +82,8 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     private notificationSettingsService: NotificationSettingsService,
     private authService: AuthenticationService,
     public navigation: NavigationService,
-    private router: Router
+    private router: Router,
+    public translationsService: TranslationService
   ) { }
 
   ngOnInit() {

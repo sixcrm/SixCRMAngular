@@ -55,7 +55,7 @@
                 <dropdown-component
                   [selected]="userSettingsBackup.language || 'English'"
                   [placeholder]="'PROFILE_DETAILS_LANGUAGE' | translate"
-                  [options]="['English', 'French']"
+                  [options]="translationsService.getLanguages()"
                   (onSelect)="setLanguage($event)">
                 </dropdown-component>
 
