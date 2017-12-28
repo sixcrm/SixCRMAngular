@@ -71,9 +71,8 @@
               </div>
 
               <div class="info-container">
-                <div class="name">{{event.state}}</div>
+                <div class="name">{{event.status}}</div>
                 <div class="time" *ngIf="event.createdAt">
-                  <div>{{'SHIPPINGRECEIPT_HISTORY_ENTERED' | translate}} {{event.state}}:</div>
                   {{event.createdAt.format('MM/DD/YYYY h:mm a')}}
                 </div>
                 <div class="warning">{{event.detail}}</div>
