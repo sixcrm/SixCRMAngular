@@ -28,6 +28,7 @@ deployment:
   production:
     branch: production
     commands:
+      - npm run lint-translations
       - node libs/deployment_scripts/src/versioning.js
       - ./libs/deployment_scripts/src/build-angular.sh
       - node libs/deployment_scripts/src/deploy-s3.js deployment/deploy-config.json
@@ -36,19 +37,21 @@ deployment:
   staging:
     branch: staging
     commands:
+      - npm run lint-translations
       - node libs/deployment_scripts/src/versioning.js
       - ./libs/deployment_scripts/src/build-angular.sh
       - node libs/deployment_scripts/src/deploy-s3.js deployment/deploy-config.json
       - node libs/deployment_scripts/src/deploy-cloudfront.js deployment/deploy-config.json
-
       # - npm run webdriver-update
       # - npm run e2e.stage
-
       - node libs/deployment_scripts/src/merge-branches.js deployment/deploy-config.json
 
   development:
     branch: development
     commands:
+      # Lint .json translation files
+      - npm run lint-translations
+
       # Set version
       - node libs/deployment_scripts/src/versioning.js
 
