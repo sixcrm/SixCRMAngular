@@ -9,6 +9,7 @@ import {ShippingReceipt} from '../../../shared/models/shipping-receipt.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
+import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 
 @Component({
   selector: 'rebill-view',
@@ -29,6 +30,11 @@ export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> imp
     title: 'REBILL_SHIPPINGRECEIPT_TITLE',
     noDataText: 'REBILL_SHIPPINGRECEIPT_NODATA'
   };
+
+  tabHeaders: TabHeaderElement[] = [
+    {name: 'general', label: 'REBILL_TAB_GENERAL'},
+    {name: 'receipts', label: 'REBILL_TAB_RECEIPTS'}
+  ];
 
   constructor(
     service: RebillsService,

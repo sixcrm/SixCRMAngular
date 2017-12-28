@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {SmtpProvider} from '../../../shared/models/smtp-provider.model';
 import {NavigationService} from '../../../navigation/navigation.service';
+import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 
 @Component({
   selector: 'smtp-provider-view',
@@ -14,6 +15,12 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
 
   selectedIndex: number = 0;
   formInvalid: boolean;
+
+  tabHeaders: TabHeaderElement[] = [
+    {name: 'general', label: 'SMTP_TAB_GENERAL'},
+    {name: 'templates', label: 'SMTP_TAB_EMAILTEMPLATE'},
+    {name: 'validate', label: 'SMTP_TAB_VALIDATE'}
+  ];
 
   constructor(private smtpService: SmtpProvidersService,
               route: ActivatedRoute,

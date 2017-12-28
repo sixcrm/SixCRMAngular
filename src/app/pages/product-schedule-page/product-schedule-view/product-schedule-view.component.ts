@@ -13,6 +13,7 @@ import {AddScheduleComponent} from '../../../shared/components/add-schedule/add-
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {AddProductScheduleDialogComponent} from '../../add-product-schedule-dialog.component';
 import {MdDialog} from '@angular/material';
+import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 
 @Component({
   selector: 'product-schedule-view',
@@ -46,6 +47,11 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     disassociateOptionText: 'PRODUCTSCHEDULE_CYCLE_REMOVE',
     noDataText: 'PRODUCTSCHEDULE_CYCLE_NODATA'
   };
+
+  tabHeaders: TabHeaderElement[] = [
+    {name: 'general', label: 'PRODUCTSCHEDULE_TAB_GENERAL'},
+    {name: 'campaigns', label: 'PRODUCTSCHEDULE_TAB_CAMPAIGN'}
+  ];
 
   constructor(
     service: ProductScheduleService,

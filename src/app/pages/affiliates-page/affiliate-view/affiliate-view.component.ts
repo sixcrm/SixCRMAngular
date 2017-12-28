@@ -4,6 +4,7 @@ import {Affiliate} from '../../../shared/models/affiliate.model';
 import {AffiliatesService} from '../../../shared/services/affiliates.service';
 import {ActivatedRoute} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
+import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 
 @Component({
   selector: 'affiliate-view',
@@ -16,6 +17,12 @@ export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliat
 
   selectedIndex: number = 0;
   formInvalid: boolean;
+
+  tabHeaders: TabHeaderElement[] = [
+    {name: 'tracking', label: 'AFFILIATE_TAB_TRACKING'},
+    {name: 'sessions', label: 'AFFILIATE_TAB_SESSION'},
+    {name: 'campaigns', label: 'AFFILIATE_TAB_CAMPAIGN'}
+  ];
 
   constructor(service: AffiliatesService, route: ActivatedRoute, public navigation: NavigationService) {
     super(service, route);

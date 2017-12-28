@@ -13,6 +13,7 @@ import {getPhoneNumberMask} from '../../../shared/utils/mask.utils';
 import {getStates} from '../../../shared/utils/address.utils';
 import {CustomerAddNewComponent} from './customer-add-new/customer-add-new.component';
 import {isValidZip, isAllowedZip} from '../../../shared/utils/form.utils';
+import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 
 @Component({
   selector: 'customer-view',
@@ -38,6 +39,13 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
 
   isZip = isValidZip;
   isAllowedZipKey = isAllowedZip;
+
+  tabHeaders: TabHeaderElement[] = [
+    {name: 'general', label: 'CUSTOMER_TAB_GENERAL'},
+    {name: 'transactions', label: 'CUSTOMER_TAB_TRANSACTION'},
+    {name: 'sessions', label: 'CUSTOMER_TAB_SESSION'},
+    {name: 'fulfillment', label: 'CUSTOMER_TAB_FULFILLMENT'}
+  ];
 
   constructor(
     service: CustomersService,

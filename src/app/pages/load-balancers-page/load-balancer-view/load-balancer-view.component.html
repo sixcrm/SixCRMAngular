@@ -30,9 +30,7 @@
     </div>
   </div>
 
-  <div class="entity-view__navigation">
-    <span class="entity-view__navigation__label entity-view__navigation__label--active">{{'LOADBALANCER_TAB_GENERAL' | translate}}</span>
-  </div>
+  <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>

@@ -15,9 +15,7 @@
     </div>
   </div>
 
-  <div class="entity-view__navigation">
-    <span class="entity-view__navigation__label entity-view__navigation__label--active">{{ 'BILL_TAB_GENERAL' | translate}}</span>
-  </div>
+  <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
   <div>
     <bill-body [bill]="entity" (cancel)="cancelUpdate()" (save)="updateEntity($event)"></bill-body>
@@ -25,5 +23,5 @@
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="1" [cardsExpression]="'300px;500px'" [title]="'Account'"></spe-loader>
+  <spe-loader [numberOfTabs]="1" [cardsExpression]="'300px;500px'" [title]="'BILL_TITLE' | translate"></spe-loader>
 </ng-template>

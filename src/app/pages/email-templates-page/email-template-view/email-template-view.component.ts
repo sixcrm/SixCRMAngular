@@ -9,6 +9,7 @@ import {SmtpProvidersService} from '../../../shared/services/smtp-providers.serv
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Token} from './token-list/token-list.component';
 import {Subject} from 'rxjs';
+import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 
 declare var tinymce;
 
@@ -22,6 +23,11 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
   selectedIndex: number = 0;
   addTokenSubject: Subject<Token> = new Subject();
   editorRefreshSubject: Subject<boolean> = new Subject();
+
+  tabHeaders: TabHeaderElement[] = [
+    {name: 'general', label: 'EMAILTEMPLATE_TAB_GENERAL'},
+    {name: 'preview', label: 'EMAILTEMPLATE_TAB_PREVIEW'}
+  ];
 
   constructor(
     service: EmailTemplatesService,

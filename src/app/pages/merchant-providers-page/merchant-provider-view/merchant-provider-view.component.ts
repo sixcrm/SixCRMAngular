@@ -8,6 +8,7 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {LoadBalancer} from '../../../shared/models/load-balancer.model';
 import {MerchantProviderAddNewComponent} from './merchant-provider-add-new/merchant-provider-add-new.component';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
+import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 
 @Component({
   selector: 'merchant-provider-view',
@@ -31,6 +32,12 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
     viewOptionText: 'MERCHANT_LOADBALANCER_VIEW',
     noDataText: 'MERCHANT_LOADBALANCER_NODATA'
   };
+
+  tabHeaders: TabHeaderElement[] = [
+    {name: 'general', label: 'MERCHANT_TAB_GENERAL'},
+    {name: 'precessing', label: 'MERCHANT_TAB_PROCESSING'},
+    {name: 'loadbalancers', label: 'MERCHANT_TAB_LOADBALANCER'}
+  ];
 
   constructor(service: MerchantProvidersService, route: ActivatedRoute, public navigation: NavigationService) {
     super(service, route);

@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {MessageDialogComponent} from '../../message-dialog.component';
 import {MdDialog} from '@angular/material';
+import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 
 @Component({
   selector: 'product-view',
@@ -16,6 +17,12 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   selectedIndex: number = 0;
   canNotBeDeleted: boolean = true;
+
+  tabHeaders: TabHeaderElement[] = [
+    {name: 'general', label: 'PRODUCT_TAB_GENERAL'},
+    {name: 'schedules', label: 'PRODUCT_TAB_SCHEDULE'},
+    {name: 'campaigns', label: 'PRODUCT_TAB_CAMPAIGN'}
+  ];
 
   constructor(
     service: ProductsService,

@@ -15,11 +15,7 @@
     </div>
   </div>
 
-  <div class="entity-view__navigation">
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">{{'PRODUCT_TAB_GENERAL' | translate}}</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">{{'PRODUCT_TAB_SCHEDULE' | translate}}</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">{{'PRODUCT_TAB_CAMPAIGN' | translate}}</span>
-  </div>
+  <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>

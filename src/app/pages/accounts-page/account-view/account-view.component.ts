@@ -23,6 +23,7 @@ import {InviteUserDialogComponent} from '../../invite-user-dialog.component';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {SnackbarService} from '../../../shared/services/snackbar.service';
 import {BillsService} from '../../../shared/services/bills.service';
+import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 
 @Component({
   selector: 'account-view',
@@ -63,6 +64,12 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
   selectedIndex: number = 0;
   isBillingFocused: boolean;
 
+  tabHeaders: TabHeaderElement[] = [
+    {name: 'general', label: 'ACCOUNT_TAB_GENERAL'},
+    {name: 'users', label: 'ACCOUNT_TAB_USERS'},
+    {name: 'accesskeys', label: 'ACCOUNT_TAB_KEYS'}
+  ];
+
   constructor(service: AccountsService,
               route: ActivatedRoute,
               public navigation: NavigationService,
@@ -79,6 +86,12 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
   }
 
   ngOnInit() {
+    if (this.showBilling()) {
+      this.tabHeaders.push(
+        {name: 'billing', label: 'ACCOUNT_TAB_BILLING'}
+      )
+    }
+
     super.init(() => this.navigation.goToNotFoundPage());
 
     this.userService.entities$.takeUntil(this.unsubscribe$).subscribe(users => {
@@ -260,8 +273,11 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
     return this.authService.isActiveAclMasterAccount() || (acl && acl.account.id === this.entityId && this.billsService.hasReadPermission());
   }
 
-  focusBilling(): void {
-    this.selectedIndex = 3;
-    setTimeout(() => {this.isBillingFocused = true}, 300)
+  setIndex(index: number) {
+    this.selectedIndex = index;
+
+    if (this.selectedIndex === 3) {
+      setTimeout(() => {this.isBillingFocused = true}, 300)
+    }
   }
 }

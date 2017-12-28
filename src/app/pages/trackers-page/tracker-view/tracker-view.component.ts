@@ -12,6 +12,7 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {Campaign} from '../../../shared/models/campaign.model';
 import {CampaignsService} from '../../../shared/services/campaigns.service';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
+import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 
 @Component({
   selector: 'tracker-view',
@@ -47,6 +48,12 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
     associateModalButtonText: 'TRACKER_CAMPAIGN_CONFIRM',
     noDataText: 'TRACKER_CAMPAIGN_NODATA',
   };
+
+  tabHeaders: TabHeaderElement[] = [
+    {name: 'general', label: 'TRACKER_TAB_GENERAL'},
+    {name: 'affiliates', label: 'TRACKER_TAB_AFFILIATE'},
+    {name: 'campaigns', label: 'TRACKER_TAB_CAMPAIGN'}
+  ];
 
   constructor(
     service: TrackersService,

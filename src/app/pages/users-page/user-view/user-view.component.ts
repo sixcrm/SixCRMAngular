@@ -17,6 +17,7 @@ import {AddUserAclDialogComponent} from '../../add-user-acl-dialog.component';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {MessageDialogComponent} from '../../message-dialog.component';
 import {AuthenticationService} from '../../../authentication/authentication.service';
+import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 
 @Component({
   selector: 'user-view',
@@ -56,6 +57,10 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
   addAclDialogRef: MdDialogRef<AddUserAclDialogComponent>;
 
   isOwner = (acl: Acl) => acl.role.name === 'Owner';
+
+  tabHeaders: TabHeaderElement[] = [
+    {name: 'general', label: 'USER_TAB_GENERAL'}
+  ];
 
   constructor(service: UsersService,
               route: ActivatedRoute,

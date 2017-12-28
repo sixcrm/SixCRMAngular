@@ -14,6 +14,7 @@ import {Affiliate} from '../../../shared/models/affiliate.model';
 import {AffiliatesService} from '../../../shared/services/affiliates.service';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 
 @Component({
   selector: 'campaign-view',
@@ -88,6 +89,13 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
     associateModalButtonText: 'CAMPAIGN_AFFILIATEDENIED_ADDBUTTON',
     noDataText: 'CAMPAIGN_AFFILIATEDENIED_NODATA'
   };
+
+  tabHeaders: TabHeaderElement[] = [
+    {name: 'general', label: 'CAMPAIGN_TAB_GENERAL'},
+    {name: 'productschedules', label: 'CAMPAIGN_TAB_PRODUCTSCHEDULES'},
+    {name: 'affiliates', label: 'CAMPAIGN_TAB_AFFILIATES'},
+    {name: 'trackingcode', label: 'CAMPAIGN_TAB_TRACKINGCODE'}
+  ];
 
   constructor(
     service: CampaignsService,

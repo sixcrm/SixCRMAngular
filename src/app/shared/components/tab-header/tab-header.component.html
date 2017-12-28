@@ -2,7 +2,7 @@
   <span *ngFor="let element of elements; let i = index"
         class="entity-view__navigation__label"
         [class.entity-view__navigation__label--active]="selectedIndex === i"
-        (click)="select.emit(i)">
+        (click)="switchTo(element)">
     {{element.label | translate}}
   </span>
 </div>

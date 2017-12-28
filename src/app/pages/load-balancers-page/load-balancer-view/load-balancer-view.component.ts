@@ -16,6 +16,7 @@ import {
 import {MdDialog} from '@angular/material';
 import {SingleInputDialogComponent} from '../../../dialog-modals/single-input-dialog.component';
 import {isAllowedFloatNumeric} from '../../../shared/utils/form.utils';
+import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 
 @Component({
   selector: 'load-balancer-view',
@@ -46,6 +47,10 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
   detailsFormInvalid: boolean;
 
   customOptions: CustomMenuOption[] = [{label: 'LOADBALANCER_MERCHANT_EDIT'}];
+
+  tabHeaders: TabHeaderElement[] = [
+    {name: 'general', label: 'LOADBALANCER_TAB_GENERAL'}
+  ];
 
   constructor(service: LoadBalancersService,
               route: ActivatedRoute,

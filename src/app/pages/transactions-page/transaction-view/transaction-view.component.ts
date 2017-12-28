@@ -9,6 +9,7 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {Products} from '../../../shared/models/products.model';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 
 @Component({
   selector: 'transaction-view',
@@ -38,6 +39,11 @@ export class TransactionViewComponent extends AbstractEntityViewComponent<Transa
     viewOptionText: 'TRANSACTION_PRODUCT_VIEW',
     noDataText: 'TRANSACTION_PRODUCT_NODATA'
   };
+
+  tabHeaders: TabHeaderElement[] = [
+    {name: 'general', label: 'TRANSACTION_TAB_GENERAL'},
+    {name: 'refund', label: 'TRANSACTION_TAB_REFUND'}
+  ];
 
   constructor(
     private transactionsService: TransactionsService,

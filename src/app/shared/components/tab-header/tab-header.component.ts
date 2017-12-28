@@ -20,7 +20,7 @@ export class TabHeaderComponent implements OnInit, OnDestroy {
 
   sub: Subscription;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.sub = this.route.fragment.subscribe((fragment) => {
@@ -37,6 +37,10 @@ export class TabHeaderComponent implements OnInit, OnDestroy {
       }
 
     })
+  }
+
+  switchTo(element: TabHeaderElement) {
+    this.router.navigate([], {fragment: element.name, replaceUrl: true});
   }
 
   ngOnDestroy() {

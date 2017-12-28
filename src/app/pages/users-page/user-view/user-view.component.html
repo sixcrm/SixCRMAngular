@@ -13,9 +13,7 @@
     </div>
   </div>
 
-  <div class="entity-view__navigation">
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">{{'USER_TAB_GENERAL' | translate}}</span>
-  </div>
+  <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>

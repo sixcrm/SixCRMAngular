@@ -12,12 +12,7 @@
       <div class="entity-view__info__data__name">{{entity.name}}</div>
     </div>
   </div>
-
-  <div class="entity-view__navigation">
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 0" (click)="setIndex(0)">{{'TRACKER_TAB_GENERAL' | translate}}</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 1" (click)="setIndex(1)">{{'TRACKER_TAB_AFFILIATE' | translate}}</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex === 2" (click)="setIndex(2)">{{'TRACKER_TAB_CAMPAIGN' | translate}}</span>
-  </div>
+  <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>
