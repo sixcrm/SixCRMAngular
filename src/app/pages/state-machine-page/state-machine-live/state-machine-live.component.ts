@@ -98,6 +98,12 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
     }
 
     this.sub = this.stateMachineService.getQueueState(this.queue.label).subscribe(res => {
+      if (res instanceof CustomServerError) {
+        this.queue.loaded = true;
+
+        return;
+      }
+
       const state = res.json().response.data.queuestate;
 
       this.queue.count = state.count;
@@ -109,7 +115,6 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
       this.queue.loaded = true;
     })
   }
-
 
   fetchQueue(): void {
     this.stateMachineService.getQueueStates();
