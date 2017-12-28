@@ -2,6 +2,7 @@ import {Component, Input, OnInit, OnDestroy} from '@angular/core';
 import {StateMachineQueue} from '../../../../../shared/models/state-machine/state-machine-queue';
 import {StateMachineService} from '../../../state-machine.service';
 import {Subscription} from 'rxjs';
+import {CustomServerError} from '../../../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'state-machine-status-item',
@@ -18,6 +19,12 @@ export class StateMachineStatusItemComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sub = this.stateMachineService.getQueueState(this.queue.label).subscribe(res => {
+      if (res instanceof CustomServerError) {
+        this.queue.loaded = true;
+
+        return;
+      }
+
       const state = res.json().response.data.queuestate;
 
       this.queue.count = state.count;

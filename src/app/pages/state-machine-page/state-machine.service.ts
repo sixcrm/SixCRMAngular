@@ -4,7 +4,10 @@ import {StateMachineTimeseries} from '../../shared/models/state-machine/state-ma
 import {Subject, Observable} from 'rxjs';
 import {StateMachineQueue} from '../../shared/models/state-machine/state-machine-queue';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {RequestBehaviourOptions, generateHeaders, HttpWrapperService} from '../../shared/services/http-wrapper.service';
+import {
+  RequestBehaviourOptions, generateHeaders, HttpWrapperService,
+  FailStrategy
+} from '../../shared/services/http-wrapper.service';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {Response} from '@angular/http';
 import {environment} from '../../../environments/environment';
@@ -37,7 +40,7 @@ export class StateMachineService {
     const start = utc();
     const end = utc().subtract(1, 'd');
 
-    return this.queryRequest(getQueueState(queueName, start.format(), end.format()))
+    return this.queryRequest(getQueueState(queueName, start.format(), end.format()), {failStrategy: FailStrategy.Soft});
   }
 
   protected queryRequest(query: string, requestBehaviourOptions?: RequestBehaviourOptions): Observable<Response | CustomServerError> {
