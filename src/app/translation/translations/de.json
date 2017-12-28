@@ -48,7 +48,7 @@
       "merchant": {
         "title": "Händler",
         "merchantprovider": "Merchant Anbieter",
-        "loadbalancer": "Load Balancers"
+        "loadbalancer": "Lastverteilungen (Lastverteiler (Load Balancer))"
       },
       "settings": {
         "title": "Einstellungen",
@@ -66,8 +66,8 @@
     },
     "orderengine": {
       "schema": {
-        "title": "State Machine Flow",
-        "subtitle": "Below is rough flow of all data in SIX, click an element to load details below"
+        "title": "State Machine Fluss",
+        "subtitle": "Unten finden Sie einen Fluss von allen Neubelastungen in SIX. Falls Sie Details einer bestimmten Reihe sehen wollen, klicken Sie den Namen der Reihe."
       },
       "status": {
         "failurerate": "Failure Rate",
@@ -812,7 +812,7 @@
         "title": "Product Schedules",
         "header": {
           "name": "Name",
-          "loadbalancer": "Load Balancer",
+          "loadbalancer": "Lastverteiler (Load Balancer)",
           "numofcycles": "Number of Cycles"
         }
       },
@@ -824,7 +824,7 @@
         "createtitle": "Create new Product Schedule",
         "title": "Product Schedule Details",
         "name": "Product Schedule Name",
-        "loadbalancer": "Load Balancer",
+        "loadbalancer": "Lastverteiler (Load Balancer)",
         "cancel": "CANCEL",
         "save": "SAVE",
         "edit": "Edit Product Schedule"
@@ -1313,9 +1313,9 @@
       }
     },
     "loadbalancer": {
-      "title": "Load Balancer",
+      "title": "Lastverteiler (Load Balancer)",
       "index": {
-        "title": "Load Balancers",
+        "title": "Lastverteilungen (Lastverteiler (Load Balancer)s)",
         "header": {
           "name": "Name",
           "merchantnum": "Number of Merchant Anbieter"
@@ -1325,9 +1325,9 @@
         "general": "GENERAL DETAILS"
       },
       "info": {
-        "createtitle": "Create new Load Balancer",
+        "createtitle": "Create new Lastverteiler (Load Balancer)",
         "name": "Name",
-        "edit": "EDIT LOAD BALANCER",
+        "edit": "EDIT Lastverteiler (Load Balancer)",
         "cancel": "CANCEL",
         "update": "UPDATE",
         "save": "SAVE"
@@ -1403,9 +1403,9 @@
         }
       },
       "loadbalancer": {
-        "title": "Associated Load Balancers",
-        "view": "View Load Balancer",
-        "nodata": "No Load Balancers found.",
+        "title": "Associated Lastverteilungen",
+        "view": "View Lastverteiler (Load Balancer)",
+        "nodata": "No Lastverteilungen found.",
         "name": "Name"
       }
     },
