@@ -18,7 +18,7 @@ export class TranslationService {
   public translationChanged$: Subject<boolean> = new Subject();
 
   constructor(private userSettingsService: UserSettingsService, private authService: AuthenticationService) {
-    this.updateTranslation();
+    this.updateTranslation(this.authService.getUserSettings().language);
 
     this.userSettingsService.entity$.merge(this.userSettingsService.entityUpdated$).subscribe(userSettings => {
       if (userSettings instanceof CustomServerError) {

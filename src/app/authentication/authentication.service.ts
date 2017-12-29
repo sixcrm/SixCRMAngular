@@ -34,6 +34,7 @@ export class AuthenticationService {
   private activeAcl: string = 'active_acl';
 
   private currentSixUser: User = new User();
+  private currentUserSettings: UserSettings = new UserSettings();
   private currentActiveAcl: Acl = new Acl();
   private actingAs: Account;
 
@@ -196,6 +197,15 @@ export class AuthenticationService {
 
   public updateTimezone(timezone: string): void {
     this.timezone = timezone || this.timezone || 'America/Los_Angeles';
+  }
+
+  public updateSettings(settings: UserSettings): void {
+    this.currentUserSettings = new UserSettings(settings);
+    this.userSettings$.next(this.currentUserSettings);
+  }
+
+  public getUserSettings(): UserSettings {
+    return this.currentUserSettings;
   }
 
   public getUserEmail(): string {
@@ -379,7 +389,7 @@ export class AuthenticationService {
             this.updateTimezone(user.usersetting.timezone);
           }
 
-          this.userSettings$.next(user.usersetting);
+          this.updateSettings(user.usersetting);
 
           this.redirectAfterIntrospection(redirectUrl);
 
