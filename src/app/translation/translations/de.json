@@ -17,7 +17,7 @@
       "orderengine": "SIX-Antrieb",
       "reports": {
         "title": "Reports",
-        "order": "Order Report",
+        "order": "Aufträge-Report",
         "summary": "Summary Report",
         "transaction": "Transaktionen Report",
         "merchant": "Händler Report",
@@ -306,11 +306,11 @@
         "amount": "Amount"
       },
       "reports": {
-        "title": "Reports",
+        "title": "Reporte",
         "subtitle": "Popular reports to monitor metrics",
         "order": {
-          "title": "Order Report",
-          "subtitle": "Quick reports about orders"
+          "title": "Aufträge-Report",
+          "subtitle": "Quick reports about Aufträge"
         },
         "summary": {
           "title": "Summary Report",
