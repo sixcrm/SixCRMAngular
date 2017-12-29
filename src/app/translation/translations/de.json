@@ -81,11 +81,11 @@
         "view": "AKTUELLE SICHT DIESER REIHE",
         "downstream": "NÄCHSTE REIHE",
         "nodata": "Unzureichende Dateien",
-        "livepolling": "Live Pooling"
+        "livepolling": "Live Polling"
       },
       "rebills": {
         "snack": {
-          "main": "Queue Nachrichten",
+          "main": "Nachrichten dieser Reihe",
           "sub": "Neuzubelastung ID"
         }
       },
@@ -103,7 +103,7 @@
           "created": "Geschafft am",
           "updated": "Aktualisiert am",
           "amount": "Betrag",
-          "campaign": "Associated Campaign"
+          "campaign": "Zugehörige Kampagne"
         }
       }
     },
@@ -248,7 +248,7 @@
         "signingstring": "Signing String",
         "used": "Last time used",
         "add": "Add new Signing String",
-        "remove": "Remove",
+        "remove": "Ablösen",
         "edit": "Bearbeiten",
         "updatetext": "Update Signing String",
         "addtext": "Add new Signing String",
@@ -428,7 +428,7 @@
         "ccl4": "Credit Card # last 4",
         "amount": "Betrag",
         "created": "Geschafft am",
-        "sku": "SKU",
+        "sku": "Lagerhaltungsnummer",
         "name": "Name",
         "response": "Processor Response",
         "status": "Receipt Status",
@@ -442,7 +442,7 @@
         "product": "Product",
         "start": "Start",
         "end": "End",
-        "price": "Price",
+        "price": "Preis",
         "id": "ID"
       },
       "category": "Category",
@@ -504,7 +504,7 @@
       "tab": {
         "general": "GENERAL DETALS",
         "users": "Nutzer",
-        "keys": "ACCESS KEYS",
+        "keys": "ZUGRIFFSSCHLÜSSEL",
         "billing": "BILLING"
       },
       "details": {
@@ -516,7 +516,7 @@
         "save": "Speichern"
       },
       "users": {
-        "title": "Associated Nutzer",
+        "title": "Zugehöriger Nutzer",
         "add": "Nutzer hinzufügen",
         "invite": "Neue Nutzer zu diesem Konto einladen",
         "header": {
@@ -530,18 +530,18 @@
         "removemessage": "Sind Sie absolut sicher, dass Sie diesen Nutzer von dem Konto lösen wollen?"
       },
       "keys": {
-        "title": "Access Keys",
+        "title": "Zugriffsschlüssel",
         "header": {
           "name": "Name",
-          "access": "Access Key",
+          "access": "Zugriffsschlüssel",
           "secret": "Secret Key",
           "created": "Created",
-          "notes": "Notes"
+          "notes": "Notizen"
         },
-        "add": "Add Access Keys",
-        "view": "View Access Keys",
-        "edit": "Edit Access Keys",
-        "remove": "Remove Access Keys",
+        "add": "Zugriffsschlüssel hinzufügen",
+        "view": "Zugriffsschlüssel ansehen",
+        "edit": "Zugriffsschlüssel bearbeiten",
+        "remove": "Zugriffsschlüssel ablösen",
         "cancel": "ABBRECHEN",
         "close": "SCHLIEßEN",
         "update": "AKTUALISIEREN"
@@ -598,7 +598,7 @@
         "save": "SPEICHERN"
       },
       "account": {
-        "title": "Associated Konten",
+        "title": "Zugehörige Konten",
         "add": "Add Account to User",
         "account": "Account",
         "role": "Role",
@@ -637,19 +637,19 @@
         "update": "AKTUALISIEREN"
       },
       "notes": {
-        "title": "Notes",
-        "subtitle": "Customer service notes",
-        "add": "Add New Note",
-        "del": "Löschen Note",
-        "nodata": "No Notes found."
+        "title": "Notizen",
+        "subtitle": "Aktuelle Kundendienst Notizen",
+        "add": "Neue Notiz anfügen",
+        "del": "Notiz löschen",
+        "nodata": "Keine Notizen gefunden."
       },
       "rebill": {
         "title": "Upcoming Neubelastung",
         "subtitle": "Future Neubelastung and Upcoming Transaktionen",
         "billed": "Bill at",
         "amount": "Betrag",
-        "cancel": "Cancel Transaction",
-        "edit": "Edit Transaction",
+        "cancel": "Transaction abbrechen",
+        "edit": "Transaction bearbeiten",
         "nodata": "No Upcoming Transaktionen found."
       },
       "rebilledit": {
@@ -658,7 +658,7 @@
         "date": "Transaction Date",
         "cancel": "ABBRECHEN",
         "save": "SPEICHERN",
-        "price": "Price"
+        "price": "Preis"
       },
       "events": {
         "title": "Customer Events",
@@ -687,26 +687,26 @@
         "name": "Name",
         "campaign": "Kampagne",
         "productschedulenum": "Number of Product Schedules",
-        "rebillnum": "Number of Neubelastung"
+        "rebillnum": "Zahl von Neubelastung"
       },
       "creditcard": {
         "title": "Billing Information",
         "subtitle": "Billing Address & Credit Card information",
         "addoption": "Kreditkarte Hinzufügen",
         "editoption": "Kreditkarte bearbeiten",
-        "removeoption": "Remove Credit Card",
-        "edittitle": "Edit Credit Card",
-        "createtitle": "Create new Credit Card",
-        "createtext": "Create new Credit Card with the associated user",
-        "expirationmonth": "Expiration Date Month",
-        "expirationyear": "Expiration Date Year",
+        "removeoption": "Kreditkarte löschen",
+        "edittitle": "Kreditkarte bearbeiten",
+        "createtitle": "Neue Kreditkarte hinzufügen",
+        "createtext": "Neue Kreditkarte zu dem zugehöriger Nutzer hinzufügen.",
+        "expirationmonth": "Verfallsdatum - Monat",
+        "expirationyear": "Verfallsdatum - Jahr",
         "billingaddress": "Billing Address",
         "sameaddress": "Same as Customer Address",
         "cancel": "Abbrechen",
         "update": "Aktualisieren",
         "save": "Speichern",
-        "nodata": "No Credit Cards found.",
-        "expiration": "Expiration"
+        "nodata": "Keine Kreditkarte gefunden.",
+        "expiration": "Verfallsdatum"
       }
     },
     "bill": {
@@ -728,10 +728,10 @@
         "start": "Period Start",
         "end": "Period End",
         "due": "Due Date",
-        "edit": "Edit Invoice",
-        "back": "BACK TO INVOICES",
+        "edit": "Abrechnung bearbeiten",
+        "back": "ZURÜCK ZU DEN ABRECHNUNGEN",
         "table": {
-          "title": "Invoice Details",
+          "title": "Details zur Abrechnung",
           "subtitle": "Itemized Breakdown of Charges",
           "description": "Description",
           "created": "Created",
@@ -740,7 +740,7 @@
         },
         "pay": "SOFORT BEZAHLEN",
         "detailedit": "Bearbeiten",
-        "detailremove": "Remove",
+        "detailremove": "Ablösen",
         "account": "Account",
         "createtitle": "Create new Bill",
         "cancel": "ABBRECHEN",
@@ -754,13 +754,13 @@
       "title": "Bill"
     },
     "product": {
-      "title": "Product",
+      "title": "Produkt",
       "index": {
-        "title": "Products",
+        "title": "Produkte",
         "header": {
-          "name": "Product Name",
-          "sku": "SKU",
-          "ship": "Ship",
+          "name": "Name des Produkes",
+          "sku": "Lagerhaltungsnummer",
+          "ship": "Versand",
           "delay": "Shipping Delay"
         }
       },
@@ -773,7 +773,7 @@
         "title": "Product Details",
         "createtitle": "Create new Product",
         "name": "Product Name",
-        "sku": "SKU",
+        "sku": "Lagerhaltungsnummer",
         "defaultprice": "Default Price",
         "ship": "Ship",
         "shipdelay": "Shipping Delay (minutes)",
@@ -836,7 +836,7 @@
         "cancel": "ABBRECHEN",
         "name": "Product Name",
         "schedulename": "Product Schedule Name",
-        "price": "Price",
+        "price": "Preis",
         "pricetip": "Price for period of time",
         "start": "Start",
         "starttip": "Start of period (0 is immediate)",
@@ -1168,7 +1168,7 @@
       "product": {
         "title": "Associated Products",
         "name": "Name",
-        "sku": "SKU",
+        "sku": "Lagerhaltungsnummer",
         "amount": "Betrag",
         "view": "View Product",
         "nodata": "No Products found."
