@@ -1,6 +1,6 @@
 @import "mixins";
 
-$sidenav-width: 200px;
+$sidenav-width: 215px;
 $sidenav-width-overflow: 215px;
 $topnav-height: 70px;
 $sidebar-color-light: #385F8D;
@@ -47,7 +47,7 @@ md-sidenav {
 
   .md-list-item {
     padding-left: 25px !important;
-    padding-right: 35px !important;
+    padding-right: 25px !important;
   }
 
   md-icon {
@@ -97,9 +97,10 @@ md-nav-list.side-navigation {
 
   a[md-list-item] > .md-list-item {
     @include font-body();
+    width: 215px;
     color: $sidebar-text-color;
     -webkit-font-smoothing: antialiased;
-    line-height: 40px;
+    line-height: 20px;
     letter-spacing: .14px;
 
     &:hover {
