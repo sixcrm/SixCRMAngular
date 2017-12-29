@@ -23,7 +23,8 @@
     "e2e-smoke.prod": "protractor --baseUrl='https://admin.sixcrm.com' --specs e2e/specs/app.e2e-spec.ts,e2e/specs/login.e2e-spec.ts,e2e/specs/navigation.e2e-spec.ts",
     "e2e-custom": "ng e2e",
     "webdriver-update": "webdriver-manager update",
-    "lint-translations": "eslint --ext src/app/translation/translations/**.json"
+    "lint-translations": "eslint --ext src/app/translation/translations/**.json",
+    "validate-translations": "node ./tools/validate-translations.js"
   },
   "pre-commit": [
     "lint-translations"
