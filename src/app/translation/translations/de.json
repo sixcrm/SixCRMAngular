@@ -101,7 +101,7 @@
           "parentsession": "Muttersession ID",
           "created": "Geschafft am",
           "updated": "Aktualisiert am",
-          "amount": "Gesamtbetrag",
+          "amount": "Betrag",
           "campaign": "Associated Campaign"
         }
       }
@@ -119,24 +119,24 @@
       "other": "Andere"
     },
     "notificationsquick": {
-      "title": "NOTIFICATIONS",
+      "title": "ANZEIGEN",
       "settings": "Einstellungen",
-      "viewall": "See All Notifications",
+      "viewall": "Alle Anzeigen ansehen",
       "alerts": "Alerts",
-      "noresults": "No Notifications Found",
-      "view": "View",
-      "dismiss": "Dismiss"
+      "noresults": "Keine Anezeige gefunden.",
+      "view": "Ansehen",
+      "dismiss": "Abweisen"
     },
     "advancedfilter": {
-      "from": "From",
-      "to": "To",
+      "from": "Von",
+      "to": "An",
       "filters": "Filters",
       "groupby": "Group By",
       "show": "Show Advanced Search",
       "hide": "Hide Advanced Search",
       "apply": "APPLY",
       "reset": "RESET",
-      "close": "CLOSE",
+      "close": "SCHLIEßEN",
       "campaign": "Kampagne",
       "affiliate": "Affiliate",
       "subid1": "Sub ID 1",
@@ -148,7 +148,7 @@
       "merchantprovider": "Merchant Anbieter",
       "transactiontype": "Transaction Type",
       "processorresponse": "Processor Response",
-      "new": "New",
+      "new": "Neu",
       "rebill": "Neubelastung",
       "success": "Success",
       "decline": "Decline",
@@ -179,7 +179,7 @@
     "indexpage": {
       "filter": "Filter",
       "del": "Löschen",
-      "view": "View",
+      "view": "Ansehen",
       "exp": "Export",
       "edit": "Edit",
       "copy": "Copy"
@@ -189,7 +189,7 @@
       "updated": "Aktualisiert",
       "createcanceltitle": "Are you sure you want to close creation modal?",
       "createcanceltext": "You have unsaved changes, if you close this modal changes will be discarded.",
-      "createcancelclose": "CLOSE",
+      "createcancelclose": "SCHLIEßEN",
       "createcancelcancel": "CANCEL",
       "leavetitle": "Are you sure you want to leave?",
       "leavetext": "You have unsaved changes, if you close this modal changes will be discarded.",
@@ -284,8 +284,8 @@
         "affiliate": "Affiliate",
         "count": "Count",
         "countp": "Count%",
-        "amount": "Amount",
-        "amountp": "Amount%",
+        "amount": "Betrag",
+        "amountp": "Betrag%",
         "nodata": "No Transaktionen Found"
       },
       "Transaktionenummary": {
@@ -296,14 +296,14 @@
       "movers": {
         "title": "Kampagnen Watch List",
         "subtitle": "Kampagnen on the move",
-        "nodata": "No Kampagnen Found"
+        "nodata": "Keine Kampagnen gefunden"
       },
       "topKampagnen": {
         "title": "Top Kampagnen",
         "subtitle": "Clicks & Conversions",
-        "nodata": "No Kampagnen Found",
+        "nodata": "Keine Kampagnen gefunden",
         "campaign": "Kampagne",
-        "amount": "Amount"
+        "amount": "Betrag"
       },
       "reports": {
         "title": "Reporte",
@@ -366,7 +366,7 @@
       "campaign": "Kampagne",
       "merchantprovider": "Merchant Anbieter",
       "affiliate": "Affiliate",
-      "amount": "Amount",
+      "amount": "Betrag",
       "processorresult": "Processor Result",
       "transactiontype": "Transaction Type"
     },
@@ -401,7 +401,7 @@
       "upsellcount": "Upsell Count",
       "upsellpercentage": "Upsell Percentage",
       "upsellsum": "Upsell Sum",
-      "amountsum": "Amount Sum"
+      "amountsum": "Gesamtbetrag"
     },
     "search": {
       "tab": {
@@ -426,7 +426,7 @@
         "cctype": "Credit Card Type",
         "ccf6": "Credit Card # first 6",
         "ccl4": "Credit Card # last 4",
-        "amount": "Amount",
+        "amount": "Betrag",
         "created": "Geschafft am",
         "sku": "SKU",
         "name": "Name",
@@ -462,10 +462,10 @@
         "updatedesc": "Aktualisiert (Abstiegend)",
         "def": "default"
       },
-      "nodata": "Sorry, there were no results.",
-      "entersearch": "Please enter a search query.",
+      "nodata": "Keine treffende Begriffe.",
+      "entersearch": "Bitte geben Sie einen Suchbegriff ein.",
       "perfect": {
-        "view": "VIEW",
+        "view": "Ansehen",
         "customer": {
           "shipaddress": "Shipping Address",
           "recentTransaktionen": "Recent Transaktionen"
@@ -513,21 +513,21 @@
         "name": "Name",
         "activated": "Activated",
         "cancel": "Cancel",
-        "save": "Save"
+        "save": "Speichern"
       },
       "Nutzer": {
         "title": "Associated Nutzer",
-        "add": "Add User to Account",
-        "invite": "Invite User to Account",
+        "add": "Nutzer hinzufügen",
+        "invite": "Neue Nutzer zu diesem Konto einladen",
         "header": {
           "name": "Name",
-          "role": "Role",
+          "role": "Rolle",
           "status": "Status"
         },
-        "edit": "Edit User Role",
-        "view": "View User",
-        "remove": "Remove User from the Account",
-        "removemessage": "Are you sure you want to remove this User from the account?"
+        "edit": "Nutzerrolle bearbeiten",
+        "view": "Nutzer Ansehen",
+        "remove": "Nutzer von diesem Konto lösen",
+        "removemessage": "Sind Sie absolut sicher, dass Sie diesen Nutzer von dem Konto lösen wollen?"
       },
       "keys": {
         "title": "Access Keys",
@@ -543,7 +543,7 @@
         "edit": "Edit Access Keys",
         "remove": "Remove Access Keys",
         "cancel": "CANCEL",
-        "close": "CLOSE",
+        "close": "SCHLIEßEN",
         "update": "UPDATE"
       },
       "billing": {
@@ -648,7 +648,7 @@
         "title": "Upcoming Neubelastung",
         "subtitle": "Future Neubelastung and Upcoming Transaktionen",
         "billed": "Bill at",
-        "amount": "Amount",
+        "amount": "Betrag",
         "cancel": "Cancel Transaction",
         "edit": "Edit Transaction",
         "nodata": "No Upcoming Transaktionen found."
@@ -678,7 +678,7 @@
         "alias": "Alias",
         "response": "Processor Response",
         "productnum": "Number of Products",
-        "amount": "Amount"
+        "amount": "Betrag"
       },
       "session": {
         "title": "Sessions",
@@ -730,7 +730,7 @@
         "subtitle": "Billing Information",
         "start": "Period Start",
         "end": "Period End",
-        "amount": "Amount",
+        "amount": "Betrag",
         "due": "Due Date",
         "edit": "Edit Invoice",
         "back": "BACK TO INVOICES",
@@ -739,7 +739,7 @@
           "subtitle": "Itemized Breakdown of Charges",
           "description": "Description",
           "created": "Created",
-          "amount": "Amount",
+          "amount": "Betrag",
           "total": "Total"
         },
         "pay": "PAY NOW",
@@ -1118,7 +1118,7 @@
       "rebill": {
         "title": "Associated Neubelastung",
         "billed": "Bill at",
-        "amount": "Amount",
+        "amount": "Betrag",
         "nodata": "No Neubelastung found.",
         "view": "Neubelastung Ansehen"
       },
@@ -1144,7 +1144,7 @@
         "title": "Transaktionen",
         "header": {
           "alias": "Alias",
-          "amount": "Amount",
+          "amount": "Betrag",
           "created": "Geschafft am",
           "response": "Processor Response"
         }
@@ -1158,7 +1158,7 @@
         "rebillview": "View Neubelastung",
         "merchantproviderview": "View Merchant Anbieter",
         "alias": "Alias",
-        "amount": "Amount",
+        "amount": "Betrag",
         "merchantprovider": "Merchant Anbieter"
       },
       "processor": {
@@ -1169,7 +1169,7 @@
       },
       "refund": {
         "title": "Refund Transaction",
-        "amount": "Amount",
+        "amount": "Betrag",
         "amounttorefund": "Amount to Refund",
         "refundall": "Refund All",
         "cancel": "CANCEL",
@@ -1179,7 +1179,7 @@
         "title": "Associated Products",
         "name": "Name",
         "sku": "SKU",
-        "amount": "Amount"
+        "amount": "Betrag"
       }
     },
     "rebill": {
@@ -1190,7 +1190,7 @@
           "id": "ID",
           "bill": "Bill at",
           "created": "Geschafft am",
-          "amount": "Amount"
+          "amount": "Betrag"
         }
       },
       "tab": {
@@ -1200,7 +1200,7 @@
       "info": {
         "title": "Neubelastung Information",
         "billed": "Billed at date",
-        "amount": "Amount",
+        "amount": "Betrag",
         "parentsession": "Muttersession",
         "customer": "Kunde",
         "customerview": "View Customer",
