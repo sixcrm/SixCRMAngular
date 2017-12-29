@@ -1,6 +1,6 @@
 import {by, element} from 'protractor';
 
-export class SummaryReportPage {
+export class ReportPage {
   getTitle() {
     return element(by.css('.report__title'))
   }

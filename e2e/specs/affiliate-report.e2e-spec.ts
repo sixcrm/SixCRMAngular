@@ -4,7 +4,7 @@ import {browser} from 'protractor';
 import {expectUrlToContain, expectNotPresent, expectPresent} from '../utils/assertation.utils';
 import {ReportPage} from '../po/report.po';
 
-describe('Summary Report', function() {
+describe('Affiliate Report', function() {
   let summaryReport: ReportPage;
 
   beforeEach(() => {
@@ -19,13 +19,13 @@ describe('Summary Report', function() {
     waitForUrlContains('dashboard');
   });
 
-  it('should navigate to summary report page', () => {
+  it('should navigate to affiliate report page', () => {
     const sidenav = new SidenavPage();
     sidenav.getLink(2).click();
     browser.sleep(500);
-    sidenav.getLink(4).click();
-    waitForUrlContains('reports/summary');
-    expectUrlToContain('reports/summary');
+    sidenav.getLink(7).click();
+    waitForUrlContains('reports/affiliate');
+    expectUrlToContain('reports/affiliate');
   });
 
   it('should render loaders', () => {
@@ -33,8 +33,8 @@ describe('Summary Report', function() {
     expectPresent(summaryReport.getSummaryTableLoader());
   });
 
-  it('should render to summary report page title', () => {
-    expect(summaryReport.getTitle().getText()).toEqual('Summary Report');
+  it('should render to affiliate report page title', () => {
+    expect(summaryReport.getTitle().getText()).toEqual('Affiliate Report');
   });
 
   it('should hide loaders after 3 seconds', () => {
@@ -42,15 +42,6 @@ describe('Summary Report', function() {
 
     expectNotPresent(summaryReport.getReportTableLoader());
     expectNotPresent(summaryReport.getSummaryTableLoader());
-  });
-
-  it('should open details page', () => {
-    browser.sleep(3000);
-
-    summaryReport.getReportTableFirstItem().click();
-
-    waitForUrlContains('reports/transaction');
-    expectUrlToContain('reports/transaction');
   });
 
 });
