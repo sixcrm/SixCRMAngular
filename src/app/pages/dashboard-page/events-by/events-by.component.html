@@ -1,7 +1,7 @@
 <div inViewport (inside)="fetch()" class="dashboard__table-chart">
   <div class="dashboard__table-chart__title">
     <div class="dashboard__table-chart__title__main">{{'DASHBOARD_EVENTSBYAFFILIATE_TITLE' | translate}}</div>
-    <div class="dashboard__chart__title__sub">{{'DASHBOARD_EVENTSBYAFFILIATE_TITLE' | translate}}</div>
+    <div class="dashboard__chart__title__sub">{{'DASHBOARD_EVENTSBYAFFILIATE_SUBTITLE' | translate}}</div>
     <md-icon [md-menu-trigger-for]="downloadOptions">more_vert</md-icon>
     <md-menu #downloadOptions="mdMenu" x-position="before">
       <button md-menu-item (click)="download('json')">{{'CHART_DOWNLOADJSON' | translate}}</button>

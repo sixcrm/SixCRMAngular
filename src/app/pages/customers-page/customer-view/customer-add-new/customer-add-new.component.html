@@ -55,8 +55,8 @@
     </div>
   </div>
   <div class="entity-view__card__actions">
-    <div (click)="cancel.emit(true)">CANCEL</div>
-    <div (click)="saveCustomer(customerAddForm.form)">CREATE</div>
+    <div (click)="cancel.emit(true)">{{'CUSTOMER_INFO_CANCEL' | translate}}</div>
+    <div (click)="saveCustomer(customerAddForm.form)">{{'CUSTOMER_INFO_SAVE' | translate}}</div>
   </div>
 
 </form>

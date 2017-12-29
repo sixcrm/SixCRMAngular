@@ -18,6 +18,8 @@ export class InvoiceTableComponent implements OnInit {
   loading: boolean = true;
 
   @Input() type: 'OVERDUE' | 'CURRENT' | 'PAST';
+  @Input() title: string;
+  @Input() subtitle: string;
   @Input() set data(data: any[]) {
     this.loading = false;
     this.billsHolder = data;

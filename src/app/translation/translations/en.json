@@ -80,7 +80,8 @@
       "avgtime": "Avg. Time in Queue",
       "view": "VIEW LIVE QUEUE",
       "downstream": "DOWNSTREAM QUEUE",
-      "nodata": "Insufficient Data"
+      "nodata": "Insufficient Data",
+      "livepolling": "Live Pooling"
     },
     "rebills": {
       "snack": {
@@ -301,7 +302,6 @@
     "topcampaigns": {
       "title": "Top Campaigns",
       "subtitle": "Clicks & Conversions",
-      "nodata": "No Campaigns Found",
       "campaign": "Campaign",
       "amount": "Amount"
     },
@@ -566,8 +566,7 @@
       "pay": "PAY NOW",
       "summary": {
         "title": "Current Transaction Count",
-        "description": "View Current Transaction cound and amount. Pay and view invoices. View transactions over time and predict the future.",
-        "nodata": "No Transactions Found"
+        "description": "View Current Transaction count and amount. Pay and view invoices. View transactions over time and predict the future."
       }
     }
   },
@@ -678,7 +677,8 @@
       "alias": "Alias",
       "response": "Processor Response",
       "productnum": "Number of Products",
-      "amount": "Amount"
+      "amount": "Amount",
+      "view": "View Transaction"
     },
     "session": {
       "title": "Sessions",
@@ -720,17 +720,13 @@
       }
     },
     "tab": {
-      "general": "GENERAL DETALS",
-      "users": "USERS",
-      "keys": "ACCESS KEYS",
-      "billing": "BILLING"
+      "general": "GENERAL DETALS"
     },
     "details": {
       "title": "Invoice Summary",
       "subtitle": "Billing Information",
       "start": "Period Start",
       "end": "Period End",
-      "amount": "Amount",
       "due": "Due Date",
       "edit": "Edit Invoice",
       "back": "BACK TO INVOICES",
@@ -923,7 +919,6 @@
     "affiliateallowed": {
       "title": "Allowed Affiliates",
       "nodata": "No Affiliates allowed.",
-      "name": "Name",
       "add": "Add Affiliate to allowed list",
       "addtext": "Select Affiliate",
       "addbutton": "ADD",
@@ -934,7 +929,6 @@
     "affiliatedenied": {
       "title": "Denied Affiliates",
       "nodata": "No Affiliates denied.",
-      "name": "Name",
       "add": "Add Affiliate to denied list",
       "addtext": "Select Affiliate",
       "addbutton": "ADD",
@@ -1021,8 +1015,6 @@
       "nodata": "No Trackers found.",
       "associate": "Associate Tracker",
       "associatetext": "Select Tracker",
-      "confirm": "ASSOCIATE",
-      "cancel": "CANCEL",
       "view": "View Tracker",
       "disassociate": "Disassociate Tracker",
       "disassociatetext": "Are you sure you want to delete?"
@@ -1076,7 +1068,6 @@
       "associate": "Associate Affiliate",
       "associatetext": "Select Affiliate",
       "confirm": "ASSOCIATE",
-      "cancel": "CANCEL",
       "view": "View Affiliate",
       "disassociate": "Disassociate Affiliate",
       "disassociatetext": "Are you sure you want to delete?"
@@ -1090,7 +1081,6 @@
       "associate": "Associate Campaign",
       "associatetext": "Select Campaign",
       "confirm": "ASSOCIATE",
-      "cancel": "CANCEL",
       "view": "View Campaign",
       "disassociate": "Disassociate Campaign",
       "disassociatetext": "Are you sure you want to delete?"
@@ -1179,7 +1169,9 @@
       "title": "Associated Products",
       "name": "Name",
       "sku": "SKU",
-      "amount": "Amount"
+      "amount": "Amount",
+      "view": "View Product",
+      "nodata": "No Products found."
     }
   },
   "rebill": {
@@ -1237,8 +1229,7 @@
       "fulfillmentproviderview": "Fulfillment Provider"
     },
     "history": {
-      "title": "Shipping Receipt State History",
-      "entered": "Entered"
+      "title": "Shipping Receipt State History"
     }
   },
   "fulfillment": {
@@ -1344,7 +1335,6 @@
       "distribution": "Distribution",
       "merchant": "Merchant Provider",
       "add": "ADD",
-      "update": "UPDATE",
       "clear": "CLEAR",
       "title": "Associated Merchant Providers",
       "view": "View Merchant Provider",

@@ -39,7 +39,7 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
 
   text: TableMemoryTextOptions = {
     title: 'USER_ACCOUNT_TITLE',
-    disassociateOptionText: `USER_ACCOUNT_REMOVE`,
+    disassociateOptionText: 'USER_ACCOUNT_REMOVE',
     associateOptionText: 'USER_ACCOUNT_ADD',
     viewOptionText: 'USER_ACCOUNT_VIEW',
     disassociateModalTitle: 'USER_ACCOUNT_REMOVETEXT',

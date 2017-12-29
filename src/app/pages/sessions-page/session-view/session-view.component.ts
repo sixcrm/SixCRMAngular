@@ -38,8 +38,8 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
   affiliateColumnParams: ColumnParams<Affiliate>[];
   affiliateText: TableMemoryTextOptions = {
     title: 'SESSION_AFFILIATE_TITLE',
-    viewOptionText: 'SESSION_REBILL_VIEW',
-    noDataText: 'SESSION_REBILL_NODATA'
+    viewOptionText: 'SESSION_AFFILIATE_VIEW',
+    noDataText: 'SESSION_AFFILIATE_NODATA'
   };
 
   affiliates: Affiliate[] = [];

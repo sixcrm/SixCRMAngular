@@ -1,8 +1,8 @@
 <div class="entity-view__table-component invoice-table" [class.invoice-table--no-pagination]="type !== 'PAST'">
   <div class="entity-view__table-component__header entity-view__table-component__header--homepage invoice-table__header">
     <div>
-      <div class="entity-view__table-component__header__title">{{'ACCOUNT_BILLING_' + type + 'TITLE' | translate}}</div>
-      <div class="invoice-table__subtitle">{{'ACCOUNT_BILLING_' + type + 'SUBTITLE' | translate}}</div>
+      <div class="entity-view__table-component__header__title">{{title | translate}}</div>
+      <div class="invoice-table__subtitle">{{subtitle | translate}}</div>
     </div>
   </div>
   <table class="highlight table__custom">

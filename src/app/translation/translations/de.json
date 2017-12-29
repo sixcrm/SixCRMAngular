@@ -6,7 +6,7 @@
       "signout": "Abmelden",
       "actingas": "Acting as",
       "mobile": {
-        "Konten": "Konten",
+        "accounts": "Konten",
         "actions": "Aktionen",
         "settings": "Einstellungen",
         "signout": "Abmelden"
@@ -39,7 +39,7 @@
         "transaction": "Transaktionen",
         "rebill": "Neubelastung",
         "shippingreceipt": "Shipping Receipts",
-        "Anbieter": {
+        "providers": {
           "title": "3rd Party Anbieter",
           "fulfillment": "Fulfillment Anbieter",
           "smtp": "SMTP Anbieter"
@@ -72,7 +72,7 @@
       "status": {
         "failurerate": "Durchfallquote",
         "avgtime": "Durchschnittszeit in der Reihe",
-        "view": "Ansehen" 
+        "view": "Ansehen"
       },
       "details": {
         "title": "Gesamte Aufträge",
@@ -80,9 +80,10 @@
         "avgtime": "Durchsnittszeit in der Reihe",
         "view": "AKTUELLE SICHT DIESER REIHE",
         "downstream": "NÄCHSTE REIHE",
-        "nodata": "Unzureichende Dateien"
+        "nodata": "Unzureichende Dateien",
+        "livepolling": "Live Pooling"
       },
-      "Neubelastung": {
+      "rebills": {
         "snack": {
           "main": "Queue Nachrichten",
           "sub": "Neuzubelastung ID"
@@ -202,7 +203,7 @@
       "tabs": {
         "general": "GENERAL",
         "notifications": "NOTIFICATIONS",
-        "Konten": "Konten",
+        "accounts": "Konten",
         "signingstrings": "SIGNING STRINGS"
       },
       "details": {
@@ -235,7 +236,7 @@
           "subtitle": "Select what notifications you want to receive"
         }
       },
-      "Konten": {
+      "accounts": {
         "title": "Your Konten",
         "accountname": "Name",
         "rolename": "Role",
@@ -288,7 +289,7 @@
         "amountp": "Betrag%",
         "nodata": "No Transaktionen Found"
       },
-      "Transaktionenummary": {
+      "transactionsummary": {
         "title": "Transaktionen",
         "subtitle": "Transaktionen summary",
         "nodata": "No Transaktionen Found"
@@ -298,10 +299,9 @@
         "subtitle": "Kampagnen on the move",
         "nodata": "Keine Kampagnen gefunden"
       },
-      "topKampagnen": {
+      "topcampaigns": {
         "title": "Top Kampagnen",
         "subtitle": "Clicks & Conversions",
-        "nodata": "Keine Kampagnen gefunden",
         "campaign": "Kampagne",
         "amount": "Betrag"
       },
@@ -316,7 +316,7 @@
           "title": "Summary Report",
           "subtitle": "View summary information about Transaktionen"
         },
-        "Transaktionen": {
+        "transactions": {
           "title": "Transaction Report",
           "subtitle": "View information about Transaktionen"
         },
@@ -468,7 +468,7 @@
         "view": "Ansehen",
         "customer": {
           "shipaddress": "Shipping Address",
-          "recentTransaktionen": "Recent Transaktionen"
+          "recenttransactions": "Recent Transaktionen"
         },
         "transaction": {
           "title": "Transaction Info",
@@ -483,7 +483,7 @@
         },
         "rebill": {
           "title": "Neubelastung Info",
-          "Transaktionen": "Transaktionen"
+          "transactions": "Transaktionen"
         },
         "schedule": {
           "title": "Product Schedule Info",
@@ -503,7 +503,7 @@
       },
       "tab": {
         "general": "GENERAL DETALS",
-        "Nutzer": "Nutzer",
+        "users": "Nutzer",
         "keys": "ACCESS KEYS",
         "billing": "BILLING"
       },
@@ -515,7 +515,7 @@
         "cancel": "Cancel",
         "save": "Speichern"
       },
-      "Nutzer": {
+      "users": {
         "title": "Associated Nutzer",
         "add": "Nutzer hinzufügen",
         "invite": "Neue Nutzer zu diesem Konto einladen",
@@ -566,8 +566,7 @@
         "pay": "PAY NOW",
         "summary": {
           "title": "Current Transaction Count",
-          "description": "View Current Transaction cound and amount. Pay and view invoices. View Transaktionen over time and predict the future.",
-          "nodata": "No Transaktionen Found"
+          "description": "View Current Transaction count and amount. Pay and view invoices. View Transaktionen over time and predict the future."
         }
       }
     },
@@ -678,7 +677,8 @@
         "alias": "Alias",
         "response": "Processor Response",
         "productnum": "Number of Products",
-        "amount": "Betrag"
+        "amount": "Betrag",
+        "view": "View Transaction"
       },
       "session": {
         "title": "Sessions",
@@ -720,17 +720,13 @@
         }
       },
       "tab": {
-        "general": "GENERAL DETALS",
-        "Nutzer": "Nutzer",
-        "keys": "ACCESS KEYS",
-        "billing": "BILLING"
+        "general": "GENERAL DETALS"
       },
       "details": {
         "title": "Invoice Summary",
         "subtitle": "Billing Information",
         "start": "Period Start",
         "end": "Period End",
-        "amount": "Betrag",
         "due": "Due Date",
         "edit": "Edit Invoice",
         "back": "BACK TO INVOICES",
@@ -878,7 +874,7 @@
       "tab": {
         "general": "GENERAL DETAILS",
         "productschedules": "PRODUCT SCHEDULES",
-        "Vertriebspartner": "Vertriebspartner",
+        "affiliates": "Vertriebspartner",
         "trackingcode": "TRACKING CODE"
       },
       "info": {
@@ -923,7 +919,6 @@
       "affiliateallowed": {
         "title": "Allowed Vertriebspartner",
         "nodata": "No Vertriebspartner allowed.",
-        "name": "Name",
         "add": "Add Affiliate to allowed list",
         "addtext": "Select Affiliate",
         "addbutton": "ADD",
@@ -934,7 +929,6 @@
       "affiliatedenied": {
         "title": "Denied Vertriebspartner",
         "nodata": "No Vertriebspartner denied.",
-        "name": "Name",
         "add": "Add Affiliate to denied list",
         "addtext": "Select Affiliate",
         "addbutton": "ADD",
@@ -1021,8 +1015,6 @@
         "nodata": "No Trackers found.",
         "associate": "Associate Tracker",
         "associatetext": "Select Tracker",
-        "confirm": "ASSOCIATE",
-        "cancel": "CANCEL",
         "view": "View Tracker",
         "disassociate": "Disassociate Tracker",
         "disassociatetext": "Are you sure you want to Löschen?"
@@ -1076,7 +1068,6 @@
         "associate": "Associate Affiliate",
         "associatetext": "Select Affiliate",
         "confirm": "ASSOCIATE",
-        "cancel": "CANCEL",
         "view": "View Affiliate",
         "disassociate": "Disassociate Affiliate",
         "disassociatetext": "Are you sure you want to Löschen?"
@@ -1090,7 +1081,6 @@
         "associate": "Associate Campaign",
         "associatetext": "Select Campaign",
         "confirm": "ASSOCIATE",
-        "cancel": "CANCEL",
         "view": "Kampagne ansehen",
         "disassociate": "Disassociate Campaign",
         "disassociatetext": "Are you sure you want to Löschen?"
@@ -1104,7 +1094,7 @@
           "campaign": "Name der Kampagne",
           "customer": "Name des Kunden",
           "schedulesnum": "Number of Product Schedules",
-          "Neubelastungnum": "Number of Neubelastung"
+          "rebillsnum": "Number of Neubelastung"
         }
       },
       "tab": {
@@ -1179,7 +1169,9 @@
         "title": "Associated Products",
         "name": "Name",
         "sku": "SKU",
-        "amount": "Betrag"
+        "amount": "Betrag",
+        "view": "View Product",
+        "nodata": "No Products found."
       }
     },
     "rebill": {
@@ -1237,8 +1229,7 @@
         "fulfillmentproviderview": "Fulfillment Provider"
       },
       "history": {
-        "title": "Shipping Receipt State Geschichte",
-        "Eingegeben": "Eingegeben"
+        "title": "Shipping Receipt State Geschichte"
       }
     },
     "fulfillment": {
@@ -1344,7 +1335,6 @@
         "distribution": "Distribution",
         "merchant": "Merchant Anbieter",
         "add": "ADD",
-        "update": "UPDATE",
         "clear": "CLEAR",
         "title": "Associated Merchant Anbieter",
         "view": "View Merchant Anbieter",
@@ -1416,7 +1406,7 @@
         "name": "Name"
       }
     },
-    "Löschendialog": {
+    "deletedialog": {
       "text": "Are you sure you want to Löschen?",
       "del": "Löschen",
       "cancel": "CANCEL"

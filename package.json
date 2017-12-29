@@ -24,10 +24,14 @@
     "e2e-custom": "ng e2e",
     "webdriver-update": "webdriver-manager update",
     "lint-translations": "eslint --ext src/app/translation/translations/**.json",
-    "validate-translations": "node ./tools/validate-translations.js"
+    "validate-translations": "node ./tools/validate-translations.js",
+    "validate-translation-keys": "node ./tools/validate-keys.js",
+    "check-translations": "npm run lint-translations && npm run validate-translations && npm run validate-translation-keys"
   },
   "pre-commit": [
-    "lint-translations"
+    "lint-translations",
+    "validate-translations",
+    "validate-translation-keys"
   ],
   "repository": {
     "url": "",

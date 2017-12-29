@@ -50,7 +50,7 @@ deployment:
     branch: development
     commands:
       # Lint .json translation files
-      - npm run lint-translations
+      - npm run check-translations
 
       # Set version
       - node libs/deployment_scripts/src/versioning.js

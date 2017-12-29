@@ -3,8 +3,8 @@
   <billing-summary [focused]="focused"></billing-summary>
 
   <invoice-overdue *ngFor="let over of overdue" [bill]="over"></invoice-overdue>
-  <invoice-table [data]="paid" [type]="'CURRENT'" (view)="viewInvoice($event)"></invoice-table>
-  <invoice-table [data]="unpaid" [type]="'PAST'" (view)="viewInvoice($event)"></invoice-table>
+  <invoice-table [data]="paid" [type]="'CURRENT'" [title]="'ACCOUNT_BILLING_CURRENTTITLE'" [subtitle]="'ACCOUNT_BILLING_CURRENTSUBTITLE'" (view)="viewInvoice($event)"></invoice-table>
+  <invoice-table [data]="unpaid" [type]="'PAST'" [title]="'ACCOUNT_BILLING_PASTTITLE'" [subtitle]="'ACCOUNT_BILLING_PASTSUBTITLE'" (view)="viewInvoice($event)"></invoice-table>
 </div>
 
 <bill-body *ngIf="addMode" [bill]="billToUpdate" [embedded]="true" (cancel)="addMode = false"></bill-body>

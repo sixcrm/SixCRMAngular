@@ -34,7 +34,7 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
 
   text: TableMemoryTextOptions = {
     title: 'ACCOUNT_USERS_TITLE',
-    disassociateOptionText: `ACCOUNT_USERS_REMOVE`,
+    disassociateOptionText: 'ACCOUNT_USERS_REMOVE',
     associateOptionText: 'ACCOUNT_USERS_ADD',
     viewOptionText: 'ACCOUNT_USERS_VIEW',
     disassociateModalTitle: 'ACCOUNT_USERS_REMOVEMESSAGE',

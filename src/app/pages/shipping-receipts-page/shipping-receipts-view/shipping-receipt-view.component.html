@@ -10,12 +10,9 @@
     <div class="entity-view__info__data">
       <div *ngIf="!addMode" class="entity-view__info__data__date">{{'SINGLEPAGE_CREATED' | translate}}: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
       <div class="entity-view__info__data__name">
-        <span *ngIf="!addMode; else createMessage">
+        <span>
           {{entityBackup.id}}
         </span>
-        <ng-template #createMessage>
-          {{'SHIPPINGRECEIPT_CREATETITLE' | translate}}
-        </ng-template>
       </div>
     </div>
   </div>
