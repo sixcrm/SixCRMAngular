@@ -97,7 +97,6 @@ md-nav-list.side-navigation {
 
   a[md-list-item] > .md-list-item {
     @include font-body();
-    width: 215px;
     color: $sidebar-text-color;
     -webkit-font-smoothing: antialiased;
     line-height: 20px;
