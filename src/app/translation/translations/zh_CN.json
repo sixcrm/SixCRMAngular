@@ -28,7 +28,7 @@
         },
         "customer": "客户",
         "crm": {
-            "title": "CRM",
+            "title": "CRM (客户关系管理)",
             "product": "制品",
             "productschedule": "产品时间表",
             "campaign": "广告活动",
@@ -232,1235 +232,1235 @@
                 "slack": "松弛的Web钩子"
             },
             "settings": {
-                "title": "Notification settings",
-                "subtitle": "Select what notifications you want to receive"
+                "title": "通知设置",
+                "subtitle": "选择你想收到的东西"
             }
         },
         "accounts": {
-            "title": "Your Accounts",
-            "accountname": "Name",
-            "rolename": "Role",
-            "view": "View Account"
+            "title": "您的帐户",
+            "accountname": "名",
+            "rolename": "角色",
+            "view": "查看帐户"
         },
         "signingstrings": {
-            "title": "Your Signing Strings",
-            "name": "Name",
-            "signingstring": "Signing String",
-            "used": "Last time used",
-            "add": "Add new Signing String",
-            "remove": "Remove",
-            "edit": "Edit",
-            "updatetext": "Update Signing String",
-            "addtext": "Add new Signing String",
-            "cancel": "Cancel",
-            "save": "Save",
-            "nodata": "No Signing Strings found."
+            "title": "您的签名字符串",
+            "name": "名",
+            "signingstring": "签署字符串",
+            "used": "上次使用",
+            "add": "添加新的签名字符串",
+            "remove": "清除",
+            "edit": "编辑",
+            "updatetext": "更新签名字符串",
+            "addtext": "添加新的签名字符串",
+            "cancel": "取消",
+            "save": "保存",
+            "nodata": "找不到签名字符串"
         }
     },
     "dashboard": {
         "eventsfunnel": {
-            "title": "Events Funnel",
-            "subtitle": "Events by Event type",
-            "event": "Event",
-            "count": "Count",
-            "percentage": "Percentage",
-            "relativepercentage": "Relative Percentage"
+            "title": "漏斗事件",
+            "subtitle": "事件类型的事件",
+            "event": "事件",
+            "count": "算",
+            "percentage": "百分比",
+            "relativepercentage": "相对百分比"
         },
         "eventsummary": {
-            "title": "Events",
-            "subtitle": "events summary",
-            "nodata": "No Events Found"
+            "title": "活动",
+            "subtitle": "事件总结",
+            "nodata": "没有发现事件"
         },
         "eventsbyaffiliate": {
-            "title": "Events by Affiliate",
-            "subtitle": "Events from the top Affiliates",
-            "affiliate": "Affiliate",
-            "count": "Count",
-            "percentage": "Percentage",
-            "nodata": "No Events Found"
+            "title": "活动由会员",
+            "subtitle": "来自顶级会员的活动",
+            "affiliate": "加盟",
+            "count": "算",
+            "percentage": "百分比",
+            "nodata": "没有发现事件"
         },
         "transactionbyaffiliate": {
-            "title": "Transactions by Affiliate",
-            "subtitle": "Transactions from the top Affiliates",
-            "affiliate": "Affiliate",
-            "count": "Count",
-            "countp": "Count%",
-            "amount": "Amount",
-            "amountp": "Amount%",
-            "nodata": "No Transactions Found"
+            "title": "交易通过会员",
+            "subtitle": "来自顶级联盟的交易",
+            "affiliate": "加盟",
+            "count": "算",
+            "countp": "计数％",
+            "amount": "量",
+            "amountp": "金额％",
+            "nodata": "找不到交易"
         },
         "transactionsummary": {
-            "title": "Transactions",
-            "subtitle": "transactions summary",
-            "nodata": "No Transactions Found"
+            "title": "交易",
+            "subtitle": "交易总结",
+            "nodata": "找不到交易"
         },
         "movers": {
-            "title": "Campaigns Watch List",
-            "subtitle": "campaigns on the move",
-            "nodata": "No Campaigns Found"
+            "title": "活动观察列表",
+            "subtitle": "在移动的运动",
+            "nodata": "未找到任何广告系列"
         },
         "topcampaigns": {
-            "title": "Top Campaigns",
-            "subtitle": "Clicks & Conversions",
-            "campaign": "Campaign",
-            "amount": "Amount"
+            "title": "热门广告系列",
+            "subtitle": "点击和转化",
+            "campaign": "运动",
+            "amount": "量"
         },
         "reports": {
-            "title": "Reports",
-            "subtitle": "Popular reports to monitor metrics",
+            "title": "报告",
+            "subtitle": "流行的报告监测指标",
             "order": {
-                "title": "Order Report",
-                "subtitle": "Quick reports about orders"
+                "title": "订单报告",
+                "subtitle": "有关订单的快速报告"
             },
             "summary": {
-                "title": "Summary Report",
-                "subtitle": "View summary information about transactions"
+                "title": "总结报告",
+                "subtitle": "查看有关交易的摘要信息"
             },
             "transactions": {
-                "title": "Transaction Report",
-                "subtitle": "View information about transactions"
+                "title": "交易报告",
+                "subtitle": "查看有关交易的信息"
             },
             "fulfillment": {
-                "title": "Fulfillment Report",
-                "subtitle": "Fulfillment overview for campaigns"
+                "title": "履行报告",
+                "subtitle": "广告系列的履行概述"
             },
             "affiliate": {
-                "title": "Affiliate Report",
-                "subtitle": "Performance metrics about affiliates"
+                "title": "会员报告",
+                "subtitle": "关于分支机构的绩效指标"
             },
             "retention": {
-                "title": "Retention",
-                "subtitle": "Learn how log customers stay"
+                "title": "保留",
+                "subtitle": "了解日志客户如何留下来"
             }
         }
     },
     "chart": {
-        "viewmore": "VIEW MORE",
-        "collapse": "COLLAPSE",
+        "viewmore": "查看更多",
+        "collapse": "坍塌",
         "showtable": "SHOW TABLE",
-        "downloadjson": "Download JSON",
-        "downloadcsv": "Download CSV",
-        "downloadexcel": "Download Excel"
+        "downloadjson": "下载JSON",
+        "downloadcsv": "下载CSV",
+        "downloadexcel": "下载Excel"
     },
     "summaryreport": {
-        "title": "Summary Report",
-        "tabletitle": "Transaction Summary Details",
-        "sales": "Sales",
-        "salesrevenue": "Sales Revenue",
-        "rebill": "Rebill",
-        "rebillrevenue": "Rebill Revenue",
-        "refunds": "Refunds",
-        "refundexpenses": "Refund Expenses",
-        "declines": "Declines",
-        "declinesrevenue": "Declines Revenue",
-        "grossrevenue": "Gross Revenue",
-        "chargebacks": "Chargebacks",
-        "alerts": "Alerts",
-        "activecustomers": "Active Customers",
-        "date": "Date"
+        "title": "总结报告",
+        "tabletitle": "交易摘要详情",
+        "sales": "销售",
+        "salesrevenue": "销售收入",
+        "rebill": "重新结算",
+        "rebillrevenue": "重新计算收入",
+        "refunds": "退款",
+        "refundexpenses": "退款费用",
+        "declines": "下降",
+        "declinesrevenue": "衰退收入",
+        "grossrevenue": "总收入",
+        "chargebacks": "退款",
+        "alerts": "警报",
+        "activecustomers": "活跃的客户",
+        "date": "日期"
     },
     "transactionreport": {
-        "title": "Transactions Report",
-        "tabletitle": "Transaction Details",
-        "customer": "Customer",
-        "campaign": "Campaign",
-        "merchantprovider": "Merchant Provider",
-        "affiliate": "Affiliate",
-        "amount": "Amount",
-        "processorresult": "Processor Result",
-        "transactiontype": "Transaction Type"
+        "title": "交易报告",
+        "tabletitle": "交易细节",
+        "customer": "顾客",
+        "campaign": "运动",
+        "merchantprovider": "商家提供商",
+        "affiliate": "加盟",
+        "amount": "量",
+        "processorresult": "处理器结果",
+        "transactiontype": "交易类型"
     },
     "merchantreport": {
-        "title": "Merchant Report",
-        "tabletitle": "Transaction Details",
-        "merchantprovider": "Merchant Provider",
-        "salescount": "Sales Count",
-        "salesgrossrevenue": "Sales Gross Revenue",
-        "refundexpenses": "Refund Expenses",
-        "refundcount": "Refund Count",
-        "netrevenue": "Net Revenue",
-        "mtdsalescount": "MTD Sales Count",
-        "mtdgrosscount": "MTD Gross Count",
+        "title": "商家报告",
+        "tabletitle": "交易细节",
+        "merchantprovider": "商家提供商",
+        "salescount": "销售数量",
+        "salesgrossrevenue": "销售总收入",
+        "refundexpenses": "退款费用",
+        "refundcount": "退款计数",
+        "netrevenue": "净收入",
+        "mtdsalescount": "BAT销售数量",
+        "mtdgrosscount": "MTD总数",
         "chart": {
-            "title": "Merchant Processing",
-            "subtitle": "Current loads and balance",
-            "nodata": "No Merchants Found"
+            "title": "商家处理",
+            "subtitle": "当前负载和平衡",
+            "nodata": "找不到商家"
         }
     },
     "affiliatereport": {
-        "title": "Affiliate Report",
-        "tabletitle": "Affiliate Summary Details",
-        "clickscount": "Clicks Count",
-        "partialscount": "Partials Count",
-        "affiliate": "Affiliate",
-        "partialspercentage": "Partials Percentage",
-        "declinescount": "Declines Count",
-        "declinespercentage": "Declines Percentage",
-        "salescount": "Sales Count",
-        "salespercentage": "Sales Percentage",
+        "title": "会员报告",
+        "tabletitle": "加盟总结细节",
+        "clickscount": "点击次数",
+        "partialscount": "部分计数",
+        "affiliate": "加盟",
+        "partialspercentage": "部分百分比",
+        "declinescount": "拒绝计数",
+        "declinespercentage": "下降百分比",
+        "salescount": "销售数量",
+        "salespercentage": "销售额百分比",
         "upsellcount": "Upsell Count",
-        "upsellpercentage": "Upsell Percentage",
-        "upsellsum": "Upsell Sum",
-        "amountsum": "Amount Sum"
+        "upsellpercentage": "Upsell百分比",
+        "upsellsum": "加总和",
+        "amountsum": "金额总和"
     },
     "search": {
         "tab": {
-            "customer": "CUSTOMER",
-            "order": "ORDER ENTRY"
+            "customer": "客户",
+            "order": "订单输入"
         },
         "advanced": {
-            "toggle": "ADVANCED SEARCH",
-            "search": "Search",
-            "firstname": "First Name",
-            "lastname": "Last Name",
-            "phone": "Phone Number",
-            "email": "Email Address",
-            "trackingnumber": "Shipment Tracking Number",
-            "address1": "Address 1",
-            "address2": "Address 2",
-            "city": "City",
-            "zip": "ZIP Code",
-            "state": "State",
-            "country": "Country",
-            "alias": "Transaction Alias",
-            "cctype": "Credit Card Type",
-            "ccf6": "Credit Card # first 6",
-            "ccl4": "Credit Card # last 4",
-            "amount": "Amount",
-            "created": "Created at",
+            "toggle": "高级搜索",
+            "search": "搜索",
+            "firstname": "名字",
+            "lastname": "姓氏",
+            "phone": "电话号码",
+            "email": "电子邮件地址",
+            "trackingnumber": "货件追踪号码",
+            "address1": "地址1",
+            "address2": "地址2",
+            "city": "城市",
+            "zip": "邮政编码",
+            "state": "状态",
+            "country": "国家",
+            "alias": "别名事务",
+            "cctype": "信用卡类型",
+            "ccf6": "信用卡＃第6",
+            "ccl4": "信用卡＃最后4",
+            "amount": "量",
+            "created": "创建于",
             "sku": "SKU",
-            "name": "Name",
-            "response": "Processor Response",
-            "status": "Receipt Status",
-            "merchantprovider": "Merchant Provider",
-            "fulfillmentprovider": "Fulfillment Provider",
-            "ship": "Ship",
-            "shipdelay": "Shipping Delay",
-            "schedulesnum": "Number of Schedules",
-            "bill": "Billed at",
-            "parentsession": "Parent Session",
-            "product": "Product",
-            "start": "Start",
-            "end": "End",
-            "price": "Price",
+            "name": "名",
+            "response": "处理器响应",
+            "status": "收据状态",
+            "merchantprovider": "商家提供商",
+            "fulfillmentprovider": "履行供应商",
+            "ship": "船",
+            "shipdelay": "运输延迟",
+            "schedulesnum": "计划数量",
+            "bill": "开票",
+            "parentsession": "家长会议",
+            "product": "产品",
+            "start": "启动",
+            "end": "结束",
+            "price": "价格",
             "id": "ID"
         },
-        "category": "Category",
-        "refined": "REFINED RESULTS",
-        "reset": "RESET SEARCH",
+        "category": "类别",
+        "refined": "精炼的结果",
+        "reset": "重置搜索",
         "date": {
-            "range": "Date Range",
-            "toggle": "Date",
-            "to": "to"
+            "range": "日期范围",
+            "toggle": "日期",
+            "to": "至"
         },
-        "results": "Search Results",
+        "results": "搜索结果",
         "sort": {
-            "title": "Sort By",
-            "createasc": "created at asc",
-            "createdesc": "created at desc",
-            "updateasc": "updated at asc",
-            "updatedesc": "updated at desc",
-            "def": "default"
+            "title": "排序",
+            "createasc": "在asc创建",
+            "createdesc": "在desc创建",
+            "updateasc": "更新在ASC",
+            "updatedesc": "更新于desc",
+            "def": "默认"
         },
-        "nodata": "Sorry, there were no results.",
-        "entersearch": "Please enter a search query.",
+        "nodata": "对不起，没有结果。",
+        "entersearch": "请输入搜索查询。",
         "perfect": {
             "view": "VIEW",
             "customer": {
-                "shipaddress": "Shipping Address",
-                "recenttransactions": "Recent Transactions"
+                "shipaddress": "送货地址",
+                "recenttransactions": "近期交易"
             },
             "transaction": {
-                "title": "Transaction Info",
-                "product": "Products"
+                "title": "交易信息",
+                "product": "制品"
             },
             "product": {
-                "title": "Product Info"
+                "title": "产品信息"
             },
             "campaign": {
-                "title": "Campaign Info",
-                "schedules": "Product Schedules"
+                "title": "广告系列信息",
+                "schedules": "产品时间表"
             },
             "rebill": {
-                "title": "Rebill Info",
-                "transactions": "Transactions"
+                "title": "回扣信息",
+                "transactions": "交易"
             },
             "schedule": {
-                "title": "Product Schedule Info",
-                "schedules": "Schedules"
+                "title": "产品进度信息",
+                "schedules": "时间表"
             }
         }
     },
     "account": {
         "index": {
-            "title": "Accounts",
+            "title": "帐号",
             "header": {
-                "name": "Name",
-                "active": "Active",
-                "created": "Created",
-                "updated": "Updated"
+                "name": "名",
+                "active": "活跃",
+                "created": "创建",
+                "updated": "更新"
             }
         },
         "tab": {
-            "general": "GENERAL DETALS",
+            "general": "一般情况",
             "users": "USERS",
-            "keys": "ACCESS KEYS",
+            "keys": "访问键",
             "billing": "BILLING"
         },
         "details": {
-            "title": "Account Details",
-            "edit": "Edit Account Details",
-            "name": "Name",
-            "activated": "Activated",
-            "cancel": "Cancel",
-            "save": "Save"
+            "title": "帐户详情",
+            "edit": "编辑帐户详情",
+            "name": "名",
+            "activated": "活性",
+            "cancel": "取消",
+            "save": "保存"
         },
         "users": {
-            "title": "Associated Users",
-            "add": "Add User to Account",
-            "invite": "Invite User to Account",
+            "title": "关联的用户",
+            "add": "将用户添加到帐户",
+            "invite": "邀请用户到帐户",
             "header": {
-                "name": "Name",
-                "role": "Role",
-                "status": "Status"
+                "name": "名",
+                "role": "角色",
+                "status": "状态"
             },
-            "edit": "Edit User Role",
-            "view": "View User",
-            "remove": "Remove User from the Account",
-            "removemessage": "Are you sure you want to remove this User from the account?"
+            "edit": "编辑用户角色",
+            "view": "查看用户",
+            "remove": "从帐户中删除用户",
+            "removemessage": "您确定要从帐户中删除此用户吗？"
         },
         "keys": {
-            "title": "Access Keys",
+            "title": "访问密钥",
             "header": {
-                "name": "Name",
-                "access": "Access Key",
-                "secret": "Secret Key",
-                "created": "Created",
-                "notes": "Notes"
+                "name": "名",
+                "access": "访问密钥",
+                "secret": "秘密钥匙",
+                "created": "创建",
+                "notes": "笔记"
             },
-            "add": "Add Access Keys",
-            "view": "View Access Keys",
-            "edit": "Edit Access Keys",
-            "remove": "Remove Access Keys",
-            "cancel": "CANCEL",
-            "close": "CLOSE",
+            "add": "添加访问密钥",
+            "view": "查看访问密钥",
+            "edit": "编辑访问密钥",
+            "remove": "删除访问键",
+            "cancel": "取消",
+            "close": "关闭",
             "update": "UPDATE"
         },
         "billing": {
-            "currenttitle": "Current Invoices",
-            "currentsubtitle": "Billings due",
-            "pasttitle": "Past Invoices",
-            "pastsubtitle": "Completed billings",
-            "overduewarning": "Invoice Overdue",
-            "overduetext": "You currently have an overdue invoice for",
-            "view": "View Invoice",
-            "noresults": "No Billings found.",
+            "currenttitle": "当前发票",
+            "currentsubtitle": "比林斯到期",
+            "pasttitle": "过去的发票",
+            "pastsubtitle": "完成帐单",
+            "overduewarning": "发票逾期",
+            "overduetext": "您目前有过期的发票",
+            "view": "查看发票",
+            "noresults": "没有比林斯发现。",
             "header": {
-                "issue": "Issue Date",
-                "start": "Period Start",
-                "end": "Period Ending",
-                "balance": "Balance",
-                "status": "Status",
-                "due": "Due Date"
+                "issue": "发行日期",
+                "start": "期间开始",
+                "end": "期末",
+                "balance": "天秤座",
+                "status": "状态",
+                "due": "到期日"
             },
-            "pay": "PAY NOW",
+            "pay": "现在付款",
             "summary": {
-                "title": "Current Transaction Count",
-                "description": "View Current Transaction count and amount. Pay and view invoices. View transactions over time and predict the future."
+                "title": "当前交易计数",
+                "description": "查看交易当前计数和金额。支付和查看发票。查看一段时间内的交易并预测未来。"
             }
         }
     },
     "user": {
-        "title": "User",
+        "title": "穿",
         "index": {
-            "title": "Users",
+            "title": "用户",
             "header": {
-                "name": "Name",
-                "email": "Email",
-                "active": "Active",
-                "terms": "Terms and Conditions"
+                "name": "名",
+                "email": "电子邮件",
+                "active": "活跃",
+                "terms": "条款和条件"
             }
         },
         "tab": {
-            "general": "GENERAL DETALS"
+            "general": "一般情况"
         },
         "details": {
-            "title": "User Details",
-            "createtitle": "Create new User",
-            "account": "Account",
-            "newaccount": "New Account",
-            "edit": "Edit User Details",
-            "activated": "Activated",
-            "role": "Role",
-            "name": "Name",
-            "email": "Email",
-            "cancel": "CANCEL",
+            "title": "用户细节",
+            "createtitle": "创建新的用户",
+            "account": "帐户",
+            "newaccount": "新帐户",
+            "edit": "编辑用户详情",
+            "activated": "活性",
+            "role": "角色",
+            "name": "名",
+            "email": "电子邮件",
+            "cancel": "取消",
             "save": "SAVE"
         },
         "account": {
-            "title": "Associated Accounts",
-            "add": "Add Account to User",
-            "account": "Account",
-            "role": "Role",
-            "status": "Status",
-            "edit": "Edit Role",
-            "view": "View Account",
-            "remove": "Remove Account from the User",
-            "removetext": "Are you sure you want to remove this Account from the User?"
+            "title": "关联账户",
+            "add": "添加帐户给用户",
+            "account": "帐户",
+            "role": "角色",
+            "status": "状态",
+            "edit": "编辑角色",
+            "view": "查看帐户",
+            "remove": "从用户中删除帐户",
+            "removetext": "您确定要从用户中删除此帐户吗？"
         }
     },
     "customer": {
-        "title": "Customer",
+        "title": "顾客",
         "index": {
-            "title": "Customers",
+            "title": "客户",
             "header": {
-                "firstname": "First Name",
-                "lastname": "Last Name",
-                "state": "State",
-                "city": "City"
+                "firstname": "名字",
+                "lastname": "姓氏",
+                "state": "状态",
+                "city": "城市"
             }
         },
         "tab": {
-            "general": "GENERAL DETAILS",
-            "transaction": "TRANSACTIONS",
+            "general": "一般细节",
+            "transaction": "交易",
             "session": "SESSIONS",
-            "fulfillment": "FULFILLMENT"
+            "fulfillment": "应验"
         },
         "info": {
-            "createtitle": "Create new Customer",
-            "shiptitle": "Shipping Information",
-            "shipsubtitle": "Address where fulfillment will ship packages",
-            "edit": "EDIT CUSTOMER",
-            "shipedit": "Edit Shipping Address",
-            "cancel": "CANCEL",
+            "createtitle": "创建新的客户",
+            "shiptitle": "航运信息",
+            "shipsubtitle": "在哪里运送",
+            "edit": "编辑客户",
+            "shipedit": "编辑送货地址",
+            "cancel": "取消",
             "save": "SAVE",
             "update": "UPDATE"
         },
         "notes": {
-            "title": "Notes",
-            "subtitle": "Customer service notes",
-            "add": "Add New Note",
-            "del": "Delete Note",
-            "nodata": "No Notes found."
+            "title": "笔记",
+            "subtitle": "客户服务笔记",
+            "add": "添加新的笔记",
+            "del": "删除注意",
+            "nodata": "找不到笔记。"
         },
         "rebill": {
-            "title": "Upcoming Rebills",
-            "subtitle": "Future Rebills and Upcoming Transactions",
-            "billed": "Bill at",
-            "amount": "Amount",
-            "cancel": "Cancel Transaction",
-            "edit": "Edit Transaction",
-            "nodata": "No Upcoming Transactions found."
+            "title": "即将回购",
+            "subtitle": "未来的回扣和即将到来的交易",
+            "billed": "比尔在",
+            "amount": "量",
+            "cancel": "取消交易",
+            "edit": "编辑交易",
+            "nodata": "没有即将到来的交易发现。"
         },
         "rebilledit": {
-            "title": "Edit Transaction",
-            "subtitle": "modify an upcoming transaction",
-            "date": "Transaction Date",
-            "cancel": "CANCEL",
+            "title": "编辑交易",
+            "subtitle": "修改即将到来的交易",
+            "date": "交易日期",
+            "cancel": "取消",
             "save": "SAVE",
-            "price": "Price"
+            "price": "价格"
         },
         "events": {
-            "title": "Customer Events",
-            "subtitle": "Sessions, Transactions and Leads",
-            "nodata": "No Events found.",
-            "today": "Today",
-            "days7": "Last 7 days",
-            "days30": "Last 30 days",
-            "days90": "Last 90 days",
-            "other": "Other"
+            "title": "客户事件",
+            "subtitle": "会话，交易和潜在客户",
+            "nodata": "找不到事件。",
+            "today": "今天",
+            "days7": "最近7天",
+            "days30": "过去30天",
+            "days90": "过去90天",
+            "other": "其他"
         },
         "transaction": {
-            "title": "Historical Transactions",
-            "subtitle": "Completed Transactions",
-            "nodata": "No Transactions Found.",
-            "alias": "Alias",
-            "response": "Processor Response",
-            "productnum": "Number of Products",
-            "amount": "Amount",
-            "view": "View Transaction"
+            "title": "历史交易",
+            "subtitle": "已完成的交易",
+            "nodata": "找不到交易。",
+            "alias": "别号",
+            "response": "处理器响应",
+            "productnum": "产品数量",
+            "amount": "量",
+            "view": "查看交易"
         },
         "session": {
-            "title": "Sessions",
-            "view": "View Session",
-            "nodata": "No Sessions found.",
-            "name": "Name",
-            "campaign": "Campaign",
-            "productschedulenum": "Number of Product Schedules",
-            "rebillnum": "Number of Rebills"
+            "title": "会议",
+            "view": "查看会话",
+            "nodata": "找不到会话。",
+            "name": "名",
+            "campaign": "运动",
+            "productschedulenum": "产品时间表的数量",
+            "rebillnum": "重新计算的次数"
         },
         "creditcard": {
-            "title": "Billing Information",
-            "subtitle": "Billing Address & Credit Card information",
-            "addoption": "Add Credit Card",
-            "editoption": "Edit Credit Card",
-            "removeoption": "Remove Credit Card",
-            "edittitle": "Edit Credit Card",
-            "createtitle": "Create new Credit Card",
-            "createtext": "Create new Credit Card with the associated user",
-            "expirationmonth": "Expiration Date Month",
-            "expirationyear": "Expiration Date Year",
-            "billingaddress": "Billing Address",
-            "sameaddress": "Same as Customer Address",
-            "cancel": "Cancel",
-            "update": "Update",
-            "save": "Save",
-            "nodata": "No Credit Cards found.",
-            "expiration": "Expiration"
+            "title": "帐单信息",
+            "subtitle": "帐单地址和信用卡信息",
+            "addoption": "添加信用卡",
+            "editoption": "编辑信用卡",
+            "removeoption": "删除信用卡",
+            "edittitle": "编辑信用卡",
+            "createtitle": "创建新的信用卡",
+            "createtext": "与关联的用户创建新的信用卡",
+            "expirationmonth": "到期日月份",
+            "expirationyear": "到期日期年",
+            "billingaddress": "帐单地址",
+            "sameaddress": "与客户地址相同",
+            "cancel": "取消",
+            "update": "更新",
+            "save": "保存",
+            "nodata": "找不到信用卡。",
+            "expiration": "呼气"
         }
     },
     "bill": {
         "index": {
-            "title": "Bills",
+            "title": "票据",
             "header": {
-                "start": "Period Start",
-                "end": "Period End",
-                "overdue": "Overdue",
-                "balance": "Balance"
+                "start": "期间开始",
+                "end": "期末",
+                "overdue": "过期的",
+                "balance": "天秤座"
             }
         },
         "tab": {
-            "general": "GENERAL DETALS"
+            "general": "一般情况"
         },
         "details": {
-            "title": "Invoice Summary",
-            "subtitle": "Billing Information",
-            "start": "Period Start",
-            "end": "Period End",
-            "due": "Due Date",
-            "edit": "Edit Invoice",
-            "back": "BACK TO INVOICES",
+            "title": "发票摘要",
+            "subtitle": "帐单信息",
+            "start": "期间开始",
+            "end": "期末",
+            "due": "到期日",
+            "edit": "编辑发票",
+            "back": "返回到发票",
             "table": {
-                "title": "Invoice Details",
-                "subtitle": "Itemized Breakdown of Charges",
-                "description": "Description",
-                "created": "Created",
-                "amount": "Amount",
-                "total": "Total"
+                "title": "发票明细",
+                "subtitle": "分项收支细目",
+                "description": "描述",
+                "created": "创建",
+                "amount": "量",
+                "total": "总"
             },
-            "pay": "PAY NOW",
-            "detailedit": "Edit",
-            "detailremove": "Remove",
-            "account": "Account",
-            "createtitle": "Create new Bill",
-            "cancel": "CANCEL",
+            "pay": "现在付款",
+            "detailedit": "编辑",
+            "detailremove": "清除",
+            "account": "帐户",
+            "createtitle": "创建新的账单",
+            "cancel": "取消",
             "save": "SAVE",
             "additem": {
-                "title": "Add New Item",
-                "save": "Save",
-                "cancel": "Cancel"
+                "title": "添加新项目",
+                "save": "保存",
+                "cancel": "取消"
             }
         },
-        "title": "Bill"
+        "title": "法案"
     },
     "product": {
-        "title": "Product",
+        "title": "产品",
         "index": {
-            "title": "Products",
+            "title": "制品",
             "header": {
-                "name": "Product Name",
+                "name": "产品名称",
                 "sku": "SKU",
-                "ship": "Ship",
-                "delay": "Shipping Delay"
+                "ship": "船",
+                "delay": "运输延迟"
             }
         },
         "tab": {
-            "general": "GENERAL DETAILS",
-            "schedule": "SCHEDULES",
+            "general": "一般细节",
+            "schedule": "时间表",
             "campaign": "CAMPAIGNS"
         },
         "info": {
-            "title": "Product Details",
-            "createtitle": "Create new Product",
-            "name": "Product Name",
+            "title": "产品详情",
+            "createtitle": "创建新的产品",
+            "name": "产品名称",
             "sku": "SKU",
-            "defaultprice": "Default Price",
-            "ship": "Ship",
-            "shipdelay": "Shipping Delay (minutes)",
-            "fulfillmentprovider": "Fulfillment Provider",
-            "edit": "Edit Product",
-            "del": "Delete Product",
-            "cancel": "CANCEL",
+            "defaultprice": "默认价格",
+            "ship": "船",
+            "shipdelay": "运输延迟（分钟）",
+            "fulfillmentprovider": "履行供应商",
+            "edit": "编辑产品",
+            "del": "删除产品",
+            "cancel": "取消",
             "update": "UPDATE",
             "create": "CREATE"
         },
         "schedules": {
-            "title": "Product Schedules",
-            "name": "Name",
-            "count": "Number of Schedules",
-            "add": "Add new Product Schedule",
-            "view": "View Product Schedule",
-            "remove": "Remove from Product Schedule",
-            "nodata": "No Product Schedules found."
+            "title": "产品时间表",
+            "name": "名",
+            "count": "计划数量",
+            "add": "添加新的产品进度表",
+            "view": "查看产品时间表",
+            "remove": "从产品明细表中删除",
+            "nodata": "找不到产品时间表。"
         },
         "campaign": {
-            "title": "Campaigns",
-            "name": "Name",
-            "created": "Created at",
-            "productnum": "Total Products",
-            "schedulednum": "Total Scheduled",
-            "view": "View Campaign",
-            "nodata": "No Campaigns found."
+            "title": "广告活动",
+            "name": "名",
+            "created": "创建于",
+            "productnum": "产品总数",
+            "schedulednum": "总计",
+            "view": "查看广告系列",
+            "nodata": "找不到广告系列。"
         }
     },
     "productschedule": {
-        "title": "Product Schedule",
+        "title": "产品进度表",
         "index": {
-            "title": "Product Schedules",
+            "title": "产品时间表",
             "header": {
-                "name": "Name",
-                "loadbalancer": "Load Balancer",
-                "numofcycles": "Number of Cycles"
+                "name": "名",
+                "loadbalancer": "负载平衡器",
+                "numofcycles": "周期数"
             }
         },
         "tab": {
-            "general": "GENERAL DETAILS",
+            "general": "一般细节",
             "campaign": "CAMPAIGNS"
         },
         "info": {
-            "createtitle": "Create new Product Schedule",
-            "title": "Product Schedule Details",
-            "name": "Product Schedule Name",
-            "loadbalancer": "Load Balancer",
-            "cancel": "CANCEL",
+            "createtitle": "创建新的产品计划",
+            "title": "产品进度细节",
+            "name": "产品计划名称",
+            "loadbalancer": "负载平衡器",
+            "cancel": "取消",
             "save": "SAVE",
-            "edit": "Edit Product Schedule"
+            "edit": "编辑产品时间表"
         },
         "cycle": {
-            "addtitle": "Add Cycle",
-            "edittitle": "Edit Cycle",
-            "title": "Cycles",
+            "addtitle": "添加周期",
+            "edittitle": "编辑循环",
+            "title": "周期",
             "add": "ADD",
             "clear": "CLEAR",
             "save": "SAVE",
-            "cancel": "CANCEL",
-            "name": "Product Name",
-            "schedulename": "Product Schedule Name",
-            "price": "Price",
-            "pricetip": "Price for period of time",
-            "start": "Start",
-            "starttip": "Start of period (0 is immediate)",
-            "end": "End",
-            "endtip": "Ends & switches to next product schedule",
-            "period": "Period",
-            "periodtip": "Recurring billing & shipping period",
-            "ship": "Ship",
-            "nodata": "No Cycles found.",
-            "view": "View Product",
-            "edit": "Edit Cycle",
-            "remove": "Remove Cycle"
+            "cancel": "取消",
+            "name": "产品名称",
+            "schedulename": "产品计划名称",
+            "price": "价格",
+            "pricetip": "价格一段时间",
+            "start": "启动",
+            "starttip": "期间开始（0即时）",
+            "end": "结束",
+            "endtip": "结束并切换到下一个产品时间表",
+            "period": "期",
+            "periodtip": "定期结算和发货期限",
+            "ship": "船",
+            "nodata": "没有发现周期。",
+            "view": "查看产品",
+            "edit": "编辑循环",
+            "remove": "删除周期"
         },
         "campaign": {
-            "title": "Campaigns",
-            "name": "Name",
-            "created": "Created at",
-            "productnum": "Total Products",
-            "schedulednum": "Total Scheduled",
-            "view": "View Campaign",
-            "nodata": "No Campaigns found."
+            "title": "广告活动",
+            "name": "名",
+            "created": "创建于",
+            "productnum": "产品总数",
+            "schedulednum": "总计",
+            "view": "查看广告系列",
+            "nodata": "找不到广告系列。"
         }
     },
     "campaign": {
-        "title": "Campaign",
+        "title": "运动",
         "index": {
-            "title": "Campaigns",
+            "title": "广告活动",
             "header": {
-                "name": "Name",
-                "created": "Created at",
-                "productnum": "Total Products",
-                "schedulednum": "Total Scheduled"
+                "name": "名",
+                "created": "创建于",
+                "productnum": "产品总数",
+                "schedulednum": "总计"
             }
         },
         "tab": {
-            "general": "GENERAL DETAILS",
-            "productschedules": "PRODUCT SCHEDULES",
-            "affiliates": "AFFILIATES",
-            "trackingcode": "TRACKING CODE"
+            "general": "一般细节",
+            "productschedules": "产品时间表",
+            "affiliates": "关联公司",
+            "trackingcode": "跟踪代码"
         },
         "info": {
-            "createtitle": "Create new Campaign",
-            "title": "Campaign Details",
-            "name": "Name",
-            "allowprepaid": "Allow Prepaid",
-            "showprepaid": "Show Prepaid",
-            "cancel": "CANCEL",
+            "createtitle": "创建新的广告系列",
+            "title": "广告系列详情",
+            "name": "名",
+            "allowprepaid": "允许预付费",
+            "showprepaid": "显示预付",
+            "cancel": "取消",
             "save": "SAVE",
-            "edit": "Edit Campaign"
+            "edit": "编辑广告系列"
         },
         "email": {
-            "title": "Associated Email Templates",
-            "nodata": "No Email Templates found.",
-            "name": "Name",
-            "subject": "Subject",
-            "type": "Type",
-            "smtpprovider": "SMTP Provider",
-            "add": "Associate Email Template",
-            "addtext": "Select Email Template",
+            "title": "关联的电子邮件模板",
+            "nodata": "找不到电子邮件模板。",
+            "name": "名",
+            "subject": "主题",
+            "type": "类型",
+            "smtpprovider": "SMTP提供程序",
+            "add": "关联电子邮件模板",
+            "addtext": "选择电子邮件模板",
             "addbutton": "ADD",
-            "view": "View Email Template",
-            "remove": "Disassociate Email Template",
-            "removetext": "Are you sure you want to delete?"
+            "view": "查看电子邮件模板",
+            "remove": "取消电子邮件模板",
+            "removetext": "你确定要删除吗？"
         },
         "productschedule": {
-            "title": "Associated Product Schedules",
-            "nodata": "No Product Schedules found.",
-            "name": "Name",
-            "productnumber": "Products in Schedule",
-            "add": "Associate Product Schedule",
-            "addtext": "Select Product Schedule",
+            "title": "相关产品时间表",
+            "nodata": "找不到产品时间表。",
+            "name": "名",
+            "productnumber": "产品在附表中",
+            "add": "关联产品计划",
+            "addtext": "选择产品时间表",
             "addbutton": "ADD",
-            "view": "View Product Schedule",
-            "remove": "Disassociate Product Schedule",
-            "removetext": "Are you sure you want to delete?"
+            "view": "查看产品时间表",
+            "remove": "解除产品进度表",
+            "removetext": "你确定要删除吗？"
         },
         "affiliate": {
-            "name": "Name"
+            "name": "名"
         },
         "affiliateallowed": {
-            "title": "Allowed Affiliates",
-            "nodata": "No Affiliates allowed.",
-            "add": "Add Affiliate to allowed list",
-            "addtext": "Select Affiliate",
+            "title": "允许的分支机构",
+            "nodata": "没有联盟允许。",
+            "add": "将会员添加到允许列表",
+            "addtext": "选择加盟",
             "addbutton": "ADD",
-            "view": "View Affiliate",
-            "remove": "Remove Affiliate from allowed list",
-            "removetext": "Are you sure you want to delete?"
+            "view": "查看会员",
+            "remove": "从允许列表中删除加盟",
+            "removetext": "你确定要删除吗？"
         },
         "affiliatedenied": {
-            "title": "Denied Affiliates",
-            "nodata": "No Affiliates denied.",
-            "add": "Add Affiliate to denied list",
-            "addtext": "Select Affiliate",
+            "title": "被拒绝的分支机构",
+            "nodata": "没有关联公司否认。",
+            "add": "将会员添加到拒绝列表",
+            "addtext": "选择加盟",
             "addbutton": "ADD",
-            "view": "View Affiliate",
-            "remove": "Remove Affiliate from denied list",
-            "removetext": "Are you sure you want to delete?"
+            "view": "查看会员",
+            "remove": "从拒绝列表中删除会员",
+            "removetext": "你确定要删除吗？"
         },
         "tracking": {
-            "title": "Tracking Code",
-            "subtitle": "Copy this Code to your HTML page header",
-            "copy": "Copy to clipboard"
+            "title": "跟踪代码",
+            "subtitle": "将此代码复制到您的HTML页面标题",
+            "copy": "复制到剪贴板"
         }
     },
     "emailtemplate": {
-        "title": "Email Template",
+        "title": "电子邮件模板",
         "index": {
-            "title": "Email Templates",
+            "title": "电子邮件模板",
             "header": {
-                "name": "Name",
-                "subject": "Subject",
-                "type": "Type",
-                "smtpprovider": "SMTP Provider"
+                "name": "名",
+                "subject": "主题",
+                "type": "类型",
+                "smtpprovider": "SMTP提供程序"
             }
         },
         "tab": {
-            "general": "GENERAL DETAILS",
+            "general": "一般细节",
             "preview": "PREVIEW"
         },
         "info": {
-            "createtitle": "Create new Email Template",
-            "title": "Email Template Details",
-            "subtitle": "Edit HTML templates below or load defaults from right menu",
-            "edit": "Edit Email Template",
-            "name": "Name",
-            "type": "Template Type",
-            "smtpprovider": "SMTP Provider",
-            "subject": "Subject",
-            "body": "Email",
-            "cancel": "CANCEL",
+            "createtitle": "创建新的电子邮件模板",
+            "title": "电子邮件模板详情",
+            "subtitle": "在下面编辑HTML模板或从右侧菜单加载默认值",
+            "edit": "编辑电子邮件模板",
+            "name": "名",
+            "type": "模板类型",
+            "smtpprovider": "SMTP提供程序",
+            "subject": "主题",
+            "body": "电子邮件",
+            "cancel": "取消",
             "save": "SAVE"
         },
         "token": {
-            "title": "Tokens",
-            "subtitle": "Choose any of the following tokens to add into your email template",
-            "type": "Even Type",
-            "search": "Search"
+            "title": "令牌",
+            "subtitle": "选择以下任何标记添加到您的电子邮件模板",
+            "type": "甚至类型",
+            "search": "搜索"
         },
         "preview": {
-            "title": "Email Template Preview",
-            "subtitle": "preview how the template will look in an email"
+            "title": "电子邮件模板预览",
+            "subtitle": "预览模板在电子邮件中的外观"
         }
     },
     "affiliate": {
-        "title": "Affiliate",
+        "title": "加盟",
         "index": {
-            "title": "Affiliates",
+            "title": "关联公司",
             "header": {
-                "name": "Name",
-                "affiliateid": "Affiliate ID",
-                "created": "Created at",
-                "updated": "Updated at"
+                "name": "名",
+                "affiliateid": "加盟ID",
+                "created": "创建于",
+                "updated": "更新于"
             }
         },
         "tab": {
-            "tracking": "TRACKING",
+            "tracking": "追踪",
             "session": "SESSIONS",
             "campaign": "CAMPAIGNS"
         },
         "info": {
-            "createtitle": "Create new Affiliate",
-            "name": "Affiliate Name",
-            "id": "Affiliate ID",
-            "edit": "EDIT AFFILIATE",
-            "cancel": "CANCEL",
+            "createtitle": "创建新的会员",
+            "name": "代理商名称",
+            "id": "加盟ID",
+            "edit": "联合编辑",
+            "cancel": "取消",
             "save": "SAVE",
             "update": "UPDATE"
         },
         "tracking": {
-            "title": "Associated Trackers",
-            "name": "Name",
-            "type": "Type",
-            "event": "Event",
-            "data": "Tracking Data",
-            "nodata": "No Trackers found.",
-            "associate": "Associate Tracker",
-            "associatetext": "Select Tracker",
-            "view": "View Tracker",
-            "disassociate": "Disassociate Tracker",
-            "disassociatetext": "Are you sure you want to delete?"
+            "title": "相关跟踪器",
+            "name": "名",
+            "type": "类型",
+            "event": "事件",
+            "data": "跟踪数据",
+            "nodata": "找不到追踪者。",
+            "associate": "助理跟踪",
+            "associatetext": "选择跟踪器",
+            "view": "查看跟踪器",
+            "disassociate": "解散跟踪器",
+            "disassociatetext": "你确定要删除吗？"
         },
         "session": {
-            "title": "Associated Sessions",
-            "customer": "Customer",
-            "campaign": "Campaign",
-            "rebilltotal": "Total Rebills",
-            "scheduledtotal": "Total Scheduled",
-            "nodata": "No Sessions found.",
-            "view": "View Session"
+            "title": "相关会话",
+            "customer": "顾客",
+            "campaign": "运动",
+            "rebilltotal": "总计回扣",
+            "scheduledtotal": "总计",
+            "nodata": "找不到会话。",
+            "view": "查看会话"
         }
     },
     "tracker": {
-        "title": "Tracker",
+        "title": "跟踪器",
         "index": {
-            "title": "Trackers",
+            "title": "跟踪器",
             "header": {
-                "name": "Name",
-                "type": "Type",
-                "event": "Event",
-                "data": "Tracking Data"
+                "name": "名",
+                "type": "类型",
+                "event": "事件",
+                "data": "跟踪数据"
             }
         },
         "tab": {
-            "general": "GENERAL DETAILS",
+            "general": "一般细节",
             "affiliate": "AFFILAITES",
             "campaign": "CAMPAIGNS"
         },
         "info": {
-            "createtitle": "Create new Tracker",
-            "title": "Tracker Details",
-            "name": "Tracker Name",
-            "type": "Tracking Type",
-            "eventtype": "Event Type",
-            "eventtypeadd": "Add Event Type",
-            "data": "Tracking Data",
-            "link": "Tracking Link",
+            "createtitle": "创建新的跟踪器",
+            "title": "跟踪器详细信息",
+            "name": "跟踪器名称",
+            "type": "跟踪类型",
+            "eventtype": "事件类型",
+            "eventtypeadd": "添加事件类型",
+            "data": "跟踪数据",
+            "link": "跟踪链接",
             "save": "SAVE",
-            "cancel": "CANCEL",
-            "edit": "Edit Tracker"
+            "cancel": "取消",
+            "edit": "编辑跟踪器"
         },
         "affiliate": {
-            "title": "Associated Affiliates",
-            "name": "Name",
-            "id": "Affiliate ID",
-            "created": "Created at",
-            "updated": "Updated at",
-            "nodata": "No Affiliates found.",
-            "associate": "Associate Affiliate",
-            "associatetext": "Select Affiliate",
+            "title": "相关联营公司",
+            "name": "名",
+            "id": "加盟ID",
+            "created": "创建于",
+            "updated": "更新于",
+            "nodata": "没有找到合作伙伴。",
+            "associate": "准会员",
+            "associatetext": "选择加盟",
             "confirm": "ASSOCIATE",
-            "view": "View Affiliate",
-            "disassociate": "Disassociate Affiliate",
-            "disassociatetext": "Are you sure you want to delete?"
+            "view": "查看会员",
+            "disassociate": "解散会员",
+            "disassociatetext": "你确定要删除吗？"
         },
         "campaign": {
-            "title": "Associated Campaigns",
-            "name": "Name",
-            "created": "Created at",
-            "updated": "Updated at",
-            "nodata": "No Campaigns found.",
-            "associate": "Associate Campaign",
-            "associatetext": "Select Campaign",
+            "title": "关联的广告系列",
+            "name": "名",
+            "created": "创建于",
+            "updated": "更新于",
+            "nodata": "找不到广告系列。",
+            "associate": "关联广告系列",
+            "associatetext": "选择广告系列",
             "confirm": "ASSOCIATE",
-            "view": "View Campaign",
-            "disassociate": "Disassociate Campaign",
-            "disassociatetext": "Are you sure you want to delete?"
+            "view": "查看广告系列",
+            "disassociate": "取消关联活动",
+            "disassociatetext": "你确定要删除吗？"
         }
     },
     "session": {
-        "title": "Session",
+        "title": "会议",
         "index": {
-            "title": "Sessions",
+            "title": "会议",
             "header": {
-                "campaign": "Campaign Name",
-                "customer": "Customer Name",
-                "schedulesnum": "Number of Product Schedules",
-                "rebillsnum": "Number of Rebills"
+                "campaign": "广告系列名称",
+                "customer": "客户名称",
+                "schedulesnum": "产品时间表的数量",
+                "rebillsnum": "重新计算的次数"
             }
         },
         "tab": {
-            "general": "GENERAL DETAILS",
+            "general": "一般细节",
             "affiliate": "AFFILAITES"
         },
         "customer": {
-            "title": "Customer Information",
-            "view": "View Customer"
+            "title": "客户信息",
+            "view": "查看客户"
         },
         "rebill": {
-            "title": "Associated Rebills",
-            "billed": "Bill at",
-            "amount": "Amount",
-            "nodata": "No Rebills found.",
-            "view": "View Rebill"
+            "title": "相关的回扣",
+            "billed": "比尔在",
+            "amount": "量",
+            "nodata": "没有找到重新发现。",
+            "view": "查看Rebill"
         },
         "campaign": {
-            "title": "Associated Campaigns",
-            "name": "Name",
-            "created": "Created at",
-            "nodata": "No Campaigns found.",
-            "view": "View Campaign"
+            "title": "关联的广告系列",
+            "name": "名",
+            "created": "创建于",
+            "nodata": "找不到广告系列。",
+            "view": "查看广告系列"
         },
         "affiliate": {
-            "title": "Associated Affiliates",
-            "name": "Name",
-            "id": "Affiliate ID",
-            "created": "Created at",
-            "nodata": "No Affiliates found.",
-            "view": "View Affiliate"
+            "title": "相关联营公司",
+            "name": "名",
+            "id": "加盟ID",
+            "created": "创建于",
+            "nodata": "没有找到合作伙伴。",
+            "view": "查看会员"
         }
     },
     "transaction": {
-        "title": "Transaction",
+        "title": "交易",
         "index": {
-            "title": "Transactions",
+            "title": "交易",
             "header": {
-                "alias": "Alias",
-                "amount": "Amount",
-                "created": "Created at",
-                "response": "Processor Response"
+                "alias": "别号",
+                "amount": "量",
+                "created": "创建于",
+                "response": "处理器响应"
             }
         },
         "tab": {
-            "general": "GENERAL DETAILS",
-            "refund": "REFUND TRANSACTION"
+            "general": "一般细节",
+            "refund": "退款交易"
         },
         "info": {
-            "title": "Transaction Details",
-            "rebillview": "View Rebill",
-            "merchantproviderview": "View Merchant Provider",
-            "alias": "Alias",
-            "amount": "Amount",
-            "merchantprovider": "Merchant Provider"
+            "title": "交易细节",
+            "rebillview": "查看Rebill",
+            "merchantproviderview": "查看商家提供商",
+            "alias": "别号",
+            "amount": "量",
+            "merchantprovider": "商家提供商"
         },
         "processor": {
-            "title": "Processor Response",
-            "code": "Auth Code",
-            "message": "Processor Message",
-            "text": "Processor Text"
+            "title": "处理器响应",
+            "code": "验证码",
+            "message": "处理器消息",
+            "text": "处理器文本"
         },
         "refund": {
-            "title": "Refund Transaction",
-            "amount": "Amount",
-            "amounttorefund": "Amount to Refund",
-            "refundall": "Refund All",
-            "cancel": "CANCEL",
-            "confirm": "REFUND"
+            "title": "退款交易",
+            "amount": "量",
+            "amounttorefund": "退款金额",
+            "refundall": "退款全部",
+            "cancel": "取消",
+            "confirm": "退款"
         },
         "product": {
-            "title": "Associated Products",
-            "name": "Name",
+            "title": "相关产品",
+            "name": "名",
             "sku": "SKU",
-            "amount": "Amount",
-            "view": "View Product",
-            "nodata": "No Products found."
+            "amount": "量",
+            "view": "查看产品",
+            "nodata": "找不到产品。"
         }
     },
     "rebill": {
-        "title": "Rebill",
+        "title": "重新结算",
         "index": {
-            "title": "Rebills",
+            "title": "重新结算",
             "header": {
                 "id": "ID",
-                "bill": "Bill at",
-                "created": "Created at",
-                "amount": "Amount"
+                "bill": "比尔在",
+                "created": "创建于",
+                "amount": "量"
             }
         },
         "tab": {
-            "general": "GENERAL DETAILS",
-            "receipts": "SHIPPING RECEIPTS"
+            "general": "一般细节",
+            "receipts": "运输收据"
         },
         "info": {
-            "title": "Rebill Information",
-            "billed": "Billed at date",
-            "amount": "Amount",
-            "parentsession": "Parent Session",
-            "customer": "Customer",
-            "customerview": "View Customer",
-            "sessionview": "View Session"
+            "title": "重新填写信息",
+            "billed": "按日期计费",
+            "amount": "量",
+            "parentsession": "家长会议",
+            "customer": "顾客",
+            "customerview": "查看客户",
+            "sessionview": "查看会话"
         },
         "shippingreceipt": {
-            "title": "Associated Shipping Receipts",
-            "nodata": "No Shipping Receipts found",
-            "status": "Status",
-            "trackingnumber": "Tracking Number",
-            "created": "Created At",
-            "updated": "Updated At"
+            "title": "关联的运输收据",
+            "nodata": "找不到运输收据",
+            "status": "状态",
+            "trackingnumber": "跟踪号码",
+            "created": "创建于",
+            "updated": "更新于"
         }
     },
     "shippingreceipt": {
-        "title": "Shipping Receipt",
+        "title": "运输收据",
         "index": {
-            "title": "Shipping Receipts",
+            "title": "运输收据",
             "header": {
-                "status": "Status",
-                "number": "Tracking Number",
-                "created": "Created at",
-                "updated": "Updated at"
+                "status": "状态",
+                "number": "跟踪号码",
+                "created": "创建于",
+                "updated": "更新于"
             }
         },
         "tab": {
-            "general": "GENERAL DETAILS"
+            "general": "一般细节"
         },
         "info": {
-            "title": "Shipping Receipt Details",
-            "status": "Status",
-            "number": "Tracking Number",
-            "fulfillmentprovider": "Fulfillment Provider",
-            "fulfillmentproviderview": "Fulfillment Provider"
+            "title": "运输收据明细",
+            "status": "状态",
+            "number": "跟踪号码",
+            "fulfillmentprovider": "履行供应商",
+            "fulfillmentproviderview": "履行供应商"
         },
         "history": {
-            "title": "Shipping Receipt State History"
+            "title": "运输收据状态历史"
         }
     },
     "fulfillment": {
-        "title": "Fulfillment Provider",
+        "title": "履行供应商",
         "index": {
-            "title": "Fulfillment Providers",
+            "title": "履行提供者",
             "header": {
-                "name": "Name",
-                "provider": "Provider",
-                "username": "Username",
-                "password": "Password"
+                "name": "名",
+                "provider": "提供商",
+                "username": "用户名",
+                "password": "密码"
             }
         },
         "tab": {
-            "general": "GENERAL DETAILS",
+            "general": "一般细节",
             "validate": "VALIDATE"
         },
         "info": {
-            "title": "Fulfillment Details",
-            "createtitle": "Create new Fulfillment Provider",
-            "edit": "Edit Fulfillment Provider Details",
-            "provider": "Provider",
-            "name": "Name",
-            "username": "Username",
-            "password": "Password",
-            "threeplkey": "ThreePL Key",
-            "customerid": "Customer ID",
-            "facilityid": "Facility ID",
+            "title": "履行细节",
+            "createtitle": "创建新的履行提供者",
+            "edit": "编辑履行提供者详情",
+            "provider": "提供商",
+            "name": "名",
+            "username": "用户名",
+            "password": "密码",
+            "threeplkey": "ThreePL键",
+            "customerid": "客户ID",
+            "facilityid": "设施ID",
             "threeplid": "ThreePL ID",
-            "cancel": "CANCEL",
+            "cancel": "取消",
             "save": "SAVE"
         },
         "validate": {
-            "title": "Validate Fulfillment Provider",
-            "text": "Check if Fulfillment Provider is enabled and provided credentials/parameters are valid",
-            "response": "Validation Response",
+            "title": "验证履行供应商",
+            "text": "检查Fulfillment Provider是否已启用，并提供凭证/参数是否有效",
+            "response": "验证响应",
             "validate": "VALIDATE"
         }
     },
     "smtp": {
-        "title": "SMTP Provider",
+        "title": "SMTP提供程序",
         "index": {
-            "title": "SMTP Providers",
+            "title": "SMTP提供商",
             "header": {
-                "name": "Name",
-                "fromname": "From Name",
-                "fromemail": "From Email",
-                "hostname": "Hostname",
-                "username": "Username"
+                "name": "名",
+                "fromname": "从名字",
+                "fromemail": "从电子邮件",
+                "hostname": "主机名",
+                "username": "用户名"
             }
         },
         "tab": {
-            "general": "GENERAL DETAILS",
-            "emailtemplate": "EMAIL TEMPLATES",
+            "general": "一般细节",
+            "emailtemplate": "电子邮件模板",
             "validate": "VALIDATE"
         },
         "info": {
-            "title": "SMTP Details",
-            "createtitle": "Create new SMTP Provider",
-            "edit": "Edit SMTP Provider Details",
-            "name": "Name",
-            "fromname": "From Name",
-            "fromemail": "From Email",
-            "host": "Host",
-            "username": "Username",
-            "password": "Password",
-            "port": "Port",
-            "cancel": "CANCEL",
+            "title": "SMTP详细信息",
+            "createtitle": "创建新的SMTP提供程序",
+            "edit": "编辑SMTP提供者详细信息",
+            "name": "名",
+            "fromname": "从名字",
+            "fromemail": "从电子邮件",
+            "host": "主持人",
+            "username": "用户名",
+            "password": "密码",
+            "port": "端口",
+            "cancel": "取消",
             "save": "SAVE"
         },
         "validate": {
-            "title": "Validate SMTP Provider",
-            "text": "Please provide an email address below and SIX will try to send you a test email using provided SMTP Provider. Email will be sent from",
-            "textsecond": "Results will be displayed in right column.",
-            "email": "Receiver email address",
-            "emailtip": "Please enter a valid email address",
-            "response": "Validation Response",
+            "title": "验证SMTP提供程序",
+            "text": "请提供电子邮件地址并使用SMTP提供程序发送电子邮件测试。电子邮件将发送",
+            "textsecond": "结果将显示在右栏中。",
+            "email": "收件人电子邮件地址",
+            "emailtip": "请输入有效的电子邮件地址",
+            "response": "验证响应",
             "validate": "VALIDATE"
         }
     },
     "loadbalancer": {
-        "title": "Load Balancer",
+        "title": "负载平衡器",
         "index": {
-            "title": "Load Balancers",
+            "title": "负载平衡器",
             "header": {
-                "name": "Name",
-                "merchantnum": "Number of Merchant Providers"
+                "name": "名",
+                "merchantnum": "商户提供商数量"
             }
         },
         "tab": {
-            "general": "GENERAL DETAILS"
+            "general": "一般细节"
         },
         "info": {
-            "createtitle": "Create new Load Balancer",
-            "name": "Name",
-            "edit": "EDIT LOAD BALANCER",
-            "cancel": "CANCEL",
+            "createtitle": "创建新的负载平衡器",
+            "name": "名",
+            "edit": "编辑负载平衡器",
+            "cancel": "取消",
             "update": "UPDATE",
             "save": "SAVE"
         },
         "merchant": {
-            "addtitle": "Add Merchant Provider",
-            "distribution": "Distribution",
-            "merchant": "Merchant Provider",
+            "addtitle": "添加商家提供商",
+            "distribution": "分配",
+            "merchant": "商家提供商",
             "add": "ADD",
             "clear": "CLEAR",
-            "title": "Associated Merchant Providers",
-            "view": "View Merchant Provider",
-            "edit": "Update Distribution",
-            "disassociate": "Disassociate Merchant Provider",
-            "disassociatetext": "Are you sure you want to delete?",
-            "nodata": "No Merchant Providers found."
+            "title": "关联的商家提供商",
+            "view": "查看商家提供商",
+            "edit": "更新分配",
+            "disassociate": "取消关联商家提供商",
+            "disassociatetext": "你确定要删除吗？",
+            "nodata": "找不到商家供应商。"
         }
     },
     "merchant": {
-        "title": "Merchant Provider",
+        "title": "商家提供商",
         "index": {
-            "title": "Merchant Providers",
+            "title": "商家提供商",
             "header": {
-                "name": "Name",
-                "processor": "Processor Name",
-                "type": "Processor Type"
+                "name": "名",
+                "processor": "处理器名称",
+                "type": "处理器类型"
             }
         },
         "tab": {
-            "general": "GENERAL DETAILS",
-            "processing": "PROCESSING",
-            "loadbalancer": "LOAD BALANCING"
+            "general": "一般细节",
+            "processing": "处理",
+            "loadbalancer": "负载平衡"
         },
         "info": {
-            "edit": "EDIT MERCHANT PROVIDER",
-            "cancel": "CANCEL",
+            "edit": "编辑商家提供商",
+            "cancel": "取消",
             "update": "UPDATE",
             "save": "SAVE",
             "settings": {
-                "title": "Settings",
-                "name": "Name",
-                "enabled": "Enabled",
-                "allowprepaid": "Allow Prepaid cards",
-                "accepted": "Accepted paypment methods"
+                "title": "设置",
+                "name": "名",
+                "enabled": "启用",
+                "allowprepaid": "允许预付卡",
+                "accepted": "接受的付款方式"
             },
             "processing": {
-                "title": "Processing",
-                "monthlycapd": "Monthly Cap ($)",
-                "monthlycapc": "Monthly Cap (count)",
-                "weeklycap": "Weekly Cap (count)",
-                "dailycap": "Daily Cap (count)",
-                "transactionfee": "Transaction Fee ($)",
-                "discountrate": "Discount Rate (%)",
-                "chargeback": "Max chargeback ratio (%)",
-                "reserve": "Reserve rate (%)"
+                "title": "处理",
+                "monthlycapd": "每月上限（$）",
+                "monthlycapc": "每月上限（次）",
+                "weeklycap": "每周上限（次）",
+                "dailycap": "每日上限（次数）",
+                "transactionfee": "交易费用（$）",
+                "discountrate": "贴现率（％）",
+                "chargeback": "最大扣款率（％）",
+                "reserve": "储备率（％）"
             },
             "gateway": {
-                "title": "Gateway information",
-                "name": "Name",
-                "type": "Type",
-                "processorid": "Processor ID",
-                "productid": "Product ID",
-                "username": "Username",
-                "password": "Password"
+                "title": "网关信息",
+                "name": "名",
+                "type": "类型",
+                "processorid": "处理器ID",
+                "productid": "产品编号",
+                "username": "用户名",
+                "password": "密码"
             },
             "service": {
-                "title": "Customer Service",
+                "title": "客户服务",
                 "uri": "URI",
-                "email": "Email",
-                "phone": "Phone",
-                "description": "Description"
+                "email": "电子邮件",
+                "phone": "电话",
+                "description": "描述"
             }
         },
         "loadbalancer": {
-            "title": "Associated Load Balancers",
-            "view": "View Load Balancer",
-            "nodata": "No Load Balancers found.",
-            "name": "Name"
+            "title": "关联的负载平衡器",
+            "view": "查看负载平衡器",
+            "nodata": "找不到负载平衡器。",
+            "name": "名"
         }
     },
     "deletedialog": {
-        "text": "Are you sure you want to delete?",
+        "text": "你确定要删除吗？",
         "del": "DELETE",
-        "cancel": "CANCEL"
+        "cancel": "取消"
     },
     "inviteuser": {
-        "title": "Invite new User",
-        "email": "User Email",
-        "role": "Role",
-        "cancel": "CANCEL",
-        "invite": "INVITE"
+        "title": "邀请新用户",
+        "email": "用户电子邮件",
+        "role": "角色",
+        "cancel": "取消",
+        "invite": "INVITES"
     },
     "terms": {
-        "title": "Please accept our Terms and Conditions to get started.",
-        "accept": "Accept",
-        "logout": "Log Out"
+        "title": "请接受我们的条款和条件开始。",
+        "accept": "接受",
+        "logout": "注销"
     },
     "register": {
         "form": {
-            "title": "Welcome!",
-            "subtitle": "We're excited to have you join us",
-            "text": "To get started with your 90 day trial simply enter your company name and verify your information.",
-            "company": "Company Name",
-            "firstname": "First Name",
-            "lastname": "Last Name",
-            "cont": "Continue"
+            "title": "欢迎您！",
+            "subtitle": "我们很高兴有你加入我们",
+            "text": "要开始您的90天试用，只需输入您的公司名称并验证您的信息。",
+            "company": "公司名称",
+            "firstname": "名字",
+            "lastname": "姓氏",
+            "cont": "继续"
         },
         "thankyou": {
-            "title": "Your account is now active and you may begin exploring at your leisure.",
-            "subtitle": "HOWEVER, we still need some accounting details to complete your registration. Remember, you won't be able to take transactions until your account registration is complete. Click complete to go to your billing profile.",
-            "text": "You're complimentary 90 days begins now!",
-            "complete": "Complete"
+            "title": "您的帐户现在处于活动状态，您可以在闲暇时开始探索。",
+            "subtitle": "但是，我们仍然需要一些会计细节来完成您的注册。请记住，在您的帐户完成之前，您将无法继续进行交易。点击此处转至您的结算资料。",
+            "text": "90天开始免费！",
+            "complete": "完成"
         }
     },
     "acceptinvite": {
-        "badlogin": "To accept this invite, you must be registered and logged in as",
-        "login": "Log In",
-        "text1": "Would you like to accept",
-        "text2": "invite to account",
-        "text3": "with role",
-        "explanation": "Press \"Accept\" below to continue",
-        "accept": "Accept",
-        "logout": "Log Out",
+        "badlogin": "要接受此提示，您必须注册并登录",
+        "login": "登录",
+        "text1": "你想接受吗？",
+        "text2": "邀请到帐户",
+        "text3": "与角色",
+        "explanation": "按下面的“接受”继续",
+        "accept": "接受",
+        "logout": "注销",
         "form": {
-            "title": "Welcome!",
-            "subtitle": "We're excited to have you join us",
-            "text": "To accept your invite to Six CRM Please fill out the following information and you are all setup",
-            "firstname": "First Name",
-            "lastname": "Last Name",
-            "cont": "Continue"
+            "title": "欢迎您！",
+            "subtitle": "我们很高兴有你加入我们",
+            "text": "接受你的邀请到六CRM",
+            "firstname": "名字",
+            "lastname": "姓氏",
+            "cont": "继续"
         },
         "thankyou": {
-            "title": "Great! We've added you to the account.",
-            "switchtext": "Switching between this and your other SIX accounts is easy. Just click the account button in the upper right hand side of the SIX and select the account you wish to access.",
-            "cont": "Continue"
+            "title": "太好了！ 我们已将您添加到帐户。",
+            "switchtext": "在这个和其他SIX帐户之间切换很容易。 SIX并选择您想要访问的帐户。",
+            "cont": "继续"
         }
     }
 }
