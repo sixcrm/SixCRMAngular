@@ -216,7 +216,7 @@
         "timezone": "Timezone",
         "email": "Email",
         "language": "Language",
-        "update": "Update"
+        "update": "AKTUALISIEREN"
       },
       "notifications": {
         "title": "Notification toggle",
@@ -544,7 +544,7 @@
         "remove": "Remove Access Keys",
         "cancel": "ABBRECHEN",
         "close": "SCHLIEßEN",
-        "update": "UPDATE"
+        "update": "AKTUALISIEREN"
       },
       "billing": {
         "currenttitle": "Current Invoices",
@@ -634,7 +634,7 @@
         "shipedit": "Edit Shipping Address",
         "cancel": "ABBRECHEN",
         "save": "SPEICHERN",
-        "update": "UPDATE"
+        "update": "AKTUALISIEREN"
       },
       "notes": {
         "title": "Notes",
@@ -703,7 +703,7 @@
         "billingaddress": "Billing Address",
         "sameaddress": "Same as Customer Address",
         "cancel": "Abbrechen",
-        "update": "Update",
+        "update": "Aktualisieren",
         "save": "Speichern",
         "nodata": "No Credit Cards found.",
         "expiration": "Expiration"
@@ -781,7 +781,7 @@
         "edit": "Edit Product",
         "del": "Löschen Product",
         "cancel": "ABBRECHEN",
-        "update": "UPDATE",
+        "update": "AKTUALISIEREN",
         "create": "CREATE"
       },
       "schedules": {
@@ -1004,7 +1004,7 @@
         "edit": "VERTRIEBSPARTNER BEARBEITEN",
         "cancel": "ABBRECHEN",
         "save": "SPEICHERN",
-        "update": "UPDATE"
+        "update": "AKTUALISIEREN"
       },
       "tracking": {
         "title": "Associated Trackers",
@@ -1327,7 +1327,7 @@
         "name": "Name",
         "edit": "EDIT Lastverteiler (Load Balancer)",
         "cancel": "ABBRECHEN",
-        "update": "UPDATE",
+        "update": "AKTUALISIEREN",
         "save": "SPEICHERN"
       },
       "merchant": {
@@ -1362,7 +1362,7 @@
       "info": {
         "edit": "EDIT Merchant Anbieter",
         "cancel": "ABBRECHEN",
-        "update": "UPDATE",
+        "update": "AKTUALISIEREN",
         "save": "SPEICHERN",
         "settings": {
           "title": "Einstellungen",
