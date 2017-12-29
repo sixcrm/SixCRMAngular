@@ -137,7 +137,7 @@
       "apply": "APPLY",
       "reset": "RESET",
       "close": "CLOSE",
-      "campaign": "Campaign",
+      "campaign": "Kampagne",
       "affiliate": "Affiliate",
       "subid1": "Sub ID 1",
       "subid2": "Sub ID 2",
@@ -302,7 +302,7 @@
         "title": "Top Kampagnen",
         "subtitle": "Clicks & Conversions",
         "nodata": "No Kampagnen Found",
-        "campaign": "Campaign",
+        "campaign": "Kampagne",
         "amount": "Amount"
       },
       "reports": {
@@ -356,14 +356,14 @@
       "grossrevenue": "Gross Revenue",
       "chargebacks": "Chargebacks",
       "alerts": "Alerts",
-      "activecustomers": "Active Customers",
+      "activecustomers": "Active Kunden",
       "date": "Date"
     },
     "transactionreport": {
       "title": "Transaktionen Report",
       "tabletitle": "Transaction Details",
-      "customer": "Customer",
-      "campaign": "Campaign",
+      "customer": "Kunde",
+      "campaign": "Kampagne",
       "merchantprovider": "Merchant Anbieter",
       "affiliate": "Affiliate",
       "amount": "Amount",
@@ -405,7 +405,7 @@
     },
     "search": {
       "tab": {
-        "customer": "CUSTOMER",
+        "customer": "KUNDE",
         "order": "ORDER ENTRY"
       },
       "advanced": {
@@ -453,7 +453,7 @@
         "toggle": "Date",
         "to": "to"
       },
-      "results": "Search Results",
+      "results": "Ergebnisse",
       "sort": {
         "title": "Sort By",
         "createasc": "Erstellungsdatum (Aufstiegend)",
@@ -611,9 +611,9 @@
       }
     },
     "customer": {
-      "title": "Customer",
+      "title": "Kunde",
       "index": {
-        "title": "Customers",
+        "title": "Kunde",
         "header": {
           "firstname": "Vorname",
           "lastname": "Nachname",
@@ -628,10 +628,10 @@
         "fulfillment": "FULFILLMENT"
       },
       "info": {
-        "createtitle": "Create new Customer",
+        "createtitle": "Neue Kunde",
         "shiptitle": "Shipping Information",
         "shipsubtitle": "Address where fulfillment will ship packages",
-        "edit": "EDIT CUSTOMER",
+        "edit": "KUNDE BEARBEITEN",
         "shipedit": "Edit Shipping Address",
         "cancel": "CANCEL",
         "save": "SPEICHERN",
@@ -685,7 +685,7 @@
         "view": "View Session",
         "nodata": "No Sessions found.",
         "name": "Name",
-        "campaign": "Campaign",
+        "campaign": "Kampagne",
         "productschedulenum": "Number of Product Schedules",
         "rebillnum": "Number of Neubelastung"
       },
@@ -803,7 +803,7 @@
         "created": "Geschafft am",
         "productnum": "Total Products",
         "schedulednum": "Total Scheduled",
-        "view": "View Campaign",
+        "view": "Kampagne ansehen",
         "nodata": "No Kampagnen found."
       }
     },
@@ -860,12 +860,12 @@
         "created": "Geschafft am",
         "productnum": "Total Products",
         "schedulednum": "Total Scheduled",
-        "view": "View Campaign",
+        "view": "Campaign ansehen",
         "nodata": "No Kampagnen found."
       }
     },
     "campaign": {
-      "title": "Campaign",
+      "title": "Kampagne",
       "index": {
         "title": "Kampagnen",
         "header": {
@@ -889,7 +889,7 @@
         "showprepaid": "Show Prepaid",
         "cancel": "CANCEL",
         "save": "SPEICHERN",
-        "edit": "Edit Campaign"
+        "edit": "Kampagne bearbeiten"
       },
       "email": {
         "title": "Associated Email Templates",
@@ -1029,8 +1029,8 @@
       },
       "session": {
         "title": "Associated Sessions",
-        "customer": "Customer",
-        "campaign": "Campaign",
+        "customer": "Kunde",
+        "campaign": "Kampagne",
         "rebilltotal": "Total Neubelastung",
         "scheduledtotal": "Total Scheduled",
         "nodata": "No Sessions found.",
@@ -1091,7 +1091,7 @@
         "associatetext": "Select Campaign",
         "confirm": "ASSOCIATE",
         "cancel": "CANCEL",
-        "view": "View Campaign",
+        "view": "Kampagne ansehen",
         "disassociate": "Disassociate Campaign",
         "disassociatetext": "Are you sure you want to Löschen?"
       }
@@ -1101,8 +1101,8 @@
       "index": {
         "title": "Sessions",
         "header": {
-          "campaign": "Campaign Name",
-          "customer": "Customer Name",
+          "campaign": "Name der Kampagne",
+          "customer": "Name des Kunden",
           "schedulesnum": "Number of Product Schedules",
           "Neubelastungnum": "Number of Neubelastung"
         }
@@ -1113,21 +1113,21 @@
       },
       "customer": {
         "title": "Customer Information",
-        "view": "View Customer"
+        "view": "Kunde Ansehen"
       },
       "rebill": {
         "title": "Associated Neubelastung",
         "billed": "Bill at",
         "amount": "Amount",
         "nodata": "No Neubelastung found.",
-        "view": "View Neubelastung"
+        "view": "Neubelastung Ansehen"
       },
       "campaign": {
         "title": "Associated Kampagnen",
         "name": "Name",
         "created": "Geschafft am",
         "nodata": "No Kampagnen found.",
-        "view": "View Campaign"
+        "view": "Kampagne ansehen"
       },
       "affiliate": {
         "title": "Associated Vertriebspartner",
@@ -1202,7 +1202,7 @@
         "billed": "Billed at date",
         "amount": "Amount",
         "parentsession": "Muttersession",
-        "customer": "Customer",
+        "customer": "Kunde",
         "customerview": "View Customer",
         "sessionview": "View Session"
       },
@@ -1265,7 +1265,7 @@
         "username": "Username",
         "password": "Password",
         "threeplkey": "ThreePL Key",
-        "customerid": "Customer ID",
+        "customerid": "Kunde ID",
         "facilityid": "Facility ID",
         "threeplid": "ThreePL ID",
         "cancel": "CANCEL",
