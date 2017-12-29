@@ -16,12 +16,12 @@
       "dashboard": "Dashboard",
       "orderengine": "SIX-Antrieb",
       "reports": {
-        "title": "Reports",
+        "title": "Reporte",
         "order": "Aufträge-Report",
-        "summary": "Summary Report",
-        "transaction": "Transaktionen Report",
-        "merchant": "Händler Report",
-        "affiliate": "Vertriebspartner Report",
+        "summary": "Kurzbericht",
+        "transaction": "Transaktionen-Report",
+        "merchant": "Händler-Report",
+        "affiliate": "Vertriebspartner-Report",
         "fulfillment": "Fulfillment Report",
         "retention": "Retention",
         "projection": "Projections"
@@ -55,7 +55,7 @@
         "user": "Nutzer",
         "account": "Konten",
         "bill": "Rechnungen",
-        "role": "Rolllen",
+        "role": "Nutzerrolllen",
         "documentation": {
           "title": "Dokumentation",
           "graphql": "GraphQL",
@@ -139,7 +139,7 @@
       "reset": "RESET",
       "close": "SCHLIEßEN",
       "campaign": "Kampagne",
-      "affiliate": "Affiliate",
+      "affiliate": "Vertriebspartner",
       "subid1": "Sub ID 1",
       "subid2": "Sub ID 2",
       "subid3": "Sub ID 3",
@@ -191,10 +191,10 @@
       "createcanceltitle": "Are you sure you want to close creation modal?",
       "createcanceltext": "You have unsaved changes, if you close this modal changes will be discarded.",
       "createcancelclose": "SCHLIEßEN",
-      "createcancelcancel": "CANCEL",
+      "createcancelcancel": "ABBRECHEN",
       "leavetitle": "Are you sure you want to leave?",
       "leavetext": "You have unsaved changes, if you close this modal changes will be discarded.",
-      "leavecancel": "CANCEL",
+      "leavecancel": "ABBRECHEN",
       "leaveleave": "LEAVE"
     },
     "profile": {
@@ -252,7 +252,7 @@
         "edit": "Bearbeiten",
         "updatetext": "Update Signing String",
         "addtext": "Add new Signing String",
-        "cancel": "Cancel",
+        "cancel": "Abbrechen",
         "save": "Speichern",
         "nodata": "No Signing Strings found."
       }
@@ -274,7 +274,7 @@
       "eventsbyaffiliate": {
         "title": "Events by Affiliate",
         "subtitle": "Events from the top Vertriebspartner",
-        "affiliate": "Affiliate",
+        "affiliate": "Vertriebspartner",
         "count": "Count",
         "percentage": "Percentage",
         "nodata": "No Events Found"
@@ -282,7 +282,7 @@
       "transactionbyaffiliate": {
         "title": "Transaktionen by Affiliate",
         "subtitle": "Transaktionen from the top Vertriebspartner",
-        "affiliate": "Affiliate",
+        "affiliate": "Vertriebspartner",
         "count": "Count",
         "countp": "Count%",
         "amount": "Betrag",
@@ -325,7 +325,7 @@
           "subtitle": "Fulfillment overview for Kampagnen"
         },
         "affiliate": {
-          "title": "Affiliate Report",
+          "title": "Vertriebspartner-Report",
           "subtitle": "Performance metrics about Vertriebspartner"
         },
         "retention": {
@@ -365,7 +365,7 @@
       "customer": "Kunde",
       "campaign": "Kampagne",
       "merchantprovider": "Merchant Anbieter",
-      "affiliate": "Affiliate",
+      "affiliate": "Vertriebspartner",
       "amount": "Betrag",
       "processorresult": "Processor Result",
       "transactiontype": "Transaction Type"
@@ -388,11 +388,11 @@
       }
     },
     "affiliatereport": {
-      "title": "Affiliate Report",
+      "title": "Vertriebspartner-Report",
       "tabletitle": "Affiliate Summary Details",
       "clickscount": "Clicks Count",
       "partialscount": "Partials Count",
-      "affiliate": "Affiliate",
+      "affiliate": "Vertriebspartner-",
       "partialspercentage": "Partials Percentage",
       "declinescount": "Declines Count",
       "declinespercentage": "Declines Percentage",
@@ -416,8 +416,8 @@
         "phone": "Phone Number",
         "email": "Email Address",
         "trackingnumber": "Shipment Tracking Number",
-        "address1": "Address 1",
-        "address2": "Address 2",
+        "address1": "Adresse 1",
+        "address2": "Adresse 2",
         "city": "City",
         "zip": "Postleitzahl",
         "state": "State",
@@ -512,7 +512,7 @@
         "edit": "Edit Account Details",
         "name": "Name",
         "activated": "Activated",
-        "cancel": "Cancel",
+        "cancel": "Abbrechen",
         "save": "Speichern"
       },
       "users": {
@@ -542,7 +542,7 @@
         "view": "View Access Keys",
         "edit": "Edit Access Keys",
         "remove": "Remove Access Keys",
-        "cancel": "CANCEL",
+        "cancel": "ABBRECHEN",
         "close": "SCHLIEßEN",
         "update": "UPDATE"
       },
@@ -594,7 +594,7 @@
         "role": "Role",
         "name": "Name",
         "email": "Email",
-        "cancel": "CANCEL",
+        "cancel": "ABBRECHEN",
         "save": "SPEICHERN"
       },
       "account": {
@@ -632,7 +632,7 @@
         "shipsubtitle": "Address where fulfillment will ship packages",
         "edit": "KUNDE BEARBEITEN",
         "shipedit": "Edit Shipping Address",
-        "cancel": "CANCEL",
+        "cancel": "ABBRECHEN",
         "save": "SPEICHERN",
         "update": "UPDATE"
       },
@@ -656,7 +656,7 @@
         "title": "Edit Transaction",
         "subtitle": "modify an upcoming transaction",
         "date": "Transaction Date",
-        "cancel": "CANCEL",
+        "cancel": "ABBRECHEN",
         "save": "SPEICHERN",
         "price": "Price"
       },
@@ -664,7 +664,7 @@
         "title": "Customer Events",
         "subtitle": "Sessions, Transaktionen and Leads",
         "nodata": "No Events found.",
-        "today": "Today",
+        "today": "Heute",
         "days7": "Last 7 days",
         "days30": "Last 30 days",
         "days90": "Last 90 days",
@@ -692,8 +692,8 @@
       "creditcard": {
         "title": "Billing Information",
         "subtitle": "Billing Address & Credit Card information",
-        "addoption": "Add Credit Card",
-        "editoption": "Edit Credit Card",
+        "addoption": "Kreditkarte Hinzufügen",
+        "editoption": "Kreditkarte bearbeiten",
         "removeoption": "Remove Credit Card",
         "edittitle": "Edit Credit Card",
         "createtitle": "Create new Credit Card",
@@ -702,7 +702,7 @@
         "expirationyear": "Expiration Date Year",
         "billingaddress": "Billing Address",
         "sameaddress": "Same as Customer Address",
-        "cancel": "Cancel",
+        "cancel": "Abbrechen",
         "update": "Update",
         "save": "Speichern",
         "nodata": "No Credit Cards found.",
@@ -738,17 +738,17 @@
           "amount": "Betrag",
           "total": "Total"
         },
-        "pay": "PAY NOW",
+        "pay": "SOFORT BEZAHLEN",
         "detailedit": "Bearbeiten",
         "detailremove": "Remove",
         "account": "Account",
         "createtitle": "Create new Bill",
-        "cancel": "CANCEL",
+        "cancel": "ABBRECHEN",
         "save": "SPEICHERN",
         "additem": {
           "title": "Add New Item",
           "save": "Speichern",
-          "cancel": "Cancel"
+          "cancel": "Abbrechen"
         }
       },
       "title": "Bill"
@@ -780,7 +780,7 @@
         "fulfillmentprovider": "Fulfillment Provider",
         "edit": "Edit Product",
         "del": "Löschen Product",
-        "cancel": "CANCEL",
+        "cancel": "ABBRECHEN",
         "update": "UPDATE",
         "create": "CREATE"
       },
@@ -822,7 +822,7 @@
         "title": "Product Schedule Details",
         "name": "Product Schedule Name",
         "loadbalancer": "Lastverteiler (Load Balancer)",
-        "cancel": "CANCEL",
+        "cancel": "ABBRECHEN",
         "save": "SPEICHERN",
         "edit": "Edit Product Schedule"
       },
@@ -833,7 +833,7 @@
         "add": "ADD",
         "clear": "CLEAR",
         "save": "SPEICHERN",
-        "cancel": "CANCEL",
+        "cancel": "ABBRECHEN",
         "name": "Product Name",
         "schedulename": "Product Schedule Name",
         "price": "Price",
@@ -874,7 +874,7 @@
       "tab": {
         "general": "GENERAL DETAILS",
         "productschedules": "PRODUCT SCHEDULES",
-        "affiliates": "Vertriebspartner",
+        "affiliates": "VERTRIEBSPARTNER",
         "trackingcode": "TRACKING CODE"
       },
       "info": {
@@ -883,7 +883,7 @@
         "name": "Name",
         "allowprepaid": "Allow Prepaid",
         "showprepaid": "Show Prepaid",
-        "cancel": "CANCEL",
+        "cancel": "ABBRECHEN",
         "save": "SPEICHERN",
         "edit": "Kampagne bearbeiten"
       },
@@ -919,21 +919,21 @@
       "affiliateallowed": {
         "title": "Allowed Vertriebspartner",
         "nodata": "No Vertriebspartner allowed.",
-        "add": "Add Affiliate to allowed list",
-        "addtext": "Select Affiliate",
+        "add": "Add Vertriebspartner to allowed list",
+        "addtext": "Vertriebspartner auswählen",
         "addbutton": "ADD",
-        "view": "View Affiliate",
-        "remove": "Remove Affiliate from allowed list",
+        "view": "Vertriebspartner ansehen",
+        "remove": "Remove Vertriebspartner from allowed list",
         "removetext": "Are you sure you want to Löschen?"
       },
       "affiliatedenied": {
         "title": "Denied Vertriebspartner",
         "nodata": "No Vertriebspartner denied.",
-        "add": "Add Affiliate to denied list",
-        "addtext": "Select Affiliate",
+        "add": "Add Vertriebspartner to denied list",
+        "addtext": "Select Vertriebspartner",
         "addbutton": "ADD",
-        "view": "View Affiliate",
-        "remove": "Remove Affiliate from denied list",
+        "view": "View Vertriebspartner",
+        "remove": "Remove Vertriebspartner from denied list",
         "removetext": "Are you sure you want to Löschen?"
       },
       "tracking": {
@@ -967,7 +967,7 @@
         "smtpprovider": "SMTP Provider",
         "subject": "Subject",
         "body": "Email ",
-        "cancel": "CANCEL",
+        "cancel": "ABBRECHEN",
         "save": "SPEICHERN"
       },
       "token": {
@@ -982,12 +982,12 @@
       }
     },
     "affiliate": {
-      "title": "Affiliate",
+      "title": "Vertriebspartner",
       "index": {
         "title": "Vertriebspartner",
         "header": {
           "name": "Name",
-          "affiliateid": "Affiliate ID",
+          "affiliateid": "Vertriebspartner ID",
           "created": "Geschafft am",
           "updated": "Aktualisiert am"
         }
@@ -998,11 +998,11 @@
         "campaign": "Kampagnen"
       },
       "info": {
-        "createtitle": "Create new Affiliate",
-        "name": "Affiliate Name",
-        "id": "Affiliate ID",
-        "edit": "EDIT AFFILIATE",
-        "cancel": "CANCEL",
+        "createtitle": "Neue Vertriebspartner",
+        "name": "Vertriebspartner Name",
+        "id": "Vertriebspartner ID",
+        "edit": "VERTRIEBSPARTNER BEARBEITEN",
+        "cancel": "ABBRECHEN",
         "save": "SPEICHERN",
         "update": "UPDATE"
       },
@@ -1055,22 +1055,22 @@
         "data": "Tracking Data",
         "link": "Tracking Link",
         "save": "SPEICHERN",
-        "cancel": "CANCEL",
+        "cancel": "ABBRECHEN",
         "edit": "Edit Tracker"
       },
       "affiliate": {
         "title": "Associated Vertriebspartner",
         "name": "Name",
-        "id": "Affiliate ID",
+        "id": "Vertriebspartner ID",
         "created": "Geschafft am",
         "updated": "Aktualisiert am",
         "nodata": "No Vertriebspartner found.",
-        "associate": "Associate Affiliate",
-        "associatetext": "Select Affiliate",
+        "associate": "Associate Vertriebspartner",
+        "associatetext": "Vertriebspartner auswählen",
         "confirm": "ASSOCIATE",
-        "view": "View Affiliate",
-        "disassociate": "Disassociate Affiliate",
-        "disassociatetext": "Are you sure you want to Löschen?"
+        "view": "Vertriebspartner ansehen",
+        "disassociate": "Vertriebspartner lösen",
+        "disassociatetext": "Sind Sie sicher, dass sie den Vertriebspartner lösen wollen?"
       },
       "campaign": {
         "title": "Associated Kampagnen",
@@ -1099,7 +1099,7 @@
       },
       "tab": {
         "general": "GENERAL DETAILS",
-        "affiliate": "AFFILAITES"
+        "affiliate": "VERTRIEBSPARTNER"
       },
       "customer": {
         "title": "Customer Information",
@@ -1122,10 +1122,10 @@
       "affiliate": {
         "title": "Associated Vertriebspartner",
         "name": "Name",
-        "id": "Affiliate ID",
+        "id": "Vertriebspartner ID",
         "created": "Geschafft am",
-        "nodata": "No Vertriebspartner found.",
-        "view": "View Affiliate"
+        "nodata": "NoKeine Vertriebspartner gefunden.",
+        "view": "Vertriebspartner ansehen"
       }
     },
     "transaction": {
@@ -1162,7 +1162,7 @@
         "amount": "Betrag",
         "amounttorefund": "Amount to Refund",
         "refundall": "Refund All",
-        "cancel": "CANCEL",
+        "cancel": "ABBRECHEN",
         "confirm": "REFUND"
       },
       "product": {
@@ -1259,7 +1259,7 @@
         "customerid": "Kunde ID",
         "facilityid": "Facility ID",
         "threeplid": "ThreePL ID",
-        "cancel": "CANCEL",
+        "cancel": "ABBRECHEN",
         "save": "SPEICHERN"
       },
       "validate": {
@@ -1297,7 +1297,7 @@
         "username": "Username",
         "password": "Password",
         "port": "Port",
-        "cancel": "CANCEL",
+        "cancel": "ABBRECHEN",
         "save": "SPEICHERN"
       },
       "validate": {
@@ -1326,7 +1326,7 @@
         "createtitle": "Neue Lastverteiler (Load Balancer)",
         "name": "Name",
         "edit": "EDIT Lastverteiler (Load Balancer)",
-        "cancel": "CANCEL",
+        "cancel": "ABBRECHEN",
         "update": "UPDATE",
         "save": "SPEICHERN"
       },
@@ -1361,7 +1361,7 @@
       },
       "info": {
         "edit": "EDIT Merchant Anbieter",
-        "cancel": "CANCEL",
+        "cancel": "ABBRECHEN",
         "update": "UPDATE",
         "save": "SPEICHERN",
         "settings": {
@@ -1409,13 +1409,13 @@
     "deletedialog": {
       "text": "Are you sure you want to Löschen?",
       "del": "Löschen",
-      "cancel": "CANCEL"
+      "cancel": "ABBRECHEN"
     },
     "inviteuser": {
       "title": "Invite new User",
       "email": "User Email",
       "role": "Role",
-      "cancel": "CANCEL",
+      "cancel": "ABBRECHEN",
       "invite": "INVITE"
     },
     "terms": {
