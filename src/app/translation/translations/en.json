@@ -330,7 +330,7 @@
       },
       "retention": {
         "title": "Retention",
-        "subtitle": "Learn how log customers stay"
+        "subtitle": "Learn how long customers stay"
       }
     }
   },
@@ -502,7 +502,7 @@
       }
     },
     "tab": {
-      "general": "GENERAL DETALS",
+      "general": "GENERAL DETAILS",
       "users": "USERS",
       "keys": "ACCESS KEYS",
       "billing": "BILLING"
@@ -582,7 +582,7 @@
       }
     },
     "tab": {
-      "general": "GENERAL DETALS"
+      "general": "GENERAL DETAILS"
     },
     "details": {
       "title": "User Details",
@@ -973,7 +973,7 @@
     "token": {
       "title": "Tokens",
       "subtitle": "Choose any of the following tokens to add into your email template",
-      "type": "Even Type",
+      "type": "Event Type",
       "search": "Search"
     },
     "preview": {
