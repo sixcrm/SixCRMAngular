@@ -616,8 +616,8 @@
         "header": {
           "firstname": "Vorname",
           "lastname": "Nachname",
-          "state": "State",
-          "city": "City"
+          "state": "Bundesstadt",
+          "city": "Stadt"
         }
       },
       "tab": {
@@ -758,10 +758,10 @@
       "index": {
         "title": "Produkte",
         "header": {
-          "name": "Name des Produkes",
+          "name": "Name des Produkts",
           "sku": "Lagerhaltungsnummer",
           "ship": "Versand",
-          "delay": "Shipping Delay"
+          "delay": "Verspäteter Versand"
         }
       },
       "tab": {
@@ -775,11 +775,11 @@
         "name": "Product Name",
         "sku": "Lagerhaltungsnummer",
         "defaultprice": "Default Price",
-        "ship": "Ship",
-        "shipdelay": "Shipping Delay (minutes)",
+        "ship": "Versand",
+        "shipdelay": "Verspätung des Versands (Minuten)",
         "fulfillmentprovider": "Fulfillment Provider",
-        "edit": "Edit Product",
-        "del": "Löschen Product",
+        "edit": "Produkt bearbeiten",
+        "del": "Produkt löschen",
         "cancel": "ABBRECHEN",
         "update": "AKTUALISIEREN",
         "create": "CREATE"
@@ -844,7 +844,7 @@
         "endtip": "Ends & switches to next product schedule",
         "period": "Period",
         "periodtip": "Recurring billing & shipping period",
-        "ship": "Ship",
+        "ship": "Versand",
         "nodata": "No Cycles found.",
         "view": "View Product",
         "edit": "Edit Cycle",
@@ -854,7 +854,7 @@
         "title": "Kampagnen",
         "name": "Name",
         "created": "Geschafft am",
-        "productnum": "Total Products",
+        "productnum": "Gesamtzahl der Produkte",
         "schedulednum": "Total Scheduled",
         "view": "Campaign ansehen",
         "nodata": "No Kampagnen found."
@@ -867,7 +867,7 @@
         "header": {
           "name": "Name",
           "created": "Geschafft am",
-          "productnum": "Total Products",
+          "productnum": "Gesamtzahl der Produkte",
           "schedulednum": "Total Scheduled"
         }
       },
@@ -891,9 +891,9 @@
         "title": "Associated Email Templates",
         "nodata": "No Email Templates found.",
         "name": "Name",
-        "subject": "Subject",
+        "subject": "Betreff",
         "type": "Type",
-        "smtpprovider": "SMTP Provider",
+        "smtpprovider": "SMTP Anbieter",
         "add": "Associate Email Template",
         "addtext": "Select Email Template",
         "addbutton": "ADD",
@@ -950,7 +950,7 @@
           "name": "Name",
           "subject": "Subject",
           "type": "Type",
-          "smtpprovider": "SMTP Provider"
+          "smtpprovider": "SMTP Anbieter"
         }
       },
       "tab": {
@@ -964,7 +964,7 @@
         "edit": "Edit Email Template",
         "name": "Name",
         "type": "Template Type",
-        "smtpprovider": "SMTP Provider",
+        "smtpprovider": "SMTP Anbieter",
         "subject": "Subject",
         "body": "Email ",
         "cancel": "ABBRECHEN",
@@ -1270,7 +1270,7 @@
       }
     },
     "smtp": {
-      "title": "SMTP Provider",
+      "title": "SMTP Anbieter",
       "index": {
         "title": "SMTP Anbieter",
         "header": {
@@ -1288,7 +1288,7 @@
       },
       "info": {
         "title": "SMTP Details",
-        "createtitle": "Create new SMTP Provider",
+        "createtitle": "Neue SMTP Anbieter zufügen",
         "edit": "Edit SMTP Provider Details",
         "name": "Name",
         "fromname": "From Name",
@@ -1301,7 +1301,7 @@
         "save": "SPEICHERN"
       },
       "validate": {
-        "title": "Validate SMTP Provider",
+        "title": "SMTP Anbieter bestätigen",
         "text": "Please provide an email address below and SIX will try to send you a test email using provided SMTP Provider. Email will be sent from ",
         "textsecond": "Results will be displayed in right column.",
         "email": "Receiver email address",
