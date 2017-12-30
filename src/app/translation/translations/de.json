@@ -1295,7 +1295,7 @@
         "fromemail": "From Email",
         "host": "Host",
         "username": "Benutzername",
-        "Passwort": "Passwort",
+        "password": "Passwort",
         "port": "Port",
         "cancel": "ABBRECHEN",
         "save": "SPEICHERN"
