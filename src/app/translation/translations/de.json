@@ -1238,24 +1238,24 @@
         "title": "Fulfillment Anbieter",
         "header": {
           "name": "Name",
-          "provider": "Provider",
-          "username": "Username",
-          "password": "Password"
+          "provider": "Anbieter",
+          "username": "Benutzername",
+          "password": "Passwort"
         }
       },
       "tab": {
         "general": "GENERAL DETAILS",
-        "validate": "VALIDATE"
+        "validate": "BESTÄTIGEN"
       },
       "info": {
         "title": "Fulfillment Details",
         "createtitle": "Create new Fulfillment Provider",
         "edit": "Edit Fulfillment Provider Details",
-        "provider": "Provider",
+        "provider": "Anbieter",
         "name": "Name",
-        "username": "Username",
-        "password": "Password",
-        "threeplkey": "ThreePL Key",
+        "username": "Benutzername",
+        "password": "Passwort",
+        "threeplkey": "ThreePL Schlüssel",
         "customerid": "Kunde ID",
         "facilityid": "Facility ID",
         "threeplid": "ThreePL ID",
@@ -1278,7 +1278,7 @@
           "fromname": "From Name",
           "fromemail": "From Email",
           "hostname": "Hostname",
-          "username": "Username"
+          "username": "Benutzername"
         }
       },
       "tab": {
@@ -1294,8 +1294,8 @@
         "fromname": "From Name",
         "fromemail": "From Email",
         "host": "Host",
-        "username": "Username",
-        "password": "Password",
+        "username": "Benutzername",
+        "Passwort": "Passwort",
         "port": "Port",
         "cancel": "ABBRECHEN",
         "save": "SPEICHERN"
@@ -1388,8 +1388,8 @@
           "type": "Type",
           "processorid": "Processor ID",
           "productid": "Product ID",
-          "username": "Username",
-          "password": "Password"
+          "username": "Benutzername",
+          "password": "Passwort"
         },
         "service": {
           "title": "Customer Service",
