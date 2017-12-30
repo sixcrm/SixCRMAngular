@@ -81,11 +81,11 @@
         "view": "AKTUELLE SICHT DIESER REIHE",
         "downstream": "NÄCHSTE REIHE",
         "nodata": "Unzureichende Dateien",
-        "livepolling": "Live Pooling"
+        "livepolling": "Live Polling"
       },
       "rebills": {
         "snack": {
-          "main": "Queue Nachrichten",
+          "main": "Nachrichten dieser Reihe",
           "sub": "Neuzubelastung ID"
         }
       },
@@ -103,7 +103,7 @@
           "created": "Geschafft am",
           "updated": "Aktualisiert am",
           "amount": "Betrag",
-          "campaign": "Associated Campaign"
+          "campaign": "Zugehörige Kampagne"
         }
       }
     },
@@ -216,7 +216,7 @@
         "timezone": "Timezone",
         "email": "Email",
         "language": "Language",
-        "update": "Update"
+        "update": "AKTUALISIEREN"
       },
       "notifications": {
         "title": "Notification toggle",
@@ -248,7 +248,7 @@
         "signingstring": "Signing String",
         "used": "Last time used",
         "add": "Add new Signing String",
-        "remove": "Remove",
+        "remove": "Ablösen",
         "edit": "Bearbeiten",
         "updatetext": "Update Signing String",
         "addtext": "Add new Signing String",
@@ -428,7 +428,7 @@
         "ccl4": "Credit Card # last 4",
         "amount": "Betrag",
         "created": "Geschafft am",
-        "sku": "SKU",
+        "sku": "Lagerhaltungsnummer",
         "name": "Name",
         "response": "Processor Response",
         "status": "Receipt Status",
@@ -442,7 +442,7 @@
         "product": "Product",
         "start": "Start",
         "end": "End",
-        "price": "Price",
+        "price": "Preis",
         "id": "ID"
       },
       "category": "Category",
@@ -504,7 +504,7 @@
       "tab": {
         "general": "GENERAL DETALS",
         "users": "Nutzer",
-        "keys": "ACCESS KEYS",
+        "keys": "ZUGRIFFSSCHLÜSSEL",
         "billing": "BILLING"
       },
       "details": {
@@ -516,7 +516,7 @@
         "save": "Speichern"
       },
       "users": {
-        "title": "Associated Nutzer",
+        "title": "Zugehöriger Nutzer",
         "add": "Nutzer hinzufügen",
         "invite": "Neue Nutzer zu diesem Konto einladen",
         "header": {
@@ -530,21 +530,21 @@
         "removemessage": "Sind Sie absolut sicher, dass Sie diesen Nutzer von dem Konto lösen wollen?"
       },
       "keys": {
-        "title": "Access Keys",
+        "title": "Zugriffsschlüssel",
         "header": {
           "name": "Name",
-          "access": "Access Key",
+          "access": "Zugriffsschlüssel",
           "secret": "Secret Key",
           "created": "Created",
-          "notes": "Notes"
+          "notes": "Notizen"
         },
-        "add": "Add Access Keys",
-        "view": "View Access Keys",
-        "edit": "Edit Access Keys",
-        "remove": "Remove Access Keys",
+        "add": "Zugriffsschlüssel hinzufügen",
+        "view": "Zugriffsschlüssel ansehen",
+        "edit": "Zugriffsschlüssel bearbeiten",
+        "remove": "Zugriffsschlüssel ablösen",
         "cancel": "ABBRECHEN",
         "close": "SCHLIEßEN",
-        "update": "UPDATE"
+        "update": "AKTUALISIEREN"
       },
       "billing": {
         "currenttitle": "Current Invoices",
@@ -598,7 +598,7 @@
         "save": "SPEICHERN"
       },
       "account": {
-        "title": "Associated Konten",
+        "title": "Zugehörige Konten",
         "add": "Add Account to User",
         "account": "Account",
         "role": "Role",
@@ -616,8 +616,8 @@
         "header": {
           "firstname": "Vorname",
           "lastname": "Nachname",
-          "state": "State",
-          "city": "City"
+          "state": "Bundesstadt",
+          "city": "Stadt"
         }
       },
       "tab": {
@@ -634,22 +634,22 @@
         "shipedit": "Edit Shipping Address",
         "cancel": "ABBRECHEN",
         "save": "SPEICHERN",
-        "update": "UPDATE"
+        "update": "AKTUALISIEREN"
       },
       "notes": {
-        "title": "Notes",
-        "subtitle": "Customer service notes",
-        "add": "Add New Note",
-        "del": "Löschen Note",
-        "nodata": "No Notes found."
+        "title": "Notizen",
+        "subtitle": "Aktuelle Kundendienst Notizen",
+        "add": "Neue Notiz anfügen",
+        "del": "Notiz löschen",
+        "nodata": "Keine Notizen gefunden."
       },
       "rebill": {
         "title": "Upcoming Neubelastung",
         "subtitle": "Future Neubelastung and Upcoming Transaktionen",
         "billed": "Bill at",
         "amount": "Betrag",
-        "cancel": "Cancel Transaction",
-        "edit": "Edit Transaction",
+        "cancel": "Transaction abbrechen",
+        "edit": "Transaction bearbeiten",
         "nodata": "No Upcoming Transaktionen found."
       },
       "rebilledit": {
@@ -658,7 +658,7 @@
         "date": "Transaction Date",
         "cancel": "ABBRECHEN",
         "save": "SPEICHERN",
-        "price": "Price"
+        "price": "Preis"
       },
       "events": {
         "title": "Customer Events",
@@ -687,26 +687,26 @@
         "name": "Name",
         "campaign": "Kampagne",
         "productschedulenum": "Number of Product Schedules",
-        "rebillnum": "Number of Neubelastung"
+        "rebillnum": "Zahl von Neubelastung"
       },
       "creditcard": {
         "title": "Billing Information",
         "subtitle": "Billing Address & Credit Card information",
         "addoption": "Kreditkarte Hinzufügen",
         "editoption": "Kreditkarte bearbeiten",
-        "removeoption": "Remove Credit Card",
-        "edittitle": "Edit Credit Card",
-        "createtitle": "Create new Credit Card",
-        "createtext": "Create new Credit Card with the associated user",
-        "expirationmonth": "Expiration Date Month",
-        "expirationyear": "Expiration Date Year",
+        "removeoption": "Kreditkarte löschen",
+        "edittitle": "Kreditkarte bearbeiten",
+        "createtitle": "Neue Kreditkarte hinzufügen",
+        "createtext": "Neue Kreditkarte zu dem zugehöriger Nutzer hinzufügen.",
+        "expirationmonth": "Verfallsdatum - Monat",
+        "expirationyear": "Verfallsdatum - Jahr",
         "billingaddress": "Billing Address",
         "sameaddress": "Same as Customer Address",
         "cancel": "Abbrechen",
-        "update": "Update",
+        "update": "Aktualisieren",
         "save": "Speichern",
-        "nodata": "No Credit Cards found.",
-        "expiration": "Expiration"
+        "nodata": "Keine Kreditkarte gefunden.",
+        "expiration": "Verfallsdatum"
       }
     },
     "bill": {
@@ -728,10 +728,10 @@
         "start": "Period Start",
         "end": "Period End",
         "due": "Due Date",
-        "edit": "Edit Invoice",
-        "back": "BACK TO INVOICES",
+        "edit": "Abrechnung bearbeiten",
+        "back": "ZURÜCK ZU DEN ABRECHNUNGEN",
         "table": {
-          "title": "Invoice Details",
+          "title": "Details zur Abrechnung",
           "subtitle": "Itemized Breakdown of Charges",
           "description": "Description",
           "created": "Created",
@@ -740,7 +740,7 @@
         },
         "pay": "SOFORT BEZAHLEN",
         "detailedit": "Bearbeiten",
-        "detailremove": "Remove",
+        "detailremove": "Ablösen",
         "account": "Account",
         "createtitle": "Create new Bill",
         "cancel": "ABBRECHEN",
@@ -754,14 +754,14 @@
       "title": "Bill"
     },
     "product": {
-      "title": "Product",
+      "title": "Produkt",
       "index": {
-        "title": "Products",
+        "title": "Produkte",
         "header": {
-          "name": "Product Name",
-          "sku": "SKU",
-          "ship": "Ship",
-          "delay": "Shipping Delay"
+          "name": "Name des Produkts",
+          "sku": "Lagerhaltungsnummer",
+          "ship": "Versand",
+          "delay": "Verspäteter Versand"
         }
       },
       "tab": {
@@ -773,15 +773,15 @@
         "title": "Product Details",
         "createtitle": "Create new Product",
         "name": "Product Name",
-        "sku": "SKU",
+        "sku": "Lagerhaltungsnummer",
         "defaultprice": "Default Price",
-        "ship": "Ship",
-        "shipdelay": "Shipping Delay (minutes)",
+        "ship": "Versand",
+        "shipdelay": "Verspätung des Versands (Minuten)",
         "fulfillmentprovider": "Fulfillment Provider",
-        "edit": "Edit Product",
-        "del": "Löschen Product",
+        "edit": "Produkt bearbeiten",
+        "del": "Produkt löschen",
         "cancel": "ABBRECHEN",
-        "update": "UPDATE",
+        "update": "AKTUALISIEREN",
         "create": "CREATE"
       },
       "schedules": {
@@ -836,7 +836,7 @@
         "cancel": "ABBRECHEN",
         "name": "Product Name",
         "schedulename": "Product Schedule Name",
-        "price": "Price",
+        "price": "Preis",
         "pricetip": "Price for period of time",
         "start": "Start",
         "starttip": "Start of period (0 is immediate)",
@@ -844,7 +844,7 @@
         "endtip": "Ends & switches to next product schedule",
         "period": "Period",
         "periodtip": "Recurring billing & shipping period",
-        "ship": "Ship",
+        "ship": "Versand",
         "nodata": "No Cycles found.",
         "view": "View Product",
         "edit": "Edit Cycle",
@@ -854,7 +854,7 @@
         "title": "Kampagnen",
         "name": "Name",
         "created": "Geschafft am",
-        "productnum": "Total Products",
+        "productnum": "Gesamtzahl der Produkte",
         "schedulednum": "Total Scheduled",
         "view": "Campaign ansehen",
         "nodata": "No Kampagnen found."
@@ -867,7 +867,7 @@
         "header": {
           "name": "Name",
           "created": "Geschafft am",
-          "productnum": "Total Products",
+          "productnum": "Gesamtzahl der Produkte",
           "schedulednum": "Total Scheduled"
         }
       },
@@ -891,9 +891,9 @@
         "title": "Associated Email Templates",
         "nodata": "No Email Templates found.",
         "name": "Name",
-        "subject": "Subject",
+        "subject": "Betreff",
         "type": "Type",
-        "smtpprovider": "SMTP Provider",
+        "smtpprovider": "SMTP Anbieter",
         "add": "Associate Email Template",
         "addtext": "Select Email Template",
         "addbutton": "ADD",
@@ -950,7 +950,7 @@
           "name": "Name",
           "subject": "Subject",
           "type": "Type",
-          "smtpprovider": "SMTP Provider"
+          "smtpprovider": "SMTP Anbieter"
         }
       },
       "tab": {
@@ -964,7 +964,7 @@
         "edit": "Edit Email Template",
         "name": "Name",
         "type": "Template Type",
-        "smtpprovider": "SMTP Provider",
+        "smtpprovider": "SMTP Anbieter",
         "subject": "Subject",
         "body": "Email ",
         "cancel": "ABBRECHEN",
@@ -1004,7 +1004,7 @@
         "edit": "VERTRIEBSPARTNER BEARBEITEN",
         "cancel": "ABBRECHEN",
         "save": "SPEICHERN",
-        "update": "UPDATE"
+        "update": "AKTUALISIEREN"
       },
       "tracking": {
         "title": "Associated Trackers",
@@ -1168,7 +1168,7 @@
       "product": {
         "title": "Associated Products",
         "name": "Name",
-        "sku": "SKU",
+        "sku": "Lagerhaltungsnummer",
         "amount": "Betrag",
         "view": "View Product",
         "nodata": "No Products found."
@@ -1238,24 +1238,24 @@
         "title": "Fulfillment Anbieter",
         "header": {
           "name": "Name",
-          "provider": "Provider",
-          "username": "Username",
-          "password": "Password"
+          "provider": "Anbieter",
+          "username": "Benutzername",
+          "password": "Passwort"
         }
       },
       "tab": {
         "general": "GENERAL DETAILS",
-        "validate": "VALIDATE"
+        "validate": "BESTÄTIGEN"
       },
       "info": {
         "title": "Fulfillment Details",
         "createtitle": "Create new Fulfillment Provider",
         "edit": "Edit Fulfillment Provider Details",
-        "provider": "Provider",
+        "provider": "Anbieter",
         "name": "Name",
-        "username": "Username",
-        "password": "Password",
-        "threeplkey": "ThreePL Key",
+        "username": "Benutzername",
+        "password": "Passwort",
+        "threeplkey": "ThreePL Schlüssel",
         "customerid": "Kunde ID",
         "facilityid": "Facility ID",
         "threeplid": "ThreePL ID",
@@ -1270,7 +1270,7 @@
       }
     },
     "smtp": {
-      "title": "SMTP Provider",
+      "title": "SMTP Anbieter",
       "index": {
         "title": "SMTP Anbieter",
         "header": {
@@ -1278,7 +1278,7 @@
           "fromname": "From Name",
           "fromemail": "From Email",
           "hostname": "Hostname",
-          "username": "Username"
+          "username": "Benutzername"
         }
       },
       "tab": {
@@ -1288,20 +1288,20 @@
       },
       "info": {
         "title": "SMTP Details",
-        "createtitle": "Create new SMTP Provider",
+        "createtitle": "Neue SMTP Anbieter zufügen",
         "edit": "Edit SMTP Provider Details",
         "name": "Name",
         "fromname": "From Name",
         "fromemail": "From Email",
         "host": "Host",
-        "username": "Username",
-        "password": "Password",
+        "username": "Benutzername",
+        "password": "Passwort",
         "port": "Port",
         "cancel": "ABBRECHEN",
         "save": "SPEICHERN"
       },
       "validate": {
-        "title": "Validate SMTP Provider",
+        "title": "SMTP Anbieter bestätigen",
         "text": "Please provide an email address below and SIX will try to send you a test email using provided SMTP Provider. Email will be sent from ",
         "textsecond": "Results will be displayed in right column.",
         "email": "Receiver email address",
@@ -1327,7 +1327,7 @@
         "name": "Name",
         "edit": "EDIT Lastverteiler (Load Balancer)",
         "cancel": "ABBRECHEN",
-        "update": "UPDATE",
+        "update": "AKTUALISIEREN",
         "save": "SPEICHERN"
       },
       "merchant": {
@@ -1362,7 +1362,7 @@
       "info": {
         "edit": "EDIT Merchant Anbieter",
         "cancel": "ABBRECHEN",
-        "update": "UPDATE",
+        "update": "AKTUALISIEREN",
         "save": "SPEICHERN",
         "settings": {
           "title": "Einstellungen",
@@ -1388,8 +1388,8 @@
           "type": "Type",
           "processorid": "Processor ID",
           "productid": "Product ID",
-          "username": "Username",
-          "password": "Password"
+          "username": "Benutzername",
+          "password": "Passwort"
         },
         "service": {
           "title": "Customer Service",
