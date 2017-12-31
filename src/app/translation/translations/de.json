@@ -455,7 +455,7 @@
       },
       "results": "Ergebnisse",
       "sort": {
-        "title": "Sort By",
+        "title": "Sortiert nach",
         "createasc": "Erstellungsdatum (Aufstiegend)",
         "createdesc": "Erstellungsdatum (Abstiegend)",
         "updateasc": "Aktualisiert (Aufstiegend)",
@@ -468,7 +468,7 @@
         "view": "Ansehen",
         "customer": {
           "shipaddress": "Shipping Address",
-          "recenttransactions": "Recent Transaktionen"
+          "recenttransactions": "Jüngste Transaktionen"
         },
         "transaction": {
           "title": "Transaction Info",
@@ -496,8 +496,8 @@
         "title": "Konten",
         "header": {
           "name": "Name",
-          "active": "Active",
-          "created": "Created",
+          "active": "Aktiv",
+          "created": "Geschafft am",
           "updated": "Aktualisiert"
         }
       },
@@ -505,7 +505,7 @@
         "general": "GENERAL DETALS",
         "users": "Nutzer",
         "keys": "ZUGRIFFSSCHLÜSSEL",
-        "billing": "BILLING"
+        "billing": "VERRECHNUNG"
       },
       "details": {
         "title": "Account Details",
@@ -550,7 +550,7 @@
         "currenttitle": "Current Invoices",
         "currentsubtitle": "Billings due",
         "pasttitle": "Past Invoices",
-        "pastsubtitle": "Completed billings",
+        "pastsubtitle": "Bezahlte Rechnungen",
         "overduewarning": "Invoice Overdue",
         "overduetext": "You currently have an overdue invoice for",
         "view": "View Invoice",
