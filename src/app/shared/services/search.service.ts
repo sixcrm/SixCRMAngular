@@ -7,7 +7,11 @@ import {
   searchQuery, suggestionsQuery, searchFacets, searchAdvancedQuery,
   searchAdvancedFacets, dashboardFiltersQuery, dashboardFiltersAdvancedQuery
 } from '../utils/queries/search.queries';
-import {extractData, HttpWrapperService, generateHeaders} from './http-wrapper.service';
+import {
+  extractData, HttpWrapperService, generateHeaders, RequestBehaviourOptions,
+  FailStrategy
+} from './http-wrapper.service';
+import {CustomServerError} from "../models/errors/custom-server-error";
 
 @Injectable()
 export class SearchService {
@@ -57,7 +61,7 @@ export class SearchService {
       q = searchAdvancedQuery(query, createdAtRange, sortBy, start, count, types)
     }
 
-    this.queryRequest(q).subscribe(response => {
+    this.queryRequest(q, {failStrategy: FailStrategy.Soft}).subscribe(response => {
       let hits = this.parseSearchResults(response);
 
       this.searchResults$.next(hits);
@@ -131,7 +135,7 @@ export class SearchService {
     })
   }
 
-  private queryRequest(query: string): Observable<Response> {
+  private queryRequest(query: string, requestBehaviourOptions?: RequestBehaviourOptions): Observable<Response> {
     let endpoint = environment.endpoint;
 
     if (this.authService.getActiveAcl() && this.authService.getActiveAcl().account) {
@@ -140,10 +144,18 @@ export class SearchService {
       endpoint = endpoint + '*';
     }
 
-    return this.http.post(endpoint, query, { headers: generateHeaders(this.authService.getToken())});
+    return this.http.postWithError(
+      endpoint,
+      query,
+      { headers: generateHeaders(this.authService.getToken())},
+      requestBehaviourOptions);
   }
 
   private parseSearchResults(response: Response): any {
+    if (response instanceof CustomServerError) {
+      return {hit: [], found: 0};
+    }
+
     let json = extractData(response).search;
     let hits = json.hits;
 
