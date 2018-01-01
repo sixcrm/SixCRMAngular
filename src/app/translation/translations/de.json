@@ -492,6 +492,7 @@
       }
     },
     "account": {
+      "title": "Konto",
       "index": {
         "title": "Konten",
         "header": {

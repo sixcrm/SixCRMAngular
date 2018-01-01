@@ -492,6 +492,7 @@
         }
     },
     "account": {
+        "title": "Account",
         "index": {
             "title": "帐号",
             "header": {
