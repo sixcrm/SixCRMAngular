@@ -14,5 +14,9 @@
   {
     "name": "Chinese",
     "filename": "zh_CN.json"
+  },
+  {
+    "name": "Armenian",
+    "filename": "hy.json"
   }
 ]
