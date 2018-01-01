@@ -28,6 +28,14 @@ export class UserSettingsService extends AbstractEntityService<UserSettings> {
       if (settings instanceof CustomServerError) return;
 
       this.authService.updateTimezone(settings.timezone)
-    })
+    });
+
+    this.entityUpdated$.subscribe(userSettings => {
+      if (userSettings instanceof CustomServerError) {
+        return;
+      }
+
+      this.authService.updateSettings(userSettings);
+    });
   }
 }

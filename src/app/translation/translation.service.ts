@@ -20,14 +20,6 @@ export class TranslationService {
   constructor(private userSettingsService: UserSettingsService, private authService: AuthenticationService) {
     this.updateTranslation(this.authService.getUserSettings().language);
 
-    this.userSettingsService.entity$.merge(this.userSettingsService.entityUpdated$).subscribe(userSettings => {
-      if (userSettings instanceof CustomServerError) {
-        return;
-      }
-
-      this.updateTranslation(userSettings.language);
-    });
-
     this.authService.userSettings$.subscribe(userSettings => {
 
       if (userSettings && userSettings.language) {
