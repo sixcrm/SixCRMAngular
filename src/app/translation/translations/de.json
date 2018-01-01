@@ -548,13 +548,13 @@
       },
       "billing": {
         "currenttitle": "Current Invoices",
-        "currentsubtitle": "Billings due",
-        "pasttitle": "Past Invoices",
+        "currentsubtitle": "Fällige Rechnungen",
+        "pasttitle": "Ehmalige Rechnungen",
         "pastsubtitle": "Bezahlte Rechnungen",
-        "overduewarning": "Invoice Overdue",
+        "overduewarning": "Überfällige Rechnung",
         "overduetext": "You currently have an overdue invoice for",
-        "view": "View Invoice",
-        "noresults": "No Billings found.",
+        "view": "Rechnung ansehen",
+        "noresults": "Keine Rechnungen gefunden.",
         "header": {
           "issue": "Issue Date",
           "start": "Period Start",
@@ -563,22 +563,22 @@
           "status": "Status",
           "due": "Due Date"
         },
-        "pay": "PAY NOW",
+        "pay": "SOFORT BEZAHLEN",
         "summary": {
-          "title": "Current Transaction Count",
+          "title": "Aktualle Anzahl von Transaktionen",
           "description": "View Current Transaction count and amount. Pay and view invoices. View Transaktionen over time and predict the future."
         }
       }
     },
     "user": {
-      "title": "User",
+      "title": "Nutzer",
       "index": {
         "title": "Nutzer",
         "header": {
           "name": "Name",
           "email": "Email",
-          "active": "Active",
-          "terms": "Terms and Conditions"
+          "active": "Aktiv",
+          "terms": "Bedingungen und Konditionen"
         }
       },
       "tab": {
@@ -1335,13 +1335,13 @@
         "distribution": "Distribution",
         "merchant": "Merchant Anbieter",
         "add": "ADD",
-        "clear": "CLEAR",
+        "clear": "KLÄREN",
         "title": "Associated Merchant Anbieter",
-        "view": "View Merchant Anbieter",
+        "view": "Merchant Anbieter ansehen",
         "edit": "Update Distribution",
         "disassociate": "Disassociate Merchant Anbieter",
         "disassociatetext": "Are you sure you want to Löschen?",
-        "nodata": "No Merchant Anbieter found."
+        "nodata": "Keine Merchant Anbieter Gefunden."
       }
     },
     "merchant": {
@@ -1419,19 +1419,19 @@
       "invite": "INVITE"
     },
     "terms": {
-      "title": "Please accept our Terms and Conditions to get started.",
-      "accept": "Accept",
-      "logout": "Log Out"
+      "title": "Bitte unsere Bedingungen und Konditionen akkzeptieren damit Sie mit SIX anfangen können.",
+      "accept": "Akkzeptieren",
+      "logout": "Abmelden"
     },
     "register": {
       "form": {
-        "title": "Welcome!",
+        "title": "Herzlich Wilkommen!",
         "subtitle": "We're excited to have you join us",
         "text": "To get started with your 90 day trial simply enter your company name and verify your information.",
         "company": "Company Name",
         "firstname": "Vorname",
         "lastname": "Nachname",
-        "cont": "Continue"
+        "cont": "Weiter"
       },
       "thankyou": {
         "title": "Your account is now active and you may begin exploring at your leisure.",
@@ -1442,25 +1442,25 @@
     },
     "acceptinvite": {
       "badlogin": "To accept this invite, you must be registered and logged in as",
-      "login": "Log In",
+      "login": "Einloggen",
       "text1": "Would you like to accept",
       "text2": "invite to account",
       "text3": "with role",
       "explanation": "Press \"Accept\" below to continue",
       "accept": "Accept",
-      "logout": "Log Out",
+      "logout": "Abmelden",
       "form": {
-        "title": "Welcome!",
+        "title": "Herzlich Wilkommen!",
         "subtitle": "We're excited to have you join us",
         "text": "To accept your invite to Six CRM Please fill out the following information and you are all setup",
         "firstname": "Vorname",
         "lastname": "Nachname",
-        "cont": "Continue"
+        "cont": "Weiter"
       },
       "thankyou": {
         "title": "Great! We've added you to the account.",
         "switchtext": "Switching between this and your other SIX Konten is easy. Just click the account button in the upper right hand side of the SIX and select the account you wish to access.",
-        "cont": "Continue"
+        "cont": "Weiter"
       }
     }
   }
