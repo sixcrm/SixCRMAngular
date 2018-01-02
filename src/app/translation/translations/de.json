@@ -186,7 +186,7 @@
       "copy": "Copy"
     },
     "singlepage": {
-      "created": "Created",
+      "created": "Geschafft am",
       "updated": "Aktualisiert",
       "createcanceltitle": "Are you sure you want to close creation modal?",
       "createcanceltext": "You have unsaved changes, if you close this modal changes will be discarded.",
@@ -195,20 +195,20 @@
       "leavetitle": "Are you sure you want to leave?",
       "leavetext": "You have unsaved changes, if you close this modal changes will be discarded.",
       "leavecancel": "ABBRECHEN",
-      "leaveleave": "LEAVE"
+      "leaveleave": "VERLASSEN"
     },
     "profile": {
       "title": "Profile",
-      "created": "Created",
+      "created": "Geschafft am",
       "tabs": {
-        "general": "GENERAL",
+        "general": "ALLGEMEIN",
         "notifications": "NOTIFICATIONS",
         "accounts": "KONTEN",
         "signingstrings": "SIGNING STRINGS"
       },
       "details": {
         "title": "Profil",
-        "subtitle": "general information",
+        "subtitle": "Allgemeine",
         "firstname": "Vorname",
         "lastname": "Nachname",
         "workphone": "Telefonnummer bei der Arbeit",
@@ -263,8 +263,8 @@
         "subtitle": "Vorfälle by Event type",
         "event": "Vorfall",
         "count": "Anzahl",
-        "percentage": "Percentage",
-        "relativepercentage": "Relative Percentage"
+        "percentage": "Anteil",
+        "relativepercentage": "Relative Anteil"
       },
       "eventsummary": {
         "title": "Vorfälle",
@@ -277,7 +277,7 @@
         "affiliate": "Vertriebspartner",
         "count": "Anzahl",
         "percentage": "Anteil",
-        "nodata": "No Events Found"
+        "nodata": "Keine Vorfälle gefunden"
       },
       "transactionbyaffiliate": {
         "title": "Transaktionen by Affiliate",
@@ -317,7 +317,7 @@
           "subtitle": "View summary information about Transaktionen"
         },
         "transactions": {
-          "title": "Transaction Report",
+          "title": "Transaktionen-Report",
           "subtitle": "View information about Transaktionen"
         },
         "fulfillment": {
@@ -335,12 +335,12 @@
       }
     },
     "chart": {
-      "viewmore": "VIEW MORE",
-      "collapse": "COLLAPSE",
-      "showtable": "SHOW TABLE",
-      "downloadjson": "Download JSON",
-      "downloadcsv": "Download CSV",
-      "downloadexcel": "Download Excel"
+      "viewmore": "MEHR ZUM THEMA",
+      "collapse": "SCHEITERN",
+      "showtable": "TABELLE ANSEHEN",
+      "downloadjson": "Als JSON Herunterladen",
+      "downloadcsv": "Als CSV Herunterladen",
+      "downloadexcel": "Als Excel-Datei herunterladen"
     },
     "summaryreport": {
       "title": "Summary Report",
@@ -360,19 +360,19 @@
       "date": "Date"
     },
     "transactionreport": {
-      "title": "Transaktionen Report",
-      "tabletitle": "Transaction Details",
+      "title": "Transaktionen-Report",
+      "tabletitle": "Einzelheiten der Transaktion",
       "customer": "Kunde",
       "campaign": "Kampagne",
       "merchantprovider": "Merchant Anbieter",
       "affiliate": "Vertriebspartner",
       "amount": "Betrag",
       "processorresult": "Processor Result",
-      "transactiontype": "Transaction Type"
+      "transactiontype": "Transaktionstyp"
     },
     "merchantreport": {
-      "title": "Merchant Report",
-      "tabletitle": "Transaction Details",
+      "title": "Händler-Report",
+      "tabletitle": "Einzelheiten der Transaktion",
       "merchantprovider": "Merchant Anbieter",
       "salescount": "Sales Count",
       "salesgrossrevenue": "Sales Gross Revenue",
@@ -382,9 +382,9 @@
       "mtdsalescount": "MTD Sales Count",
       "mtdgrosscount": "MTD Gross Count",
       "chart": {
-        "title": "Merchant Processing",
+        "title": "Händler Verarbeitung",
         "subtitle": "Current loads and balance",
-        "nodata": "No Händler Found"
+        "nodata": "Keine Händler gefunden"
       }
     },
     "affiliatereport": {
@@ -737,7 +737,7 @@
           "description": "Description",
           "created": "Created",
           "amount": "Betrag",
-          "total": "Total"
+          "total": "Gesamtsumme"
         },
         "pay": "SOFORT BEZAHLEN",
         "detailedit": "Bearbeiten",
@@ -771,9 +771,9 @@
         "campaign": "Kampagnen"
       },
       "info": {
-        "title": "Product Details",
-        "createtitle": "Create new Product",
-        "name": "Product Name",
+        "title": "Produktangaben",
+        "createtitle": "Neues Produkt hinzufügen",
+        "name": "Produktname",
         "sku": "Lagerhaltungsnummer",
         "defaultprice": "Default Price",
         "ship": "Versand",
@@ -783,35 +783,35 @@
         "del": "Produkt löschen",
         "cancel": "ABBRECHEN",
         "update": "AKTUALISIEREN",
-        "create": "CREATE"
+        "create": "EINGEBEN"
       },
       "schedules": {
         "title": "Produktzyklen",
         "name": "Name",
         "count": "Number of Schedules",
-        "add": "Add new Produktzyklus",
+        "add": "Neue Produktzyklus hinzufügen",
         "view": "Produktzyklus ansehen",
-        "remove": "Remove from Product Schedule",
+        "remove": "Produktzyklus lösen",
         "nodata": "Keine Produktzyklen gefunden."
       },
       "campaign": {
         "title": "Kampagnen",
         "name": "Name",
         "created": "Geschafft am",
-        "productnum": "Total Products",
+        "productnum": "Gesamtzahl des Produkte",
         "schedulednum": "Total Scheduled",
         "view": "Kampagne ansehen",
-        "nodata": "No Kampagnen found."
+        "nodata": "Keine Kampagnen gefunden."
       }
     },
     "productschedule": {
-      "title": "Product Schedule",
+      "title": "Produktzyklus",
       "index": {
         "title": "Produktzyklen",
         "header": {
           "name": "Name",
           "loadbalancer": "Lastverteiler (Load Balancer)",
-          "numofcycles": "Number of Cycles"
+          "numofcycles": "Anzahl der Zyklen"
         }
       },
       "tab": {
@@ -828,14 +828,14 @@
         "edit": "Edit Product Schedule"
       },
       "cycle": {
-        "addtitle": "Add Cycle",
-        "edittitle": "Edit Cycle",
-        "title": "Cycles",
-        "add": "ADD",
-        "clear": "CLEAR",
+        "addtitle": "Zyklus hinzufügen",
+        "edittitle": "Zyklus bearbeiten",
+        "title": "Zyklen",
+        "add": "Neu",
+        "clear": "KLÄREN",
         "save": "SPEICHERN",
         "cancel": "ABBRECHEN",
-        "name": "Product Name",
+        "name": "Name",
         "schedulename": "Name des Produktzyklus",
         "price": "Preis",
         "pricetip": "Price for period of time",
@@ -847,8 +847,8 @@
         "periodtip": "Recurring billing & shipping period",
         "ship": "Versand",
         "nodata": "No Cycles found.",
-        "view": "View Product",
-        "edit": "Edit Cycle",
+        "view": "Produkt ansehen",
+        "edit": "Zyklus bearbeiten",
         "remove": "Remove Cycle"
       },
       "campaign": {
@@ -912,7 +912,7 @@
         "addbutton": "Produktzyklus Hinzufügen",
         "view": "Produktzyklus ansehen",
         "remove": "Produktzyklus lösen",
-        "removetext": "Sind Sie sicher, dass Sie diesn Produktzyklus löschen wollen?"
+        "removetext": "Sind Sie sicher, dass Sie diesen Produktzyklus löschen wollen?"
       },
       "affiliate": {
         "name": "Name"
@@ -1145,7 +1145,7 @@
         "refund": "REFUND TRANSACTION"
       },
       "info": {
-        "title": "Transaction Details",
+        "title": "Einzelheiten der Transaktion",
         "rebillview": "View Neubelastung",
         "merchantproviderview": "View Merchant Anbieter",
         "alias": "Alias",
