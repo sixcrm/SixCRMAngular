@@ -30,9 +30,9 @@
       "crm": {
         "title": "CRM",
         "product": "Produkte",
-        "productschedule": "Product Schedules",
+        "productschedule": "Produktzyklen",
         "campaign": "Kampagnen",
-        "emailtemplate": "Email Templates",
+        "emailtemplate": "Mailvorlagen",
         "affiliate": "Vertriebspartner",
         "tracker": "Trackers",
         "session": "Sessions",
@@ -48,7 +48,7 @@
       "merchant": {
         "title": "Händler",
         "merchantprovider": "Merchant Anbieter",
-        "loadbalancer": "Lastverteilungen (Load Balancers)"
+        "loadbalancer": "Lastverteiler (Load Balancers)"
       },
       "settings": {
         "title": "Einstellungen",
@@ -131,12 +131,12 @@
     "advancedfilter": {
       "from": "Von",
       "to": "An",
-      "filters": "Filters",
-      "groupby": "Group By",
+      "filters": "Filter",
+      "groupby": "Anordnen",
       "show": "Show Advanced Search",
       "hide": "Hide Advanced Search",
-      "apply": "APPLY",
-      "reset": "RESET",
+      "apply": "ANWENDEN",
+      "reset": "ZURÜCKSTELLEN",
       "close": "SCHLIEßEN",
       "campaign": "Kampagne",
       "affiliate": "Vertriebspartner",
@@ -203,17 +203,17 @@
       "tabs": {
         "general": "GENERAL",
         "notifications": "NOTIFICATIONS",
-        "accounts": "Konten",
+        "accounts": "KONTEN",
         "signingstrings": "SIGNING STRINGS"
       },
       "details": {
-        "title": "Profile",
+        "title": "Profil",
         "subtitle": "general information",
         "firstname": "Vorname",
         "lastname": "Nachname",
-        "workphone": "Work Phone",
-        "cellphone": "Handy",
-        "timezone": "Timezone",
+        "workphone": "Telefonnummer bei der Arbeit",
+        "cellphone": "Handynummer",
+        "timezone": "Zeitzone",
         "email": "Email",
         "language": "Sprache",
         "update": "AKTUALISIEREN"
@@ -229,7 +229,7 @@
           "sms": "SMS",
           "email": "Email",
           "skype": "Skype",
-          "slack": "Slack web hook"
+          "slack": "Slack Web Hook"
         },
         "settings": {
           "title": "Notification settings",
@@ -243,40 +243,40 @@
         "view": "Konto ansehen"
       },
       "signingstrings": {
-        "title": "Your Signing Strings",
+        "title": "Ihre Signing Strings",
         "name": "Name",
         "signingstring": "Signing String",
-        "used": "Last time used",
-        "add": "Add new Signing String",
+        "used": "Zuletzt verwendet",
+        "add": "Neue Signing String hinzufügen",
         "remove": "Ablösen",
         "edit": "Bearbeiten",
-        "updatetext": "Update Signing String",
-        "addtext": "Add new Signing String",
+        "updatetext": "Signing String aktualisieren",
+        "addtext": "Neue Signing String",
         "cancel": "Abbrechen",
         "save": "Speichern",
-        "nodata": "No Signing Strings found."
+        "nodata": "Keine Signing Strings gefunden."
       }
     },
     "dashboard": {
       "eventsfunnel": {
         "title": "Events Funnel",
-        "subtitle": "Events by Event type",
-        "event": "Event",
+        "subtitle": "Vorfälle by Event type",
+        "event": "Vorfall",
         "count": "Anzahl",
         "percentage": "Percentage",
         "relativepercentage": "Relative Percentage"
       },
       "eventsummary": {
-        "title": "Events",
-        "subtitle": "events summary",
-        "nodata": "No Events Found"
+        "title": "Vorfälle",
+        "subtitle": "Zusammenfassung den Vorfällen",
+        "nodata": "Keine Vorfälle gefunden"
       },
       "eventsbyaffiliate": {
-        "title": "Events by Affiliate",
+        "title": "Vorfälle sortiert nach Vertriebspartner",
         "subtitle": "Events from the top Vertriebspartner",
         "affiliate": "Vertriebspartner",
         "count": "Anzahl",
-        "percentage": "Percentage",
+        "percentage": "Anteil",
         "nodata": "No Events Found"
       },
       "transactionbyaffiliate": {
@@ -287,12 +287,12 @@
         "countp": "Anzahl%",
         "amount": "Betrag",
         "amountp": "Betrag%",
-        "nodata": "No Transaktionen Found"
+        "nodata": "Keine Transaktionen gefunden"
       },
       "transactionsummary": {
         "title": "Transaktionen",
-        "subtitle": "Transaktionen summary",
-        "nodata": "No Transaktionen Found"
+        "subtitle": "Zusammenfassung von Transaktionen",
+        "nodata": "Keine Transaktionen gefunden"
       },
       "movers": {
         "title": "Kampagnen Watch List",
@@ -447,11 +447,11 @@
       },
       "category": "Kategorie",
       "refined": "REFINED RESULTS",
-      "reset": "RESET SEARCH",
+      "reset": "SUCHE ZURÜCKSTELLEN",
       "date": {
-        "range": "Date Range",
-        "toggle": "Date",
-        "to": "to"
+        "range": "Datumsbereich",
+        "toggle": "Datum",
+        "to": "An"
       },
       "results": "Ergebnisse",
       "sort": {
@@ -479,7 +479,7 @@
         },
         "campaign": {
           "title": "Campaign Info",
-          "schedules": "Product Schedules"
+          "schedules": "Produktzyklen"
         },
         "rebill": {
           "title": "Neubelastung Info",
@@ -553,14 +553,14 @@
         "pasttitle": "Ehmalige Rechnungen",
         "pastsubtitle": "Bezahlte Rechnungen",
         "overduewarning": "Überfällige Rechnung",
-        "overduetext": "You currently have an overdue invoice for",
+        "overduetext": "Sie haben eine Überfällige Rechnung von",
         "view": "Rechnung ansehen",
         "noresults": "Keine Rechnungen gefunden.",
         "header": {
-          "issue": "Issue Date",
+          "issue": "Ausstellungsdatum",
           "start": "Period Start",
           "end": "Period Ending",
-          "balance": "Balance",
+          "balance": "Saldo",
           "status": "Status",
           "due": "Due Date"
         },
@@ -687,7 +687,7 @@
         "nodata": "No Sessions found.",
         "name": "Name",
         "campaign": "Kampagne",
-        "productschedulenum": "Number of Product Schedules",
+        "productschedulenum": "Anzahl von Produktzyklen",
         "rebillnum": "Zahl von Neubelastung"
       },
       "creditcard": {
@@ -717,7 +717,7 @@
           "start": "Period Start",
           "end": "Period End",
           "overdue": "Overdue",
-          "balance": "Balance"
+          "balance": "Saldo"
         }
       },
       "tab": {
@@ -786,13 +786,13 @@
         "create": "CREATE"
       },
       "schedules": {
-        "title": "Product Schedules",
+        "title": "Produktzyklen",
         "name": "Name",
         "count": "Number of Schedules",
-        "add": "Add new Product Schedule",
-        "view": "View Product Schedule",
+        "add": "Add new Produktzyklus",
+        "view": "Produktzyklus ansehen",
         "remove": "Remove from Product Schedule",
-        "nodata": "No Product Schedules found."
+        "nodata": "Keine Produktzyklen gefunden."
       },
       "campaign": {
         "title": "Kampagnen",
@@ -807,7 +807,7 @@
     "productschedule": {
       "title": "Product Schedule",
       "index": {
-        "title": "Product Schedules",
+        "title": "Produktzyklen",
         "header": {
           "name": "Name",
           "loadbalancer": "Lastverteiler (Load Balancer)",
@@ -836,7 +836,7 @@
         "save": "SPEICHERN",
         "cancel": "ABBRECHEN",
         "name": "Product Name",
-        "schedulename": "Product Schedule Name",
+        "schedulename": "Name des Produktzyklus",
         "price": "Preis",
         "pricetip": "Price for period of time",
         "start": "Start",
@@ -874,7 +874,7 @@
       },
       "tab": {
         "general": "GENERAL DETAILS",
-        "productschedules": "PRODUCT SCHEDULES",
+        "productschedules": "PRODUKTZYKLEN",
         "affiliates": "VERTRIEBSPARTNER",
         "trackingcode": "TRACKING CODE"
       },
@@ -889,30 +889,30 @@
         "edit": "Kampagne bearbeiten"
       },
       "email": {
-        "title": "Associated Email Templates",
-        "nodata": "No Email Templates found.",
+        "title": "Verbündete Mailvorlagen",
+        "nodata": "Keine Mailvorlagen gefunden.",
         "name": "Name",
         "subject": "Betreff",
-        "type": "Type",
+        "type": "Variante",
         "smtpprovider": "SMTP Anbieter",
-        "add": "Associate Email Template",
-        "addtext": "Select Email Template",
-        "addbutton": "ADD",
-        "view": "View Email Template",
-        "remove": "Disassociate Email Template",
-        "removetext": "Are you sure you want to Löschen?"
+        "add": "Verbündete Mailvorlage",
+        "addtext": "Mailvorlage auswählen",
+        "addbutton": "HINZUFÜGEN",
+        "view": "Mailvorlage ansehen",
+        "remove": "Mailvorlage lösen",
+        "removetext": "Sind Sie sicher, dass Sie dieser Mailvorlage löschen wollen?"
       },
       "productschedule": {
-        "title": "Associated Product Schedules",
-        "nodata": "No Product Schedules found.",
+        "title": "Verbündete Produktzyklen",
+        "nodata": "Keine Produktzyklen gefunden.",
         "name": "Name",
         "productnumber": "Products in Schedule",
-        "add": "Associate Product Schedule",
-        "addtext": "Select Product Schedule",
-        "addbutton": "ADD",
-        "view": "View Product Schedule",
-        "remove": "Disassociate Product Schedule",
-        "removetext": "Are you sure you want to Löschen?"
+        "add": "Verbündete Produktzyklen",
+        "addtext": "Produktzyklus auswählen",
+        "addbutton": "Produktzyklus Hinzufügen",
+        "view": "Produktzyklus ansehen",
+        "remove": "Produktzyklus lösen",
+        "removetext": "Sind Sie sicher, dass Sie diesn Produktzyklus löschen wollen?"
       },
       "affiliate": {
         "name": "Name"
@@ -944,42 +944,42 @@
       }
     },
     "emailtemplate": {
-      "title": "Email Template",
+      "title": "Mailvorlage",
       "index": {
-        "title": "Email Templates",
+        "title": "Mailvorlagen",
         "header": {
           "name": "Name",
-          "subject": "Subject",
-          "type": "Type",
+          "subject": "Betreff",
+          "type": "Art von Mailvorlage",
           "smtpprovider": "SMTP Anbieter"
         }
       },
       "tab": {
         "general": "GENERAL DETAILS",
-        "preview": "PREVIEW"
+        "preview": "VORSCHAU"
       },
       "info": {
-        "createtitle": "Create new Email Template",
-        "title": "Email Template Details",
-        "subtitle": "Edit HTML templates below or load defaults from right menu",
-        "edit": "Edit Email Template",
+        "createtitle": "Neue Mailvorlage",
+        "title": "Mailvorlage Details",
+        "subtitle": "Sie können selber einen HTML Mailvorgen bearbeiten oder einen SIX Mailvorlage von dem Menu am rechts verwenden.",
+        "edit": "Mailvorlage bearbeiten",
         "name": "Name",
-        "type": "Template Type",
+        "type": "Art von Mailvorlage",
         "smtpprovider": "SMTP Anbieter",
-        "subject": "Subject",
-        "body": "Email ",
+        "subject": "Betreff",
+        "body": "Email Addresse",
         "cancel": "ABBRECHEN",
         "save": "SPEICHERN"
       },
       "token": {
         "title": "Tokens",
-        "subtitle": "Choose any of the following tokens to add into your email template",
+        "subtitle": "Choose any of the following tokens to add into your Mailvorlage",
         "type": "Even Type",
-        "search": "Search"
+        "search": "Suchen"
       },
       "preview": {
-        "title": "Email Template Preview",
-        "subtitle": "preview how the template will look in an email"
+        "title": "Mailvorlage vorschauen",
+        "subtitle": "Schauen Sie vor, wie die Mailvorlage aussehen wird."
       }
     },
     "affiliate": {
@@ -1010,7 +1010,7 @@
       "tracking": {
         "title": "Associated Trackers",
         "name": "Name",
-        "type": "Type",
+        "type": "Variante",
         "event": "Event",
         "data": "Tracking Data",
         "nodata": "No Trackers found.",
@@ -1036,7 +1036,7 @@
         "title": "Trackers",
         "header": {
           "name": "Name",
-          "type": "Type",
+          "type": "Variante",
           "event": "Event",
           "data": "Tracking Data"
         }
@@ -1094,7 +1094,7 @@
         "header": {
           "campaign": "Name der Kampagne",
           "customer": "Name des Kunden",
-          "schedulesnum": "Number of Product Schedules",
+          "schedulesnum": "Anzahl von Produktzyklen",
           "rebillsnum": "Number of Neubelastung"
         }
       },
@@ -1284,7 +1284,7 @@
       },
       "tab": {
         "general": "GENERAL DETAILS",
-        "emailtemplate": "EMAIL TEMPLATES",
+        "emailtemplate": "MAILVORLAGEN",
         "validate": "VALIDATE"
       },
       "info": {
@@ -1314,7 +1314,7 @@
     "loadbalancer": {
       "title": "Lastverteiler (Load Balancer)",
       "index": {
-        "title": "Lastverteilungen (Load Balancers)",
+        "title": "Lastverteilunger",
         "header": {
           "name": "Name",
           "merchantnum": "Number of Merchant Anbieter"
@@ -1325,8 +1325,8 @@
       },
       "info": {
         "createtitle": "Neue Lastverteiler (Load Balancer)",
-        "name": "Name",
-        "edit": "EDIT Lastverteiler (Load Balancer)",
+        "name": "NAME",
+        "edit": "LASTVERTEILER BEARBEITEN",
         "cancel": "ABBRECHEN",
         "update": "AKTUALISIEREN",
         "save": "SPEICHERN"
@@ -1361,14 +1361,14 @@
         "loadbalancer": "LOAD BALANCING"
       },
       "info": {
-        "edit": "EDIT Merchant Anbieter",
+        "edit": "Merchant Anbieter bearbeiten",
         "cancel": "ABBRECHEN",
         "update": "AKTUALISIEREN",
         "save": "SPEICHERN",
         "settings": {
           "title": "Einstellungen",
           "name": "Name",
-          "enabled": "Enabled",
+          "enabled": "Aktiv",
           "allowprepaid": "Allow Prepaid cards",
           "accepted": "Accepted paypment methods"
         },
@@ -1386,24 +1386,24 @@
         "gateway": {
           "title": "Gateway information",
           "name": "Name",
-          "type": "Type",
+          "type": "Variante",
           "processorid": "Processor ID",
           "productid": "Product ID",
           "username": "Benutzername",
           "password": "Passwort"
         },
         "service": {
-          "title": "Customer Service",
+          "title": "Kundenbetreuung",
           "uri": "URI",
           "email": "Email",
-          "phone": "Phone",
+          "phone": "Telefon",
           "description": "Description"
         }
       },
       "loadbalancer": {
-        "title": "Associated Lastverteilungen",
-        "view": "View Lastverteiler (Load Balancer)",
-        "nodata": "Keine Lastverteilungen gefunden.",
+        "title": "Associated Lastverteiler",
+        "view": "Lastverteiler ansehen",
+        "nodata": "Keine Lastverteiler gefunden.",
         "name": "Name"
       }
     },
