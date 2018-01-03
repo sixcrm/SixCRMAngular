@@ -123,7 +123,7 @@
       "title": "ANZEIGEN",
       "settings": "Einstellungen",
       "viewall": "Alle Anzeigen ansehen",
-      "alerts": "Alerts",
+      "alerts": "Alarmsignale",
       "noresults": "Keine Anezeige gefunden.",
       "view": "Ansehen",
       "dismiss": "Abweisen"
@@ -306,31 +306,31 @@
         "amount": "Betrag"
       },
       "reports": {
-        "title": "Reporte",
+        "title": "Berichte",
         "subtitle": "Popular reports to monitor metrics",
         "order": {
-          "title": "Aufträge-Report",
-          "subtitle": "Quick reports about Aufträge"
+          "title": "Aufträge-Bericht",
+          "subtitle": "Überblick über Ihren Aufträge"
         },
         "summary": {
-          "title": "Summary Report",
-          "subtitle": "View summary information about Transaktionen"
+          "title": "Kurzbericht",
+          "subtitle": "Sehen Sie einen Kurzbericht von Ihren Transaktionen"
         },
         "transactions": {
-          "title": "Transaktionen-Report",
-          "subtitle": "View information about Transaktionen"
+          "title": "Transaktionen-Bericht",
+          "subtitle": "Informieren Sie sich über Ihren Transaktionen"
         },
         "fulfillment": {
-          "title": "Fulfillment Report",
-          "subtitle": "Fulfillment overview for Kampagnen"
+          "title": "Fulfillment-Bericht",
+          "subtitle": "Überblick über die Fulfillment Ihren Kampagnen"
         },
         "affiliate": {
-          "title": "Vertriebspartner-Report",
-          "subtitle": "Performance metrics about Vertriebspartner"
+          "title": "Vertriebspartner-Bericht",
+          "subtitle": "Liestungsorientierte Bericht über Ihre Vertriebspartner"
         },
         "retention": {
-          "title": "Retention",
-          "subtitle": "Learn how log customers stay"
+          "title": "Retention-Bericht",
+          "subtitle": "Informieren Sie sich über die Retention Ihren Kunden"
         }
       }
     },
@@ -343,21 +343,21 @@
       "downloadexcel": "Als Excel-Datei herunterladen"
     },
     "summaryreport": {
-      "title": "Summary Report",
-      "tabletitle": "Transaction Summary Details",
-      "sales": "Sales",
-      "salesrevenue": "Sales Revenue",
+      "title": "Kurzbericht",
+      "tabletitle": "Sehen Sie einen Kurzbericht von Ihren Transaktionen",
+      "sales": "Umsatz",
+      "salesrevenue": "Umsatzerlös",
       "rebill": "Neubelastung",
-      "rebillrevenue": "Neubelastung Revenue",
-      "refunds": "Refunds",
-      "refundexpenses": "Refund Expenses",
-      "declines": "Declines",
-      "declinesrevenue": "Declines Revenue",
-      "grossrevenue": "Gross Revenue",
-      "chargebacks": "Chargebacks",
-      "alerts": "Alerts",
+      "rebillrevenue": "Neubelastungerlös",
+      "refunds": "Rückerstattung",
+      "refundexpenses": "Rückerstattungskosten",
+      "declines": "Ablehnungen",
+      "declinesrevenue": "Ablehnungerlös",
+      "grossrevenue": "Gesamtbetrag (Erlös)",
+      "chargebacks": "Rückbelastung",
+      "alerts": "Alarmsignale",
       "activecustomers": "Active Kunden",
-      "date": "Date"
+      "date": "Datum"
     },
     "transactionreport": {
       "title": "Transaktionen-Report",
@@ -374,16 +374,16 @@
       "title": "Händler-Report",
       "tabletitle": "Einzelheiten der Transaktion",
       "merchantprovider": "Merchant Anbieter",
-      "salescount": "Sales Count",
-      "salesgrossrevenue": "Sales Gross Revenue",
-      "refundexpenses": "Refund Expenses",
-      "refundcount": "Refund Count",
-      "netrevenue":"Net Revenue",
-      "mtdsalescount": "MTD Sales Count",
-      "mtdgrosscount": "MTD Gross Count",
+      "salescount": "Anzahl der Umsatz",
+      "salesgrossrevenue": "Umsatzerlös",
+      "refundexpenses": "Rückerstattungskosten",
+      "refundcount": "Rückerstattung",
+      "netrevenue":"Einkommen (Netto)",
+      "mtdsalescount": "Monat bis Datum Umsätze (Anzahl)",
+      "mtdgrosscount": "Monat bis Datum Brutto (Anzahl)",
       "chart": {
         "title": "Händler Verarbeitung",
-        "subtitle": "Current loads and balance",
+        "subtitle": "Aktuelle loads and balance",
         "nodata": "Keine Händler gefunden"
       }
     },
@@ -415,7 +415,7 @@
         "lastname": "Nachname",
         "phone": "Telefonnummer",
         "email": "Email Addresse",
-        "trackingnumber": "Shipment Sendungsnummer",
+        "trackingnumber": "Sendungsnummer",
         "address1": "Adresse 1",
         "address2": "Adresse 2",
         "city": "Stadt",
@@ -423,7 +423,7 @@
         "state": "Bundesstadt",
         "country": "Land",
         "alias": "Transaction Alias",
-        "cctype": "Credit Card Type",
+        "cctype": "Kreditkarte",
         "ccf6": "Kreditkartenummer - Erste 6 Nummer",
         "ccl4": "Kreditkartenummer - Letzte 4 Nummer",
         "amount": "Betrag",
@@ -433,10 +433,10 @@
         "response": "Antwortmeldung des Zahlungsprozessors",
         "status": "Receipt Status",
         "merchantprovider": "Merchant Anbieter",
-        "fulfillmentprovider": "Fulfillment Provider",
+        "fulfillmentprovider": "Fulfillment Anbieter",
         "ship": "Versand",
-        "shipdelay": "Shipping Delay",
-        "schedulesnum": "Number of Schedules",
+        "shipdelay": "Verspätete Lieferung",
+        "schedulesnum": "Anzahl von Produktzyklen",
         "bill": "Berechnungsdatum",
         "parentsession": "Muttersession",
         "product": "Produkt",
