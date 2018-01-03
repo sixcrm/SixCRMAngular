@@ -38,7 +38,7 @@
         "session": "Sitzungen",
         "transaction": "Transaktionen",
         "rebill": "Neubelastung",
-        "shippingreceipt": "Shipping Receipts",
+        "shippingreceipt": "Posteinlieferungsscheine",
         "providers": {
           "title": "3rd Party Anbieter",
           "fulfillment": "Fulfillment Anbieter",
@@ -152,7 +152,7 @@
       "new": "Neu",
       "rebill": "Neubelastung",
       "success": "Erfolg",
-      "decline": "Decline",
+      "decline": "Abhlehnung",
       "error": "Fehler"
     },
     "forminputs": {
@@ -383,33 +383,33 @@
       "mtdgrosscount": "Monat bis Datum Brutto (Anzahl)",
       "chart": {
         "title": "Händler Verarbeitung",
-        "subtitle": "Aktuelle loads and balance",
+        "subtitle": "Aktuelle Infos",
         "nodata": "Keine Händler gefunden"
       }
     },
     "affiliatereport": {
       "title": "Vertriebspartner-Report",
-      "tabletitle": "Affiliate Summary Details",
-      "clickscount": "Clicks Count",
+      "tabletitle": "Vertriebspartner im Überblick",
+      "clickscount": "Anzahl von Clicks",
       "partialscount": "Partials Count",
       "affiliate": "Vertriebspartner-",
-      "partialspercentage": "Partials Percentage",
-      "declinescount": "Declines Count",
-      "declinespercentage": "Declines Percentage",
-      "salescount": "Sales Count",
-      "salespercentage": "Sales Percentage",
-      "upsellcount": "Upsell Count",
-      "upsellpercentage": "Upsell Percentage",
-      "upsellsum": "Upsell Sum",
+      "partialspercentage": "Partials %",
+      "declinescount": "Ablehnungszahl",
+      "declinespercentage": "Ablehnungen %",
+      "salescount": "Anzahl der Umsatz",
+      "salespercentage": "Umsatz %",
+      "upsellcount": "Zusatzverkäufe (Anzahl)",
+      "upsellpercentage": "Zusatzverkäufe %",
+      "upsellsum": "Betrag von Zusatzverkäufe",
       "amountsum": "Gesamtbetrag"
     },
     "search": {
       "tab": {
         "customer": "KUNDE",
-        "order": "ORDER ENTRY"
+        "order": "BESTELLUNGSEINGABE"
       },
       "advanced": {
-        "toggle": "ADVANCED SEARCH",
+        "toggle": "SUCHOPTIONEN",
         "search": "Suche",
         "firstname": "Vorname",
         "lastname": "Nachname",
@@ -460,7 +460,7 @@
         "createdesc": "Erstellungsdatum (Abstiegend)",
         "updateasc": "Aktualisiert (Aufstiegend)",
         "updatedesc": "Aktualisiert (Abstiegend)",
-        "def": "default"
+        "def": "Grundeinstellungen"
       },
       "nodata": "Keine treffende Begriffe.",
       "entersearch": "Bitte geben Sie einen Suchbegriff ein.",
@@ -487,7 +487,7 @@
         },
         "schedule": {
           "title": "Produktzyklus Infos",
-          "schedules": "Schedules"
+          "schedules": "Produktzyklen"
         }
       }
     },
@@ -691,7 +691,7 @@
         "rebillnum": "Zahl von Neubelastung"
       },
       "creditcard": {
-        "title": "Billing Information",
+        "title": "Verrechnung",
         "subtitle": "Rechnungsaddresse und Kreditkarte Infos",
         "addoption": "Kreditkarte Hinzufügen",
         "editoption": "Kreditkarte bearbeiten",
@@ -721,20 +721,20 @@
         }
       },
       "tab": {
-        "general": "GENERAL DETALS"
+        "general": "ALLGEIMEINES"
       },
       "details": {
         "title": "Invoice Summary",
-        "subtitle": "Billing Information",
+        "subtitle": "Verrechnung",
         "start": "Anfangsdatum",
-        "end": "Period End",
+        "end": "Stichtag",
         "due": "Zahlungstermin",
         "edit": "Abrechnung bearbeiten",
         "back": "ZURÜCK ZU DEN ABRECHNUNGEN",
         "table": {
           "title": "Details zur Abrechnung",
-          "subtitle": "Itemized Breakdown of Charges",
-          "description": "Description",
+          "subtitle": "Detaillierte Aufstellung der Kosten",
+          "description": "Beschreibung",
           "created": "Geschafft am",
           "amount": "Betrag",
           "total": "Gesamtsumme"
@@ -775,7 +775,7 @@
         "createtitle": "Neues Produkt hinzufügen",
         "name": "Produktname",
         "sku": "Lagerhaltungsnummer",
-        "defaultprice": "Default Price",
+        "defaultprice": "Standardpreis",
         "ship": "Versand",
         "shipdelay": "Verspätung des Versands (Minuten)",
         "fulfillmentprovider": "Fulfillment Provider",
@@ -799,7 +799,7 @@
         "name": "Name",
         "created": "Geschafft am",
         "productnum": "Gesamtzahl des Produkte",
-        "schedulednum": "Total Scheduled",
+        "schedulednum": "Geplannte",
         "view": "Kampagne ansehen",
         "nodata": "Keine Kampagnen gefunden."
       }
@@ -876,7 +876,7 @@
         "general": "ALLGEMEINES",
         "productschedules": "PRODUKTZYKLEN",
         "affiliates": "VERTRIEBSPARTNER",
-        "trackingcode": "TRACKING CODE"
+        "trackingcode": "TRACKING-CODE (Pixel)"
       },
       "info": {
         "createtitle": "Neue Kampagne hinzufügen",
@@ -889,13 +889,13 @@
         "edit": "Kampagne bearbeiten"
       },
       "email": {
-        "title": "Verbündete Mailvorlagen",
+        "title": "Verbundene Mailvorlagen",
         "nodata": "Keine Mailvorlagen gefunden.",
         "name": "Name",
         "subject": "Betreff",
         "type": "Variante",
         "smtpprovider": "SMTP Anbieter",
-        "add": "Verbündete Mailvorlage",
+        "add": "Verbundene Mailvorlage",
         "addtext": "Mailvorlage auswählen",
         "addbutton": "HINZUFÜGEN",
         "view": "Mailvorlage ansehen",
@@ -903,11 +903,11 @@
         "removetext": "Sind Sie sicher, dass Sie dieser Mailvorlage lösen wollen?"
       },
       "productschedule": {
-        "title": "Verbündete Produktzyklen",
+        "title": "Verbundene Produktzyklen",
         "nodata": "Keine Produktzyklen gefunden.",
         "name": "Name",
         "productnumber": "Products in Schedule",
-        "add": "Verbündete Produktzyklen",
+        "add": "Verbundene Produktzyklen",
         "addtext": "Produktzyklus auswählen",
         "addbutton": "Produktzyklus Hinzufügen",
         "view": "Produktzyklus ansehen",
@@ -938,7 +938,7 @@
         "removetext": "Are you sure you want to Löschen?"
       },
       "tracking": {
-        "title": "Tracking Code",
+        "title": "Tracking-Code (Pixel)",
         "subtitle": "Copy this Code to your HTML page header",
         "copy": "Copy to clipboard"
       }
@@ -1008,11 +1008,11 @@
         "update": "AKTUALISIEREN"
       },
       "tracking": {
-        "title": "Verbündeter Trackers",
+        "title": "Verbundener Trackers",
         "name": "Name",
         "type": "Variante",
         "event": "Event",
-        "data": "Tracking Data",
+        "data": "Tracking-Daten",
         "nodata": "Keine Trackers gefunden.",
         "associate": "Tracker verbünden",
         "associatetext": "Tracker auswählen",
@@ -1038,7 +1038,7 @@
           "name": "Name",
           "type": "Variante",
           "event": "Vorfall",
-          "data": "Tracking Data"
+          "data": "Tracking-Daten"
         }
       },
       "tab": {
@@ -1050,17 +1050,17 @@
         "createtitle": "Create new Tracker",
         "title": "Tracker Details",
         "name": "Tracker Name",
-        "type": "Tracking Type",
+        "type": "Tracking-Art",
         "eventtype": "Vorgangsart",
         "eventtypeadd": "Neue Vorgangsart hinzufügen",
-        "data": "Tracking Data",
-        "link": "Tracking Link",
+        "data": "Tracking-Daten",
+        "link": "Tracking-Link",
         "save": "SPEICHERN",
         "cancel": "ABBRECHEN",
         "edit": "Tracker bearbeiten"
       },
       "affiliate": {
-        "title": "Verbündeter Vertriebspartner",
+        "title": "Verbundener Vertriebspartner",
         "name": "Name",
         "id": "Vertriebspartner ID",
         "created": "Geschafft am",
@@ -1074,7 +1074,7 @@
         "disassociatetext": "Sind Sie sicher, dass sie den Vertriebspartner lösen wollen?"
       },
       "campaign": {
-        "title": "Verbündete Kampagnen",
+        "title": "Verbundene Kampagnen",
         "name": "Name",
         "created": "Geschafft am",
         "updated": "Aktualisiert am",
@@ -1103,25 +1103,25 @@
         "affiliate": "VERTRIEBSPARTNER"
       },
       "customer": {
-        "title": "Customer Information",
+        "title": "Über den Kunden",
         "view": "Kunde Ansehen"
       },
       "rebill": {
-        "title": "Verbündete Neubelastung",
+        "title": "Verbundene Neubelastung",
         "billed": "Berechnungsdatum",
         "amount": "Betrag",
         "nodata": "Keine Neubelastung gefunden.",
         "view": "Neubelastung Ansehen"
       },
       "campaign": {
-        "title": "Verbündete Kampagnen",
+        "title": "Verbundene Kampagnen",
         "name": "Name",
         "created": "Geschafft am",
-        "nodata": "No Kampagnen found.",
+        "nodata": "Keine Kampagnen found.",
         "view": "Kampagne ansehen"
       },
       "affiliate": {
-        "title": "Verbündeter Vertriebspartner",
+        "title": "Verbundener Vertriebspartner",
         "name": "Name",
         "id": "Vertriebspartner ID",
         "created": "Geschafft am",
@@ -1167,7 +1167,7 @@
         "confirm": "REFUND"
       },
       "product": {
-        "title": "Verbündete Produkte",
+        "title": "Verbundene Produkte",
         "name": "Name",
         "sku": "Lagerhaltungsnummer",
         "amount": "Betrag",
@@ -1188,7 +1188,7 @@
       },
       "tab": {
         "general": "ALLGEMEINES",
-        "receipts": "SHIPPING RECEIPTS"
+        "receipts": "Posteinlieferungsscheine"
       },
       "info": { 
         "title": "Neubelastung Information",
@@ -1200,8 +1200,8 @@
         "sessionview": "Sitzung ansehen"
       },
       "shippingreceipt": {
-        "title": "Associated Shipping Receipts",
-        "nodata": "No Shipping Receipts found",
+        "title": "Posteinlieferungsscheine",
+        "nodata": "Keine Posteinlieferungsscheine gefunden",
         "status": "Status",
         "trackingnumber": "Sendungsnummer",
         "created": "Geschafft am",
@@ -1209,9 +1209,9 @@
       }
     },
     "shippingreceipt": {
-      "title": "Shipping Receipt",
+      "title": "Posteinlieferungsschein",
       "index": {
-        "title": "Shipping Receipts",
+        "title": "Posteinlieferungsscheine",
         "header": {
           "status": "Status",
           "number": "Sendungsnummer",
@@ -1223,14 +1223,14 @@
         "general": "ALLGEMEINES"
       },
       "info": {
-        "title": "Shipping Receipt Details",
+        "title": "Posteinlieferungsschein",
         "status": "Status",
         "number": "Sendungsnummer",
         "fulfillmentprovider": "Fulfillment Anbieter",
         "fulfillmentproviderview": "Fulfillment Anbieter"
       },
       "history": {
-        "title": "Shipping Receipt State Geschichte"
+        "title": "Geschichte der Posteinlieferungsschein"
       }
     },
     "fulfillment": {
@@ -1401,7 +1401,7 @@
         }
       },
       "loadbalancer": {
-        "title": "Verbündete Lastverteiler",
+        "title": "Verbundene Lastverteiler",
         "view": "Lastverteiler ansehen",
         "nodata": "Keine Lastverteiler gefunden.",
         "name": "Name"
@@ -1460,7 +1460,7 @@
       },
       "thankyou": {
         "title": "Schön! Wir haben Sie zu diesem Konto hinzugefügt.",
-        "switchtext": "Switching between this and your other SIX Konten is easy. Just click the account button in the upper right hand side of the SIX and select the account you wish to access.",
+        "switchtext": "Das Schalten zwischen Ihre andere SIX-Kontos ist ganz einfach. Clicken Sie die Taste oben rechts und wählen Sie Ihre gewünschte Konto.",
         "cont": "Weiter"
       }
     }
