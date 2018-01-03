@@ -446,7 +446,7 @@
         "id": "ID"
       },
       "category": "Kategorie",
-      "refined": "REFINED RESULTS",
+      "refined": "VERFEINERTE SUCHRESULTATE",
       "reset": "SUCHE ZURÜCKSTELLEN",
       "date": {
         "range": "Datumsbereich",
@@ -467,26 +467,26 @@
       "perfect": {
         "view": "Ansehen",
         "customer": {
-          "shipaddress": "Shipping Address",
+          "shipaddress": "Lieferadresse",
           "recenttransactions": "Jüngste Transaktionen"
         },
         "transaction": {
-          "title": "Transaction Info",
-          "product": "Products"
+          "title": "Transaktion Infos",
+          "product": "Produkte"
         },
         "product": {
-          "title": "Product Info"
+          "title": "Produkt Infos"
         },
         "campaign": {
-          "title": "Campaign Info",
+          "title": "Kampagne Infos",
           "schedules": "Produktzyklen"
         },
         "rebill": {
-          "title": "Neubelastung Info",
+          "title": "Neubelastung Infos",
           "transactions": "Transaktionen"
         },
         "schedule": {
-          "title": "Product Schedule Info",
+          "title": "Produktzyklus Infos",
           "schedules": "Schedules"
         }
       }
@@ -503,14 +503,14 @@
         }
       },
       "tab": {
-        "general": "GENERAL DETALS",
-        "users": "Nutzer",
+        "general": "ALLGEMEINES",
+        "users": "NUTZER",
         "keys": "ZUGRIFFSSCHLÜSSEL",
         "billing": "VERRECHNUNG"
       },
       "details": {
-        "title": "Account Details",
-        "edit": "Edit Account Details",
+        "title": "Kontodetails",
+        "edit": "Kontoedetails bearbeiten",
         "name": "Name",
         "activated": "Aktiviert",
         "cancel": "Abbrechen",
@@ -528,15 +528,15 @@
         "edit": "Nutzerrolle bearbeiten",
         "view": "Nutzer Ansehen",
         "remove": "Nutzer von diesem Konto lösen",
-        "removemessage": "Sind Sie absolut sicher, dass Sie diesen Nutzer von dem Konto lösen wollen?"
+        "removemessage": "Sind Sie sicher, dass Sie diesen Nutzer von dem Konto lösen wollen?"
       },
       "keys": {
         "title": "Zugriffsschlüssel",
         "header": {
           "name": "Name",
           "access": "Zugriffsschlüssel",
-          "secret": "Secret Key",
-          "created": "Created",
+          "secret": "Geheimschlüssel",
+          "created": "Geschafft am",
           "notes": "Notizen"
         },
         "add": "Zugriffsschlüssel hinzufügen",
@@ -566,8 +566,8 @@
         },
         "pay": "SOFORT BEZAHLEN",
         "summary": {
-          "title": "Aktualle Anzahl von Transaktionen",
-          "description": "View Current Transaction count and amount. Pay and view invoices. View Transaktionen over time and predict the future."
+          "title": "Aktuelle Anzahl der Transaktionen",
+          "description": "Sehen Sie die Aktuelle Anzahl der Transaktionen an. Alle Aktuelle und überfällige Rechnungen ansehen und bezahlen."
         }
       }
     },
@@ -622,7 +622,7 @@
         }
       },
       "tab": {
-        "general": "GENERAL DETAILS",
+        "general": "ALLGEMEINES",
         "transaction": "TRANSAKTIONEN",
         "session": "SITZUNGEN",
         "fulfillment": "FULFILLMENT"
@@ -662,7 +662,7 @@
         "price": "Preis"
       },
       "events": {
-        "title": "Customer Events",
+        "title": "Kundenereignisse",
         "subtitle": "Sitzungen, Transaktionen und Leads",
         "nodata": "Keine Einzelheiten gefunden.",
         "today": "Heute",
