@@ -148,7 +148,7 @@
       "productschedule": "Productzyklus",
       "merchantprovider": "Merchant Anbieter",
       "transactiontype": "Transaction Type",
-      "processorresponse": "Processor Antwortmeldung",
+      "processorresponse": "Antwortmeldung des Zahlungsprozessors",
       "new": "Neu",
       "rebill": "Neubelastung",
       "success": "Erfolg",
@@ -208,7 +208,7 @@
       },
       "details": {
         "title": "Profil",
-        "subtitle": "Allgemeine",
+        "subtitle": "Allgemeines",
         "firstname": "Vorname",
         "lastname": "Nachname",
         "workphone": "Telefonnummer bei der Arbeit",
@@ -367,7 +367,7 @@
       "merchantprovider": "Merchant Anbieter",
       "affiliate": "Vertriebspartner",
       "amount": "Betrag",
-      "processorresult": "Processor Result",
+      "processorresult": "Zahlungsprozessor Result",
       "transactiontype": "Transaktionstyp"
     },
     "merchantreport": {
@@ -430,7 +430,7 @@
         "created": "Geschafft am",
         "sku": "Lagerhaltungsnummer",
         "name": "Name",
-        "response": "Processor Antwortmeldung",
+        "response": "Antwortmeldung des Zahlungsprozessors",
         "status": "Receipt Status",
         "merchantprovider": "Merchant Anbieter",
         "fulfillmentprovider": "Fulfillment Provider",
@@ -676,7 +676,7 @@
         "subtitle": "Erledigte SIX Transaktionen",
         "nodata": "Keine Transaktionen gefunden.",
         "alias": "Alias",
-        "response": "Processor Antwortmeldung",
+        "response": "Antwortmeldung des Zahlungsprozessors",
         "productnum": "Anzahl der Produkte",
         "amount": "Betrag",
         "view": "Transaktion ansehen"
@@ -766,7 +766,7 @@
         }
       },
       "tab": {
-        "general": "ALLGEMEINE",
+        "general": "ALLGEMEINES",
         "schedule": "PRODUKTZYKLEN",
         "campaign": "Kampagnen"
       },
@@ -815,7 +815,7 @@
         }
       },
       "tab": {
-        "general": "ALLGEMEINE",
+        "general": "ALLGEMEINES",
         "campaign": "Kampagnen"
       },
       "info": {
@@ -873,7 +873,7 @@
         }
       },
       "tab": {
-        "general": "ALLGEMEINE",
+        "general": "ALLGEMEINES",
         "productschedules": "PRODUKTZYKLEN",
         "affiliates": "VERTRIEBSPARTNER",
         "trackingcode": "TRACKING CODE"
@@ -1099,7 +1099,7 @@
         }
       },
       "tab": {
-        "general": "ALLGEMEINE",
+        "general": "ALLGEMEINES",
         "affiliate": "VERTRIEBSPARTNER"
       },
       "customer": {
@@ -1137,7 +1137,7 @@
           "alias": "Alias",
           "amount": "Betrag",
           "created": "Geschafft am",
-          "response": "Processor Antwortmeldung"
+          "response": "Antwortmeldung des Zahlungsprozessors"
         }
       },
       "tab": {
@@ -1153,9 +1153,9 @@
         "merchantprovider": "Merchant Anbieter"
       },
       "processor": {
-        "title": "Processor Antwortmeldung",
+        "title": "Antwortmeldung des Zahlungsprozessors",
         "code": "Auth Code",
-        "message": "Processor Message",
+        "message": "Nachricht von dem Zahlungsprozessor",
         "text": "Processor Text"
       },
       "refund": {
@@ -1181,18 +1181,18 @@
         "title": "Neubelastung",
         "header": {
           "id": "ID",
-          "bill": "Bill at",
+          "bill": "Berechnen am",
           "created": "Geschafft am",
           "amount": "Betrag"
         }
       },
       "tab": {
-        "general": "GENERAL DETAILS",
+        "general": "ALLGEMEINES",
         "receipts": "SHIPPING RECEIPTS"
       },
-      "info": {
+      "info": { 
         "title": "Neubelastung Information",
-        "billed": "Billed at date",
+        "billed": "Berechnungsdatum",
         "amount": "Betrag",
         "parentsession": "Muttersitzung",
         "customer": "Kunde",
@@ -1220,7 +1220,7 @@
         }
       },
       "tab": {
-        "general": "GENERAL DETAILS"
+        "general": "ALLGEMEINES"
       },
       "info": {
         "title": "Shipping Receipt Details",
@@ -1245,13 +1245,13 @@
         }
       },
       "tab": {
-        "general": "GENERAL DETAILS",
+        "general": "ALLGEIMEINES",
         "validate": "BESTÄTIGEN"
       },
       "info": {
-        "title": "Fulfillment Details",
-        "createtitle": "Create new Fulfillment Provider",
-        "edit": "Edit Fulfillment Provider Details",
+        "title": "Fulfillment Einzelheiten",
+        "createtitle": "Neue Fulfillment Anbieter hinzufügen",
+        "edit": "Fulfillment Anbieter bearbeiten",
         "provider": "Anbieter",
         "name": "Name",
         "username": "Benutzername",
@@ -1264,10 +1264,10 @@
         "save": "SPEICHERN"
       },
       "validate": {
-        "title": "Validate Fulfillment Provider",
-        "text": "Check if Fulfillment Provider is enabled and provided credentials/parameters are valid",
-        "response": "Validation Antwortmeldung",
-        "validate": "BESTÄTIGEN"
+        "title": "Fulfillment Provider bestätigen",
+        "text": "Bestätigen Sie ob die Zugangsdaten des Fulfillment Anbieters gultig sind.",
+        "response": "Antwortmeldung",
+        "validate": "BESTÄTIGEN"  
       }
     },
     "smtp": {
@@ -1277,13 +1277,13 @@
         "header": {
           "name": "Name",
           "fromname": "Name des Absenders",
-          "fromemail": "Email des Absenders",
+          "fromemail": "Email Adresse des Absenders",
           "hostname": "Hostname",
           "username": "Benutzername"
         }
       },
       "tab": {
-        "general": "GENERAL DETAILS",
+        "general": "ALLGEMEINES",
         "emailtemplate": "MAILVORLAGEN",
         "validate": "BESTÄTIGEN"
       },
@@ -1293,7 +1293,7 @@
         "edit": "Edit SMTP Provider Details",
         "name": "Name",
         "fromname": "Name des Absenders",
-        "fromemail": "Email des Absenders",
+        "fromemail": "Email Addresse des Absenders",
         "host": "Host",
         "username": "Benutzername",
         "password": "Passwort",
@@ -1305,7 +1305,7 @@
         "title": "SMTP Anbieter bestätigen",
         "text": "Bitte geben Sie ihre Email Addresse unten links ein und lassen Sie SIX einen Probe-email an sich schicken.",
         "textsecond": "Ergibnisse werden unten rechts dargestellt.",
-        "email": "Receiver email address",
+        "email": "Email addresse des Empfängers",
         "emailtip": "Bitte geben sie eine gültige Emailaddresse ein",
         "response": "Antwortmeldung",
         "validate": "SMTP ANBIETER BESTÄTIGEN"
@@ -1321,7 +1321,7 @@
         }
       },
       "tab": {
-        "general": "GENERAL DETAILS"
+        "general": "ALLGEMEINES"
       },
       "info": {
         "createtitle": "Neue Lastverteiler (Load Balancer)",
@@ -1351,12 +1351,12 @@
         "title": "Merchant Anbieter",
         "header": {
           "name": "Name",
-          "processor": "Processor Name",
-          "type": "Processor Type"
+          "processor": "Name des Zahlungsprozessors",
+          "type": "Zahlungsprozessorvariante"
         }
       },
       "tab": {
-        "general": "GENERAL DETAILS",
+        "general": "ALLGEIMEINES",
         "processing": "PROCESSING",
         "loadbalancer": "LOAD BALANCING"
       },
@@ -1374,20 +1374,20 @@
         },
         "processing": {
           "title": "Processing",
-          "monthlycapd": "Monthly Cap ($)",
-          "monthlycapc": "Monthly Cap (count)",
-          "weeklycap": "Weekly Cap (count)",
-          "dailycap": "Daily Cap (count)",
-          "transactionfee": "Transaction Fee ($)",
-          "discountrate": "Discount Rate (%)",
-          "chargeback": "Max chargeback ratio (%)",
-          "reserve": "Reserve rate (%)"
+          "monthlycapd": "Monatliche Obergrenze ($)",
+          "monthlycapc": "Monatliche Obergrenze (Anzahl)",
+          "weeklycap": "Wöchentliche Obergrenze (Anzahl)",
+          "dailycap": "Tägliche Obergrenze (Anzahl)",
+          "transactionfee": "Gebühr ($)",
+          "discountrate": "Discontsatz (%)",
+          "chargeback": "Maximale Rückbelastungsrate (%)",
+          "reserve": "Rücklagerate (Reserve Rate) (%)"
         },
         "gateway": {
-          "title": "Gateway information",
+          "title": "Gateway",
           "name": "Name",
           "type": "Variante",
-          "processorid": "Processor ID",
+          "processorid": "Zahlungsprozessor-ID",
           "productid": "Produkt-ID",
           "username": "Benutzername",
           "password": "Passwort"
@@ -1401,7 +1401,7 @@
         }
       },
       "loadbalancer": {
-        "title": "Associated Lastverteiler",
+        "title": "Verbündete Lastverteiler",
         "view": "Lastverteiler ansehen",
         "nodata": "Keine Lastverteiler gefunden.",
         "name": "Name"
@@ -1435,17 +1435,17 @@
         "cont": "Weiter"
       },
       "thankyou": {
-        "title": "Your account is now active and you may begin exploring at your leisure.",
-        "subtitle": "HOWEVER, we still need some accounting details to complete your registration. Remember, you won't be able to take Transaktionen until your account registration is complete. Click complete to go to your billing profile.",
+        "title": "Ihre konto is jetzt aktiv!",
+        "subtitle": "TROTZDEM, brauchen wir noch Ihre Verrechnungsdetails bevor Sie mit Transaktionen in SIX anfangen können. Unter 'Konten' auf die Seitenliste, finden Sie das Tab namens 'Verrechnung.'",
         "text": "Ihre 90-Tägige Testzeit fängt jetzt schon an!",
         "complete": "Fertig"
       }
     },
     "acceptinvite": {
-      "badlogin": "To accept this invite, you must be registered and logged in as",
+      "badlogin": "Um diese Einladung akkzeptieren zu können, müssen sie registriert und eingeloggt mit dem Konto",
       "login": "Einloggen",
       "text1": "Würden sie gerne ihre Einladung akkzeptieren?",
-      "text2": "invite to account",
+      "text2": "Auf Konto einladen",
       "text3": "mit Nutzerrolle",
       "explanation": "Drucken Sie die \"Accept\" Taste",
       "accept": "Akkzeptieren",
@@ -1459,7 +1459,7 @@
         "cont": "Weiter"
       },
       "thankyou": {
-        "title": "Great! We've added you to the account.",
+        "title": "Schön! Wir haben Sie zu diesem Konto hinzugefügt.",
         "switchtext": "Switching between this and your other SIX Konten is easy. Just click the account button in the upper right hand side of the SIX and select the account you wish to access.",
         "cont": "Weiter"
       }
