@@ -900,7 +900,7 @@
         "addbutton": "HINZUFÜGEN",
         "view": "Mailvorlage ansehen",
         "remove": "Mailvorlage lösen",
-        "removetext": "Sind Sie sicher, dass Sie dieser Mailvorlage löschen wollen?"
+        "removetext": "Sind Sie sicher, dass Sie dieser Mailvorlage lösen wollen?"
       },
       "productschedule": {
         "title": "Verbündete Produktzyklen",
@@ -912,7 +912,7 @@
         "addbutton": "Produktzyklus Hinzufügen",
         "view": "Produktzyklus ansehen",
         "remove": "Produktzyklus lösen",
-        "removetext": "Sind Sie sicher, dass Sie diesen Produktzyklus löschen wollen?"
+        "removetext": "Sind Sie sicher, dass Sie diesen Produktzyklus lösen wollen?"
       },
       "affiliate": {
         "name": "Name"
@@ -1267,7 +1267,7 @@
         "title": "Validate Fulfillment Provider",
         "text": "Check if Fulfillment Provider is enabled and provided credentials/parameters are valid",
         "response": "Validation Response",
-        "validate": "VALIDATE"
+        "validate": "BESTÄTIGEN"
       }
     },
     "smtp": {
@@ -1285,7 +1285,7 @@
       "tab": {
         "general": "GENERAL DETAILS",
         "emailtemplate": "MAILVORLAGEN",
-        "validate": "VALIDATE"
+        "validate": "BESTÄTIGEN"
       },
       "info": {
         "title": "SMTP Details",
@@ -1317,7 +1317,7 @@
         "title": "Lastverteilunger",
         "header": {
           "name": "Name",
-          "merchantnum": "Number of Merchant Anbieter"
+          "merchantnum": "Anzahl der Merchant Anbieter"
         }
       },
       "tab": {
@@ -1333,15 +1333,15 @@
       },
       "merchant": {
         "addtitle": "Merchant Anbieter hinzufugen",
-        "distribution": "Distribution",
+        "distribution": "Verteilung",
         "merchant": "Merchant Anbieter",
-        "add": "ADD",
+        "add": "HINZUFÜGEN",
         "clear": "KLÄREN",
         "title": "Associated Merchant Anbieter",
         "view": "Merchant Anbieter ansehen",
-        "edit": "Update Distribution",
-        "disassociate": "Disassociate Merchant Anbieter",
-        "disassociatetext": "Are you sure you want to Löschen?",
+        "edit": "Verteilung aktualisieren",
+        "disassociate": "Merchant Anbieter lösen",
+        "disassociatetext": "Sind Sie sicher, dass Sie diesen Merchant Anbieter vom Lastverteiler lösen wollen?",
         "nodata": "Keine Merchant Anbieter Gefunden."
       }
     },
@@ -1388,7 +1388,7 @@
           "name": "Name",
           "type": "Variante",
           "processorid": "Processor ID",
-          "productid": "Product ID",
+          "productid": "Produkt-ID",
           "username": "Benutzername",
           "password": "Passwort"
         },
@@ -1397,7 +1397,7 @@
           "uri": "URI",
           "email": "Email",
           "phone": "Telefon",
-          "description": "Description"
+          "description": "Beschreibung"
         }
       },
       "loadbalancer": {
@@ -1409,15 +1409,15 @@
     },
     "deletedialog": {
       "text": "Are you sure you want to Löschen?",
-      "del": "Löschen",
+      "del": "LÖSEN",
       "cancel": "ABBRECHEN"
     },
     "inviteuser": {
-      "title": "Invite new User",
-      "email": "User Email",
-      "role": "Role",
+      "title": "Neue Nutzer auf SIX einladen",
+      "email": "Email Addresse",
+      "role": "Nutzerrolle",
       "cancel": "ABBRECHEN",
-      "invite": "INVITE"
+      "invite": "EINLADEN"
     },
     "terms": {
       "title": "Bitte unsere Bedingungen und Konditionen akkzeptieren damit Sie mit SIX anfangen können.",
@@ -1427,8 +1427,8 @@
     "register": {
       "form": {
         "title": "Herzlich Wilkommen!",
-        "subtitle": "We're excited to have you join us",
-        "text": "To get started with your 90 day trial simply enter your company name and verify your information.",
+        "subtitle": "Wir freuen uns, dass Sie dabei sind!",
+        "text": "Um Ihren 90-Tägigen Testzeit anzufangen, bitte geben sie Ihren Fimrmenname, Vorname und Nachname ein.",
         "company": "Company Name",
         "firstname": "Vorname",
         "lastname": "Nachname",
@@ -1437,23 +1437,23 @@
       "thankyou": {
         "title": "Your account is now active and you may begin exploring at your leisure.",
         "subtitle": "HOWEVER, we still need some accounting details to complete your registration. Remember, you won't be able to take Transaktionen until your account registration is complete. Click complete to go to your billing profile.",
-        "text": "You're complimentary 90 days begins now!",
-        "complete": "Complete"
+        "text": "Ihre 90-Tägige Testzeit fängt jetzt schon an!",
+        "complete": "Fertig"
       }
     },
     "acceptinvite": {
       "badlogin": "To accept this invite, you must be registered and logged in as",
       "login": "Einloggen",
-      "text1": "Would you like to accept",
+      "text1": "Würden sie gerne ihre Einladung akkzeptieren?",
       "text2": "invite to account",
-      "text3": "with role",
-      "explanation": "Press \"Accept\" below to continue",
-      "accept": "Accept",
+      "text3": "mit Nutzerrolle",
+      "explanation": "Drucken Sie die \"Accept\" Taste",
+      "accept": "Akkzeptieren",
       "logout": "Abmelden",
       "form": {
         "title": "Herzlich Wilkommen!",
-        "subtitle": "We're excited to have you join us",
-        "text": "To accept your invite to Six CRM Please fill out the following information and you are all setup",
+        "subtitle": "Wir freuen uns, dass Sie dabei sind!",
+        "text": "Um Ihren einaldung zu akkzeptieren, bitte geben sie Ihren Vorname und Nachname ein",
         "firstname": "Vorname",
         "lastname": "Nachname",
         "cont": "Weiter"
