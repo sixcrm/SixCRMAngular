@@ -148,7 +148,7 @@
       "productschedule": "Productzyklus",
       "merchantprovider": "Merchant Anbieter",
       "transactiontype": "Transaction Type",
-      "processorresponse": "Processor Response",
+      "processorresponse": "Processor Antwortmeldung",
       "new": "Neu",
       "rebill": "Neubelastung",
       "success": "Erfolg",
@@ -430,7 +430,7 @@
         "created": "Geschafft am",
         "sku": "Lagerhaltungsnummer",
         "name": "Name",
-        "response": "Processor Response",
+        "response": "Processor Antwortmeldung",
         "status": "Receipt Status",
         "merchantprovider": "Merchant Anbieter",
         "fulfillmentprovider": "Fulfillment Provider",
@@ -676,7 +676,7 @@
         "subtitle": "Erledigte SIX Transaktionen",
         "nodata": "Keine Transaktionen gefunden.",
         "alias": "Alias",
-        "response": "Processor Response",
+        "response": "Processor Antwortmeldung",
         "productnum": "Anzahl der Produkte",
         "amount": "Betrag",
         "view": "Transaktion ansehen"
@@ -1008,7 +1008,7 @@
         "update": "AKTUALISIEREN"
       },
       "tracking": {
-        "title": "Associated Trackers",
+        "title": "Verbündeter Trackers",
         "name": "Name",
         "type": "Variante",
         "event": "Event",
@@ -1114,18 +1114,18 @@
         "view": "Neubelastung Ansehen"
       },
       "campaign": {
-        "title": "Associated Kampagnen",
+        "title": "Verbündete Kampagnen",
         "name": "Name",
         "created": "Geschafft am",
         "nodata": "No Kampagnen found.",
         "view": "Kampagne ansehen"
       },
       "affiliate": {
-        "title": "Associated Vertriebspartner",
+        "title": "Verbündeter Vertriebspartner",
         "name": "Name",
         "id": "Vertriebspartner ID",
         "created": "Geschafft am",
-        "nodata": "NoKeine Vertriebspartner gefunden.",
+        "nodata": "Keine Vertriebspartner gefunden.",
         "view": "Vertriebspartner ansehen"
       }
     },
@@ -1137,7 +1137,7 @@
           "alias": "Alias",
           "amount": "Betrag",
           "created": "Geschafft am",
-          "response": "Processor Response"
+          "response": "Processor Antwortmeldung"
         }
       },
       "tab": {
@@ -1153,7 +1153,7 @@
         "merchantprovider": "Merchant Anbieter"
       },
       "processor": {
-        "title": "Processor Response",
+        "title": "Processor Antwortmeldung",
         "code": "Auth Code",
         "message": "Processor Message",
         "text": "Processor Text"
@@ -1167,12 +1167,12 @@
         "confirm": "REFUND"
       },
       "product": {
-        "title": "Associated Products",
+        "title": "Verbündete Produkte",
         "name": "Name",
         "sku": "Lagerhaltungsnummer",
         "amount": "Betrag",
-        "view": "View Product",
-        "nodata": "No Products found."
+        "view": "Produkt ansehen",
+        "nodata": "Keine Produkte gefunden."
       }
     },
     "rebill": {
@@ -1266,7 +1266,7 @@
       "validate": {
         "title": "Validate Fulfillment Provider",
         "text": "Check if Fulfillment Provider is enabled and provided credentials/parameters are valid",
-        "response": "Validation Response",
+        "response": "Validation Antwortmeldung",
         "validate": "BESTÄTIGEN"
       }
     },
@@ -1307,7 +1307,7 @@
         "textsecond": "Ergibnisse werden unten rechts dargestellt.",
         "email": "Receiver email address",
         "emailtip": "Bitte geben sie eine gültige Emailaddresse ein",
-        "response": "Ergebniss",
+        "response": "Antwortmeldung",
         "validate": "SMTP ANBIETER BESTÄTIGEN"
       }
     },
