@@ -35,7 +35,7 @@
         "emailtemplate": "Mailvorlagen",
         "affiliate": "Vertriebspartner",
         "tracker": "Trackers",
-        "session": "Sessions",
+        "session": "Sitzungen",
         "transaction": "Transaktionen",
         "rebill": "Neubelastung",
         "shippingreceipt": "Shipping Receipts",
@@ -108,10 +108,10 @@
       }
     },
     "notifications": {
-      "title": "Anzeigen & Alarme",
+      "title": "Anzeigen & Alarmsignale",
       "tab": {
         "notifications": "ANZEIGEN",
-        "alerts": "ALARME"
+        "alerts": "ALARMSIGNALE"
       },
       "today": "Heute",
       "yesterday": "Gestern",
@@ -133,19 +133,19 @@
       "to": "An",
       "filters": "Filter",
       "groupby": "Anordnen",
-      "show": "Show Advanced Search",
-      "hide": "Hide Advanced Search",
+      "show": "Weitere Suchoptionen darstellen",
+      "hide": "Weiter Suchoptionen verbergen",
       "apply": "ANWENDEN",
       "reset": "ZURÜCKSTELLEN",
       "close": "SCHLIEßEN",
       "campaign": "Kampagne",
       "affiliate": "Vertriebspartner",
-      "subid1": "Sub ID 1",
-      "subid2": "Sub ID 2",
-      "subid3": "Sub ID 3",
-      "subid4": "Sub ID 4",
-      "subid5": "Sub ID 5",
-      "productschedule": "Product Schedule",
+      "subid1": "Untervertriebspartner 1",
+      "subid2": "Untervertriebspartner 2",
+      "subid3": "Untervertriebspartner 3",
+      "subid4": "Untervertriebspartner 4",
+      "subid5": "Untervertriebspartner 5",
+      "productschedule": "Productzyklus",
       "merchantprovider": "Merchant Anbieter",
       "transactiontype": "Transaction Type",
       "processorresponse": "Processor Response",
@@ -153,7 +153,7 @@
       "rebill": "Neubelastung",
       "success": "Erfolg",
       "decline": "Decline",
-      "error": "Error"
+      "error": "Fehler"
     },
     "forminputs": {
       "fullname": "Name",
@@ -181,8 +181,8 @@
       "filter": "Filter",
       "del": "Löschen",
       "view": "Ansehen",
-      "exp": "Export",
-      "edit": "Edit",
+      "exp": "Exportieren",
+      "edit": "Bearbeiten",
       "copy": "Copy"
     },
     "singlepage": {
@@ -220,20 +220,20 @@
       },
       "notifications": {
         "title": "Notification toggle",
-        "subtitle": "toggle on/of when to receive notifications",
-        "testalert": "Send test alert",
-        "testnotification": "Send test notification",
+        "subtitle": "Wählen Sie unten welche von den folgenden Vorfälle einen Anzeige auslösen sollen",
+        "testalert": "Ein Test-Alarmsignale auslösen",
+        "testnotification": "Eine Testanzeige auslösen",
         "devices": {
-          "title": "Devices",
-          "subtitle": "setup devices for notifications",
+          "title": "Geräte",
+          "subtitle": "Ihre Geräte für SIX-Anzeigen konfigurieren",
           "sms": "SMS",
           "email": "Email",
           "skype": "Skype",
           "slack": "Slack Web Hook"
         },
         "settings": {
-          "title": "Notification settings",
-          "subtitle": "Select what notifications you want to receive"
+          "title": "Einstellungen für Anzeige",
+          "subtitle": "Wählen Sie aus welche Anzeige Sie empfangen wollen"
         }
       },
       "accounts": {
@@ -512,7 +512,7 @@
         "title": "Account Details",
         "edit": "Edit Account Details",
         "name": "Name",
-        "activated": "Activated",
+        "activated": "Aktiviert",
         "cancel": "Abbrechen",
         "save": "Speichern"
       },
@@ -583,16 +583,16 @@
         }
       },
       "tab": {
-        "general": "GENERAL DETALS"
+        "general": "Überblick"
       },
       "details": {
-        "title": "User Details",
-        "createtitle": "Create new User",
-        "account": "Account",
-        "newaccount": "New Account",
-        "edit": "Edit User Details",
-        "activated": "Activated",
-        "role": "Role",
+        "title": "Nutzerdetails",
+        "createtitle": "Neue Nutzer hinzufügen",
+        "account": "Konto",
+        "newaccount": "Neue Konto",
+        "edit": "Nutzerdetails bearbeiten",
+        "activated": "Activiert",
+        "role": "Rolle",
         "name": "Name",
         "email": "Email",
         "cancel": "ABBRECHEN",
@@ -600,14 +600,14 @@
       },
       "account": {
         "title": "Zugehörige Konten",
-        "add": "Add Account to User",
-        "account": "Account",
-        "role": "Role",
+        "add": "Neuer Nutzer zu diesem Konto hinzufügen",
+        "account": "Konto",
+        "role": "Rolle",
         "status": "Status",
-        "edit": "Edit Role",
-        "view": "View Account",
-        "remove": "Remove Account from the User",
-        "removetext": "Are you sure you want to remove this Account from the User?"
+        "edit": "Rolle bearbeiten",
+        "view": "Konto ansehen",
+        "remove": "Nutzer von diesem Konto lösen",
+        "removetext": "Sind Sie sicher, dass Sie diesen Nutzer von diesem Konto lösen wollen?"
       }
     },
     "customer": {
@@ -623,16 +623,16 @@
       },
       "tab": {
         "general": "GENERAL DETAILS",
-        "transaction": "Transaktionen",
-        "session": "SESSIONS",
+        "transaction": "TRANSAKTIONEN",
+        "session": "SITZUNGEN",
         "fulfillment": "FULFILLMENT"
       },
       "info": {
         "createtitle": "Neue Kunde",
-        "shiptitle": "Shipping Information",
-        "shipsubtitle": "Address where fulfillment will ship packages",
+        "shiptitle": "Lieferaddresse",
+        "shipsubtitle": "Lieferaddresse des Kunden ",
         "edit": "KUNDE BEARBEITEN",
-        "shipedit": "Edit Shipping Address",
+        "shipedit": "LIEFERADDRESSE BEARBEITEN",
         "cancel": "ABBRECHEN",
         "save": "SPEICHERN",
         "update": "AKTUALISIEREN"
@@ -645,16 +645,16 @@
         "nodata": "Keine Notizen gefunden."
       },
       "rebill": {
-        "title": "Upcoming Neubelastung",
-        "subtitle": "Future Neubelastung and Upcoming Transaktionen",
-        "billed": "Bill at",
+        "title": "Kommende Neubelastungen",
+        "subtitle": "Zukünftige Neubelastungen und Transaktionen",
+        "billed": "Wird abgerechnet am",
         "amount": "Betrag",
-        "cancel": "Transaction abbrechen",
-        "edit": "Transaction bearbeiten",
-        "nodata": "No Upcoming Transaktionen found."
+        "cancel": "Transaktionen abbrechen",
+        "edit": "Transaktion bearbeiten",
+        "nodata": "Keine kommende Transaktionen gefunden."
       },
       "rebilledit": {
-        "title": "Edit Transaction",
+        "title": "Transaktion bearbeiten",
         "subtitle": "modify an upcoming transaction",
         "date": "Transaction Date",
         "cancel": "ABBRECHEN",
@@ -663,7 +663,7 @@
       },
       "events": {
         "title": "Customer Events",
-        "subtitle": "Sessions, Transaktionen and Leads",
+        "subtitle": "Sitzungen, Transaktionen and Leads",
         "nodata": "No Events found.",
         "today": "Heute",
         "days7": "Last 7 days",
@@ -672,19 +672,19 @@
         "other": "Other"
       },
       "transaction": {
-        "title": "Historical Transaktionen",
-        "subtitle": "Completed Transaktionen",
-        "nodata": "No Transaktionen Found.",
+        "title": "Ehmalige Transaktionen",
+        "subtitle": "Erledigte SIX Transaktionen",
+        "nodata": "Keine Transaktionen gefunden.",
         "alias": "Alias",
         "response": "Processor Response",
-        "productnum": "Number of Products",
+        "productnum": "Anzahl der Produkte",
         "amount": "Betrag",
-        "view": "View Transaction"
+        "view": "Transaktion ansehen"
       },
       "session": {
-        "title": "Sessions",
-        "view": "View Session",
-        "nodata": "No Sessions found.",
+        "title": "Sitzungen",
+        "view": "Sitzung ansehen",
+        "nodata": "Keine Sitzungen gefunden.",
         "name": "Name",
         "campaign": "Kampagne",
         "productschedulenum": "Anzahl von Produktzyklen",
@@ -995,7 +995,7 @@
       },
       "tab": {
         "tracking": "TRACKING",
-        "session": "SESSIONS",
+        "session": "SITZUNGEN",
         "campaign": "Kampagnen"
       },
       "info": {
@@ -1021,13 +1021,13 @@
         "disassociatetext": "Are you sure you want to Löschen?"
       },
       "session": {
-        "title": "Associated Sessions",
+        "title": "Zugehörige Sitzungen",
         "customer": "Kunde",
         "campaign": "Kampagne",
         "rebilltotal": "Total Neubelastung",
         "scheduledtotal": "Total Scheduled",
-        "nodata": "No Sessions found.",
-        "view": "View Session"
+        "nodata": "Keine Sitzungen gefunden.",
+        "view": "Sitzung ansehen"
       }
     },
     "tracker": {
@@ -1088,9 +1088,9 @@
       }
     },
     "session": {
-      "title": "Session",
+      "title": "Sitzung",
       "index": {
-        "title": "Sessions",
+        "title": "Sitzungen",
         "header": {
           "campaign": "Name der Kampagne",
           "customer": "Name des Kunden",
@@ -1194,10 +1194,10 @@
         "title": "Neubelastung Information",
         "billed": "Billed at date",
         "amount": "Betrag",
-        "parentsession": "Muttersession",
+        "parentsession": "Muttersitzung",
         "customer": "Kunde",
-        "customerview": "View Customer",
-        "sessionview": "View Session"
+        "customerview": "Kunde ansehen",
+        "sessionview": "Sitzung ansehen"
       },
       "shippingreceipt": {
         "title": "Associated Shipping Receipts",
@@ -1276,8 +1276,8 @@
         "title": "SMTP Anbieter",
         "header": {
           "name": "Name",
-          "fromname": "From Name",
-          "fromemail": "From Email",
+          "fromname": "Name des Absenders",
+          "fromemail": "Email des Absenders",
           "hostname": "Hostname",
           "username": "Benutzername"
         }
@@ -1292,8 +1292,8 @@
         "createtitle": "Neue SMTP Anbieter zufügen",
         "edit": "Edit SMTP Provider Details",
         "name": "Name",
-        "fromname": "From Name",
-        "fromemail": "From Email",
+        "fromname": "Name des Absenders",
+        "fromemail": "Email des Absenders",
         "host": "Host",
         "username": "Benutzername",
         "password": "Passwort",
@@ -1303,12 +1303,12 @@
       },
       "validate": {
         "title": "SMTP Anbieter bestätigen",
-        "text": "Please provide an email address below and SIX will try to send you a test email using provided SMTP Provider. Email will be sent from ",
-        "textsecond": "Results will be displayed in right column.",
+        "text": "Bitte geben Sie ihre Email Addresse unten links ein und lassen Sie SIX einen Probe-email an sich schicken.",
+        "textsecond": "Ergibnisse werden unten rechts dargestellt.",
         "email": "Receiver email address",
-        "emailtip": "Please enter a valid email address",
-        "response": "Validation Response",
-        "validate": "VALIDATE"
+        "emailtip": "Bitte geben sie eine gültige Emailaddresse ein",
+        "response": "Ergebniss",
+        "validate": "SMTP ANBIETER BESTÄTIGEN"
       }
     },
     "loadbalancer": {
