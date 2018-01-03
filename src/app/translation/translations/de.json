@@ -548,7 +548,7 @@
         "update": "AKTUALISIEREN"
       },
       "billing": {
-        "currenttitle": "Current Invoices",
+        "currenttitle": "Aktuelle Rechnungen",
         "currentsubtitle": "Fällige Rechnungen",
         "pasttitle": "Ehmalige Rechnungen",
         "pastsubtitle": "Bezahlte Rechnungen",
@@ -558,11 +558,11 @@
         "noresults": "Keine Rechnungen gefunden.",
         "header": {
           "issue": "Ausstellungsdatum",
-          "start": "Period Start",
-          "end": "Period Ending",
+          "start": "Anfangsdatum",
+          "end": "Fristende",
           "balance": "Saldo",
           "status": "Status",
-          "due": "Due Date"
+          "due": "Zahlungstermin"
         },
         "pay": "SOFORT BEZAHLEN",
         "summary": {
@@ -714,8 +714,8 @@
       "index": {
         "title": "Rechnungen",
         "header": {
-          "start": "Period Start",
-          "end": "Period End",
+          "start": "Anfangsdatum",
+          "end": "Fristende",
           "overdue": "Überfällig",
           "balance": "Saldo"
         }
@@ -726,24 +726,24 @@
       "details": {
         "title": "Invoice Summary",
         "subtitle": "Billing Information",
-        "start": "Period Start",
+        "start": "Anfangsdatum",
         "end": "Period End",
-        "due": "Due Date",
+        "due": "Zahlungstermin",
         "edit": "Abrechnung bearbeiten",
         "back": "ZURÜCK ZU DEN ABRECHNUNGEN",
         "table": {
           "title": "Details zur Abrechnung",
           "subtitle": "Itemized Breakdown of Charges",
           "description": "Description",
-          "created": "Created",
+          "created": "Geschafft am",
           "amount": "Betrag",
           "total": "Gesamtsumme"
         },
         "pay": "SOFORT BEZAHLEN",
         "detailedit": "Bearbeiten",
         "detailremove": "Ablösen",
-        "account": "Account",
-        "createtitle": "Create new Bill",
+        "account": "Konto",
+        "createtitle": "Neue Rechnung",
         "cancel": "ABBRECHEN",
         "save": "SPEICHERN",
         "additem": {
@@ -752,7 +752,7 @@
           "cancel": "Abbrechen"
         }
       },
-      "title": "Bill"
+      "title": "Rechnung"
     },
     "product": {
       "title": "Produkt",
@@ -766,8 +766,8 @@
         }
       },
       "tab": {
-        "general": "GENERAL DETAILS",
-        "schedule": "SCHEDULES",
+        "general": "ALLGEMEINE",
+        "schedule": "PRODUKTZYKLEN",
         "campaign": "Kampagnen"
       },
       "info": {
@@ -788,7 +788,7 @@
       "schedules": {
         "title": "Produktzyklen",
         "name": "Name",
-        "count": "Number of Schedules",
+        "count": "Anzahl von Zyklen",
         "add": "Neue Produktzyklus hinzufügen",
         "view": "Produktzyklus ansehen",
         "remove": "Produktzyklus lösen",
@@ -815,17 +815,17 @@
         }
       },
       "tab": {
-        "general": "GENERAL DETAILS",
+        "general": "ALLGEMEINE",
         "campaign": "Kampagnen"
       },
       "info": {
-        "createtitle": "Create new Product Schedule",
-        "title": "Product Schedule Details",
-        "name": "Product Schedule Name",
+        "createtitle": "Neue Produktzyklys hinzufügen",
+        "title": "Einzelheiter des Produktzyklus",
+        "name": "Name des Produktzyklus",
         "loadbalancer": "Lastverteiler (Load Balancer)",
         "cancel": "ABBRECHEN",
         "save": "SPEICHERN",
-        "edit": "Edit Product Schedule"
+        "edit": "Produktzyklus bearbeiten"
       },
       "cycle": {
         "addtitle": "Zyklus hinzufügen",
@@ -838,27 +838,27 @@
         "name": "Name",
         "schedulename": "Name des Produktzyklus",
         "price": "Preis",
-        "pricetip": "Price for period of time",
+        "pricetip": "Der Preis for period of time",
         "start": "Start",
-        "starttip": "Start of period (0 is immediate)",
-        "end": "End",
-        "endtip": "Ends & switches to next product schedule",
-        "period": "Period",
+        "starttip": "Startzeit (0 heisst sofort)",
+        "end": "Ende",
+        "endtip": "Zyklus endet und geht weiter auf den nächsten Zyklus",
+        "period": "Zeitraum",
         "periodtip": "Recurring billing & shipping period",
         "ship": "Versand",
-        "nodata": "No Cycles found.",
+        "nodata": "Kein Zyklen gefunden.",
         "view": "Produkt ansehen",
         "edit": "Zyklus bearbeiten",
-        "remove": "Remove Cycle"
+        "remove": "Zyklus lösen"
       },
       "campaign": {
         "title": "Kampagnen",
         "name": "Name",
         "created": "Geschafft am",
         "productnum": "Gesamtzahl der Produkte",
-        "schedulednum": "Total Scheduled",
-        "view": "Campaign ansehen",
-        "nodata": "No Kampagnen found."
+        "schedulednum": "Gesamtbetrag der eingeplannte Kampagne",
+        "view": "Kampagne ansehen",
+        "nodata": "Keine Kampagnen gefunden."
       }
     },
     "campaign": {
@@ -869,21 +869,21 @@
           "name": "Name",
           "created": "Geschafft am",
           "productnum": "Gesamtzahl der Produkte",
-          "schedulednum": "Total Scheduled"
+          "schedulednum": "Gesamtbetrag der eingeplannte Kampagne"
         }
       },
       "tab": {
-        "general": "GENERAL DETAILS",
+        "general": "ALLGEMEINE",
         "productschedules": "PRODUKTZYKLEN",
         "affiliates": "VERTRIEBSPARTNER",
         "trackingcode": "TRACKING CODE"
       },
       "info": {
-        "createtitle": "Create new Campaign",
+        "createtitle": "Neue Kampagne hinzufügen",
         "title": "Campaign Details",
         "name": "Name",
-        "allowprepaid": "Allow Prepaid",
-        "showprepaid": "Show Prepaid",
+        "allowprepaid": "Prepaid-Kreditkarte erlauben",
+        "showprepaid": "Prepaid-Kreditkarte ansehen",
         "cancel": "ABBRECHEN",
         "save": "SPEICHERN",
         "edit": "Kampagne bearbeiten"
@@ -1013,12 +1013,12 @@
         "type": "Variante",
         "event": "Event",
         "data": "Tracking Data",
-        "nodata": "No Trackers found.",
-        "associate": "Associate Tracker",
-        "associatetext": "Select Tracker",
-        "view": "View Tracker",
-        "disassociate": "Disassociate Tracker",
-        "disassociatetext": "Are you sure you want to Löschen?"
+        "nodata": "Keine Trackers gefunden.",
+        "associate": "Tracker verbünden",
+        "associatetext": "Tracker auswählen",
+        "view": "Tracker ansehen",
+        "disassociate": "Tracker lösen",
+        "disassociatetext": "Sind Sie sicher, dass sie diesen Tracker lösen wollen?"
       },
       "session": {
         "title": "Zugehörige Sitzungen",
@@ -1037,7 +1037,7 @@
         "header": {
           "name": "Name",
           "type": "Variante",
-          "event": "Event",
+          "event": "Vorfall",
           "data": "Tracking Data"
         }
       },
@@ -1051,40 +1051,40 @@
         "title": "Tracker Details",
         "name": "Tracker Name",
         "type": "Tracking Type",
-        "eventtype": "Event Type",
-        "eventtypeadd": "Add Event Type",
+        "eventtype": "Vorgangsart",
+        "eventtypeadd": "Neue Vorgangsart hinzufügen",
         "data": "Tracking Data",
         "link": "Tracking Link",
         "save": "SPEICHERN",
         "cancel": "ABBRECHEN",
-        "edit": "Edit Tracker"
+        "edit": "Tracker bearbeiten"
       },
       "affiliate": {
-        "title": "Associated Vertriebspartner",
+        "title": "Verbündeter Vertriebspartner",
         "name": "Name",
         "id": "Vertriebspartner ID",
         "created": "Geschafft am",
         "updated": "Aktualisiert am",
-        "nodata": "No Vertriebspartner found.",
-        "associate": "Associate Vertriebspartner",
+        "nodata": "Keine Vertriebspartner gefunden.",
+        "associate": "Vertriebspartner in Verbindung bringen",
         "associatetext": "Vertriebspartner auswählen",
-        "confirm": "ASSOCIATE",
+        "confirm": "Verbinden",
         "view": "Vertriebspartner ansehen",
         "disassociate": "Vertriebspartner lösen",
         "disassociatetext": "Sind Sie sicher, dass sie den Vertriebspartner lösen wollen?"
       },
       "campaign": {
-        "title": "Associated Kampagnen",
+        "title": "Verbündete Kampagnen",
         "name": "Name",
         "created": "Geschafft am",
         "updated": "Aktualisiert am",
-        "nodata": "No Kampagnen found.",
-        "associate": "Associate Campaign",
-        "associatetext": "Select Campaign",
-        "confirm": "ASSOCIATE",
+        "nodata": "Keine Kampagnen gefunden.",
+        "associate": "Kampagne in Verbindung bringen",
+        "associatetext": "Kampagne auswählen",
+        "confirm": "VERBINDEN",
         "view": "Kampagne ansehen",
-        "disassociate": "Disassociate Campaign",
-        "disassociatetext": "Are you sure you want to Löschen?"
+        "disassociate": "Kampagne lösen",
+        "disassociatetext": "Sind Sie sicher, dass sie diese Kampagne lösen wollen?"
       }
     },
     "session": {
@@ -1094,12 +1094,12 @@
         "header": {
           "campaign": "Name der Kampagne",
           "customer": "Name des Kunden",
-          "schedulesnum": "Anzahl von Produktzyklen",
-          "rebillsnum": "Number of Neubelastung"
+          "schedulesnum": "Anzahl der Produktzyklen",
+          "rebillsnum": "Anzahl der Neubelastungen"
         }
       },
       "tab": {
-        "general": "GENERAL DETAILS",
+        "general": "ALLGEMEINE",
         "affiliate": "VERTRIEBSPARTNER"
       },
       "customer": {
@@ -1107,10 +1107,10 @@
         "view": "Kunde Ansehen"
       },
       "rebill": {
-        "title": "Associated Neubelastung",
+        "title": "Verbündete Neubelastung",
         "billed": "Bill at",
         "amount": "Betrag",
-        "nodata": "No Neubelastung found.",
+        "nodata": "Keine Neubelastung gefunden.",
         "view": "Neubelastung Ansehen"
       },
       "campaign": {
