@@ -86,9 +86,9 @@ export function merchantProviderInputQuery(provider: MerchantProvider, includeId
       name:"NMA"
     },
     gateway:{
-      name:"${provider.gateway.isNMI() ? 'NMI' : 'Innovio'}",
-      type:"${provider.gateway.isNMI() ? 'NMI' : 'Innovio'}",
-      ${provider.gateway.isNMI() ? `processor_id:"${provider.gateway.processorId}",` : `product_id: "${provider.gateway.productId}",`}
+      name:"${provider.gateway.getType()}",
+      type:"${provider.gateway.getType()}",
+      ${provider.gateway.isNMI() || provider.gateway.isTest() ? `processor_id:"${provider.gateway.processorId}",` : `product_id: "${provider.gateway.productId}",`}
       username:"${provider.gateway.username}",
       password:"${provider.gateway.password}",
     },

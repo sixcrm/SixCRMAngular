@@ -1,6 +1,7 @@
 export enum MerchantProviderGatewayType {
   NMI,
   Innovio,
+  Test,
   Other
 }
 
@@ -35,12 +36,19 @@ export class MerchantProviderGateway {
     return this.type === MerchantProviderGatewayType.Innovio;
   }
 
+  isTest() {
+    return this.type === MerchantProviderGatewayType.Test;
+  }
+
   getType() {
     if (this.isNMI())
       return 'NMI';
 
     if (this.isInnovio())
       return 'Innovio';
+
+    if (this.isTest())
+      return 'Test';
 
     return '';
   }
@@ -50,6 +58,8 @@ export class MerchantProviderGateway {
       this.type = MerchantProviderGatewayType.NMI;
     else if (type === 'Innovio')
       this.type = MerchantProviderGatewayType.Innovio;
+    else if (type === 'Test')
+      this.type = MerchantProviderGatewayType.Test;
     else
       this.type = MerchantProviderGatewayType.Other;
   }

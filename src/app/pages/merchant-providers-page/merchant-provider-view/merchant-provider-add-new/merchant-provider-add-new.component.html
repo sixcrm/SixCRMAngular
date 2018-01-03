@@ -91,7 +91,7 @@
       </dropdown-component>
 
       <ng-container *ngIf="entity.gateway.getType()">
-        <md-input-container *ngIf="entity.gateway.isNMI()" class="entity-view__card__content__item">
+        <md-input-container *ngIf="entity.gateway.isNMI() || entity.gateway.isTest()" class="entity-view__card__content__item">
           <input [disabled]="mode === modes.View" md-input placeholder="{{'MERCHANT_INFO_GATEWAY_PROCESSORID' | translate}}" name="processorId" [(ngModel)]="entity.gateway.processorId" type="text">
         </md-input-container>
 
