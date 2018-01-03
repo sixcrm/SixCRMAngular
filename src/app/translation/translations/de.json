@@ -415,7 +415,7 @@
         "lastname": "Nachname",
         "phone": "Telefonnummer",
         "email": "Email Addresse",
-        "trackingnumber": "Shipment Tracking Number",
+        "trackingnumber": "Shipment Sendungsnummer",
         "address1": "Adresse 1",
         "address2": "Adresse 2",
         "city": "Stadt",
@@ -437,7 +437,7 @@
         "ship": "Versand",
         "shipdelay": "Shipping Delay",
         "schedulesnum": "Number of Schedules",
-        "bill": "Billed at",
+        "bill": "Berechnungsdatum",
         "parentsession": "Muttersession",
         "product": "Produkt",
         "start": "Beginn",
@@ -647,7 +647,7 @@
       "rebill": {
         "title": "Kommende Neubelastungen",
         "subtitle": "Zukünftige Neubelastungen und Transaktionen",
-        "billed": "Wird abgerechnet am",
+        "billed": "Berechnungsdatum",
         "amount": "Betrag",
         "cancel": "Transaktionen abbrechen",
         "edit": "Transaktion bearbeiten",
@@ -1108,7 +1108,7 @@
       },
       "rebill": {
         "title": "Verbündete Neubelastung",
-        "billed": "Bill at",
+        "billed": "Berechnungsdatum",
         "amount": "Betrag",
         "nodata": "Keine Neubelastung gefunden.",
         "view": "Neubelastung Ansehen"
@@ -1141,13 +1141,13 @@
         }
       },
       "tab": {
-        "general": "GENERAL DETAILS",
-        "refund": "REFUND TRANSACTION"
+        "general": "ALLGEMEINES",
+        "refund": "RÜCKERSTATTUNG"
       },
       "info": {
         "title": "Einzelheiten der Transaktion",
-        "rebillview": "View Neubelastung",
-        "merchantproviderview": "View Merchant Anbieter",
+        "rebillview": "Neubelastung ansehen",
+        "merchantproviderview": "Merchant Anbieter ansehn",
         "alias": "Alias",
         "amount": "Betrag",
         "merchantprovider": "Merchant Anbieter"
@@ -1159,10 +1159,10 @@
         "text": "Processor Text"
       },
       "refund": {
-        "title": "Refund Transaction",
+        "title": "Rückerstattung",
         "amount": "Betrag",
-        "amounttorefund": "Amount to Refund",
-        "refundall": "Refund All",
+        "amounttorefund": "Betrag der Rückerstattung",
+        "refundall": "Volle Rückerstattung",
         "cancel": "ABBRECHEN",
         "confirm": "REFUND"
       },
@@ -1203,7 +1203,7 @@
         "title": "Associated Shipping Receipts",
         "nodata": "No Shipping Receipts found",
         "status": "Status",
-        "trackingnumber": "Tracking Number",
+        "trackingnumber": "Sendungsnummer",
         "created": "Geschafft am",
         "updated": "Aktualisiert am"
       }
@@ -1214,7 +1214,7 @@
         "title": "Shipping Receipts",
         "header": {
           "status": "Status",
-          "number": "Tracking Number",
+          "number": "Sendungsnummer",
           "created": "Geschafft am",
           "updated": "Aktualisiert am"
         }
@@ -1225,16 +1225,16 @@
       "info": {
         "title": "Shipping Receipt Details",
         "status": "Status",
-        "number": "Tracking Number",
-        "fulfillmentprovider": "Fulfillment Provider",
-        "fulfillmentproviderview": "Fulfillment Provider"
+        "number": "Sendungsnummer",
+        "fulfillmentprovider": "Fulfillment Anbieter",
+        "fulfillmentproviderview": "Fulfillment Anbieter"
       },
       "history": {
         "title": "Shipping Receipt State Geschichte"
       }
     },
     "fulfillment": {
-      "title": "Fulfillment Provider",
+      "title": "Fulfillment Anbieter",
       "index": {
         "title": "Fulfillment Anbieter",
         "header": {
@@ -1357,7 +1357,7 @@
       },
       "tab": {
         "general": "ALLGEIMEINES",
-        "processing": "PROCESSING",
+        "processing": "BEARBEITUNG",
         "loadbalancer": "LOAD BALANCING"
       },
       "info": {
@@ -1369,11 +1369,11 @@
           "title": "Einstellungen",
           "name": "Name",
           "enabled": "Aktiv",
-          "allowprepaid": "Allow Prepaid cards",
-          "accepted": "Accepted paypment methods"
+          "allowprepaid": "Prepaid-Kreditkarte erlauben",
+          "accepted": "Anerkannte Zahlungsmethode"
         },
         "processing": {
-          "title": "Processing",
+          "title": "Bearbeitung",
           "monthlycapd": "Monatliche Obergrenze ($)",
           "monthlycapc": "Monatliche Obergrenze (Anzahl)",
           "weeklycap": "Wöchentliche Obergrenze (Anzahl)",
@@ -1408,7 +1408,7 @@
       }
     },
     "deletedialog": {
-      "text": "Are you sure you want to Löschen?",
+      "text": "Sind sie sicher, dass sie löschen wollen?",
       "del": "LÖSEN",
       "cancel": "ABBRECHEN"
     },
