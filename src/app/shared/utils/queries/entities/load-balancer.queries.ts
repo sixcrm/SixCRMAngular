@@ -61,7 +61,7 @@ export function loadBalancerInfoResponseQuery(): string {
 }
 
 export function loadBalancerInputQuery(loadBalancer: LoadBalancer, includeId?: boolean): string {
-  let providers = loadBalancer.merchantProviderConfigurations.reduce((a,b) => `${a} {id: "${b.merchantProvider.id}", distribution: "${b.distribution}"} `, '');
+  let providers = loadBalancer.merchantProviderConfigurations.reduce((a,b) => `${a} {id: "${b.merchantProvider.id}", distribution: ${b.distribution}} `, '');
 
   return `${addId(loadBalancer.id, includeId)}, ${loadBalancer.name ? `name: "${loadBalancer.name}",`: ''} merchantproviders: [${providers}]`;
 }
