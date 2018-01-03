@@ -522,7 +522,7 @@
         "invite": "Neue Nutzer zu diesem Konto einladen",
         "header": {
           "name": "Name",
-          "role": "Rolle",
+          "role": "Nutzerrolle",
           "status": "Status"
         },
         "edit": "Nutzerrolle bearbeiten",
@@ -592,7 +592,7 @@
         "newaccount": "Neue Konto",
         "edit": "Nutzerdetails bearbeiten",
         "activated": "Activiert",
-        "role": "Rolle",
+        "role": "Nutzerrolle",
         "name": "Name",
         "email": "Email",
         "cancel": "ABBRECHEN",
@@ -602,9 +602,9 @@
         "title": "Zugehörige Konten",
         "add": "Neuer Nutzer zu diesem Konto hinzufügen",
         "account": "Konto",
-        "role": "Rolle",
+        "role": "Nutzerrolle",
         "status": "Status",
-        "edit": "Rolle bearbeiten",
+        "edit": "Nutzerrolle bearbeiten",
         "view": "Konto ansehen",
         "remove": "Nutzer von diesem Konto lösen",
         "removetext": "Sind Sie sicher, dass Sie diesen Nutzer von diesem Konto lösen wollen?"
@@ -630,7 +630,7 @@
       "info": {
         "createtitle": "Neue Kunde",
         "shiptitle": "Lieferaddresse",
-        "shipsubtitle": "Lieferaddresse des Kunden ",
+        "shipsubtitle": "Lieferaddresse des Kunden",
         "edit": "KUNDE BEARBEITEN",
         "shipedit": "LIEFERADDRESSE BEARBEITEN",
         "cancel": "ABBRECHEN",
@@ -655,21 +655,21 @@
       },
       "rebilledit": {
         "title": "Transaktion bearbeiten",
-        "subtitle": "modify an upcoming transaction",
-        "date": "Transaction Date",
+        "subtitle": "Bearbeiten Sie einen Transaktion",
+        "date": "Transaktionsdatum",
         "cancel": "ABBRECHEN",
         "save": "SPEICHERN",
         "price": "Preis"
       },
       "events": {
         "title": "Customer Events",
-        "subtitle": "Sitzungen, Transaktionen and Leads",
-        "nodata": "No Events found.",
+        "subtitle": "Sitzungen, Transaktionen und Leads",
+        "nodata": "Keine Einzelheiten gefunden.",
         "today": "Heute",
-        "days7": "Last 7 days",
-        "days30": "Last 30 days",
-        "days90": "Last 90 days",
-        "other": "Other"
+        "days7": "Vorherige 7 Tage",
+        "days30": "Vorherige 30 Tage",
+        "days90": "Vorherige 90 Tage",
+        "other": "Weitere"
       },
       "transaction": {
         "title": "Ehmalige Transaktionen",
@@ -692,7 +692,7 @@
       },
       "creditcard": {
         "title": "Billing Information",
-        "subtitle": "Billing Address & Credit Card information",
+        "subtitle": "Rechnungsaddresse und Kreditkarte Infos",
         "addoption": "Kreditkarte Hinzufügen",
         "editoption": "Kreditkarte bearbeiten",
         "removeoption": "Kreditkarte löschen",
@@ -701,8 +701,8 @@
         "createtext": "Neue Kreditkarte zu dem zugehöriger Nutzer hinzufügen.",
         "expirationmonth": "Verfallsdatum - Monat",
         "expirationyear": "Verfallsdatum - Jahr",
-        "billingaddress": "Billing Address",
-        "sameaddress": "Same as Customer Address",
+        "billingaddress": "Rechnungsaddresse",
+        "sameaddress": "Dieselbe wie die Kundenaddresse",
         "cancel": "Abbrechen",
         "update": "Aktualisieren",
         "save": "Speichern",
@@ -716,7 +716,7 @@
         "header": {
           "start": "Period Start",
           "end": "Period End",
-          "overdue": "Overdue",
+          "overdue": "Überfällig",
           "balance": "Saldo"
         }
       },
