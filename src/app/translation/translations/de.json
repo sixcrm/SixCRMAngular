@@ -4,7 +4,7 @@
       "greeting": "Hallo",
       "settings": "Einstellungen",
       "signout": "Abmelden",
-      "actingas": "Acting as",
+      "actingas": "Tätig als Konto",
       "mobile": {
         "accounts": "Konten",
         "actions": "Aktionen",
@@ -16,13 +16,13 @@
       "dashboard": "Dashboard",
       "orderengine": "SIX-Antrieb",
       "reports": {
-        "title": "Reporte",
-        "order": "Aufträge-Report",
+        "title": "Berichte",
+        "order": "Aufträge-Bericht",
         "summary": "Kurzbericht",
-        "transaction": "Transaktionen-Report",
-        "merchant": "Händler-Report",
-        "affiliate": "Vertriebspartner-Report",
-        "fulfillment": "Fulfillment Report",
+        "transaction": "Transaktionen-Bericht",
+        "merchant": "Händler-Bericht",
+        "affiliate": "Vertriebspartner-Bericht",
+        "fulfillment": "Fulfillment Bericht",
         "retention": "Retention",
         "projection": "Projections"
       },
@@ -96,8 +96,8 @@
           "enter": "Eingegeben"
         },
         "properties": {
-          "title": "Neubelastung Properties",
-          "subtitle": "Details of client rebill",
+          "title": "Neubelastung-Eigenschaften",
+          "subtitle": "Einzelheiter dieser Neubelastung",
           "rebill": "Neuzubelastung ID",
           "parentsession": "Muttersession ID",
           "created": "Geschafft am",
@@ -307,7 +307,7 @@
       },
       "reports": {
         "title": "Berichte",
-        "subtitle": "Popular reports to monitor metrics",
+        "subtitle": "Nützliche Informationen um Ihre Fortschritte zu überwachen",
         "order": {
           "title": "Aufträge-Bericht",
           "subtitle": "Überblick über Ihren Aufträge"
@@ -391,7 +391,7 @@
       "title": "Vertriebspartner-Report",
       "tabletitle": "Vertriebspartner im Überblick",
       "clickscount": "Anzahl von Clicks",
-      "partialscount": "Partials Count",
+      "partialscount": "Anzahl von Partials",
       "affiliate": "Vertriebspartner-",
       "partialspercentage": "Partials %",
       "declinescount": "Ablehnungszahl",
@@ -724,7 +724,7 @@
         "general": "ALLGEIMEINES"
       },
       "details": {
-        "title": "Invoice Summary",
+        "title": "Überblick von der Verrechnung",
         "subtitle": "Verrechnung",
         "start": "Anfangsdatum",
         "end": "Stichtag",
@@ -844,7 +844,7 @@
         "end": "Ende",
         "endtip": "Zyklus endet und geht weiter auf den nächsten Zyklus",
         "period": "Zeitraum",
-        "periodtip": "Recurring billing & shipping period",
+        "periodtip": "Wiederkehrende Zahlung & Versand",
         "ship": "Versand",
         "nodata": "Kein Zyklen gefunden.",
         "view": "Produkt ansehen",
@@ -955,7 +955,7 @@
         }
       },
       "tab": {
-        "general": "GENERAL DETAILS",
+        "general": "ALLGEIMEINES",
         "preview": "VORSCHAU"
       },
       "info": {
@@ -1042,13 +1042,13 @@
         }
       },
       "tab": {
-        "general": "GENERAL DETAILS",
-        "affiliate": "AFFILAITES",
+        "general": "ALLGEIMEINES",
+        "affiliate": "VERTRIEBSPARTNER",
         "campaign": "Kampagnen"
       },
       "info": {
-        "createtitle": "Create new Tracker",
-        "title": "Tracker Details",
+        "createtitle": "Neue Tracker hinzufügen",
+        "title": "Tracker Einzelheiten",
         "name": "Tracker Name",
         "type": "Tracking-Art",
         "eventtype": "Vorgangsart",
@@ -1288,9 +1288,9 @@
         "validate": "BESTÄTIGEN"
       },
       "info": {
-        "title": "SMTP Details",
+        "title": "SMTP Einzelheiten",
         "createtitle": "Neue SMTP Anbieter zufügen",
-        "edit": "Edit SMTP Provider Details",
+        "edit": "SMTP Anbieter Bearbeiten",
         "name": "Name",
         "fromname": "Name des Absenders",
         "fromemail": "Email Addresse des Absenders",
