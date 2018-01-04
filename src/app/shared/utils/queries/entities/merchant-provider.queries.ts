@@ -54,6 +54,7 @@ export function merchantProviderResponseQuery(): string {
     }
     gateway {
       ... on NMI { name type username password processor_id }
+      ... on Test { name type username password processor_id }
       ... on Innovio { name type username password product_id }
     }
     customer_service { email url description phone }`
