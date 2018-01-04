@@ -130,7 +130,7 @@
     },
     "advancedfilter": {
       "from": "Von",
-      "to": "An",
+      "to": "Bis",
       "filters": "Filter",
       "groupby": "Anordnen",
       "show": "Weitere Suchoptionen darstellen",
@@ -188,17 +188,17 @@
     "singlepage": {
       "created": "Geschafft am",
       "updated": "Aktualisiert",
-      "createcanceltitle": "Are you sure you want to close creation modal?",
-      "createcanceltext": "You have unsaved changes, if you close this modal changes will be discarded.",
+      "createcanceltitle": "Sind Sie sicher, dass sie dieses Modal-Fenster schliessen wollen?",
+      "createcanceltext": "Sie haben nicht gesicherte Änderungen. Wenn sie dieses Modal-Fenster schliessen, Ihre Änderungen werden abgelegt.",
       "createcancelclose": "SCHLIEßEN",
       "createcancelcancel": "ABBRECHEN",
-      "leavetitle": "Are you sure you want to leave?",
-      "leavetext": "You have unsaved changes, if you close this modal changes will be discarded.",
+      "leavetitle": "Sind Sie sicher, dass Sie diesen Bereich verlassen wollen?",
+      "leavetext": "Sie haben nicht gesicherte Änderungen. Wenn sie dieses Modal-Fenster schliessen, Ihre Änderungen werden abgelegt.",
       "leavecancel": "ABBRECHEN",
       "leaveleave": "VERLASSEN"
     },
     "profile": {
-      "title": "Profile",
+      "title": "Profil",
       "created": "Geschafft am",
       "tabs": {
         "general": "ALLGEMEIN",
