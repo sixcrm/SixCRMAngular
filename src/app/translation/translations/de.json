@@ -183,7 +183,7 @@
       "view": "Ansehen",
       "exp": "Exportieren",
       "edit": "Bearbeiten",
-      "copy": "Copy"
+      "copy": "Kopieren"
     },
     "singlepage": {
       "created": "Geschafft am",
@@ -202,7 +202,7 @@
       "created": "Geschafft am",
       "tabs": {
         "general": "ALLGEMEIN",
-        "notifications": "NOTIFICATIONS",
+        "notifications": "ANZEIGEN",
         "accounts": "KONTEN",
         "signingstrings": "SIGNING STRINGS"
       },
@@ -211,7 +211,7 @@
         "subtitle": "Allgemeines",
         "firstname": "Vorname",
         "lastname": "Nachname",
-        "workphone": "Telefonnummer bei der Arbeit",
+        "workphone": "Telefonnummer",
         "cellphone": "Handynummer",
         "timezone": "Zeitzone",
         "email": "Email",
@@ -219,7 +219,7 @@
         "update": "AKTUALISIEREN"
       },
       "notifications": {
-        "title": "Notification toggle",
+        "title": "Einstellungen für Anzeigen",
         "subtitle": "Wählen Sie unten welche von den folgenden Vorfälle einen Anzeige auslösen sollen",
         "testalert": "Ein Test-Alarmsignale auslösen",
         "testnotification": "Eine Testanzeige auslösen",
@@ -260,11 +260,11 @@
     "dashboard": {
       "eventsfunnel": {
         "title": "Events Funnel",
-        "subtitle": "Vorfälle by Event type",
+        "subtitle": "Vorfälle sortiert nach Variant",
         "event": "Vorfall",
         "count": "Anzahl",
         "percentage": "Anteil",
-        "relativepercentage": "Relative Anteil"
+        "relativepercentage": "Relativ Anteil"
       },
       "eventsummary": {
         "title": "Vorfälle",
@@ -273,7 +273,7 @@
       },
       "eventsbyaffiliate": {
         "title": "Vorfälle sortiert nach Vertriebspartner",
-        "subtitle": "Events from the top Vertriebspartner",
+        "subtitle": "Vorfälle von Ihren besten Vertriebspartner",
         "affiliate": "Vertriebspartner",
         "count": "Anzahl",
         "percentage": "Anteil",
@@ -281,7 +281,7 @@
       },
       "transactionbyaffiliate": {
         "title": "Transaktionen by Affiliate",
-        "subtitle": "Transaktionen from the top Vertriebspartner",
+        "subtitle": "Transaktionen von Ihren besten Vertriebspartner",
         "affiliate": "Vertriebspartner",
         "count": "Anzahl",
         "countp": "Anzahl%",
@@ -295,8 +295,8 @@
         "nodata": "Keine Transaktionen gefunden"
       },
       "movers": {
-        "title": "Kampagnen Watch List",
-        "subtitle": "Kampagnen on the move",
+        "title": "Kampagnen Beobachtungsliste",
+        "subtitle": "Kampagnen in Bewegung",
         "nodata": "Keine Kampagnen gefunden"
       },
       "topcampaigns": {
@@ -918,29 +918,29 @@
         "name": "Name"
       },
       "affiliateallowed": {
-        "title": "Allowed Vertriebspartner",
-        "nodata": "No Vertriebspartner allowed.",
-        "add": "Add Vertriebspartner to allowed list",
+        "title": "Gültige Vertriebspartner",
+        "nodata": "Keine gültige Vertriebspartner gefunde.",
+        "add": "Vertriebspartner auf diese liste hinzufügen",
         "addtext": "Vertriebspartner auswählen",
         "addbutton": "ADD",
         "view": "Vertriebspartner ansehen",
-        "remove": "Remove Vertriebspartner from allowed list",
-        "removetext": "Are you sure you want to Löschen?"
+        "remove": "Vertriebspartner von dieser Liste lösen",
+        "removetext": "Sind Sie sicher, dass Sie diesen Vertriebspartner von dieser Liste lösen wollen?"
       },
       "affiliatedenied": {
-        "title": "Denied Vertriebspartner",
-        "nodata": "No Vertriebspartner denied.",
-        "add": "Add Vertriebspartner to denied list",
-        "addtext": "Select Vertriebspartner",
-        "addbutton": "ADD",
-        "view": "View Vertriebspartner",
-        "remove": "Remove Vertriebspartner from denied list",
-        "removetext": "Are you sure you want to Löschen?"
+        "title": "Verweigerter Vertriebspartner",
+        "nodata": "Keine verweigerter Vertriebspartner gefunden.",
+        "add": "Vertriebspartner auf diese liste hinzufügen",
+        "addtext": "Vertriebspartner auswählen",
+        "addbutton": "HINZUFÜGEN",
+        "view": "Vertriebspartner ansehen",
+        "remove": "Vertriebspartner von dieser Liste lösen",
+        "removetext": "Sind Sie sicher, dass Sie diesen Vertriebspartner von dieser Liste lösen wollen?"
       },
       "tracking": {
         "title": "Tracking-Code (Pixel)",
-        "subtitle": "Copy this Code to your HTML page header",
-        "copy": "Copy to clipboard"
+        "subtitle": "Kopieren Sie dieser Code-Schnipsel auf ihre HTML seite unter dem <header>",
+        "copy": "Auf die Zwischenablage kopieren"
       }
     },
     "emailtemplate": {
@@ -972,9 +972,9 @@
         "save": "SPEICHERN"
       },
       "token": {
-        "title": "Tokens",
+        "title": "Zeichen (Tokens)",
         "subtitle": "Choose any of the following tokens to add into your Mailvorlage",
-        "type": "Even Type",
+        "type": "Event Type",
         "search": "Suchen"
       },
       "preview": {
@@ -1049,10 +1049,10 @@
       "info": {
         "createtitle": "Neue Tracker hinzufügen",
         "title": "Tracker Einzelheiten",
-        "name": "Tracker Name",
-        "type": "Tracking-Art",
-        "eventtype": "Vorgangsart",
-        "eventtypeadd": "Neue Vorgangsart hinzufügen",
+        "name": "Name",
+        "type": "Variante",
+        "eventtype": "Vorfall",
+        "eventtypeadd": "Vorfall",
         "data": "Tracking-Daten",
         "link": "Tracking-Link",
         "save": "SPEICHERN",
@@ -1130,7 +1130,7 @@
       }
     },
     "transaction": {
-      "title": "Transaction",
+      "title": "Transaktionen",
       "index": {
         "title": "Transaktionen",
         "header": {
