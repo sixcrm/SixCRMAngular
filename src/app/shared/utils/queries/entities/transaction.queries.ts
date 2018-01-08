@@ -56,6 +56,6 @@ export function transactionResponseQuery(): string {
       product { id name sku ship shipping_delay,
         fulfillment_provider {id name}
       }
-      shippingreceipt { id status trackingnumber created_at }
+      shippingreceipt { id status tracking {carrier id} created_at }
     }`;
 }

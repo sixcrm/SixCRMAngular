@@ -1243,6 +1243,7 @@
         "title": "Posteinlieferungsschein",
         "status": "Status",
         "number": "Sendungsnummer",
+        "carrier": "Tracking Carrier",
         "fulfillmentprovider": "Fulfillment Anbieter",
         "fulfillmentproviderview": "Fulfillment Anbieter"
       },

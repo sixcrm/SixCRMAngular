@@ -1231,7 +1231,7 @@
       "title": "Shipping Receipts",
       "header": {
         "status": "Status",
-        "number": "Tracking Number",
+        "number": "Tracking ID",
         "created": "Created at",
         "updated": "Updated at"
       }
@@ -1242,7 +1242,8 @@
     "info": {
       "title": "Shipping Receipt Details",
       "status": "Status",
-      "number": "Tracking Number",
+      "number": "Tracking ID",
+      "carrier": "Tracking Carrier",
       "fulfillmentprovider": "Fulfillment Provider",
       "fulfillmentproviderview": "Fulfillment Provider"
     },

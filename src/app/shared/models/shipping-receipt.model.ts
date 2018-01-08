@@ -2,11 +2,12 @@ import {Moment, utc} from 'moment';
 import {Entity} from './entity.interface';
 import {FulfillmentProvider} from './fulfillment-provider.model';
 import {ShippingReceiptHistoryItem} from './shipping-receipt-history-item.model';
+import {ShippingReceiptTracking} from "./shipping-receipt-tracking.model";
 
 export class ShippingReceipt implements Entity<ShippingReceipt> {
   id: string;
   status: string;
-  trackingNumber: string;
+  tracking: ShippingReceiptTracking;
   fulfillmentProvider: FulfillmentProvider;
   history: ShippingReceiptHistoryItem[] = [];
   createdAt: Moment;
@@ -19,7 +20,7 @@ export class ShippingReceipt implements Entity<ShippingReceipt> {
 
     this.id = obj.id || '';
     this.status = obj.status || '';
-    this.trackingNumber = obj.trackingnumber || '';
+    this.tracking = new ShippingReceiptTracking(obj.tracking);
     this.fulfillmentProvider = new FulfillmentProvider(obj.fulfillment_provider);
 
     if(obj.history) {
@@ -38,7 +39,7 @@ export class ShippingReceipt implements Entity<ShippingReceipt> {
     return {
       id: this.id,
       status: this.status,
-      trackingnumber: this.trackingNumber,
+      tracking: this.tracking.inverse(),
       fulfillment_provider: this.fulfillmentProvider.inverse(),
       history: this.history.map(h => h.inverse()),
       created_at: this.createdAt.format(),

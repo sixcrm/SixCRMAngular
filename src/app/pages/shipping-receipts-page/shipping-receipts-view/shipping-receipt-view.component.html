@@ -40,9 +40,16 @@
 
             <div class="flex-custom">
               <md-input-container class="entity-view__card__content__item number-input">
-                <input md-input disabled placeholder="{{'SHIPPINGRECEIPT_INFO_NUMBER' | translate}}" [(ngModel)]="entity.trackingNumber" type="text">
+                <input md-input disabled placeholder="{{'SHIPPINGRECEIPT_INFO_NUMBER' | translate}}" [(ngModel)]="entity.tracking.id" type="text">
               </md-input-container>
-              <md-icon *ngIf="entity.trackingNumber" class="copy-icon" md-tooltip="Copy to clipboard" ngxClipboard [cbContent]="entity.trackingNumber">content_copy</md-icon>
+              <md-icon *ngIf="entity.tracking.id" class="copy-icon" md-tooltip="{{'SHARE_COPY' | translate}}" ngxClipboard [cbContent]="entity.tracking.id">content_copy</md-icon>
+            </div>
+
+            <div class="flex-custom">
+              <md-input-container class="entity-view__card__content__item number-input">
+                <input md-input disabled placeholder="{{'SHIPPINGRECEIPT_INFO_CARRIER' | translate}}" [(ngModel)]="entity.tracking.carrier" type="text">
+              </md-input-container>
+              <md-icon *ngIf="entity.tracking.id" class="copy-icon" md-tooltip="{{'SHARE_COPY' | translate}}" ngxClipboard [cbContent]="entity.tracking.carrier">content_copy</md-icon>
             </div>
 
             <md-input-container class="entity-view__card__content__item">

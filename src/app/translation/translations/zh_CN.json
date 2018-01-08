@@ -1243,6 +1243,7 @@
             "title": "运输收据明细",
             "status": "状态",
             "number": "跟踪号码",
+            "carrier": "Tracking Carrier",
             "fulfillmentprovider": "履行供应商",
             "fulfillmentproviderview": "履行供应商"
         },
