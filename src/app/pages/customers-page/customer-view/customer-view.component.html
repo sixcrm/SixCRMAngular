@@ -94,8 +94,8 @@
                 </form>
 
                 <div *ngIf="shippingInfoEditMode" class="customer-view__card__actions">
-                  <div (click)="cancelCustomerUpdate()">CANCEL</div>
-                  <div (click)="updateCustomer(addressDataForm.form.valid)">UPDATE</div>
+                  <div (click)="cancelCustomerUpdate()">{{'CUSTOMER_INFO_CANCEL' | translate}}</div>
+                  <div (click)="updateCustomer(addressDataForm.form.valid)">{{'CUSTOMER_INFO_UPDATE' | translate}}</div>
                 </div>
               </md-card-content>
             </md-card>

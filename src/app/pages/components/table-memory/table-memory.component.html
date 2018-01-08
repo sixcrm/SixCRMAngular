@@ -33,7 +33,7 @@
         <ng-template #noCode>
           <div [class.flex-custom]="params.copy" [class.flex-custom--center]="params.copy">
             {{params.mappingFunction(entity)}}
-            <md-icon *ngIf="params.copy" class="copy-icon" md-tooltip="Copy to clipboard" ngxClipboard [cbContent]="params.mappingFunction(entity)">content_copy</md-icon>
+            <md-icon *ngIf="params.copy" class="copy-icon" md-tooltip="{{'SHARE_COPY' | translate}}" ngxClipboard [cbContent]="params.mappingFunction(entity)">content_copy</md-icon>
           </div>
         </ng-template>
       </td>

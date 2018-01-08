@@ -43,7 +43,7 @@
     <div *ngIf="entity.link && mode !== modes.Update" class="tracker-view__card__content__link">
       <div class="tracker-view__card__content__label">{{'TRACKER_INFO_LINK' | translate}}:</div>
       <input type="text" #urlField class="share-link__url__content" value="{{entity.link}}" readonly>
-      <md-icon md-tooltip="Copy to clipboard" (click)="copyUrlToClipboard(urlField)">content_copy</md-icon>
+      <md-icon md-tooltip="{{'SHARE_COPY' | translate}}" (click)="copyUrlToClipboard(urlField)">content_copy</md-icon>
     </div>
 
     <div class="tracker-view__card__content__body">

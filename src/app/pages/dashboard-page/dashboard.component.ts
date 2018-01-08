@@ -172,7 +172,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getLastUpdatedTime(): string {
-    return `Refresh Dashboard. Last updated: ${this.timeService.format(this.analyticsStorageService.getLastUpdatedTime(), 'LT')}`;
+    return this.timeService.format(this.analyticsStorageService.getLastUpdatedTime(), 'LT');
   }
 
   refresh(): void {

@@ -126,11 +126,11 @@
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item">
-        <input [disabled]="mode === modes.View" md-input placeholder="Phone" [textMask]="{mask: mask, guide: false}" name="{{'MERCHANT_INFO_SERVICE_PHONE' | translate}}" [(ngModel)]="entity.customerService.phone" type="text">
+        <input [disabled]="mode === modes.View" md-input placeholder="{{'MERCHANT_INFO_SERVICE_PHONE' | translate}}" [textMask]="{mask: mask, guide: false}" name="phone" [(ngModel)]="entity.customerService.phone" type="text">
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item">
-        <input [disabled]="mode === modes.View" md-input placeholder="Descriptor" name="{{'MERCHANT_INFO_SERVICE_DESCRIPTION' | translate}}" [(ngModel)]="entity.customerService.description" type="text">
+        <input [disabled]="mode === modes.View" md-input placeholder="{{'MERCHANT_INFO_SERVICE_DESCRIPTION' | translate}}" name="description" [(ngModel)]="entity.customerService.description" type="text">
       </md-input-container>
 
     </div>

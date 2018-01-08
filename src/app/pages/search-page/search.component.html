@@ -77,7 +77,7 @@
           <button md-menu-item (click)="setSortBy('def')">{{'SEARCH_SORT_DEF' | translate}}</button>
         </md-menu>
 
-        <md-input placeholder="Filter Results" [(ngModel)]="filterValue"></md-input>
+        <md-input placeholder="{{'SEARCH_FILTER' | translate}}" [(ngModel)]="filterValue"></md-input>
 
         <table-pagination
           *ngIf="!cardMode"

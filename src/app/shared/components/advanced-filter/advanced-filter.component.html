@@ -5,7 +5,7 @@
         <ng-container *ngFor="let df of dateFilters">
             <span class="advanced-filter__date__quick__item"
                   [class.advanced-filter__date__quick__item--active]="df.selected"
-                  (click)="setActiveDate(df.start, df.end)">{{df.label}}</span>
+                  (click)="setActiveDate(df.start, df.end)">{{df.label | translate}}</span>
         </ng-container>
       </div>
       <div class="advanced-filter__date__range">
@@ -47,7 +47,7 @@
       </div>
 
       <div class="advanced-filter__icons">
-        <md-icon class="refresh-icon" (click)="refresh()" md-tooltip="{{refreshText}}" mdTooltipPosition="left">refresh</md-icon>
+        <md-icon class="refresh-icon" (click)="refresh()" md-tooltip="{{refreshText | translate}} {{refreshValue}}" mdTooltipPosition="left">refresh</md-icon>
         <share-link [shareUrl]="shareUrl"></share-link>
         <md-icon [md-menu-trigger-for]="advancedOptions">more_vert</md-icon>
         <md-menu #advancedOptions="mdMenu" x-position="before">

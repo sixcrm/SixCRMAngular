@@ -9,7 +9,7 @@
   </div>
 
   <div class="customer-view__edit__info">
-    <md-input required placeholder="Name on Card" [(ngModel)]="ccard.name"></md-input>
+    <md-input required placeholder="{{'FORMINPUTS_CREDITCARD_NAME' | translate}}" [(ngModel)]="ccard.name"></md-input>
     <input-credit-card [value]="ccard.ccnumber" [placeholder]="'FORMINPUTS_CREDITCARD_NUMBER' | translate" (result)="ccard.ccnumber = $event"></input-credit-card>
     <input-credit-card [value]="ccard.ccv" [mode]="'ccv'" [placeholder]="'FORMINPUTS_CREDITCARD_CCV' | translate" (result)="ccard.ccv = $event"></input-credit-card>
 
@@ -44,12 +44,12 @@
 
     <div class="customer-view__edit__address__group">
       <md-input required placeholder="{{'FORMINPUTS_CITY' | translate}}" [(ngModel)]="ccard.address.city"></md-input>
-      <dropdown-component [required]="true" [selected]="ccard.address.state" [placeholder]="'State'" (onSelect)="ccard.address.state = $event" [options]="states"></dropdown-component>
+      <dropdown-component [required]="true" [selected]="ccard.address.state" [placeholder]="'FORMINPUTS_STATE' | translate" (onSelect)="ccard.address.state = $event" [options]="states"></dropdown-component>
     </div>
 
     <div class="customer-view__edit__address__group">
       <md-input required placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="ccard.address.zip"></md-input>
-      <dropdown-component [required]="true" [selected]="ccard.address.country" [placeholder]="'Country'"  (onSelect)="ccard.address.country = $event" [options]="countries"></dropdown-component>
+      <dropdown-component [required]="true" [selected]="ccard.address.country" [placeholder]="'FORMINPUTS_COUNTRY' | translate"  (onSelect)="ccard.address.country = $event" [options]="countries"></dropdown-component>
     </div>
   </div>
 

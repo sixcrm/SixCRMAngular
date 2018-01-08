@@ -4,7 +4,8 @@
     <advanced-filter
       [date]="date"
       [filterTerms]="filterTerms"
-      [refreshText]="getLastUpdatedTime()"
+      [refreshText]="'ADVANCEDFILTER_REFRESHDASHBOARDTEXT'"
+      [refreshValue]="getLastUpdatedTime()"
       [shareUrl]="shareUrl"
       (dateChanged)="dateChanged($event)"
       (filterTermAdded)="addFilterTerm($event)"

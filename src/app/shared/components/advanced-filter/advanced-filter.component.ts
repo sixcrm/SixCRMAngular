@@ -57,6 +57,7 @@ export class AdvancedFilterComponent implements OnInit, OnDestroy {
 
   @Input() filterTerms: FilterTerm[] = [];
   @Input() refreshText: string = '';
+  @Input() refreshValue: string = '';
   @Input() shareUrl: string = 'url';
   @Input() groupByEnabled: boolean = false;
   @Input() embedded: boolean = false;
@@ -110,14 +111,14 @@ export class AdvancedFilterComponent implements OnInit, OnDestroy {
   private unsubscribe$: AsyncSubject<boolean> = new AsyncSubject();
 
   dateFilters: DateFilter[] = [
-    {label: '1D', start: flatDown(utc().subtract(1,'d')), end: lateToday()},
-    {label: '1W', start: flatDown(utc().subtract(1,'w')), end: lateToday()},
-    {label: '1M', start: flatDown(utc().subtract(1,'M')), end: lateToday()},
-    {label: '3M', start: flatDown(utc().subtract(3,'M')), end: lateToday()},
-    {label: '6M', start: flatDown(utc().subtract(6,'M')), end: lateToday()},
-    {label: 'YTD', start: flatDown(utc().startOf('year')), end: lateToday()},
-    {label: '1Y', start: flatDown(utc().subtract(1,'y')), end: lateToday()},
-    {label: 'ALL', start: flatDown(utc().subtract(10,'y')), end: lateToday()}
+    {label: 'ADVANCEDFILTER_DAY', start: flatDown(utc().subtract(1,'d')), end: lateToday()},
+    {label: 'ADVANCEDFILTER_WEEK', start: flatDown(utc().subtract(1,'w')), end: lateToday()},
+    {label: 'ADVANCEDFILTER_MONTH', start: flatDown(utc().subtract(1,'M')), end: lateToday()},
+    {label: 'ADVANCEDFILTER_3MONTH', start: flatDown(utc().subtract(3,'M')), end: lateToday()},
+    {label: 'ADVANCEDFILTER_6MONTH', start: flatDown(utc().subtract(6,'M')), end: lateToday()},
+    {label: 'ADVANCEDFILTER_YEARTODATE', start: flatDown(utc().startOf('year')), end: lateToday()},
+    {label: 'ADVANCEDFILTER_YEAR', start: flatDown(utc().subtract(1,'y')), end: lateToday()},
+    {label: 'ADVANCEDFILTER_ALL', start: flatDown(utc().subtract(10,'y')), end: lateToday()}
   ];
 
   constructor(private searchService: SearchService, private daterangepickerOptions: DaterangepickerConfig) { }

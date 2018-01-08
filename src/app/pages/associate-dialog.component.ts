@@ -10,7 +10,7 @@ import {MdDialogRef} from '@angular/material';
         <autocomplete-input [initialValue]="entity ? entity : ''" [options]="options" [placeholder]="placeholder | translate" [mapFunction]="mapper" (selected)="entity = $event"></autocomplete-input>
       </md-card-content>
       <md-card-actions class="custom-dialog__buttons">
-        <div (click)="cancel()">CANCEL</div>
+        <div (click)="cancel()">{{associateCancelText | translate}}</div>
         <div (click)="associate()">{{associateButtonText | translate}}</div>
       </md-card-actions>
     </md-card>
@@ -19,9 +19,10 @@ import {MdDialogRef} from '@angular/material';
 })
 export class AssociateDialogComponent<T> {
 
-  text: string = 'Select entity to associate';
-  associateButtonText: string = 'ASSOCIATE';
-  placeholder: string = 'Entity';
+  text: string = 'ASSOCIATEDIALOG_TEXT';
+  associateButtonText: string = 'ASSOCIATEDIALOG_ASSOCIATE';
+  associateCancelText: string = 'ASSOCIATEDIALOG_CANCEL';
+  placeholder: string = 'ASSOCIATEDIALOG_ENTITY';
   options: T[] = [];
   entity: T;
   mapper = el => el;

@@ -87,7 +87,13 @@
       "snack": {
         "main": "Queue Messages",
         "sub": "Rebill ID"
-      }
+      },
+      "view": "View Rebill",
+      "id": "ID",
+      "billed": "Bill at",
+      "created": "Created at",
+      "amount": "Amount",
+      "nodata": "No Rebills found."
     },
     "rebill": {
       "history": {
@@ -129,6 +135,14 @@
     "dismiss": "Dismiss"
   },
   "advancedfilter": {
+    "day": "1D",
+    "week": "1W",
+    "month": "1M",
+    "3month": "3M",
+    "6month": "6M",
+    "year": "1Y",
+    "yeartodate": "YTD",
+    "all": "ALL",
     "from": "From",
     "to": "To",
     "filters": "Filters",
@@ -153,7 +167,9 @@
     "rebill": "Rebill",
     "success": "Success",
     "decline": "Decline",
-    "error": "Error"
+    "error": "Error",
+    "refreshdashboardtext": "Refresh Dashboard. Last updated:",
+    "refreshreporttext": "Refresh Report"
   },
   "forminputs": {
     "fullname": "Full Name",
@@ -445,6 +461,7 @@
       "price": "Price",
       "id": "ID"
     },
+    "filter": "Filter Results",
     "category": "Category",
     "refined": "REFINED RESULTS",
     "reset": "RESET SEARCH",
@@ -1412,6 +1429,12 @@
     "del": "DELETE",
     "cancel": "CANCEL"
   },
+  "associatedialog": {
+    "text": "Select entity to associate",
+    "associate": "ASSOCIATE",
+    "cancel": "CANCEL",
+    "entity": "Entity"
+  },
   "inviteuser": {
     "title": "Invite new User",
     "email": "User Email",
@@ -1463,5 +1486,18 @@
       "switchtext": "Switching between this and your other SIX accounts is easy. Just click the account button in the upper right hand side of the SIX and select the account you wish to access.",
       "cont": "Continue"
     }
+  },
+  "share": {
+    "title": "Share",
+    "copy": "Copy to clipboard"
+  },
+  "pagination": {
+    "rowsperpage": "Rows per page"
+  },
+  "snack": {
+    "error": "Error occured, please try again",
+    "updated": "Updated Successfully!",
+    "created": "Created Successfully!",
+    "deleted": "Deleted Successfully!"
   }
 }

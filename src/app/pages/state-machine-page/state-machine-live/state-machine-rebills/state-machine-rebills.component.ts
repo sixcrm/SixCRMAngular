@@ -19,7 +19,10 @@ export class StateMachineRebillsComponent extends AbstractEntityIndexComponent<R
 
   queue: string;
 
-  tableTextOptions: TableMemoryTextOptions = {viewOptionText: 'Show Messages'};
+  tableTextOptions: TableMemoryTextOptions = {
+    viewOptionText: 'ORDERENGINE_REBILLS_VIEW',
+    noDataText: 'ORDERENGINE_REBILLS_NODATA'
+  };
 
   @Input() set queueName(value: string) {
     if (!value || value === this.queue) return;
@@ -44,10 +47,10 @@ export class StateMachineRebillsComponent extends AbstractEntityIndexComponent<R
     let f = this.authService.getTimezone();
 
     this.columnParams = [
-      new ColumnParams('ID', (e: Rebill) => e.id),
-      new ColumnParams('Bill At',(e: Rebill) => e.billAt ? e.billAt.tz(f).format('MM/DD/YYYY') : 'not billed'),
-      new ColumnParams('Created At', (e: Rebill) => e.createdAt.tz(f).format('MM/DD/YYYY')),
-      new ColumnParams('Amount', (e: Rebill) => e.amount.usd(), 'right')
+      new ColumnParams('ORDERENGINE_REBILLS_ID', (e: Rebill) => e.id),
+      new ColumnParams('ORDERENGINE_REBILLS_BILLED',(e: Rebill) => e.billAt ? e.billAt.tz(f).format('MM/DD/YYYY') : 'not billed'),
+      new ColumnParams('ORDERENGINE_REBILLS_CREATED', (e: Rebill) => e.createdAt.tz(f).format('MM/DD/YYYY')),
+      new ColumnParams('ORDERENGINE_REBILLS_AMOUNT', (e: Rebill) => e.amount.usd(), 'right')
     ];
   }
 

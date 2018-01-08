@@ -87,7 +87,13 @@
 			"snack": {
 				"main": "Հերթի հաղորդագրություններ",
 				"sub": "Հաշվի ID"
-			}
+			},
+      "view": "View Rebill",
+      "id": "ID",
+      "billed": "Bill at",
+      "created": "Created at",
+      "amount": "Amount",
+      "nodata": "No Rebills found."
 		},
 		"rebill": {
 			"history": {
@@ -129,6 +135,14 @@
 		"dismiss": "Բաց թողնել"
 	},
 	"advancedfilter": {
+    "day": "1D",
+    "week": "1W",
+    "month": "1M",
+    "3month": "3M",
+    "6month": "6M",
+    "year": "1Y",
+    "yeartodate": "YTD",
+    "all": "ALL",
 		"from": "Ումից",
 		"to": "Ում",
 		"filters": "Զտիչներ",
@@ -153,7 +167,9 @@
 		"rebill": "Հաշիվ",
 		"success": "Հաջող էր",
 		"decline": "Մերժում",
-		"error": "Սխալ"
+		"error": "Սխալ",
+    "refreshdashboardtext": "Refresh Dashboard. Last updated:",
+    "refreshreporttext": "Refresh Report"
 	},
 	"forminputs": {
 		"fullname": "Անուն, ազգանուն",
@@ -333,7 +349,7 @@
 				"subtitle": "Իմացեք, թե ինչպես գրանցել հաճախորդների մնալը"
 			}
 		}
-	},
+  },
 	"chart": {
 		"viewmore": "ԴԻՏԵԼ ԱՎԵԼԻՆ",
 		"collapse": "ԿՈԾԿԵԼ",
@@ -411,7 +427,7 @@
 		"advanced": {
 			"toggle": "ԸՆԴԼԱՅՆՎԱԾ ՈՐՈՆՈՒՄ",
 			"search": "Որոնում",
-			"firstname": "Անուն",
+      "firstname": "Անուն",
 			"lastname": "Ազգանուն",
 			"phone": "Հեռախոս",
 			"email": "Էլ. փոստ",
@@ -445,7 +461,8 @@
 			"price": "Գին",
 			"id": "ID"
 		},
-		"category": "Անվանակարգ",
+    "filter": "Filter Results",
+    "category": "Անվանակարգ",
 		"refined": "ԱՎԱՐՏՎԱԾ ԱՐԴՅՈՒՆՔՆԵՐ",
 		"reset": "ՎԵՐԱԿԱՅԵԼ ՈՐՈՆՈՒՄԸ",
 		"date": {
@@ -1412,6 +1429,12 @@
 		"del": "ՋՆՋԵԼ",
 		"cancel": "ՉԵՂԱՐԿԵԼ"
 	},
+  "associatedialog": {
+    "text": "Select entity to associate",
+    "associate": "ASSOCIATE",
+    "cancel": "CANCEL",
+    "entity": "Entity"
+  },
 	"inviteuser": {
 		"title": "Հրավիրել նոր օգտվող",
 		"email": "Օգտվողի էլ. փոստ",
@@ -1463,5 +1486,18 @@
 			"switchtext": "Փոխարկումը այս և ձեր մյուս SIX հաշիվների միջև շատ հեշտ է: Պարզապես սեղմեք SIX-ի հաշվի կոճակի վերևի աջ մասին և ընտրեք այն հաշիվը, որը ցանկանում եք մատչել:",
 			"cont": "Շարունակել"
 		}
-	}
+	},
+  "share": {
+    "title": "Share",
+    "copy": "Copy to clipboard"
+  },
+  "pagination": {
+    "rowsperpage": "Rows per page"
+  },
+  "snack": {
+    "error": "Error occured, please try again",
+    "updated": "Updated Successfully!",
+    "created": "Created Successfully!",
+    "deleted": "Deleted Successfully!"
+  }
 }

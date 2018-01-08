@@ -87,7 +87,13 @@
         "snack": {
           "main": "Nachrichten dieser Reihe",
           "sub": "Neuzubelastung ID"
-        }
+        },
+        "view": "View Rebill",
+        "id": "ID",
+        "billed": "Bill at",
+        "created": "Created at",
+        "amount": "Amount",
+        "nodata": "No Rebills found."
       },
       "rebill": {
         "history": {
@@ -129,6 +135,14 @@
       "dismiss": "Abweisen"
     },
     "advancedfilter": {
+      "day": "1D",
+      "week": "1W",
+      "month": "1M",
+      "3month": "3M",
+      "6month": "6M",
+      "year": "1Y",
+      "yeartodate": "YTD",
+      "all": "ALL",
       "from": "Von",
       "to": "Bis",
       "filters": "Filter",
@@ -153,7 +167,9 @@
       "rebill": "Neubelastung",
       "success": "Erfolg",
       "decline": "Abhlehnung",
-      "error": "Fehler"
+      "error": "Fehler",
+      "refreshdashboardtext": "Refresh Dashboard. Last updated:",
+      "refreshreporttext": "Refresh Report"
     },
     "forminputs": {
       "fullname": "Name",
@@ -445,6 +461,7 @@
         "price": "Preis",
         "id": "ID"
       },
+      "filter": "Filter Results",
       "category": "Kategorie",
       "refined": "VERFEINERTE SUCHRESULTATE",
       "reset": "SUCHE ZURÜCKSTELLEN",
@@ -1190,7 +1207,7 @@
         "general": "ALLGEMEINES",
         "receipts": "Posteinlieferungsscheine"
       },
-      "info": { 
+      "info": {
         "title": "Neubelastung Information",
         "billed": "Berechnungsdatum",
         "amount": "Betrag",
@@ -1267,7 +1284,7 @@
         "title": "Fulfillment Provider bestätigen",
         "text": "Bestätigen Sie ob die Zugangsdaten des Fulfillment Anbieters gultig sind.",
         "response": "Antwortmeldung",
-        "validate": "BESTÄTIGEN"  
+        "validate": "BESTÄTIGEN"
       }
     },
     "smtp": {
@@ -1412,6 +1429,12 @@
       "del": "LÖSEN",
       "cancel": "ABBRECHEN"
     },
+    "associatedialog": {
+      "text": "Select entity to associate",
+      "associate": "ASSOCIATE",
+      "cancel": "CANCEL",
+      "entity": "Entity"
+    },
     "inviteuser": {
       "title": "Neue Nutzer auf SIX einladen",
       "email": "Email Addresse",
@@ -1463,5 +1486,18 @@
         "switchtext": "Das Schalten zwischen Ihre andere SIX-Kontos ist ganz einfach. Clicken Sie die Taste oben rechts und wählen Sie Ihre gewünschte Konto.",
         "cont": "Weiter"
       }
+    },
+    "share": {
+      "title": "Share",
+      "copy": "Copy to clipboard"
+    },
+    "pagination": {
+      "rowsperpage": "Rows per page"
+    },
+    "snack": {
+      "error": "Error occured, please try again",
+      "updated": "Updated Successfully!",
+      "created": "Created Successfully!",
+      "deleted": "Deleted Successfully!"
     }
   }

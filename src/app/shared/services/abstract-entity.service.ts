@@ -81,7 +81,7 @@ export abstract class AbstractEntityService<T> {
       const entityKey = Object.keys(json)[0];
       const entityData =json[entityKey];
 
-      this.openSnackBar('Deleted Successfully!');
+      this.openSnackBar('SNACK_DELETED');
       this.entityDeleted$.next(this.toEntity(entityData));
     });
   }
@@ -109,7 +109,7 @@ export abstract class AbstractEntityService<T> {
       const entityKey = Object.keys(json)[0];
       const entityData =json[entityKey];
 
-      this.openSnackBar('Created Successfully!');
+      this.openSnackBar('SNACK_CREATED');
       this.entityCreated$.next(this.toEntity(entityData));
     });
   }
@@ -130,7 +130,7 @@ export abstract class AbstractEntityService<T> {
       const entityData =json[entityKey];
 
       if (!options || !options.ignoreSnack) {
-        this.openSnackBar('Updated Successfully!');
+        this.openSnackBar('SNACK_UPDATED');
       }
 
       this.entityUpdated$.next(this.toEntity(entityData));
