@@ -47,7 +47,7 @@ export function updateFulfillmentProviderMutation(provider: FulfillmentProvider)
 }
 
 export function fulfillmentProviderResponseQuery(): string {
-  return `id, name, provider { ... on Hashtag { name, username, password, threepl_customer_id, threepl_key } ... on ThreePL { name, username, password, threepl_customer_id, threepl_key, threepl_id, threepl_facility_id } }, created_at, updated_at`;
+  return `id, name, provider { ... on Hashtag { name, username, password, threepl_customer_id, threepl_key } ... on ThreePL { name, username, password, threepl_customer_id, threepl_key, threepl_id, threepl_facility_id }, ... on TestFulfillmentProvider {name} }, created_at, updated_at`;
 }
 
 export function validateFulfillmentProviderQuery(provider: FulfillmentProvider): string {
@@ -65,6 +65,10 @@ export function fulfillmentProviderInputQuery(provider: FulfillmentProvider, inc
   if (provider.provider.name === 'ThreePL') {
     hash = `, threepl_facility_id:${provider.provider.threeplFacilityId}, threepl_id:${provider.provider.threeplId}`
   }
+  let data = `name: "${provider.provider.name}"`;
+  if (provider.provider.name !== 'Test') {
+    data += `, username: "${provider.provider.username}", password: "${provider.provider.password}", threepl_customer_id: ${provider.provider.threeplCustomerId}, threepl_key: "${provider.provider.threeplKey}${hash}"`
+  }
 
-  return `${addId(provider.id, includeId)} name: "${provider.name}", provider: {name: "${provider.provider.name}", username: "${provider.provider.username}", password: "${provider.provider.password}", threepl_customer_id: ${provider.provider.threeplCustomerId}, threepl_key: "${provider.provider.threeplKey}${hash}"}`;
+  return `${addId(provider.id, includeId)} name: "${provider.name}", provider: { ${data} }`;
 }
