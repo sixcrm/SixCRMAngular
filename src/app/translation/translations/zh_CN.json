@@ -289,9 +289,9 @@
           "newsale": "ch New Sales",
           "main": "ch Main",
           "upsell": "ch Upsells",
-          "rebill": "Rebills",
-          "decline": "Declines",
-          "error": "Errors"
+          "rebill": "ch Rebills",
+          "decline": "ch Declines",
+          "error": "ch Errors"
         },
         "eventsfunnel": {
             "title": "漏斗事件",
