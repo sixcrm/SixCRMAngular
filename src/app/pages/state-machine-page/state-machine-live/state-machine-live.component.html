@@ -1,7 +1,7 @@
 <div class="state-machine-live__breadcrumb">
-  <div class="root" [routerLink]="['/state-machine']">State Machine</div>
+  <div class="root" [routerLink]="['/state-machine']">{{'ORDERENGINE_TITLE' | translate}}</div>
   <md-icon>keyboard_arrow_right</md-icon>
-  <div class="queue">{{queueName}} Queue</div>
+  <div class="queue">{{('ORDERENGINE_ITEM_' + queueName) | translate}} {{'ORDERENGINE_QUEUE' | translate}}</div>
 </div>
 
 <div class="state-machine-live__details">

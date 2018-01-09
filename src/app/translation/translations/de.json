@@ -65,6 +65,17 @@
       "search": "Suche"
     },
     "orderengine": {
+      "title": "State Machine",
+      "queue": "Queue",
+      "item": {
+        "recover": "Recover",
+        "bill": "Bill",
+        "failed": "Failed",
+        "hold": "Hold",
+        "pending": "Pending",
+        "shipped": "Shipped",
+        "delivered": "Delivered"
+      },
       "schema": {
         "title": "SIX-Antrieb Fluss",
         "subtitle": "Unten finden Sie einen Fluss von allen Neubelastungen in SIX. Falls Sie Details einer bestimmten Reihe sehen wollen, klicken Sie den Namen der Reihe."

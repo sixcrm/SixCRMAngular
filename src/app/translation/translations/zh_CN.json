@@ -65,6 +65,17 @@
         "search": "搜索"
     },
     "orderengine": {
+        "title": "State Machine",
+        "queue": "Queue",
+        "item": {
+          "recover": "Recover",
+          "bill": "Bill",
+          "failed": "Failed",
+          "hold": "Hold",
+          "pending": "Pending",
+          "shipped": "Shipped",
+          "delivered": "Delivered"
+        },
         "schema": {
             "title": "状态机流程",
             "subtitle": "以下是SIX的数据流程草图，请点击一个简介内容"

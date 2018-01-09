@@ -65,6 +65,17 @@
 		"search": "Որոնում"
 	},
 	"orderengine": {
+    "title": "State Machine",
+    "queue": "Queue",
+    "item": {
+      "recover": "Recover",
+      "bill": "Bill",
+      "failed": "Failed",
+      "hold": "Hold",
+      "pending": "Pending",
+      "shipped": "Shipped",
+      "delivered": "Delivered"
+    },
 		"schema": {
 			"title": "Վիճակի մեքենայի հոսք",
 			"subtitle": "Ստորև չոր տվյալների հոսքն է բոլոր տվյալների համար SIX-ում: Սեղմեք տարրին՝ տվյալները բեռնելու համար"

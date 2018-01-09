@@ -82,6 +82,7 @@ function generateQueues(): StateMachineQueue[] {
   return [
     {
       label: 'recover',
+      labelkey: 'ORDERENGINE_ITEM_RECOVER',
       count: 0,
       schemaPosition: 'left',
       selected:false,
@@ -92,6 +93,7 @@ function generateQueues(): StateMachineQueue[] {
     },
     {
       label: 'failed',
+      labelkey: 'ORDERENGINE_ITEM_FAILED',
       count: 0,
       schemaPosition: 'left',
       selected:false,
@@ -102,6 +104,7 @@ function generateQueues(): StateMachineQueue[] {
     },
     {
       label: 'bill',
+      labelkey: 'ORDERENGINE_ITEM_BILL',
       count: 0,
       schemaPosition: 'right',
       selected:true,
@@ -113,6 +116,7 @@ function generateQueues(): StateMachineQueue[] {
     },
     {
       label: 'hold',
+      labelkey: 'ORDERENGINE_ITEM_HOLD',
       count: 0,
       schemaPosition: 'right',
       selected:false,
@@ -123,6 +127,7 @@ function generateQueues(): StateMachineQueue[] {
     },
     {
       label: 'pending',
+      labelkey: 'ORDERENGINE_ITEM_PENDING',
       count: 0,
       schemaPosition: 'right',
       selected:false,
@@ -133,6 +138,7 @@ function generateQueues(): StateMachineQueue[] {
     },
     {
       label: 'shipped',
+      labelkey: 'ORDERENGINE_ITEM_SHIPPED',
       count: 0,
       schemaPosition: 'right',
       selected:false,
@@ -143,6 +149,7 @@ function generateQueues(): StateMachineQueue[] {
     },
     {
       label: 'delivered',
+      labelkey: 'ORDERENGINE_ITEM_DELIVERED',
       count: 0,
       schemaPosition: 'right',
       selected:false,

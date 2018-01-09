@@ -12,12 +12,12 @@
         <div class="schema__item"
              [class.schema__item--focused]="queues[0].selected"
              (click)="select(queues[0])"
-        >{{queues[0].label}}</div>
+        >{{queues[0].labelkey | translate}}</div>
         <dotted-line></dotted-line>
         <div class="schema__item"
              [class.schema__item--focused]="queues[1].selected"
              (click)="select(queues[1])"
-        >{{queues[1].label}}</div>
+        >{{queues[1].labelkey | translate}}</div>
         <angle-arrow></angle-arrow>
       </div>
 
@@ -31,7 +31,7 @@
                class="schema__item"
                [class.schema__item--focused]="item.selected"
                (click)="select(item)"
-          >{{item.label}}</div>
+          >{{item.labelkey | translate}}</div>
           <arrow *ngIf="item.schemaPosition === 'right' && i + 1 < queues.length"></arrow>
 
         </ng-container>

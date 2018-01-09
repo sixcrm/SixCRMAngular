@@ -1,5 +1,6 @@
 export interface StateMachineQueue {
   label: string,
+  labelkey: string,
   count: number,
   avgTimeInSeconds: number,
   avgTimeColor?: string,
