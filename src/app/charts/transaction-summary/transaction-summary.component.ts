@@ -4,6 +4,8 @@ import {TransactionSummary} from '../../shared/models/transaction-summary.model'
 import {AnalyticsService} from '../../shared/services/analytics.service';
 import {FilterTerm, flatUp} from '../../shared/components/advanced-filter/advanced-filter.component';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
+import {TranslationService} from '../../translation/translation.service';
+import {AuthenticationService} from '../../authentication/authentication.service';
 
 @Component({
   selector: 'transaction-summary-chart',
@@ -31,50 +33,7 @@ export class TransactionSummaryChartComponent extends AbstractDashboardItem impl
   loaded: boolean = false;
 
   chartInstance;
-  chartOptions = {
-    credits: {enabled: false},
-    rangeSelector: {enabled: false},
-    series: [
-      { name: 'successes', color: '#F28933' },
-      { name: 'declines', color: '#407CC1' },
-      { name: 'errors', color: '#9ADDFB' }
-    ],
-    navigator: {
-      maskFill: 'rgba(0,0,0,0.15)',
-      handles: {
-        backgroundColor: '#818181',
-        borderColor: '#ffffff'
-      },
-      outlineColor: 'rgba(0,0,0,0)',
-      series: {
-        type: 'areaspline',
-        color: 'rgba(0,0,0,1)',
-        fillOpacity: 0.2,
-        lineWidth: 1,
-      }
-    },
-    scrollbar: {
-      barBackgroundColor: 'rgba(0,0,0,0.25)',
-      barBorderRadius: 10,
-      barBorderColor: '#ffffff',
-
-      buttonArrowColor: '#ffffff',
-      buttonBackgroundColor: 'rgba(0,0,0,0.25)',
-      buttonBorderRadius: 10,
-      buttonBorderColor: '#ffffff',
-
-      rifleColor: '#ffffff',
-
-      trackBackgroundColor: '#ffffff',
-      trackBorderColor: 'rgba(0,0,0,0.15)',
-      trackBorderRadius: 10,
-    },
-    tooltip: {
-      backgroundColor: 'rgba(0,0,0,0.8)',
-      borderColor: 'rgba(0,0,0,0.8)',
-      style: { 'color': '#fff', 'fontSize': '14px' }
-    }
-  };
+  chartOptions;
 
   loaderOptions = {
     credits: {enabled: false},
@@ -102,8 +61,65 @@ export class TransactionSummaryChartComponent extends AbstractDashboardItem impl
     ]
   };
 
-  constructor(private analyticsService: AnalyticsService) {
+  constructor(
+    private analyticsService: AnalyticsService,
+    private translationService: TranslationService,
+    private authService: AuthenticationService
+  ) {
     super();
+
+    if (this.authService.getUserSettings().language) {
+      this.initChart();
+    } else {
+      this.authService.userSettings$.take(1).subscribe(settings => this.initChart());
+    }
+  }
+
+  initChart() {
+    this.chartOptions = {
+      credits: {enabled: false},
+      rangeSelector: {enabled: false},
+      series: [
+        { name: this.translationService.translate('DASHBOARD_TRANSACTIONSUMMARY_SUCCESS'), color: '#F28933' },
+        { name: this.translationService.translate('DASHBOARD_TRANSACTIONSUMMARY_DECLINE'), color: '#407CC1' },
+        { name: this.translationService.translate('DASHBOARD_TRANSACTIONSUMMARY_ERROR'), color: '#9ADDFB' }
+      ],
+      navigator: {
+        maskFill: 'rgba(0,0,0,0.15)',
+        handles: {
+          backgroundColor: '#818181',
+          borderColor: '#ffffff'
+        },
+        outlineColor: 'rgba(0,0,0,0)',
+        series: {
+          type: 'areaspline',
+          color: 'rgba(0,0,0,1)',
+          fillOpacity: 0.2,
+          lineWidth: 1,
+        }
+      },
+      scrollbar: {
+        barBackgroundColor: 'rgba(0,0,0,0.25)',
+        barBorderRadius: 10,
+        barBorderColor: '#ffffff',
+
+        buttonArrowColor: '#ffffff',
+        buttonBackgroundColor: 'rgba(0,0,0,0.25)',
+        buttonBorderRadius: 10,
+        buttonBorderColor: '#ffffff',
+
+        rifleColor: '#ffffff',
+
+        trackBackgroundColor: '#ffffff',
+        trackBorderColor: 'rgba(0,0,0,0.15)',
+        trackBorderRadius: 10,
+      },
+      tooltip: {
+        backgroundColor: 'rgba(0,0,0,0.8)',
+        borderColor: 'rgba(0,0,0,0.8)',
+        style: { 'color': '#fff', 'fontSize': '14px' }
+      }
+    };
   }
 
   ngOnInit() {

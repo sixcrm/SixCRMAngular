@@ -4,6 +4,8 @@ import {Observable} from 'rxjs';
 import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {TranslationService} from '../../../translation/translation.service';
+import {AuthenticationService} from '../../../authentication/authentication.service';
 
 @Component({
   selector: 'events-summary',
@@ -19,80 +21,98 @@ export class EventsSummaryComponent extends AbstractDashboardItem implements OnI
   events: EventSummary[];
   loaded: boolean = false;
 
-  options = {
-    chart: {
-      type: 'area'
-    },
-    title: {
-      text: null
-    },
-    credits: {
-      enabled: false
-    },
-    yAxis: {
-      title: {
-        text: 'Events'
-      }
-    },
-    tooltip: {
-      split: true
-    },
-    plotOptions: {
-      area: {
-        stacking: 'normal'
-      }
-    },
-    series: [
-      { name: 'Confirm', color: this.colors[4] },
-      { name: 'Upsell', color: this.colors[3] },
-      { name: 'Order', color: this.colors[2] },
-      { name: 'Lead', color: this.colors[1] },
-      { name: 'Click', color: this.colors[0] }
-    ]
+  options;
+  loaderOptions;
+
+  constructor(
+    private analyticsService: AnalyticsService,
+    private translationService: TranslationService,
+    private authService: AuthenticationService
+  ) {
+    super();
+
+    if (this.authService.getUserSettings().language) {
+      this.initCharts();
+    } else {
+      this.authService.userSettings$.take(1).subscribe(settings => this.initCharts());
+    }
+
   };
 
-  loaderOptions = {
-    chart: {
-      type: 'area'
-    },
-    title: {
-      text: null
-    },
-    credits: {
-      enabled: false
-    },
-    yAxis: {
+  initCharts() {
+
+    this.options = {
+      chart: {
+        type: 'area'
+      },
       title: {
         text: null
       },
-      labels: {
+      credits: {
         enabled: false
-      }
-    },
-    xAxis: {
-      labels: {
-        enabled: false
-      }
-    },
-    tooltip: {
-      split: true
-    },
-    plotOptions: {
-      area: {
-        stacking: 'normal'
-      }
-    },
-    series: [
-      { name: 'Confirm', color: this.loaderColors[4], data: [8,6,7,8,9,10] },
-      { name: 'Upsell', color: this.loaderColors[3], data: [7,5,6,7,8,9] },
-      { name: 'Order', color: this.loaderColors[2], data: [5,4,5,6,7,8] },
-      { name: 'Lead', color: this.loaderColors[1], data: [4,3,4,5,6,7] },
-      { name: 'Click', color: this.loaderColors[0], data: [3,2,3,4,5,6] }
-    ]
-  };
+      },
+      yAxis: {
+        title: {
+          text: this.translationService.translate('DASHBOARD_EVENTSUMMARY_EVENTS')
+        }
+      },
+      tooltip: {
+        split: true
+      },
+      plotOptions: {
+        area: {
+          stacking: 'normal'
+        }
+      },
+      series: [
+        { name: this.translationService.translate('DASHBOARD_EVENTSUMMARY_CONFIRM'), color: this.colors[4] },
+        { name: this.translationService.translate('DASHBOARD_EVENTSUMMARY_UPSELL'), color: this.colors[3] },
+        { name: this.translationService.translate('DASHBOARD_EVENTSUMMARY_ORDER'), color: this.colors[2] },
+        { name: this.translationService.translate('DASHBOARD_EVENTSUMMARY_LEAD'), color: this.colors[1] },
+        { name: this.translationService.translate('DASHBOARD_EVENTSUMMARY_CLICK'), color: this.colors[0] }
+      ]
+    };
 
-  constructor(private analyticsService: AnalyticsService) {
-    super();
+    this.loaderOptions  = {
+      chart: {
+        type: 'area'
+      },
+      title: {
+        text: null
+      },
+      credits: {
+        enabled: false
+      },
+      yAxis: {
+        title: {
+          text: this.translationService.translate('DASHBOARD_EVENTSUMMARY_EVENTS')
+        },
+        labels: {
+          enabled: false
+        }
+      },
+      xAxis: {
+        labels: {
+          enabled: false
+        }
+      },
+      tooltip: {
+        split: true
+      },
+      plotOptions: {
+        area: {
+          stacking: 'normal'
+        }
+      },
+      series: [
+        { name: this.translationService.translate('DASHBOARD_EVENTSUMMARY_CONFIRM'), color: this.loaderColors[4] },
+        { name: this.translationService.translate('DASHBOARD_EVENTSUMMARY_UPSELL'), color: this.loaderColors[3] },
+        { name: this.translationService.translate('DASHBOARD_EVENTSUMMARY_ORDER'), color: this.loaderColors[2] },
+        { name: this.translationService.translate('DASHBOARD_EVENTSUMMARY_LEAD'), color: this.loaderColors[1] },
+        { name: this.translationService.translate('DASHBOARD_EVENTSUMMARY_CLICK'), color: this.loaderColors[0] }
+      ]
+    };
+
   }
 
   ngOnInit() {

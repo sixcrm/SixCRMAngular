@@ -14,12 +14,12 @@ export class TransactionOverviewComponent extends AbstractDashboardItem implemen
   transactionOverview: TransactionOverview;
 
   overviewOptions: any[] = [
-    {title: 'New Sales', mapToResult: (overview: TransactionOverview) => overview.newSale, image: 'newsale.svg'},
-    {title: 'Main', mapToResult: (overview: TransactionOverview) => overview.main, image: 'main.svg'},
-    {title: 'Upsells', mapToResult: (overview: TransactionOverview) => overview.upsell, image: 'upsell.svg'},
-    {title: 'Rebills', mapToResult: (overview: TransactionOverview) => overview.rebill, image: 'rebill.svg'},
-    {title: 'Declines', mapToResult: (overview: TransactionOverview) => overview.decline, image: 'decline.svg'},
-    {title: 'Errors', mapToResult: (overview: TransactionOverview) => overview.error, image: 'error.svg'}
+    {title: 'DASHBOARD_ITEM_NEWSALE', mapToResult: (overview: TransactionOverview) => overview.newSale, image: 'newsale.svg'},
+    {title: 'DASHBOARD_ITEM_MAIN', mapToResult: (overview: TransactionOverview) => overview.main, image: 'main.svg'},
+    {title: 'DASHBOARD_ITEM_UPSELL', mapToResult: (overview: TransactionOverview) => overview.upsell, image: 'upsell.svg'},
+    {title: 'DASHBOARD_ITEM_REBILL', mapToResult: (overview: TransactionOverview) => overview.rebill, image: 'rebill.svg'},
+    {title: 'DASHBOARD_ITEM_DECLINE', mapToResult: (overview: TransactionOverview) => overview.decline, image: 'decline.svg'},
+    {title: 'DASHBOARD_ITEM_ERROR', mapToResult: (overview: TransactionOverview) => overview.error, image: 'error.svg'}
   ];
 
   constructor(public analyticsService: AnalyticsService) {

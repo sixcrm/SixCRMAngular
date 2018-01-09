@@ -3,7 +3,7 @@
 
   <ng-container *ngIf="overview && mapToResult && mapToResult(overview); else loader">
     <div class="transaction-overview__count">{{mapToResult(overview).count}}</div>
-    <div class="transaction-overview__title">{{title}}</div>
+    <div class="transaction-overview__title">{{title | translate}}</div>
     <div class="transaction-overview__amount">{{mapToResult(overview).amount.usd()}}</div>
   </ng-container>
   <ng-template #loader>

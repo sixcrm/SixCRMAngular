@@ -285,18 +285,37 @@
     }
   },
   "dashboard": {
+    "item": {
+      "newsale": "New Sales",
+      "main": "Main",
+      "upsell": "Upsells",
+      "rebill": "Rebills",
+      "decline": "Declines",
+      "error": "Errors"
+    },
     "eventsfunnel": {
       "title": "Events Funnel",
       "subtitle": "Events by Event type",
       "event": "Event",
       "count": "Count",
       "percentage": "Percentage",
-      "relativepercentage": "Relative Percentage"
+      "relativepercentage": "Relative Percentage",
+      "click": "Clicks",
+      "lead": "Leads",
+      "main": "Mains",
+      "upsell": "Upsells",
+      "confirm": "Confirms"
     },
     "eventsummary": {
       "title": "Events",
       "subtitle": "events summary",
-      "nodata": "No Events Found"
+      "nodata": "No Events Found",
+      "confirm": "Confirm",
+      "upsell": "Upsell",
+      "lead": "Lead",
+      "order": "Order",
+      "click": "Click",
+      "events": "Events"
     },
     "eventsbyaffiliate": {
       "title": "Events by Affiliate",
@@ -319,7 +338,10 @@
     "transactionsummary": {
       "title": "Transactions",
       "subtitle": "transactions summary",
-      "nodata": "No Transactions Found"
+      "nodata": "No Transactions Found",
+      "success": "success",
+      "decline": "declines",
+      "error": "errors"
     },
     "movers": {
       "title": "Campaigns Watch List",
@@ -411,7 +433,9 @@
     "chart": {
       "title": "Merchant Processing",
       "subtitle": "Current loads and balance",
-      "nodata": "No Merchants Found"
+      "nodata": "No Merchants Found",
+      "dollar": "Dollar",
+      "revenue": "Sale Gross Revenue"
     }
   },
   "affiliatereport": {

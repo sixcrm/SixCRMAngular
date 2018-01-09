@@ -285,18 +285,37 @@
         }
     },
     "dashboard": {
+        "item": {
+          "newsale": "New Sales",
+          "main": "Main",
+          "upsell": "Upsells",
+          "rebill": "Rebills",
+          "decline": "Declines",
+          "error": "Errors"
+        },
         "eventsfunnel": {
             "title": "漏斗事件",
             "subtitle": "事件类型",
             "event": "事件",
             "count": "数量",
             "percentage": "百分比",
-            "relativepercentage": "相对百分比"
+            "relativepercentage": "相对百分比",
+            "click": "ch Clicks",
+            "lead": "ch Leads",
+            "main": "ch Mains",
+            "upsell": "ch Upsells",
+            "confirm": "ch Confirms"
         },
         "eventsummary": {
             "title": "活动",
             "subtitle": "事件总结",
-            "nodata": "没有发现事件"
+            "nodata": "没有发现事件",
+            "confirm": "ch Confirm",
+            "upsell": "ch Upsell",
+            "lead": "ch Lead",
+            "order": "ch Order",
+            "click": "ch Click",
+            "events": "ch Events"
         },
         "eventsbyaffiliate": {
             "title": "会员的相关活动",
@@ -319,7 +338,10 @@
         "transactionsummary": {
             "title": "交易列表",
             "subtitle": "交易总结",
-            "nodata": "没有找到交易记录"
+            "nodata": "没有找到交易记录",
+            "success": "ch success",
+            "decline": "ch declines",
+            "error": "ch errors"
         },
         "movers": {
             "title": "活动观察列表",
@@ -411,7 +433,9 @@
         "chart": {
             "title": "商家处理中",
             "subtitle": "当前负载与平衡",
-            "nodata": "找不到商家"
+            "nodata": "找不到商家",
+            "dollar": "ch Dollar",
+            "revenue": "ch Sale Gross Revenue"
         }
     },
     "affiliatereport": {

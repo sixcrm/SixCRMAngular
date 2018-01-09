@@ -31,30 +31,30 @@
 
     <tbody *ngIf="funnel">
       <tr>
-        <td><div [style.background]="colors[0]" class="color-indicator"></div>Clicks</td>
+        <td><div [style.background]="colors[0]" class="color-indicator"></div>{{'DASHBOARD_EVENTSFUNNEL_CLICK' | translate}}</td>
         <td class="cell--align-right">{{funnel.click.count}}</td>
         <td class="cell--align-right">{{funnel.click.percentage || '-'}}%</td>
         <td class="cell--align-right">{{funnel.click.relativePercentage || '-'}}%</td>
       </tr>
       <tr>
-        <td><div [style.background]="colors[1]" class="color-indicator"></div>Leads</td>
+        <td><div [style.background]="colors[1]" class="color-indicator"></div>{{'DASHBOARD_EVENTSFUNNEL_LEAD' | translate}}</td>
         <td class="cell--align-right">{{funnel.lead.count}}</td>
         <td class="cell--align-right">{{funnel.lead.percentage || '-'}}%</td>
         <td class="cell--align-right">{{funnel.lead.relativePercentage || '-'}}%</td>
       </tr>
       <tr>
-        <td><div [style.background]="colors[2]" class="color-indicator"></div>Mains</td>
+        <td><div [style.background]="colors[2]" class="color-indicator"></div>{{'DASHBOARD_EVENTSFUNNEL_MAIN' | translate}}</td>
         <td class="cell--align-right">{{funnel.main.count}}</td>
         <td class="cell--align-right">{{funnel.main.percentage || '-'}}%</td>
         <td class="cell--align-right">{{funnel.main.relativePercentage || '-'}}%</td>
       </tr><tr>
-        <td><div [style.background]="colors[3]" class="color-indicator"></div>Upsells</td>
+        <td><div [style.background]="colors[3]" class="color-indicator"></div>{{'DASHBOARD_EVENTSFUNNEL_UPSELL' | translate}}</td>
         <td class="cell--align-right">{{funnel.upsell.count}}</td>
         <td class="cell--align-right">{{funnel.upsell.percentage || '-'}}%</td>
         <td class="cell--align-right">{{funnel.upsell.relativePercentage || '-'}}%</td>
       </tr>
       <tr>
-        <td><div [style.background]="colors[4]" class="color-indicator"></div>Confirmations</td>
+        <td><div [style.background]="colors[4]" class="color-indicator"></div>{{'DASHBOARD_EVENTSFUNNEL_CONFIRM' | translate}}</td>
         <td class="cell--align-right">{{funnel.confirm.count}}</td>
         <td class="cell--align-right">{{funnel.confirm.percentage || '-'}}%</td>
         <td class="cell--align-right">{{funnel.confirm.relativePercentage || '-'}}%</td>

@@ -285,18 +285,37 @@
 		}
 	},
 	"dashboard": {
+    "item": {
+      "newsale": "New Sales",
+      "main": "Main",
+      "upsell": "Upsells",
+      "rebill": "Rebills",
+      "decline": "Declines",
+      "error": "Errors"
+    },
 		"eventsfunnel": {
 			"title": "Իրադարձությունների թունել",
 			"subtitle": "Իրադարձությունները ըստ Իրադարձության տեսակի",
 			"event": "Իրադարձություն",
 			"count": "Հաշվարկ",
 			"percentage": "Տոկոս",
-			"relativepercentage": "Հարաբերական տոկոս"
+			"relativepercentage": "Հարաբերական տոկոս",
+      "click": "Clicks",
+      "lead": "Leads",
+      "main": "Mains",
+      "upsell": "Upsells",
+      "confirm": "Confirms"
 		},
 		"eventsummary": {
 			"title": "Իրադարձություններ",
 			"subtitle": "իրադարձությունների ամփոփում",
-			"nodata": "Իրադարձություններ չկան"
+			"nodata": "Իրադարձություններ չկան",
+      "confirm": "ch Confirm",
+      "upsell": "ch Upsell",
+      "lead": "ch Lead",
+      "order": "ch Order",
+      "click": "ch Click",
+      "events": "ch Events"
 		},
 		"eventsbyaffiliate": {
 			"title": "Իրադարձություններ ըստ գործընկերոջ",
@@ -319,7 +338,10 @@
 		"transactionsummary": {
 			"title": "Գործարքներ",
 			"subtitle": "գործարքների ամփոփում",
-			"nodata": "Գործարքներ չկան"
+			"nodata": "Գործարքներ չկան",
+      "success": "success",
+      "decline": "declines",
+      "error": "errors"
 		},
 		"movers": {
 			"title": "Արշավների դիտելու ցանկ",
@@ -411,7 +433,9 @@
 		"chart": {
 			"title": "Վաճառողի մշակում",
 			"subtitle": "Ընթացիկ բեռնում և հաշվեկշիռ",
-			"nodata": "Վաճառողներ չեն գտնվել"
+			"nodata": "Վաճառողներ չեն գտնվել",
+      "dollar": "Dollar",
+      "revenue": "Sale Gross Revenue"
 		}
 	},
 	"affiliatereport": {

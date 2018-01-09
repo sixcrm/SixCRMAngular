@@ -285,18 +285,37 @@
       }
     },
     "dashboard": {
+      "item": {
+        "newsale": "New Sales",
+        "main": "Main",
+        "upsell": "Upsells",
+        "rebill": "Rebills",
+        "decline": "Declines",
+        "error": "Errors"
+      },
       "eventsfunnel": {
         "title": "Events Funnel",
         "subtitle": "Vorfälle sortiert nach Variant",
         "event": "Vorfall",
         "count": "Anzahl",
         "percentage": "Anteil",
-        "relativepercentage": "Relativ Anteil"
+        "relativepercentage": "Relativ Anteil",
+        "click": "Clicks",
+        "lead": "Leads",
+        "main": "Mains",
+        "upsell": "Upsells",
+        "confirm": "Confirms"
       },
       "eventsummary": {
         "title": "Vorfälle",
         "subtitle": "Zusammenfassung den Vorfällen",
-        "nodata": "Keine Vorfälle gefunden"
+        "nodata": "Keine Vorfälle gefunden",
+        "confirm": "Confirm",
+        "upsell": "Upsell",
+        "lead": "Lead",
+        "order": "Order",
+        "click": "Click",
+        "events": "Events"
       },
       "eventsbyaffiliate": {
         "title": "Vorfälle sortiert nach Vertriebspartner",
@@ -319,7 +338,10 @@
       "transactionsummary": {
         "title": "Transaktionen",
         "subtitle": "Zusammenfassung von Transaktionen",
-        "nodata": "Keine Transaktionen gefunden"
+        "nodata": "Keine Transaktionen gefunden",
+        "success": "success",
+        "decline": "declines",
+        "error": "errors"
       },
       "movers": {
         "title": "Kampagnen Beobachtungsliste",
@@ -411,7 +433,9 @@
       "chart": {
         "title": "Händler Verarbeitung",
         "subtitle": "Aktuelle Infos",
-        "nodata": "Keine Händler gefunden"
+        "nodata": "Keine Händler gefunden",
+        "dollar": "Dollar",
+        "revenue": "Sale Gross Revenue"
       }
     },
     "affiliatereport": {
