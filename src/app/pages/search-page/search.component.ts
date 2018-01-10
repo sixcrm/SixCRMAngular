@@ -11,6 +11,8 @@ import {AdvancedSearchComponent} from './advanced-search/advanced-search.compone
 import {firstIndexOf} from '../../shared/utils/array.utils';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {AutocompleteComponent} from '../../shared/components/autocomplete/autocomplete.component';
+import {getMonths, getDays} from '../../shared/utils/date.utils';
+import {TranslationService} from '../../translation/translation.service';
 
 export interface FacetCount {
   name: string;
@@ -89,7 +91,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     private searchService: SearchService,
     private paginationService: PaginationService,
     private daterangepickerOptions: DaterangepickerConfig,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    private translationService: TranslationService
   ) {
     this.startDate = utc().subtract(1,'M');
     this.endDate = utc();
@@ -194,20 +197,37 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   setDatepickerOptions(): void {
+
+    if (this.authService.getUserSettings().language) {
+      this.updateDatepicker();
+    } else {
+      this.authService.userSettings$.take(1).subscribe(() => this.updateDatepicker());
+    }
+  }
+
+  updateDatepicker(): void {
+    let ranges = {};
+    ranges[this.translationService.translate('DATEPICKER_TODAY')] = [utc(), utc()];
+    ranges[this.translationService.translate('DATEPICKER_YESTERDAY')] = [utc().subtract(1, 'd'), utc().subtract(1, 'd')];
+    ranges[this.translationService.translate('DATEPICKER_DAY7')] = [utc().subtract(7, 'd'), utc()];
+    ranges[this.translationService.translate('DATEPICKER_DAY30')] = [utc().subtract(30, 'd'), utc()];
+
     this.daterangepickerOptions.settings = {
       parentEl: '.datepicker--custom',
       startDate: this.startDate,
       endDate: this.endDate,
-      locale: { format: 'MM/DD/YYYY' },
+      locale: {
+        format: 'MM/DD/YYYY',
+        applyLabel: this.translationService.translate('DATEPICKER_APPLY'),
+        cancelLabel: this.translationService.translate('DATEPICKER_CANCEL'),
+        monthNames: getMonths(this.translationService),
+        daysOfWeek: getDays(this.translationService),
+        customRangeLabel: this.translationService.translate('DATEPICKER_CUSTOM'),
+      },
       alwaysShowCalendars: true,
       applyClass: 'btn-success-custom',
       linkedCalendars: false,
-      ranges: {
-        'Today': [utc(), utc()],
-        'Yesterday': [utc().subtract(1, 'd'), utc().subtract(1, 'd')],
-        'Last 7 days': [utc().subtract(7, 'd'), utc()],
-        'Last 30 days': [utc().subtract(30, 'd'), utc()],
-      }
+      ranges: ranges
     };
   }
 

@@ -3,6 +3,9 @@ import {Moment, utc} from 'moment';
 import {DaterangePickerComponent, DaterangepickerConfig} from 'ng2-daterangepicker';
 import {SearchService} from '../../services/search.service';
 import {AsyncSubject} from 'rxjs';
+import {AuthenticationService} from '../../../authentication/authentication.service';
+import {TranslationService} from '../../../translation/translation.service';
+import {getMonths, getDays} from '../../utils/date.utils';
 
 export interface FilterTerm {
   id: string;
@@ -121,7 +124,12 @@ export class AdvancedFilterComponent implements OnInit, OnDestroy {
     {label: 'ADVANCEDFILTER_ALL', start: flatDown(utc().subtract(10,'y')), end: lateToday()}
   ];
 
-  constructor(private searchService: SearchService, private daterangepickerOptions: DaterangepickerConfig) { }
+  constructor(
+    private searchService: SearchService,
+    private daterangepickerOptions: DaterangepickerConfig,
+    private authService: AuthenticationService,
+    private translationService: TranslationService
+  ) { }
 
   ngOnInit() {
     this.searchService.dashboardFilterResults$.takeUntil(this.unsubscribe$).subscribe(results => {
@@ -248,15 +256,33 @@ export class AdvancedFilterComponent implements OnInit, OnDestroy {
   }
 
   private initDatepicker(): void {
+
+    if (this.authService.getUserSettings().language) {
+      this.updateDatepicker();
+    } else {
+      this.authService.userSettings$.take(1).subscribe(() => this.updateDatepicker());
+    }
+
+  }
+
+  private updateDatepicker(): void {
+
     this.daterangepickerOptions.settings = {
       parentEl: '.datepicker--custom',
       startDate: this.startDate,
       endDate: this.endDate,
-      locale: { format: 'MM/DD/YYYY' },
+      locale: {
+        format: 'MM/DD/YYYY',
+        applyLabel: this.translationService.translate('DATEPICKER_APPLY'),
+        cancelLabel: this.translationService.translate('DATEPICKER_CANCEL'),
+        monthNames: getMonths(this.translationService),
+        daysOfWeek: getDays(this.translationService)
+      },
       alwaysShowCalendars: true,
       applyClass: 'btn-success-custom',
       linkedCalendars: false
     };
+
   }
 
   private markSelectedDateFilter(): void {

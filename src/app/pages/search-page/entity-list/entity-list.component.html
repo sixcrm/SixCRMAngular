@@ -2,7 +2,7 @@
 
   <div class="entity-list__item" *ngFor="let d of data" (click)="navigateToEntity(d)">
     <div class="entity-list__item__title" [innerHTML]="getName(d) | highlight: query"></div>
-    <div class="entity-list__item__subtitle">{{d.fields.entity_type}}</div>
+    <div class="entity-list__item__subtitle">{{(d.fields.entity_type + '_TITLE') | translate}}</div>
 
     <div class="entity-list__item__fields">
       <div class="entity-list__item__fields__single" *ngIf="d.fields.firstname">

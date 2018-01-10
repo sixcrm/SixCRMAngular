@@ -5,7 +5,7 @@
       <img src="{{imageSrc()}}">
       <div class="perfect-match__header__title">
         <div class="perfect-match__header__title__main">{{getName()}}</div>
-        <div class="perfect-match__header__title__sub">{{entity.fields.entity_type}}</div>
+        <div class="perfect-match__header__title__sub">{{(entity.fields.entity_type + '_TITLE') | translate}}</div>
       </div>
       <div class="perfect-match__header__buttons">
         <md-icon (click)="navigateToEntity()">open_in_new</md-icon>
@@ -20,7 +20,7 @@
     <perfect-campaign *ngIf="entity.fields.entity_type === 'campaign'" [id]="entity.id"></perfect-campaign>
 
     <div (click)="navigateToEntity()" class="perfect-match__view-more">
-      {{'SEARCH_PERFECT_VIEW' | translate}} {{entity.fields.entity_type}}
+      {{'SEARCH_PERFECT_VIEW' | translate}} {{(entity.fields.entity_type + '_TITLE') | translate}}
     </div>
   </div>
 </div>

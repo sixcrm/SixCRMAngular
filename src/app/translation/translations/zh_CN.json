@@ -1535,5 +1535,33 @@
       "updated": "ch Updated Successfully!",
       "created": "ch Created Successfully!",
       "deleted": "ch Deleted Successfully!"
-    }
+    },
+  "datepicker": {
+    "apply": "cApply",
+    "cancel": "cCancel",
+    "jan": "Jac",
+    "feb": "Fec",
+    "mar": "Mac",
+    "apr": "Apc",
+    "may": "Mac",
+    "jun": "Junc",
+    "jul": "Julc",
+    "aug": "Auc",
+    "sep": "Sepc",
+    "oct": "Occ",
+    "nov": "Noc",
+    "dec": "Dec",
+    "mon": "Mc",
+    "tue": "Tc",
+    "wed": "Wc",
+    "thu": "Tc",
+    "fri": "Fc",
+    "sat": "Sc",
+    "sun": "Sc",
+    "today": "cToday",
+    "yesterday": "cYesterday",
+    "day7": "cLast 7 days",
+    "day30": "cLast 30 days",
+    "custom": "cCustom"
+  }
 }

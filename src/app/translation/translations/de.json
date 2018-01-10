@@ -1535,5 +1535,33 @@
       "updated": "Updated Successfully!",
       "created": "Created Successfully!",
       "deleted": "Deleted Successfully!"
+    },
+    "datepicker": {
+      "apply": "Apply",
+      "cancel": "Cancel",
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Apr",
+      "may": "May",
+      "jun": "June",
+      "jul": "July",
+      "aug": "Aug",
+      "sep": "Sept",
+      "oct": "Oct",
+      "nov": "Nov",
+      "dec": "Dec",
+      "mon": "Mo",
+      "tue": "Tu",
+      "wed": "We",
+      "thu": "Th",
+      "fri": "Fr",
+      "sat": "Sa",
+      "sun": "Su",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "day7": "Last 7 days",
+      "day30": "Last 30 days",
+      "custom": "Custom"
     }
   }
