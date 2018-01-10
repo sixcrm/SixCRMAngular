@@ -2,9 +2,9 @@
   <img  class="transaction-overview__image" src="/assets/images/{{image}}">
 
   <ng-container *ngIf="overview && mapToResult && mapToResult(overview); else loader">
-    <div class="transaction-overview__count">{{mapToResult(overview).count}}</div>
+    <div class="transaction-overview__count">{{mapToResult(overview).count | numberlocale}}</div>
     <div class="transaction-overview__title">{{title | translate}}</div>
-    <div class="transaction-overview__amount">{{mapToResult(overview).amount.usd()}}</div>
+    <div class="transaction-overview__amount">{{mapToResult(overview).amount.usd() | numberlocale}}</div>
   </ng-container>
   <ng-template #loader>
     <table-loader [rowMarginHorizontal]="40" [rowHeight]="10"></table-loader>

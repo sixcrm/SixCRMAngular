@@ -1,4 +1,4 @@
-let numeral = require('numeral');
+const numeral = require('numeral');
 
 export class Currency {
 

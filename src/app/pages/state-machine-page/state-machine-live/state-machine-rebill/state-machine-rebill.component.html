@@ -103,7 +103,7 @@
         <div class="clickable" [routerLink]="['/sessions', rebill.parentSession.id]"><span>{{'ORDERENGINE_REBILL_PROPERTIES_PARENTSESSION' | translate}}:</span>{{rebill.parentSession.id}}</div>
         <div><span>{{'ORDERENGINE_REBILL_PROPERTIES_CREATED' | translate}}:</span>{{rebill.createdAt.tz(authService.getTimezone()).format('MM/DD/YYYY h:mm a')}}</div>
         <div><span>{{'ORDERENGINE_REBILL_PROPERTIES_UPDATED' | translate}}:</span>{{rebill.updatedAt.tz(authService.getTimezone()).format('MM/DD/YYYY h:mm a')}}</div>
-        <div><span>{{'ORDERENGINE_REBILL_PROPERTIES_AMOUNT' | translate}}:</span>{{rebill.amount.usd()}}</div>
+        <div><span>{{'ORDERENGINE_REBILL_PROPERTIES_AMOUNT' | translate}}:</span>{{rebill.amount.usd() | numberlocale}}</div>
         <div class="clickable" [routerLink]="['/campaigns', rebill.parentSession.campaign.id]"><span>{{'ORDERENGINE_REBILL_PROPERTIES_CAMPAIGN' | translate}}:</span>{{rebill.parentSession.campaign.name}}</div>
       </md-card-content>
     </md-card>

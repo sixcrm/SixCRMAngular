@@ -42,7 +42,9 @@
               [class.cell--link]="params.isLink"
               (click)="onCellClicked(params, d)"
               [class.filter-cell]="params.isFilter">
-            {{params.mappingFunction(d)}}</td>
+            <ng-container *ngIf="params.number; else nan">{{params.mappingFunction(d) | numberlocale}}</ng-container>
+            <ng-template #nan>{{params.mappingFunction(d)}}</ng-template>
+            </td>
         </tr>
       </tbody>
     </table>

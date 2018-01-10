@@ -8,6 +8,7 @@ export class ColumnParams<T> {
   code: boolean;
   color: string;
   copy: boolean;
+  number: boolean;
 
   constructor(label?: string, mappingFunction?: (e: T) => string | number, align?: string, order?: string, applied?: boolean) {
     this.label = label;
@@ -17,20 +18,26 @@ export class ColumnParams<T> {
     this.sortApplied = applied || false;
   }
 
-  setCode(value: boolean): ColumnParams<T> {
+  setCode(value: boolean) {
     this.code = value;
 
     return this;
   }
 
-  setColor(value: string): ColumnParams<T> {
+  setColor(value: string) {
     this.color = value;
 
     return this;
   }
 
-  setCopyOption(value: boolean): ColumnParams<T> {
+  setCopyOption(value: boolean) {
     this.copy = value;
+
+    return this;
+  }
+
+  setNumberOption(value: boolean) {
+    this.number = value;
 
     return this;
   }

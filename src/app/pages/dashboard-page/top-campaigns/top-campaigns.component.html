@@ -26,7 +26,10 @@
       </thead>
       <tbody>
       <tr *ngFor="let campaign of campaigns | sortEntities: sortParams.mappingFunction: sortOrder" [routerLink]="['/campaigns', campaign.campaign]">
-        <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'">{{params.mappingFunction(campaign)}}</td>
+        <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'">
+          <ng-container *ngIf="params.number; else nan">{{params.mappingFunction(campaign) | numberlocale}}</ng-container>
+          <ng-template #nan>{{params.mappingFunction(campaign)}}</ng-template>
+        </td>
       </tr>
       </tbody>
     </table>

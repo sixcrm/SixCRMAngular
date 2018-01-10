@@ -28,8 +28,8 @@
         <tbody *ngIf="eventsBy">
         <tr *ngFor="let facet of eventsBy.facets | subArray: maxNumber + 2; let i = index" [routerLink]="['/affiliates', facet.facet]">
           <td><div [style.background]="colors[i]" class="color-indicator"></div>{{facet.facet.substring(0, 18) + '...'}}</td>
-          <td class="cell--align-right">{{facet.count}}</td>
-          <td class="cell--align-right">{{facet.percentage}}</td>
+          <td class="cell--align-right">{{facet.count | numberlocale}}</td>
+          <td class="cell--align-right">{{facet.percentage | numberlocale}}</td>
         </tr>
         </tbody>
       </table>

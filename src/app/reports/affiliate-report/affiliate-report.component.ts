@@ -42,17 +42,17 @@ export class AffiliateReportComponent  extends ReportsAbstractComponent<Affiliat
     super.init();
 
     this.columnParamsTotal = [
-      new ReportColumnParams('AFFILIATEREPORT_CLICKSCOUNT', (e: AffiliateReport) => e.countClick, 'right'),
-      new ReportColumnParams('AFFILIATEREPORT_PARTIALSCOUNT', (e: AffiliateReport) => e.countPartials, 'right'),
-      new ReportColumnParams('AFFILIATEREPORT_PARTIALSPERCENTAGE', (e: AffiliateReport) => e.partialsPercent.toFixed(2) + '%', 'right'),
-      new ReportColumnParams('AFFILIATEREPORT_DECLINESCOUNT', (e: AffiliateReport) => e.declineCount, 'right'),
-      new ReportColumnParams('AFFILIATEREPORT_DECLINESPERCENTAGE', (e: AffiliateReport) => e.declinesPercent.toFixed(2) + '%', 'right'),
-      new ReportColumnParams('AFFILIATEREPORT_SALESCOUNT', (e: AffiliateReport) => e.countSales, 'right'),
-      new ReportColumnParams('AFFILIATEREPORT_SALESPERCENTAGE', (e: AffiliateReport) => e.salesPercent.toFixed(2) + '%', 'right'),
-      new ReportColumnParams('AFFILIATEREPORT_UPSELLCOUNT', (e: AffiliateReport) => e.countUpsell, 'right'),
-      new ReportColumnParams('AFFILIATEREPORT_UPSELLPERCENTAGE', (e: AffiliateReport) => e.upsellPercent.toFixed(2) + '%', 'right'),
-      new ReportColumnParams('AFFILIATEREPORT_UPSELLSUM', (e: AffiliateReport) => e.sumUpsell.usd(), 'right'),
-      new ReportColumnParams('AFFILIATEREPORT_AMOUNTSUM', (e: AffiliateReport) => e.sumAmount.usd(), 'right'),
+      new ReportColumnParams('AFFILIATEREPORT_CLICKSCOUNT', (e: AffiliateReport) => e.countClick, 'right').setNumberOption(true),
+      new ReportColumnParams('AFFILIATEREPORT_PARTIALSCOUNT', (e: AffiliateReport) => e.countPartials, 'right').setNumberOption(true),
+      new ReportColumnParams('AFFILIATEREPORT_PARTIALSPERCENTAGE', (e: AffiliateReport) => e.partialsPercent.toFixed(2) + '%', 'right').setNumberOption(true),
+      new ReportColumnParams('AFFILIATEREPORT_DECLINESCOUNT', (e: AffiliateReport) => e.declineCount, 'right').setNumberOption(true),
+      new ReportColumnParams('AFFILIATEREPORT_DECLINESPERCENTAGE', (e: AffiliateReport) => e.declinesPercent.toFixed(2) + '%', 'right').setNumberOption(true),
+      new ReportColumnParams('AFFILIATEREPORT_SALESCOUNT', (e: AffiliateReport) => e.countSales, 'right').setNumberOption(true),
+      new ReportColumnParams('AFFILIATEREPORT_SALESPERCENTAGE', (e: AffiliateReport) => e.salesPercent.toFixed(2) + '%', 'right').setNumberOption(true),
+      new ReportColumnParams('AFFILIATEREPORT_UPSELLCOUNT', (e: AffiliateReport) => e.countUpsell, 'right').setNumberOption(true),
+      new ReportColumnParams('AFFILIATEREPORT_UPSELLPERCENTAGE', (e: AffiliateReport) => e.upsellPercent.toFixed(2) + '%', 'right').setNumberOption(true),
+      new ReportColumnParams('AFFILIATEREPORT_UPSELLSUM', (e: AffiliateReport) => e.sumUpsell.usd(), 'right').setNumberOption(true),
+      new ReportColumnParams('AFFILIATEREPORT_AMOUNTSUM', (e: AffiliateReport) => e.sumAmount.usd(), 'right').setNumberOption(true),
     ];
 
     this.columnParams = [

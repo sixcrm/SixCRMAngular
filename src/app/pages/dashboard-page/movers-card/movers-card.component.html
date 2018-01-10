@@ -25,7 +25,7 @@
 
             <div class="movers-card__item__data">
               <div [class.dec]="isDecing(campaign)" class="movers-card__item__data__percentage">
-                <span>{{campaign.percentageChangeAmount}} ({{campaign.percentageChangeCount}})</span>
+                <span>{{campaign.percentageChangeAmount | numberlocale}} ({{campaign.percentageChangeCount | numberlocale}})</span>
                 <md-icon>{{isDecing(campaign) ? 'arrow_downward' : 'arrow_upward'}}</md-icon>
               </div>
             </div>

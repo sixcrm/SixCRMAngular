@@ -15,6 +15,7 @@ const allTranslations = languages.map(l => {
 export class TranslationService {
 
   private translations;
+  private locale;
   public translationChanged$: Subject<boolean> = new Subject();
 
   constructor(private userSettingsService: UserSettingsService, private authService: AuthenticationService) {
@@ -39,6 +40,9 @@ export class TranslationService {
     const trans = allTranslations.find((el) => el.name === language) || allTranslations.find((el) => el.name === 'English');
     this.translations = trans.translations;
 
+    const loc = languages.find((el) => el.name === language);
+    this.locale = loc && loc.locale ? loc.locale : 'en';
+
     this.translationChanged$.next(true);
   }
 
@@ -54,6 +58,30 @@ export class TranslationService {
     }
 
     return translation;
+  }
+
+  transformNumber(value) {
+    if (value === null || value === undefined) return value;
+
+    if (typeof value === 'string') {
+
+      const appendMinus = value.indexOf('-') !== -1;
+      if (appendMinus) {
+        value = value.slice(1);
+      }
+
+      if (value.indexOf('$') !== -1) {
+        return `${appendMinus ? '-' : ''}$${(+value.slice(1)).toLocaleString(this.locale || 'en')}`
+      }
+
+      if (value.indexOf('%') !== -1) {
+        return `${appendMinus ? '-' : ''}${(+value.slice(0,-1)).toLocaleString(this.locale || 'en')}%`
+      }
+
+      return (appendMinus ? '-' : '') + (+value).toLocaleString(this.locale || 'en');
+    }
+
+    return value.toLocaleString(this.locale || 'en');
   }
 
   parseTranslation(obj: any, keys: string[]): string {

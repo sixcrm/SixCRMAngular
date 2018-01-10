@@ -29,10 +29,10 @@
         <tbody *ngIf="transactionBy">
         <tr *ngFor="let facet of transactionBy.facets | subArray: maxNumber + 2; let i = index" [routerLink]="['/affiliates', facet.facet]">
           <td><div [style.background]="colors[i]" class="color-indicator"></div>{{facet.facet.substring(0, 12) + '...'}}</td>
-          <td class="cell--align-right">{{facet.count}}</td>
-          <td class="cell--align-right">{{facet.countPercentage}}%</td>
-          <td class="cell--align-right">{{facet.amount.usd()}}</td>
-          <td class="cell--align-right">{{facet.amountPercentage}}%</td>
+          <td class="cell--align-right">{{facet.count  | numberlocale}}</td>
+          <td class="cell--align-right">{{facet.countPercentage | numberlocale}}%</td>
+          <td class="cell--align-right">{{facet.amount.usd() | numberlocale}}</td>
+          <td class="cell--align-right">{{facet.amountPercentage | numberlocale}}%</td>
         </tr>
         </tbody>
       </table>

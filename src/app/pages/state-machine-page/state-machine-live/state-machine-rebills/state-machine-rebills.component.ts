@@ -50,7 +50,7 @@ export class StateMachineRebillsComponent extends AbstractEntityIndexComponent<R
       new ColumnParams('ORDERENGINE_REBILLS_ID', (e: Rebill) => e.id),
       new ColumnParams('ORDERENGINE_REBILLS_BILLED',(e: Rebill) => e.billAt ? e.billAt.tz(f).format('MM/DD/YYYY') : 'not billed'),
       new ColumnParams('ORDERENGINE_REBILLS_CREATED', (e: Rebill) => e.createdAt.tz(f).format('MM/DD/YYYY')),
-      new ColumnParams('ORDERENGINE_REBILLS_AMOUNT', (e: Rebill) => e.amount.usd(), 'right')
+      new ColumnParams('ORDERENGINE_REBILLS_AMOUNT', (e: Rebill) => e.amount.usd(), 'right').setNumberOption(true)
     ];
   }
 

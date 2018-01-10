@@ -46,18 +46,18 @@ export class SummaryReportComponent extends ReportsAbstractComponent<Transaction
     super.init();
 
     this.columnParamsTotal = [
-      new ReportColumnParams('SUMMARYREPORT_SALES', (e: TransactionsSumItem) => e.saleCount, 'right'),
-      new ReportColumnParams('SUMMARYREPORT_SALESREVENUE', (e: TransactionsSumItem) => new Currency(e.saleRevenue).usd(), 'right'),
-      new ReportColumnParams('SUMMARYREPORT_REBILL', (e: TransactionsSumItem) => e.rebillCount, 'right'),
-      new ReportColumnParams('SUMMARYREPORT_REBILLREVENUE', (e: TransactionsSumItem) => new Currency(e.rebillRevenue).usd(), 'right'),
-      new ReportColumnParams('SUMMARYREPORT_REFUNDS', (e: TransactionsSumItem) => e.refundCount, 'right'),
-      new ReportColumnParams('SUMMARYREPORT_REFUNDEXPENSES', (e: TransactionsSumItem) => '-' + new Currency(e.refundExpenses).usd(), 'right'),
-      new ReportColumnParams('SUMMARYREPORT_DECLINES', (e: TransactionsSumItem) => e.declinesCount, 'right'),
-      new ReportColumnParams('SUMMARYREPORT_DECLINESREVENUE', (e: TransactionsSumItem) => new Currency(e.declinesRevenue).usd(), 'right'),
-      new ReportColumnParams('SUMMARYREPORT_GROSSREVENUE', (e: TransactionsSumItem) => new Currency(e.grossRevenue).usd(), 'right'),
-      new ReportColumnParams('SUMMARYREPORT_CHARGEBACKS', (e: TransactionsSumItem) => e.chargebackCount, 'right'),
-      new ReportColumnParams('SUMMARYREPORT_ALERTS', (e: TransactionsSumItem) => e.countAlertCount, 'right'),
-      new ReportColumnParams('SUMMARYREPORT_ACTIVECUSTOMERS', (e: TransactionsSumItem) => e.currentActiveCustomer, 'right'),
+      new ReportColumnParams('SUMMARYREPORT_SALES', (e: TransactionsSumItem) => e.saleCount, 'right').setNumberOption(true),
+      new ReportColumnParams('SUMMARYREPORT_SALESREVENUE', (e: TransactionsSumItem) => new Currency(e.saleRevenue).usd(), 'right').setNumberOption(true),
+      new ReportColumnParams('SUMMARYREPORT_REBILL', (e: TransactionsSumItem) => e.rebillCount, 'right').setNumberOption(true),
+      new ReportColumnParams('SUMMARYREPORT_REBILLREVENUE', (e: TransactionsSumItem) => new Currency(e.rebillRevenue).usd(), 'right').setNumberOption(true),
+      new ReportColumnParams('SUMMARYREPORT_REFUNDS', (e: TransactionsSumItem) => e.refundCount, 'right').setNumberOption(true),
+      new ReportColumnParams('SUMMARYREPORT_REFUNDEXPENSES', (e: TransactionsSumItem) => '-' + new Currency(e.refundExpenses).usd(), 'right').setNumberOption(true),
+      new ReportColumnParams('SUMMARYREPORT_DECLINES', (e: TransactionsSumItem) => e.declinesCount, 'right').setNumberOption(true),
+      new ReportColumnParams('SUMMARYREPORT_DECLINESREVENUE', (e: TransactionsSumItem) => new Currency(e.declinesRevenue).usd(), 'right').setNumberOption(true),
+      new ReportColumnParams('SUMMARYREPORT_GROSSREVENUE', (e: TransactionsSumItem) => new Currency(e.grossRevenue).usd(), 'right').setNumberOption(true),
+      new ReportColumnParams('SUMMARYREPORT_CHARGEBACKS', (e: TransactionsSumItem) => e.chargebackCount, 'right').setNumberOption(true),
+      new ReportColumnParams('SUMMARYREPORT_ALERTS', (e: TransactionsSumItem) => e.countAlertCount, 'right').setNumberOption(true),
+      new ReportColumnParams('SUMMARYREPORT_ACTIVECUSTOMERS', (e: TransactionsSumItem) => e.currentActiveCustomer, 'right').setNumberOption(true),
     ];
 
     const f = this.authService.getTimezone();

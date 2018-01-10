@@ -1,18 +1,22 @@
 [
   {
     "name": "English",
-    "filename": "en.json"
+    "filename": "en.json",
+    "locale": "en"
   },
   {
     "name": "German",
-    "filename": "de.json"
+    "filename": "de.json",
+    "locale": "de"
   },
   {
     "name": "Chinese",
-    "filename": "zh_CN.json"
+    "filename": "zh_CN.json",
+    "locale": "zh-CN"
   },
   {
     "name": "Armenian",
-    "filename": "hy.json"
+    "filename": "hy.json",
+    "locale": "hy"
   }
 ]
