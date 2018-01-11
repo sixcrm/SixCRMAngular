@@ -286,12 +286,12 @@
 	},
 	"dashboard": {
     "item": {
-      "newsale": "New Sales",
-      "main": "Main",
-      "upsell": "Upsells",
-      "rebill": "Rebills",
-      "decline": "Declines",
-      "error": "Errors"
+      "newsale": "նոր վաճառք",
+      "main": "հիմնական",
+      "upsell": "Գերվաճառքի հաշվարկ",
+      "rebill": "Հաշիվ",
+      "decline": "Մերժումներ",
+      "error": "սխալներ"
     },
 		"eventsfunnel": {
 			"title": "Իրադարձությունների թունել",
@@ -300,22 +300,22 @@
 			"count": "Հաշվարկ",
 			"percentage": "Տոկոս",
 			"relativepercentage": "Հարաբերական տոկոս",
-      "click": "Clicks",
-      "lead": "Leads",
-      "main": "Mains",
-      "upsell": "Upsells",
-      "confirm": "Confirms"
+      "click": "սեղմումներ",
+      "lead": "գործարար կապեր",
+      "main": "հիմնական",
+      "upsell": "Գերվաճառքի հաշվարկ",
+      "confirm": "խրոնիկական"
 		},
 		"eventsummary": {
 			"title": "Իրադարձություններ",
 			"subtitle": "իրադարձությունների ամփոփում",
 			"nodata": "Իրադարձություններ չկան",
-      "confirm": "ch Confirm",
-      "upsell": "ch Upsell",
-      "lead": "ch Lead",
-      "order": "ch Order",
-      "click": "ch Click",
-      "events": "ch Events"
+      "confirm": "խրոնիկական",
+      "upsell": "Գերվաճառքի հաշվարկ",
+      "lead": "գործարար կապեր",
+      "order": "Պատվերի",
+      "click": "սեղմումներ",
+      "events": "միջոցառումներ"
 		},
 		"eventsbyaffiliate": {
 			"title": "Իրադարձություններ ըստ գործընկերոջ",
@@ -339,9 +339,9 @@
 			"title": "Գործարքներ",
 			"subtitle": "գործարքների ամփոփում",
 			"nodata": "Գործարքներ չկան",
-      "success": "success",
-      "decline": "declines",
-      "error": "errors"
+      "success": "հաջող",
+      "decline": "Մերժումներ",
+      "error": "սխալներ"
 		},
 		"movers": {
 			"title": "Արշավների դիտելու ցանկ",
