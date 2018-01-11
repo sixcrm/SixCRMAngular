@@ -64,7 +64,7 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
     let f = this.authService.getTimezone();
     this.rebillColumnParams = [
       new ColumnParams('SESSION_REBILL_BILLED',(e: Rebill) => e.billAt ? e.billAt.clone().tz(f).format('MM/DD/YYYY') : 'not billed'),
-      new ColumnParams('SESSION_REBILL_AMOUNT', (e: Rebill) => e.amount.usd(), 'right')
+      new ColumnParams('SESSION_REBILL_AMOUNT', (e: Rebill) => e.amount.usd(), 'right').setNumberOption(true)
     ];
 
 

@@ -60,7 +60,7 @@
             <tbody>
               <tr *ngFor="let transaction of transactions" [routerLink]="['/transactions', transaction.id]">
                 <td>{{transaction.alias}}</td>
-                <td class="cell--align-right">{{transaction.amount.usd()}}</td>
+                <td class="cell--align-right">{{transaction.amount.usd() | numberlocale}}</td>
                 <td>{{transaction.processorResponse.message}}</td>
               </tr>
             </tbody>

@@ -31,12 +31,12 @@ export class ProductScheduleCampaignsComponent extends AbstractEntityIndexCompon
     activatedRoute: ActivatedRoute
   ) {
     super(campaignService, auth, dialog, paginationService, router, activatedRoute);
-
+    
     let f = this.authService.getTimezone();
     this.columnParams = [
       new ColumnParams('PRODUCTSCHEDULE_CAMPAIGN_NAME', (e: Campaign) => e.name),
       new ColumnParams('PRODUCTSCHEDULE_CAMPAIGN_CREATED', (e: Campaign) => e.createdAt.tz(f).format('MM/DD/YYYY')),
-      new ColumnParams('PRODUCTSCHEDULE_CAMPAIGN_PRODUCTNUM', (e: Campaign) => e.productSchedules.map(p => p.schedules.length).reduce((a, b) => a+b, 0), 'right'),
+      new ColumnParams('PRODUCTSCHEDULE_CAMPAIGN_PRODUCTNUM', (e: Campaign) => e.productSchedules.map(p => p.schedules.length).reduce((a, b) => a+b, 0), 'right').setNumberOption(true),
       new ColumnParams('PRODUCTSCHEDULE_CAMPAIGN_SCHEDULEDNUM', (e: Campaign) =>
           new Currency(
             e.productSchedules
@@ -44,7 +44,7 @@ export class ProductScheduleCampaignsComponent extends AbstractEntityIndexCompon
               .reduce((a, b) => a.concat(b), [])
               .map(s => +s.price.amount)
               .reduce((a, b) => a+b, 0)).usd()
-        , 'right')
+        , 'right').setNumberOption(true)
     ];
   }
 

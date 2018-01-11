@@ -13,6 +13,6 @@ export class Currency {
   }
 
   usd(): string {
-    return numeral(this.amount).format('$0,0.00');
+    return numeral(this.amount).format('$0.00');
   }
 }

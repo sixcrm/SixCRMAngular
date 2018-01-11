@@ -38,7 +38,7 @@ export class ProductProductSchedulesComponent extends AbstractEntityIndexCompone
 
     this.columnParams = [
       new ColumnParams('PRODUCT_SCHEDULES_NAME', (e: ProductSchedule) => e.name),
-      new ColumnParams('PRODUCT_SCHEDULES_COUNT', (e: ProductSchedule) => e.schedules.length.toString(), 'right')
+      new ColumnParams('PRODUCT_SCHEDULES_COUNT', (e: ProductSchedule) => e.schedules.length.toString(), 'right').setNumberOption(true)
     ];
   }
 

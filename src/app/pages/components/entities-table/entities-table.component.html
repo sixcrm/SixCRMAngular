@@ -20,7 +20,10 @@
         <div class="codeblock" *ngIf="param.code; else noCode">
           {{param.mappingFunction(entity)}}
         </div>
-        <ng-template #noCode>{{param.mappingFunction(entity)}}</ng-template>
+        <ng-template #noCode>
+          <ng-container *ngIf="param.number; else nan">{{param.mappingFunction(entity) | numberlocale}}</ng-container>
+          <ng-template #nan>{{param.mappingFunction(entity)}}</ng-template>
+        </ng-template>
       </td>
       <td>
         <table-actions

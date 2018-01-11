@@ -34,7 +34,7 @@ export class CustomerTransactionsComponent extends AbstractEntityIndexComponent<
       new ColumnParams('CUSTOMER_TRANSACTION_ALIAS', (e: Transaction) => e.alias),
       new ColumnParams('CUSTOMER_TRANSACTION_RESPONSE', (e: Transaction) => e.processorResponse.message),
       new ColumnParams('CUSTOMER_TRANSACTION_PRODUCTNUM', (e: Transaction) => e.products.length),
-      new ColumnParams('CUSTOMER_TRANSACTION_AMOUNT', (e: Transaction) => e.amount.usd(), 'right')
+      new ColumnParams('CUSTOMER_TRANSACTION_AMOUNT', (e: Transaction) => e.amount.usd(), 'right').setNumberOption(true)
     ];
   }
 

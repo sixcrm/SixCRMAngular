@@ -29,7 +29,7 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
 
   merchantProviderColumnParams = [
     new ColumnParams('LOADBALANCER_MERCHANT_MERCHANT', (e: MerchantProviderConfiguration) => e.merchantProvider.name),
-    new ColumnParams('LOADBALANCER_MERCHANT_DISTRIBUTION',(e: MerchantProviderConfiguration) => e.distribution, 'right')
+    new ColumnParams('LOADBALANCER_MERCHANT_DISTRIBUTION',(e: MerchantProviderConfiguration) => e.distribution, 'right').setNumberOption(true)
   ];
   merchantProviderConfigMapper = (e: MerchantProviderConfiguration) => e.merchantProvider.name;
   merchantText: TableMemoryTextOptions = {

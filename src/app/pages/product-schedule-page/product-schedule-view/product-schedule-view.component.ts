@@ -28,10 +28,10 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   selectedIndex: number = 0;
   scheduleColumnParams = [
     new ColumnParams('PRODUCTSCHEDULE_CYCLE_NAME', (e: Schedule) => e.product.name),
-    new ColumnParams('PRODUCTSCHEDULE_CYCLE_PRICE', (e: Schedule) => e.price.usd(), 'right'),
-    new ColumnParams('PRODUCTSCHEDULE_CYCLE_START', (e: Schedule) => e.start + '', 'right'),
-    new ColumnParams('PRODUCTSCHEDULE_CYCLE_END', (e: Schedule) => e.end === null ? '' : e.end + '', 'right'),
-    new ColumnParams('PRODUCTSCHEDULE_CYCLE_PERIOD', (e: Schedule) => e.period + '', 'right'),
+    new ColumnParams('PRODUCTSCHEDULE_CYCLE_PRICE', (e: Schedule) => e.price.usd(), 'right').setNumberOption(true),
+    new ColumnParams('PRODUCTSCHEDULE_CYCLE_START', (e: Schedule) => e.start + '', 'right').setNumberOption(true),
+    new ColumnParams('PRODUCTSCHEDULE_CYCLE_END', (e: Schedule) => e.end === null ? '' : e.end + '', 'right').setNumberOption(true),
+    new ColumnParams('PRODUCTSCHEDULE_CYCLE_PERIOD', (e: Schedule) => e.period + '', 'right').setNumberOption(true),
     new ColumnParams('PRODUCTSCHEDULE_CYCLE_SHIP', (e: Schedule) => e.product.ship + '')
   ];
 

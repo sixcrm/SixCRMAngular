@@ -32,7 +32,7 @@
 
       <div class="entity-list__item__fields__single" *ngIf="d.fields.amount">
         <div class="entity-list__item__fields__key">{{'SEARCH_ADVANCED_AMOUNT' | translate}}:</div>
-        <div class="entity-list__item__fields__value">${{d.fields.amount}}</div>
+        <div class="entity-list__item__fields__value">${{d.fields.amount | numberlocale}}</div>
       </div>
 
       <div class="entity-list__item__fields__single" *ngIf="d.fields.tracking_number">

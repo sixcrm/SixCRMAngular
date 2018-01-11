@@ -36,7 +36,7 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
   productScheduleMapper = (el: ProductSchedule) => el.name;
   productScheduleColumnParams = [
     new ColumnParams('CAMPAIGN_PRODUCTSCHEDULE_NAME', (e: ProductSchedule) => e.name),
-    new ColumnParams('CAMPAIGN_PRODUCTSCHEDULE_PRODUCTNUMBER', (e: ProductSchedule) => e.schedules.length, 'right')
+    new ColumnParams('CAMPAIGN_PRODUCTSCHEDULE_PRODUCTNUMBER', (e: ProductSchedule) => e.schedules.length, 'right').setNumberOption(true)
   ];
 
   affiliateMapper = (el: Affiliate) => el.name || el.id;

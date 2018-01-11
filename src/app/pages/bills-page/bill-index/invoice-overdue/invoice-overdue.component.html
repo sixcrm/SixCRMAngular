@@ -1,7 +1,7 @@
 <div class="invoice-overdue">
   <div class="invoice-overdue__icon"><img src="assets/images/alertIcon.svg" alt=""></div>
   <div class="invoice-overdue__title">{{'ACCOUNT_BILLING_OVERDUEWARNING' | translate}}</div>
-  <div class="invoice-overdue__text">{{'ACCOUNT_BILLING_OVERDUETEXT' | translate}} {{calculateAmount()}}</div>
+  <div class="invoice-overdue__text">{{'ACCOUNT_BILLING_OVERDUETEXT' | translate}} {{calculateAmount() | numberlocale}}</div>
   <div class="invoice-overdue__pay-button" (click)="pay.emit(bill)">{{'ACCOUNT_BILLING_PAY' | translate}}</div>
 </div>
 

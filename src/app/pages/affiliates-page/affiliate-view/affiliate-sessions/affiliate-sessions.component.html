@@ -19,7 +19,10 @@
         <div class="codeblock" *ngIf="params.code; else noCode">
           {{params.mappingFunction(entity)}}
         </div>
-        <ng-template #noCode>{{params.mappingFunction(entity)}}</ng-template>
+        <ng-template #noCode>
+          <ng-container *ngIf="params.number; else nan">{{params.mappingFunction(entity) | numberlocale}}</ng-container>
+          <ng-template #nan>{{params.mappingFunction(entity)}}</ng-template>
+        </ng-template>
       </td>
       <td>
         <button md-icon-button [md-menu-trigger-for]="actionsMenu"><md-icon>more_vert</md-icon></button>

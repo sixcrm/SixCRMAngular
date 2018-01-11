@@ -41,7 +41,7 @@ export class InvoiceTableComponent implements OnInit {
       new ColumnParams('ACCOUNT_BILLING_HEADER_ISSUE', (e: Bill) => e.createdAt.clone().tz(tz).format('MM/DD/YYYY')),
       new ColumnParams('ACCOUNT_BILLING_HEADER_START', (e: Bill) => e.periodStart.clone().tz(tz).format('MM/DD/YYYY')),
       new ColumnParams('ACCOUNT_BILLING_HEADER_END', (e: Bill) => e.periodEnd.clone().tz(tz).format('MM/DD/YYYY')),
-      new ColumnParams('ACCOUNT_BILLING_HEADER_BALANCE', (e: Bill) => new Currency(e.detail.map(d => d.amount.amount).reduce((a,b)=>a+b,0)).usd()),
+      new ColumnParams('ACCOUNT_BILLING_HEADER_BALANCE', (e: Bill) => new Currency(e.detail.map(d => d.amount.amount).reduce((a,b)=>a+b,0)).usd()).setNumberOption(true),
       new ColumnParams('ACCOUNT_BILLING_HEADER_STATUS', (e: Bill) => this.type === 'CURRENT' ? 'Due' : 'Paid').setColor(this.type === 'CURRENT' ? 'green' : '#4a4a4a'),
       new ColumnParams('ACCOUNT_BILLING_HEADER_DUE', (e: Bill) => e.availableAt.clone().tz(tz).format('MM/DD/YYYY'))
     ];

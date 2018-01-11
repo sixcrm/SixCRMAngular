@@ -33,7 +33,7 @@ export class ProductCampaignsComponent extends AbstractEntityIndexComponent<Camp
     this.columnParams = [
       new ColumnParams('PRODUCT_CAMPAIGN_NAME', (e: Campaign) => e.name),
       new ColumnParams('PRODUCT_CAMPAIGN_CREATED', (e: Campaign) => e.createdAt.tz(f).format('MM/DD/YYYY')),
-      new ColumnParams('PRODUCT_CAMPAIGN_PRODUCTNUM', (e: Campaign) => e.productSchedules.map(p => p.schedules.length).reduce((a, b) => a+b, 0), 'right'),
+      new ColumnParams('PRODUCT_CAMPAIGN_PRODUCTNUM', (e: Campaign) => e.productSchedules.map(p => p.schedules.length).reduce((a, b) => a+b, 0), 'right').setNumberOption(true),
       new ColumnParams('PRODUCT_CAMPAIGN_SCHEDULEDNUM', (e: Campaign) =>
           new Currency(
             e.productSchedules
@@ -41,7 +41,7 @@ export class ProductCampaignsComponent extends AbstractEntityIndexComponent<Camp
               .reduce((a, b) => a.concat(b), [])
               .map(s => +s.price.amount)
               .reduce((a, b) => a+b, 0)).usd()
-        , 'right')
+        , 'right').setNumberOption(true)
     ];
   }
 

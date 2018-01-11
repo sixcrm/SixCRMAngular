@@ -28,8 +28,8 @@ export class SessionsComponent extends AbstractEntityIndexComponent<Session> imp
     this.columnParams = [
       new ColumnParams('SESSION_INDEX_HEADER_CUSTOMER', (e: Session) => e.customer.firstName + e.customer.lastName),
       new ColumnParams('SESSION_INDEX_HEADER_CAMPAIGN',(e: Session) => e.campaign.name),
-      new ColumnParams('SESSION_INDEX_HEADER_SCHEDULESNUM', (e: Session) => e.productSchedules.length.toString(), 'right'),
-      new ColumnParams('SESSION_INDEX_HEADER_REBILLSNUM', (e: Session) => e.rebills.length.toString(), 'right')
+      new ColumnParams('SESSION_INDEX_HEADER_SCHEDULESNUM', (e: Session) => e.productSchedules.length.toString(), 'right').setNumberOption(true),
+      new ColumnParams('SESSION_INDEX_HEADER_REBILLSNUM', (e: Session) => e.rebills.length.toString(), 'right').setNumberOption(true)
     ];
   }
 

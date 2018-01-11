@@ -13,7 +13,7 @@
 
         <div class="perfect-entity__info__fields__item">
           <span class="perfect-entity__info__fields__item__label">{{'SEARCH_ADVANCED_AMOUNT' | translate}}:</span>
-          <span class="perfect-entity__info__fields__item__value">{{transaction.amount.usd()}}</span>
+          <span class="perfect-entity__info__fields__item__value">{{transaction.amount.usd() | numberlocale}}</span>
         </div>
 
         <div class="perfect-entity__info__fields__item">
@@ -47,7 +47,7 @@
         <tbody>
         <tr *ngFor="let product of transaction.products" [routerLink]="['/products', product.product.id]">
           <td>{{product.product.name}}</td>
-          <td class="cell--align-right">{{product.amount.usd()}}</td>
+          <td class="cell--align-right">{{product.amount.usd() | numberlocale}}</td>
           <td>{{product.shippingReceipt.status}}</td>
         </tr>
         </tbody>

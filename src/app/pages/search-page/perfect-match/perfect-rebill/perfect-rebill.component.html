@@ -8,7 +8,7 @@
 
         <div class="perfect-entity__info__fields__item">
           <span class="perfect-entity__info__fields__item__label">{{'SEARCH_ADVANCED_AMOUNT' | translate}}:</span>
-          <span class="perfect-entity__info__fields__item__value">{{rebill.amount.usd()}}</span>
+          <span class="perfect-entity__info__fields__item__value">{{rebill.amount.usd() | numberlocale}}</span>
         </div>
 
         <div class="perfect-entity__info__fields__item">
@@ -42,7 +42,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let transaction of rebill.transactions" [routerLink]="['/transactions', transaction.id]">
-          <td>{{transaction.amount.usd()}}</td>
+          <td>{{transaction.amount.usd() | numberlocale}}</td>
           <td>{{transaction.alias}}</td>
           <td>{{transaction.processorResponse.message}}</td>
         </tr>

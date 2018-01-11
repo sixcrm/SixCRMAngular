@@ -2,8 +2,8 @@
 
   <div class="data">
     <div *ngIf="sum; else loader" class="billing-summary__details">
-      <div class="billing-summary__details__count">{{sum.count}}</div>
-      <div class="billing-summary__details__amount">/${{sum.price}}</div>
+      <div class="billing-summary__details__count">{{sum.count | numberlocale}}</div>
+      <div class="billing-summary__details__amount">/${{sum.price | numberlocale}}</div>
     </div>
 
     <ng-template #loader>

@@ -31,7 +31,7 @@ export class TransactionViewComponent extends AbstractEntityViewComponent<Transa
   productColumnParams: ColumnParams<Products>[] = [
     new ColumnParams('TRANSACTION_PRODUCT_NAME', (e: Products) => e.product.name),
     new ColumnParams('TRANSACTION_PRODUCT_SKU', (e: Products) => e.product.sku),
-    new ColumnParams('TRANSACTION_PRODUCT_AMOUNT', (e: Products) => e.amount.usd(), 'right')
+    new ColumnParams('TRANSACTION_PRODUCT_AMOUNT', (e: Products) => e.amount.usd(), 'right').setNumberOption(true)
   ];
 
   productTextOptions: TableMemoryTextOptions = {

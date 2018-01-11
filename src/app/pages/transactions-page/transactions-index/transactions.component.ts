@@ -28,7 +28,7 @@ export class TransactionsComponent extends AbstractEntityIndexComponent<Transact
     let f = this.authService.getTimezone();
     this.columnParams = [
       new ColumnParams('TRANSACTION_INDEX_HEADER_ALIAS', (e: Transaction) => e.alias),
-      new ColumnParams('TRANSACTION_INDEX_HEADER_AMOUNT', (e: Transaction) => e.amount.usd(), 'right'),
+      new ColumnParams('TRANSACTION_INDEX_HEADER_AMOUNT', (e: Transaction) => e.amount.usd(), 'right').setNumberOption(true),
       new ColumnParams('TRANSACTION_INDEX_HEADER_CREATED',(e: Transaction) => e.createdAt.tz(f).format('MM/DD/YYYY')),
       new ColumnParams('TRANSACTION_INDEX_HEADER_RESPONSE', (e: Transaction) => e.processorResponse.message)
     ];

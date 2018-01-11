@@ -19,7 +19,8 @@
     <tbody>
       <tr *ngFor="let entity of bills">
         <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'" [style.color]="params.color || '#4a4a4a'">
-          {{params.mappingFunction(entity) | translate}}
+          <ng-container *ngIf="params.number; else nan">{{params.mappingFunction(entity) | numberlocale}}</ng-container>
+          <ng-template #nan>{{params.mappingFunction(entity)}}</ng-template>
         </td>
         <td>
           <div class="pay-button" *ngIf="type !== 'PAST'" (click)="pay.emit(entity)">{{'ACCOUNT_BILLING_PAY' | translate}}</div>

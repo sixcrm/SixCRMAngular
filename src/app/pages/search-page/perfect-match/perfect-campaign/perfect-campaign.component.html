@@ -27,7 +27,7 @@
         <tbody>
         <tr *ngFor="let schedule of campaign.productSchedules">
           <td>{{schedule.name}}</td>
-          <td>{{schedule.schedules.length}}</td>
+          <td>{{schedule.schedules.length | numberlocale}}</td>
         </tr>
         </tbody>
       </table>

@@ -36,7 +36,7 @@
             <ng-container *ngFor="let facet of facets">
               <md-checkbox [(ngModel)]="facet.checked" class="search__sidenav__item" (change)="checkboxClicked()">
                 <span class="search__sidenav__item__name">{{(facet.name + '_TITLE') | translate}}</span>
-                <span class="search__sidenav__item__count">({{facet.count}})</span>
+                <span class="search__sidenav__item__count">({{facet.count | numberlocale}})</span>
               </md-checkbox>
             </ng-container>
 
@@ -59,7 +59,7 @@
 
     <div class="search__content__title">
       <span>{{'SEARCH_RESULTS' | translate}}
-        <span *ngIf="numberOfSearchResults && numberOfSearchResults > 0">({{numberOfSearchResults}})</span>
+        <span *ngIf="numberOfSearchResults && numberOfSearchResults > 0">({{numberOfSearchResults | numberlocale}})</span>
       </span>
 
       <div class="search__content__title__options">

@@ -77,7 +77,7 @@
       <tr *ngFor="let detail of bill.detail">
         <td>{{detail.description}}</td>
         <td>{{detail.createdAt.format('MM/DD/YYYY')}}</td>
-        <td class="cell--align-right">{{detail.amount.usd()}}</td>
+        <td class="cell--align-right">{{detail.amount.usd() | numberlocale}}</td>
         <td *ngIf="editMode">
           <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
           <md-menu #editOptions="mdMenu" x-position="before">
@@ -90,7 +90,7 @@
     </table>
 
     <div class="sum">
-      <div>{{'BILL_DETAILS_TABLE_TOTAL' | translate}}: {{calculateAmount()}}</div>
+      <div>{{'BILL_DETAILS_TABLE_TOTAL' | translate}}: {{calculateAmount() | numberlocale}}</div>
     </div>
     <div class="pay">
       <div>{{'BILL_DETAILS_PAY' | translate}}</div>

@@ -35,7 +35,7 @@ export class AffiliateSessionsComponent extends AbstractEntityIndexComponent<Ses
             .map(r => r.amount.amount)
             .reduce((a, b) => a + b, 0))
             .usd(),
-        'right'),
+        'right').setNumberOption(true),
       new ColumnParams('AFFILIATE_SESSION_SCHEDULEDTOTAL', (e: Session) =>
         new Currency(
           e.productSchedules
@@ -43,7 +43,7 @@ export class AffiliateSessionsComponent extends AbstractEntityIndexComponent<Ses
             .reduce((a, b) => a.concat(b), [])
             .map(s => +s.price.amount)
             .reduce((a, b) => a+b, 0)).usd(),
-        'right')
+        'right').setNumberOption(true)
     ];
   }
 

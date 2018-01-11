@@ -31,7 +31,7 @@
           <td>{{schedule.product.name}}</td>
           <td>{{schedule.start | formatDateTime}}</td>
           <td>{{schedule.end | formatDateTime}}</td>
-          <td>{{schedule.price.usd()}}</td>
+          <td>{{schedule.price.usd() | numberlocale}}</td>
         </tr>
         </tbody>
       </table>

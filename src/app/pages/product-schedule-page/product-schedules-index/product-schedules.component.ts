@@ -30,7 +30,7 @@ export class ProductSchedulesComponent extends AbstractEntityIndexComponent<Prod
     this.columnParams = [
       new ColumnParams('PRODUCTSCHEDULE_INDEX_HEADER_NAME', (e: ProductSchedule) => e.name),
       new ColumnParams('PRODUCTSCHEDULE_INDEX_HEADER_LOADBALANCER', (e: ProductSchedule) => e.loadBalancer.name),
-      new ColumnParams('PRODUCTSCHEDULE_INDEX_HEADER_NUMOFCYCLES', (e: ProductSchedule) => e.schedules.length.toString(), 'right')
+      new ColumnParams('PRODUCTSCHEDULE_INDEX_HEADER_NUMOFCYCLES', (e: ProductSchedule) => e.schedules.length.toString(), 'right').setNumberOption(true)
     ];
   }
 
