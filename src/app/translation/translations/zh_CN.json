@@ -65,16 +65,16 @@
         "search": "搜索"
     },
     "orderengine": {
-        "title": "ch State Machine",
-        "queue": "ch Queue",
+        "title": "状态机流程",
+        "queue": "队列",
         "item": {
-          "recover": "ch Recover",
-          "bill": "ch Bill",
-          "failed": "ch Failed",
-          "hold": "ch Hold",
-          "pending": "ch Pending",
-          "shipped": "ch Shipped",
-          "delivered": "ch Delivered"
+          "recover": "恢复",
+          "bill": "账单",
+          "failed": "失败",
+          "hold": "扣留",
+          "pending": "待决",
+          "shipped": "运送",
+          "delivered": "已交货"
         },
         "schema": {
             "title": "状态机流程",
@@ -99,12 +99,12 @@
                 "main": "队列消息",
                 "sub": "再付费编号"
             },
-            "view": "ch View Rebill",
-            "id": "ch ID",
-            "billed": "ch Bill at",
-            "created": "ch Created at",
-            "amount": "ch Amount",
-            "nodata": "ch No Rebills found."
+            "view": "查看",
+            "id": "ID",
+            "billed": "付费于",
+            "created": "创建于",
+            "amount": "数额",
+            "nodata": "无再付费数据."
         },
         "rebill": {
             "history": {
@@ -146,14 +146,14 @@
         "dismiss": "搁置"
     },
     "advancedfilter": {
-        "day": "c1D",
-        "week": "c1W",
-        "month": "c1M",
-        "3month": "c3M",
-        "6month": "c6M",
-        "year": "c1Y",
-        "yeartodate": "cYTD",
-        "all": "cALL",
+        "day": "一天",
+        "week": "一星期",
+        "month": "一个月",
+        "3month": "三个月",
+        "6month": "六个月",
+        "year": "一年",
+        "yeartodate": "今年迄今为止",
+        "all": "全部",
         "from": "从",
         "to": "至",
         "filters": "过滤",
@@ -179,8 +179,8 @@
         "success": "成功",
         "decline": "拒绝",
         "error": "错误",
-        "refreshdashboardtext": "ch Refresh Dashboard. Last updated:",
-        "refreshreporttext": "ch Refresh Report"
+        "refreshdashboardtext": "刷新仪表板. 最近更新时间:",
+        "refreshreporttext": "刷新报告"
     },
     "forminputs": {
         "fullname": "全名",
@@ -286,12 +286,12 @@
     },
     "dashboard": {
         "item": {
-          "newsale": "ch New Sales",
-          "main": "ch Main",
-          "upsell": "ch Upsells",
-          "rebill": "ch Rebills",
-          "decline": "ch Declines",
-          "error": "ch Errors"
+          "newsale": "新的销售",
+          "main": "主要",
+          "upsell": "上行销售",
+          "rebill": "再结算",
+          "decline": "拒收",
+          "error": "错误"
         },
         "eventsfunnel": {
             "title": "漏斗事件",
@@ -300,22 +300,22 @@
             "count": "数量",
             "percentage": "百分比",
             "relativepercentage": "相对百分比",
-            "click": "ch Clicks",
-            "lead": "ch Leads",
-            "main": "ch Mains",
-            "upsell": "ch Upsells",
-            "confirm": "ch Confirms"
+            "click": "点击",
+            "lead": "潜在客户",
+            "main": "主要",
+            "upsell": "上行销售",
+            "confirm": "确认"
         },
         "eventsummary": {
             "title": "活动",
             "subtitle": "事件总结",
             "nodata": "没有发现事件",
-            "confirm": "ch Confirm",
-            "upsell": "ch Upsell",
-            "lead": "ch Lead",
-            "order": "ch Order",
-            "click": "ch Click",
-            "events": "ch Events"
+            "confirm": "确认",
+            "upsell": "上行销售",
+            "lead": "潜在客户",
+            "order": "订单",
+            "click": "点击",
+            "events": "事件"
         },
         "eventsbyaffiliate": {
             "title": "会员的相关活动",
@@ -339,9 +339,9 @@
             "title": "交易列表",
             "subtitle": "交易总结",
             "nodata": "没有找到交易记录",
-            "success": "ch success",
-            "decline": "ch declines",
-            "error": "ch errors"
+            "success": "成功",
+            "decline": "拒绝",
+            "error": "错误"
         },
         "movers": {
             "title": "活动观察列表",
@@ -434,8 +434,8 @@
             "title": "商家处理中",
             "subtitle": "当前负载与平衡",
             "nodata": "找不到商家",
-            "dollar": "ch Dollar",
-            "revenue": "ch Sale Gross Revenue"
+            "dollar": "圆",
+            "revenue": "销售总收入"
         }
     },
     "affiliatereport": {
@@ -496,7 +496,7 @@
             "price": "价格",
             "id": "ID"
         },
-        "filter": "ch Filter Results",
+        "filter": "过滤结果",
         "category": "类别",
         "refined": "精选结果",
         "reset": "重置搜索",
@@ -544,7 +544,7 @@
         }
     },
     "account": {
-        "title": "ch Account",
+        "title": "帐户",
         "index": {
             "title": "帐号",
             "header": {
@@ -1466,10 +1466,10 @@
         "cancel": "取消"
     },
     "associatedialog": {
-        "text": "ch Select entity to associate",
-        "associate": "ch ASSOCIATE",
-        "cancel": "ch CANCEL",
-        "entity": "ch Entity"
+        "text": "请选择要关联的实体",
+        "associate": "关联",
+        "cancel": "取消",
+        "entity": "实体"
     },
     "inviteuser": {
         "title": "邀请新用户",
@@ -1524,44 +1524,44 @@
         }
     },
     "share": {
-        "title": "ch Share",
-        "copy": "ch Copy to clipboard"
+        "title": "分享",
+        "copy": "复制到剪贴板"
     },
     "pagination": {
-        "rowsperpage": "ch Rows per page"
+        "rowsperpage": "每页行数"
     },
     "snack": {
-      "error": "ch Error occured, please try again",
-      "updated": "ch Updated Successfully!",
-      "created": "ch Created Successfully!",
-      "deleted": "ch Deleted Successfully!"
+      "error": "发生错误，请重试",
+      "updated": "更新成功!",
+      "created": "创建成功!",
+      "deleted": "删除成功!"
     },
   "datepicker": {
-    "apply": "cApply",
-    "cancel": "cCancel",
-    "jan": "Jac",
-    "feb": "Fec",
-    "mar": "Mac",
-    "apr": "Apc",
-    "may": "Mac",
-    "jun": "Junc",
-    "jul": "Julc",
-    "aug": "Auc",
-    "sep": "Sepc",
-    "oct": "Occ",
-    "nov": "Noc",
-    "dec": "Dec",
-    "mon": "Mc",
-    "tue": "Tc",
-    "wed": "Wc",
-    "thu": "Tc",
-    "fri": "Fc",
-    "sat": "Sc",
-    "sun": "Sc",
-    "today": "cToday",
-    "yesterday": "cYesterday",
-    "day7": "cLast 7 days",
-    "day30": "cLast 30 days",
-    "custom": "cCustom"
+    "apply": "应用",
+    "cancel": "取消",
+    "jan": "一月",
+    "feb": "二月",
+    "mar": "三月",
+    "apr": "四月",
+    "may": "五月",
+    "jun": "六月",
+    "jul": "七月",
+    "aug": "八月",
+    "sep": "九月",
+    "oct": "十月",
+    "nov": "十一月",
+    "dec": "十二月",
+    "mon": "星期一",
+    "tue": "星期二",
+    "wed": "星期三",
+    "thu": "星期四",
+    "fri": "星期五",
+    "sat": "星期六",
+    "sun": "星期日",
+    "today": "今天",
+    "yesterday": "前天",
+    "day7": "过去七天",
+    "day30": "过去三十天",
+    "custom": "定制"
   }
 }
