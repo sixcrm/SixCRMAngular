@@ -66,15 +66,15 @@
     },
     "orderengine": {
       "title": "State Machine",
-      "queue": "Queue",
+      "queue": "Reihe",
       "item": {
-        "recover": "Recover",
-        "bill": "Bill",
-        "failed": "Failed",
-        "hold": "Hold",
-        "pending": "Pending",
-        "shipped": "Shipped",
-        "delivered": "Delivered"
+        "recover": "Rettung",
+        "bill": "Berechnet",
+        "failed": "Verfehlt",
+        "hold": "Gehalten",
+        "pending": "Schwebend",
+        "shipped": "Vershickt",
+        "delivered": "Geliefert"
       },
       "schema": {
         "title": "SIX-Antrieb Fluss",
@@ -99,12 +99,12 @@
           "main": "Nachrichten dieser Reihe",
           "sub": "Neuzubelastung ID"
         },
-        "view": "View Rebill",
+        "view": "Neubelastung ansehen",
         "id": "ID",
-        "billed": "Bill at",
-        "created": "Created at",
-        "amount": "Amount",
-        "nodata": "No Rebills found."
+        "billed": "Berechnet am",
+        "created": "Geschafft am",
+        "amount": "Betrag",
+        "nodata": "Keine neubelastungen gefunden."
       },
       "rebill": {
         "history": {
@@ -179,8 +179,8 @@
       "success": "Erfolg",
       "decline": "Abhlehnung",
       "error": "Fehler",
-      "refreshdashboardtext": "Refresh Dashboard. Last updated:",
-      "refreshreporttext": "Refresh Report"
+      "refreshdashboardtext": "Dashboard aktualisieren. Aktualisiert am:",
+      "refreshreporttext": "Bericht aktualisieren"
     },
     "forminputs": {
       "fullname": "Name",
@@ -286,15 +286,15 @@
     },
     "dashboard": {
       "item": {
-        "newsale": "New Sales",
+        "newsale": "Neue Umsätze",
         "main": "Main",
-        "upsell": "Upsells",
-        "rebill": "Rebills",
-        "decline": "Declines",
-        "error": "Errors"
+        "upsell": "Zusatzverkäufe",
+        "rebill": "Neubelastungen",
+        "decline": "Ablehnungen",
+        "error": "Fehler"
       },
       "eventsfunnel": {
-        "title": "Events Funnel",
+        "title": "Vorfälletrichter",
         "subtitle": "Vorfälle sortiert nach Variant",
         "event": "Vorfall",
         "count": "Anzahl",
@@ -303,19 +303,19 @@
         "click": "Clicks",
         "lead": "Leads",
         "main": "Mains",
-        "upsell": "Upsells",
-        "confirm": "Confirms"
+        "upsell": "Zusatzverkäufe",
+        "confirm": "Bestätigungen"
       },
       "eventsummary": {
         "title": "Vorfälle",
         "subtitle": "Zusammenfassung den Vorfällen",
         "nodata": "Keine Vorfälle gefunden",
         "confirm": "Confirm",
-        "upsell": "Upsell",
+        "upsell": "Zusatzverkauf",
         "lead": "Lead",
-        "order": "Order",
+        "order": "Auftrag",
         "click": "Click",
-        "events": "Events"
+        "events": "Vorfälle"
       },
       "eventsbyaffiliate": {
         "title": "Vorfälle sortiert nach Vertriebspartner",
@@ -339,9 +339,9 @@
         "title": "Transaktionen",
         "subtitle": "Zusammenfassung von Transaktionen",
         "nodata": "Keine Transaktionen gefunden",
-        "success": "success",
-        "decline": "declines",
-        "error": "errors"
+        "success": "Erfolge",
+        "decline": "Ablehnungen",
+        "error": "Fehler"
       },
       "movers": {
         "title": "Kampagnen Beobachtungsliste",
@@ -350,7 +350,7 @@
       },
       "topcampaigns": {
         "title": "Top Kampagnen",
-        "subtitle": "Clicks & Conversions",
+        "subtitle": "Clicks & Umsetzungen",
         "campaign": "Kampagne",
         "amount": "Betrag"
       },
@@ -1233,7 +1233,7 @@
         "title": "Neubelastung",
         "header": {
           "id": "ID",
-          "bill": "Berechnen am",
+          "bill": "Berechnet am",
           "created": "Geschafft am",
           "amount": "Betrag"
         }
