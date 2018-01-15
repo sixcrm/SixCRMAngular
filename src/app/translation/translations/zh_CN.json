@@ -146,13 +146,13 @@
         "dismiss": "搁置"
     },
     "advancedfilter": {
-        "day": "一天",
-        "week": "一星期",
-        "month": "一个月",
+        "day": "天",
+        "week": "一周",
+        "month": "月",
         "3month": "三个月",
-        "6month": "六个月",
-        "year": "一年",
-        "yeartodate": "今年迄今为止",
+        "6month": "半年",
+        "year": "年",
+        "yeartodate": "年初至今",
         "all": "全部",
         "from": "从",
         "to": "至",
@@ -508,10 +508,10 @@
         "results": "搜索结果",
         "sort": {
             "title": "排序",
-            "createasc": "创建日期排序旧到新",
-            "createdesc": "创建日期排序新到旧",
-            "updateasc": "更新日期排序旧到新",
-            "updatedesc": "更新日期排序新到旧",
+            "createasc": "创建日期旧到新",
+            "createdesc": "创建日期新到旧",
+            "updateasc": "更新日期旧到新",
+            "updatedesc": "更新日期新到旧",
             "def": "默认"
         },
         "nodata": "对不起，没有相对的结果。",
@@ -629,7 +629,7 @@
             "title": "用户列表",
             "header": {
                 "name": "名称",
-                "email": "电子邮件",
+                "email": "电邮",
                 "active": "活跃",
                 "terms": "条款"
             }
@@ -646,7 +646,7 @@
             "activated": "激活",
             "role": "角色",
             "name": "名称",
-            "email": "电子邮件",
+            "email": "电邮",
             "cancel": "取消",
             "save": "报春"
         },
@@ -1019,7 +1019,7 @@
             "type": "模板类型",
             "smtpprovider": "SMTP供应商",
             "subject": "主题",
-            "body": "电子邮件",
+            "body": "邮件内容",
             "cancel": "取消",
             "save": "保存"
         },
@@ -1329,7 +1329,7 @@
             "title": "SMTP供应商",
             "header": {
                 "name": "名称",
-                "fromname": "从名字",
+                "fromname": "来自名字",
                 "fromemail": "从电子邮件",
                 "hostname": "主机名",
                 "username": "用户名"
@@ -1551,13 +1551,13 @@
     "oct": "十月",
     "nov": "十一月",
     "dec": "十二月",
-    "mon": "星期一",
-    "tue": "星期二",
-    "wed": "星期三",
-    "thu": "星期四",
-    "fri": "星期五",
-    "sat": "星期六",
-    "sun": "星期日",
+    "mon": "一",
+    "tue": "二",
+    "wed": "三",
+    "thu": "四",
+    "fri": "五",
+    "sat": "六",
+    "sun": "日",
     "today": "今天",
     "yesterday": "前天",
     "day7": "过去七天",
