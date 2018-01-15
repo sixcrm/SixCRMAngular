@@ -38,6 +38,25 @@
     }
   }
 
+  thead {
+    th {
+      font-weight: normal;
+    }
+
+    tr:last-of-type {
+      th {
+        font-weight: normal;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .daterangepicker {
+    .calendar {
+      max-width: none;
+    }
+  }
+
   @import "bootstrap2";
 }
 
