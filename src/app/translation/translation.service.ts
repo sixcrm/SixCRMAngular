@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {UserSettingsService} from '../shared/services/user-settings.service';
-import {CustomServerError} from '../shared/models/errors/custom-server-error';
 import {AuthenticationService} from '../authentication/authentication.service';
 
 const languages = require('./translations/languages.json');
@@ -17,6 +16,7 @@ export class TranslationService {
   private translations;
   private locale;
   public translationChanged$: Subject<boolean> = new Subject();
+  public language: string;
 
   constructor(private userSettingsService: UserSettingsService, private authService: AuthenticationService) {
     this.updateTranslation(this.authService.getUserSettings().language);
@@ -36,6 +36,7 @@ export class TranslationService {
 
   updateTranslation(language?: string) {
     language = language || 'English';
+    this.language = language;
 
     const trans = allTranslations.find((el) => el.name === language) || allTranslations.find((el) => el.name === 'English');
     this.translations = trans.translations;

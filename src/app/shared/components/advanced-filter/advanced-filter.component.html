@@ -8,7 +8,7 @@
                   (click)="setActiveDate(df.start, df.end)">{{df.label | translate}}</span>
         </ng-container>
       </div>
-      <div class="advanced-filter__date__range">
+      <div class="advanced-filter__date__range" [class.advanced-filter__date__range--large]="translationService.language === 'Chinese'">
         <div class="datepicker--custom" [class.datepicker-visible]="datepickerVisible">
           <div (showDaterangepicker)="datepickerVisible = true" (hideDaterangepicker)="datepickerVisible = false" (selected)="dateSelected($event)" daterangepicker>
             <div class="advanced-filter__date__range__input" name="daterange" >
