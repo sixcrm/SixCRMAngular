@@ -125,7 +125,13 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
     settings.push(new MenuItem('SIDENAV_SETTINGS_USER', 'users'));
   }
   if (authService.hasPermissions('account', 'view')) {
-    settings.push(new MenuItem('SIDENAV_SETTINGS_ACCOUNT', 'accounts'));
+    let link = 'accounts';
+
+    if (authService.getActiveAcl().account && (authService.getActiveAcl().account.id !== '*')) {
+      link += '/' + authService.getActiveAcl().account.id;
+    }
+
+    settings.push(new MenuItem('SIDENAV_SETTINGS_ACCOUNT', link));
   }
   if (authService.hasPermissions('bill', 'view') && authService.isActiveAclMasterAccount()) {
     settings.push(new MenuItem('SIDENAV_SETTINGS_BILL', 'bills'));
