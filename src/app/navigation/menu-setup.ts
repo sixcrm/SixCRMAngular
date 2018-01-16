@@ -125,19 +125,32 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
     settings.push(new MenuItem('SIDENAV_SETTINGS_USER', 'users'));
   }
   if (authService.hasPermissions('account', 'view')) {
-    let link = 'accounts';
+    let accountlink = 'accounts';
 
     if (authService.getActiveAcl().account && (authService.getActiveAcl().account.id !== '*')) {
-      link += '/' + authService.getActiveAcl().account.id;
+      accountlink += '/' + authService.getActiveAcl().account.id;
     }
 
-    settings.push(new MenuItem('SIDENAV_SETTINGS_ACCOUNT', link));
+    settings.push(new MenuItem('SIDENAV_SETTINGS_ACCOUNT', accountlink));
   }
   if (authService.hasPermissions('bill', 'view') && authService.isActiveAclMasterAccount()) {
     settings.push(new MenuItem('SIDENAV_SETTINGS_BILL', 'bills'));
   }
   if (authService.hasPermissions('role', 'view')) {
     settings.push(new MenuItem('SIDENAV_SETTINGS_ROLE', 'roles'));
+  }
+
+  let keys = [];
+  if (authService.hasPermissions('usersigningstring', 'view')) {
+    keys.push(new MenuItem('SIDENAV_SETTINGS_KEY_SIGNINGSTRING', 'profile#signingstrings'));
+  }
+  if (authService.hasPermissions('accesskey', 'view') && authService.getActiveAcl().account) {
+    const accesslink = `accounts/${authService.getActiveAcl().account.id}#accesskeys`;
+    keys.push(new MenuItem('SIDENAV_SETTINGS_KEY_ACCESSKEY', accesslink));
+  }
+
+  if (keys.length > 0) {
+    settings.push(new MenuItem('SIDENAV_SETTINGS_KEY_TITLE', null, keys));
   }
 
   settings.push(new MenuItem('SIDENAV_SETTINGS_DOCUMENTATION_TITLE', null, [

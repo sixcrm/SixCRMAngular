@@ -56,6 +56,11 @@
             "account": "帐号",
             "bill": "票据",
             "role": "角色",
+            "key": {
+              "title": "cAPI Keys",
+              "signingstring": "cUser Signing Strings",
+              "accesskey": "cAccess Keys"
+            },
             "documentation": {
                 "title": "文件",
                 "graphql": "GraphQL",

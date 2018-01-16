@@ -56,6 +56,11 @@
       "account": "Accounts",
       "bill": "Bills",
       "role": "Roles",
+      "key": {
+        "title": "API Keys",
+        "signingstring": "User Signing Strings",
+        "accesskey": "Access Keys"
+      },
       "documentation": {
         "title": "Documentation",
         "graphql": "GraphQL",

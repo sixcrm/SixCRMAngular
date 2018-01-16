@@ -56,6 +56,11 @@
 			"account": "Հաշիվներ",
 			"bill": "Հաշիվներ",
 			"role": "Դերեր",
+      "key": {
+        "title": "API Keys",
+        "signingstring": "User Signing Strings",
+        "accesskey": "Access Keys"
+      },
 			"documentation": {
 				"title": "Փաստաթղթեր",
 				"graphql": "GraphQL",
