@@ -53,12 +53,6 @@ $color-orange: #F16C00;
     &__range {
       margin-left: 30px;
 
-      &--large {
-        .daterangepicker {
-          width: 715px !important;
-        }
-      }
-
       .daterangepicker {
         flex-wrap: wrap;
         width: 500px;
