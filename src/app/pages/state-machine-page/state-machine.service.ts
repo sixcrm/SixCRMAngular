@@ -28,7 +28,16 @@ export class StateMachineService {
         return;
       }
 
-      this.timeseries$.next(res.json().response.data.rebillsummary.summary.map(t => new StateMachineTimeseries(t)))
+      this.timeseries$.next(
+        res.json().response.data.rebillsummary.summary
+          .map(t => new StateMachineTimeseries(t))
+          .sort((a,b) => {
+            if (a.datetime.isBefore(b.datetime)) return -1;
+            if (a.datetime.isAfter(b.datetime)) return 1;
+
+            return 0;
+          })
+      )
     });
   }
 
