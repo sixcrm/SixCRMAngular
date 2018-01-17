@@ -5,23 +5,22 @@ import {clearLocalStorage, waitForUrlContains, waitForPresenceOf} from '../../ut
 import {login} from '../../utils/action.utils';
 import {SidenavPage} from '../../po/sidenav.po';
 import {expectUrlToContain} from '../../utils/assertation.utils';
-import {generateNumber, generateLetters} from '../../utils/generator.utils';
+import {generateLetters} from '../../utils/generator.utils';
 import {TopnavPage} from '../../po/topnav.po';
-import {ProductPage} from '../../po/product.po';
+import {CampaignPage} from '../../po/campaign.po';
 
-describe('ProductSearchCycle', function() {
+describe('CampaignSearchCycle', function() {
   let page: EntityIndexPage;
-  let productPage: ProductPage;
+  let campaignPage: CampaignPage;
   let searchPage: SearchPage;
   let sidenav: SidenavPage;
   let topnav: TopnavPage;
 
-  const productName = generateLetters(12);
-  const productSku = generateNumber(6);
+  const campaignName = generateLetters(12);
 
   beforeEach(() => {
     page = new EntityIndexPage();
-    productPage = new ProductPage();
+    campaignPage = new CampaignPage();
     searchPage = new SearchPage();
     sidenav = new SidenavPage();
     topnav = new TopnavPage();
@@ -39,20 +38,19 @@ describe('ProductSearchCycle', function() {
   it('should create new product', () => {
     sidenav.getLink(12).click();
     browser.sleep(500);
-    sidenav.getLink(13).click();
-    waitForUrlContains('products');
+    sidenav.getLink(15).click();
+    waitForUrlContains('campaigns');
 
     page.getAddButton().click();
 
-    productPage.getNewProductInputs().get(0).sendKeys(productName);
-    productPage.getNewProductInputs().get(1).sendKeys(productSku);
+    campaignPage.getNewCampaignFormNameInput().sendKeys(campaignName);
 
     browser.sleep(200);
 
-    productPage.getNewProductSaveButton().click();
+    campaignPage.getCampaignFormSaveButton().click();
 
     browser.sleep(1500);
-    expect(productPage.getProductName().getText()).toEqual(productName);
+    expect(campaignPage.getCampaignNameInHeader().getText()).toEqual(campaignName);
   });
 
   it('wait for 90 seconds and perform search', () => {
@@ -61,14 +59,14 @@ describe('ProductSearchCycle', function() {
     topnav.getSearchButton().click();
     browser.sleep(300);
     waitForPresenceOf(topnav.getSearchInput());
-    topnav.getSearchInput().sendKeys(productName);
+    topnav.getSearchInput().sendKeys(campaignName);
     topnav.getSearchInput().sendKeys(protractor.Key.ENTER);
 
     waitForUrlContains('search');
     expectUrlToContain('search');
   });
 
-  it('should find newly created product when search by product name', () => {
+  it('should find newly created campaign when search by campaign name', () => {
     browser.sleep(1000);
 
     waitForPresenceOf(searchPage.getOneSearchResult());
@@ -78,31 +76,15 @@ describe('ProductSearchCycle', function() {
     expect(searchPage.getCheckboxes().count()).toBeGreaterThan(0);
   });
 
-  it('should find newly created product when search by product sku', () => {
-    topnav.getSearchButton().click();
-    browser.sleep(500);
-    waitForPresenceOf(topnav.getSearchInput());
-    topnav.getSearchInput().sendKeys(productSku);
-    topnav.getSearchInput().sendKeys(protractor.Key.ENTER);
-
-    browser.sleep(1000);
-
-    waitForPresenceOf(searchPage.getOneSearchResult());
-    waitForPresenceOf(searchPage.getOneCheckbox());
-
-    expect(searchPage.getResults().count()).toBeGreaterThan(0);
-    expect(searchPage.getCheckboxes().count()).toBeGreaterThan(0);
-  });
-
-  it('should open product view when clicked on search result', () => {
+  it('should open campaign view when clicked on search result', () => {
     searchPage.getOneSearchResult().click();
 
     browser.sleep(2000);
 
-    waitForUrlContains('products');
-    expectUrlToContain('products');
+    waitForUrlContains('campaigns');
+    expectUrlToContain('campaigns');
 
-    expect(productPage.getProductName().getText()).toEqual(productName);
+    expect(campaignPage.getCampaignNameInHeader().getText()).toEqual(campaignName);
   })
 
 });
