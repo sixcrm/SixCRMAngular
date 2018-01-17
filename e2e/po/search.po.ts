@@ -22,7 +22,7 @@ export class SearchPage {
   }
 
   getOneSearchResult() {
-    return element(by.css('.search__content__results__cards')).element(by.css('entity-list__item'));
+    return element(by.css('.search__content__results__cards')).element(by.css('.entity-list__item'));
   }
 
   getPerfectMatch() {
