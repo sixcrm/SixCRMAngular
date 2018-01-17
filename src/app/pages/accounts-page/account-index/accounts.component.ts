@@ -43,7 +43,7 @@ export class AccountsComponent extends AbstractEntityIndexComponent<Account> imp
       this.actAsOptionText = isMasterAcc ? 'act as this account' : null;
     });
 
-    this.authService.actingAsAccount$.takeUntil(this.unsubscribe$).subscribe((account: Account) => {
+    this.authService.actingAsAccount$.skip(1).takeUntil(this.unsubscribe$).subscribe(() => {
       this.resetEntities();
       this.refreshData();
     })
