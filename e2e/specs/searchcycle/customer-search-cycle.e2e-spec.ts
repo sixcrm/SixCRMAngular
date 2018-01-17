@@ -77,7 +77,7 @@ describe('CustomerSearchCycle', function() {
     expect(customerPage.getCustomerName().getText()).toEqual(`${customerName} ${customerLastname}`)
   });
 
-  it('wait for 35 seconds and perform search', () => {
+  it('wait for 90 seconds and perform search', () => {
     browser.sleep(90000);
 
     topnav.getSearchButton().click();
