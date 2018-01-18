@@ -33,6 +33,14 @@ export function isAllowedFloatNumeric(event): boolean {
   return true;
 }
 
+export function isAllowedPercentage(event, currentValue): boolean {
+  if (!isAllowedFloatNumeric(event)) return false;
+
+  if (!isAllowedNumber(event)) return true;
+
+  return +(`${currentValue || ''}${event.key}`) <= 100;
+}
+
 export function isValidEmail(email): boolean {
   if (!email) return false;
 
@@ -53,4 +61,11 @@ export function isAllowedZip(event): boolean {
 
 export function isValidZip(value: string): boolean {
   return /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(value);
+}
+
+function isAllowedNumber(event): boolean {
+  const pattern = /[0-9]/;
+
+  return pattern.test(event.key);
+
 }

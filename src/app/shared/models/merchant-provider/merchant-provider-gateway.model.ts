@@ -40,6 +40,10 @@ export class MerchantProviderGateway {
     return this.type === MerchantProviderGatewayType.Test;
   }
 
+  isTypeSelected() {
+    return this.isTest() || this.isInnovio() || this.isNMI();
+  }
+
   getType() {
     if (this.isNMI())
       return 'NMI';

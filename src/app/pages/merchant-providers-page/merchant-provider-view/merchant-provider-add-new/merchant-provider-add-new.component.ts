@@ -1,8 +1,12 @@
 import { Component, ViewChild, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {MerchantProvider} from '../../../../shared/models/merchant-provider/merchant-provider.model';
 import {Modes} from '../../../abstract-entity-view.component';
-import {isAllowedFloatNumeric, isAllowedEmail, isAllowedNumeric} from '../../../../shared/utils/form.utils';
+import {
+  isAllowedFloatNumeric, isAllowedEmail, isAllowedNumeric,
+  isAllowedPercentage
+} from '../../../../shared/utils/form.utils';
 import {getPhoneNumberMask} from '../../../../shared/utils/mask.utils';
+import {ActivatedRoute, UrlSegment} from '@angular/router';
 
 @Component({
   selector: 'merchant-provider-add-new',
@@ -24,11 +28,12 @@ export class MerchantProviderAddNewComponent implements OnInit {
   modes = Modes;
 
   isFloatNumeric = isAllowedFloatNumeric;
+  isPercentage = isAllowedPercentage;
   isNumeric = isAllowedNumeric;
   isEmail = isAllowedEmail;
   mask = getPhoneNumberMask();
 
-  allCreditCards: string[] = ['American Express', 'Mastercard', 'Visa', 'Discover'];
+  allCreditCards: string[] = ['American Express', 'Mastercard', 'Visa', 'LOCAL CARD'];
   allProviders: string[] = ['NMI', 'Innovio', 'Test'];
 
   constructor() { }
