@@ -11,6 +11,7 @@ export class TranslationPipe implements PipeTransform, OnDestroy {
   private sub: Subscription;
   private refresh: boolean = true;
   private value: string;
+  private input: string;
 
   constructor(private translationService: TranslationService) {
 
@@ -21,8 +22,14 @@ export class TranslationPipe implements PipeTransform, OnDestroy {
   };
 
   transform(value: string): any {
+    if (this.input !== value) {
+      this.refresh = true;
+    }
+
     if (!this.refresh) {
       return this.value;
+    } else {
+      this.input = value;
     }
 
     this.refresh = false;
