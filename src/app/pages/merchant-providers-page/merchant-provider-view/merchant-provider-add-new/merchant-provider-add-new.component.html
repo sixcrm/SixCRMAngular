@@ -91,7 +91,7 @@
       </dropdown-component>
 
       <ng-container *ngIf="entity.gateway.getType()">
-        <md-input-container *ngIf="entity.gateway.isNMI() || entity.gateway.isTest()" class="entity-view__card__content__item">
+        <md-input-container *ngIf="entity.gateway.isNMI()" class="entity-view__card__content__item">
           <input [disabled]="mode === modes.View" md-input placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_PROCESSORID' | translate}}" name="processorId" [(ngModel)]="entity.gateway.processorId" type="text">
         </md-input-container>
 
@@ -99,11 +99,11 @@
           <input [disabled]="mode === modes.View" md-input placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_PRODUCTID' | translate}}" name="productId" [(ngModel)]="entity.gateway.productId" type="text">
         </md-input-container>
 
-        <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.username && (entity.gateway.isNMI() || entity.gateway.isInnovio())">
+        <md-input-container *ngIf="entity.gateway.isNMI() || entity.gateway.isInnovio()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.username && (entity.gateway.isNMI() || entity.gateway.isInnovio())">
           <input [required]="entity.gateway.isNMI() || entity.gateway.isInnovio()" [disabled]="mode === modes.View" md-input placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_USERNAME' | translate}}" name="username" [(ngModel)]="entity.gateway.username" type="text">
         </md-input-container>
 
-        <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.password && (entity.gateway.isNMI() || entity.gateway.isInnovio())">
+        <md-input-container *ngIf="entity.gateway.isNMI() || entity.gateway.isInnovio()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.password && (entity.gateway.isNMI() || entity.gateway.isInnovio())">
           <input [required]="entity.gateway.isNMI() || entity.gateway.isInnovio()" [disabled]="mode === modes.View" md-input placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_PASSWORD' | translate}}" name="password" [(ngModel)]="entity.gateway.password" type="text">
         </md-input-container>
       </ng-container>

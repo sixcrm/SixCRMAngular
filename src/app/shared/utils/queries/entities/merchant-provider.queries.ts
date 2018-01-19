@@ -54,7 +54,7 @@ export function merchantProviderResponseQuery(): string {
     }
     gateway {
       ... on NMI { name type username password processor_id }
-      ... on TestMerchantProvider { name type username password processor_id }
+      ... on TestMerchantProvider { name type }
       ... on Innovio { name type username password product_id }
     }
     customer_service { email url description phone }`
@@ -89,9 +89,9 @@ export function merchantProviderInputQuery(provider: MerchantProvider, includeId
     gateway:{
       name:"${provider.gateway.getType()}",
       type:"${provider.gateway.getType()}",
-      ${provider.gateway.isNMI() || provider.gateway.isTest() ? `processor_id:"${provider.gateway.processorId}",` : `product_id: "${provider.gateway.productId}",`}
-      username:"${provider.gateway.username}",
-      password:"${provider.gateway.password}",
+      ${provider.gateway.isNMI() ? `processor_id:"${provider.gateway.processorId}",` : provider.gateway.isInnovio() ? `product_id: "${provider.gateway.productId}",` : ''}
+      ${provider.gateway.isNMI() || provider.gateway.isInnovio() ? `username:"${provider.gateway.username}",` : ''}
+      ${provider.gateway.isNMI() || provider.gateway.isInnovio() ? `password:"${provider.gateway.password}",` : ''}
     },
     customer_service:{
       ${provider.customerService.email ? `email: "${provider.customerService.email}",` : ''}
