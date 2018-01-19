@@ -123,7 +123,13 @@ export class SearchService {
       let hit = extractData(response).search.hits.hit;
       let suggestions: string[] = hit.map(h => JSON.parse(h.fields).suggestion_field_1[0]);
 
-      this.suggestionResults$.next(suggestions);
+      let seen = [];
+      this.suggestionResults$.next(suggestions.filter(el => {
+        const duplicate = seen[el];
+        seen[el] = true;
+
+        return !duplicate;
+      }));
     })
   }
 
