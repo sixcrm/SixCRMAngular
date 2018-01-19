@@ -1,0 +1,34 @@
+<div class="perfect-entity">
+
+  <div *ngIf="merchantProvider; else spin">
+    <div class="perfect-entity__info">
+      <div class="perfect-entity__info__title">{{'SEARCH_PERFECT_MERCHANTPROVIDER_TITLE' | translate}}</div>
+
+      <div class="perfect-entity__info__fields">
+
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_PERFECT_MERCHANTPROVIDER_ENABLED' | translate}}:</span>
+          <span class="perfect-entity__info__fields__item__value">{{merchantProvider.enabled}}</span>
+        </div>
+
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_PERFECT_MERCHANTPROVIDER_ALLOWPREPAID' | translate}}:</span>
+          <span class="perfect-entity__info__fields__item__value">{{merchantProvider.allowPrepaid}}</span>
+        </div>
+
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_PERFECT_MERCHANTPROVIDER_GATEWAYNAME' | translate}}:</span>
+          <span class="perfect-entity__info__fields__item__value">{{merchantProvider.gateway.name}}</span>
+        </div>
+
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_PERFECT_MERCHANTPROVIDER_GATEWAYTYPE' | translate}}:</span>
+          <span class="perfect-entity__info__fields__item__value">{{merchantProvider.gateway.getType()}}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <ng-template #spin><table-loader [rowHeight]="30"></table-loader></ng-template>
+</div>

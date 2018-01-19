@@ -18,6 +18,9 @@
     <perfect-product-schedule *ngIf="entity.fields.entity_type === 'productschedule'" [id]="entity.id"></perfect-product-schedule>
     <perfect-rebill *ngIf="entity.fields.entity_type === 'rebill'" [id]="entity.id"></perfect-rebill>
     <perfect-campaign *ngIf="entity.fields.entity_type === 'campaign'" [id]="entity.id"></perfect-campaign>
+    <perfect-merchant-provider *ngIf="entity.fields.entity_type === 'merchantprovider'" [id]="entity.id"></perfect-merchant-provider>
+    <perfect-credit-card *ngIf="entity.fields.entity_type === 'creditcard'" [id]="entity.id"></perfect-credit-card>
+    <perfect-affiliate *ngIf="entity.fields.entity_type === 'affiliate'" [id]="entity.id"></perfect-affiliate>
 
     <div (click)="navigateToEntity()" class="perfect-match__view-more">
       {{'SEARCH_PERFECT_VIEW' | translate}} {{(entity.fields.entity_type + '_TITLE') | translate}}

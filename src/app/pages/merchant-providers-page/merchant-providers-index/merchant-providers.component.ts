@@ -28,9 +28,9 @@ export class MerchantProvidersComponent extends AbstractEntityIndexComponent<Mer
     this.entityFactory = () => new MerchantProvider();
 
     this.columnParams = [
-      new ColumnParams('MERCHANT_INDEX_HEADER_NAME', (e: MerchantProvider) => e.name),
-      new ColumnParams('MERCHANT_INDEX_HEADER_PROCESSOR', (e: MerchantProvider) => e.gateway.name),
-      new ColumnParams('MERCHANT_INDEX_HEADER_TYPE', (e: MerchantProvider) => e.gateway.getType())
+      new ColumnParams('MERCHANTPROVIDER_INDEX_HEADER_NAME', (e: MerchantProvider) => e.name),
+      new ColumnParams('MERCHANTPROVIDER_INDEX_HEADER_PROCESSOR', (e: MerchantProvider) => e.gateway.name),
+      new ColumnParams('MERCHANTPROVIDER_INDEX_HEADER_TYPE', (e: MerchantProvider) => e.gateway.getType())
     ];
   }
 

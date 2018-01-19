@@ -545,6 +545,25 @@
       "schedule": {
         "title": "Product Schedule Info",
         "schedules": "Schedules"
+      },
+      "merchantprovider": {
+        "title": "Merchant Provider Info",
+        "enabled": "Enabled",
+        "allowprepaid": "Allow Prepaid",
+        "gatewayname": "Gateway Name",
+        "gatewaytype": "Gateway Type"
+      },
+      "creditcard": {
+        "title": "Credit Card Info",
+        "name": "Customer Name",
+        "expiration": "Expiration",
+        "number": "Number",
+        "ccv": "CCV"
+      },
+      "affiliate": {
+        "title": "Affiliate Info",
+        "name": "Name",
+        "affiliateid": "Affiliate ID"
       }
     }
   },
@@ -766,6 +785,9 @@
       "nodata": "No Credit Cards found.",
       "expiration": "Expiration"
     }
+  },
+  "creditcard": {
+    "title": "Credit Card"
   },
   "bill": {
     "index": {
@@ -1411,7 +1433,7 @@
       "nodata": "No Merchant Providers found."
     }
   },
-  "merchant": {
+  "merchantprovider": {
     "title": "Merchant Provider",
     "index": {
       "title": "Merchant Providers",

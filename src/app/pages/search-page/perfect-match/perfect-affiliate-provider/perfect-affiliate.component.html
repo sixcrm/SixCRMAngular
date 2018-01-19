@@ -1,0 +1,25 @@
+<div class="perfect-entity">
+
+  <div *ngIf="affiliate; else spin">
+    <div class="perfect-entity__info">
+      <div class="perfect-entity__info__title">{{'SEARCH_PERFECT_AFFILIATE_TITLE' | translate}}</div>
+
+      <div class="perfect-entity__info__fields">
+
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_PERFECT_AFFILIATE_NAME' | translate}}:</span>
+          <span class="perfect-entity__info__fields__item__value">{{affiliate.name}}</span>
+        </div>
+
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_PERFECT_AFFILIATE_AFFILIATEID' | translate}}:</span>
+          <span class="perfect-entity__info__fields__item__value">{{affiliate.affiliateId}}</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <ng-template #spin><table-loader [rowHeight]="30"></table-loader></ng-template>
+</div>

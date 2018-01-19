@@ -1,0 +1,34 @@
+<div class="perfect-entity">
+
+  <div *ngIf="creditCard; else spin">
+    <div class="perfect-entity__info">
+      <div class="perfect-entity__info__title">{{'SEARCH_PERFECT_CREDITCARD_TITLE' | translate}}</div>
+
+      <div class="perfect-entity__info__fields">
+
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_PERFECT_CREDITCARD_NAME' | translate}}:</span>
+          <span class="perfect-entity__info__fields__item__value">{{creditCard.name}}</span>
+        </div>
+
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_PERFECT_CREDITCARD_EXPIRATION' | translate}}:</span>
+          <span class="perfect-entity__info__fields__item__value">{{creditCard.expiration | creditCardExpiration}}</span>
+        </div>
+
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_PERFECT_CREDITCARD_NUMBER' | translate}}:</span>
+          <span class="perfect-entity__info__fields__item__value">{{creditCard.ccnumber | creditCardFormat: true}}</span>
+        </div>
+
+        <div class="perfect-entity__info__fields__item">
+          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_PERFECT_CREDITCARD_CCV' | translate}}:</span>
+          <span class="perfect-entity__info__fields__item__value">{{creditCard.ccv}}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <ng-template #spin><table-loader [rowHeight]="30"></table-loader></ng-template>
+</div>

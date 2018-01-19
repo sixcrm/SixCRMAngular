@@ -20,6 +20,9 @@ import { PerfectProductScheduleComponent } from './perfect-match/perfect-product
 import { PerfectCampaignComponent } from './perfect-match/perfect-campaign/perfect-campaign.component';
 import { SearchLoaderComponent } from './search-loader/search-loader.component';
 import {TranslationModule} from '../../translation/translation.module';
+import {PerfectMerchantProviderComponent} from './perfect-match/perfect-merchant-provider/perfect-merchant-provider.component';
+import {PerfectCreditCardComponent} from './perfect-match/perfect-creditcard-provider/perfect-credit-card.component';
+import {PerfectAffiliateComponent} from './perfect-match/perfect-affiliate-provider/perfect-affiliate.component';
 
 @NgModule({
   imports : [
@@ -45,6 +48,9 @@ import {TranslationModule} from '../../translation/translation.module';
     PerfectRebillComponent,
     PerfectProductScheduleComponent,
     PerfectCampaignComponent,
+    PerfectMerchantProviderComponent,
+    PerfectCreditCardComponent,
+    PerfectAffiliateComponent,
     SearchLoaderComponent
   ],
   exports : [ ],

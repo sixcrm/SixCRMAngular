@@ -545,6 +545,25 @@
             "schedule": {
                 "title": "产品进度信息",
                 "schedules": "时间表"
+            },
+            "merchantprovider": {
+              "title": "c Merchant Provider Info",
+              "enabled": "c Enabled",
+              "allowprepaid": "c Allow Prepaid",
+              "gatewayname": "c Gateway Name",
+              "gatewaytype": "c Gateway Type"
+            },
+            "creditcard": {
+              "title": "c Credit Card Info",
+              "name": "c Customer Name",
+              "expiration": "c Expiration",
+              "number": "c Number",
+              "ccv": "c CCV"
+            },
+            "affiliate": {
+              "title": "c Affiliate Info",
+              "name": "c Name",
+              "affiliateid": "c Affiliate ID"
             }
         }
     },
@@ -766,6 +785,9 @@
             "nodata": "找不到信用卡。",
             "expiration": "过期"
         }
+    },
+    "creditcard": {
+      "title": "c Credit Card"
     },
     "bill": {
         "index": {
@@ -1411,7 +1433,7 @@
             "nodata": "找不到商品供应商。"
         }
     },
-    "merchant": {
+    "merchantprovider": {
         "title": "商品供应商",
         "index": {
             "title": "商品供应商",

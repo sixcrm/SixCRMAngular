@@ -18,11 +18,11 @@ if (missingTranslations.length > 0) {
 }
 
 if (redundantTranslations.length > 0) {
-  console.log('-----------ERROR---------------');
+  console.log('-----------WARNING---------------');
   console.log('----REDUNDANT TRANSLATIONS-----');
   console.log(redundantTranslations);
 }
 
-if (missingTranslations.length > 0 || redundantTranslations.length > 0) {
+if (missingTranslations.length > 0) {
   process.exit(1);
 }

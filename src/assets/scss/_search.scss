@@ -504,6 +504,10 @@ $border-color: rgba(0, 0, 0, 0.2);
   &__table {
     margin-top: 60px;
 
+    &--standalone {
+      margin-top: 0;
+    }
+
     &__title {
       font-size: 18px;
       margin-bottom: 15px;

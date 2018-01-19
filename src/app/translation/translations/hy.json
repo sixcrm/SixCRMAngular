@@ -545,7 +545,26 @@
 			"schedule": {
 				"title": "Ապրանքի հերթացուցակի տեղեկություն",
 				"schedules": "Հերթացուցակներ"
-			}
+			},
+      "merchantprovider": {
+        "title": "Merchant Provider Info",
+        "enabled": "Enabled",
+        "allowprepaid": "Allow Prepaid",
+        "gatewayname": "Gateway Name",
+        "gatewaytype": "Gateway Type"
+      },
+      "creditcard": {
+        "title": "Credit Card Info",
+        "name": "Customer Name",
+        "expiration": "Expiration",
+        "number": "Number",
+        "ccv": "CCV"
+      },
+      "affiliate": {
+        "title": "Affiliate Info",
+        "name": "Name",
+        "affiliateid": "Affiliate ID"
+      }
 		}
 	},
 	"account": {
@@ -767,6 +786,9 @@
 			"expiration": "Ժամկետը"
 		}
 	},
+  "creditcard": {
+    "title": "Credit Card"
+  },
 	"bill": {
 		"index": {
 			"title": "Հաշիվներ",
@@ -1411,7 +1433,7 @@
 			"nodata": "Ծառայության մատակարարներ չեն գտնվել:"
 		}
 	},
-	"merchant": {
+	"merchantprovider": {
 		"title": "Ծառայության մատակարար",
 		"index": {
 			"title": "Ծառայության մատակարարներ",

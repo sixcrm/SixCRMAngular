@@ -24,19 +24,19 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
   formInvalid: boolean;
 
   loadBalancerColumnParams = [
-    new ColumnParams('MERCHANT_LOADBALANCER_NAME', (e: LoadBalancer) => e.name || e.id)
+    new ColumnParams('MERCHANTPROVIDER_LOADBALANCER_NAME', (e: LoadBalancer) => e.name || e.id)
   ];
   loadBalancerMapper = (l: LoadBalancer) => l.name || l.id;
   loadbalancerText: TableMemoryTextOptions = {
-    title: 'MERCHANT_LOADBALANCER_TITLE',
-    viewOptionText: 'MERCHANT_LOADBALANCER_VIEW',
-    noDataText: 'MERCHANT_LOADBALANCER_NODATA'
+    title: 'MERCHANTPROVIDER_LOADBALANCER_TITLE',
+    viewOptionText: 'MERCHANTPROVIDER_LOADBALANCER_VIEW',
+    noDataText: 'MERCHANTPROVIDER_LOADBALANCER_NODATA'
   };
 
   tabHeaders: TabHeaderElement[] = [
-    {name: 'general', label: 'MERCHANT_TAB_GENERAL'},
-    {name: 'precessing', label: 'MERCHANT_TAB_PROCESSING'},
-    {name: 'loadbalancers', label: 'MERCHANT_TAB_LOADBALANCER'}
+    {name: 'general', label: 'MERCHANTPROVIDER_TAB_GENERAL'},
+    {name: 'precessing', label: 'MERCHANTPROVIDER_TAB_PROCESSING'},
+    {name: 'loadbalancers', label: 'MERCHANTPROVIDER_TAB_LOADBALANCER'}
   ];
 
   constructor(service: MerchantProvidersService, route: ActivatedRoute, public navigation: NavigationService) {

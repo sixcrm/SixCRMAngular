@@ -1,20 +1,8 @@
 <div class="perfect-entity">
 
   <div *ngIf="productSchedule; else spin">
-    <div class="perfect-entity__info">
-      <div class="perfect-entity__info__title">{{'SEARCH_PERFECT_SCHEDULE_TITLE' | translate}}</div>
 
-      <div class="perfect-entity__info__fields">
-
-        <div class="perfect-entity__info__fields__item">
-          <span class="perfect-entity__info__fields__item__label">{{'SEARCH_ADVANCED_ID' | translate}}:</span>
-          <span class="perfect-entity__info__fields__item__value">{{productSchedule.id}}</span>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="perfect-entity__table">
+    <div class="perfect-entity__table perfect-entity__table--standalone">
       <div class="perfect-entity__table__title">{{'SEARCH_PERFECT_SCHEDULE_SCHEDULES' | translate}}</div>
 
       <table class="highlight">
@@ -29,8 +17,8 @@
         <tbody>
         <tr *ngFor="let schedule of productSchedule.schedules">
           <td>{{schedule.product.name}}</td>
-          <td>{{schedule.start | formatDateTime}}</td>
-          <td>{{schedule.end | formatDateTime}}</td>
+          <td>{{schedule.start | numberlocale}}</td>
+          <td>{{schedule.end | numberlocale}}</td>
           <td>{{schedule.price.usd() | numberlocale}}</td>
         </tr>
         </tbody>
