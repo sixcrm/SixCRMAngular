@@ -15,7 +15,12 @@
         <div class="entity-list__item__fields__value">{{d.fields.lastname}}</div>
       </div>
 
-      <div class="entity-list__item__fields__single" *ngIf="d.fields.city">
+      <div class="entity-list__item__fields__single" *ngIf="d.fields.name && d.fields.entity_type === 'creditcard'">
+        <div class="entity-list__item__fields__key">{{'SEARCH_ADVANCED_NAME' | translate}}:</div>
+        <div class="entity-list__item__fields__value">{{d.fields.name}}</div>
+      </div>
+
+      <div class="entity-list__item__fields__single" *ngIf="d.fields.city && d.fields.entity_type !== 'creditcard'">
         <div class="entity-list__item__fields__key">{{'SEARCH_ADVANCED_CITY' | translate}}:</div>
         <div class="entity-list__item__fields__value">{{d.fields.city}}</div>
       </div>
