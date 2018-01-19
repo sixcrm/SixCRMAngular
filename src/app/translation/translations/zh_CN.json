@@ -1359,6 +1359,14 @@
             "cancel": "取消",
             "save": "保存"
         },
+        "emailtemplate": {
+          "title": "c Associated Email Templates",
+          "name": "c Name",
+          "subject": "c Subject",
+          "type": "c Type",
+          "view": "c View Email Template",
+          "nodata": "c No Email Templates found"
+        },
         "validate": {
             "title": "验证SMTP提供程序",
             "text": "请提供电子邮件地址, SIX将会通过发送测试电子邮件. SIX 的来源电子邮件为",

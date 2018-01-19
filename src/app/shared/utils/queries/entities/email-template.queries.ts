@@ -15,6 +15,16 @@ export function emailTemplatesListQuery(limit?:number, cursor?:string): string {
 		}}`
 }
 
+export function emailTemplatesListBySmtpProviderQuery(smtpproviderID: string, limit?:number, cursor?:string): string {
+  return `{
+    emailtemplatelistbysmtpprovider (smtpprovider:"${smtpproviderID}", ${paginationParamsQuery(limit, cursor, true)}) {
+			emailtemplates {
+			  ${emailTemplateInfoResponseQuery()}
+			}
+			${fullPaginationStringResponseQuery()}
+		}}`
+}
+
 export function emailTemplateQuery(id: string): string {
   return `
     {

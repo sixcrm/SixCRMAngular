@@ -1359,6 +1359,14 @@
         "cancel": "ABBRECHEN",
         "save": "SPEICHERN"
       },
+      "emailtemplate": {
+        "title": "Associated Email Templates",
+        "name": "Name",
+        "subject": "Subject",
+        "type": "Type",
+        "view": "View Email Template",
+        "nodata": "No Email Templates found"
+      },
       "validate": {
         "title": "SMTP Anbieter bestätigen",
         "text": "Bitte geben Sie ihre Email Addresse unten links ein und lassen Sie SIX einen Probe-email an sich schicken.",

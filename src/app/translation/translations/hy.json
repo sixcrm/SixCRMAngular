@@ -1359,6 +1359,14 @@
 			"cancel": "ՉԵՂԱՐԿԵԼ",
 			"save": "ՊԱՀՊԱՆԵԼ"
 		},
+    "emailtemplate": {
+      "title": "Associated Email Templates",
+      "name": "Name",
+      "subject": "Subject",
+      "type": "Type",
+      "view": "View Email Template",
+      "nodata": "No Email Templates found"
+    },
 		"validate": {
 			"title": "Վավերացնել SMTP մատակարարը",
 			"text": "Նշեք էլ. փոստը ստորև և SIX-ը կփորձի ուղարկել ձեզ փորձնական էլ. նամակ՝ օգտագործելով տրամադրված SMTP մատակարարը: Էլ. նամակը կուղարկվի հետևյալից ",

@@ -11,6 +11,7 @@ import {SharedModule} from '../../shared/shared.module';
 import { SmtpProviderAddNewComponent } from './smtp-provider-view/smtp-provider-add-new/smtp-provider-add-new.component';
 import { SmtpProviderValidateComponent } from './smtp-provider-view/smtp-provider-validate/smtp-provider-validate.component';
 import {TranslationModule} from '../../translation/translation.module';
+import { SmtpProviderEmailTemplatesComponent } from './smtp-provider-email-templates/smtp-provider-email-templates.component';
 
 @NgModule({
   imports : [
@@ -26,7 +27,8 @@ import {TranslationModule} from '../../translation/translation.module';
     SmtpProvidersComponent,
     SmtpProviderViewComponent,
     SmtpProviderAddNewComponent,
-    SmtpProviderValidateComponent
+    SmtpProviderValidateComponent,
+    SmtpProviderEmailTemplatesComponent
   ],
   exports : [ ],
   providers: [

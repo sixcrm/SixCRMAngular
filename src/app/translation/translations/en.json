@@ -1359,6 +1359,14 @@
       "cancel": "CANCEL",
       "save": "SAVE"
     },
+    "emailtemplate": {
+      "title": "Associated Email Templates",
+      "name": "Name",
+      "subject": "Subject",
+      "type": "Type",
+      "view": "View Email Template",
+      "nodata": "No Email Templates found"
+    },
     "validate": {
       "title": "Validate SMTP Provider",
       "text": "Please provide an email address below and SIX will try to send you a test email using provided SMTP Provider. Email will be sent from ",
