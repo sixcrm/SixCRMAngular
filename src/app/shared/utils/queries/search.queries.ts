@@ -9,7 +9,7 @@ export function searchQuery(query: string, createdAtRange: string, sortBy: strin
   let sort = buildSortBy(sortBy);
 
   return `{
-		search (search: {query: "${query}*" filterQuery:"${filterQuery}" ${sort} start: "${start}" size: "${size}"}) {
+		search (search: {query: "'${query}*'" ${filterQuery ? `filterQuery:"${filterQuery}"` : ''} ${sort} start: "${start}" size: "${size}"}) {
 			status { timems rid }
 			hits { found start,
 				hit { id fields }
@@ -27,7 +27,7 @@ export function searchFacets(query: string, createdAtRange: string, entityTypes?
   }
 
   return `{
-		search (search: {query: "${query}*" filterQuery:"${filterQuery}" facet:"{entity_type:{}}" return:"_no_fields"}) {
+		search (search: {query: "'${query}*'" ${filterQuery ? `filterQuery:"${filterQuery}"` : ''} facet:"{entity_type:{}}" return:"_no_fields"}) {
 			status { timems rid }
 			facets
 		}
@@ -47,7 +47,7 @@ export function searchAdvancedQuery(options: any, createdAtRange: string, sortBy
 
   return `
   {
-    search (search: {query: "(and${fieldsQuery})" filterQuery: "${entityTypesQuery}" queryParser: "structured" ${sort} start: "${start}" size: "${size}"}) {
+    search (search: {query: "(and${fieldsQuery})" ${entityTypesQuery ? `filterQuery:"${entityTypesQuery}"` : ''} queryParser: "structured" ${sort} start: "${start}" size: "${size}"}) {
       hits {
         found start,
         hit { id fields }
@@ -69,7 +69,7 @@ export function searchAdvancedFacets(options: any, createdAtRange: string, entit
 
   return `
   {
-    search (search: {query: "(and${fieldsQuery})" filterQuery: "${entityTypesQuery}" queryParser: "structured" facet:"{entity_type:{}}" return:"_no_fields"}) {
+    search (search: {query: "(and${fieldsQuery})" ${entityTypesQuery ? `filterQuery:"${entityTypesQuery}"` : ''} queryParser: "structured" facet:"{entity_type:{}}" return:"_no_fields"}) {
       status { timems rid }
 			facets
     }
