@@ -135,7 +135,7 @@
 
     </div>
 
-    <div *ngIf="mode === modes.Add" class="entity-view__card__actions">
+    <div *ngIf="mode === modes.Add" class="entity-view__card__actions merchant-provider--create__buttons">
       <div (click)="cancel.emit(true)">{{'MERCHANTPROVIDER_INFO_CANCEL' | translate}}</div>
       <div (click)="saveProvider(merchantProviderForm.form.valid)">{{'MERCHANTPROVIDER_INFO_SAVE' | translate}}</div>
     </div>
