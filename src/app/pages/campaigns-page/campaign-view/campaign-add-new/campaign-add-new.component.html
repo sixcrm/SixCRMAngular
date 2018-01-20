@@ -11,7 +11,7 @@
 
   <div class="entity-view__card__content">
     <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-      <input required md-input [disabled]="mode === modes.View" placeholder=" {{'CAMPAIGN_INFO_NAME' | translate}} " [(ngModel)]="entity.name" type="text">
+      <input autoFocus required md-input [disabled]="mode === modes.View" placeholder=" {{'CAMPAIGN_INFO_NAME' | translate}} " [(ngModel)]="entity.name" type="text">
     </md-input-container>
     <div class="flex-custom flex-custom--center prepaid-checkbox">
       <span> {{'CAMPAIGN_INFO_ALLOWPREPAID' | translate}} </span>

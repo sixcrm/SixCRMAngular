@@ -13,7 +13,7 @@
 
     <div class="entity-view__card__content">
       <md-input-container style="margin-right: 25px;" [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-        <input required md-input [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text">
+        <input autoFocus required md-input [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text">
       </md-input-container>
 
       <div class="product-view__group">

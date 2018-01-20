@@ -17,7 +17,7 @@
     </div>
 
     <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-      <input required md-input [disabled]="mode === modes.View" placeholder="{{'USER_DETAILS_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text">
+      <input autoFocus required md-input [disabled]="mode === modes.View" placeholder="{{'USER_DETAILS_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text">
     </md-input-container>
 
     <md-input-container [class.error]="formInvalid && !entity.email" class="entity-view__card__content__item">
