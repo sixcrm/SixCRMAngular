@@ -42,8 +42,8 @@ export class UserSettings {
     this.id = obj.id || '';
     this.workPhone = obj.work_phone || '';
     this.cellPhone = obj.cell_phone || '';
-    this.timezone = obj.timezone || '';
-    this.language = obj.language || '';
+    this.timezone = obj.timezone || 'America/Los_Angeles';
+    this.language = obj.language || 'English';
 
     if (obj.notifications) {
       obj.notifications.forEach(notification => this.notificationSettings.push(new NotificationUserSettings(notification)));
