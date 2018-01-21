@@ -130,6 +130,9 @@
   }
 
   &__button {
+    outline: none;
+    color: white;
+    border-width: 1px;
     display: inline-block;
     margin: 25px 0 5px;
     width: 120px;

@@ -30,7 +30,7 @@
       <div class="terms-and-conditions__content__body" [innerHtml]="termsAndConditions.body | htmlSanitizer"></div>
     </div>
 
-    <div class="terms-and-conditions__button" (click)="acceptTermsAndConditions()">{{'TERMS_ACCEPT' | translate}}</div>
+    <button class="terms-and-conditions__button" (click)="acceptTermsAndConditions()">{{'TERMS_ACCEPT' | translate}}</button>
 
     <div>
       <div class="terms-and-conditions__button--cancel" (click)="logout()">{{'TERMS_LOGOUT' | translate}}</div>
