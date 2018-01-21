@@ -36,36 +36,36 @@
     </div>
 
     <div class="entity-view__card__content merchant-provider-view__details">
-      <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers" [class.error]="formInvalid && !entity.processing.monthlyCap">
-        <input required [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_MONTHLYCAPD' | translate}}" name="monthlyCap" [(ngModel)]="entity.processing.monthlyCap" type="text">
+      <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
+        <input [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_MONTHLYCAPD' | translate}}" name="monthlyCap" [(ngModel)]="entity.processing.monthlyCap" type="text">
       </md-input-container>
 
-      <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers" [class.error]="formInvalid && !entity.processing.transactionCounts.monthly && entity.processing.transactionCounts.monthly !== 0 && !entity.gateway.isTest()">
-        <input [required]="!entity.gateway.isTest()" [disabled]="mode === modes.View" (keydown)="isNumeric($event)" md-input placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_MONTHLYCAPC' | translate}}" name="monthlyCapCount" [(ngModel)]="entity.processing.transactionCounts.monthly" type="text">
+      <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
+        <input [disabled]="mode === modes.View" (keydown)="isNumeric($event)" md-input placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_MONTHLYCAPC' | translate}}" name="monthlyCapCount" [(ngModel)]="entity.processing.transactionCounts.monthly" type="text">
       </md-input-container>
 
-      <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers" [class.error]="formInvalid && !entity.processing.transactionCounts.weekly && entity.processing.transactionCounts.weekly !== 0 && !entity.gateway.isTest()">
-        <input [required]="!entity.gateway.isTest()" [disabled]="mode === modes.View" (keydown)="isNumeric($event)" md-input placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_WEEKLYCAP' | translate}}" name="weeklyCapCount" [(ngModel)]="entity.processing.transactionCounts.weekly" type="text">
+      <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
+        <input [disabled]="mode === modes.View" (keydown)="isNumeric($event)" md-input placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_WEEKLYCAP' | translate}}" name="weeklyCapCount" [(ngModel)]="entity.processing.transactionCounts.weekly" type="text">
       </md-input-container>
 
-      <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers" [class.error]="formInvalid && !entity.processing.transactionCounts.daily && entity.processing.transactionCounts.daily !== 0 && !entity.gateway.isTest()">
-        <input [required]="!entity.gateway.isTest()" [disabled]="mode === modes.View" (keydown)="isNumeric($event)" md-input placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_DAILYCAP' | translate}}" name="dailyCapCount" [(ngModel)]="entity.processing.transactionCounts.daily" type="text">
+      <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
+        <input [disabled]="mode === modes.View" (keydown)="isNumeric($event)" md-input placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_DAILYCAP' | translate}}" name="dailyCapCount" [(ngModel)]="entity.processing.transactionCounts.daily" type="text">
       </md-input-container>
 
-      <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers" [class.error]="formInvalid && !entity.processing.transactionFee && entity.processing.transactionFee !== 0 && !entity.gateway.isTest()">
-        <input [required]="!entity.gateway.isTest()" [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_TRANSACTIONFEE' | translate}}" name="transactionFee" [(ngModel)]="entity.processing.transactionFee" type="text">
+      <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
+        <input [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" md-input placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_TRANSACTIONFEE' | translate}}" name="transactionFee" [(ngModel)]="entity.processing.transactionFee" type="text">
       </md-input-container>
 
-      <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers" [class.error]="formInvalid && !entity.processing.discountRate && entity.processing.discountRate !== 0 && !entity.gateway.isTest()">
-        <input [required]="!entity.gateway.isTest()" [disabled]="mode === modes.View" (keydown)="isPercentage($event,entity.processing.discountRate)" md-input placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_DISCOUNTRATE' | translate}}" name="discountRate" [(ngModel)]="entity.processing.discountRate" type="text">
+      <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
+        <input [disabled]="mode === modes.View" (keydown)="isPercentage($event,entity.processing.discountRate)" md-input placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_DISCOUNTRATE' | translate}}" name="discountRate" [(ngModel)]="entity.processing.discountRate" type="text">
       </md-input-container>
 
-      <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers" [class.error]="formInvalid && !entity.processing.maximumChargebackRatio && entity.processing.maximumChargebackRatio !== 0 && !entity.gateway.isTest()">
-        <input [required]="!entity.gateway.isTest()" [disabled]="mode === modes.View" (keydown)="isPercentage($event,entity.processing.maximumChargebackRatio)" md-input placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_CHARGEBACK' | translate}}" name="maxChargebackRatio" [(ngModel)]="entity.processing.maximumChargebackRatio" type="text">
+      <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
+        <input [disabled]="mode === modes.View" (keydown)="isPercentage($event,entity.processing.maximumChargebackRatio)" md-input placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_CHARGEBACK' | translate}}" name="maxChargebackRatio" [(ngModel)]="entity.processing.maximumChargebackRatio" type="text">
       </md-input-container>
 
-      <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers" [class.error]="formInvalid && !entity.processing.reserveRate && entity.processing.reserveRate !== 0 && !entity.gateway.isTest()">
-        <input [required]="!entity.gateway.isTest()" [disabled]="mode === modes.View" (keydown)="isPercentage($event,entity.processing.reserveRate)" md-input placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_RESERVE' | translate}}" name="reserveRate" [(ngModel)]="entity.processing.reserveRate" type="text">
+      <md-input-container class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
+        <input [disabled]="mode === modes.View" (keydown)="isPercentage($event,entity.processing.reserveRate)" md-input placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_RESERVE' | translate}}" name="reserveRate" [(ngModel)]="entity.processing.reserveRate" type="text">
       </md-input-container>
     </div>
   </div>

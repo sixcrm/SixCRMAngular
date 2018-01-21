@@ -72,7 +72,7 @@ export function merchantProviderInputQuery(provider: MerchantProvider, includeId
     allow_prepaid:${provider.allowPrepaid},
     accepted_payment_methods:[${provider.acceptedPaymentMethods.map(m => `"${m}"`)}],
     processing:{
-      monthly_cap: ${provider.processing.monthlyCap},
+      monthly_cap: ${provider.processing.monthlyCap || null},
       discount_rate: ${provider.processing.discountRate ? +provider.processing.discountRate / 100 : 0},
       transaction_fee: ${provider.processing.transactionFee ? +provider.processing.transactionFee : 0},
       reserve_rate: ${provider.processing.reserveRate ? +provider.processing.reserveRate / 100 : 0},
