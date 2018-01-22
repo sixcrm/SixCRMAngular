@@ -9,7 +9,7 @@ import {TextMaskModule} from 'angular2-text-mask';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {TranslationModule} from "../../translation/translation.module";
 import {UserSigningStringsComponent} from "./user-signing-strings/user-signing-strings.component";
-import {ClipboardModule} from "ngx-clipboard/dist";
+import {ClipboardModule} from "ngx-clipboard";
 
 @NgModule({
   imports : [

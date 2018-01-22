@@ -11,7 +11,7 @@ import {SharedModule} from '../../shared/shared.module';
 import { CampaignAddNewComponent } from './campaign-view/campaign-add-new/campaign-add-new.component';
 import { PixelTrackerComponent } from './campaign-view/pixel-tracker/pixel-tracker.component';
 import {CodemirrorModule} from 'ng2-codemirror';
-import {ClipboardModule} from 'ngx-clipboard/dist';
+import {ClipboardModule} from 'ngx-clipboard';
 import {TranslationModule} from '../../translation/translation.module';
 
 @NgModule({

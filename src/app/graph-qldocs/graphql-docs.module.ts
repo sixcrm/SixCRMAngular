@@ -10,7 +10,7 @@ import {MaterialModule} from '@angular/material';
 import { FilterSearchItemsPipe } from './filter-types.pipe';
 import {FormsModule} from '@angular/forms';
 import { SideSearchComponent } from './components/side-search/side-search.component';
-import {ClipboardModule} from 'ngx-clipboard/dist';
+import {ClipboardModule} from 'ngx-clipboard';
 
 @NgModule({
   imports: [

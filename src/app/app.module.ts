@@ -21,7 +21,7 @@ import {AddProductScheduleDialogComponent} from './pages/add-product-schedule-di
 import {ErrorSnackBarComponent} from './shared/components/error-snack-bar/error-snack-bar.component';
 import {SingleInputDialogComponent} from './dialog-modals/single-input-dialog.component';
 import {AccessKeyDetailsDialogComponent} from './dialog-modals/access-key-details-dialog.component';
-import {ClipboardModule} from 'ngx-clipboard/dist';
+import {ClipboardModule} from 'ngx-clipboard';
 import { ErrorPageStandaloneComponent } from './error-page-standalone/error-page-standalone.component';
 import {TranslationModule} from './translation/translation.module';
 import {AddBillDetailsDialogComponent} from './dialog-modals/add-bill-details-dialog.component';
