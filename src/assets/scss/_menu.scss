@@ -7,5 +7,15 @@
   .md-menu-content {
     max-height: 400px;
     overflow: auto;
+
+    button {
+      font-weight: 100 !important;
+    }
+  }
+}
+
+.md-menu-content {
+  button {
+    font-weight: normal !important;
   }
 }
