@@ -6,7 +6,7 @@ import {StateMachineQueue} from '../../../shared/models/state-machine/state-mach
 import {NavigationService} from '../../../navigation/navigation.service';
 import {utc} from 'moment';
 import {StateMachineTimeseries} from '../../../shared/models/state-machine/state-machine-timeseries.model';
-import {DateMap} from '../../../shared/components/advanced-filter/advanced-filter.component';
+import {DateMap, flatUp} from '../../../shared/components/advanced-filter/advanced-filter.component';
 import {Subscription, Observable} from 'rxjs';
 import {Rebill} from '../../../shared/models/rebill.model';
 import {RebillsService} from '../../../shared/services/rebills.service';
@@ -121,7 +121,7 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
   }
 
   fetchTimeseries(): void {
-    this.stateMachineService.getTimeseries(this.queue.label, this.date.start.clone().format(), this.date.end.clone().format())
+    this.stateMachineService.getTimeseries(this.queue.label, this.date.start.clone().format(), flatUp(this.date.end.clone()).format())
   }
 
   fetchMessages(): void {
