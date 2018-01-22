@@ -2,6 +2,7 @@ import {Input} from '@angular/core';
 import {AsyncSubject} from 'rxjs';
 import {Moment} from 'moment';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
+import {flatUp} from '../../shared/components/advanced-filter/advanced-filter.component';
 
 export class AbstractDashboardItem {
 
@@ -16,7 +17,7 @@ export class AbstractDashboardItem {
   @Input() set date(dates) {
     if (dates) {
       this.start = dates.start;
-      this.end = dates.end;
+      this.end = flatUp(dates.end);
       this.shouldFetch = true;
     }
   }
