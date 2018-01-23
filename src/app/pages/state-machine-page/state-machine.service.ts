@@ -46,8 +46,8 @@ export class StateMachineService {
   }
 
   getQueueState(queueName: string): Observable<Response> {
-    const start = utc();
-    const end = utc().subtract(1, 'd');
+    const end = utc();
+    const start = utc().subtract(7, 'd');
 
     return this.queryRequest(getQueueState(queueName, start.format(), end.format()), {failStrategy: FailStrategy.Soft});
   }
