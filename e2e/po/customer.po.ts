@@ -1,4 +1,4 @@
-import {element, by} from 'protractor';
+import { element, by, ElementFinder } from 'protractor';
 
 export class CustomerPage {
   getNewCustomerForm() {
@@ -71,5 +71,51 @@ export class CustomerPage {
 
   getConfirmDeleteButton() {
     return element(by.css('.custom-dialog__buttons')).all(by.css('div')).last();
+  }
+
+  getBillingMenuButton() {
+    return element.all(by.css('.customer-view__card')).get(1).element(by.css('md-icon'));
+  }
+
+  getBillingAddCardButton() {
+    return element(by.cssContainingText('button[role="menuitem"]', 'Add Credit Card'));
+  }
+
+  getBillingEditCardButton() {
+    return element(by.cssContainingText('button[role="menuitem"]', 'Edit Credit Card'));
+  }
+
+  getBillingInputs() {
+    return element.all(by.css('.customer-view__edit input'));
+  }
+
+  getBillingSelects() {
+    return element.all(by.css('.customer-view__edit .dropdown-component__text'));
+  }
+
+  getBillingSaveButton() {
+    return element(by.cssContainingText('.customer-view__edit__actions div', 'Save'));
+  }
+
+  getBillingUpdateButton() {
+    return element(by.cssContainingText('.customer-view__edit__actions div', 'Update'));
+  }
+
+  getBillingCardInputs() {
+    return element.all(by.css('.customer-view__card')).get(1).all(by.css('input'));
+  }
+
+  getBillingCardMenuButtons() {
+    return element.all(by.css('.credit-cards__item md-icon'));
+  }
+
+  getBillingRemoveCardButton() {
+    return element(by.cssContainingText('button[role="menuitem"]', 'Remove Credit Card'));
+  }
+
+  getSelectOptions(select: ElementFinder) {
+    return select
+      .element(by.xpath('following-sibling::div'))
+      .all(by.css('.dropdown-component__options__item'));
   }
 }

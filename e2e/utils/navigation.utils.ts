@@ -90,3 +90,21 @@ export function waitForPresenceOfLoginFields(authPage: AuthPage) {
     waitForPresenceOf(authPage.getLoginButton());
   }
 }
+
+export function waitForElementToBeClickable(element: ElementFinder, timeout = 10000) {
+  browser
+    .wait(
+      protractor.ExpectedConditions.elementToBeClickable(element),
+      timeout,
+      `Element ${element.locator()} is not clickable after ${timeout} ms`
+    );
+}
+
+export function waitForVisibilityOf(element: ElementFinder, timeout = 10000) {
+  browser
+    .wait(
+      protractor.ExpectedConditions.visibilityOf(element),
+      timeout,
+      `Element ${element.locator()} is not visible after ${timeout} ms`
+    );
+}

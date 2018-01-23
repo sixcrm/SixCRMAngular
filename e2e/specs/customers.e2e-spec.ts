@@ -1,15 +1,20 @@
-import {EntityIndexPage} from '../po/entity-index.po';
-import {login} from '../utils/action.utils';
+import { browser } from 'protractor';
+
+import { generateUUID } from '../../src/app/shared/utils/queries/entities/entities-helper.queries';
+import { AppPage } from '../po/app.po';
+import { CustomerPage } from '../po/customer.po';
+import { EntityIndexPage } from '../po/entity-index.po';
+import { SidenavPage } from '../po/sidenav.po';
+import { login } from '../utils/action.utils';
+import { expectDefined, expectUrlToContain } from '../utils/assertation.utils';
 import {
-  waitForUrlContains, waitForNotPresenceOf, waitForPresenceOf,
-  clearLocalStorage
+  clearLocalStorage,
+  waitForElementToBeClickable,
+  waitForNotPresenceOf,
+  waitForPresenceOf,
+  waitForUrlContains,
+  waitForVisibilityOf,
 } from '../utils/navigation.utils';
-import {expectDefined, expectUrlToContain} from '../utils/assertation.utils';
-import {SidenavPage} from '../po/sidenav.po';
-import {browser} from 'protractor';
-import {AppPage} from '../po/app.po';
-import {CustomerPage} from '../po/customer.po';
-import {generateUUID} from '../../src/app/shared/utils/queries/entities/entities-helper.queries';
 
 describe('Customers', function() {
   let page: EntityIndexPage;
@@ -138,5 +143,89 @@ describe('Customers', function() {
     browser.sleep(1000);
 
     expect(customerPage.getNotes().count()).toBe(0);
-  })
+  });
+
+  it('should add card 1 to billing information', () => {
+    waitForElementToBeClickable(customerPage.getBillingMenuButton());
+    customerPage.getBillingMenuButton().click();
+    waitForElementToBeClickable(customerPage.getBillingAddCardButton());
+    customerPage.getBillingAddCardButton().click();
+    customerPage.getBillingInputs().get(0).sendKeys('Name on Card');
+    customerPage.getBillingInputs().get(1).sendKeys('4111111111111111');
+    customerPage.getBillingInputs().get(2).sendKeys('999');
+    customerPage.getBillingInputs().get(4).sendKeys('1 test customer address');
+    customerPage.getBillingInputs().get(5).sendKeys('2 test customer address');
+    customerPage.getBillingInputs().get(6).sendKeys('City');
+    customerPage.getBillingInputs().get(7).sendKeys('21000');
+    const expirationMonth = customerPage.getBillingSelects().get(0);
+    expirationMonth.click();
+    customerPage.getSelectOptions(expirationMonth).get(5).click();
+    const expirationYear = customerPage.getBillingSelects().get(1);
+    expirationYear.click();
+    customerPage.getSelectOptions(expirationYear).get(2).click();
+    const state = customerPage.getBillingSelects().get(2);
+    state.click();
+    customerPage.getSelectOptions(state).get(4).click();
+    const country = customerPage.getBillingSelects().get(3);
+    country.click();
+    customerPage.getSelectOptions(country).get(0).click();
+    customerPage.getBillingSaveButton().click();
+
+    waitForVisibilityOf(customerPage.getBillingCardInputs().get(0));
+    expect(customerPage.getBillingCardInputs().get(0).getAttribute('value')).toBe('1 test customer address');
+    expect(customerPage.getBillingCardInputs().get(1).getAttribute('value')).toBe('City');
+    expect(customerPage.getBillingCardInputs().get(2).getAttribute('value')).toBe('21000');
+    expect(customerPage.getBillingCardInputs().get(3).getAttribute('value')).toBe('Name on Card');
+    expect(customerPage.getBillingCardInputs().get(5).getAttribute('value')).toBe('***********1111');
+    expect(customerPage.getBillingCardInputs().get(6).getAttribute('value')).toBe('06/19');
+  });
+
+  it('should edit card 1 name on card', () => {
+    waitForElementToBeClickable(customerPage.getBillingMenuButton());
+    customerPage.getBillingMenuButton().click();
+    waitForElementToBeClickable(customerPage.getBillingEditCardButton());
+    customerPage.getBillingEditCardButton().click();
+    customerPage.getBillingInputs().get(0).clear();
+    customerPage.getBillingInputs().get(0).sendKeys('Name on Card 1');
+    customerPage.getBillingUpdateButton().click();
+
+    waitForVisibilityOf(customerPage.getBillingCardInputs().get(3));
+    expect(customerPage.getBillingCardInputs().get(3).getAttribute('value')).toBe('Name on Card 1');
+  });
+
+  it('should add card 2 to billing information', () => {
+    waitForElementToBeClickable(customerPage.getBillingMenuButton());
+    customerPage.getBillingMenuButton().click();
+    waitForElementToBeClickable(customerPage.getBillingAddCardButton());
+    customerPage.getBillingAddCardButton().click();
+    customerPage.getBillingInputs().get(0).sendKeys('Name on Card 2');
+    customerPage.getBillingInputs().get(1).sendKeys('4111111111111111');
+    customerPage.getBillingInputs().get(2).sendKeys('999');
+    customerPage.getBillingInputs().get(4).sendKeys('1 test customer address');
+    customerPage.getBillingInputs().get(5).sendKeys('2 test customer address');
+    customerPage.getBillingInputs().get(6).sendKeys('City');
+    customerPage.getBillingInputs().get(7).sendKeys('21000');
+    const expirationMonth = customerPage.getBillingSelects().get(0);
+    expirationMonth.click();
+    customerPage.getSelectOptions(expirationMonth).get(5).click();
+    const expirationYear = customerPage.getBillingSelects().get(1);
+    expirationYear.click();
+    customerPage.getSelectOptions(expirationYear).get(2).click();
+    const state = customerPage.getBillingSelects().get(2);
+    state.click();
+    customerPage.getSelectOptions(state).get(4).click();
+    const country = customerPage.getBillingSelects().get(3);
+    country.click();
+    customerPage.getSelectOptions(country).get(0).click();
+    customerPage.getBillingSaveButton().click();
+  });
+
+  it('should remove card 2', () => {
+    waitForElementToBeClickable(customerPage.getBillingCardMenuButtons().get(1));
+    customerPage.getBillingCardMenuButtons().get(1).click();
+    waitForElementToBeClickable(customerPage.getBillingRemoveCardButton());
+    customerPage.getBillingRemoveCardButton().click();
+    waitForVisibilityOf(customerPage.getBillingCardInputs().get(0));
+    expect(customerPage.getBillingCardMenuButtons().count()).toBe(0);
+  });
 });
