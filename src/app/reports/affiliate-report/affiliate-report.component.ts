@@ -56,7 +56,7 @@ export class AffiliateReportComponent  extends ReportsAbstractComponent<Affiliat
     ];
 
     this.columnParams = [
-      new ReportColumnParams('AFFILIATEREPORT_AFFILIATE', (e: AffiliateReport) => e.affiliate.name).setIsLink(true),
+      new ReportColumnParams('AFFILIATEREPORT_AFFILIATE', (e: AffiliateReport) => e.affiliate.name || e.affiliate.affiliateId),
       ...this.columnParamsTotal
     ];
 

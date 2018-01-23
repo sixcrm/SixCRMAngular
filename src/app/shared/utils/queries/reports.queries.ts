@@ -84,7 +84,7 @@ export function affiliateReportListQuery(start: string, end: string, filterTerms
   {
 		affiliatereport (analyticsfilter:{${dateString(start, end)} ${filterString}} ${paginationString(limit, offset, order)}) {
 			affiliates {
-			  affiliate { id, name },
+			  affiliate { id, name, affiliate_id },
 				count_click, count_partials, partials_percent, decline_count, declines_percent, count_sales, sales_percent, count_upsell, upsell_percent, sum_upsell, sum_amount
 			}
 			${pagination}
