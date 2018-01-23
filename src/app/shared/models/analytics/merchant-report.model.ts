@@ -15,7 +15,7 @@ export class MerchantReport {
       obj = {};
     }
 
-    this.merchantProvider = obj.merchant_provder || '';
+    this.merchantProvider = obj.merchant_provider || '';
     this.saleCount = obj.sale_count || 0;
     this.saleGrossRevenue = new Currency(obj.sale_gross_revenue);
     this.refundExpenses = new Currency(obj.refund_expenses);

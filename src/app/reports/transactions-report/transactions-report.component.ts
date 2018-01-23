@@ -97,7 +97,9 @@ export class TransactionsReportComponent extends ReportsAbstractComponent<Transa
   }
 
   navigate(report: TransactionReport): void {
-    this.router.navigate(['transactions', report.id]);
+    if (report && report.id) {
+      this.router.navigate(['transactions', report.id]);
+    }
   }
 
   download(format: string): void {

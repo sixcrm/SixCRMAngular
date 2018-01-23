@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {MerchantReportService} from '../../shared/services/analytics/merchant-report.service';
 import {MerchantReport} from '../../shared/models/analytics/merchant-report.model';
 import {ReportsAbstractComponent} from '../reports-abstract.component';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {PaginationService} from '../../shared/services/pagination.service';
 import {flatUp, flatDown} from '../../shared/components/advanced-filter/advanced-filter.component';
 import {ReportColumnParams} from '../components/report-table/report-table.component';
@@ -20,6 +20,7 @@ export class MerchantReportComponent extends ReportsAbstractComponent<MerchantRe
     public merchantReportService: MerchantReportService,
     paginationService: PaginationService,
     route: ActivatedRoute,
+    private router: Router
   ) {
     super(route, paginationService);
   }
@@ -66,6 +67,13 @@ export class MerchantReportComponent extends ReportsAbstractComponent<MerchantRe
 
   download(format: string): void {
     this.merchantReportService.getMerchants(this.start.format(), this.end.format(), this.filterTerms, true, this.limit + 1, this.page * this.limit)
+  }
+
+  clicked(event) {
+    console.log(event);
+    if (event && event.entity && event.entity.merchantProvider) {
+      this.router.navigate(['/merchantproviders', event.entity.merchantProvider])
+    }
   }
 
 }
