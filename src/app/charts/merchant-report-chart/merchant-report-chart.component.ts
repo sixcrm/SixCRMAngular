@@ -103,7 +103,7 @@ export class MerchantReportChartComponent implements OnInit {
     this.loaded = true;
     if (this.reportsToDisplay.length === 0) return;
 
-    this.chartInstance.axes[0].categories = this.reportsToDisplay.map(r => r.merchantProvider);
+    this.chartInstance.axes[0].categories = this.reportsToDisplay.map(r => r.merchantProvider.name || r.merchantProvider.id);
     this.chartInstance.series[0].setData(
       this.reportsToDisplay.map((r, i) => {
         return {y: +r.saleGrossRevenue.amount, color: this.colors[i % 5]}

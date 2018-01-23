@@ -37,7 +37,7 @@ export class MerchantReportComponent extends ReportsAbstractComponent<MerchantRe
     super.init();
 
     this.columnParams = [
-      new ReportColumnParams('MERCHANTREPORT_MERCHANTPROVIDER', (e: MerchantReport) => e.merchantProvider),
+      new ReportColumnParams('MERCHANTREPORT_MERCHANTPROVIDER', (e: MerchantReport) => e.merchantProvider.name || e.merchantProvider.name),
       new ReportColumnParams('MERCHANTREPORT_SALESCOUNT', (e: MerchantReport) => e.saleCount, 'right').setNumberOption(true),
       new ReportColumnParams('MERCHANTREPORT_SALESGROSSREVENUE', (e: MerchantReport) => e.saleGrossRevenue.usd(), 'right').setNumberOption(true),
       new ReportColumnParams('MERCHANTREPORT_REFUNDEXPENSES', (e: MerchantReport) => '-' + e.refundExpenses.usd(), 'right').setNumberOption(true),
@@ -70,9 +70,8 @@ export class MerchantReportComponent extends ReportsAbstractComponent<MerchantRe
   }
 
   clicked(event) {
-    console.log(event);
-    if (event && event.entity && event.entity.merchantProvider) {
-      this.router.navigate(['/merchantproviders', event.entity.merchantProvider])
+    if (event && event.entity && event.entity.merchantProvider && event.entity.merchantProvider.id) {
+      this.router.navigate(['/merchantproviders', event.entity.merchantProvider.id])
     }
   }
 

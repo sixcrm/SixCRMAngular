@@ -57,7 +57,7 @@ export function merchantReportListQuery(start: string, end: string, filterTerms:
   {
 		merchantreport (analyticsfilter:{${dateString(start, end)} ${filterString}} ${paginationString(limit, offset, order)}) {
 			merchants {
-				merchant_provider, sale_count, sale_gross_revenue, refund_expenses, refund_count, net_revenue, mtd_sales_count, mtd_gross_count
+				merchant_provider {id name}, sale_count, sale_gross_revenue, refund_expenses, refund_count, net_revenue, mtd_sales_count, mtd_gross_count
 			}
 			${pagination}
 		}
