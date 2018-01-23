@@ -3,6 +3,7 @@ import {MerchantProviderCustomerService} from './merchant-provider-customer-serv
 import {MerchantProviderGateway} from './merchant-provider-gateway.model';
 import {MerchantProviderProcessingConfig} from './merchant-provider-processing-config.model';
 import {MerchantProviderProcessor} from './merchant-provider-processor.model';
+import {LoadBalancer} from '../load-balancer.model';
 
 export class MerchantProvider implements Entity<MerchantProvider>{
   id: string;
@@ -14,6 +15,7 @@ export class MerchantProvider implements Entity<MerchantProvider>{
   gateway: MerchantProviderGateway;
   processing: MerchantProviderProcessingConfig;
   processor: MerchantProviderProcessor;
+  loadbalancers: LoadBalancer[];
 
   constructor(obj?: any) {
     if (!obj) {
@@ -29,6 +31,10 @@ export class MerchantProvider implements Entity<MerchantProvider>{
     this.gateway = new MerchantProviderGateway(obj.gateway);
     this.processing = new MerchantProviderProcessingConfig(obj.processing);
     this.processor = new MerchantProviderProcessor(obj.processor);
+
+    if (obj.loadbalancers) {
+      this.loadbalancers = obj.loadbalancers.map(lb => new LoadBalancer(lb));
+    }
   }
 
   containsPaymentMethod(method: string): boolean {

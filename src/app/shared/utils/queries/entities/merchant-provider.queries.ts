@@ -52,6 +52,7 @@ export function merchantProviderResponseQuery(): string {
     processing { discount_rate transaction_fee reserve_rate maximum_chargeback_ratio monthly_cap,
       transaction_counts { daily weekly monthly }
     }
+    loadbalancers { id name }
     gateway {
       ... on NMI { name type username password processor_id }
       ... on TestMerchantProvider { name type }
