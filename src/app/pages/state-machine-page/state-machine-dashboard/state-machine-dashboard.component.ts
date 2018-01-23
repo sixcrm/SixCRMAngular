@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {utc} from 'moment';
-import {DateMap} from "../../../shared/components/advanced-filter/advanced-filter.component";
+import {DateMap, flatUp} from "../../../shared/components/advanced-filter/advanced-filter.component";
 import {AsyncSubject} from "rxjs/AsyncSubject";
 import {StateMachineService} from '../state-machine.service';
 import {StateMachineQueue} from '../../../shared/models/state-machine/state-machine-queue';
@@ -46,7 +46,7 @@ export class StateMachineDashboardComponent implements OnInit, OnDestroy {
 
   fetch() {
     this.prepareFetch();
-    this.stateMachineService.getTimeseries(this.selectedQueue.label, this.date.start.clone().format(), this.date.end.clone().format());
+    this.stateMachineService.getTimeseries(this.selectedQueue.label, this.date.start.clone().format(), flatUp(this.date.end.clone()).format());
   }
 
   select(queue: StateMachineQueue) {

@@ -7,7 +7,7 @@ import {AccessKey} from '../shared/models/access-key.model';
   template : `
   <div class="access-key-details-container">
     <md-input-container>
-      <input [readonly]="!editMode" md-input placeholder="{{ 'ACCOUNT_KEYS_HEADER_NAME' | translate}}" [(ngModel)]="accessKey.name" type="text">
+      <input [disabled]="!editMode" [readonly]="!editMode" md-input placeholder="{{ 'ACCOUNT_KEYS_HEADER_NAME' | translate}}" [(ngModel)]="accessKey.name" type="text">
     </md-input-container>
     
     <div class="flex-custom" *ngIf="!editMode">
@@ -27,7 +27,7 @@ import {AccessKey} from '../shared/models/access-key.model';
       <div class="show-more" (click)="toggleShowSecret()">{{showSecret ? 'hide' : 'show'}}</div>
     </div>
     
-    <md-textarea [readonly]="!editMode" placeholder="{{ 'ACCOUNT_KEYS_HEADER_NOTES' | translate}}" [(ngModel)]="accessKey.notes" type="text"></md-textarea>
+    <md-textarea [disabled]="!editMode" [readonly]="!editMode" placeholder="{{ 'ACCOUNT_KEYS_HEADER_NOTES' | translate}}" [(ngModel)]="accessKey.notes" type="text"></md-textarea>
   
     <div class="access-key-details-actions">
       <div (click)="cancel()">{{(editMode ? 'ACCOUNT_KEYS_CANCEL' : 'ACCOUNT_KEYS_CLOSE') | translate}}</div>

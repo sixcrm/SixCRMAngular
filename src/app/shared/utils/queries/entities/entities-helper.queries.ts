@@ -20,8 +20,8 @@ export function paginationParamsQuery(limit?: number, cursor?: string, ignoreBra
   if (!cursor && !limit) return '';
 
   let builder = new QueryBuilder('pagination: {');
-  if (!!limit) builder.appendEnd(`limit:"${limit}"`);
-  if (!!cursor) builder.appendEnd(`cursor:"${cursor}"`);
+  // if (!!limit) builder.appendEnd(`limit:"${limit}"`);
+  // if (!!cursor) builder.appendEnd(`cursor:"${cursor}"`);
   builder.appendEnd('}');
 
   if (!ignoreBraces) {

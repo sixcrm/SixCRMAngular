@@ -20,7 +20,7 @@ export class SmtpProvider implements Entity<SmtpProvider> {
 
     this.id = obj.id || '';
     this.name = obj.name || '';
-    this.fromEmail = obj.from_name || '';
+    this.fromEmail = obj.from_email || '';
     this.fromName = obj.from_name || '';
     this.hostname = obj.hostname || '';
     this.username = obj.username || '';
