@@ -100,8 +100,9 @@ export class MerchantReportChartComponent implements OnInit {
   }
 
   redrawChart(): void {
+    if (!this.reportsToDisplay || this.reportsToDisplay.length === 0) return;
+
     this.loaded = true;
-    if (this.reportsToDisplay.length === 0) return;
 
     this.chartInstance.axes[0].categories = this.reportsToDisplay.map(r => r.merchantProvider.name || r.merchantProvider.id);
     this.chartInstance.series[0].setData(
