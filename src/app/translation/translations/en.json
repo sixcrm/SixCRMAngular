@@ -1107,6 +1107,15 @@
       "scheduledtotal": "Total Scheduled",
       "nodata": "No Sessions found.",
       "view": "View Session"
+    },
+    "campaign": {
+      "title": "Associated Campaigns",
+      "name": "Name",
+      "created": "Created at",
+      "updated": "Updated at",
+      "totalscheduled": "Total Scheduled",
+      "view": "View Campaign",
+      "nodata": "No Campaigns found"
     }
   },
   "tracker": {

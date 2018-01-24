@@ -1107,7 +1107,16 @@
 			"scheduledtotal": "Ընդհանուր հերթագրված",
 			"nodata": "Աշխատաշրջաններ չեն գտնվել:",
 			"view": "Դիտել աշխատաշրջանը"
-		}
+		},
+    "campaign": {
+      "title": "Associated Campaigns",
+      "name": "Name",
+      "created": "Created at",
+      "updated": "Updated at",
+      "totalscheduled": "Total Scheduled",
+      "view": "View Campaign",
+      "nodata": "No Campaigns found"
+    }
 	},
 	"tracker": {
 		"title": "հետագծիչ",
