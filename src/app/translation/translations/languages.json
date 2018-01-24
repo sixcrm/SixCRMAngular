@@ -18,5 +18,10 @@
     "name": "Armenian",
     "filename": "hy.json",
     "locale": "hy"
+  },
+  {
+    "name": "Hindi",
+    "filename": "hi.json",
+    "locale": "hi"
   }
 ]

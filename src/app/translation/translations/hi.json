@@ -1,0 +1,1611 @@
+{
+  "topnav": { 
+    "search": "खोज", 
+    "greeting": "नमस्ते", 
+    "settings": "उपयोगकर्ता सेटिंग", 
+    "signout": "साइन आउट", 
+    "actingas": "के रूप में कार्य", 
+    "mobile": {
+      "accounts":"लेखा",
+      "actions":"कार्रवाई",
+      "settings":"उपयोगकर्ता सेटिंग",
+      "signout":"साइन आउट"
+    }
+  },
+  "sidenav": { 
+    "dashboard": "डैशबोर्ड", 
+    "orderengine": "राज्य", 
+    "reports": { 
+      "title": "रिपोर्ट", 
+      "order": "आदेश रिपोर्ट", 
+      "summary": "सारांश रिपोर्ट",
+      "transaction":"लेन-देन रिपोर्ट",
+      "merchant":"व्यापारी की रिपोर्ट",
+      "affiliate":" संबद्ध रिपोर्ट ",
+      "fulfillment":" पूर्ति की रिपोर्ट ",
+      "retention":"प्रतिधारण",
+      "projection": "अनुमान"
+    },
+    "customer": "कस्टमर्स",
+    "crm": { 
+      "title": "सीआरएम", 
+      "product": "उत्पाद", 
+      "productschedule": "उत्पाद अनुसूचियों", 
+      "campaign": "अभियान", 
+      "emailtemplate": "ईमेल टेम्पलेट", 
+      "affiliate" : "संबद्ध", 
+      "tracker": "ट्रैकर्स", 
+      "session": "सत्र", 
+      "transaction": "लेन-देन", 
+      "rebill": "रीबिल", 
+      "shippingreceipt": "शिपिंग रसीद", 
+      "providers": { 
+        "title": "3 पार्टी प्रदाता", 
+        "fulfillment": "पूर्ति प्रदाता", 
+        "smtp": "एसएमटीपी प्रदाता"
+      }
+    },
+    "merchant": { 
+      "title": "व्यापारी", 
+      "merchantprovider": "व्यापारी प्रदाता", 
+      "loadbalancer": "लोड बालांसर्स"
+    },
+    "settings": { 
+      "title": "सेटिंग", 
+      "user": "उपयोगकर्ता", 
+      "account": "लेखा", 
+      "bill": "विधेयकों", 
+      "role": "भूमिकाओं", 
+      "key": { 
+        "title": "एपीआई कुंजी", 
+        "signingstring": "उपयोगकर्ता हस्ताक्षर स्ट्रिंग्स", 
+        "accesskey": "प्रवेश कुंजी"
+      }, 
+      "documentation": { 
+        "title": "प्रलेखन", 
+        "graphql": "GraphQL", 
+        "wiki": "Wiki"
+      }
+    }, 
+    "search": "खोज"
+  },
+  "orderengine": { 
+    "title": "राज्य मशीन", 
+    "queue": "कतार", 
+    "item": { 
+      "recover": "वसूली", 
+      "bill": "विधेयक", 
+      "failed": "विफल" , 
+      "hold": "पकड़ो", 
+      "pending": "लंबित", 
+      "shipped": "भेज दिया", 
+      "delivered": "वितरित"
+    },
+    "schema": { 
+      "title": "स्टेट मशीन फ्लो", 
+      "subtitle": "नीचे छह में सभी डेटा के किसी न किसी प्रवाह है, एक तत्व नीचे दिए गए विवरण लोड करने के लिए क्लिक करें"
+    },
+    "status": { 
+      "failurerate": "विफलता दर", 
+      "avgtime": "औसत कतार में समय", 
+      "view": "दृश्य"
+    }, 
+    "details": { 
+      "title": "में कुल आदेश", 
+      "failurerate": "विफलता दर", 
+      "avgtime": "औसत कतार में समय।", 
+      "view": "देखें लाइव कतार", 
+      "downstream": "अनुप्रवाह कतार", 
+      "nodata": "अपर्याप्त डेटा", 
+      "livepolling":"लाइव मतदान"
+    },
+    "rebills": {
+      "snack": {
+        "main":"पंक्ति संदेश",
+        "sub":"दोबारा बिल भेजने आईडी"
+      },
+      "view":"दृश्य दोबारा बिल भेजने के",
+      "id" : "आईडी", 
+      "billed": "पर विधेयक", 
+      "created": "राशि", 
+      "amount": "राशि", 
+      "nodata": "कोई रीबिल मिली।" 
+    },
+    "rebill": { 
+      "history": { 
+        "title": "संदेश", 
+        "subtitle": "इतिहास", 
+        "enter": "में प्रवेश किया"
+      }, 
+      "properties": { 
+        "title": "दोबारा बिल भेजने के गुण", 
+        "subtitle": "ग्राहक रीबिल का विवरण",
+        "rebill": "दोबारा बिल भेजने आईडी",
+        "parentsession": "जनक सत्र आईडी",
+        "created": "पर बनाया गया",
+        "updated": "अंतिम अद्यतन",
+        "amount" : "कुल बिलिंग राशि", 
+        "campaign": "संबद्ध अभियान"
+      }
+    }
+  },
+  "notifications": { 
+    "title": "नोटिफिकेशन और सूचना",
+    "tab": { 
+      "notifications": "सूचनाएं", 
+      "alerts": "सचेत"
+    }, 
+    "today": "इससे पहले आज", 
+    "yesterday": "कल", 
+    "days3": "पिछले 3 दिन", 
+    "week": "पिछला सप्ताह", 
+    "other": "अन्य"
+  }, 
+  "notificationsquick": { 
+    "title": "सूचनाएं", 
+    "settings": "सेटिंग्स",
+    "viewall": "देखें सभी सूचनाएं",
+    "alerts": "अलर्ट ",
+    "noresults": "कोई सूचनाएं नहीं मिला",
+    "view": "दृश्य ",
+    "dismiss": "को खारिज करें"
+  },
+  "advancedfilter": { 
+    "day": "1D", 
+    "week": "1W", 
+    "month": "1M", 
+    "3month": "3M", 
+    "6month": "6M", 
+    "year": "1Y",
+    "yeartodate": "YTD",
+    "all": "सभी",
+    "from": "से",
+    "to": "करने के लिए",
+    "filters": "फिल्टर",
+    "groupby": "समूह के आधार पर",
+    "show": "दिखाएँ उन्नत खोज",
+    "hide": "उन्नत खोज छुपाएं",
+    "apply": "लागू",
+    "reset": "रीसेट",
+    "close": "बंद",
+    "campaign": "अभियान", 
+    "affiliate": "संबद्ध", 
+    "subid1": "उप आईडी 1", 
+    "subid2": "उप आईडी 2", 
+    "subid3": "उप आईडी 3", 
+    "subid4": "उप आईडी 4",
+    "subid5": "उप आईडी 5",
+    "productschedule": "उत्पाद अनुसूची",
+    "merchantprovider": "व्यापारी प्रदाता",
+    "transactiontype": "लेन-देन प्रकार",
+    "processorresponse": "प्रोसेसर रिस्पांस",
+    "new": "नया",
+    "rebill": "दोबारा बिल भेजें",
+    "success": "सफलता",
+    "decline": "अस्वीकार",
+    "error": "त्रुटि",
+    "refreshdashboardtext": "ताज़ा करें डैशबोर्ड. अंतिम अद्यतन:" , 
+    "refreshreporttext": "ताज़ा रिपोर्ट"
+  },
+  "forminputs": { 
+    "fullname": "पूरा नाम", 
+    "firstname": "पहला नाम", 
+    "phone": "फ़ोन", 
+    "email": "ईमेल", 
+    "lastname": "अंतिम नाम", 
+    "address": "पता",
+    "address2": "पता 2",
+    "city": "शहर",
+    "state": "राज्य",
+    "zip": "ज़िप कोड",
+    "country": "देश",
+    "creditcard" : { 
+      "name": "कार्ड पर नाम",
+      "type": "प्रकार", 
+      "number": "संख्या", 
+      "expiration": "समय सीमा समाप्ति",
+      "ccv": "CCV", 
+      "monthshort": "MM",
+      "yearshort":"YYYY"
+    }
+  },
+  "indexpage": { 
+    "filter": "फ़िल्टर", 
+    "del": "हटाएँ", 
+    "view": "दृश्य", 
+    "exp": "निर्यात", 
+    "edit": "संपादित करें", 
+    "copy": " कॉपी "
+  },
+  "singlepage": {
+    "created": "निर्मित",
+    "updated": "अपडेट किया गया",
+    "createcanceltitle": "क्या आप वाकई सृजन मोडल को बंद करना चाहते हैं",
+    "createcanceltext": "आपके पास सहेजे नहीं गए बदलाव हैं, अगर आप इसे बंद करते हैं तो यह मॉडल परिवर्तन छोड़े जाएंगे",
+    "createcancelclose": "बंद",
+    "createcancelcancel": "रद्द करें",
+    "leavetitle": "क्या आप वाकई छोड़ना चाहते हैं",
+    "leavetext": "आपके पास सहेजे नहीं गए बदलाव हैं, अगर आप इसे बंद करते हैं तो यह मॉडल परिवर्तन छोड़े जाएंगे", 
+    "leavecancel": "रद्द करें",
+    "leaveleave": "छोड़"
+  },
+  "profile": { 
+    "title": "प्रोफाइल", 
+    "created": "निर्मित", 
+    "tabs": { 
+      "general": "सामान्य", 
+      "notifications": "सूचनाएं", 
+      "accounts": "लेखा", 
+      "signingstrings": "पर हस्ताक्षर स्ट्रिंग"
+    }, 
+    "details": { 
+      "title": "प्रोफाइल", 
+      "subtitle": "सामान्य जानकारी", 
+      "firstname": "पहला नाम", 
+      "lastname": "अंतिम नाम", 
+      "workphone": "कार्यालय का फ़ोन", 
+      "cellphone": "सेल फोन", 
+      "timezone": "समय क्षेत्र", 
+      "email": "ईमेल", 
+      "language": "भाषा", 
+      "update": "अद्यतन"
+    },
+    "notifications": { 
+      "title": "अधिसूचना टॉगल", 
+      "subtitle": "नोटिफिकेशन प्राप्त करने के लिए / पर टॉगल करें", 
+      "testalert": "भेजें परीक्षण चेतावनी", 
+      "testnotification": "परीक्षण सूचना भेजें", 
+      "devices": {
+        "title": "उपकरण",
+        "subtitle": "सूचनाओं के लिए सेटअप उपकरणों",
+        "sms": "एसएमएस",
+        "email": "ईमेल",
+        "skype": "स्काइप",
+        "slack" : "स्लैक वेब हुक"
+      }, 
+      "settings": { 
+        "title": "सूचना सेटिंग", 
+        "subtitle": "कौन-सी सूचनाएं आप प्राप्त करना चाहते हैं"
+      }
+    },
+    "accounts": { 
+      "title": "आपका खाता", 
+      "accountname": "नाम", 
+      "rolename": "भूमिका", 
+      "view": "खाता देखें"
+    }, 
+    "signingstrings": { 
+      "title": "आपका हस्ताक्षर स्ट्रिंग्स",
+      "name": "नाम ",
+      "signingstring": "साइन इन करना स्ट्रिंग",
+      "used": "पिछले इस्तेमाल किया ",
+      "add": "नए हस्ताक्षर स्ट्रिंग जोड़ें",
+      "remove": "निकालें" , 
+      "edit": "संपादित करें", 
+      "updatetext": "अद्यतन स्ट्रिंग साइन इन करना", 
+      "addtext": "नई साइनिंग स्ट्रिंग जोड़ें", 
+      "cancel": "रद्द करना", 
+      "save": "बचाना", 
+      "nodata": "कोई हस्ताक्षर तार मिल गया।" 
+    }
+  },
+  "dashboard": { 
+    "item": { 
+      "newsale": "नई बिक्री", 
+      "main": "मुख्य", 
+      "upsell": "अपसेलस", 
+      "rebill": "रीबिल", 
+      "decline": "गिरावट" , 
+      "error": "त्रुटियां"
+    }, 
+    "eventsfunnel": { 
+      "title": "घटनाक्रम कीप", 
+      "subtitle": "घटना", 
+      "event": "घटना", 
+      "count": "गणना" , 
+      "percentage": "प्रतिशत", 
+      "relativepercentage": "सापेक्ष प्रतिशत", 
+      "click": "क्लिक", 
+      "lead": "लीड", 
+      "main": "मेन", 
+      "upsell": "अपसेलस", 
+      "confirm": "इस बात की पुष्टि"
+    },
+    "eventsummary": { 
+      "title": "घटनाक्रम", 
+      "subtitle": "घटनाओं सारांश", 
+      "nodata": "कोई घटनाक्रम मिला", 
+      "confirm": "पुष्टि", 
+      "upsell": "अपसैल", 
+      "lead": "लीड",
+      "order": "आदेश",
+      "click": "पर क्लिक करें",
+      "events": "घटनाक्रम"
+    },
+    "eventsbyaffiliate": {
+      "title":"संबद्ध द्वारा घटनाएं",
+      "subtitle": "शीर्ष सहभागियों की घटनाएं", 
+      "affiliate" : "सहबद्ध", 
+      "count": "गणना", 
+      "percentage": "प्रतिशत", 
+      "nodata": "कोई ईवेंट नहीं मिला"
+    },
+    "transactionbyaffiliate": { 
+      "title": "संबद्ध द्वारा लेन-देन", 
+      "subtitle": "संबद्ध", 
+      "affiliate": "संबद्ध", 
+      "count": "गणना", 
+      "countp": "गणना%",
+      "amount": "राशि",
+      "amountp": "राशि%",
+      "nodata": "कोई लेन-देन नहीं मिला"
+    },
+    "transactionsummary": {
+      "title": "लेन-देन",
+      "subtitle": "लेनदेन सारांश",
+      "nodata": "कोई लेन-देन नहीं मिला",
+      "success": "सफलता",
+      "decline": "में गिरावट आती है",
+      "error": "त्रुटियों"
+    },
+    "movers": {
+      "title": "अभियान वॉच लिस्ट",
+      "subtitle": "इस कदम पर अभियान",
+      "nodata": "कोई अभियान नहीं मिला"
+    },
+    "topcampaigns": {
+      "title": "शीर्ष अभियान",
+      "subtitle": "क्लिक और रूपांतरण",
+      "campaign": "अभियान",
+      "amount": "रकम"
+    },
+    "reports": {
+      "title": "रिपोर्ट",
+      "subtitle": "मैट्रिक्स मॉनिटर करने के लिए लोकप्रिय रिपोर्ट",
+      "order": {
+        "title": "आर्डर रिपोर्ट",
+        "subtitle": "आर्डर के बारे में त्वरित रिपोर्ट"
+      },
+      "summary": {
+        "title": "संक्षिप्त रिपोर्ट",
+        "subtitle": "लेनदेन के बारे में सारांश जानकारी देखें"
+      },
+      "transactions": {
+        "title": "लेनदेन रिपोर्ट",
+        "subtitle": "लेनदेन के बारे में जानकारी देखें"
+      },
+      "fulfillment": {
+        "title": "पूर्ति रिपोर्ट",
+        "subtitle": "अभियानों के लिए पूर्ति का अवलोकन"
+      },
+      "affiliate": {
+        "title": "संबद्ध रिपोर्ट",
+        "subtitle": "सहयोगियों के बारे में प्रदर्शन मीट्रिक"
+      },
+      "retention": {
+        "title": "अवधारण",
+        "subtitle": "जानें कि कितने समय तक ग्राहक रहेंगे"
+      }
+    }
+  },
+  "chart": {
+    "viewmore": "और देखो",
+    "collapse": "पतन",
+    "showtable": "टेबल प्रदर्शन",
+    "downloadjson": "डाउनलोड JSON",
+    "downloadcsv": "डाउनलोड CSV",
+    "downloadexcel": "डाउनलोड Excel"
+  },
+  "summaryreport": {
+    "title": "संक्षिप्त रिपोर्ट",
+    "tabletitle": "लेनदेन का सारांश विवरण",
+    "sales": "बिक्री",
+    "salesrevenue": "राजस्व बिक्री",
+    "rebill": "दोबारा बिल भेजें",
+    "rebillrevenue": "दोबारा रेवेन्यू बिल भेजें",
+    "refunds": "धन की वापसी",
+    "refundexpenses": "वापसी व्यय",
+    "declines": "गिरावट",
+    "declinesrevenue": "रेवेन्यू गिरावट",
+    "grossrevenue": "सकल राजस्व",
+    "chargebacks": "शुल्क-वापसी",
+    "alerts": "चेतावनी",
+    "activecustomers": "सक्रिय ग्राहक",
+    "date": "तारीख"
+  },
+  "transactionreport": {
+    "title": "लेनदेन रिपोर्ट",
+    "tabletitle": "लेनदेन विवरण",
+    "customer": "ग्राहक",
+    "campaign": "अभियान",
+    "merchantprovider": "व्यापारी प्रदाता",
+    "affiliate": "संबद्ध",
+    "amount": "रकम",
+    "processorresult": "प्रोसेसर के परिणाम",
+    "transactiontype": "सौदे का प्रकार"
+  },
+  "merchantreport": {
+    "title": "सोदागर रिपोर्ट",
+    "tabletitle": "लेनदेन का विवरण",
+    "merchantprovider": "व्यापारी प्रदाता",
+    "salescount": "बिक्री गणना",
+    "salesgrossrevenue": "बिक्री सकल राजस्व",
+    "refundexpenses": "वापसी व्यय",
+    "refundcount": "वापसी गणना",
+    "netrevenue":"शुद्ध राजस्व",
+    "mtdsalescount": "MTD बिक्री गणना",
+    "mtdgrosscount": "MTD सकल गणना",
+    "chart": {
+      "title": "व्यापारी प्रसंस्करण",
+      "subtitle": "वर्तमान भार और संतुलन",
+      "nodata": "कोई व्यापारी नहीं मिला",
+      "dollar": "डॉलर",
+      "revenue": "सकल बिक्री राजस्व"
+    }
+  },
+  "affiliatereport": {
+    "title": "संबद्ध रिपोर्ट",
+    "tabletitle": "संबद्ध सारांश विवरण",
+    "clickscount": "क्लिकों की गणना",
+    "partialscount": "आंशिक गणना",
+    "affiliate": "संबद्ध",
+    "partialspercentage": "आंशिक प्रतिशत",
+    "declinescount": "गिरावट गणना",
+    "declinespercentage": "गिरावट प्रतिशत",
+    "salescount": "बिक्री गणना",
+    "salespercentage": "बिक्री का प्रतिशत",
+    "upsellcount": "अपसैल गणना",
+    "upsellpercentage": "अपसैल प्रतिशत",
+    "upsellsum": "अपसैल योग",
+    "amountsum": "परिमाण राशि"
+  },
+  "search": {
+    "tab": {
+      "customer": "ग्राहक",
+      "order": "आदेश दर्ज"
+    },
+    "advanced": {
+      "toggle": "उन्नत खोज",
+      "search": "खोज",
+      "firstname": "पहला नाम",
+      "lastname": "अंतिम नाम",
+      "phone": "फ़ोन नंबर",
+      "email": "ई-मेल एड्रेस",
+      "trackingnumber": "लदान ट्रैकिंग नंबर",
+      "address1": "पता 1",
+      "address2": "पता 2",
+      "city": "शहर",
+      "zip": "ज़िप कोड",
+      "state": "राज्य",
+      "country": "देश",
+      "alias": "लेनदेन उपनाम",
+      "cctype": "क्रेडिट कार्ड के प्रकार",
+      "ccf6": "क्रेडिट कार्ड # प्रथम छह",
+      "ccl4": "क्रेडिट कार्ड # अंतिम चार",
+      "amount": "रकम",
+      "created": "पर बनाया गया",
+      "sku": "SKU",
+      "name": "नाम",
+      "response": "प्रोसेसर रिस्पांस",
+      "status": "रसीद स्थिति",
+      "merchantprovider": "व्यापारी प्रदाता",
+      "fulfillmentprovider": "पूर्ति प्रदाता",
+      "ship": "अपवाहन करना",
+      "shipdelay": "शिपिंग देरी",
+      "schedulesnum": "अनुसूचियों की संख्या",
+      "bill": "बिल पर",
+      "parentsession": "माता-पिता सत्र",
+      "product": "उत्पाद",
+      "start": "प्रारंभ",
+      "end": "समाप्त",
+      "price": "मूल्य",
+      "id": "आईडी"
+    },
+    "filter": "फ़िल्टर परिणाम",
+    "category": "वर्ग",
+    "refined": "परिष्कृत परिणाम",
+    "reset": "फिर से तलाश करना",
+    "date": {
+      "range": "तारीख सीमा",
+      "toggle": "तारीख",
+      "to": "तक"
+    },
+    "results": "खोज परिणाम",
+    "sort": {
+      "title": "इसके अनुसार क्रमबद्ध करें",
+      "createasc": "आरोही में बनाया",
+      "createdesc": "अवरोही पर बनाया गया",
+      "updateasc": "आरोही में अपडेट किया गया",
+      "updatedesc": "अवरोही पर अपडेट किया गया",
+      "def": "अप्राप्ति"
+    },
+    "nodata": "क्षमा करें, कोई परिणाम नहीं थे।",
+    "entersearch": "कृपया एक खोज क्वेरी दर्ज करें।",
+    "perfect": {
+      "view": "दर्शन",
+      "customer": {
+        "shipaddress": "शिपिंग पता",
+        "recenttransactions": "हाल ही के लेनदेन"
+      },
+      "transaction": {
+        "title": "लेनदेन की जानकारी",
+        "product": "उत्पाद"
+      },
+      "product": {
+        "title": "उत्पाद की जानकारी"
+      },
+      "campaign": {
+        "title": "अभियान की जानकारी",
+        "schedules": "उत्पाद अनुसूची"
+      },
+      "rebill": {
+        "title": "दोबारा बिल भेजेंने की जानकारी",
+        "transactions": "लेन-देन"
+      },
+      "schedule": {
+        "title": "उत्पाद अनुसूची की जानकारी",
+        "schedules": "अनुसूचियों"
+      },
+      "merchantprovider": {
+        "title": "व्यापारी प्रदाता की जानकारी",
+        "enabled": "सक्रिय",
+        "allowprepaid": "प्रीपेड की अनुमति दें",
+        "gatewayname": "मुख्य द्वार की नाम",
+        "gatewaytype": "मुख्य द्वार की प्रकार"
+      },
+      "creditcard": {
+        "title": "क्रेडिट कार्ड की जानकारी",
+        "name": "ग्राहक का नाम",
+        "expiration": "समय सीमा समाप्ति",
+        "number": "संख्या",
+        "ccv": "CCV"
+      },
+      "affiliate": {
+        "title": "संबद्ध जानकारी",
+        "name": "नाम",
+        "affiliateid": "संबद्ध आईडी"
+      }
+    }
+  },
+  "account": {
+    "title": "खाता",
+    "index": {
+      "title": "हिसाब किताब",
+      "header": {
+        "name": "नाम",
+        "active": "सक्रिय",
+        "created": "बनाया था",
+        "updated": "अपडेट किया गया"
+      }
+    },
+    "tab": {
+      "general": "आम विवरण",
+      "users": "पयोगकर्ताओं",
+      "keys": "प्रवेश चांबियाँ",
+      "billing": "बिल बनाना"
+    },
+    "details": {
+      "title": "खाता विवरण",
+      "edit": "खाता विवरण संपादित करें",
+      "name": "नाम",
+      "activated": "सक्रियित",
+      "cancel": "रद्द करें",
+      "save": "सुरक्षित करे"
+    },
+    "users": {
+      "title": "संबद्ध उपयोगकर्ता",
+      "add": "उपयोगकर्ता को खाते में जोड़ें",
+      "invite": "उपयोगकर्ता से खाते में आमंत्रित करें",
+      "header": {
+        "name": "नाम",
+        "role": "भूमिका",
+        "status": "अवस्था"
+      },
+      "edit": "उपयोगकर्ता भूमिका संपादित करें",
+      "view": "उपयोगकर्ता देखें",
+      "remove": "खाते से उपयोगकर्ता को निकालें",
+      "removemessage": "क्या आप वाकई खाते से इस उपयोगकर्ता को हटाना चाहते हैं?"
+    },
+    "keys": {
+      "title": "प्रवेश चांबियाँ",
+      "header": {
+        "name": "नाम",
+        "access": "प्रवेश चांबियाँ",
+        "secret": "गोपनीय चाबी",
+        "created": "बनाया था",
+        "notes": "नोट्स"
+      },
+      "add": "योग करे प्रवेश चांबियाँ",
+      "view": "देखो प्रवेश चांबियाँ",
+      "edit": "संपादन करे प्रवेश चांबियाँ",
+      "remove": "निराकरण करे प्रवेश चांबियाँ",
+      "cancel": "रद्द करें",
+      "close": "बंद करे",
+      "update": "अद्यतन करें"
+    },
+    "billing": {
+      "currenttitle": "वर्तमान चालान",
+      "currentsubtitle": "बिलैंस की वजह से",
+      "pasttitle": "पिछले चालान",
+      "pastsubtitle": "पूर्ण बिलिंग",
+      "overduewarning": "अतिदेय चालान",
+      "overduetext": "आपके पास वर्तमान में एक अतिदेय चालान है",
+      "view": "चालान देखें",
+      "noresults": "कोई बिलिंग नहीं मिला",
+      "header": {
+        "issue": "जारी करने की तिथि",
+        "start": "अवधि प्रारंभ",
+        "end": "समय समाप्त होने पर",
+        "balance": "संतुलन",
+        "status": "स्थिति",
+        "due": "भुगतान तिथि"
+      },
+      "pay": "अब भुगतान करें",
+      "summary": {
+        "title": "वर्तमान लेनदेन संख्या",
+        "description": "वर्तमान लेन-देन संख्या और राशि देखें. भुगतान और चालान देखें. समय के साथ लेन-देन देखें और भविष्य की भविष्यवाणी करें।"
+      }
+    }
+  },
+  "user": {
+    "title": "उपयोगकर्ता",
+    "index": {
+      "title": "उपयोगकर्ता",
+      "header": {
+        "name": "नाम",
+        "email": "ईमेल",
+        "active": "सक्रिय",
+        "terms": "नियम और शर्तें"
+      }
+    },
+    "tab": {
+      "general": "आम विवरण"
+    },
+    "details": {
+      "title": "उपभोक्ता का विवरण",
+      "createtitle": "नया उपयोगकर्ता बनाएं",
+      "account": "खाता",
+      "newaccount": "नई खाता",
+      "edit": "उपयोगकर्ता विवरण संपादित करें",
+      "activated": "सक्रिय",
+      "role": "भूमिका",
+      "name": "नाम",
+      "email": "ईमेल",
+      "cancel": "रद्द करें",
+      "save": "सुरक्षित करे"
+    },
+    "account": {
+      "title": "संबंधी खाता",
+      "add": "उपयोगकर्ता को खाता जोड़ें",
+      "account": "खाता",
+      "role": "भूमिका",
+      "status": "अवस्था",
+      "edit": "भूमिका संपादित करें",
+      "view": "अपना खाता देखें",
+      "remove": "उपयोगकर्ता से खाता निकालें",
+      "removetext": "क्या आप वाकई उपयोगकर्ता से यह खाता निकालना चाहते हैं?"
+    }
+  },
+  "customer": {
+    "title": "ग्राहक",
+    "index": {
+      "title": "ग्राहकों",
+      "header": {
+        "firstname": "पहला नाम",
+        "lastname": "सरनेम",
+        "state": "राज्य",
+        "city": "शहर"
+      }
+    },
+    "tab": {
+      "general": "आम विवरण",
+      "transaction": "लेनदेन",
+      "session": "सत्र",
+      "fulfillment": "पूर्ति"
+    },
+    "info": {
+      "createtitle": "नया ग्राहक बनाएं",
+      "shiptitle": "शिपिंग सूचना",
+      "shipsubtitle": "पते जहां पूर्ति पैकेज भेज देंगे",
+      "edit": "ग्राहक को संपादित करें",
+      "shipedit": "शिपिंग पता संपादित करें",
+      "cancel": "रद्द करें",
+      "save": "सुरक्षित करें",
+      "update": "अद्यतन करें"
+    },
+    "notes": {
+      "title": "नोट्स",
+      "subtitle": "ग्राहक सेवा नोट्स",
+      "add": "नई नोट जोड़ें",
+      "del": "नोट हटाएं",
+      "nodata": "कोई नोट्स नहीं मिला"
+    },
+    "rebill": {
+      "title": "आगामी रिबल्स",
+      "subtitle": "भविष्य की रिबल्स और आगामी लेनदेन",
+      "billed": "विधेयक पर",
+      "amount": "रकम",
+      "cancel": "लेनदेन रद्द करें",
+      "edit": "लेन-देन संपादित करें",
+      "nodata": "कोई आगामी लेनदेन नहीं मिला"
+    },
+    "rebilledit": {
+      "title": "लेन-देन संपादित करें",
+      "subtitle": "एक आगामी लेनदेन को संशोधित करें",
+      "date": "लेन - देन की तारीख",
+      "cancel": "रद्द करें",
+      "save": "सुरक्षित करें",
+      "price": "मूल्य"
+    },
+    "events": {
+      "title": "ग्राहक की घटनाएं",
+      "subtitle": "सत्र, लेनदेन और बिक्रीसूत्र",
+      "nodata": "कोई इवेंट नहीं मिला",
+      "today": "आज",
+      "days7": "आखिरी 7 दिन",
+      "days30": "आखिरी 30 दिन",
+      "days90": "आखिरी 90 दिन",
+      "other": "दूसरा"
+    },
+    "transaction": {
+      "title": "ऐतिहासिक लेनदेन",
+      "subtitle": "पूर्ण लेनदेन",
+      "nodata": "कोई परिणाम नहीं मिले।",
+      "alias": "उपनाम",
+      "response": "प्रोसेसर प्रतिक्रिया",
+      "productnum": "उत्पादों की संख्या",
+      "amount": "रकम",
+      "view": "लेनदेन देखें"
+    },
+    "session": {
+      "title": "सत्र",
+      "view": "सत्र देखें",
+      "nodata": "कोई सत्र नहीं मिला",
+      "name": "नाम",
+      "campaign": "अभियान",
+      "productschedulenum": "उत्पाद शेड्यूल की संख्या",
+      "rebillnum": "रिबल्स की संख्या"
+    },
+    "creditcard": {
+      "title": "बिलिंग जानकारी",
+      "subtitle": "बिलिंग पता और क्रेडिट कार्ड की जानकारी",
+      "addoption": "क्रेडिट कार्ड जोड़ें",
+      "editoption": "क्रेडिट कार्ड संपादित करें",
+      "removeoption": "क्रेडिट कार्ड निकालें",
+      "edittitle": "क्रेडिट कार्ड संपादित करें",
+      "createtitle": "नया क्रेडिट कार्ड बनाएं",
+      "createtext": "संबद्ध उपयोगकर्ता के साथ नया क्रेडिट कार्ड बनाएं",
+      "expirationmonth": "समाप्ति तिथि माह",
+      "expirationyear": "समाप्ति तिथि वर्ष",
+      "billingaddress": "बिल भेजने का पता",
+      "sameaddress": "ग्राहक के पते के समान",
+      "cancel": "रद्द करें",
+      "update": "अद्यतन करें",
+      "save": "सुरक्षित करें",
+      "nodata": "कोई क्रेडिट कार्ड नहीं मिला",
+      "expiration": "समय सीमा समाप्ति"
+    }
+  },
+  "creditcard": {
+    "title": "क्रेडिट कार्ड"
+  },
+  "bill": {
+    "index": {
+      "title": "विधेयकों",
+      "header": {
+        "start": "अवधि प्रारंभ",
+        "end": "अवधि समाप्ति",
+        "overdue": "अतिदेय",
+        "balance": "संतुलन"
+      }
+    },
+    "tab": {
+      "general": "साधारण विवरण"
+    },
+    "details": {
+      "title": "चालान सारांश",
+      "subtitle": "बिलिंग जानकारी",
+      "start": "अवधि प्रारंभ",
+      "end": "अवधि समाप्ति",
+      "due": "भुगतान तिथि",
+      "edit": "चालान संपादित करें",
+      "back": "वापस चालान में",
+      "table": {
+        "title": "चालान विवरण",
+        "subtitle": "मदरहित ब्रेकडाउन शुल्क का",
+        "description": "विवरण",
+        "created": "बनाया था",
+        "amount": "रकम",
+        "total": "कुल"
+      },
+      "pay": "अब भुगतान करें",
+      "detailedit": "संपादित करें",
+      "detailremove": "हटाना",
+      "account": "खाता",
+      "createtitle": "नया विधेयक बनाएं",
+      "cancel": "रद्द करें",
+      "save": "सुरक्षित करें",
+      "additem": {
+        "title": "नए सामान को जोड़ो",
+        "save": "सुरक्षित करें",
+        "cancel": "रद्द करें"
+      }
+    },
+    "title": "बिल"
+  },
+  "product": {
+    "title": "उत्पाद",
+    "index": {
+      "title": "उत्पाद",
+      "header": {
+        "name": "उत्पाद का नाम",
+        "sku": "SKU",
+        "ship": "अपवाहन",
+        "delay": "शिपिंग देरी"
+      }
+    },
+    "tab": {
+      "general": "सामान्य विवरण",
+      "schedule": "अनुसूची",
+      "campaign": "अभियान"
+    },
+    "info": {
+      "title": "उत्पाद विवरण",
+      "createtitle": "नया उत्पाद बनाएं",
+      "name": "उत्पाद का नाम",
+      "sku": "SKU",
+      "defaultprice": "डिफ़ॉल्ट मूल्य",
+      "ship": "अपवाहन",
+      "shipdelay": "शिपिंग देरी (मिनट)",
+      "fulfillmentprovider": "पूर्ति प्रदाता",
+      "edit": "उत्पाद संपादित करें",
+      "del": "उत्पाद हटाएं",
+      "cancel": "रद्द करें",
+      "update": "अद्यतन करें",
+      "create": "र्जन करना"
+    },
+    "schedules": {
+      "title": "उत्पाद शेड्यूल",
+      "name": "नाम",
+      "count": "अनुसूचियों की संख्या",
+      "add": "नई उत्पाद अनुसूची जोड़ें",
+      "view": "उत्पाद शेड्यूल देखें",
+      "remove": "उत्पाद अनुसूची से निकालें",
+      "nodata": "कोई उत्पाद नहीं मिला"
+    },
+    "campaign": {
+      "title": "अभियान",
+      "name": "नाम",
+      "created": "पर बनाया गया",
+      "productnum": "कुल उत्पाद",
+      "schedulednum": "कुल अनुसूचित",
+      "view": "अभियान देखें",
+      "nodata": "कोई अभियान नहीं मिला"
+    }
+  },
+  "productschedule": {
+    "title": "उत्पाद शेड्यूल",
+    "index": {
+      "title": "उत्पाद शेड्यूल",
+      "header": {
+        "name": "नाम",
+        "loadbalancer": "भार संतुलन",
+        "numofcycles": "चक्र की संख्या"
+      }
+    },
+    "tab": {
+      "general": "सामान्य विवरण",
+      "campaign": "अभियान"
+    },
+    "info": {
+      "createtitle": "नया उत्पाद शेड्यूल बनाएं",
+      "title": "उत्पाद अनुसूची विवरण",
+      "name": "उत्पाद अनुसूची नाम",
+      "loadbalancer": "भार संतुलन",
+      "cancel": "रद्द करें",
+      "save": "सुरक्षित करें",
+      "edit": "उत्पाद अनुसूची संपादित करें"
+    },
+    "cycle": {
+      "addtitle": "साइकिल जोड़ें",
+      "edittitle": "साइकिल संपादित करें",
+      "title": "चक्र",
+      "add": "जोड़ें",
+      "clear": "स्पष्ट",
+      "save": "सुरक्षित करें",
+      "cancel": "रद्द करें",
+      "name": "उत्पाद का नाम",
+      "schedulename": "उत्पाद अनुसूची नाम",
+      "price": "मूल्य",
+      "pricetip": "समय की अवधि के लिए कीमत",
+      "start": "प्रारंभ",
+      "starttip": "अवधि की शुरुआत (0 तत्काल है)",
+      "end": "समाप्त",
+      "endtip": "समाप्त होता है और अगले उत्पाद शेड्यूल पर स्विच करता है",
+      "period": "अवधि",
+      "periodtip": "आवर्ती बिलिंग और शिपिंग अवधि",
+      "ship": "अपवाहन",
+      "nodata": "कोई चक्र नहीं मिला",
+      "view": "उत्पाद देखें",
+      "edit": "साइकिल संपादित करें",
+      "remove": "साइकिल निकालें"
+    },
+    "campaign": {
+      "title": "अभियान",
+      "name": "नाम",
+      "created": "पर बनाया गया",
+      "productnum": "कुल उत्पाद",
+      "schedulednum": "कुल अनुसूचित",
+      "view": "अभियान देखें",
+      "nodata": "कोई अभियान नहीं मिला"
+    }
+  },
+  "campaign": {
+    "title": "अभियान",
+    "index": {
+      "title": "अभियान",
+      "header": {
+        "name": "नाम",
+        "created": "पर बनाया गया",
+        "productnum": "कुल उत्पाद",
+        "schedulednum": "कुल अनुसूचित"
+      }
+    },
+    "tab": {
+      "general": "सामान्य विवरण",
+      "productschedules": "उत्पाद योजनाएं",
+      "affiliates": "संबद्ध",
+      "trackingcode": "ट्रैकिंग कोड"
+    },
+    "info": {
+      "createtitle": "नया अभियान बनाएं",
+      "title": "अभियान विवरण",
+      "name": "नाम",
+      "allowprepaid": "प्रीपेड की अनुमति दें",
+      "showprepaid": "प्रीपेड दिखाएं",
+      "cancel": "रद्द करें",
+      "save": "सुरक्षित करें",
+      "edit": "अभियान संपादित करें"
+    },
+    "email": {
+      "title": "एसोसिएटेड ईमेल टेम्पलेट्स",
+      "nodata": "कोई ईमेल टेम्पलेट नहीं मिला",
+      "name": "नाम",
+      "subject": "विषय",
+      "type": "प्रकार",
+      "smtpprovider": "SMTP प्रदाता",
+      "add": "एसोसिएट ईमेल टेम्पलेट",
+      "addtext": "ईमेल टेम्पलेट का चयन करें",
+      "addbutton": "जोड़ें",
+      "view": "ईमेल टेम्पलेट देखें",
+      "remove": "ईमेल टेम्पलेट को अलग करें",
+      "removetext": "क्या आप पक्का इसे हटाना चाहते हैं?"
+    },
+    "productschedule": {
+      "title": "एसोसिएटेड उत्पाद शेड्यूल",
+      "nodata": "कोई उत्पाद नहीं मिला",
+      "name": "नाम",
+      "productnumber": "शेड्यूल में उत्पाद",
+      "add": "एसोसिएट उत्पाद अनुसूची",
+      "addtext": "उत्पाद शेड्यूल का चयन करें",
+      "addbutton": "जोड़ें",
+      "view": "उत्पाद शेड्यूल देखें",
+      "remove": "उत्पाद अनुसूची को अलग करें",
+      "removetext": "क्या आप पक्का इसे हटाना चाहते हैं?"
+    },
+    "affiliate": {
+      "name": "नाम"
+    },
+    "affiliateallowed": {
+      "title": "अनुमत सहयोगी",
+      "nodata": "कोई सहबद्धों की अनुमति नहीं है.",
+      "add": "अनुमत सूची में संबद्ध जोड़ें",
+      "addtext": "संबद्ध चुनें",
+      "addbutton": "जोड़ें",
+      "view": "संबद्ध देखें",
+      "remove": "अनुमति सूची से संबद्ध निकालें",
+      "removetext": "क्या आप पक्का इसे हटाना चाहते हैं?"
+    },
+    "affiliatedenied": {
+      "title": "अस्वीकृत सहयोगी",
+      "nodata": "कोई सहबद्धों ने इनकार नहीं किया.",
+      "add": "अस्वीकृत सूची में संबद्ध जोड़ें",
+      "addtext": "संबद्ध चुनें",
+      "addbutton": "जोड़ें",
+      "view": "संबद्ध देखें",
+      "remove": "अस्वीकृत सूची से संबद्ध निकालें",
+      "removetext": "क्या आप पक्का इसे हटाना चाहते हैं?"
+    },
+    "tracking": {
+      "title": "ट्रैकिंग कोड",
+      "subtitle": "इस कोड को अपने HTML पृष्ठ शीर्षलेख में कॉपी करें",
+      "copy": "क्लिपबोर्ड पर कॉपी करें"
+    }
+  },
+  "emailtemplate": {
+    "title": "ईमेल टेम्पलेट",
+    "index": {
+      "title": "ईमेल टेम्पलेट्स",
+      "header": {
+        "name": "नाम",
+        "subject": "विषय",
+        "type": "प्रकार",
+        "smtpprovider": "SMTP प्रदाता"
+      }
+    },
+    "tab": {
+      "general": "सामान्य विवरण",
+      "preview": "पूर्वावलोकन"
+    },
+    "info": {
+      "createtitle": "नया ईमेल टेम्पलेट बनाएं",
+      "title": "ईमेल टेम्पलेट विवरण",
+      "subtitle": "नीचे HTML टेम्पलेट संपादित करें या सही मेनू से डिफ़ॉल्ट लोड करें",
+      "edit": "ईमेल टेम्पलेट संपादित करें",
+      "name": "नाम",
+      "type": "टेम्पलेट प्रकार",
+      "smtpprovider": "SMTP प्रदाता",
+      "subject": "विषय",
+      "body": "ईमेल ",
+      "cancel": "रद्द करना",
+      "save": "बचाना"
+    },
+    "token": {
+      "title": "टोकन",
+      "subtitle": "अपने ईमेल टेम्पलेट में जोड़ने के लिए निम्नलिखित टोकन में से कोई भी चुनें",
+      "type": "घटना प्रकार",
+      "search": "खोज"
+    },
+    "preview": {
+      "title": "ईमेल टेम्पलेट पूर्वावलोकन",
+      "subtitle": "पूर्वावलोकन कैसे टेम्पलेट एक ईमेल में दिखेगा"
+    }
+  },
+  "affiliate": {
+    "title": "संबद्ध",
+    "index": {
+      "title": "सहबद्धों",
+      "header": {
+        "name": "नाम",
+        "affiliateid": "संबद्ध आईडी",
+        "created": "पर बनाया गया",
+        "updated": "अपडेट किया गया"
+      }
+    },
+    "tab": {
+      "tracking": "नज़र रखना",
+      "session": "सत्र",
+      "campaign": "अभियान"
+    },
+    "info": {
+      "createtitle": "नया संबद्ध बनाएं",
+      "name": "संबद्ध नाम",
+      "id": "संबद्ध आईडी",
+      "edit": "संबद्ध संपादित करें",
+      "cancel": "रद्द करना",
+      "save": "बचाना",
+      "update": "अद्यतन करें"
+    },
+    "tracking": {
+      "title": "एसोसिएटेड ट्रैकर्स",
+      "name": "नाम",
+      "type": "प्रकार",
+      "event": "घटना",
+      "data": "ट्रैकिंग डेटा",
+      "nodata": "कोई ट्रैकर्स नहीं मिला.",
+      "associate": "एसोसिएट ट्रैकर",
+      "associatetext": "ट्रैकर का चयन करें",
+      "view": "देखें ट्रैकर",
+      "disassociate": "ट्रैकर को अलग करें",
+      "disassociatetext": "क्या आप पक्का इसे हटाना चाहते हैं?"
+    },
+    "session": {
+      "title": "एसोसिएटेड सत्र",
+      "customer": "ग्राहक",
+      "campaign": "अभियान",
+      "rebilltotal": "कुल रिबल्स",
+      "scheduledtotal": "अनुसूचित कुल",
+      "nodata": "कोई सत्र नहीं मिला.",
+      "view": "सत्र देखें"
+    },
+    "campaign": {
+      "title": "Associated Campaigns",
+      "name": "Name",
+      "created": "Created at",
+      "updated": "Updated at",
+      "totalscheduled": "Total Scheduled",
+      "view": "View Campaign",
+      "nodata": "No Campaigns found"
+    }
+  },
+  "tracker": {
+    "title": "ट्रैकर",
+    "index": {
+      "title": "ट्रैकर्स",
+      "header": {
+        "name": "नाम",
+        "type": "प्रकार",
+        "event": "घटना",
+        "data": "ट्रैकिंग डेटा"
+      }
+    },
+    "tab": {
+      "general": "सामान्य विवरण",
+      "affiliate": "संबद्ध",
+      "campaign": "अभियान"
+    },
+    "info": {
+      "createtitle": "नया ट्रैकर बनाएं",
+      "title": "ट्रैकर विवरण",
+      "name": "ट्रैकर का नाम",
+      "type": "ट्रैकिंग प्रकार",
+      "eventtype": "घटना प्रकार",
+      "eventtypeadd": "ईवेंट प्रकार जोड़ें",
+      "data": "ट्रैकिंग डेटा",
+      "link": "ट्रैकिंग लिंक",
+      "save": "बचाना",
+      "cancel": "रद्द करना",
+      "edit": "ट्रैकर संपादित करें"
+    },
+    "affiliate": {
+      "title": "संबद्ध संबद्ध",
+      "name": "नाम",
+      "id": "संबद्ध आईडी",
+      "created": "पर बनाया गया",
+      "updated": "अपडेट किया गया",
+      "nodata": "कोई संबद्ध नहीं मिला.",
+      "associate": "एसोसिएट संबद्ध",
+      "associatetext": "संबद्ध चुनें",
+      "confirm": "एसोसिएट",
+      "view": "संबद्ध देखें",
+      "disassociate": "संबद्ध को अलग करें",
+      "disassociatetext": "क्या आप पक्का इसे हटाना चाहते हैं?"
+    },
+    "campaign": {
+      "title": "संबद्ध अभियान",
+      "name": "नाम",
+      "created": "पर बनाया गया",
+      "updated": "अपडेट किया गया",
+      "nodata": "कोई अभियान नहीं मिला.",
+      "associate": "सहयोगी अभियान",
+      "associatetext": "अभियान चुनें",
+      "confirm": "एसोसिएट",
+      "view": "अभियान देखें",
+      "disassociate": "अभियान अलग करें",
+      "disassociatetext": "क्या आप पक्का इसे हटाना चाहते हैं?"
+    }
+  },
+  "session": {
+    "title": "अधिवेशन",
+    "index": {
+      "title": "सत्र",
+      "header": {
+        "campaign": "अभियान का नाम",
+        "customer": "ग्राहक का नाम",
+        "schedulesnum": "उत्पाद शेड्यूल की संख्या",
+        "rebillsnum": "रिबल्स की संख्या"
+      }
+    },
+    "tab": {
+      "general": "सामान्य विवरण",
+      "affiliate": "संबद्ध"
+    },
+    "customer": {
+      "title": "ग्राहक सूचना",
+      "view": "ग्राहक देखें"
+    },
+    "rebill": {
+      "title": "एसोसिएटेड रिबल्स",
+      "billed": "विधेयक पर",
+      "amount": "रकम",
+      "nodata": "कोई रिबल्स नहीं मिला.",
+      "view": "रीबिल देखें"
+    },
+    "campaign": {
+      "title": "संबद्ध अभियान",
+      "name": "नाम",
+      "created": "पर बनाया गया",
+      "nodata": "कोई अभियान नहीं मिला.",
+      "view": "अभियान देखें"
+    },
+    "affiliate": {
+      "title": "संबद्ध संबद्ध",
+      "name": "नाम",
+      "id": "संबद्ध आईडी",
+      "created": "पर बनाया गया",
+      "nodata": "कोई संबद्ध नहीं मिला.",
+      "view": "संबद्ध देखें"
+    }
+  },
+  "transaction": {
+    "title": "लेन-देन",
+    "index": {
+      "title": "लेन-देन",
+      "header": {
+        "alias": "उपनाम",
+        "amount": "रकम",
+        "created": "पर बनाया गया",
+        "response": "प्रोसेसर रिस्पांस"
+      }
+    },
+    "tab": {
+      "general": "सामान्य विवरण",
+      "refund": "रिफंड ट्रांसिएक्शन"
+    },
+    "info": {
+      "title": "लेनदेन का विवरण",
+      "rebillview": "रीबिल देखें",
+      "merchantproviderview": "व्यापारी प्रदाता देखें",
+      "alias": "उपनाम",
+      "amount": "रकम",
+      "merchantprovider": "व्यापारी प्रदाता"
+    },
+    "processor": {
+      "title": "प्रोसेसर रिस्पांस",
+      "code": "प्रमाणीकरण कोड",
+      "message": "प्रोसेसर संदेश",
+      "text": "प्रोसेसर पाठ"
+    },
+    "refund": {
+      "title": "धन वापसी लेनदेन",
+      "amount": "रकम",
+      "amounttorefund": "वापसी की राशि",
+      "refundall": "सभी को वापस करें",
+      "cancel": "रद्द करना",
+      "confirm": "वापसी"
+    },
+    "product": {
+      "title": "संबंधित उत्पाद",
+      "name": "नाम",
+      "sku": "SKU",
+      "amount": "रकम",
+      "view": "उत्पाद देखें",
+      "nodata": "कोई उत्पाद नहीं मिला."
+    }
+  },
+  "rebill": {
+    "title": "दोबारा बिल भेजें",
+    "index": {
+      "title": "रीबिल",
+      "header": {
+        "id": "आईडी",
+        "bill": "विधेयक पर",
+        "created": "पर बनाया गया",
+        "amount": "रकम"
+      }
+    },
+    "tab": {
+      "general": "सामान्य विवरण",
+      "receipts": "नौवहन रसीदें"
+    },
+    "info": {
+      "title": "रिबिल सूचना",
+      "billed": "तिथि पर बिल भेजा गया",
+      "amount": "रकम",
+      "parentsession": "माता-पिता सत्र",
+      "customer": "ग्राहक",
+      "customerview": "ग्राहक देखें",
+      "sessionview": "सत्र देखें"
+    },
+    "shippingreceipt": {
+      "title": "संबंधित शिपिंग प्राप्तियां",
+      "nodata": "कोई शिपिंग प्राप्तियां नहीं मिली",
+      "status": "स्थिति",
+      "trackingnumber": "खोज संख्या",
+      "created": "पर बनाया गया",
+      "updated": "अद्यतन किया गया"
+    }
+  },
+  "shippingreceipt": {
+    "title": "नौवहन रसीद",
+    "index": {
+      "title": "शिपिंग प्राप्तियां",
+      "header": {
+        "status": "स्थिति",
+        "number": "ट्रैकिंग आईडी",
+        "created": "पर बनाया गया",
+        "updated": "अद्यतन किया गया"
+      }
+    },
+    "tab": {
+      "general": "सामान्य विवरण"
+    },
+    "info": {
+      "title": "नौवहन रसीद विवरण",
+      "status": "स्थिति",
+      "number": "ट्रैकिंग आईडी",
+      "carrier": "ट्रैकिंग कैरियर",
+      "fulfillmentprovider": "पूर्ति प्रदाता",
+      "fulfillmentproviderview": "पूर्ति प्रदाता"
+    },
+    "history": {
+      "title": "नौवहन रसीद राज्य इतिहास"
+    }
+  },
+  "fulfillment": {
+    "title": "पूर्ति प्रदाता",
+    "index": {
+      "title": "पूर्ति प्रदाता",
+      "header": {
+        "name": "नाम",
+        "provider": "प्रदाता",
+        "username": "उपयोगकर्ता नाम",
+        "password": "पारण शब्द"
+      }
+    },
+    "tab": {
+      "general": "सामान्य विवरण",
+      "validate": "सत्यापित करें"
+    },
+    "info": {
+      "title": "पूर्ति विवरण",
+      "createtitle": "नई पूर्ति प्रदाता बनाएं",
+      "edit": "पूर्ति प्रदाता विवरण संपादित करें",
+      "provider": "प्रदाता",
+      "name": "नाम",
+      "username": "उपयोगकर्ता नाम",
+      "password": "पारण शब्द",
+      "threeplkey": "तीन पीएल कुंजी",
+      "customerid": "ग्राहक आईडी, ग्राहक पहचान",
+      "facilityid": "सुविधा आईडी",
+      "threeplid": "तीन एलएल आईडी",
+      "cancel": "रद्द करना",
+      "save": "बचाना"
+    },
+    "validate": {
+      "title": "मान्य पूर्ति प्रदाता",
+      "text": "जांच करें कि क्या पूर्ति प्रदाता सक्षम है और प्रदान किए गए क्रेडेंशियल / पैरामीटर वैध हैं",
+      "response": "सत्यापन प्रतिक्रिया",
+      "validate": "सत्यापित करें"
+    }
+  },
+  "smtp": {
+    "title": "SMTP प्रदाताओं",
+    "index": {
+      "title": "SMTP प्रदाताओं",
+      "header": {
+        "name": "नाम",
+        "fromname": "नाम से",
+        "fromemail": "ई - मेल से",
+        "hostname": "होस्ट का नाम",
+        "username": "उपयोगकर्ता नाम"
+      }
+    },
+    "tab": {
+      "general": "सामान्य विवरण",
+      "emailtemplate": "ईमेल टेम्पलेट्स",
+      "validate": "सत्यापित करें"
+    },
+    "info": {
+      "title": "SMTP विवरण",
+      "createtitle": "नया SMTP प्रदाता बनाएं",
+      "edit": "SMTP प्रदाता विवरण संपादित करें",
+      "name": "नाम",
+      "fromname": "नाम से",
+      "fromemail": "ई - मेल से",
+      "host": "मेज़बान",
+      "username": "उपयोगकर्ता नाम",
+      "password": "पारण शब्द",
+      "port": "बंदरगाह",
+      "cancel": "रद्द करना",
+      "save": "बचाना"
+    },
+    "emailtemplate": {
+      "title": "एसोसिएटेड ईमेल टेम्पलेट्स",
+      "name": "नाम",
+      "subject": "विषय",
+      "type": "प्रकार",
+      "view": "ईमेल टेम्पलेट देखें",
+      "nodata": "कोई ईमेल टेम्पलेट नहीं मिला"
+    },
+    "validate": {
+      "title": "एसएमटीपी प्रदाता की पुष्टि करें",
+      "text": "कृपया नीचे एक ईमेल पता प्रदान करें और छह प्रदान किए गए SMTP प्रदाता का उपयोग करके आपको एक परीक्षण ईमेल भेजने का प्रयास करेगा। ईमेल से भेजा जाएगा ",
+      "textsecond": "परिणाम सही कॉलम में प्रदर्शित किए जाएंगे.",
+      "email": "प्राप्तकर्ता ईमेल पता",
+      "emailtip": "कृपया एक वैध ई - मेल एड्रेस डालें",
+      "response": "सत्यापन प्रतिक्रिया",
+      "validate": "सत्यापित करें"
+    }
+  },
+  "loadbalancer": {
+    "title": "लोड बैलेंसर्स",
+    "index": {
+      "title": "लोड बैलेंसर्स",
+      "header": {
+        "name": "नाम",
+        "merchantnum": "व्यापारी प्रदाता की संख्या"
+      }
+    },
+    "tab": {
+      "general": "सामान्य विवरण"
+    },
+    "info": {
+      "createtitle": "नया लोड बैलेंसर बनाएं",
+      "name": "नाम",
+      "edit": "संपादित करें लोड बैलेंसर",
+      "cancel": "रद्द करना",
+      "update": "अद्यतन करें",
+      "save": "बचाना"
+    },
+    "merchant": {
+      "addtitle": "व्यापारी प्रदाता जोड़ें",
+      "distribution": "वितरण",
+      "merchant": "व्यापारी प्रदाता",
+      "add": "जोड़ें",
+      "clear": "स्पष्ट",
+      "title": "संबद्ध व्यापारी प्रदाता",
+      "view": "व्यापारी प्रदाता देखें",
+      "edit": "वितरण का अद्यतन करें",
+      "disassociate": "व्यापारी प्रदाता को अलग करें",
+      "disassociatetext": "क्या आप पक्का इसे हटाना चाहते हैं?",
+      "nodata": "कोई व्यापारी प्रदाता नहीं मिला."
+    }
+  },
+  "merchantprovider": {
+    "title": "व्यापारी प्रदाता",
+    "index": {
+      "title": "व्यापारी प्रदाता",
+      "header": {
+        "name": "नाम",
+        "processor": "प्रोसेसर का नाम",
+        "type": "प्रोसेसर प्रकार"
+      }
+    },
+    "tab": {
+      "general": "सामान्य विवरण",
+      "processing": "प्रसंस्करण",
+      "loadbalancer": "भार संतुलन"
+    },
+    "info": {
+      "edit": "मर्चेंट प्रदाता को संपादित करें",
+      "cancel": "रद्द करना",
+      "update": "अद्यतन करें",
+      "save": "बचाना",
+      "settings": {
+        "title": "सेटिंग्स",
+        "name": "नाम",
+        "enabled": "सक्रिय",
+        "allowprepaid": "प्रीपेड कार्ड की अनुमति दें",
+        "accepted": "स्वीकृत पेपमेंट विधियां"
+      },
+      "processing": {
+        "title": "प्रसंस्करण",
+        "monthlycapd": "मासिक कैप ($)",
+        "monthlycapc": "मासिक कैप (गिनती)",
+        "weeklycap": "साप्ताहिक कैप (गिनती)",
+        "dailycap": "दैनिक कैप (गिनती)",
+        "transactionfee": "लेनदेन शुल्क ($)",
+        "discountrate": "छूट की दर (%)",
+        "chargeback": "अधिकतम चार्जबैक अनुपात (%)",
+        "reserve": "रिजर्व दर (%)"
+      },
+      "gateway": {
+        "title": "गेटवे जानकारी",
+        "name": "नाम",
+        "type": "प्रकार",
+        "processorid": "प्रोसेसर आईडी",
+        "productid": "उत्पाद आइ डि",
+        "username": "उपयोगकर्ता नाम",
+        "password": "पारण शब्द"
+      },
+      "service": {
+        "title": "ग्राहक सेवा",
+        "uri": "यूआरआई",
+        "email": "ईमेल",
+        "phone": "फ़ोन",
+        "description": "विवरण"
+      }
+    },
+    "loadbalancer": {
+      "title": "एसोसिएटेड लोड बैलेंसर्स",
+      "view": "लोड संतुलन देखें",
+      "nodata": "कोई लोड बैलेंसर्स नहीं मिला.",
+      "name": "नाम"
+    }
+  },
+  "deletedialog": {
+    "text": "क्या आप पक्का इसे हटाना चाहते हैं?",
+    "del": "हटाना",
+    "cancel": "रद्द करना"
+  },
+  "associatedialog": {
+    "text": "संबद्ध करने के लिए इकाई का चयन करें",
+    "associate": "एसोसिएट",
+    "cancel": "रद्द करना",
+    "entity": "सत्ता"
+  },
+  "inviteuser": {
+    "title": "नए उपयोगकर्ता को आमंत्रित करें",
+    "email": "उपयोगकर्ता ईमेल",
+    "role": "भूमिका",
+    "cancel": "रद्द करना",
+    "invite": "आमंत्रित"
+  },
+  "terms": {
+    "title": "आरंभ करने के लिए कृपया हमारे नियम और शर्तें स्वीकार करें.",
+    "accept": "स्वीकार करना",
+    "logout": "लोग आउट"
+  },
+  "register": {
+    "form": {
+      "title": "स्वागत हे!",
+      "subtitle": "हम आप में शामिल होने के लिए उत्साहित हैं",
+      "text": "अपने 90 दिन के परीक्षण के साथ आरंभ करने के लिए बस अपनी कंपनी का नाम दर्ज करें और अपनी जानकारी सत्यापित करें.",
+      "company": "कंपनी का नाम",
+      "firstname": "पहला नाम",
+      "lastname": "अंतिम नाम",
+      "cont": "जारी रहना"
+    },
+    "thankyou": {
+      "title": "आपका खाता अब सक्रिय है और आप अपने अवकाश में तलाश शुरू कर सकते हैं.",
+      "subtitle": "फिर भी, अपने पंजीकरण को पूरा करने के लिए हमें कुछ लेखांकन विवरण की आवश्यकता है। याद रखें, आप अपने खाते का पंजीकरण पूरा होने तक लेनदेन नहीं कर पाएंगे। अपनी बिलिंग प्रोफ़ाइल पर जाने के लिए पूर्ण क्लिक करें.",
+      "text": "आप मानार्थ हैं 90 दिन अब शुरू हो!",
+      "complete": "पूर्ण"
+    }
+  },
+  "acceptinvite": {
+    "badlogin": "इस आमंत्रण को स्वीकार करने के लिए, आपको पंजीकृत होना और लॉग इन करना होगा",
+    "login": "लॉग इन करें",
+    "text1": "क्या आप स्वीकार करना चाहते हैं",
+    "text2": "खाते में आमंत्रित करें",
+    "text3": "भूमिका के साथ",
+    "explanation": "जारी रखने के लिए नीचे \"स्वीकार करें\" दबाएं",
+    "accept": "स्वीकार करना",
+    "logout": "लोग आउट",
+    "form": {
+      "title": "स्वागत हे!",
+      "subtitle": "हम आप में शामिल होने के लिए उत्साहित हैं",
+      "text": "छह सीआरएम को अपने आमंत्रण को स्वीकार करने के लिए कृपया निम्नलिखित जानकारी भरें और आप सभी सेटअप हैं",
+      "firstname": "पहला नाम",
+      "lastname": "अंतिम नाम",
+      "cont": "जारी रहना"
+    },
+    "thankyou": {
+      "title": "महान! हमने आपको खाते में जोड़ा है",
+      "switchtext": "इस और आपके अन्य छह खातों के बीच स्विच करना आसान है। बस छह के ऊपरी दाएं हाथ में खाता बटन पर क्लिक करें और उस खाते का चयन करें जिसे आप एक्सेस करना चाहते हैं।.",
+      "cont": "जारी रहना"
+    }
+  },
+  "share": {
+    "title": "शेयर",
+    "copy": "क्लिपबोर्ड पर कॉपी करें"
+  },
+  "pagination": {
+    "rowsperpage": "प्रति पंक्ति पंक्तियाँ"
+  },
+  "snack": {
+    "error": "त्रुटि हुई, कृपया पुनः प्रयास करें",
+    "updated": "अद्यतन सफलतापूर्ण हो गया!",
+    "created": "सफलतापूर्वक बनाया गया!",
+    "deleted": "सफलतापूर्वक मिटाया गया!"
+  },
+  "datepicker": {
+    "apply": "लागू करें",
+    "cancel": "रद्द करना",
+    "jan": "Jan",
+    "feb": "Feb",
+    "mar": "Mar",
+    "apr": "Apr",
+    "may": "May",
+    "jun": "June",
+    "jul": "July",
+    "aug": "Aug",
+    "sep": "Sept",
+    "oct": "Oct",
+    "nov": "Nov",
+    "dec": "Dec",
+    "mon": "Mo",
+    "tue": "Tu",
+    "wed": "We",
+    "thu": "Th",
+    "fri": "Fr",
+    "sat": "Sa",
+    "sun": "Su",
+    "today": "आज",
+    "yesterday": "बिता कल",
+    "day7": "आखिरी 7 दिन",
+    "day30": "पिछले 30 दिनों में",
+    "custom": "रिवाज"
+  }
+}
