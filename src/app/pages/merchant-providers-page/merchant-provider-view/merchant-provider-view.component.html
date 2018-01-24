@@ -56,12 +56,14 @@
       </md-tab>
 
       <md-tab>
-        <table-memory class="merchant-provider-view__load-balancers" [title]="'Load Balancer'"
-                      [data]="[]"
+        <table-memory class="merchant-provider-view__load-balancers"
+                      [data]="entity.loadbalancers || []"
                       [textOptions]="loadbalancerText"
                       [associationEnabled]="false"
                       [columnParams]="loadBalancerColumnParams"
-                      [associateDataMapper]="loadBalancerMapper">
+                      [associateDataMapper]="loadBalancerMapper"
+                      [dissociationEnabled]="false"
+                      (view)="navigateToLoadBalancer($event)">
         </table-memory>
       </md-tab>
     </md-tab-group>

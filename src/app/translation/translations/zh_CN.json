@@ -1107,6 +1107,15 @@
             "scheduledtotal": "总计",
             "nodata": "找不到会话。",
             "view": "查看会话"
+        },
+        "campaign": {
+          "title": "Associated Campaigns",
+          "name": "Name",
+          "created": "Created at",
+          "updated": "Updated at",
+          "totalscheduled": "Total Scheduled",
+          "view": "View Campaign",
+          "nodata": "No Campaigns found"
         }
     },
     "tracker": {

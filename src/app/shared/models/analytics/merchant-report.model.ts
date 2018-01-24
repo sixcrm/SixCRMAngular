@@ -1,7 +1,8 @@
 import {Currency} from '../../utils/currency/currency';
+import {MerchantProvider} from '../merchant-provider/merchant-provider.model';
 
 export class MerchantReport {
-  merchantProvider: string;
+  merchantProvider: MerchantProvider;
   saleCount: number;
   saleGrossRevenue: Currency;
   refundExpenses: Currency;
@@ -15,7 +16,7 @@ export class MerchantReport {
       obj = {};
     }
 
-    this.merchantProvider = obj.merchant_provder || '';
+    this.merchantProvider = new MerchantProvider(obj.merchant_provider);
     this.saleCount = obj.sale_count || 0;
     this.saleGrossRevenue = new Currency(obj.sale_gross_revenue);
     this.refundExpenses = new Currency(obj.refund_expenses);

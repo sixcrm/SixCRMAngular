@@ -7,6 +7,7 @@ import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {Currency} from '../../../../shared/utils/currency/currency';
+import {campaignsInfoListQuery, campaignsByAffiliate} from '../../../../shared/utils/queries/entities/campaign.queries';
 
 @Component({
   selector: 'affiliate-campaigns',
@@ -27,29 +28,30 @@ export class AffiliateCampaignsComponent extends AbstractEntityIndexComponent<Ca
 
     let f = this.authService.getTimezone();
     this.columnParams = [
-      new ColumnParams('Name', (e: Campaign) => e.name),
-      new ColumnParams('Created at', (e: Campaign) => e.createdAt.tz(f).format('MM/DD/YYYY')),
-      new ColumnParams('Updated at', (e: Campaign) => e.updatedAt.tz(f).format('MM/DD/YYYY')),
-      new ColumnParams('Total Scheduled', (e: Campaign) =>
+      new ColumnParams('AFFILIATE_CAMPAIGN_NAME', (e: Campaign) => e.name),
+      new ColumnParams('AFFILIATE_CAMPAIGN_CREATED', (e: Campaign) => e.createdAt.tz(f).format('MM/DD/YYYY')),
+      new ColumnParams('AFFILIATE_CAMPAIGN_UPDATED', (e: Campaign) => e.updatedAt.tz(f).format('MM/DD/YYYY')),
+      new ColumnParams('AFFILIATE_CAMPAIGN_TOTALSCHEDULED', (e: Campaign) =>
           new Currency(
             e.productSchedules
               .map(p => p.schedules)
               .reduce((a, b) => a.concat(b), [])
               .map(s => +s.price.amount)
               .reduce((a, b) => a+b, 0)).usd()
-        , 'right')
+        , 'right').setNumberOption(true)
     ];
   }
 
   ngOnInit() {
+    this.service.indexQuery = (limit?: number, cursor?: string) => campaignsByAffiliate(this.affiliateId, limit, cursor);
+
     this.init();
   }
 
   ngOnDestroy() {
+    this.service.indexQuery = campaignsInfoListQuery;
+
     this.destroy();
   }
 
-  addNewCampaign() {
-
-  }
 }

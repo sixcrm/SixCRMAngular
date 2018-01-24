@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {MerchantProvider} from '../../../shared/models/merchant-provider/merchant-provider.model';
 import {MerchantProvidersService} from '../../../shared/services/merchant-providers.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {LoadBalancer} from '../../../shared/models/load-balancer.model';
@@ -39,7 +39,12 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
     {name: 'loadbalancers', label: 'MERCHANTPROVIDER_TAB_LOADBALANCER'}
   ];
 
-  constructor(service: MerchantProvidersService, route: ActivatedRoute, public navigation: NavigationService) {
+  constructor(
+    service: MerchantProvidersService,
+    route: ActivatedRoute,
+    public navigation: NavigationService,
+    private router: Router
+  ) {
     super(service, route);
   }
 
@@ -71,5 +76,9 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
 
   setIndex(value: number): void {
     this.selectedIndex = value;
+  }
+
+  navigateToLoadBalancer(loadBalancer: LoadBalancer): void {
+    this.router.navigate(['/loadbalancers', loadBalancer.id]);
   }
 }

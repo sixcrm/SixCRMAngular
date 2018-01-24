@@ -57,7 +57,7 @@ export function merchantReportListQuery(start: string, end: string, filterTerms:
   {
 		merchantreport (analyticsfilter:{${dateString(start, end)} ${filterString}} ${paginationString(limit, offset, order)}) {
 			merchants {
-				merchant_provider, sale_count, sale_gross_revenue, refund_expenses, refund_count, net_revenue, mtd_sales_count, mtd_gross_count
+				merchant_provider {id name}, sale_count, sale_gross_revenue, refund_expenses, refund_count, net_revenue, mtd_sales_count, mtd_gross_count
 			}
 			${pagination}
 		}
@@ -84,7 +84,7 @@ export function affiliateReportListQuery(start: string, end: string, filterTerms
   {
 		affiliatereport (analyticsfilter:{${dateString(start, end)} ${filterString}} ${paginationString(limit, offset, order)}) {
 			affiliates {
-			  affiliate { id },
+			  affiliate { id, name, affiliate_id },
 				count_click, count_partials, partials_percent, decline_count, declines_percent, count_sales, sales_percent, count_upsell, upsell_percent, sum_upsell, sum_amount
 			}
 			${pagination}

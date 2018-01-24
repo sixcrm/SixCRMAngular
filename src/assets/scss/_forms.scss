@@ -214,14 +214,15 @@ dropdown-component {
 }
 
 .pixel-codemirror {
-  max-width: 800px;
+  font-size: 14px;
+  max-width: 600px;
 
   .CodeMirror {
     background: #faf8f0;
   }
 
   .CodeMirror-code {
-    max-width: 800px;
+    max-width: 600px;
   }
 
   .CodeMirror-line {
@@ -229,7 +230,7 @@ dropdown-component {
 
     span {
       display: inline-block;
-      max-width: 800px;
+      max-width: 600px;
     }
   }
 }

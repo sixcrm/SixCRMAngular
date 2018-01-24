@@ -35,6 +35,16 @@ export function campaignsByProduct(id: string, limit?:number, cursor?:string): s
     }}`
 }
 
+export function campaignsByAffiliate(id: string, limit?:number, cursor?:string): string {
+  return `{
+    campaignlistbyaffiliateallowed (affiliate: "${id}", ${paginationParamsQuery(limit, cursor, true)}) {
+      campaigns {
+        ${campaignInfoResponseQuery()}
+      }
+      ${fullPaginationStringResponseQuery()}
+    }}`
+}
+
 export function campaignQuery(id: string): string {
   return `{
     campaign (id: "${id}") {

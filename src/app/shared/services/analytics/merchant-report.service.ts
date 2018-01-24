@@ -36,7 +36,9 @@ export class MerchantReportService {
   private queryRequest(query: string, download: boolean): Observable<Response> {
     let endpoint = environment.endpoint;
 
-    if (this.authService.getActiveAcl() && this.authService.getActiveAcl().account) {
+    if (this.authService.getActingAsAccount()) {
+      endpoint += this.authService.getActingAsAccount().id;
+    } else if (this.authService.getActiveAcl() && this.authService.getActiveAcl().account) {
       endpoint += this.authService.getActiveAcl().account.id;
     } else {
       endpoint += '*';

@@ -39,6 +39,7 @@
   [page]="page"
   [paginationString]="getPaginationString()"
   [showFilter]="false"
+  (cellClicked)="navigate($event.entity)"
   (next)="fetchNext()"
   (previous)="fetchPrevious()"
   (updateLimit)="updateLimit($event)"

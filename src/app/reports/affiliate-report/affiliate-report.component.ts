@@ -56,7 +56,7 @@ export class AffiliateReportComponent  extends ReportsAbstractComponent<Affiliat
     ];
 
     this.columnParams = [
-      new ReportColumnParams('AFFILIATEREPORT_AFFILIATE', (e: AffiliateReport) => e.affiliate.name).setIsLink(true),
+      new ReportColumnParams('AFFILIATEREPORT_AFFILIATE', (e: AffiliateReport) => e.affiliate.name || e.affiliate.affiliateId),
       ...this.columnParamsTotal
     ];
 
@@ -85,22 +85,9 @@ export class AffiliateReportComponent  extends ReportsAbstractComponent<Affiliat
     this.affiliateReportService.getAffiliatesReport(this.start.format(), this.end.format(), this.filterTerms, true, this.limit + 1, this.page * this.limit)
   }
 
-
   clicked(event) {
-    if (event.params.label === 'Affiliate') {
-
-      const s = this.start.clone();
-      const e = this.end.clone();
-      const f = this.filterTerms.slice();
-      Object.keys(f).forEach(key => {
-        if (f[key].type === 'affiliate') {
-          delete f[key];
-        }
-      });
-
-      f.unshift({id: event.entity.affiliate.id, label: event.entity.affiliate.name, type: 'affiliate'});
-
-      this.router.navigate(['/reports/subaffiliate'], {queryParams: {f: this.encodeFilters({start: s, end: e, filterTerms: f}) }})
+    if (event && event.entity.affiliate && event.entity.affiliate.id) {
+      this.router.navigate(['/affiliates', event.entity.affiliate.id])
     }
   }
 }
