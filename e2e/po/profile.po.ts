@@ -29,4 +29,40 @@ export class ProfilePage {
   getSendTestAlertButton() {
     return element.all(by.css('.card-outside-button')).last();
   }
+
+  getSSTableCells() {
+    return element.all(by.css('table.table__custom td'));
+  }
+
+  getSSFirstRowMenuButton() {
+    return this.getSSTableCells().get(3).element(by.css('md-icon'));
+  }
+
+  getSSEditButton() {
+    return element(by.cssContainingText('button[role="menuitem"]', 'Edit'));
+  }
+
+  getSSRemoveButton() {
+    return element(by.cssContainingText('button[role="menuitem"]', 'Remove'));
+  }
+
+  getSSMenuButton() {
+    return element(by.css('.entity-view__table-component__header__action'));
+  }
+
+  getSSAddButton() {
+    return element(by.cssContainingText('button[role="menuitem"]', 'Add new Signing String'));
+  }
+
+  getSSDialogNameInput() {
+    return element(by.css('single-input-dialog input'));
+  }
+
+  getSSDialogSaveButton() {
+    return element(by.cssContainingText('single-input-dialog .custom-dialog__buttons div', 'Save'));
+  }
+
+  getSSDialogDeleteButton() {
+    return element(by.cssContainingText('.custom-dialog__buttons div', 'DELETE'));
+  }
 }

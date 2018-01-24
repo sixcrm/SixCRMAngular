@@ -57,19 +57,31 @@ export function addToLocalStorage(token: string, payload: any) {
   browser.executeScript(`return window.localStorage.setItem('id_token_payload','${JSON.stringify(payload)}');`);
 }
 
-export function waitForPresenceOf(element: ElementFinder, timeout?: number) {
-  let to = timeout || 5000;
-  browser.wait(protractor.ExpectedConditions.presenceOf(element), to).catch(() => `Element ${element.locator()} is not present after ${to} ms`);
+export function waitForPresenceOf(element: ElementFinder, timeout = 10000) {
+  browser
+    .wait(
+      protractor.ExpectedConditions.presenceOf(element),
+      timeout,
+      `Element ${element.locator()} is not present after ${timeout} ms`
+    );
 }
 
-export function waitForNotPresenceOf(element: ElementFinder, timeout?: number) {
-  let to = timeout || 5000;
-  browser.wait(protractor.ExpectedConditions.stalenessOf(element), to).catch(() => `Element ${element.locator()} is present after ${to} ms`);
+export function waitForNotPresenceOf(element: ElementFinder, timeout = 10000) {
+  browser
+    .wait(
+      protractor.ExpectedConditions.stalenessOf(element),
+      timeout,
+      `Element ${element.locator()} is present after ${timeout} ms`
+  );
 }
 
-export function waitForUrlContains(partialUrl: string, timeout?: number) {
-  let to = timeout || 10000;
-  browser.wait(protractor.ExpectedConditions.urlContains(partialUrl), to).catch(() => `Url does not contain ${partialUrl} after ${to} ms`);
+export function waitForUrlContains(partialUrl: string, timeout = 10000) {
+  browser
+    .wait(
+      protractor.ExpectedConditions.urlContains(partialUrl),
+      timeout,
+      `Url does not contain ${partialUrl} after ${timeout} ms`
+    );
 }
 
 export function waitForPresenceOfLoginFields(authPage: AuthPage) {

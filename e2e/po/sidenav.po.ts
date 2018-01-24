@@ -11,7 +11,7 @@ export class SidenavPage {
   }
 
   getLink(itemNumber: number) {
-    return element.all(by.css('c-sidenav-item')).get(itemNumber).element(by.css('a'));
+    return element.all(by.css('c-sidenav-item')).get(itemNumber).all(by.css('a')).first();
   }
 
   getChildreonOf(itemNumber: number) {

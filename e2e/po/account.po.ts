@@ -33,4 +33,48 @@ export class AccountPage {
   getLastAccessKeysButton() {
     return element(by.css('access-keys')).element(by.css('tbody')).all(by.css('tr')).last().element(by.css('md-icon'));
   }
+
+  getAKTableHeaderCells() {
+    return element.all(by.css('table.highlight.table__custom th'));
+  }
+
+  getAKTableCells() {
+    return element.all(by.css('table.highlight.table__custom td'));
+  }
+
+  getAKFirstRowMenuButton() {
+    return this.getAKTableCells().get(4).element(by.css('md-icon'));
+  }
+
+  getAKEditButton() {
+    return element(by.cssContainingText('button[role="menuitem"]', 'Edit Access Keys'));
+  }
+
+  getAKRemoveButton() {
+    return element(by.cssContainingText('button[role="menuitem"]', 'Remove Access Keys'));
+  }
+
+  getAKMenuButton() {
+    return element(by.css('.entity-view__table-component__header__action'));
+  }
+
+  getAKAddButton() {
+    return element(by.cssContainingText('button[role="menuitem"]', 'Add Access Keys'));
+  }
+
+  getAKDialogNameInput() {
+    return element(by.css('access-key-details-dialog input'));
+  }
+
+  getAKDialogNoteTextarea() {
+    return element(by.css('access-key-details-dialog textarea'));
+  }
+
+  getAKDialogUpdateButton() {
+    return element(by.cssContainingText('access-key-details-dialog .access-key-details-actions div', 'UPDATE'));
+  }
+
+  getAKDialogDeleteButton() {
+    return element(by.cssContainingText('.custom-dialog__buttons div', 'DELETE'));
+  }
 }
