@@ -85,7 +85,7 @@ export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> imp
   goToShippingReceipt(shippingReceipt: ShippingReceipt) {
     if (!shippingReceipt.id) return;
 
-    this.router.navigate(['/shippingreceipt', shippingReceipt.id])
+    this.router.navigate(['/shippingreceipts', shippingReceipt.id])
   }
 
 
