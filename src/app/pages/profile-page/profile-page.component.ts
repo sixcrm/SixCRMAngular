@@ -173,8 +173,9 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   }
 
   updateUserDetails(): void {
+    this.userBackup.name = `${this.userBackup.firstName} ${this.userBackup.lastName}`;
     this.userService.updateEntity(this.userBackup, {ignorePermissions: true});
-    this.userSettingsService.updateEntity(this.userSettingsBackup)
+    this.userSettingsService.updateEntity(this.userSettingsBackup);
   }
 
   getNotificationUserSettings(name: string): NotificationUserSettings {

@@ -13,6 +13,7 @@ import {HttpWrapperService} from './http-wrapper.service';
 import {Response} from '@angular/http'
 import {MdSnackBar} from '@angular/material';
 import {Acl} from '../models/acl.model';
+import {CustomServerError} from '../models/errors/custom-server-error';
 
 @Injectable()
 export class UsersService extends AbstractEntityService<User> {
@@ -29,7 +30,15 @@ export class UsersService extends AbstractEntityService<User> {
       updateUserMutation,
       'user',
       snackBar
-    )
+    );
+
+    this.entityUpdated$.subscribe(user => {
+      if (user instanceof CustomServerError || this.authService.getSixUser().id !== user.id) {
+        return;
+      }
+
+      this.authService.updateSixUser(user);
+    });
   }
 
   sendUserInvite(email: string, role: Role, accountId: string): Observable<Response> {
@@ -47,5 +56,7 @@ export class UsersService extends AbstractEntityService<User> {
   getLatestTermsAndConditions(role?: string): Observable<Response> {
     return this.queryRequest(latestTermsAndConditions(role), {ignoreTermsAndConditions: true});
   }
+
+
 
 }
