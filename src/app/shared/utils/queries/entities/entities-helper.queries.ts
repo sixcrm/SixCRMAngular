@@ -16,6 +16,12 @@ export function addId(id: string, includeId?: boolean): string {
   return includeId ? `id: "${id}"` : '';
 }
 
+export function clean(value: string): string {
+  if (value.indexOf('"') === -1) return value;
+
+  return value.replace(/"/g, '\\"');
+}
+
 export function paginationParamsQuery(limit?: number, cursor?: string, ignoreBraces?: boolean): string {
   if (!cursor && !limit) return '';
 
