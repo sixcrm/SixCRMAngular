@@ -835,7 +835,8 @@
 	},
 	"product": {
 		"title": "Ապրանք",
-		"index": {
+    "nodelete": "You can not delete this product as long as it is associated with a product schedule.",
+    "index": {
 			"title": "Ապրանքներ",
 			"header": {
 				"name": "Ապրանքի անունը",
@@ -1514,6 +1515,10 @@
     "associate": "ASSOCIATE",
     "cancel": "CANCEL",
     "entity": "Entity"
+  },
+  "messagedialog": {
+    "title": "Are you sure?",
+    "button": "OK"
   },
 	"inviteuser": {
 		"title": "Հրավիրել նոր օգտվող",

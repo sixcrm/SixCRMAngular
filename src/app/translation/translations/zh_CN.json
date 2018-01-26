@@ -835,6 +835,7 @@
     },
     "product": {
         "title": "产品",
+        "nodelete": "c You can not delete this product as long as it is associated with a product schedule.",
         "index": {
             "title": "产品",
             "header": {
@@ -1514,6 +1515,10 @@
         "associate": "关联",
         "cancel": "取消",
         "entity": "实体"
+    },
+    "messagedialog": {
+        "title": "c Are you sure?",
+        "button": "c OK"
     },
     "inviteuser": {
         "title": "邀请新用户",

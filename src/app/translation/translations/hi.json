@@ -1,10 +1,10 @@
 {
-  "topnav": { 
-    "search": "खोज", 
-    "greeting": "नमस्ते", 
-    "settings": "उपयोगकर्ता सेटिंग", 
-    "signout": "साइन आउट", 
-    "actingas": "के रूप में कार्य", 
+  "topnav": {
+    "search": "खोज",
+    "greeting": "नमस्ते",
+    "settings": "उपयोगकर्ता सेटिंग",
+    "signout": "साइन आउट",
+    "actingas": "के रूप में कार्य",
     "mobile": {
       "accounts":"लेखा",
       "actions":"कार्रवाई",
@@ -12,12 +12,12 @@
       "signout":"साइन आउट"
     }
   },
-  "sidenav": { 
-    "dashboard": "डैशबोर्ड", 
-    "orderengine": "राज्य", 
-    "reports": { 
-      "title": "रिपोर्ट", 
-      "order": "आदेश रिपोर्ट", 
+  "sidenav": {
+    "dashboard": "डैशबोर्ड",
+    "orderengine": "राज्य",
+    "reports": {
+      "title": "रिपोर्ट",
+      "order": "आदेश रिपोर्ट",
       "summary": "सारांश रिपोर्ट",
       "transaction":"लेन-देन रिपोर्ट",
       "merchant":"व्यापारी की रिपोर्ट",
@@ -27,76 +27,76 @@
       "projection": "अनुमान"
     },
     "customer": "कस्टमर्स",
-    "crm": { 
-      "title": "सीआरएम", 
-      "product": "उत्पाद", 
-      "productschedule": "उत्पाद अनुसूचियों", 
-      "campaign": "अभियान", 
-      "emailtemplate": "ईमेल टेम्पलेट", 
-      "affiliate" : "संबद्ध", 
-      "tracker": "ट्रैकर्स", 
-      "session": "सत्र", 
-      "transaction": "लेन-देन", 
-      "rebill": "रीबिल", 
-      "shippingreceipt": "शिपिंग रसीद", 
-      "providers": { 
-        "title": "3 पार्टी प्रदाता", 
-        "fulfillment": "पूर्ति प्रदाता", 
+    "crm": {
+      "title": "सीआरएम",
+      "product": "उत्पाद",
+      "productschedule": "उत्पाद अनुसूचियों",
+      "campaign": "अभियान",
+      "emailtemplate": "ईमेल टेम्पलेट",
+      "affiliate" : "संबद्ध",
+      "tracker": "ट्रैकर्स",
+      "session": "सत्र",
+      "transaction": "लेन-देन",
+      "rebill": "रीबिल",
+      "shippingreceipt": "शिपिंग रसीद",
+      "providers": {
+        "title": "3 पार्टी प्रदाता",
+        "fulfillment": "पूर्ति प्रदाता",
         "smtp": "एसएमटीपी प्रदाता"
       }
     },
-    "merchant": { 
-      "title": "व्यापारी", 
-      "merchantprovider": "व्यापारी प्रदाता", 
+    "merchant": {
+      "title": "व्यापारी",
+      "merchantprovider": "व्यापारी प्रदाता",
       "loadbalancer": "लोड बालांसर्स"
     },
-    "settings": { 
-      "title": "सेटिंग", 
-      "user": "उपयोगकर्ता", 
-      "account": "लेखा", 
-      "bill": "विधेयकों", 
-      "role": "भूमिकाओं", 
-      "key": { 
-        "title": "एपीआई कुंजी", 
-        "signingstring": "उपयोगकर्ता हस्ताक्षर स्ट्रिंग्स", 
+    "settings": {
+      "title": "सेटिंग",
+      "user": "उपयोगकर्ता",
+      "account": "लेखा",
+      "bill": "विधेयकों",
+      "role": "भूमिकाओं",
+      "key": {
+        "title": "एपीआई कुंजी",
+        "signingstring": "उपयोगकर्ता हस्ताक्षर स्ट्रिंग्स",
         "accesskey": "प्रवेश कुंजी"
-      }, 
-      "documentation": { 
-        "title": "प्रलेखन", 
-        "graphql": "GraphQL", 
+      },
+      "documentation": {
+        "title": "प्रलेखन",
+        "graphql": "GraphQL",
         "wiki": "Wiki"
       }
-    }, 
+    },
     "search": "खोज"
   },
-  "orderengine": { 
-    "title": "राज्य मशीन", 
-    "queue": "कतार", 
-    "item": { 
-      "recover": "वसूली", 
-      "bill": "विधेयक", 
-      "failed": "विफल" , 
-      "hold": "पकड़ो", 
-      "pending": "लंबित", 
-      "shipped": "भेज दिया", 
+  "orderengine": {
+    "title": "राज्य मशीन",
+    "queue": "कतार",
+    "item": {
+      "recover": "वसूली",
+      "bill": "विधेयक",
+      "failed": "विफल" ,
+      "hold": "पकड़ो",
+      "pending": "लंबित",
+      "shipped": "भेज दिया",
       "delivered": "वितरित"
     },
-    "schema": { 
-      "title": "स्टेट मशीन फ्लो", 
+    "schema": {
+      "title": "स्टेट मशीन फ्लो",
       "subtitle": "नीचे छह में सभी डेटा के किसी न किसी प्रवाह है, एक तत्व नीचे दिए गए विवरण लोड करने के लिए क्लिक करें"
     },
-    "status": { 
-      "failurerate": "विफलता दर", 
-      "avgtime": "औसत कतार में समय", 
+    "status": {
+      "failurerate": "विफलता दर",
+      "avgtime": "औसत कतार में समय",
       "view": "दृश्य"
-    }, 
-    "details": { 
-      "title": "में कुल आदेश", 
-      "failurerate": "विफलता दर", 
-      "avgtime": "औसत कतार में समय।", 
-      "view": "देखें लाइव कतार", 
-      "downstream": "अनुप्रवाह कतार", 
-      "nodata": "अपर्याप्त डेटा", 
+    },
+    "details": {
+      "title": "में कुल आदेश",
+      "failurerate": "विफलता दर",
+      "avgtime": "औसत कतार में समय।",
+      "view": "देखें लाइव कतार",
+      "downstream": "अनुप्रवाह कतार",
+      "nodata": "अपर्याप्त डेटा",
       "livepolling":"लाइव मतदान"
     },
     "rebills": {
@@ -105,44 +105,44 @@
         "sub":"दोबारा बिल भेजने आईडी"
       },
       "view":"दृश्य दोबारा बिल भेजने के",
-      "id" : "आईडी", 
-      "billed": "पर विधेयक", 
-      "created": "राशि", 
-      "amount": "राशि", 
-      "nodata": "कोई रीबिल मिली।" 
+      "id" : "आईडी",
+      "billed": "पर विधेयक",
+      "created": "राशि",
+      "amount": "राशि",
+      "nodata": "कोई रीबिल मिली।"
     },
-    "rebill": { 
-      "history": { 
-        "title": "संदेश", 
-        "subtitle": "इतिहास", 
+    "rebill": {
+      "history": {
+        "title": "संदेश",
+        "subtitle": "इतिहास",
         "enter": "में प्रवेश किया"
-      }, 
-      "properties": { 
-        "title": "दोबारा बिल भेजने के गुण", 
+      },
+      "properties": {
+        "title": "दोबारा बिल भेजने के गुण",
         "subtitle": "ग्राहक रीबिल का विवरण",
         "rebill": "दोबारा बिल भेजने आईडी",
         "parentsession": "जनक सत्र आईडी",
         "created": "पर बनाया गया",
         "updated": "अंतिम अद्यतन",
-        "amount" : "कुल बिलिंग राशि", 
+        "amount" : "कुल बिलिंग राशि",
         "campaign": "संबद्ध अभियान"
       }
     }
   },
-  "notifications": { 
+  "notifications": {
     "title": "नोटिफिकेशन और सूचना",
-    "tab": { 
-      "notifications": "सूचनाएं", 
+    "tab": {
+      "notifications": "सूचनाएं",
       "alerts": "सचेत"
-    }, 
-    "today": "इससे पहले आज", 
-    "yesterday": "कल", 
-    "days3": "पिछले 3 दिन", 
-    "week": "पिछला सप्ताह", 
+    },
+    "today": "इससे पहले आज",
+    "yesterday": "कल",
+    "days3": "पिछले 3 दिन",
+    "week": "पिछला सप्ताह",
     "other": "अन्य"
-  }, 
-  "notificationsquick": { 
-    "title": "सूचनाएं", 
+  },
+  "notificationsquick": {
+    "title": "सूचनाएं",
     "settings": "सेटिंग्स",
     "viewall": "देखें सभी सूचनाएं",
     "alerts": "अलर्ट ",
@@ -150,12 +150,12 @@
     "view": "दृश्य ",
     "dismiss": "को खारिज करें"
   },
-  "advancedfilter": { 
-    "day": "1D", 
-    "week": "1W", 
-    "month": "1M", 
-    "3month": "3M", 
-    "6month": "6M", 
+  "advancedfilter": {
+    "day": "1D",
+    "week": "1W",
+    "month": "1M",
+    "3month": "3M",
+    "6month": "6M",
     "year": "1Y",
     "yeartodate": "YTD",
     "all": "सभी",
@@ -168,11 +168,11 @@
     "apply": "लागू",
     "reset": "रीसेट",
     "close": "बंद",
-    "campaign": "अभियान", 
-    "affiliate": "संबद्ध", 
-    "subid1": "उप आईडी 1", 
-    "subid2": "उप आईडी 2", 
-    "subid3": "उप आईडी 3", 
+    "campaign": "अभियान",
+    "affiliate": "संबद्ध",
+    "subid1": "उप आईडी 1",
+    "subid2": "उप आईडी 2",
+    "subid3": "उप आईडी 3",
     "subid4": "उप आईडी 4",
     "subid5": "उप आईडी 5",
     "productschedule": "उत्पाद अनुसूची",
@@ -184,37 +184,37 @@
     "success": "सफलता",
     "decline": "अस्वीकार",
     "error": "त्रुटि",
-    "refreshdashboardtext": "ताज़ा करें डैशबोर्ड. अंतिम अद्यतन:" , 
+    "refreshdashboardtext": "ताज़ा करें डैशबोर्ड. अंतिम अद्यतन:" ,
     "refreshreporttext": "ताज़ा रिपोर्ट"
   },
-  "forminputs": { 
-    "fullname": "पूरा नाम", 
-    "firstname": "पहला नाम", 
-    "phone": "फ़ोन", 
-    "email": "ईमेल", 
-    "lastname": "अंतिम नाम", 
+  "forminputs": {
+    "fullname": "पूरा नाम",
+    "firstname": "पहला नाम",
+    "phone": "फ़ोन",
+    "email": "ईमेल",
+    "lastname": "अंतिम नाम",
     "address": "पता",
     "address2": "पता 2",
     "city": "शहर",
     "state": "राज्य",
     "zip": "ज़िप कोड",
     "country": "देश",
-    "creditcard" : { 
+    "creditcard" : {
       "name": "कार्ड पर नाम",
-      "type": "प्रकार", 
-      "number": "संख्या", 
+      "type": "प्रकार",
+      "number": "संख्या",
       "expiration": "समय सीमा समाप्ति",
-      "ccv": "CCV", 
+      "ccv": "CCV",
       "monthshort": "MM",
       "yearshort":"YYYY"
     }
   },
-  "indexpage": { 
-    "filter": "फ़िल्टर", 
-    "del": "हटाएँ", 
-    "view": "दृश्य", 
-    "exp": "निर्यात", 
-    "edit": "संपादित करें", 
+  "indexpage": {
+    "filter": "फ़िल्टर",
+    "del": "हटाएँ",
+    "view": "दृश्य",
+    "exp": "निर्यात",
+    "edit": "संपादित करें",
     "copy": " कॉपी "
   },
   "singlepage": {
@@ -225,36 +225,36 @@
     "createcancelclose": "बंद",
     "createcancelcancel": "रद्द करें",
     "leavetitle": "क्या आप वाकई छोड़ना चाहते हैं",
-    "leavetext": "आपके पास सहेजे नहीं गए बदलाव हैं, अगर आप इसे बंद करते हैं तो यह मॉडल परिवर्तन छोड़े जाएंगे", 
+    "leavetext": "आपके पास सहेजे नहीं गए बदलाव हैं, अगर आप इसे बंद करते हैं तो यह मॉडल परिवर्तन छोड़े जाएंगे",
     "leavecancel": "रद्द करें",
     "leaveleave": "छोड़"
   },
-  "profile": { 
-    "title": "प्रोफाइल", 
-    "created": "निर्मित", 
-    "tabs": { 
-      "general": "सामान्य", 
-      "notifications": "सूचनाएं", 
-      "accounts": "लेखा", 
+  "profile": {
+    "title": "प्रोफाइल",
+    "created": "निर्मित",
+    "tabs": {
+      "general": "सामान्य",
+      "notifications": "सूचनाएं",
+      "accounts": "लेखा",
       "signingstrings": "पर हस्ताक्षर स्ट्रिंग"
-    }, 
-    "details": { 
-      "title": "प्रोफाइल", 
-      "subtitle": "सामान्य जानकारी", 
-      "firstname": "पहला नाम", 
-      "lastname": "अंतिम नाम", 
-      "workphone": "कार्यालय का फ़ोन", 
-      "cellphone": "सेल फोन", 
-      "timezone": "समय क्षेत्र", 
-      "email": "ईमेल", 
-      "language": "भाषा", 
+    },
+    "details": {
+      "title": "प्रोफाइल",
+      "subtitle": "सामान्य जानकारी",
+      "firstname": "पहला नाम",
+      "lastname": "अंतिम नाम",
+      "workphone": "कार्यालय का फ़ोन",
+      "cellphone": "सेल फोन",
+      "timezone": "समय क्षेत्र",
+      "email": "ईमेल",
+      "language": "भाषा",
       "update": "अद्यतन"
     },
-    "notifications": { 
-      "title": "अधिसूचना टॉगल", 
-      "subtitle": "नोटिफिकेशन प्राप्त करने के लिए / पर टॉगल करें", 
-      "testalert": "भेजें परीक्षण चेतावनी", 
-      "testnotification": "परीक्षण सूचना भेजें", 
+    "notifications": {
+      "title": "अधिसूचना टॉगल",
+      "subtitle": "नोटिफिकेशन प्राप्त करने के लिए / पर टॉगल करें",
+      "testalert": "भेजें परीक्षण चेतावनी",
+      "testnotification": "परीक्षण सूचना भेजें",
       "devices": {
         "title": "उपकरण",
         "subtitle": "सूचनाओं के लिए सेटअप उपकरणों",
@@ -262,61 +262,61 @@
         "email": "ईमेल",
         "skype": "स्काइप",
         "slack" : "स्लैक वेब हुक"
-      }, 
-      "settings": { 
-        "title": "सूचना सेटिंग", 
+      },
+      "settings": {
+        "title": "सूचना सेटिंग",
         "subtitle": "कौन-सी सूचनाएं आप प्राप्त करना चाहते हैं"
       }
     },
-    "accounts": { 
-      "title": "आपका खाता", 
-      "accountname": "नाम", 
-      "rolename": "भूमिका", 
+    "accounts": {
+      "title": "आपका खाता",
+      "accountname": "नाम",
+      "rolename": "भूमिका",
       "view": "खाता देखें"
-    }, 
-    "signingstrings": { 
+    },
+    "signingstrings": {
       "title": "आपका हस्ताक्षर स्ट्रिंग्स",
       "name": "नाम ",
       "signingstring": "साइन इन करना स्ट्रिंग",
       "used": "पिछले इस्तेमाल किया ",
       "add": "नए हस्ताक्षर स्ट्रिंग जोड़ें",
-      "remove": "निकालें" , 
-      "edit": "संपादित करें", 
-      "updatetext": "अद्यतन स्ट्रिंग साइन इन करना", 
-      "addtext": "नई साइनिंग स्ट्रिंग जोड़ें", 
-      "cancel": "रद्द करना", 
-      "save": "बचाना", 
-      "nodata": "कोई हस्ताक्षर तार मिल गया।" 
+      "remove": "निकालें" ,
+      "edit": "संपादित करें",
+      "updatetext": "अद्यतन स्ट्रिंग साइन इन करना",
+      "addtext": "नई साइनिंग स्ट्रिंग जोड़ें",
+      "cancel": "रद्द करना",
+      "save": "बचाना",
+      "nodata": "कोई हस्ताक्षर तार मिल गया।"
     }
   },
-  "dashboard": { 
-    "item": { 
-      "newsale": "नई बिक्री", 
-      "main": "मुख्य", 
-      "upsell": "अपसेलस", 
-      "rebill": "रीबिल", 
-      "decline": "गिरावट" , 
+  "dashboard": {
+    "item": {
+      "newsale": "नई बिक्री",
+      "main": "मुख्य",
+      "upsell": "अपसेलस",
+      "rebill": "रीबिल",
+      "decline": "गिरावट" ,
       "error": "त्रुटियां"
-    }, 
-    "eventsfunnel": { 
-      "title": "घटनाक्रम कीप", 
-      "subtitle": "घटना", 
-      "event": "घटना", 
-      "count": "गणना" , 
-      "percentage": "प्रतिशत", 
-      "relativepercentage": "सापेक्ष प्रतिशत", 
-      "click": "क्लिक", 
-      "lead": "लीड", 
-      "main": "मेन", 
-      "upsell": "अपसेलस", 
+    },
+    "eventsfunnel": {
+      "title": "घटनाक्रम कीप",
+      "subtitle": "घटना",
+      "event": "घटना",
+      "count": "गणना" ,
+      "percentage": "प्रतिशत",
+      "relativepercentage": "सापेक्ष प्रतिशत",
+      "click": "क्लिक",
+      "lead": "लीड",
+      "main": "मेन",
+      "upsell": "अपसेलस",
       "confirm": "इस बात की पुष्टि"
     },
-    "eventsummary": { 
-      "title": "घटनाक्रम", 
-      "subtitle": "घटनाओं सारांश", 
-      "nodata": "कोई घटनाक्रम मिला", 
-      "confirm": "पुष्टि", 
-      "upsell": "अपसैल", 
+    "eventsummary": {
+      "title": "घटनाक्रम",
+      "subtitle": "घटनाओं सारांश",
+      "nodata": "कोई घटनाक्रम मिला",
+      "confirm": "पुष्टि",
+      "upsell": "अपसैल",
       "lead": "लीड",
       "order": "आदेश",
       "click": "पर क्लिक करें",
@@ -324,17 +324,17 @@
     },
     "eventsbyaffiliate": {
       "title":"संबद्ध द्वारा घटनाएं",
-      "subtitle": "शीर्ष सहभागियों की घटनाएं", 
-      "affiliate" : "सहबद्ध", 
-      "count": "गणना", 
-      "percentage": "प्रतिशत", 
+      "subtitle": "शीर्ष सहभागियों की घटनाएं",
+      "affiliate" : "सहबद्ध",
+      "count": "गणना",
+      "percentage": "प्रतिशत",
       "nodata": "कोई ईवेंट नहीं मिला"
     },
-    "transactionbyaffiliate": { 
-      "title": "संबद्ध द्वारा लेन-देन", 
-      "subtitle": "संबद्ध", 
-      "affiliate": "संबद्ध", 
-      "count": "गणना", 
+    "transactionbyaffiliate": {
+      "title": "संबद्ध द्वारा लेन-देन",
+      "subtitle": "संबद्ध",
+      "affiliate": "संबद्ध",
+      "count": "गणना",
       "countp": "गणना%",
       "amount": "राशि",
       "amountp": "राशि%",
@@ -835,6 +835,7 @@
   },
   "product": {
     "title": "उत्पाद",
+    "nodelete": "You can not delete this product as long as it is associated with a product schedule.",
     "index": {
       "title": "उत्पाद",
       "header": {
@@ -1514,6 +1515,10 @@
     "associate": "एसोसिएट",
     "cancel": "रद्द करना",
     "entity": "सत्ता"
+  },
+  "messagedialog": {
+    "title": "Are you sure?",
+    "button": "OK"
   },
   "inviteuser": {
     "title": "नए उपयोगकर्ता को आमंत्रित करें",

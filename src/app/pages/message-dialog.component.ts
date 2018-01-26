@@ -6,10 +6,10 @@ import {MdDialogRef} from '@angular/material';
   template : `
     <md-card>
       <md-card-content>
-        {{text}}
+        {{text | translate}}
       </md-card-content>
       <md-card-actions class="custom-dialog__buttons">
-        <div (click)="ok()">OK</div>
+        <div (click)="ok()">{{button | translate}}</div>
       </md-card-actions>
     </md-card>
   `,
@@ -17,7 +17,8 @@ import {MdDialogRef} from '@angular/material';
 })
 export class MessageDialogComponent {
 
-  text: string = 'Are you sure?';
+  text: string = 'MESSAGEDIALOG_TITLE';
+  button: string = 'MESSAGEDIALOG_BUTTON';
 
   constructor(public dialogRef: MdDialogRef<MessageDialogComponent>) {}
 

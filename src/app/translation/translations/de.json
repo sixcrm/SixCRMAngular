@@ -835,6 +835,7 @@
     },
     "product": {
       "title": "Produkt",
+      "nodelete": "You can not delete this product as long as it is associated with a product schedule.",
       "index": {
         "title": "Produkte",
         "header": {
@@ -1514,6 +1515,10 @@
       "associate": "ASSOCIATE",
       "cancel": "CANCEL",
       "entity": "Entity"
+    },
+    "messagedialog": {
+      "title": "Are you sure?",
+      "button": "OK"
     },
     "inviteuser": {
       "title": "Neue Nutzer auf SIX einladen",

@@ -7,6 +7,7 @@ import {NavigationService} from '../../../navigation/navigation.service';
 import {MessageDialogComponent} from '../../message-dialog.component';
 import {MdDialog} from '@angular/material';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
+import {DeleteDialogComponent} from '../../delete-dialog.component';
 
 @Component({
   selector: 'product-view',
@@ -57,13 +58,9 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   deleteProduct(): void {
     if (this.canNotBeDeleted) {
-      this.showMessageDialog('You can not delete this product as long as it is associated with a product schedule.');
+      this.showMessageDialog('PRODUCT_NODELETE');
     } else {
-      this.service.entityDeleted$.take(1).takeUntil(this.unsubscribe$).subscribe(() => {
-        this.navigation.back();
-      });
-
-      this.service.deleteEntity(this.entity.id);
+      this.remove();
     }
   }
 
@@ -73,6 +70,22 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
     messageDialogRef.afterClosed().take(1).subscribe(() => {
       messageDialogRef = null;
+    });
+  }
+
+  remove(): void {
+    let deleteDialogRef = this.dialog.open(DeleteDialogComponent);
+
+    deleteDialogRef.afterClosed().takeUntil(this.unsubscribe$).subscribe(result => {
+      deleteDialogRef = null;
+
+      if (result && result.success) {
+        this.service.entityDeleted$.take(1).takeUntil(this.unsubscribe$).subscribe(() => {
+          this.navigation.back();
+        });
+
+        this.service.deleteEntity(this.entity.id);
+      }
     });
   }
 
