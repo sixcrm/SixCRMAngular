@@ -6,6 +6,8 @@ export class FulfillmentproviderData {
   threeplCustomerId: number;
   threeplId: number;
   threeplFacilityId: number;
+  apiKey: string;
+  apiSecret: number;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -19,6 +21,8 @@ export class FulfillmentproviderData {
     this.threeplCustomerId = obj.threepl_customer_id;
     this.threeplId = obj.threepl_id;
     this.threeplFacilityId = obj.threepl_facility_id;
+    this.apiKey = obj.api_key || '';
+    this.apiSecret = obj.api_secret || '';
   }
 
   copy(): FulfillmentproviderData {
@@ -33,7 +37,9 @@ export class FulfillmentproviderData {
       threepl_key: this.threeplKey,
       threepl_customer_id: this.threeplCustomerId,
       threepl_id: this.threeplId,
-      threepl_facility_id: this.threeplFacilityId
+      threepl_facility_id: this.threeplFacilityId,
+      api_key: this.apiKey,
+      api_secret: this.apiSecret
     }
   }
 }

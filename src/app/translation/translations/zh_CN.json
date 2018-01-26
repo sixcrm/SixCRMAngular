@@ -1350,6 +1350,8 @@
             "customerid": "客户ID",
             "facilityid": "设施ID",
             "threeplid": "ThreePL ID",
+            "apikey": "c API Key",
+            "apisecret": "c API Secret Key",
             "cancel": "取消",
             "save": "保存"
         },

@@ -1350,6 +1350,8 @@
 			"customerid": "Հաճախորդի ID",
 			"facilityid": "Հաստատության ID",
 			"threeplid": "ThreePL ID",
+      "apikey": "API Key",
+      "apisecret": "API Secret Key",
 			"cancel": "ՉԵՂԱՐԿԵԼ",
 			"save": "ՊԱՀՊԱՆԵԼ"
 		},

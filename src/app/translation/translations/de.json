@@ -1350,6 +1350,8 @@
         "customerid": "Kunde ID",
         "facilityid": "Facility ID",
         "threeplid": "ThreePL ID",
+        "apikey": "API Key",
+        "apisecret": "API Secret Key",
         "cancel": "ABBRECHEN",
         "save": "SPEICHERN"
       },

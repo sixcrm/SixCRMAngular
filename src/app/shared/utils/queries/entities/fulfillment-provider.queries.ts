@@ -47,7 +47,7 @@ export function updateFulfillmentProviderMutation(provider: FulfillmentProvider)
 }
 
 export function fulfillmentProviderResponseQuery(): string {
-  return `id, name, provider { ... on Hashtag { name, username, password, threepl_customer_id, threepl_key } ... on ThreePL { name, username, password, threepl_customer_id, threepl_key, threepl_id, threepl_facility_id }, ... on TestFulfillmentProvider {name} }, created_at, updated_at`;
+  return `id, name, provider { ... on Hashtag { name, username, password, threepl_customer_id, threepl_key } ... on ThreePL { name, username, password, threepl_customer_id, threepl_key, threepl_id, threepl_facility_id }, ... on TestFulfillmentProvider {name}, ... on ShipStation { name, api_key, api_secret } }, created_at, updated_at`;
 }
 
 export function validateFulfillmentProviderQuery(provider: FulfillmentProvider): string {
@@ -61,13 +61,18 @@ export function validateFulfillmentProviderQuery(provider: FulfillmentProvider):
 
 
 export function fulfillmentProviderInputQuery(provider: FulfillmentProvider, includeId?: boolean): string {
-  let hash = '';
-  if (provider.provider.name === 'ThreePL') {
-    hash = `, threepl_facility_id:${provider.provider.threeplFacilityId}, threepl_id:${provider.provider.threeplId}`
-  }
   let data = `name: "${provider.provider.name}"`;
-  if (provider.provider.name !== 'Test') {
-    data += `, username: "${provider.provider.username}", password: "${provider.provider.password}", threepl_customer_id: ${provider.provider.threeplCustomerId}, threepl_key: "${provider.provider.threeplKey}${hash}"`
+
+  if (provider.provider.name === 'ThreePL' || provider.provider.name === 'Hashtag') {
+    data += `, username: "${provider.provider.username}", password: "${provider.provider.password}", threepl_customer_id: ${provider.provider.threeplCustomerId}, threepl_key: "${provider.provider.threeplKey}"`;
+  }
+
+  if (provider.provider.name === 'ThreePL') {
+    data += `, threepl_facility_id:${provider.provider.threeplFacilityId}, threepl_id:${provider.provider.threeplId}`;
+  }
+
+  if (provider.provider.name === 'ShipStation') {
+    data += `, api_secret:"${provider.provider.apiSecret}", api_key:"${provider.provider.apiKey}"`;
   }
 
   return `${addId(provider.id, includeId)} name: "${provider.name}", provider: { ${data} }`;

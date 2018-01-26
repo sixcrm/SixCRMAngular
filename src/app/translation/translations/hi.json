@@ -1350,6 +1350,8 @@
       "customerid": "ग्राहक आईडी, ग्राहक पहचान",
       "facilityid": "सुविधा आईडी",
       "threeplid": "तीन एलएल आईडी",
+      "apikey": "API Key",
+      "apisecret": "API Secret Key",
       "cancel": "रद्द करना",
       "save": "बचाना"
     },

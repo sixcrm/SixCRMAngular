@@ -20,6 +20,7 @@ export class FulfillmentProviderAddNewComponent implements OnInit {
   modes = Modes;
   formInvalid: boolean;
   isNumeric = isAllowedNumeric;
+  providers = ['Hashtag', 'ThreePL', 'ShipStation', 'Test'];
 
   constructor() { }
 
