@@ -7,7 +7,7 @@ import {Response} from '@angular/http';
 import {TransactionOverview} from '../models/transaction-overview.model';
 import {TransactionSummary} from '../models/transaction-summary.model';
 import {
-  transactionSummaryQuery, transactionOverviewQuery, eventsFunelQuery,
+  transactionSummaryQuery, transactionOverviewQuery, eventsFunnelQuery,
   campaignDeltaQuery, eventsByAffiliateQuery, eventsSummaryQuery, transactionsByAffiliateQuery, campaignsByAmountQuery,
   activitiesByCustomer
 } from '../utils/queries/analytics.queries';
@@ -121,22 +121,29 @@ export class AnalyticsService {
       return;
     }
 
-    this.queryRequest(eventsFunelQuery(start, end), downloadFormat).subscribe(data => {
+    this.queryRequest(eventsFunnelQuery(start, end), downloadFormat).subscribe(data => {
       if (downloadFormat) {
         downloadFile(data, 'events-by', downloadFormat);
         return;
       }
 
-      const result = this.handleResponse(
-        data,
-        this.eventFunnel$,
-        (t: any) => new EventFunnel(t),
-        (data: any) => extractData(data).eventfunnel.funnel
-      );
+      if (data instanceof CustomServerError) {
+        this.eventFunnel$.next(data);
 
-      if (result) {
-        this.analyticsStorage.setEventFunnel(start, end, result);
+        return;
       }
+
+      let extracted = extractData(data).eventfunnel.funnel;
+      let transformed = {};
+
+      for (let i = 0; i < extracted.length; i++) {
+        transformed[extracted[i].name] = extracted[i];
+      }
+
+      const funnel = new EventFunnel(transformed);
+
+      this.eventFunnel$.next(funnel);
+      this.analyticsStorage.setEventFunnel(start, end, funnel);
     })
   }
 

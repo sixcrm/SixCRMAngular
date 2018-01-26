@@ -14,16 +14,10 @@ export function transactionSummaryQuery(start: string, end: string, filterTerms:
 	}`
 }
 
-export function eventsFunelQuery(start: string, end: string): string {
+export function eventsFunnelQuery(start: string, end: string): string {
   return `{
 		eventfunnel (analyticsfilter:{${dateRange(start, end)}}) {
-			funnel {
-				click { count percentage relative_percentage }
-				lead { count percentage relative_percentage }
-				main { count percentage relative_percentage }
-				upsell { count percentage relative_percentage }
-				confirm { count percentage relative_percentage }
-			}
+			funnel {name, count, percentage, relative_percentage}
 		}}`;
 }
 
