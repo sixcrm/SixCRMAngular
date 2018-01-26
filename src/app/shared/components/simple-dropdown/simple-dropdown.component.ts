@@ -8,8 +8,17 @@ import {Component, OnInit, Input, Output, EventEmitter, ElementRef} from '@angul
 })
 export class SimpleDropdownComponent implements OnInit {
 
+  _options: any[];
+  width: string = '100px';
+
   @Input() selectedOption: any;
-  @Input() options: any[];
+  @Input() set options(values: any[]) {
+    if (values && values.length > 0) {
+      this.calculateWidth(values);
+    }
+
+    this._options = (values || []).slice();
+  }
   @Input() icon: string;
   @Input() mapper: (element: any) => string = (element: any) => element;
   @Input() small: boolean;
@@ -48,8 +57,35 @@ export class SimpleDropdownComponent implements OnInit {
   }
 
   getOptions(): any[] {
-    if (!this.options) return [];
+    if (!this._options) return [];
 
-    return this.options.filter(el => this.mapper(el) !== this.mapper(this.selectedOption))
+    return this._options.filter(el => this.mapper(el) !== this.mapper(this.selectedOption))
+  }
+
+  calculateWidth(options: any[]) {
+    if (!options || options.length === 0) return;
+
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    context.font = '14px';
+
+    let max = 0;
+    let temp;
+
+    for (let i = 0; i < options.length; i++) {
+      let text = this.mapper(options[i]);
+      temp = context.measureText(text).width * 1.61;
+
+      if (temp > max) {
+        max = temp;
+      }
+
+    }
+
+    this.width = (max - 40) + 'px';
+  }
+
+  getWidth(): string {
+    return this.width;
   }
 }
