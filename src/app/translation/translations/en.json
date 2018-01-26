@@ -1132,7 +1132,7 @@
     },
     "tab": {
       "general": "GENERAL DETAILS",
-      "affiliate": "AFFILAITES",
+      "affiliate": "AFFILIATES",
       "campaign": "CAMPAIGNS"
     },
     "info": {
@@ -1189,7 +1189,7 @@
     },
     "tab": {
       "general": "GENERAL DETAILS",
-      "affiliate": "AFFILAITES"
+      "affiliate": "AFFILIATES"
     },
     "customer": {
       "title": "Customer Information",
