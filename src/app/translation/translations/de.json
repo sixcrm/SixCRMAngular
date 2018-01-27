@@ -57,9 +57,9 @@
         "bill": "Rechnungen",
         "role": "Nutzerrolllen",
         "key": {
-          "title": "API Keys",
-          "signingstring": "User Signing Strings",
-          "accesskey": "Access Keys"
+          "title": "API Schlüssel",
+          "signingstring": "Nutzer Signing Strings",
+          "accesskey": "Zugriffsschlüssel"
         },
         "documentation": {
           "title": "Dokumentation",
@@ -97,7 +97,7 @@
         "view": "AKTUELLE SICHT DIESER REIHE",
         "downstream": "NÄCHSTE REIHE",
         "nodata": "Unzureichende Dateien",
-        "livepolling": "Live Polling"
+        "livepolling": "Aktuelle Polling"
       },
       "rebills": {
         "snack": {
@@ -315,7 +315,7 @@
         "title": "Vorfälle",
         "subtitle": "Zusammenfassung den Vorfällen",
         "nodata": "Keine Vorfälle gefunden",
-        "confirm": "Confirm",
+        "confirm": "Bestätigungen",
         "upsell": "Zusatzverkauf",
         "lead": "Lead",
         "order": "Auftrag",
@@ -440,7 +440,7 @@
         "subtitle": "Aktuelle Infos",
         "nodata": "Keine Händler gefunden",
         "dollar": "Dollar",
-        "revenue": "Sale Gross Revenue"
+        "revenue": "Umsatzerlös"
       }
     },
     "affiliatereport": {
@@ -487,7 +487,7 @@
         "sku": "Lagerhaltungsnummer",
         "name": "Name",
         "response": "Antwortmeldung des Zahlungsprozessors",
-        "status": "Receipt Status",
+        "status": "Status des Beleges",
         "merchantprovider": "Merchant Anbieter",
         "fulfillmentprovider": "Fulfillment Anbieter",
         "ship": "Versand",
@@ -501,7 +501,7 @@
         "price": "Preis",
         "id": "ID"
       },
-      "filter": "Filter Results",
+      "filter": "Resultate filtern",
       "category": "Kategorie",
       "refined": "VERFEINERTE SUCHRESULTATE",
       "reset": "SUCHE ZURÜCKSTELLEN",
@@ -547,8 +547,8 @@
           "schedules": "Produktzyklen"
         },
         "merchantprovider": {
-          "title": "Merchant Provider Info",
-          "enabled": "Enabled",
+          "title": "Merchant Anbieter Infos",
+          "enabled": "Aktiv",
           "allowprepaid": "Allow Prepaid",
           "gatewayname": "Gateway Name",
           "gatewaytype": "Gateway Type"
@@ -787,7 +787,7 @@
       }
     },
     "creditcard": {
-      "title": "Credit Card"
+      "title": "Kreditkarte"
     },
     "bill": {
       "index": {
@@ -826,7 +826,7 @@
         "cancel": "ABBRECHEN",
         "save": "SPEICHERN",
         "additem": {
-          "title": "Add New Item",
+          "title": "Neue Einheit hinzufügen",
           "save": "Speichern",
           "cancel": "Abbrechen"
         }
@@ -835,7 +835,7 @@
     },
     "product": {
       "title": "Produkt",
-      "nodelete": "You can not delete this product as long as it is associated with a product schedule.",
+      "nodelete": "Sie können dieses Produkt nicht löschen, solange es mit einem Produktzyklus verbunden ist.",
       "index": {
         "title": "Produkte",
         "header": {
@@ -986,7 +986,7 @@
         "title": "Verbundene Produktzyklen",
         "nodata": "Keine Produktzyklen gefunden.",
         "name": "Name",
-        "productnumber": "Products in Schedule",
+        "productnumber": "Produkte des Zyklus",
         "add": "Verbundene Produktzyklen",
         "addtext": "Produktzyklus auswählen",
         "addbutton": "Produktzyklus Hinzufügen",
@@ -1002,7 +1002,7 @@
         "nodata": "Keine gültige Vertriebspartner gefunde.",
         "add": "Vertriebspartner auf diese liste hinzufügen",
         "addtext": "Vertriebspartner auswählen",
-        "addbutton": "ADD",
+        "addbutton": "HINZUFÜGEN",
         "view": "Vertriebspartner ansehen",
         "remove": "Vertriebspartner von dieser Liste lösen",
         "removetext": "Sind Sie sicher, dass Sie diesen Vertriebspartner von dieser Liste lösen wollen?"
@@ -1053,8 +1053,8 @@
       },
       "token": {
         "title": "Zeichen (Tokens)",
-        "subtitle": "Choose any of the following tokens to add into your Mailvorlage",
-        "type": "Event Type",
+        "subtitle": "Bitte wählen Sie eine die folgenden Zeichen aus, die Sie zu Ihre Mailvorlage hinzufügen wollen.",
+        "type": "Variante",
         "search": "Suchen"
       },
       "preview": {
@@ -1394,12 +1394,12 @@
         "save": "SPEICHERN"
       },
       "emailtemplate": {
-        "title": "Associated Email Templates",
+        "title": "Verbundene Mailvorlagen",
         "name": "Name",
-        "subject": "Subject",
-        "type": "Type",
-        "view": "View Email Template",
-        "nodata": "No Email Templates found"
+        "subject": "Betreff",
+        "type": "Typ",
+        "view": "Mailvorlage ansehen",
+        "nodata": "Keine Mailvorlagen gefunden."
       },
       "validate": {
         "title": "SMTP Anbieter bestätigen",
@@ -1437,7 +1437,7 @@
         "merchant": "Merchant Anbieter",
         "add": "HINZUFÜGEN",
         "clear": "KLÄREN",
-        "title": "Associated Merchant Anbieter",
+        "title": "Verbündete Merchant Anbieter",
         "view": "Merchant Anbieter ansehen",
         "edit": "Verteilung aktualisieren",
         "disassociate": "Merchant Anbieter lösen",
@@ -1508,19 +1508,19 @@
       }
     },
     "deletedialog": {
-      "text": "Sind sie sicher, dass sie löschen wollen?",
-      "del": "LÖSEN",
+      "text": "Sind Sie sicher, dass Sie löschen wollen?",
+      "del": "LÖSCHEN",
       "cancel": "ABBRECHEN"
     },
     "associatedialog": {
-      "text": "Select entity to associate",
-      "associate": "ASSOCIATE",
-      "cancel": "CANCEL",
-      "entity": "Entity"
+      "text": "Wählen Sie eine zu verbündene Einheit aus",
+      "associate": "VERBÜNDEN",
+      "cancel": "ABBRECHEN",
+      "entity": "Einheit"
     },
     "messagedialog": {
-      "title": "Are you sure?",
-      "button": "OK"
+      "title": "Sind Sie Sicher?",
+      "button": "JA"
     },
     "inviteuser": {
       "title": "Neue Nutzer auf SIX einladen",
@@ -1539,7 +1539,7 @@
         "title": "Herzlich Wilkommen!",
         "subtitle": "Wir freuen uns, dass Sie dabei sind!",
         "text": "Um Ihren 90-Tägigen Testzeit anzufangen, bitte geben sie Ihren Fimrmenname, Vorname und Nachname ein.",
-        "company": "Company Name",
+        "company": "Firma",
         "firstname": "Vorname",
         "lastname": "Nachname",
         "cont": "Weiter"
@@ -1575,44 +1575,44 @@
       }
     },
     "share": {
-      "title": "Share",
-      "copy": "Copy to clipboard"
+      "title": "Verteilen",
+      "copy": "In der Zwischenablage kopieren"
     },
     "pagination": {
-      "rowsperpage": "Rows per page"
+      "rowsperpage": "Reihe pro Seite"
     },
     "snack": {
-      "error": "Error occured, please try again",
-      "updated": "Updated Successfully!",
-      "created": "Created Successfully!",
-      "deleted": "Deleted Successfully!"
+      "error": "Fehler erkannt! Bitte nochmal versuchen.",
+      "updated": "Erfolgreich aktualisiert!",
+      "created": "Erfoglreich erschafft!",
+      "deleted": "Erfolgreich gelöscht!"
     },
     "datepicker": {
-      "apply": "Apply",
-      "cancel": "Cancel",
+      "apply": "Bestätigen",
+      "cancel": "Abbrechcen",
       "jan": "Jan",
       "feb": "Feb",
-      "mar": "Mar",
+      "mar": "Mär",
       "apr": "Apr",
-      "may": "May",
-      "jun": "June",
-      "jul": "July",
+      "may": "Mai",
+      "jun": "Juni",
+      "jul": "Juli",
       "aug": "Aug",
       "sep": "Sept",
-      "oct": "Oct",
+      "oct": "Okt",
       "nov": "Nov",
-      "dec": "Dec",
+      "dec": "Dez",
       "mon": "Mo",
-      "tue": "Tu",
-      "wed": "We",
-      "thu": "Th",
+      "tue": "Di",
+      "wed": "Mi",
+      "thu": "Do",
       "fri": "Fr",
       "sat": "Sa",
-      "sun": "Su",
-      "today": "Today",
-      "yesterday": "Yesterday",
-      "day7": "Last 7 days",
-      "day30": "Last 30 days",
-      "custom": "Custom"
+      "sun": "So",
+      "today": "Heute",
+      "yesterday": "Gestern",
+      "day7": "Vorige 7 Tage",
+      "day30": "Vorige 30 Tage",
+      "custom": "Maßgefertigt"
     }
   }
