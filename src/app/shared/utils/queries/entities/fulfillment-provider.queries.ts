@@ -54,7 +54,7 @@ export function validateFulfillmentProviderQuery(provider: FulfillmentProvider):
   return `
     mutation {
       fulfillmentprovidervalidation ( id: "${provider.id}" ) {
-        response
+        code vendor_response
       }
     }`
 }

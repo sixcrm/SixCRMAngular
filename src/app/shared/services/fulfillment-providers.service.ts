@@ -41,7 +41,7 @@ export class FulfillmentProvidersService extends AbstractEntityService<Fulfillme
         return;
       }
 
-      const json = extractData(data).fulfillmentprovidervalidation.response;
+      const json = extractData(data).fulfillmentprovidervalidation;
 
       this.validationResponse$.next(json);
     });
