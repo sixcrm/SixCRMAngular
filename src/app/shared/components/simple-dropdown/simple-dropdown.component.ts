@@ -86,6 +86,10 @@ export class SimpleDropdownComponent implements OnInit {
   }
 
   getWidth(): string {
-    return this.width;
+    if (this.dropdownVisible) {
+      return this.width;
+    }
+
+    return '0px';
   }
 }

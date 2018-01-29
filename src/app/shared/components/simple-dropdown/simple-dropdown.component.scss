@@ -36,6 +36,10 @@
     padding: 0 10px;
     height: 70px;
 
+    &__value {
+      transition: min-width 0.25s ease-in-out;
+    }
+
     &__icon {
       color: #9B9A9B;
       margin-right: 8px;
