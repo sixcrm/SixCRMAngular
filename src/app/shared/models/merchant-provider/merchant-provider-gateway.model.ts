@@ -28,6 +28,7 @@ export class MerchantProviderGateway {
     this.productId = this.isInnovio() ? obj.product_id : '';
     this.username = obj.username || '';
     this.password = obj.password || '';
+    this.apiKey = obj.api_key || '';
   }
 
   isNMI() {
