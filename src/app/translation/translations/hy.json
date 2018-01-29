@@ -1313,7 +1313,6 @@
 		},
 		"info": {
 			"title": "Առաքման ստացականի մանրամասներ",
-			"status": "Վիճակ",
 			"number": "Հետագծման համար",
       "carrier": "Tracking Carrier",
       "fulfillmentprovider": "Ծառայության մատակարար",
@@ -1321,7 +1320,14 @@
 		},
 		"history": {
 			"title": "Առաքման ստացականի վիճակի պատմություն"
-		}
+		},
+    "status": {
+      "pending": "Pending",
+      "unknown": "Unknown",
+      "intransit": "In Transit",
+      "delivered": "Delivered",
+      "returned": "Returned"
+    }
 	},
 	"fulfillment": {
 		"title": "Ծառայության մատակարար",

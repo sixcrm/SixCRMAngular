@@ -1313,7 +1313,6 @@
       },
       "info": {
         "title": "Posteinlieferungsschein",
-        "status": "Status",
         "number": "Sendungsnummer",
         "carrier": "Tracking Carrier",
         "fulfillmentprovider": "Fulfillment Anbieter",
@@ -1321,6 +1320,13 @@
       },
       "history": {
         "title": "Geschichte der Posteinlieferungsschein"
+      },
+      "status": {
+        "pending": "Pending",
+        "unknown": "Unknown",
+        "intransit": "In Transit",
+        "delivered": "Delivered",
+        "returned": "Returned"
       }
     },
     "fulfillment": {

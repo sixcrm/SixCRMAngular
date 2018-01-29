@@ -1313,7 +1313,6 @@
     },
     "info": {
       "title": "Shipping Receipt Details",
-      "status": "Status",
       "number": "Tracking ID",
       "carrier": "Tracking Carrier",
       "fulfillmentprovider": "Fulfillment Provider",
@@ -1321,6 +1320,13 @@
     },
     "history": {
       "title": "Shipping Receipt State History"
+    },
+    "status": {
+      "pending": "Pending",
+      "unknown": "Unknown",
+      "intransit": "In Transit",
+      "delivered": "Delivered",
+      "returned": "Returned"
     }
   },
   "fulfillment": {

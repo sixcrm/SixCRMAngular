@@ -1313,7 +1313,6 @@
     },
     "info": {
       "title": "नौवहन रसीद विवरण",
-      "status": "स्थिति",
       "number": "ट्रैकिंग आईडी",
       "carrier": "ट्रैकिंग कैरियर",
       "fulfillmentprovider": "पूर्ति प्रदाता",
@@ -1321,6 +1320,13 @@
     },
     "history": {
       "title": "नौवहन रसीद राज्य इतिहास"
+    },
+    "status": {
+      "pending": "Pending",
+      "unknown": "Unknown",
+      "intransit": "In Transit",
+      "delivered": "Delivered",
+      "returned": "Returned"
     }
   },
   "fulfillment": {

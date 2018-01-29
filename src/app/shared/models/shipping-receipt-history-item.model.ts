@@ -17,6 +17,23 @@ export class ShippingReceiptHistoryItem {
     this.createdAt = utc(obj.created_at);
   }
 
+  parseStatus(): string {
+    switch (this.status) {
+      case 'pending':
+        return 'SHIPPINGRECEIPT_STATUS_PENDING';
+      case 'intransit':
+        return 'SHIPPINGRECEIPT_STATUS_INTRANSIT';
+      case 'delivered':
+        return 'SHIPPINGRECEIPT_STATUS_DELIVERED';
+      case 'returned':
+        return 'SHIPPINGRECEIPT_STATUS_RETURNED';
+      case 'unknown':
+        return 'SHIPPINGRECEIPT_STATUS_UNKNOWN';
+      default:
+        return this.status
+    }
+  }
+
   copy(): ShippingReceiptHistoryItem {
     return new ShippingReceiptHistoryItem(this.inverse());
   }

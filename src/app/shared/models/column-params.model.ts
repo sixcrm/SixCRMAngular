@@ -9,6 +9,7 @@ export class ColumnParams<T> {
   color: string;
   copy: boolean;
   number: boolean;
+  translate: boolean;
 
   constructor(label?: string, mappingFunction?: (e: T) => string | number, align?: string, order?: string, applied?: boolean) {
     this.label = label;
@@ -38,6 +39,12 @@ export class ColumnParams<T> {
 
   setNumberOption(value: boolean) {
     this.number = value;
+
+    return this;
+  }
+
+  setTranslateOption(value: boolean) {
+    this.translate = value;
 
     return this;
   }

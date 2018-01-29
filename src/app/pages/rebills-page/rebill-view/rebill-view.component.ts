@@ -52,7 +52,7 @@ export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> imp
     let f = this.authService.getTimezone();
 
     this.shippingReceiptColumnParams = [
-      new ColumnParams('REBILL_SHIPPINGRECEIPT_STATUS', (e: ShippingReceipt) => e.status),
+      new ColumnParams('REBILL_SHIPPINGRECEIPT_STATUS', (e: ShippingReceipt) => e.parseStatus()).setTranslateOption(true),
       new ColumnParams('REBILL_SHIPPINGRECEIPT_TRACKINGNUMBER',(e: ShippingReceipt) => e.tracking.id).setCopyOption(true),
       new ColumnParams('REBILL_SHIPPINGRECEIPT_CREATED', (e: ShippingReceipt) => e.createdAt.tz(f).format('MM/DD/YYYY')),
       new ColumnParams('REBILL_SHIPPINGRECEIPT_UPDATED', (e: ShippingReceipt) => e.updatedAt.tz(f).format('MM/DD/YYYY'))

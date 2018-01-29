@@ -34,10 +34,6 @@
           </div>
 
           <div class="entity-view__card__content">
-            <md-input-container class="entity-view__card__content__item">
-              <input md-input disabled placeholder="{{'SHIPPINGRECEIPT_INFO_STATUS' | translate}}" [(ngModel)]="entity.status" type="text">
-            </md-input-container>
-
             <div class="flex-custom">
               <md-input-container class="entity-view__card__content__item number-input">
                 <input md-input disabled placeholder="{{'SHIPPINGRECEIPT_INFO_NUMBER' | translate}}" [(ngModel)]="entity.tracking.id" type="text">
@@ -75,7 +71,7 @@
               </div>
 
               <div class="info-container">
-                <div class="name">{{event.status}}</div>
+                <div class="name">{{event.parseStatus() | translate}}</div>
                 <div class="time" *ngIf="event.createdAt">
                   {{event.createdAt.format('MM/DD/YYYY h:mm a')}}
                 </div>

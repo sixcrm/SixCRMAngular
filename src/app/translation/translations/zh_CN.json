@@ -1313,7 +1313,6 @@
         },
         "info": {
             "title": "运输收据明细",
-            "status": "状态",
             "number": "跟踪号码",
             "carrier": "Tracking Carrier",
             "fulfillmentprovider": "履行供应商",
@@ -1321,6 +1320,13 @@
         },
         "history": {
             "title": "运输收据状态历史"
+        },
+        "status": {
+            "pending": "Pending",
+            "unknown": "Unknown",
+            "intransit": "In Transit",
+            "delivered": "Delivered",
+            "returned": "Returned"
         }
     },
     "fulfillment": {
