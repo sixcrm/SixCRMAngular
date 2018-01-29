@@ -2,6 +2,7 @@ export enum MerchantProviderGatewayType {
   NMI,
   Innovio,
   Test,
+  Stripe,
   Other
 }
 
@@ -13,6 +14,7 @@ export class MerchantProviderGateway {
   productId: string;
   username: string;
   password: string;
+  apiKey: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -40,8 +42,12 @@ export class MerchantProviderGateway {
     return this.type === MerchantProviderGatewayType.Test;
   }
 
+  isStripe() {
+    return this.type === MerchantProviderGatewayType.Stripe;
+  }
+
   isTypeSelected() {
-    return this.isTest() || this.isInnovio() || this.isNMI();
+    return this.isTest() || this.isInnovio() || this.isNMI() || this.isStripe();
   }
 
   getType() {
@@ -54,6 +60,9 @@ export class MerchantProviderGateway {
     if (this.isTest())
       return 'Test';
 
+    if (this.isStripe())
+      return 'Stripe';
+
     return '';
   }
 
@@ -64,6 +73,8 @@ export class MerchantProviderGateway {
       this.type = MerchantProviderGatewayType.Innovio;
     else if (type === 'Test')
       this.type = MerchantProviderGatewayType.Test;
+    else if (type === 'Stripe')
+      this.type = MerchantProviderGatewayType.Stripe;
     else
       this.type = MerchantProviderGatewayType.Other;
   }
@@ -80,6 +91,7 @@ export class MerchantProviderGateway {
       product_id: this.productId,
       username: this.username,
       password: this.password,
+      api_key: this.apiKey
     }
   }
 }

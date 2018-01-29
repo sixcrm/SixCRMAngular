@@ -1496,7 +1496,8 @@
         "processorid": "प्रोसेसर आईडी",
         "productid": "उत्पाद आइ डि",
         "username": "उपयोगकर्ता नाम",
-        "password": "पारण शब्द"
+        "password": "पारण शब्द",
+        "apikey": "API Key"
       },
       "service": {
         "title": "ग्राहक सेवा",

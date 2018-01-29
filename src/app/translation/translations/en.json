@@ -1496,7 +1496,8 @@
         "processorid": "Processor ID",
         "productid": "Product ID",
         "username": "Username",
-        "password": "Password"
+        "password": "Password",
+        "apikey": "API Key"
       },
       "service": {
         "title": "Customer Service",

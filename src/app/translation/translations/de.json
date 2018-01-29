@@ -1496,7 +1496,8 @@
           "processorid": "Zahlungsprozessor-ID",
           "productid": "Produkt-ID",
           "username": "Benutzername",
-          "password": "Passwort"
+          "password": "Passwort",
+          "apikey": "API Key"
         },
         "service": {
           "title": "Kundenbetreuung",

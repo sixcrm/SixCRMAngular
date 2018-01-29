@@ -34,7 +34,7 @@ export class MerchantProviderAddNewComponent implements OnInit {
   mask = getPhoneNumberMask();
 
   allCreditCards: string[] = ['American Express', 'Mastercard', 'Visa', 'LOCAL CARD'];
-  allProviders: string[] = ['NMI', 'Innovio', 'Test'];
+  allProviders: string[] = ['NMI', 'Innovio', 'Test', 'Stripe'];
 
   constructor() { }
 

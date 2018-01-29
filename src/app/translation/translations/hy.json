@@ -1496,8 +1496,9 @@
 				"processorid": "Մշակիչի ID",
 				"productid": "Ապրանքի ID",
 				"username": "Օգտվողի անուն",
-				"password": "Գաղտնաբառ"
-			},
+				"password": "Գաղտնաբառ",
+        "apikey": "API Key"
+      },
 			"service": {
 				"title": "Հաճախորդի ծառայություն",
 				"uri": "URI",

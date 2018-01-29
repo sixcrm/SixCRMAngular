@@ -106,6 +106,10 @@
         <md-input-container *ngIf="entity.gateway.isNMI() || entity.gateway.isInnovio()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.password && (entity.gateway.isNMI() || entity.gateway.isInnovio())">
           <input [required]="entity.gateway.isNMI() || entity.gateway.isInnovio()" [disabled]="mode === modes.View" md-input placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_PASSWORD' | translate}}" name="password" [(ngModel)]="entity.gateway.password" type="text">
         </md-input-container>
+
+        <md-input-container *ngIf="entity.gateway.isStripe()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.apiKey">
+          <input required [disabled]="mode === modes.View" md-input placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_APIKEY' | translate}}" name="apikey" [(ngModel)]="entity.gateway.apiKey" type="text">
+        </md-input-container>
       </ng-container>
     </div>
   </div>

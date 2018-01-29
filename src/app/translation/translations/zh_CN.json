@@ -1496,7 +1496,8 @@
                 "processorid": "处理器ID",
                 "productid": "产品编号",
                 "username": "用户名",
-                "password": "密码"
+                "password": "密码",
+                "apikey": "API Key"
             },
             "service": {
                 "title": "客户服务",
