@@ -1621,5 +1621,15 @@
       "day7": "Vorige 7 Tage",
       "day30": "Vorige 30 Tage",
       "custom": "Maßgefertigt"
+    },
+    "errorpage": {
+      "title": "Strong Effort.",
+      "subtitle1": "It looks like something broke on our end,",
+      "subtitle2": "or the page you are looking for doesn't exist.",
+      "support": "If you think you found this page in error please contact"
+    },
+    "comingsoon": {
+      "title1": "FEATURE",
+      "title2": "IN DEVELOPMENT"
     }
   }

@@ -1621,5 +1621,15 @@
     "day7": "过去七天",
     "day30": "过去三十天",
     "custom": "定制"
+  },
+  "errorpage": {
+    "title": "Strong Effort.",
+    "subtitle1": "It looks like something broke on our end,",
+    "subtitle2": "or the page you are looking for doesn't exist.",
+    "support": "If you think you found this page in error please contact"
+  },
+  "comingsoon": {
+    "title1": "FEATURE",
+    "title2": "IN DEVELOPMENT"
   }
 }
