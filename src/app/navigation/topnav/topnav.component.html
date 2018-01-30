@@ -33,9 +33,9 @@
     <ng-container *ngIf="authService.activeAcl$ | async">
       <simple-dropdown
         class="topnav__acl__dropdown"
+        [mapper]="mapAcl"
         [selectedOption]="authService.activeAcl$ | async"
         [options]="authService.getAcls()"
-        [mapper]="mapAcl"
         [icon]="'domain'"
         (optionSelected)="changeAcl($event)">
       </simple-dropdown>

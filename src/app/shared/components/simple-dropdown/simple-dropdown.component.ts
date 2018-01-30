@@ -11,6 +11,7 @@ export class SimpleDropdownComponent implements OnInit {
   _options: any[];
   width: string = '100px';
 
+  @Input() mapper: (element: any) => string = (element: any) => element;
   @Input() selectedOption: any;
   @Input() set options(values: any[]) {
     if (values && values.length > 0) {
@@ -20,7 +21,6 @@ export class SimpleDropdownComponent implements OnInit {
     this._options = (values || []).slice();
   }
   @Input() icon: string;
-  @Input() mapper: (element: any) => string = (element: any) => element;
   @Input() small: boolean;
   @Output() optionSelected: EventEmitter<any> = new EventEmitter();
 
