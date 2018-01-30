@@ -74,12 +74,11 @@ export function rebillInfoResponseQuery(): string {
   return `id bill_at amount created_at updated_at`
 }
 
-export function rebillListByState(queueName: string, limit?: number, cursor?: string): string {
+export function rebillListByState(queueName: string, limit?: number, offset?: number): string {
   return `
-    query {rebilllistbystate (state:"${queueName}" ${paginationParamsQuery(limit, cursor, true)}){
-		  rebills { id, bill_at, amount, created_at, updated_at },
-		  pagination {count, end_cursor, has_next_page}}
-    }`
+    query {rebillsinqueue (pagination: { limit: ${limit || 10}, offset: ${offset || 0} }, queuename:"${queueName}"){
+		  rebills { id, bill_at, amount, created_at, updated_at }
+    }}`
 }
 
 export function rebillInputQuery(rebill: Rebill, includeId?: boolean): string {

@@ -52,11 +52,13 @@ export class StateMachineRebillsComponent extends AbstractEntityIndexComponent<R
       new ColumnParams('ORDERENGINE_REBILLS_CREATED', (e: Rebill) => e.createdAt.tz(f).format('MM/DD/YYYY')),
       new ColumnParams('ORDERENGINE_REBILLS_AMOUNT', (e: Rebill) => e.amount.usd(), 'right').setNumberOption(true)
     ];
+
+    this.limit = 100;
   }
 
   reinit(): void {
     this.resetEntities();
-    this.service.indexQuery = (limit, cursor) => rebillListByState(this.queue, limit, cursor);
+    this.service.indexQuery = (limit, cursor) => rebillListByState(this.queue, limit, this.entitiesHolder.length);
     this.refreshData();
   }
 
