@@ -22,33 +22,47 @@
   <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>
 
-      <div class="entity-view__card campaign-view__card">
-        <div class="entity-view__card__header">
-          <div class="entity-view__card__header__title">{{'REBILL_INFO_TITLE' | translate}}</div>
-          <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-          <md-menu #actionsMenu="mdMenu" x-position="before">
-            <button md-menu-item (click)="goToCustomer()">{{'REBILL_INFO_CUSTOMERVIEW' | translate}}</button>
-            <button md-menu-item (click)="goToSession()">{{'REBILL_INFO_SESSIONVIEW' | translate}}</button>
-          </md-menu>
+      <div class="flex-custom">
+        <div class="entity-view__card campaign-view__card">
+          <div class="entity-view__card__header">
+            <div class="entity-view__card__header__title">{{'REBILL_INFO_TITLE' | translate}}</div>
+            <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
+            <md-menu #actionsMenu="mdMenu" x-position="before">
+              <button md-menu-item (click)="goToCustomer()">{{'REBILL_INFO_CUSTOMERVIEW' | translate}}</button>
+              <button md-menu-item (click)="goToSession()">{{'REBILL_INFO_SESSIONVIEW' | translate}}</button>
+            </md-menu>
+          </div>
+
+          <div class="entity-view__card__content">
+            <md-input-container style="width: 120px;" class="entity-view__card__content__item">
+              <input disabled md-input placeholder="{{'REBILL_INFO_BILLED' | translate}}" [(ngModel)]="billdate" type="text">
+            </md-input-container>
+
+            <md-input-container style="width: 120px;" class="entity-view__card__content__item">
+              <input disabled md-input placeholder="{{'REBILL_INFO_AMOUNT' | translate}}" [(ngModel)]="billamount" type="text">
+            </md-input-container>
+
+            <md-input-container class="entity-view__card__content__item">
+              <input disabled md-input placeholder="{{'REBILL_INFO_PARENTSESSION' | translate}}" [(ngModel)]="entity.parentSession.id" type="text">
+            </md-input-container>
+
+            <md-input-container class="entity-view__card__content__item">
+              <input disabled md-input placeholder="{{'REBILL_INFO_CUSTOMER' | translate}}" [(ngModel)]="customername" type="text">
+            </md-input-container>
+          </div>
         </div>
 
-        <div class="entity-view__card__content">
-          <md-input-container style="width: 120px;" class="entity-view__card__content__item">
-            <input disabled md-input placeholder="{{'REBILL_INFO_BILLED' | translate}}" [(ngModel)]="billdate" type="text">
-          </md-input-container>
-
-          <md-input-container style="width: 120px;" class="entity-view__card__content__item">
-            <input disabled md-input placeholder="{{'REBILL_INFO_AMOUNT' | translate}}" [(ngModel)]="billamount" type="text">
-          </md-input-container>
-
-          <md-input-container class="entity-view__card__content__item">
-            <input disabled md-input placeholder="{{'REBILL_INFO_PARENTSESSION' | translate}}" [(ngModel)]="entity.parentSession.id" type="text">
-          </md-input-container>
-
-          <md-input-container class="entity-view__card__content__item">
-            <input disabled md-input placeholder="{{'REBILL_INFO_CUSTOMER' | translate}}" [(ngModel)]="customername" type="text">
-          </md-input-container>
-        </div>
+        <table-memory
+          [data]="entity.productSchedules"
+          [columnParams]="productScheduleColumnParams"
+          [textOptions]="productScheduleText"
+          [associationEnabled]="false"
+          [editEnabled]="false"
+          [viewEnabled]="true"
+          [dissociationEnabled]="false"
+          [showMenuOptions]="false"
+          (view)="goToProductSchedule($event)">
+        </table-memory>
       </div>
 
     </md-tab>
@@ -70,5 +84,5 @@
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="2" [numberOfCards]="1" [title]="'REBILL_TITLE' | translate"></spe-loader>
+  <spe-loader [numberOfTabs]="2" [cardsExpression]="'300px;480px'" [title]="'REBILL_TITLE' | translate"></spe-loader>
 </ng-template>

@@ -863,7 +863,8 @@
       "del": "Delete Product",
       "cancel": "CANCEL",
       "update": "UPDATE",
-      "create": "CREATE"
+      "create": "CREATE",
+      "viewfulfillmentprovider": "View Fulfillment Provider"
     },
     "schedules": {
       "title": "Product Schedules",
@@ -905,7 +906,8 @@
       "loadbalancer": "Load Balancer",
       "cancel": "CANCEL",
       "save": "SAVE",
-      "edit": "Edit Product Schedule"
+      "edit": "Edit Product Schedule",
+      "viewloadbalancer": "View Load Balancer"
     },
     "cycle": {
       "addtitle": "Add Cycle",
@@ -1049,7 +1051,8 @@
       "subject": "Subject",
       "body": "Email ",
       "cancel": "CANCEL",
-      "save": "SAVE"
+      "save": "SAVE",
+      "viewsmtpprovider": "View SMTP Provider"
     },
     "token": {
       "title": "Tokens",
@@ -1295,6 +1298,13 @@
       "trackingnumber": "Tracking Number",
       "created": "Created At",
       "updated": "Updated At"
+    },
+    "productschedule": {
+      "title": "Associated Product Schedules",
+      "nodata": "No Product Schedules found.",
+      "name": "Name",
+      "loadbalancer": "Load Balancer",
+      "count": "Number of cycles"
     }
   },
   "shippingreceipt": {

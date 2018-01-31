@@ -863,8 +863,9 @@
 			"del": "Ջնջել ապրանքը",
 			"cancel": "ՉԵՂԱՐԿԵԼ",
 			"update": "ԹԱՐՄԱՑՆԵԼ",
-			"create": "ՍՏԵՂԾԵԼ"
-		},
+			"create": "ՍՏԵՂԾԵԼ",
+      "viewfulfillmentprovider": "View Fulfillment Provider"
+    },
 		"schedules": {
 			"title": "Ապրանքի հերթացուցակներ",
 			"name": "Անուն",
@@ -905,8 +906,9 @@
 			"loadbalancer": "Բեռի հավասարակշռող",
 			"cancel": "ՉԵՂԱՐԿԵԼ",
 			"save": "ՊԱՀՊԱՆԵԼ",
-			"edit": "Խմբագրել ապրանքի հերթացուցակը"
-		},
+			"edit": "Խմբագրել ապրանքի հերթացուցակը",
+      "viewloadbalancer": "View Load Balancer"
+    },
 		"cycle": {
 			"addtitle": "Ավելացնել ցիկլ",
 			"edittitle": "Խմբագրել ցիկլը",
@@ -1049,8 +1051,9 @@
 			"subject": "Վերնագիր",
 			"body": "Էլ. նամակ ",
 			"cancel": "ՉԵՂԱՐԿԵԼ",
-			"save": "ՊԱՀՊԱՆԵԼ"
-		},
+			"save": "ՊԱՀՊԱՆԵԼ",
+      "viewsmtpprovider": "View SMTP Provider"
+    },
 		"token": {
 			"title": "Տոկեններ",
 			"subtitle": "Ընտրեք հետևյալ ցանկացած տոկեն՝ ավելացնելու համար էլ. նամակի ձևանմուշին",
@@ -1295,7 +1298,14 @@
 			"trackingnumber": "Հետագծման համար",
 			"created": "Ստեղծվել է",
 			"updated": "Թարմացվել է"
-		}
+		},
+    "productschedule": {
+      "title": "Associated Product Schedules",
+      "nodata": "No Product Schedules found.",
+      "name": "Name",
+      "loadbalancer": "Load Balancer",
+      "count": "Number of cycles"
+    }
 	},
 	"shippingreceipt": {
 		"title": "Առաքման ստացական",

@@ -863,7 +863,8 @@
       "del": "उत्पाद हटाएं",
       "cancel": "रद्द करें",
       "update": "अद्यतन करें",
-      "create": "र्जन करना"
+      "create": "र्जन करना",
+      "viewfulfillmentprovider": "View Fulfillment Provider"
     },
     "schedules": {
       "title": "उत्पाद शेड्यूल",
@@ -905,7 +906,8 @@
       "loadbalancer": "भार संतुलन",
       "cancel": "रद्द करें",
       "save": "सुरक्षित करें",
-      "edit": "उत्पाद अनुसूची संपादित करें"
+      "edit": "उत्पाद अनुसूची संपादित करें",
+      "viewloadbalancer": "View Load Balancer"
     },
     "cycle": {
       "addtitle": "साइकिल जोड़ें",
@@ -1049,7 +1051,8 @@
       "subject": "विषय",
       "body": "ईमेल ",
       "cancel": "रद्द करना",
-      "save": "बचाना"
+      "save": "बचाना",
+      "viewsmtpprovider": "View SMTP Provider"
     },
     "token": {
       "title": "टोकन",
@@ -1295,6 +1298,13 @@
       "trackingnumber": "खोज संख्या",
       "created": "पर बनाया गया",
       "updated": "अद्यतन किया गया"
+    },
+    "productschedule": {
+      "title": "Associated Product Schedules",
+      "nodata": "No Product Schedules found.",
+      "name": "Name",
+      "loadbalancer": "Load Balancer",
+      "count": "Number of cycles"
     }
   },
   "shippingreceipt": {

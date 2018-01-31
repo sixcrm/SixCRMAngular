@@ -863,7 +863,8 @@
             "del": "删除产品",
             "cancel": "取消",
             "update": "更新",
-            "create": "创建"
+            "create": "创建",
+            "viewfulfillmentprovider": "View Fulfillment Provider"
         },
         "schedules": {
             "title": "产品进度表",
@@ -905,7 +906,8 @@
             "loadbalancer": "负载平衡器",
             "cancel": "取消",
             "save": "保存",
-            "edit": "编辑产品进度表"
+            "edit": "编辑产品进度表",
+            "viewloadbalancer": "View Load Balancer"
         },
         "cycle": {
             "addtitle": "添加周期",
@@ -1049,7 +1051,8 @@
             "subject": "主题",
             "body": "邮件内容",
             "cancel": "取消",
-            "save": "保存"
+            "save": "保存",
+            "viewsmtpprovider": "View SMTP Provider"
         },
         "token": {
             "title": "标记",
@@ -1295,6 +1298,13 @@
             "trackingnumber": "跟踪号码",
             "created": "创建于",
             "updated": "更新于"
+        },
+        "productschedule": {
+            "title": "Associated Product Schedules",
+            "nodata": "No Product Schedules found.",
+            "name": "Name",
+            "loadbalancer": "Load Balancer",
+            "count": "Number of cycles"
         }
     },
     "shippingreceipt": {

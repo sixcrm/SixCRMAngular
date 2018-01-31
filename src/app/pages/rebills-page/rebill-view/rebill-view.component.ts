@@ -10,6 +10,7 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
+import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 
 @Component({
   selector: 'rebill-view',
@@ -29,6 +30,13 @@ export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> imp
   shippingReceiptText: TableMemoryTextOptions = {
     title: 'REBILL_SHIPPINGRECEIPT_TITLE',
     noDataText: 'REBILL_SHIPPINGRECEIPT_NODATA'
+  };
+
+  productScheduleColumnParams: ColumnParams<ProductSchedule>[];
+
+  productScheduleText: TableMemoryTextOptions = {
+    title: 'REBILL_PRODUCTSCHEDULE_TITLE',
+    noDataText: 'REBILL_PRODUCTSCHEDULE_NODATA'
   };
 
   tabHeaders: TabHeaderElement[] = [
@@ -56,6 +64,13 @@ export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> imp
       new ColumnParams('REBILL_SHIPPINGRECEIPT_TRACKINGNUMBER',(e: ShippingReceipt) => e.tracking.id).setCopyOption(true),
       new ColumnParams('REBILL_SHIPPINGRECEIPT_CREATED', (e: ShippingReceipt) => e.createdAt.tz(f).format('MM/DD/YYYY')),
       new ColumnParams('REBILL_SHIPPINGRECEIPT_UPDATED', (e: ShippingReceipt) => e.updatedAt.tz(f).format('MM/DD/YYYY'))
+    ];
+
+    this.productScheduleColumnParams = [
+      new ColumnParams('REBILL_PRODUCTSCHEDULE_NAME', (e: ProductSchedule) => e.name),
+      new ColumnParams('REBILL_PRODUCTSCHEDULE_LOADBALANCER', (e: ProductSchedule) => e.loadBalancer.name),
+      new ColumnParams('REBILL_PRODUCTSCHEDULE_COUNT', (e: ProductSchedule) => e.schedules.length.toString(), 'right').setNumberOption(true)
+
     ];
 
     this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(entity => {
@@ -86,6 +101,12 @@ export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> imp
     if (!shippingReceipt.id) return;
 
     this.router.navigate(['/shippingreceipts', shippingReceipt.id])
+  }
+
+  goToProductSchedule(productSchedule: ProductSchedule) {
+    if (!productSchedule.id) return;
+
+    this.router.navigate(['/productschedules', productSchedule.id])
   }
 
 

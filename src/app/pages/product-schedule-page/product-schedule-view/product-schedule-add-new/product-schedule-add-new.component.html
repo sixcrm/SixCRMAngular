@@ -5,6 +5,7 @@
       <md-icon [md-menu-trigger-for]="shipOptions">more_vert</md-icon>
       <md-menu #shipOptions="mdMenu" x-position="before">
         <button md-menu-item (click)="changeMode.emit(update);">{{'PRODUCTSCHEDULE_INFO_EDIT' | translate}}</button>
+        <button *ngIf="entity.loadBalancer && entity.loadBalancer.id" md-menu-item [routerLink]="['/loadbalancers', entity.loadBalancer.id]">{{'PRODUCTSCHEDULE_INFO_VIEWLOADBALANCER' | translate}}</button>
       </md-menu>
     </ng-container>
   </div>
