@@ -50,7 +50,7 @@ import {TranslationModule} from '../../translation/translation.module';
     SingleEventComponent,
     CustomerAddNewComponent
   ],
-  exports : [ ],
+  exports : [CreditCardInputComponent],
   providers: [
     CustomersAclGuard
   ]

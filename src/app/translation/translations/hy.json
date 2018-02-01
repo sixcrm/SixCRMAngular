@@ -27,7 +27,8 @@
 			"projection": "Կանխատեսումներ"
 		},
 		"customer": "Հաճախորդներ",
-		"crm": {
+    "creditcard": "Credit Cards",
+    "crm": {
 			"title": "CRM",
 			"product": "Ապրանքներ",
 			"productschedule": "Ապրանքների հերթացուցակներ",
@@ -787,7 +788,18 @@
 		}
 	},
   "creditcard": {
-    "title": "Credit Card"
+    "title": "Credit Card",
+    "index": {
+      "title": "Credit Cards",
+      "name": "Name",
+      "expiration": "Expiration",
+      "country": "Country",
+      "state": "State",
+      "city": "City"
+    },
+    "tab": {
+      "general": "GENERAL DETALS"
+    }
   },
 	"bill": {
 		"index": {

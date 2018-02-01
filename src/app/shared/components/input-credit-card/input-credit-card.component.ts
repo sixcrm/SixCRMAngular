@@ -15,6 +15,7 @@ export class InputCreditCardComponent implements OnInit {
   }
   @Input() placeholder: string;
   @Input() mode: string;
+  @Input() disabled: string;
   @Output() result: EventEmitter<string> = new EventEmitter();
 
   constructor() { }

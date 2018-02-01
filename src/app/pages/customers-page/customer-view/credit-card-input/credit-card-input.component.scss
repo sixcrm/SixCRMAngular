@@ -1,0 +1,20 @@
+.title-add {
+  padding: 25px;
+}
+
+.body-add {
+  padding: 10px 25px;
+}
+
+.title-standalone {
+  display: flex;
+
+  md-icon {
+    margin-left: auto;
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+}

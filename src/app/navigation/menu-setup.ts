@@ -57,6 +57,10 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   // Add customer menu items
   items.push(new MenuItem('SIDENAV_CUSTOMER', 'customers').setIcon('account_box'));
 
+  if (authService.hasPermissions('creditcard', 'view')) {
+    items.push(new MenuItem('SIDENAV_CREDITCARD', 'creditcards').setIcon('payment'));
+  }
+
   // Add CRM menu items
   let crmItems: MenuItem[] = [];
   if (authService.hasPermissions('product', 'view')) {

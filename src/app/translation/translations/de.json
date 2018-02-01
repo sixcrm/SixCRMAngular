@@ -27,6 +27,7 @@
         "projection": "Projections"
       },
       "customer": "Kunde",
+      "creditcard": "Credit Cards",
       "crm": {
         "title": "CRM",
         "product": "Produkte",
@@ -787,7 +788,18 @@
       }
     },
     "creditcard": {
-      "title": "Kreditkarte"
+      "title": "Kreditkarte",
+      "index": {
+        "title": "Credit Cards",
+        "name": "Name",
+        "expiration": "Expiration",
+        "country": "Country",
+        "state": "State",
+        "city": "City"
+      },
+      "tab": {
+        "general": "GENERAL DETALS"
+      }
     },
     "bill": {
       "index": {

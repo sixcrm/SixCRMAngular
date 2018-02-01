@@ -34,15 +34,27 @@ export class CreditCardInputComponent implements OnInit {
     }
   };
   @Input() defaultAddress: Address;
+  @Input() addMode: boolean;
+  @Input() viewMode: boolean;
+  @Input() standalone: boolean;
   @Output() updated: EventEmitter<CreditCard> = new EventEmitter();
   @Output() created: EventEmitter<CreditCard> = new EventEmitter();
   @Output() cancel: EventEmitter<boolean> = new EventEmitter();
+  @Output() edit: EventEmitter<boolean> = new EventEmitter();
+
+  formInvalid: boolean;
 
   constructor(private creditCardService: CreditCardsService) { }
 
   ngOnInit() { }
 
   createCreditCard(): void {
+    this.formInvalid = !this.ccard.name || !this.ccard.ccnumber || !this.ccard.ccv || !this.expirationMonth
+      || !this.expirationYear || !this.ccard.address.line1 || !this.ccard.address.city || !this.ccard.address.state
+      || !this.ccard.address.zip || !this.ccard.address.country;
+
+    if (this.formInvalid) return;
+
     if (this.expirationMonth && this.expirationYear) {
       this.ccard.expiration = this.expirationMonth + this.expirationYear.substr(2,4);
     }

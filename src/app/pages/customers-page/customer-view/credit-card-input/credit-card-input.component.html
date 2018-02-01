@@ -1,22 +1,31 @@
 <div *ngIf="ccard" class="customer-view__edit">
-  <div class="customer-view__edit__title">
+  <div class="customer-view__edit__title" [class.title-add]="addMode" [class.title-standalone]="standalone">
     <div class="customer-view__edit__title--main">
-      {{ (ccard.id ? 'CUSTOMER_CREDITCARD_EDITTITLE' : 'CUSTOMER_CREDITCARD_CREATETITLE') | translate}}
+      {{ (standalone ? 'CUSTOMER_CREDITCARD_TITLE' : ccard.id ? 'CUSTOMER_CREDITCARD_EDITTITLE' : 'CUSTOMER_CREDITCARD_CREATETITLE') | translate}}
     </div>
-    <div *ngIf="!ccard.id" class="customer-view__edit__title--sub">
+    <div *ngIf="!ccard.id && !addMode" class="customer-view__edit__title--sub">
       {{'CUSTOMER_CREDITCARD_CREATETEXT' | translate}}
     </div>
+
+    <ng-container *ngIf="standalone">
+      <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
+      <md-menu #editOptions="mdMenu" x-position="before">
+        <button md-menu-item (click)="edit.emit(update)">{{'CUSTOMER_CREDITCARD_UPDATE' | translate}}</button>
+      </md-menu>
+    </ng-container>
   </div>
 
-  <div class="customer-view__edit__info">
-    <md-input required placeholder="{{'FORMINPUTS_CREDITCARD_NAME' | translate}}" [(ngModel)]="ccard.name"></md-input>
-    <input-credit-card [value]="ccard.ccnumber" [placeholder]="'FORMINPUTS_CREDITCARD_NUMBER' | translate" (result)="ccard.ccnumber = $event"></input-credit-card>
-    <input-credit-card [value]="ccard.ccv" [mode]="'ccv'" [placeholder]="'FORMINPUTS_CREDITCARD_CCV' | translate" (result)="ccard.ccv = $event"></input-credit-card>
+  <div class="customer-view__edit__info" [class.body-add]="addMode">
+    <md-input [disabled]="viewMode" [class.error]="formInvalid && !ccard.name" required placeholder="{{'FORMINPUTS_CREDITCARD_NAME' | translate}}" [(ngModel)]="ccard.name"></md-input>
+    <input-credit-card [disabled]="viewMode" [class.error]="formInvalid && !ccard.ccnumber" [value]="ccard.ccnumber" [placeholder]="'FORMINPUTS_CREDITCARD_NUMBER' | translate" (result)="ccard.ccnumber = $event"></input-credit-card>
+    <input-credit-card [disabled]="viewMode" [class.error]="formInvalid && !ccard.ccv" [value]="ccard.ccv" [mode]="'ccv'" [placeholder]="'FORMINPUTS_CREDITCARD_CCV' | translate" (result)="ccard.ccv = $event"></input-credit-card>
 
     <div class="customer-view__edit__info__expiration">
       <div class="customer-view__edit__info__expiration__item">
         <span class="customer-view__edit__info__expiration__item__title">{{'CUSTOMER_CREDITCARD_EXPIRATIONMONTH' | translate}}</span>
         <dropdown-component
+          [disabled]="viewMode"
+          [class.error]="formInvalid && !expirationMonth"
           [showFloatingPlaceholder]="false"
           [selected]="expirationMonth"
           [required]="true"
@@ -28,32 +37,32 @@
 
       <div class="customer-view__edit__info__expiration__item">
         <span class="customer-view__edit__info__expiration__item__title">{{'CUSTOMER_CREDITCARD_EXPIRATIONYEAR' | translate}}</span>
-        <dropdown-component [showFloatingPlaceholder]="false" [selected]="expirationYear" [placeholder]="'FORMINPUTS_CREDITCARD_YEARSHORT' | translate" [options]="years" (onSelect)="selectYear($event)"></dropdown-component>
+        <dropdown-component [disabled]="viewMode" [class.error]="formInvalid && !expirationYear" [showFloatingPlaceholder]="false" [selected]="expirationYear" [placeholder]="'FORMINPUTS_CREDITCARD_YEARSHORT' | translate" [options]="years" (onSelect)="selectYear($event)"></dropdown-component>
       </div>
     </div>
   </div>
 
-  <div class="customer-view__edit__address">
+  <div class="customer-view__edit__address" [class.body-add]="addMode">
     <div class="flex-custom">
       <div class="customer-view__edit__address__title">{{'CUSTOMER_CREDITCARD_BILLINGADDRESS' | translate}}</div>
-      <md-checkbox (change)="toggleSameShippingAddress($event)">{{'CUSTOMER_CREDITCARD_SAMEADDRESS' | translate}}</md-checkbox>
+      <md-checkbox *ngIf="!addMode && !standalone" (change)="toggleSameShippingAddress($event)">{{'CUSTOMER_CREDITCARD_SAMEADDRESS' | translate}}</md-checkbox>
     </div>
 
-    <md-input required placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="ccard.address.line1"></md-input>
-    <md-input placeholder="{{'FORMINPUTS_ADDRESS2' | translate}}" [(ngModel)]="ccard.address.line2"></md-input>
+    <md-input [disabled]="viewMode" [class.error]="formInvalid && !ccard.address.line1" required placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="ccard.address.line1"></md-input>
+    <md-input [disabled]="viewMode" placeholder="{{'FORMINPUTS_ADDRESS2' | translate}}" [(ngModel)]="ccard.address.line2"></md-input>
 
     <div class="customer-view__edit__address__group">
-      <md-input required placeholder="{{'FORMINPUTS_CITY' | translate}}" [(ngModel)]="ccard.address.city"></md-input>
-      <dropdown-component [required]="true" [selected]="ccard.address.state" [placeholder]="'FORMINPUTS_STATE' | translate" (onSelect)="ccard.address.state = $event" [options]="states"></dropdown-component>
+      <md-input [disabled]="viewMode" [class.error]="formInvalid && !ccard.address.city" required placeholder="{{'FORMINPUTS_CITY' | translate}}" [(ngModel)]="ccard.address.city"></md-input>
+      <dropdown-component [disabled]="viewMode" [class.error]="formInvalid && !ccard.address.state" [required]="true" [selected]="ccard.address.state" [placeholder]="'FORMINPUTS_STATE' | translate" (onSelect)="ccard.address.state = $event" [options]="states"></dropdown-component>
     </div>
 
     <div class="customer-view__edit__address__group">
-      <md-input required placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="ccard.address.zip"></md-input>
-      <dropdown-component [required]="true" [selected]="ccard.address.country" [placeholder]="'FORMINPUTS_COUNTRY' | translate"  (onSelect)="ccard.address.country = $event" [options]="countries"></dropdown-component>
+      <md-input [disabled]="viewMode" [class.error]="formInvalid && !ccard.address.zip" required placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="ccard.address.zip"></md-input>
+      <dropdown-component [disabled]="viewMode" [class.error]="formInvalid && !ccard.address.country" [required]="true" [selected]="ccard.address.country" [placeholder]="'FORMINPUTS_COUNTRY' | translate"  (onSelect)="ccard.address.country = $event" [options]="countries"></dropdown-component>
     </div>
   </div>
 
-  <div class="customer-view__edit__actions">
+  <div *ngIf="!viewMode" class="customer-view__edit__actions actions-noline">
     <div (click)="cancel.next(true)">{{'CUSTOMER_CREDITCARD_CANCEL' | translate}}</div>
     <div *ngIf="ccard.id; else save" (click)="updateCreditCard()">{{'CUSTOMER_CREDITCARD_UPDATE' | translate}}</div>
     <ng-template #save>

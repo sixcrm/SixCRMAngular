@@ -27,6 +27,7 @@
       "projection": "अनुमान"
     },
     "customer": "कस्टमर्स",
+    "creditcard": "Credit Cards",
     "crm": {
       "title": "सीआरएम",
       "product": "उत्पाद",
@@ -787,7 +788,18 @@
     }
   },
   "creditcard": {
-    "title": "क्रेडिट कार्ड"
+    "title": "क्रेडिट कार्ड",
+    "index": {
+      "title": "Credit Cards",
+      "name": "Name",
+      "expiration": "Expiration",
+      "country": "Country",
+      "state": "State",
+      "city": "City"
+    },
+    "tab": {
+      "general": "GENERAL DETALS"
+    }
   },
   "bill": {
     "index": {

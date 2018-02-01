@@ -8,6 +8,8 @@ import {CreditCardViewComponent} from './credit-card-view/credit-card-view.compo
 import {CreditCardsAclGuard} from '../guards/creditcards-acl-guard.service';
 import {SharedModule} from '../../shared/shared.module';
 import {CreditCardsComponent} from './credit-cards-index/credit-cards.component';
+import {TranslationModule} from '../../translation/translation.module';
+import {CustomersModule} from '../customers-page/customers.module';
 
 @NgModule({
   imports : [
@@ -16,7 +18,9 @@ import {CreditCardsComponent} from './credit-cards-index/credit-cards.component'
     FormsModule,
     MaterialModule.forRoot(),
     PageComponentsModule,
-    SharedModule
+    SharedModule,
+    TranslationModule,
+    CustomersModule
   ],
   declarations : [
     CreditCardsComponent,
