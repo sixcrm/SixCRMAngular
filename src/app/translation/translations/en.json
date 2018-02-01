@@ -1292,6 +1292,7 @@
     },
     "tab": {
       "general": "GENERAL DETAILS",
+      "transactions": "TRANSACTIONS",
       "receipts": "SHIPPING RECEIPTS"
     },
     "info": {
@@ -1317,6 +1318,15 @@
       "name": "Name",
       "loadbalancer": "Load Balancer",
       "count": "Number of cycles"
+    },
+    "transaction": {
+      "title": "Associated Transactions",
+      "nodata": "No Transactions found.",
+      "alias": "Alias",
+      "amount": "Amount",
+      "response": "Response",
+      "created": "Created",
+      "updated": "Updated"
     }
   },
   "shippingreceipt": {

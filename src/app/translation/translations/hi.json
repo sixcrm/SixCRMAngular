@@ -1292,6 +1292,7 @@
     },
     "tab": {
       "general": "सामान्य विवरण",
+      "transactions": "TRANSACTIONS",
       "receipts": "नौवहन रसीदें"
     },
     "info": {
@@ -1317,6 +1318,15 @@
       "name": "Name",
       "loadbalancer": "Load Balancer",
       "count": "Number of cycles"
+    },
+    "transaction": {
+      "title": "Associated Transactions",
+      "nodata": "No Transactions found.",
+      "alias": "Alias",
+      "amount": "Amount",
+      "response": "Response",
+      "created": "Created",
+      "updated": "Updated"
     }
   },
   "shippingreceipt": {

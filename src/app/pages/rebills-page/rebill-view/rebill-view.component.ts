@@ -11,6 +11,7 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
+import {Transaction} from '../../../shared/models/transaction.model';
 
 @Component({
   selector: 'rebill-view',
@@ -39,8 +40,16 @@ export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> imp
     noDataText: 'REBILL_PRODUCTSCHEDULE_NODATA'
   };
 
+  transactionColumnParams: ColumnParams<Transaction>[];
+
+  transactionText: TableMemoryTextOptions = {
+    title: 'REBILL_TRANSACTION_TITLE',
+    noDataText: 'REBILL_TRANSACTION_NODATA'
+  };
+
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'REBILL_TAB_GENERAL'},
+    {name: 'transactions', label: 'REBILL_TAB_TRANSACTIONS'},
     {name: 'receipts', label: 'REBILL_TAB_RECEIPTS'}
   ];
 
@@ -70,7 +79,14 @@ export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> imp
       new ColumnParams('REBILL_PRODUCTSCHEDULE_NAME', (e: ProductSchedule) => e.name),
       new ColumnParams('REBILL_PRODUCTSCHEDULE_LOADBALANCER', (e: ProductSchedule) => e.loadBalancer.name),
       new ColumnParams('REBILL_PRODUCTSCHEDULE_COUNT', (e: ProductSchedule) => e.schedules.length.toString(), 'right').setNumberOption(true)
+    ];
 
+    this.transactionColumnParams = [
+      new ColumnParams('REBILL_TRANSACTION_ALIAS', (e: Transaction) => e.alias),
+      new ColumnParams('REBILL_TRANSACTION_AMOUNT', (e: Transaction) => e.amount.usd(), 'right'),
+      new ColumnParams('REBILL_TRANSACTION_RESPONSE', (e: Transaction) => e.processorResponse.message),
+      new ColumnParams('REBILL_TRANSACTION_CREATED', (e: Transaction) => e.createdAt.tz(f).format('MM/DD/YYYY')),
+      new ColumnParams('REBILL_TRANSACTION_UPDATED', (e: Transaction) => e.updatedAt.tz(f).format('MM/DD/YYYY'))
     ];
 
     this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(entity => {
@@ -109,6 +125,11 @@ export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> imp
     this.router.navigate(['/productschedules', productSchedule.id])
   }
 
+  goToTransaction(transaction: Transaction) {
+    if (!transaction.id) return;
+
+    this.router.navigate(['/transactions', transaction.id])
+  }
 
   setIndex(index: number): void {
     this.selectedIndex = index;

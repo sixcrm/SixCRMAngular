@@ -65,6 +65,7 @@ export function rebillResponseQuery(): string {
         product { id name sku }
       }
     },
+    transactions { id amount alias created_at updated_at processor_response}
     shippingreceipts { id, status, tracking {id, carrier}, created_at, updated_at },
     state, previous_state,
     history { state entered_at exited_at error_message }
