@@ -13,6 +13,7 @@ import { ProductCampaignsComponent } from './product-view/product-campaigns/prod
 import {TextMaskModule} from 'angular2-text-mask';
 import { ProductAddNewComponent } from './product-view/product-add-new/product-add-new.component';
 import {TranslationModule} from '../../translation/translation.module';
+import { ProductAttributesComponent } from './product-view/product-attributes/product-attributes.component';
 
 @NgModule({
   imports : [
@@ -30,7 +31,8 @@ import {TranslationModule} from '../../translation/translation.module';
     ProductViewComponent,
     ProductProductSchedulesComponent,
     ProductCampaignsComponent,
-    ProductAddNewComponent
+    ProductAddNewComponent,
+    ProductAttributesComponent
   ],
   exports : [ ],
   providers: [

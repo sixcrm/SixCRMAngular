@@ -1,0 +1,29 @@
+<form *ngIf="entity" class="flex-custom">
+  <div class="entity-view__card">
+    <div class="entity-view__card__header">
+      <div class="entity-view__card__header__title">{{'PRODUCT_INFO_ATTRIBUTES_TITLE' | translate}}</div>
+    </div>
+
+    <div class="entity-view__card__content">
+
+      <md-input-container class="entity-view__card__content__item">
+        <input md-input [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_ATTRIBUTES_HEIGHT' | translate}}" name="height" [(ngModel)]="entity.attributes.dimensions.height.units" type="text">
+      </md-input-container>
+
+      <md-input-container class="entity-view__card__content__item">
+        <input md-input [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_ATTRIBUTES_LENGTH' | translate}}" name="length" [(ngModel)]="entity.attributes.dimensions.length.units" type="text">
+      </md-input-container>
+
+      <md-input-container class="entity-view__card__content__item">
+        <input md-input [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_ATTRIBUTES_WIDTH' | translate}}" name="width" [(ngModel)]="entity.attributes.dimensions.width.units" type="text">
+      </md-input-container>
+
+      <md-input-container class="entity-view__card__content__item">
+        <input md-input [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_ATTRIBUTES_WEIGHT' | translate}}" name="weight" [(ngModel)]="entity.attributes.weight.units" type="text">
+      </md-input-container>
+
+    </div>
+
+  </div>
+</form>
+
