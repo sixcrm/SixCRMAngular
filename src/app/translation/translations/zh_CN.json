@@ -859,6 +859,7 @@
         },
         "tab": {
             "general": "一般细节",
+            "images": "IMAGES",
             "schedule": "时间表",
             "campaign": "活动"
         },

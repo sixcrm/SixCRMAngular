@@ -34,6 +34,10 @@
     </md-tab>
 
     <md-tab>
+      <product-images [images]="entity.attributes.images" (imageUploaded)="addNewImage($event)"></product-images>
+    </md-tab>
+
+    <md-tab>
       <product-product-schedules [id]="entity.id"
                                  [price]="entity.defaultPrice.amount + ''"
                                  (allEntities)="setCanNotBeDeleted($event)">

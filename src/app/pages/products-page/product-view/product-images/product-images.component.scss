@@ -1,0 +1,29 @@
+.image-upload {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+
+  input {
+    font-size: 14px;
+  }
+
+  img {
+    margin: 0 auto 15px;
+  }
+}
+
+.image-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  div {
+    margin: 10px;
+  }
+  img {
+    max-width: 250px;
+  }
+}
+
+.entity-view__card {
+  min-width: 0;
+}

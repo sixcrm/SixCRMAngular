@@ -859,6 +859,7 @@
     },
     "tab": {
       "general": "GENERAL DETAILS",
+      "images": "IMAGES",
       "schedule": "SCHEDULES",
       "campaign": "CAMPAIGNS"
     },

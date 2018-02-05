@@ -1,7 +1,9 @@
-export function uploadImage(image: string): string {
+import {SixImage} from '../../models/six-image.model';
+
+export function uploadImage(image: SixImage): string {
   return `
     mutation {
-      createaccountimage (accountimage: { data: ${image} }) {
+      putaccountimage (accountimage: { data: "${image.raw}" }) {
         filename, path
       }
 	  }`

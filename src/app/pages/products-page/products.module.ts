@@ -14,6 +14,8 @@ import {TextMaskModule} from 'angular2-text-mask';
 import { ProductAddNewComponent } from './product-view/product-add-new/product-add-new.component';
 import {TranslationModule} from '../../translation/translation.module';
 import { ProductAttributesComponent } from './product-view/product-attributes/product-attributes.component';
+import {FileUploadModule} from 'ng2-file-upload';
+import { ProductImagesComponent } from './product-view/product-images/product-images.component';
 
 @NgModule({
   imports : [
@@ -24,7 +26,8 @@ import { ProductAttributesComponent } from './product-view/product-attributes/pr
     PageComponentsModule,
     SharedModule,
     TextMaskModule,
-    TranslationModule
+    TranslationModule,
+    FileUploadModule
   ],
   declarations : [
     ProductsComponent,
@@ -32,7 +35,8 @@ import { ProductAttributesComponent } from './product-view/product-attributes/pr
     ProductProductSchedulesComponent,
     ProductCampaignsComponent,
     ProductAddNewComponent,
-    ProductAttributesComponent
+    ProductAttributesComponent,
+    ProductImagesComponent
   ],
   exports : [ ],
   providers: [

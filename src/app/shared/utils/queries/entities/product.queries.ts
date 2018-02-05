@@ -77,9 +77,14 @@ export function productInputQuery(p: Product, includeId?: boolean): string {
     dimensions = `dimensions: { ${height} ${length} ${width} }`;
   }
 
+  let images = '';
+  if (p.attributes.images) {
+    images = `images: [ ${p.attributes.images.reduce((a,b) => `${a}${a ? ',' : ' '}{path:"${b.path}"}` ,'')} ]`;
+  }
+
   let attributes = '';
-  if (dimensions || weight) {
-    attributes = `attributes: { ${dimensions} ${weight} }, `;
+  if (dimensions || weight || images) {
+    attributes = `attributes: { ${dimensions} ${weight} ${images} } `;
   }
 
   return `${addId(product.id, includeId)} name: "${clean(product.name)}", ${attributes ? attributes : ''} ${product.description ? `description: "${product.description}",` : ''} sku: "${product.sku}", ship: ${!!product.ship} ${product.defaultPrice.amount || product.defaultPrice.amount===0 ? `, default_price:${product.defaultPrice.amount}` : ''} ${product.shippingDelay || product.shippingDelay===0 ? `, shipping_delay:${product.shippingDelay}` : ''} ${product.fulfillmentProvider.id ? `, fulfillment_provider:"${product.fulfillmentProvider.id}"` : ''}`

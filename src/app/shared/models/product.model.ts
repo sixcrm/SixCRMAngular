@@ -13,7 +13,6 @@ export class Product implements Entity<Product> {
   description: string;
   defaultPrice: Currency;
   attributes: ProductAttributes;
-  images: SixImage[] = [];
   fulfillmentProvider: FulfillmentProvider;
 
   constructor(obj?: any) {
@@ -29,9 +28,6 @@ export class Product implements Entity<Product> {
     this.description = obj.description || '';
     this.attributes = new ProductAttributes(obj.attributes);
     this.defaultPrice = new Currency(obj.default_price);
-    if (obj.images) {
-      this.images = obj.images.map(i => new SixImage(i));
-    }
     this.fulfillmentProvider = new FulfillmentProvider(obj.fulfillment_provider);
   }
 
@@ -49,7 +45,6 @@ export class Product implements Entity<Product> {
       default_price: this.defaultPrice.amount,
       description: this.description,
       attributes: this.attributes.inverse(),
-      images: this.images.map(m => m.inverse()),
       fulfillment_provider: this.fulfillmentProvider.inverse()
     }
   }

@@ -9,6 +9,7 @@ import {MdDialog} from '@angular/material';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {DeleteDialogComponent} from '../../delete-dialog.component';
 import {ProductAttributes} from '../../../shared/models/product-attributes.model';
+import {SixImage} from '../../../shared/models/six-image.model';
 
 @Component({
   selector: 'product-view',
@@ -23,6 +24,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'PRODUCT_TAB_GENERAL'},
+    {name: 'images', label: 'PRODUCT_TAB_IMAGES'},
     {name: 'schedules', label: 'PRODUCT_TAB_SCHEDULE'},
     {name: 'campaigns', label: 'PRODUCT_TAB_CAMPAIGN'}
   ];
@@ -118,6 +120,13 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
   cancelProductUpdate() {
     this.entityAttributes = this.entityBackup.attributes.copy();
     super.cancelUpdate();
+  }
+
+  addNewImage(image: SixImage) {
+    const temp = this.entityBackup.copy();
+    temp.attributes.images.push(image);
+
+    this.service.updateEntity(temp);
   }
 
 }

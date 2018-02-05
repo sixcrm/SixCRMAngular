@@ -1,6 +1,8 @@
 export class SixImage {
 
   path: string;
+  filename: string;
+  raw: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -8,6 +10,8 @@ export class SixImage {
     }
 
     this.path = obj.path || '';
+    this.filename = obj.filename || '';
+    this.raw = obj.raw || '';
 
   }
 
@@ -17,7 +21,9 @@ export class SixImage {
 
   inverse(): any {
     return {
-      path: this.path
+      path: this.path,
+      filename: this.filename,
+      raw: this.raw
     }
   }
 }
