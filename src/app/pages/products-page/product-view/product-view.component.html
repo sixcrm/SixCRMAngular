@@ -21,7 +21,7 @@
     <md-tab>
       <div class="flex-custom">
         <product-add-new (changeMode)="setMode($event)"
-                         (cancel)="cancelUpdate()"
+                         (cancel)="cancelProductUpdate()"
                          (deleteEntity)="deleteProduct()"
                          (save)="save($event)"
                          [mode]="viewMode ? modes.View : modes.Update"
@@ -29,7 +29,7 @@
                          [entity]="entity">
         </product-add-new>
 
-        <product-attributes [entity]="entity" [mode]="viewMode ? modes.View : modes.Update"></product-attributes>
+        <product-attributes [attributes]="entityAttributes" [mode]="viewMode ? modes.View : modes.Update"></product-attributes>
       </div>
     </md-tab>
 

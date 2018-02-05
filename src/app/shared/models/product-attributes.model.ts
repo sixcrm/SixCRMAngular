@@ -21,6 +21,8 @@ export class ProductAttributes {
 
   inverse(): any {
     return {
+      dimensions: this.dimensions.inverse(),
+      weight: this.weight.inverse()
     }
   }
 }

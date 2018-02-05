@@ -876,7 +876,17 @@
       "cancel": "रद्द करें",
       "update": "अद्यतन करें",
       "create": "र्जन करना",
-      "viewfulfillmentprovider": "View Fulfillment Provider"
+      "viewfulfillmentprovider": "View Fulfillment Provider",
+      "description": "Description",
+      "attributes": {
+        "title": "Product Attributes",
+        "dimension": "Dimensions",
+        "unit": "Unit",
+        "width": "Width",
+        "height": "Height",
+        "length": "Length",
+        "weight": "Weight"
+      }
     },
     "schedules": {
       "title": "उत्पाद शेड्यूल",

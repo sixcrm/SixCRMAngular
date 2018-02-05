@@ -876,7 +876,17 @@
       "cancel": "CANCEL",
       "update": "UPDATE",
       "create": "CREATE",
-      "viewfulfillmentprovider": "View Fulfillment Provider"
+      "viewfulfillmentprovider": "View Fulfillment Provider",
+      "description": "Description",
+      "attributes": {
+        "title": "Product Attributes",
+        "dimension": "Dimensions",
+        "unit": "Unit",
+        "width": "Width",
+        "height": "Height",
+        "length": "Length",
+        "weight": "Weight"
+      }
     },
     "schedules": {
       "title": "Product Schedules",

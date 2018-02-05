@@ -16,6 +16,12 @@ export function addId(id: string, includeId?: boolean): string {
   return includeId ? `id: "${id}"` : '';
 }
 
+export function addField(key: string, value: any, quotes?: boolean) {
+  if (!value || !key) return '';
+
+  return `${key}: ${quotes ? `"` : ''}${value}${quotes ? `"` : ''}`
+}
+
 export function clean(value: string): string {
   const cleaned = cleanEscape(value);
 

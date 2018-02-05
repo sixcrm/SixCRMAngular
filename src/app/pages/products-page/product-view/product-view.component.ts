@@ -8,6 +8,7 @@ import {MessageDialogComponent} from '../../message-dialog.component';
 import {MdDialog} from '@angular/material';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {DeleteDialogComponent} from '../../delete-dialog.component';
+import {ProductAttributes} from '../../../shared/models/product-attributes.model';
 
 @Component({
   selector: 'product-view',
@@ -18,6 +19,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   selectedIndex: number = 0;
   canNotBeDeleted: boolean = true;
+  entityAttributes: ProductAttributes;
 
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'PRODUCT_TAB_GENERAL'},
@@ -37,6 +39,10 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
   ngOnInit() {
     this.init(() => this.navigation.goToNotFoundPage());
 
+    this.service.entity$.merge(this.service.entityUpdated$).takeUntil(this.unsubscribe$).subscribe(entity => {
+      this.entityAttributes = this.entity.attributes.copy();
+    });
+
     if (this.addMode) {
       this.entity = new Product();
       this.entity.ship = true;
@@ -53,6 +59,9 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
   }
 
   save(): void {
+    this.entity = this.entity.copy();
+    this.entity.attributes = this.entityAttributes.copy();
+
     this.saveOrUpdate(this.entity);
   }
 
@@ -95,6 +104,20 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
 
   canBeDeactivated(): boolean {
     return super.canBeDeactivated();
+  }
+
+  checkIfChanged(): boolean {
+    const originalAttributesString = JSON.stringify(this.entityAttributes);
+    const backupAttributesString = JSON.stringify(this.entityBackup.attributes);
+
+    if (originalAttributesString !== backupAttributesString) return false;
+
+    return super.checkIfChanged();
+  }
+
+  cancelProductUpdate() {
+    this.entityAttributes = this.entityBackup.attributes.copy();
+    super.cancelUpdate();
   }
 
 }

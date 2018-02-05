@@ -8,7 +8,7 @@ export class Weight {
       obj = {};
     }
 
-    this.unitofmeasurement = obj.unitofmeasurement;
+    this.unitofmeasurement = obj.unitofmeasurement || 'pounds';
     this.units = obj.units;
 
   }

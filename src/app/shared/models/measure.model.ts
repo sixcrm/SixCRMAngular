@@ -8,7 +8,7 @@ export class Measure {
       obj = {};
     }
 
-    this.unitofmeasurement = obj.unitofmeasurement;
+    this.unitofmeasurement = obj.unitofmeasurement || 'inches';
     this.units = obj.units;
 
   }
