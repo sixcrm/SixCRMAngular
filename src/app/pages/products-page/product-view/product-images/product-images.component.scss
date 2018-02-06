@@ -1,3 +1,8 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+}
+
 .image-upload {
   display: flex;
   flex-direction: column;
@@ -21,9 +26,42 @@
   }
   img {
     max-width: 250px;
+    margin: auto;
   }
 }
 
 .entity-view__card {
   min-width: 0;
+}
+
+.image-wrapper {
+  position: relative;
+}
+
+.image-overlay {
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  margin: 0 !important;
+  height: 100%;
+  width: 100%;
+
+  md-icon {
+    display: none;
+    margin: auto;
+    width: 42px;
+    height: 42px;
+    font-size: 42px;
+    color: white;
+    cursor: pointer;
+  }
+
+  &:hover {
+    background: rgba(0,0,0,0.6);
+
+    md-icon {
+      display: block;
+    }
+  }
 }

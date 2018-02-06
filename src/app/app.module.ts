@@ -26,6 +26,7 @@ import { ErrorPageStandaloneComponent } from './error-page-standalone/error-page
 import {TranslationModule} from './translation/translation.module';
 import {AddBillDetailsDialogComponent} from './dialog-modals/add-bill-details-dialog.component';
 import {TextMaskModule} from 'angular2-text-mask';
+import { ImageDialogComponent } from './dialog-modals/image-dialog/image-dialog.component';
 
 @NgModule({
   declarations : [
@@ -41,7 +42,8 @@ import {TextMaskModule} from 'angular2-text-mask';
     SingleInputDialogComponent,
     AccessKeyDetailsDialogComponent,
     ErrorPageStandaloneComponent,
-    AddBillDetailsDialogComponent
+    AddBillDetailsDialogComponent,
+    ImageDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -75,7 +77,8 @@ import {TextMaskModule} from 'angular2-text-mask';
     ErrorSnackBarComponent,
     SingleInputDialogComponent,
     AccessKeyDetailsDialogComponent,
-    AddBillDetailsDialogComponent
+    AddBillDetailsDialogComponent,
+    ImageDialogComponent
   ],
   bootstrap : [AppComponent]
 })

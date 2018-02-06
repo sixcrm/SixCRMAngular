@@ -6,6 +6,8 @@ import {ImagesService} from '../../../../shared/services/images.service';
 import {Subscription} from 'rxjs';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 import {ProductsService} from '../../../../shared/services/products.service';
+import {ImageDialogComponent} from '../../../../dialog-modals/image-dialog/image-dialog.component';
+import {MdDialog} from '@angular/material';
 
 @Component({
   selector: 'product-images',
@@ -23,7 +25,12 @@ export class ProductImagesComponent implements OnInit, OnDestroy {
   public filePreviewPath: SafeUrl;
   private rawImage: string;
 
-  constructor(private sanitizer: DomSanitizer, private imageService: ImagesService, private productService: ProductsService) { }
+  constructor(
+    private sanitizer: DomSanitizer,
+    private imageService: ImagesService,
+    private productService: ProductsService,
+    private dialog: MdDialog
+  ) { }
 
   uploadImage() {
     if (!this.rawImage) return;
@@ -74,4 +81,21 @@ export class ProductImagesComponent implements OnInit, OnDestroy {
     }
   }
 
+  editImage(image: SixImage) {
+
+  }
+
+  deleteImage(image: SixImage) {
+
+  }
+
+  viewImage(image: SixImage) {
+    let imageDialogRef = this.dialog.open(ImageDialogComponent);
+    imageDialogRef.componentInstance.image = image;
+
+
+    imageDialogRef.afterClosed().take(1).subscribe(() => {
+      imageDialogRef = null;
+    });
+  }
 }

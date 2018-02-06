@@ -1,26 +1,33 @@
-<div class="entity-view__card">
-  <div class="entity-view__card__header">
-    <div class="entity-view__card__header__title"> Upload New Image</div>
-  </div>
-
-  <div class="image-upload">
-    <img [src]="filePreviewPath" width="250" *ngIf="filePreviewPath" />
-    <input type="file" ng2FileSelect [uploader]="uploader"/>
-  </div>
-
-  <div *ngIf="filePreviewPath" class="entity-view__card__actions">
-    <div (click)="uploadImage()">UPLOAD</div>
-  </div>
-</div>
-
-<div>
-  <div *ngIf="images.length > 0" class="entity-view__card">
+<div class="container">
+  <div class="entity-view__card" style="min-width: 270px;">
     <div class="entity-view__card__header">
-      <div class="entity-view__card__header__title"> Uploaded Images </div>
+      <div class="entity-view__card__header__title"> Upload New Image</div>
     </div>
-    <div class="image-container">
-      <div *ngFor="let image of images">
-        <img src="{{image.path}}">
+
+    <div class="image-upload">
+      <img [src]="filePreviewPath" width="250" *ngIf="filePreviewPath" />
+      <input type="file" ng2FileSelect [uploader]="uploader"/>
+    </div>
+
+    <div *ngIf="filePreviewPath" class="entity-view__card__actions">
+      <div (click)="uploadImage()">UPLOAD</div>
+    </div>
+  </div>
+
+  <div>
+    <div *ngIf="images.length > 0" class="entity-view__card">
+      <div class="entity-view__card__header">
+        <div class="entity-view__card__header__title"> Uploaded Images </div>
+      </div>
+      <div class="image-container">
+        <div class="image-wrapper" *ngFor="let image of images">
+          <img src="{{image.path}}">
+          <div class="image-overlay">
+            <md-icon (click)="viewImage(image)">zoom_in</md-icon>
+            <md-icon (click)="editImage(image)">mode_edit</md-icon>
+            <md-icon (click)="deleteImage(image)">delete</md-icon>
+          </div>
+        </div>
       </div>
     </div>
   </div>
