@@ -129,4 +129,25 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     this.service.updateEntity(temp);
   }
 
+  updateImage(image: SixImage) {
+    for (let i = 0; i < this.entity.attributes.images.length; i++) {
+      if (this.entity.attributes.images[i].path === image.path) {
+        this.entity.attributes.images[i] = image;
+
+        this.updateEntity(this.entity);
+        return;
+      }
+    }
+  }
+
+  deleteImage(image: SixImage) {
+    for (let i = 0; i < this.entity.attributes.images.length; i++) {
+      if (this.entity.attributes.images[i].path === image.path) {
+        this.entity.attributes.images.splice(i, 1);
+
+        this.updateEntity(this.entity);
+        return;
+      }
+    }
+  }
 }

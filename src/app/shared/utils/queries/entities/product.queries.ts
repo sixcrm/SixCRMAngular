@@ -79,7 +79,7 @@ export function productInputQuery(p: Product, includeId?: boolean): string {
 
   let images = '';
   if (p.attributes.images) {
-    images = `images: [ ${p.attributes.images.reduce((a,b) => `${a}${a ? ',' : ' '}{path:"${b.path}"}` ,'')} ]`;
+    images = `images: [ ${p.attributes.images.reduce((a,b) => `${a}${a ? ',' : ' '}{path:"${b.path}" ${addField('name', b.name, true)} ${addField('description', b.description, true)} }` ,'')} ]`;
   }
 
   let attributes = '';

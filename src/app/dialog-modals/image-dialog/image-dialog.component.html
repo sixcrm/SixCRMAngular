@@ -1,4 +1,18 @@
 <div class="dialog-container">
-  <md-icon (click)="close()">clear</md-icon>
-  <img src="{{image.path}}" alt="">
+  <md-icon [class.close-edit]="editMode" (click)="close()">clear</md-icon>
+  <img [class.image-edit]="editMode" src="{{image.path}}" alt="">
+
+  <ng-container *ngIf="editMode">
+
+    <md-input-container>
+      <input md-input placeholder="{{'PRODUCT_IMAGE_VIEW_NAME' | translate}}" [(ngModel)]="image.name" type="text">
+    </md-input-container>
+
+
+    <md-textarea placeholder="{{'PRODUCT_IMAGE_VIEW_DESCRIPTION' | translate}}" [(ngModel)]="image.description"></md-textarea>
+
+    <div class="buttons">
+      <div (click)="save()">{{'PRODUCT_IMAGE_VIEW_SAVE' | translate}}</div>
+    </div>
+  </ng-container>
 </div>

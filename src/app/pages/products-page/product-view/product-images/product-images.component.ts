@@ -8,6 +8,7 @@ import {CustomServerError} from '../../../../shared/models/errors/custom-server-
 import {ProductsService} from '../../../../shared/services/products.service';
 import {ImageDialogComponent} from '../../../../dialog-modals/image-dialog/image-dialog.component';
 import {MdDialog} from '@angular/material';
+import {DeleteDialogComponent} from '../../../delete-dialog.component';
 
 @Component({
   selector: 'product-images',
@@ -18,12 +19,16 @@ export class ProductImagesComponent implements OnInit, OnDestroy {
 
   @Input() images: SixImage[] = [];
   @Output() imageUploaded: EventEmitter<SixImage> = new EventEmitter();
+  @Output() imageUpdated: EventEmitter<SixImage> = new EventEmitter();
+  @Output() imageDeleted: EventEmitter<SixImage> = new EventEmitter();
 
   private sub: Subscription;
   private productSub: Subscription;
   public uploader: FileUploader = new FileUploader({});
   public filePreviewPath: SafeUrl;
   private rawImage: string;
+
+  onDropzone: boolean;
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -82,11 +87,28 @@ export class ProductImagesComponent implements OnInit, OnDestroy {
   }
 
   editImage(image: SixImage) {
+    let imageDialogRef = this.dialog.open(ImageDialogComponent);
+    imageDialogRef.componentInstance.image = image.copy();
+    imageDialogRef.componentInstance.editMode = true;
 
+
+    imageDialogRef.afterClosed().take(1).subscribe((response) => {
+      imageDialogRef = null;
+
+      this.imageUpdated.emit(response.image);
+    });
   }
 
   deleteImage(image: SixImage) {
+    let deleteDialogRef = this.dialog.open(DeleteDialogComponent);
 
+    deleteDialogRef.afterClosed().take(1).subscribe(result => {
+      deleteDialogRef = null;
+
+      if (result && result.success) {
+        this.imageDeleted.next(image);
+      }
+    });
   }
 
   viewImage(image: SixImage) {
@@ -97,5 +119,9 @@ export class ProductImagesComponent implements OnInit, OnDestroy {
     imageDialogRef.afterClosed().take(1).subscribe(() => {
       imageDialogRef = null;
     });
+  }
+
+  public fileOnDropzone(e:boolean):void {
+    this.onDropzone = e;
   }
 }

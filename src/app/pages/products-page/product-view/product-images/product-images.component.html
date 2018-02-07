@@ -1,23 +1,36 @@
 <div class="container">
   <div class="entity-view__card" style="min-width: 270px;">
     <div class="entity-view__card__header">
-      <div class="entity-view__card__header__title"> Upload New Image</div>
+      <div class="entity-view__card__header__title">{{'PRODUCT_IMAGE_UPLOAD_TITLE' | translate}}</div>
     </div>
 
     <div class="image-upload">
-      <img [src]="filePreviewPath" width="250" *ngIf="filePreviewPath" />
-      <input type="file" ng2FileSelect [uploader]="uploader"/>
+      <div
+        class="dropzone"
+        ng2FileDrop
+        (fileOver)="fileOnDropzone($event)"
+        [class.dropzone--with-content]="filePreviewPath"
+        [class.dropzone--file-over]="onDropzone"
+        type="file"
+        [uploader]="uploader">
+        <span>{{'PRODUCT_IMAGE_UPLOAD_DRAGDROP' | translate}}</span>
+        <img [src]="filePreviewPath" class="image" [class.image--file-over]="onDropzone" width="250" *ngIf="filePreviewPath" />
+      </div>
+      <label class="select">
+        <input type="file" ng2FileSelect [uploader]="uploader"/>
+        {{'PRODUCT_IMAGE_UPLOAD_SELECT' | translate}}
+      </label>
     </div>
 
     <div *ngIf="filePreviewPath" class="entity-view__card__actions">
-      <div (click)="uploadImage()">UPLOAD</div>
+      <div (click)="uploadImage()">{{'PRODUCT_IMAGE_UPLOAD_UPLOAD' | translate}}</div>
     </div>
   </div>
 
   <div>
     <div *ngIf="images.length > 0" class="entity-view__card">
       <div class="entity-view__card__header">
-        <div class="entity-view__card__header__title"> Uploaded Images </div>
+        <div class="entity-view__card__header__title"> {{'PRODUCT_IMAGE_GALLERY_TITLE' | translate}} </div>
       </div>
       <div class="image-container">
         <div class="image-wrapper" *ngFor="let image of images">

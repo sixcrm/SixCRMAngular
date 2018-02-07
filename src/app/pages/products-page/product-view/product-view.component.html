@@ -34,7 +34,12 @@
     </md-tab>
 
     <md-tab>
-      <product-images [images]="entity.attributes.images" (imageUploaded)="addNewImage($event)"></product-images>
+      <product-images
+        [images]="entity.attributes.images"
+        (imageUploaded)="addNewImage($event)"
+        (imageDeleted)="deleteImage($event)"
+        (imageUpdated)="updateImage($event)">
+      </product-images>
     </md-tab>
 
     <md-tab>

@@ -1,6 +1,9 @@
 .dialog-container {
   position: relative;
   max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: Roboto,"Helvetica Neue",sans-serif;
 
   img {
     max-width: 100%;
@@ -13,9 +16,48 @@
     border-radius: 50%;
     width: 32px;
     height: 32px;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.25);
     color: white;
     font-size: 32px;
     cursor: pointer;
+
+    &:hover {
+      background: rgba(0,0,0,0.5);
+    }
+  }
+
+  .close-edit {
+    top: 0;
+    right: 0;
+    width: 26px;
+    height: 26px;
+    font-size: 26px;
+  }
+
+  md-input-container {
+    min-width: 200px;
+    margin: 20px 0 5px;
+    font-size: 14px;
+  }
+
+  md-textarea {
+    width: 320px;
+    font-size: 14px;
+  }
+
+  .image-edit {
+    max-width: 200px;
+  }
+
+  .buttons {
+    display: flex;
+    margin-top: 10px;
+
+    div {
+      margin: 0 0 0 auto;
+      color: #5B9BE1;
+      font-size: 12px;
+      cursor: pointer;
+    }
   }
 }

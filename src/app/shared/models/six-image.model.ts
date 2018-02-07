@@ -3,6 +3,8 @@ export class SixImage {
   path: string;
   filename: string;
   raw: string;
+  name: string;
+  description: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -12,7 +14,8 @@ export class SixImage {
     this.path = obj.path || '';
     this.filename = obj.filename || '';
     this.raw = obj.raw || '';
-
+    this.name = obj.name || '';
+    this.description = obj.description || '';
   }
 
   copy(): SixImage {
@@ -23,7 +26,9 @@ export class SixImage {
     return {
       path: this.path,
       filename: this.filename,
-      raw: this.raw
+      raw: this.raw,
+      name: this.name,
+      description: this.description
     }
   }
 }

@@ -889,6 +889,22 @@
           "weight": "Weight"
         }
       },
+      "image": {
+        "upload": {
+          "title": "Upload New Image",
+          "dragdrop": "Drag and Drop Image",
+          "select": "Select Image",
+          "upload": "UPLOAD"
+        },
+        "gallery": {
+          "title": "Uploaded Images"
+        },
+        "view": {
+          "name": "Name",
+          "description": "Description",
+          "save": "SAVE"
+        }
+      },
       "schedules": {
         "title": "Produktzyklen",
         "name": "Name",

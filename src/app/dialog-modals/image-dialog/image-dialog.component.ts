@@ -21,7 +21,7 @@ export class ImageDialogComponent implements OnInit {
   }
 
   save(): void {
-    this.dialogRef.close({});
+    this.dialogRef.close({image: this.image.copy()});
   }
 
   close() {
