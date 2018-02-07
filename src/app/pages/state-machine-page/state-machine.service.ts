@@ -11,7 +11,7 @@ import {
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {Response} from '@angular/http';
 import {environment} from '../../../environments/environment';
-import {getQueueSummary, getQueueState} from '../../shared/utils/queries/queue.queries';
+import {getQueueSummary, getCurrentQueueSummary} from '../../shared/utils/queries/queue.queries';
 
 @Injectable()
 export class StateMachineService {
@@ -45,11 +45,8 @@ export class StateMachineService {
     this.queues$.next(generateQueues());
   }
 
-  getQueueState(queueName: string): Observable<Response> {
-    const end = utc();
-    const start = utc().subtract(7, 'd');
-
-    return this.queryRequest(getQueueState(queueName, start.format(), end.format()), {failStrategy: FailStrategy.Soft});
+  getCurrentQueueSummary(queueName: string): Observable<Response> {
+    return this.queryRequest(getCurrentQueueSummary(queueName), {failStrategy: FailStrategy.Soft});
   }
 
   protected queryRequest(query: string, requestBehaviourOptions?: RequestBehaviourOptions): Observable<Response | CustomServerError> {
@@ -65,26 +62,6 @@ export class StateMachineService {
 
     return this.http.postWithError(endpoint, query, { headers: generateHeaders(this.authService.getToken())}, requestBehaviourOptions);
   }
-}
-
-function generateTimeseries(start: Moment, end: Moment): StateMachineTimeseries[] {
-  let timeseries: StateMachineTimeseries[] = [];
-
-  let step = end.diff(start, 'd') / 10;
-  if (step < 1) {
-    step = 1;
-  }
-
-  while (start.isBefore(end)) {
-    timeseries.push(new StateMachineTimeseries({period: start.clone(), count: Math.floor(Math.random() * 201) + 1000}));
-    start = start.clone().add(step, 'd');
-  }
-
-  if (step % 1 !== 0) {
-    timeseries.push(new StateMachineTimeseries({period: end.clone(), count: Math.floor(Math.random() * 501) + 1000}));
-  }
-
-  return timeseries;
 }
 
 function generateQueues(): StateMachineQueue[] {

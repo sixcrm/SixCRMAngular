@@ -97,20 +97,20 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
       this.sub.unsubscribe();
     }
 
-    this.sub = this.stateMachineService.getQueueState(this.queue.label).subscribe(res => {
+    this.sub = this.stateMachineService.getCurrentQueueSummary(this.queue.label).subscribe(res => {
       if (res instanceof CustomServerError) {
         this.queue.loaded = true;
 
         return;
       }
 
-      const state = res.json().response.data.queuestate;
+      let summary = res.json().response.data.currentqueuesummary.summary[0];
 
-      this.queue.count = state.count;
-      this.queue.avgTimeInSeconds = state.average_time;
-      this.queue.failureRate = state.failure_rate;
-      this.queue.avgTimeColor = state.averate_time_color;
-      this.queue.failureColor = state.failure_rate_color;
+      this.queue.count = summary.number_of_rebills;
+      this.queue.avgTimeInSeconds = summary.avg_time;
+      this.queue.failureRate = summary.failure_rate;
+      this.queue.avgTimeColor = summary.avg_time_color;
+      this.queue.failureColor = summary.failure_rate_color;
 
       this.queue.loaded = true;
     })

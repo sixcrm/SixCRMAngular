@@ -7,10 +7,12 @@ export function getQueueSummary(queueName: string, start: string, end: string, l
     }`
 }
 
-export function getQueueState(queuename: string, start: string, end: string): string {
+export function getCurrentQueueSummary(queuename: string) : string {
   return `
     query {
-      queuestate (analyticsfilter:{start:"${start}", end:"${end}"}, pagination: { limit:1, offset:0 }, queuename:"${queuename}", period:"minute")
-        { count, failure_rate, success_rate, error_rate, expired_rate, average_time, average_time_color, failure_rate_color }
-    }`
+      currentqueuesummary (queuename: "${queuename}"){
+        summary { queuename, avg_time, number_of_rebills, failure_rate, failure_rate_color, avg_time_color}
+      }
+    }
+  `
 }
