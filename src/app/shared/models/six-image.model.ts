@@ -5,6 +5,7 @@ export class SixImage {
   raw: string;
   name: string;
   description: string;
+  defaultImage: boolean;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -16,6 +17,7 @@ export class SixImage {
     this.raw = obj.raw || '';
     this.name = obj.name || '';
     this.description = obj.description || '';
+    this.defaultImage = obj.default_image;
   }
 
   copy(): SixImage {
@@ -28,7 +30,8 @@ export class SixImage {
       filename: this.filename,
       raw: this.raw,
       name: this.name,
-      description: this.description
+      description: this.description,
+      default_image: this.defaultImage
     }
   }
 }

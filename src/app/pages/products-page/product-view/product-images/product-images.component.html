@@ -5,7 +5,7 @@
       <div class="entity-view__card__header__title"> {{'PRODUCT_IMAGE_GALLERY_TITLE' | translate}} </div>
     </div>
     <div class="image-container">
-      <div class="image-wrapper" *ngFor="let image of images">
+      <div class="image-wrapper" *ngFor="let image of images | sortByDefault">
         <img src="{{image.path}}">
         <div class="image-overlay">
           <md-icon (click)="viewImage(image)">zoom_in</md-icon>

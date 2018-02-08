@@ -16,6 +16,7 @@ import {TranslationModule} from '../../translation/translation.module';
 import { ProductAttributesComponent } from './product-view/product-attributes/product-attributes.component';
 import {FileUploadModule} from 'ng2-file-upload';
 import { ProductImagesComponent } from './product-view/product-images/product-images.component';
+import { SortByDefaultPipe } from './product-view/product-images/sort-by-default.pipe';
 
 @NgModule({
   imports : [
@@ -36,7 +37,8 @@ import { ProductImagesComponent } from './product-view/product-images/product-im
     ProductCampaignsComponent,
     ProductAddNewComponent,
     ProductAttributesComponent,
-    ProductImagesComponent
+    ProductImagesComponent,
+    SortByDefaultPipe
   ],
   exports : [ ],
   providers: [
