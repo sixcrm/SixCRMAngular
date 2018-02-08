@@ -17,10 +17,6 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-
-  div {
-    margin: 10px;
-  }
 }
 
 .entity-view__card {
@@ -29,10 +25,20 @@
 
 .image-wrapper {
   position: relative;
+  margin: 10px;
+  width: calc(33.3% - 20px);
+
+  @media only screen and (max-width: 1100px) {
+    width: calc(50% - 20px);
+  }
+
+  @media only screen and (max-width: 760px) {
+    width: calc(100% - 20px);
+  }
 
   img {
     display: flex;
-    max-width: 250px;
+    width: 100%;
   }
 }
 
@@ -111,4 +117,13 @@
   input {
     display: none;
   }
+}
+
+.gallery-container {
+  max-width: 100%;
+  width: 810px;
+}
+
+.upload-container {
+  width: 300px;
 }

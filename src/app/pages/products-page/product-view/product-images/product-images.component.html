@@ -1,5 +1,22 @@
 <div class="container">
-  <div class="entity-view__card" style="min-width: 270px;">
+
+  <div class="entity-view__card gallery-container">
+    <div class="entity-view__card__header">
+      <div class="entity-view__card__header__title"> {{'PRODUCT_IMAGE_GALLERY_TITLE' | translate}} </div>
+    </div>
+    <div class="image-container">
+      <div class="image-wrapper" *ngFor="let image of images">
+        <img src="{{image.path}}">
+        <div class="image-overlay">
+          <md-icon (click)="viewImage(image)">zoom_in</md-icon>
+          <md-icon (click)="editImage(image)">mode_edit</md-icon>
+          <md-icon (click)="deleteImage(image)">delete</md-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="entity-view__card upload-container">
     <div class="entity-view__card__header">
       <div class="entity-view__card__header__title">{{'PRODUCT_IMAGE_UPLOAD_TITLE' | translate}}</div>
     </div>
@@ -27,21 +44,4 @@
     </div>
   </div>
 
-  <div>
-    <div *ngIf="images.length > 0" class="entity-view__card">
-      <div class="entity-view__card__header">
-        <div class="entity-view__card__header__title"> {{'PRODUCT_IMAGE_GALLERY_TITLE' | translate}} </div>
-      </div>
-      <div class="image-container">
-        <div class="image-wrapper" *ngFor="let image of images">
-          <img src="{{image.path}}">
-          <div class="image-overlay">
-            <md-icon (click)="viewImage(image)">zoom_in</md-icon>
-            <md-icon (click)="editImage(image)">mode_edit</md-icon>
-            <md-icon (click)="deleteImage(image)">delete</md-icon>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
