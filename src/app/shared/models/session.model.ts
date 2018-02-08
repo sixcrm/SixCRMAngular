@@ -8,6 +8,7 @@ import {utc, Moment} from 'moment';
 
 export class Session implements Entity<Session> {
   id: string;
+  alias: string;
   customer: Customer;
   productSchedules: ProductSchedule[] = [];
   rebills: Rebill[] = [];
@@ -27,6 +28,7 @@ export class Session implements Entity<Session> {
     }
 
     this.id = obj.id || '';
+    this.alias = obj.alias || '';
     this.customer = new Customer(obj.customer);
     this.campaign = new Campaign(obj.campaign);
     this.affiliate = new Affiliate(obj.affiliate);
@@ -82,6 +84,7 @@ export class Session implements Entity<Session> {
   inverse(): any {
     return {
       id: this.id,
+      alias: this.alias,
       customer: this.customer.inverse(),
       product_schedules: this.productSchedules.map(p => p.inverse()),
       rebills: this.rebills.map(r => r.inverse()),

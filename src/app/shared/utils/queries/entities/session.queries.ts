@@ -48,7 +48,7 @@ export function deleteSessionMutation(id: string): string {
 
 export function sessionResponseQuery(): string {
   return `
-    id created_at updated_at,
+    id alias created_at updated_at,
     customer { id firstname lastname address { line1 line2 city state zip country } }
     affiliate { id name affiliate_id created_at updated_at }
     subaffiliate_1 { id name affiliate_id created_at updated_at }
@@ -62,5 +62,5 @@ export function sessionResponseQuery(): string {
 }
 
 export function sessionInfoResponseQuery(): string {
-  return `id customer { id firstname lastname } product_schedules { id } rebills { id } campaign { id name }`;
+  return `id alias customer { id firstname lastname } product_schedules { id } rebills { id } campaign { id name }`;
 }
