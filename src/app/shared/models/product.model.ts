@@ -2,7 +2,6 @@ import {FulfillmentProvider} from './fulfillment-provider.model';
 import {Entity} from './entity.interface';
 import {Currency} from '../utils/currency/currency';
 import {ProductAttributes} from './product-attributes.model';
-import {SixImage} from './six-image.model';
 
 export class Product implements Entity<Product> {
   id: string;
@@ -23,7 +22,7 @@ export class Product implements Entity<Product> {
     this.id = obj.id || '';
     this.name = obj.name || '';
     this.sku = obj.sku || '';
-    this.ship = (obj.ship === 'true');
+    this.ship = obj.ship;
     this.shippingDelay = obj.shipping_delay || 0;
     this.description = obj.description || '';
     this.attributes = new ProductAttributes(obj.attributes);

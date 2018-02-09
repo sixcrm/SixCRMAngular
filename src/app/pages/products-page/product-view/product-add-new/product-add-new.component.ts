@@ -49,6 +49,10 @@ export class ProductAddNewComponent implements OnInit, OnDestroy {
   toggleShip() {
     this.entity.ship = !this.entity.ship;
     this.entity.shippingDelay = 0;
+
+    if (!this.entity.ship) {
+      this.entity.fulfillmentProvider = new FulfillmentProvider();
+    }
   }
 
   saveProduct(valid: boolean): void {
