@@ -31,9 +31,7 @@ export class Customer implements Entity<Customer> {
     this.updatedAt = utc(obj.updated_at);
 
     if (obj.creditcards) {
-      for (let i = 0; i < obj.creditcards.length; i++) {
-        this.creditCards.push(new CreditCard(obj.creditcards[i]));
-      }
+      this.creditCards = obj.creditcards.map(card => new CreditCard(card));
     }
   }
 
@@ -42,11 +40,6 @@ export class Customer implements Entity<Customer> {
   }
 
   inverse(): any {
-    let ccards = [];
-    for (let index in this.creditCards) {
-      ccards.push(this.creditCards[index].inverse());
-    }
-
     return {
       id: this.id,
       email: this.email,
@@ -54,7 +47,7 @@ export class Customer implements Entity<Customer> {
       lastname: this.lastName,
       phone: this.phone,
       address: this.address.inverse(),
-      creditcards: ccards,
+      creditcards: this.creditCards.map(card => card.inverse()),
       created_at: this.createdAt.format(),
       updated_at: this.updatedAt.format()
     }

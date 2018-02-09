@@ -1,5 +1,6 @@
 import {Address} from './address.model';
 import {Entity} from './entity.interface';
+import {Customer} from './customer.model';
 
 export class CreditCard implements Entity<CreditCard> {
   id: string;
@@ -11,6 +12,7 @@ export class CreditCard implements Entity<CreditCard> {
   type: string;
   expirationFormatted: string;
   maskedNumber: string;
+  customers: Customer[] = [];
 
   constructor(obj?: any) {
     if (!obj) {
@@ -26,6 +28,10 @@ export class CreditCard implements Entity<CreditCard> {
     this.type = this.getType().toUpperCase();
     this.expirationFormatted = this.formatExpiration();
     this.maskedNumber = this.maskNumber();
+
+    if (obj.customers) {
+      this.customers = obj.customers.map(customer => new Customer(customer));
+    }
   }
 
   copy(): CreditCard {
@@ -39,8 +45,9 @@ export class CreditCard implements Entity<CreditCard> {
       expiration: this.expiration,
       ccv: this.ccv,
       name: this.name,
-      address: this.address.inverse()
-    };
+      address: this.address.inverse(),
+      customers: this.customers.map(customer => customer.inverse())
+    }
   }
 
   getType(): string {

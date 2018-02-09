@@ -798,7 +798,17 @@
         "city": "City"
       },
       "tab": {
-        "general": "GENERAL DETALS"
+        "general": "GENERAL DETAILS",
+        "customer": "CUSTOMERS"
+      },
+      "customer": {
+        "title": "Associated Customers",
+        "view": "View Customer",
+        "nodata": "No Customers found.",
+        "name": "Name",
+        "city": "City",
+        "state": "State",
+        "zip": "Zip Code"
       }
     },
     "bill": {

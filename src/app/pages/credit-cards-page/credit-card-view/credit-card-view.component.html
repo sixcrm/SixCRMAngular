@@ -15,11 +15,10 @@
     </div>
   </div>
 
-  <tab-header [elements]="tabHeaders" [selectedIndex]="0"></tab-header>
+  <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-  <md-tab-group>
+  <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>
-
       <credit-card-input
         [creditCard]="entity"
         [viewMode]="isViewMode"
@@ -28,12 +27,23 @@
         (edit)="enterEditMode()"
         (cancel)="doCancel()">
       </credit-card-input>
+    </md-tab>
 
+    <md-tab>
+      <table-memory
+        [data]="entity.customers"
+        [columnParams]="customerColumnParams"
+        [textOptions]="customerTextOptions"
+        [dissociationEnabled]="false"
+        [associationEnabled]="false"
+        [filterEnabled]="false"
+        (view)="viewCustomer($event)">
+      </table-memory>
     </md-tab>
 
   </md-tab-group>
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="1" [cardsExpression]="'380px'" [title]="'CREDITCARD_TITLE' | translate"></spe-loader>
+  <spe-loader [numberOfTabs]="2" [cardsExpression]="'380px'" [title]="'CREDITCARD_TITLE' | translate"></spe-loader>
 </ng-template>
