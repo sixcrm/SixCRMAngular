@@ -957,7 +957,7 @@
       "cancel": "रद्द करें",
       "save": "सुरक्षित करें",
       "edit": "उत्पाद अनुसूची संपादित करें",
-      "viewloadbalancer": "View Load Balancer"
+      "viewloadbalancer": "View Merchant Provider Group"
     },
     "cycle": {
       "addtitle": "साइकिल जोड़ें",
@@ -1354,7 +1354,7 @@
       "title": "Associated Product Schedules",
       "nodata": "No Product Schedules found.",
       "name": "Name",
-      "loadbalancer": "Load Balancer",
+      "loadbalancer": "Merchant Provider Group",
       "count": "Number of cycles"
     },
     "transaction": {

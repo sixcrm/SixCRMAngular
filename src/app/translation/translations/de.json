@@ -1,1705 +1,1705 @@
 {
-    "topnav": {
-      "search": "Suchen",
-      "greeting": "Hallo",
+  "topnav": {
+    "search": "Suchen",
+    "greeting": "Hallo",
+    "settings": "Einstellungen",
+    "signout": "Abmelden",
+    "actingas": "Tätig als Konto",
+    "mobile": {
+      "accounts": "Konten",
+      "actions": "Aktionen",
       "settings": "Einstellungen",
-      "signout": "Abmelden",
-      "actingas": "Tätig als Konto",
-      "mobile": {
-        "accounts": "Konten",
-        "actions": "Aktionen",
-        "settings": "Einstellungen",
-        "signout": "Abmelden"
+      "signout": "Abmelden"
+    }
+  },
+  "sidenav": {
+    "dashboard": "Dashboard",
+    "orderengine": "SIX-Antrieb",
+    "reports": {
+      "title": "Berichte",
+      "order": "Aufträge-Bericht",
+      "summary": "Kurzbericht",
+      "transaction": "Transaktionen-Bericht",
+      "merchant": "Händler-Bericht",
+      "affiliate": "Vertriebspartner-Bericht",
+      "fulfillment": "Fulfillment Bericht",
+      "retention": "Retention",
+      "projection": "Projections"
+    },
+    "customer": "Kunde",
+    "creditcard": "Credit Cards",
+    "crm": {
+      "title": "CRM",
+      "product": "Produkte",
+      "productschedule": "Produktzyklen",
+      "campaign": "Kampagnen",
+      "emailtemplate": "Mailvorlagen",
+      "affiliate": "Vertriebspartner",
+      "tracker": "Trackers",
+      "session": "Sitzungen",
+      "transaction": "Transaktionen",
+      "rebill": "Neubelastung",
+      "shippingreceipt": "Posteinlieferungsscheine",
+      "providers": {
+        "title": "3rd Party Anbieter",
+        "fulfillment": "Fulfillment Anbieter",
+        "smtp": "SMTP Anbieter"
       }
     },
-    "sidenav": {
-      "dashboard": "Dashboard",
-      "orderengine": "SIX-Antrieb",
-      "reports": {
-        "title": "Berichte",
-        "order": "Aufträge-Bericht",
-        "summary": "Kurzbericht",
-        "transaction": "Transaktionen-Bericht",
-        "merchant": "Händler-Bericht",
-        "affiliate": "Vertriebspartner-Bericht",
-        "fulfillment": "Fulfillment Bericht",
-        "retention": "Retention",
-        "projection": "Projections"
-      },
-      "customer": "Kunde",
-      "creditcard": "Credit Cards",
-      "crm": {
-        "title": "CRM",
-        "product": "Produkte",
-        "productschedule": "Produktzyklen",
-        "campaign": "Kampagnen",
-        "emailtemplate": "Mailvorlagen",
-        "affiliate": "Vertriebspartner",
-        "tracker": "Trackers",
-        "session": "Sitzungen",
-        "transaction": "Transaktionen",
-        "rebill": "Neubelastung",
-        "shippingreceipt": "Posteinlieferungsscheine",
-        "providers": {
-          "title": "3rd Party Anbieter",
-          "fulfillment": "Fulfillment Anbieter",
-          "smtp": "SMTP Anbieter"
-        }
-      },
-      "merchant": {
-        "title": "Händler",
-        "merchantprovider": "Merchant Anbieter",
-        "loadbalancer": "Lastverteiler (Load Balancers)"
-      },
-      "settings": {
-        "title": "Einstellungen",
-        "user": "Nutzer",
-        "account": "Konten",
-        "bill": "Rechnungen",
-        "role": "Nutzerrolllen",
-        "key": {
-          "title": "API Schlüssel",
-          "signingstring": "Nutzer Signing Strings",
-          "accesskey": "Zugriffsschlüssel"
-        },
-        "documentation": {
-          "title": "Dokumentation",
-          "graphql": "GraphQL",
-          "wiki": "Wiki"
-        }
-      },
-      "search": "Suche"
+    "merchant": {
+      "title": "Händler",
+      "merchantprovider": "Merchant Anbieter",
+      "loadbalancer": "Merchantanbietergruppe"
     },
-    "orderengine": {
-      "title": "State Machine",
-      "queue": "Reihe",
-      "item": {
-        "recover": "Rettung",
-        "bill": "Berechnet",
-        "failed": "Verfehlt",
-        "hold": "Gehalten",
-        "pending": "Schwebend",
-        "shipped": "Vershickt",
-        "delivered": "Geliefert"
+    "settings": {
+      "title": "Einstellungen",
+      "user": "Nutzer",
+      "account": "Konten",
+      "bill": "Rechnungen",
+      "role": "Nutzerrolllen",
+      "key": {
+        "title": "API Schlüssel",
+        "signingstring": "Nutzer Signing Strings",
+        "accesskey": "Zugriffsschlüssel"
       },
-      "schema": {
-        "title": "SIX-Antrieb Fluss",
-        "subtitle": "Unten finden Sie einen Fluss von allen Neubelastungen in SIX. Falls Sie Details einer bestimmten Reihe sehen wollen, klicken Sie den Namen der Reihe."
+      "documentation": {
+        "title": "Dokumentation",
+        "graphql": "GraphQL",
+        "wiki": "Wiki"
+      }
+    },
+    "search": "Suche"
+  },
+  "orderengine": {
+    "title": "State Machine",
+    "queue": "Reihe",
+    "item": {
+      "recover": "Rettung",
+      "bill": "Berechnet",
+      "failed": "Verfehlt",
+      "hold": "Gehalten",
+      "pending": "Schwebend",
+      "shipped": "Vershickt",
+      "delivered": "Geliefert"
+    },
+    "schema": {
+      "title": "SIX-Antrieb Fluss",
+      "subtitle": "Unten finden Sie einen Fluss von allen Neubelastungen in SIX. Falls Sie Details einer bestimmten Reihe sehen wollen, klicken Sie den Namen der Reihe."
+    },
+    "status": {
+      "failurerate": "Durchfallquote",
+      "avgtime": "Durchschnittszeit in der Reihe",
+      "view": "Ansehen"
+    },
+    "details": {
+      "title": "Gesamte Aufträge",
+      "failurerate": "Durchfallquote",
+      "avgtime": "Durchsnittszeit in der Reihe",
+      "view": "AKTUELLE SICHT DIESER REIHE",
+      "downstream": "NÄCHSTE REIHE",
+      "nodata": "Unzureichende Dateien",
+      "livepolling": "Aktuelle Polling"
+    },
+    "rebills": {
+      "snack": {
+        "main": "Nachrichten dieser Reihe",
+        "sub": "Neuzubelastung ID"
       },
-      "status": {
-        "failurerate": "Durchfallquote",
-        "avgtime": "Durchschnittszeit in der Reihe",
-        "view": "Ansehen"
+      "view": "Neubelastung ansehen",
+      "id": "ID",
+      "billed": "Berechnet am",
+      "created": "Geschafft am",
+      "amount": "Betrag",
+      "nodata": "Keine neubelastungen gefunden."
+    },
+    "rebill": {
+      "history": {
+        "title": "Nachrichten",
+        "subtitle": "Geschichte",
+        "enter": "Eingegeben"
       },
-      "details": {
-        "title": "Gesamte Aufträge",
-        "failurerate": "Durchfallquote",
-        "avgtime": "Durchsnittszeit in der Reihe",
-        "view": "AKTUELLE SICHT DIESER REIHE",
-        "downstream": "NÄCHSTE REIHE",
-        "nodata": "Unzureichende Dateien",
-        "livepolling": "Aktuelle Polling"
-      },
-      "rebills": {
-        "snack": {
-          "main": "Nachrichten dieser Reihe",
-          "sub": "Neuzubelastung ID"
-        },
-        "view": "Neubelastung ansehen",
-        "id": "ID",
-        "billed": "Berechnet am",
+      "properties": {
+        "title": "Neubelastung-Eigenschaften",
+        "subtitle": "Einzelheiter dieser Neubelastung",
+        "rebill": "Neuzubelastung ID",
+        "parentsession": "Muttersession ID",
         "created": "Geschafft am",
+        "updated": "Aktualisiert am",
         "amount": "Betrag",
-        "nodata": "Keine neubelastungen gefunden."
-      },
-      "rebill": {
-        "history": {
-          "title": "Nachrichten",
-          "subtitle": "Geschichte",
-          "enter": "Eingegeben"
-        },
-        "properties": {
-          "title": "Neubelastung-Eigenschaften",
-          "subtitle": "Einzelheiter dieser Neubelastung",
-          "rebill": "Neuzubelastung ID",
-          "parentsession": "Muttersession ID",
-          "created": "Geschafft am",
-          "updated": "Aktualisiert am",
-          "amount": "Betrag",
-          "campaign": "Zugehörige Kampagne"
-        }
+        "campaign": "Zugehörige Kampagne"
       }
+    }
+  },
+  "notifications": {
+    "title": "Anzeigen & Alarmsignale",
+    "tab": {
+      "notifications": "ANZEIGEN",
+      "alerts": "ALARMSIGNALE"
+    },
+    "today": "Heute",
+    "yesterday": "Gestern",
+    "days3": "Vorherige 3 Tage",
+    "week": "Vorwoche",
+    "other": "Andere"
+  },
+  "notificationsquick": {
+    "title": "ANZEIGEN",
+    "settings": "Einstellungen",
+    "viewall": "Alle Anzeigen ansehen",
+    "alerts": "Alarmsignale",
+    "noresults": "Keine Anezeige gefunden.",
+    "view": "Ansehen",
+    "dismiss": "Abweisen"
+  },
+  "advancedfilter": {
+    "day": "1D",
+    "week": "1W",
+    "month": "1M",
+    "3month": "3M",
+    "6month": "6M",
+    "year": "1Y",
+    "yeartodate": "YTD",
+    "all": "ALL",
+    "from": "Von",
+    "to": "Bis",
+    "filters": "Filter",
+    "groupby": "Anordnen",
+    "show": "Weitere Suchoptionen darstellen",
+    "hide": "Weiter Suchoptionen verbergen",
+    "apply": "ANWENDEN",
+    "reset": "ZURÜCKSTELLEN",
+    "close": "SCHLIEßEN",
+    "campaign": "Kampagne",
+    "affiliate": "Vertriebspartner",
+    "subid1": "Untervertriebspartner 1",
+    "subid2": "Untervertriebspartner 2",
+    "subid3": "Untervertriebspartner 3",
+    "subid4": "Untervertriebspartner 4",
+    "subid5": "Untervertriebspartner 5",
+    "productschedule": "Productzyklus",
+    "merchantprovider": "Merchant Anbieter",
+    "transactiontype": "Transaction Type",
+    "processorresponse": "Antwortmeldung des Zahlungsprozessors",
+    "new": "Neu",
+    "rebill": "Neubelastung",
+    "success": "Erfolg",
+    "decline": "Abhlehnung",
+    "error": "Fehler",
+    "refreshdashboardtext": "Dashboard aktualisieren. Aktualisiert am:",
+    "refreshreporttext": "Bericht aktualisieren"
+  },
+  "forminputs": {
+    "fullname": "Name",
+    "firstname": "Vorname",
+    "phone": "Telefonummer",
+    "email": "Email",
+    "lastname": "Nachname",
+    "address": "Addresse",
+    "address2": "Addresse 2",
+    "city": "Stadt",
+    "state": "Bundesstadt",
+    "zip": "PLZ",
+    "country": "Land",
+    "creditcard": {
+      "name": "Karteninhaber",
+      "type": "Karte",
+      "number": "Kartennummer",
+      "expiration": "Gültig bis",
+      "ccv": "Kartenprüfziffer",
+      "monthshort": "MM",
+      "yearshort": "JJJJ"
+    }
+  },
+  "indexpage": {
+    "filter": "Filter",
+    "del": "Löschen",
+    "view": "Ansehen",
+    "exp": "Exportieren",
+    "edit": "Bearbeiten",
+    "copy": "Kopieren"
+  },
+  "singlepage": {
+    "created": "Geschafft am",
+    "updated": "Aktualisiert",
+    "createcanceltitle": "Sind Sie sicher, dass sie dieses Modal-Fenster schliessen wollen?",
+    "createcanceltext": "Sie haben nicht gesicherte Änderungen. Wenn sie dieses Modal-Fenster schliessen, Ihre Änderungen werden abgelegt.",
+    "createcancelclose": "SCHLIEßEN",
+    "createcancelcancel": "ABBRECHEN",
+    "leavetitle": "Sind Sie sicher, dass Sie diesen Bereich verlassen wollen?",
+    "leavetext": "Sie haben nicht gesicherte Änderungen. Wenn sie dieses Modal-Fenster schliessen, Ihre Änderungen werden abgelegt.",
+    "leavecancel": "ABBRECHEN",
+    "leaveleave": "VERLASSEN"
+  },
+  "profile": {
+    "title": "Profil",
+    "created": "Geschafft am",
+    "tabs": {
+      "general": "ALLGEMEIN",
+      "notifications": "ANZEIGEN",
+      "accounts": "KONTEN",
+      "signingstrings": "SIGNING STRINGS"
+    },
+    "details": {
+      "title": "Profil",
+      "subtitle": "Allgemeines",
+      "firstname": "Vorname",
+      "lastname": "Nachname",
+      "workphone": "Telefonnummer",
+      "cellphone": "Handynummer",
+      "timezone": "Zeitzone",
+      "email": "Email",
+      "language": "Sprache",
+      "update": "AKTUALISIEREN"
     },
     "notifications": {
-      "title": "Anzeigen & Alarmsignale",
-      "tab": {
-        "notifications": "ANZEIGEN",
-        "alerts": "ALARMSIGNALE"
+      "title": "Einstellungen für Anzeigen",
+      "subtitle": "Wählen Sie unten welche von den folgenden Vorfälle einen Anzeige auslösen sollen",
+      "testalert": "Ein Test-Alarmsignale auslösen",
+      "testnotification": "Eine Testanzeige auslösen",
+      "devices": {
+        "title": "Geräte",
+        "subtitle": "Ihre Geräte für SIX-Anzeigen konfigurieren",
+        "sms": "SMS",
+        "email": "Email",
+        "skype": "Skype",
+        "slack": "Slack Web Hook"
       },
-      "today": "Heute",
-      "yesterday": "Gestern",
-      "days3": "Vorherige 3 Tage",
-      "week": "Vorwoche",
-      "other": "Andere"
-    },
-    "notificationsquick": {
-      "title": "ANZEIGEN",
-      "settings": "Einstellungen",
-      "viewall": "Alle Anzeigen ansehen",
-      "alerts": "Alarmsignale",
-      "noresults": "Keine Anezeige gefunden.",
-      "view": "Ansehen",
-      "dismiss": "Abweisen"
-    },
-    "advancedfilter": {
-      "day": "1D",
-      "week": "1W",
-      "month": "1M",
-      "3month": "3M",
-      "6month": "6M",
-      "year": "1Y",
-      "yeartodate": "YTD",
-      "all": "ALL",
-      "from": "Von",
-      "to": "Bis",
-      "filters": "Filter",
-      "groupby": "Anordnen",
-      "show": "Weitere Suchoptionen darstellen",
-      "hide": "Weiter Suchoptionen verbergen",
-      "apply": "ANWENDEN",
-      "reset": "ZURÜCKSTELLEN",
-      "close": "SCHLIEßEN",
-      "campaign": "Kampagne",
-      "affiliate": "Vertriebspartner",
-      "subid1": "Untervertriebspartner 1",
-      "subid2": "Untervertriebspartner 2",
-      "subid3": "Untervertriebspartner 3",
-      "subid4": "Untervertriebspartner 4",
-      "subid5": "Untervertriebspartner 5",
-      "productschedule": "Productzyklus",
-      "merchantprovider": "Merchant Anbieter",
-      "transactiontype": "Transaction Type",
-      "processorresponse": "Antwortmeldung des Zahlungsprozessors",
-      "new": "Neu",
-      "rebill": "Neubelastung",
-      "success": "Erfolg",
-      "decline": "Abhlehnung",
-      "error": "Fehler",
-      "refreshdashboardtext": "Dashboard aktualisieren. Aktualisiert am:",
-      "refreshreporttext": "Bericht aktualisieren"
-    },
-    "forminputs": {
-      "fullname": "Name",
-      "firstname": "Vorname",
-      "phone": "Telefonummer",
-      "email": "Email",
-      "lastname": "Nachname",
-      "address": "Addresse",
-      "address2": "Addresse 2",
-      "city": "Stadt",
-      "state": "Bundesstadt",
-      "zip": "PLZ",
-      "country": "Land",
-      "creditcard": {
-        "name": "Karteninhaber",
-        "type": "Karte",
-        "number": "Kartennummer",
-        "expiration": "Gültig bis",
-        "ccv": "Kartenprüfziffer",
-        "monthshort": "MM",
-        "yearshort": "JJJJ"
+      "settings": {
+        "title": "Einstellungen für Anzeige",
+        "subtitle": "Wählen Sie aus welche Anzeige Sie empfangen wollen"
       }
     },
-    "indexpage": {
-      "filter": "Filter",
-      "del": "Löschen",
-      "view": "Ansehen",
-      "exp": "Exportieren",
+    "accounts": {
+      "title": "Ihre Konten",
+      "accountname": "Name",
+      "rolename": "Nutzerrolle",
+      "view": "Konto ansehen"
+    },
+    "signingstrings": {
+      "title": "Ihre Signing Strings",
+      "name": "Name",
+      "signingstring": "Signing String",
+      "used": "Zuletzt verwendet",
+      "add": "Neue Signing String hinzufügen",
+      "remove": "Ablösen",
       "edit": "Bearbeiten",
-      "copy": "Kopieren"
+      "updatetext": "Signing String aktualisieren",
+      "addtext": "Neue Signing String",
+      "cancel": "Abbrechen",
+      "save": "Speichern",
+      "nodata": "Keine Signing Strings gefunden."
+    }
+  },
+  "dashboard": {
+    "item": {
+      "newsale": "Neue Umsätze",
+      "main": "Main",
+      "upsell": "Zusatzverkäufe",
+      "rebill": "Neubelastungen",
+      "decline": "Ablehnungen",
+      "error": "Fehler"
     },
-    "singlepage": {
-      "created": "Geschafft am",
-      "updated": "Aktualisiert",
-      "createcanceltitle": "Sind Sie sicher, dass sie dieses Modal-Fenster schliessen wollen?",
-      "createcanceltext": "Sie haben nicht gesicherte Änderungen. Wenn sie dieses Modal-Fenster schliessen, Ihre Änderungen werden abgelegt.",
-      "createcancelclose": "SCHLIEßEN",
-      "createcancelcancel": "ABBRECHEN",
-      "leavetitle": "Sind Sie sicher, dass Sie diesen Bereich verlassen wollen?",
-      "leavetext": "Sie haben nicht gesicherte Änderungen. Wenn sie dieses Modal-Fenster schliessen, Ihre Änderungen werden abgelegt.",
-      "leavecancel": "ABBRECHEN",
-      "leaveleave": "VERLASSEN"
+    "eventsfunnel": {
+      "title": "Vorfälletrichter",
+      "subtitle": "Vorfälle sortiert nach Variant",
+      "event": "Vorfall",
+      "count": "Anzahl",
+      "percentage": "Anteil",
+      "relativepercentage": "Relativ Anteil",
+      "click": "Clicks",
+      "lead": "Leads",
+      "main": "Mains",
+      "upsell": "Zusatzverkäufe",
+      "confirm": "Bestätigungen"
     },
-    "profile": {
-      "title": "Profil",
-      "created": "Geschafft am",
-      "tabs": {
-        "general": "ALLGEMEIN",
-        "notifications": "ANZEIGEN",
-        "accounts": "KONTEN",
-        "signingstrings": "SIGNING STRINGS"
-      },
-      "details": {
-        "title": "Profil",
-        "subtitle": "Allgemeines",
-        "firstname": "Vorname",
-        "lastname": "Nachname",
-        "workphone": "Telefonnummer",
-        "cellphone": "Handynummer",
-        "timezone": "Zeitzone",
-        "email": "Email",
-        "language": "Sprache",
-        "update": "AKTUALISIEREN"
-      },
-      "notifications": {
-        "title": "Einstellungen für Anzeigen",
-        "subtitle": "Wählen Sie unten welche von den folgenden Vorfälle einen Anzeige auslösen sollen",
-        "testalert": "Ein Test-Alarmsignale auslösen",
-        "testnotification": "Eine Testanzeige auslösen",
-        "devices": {
-          "title": "Geräte",
-          "subtitle": "Ihre Geräte für SIX-Anzeigen konfigurieren",
-          "sms": "SMS",
-          "email": "Email",
-          "skype": "Skype",
-          "slack": "Slack Web Hook"
-        },
-        "settings": {
-          "title": "Einstellungen für Anzeige",
-          "subtitle": "Wählen Sie aus welche Anzeige Sie empfangen wollen"
-        }
-      },
-      "accounts": {
-        "title": "Ihre Konten",
-        "accountname": "Name",
-        "rolename": "Nutzerrolle",
-        "view": "Konto ansehen"
-      },
-      "signingstrings": {
-        "title": "Ihre Signing Strings",
-        "name": "Name",
-        "signingstring": "Signing String",
-        "used": "Zuletzt verwendet",
-        "add": "Neue Signing String hinzufügen",
-        "remove": "Ablösen",
-        "edit": "Bearbeiten",
-        "updatetext": "Signing String aktualisieren",
-        "addtext": "Neue Signing String",
-        "cancel": "Abbrechen",
-        "save": "Speichern",
-        "nodata": "Keine Signing Strings gefunden."
-      }
+    "eventsummary": {
+      "title": "Vorfälle",
+      "subtitle": "Zusammenfassung den Vorfällen",
+      "nodata": "Keine Vorfälle gefunden",
+      "confirm": "Bestätigungen",
+      "upsell": "Zusatzverkauf",
+      "lead": "Lead",
+      "order": "Auftrag",
+      "click": "Click",
+      "events": "Vorfälle"
     },
-    "dashboard": {
-      "item": {
-        "newsale": "Neue Umsätze",
-        "main": "Main",
-        "upsell": "Zusatzverkäufe",
-        "rebill": "Neubelastungen",
-        "decline": "Ablehnungen",
-        "error": "Fehler"
-      },
-      "eventsfunnel": {
-        "title": "Vorfälletrichter",
-        "subtitle": "Vorfälle sortiert nach Variant",
-        "event": "Vorfall",
-        "count": "Anzahl",
-        "percentage": "Anteil",
-        "relativepercentage": "Relativ Anteil",
-        "click": "Clicks",
-        "lead": "Leads",
-        "main": "Mains",
-        "upsell": "Zusatzverkäufe",
-        "confirm": "Bestätigungen"
-      },
-      "eventsummary": {
-        "title": "Vorfälle",
-        "subtitle": "Zusammenfassung den Vorfällen",
-        "nodata": "Keine Vorfälle gefunden",
-        "confirm": "Bestätigungen",
-        "upsell": "Zusatzverkauf",
-        "lead": "Lead",
-        "order": "Auftrag",
-        "click": "Click",
-        "events": "Vorfälle"
-      },
-      "eventsbyaffiliate": {
-        "title": "Vorfälle sortiert nach Vertriebspartner",
-        "subtitle": "Vorfälle von Ihren besten Vertriebspartner",
-        "affiliate": "Vertriebspartner",
-        "count": "Anzahl",
-        "percentage": "Anteil",
-        "nodata": "Keine Vorfälle gefunden"
-      },
-      "transactionbyaffiliate": {
-        "title": "Transaktionen by Affiliate",
-        "subtitle": "Transaktionen von Ihren besten Vertriebspartner",
-        "affiliate": "Vertriebspartner",
-        "count": "Anzahl",
-        "countp": "Anzahl%",
-        "amount": "Betrag",
-        "amountp": "Betrag%",
-        "nodata": "Keine Transaktionen gefunden"
-      },
-      "transactionsummary": {
-        "title": "Transaktionen",
-        "subtitle": "Zusammenfassung von Transaktionen",
-        "nodata": "Keine Transaktionen gefunden",
-        "success": "Erfolge",
-        "decline": "Ablehnungen",
-        "error": "Fehler"
-      },
-      "movers": {
-        "title": "Kampagnen Beobachtungsliste",
-        "subtitle": "Kampagnen in Bewegung",
-        "nodata": "Keine Kampagnen gefunden"
-      },
-      "topcampaigns": {
-        "title": "Top Kampagnen",
-        "subtitle": "Clicks & Umsetzungen",
-        "campaign": "Kampagne",
-        "amount": "Betrag"
-      },
-      "reports": {
-        "title": "Berichte",
-        "subtitle": "Nützliche Informationen um Ihre Fortschritte zu überwachen",
-        "order": {
-          "title": "Aufträge-Bericht",
-          "subtitle": "Überblick über Ihren Aufträge"
-        },
-        "summary": {
-          "title": "Kurzbericht",
-          "subtitle": "Sehen Sie einen Kurzbericht von Ihren Transaktionen"
-        },
-        "transactions": {
-          "title": "Transaktionen-Bericht",
-          "subtitle": "Informieren Sie sich über Ihren Transaktionen"
-        },
-        "fulfillment": {
-          "title": "Fulfillment-Bericht",
-          "subtitle": "Überblick über die Fulfillment Ihren Kampagnen"
-        },
-        "affiliate": {
-          "title": "Vertriebspartner-Bericht",
-          "subtitle": "Liestungsorientierte Bericht über Ihre Vertriebspartner"
-        },
-        "retention": {
-          "title": "Retention-Bericht",
-          "subtitle": "Informieren Sie sich über die Retention Ihren Kunden"
-        }
-      }
-    },
-    "chart": {
-      "viewmore": "MEHR ZUM THEMA",
-      "collapse": "SCHEITERN",
-      "showtable": "TABELLE ANSEHEN",
-      "downloadjson": "Als JSON Herunterladen",
-      "downloadcsv": "Als CSV Herunterladen",
-      "downloadexcel": "Als Excel-Datei herunterladen"
-    },
-    "summaryreport": {
-      "title": "Kurzbericht",
-      "tabletitle": "Sehen Sie einen Kurzbericht von Ihren Transaktionen",
-      "sales": "Umsatz",
-      "salesrevenue": "Umsatzerlös",
-      "rebill": "Neubelastung",
-      "rebillrevenue": "Neubelastungerlös",
-      "refunds": "Rückerstattung",
-      "refundexpenses": "Rückerstattungskosten",
-      "declines": "Ablehnungen",
-      "declinesrevenue": "Ablehnungerlös",
-      "grossrevenue": "Gesamtbetrag (Erlös)",
-      "chargebacks": "Rückbelastung",
-      "alerts": "Alarmsignale",
-      "activecustomers": "Active Kunden",
-      "date": "Datum"
-    },
-    "transactionreport": {
-      "title": "Transaktionen-Report",
-      "tabletitle": "Einzelheiten der Transaktion",
-      "customer": "Kunde",
-      "campaign": "Kampagne",
-      "merchantprovider": "Merchant Anbieter",
+    "eventsbyaffiliate": {
+      "title": "Vorfälle sortiert nach Vertriebspartner",
+      "subtitle": "Vorfälle von Ihren besten Vertriebspartner",
       "affiliate": "Vertriebspartner",
+      "count": "Anzahl",
+      "percentage": "Anteil",
+      "nodata": "Keine Vorfälle gefunden"
+    },
+    "transactionbyaffiliate": {
+      "title": "Transaktionen by Affiliate",
+      "subtitle": "Transaktionen von Ihren besten Vertriebspartner",
+      "affiliate": "Vertriebspartner",
+      "count": "Anzahl",
+      "countp": "Anzahl%",
       "amount": "Betrag",
-      "processorresult": "Zahlungsprozessor Result",
-      "transactiontype": "Transaktionstyp"
+      "amountp": "Betrag%",
+      "nodata": "Keine Transaktionen gefunden"
     },
-    "merchantreport": {
-      "title": "Händler-Report",
-      "tabletitle": "Einzelheiten der Transaktion",
+    "transactionsummary": {
+      "title": "Transaktionen",
+      "subtitle": "Zusammenfassung von Transaktionen",
+      "nodata": "Keine Transaktionen gefunden",
+      "success": "Erfolge",
+      "decline": "Ablehnungen",
+      "error": "Fehler"
+    },
+    "movers": {
+      "title": "Kampagnen Beobachtungsliste",
+      "subtitle": "Kampagnen in Bewegung",
+      "nodata": "Keine Kampagnen gefunden"
+    },
+    "topcampaigns": {
+      "title": "Top Kampagnen",
+      "subtitle": "Clicks & Umsetzungen",
+      "campaign": "Kampagne",
+      "amount": "Betrag"
+    },
+    "reports": {
+      "title": "Berichte",
+      "subtitle": "Nützliche Informationen um Ihre Fortschritte zu überwachen",
+      "order": {
+        "title": "Aufträge-Bericht",
+        "subtitle": "Überblick über Ihren Aufträge"
+      },
+      "summary": {
+        "title": "Kurzbericht",
+        "subtitle": "Sehen Sie einen Kurzbericht von Ihren Transaktionen"
+      },
+      "transactions": {
+        "title": "Transaktionen-Bericht",
+        "subtitle": "Informieren Sie sich über Ihren Transaktionen"
+      },
+      "fulfillment": {
+        "title": "Fulfillment-Bericht",
+        "subtitle": "Überblick über die Fulfillment Ihren Kampagnen"
+      },
+      "affiliate": {
+        "title": "Vertriebspartner-Bericht",
+        "subtitle": "Liestungsorientierte Bericht über Ihre Vertriebspartner"
+      },
+      "retention": {
+        "title": "Retention-Bericht",
+        "subtitle": "Informieren Sie sich über die Retention Ihren Kunden"
+      }
+    }
+  },
+  "chart": {
+    "viewmore": "MEHR ZUM THEMA",
+    "collapse": "SCHEITERN",
+    "showtable": "TABELLE ANSEHEN",
+    "downloadjson": "Als JSON Herunterladen",
+    "downloadcsv": "Als CSV Herunterladen",
+    "downloadexcel": "Als Excel-Datei herunterladen"
+  },
+  "summaryreport": {
+    "title": "Kurzbericht",
+    "tabletitle": "Sehen Sie einen Kurzbericht von Ihren Transaktionen",
+    "sales": "Umsatz",
+    "salesrevenue": "Umsatzerlös",
+    "rebill": "Neubelastung",
+    "rebillrevenue": "Neubelastungerlös",
+    "refunds": "Rückerstattung",
+    "refundexpenses": "Rückerstattungskosten",
+    "declines": "Ablehnungen",
+    "declinesrevenue": "Ablehnungerlös",
+    "grossrevenue": "Gesamtbetrag (Erlös)",
+    "chargebacks": "Rückbelastung",
+    "alerts": "Alarmsignale",
+    "activecustomers": "Active Kunden",
+    "date": "Datum"
+  },
+  "transactionreport": {
+    "title": "Transaktionen-Report",
+    "tabletitle": "Einzelheiten der Transaktion",
+    "customer": "Kunde",
+    "campaign": "Kampagne",
+    "merchantprovider": "Merchant Anbieter",
+    "affiliate": "Vertriebspartner",
+    "amount": "Betrag",
+    "processorresult": "Zahlungsprozessor Result",
+    "transactiontype": "Transaktionstyp"
+  },
+  "merchantreport": {
+    "title": "Händler-Report",
+    "tabletitle": "Einzelheiten der Transaktion",
+    "merchantprovider": "Merchant Anbieter",
+    "salescount": "Anzahl der Umsatz",
+    "salesgrossrevenue": "Umsatzerlös",
+    "refundexpenses": "Rückerstattungskosten",
+    "refundcount": "Rückerstattung",
+    "netrevenue":"Einkommen (Netto)",
+    "mtdsalescount": "Monat bis Datum Umsätze (Anzahl)",
+    "mtdgrosscount": "Monat bis Datum Brutto (Anzahl)",
+    "chart": {
+      "title": "Händler Verarbeitung",
+      "subtitle": "Aktuelle Infos",
+      "nodata": "Keine Händler gefunden",
+      "dollar": "Dollar",
+      "revenue": "Umsatzerlös"
+    }
+  },
+  "affiliatereport": {
+    "title": "Vertriebspartner-Report",
+    "tabletitle": "Vertriebspartner im Überblick",
+    "clickscount": "Anzahl von Clicks",
+    "partialscount": "Anzahl von Partials",
+    "affiliate": "Vertriebspartner-",
+    "partialspercentage": "Partials %",
+    "declinescount": "Ablehnungszahl",
+    "declinespercentage": "Ablehnungen %",
+    "salescount": "Anzahl der Umsatz",
+    "salespercentage": "Umsatz %",
+    "upsellcount": "Zusatzverkäufe (Anzahl)",
+    "upsellpercentage": "Zusatzverkäufe %",
+    "upsellsum": "Betrag von Zusatzverkäufe",
+    "amountsum": "Gesamtbetrag"
+  },
+  "search": {
+    "tab": {
+      "customer": "KUNDE",
+      "order": "BESTELLUNGSEINGABE"
+    },
+    "advanced": {
+      "toggle": "SUCHOPTIONEN",
+      "search": "Suche",
+      "firstname": "Vorname",
+      "lastname": "Nachname",
+      "phone": "Telefonnummer",
+      "email": "Email Addresse",
+      "trackingnumber": "Sendungsnummer",
+      "address1": "Adresse 1",
+      "address2": "Adresse 2",
+      "city": "Stadt",
+      "zip": "Postleitzahl",
+      "state": "Bundesstadt",
+      "country": "Land",
+      "alias": "Transaction Alias",
+      "cctype": "Kreditkarte",
+      "ccf6": "Kreditkartenummer - Erste 6 Nummer",
+      "ccl4": "Kreditkartenummer - Letzte 4 Nummer",
+      "amount": "Betrag",
+      "created": "Geschafft am",
+      "sku": "Lagerhaltungsnummer",
+      "name": "Name",
+      "response": "Antwortmeldung des Zahlungsprozessors",
+      "status": "Status des Beleges",
       "merchantprovider": "Merchant Anbieter",
-      "salescount": "Anzahl der Umsatz",
-      "salesgrossrevenue": "Umsatzerlös",
-      "refundexpenses": "Rückerstattungskosten",
-      "refundcount": "Rückerstattung",
-      "netrevenue":"Einkommen (Netto)",
-      "mtdsalescount": "Monat bis Datum Umsätze (Anzahl)",
-      "mtdgrosscount": "Monat bis Datum Brutto (Anzahl)",
-      "chart": {
-        "title": "Händler Verarbeitung",
-        "subtitle": "Aktuelle Infos",
-        "nodata": "Keine Händler gefunden",
-        "dollar": "Dollar",
-        "revenue": "Umsatzerlös"
-      }
+      "fulfillmentprovider": "Fulfillment Anbieter",
+      "ship": "Versand",
+      "shipdelay": "Verspätete Lieferung",
+      "schedulesnum": "Anzahl von Produktzyklen",
+      "bill": "Berechnungsdatum",
+      "parentsession": "Muttersession",
+      "product": "Produkt",
+      "start": "Beginn",
+      "end": "Ende",
+      "price": "Preis",
+      "id": "ID"
     },
-    "affiliatereport": {
-      "title": "Vertriebspartner-Report",
-      "tabletitle": "Vertriebspartner im Überblick",
-      "clickscount": "Anzahl von Clicks",
-      "partialscount": "Anzahl von Partials",
-      "affiliate": "Vertriebspartner-",
-      "partialspercentage": "Partials %",
-      "declinescount": "Ablehnungszahl",
-      "declinespercentage": "Ablehnungen %",
-      "salescount": "Anzahl der Umsatz",
-      "salespercentage": "Umsatz %",
-      "upsellcount": "Zusatzverkäufe (Anzahl)",
-      "upsellpercentage": "Zusatzverkäufe %",
-      "upsellsum": "Betrag von Zusatzverkäufe",
-      "amountsum": "Gesamtbetrag"
+    "filter": "Resultate filtern",
+    "category": "Kategorie",
+    "refined": "VERFEINERTE SUCHRESULTATE",
+    "reset": "SUCHE ZURÜCKSTELLEN",
+    "date": {
+      "range": "Datumsbereich",
+      "toggle": "Datum",
+      "to": "An"
     },
-    "search": {
-      "tab": {
-        "customer": "KUNDE",
-        "order": "BESTELLUNGSEINGABE"
-      },
-      "advanced": {
-        "toggle": "SUCHOPTIONEN",
-        "search": "Suche",
-        "firstname": "Vorname",
-        "lastname": "Nachname",
-        "phone": "Telefonnummer",
-        "email": "Email Addresse",
-        "trackingnumber": "Sendungsnummer",
-        "address1": "Adresse 1",
-        "address2": "Adresse 2",
-        "city": "Stadt",
-        "zip": "Postleitzahl",
-        "state": "Bundesstadt",
-        "country": "Land",
-        "alias": "Transaction Alias",
-        "cctype": "Kreditkarte",
-        "ccf6": "Kreditkartenummer - Erste 6 Nummer",
-        "ccl4": "Kreditkartenummer - Letzte 4 Nummer",
-        "amount": "Betrag",
-        "created": "Geschafft am",
-        "sku": "Lagerhaltungsnummer",
-        "name": "Name",
-        "response": "Antwortmeldung des Zahlungsprozessors",
-        "status": "Status des Beleges",
-        "merchantprovider": "Merchant Anbieter",
-        "fulfillmentprovider": "Fulfillment Anbieter",
-        "ship": "Versand",
-        "shipdelay": "Verspätete Lieferung",
-        "schedulesnum": "Anzahl von Produktzyklen",
-        "bill": "Berechnungsdatum",
-        "parentsession": "Muttersession",
-        "product": "Produkt",
-        "start": "Beginn",
-        "end": "Ende",
-        "price": "Preis",
-        "id": "ID"
-      },
-      "filter": "Resultate filtern",
-      "category": "Kategorie",
-      "refined": "VERFEINERTE SUCHRESULTATE",
-      "reset": "SUCHE ZURÜCKSTELLEN",
-      "date": {
-        "range": "Datumsbereich",
-        "toggle": "Datum",
-        "to": "An"
-      },
-      "results": "Ergebnisse",
-      "sort": {
-        "title": "Sortiert nach",
-        "createasc": "Erstellungsdatum (Aufstiegend)",
-        "createdesc": "Erstellungsdatum (Abstiegend)",
-        "updateasc": "Aktualisiert (Aufstiegend)",
-        "updatedesc": "Aktualisiert (Abstiegend)",
-        "def": "Grundeinstellungen"
-      },
-      "nodata": "Keine treffende Begriffe.",
-      "entersearch": "Bitte geben Sie einen Suchbegriff ein.",
-      "perfect": {
-        "view": "Ansehen",
-        "customer": {
-          "shipaddress": "Lieferadresse",
-          "recenttransactions": "Jüngste Transaktionen"
-        },
-        "transaction": {
-          "title": "Transaktion Infos",
-          "product": "Produkte"
-        },
-        "product": {
-          "title": "Produkt Infos"
-        },
-        "campaign": {
-          "title": "Kampagne Infos",
-          "schedules": "Produktzyklen"
-        },
-        "rebill": {
-          "title": "Neubelastung Infos",
-          "transactions": "Transaktionen"
-        },
-        "schedule": {
-          "title": "Produktzyklus Infos",
-          "schedules": "Produktzyklen"
-        },
-        "merchantprovider": {
-          "title": "Merchant Anbieter Infos",
-          "enabled": "Aktiv",
-          "allowprepaid": "Allow Prepaid",
-          "gatewayname": "Gateway Name",
-          "gatewaytype": "Gateway Type"
-        },
-        "creditcard": {
-          "title": "Credit Card Info",
-          "name": "Customer Name",
-          "expiration": "Expiration",
-          "number": "Number",
-          "ccv": "CCV"
-        },
-        "affiliate": {
-          "title": "Affiliate Info",
-          "name": "Name",
-          "affiliateid": "Affiliate ID"
-        }
-      }
+    "results": "Ergebnisse",
+    "sort": {
+      "title": "Sortiert nach",
+      "createasc": "Erstellungsdatum (Aufstiegend)",
+      "createdesc": "Erstellungsdatum (Abstiegend)",
+      "updateasc": "Aktualisiert (Aufstiegend)",
+      "updatedesc": "Aktualisiert (Abstiegend)",
+      "def": "Grundeinstellungen"
     },
-    "account": {
-      "title": "Konto",
-      "index": {
-        "title": "Konten",
-        "header": {
-          "name": "Name",
-          "active": "Aktiv",
-          "created": "Geschafft am",
-          "updated": "Aktualisiert"
-        }
-      },
-      "tab": {
-        "general": "ALLGEMEINES",
-        "users": "NUTZER",
-        "keys": "ZUGRIFFSSCHLÜSSEL",
-        "billing": "VERRECHNUNG"
-      },
-      "details": {
-        "title": "Kontodetails",
-        "edit": "Kontoedetails bearbeiten",
-        "name": "Name",
-        "activated": "Aktiviert",
-        "cancel": "Abbrechen",
-        "save": "Speichern"
-      },
-      "users": {
-        "title": "Zugehöriger Nutzer",
-        "add": "Nutzer hinzufügen",
-        "invite": "Neue Nutzer zu diesem Konto einladen",
-        "header": {
-          "name": "Name",
-          "role": "Nutzerrolle",
-          "status": "Status"
-        },
-        "edit": "Nutzerrolle bearbeiten",
-        "view": "Nutzer Ansehen",
-        "remove": "Nutzer von diesem Konto lösen",
-        "removemessage": "Sind Sie sicher, dass Sie diesen Nutzer von dem Konto lösen wollen?"
-      },
-      "keys": {
-        "title": "Zugriffsschlüssel",
-        "header": {
-          "name": "Name",
-          "access": "Zugriffsschlüssel",
-          "secret": "Geheimschlüssel",
-          "created": "Geschafft am",
-          "notes": "Notizen"
-        },
-        "add": "Zugriffsschlüssel hinzufügen",
-        "view": "Zugriffsschlüssel ansehen",
-        "edit": "Zugriffsschlüssel bearbeiten",
-        "remove": "Zugriffsschlüssel ablösen",
-        "cancel": "ABBRECHEN",
-        "close": "SCHLIEßEN",
-        "update": "AKTUALISIEREN"
-      },
-      "billing": {
-        "currenttitle": "Aktuelle Rechnungen",
-        "currentsubtitle": "Fällige Rechnungen",
-        "pasttitle": "Ehmalige Rechnungen",
-        "pastsubtitle": "Bezahlte Rechnungen",
-        "overduewarning": "Überfällige Rechnung",
-        "overduetext": "Sie haben eine Überfällige Rechnung von",
-        "view": "Rechnung ansehen",
-        "noresults": "Keine Rechnungen gefunden.",
-        "header": {
-          "issue": "Ausstellungsdatum",
-          "start": "Anfangsdatum",
-          "end": "Fristende",
-          "balance": "Saldo",
-          "status": "Status",
-          "due": "Zahlungstermin"
-        },
-        "pay": "SOFORT BEZAHLEN",
-        "summary": {
-          "title": "Aktuelle Anzahl der Transaktionen",
-          "description": "Sehen Sie die Aktuelle Anzahl der Transaktionen an. Alle Aktuelle und überfällige Rechnungen ansehen und bezahlen."
-        }
-      }
-    },
-    "user": {
-      "title": "Nutzer",
-      "index": {
-        "title": "Nutzer",
-        "header": {
-          "name": "Name",
-          "email": "Email",
-          "active": "Aktiv",
-          "terms": "Bedingungen und Konditionen"
-        }
-      },
-      "tab": {
-        "general": "Überblick"
-      },
-      "details": {
-        "title": "Nutzerdetails",
-        "createtitle": "Neue Nutzer hinzufügen",
-        "account": "Konto",
-        "newaccount": "Neue Konto",
-        "edit": "Nutzerdetails bearbeiten",
-        "activated": "Activiert",
-        "role": "Nutzerrolle",
-        "name": "Name",
-        "email": "Email",
-        "cancel": "ABBRECHEN",
-        "save": "SPEICHERN"
-      },
-      "account": {
-        "title": "Zugehörige Konten",
-        "add": "Neuer Nutzer zu diesem Konto hinzufügen",
-        "account": "Konto",
-        "role": "Nutzerrolle",
-        "status": "Status",
-        "edit": "Nutzerrolle bearbeiten",
-        "view": "Konto ansehen",
-        "remove": "Nutzer von diesem Konto lösen",
-        "removetext": "Sind Sie sicher, dass Sie diesen Nutzer von diesem Konto lösen wollen?"
-      }
-    },
-    "customer": {
-      "title": "Kunde",
-      "index": {
-        "title": "Kunde",
-        "header": {
-          "firstname": "Vorname",
-          "lastname": "Nachname",
-          "state": "Bundesstadt",
-          "city": "Stadt"
-        }
-      },
-      "tab": {
-        "general": "ALLGEMEINES",
-        "transaction": "TRANSAKTIONEN",
-        "session": "SITZUNGEN",
-        "fulfillment": "FULFILLMENT"
-      },
-      "info": {
-        "createtitle": "Neue Kunde",
-        "shiptitle": "Lieferaddresse",
-        "shipsubtitle": "Lieferaddresse des Kunden",
-        "edit": "KUNDE BEARBEITEN",
-        "shipedit": "LIEFERADDRESSE BEARBEITEN",
-        "cancel": "ABBRECHEN",
-        "save": "SPEICHERN",
-        "update": "AKTUALISIEREN"
-      },
-      "notes": {
-        "title": "Notizen",
-        "subtitle": "Aktuelle Kundendienst Notizen",
-        "add": "Neue Notiz anfügen",
-        "del": "Notiz löschen",
-        "nodata": "Keine Notizen gefunden."
-      },
-      "rebill": {
-        "title": "Kommende Neubelastungen",
-        "subtitle": "Zukünftige Neubelastungen und Transaktionen",
-        "billed": "Berechnungsdatum",
-        "amount": "Betrag",
-        "cancel": "Transaktionen abbrechen",
-        "edit": "Transaktion bearbeiten",
-        "nodata": "Keine kommende Transaktionen gefunden."
-      },
-      "rebilledit": {
-        "title": "Transaktion bearbeiten",
-        "subtitle": "Bearbeiten Sie einen Transaktion",
-        "date": "Transaktionsdatum",
-        "cancel": "ABBRECHEN",
-        "save": "SPEICHERN",
-        "price": "Preis"
-      },
-      "events": {
-        "title": "Kundenereignisse",
-        "subtitle": "Sitzungen, Transaktionen und Leads",
-        "nodata": "Keine Einzelheiten gefunden.",
-        "today": "Heute",
-        "days7": "Vorherige 7 Tage",
-        "days30": "Vorherige 30 Tage",
-        "days90": "Vorherige 90 Tage",
-        "other": "Weitere"
+    "nodata": "Keine treffende Begriffe.",
+    "entersearch": "Bitte geben Sie einen Suchbegriff ein.",
+    "perfect": {
+      "view": "Ansehen",
+      "customer": {
+        "shipaddress": "Lieferadresse",
+        "recenttransactions": "Jüngste Transaktionen"
       },
       "transaction": {
-        "title": "Ehmalige Transaktionen",
-        "subtitle": "Erledigte SIX Transaktionen",
-        "nodata": "Keine Transaktionen gefunden.",
-        "alias": "Alias",
-        "response": "Antwortmeldung des Zahlungsprozessors",
-        "productnum": "Anzahl der Produkte",
-        "amount": "Betrag",
-        "view": "Transaktion ansehen"
+        "title": "Transaktion Infos",
+        "product": "Produkte"
       },
-      "session": {
-        "title": "Sitzungen",
-        "view": "Sitzung ansehen",
-        "nodata": "Keine Sitzungen gefunden.",
-        "name": "Name",
-        "campaign": "Kampagne",
-        "productschedulenum": "Anzahl von Produktzyklen",
-        "rebillnum": "Zahl von Neubelastung"
+      "product": {
+        "title": "Produkt Infos"
+      },
+      "campaign": {
+        "title": "Kampagne Infos",
+        "schedules": "Produktzyklen"
+      },
+      "rebill": {
+        "title": "Neubelastung Infos",
+        "transactions": "Transaktionen"
+      },
+      "schedule": {
+        "title": "Produktzyklus Infos",
+        "schedules": "Produktzyklen"
+      },
+      "merchantprovider": {
+        "title": "Merchant Anbieter Infos",
+        "enabled": "Aktiv",
+        "allowprepaid": "Allow Prepaid",
+        "gatewayname": "Gateway Name",
+        "gatewaytype": "Gateway Type"
       },
       "creditcard": {
-        "title": "Verrechnung",
-        "subtitle": "Rechnungsaddresse und Kreditkarte Infos",
-        "addoption": "Kreditkarte Hinzufügen",
-        "editoption": "Kreditkarte bearbeiten",
-        "removeoption": "Kreditkarte löschen",
-        "edittitle": "Kreditkarte bearbeiten",
-        "createtitle": "Neue Kreditkarte hinzufügen",
-        "createtext": "Neue Kreditkarte zu dem zugehöriger Nutzer hinzufügen.",
-        "expirationmonth": "Verfallsdatum - Monat",
-        "expirationyear": "Verfallsdatum - Jahr",
-        "billingaddress": "Rechnungsaddresse",
-        "sameaddress": "Dieselbe wie die Kundenaddresse",
-        "cancel": "Abbrechen",
-        "update": "Aktualisieren",
-        "save": "Speichern",
-        "nodata": "Keine Kreditkarte gefunden.",
-        "expiration": "Verfallsdatum"
+        "title": "Credit Card Info",
+        "name": "Customer Name",
+        "expiration": "Expiration",
+        "number": "Number",
+        "ccv": "CCV"
+      },
+      "affiliate": {
+        "title": "Affiliate Info",
+        "name": "Name",
+        "affiliateid": "Affiliate ID"
       }
+    }
+  },
+  "account": {
+    "title": "Konto",
+    "index": {
+      "title": "Konten",
+      "header": {
+        "name": "Name",
+        "active": "Aktiv",
+        "created": "Geschafft am",
+        "updated": "Aktualisiert"
+      }
+    },
+    "tab": {
+      "general": "ALLGEMEINES",
+      "users": "NUTZER",
+      "keys": "ZUGRIFFSSCHLÜSSEL",
+      "billing": "VERRECHNUNG"
+    },
+    "details": {
+      "title": "Kontodetails",
+      "edit": "Kontoedetails bearbeiten",
+      "name": "Name",
+      "activated": "Aktiviert",
+      "cancel": "Abbrechen",
+      "save": "Speichern"
+    },
+    "users": {
+      "title": "Zugehöriger Nutzer",
+      "add": "Nutzer hinzufügen",
+      "invite": "Neue Nutzer zu diesem Konto einladen",
+      "header": {
+        "name": "Name",
+        "role": "Nutzerrolle",
+        "status": "Status"
+      },
+      "edit": "Nutzerrolle bearbeiten",
+      "view": "Nutzer Ansehen",
+      "remove": "Nutzer von diesem Konto lösen",
+      "removemessage": "Sind Sie sicher, dass Sie diesen Nutzer von dem Konto lösen wollen?"
+    },
+    "keys": {
+      "title": "Zugriffsschlüssel",
+      "header": {
+        "name": "Name",
+        "access": "Zugriffsschlüssel",
+        "secret": "Geheimschlüssel",
+        "created": "Geschafft am",
+        "notes": "Notizen"
+      },
+      "add": "Zugriffsschlüssel hinzufügen",
+      "view": "Zugriffsschlüssel ansehen",
+      "edit": "Zugriffsschlüssel bearbeiten",
+      "remove": "Zugriffsschlüssel ablösen",
+      "cancel": "ABBRECHEN",
+      "close": "SCHLIEßEN",
+      "update": "AKTUALISIEREN"
+    },
+    "billing": {
+      "currenttitle": "Aktuelle Rechnungen",
+      "currentsubtitle": "Fällige Rechnungen",
+      "pasttitle": "Ehmalige Rechnungen",
+      "pastsubtitle": "Bezahlte Rechnungen",
+      "overduewarning": "Überfällige Rechnung",
+      "overduetext": "Sie haben eine Überfällige Rechnung von",
+      "view": "Rechnung ansehen",
+      "noresults": "Keine Rechnungen gefunden.",
+      "header": {
+        "issue": "Ausstellungsdatum",
+        "start": "Anfangsdatum",
+        "end": "Fristende",
+        "balance": "Saldo",
+        "status": "Status",
+        "due": "Zahlungstermin"
+      },
+      "pay": "SOFORT BEZAHLEN",
+      "summary": {
+        "title": "Aktuelle Anzahl der Transaktionen",
+        "description": "Sehen Sie die Aktuelle Anzahl der Transaktionen an. Alle Aktuelle und überfällige Rechnungen ansehen und bezahlen."
+      }
+    }
+  },
+  "user": {
+    "title": "Nutzer",
+    "index": {
+      "title": "Nutzer",
+      "header": {
+        "name": "Name",
+        "email": "Email",
+        "active": "Aktiv",
+        "terms": "Bedingungen und Konditionen"
+      }
+    },
+    "tab": {
+      "general": "Überblick"
+    },
+    "details": {
+      "title": "Nutzerdetails",
+      "createtitle": "Neue Nutzer hinzufügen",
+      "account": "Konto",
+      "newaccount": "Neue Konto",
+      "edit": "Nutzerdetails bearbeiten",
+      "activated": "Activiert",
+      "role": "Nutzerrolle",
+      "name": "Name",
+      "email": "Email",
+      "cancel": "ABBRECHEN",
+      "save": "SPEICHERN"
+    },
+    "account": {
+      "title": "Zugehörige Konten",
+      "add": "Neuer Nutzer zu diesem Konto hinzufügen",
+      "account": "Konto",
+      "role": "Nutzerrolle",
+      "status": "Status",
+      "edit": "Nutzerrolle bearbeiten",
+      "view": "Konto ansehen",
+      "remove": "Nutzer von diesem Konto lösen",
+      "removetext": "Sind Sie sicher, dass Sie diesen Nutzer von diesem Konto lösen wollen?"
+    }
+  },
+  "customer": {
+    "title": "Kunde",
+    "index": {
+      "title": "Kunde",
+      "header": {
+        "firstname": "Vorname",
+        "lastname": "Nachname",
+        "state": "Bundesstadt",
+        "city": "Stadt"
+      }
+    },
+    "tab": {
+      "general": "ALLGEMEINES",
+      "transaction": "TRANSAKTIONEN",
+      "session": "SITZUNGEN",
+      "fulfillment": "FULFILLMENT"
+    },
+    "info": {
+      "createtitle": "Neue Kunde",
+      "shiptitle": "Lieferaddresse",
+      "shipsubtitle": "Lieferaddresse des Kunden",
+      "edit": "KUNDE BEARBEITEN",
+      "shipedit": "LIEFERADDRESSE BEARBEITEN",
+      "cancel": "ABBRECHEN",
+      "save": "SPEICHERN",
+      "update": "AKTUALISIEREN"
+    },
+    "notes": {
+      "title": "Notizen",
+      "subtitle": "Aktuelle Kundendienst Notizen",
+      "add": "Neue Notiz anfügen",
+      "del": "Notiz löschen",
+      "nodata": "Keine Notizen gefunden."
+    },
+    "rebill": {
+      "title": "Kommende Neubelastungen",
+      "subtitle": "Zukünftige Neubelastungen und Transaktionen",
+      "billed": "Berechnungsdatum",
+      "amount": "Betrag",
+      "cancel": "Transaktionen abbrechen",
+      "edit": "Transaktion bearbeiten",
+      "nodata": "Keine kommende Transaktionen gefunden."
+    },
+    "rebilledit": {
+      "title": "Transaktion bearbeiten",
+      "subtitle": "Bearbeiten Sie einen Transaktion",
+      "date": "Transaktionsdatum",
+      "cancel": "ABBRECHEN",
+      "save": "SPEICHERN",
+      "price": "Preis"
+    },
+    "events": {
+      "title": "Kundenereignisse",
+      "subtitle": "Sitzungen, Transaktionen und Leads",
+      "nodata": "Keine Einzelheiten gefunden.",
+      "today": "Heute",
+      "days7": "Vorherige 7 Tage",
+      "days30": "Vorherige 30 Tage",
+      "days90": "Vorherige 90 Tage",
+      "other": "Weitere"
+    },
+    "transaction": {
+      "title": "Ehmalige Transaktionen",
+      "subtitle": "Erledigte SIX Transaktionen",
+      "nodata": "Keine Transaktionen gefunden.",
+      "alias": "Alias",
+      "response": "Antwortmeldung des Zahlungsprozessors",
+      "productnum": "Anzahl der Produkte",
+      "amount": "Betrag",
+      "view": "Transaktion ansehen"
+    },
+    "session": {
+      "title": "Sitzungen",
+      "view": "Sitzung ansehen",
+      "nodata": "Keine Sitzungen gefunden.",
+      "name": "Name",
+      "campaign": "Kampagne",
+      "productschedulenum": "Anzahl von Produktzyklen",
+      "rebillnum": "Zahl von Neubelastung"
     },
     "creditcard": {
-      "title": "Kreditkarte",
-      "index": {
-        "title": "Credit Cards",
-        "name": "Name",
-        "expiration": "Expiration",
-        "country": "Country",
-        "state": "State",
-        "city": "City"
-      },
-      "tab": {
-        "general": "GENERAL DETAILS",
-        "customer": "CUSTOMERS"
-      },
-      "customer": {
-        "title": "Associated Customers",
-        "view": "View Customer",
-        "nodata": "No Customers found.",
-        "name": "Name",
-        "city": "City",
-        "state": "State",
-        "zip": "Zip Code"
-      }
+      "title": "Verrechnung",
+      "subtitle": "Rechnungsaddresse und Kreditkarte Infos",
+      "addoption": "Kreditkarte Hinzufügen",
+      "editoption": "Kreditkarte bearbeiten",
+      "removeoption": "Kreditkarte löschen",
+      "edittitle": "Kreditkarte bearbeiten",
+      "createtitle": "Neue Kreditkarte hinzufügen",
+      "createtext": "Neue Kreditkarte zu dem zugehöriger Nutzer hinzufügen.",
+      "expirationmonth": "Verfallsdatum - Monat",
+      "expirationyear": "Verfallsdatum - Jahr",
+      "billingaddress": "Rechnungsaddresse",
+      "sameaddress": "Dieselbe wie die Kundenaddresse",
+      "cancel": "Abbrechen",
+      "update": "Aktualisieren",
+      "save": "Speichern",
+      "nodata": "Keine Kreditkarte gefunden.",
+      "expiration": "Verfallsdatum"
+    }
+  },
+  "creditcard": {
+    "title": "Kreditkarte",
+    "index": {
+      "title": "Credit Cards",
+      "name": "Name",
+      "expiration": "Expiration",
+      "country": "Country",
+      "state": "State",
+      "city": "City"
     },
-    "bill": {
-      "index": {
-        "title": "Rechnungen",
-        "header": {
-          "start": "Anfangsdatum",
-          "end": "Fristende",
-          "overdue": "Überfällig",
-          "balance": "Saldo"
-        }
-      },
-      "tab": {
-        "general": "ALLGEIMEINES"
-      },
-      "details": {
-        "title": "Überblick von der Verrechnung",
-        "subtitle": "Verrechnung",
+    "tab": {
+      "general": "GENERAL DETAILS",
+      "customer": "CUSTOMERS"
+    },
+    "customer": {
+      "title": "Associated Customers",
+      "view": "View Customer",
+      "nodata": "No Customers found.",
+      "name": "Name",
+      "city": "City",
+      "state": "State",
+      "zip": "Zip Code"
+    }
+  },
+  "bill": {
+    "index": {
+      "title": "Rechnungen",
+      "header": {
         "start": "Anfangsdatum",
-        "end": "Stichtag",
-        "due": "Zahlungstermin",
-        "edit": "Abrechnung bearbeiten",
-        "back": "ZURÜCK ZU DEN ABRECHNUNGEN",
-        "table": {
-          "title": "Details zur Abrechnung",
-          "subtitle": "Detaillierte Aufstellung der Kosten",
-          "description": "Beschreibung",
-          "created": "Geschafft am",
-          "amount": "Betrag",
-          "total": "Gesamtsumme"
-        },
-        "pay": "SOFORT BEZAHLEN",
-        "detailedit": "Bearbeiten",
-        "detailremove": "Ablösen",
-        "account": "Konto",
-        "createtitle": "Neue Rechnung",
-        "cancel": "ABBRECHEN",
-        "save": "SPEICHERN",
-        "additem": {
-          "title": "Neue Einheit hinzufügen",
-          "save": "Speichern",
-          "cancel": "Abbrechen"
-        }
-      },
-      "title": "Rechnung"
-    },
-    "product": {
-      "title": "Produkt",
-      "nodelete": "Sie können dieses Produkt nicht löschen, solange es mit einem Produktzyklus verbunden ist.",
-      "index": {
-        "title": "Produkte",
-        "header": {
-          "name": "Name des Produkts",
-          "sku": "Lagerhaltungsnummer",
-          "ship": "Versand",
-          "delay": "Verspäteter Versand"
-        }
-      },
-      "tab": {
-        "general": "ALLGEMEINES",
-        "images": "IMAGES",
-        "schedule": "PRODUKTZYKLEN",
-        "campaign": "Kampagnen"
-      },
-      "info": {
-        "title": "Produktangaben",
-        "createtitle": "Neues Produkt hinzufügen",
-        "name": "Produktname",
-        "sku": "Lagerhaltungsnummer",
-        "defaultprice": "Standardpreis",
-        "ship": "Versand",
-        "shipdelay": "Verspätung des Versands (Minuten)",
-        "fulfillmentprovider": "Fulfillment Provider",
-        "edit": "Produkt bearbeiten",
-        "del": "Produkt löschen",
-        "cancel": "ABBRECHEN",
-        "update": "AKTUALISIEREN",
-        "create": "EINGEBEN",
-        "viewfulfillmentprovider": "View Fulfillment Provider",
-        "description": "Description",
-        "attributes": {
-          "title": "Product Attributes",
-          "dimension": "Dimensions",
-          "unit": "Unit",
-          "width": "Width",
-          "height": "Height",
-          "length": "Length",
-          "weight": "Weight"
-        }
-      },
-      "image": {
-        "upload": {
-          "title": "Upload New Image",
-          "dragdrop": "Drag and Drop Image",
-          "select": "Select Image",
-          "upload": "UPLOAD"
-        },
-        "gallery": {
-          "title": "Uploaded Images"
-        },
-        "view": {
-          "name": "Name",
-          "description": "Description",
-          "save": "SAVE",
-          "default": "Default Image"
-        }
-      },
-      "schedules": {
-        "title": "Produktzyklen",
-        "name": "Name",
-        "count": "Anzahl von Zyklen",
-        "add": "Neue Produktzyklus hinzufügen",
-        "view": "Produktzyklus ansehen",
-        "remove": "Produktzyklus lösen",
-        "nodata": "Keine Produktzyklen gefunden."
-      },
-      "campaign": {
-        "title": "Kampagnen",
-        "name": "Name",
-        "created": "Geschafft am",
-        "productnum": "Gesamtzahl des Produkte",
-        "schedulednum": "Geplannte",
-        "view": "Kampagne ansehen",
-        "nodata": "Keine Kampagnen gefunden."
+        "end": "Fristende",
+        "overdue": "Überfällig",
+        "balance": "Saldo"
       }
     },
-    "productschedule": {
-      "title": "Produktzyklus",
-      "index": {
-        "title": "Produktzyklen",
-        "header": {
-          "name": "Name",
-          "loadbalancer": "Lastverteiler (Load Balancer)",
-          "numofcycles": "Anzahl der Zyklen"
-        }
+    "tab": {
+      "general": "ALLGEIMEINES"
+    },
+    "details": {
+      "title": "Überblick von der Verrechnung",
+      "subtitle": "Verrechnung",
+      "start": "Anfangsdatum",
+      "end": "Stichtag",
+      "due": "Zahlungstermin",
+      "edit": "Abrechnung bearbeiten",
+      "back": "ZURÜCK ZU DEN ABRECHNUNGEN",
+      "table": {
+        "title": "Details zur Abrechnung",
+        "subtitle": "Detaillierte Aufstellung der Kosten",
+        "description": "Beschreibung",
+        "created": "Geschafft am",
+        "amount": "Betrag",
+        "total": "Gesamtsumme"
       },
-      "tab": {
-        "general": "ALLGEMEINES",
-        "campaign": "Kampagnen"
-      },
-      "info": {
-        "createtitle": "Neue Produktzyklys hinzufügen",
-        "title": "Einzelheiter des Produktzyklus",
-        "name": "Name des Produktzyklus",
-        "loadbalancer": "Lastverteiler (Load Balancer)",
-        "cancel": "ABBRECHEN",
-        "save": "SPEICHERN",
-        "edit": "Produktzyklus bearbeiten",
-        "viewloadbalancer": "View Load Balancer"
-      },
-      "cycle": {
-        "addtitle": "Zyklus hinzufügen",
-        "edittitle": "Zyklus bearbeiten",
-        "title": "Zyklen",
-        "add": "Neu",
-        "clear": "KLÄREN",
-        "save": "SPEICHERN",
-        "cancel": "ABBRECHEN",
-        "name": "Name",
-        "schedulename": "Name des Produktzyklus",
-        "price": "Preis",
-        "pricetip": "Der Preis for period of time",
-        "start": "Start",
-        "starttip": "Startzeit (0 heisst sofort)",
-        "end": "Ende",
-        "endtip": "Zyklus endet und geht weiter auf den nächsten Zyklus",
-        "period": "Zeitraum",
-        "periodtip": "Wiederkehrende Zahlung & Versand",
+      "pay": "SOFORT BEZAHLEN",
+      "detailedit": "Bearbeiten",
+      "detailremove": "Ablösen",
+      "account": "Konto",
+      "createtitle": "Neue Rechnung",
+      "cancel": "ABBRECHEN",
+      "save": "SPEICHERN",
+      "additem": {
+        "title": "Neue Einheit hinzufügen",
+        "save": "Speichern",
+        "cancel": "Abbrechen"
+      }
+    },
+    "title": "Rechnung"
+  },
+  "product": {
+    "title": "Produkt",
+    "nodelete": "Sie können dieses Produkt nicht löschen, solange es mit einem Produktzyklus verbunden ist.",
+    "index": {
+      "title": "Produkte",
+      "header": {
+        "name": "Name des Produkts",
+        "sku": "Lagerhaltungsnummer",
         "ship": "Versand",
-        "nodata": "Kein Zyklen gefunden.",
-        "view": "Produkt ansehen",
-        "edit": "Zyklus bearbeiten",
-        "remove": "Zyklus lösen"
+        "delay": "Verspäteter Versand"
+      }
+    },
+    "tab": {
+      "general": "ALLGEMEINES",
+      "images": "IMAGES",
+      "schedule": "PRODUKTZYKLEN",
+      "campaign": "Kampagnen"
+    },
+    "info": {
+      "title": "Produktangaben",
+      "createtitle": "Neues Produkt hinzufügen",
+      "name": "Produktname",
+      "sku": "Lagerhaltungsnummer",
+      "defaultprice": "Standardpreis",
+      "ship": "Versand",
+      "shipdelay": "Verspätung des Versands (Minuten)",
+      "fulfillmentprovider": "Fulfillment Provider",
+      "edit": "Produkt bearbeiten",
+      "del": "Produkt löschen",
+      "cancel": "ABBRECHEN",
+      "update": "AKTUALISIEREN",
+      "create": "EINGEBEN",
+      "viewfulfillmentprovider": "View Fulfillment Provider",
+      "description": "Description",
+      "attributes": {
+        "title": "Product Attributes",
+        "dimension": "Dimensions",
+        "unit": "Unit",
+        "width": "Width",
+        "height": "Height",
+        "length": "Length",
+        "weight": "Weight"
+      }
+    },
+    "image": {
+      "upload": {
+        "title": "Upload New Image",
+        "dragdrop": "Drag and Drop Image",
+        "select": "Select Image",
+        "upload": "UPLOAD"
       },
-      "campaign": {
-        "title": "Kampagnen",
+      "gallery": {
+        "title": "Uploaded Images"
+      },
+      "view": {
+        "name": "Name",
+        "description": "Description",
+        "save": "SAVE",
+        "default": "Default Image"
+      }
+    },
+    "schedules": {
+      "title": "Produktzyklen",
+      "name": "Name",
+      "count": "Anzahl von Zyklen",
+      "add": "Neue Produktzyklus hinzufügen",
+      "view": "Produktzyklus ansehen",
+      "remove": "Produktzyklus lösen",
+      "nodata": "Keine Produktzyklen gefunden."
+    },
+    "campaign": {
+      "title": "Kampagnen",
+      "name": "Name",
+      "created": "Geschafft am",
+      "productnum": "Gesamtzahl des Produkte",
+      "schedulednum": "Geplannte",
+      "view": "Kampagne ansehen",
+      "nodata": "Keine Kampagnen gefunden."
+    }
+  },
+  "productschedule": {
+    "title": "Produktzyklus",
+    "index": {
+      "title": "Produktzyklen",
+      "header": {
+        "name": "Name",
+        "loadbalancer": "Merchantanbietergruppe",
+        "numofcycles": "Anzahl der Zyklen"
+      }
+    },
+    "tab": {
+      "general": "ALLGEMEINES",
+      "campaign": "Kampagnen"
+    },
+    "info": {
+      "createtitle": "Neue Produktzyklys hinzufügen",
+      "title": "Einzelheiter des Produktzyklus",
+      "name": "Name des Produktzyklus",
+      "loadbalancer": "Merchantanbietergruppe",
+      "cancel": "ABBRECHEN",
+      "save": "SPEICHERN",
+      "edit": "Produktzyklus bearbeiten",
+      "viewloadbalancer": "Merchantanbietergruppe ansehen"
+    },
+    "cycle": {
+      "addtitle": "Zyklus hinzufügen",
+      "edittitle": "Zyklus bearbeiten",
+      "title": "Zyklen",
+      "add": "Neu",
+      "clear": "KLÄREN",
+      "save": "SPEICHERN",
+      "cancel": "ABBRECHEN",
+      "name": "Name",
+      "schedulename": "Name des Produktzyklus",
+      "price": "Preis",
+      "pricetip": "Der Preis for period of time",
+      "start": "Start",
+      "starttip": "Startzeit (0 heisst sofort)",
+      "end": "Ende",
+      "endtip": "Zyklus endet und geht weiter auf den nächsten Zyklus",
+      "period": "Zeitraum",
+      "periodtip": "Wiederkehrende Zahlung & Versand",
+      "ship": "Versand",
+      "nodata": "Kein Zyklen gefunden.",
+      "view": "Produkt ansehen",
+      "edit": "Zyklus bearbeiten",
+      "remove": "Zyklus lösen"
+    },
+    "campaign": {
+      "title": "Kampagnen",
+      "name": "Name",
+      "created": "Geschafft am",
+      "productnum": "Gesamtzahl der Produkte",
+      "schedulednum": "Gesamtbetrag der eingeplannte Kampagne",
+      "view": "Kampagne ansehen",
+      "nodata": "Keine Kampagnen gefunden."
+    }
+  },
+  "campaign": {
+    "title": "Kampagne",
+    "index": {
+      "title": "Kampagnen",
+      "header": {
         "name": "Name",
         "created": "Geschafft am",
         "productnum": "Gesamtzahl der Produkte",
-        "schedulednum": "Gesamtbetrag der eingeplannte Kampagne",
-        "view": "Kampagne ansehen",
-        "nodata": "Keine Kampagnen gefunden."
+        "schedulednum": "Gesamtbetrag der eingeplannte Kampagne"
       }
     },
-    "campaign": {
-      "title": "Kampagne",
-      "index": {
-        "title": "Kampagnen",
-        "header": {
-          "name": "Name",
-          "created": "Geschafft am",
-          "productnum": "Gesamtzahl der Produkte",
-          "schedulednum": "Gesamtbetrag der eingeplannte Kampagne"
-        }
-      },
-      "tab": {
-        "general": "ALLGEMEINES",
-        "productschedules": "PRODUKTZYKLEN",
-        "affiliates": "VERTRIEBSPARTNER",
-        "trackingcode": "TRACKING-CODE (Pixel)"
-      },
-      "info": {
-        "createtitle": "Neue Kampagne hinzufügen",
-        "title": "Campaign Details",
-        "name": "Name",
-        "allowprepaid": "Prepaid-Kreditkarte erlauben",
-        "showprepaid": "Prepaid-Kreditkarte ansehen",
-        "cancel": "ABBRECHEN",
-        "save": "SPEICHERN",
-        "edit": "Kampagne bearbeiten"
-      },
-      "email": {
-        "title": "Verbundene Mailvorlagen",
-        "nodata": "Keine Mailvorlagen gefunden.",
-        "name": "Name",
-        "subject": "Betreff",
-        "type": "Variante",
-        "smtpprovider": "SMTP Anbieter",
-        "add": "Verbundene Mailvorlage",
-        "addtext": "Mailvorlage auswählen",
-        "addbutton": "HINZUFÜGEN",
-        "view": "Mailvorlage ansehen",
-        "remove": "Mailvorlage lösen",
-        "removetext": "Sind Sie sicher, dass Sie dieser Mailvorlage lösen wollen?"
-      },
-      "productschedule": {
-        "title": "Verbundene Produktzyklen",
-        "nodata": "Keine Produktzyklen gefunden.",
-        "name": "Name",
-        "productnumber": "Produkte des Zyklus",
-        "add": "Verbundene Produktzyklen",
-        "addtext": "Produktzyklus auswählen",
-        "addbutton": "Produktzyklus Hinzufügen",
-        "view": "Produktzyklus ansehen",
-        "remove": "Produktzyklus lösen",
-        "removetext": "Sind Sie sicher, dass Sie diesen Produktzyklus lösen wollen?"
-      },
-      "affiliate": {
-        "name": "Name"
-      },
-      "affiliateallowed": {
-        "title": "Gültige Vertriebspartner",
-        "nodata": "Keine gültige Vertriebspartner gefunde.",
-        "add": "Vertriebspartner auf diese liste hinzufügen",
-        "addtext": "Vertriebspartner auswählen",
-        "addbutton": "HINZUFÜGEN",
-        "view": "Vertriebspartner ansehen",
-        "remove": "Vertriebspartner von dieser Liste lösen",
-        "removetext": "Sind Sie sicher, dass Sie diesen Vertriebspartner von dieser Liste lösen wollen?"
-      },
-      "affiliatedenied": {
-        "title": "Verweigerter Vertriebspartner",
-        "nodata": "Keine verweigerter Vertriebspartner gefunden.",
-        "add": "Vertriebspartner auf diese liste hinzufügen",
-        "addtext": "Vertriebspartner auswählen",
-        "addbutton": "HINZUFÜGEN",
-        "view": "Vertriebspartner ansehen",
-        "remove": "Vertriebspartner von dieser Liste lösen",
-        "removetext": "Sind Sie sicher, dass Sie diesen Vertriebspartner von dieser Liste lösen wollen?"
-      },
-      "tracking": {
-        "title": "Tracking-Code (Pixel)",
-        "subtitle": "Kopieren Sie dieser Code-Schnipsel auf ihre HTML seite unter dem <header>",
-        "copy": "Auf die Zwischenablage kopieren"
-      }
+    "tab": {
+      "general": "ALLGEMEINES",
+      "productschedules": "PRODUKTZYKLEN",
+      "affiliates": "VERTRIEBSPARTNER",
+      "trackingcode": "TRACKING-CODE (Pixel)"
     },
-    "emailtemplate": {
-      "title": "Mailvorlage",
-      "index": {
-        "title": "Mailvorlagen",
-        "header": {
-          "name": "Name",
-          "subject": "Betreff",
-          "type": "Art von Mailvorlage",
-          "smtpprovider": "SMTP Anbieter"
-        }
-      },
-      "tab": {
-        "general": "ALLGEIMEINES",
-        "preview": "VORSCHAU"
-      },
-      "info": {
-        "createtitle": "Neue Mailvorlage",
-        "title": "Mailvorlage Details",
-        "subtitle": "Sie können selber einen HTML Mailvorgen bearbeiten oder einen SIX Mailvorlage von dem Menu am rechts verwenden.",
-        "edit": "Mailvorlage bearbeiten",
-        "name": "Name",
-        "type": "Art von Mailvorlage",
-        "smtpprovider": "SMTP Anbieter",
-        "subject": "Betreff",
-        "body": "Email Addresse",
-        "cancel": "ABBRECHEN",
-        "save": "SPEICHERN",
-        "viewsmtpprovider": "View SMTP Provider"
-      },
-      "token": {
-        "title": "Zeichen (Tokens)",
-        "subtitle": "Bitte wählen Sie eine die folgenden Zeichen aus, die Sie zu Ihre Mailvorlage hinzufügen wollen.",
-        "type": "Variante",
-        "search": "Suchen"
-      },
-      "preview": {
-        "title": "Mailvorlage vorschauen",
-        "subtitle": "Schauen Sie vor, wie die Mailvorlage aussehen wird."
-      }
+    "info": {
+      "createtitle": "Neue Kampagne hinzufügen",
+      "title": "Campaign Details",
+      "name": "Name",
+      "allowprepaid": "Prepaid-Kreditkarte erlauben",
+      "showprepaid": "Prepaid-Kreditkarte ansehen",
+      "cancel": "ABBRECHEN",
+      "save": "SPEICHERN",
+      "edit": "Kampagne bearbeiten"
+    },
+    "email": {
+      "title": "Verbundene Mailvorlagen",
+      "nodata": "Keine Mailvorlagen gefunden.",
+      "name": "Name",
+      "subject": "Betreff",
+      "type": "Variante",
+      "smtpprovider": "SMTP Anbieter",
+      "add": "Verbundene Mailvorlage",
+      "addtext": "Mailvorlage auswählen",
+      "addbutton": "HINZUFÜGEN",
+      "view": "Mailvorlage ansehen",
+      "remove": "Mailvorlage lösen",
+      "removetext": "Sind Sie sicher, dass Sie dieser Mailvorlage lösen wollen?"
+    },
+    "productschedule": {
+      "title": "Verbundene Produktzyklen",
+      "nodata": "Keine Produktzyklen gefunden.",
+      "name": "Name",
+      "productnumber": "Produkte des Zyklus",
+      "add": "Verbundene Produktzyklen",
+      "addtext": "Produktzyklus auswählen",
+      "addbutton": "Produktzyklus Hinzufügen",
+      "view": "Produktzyklus ansehen",
+      "remove": "Produktzyklus lösen",
+      "removetext": "Sind Sie sicher, dass Sie diesen Produktzyklus lösen wollen?"
     },
     "affiliate": {
-      "title": "Vertriebspartner",
-      "index": {
-        "title": "Vertriebspartner",
-        "header": {
-          "name": "Name",
-          "affiliateid": "Vertriebspartner ID",
-          "created": "Geschafft am",
-          "updated": "Aktualisiert am"
-        }
-      },
-      "tab": {
-        "tracking": "TRACKING",
-        "session": "SITZUNGEN",
-        "campaign": "Kampagnen"
-      },
-      "info": {
-        "createtitle": "Neue Vertriebspartner",
-        "name": "Vertriebspartner Name",
-        "id": "Vertriebspartner ID",
-        "edit": "VERTRIEBSPARTNER BEARBEITEN",
-        "cancel": "ABBRECHEN",
-        "save": "SPEICHERN",
-        "update": "AKTUALISIEREN"
-      },
-      "tracking": {
-        "title": "Verbundener Trackers",
-        "name": "Name",
-        "type": "Variante",
-        "event": "Event",
-        "data": "Tracking-Daten",
-        "nodata": "Keine Trackers gefunden.",
-        "associate": "Tracker verbünden",
-        "associatetext": "Tracker auswählen",
-        "view": "Tracker ansehen",
-        "disassociate": "Tracker lösen",
-        "disassociatetext": "Sind Sie sicher, dass sie diesen Tracker lösen wollen?"
-      },
-      "session": {
-        "title": "Zugehörige Sitzungen",
-        "customer": "Kunde",
-        "campaign": "Kampagne",
-        "rebilltotal": "Total Neubelastung",
-        "scheduledtotal": "Total Scheduled",
-        "nodata": "Keine Sitzungen gefunden.",
-        "view": "Sitzung ansehen"
-      },
-      "campaign": {
-        "title": "Associated Campaigns",
-        "name": "Name",
-        "created": "Created at",
-        "updated": "Updated at",
-        "totalscheduled": "Total Scheduled",
-        "view": "View Campaign",
-        "nodata": "No Campaigns found"
-      }
+      "name": "Name"
     },
-    "tracker": {
-      "title": "Tracker",
-      "index": {
-        "title": "Trackers",
-        "header": {
-          "name": "Name",
-          "type": "Variante",
-          "event": "Vorfall",
-          "data": "Tracking-Daten"
-        }
-      },
-      "tab": {
-        "general": "ALLGEIMEINES",
-        "affiliate": "VERTRIEBSPARTNER",
-        "campaign": "Kampagnen"
-      },
-      "info": {
-        "createtitle": "Neue Tracker hinzufügen",
-        "title": "Tracker Einzelheiten",
-        "name": "Name",
-        "type": "Variante",
-        "eventtype": "Vorfall",
-        "eventtypeadd": "Vorfall",
-        "data": "Tracking-Daten",
-        "link": "Tracking-Link",
-        "save": "SPEICHERN",
-        "cancel": "ABBRECHEN",
-        "edit": "Tracker bearbeiten"
-      },
-      "affiliate": {
-        "title": "Verbundener Vertriebspartner",
-        "name": "Name",
-        "id": "Vertriebspartner ID",
-        "created": "Geschafft am",
-        "updated": "Aktualisiert am",
-        "nodata": "Keine Vertriebspartner gefunden.",
-        "associate": "Vertriebspartner in Verbindung bringen",
-        "associatetext": "Vertriebspartner auswählen",
-        "confirm": "Verbinden",
-        "view": "Vertriebspartner ansehen",
-        "disassociate": "Vertriebspartner lösen",
-        "disassociatetext": "Sind Sie sicher, dass sie den Vertriebspartner lösen wollen?"
-      },
-      "campaign": {
-        "title": "Verbundene Kampagnen",
-        "name": "Name",
-        "created": "Geschafft am",
-        "updated": "Aktualisiert am",
-        "nodata": "Keine Kampagnen gefunden.",
-        "associate": "Kampagne in Verbindung bringen",
-        "associatetext": "Kampagne auswählen",
-        "confirm": "VERBINDEN",
-        "view": "Kampagne ansehen",
-        "disassociate": "Kampagne lösen",
-        "disassociatetext": "Sind Sie sicher, dass sie diese Kampagne lösen wollen?"
-      }
+    "affiliateallowed": {
+      "title": "Gültige Vertriebspartner",
+      "nodata": "Keine gültige Vertriebspartner gefunde.",
+      "add": "Vertriebspartner auf diese liste hinzufügen",
+      "addtext": "Vertriebspartner auswählen",
+      "addbutton": "HINZUFÜGEN",
+      "view": "Vertriebspartner ansehen",
+      "remove": "Vertriebspartner von dieser Liste lösen",
+      "removetext": "Sind Sie sicher, dass Sie diesen Vertriebspartner von dieser Liste lösen wollen?"
     },
-    "session": {
-      "title": "Sitzung",
-      "index": {
-        "title": "Sitzungen",
-        "header": {
-          "campaign": "Name der Kampagne",
-          "customer": "Name des Kunden",
-          "schedulesnum": "Anzahl der Produktzyklen",
-          "rebillsnum": "Anzahl der Neubelastungen"
-        }
-      },
-      "tab": {
-        "general": "ALLGEMEINES",
-        "affiliate": "VERTRIEBSPARTNER"
-      },
-      "customer": {
-        "title": "Über den Kunden",
-        "view": "Kunde Ansehen"
-      },
-      "rebill": {
-        "title": "Verbundene Neubelastung",
-        "billed": "Berechnungsdatum",
-        "amount": "Betrag",
-        "nodata": "Keine Neubelastung gefunden.",
-        "view": "Neubelastung Ansehen"
-      },
-      "campaign": {
-        "title": "Verbundene Kampagnen",
-        "name": "Name",
-        "created": "Geschafft am",
-        "nodata": "Keine Kampagnen found.",
-        "view": "Kampagne ansehen"
-      },
-      "affiliate": {
-        "title": "Verbundener Vertriebspartner",
-        "name": "Name",
-        "id": "Vertriebspartner ID",
-        "created": "Geschafft am",
-        "nodata": "Keine Vertriebspartner gefunden.",
-        "view": "Vertriebspartner ansehen"
-      }
+    "affiliatedenied": {
+      "title": "Verweigerter Vertriebspartner",
+      "nodata": "Keine verweigerter Vertriebspartner gefunden.",
+      "add": "Vertriebspartner auf diese liste hinzufügen",
+      "addtext": "Vertriebspartner auswählen",
+      "addbutton": "HINZUFÜGEN",
+      "view": "Vertriebspartner ansehen",
+      "remove": "Vertriebspartner von dieser Liste lösen",
+      "removetext": "Sind Sie sicher, dass Sie diesen Vertriebspartner von dieser Liste lösen wollen?"
     },
-    "transaction": {
-      "title": "Transaktionen",
-      "index": {
-        "title": "Transaktionen",
-        "header": {
-          "alias": "Alias",
-          "amount": "Betrag",
-          "created": "Geschafft am",
-          "response": "Antwortmeldung des Zahlungsprozessors"
-        }
-      },
-      "tab": {
-        "general": "ALLGEMEINES",
-        "refund": "RÜCKERSTATTUNG"
-      },
-      "info": {
-        "title": "Einzelheiten der Transaktion",
-        "rebillview": "Neubelastung ansehen",
-        "merchantproviderview": "Merchant Anbieter ansehn",
-        "alias": "Alias",
-        "amount": "Betrag",
-        "merchantprovider": "Merchant Anbieter"
-      },
-      "processor": {
-        "title": "Antwortmeldung des Zahlungsprozessors",
-        "code": "Auth Code",
-        "message": "Nachricht von dem Zahlungsprozessor",
-        "text": "Processor Text"
-      },
-      "refund": {
-        "title": "Rückerstattung",
-        "amount": "Betrag",
-        "amounttorefund": "Betrag der Rückerstattung",
-        "refundall": "Volle Rückerstattung",
-        "cancel": "ABBRECHEN",
-        "confirm": "REFUND"
-      },
-      "product": {
-        "title": "Verbundene Produkte",
-        "name": "Name",
-        "sku": "Lagerhaltungsnummer",
-        "amount": "Betrag",
-        "view": "Produkt ansehen",
-        "nodata": "Keine Produkte gefunden."
-      }
-    },
-    "rebill": {
-      "title": "Neubelastung",
-      "index": {
-        "title": "Neubelastung",
-        "header": {
-          "id": "ID",
-          "bill": "Berechnet am",
-          "created": "Geschafft am",
-          "amount": "Betrag"
-        }
-      },
-      "tab": {
-        "general": "ALLGEMEINES",
-        "transactions": "TRANSACTIONS",
-        "receipts": "Posteinlieferungsscheine"
-      },
-      "info": {
-        "title": "Neubelastung Information",
-        "billed": "Berechnungsdatum",
-        "amount": "Betrag",
-        "parentsession": "Muttersitzung",
-        "customer": "Kunde",
-        "customerview": "Kunde ansehen",
-        "sessionview": "Sitzung ansehen"
-      },
-      "shippingreceipt": {
-        "title": "Posteinlieferungsscheine",
-        "nodata": "Keine Posteinlieferungsscheine gefunden",
-        "status": "Status",
-        "trackingnumber": "Sendungsnummer",
-        "created": "Geschafft am",
-        "updated": "Aktualisiert am"
-      },
-      "productschedule": {
-        "title": "Associated Product Schedules",
-        "nodata": "No Product Schedules found.",
-        "name": "Name",
-        "loadbalancer": "Load Balancer",
-        "count": "Number of cycles"
-      },
-      "transaction": {
-        "title": "Associated Transactions",
-        "nodata": "No Transactions found.",
-        "alias": "Alias",
-        "amount": "Amount",
-        "response": "Response",
-        "created": "Created",
-        "updated": "Updated"
-      }
-    },
-    "shippingreceipt": {
-      "title": "Posteinlieferungsschein",
-      "index": {
-        "title": "Posteinlieferungsscheine",
-        "header": {
-          "status": "Status",
-          "number": "Sendungsnummer",
-          "created": "Geschafft am",
-          "updated": "Aktualisiert am"
-        }
-      },
-      "tab": {
-        "general": "ALLGEMEINES"
-      },
-      "info": {
-        "title": "Posteinlieferungsschein",
-        "number": "Sendungsnummer",
-        "carrier": "Tracking Carrier",
-        "fulfillmentprovider": "Fulfillment Anbieter",
-        "fulfillmentproviderview": "Fulfillment Anbieter"
-      },
-      "history": {
-        "title": "Geschichte der Posteinlieferungsschein"
-      },
-      "status": {
-        "pending": "Pending",
-        "unknown": "Unknown",
-        "intransit": "In Transit",
-        "delivered": "Delivered",
-        "returned": "Returned"
-      }
-    },
-    "fulfillment": {
-      "title": "Fulfillment Anbieter",
-      "index": {
-        "title": "Fulfillment Anbieter",
-        "header": {
-          "name": "Name",
-          "provider": "Anbieter",
-          "username": "Benutzername",
-          "password": "Passwort"
-        }
-      },
-      "tab": {
-        "general": "ALLGEIMEINES",
-        "validate": "BESTÄTIGEN"
-      },
-      "info": {
-        "title": "Fulfillment Einzelheiten",
-        "createtitle": "Neue Fulfillment Anbieter hinzufügen",
-        "edit": "Fulfillment Anbieter bearbeiten",
-        "provider": "Anbieter",
-        "name": "Name",
-        "username": "Benutzername",
-        "password": "Passwort",
-        "threeplkey": "ThreePL Schlüssel",
-        "customerid": "Kunde ID",
-        "facilityid": "Facility ID",
-        "threeplid": "ThreePL ID",
-        "apikey": "API Key",
-        "apisecret": "API Secret Key",
-        "cancel": "ABBRECHEN",
-        "save": "SPEICHERN"
-      },
-      "validate": {
-        "title": "Fulfillment Provider bestätigen",
-        "text": "Bestätigen Sie ob die Zugangsdaten des Fulfillment Anbieters gultig sind.",
-        "response": "Antwortmeldung",
-        "validate": "BESTÄTIGEN"
-      }
-    },
-    "smtp": {
-      "title": "SMTP Anbieter",
-      "index": {
-        "title": "SMTP Anbieter",
-        "header": {
-          "name": "Name",
-          "fromname": "Name des Absenders",
-          "fromemail": "Email Adresse des Absenders",
-          "hostname": "Hostname",
-          "username": "Benutzername"
-        }
-      },
-      "tab": {
-        "general": "ALLGEMEINES",
-        "emailtemplate": "MAILVORLAGEN",
-        "validate": "BESTÄTIGEN"
-      },
-      "info": {
-        "title": "SMTP Einzelheiten",
-        "createtitle": "Neue SMTP Anbieter zufügen",
-        "edit": "SMTP Anbieter Bearbeiten",
-        "name": "Name",
-        "fromname": "Name des Absenders",
-        "fromemail": "Email Addresse des Absenders",
-        "host": "Host",
-        "username": "Benutzername",
-        "password": "Passwort",
-        "port": "Port",
-        "cancel": "ABBRECHEN",
-        "save": "SPEICHERN"
-      },
-      "emailtemplate": {
-        "title": "Verbundene Mailvorlagen",
+    "tracking": {
+      "title": "Tracking-Code (Pixel)",
+      "subtitle": "Kopieren Sie dieser Code-Schnipsel auf ihre HTML seite unter dem <header>",
+      "copy": "Auf die Zwischenablage kopieren"
+    }
+  },
+  "emailtemplate": {
+    "title": "Mailvorlage",
+    "index": {
+      "title": "Mailvorlagen",
+      "header": {
         "name": "Name",
         "subject": "Betreff",
-        "type": "Typ",
-        "view": "Mailvorlage ansehen",
-        "nodata": "Keine Mailvorlagen gefunden."
+        "type": "Art von Mailvorlage",
+        "smtpprovider": "SMTP Anbieter"
+      }
+    },
+    "tab": {
+      "general": "ALLGEIMEINES",
+      "preview": "VORSCHAU"
+    },
+    "info": {
+      "createtitle": "Neue Mailvorlage",
+      "title": "Mailvorlage Details",
+      "subtitle": "Sie können selber einen HTML Mailvorgen bearbeiten oder einen SIX Mailvorlage von dem Menu am rechts verwenden.",
+      "edit": "Mailvorlage bearbeiten",
+      "name": "Name",
+      "type": "Art von Mailvorlage",
+      "smtpprovider": "SMTP Anbieter",
+      "subject": "Betreff",
+      "body": "Email Addresse",
+      "cancel": "ABBRECHEN",
+      "save": "SPEICHERN",
+      "viewsmtpprovider": "View SMTP Provider"
+    },
+    "token": {
+      "title": "Zeichen (Tokens)",
+      "subtitle": "Bitte wählen Sie eine die folgenden Zeichen aus, die Sie zu Ihre Mailvorlage hinzufügen wollen.",
+      "type": "Variante",
+      "search": "Suchen"
+    },
+    "preview": {
+      "title": "Mailvorlage vorschauen",
+      "subtitle": "Schauen Sie vor, wie die Mailvorlage aussehen wird."
+    }
+  },
+  "affiliate": {
+    "title": "Vertriebspartner",
+    "index": {
+      "title": "Vertriebspartner",
+      "header": {
+        "name": "Name",
+        "affiliateid": "Vertriebspartner ID",
+        "created": "Geschafft am",
+        "updated": "Aktualisiert am"
+      }
+    },
+    "tab": {
+      "tracking": "TRACKING",
+      "session": "SITZUNGEN",
+      "campaign": "Kampagnen"
+    },
+    "info": {
+      "createtitle": "Neue Vertriebspartner",
+      "name": "Vertriebspartner Name",
+      "id": "Vertriebspartner ID",
+      "edit": "VERTRIEBSPARTNER BEARBEITEN",
+      "cancel": "ABBRECHEN",
+      "save": "SPEICHERN",
+      "update": "AKTUALISIEREN"
+    },
+    "tracking": {
+      "title": "Verbundener Trackers",
+      "name": "Name",
+      "type": "Variante",
+      "event": "Event",
+      "data": "Tracking-Daten",
+      "nodata": "Keine Trackers gefunden.",
+      "associate": "Tracker verbünden",
+      "associatetext": "Tracker auswählen",
+      "view": "Tracker ansehen",
+      "disassociate": "Tracker lösen",
+      "disassociatetext": "Sind Sie sicher, dass sie diesen Tracker lösen wollen?"
+    },
+    "session": {
+      "title": "Zugehörige Sitzungen",
+      "customer": "Kunde",
+      "campaign": "Kampagne",
+      "rebilltotal": "Total Neubelastung",
+      "scheduledtotal": "Total Scheduled",
+      "nodata": "Keine Sitzungen gefunden.",
+      "view": "Sitzung ansehen"
+    },
+    "campaign": {
+      "title": "Associated Campaigns",
+      "name": "Name",
+      "created": "Created at",
+      "updated": "Updated at",
+      "totalscheduled": "Total Scheduled",
+      "view": "View Campaign",
+      "nodata": "No Campaigns found"
+    }
+  },
+  "tracker": {
+    "title": "Tracker",
+    "index": {
+      "title": "Trackers",
+      "header": {
+        "name": "Name",
+        "type": "Variante",
+        "event": "Vorfall",
+        "data": "Tracking-Daten"
+      }
+    },
+    "tab": {
+      "general": "ALLGEIMEINES",
+      "affiliate": "VERTRIEBSPARTNER",
+      "campaign": "Kampagnen"
+    },
+    "info": {
+      "createtitle": "Neue Tracker hinzufügen",
+      "title": "Tracker Einzelheiten",
+      "name": "Name",
+      "type": "Variante",
+      "eventtype": "Vorfall",
+      "eventtypeadd": "Vorfall",
+      "data": "Tracking-Daten",
+      "link": "Tracking-Link",
+      "save": "SPEICHERN",
+      "cancel": "ABBRECHEN",
+      "edit": "Tracker bearbeiten"
+    },
+    "affiliate": {
+      "title": "Verbundener Vertriebspartner",
+      "name": "Name",
+      "id": "Vertriebspartner ID",
+      "created": "Geschafft am",
+      "updated": "Aktualisiert am",
+      "nodata": "Keine Vertriebspartner gefunden.",
+      "associate": "Vertriebspartner in Verbindung bringen",
+      "associatetext": "Vertriebspartner auswählen",
+      "confirm": "Verbinden",
+      "view": "Vertriebspartner ansehen",
+      "disassociate": "Vertriebspartner lösen",
+      "disassociatetext": "Sind Sie sicher, dass sie den Vertriebspartner lösen wollen?"
+    },
+    "campaign": {
+      "title": "Verbundene Kampagnen",
+      "name": "Name",
+      "created": "Geschafft am",
+      "updated": "Aktualisiert am",
+      "nodata": "Keine Kampagnen gefunden.",
+      "associate": "Kampagne in Verbindung bringen",
+      "associatetext": "Kampagne auswählen",
+      "confirm": "VERBINDEN",
+      "view": "Kampagne ansehen",
+      "disassociate": "Kampagne lösen",
+      "disassociatetext": "Sind Sie sicher, dass sie diese Kampagne lösen wollen?"
+    }
+  },
+  "session": {
+    "title": "Sitzung",
+    "index": {
+      "title": "Sitzungen",
+      "header": {
+        "campaign": "Name der Kampagne",
+        "customer": "Name des Kunden",
+        "schedulesnum": "Anzahl der Produktzyklen",
+        "rebillsnum": "Anzahl der Neubelastungen"
+      }
+    },
+    "tab": {
+      "general": "ALLGEMEINES",
+      "affiliate": "VERTRIEBSPARTNER"
+    },
+    "customer": {
+      "title": "Über den Kunden",
+      "view": "Kunde Ansehen"
+    },
+    "rebill": {
+      "title": "Verbundene Neubelastung",
+      "billed": "Berechnungsdatum",
+      "amount": "Betrag",
+      "nodata": "Keine Neubelastung gefunden.",
+      "view": "Neubelastung Ansehen"
+    },
+    "campaign": {
+      "title": "Verbundene Kampagnen",
+      "name": "Name",
+      "created": "Geschafft am",
+      "nodata": "Keine Kampagnen found.",
+      "view": "Kampagne ansehen"
+    },
+    "affiliate": {
+      "title": "Verbundener Vertriebspartner",
+      "name": "Name",
+      "id": "Vertriebspartner ID",
+      "created": "Geschafft am",
+      "nodata": "Keine Vertriebspartner gefunden.",
+      "view": "Vertriebspartner ansehen"
+    }
+  },
+  "transaction": {
+    "title": "Transaktionen",
+    "index": {
+      "title": "Transaktionen",
+      "header": {
+        "alias": "Alias",
+        "amount": "Betrag",
+        "created": "Geschafft am",
+        "response": "Antwortmeldung des Zahlungsprozessors"
+      }
+    },
+    "tab": {
+      "general": "ALLGEMEINES",
+      "refund": "RÜCKERSTATTUNG"
+    },
+    "info": {
+      "title": "Einzelheiten der Transaktion",
+      "rebillview": "Neubelastung ansehen",
+      "merchantproviderview": "Merchant Anbieter ansehn",
+      "alias": "Alias",
+      "amount": "Betrag",
+      "merchantprovider": "Merchant Anbieter"
+    },
+    "processor": {
+      "title": "Antwortmeldung des Zahlungsprozessors",
+      "code": "Auth Code",
+      "message": "Nachricht von dem Zahlungsprozessor",
+      "text": "Processor Text"
+    },
+    "refund": {
+      "title": "Rückerstattung",
+      "amount": "Betrag",
+      "amounttorefund": "Betrag der Rückerstattung",
+      "refundall": "Volle Rückerstattung",
+      "cancel": "ABBRECHEN",
+      "confirm": "REFUND"
+    },
+    "product": {
+      "title": "Verbundene Produkte",
+      "name": "Name",
+      "sku": "Lagerhaltungsnummer",
+      "amount": "Betrag",
+      "view": "Produkt ansehen",
+      "nodata": "Keine Produkte gefunden."
+    }
+  },
+  "rebill": {
+    "title": "Neubelastung",
+    "index": {
+      "title": "Neubelastung",
+      "header": {
+        "id": "ID",
+        "bill": "Berechnet am",
+        "created": "Geschafft am",
+        "amount": "Betrag"
+      }
+    },
+    "tab": {
+      "general": "ALLGEMEINES",
+      "transactions": "TRANSACTIONS",
+      "receipts": "Posteinlieferungsscheine"
+    },
+    "info": {
+      "title": "Neubelastung Information",
+      "billed": "Berechnungsdatum",
+      "amount": "Betrag",
+      "parentsession": "Muttersitzung",
+      "customer": "Kunde",
+      "customerview": "Kunde ansehen",
+      "sessionview": "Sitzung ansehen"
+    },
+    "shippingreceipt": {
+      "title": "Posteinlieferungsscheine",
+      "nodata": "Keine Posteinlieferungsscheine gefunden",
+      "status": "Status",
+      "trackingnumber": "Sendungsnummer",
+      "created": "Geschafft am",
+      "updated": "Aktualisiert am"
+    },
+    "productschedule": {
+      "title": "Associated Product Schedules",
+      "nodata": "No Product Schedules found.",
+      "name": "Name",
+      "loadbalancer": "Merchantenbietergruppe",
+      "count": "Number of cycles"
+    },
+    "transaction": {
+      "title": "Associated Transactions",
+      "nodata": "No Transactions found.",
+      "alias": "Alias",
+      "amount": "Amount",
+      "response": "Response",
+      "created": "Created",
+      "updated": "Updated"
+    }
+  },
+  "shippingreceipt": {
+    "title": "Posteinlieferungsschein",
+    "index": {
+      "title": "Posteinlieferungsscheine",
+      "header": {
+        "status": "Status",
+        "number": "Sendungsnummer",
+        "created": "Geschafft am",
+        "updated": "Aktualisiert am"
+      }
+    },
+    "tab": {
+      "general": "ALLGEMEINES"
+    },
+    "info": {
+      "title": "Posteinlieferungsschein",
+      "number": "Sendungsnummer",
+      "carrier": "Tracking Carrier",
+      "fulfillmentprovider": "Fulfillment Anbieter",
+      "fulfillmentproviderview": "Fulfillment Anbieter"
+    },
+    "history": {
+      "title": "Geschichte der Posteinlieferungsschein"
+    },
+    "status": {
+      "pending": "Pending",
+      "unknown": "Unknown",
+      "intransit": "In Transit",
+      "delivered": "Delivered",
+      "returned": "Returned"
+    }
+  },
+  "fulfillment": {
+    "title": "Fulfillment Anbieter",
+    "index": {
+      "title": "Fulfillment Anbieter",
+      "header": {
+        "name": "Name",
+        "provider": "Anbieter",
+        "username": "Benutzername",
+        "password": "Passwort"
+      }
+    },
+    "tab": {
+      "general": "ALLGEIMEINES",
+      "validate": "BESTÄTIGEN"
+    },
+    "info": {
+      "title": "Fulfillment Einzelheiten",
+      "createtitle": "Neue Fulfillment Anbieter hinzufügen",
+      "edit": "Fulfillment Anbieter bearbeiten",
+      "provider": "Anbieter",
+      "name": "Name",
+      "username": "Benutzername",
+      "password": "Passwort",
+      "threeplkey": "ThreePL Schlüssel",
+      "customerid": "Kunde ID",
+      "facilityid": "Facility ID",
+      "threeplid": "ThreePL ID",
+      "apikey": "API Key",
+      "apisecret": "API Secret Key",
+      "cancel": "ABBRECHEN",
+      "save": "SPEICHERN"
+    },
+    "validate": {
+      "title": "Fulfillment Provider bestätigen",
+      "text": "Bestätigen Sie ob die Zugangsdaten des Fulfillment Anbieters gultig sind.",
+      "response": "Antwortmeldung",
+      "validate": "BESTÄTIGEN"
+    }
+  },
+  "smtp": {
+    "title": "SMTP Anbieter",
+    "index": {
+      "title": "SMTP Anbieter",
+      "header": {
+        "name": "Name",
+        "fromname": "Name des Absenders",
+        "fromemail": "Email Adresse des Absenders",
+        "hostname": "Hostname",
+        "username": "Benutzername"
+      }
+    },
+    "tab": {
+      "general": "ALLGEMEINES",
+      "emailtemplate": "MAILVORLAGEN",
+      "validate": "BESTÄTIGEN"
+    },
+    "info": {
+      "title": "SMTP Einzelheiten",
+      "createtitle": "Neue SMTP Anbieter zufügen",
+      "edit": "SMTP Anbieter Bearbeiten",
+      "name": "Name",
+      "fromname": "Name des Absenders",
+      "fromemail": "Email Addresse des Absenders",
+      "host": "Host",
+      "username": "Benutzername",
+      "password": "Passwort",
+      "port": "Port",
+      "cancel": "ABBRECHEN",
+      "save": "SPEICHERN"
+    },
+    "emailtemplate": {
+      "title": "Verbundene Mailvorlagen",
+      "name": "Name",
+      "subject": "Betreff",
+      "type": "Typ",
+      "view": "Mailvorlage ansehen",
+      "nodata": "Keine Mailvorlagen gefunden."
+    },
+    "validate": {
+      "title": "SMTP Anbieter bestätigen",
+      "text": "Bitte geben Sie ihre Email Addresse unten links ein und lassen Sie SIX einen Probe-email an sich schicken.",
+      "textsecond": "Ergibnisse werden unten rechts dargestellt.",
+      "email": "Email addresse des Empfängers",
+      "emailtip": "Bitte geben sie eine gültige Emailaddresse ein",
+      "response": "Antwortmeldung",
+      "validate": "SMTP ANBIETER BESTÄTIGEN"
+    }
+  },
+  "loadbalancer": {
+    "title": "Merchantanbietergruppe",
+    "index": {
+      "title": "Lastverteilunger",
+      "header": {
+        "name": "Name",
+        "merchantnum": "Anzahl der Merchant Anbieter"
+      }
+    },
+    "tab": {
+      "general": "ALLGEMEINES"
+    },
+    "info": {
+      "createtitle": "Neue Merchantanbietergruppe",
+      "name": "NAME",
+      "edit": "LASTVERTEILER BEARBEITEN",
+      "cancel": "ABBRECHEN",
+      "update": "AKTUALISIEREN",
+      "save": "SPEICHERN"
+    },
+    "merchant": {
+      "addtitle": "Merchant Anbieter hinzufugen",
+      "distribution": "Verteilung",
+      "merchant": "Merchant Anbieter",
+      "add": "HINZUFÜGEN",
+      "clear": "KLÄREN",
+      "title": "Verbündete Merchant Anbieter",
+      "view": "Merchant Anbieter ansehen",
+      "edit": "Verteilung aktualisieren",
+      "disassociate": "Merchant Anbieter lösen",
+      "disassociatetext": "Sind Sie sicher, dass Sie diesen Merchant Anbieter vom Lastverteiler lösen wollen?",
+      "nodata": "Keine Merchant Anbieter Gefunden."
+    }
+  },
+  "merchantprovider": {
+    "title": "Merchant Anbieter",
+    "index": {
+      "title": "Merchant Anbieter",
+      "header": {
+        "name": "Name",
+        "processor": "Name des Zahlungsprozessors",
+        "type": "Zahlungsprozessorvariante"
+      }
+    },
+    "tab": {
+      "general": "ALLGEIMEINES",
+      "processing": "BEARBEITUNG",
+      "loadbalancer": "MERCHANTANBIETERGRUPPIERUNG"
+    },
+    "info": {
+      "edit": "Merchant Anbieter bearbeiten",
+      "cancel": "ABBRECHEN",
+      "update": "AKTUALISIEREN",
+      "save": "SPEICHERN",
+      "settings": {
+        "title": "Einstellungen",
+        "name": "Name",
+        "enabled": "Aktiv",
+        "allowprepaid": "Prepaid-Kreditkarte erlauben",
+        "accepted": "Anerkannte Zahlungsmethode"
       },
-      "validate": {
-        "title": "SMTP Anbieter bestätigen",
-        "text": "Bitte geben Sie ihre Email Addresse unten links ein und lassen Sie SIX einen Probe-email an sich schicken.",
-        "textsecond": "Ergibnisse werden unten rechts dargestellt.",
-        "email": "Email addresse des Empfängers",
-        "emailtip": "Bitte geben sie eine gültige Emailaddresse ein",
-        "response": "Antwortmeldung",
-        "validate": "SMTP ANBIETER BESTÄTIGEN"
+      "processing": {
+        "title": "Bearbeitung",
+        "monthlycapd": "Monatliche Obergrenze ($)",
+        "monthlycapc": "Monatliche Obergrenze (Anzahl)",
+        "weeklycap": "Wöchentliche Obergrenze (Anzahl)",
+        "dailycap": "Tägliche Obergrenze (Anzahl)",
+        "transactionfee": "Gebühr ($)",
+        "discountrate": "Discontsatz (%)",
+        "chargeback": "Maximale Rückbelastungsrate (%)",
+        "reserve": "Rücklagerate (Reserve Rate) (%)"
+      },
+      "gateway": {
+        "title": "Gateway",
+        "name": "Name",
+        "type": "Variante",
+        "processorid": "Zahlungsprozessor-ID",
+        "productid": "Produkt-ID",
+        "username": "Benutzername",
+        "password": "Passwort",
+        "apikey": "API Key"
+      },
+      "service": {
+        "title": "Kundenbetreuung",
+        "uri": "URI",
+        "email": "Email",
+        "phone": "Telefon",
+        "description": "Beschreibung"
       }
     },
     "loadbalancer": {
-      "title": "Lastverteiler (Load Balancer)",
-      "index": {
-        "title": "Lastverteilunger",
-        "header": {
-          "name": "Name",
-          "merchantnum": "Anzahl der Merchant Anbieter"
-        }
-      },
-      "tab": {
-        "general": "ALLGEMEINES"
-      },
-      "info": {
-        "createtitle": "Neue Lastverteiler (Load Balancer)",
-        "name": "NAME",
-        "edit": "LASTVERTEILER BEARBEITEN",
-        "cancel": "ABBRECHEN",
-        "update": "AKTUALISIEREN",
-        "save": "SPEICHERN"
-      },
-      "merchant": {
-        "addtitle": "Merchant Anbieter hinzufugen",
-        "distribution": "Verteilung",
-        "merchant": "Merchant Anbieter",
-        "add": "HINZUFÜGEN",
-        "clear": "KLÄREN",
-        "title": "Verbündete Merchant Anbieter",
-        "view": "Merchant Anbieter ansehen",
-        "edit": "Verteilung aktualisieren",
-        "disassociate": "Merchant Anbieter lösen",
-        "disassociatetext": "Sind Sie sicher, dass Sie diesen Merchant Anbieter vom Lastverteiler lösen wollen?",
-        "nodata": "Keine Merchant Anbieter Gefunden."
-      }
-    },
-    "merchantprovider": {
-      "title": "Merchant Anbieter",
-      "index": {
-        "title": "Merchant Anbieter",
-        "header": {
-          "name": "Name",
-          "processor": "Name des Zahlungsprozessors",
-          "type": "Zahlungsprozessorvariante"
-        }
-      },
-      "tab": {
-        "general": "ALLGEIMEINES",
-        "processing": "BEARBEITUNG",
-        "loadbalancer": "LOAD BALANCING"
-      },
-      "info": {
-        "edit": "Merchant Anbieter bearbeiten",
-        "cancel": "ABBRECHEN",
-        "update": "AKTUALISIEREN",
-        "save": "SPEICHERN",
-        "settings": {
-          "title": "Einstellungen",
-          "name": "Name",
-          "enabled": "Aktiv",
-          "allowprepaid": "Prepaid-Kreditkarte erlauben",
-          "accepted": "Anerkannte Zahlungsmethode"
-        },
-        "processing": {
-          "title": "Bearbeitung",
-          "monthlycapd": "Monatliche Obergrenze ($)",
-          "monthlycapc": "Monatliche Obergrenze (Anzahl)",
-          "weeklycap": "Wöchentliche Obergrenze (Anzahl)",
-          "dailycap": "Tägliche Obergrenze (Anzahl)",
-          "transactionfee": "Gebühr ($)",
-          "discountrate": "Discontsatz (%)",
-          "chargeback": "Maximale Rückbelastungsrate (%)",
-          "reserve": "Rücklagerate (Reserve Rate) (%)"
-        },
-        "gateway": {
-          "title": "Gateway",
-          "name": "Name",
-          "type": "Variante",
-          "processorid": "Zahlungsprozessor-ID",
-          "productid": "Produkt-ID",
-          "username": "Benutzername",
-          "password": "Passwort",
-          "apikey": "API Key"
-        },
-        "service": {
-          "title": "Kundenbetreuung",
-          "uri": "URI",
-          "email": "Email",
-          "phone": "Telefon",
-          "description": "Beschreibung"
-        }
-      },
-      "loadbalancer": {
-        "title": "Verbundene Lastverteiler",
-        "view": "Lastverteiler ansehen",
-        "nodata": "Keine Lastverteiler gefunden.",
-        "name": "Name"
-      }
-    },
-    "deletedialog": {
-      "text": "Sind Sie sicher, dass Sie löschen wollen?",
-      "del": "LÖSCHEN",
-      "cancel": "ABBRECHEN"
-    },
-    "associatedialog": {
-      "text": "Wählen Sie eine zu verbündene Einheit aus",
-      "associate": "VERBÜNDEN",
-      "cancel": "ABBRECHEN",
-      "entity": "Einheit"
-    },
-    "messagedialog": {
-      "title": "Sind Sie Sicher?",
-      "button": "JA"
-    },
-    "inviteuser": {
-      "title": "Neue Nutzer auf SIX einladen",
-      "email": "Email Addresse",
-      "role": "Nutzerrolle",
-      "cancel": "ABBRECHEN",
-      "invite": "EINLADEN"
-    },
-    "terms": {
-      "title": "Bitte unsere Bedingungen und Konditionen akkzeptieren damit Sie mit SIX anfangen können.",
-      "accept": "Akkzeptieren",
-      "logout": "Abmelden"
-    },
-    "register": {
-      "form": {
-        "title": "Herzlich Wilkommen!",
-        "subtitle": "Wir freuen uns, dass Sie dabei sind!",
-        "text": "Um Ihren 90-Tägigen Testzeit anzufangen, bitte geben sie Ihren Fimrmenname, Vorname und Nachname ein.",
-        "company": "Firma",
-        "firstname": "Vorname",
-        "lastname": "Nachname",
-        "cont": "Weiter"
-      },
-      "thankyou": {
-        "title": "Ihre konto is jetzt aktiv!",
-        "subtitle": "TROTZDEM, brauchen wir noch Ihre Verrechnungsdetails bevor Sie mit Transaktionen in SIX anfangen können. Unter 'Konten' auf die Seitenliste, finden Sie das Tab namens 'Verrechnung.'",
-        "text": "Ihre 90-Tägige Testzeit fängt jetzt schon an!",
-        "complete": "Fertig"
-      }
-    },
-    "acceptinvite": {
-      "badlogin": "Um diese Einladung akkzeptieren zu können, müssen sie registriert und eingeloggt mit dem Konto",
-      "login": "Einloggen",
-      "text1": "Würden sie gerne ihre Einladung akkzeptieren?",
-      "text2": "Auf Konto einladen",
-      "text3": "mit Nutzerrolle",
-      "explanation": "Drucken Sie die \"Accept\" Taste",
-      "accept": "Akkzeptieren",
-      "logout": "Abmelden",
-      "form": {
-        "title": "Herzlich Wilkommen!",
-        "subtitle": "Wir freuen uns, dass Sie dabei sind!",
-        "text": "Um Ihren einaldung zu akkzeptieren, bitte geben sie Ihren Vorname und Nachname ein",
-        "firstname": "Vorname",
-        "lastname": "Nachname",
-        "cont": "Weiter"
-      },
-      "thankyou": {
-        "title": "Schön! Wir haben Sie zu diesem Konto hinzugefügt.",
-        "switchtext": "Das Schalten zwischen Ihre andere SIX-Kontos ist ganz einfach. Clicken Sie die Taste oben rechts und wählen Sie Ihre gewünschte Konto.",
-        "cont": "Weiter"
-      }
-    },
-    "share": {
-      "title": "Verteilen",
-      "copy": "In der Zwischenablage kopieren"
-    },
-    "pagination": {
-      "rowsperpage": "Reihe pro Seite"
-    },
-    "snack": {
-      "error": "Fehler erkannt! Bitte nochmal versuchen.",
-      "updated": "Erfolgreich aktualisiert!",
-      "created": "Erfoglreich erschafft!",
-      "deleted": "Erfolgreich gelöscht!"
-    },
-    "datepicker": {
-      "apply": "Bestätigen",
-      "cancel": "Abbrechcen",
-      "jan": "Jan",
-      "feb": "Feb",
-      "mar": "Mär",
-      "apr": "Apr",
-      "may": "Mai",
-      "jun": "Juni",
-      "jul": "Juli",
-      "aug": "Aug",
-      "sep": "Sept",
-      "oct": "Okt",
-      "nov": "Nov",
-      "dec": "Dez",
-      "mon": "Mo",
-      "tue": "Di",
-      "wed": "Mi",
-      "thu": "Do",
-      "fri": "Fr",
-      "sat": "Sa",
-      "sun": "So",
-      "today": "Heute",
-      "yesterday": "Gestern",
-      "day7": "Vorige 7 Tage",
-      "day30": "Vorige 30 Tage",
-      "custom": "Maßgefertigt"
-    },
-    "errorpage": {
-      "title": "Strong Effort.",
-      "subtitle1": "It looks like something broke on our end,",
-      "subtitle2": "or the page you are looking for doesn't exist.",
-      "support": "If you think you found this page in error please contact"
-    },
-    "comingsoon": {
-      "title1": "FEATURE",
-      "title2": "IN DEVELOPMENT"
+      "title": "Verbundene Lastverteiler",
+      "view": "Lastverteiler ansehen",
+      "nodata": "Keine Lastverteiler gefunden.",
+      "name": "Name"
     }
+  },
+  "deletedialog": {
+    "text": "Sind Sie sicher, dass Sie löschen wollen?",
+    "del": "LÖSCHEN",
+    "cancel": "ABBRECHEN"
+  },
+  "associatedialog": {
+    "text": "Wählen Sie eine zu verbündene Einheit aus",
+    "associate": "VERBÜNDEN",
+    "cancel": "ABBRECHEN",
+    "entity": "Einheit"
+  },
+  "messagedialog": {
+    "title": "Sind Sie Sicher?",
+    "button": "JA"
+  },
+  "inviteuser": {
+    "title": "Neue Nutzer auf SIX einladen",
+    "email": "Email Addresse",
+    "role": "Nutzerrolle",
+    "cancel": "ABBRECHEN",
+    "invite": "EINLADEN"
+  },
+  "terms": {
+    "title": "Bitte unsere Bedingungen und Konditionen akkzeptieren damit Sie mit SIX anfangen können.",
+    "accept": "Akkzeptieren",
+    "logout": "Abmelden"
+  },
+  "register": {
+    "form": {
+      "title": "Herzlich Wilkommen!",
+      "subtitle": "Wir freuen uns, dass Sie dabei sind!",
+      "text": "Um Ihren 90-Tägigen Testzeit anzufangen, bitte geben sie Ihren Fimrmenname, Vorname und Nachname ein.",
+      "company": "Firma",
+      "firstname": "Vorname",
+      "lastname": "Nachname",
+      "cont": "Weiter"
+    },
+    "thankyou": {
+      "title": "Ihre konto is jetzt aktiv!",
+      "subtitle": "TROTZDEM, brauchen wir noch Ihre Verrechnungsdetails bevor Sie mit Transaktionen in SIX anfangen können. Unter 'Konten' auf die Seitenliste, finden Sie das Tab namens 'Verrechnung.'",
+      "text": "Ihre 90-Tägige Testzeit fängt jetzt schon an!",
+      "complete": "Fertig"
+    }
+  },
+  "acceptinvite": {
+    "badlogin": "Um diese Einladung akkzeptieren zu können, müssen sie registriert und eingeloggt mit dem Konto",
+    "login": "Einloggen",
+    "text1": "Würden sie gerne ihre Einladung akkzeptieren?",
+    "text2": "Auf Konto einladen",
+    "text3": "mit Nutzerrolle",
+    "explanation": "Drucken Sie die \"Accept\" Taste",
+    "accept": "Akkzeptieren",
+    "logout": "Abmelden",
+    "form": {
+      "title": "Herzlich Wilkommen!",
+      "subtitle": "Wir freuen uns, dass Sie dabei sind!",
+      "text": "Um Ihren einaldung zu akkzeptieren, bitte geben sie Ihren Vorname und Nachname ein",
+      "firstname": "Vorname",
+      "lastname": "Nachname",
+      "cont": "Weiter"
+    },
+    "thankyou": {
+      "title": "Schön! Wir haben Sie zu diesem Konto hinzugefügt.",
+      "switchtext": "Das Schalten zwischen Ihre andere SIX-Kontos ist ganz einfach. Clicken Sie die Taste oben rechts und wählen Sie Ihre gewünschte Konto.",
+      "cont": "Weiter"
+    }
+  },
+  "share": {
+    "title": "Verteilen",
+    "copy": "In der Zwischenablage kopieren"
+  },
+  "pagination": {
+    "rowsperpage": "Reihe pro Seite"
+  },
+  "snack": {
+    "error": "Fehler erkannt! Bitte nochmal versuchen.",
+    "updated": "Erfolgreich aktualisiert!",
+    "created": "Erfoglreich erschafft!",
+    "deleted": "Erfolgreich gelöscht!"
+  },
+  "datepicker": {
+    "apply": "Bestätigen",
+    "cancel": "Abbrechcen",
+    "jan": "Jan",
+    "feb": "Feb",
+    "mar": "Mär",
+    "apr": "Apr",
+    "may": "Mai",
+    "jun": "Juni",
+    "jul": "Juli",
+    "aug": "Aug",
+    "sep": "Sept",
+    "oct": "Okt",
+    "nov": "Nov",
+    "dec": "Dez",
+    "mon": "Mo",
+    "tue": "Di",
+    "wed": "Mi",
+    "thu": "Do",
+    "fri": "Fr",
+    "sat": "Sa",
+    "sun": "So",
+    "today": "Heute",
+    "yesterday": "Gestern",
+    "day7": "Vorige 7 Tage",
+    "day30": "Vorige 30 Tage",
+    "custom": "Maßgefertigt"
+  },
+  "errorpage": {
+    "title": "Strong Effort.",
+    "subtitle1": "It looks like something broke on our end,",
+    "subtitle2": "or the page you are looking for doesn't exist.",
+    "support": "If you think you found this page in error please contact"
+  },
+  "comingsoon": {
+    "title1": "FEATURE",
+    "title2": "IN DEVELOPMENT"
   }
+}

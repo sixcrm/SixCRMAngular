@@ -957,7 +957,7 @@
 			"cancel": "ՉԵՂԱՐԿԵԼ",
 			"save": "ՊԱՀՊԱՆԵԼ",
 			"edit": "Խմբագրել ապրանքի հերթացուցակը",
-      "viewloadbalancer": "View Load Balancer"
+      "viewloadbalancer": "View Merchant Provider Group"
     },
 		"cycle": {
 			"addtitle": "Ավելացնել ցիկլ",
@@ -1354,7 +1354,7 @@
       "title": "Associated Product Schedules",
       "nodata": "No Product Schedules found.",
       "name": "Name",
-      "loadbalancer": "Load Balancer",
+      "loadbalancer": "Merchant Provider Group",
       "count": "Number of cycles"
     },
     "transaction": {
