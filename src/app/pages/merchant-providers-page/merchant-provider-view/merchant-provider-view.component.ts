@@ -36,7 +36,7 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'MERCHANTPROVIDER_TAB_GENERAL'},
     {name: 'precessing', label: 'MERCHANTPROVIDER_TAB_PROCESSING'},
-    {name: 'loadbalancers', label: 'MERCHANTPROVIDER_TAB_LOADBALANCER'}
+    {name: 'merchantprovidergroups', label: 'MERCHANTPROVIDER_TAB_LOADBALANCER'}
   ];
 
   constructor(
@@ -79,6 +79,6 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
   }
 
   navigateToLoadBalancer(loadBalancer: LoadBalancer): void {
-    this.router.navigate(['/loadbalancers', loadBalancer.id]);
+    this.router.navigate(['/merchantprovidergroups', loadBalancer.id]);
   }
 }
