@@ -570,6 +570,7 @@
   },
   "account": {
     "title": "帐户",
+    "actas": "Act as this Account",
     "index": {
       "title": "帐号",
       "header": {

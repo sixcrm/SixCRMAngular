@@ -5,6 +5,7 @@
       <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
       <md-menu #editOptions="mdMenu" x-position="before">
         <button md-menu-item (click)="changeMode.emit(modes.Update)">{{ 'ACCOUNT_DETAILS_EDIT' | translate}}</button>
+        <button *ngIf="actingAsEnabled" md-menu-item (click)="actAs.emit(true)">{{ 'ACCOUNT_ACTAS' | translate}}</button>
       </md-menu>
     </ng-container>
   </div>

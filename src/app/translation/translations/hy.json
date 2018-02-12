@@ -570,7 +570,8 @@
 	},
 	"account": {
 		"title": "Հաշիվ",
-		"index": {
+    "actas": "Act as this Account",
+    "index": {
 			"title": "Հաշիվներ",
 			"header": {
 				"name": "Անուն",

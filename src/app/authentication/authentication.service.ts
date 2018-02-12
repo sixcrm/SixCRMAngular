@@ -254,6 +254,10 @@ export class AuthenticationService {
     return !this.getActingAsAccount() && this.getActiveAcl().account.id === '*';
   }
 
+  public isActiveOrActingAclMasterAccount(): boolean {
+    return this.getActiveAcl().account.id === '*';
+  }
+
   public changeActiveAcl(acl: Acl): void {
     if (this.getActingAsAccount()) {
       this.actingAsAccount$.next(null);

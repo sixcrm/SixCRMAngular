@@ -570,6 +570,7 @@
   },
   "account": {
     "title": "खाता",
+    "actas": "Act as this Account",
     "index": {
       "title": "हिसाब किताब",
       "header": {

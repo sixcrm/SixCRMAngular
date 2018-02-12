@@ -12,9 +12,11 @@ export class AccountAddNewComponent implements OnInit {
   @Input() entity: Account;
   @Input() mode: Modes;
   @Input() editEnabled: boolean = true;
+  @Input() actingAsEnabled: boolean = false;
 
   @Output() cancel: EventEmitter<boolean> = new EventEmitter();
   @Output() save: EventEmitter<Account> = new EventEmitter();
+  @Output() actAs: EventEmitter<boolean> = new EventEmitter();
   @Output() changeMode: EventEmitter<Modes> = new EventEmitter();
 
   modes = Modes;

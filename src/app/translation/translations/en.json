@@ -570,6 +570,7 @@
   },
   "account": {
     "title": "Account",
+    "actas": "Act as this Account",
     "index": {
       "title": "Accounts",
       "header": {

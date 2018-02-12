@@ -270,7 +270,7 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
   showBilling(): boolean {
     const acl = this.authService.getActiveAcl();
 
-    return this.authService.isActiveAclMasterAccount() || (acl && acl.account.id === this.entityId && this.billsService.hasReadPermission());
+    return this.authService.isActiveOrActingAclMasterAccount() || (acl && acl.account.id === this.entityId && this.billsService.hasReadPermission());
   }
 
   setIndex(index: number) {
@@ -279,5 +279,13 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
     if (this.selectedIndex === 3) {
       setTimeout(() => {this.isBillingFocused = true}, 300)
     }
+  }
+
+  startActingAs() {
+    this.authService.startActingAs(this.entity);
+
+    this.authService.actingAsAccount$.takeUntil(this.unsubscribe$).skip(1).take(1).subscribe(() => {
+      this.router.navigate(['/accounts']);
+    })
   }
 }

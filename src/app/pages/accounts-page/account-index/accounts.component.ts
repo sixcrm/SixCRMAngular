@@ -40,7 +40,7 @@ export class AccountsComponent extends AbstractEntityIndexComponent<Account> imp
 
     this.authService.activeAcl$.takeUntil(this.unsubscribe$).subscribe((acl: Acl) => {
       const isMasterAcc = acl.account.id === '*';
-      this.actAsOptionText = isMasterAcc ? 'act as this account' : null;
+      this.actAsOptionText = isMasterAcc ? 'ACCOUNT_ACTAS' : null;
     });
 
     this.authService.actingAsAccount$.skip(1).takeUntil(this.unsubscribe$).subscribe(() => {

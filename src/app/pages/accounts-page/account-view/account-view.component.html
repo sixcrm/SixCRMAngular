@@ -28,6 +28,8 @@
           [entity]="entity"
           [mode]="viewMode ? modes.View : modes.Update"
           [editEnabled]="isOwnerOrAdministrator() || authService.isActiveAclMasterAccount()"
+          [actingAsEnabled]="authService.isActiveAclMasterAccount()"
+          (actAs)="startActingAs()"
           (changeMode)="setMode($event)"
           (cancel)="cancelUpdate()"
           (save)="saveOrUpdate($event)">
