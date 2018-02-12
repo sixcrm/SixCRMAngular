@@ -33,7 +33,7 @@ export class ProductsComponent extends AbstractEntityIndexComponent<Product> imp
       new ColumnParams('PRODUCT_INDEX_HEADER_NAME', (e: Product) => e.name),
       new ColumnParams('PRODUCT_INDEX_HEADER_SKU',(e: Product) => e.sku),
       new ColumnParams('PRODUCT_INDEX_HEADER_SHIP', (e: Product) => e.ship + ''),
-      new ColumnParams('PRODUCT_INDEX_HEADER_DELAY', (e: Product) => e.shippingDelay, 'right').setNumberOption(true)
+      new ColumnParams('PRODUCT_INDEX_HEADER_DELAY', (e: Product) => e.shippingDelay, 'right').setNumberOption(true).setSelected(false)
     ];
   }
 

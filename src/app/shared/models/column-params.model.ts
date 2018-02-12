@@ -10,6 +10,7 @@ export class ColumnParams<T> {
   copy: boolean;
   number: boolean;
   translate: boolean;
+  selected: boolean = true;
 
   constructor(label?: string, mappingFunction?: (e: T) => string | number, align?: string, order?: string, applied?: boolean) {
     this.label = label;
@@ -45,6 +46,12 @@ export class ColumnParams<T> {
 
   setTranslateOption(value: boolean) {
     this.translate = value;
+
+    return this;
+  }
+
+  setSelected(value: boolean) {
+    this.selected = value;
 
     return this;
   }

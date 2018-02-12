@@ -11,6 +11,7 @@ import {SharedModule} from '../../shared/shared.module';
 import { TableMemoryComponent } from './table-memory/table-memory.component';
 import {TranslationModule} from '../../translation/translation.module';
 import {ClipboardModule} from 'ngx-clipboard';
+import { TablePreferencesComponent } from './table-preferences/table-preferences.component';
 
 @NgModule({
   imports : [
@@ -27,7 +28,8 @@ import {ClipboardModule} from 'ngx-clipboard';
     EntityViewInfoComponent,
     EntityViewInfoArrayComponent,
     EntitiesTableComponent,
-    TableMemoryComponent
+    TableMemoryComponent,
+    TablePreferencesComponent
   ],
   exports : [
     TableActionsComponent,
@@ -35,7 +37,8 @@ import {ClipboardModule} from 'ngx-clipboard';
     EntityViewInfoComponent,
     EntityViewInfoArrayComponent,
     EntitiesTableComponent,
-    TableMemoryComponent
+    TableMemoryComponent,
+    TablePreferencesComponent
   ],
   providers: [
 

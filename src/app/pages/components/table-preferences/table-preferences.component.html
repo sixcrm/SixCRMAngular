@@ -1,0 +1,20 @@
+<div class="container">
+  <md-icon (click)="toggleParams()">view_column</md-icon>
+
+  <div *ngIf="showParams" class="params-container">
+
+    <div class="option" *ngFor="let params of columnParams">
+      <md-checkbox [(ngModel)]="params.selected">
+        <span>
+          {{params.label | translate}}
+        </span>
+      </md-checkbox>
+    </div>
+
+    <div class="buttons">
+      <div (click)="cancel()">CANCEL</div>
+      <div (click)="apply()">APPLY</div>
+    </div>
+  </div>
+</div>
+

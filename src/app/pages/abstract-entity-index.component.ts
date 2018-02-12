@@ -13,6 +13,7 @@ import {areEntitiesIdentical} from '../shared/utils/entity.utils';
 import {YesNoDialogComponent} from './yes-no-dialog.component';
 import {Modes} from './abstract-entity-view.component';
 import 'rxjs/Rx';
+import {firstIndexOf} from '../shared/utils/array.utils';
 
 export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
@@ -36,6 +37,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   shareLimit: boolean = true;
 
   columnParams: ColumnParams<T>[] = [];
+  columnParamsBackup: {label: string, selected: boolean}[] = [];
   sortedColumnParams: ColumnParams<T> = new ColumnParams();
 
   loadingData: boolean = false;
@@ -104,6 +106,9 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
       this.loadingData = true;
       this.service.getEntities(this.limit);
     }
+
+    this.backupColumnParams();
+    this.resetColumnParams();
   }
 
   destroy(): void {
@@ -233,6 +238,30 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     this.service.getEntities(this.limit);
   }
 
+  resetColumnParams() {
+    this.columnParamsBackup.forEach(p => {
+      const index = firstIndexOf(this.columnParams, (el) => el.label === p.label);
+
+      if (index !== -1) {
+        this.columnParams[index].selected = p.selected;
+      }
+    })
+  }
+
+  persistColumnParams() {
+    this.backupColumnParams();
+  }
+
+  onColumnPreferencesChanged(changed: boolean) {
+    if (!changed) {
+      this.resetColumnParams();
+
+      return;
+    }
+
+    this.persistColumnParams();
+  }
+
   protected reshuffleEntities(): void {
     // if infinite scroll enabled, no reshuffling is needed
     if (this.infiniteScroll) return;
@@ -285,5 +314,11 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     }
 
     return -1;
+  }
+
+  private backupColumnParams() {
+    this.columnParamsBackup = this.columnParams.map(p => {
+      return {label: p.label, selected: p.selected}
+    })
   }
 }
