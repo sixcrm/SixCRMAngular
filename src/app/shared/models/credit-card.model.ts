@@ -23,7 +23,7 @@ export class CreditCard implements Entity<CreditCard> {
     this.ccnumber = obj.number || '';
     this.expiration = obj.expiration || '';
     this.ccv = obj.ccv || '';
-    this.name = obj. name || '';
+    this.name = obj.name || '';
     this.address = new Address(obj.address);
     this.type = this.getType().toUpperCase();
     this.expirationFormatted = this.formatExpiration();
