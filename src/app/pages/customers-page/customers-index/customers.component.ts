@@ -7,7 +7,6 @@ import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
-import {UserSettingsService} from '../../../shared/services/user-settings.service';
 
 @Component({
   selector: 'customers',
@@ -22,10 +21,9 @@ export class CustomersComponent extends AbstractEntityIndexComponent<Customer> i
     dialog: MdDialog,
     paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute,
-    userSettingsService: UserSettingsService
+    activatedRoute: ActivatedRoute
   ) {
-    super(customersService, auth, dialog, paginationService, router, activatedRoute, userSettingsService);
+    super(customersService, auth, dialog, paginationService, router, activatedRoute);
 
     this.entityFactory = () => new Customer();
 

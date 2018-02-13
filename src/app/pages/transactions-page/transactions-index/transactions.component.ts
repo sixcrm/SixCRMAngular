@@ -7,7 +7,6 @@ import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
-import {UserSettingsService} from '../../../shared/services/user-settings.service';
 
 @Component({
   selector: 'transactions',
@@ -22,10 +21,9 @@ export class TransactionsComponent extends AbstractEntityIndexComponent<Transact
     dialog: MdDialog,
     paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute,
-    userSettingsService: UserSettingsService
+    activatedRoute: ActivatedRoute
   ) {
-    super(transactionsService, auth, dialog, paginationService, router, activatedRoute, userSettingsService);
+    super(transactionsService, auth, dialog, paginationService, router, activatedRoute);
 
     let f = this.authService.getTimezone();
     this.columnParams = [

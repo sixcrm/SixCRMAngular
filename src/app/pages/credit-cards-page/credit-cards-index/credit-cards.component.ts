@@ -7,7 +7,6 @@ import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
-import {UserSettingsService} from '../../../shared/services/user-settings.service';
 
 @Component({
   selector: 'c-credit-cards',
@@ -22,10 +21,9 @@ export class CreditCardsComponent extends AbstractEntityIndexComponent<CreditCar
     dialog: MdDialog,
     paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute,
-    userSettingsService: UserSettingsService
+    activatedRoute: ActivatedRoute
   ) {
-    super(creditCardsService, auth, dialog, paginationService, router, activatedRoute, userSettingsService);
+    super(creditCardsService, auth, dialog, paginationService, router, activatedRoute);
 
     this.entityFactory = () => new CreditCard();
 

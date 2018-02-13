@@ -14,7 +14,6 @@ import {RolesService} from '../../../shared/services/roles.service';
 import {Role} from '../../../shared/models/role.model';
 import {Account} from '../../../shared/models/account.model';
 import {AclsService} from '../../../shared/services/acls.service';
-import {UserSettingsService} from '../../../shared/services/user-settings.service';
 
 @Component({
   selector: 'c-users',
@@ -36,10 +35,9 @@ export class UsersComponent extends AbstractEntityIndexComponent<User> implement
     activatedRoute: ActivatedRoute,
     private accountsService: AccountsService,
     private rolesService: RolesService,
-    private aclService: AclsService,
-    userSettingsService: UserSettingsService
+    private aclService: AclsService
   ) {
-    super(usersService, auth, dialog, paginationService, router, activatedRoute, userSettingsService);
+    super(usersService, auth, dialog, paginationService, router, activatedRoute);
 
     this.entityFactory = () => new User();
     this.viewAfterCrate = false;

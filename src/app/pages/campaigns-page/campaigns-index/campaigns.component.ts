@@ -8,7 +8,6 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {Currency} from '../../../shared/utils/currency/currency';
-import {UserSettingsService} from '../../../shared/services/user-settings.service';
 
 @Component({
   selector: 'campaigns',
@@ -23,10 +22,9 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
     dialog: MdDialog,
     paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute,
-    userSettingsService: UserSettingsService
+    activatedRoute: ActivatedRoute
   ) {
-    super(campaignService, auth, dialog, paginationService, router, activatedRoute, userSettingsService);
+    super(campaignService, auth, dialog, paginationService, router, activatedRoute);
 
     this.entityFactory = () => new Campaign();
 

@@ -8,7 +8,6 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {Account} from '../../../shared/models/account.model';
 import {Acl} from '../../../shared/models/acl.model';
-import {UserSettingsService} from '../../../shared/services/user-settings.service';
 
 @Component({
   selector: 'accounts',
@@ -25,10 +24,9 @@ export class AccountsComponent extends AbstractEntityIndexComponent<Account> imp
     dialog: MdDialog,
     paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute,
-    userSettingsService: UserSettingsService
+    activatedRoute: ActivatedRoute
   ) {
-    super(affiliatesService, auth, dialog, paginationService, router, activatedRoute, userSettingsService);
+    super(affiliatesService, auth, dialog, paginationService, router, activatedRoute);
 
     this.entityFactory = () => new Account();
 

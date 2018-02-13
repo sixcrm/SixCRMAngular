@@ -7,7 +7,6 @@ import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
-import {UserSettingsService} from '../../../shared/services/user-settings.service';
 
 @Component({
   selector: 'merchant-providers',
@@ -22,10 +21,9 @@ export class MerchantProvidersComponent extends AbstractEntityIndexComponent<Mer
     dialog: MdDialog,
     paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute,
-    userSettingsService: UserSettingsService
+    activatedRoute: ActivatedRoute
   ) {
-    super(merchantProvidersService, auth, dialog, paginationService, router, activatedRoute, userSettingsService);
+    super(merchantProvidersService, auth, dialog, paginationService, router, activatedRoute);
 
     this.entityFactory = () => new MerchantProvider();
 

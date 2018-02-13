@@ -4,7 +4,6 @@ import {MdDialogRef, MdDialog} from '@angular/material';
 import {AssociateDialogComponent} from '../../associate-dialog.component';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {DeleteDialogComponent} from '../../delete-dialog.component';
-
 export interface TableMemoryTextOptions {
   title?: string,
   viewOptionText?: string,
@@ -60,6 +59,7 @@ export class TableMemoryComponent implements OnInit {
   @Input() customMenuOptions: CustomMenuOption[] = [];
   @Input() loading: boolean;
   @Input() loadingNumberOfRows: number = 3;
+  @Input() columnPreferencesEnabled: boolean = true;
 
   @Output() view: EventEmitter<boolean> = new EventEmitter();
   @Output() disassociate: EventEmitter<any> = new EventEmitter();
