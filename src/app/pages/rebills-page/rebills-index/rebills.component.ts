@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {MdDialog} from '@angular/material';
 import {ColumnParams} from '../../../shared/models/column-params.model';
+import {UserSettingsService} from '../../../shared/services/user-settings.service';
 
 @Component({
   selector: 'rebills',
@@ -21,9 +22,10 @@ export class RebillsComponent extends AbstractEntityIndexComponent<Rebill> imple
     dialog: MdDialog,
     paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute
+    activatedRoute: ActivatedRoute,
+    userSettingsService: UserSettingsService
   ) {
-    super(service, auth, dialog, paginationService, router, activatedRoute);
+    super(service, auth, dialog, paginationService, router, activatedRoute, userSettingsService);
 
     let f = this.authService.getTimezone();
 

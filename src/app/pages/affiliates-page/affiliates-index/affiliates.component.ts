@@ -7,6 +7,7 @@ import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
+import {UserSettingsService} from '../../../shared/services/user-settings.service';
 
 @Component({
   selector: 'affiliates',
@@ -21,9 +22,10 @@ export class AffiliatesComponent extends AbstractEntityIndexComponent<Affiliate>
     dialog: MdDialog,
     paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute
+    activatedRoute: ActivatedRoute,
+    userSettingsService: UserSettingsService
   ) {
-    super(affiliatesService, auth, dialog, paginationService, router, activatedRoute);
+    super(affiliatesService, auth, dialog, paginationService, router, activatedRoute, userSettingsService);
 
     this.entityFactory = () => new Affiliate();
 

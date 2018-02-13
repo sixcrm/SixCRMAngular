@@ -1,6 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {MerchantReport} from '../../shared/models/analytics/merchant-report.model';
-import {AuthenticationService} from '../../authentication/authentication.service';
 import {TranslationService} from '../../translation/translation.service';
 
 @Component({
@@ -31,12 +30,8 @@ export class MerchantReportChartComponent implements OnInit {
 
   loaded: boolean = false;
 
-  constructor(private authService: AuthenticationService, private translationService: TranslationService) {
-    if (this.authService.getUserSettings().language) {
-      this.initCharts();
-    } else {
-      this.authService.userSettings$.take(1).subscribe(settings => this.initCharts());
-    }
+  constructor(private translationService: TranslationService) {
+    this.initCharts();
   }
 
   ngOnInit() {

@@ -3,7 +3,6 @@ import {Moment, utc} from 'moment';
 import {DaterangePickerComponent, DaterangepickerConfig} from 'ng2-daterangepicker';
 import {SearchService} from '../../services/search.service';
 import {AsyncSubject} from 'rxjs';
-import {AuthenticationService} from '../../../authentication/authentication.service';
 import {TranslationService} from '../../../translation/translation.service';
 import {getMonths, getDays} from '../../utils/date.utils';
 
@@ -127,7 +126,6 @@ export class AdvancedFilterComponent implements OnInit, OnDestroy {
   constructor(
     private searchService: SearchService,
     private daterangepickerOptions: DaterangepickerConfig,
-    private authService: AuthenticationService,
     private translationService: TranslationService
   ) { }
 
@@ -257,11 +255,7 @@ export class AdvancedFilterComponent implements OnInit, OnDestroy {
 
   private initDatepicker(): void {
 
-    if (this.authService.getUserSettings().language) {
-      this.updateDatepicker();
-    } else {
-      this.authService.userSettings$.take(1).subscribe(() => this.updateDatepicker());
-    }
+    this.updateDatepicker();
 
   }
 

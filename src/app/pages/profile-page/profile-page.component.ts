@@ -181,7 +181,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   getNotificationUserSettings(name: string): NotificationUserSettings {
     if (!this.userSettings) return new NotificationUserSettings();
 
-    for (let i = 0; this.userSettings.notificationSettings.length; i++) {
+    for (let i = 0; i < this.userSettings.notificationSettings.length; i++) {
       if (this.userSettings.notificationSettings[i].name === name) {
         return this.userSettings.notificationSettings[i];
       }

@@ -198,11 +198,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   setDatepickerOptions(): void {
 
-    if (this.authService.getUserSettings().language) {
-      this.updateDatepicker();
-    } else {
-      this.authService.userSettings$.take(1).subscribe(() => this.updateDatepicker());
-    }
+    this.updateDatepicker();
+
   }
 
   updateDatepicker(): void {

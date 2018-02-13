@@ -1,6 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {utc, Moment} from 'moment';
-import {AuthenticationService} from '../../../authentication/authentication.service';
 import {TranslationService} from '../../../translation/translation.service';
 import {getDays, getMonths} from '../../utils/date.utils';
 
@@ -22,14 +21,10 @@ export class SimpleDatepickerComponent implements OnInit {
 
   public options;
 
-  constructor(private authService: AuthenticationService, private translationService: TranslationService) { }
+  constructor(private translationService: TranslationService) { }
 
   ngOnInit() {
-    if (this.authService.getUserSettings().language) {
-      this.initDatepicker();
-    } else {
-      this.authService.userSettings$.take(1).subscribe(() => this.initDatepicker())
-    }
+    this.initDatepicker();
   }
 
   initDatepicker() {

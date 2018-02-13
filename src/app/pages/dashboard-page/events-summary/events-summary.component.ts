@@ -5,7 +5,6 @@ import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {TranslationService} from '../../../translation/translation.service';
-import {AuthenticationService} from '../../../authentication/authentication.service';
 
 @Component({
   selector: 'events-summary',
@@ -26,16 +25,11 @@ export class EventsSummaryComponent extends AbstractDashboardItem implements OnI
 
   constructor(
     private analyticsService: AnalyticsService,
-    private translationService: TranslationService,
-    private authService: AuthenticationService
+    private translationService: TranslationService
   ) {
     super();
 
-    if (this.authService.getUserSettings().language) {
-      this.initCharts();
-    } else {
-      this.authService.userSettings$.take(1).subscribe(settings => this.initCharts());
-    }
+    this.initCharts();
 
   };
 

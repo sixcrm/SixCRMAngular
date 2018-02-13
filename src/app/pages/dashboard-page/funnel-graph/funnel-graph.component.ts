@@ -32,11 +32,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
   ) {
     super();
 
-    if (this.authService.getUserSettings().language) {
-      this.initChart();
-    } else {
-      this.authService.userSettings$.take(1).subscribe(settings => this.initChart());
-    }
+    this.initChart();
 
   }
 

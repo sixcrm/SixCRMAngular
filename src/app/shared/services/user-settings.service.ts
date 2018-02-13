@@ -6,6 +6,7 @@ import { userSettingsQuery, updateUserSettingsMutation } from '../utils/query-bu
 import {HttpWrapperService} from './http-wrapper.service';
 import {CustomServerError} from '../models/errors/custom-server-error';
 import {MdSnackBar} from '@angular/material';
+import {ColumnParams} from '../models/column-params.model';
 
 @Injectable()
 export class UserSettingsService extends AbstractEntityService<UserSettings> {
@@ -30,5 +31,17 @@ export class UserSettingsService extends AbstractEntityService<UserSettings> {
       this.authService.updateSettings(settings);
       this.authService.updateTimezone(settings.timezone)
     });
+  }
+
+  updateColumnPreferences(columnParams: ColumnParams<any>[]) {
+    this.entity$.take(1).subscribe(userSettings => {
+      if (userSettings instanceof CustomServerError) return;
+
+      userSettings.updatePreferencesByColumnParams(columnParams);
+
+      this.updateEntity(userSettings);
+    });
+
+    this.getEntity(this.authService.getSixUser().id);
   }
 }

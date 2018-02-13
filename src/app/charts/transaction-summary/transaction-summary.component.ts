@@ -5,7 +5,6 @@ import {AnalyticsService} from '../../shared/services/analytics.service';
 import {FilterTerm, flatUp} from '../../shared/components/advanced-filter/advanced-filter.component';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {TranslationService} from '../../translation/translation.service';
-import {AuthenticationService} from '../../authentication/authentication.service';
 
 @Component({
   selector: 'transaction-summary-chart',
@@ -63,16 +62,11 @@ export class TransactionSummaryChartComponent extends AbstractDashboardItem impl
 
   constructor(
     private analyticsService: AnalyticsService,
-    private translationService: TranslationService,
-    private authService: AuthenticationService
+    private translationService: TranslationService
   ) {
     super();
 
-    if (this.authService.getUserSettings().language) {
-      this.initChart();
-    } else {
-      this.authService.userSettings$.take(1).subscribe(settings => this.initChart());
-    }
+    this.initChart();
   }
 
   initChart() {

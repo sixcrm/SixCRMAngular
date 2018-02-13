@@ -14,6 +14,7 @@ import {YesNoDialogComponent} from './yes-no-dialog.component';
 import {Modes} from './abstract-entity-view.component';
 import 'rxjs/Rx';
 import {firstIndexOf} from '../shared/utils/array.utils';
+import {UserSettingsService} from '../shared/services/user-settings.service';
 
 export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
@@ -57,7 +58,8 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     protected deleteDialog: MdDialog,
     protected paginationService?: PaginationService,
     protected router?: Router,
-    protected activatedRoute?: ActivatedRoute
+    protected activatedRoute?: ActivatedRoute,
+    protected userSettingsService?: UserSettingsService
   ) { }
 
   init(fetch: boolean = true): void {
@@ -108,7 +110,6 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     }
 
     this.backupColumnParams();
-    this.resetColumnParams();
   }
 
   destroy(): void {
@@ -239,17 +240,19 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   }
 
   resetColumnParams() {
-    this.columnParamsBackup.forEach(p => {
-      const index = firstIndexOf(this.columnParams, (el) => el.label === p.label);
+    for (let i = 0; i < this.columnParams.length; i++) {
+      const index = firstIndexOf(this.columnParamsBackup, (el) => el.label === this.columnParams[i].label);
 
-      if (index !== -1) {
-        this.columnParams[index].selected = p.selected;
-      }
-    })
+      this.columnParams[i].selected = (index !== -1) && this.columnParamsBackup[index].selected;
+    }
   }
 
   persistColumnParams() {
-    this.backupColumnParams();
+    const selected = this.columnParams.filter(c => c.selected).map(c => c.label);
+
+    if (selected.length === 0) return;
+
+    this.userSettingsService.updateColumnPreferences(this.columnParams);
   }
 
   onColumnPreferencesChanged(changed: boolean) {
@@ -317,8 +320,26 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   }
 
   private backupColumnParams() {
-    this.columnParamsBackup = this.columnParams.map(p => {
-      return {label: p.label, selected: p.selected}
-    })
+    this.authService.userSettings$.takeUntil(this.unsubscribe$).subscribe(settings => {
+      if (!settings) return;
+
+      const params = this.columnParams
+        .filter(p => settings.columnPreferences.indexOf(p.label) !== -1)
+        .map(p => {
+          return {label: p.label, selected: true}
+        });
+
+      if (!params || params.length === 0) {
+        this.columnParamsBackup = this.columnParams.map(p => {
+          return {label: p.label, selected: p.selected}
+        });
+
+        return;
+      }
+
+      this.columnParamsBackup = params;
+
+      this.resetColumnParams();
+    });
   }
 }

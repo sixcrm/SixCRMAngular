@@ -40,7 +40,7 @@ export class AuthenticationService {
 
   private timezone: string = 'America/Los_Angeles';
   public sixUser$: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
-  public userSettings$: Subject<UserSettings> = new Subject();
+  public userSettings$: BehaviorSubject<UserSettings> = new BehaviorSubject(null);
   public sixUserActivated$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   public activeAcl$: BehaviorSubject<Acl> = new BehaviorSubject<Acl>(new Acl());
   public actingAsAccount$: BehaviorSubject<Account> = new BehaviorSubject<Account>(null);
@@ -200,7 +200,8 @@ export class AuthenticationService {
   }
 
   public updateSettings(settings: UserSettings): void {
-    this.currentUserSettings = new UserSettings(settings);
+    this.currentUserSettings = settings.copy();
+
     this.userSettings$.next(this.currentUserSettings);
   }
 
@@ -393,7 +394,7 @@ export class AuthenticationService {
             this.updateTimezone(user.usersetting.timezone);
           }
 
-          this.updateSettings(user.usersetting);
+          this.updateSettings(new UserSettings(user.usersetting));
 
           this.redirectAfterIntrospection(redirectUrl);
 

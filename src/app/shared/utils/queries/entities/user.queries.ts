@@ -28,7 +28,7 @@ export function userIntrospection(): string {
   return `{
     userintrospection {
       ${userIntrospectionResponseQuery()},
-      usersetting { timezone, language }
+      usersetting { id, timezone, language, column_preferences }
     }
   }`
 }

@@ -1,10 +1,11 @@
-import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
+import {Component, OnInit, Input, EventEmitter, Output, ElementRef} from '@angular/core';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 
 @Component({
   selector: 'table-preferences',
   templateUrl: './table-preferences.component.html',
-  styleUrls: ['./table-preferences.component.scss']
+  styleUrls: ['./table-preferences.component.scss'],
+  host: {'(document:click)': 'onClick($event)'}
 })
 export class TablePreferencesComponent implements OnInit {
 
@@ -14,13 +15,17 @@ export class TablePreferencesComponent implements OnInit {
 
   showParams: boolean;
 
-  constructor() { }
+  constructor(private elementRef: ElementRef) { }
 
   ngOnInit() {
   }
 
   toggleParams() {
     this.showParams = !this.showParams;
+
+    if (!this.showParams) {
+      this.changed.emit(false);
+    }
   }
 
   cancel() {
@@ -33,5 +38,13 @@ export class TablePreferencesComponent implements OnInit {
     this.showParams = false;
 
     this.changed.emit(true);
+  }
+
+  onClick(event): void {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      if (this.showParams) {
+        this.cancel();
+      }
+    }
   }
 }

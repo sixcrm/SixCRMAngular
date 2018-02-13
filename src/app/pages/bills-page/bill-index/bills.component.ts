@@ -7,6 +7,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {ColumnParams} from '../../../shared/models/column-params.model';
+import {UserSettingsService} from '../../../shared/services/user-settings.service';
 
 @Component({
   selector: 'bills',
@@ -21,9 +22,10 @@ export class BillsComponent extends AbstractEntityIndexComponent<Bill> implement
     dialog: MdDialog,
     paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute
+    activatedRoute: ActivatedRoute,
+    userSettingsService: UserSettingsService
   ) {
-    super(billsService, auth, dialog, paginationService, router, activatedRoute);
+    super(billsService, auth, dialog, paginationService, router, activatedRoute, userSettingsService);
 
     this.entityFactory = () => new Bill();
 

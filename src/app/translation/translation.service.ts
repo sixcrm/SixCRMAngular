@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
-import {UserSettingsService} from '../shared/services/user-settings.service';
 import {AuthenticationService} from '../authentication/authentication.service';
 
 const languages = require('./translations/languages.json');
@@ -18,7 +17,7 @@ export class TranslationService {
   public translationChanged$: Subject<boolean> = new Subject();
   public language: string;
 
-  constructor(private userSettingsService: UserSettingsService, private authService: AuthenticationService) {
+  constructor(private authService: AuthenticationService) {
     this.updateTranslation(this.authService.getUserSettings().language);
 
     this.authService.userSettings$.subscribe(userSettings => {
