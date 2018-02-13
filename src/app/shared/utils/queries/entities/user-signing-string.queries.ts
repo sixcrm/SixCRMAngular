@@ -1,5 +1,5 @@
 import {
-  paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery, addId
+  paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery, addId, deleteManyMutationQuery
 } from './entities-helper.queries';
 import {UserSigningString} from "../../../models/user-signing-string.model";
 
@@ -24,6 +24,10 @@ export function userSigningStringQuery(id: string): string {
 
 export function deleteUserSigningStringMutation(id: string): string {
   return deleteMutationQuery('usersigningstring', id);
+}
+
+export function deleteUserSigningStringsMutation(id: string[]): string {
+  return deleteManyMutationQuery('usersigningstring', id);
 }
 
 export function createUserSigningStringMutation(userSigningString: UserSigningString): string {

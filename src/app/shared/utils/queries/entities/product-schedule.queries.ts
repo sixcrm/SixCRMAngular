@@ -1,7 +1,7 @@
 import {loadBalancerResponseQuery} from './load-balancer.queries';
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, clean
+  addId, clean, deleteManyMutationQuery
 } from './entities-helper.queries';
 import {ProductSchedule} from '../../../models/product-schedule.model';
 
@@ -37,6 +37,10 @@ export function productScheduleQuery(id: string): string {
 
 export function deleteProductScheduleMutation(id: string): string {
   return deleteMutationQuery('productschedule', id);
+}
+
+export function deleteProductSchedulesMutation(id: string[]): string {
+  return deleteManyMutationQuery('productschedule', id);
 }
 
 export function createProductScheduleMutation(schedule: ProductSchedule): string {

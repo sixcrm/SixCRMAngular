@@ -5,7 +5,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {HttpWrapperService} from './http-wrapper.service';
 import {
   creditCardsListQuery, creditCardQuery,
-  deleteCreditCardMutation, createCreditCardMutation, updateCreditCardMutation
+  deleteCreditCardMutation, createCreditCardMutation, updateCreditCardMutation, deleteCreditCardsMutation
 } from '../utils/queries/entities/credit-card.queries';
 import {MdSnackBar} from '@angular/material';
 
@@ -19,6 +19,7 @@ export class CreditCardsService extends AbstractEntityService<CreditCard> {
       creditCardsListQuery,
       creditCardQuery,
       deleteCreditCardMutation,
+      deleteCreditCardsMutation,
       createCreditCardMutation,
       updateCreditCardMutation,
       'creditcard',

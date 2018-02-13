@@ -1,6 +1,6 @@
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId
+  addId, deleteManyMutationQuery
 } from './entities-helper.queries';
 import {Tracker} from '../../../models/tracker.model';
 
@@ -37,6 +37,10 @@ export function trackerQuery(id: string): string {
 
 export function deleteTrackerMutation(id: string): string {
   return deleteMutationQuery('tracker', id);
+}
+
+export function deleteTrackersMutation(id: string[]): string {
+  return deleteManyMutationQuery('tracker', id);
 }
 
 export function updateTrackerMutation(tracker: Tracker): string {

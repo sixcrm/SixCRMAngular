@@ -2,7 +2,7 @@ import {productScheduleResponseQuery, productScheduleInfoResponseQuery} from './
 import {Campaign} from '../../../models/campaign.model';
 import {
   fullPaginationStringResponseQuery, paginationParamsQuery, deleteMutationQuery,
-  addId
+  addId, deleteManyMutationQuery
 } from './entities-helper.queries';
 
 export function campaignsInfoListQuery(limit?:number, cursor?:string): string {
@@ -55,6 +55,10 @@ export function campaignQuery(id: string): string {
 
 export function deleteCampaignMutation(id: string): string {
   return deleteMutationQuery('campaign', id);
+}
+
+export function deleteCampaignsMutation(id: string[]): string {
+  return deleteManyMutationQuery('campaign', id);
 }
 
 export function createCampaignMutation(campaign: Campaign): string {

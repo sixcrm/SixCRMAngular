@@ -1,6 +1,6 @@
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId
+  addId, deleteManyMutationQuery
 } from './entities-helper.queries';
 import {Affiliate} from '../../../models/affiliate.model';
 
@@ -25,6 +25,10 @@ export function affiliateQuery(id: string): string {
 
 export function deleteAffiliateMutation(id: string): string {
   return deleteMutationQuery('affiliate', id);
+}
+
+export function deleteAffiliatesMutation(id: string[]): string {
+  return deleteManyMutationQuery('affiliate', id);
 }
 
 export function createAffiliateMutation(affiliate: Affiliate): string {

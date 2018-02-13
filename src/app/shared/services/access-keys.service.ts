@@ -6,7 +6,7 @@ import {HttpWrapperService} from './http-wrapper.service';
 import {MdSnackBar} from '@angular/material';
 import {
   accessKeyQuery, deleteAccessKeyMutation,
-  accessKeysListQuery, createAccessKeyMutation, updateAccessKeyMutation
+  accessKeysListQuery, createAccessKeyMutation, updateAccessKeyMutation, deleteAccessKeysMutation
 } from '../utils/queries/entities/access-key.queries';
 
 @Injectable()
@@ -20,6 +20,7 @@ export class AccessKeysService extends AbstractEntityService<AccessKey> {
       accessKeysListQuery,
       accessKeyQuery,
       deleteAccessKeyMutation,
+      deleteAccessKeysMutation,
       createAccessKeyMutation,
       updateAccessKeyMutation,
       'accesskey',

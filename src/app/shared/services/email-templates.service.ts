@@ -5,7 +5,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {HttpWrapperService, extractData} from './http-wrapper.service';
 import {
   emailTemplatesListQuery, emailTemplateQuery,
-  deleteEmailTemplateMutation, createEmailTemplateMutation, updateEmailTemplateMutation
+  deleteEmailTemplateMutation, createEmailTemplateMutation, updateEmailTemplateMutation, deleteEmailTemplatesMutation
 } from '../utils/queries/entities/email-template.queries';
 import {MdSnackBar} from '@angular/material';
 import {Subject} from 'rxjs';
@@ -25,6 +25,7 @@ export class EmailTemplatesService extends AbstractEntityService<EmailTemplate> 
       emailTemplatesListQuery,
       emailTemplateQuery,
       deleteEmailTemplateMutation,
+      deleteEmailTemplatesMutation,
       createEmailTemplateMutation,
       updateEmailTemplateMutation,
       'emailtemplate',

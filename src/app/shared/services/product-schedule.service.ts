@@ -4,7 +4,8 @@ import {ProductSchedule} from '../models/product-schedule.model';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {
   productScheduleListQuery, productScheduleQuery,
-  deleteProductScheduleMutation, createProductScheduleMutation, updateProductScheduleMutation
+  deleteProductScheduleMutation, createProductScheduleMutation, updateProductScheduleMutation,
+  deleteProductSchedulesMutation
 } from '../utils/queries/entities/product-schedule.queries';
 import {HttpWrapperService} from './http-wrapper.service';
 import {MdSnackBar} from '@angular/material';
@@ -20,6 +21,7 @@ export class ProductScheduleService extends AbstractEntityService<ProductSchedul
       productScheduleListQuery,
       productScheduleQuery,
       deleteProductScheduleMutation,
+      deleteProductSchedulesMutation,
       createProductScheduleMutation,
       updateProductScheduleMutation,
       'productschedule',

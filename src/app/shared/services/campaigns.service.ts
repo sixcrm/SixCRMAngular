@@ -4,7 +4,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {AbstractEntityService} from './abstract-entity.service';
 import {
   campaignsInfoListQuery, campaignQuery,
-  deleteCampaignMutation, createCampaignMutation, updateCampaignMutation
+  deleteCampaignMutation, createCampaignMutation, updateCampaignMutation, deleteCampaignsMutation
 } from '../utils/queries/entities/campaign.queries';
 import {HttpWrapperService} from './http-wrapper.service';
 import {MdSnackBar} from '@angular/material';
@@ -20,6 +20,7 @@ export class CampaignsService extends AbstractEntityService<Campaign> {
       campaignsInfoListQuery,
       campaignQuery,
       deleteCampaignMutation,
+      deleteCampaignsMutation,
       createCampaignMutation,
       updateCampaignMutation,
       'campaign',

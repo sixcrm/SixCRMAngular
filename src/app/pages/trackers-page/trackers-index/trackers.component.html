@@ -20,6 +20,7 @@
         [service]="service"
         (viewClicked)="viewEntity($event.id)"
         (deleteClicked)="deleteEntity($event.id)"
+        (deleteManyClicked)="deleteMany($event)"
         (refreshData)="refreshData()"
 
         [limit]="limit"

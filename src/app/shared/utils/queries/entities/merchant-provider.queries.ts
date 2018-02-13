@@ -1,7 +1,7 @@
 import {MerchantProvider} from '../../../models/merchant-provider/merchant-provider.model';
 import {
   fullPaginationStringResponseQuery, deleteMutationQuery, addId,
-  paginationParamsQuery
+  paginationParamsQuery, deleteManyMutationQuery
 } from './entities-helper.queries';
 
 export function merchantProvidersListQuery(limit?:number, cursor?:string): string {
@@ -25,6 +25,10 @@ export function merchantProviderQuery(id: string): string {
 
 export function deleteMerchantProviderMutation(id: string): string {
   return deleteMutationQuery('merchantprovider', id);
+}
+
+export function deleteMerchantProvidersMutation(id: string[]): string {
+  return deleteManyMutationQuery('merchantprovider', id);
 }
 
 export function createMerchantProviderMutation(provider: MerchantProvider): string {

@@ -1,6 +1,6 @@
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery,
-  deleteMutationQuery
+  deleteMutationQuery, deleteManyMutationQuery
 } from './entities-helper.queries';
 
 export function shippingReceiptsListQuery(limit?:number, cursor?:string): string {
@@ -24,6 +24,10 @@ export function shippingReceiptQuery(id: string): string {
 
 export function deleteShippingReceiptMutation(id: string): string {
   return deleteMutationQuery('shippingreceipt', id);
+}
+
+export function deleteShippingReceiptsMutation(id: string[]): string {
+  return deleteManyMutationQuery('shippingreceipt', id);
 }
 
 export function shippingReceiptInfoResponseQuery(): string {

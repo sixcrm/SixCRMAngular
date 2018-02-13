@@ -1,4 +1,7 @@
-import {paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery} from './entities-helper.queries';
+import {
+  paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
+  deleteManyMutationQuery
+} from './entities-helper.queries';
 import {loadBalancerResponseQuery} from './load-balancer.queries';
 
 export function sessionsInfoListQuery(limit?:number, cursor?:string): string {
@@ -44,6 +47,10 @@ export function sessionQuery(id: string): string {
 
 export function deleteSessionMutation(id: string): string {
   return deleteMutationQuery('session', id);
+}
+
+export function deleteSessionsMutation(id: string[]): string {
+  return deleteManyMutationQuery('session', id);
 }
 
 export function sessionResponseQuery(): string {

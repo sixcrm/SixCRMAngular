@@ -4,7 +4,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {LoadBalancer} from '../models/load-balancer.model';
 import {
   loadBalancersInfoListQuery, loadBalancerQuery,
-  deleteLoadBalancerMutation, createLoadBalancerMutation, updateLoadBalancerMutation
+  deleteLoadBalancerMutation, createLoadBalancerMutation, updateLoadBalancerMutation, deleteLoadBalancersMutation
 } from '../utils/queries/entities/load-balancer.queries';
 import {HttpWrapperService} from './http-wrapper.service';
 import {MdSnackBar} from '@angular/material';
@@ -20,6 +20,7 @@ export class LoadBalancersService extends AbstractEntityService<LoadBalancer> {
       loadBalancersInfoListQuery,
       loadBalancerQuery,
       deleteLoadBalancerMutation,
+      deleteLoadBalancersMutation,
       createLoadBalancerMutation,
       updateLoadBalancerMutation,
       'loadbalancer',

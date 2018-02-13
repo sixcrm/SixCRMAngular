@@ -1,6 +1,6 @@
 import {
   deleteMutationQuery, paginationParamsQuery, fullPaginationStringResponseQuery,
-  addId, generateUUID
+  addId, generateUUID, deleteManyMutationQuery
 } from './entities-helper.queries';
 
 import {FulfillmentProvider} from '../../../models/fulfillment-provider.model';
@@ -26,6 +26,10 @@ export function fulfillmentProviderQuery(id: string): string {
 
 export function deleteFulfillmentProviderMutation(id: string): string {
   return deleteMutationQuery('fulfillmentprovider', id);
+}
+
+export function deleteFulfillmentProvidersMutation(id: string[]): string {
+  return deleteManyMutationQuery('fulfillmentprovider', id);
 }
 
 export function createFulfillmentProviderMutation(provider: FulfillmentProvider): string {

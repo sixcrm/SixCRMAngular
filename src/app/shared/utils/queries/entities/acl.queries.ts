@@ -1,4 +1,4 @@
-import {addId, deleteMutationQuery} from './entities-helper.queries';
+import {addId, deleteMutationQuery, deleteManyMutationQuery} from './entities-helper.queries';
 import {Acl} from '../../../models/acl.model';
 
 export function createAclMutation(acl: Acl): string {
@@ -32,6 +32,9 @@ export function deleteAclMutation(id: string): string {
   return deleteMutationQuery('useracl', id);
 }
 
+export function deleteAclsMutation(id: string[]): string {
+  return deleteManyMutationQuery('useracl', id);
+}
 
 export function userAclResponseQuery(): string {
   return `id user { id name } role { id name } account{ id name } created_at updated_at`;

@@ -8,7 +8,7 @@ import {
   createUserSigningStringMutation,
   deleteUserSigningStringMutation, updateUserSigningStringMutation,
   userSigningStringQuery,
-  userSigningStringsListQuery
+  userSigningStringsListQuery, deleteUserSigningStringsMutation
 } from "../utils/queries/entities/user-signing-string.queries";
 
 @Injectable()
@@ -22,6 +22,7 @@ export class UserSigningStringsService extends AbstractEntityService<UserSigning
       userSigningStringsListQuery,
       userSigningStringQuery,
       deleteUserSigningStringMutation,
+      deleteUserSigningStringsMutation,
       createUserSigningStringMutation,
       updateUserSigningStringMutation,
       'user',

@@ -1,6 +1,6 @@
 import {
   fullPaginationStringResponseQuery, paginationParamsQuery, deleteMutationQuery,
-  addId, clean, addField
+  addId, clean, addField, deleteManyMutationQuery
 } from './entities-helper.queries';
 import {Product} from '../../../models/product.model';
 
@@ -25,6 +25,10 @@ export function productQuery(id: string): string {
 
 export function deleteProductMutation(id: string): string {
   return deleteMutationQuery('product', id);
+}
+
+export function deleteProductsMutation(id: string[]): string {
+  return deleteManyMutationQuery('product', id);
 }
 
 export function createProductMutation(product: Product): string {

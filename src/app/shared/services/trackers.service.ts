@@ -5,7 +5,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {HttpWrapperService} from './http-wrapper.service';
 import {
   trackersListQuery, trackerQuery, deleteTrackerMutation,
-  createTrackerMutation, updateTrackerMutation
+  createTrackerMutation, updateTrackerMutation, deleteTrackersMutation
 } from '../utils/queries/entities/tracker.queries';
 import {MdSnackBar} from '@angular/material';
 
@@ -20,6 +20,7 @@ export class TrackersService extends AbstractEntityService<Tracker> {
       trackersListQuery,
       trackerQuery,
       deleteTrackerMutation,
+      deleteTrackersMutation,
       createTrackerMutation,
       updateTrackerMutation,
       'tracker',

@@ -5,7 +5,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {HttpWrapperService} from './http-wrapper.service';
 import {
   rebillsListQuery, rebillQuery, deleteRebillMutation,
-  updateRebillMutation
+  updateRebillMutation, deleteRebillsMutation
 } from '../utils/queries/entities/rebill.queries';
 import {MdSnackBar} from '@angular/material';
 
@@ -20,6 +20,7 @@ export class RebillsService extends AbstractEntityService<Rebill>{
       rebillsListQuery,
       rebillQuery,
       deleteRebillMutation,
+      deleteRebillsMutation,
       null,
       updateRebillMutation,
       'rebill',

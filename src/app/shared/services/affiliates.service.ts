@@ -5,7 +5,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {HttpWrapperService} from './http-wrapper.service';
 import {
   affiliatesListQuery, affiliateQuery,
-  deleteAffiliateMutation, createAffiliateMutation, updateAffiliateMutation
+  deleteAffiliateMutation, createAffiliateMutation, updateAffiliateMutation, deleteAffiliatesMutation
 } from '../utils/queries/entities/affiliate.queries';
 import {MdSnackBar} from '@angular/material';
 
@@ -20,6 +20,7 @@ export class AffiliatesService extends AbstractEntityService<Affiliate> {
       affiliatesListQuery,
       affiliateQuery,
       deleteAffiliateMutation,
+      deleteAffiliatesMutation,
       createAffiliateMutation,
       updateAffiliateMutation,
       'affiliate',

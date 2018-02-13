@@ -4,7 +4,8 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {AbstractEntityService} from './abstract-entity.service';
 import {
   merchantProvidersListQuery, merchantProviderQuery,
-  deleteMerchantProviderMutation, createMerchantProviderMutation, updateMerchantProviderMutation
+  deleteMerchantProviderMutation, createMerchantProviderMutation, updateMerchantProviderMutation,
+  deleteMerchantProvidersMutation
 } from '../utils/queries/entities/merchant-provider.queries';
 import {HttpWrapperService} from './http-wrapper.service';
 import {MdSnackBar} from '@angular/material';
@@ -20,6 +21,7 @@ export class MerchantProvidersService extends AbstractEntityService<MerchantProv
       merchantProvidersListQuery,
       merchantProviderQuery,
       deleteMerchantProviderMutation,
+      deleteMerchantProvidersMutation,
       createMerchantProviderMutation,
       updateMerchantProviderMutation,
       'merchantprovider',

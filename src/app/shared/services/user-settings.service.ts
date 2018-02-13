@@ -20,6 +20,7 @@ export class UserSettingsService extends AbstractEntityService<UserSettings> {
       userSettingsQuery,
       null,
       null,
+      null,
       updateUserSettingsMutation,
       'default',
       snackBar

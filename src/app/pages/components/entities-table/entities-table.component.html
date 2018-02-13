@@ -4,6 +4,7 @@
   <table class="entity-index__table highlight">
     <thead class="entity-index__table__header">
     <tr>
+      <th class="bulk-header"></th>
       <ng-container *ngFor="let params of columnParams">
         <ng-container *ngIf="params.selected">
           <th (click)="setSortParams(params)" [class.cell--align-right]="params.align === 'right'" [class.cell--codeblock]="params.code">
@@ -12,12 +13,21 @@
           </th>
         </ng-container>
       </ng-container>
-      <th></th>
+      <th>
+        <md-icon style="left: 12px;" [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
+        <md-menu #actionsMenu="mdMenu" x-position="before">
+          <button *ngIf="isMultipleSelected()" (click)="deleteAll()" md-menu-item>Delete Selected</button>
+          <button (click)="selectAll()" md-menu-item>Select All</button>
+          <button (click)="deselectAll()" md-menu-item>Deselect All</button>
+        </md-menu></th>
     </tr>
     </thead>
 
     <tbody>
     <tr *ngFor="let entity of (data | filterEntitiesByParams: columnParams: filterString | sortEntities: sortParams.mappingFunction: sortParams.sortOrder)">
+      <td class="bulk-option">
+        <md-checkbox [(ngModel)]="entity.bulkSelected"></md-checkbox>
+      </td>
       <ng-container *ngFor="let param of columnParams">
         <ng-container *ngIf="param.selected">
           <td (click)="selected.emit(entity)" [class.cell--align-right]="param.align === 'right'">

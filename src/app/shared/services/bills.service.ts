@@ -6,7 +6,7 @@ import {MdSnackBar} from '@angular/material';
 import {Bill} from '../models/bill.model';
 import {
   billListQuery, billQuery, deleteBillMutation, createBillMutation,
-  updateBillMutation
+  updateBillMutation, deleteBillsMutation
 } from '../utils/queries/entities/bill.queries';
 
 @Injectable()
@@ -20,6 +20,7 @@ export class BillsService extends AbstractEntityService<Bill> {
       billListQuery,
       billQuery,
       deleteBillMutation,
+      deleteBillsMutation,
       createBillMutation,
       updateBillMutation,
       'bill',

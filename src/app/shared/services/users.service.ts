@@ -7,7 +7,7 @@ import {Role} from '../models/role.model';
 import {
   usersListQuery, userQuery, deleteUserMutation,
   updateUserMutation, inviteUserMutation, createUserMutation, inviteResendMutation,
-  latestTermsAndConditions
+  latestTermsAndConditions, deleteUsersMutation
 } from '../utils/queries/entities/user.queries';
 import {HttpWrapperService} from './http-wrapper.service';
 import {Response} from '@angular/http'
@@ -26,6 +26,7 @@ export class UsersService extends AbstractEntityService<User> {
       usersListQuery,
       userQuery,
       deleteUserMutation,
+      deleteUsersMutation,
       createUserMutation,
       updateUserMutation,
       'user',

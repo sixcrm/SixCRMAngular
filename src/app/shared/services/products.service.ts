@@ -4,7 +4,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {AbstractEntityService} from './abstract-entity.service';
 import {
   productsListQuery, productQuery, deleteProductMutation,
-  createProductMutation, updateProductMutation
+  createProductMutation, updateProductMutation, deleteProductsMutation
 } from '../utils/queries/entities/product.queries';
 import {HttpWrapperService} from './http-wrapper.service';
 import {MdSnackBar} from '@angular/material';
@@ -20,6 +20,7 @@ export class ProductsService extends AbstractEntityService<Product> {
       productsListQuery,
       productQuery,
       deleteProductMutation,
+      deleteProductsMutation,
       createProductMutation,
       updateProductMutation,
       'product',

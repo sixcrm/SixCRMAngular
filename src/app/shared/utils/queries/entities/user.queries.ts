@@ -1,6 +1,6 @@
 import {
   fullPaginationStringResponseQuery, paginationParamsQuery, deleteMutationQuery,
-  addId
+  addId, deleteManyMutationQuery
 } from './entities-helper.queries';
 import {User} from '../../../models/user.model';
 import {Acl} from '../../../models/acl.model';
@@ -35,6 +35,10 @@ export function userIntrospection(): string {
 
 export function deleteUserMutation(id: string): string {
   return deleteMutationQuery('user', id);
+}
+
+export function deleteUsersMutation(id: string[]): string {
+  return deleteManyMutationQuery('user', id);
 }
 
 export function createUserMutation(user: User): string {

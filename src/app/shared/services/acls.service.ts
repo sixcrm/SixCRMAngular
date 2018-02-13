@@ -5,7 +5,7 @@ import {HttpWrapperService} from './http-wrapper.service';
 import {Acl} from '../models/acl.model';
 import {
   createAclMutation, deleteAclMutation, updateAclMutation,
-  updateUserAclTermsAndConditions
+  updateUserAclTermsAndConditions, deleteAclsMutation
 } from '../utils/queries/entities/acl.queries';
 import {MdSnackBar} from '@angular/material';
 import {Response} from '@angular/http';
@@ -22,6 +22,7 @@ export class AclsService extends AbstractEntityService<Acl> {
       null,
       null,
       deleteAclMutation,
+      deleteAclsMutation,
       createAclMutation,
       updateAclMutation,
       'useracl',

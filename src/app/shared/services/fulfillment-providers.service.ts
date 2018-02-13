@@ -5,7 +5,7 @@ import {FulfillmentProvider} from '../models/fulfillment-provider.model';
 import {
   fulfillmentProvidersListQuery,
   fulfillmentProviderQuery, deleteFulfillmentProviderMutation, createFulfillmentProviderMutation,
-  updateFulfillmentProviderMutation, validateFulfillmentProviderQuery
+  updateFulfillmentProviderMutation, validateFulfillmentProviderQuery, deleteFulfillmentProvidersMutation
 } from '../utils/queries/entities/fulfillment-provider.queries';
 import { extractData, HttpWrapperService } from './http-wrapper.service';
 import {MdSnackBar} from '@angular/material';
@@ -25,6 +25,7 @@ export class FulfillmentProvidersService extends AbstractEntityService<Fulfillme
       fulfillmentProvidersListQuery,
       fulfillmentProviderQuery,
       deleteFulfillmentProviderMutation,
+      deleteFulfillmentProvidersMutation,
       createFulfillmentProviderMutation,
       updateFulfillmentProviderMutation,
       'fulfillmentprovider',

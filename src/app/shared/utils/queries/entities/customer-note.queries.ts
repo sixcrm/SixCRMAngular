@@ -1,4 +1,7 @@
-import {deleteMutationQuery, paginationParamsQuery, fullPaginationStringResponseQuery} from './entities-helper.queries';
+import {
+  deleteMutationQuery, paginationParamsQuery, fullPaginationStringResponseQuery,
+  deleteManyMutationQuery
+} from './entities-helper.queries';
 import {CustomerNote} from '../../../models/customer-note.model';
 
 export function customerNotesByCustomerQuery(id: string, limit?: number, cursor?: string): string {
@@ -22,6 +25,10 @@ export function createCustomerNoteMutation(customerNote: CustomerNote): string {
 
 export function deleteCustomerNoteMutation(id: string): string {
   return deleteMutationQuery('customernote', id);
+}
+
+export function deleteCustomerNotesMutation(id: string[]): string {
+  return deleteManyMutationQuery('customernote', id);
 }
 
 export function customerNoteResponseQuery(): string {

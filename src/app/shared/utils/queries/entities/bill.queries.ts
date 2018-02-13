@@ -1,6 +1,6 @@
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId
+  addId, deleteManyMutationQuery
 } from './entities-helper.queries';
 import {Bill} from '../../../models/bill.model';
 
@@ -25,6 +25,10 @@ export function billQuery(id: string): string {
 
 export function deleteBillMutation(id: string): string {
   return deleteMutationQuery('bill', id);
+}
+
+export function deleteBillsMutation(id: string[]): string {
+  return deleteManyMutationQuery('bill', id);
 }
 
 export function createBillMutation(bill: Bill): string {

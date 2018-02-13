@@ -5,7 +5,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {HttpWrapperService} from './http-wrapper.service';
 import {
   accountsListQuery, accountQuery,
-  deleteAccountMutation, createAccountMutation, updateAccountMutation
+  deleteAccountMutation, createAccountMutation, updateAccountMutation, deleteAccountsMutation
 } from '../utils/queries/entities/account.queries';
 import {MdSnackBar} from '@angular/material';
 
@@ -20,6 +20,7 @@ export class AccountsService extends AbstractEntityService<Account> {
       accountsListQuery,
       accountQuery,
       deleteAccountMutation,
+      deleteAccountsMutation,
       createAccountMutation,
       updateAccountMutation,
       'account',

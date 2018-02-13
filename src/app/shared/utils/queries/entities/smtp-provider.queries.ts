@@ -1,6 +1,6 @@
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId
+  addId, deleteManyMutationQuery
 } from './entities-helper.queries';
 import {SmtpProvider} from '../../../models/smtp-provider.model';
 
@@ -24,6 +24,10 @@ export function smtpProviderQuery(id: string): string {
 
 export function deleteSmptProviderMutation(id: string): string {
   return deleteMutationQuery('smtpprovider', id);
+}
+
+export function deleteSmptProvidersMutation(id: string[]): string {
+  return deleteManyMutationQuery('smtpprovider', id);
 }
 
 export function createSmptProviderMutation(smtpProvider: SmtpProvider): string {

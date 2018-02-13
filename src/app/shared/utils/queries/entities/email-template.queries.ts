@@ -1,6 +1,6 @@
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId
+  addId, deleteManyMutationQuery
 } from './entities-helper.queries';
 import {smtpProviderResponseQuery} from './smtp-provider.queries';
 import {EmailTemplate} from '../../../models/email-template.model';
@@ -36,6 +36,10 @@ export function emailTemplateQuery(id: string): string {
 
 export function deleteEmailTemplateMutation(id: string): string {
   return deleteMutationQuery('emailtemplate', id);
+}
+
+export function deleteEmailTemplatesMutation(id: string[]): string {
+  return deleteManyMutationQuery('emailtemplate', id);
 }
 
 export function updateEmailTemplateMutation(emailTemplate: EmailTemplate): string {

@@ -1,6 +1,6 @@
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId
+  addId, deleteManyMutationQuery
 } from './entities-helper.queries';
 import {merchantProviderResponseQuery} from './merchant-provider.queries';
 import {LoadBalancer} from '../../../models/load-balancer.model';
@@ -44,6 +44,10 @@ export function updateLoadBalancerMutation(loadBalancer: LoadBalancer): string {
 
 export function deleteLoadBalancerMutation(id: string): string {
   return deleteMutationQuery('loadbalancer', id);
+}
+
+export function deleteLoadBalancersMutation(id: string[]): string {
+  return deleteManyMutationQuery('loadbalancer', id);
 }
 
 export function loadBalancerResponseQuery(): string {

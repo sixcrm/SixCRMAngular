@@ -5,7 +5,7 @@ import {Customer} from '../models/customer.model';
 import {HttpWrapperService} from './http-wrapper.service';
 import {
   customersInfoListQuery, customerQuery,
-  deleteCustomerMutation, createCustomerMutation, updateCustomerMutation
+  deleteCustomerMutation, createCustomerMutation, updateCustomerMutation, deleteCustomersMutation
 } from '../utils/queries/entities/customer.queries';
 import {MdSnackBar} from '@angular/material';
 
@@ -20,6 +20,7 @@ export class CustomersService extends AbstractEntityService<Customer> {
       customersInfoListQuery,
       customerQuery,
       deleteCustomerMutation,
+      deleteCustomersMutation,
       createCustomerMutation,
       updateCustomerMutation,
       'customer',

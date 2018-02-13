@@ -1,6 +1,6 @@
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId
+  addId, deleteManyMutationQuery
 } from './entities-helper.queries';
 import {Customer} from '../../../models/customer.model';
 import {stateCode, countryCode} from '../../address.utils';
@@ -26,6 +26,10 @@ export function customerQuery(id: string): string {
 
 export function deleteCustomerMutation(id: string): string {
   return deleteMutationQuery('customer', id);
+}
+
+export function deleteCustomersMutation(id: string[]): string {
+  return deleteManyMutationQuery('customer', id);
 }
 
 export function createCustomerMutation(customer: Customer): string {

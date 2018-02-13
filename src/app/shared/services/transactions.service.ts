@@ -5,7 +5,7 @@ import {Transaction} from '../models/transaction.model';
 import {HttpWrapperService, extractData} from './http-wrapper.service';
 import {
   transactionsInfoListQuery, deleteTransactionMutation,
-  transactionQuery, refundTransactionMutation
+  transactionQuery, refundTransactionMutation, deleteTransactionsMutation
 } from '../utils/queries/entities/transaction.queries';
 import {CustomServerError} from '../models/errors/custom-server-error';
 import {MdSnackBar} from '@angular/material';
@@ -21,6 +21,7 @@ export class TransactionsService extends AbstractEntityService<Transaction> {
       transactionsInfoListQuery,
       transactionQuery,
       deleteTransactionMutation,
+      deleteTransactionsMutation,
       null,
       null,
       'transaction',

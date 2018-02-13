@@ -31,6 +31,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
       null,
       null,
       null,
+      null,
       updateNotificationMutation,
       'default',
       snackBar

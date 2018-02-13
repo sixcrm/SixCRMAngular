@@ -5,7 +5,8 @@ import {SmtpProvider} from '../models/smtp-provider.model';
 import {HttpWrapperService} from './http-wrapper.service';
 import {
   smtpProvidersListQuery, smtpProviderQuery,
-  deleteSmptProviderMutation, createSmptProviderMutation, updateSmptProviderMutation, validateSmtpProviderQuery
+  deleteSmptProviderMutation, createSmptProviderMutation, updateSmptProviderMutation, validateSmtpProviderQuery,
+  deleteSmptProvidersMutation
 } from '../utils/queries/entities/smtp-provider.queries';
 import {MdSnackBar} from '@angular/material';
 import {Observable} from 'rxjs';
@@ -21,6 +22,7 @@ export class SmtpProvidersService extends AbstractEntityService<SmtpProvider> {
       smtpProvidersListQuery,
       smtpProviderQuery,
       deleteSmptProviderMutation,
+      deleteSmptProvidersMutation,
       createSmptProviderMutation,
       updateSmptProviderMutation,
       'smtpprovider',

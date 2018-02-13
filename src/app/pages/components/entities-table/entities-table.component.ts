@@ -26,13 +26,14 @@ export class EntitiesTableComponent implements OnInit {
   @Input() showView: boolean = true;
   @Input() showDelete: boolean = true;
 
-  @Output() viewClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() copyClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() exportClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() deleteClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() editClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() refreshData: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() customOptionClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() viewClicked: EventEmitter<any> = new EventEmitter<any>();
+  @Output() copyClicked: EventEmitter<any> = new EventEmitter<any>();
+  @Output() exportClicked: EventEmitter<any> = new EventEmitter<any>();
+  @Output() deleteClicked: EventEmitter<any> = new EventEmitter<any>();
+  @Output() deleteManyClicked: EventEmitter<any[]> = new EventEmitter<any[]>();
+  @Output() editClicked: EventEmitter<any> = new EventEmitter<any>();
+  @Output() refreshData: EventEmitter<any> = new EventEmitter<any>();
+  @Output() customOptionClicked: EventEmitter<any> = new EventEmitter<any>();
 
   // pagination
   @Input() limit: number;
@@ -59,4 +60,27 @@ export class EntitiesTableComponent implements OnInit {
     }
   }
 
+  isMultipleSelected() {
+    return (this.data || []).filter(d => d.bulkSelected).length > 0;
+  }
+
+  selectAll() {
+    this.data = this.data.map(d => {
+      d.bulkSelected = true;
+
+      return d;
+    })
+  }
+
+  deselectAll() {
+    this.data = this.data.map(d => {
+      d.bulkSelected = false;
+
+      return d;
+    })
+  }
+
+  deleteAll() {
+    this.deleteManyClicked.emit(this.data.filter(d => d.bulkSelected));
+  }
 }

@@ -19,6 +19,7 @@ export class RolesService extends AbstractEntityService<Role>{
       null,
       null,
       null,
+      null,
       'role',
       snackBar
     );

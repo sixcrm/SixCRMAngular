@@ -25,6 +25,7 @@ export class NotificationSettingsService extends AbstractEntityService<Notificat
       null,
       notificationSettingsQuery,
       null,
+      null,
       createNotificationSettingsMutation,
       updateNotificationSettingsMutation,
       'default',

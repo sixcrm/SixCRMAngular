@@ -1,4 +1,7 @@
-import {paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery} from './entities-helper.queries';
+import {
+  paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
+  deleteManyMutationQuery
+} from './entities-helper.queries';
 
 export function transactionsInfoListQuery(limit?:number, cursor?:string): string {
   return `{
@@ -21,6 +24,10 @@ export function transactionQuery(id: string): string {
 
 export function deleteTransactionMutation(id: string): string {
   return deleteMutationQuery('transaction', id);
+}
+
+export function deleteTransactionsMutation(id: string[]): string {
+  return deleteManyMutationQuery('transaction', id);
 }
 
 export function transactionsByCustomer(customerId: string, limit?:number, cursor?:string): string {

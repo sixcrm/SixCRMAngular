@@ -29,6 +29,7 @@ export abstract class AbstractEntityService<T> {
     public indexQuery: (limit?: number, cursor?: string) => string,
     private viewQuery: (id: string) => string,
     private deleteQuery: (id: string) => string,
+    private deleteManyQuery: (id: string[]) => string,
     private createQuery: (entity: T) => string,
     private updateQuery: (entity: T) => string,
     private accessRole: string,
@@ -83,6 +84,27 @@ export abstract class AbstractEntityService<T> {
 
       this.openSnackBar('SNACK_DELETED');
       this.entityDeleted$.next(this.toEntity(entityData));
+    });
+  }
+
+  deleteEntities(id: string[]): void {
+    if (!this.hasWritePermission() || !this.deleteManyQuery) {
+      return;
+    }
+
+    this.queryRequest(this.deleteManyQuery(id)).subscribe(data => {
+      if (data instanceof CustomServerError) {
+        this.entityDeleted$.next(data);
+        return;
+      }
+
+      const json = extractData(data);
+
+      Object.keys(json).forEach(key => {
+        this.entityDeleted$.next(this.toEntity(json[key]));
+      });
+
+      this.openSnackBar('SNACK_DELETED');
     });
   }
 

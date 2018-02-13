@@ -12,6 +12,12 @@ export function deleteMutationQuery(entity: string, id: string): string {
   return `mutation { delete${entity} (id: "${id}") { id }}`
 }
 
+export function deleteManyMutationQuery(entity: string, id: string[]): string {
+  const body = id.reduce((a,b) => `${a} ${generateRandomString(7)}: delete${entity} (id: "${b}") {id}`, '');
+
+  return `mutation { ${body} }`;
+}
+
 export function addId(id: string, includeId?: boolean): string {
   return includeId ? `id: "${id}"` : '';
 }
@@ -81,4 +87,14 @@ export class QueryBuilder {
   build(): string {
     return this.query;
   }
+}
+
+function generateRandomString(length: number) {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+  for (var i = 0; i < length; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
 }

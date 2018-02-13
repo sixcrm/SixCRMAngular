@@ -1,5 +1,5 @@
 import {
-  paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery, addId
+  paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery, addId, deleteManyMutationQuery
 } from './entities-helper.queries';
 import {Account} from '../../../models/account.model';
 
@@ -24,6 +24,10 @@ export function accountQuery(id: string): string {
 
 export function deleteAccountMutation(id: string): string {
   return deleteMutationQuery('account', id);
+}
+
+export function deleteAccountsMutation(id: string[]): string {
+  return deleteManyMutationQuery('account', id);
 }
 
 export function createAccountMutation(account: Account): string {

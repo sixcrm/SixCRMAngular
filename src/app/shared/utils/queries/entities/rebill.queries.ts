@@ -1,6 +1,6 @@
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId
+  addId, deleteManyMutationQuery
 } from './entities-helper.queries';
 import {Rebill} from '../../../models/rebill.model';
 
@@ -36,6 +36,10 @@ export function rebillsByCustomer(customerId: string, limit?: number, cursor?: s
 
 export function deleteRebillMutation(id: string): string {
   return deleteMutationQuery('rebill', id);
+}
+
+export function deleteRebillsMutation(id: string[]): string {
+  return deleteManyMutationQuery('rebill', id);
 }
 
 export function updateRebillMutation(rebill: Rebill): string {

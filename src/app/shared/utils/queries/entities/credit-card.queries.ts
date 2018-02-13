@@ -1,6 +1,6 @@
 import {
   fullPaginationStringResponseQuery, paginationParamsQuery, deleteMutationQuery,
-  addId
+  addId, deleteManyMutationQuery
 } from './entities-helper.queries';
 import {CreditCard} from '../../../models/credit-card.model';
 import {getStateCodes, stateCode, countryCode} from '../../address.utils';
@@ -25,6 +25,10 @@ export function creditCardQuery(id: string): string {
 
 export function deleteCreditCardMutation(id: string): string {
   return deleteMutationQuery('creditcard', id);
+}
+
+export function deleteCreditCardsMutation(id: string[]): string {
+  return deleteManyMutationQuery('creditcard', id);
 }
 
 export function createCreditCardMutation(cc: CreditCard): string {

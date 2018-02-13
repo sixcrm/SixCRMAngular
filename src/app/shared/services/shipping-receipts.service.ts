@@ -6,7 +6,7 @@ import {MdSnackBar} from '@angular/material';
 import {ShippingReceipt} from '../models/shipping-receipt.model';
 import {
   shippingReceiptsListQuery, shippingReceiptQuery,
-  deleteShippingReceiptMutation
+  deleteShippingReceiptMutation, deleteShippingReceiptsMutation
 } from '../utils/queries/entities/shipping-receipt.queries';
 
 @Injectable()
@@ -20,6 +20,7 @@ export class ShippingReceiptsService extends AbstractEntityService<ShippingRecei
       shippingReceiptsListQuery,
       shippingReceiptQuery,
       deleteShippingReceiptMutation,
+      deleteShippingReceiptsMutation,
       null,
       null,
       'shippingreceipt',

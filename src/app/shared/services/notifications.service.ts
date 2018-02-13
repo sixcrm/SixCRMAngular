@@ -18,6 +18,7 @@ export class NotificationsService extends AbstractEntityService<Notification> {
       null,
       null,
       null,
+      null,
       updateNotificationMutation,
       'default',
       snackBar

@@ -161,6 +161,19 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     });
   }
 
+  deleteMany(entities: T[]) {
+    if (!entities || entities.length === 0) return;
+
+    let deleteDialogRef = this.deleteDialog.open(DeleteDialogComponent);
+
+    deleteDialogRef.afterClosed().takeUntil(this.unsubscribe$).subscribe(result => {
+      deleteDialogRef = null;
+      if (result && result.success) {
+        this.service.deleteEntities(entities.map(p => p.id));
+      }
+    });
+  }
+
   openAddMode(): void {
     this.entity = this.entityFactory();
     this.addMode = true;

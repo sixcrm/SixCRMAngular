@@ -1,5 +1,5 @@
 import {
-  paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery, addId
+  paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery, addId, deleteManyMutationQuery
 } from './entities-helper.queries';
 import {AccessKey} from '../../../models/access-key.model';
 
@@ -24,6 +24,10 @@ export function accessKeyQuery(id: string): string {
 
 export function deleteAccessKeyMutation(id: string): string {
   return deleteMutationQuery('accesskey', id);
+}
+
+export function deleteAccessKeysMutation(id: string[]): string {
+  return deleteManyMutationQuery('accesskey', id);
 }
 
 export function createAccessKeyMutation(accessKey: AccessKey): string {
