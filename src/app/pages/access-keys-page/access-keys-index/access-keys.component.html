@@ -13,6 +13,10 @@
       (next)="next()"
       (updateLimit)="updateLimit($event)">
     </table-pagination>
+    <table-preferences
+      [columnParams]="columnParams"
+      [small]="true">
+    </table-preferences>
     <md-icon [md-menu-trigger-for]="optionsMenu" class="entity-view__table-component__header__action">more_vert</md-icon>
     <md-menu #optionsMenu="mdMenu" x-position="before">
       <button md-menu-item (click)="addAccessKey()">{{ 'ACCOUNT_KEYS_ADD' | translate}}</button>
@@ -21,17 +25,25 @@
   <table class="highlight table__custom">
     <thead>
     <tr>
-      <th *ngFor="let params of columnParams" (click)="setSortedColumnParams(params)" [class.cell--align-right]="params.align === 'right'">
-        {{params.label | translate}}
-        <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
-      </th>
+      <ng-container *ngFor="let params of columnParams">
+        <ng-container *ngIf="params.selected">
+          <th (click)="setSortedColumnParams(params)" [class.cell--align-right]="params.align === 'right'">
+            {{params.label | translate}}
+            <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+          </th>
+        </ng-container>
+      </ng-container>
       <th></th>
     </tr>
     </thead>
 
     <tbody>
     <tr *ngFor="let entity of entities | filterEntities: filterValue | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder">
-      <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'">{{params.mappingFunction(entity)}}</td>
+      <ng-container *ngFor="let params of columnParams">
+        <ng-container *ngIf="params.selected">
+          <td [class.cell--align-right]="params.align === 'right'">{{params.mappingFunction(entity)}}</td>
+        </ng-container>
+      </ng-container>
       <td>
         <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
         <md-menu #actionsMenu="mdMenu" x-position="before">

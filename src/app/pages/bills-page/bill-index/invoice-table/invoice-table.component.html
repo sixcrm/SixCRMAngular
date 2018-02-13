@@ -4,13 +4,21 @@
       <div class="entity-view__table-component__header__title">{{title | translate}}</div>
       <div class="invoice-table__subtitle">{{subtitle | translate}}</div>
     </div>
+    <table-preferences
+      [columnParams]="columnParams"
+      [small]="true">
+    </table-preferences>
   </div>
   <table class="highlight table__custom">
     <thead>
       <tr>
-        <th *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'">
-          {{params.label | translate}}
-        </th>
+        <ng-container *ngFor="let params of columnParams">
+          <ng-container *ngIf="params.selected">
+            <th [class.cell--align-right]="params.align === 'right'">
+              {{params.label | translate}}
+            </th>
+          </ng-container>
+        </ng-container>
         <th style="width: 120px;"></th>
         <th></th>
       </tr>
@@ -18,10 +26,14 @@
 
     <tbody>
       <tr *ngFor="let entity of bills">
-        <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'" [style.color]="params.color || '#4a4a4a'">
-          <ng-container *ngIf="params.number; else nan">{{params.mappingFunction(entity) | numberlocale}}</ng-container>
-          <ng-template #nan>{{params.mappingFunction(entity)}}</ng-template>
-        </td>
+        <ng-container *ngFor="let params of columnParams">
+          <ng-container *ngIf="params.selected">
+            <td [class.cell--align-right]="params.align === 'right'" [style.color]="params.color || '#4a4a4a'">
+              <ng-container *ngIf="params.number; else nan">{{params.mappingFunction(entity) | numberlocale}}</ng-container>
+              <ng-template #nan>{{params.mappingFunction(entity)}}</ng-template>
+            </td>
+          </ng-container>
+        </ng-container>
         <td>
           <div class="pay-button" *ngIf="type !== 'PAST'" (click)="pay.emit(entity)">{{'ACCOUNT_BILLING_PAY' | translate}}</div>
         </td>
