@@ -25,6 +25,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   paginationValues: number[] = [5, 10, 15, 20, 30, 40, 50];
 
   filterValue: string;
+  searchValue: string;
 
   addMode: boolean = false;
   entityFactory: () => T;
@@ -102,7 +103,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
     if (fetch) {
       this.loadingData = true;
-      this.service.getEntities(this.limit);
+      this.service.getEntities(this.limit, this.searchValue);
     }
   }
 
@@ -243,7 +244,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   refreshData() {
     this.loadingData = true;
     this.serverError = null;
-    this.service.getEntities(this.limit);
+    this.service.getEntities(this.limit, this.searchValue);
   }
 
   protected reshuffleEntities(): void {
@@ -257,7 +258,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     } else {
       if (this.hasMore) {
         this.loadingData = true;
-        this.service.getEntities(this.limit - tempEntities.length);
+        this.service.getEntities(this.limit - tempEntities.length, this.searchValue);
       }
     }
   }

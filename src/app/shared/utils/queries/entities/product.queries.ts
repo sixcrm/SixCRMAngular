@@ -1,12 +1,12 @@
 import {
   fullPaginationStringResponseQuery, paginationParamsQuery, deleteMutationQuery,
-  addId, clean, addField, deleteManyMutationQuery
+  addId, clean, addField, deleteManyMutationQuery, searchParamsQuery
 } from './entities-helper.queries';
 import {Product} from '../../../models/product.model';
 
-export function productsListQuery(limit?:number, cursor?:string): string {
+export function productsListQuery(limit?:number, cursor?:string, search?: string): string {
   return `{
-    productlist ${paginationParamsQuery(limit, cursor)} {
+    productlist ( ${paginationParamsQuery(limit, cursor, true)} ${searchParamsQuery(search)} ) {
 			products {
 			  ${productResponseQuery()}
 			}

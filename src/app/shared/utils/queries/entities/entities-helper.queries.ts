@@ -61,6 +61,12 @@ export function paginationParamsQuery(limit?: number, cursor?: string, ignoreBra
   return builder.build();
 }
 
+export function searchParamsQuery(search?: string): string {
+  if (!search) return '';
+
+  return `search: {name: "${search}"}`;
+}
+
 export function generateUUID(): string {
   return uuidV4();
 }

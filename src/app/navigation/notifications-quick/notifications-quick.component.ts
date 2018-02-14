@@ -65,7 +65,7 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
       this.notsByDate = updateLocally(notification, this.notsByDate)
     });
 
-    this.notificationsService.getEntities(20, {ignoreProgress: true});
+    this.notificationsService.getEntities(20, null, {ignoreProgress: true});
   }
 
   updateAlerts(notification: Notification): void {

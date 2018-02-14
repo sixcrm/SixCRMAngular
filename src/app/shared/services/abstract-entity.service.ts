@@ -26,7 +26,7 @@ export abstract class AbstractEntityService<T> {
     private http: HttpWrapperService,
     protected authService: AuthenticationService,
     private toEntity: (data: any) => T,
-    public indexQuery: (limit?: number, cursor?: string) => string,
+    public indexQuery: (limit?: number, cursor?: string, search?: string) => string,
     private viewQuery: (id: string) => string,
     private deleteQuery: (id: string) => string,
     private deleteManyQuery: (id: string[]) => string,
@@ -44,8 +44,8 @@ export abstract class AbstractEntityService<T> {
     this.requestInProgress$ = new BehaviorSubject<boolean>(false);
   };
 
-  getEntities(limit?: number, requestBehaviourOptions?: RequestBehaviourOptions): void {
-    this.customEntitiesQuery(this.indexQuery(limit, this.cursor), requestBehaviourOptions);
+  getEntities(limit?: number, search?: string, requestBehaviourOptions?: RequestBehaviourOptions): void {
+    this.customEntitiesQuery(this.indexQuery(limit, this.cursor, search), requestBehaviourOptions);
   }
 
   getEntity(id: string): void {
