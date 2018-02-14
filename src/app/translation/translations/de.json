@@ -26,8 +26,15 @@
       "retention": "Retention",
       "projection": "Projections"
     },
-    "customer": "Kunde",
-    "creditcard": "Credit Cards",
+    "order": {
+      "title": "Orders",
+      "customer": "Kunde",
+      "creditcard": "Credit Cards",
+      "session": "Sitzungen",
+      "transaction": "Transaktionen",
+      "rebill": "Neubelastung",
+      "shippingreceipt": "Posteinlieferungsscheine"
+    },
     "crm": {
       "title": "CRM",
       "product": "Produkte",
@@ -36,20 +43,16 @@
       "emailtemplate": "Mailvorlagen",
       "affiliate": "Vertriebspartner",
       "tracker": "Trackers",
-      "session": "Sitzungen",
-      "transaction": "Transaktionen",
-      "rebill": "Neubelastung",
-      "shippingreceipt": "Posteinlieferungsscheine",
+      "merchant": {
+        "title": "Händler",
+        "merchantprovider": "Merchant Anbieter",
+        "loadbalancer": "Merchantanbietergruppe"
+      },
       "providers": {
         "title": "3rd Party Anbieter",
         "fulfillment": "Fulfillment Anbieter",
         "smtp": "SMTP Anbieter"
       }
-    },
-    "merchant": {
-      "title": "Händler",
-      "merchantprovider": "Merchant Anbieter",
-      "loadbalancer": "Merchantanbietergruppe"
     },
     "settings": {
       "title": "Einstellungen",
@@ -61,12 +64,12 @@
         "title": "API Schlüssel",
         "signingstring": "Nutzer Signing Strings",
         "accesskey": "Zugriffsschlüssel"
-      },
-      "documentation": {
-        "title": "Dokumentation",
-        "graphql": "GraphQL",
-        "wiki": "Wiki"
       }
+    },
+    "help": {
+      "title": "Help",
+      "graphql": "GraphQL",
+      "wiki": "Wiki"
     },
     "search": "Suche"
   },

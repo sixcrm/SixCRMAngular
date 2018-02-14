@@ -26,8 +26,15 @@
       "retention": "保留",
       "projection": "投影"
     },
-    "customer": "客户",
-    "creditcard": "信用卡",
+    "order": {
+      "title": "Orders",
+      "customer": "客户",
+      "creditcard": "信用卡",
+      "session": "会话",
+      "transaction": "交易",
+      "rebill": "再付费",
+      "shippingreceipt": "运输收据"
+    },
     "crm": {
       "title": "CRM (客户关系管理)",
       "product": "所有产品",
@@ -36,20 +43,16 @@
       "emailtemplate": "电子邮件模板",
       "affiliate": "商业伙伴",
       "tracker": "跟踪器",
-      "session": "会话",
-      "transaction": "交易",
-      "rebill": "再付费",
-      "shippingreceipt": "运输收据",
       "providers": {
         "title": "第三方提供商",
         "fulfillment": "履行提供者",
         "smtp": "SMTP提供商"
+      },
+      "merchant": {
+        "title": "批发商品",
+        "merchantprovider": "商品提供商",
+        "loadbalancer": "负载平衡器"
       }
-    },
-    "merchant": {
-      "title": "批发商品",
-      "merchantprovider": "商品提供商",
-      "loadbalancer": "负载平衡器"
     },
     "settings": {
       "title": "设置",
@@ -61,12 +64,12 @@
         "title": "API密钥",
         "signingstring": "用户签名字符串",
         "accesskey": "访问密钥"
-      },
-      "documentation": {
-        "title": "文件",
-        "graphql": "GraphQL",
-        "wiki": "维基"
       }
+    },
+    "help": {
+      "title": "Help",
+      "graphql": "GraphQL",
+      "wiki": "维基"
     },
     "search": "搜索"
   },

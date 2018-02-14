@@ -26,47 +26,50 @@
       "retention": "Retention",
       "projection": "Projections"
     },
-    "customer": "Customers",
-    "creditcard": "Credit Cards",
+    "order": {
+      "title": "Orders",
+      "customer": "Customers",
+      "creditcard": "Credit Cards",
+      "session": "Sessions",
+      "rebill": "Rebills",
+      "transaction": "Transactions",
+      "shippingreceipt": "Shipping Receipts"
+    },
     "crm": {
-      "title": "CRM",
+      "title": "CRM Setup",
       "product": "Products",
       "productschedule": "Product Schedules",
       "campaign": "Campaigns",
       "emailtemplate": "Email Templates",
       "affiliate": "Affiliates",
       "tracker": "Trackers",
-      "session": "Sessions",
-      "transaction": "Transactions",
-      "rebill": "Rebills",
-      "shippingreceipt": "Shipping Receipts",
+      "merchant": {
+        "title": "Merchants",
+        "merchantprovider": "Merchant Accounts",
+        "loadbalancer": "Merchant Groups"
+      },
       "providers": {
         "title": "3rd Party Providers",
         "fulfillment": "Fulfillment Providers",
         "smtp": "SMTP Providers"
       }
     },
-    "merchant": {
-      "title": "Merchants",
-      "merchantprovider": "Merchant Providers",
-      "loadbalancer": "Merchant Provider Groups"
-    },
     "settings": {
       "title": "Settings",
       "user": "Users",
       "account": "Accounts",
-      "bill": "Bills",
+      "bill": "Billing",
       "role": "Roles",
       "key": {
         "title": "API Keys",
         "signingstring": "User Signing Strings",
         "accesskey": "Access Keys"
-      },
-      "documentation": {
-        "title": "Documentation",
-        "graphql": "GraphQL",
-        "wiki": "Wiki"
       }
+    },
+    "help": {
+      "title": "Help",
+      "graphql": "GraphQL",
+      "wiki": "Wiki"
     },
     "search": "Search"
   },

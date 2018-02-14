@@ -26,8 +26,15 @@
       "retention":"प्रतिधारण",
       "projection": "अनुमान"
     },
-    "customer": "कस्टमर्स",
-    "creditcard": "Credit Cards",
+    "order": {
+      "title": "Orders",
+      "customer": "कस्टमर्स",
+      "creditcard": "Credit Cards",
+      "session": "सत्र",
+      "transaction": "लेन-देन",
+      "rebill": "रीबिल",
+      "shippingreceipt": "शिपिंग रसीद"
+    },
     "crm": {
       "title": "सीआरएम",
       "product": "उत्पाद",
@@ -36,20 +43,16 @@
       "emailtemplate": "ईमेल टेम्पलेट",
       "affiliate" : "संबद्ध",
       "tracker": "ट्रैकर्स",
-      "session": "सत्र",
-      "transaction": "लेन-देन",
-      "rebill": "रीबिल",
-      "shippingreceipt": "शिपिंग रसीद",
       "providers": {
         "title": "3 पार्टी प्रदाता",
         "fulfillment": "पूर्ति प्रदाता",
         "smtp": "एसएमटीपी प्रदाता"
+      },
+      "merchant": {
+        "title": "व्यापारी",
+        "merchantprovider": "व्यापारी प्रदाता",
+        "loadbalancer": "लोड बालांसर्स"
       }
-    },
-    "merchant": {
-      "title": "व्यापारी",
-      "merchantprovider": "व्यापारी प्रदाता",
-      "loadbalancer": "लोड बालांसर्स"
     },
     "settings": {
       "title": "सेटिंग",
@@ -61,12 +64,12 @@
         "title": "एपीआई कुंजी",
         "signingstring": "उपयोगकर्ता हस्ताक्षर स्ट्रिंग्स",
         "accesskey": "प्रवेश कुंजी"
-      },
-      "documentation": {
-        "title": "प्रलेखन",
-        "graphql": "GraphQL",
-        "wiki": "Wiki"
       }
+    },
+    "help": {
+      "title": "Help",
+      "graphql": "GraphQL",
+      "wiki": "Wiki"
     },
     "search": "खोज"
   },

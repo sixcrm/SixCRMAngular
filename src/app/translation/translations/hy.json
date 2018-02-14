@@ -26,9 +26,16 @@
 			"retention": "Պահում",
 			"projection": "Կանխատեսումներ"
 		},
-		"customer": "Հաճախորդներ",
-    "creditcard": "Credit Cards",
-    "crm": {
+    "order": {
+      "title": "Orders",
+      "customer": "Հաճախորդներ",
+      "creditcard": "Credit Cards",
+      "session": "Աշխատաշրջաններ",
+      "transaction": "Գործանքներ",
+      "rebill": "Հաշիվներ",
+      "shippingreceipt": "Առաքման ստացականներ"
+    },
+		"crm": {
 			"title": "CRM",
 			"product": "Ապրանքներ",
 			"productschedule": "Ապրանքների հերթացուցակներ",
@@ -36,20 +43,16 @@
 			"emailtemplate": "Էլ. փոստի ձևանմուշներ",
 			"affiliate": "Գործընկերներ",
 			"tracker": "Հետևորդներ",
-			"session": "Աշխատաշրջաններ",
-			"transaction": "Գործանքներ",
-			"rebill": "Հաշիվներ",
-			"shippingreceipt": "Առաքման ստացականներ",
 			"providers": {
 				"title": "3-րդ կողմի մատակարարներ",
 				"fulfillment": "Ծառայության մատակարարներ",
 				"smtp": "SMTP մատակարարներ"
-			}
-		},
-		"merchant": {
-			"title": "Վաճառողներ",
-			"merchantprovider": "Վաճառող մատակարարներ",
-			"loadbalancer": "Բեռի հավասարակշռողներ"
+			},
+      "merchant": {
+        "title": "Վաճառողներ",
+        "merchantprovider": "Վաճառող մատակարարներ",
+        "loadbalancer": "Բեռի հավասարակշռողներ"
+      }
 		},
 		"settings": {
 			"title": "Կարգավորումներ",
@@ -61,13 +64,13 @@
         "title": "API Keys",
         "signingstring": "User Signing Strings",
         "accesskey": "Access Keys"
-      },
-			"documentation": {
-				"title": "Փաստաթղթեր",
-				"graphql": "GraphQL",
-				"wiki": "Wiki"
-			}
+      }
 		},
+    "help": {
+      "title": "Help",
+      "graphql": "GraphQL",
+      "wiki": "Wiki"
+    },
 		"search": "Որոնում"
 	},
 	"orderengine": {
