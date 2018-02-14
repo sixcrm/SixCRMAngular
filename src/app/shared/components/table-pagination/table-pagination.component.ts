@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
+import {Component, OnInit, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'table-pagination',
@@ -6,6 +6,8 @@ import {Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
   styleUrls: ['./table-pagination.component.scss']
 })
 export class TablePaginationComponent implements OnInit {
+
+  @ViewChild('checkbox') checkbox;
 
   @Input()
   limit: number;
@@ -22,6 +24,9 @@ export class TablePaginationComponent implements OnInit {
   @Input()
   paginationString: string;
 
+  @Input()
+  showCheckbox: boolean;
+
   @Output()
   next: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -31,9 +36,31 @@ export class TablePaginationComponent implements OnInit {
   @Output()
   updateLimit: EventEmitter<number> = new EventEmitter<number>();
 
+  @Output()
+  checkboxToggled: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  onPrevious() {
+    if (this.checkbox) {
+      this.checkbox.checked = false;
+    }
+
+    this.previous.emit(true);
+  }
+
+  onNext() {
+    if (this.checkbox) {
+      this.checkbox.checked = false;
+    }
+
+    this.next.emit(true);
+  }
+
+  toggleCheckbox(box) {
+    this.checkboxToggled.emit(box.checked)
+  }
 }

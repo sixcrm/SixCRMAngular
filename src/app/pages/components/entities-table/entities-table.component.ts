@@ -83,4 +83,12 @@ export class EntitiesTableComponent implements OnInit {
   deleteAll() {
     this.deleteManyClicked.emit(this.data.filter(d => d.bulkSelected));
   }
+
+  performSelectAction(value: boolean) {
+    if (value) {
+      this.selectAll();
+    } else {
+      this.deselectAll();
+    }
+  }
 }

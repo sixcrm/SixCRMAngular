@@ -16,49 +16,49 @@
       <th>
         <md-icon style="left: 12px;" [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
         <md-menu #actionsMenu="mdMenu" x-position="before">
-          <button *ngIf="isMultipleSelected()" (click)="deleteAll()" md-menu-item>Delete Selected</button>
-          <button (click)="selectAll()" md-menu-item>Select All</button>
-          <button (click)="deselectAll()" md-menu-item>Deselect All</button>
+          <button *ngIf="isMultipleSelected()" (click)="deleteAll()" md-menu-item>Delete All Selected</button>
         </md-menu></th>
     </tr>
     </thead>
 
     <tbody>
-    <tr *ngFor="let entity of (data | filterEntitiesByParams: columnParams: filterString | sortEntities: sortParams.mappingFunction: sortParams.sortOrder)">
-      <td class="bulk-option">
-        <md-checkbox [(ngModel)]="entity.bulkSelected"></md-checkbox>
-      </td>
-      <ng-container *ngFor="let param of columnParams">
-        <ng-container *ngIf="param.selected">
-          <td (click)="selected.emit(entity)" [class.cell--align-right]="param.align === 'right'">
-            <div class="codeblock" *ngIf="param.code; else noCode">
-              {{param.mappingFunction(entity)}}
-            </div>
-            <ng-template #noCode>
-              <ng-container *ngIf="param.number; else nan">{{param.mappingFunction(entity) | numberlocale}}</ng-container>
-              <ng-template #nan>
-                <ng-container *ngIf="param.translate; else notranslate">{{param.mappingFunction(entity) | translate}}</ng-container>
-                <ng-template #notranslate>{{param.mappingFunction(entity)}}</ng-template>
+    <ng-container *ngFor="let entity of (data | filterEntitiesByParams: columnParams: filterString | sortEntities: sortParams.mappingFunction: sortParams.sortOrder)">
+      <tr [class.selected]="entity.bulkSelected">
+        <td class="bulk-option">
+          <md-checkbox [(ngModel)]="entity.bulkSelected"></md-checkbox>
+        </td>
+        <ng-container *ngFor="let param of columnParams">
+          <ng-container *ngIf="param.selected">
+            <td (click)="selected.emit(entity)" [class.cell--align-right]="param.align === 'right'">
+              <div class="codeblock" *ngIf="param.code; else noCode">
+                {{param.mappingFunction(entity)}}
+              </div>
+              <ng-template #noCode>
+                <ng-container *ngIf="param.number; else nan">{{param.mappingFunction(entity) | numberlocale}}</ng-container>
+                <ng-template #nan>
+                  <ng-container *ngIf="param.translate; else notranslate">{{param.mappingFunction(entity) | translate}}</ng-container>
+                  <ng-template #notranslate>{{param.mappingFunction(entity)}}</ng-template>
+                </ng-template>
               </ng-template>
-            </ng-template>
-          </td>
+            </td>
+          </ng-container>
         </ng-container>
-      </ng-container>
-      <td>
-        <table-actions
-          [service]="service"
-          [customText]="customOptionText"
-          [showView]="showView"
-          [showDelete]="showDelete"
-          (viewClicked)="viewClicked.emit(entity)"
-          (copyClicked)="copyClicked.emit(entity)"
-          (exportClicked)="exportClicked.emit(entity)"
-          (editClicked)="editClicked.emit(entity)"
-          (deleteClicked)="deleteClicked.emit(entity)"
-          (customClicked)="customOptionClicked.emit(entity)">
-        </table-actions>
-      </td>
-    </tr>
+        <td>
+          <table-actions
+            [service]="service"
+            [customText]="customOptionText"
+            [showView]="showView"
+            [showDelete]="showDelete"
+            (viewClicked)="viewClicked.emit(entity)"
+            (copyClicked)="copyClicked.emit(entity)"
+            (exportClicked)="exportClicked.emit(entity)"
+            (editClicked)="editClicked.emit(entity)"
+            (deleteClicked)="deleteClicked.emit(entity)"
+            (customClicked)="customOptionClicked.emit(entity)">
+          </table-actions>
+        </td>
+      </tr>
+    </ng-container>
     </tbody>
   </table>
 
@@ -67,6 +67,8 @@
     [paginationValues]="paginationValues"
     [previousDisabled]="previousDisabled"
     [nextDisabled]="nextDisabled"
+    [showCheckbox]="data && data.length > 0"
+    (checkboxToggled)="performSelectAction($event)"
     (previous)="previous.emit(true)"
     (next)="next.emit(true)"
     (updateLimit)="updateLimit.emit($event)">
