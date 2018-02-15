@@ -4,6 +4,7 @@ import {MerchantProviderGateway} from './merchant-provider-gateway.model';
 import {MerchantProviderProcessingConfig} from './merchant-provider-processing-config.model';
 import {MerchantProviderProcessor} from './merchant-provider-processor.model';
 import {MerchantProviderGroup} from '../merchant-provider-group.model';
+import {Moment, utc} from 'moment';
 
 export class MerchantProvider implements Entity<MerchantProvider>{
   id: string;
@@ -16,6 +17,8 @@ export class MerchantProvider implements Entity<MerchantProvider>{
   processing: MerchantProviderProcessingConfig;
   processor: MerchantProviderProcessor;
   merchantProviderGroups: MerchantProviderGroup[];
+  createdAt: Moment;
+  updatedAt: Moment;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -31,6 +34,8 @@ export class MerchantProvider implements Entity<MerchantProvider>{
     this.gateway = new MerchantProviderGateway(obj.gateway);
     this.processing = new MerchantProviderProcessingConfig(obj.processing);
     this.processor = new MerchantProviderProcessor(obj.processor);
+    this.createdAt = utc(obj.created_at);
+    this.updatedAt = utc(obj.updated_at);
 
     if (obj.merchantprovidergroups) {
       this.merchantProviderGroups = obj.merchantprovidergroups.map(lb => new MerchantProviderGroup(lb));
@@ -65,7 +70,9 @@ export class MerchantProvider implements Entity<MerchantProvider>{
       customer_service: this.customerService.inverse(),
       gateway: this.gateway.inverse(),
       processing: this.processing.inverse(),
-      processor: this.processor.inverse()
+      processor: this.processor.inverse(),
+      created_at: this.createdAt.format(),
+      updated_at: this.updatedAt.format()
     }
   }
 }

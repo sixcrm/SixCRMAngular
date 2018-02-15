@@ -51,7 +51,7 @@ export function updateCustomerMutation(customer: Customer): string {
 }
 
 export function customerInfoResponseQuery(): string {
-  return 'id firstname lastname created_at address { city country state }'
+  return 'id firstname lastname email phone created_at updated_at address { city country state zip line1 }'
 }
 
 export function customerResponseQuery(): string {

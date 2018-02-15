@@ -18,6 +18,7 @@ export class Rebill implements Entity<Rebill> {
   transactions: Transaction[] = [];
   history: RebillStateHistory[] = [];
   shippingReceipts: ShippingReceipt[] = [];
+  state: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -30,7 +31,7 @@ export class Rebill implements Entity<Rebill> {
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
     this.parentSession = new ParentSession(obj.parentsession);
-
+    this.state = obj.state || '';
     if (obj.product_schedules) {
       this.productSchedules = obj.product_schedules.map(ps => new ProductSchedule(ps));
     }
@@ -62,7 +63,8 @@ export class Rebill implements Entity<Rebill> {
       parentsession: this.parentSession.inverse(),
       product_schedules: this.productSchedules.map(p => p.inverse()),
       shippingreceipts: this.shippingReceipts.map(r => r.inverse()),
-      transactions: this.transactions.map(t => t.inverse())
+      transactions: this.transactions.map(t => t.inverse()),
+      state: this.state
     }
   }
 

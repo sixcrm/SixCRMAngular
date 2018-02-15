@@ -102,7 +102,7 @@ function campaignResponseQuery(): string {
 
 function campaignInfoResponseQuery(): string {
   return `
-    id name created_at updated_at,
+    id name created_at allow_prepaid show_prepaid updated_at,
     productschedules { ${productScheduleInfoResponseQuery()} }
     emailtemplates { id name }`
 }

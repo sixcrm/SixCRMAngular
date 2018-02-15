@@ -151,7 +151,7 @@ export function userIntrospectionResponseQuery(): string {
 }
 
 export function userInfoResponseQuery(): string {
-  return `id name auth0_id active termsandconditions`;
+  return `id name termsandconditions auth0_id active created_at updated_at`;
 }
 
 export function userInputQuery(user: User, light?: boolean): string {

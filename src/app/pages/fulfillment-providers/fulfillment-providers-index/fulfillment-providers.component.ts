@@ -27,11 +27,13 @@ export class FulfillmentProvidersComponent extends AbstractEntityIndexComponent<
 
     this.entityFactory = () => new FulfillmentProvider({});
 
+    let f = this.authService.getTimezone();
     this.columnParams = [
+      new ColumnParams('FULFILLMENT_INDEX_HEADER_ID', (e: FulfillmentProvider) => e.id).setSelected(false),
       new ColumnParams('FULFILLMENT_INDEX_HEADER_NAME', (e: FulfillmentProvider) => e.name),
       new ColumnParams('FULFILLMENT_INDEX_HEADER_PROVIDER', (e: FulfillmentProvider) => e.provider.name),
-      new ColumnParams('FULFILLMENT_INDEX_HEADER_USERNAME',(e: FulfillmentProvider) => e.provider.username),
-      new ColumnParams('FULFILLMENT_INDEX_HEADER_PASSWORD', (e: FulfillmentProvider) => e.provider.password)
+      new ColumnParams('FULFILLMENT_INDEX_HEADER_CREATED', (e: FulfillmentProvider) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
+      new ColumnParams('FULFILLMENT_INDEX_HEADER_UPDATED', (e: FulfillmentProvider) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false)
     ];
   }
 

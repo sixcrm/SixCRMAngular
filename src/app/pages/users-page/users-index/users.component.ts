@@ -42,11 +42,15 @@ export class UsersComponent extends AbstractEntityIndexComponent<User> implement
     this.entityFactory = () => new User();
     this.viewAfterCrate = false;
 
+    let f = this.authService.getTimezone();
     this.columnParams = [
+      new ColumnParams('USER_INDEX_HEADER_ID', (e: User) => e.id).setSelected(false),
       new ColumnParams('USER_INDEX_HEADER_NAME', (e: User) => e.name),
       new ColumnParams('USER_INDEX_HEADER_EMAIL',(e: User) => e.email),
       new ColumnParams('USER_INDEX_HEADER_ACTIVE', (e: User) => e.active + ''),
-      new ColumnParams('USER_INDEX_HEADER_TERMS', (e: User) => e.termsAndConditions)
+      new ColumnParams('USER_INDEX_HEADER_TERMS', (e: User) => e.termsAndConditions),
+      new ColumnParams('USER_INDEX_HEADER_CREATED', (e: User) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
+      new ColumnParams('USER_INDEX_HEADER_UPDATED', (e: User) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false)
     ];
   }
 

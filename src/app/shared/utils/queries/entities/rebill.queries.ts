@@ -88,7 +88,7 @@ export function rebillResponseQuery(): string {
 }
 
 export function rebillInfoResponseQuery(): string {
-  return `id bill_at amount created_at updated_at`
+  return `id bill_at amount created_at updated_at state parentsession { customer { firstname lastname} }`
 }
 
 export function rebillListByState(queueName: string, limit?: number, offset?: number): string {

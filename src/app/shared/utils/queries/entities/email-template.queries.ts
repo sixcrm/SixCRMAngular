@@ -59,7 +59,7 @@ export function createEmailTemplateMutation(emailTemplate: EmailTemplate): strin
 }
 
 export function emailTemplateInfoResponseQuery(): string {
-  return `id name subject type smtp_provider { name }`
+  return `id name subject type smtp_provider { name } created_at updated_at`
 }
 
 export function emailTemplateResponseQuery(): string {

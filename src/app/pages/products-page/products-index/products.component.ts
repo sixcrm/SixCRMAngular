@@ -29,11 +29,17 @@ export class ProductsComponent extends AbstractEntityIndexComponent<Product> imp
 
     this.entityFactory = () => new Product();
 
+    let f = this.authService.getTimezone();
     this.columnParams = [
+      new ColumnParams('PRODUCT_INDEX_HEADER_ID', (e: Product) => e.id).setSelected(false),
       new ColumnParams('PRODUCT_INDEX_HEADER_NAME', (e: Product) => e.name),
+      new ColumnParams('PRODUCT_INDEX_HEADER_PRICE', (e: Product) => e.defaultPrice.usd(), 'right'),
       new ColumnParams('PRODUCT_INDEX_HEADER_SKU',(e: Product) => e.sku),
       new ColumnParams('PRODUCT_INDEX_HEADER_SHIP', (e: Product) => e.ship + ''),
-      new ColumnParams('PRODUCT_INDEX_HEADER_DELAY', (e: Product) => e.shippingDelay, 'right').setNumberOption(true)
+      new ColumnParams('PRODUCT_INDEX_HEADER_DELAY', (e: Product) => e.shippingDelay, 'right').setNumberOption(true),
+      new ColumnParams('PRODUCT_INDEX_HEADER_PROVIDER', (e: Product) => e.fulfillmentProvider.name).setSelected(false),
+      new ColumnParams('PRODUCT_INDEX_HEADER_CREATED', (e: Product) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
+      new ColumnParams('PRODUCT_INDEX_HEADER_UPDATED', (e: Product) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false)
     ];
   }
 

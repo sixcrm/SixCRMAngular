@@ -51,7 +51,7 @@ export function refundTransactionMutation(transactionId: string, refundAmount: n
 }
 
 export function transactionInfoResponseQuery(): string {
-  return 'id amount alias created_at processor_response';
+  return 'id amount alias created_at updated_at merchant_provider { id name } processor_response';
 }
 
 export function transactionResponseQuery(): string {

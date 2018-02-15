@@ -27,12 +27,17 @@ export class SmtpProvidersComponent extends AbstractEntityIndexComponent<SmtpPro
 
     this.entityFactory = () => new SmtpProvider();
 
+    let f = this.authService.getTimezone();
     this.columnParams = [
+      new ColumnParams('SMTP_INDEX_HEADER_ID', (e: SmtpProvider) => e.id).setSelected(false),
       new ColumnParams('SMTP_INDEX_HEADER_NAME', (e: SmtpProvider) => e.name),
       new ColumnParams('SMTP_INDEX_HEADER_FROMNAME',(e: SmtpProvider) => e.fromName),
       new ColumnParams('SMTP_INDEX_HEADER_FROMEMAIL',(e: SmtpProvider) => e.fromEmail),
       new ColumnParams('SMTP_INDEX_HEADER_HOSTNAME',(e: SmtpProvider) => e.hostname),
       new ColumnParams('SMTP_INDEX_HEADER_USERNAME', (e: SmtpProvider) => e.username),
+      new ColumnParams('SMTP_INDEX_HEADER_PORT', (e: SmtpProvider) => e.port).setSelected(false),
+      new ColumnParams('SMTP_INDEX_HEADER_CREATED', (e: SmtpProvider) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
+      new ColumnParams('SMTP_INDEX_HEADER_UPDATED', (e: SmtpProvider) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false)
     ];
   }
 

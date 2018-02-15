@@ -27,12 +27,18 @@ export class CreditCardsComponent extends AbstractEntityIndexComponent<CreditCar
 
     this.entityFactory = () => new CreditCard();
 
+    let f = this.authService.getTimezone();
     this.columnParams = [
+      new ColumnParams('CREDITCARD_INDEX_ID', (e: CreditCard) => e.id).setSelected(false),
       new ColumnParams('CREDITCARD_INDEX_NAME', (e: CreditCard) => e.name),
       new ColumnParams('CREDITCARD_INDEX_EXPIRATION',(e: CreditCard) => e.expiration),
       new ColumnParams('CREDITCARD_INDEX_COUNTRY', (e: CreditCard) => e.address.country),
       new ColumnParams('CREDITCARD_INDEX_STATE', (e: CreditCard) => e.address.state),
-      new ColumnParams('CREDITCARD_INDEX_CITY', (e: CreditCard) => e.address.city)
+      new ColumnParams('CREDITCARD_INDEX_CITY', (e: CreditCard) => e.address.city),
+      new ColumnParams('CREDITCARD_INDEX_ZIP', (e: CreditCard) => e.address.zip).setSelected(false),
+      new ColumnParams('CREDITCARD_INDEX_LINE1', (e: CreditCard) => e.address.line1).setSelected(false),
+      new ColumnParams('CREDITCARD_INDEX_CREATED', (e: CreditCard) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
+      new ColumnParams('CREDITCARD_INDEX_UPDATED', (e: CreditCard) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false)
     ];
   }
 

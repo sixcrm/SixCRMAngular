@@ -27,10 +27,14 @@ export class ProductSchedulesComponent extends AbstractEntityIndexComponent<Prod
 
     this.entityFactory = () => new ProductSchedule();
 
+    let f = this.authService.getTimezone();
     this.columnParams = [
+      new ColumnParams('PRODUCTSCHEDULE_INDEX_HEADER_ID', (e: ProductSchedule) => e.id).setSelected(false),
       new ColumnParams('PRODUCTSCHEDULE_INDEX_HEADER_NAME', (e: ProductSchedule) => e.name),
       new ColumnParams('PRODUCTSCHEDULE_INDEX_HEADER_MERCHANTPROVIDERGROUP', (e: ProductSchedule) => e.merchantProviderGroup.name),
-      new ColumnParams('PRODUCTSCHEDULE_INDEX_HEADER_NUMOFCYCLES', (e: ProductSchedule) => e.schedules.length.toString(), 'right').setNumberOption(true)
+      new ColumnParams('PRODUCTSCHEDULE_INDEX_HEADER_NUMOFCYCLES', (e: ProductSchedule) => e.schedules.length.toString(), 'right').setNumberOption(true),
+      new ColumnParams('PRODUCTSCHEDULE_INDEX_HEADER_CREATED', (e: ProductSchedule) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
+      new ColumnParams('PRODUCTSCHEDULE_INDEX_HEADER_UPDATED', (e: ProductSchedule) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false)
     ];
   }
 
