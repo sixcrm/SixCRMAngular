@@ -81,6 +81,7 @@ import {UserSigningStringsService} from "./services/user-signing-string.service"
 import { TabHeaderComponent } from './components/tab-header/tab-header.component';
 import {ShippingReceiptsService} from './services/shipping-receipts.service';
 import {ImagesService} from './services/images.service';
+import { SearchInputComponent } from './components/search-input/search-input.component';
 
 @NgModule({
   declarations : [
@@ -118,7 +119,8 @@ import {ImagesService} from './services/images.service';
     HtmlSanitizerPipe,
     CustomerCreditCardViewComponent,
     SimpleDatepickerComponent,
-    TabHeaderComponent
+    TabHeaderComponent,
+    SearchInputComponent
   ],
   exports : [
     AutocompleteComponent,
@@ -154,7 +156,8 @@ import {ImagesService} from './services/images.service';
     HtmlSanitizerPipe,
     CustomerCreditCardViewComponent,
     SimpleDatepickerComponent,
-    TabHeaderComponent
+    TabHeaderComponent,
+    SearchInputComponent
   ],
   imports : [
     FormsModule,

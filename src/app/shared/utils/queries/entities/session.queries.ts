@@ -1,12 +1,11 @@
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  deleteManyMutationQuery
+  deleteManyMutationQuery, listQueryParams
 } from './entities-helper.queries';
-import {loadBalancerResponseQuery} from './load-balancer.queries';
 
-export function sessionsInfoListQuery(limit?:number, cursor?:string): string {
+export function sessionsInfoListQuery(limit?:number, cursor?:string, search?: string): string {
   return `{
-    sessionlist ${paginationParamsQuery(limit, cursor)} {
+    sessionlist ${listQueryParams(limit, cursor, search)} {
 			sessions {
 			  ${sessionInfoResponseQuery()}
 			}

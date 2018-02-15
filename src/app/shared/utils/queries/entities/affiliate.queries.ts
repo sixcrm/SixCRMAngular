@@ -1,12 +1,12 @@
 import {
-  paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery
+  fullPaginationStringResponseQuery, deleteMutationQuery,
+  addId, deleteManyMutationQuery, listQueryParams
 } from './entities-helper.queries';
 import {Affiliate} from '../../../models/affiliate.model';
 
-export function affiliatesListQuery(limit?:number, cursor?:string): string {
+export function affiliatesListQuery(limit?:number, cursor?:string, search?:string): string {
   return `{
-    affiliatelist ${paginationParamsQuery(limit, cursor)} {
+    affiliatelist ${listQueryParams(limit, cursor, search)} {
       affiliates {
         ${affiliateResponseQuery()}
       }

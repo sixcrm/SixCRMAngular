@@ -1,12 +1,12 @@
 import {MerchantProvider} from '../../../models/merchant-provider/merchant-provider.model';
 import {
   fullPaginationStringResponseQuery, deleteMutationQuery, addId,
-  paginationParamsQuery, deleteManyMutationQuery
+  deleteManyMutationQuery, listQueryParams
 } from './entities-helper.queries';
 
-export function merchantProvidersListQuery(limit?:number, cursor?:string): string {
+export function merchantProvidersListQuery(limit?:number, cursor?:string, search?: string): string {
   return `{
-    merchantproviderlist ${paginationParamsQuery(limit, cursor)} {
+    merchantproviderlist ${listQueryParams(limit, cursor, search)} {
       merchantproviders {
         ${merchantProviderInfoResponseQuery()}
       }

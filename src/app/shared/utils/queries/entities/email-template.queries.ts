@@ -1,13 +1,13 @@
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery
+  addId, deleteManyMutationQuery, listQueryParams
 } from './entities-helper.queries';
 import {smtpProviderResponseQuery} from './smtp-provider.queries';
 import {EmailTemplate} from '../../../models/email-template.model';
 
-export function emailTemplatesListQuery(limit?:number, cursor?:string): string {
+export function emailTemplatesListQuery(limit?:number, cursor?:string, search?: string): string {
   return `{
-    emailtemplatelist ${paginationParamsQuery(limit, cursor)} {
+    emailtemplatelist ${listQueryParams(limit, cursor, search)} {
 			emailtemplates {
 			  ${emailTemplateInfoResponseQuery()}
 			}

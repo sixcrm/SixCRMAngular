@@ -1,12 +1,12 @@
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery
+  addId, deleteManyMutationQuery, listQueryParams
 } from './entities-helper.queries';
 import {Rebill} from '../../../models/rebill.model';
 
-export function rebillsListQuery(limit?: number, cursor?: string): string {
+export function rebillsListQuery(limit?: number, cursor?: string, search?: string): string {
   return `{
-		rebilllist ${paginationParamsQuery(limit, cursor)} {
+		rebilllist ${listQueryParams(limit, cursor, search)} {
 			rebills {
 			  ${rebillInfoResponseQuery()}
 			}

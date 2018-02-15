@@ -1,13 +1,13 @@
 import {loadBalancerResponseQuery} from './load-balancer.queries';
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, clean, deleteManyMutationQuery
+  addId, clean, deleteManyMutationQuery, listQueryParams
 } from './entities-helper.queries';
 import {ProductSchedule} from '../../../models/product-schedule.model';
 
-export function  productScheduleListQuery(limit?:number, cursor?:string): string {
+export function  productScheduleListQuery(limit?:number, cursor?:string, search?: string): string {
   return `{
-    productschedulelist ${paginationParamsQuery(limit, cursor)} {
+    productschedulelist ${listQueryParams(limit, cursor, search)} {
 			productschedules {
         ${productScheduleResponseQuery()}
 			}

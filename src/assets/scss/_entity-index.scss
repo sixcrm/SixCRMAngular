@@ -14,7 +14,7 @@ $title-color: #8D8888;
     md-input {
       margin-left: auto;
       padding-left: 10px;
-      width: 220px;
+      width: 150px;
       font-size: 14px;
       font-weight: 400;
 
@@ -26,6 +26,14 @@ $title-color: #8D8888;
 
   &__preferences {
     margin: 0 -40px 0 15px;
+  }
+
+  &__search {
+    margin-left: 25px;
+
+    .md-focused {
+      color: #FF8D20;
+    }
   }
 
   &__add {
@@ -63,14 +71,6 @@ $title-color: #8D8888;
     &__content {
       margin-top: 60px;
       overflow-x: auto;
-    }
-  }
-
-  &__search {
-    float: right;
-
-    md-input {
-      width: 200px;
     }
   }
 

@@ -2,12 +2,12 @@ import {productScheduleResponseQuery, productScheduleInfoResponseQuery} from './
 import {Campaign} from '../../../models/campaign.model';
 import {
   fullPaginationStringResponseQuery, paginationParamsQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery
+  addId, deleteManyMutationQuery, listQueryParams
 } from './entities-helper.queries';
 
-export function campaignsInfoListQuery(limit?:number, cursor?:string): string {
+export function campaignsInfoListQuery(limit?:number, cursor?:string, search?: string): string {
   return `{
-    campaignlist ${paginationParamsQuery(limit, cursor)} {
+    campaignlist ${listQueryParams(limit, cursor, search)} {
       campaigns {
         ${campaignInfoResponseQuery()}
       }

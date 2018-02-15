@@ -1,11 +1,11 @@
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  deleteManyMutationQuery
+  deleteManyMutationQuery, listQueryParams
 } from './entities-helper.queries';
 
-export function transactionsInfoListQuery(limit?:number, cursor?:string): string {
+export function transactionsInfoListQuery(limit?:number, cursor?:string, search?: string): string {
   return `{
-    transactionlist ${paginationParamsQuery(limit, cursor)} {
+    transactionlist ${listQueryParams(limit, cursor, search)} {
       transactions {
         ${transactionInfoResponseQuery()}
       }

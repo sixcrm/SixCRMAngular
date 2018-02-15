@@ -1,12 +1,12 @@
 import {
-  paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery
+  fullPaginationStringResponseQuery, deleteMutationQuery,
+  addId, deleteManyMutationQuery, listQueryParams
 } from './entities-helper.queries';
 import {SmtpProvider} from '../../../models/smtp-provider.model';
 
-export function smtpProvidersListQuery(limit?:number, cursor?:string): string {
+export function smtpProvidersListQuery(limit?:number, cursor?:string, search?:string): string {
   return `{
-    smtpproviderlist ${paginationParamsQuery(limit, cursor)} {
+    smtpproviderlist ${listQueryParams(limit, cursor, search)} {
 			smtpproviders {
         ${smtpProviderResponseQuery()}
       }

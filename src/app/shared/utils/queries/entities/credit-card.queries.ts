@@ -1,13 +1,13 @@
 import {
-  fullPaginationStringResponseQuery, paginationParamsQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery
+  fullPaginationStringResponseQuery, deleteMutationQuery,
+  addId, deleteManyMutationQuery, listQueryParams
 } from './entities-helper.queries';
 import {CreditCard} from '../../../models/credit-card.model';
 import {getStateCodes, stateCode, countryCode} from '../../address.utils';
 
-export function creditCardsListQuery(limit?:number, cursor?:string): string {
+export function creditCardsListQuery(limit?:number, cursor?:string, search?: string): string {
   return `{
-    creditcardlist ${paginationParamsQuery(limit, cursor)} {
+    creditcardlist ${listQueryParams(limit, cursor, search)}{
 			creditcards {
 			  ${creditCardResponseQuery()}
 			}

@@ -1,13 +1,13 @@
 import {
-  paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery
+  fullPaginationStringResponseQuery, deleteMutationQuery,
+  addId, deleteManyMutationQuery, listQueryParams
 } from './entities-helper.queries';
 import {Customer} from '../../../models/customer.model';
 import {stateCode, countryCode} from '../../address.utils';
 
-export function customersInfoListQuery(limit?:number, cursor?:string): string {
+export function customersInfoListQuery(limit?:number, cursor?:string, search?: string): string {
   return `{
-    customerlist ${paginationParamsQuery(limit, cursor)} {
+    customerlist ${listQueryParams(limit, cursor, search)} {
       customers {
         ${customerInfoResponseQuery()}
 			}

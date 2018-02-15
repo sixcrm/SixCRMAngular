@@ -49,12 +49,4 @@ export class ProductsComponent extends AbstractEntityIndexComponent<Product> imp
   ngOnDestroy() {
     this.destroy();
   }
-
-  down(event) {
-    if (event.key === 'Enter') {
-      this.resetEntities();
-      this.loadingData = true;
-      this.service.getEntities(this.limit, this.searchValue)
-    }
-  }
 }

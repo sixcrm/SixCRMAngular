@@ -1,13 +1,13 @@
 import {
-  deleteMutationQuery, paginationParamsQuery, fullPaginationStringResponseQuery,
-  addId, generateUUID, deleteManyMutationQuery
+  deleteMutationQuery, fullPaginationStringResponseQuery,
+  addId, deleteManyMutationQuery, listQueryParams
 } from './entities-helper.queries';
 
 import {FulfillmentProvider} from '../../../models/fulfillment-provider.model';
 
-export function fulfillmentProvidersListQuery(limit?:number, cursor?:string): string {
+export function fulfillmentProvidersListQuery(limit?:number, cursor?:string, search?:string): string {
   return `{
-    fulfillmentproviderlist ${paginationParamsQuery(limit, cursor)} {
+    fulfillmentproviderlist ${listQueryParams(limit, cursor, search)} {
       fulfillmentproviders {
         ${fulfillmentProviderResponseQuery()}
       }

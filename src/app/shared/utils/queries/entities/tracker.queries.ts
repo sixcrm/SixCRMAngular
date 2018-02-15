@@ -1,12 +1,12 @@
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery
+  addId, deleteManyMutationQuery, listQueryParams
 } from './entities-helper.queries';
 import {Tracker} from '../../../models/tracker.model';
 
-export function trackersListQuery(limit?: number, cursor?: string): string {
+export function trackersListQuery(limit?: number, cursor?: string, search?: string): string {
   return `{
-		trackerlist ${paginationParamsQuery(limit, cursor)} {
+		trackerlist ${listQueryParams(limit, cursor, search)} {
 		  trackers {
         ${trackerResponseInfoQuery()}
       }

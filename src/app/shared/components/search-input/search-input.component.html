@@ -1,0 +1,15 @@
+<div class="flex-custom flex-custom--center">
+  <div class="search-container">
+    <md-input-container class="input-orange" [ngClass]="{'search-visible': searchVisible}">
+      <input
+        #searchInputField
+        md-input
+        placeholder="{{'TOPNAV_SEARCH' | translate}}"
+        type="text"
+        [(ngModel)]="searchValue"
+        (keydown)="onKey($event)">
+    </md-input-container>
+  </div>
+
+  <button md-icon-button (click)="toggleSearchInput(searchInputField)"><md-icon>search</md-icon></button>
+</div>
