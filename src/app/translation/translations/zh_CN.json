@@ -33,7 +33,8 @@
       "session": "会话",
       "transaction": "交易",
       "rebill": "再付费",
-      "shippingreceipt": "运输收据"
+      "shippingreceipt": "运输收据",
+      "pendingrebill": "Pending Rebills"
     },
     "crm": {
       "title": "CRM (客户关系管理)",

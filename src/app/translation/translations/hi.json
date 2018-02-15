@@ -33,7 +33,8 @@
       "session": "सत्र",
       "transaction": "लेन-देन",
       "rebill": "रीबिल",
-      "shippingreceipt": "शिपिंग रसीद"
+      "shippingreceipt": "शिपिंग रसीद",
+      "pendingrebill": "Pending Rebills"
     },
     "crm": {
       "title": "सीआरएम",

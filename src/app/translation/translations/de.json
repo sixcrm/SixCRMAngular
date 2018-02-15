@@ -33,7 +33,8 @@
       "session": "Sitzungen",
       "transaction": "Transaktionen",
       "rebill": "Neubelastung",
-      "shippingreceipt": "Posteinlieferungsscheine"
+      "shippingreceipt": "Posteinlieferungsscheine",
+      "pendingrebill": "Pending Rebills"
     },
     "crm": {
       "title": "CRM",

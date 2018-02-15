@@ -33,7 +33,8 @@
       "session": "Sessions",
       "rebill": "Rebills",
       "transaction": "Transactions",
-      "shippingreceipt": "Shipping Receipts"
+      "shippingreceipt": "Shipping Receipts",
+      "pendingrebill": "Pending Rebills"
     },
     "crm": {
       "title": "CRM Setup",

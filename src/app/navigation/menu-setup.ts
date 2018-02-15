@@ -37,6 +37,9 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   if (authService.hasPermissions('shippingreceipt', 'view')) {
     orderItems.push(new MenuItem('SIDENAV_ORDER_SHIPPINGRECEIPT', 'shippingreceipts'));
   }
+  if (authService.hasPermissions('rebill', 'view')) {
+    orderItems.push(new MenuItem('SIDENAV_ORDER_PENDINGREBILL', 'rebills/pending'));
+  }
 
   if (orderItems.length > 0) {
     items.push(new MenuItem('SIDENAV_ORDER_TITLE', null, orderItems).setIcon('payment'));

@@ -15,6 +15,17 @@ export function rebillsListQuery(limit?: number, cursor?: string, search?: strin
   }`
 }
 
+export function rebillsPendingListQuery(limit?: number, cursor?: string, search?: string): string {
+  return `{
+		rebillpendinglist ${listQueryParams(limit, cursor, search)} {
+			rebills {
+			  ${rebillInfoResponseQuery()}
+			}
+			${fullPaginationStringResponseQuery()}
+		}
+  }`
+}
+
 export function rebillQuery(id: string): string {
   return `{
 		rebill (id: "${id}") {

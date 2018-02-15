@@ -33,7 +33,8 @@
       "session": "Աշխատաշրջաններ",
       "transaction": "Գործանքներ",
       "rebill": "Հաշիվներ",
-      "shippingreceipt": "Առաքման ստացականներ"
+      "shippingreceipt": "Առաքման ստացականներ",
+      "pendingrebill": "Pending Rebills"
     },
 		"crm": {
 			"title": "CRM",

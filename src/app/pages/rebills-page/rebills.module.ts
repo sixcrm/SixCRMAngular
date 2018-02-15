@@ -9,6 +9,7 @@ import {RebillsComponent} from './rebills-index/rebills.component';
 import {RebillsAclGuard} from '../guards/rebills-acl-guard.service';
 import { RebillViewComponent } from './rebill-view/rebill-view.component';
 import {TranslationModule} from '../../translation/translation.module';
+import {RebillsPendingComponent} from "./rebills-pending-index/rebills-pending.component";
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import {TranslationModule} from '../../translation/translation.module';
     TranslationModule,
     SharedModule
   ],
-  declarations: [RebillsComponent, RebillViewComponent],
+  declarations: [RebillsComponent, RebillsPendingComponent, RebillViewComponent],
   providers: [RebillsAclGuard]
 })
 export class RebillsModule { }
