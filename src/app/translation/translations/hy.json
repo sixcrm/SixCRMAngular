@@ -41,8 +41,11 @@
 			"productschedule": "Ապրանքների հերթացուցակներ",
 			"campaign": "Արշավներ",
 			"emailtemplate": "Էլ. փոստի ձևանմուշներ",
-			"affiliate": "Գործընկերներ",
-			"tracker": "Հետևորդներ",
+      "traffic": {
+        "title": "Traffic Setup",
+        "affiliate": "Գործընկերներ",
+        "tracker": "Հետևորդներ"
+      },
 			"providers": {
 				"title": "3-րդ կողմի մատակարարներ",
 				"fulfillment": "Ծառայության մատակարարներ",
@@ -69,7 +72,7 @@
     "help": {
       "title": "Help",
       "graphql": "GraphQL",
-      "wiki": "Wiki"
+      "support": "Support"
     },
 		"search": "Որոնում"
 	},

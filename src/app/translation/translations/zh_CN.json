@@ -41,8 +41,11 @@
       "productschedule": "产品时间表",
       "campaign": "广告活动",
       "emailtemplate": "电子邮件模板",
-      "affiliate": "商业伙伴",
-      "tracker": "跟踪器",
+      "traffic": {
+        "title": "Traffic Setup",
+        "affiliate": "商业伙伴",
+        "tracker": "跟踪器"
+      },
       "providers": {
         "title": "第三方提供商",
         "fulfillment": "履行提供者",
@@ -69,7 +72,7 @@
     "help": {
       "title": "Help",
       "graphql": "GraphQL",
-      "wiki": "维基"
+      "support": "Support"
     },
     "search": "搜索"
   },

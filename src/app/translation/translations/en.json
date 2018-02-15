@@ -41,8 +41,11 @@
       "productschedule": "Product Schedules",
       "campaign": "Campaigns",
       "emailtemplate": "Email Templates",
-      "affiliate": "Affiliates",
-      "tracker": "Trackers",
+      "traffic": {
+        "title": "Traffic Setup",
+        "affiliate": "Affiliates",
+        "tracker": "Tracking"
+      },
       "merchant": {
         "title": "Merchants",
         "merchantprovider": "Merchant Accounts",
@@ -69,7 +72,7 @@
     "help": {
       "title": "Help",
       "graphql": "GraphQL",
-      "wiki": "Wiki"
+      "support": "Support"
     },
     "search": "Search"
   },

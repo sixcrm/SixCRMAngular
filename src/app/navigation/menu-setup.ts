@@ -86,11 +86,16 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   if (authService.hasPermissions('emailtemplate', 'view')) {
     crmItems.push(new MenuItem('SIDENAV_CRM_EMAILTEMPLATE', 'emailtemplates'));
   }
+
+  let tracking: MenuItem[] = [];
   if (authService.hasPermissions('affiliate', 'view')) {
-    crmItems.push(new MenuItem('SIDENAV_CRM_AFFILIATE', 'affiliates'));
+    tracking.push(new MenuItem('SIDENAV_CRM_TRAFFIC_AFFILIATE', 'affiliates'));
   }
   if (authService.hasPermissions('tracker', 'view')) {
-    crmItems.push(new MenuItem('SIDENAV_CRM_TRACKER', 'trackers'));
+    tracking.push(new MenuItem('SIDENAV_CRM_TRAFFIC_TRACKER', 'trackers'));
+  }
+  if (tracking.length > 0) {
+    crmItems.push(new MenuItem('SIDENAV_CRM_TRAFFIC_TITLE', null, tracking));
   }
 
   // Add Merchants menu item
@@ -158,18 +163,18 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
 
   items.push(new MenuItem('SIDENAV_SETTINGS_TITLE', null, settings).setIcon('settings'));
 
-  // Add Help menu item
-  let help: MenuItem[] = [];
-
-  help.push(new MenuItem('SIDENAV_HELP_GRAPHQL', 'documentation/graph'));
-  help.push(new MenuItem({title: 'SIDENAV_HELP_WIKI', clickHandler: () => window.open('https://github.com/sixcrm/SixCRMIntegrations/wiki', '_blank').focus()}, ''));
-
-  items.push(new MenuItem('SIDENAV_HELP_TITLE', null, help).setIcon('help'));
-
   // Add Search menu item
   if (acl.role.name !== 'Customer Service') {
     items.push(new MenuItem('SIDENAV_SEARCH', 'search').setIcon('search'));
   }
+
+  // Add Help menu item
+  let help: MenuItem[] = [];
+
+  help.push(new MenuItem('SIDENAV_HELP_GRAPHQL', 'documentation/graph'));
+  help.push(new MenuItem({title: 'SIDENAV_HELP_SUPPORT', clickHandler: () => window.open('https://six.zendesk.com', '_blank').focus()}, ''));
+
+  items.push(new MenuItem('SIDENAV_HELP_TITLE', null, help).setIcon('help'));
 
   return items;
 }

@@ -41,8 +41,11 @@
       "productschedule": "Produktzyklen",
       "campaign": "Kampagnen",
       "emailtemplate": "Mailvorlagen",
-      "affiliate": "Vertriebspartner",
-      "tracker": "Trackers",
+      "traffic": {
+        "title": "Traffic Setup",
+        "affiliate": "Vertriebspartner",
+        "tracker": "Trackers"
+      },
       "merchant": {
         "title": "Händler",
         "merchantprovider": "Merchant Anbieter",
@@ -69,7 +72,7 @@
     "help": {
       "title": "Help",
       "graphql": "GraphQL",
-      "wiki": "Wiki"
+      "support": "Support"
     },
     "search": "Suche"
   },
