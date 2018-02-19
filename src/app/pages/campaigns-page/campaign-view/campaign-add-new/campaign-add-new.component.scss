@@ -2,3 +2,21 @@
   margin: 10px 0;
   font-size: 14px;
 }
+
+md-input-container {
+  width: 100%;
+}
+
+md-icon {
+  margin: auto 6px auto auto;
+  cursor: pointer;
+}
+
+.icon-disabled {
+  color: rgba(0,0,0,0.4);
+}
+
+autocomplete-input {
+  width: 100%;
+  margin-right: 15px;
+}

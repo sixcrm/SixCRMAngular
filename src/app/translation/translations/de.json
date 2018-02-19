@@ -1024,6 +1024,7 @@
       "name": "Name",
       "allowprepaid": "Prepaid-Kreditkarte erlauben",
       "showprepaid": "Prepaid-Kreditkarte ansehen",
+      "defaultgroup": "Default Merchant Provider Group",
       "cancel": "ABBRECHEN",
       "save": "SPEICHERN",
       "edit": "Kampagne bearbeiten"

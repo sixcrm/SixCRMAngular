@@ -28,7 +28,7 @@
                             [mode]="viewMode ? modes.View : modes.Update"
                             (changeMode)="setMode($event)"
                             (cancel)="cancelUpdate()"
-                            (save)="saveOrUpdate(entity)">
+                            (save)="updateCampaign(entity)">
           </campaign-add-new>
 
           <table-memory

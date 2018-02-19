@@ -8,6 +8,8 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {Currency} from '../../../shared/utils/currency/currency';
+import {LoadBalancerAssociationsService} from '../../../shared/services/load-balancer-associations.service';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'campaigns',
@@ -22,7 +24,8 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
     dialog: MdDialog,
     paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute
+    activatedRoute: ActivatedRoute,
+    private loadBalancerAssociationService: LoadBalancerAssociationsService
   ) {
     super(campaignService, auth, dialog, paginationService, router, activatedRoute);
 
@@ -45,10 +48,37 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
   }
 
   ngOnInit() {
+    this.viewAfterCrate = false;
+
     this.init();
   }
 
   ngOnDestroy() {
     this.destroy();
+  }
+
+  createCampaign(campaign: Campaign) {
+    if (campaign.loadbalancerAssociations && campaign.loadbalancerAssociations.length === 1) {
+
+      this.loadBalancerAssociationService.entityCreated$.take(1).takeUntil(this.unsubscribe$).subscribe(lba => {
+        if (lba instanceof CustomServerError) return;
+
+        this.viewEntity(lba.entity)
+      });
+
+      this.service.entityCreated$.take(1).takeUntil(this.unsubscribe$).subscribe(c => {
+        if (c instanceof CustomServerError) return;
+
+        const lba = campaign.loadbalancerAssociations[0].copy();
+        lba.entity = c.id;
+        lba.entityType = 'campaign';
+        lba.campaign = c.inverse();
+
+        this.loadBalancerAssociationService.createEntity(lba);
+      });
+
+    }
+
+    this.createEntity(campaign);
   }
 }

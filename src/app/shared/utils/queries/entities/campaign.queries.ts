@@ -90,13 +90,14 @@ function campaignResponseQuery(): string {
       smtp_provider { id name hostname }
     }
     affiliate_allow {
-				... on AffiliateGroup { id name }
-				... on Affiliate { id affiliate_id name created_at updated_at }
-			}
-			affiliate_deny {
-				... on AffiliateGroup { id name }
-				... on Affiliate { id affiliate_id name created_at updated_at }
-			}`
+      ... on AffiliateGroup { id name }
+      ... on Affiliate { id affiliate_id name created_at updated_at }
+    }
+    affiliate_deny {
+      ... on AffiliateGroup { id name }
+      ... on Affiliate { id affiliate_id name created_at updated_at }
+    }
+    loadbalancer_associations { id loadbalancer {id name} }`
 }
 
 function campaignInfoResponseQuery(): string {

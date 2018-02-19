@@ -1024,6 +1024,7 @@
       "name": "नाम",
       "allowprepaid": "प्रीपेड की अनुमति दें",
       "showprepaid": "प्रीपेड दिखाएं",
+      "defaultgroup": "Default Merchant Provider Group",
       "cancel": "रद्द करें",
       "save": "सुरक्षित करें",
       "edit": "अभियान संपादित करें"

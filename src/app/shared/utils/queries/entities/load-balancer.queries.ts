@@ -1,13 +1,13 @@
 import {
-  paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery, searchParamsQuery
+  fullPaginationStringResponseQuery, deleteMutationQuery,
+  addId, deleteManyMutationQuery, listQueryParams
 } from './entities-helper.queries';
 import {merchantProviderResponseQuery} from './merchant-provider.queries';
 import {LoadBalancer} from '../../../models/load-balancer.model';
 
 export function loadBalancersInfoListQuery(limit?:number, cursor?:string, search?: string): string {
   return `{
-    loadbalancerlist ( ${paginationParamsQuery(limit, cursor, true)} ${searchParamsQuery(search)} ) {
+    loadbalancerlist ${listQueryParams(limit, cursor, search)} {
 			loadbalancers { 
 			  ${loadBalancerInfoResponseQuery()} 
       }

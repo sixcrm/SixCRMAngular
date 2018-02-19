@@ -13,6 +13,18 @@
     <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
       <input autoFocus required md-input [disabled]="mode === modes.View" placeholder=" {{'CAMPAIGN_INFO_NAME' | translate}} " [(ngModel)]="entity.name" type="text">
     </md-input-container>
+    <div class="flex-custom flex-custom--center">
+      <autocomplete-input class="campaign-autocomplete-input"
+                          [disabled]="mode === modes.View"
+                          [mapFunction]="loadBalancerMapper"
+                          [initialValue]="entity.loadbalancerAssociations[entity.loadbalancerAssociations.length - 1] ? entity.loadbalancerAssociations[entity.loadbalancerAssociations.length - 1].loadbalancer : null"
+                          [options]="loadBalancers || []"
+                          [placeholder]="'CAMPAIGN_INFO_DEFAULTGROUP' | translate"
+                          (selected)="setAssociatedLoadBalancer($event)">
+      </autocomplete-input>
+      <md-icon [class.icon-disabled]="mode === modes.View" (click)="removeAssociations()">close</md-icon>
+    </div>
+
     <div class="flex-custom flex-custom--center prepaid-checkbox">
       <span> {{'CAMPAIGN_INFO_ALLOWPREPAID' | translate}} </span>
       <md-checkbox class="flex-align--right" [disabled]="mode === modes.View" [(ngModel)]="entity.allowPrepaid"></md-checkbox>

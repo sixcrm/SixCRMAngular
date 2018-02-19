@@ -82,6 +82,7 @@ import { TabHeaderComponent } from './components/tab-header/tab-header.component
 import {ShippingReceiptsService} from './services/shipping-receipts.service';
 import {ImagesService} from './services/images.service';
 import { SearchInputComponent } from './components/search-input/search-input.component';
+import {LoadBalancerAssociationsService} from './services/load-balancer-associations.service';
 
 @NgModule({
   declarations : [
@@ -213,7 +214,8 @@ export class SharedModule {
         BillsService,
         UserSigningStringsService,
         ShippingReceiptsService,
-        ImagesService
+        ImagesService,
+        LoadBalancerAssociationsService
       ]
     };
   }

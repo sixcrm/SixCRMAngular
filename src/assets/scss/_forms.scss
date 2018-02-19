@@ -157,6 +157,14 @@ dropdown-component {
   }
 }
 
+.campaign-autocomplete-input {
+  font-size: 14px;
+
+  md-input-container {
+    width: 100%;
+  }
+}
+
 .default-autocomplete-input {
   position: relative;
 

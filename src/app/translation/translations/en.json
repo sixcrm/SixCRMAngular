@@ -1024,6 +1024,7 @@
       "name": "Name",
       "allowprepaid": "Allow Prepaid",
       "showprepaid": "Show Prepaid",
+      "defaultgroup": "Default Merchant Provider Group",
       "cancel": "CANCEL",
       "save": "SAVE",
       "edit": "Edit Campaign"

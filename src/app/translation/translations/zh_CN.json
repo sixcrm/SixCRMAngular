@@ -1024,6 +1024,7 @@
       "name": "名称",
       "allowprepaid": "允许预付卡",
       "showprepaid": "显示预付卡",
+      "defaultgroup": "Default Merchant Provider Group",
       "cancel": "取消",
       "save": "保存",
       "edit": "编辑广告活动"

@@ -1024,7 +1024,8 @@
 			"name": "Անուն",
 			"allowprepaid": "Թույլատրել կանխավճար",
 			"showprepaid": "Ցուցադրել կանխավճարը",
-			"cancel": "ՉԵՂԱՐԿԵԼ",
+      "defaultgroup": "Default Merchant Provider Group",
+      "cancel": "ՉԵՂԱՐԿԵԼ",
 			"save": "ՊԱՀՊԱՆԵԼ",
 			"edit": "Խմբագրել արշավը"
 		},
