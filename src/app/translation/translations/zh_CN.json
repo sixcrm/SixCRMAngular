@@ -1034,8 +1034,12 @@
       "header": {
         "name": "名称",
         "created": "创建于",
+        "updated": "更新于",
         "productnum": "产品总数",
-        "schedulednum": "产品进度总计"
+        "schedulednum": "产品进度总计",
+        "id": "ID",
+        "allowprepaid": "允许预付卡",
+        "showprepaid": "显示预付卡"
       }
     },
     "tab": {

@@ -1033,9 +1033,13 @@
       "title": "Campaigns",
       "header": {
         "name": "Name",
-        "created": "Created at",
+        "created": "Created",
+        "updated": "Updated",
         "productnum": "Total Products",
-        "schedulednum": "Total Scheduled"
+        "schedulednum": "Total Scheduled",
+        "id": "ID",
+        "showprepaid": "Show Prepaid",
+        "allowprepaid": "Allow Prepaid"
       }
     },
     "tab": {

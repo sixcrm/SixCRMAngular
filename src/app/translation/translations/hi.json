@@ -1034,8 +1034,12 @@
       "header": {
         "name": "नाम",
         "created": "पर बनाया गया",
+        "updated": "अपडेट किया गया",
         "productnum": "कुल उत्पाद",
-        "schedulednum": "कुल अनुसूचित"
+        "schedulednum": "कुल अनुसूचित",
+        "id": "संबद्ध आईडी",
+        "allowprepaid": "प्रीपेड की अनुमति दें",
+        "showprepaid": "प्रीपेड दिखाएं"
       }
     },
     "tab": {

@@ -73,7 +73,7 @@ export function productScheduleResponseQuery(): string {
 }
 
 export function productScheduleInfoResponseQuery(): string {
-  return `id name loadbalancer {id name} created_at updated_at schedule { price}`
+  return `id name merchantprovidergroup {id name} created_at updated_at schedule { price}`
 }
 
 export function productScheduleInputQuery(productSchedule: ProductSchedule, includeId?: boolean): string {

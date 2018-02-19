@@ -1034,8 +1034,12 @@
       "header": {
         "name": "Name",
         "created": "Geschafft am",
+        "updated": "Aktualisiert am",
         "productnum": "Gesamtzahl der Produkte",
-        "schedulednum": "Gesamtbetrag der eingeplannte Kampagne"
+        "schedulednum": "Gesamtbetrag der eingeplannte Kampagne",
+        "id": "ID",
+        "allowprepaid": "Prepaid-Kreditkarte erlauben",
+        "showprepaid": "Prepaid-Kreditkarte ansehen"
       }
     },
     "tab": {
