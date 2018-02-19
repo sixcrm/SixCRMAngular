@@ -4,7 +4,7 @@
   <div *ngIf="showParams" class="params-container">
 
     <div class="option" *ngFor="let params of columnParams">
-      <md-checkbox [(ngModel)]="params.selected">
+      <md-checkbox class="checkbox-blue" [(ngModel)]="params.selected">
         <span>
           {{params.label | translate}}
         </span>
@@ -12,7 +12,6 @@
     </div>
 
     <div class="buttons">
-      <div (click)="cancel()">CANCEL</div>
       <div (click)="apply()">APPLY</div>
     </div>
   </div>

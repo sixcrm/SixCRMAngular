@@ -223,7 +223,13 @@
     "view": "दृश्य",
     "exp": "निर्यात",
     "edit": "संपादित करें",
-    "copy": " कॉपी "
+    "copy": " कॉपी ",
+    "selected": "items selected",
+    "actions": "Apply action",
+    "selectall": "Select all",
+    "deselectall": "Deselect all",
+    "filterall": "Filter",
+    "deleteall": "Delete"
   },
   "singlepage": {
     "created": "निर्मित",

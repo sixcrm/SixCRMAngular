@@ -223,7 +223,13 @@
 		"view": "Դիտել",
 		"exp": "Արտահանել",
 		"edit": "Խմբագրել",
-		"copy": "Պատճենել"
+		"copy": "Պատճենել",
+    "selected": "items selected",
+    "actions": "Apply action",
+    "selectall": "Select all",
+    "deselectall": "Deselect all",
+    "filterall": "Filter",
+    "deleteall": "Delete"
 	},
 	"singlepage": {
 		"created": "Ստեղծվել է",

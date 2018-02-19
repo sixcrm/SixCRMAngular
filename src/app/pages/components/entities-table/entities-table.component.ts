@@ -1,4 +1,4 @@
-import {Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
+import {Component, OnInit, EventEmitter, Output, Input, ViewChild} from '@angular/core';
 import {AbstractEntityService} from '../../../shared/services/abstract-entity.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
@@ -6,7 +6,8 @@ import {CustomServerError} from '../../../shared/models/errors/custom-server-err
 @Component({
   selector: 'entities-table',
   templateUrl: './entities-table.component.html',
-  styleUrls: ['./entities-table.component.scss']
+  styleUrls: ['./entities-table.component.scss'],
+  host: {'(document:click)': 'closeDropdown($event)'}
 })
 export class EntitiesTableComponent implements OnInit {
 
@@ -45,6 +46,11 @@ export class EntitiesTableComponent implements OnInit {
   @Output() previous: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() updateLimit: EventEmitter<number> = new EventEmitter<number>();
 
+  showActionOptions: boolean = false;
+
+  @ViewChild('options') options;
+  @ViewChild('arrow') arrow;
+
   constructor() { }
 
   ngOnInit() {
@@ -60,8 +66,8 @@ export class EntitiesTableComponent implements OnInit {
     }
   }
 
-  isMultipleSelected() {
-    return (this.data || []).filter(d => d.bulkSelected).length > 0;
+  numberOfSelected() {
+    return (this.data || []).filter(d => d.bulkSelected).length;
   }
 
   selectAll() {
@@ -69,7 +75,9 @@ export class EntitiesTableComponent implements OnInit {
       d.bulkSelected = true;
 
       return d;
-    })
+    });
+
+    this.showActionOptions = false;
   }
 
   deselectAll() {
@@ -77,18 +85,21 @@ export class EntitiesTableComponent implements OnInit {
       d.bulkSelected = false;
 
       return d;
-    })
+    });
+
+    this.showActionOptions = false;
   }
 
   deleteAll() {
     this.deleteManyClicked.emit(this.data.filter(d => d.bulkSelected));
   }
 
-  performSelectAction(value: boolean) {
-    if (value) {
-      this.selectAll();
-    } else {
-      this.deselectAll();
+  closeDropdown(event) {
+    if (!this.options || !this.arrow) return;
+
+    if (!this.options.nativeElement.contains(event.target) && !this.arrow.nativeElement.contains(event.target)) {
+      this.showActionOptions = false;
     }
   }
+
 }

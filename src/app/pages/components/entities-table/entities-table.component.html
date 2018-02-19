@@ -1,6 +1,24 @@
 <server-error-message (refresh)="refreshData.emit(true)" *ngIf="serverError; else tableData;"></server-error-message>
 
 <ng-template #tableData>
+  <div class="entity-index__table__bulk-actions" [class.entity-index__table__bulk-actions--visible]="numberOfSelected() > 0">
+    <ng-container *ngIf="numberOfSelected() > 0">
+      <div class="text">{{numberOfSelected()}} {{'INDEXPAGE_SELECTED' | translate}}</div>
+      <div class="options">
+        <div class="actions">{{'INDEXPAGE_ACTIONS' | translate}}</div>
+        <div #arrow>
+          <md-icon (click)="showActionOptions = !showActionOptions" class="arrow" [class.arrow--rotated]="showActionOptions">keyboard_arrow_down</md-icon>
+        </div>
+        <div #options *ngIf="showActionOptions" class="options__container">
+          <div class="item" (click)="selectAll()">{{'INDEXPAGE_SELECTALL' | translate}}</div>
+          <div class="item" (click)="deselectAll()">{{'INDEXPAGE_DESELECTALL' | translate}}</div>
+          <div class="item">{{'INDEXPAGE_FILTERALL' | translate}}</div>
+          <div class="item" (click)="deleteAll()">{{'INDEXPAGE_DELETEALL' | translate}}</div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
   <table class="entity-index__table highlight">
     <thead class="entity-index__table__header">
     <tr>
@@ -13,11 +31,7 @@
           </th>
         </ng-container>
       </ng-container>
-      <th>
-        <md-icon style="left: 12px;" [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-        <md-menu #actionsMenu="mdMenu" x-position="before">
-          <button *ngIf="isMultipleSelected()" (click)="deleteAll()" md-menu-item>Delete All Selected</button>
-        </md-menu></th>
+      <th></th>
     </tr>
     </thead>
 
@@ -25,7 +39,7 @@
     <ng-container *ngFor="let entity of (data | filterEntitiesByParams: columnParams: filterString | sortEntities: sortParams.mappingFunction: sortParams.sortOrder)">
       <tr [class.selected]="entity.bulkSelected">
         <td class="bulk-option">
-          <md-checkbox [(ngModel)]="entity.bulkSelected"></md-checkbox>
+          <md-checkbox class="checkbox-blue" [(ngModel)]="entity.bulkSelected"></md-checkbox>
         </td>
         <ng-container *ngFor="let param of columnParams">
           <ng-container *ngIf="param.selected">
@@ -67,8 +81,6 @@
     [paginationValues]="paginationValues"
     [previousDisabled]="previousDisabled"
     [nextDisabled]="nextDisabled"
-    [showCheckbox]="data && data.length > 0"
-    (checkboxToggled)="performSelectAction($event)"
     (previous)="previous.emit(true)"
     (next)="next.emit(true)"
     (updateLimit)="updateLimit.emit($event)">

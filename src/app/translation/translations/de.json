@@ -223,7 +223,13 @@
     "view": "Ansehen",
     "exp": "Exportieren",
     "edit": "Bearbeiten",
-    "copy": "Kopieren"
+    "copy": "Kopieren",
+    "selected": "items selected",
+    "actions": "Apply action",
+    "selectall": "Select all",
+    "deselectall": "Deselect all",
+    "filterall": "Filter",
+    "deleteall": "Delete"
   },
   "singlepage": {
     "created": "Geschafft am",

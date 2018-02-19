@@ -6,7 +6,7 @@ $title-color: #8D8888;
   &__title {
     display: flex;
     align-items: center;
-    padding: 10px 55px;
+    padding: 10px 55px 10px 80px;
     font-size: 20px;
     font-weight: 500;
     color: $title-color;
@@ -43,6 +43,7 @@ $title-color: #8D8888;
     background: #498FE1;
     font-size: 18px !important;
     z-index: 1;
+    box-shadow: 0 2px 10px 0 rgba(0,0,0,0.16), 0 2px 5px 0 rgba(0,0,0,0.26);
 
     md-icon {
       color: white;
@@ -77,6 +78,72 @@ $title-color: #8D8888;
   &__table {
     color: #666666;
     font-size: 12px;
+
+    .md-checkbox-inner-container {
+      margin: auto;
+      width: 18px;
+      height: 18px;
+    }
+
+    &__bulk-actions {
+      display: flex;
+      align-items: center;
+      height: 0;
+      background: #4A90E2;
+      transition: height 150ms ease-in-out;
+
+      &--visible {
+        height: 48px;
+      }
+
+      .text {
+        font-size: 14px;
+        font-weight: 500;
+        color: white;
+        margin-left: 80px;
+      }
+
+      .actions {
+        font-size: 14px;
+        font-weight: 500;
+        color: white;
+      }
+
+      .options {
+        position: relative;
+        display: flex;
+        margin-left: 55px;
+        align-items: center;
+
+        &__container {
+          position: absolute;
+          z-index: 1;
+          top: 30px;
+          background: white;
+          box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+
+          .item {
+            padding: 8px 16px;
+            cursor: pointer;
+            min-width: 110px;
+
+            &:hover {
+              background: #f2f2f2;
+            }
+          }
+        }
+      }
+
+      .arrow {
+        color: white;
+        cursor: pointer;
+        transition: rotate 250ms ease-in-out;
+
+        &--rotated {
+          transform: rotate(180deg);
+        }
+      }
+    }
 
     &__header {
       box-shadow: 0 2px 5px #d0d0d0;

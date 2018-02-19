@@ -223,7 +223,13 @@
     "view": "查看",
     "exp": "输出",
     "edit": "编辑",
-    "copy": "复制"
+    "copy": "复制",
+    "selected": "items selected",
+    "actions": "Apply action",
+    "selectall": "Select all",
+    "deselectall": "Deselect all",
+    "filterall": "Filter",
+    "deleteall": "Delete"
   },
   "singlepage": {
     "created": "创建",
