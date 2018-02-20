@@ -28,8 +28,8 @@ export class MerchantProviderGroupsComponent extends AbstractEntityIndexComponen
     this.entityFactory = () => new MerchantProviderGroup();
 
     this.columnParams = [
-      new ColumnParams('LOADBALANCER_INDEX_HEADER_NAME', (e: MerchantProviderGroup) => e.name),
-      new ColumnParams('LOADBALANCER_INDEX_HEADER_MERCHANTNUM',(e: MerchantProviderGroup) => e.merchantProviderConfigurations.length.toString(), 'right').setNumberOption(true)
+      new ColumnParams('MERCHANTPROVIDERGROUP_INDEX_HEADER_NAME', (e: MerchantProviderGroup) => e.name),
+      new ColumnParams('MERCHANTPROVIDERGROUP_INDEX_HEADER_MERCHANTNUM',(e: MerchantProviderGroup) => e.merchantProviderConfigurations.length.toString(), 'right').setNumberOption(true)
     ];
   }
 

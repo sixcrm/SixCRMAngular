@@ -1,17 +1,17 @@
 <div class="entity-view__card entity-view__card--create">
   <div class="entity-view__card__header">
-    <div class="entity-view__card__header__title">{{'LOADBALANCER_INFO_CREATETITLE' | translate}}</div>
+    <div class="entity-view__card__header__title">{{'MERCHANTPROVIDERGROUP_INFO_CREATETITLE' | translate}}</div>
   </div>
 
   <form class="entity-view__card__content">
     <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-      <input autoFocus required md-input placeholder="{{'LOADBALANCER_INFO_NAME' | translate}}" [(ngModel)]="entity.name" name="name" type="text">
+      <input autoFocus required md-input placeholder="{{'MERCHANTPROVIDERGROUP_INFO_NAME' | translate}}" [(ngModel)]="entity.name" name="name" type="text">
     </md-input-container>
   </form>
 
   <div class="entity-view__card__actions">
-    <div (click)="cancel.emit(true)">{{'LOADBALANCER_INFO_CANCEL' | translate}}</div>
-    <div (click)="saveMerchantProviderGroup()">{{'LOADBALANCER_INFO_SAVE' | translate}}</div>
+    <div (click)="cancel.emit(true)">{{'MERCHANTPROVIDERGROUP_INFO_CANCEL' | translate}}</div>
+    <div (click)="saveMerchantProviderGroup()">{{'MERCHANTPROVIDERGROUP_INFO_SAVE' | translate}}</div>
   </div>
 </div>
 

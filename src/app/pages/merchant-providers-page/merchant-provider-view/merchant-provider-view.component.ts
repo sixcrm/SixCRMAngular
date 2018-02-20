@@ -24,19 +24,19 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
   formInvalid: boolean;
 
   merchantProviderGroupColumnParams = [
-    new ColumnParams('MERCHANTPROVIDER_LOADBALANCER_NAME', (e: MerchantProviderGroup) => e.name || e.id)
+    new ColumnParams('MERCHANTPROVIDER_MERCHANTPROVIDERGROUP_NAME', (e: MerchantProviderGroup) => e.name || e.id)
   ];
   merchantProviderGroupMapper = (l: MerchantProviderGroup) => l.name || l.id;
   merchantProviderGroupText: TableMemoryTextOptions = {
-    title: 'MERCHANTPROVIDER_LOADBALANCER_TITLE',
-    viewOptionText: 'MERCHANTPROVIDER_LOADBALANCER_VIEW',
-    noDataText: 'MERCHANTPROVIDER_LOADBALANCER_NODATA'
+    title: 'MERCHANTPROVIDER_MERCHANTPROVIDERGROUP_TITLE',
+    viewOptionText: 'MERCHANTPROVIDER_MERCHANTPROVIDERGROUP_VIEW',
+    noDataText: 'MERCHANTPROVIDER_MERCHANTPROVIDERGROUP_NODATA'
   };
 
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'MERCHANTPROVIDER_TAB_GENERAL'},
     {name: 'precessing', label: 'MERCHANTPROVIDER_TAB_PROCESSING'},
-    {name: 'merchantprovidergroups', label: 'MERCHANTPROVIDER_TAB_LOADBALANCER'}
+    {name: 'merchantprovidergroups', label: 'MERCHANTPROVIDER_TAB_MERCHANTPROVIDERGROUP'}
   ];
 
   constructor(

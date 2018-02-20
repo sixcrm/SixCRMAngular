@@ -28,16 +28,16 @@ export class MerchantProviderGroupViewComponent extends AbstractEntityViewCompon
   selectedIndex: number = 0;
 
   merchantProviderColumnParams = [
-    new ColumnParams('LOADBALANCER_MERCHANT_MERCHANT', (e: MerchantProviderConfiguration) => e.merchantProvider.name),
-    new ColumnParams('LOADBALANCER_MERCHANT_DISTRIBUTION',(e: MerchantProviderConfiguration) => e.distribution, 'right').setNumberOption(true)
+    new ColumnParams('MERCHANTPROVIDERGROUP_MERCHANT_MERCHANT', (e: MerchantProviderConfiguration) => e.merchantProvider.name),
+    new ColumnParams('MERCHANTPROVIDERGROUP_MERCHANT_DISTRIBUTION',(e: MerchantProviderConfiguration) => e.distribution, 'right').setNumberOption(true)
   ];
   merchantProviderConfigMapper = (e: MerchantProviderConfiguration) => e.merchantProvider.name;
   merchantText: TableMemoryTextOptions = {
-    title: 'LOADBALANCER_MERCHANT_TITLE',
-    viewOptionText: 'LOADBALANCER_MERCHANT_VIEW',
-    disassociateOptionText: 'LOADBALANCER_MERCHANT_DISASSOCIATE',
-    disassociateModalTitle: 'LOADBALANCER_MERCHANT_DISASSOCIATETEXT',
-    noDataText: 'LOADBALANCER_MERCHANT_NODATA'
+    title: 'MERCHANTPROVIDERGROUP_MERCHANT_TITLE',
+    viewOptionText: 'MERCHANTPROVIDERGROUP_MERCHANT_VIEW',
+    disassociateOptionText: 'MERCHANTPROVIDERGROUP_MERCHANT_DISASSOCIATE',
+    disassociateModalTitle: 'MERCHANTPROVIDERGROUP_MERCHANT_DISASSOCIATETEXT',
+    noDataText: 'MERCHANTPROVIDERGROUP_MERCHANT_NODATA'
   };
 
   providerToAdd: MerchantProviderConfiguration = new MerchantProviderConfiguration();
@@ -46,10 +46,10 @@ export class MerchantProviderGroupViewComponent extends AbstractEntityViewCompon
   formInvalid: boolean;
   detailsFormInvalid: boolean;
 
-  customOptions: CustomMenuOption[] = [{label: 'LOADBALANCER_MERCHANT_EDIT'}];
+  customOptions: CustomMenuOption[] = [{label: 'MERCHANTPROVIDERGROUP_MERCHANT_EDIT'}];
 
   tabHeaders: TabHeaderElement[] = [
-    {name: 'general', label: 'LOADBALANCER_TAB_GENERAL'}
+    {name: 'general', label: 'MERCHANTPROVIDERGROUP_TAB_GENERAL'}
   ];
 
   constructor(service: MerchantProviderGroupsService,

@@ -4,17 +4,17 @@ import {SidenavPage} from '../po/sidenav.po';
 import {login} from '../utils/action.utils';
 import {browser} from 'protractor';
 import {expectUrlToContain, expectDefined} from '../utils/assertation.utils';
-import {LoadBalancerPage} from '../po/load-balancer.po';
 import {EntityViewPage} from '../po/entity-view.po';
+import {MerchantProviderGroupPage} from '../po/merchant-provider-group.po';
 
-describe('Load Balancer', function() {
+describe('Merchant Provider Group', function() {
   let page: EntityIndexPage;
-  let loadBalancer: LoadBalancerPage;
+  let merchantProviderGroup: MerchantProviderGroupPage;
   let view: EntityViewPage;
 
   beforeEach(() => {
     page = new EntityIndexPage();
-    loadBalancer = new LoadBalancerPage();
+    merchantProviderGroup = new MerchantProviderGroupPage();
     view = new EntityViewPage();
   });
 
@@ -55,28 +55,28 @@ describe('Load Balancer', function() {
 
   it('should render add modal when add button is clicked', () => {
     page.getAddButton().click();
-    expectDefined(loadBalancer.getNewForm());
+    expectDefined(merchantProviderGroup.getNewForm());
   });
 
   it('should show errors when try to submit empty form', () => {
-    loadBalancer.getNewFormSaveButton().click();
-    expect(loadBalancer.getErrorInputs().count()).toBeGreaterThan(1);
+    merchantProviderGroup.getNewFormSaveButton().click();
+    expect(merchantProviderGroup.getErrorInputs().count()).toBeGreaterThan(1);
   });
 
   it('should remove errors when form is valid', () => {
-    loadBalancer.getNewFormInputs().get(0).sendKeys('e2e load balancer');
-    expect(loadBalancer.getErrorInputs().count()).toEqual(0);
+    merchantProviderGroup.getNewFormInputs().get(0).sendKeys('e2e load balancer');
+    expect(merchantProviderGroup.getErrorInputs().count()).toEqual(0);
   });
 
   it('should create new product schedule and redirect product schedule view', () => {
-    loadBalancer.getNewFormSaveButton().click();
+    merchantProviderGroup.getNewFormSaveButton().click();
     waitForUrlContains('merchantprovidergroups/');
     expectUrlToContain('merchantprovidergroups/');
   });
 
   it('should display product schedule details', () => {
     browser.sleep(2000);
-    expect(loadBalancer.getLoadBalancerName().getText()).toEqual('e2e load balancer');
+    expect(merchantProviderGroup.getMerchantProviderGroupName().getText()).toEqual('e2e load balancer');
   });
 
   it('should update load balancer', () => {

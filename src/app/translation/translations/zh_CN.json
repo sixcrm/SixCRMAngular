@@ -55,7 +55,7 @@
       "merchant": {
         "title": "批发商品",
         "merchantprovider": "商品提供商",
-        "loadbalancer": "负载平衡器"
+        "merchantprovidergroup": "负载平衡器"
       }
     },
     "settings": {
@@ -974,7 +974,7 @@
       "title": "产品进度表",
       "header": {
         "name": "名称",
-        "loadbalancer": "负载平衡器",
+        "merchantprovidergroup": "负载平衡器",
         "numofcycles": "周期数"
       }
     },
@@ -986,11 +986,11 @@
       "createtitle": "创建新的产品计划",
       "title": "产品进度细节",
       "name": "产品计划名称",
-      "loadbalancer": "负载平衡器",
+      "merchantprovidergroup": "负载平衡器",
       "cancel": "取消",
       "save": "保存",
       "edit": "编辑产品进度表",
-      "viewloadbalancer": "View 负载平衡器"
+      "viewmerchantprovidergroup": "View 负载平衡器"
     },
     "cycle": {
       "addtitle": "添加周期",
@@ -1388,7 +1388,7 @@
       "title": "相关产品时间表",
       "nodata": "找不到产品时间表",
       "name": "名称",
-      "loadbalancer": "负载平衡器",
+      "merchantprovidergroup": "负载平衡器",
       "count": "循环次数"
     },
     "transaction": {
@@ -1521,7 +1521,7 @@
       "validate": "验证"
     }
   },
-  "loadbalancer": {
+  "merchantprovidergroup": {
     "title": "负载平衡器",
     "index": {
       "title": "负载平衡器",
@@ -1568,7 +1568,7 @@
     "tab": {
       "general": "一般细节",
       "processing": "处理",
-      "loadbalancer": "负载平衡"
+      "merchantprovidergroup": "负载平衡"
     },
     "info": {
       "edit": "编辑商家供应商",
@@ -1611,7 +1611,7 @@
         "description": "描述"
       }
     },
-    "loadbalancer": {
+    "merchantprovidergroup": {
       "title": "关联的负载平衡器",
       "view": "查看负载平衡器",
       "nodata": "找不到负载平衡器。",

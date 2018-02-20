@@ -107,7 +107,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
     merchants.push(new MenuItem('SIDENAV_CRM_MERCHANT_MERCHANTPROVIDER', 'merchantproviders'))
   }
   if (authService.hasPermissions('merchantprovidergroup', 'view')) {
-    merchants.push(new MenuItem('SIDENAV_CRM_MERCHANT_LOADBALANCER', 'merchantprovidergroups'))
+    merchants.push(new MenuItem('SIDENAV_CRM_MERCHANT_MERCHANTPROVIDERGROUP', 'merchantprovidergroups'))
   }
   if (merchants.length > 0) {
     crmItems.push(new MenuItem('SIDENAV_CRM_MERCHANT_TITLE', null, merchants));

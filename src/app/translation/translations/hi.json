@@ -55,7 +55,7 @@
       "merchant": {
         "title": "व्यापारी",
         "merchantprovider": "व्यापारी प्रदाता",
-        "loadbalancer": "लोड बालांसर्स"
+        "merchantprovidergroup": "लोड बालांसर्स"
       }
     },
     "settings": {
@@ -974,7 +974,7 @@
       "title": "उत्पाद शेड्यूल",
       "header": {
         "name": "नाम",
-        "loadbalancer": "भार संतुलन",
+        "merchantprovidergroup": "भार संतुलन",
         "numofcycles": "चक्र की संख्या"
       }
     },
@@ -986,11 +986,11 @@
       "createtitle": "नया उत्पाद शेड्यूल बनाएं",
       "title": "उत्पाद अनुसूची विवरण",
       "name": "उत्पाद अनुसूची नाम",
-      "loadbalancer": "भार संतुलन",
+      "merchantprovidergroup": "भार संतुलन",
       "cancel": "रद्द करें",
       "save": "सुरक्षित करें",
       "edit": "उत्पाद अनुसूची संपादित करें",
-      "viewloadbalancer": "View Merchant Provider Group"
+      "viewmerchantprovidergroup": "View Merchant Provider Group"
     },
     "cycle": {
       "addtitle": "साइकिल जोड़ें",
@@ -1388,7 +1388,7 @@
       "title": "Associated Product Schedules",
       "nodata": "No Product Schedules found.",
       "name": "Name",
-      "loadbalancer": "Merchant Provider Group",
+      "merchantprovidergroup": "Merchant Provider Group",
       "count": "Number of cycles"
     },
     "transaction": {
@@ -1521,7 +1521,7 @@
       "validate": "सत्यापित करें"
     }
   },
-  "loadbalancer": {
+  "merchantprovidergroup": {
     "title": "लोड बैलेंसर्स",
     "index": {
       "title": "लोड बैलेंसर्स",
@@ -1568,7 +1568,7 @@
     "tab": {
       "general": "सामान्य विवरण",
       "processing": "प्रसंस्करण",
-      "loadbalancer": "भार संतुलन"
+      "merchantprovidergroup": "भार संतुलन"
     },
     "info": {
       "edit": "मर्चेंट प्रदाता को संपादित करें",
@@ -1611,7 +1611,7 @@
         "description": "विवरण"
       }
     },
-    "loadbalancer": {
+    "merchantprovidergroup": {
       "title": "एसोसिएटेड लोड बैलेंसर्स",
       "view": "लोड संतुलन देखें",
       "nodata": "कोई लोड बैलेंसर्स नहीं मिला.",

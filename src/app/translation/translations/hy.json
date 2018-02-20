@@ -55,7 +55,7 @@
       "merchant": {
         "title": "Վաճառողներ",
         "merchantprovider": "Վաճառող մատակարարներ",
-        "loadbalancer": "Բեռի հավասարակշռողներ"
+        "merchantprovidergroup": "Բեռի հավասարակշռողներ"
       }
 		},
 		"settings": {
@@ -974,7 +974,7 @@
 			"title": "Ապրանքի հերթացուցակներ",
 			"header": {
 				"name": "Անուն",
-				"loadbalancer": "Բեռի հավասարակշռող",
+				"merchantprovidergroup": "Բեռի հավասարակշռող",
 				"numofcycles": "Ցիկլերի քանակը"
 			}
 		},
@@ -986,11 +986,11 @@
 			"createtitle": "Ստեղծել նոր ապրանքի հերթացուցակ",
 			"title": "Ապրանքի հերթացուցակի մանրամասներ",
 			"name": "Ապրանքի հերթացուցակի անունը",
-			"loadbalancer": "Բեռի հավասարակշռող",
+			"merchantprovidergroup": "Բեռի հավասարակշռող",
 			"cancel": "ՉԵՂԱՐԿԵԼ",
 			"save": "ՊԱՀՊԱՆԵԼ",
 			"edit": "Խմբագրել ապրանքի հերթացուցակը",
-      "viewloadbalancer": "View Merchant Provider Group"
+      "viewmerchantprovidergroup": "View Merchant Provider Group"
     },
 		"cycle": {
 			"addtitle": "Ավելացնել ցիկլ",
@@ -1388,7 +1388,7 @@
       "title": "Associated Product Schedules",
       "nodata": "No Product Schedules found.",
       "name": "Name",
-      "loadbalancer": "Merchant Provider Group",
+      "merchantprovidergroup": "Merchant Provider Group",
       "count": "Number of cycles"
     },
     "transaction": {
@@ -1521,7 +1521,7 @@
 			"validate": "ՎԱՎԵՐԱՑՆԵԼ"
 		}
 	},
-	"loadbalancer": {
+	"merchantprovidergroup": {
 		"title": "Բեռի հավասարակշռող",
 		"index": {
 			"title": "Բեռի հավասարակշռողներ",
@@ -1568,7 +1568,7 @@
 		"tab": {
 			"general": "ԸՆԴՀԱՆՈՒՐ ՄԱՆՐԱՄԱՍՆԵՐ",
 			"processing": "ՄՇԱԿՈՒՄ",
-			"loadbalancer": "ԲԵՌՆԵԼՈՒ ՀԱՎԱՍԱՐԱԿՇՌՈՒՄ"
+			"merchantprovidergroup": "ԲԵՌՆԵԼՈՒ ՀԱՎԱՍԱՐԱԿՇՌՈՒՄ"
 		},
 		"info": {
 			"edit": "ԽՄԲԱԳՐԵԼ ԾԱՌԱՅՈՒԹՅԱՆ ՄԱՏԱԿԱՐԱՐԸ",
@@ -1611,7 +1611,7 @@
 				"description": "Նկարագրություն"
 			}
 		},
-		"loadbalancer": {
+		"merchantprovidergroup": {
 			"title": "Համակցված բեռնելու հավասարակշում",
 			"view": "Դիտել բեռնելու հավասարակշումը",
 			"nodata": "Բեռնելու հավասարակշումներ չկան",

@@ -50,7 +50,7 @@
       "merchant": {
         "title": "Händler",
         "merchantprovider": "Merchant Anbieter",
-        "loadbalancer": "Merchantanbietergruppe"
+        "merchantprovidergroup": "Merchantanbietergruppe"
       },
       "providers": {
         "title": "3rd Party Anbieter",
@@ -974,7 +974,7 @@
       "title": "Produktzyklen",
       "header": {
         "name": "Name",
-        "loadbalancer": "Merchantanbietergruppe",
+        "merchantprovidergroup": "Merchantanbietergruppe",
         "numofcycles": "Anzahl der Zyklen"
       }
     },
@@ -986,11 +986,11 @@
       "createtitle": "Neue Produktzyklys hinzufügen",
       "title": "Einzelheiter des Produktzyklus",
       "name": "Name des Produktzyklus",
-      "loadbalancer": "Merchantanbietergruppe",
+      "merchantprovidergroup": "Merchantanbietergruppe",
       "cancel": "ABBRECHEN",
       "save": "SPEICHERN",
       "edit": "Produktzyklus bearbeiten",
-      "viewloadbalancer": "Merchantanbietergruppe ansehen"
+      "viewmerchantprovidergroup": "Merchantanbietergruppe ansehen"
     },
     "cycle": {
       "addtitle": "Zyklus hinzufügen",
@@ -1388,7 +1388,7 @@
       "title": "Associated Product Schedules",
       "nodata": "No Product Schedules found.",
       "name": "Name",
-      "loadbalancer": "Merchantenbietergruppe",
+      "merchantprovidergroup": "Merchantenbietergruppe",
       "count": "Number of cycles"
     },
     "transaction": {
@@ -1521,7 +1521,7 @@
       "validate": "SMTP ANBIETER BESTÄTIGEN"
     }
   },
-  "loadbalancer": {
+  "merchantprovidergroup": {
     "title": "Merchantanbietergruppe",
     "index": {
       "title": "Lastverteilunger",
@@ -1568,7 +1568,7 @@
     "tab": {
       "general": "ALLGEIMEINES",
       "processing": "BEARBEITUNG",
-      "loadbalancer": "MERCHANTANBIETERGRUPPIERUNG"
+      "merchantprovidergroup": "MERCHANTANBIETERGRUPPIERUNG"
     },
     "info": {
       "edit": "Merchant Anbieter bearbeiten",
@@ -1611,7 +1611,7 @@
         "description": "Beschreibung"
       }
     },
-    "loadbalancer": {
+    "merchantprovidergroup": {
       "title": "Verbundene Lastverteiler",
       "view": "Lastverteiler ansehen",
       "nodata": "Keine Lastverteiler gefunden.",
