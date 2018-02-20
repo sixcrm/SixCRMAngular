@@ -151,11 +151,11 @@ describe('Navigation', function() {
     expectUrlToContain('merchantproviders');
   });
 
-  it('should navigate to loadbalancers', () => {
+  it('should navigate to merchantProviderGroups', () => {
     sidenav.getLink(28).click();
 
-    waitForUrlContains('loadbalancers');
-    expectUrlToContain('loadbalancers');
+    waitForUrlContains('merchantProviderGroups');
+    expectUrlToContain('merchantProviderGroups');
   });
 
   it('should navigate to accounts', () => {

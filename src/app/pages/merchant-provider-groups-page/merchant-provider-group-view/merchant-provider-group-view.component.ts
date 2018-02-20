@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
-import {LoadBalancer} from '../../../shared/models/load-balancer.model';
-import {LoadBalancersService} from '../../../shared/services/load-balancers.service';
+import {MerchantProviderGroup} from '../../../shared/models/merchant-provider-group.model';
+import {MerchantProviderGroupsService} from '../../../shared/services/merchant-provider-groups.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {MerchantProviderConfiguration} from '../../../shared/models/merchant-provider-configuration.model';
@@ -19,11 +19,11 @@ import {isAllowedFloatNumeric} from '../../../shared/utils/form.utils';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 
 @Component({
-  selector: 'load-balancer-view',
-  templateUrl: './load-balancer-view.component.html',
-  styleUrls: ['./load-balancer-view.component.scss']
+  selector: 'merchant-provider-group-view',
+  templateUrl: './merchant-provider-group-view.component.html',
+  styleUrls: ['./merchant-provider-group-view.component.scss']
 })
-export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadBalancer> implements OnInit, OnDestroy {
+export class MerchantProviderGroupViewComponent extends AbstractEntityViewComponent<MerchantProviderGroup> implements OnInit, OnDestroy {
 
   selectedIndex: number = 0;
 
@@ -52,7 +52,7 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
     {name: 'general', label: 'LOADBALANCER_TAB_GENERAL'}
   ];
 
-  constructor(service: LoadBalancersService,
+  constructor(service: MerchantProviderGroupsService,
               route: ActivatedRoute,
               public navigation: NavigationService,
               public router: Router,
@@ -66,7 +66,7 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
     super.init(() => this.navigation.goToNotFoundPage());
 
     if (this.addMode) {
-      this.entity = new LoadBalancer();
+      this.entity = new MerchantProviderGroup();
       this.entityBackup = this.entity.copy();
       this.merchantProviderService.getEntities();
     }
@@ -118,7 +118,7 @@ export class LoadBalancerViewComponent extends AbstractEntityViewComponent<LoadB
     return !this.providerToAdd.merchantProvider.id && !this.providerToAdd.distribution && this.checkIfChanged();
   }
 
-  updateLoadBalancer() {
+  updateMerchantProviderGroup() {
     this.detailsFormInvalid = !this.entity.name;
     if (this.detailsFormInvalid) return;
 

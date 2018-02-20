@@ -3,7 +3,7 @@ import {MerchantProviderCustomerService} from './merchant-provider-customer-serv
 import {MerchantProviderGateway} from './merchant-provider-gateway.model';
 import {MerchantProviderProcessingConfig} from './merchant-provider-processing-config.model';
 import {MerchantProviderProcessor} from './merchant-provider-processor.model';
-import {LoadBalancer} from '../load-balancer.model';
+import {MerchantProviderGroup} from '../merchant-provider-group.model';
 
 export class MerchantProvider implements Entity<MerchantProvider>{
   id: string;
@@ -15,7 +15,7 @@ export class MerchantProvider implements Entity<MerchantProvider>{
   gateway: MerchantProviderGateway;
   processing: MerchantProviderProcessingConfig;
   processor: MerchantProviderProcessor;
-  loadbalancers: LoadBalancer[];
+  merchantProviderGroups: MerchantProviderGroup[];
 
   constructor(obj?: any) {
     if (!obj) {
@@ -32,8 +32,8 @@ export class MerchantProvider implements Entity<MerchantProvider>{
     this.processing = new MerchantProviderProcessingConfig(obj.processing);
     this.processor = new MerchantProviderProcessor(obj.processor);
 
-    if (obj.loadbalancers) {
-      this.loadbalancers = obj.loadbalancers.map(lb => new LoadBalancer(lb));
+    if (obj.merchantprovidergroups) {
+      this.merchantProviderGroups = obj.merchantprovidergroups.map(lb => new MerchantProviderGroup(lb));
     }
   }
 

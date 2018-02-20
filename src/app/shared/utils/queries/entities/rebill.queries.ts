@@ -75,7 +75,7 @@ export function rebillResponseQuery(): string {
       campaign { id, name }
     }
     product_schedules { id, name,
-      loadbalancer { name },
+      merchantprovidergroup { id name },
       schedule { price start end period,
         product { id name sku }
       }

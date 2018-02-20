@@ -1,10 +1,10 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Campaign} from '../../../../shared/models/campaign.model';
 import {Modes} from '../../../abstract-entity-view.component';
-import {LoadBalancer} from '../../../../shared/models/load-balancer.model';
-import {LoadBalancersService} from '../../../../shared/services/load-balancers.service';
+import {MerchantProviderGroup} from '../../../../shared/models/merchant-provider-group.model';
+import {MerchantProviderGroupsService} from '../../../../shared/services/merchant-provider-groups.service';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
-import {LoadBalancerAssociation} from '../../../../shared/models/load-balancer-association.model';
+import {MerchantProviderGroupAssociation} from '../../../../shared/models/merchant-provider-group-association.model';
 
 @Component({
   selector: 'campaign-add-new',
@@ -20,22 +20,22 @@ export class CampaignAddNewComponent implements OnInit {
   @Output() changeMode: EventEmitter<Modes> = new EventEmitter();
   @Output() cancel: EventEmitter<boolean> = new EventEmitter();
 
-  loadBalancers: LoadBalancer[] = [];
-  loadBalancerMapper = (loadBalancer: LoadBalancer) => loadBalancer ? loadBalancer.name : null;
+  merchantProviderGroups: MerchantProviderGroup[] = [];
+  merchantProviderGroupMapper = (merchantProviderGroup: MerchantProviderGroup) => merchantProviderGroup ? merchantProviderGroup.name : null;
 
   modes = Modes;
   formInvalid: boolean;
 
-  constructor(private loadBalancersService: LoadBalancersService) { }
+  constructor(private merchantProviderGroupsService: MerchantProviderGroupsService) { }
 
   ngOnInit() {
-    this.loadBalancersService.entities$.take(1).subscribe((data) => {
+    this.merchantProviderGroupsService.entities$.take(1).subscribe((data) => {
       if (data instanceof CustomServerError) return;
 
-      this.loadBalancers = data.slice();
+      this.merchantProviderGroups = data.slice();
     });
 
-    this.loadBalancersService.getEntities();
+    this.merchantProviderGroupsService.getEntities();
   }
 
   saveCampaign() {
@@ -45,23 +45,23 @@ export class CampaignAddNewComponent implements OnInit {
     this.save.emit(this.entity);
   }
 
-  setAssociatedLoadBalancer(loadBalancer: LoadBalancer) {
-    this.entity.loadbalancerAssociations = this.entity.loadbalancerAssociations.filter(a => a.id).map(a => {
-      a.loadbalancer = new LoadBalancer();
+  setAssociatedMerchantProviderGroup(merchantProviderGroup: MerchantProviderGroup) {
+    this.entity.merchantProviderGroupAssociations = this.entity.merchantProviderGroupAssociations.filter(a => a.id).map(a => {
+      a.merchantProviderGroup = new MerchantProviderGroup();
 
       return a;
     });
 
-    this.entity.loadbalancerAssociations.push(new LoadBalancerAssociation({loadbalancer: loadBalancer}));
+    this.entity.merchantProviderGroupAssociations.push(new MerchantProviderGroupAssociation({merchantprovidergroup: merchantProviderGroup}));
   }
 
   removeAssociations() {
     if (this.mode === Modes.View) return;
 
-    this.entity.loadbalancerAssociations = this.entity.loadbalancerAssociations.filter(a => a.id);
+    this.entity.merchantProviderGroupAssociations = this.entity.merchantProviderGroupAssociations.filter(a => a.id);
 
-    if (!this.entity.loadbalancerAssociations || !this.entity.loadbalancerAssociations[0]) return;
+    if (!this.entity.merchantProviderGroupAssociations || !this.entity.merchantProviderGroupAssociations[0]) return;
 
-    this.entity.loadbalancerAssociations[0].loadbalancer = new LoadBalancer();
+    this.entity.merchantProviderGroupAssociations[0].merchantProviderGroup = new MerchantProviderGroup();
   }
 }

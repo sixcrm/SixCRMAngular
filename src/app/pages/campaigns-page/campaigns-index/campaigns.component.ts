@@ -8,7 +8,7 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {Currency} from '../../../shared/utils/currency/currency';
-import {LoadBalancerAssociationsService} from '../../../shared/services/load-balancer-associations.service';
+import {MerchantProviderGroupAssociationsService} from '../../../shared/services/merchant-provider-group-associations.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
@@ -25,7 +25,7 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute,
-    private loadBalancerAssociationService: LoadBalancerAssociationsService
+    private merchantProviderGroupAssociationService: MerchantProviderGroupAssociationsService
   ) {
     super(campaignService, auth, dialog, paginationService, router, activatedRoute);
 
@@ -58,9 +58,9 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
   }
 
   createCampaign(campaign: Campaign) {
-    if (campaign.loadbalancerAssociations && campaign.loadbalancerAssociations.length === 1) {
+    if (campaign.merchantProviderGroupAssociations && campaign.merchantProviderGroupAssociations.length === 1) {
 
-      this.loadBalancerAssociationService.entityCreated$.take(1).takeUntil(this.unsubscribe$).subscribe(lba => {
+      this.merchantProviderGroupAssociationService.entityCreated$.take(1).takeUntil(this.unsubscribe$).subscribe(lba => {
         if (lba instanceof CustomServerError) return;
 
         this.viewEntity(lba.entity)
@@ -69,12 +69,12 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
       this.service.entityCreated$.take(1).takeUntil(this.unsubscribe$).subscribe(c => {
         if (c instanceof CustomServerError) return;
 
-        const lba = campaign.loadbalancerAssociations[0].copy();
+        const lba = campaign.merchantProviderGroupAssociations[0].copy();
         lba.entity = c.id;
         lba.entityType = 'campaign';
         lba.campaign = c.inverse();
 
-        this.loadBalancerAssociationService.createEntity(lba);
+        this.merchantProviderGroupAssociationService.createEntity(lba);
       });
 
     }

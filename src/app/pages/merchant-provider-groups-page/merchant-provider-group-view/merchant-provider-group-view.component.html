@@ -25,7 +25,7 @@
       <div *ngIf="viewMode; else editButtons" class="entity-view__info__edit__update" (click)="setMode(modes.Update)">{{'LOADBALANCER_INFO_EDIT' | translate}}</div>
       <ng-template #editButtons>
         <div *ngIf="updateMode" (click)="cancelUpdate()">{{'LOADBALANCER_INFO_CANCEL' | translate}}</div>
-        <div class="entity-view__info__edit__update" (click)="updateLoadBalancer()"> {{ (addMode ? 'LOADBALANCER_INFO_SAVE' : 'LOADBALANCER_INFO_UPDATE') | translate}}</div>
+        <div class="entity-view__info__edit__update" (click)="updateMerchantProviderGroup()"> {{ (addMode ? 'LOADBALANCER_INFO_SAVE' : 'LOADBALANCER_INFO_UPDATE') | translate}}</div>
       </ng-template>
     </div>
   </div>
@@ -61,7 +61,7 @@
       </div>
 
       <div class="flex-custom">
-        <table-memory class="load-balancer__merchant-providers"
+        <table-memory class="merchant-group__merchant-providers"
                       [textOptions]="merchantText"
                       [data]="entity.merchantProviderConfigurations"
                       [associationEnabled]="false"

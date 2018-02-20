@@ -16,11 +16,11 @@
     <div class="flex-custom flex-custom--center">
       <autocomplete-input class="campaign-autocomplete-input"
                           [disabled]="mode === modes.View"
-                          [mapFunction]="loadBalancerMapper"
-                          [initialValue]="entity.loadbalancerAssociations[entity.loadbalancerAssociations.length - 1] ? entity.loadbalancerAssociations[entity.loadbalancerAssociations.length - 1].loadbalancer : null"
-                          [options]="loadBalancers || []"
+                          [mapFunction]="merchantProviderGroupMapper"
+                          [initialValue]="entity.merchantProviderGroupAssociations[entity.merchantProviderGroupAssociations.length - 1] ? entity.merchantProviderGroupAssociations[entity.merchantProviderGroupAssociations.length - 1].merchantProviderGroup : null"
+                          [options]="merchantProviderGroups || []"
                           [placeholder]="'CAMPAIGN_INFO_DEFAULTGROUP' | translate"
-                          (selected)="setAssociatedLoadBalancer($event)">
+                          (selected)="setAssociatedMerchantProviderGroup($event)">
       </autocomplete-input>
       <md-icon [class.icon-disabled]="mode === modes.View" (click)="removeAssociations()">close</md-icon>
     </div>

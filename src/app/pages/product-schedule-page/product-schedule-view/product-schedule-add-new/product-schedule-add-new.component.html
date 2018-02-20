@@ -5,7 +5,7 @@
       <md-icon [md-menu-trigger-for]="shipOptions">more_vert</md-icon>
       <md-menu #shipOptions="mdMenu" x-position="before">
         <button md-menu-item (click)="changeMode.emit(update);">{{'PRODUCTSCHEDULE_INFO_EDIT' | translate}}</button>
-        <button *ngIf="entity.loadBalancer && entity.loadBalancer.id" md-menu-item [routerLink]="['/merchantprovidergroups', entity.loadBalancer.id]">{{'PRODUCTSCHEDULE_INFO_VIEWLOADBALANCER' | translate}}</button>
+        <button *ngIf="entity.merchantProviderGroup && entity.merchantProviderGroup.id" md-menu-item [routerLink]="['/merchantprovidergroups', entity.merchantProviderGroup.id]">{{'PRODUCTSCHEDULE_INFO_VIEWLOADBALANCER' | translate}}</button>
       </md-menu>
     </ng-container>
   </div>
@@ -16,14 +16,14 @@
     </md-input-container>
 
     <autocomplete-input class="default-autocomplete-input--full-width"
-                        [class.error]="formInvalid && !entity.loadBalancer.id"
+                        [class.error]="formInvalid && !entity.merchantProviderGroup.id"
                         [disabled]="mode === view"
-                        [mapFunction]="loadBalancerMapper"
-                        [initialValue]="entity.loadBalancer"
-                        [options]="loadBalancerService.entities$ | async"
+                        [mapFunction]="merchantProviderGroupMapper"
+                        [initialValue]="entity.merchantProviderGroup"
+                        [options]="merchantProviderGroupService.entities$ | async"
                         [placeholder]="'PRODUCTSCHEDULE_INFO_LOADBALANCER' | translate"
                         [required]="true"
-                        (selected)="entity.loadBalancer = $event">
+                        (selected)="entity.merchantProviderGroup = $event">
     </autocomplete-input>
   </form>
 

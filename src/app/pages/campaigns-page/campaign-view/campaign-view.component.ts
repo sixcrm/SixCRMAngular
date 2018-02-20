@@ -15,8 +15,8 @@ import {AffiliatesService} from '../../../shared/services/affiliates.service';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
-import {LoadBalancerAssociationsService} from '../../../shared/services/load-balancer-associations.service';
-import {LoadBalancerAssociation} from '../../../shared/models/load-balancer-association.model';
+import {MerchantProviderGroupAssociationsService} from '../../../shared/services/merchant-provider-group-associations.service';
+import {MerchantProviderGroupAssociation} from '../../../shared/models/merchant-provider-group-association.model';
 
 @Component({
   selector: 'campaign-view',
@@ -107,7 +107,7 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
     public productScheduleService: ProductScheduleService,
     private router: Router,
     private affiliateService: AffiliatesService,
-    private loadBalancerAssociationsService: LoadBalancerAssociationsService
+    private merchantProviderGroupAssociationsService: MerchantProviderGroupAssociationsService
   ) {
     super(service, route);
   }
@@ -251,53 +251,53 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
   }
 
   updateCampaign(campaign: Campaign): void {
-    if (campaign.loadbalancerAssociations.length === 1 && !campaign.loadbalancerAssociations[0].id) { // does not exist, add!
+    if (campaign.merchantProviderGroupAssociations.length === 1 && !campaign.merchantProviderGroupAssociations[0].id) { // does not exist, add!
 
-      this.loadBalancerAssociationsService.entityCreated$.take(1).takeUntil(this.unsubscribe$).subscribe(res => {
+      this.merchantProviderGroupAssociationsService.entityCreated$.take(1).takeUntil(this.unsubscribe$).subscribe(res => {
         if (res instanceof CustomServerError) return;
         this.update();
       });
-      this.addLoadBalancerAssociation(campaign.loadbalancerAssociations[0]);
+      this.addMerchantProviderGroupAssociation(campaign.merchantProviderGroupAssociations[0]);
 
-    } else if (campaign.loadbalancerAssociations.length === 1 && !campaign.loadbalancerAssociations[0].loadbalancer.id) { // exists one, remove!
+    } else if (campaign.merchantProviderGroupAssociations.length === 1 && !campaign.merchantProviderGroupAssociations[0].merchantProviderGroup.id) { // exists one, remove!
 
-      this.loadBalancerAssociationsService.entityDeleted$.take(1).takeUntil(this.unsubscribe$).subscribe(res => {
+      this.merchantProviderGroupAssociationsService.entityDeleted$.take(1).takeUntil(this.unsubscribe$).subscribe(res => {
         if (res instanceof CustomServerError) return;
         this.update();
       });
-      this.removeLoadBalancerAssociation(campaign.loadbalancerAssociations[0]);
+      this.removeMerchantProviderGroupAssociation(campaign.merchantProviderGroupAssociations[0]);
 
-    } else if (campaign.loadbalancerAssociations.length === 2) { // exists, remove and add
+    } else if (campaign.merchantProviderGroupAssociations.length === 2) { // exists, remove and add
 
-      this.loadBalancerAssociationsService.entityCreated$.take(1).takeUntil(this.unsubscribe$).subscribe(res => {
+      this.merchantProviderGroupAssociationsService.entityCreated$.take(1).takeUntil(this.unsubscribe$).subscribe(res => {
         if (res instanceof CustomServerError) return;
         this.update();
       });
-      this.loadBalancerAssociationsService.entityDeleted$.take(1).takeUntil(this.unsubscribe$).subscribe(res => {
+      this.merchantProviderGroupAssociationsService.entityDeleted$.take(1).takeUntil(this.unsubscribe$).subscribe(res => {
         if (res instanceof CustomServerError) return;
-        this.addLoadBalancerAssociation(campaign.loadbalancerAssociations[1]);
+        this.addMerchantProviderGroupAssociation(campaign.merchantProviderGroupAssociations[1]);
       });
-      this.removeLoadBalancerAssociation(campaign.loadbalancerAssociations[0]);
+      this.removeMerchantProviderGroupAssociation(campaign.merchantProviderGroupAssociations[0]);
 
     } else {
       this.update();
     }
   }
 
-  addLoadBalancerAssociation(loadBalancerAssociation: LoadBalancerAssociation) {
-    if (loadBalancerAssociation.id) return;
+  addMerchantProviderGroupAssociation(merchantProviderGroupAssociation: MerchantProviderGroupAssociation) {
+    if (merchantProviderGroupAssociation.id) return;
 
-    const lba = loadBalancerAssociation.copy();
+    const lba = merchantProviderGroupAssociation.copy();
     lba.entityType = 'campaign';
     lba.entity = this.entity.id;
     lba.campaign = this.entity.copy();
 
-    this.loadBalancerAssociationsService.createEntity(lba)
+    this.merchantProviderGroupAssociationsService.createEntity(lba)
   }
 
-  removeLoadBalancerAssociation(loadBalancerAssociation: LoadBalancerAssociation) {
-    if (!loadBalancerAssociation.id) return;
+  removeMerchantProviderGroupAssociation(merchantProviderGroupAssociation: MerchantProviderGroupAssociation) {
+    if (!merchantProviderGroupAssociation.id) return;
 
-    this.loadBalancerAssociationsService.deleteEntity(loadBalancerAssociation.id);
+    this.merchantProviderGroupAssociationsService.deleteEntity(merchantProviderGroupAssociation.id);
   }
 }

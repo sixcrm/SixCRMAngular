@@ -4,7 +4,6 @@ import {SidenavPage} from '../po/sidenav.po';
 import {login} from '../utils/action.utils';
 import {browser} from 'protractor';
 import {expectUrlToContain, expectDefined} from '../utils/assertation.utils';
-import {ProductSchedulePage} from '../po/product-schedule.po';
 import {LoadBalancerPage} from '../po/load-balancer.po';
 import {EntityViewPage} from '../po/entity-view.po';
 
@@ -28,13 +27,13 @@ describe('Load Balancer', function() {
     waitForUrlContains('dashboard');
   });
 
-  it('should navigate to loadbalancer page', () => {
+  it('should navigate to merchantProviderGroup page', () => {
     const sidenav = new SidenavPage();
     sidenav.getLink(26).click();
     browser.sleep(500);
     sidenav.getLink(28).click();
-    waitForUrlContains('loadbalancer');
-    expectUrlToContain('loadbalancer');
+    waitForUrlContains('merchantprovidergroup');
+    expectUrlToContain('merchantprovidergroup');
   });
 
   it('should render load balancer index component', () => {
@@ -71,8 +70,8 @@ describe('Load Balancer', function() {
 
   it('should create new product schedule and redirect product schedule view', () => {
     loadBalancer.getNewFormSaveButton().click();
-    waitForUrlContains('loadbalancers/');
-    expectUrlToContain('loadbalancers/');
+    waitForUrlContains('merchantprovidergroups/');
+    expectUrlToContain('merchantprovidergroups/');
   });
 
   it('should display product schedule details', () => {

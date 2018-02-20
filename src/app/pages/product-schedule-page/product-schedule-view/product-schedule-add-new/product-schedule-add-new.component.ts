@@ -1,8 +1,8 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {ProductSchedule} from '../../../../shared/models/product-schedule.model';
 import {Modes} from '../../../abstract-entity-view.component';
-import {LoadBalancersService} from '../../../../shared/services/load-balancers.service';
-import {LoadBalancer} from '../../../../shared/models/load-balancer.model';
+import {MerchantProviderGroupsService} from '../../../../shared/services/merchant-provider-groups.service';
+import {MerchantProviderGroup} from '../../../../shared/models/merchant-provider-group.model';
 
 @Component({
   selector: 'product-schedule-add-new',
@@ -24,12 +24,12 @@ export class ProductScheduleAddNewComponent implements OnInit {
 
   formInvalid: boolean;
 
-  loadBalancerMapper = (loadBalancer: LoadBalancer) => loadBalancer.name || loadBalancer.id;
+  merchantProviderGroupMapper = (merchantProviderGroup: MerchantProviderGroup) => merchantProviderGroup.name || merchantProviderGroup.id;
 
-  constructor(public loadBalancerService: LoadBalancersService) { }
+  constructor(public merchantProviderGroupService: MerchantProviderGroupsService) { }
 
   ngOnInit() {
-    this.loadBalancerService.getEntities();
+    this.merchantProviderGroupService.getEntities();
   }
 
   saveSchedule(valid: boolean) {

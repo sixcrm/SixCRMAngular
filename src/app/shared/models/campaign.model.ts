@@ -3,7 +3,7 @@ import {Entity} from './entity.interface';
 import {utc, Moment} from 'moment';
 import {EmailTemplate} from './email-template.model';
 import {Affiliate} from './affiliate.model';
-import {LoadBalancerAssociation} from './load-balancer-association.model';
+import {MerchantProviderGroupAssociation} from './merchant-provider-group-association.model';
 
 export class Campaign implements Entity<Campaign>{
   id: string;
@@ -14,7 +14,7 @@ export class Campaign implements Entity<Campaign>{
   emailTemplates: EmailTemplate[] = [];
   affiliateAllow: Affiliate[] = [];
   affiliateDeny: Affiliate[] = [];
-  loadbalancerAssociations: LoadBalancerAssociation[] = [];
+  merchantProviderGroupAssociations: MerchantProviderGroupAssociation[] = [];
   createdAt: Moment;
   updatedAt: Moment;
 
@@ -48,8 +48,8 @@ export class Campaign implements Entity<Campaign>{
       this.affiliateDeny = obj.affiliate_deny.map(a => new Affiliate(a));
     }
 
-    if (obj.loadbalancer_associations) {
-      this.loadbalancerAssociations = obj.loadbalancer_associations.map(l => new LoadBalancerAssociation(l));
+    if (obj.merchantprovidergroup_associations) {
+      this.merchantProviderGroupAssociations = obj.merchantprovidergroup_associations.map(l => new MerchantProviderGroupAssociation(l));
     }
   }
 
@@ -67,7 +67,7 @@ export class Campaign implements Entity<Campaign>{
       affiliate_deny: this.affiliateDeny.map(a => a.inverse()),
       productschedules: this.productSchedules.map(p => p.inverse()),
       emailtemplates: this.emailTemplates.map(e => e.inverse()),
-      loadbalancer_associations: this.loadbalancerAssociations.map(a => a.inverse()),
+      merchantprovidergroup_associations: this.merchantProviderGroupAssociations.map(a => a.inverse()),
       created_at: this.createdAt.clone().format(),
       updated_at: this.createdAt.clone().format()
     }

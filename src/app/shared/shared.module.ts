@@ -9,7 +9,7 @@ import {FulfillmentProvidersService} from "./services/fulfillment-providers.serv
 import {AffiliatesService} from "./services/affiliates.service";
 import {CustomersService} from "./services/customers.service";
 import {SessionsService} from "./services/sessions.service";
-import {LoadBalancersService} from "./services/load-balancers.service";
+import {MerchantProviderGroupsService} from "./services/merchant-provider-groups.service";
 import {TransactionsService} from "./services/transactions.service";
 import {CreditCardsService} from './services/credit-cards.service';
 import {UsersService} from './services/users.service';
@@ -82,7 +82,7 @@ import { TabHeaderComponent } from './components/tab-header/tab-header.component
 import {ShippingReceiptsService} from './services/shipping-receipts.service';
 import {ImagesService} from './services/images.service';
 import { SearchInputComponent } from './components/search-input/search-input.component';
-import {LoadBalancerAssociationsService} from './services/load-balancer-associations.service';
+import {MerchantProviderGroupAssociationsService} from './services/merchant-provider-group-associations.service';
 
 @NgModule({
   declarations : [
@@ -184,7 +184,7 @@ export class SharedModule {
         AclsService,
         CustomersService,
         SessionsService,
-        LoadBalancersService,
+        MerchantProviderGroupsService,
         TransactionsService,
         CreditCardsService,
         UsersService,
@@ -215,7 +215,7 @@ export class SharedModule {
         UserSigningStringsService,
         ShippingReceiptsService,
         ImagesService,
-        LoadBalancerAssociationsService
+        MerchantProviderGroupAssociationsService
       ]
     };
   }

@@ -2,7 +2,7 @@ import {MerchantProviderConfiguration} from './merchant-provider-configuration.m
 import {Entity} from './entity.interface';
 import {Moment, utc} from 'moment';
 
-export class LoadBalancer implements Entity<LoadBalancer> {
+export class MerchantProviderGroup implements Entity<MerchantProviderGroup> {
   id: string;
   name: string;
   createdAt: Moment;
@@ -25,8 +25,8 @@ export class LoadBalancer implements Entity<LoadBalancer> {
 
   }
 
-  copy(): LoadBalancer {
-    return new LoadBalancer(this.inverse());
+  copy(): MerchantProviderGroup {
+    return new MerchantProviderGroup(this.inverse());
   }
 
   inverse(): any {

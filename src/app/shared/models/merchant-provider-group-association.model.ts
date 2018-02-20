@@ -1,13 +1,13 @@
 import {Entity} from './entity.interface';
 import {Campaign} from './campaign.model';
-import {LoadBalancer} from './load-balancer.model';
+import {MerchantProviderGroup} from './merchant-provider-group.model';
 
-export class LoadBalancerAssociation implements Entity<LoadBalancerAssociation> {
+export class MerchantProviderGroupAssociation implements Entity<MerchantProviderGroupAssociation> {
   id: string;
   entity: string;
   entityType: string;
   campaign: Campaign;
-  loadbalancer: LoadBalancer;
+  merchantProviderGroup: MerchantProviderGroup;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -18,11 +18,11 @@ export class LoadBalancerAssociation implements Entity<LoadBalancerAssociation> 
     this.entity = obj.entity;
     this.entityType = obj.entity_type;
     this.campaign = new Campaign(obj.campaign);
-    this.loadbalancer = new LoadBalancer(obj.merchantprovidergroup);
+    this.merchantProviderGroup = new MerchantProviderGroup(obj.merchantprovidergroup);
   }
 
-  copy(): LoadBalancerAssociation {
-    return new LoadBalancerAssociation(this.inverse())
+  copy(): MerchantProviderGroupAssociation {
+    return new MerchantProviderGroupAssociation(this.inverse())
   }
 
   inverse(): any {
@@ -31,7 +31,7 @@ export class LoadBalancerAssociation implements Entity<LoadBalancerAssociation> 
       entity: this.entity,
       entity_type: this.entityType,
       campaign: this.campaign.inverse(),
-      merchantprovidergroup: this.loadbalancer.inverse()
+      merchantprovidergroup: this.merchantProviderGroup.inverse()
     }
   }
 }

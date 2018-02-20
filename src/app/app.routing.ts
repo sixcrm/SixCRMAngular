@@ -24,7 +24,7 @@ const appRoutes: Routes = [
     { path : 'creditcards', loadChildren : './pages/credit-cards-page/credit-cards.module#CreditCardsModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'customers', loadChildren : './pages/customers-page/customers.module#CustomersModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'fulfillmentproviders', loadChildren : './pages/fulfillment-providers/fulfillment-providers.module#FulfillmentProvidersModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
-    { path : 'merchantprovidergroups', loadChildren : './pages/load-balancers-page/load-balancers.module#LoadBalancersModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
+    { path : 'merchantprovidergroups', loadChildren : './pages/merchant-provider-groups-page/merchant-provider-groups.module#MerchantProviderGroupsModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'merchantproviders', loadChildren : './pages/merchant-providers-page/merchant-providers.module#MerchantProvidersModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'productschedules', loadChildren : './pages/product-schedule-page/product-schedules.module#ProductSchedulesModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'products', loadChildren : './pages/products-page/products.module#ProductsModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },

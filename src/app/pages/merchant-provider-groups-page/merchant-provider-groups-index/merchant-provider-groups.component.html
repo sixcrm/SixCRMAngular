@@ -41,5 +41,5 @@
 </div>
 
 <div *ngIf="addMode" (click)="overlayClicked($event)" class="full-overlay">
-  <load-balancer-add-new class="modal-center" [entity]="entity" (save)="createEntity($event)" (cancel)="closeAddMode()"></load-balancer-add-new>
+  <merchant-provider-group-add-new class="modal-center" [entity]="entity" (save)="createEntity($event)" (cancel)="closeAddMode()"></merchant-provider-group-add-new>
 </div>

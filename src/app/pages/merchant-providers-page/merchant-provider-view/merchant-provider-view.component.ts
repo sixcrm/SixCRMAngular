@@ -5,7 +5,7 @@ import {MerchantProvidersService} from '../../../shared/services/merchant-provid
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
-import {LoadBalancer} from '../../../shared/models/load-balancer.model';
+import {MerchantProviderGroup} from '../../../shared/models/merchant-provider-group.model';
 import {MerchantProviderAddNewComponent} from './merchant-provider-add-new/merchant-provider-add-new.component';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
@@ -23,11 +23,11 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
   selectedIndex: number = 0;
   formInvalid: boolean;
 
-  loadBalancerColumnParams = [
-    new ColumnParams('MERCHANTPROVIDER_LOADBALANCER_NAME', (e: LoadBalancer) => e.name || e.id)
+  merchantProviderGroupColumnParams = [
+    new ColumnParams('MERCHANTPROVIDER_LOADBALANCER_NAME', (e: MerchantProviderGroup) => e.name || e.id)
   ];
-  loadBalancerMapper = (l: LoadBalancer) => l.name || l.id;
-  loadbalancerText: TableMemoryTextOptions = {
+  merchantProviderGroupMapper = (l: MerchantProviderGroup) => l.name || l.id;
+  merchantProviderGroupText: TableMemoryTextOptions = {
     title: 'MERCHANTPROVIDER_LOADBALANCER_TITLE',
     viewOptionText: 'MERCHANTPROVIDER_LOADBALANCER_VIEW',
     noDataText: 'MERCHANTPROVIDER_LOADBALANCER_NODATA'
@@ -78,7 +78,7 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
     this.selectedIndex = value;
   }
 
-  navigateToLoadBalancer(loadBalancer: LoadBalancer): void {
-    this.router.navigate(['/merchantprovidergroups', loadBalancer.id]);
+  navigateToMerchantProviderGroup(merchantProviderGroup: MerchantProviderGroup): void {
+    this.router.navigate(['/merchantprovidergroups', merchantProviderGroup.id]);
   }
 }

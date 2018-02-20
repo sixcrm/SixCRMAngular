@@ -5,75 +5,75 @@ import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
-import {LoadBalancerAssociation} from '../../../../shared/models/load-balancer-association.model';
-import {LoadBalancerAssociationsService} from '../../../../shared/services/load-balancer-associations.service';
+import {MerchantProviderGroupAssociation} from '../../../../shared/models/merchant-provider-group-association.model';
+import {MerchantProviderGroupAssociationsService} from '../../../../shared/services/merchant-provider-group-associations.service';
 import {DeleteDialogComponent} from '../../../delete-dialog.component';
-import {LoadBalancersService} from '../../../../shared/services/load-balancers.service';
+import {MerchantProviderGroupsService} from '../../../../shared/services/merchant-provider-groups.service';
 import {CampaignsService} from '../../../../shared/services/campaigns.service';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
-import {LoadBalancer} from '../../../../shared/models/load-balancer.model';
+import {MerchantProviderGroup} from '../../../../shared/models/merchant-provider-group.model';
 import {Campaign} from '../../../../shared/models/campaign.model';
 import {campaignsInfoListQuery} from '../../../../shared/utils/queries/entities/campaign.queries';
 import {MerchantProviderGroupAssociationDialogComponent} from '../../../../dialog-modals/merchantprovidergroup-association-dialog/merchantprovidergroup-association-dialog.component';
 import {
-  loadBalancerAssociationsListQuery,
-  loadBalancerAssociationsByEntityListQuery
-} from '../../../../shared/utils/queries/entities/load-balancer-associations.queries';
+  merchantProviderGroupAssociationsListQuery,
+  merchantProviderGroupAssociationsByEntityListQuery
+} from '../../../../shared/utils/queries/entities/merchant-provider-group-associations.queries';
 
 @Component({
-  selector: 'product-loadbalancerassociations',
-  templateUrl: './product-loadbalancerassociations.component.html',
-  styleUrls: ['./product-loadbalancerassociations.component.scss']
+  selector: 'product-merchant-provider-group-associations',
+  templateUrl: './product-merchant-provider-group-associations.component.html',
+  styleUrls: ['./product-merchant-provider-group-associations.component.scss']
 })
-export class ProductLoadBalancerAssociationsComponent extends AbstractEntityIndexComponent<LoadBalancerAssociation> implements OnInit, OnDestroy {
+export class ProductMerchantProviderGroupAssociationsComponent extends AbstractEntityIndexComponent<MerchantProviderGroupAssociation> implements OnInit, OnDestroy {
 
   @Input() id: string;
 
-  loadBalancers: LoadBalancer[];
+  merchantProviderGroups: MerchantProviderGroup[];
   campaigns: Campaign[];
 
   dependenciesLoaded: boolean;
 
   constructor(
-    loadBalancerAssociationService: LoadBalancerAssociationsService,
+    merchantProviderGroupAssociationsService: MerchantProviderGroupAssociationsService,
     auth: AuthenticationService,
     dialog: MdDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute,
-    private loadBalancerService: LoadBalancersService,
+    private merchantProviderGroupsService: MerchantProviderGroupsService,
     private campaignService: CampaignsService
   ) {
-    super(loadBalancerAssociationService, auth, dialog, paginationService, router, activatedRoute);
+    super(merchantProviderGroupAssociationsService, auth, dialog, paginationService, router, activatedRoute);
 
     this.columnParams = [
-      new ColumnParams('PRODUCT_MERCHANTGROUPASSOCIATION_ID', (e: LoadBalancerAssociation) => e.id).setSelected(false),
-      new ColumnParams('PRODUCT_MERCHANTGROUPASSOCIATION_MERCHANTGROUP', (e: LoadBalancerAssociation) => e.loadbalancer.name),
-      new ColumnParams('PRODUCT_MERCHANTGROUPASSOCIATION_CAMPAIGN', (e: LoadBalancerAssociation) => e.campaign.name)
+      new ColumnParams('PRODUCT_MERCHANTGROUPASSOCIATION_ID', (e: MerchantProviderGroupAssociation) => e.id).setSelected(false),
+      new ColumnParams('PRODUCT_MERCHANTGROUPASSOCIATION_MERCHANTGROUP', (e: MerchantProviderGroupAssociation) => e.merchantProviderGroup.name),
+      new ColumnParams('PRODUCT_MERCHANTGROUPASSOCIATION_CAMPAIGN', (e: MerchantProviderGroupAssociation) => e.campaign.name)
     ];
 
     this.viewAfterCrate = false;
   }
 
   ngOnInit() {
-    this.service.indexQuery = (limit?:number, cursor?:string, search?: string) => loadBalancerAssociationsByEntityListQuery(this.id, limit, cursor, search);
+    this.service.indexQuery = (limit?:number, cursor?:string, search?: string) => merchantProviderGroupAssociationsByEntityListQuery(this.id, limit, cursor, search);
 
     this.init();
   }
 
   ngOnDestroy() {
-    this.service.indexQuery = loadBalancerAssociationsListQuery;
+    this.service.indexQuery = merchantProviderGroupAssociationsListQuery;
 
     this.destroy();
   }
 
-  removeAssociation(loadBalancerAssociation: LoadBalancerAssociation) {
+  removeAssociation(merchantproviderGroupAssociation: MerchantProviderGroupAssociation) {
     let ref = this.deleteDialog.open(DeleteDialogComponent);
 
     ref.afterClosed().takeUntil(this.unsubscribe$).subscribe(result => {
       ref = null;
       if (result && result.success) {
-        this.service.deleteEntity(loadBalancerAssociation.id);
+        this.service.deleteEntity(merchantproviderGroupAssociation.id);
       }
     });
   }
@@ -85,7 +85,7 @@ export class ProductLoadBalancerAssociationsComponent extends AbstractEntityInde
       return;
     }
 
-    this.loadBalancerService.entities$.merge(this.campaignService.entities$)
+    this.merchantProviderGroupsService.entities$.merge(this.campaignService.entities$)
       .take(2)
       .skip(1)
       .takeUntil(this.unsubscribe$)
@@ -99,10 +99,10 @@ export class ProductLoadBalancerAssociationsComponent extends AbstractEntityInde
   }
 
   fetchDependencies() {
-    this.loadBalancerService.entities$.takeUntil(this.unsubscribe$).subscribe(entities => {
+    this.merchantProviderGroupsService.entities$.takeUntil(this.unsubscribe$).subscribe(entities => {
       if (entities instanceof CustomServerError) return;
 
-      this.loadBalancers = entities;
+      this.merchantProviderGroups = entities;
     });
 
     this.campaignService.entities$.takeUntil(this.unsubscribe$).subscribe(entities => {
@@ -111,7 +111,7 @@ export class ProductLoadBalancerAssociationsComponent extends AbstractEntityInde
       this.campaigns = entities;
     });
 
-    this.loadBalancerService.getEntities();
+    this.merchantProviderGroupsService.getEntities();
 
     let q = this.campaignService.indexQuery;
     this.campaignService.indexQuery = campaignsInfoListQuery;
@@ -123,16 +123,16 @@ export class ProductLoadBalancerAssociationsComponent extends AbstractEntityInde
     let ref = this.deleteDialog.open(MerchantProviderGroupAssociationDialogComponent);
 
     ref.componentInstance.campaigns = this.campaigns;
-    ref.componentInstance.merchantGroups = this.loadBalancers;
+    ref.componentInstance.merchantGroups = this.merchantProviderGroups;
 
     ref.afterClosed().takeUntil(this.unsubscribe$).subscribe(result => {
       ref = null;
       if (result && result.campaign && result.group) {
-        const lba = new LoadBalancerAssociation();
+        const lba = new MerchantProviderGroupAssociation();
         lba.entityType = 'product';
         lba.entity = this.id;
         lba.campaign = result.campaign.copy();
-        lba.loadbalancer = result.group.copy();
+        lba.merchantProviderGroup = result.group.copy();
 
         this.service.createEntity(lba);
       }

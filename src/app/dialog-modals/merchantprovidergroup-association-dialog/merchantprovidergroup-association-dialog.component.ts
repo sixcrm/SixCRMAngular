@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MdDialogRef} from '@angular/material';
-import {LoadBalancer} from '../../shared/models/load-balancer.model';
+import {MerchantProviderGroup} from '../../shared/models/merchant-provider-group.model';
 import {Campaign} from '../../shared/models/campaign.model';
 
 @Component({
@@ -10,13 +10,13 @@ import {Campaign} from '../../shared/models/campaign.model';
 })
 export class MerchantProviderGroupAssociationDialogComponent implements OnInit {
 
-  merchantGroups: LoadBalancer[] = [];
+  merchantGroups: MerchantProviderGroup[] = [];
   campaigns: Campaign[] = [];
 
-  selectedGroup: LoadBalancer = new LoadBalancer();
+  selectedGroup: MerchantProviderGroup = new MerchantProviderGroup();
   selectedCampaign: Campaign = new Campaign();
 
-  groupMapper = (l: LoadBalancer) => l.name;
+  groupMapper = (l: MerchantProviderGroup) => l.name;
   campaignMapper = (c: Campaign) => c.name;
 
   error: boolean;
