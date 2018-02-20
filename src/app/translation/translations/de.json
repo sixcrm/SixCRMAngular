@@ -956,6 +956,8 @@
       "campaign": "Campaign",
       "add": "Add new Association",
       "remove": "Remove Association",
+      "viewprovider": "View Merchant Provider Group",
+      "viewcampaign": "View Campaign",
       "nodata": "No Merchant Provider Group Associations found.",
       "dialog": {
         "title": "Select Campaign and Merchant Provider Group",

@@ -48,6 +48,8 @@
       <td>
         <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
         <md-menu #actionsMenu="mdMenu" x-position="before">
+          <button md-menu-item [routerLink]="['/campaigns', entity.campaign.id]">{{'PRODUCT_MERCHANTGROUPASSOCIATION_VIEWCAMPAIGN' | translate}}</button>
+          <button md-menu-item [routerLink]="['/merchantprovidergroups', entity.merchantProviderGroup.id]">{{'PRODUCT_MERCHANTGROUPASSOCIATION_VIEWPROVIDER' | translate}}</button>
           <button md-menu-item (click)="removeAssociation(entity)">{{'PRODUCT_MERCHANTGROUPASSOCIATION_REMOVE' | translate}}</button>
         </md-menu>
       </td>
