@@ -67,7 +67,7 @@ export function productScheduleResponseQuery(): string {
     schedule { price start end period,
       product { id name ship }
     }
-    loadbalancer {
+    merchantprovidergroup {
       ${loadBalancerResponseQuery()}
     }`
 }

@@ -885,7 +885,8 @@
       "general": "一般细节",
       "images": "图片",
       "schedule": "时间表",
-      "campaign": "活动"
+      "campaign": "活动",
+      "merchantgroupassociation": "MERCHANT GROUP ASSOCIATIONS"
     },
     "info": {
       "title": "产品详情",
@@ -947,6 +948,22 @@
       "schedulednum": "进度总计",
       "view": "查看现有广告活动",
       "nodata": "找不到广告活动。"
+    },
+    "merchantgroupassociation": {
+      "title": "Merchant Group Associations",
+      "id": "ID",
+      "merchantgroup": "Merchant Group",
+      "campaign": "Campaign",
+      "add": "Add new Association",
+      "remove": "Remove Association",
+      "nodata": "No Merchant Provider Group Associations found.",
+      "dialog": {
+        "title": "Select Campaign and Merchant Provider Group",
+        "group": "Merchant Provider Group",
+        "campaign": "Campaign",
+        "add": "Add",
+        "cancel": "Cancel"
+      }
     }
   },
   "productschedule": {

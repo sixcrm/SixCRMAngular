@@ -26,7 +26,8 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     {name: 'general', label: 'PRODUCT_TAB_GENERAL'},
     {name: 'images', label: 'PRODUCT_TAB_IMAGES'},
     {name: 'schedules', label: 'PRODUCT_TAB_SCHEDULE'},
-    {name: 'campaigns', label: 'PRODUCT_TAB_CAMPAIGN'}
+    {name: 'campaigns', label: 'PRODUCT_TAB_CAMPAIGN'},
+    {name: 'merchantgroupassociations', label: 'PRODUCT_TAB_MERCHANTGROUPASSOCIATION'}
   ];
 
   constructor(

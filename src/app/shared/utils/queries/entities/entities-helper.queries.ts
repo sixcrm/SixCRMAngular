@@ -46,10 +46,16 @@ function cleanQuote(value: string): string {
   return value.replace(/"/g, '\\"');
 }
 
-export function listQueryParams(limit?: number, cursor?: string, search?: string): string {
+export function listQueryParams(limit?: number, cursor?: string, search?: string, ignoreBrackets?: boolean): string {
   if (!limit && !cursor && !search) return '';
 
-  return `( ${paginationParamsQuery(limit, cursor, true)} ${searchParamsQuery(search)} )`;
+  let query = ` ${paginationParamsQuery(limit, cursor, true)} ${searchParamsQuery(search)} `;
+
+  if (!ignoreBrackets) {
+    query = `(${query})`
+  }
+
+  return query;
 }
 
 export function paginationParamsQuery(limit?: number, cursor?: string, ignoreBraces?: boolean): string {

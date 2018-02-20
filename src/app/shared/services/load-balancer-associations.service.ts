@@ -24,7 +24,7 @@ export class LoadBalancerAssociationsService extends AbstractEntityService<LoadB
       deleteLoadBalancerAssociationssMutation,
       createLoadBalancerAssociationMutation,
       null,
-      'loadbalancerassociation',
+      'merchantprovidergroupassociation',
       snackBar
     );
   }

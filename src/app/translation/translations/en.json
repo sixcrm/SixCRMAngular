@@ -885,7 +885,8 @@
       "general": "GENERAL DETAILS",
       "images": "IMAGES",
       "schedule": "SCHEDULES",
-      "campaign": "CAMPAIGNS"
+      "campaign": "CAMPAIGNS",
+      "merchantgroupassociation": "MERCHANT GROUP ASSOCIATIONS"
     },
     "info": {
       "title": "Product Details",
@@ -947,6 +948,22 @@
       "schedulednum": "Total Scheduled",
       "view": "View Campaign",
       "nodata": "No Campaigns found."
+    },
+    "merchantgroupassociation": {
+      "title": "Merchant Group Associations",
+      "id": "ID",
+      "merchantgroup": "Merchant Group",
+      "campaign": "Campaign",
+      "add": "Add new Association",
+      "remove": "Remove Association",
+      "nodata": "No Merchant Provider Group Associations found.",
+      "dialog": {
+        "title": "Select Campaign and Merchant Provider Group",
+        "group": "Merchant Provider Group",
+        "campaign": "Campaign",
+        "add": "Add",
+        "cancel": "Cancel"
+      }
     }
   },
   "productschedule": {

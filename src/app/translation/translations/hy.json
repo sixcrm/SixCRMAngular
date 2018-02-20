@@ -885,8 +885,9 @@
 			"general": "ԸՆԴՀԱՆՈՒՐ ՄԱՆՐԱՄԱՍՆԵՐ",
       "images": "IMAGES",
       "schedule": "ՀԵՐԹԱՑՈՒՑԱԿՆԵՐ",
-			"campaign": "ԱՐՇԱՎՆԵՐ"
-		},
+			"campaign": "ԱՐՇԱՎՆԵՐ",
+      "merchantgroupassociation": "MERCHANT GROUP ASSOCIATIONS"
+    },
 		"info": {
 			"title": "Ապրանքի մանրամասները",
 			"createtitle": "Ստեղծել նոր ապրանք",
@@ -947,7 +948,23 @@
 			"schedulednum": "Ընդհանուր հերթագրված",
 			"view": "Դիտել արշավը",
 			"nodata": "Արշավներ չեն գտնվել:"
-		}
+		},
+    "merchantgroupassociation": {
+      "title": "Merchant Group Associations",
+      "id": "ID",
+      "merchantgroup": "Merchant Group",
+      "campaign": "Campaign",
+      "add": "Add new Association",
+      "remove": "Remove Association",
+      "nodata": "No Merchant Provider Group Associations found.",
+      "dialog": {
+        "title": "Select Campaign and Merchant Provider Group",
+        "group": "Merchant Provider Group",
+        "campaign": "Campaign",
+        "add": "Add",
+        "cancel": "Cancel"
+      }
+    }
 	},
 	"productschedule": {
 		"title": "Ապրանքի հերթացուցակ",

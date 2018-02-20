@@ -27,6 +27,7 @@ import {TranslationModule} from './translation/translation.module';
 import {AddBillDetailsDialogComponent} from './dialog-modals/add-bill-details-dialog.component';
 import {TextMaskModule} from 'angular2-text-mask';
 import { ImageDialogComponent } from './dialog-modals/image-dialog/image-dialog.component';
+import { MerchantProviderGroupAssociationDialogComponent } from './dialog-modals/merchantprovidergroup-association-dialog/merchantprovidergroup-association-dialog.component';
 
 @NgModule({
   declarations : [
@@ -43,7 +44,8 @@ import { ImageDialogComponent } from './dialog-modals/image-dialog/image-dialog.
     AccessKeyDetailsDialogComponent,
     ErrorPageStandaloneComponent,
     AddBillDetailsDialogComponent,
-    ImageDialogComponent
+    ImageDialogComponent,
+    MerchantProviderGroupAssociationDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -78,7 +80,8 @@ import { ImageDialogComponent } from './dialog-modals/image-dialog/image-dialog.
     SingleInputDialogComponent,
     AccessKeyDetailsDialogComponent,
     AddBillDetailsDialogComponent,
-    ImageDialogComponent
+    ImageDialogComponent,
+    MerchantProviderGroupAssociationDialogComponent
   ],
   bootstrap : [AppComponent]
 })

@@ -885,7 +885,8 @@
       "general": "सामान्य विवरण",
       "images": "IMAGES",
       "schedule": "अनुसूची",
-      "campaign": "अभियान"
+      "campaign": "अभियान",
+      "merchantgroupassociation": "MERCHANT GROUP ASSOCIATIONS"
     },
     "info": {
       "title": "उत्पाद विवरण",
@@ -947,6 +948,22 @@
       "schedulednum": "कुल अनुसूचित",
       "view": "अभियान देखें",
       "nodata": "कोई अभियान नहीं मिला"
+    },
+    "merchantgroupassociation": {
+      "title": "Merchant Group Associations",
+      "id": "ID",
+      "merchantgroup": "Merchant Group",
+      "campaign": "Campaign",
+      "add": "Add new Association",
+      "remove": "Remove Association",
+      "nodata": "No Merchant Provider Group Associations found.",
+      "dialog": {
+        "title": "Select Campaign and Merchant Provider Group",
+        "group": "Merchant Provider Group",
+        "campaign": "Campaign",
+        "add": "Add",
+        "cancel": "Cancel"
+      }
     }
   },
   "productschedule": {

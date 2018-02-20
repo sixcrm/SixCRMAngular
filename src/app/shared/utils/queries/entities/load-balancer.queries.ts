@@ -7,8 +7,8 @@ import {LoadBalancer} from '../../../models/load-balancer.model';
 
 export function loadBalancersInfoListQuery(limit?:number, cursor?:string, search?: string): string {
   return `{
-    loadbalancerlist ${listQueryParams(limit, cursor, search)} {
-			loadbalancers { 
+    merchantprovidergrouplist ${listQueryParams(limit, cursor, search)} {
+			merchantprovidergroups { 
 			  ${loadBalancerInfoResponseQuery()} 
       }
 			${fullPaginationStringResponseQuery()}
@@ -18,7 +18,7 @@ export function loadBalancersInfoListQuery(limit?:number, cursor?:string, search
 export function loadBalancerQuery(id: string): string {
   return `
     {
-      loadbalancer (id: "${id}") {
+      merchantprovidergroup (id: "${id}") {
         ${loadBalancerResponseQuery()}
       }
     }`
@@ -27,7 +27,7 @@ export function loadBalancerQuery(id: string): string {
 export function createLoadBalancerMutation(loadBalancer: LoadBalancer): string {
   return `
     mutation {
-      createloadbalancer ( loadbalancer: { ${loadBalancerInputQuery(loadBalancer)} } ) {
+      createmerchantprovidergroup ( merchantprovidergroup: { ${loadBalancerInputQuery(loadBalancer)} } ) {
         ${loadBalancerResponseQuery()}
       }
 	  }`
@@ -36,18 +36,18 @@ export function createLoadBalancerMutation(loadBalancer: LoadBalancer): string {
 export function updateLoadBalancerMutation(loadBalancer: LoadBalancer): string {
   return `
     mutation {
-      updateloadbalancer ( loadbalancer: { ${loadBalancerInputQuery(loadBalancer, true)} } ) {
+      updatemerchantprovidergroup ( merchantprovidergroup: { ${loadBalancerInputQuery(loadBalancer, true)} } ) {
         ${loadBalancerResponseQuery()}
       }
 	  }`
 }
 
 export function deleteLoadBalancerMutation(id: string): string {
-  return deleteMutationQuery('loadbalancer', id);
+  return deleteMutationQuery('merchantprovidergroup', id);
 }
 
 export function deleteLoadBalancersMutation(id: string[]): string {
-  return deleteManyMutationQuery('loadbalancer', id);
+  return deleteManyMutationQuery('merchantprovidergroup', id);
 }
 
 export function loadBalancerResponseQuery(): string {

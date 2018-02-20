@@ -17,6 +17,7 @@ import { ProductAttributesComponent } from './product-view/product-attributes/pr
 import {FileUploadModule} from 'ng2-file-upload';
 import { ProductImagesComponent } from './product-view/product-images/product-images.component';
 import { SortByDefaultPipe } from './product-view/product-images/sort-by-default.pipe';
+import {ProductLoadBalancerAssociationsComponent} from './product-view/product-loadbalancerassociations/product-loadbalancerassociations.component';
 
 @NgModule({
   imports : [
@@ -38,7 +39,8 @@ import { SortByDefaultPipe } from './product-view/product-images/sort-by-default
     ProductAddNewComponent,
     ProductAttributesComponent,
     ProductImagesComponent,
-    SortByDefaultPipe
+    SortByDefaultPipe,
+    ProductLoadBalancerAssociationsComponent
   ],
   exports : [ ],
   providers: [

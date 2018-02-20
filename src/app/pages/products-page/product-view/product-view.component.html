@@ -52,9 +52,13 @@
     <md-tab>
       <product-campaigns [id]="entity.id"></product-campaigns>
     </md-tab>
+
+    <md-tab>
+      <product-loadbalancerassociations [id]="entity.id"></product-loadbalancerassociations>
+    </md-tab>
   </md-tab-group>
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="4" [cardsExpression]="'436px;300px'" [title]="'PRODUCT_TITLE' | translate"></spe-loader>
+  <spe-loader [numberOfTabs]="5" [cardsExpression]="'436px;300px'" [title]="'PRODUCT_TITLE' | translate"></spe-loader>
 </ng-template>

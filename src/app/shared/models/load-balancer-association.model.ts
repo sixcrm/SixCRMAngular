@@ -18,7 +18,7 @@ export class LoadBalancerAssociation implements Entity<LoadBalancerAssociation> 
     this.entity = obj.entity;
     this.entityType = obj.entity_type;
     this.campaign = new Campaign(obj.campaign);
-    this.loadbalancer = new LoadBalancer(obj.loadbalancer);
+    this.loadbalancer = new LoadBalancer(obj.merchantprovidergroup);
   }
 
   copy(): LoadBalancerAssociation {
@@ -31,7 +31,7 @@ export class LoadBalancerAssociation implements Entity<LoadBalancerAssociation> 
       entity: this.entity,
       entity_type: this.entityType,
       campaign: this.campaign.inverse(),
-      loadbalancer: this.loadbalancer.inverse()
+      merchantprovidergroup: this.loadbalancer.inverse()
     }
   }
 }

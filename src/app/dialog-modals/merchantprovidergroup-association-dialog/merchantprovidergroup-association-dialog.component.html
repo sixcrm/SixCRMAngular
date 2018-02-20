@@ -1,0 +1,26 @@
+<md-card>
+  <md-card-content style="display: flex; flex-direction: column">
+    <div style="margin-bottom: 25px;">{{ 'PRODUCT_MERCHANTGROUPASSOCIATION_DIALOG_TITLE' | translate}}</div>
+    <autocomplete-input [class.error]="error && (!selectedGroup || !selectedGroup.id)"
+                        [mapFunction]="groupMapper"
+                        [initialValue]="selectedGroup"
+                        [options]="merchantGroups || []"
+                        [placeholder]="'PRODUCT_MERCHANTGROUPASSOCIATION_DIALOG_GROUP' | translate"
+                        [required]="true"
+                        (selected)="selectedGroup = $event">
+    </autocomplete-input>
+    <autocomplete-input [class.error]="error && (!selectedCampaign || !selectedCampaign.id)"
+                        [mapFunction]="campaignMapper"
+                        [initialValue]="selectedCampaign"
+                        [options]="campaigns || []"
+                        [placeholder]="'PRODUCT_MERCHANTGROUPASSOCIATION_DIALOG_CAMPAIGN' | translate"
+                        [required]="true"
+                        (selected)="selectedCampaign = $event">
+    </autocomplete-input>
+
+  </md-card-content>
+  <md-card-actions class="custom-dialog__buttons">
+    <div (click)="cancel()">{{ 'PRODUCT_MERCHANTGROUPASSOCIATION_DIALOG_CANCEL' | translate}}</div>
+    <div (click)="add()">{{ 'PRODUCT_MERCHANTGROUPASSOCIATION_DIALOG_ADD' | translate}}</div>
+  </md-card-actions>
+</md-card>

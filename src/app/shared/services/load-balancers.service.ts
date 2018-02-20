@@ -23,7 +23,7 @@ export class LoadBalancersService extends AbstractEntityService<LoadBalancer> {
       deleteLoadBalancersMutation,
       createLoadBalancerMutation,
       updateLoadBalancerMutation,
-      'loadbalancer',
+      'merchantprovidergroup',
       snackBar
     );
   }
