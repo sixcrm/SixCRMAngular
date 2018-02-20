@@ -2,21 +2,20 @@
 
 <ng-template #tableData>
   <div class="entity-index__table__bulk-actions" [class.entity-index__table__bulk-actions--visible]="numberOfSelected() > 0">
-    <ng-container *ngIf="numberOfSelected() > 0">
-      <div class="text">{{numberOfSelected()}} {{'INDEXPAGE_SELECTED' | translate}}</div>
-      <div class="options">
-        <div class="actions">{{'INDEXPAGE_ACTIONS' | translate}}</div>
-        <div #arrow>
-          <md-icon (click)="showActionOptions = !showActionOptions" class="arrow" [class.arrow--rotated]="showActionOptions">keyboard_arrow_down</md-icon>
-        </div>
-        <div #options *ngIf="showActionOptions" class="options__container">
-          <div class="item" (click)="selectAll()">{{'INDEXPAGE_SELECTALL' | translate}}</div>
-          <div class="item" (click)="deselectAll()">{{'INDEXPAGE_DESELECTALL' | translate}}</div>
-          <div class="item">{{'INDEXPAGE_FILTERALL' | translate}}</div>
-          <div class="item" (click)="deleteAll()">{{'INDEXPAGE_DELETEALL' | translate}}</div>
-        </div>
+    <div class="container" *ngIf="numberOfSelected() > 0">
+      <div class="text">
+        {{numberOfSelected()}}
+        {{'INDEXPAGE_SELECTED' | translate}}
       </div>
-    </ng-container>
+      <div #arrow>
+        <md-icon (click)="showActionOptions = !showActionOptions" class="arrow" [class.arrow--rotated]="showActionOptions">keyboard_arrow_up</md-icon>
+      </div>
+      <div #options *ngIf="showActionOptions" class="options__container">
+        <div class="options__item" (click)="selectAll()">{{'INDEXPAGE_SELECTALL' | translate}}</div>
+        <div class="options__item" (click)="deselectAll()">{{'INDEXPAGE_DESELECTALL' | translate}}</div>
+        <div class="options__item" (click)="deleteAll()">{{'INDEXPAGE_DELETEALL' | translate}}</div>
+      </div>
+    </div>
   </div>
 
   <table class="entity-index__table highlight">

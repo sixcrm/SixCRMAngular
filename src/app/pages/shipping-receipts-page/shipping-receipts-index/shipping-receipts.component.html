@@ -2,7 +2,6 @@
   <div class="entity-index__title">
     {{'SHIPPINGRECEIPT_INDEX_TITLE' | translate}}
     <search-input class="entity-index__search" (onSearch)="setSearchString($event)"></search-input>
-    <md-input [(ngModel)]="filterValue" placeholder="Filter"></md-input>
     <table-preferences class="entity-index__preferences" [columnParams]="columnParams"></table-preferences>
   </div>
 

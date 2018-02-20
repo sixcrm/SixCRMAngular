@@ -25,21 +25,17 @@ $title-color: #8D8888;
   }
 
   &__preferences {
-    margin: 0 -40px 0 15px;
+    margin: 0 -38px 0 10px;
   }
 
   &__search {
-    margin-left: 25px;
-
-    .md-focused {
-      color: #FF8D20;
-    }
+    margin-left: auto;
   }
 
   &__add {
     position: absolute !important;
     top: 45px;
-    left: 10px;
+    left: 18px;
     background: #498FE1;
     font-size: 18px !important;
     z-index: 1;
@@ -81,8 +77,8 @@ $title-color: #8D8888;
 
     .md-checkbox-inner-container {
       margin: auto;
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
     }
 
     &__bulk-actions {
@@ -93,43 +89,40 @@ $title-color: #8D8888;
       transition: height 150ms ease-in-out;
 
       &--visible {
-        height: 48px;
+        height: 46px;
+      }
+
+      .container {
+        display: flex;
+        align-items: center;
       }
 
       .text {
+        margin-right: 3px;
         font-size: 14px;
         font-weight: 500;
         color: white;
         margin-left: 80px;
       }
 
-      .actions {
-        font-size: 14px;
-        font-weight: 500;
-        color: white;
-      }
-
       .options {
-        position: relative;
-        display: flex;
-        margin-left: 55px;
-        align-items: center;
 
         &__container {
           position: absolute;
           z-index: 1;
-          top: 30px;
+          top: 40px;
+          left: 70px;
           background: white;
           box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
 
-          .item {
-            padding: 8px 16px;
-            cursor: pointer;
-            min-width: 110px;
+        &__item {
+          padding: 8px 16px;
+          cursor: pointer;
+          min-width: 120px;
 
-            &:hover {
-              background: #f2f2f2;
-            }
+          &:hover {
+            background: #f2f2f2;
           }
         }
       }
@@ -237,4 +230,14 @@ $title-color: #8D8888;
     max-height: 100%;
     overflow: auto;
   }
+}
+
+.checkbox-index {
+
+  .md-checkbox-inner-container {
+    margin: auto;
+    width: 16px;
+    height: 16px;
+  }
+
 }
