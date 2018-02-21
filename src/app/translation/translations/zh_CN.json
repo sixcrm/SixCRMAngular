@@ -588,6 +588,7 @@
       "header": {
         "name": "名称",
         "active": "活跃",
+        "id": "ID",
         "created": "创建",
         "updated": "更新"
       }
@@ -669,7 +670,10 @@
         "name": "名称",
         "email": "电邮",
         "active": "活跃",
-        "terms": "条款"
+        "terms": "条款",
+        "id": "ID",
+        "created": "创建",
+        "updated": "更新"
       }
     },
     "tab": {
@@ -708,7 +712,15 @@
         "firstname": "名字",
         "lastname": "姓氏",
         "state": "状态",
-        "city": "城市"
+        "city": "城市",
+        "id": "ID",
+        "created": "创建于",
+        "updated": "更新于",
+        "phone": "电话",
+        "email": "电子邮件",
+        "line1": "地址",
+        "zip": "邮政编码",
+        "country": "国家"
       }
     },
     "tab": {
@@ -808,7 +820,12 @@
       "expiration": "过期",
       "country": "国家",
       "state": "州",
-      "city": "市"
+      "city": "市",
+      "id": "ID",
+      "created": "创建于",
+      "updated": "更新于",
+      "line1": "地址",
+      "zip": "邮政编码"
     },
     "tab": {
       "general": "简单细节",
@@ -831,7 +848,13 @@
         "start": "周期开始日",
         "end": "周期结束日",
         "overdue": "逾期",
-        "balance": "余额"
+        "balance": "余额",
+        "id": "ID",
+        "account": "帐户",
+        "created": "创建",
+        "updated": "更新",
+        "available": "Available",
+        "paid": "Paid"
       }
     },
     "tab": {
@@ -877,7 +900,12 @@
         "name": "产品名称",
         "sku": "SKU",
         "ship": "运输",
-        "delay": "运输延迟"
+        "delay": "运输延迟",
+        "id": "ID",
+        "price": "价格",
+        "provider": "履行供应商",
+        "created": "更新于",
+        "updated": "创建于"
       }
     },
     "tab": {
@@ -976,7 +1004,10 @@
       "header": {
         "name": "名称",
         "merchantprovidergroup": "负载平衡器",
-        "numofcycles": "周期数"
+        "numofcycles": "周期数",
+        "id": "ID",
+        "created": "更新于",
+        "updated": "创建于"
       }
     },
     "tab": {
@@ -1122,7 +1153,10 @@
         "name": "名称",
         "subject": "主题",
         "type": "类型",
-        "smtpprovider": "SMTP供应商"
+        "smtpprovider": "SMTP供应商",
+        "id": "ID",
+        "created": "更新于",
+        "updated": "创建于"
       }
     },
     "tab": {
@@ -1162,7 +1196,8 @@
         "name": "名称",
         "affiliateid": "联盟ID",
         "created": "创建于",
-        "updated": "更新于"
+        "updated": "更新于",
+        "id": "ID"
       }
     },
     "tab": {
@@ -1219,7 +1254,10 @@
         "name": "名称",
         "type": "类型",
         "event": "事件",
-        "data": "跟踪数据"
+        "data": "跟踪数据",
+        "id": "ID",
+        "created": "创建于",
+        "updated": "更新于"
       }
     },
     "tab": {
@@ -1276,7 +1314,11 @@
         "campaign": "活动名称",
         "customer": "客户名称",
         "schedulesnum": "产品时间表的数量",
-        "rebillsnum": "再付费次数"
+        "rebillsnum": "再付费次数",
+        "id": "ID",
+        "alias": "别名",
+        "created": "创建",
+        "updated": "更新"
       }
     },
     "tab": {
@@ -1318,7 +1360,10 @@
         "alias": "别名",
         "amount": "数量",
         "created": "创建于",
-        "response": "处理器响应"
+        "response": "处理器响应",
+        "id": "ID",
+        "updated": "更新",
+        "processor": "商家提供商"
       }
     },
     "tab": {
@@ -1364,7 +1409,10 @@
         "id": "ID",
         "bill": "付费于",
         "created": "创建于",
-        "amount": "数量"
+        "amount": "数量",
+        "updated": "更新",
+        "customer": "客户",
+        "state": "State"
       }
     },
     "tab": {
@@ -1414,7 +1462,10 @@
         "status": "状态",
         "number": "跟踪号码",
         "created": "创建于",
-        "updated": "更新于"
+        "updated": "更新于",
+        "id": "ID",
+        "carrier": "跟踪运营商",
+        "provider": "履行供应商"
       }
     },
     "tab": {
@@ -1445,8 +1496,9 @@
       "header": {
         "name": "名称",
         "provider": "提供商",
-        "username": "用户名",
-        "password": "密码"
+        "id": "ID",
+        "created": "创建于",
+        "updated": "更新于"
       }
     },
     "tab": {
@@ -1486,7 +1538,11 @@
         "fromname": "来自名字",
         "fromemail": "从电子邮件",
         "hostname": "主机名",
-        "username": "用户名"
+        "username": "用户名",
+        "id": "ID",
+        "port": "端口",
+        "created": "创建于",
+        "updated": "更新于"
       }
     },
     "tab": {
@@ -1532,7 +1588,10 @@
       "title": "负载平衡器",
       "header": {
         "name": "名称",
-        "merchantnum": "商户提供商数量"
+        "merchantnum": "商户提供商数量",
+        "id": "ID",
+        "created": "创建于",
+        "updated": "更新于"
       }
     },
     "tab": {
@@ -1567,7 +1626,11 @@
       "header": {
         "name": "名称",
         "processor": "处理器名称",
-        "type": "处理器类型"
+        "type": "处理器类型",
+        "id": "ID",
+        "enabled": "启用",
+        "created": "创建于",
+        "updated": "更新于"
       }
     },
     "tab": {

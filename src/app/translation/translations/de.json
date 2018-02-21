@@ -588,6 +588,7 @@
       "header": {
         "name": "Name",
         "active": "Aktiv",
+        "id": "ID",
         "created": "Geschafft am",
         "updated": "Aktualisiert"
       }
@@ -669,7 +670,10 @@
         "name": "Name",
         "email": "Email",
         "active": "Aktiv",
-        "terms": "Bedingungen und Konditionen"
+        "terms": "Bedingungen und Konditionen",
+        "id": "ID",
+        "created": "Geschafft am",
+        "updated": "Aktualisiert"
       }
     },
     "tab": {
@@ -708,7 +712,15 @@
         "firstname": "Vorname",
         "lastname": "Nachname",
         "state": "Bundesstadt",
-        "city": "Stadt"
+        "city": "Stadt",
+        "id": "ID",
+        "created": "Geschafft am",
+        "updated": "Aktualisiert",
+        "phone": "Telefonummer",
+        "email": "Email",
+        "line1": "Addresse",
+        "zip": "PLZ",
+        "country": "Land"
       }
     },
     "tab": {
@@ -808,7 +820,12 @@
       "expiration": "Expiration",
       "country": "Country",
       "state": "State",
-      "city": "City"
+      "city": "City",
+      "id": "ID",
+      "created": "Geschafft am",
+      "updated": "Aktualisiert",
+      "line1": "Addresse",
+      "zip": "PLZ"
     },
     "tab": {
       "general": "GENERAL DETAILS",
@@ -831,7 +848,13 @@
         "start": "Anfangsdatum",
         "end": "Fristende",
         "overdue": "Überfällig",
-        "balance": "Saldo"
+        "balance": "Saldo",
+        "id": "ID",
+        "account": "Konto",
+        "created": "Geschafft am",
+        "updated": "Aktualisiert",
+        "available": "Available",
+        "paid": "Paid"
       }
     },
     "tab": {
@@ -877,7 +900,12 @@
         "name": "Name des Produkts",
         "sku": "Lagerhaltungsnummer",
         "ship": "Versand",
-        "delay": "Verspäteter Versand"
+        "delay": "Verspäteter Versand",
+        "id": "ID",
+        "price": "Preis",
+        "provider": "Fulfillment Anbieter",
+        "created": "Geschafft am",
+        "updated": "Aktualisiert am"
       }
     },
     "tab": {
@@ -976,7 +1004,10 @@
       "header": {
         "name": "Name",
         "merchantprovidergroup": "Merchantanbietergruppe",
-        "numofcycles": "Anzahl der Zyklen"
+        "numofcycles": "Anzahl der Zyklen",
+        "id": "ID",
+        "created": "Geschafft am",
+        "updated": "Aktualisiert am"
       }
     },
     "tab": {
@@ -1122,7 +1153,10 @@
         "name": "Name",
         "subject": "Betreff",
         "type": "Art von Mailvorlage",
-        "smtpprovider": "SMTP Anbieter"
+        "smtpprovider": "SMTP Anbieter",
+        "id": "ID",
+        "created": "Geschafft am",
+        "updated": "Aktualisiert am"
       }
     },
     "tab": {
@@ -1162,7 +1196,8 @@
         "name": "Name",
         "affiliateid": "Vertriebspartner ID",
         "created": "Geschafft am",
-        "updated": "Aktualisiert am"
+        "updated": "Aktualisiert am",
+        "id": "ID"
       }
     },
     "tab": {
@@ -1219,7 +1254,10 @@
         "name": "Name",
         "type": "Variante",
         "event": "Vorfall",
-        "data": "Tracking-Daten"
+        "data": "Tracking-Daten",
+        "id": "ID",
+        "created": "Geschafft am",
+        "updated": "Aktualisiert am"
       }
     },
     "tab": {
@@ -1276,7 +1314,11 @@
         "campaign": "Name der Kampagne",
         "customer": "Name des Kunden",
         "schedulesnum": "Anzahl der Produktzyklen",
-        "rebillsnum": "Anzahl der Neubelastungen"
+        "rebillsnum": "Anzahl der Neubelastungen",
+        "id": "ID",
+        "alias": "Alias",
+        "created": "Geschafft am",
+        "updated": "Aktualisiert"
       }
     },
     "tab": {
@@ -1318,7 +1360,10 @@
         "alias": "Alias",
         "amount": "Betrag",
         "created": "Geschafft am",
-        "response": "Antwortmeldung des Zahlungsprozessors"
+        "response": "Antwortmeldung des Zahlungsprozessors",
+        "id": "ID",
+        "updated": "Aktualisiert am",
+        "processor": "Merchant Anbieter"
       }
     },
     "tab": {
@@ -1364,7 +1409,10 @@
         "id": "ID",
         "bill": "Berechnet am",
         "created": "Geschafft am",
-        "amount": "Betrag"
+        "amount": "Betrag",
+        "updated": "Aktualisiert am",
+        "customer": "Kunde",
+        "state": "State"
       }
     },
     "tab": {
@@ -1414,7 +1462,10 @@
         "status": "Status",
         "number": "Sendungsnummer",
         "created": "Geschafft am",
-        "updated": "Aktualisiert am"
+        "updated": "Aktualisiert am",
+        "id": "ID",
+        "carrier": "Tracking Carrier",
+        "provider": "Fulfillment Anbieter"
       }
     },
     "tab": {
@@ -1445,8 +1496,9 @@
       "header": {
         "name": "Name",
         "provider": "Anbieter",
-        "username": "Benutzername",
-        "password": "Passwort"
+        "id": "ID",
+        "created": "Geschafft am",
+        "updated": "Aktualisiert am"
       }
     },
     "tab": {
@@ -1486,7 +1538,11 @@
         "fromname": "Name des Absenders",
         "fromemail": "Email Adresse des Absenders",
         "hostname": "Hostname",
-        "username": "Benutzername"
+        "username": "Benutzername",
+        "id": "ID",
+        "port": "Port",
+        "created": "Geschafft am",
+        "updated": "Aktualisiert am"
       }
     },
     "tab": {
@@ -1532,7 +1588,10 @@
       "title": "Lastverteilunger",
       "header": {
         "name": "Name",
-        "merchantnum": "Anzahl der Merchant Anbieter"
+        "merchantnum": "Anzahl der Merchant Anbieter",
+        "id": "ID",
+        "created": "Geschafft am",
+        "updated": "Aktualisiert am"
       }
     },
     "tab": {
@@ -1567,7 +1626,11 @@
       "header": {
         "name": "Name",
         "processor": "Name des Zahlungsprozessors",
-        "type": "Zahlungsprozessorvariante"
+        "type": "Zahlungsprozessorvariante",
+        "id": "ID",
+        "enabled": "Aktiv",
+        "created": "Geschafft am",
+        "updated": "Aktualisiert am"
       }
     },
     "tab": {

@@ -588,6 +588,7 @@
       "header": {
         "name": "Name",
         "active": "Active",
+        "id": "ID",
         "created": "Created",
         "updated": "Updated"
       }
@@ -669,7 +670,10 @@
         "name": "Name",
         "email": "Email",
         "active": "Active",
-        "terms": "Terms and Conditions"
+        "terms": "Terms and Conditions",
+        "id": "ID",
+        "created": "Created",
+        "updated": "Updated"
       }
     },
     "tab": {
@@ -708,7 +712,15 @@
         "firstname": "First Name",
         "lastname": "Last Name",
         "state": "State",
-        "city": "City"
+        "city": "City",
+        "id": "ID",
+        "created": "Created",
+        "updated": "Updated",
+        "line1": "Address",
+        "email": "Email",
+        "phone": "Phone",
+        "zip": "ZIP Code",
+        "country": "Country"
       }
     },
     "tab": {
@@ -808,7 +820,12 @@
       "expiration": "Expiration",
       "country": "Country",
       "state": "State",
-      "city": "City"
+      "city": "City",
+      "id": "ID",
+      "created": "Created",
+      "updated": "Updated",
+      "line1": "Address",
+      "zip": "ZIP Code"
     },
     "tab": {
       "general": "GENERAL DETAILS",
@@ -831,7 +848,13 @@
         "start": "Period Start",
         "end": "Period End",
         "overdue": "Overdue",
-        "balance": "Balance"
+        "balance": "Balance",
+        "id": "ID",
+        "account": "Account",
+        "created": "Created",
+        "updated": "Updated",
+        "available": "Available",
+        "paid": "Paid"
       }
     },
     "tab": {
@@ -877,7 +900,12 @@
         "name": "Product Name",
         "sku": "SKU",
         "ship": "Ship",
-        "delay": "Shipping Delay"
+        "delay": "Shipping Delay",
+        "id": "ID",
+        "price": "Price",
+        "provider": "Fulfillment Provider",
+        "created": "Created",
+        "updated": "Updated"
       }
     },
     "tab": {
@@ -976,7 +1004,10 @@
       "header": {
         "name": "Name",
         "merchantprovidergroup": "Merchant Provider Group",
-        "numofcycles": "Number of Cycles"
+        "numofcycles": "Number of Cycles",
+        "id": "ID",
+        "created": "Created",
+        "updated": "Updated"
       }
     },
     "tab": {
@@ -1122,7 +1153,10 @@
         "name": "Name",
         "subject": "Subject",
         "type": "Type",
-        "smtpprovider": "SMTP Provider"
+        "smtpprovider": "SMTP Provider",
+        "id": "ID",
+        "created": "Created",
+        "updated": "Updated"
       }
     },
     "tab": {
@@ -1162,7 +1196,8 @@
         "name": "Name",
         "affiliateid": "Affiliate ID",
         "created": "Created at",
-        "updated": "Updated at"
+        "updated": "Updated at",
+        "id": "ID"
       }
     },
     "tab": {
@@ -1219,7 +1254,10 @@
         "name": "Name",
         "type": "Type",
         "event": "Event",
-        "data": "Tracking Data"
+        "data": "Tracking Data",
+        "id": "ID",
+        "created": "Created",
+        "updated": "Updated"
       }
     },
     "tab": {
@@ -1276,7 +1314,11 @@
         "campaign": "Campaign Name",
         "customer": "Customer Name",
         "schedulesnum": "Number of Product Schedules",
-        "rebillsnum": "Number of Rebills"
+        "rebillsnum": "Number of Rebills",
+        "id": "ID",
+        "alias": "Alias",
+        "created": "Created",
+        "updated": "Updated"
       }
     },
     "tab": {
@@ -1318,7 +1360,10 @@
         "alias": "Alias",
         "amount": "Amount",
         "created": "Created at",
-        "response": "Processor Response"
+        "response": "Processor Response",
+        "id": "ID",
+        "updated": "Updated",
+        "processor": "Merchant Provider"
       }
     },
     "tab": {
@@ -1364,7 +1409,10 @@
         "id": "ID",
         "bill": "Bill at",
         "created": "Created at",
-        "amount": "Amount"
+        "amount": "Amount",
+        "updated": "Updated",
+        "customer": "Customer",
+        "state": "State"
       }
     },
     "tab": {
@@ -1414,7 +1462,10 @@
         "status": "Status",
         "number": "Tracking ID",
         "created": "Created at",
-        "updated": "Updated at"
+        "updated": "Updated at",
+        "id": "ID",
+        "carrier": "Tracking Carrier",
+        "provider": "Fulfillment Provider"
       }
     },
     "tab": {
@@ -1445,8 +1496,9 @@
       "header": {
         "name": "Name",
         "provider": "Provider",
-        "username": "Username",
-        "password": "Password"
+        "id": "ID",
+        "created": "Created",
+        "updated": "Updated"
       }
     },
     "tab": {
@@ -1486,7 +1538,11 @@
         "fromname": "From Name",
         "fromemail": "From Email",
         "hostname": "Hostname",
-        "username": "Username"
+        "username": "Username",
+        "id": "ID",
+        "port": "Port",
+        "created": "Created",
+        "updated": "Updated"
       }
     },
     "tab": {
@@ -1532,7 +1588,10 @@
       "title": "Merchant Provider Groups",
       "header": {
         "name": "Name",
-        "merchantnum": "Number of Merchant Providers"
+        "merchantnum": "Number of Merchant Providers",
+        "id": "ID",
+        "created": "Created",
+        "updated": "Updated"
       }
     },
     "tab": {
@@ -1567,7 +1626,11 @@
       "header": {
         "name": "Name",
         "processor": "Processor Name",
-        "type": "Processor Type"
+        "type": "Processor Type",
+        "id": "ID",
+        "enabled": "Enabled",
+        "created": "Created",
+        "updated": "Updated"
       }
     },
     "tab": {

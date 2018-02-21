@@ -33,7 +33,7 @@ export class BillsComponent extends AbstractEntityIndexComponent<Bill> implement
       new ColumnParams('BILL_INDEX_HEADER_ACCOUNT', (e: Bill) => e.account.name).setSelected(false),
       new ColumnParams('BILL_INDEX_HEADER_START', (e: Bill) => e.periodStart.tz(f).format('MM/DD/YYYY')),
       new ColumnParams('BILL_INDEX_HEADER_END', (e: Bill) => e.periodEnd.tz(f).format('MM/DD/YYYY')),
-      new ColumnParams('BILL_INDEX_HEADER_AVALIABLE', (e: Bill) => e.availableAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
+      new ColumnParams('BILL_INDEX_HEADER_AVAILABLE', (e: Bill) => e.availableAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
       new ColumnParams('BILL_INDEX_HEADER_OVERDUE', (e: Bill) => !!e.outstanding + ''),
       new ColumnParams('BILL_INDEX_HEADER_PAID', (e: Bill) => !!e.paid + '').setSelected(false),
       new ColumnParams('BILL_INDEX_HEADER_BALANCE', (e: Bill) => e.endingBalance.usd(), 'right').setNumberOption(true),

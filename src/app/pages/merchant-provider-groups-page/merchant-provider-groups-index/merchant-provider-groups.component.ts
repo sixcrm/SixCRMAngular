@@ -27,9 +27,14 @@ export class MerchantProviderGroupsComponent extends AbstractEntityIndexComponen
 
     this.entityFactory = () => new MerchantProviderGroup();
 
+    let f = this.authService.getTimezone();
+
     this.columnParams = [
+      new ColumnParams('MERCHANTPROVIDERGROUP_INDEX_HEADER_ID', (e: MerchantProviderGroup) => e.id).setSelected(false),
       new ColumnParams('MERCHANTPROVIDERGROUP_INDEX_HEADER_NAME', (e: MerchantProviderGroup) => e.name),
-      new ColumnParams('MERCHANTPROVIDERGROUP_INDEX_HEADER_MERCHANTNUM',(e: MerchantProviderGroup) => e.merchantProviderConfigurations.length.toString(), 'right').setNumberOption(true)
+      new ColumnParams('MERCHANTPROVIDERGROUP_INDEX_HEADER_MERCHANTNUM',(e: MerchantProviderGroup) => e.merchantProviderConfigurations.length.toString(), 'right').setNumberOption(true),
+      new ColumnParams('MERCHANTPROVIDERGROUP_INDEX_HEADER_CREATED', (e: MerchantProviderGroup) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
+      new ColumnParams('MERCHANTPROVIDERGROUP_INDEX_HEADER_UPDATED', (e: MerchantProviderGroup) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false)
     ];
   }
 
