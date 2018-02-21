@@ -46,6 +46,9 @@ export class EntitiesTableComponent implements OnInit {
   @Output() previous: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() updateLimit: EventEmitter<number> = new EventEmitter<number>();
 
+  @Output() filterChanged: EventEmitter<string> = new EventEmitter<string>();
+  @Output() searchChanged: EventEmitter<string> = new EventEmitter<string>();
+
   showActionOptions: boolean = false;
 
   @ViewChild('options') options;

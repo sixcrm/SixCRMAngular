@@ -18,6 +18,12 @@
     </div>
   </div>
 
+  <div class="entity-index__options">
+    <filter-input class="entity-index__filter" (valueChanged)="filterChanged.emit($event)"></filter-input>
+    <search-input (onSearch)="searchChanged.emit($event)"></search-input>
+    <table-preferences class="entity-index__preferences" [columnParams]="columnParams"></table-preferences>
+  </div>
+
   <table class="entity-index__table highlight">
     <thead class="entity-index__table__header">
     <tr>

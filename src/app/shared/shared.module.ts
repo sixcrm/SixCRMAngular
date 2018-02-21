@@ -83,6 +83,7 @@ import {ShippingReceiptsService} from './services/shipping-receipts.service';
 import {ImagesService} from './services/images.service';
 import { SearchInputComponent } from './components/search-input/search-input.component';
 import {MerchantProviderGroupAssociationsService} from './services/merchant-provider-group-associations.service';
+import { FilterInputComponent } from './components/filter-input/filter-input.component';
 
 @NgModule({
   declarations : [
@@ -121,7 +122,8 @@ import {MerchantProviderGroupAssociationsService} from './services/merchant-prov
     CustomerCreditCardViewComponent,
     SimpleDatepickerComponent,
     TabHeaderComponent,
-    SearchInputComponent
+    SearchInputComponent,
+    FilterInputComponent
   ],
   exports : [
     AutocompleteComponent,
@@ -158,7 +160,8 @@ import {MerchantProviderGroupAssociationsService} from './services/merchant-prov
     CustomerCreditCardViewComponent,
     SimpleDatepickerComponent,
     TabHeaderComponent,
-    SearchInputComponent
+    SearchInputComponent,
+    FilterInputComponent
   ],
   imports : [
     FormsModule,

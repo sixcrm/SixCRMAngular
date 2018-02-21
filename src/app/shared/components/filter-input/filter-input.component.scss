@@ -1,0 +1,14 @@
+.search-container {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.search-visible {
+  width: 150px;
+  transition: width 250ms ease-in-out;
+}
+
+md-input-container {
+  width: 0;
+  transition: width 250ms ease-in-out;
+}

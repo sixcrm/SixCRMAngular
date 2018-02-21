@@ -254,6 +254,10 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     this.service.getEntities(this.limit, this.searchValue)
   }
 
+  setFilterString(value: string) {
+    this.filterValue = value;
+  }
+
   protected reshuffleEntities(): void {
     // if infinite scroll enabled, no reshuffling is needed
     if (this.infiniteScroll) return;

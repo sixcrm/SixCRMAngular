@@ -219,6 +219,7 @@
   },
   "indexpage": {
     "filter": "Filter",
+    "search": "Suche",
     "del": "Löschen",
     "view": "Ansehen",
     "exp": "Exportieren",

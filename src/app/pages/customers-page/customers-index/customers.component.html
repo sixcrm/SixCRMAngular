@@ -1,8 +1,6 @@
 <div class="entity-index">
   <div class="entity-index__title">
     {{'CUSTOMER_INDEX_TITLE' | translate}}
-    <search-input class="entity-index__search" (onSearch)="setSearchString($event)"></search-input>
-    <table-preferences class="entity-index__preferences" [columnParams]="columnParams"></table-preferences>
   </div>
 
   <button md-icon-button color="primary" *ngIf="hasWritePermission()" (click)="openAddMode()" class="entity-index__add"><md-icon>add</md-icon></button>
@@ -31,7 +29,10 @@
         [nextDisabled]="!hasMorePages()"
         (previous)="previous()"
         (next)="next()"
-        (updateLimit)="updateLimit($event)">
+        (updateLimit)="updateLimit($event)"
+        (filterChanged)="filterValue = $event"
+        (searchChanged)="setSearchString($event)"
+      >
       </entities-table>
     </md-card-content>
   </md-card>

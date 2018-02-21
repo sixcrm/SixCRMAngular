@@ -219,6 +219,7 @@
   },
   "indexpage": {
     "filter": "过滤器",
+    "search": "搜索",
     "del": "删除",
     "view": "查看",
     "exp": "输出",

@@ -6,7 +6,7 @@ $title-color: #8D8888;
   &__title {
     display: flex;
     align-items: center;
-    padding: 10px 55px 10px 80px;
+    padding: 21px 55px 21px 80px;
     font-size: 20px;
     font-weight: 500;
     color: $title-color;
@@ -24,11 +24,16 @@ $title-color: #8D8888;
     }
   }
 
-  &__preferences {
-    margin: 0 -38px 0 10px;
+  &__options {
+    display: flex;
+    align-items: center;
+    padding-right: 19px;
+    padding-top: 3px;
+    color: #8D8888;
+    background: white;
   }
 
-  &__search {
+  &__filter {
     margin-left: auto;
   }
 
@@ -139,11 +144,11 @@ $title-color: #8D8888;
     }
 
     &__header {
-      box-shadow: 0 2px 5px #d0d0d0;
+      box-shadow: 0 2px 2px #d0d0d0;
 
       tr th {
         position: relative;
-        padding: 20px 5px;
+        padding: 10px 5px !important;
         font-weight: 400;
         cursor: pointer;
 
@@ -157,7 +162,7 @@ $title-color: #8D8888;
 
         md-icon {
           position: absolute;
-          bottom: 15px;
+          bottom: 6px;
         }
       }
     }
