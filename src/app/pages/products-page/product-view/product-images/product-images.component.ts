@@ -27,6 +27,7 @@ export class ProductImagesComponent implements OnInit, OnDestroy {
   public uploader: FileUploader = new FileUploader({});
   public filePreviewPath: SafeUrl;
   private rawImage: string;
+  private editCopy: SixImage;
 
   onDropzone: boolean;
 
@@ -87,16 +88,31 @@ export class ProductImagesComponent implements OnInit, OnDestroy {
   }
 
   editImage(image: SixImage) {
-    let imageDialogRef = this.dialog.open(ImageDialogComponent);
-    imageDialogRef.componentInstance.image = image.copy();
-    imageDialogRef.componentInstance.editMode = true;
+    for (let i = 0; i < this.images.length; i++) {
+      this.images[i].editMode = this.images[i].path === image.path;
 
+      if (this.images[i].editMode) {
+        this.editCopy = this.images[i].copy();
+      }
+    }
+  }
 
-    imageDialogRef.afterClosed().take(1).subscribe((response) => {
-      imageDialogRef = null;
+  cancelEdit() {
+    for (let i = 0; i < this.images.length; i++) {
+      if (this.images[i].editMode) {
+        this.images[i] = this.editCopy.copy();
+      }
 
-      this.imageUpdated.emit(response.image);
-    });
+      this.images[i].editMode = false;
+    }
+  }
+
+  updateImage(image: SixImage) {
+    this.imageUpdated.emit(image);
+  }
+
+  cancelUpdate(image: SixImage) {
+    this.imageUpdated.emit(image);
   }
 
   deleteImage(image: SixImage) {

@@ -926,7 +926,9 @@
         "name": "Name",
         "description": "Description",
         "save": "SAVE",
-        "default": "Default Image"
+        "default": "Default Image",
+        "cancel": "CANCEL",
+        "nodata": "No Images Uploaded."
       }
     },
     "schedules": {

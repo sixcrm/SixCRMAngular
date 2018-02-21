@@ -5,12 +5,31 @@
       <div class="entity-view__card__header__title"> {{'PRODUCT_IMAGE_GALLERY_TITLE' | translate}} </div>
     </div>
     <div class="image-container">
-      <div class="image-wrapper" *ngFor="let image of images | sortByDefault">
-        <img src="{{image.path}}">
-        <div class="image-overlay">
-          <md-icon (click)="viewImage(image)">zoom_in</md-icon>
-          <md-icon (click)="editImage(image)">mode_edit</md-icon>
-          <md-icon (click)="deleteImage(image)">delete</md-icon>
+      <div class="no-data" *ngIf="!images || images.length === 0">{{ 'PRODUCT_IMAGE_VIEW_NODATA' | translate }}</div>
+      <div class="image-item" *ngFor="let image of images | sortByDefault">
+        <div class="image-wrapper">
+          <img src="{{image.path}}">
+          <div class="image-overlay">
+            <md-icon (click)="viewImage(image)">zoom_in</md-icon>
+            <md-icon (click)="editImage(image)">mode_edit</md-icon>
+            <md-icon (click)="deleteImage(image)">delete</md-icon>
+          </div>
+        </div>
+        <div class="image-details">
+          <md-input-container>
+            <input md-input placeholder="{{ 'PRODUCT_IMAGE_VIEW_NAME' | translate }}" [(ngModel)]="image.name" type="text" [disabled]="!image.editMode">
+          </md-input-container>
+          <md-input-container>
+            <input md-input placeholder="{{ 'PRODUCT_IMAGE_VIEW_DESCRIPTION' | translate }}" [(ngModel)]="image.description" type="text" [disabled]="!image.editMode">
+          </md-input-container>
+
+          <ng-container *ngIf="image.editMode">
+            <md-checkbox class="image-checkbox checkbox-blue" [(ngModel)]="image.defaultImage">{{ 'PRODUCT_IMAGE_VIEW_DEFAULT' | translate }}</md-checkbox>
+            <div class="image-actions">
+              <div (click)="cancelEdit(image)">{{ 'PRODUCT_IMAGE_VIEW_CANCEL' | translate }}</div>
+              <div (click)="updateImage(image)">{{ 'PRODUCT_IMAGE_VIEW_SAVE' | translate }}</div>
+            </div>
+          </ng-container>
         </div>
       </div>
     </div>
@@ -30,13 +49,17 @@
         [class.dropzone--file-over]="onDropzone"
         type="file"
         [uploader]="uploader">
-        <span>{{'PRODUCT_IMAGE_UPLOAD_DRAGDROP' | translate}}</span>
-        <img [src]="filePreviewPath" class="image" [class.image--file-over]="onDropzone" width="250" *ngIf="filePreviewPath" />
+        <ng-container *ngIf="!filePreviewPath; else preview">
+          <div class="dropzone__text">{{'PRODUCT_IMAGE_UPLOAD_DRAGDROP' | translate}}</div>
+          <label class="select">
+            <input type="file" ng2FileSelect [uploader]="uploader"/>
+            {{'PRODUCT_IMAGE_UPLOAD_SELECT' | translate}}
+          </label>
+        </ng-container>
+        <ng-template #preview>
+          <img [src]="filePreviewPath" class="image" [class.image--file-over]="onDropzone" style="width: 100%;"/>
+        </ng-template>
       </div>
-      <label class="select">
-        <input type="file" ng2FileSelect [uploader]="uploader"/>
-        {{'PRODUCT_IMAGE_UPLOAD_SELECT' | translate}}
-      </label>
     </div>
 
     <div *ngIf="filePreviewPath" class="entity-view__card__actions">

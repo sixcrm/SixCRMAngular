@@ -6,6 +6,7 @@ export class SixImage {
   name: string;
   description: string;
   defaultImage: boolean;
+  editMode: boolean;
 
   constructor(obj?: any) {
     if (!obj) {

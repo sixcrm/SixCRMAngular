@@ -9,22 +9,13 @@ import {SixImage} from '../../shared/models/six-image.model';
 })
 export class ImageDialogComponent implements OnInit {
 
-  editMode: boolean;
   image: SixImage;
 
   constructor(public dialogRef: MdDialogRef<ImageDialogComponent>) {}
 
   ngOnInit() { }
 
-  cancel(): void {
-    this.dialogRef.close({});
-  }
-
-  save(): void {
-    this.dialogRef.close({image: this.image.copy()});
-  }
-
-  close() {
+  close(): void {
     this.dialogRef.close({});
   }
 

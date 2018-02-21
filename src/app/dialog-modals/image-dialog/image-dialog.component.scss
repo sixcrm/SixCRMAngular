@@ -14,60 +14,34 @@
     top: 10px;
     right: 10px;
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    background: rgba(0,0,0,0.25);
-    color: white;
-    font-size: 32px;
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(0,0,0,0.6);
+    color: rgba(0,0,0,0.6);
+    font-size: 24px;
     cursor: pointer;
 
     &:hover {
-      background: rgba(0,0,0,0.5);
+      border: 3px solid rgba(0,0,0,0.4);
+      color: rgba(0,0,0,0.4);
     }
   }
 
-  .close-edit {
-    top: 0;
-    right: 0;
-    width: 26px;
-    height: 26px;
-    font-size: 26px;
-  }
-
-  md-input-container {
-    min-width: 200px;
-    margin: 20px 0 5px;
-    font-size: 14px;
-  }
-
-  md-textarea {
-    width: 320px;
-    font-size: 14px;
-  }
-
-  .image-edit {
-    max-width: 200px;
-  }
-
-  .buttons {
-    display: flex;
-    margin-top: 10px;
+  .description {
+    margin-top: 20px;
 
     div {
-      margin: 0 0 0 auto;
-      color: #5B9BE1;
-      font-size: 12px;
-      cursor: pointer;
+
+      &:first-of-type {
+        color: #5B9BE1;
+        font-size: 18px;
+      }
+
+      &:last-of-type {
+        margin-top: 16px;
+        font-size: 14px;
+        color: #4A4A4A;
+      }
     }
-  }
-}
-
-.chbox {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #4f4f4f;
-
-  md-checkbox {
-    margin-right: 10px;
   }
 }
