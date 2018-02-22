@@ -43,7 +43,7 @@ deployment:
       - node libs/deployment_scripts/src/deploy-cloudfront.js deployment/deploy-config.json
       # - npm run webdriver-update
       # - npm run e2e.stage
-      # - node libs/deployment_scripts/src/merge-branches.js deployment/deploy-config.json
+      - node libs/deployment_scripts/src/merge-branches.js deployment/deploy-config.json
 
   development:
     branch: development
@@ -68,4 +68,4 @@ deployment:
       # - npm run e2e.dev
 
       # Promote changes
-      # - node libs/deployment_scripts/src/merge-branches.js deployment/deploy-config.json
+      - node libs/deployment_scripts/src/merge-branches.js deployment/deploy-config.json
