@@ -48,7 +48,7 @@ export class ReportTableComponent implements OnInit {
   @Output() filterSelected: EventEmitter<FilterTerm> = new EventEmitter();
   @Output() cellClicked: EventEmitter<{params: ReportColumnParams<any>, entity: any}> = new EventEmitter();
 
-  @Input() paginationValues: number[] = [5, 10, 15, 20, 30, 50];
+  @Input() paginationValues: number[] = [5, 10, 25, 50, 75, 100];
   @Input() page: number;
   @Input() nextDisabled: boolean = false;
   @Input() limit: number = 10;

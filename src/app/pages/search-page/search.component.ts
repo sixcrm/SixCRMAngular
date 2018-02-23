@@ -48,7 +48,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   // pagination limit
   limit: number;
-  paginationValues: number[] = [5, 10, 15, 20, 30];
+  paginationValues: number[] = [5, 10, 25, 50, 75, 100];
   page: number = 0;
 
   searchResults: any[] = [];

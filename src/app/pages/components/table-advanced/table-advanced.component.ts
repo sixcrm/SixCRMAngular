@@ -44,7 +44,7 @@ export class TableAdvancedComponent implements OnInit {
 
   limit: number = 10;
   page: number = 0;
-  paginationValues: number[] = [5, 10, 15, 20, 30, 40, 50];
+  paginationValues: number[] = [5, 10, 25, 50, 75, 100];
 
   inputTypes = ColumnParamsInputType;
 

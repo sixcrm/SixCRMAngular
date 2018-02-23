@@ -22,7 +22,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   hasMore: boolean;
   entities: T[] = [];
   entitiesHolder: T[] = [];
-  paginationValues: number[] = [5, 10, 15, 20, 30, 40, 50];
+  paginationValues: number[] = [5, 10, 25, 50, 75, 100];
 
   filterValue: string;
   searchValue: string;
