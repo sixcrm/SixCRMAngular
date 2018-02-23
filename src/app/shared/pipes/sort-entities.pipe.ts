@@ -11,8 +11,8 @@ export class SortEntitiesPipe implements PipeTransform {
     let ord = order || 'asc';
 
     return entities.sort((f, s) => {
-      let first = mapToField(f).toUpperCase();
-      let second = mapToField(s).toUpperCase();
+      let first = mapToField(f).toString().toUpperCase();
+      let second = mapToField(s).toString().toUpperCase();
 
       if (first < second) {
         return  ord === 'asc' ? -1 : 1;

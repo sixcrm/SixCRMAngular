@@ -1012,6 +1012,7 @@
     },
     "tab": {
       "general": "GENERAL DETAILS",
+      "cycle": "CYCLES",
       "campaign": "CAMPAIGNS"
     },
     "info": {
@@ -1033,6 +1034,7 @@
       "save": "SAVE",
       "cancel": "CANCEL",
       "name": "Product Name",
+      "image": "Image",
       "schedulename": "Product Schedule Name",
       "price": "Price",
       "pricetip": "Price for period of time",

@@ -1012,6 +1012,7 @@
     },
     "tab": {
       "general": "ALLGEMEINES",
+      "cycle": "ZYKLEN",
       "campaign": "Kampagnen"
     },
     "info": {
@@ -1033,6 +1034,7 @@
       "save": "SPEICHERN",
       "cancel": "ABBRECHEN",
       "name": "Name",
+      "image": "Image",
       "schedulename": "Name des Produktzyklus",
       "price": "Preis",
       "pricetip": "Der Preis for period of time",

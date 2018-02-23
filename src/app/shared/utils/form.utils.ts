@@ -23,7 +23,7 @@ export function isAllowedEmail(event, currentValue: string): boolean {
 }
 
 export function isAllowedFloatNumeric(event): boolean {
-  const pattern = /[0-9]|\.|Backspace|ArrowRight|ArrowLeft|Tab/;
+  const pattern = /[0-9]|\.|Backspace|ArrowRight|ArrowLeft|Tab|Delete/;
 
   if (!pattern.test(event.key)) {
     event.preventDefault();

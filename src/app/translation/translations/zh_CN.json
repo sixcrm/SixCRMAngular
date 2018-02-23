@@ -1012,6 +1012,7 @@
     },
     "tab": {
       "general": "一般细节",
+      "cycle": "周期",
       "campaign": "活动"
     },
     "info": {
@@ -1033,6 +1034,7 @@
       "save": "保存",
       "cancel": "取消",
       "name": "产品名称",
+      "image": "Image",
       "schedulename": "产品计划名称",
       "price": "价格",
       "pricetip": "期段内价格",

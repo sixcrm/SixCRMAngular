@@ -1,0 +1,198 @@
+<div class="entity-view__table-component entity-view__table-component--advanced"
+     [class.density--s]="density === 0"
+     [class.density--l]="density === 2"
+     [class.density--m]="density !== 0 && density !==2">
+
+  <table-advanced-header [textOptions]="textOptions"
+                         [hasWritePermission]="hasWritePermission"
+                         [columnParams]="columnParams"
+                         [density]="density"
+                         (filterStringChanged)="filterString = $event"
+                         (densitySelected)="density = $event"
+                         (addModeSelected)="setAddMode()">
+  </table-advanced-header>
+
+  <table-advanced-bulk [entities]="entities" (deleteAllSelected)="delMultiple($event)"></table-advanced-bulk>
+
+  <table class="highlight table__custom">
+    <thead>
+      <tr>
+        <th></th>
+        <ng-container *ngFor="let params of columnParams">
+          <ng-container *ngIf="params.selected">
+            <th (click)="setSortedColumnParams(params)" [class.cell--align-right]="params.align === 'right'" [class.cell--align-center]="params.align === 'center'">
+              <ng-container *ngIf="params.showLabel">
+                {{params.label | translate}}
+                <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+              </ng-container>
+            </th>
+          </ng-container>
+        </ng-container>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <ng-container *ngFor="let entity of entities | filterEntitiesByParams: columnParams: filterString | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder">
+        <tr [class.no-border]="entity.inlineEditMode">
+          <td class="checkbox-container"><md-checkbox class="checkbox-blue small-table-checkbox" [(ngModel)]="entity.bulkSelected"></md-checkbox></td>
+          <ng-container *ngFor="let params of columnParams">
+            <ng-container *ngIf="params.selected">
+              <td [class.cell--align-right]="params.align === 'right'" [class.cell--align-center]="params.align === 'center'" [class.cell-image]="params.inputType === inputTypes.IMAGE">
+                <div class="cell-wrapper">
+
+                  <ng-container *ngIf="params.translate; else notranslate">
+                    {{params.mappingFunction(entity) | translate}}
+                  </ng-container>
+
+                  <ng-template #notranslate>
+                    <ng-container *ngIf="params.inputType === inputTypes.BOOLEAN; else nobool">
+                      <md-checkbox class="checkbox-blue" [checked]="params.mappingFunction(entity)" [disabled]="!params.editable || !entity.inlineEditMode"></md-checkbox>
+                    </ng-container>
+                  </ng-template>
+
+                  <ng-template #nobool>
+                    <ng-container *ngIf="params.inputType === inputTypes.AUTOCOMPLETE; else noauto">
+                      <ng-container *ngIf="!entity.inlineEditMode; else autocompleteinput">
+                        {{params.mappingFunction(entity)}}
+                      </ng-container>
+                    </ng-container>
+                  </ng-template>
+
+                  <ng-template #noauto>
+                    <ng-container *ngIf="params.inputType === inputTypes.IMAGE; else noimage">
+                      <img src="{{params.mappingFunction(entity)}}" alt="">
+                    </ng-container>
+                  </ng-template>
+
+                  <ng-template #noimage>
+                    <ng-container *ngIf="!entity.inlineEditMode; else editinput">
+                      <span *ngIf="params.prefix">{{params.prefix}}</span>
+                      {{params.mappingFunction(entity)}}
+                    </ng-container>
+                  </ng-template>
+
+                  <ng-template #editinput>
+                    <div class="placeholder">{{params.label | translate}}</div>
+                    <span *ngIf="params.prefix">{{params.prefix}}</span>
+                    <md-input-container [class.error]="editInvalid && !params.validator(entity)" [class.numeric-container]="params.inputType === inputTypes.NUMERIC">
+                      <input md-input (keydown)="keydown($event, params)" type="text" [value]="params.mappingFunction(entity)" (input)="params.assigningFunction(entity, $event.srcElement.value)" [disabled]="!params.editable">
+                    </md-input-container>
+                  </ng-template>
+
+                  <ng-template #autocompleteinput>
+                    <div class="placeholder">{{params.label | translate}}</div>
+                    <autocomplete-input [class.error]="editInvalid && !params.validator(entity)"
+                                        [mapFunction]="params.autocompleteMapper"
+                                        [initialValue]="params.autocompleteInitialValue(entity)"
+                                        [options]="params.autocompleteOptions || []"
+                                        [disabled]="!params.editable"
+                                        [fullWidth]="true"
+                                        [applyAutofocus]="true"
+                                        (selected)="params.assigningFunction(entity, $event)">
+                    </autocomplete-input>
+                  </ng-template>
+
+                  <md-icon *ngIf="params.copy" class="copy-icon" md-tooltip="{{'SHARE_COPY' | translate}}" ngxClipboard [cbContent]="params.mappingFunction(entity)">content_copy</md-icon>
+                </div>
+              </td>
+            </ng-container>
+          </ng-container>
+          <td>
+            <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
+            <md-menu #actionsMenu="mdMenu" x-position="before">
+              <button *ngIf="viewEnabled" md-menu-item (click)="view(entity)">{{textOptions.viewOptionText | translate}}</button>
+              <button *ngIf="editEnabled && hasWritePermission" md-menu-item (click)="edit(entity)">{{textOptions.editOptionText | translate}}</button>
+              <button *ngIf="deleteEnabled && hasWritePermission" md-menu-item (click)="del(entity)">{{textOptions.disassociateOptionText | translate}}</button>
+            </md-menu>
+          </td>
+        </tr>
+
+        <tr class="no-background" *ngIf="entity.inlineEditMode">
+          <td colspan="10">
+            <div class="inline__actions">
+              <div (click)="cancelEditMode()">CANCEL</div>
+              <div (click)="updateEntity(entity)">SAVE</div>
+            </div>
+          </td>
+        </tr>
+
+      </ng-container>
+
+      <ng-container *ngIf="entity">
+        <tr class="no-border">
+          <td class="checkbox-container"></td>
+          <ng-container *ngFor="let params of columnParams">
+            <ng-container *ngIf="params.selected">
+              <td [class.cell--align-right]="params.align === 'right'" [class.cell--align-center]="params.align === 'center'" [class.cell-image]="params.inputType === inputTypes.IMAGE">
+                <div class="cell-wrapper">
+
+                  <ng-container *ngIf="params.inputType === inputTypes.AUTOCOMPLETE; else noauto">
+                    <div class="placeholder">{{params.label | translate}}</div>
+                    <autocomplete-input [class.error]="addInvalid && !params.validator(entity)"
+                                        [mapFunction]="params.autocompleteMapper"
+                                        [fullWidth]="true"
+                                        [initialValue]="params.autocompleteInitialValue(entity)"
+                                        [options]="params.autocompleteOptions || []"
+                                        [disabled]="!params.editable"
+                                        [applyAutofocus]="true"
+                                        (selected)="params.assigningFunction(entity, $event)">
+                    </autocomplete-input>
+                  </ng-container>
+
+                  <ng-template #noauto>
+                    <ng-container *ngIf="params.inputType === inputTypes.IMAGE; else noimage">
+                      <img src="{{params.mappingFunction(entity)}}" alt="">
+                    </ng-container>
+                  </ng-template>
+
+                  <ng-template #noimage>
+                    <ng-container *ngIf="params.inputType === inputTypes.BOOLEAN; else nobool">
+                      <md-checkbox class="checkbox-blue" [checked]="params.mappingFunction(entity)" [disabled]="!params.editable"></md-checkbox>
+                    </ng-container>
+                  </ng-template>
+
+                  <ng-template #nobool>
+                    <div class="placeholder">{{params.label | translate}}</div>
+                    <span *ngIf="params.prefix">{{params.prefix}}</span>
+                    <md-input-container [class.error]="addInvalid && !params.validator(entity)" [class.numeric-container]="params.inputType === inputTypes.NUMERIC">
+                      <input md-input type="text" (keydown)="keydown($event, params)" [disabled]="!params.editable" [value]="params.mappingFunction(entity)" (input)="params.assigningFunction(entity, $event.srcElement.value)">
+                    </md-input-container>
+                  </ng-template>
+
+                </div>
+              </td>
+            </ng-container>
+          </ng-container>
+
+          <td></td>
+        </tr>
+
+        <tr class="no-background">
+          <td colspan="10">
+            <div class="inline__actions">
+              <div (click)="cancelAddMode()">CANCEL</div>
+              <div (click)="addEntity(entity)">SAVE</div>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+  <div *ngIf="!entity && (!entities || entities.length === 0)" class="entity-view__no-results entity-view__no-results--table">{{textOptions.noDataText | translate}}</div>
+
+  <table-pagination
+    *ngIf="showPagination"
+    [limit]="limit"
+    [paginationValues]="paginationValues"
+    [previousDisabled]="page <= 0"
+    [nextDisabled]="!hasMorePages()"
+    (previous)="previous()"
+    (next)="next()"
+    (updateLimit)="updateLimit($event)">
+  </table-pagination>
+</div>
+
+
+

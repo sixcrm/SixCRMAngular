@@ -1,0 +1,43 @@
+table-preferences {
+  margin-left: 12px;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.header--big {
+  position: relative;
+  padding: 15px 15px 15px 30px;
+}
+
+.add-button {
+  position: absolute;
+  top: -14px;
+  left: 4px;
+  padding: 3px;
+  background: #5B9BE1;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  cursor: pointer;
+
+  div {
+    margin: auto;
+    color: white;
+    font-size: 30px;
+    line-height: 20px;
+  }
+}
+
+.entity-view__table-component__header__filter {
+  margin-right: 6px;
+}
+
+.density {
+  color: rgba(0, 0, 0, 0.4);
+  margin-left: 6px;
+  cursor: pointer;
+
+  &--selected {
+    color: rgba(0,0,0,0.8);
+  }
+}

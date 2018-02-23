@@ -138,10 +138,24 @@ td,th {
   text-align: right;
 }
 
+.cell--align-center {
+  text-align: center;
+}
+
 .cell--link {
   text-decoration: underline;
 }
 
 .cell--codeblock {
   width: 50%;
+}
+
+.small-table-checkbox {
+  color: rgba(0, 0, 0, 0.4);
+
+  .md-checkbox-inner-container {
+    margin: auto;
+    width: 16px;
+    height: 16px;
+  }
 }

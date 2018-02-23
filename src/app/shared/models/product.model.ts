@@ -3,6 +3,7 @@ import {Entity} from './entity.interface';
 import {Currency} from '../utils/currency/currency';
 import {ProductAttributes} from './product-attributes.model';
 import {Moment, utc} from 'moment';
+import {SixImage} from './six-image.model';
 
 export class Product implements Entity<Product> {
   id: string;
@@ -33,6 +34,24 @@ export class Product implements Entity<Product> {
     this.fulfillmentProvider = new FulfillmentProvider(obj.fulfillment_provider);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+  }
+
+  getDefaultImage(): SixImage {
+    if (!this.attributes || !this.attributes.images || this.attributes.images.length === 0) return null;
+
+    const defs = this.attributes.images.filter(i => i.defaultImage);
+
+    if (defs && defs.length > 0) return defs[0];
+
+    return this.attributes.images[0];
+  }
+
+  getDefaultImagePath(): string {
+    const image = this.getDefaultImage();
+
+    if (!image) return '';
+
+    return image.path;
   }
 
   copy(): Product {

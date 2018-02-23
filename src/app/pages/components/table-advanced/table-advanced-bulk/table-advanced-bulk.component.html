@@ -1,0 +1,16 @@
+<div class="bulk-container" [class.bulk-container--visible]="getNumberOfSelected() > 0">
+  <div class="flex-custom flex-custom--center" *ngIf="getNumberOfSelected() > 0">
+    <div class="text">
+      {{getNumberOfSelected()}}
+      {{'INDEXPAGE_SELECTED' | translate}}
+    </div>
+    <div class="flex-custom" #arrow>
+      <md-icon (click)="showOptions = !showOptions" class="arrow" [class.arrow--rotated]="showOptions">keyboard_arrow_up</md-icon>
+    </div>
+    <div #options *ngIf="showOptions" class="options-container">
+      <div class="options-item" (click)="selectAll()">{{'INDEXPAGE_SELECTALL' | translate}}</div>
+      <div class="options-item" (click)="deselectAll()">{{'INDEXPAGE_DESELECTALL' | translate}}</div>
+      <div class="options-item" (click)="deleteAll()">{{'INDEXPAGE_DELETEALL' | translate}}</div>
+    </div>
+  </div>
+</div>

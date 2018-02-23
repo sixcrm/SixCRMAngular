@@ -65,7 +65,7 @@ export function productScheduleResponseQuery(): string {
   return `
     id name created_at updated_at,
     schedule { price start end period,
-      product { id name ship }
+      product { id name ship attributes { images { path default_image} } }
     }
     merchantprovidergroup {
       ${merchantProviderGroupResponseQuery()}

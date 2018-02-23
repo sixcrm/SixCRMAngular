@@ -19,7 +19,7 @@ export class TopCampaignsComponent extends AbstractDashboardItem implements OnIn
     new ColumnParams('DASHBOARD_TOPCAMPAIGNS_CAMPAIGN', (c: CampaignStats) => c.campaign),
     new ColumnParams('DASHBOARD_TOPCAMPAIGNS_AMOUNT', (c: CampaignStats) => c.amount.usd(), 'right').setNumberOption(true)
   ];
-  sortParams: ColumnParams<CampaignStats> = new ColumnParams();
+  sortParams: ColumnParams<CampaignStats> = new ColumnParams<CampaignStats>();
   sortOrder: string = 'asc';
 
   constructor(private analyticsService: AnalyticsService) {

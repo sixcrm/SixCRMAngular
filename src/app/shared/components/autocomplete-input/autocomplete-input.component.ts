@@ -19,7 +19,7 @@ export class AutocompleteInputComponent implements OnInit {
 
   @Input() mapFunction = (el: any) => el;
 
-  @Input() set initialValue(value: string) {
+  @Input() set initialValue(value) {
     this.initValue = value;
     this.currentValue = this.mapFunction(value);
     this.filterOptions();
@@ -37,6 +37,8 @@ export class AutocompleteInputComponent implements OnInit {
   @Input() showArrow: boolean = false;
   @Input() disabled: boolean = false;
   @Input() required: boolean = false;
+  @Input() fullWidth: boolean = false;
+  @Input() applyAutofocus: boolean = false;
   @Input() strictFilteringStrategy: boolean = false; // If is true will match ORegon but not califORnia when filtering string 'OR'. If false, will match both.
   @Output() valueChanged: EventEmitter<any> = new EventEmitter();
   @Output() selected: EventEmitter<any> = new EventEmitter();

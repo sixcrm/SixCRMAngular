@@ -12,6 +12,9 @@ import { TableMemoryComponent } from './table-memory/table-memory.component';
 import {TranslationModule} from '../../translation/translation.module';
 import {ClipboardModule} from 'ngx-clipboard';
 import { TablePreferencesComponent } from './table-preferences/table-preferences.component';
+import { TableAdvancedComponent } from './table-advanced/table-advanced.component';
+import { TableAdvancedHeaderComponent } from './table-advanced/table-advanced-header/table-advanced-header.component';
+import { TableAdvancedBulkComponent } from './table-advanced/table-advanced-bulk/table-advanced-bulk.component';
 
 @NgModule({
   imports : [
@@ -29,7 +32,10 @@ import { TablePreferencesComponent } from './table-preferences/table-preferences
     EntityViewInfoArrayComponent,
     EntitiesTableComponent,
     TableMemoryComponent,
-    TablePreferencesComponent
+    TablePreferencesComponent,
+    TableAdvancedComponent,
+    TableAdvancedHeaderComponent,
+    TableAdvancedBulkComponent
   ],
   exports : [
     TableActionsComponent,
@@ -38,7 +44,8 @@ import { TablePreferencesComponent } from './table-preferences/table-preferences
     EntityViewInfoArrayComponent,
     EntitiesTableComponent,
     TableMemoryComponent,
-    TablePreferencesComponent
+    TablePreferencesComponent,
+    TableAdvancedComponent
   ],
   providers: [
 

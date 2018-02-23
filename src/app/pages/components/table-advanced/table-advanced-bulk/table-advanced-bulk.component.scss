@@ -1,0 +1,50 @@
+.bulk-container {
+  position: relative;
+  display: flex;
+  padding: 0 30px;
+  align-items: center;
+  height: 0;
+  transition: height 150ms ease-in-out;
+  background: #4A90E2;
+  z-index: 2;
+}
+
+.bulk-container--visible {
+  height: 36px;
+}
+
+.text {
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+md-icon {
+  margin-left: 3px;
+  cursor: pointer;
+  color: white;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.arrow--rotated {
+  transform: rotate(180deg);
+}
+
+.options-container {
+  position: absolute;
+  top: 30px;
+  background: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.options-item {
+  font-size: 14px;
+  padding: 8px 16px;
+  cursor: pointer;
+
+  &:hover {
+    background: #f2f2f2;
+  }
+}

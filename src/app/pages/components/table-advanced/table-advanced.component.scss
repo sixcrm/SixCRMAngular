@@ -1,0 +1,113 @@
+.numeric-container {
+  width: 68px !important;
+
+  input {
+    text-align: right;
+  }
+}
+
+td {
+  md-input-container {
+    width: 100%;
+  }
+}
+
+td {
+  cursor: default !important;
+}
+
+.no-border {
+  border-bottom: none !important;
+
+  &:hover {
+    background: white;
+  }
+}
+
+.no-background {
+  &:hover {
+    background: white;
+  }
+}
+
+.inline__actions {
+  display: flex;
+  padding-top: 5px;
+
+  div {
+    cursor: pointer;
+    font-size: 12px;
+
+    &:first-of-type {
+      margin-left: auto;
+      margin-right: 14px;
+    }
+
+    &:last-of-type {
+      color: #5B9BE1;
+    }
+  }
+}
+
+.placeholder {
+  font-size: 10px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+img {
+  width: 45px;
+  border-radius: 50%;
+}
+
+.cell-image {
+  width: 45px;
+  padding: 8px 0 8px 8px !important;
+}
+
+.cell-wrapper {
+  padding-right: 0;
+}
+
+.checkbox-container {
+  width: 16px;
+  padding: 8px 16px 8px 30px !important;
+}
+
+.entity-view__table-component--advanced {
+  overflow: visible;
+}
+
+.density {
+
+  &--s {
+    img {
+      width: 35px;
+    }
+
+    .cell-image {
+      padding-top: 1px !important;
+      padding-bottom: 1px !important;
+    }
+
+    td {
+      padding-top: 1px;
+      padding-bottom: 1px;
+    }
+  }
+
+  &--m {
+
+  }
+
+  &--l {
+    .cell-image {
+      padding-top: 16px !important;
+      padding-bottom: 16px !important;
+    }
+
+    td {
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+  }
+}

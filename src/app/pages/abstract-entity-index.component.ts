@@ -37,7 +37,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   shareLimit: boolean = true;
 
   columnParams: ColumnParams<T>[] = [];
-  sortedColumnParams: ColumnParams<T> = new ColumnParams();
+  sortedColumnParams: ColumnParams<T> = new ColumnParams<T>();
 
   loadingData: boolean = false;
 

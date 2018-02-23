@@ -178,6 +178,10 @@ dropdown-component {
     display: flex;
     align-items: center;
 
+    &--full-width {
+      width: 100%;
+    }
+
     .rotated {
       transform: rotate(180deg);
     }
@@ -205,6 +209,10 @@ dropdown-component {
     background: #fff;
     color: black;
     z-index: 10;
+
+    &--small {
+      max-height: 130px;
+    }
 
     &__item {
       padding: 5px 10px;

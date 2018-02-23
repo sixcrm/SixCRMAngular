@@ -5,15 +5,16 @@ import {ProductScheduleService} from '../../../shared/services/product-schedule.
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {Schedule} from '../../../shared/models/schedule.model';
-import {ColumnParams} from '../../../shared/models/column-params.model';
+import {ColumnParams, ColumnParamsInputType} from '../../../shared/models/column-params.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Product} from '../../../shared/models/product.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {AddScheduleComponent} from '../../../shared/components/add-schedule/add-schedule.component';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
-import {AddProductScheduleDialogComponent} from '../../add-product-schedule-dialog.component';
-import {MdDialog} from '@angular/material';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
+import {Currency} from '../../../shared/utils/currency/currency';
+import {ProductsService} from '../../../shared/services/products.service';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'product-schedule-view',
@@ -27,29 +28,83 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
 
   selectedIndex: number = 0;
   scheduleColumnParams = [
-    new ColumnParams('PRODUCTSCHEDULE_CYCLE_NAME', (e: Schedule) => e.product.name),
-    new ColumnParams('PRODUCTSCHEDULE_CYCLE_PRICE', (e: Schedule) => e.price.usd(), 'right').setNumberOption(true),
-    new ColumnParams('PRODUCTSCHEDULE_CYCLE_START', (e: Schedule) => e.start + '', 'right').setNumberOption(true),
-    new ColumnParams('PRODUCTSCHEDULE_CYCLE_END', (e: Schedule) => e.end === null ? '' : e.end + '', 'right').setNumberOption(true),
-    new ColumnParams('PRODUCTSCHEDULE_CYCLE_PERIOD', (e: Schedule) => e.period + '', 'right').setNumberOption(true),
-    new ColumnParams('PRODUCTSCHEDULE_CYCLE_SHIP', (e: Schedule) => e.product.ship + '')
+    new ColumnParams('PRODUCTSCHEDULE_CYCLE_IMAGE')
+      .setMappingFunction((e: Schedule) => e.product.getDefaultImagePath())
+      .setShowLabel(false)
+      .setInputType(ColumnParamsInputType.IMAGE),
+    new ColumnParams('PRODUCTSCHEDULE_CYCLE_NAME')
+      .setMappingFunction((e: Schedule) => e.product.name)
+      .setAssigningFunction((e: Schedule, value: Product) => {
+        e.product = value;
+        e.price = value.defaultPrice;
+
+        return e;
+      })
+      .setValidator((e: Schedule) => !!(e.product && e.product.id))
+      .setInputType(ColumnParamsInputType.AUTOCOMPLETE)
+      .setAutocompleteOptions([])
+      .setAutocompleteMapper((product) => product.name)
+      .setAutocompleteInitialValue((schedule) => schedule.product),
+    new ColumnParams('PRODUCTSCHEDULE_CYCLE_PRICE')
+      .setMappingFunction((e: Schedule) => e.price.amount)
+      .setAssigningFunction((e: Schedule, value) => e.price = new Currency(value))
+      .setAlign('right')
+      .setInputType(ColumnParamsInputType.NUMERIC)
+      .setNumberOption(true)
+      .setPrefix('$'),
+    new ColumnParams('PRODUCTSCHEDULE_CYCLE_START')
+      .setMappingFunction((e: Schedule) => e.start)
+      .setAssigningFunction((e: Schedule, value) => e.start = (!value || isNaN(value)) ? 0 : parseInt(value))
+      .setAlign('right')
+      .setInputType(ColumnParamsInputType.NUMERIC)
+      .setNumberOption(true),
+    new ColumnParams('PRODUCTSCHEDULE_CYCLE_END')
+      .setMappingFunction((e: Schedule) => e.end === null ? '' : e.end + '')
+      .setAssigningFunction((e: Schedule, value) => e.end = (!value || isNaN(value)) ? 0 : parseInt(value))
+      .setInputType(ColumnParamsInputType.NUMERIC)
+      .setValidator((e: Schedule) => e.end >= e.start)
+      .setAlign('right')
+      .setNumberOption(true),
+    new ColumnParams('PRODUCTSCHEDULE_CYCLE_PERIOD')
+      .setMappingFunction((e: Schedule) => e.period)
+      .setAssigningFunction((e: Schedule, value) => e.period = (!value || isNaN(value)) ? 0 : parseInt(value))
+      .setInputType(ColumnParamsInputType.NUMERIC)
+      .setValidator((e: Schedule) => (e.end < e.start) || (e.period <= e.end - e.start))
+      .setAlign('right')
+      .setNumberOption(true),
+    new ColumnParams('PRODUCTSCHEDULE_CYCLE_SHIP')
+      .setMappingFunction((e: Schedule) => e.product.ship)
+      .setInputType(ColumnParamsInputType.BOOLEAN)
+      .setAlign('center')
+      .setEditable(false)
   ];
 
-  scheduleToAdd: Schedule = new Schedule();
-  scheduleMapper = (s: Schedule) => s.product.name;
+  scheduleFactory = (data: any) => {
+    const schedule: Schedule = new Schedule(data);
 
-  price: string = '';
+    if (!this.entity.schedules || this.entity.schedules.length === 0) return schedule;
+
+    const lastExistingSchedule: Schedule = this.entity.schedules[this.entity.schedules.length - 1];
+
+    schedule.start = lastExistingSchedule.end;
+    schedule.end = schedule.start + schedule.period;
+    schedule.period = lastExistingSchedule.period;
+
+    return schedule;
+  };
 
   tableTexts: TableMemoryTextOptions = {
     title: 'PRODUCTSCHEDULE_CYCLE_TITLE',
     editOptionText: 'PRODUCTSCHEDULE_CYCLE_EDIT',
     viewOptionText: 'PRODUCTSCHEDULE_CYCLE_VIEW',
     disassociateOptionText: 'PRODUCTSCHEDULE_CYCLE_REMOVE',
+    associateOptionText: 'PRODUCTSCHEDULE_CYCLE_ADD',
     noDataText: 'PRODUCTSCHEDULE_CYCLE_NODATA'
   };
 
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'PRODUCTSCHEDULE_TAB_GENERAL'},
+    {name: 'cycles', label: 'PRODUCTSCHEDULE_TAB_CYCLE'},
     {name: 'campaigns', label: 'PRODUCTSCHEDULE_TAB_CAMPAIGN'}
   ];
 
@@ -59,7 +114,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     public navigation: NavigationService,
     public authService: AuthenticationService,
     private router: Router,
-    private dialog: MdDialog
+    private productService: ProductsService
   ) {
     super(service, route);
   }
@@ -70,6 +125,13 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     if (this.addMode) {
       this.entity = new ProductSchedule();
       this.entityBackup = new ProductSchedule();
+    } else {
+      this.productService.entities$.takeUntil(this.unsubscribe$).subscribe(products => {
+        if (products instanceof CustomServerError) return;
+
+        this.scheduleColumnParams[1].setAutocompleteOptions(products);
+      });
+      this.productService.getEntities();
     }
   }
 
@@ -81,32 +143,42 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     this.selectedIndex = value;
   }
 
-  clearAddSchedule(): void {
-    this.price = '';
-    let loopProduct = this.scheduleToAdd ? this.scheduleToAdd.product : new Product();
-
-    this.scheduleToAdd = new Schedule();
-    this.scheduleToAdd.product = loopProduct.copy();
-  }
-
-  addScheduleToProduct(schedule: Schedule): void {
+  addSchedule(schedule: Schedule) {
     this.entity.schedules.push(schedule);
 
-    if (!this.addMode) {
-      this.updateEntity(this.entity);
-    } else {
-      this.entity.schedules = this.entity.schedules.slice();
-      this.clearAddSchedule();
+    this.updateEntity(this.entity);
+  }
+
+  updateSchedule(schedule: Schedule): void {
+    for (let i = 0; i < this.entity.schedules.length; i++) {
+      if (this.entity.schedules[i]['tableAdvancedIdentifier'] === schedule['tableAdvancedIdentifier']) {
+        this.entity.schedules[i] = schedule;
+        break;
+      }
     }
+
+    this.updateEntity(this.entity);
   }
 
   disassociateSchedule(schedule: Schedule) {
-    let index = firstIndexOf(this.entity.schedules, (s: Schedule) => JSON.stringify(s) === JSON.stringify(schedule));
+    const index = firstIndexOf(this.entity.schedules, (s: Schedule) => JSON.stringify(s) === JSON.stringify(schedule));
 
     if (index > -1) {
       this.entity.schedules.splice(index, 1);
       this.updateEntity(this.entity);
     }
+  }
+
+  disassociateSchedules(schedules: Schedule[]) {
+    schedules.forEach(schedule => {
+      const index = firstIndexOf(this.entity.schedules, (s: Schedule) => JSON.stringify(s) === JSON.stringify(schedule));
+
+      if (index > -1) {
+        this.entity.schedules.splice(index, 1);
+      }
+    });
+
+    this.updateEntity(this.entity);
   }
 
   navigateToProduct(schedule: Schedule) {
@@ -115,23 +187,5 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
 
   canBeDeactivated() {
     return super.canBeDeactivated() && (!this.addScheduleComponent || !this.addScheduleComponent.isTouched());
-  }
-
-  editSchedule(schedule: Schedule) {
-    let addProductScheduleDialog = this.dialog.open(AddProductScheduleDialogComponent);
-    addProductScheduleDialog.componentInstance.price = schedule.price.amount + '';
-    addProductScheduleDialog.componentInstance.scheduleToAdd = schedule;
-    addProductScheduleDialog.componentInstance.addProductMode = true;
-    addProductScheduleDialog.componentInstance.editMode = true;
-
-    addProductScheduleDialog.afterClosed().take(1).subscribe(result => {
-      addProductScheduleDialog = null;
-
-      if (result) {
-        this.service.updateEntity(this.entity);
-      } else {
-        this.entity = this.entityBackup.copy();
-      }
-    });
   }
 }
