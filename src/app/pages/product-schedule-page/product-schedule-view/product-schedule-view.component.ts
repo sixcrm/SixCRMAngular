@@ -15,6 +15,9 @@ import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header
 import {Currency} from '../../../shared/utils/currency/currency';
 import {ProductsService} from '../../../shared/services/products.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {parseCurrencyMaskedValue} from '../../../shared/utils/mask.utils';
+import {MdDialog} from '@angular/material';
+import {DeleteDialogComponent} from '../../delete-dialog.component';
 
 @Component({
   selector: 'product-schedule-view',
@@ -31,6 +34,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     new ColumnParams('PRODUCTSCHEDULE_CYCLE_IMAGE')
       .setMappingFunction((e: Schedule) => e.product.getDefaultImagePath())
       .setShowLabel(false)
+      .setSortEnabled(false)
       .setInputType(ColumnParamsInputType.IMAGE),
     new ColumnParams('PRODUCTSCHEDULE_CYCLE_NAME')
       .setMappingFunction((e: Schedule) => e.product.name)
@@ -46,12 +50,11 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
       .setAutocompleteMapper((product) => product.name)
       .setAutocompleteInitialValue((schedule) => schedule.product),
     new ColumnParams('PRODUCTSCHEDULE_CYCLE_PRICE')
-      .setMappingFunction((e: Schedule) => e.price.amount)
-      .setAssigningFunction((e: Schedule, value) => e.price = new Currency(value))
+      .setMappingFunction((e: Schedule) => e.price.usd())
+      .setAssigningFunction((e: Schedule, value) => e.price = new Currency(parseCurrencyMaskedValue(value)))
       .setAlign('right')
-      .setInputType(ColumnParamsInputType.NUMERIC)
-      .setNumberOption(true)
-      .setPrefix('$'),
+      .setInputType(ColumnParamsInputType.CURRENCY)
+      .setNumberOption(true),
     new ColumnParams('PRODUCTSCHEDULE_CYCLE_START')
       .setMappingFunction((e: Schedule) => e.start)
       .setAssigningFunction((e: Schedule, value) => e.start = (!value || isNaN(value)) ? 0 : parseInt(value))
@@ -114,7 +117,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     public navigation: NavigationService,
     public authService: AuthenticationService,
     private router: Router,
-    private productService: ProductsService
+    private productService: ProductsService,
+    private dialog: MdDialog
   ) {
     super(service, route);
   }
@@ -161,24 +165,28 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   }
 
   disassociateSchedule(schedule: Schedule) {
-    const index = firstIndexOf(this.entity.schedules, (s: Schedule) => JSON.stringify(s) === JSON.stringify(schedule));
-
-    if (index > -1) {
-      this.entity.schedules.splice(index, 1);
-      this.updateEntity(this.entity);
-    }
-  }
-
-  disassociateSchedules(schedules: Schedule[]) {
-    schedules.forEach(schedule => {
+    this.openDeleteDialog(() => {
       const index = firstIndexOf(this.entity.schedules, (s: Schedule) => JSON.stringify(s) === JSON.stringify(schedule));
 
       if (index > -1) {
         this.entity.schedules.splice(index, 1);
+        this.updateEntity(this.entity);
       }
-    });
+    })
+  }
 
-    this.updateEntity(this.entity);
+  disassociateSchedules(schedules: Schedule[]) {
+    this.openDeleteDialog(() => {
+      schedules.forEach(schedule => {
+        const index = firstIndexOf(this.entity.schedules, (s: Schedule) => JSON.stringify(s) === JSON.stringify(schedule));
+
+        if (index > -1) {
+          this.entity.schedules.splice(index, 1);
+        }
+      });
+
+      this.updateEntity(this.entity);
+    })
   }
 
   navigateToProduct(schedule: Schedule) {
@@ -187,5 +195,16 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
 
   canBeDeactivated() {
     return super.canBeDeactivated() && (!this.addScheduleComponent || !this.addScheduleComponent.isTouched());
+  }
+
+  openDeleteDialog(callback: () => void) {
+    let deleteDialog = this.dialog.open(DeleteDialogComponent);
+
+    deleteDialog.afterClosed().takeUntil(this.unsubscribe$).subscribe(result => {
+      deleteDialog = null;
+      if (result && result.success) {
+        callback();
+      }
+    });
   }
 }

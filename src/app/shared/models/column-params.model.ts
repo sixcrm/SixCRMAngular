@@ -1,5 +1,6 @@
 export enum ColumnParamsInputType {
   NUMERIC,
+  CURRENCY,
   STRING,
   BOOLEAN,
   DATE,
@@ -15,6 +16,7 @@ export class ColumnParams<T> {
   align: string;
   sortOrder: string;
   sortApplied: boolean;
+  sortEnabled: boolean = true;
   code: boolean;
   color: string;
   copy: boolean;
@@ -24,7 +26,6 @@ export class ColumnParams<T> {
   inputType: ColumnParamsInputType;
   editable: boolean = true;
   showLabel: boolean = true;
-  prefix: string;
   validator: (e: T) => boolean = e => true;
 
   autocompleteMapper: (any) => string;
@@ -75,6 +76,12 @@ export class ColumnParams<T> {
     return this;
   }
 
+  setSortEnabled(value: boolean) {
+    this.sortEnabled = value;
+
+    return this;
+  }
+
   setCode(value: boolean) {
     this.code = value;
 
@@ -119,12 +126,6 @@ export class ColumnParams<T> {
 
   setEditable(value: boolean) {
     this.editable = value;
-
-    return this;
-  }
-
-  setPrefix(value: string) {
-    this.prefix = value;
 
     return this;
   }

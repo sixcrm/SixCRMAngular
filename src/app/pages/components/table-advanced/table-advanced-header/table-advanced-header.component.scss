@@ -3,9 +3,13 @@ table-preferences {
   color: rgba(0, 0, 0, 0.4);
 }
 
+table-density {
+  color: rgba(0, 0, 0, 0.4);
+}
+
 .header--big {
   position: relative;
-  padding: 15px 15px 15px 30px;
+  padding: 5px 20px 5px 30px;
 }
 
 .add-button {
@@ -30,14 +34,4 @@ table-preferences {
 
 .entity-view__table-component__header__filter {
   margin-right: 6px;
-}
-
-.density {
-  color: rgba(0, 0, 0, 0.4);
-  margin-left: 6px;
-  cursor: pointer;
-
-  &--selected {
-    color: rgba(0,0,0,0.8);
-  }
 }

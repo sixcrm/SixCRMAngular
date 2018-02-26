@@ -50,6 +50,7 @@ export class EntitiesTableComponent implements OnInit {
   @Output() searchChanged: EventEmitter<string> = new EventEmitter<string>();
 
   showActionOptions: boolean = false;
+  density: number = 1;
 
   @ViewChild('options') options;
   @ViewChild('arrow') arrow;

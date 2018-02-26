@@ -461,11 +461,23 @@ $blue-color: #4A90E2;
 
           md-icon {
             position: absolute;
-            top: 12px;
-            width: 18px;
-            height: 18px;
-            font-size: 18px;
+            width: 16px;
+            height: 16px;
+            font-size: 16px;
             cursor: pointer;
+            color: rgba(0,0,0,0.25);
+          }
+
+          .up-icon {
+            top: 10px;
+          }
+
+          .down-icon {
+            top: 14px;
+          }
+
+          .icon-applied {
+            color: rgba(0,0,0,0.65);
           }
         }
       }
@@ -491,6 +503,43 @@ $blue-color: #4A90E2;
 
     table-pagination {
       font-size: 12px;
+    }
+  }
+
+  .density {
+
+    &--s {
+      img {
+        max-width: 35px;
+        max-height: 35px;
+      }
+
+      .cell-image {
+        width: 35px;
+        padding-top: 1px !important;
+        padding-bottom: 1px !important;
+      }
+
+      td {
+        padding-top: 1px !important;
+        padding-bottom: 1px !important;
+      }
+    }
+
+    &--m {
+
+    }
+
+    &--l {
+      .cell-image {
+        padding-top: 16px !important;
+        padding-bottom: 16px !important;
+      }
+
+      td {
+        padding-top: 20px !important;
+        padding-bottom: 20px !important;
+      }
     }
   }
 

@@ -12,10 +12,19 @@ export class TableAdvancedHeaderComponent implements OnInit {
   @Input() hasWritePermission: boolean;
   @Input() columnParams: ColumnParams<any>[] = [];
   @Input() density: number = 1;
+  @Input() addEnabled: boolean;
+  @Input() showPagination: boolean;
+  @Input() limit: number = 10;
+  @Input() nextDisabled: boolean;
+  @Input() previousDisabled: boolean;
+  @Input() paginationValues: number[] = [];
 
   @Output() addModeSelected: EventEmitter<boolean> = new EventEmitter();
   @Output() filterStringChanged: EventEmitter<string> = new EventEmitter();
   @Output() densitySelected: EventEmitter<number> = new EventEmitter();
+  @Output() next: EventEmitter<boolean> = new EventEmitter();
+  @Output() previous: EventEmitter<boolean> = new EventEmitter();
+  @Output() limitChanged: EventEmitter<number> = new EventEmitter();
 
   filterString: string;
 

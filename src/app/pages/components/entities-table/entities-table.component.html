@@ -19,8 +19,20 @@
   </div>
 
   <div class="entity-index__options">
+    <table-pagination
+      class="entity-index__pagination--no-margin"
+      style="margin-left: auto"
+      [limit]="limit"
+      [paginationValues]="paginationValues"
+      [previousDisabled]="previousDisabled"
+      [nextDisabled]="nextDisabled"
+      (previous)="previous.emit(true)"
+      (next)="next.emit(true)"
+      (updateLimit)="updateLimit.emit($event)">
+    </table-pagination>
     <filter-input class="entity-index__filter" (valueChanged)="filterChanged.emit($event)"></filter-input>
     <search-input (onSearch)="searchChanged.emit($event)"></search-input>
+    <table-density [density]="density" (densityChanged)="density = $event"></table-density>
     <table-preferences class="entity-index__preferences" [columnParams]="columnParams"></table-preferences>
   </div>
 
@@ -32,7 +44,10 @@
         <ng-container *ngIf="params.selected">
           <th (click)="setSortParams(params)" [class.cell--align-right]="params.align === 'right'" [class.cell--codeblock]="params.code">
             {{params.label | translate}}
-            <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+            <ng-container *ngIf="params.sortEnabled">
+              <md-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'asc'" class="up-icon">arrow_drop_up</md-icon>
+              <md-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'desc'" class="down-icon">arrow_drop_down</md-icon>
+            </ng-container>
           </th>
         </ng-container>
       </ng-container>
@@ -40,7 +55,7 @@
     </tr>
     </thead>
 
-    <tbody>
+    <tbody [class.density--s]="density === 0"  [class.density--l]="density === 2"[class.density--m]="density !== 0 && density !==2">
     <ng-container *ngFor="let entity of (data | filterEntitiesByParams: columnParams: filterString | sortEntities: sortParams.mappingFunction: sortParams.sortOrder)">
       <tr [class.selected]="entity.bulkSelected">
         <td class="bulk-option">

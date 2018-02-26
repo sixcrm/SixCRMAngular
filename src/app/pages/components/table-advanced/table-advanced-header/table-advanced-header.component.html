@@ -1,14 +1,23 @@
 <div class="entity-view__table-component__header header--big">
-  <div class="add-button" (click)="addModeSelected.emit(true)"> <div>+</div></div>
+  <div *ngIf="addEnabled" class="add-button" (click)="addModeSelected.emit(true)"> <div>+</div></div>
   <div class="entity-view__table-component__header__title">{{textOptions.title | translate}}</div>
+
   <md-input-container class="entity-view__table-component__header__filter">
     <input md-input placeholder="{{ 'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filterString" (input)="filterChanged()" type="text">
   </md-input-container>
 
-  <div class="density" [class.density--selected]="density === 0" (click)="densitySelected.emit(0)">s</div>
-  <div class="density" [class.density--selected]="density === 1" (click)="densitySelected.emit(1)">m</div>
-  <div class="density" [class.density--selected]="density === 2" (click)="densitySelected.emit(2)">l</div>
+  <table-pagination
+    *ngIf="showPagination"
+    [limit]="limit"
+    [paginationValues]="paginationValues"
+    [previousDisabled]="previousDisabled"
+    [nextDisabled]="nextDisabled"
+    (previous)="previous.emit(true)"
+    (next)="next.emit(true)"
+    (updateLimit)="limitChanged.emit($event)">
+  </table-pagination>
+
+  <table-density [density]="density" (densityChanged)="densitySelected.emit($event)" [small]="true"></table-density>
 
   <table-preferences [columnParams]="columnParams" [small]="true"></table-preferences>
-
 </div>

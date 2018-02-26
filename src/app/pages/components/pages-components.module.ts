@@ -15,6 +15,8 @@ import { TablePreferencesComponent } from './table-preferences/table-preferences
 import { TableAdvancedComponent } from './table-advanced/table-advanced.component';
 import { TableAdvancedHeaderComponent } from './table-advanced/table-advanced-header/table-advanced-header.component';
 import { TableAdvancedBulkComponent } from './table-advanced/table-advanced-bulk/table-advanced-bulk.component';
+import { TableDensityComponent } from './table-density/table-density.component';
+import {TextMaskModule} from 'angular2-text-mask';
 
 @NgModule({
   imports : [
@@ -23,7 +25,8 @@ import { TableAdvancedBulkComponent } from './table-advanced/table-advanced-bulk
     SharedModule,
     FormsModule,
     TranslationModule,
-    ClipboardModule
+    ClipboardModule,
+    TextMaskModule
   ],
   declarations : [
     TableActionsComponent,
@@ -35,7 +38,8 @@ import { TableAdvancedBulkComponent } from './table-advanced/table-advanced-bulk
     TablePreferencesComponent,
     TableAdvancedComponent,
     TableAdvancedHeaderComponent,
-    TableAdvancedBulkComponent
+    TableAdvancedBulkComponent,
+    TableDensityComponent
   ],
   exports : [
     TableActionsComponent,

@@ -1,0 +1,11 @@
+<div class="container" [class.small]="small">
+  <md-icon (click)="toggleMenu()">view_day</md-icon>
+
+  <div *ngIf="showMenu" class="params-container">
+    <div class="option" [class.option--selected]="density === 0" (click)="changed(0)">Small</div>
+    <div class="option" [class.option--selected]="density === 1" (click)="changed(1)">Medium</div>
+    <div class="option" [class.option--selected]="density === 2" (click)="changed(2)">Large</div>
+  </div>
+
+</div>
+
