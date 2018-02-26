@@ -172,10 +172,11 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
         this.entity.schedules.splice(index, 1);
         this.updateEntity(this.entity);
       }
-    })
+    });
   }
 
   disassociateSchedules(schedules: Schedule[]) {
+
     this.openDeleteDialog(() => {
       schedules.forEach(schedule => {
         const index = firstIndexOf(this.entity.schedules, (s: Schedule) => JSON.stringify(s) === JSON.stringify(schedule));

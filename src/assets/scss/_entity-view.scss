@@ -11,6 +11,59 @@ $blue-color: #4A90E2;
     font-size: 20px;
     font-weight: 500;
     color: $title-color;
+
+    &__breadcrumb {
+      cursor: pointer;
+    }
+
+    md-icon {
+      vertical-align: middle;
+    }
+  }
+
+  &__header {
+    padding: 36px 50px;
+    background-color: #5B9BE1;
+    color: white;
+    font-weight: 500;
+
+    &__title {
+      font-size: 32px;
+      margin-top: 22px;
+      margin-bottom: 10px;
+    }
+
+    &__details {
+      display: flex;
+      font-size: 14px;
+
+      .date {
+
+      }
+
+      .id {
+        margin-left: 20px;
+      }
+    }
+
+    &__gallery {
+      display: flex;
+      overflow: hidden;
+
+      div {
+        display: flex;
+        margin-right: 15px;
+      }
+
+      img {
+        margin: auto;
+        border-radius: 50%;
+        max-height: 100px;
+        max-width: 100px;
+        border: 4px solid #97BEE4;
+      }
+
+    }
   }
 
   &__change-mode {

@@ -1,24 +1,22 @@
 <div *ngIf="entity; else spinner" class="entity-view">
-  <div class="entity-view__title">{{'PRODUCTSCHEDULE_TITLE' | translate}}</div>
+
+  <div class="entity-view__title">
+    <span [routerLink]="['/productschedules']" class="entity-view__title__breadcrumb">{{'PRODUCTSCHEDULE_INDEX_TITLE' | translate}}</span>
+    <md-icon class="breadcrumb-arrow">keyboard_arrow_right</md-icon>
+    {{entity.name}}
+  </div>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <div class="entity-view__info">
-    <div class="entity-view__info__image">
-      <img src="/assets/images/result-item-transaction-white.svg" alt="">
-    </div>
-    <div class="entity-view__info__data">
-      <div class="entity-view__info__data__date">{{'SINGLEPAGE_CREATED' | translate}}: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
-      <div class="entity-view__info__data__name">
-        {{entity.name}}
-      </div>
+  <div class="entity-view__header">
 
-      <div *ngIf="!addMode" class="entity-view__info__data__other">
-        <span class="entity-view__info__data__other__label">ID:</span>
-        <span>{{entity.id}}</span>
-      </div>
-    </div>
+    <product-schedule-gallery [schedules]="entity.schedules"></product-schedule-gallery>
 
+    <div class="entity-view__header__title">{{entity.name}}</div>
+    <div class="entity-view__header__details">
+      <div class="date">Created: {{entity.createdAt | formatDateTime: 'M/DD/YY h:mm A'}}</div>
+      <div class="id">ID: {{entity.id}}</div>
+    </div>
   </div>
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
@@ -56,7 +54,7 @@
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="3" [title]="'PRODUCTSCHEDULE_TITLE' | translate" [cardsExpression]="'300px'"></spe-loader>
+  <spe-loader [numberOfTabs]="3" [title]="'PRODUCTSCHEDULE_INDEX_TITLE' | translate" [cardsExpression]="'300px'" [showBreadcrumb]="true"></spe-loader>
 </ng-template>
 
 

@@ -1,0 +1,7 @@
+<div class="entity-view__header__gallery">
+  <ng-container *ngFor="let schedule of schedules">
+    <div *ngIf="schedule.product && schedule.product.getDefaultImagePath()">
+      <img src="{{schedule.product.getDefaultImagePath()}}" alt="">
+    </div>
+  </ng-container>
+</div>
