@@ -29,7 +29,8 @@ deployment:
     commands:
       - npm run lint-translations
       - node libs/deployment_scripts/src/versioning.js
-      - ./libs/deployment_scripts/src/build-angular.sh
+      - ./libs/deployment_scripts/src/build-angular.sh:
+          timeout: 1200
       - node libs/deployment_scripts/src/deploy-s3.js deployment/deploy-config.json
       - node libs/deployment_scripts/src/deploy-cloudfront.js deployment/deploy-config.json
 
@@ -38,7 +39,8 @@ deployment:
     commands:
       - npm run lint-translations
       - node libs/deployment_scripts/src/versioning.js
-      - ./libs/deployment_scripts/src/build-angular.sh
+      - ./libs/deployment_scripts/src/build-angular.sh:
+          timeout: 1200
       - node libs/deployment_scripts/src/deploy-s3.js deployment/deploy-config.json
       - node libs/deployment_scripts/src/deploy-cloudfront.js deployment/deploy-config.json
       # - npm run webdriver-update
@@ -55,7 +57,8 @@ deployment:
       - node libs/deployment_scripts/src/versioning.js
 
       # Build Angular App
-      - ./libs/deployment_scripts/src/build-angular.sh
+      - ./libs/deployment_scripts/src/build-angular.sh:
+          timeout: 1200
 
       # Deploy App to S3
       - node libs/deployment_scripts/src/deploy-s3.js deployment/deploy-config.json
