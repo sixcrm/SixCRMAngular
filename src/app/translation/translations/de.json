@@ -1456,6 +1456,36 @@
       "updated": "Updated"
     }
   },
+  "role": {
+    "title": "Role",
+    "index": {
+      "title": "Roles",
+      "header": {
+        "id": "ID",
+        "active": "Active",
+        "name": "Name",
+        "created": "Created",
+        "updated": "Updated"
+      }
+    },
+    "tab": {
+      "general": "GENERAL DETAILS"
+    },
+    "allowed": {
+      "title": "Permissions Allowed",
+      "nodata": "No Allowed Permissions found.",
+      "edit": "Edit Allowed Permission"
+    },
+    "denied": {
+      "title": "Permissions Denied",
+      "nodata": "No Denied Permissions found.",
+      "edit": "Edit Denied Permission"
+    },
+    "info": {
+      "option": "Option",
+      "permission": "Permission"
+    }
+  },
   "shippingreceipt": {
     "title": "Posteinlieferungsschein",
     "index": {

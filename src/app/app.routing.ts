@@ -39,7 +39,7 @@ const appRoutes: Routes = [
     { path : 'reports', loadChildren : './reports/reports.module#ReportsModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'documentation', loadChildren : './pages/documentation/documentation.module#DocumentationModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : 'coming-soon', component: ComingSoonComponent, canActivate: [AuthGuard] },
-    { path : 'roles', component: ComingSoonComponent, canActivate: [AuthGuard] },
+    { path : 'roles', loadChildren : './pages/roles-page/roles.module#RolesModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },
     { path : '**', component : ErrorPageComponent, canActivate: [AuthGuard] }
   ]},
 

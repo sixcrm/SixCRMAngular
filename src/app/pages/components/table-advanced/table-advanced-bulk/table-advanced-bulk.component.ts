@@ -9,6 +9,7 @@ import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angula
 export class TableAdvancedBulkComponent implements OnInit {
 
   @Input() entities: any[];
+  @Input() deleteEnabled: boolean;
 
   @Output() deleteAllSelected: EventEmitter<any[]> = new EventEmitter();
 

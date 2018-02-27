@@ -5,12 +5,11 @@
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
   <div class="entity-view__header">
-
     <product-schedule-gallery [schedules]="entity.schedules"></product-schedule-gallery>
 
     <div class="entity-view__header__title">{{entity.name}}</div>
     <div class="entity-view__header__details">
-      <div class="date">Created: {{entity.createdAt | formatDateTime: 'M/DD/YY h:mm A'}}</div>
+      <div class="date">{{'SINGLEPAGE_CREATED' | translate}}: {{entity.createdAt | formatDateTime: 'M/DD/YY h:mm A'}}</div>
       <div class="id">ID: {{entity.id}}</div>
     </div>
   </div>

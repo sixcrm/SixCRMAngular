@@ -12,6 +12,7 @@ export class SpeLoaderComponent implements OnInit {
   @Input() numberOfCards: number;
   @Input() showBreadcrumb: boolean = true;
   @Input() blue: boolean;
+  @Input() images: boolean = true;
 
   /*
     cardsExpression defines number and properties of cards

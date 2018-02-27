@@ -6,7 +6,7 @@
 
   <div>
 
-    <spe-loader-blue-header *ngIf="blue; else common"></spe-loader-blue-header>
+    <spe-loader-blue-header *ngIf="blue; else common" [images]="images"></spe-loader-blue-header>
     <ng-template #common><spe-loader-header></spe-loader-header></ng-template>
 
     <spe-loader-body [cardsExpression]="cardsExpression" [numberOfCards]="numberOfCards" [numberOfTabs]="numberOfTabs" [wrap]="wrap"></spe-loader-body>

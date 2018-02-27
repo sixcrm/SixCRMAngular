@@ -10,7 +10,7 @@
     <div #options *ngIf="showOptions" class="options-container">
       <div class="options-item" (click)="selectAll()">{{'INDEXPAGE_SELECTALL' | translate}}</div>
       <div class="options-item" (click)="deselectAll()">{{'INDEXPAGE_DESELECTALL' | translate}}</div>
-      <div class="options-item" (click)="deleteAll()">{{'INDEXPAGE_DELETEALL' | translate}}</div>
+      <div *ngIf="deleteEnabled" class="options-item" (click)="deleteAll()">{{'INDEXPAGE_DELETEALL' | translate}}</div>
     </div>
   </div>
 </div>

@@ -1,8 +1,23 @@
+export class ParsedPermission {
+
+  constructor(public action: string, public permissions: string) {
+    this.action = action;
+    this.permissions = permissions
+  }
+
+  copy() {
+    return new ParsedPermission(this.action, this.permissions)
+  }
+}
+
 export class Permissions {
 
   id: string;
   allow: string[];
   deny: string[];
+  parsedAllowed: ParsedPermission[] = [];
+  parsedDenied: ParsedPermission[] = [];
+
 
   constructor(obj?: any) {
     if (!obj) {
@@ -12,6 +27,23 @@ export class Permissions {
     this.id = obj.id || '';
     this.allow = obj.allow || [];
     this.deny = obj.deny || [];
+
+    this.parsedAllowed = this.parseAllowed();
+    this.parsedDenied = this.parseDenied();
+  }
+
+  parseAllowed(): ParsedPermission[] {
+    return this.parseFilter(this.allow)
+  }
+
+  parseDenied(): ParsedPermission[] {
+    return this.parseFilter(this.deny);
+  }
+
+  parseFilter(array: string[]) {
+    if (array.length === 1 && array[0] === '*') return [new ParsedPermission('*', '*')];
+
+    return array.filter(a => a.split('/').length > 1).map(a => new ParsedPermission(a.split('/')[0], a.split('/')[1]))
   }
 
   hasPermission(entity: string, operation: string): boolean {

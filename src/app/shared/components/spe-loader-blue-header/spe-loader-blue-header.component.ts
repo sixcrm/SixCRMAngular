@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 
 @Component({
   selector: 'spe-loader-blue-header',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./spe-loader-blue-header.component.scss']
 })
 export class SpeLoaderBlueHeaderComponent implements OnInit {
+
+  @Input() images: boolean;
 
   constructor() { }
 

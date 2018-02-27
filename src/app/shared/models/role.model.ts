@@ -1,5 +1,6 @@
 import {Permissions} from './permissions.model';
 import {Entity} from './entity.interface';
+import {Moment, utc} from 'moment';
 
 export class Role implements Entity<Role> {
 
@@ -7,6 +8,8 @@ export class Role implements Entity<Role> {
   name: string;
   active: string;
   permissions: Permissions;
+  createdAt: Moment;
+  updatedAt: Moment;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -17,6 +20,8 @@ export class Role implements Entity<Role> {
     this.name = obj.name || '';
     this.active = obj.active || '';
     this.permissions = new Permissions(obj.permissions);
+    this.createdAt = utc(obj.created_at);
+    this.updatedAt = utc(obj.updated_at);
   }
 
   hasPermission(entity: string, operation: string): boolean {
@@ -37,7 +42,9 @@ export class Role implements Entity<Role> {
       id: this.id,
       name: this.name,
       active: this.active,
-      permissions: this.permissions.inverse()
+      permissions: this.permissions.inverse(),
+      created_at: this.createdAt.format(),
+      updated_at: this.updatedAt.format()
     }
   }
 }

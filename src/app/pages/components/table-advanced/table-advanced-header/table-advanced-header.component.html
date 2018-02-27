@@ -1,4 +1,4 @@
-<div class="entity-view__table-component__header header--big">
+<div class="entity-view__table-component__header header--big" [class.header--no-top]="!showPagination">
   <div *ngIf="addEnabled" class="add-button" (click)="addModeSelected.emit(true)"> <div>+</div></div>
   <div class="entity-view__table-component__header__title">{{textOptions.title | translate}}</div>
 

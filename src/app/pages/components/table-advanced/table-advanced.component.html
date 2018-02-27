@@ -8,7 +8,7 @@
                          [columnParams]="columnParams"
                          [density]="density"
                          [addEnabled]="addEnabled"
-                         [showPagination]="showPagination"
+                         [showPagination]="showTopPagination"
                          [paginationValues]="paginationValues"
                          [limit]="limit"
                          [previousDisabled]="page <= 0"
@@ -21,7 +21,7 @@
                          (addModeSelected)="setAddMode()">
   </table-advanced-header>
 
-  <table-advanced-bulk [entities]="entities" (deleteAllSelected)="delMultiple($event)"></table-advanced-bulk>
+  <table-advanced-bulk [entities]="entities" (deleteAllSelected)="delMultiple($event)" [deleteEnabled]="deleteEnabled"></table-advanced-bulk>
 
   <table class="highlight table__custom">
     <thead>
@@ -117,12 +117,14 @@
             </ng-container>
           </ng-container>
           <td class="row-options-cell">
-            <md-icon class="row-options" [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-            <md-menu #actionsMenu="mdMenu" x-position="before">
-              <button *ngIf="viewEnabled" md-menu-item (click)="view(entity)">{{textOptions.viewOptionText | translate}}</button>
-              <button *ngIf="editEnabled && hasWritePermission" md-menu-item (click)="edit(entity)">{{textOptions.editOptionText | translate}}</button>
-              <button *ngIf="deleteEnabled && hasWritePermission" md-menu-item (click)="del(entity)">{{textOptions.disassociateOptionText | translate}}</button>
-            </md-menu>
+            <ng-container *ngIf="viewEnabled || deleteEnabled || editEnabled">
+              <md-icon class="row-options" [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
+              <md-menu #actionsMenu="mdMenu" x-position="before">
+                <button *ngIf="viewEnabled" md-menu-item (click)="view(entity)">{{textOptions.viewOptionText | translate}}</button>
+                <button *ngIf="editEnabled && hasWritePermission" md-menu-item (click)="edit(entity)">{{textOptions.editOptionText | translate}}</button>
+                <button *ngIf="deleteEnabled && hasWritePermission" md-menu-item (click)="del(entity)">{{textOptions.disassociateOptionText | translate}}</button>
+              </md-menu>
+            </ng-container>
           </td>
         </tr>
 

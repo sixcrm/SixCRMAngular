@@ -18,14 +18,6 @@ export function updateAccountMutation(account: Account, name: string): string {
     }`
 }
 
-export function rolesListQuery(limit?: number, cursor?: string): string {
-  return `{
-    rolelist ${pageParams(limit, cursor)} {
-			roles { id name active }
-			${paginationString()}
-		}}`
-}
-
 export function userSettingsQuery(id: string): string {
   return `
   {
