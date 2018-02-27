@@ -4,9 +4,9 @@
   "angular-cli": {},
   "scripts": {
     "start": "ng serve -H 0.0.0.0 --environment=local",
-    "start.stage": "ng serve -H 0.0.0.0 --environment=stage --aot",
-    "start.prod": "ng serve -H 0.0.0.0 --prod --aot",
-    "build.dev": "ng build --environment=dev --prod --aot",
+    "start.stage": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng serve -H 0.0.0.0 --environment=stage --aot",
+    "start.prod": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng serve -H 0.0.0.0 --prod --aot",
+    "build.dev": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng build --environment=dev --prod --aot",
     "build.local": "ng build --environment=local",
     "build.stage": "ng build --environment=stage --prod --aot",
     "build.prod": "ng build --prod --aot",
