@@ -1,6 +1,7 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, ViewChildren} from '@angular/core';
 import {ColumnParams, ColumnParamsInputType} from '../../../shared/models/column-params.model';
 import {isAllowedFloatNumeric} from '../../../shared/utils/form.utils';
+import {firstIndexOf} from '../../../shared/utils/array.utils';
 
 @Component({
   selector: 'table-advanced',
@@ -8,6 +9,8 @@ import {isAllowedFloatNumeric} from '../../../shared/utils/form.utils';
   styleUrls: ['./table-advanced.component.scss']
 })
 export class TableAdvancedComponent implements OnInit {
+
+  @ViewChildren('originalheader') originalHeaders;
 
   @Input() set data(data: any[]) {
     this.assignEntities(data);
@@ -58,6 +61,9 @@ export class TableAdvancedComponent implements OnInit {
   density: number = 1;
 
   isNumeric = isAllowedFloatNumeric;
+
+  headerVisible: boolean = true;
+  footerVisible: boolean = true;
 
   constructor() { }
 
@@ -191,5 +197,23 @@ export class TableAdvancedComponent implements OnInit {
     if (params.inputType === this.inputTypes.NUMERIC) {
       return isAllowedFloatNumeric(event);
     }
+  }
+
+  visible(value: boolean) {
+    this.headerVisible = value;
+  }
+
+  visibleFooter(value: boolean) {
+    this.footerVisible = value;
+  }
+
+  getHeaderWidth(params) {
+    const index = firstIndexOf(this.columnParams.filter(p => p.selected), el => el.label === params.label);
+
+    return this.originalHeaders._results[index].nativeElement.clientWidth + 'px';
+  }
+
+  getHeaderWidthByElement(element) {
+    return element.clientWidth + 'px';
   }
 }

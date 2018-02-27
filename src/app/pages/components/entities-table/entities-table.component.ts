@@ -1,7 +1,8 @@
-import {Component, OnInit, EventEmitter, Output, Input, ViewChild} from '@angular/core';
+import {Component, OnInit, EventEmitter, Output, Input, ViewChild, ViewChildren} from '@angular/core';
 import {AbstractEntityService} from '../../../shared/services/abstract-entity.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {firstIndexOf} from '../../../shared/utils/array.utils';
 
 @Component({
   selector: 'entities-table',
@@ -56,6 +57,10 @@ export class EntitiesTableComponent implements OnInit {
 
   @ViewChild('options') options;
   @ViewChild('arrow') arrow;
+  @ViewChildren('originalheader') originalHeaders;
+
+  headerVisible: boolean = true;
+  footerVisible: boolean = true;
 
   constructor() { }
 
@@ -106,6 +111,24 @@ export class EntitiesTableComponent implements OnInit {
     if (!this.options.nativeElement.contains(event.target) && !this.arrow.nativeElement.contains(event.target)) {
       this.showActionOptions = false;
     }
+  }
+
+  visible(visible) {
+    this.headerVisible = visible;
+  }
+
+  visibleFooter(visible) {
+    this.footerVisible = visible;
+  }
+
+  getHeaderWidth(params) {
+    const index = firstIndexOf(this.columnParams.filter(p => p.selected), el => el.label === params.label);
+
+    return this.originalHeaders._results[index].nativeElement.clientWidth + 'px';
+  }
+
+  getHeaderWidthByElement(element) {
+    return element.clientWidth + 'px';
   }
 
 }

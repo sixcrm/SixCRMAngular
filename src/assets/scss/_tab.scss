@@ -24,6 +24,10 @@
 md-tab-body {
   overflow-x: visible !important;
   overflow-y: visible !important;
+
+  .md-tab-body-content {
+    transform: none !important;
+  }
 }
 
 .md-tab-body-wrapper {

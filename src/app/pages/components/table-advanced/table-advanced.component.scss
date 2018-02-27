@@ -101,3 +101,15 @@ tr {
   background-repeat: no-repeat;
   border-radius: 50%;
 }
+
+.header-float {
+  position: fixed;
+  width: 100%;
+  background: white;
+  z-index: 1;
+  top: 0;
+
+  th {
+    box-sizing: border-box;
+  }
+}

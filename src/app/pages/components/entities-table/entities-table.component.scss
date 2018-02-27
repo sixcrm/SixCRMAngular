@@ -24,3 +24,15 @@ table-pagination {
 .entity-index__options {
   flex-wrap: wrap;
 }
+
+.header-float {
+  position: fixed;
+  width: 100%;
+  background: white;
+  z-index: 1;
+  top: 0;
+
+  th {
+    box-sizing: border-box;
+  }
+}

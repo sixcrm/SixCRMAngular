@@ -36,12 +36,12 @@
   </div>
 
   <table class="entity-index__table highlight">
-    <thead class="entity-index__table__header">
-    <tr>
-      <th class="bulk-header"></th>
+    <thead #head class="entity-index__table__header">
+    <tr visibleY [offset]="40" (visible)="visible($event)">
+      <th #bulkheader class="bulk-header"></th>
       <ng-container *ngFor="let params of columnParams">
         <ng-container *ngIf="params.selected">
-          <th (click)="setSortParams(params)" [class.cell--align-right]="params.align === 'right'" [class.cell--codeblock]="params.code">
+          <th #originalheader (click)="setSortParams(params)" [class.cell--align-right]="params.align === 'right'" [class.cell--codeblock]="params.code">
             {{params.label | translate}}
             <ng-container *ngIf="params.sortEnabled">
               <md-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'asc'" class="up-icon">arrow_drop_up</md-icon>
@@ -50,9 +50,29 @@
           </th>
         </ng-container>
       </ng-container>
-      <th></th>
+      <th #actionsheader></th>
     </tr>
     </thead>
+
+    <ng-container *ngIf="!headerVisible && footerVisible">
+      <thead class="entity-index__table__header header-float" [style.width]="getHeaderWidthByElement(head)">
+      <tr>
+        <th [style.width]="getHeaderWidthByElement(bulkheader)" class="bulk-header"></th>
+        <ng-container *ngFor="let params of columnParams;">
+          <ng-container *ngIf="params.selected">
+            <th [style.width]="getHeaderWidth(params)" (click)="setSortParams(params)" [class.cell--align-right]="params.align === 'right'" [class.cell--codeblock]="params.code">
+              {{params.label | translate}}
+              <ng-container *ngIf="params.sortEnabled">
+                <md-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'asc'" class="up-icon">arrow_drop_up</md-icon>
+                <md-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'desc'" class="down-icon">arrow_drop_down</md-icon>
+              </ng-container>
+            </th>
+          </ng-container>
+        </ng-container>
+        <th [style.width]="getHeaderWidthByElement(actionsheader)"></th>
+      </tr>
+      </thead>
+    </ng-container>
 
     <tbody [class.density--s]="density === 0"  [class.density--l]="density === 2" [class.density--m]="density !== 0 && density !==2">
     <ng-container *ngFor="let entity of (data | filterEntitiesByParams: columnParams: filterString | sortEntities: sortParams.mappingFunction: sortParams.sortOrder)">
@@ -98,6 +118,7 @@
   </table>
 
   <table-pagination
+    visibleY [offset]="-40" (visible)="visibleFooter($event)"
     [limit]="limit"
     [paginationValues]="paginationValues"
     [previousDisabled]="previousDisabled"

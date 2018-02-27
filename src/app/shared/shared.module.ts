@@ -88,6 +88,7 @@ import { SpeLoaderBodyComponent } from './components/spe-loader-body/spe-loader-
 import {SpeLoaderHeaderBreadcrumbComponent} from './components/spe-loader-breadcrumb/spe-loader-breadcrumb.component';
 import { SpeLoaderHeaderComponent } from './components/spe-loader-header/spe-loader-header.component';
 import { SpeLoaderBlueHeaderComponent } from './components/spe-loader-blue-header/spe-loader-blue-header.component';
+import {VisibleYDirective} from './directives/visible-y.directive';
 import {RolesSharedService} from './services/roles-shared.service';
 import { MultiselectComponent } from './components/multiselect/multiselect.component';
 import {EmailTemplatesSharedService} from './services/email-templates-shared.service';
@@ -137,7 +138,8 @@ import { CurrencyInputDirective } from './directives/currency-input.directive';
     SpeLoaderHeaderComponent,
     SpeLoaderBlueHeaderComponent,
     MultiselectComponent,
-    CurrencyInputDirective
+    CurrencyInputDirective,
+    VisibleYDirective
   ],
   exports : [
     AutocompleteComponent,
@@ -177,7 +179,8 @@ import { CurrencyInputDirective } from './directives/currency-input.directive';
     SearchInputComponent,
     FilterInputComponent,
     MultiselectComponent,
-    CurrencyInputDirective
+    CurrencyInputDirective,
+    VisibleYDirective
   ],
   imports : [
     FormsModule,
