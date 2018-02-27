@@ -11,6 +11,7 @@ export class SpeLoaderComponent implements OnInit {
   @Input() numberOfTabs: number;
   @Input() numberOfCards: number;
   @Input() showBreadcrumb: boolean = true;
+  @Input() blue: boolean;
 
   /*
     cardsExpression defines number and properties of cards
@@ -24,33 +25,8 @@ export class SpeLoaderComponent implements OnInit {
   @Input() title: string;
   @Input() wrap: boolean = true;
 
-  tabs: number[] = [];
-  cards: string[] = [];
-
   constructor(public navigation: NavigationService) { }
 
-  ngOnInit() {
-
-    if (this.numberOfTabs) {
-      this.tabs = new Array(this.numberOfTabs);
-    }
-
-    if (this.cardsExpression) {
-      this.cards = this.cardsExpression.split(';').map(c => {
-        switch (c) {
-          case 'l':
-            return '500px';
-          case 's':
-            return '250px';
-          case 'm':
-            return '350px';
-          default:
-            return c;
-        }
-      })
-    } else if (this.numberOfCards) {
-      this.cards = new Array(this.numberOfCards).map(e => '350px');
-    }
-  }
+  ngOnInit() {}
 
 }

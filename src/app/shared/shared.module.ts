@@ -84,6 +84,10 @@ import {ImagesService} from './services/images.service';
 import { SearchInputComponent } from './components/search-input/search-input.component';
 import {MerchantProviderGroupAssociationsService} from './services/merchant-provider-group-associations.service';
 import { FilterInputComponent } from './components/filter-input/filter-input.component';
+import { SpeLoaderBodyComponent } from './components/spe-loader-body/spe-loader-body.component';
+import {SpeLoaderHeaderBreadcrumbComponent} from './components/spe-loader-breadcrumb/spe-loader-breadcrumb.component';
+import { SpeLoaderHeaderComponent } from './components/spe-loader-header/spe-loader-header.component';
+import { SpeLoaderBlueHeaderComponent } from './components/spe-loader-blue-header/spe-loader-blue-header.component';
 
 @NgModule({
   declarations : [
@@ -123,7 +127,11 @@ import { FilterInputComponent } from './components/filter-input/filter-input.com
     SimpleDatepickerComponent,
     TabHeaderComponent,
     SearchInputComponent,
-    FilterInputComponent
+    FilterInputComponent,
+    SpeLoaderBodyComponent,
+    SpeLoaderHeaderBreadcrumbComponent,
+    SpeLoaderHeaderComponent,
+    SpeLoaderBlueHeaderComponent
   ],
   exports : [
     AutocompleteComponent,

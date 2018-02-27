@@ -1,0 +1,21 @@
+.dummy-tab-label {
+  width: 100px;
+  height: 16px;
+  background: rgba(0,0,0,0.1);
+  display: inline-block;
+}
+
+.dummy-card-header {
+  display: flex;
+  width: 100%;
+}
+
+.dummy-card-title {
+  width: 200px;
+  height: 20px;
+  background: rgba(0,0,0,0.12);
+}
+
+.dummy-card-icon {
+  margin-left: auto;
+}
