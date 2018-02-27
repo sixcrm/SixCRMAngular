@@ -18,6 +18,7 @@ import {CustomServerError} from '../../../shared/models/errors/custom-server-err
 import {parseCurrencyMaskedValue} from '../../../shared/utils/mask.utils';
 import {MdDialog} from '@angular/material';
 import {DeleteDialogComponent} from '../../delete-dialog.component';
+import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 
 @Component({
   selector: 'product-schedule-view',
@@ -109,6 +110,11 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     {name: 'general', label: 'PRODUCTSCHEDULE_TAB_GENERAL'},
     {name: 'cycles', label: 'PRODUCTSCHEDULE_TAB_CYCLE'},
     {name: 'campaigns', label: 'PRODUCTSCHEDULE_TAB_CAMPAIGN'}
+  ];
+
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'PRODUCTSCHEDULE_INDEX_TITLE', url: '/productschedules'},
+    {label: () => this.entity.name}
   ];
 
   constructor(

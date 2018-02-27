@@ -18,6 +18,7 @@ import {TableMemoryTextOptions} from '../../components/table-memory/table-memory
 import {MessageDialogComponent} from '../../message-dialog.component';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
+import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 
 @Component({
   selector: 'user-view',
@@ -62,6 +63,8 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
     {name: 'general', label: 'USER_TAB_GENERAL'}
   ];
 
+  breadcrumbs: BreadcrumbItem[] = [];
+
   constructor(service: UsersService,
               route: ActivatedRoute,
               public navigation: NavigationService,
@@ -102,6 +105,11 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
       this.accountsService.getEntities();
       this.rolesService.getEntities();
     }
+
+    this.breadcrumbs = [
+      {label: () => 'USER_INDEX_TITLE', url: this.authService.isActiveAclMasterAccount() ? '/users' : null},
+      {label: () => this.entity.name}
+    ];
   }
 
   ngOnDestroy() {

@@ -10,6 +10,7 @@ import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header
 import {DeleteDialogComponent} from '../../delete-dialog.component';
 import {ProductAttributes} from '../../../shared/models/product-attributes.model';
 import {SixImage} from '../../../shared/models/six-image.model';
+import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 
 @Component({
   selector: 'product-view',
@@ -28,6 +29,11 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     {name: 'schedules', label: 'PRODUCT_TAB_SCHEDULE'},
     {name: 'campaigns', label: 'PRODUCT_TAB_CAMPAIGN'},
     {name: 'merchantgroupassociations', label: 'PRODUCT_TAB_MERCHANTGROUPASSOCIATION'}
+  ];
+
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'PRODUCT_INDEX_TITLE', url: '/products'},
+    {label: () => this.entity.name}
   ];
 
   constructor(

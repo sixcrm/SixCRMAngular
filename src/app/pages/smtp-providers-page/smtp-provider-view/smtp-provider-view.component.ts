@@ -5,6 +5,7 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
 import {SmtpProvider} from '../../../shared/models/smtp-provider.model';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
+import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 
 @Component({
   selector: 'smtp-provider-view',
@@ -20,6 +21,11 @@ export class SmtpProviderViewComponent extends AbstractEntityViewComponent<SmtpP
     {name: 'general', label: 'SMTP_TAB_GENERAL'},
     {name: 'templates', label: 'SMTP_TAB_EMAILTEMPLATE'},
     {name: 'validate', label: 'SMTP_TAB_VALIDATE'}
+  ];
+
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'SMTP_INDEX_TITLE', url: '/smtpproviders'},
+    {label: () => this.entity.name}
   ];
 
   constructor(private smtpService: SmtpProvidersService,

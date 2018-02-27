@@ -10,6 +10,7 @@ import {CustomServerError} from '../../../shared/models/errors/custom-server-err
 import {Token} from './token-list/token-list.component';
 import {Subject} from 'rxjs';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
+import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 
 declare var tinymce;
 
@@ -27,6 +28,11 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'EMAILTEMPLATE_TAB_GENERAL'},
     {name: 'preview', label: 'EMAILTEMPLATE_TAB_PREVIEW'}
+  ];
+
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'EMAILTEMPLATE_INDEX_TITLE', url: '/emailtemplates'},
+    {label: () => this.entity.name}
   ];
 
   constructor(

@@ -5,6 +5,7 @@ import {AffiliatesService} from '../../../shared/services/affiliates.service';
 import {ActivatedRoute} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
+import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 
 @Component({
   selector: 'affiliate-view',
@@ -22,6 +23,11 @@ export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliat
     {name: 'tracking', label: 'AFFILIATE_TAB_TRACKING'},
     {name: 'sessions', label: 'AFFILIATE_TAB_SESSION'},
     {name: 'campaigns', label: 'AFFILIATE_TAB_CAMPAIGN'}
+  ];
+
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'AFFILIATE_INDEX_TITLE', url: '/affiliates'},
+    {label: () => this.entity.name}
   ];
 
   constructor(service: AffiliatesService, route: ActivatedRoute, public navigation: NavigationService) {

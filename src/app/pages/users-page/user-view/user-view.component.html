@@ -1,5 +1,5 @@
 <div *ngIf="entity; else spinner" class="entity-view">
-  <div class="entity-view__title">{{'USER_TITLE' | translate}}</div>
+  <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
 
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
@@ -52,5 +52,5 @@
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="1" [cardsExpression]="authService.isActiveAclMasterAccount() ? '250px;430px' : '250px'" [title]="'USER_TITLE' | translate"></spe-loader>
+  <spe-loader [numberOfTabs]="1" [cardsExpression]="authService.isActiveAclMasterAccount() ? '250px;430px' : '250px'" [title]="'USER_INDEX_TITLE' | translate"></spe-loader>
 </ng-template>

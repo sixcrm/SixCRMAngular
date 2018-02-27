@@ -12,6 +12,7 @@ import {TableMemoryTextOptions} from '../../components/table-memory/table-memory
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 import {Transaction} from '../../../shared/models/transaction.model';
+import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 
 @Component({
   selector: 'rebill-view',
@@ -51,6 +52,11 @@ export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> imp
     {name: 'general', label: 'REBILL_TAB_GENERAL'},
     {name: 'transactions', label: 'REBILL_TAB_TRANSACTIONS'},
     {name: 'receipts', label: 'REBILL_TAB_RECEIPTS'}
+  ];
+
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'REBILL_INDEX_TITLE', url: '/rebills'},
+    {label: () => this.entity.id}
   ];
 
   constructor(

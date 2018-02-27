@@ -5,6 +5,7 @@ import {NavigationService} from '../../../navigation/navigation.service';
 import {ShippingReceipt} from '../../../shared/models/shipping-receipt.model';
 import {ShippingReceiptsService} from '../../../shared/services/shipping-receipts.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
+import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 
 @Component({
   selector: 'shipping-receipt-view',
@@ -17,6 +18,11 @@ export class ShippingReceiptViewComponent extends AbstractEntityViewComponent<Sh
 
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'SHIPPINGRECEIPT_TAB_GENERAL'}
+  ];
+
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'SHIPPINGRECEIPT_INDEX_TITLE', url: '/shippingreceipts'},
+    {label: () => this.entity.id}
   ];
 
   constructor(service: ShippingReceiptsService,

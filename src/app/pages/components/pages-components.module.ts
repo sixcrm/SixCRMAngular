@@ -17,10 +17,13 @@ import { TableAdvancedHeaderComponent } from './table-advanced/table-advanced-he
 import { TableAdvancedBulkComponent } from './table-advanced/table-advanced-bulk/table-advanced-bulk.component';
 import { TableDensityComponent } from './table-density/table-density.component';
 import {TextMaskModule} from 'angular2-text-mask';
+import { EntityViewBreadcrumbsComponent } from './entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   imports : [
     CommonModule,
+    RouterModule,
     MaterialModule.forRoot(),
     SharedModule,
     FormsModule,
@@ -39,7 +42,8 @@ import {TextMaskModule} from 'angular2-text-mask';
     TableAdvancedComponent,
     TableAdvancedHeaderComponent,
     TableAdvancedBulkComponent,
-    TableDensityComponent
+    TableDensityComponent,
+    EntityViewBreadcrumbsComponent
   ],
   exports : [
     TableActionsComponent,
@@ -49,7 +53,8 @@ import {TextMaskModule} from 'angular2-text-mask';
     EntitiesTableComponent,
     TableMemoryComponent,
     TablePreferencesComponent,
-    TableAdvancedComponent
+    TableAdvancedComponent,
+    EntityViewBreadcrumbsComponent
   ],
   providers: [
 

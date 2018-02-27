@@ -9,6 +9,7 @@ import {MerchantProviderGroup} from '../../../shared/models/merchant-provider-gr
 import {MerchantProviderAddNewComponent} from './merchant-provider-add-new/merchant-provider-add-new.component';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
+import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 
 @Component({
   selector: 'merchant-provider-view',
@@ -37,6 +38,11 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
     {name: 'general', label: 'MERCHANTPROVIDER_TAB_GENERAL'},
     {name: 'precessing', label: 'MERCHANTPROVIDER_TAB_PROCESSING'},
     {name: 'merchantprovidergroups', label: 'MERCHANTPROVIDER_TAB_MERCHANTPROVIDERGROUP'}
+  ];
+
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'MERCHANTPROVIDER_INDEX_TITLE', url: '/merchantproviders'},
+    {label: () => this.entity.name}
   ];
 
   constructor(

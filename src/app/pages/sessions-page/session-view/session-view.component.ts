@@ -11,6 +11,7 @@ import {Campaign} from '../../../shared/models/campaign.model';
 import {Affiliate} from '../../../shared/models/affiliate.model';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
+import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 
 @Component({
   selector: 'session-view',
@@ -47,6 +48,11 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'SESSION_TAB_GENERAL'},
     {name: 'affiliates', label: 'SESSION_TAB_AFFILIATE'}
+  ];
+
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'SESSION_INDEX_TITLE', url: '/sessions'},
+    {label: () => this.entity.alias}
   ];
 
   constructor(service: SessionsService,

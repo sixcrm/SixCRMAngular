@@ -5,6 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {BillsService} from '../../../shared/services/bills.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
+import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 
 @Component({
   selector: 'bill-view',
@@ -18,6 +19,11 @@ export class BillViewComponent extends AbstractEntityViewComponent<Bill> impleme
   ];
 
   selectedIndex = 0;
+
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'BILL_INDEX_TITLE', url: '/bills'},
+    {label: () => this.entity.id}
+  ];
 
   constructor(
     service: BillsService,

@@ -8,6 +8,7 @@ import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header
 import {Customer} from '../../../shared/models/customer.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
+import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 
 @Component({
   selector: 'credit-card-view',
@@ -37,6 +38,11 @@ export class CreditCardViewComponent extends AbstractEntityViewComponent<CreditC
   };
 
   selectedIndex: number = 0;
+
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'CREDITCARD_INDEX_TITLE', url: '/creditcards'},
+    {label: () => this.entity.name}
+  ];
 
   constructor(
     private router: Router,

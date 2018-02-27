@@ -14,6 +14,7 @@ import {getStates} from '../../../shared/utils/address.utils';
 import {CustomerAddNewComponent} from './customer-add-new/customer-add-new.component';
 import {isValidZip, isAllowedZip} from '../../../shared/utils/form.utils';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
+import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 
 @Component({
   selector: 'customer-view',
@@ -45,6 +46,11 @@ export class CustomerViewComponent extends AbstractEntityViewComponent<Customer>
     {name: 'transactions', label: 'CUSTOMER_TAB_TRANSACTION'},
     {name: 'sessions', label: 'CUSTOMER_TAB_SESSION'},
     {name: 'fulfillment', label: 'CUSTOMER_TAB_FULFILLMENT'}
+  ];
+
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'CUSTOMER_INDEX_TITLE', url: '/customers'},
+    {label: () => `${this.entity.firstName} ${this.entity.lastName}`}
   ];
 
   constructor(

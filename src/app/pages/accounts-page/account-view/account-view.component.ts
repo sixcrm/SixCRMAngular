@@ -24,6 +24,7 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {SnackbarService} from '../../../shared/services/snackbar.service';
 import {BillsService} from '../../../shared/services/bills.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
+import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 
 @Component({
   selector: 'account-view',
@@ -68,6 +69,11 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
     {name: 'general', label: 'ACCOUNT_TAB_GENERAL'},
     {name: 'users', label: 'ACCOUNT_TAB_USERS'},
     {name: 'accesskeys', label: 'ACCOUNT_TAB_KEYS'}
+  ];
+
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'ACCOUNT_INDEX_TITLE', url: '/accounts'},
+    {label: () => this.entity.name}
   ];
 
   constructor(service: AccountsService,

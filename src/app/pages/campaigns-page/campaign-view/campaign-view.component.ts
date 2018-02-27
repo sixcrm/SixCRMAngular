@@ -17,6 +17,7 @@ import {CustomServerError} from '../../../shared/models/errors/custom-server-err
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {MerchantProviderGroupAssociationsService} from '../../../shared/services/merchant-provider-group-associations.service';
 import {MerchantProviderGroupAssociation} from '../../../shared/models/merchant-provider-group-association.model';
+import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 
 @Component({
   selector: 'campaign-view',
@@ -97,6 +98,11 @@ export class CampaignViewComponent extends AbstractEntityViewComponent<Campaign>
     {name: 'productschedules', label: 'CAMPAIGN_TAB_PRODUCTSCHEDULES'},
     {name: 'affiliates', label: 'CAMPAIGN_TAB_AFFILIATES'},
     {name: 'trackingcode', label: 'CAMPAIGN_TAB_TRACKINGCODE'}
+  ];
+
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'CAMPAIGN_INDEX_TITLE', url: '/campaigns'},
+    {label: () => this.entity.name}
   ];
 
   constructor(

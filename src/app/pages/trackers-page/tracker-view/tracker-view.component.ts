@@ -13,6 +13,7 @@ import {Campaign} from '../../../shared/models/campaign.model';
 import {CampaignsService} from '../../../shared/services/campaigns.service';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
+import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 
 @Component({
   selector: 'tracker-view',
@@ -53,6 +54,11 @@ export class TrackerViewComponent  extends AbstractEntityViewComponent<Tracker> 
     {name: 'general', label: 'TRACKER_TAB_GENERAL'},
     {name: 'affiliates', label: 'TRACKER_TAB_AFFILIATE'},
     {name: 'campaigns', label: 'TRACKER_TAB_CAMPAIGN'}
+  ];
+
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'TRACKER_INDEX_TITLE', url: '/trackers'},
+    {label: () => this.entity.name}
   ];
 
   constructor(
