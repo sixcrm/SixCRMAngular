@@ -1,5 +1,30 @@
-import {addId, deleteMutationQuery, deleteManyMutationQuery} from './entities-helper.queries';
+import {
+  addId, deleteMutationQuery, deleteManyMutationQuery, paginationParamsQuery,
+  fullPaginationStringResponseQuery
+} from './entities-helper.queries';
 import {Acl} from '../../../models/acl.model';
+
+export function aclListQuery(limit?:number, cursor?:string): string {
+  return `{
+    useracllist ${paginationParamsQuery(limit, cursor)} {
+      useracls {
+        ${userAclResponseQuery()}
+      }
+      ${fullPaginationStringResponseQuery()}
+    }
+  }`
+}
+
+export function aclListByRoleQuery(roleId: string, limit?:number, cursor?:string): string {
+  return `{
+    useracllistbyrole (${paginationParamsQuery(limit, cursor, true)} role: "${roleId}") {
+      useracl {
+        ${userAclResponseQuery()}
+      }
+      ${fullPaginationStringResponseQuery()}
+    }
+  }`
+}
 
 export function createAclMutation(acl: Acl): string {
   return `

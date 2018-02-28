@@ -1,10 +1,25 @@
-import { fullPaginationStringResponseQuery, listQueryParams} from './entities-helper.queries';
+import {
+  fullPaginationStringResponseQuery, listQueryParams, deleteManyMutationQuery,
+  deleteMutationQuery, addId
+} from './entities-helper.queries';
+import {Role} from '../../../models/role.model';
 
 export function rolesListQuery(limit?: number, cursor?: string, search?: string): string {
   return `{
 		rolelist ${listQueryParams(limit, cursor, search)} {
 			roles {
-			  ${rolesInfoResponseQuery()}
+			  ${roleResponseQuery()}
+			}
+			${fullPaginationStringResponseQuery()}
+		}
+  }`
+}
+
+export function rolesSharedListQuery(limit?: number, cursor?: string, search?: string): string {
+  return `{
+		sharedrolelist ${listQueryParams(limit, cursor, search)} {
+			roles {
+			  ${roleResponseQuery()}
 			}
 			${fullPaginationStringResponseQuery()}
 		}
@@ -19,12 +34,48 @@ export function roleQuery(id: string): string {
   }`
 }
 
-export function rolesInfoResponseQuery(): string {
-  return `id name active created_at updated_at`;
+export function roleSharedQuery(id: string): string {
+  return `{
+		sharedrole (id: "${id}") {
+			${roleResponseQuery()}
+    }
+  }`
 }
 
+export function deleteRoleMutation(id: string): string {
+  return deleteMutationQuery('role', id);
+}
+
+export function deleteRolesMutation(id: string[]): string {
+  return deleteManyMutationQuery('role', id);
+}
+
+export function updateRoleMutation(role: Role): string {
+  return `
+    mutation {
+      updaterole ( role: { ${roleInputQuery(role, true)} } ) {
+        ${roleResponseQuery()}
+      }
+    }`;
+}
+
+export function createRoleMutation(role: Role): string {
+  return `
+    mutation {
+      createrole ( role: { ${roleInputQuery(role)} } ) {
+        ${roleResponseQuery()}
+      }
+    }`;
+}
 
 export function roleResponseQuery(): string {
   return `id name active permissions { allow deny } created_at updated_at`;
+}
+
+export function roleInputQuery(role: Role, includeId?: boolean): string {
+  const allowed = role.permissions.allow.reduce((a,b) => `${a}${a?',':''}"${b}"`, '');
+  const denied = role.permissions.deny.reduce((a,b) => `${a}${a?',':''}"${b}"`, '');
+
+  return `${addId(role.id, includeId)} name:"${role.name}", active: ${role.active}, permissions: { allow:[${allowed}], deny:[${denied}] }`
 }
 

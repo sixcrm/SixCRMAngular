@@ -1,47 +1,26 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
-import {AuthenticationService} from '../../../authentication/authentication.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {PaginationService} from '../../../shared/services/pagination.service';
-import {MdDialog} from '@angular/material';
-import {ColumnParams} from '../../../shared/models/column-params.model';
-import {Role} from '../../../shared/models/role.model';
-import {RolesService} from '../../../shared/services/roles.service';
+import {Component, OnInit} from '@angular/core';
+import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 
 @Component({
   selector: 'roles',
   templateUrl: './roles.component.html',
   styleUrls: ['./roles.component.scss']
 })
-export class RolesComponent extends AbstractEntityIndexComponent<Role> implements OnInit, OnDestroy {
+export class RolesComponent implements OnInit{
 
-  constructor(
-    service: RolesService,
-    auth: AuthenticationService,
-    dialog: MdDialog,
-    paginationService: PaginationService,
-    router: Router,
-    activatedRoute: ActivatedRoute
-  ) {
-    super(service, auth, dialog, paginationService, router, activatedRoute);
+  tabHeaders: TabHeaderElement[] = [
+    {name: 'shared', label: 'ROLE_TAB_SHARED'},
+    {name: 'custom', label: 'ROLE_TAB_CUSTOM'}
+  ];
 
-    let f = this.authService.getTimezone();
+  selectedIndex: number = 0;
 
-    this.columnParams = [
-      new ColumnParams<Role>('ROLE_INDEX_HEADER_ID').setMappingFunction((e: Role) => e.id).setSelected(false),
-      new ColumnParams<Role>('ROLE_INDEX_HEADER_NAME').setMappingFunction((e: Role) => e.name),
-      new ColumnParams<Role>('ROLE_INDEX_HEADER_ACTIVE').setMappingFunction((e: Role) => e.active),
-      new ColumnParams<Role>('ROLE_INDEX_HEADER_CREATED').setMappingFunction((e: Role) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
-      new ColumnParams<Role>('ROLE_INDEX_HEADER_UPDATED').setMappingFunction((e: Role) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false)
-    ];
-  }
+  constructor() {}
 
-  ngOnInit() {
-    this.init();
-  }
+  ngOnInit() {}
 
-  ngOnDestroy() {
-    this.destroy();
+  setIndex(value: number) {
+    this.selectedIndex = value;
   }
 
 }

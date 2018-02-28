@@ -293,7 +293,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
     this.entities = [];
   }
 
-  private updateEntityLocal(entity: T): void {
+  protected updateEntityLocal(entity: T): void {
     let index: number = this.indexOfEntity(entity);
 
     if (index > -1) {

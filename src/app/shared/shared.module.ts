@@ -88,6 +88,7 @@ import { SpeLoaderBodyComponent } from './components/spe-loader-body/spe-loader-
 import {SpeLoaderHeaderBreadcrumbComponent} from './components/spe-loader-breadcrumb/spe-loader-breadcrumb.component';
 import { SpeLoaderHeaderComponent } from './components/spe-loader-header/spe-loader-header.component';
 import { SpeLoaderBlueHeaderComponent } from './components/spe-loader-blue-header/spe-loader-blue-header.component';
+import {RolesSharedService} from './services/roles-shared.service';
 
 @NgModule({
   declarations : [
@@ -205,6 +206,7 @@ export class SharedModule {
         ProductScheduleService,
         PaginationService,
         RolesService,
+        RolesSharedService,
         SearchService,
         CustomerNotesService,
         NotificationsService,

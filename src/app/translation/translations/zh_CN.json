@@ -1462,28 +1462,42 @@
       "title": "Roles",
       "header": {
         "id": "ID",
-        "name": "Name",
         "active": "Active",
+        "name": "Name",
         "created": "Created",
         "updated": "Updated"
       }
     },
     "tab": {
-      "general": "GENERAL DETAILS"
+      "permissions": "PERMISSIONS",
+      "shared": "SHARED ROLES",
+      "custom": "CUSTOM ROLES",
+      "acls": "USER ACLS"
     },
     "allowed": {
       "title": "Permissions Allowed",
       "nodata": "No Allowed Permissions found.",
-      "edit": "Edit Allowed Permission"
+      "edit": "Edit Allowed Permission",
+      "delete": "Delete Allowed Permission"
     },
     "denied": {
       "title": "Permissions Denied",
       "nodata": "No Denied Permissions found.",
-      "edit": "Edit Denied Permission"
+      "edit": "Edit Denied Permission",
+      "delete": "Delete Denied Permission"
     },
     "info": {
       "option": "Option",
       "permission": "Permission"
+    },
+    "acl": {
+      "title": "Assigned Users",
+      "nodata": "No Users Assigned",
+      "delete": "Delete User ACL",
+      "id": "ID",
+      "user": "User",
+      "created": "Created",
+      "updated": "Updated"
     }
   },
   "shippingreceipt": {

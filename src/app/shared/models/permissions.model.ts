@@ -1,9 +1,6 @@
 export class ParsedPermission {
 
-  constructor(public action: string, public permissions: string) {
-    this.action = action;
-    this.permissions = permissions
-  }
+  constructor(public action?: string, public permissions?: string) {}
 
   copy() {
     return new ParsedPermission(this.action, this.permissions)
@@ -87,4 +84,51 @@ export class Permissions {
       deny: this.deny
     }
   }
+}
+
+export function getAllPermissionEntities() {
+  return [
+    '*',
+    'analytics',
+    'accesskey',
+    'affiliate',
+    'account',
+    'bill',
+    'campaign',
+    'creditcard',
+    'customer',
+    'customernote',
+    'emailtemplate',
+    'merchantprovidergroup',
+    'merchantprovidergroupassociation',
+    'merchantprovider',
+    'productschedule',
+    'product',
+    'rebill',
+    'role/read',
+    'session',
+    'shippingreceipt',
+    'smtpprovider',
+    'transaction',
+    'account/read',
+    'notification',
+    'notificationread',
+    'notificationsetting',
+    'user',
+    'useracl',
+    'usersetting',
+    'usersigningstring',
+    'userdevicetoken',
+    'tracker',
+    'register',
+    'fulfillmentprovider'
+  ]
+}
+
+export function getAllPermissionActions() {
+  return [
+    '*',
+    'read',
+    'write'
+  ]
 }

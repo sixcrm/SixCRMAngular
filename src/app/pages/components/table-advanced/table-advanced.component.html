@@ -106,7 +106,7 @@
                                         [options]="params.autocompleteOptions || []"
                                         [disabled]="!params.editable"
                                         [fullWidth]="true"
-                                        [applyAutofocus]="true"
+                                        [applyAutofocus]="params.autofocus"
                                         (selected)="params.assigningFunction(entity, $event)">
                     </autocomplete-input>
                   </ng-template>
@@ -155,7 +155,7 @@
                                         [initialValue]="params.autocompleteInitialValue(entity)"
                                         [options]="params.autocompleteOptions || []"
                                         [disabled]="!params.editable"
-                                        [applyAutofocus]="true"
+                                        [applyAutofocus]="params.autofocus"
                                         (selected)="params.assigningFunction(entity, $event)">
                     </autocomplete-input>
                   </ng-container>

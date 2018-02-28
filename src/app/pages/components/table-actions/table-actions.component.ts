@@ -38,8 +38,10 @@ export class TableActionsComponent implements OnInit {
   @Input()
   showDelete: boolean = true;
 
-  showEdit: boolean;
+  @Input()
   showCopy: boolean;
+
+  showEdit: boolean;
   showExport: boolean;
 
   constructor() {}
@@ -47,7 +49,7 @@ export class TableActionsComponent implements OnInit {
   ngOnInit() {
     this.showView = this.showView && this.service.hasViewPermission();
     this.showDelete = this.showDelete && this.service.hasWritePermission();
-    this.showCopy = false;
+    this.showCopy = this.showCopy && this.service.hasWritePermission();
     this.showExport = false;
     this.showEdit = false;
   }

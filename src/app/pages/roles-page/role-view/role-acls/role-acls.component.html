@@ -1,0 +1,10 @@
+<table-advanced [data]="filteredAcls"
+                [columnParams]="columnParams"
+                [textOptions]="aclTextOptions"
+                [entityFactory]="aclFactory"
+                [viewEnabled]="false"
+                [editEnabled]="false"
+                (deleteEntity)="deleteEntity($event.id)"
+                (deleteMultipleEntities)="deleteMany($event)"
+                (add)="addAcl($event)">
+</table-advanced>

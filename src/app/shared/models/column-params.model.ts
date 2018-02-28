@@ -28,9 +28,11 @@ export class ColumnParams<T> {
   showLabel: boolean = true;
   validator: (e: T) => boolean = e => true;
 
-  autocompleteMapper: (any) => string;
+  autocompleteMapper: (any) => string = e => e;
   autocompleteOptions: any[];
   autocompleteInitialValue: (any) => string;
+
+  autofocus: boolean;
 
   constructor(label?: string, mappingFunction?: (e: T) => string | number | boolean, align?: string, order?: string, applied?: boolean) {
     this.label = label;
@@ -156,6 +158,12 @@ export class ColumnParams<T> {
 
   setValidator(value: (e: T) => boolean) {
     this.validator = value;
+
+    return this;
+  }
+
+  setAutofocus(value: boolean) {
+    this.autofocus = value;
 
     return this;
   }

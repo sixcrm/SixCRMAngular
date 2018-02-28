@@ -8,6 +8,9 @@ import {TranslationModule} from '../../translation/translation.module';
 import {SharedModule} from '../../shared/shared.module';
 import {RolesComponent} from './roles-index/roles.component';
 import {RoleViewComponent} from './role-view/role-view.component';
+import { RolesIndexSharedComponent } from './roles-index/roles-index-shared/roles-index-shared.component';
+import { RolesIndexCustomComponent } from './roles-index/roles-index-custom/roles-index-custom.component';
+import { RoleAclsComponent } from './role-view/role-acls/role-acls.component';
 
 @NgModule({
   imports: [
@@ -21,7 +24,10 @@ import {RoleViewComponent} from './role-view/role-view.component';
   ],
   declarations: [
     RolesComponent,
-    RoleViewComponent
+    RoleViewComponent,
+    RolesIndexSharedComponent,
+    RolesIndexCustomComponent,
+    RoleAclsComponent
   ],
   providers: [ ]
 })

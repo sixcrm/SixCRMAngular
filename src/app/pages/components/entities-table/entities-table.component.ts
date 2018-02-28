@@ -26,6 +26,7 @@ export class EntitiesTableComponent implements OnInit {
 
   @Input() showView: boolean = true;
   @Input() showDelete: boolean = true;
+  @Input() showCopy: boolean;
 
   @Output() viewClicked: EventEmitter<any> = new EventEmitter<any>();
   @Output() copyClicked: EventEmitter<any> = new EventEmitter<any>();

@@ -11,7 +11,6 @@
     </div>
   </div>
 
-
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
@@ -20,25 +19,35 @@
       <div class="flex-custom">
 
         <table-advanced [data]="entity.permissions.parsedAllowed"
-                        [columnParams]="permissionsAllowedColumnParams"
-                        [addEnabled]="false"
+                        [columnParams]="permissionsColumnParams"
                         [textOptions]="permissionsAllowedTextOptions"
                         [showTopPagination]="false"
+                        [entityFactory]="permissionFactory"
                         [viewEnabled]="false"
-                        [deleteEnabled]="false">
+                        (deleteEntity)="deleteAllowed($event)"
+                        (deleteMultipleEntities)="deleteManyAllowed($event)"
+                        (add)="addAllowed($event)"
+                        (update)="updateAllowed($event)">
         </table-advanced>
 
         <table-advanced [data]="entity.permissions.parsedDenied"
-                        [columnParams]="permissionsDeniedColumnParams"
-                        [addEnabled]="false"
+                        [columnParams]="permissionsColumnParams"
                         [textOptions]="permissionsDeniedTextOptions"
+                        [entityFactory]="permissionFactory"
                         [showTopPagination]="false"
                         [viewEnabled]="false"
-                        [deleteEnabled]="false">
+                        (deleteEntity)="deleteDenied($event)"
+                        (deleteMultipleEntities)="deleteManyDenied($event)"
+                        (add)="addDenied($event)"
+                        (update)="updateDenied($event)">
         </table-advanced>
 
       </div>
 
+    </md-tab>
+
+    <md-tab>
+      <role-acls [role]="entity"></role-acls>
     </md-tab>
   </md-tab-group>
 </div>
