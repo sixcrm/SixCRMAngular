@@ -73,7 +73,9 @@
 
                   <ng-template #noauto>
                     <ng-container *ngIf="params.inputType === inputTypes.IMAGE; else noimage">
-                      <img src="{{params.mappingFunction(entity)}}" alt="">
+                      <ng-container *ngIf="params.mappingFunction(entity)">
+                        <div class="image" [style.background-image]="'url(' + params.mappingFunction(entity) + ')'"></div>
+                      </ng-container>
                     </ng-container>
                   </ng-template>
 
@@ -162,7 +164,9 @@
 
                   <ng-template #noauto>
                     <ng-container *ngIf="params.inputType === inputTypes.IMAGE; else noimage">
-                      <img src="{{params.mappingFunction(entity)}}" alt="">
+                      <ng-container *ngIf="params.mappingFunction(entity)">
+                        <div class="image" [style.background-image]="'url(' + params.mappingFunction(entity) + ')'"></div>
+                      </ng-container>
                     </ng-container>
                   </ng-template>
 

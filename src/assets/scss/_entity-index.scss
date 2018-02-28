@@ -186,8 +186,9 @@ $title-color: #8D8888;
     .density {
 
       &--s {
-        img {
-          width: 35px;
+        .image {
+          max-width: 35px;
+          max-height: 35px;
         }
 
         .cell-image {
