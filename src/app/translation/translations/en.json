@@ -1470,8 +1470,8 @@
     },
     "tab": {
       "permissions": "PERMISSIONS",
-      "shared": "SHARED ROLES",
-      "custom": "CUSTOM ROLES",
+      "shared": "MANAGED ROLES",
+      "custom": "ROLES",
       "acls": "USER ACLS"
     },
     "allowed": {

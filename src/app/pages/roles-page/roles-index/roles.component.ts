@@ -9,8 +9,8 @@ import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header
 export class RolesComponent implements OnInit{
 
   tabHeaders: TabHeaderElement[] = [
-    {name: 'shared', label: 'ROLE_TAB_SHARED'},
-    {name: 'custom', label: 'ROLE_TAB_CUSTOM'}
+    {name: 'custom', label: 'ROLE_TAB_CUSTOM'},
+    {name: 'shared', label: 'ROLE_TAB_SHARED'}
   ];
 
   selectedIndex: number = 0;
