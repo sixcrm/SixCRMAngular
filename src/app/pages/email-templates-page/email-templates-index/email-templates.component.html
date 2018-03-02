@@ -3,39 +3,19 @@
     {{'EMAILTEMPLATE_INDEX_TITLE' | translate}}
   </div>
 
-  <button md-icon-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="openAddMode()"><md-icon>add</md-icon></button>
+  <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-  <md-card class="entity-index__card">
-    <md-card-content class="entity-index__card__content">
-      <entities-table
-        [data]="entities"
-        [columnParams]="columnParams"
-        [filterString]="filterValue"
-        [serverError]="serverError"
-        (selected)="viewEntity($event.id)"
+  <md-tab-group [(selectedIndex)]="selectedIndex">
+    <md-tab>
+      <email-templates-custom (addSelected)="toggleAddModal()"></email-templates-custom>
+    </md-tab>
 
-        [service]="service"
-        (viewClicked)="viewEntity($event.id)"
-        (copyClicked)="copyEntity($event.id)"
-        (exportClicked)="exportEntity($event.id)"
-        (editClicked)="editEntity($event.id)"
-        (deleteClicked)="deleteEntity($event.id)"
-        (deleteManyClicked)="deleteMany($event)"
-        (refreshData)="refreshData()"
+    <md-tab>
+      <email-templates-shared></email-templates-shared>
+    </md-tab>
 
-        [limit]="limit"
-        [paginationValues]="paginationValues"
-        [previousDisabled]="page <= 0"
-        [nextDisabled]="!hasMorePages()"
-        (previous)="previous()"
-        (next)="next()"
-        (updateLimit)="updateLimit($event)"
-        (filterChanged)="filterValue = $event"
-        (searchChanged)="setSearchString($event)"
-      >
-      </entities-table>
-    </md-card-content>
-  </md-card>
+  </md-tab-group>
+
 </div>
 
 <div *ngIf="addMode" (click)="overlayClicked($event)" class="full-overlay">

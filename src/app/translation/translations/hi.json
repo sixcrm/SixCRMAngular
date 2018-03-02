@@ -1163,7 +1163,9 @@
     },
     "tab": {
       "general": "सामान्य विवरण",
-      "preview": "पूर्वावलोकन"
+      "preview": "पूर्वावलोकन",
+      "custom": "EMAIL TEMPLATES",
+      "shared": "MANAGED EMAIL TEMPLATES"
     },
     "info": {
       "createtitle": "नया ईमेल टेम्पलेट बनाएं",

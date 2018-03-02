@@ -25,6 +25,7 @@
                                 [mode]="viewMode ? modes.View : modes.Update"
                                 [tokenSubject]="addTokenSubject"
                                 [editorRefreshSubject]="editorRefreshSubject"
+                                [editEnabled]="!isShared"
                                 (cancel)="cancelEdit()"
                                 (changeMode)="setMode($event)"
                                 (save)="updateEntity($event)">

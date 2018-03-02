@@ -27,13 +27,13 @@ export abstract class AbstractEntityService<T> {
     protected authService: AuthenticationService,
     private toEntity: (data: any) => T,
     public indexQuery: (limit?: number, cursor?: string, search?: string) => string,
-    private viewQuery: (id: string) => string,
-    private deleteQuery: (id: string) => string,
-    private deleteManyQuery: (id: string[]) => string,
-    private createQuery: (entity: T) => string,
-    private updateQuery: (entity: T) => string,
-    private accessRole: string,
-    private snackBar: MdSnackBar
+    public viewQuery: (id: string) => string,
+    public deleteQuery: (id: string) => string,
+    public deleteManyQuery: (id: string[]) => string,
+    public createQuery: (entity: T) => string,
+    public updateQuery: (entity: T) => string,
+    public accessRole: string,
+    public snackBar: MdSnackBar
   ) {
     this.entities$ = new Subject<T[] | CustomServerError>();
     this.entitiesHasMore$ = new Subject<boolean>();

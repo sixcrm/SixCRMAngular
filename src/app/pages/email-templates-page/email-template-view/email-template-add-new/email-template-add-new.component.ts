@@ -41,6 +41,8 @@ export class EmailTemplateAddNewComponent implements OnInit, AfterViewInit, OnDe
     }
   }
 
+  @Input() editEnabled: boolean = true;
+
   @Output() cancel: EventEmitter<boolean> = new EventEmitter();
   @Output() save: EventEmitter<EmailTemplate> = new EventEmitter();
   @Output() changeMode: EventEmitter<Modes> = new EventEmitter();

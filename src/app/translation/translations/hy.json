@@ -1163,7 +1163,9 @@
 		},
 		"tab": {
 			"general": "ԸՆԴՀԱՆՈՒՐ ՄԱՆՐԱՄԱՍՆԵՐ",
-			"preview": "ՆԱԽԱՏԵՍՔ"
+			"preview": "ՆԱԽԱՏԵՍՔ",
+      "custom": "EMAIL TEMPLATES",
+      "shared": "MANAGED EMAIL TEMPLATES"
 		},
 		"info": {
 			"createtitle": "Ստեղծել էլ. նամակի նոր ձևանմուշ",

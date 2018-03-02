@@ -90,6 +90,7 @@ import { SpeLoaderHeaderComponent } from './components/spe-loader-header/spe-loa
 import { SpeLoaderBlueHeaderComponent } from './components/spe-loader-blue-header/spe-loader-blue-header.component';
 import {RolesSharedService} from './services/roles-shared.service';
 import { MultiselectComponent } from './components/multiselect/multiselect.component';
+import {EmailTemplatesSharedService} from './services/email-templates-shared.service';
 
 @NgModule({
   declarations : [
@@ -205,6 +206,7 @@ export class SharedModule {
         UsersService,
         SmtpProvidersService,
         EmailTemplatesService,
+        EmailTemplatesSharedService,
         AccessKeysService,
         ProductScheduleService,
         PaginationService,

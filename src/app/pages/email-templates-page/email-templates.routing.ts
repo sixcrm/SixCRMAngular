@@ -5,6 +5,7 @@ import {EmailTemplatesAclGuard} from '../guards/email-templates-acl-guard.servic
 
 export const emailTemplatesRouting = RouterModule.forChild([
   { path : '', component : EmailTemplatesComponent, canActivate: [EmailTemplatesAclGuard] },
-  { path : ':id', component : EmailTemplateViewComponent, canActivate: [EmailTemplatesAclGuard], canDeactivate: [EmailTemplatesAclGuard] }
+  { path : ':id', component : EmailTemplateViewComponent, canActivate: [EmailTemplatesAclGuard], canDeactivate: [EmailTemplatesAclGuard] },
+  { path : 'shared/:id', component : EmailTemplateViewComponent, canActivate: [EmailTemplatesAclGuard], canDeactivate: [EmailTemplatesAclGuard] }
 ]);
 

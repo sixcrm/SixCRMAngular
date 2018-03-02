@@ -1163,7 +1163,9 @@
     },
     "tab": {
       "general": "ALLGEIMEINES",
-      "preview": "VORSCHAU"
+      "preview": "VORSCHAU",
+      "custom": "EMAIL TEMPLATES",
+      "shared": "MANAGED EMAIL TEMPLATES"
     },
     "info": {
       "createtitle": "Neue Mailvorlage",

@@ -11,6 +11,7 @@ import {Token} from './token-list/token-list.component';
 import {Subject} from 'rxjs';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {EmailTemplatesSharedService} from '../../../shared/services/email-templates-shared.service';
 
 declare var tinymce;
 
@@ -35,25 +36,29 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     {label: () => this.entity.name}
   ];
 
+  isShared: boolean;
+
   constructor(
     service: EmailTemplatesService,
-    route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     public navigation: NavigationService,
-    public smtpProviderService: SmtpProvidersService
+    public smtpProviderService: SmtpProvidersService,
+    private sharedService: EmailTemplatesSharedService
   ) {
-    super(service, route);
+    super(service, activatedRoute);
   }
 
   ngOnInit() {
-    this.init(() => this.navigation.goToNotFoundPage());
+    this.activatedRoute.url.subscribe(data => {
+      if (data[0].path === 'shared') {
+        this.service = this.sharedService;
+        this.isShared = true;
+      }
 
-    if (this.addMode) {
-      this.entity = new EmailTemplate();
-      this.entityBackup = new EmailTemplate();
-      this.smtpProviderService.getEntities();
-    } else {
-      this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(() => this.smtpProviderService.getEntities());
-    }
+      this.init(() => this.navigation.goToNotFoundPage());
+    });
+
+    this.service.entity$.takeUntil(this.unsubscribe$).take(1).subscribe(() => this.smtpProviderService.getEntities());
   }
 
   ngOnDestroy() {

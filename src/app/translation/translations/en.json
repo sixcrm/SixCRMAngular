@@ -1163,7 +1163,9 @@
     },
     "tab": {
       "general": "GENERAL DETAILS",
-      "preview": "PREVIEW"
+      "preview": "PREVIEW",
+      "custom": "EMAIL TEMPLATES",
+      "shared": "MANAGED EMAIL TEMPLATES"
     },
     "info": {
       "createtitle": "Create new Email Template",

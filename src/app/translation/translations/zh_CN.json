@@ -1163,7 +1163,9 @@
     },
     "tab": {
       "general": "一般细节",
-      "preview": "预览"
+      "preview": "预览",
+      "custom": "EMAIL TEMPLATES",
+      "shared": "MANAGED EMAIL TEMPLATES"
     },
     "info": {
       "createtitle": "创建新的电子邮件模板",

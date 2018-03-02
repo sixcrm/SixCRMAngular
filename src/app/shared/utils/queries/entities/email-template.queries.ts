@@ -15,6 +15,16 @@ export function emailTemplatesListQuery(limit?:number, cursor?:string, search?: 
 		}}`
 }
 
+export function emailTemplatesSharedListQuery(limit?:number, cursor?:string, search?: string): string {
+  return `{
+    sharedemailtemplatelist ${listQueryParams(limit, cursor, search)} {
+			emailtemplates {
+			  ${emailTemplateInfoResponseQuery()}
+			}
+			${fullPaginationStringResponseQuery()}
+		}}`
+}
+
 export function emailTemplatesListBySmtpProviderQuery(smtpproviderID: string, limit?:number, cursor?:string): string {
   return `{
     emailtemplatelistbysmtpprovider (smtpprovider:"${smtpproviderID}", ${paginationParamsQuery(limit, cursor, true)}) {
@@ -29,6 +39,15 @@ export function emailTemplateQuery(id: string): string {
   return `
     {
       emailtemplate (id: "${id}") {
+			  ${emailTemplateResponseQuery()}
+			}
+    }`
+}
+
+export function emailTemplateSharedQuery(id: string): string {
+  return `
+    {
+      sharedemailtemplate (id: "${id}") {
 			  ${emailTemplateResponseQuery()}
 			}
     }`
@@ -59,7 +78,7 @@ export function createEmailTemplateMutation(emailTemplate: EmailTemplate): strin
 }
 
 export function emailTemplateInfoResponseQuery(): string {
-  return `id name subject type smtp_provider { name } created_at updated_at`
+  return `id name subject body type smtp_provider { id name } created_at updated_at`
 }
 
 export function emailTemplateResponseQuery(): string {

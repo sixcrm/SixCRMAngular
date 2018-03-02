@@ -7,7 +7,7 @@
     <ng-template #add>
       <div class="entity-view__card__header__title">{{'EMAILTEMPLATE_INFO_CREATETITLE' | translate}}</div>
     </ng-template>
-    <ng-container *ngIf="mode !== modes.Add">
+    <ng-container *ngIf="mode !== modes.Add && editEnabled">
       <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
       <md-menu #editOptions="mdMenu" x-position="before">
         <button md-menu-item (click)="changeMode.emit(modes.Update)">{{'EMAILTEMPLATE_INFO_EDIT' | translate}}</button>
