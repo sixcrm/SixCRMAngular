@@ -12,7 +12,6 @@ import {TextMaskModule} from 'angular2-text-mask';
 import { ProductScheduleCampaignsComponent } from './product-schedule-view/product-schedule-campaigns/product-schedule-campaigns.component';
 import { ProductScheduleAddNewComponent } from './product-schedule-view/product-schedule-add-new/product-schedule-add-new.component';
 import {TranslationModule} from '../../translation/translation.module';
-import { ProductScheduleGalleryComponent } from './product-schedule-view/product-schedule-gallery/product-schedule-gallery.component';
 
 @NgModule({
   imports : [
@@ -29,8 +28,7 @@ import { ProductScheduleGalleryComponent } from './product-schedule-view/product
     ProductSchedulesComponent,
     ProductScheduleViewComponent,
     ProductScheduleCampaignsComponent,
-    ProductScheduleAddNewComponent,
-    ProductScheduleGalleryComponent
+    ProductScheduleAddNewComponent
   ],
   exports : [ ],
   providers: [

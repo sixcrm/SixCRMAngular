@@ -54,13 +54,6 @@ td {
   color: rgba(0, 0, 0, 0.5);
 }
 
-img {
-  margin: auto;
-  max-width: 45px;
-  max-height: 45px;
-  border-radius: 50%;
-}
-
 .cell-image {
   width: 45px;
   padding: 8px 0 8px 8px !important;
@@ -101,8 +94,8 @@ tr {
 }
 
 .image {
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

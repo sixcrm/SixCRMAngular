@@ -19,6 +19,7 @@ import { TableDensityComponent } from './table-density/table-density.component';
 import {TextMaskModule} from 'angular2-text-mask';
 import { EntityViewBreadcrumbsComponent } from './entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 import {RouterModule} from '@angular/router';
+import { EntityViewGalleryComponent } from './entity-view-gallery/entity-view-gallery.component';
 
 @NgModule({
   imports : [
@@ -43,7 +44,8 @@ import {RouterModule} from '@angular/router';
     TableAdvancedHeaderComponent,
     TableAdvancedBulkComponent,
     TableDensityComponent,
-    EntityViewBreadcrumbsComponent
+    EntityViewBreadcrumbsComponent,
+    EntityViewGalleryComponent
   ],
   exports : [
     TableActionsComponent,
@@ -54,7 +56,8 @@ import {RouterModule} from '@angular/router';
     TableMemoryComponent,
     TablePreferencesComponent,
     TableAdvancedComponent,
-    EntityViewBreadcrumbsComponent
+    EntityViewBreadcrumbsComponent,
+    EntityViewGalleryComponent
   ],
   providers: [
 

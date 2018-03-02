@@ -1,0 +1,11 @@
+<div class="entity-view__header__gallery">
+  <ng-container *ngFor="let image of images">
+    <ng-container *ngIf="mapper(image); else defaultimage">
+      <div class="image" [style.background-image]="'url(' + mapper(image) + ')'"></div>
+    </ng-container>
+
+    <ng-template #defaultimage>
+      <div class="image default" [style.background-image]="'url(' + defaultImage + ')'"></div>
+    </ng-template>
+  </ng-container>
+</div>

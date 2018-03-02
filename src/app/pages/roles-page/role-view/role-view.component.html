@@ -4,6 +4,9 @@
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
   <div class="entity-view__header">
+
+    <entity-view-gallery [defaultImage]="'/assets/images/user-image-placeholder.svg'" [images]="images"></entity-view-gallery>
+
     <div class="entity-view__header__title">
       <ng-container *ngIf="updateMode; else viewmode">
         <md-input-container>

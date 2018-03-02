@@ -5,7 +5,7 @@
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
   <div class="entity-view__header">
-    <product-schedule-gallery [schedules]="entity.schedules"></product-schedule-gallery>
+    <entity-view-gallery [images]="entity.schedules" [mapper]="imageMapper" [defaultImage]="'/assets/images/product-image-placeholder.svg'"></entity-view-gallery>
 
     <div class="entity-view__header__title">{{entity.name}}</div>
     <div class="entity-view__header__details">

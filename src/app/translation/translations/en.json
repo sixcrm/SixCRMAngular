@@ -1496,6 +1496,7 @@
       "nodata": "No Users Assigned",
       "delete": "Delete User ACL",
       "id": "ID",
+      "image": "Image",
       "user": "User",
       "created": "Created",
       "updated": "Updated"

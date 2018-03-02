@@ -47,6 +47,11 @@ export class RoleAclsComponent extends AbstractEntityIndexComponent<Acl> impleme
 
     this.columnParams = [
       new ColumnParams<Acl>('ROLE_ACL_ID').setMappingFunction((e: Acl) => e.id).setSelected(false).setEditable(false),
+      new ColumnParams<Acl>('ROLE_ACL_IMAGE')
+        .setMappingFunction((e: Acl) => '/assets/images/user-image-placeholder.svg')
+        .setShowLabel(false)
+        .setSortEnabled(false)
+        .setInputType(ColumnParamsInputType.IMAGE),
       new ColumnParams<Acl>('ROLE_ACL_USER').setMappingFunction((e: Acl) => e.user.name).setAutofocus(true),
       new ColumnParams<Acl>('ROLE_ACL_CREATED').setMappingFunction((e: Acl) => e.createdAt.tz(f).format('MM/DD/YYYY')).setEditable(false),
       new ColumnParams<Acl>('ROLE_ACL_UPDATED').setMappingFunction((e: Acl) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false).setEditable(false)
@@ -64,7 +69,7 @@ export class RoleAclsComponent extends AbstractEntityIndexComponent<Acl> impleme
 
       const unassigned = acls.filter(acl => firstIndexOf(this.filteredAcls, (e) => e.user.id === acl.user.id) === -1);
 
-      this.columnParams[1] = this.columnParams[1]
+      this.columnParams[2] = this.columnParams[2]
         .setAssigningFunction((e: Acl, value) => e.user = value)
         .setInputType(ColumnParamsInputType.AUTOCOMPLETE)
         .setAutocompleteOptions(unassigned.map(a => a.user))

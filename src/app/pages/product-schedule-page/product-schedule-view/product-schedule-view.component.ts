@@ -30,10 +30,12 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   @ViewChild('endField') endField;
   @ViewChild('addScheduleComponent') addScheduleComponent: AddScheduleComponent;
 
+  imageMapper = (schedule: Schedule) => schedule.product.getDefaultImagePath();
+
   selectedIndex: number = 0;
   scheduleColumnParams = [
     new ColumnParams('PRODUCTSCHEDULE_CYCLE_IMAGE')
-      .setMappingFunction((e: Schedule) => e.product.getDefaultImagePath())
+      .setMappingFunction((e: Schedule) => e.product.getDefaultImagePath() || '/assets/images/product-image-placeholder.svg')
       .setShowLabel(false)
       .setSortEnabled(false)
       .setInputType(ColumnParamsInputType.IMAGE),
