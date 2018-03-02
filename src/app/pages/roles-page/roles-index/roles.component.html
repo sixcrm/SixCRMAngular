@@ -7,14 +7,18 @@
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>
-      <roles-index-custom></roles-index-custom>
+      <roles-index-custom [acls]="aclService.entities$ | async" (addSelected)="toggleAddModal()"></roles-index-custom>
     </md-tab>
 
     <md-tab>
-      <roles-index-shared></roles-index-shared>
+      <roles-index-shared [acls]="aclService.entities$ | async"></roles-index-shared>
     </md-tab>
 
   </md-tab-group>
 
+</div>
+
+<div *ngIf="showAddModal" (click)="overlayClicked($event)" class="full-overlay">
+  <role-add-new class="modal-center" (save)="createEntity($event)" (cancel)="toggleAddModal()"></role-add-new>
 </div>
 

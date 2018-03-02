@@ -4,6 +4,7 @@ import {RoleViewComponent} from './role-view/role-view.component';
 
 export const rolesRouting = RouterModule.forChild([
   { path : '', component : RolesComponent },
-  { path : ':id', component : RoleViewComponent }
+  { path : ':id', component : RoleViewComponent },
+  { path : 'shared/:id', component : RoleViewComponent }
 ]);
 

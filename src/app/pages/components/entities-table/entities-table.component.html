@@ -13,7 +13,7 @@
       <div #options *ngIf="showActionOptions" class="options__container">
         <div class="options__item" (click)="selectAll()">{{'INDEXPAGE_SELECTALL' | translate}}</div>
         <div class="options__item" (click)="deselectAll()">{{'INDEXPAGE_DESELECTALL' | translate}}</div>
-        <div class="options__item" (click)="deleteAll()">{{'INDEXPAGE_DELETEALL' | translate}}</div>
+        <div class="options__item" *ngIf="showDelete && service.hasWritePermission()" (click)="deleteAll()">{{'INDEXPAGE_DELETEALL' | translate}}</div>
       </div>
     </div>
   </div>
@@ -84,6 +84,7 @@
             [showView]="showView"
             [showDelete]="showDelete"
             [showCopy]="showCopy"
+            [dedicatedOptions]="dedicatedOptions"
             (viewClicked)="viewClicked.emit(entity)"
             (copyClicked)="copyClicked.emit(entity)"
             (exportClicked)="exportClicked.emit(entity)"

@@ -2,8 +2,11 @@
                 [columnParams]="columnParams"
                 [textOptions]="aclTextOptions"
                 [entityFactory]="aclFactory"
+                [addEnabled]="service.hasWritePermission()"
+                [deleteEnabled]="service.hasWritePermission()"
                 [viewEnabled]="false"
                 [editEnabled]="false"
+                [dedicatedOptions]="true"
                 (deleteEntity)="deleteEntity($event.id)"
                 (deleteMultipleEntities)="deleteMany($event)"
                 (add)="addAcl($event)">

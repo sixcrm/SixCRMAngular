@@ -1464,6 +1464,7 @@
         "id": "ID",
         "active": "Active",
         "name": "Name",
+        "usernum": "Assigned Users",
         "created": "Created",
         "updated": "Updated"
       }
@@ -1480,13 +1481,11 @@
       "edit": "Edit Allowed Permission",
       "delete": "Delete Allowed Permission"
     },
-    "denied": {
-      "title": "Permissions Denied",
-      "nodata": "No Denied Permissions found.",
-      "edit": "Edit Denied Permission",
-      "delete": "Delete Denied Permission"
-    },
     "info": {
+      "createtitle": "Create New Role",
+      "name": "Name",
+      "cancel": "CANCEL",
+      "save": "SAVE",
       "option": "Option",
       "permission": "Permission"
     },

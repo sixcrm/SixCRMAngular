@@ -13,6 +13,7 @@ import {
   getAllPermissionActions
 } from '../../../shared/models/permissions.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
+import {RolesSharedService} from '../../../shared/services/roles-shared.service';
 
 @Component({
   selector: 'role-view',
@@ -42,26 +43,29 @@ export class RoleViewComponent extends AbstractEntityViewComponent<Role> impleme
     disassociateOptionText: 'ROLE_ALLOWED_DELETE'
   };
 
-  permissionsDeniedTextOptions: TableMemoryTextOptions = {
-    title: 'ROLE_DENIED_TITLE',
-    noDataText: 'ROLE_DENIED_NODATA',
-    editOptionText: 'ROLE_DENIED_EDIT',
-    disassociateOptionText: 'ROLE_DENIED_DELETE'
-  };
-
   permissionFactory = () => new ParsedPermission();
+
+  isShared: boolean;
 
   constructor(
     service: RolesService,
-    route: ActivatedRoute,
+    private sharedService: RolesSharedService,
+    private activatedRoute: ActivatedRoute,
     public navigation: NavigationService,
     public router: Router
   ) {
-    super(service, route);
+    super(service, activatedRoute);
   }
 
   ngOnInit() {
-    this.init(() => this.navigation.goToNotFoundPage());
+    this.activatedRoute.url.subscribe(data => {
+      if (data[0].path === 'shared') {
+        this.service = this.sharedService;
+        this.isShared = true;
+      }
+
+      this.init(() => this.navigation.goToNotFoundPage());
+    });
 
     this.permissionsColumnParams = [
       new ColumnParams<ParsedPermission>('ROLE_INFO_OPTION')
@@ -74,11 +78,15 @@ export class RoleViewComponent extends AbstractEntityViewComponent<Role> impleme
         .setAutocompleteInitialValue((e: ParsedPermission) => e.action),
       new ColumnParams<ParsedPermission>('ROLE_INFO_PERMISSION').setMappingFunction((e: ParsedPermission) => e.permissions)
         .setMappingFunction((e: ParsedPermission) => e.permissions)
-        .setAssigningFunction((e: ParsedPermission, value) => e.permissions = value)
+        .setAssigningFunction((e: ParsedPermission, value) => {
+          e.permissions = value.map(v => v.value).join(' ');
+
+          return e;
+        })
         .setValidator((e: ParsedPermission) => !!e.permissions)
-        .setInputType(ColumnParamsInputType.AUTOCOMPLETE)
+        .setInputType(ColumnParamsInputType.MULTISELECT)
         .setAutocompleteOptions(getAllPermissionActions())
-        .setAutocompleteInitialValue((e: ParsedPermission) => e.permissions),
+        .setAutocompleteInitialValue((e: ParsedPermission) => e.permissions ? [e.permissions] : []),
     ];
   }
 
@@ -91,84 +99,50 @@ export class RoleViewComponent extends AbstractEntityViewComponent<Role> impleme
   }
 
   addAllowed(permission: ParsedPermission) {
-    this.entity.permissions.allow.push(`${permission.action}/${permission.permissions}`);
+    if (permission.permissions === getAllPermissionActions().join(' ')) {
+      this.entity.permissions.allow.push(`${permission.action}/*`);
+    } else {
+      permission.permissions.split(' ').forEach(i => this.entity.permissions.allow.push(`${permission.action}/${i}`));
+    }
 
     this.updateEntity(this.entity);
   }
 
   updateAllowed(permission: ParsedPermission) {
-    const index = this.getFirstIndexOf(this.entity.permissions.parsedAllowed, permission);
+    const delPerm = new ParsedPermission(permission.action, getAllPermissionActions().join(' '));
 
-    if (index !== -1) {
-      this.entity.permissions.allow[index] = `${permission.action}/${permission.permissions}`;
-    }
-
-    this.updateEntity(this.entity);
+    this.deleteAllowed(delPerm, true);
+    this.addAllowed(permission);
   }
 
-  deleteAllowed(permission: ParsedPermission) {
-    const index = this.getFirstIndexOf(this.entity.permissions.parsedAllowed, permission);
-
-    if (index !== -1) {
-      this.entity.permissions.allow.splice(index, 1);
+  deleteAllowed(permission: ParsedPermission, noUpdate?: boolean) {
+    let perms = ['*', ...getAllPermissionActions()];
+    if (permission.permissions !== getAllPermissionActions().join(' ')) {
+      perms = permission.permissions.split(' ');
     }
+
+    perms.forEach(p => {
+      const index = this.firstIndex(this.entity.permissions.allow, permission.action, p);
+
+      if (index !== -1) {
+        this.entity.permissions.allow.splice(index, 1);
+      }
+    });
+
+    if (noUpdate) return;
 
     this.updateEntity(this.entity);
   }
 
   deleteManyAllowed(permissions: ParsedPermission[]) {
     permissions.forEach(permission => {
-      const index = this.getFirstIndexOf(this.entity.permissions.parsedAllowed, permission);
-
-      if (index !== -1) {
-        this.entity.permissions.allow.splice(index, 1);
-        this.entity.permissions.parsedAllowed.splice(index, 1);
-      }
+      this.deleteAllowed(permission, true);
     });
 
     this.updateEntity(this.entity);
   }
 
-  addDenied(permission: ParsedPermission) {
-    this.entity.permissions.deny.push(`${permission.action}/${permission.permissions}`);
-
-    this.updateEntity(this.entity);
-  }
-
-  updateDenied(permission: ParsedPermission) {
-    const index = this.getFirstIndexOf(this.entity.permissions.parsedDenied, permission);
-
-    if (index !== -1) {
-      this.entity.permissions.deny.splice(index, 1);
-    }
-
-    this.updateEntity(this.entity);
-  }
-
-  deleteDenied(permission: ParsedPermission) {
-    const index = this.getFirstIndexOf(this.entity.permissions.parsedDenied, permission);
-
-    if (index !== -1) {
-      this.entity.permissions.deny.splice(index, 1);
-    }
-
-    this.updateEntity(this.entity);
-  }
-
-  deleteManyDenied(permissions: ParsedPermission[]) {
-    permissions.forEach(permission => {
-      const index = this.getFirstIndexOf(this.entity.permissions.parsedDenied, permission);
-
-      if (index !== -1) {
-        this.entity.permissions.deny.splice(index, 1);
-        this.entity.permissions.parsedDenied.splice(index, 1);
-      }
-    });
-
-    this.updateEntity(this.entity);
-  }
-
-  getFirstIndexOf(permissions: ParsedPermission[], permission) {
-    return firstIndexOf(permissions, (e) => e['tableAdvancedIdentifier'] === permission['tableAdvancedIdentifier'])
+  firstIndex(array, action, permission) {
+    return firstIndexOf(array, (a) => a === `${action}/${permission}`)
   }
 }

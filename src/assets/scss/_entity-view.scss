@@ -30,9 +30,35 @@ $blue-color: #4A90E2;
     font-weight: 500;
 
     &__title {
+      display: flex;
       font-size: 32px;
       margin-top: 22px;
       margin-bottom: 10px;
+
+      md-input-container {
+        .md-input-wrapper {
+          margin: 0;
+        }
+
+        .md-input-underline {
+          margin: 0;
+        }
+      }
+    }
+
+    &__actions {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+
+      span {
+        cursor: pointer;
+      }
+
+      .last {
+        margin-left: 15px;
+      }
     }
 
     &__details {
@@ -953,5 +979,14 @@ $blue-color: #4A90E2;
   .md-input-wrapper {
     position: relative;
     margin: 0;
+  }
+}
+
+.multiselect-checkbox {
+
+  .md-checkbox-inner-container {
+    width: 14px;
+    height: 14px;
+    color: rgba(0,0,0,0.6);
   }
 }

@@ -1,0 +1,17 @@
+<div class="entity-view__card entity-view__card--create" style="margin: auto">
+  <div class="entity-view__card__header">
+    <div class="entity-view__card__header__title">{{'ROLE_INFO_CREATETITLE' | translate}}</div>
+  </div>
+
+  <div class="entity-view__card__content">
+    <md-input-container [class.error]="formInvalid && !role.name" class="entity-view__card__content__item">
+      <input autoFocus required md-input placeholder="{{'ROLE_INFO_NAME' | translate}}" [(ngModel)]="role.name" type="text">
+    </md-input-container>
+  </div>
+
+  <div class="entity-view__card__actions">
+    <div (click)="cancel.emit(true)"> {{'ROLE_INFO_CANCEL' | translate}} </div>
+    <div (click)="saveRole()"> {{'ROLE_INFO_SAVE' | translate}} </div>
+  </div>
+</div>
+

@@ -9,7 +9,9 @@
       (selected)="viewEntity($event.id)"
 
       [service]="service"
-      [showCopy]="true"
+      [showCopy]="service.hasWritePermission()"
+      [dedicatedOptions]="true"
+      [showDelete]="false"
       (viewClicked)="viewEntity($event.id)"
       (copyClicked)="copyRole($event)"
       (editClicked)="editEntity($event.id)"

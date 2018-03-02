@@ -11,6 +11,7 @@ import {RoleViewComponent} from './role-view/role-view.component';
 import { RolesIndexSharedComponent } from './roles-index/roles-index-shared/roles-index-shared.component';
 import { RolesIndexCustomComponent } from './roles-index/roles-index-custom/roles-index-custom.component';
 import { RoleAclsComponent } from './role-view/role-acls/role-acls.component';
+import { RoleAddNewComponent } from './roles-index/role-add-new/role-add-new.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { RoleAclsComponent } from './role-view/role-acls/role-acls.component';
     RoleViewComponent,
     RolesIndexSharedComponent,
     RolesIndexCustomComponent,
-    RoleAclsComponent
+    RoleAclsComponent,
+    RoleAddNewComponent
   ],
   providers: [ ]
 })

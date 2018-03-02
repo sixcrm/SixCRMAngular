@@ -31,6 +31,7 @@ export class TableAdvancedComponent implements OnInit {
   @Input() showTopPagination: boolean = true;
   @Input() entityFactory: (data: any) => any;
   @Input() textOptions = {};
+  @Input() dedicatedOptions: boolean;
 
   @Output() update: EventEmitter<any> = new EventEmitter();
   @Output() add: EventEmitter<any> = new EventEmitter();

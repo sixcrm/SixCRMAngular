@@ -4,7 +4,25 @@
   <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
   <div class="entity-view__header">
-    <div class="entity-view__header__title">{{entity.name}}</div>
+    <div class="entity-view__header__title">
+      <ng-container *ngIf="updateMode; else viewmode">
+        <md-input-container>
+          <input autoFocus md-input type="text" [(ngModel)]="entity.name">
+        </md-input-container>
+      </ng-container>
+
+      <ng-template #viewmode>{{entity.name}}</ng-template>
+
+      <div *ngIf="!isShared && service.hasWritePermission()" class="entity-view__header__actions">
+        <ng-container *ngIf="updateMode; else viewoptions">
+          <span (click)="cancelUpdate()">cancel</span>
+          <span class="last" (click)="updateEntity(entity)">update</span>
+        </ng-container>
+        <ng-template #viewoptions>
+          <span (click)="setMode(modes.Update)">edit</span>
+        </ng-template>
+      </div>
+    </div>
     <div class="entity-view__header__details">
       <div class="date">{{'SINGLEPAGE_CREATED' | translate}}: {{entity.createdAt | formatDateTime: 'M/DD/YY h:mm A'}}</div>
       <div class="id">ID: {{entity.id}}</div>
@@ -16,33 +34,21 @@
   <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>
 
-      <div class="flex-custom">
-
-        <table-advanced [data]="entity.permissions.parsedAllowed"
-                        [columnParams]="permissionsColumnParams"
-                        [textOptions]="permissionsAllowedTextOptions"
-                        [showTopPagination]="false"
-                        [entityFactory]="permissionFactory"
-                        [viewEnabled]="false"
-                        (deleteEntity)="deleteAllowed($event)"
-                        (deleteMultipleEntities)="deleteManyAllowed($event)"
-                        (add)="addAllowed($event)"
-                        (update)="updateAllowed($event)">
-        </table-advanced>
-
-        <table-advanced [data]="entity.permissions.parsedDenied"
-                        [columnParams]="permissionsColumnParams"
-                        [textOptions]="permissionsDeniedTextOptions"
-                        [entityFactory]="permissionFactory"
-                        [showTopPagination]="false"
-                        [viewEnabled]="false"
-                        (deleteEntity)="deleteDenied($event)"
-                        (deleteMultipleEntities)="deleteManyDenied($event)"
-                        (add)="addDenied($event)"
-                        (update)="updateDenied($event)">
-        </table-advanced>
-
-      </div>
+      <table-advanced [data]="entity.permissions.parsedAllowed"
+                      [columnParams]="permissionsColumnParams"
+                      [textOptions]="permissionsAllowedTextOptions"
+                      [showTopPagination]="false"
+                      [entityFactory]="permissionFactory"
+                      [viewEnabled]="false"
+                      [deleteEnabled]="!isShared && service.hasWritePermission()"
+                      [editEnabled]="!isShared && service.hasWritePermission()"
+                      [addEnabled]="!isShared && service.hasWritePermission()"
+                      [dedicatedOptions]="true"
+                      (deleteEntity)="deleteAllowed($event)"
+                      (deleteMultipleEntities)="deleteManyAllowed($event)"
+                      (add)="addAllowed($event)"
+                      (update)="updateAllowed($event)">
+      </table-advanced>
 
     </md-tab>
 
@@ -53,5 +59,5 @@
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="1" [cardsExpression]="'300px;'" [title]="'ROLE_INDEX_TITLE' | translate" [blue]="true" [images]="false"></spe-loader>
+  <spe-loader [numberOfTabs]="1" [cardsExpression]="'100%'" [title]="'ROLE_INDEX_TITLE' | translate" [blue]="true" [images]="false"></spe-loader>
 </ng-template>

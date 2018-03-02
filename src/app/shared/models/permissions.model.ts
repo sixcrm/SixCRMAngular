@@ -1,3 +1,4 @@
+import {firstIndexOf} from '../utils/array.utils';
 export class ParsedPermission {
 
   constructor(public action?: string, public permissions?: string) {}
@@ -38,9 +39,32 @@ export class Permissions {
   }
 
   parseFilter(array: string[]) {
-    if (array.length === 1 && array[0] === '*') return [new ParsedPermission('*', '*')];
+    if (array.length === 1 && array[0] === '*') return [new ParsedPermission('*', getAllPermissionActions().join(' '))];
 
-    return array.filter(a => a.split('/').length > 1).map(a => new ParsedPermission(a.split('/')[0], a.split('/')[1]))
+    const temp: ParsedPermission[] = array.filter(a => a.split('/').length > 1).map(a => {
+      const action = a.split('/')[0];
+      let permission = a.split('/')[1];
+
+      if (permission === '*') {
+        permission = getAllPermissionActions().join(' ');
+      }
+
+      return new ParsedPermission(action, permission);
+    });
+
+    const res: ParsedPermission[] = [];
+
+    temp.forEach(p => {
+      const index = firstIndexOf(res, (el) => el.action === p.action);
+
+      if (index === -1) {
+        res.push(p);
+      } else {
+        res[index].permissions += ` ${p.permissions}`;
+      }
+    });
+
+    return res;
   }
 
   hasPermission(entity: string, operation: string): boolean {
@@ -105,12 +129,11 @@ export function getAllPermissionEntities() {
     'productschedule',
     'product',
     'rebill',
-    'role/read',
+    'role',
     'session',
     'shippingreceipt',
     'smtpprovider',
     'transaction',
-    'account/read',
     'notification',
     'notificationread',
     'notificationsetting',
@@ -127,8 +150,9 @@ export function getAllPermissionEntities() {
 
 export function getAllPermissionActions() {
   return [
-    '*',
     'read',
-    'write'
+    'write',
+    'create',
+    'delete'
   ]
 }

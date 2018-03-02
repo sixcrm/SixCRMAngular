@@ -5,6 +5,7 @@ export enum ColumnParamsInputType {
   BOOLEAN,
   DATE,
   AUTOCOMPLETE,
+  MULTISELECT,
   IMAGE
 }
 

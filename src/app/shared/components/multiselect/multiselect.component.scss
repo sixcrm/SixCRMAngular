@@ -1,0 +1,42 @@
+.multiselect-container {
+  padding: 8px 0 2px;
+  width: 200px;
+  position: relative;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+
+.item {
+  padding: 5px 10px;
+
+  &--first {
+    margin-bottom: 5px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+}
+
+.actions {
+  display: flex;
+  margin-top: 5px;
+
+  span {
+    &:last-of-type {
+      margin-left: auto;
+      color: #5B9BE1;
+    }
+  }
+}
+
+.placeholder {
+  color: rgba(0,0,0,0.5);
+}
+
+.default-autocomplete-input__options {
+  top: 28px;
+  max-height: 250px;
+}
+
+.multiselect-container-error {
+  border-color: #D00140;
+  border-width: 2px;
+}

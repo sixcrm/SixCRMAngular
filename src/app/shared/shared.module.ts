@@ -89,6 +89,7 @@ import {SpeLoaderHeaderBreadcrumbComponent} from './components/spe-loader-breadc
 import { SpeLoaderHeaderComponent } from './components/spe-loader-header/spe-loader-header.component';
 import { SpeLoaderBlueHeaderComponent } from './components/spe-loader-blue-header/spe-loader-blue-header.component';
 import {RolesSharedService} from './services/roles-shared.service';
+import { MultiselectComponent } from './components/multiselect/multiselect.component';
 
 @NgModule({
   declarations : [
@@ -132,7 +133,8 @@ import {RolesSharedService} from './services/roles-shared.service';
     SpeLoaderBodyComponent,
     SpeLoaderHeaderBreadcrumbComponent,
     SpeLoaderHeaderComponent,
-    SpeLoaderBlueHeaderComponent
+    SpeLoaderBlueHeaderComponent,
+    MultiselectComponent
   ],
   exports : [
     AutocompleteComponent,
@@ -170,7 +172,8 @@ import {RolesSharedService} from './services/roles-shared.service';
     SimpleDatepickerComponent,
     TabHeaderComponent,
     SearchInputComponent,
-    FilterInputComponent
+    FilterInputComponent,
+    MultiselectComponent
   ],
   imports : [
     FormsModule,

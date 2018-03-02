@@ -71,4 +71,4 @@ deployment:
       # - npm run e2e.dev
 
       # Promote changes
-      # - node libs/deployment_scripts/src/merge-branches.js deployment/deploy-config.json
+      - node libs/deployment_scripts/src/merge-branches.js deployment/deploy-config.json

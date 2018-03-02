@@ -95,6 +95,18 @@
                   </ng-template>
 
                   <ng-template #nocurrency>
+                    <ng-container *ngIf="params.inputType === inputTypes.MULTISELECT; else nomultiselect">
+                      <multiselect
+                        [error]="editInvalid && !params.validator(entity)"
+                        [options]="params.autocompleteOptions"
+                        [placeholder]="'Select Permissions'"
+                        [selected]="params.autocompleteInitialValue(entity)"
+                        (onApply)="params.assigningFunction(entity, $event)">
+                      </multiselect>
+                    </ng-container>
+                  </ng-template>
+
+                  <ng-template #nomultiselect>
                     <md-input-container [class.error]="editInvalid && !params.validator(entity)" [class.numeric-container]="params.inputType === inputTypes.NUMERIC || params.inputType === inputTypes.CURRENCY">
                       <input md-input type="text" (keydown)="keydown($event, params)" [disabled]="!params.editable" [value]="params.mappingFunction(entity)" (input)="params.assigningFunction(entity, $event.srcElement.value)">
                     </md-input-container>
@@ -120,12 +132,21 @@
           </ng-container>
           <td class="row-options-cell">
             <ng-container *ngIf="viewEnabled || deleteEnabled || editEnabled">
-              <md-icon class="row-options" [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-              <md-menu #actionsMenu="mdMenu" x-position="before">
-                <button *ngIf="viewEnabled" md-menu-item (click)="view(entity)">{{textOptions.viewOptionText | translate}}</button>
-                <button *ngIf="editEnabled && hasWritePermission" md-menu-item (click)="edit(entity)">{{textOptions.editOptionText | translate}}</button>
-                <button *ngIf="deleteEnabled && hasWritePermission" md-menu-item (click)="del(entity)">{{textOptions.disassociateOptionText | translate}}</button>
-              </md-menu>
+              <div *ngIf="dedicatedOptions; else nodedicated">
+                <div class="flex-custom">
+                  <md-icon class="row-options aligned" *ngIf="viewEnabled" (click)="view(entity)">visibility</md-icon>
+                  <md-icon class="row-options aligned" *ngIf="editEnabled && hasWritePermission" (click)="edit(entity)">mode_edit</md-icon>
+                  <md-icon class="row-options aligned" *ngIf="deleteEnabled && hasWritePermission" (click)="del(entity)">delete</md-icon>
+                </div>
+              </div>
+              <ng-template #nodedicated>
+                <md-icon class="row-options" [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
+                <md-menu #actionsMenu="mdMenu" x-position="before">
+                  <button *ngIf="viewEnabled" md-menu-item (click)="view(entity)">{{textOptions.viewOptionText | translate}}</button>
+                  <button *ngIf="editEnabled && hasWritePermission" md-menu-item (click)="edit(entity)">{{textOptions.editOptionText | translate}}</button>
+                  <button *ngIf="deleteEnabled && hasWritePermission" md-menu-item (click)="del(entity)">{{textOptions.disassociateOptionText | translate}}</button>
+                </md-menu>
+              </ng-template>
             </ng-container>
           </td>
         </tr>
@@ -187,6 +208,18 @@
                   </ng-template>
 
                   <ng-template #nocurrency>
+                    <ng-container *ngIf="params.inputType === inputTypes.MULTISELECT; else nomultiselect">
+                      <multiselect
+                        [error]="addInvalid && !params.validator(entity)"
+                        [options]="params.autocompleteOptions"
+                        [placeholder]="'Select Permissions'"
+                        [selected]="params.autocompleteInitialValue(entity)"
+                        (onApply)="entity = params.assigningFunction(entity, $event)">
+                      </multiselect>
+                    </ng-container>
+                  </ng-template>
+
+                  <ng-template #nomultiselect>
                     <md-input-container [class.error]="addInvalid && !params.validator(entity)" [class.numeric-container]="params.inputType === inputTypes.NUMERIC || params.inputType === inputTypes.CURRENCY">
                       <input md-input type="text" (keydown)="keydown($event, params)" [disabled]="!params.editable" [value]="params.mappingFunction(entity)" (input)="params.assigningFunction(entity, $event.srcElement.value)">
                     </md-input-container>

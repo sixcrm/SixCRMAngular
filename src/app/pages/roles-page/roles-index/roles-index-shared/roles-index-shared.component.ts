@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {Role} from '../../../../shared/models/role.model';
 import {RolesSharedService} from '../../../../shared/services/roles-shared.service';
@@ -7,6 +7,8 @@ import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
+import {Acl} from '../../../../shared/models/acl.model';
+import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'roles-index-shared',
@@ -14,6 +16,8 @@ import {ColumnParams} from '../../../../shared/models/column-params.model';
   styleUrls: ['./roles-index-shared.component.scss']
 })
 export class RolesIndexSharedComponent extends AbstractEntityIndexComponent<Role> implements OnInit, OnDestroy {
+
+  @Input() acls: Acl[] = [];
 
   constructor(
     service: RolesSharedService,
@@ -31,12 +35,21 @@ export class RolesIndexSharedComponent extends AbstractEntityIndexComponent<Role
       new ColumnParams<Role>('ROLE_INDEX_HEADER_ID').setMappingFunction((e: Role) => e.id).setSelected(false),
       new ColumnParams<Role>('ROLE_INDEX_HEADER_NAME').setMappingFunction((e: Role) => e.name),
       new ColumnParams<Role>('ROLE_INDEX_HEADER_ACTIVE').setMappingFunction((e: Role) => e.active),
+      new ColumnParams<Role>('ROLE_INDEX_HEADER_USERNUM').setMappingFunction((e: Role) => (this.acls || []).filter(a => a.role.id === e.id).length).setAlign('right'),
       new ColumnParams<Role>('ROLE_INDEX_HEADER_CREATED').setMappingFunction((e: Role) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
       new ColumnParams<Role>('ROLE_INDEX_HEADER_UPDATED').setMappingFunction((e: Role) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false)
     ];
   }
 
   ngOnInit() {
+    this.viewAfterCrate = false;
+
+    this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe(entity => {
+      if (entity instanceof CustomServerError) return;
+
+      this.viewEntity(entity.id, true)
+    });
+
     this.init();
   }
 
@@ -49,6 +62,13 @@ export class RolesIndexSharedComponent extends AbstractEntityIndexComponent<Role
     r.name = r.name + ' Copy';
 
     this.createEntity(r);
+  }
+
+  viewEntity(id: string, noShared?: boolean): void {
+    let params = [id];
+    if (!noShared) params.unshift('shared');
+
+    this.router.navigate(params, {relativeTo: this.activatedRoute});
   }
 
 }

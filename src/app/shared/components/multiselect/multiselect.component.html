@@ -1,0 +1,21 @@
+<div class="multiselect-container" [class.multiselect-container-error]="error">
+  <div *ngIf="!dropdownVisible; else currentselected" (click)="showDropdown()">
+    <ng-container *ngFor="let item of _selected">{{mapper(item)}}</ng-container>
+    <span class="placeholder" *ngIf="_selected.length === 0">{{placeholder | translate}}</span>
+  </div>
+  <ng-template #currentselected>
+    <ng-container *ngFor="let item of getSelected(); let i = index">{{mapper(item.value)}} </ng-container>
+    <span class="placeholder" *ngIf="getSelected().length === 0">{{placeholder | translate}}</span>
+  </ng-template>
+
+  <div class="default-autocomplete-input__options" *ngIf="dropdownVisible">
+    <div class="item item--first"><md-checkbox class="multiselect-checkbox checkbox-blue" [(ngModel)]="allSelected" (change)="selectAll()">Select All</md-checkbox></div>
+    <div class="item" *ngFor="let option of _options">
+      <md-checkbox class="multiselect-checkbox checkbox-blue" [(ngModel)]="option.multiselectSelected">{{mapper(option.value)}}</md-checkbox>
+    </div>
+    <div class="item actions">
+      <span (click)="cancel()">CANCEL</span>
+      <span (click)="apply()">APPLY</span>
+    </div>
+  </div>
+</div>

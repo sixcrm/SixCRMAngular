@@ -41,6 +41,9 @@ export class TableActionsComponent implements OnInit {
   @Input()
   showCopy: boolean;
 
+  @Input()
+  dedicatedOptions: boolean;
+
   showEdit: boolean;
   showExport: boolean;
 
