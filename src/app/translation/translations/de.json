@@ -1478,10 +1478,10 @@
       "acls": "USER ACLS"
     },
     "allowed": {
-      "title": "Permissions Allowed",
-      "nodata": "No Allowed Permissions found.",
-      "edit": "Edit Allowed Permission",
-      "delete": "Delete Allowed Permission"
+      "title": "Permissions",
+      "nodata": "No Permissions found.",
+      "edit": "Edit Permission",
+      "delete": "Delete Permission"
     },
     "info": {
       "createtitle": "Create New Role",
