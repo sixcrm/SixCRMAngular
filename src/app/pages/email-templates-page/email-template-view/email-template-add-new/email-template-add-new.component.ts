@@ -5,6 +5,8 @@ import {SmtpProvider} from '../../../../shared/models/smtp-provider.model';
 import {SmtpProvidersService} from '../../../../shared/services/smtp-providers.service';
 import {Token} from '../token-list/token-list.component';
 import {Subject, Subscription} from 'rxjs';
+import {EmailTemplatesSharedService} from '../../../../shared/services/email-templates-shared.service';
+import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 
 declare var tinymce;
 
@@ -54,10 +56,20 @@ export class EmailTemplateAddNewComponent implements OnInit, AfterViewInit, OnDe
   smtpProviderMapper = (smtp: SmtpProvider) => smtp.name;
 
   editor: any;
+  templates: EmailTemplate[];
+  templatesLoaded: boolean;
 
-  constructor(public smtpProviderService: SmtpProvidersService) { }
+  constructor(public smtpProviderService: SmtpProvidersService, private templatesService: EmailTemplatesSharedService) { }
 
   ngOnInit() {
+    this.templatesService.entities$.take(1).subscribe(templates => {
+      if (templates instanceof CustomServerError) return;
+
+      this.templates = templates;
+
+      this.loadTemplates();
+    });
+    this.templatesService.getEntities();
     this.smtpProviderService.getEntities();
   }
 
@@ -93,12 +105,31 @@ export class EmailTemplateAddNewComponent implements OnInit, AfterViewInit, OnDe
         selector: '#editor-id',
         plugins: ['link', 'code', 'preview'],
         skin_url: '/assets/lightgray',
+        menubar: 'file edit insert view format table tools help templates',
+        toolbar: 'undo redo | styleselect | bold italic | link image | templates',
         setup: editor => {
           this.editor = editor;
           editor.on('init', e => e.target.setContent(this.entity.body));
+
+          this.loadTemplates();
         },
       })
     }, 800);
+  }
+
+  loadTemplates() {
+    if (this.templatesLoaded || !this.editor || !this.templates) return;
+
+    this.editor.addButton('templates', {
+      type: 'menubutton',
+      text: 'Managed Templates',
+      icon: false,
+      menu: this.templates.map(t => {
+        return {text: t.name + ' Test Test Test', onclick: () => this.editor.setContent(t.body)}
+      })
+    });
+
+    this.templatesLoaded = true;
   }
 
   saveEmailTemplate(valid: boolean): void {
@@ -110,5 +141,12 @@ export class EmailTemplateAddNewComponent implements OnInit, AfterViewInit, OnDe
     if (this.formInvalid) return;
 
     this.save.emit(this.entity);
+  }
+
+  cancelUpdate() {
+    if (this.editor && this.entity) {
+      this.editor.setContent(this.entity.body);
+    }
+    this.cancel.emit(true)
   }
 }

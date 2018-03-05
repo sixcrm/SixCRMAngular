@@ -56,7 +56,7 @@
   </form>
 
   <div *ngIf="mode !== modes.View" class="entity-view__card__actions">
-    <div (click)="cancel.emit(true)">{{'EMAILTEMPLATE_INFO_CANCEL' | translate}}</div>
+    <div (click)="cancelUpdate()">{{'EMAILTEMPLATE_INFO_CANCEL' | translate}}</div>
     <div (click)="saveEmailTemplate(emailTemplateInput.form.valid)">{{'EMAILTEMPLATE_INFO_SAVE' | translate}}</div>
   </div>
 </div>
