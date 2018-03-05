@@ -14,7 +14,6 @@ import {MdDialog, MdDialogRef} from '@angular/material';
 import {AddUserAclDialogComponent} from '../../add-user-acl-dialog.component';
 import {Role} from '../../../shared/models/role.model';
 import {AclsService} from '../../../shared/services/acls.service';
-import {RolesService} from '../../../shared/services/roles.service';
 import {UsersService} from '../../../shared/services/users.service';
 import {User} from '../../../shared/models/user.model';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
@@ -25,6 +24,7 @@ import {SnackbarService} from '../../../shared/services/snackbar.service';
 import {BillsService} from '../../../shared/services/bills.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {RolesSharedService} from '../../../shared/services/roles-shared.service';
 
 @Component({
   selector: 'account-view',
@@ -83,7 +83,7 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
               private dialog: MdDialog,
               private userService: UsersService,
               private aclService: AclsService,
-              private roleService: RolesService,
+              private roleService: RolesSharedService,
               private snackbarService: SnackbarService,
               public authService: AuthenticationService,
               private billsService: BillsService
