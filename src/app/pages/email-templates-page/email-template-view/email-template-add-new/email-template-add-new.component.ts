@@ -125,7 +125,7 @@ export class EmailTemplateAddNewComponent implements OnInit, AfterViewInit, OnDe
       text: 'Managed Templates',
       icon: false,
       menu: this.templates.map(t => {
-        return {text: t.name + ' Test Test Test', onclick: () => this.editor.setContent(t.body)}
+        return {text: t.name, onclick: () => this.editor.setContent(t.body)}
       })
     });
 
