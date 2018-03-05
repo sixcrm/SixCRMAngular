@@ -15,8 +15,6 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 })
 export class ProductsComponent extends AbstractEntityIndexComponent<Product> implements OnInit, OnDestroy {
 
-  price: string;
-
   constructor(
     productsService: ProductsService,
     auth: AuthenticationService,
@@ -45,7 +43,6 @@ export class ProductsComponent extends AbstractEntityIndexComponent<Product> imp
 
   openAddMode() {
     super.openAddMode();
-    this.price = '';
   }
 
   ngOnInit() {

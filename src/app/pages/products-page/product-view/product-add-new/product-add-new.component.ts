@@ -3,7 +3,6 @@ import {Product} from '../../../../shared/models/product.model';
 import {Modes} from '../../../abstract-entity-view.component';
 import {FulfillmentProvider} from '../../../../shared/models/fulfillment-provider.model';
 import {FulfillmentProvidersService} from '../../../../shared/services/fulfillment-providers.service';
-import {parseCurrencyMaskedValue, getCurrencyMask} from '../../../../shared/utils/mask.utils';
 import {Currency} from '../../../../shared/utils/currency/currency';
 import {isAllowedCurrency, isAllowedNumeric} from '../../../../shared/utils/form.utils';
 import {AsyncSubject} from 'rxjs';
@@ -17,7 +16,6 @@ export class ProductAddNewComponent implements OnInit, OnDestroy {
 
   @Input() entity: Product;
   @Input() mode: Modes;
-  @Input() price: string;
   @Output() save: EventEmitter<Product> = new EventEmitter();
   @Output() deleteEntity: EventEmitter<Product> = new EventEmitter();
   @Output() cancel: EventEmitter<boolean> = new EventEmitter();
@@ -26,7 +24,6 @@ export class ProductAddNewComponent implements OnInit, OnDestroy {
   add = Modes.Add;
   update = Modes.Update;
   view = Modes.View;
-  numberMask = getCurrencyMask();
   isCurrency = isAllowedCurrency;
   isNumeric = isAllowedNumeric;
 
@@ -60,7 +57,16 @@ export class ProductAddNewComponent implements OnInit, OnDestroy {
 
     if (this.formInvalid) return;
 
-    this.entity.defaultPrice = new Currency(parseCurrencyMaskedValue(this.price));
     this.save.emit(this.entity);
+  }
+
+  cancelUpdate(): void {
+    this.cancel.emit(true);
+
+    this.entity.defaultPrice = new Currency(this.entity.defaultPrice.amount);
+  }
+
+  priceUpdated(currency: Currency): void {
+    this.entity.defaultPrice = currency;
   }
 }

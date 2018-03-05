@@ -27,7 +27,7 @@
         </md-input-container>
 
         <md-input-container class="entity-view__card__content__item">
-          <input md-input [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_DEFAULTPRICE' | translate}}" name="defaultPrice" [textMask]="{mask: numberMask, guide: false}" (keydown)="isCurrency($event)" [(ngModel)]="price" type="text">
+          <input md-input currencyInput [initPrice]="entity.defaultPrice" (priceChanged)="priceUpdated($event)" [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_DEFAULTPRICE' | translate}}" name="defaultPrice" (keydown)="isCurrency($event)" type="text">
         </md-input-container>
       </div>
 
@@ -54,7 +54,7 @@
     </div>
 
     <div *ngIf="mode !== view" class="entity-view__card__actions">
-      <div (click)="cancel.emit(true)">{{'PRODUCT_INFO_CANCEL' | translate}}</div>
+      <div (click)="cancelUpdate()">{{'PRODUCT_INFO_CANCEL' | translate}}</div>
       <div (click)="saveProduct(productInputForm.form.valid)">{{(mode === update ? 'PRODUCT_INFO_UPDATE' : 'PRODUCT_INFO_CREATE') | translate}}</div>
     </div>
   </div>

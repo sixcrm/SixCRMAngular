@@ -25,7 +25,6 @@
                          (deleteEntity)="deleteProduct()"
                          (save)="save($event)"
                          [mode]="viewMode ? modes.View : modes.Update"
-                         [price]="entity.defaultPrice.amount + ''"
                          [entity]="entity">
         </product-add-new>
 

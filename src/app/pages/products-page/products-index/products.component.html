@@ -40,5 +40,5 @@
 </div>
 
 <div *ngIf="addMode" (click)="overlayClicked($event)" class="full-overlay">
-  <product-add-new class="modal-center" [mode]="modes.Add" [entity]="entity" [price]="price" (save)="createEntity($event)" (cancel)="closeAddMode()"></product-add-new>
+  <product-add-new class="modal-center" [mode]="modes.Add" [entity]="entity" (save)="createEntity($event)" (cancel)="closeAddMode()"></product-add-new>
 </div>

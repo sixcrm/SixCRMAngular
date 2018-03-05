@@ -81,7 +81,8 @@
 
                   <ng-template #noimage>
                     <ng-container *ngIf="!entity.inlineEditMode; else editinput">
-                      {{params.mappingFunction(entity)}}
+                      <ng-container *ngIf="params.inputType === inputTypes.CURRENCY">{{params.mappingFunction(entity).usd()}}</ng-container>
+                      <ng-container *ngIf="params.inputType !== inputTypes.CURRENCY">{{params.mappingFunction(entity)}}</ng-container>
                     </ng-container>
                   </ng-template>
 
@@ -89,7 +90,7 @@
                     <div class="placeholder">{{params.label | translate}}</div>
                     <ng-container *ngIf="params.inputType === inputTypes.CURRENCY; else nocurrency">
                       <md-input-container class="numeric-container" [class.error]="editInvalid && !params.validator(entity)">
-                        <input #currencyinput md-input type="text" (keydown)="keydown($event, params)" [disabled]="!params.editable" [value]="params.mappingFunction(entity)" [textMask]="{mask: numberMask, guide: false}">
+                        <input md-input type="text" (keydown)="keydown($event, params)" [disabled]="!params.editable" currencyInput (priceChanged)="params.assigningFunction(entity, $event)" [initPrice]="params.mappingFunction(entity)">
                       </md-input-container>
                     </ng-container>
                   </ng-template>
@@ -202,7 +203,7 @@
 
                     <ng-container *ngIf="params.inputType === inputTypes.CURRENCY; else nocurrency">
                       <md-input-container class="numeric-container" [class.error]="addInvalid && !params.validator(entity)">
-                        <input #currencyinput md-input type="text" (keydown)="keydown($event, params)" [disabled]="!params.editable" [value]="params.mappingFunction(entity)" [textMask]="{mask: numberMask, guide: false}">
+                        <input md-input type="text" (keydown)="keydown($event, params)" [disabled]="!params.editable" currencyInput (priceChanged)="params.assigningFunction(entity, $event)" [initPrice]="params.mappingFunction(entity)">
                       </md-input-container>
                     </ng-container>
                   </ng-template>

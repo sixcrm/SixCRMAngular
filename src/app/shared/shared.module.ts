@@ -91,6 +91,7 @@ import { SpeLoaderBlueHeaderComponent } from './components/spe-loader-blue-heade
 import {RolesSharedService} from './services/roles-shared.service';
 import { MultiselectComponent } from './components/multiselect/multiselect.component';
 import {EmailTemplatesSharedService} from './services/email-templates-shared.service';
+import { CurrencyInputDirective } from './directives/currency-input.directive';
 
 @NgModule({
   declarations : [
@@ -135,7 +136,8 @@ import {EmailTemplatesSharedService} from './services/email-templates-shared.ser
     SpeLoaderHeaderBreadcrumbComponent,
     SpeLoaderHeaderComponent,
     SpeLoaderBlueHeaderComponent,
-    MultiselectComponent
+    MultiselectComponent,
+    CurrencyInputDirective
   ],
   exports : [
     AutocompleteComponent,
@@ -174,7 +176,8 @@ import {EmailTemplatesSharedService} from './services/email-templates-shared.ser
     TabHeaderComponent,
     SearchInputComponent,
     FilterInputComponent,
-    MultiselectComponent
+    MultiselectComponent,
+    CurrencyInputDirective
   ],
   imports : [
     FormsModule,

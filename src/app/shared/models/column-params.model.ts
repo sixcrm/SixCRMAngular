@@ -1,3 +1,4 @@
+import {Currency} from '../utils/currency/currency';
 export enum ColumnParamsInputType {
   NUMERIC,
   CURRENCY,
@@ -12,7 +13,7 @@ export enum ColumnParamsInputType {
 export class ColumnParams<T> {
 
   label: string;
-  mappingFunction: (e: T) => string | number | boolean;
+  mappingFunction: (e: T) => string | number | boolean | Currency;
   assigningFunction: (e: T, value: any) => T;
   align: string;
   sortOrder: string;
@@ -49,7 +50,7 @@ export class ColumnParams<T> {
     return this;
   }
 
-  setMappingFunction(value: (e: T) => string | number | boolean) {
+  setMappingFunction(value: (e: T) => string | number | boolean | Currency) {
     this.mappingFunction = value;
 
     return this;

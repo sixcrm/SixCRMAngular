@@ -54,8 +54,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
       .setAutocompleteInitialValue((schedule) => schedule.product)
       .setAutofocus(true),
     new ColumnParams('PRODUCTSCHEDULE_CYCLE_PRICE')
-      .setMappingFunction((e: Schedule) => e.price.usd())
-      .setAssigningFunction((e: Schedule, value) => e.price = new Currency(parseCurrencyMaskedValue(value)))
+      .setMappingFunction((e: Schedule) => e.price)
+      .setAssigningFunction((e: Schedule, value) => e.price = value)
       .setAlign('right')
       .setInputType(ColumnParamsInputType.CURRENCY)
       .setNumberOption(true),

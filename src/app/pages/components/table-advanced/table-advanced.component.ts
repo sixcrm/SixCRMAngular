@@ -1,7 +1,6 @@
-import {Component, OnInit, Input, Output, EventEmitter, ViewChildren} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {ColumnParams, ColumnParamsInputType} from '../../../shared/models/column-params.model';
 import {isAllowedFloatNumeric} from '../../../shared/utils/form.utils';
-import {getCurrencyMask} from '../../../shared/utils/mask.utils';
 
 @Component({
   selector: 'table-advanced',
@@ -9,8 +8,6 @@ import {getCurrencyMask} from '../../../shared/utils/mask.utils';
   styleUrls: ['./table-advanced.component.scss']
 })
 export class TableAdvancedComponent implements OnInit {
-
-  @ViewChildren('currencyinput') currencyInputs;
 
   @Input() set data(data: any[]) {
     this.assignEntities(data);
@@ -61,7 +58,6 @@ export class TableAdvancedComponent implements OnInit {
   density: number = 1;
 
   isNumeric = isAllowedFloatNumeric;
-  numberMask = getCurrencyMask();
 
   constructor() { }
 
@@ -162,13 +158,6 @@ export class TableAdvancedComponent implements OnInit {
   }
 
   updateEntity(entity) {
-    const currencyParams = this.columnParams.filter(p => p.inputType === this.inputTypes.CURRENCY);
-    const currencyValues = this.currencyInputs._results.map(r => r.nativeElement.value);
-
-    for (let i = 0; i < currencyParams.length; i++) {
-      currencyParams[i].assigningFunction(entity, currencyValues[i]);
-    }
-
     this.editInvalid = this.columnParams.map(p => p.validator(entity)).filter(v => !v).length > 0;
 
     if (this.editInvalid) return;
@@ -177,13 +166,6 @@ export class TableAdvancedComponent implements OnInit {
   }
 
   addEntity() {
-    const currencyParams = this.columnParams.filter(p => p.inputType === this.inputTypes.CURRENCY);
-    const currencyValues = this.currencyInputs._results.map(r => r.nativeElement.value);
-
-    for (let i = 0; i < currencyParams.length; i++) {
-      currencyParams[i].assigningFunction(this.entity, currencyValues[i]);
-    }
-
     this.addInvalid = this.columnParams.map(p => p.validator(this.entity)).filter(v => !v).length > 0;
 
     if (this.addInvalid) return;
