@@ -50,6 +50,8 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
     });
 
     document.getElementsByClassName('md-sidenav-content')[0].addEventListener('scroll', (event) => {
+      if (!event && !event.srcElement) return;
+
       const scrollTop = event.srcElement.scrollTop;
       this.alertTopOffsetCurrent = scrollTop < 70 ? 0 : scrollTop - 70;
     })
