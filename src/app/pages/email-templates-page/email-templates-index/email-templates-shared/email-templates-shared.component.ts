@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, Output, EventEmitter} from '@angular/core';
 import {EmailTemplate} from '../../../../shared/models/email-template.model';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -15,6 +15,8 @@ import {CustomServerError} from '../../../../shared/models/errors/custom-server-
   styleUrls: ['./email-templates-shared.component.scss']
 })
 export class EmailTemplatesSharedComponent extends AbstractEntityIndexComponent<EmailTemplate> implements OnInit, OnDestroy {
+
+  @Output() copySelected: EventEmitter<EmailTemplate> = new EventEmitter();
 
   constructor(
     emailsService: EmailTemplatesSharedService,
@@ -42,14 +44,6 @@ export class EmailTemplatesSharedComponent extends AbstractEntityIndexComponent<
   }
 
   ngOnInit() {
-    this.viewAfterCrate = false;
-
-    this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe(entity => {
-      if (entity instanceof CustomServerError) return;
-
-      this.viewEntity(entity.id, true)
-    });
-
     this.init();
   }
 
@@ -58,16 +52,10 @@ export class EmailTemplatesSharedComponent extends AbstractEntityIndexComponent<
   }
 
   copyTemplate(emailTemplate: EmailTemplate) {
-    const r = emailTemplate.copy();
-    r.name = r.name + ' Copy';
-
-    this.createEntity(r);
+    this.copySelected.emit(emailTemplate);
   }
 
-  viewEntity(id: string, noShared?: boolean): void {
-    let params = [id];
-    if (!noShared) params.unshift('shared');
-
-    this.router.navigate(params, {relativeTo: this.activatedRoute});
+  viewEntity(id: string): void {
+    this.router.navigate(['shared', id], {relativeTo: this.activatedRoute});
   }
 }

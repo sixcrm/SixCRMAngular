@@ -7,11 +7,11 @@
 
   <md-tab-group [(selectedIndex)]="selectedIndex">
     <md-tab>
-      <email-templates-custom (addSelected)="toggleAddModal()"></email-templates-custom>
+      <email-templates-custom (addSelected)="addTemplate()"></email-templates-custom>
     </md-tab>
 
     <md-tab>
-      <email-templates-shared></email-templates-shared>
+      <email-templates-shared (copySelected)="copyShared($event)"></email-templates-shared>
     </md-tab>
 
   </md-tab-group>

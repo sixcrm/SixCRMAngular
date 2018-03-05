@@ -6,6 +6,7 @@ import {EmailTemplatesService} from '../../../shared/services/email-templates.se
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
+import {SmtpProvider} from '../../../shared/models/smtp-provider.model';
 
 @Component({
   selector: 'c-email-templates',
@@ -44,6 +45,20 @@ export class EmailTemplatesComponent implements OnInit, OnDestroy {
     this.selectedIndex = index;
   }
 
+  copyShared(emailTemplate: EmailTemplate) {
+    this.entity = emailTemplate.copy();
+    this.entity.name += ' Copy';
+    this.entity.smtpProvider = new SmtpProvider();
+
+    this.toggleAddModal();
+  }
+
+  addTemplate() {
+    this.entity = new EmailTemplate();
+
+    this.toggleAddModal();
+  }
+
   toggleAddModal() {
     this.addMode = !this.addMode;
   }
@@ -58,7 +73,7 @@ export class EmailTemplatesComponent implements OnInit, OnDestroy {
     this.createSub = this.emailTemplateService.entityCreated$.take(1).subscribe(entity => {
       if (entity instanceof CustomServerError) return;
 
-      this.viewEntity(entity.id)
+      this.viewEntity(entity.id, true)
     });
 
     this.emailTemplateService.createEntity(template);
@@ -69,9 +84,13 @@ export class EmailTemplatesComponent implements OnInit, OnDestroy {
     this.entity = new EmailTemplate();
   }
 
-  viewEntity(id: string): void {
+  viewEntity(id: string, editMode?: boolean): void {
     let params = [id];
+    let query = {};
+    if (editMode) {
+      query['edit'] = true;
+    }
 
-    this.router.navigate(params, {relativeTo: this.activatedRoute});
+    this.router.navigate(params, {relativeTo: this.activatedRoute, queryParams: query});
   }
 }
