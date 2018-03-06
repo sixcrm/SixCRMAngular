@@ -6,6 +6,10 @@
     <input md-input placeholder="{{ 'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filterString" (input)="filterChanged()" type="text">
   </md-input-container>
 
+  <table-density [density]="density" (densityChanged)="densitySelected.emit($event)" [small]="true"></table-density>
+
+  <table-preferences [columnParams]="columnParams" [small]="true"></table-preferences>
+
   <table-pagination
     *ngIf="showPagination"
     [limit]="limit"
@@ -16,8 +20,4 @@
     (next)="next.emit(true)"
     (updateLimit)="limitChanged.emit($event)">
   </table-pagination>
-
-  <table-density [density]="density" (densityChanged)="densitySelected.emit($event)" [small]="true"></table-density>
-
-  <table-preferences [columnParams]="columnParams" [small]="true"></table-preferences>
 </div>
