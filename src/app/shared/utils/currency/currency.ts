@@ -9,10 +9,10 @@ export class Currency {
       amount = 0;
     }
 
-    this.amount = amount;
+    this.amount = +amount;
   }
 
   usd(): string {
-    return numeral(this.amount).format('$0.00');
+    return numeral(this.amount).format('$0,0.00');
   }
 }

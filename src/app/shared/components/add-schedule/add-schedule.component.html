@@ -27,8 +27,8 @@
                           (selected)="addNewProductSchedule($event)">
       </autocomplete-input>
 
-      <md-input-container [class.error]="formInvalid && !price">
-        <input required md-input placeholder="{{'PRODUCTSCHEDULE_CYCLE_PRICE' | translate}}" [textMask]="{mask: numberMask, guide: false}" (keydown)="isCurrency($event)" name="price" [(ngModel)]="price" type="text">
+      <md-input-container>
+        <input required md-input placeholder="{{'PRODUCTSCHEDULE_CYCLE_PRICE' | translate}}" (keydown)="isCurrency($event)" name="price" type="text" currencyInput [initPrice]="scheduleToAdd.price" (priceChanged)="scheduleToAdd.price = $event">
         <div class="helper-text">{{'PRODUCTSCHEDULE_CYCLE_PRICETIP' | translate}}</div>
       </md-input-container>
     </div>

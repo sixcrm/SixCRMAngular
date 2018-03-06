@@ -1,6 +1,6 @@
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery, listQueryParams
+  addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {Rebill} from '../../../models/rebill.model';
 
@@ -88,7 +88,7 @@ export function rebillResponseQuery(): string {
 }
 
 export function rebillInfoResponseQuery(): string {
-  return `id bill_at amount created_at updated_at state parentsession { customer { firstname lastname} }`
+  return `id bill_at amount created_at updated_at state parentsession { id customer { firstname lastname} }`
 }
 
 export function rebillListByState(queueName: string, limit?: number, offset?: number): string {
@@ -101,5 +101,5 @@ export function rebillListByState(queueName: string, limit?: number, offset?: nu
 export function rebillInputQuery(rebill: Rebill, includeId?: boolean): string {
   let schedules = rebill.productSchedules.map(p => p.id).reduce((a,b) => `${a} "${b}",`, '');
 
-  return `${addId(rebill.id, includeId)} bill_at:"${rebill.billAt.format()}", parentsession: "${rebill.parentSession.id}", amount:"${rebill.amount.amount}", product_schedules:[${schedules}]`
+  return `${addId(rebill.id, includeId)} bill_at:"${rebill.billAt.format()}", parentsession: "${rebill.parentSession.id}", amount:"${rebill.amount.amount}", product_schedules:[${schedules}], ${addUpdatedAtApi(rebill, includeId)}`
 }

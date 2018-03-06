@@ -96,7 +96,7 @@
             <div class="transaction-view__content__item transaction-view__content__item--no-border">
               <div class="transaction-view__content__item__label">{{'TRANSACTION_REFUND_AMOUNTTOREFUND' | translate}}</div>
               <md-input-container>
-                <input #refundInput md-input type="text" [textMask]="{mask: numberMask, guide: false}" [(ngModel)]="amountToRefund">
+                <input #refundInput md-input type="text" currencyInput [initPrice]="amountToRefund" (priceChanged)="amountToRefund = $event">
               </md-input-container>
 
               <md-checkbox [(ngModel)]="refundAllSelected" (change)="refundAllSelect()">{{'TRANSACTION_REFUND_REFUNDALL' | translate}}</md-checkbox>
@@ -104,7 +104,7 @@
           </div>
 
           <div class="entity-view__card__actions">
-            <div (click)="setIndex(0)">{{'TRANSACTION_REFUND_CANCEL' | translate}}</div>
+            <div (click)="cancelRefund()">{{'TRANSACTION_REFUND_CANCEL' | translate}}</div>
             <div (click)="refundTransaction()">{{'TRANSACTION_REFUND_CONFIRM' | translate}}</div>
           </div>
         </div>

@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild, Output, Input, EventEmitter} from '@angula
 import {Schedule} from '../../models/schedule.model';
 import {Product} from '../../models/product.model';
 import {ProductsService} from '../../services/products.service';
-import {parseCurrencyMaskedValue, getCurrencyMask} from '../../utils/mask.utils';
 import {isAllowedCurrency, isAllowedNumeric, isAllowedFloatNumeric} from '../../utils/form.utils';
 import {ProductSchedule} from '../../models/product-schedule.model';
 import {ProductScheduleService} from '../../services/product-schedule.service';
@@ -19,13 +18,11 @@ export class AddScheduleComponent implements OnInit {
   isNumeric = isAllowedNumeric;
   isCurrency = isAllowedCurrency;
   isFloatNumeric = isAllowedFloatNumeric;
-  numberMask = getCurrencyMask();
 
   productMapper = (p: Product) => p.name;
 
   formInvalid: boolean;
 
-  @Input() price: string = '';
   @Input() addProductMode: boolean = true;
   @Input() editMode: boolean = false;
   @Input() productId: string;
@@ -47,7 +44,6 @@ export class AddScheduleComponent implements OnInit {
   }
 
   clearAddScheduleWithLoop(): void {
-    this.price = '';
     let loopProduct = this.scheduleToAdd ? this.scheduleToAdd.product : new Product();
 
     this.scheduleToAdd = new Schedule();
@@ -57,7 +53,6 @@ export class AddScheduleComponent implements OnInit {
   }
 
   clearAddSchedule(): void {
-    this.price = '';
     this.scheduleToAdd = new Schedule();
     this.cancel.emit(true);
   }
@@ -76,8 +71,6 @@ export class AddScheduleComponent implements OnInit {
 
     if (this.formInvalid) return;
 
-    this.scheduleToAdd.price.amount = parseCurrencyMaskedValue(this.price);
-
     if (this.addProductMode) {
       this.addSchedule.next(this.scheduleToAdd);
     } else {
@@ -90,7 +83,6 @@ export class AddScheduleComponent implements OnInit {
 
   addProductToSchedule(product: Product): void {
     this.scheduleToAdd.product = product;
-    this.price = product.defaultPrice.amount + '';
   }
 
   addNewProductSchedule(productSchedule: ProductSchedule): void {

@@ -10,7 +10,6 @@ import {ProductSchedule} from '../shared/models/product-schedule.model';
                   style="font-family: 'Roboto',serif"
                   (addProductSchedule)="addNewSchedule($event)"
                   (addSchedule)="addNewSchedule($event)"
-                  [price]="price"
                   [productId]="productId"
                   [scheduleToAdd]="scheduleToAdd"
                   [productScheduleToAdd]="productScheduleToAdd"
@@ -23,7 +22,6 @@ import {ProductSchedule} from '../shared/models/product-schedule.model';
 })
 export class AddProductScheduleDialogComponent {
 
-  price: string;
   productId: string;
   scheduleToAdd: Schedule = new Schedule();
   productScheduleToAdd: ProductSchedule = new ProductSchedule();

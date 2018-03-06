@@ -43,7 +43,7 @@
 
     <md-tab>
       <product-product-schedules [id]="entity.id"
-                                 [price]="entity.defaultPrice.amount + ''"
+                                 [defaultPrice]="entity.defaultPrice"
                                  (allEntities)="setCanNotBeDeleted($event)">
       </product-product-schedules>
     </md-tab>

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {MdDialogRef} from '@angular/material';
 import {isAllowedCurrency} from '../shared/utils/form.utils';
-import {getCurrencyMask} from '../shared/utils/mask.utils';
+import {Currency} from '../shared/utils/currency/currency';
 
 @Component({
   selector : 'add-bill-details-dialog',
@@ -17,7 +17,7 @@ import {getCurrencyMask} from '../shared/utils/mask.utils';
         </div>
         <div>
           <md-input-container>
-            <input md-input placeholder="{{'BILL_DETAILS_TABLE_AMOUNT' | translate}}" [textMask]="{mask: numberMask, guide: false}" (keydown)="isCurrency($event)" [(ngModel)]="amount" type="text">
+            <input md-input placeholder="{{'BILL_DETAILS_TABLE_AMOUNT' | translate}}" (keydown)="isCurrency($event)" type="text" currencyInput [initPrice]="amount" (priceChanged)="amount = $event">
           </md-input-container>
         </div>
       </md-card-content>
@@ -32,8 +32,7 @@ import {getCurrencyMask} from '../shared/utils/mask.utils';
 export class AddBillDetailsDialogComponent {
 
   description: string = '';
-  amount: string = '0';
-  numberMask = getCurrencyMask();
+  amount: Currency = new Currency(0);
   isCurrency = isAllowedCurrency;
 
   constructor(public dialogRef: MdDialogRef<AddBillDetailsDialogComponent>) {}

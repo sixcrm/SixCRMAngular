@@ -7,7 +7,6 @@ import {firstIndexOf} from '../../../../shared/utils/array.utils';
 import {MdDialog} from '@angular/material';
 import {AddBillDetailsDialogComponent} from '../../../../dialog-modals/add-bill-details-dialog.component';
 import {utc} from 'moment';
-import {parseCurrencyMaskedValue} from '../../../../shared/utils/mask.utils';
 import {Bill} from '../../../../shared/models/bill.model';
 import {AccountsService} from '../../../../shared/services/accounts.service';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
@@ -84,16 +83,16 @@ export class BillBodyComponent implements OnInit {
     let ref = this.dialog.open(AddBillDetailsDialogComponent);
 
     ref.componentInstance.description = details ? details.description : '';
-    ref.componentInstance.amount = details ? details.amount.amount + '' : '0';
+    ref.componentInstance.amount = new Currency(details ? details.amount.amount : 0);
 
     ref.afterClosed().take(1).subscribe(result => {
       ref = null;
       if (result && result.description && result.amount) {
         if (details) {
           details.description = result.description;
-          details.amount = new Currency(parseCurrencyMaskedValue(result.amount));
+          details.amount = new Currency(result.amount.amount);
         } else {
-          const newItem = new BillDetails({description: result.description, amount: parseCurrencyMaskedValue(result.amount), created_at: utc().format()});
+          const newItem = new BillDetails({description: result.description, amount: result.amount.amount, created_at: utc().format()});
 
           this.bill.detail.push(newItem);
         }

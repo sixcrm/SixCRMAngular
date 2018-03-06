@@ -3,7 +3,7 @@ import {Rebill} from '../../../../shared/models/rebill.model';
 import {RebillsService} from '../../../../shared/services/rebills.service';
 import {Moment, utc} from 'moment';
 import {DaterangepickerConfig} from 'ng2-daterangepicker';
-import {getCurrencyMask, parseCurrencyMaskedValue} from '../../../../shared/utils/mask.utils';
+import {Currency} from '../../../../shared/utils/currency/currency';
 
 @Component({
   selector: 'customer-rebill-edit',
@@ -15,13 +15,13 @@ export class CustomerRebillEditComponent implements OnInit {
   @ViewChild('priceInput') priceInput;
 
   rebill: Rebill;
-  price;
+  originalPrice: Currency;
   date: Moment;
 
   @Input() set value(rebill: Rebill) {
     if (rebill) {
       this.rebill = rebill;
-      this.price = this.rebill.amount.amount;
+      this.originalPrice = new Currency(rebill.amount.amount);
       this.date = this.rebill.billAt.clone();
       this.setDatepickerOptions();
     }
@@ -30,8 +30,6 @@ export class CustomerRebillEditComponent implements OnInit {
   @Output() cancel: EventEmitter<boolean> = new EventEmitter();
 
   datepickerVisible: boolean = false;
-
-  numberMask = getCurrencyMask();
 
   constructor(
     private rebillService: RebillsService,
@@ -55,21 +53,24 @@ export class CustomerRebillEditComponent implements OnInit {
   }
 
   saveRebill(): void {
-    let price = parseCurrencyMaskedValue(this.price);
-
-    if (price > this.rebill.amount.amount) {
-      this.price = this.rebill.amount.amount;
+    if (this.rebill.amount.amount > this.originalPrice.amount) {
+      this.rebill.amount = new Currency(this.originalPrice.amount);
       this.priceInput.nativeElement.focus();
       return;
     }
 
-    this.rebill.amount.amount = price;
     this.rebill.billAt = this.date.clone();
     this.rebillService.entityUpdated$.take(1).subscribe(() => {
       this.cancel.emit(true);
     });
 
     this.rebillService.updateEntity(this.rebill);
+  }
+
+  cancelRebillEdit() {
+    this.rebill.amount = new Currency(this.originalPrice.amount);
+
+    this.cancel.emit(false)
   }
 
   setDatepickerOptions(): void {

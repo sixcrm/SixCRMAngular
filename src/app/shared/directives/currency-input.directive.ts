@@ -1,6 +1,8 @@
 import {Directive, ElementRef, Input, Output, EventEmitter} from '@angular/core';
 import {Currency} from '../utils/currency/currency';
 
+const numeral = require('numeral');
+
 @Directive({
   selector: '[currencyInput]',
   host: {
@@ -26,7 +28,7 @@ export class CurrencyInputDirective {
   }
 
   onInput(event) {
-    const value = event.target.value.replace('$', '');
+    const value = event.target.value.replace(/\$|,/g, '');
 
     const shouldFormat = this.inputElement.selectionStart === this.inputElement.value.length;
 
@@ -49,7 +51,7 @@ export class CurrencyInputDirective {
   }
 
   updateValue(value) {
-    this.inputElement.value = '$' + value;
+    this.inputElement.value = '$' + numeral(value).format('0,0.00');
   }
 
   getPrecision(value) {
@@ -69,6 +71,6 @@ export class CurrencyInputDirective {
       return;
     }
 
-    this.priceChanged.emit(new Currency(+value.replace('$', '')));
+    this.priceChanged.emit(new Currency(+value.replace(/\$|,/g, '')));
   }
 }

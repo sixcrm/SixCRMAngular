@@ -13,6 +13,8 @@ import {
 } from '../../../../shared/utils/queries/entities/product-schedule.queries';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 import {AddProductScheduleDialogComponent} from '../../../add-product-schedule-dialog.component';
+import {Currency} from '../../../../shared/utils/currency/currency';
+import {Schedule} from '../../../../shared/models/schedule.model';
 
 @Component({
   selector: 'product-product-schedules',
@@ -22,7 +24,7 @@ import {AddProductScheduleDialogComponent} from '../../../add-product-schedule-d
 export class ProductProductSchedulesComponent extends AbstractEntityIndexComponent<ProductSchedule> implements OnInit, OnDestroy {
 
   @Input() id: string;
-  @Input() price: string = '0';
+  @Input() defaultPrice: Currency = new Currency(0);
 
   private addProductScheduleDialog: MdDialogRef<AddProductScheduleDialogComponent>;
 
@@ -69,7 +71,7 @@ export class ProductProductSchedulesComponent extends AbstractEntityIndexCompone
   showAddProductScheduleModal() {
     this.service.indexQuery = productScheduleListQuery;
     this.addProductScheduleDialog = this.deleteDialog.open(AddProductScheduleDialogComponent);
-    this.addProductScheduleDialog.componentInstance.price = this.price;
+    this.addProductScheduleDialog.componentInstance.scheduleToAdd = new Schedule({price: this.defaultPrice.amount});
     this.addProductScheduleDialog.componentInstance.productId = this.id;
 
     this.addProductScheduleDialog.afterClosed().take(1).subscribe(result => {

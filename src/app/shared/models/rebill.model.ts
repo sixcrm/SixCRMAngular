@@ -13,6 +13,7 @@ export class Rebill implements Entity<Rebill> {
   billAt: Moment;
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string;
   parentSession: ParentSession;
   productSchedules: ProductSchedule[] = [];
   transactions: Transaction[] = [];
@@ -30,6 +31,7 @@ export class Rebill implements Entity<Rebill> {
     this.billAt = utc(obj.bill_at);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
     this.parentSession = new ParentSession(obj.parentsession);
     this.state = obj.state || '';
     if (obj.product_schedules) {
@@ -59,7 +61,7 @@ export class Rebill implements Entity<Rebill> {
       amount: this.amount.amount,
       bill_at: this.billAt.clone().format(),
       created_at: this.createdAt.clone().format(),
-      updated_at: this.updatedAt.clone().format(),
+      updated_at: this.updatedAtAPI,
       parentsession: this.parentSession.inverse(),
       product_schedules: this.productSchedules.map(p => p.inverse()),
       shippingreceipts: this.shippingReceipts.map(r => r.inverse()),

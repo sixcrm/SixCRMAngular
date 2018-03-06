@@ -2,15 +2,15 @@ import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
 import {Transaction} from '../../../shared/models/transaction.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {TransactionsService} from '../../../shared/services/transactions.service';
-import {ActivatedRoute, Router, Route} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
-import {getCurrencyMask, parseCurrencyMaskedValue} from '../../../shared/utils/mask.utils';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {Products} from '../../../shared/models/products.model';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {Currency} from '../../../shared/utils/currency/currency';
 
 @Component({
   selector: 'transaction-view',
@@ -22,10 +22,8 @@ export class TransactionViewComponent extends AbstractEntityViewComponent<Transa
   @ViewChild('refundInput') refundInput;
 
   selectedIndex: number = 0;
-  amountToRefund;
+  amountToRefund: Currency = new Currency(0);
   refundAllSelected: boolean = false;
-
-  numberMask = getCurrencyMask();
 
   amount: string;
 
@@ -84,10 +82,10 @@ export class TransactionViewComponent extends AbstractEntityViewComponent<Transa
   }
 
   refundTransaction(): void {
-    let amount = parseCurrencyMaskedValue(this.amountToRefund);
+    let amount = this.amountToRefund.amount;
 
     if (amount > this.entity.amount.amount || amount === 0) {
-      this.amountToRefund = '$0';
+      this.amountToRefund = new Currency(0);
       this.refundInput.nativeElement.focus();
       return;
     }
@@ -98,17 +96,22 @@ export class TransactionViewComponent extends AbstractEntityViewComponent<Transa
     this.transactionsService.refundTransaction(this.entity.id, amount);
   }
 
+  cancelRefund() {
+    this.refundAllSelected = false;
+    this.amountToRefund = new Currency(0);
+  }
+
   refundAllSelect(): void {
     if (this.refundAllSelected) {
-      this.amountToRefund = this.entity.amount.amount;
+      this.amountToRefund = new Currency(+this.entity.amount.amount);
     } else {
-      this.amountToRefund = '$0';
+      this.amountToRefund = new Currency(0);
     }
   }
 
   setIndex(index: number): void {
     if (index === 1) {
-      this.amountToRefund = '$0';
+      this.amountToRefund = new Currency(0);
       this.refundAllSelected = false;
     }
 
