@@ -108,4 +108,8 @@ export class User implements Entity<User> {
 
     return null;
   }
+
+  getDefaultImage() {
+    return null;
+  }
 }

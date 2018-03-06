@@ -77,13 +77,54 @@ $blue-color: #4A90E2;
     &__gallery {
       display: flex;
       overflow: hidden;
+      margin-right: -40px;
 
-      div {
+      &__container {
         display: flex;
-        margin-right: 15px;
+        align-items: center;
       }
 
-      .image {
+      &__slider {
+        display: flex;
+        transition: all 250ms ease-in-out;
+      }
+
+      &__icon {
+        display: flex;
+        position: absolute;
+        height: 108px;
+        width: 100px;
+        transition: background-color 250ms ease-in-out;
+
+        md-icon {
+          font-size: 56px;
+          height: 56px;
+          width: 56px;
+          cursor: pointer;
+        }
+
+        &--left {
+          left: 50px;
+          background: linear-gradient(to right, rgba(92,155,221,1), rgba(92,155,221,0));
+
+          md-icon {
+            margin: auto auto auto 15px;
+          }
+        }
+
+        &--right {
+          right: 10px;
+          background: linear-gradient(to right, rgba(92,155,221,0), rgba(92,155,221,1));
+
+          md-icon {
+            margin: auto 15px auto auto;
+          }
+        }
+      }
+
+      &__image {
+        display: flex;
+        margin-right: 15px;
         width: 100px;
         height: 100px;
         background-size: cover;
@@ -91,6 +132,10 @@ $blue-color: #4A90E2;
         background-repeat: no-repeat;
         border-radius: 50%;
         border: 4px solid #97BEE4;
+
+        &--default {
+          background: rgba(0,0,0,0.1);
+        }
       }
 
     }

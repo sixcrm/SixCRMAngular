@@ -1,11 +1,32 @@
-<div class="entity-view__header__gallery">
-  <ng-container *ngFor="let image of images">
-    <ng-container *ngIf="mapper(image); else defaultimage">
-      <div class="image" [style.background-image]="'url(' + mapper(image) + ')'"></div>
-    </ng-container>
+<div #container class="entity-view__header__gallery__container">
 
-    <ng-template #defaultimage>
-      <div class="image default" [style.background-image]="'url(' + defaultImage + ')'"></div>
-    </ng-template>
-  </ng-container>
+  <div class="entity-view__header__gallery__icon entity-view__header__gallery__icon--left" *ngIf="marginLeft !== 0">
+    <md-icon (mousedown)="moveLeft()" (mouseup)="stopMoving()" (mouseleave)="stopMoving()">keyboard_arrow_left</md-icon>
+  </div>
+
+  <div class="entity-view__header__gallery">
+
+    <div #holder class="entity-view__header__gallery__slider" [style.margin-left]="-marginLeft + 'px'">
+      <ng-container *ngIf="!images && showLoader; else content">
+        <div class="entity-view__header__gallery__image entity-view__header__gallery__image--default"></div>
+      </ng-container>
+
+      <ng-template #content>
+        <ng-container *ngFor="let image of images">
+          <ng-container *ngIf="mapper(image); else defaultimage">
+            <div class="entity-view__header__gallery__image" [style.background-image]="'url(' + mapper(image) + ')'"></div>
+          </ng-container>
+
+          <ng-template #defaultimage>
+            <div class="entity-view__header__gallery__image" [style.background-image]="'url(' + defaultImage + ')'"></div>
+          </ng-template>
+        </ng-container>
+      </ng-template>
+    </div>
+
+  </div>
+
+  <div class="entity-view__header__gallery__icon entity-view__header__gallery__icon--right" *ngIf="showRightArrow()">
+    <md-icon (mousedown)="moveRight()" (mouseup)="stopMoving()" (mouseleave)="stopMoving()">keyboard_arrow_right</md-icon>
+  </div>
 </div>

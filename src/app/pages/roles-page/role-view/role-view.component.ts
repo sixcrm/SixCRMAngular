@@ -14,6 +14,8 @@ import {
 } from '../../../shared/models/permissions.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {RolesSharedService} from '../../../shared/services/roles-shared.service';
+import {AclsService} from '../../../shared/services/acls.service';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'role-view',
@@ -47,12 +49,15 @@ export class RoleViewComponent extends AbstractEntityViewComponent<Role> impleme
 
   isShared: boolean;
 
+  images: string[];
+
   constructor(
     service: RolesService,
     private sharedService: RolesSharedService,
     private activatedRoute: ActivatedRoute,
     public navigation: NavigationService,
-    public router: Router
+    public router: Router,
+    private aclService: AclsService
   ) {
     super(service, activatedRoute);
   }
@@ -88,6 +93,12 @@ export class RoleViewComponent extends AbstractEntityViewComponent<Role> impleme
         .setAutocompleteOptions(getAllPermissionActions())
         .setAutocompleteInitialValue((e: ParsedPermission) => e.permissions ? [e.permissions] : []),
     ];
+
+    this.aclService.entities$.takeUntil(this.unsubscribe$).subscribe(data => {
+      if (data instanceof CustomServerError) return;
+
+      this.images = data.filter(acl => acl.role.id === this.entityId).map(acl => acl.user.getDefaultImage());
+    });
   }
 
   setIndex(index: number): void {
