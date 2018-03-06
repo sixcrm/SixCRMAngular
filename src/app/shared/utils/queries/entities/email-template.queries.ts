@@ -1,6 +1,6 @@
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery, listQueryParams
+  addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {smtpProviderResponseQuery} from './smtp-provider.queries';
 import {EmailTemplate} from '../../../models/email-template.model';
@@ -91,5 +91,5 @@ export function emailTemplateInputQuery(emailTemplate: EmailTemplate, includeId?
     body = `body: "${emailTemplate.body.replace(/"/g, '\\"')}",`
   }
 
-  return `${addId(emailTemplate.id, includeId)}, name: "${emailTemplate.name}", subject: "${emailTemplate.subject}", ${body} type: "${emailTemplate.type.toLowerCase()}", smtp_provider:"${emailTemplate.smtpProvider.id}"`;
+  return `${addId(emailTemplate.id, includeId)}, name: "${emailTemplate.name}", subject: "${emailTemplate.subject}", ${body} type: "${emailTemplate.type.toLowerCase()}", smtp_provider:"${emailTemplate.smtpProvider.id}", ${addUpdatedAtApi(emailTemplate, includeId)}`;
 }

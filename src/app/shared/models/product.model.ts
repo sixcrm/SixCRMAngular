@@ -17,6 +17,7 @@ export class Product implements Entity<Product> {
   fulfillmentProvider: FulfillmentProvider;
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -34,6 +35,7 @@ export class Product implements Entity<Product> {
     this.fulfillmentProvider = new FulfillmentProvider(obj.fulfillment_provider);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
   }
 
   getDefaultImage(): SixImage {
@@ -70,7 +72,7 @@ export class Product implements Entity<Product> {
       attributes: this.attributes.inverse(),
       fulfillment_provider: this.fulfillmentProvider.inverse(),
       created_at: this.createdAt.format(),
-      updated_at: this.updatedAt.format()
+      updated_at: this.updatedAtAPI
     }
   }
 }

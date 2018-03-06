@@ -22,6 +22,12 @@ export function addId(id: string, includeId?: boolean): string {
   return includeId ? `id: "${id}"` : '';
 }
 
+export function addUpdatedAtApi(entity: any, include: boolean): string {
+  if (!include || !entity['updatedAtAPI']) return '';
+
+  return ` updated_at:"${entity['updatedAtAPI']}"`;
+}
+
 export function addField(key: string, value: any, quotes?: boolean) {
   if (!value || !key) return '';
 

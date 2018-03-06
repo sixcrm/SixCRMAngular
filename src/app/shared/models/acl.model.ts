@@ -13,6 +13,7 @@ export class Acl {
   termsAndConditionsOutdated: boolean;
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -28,6 +29,7 @@ export class Acl {
     this.termsAndConditionsOutdated = !!obj.termsandconditions_outdated;
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
   }
 
   copy(): Acl {
@@ -44,7 +46,7 @@ export class Acl {
       role: this.role.inverse(),
       termsandconditions_outdated: this.termsAndConditionsOutdated,
       created_at: this.createdAt.format(),
-      updated_at: this.updatedAt.format()
+      updated_at: this.updatedAtAPI
     }
   }
 }

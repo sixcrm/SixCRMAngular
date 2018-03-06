@@ -1,6 +1,6 @@
 import {
   fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery, listQueryParams
+  addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {Affiliate} from '../../../models/affiliate.model';
 
@@ -54,5 +54,5 @@ export function affiliateResponseQuery(): string {
 }
 
 export function affiliateInputQuery(affiliate: Affiliate, includeId?: boolean): string {
-  return `${addId(affiliate.id, includeId)}, affiliate_id: "${affiliate.affiliateId}", ${affiliate.name ? `name: "${affiliate.name}"`: ''}`;
+  return `${addId(affiliate.id, includeId)}, affiliate_id: "${affiliate.affiliateId}", ${affiliate.name ? `name: "${affiliate.name}"`: ''}, ${addUpdatedAtApi(affiliate, includeId)}`;
 }

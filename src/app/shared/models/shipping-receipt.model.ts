@@ -12,6 +12,7 @@ export class ShippingReceipt implements Entity<ShippingReceipt> {
   history: ShippingReceiptHistoryItem[] = [];
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -29,6 +30,7 @@ export class ShippingReceipt implements Entity<ShippingReceipt> {
 
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
   }
 
   parseStatus(): string {
@@ -60,7 +62,7 @@ export class ShippingReceipt implements Entity<ShippingReceipt> {
       fulfillment_provider: this.fulfillmentProvider.inverse(),
       history: this.history.map(h => h.inverse()),
       created_at: this.createdAt.format(),
-      updated_at: this.updatedAt.format()
+      updated_at: this.updatedAtAPI
     }
   }
 }

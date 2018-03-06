@@ -1,6 +1,6 @@
 import {
   addId, deleteMutationQuery, deleteManyMutationQuery, paginationParamsQuery,
-  fullPaginationStringResponseQuery
+  fullPaginationStringResponseQuery, addUpdatedAtApi
 } from './entities-helper.queries';
 import {Acl} from '../../../models/acl.model';
 
@@ -66,5 +66,5 @@ export function userAclResponseQuery(): string {
 }
 
 export function userAclInputQuery(acl: Acl, includeId?: boolean): string {
-  return `${addId(acl.id, includeId)}, user: "${acl.user.id}", account: "${acl.account.id}", role: "${acl.role.id}"`;
+  return `${addId(acl.id, includeId)}, user: "${acl.user.id}", account: "${acl.account.id}", role: "${acl.role.id}", ${addUpdatedAtApi(acl, includeId)}`;
 }

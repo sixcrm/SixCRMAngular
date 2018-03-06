@@ -1,6 +1,6 @@
 import {
   fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery, listQueryParams
+  addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {SmtpProvider} from '../../../models/smtp-provider.model';
 
@@ -60,7 +60,7 @@ export function validateSmtpProviderQuery(smtpProvider: SmtpProvider, email: str
 }
 
 export function smtpProviderInputQuery(smtpProvider: SmtpProvider, includeID?: boolean): string {
-  return `${addId(smtpProvider.id, includeID)} name: "${smtpProvider.name}", from_name: "${smtpProvider.fromName}", from_email: "${smtpProvider.fromEmail}", hostname: "${smtpProvider.hostname}", username: "${smtpProvider.username}", password: "${smtpProvider.password}", port: ${smtpProvider.port}`;
+  return `${addId(smtpProvider.id, includeID)} name: "${smtpProvider.name}", from_name: "${smtpProvider.fromName}", from_email: "${smtpProvider.fromEmail}", hostname: "${smtpProvider.hostname}", username: "${smtpProvider.username}", password: "${smtpProvider.password}", port: ${smtpProvider.port}, ${addUpdatedAtApi(smtpProvider, includeID)}`;
 }
 
 export function smtpProviderResponseQuery(): string {

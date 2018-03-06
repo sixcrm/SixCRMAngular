@@ -11,6 +11,7 @@ export class AccessKey implements Entity<AccessKey> {
   secretKeyMasked: string;
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -25,6 +26,7 @@ export class AccessKey implements Entity<AccessKey> {
     this.notes = obj.notes || '';
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
   }
 
   copy(): AccessKey {
@@ -39,7 +41,7 @@ export class AccessKey implements Entity<AccessKey> {
       secret_key: this.secretKey,
       access_key: this.accessKey,
       created_at: this.createdAt.format(),
-      updated_at: this.updatedAt.format()
+      updated_at: this.updatedAtAPI
     }
   }
 }

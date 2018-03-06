@@ -16,6 +16,7 @@ export class Bill implements Entity<Bill> {
   detail: BillDetails[];
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string;
   endingBalance: Currency;
 
   amountValue: string;
@@ -35,6 +36,7 @@ export class Bill implements Entity<Bill> {
     this.availableAt = utc(obj.available_at);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
 
     this.detail = [];
     if (obj.detail) {
@@ -61,7 +63,7 @@ export class Bill implements Entity<Bill> {
       period_end_at: this.periodEnd.clone().format(),
       available_at: this.availableAt.clone().format(),
       created_at: this.createdAt.clone().format(),
-      updated_at: this.updatedAt.clone().format(),
+      updated_at: this.updatedAtAPI,
       detail: this.detail.map(d => d.inverse())
     }
   }

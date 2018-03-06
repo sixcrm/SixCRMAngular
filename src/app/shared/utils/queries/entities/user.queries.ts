@@ -1,6 +1,6 @@
 import {
   fullPaginationStringResponseQuery, paginationParamsQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery
+  addId, deleteManyMutationQuery, addUpdatedAtApi
 } from './entities-helper.queries';
 import {User} from '../../../models/user.model';
 import {Acl} from '../../../models/acl.model';
@@ -123,9 +123,9 @@ export function acceptInviteMutation(token: string, parameters: string): string 
 
 export function userResponseQuery(): string {
   return `
-    id name alias first_name last_name auth0_id active termsandconditions,
+    id name alias first_name last_name auth0_id active termsandconditions created_at updated_at,
     acl {
-      id
+      id, created_at, updated_at
       account { id name active }
       user {id name }
       role { id name active,
@@ -138,12 +138,14 @@ export function userResponseQuery(): string {
 
 export function userIntrospectionResponseQuery(): string {
   return `
-    id name alias first_name last_name auth0_id active termsandconditions termsandconditions_outdated,
+    id name alias first_name last_name auth0_id active termsandconditions termsandconditions_outdated created_at updated_at,
     acl {
       id
+      created_at,
+      updated_at,
       termsandconditions_outdated
-      account { id name active }
-      role { id name active,
+      account { id name active created_at updated_at }
+      role { id name active created_at updated_at,
         permissions {allow deny} 
       }
     }
@@ -174,6 +176,7 @@ export function userInputQuery(user: User, light?: boolean): string {
     ${user.alias ? `alias: "${user.alias}",`: ''}
     active:${user.active || 'false'},
     ${user.termsAndConditions ? `termsandconditions:"${user.termsAndConditions}",`: ''}
-    ${light ? '' : address}
+    ${light ? '' : address},
+    ${addUpdatedAtApi(user, true)}
   `
 }

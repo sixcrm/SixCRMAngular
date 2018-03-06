@@ -7,6 +7,7 @@ export class MerchantProviderGroup implements Entity<MerchantProviderGroup> {
   name: string;
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string;
   merchantProviderConfigurations: MerchantProviderConfiguration[] = [];
 
   constructor(obj?: any) {
@@ -18,6 +19,7 @@ export class MerchantProviderGroup implements Entity<MerchantProviderGroup> {
     this.name = obj.name || '';
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
 
     if (obj.merchantproviderconfigurations) {
       this.merchantProviderConfigurations = obj.merchantproviderconfigurations.map(c => new MerchantProviderConfiguration(c));
@@ -34,7 +36,7 @@ export class MerchantProviderGroup implements Entity<MerchantProviderGroup> {
       id: this.id,
       name: this.name,
       created_at: this.createdAt.clone().format(),
-      updated_at: this.updatedAt.clone().format(),
+      updated_at: this.updatedAtAPI,
       merchantproviderconfigurations: this.merchantProviderConfigurations.map(c => c.inverse())
     }
   }

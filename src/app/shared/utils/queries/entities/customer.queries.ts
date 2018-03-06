@@ -1,6 +1,6 @@
 import {
   fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery, listQueryParams
+  addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {Customer} from '../../../models/customer.model';
 import {stateCode, countryCode} from '../../address.utils';
@@ -80,6 +80,7 @@ export function customerInputQuery(customer: Customer, includeId?: boolean): str
         ${customer.address.state ? `state:"${stateCode(customer.address.state)}"` : ''}
         ${customer.address.zip ? `zip:"${customer.address.zip}"` : ''}
         ${customer.address.country ? `country:"${countryCode(customer.address.country)}"` : ''}
-      }
+      }, 
+      ${addUpdatedAtApi(customer, includeId)}
     `
 }

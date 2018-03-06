@@ -19,6 +19,7 @@ export class MerchantProvider implements Entity<MerchantProvider>{
   merchantProviderGroups: MerchantProviderGroup[];
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string
 
   constructor(obj?: any) {
     if (!obj) {
@@ -36,6 +37,7 @@ export class MerchantProvider implements Entity<MerchantProvider>{
     this.processor = new MerchantProviderProcessor(obj.processor);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
 
     if (obj.merchantprovidergroups) {
       this.merchantProviderGroups = obj.merchantprovidergroups.map(lb => new MerchantProviderGroup(lb));
@@ -72,7 +74,7 @@ export class MerchantProvider implements Entity<MerchantProvider>{
       processing: this.processing.inverse(),
       processor: this.processor.inverse(),
       created_at: this.createdAt.format(),
-      updated_at: this.updatedAt.format()
+      updated_at: this.updatedAtAPI
     }
   }
 }

@@ -1,5 +1,6 @@
 import {UserSettings} from '../models/user-settings';
 import {NotificationSettings} from '../models/notification-settings.model';
+import {Account} from '../models/account.model';
 
 function deleteMutation(entity: string, id: string) {
   return `mutation { delete${entity} (id: "${id}") { id }}`
@@ -8,7 +9,7 @@ function deleteMutation(entity: string, id: string) {
 export function updateAccountMutation(account: Account, name: string): string {
   return `
     mutation { 
-      updateaccount (account: { id: "${account.id}", name: "${name}", active: true}) { 
+      updateaccount (account: { id: "${account.id}", name: "${name}", active: true, updated_at:"${account.updatedAtAPI}"}) { 
         id,
         name,
         active,
@@ -49,7 +50,7 @@ export function updateUserSettingsMutation(userSettings: UserSettings): string {
   let tzone = userSettings.timezone ? `timezone: "${userSettings.timezone}"` : '';
   let language = userSettings.language ? `language: "${userSettings.language}"` : '';
 
-  let updateString = `id: "${userSettings.id}" ${wphone} ${cphone} ${tzone} ${preferences} ${notificationString} ${language}`;
+  let updateString = `id: "${userSettings.id}", updated_at:"${userSettings.updatedAtAPI}", ${wphone} ${cphone} ${tzone} ${preferences} ${notificationString} ${language}`;
 
   return `
     mutation {
@@ -94,7 +95,7 @@ export function updateNotificationSettingsMutation(notificationSettings: Notific
 
   return `
     mutation {
-      updatenotificationsetting (notificationsetting: { id: "${notificationSettings.id}", settings:"${settings}"}) {
+      updatenotificationsetting (notificationsetting: { id: "${notificationSettings.id}", , updated_at:"${notificationSettings.updatedAtAPI}", settings:"${settings}"}) {
         id settings created_at updated_at
       }
     }`

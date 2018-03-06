@@ -1,5 +1,6 @@
 import {
-  paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery, addId, deleteManyMutationQuery
+  paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery, addId, deleteManyMutationQuery,
+  addUpdatedAtApi
 } from './entities-helper.queries';
 import {AccessKey} from '../../../models/access-key.model';
 
@@ -53,5 +54,5 @@ export function accessKeyResponseQuery(): string {
 }
 
 export function accessKeyInputQuery(accessKey: AccessKey, includeId?: boolean): string {
-  return `${addId(accessKey.id, includeId)}, ${accessKey.name ? `name:"${accessKey.name}",`: '' } ${accessKey.notes ? `notes:"${accessKey.notes}"`: '' }`;
+  return `${addId(accessKey.id, includeId)}, ${accessKey.name ? `name:"${accessKey.name}",`: '' } ${accessKey.notes ? `notes:"${accessKey.notes}"`: '' }, , ${addUpdatedAtApi(accessKey, includeId)}`;
 }

@@ -10,6 +10,7 @@ export class Role implements Entity<Role> {
   permissions: Permissions;
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -22,6 +23,7 @@ export class Role implements Entity<Role> {
     this.permissions = new Permissions(obj.permissions);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
   }
 
   hasPermission(entity: string, operation: string): boolean {
@@ -44,7 +46,7 @@ export class Role implements Entity<Role> {
       active: this.active,
       permissions: this.permissions.inverse(),
       created_at: this.createdAt.format(),
-      updated_at: this.updatedAt.format()
+      updated_at: this.updatedAtAPI
     }
   }
 }

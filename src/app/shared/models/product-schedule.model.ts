@@ -10,6 +10,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
   merchantProviderGroup: MerchantProviderGroup;
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -21,6 +22,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
     this.merchantProviderGroup = new MerchantProviderGroup(obj.merchantprovidergroup);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
 
     if (obj.schedule) {
       this.schedules = obj.schedule.map(s => new Schedule(s));
@@ -36,7 +38,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
       id: this.id,
       name: this.name,
       schedule: this.schedules.map(s => s.inverse()),
-      updated_at: this.updatedAt.format(),
+      updated_at: this.updatedAtAPI,
       created_at: this.createdAt.format(),
       merchantprovidergroup: this.merchantProviderGroup.inverse(),
     }

@@ -22,6 +22,7 @@ export class User implements Entity<User> {
   acls: Acl[];
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string;
 
   constructor(obj?: any) {
     if(!obj) {
@@ -44,6 +45,7 @@ export class User implements Entity<User> {
     this.accessKey = new AccessKey(obj.accesskey);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
 
     this.acls = [];
     if (obj.acl) {
@@ -83,7 +85,7 @@ export class User implements Entity<User> {
       picture: this.picture,
       acl: acls,
       created_at: this.createdAt.clone().format(),
-      updated_at: this.updatedAt.clone().format(),
+      updated_at: this.updatedAtAPI
     }
   }
 

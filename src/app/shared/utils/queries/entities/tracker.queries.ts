@@ -1,6 +1,6 @@
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery, listQueryParams
+  addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {Tracker} from '../../../models/tracker.model';
 
@@ -74,6 +74,6 @@ export function trackerInputQuery(tracker: Tracker, includeId?: boolean): string
   let affiliates = tracker.affiliates.map(a => a.id).reduce((a,b) => `${a} "${b}",`, '');
   let campaigns = tracker.campaigns.map(a => a.id).reduce((a,b) => `${a} "${b}",`, '');
 
-  return `${addId(tracker.id, includeId)} event_type: [${eventTypes}] affiliates: [${affiliates}] campaigns: [${campaigns}] ${tracker.name? `name: "${tracker.name}"`: ''} type: "${tracker.type}" body:"${tracker.body.replace(/"/g, '\\"')}"`;
+  return `${addId(tracker.id, includeId)} event_type: [${eventTypes}] affiliates: [${affiliates}] campaigns: [${campaigns}] ${tracker.name? `name: "${tracker.name}"`: ''} type: "${tracker.type}" body:"${tracker.body.replace(/"/g, '\\"')}", ${addUpdatedAtApi(tracker, includeId)}`;
 }
 

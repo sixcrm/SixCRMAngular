@@ -16,6 +16,7 @@ export class Tracker implements Entity<Tracker> {
   campaigns: Campaign[] = [];
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -28,6 +29,7 @@ export class Tracker implements Entity<Tracker> {
     this.body = obj.body ? (this.type === 'html' ? beautyHtml(obj.body) : obj.body) : '';
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
 
     if (obj.campaigns) {
       this.campaigns = obj.campaigns.map(c => new Campaign(c));
@@ -64,7 +66,7 @@ export class Tracker implements Entity<Tracker> {
       affiliates: this.affiliates.map(affiliate => affiliate.inverse()),
       campaigns: this.campaigns.map(campaign => campaign.inverse()),
       created_at: this.createdAt.format(),
-      updated_at: this.updatedAt.format()
+      updated_at: this.updatedAtAPI
     }
   }
 }

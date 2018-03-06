@@ -10,6 +10,7 @@ export class EmailTemplate implements Entity<EmailTemplate> {
   type: string;
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string;
   smtpProvider: SmtpProvider;
 
   constructor(obj?: any) {
@@ -24,6 +25,7 @@ export class EmailTemplate implements Entity<EmailTemplate> {
     this.type = obj.type || '';
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
     this.smtpProvider = new SmtpProvider(obj.smtp_provider);
   }
 
@@ -38,8 +40,8 @@ export class EmailTemplate implements Entity<EmailTemplate> {
       subject: this.subject,
       body: this.body,
       type: this.type,
-      created_at: this.createdAt,
-      updated_at: this.updatedAt,
+      created_at: this.createdAt.format(),
+      updated_at: this.updatedAtAPI,
       smtp_provider: this.smtpProvider.inverse()
     }
   }

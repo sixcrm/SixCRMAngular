@@ -1,7 +1,7 @@
 import {merchantProviderGroupResponseQuery} from './merchant-provider-group.queries';
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, clean, deleteManyMutationQuery, listQueryParams
+  addId, clean, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {ProductSchedule} from '../../../models/product-schedule.model';
 
@@ -79,5 +79,5 @@ export function productScheduleInfoResponseQuery(): string {
 export function productScheduleInputQuery(productSchedule: ProductSchedule, includeId?: boolean): string {
   let schedules = productSchedule.schedules.reduce((a,b) => `${a} {product: "${b.product.id}", start: ${b.start}, ${b.end ? `end: ${b.end},` : ''} price: ${b.price.amount}, period: ${b.period}}, `, '');
 
-  return `${addId(productSchedule.id, includeId)}, name: "${clean(productSchedule.name)}", ${productSchedule.merchantProviderGroup.id ? `merchantprovidergroup: "${productSchedule.merchantProviderGroup.id}",` : ''} schedule: [${schedules}]`;
+  return `${addId(productSchedule.id, includeId)}, name: "${clean(productSchedule.name)}", ${productSchedule.merchantProviderGroup.id ? `merchantprovidergroup: "${productSchedule.merchantProviderGroup.id}",` : ''} schedule: [${schedules}], ${addUpdatedAtApi(productSchedule, includeId)}`;
 }

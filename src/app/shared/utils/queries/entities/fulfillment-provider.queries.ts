@@ -1,6 +1,6 @@
 import {
   deleteMutationQuery, fullPaginationStringResponseQuery,
-  addId, deleteManyMutationQuery, listQueryParams
+  addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 
 import {FulfillmentProvider} from '../../../models/fulfillment-provider.model';
@@ -79,5 +79,5 @@ export function fulfillmentProviderInputQuery(provider: FulfillmentProvider, inc
     data += `, api_secret:"${provider.provider.apiSecret}", api_key:"${provider.provider.apiKey}"`;
   }
 
-  return `${addId(provider.id, includeId)} name: "${provider.name}", provider: { ${data} }`;
+  return `${addId(provider.id, includeId)} name: "${provider.name}", provider: { ${data} }, ${addUpdatedAtApi(provider, includeId)}`;
 }

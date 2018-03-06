@@ -2,7 +2,7 @@ import {productScheduleResponseQuery, productScheduleInfoResponseQuery} from './
 import {Campaign} from '../../../models/campaign.model';
 import {
   fullPaginationStringResponseQuery, paginationParamsQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery, listQueryParams
+  addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 
 export function campaignsInfoListQuery(limit?:number, cursor?:string, search?: string): string {
@@ -117,5 +117,5 @@ function campaignInputQuery(campaign: Campaign, includeId?: boolean): string {
       campaign.affiliateDeny.reduce((a, b) => `${a} "${b.id}",`, '');
 
 
-  return `${addId(campaign.id, includeId)} name: "${campaign.name}", affiliate_allow: [${affiliateAllowed}], affiliate_deny: [${affiliateDenied}], allow_prepaid: ${campaign.allowPrepaid}, show_prepaid: ${campaign.showPrepaid}, productschedules:[${campaign.productSchedules.map(s => `"${s.id}"`)}], emailtemplates:[${campaign.emailTemplates.map(t => t && t.id ? `"${t.id}"` : '')}]`;
+  return `${addId(campaign.id, includeId)} name: "${campaign.name}", affiliate_allow: [${affiliateAllowed}], affiliate_deny: [${affiliateDenied}], allow_prepaid: ${campaign.allowPrepaid}, show_prepaid: ${campaign.showPrepaid}, productschedules:[${campaign.productSchedules.map(s => `"${s.id}"`)}], emailtemplates:[${campaign.emailTemplates.map(t => t && t.id ? `"${t.id}"` : '')}], ${addUpdatedAtApi(campaign, includeId)}`;
 }

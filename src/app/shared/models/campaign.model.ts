@@ -17,6 +17,7 @@ export class Campaign implements Entity<Campaign>{
   merchantProviderGroupAssociations: MerchantProviderGroupAssociation[] = [];
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -31,6 +32,7 @@ export class Campaign implements Entity<Campaign>{
     this.emailTemplates = [];
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
 
     if (obj.productschedules) {
       this.productSchedules = obj.productschedules.map(p => new ProductSchedule(p));
@@ -69,7 +71,7 @@ export class Campaign implements Entity<Campaign>{
       emailtemplates: this.emailTemplates.map(e => e.inverse()),
       merchantprovidergroup_associations: this.merchantProviderGroupAssociations.map(a => a.inverse()),
       created_at: this.createdAt.clone().format(),
-      updated_at: this.createdAt.clone().format()
+      updated_at: this.updatedAtAPI
     }
   }
 }

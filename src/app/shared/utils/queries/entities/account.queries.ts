@@ -1,5 +1,6 @@
 import {
-  paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery, addId, deleteManyMutationQuery
+  paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery, addId, deleteManyMutationQuery,
+  addUpdatedAtApi
 } from './entities-helper.queries';
 import {Account} from '../../../models/account.model';
 
@@ -49,7 +50,7 @@ export function updateAccountMutation(account: Account): string {
 }
 
 export function accountResponseQuery(): string {
-  return 'id name active created_at updated_at acl{ id pending account {id, name} role {id, name} user {id, name}}';
+  return 'id name active created_at updated_at acl{ id updated_at, created_at, pending account {id, name} role {id, name} user {id, name}}';
 }
 
 export function accountInfoResponseQuery(): string {
@@ -57,5 +58,5 @@ export function accountInfoResponseQuery(): string {
 }
 
 export function accountInputQuery(account: Account, includeId?: boolean): string {
-  return `${addId(account.id, includeId)}, name: "${account.name}", active: ${account.active || 'false'}`;
+  return `${addId(account.id, includeId)}, name: "${account.name}", active: ${account.active || 'false'}, ${addUpdatedAtApi(account, includeId)}`;
 }

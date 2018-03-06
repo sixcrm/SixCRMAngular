@@ -60,6 +60,7 @@ export class NotificationSettings {
   settings: NotificationSettingsData;
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -70,5 +71,6 @@ export class NotificationSettings {
     this.settings = obj.settings ? new NotificationSettingsData(JSON.parse(obj.settings)) : null;
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
   }
 }

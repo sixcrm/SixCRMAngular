@@ -10,6 +10,7 @@ export class Account implements Entity<Account> {
   acls: Acl[];
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -27,6 +28,7 @@ export class Account implements Entity<Account> {
 
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
   }
 
   toggleActive(): void {
@@ -43,7 +45,7 @@ export class Account implements Entity<Account> {
       name: this.name,
       active: this.active,
       created_at: this.createdAt.format(),
-      updated_at: this.updatedAt.format()
+      updated_at: this.updatedAtAPI
     }
   }
 }

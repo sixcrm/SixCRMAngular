@@ -1,6 +1,6 @@
 import {
   fullPaginationStringResponseQuery, listQueryParams, deleteManyMutationQuery,
-  deleteMutationQuery, addId
+  deleteMutationQuery, addId, addUpdatedAtApi
 } from './entities-helper.queries';
 import {Role} from '../../../models/role.model';
 
@@ -76,6 +76,6 @@ export function roleInputQuery(role: Role, includeId?: boolean): string {
   const allowed = role.permissions.allow.reduce((a,b) => `${a}${a?',':''}"${b}"`, '');
   const denied = role.permissions.deny.reduce((a,b) => `${a}${a?',':''}"${b}"`, '');
 
-  return `${addId(role.id, includeId)} name:"${role.name}", active: ${role.active}, permissions: { allow:[${allowed}], deny:[${denied}] }`
+  return `${addId(role.id, includeId)} name:"${role.name}", active: ${role.active}, permissions: { allow:[${allowed}], deny:[${denied}] }, ${addUpdatedAtApi(role, includeId)}`
 }
 

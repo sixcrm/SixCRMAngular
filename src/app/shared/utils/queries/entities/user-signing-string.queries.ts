@@ -1,5 +1,6 @@
 import {
-  paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery, addId, deleteManyMutationQuery
+  paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery, addId, deleteManyMutationQuery,
+  addUpdatedAtApi
 } from './entities-helper.queries';
 import {UserSigningString} from "../../../models/user-signing-string.model";
 
@@ -53,5 +54,5 @@ export function userSigningStringResponseQuery(): string {
 }
 
 export function userSigningStringInputQuery(userSigningString: UserSigningString, includeId?: boolean): string {
-  return `${addId(userSigningString.id, includeId)}, user:"${userSigningString.user}", name:"${userSigningString.name}"`;
+  return `${addId(userSigningString.id, includeId)}, user:"${userSigningString.user}", name:"${userSigningString.name}", ${addUpdatedAtApi(userSigningString, includeId)}`;
 }

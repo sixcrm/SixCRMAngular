@@ -9,6 +9,7 @@ export class UserSigningString implements Entity<UserSigningString> {
   usedAt: Moment;
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -22,6 +23,7 @@ export class UserSigningString implements Entity<UserSigningString> {
     this.usedAt = obj.used_at ? utc(obj.used_at) : null;
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
   }
 
   copy(): UserSigningString {
@@ -36,7 +38,7 @@ export class UserSigningString implements Entity<UserSigningString> {
       signing_string: this.signingString,
       used_at: this.usedAt ? this.usedAt.format() : null,
       created_at: this.createdAt.format(),
-      updated_at: this.updatedAt.format()
+      updated_at: this.updatedAtAPI
     }
   }
 }

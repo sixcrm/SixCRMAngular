@@ -35,6 +35,7 @@ export class UserSettings {
   columnPreferences: string[] = [];
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -57,6 +58,7 @@ export class UserSettings {
 
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
   }
 
   updatePreferencesByColumnParams(columnParams: ColumnParams<any>[]) {
@@ -90,7 +92,7 @@ export class UserSettings {
       notifications: notifications,
       column_preferences: this.columnPreferences,
       created_at: this.createdAt.format(),
-      updated_at: this.createdAt.format(),
+      updated_at: this.updatedAtAPI,
     }
   }
 }

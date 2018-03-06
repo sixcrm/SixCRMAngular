@@ -1,6 +1,6 @@
 import {
   fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery, listQueryParams
+  addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {MerchantProviderGroupAssociation} from '../../../models/merchant-provider-group-association.model';
 
@@ -51,9 +51,9 @@ export function deleteMerchantProviderGroupAssociationssMutation(id: string[]): 
 }
 
 export function merchantProviderGroupAssociationResponseQuery(): string {
-  return `id entity entity_type campaign {id name} merchantprovidergroup {id name}`
+  return `id entity entity_type campaign {id name} merchantprovidergroup {id name} updated_at`
 }
 
 export function merchantProviderGroupAssociationInputQuery(merchantProviderGroupAssociation: MerchantProviderGroupAssociation, includeId?: boolean): string {
-  return `${addId(merchantProviderGroupAssociation.id, includeId)}, entity: "${merchantProviderGroupAssociation.entity}", entity_type: "${merchantProviderGroupAssociation.entityType}", campaign: "${merchantProviderGroupAssociation.campaign.id}", merchantprovidergroup: "${merchantProviderGroupAssociation.merchantProviderGroup.id}"`;
+  return `${addId(merchantProviderGroupAssociation.id, includeId)}, entity: "${merchantProviderGroupAssociation.entity}", entity_type: "${merchantProviderGroupAssociation.entityType}", campaign: "${merchantProviderGroupAssociation.campaign.id}", merchantprovidergroup: "${merchantProviderGroupAssociation.merchantProviderGroup.id}", ${addUpdatedAtApi(merchantProviderGroupAssociation, includeId)}`;
 }

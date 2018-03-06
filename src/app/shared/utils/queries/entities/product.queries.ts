@@ -1,6 +1,6 @@
 import {
   fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, clean, addField, deleteManyMutationQuery, listQueryParams
+  addId, clean, addField, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {Product} from '../../../models/product.model';
 
@@ -91,5 +91,5 @@ export function productInputQuery(p: Product, includeId?: boolean): string {
     attributes = `attributes: { ${dimensions} ${weight} ${images} } `;
   }
 
-  return `${addId(product.id, includeId)} name: "${clean(product.name)}", ${attributes ? attributes : ''} ${product.description ? `description: "${product.description}",` : ''} sku: "${product.sku}", ship: ${!!product.ship} ${product.defaultPrice.amount || product.defaultPrice.amount===0 ? `, default_price:${product.defaultPrice.amount}` : ''} ${product.shippingDelay || product.shippingDelay===0 ? `, shipping_delay:${product.shippingDelay}` : ''} ${product.fulfillmentProvider.id ? `, fulfillment_provider:"${product.fulfillmentProvider.id}"` : ''}`
+  return `${addId(product.id, includeId)} name: "${clean(product.name)}", ${attributes ? attributes : ''} ${product.description ? `description: "${product.description}",` : ''} sku: "${product.sku}", ship: ${!!product.ship} ${product.defaultPrice.amount || product.defaultPrice.amount===0 ? `, default_price:${product.defaultPrice.amount}` : ''} ${product.shippingDelay || product.shippingDelay===0 ? `, shipping_delay:${product.shippingDelay}` : ''} ${product.fulfillmentProvider.id ? `, fulfillment_provider:"${product.fulfillmentProvider.id}"` : ''}, ${addUpdatedAtApi(product, includeId)}`
 }

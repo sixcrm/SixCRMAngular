@@ -1,7 +1,7 @@
 import {MerchantProvider} from '../../../models/merchant-provider/merchant-provider.model';
 import {
   fullPaginationStringResponseQuery, deleteMutationQuery, addId,
-  deleteManyMutationQuery, listQueryParams
+  deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 
 export function merchantProvidersListQuery(limit?:number, cursor?:string, search?: string): string {
@@ -105,7 +105,8 @@ export function merchantProviderInputQuery(provider: MerchantProvider, includeId
       ${provider.customerService.url ? `url: "${provider.customerService.url}",` : ''}
       ${provider.customerService.description ? `description: "${provider.customerService.description.replace(/"/g, '\\"')}",` : ''}
       ${provider.customerService.phone ? `phone: "${provider.customerService.phone}",` : ''}
-    }
+    },
+    ${addUpdatedAtApi(provider, includeId)}
   `;
 }
 

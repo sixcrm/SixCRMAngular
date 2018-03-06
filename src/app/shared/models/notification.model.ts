@@ -13,6 +13,7 @@ export class Notification implements Entity<Notification> {
   readAt: string;
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -30,6 +31,7 @@ export class Notification implements Entity<Notification> {
     this.readAt = obj.read_at || '';
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
   }
 
   copy(): Notification {
@@ -48,7 +50,7 @@ export class Notification implements Entity<Notification> {
       body: this.body,
       readAt: this.readAt,
       createdAt: this.createdAt.format(),
-      updatedAt: this.updatedAt.format()
+      updatedAt: this.updatedAtAPI
     }
   }
 

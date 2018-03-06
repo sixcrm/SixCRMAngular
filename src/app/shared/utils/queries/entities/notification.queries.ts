@@ -1,4 +1,4 @@
-import {paginationParamsQuery, fullPaginationStringResponseQuery} from './entities-helper.queries';
+import {paginationParamsQuery, fullPaginationStringResponseQuery, addUpdatedAtApi} from './entities-helper.queries';
 import {utc} from 'moment';
 import {Notification} from '../../../models/notification.model'
 
@@ -70,5 +70,5 @@ export function notificationsResponseQuery(): string {
 }
 
 export function notificationInputQuery(notification: Notification): string {
-  return `id: "${notification.id}", user: "${notification.user}", account: "${notification.account}", type: "${notification.type}", ${notification.category ? `category: "${notification.category}", ` : ''}action: "${notification.action}", title: "${notification.title}" body: "${notification.body}", read_at: "${utc().format()}"`;
+  return `id: "${notification.id}", user: "${notification.user}", account: "${notification.account}", type: "${notification.type}", ${notification.category ? `category: "${notification.category}", ` : ''}action: "${notification.action}", title: "${notification.title}" body: "${notification.body}", read_at: "${utc().format()}", ${addUpdatedAtApi(notification, true)}`;
 }

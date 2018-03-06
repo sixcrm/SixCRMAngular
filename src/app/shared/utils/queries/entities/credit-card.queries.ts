@@ -1,6 +1,6 @@
 import {
   fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery, listQueryParams
+  addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {CreditCard} from '../../../models/credit-card.model';
 import {getStateCodes, stateCode, countryCode} from '../../address.utils';
@@ -62,5 +62,5 @@ export function creditCardInputQuery(cc: CreditCard, includeId?: boolean): strin
   let zip = cc.address.zip ? `zip:"${cc.address.zip}"` : '';
   let country = cc.address.country ? `country:"${countryCode(cc.address.country)}"` : '';
 
-  return `${addId(cc.id, includeId)} number: "${cc.ccnumber}" ${expiration} ccv: "${cc.ccv}" name: "${cc.name}" address: { ${line1} ${line2} ${city} ${state} ${zip} ${country} }`
+  return `${addId(cc.id, includeId)} number: "${cc.ccnumber}" ${expiration} ccv: "${cc.ccv}" name: "${cc.name}" address: { ${line1} ${line2} ${city} ${state} ${zip} ${country} }, , ${addUpdatedAtApi(cc, includeId)}`
 }

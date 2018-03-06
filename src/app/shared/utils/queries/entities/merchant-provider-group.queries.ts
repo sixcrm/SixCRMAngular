@@ -1,6 +1,6 @@
 import {
   fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery, listQueryParams
+  addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {merchantProviderResponseQuery} from './merchant-provider.queries';
 import {MerchantProviderGroup} from '../../../models/merchant-provider-group.model';
@@ -67,5 +67,5 @@ export function merchantProviderGroupInfoResponseQuery(): string {
 export function merchantProviderGroupInputQuery(merchantProviderGroup: MerchantProviderGroup, includeId?: boolean): string {
   let providers = merchantProviderGroup.merchantProviderConfigurations.reduce((a,b) => `${a} {id: "${b.merchantProvider.id}", distribution: ${+b.distribution}} `, '');
 
-  return `${addId(merchantProviderGroup.id, includeId)}, ${merchantProviderGroup.name ? `name: "${merchantProviderGroup.name}",`: ''} merchantproviders: [${providers}]`;
+  return `${addId(merchantProviderGroup.id, includeId)}, ${merchantProviderGroup.name ? `name: "${merchantProviderGroup.name}",`: ''} merchantproviders: [${providers}], ${addUpdatedAtApi(merchantProviderGroup, includeId)}`;
 }

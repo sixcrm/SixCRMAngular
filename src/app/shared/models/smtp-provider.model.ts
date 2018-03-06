@@ -12,6 +12,7 @@ export class SmtpProvider implements Entity<SmtpProvider> {
   port: string;
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -28,6 +29,7 @@ export class SmtpProvider implements Entity<SmtpProvider> {
     this.port = obj.port || '';
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
   }
 
   copy(): SmtpProvider {
@@ -45,7 +47,7 @@ export class SmtpProvider implements Entity<SmtpProvider> {
       password: this.password,
       port: this.port,
       created_at: this.createdAt.clone().format(),
-      updated_at: this.updatedAt.clone().format()
+      updated_at: this.updatedAtAPI
     }
   }
 }

@@ -8,6 +8,7 @@ export class FulfillmentProvider implements Entity<FulfillmentProvider> {
   provider: FulfillmentproviderData;
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -19,6 +20,7 @@ export class FulfillmentProvider implements Entity<FulfillmentProvider> {
     this.provider = new FulfillmentproviderData(obj.provider);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
   }
 
   copy(): FulfillmentProvider {
@@ -31,7 +33,7 @@ export class FulfillmentProvider implements Entity<FulfillmentProvider> {
       name: this.name,
       provider: this.provider.inverse(),
       created_at: this.createdAt.format(),
-      updated_at: this.updatedAt.format()
+      updated_at: this.updatedAtAPI
     }
   }
 }
