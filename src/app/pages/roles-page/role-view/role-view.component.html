@@ -46,7 +46,6 @@
                       [deleteEnabled]="!isShared && service.hasWritePermission()"
                       [editEnabled]="!isShared && service.hasWritePermission()"
                       [addEnabled]="!isShared && service.hasWritePermission()"
-                      [dedicatedOptions]="true"
                       (deleteEntity)="deleteAllowed($event)"
                       (deleteMultipleEntities)="deleteManyAllowed($event)"
                       (add)="addAllowed($event)"

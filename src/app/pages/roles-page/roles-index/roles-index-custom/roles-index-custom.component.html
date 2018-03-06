@@ -12,7 +12,6 @@
 
       [service]="service"
       [showCopy]="service.hasWritePermission()"
-      [dedicatedOptions]="true"
       (viewClicked)="viewEntity($event.id)"
       (copyClicked)="copyRole($event)"
       (deleteClicked)="deleteEntity($event.id)"

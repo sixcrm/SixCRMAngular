@@ -10,7 +10,6 @@
 
       [service]="service"
       [showCopy]="service.hasWritePermission()"
-      [dedicatedOptions]="true"
       [showDelete]="false"
       (viewClicked)="viewEntity($event.id)"
       (copyClicked)="copyRole($event)"
