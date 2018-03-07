@@ -1,6 +1,6 @@
 <div class="flex-custom">
-  <button *ngIf="dedicatedOptions && showView" md-icon-button (click)="viewClicked.emit(true)"><md-icon>visibility</md-icon></button>
   <button *ngIf="dedicatedOptions && showDelete" md-icon-button (click)="deleteClicked.emit(true)"><md-icon>delete</md-icon></button>
+  <button *ngIf="dedicatedOptions && showView" md-icon-button (click)="viewClicked.emit(true)"><md-icon>arrow_forward</md-icon></button>
   <ng-container *ngIf="!dedicatedOptions || showCopy">
     <button md-icon-button [md-menu-trigger-for]="actionsMenu"><md-icon>more_vert</md-icon></button>
     <md-menu #actionsMenu="mdMenu" x-position="before">
