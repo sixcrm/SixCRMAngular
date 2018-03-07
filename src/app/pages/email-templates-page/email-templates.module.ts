@@ -15,6 +15,8 @@ import { EmailTemplateAddNewComponent } from './email-template-view/email-templa
 import {TranslationModule} from '../../translation/translation.module';
 import { EmailTemplatesSharedComponent } from './email-templates-index/email-templates-shared/email-templates-shared.component';
 import { EmailTemplatesCustomComponent } from './email-templates-index/email-templates-custom/email-templates-custom.component';
+import { SharedListComponent } from './email-template-view/shared-list/shared-list.component';
+import { FilterTemplatesByTypePipe } from './filter-templates-by-type.pipe';
 
 @NgModule({
   imports : [
@@ -34,7 +36,9 @@ import { EmailTemplatesCustomComponent } from './email-templates-index/email-tem
     FilterTokensTypePipe,
     EmailTemplateAddNewComponent,
     EmailTemplatesSharedComponent,
-    EmailTemplatesCustomComponent
+    EmailTemplatesCustomComponent,
+    SharedListComponent,
+    FilterTemplatesByTypePipe
   ],
   providers: [
     EmailTemplatesAclGuard

@@ -54,7 +54,7 @@
     </tr>
     </thead>
 
-    <tbody [class.density--s]="density === 0"  [class.density--l]="density === 2"[class.density--m]="density !== 0 && density !==2">
+    <tbody [class.density--s]="density === 0"  [class.density--l]="density === 2" [class.density--m]="density !== 0 && density !==2">
     <ng-container *ngFor="let entity of (data | filterEntitiesByParams: columnParams: filterString | sortEntities: sortParams.mappingFunction: sortParams.sortOrder)">
       <tr [class.selected]="entity.bulkSelected">
         <td class="bulk-option">

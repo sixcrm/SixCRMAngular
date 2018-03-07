@@ -1187,6 +1187,10 @@
       "type": "Event Type",
       "search": "Search"
     },
+    "shared": {
+      "title": "Managed Email Templates",
+      "subtitle": "Copy body of managed email template"
+    },
     "preview": {
       "title": "Email Template Preview",
       "subtitle": "preview how the template will look in an email"

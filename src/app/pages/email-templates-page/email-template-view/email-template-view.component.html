@@ -25,13 +25,17 @@
                                 [mode]="viewMode ? modes.View : modes.Update"
                                 [tokenSubject]="addTokenSubject"
                                 [editorRefreshSubject]="editorRefreshSubject"
+                                [editorBodySubject]="editorBodySubject"
                                 [editEnabled]="!isShared"
                                 (cancel)="cancelEdit()"
                                 (changeMode)="setMode($event)"
                                 (save)="updateEntity($event)">
         </email-template-add-new>
 
-        <token-list [style.display]="viewMode ? 'none' : 'inline-block'" (tokenSelected)="addToken($event)" class="entity-view__card"></token-list>
+        <div class="helper-container">
+          <shared-list [style.display]="viewMode ? 'none' : 'inline-block'" (templateSelected)="copyTemplateBody($event)" class="entity-view__card"></shared-list>
+          <token-list [style.display]="viewMode ? 'none' : 'inline-block'" (tokenSelected)="addToken($event)" class="entity-view__card"></token-list>
+        </div>
       </div>
 
     </md-tab>

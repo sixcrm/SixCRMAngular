@@ -1187,6 +1187,10 @@
       "type": "事件类型",
       "search": "搜索"
     },
+    "shared": {
+      "title": "Managed Email Templates",
+      "subtitle": "Copy body of managed email template"
+    },
     "preview": {
       "title": "电子邮件模板预览",
       "subtitle": "预览电子邮件模板"

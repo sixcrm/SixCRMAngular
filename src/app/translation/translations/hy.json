@@ -1187,6 +1187,10 @@
 			"type": "Անգամ տեսակը",
 			"search": "Որոնում"
 		},
+    "shared": {
+      "title": "Managed Email Templates",
+      "subtitle": "Copy body of managed email template"
+    },
 		"preview": {
 			"title": "Էլ. նամակի ձևանմուշի նախատեսք",
 			"subtitle": "նախատեսք, թե ինչպես պետք է լինի ձևանմուշի տեսքը էլ. նամակում"

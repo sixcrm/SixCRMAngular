@@ -1,12 +1,10 @@
-import {Component, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {EmailTemplate} from '../../../shared/models/email-template.model';
 import {EmailTemplatesService} from '../../../shared/services/email-templates.service';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
-import {SmtpProvider} from '../../../shared/models/smtp-provider.model';
 import {SmtpProvidersService} from '../../../shared/services/smtp-providers.service';
-import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Token} from './token-list/token-list.component';
 import {Subject} from 'rxjs';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
@@ -25,6 +23,7 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
   selectedIndex: number = 0;
   addTokenSubject: Subject<Token> = new Subject();
   editorRefreshSubject: Subject<boolean> = new Subject();
+  editorBodySubject: Subject<string> = new Subject();
 
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'EMAILTEMPLATE_TAB_GENERAL'},
@@ -76,12 +75,19 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
   cancelEdit(): void {
     this.setMode(this.modes.View);
     this.entity = this.entityBackup.copy();
+    this.editorRefreshSubject.next(true);
   }
 
   addToken(token: Token) {
     if (this.viewMode) return;
 
     this.addTokenSubject.next(token);
+  }
+
+  copyTemplateBody(template: EmailTemplate) {
+    this.entity.body = template.body;
+
+    this.editorBodySubject.next(template.body);
   }
 
 }

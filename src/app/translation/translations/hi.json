@@ -1181,6 +1181,10 @@
       "save": "बचाना",
       "viewsmtpprovider": "View SMTP Provider"
     },
+    "shared": {
+      "title": "Managed Email Templates",
+      "subtitle": "Copy body of managed email template"
+    },
     "token": {
       "title": "टोकन",
       "subtitle": "अपने ईमेल टेम्पलेट में जोड़ने के लिए निम्नलिखित टोकन में से कोई भी चुनें",
