@@ -1,0 +1,42 @@
+<div class="tag-container">
+  <md-icon class="toggler" (click)="openTags()">label</md-icon>
+
+  <div class="tag-modal" *ngIf="showTags">
+
+    <div class="title">Tags</div>
+
+    <md-icon class="add" (click)="addTag()">add</md-icon>
+
+    <div class="items">
+      <div class="column">
+        <div class="header">Key</div>
+        <div class="value" *ngFor="let entity of entities">
+          {{entity.key}}
+        </div>
+
+        <md-input-container *ngIf="addTagMode" [class.error]="tagInvalid">
+          <input autoFocus md-input type="text" placeholder="Key" [(ngModel)]="tag.key">
+        </md-input-container>
+
+      </div>
+
+      <div class="column">
+        <div class="header">Value</div>
+        <div class="value" *ngFor="let entity of entities">
+          <span>{{entity.value}}</span>
+          <md-icon (click)="deleteEntity(entity.id)">delete</md-icon>
+        </div>
+
+        <md-input-container *ngIf="addTagMode" [class.error]="tagInvalid">
+          <input md-input type="text" placeholder="Value" [(ngModel)]="tag.value">
+        </md-input-container>
+      </div>
+    </div>
+
+    <div class="buttons" *ngIf="addTagMode">
+      <div (click)="cancelSaveTag()">CANCEL</div>
+      <div (click)="saveTag()">SAVE</div>
+    </div>
+  </div>
+</div>
+

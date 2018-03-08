@@ -1,0 +1,90 @@
+.tag-container {
+  color: #4A4A4A;
+  position: relative;
+}
+
+.tag-modal {
+  z-index: 5;
+  position: absolute;
+  right: 100%;
+  top: 12px;
+  background: white;
+  padding: 10px 0 10px 20px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+
+  .add {
+    color: white;
+    background: #4A90E2;
+    border-radius: 50%;
+    right: 14px;
+    margin: -5px 0 0 0;
+    position: relative;
+    height: 20px;
+    width: 20px;
+    font-size: 20px;
+  }
+
+  .items {
+    display: flex;
+
+    md-icon {
+      margin-left: auto;
+      font-size: 18px;
+      height: 18px;
+      width: 18px;
+    }
+  }
+
+  .column {
+    min-width: 100px;
+    padding-right: 20px;
+
+    .header {
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.38);
+      margin-bottom: 10px;
+    }
+
+    .value {
+      display: flex;
+      line-height: 18px;
+      height: 18px;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    div {
+      white-space: nowrap;
+    }
+  }
+}
+
+md-icon {
+  cursor: pointer;
+  color: rgba(0,0,0,0.6)
+}
+
+.buttons {
+  margin-top: 10px;
+  margin-right: 20px;
+  display: flex;
+
+  div {
+    font-size: 12px;
+    cursor: pointer;
+
+    &:first-of-type {
+      margin-left: auto;
+      margin-right: 5px;
+    }
+
+    &:last-of-type {
+      color: #5B9BE1;
+    }
+  }
+}
+
+md-input-container {
+  margin-top: 6px;
+  font-size: 14px;
+}

@@ -93,6 +93,7 @@ import {RolesSharedService} from './services/roles-shared.service';
 import { MultiselectComponent } from './components/multiselect/multiselect.component';
 import {EmailTemplatesSharedService} from './services/email-templates-shared.service';
 import { CurrencyInputDirective } from './directives/currency-input.directive';
+import {TagsService} from './services/tags.service';
 
 @NgModule({
   declarations : [
@@ -239,7 +240,8 @@ export class SharedModule {
         UserSigningStringsService,
         ShippingReceiptsService,
         ImagesService,
-        MerchantProviderGroupAssociationsService
+        MerchantProviderGroupAssociationsService,
+        TagsService
       ]
     };
   }

@@ -3,3 +3,17 @@
     flex-basis: 100%;
   }
 }
+
+.actions {
+  margin: auto 60px auto auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.entity-view__info__edit {
+  margin: 0;
+}
+
+entity-view-tag {
+  margin: 15px 0 0 auto;
+}

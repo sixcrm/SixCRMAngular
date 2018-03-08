@@ -20,6 +20,7 @@ import {TextMaskModule} from 'angular2-text-mask';
 import { EntityViewBreadcrumbsComponent } from './entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 import {RouterModule} from '@angular/router';
 import { EntityViewGalleryComponent } from './entity-view-gallery/entity-view-gallery.component';
+import { EntityViewTagComponent } from './entity-view-tag/entity-view-tag.component';
 
 @NgModule({
   imports : [
@@ -45,7 +46,8 @@ import { EntityViewGalleryComponent } from './entity-view-gallery/entity-view-ga
     TableAdvancedBulkComponent,
     TableDensityComponent,
     EntityViewBreadcrumbsComponent,
-    EntityViewGalleryComponent
+    EntityViewGalleryComponent,
+    EntityViewTagComponent
   ],
   exports : [
     TableActionsComponent,
@@ -57,7 +59,8 @@ import { EntityViewGalleryComponent } from './entity-view-gallery/entity-view-ga
     TablePreferencesComponent,
     TableAdvancedComponent,
     EntityViewBreadcrumbsComponent,
-    EntityViewGalleryComponent
+    EntityViewGalleryComponent,
+    EntityViewTagComponent
   ],
   providers: [
 

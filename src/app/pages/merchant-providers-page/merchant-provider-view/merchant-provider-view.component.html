@@ -21,16 +21,20 @@
           </ng-template>
         </div>
       </div>
-      <div class="entity-view__info__edit">
-        <div *ngIf="viewMode; else editActions" class="entity-view__info__edit__update" (click)="setMode(modes.Update)">{{'MERCHANTPROVIDER_INFO_EDIT' | translate}}</div>
+      <div class="actions">
+        <div class="entity-view__info__edit">
+          <div *ngIf="viewMode; else editActions" class="entity-view__info__edit__update" (click)="setMode(modes.Update)">{{'MERCHANTPROVIDER_INFO_EDIT' | translate}}</div>
 
-        <ng-template #editActions>
-          <div *ngIf="addMode; else editActionsEdit" class="entity-view__info__edit__update" (click)="saveProvider(inputForm.form.valid)">{{'MERCHANTPROVIDER_INFO_SAVE' | translate}}</div>
-          <ng-template #editActionsEdit>
-            <div (click)="cancelEdit()">{{'MERCHANTPROVIDER_INFO_CANCEL' | translate}}</div>
-            <div class="entity-view__info__edit__update" (click)="saveProvider(entity)">{{'MERCHANTPROVIDER_INFO_UPDATE' | translate}}</div>
+          <ng-template #editActions>
+            <div *ngIf="addMode; else editActionsEdit" class="entity-view__info__edit__update" (click)="saveProvider(inputForm.form.valid)">{{'MERCHANTPROVIDER_INFO_SAVE' | translate}}</div>
+            <ng-template #editActionsEdit>
+              <div (click)="cancelEdit()">{{'MERCHANTPROVIDER_INFO_CANCEL' | translate}}</div>
+              <div class="entity-view__info__edit__update" (click)="saveProvider(entity)">{{'MERCHANTPROVIDER_INFO_UPDATE' | translate}}</div>
+            </ng-template>
           </ng-template>
-        </ng-template>
+        </div>
+
+        <entity-view-tag [entityId]="entityId"></entity-view-tag>
       </div>
     </form>
 
