@@ -50,7 +50,7 @@ export function updateProductMutation(product: Product): string {
 }
 
 export function productResponseQuery(): string {
-  return `id, name, description, sku, ship, shipping_delay, default_price, fulfillment_provider { id, name, provider { name } }, attributes { weight { units, unitofmeasurement }, dimensions { width { units, unitofmeasurement }, height { units, unitofmeasurement }, length { units, unitofmeasurement } }, images { path, default_image, dimensions { width, height}, name, description, format } }, created_at, updated_at`
+  return `id, name, description, sku, ship, shipping_delay, default_price, dynamic_pricing {min, max}, fulfillment_provider { id, name, provider { name } }, attributes { weight { units, unitofmeasurement }, dimensions { width { units, unitofmeasurement }, height { units, unitofmeasurement }, length { units, unitofmeasurement } }, images { path, default_image, dimensions { width, height}, name, description, format } }, created_at, updated_at`
 }
 
 export function productInputQuery(p: Product, includeId?: boolean): string {
@@ -91,5 +91,10 @@ export function productInputQuery(p: Product, includeId?: boolean): string {
     attributes = `attributes: { ${dimensions} ${weight} ${images} } `;
   }
 
-  return `${addId(product.id, includeId)} name: "${clean(product.name)}", ${attributes ? attributes : ''} ${product.description ? `description: "${product.description}",` : ''} sku: "${product.sku}", ship: ${!!product.ship} ${product.defaultPrice.amount || product.defaultPrice.amount===0 ? `, default_price:${product.defaultPrice.amount}` : ''} ${product.shippingDelay || product.shippingDelay===0 ? `, shipping_delay:${product.shippingDelay}` : ''} ${product.fulfillmentProvider.id ? `, fulfillment_provider:"${product.fulfillmentProvider.id}"` : ''}, ${addUpdatedAtApi(product, includeId)}`
+  let dynamic = '';
+  if (product.dynamicPrice.enabled) {
+    dynamic = `dynamic_pricing: { min:${product.dynamicPrice.min.amount}, max:${product.dynamicPrice.max.amount} }`
+  }
+
+  return `${addId(product.id, includeId)} name: "${clean(product.name)}", ${dynamic}, ${attributes ? attributes : ''} ${product.description ? `description: "${product.description}",` : ''} sku: "${product.sku}", ship: ${!!product.ship} ${product.defaultPrice.amount || product.defaultPrice.amount===0 ? `, default_price:${product.defaultPrice.amount}` : ''} ${product.shippingDelay || product.shippingDelay===0 ? `, shipping_delay:${product.shippingDelay}` : ''} ${product.fulfillmentProvider.id ? `, fulfillment_provider:"${product.fulfillmentProvider.id}"` : ''}, ${addUpdatedAtApi(product, includeId)}`
 }

@@ -43,6 +43,12 @@ export class ProductAddNewComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
+  toggleDynamic() {
+    this.entity.dynamicPrice.enabled = !this.entity.dynamicPrice.enabled;
+    this.entity.dynamicPrice.min = new Currency(0);
+    this.entity.dynamicPrice.max = new Currency(0);
+  }
+
   toggleShip() {
     this.entity.ship = !this.entity.ship;
     this.entity.shippingDelay = 0;
@@ -53,11 +59,17 @@ export class ProductAddNewComponent implements OnInit, OnDestroy {
   }
 
   saveProduct(valid: boolean): void {
-    this.formInvalid = !valid || (this.entity.ship && (!this.entity.fulfillmentProvider || !this.entity.fulfillmentProvider.id));
+    this.formInvalid = !valid || (this.entity.ship && (!this.entity.fulfillmentProvider || !this.entity.fulfillmentProvider.id)) || this.dynamicInvalid();
 
     if (this.formInvalid) return;
 
     this.save.emit(this.entity);
+  }
+
+  dynamicInvalid(): boolean {
+    if (!this.entity.dynamicPrice.enabled) return false;
+
+    return this.entity.dynamicPrice.min.amount > this.entity.dynamicPrice.max.amount;
   }
 
   cancelUpdate(): void {

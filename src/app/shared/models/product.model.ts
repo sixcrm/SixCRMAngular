@@ -4,6 +4,7 @@ import {Currency} from '../utils/currency/currency';
 import {ProductAttributes} from './product-attributes.model';
 import {Moment, utc} from 'moment';
 import {SixImage} from './six-image.model';
+import {ProductDynamicPricing} from './product-dynamic-pricing.model';
 
 export class Product implements Entity<Product> {
   id: string;
@@ -18,6 +19,7 @@ export class Product implements Entity<Product> {
   createdAt: Moment;
   updatedAt: Moment;
   updatedAtAPI: string;
+  dynamicPrice: ProductDynamicPricing;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -36,6 +38,7 @@ export class Product implements Entity<Product> {
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
     this.updatedAtAPI = obj.updated_at;
+    this.dynamicPrice = new ProductDynamicPricing(obj.dynamic_pricing);
   }
 
   getDefaultImage(): SixImage {
@@ -72,7 +75,8 @@ export class Product implements Entity<Product> {
       attributes: this.attributes.inverse(),
       fulfillment_provider: this.fulfillmentProvider.inverse(),
       created_at: this.createdAt.format(),
-      updated_at: this.updatedAtAPI
+      updated_at: this.updatedAtAPI,
+      dynamic_pricing: this.dynamicPrice.enabled ? this.dynamicPrice.inverse() : null
     }
   }
 }
