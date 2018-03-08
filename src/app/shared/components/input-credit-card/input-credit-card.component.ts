@@ -7,7 +7,6 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 })
 export class InputCreditCardComponent implements OnInit {
 
-  changed: boolean = false;
   inputValue: string;
 
   @Input() set value(value: string) {
@@ -20,16 +19,9 @@ export class InputCreditCardComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   change(value) {
-    if (!this.changed) {
-      this.result.emit(value.length === 1 ? value : '');
-      this.changed = true;
-      return;
-    }
-
     this.result.emit(value);
   }
 

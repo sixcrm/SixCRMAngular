@@ -3,7 +3,7 @@ import {
   addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {CreditCard} from '../../../models/credit-card.model';
-import {getStateCodes, stateCode, countryCode} from '../../address.utils';
+import {stateCode, countryCode} from '../../address.utils';
 
 export function creditCardsListQuery(limit?:number, cursor?:string, search?: string): string {
   return `{
@@ -41,9 +41,24 @@ export function createCreditCardMutation(cc: CreditCard): string {
 }
 
 export function updateCreditCardMutation(cc: CreditCard): string {
+  if (cc.ccnumber.indexOf('*') !== -1) {
+    const copy = cc.copy();
+    delete copy.ccnumber;
+    return updateCreditCardPartialMutation(copy);
+  }
+
   return `
     mutation {
 		  updatecreditcard (creditcard: { ${creditCardInputQuery(cc, true)} }) {
+        ${creditCardResponseQuery()}
+      }
+	  }`
+}
+
+export function updateCreditCardPartialMutation(cc: CreditCard): string {
+  return `
+    mutation {
+		  updatecreditcardpartial (id: "${cc.id}", creditcard: { ${creditCardInputQuery(cc)} }) {
         ${creditCardResponseQuery()}
       }
 	  }`
@@ -61,6 +76,8 @@ export function creditCardInputQuery(cc: CreditCard, includeId?: boolean): strin
   let state = cc.address.state ? `state:"${stateCode(cc.address.state)}"` : '';
   let zip = cc.address.zip ? `zip:"${cc.address.zip}"` : '';
   let country = cc.address.country ? `country:"${countryCode(cc.address.country)}"` : '';
+  let number = cc.ccnumber ? ` number:"${cc.ccnumber}"` : '';
+  let ccv = cc.ccv ? ` ccv:"${cc.ccv}"` : '';
 
-  return `${addId(cc.id, includeId)} number: "${cc.ccnumber}" ${expiration} ccv: "${cc.ccv}" name: "${cc.name}" address: { ${line1} ${line2} ${city} ${state} ${zip} ${country} }, , ${addUpdatedAtApi(cc, includeId)}`
+  return `${addId(cc.id, includeId)} ${number} ${expiration} ${ccv} name: "${cc.name}" address: { ${line1} ${line2} ${city} ${state} ${zip} ${country} }, , ${addUpdatedAtApi(cc, includeId)}`
 }
