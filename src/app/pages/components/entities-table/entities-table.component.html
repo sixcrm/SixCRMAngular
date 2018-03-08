@@ -19,9 +19,9 @@
   </div>
 
   <div class="entity-index__options">
-    <filter-input style="margin-left: auto" (valueChanged)="filterChanged.emit($event)"></filter-input>
+    <filter-input style="margin-left: 85px" (valueChanged)="filterChanged.emit($event)"></filter-input>
     <search-input (onSearch)="searchChanged.emit($event)"></search-input>
-    <table-density [density]="density" (densityChanged)="density = $event"></table-density>
+    <table-density style="margin-left: auto" [density]="density" (densityChanged)="density = $event"></table-density>
     <table-preferences class="entity-index__preferences" [columnParams]="columnParams"></table-preferences>
     <table-pagination
       class="entity-index__pagination--no-margin"
