@@ -20,8 +20,16 @@
       "order": "订单报告",
       "summary": "总结报告",
       "transaction": "交易报告",
-      "merchant": "招商报告",
-      "affiliate": "关联公司报告",
+      "cycle": {
+        "title": "Cycle Reports",
+        "daytoday": "Day-to-Day Report",
+        "cycle": "Cycle Report"
+      },
+      "traffic": {
+        "title": "Traffic Reports",
+        "merchant": "招商报告",
+        "affiliate": "关联公司报告"
+      },
       "fulfillment": "履行报告",
       "retention": "保留",
       "projection": "投影"

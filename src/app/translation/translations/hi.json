@@ -20,8 +20,16 @@
       "order": "आदेश रिपोर्ट",
       "summary": "सारांश रिपोर्ट",
       "transaction":"लेन-देन रिपोर्ट",
-      "merchant":"व्यापारी की रिपोर्ट",
-      "affiliate":" संबद्ध रिपोर्ट ",
+      "cycle": {
+        "title": "Cycle Reports",
+        "daytoday": "Day-to-Day Report",
+        "cycle": "Cycle Report"
+      },
+      "traffic": {
+        "title": "Traffic reports",
+        "merchant":"व्यापारी की रिपोर्ट",
+        "affiliate":" संबद्ध रिपोर्ट "
+      },
       "fulfillment":" पूर्ति की रिपोर्ट ",
       "retention":"प्रतिधारण",
       "projection": "अनुमान"

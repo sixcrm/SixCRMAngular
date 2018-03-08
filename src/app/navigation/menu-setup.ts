@@ -56,12 +56,6 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   if (authService.hasPermissions('analytics', 'getTransactions')) {
     reportItems.push(new MenuItem('SIDENAV_REPORTS_TRANSACTION', 'reports/transaction'));
   }
-  if (authService.hasPermissions('analytics', 'getMerchants')) {
-    reportItems.push(new MenuItem('SIDENAV_REPORTS_MERCHANT', 'reports/merchant'));
-  }
-  if (authService.hasPermissions('analytics', 'getAffiliates')) {
-    reportItems.push(new MenuItem('SIDENAV_REPORTS_AFFILIATE', 'reports/affiliate'));
-  }
   if (authService.hasPermissions('analytics', 'getFullfillment')) {
     reportItems.push(new MenuItem('SIDENAV_REPORTS_FULFILLMENT', 'reports/fulfillment'));
   }
@@ -71,6 +65,29 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   if (authService.hasPermissions('analytics', 'getProjections')) {
     reportItems.push(new MenuItem('SIDENAV_REPORTS_PROJECTION', 'reports/projection'));
   }
+
+  let cycle: MenuItem[] = [];
+  if (authService.hasPermissions('analytics', 'getDayToDay')) {
+    cycle.push(new MenuItem('SIDENAV_REPORTS_CYCLE_DAYTODAY', 'reports/daytoday'))
+  }
+  if (authService.hasPermissions('analytics', 'getCycleReport')) {
+    cycle.push(new MenuItem('SIDENAV_REPORTS_CYCLE_CYCLE', 'reports/cycle'))
+  }
+  if (cycle.length > 0) {
+    reportItems.push(new MenuItem('SIDENAV_REPORTS_CYCLE_TITLE', null, cycle));
+  }
+
+  let traffic: MenuItem[] = [];
+  if (authService.hasPermissions('analytics', 'getAffiliates')) {
+    traffic.push(new MenuItem('SIDENAV_REPORTS_TRAFFIC_AFFILIATE', 'reports/affiliate'));
+  }
+  if (authService.hasPermissions('analytics', 'getMerchants')) {
+    traffic.push(new MenuItem('SIDENAV_REPORTS_TRAFFIC_MERCHANT', 'reports/merchant'));
+  }
+  if (traffic.length > 0) {
+    reportItems.push(new MenuItem('SIDENAV_REPORTS_TRAFFIC_TITLE', null, traffic));
+  }
+
   if (reportItems.length > 0) {
     items.push(new MenuItem('SIDENAV_REPORTS_TITLE', null, reportItems).setIcon('library_books'));
   }

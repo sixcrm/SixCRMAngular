@@ -16,6 +16,8 @@ export const reportsRouting = RouterModule.forChild([
   {path : 'subaffiliate', component : SubaffiliateReportComponent, canActivate: [AnalyticsAclGuard]},
   {path : 'fulfillment', component : ComingSoonComponent, canActivate: [AnalyticsAclGuard]},
   {path : 'retention', component : ComingSoonComponent, canActivate: [AnalyticsAclGuard]},
-  {path : 'projection', component : ComingSoonComponent, canActivate: [AnalyticsAclGuard]}
+  {path : 'projection', component : ComingSoonComponent, canActivate: [AnalyticsAclGuard]},
+  {path : 'daytoday', component : ComingSoonComponent, canActivate: [AnalyticsAclGuard]},
+  {path : 'cycle', component : ComingSoonComponent, canActivate: [AnalyticsAclGuard]}
 ]);
 

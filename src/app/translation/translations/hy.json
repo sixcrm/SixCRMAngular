@@ -20,8 +20,16 @@
 			"order": "Պատվերի զեկույց",
 			"summary": "Ամփոփ զեկույց",
 			"transaction": "Գործարքների զեկույց",
-			"merchant": "Վաճառողների զեկույց",
-			"affiliate": "Գործընկերների զեկույց",
+      "cycle": {
+        "title": "Cycle Reports",
+        "daytoday": "Day-to-Day Report",
+        "cycle": "Cycle Report"
+      },
+      "traffic": {
+        "title": "Traffic Reports",
+        "merchant": "Վաճառողների զեկույց",
+        "affiliate": "Գործընկերների զեկույց"
+      },
 			"fulfillment": "Մատակարարի զեկույց",
 			"retention": "Պահում",
 			"projection": "Կանխատեսումներ"
