@@ -59,7 +59,7 @@ export class ProductAddNewComponent implements OnInit, OnDestroy {
   }
 
   saveProduct(valid: boolean): void {
-    this.formInvalid = !valid || (this.entity.ship && (!this.entity.fulfillmentProvider || !this.entity.fulfillmentProvider.id)) || this.dynamicInvalid();
+    this.formInvalid = !valid || (this.entity.ship && (!this.entity.fulfillmentProvider || !this.entity.fulfillmentProvider.id)) || this.dynamicInvalid() || this.defaultInvalid();
 
     if (this.formInvalid) return;
 
@@ -70,6 +70,13 @@ export class ProductAddNewComponent implements OnInit, OnDestroy {
     if (!this.entity.dynamicPrice.enabled) return false;
 
     return this.entity.dynamicPrice.min.amount > this.entity.dynamicPrice.max.amount;
+  }
+
+  defaultInvalid(): boolean {
+    if (!this.entity.dynamicPrice.enabled) return false;
+
+    return this.entity.defaultPrice.amount < this.entity.dynamicPrice.min.amount
+      || this.entity.defaultPrice.amount  > this.entity.dynamicPrice.max.amount;
   }
 
   cancelUpdate(): void {

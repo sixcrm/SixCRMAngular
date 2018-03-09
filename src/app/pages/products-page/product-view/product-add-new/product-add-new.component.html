@@ -28,20 +28,20 @@
       </div>
 
       <div style="margin-top: 15px;" class="product-view__group">
-        <md-input-container class="entity-view__card__content__item">
+        <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && defaultInvalid()">
           <input md-input currencyInput [initPrice]="entity.defaultPrice" (priceChanged)="priceUpdated($event)" [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_DEFAULTPRICE' | translate}}" name="defaultPrice" (keydown)="isCurrency($event)" type="text">
         </md-input-container>
 
-        <md-checkbox style="font-size: 14px;" [disabled]="mode === view" [checked]="entity.dynamicPrice.enabled" (change)="toggleDynamic()">{{'PRODUCT_INFO_DYNAMICPRICE' | translate}}</md-checkbox>
+        <md-checkbox class="dynamic-checkbox" [disabled]="mode === view" [checked]="entity.dynamicPrice.enabled" (change)="toggleDynamic()">{{'PRODUCT_INFO_DYNAMICPRICE' | translate}}</md-checkbox>
       </div>
 
-      <div style="margin-top: 15px;" class="product-view__group">
+      <div *ngIf="entity.dynamicPrice.enabled" style="margin-top: 15px;" class="product-view__group">
         <md-input-container [class.error]="formInvalid && dynamicInvalid()" class="entity-view__card__content__item">
-          <input md-input currencyInput [initPrice]="entity.dynamicPrice.min" (priceChanged)="entity.dynamicPrice.min = $event" [disabled]="mode === view || !entity.dynamicPrice.enabled" placeholder="{{'PRODUCT_INFO_MINPRICE' | translate}}" name="defaultPrice" (keydown)="isCurrency($event)" type="text">
+          <input md-input currencyInput autoFocus [initPrice]="entity.dynamicPrice.min" (priceChanged)="entity.dynamicPrice.min = $event" placeholder="{{'PRODUCT_INFO_MINPRICE' | translate}}" name="defaultPrice" (keydown)="isCurrency($event)" type="text">
         </md-input-container>
 
         <md-input-container [class.error]="formInvalid && dynamicInvalid()" class="entity-view__card__content__item">
-          <input md-input currencyInput [initPrice]="entity.dynamicPrice.max" (priceChanged)="entity.dynamicPrice.max = $event" [disabled]="mode === view || !entity.dynamicPrice.enabled" placeholder="{{'PRODUCT_INFO_MAXPRICE' | translate}}" name="defaultPrice" (keydown)="isCurrency($event)" type="text">
+          <input md-input currencyInput [initPrice]="entity.dynamicPrice.max" (priceChanged)="entity.dynamicPrice.max = $event" placeholder="{{'PRODUCT_INFO_MAXPRICE' | translate}}" name="defaultPrice" (keydown)="isCurrency($event)" type="text">
         </md-input-container>
       </div>
 
