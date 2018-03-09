@@ -10,6 +10,7 @@ import {MerchantProviderAddNewComponent} from './merchant-provider-add-new/merch
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {TagsService} from '../../../shared/services/tags.service';
 
 @Component({
   selector: 'merchant-provider-view',
@@ -49,7 +50,8 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
     service: MerchantProvidersService,
     route: ActivatedRoute,
     public navigation: NavigationService,
-    private router: Router
+    private router: Router,
+    public tagsService: TagsService
   ) {
     super(service, route);
   }

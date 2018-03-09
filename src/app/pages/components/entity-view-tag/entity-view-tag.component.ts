@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, OnDestroy, ElementRef} from '@angular/core';
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import {TagsService} from '../../../shared/services/tags.service';
 import {MdDialog} from '@angular/material';
 import {AuthenticationService} from '../../../authentication/authentication.service';
@@ -7,22 +7,29 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {tagsByEntityQuery, tagsListQuery} from '../../../shared/utils/queries/entities/tag.queries';
 import {Tag} from '../../../shared/models/tag.model';
+import {TableMemoryTextOptions} from '../table-memory/table-memory.component';
+import {ColumnParams, ColumnParamsInputType} from '../../../shared/models/column-params.model';
 
 @Component({
   selector: 'entity-view-tag',
   templateUrl: './entity-view-tag.component.html',
-  styleUrls: ['./entity-view-tag.component.scss'],
-  host: {'(document:click)': 'closeDropdown($event)'}
+  styleUrls: ['./entity-view-tag.component.scss']
 })
 export class EntityViewTagComponent extends AbstractEntityIndexComponent<Tag> implements OnInit, OnDestroy {
 
   @Input() entityId: string;
 
   showTags: boolean;
-  addTagMode: boolean;
 
-  tag: Tag;
-  tagInvalid: boolean;
+  tagParams: ColumnParams<Tag>[] = [];
+  tagTextOptions: TableMemoryTextOptions = {
+    title: 'SINGLEPAGE_TAG_TABLETITLE',
+    noDataText: 'SINGLEPAGE_TAG_NODATA',
+    disassociateOptionText: 'SINGLEPAGE_TAG_DELETE',
+    editOptionText: 'SINGLEPAGE_TAG_EDIT'
+  };
+
+  tagFactory = () => new Tag();
 
   constructor(
     service: TagsService,
@@ -30,8 +37,7 @@ export class EntityViewTagComponent extends AbstractEntityIndexComponent<Tag> im
     dialog: MdDialog,
     paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute,
-    private elementRef: ElementRef
+    activatedRoute: ActivatedRoute
   ) {
     super(service, auth, dialog, paginationService, router, activatedRoute);
   }
@@ -39,6 +45,27 @@ export class EntityViewTagComponent extends AbstractEntityIndexComponent<Tag> im
   ngOnInit() {
     this.viewAfterCrate = false;
     this.service.indexQuery = (limit: number, cursor: string, search: string) => tagsByEntityQuery(this.entityId, limit, cursor, search);
+
+    this.tagParams = [
+      new ColumnParams<Tag>('SINGLEPAGE_TAG_KEY')
+        .setMappingFunction((e: Tag) => e.key)
+        .setAssigningFunction((e: Tag, value: string) => {
+          e.key = value;
+          return e;
+        })
+        .setValidator((e: Tag) => !!e.key)
+        .setInputType(ColumnParamsInputType.STRING)
+        .setAutofocus(true),
+      new ColumnParams<Tag>('SINGLEPAGE_TAG_VALUE')
+        .setMappingFunction((e: Tag) => e.value)
+        .setAssigningFunction((e: Tag, value: string) => {
+          e.value = value;
+          return e;
+        })
+        .setValidator((e: Tag) => !!e.value)
+        .setInputType(ColumnParamsInputType.STRING)
+        .setAutofocus(true)
+    ];
 
     this.init();
   }
@@ -49,45 +76,32 @@ export class EntityViewTagComponent extends AbstractEntityIndexComponent<Tag> im
     this.destroy();
   }
 
-  toggleTags() {
-    this.showTags = !this.showTags;
-
-    if (!this.showTags) {
-      this.addTagMode = false;
+  overlayClicked(event: any): void {
+    if (event && event.target && event.target.className === 'tag-modal-container') {
+      this.showTags = false;
+      this.entities = this.entities.map(e => e.copy());
     }
   }
 
   openTags() {
-    setTimeout(() => this.toggleTags(), 50);
+    this.showTags = true;
   }
 
-  addTag() {
-    this.tag = new Tag();
-    this.addTagMode = true;
+  addTag(tag: Tag) {
+    tag.entity = this.entityId;
+
+    this.service.createEntity(tag);
   }
 
-  cancelSaveTag() {
-    setTimeout(() => {
-      this.addTagMode = false;
-      this.tagInvalid = false;
-    }, 50);
+  updateTag(tag: Tag) {
+    this.service.updateEntity(tag);
   }
 
-  saveTag() {
-    this.tagInvalid = !this.tag.key || !this.tag.value;
-
-    if (this.tagInvalid) return;
-
-    this.tag.entity = this.entityId;
-
-    this.service.createEntity(this.tag);
+  deleteTag(tag: Tag) {
+    this.service.deleteEntity(tag.id);
   }
 
-  closeDropdown(event): void {
-    if (!this.elementRef.nativeElement.contains(event.target)) {
-      if (this.showTags) {
-        this.toggleTags();
-      }
-    }
+  deleteTags(tags: Tag[]) {
+    this.service.deleteEntities(tags.map(t => t.id));
   }
 }

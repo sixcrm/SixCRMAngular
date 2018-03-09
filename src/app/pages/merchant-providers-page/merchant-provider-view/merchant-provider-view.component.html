@@ -34,7 +34,7 @@
           </ng-template>
         </div>
 
-        <entity-view-tag [entityId]="entityId"></entity-view-tag>
+        <entity-view-tag *ngIf="tagsService.hasReadPermission()" [entityId]="entityId"></entity-view-tag>
       </div>
     </form>
 

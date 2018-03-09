@@ -263,6 +263,14 @@
       "edit": "Edit",
       "remove": "Remove",
       "nodata": "No Permissions Found."
+    },
+    "tag": {
+      "tabletitle": "Associated Tags",
+      "key": "Key",
+      "value": "Value",
+      "nodata": "No Tags found.",
+      "delete": "Delete Tag",
+      "edit": "Edit Tag"
     }
 	},
 	"profile": {
