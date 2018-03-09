@@ -37,11 +37,11 @@
 
       <div *ngIf="entity.dynamicPrice.enabled" style="margin-top: 15px;" class="product-view__group">
         <md-input-container [class.error]="formInvalid && dynamicInvalid()" class="entity-view__card__content__item">
-          <input md-input currencyInput autoFocus [initPrice]="entity.dynamicPrice.min" (priceChanged)="entity.dynamicPrice.min = $event" placeholder="{{'PRODUCT_INFO_MINPRICE' | translate}}" name="defaultPrice" (keydown)="isCurrency($event)" type="text">
+          <input md-input [disabled]="mode === view" currencyInput [initPrice]="entity.dynamicPrice.min" (priceChanged)="entity.dynamicPrice.min = $event" placeholder="{{'PRODUCT_INFO_MINPRICE' | translate}}" name="defaultPrice" (keydown)="isCurrency($event)" type="text">
         </md-input-container>
 
         <md-input-container [class.error]="formInvalid && dynamicInvalid()" class="entity-view__card__content__item">
-          <input md-input currencyInput [initPrice]="entity.dynamicPrice.max" (priceChanged)="entity.dynamicPrice.max = $event" placeholder="{{'PRODUCT_INFO_MAXPRICE' | translate}}" name="defaultPrice" (keydown)="isCurrency($event)" type="text">
+          <input md-input [disabled]="mode === view" currencyInput [initPrice]="entity.dynamicPrice.max" (priceChanged)="entity.dynamicPrice.max = $event" placeholder="{{'PRODUCT_INFO_MAXPRICE' | translate}}" name="defaultPrice" (keydown)="isCurrency($event)" type="text">
         </md-input-container>
       </div>
 

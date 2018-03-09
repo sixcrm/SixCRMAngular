@@ -39,10 +39,10 @@ export class MerchantReportComponent extends ReportsAbstractComponent<MerchantRe
     this.columnParams = [
       new ReportColumnParams('MERCHANTREPORT_MERCHANTPROVIDER', (e: MerchantReport) => e.merchantProvider.name || e.merchantProvider.name),
       new ReportColumnParams('MERCHANTREPORT_SALESCOUNT', (e: MerchantReport) => e.saleCount, 'right').setNumberOption(true),
-      new ReportColumnParams('MERCHANTREPORT_SALESGROSSREVENUE', (e: MerchantReport) => e.saleGrossRevenue.usd(), 'right').setNumberOption(true),
-      new ReportColumnParams('MERCHANTREPORT_REFUNDEXPENSES', (e: MerchantReport) => '-' + e.refundExpenses.usd(), 'right').setNumberOption(true),
+      new ReportColumnParams('MERCHANTREPORT_SALESGROSSREVENUE', (e: MerchantReport) => e.saleGrossRevenue.usd(), 'right'),
+      new ReportColumnParams('MERCHANTREPORT_REFUNDEXPENSES', (e: MerchantReport) => '-' + e.refundExpenses.usd(), 'right'),
       new ReportColumnParams('MERCHANTREPORT_REFUNDCOUNT', (e: MerchantReport) => e.refundCount, 'right').setNumberOption(true),
-      new ReportColumnParams('MERCHANTREPORT_NETREVENUE', (e: MerchantReport) => e.netRevenue.usd(), 'right').setNumberOption(true),
+      new ReportColumnParams('MERCHANTREPORT_NETREVENUE', (e: MerchantReport) => e.netRevenue.usd(), 'right'),
       new ReportColumnParams('MERCHANTREPORT_MTDSALESCOUNT', (e: MerchantReport) => e.mtdSalesCount, 'right').setNumberOption(true),
       new ReportColumnParams('MERCHANTREPORT_MTDGROSSCOUNT', (e: MerchantReport) => e.mtdGrossCount, 'right').setNumberOption(true),
     ];

@@ -51,8 +51,8 @@ export class AffiliateReportComponent  extends ReportsAbstractComponent<Affiliat
       new ReportColumnParams('AFFILIATEREPORT_SALESPERCENTAGE', (e: AffiliateReport) => e.salesPercent.toFixed(2) + '%', 'right').setNumberOption(true),
       new ReportColumnParams('AFFILIATEREPORT_UPSELLCOUNT', (e: AffiliateReport) => e.countUpsell, 'right').setNumberOption(true),
       new ReportColumnParams('AFFILIATEREPORT_UPSELLPERCENTAGE', (e: AffiliateReport) => e.upsellPercent.toFixed(2) + '%', 'right').setNumberOption(true),
-      new ReportColumnParams('AFFILIATEREPORT_UPSELLSUM', (e: AffiliateReport) => e.sumUpsell.usd(), 'right').setNumberOption(true),
-      new ReportColumnParams('AFFILIATEREPORT_AMOUNTSUM', (e: AffiliateReport) => e.sumAmount.usd(), 'right').setNumberOption(true),
+      new ReportColumnParams('AFFILIATEREPORT_UPSELLSUM', (e: AffiliateReport) => e.sumUpsell.usd(), 'right'),
+      new ReportColumnParams('AFFILIATEREPORT_AMOUNTSUM', (e: AffiliateReport) => e.sumAmount.usd(), 'right'),
     ];
 
     this.columnParams = [

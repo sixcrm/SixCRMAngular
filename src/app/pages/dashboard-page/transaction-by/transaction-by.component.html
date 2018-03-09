@@ -31,7 +31,7 @@
           <td><div [style.background]="colors[i]" class="color-indicator"></div>{{facet.facet.substring(0, 12) + '...'}}</td>
           <td class="cell--align-right">{{facet.count  | numberlocale}}</td>
           <td class="cell--align-right">{{facet.countPercentage | numberlocale}}%</td>
-          <td class="cell--align-right">{{facet.amount.usd() | numberlocale}}</td>
+          <td class="cell--align-right">{{facet.amount.usd()}}</td>
           <td class="cell--align-right">{{facet.amountPercentage | numberlocale}}%</td>
         </tr>
         </tbody>
