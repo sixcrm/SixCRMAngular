@@ -84,7 +84,8 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
   acceptUserTermsAndConditions(): void {
     this.activeUser.termsAndConditions = this.termsAndConditions.version;
 
-    this.userService.updateUserForAcceptTermsAndConditions(this.activeUser).take(1).subscribe(() => {
+    this.userService.updateUserForAcceptTermsAndConditions(this.activeUser).take(1).subscribe(user => {
+      this.activeUser.updatedAtAPI = user.json().response.data.updateuser.updated_at;
       this.activeUser.termsAndConditionsOutdated = false;
       this.authService.updateSixUser(this.activeUser);
 
