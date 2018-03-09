@@ -12,7 +12,7 @@
       </div>
 
       <ng-container *ngIf="selectedIndex === 0; else advanced">
-        <div style="margin: 10px 0;" class="flex-custom flex-custom--center">
+        <div class="flex-custom flex-custom--center basic-container">
           <dropdown-component
             [selected]="selectedVisibility"
             [showFloatingPlaceholder]="false"
@@ -27,7 +27,8 @@
       </ng-container>
 
       <ng-template #advanced>
-        <table-advanced [data]="entityAcl.allowParsed"
+        <table-advanced class="table-advanced--no-margin"
+                        [data]="entityAcl.allowParsed"
                         [columnParams]="allowedParams"
                         [textOptions]="allowedTextOptions"
                         [showTopPagination]="false"

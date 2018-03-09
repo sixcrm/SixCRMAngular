@@ -1035,3 +1035,9 @@ $blue-color: #4A90E2;
     color: rgba(0,0,0,0.6);
   }
 }
+
+.table-advanced--no-margin {
+  .entity-view__table-component--advanced {
+    margin: 0;
+  }
+}

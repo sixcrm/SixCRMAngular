@@ -31,6 +31,8 @@ export class EntityViewTagComponent extends AbstractEntityIndexComponent<Tag> im
 
   tagFactory = () => new Tag();
 
+  allTags: Tag[] = [];
+
   constructor(
     service: TagsService,
     auth: AuthenticationService,
@@ -40,11 +42,17 @@ export class EntityViewTagComponent extends AbstractEntityIndexComponent<Tag> im
     activatedRoute: ActivatedRoute
   ) {
     super(service, auth, dialog, paginationService, router, activatedRoute);
+
+    this.allEntities.takeUntil(this.unsubscribe$).subscribe(tags => {
+      if (tags) {
+        this.allTags = tags.slice()
+      }
+    });
   }
 
   ngOnInit() {
     this.viewAfterCrate = false;
-    this.service.indexQuery = (limit: number, cursor: string, search: string) => tagsByEntityQuery(this.entityId, limit, cursor, search);
+    this.service.indexQuery = (limit: number, cursor: string, search: string) => tagsByEntityQuery(this.entityId, null, null, search);
 
     this.tagParams = [
       new ColumnParams<Tag>('SINGLEPAGE_TAG_KEY')
@@ -79,7 +87,7 @@ export class EntityViewTagComponent extends AbstractEntityIndexComponent<Tag> im
   overlayClicked(event: any): void {
     if (event && event.target && event.target.className === 'tag-modal-container') {
       this.showTags = false;
-      this.entities = this.entities.map(e => e.copy());
+      this.allTags = this.allTags.map(e => e.copy());
     }
   }
 

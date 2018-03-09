@@ -8,7 +8,7 @@
   height: 100%;
   min-height: calc(100vh - 72px);
   width: 100%;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0,0,0,0.3);
   display: flex;
   z-index: 5;
 }
@@ -27,5 +27,4 @@ md-icon {
 table-advanced {
   display: inline-block;
   width: 526px;
-  margin: -10px;
 }

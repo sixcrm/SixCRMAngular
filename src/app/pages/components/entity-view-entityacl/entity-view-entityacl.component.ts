@@ -182,6 +182,23 @@ export class EntityViewEntityaclComponent implements OnInit, OnDestroy {
 
   private setAdvanceTableParameters() {
     this.allowedParams = [
+      new ColumnParams<EntityAclPermissionParsed>('SINGLEPAGE_ENTITYACL_USER')
+        .setMappingFunction((e: EntityAclPermissionParsed) => e.user.name)
+        .setAssigningFunction((e: EntityAclPermissionParsed, value) => e.user = value)
+        .setValidator((e: EntityAclPermissionParsed) => !!e.user.id)
+        .setInputType(ColumnParamsInputType.AUTOCOMPLETE)
+        .setAutofocus(true)
+        .setAutocompleteOptions(this.users)
+        .setAutocompleteMapper((e: User) => e.name)
+        .setAutocompleteInitialValue((e: EntityAclPermissionParsed) => e.user),
+      new ColumnParams<EntityAclPermissionParsed>('SINGLEPAGE_ENTITYACL_ACCOUNT')
+        .setMappingFunction((e: EntityAclPermissionParsed) => e.account.name)
+        .setAssigningFunction((e: EntityAclPermissionParsed, value) => e.account = value)
+        .setValidator((e: EntityAclPermissionParsed) => !!e.account.id)
+        .setInputType(ColumnParamsInputType.AUTOCOMPLETE)
+        .setAutocompleteOptions(this.accounts)
+        .setAutocompleteMapper((e: Account) => e.name)
+        .setAutocompleteInitialValue((e: EntityAclPermissionParsed) => e.account),
       new ColumnParams<EntityAclPermissionParsed>('SINGLEPAGE_ENTITYACL_ACTION')
         .setMappingFunction((e: EntityAclPermissionParsed) => e.action)
         .setAssigningFunction((e: EntityAclPermissionParsed, value) => {
@@ -192,23 +209,6 @@ export class EntityViewEntityaclComponent implements OnInit, OnDestroy {
         .setInputType(ColumnParamsInputType.MULTISELECT)
         .setAutocompleteOptions(getAllPermissionActions())
         .setAutocompleteInitialValue((e: EntityAclPermissionParsed) => e.action ? [e.action] : []),
-      new ColumnParams<EntityAclPermissionParsed>('SINGLEPAGE_ENTITYACL_ACCOUNT')
-        .setMappingFunction((e: EntityAclPermissionParsed) => e.account.name)
-        .setAssigningFunction((e: EntityAclPermissionParsed, value) => e.account = value)
-        .setValidator((e: EntityAclPermissionParsed) => !!e.account.id)
-        .setInputType(ColumnParamsInputType.AUTOCOMPLETE)
-        .setAutocompleteOptions(this.accounts)
-        .setAutocompleteMapper((e: Account) => e.name)
-        .setAutocompleteInitialValue((e: EntityAclPermissionParsed) => e.account),
-      new ColumnParams<EntityAclPermissionParsed>('SINGLEPAGE_ENTITYACL_USER')
-        .setMappingFunction((e: EntityAclPermissionParsed) => e.user.name)
-        .setAssigningFunction((e: EntityAclPermissionParsed, value) => e.user = value)
-        .setValidator((e: EntityAclPermissionParsed) => !!e.user.id)
-        .setInputType(ColumnParamsInputType.AUTOCOMPLETE)
-        .setAutofocus(true)
-        .setAutocompleteOptions(this.users)
-        .setAutocompleteMapper((e: User) => e.name)
-        .setAutocompleteInitialValue((e: EntityAclPermissionParsed) => e.user)
     ];
   }
 

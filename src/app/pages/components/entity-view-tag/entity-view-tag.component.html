@@ -4,7 +4,8 @@
   <div *ngIf="showTags" class="tag-modal-container" (click)="overlayClicked($event)">
     <div class="tag-modal">
 
-      <table-advanced [data]="entities"
+      <table-advanced class="table-advanced--no-margin"
+                      [data]="allTags"
                       [columnParams]="tagParams"
                       [textOptions]="tagTextOptions"
                       [showTopPagination]="false"
