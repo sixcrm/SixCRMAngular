@@ -32,7 +32,9 @@ import {TranslationModule} from "../translation/translation.module";
     ReportTableComponent,
     MerchantReportComponent,
     AffiliateReportComponent,
-    SubaffiliateReportComponent
+    SubaffiliateReportComponent,
+    SummaryReportComponent,
+    TransactionsReportComponent
   ],
   providers: [AnalyticsAclGuard]
 })
