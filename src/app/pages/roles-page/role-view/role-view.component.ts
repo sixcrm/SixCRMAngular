@@ -81,7 +81,7 @@ export class RoleViewComponent extends AbstractEntityViewComponent<Role> impleme
         .setAutofocus(true)
         .setAutocompleteOptions(getAllPermissionEntities())
         .setAutocompleteInitialValue((e: ParsedPermission) => e.action),
-      new ColumnParams<ParsedPermission>('ROLE_INFO_PERMISSION').setMappingFunction((e: ParsedPermission) => e.permissions)
+      new ColumnParams<ParsedPermission>('ROLE_INFO_PERMISSION')
         .setMappingFunction((e: ParsedPermission) => e.permissions)
         .setAssigningFunction((e: ParsedPermission, value) => {
           e.permissions = value.map(v => v.value).join(' ');

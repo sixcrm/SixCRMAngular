@@ -10,6 +10,7 @@ import {Subject} from 'rxjs';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 import {EmailTemplatesSharedService} from '../../../shared/services/email-templates-shared.service';
+import {AuthenticationService} from '../../../authentication/authentication.service';
 
 declare var tinymce;
 
@@ -42,7 +43,8 @@ export class EmailTemplateViewComponent extends AbstractEntityViewComponent<Emai
     private activatedRoute: ActivatedRoute,
     public navigation: NavigationService,
     public smtpProviderService: SmtpProvidersService,
-    private sharedService: EmailTemplatesSharedService
+    private sharedService: EmailTemplatesSharedService,
+    public authService: AuthenticationService
   ) {
     super(service, activatedRoute);
   }

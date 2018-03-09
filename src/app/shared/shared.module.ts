@@ -94,6 +94,7 @@ import { MultiselectComponent } from './components/multiselect/multiselect.compo
 import {EmailTemplatesSharedService} from './services/email-templates-shared.service';
 import { CurrencyInputDirective } from './directives/currency-input.directive';
 import {TagsService} from './services/tags.service';
+import {EntityAclsService} from './services/entityacl.service';
 
 @NgModule({
   declarations : [
@@ -241,7 +242,8 @@ export class SharedModule {
         ShippingReceiptsService,
         ImagesService,
         MerchantProviderGroupAssociationsService,
-        TagsService
+        TagsService,
+        EntityAclsService
       ]
     };
   }

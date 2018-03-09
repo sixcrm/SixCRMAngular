@@ -21,6 +21,7 @@ import { EntityViewBreadcrumbsComponent } from './entity-view-breadcrumbs/entity
 import {RouterModule} from '@angular/router';
 import { EntityViewGalleryComponent } from './entity-view-gallery/entity-view-gallery.component';
 import { EntityViewTagComponent } from './entity-view-tag/entity-view-tag.component';
+import { EntityViewEntityaclComponent } from './entity-view-entityacl/entity-view-entityacl.component';
 
 @NgModule({
   imports : [
@@ -47,7 +48,8 @@ import { EntityViewTagComponent } from './entity-view-tag/entity-view-tag.compon
     TableDensityComponent,
     EntityViewBreadcrumbsComponent,
     EntityViewGalleryComponent,
-    EntityViewTagComponent
+    EntityViewTagComponent,
+    EntityViewEntityaclComponent
   ],
   exports : [
     TableActionsComponent,
@@ -60,7 +62,8 @@ import { EntityViewTagComponent } from './entity-view-tag/entity-view-tag.compon
     TableAdvancedComponent,
     EntityViewBreadcrumbsComponent,
     EntityViewGalleryComponent,
-    EntityViewTagComponent
+    EntityViewTagComponent,
+    EntityViewEntityaclComponent
   ],
   providers: [
 

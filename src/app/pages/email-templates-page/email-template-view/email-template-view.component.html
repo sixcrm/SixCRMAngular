@@ -13,6 +13,8 @@
         {{entityBackup.name}}
       </div>
     </div>
+
+    <entity-view-entityacl style="margin-left: auto; margin-right: 60px;" *ngIf="authService.isActiveAclMasterAccount()" [entityId]="entityId" [type]="'emailtemplate'"></entity-view-entityacl>
   </div>
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>

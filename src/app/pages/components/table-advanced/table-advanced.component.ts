@@ -29,6 +29,9 @@ export class TableAdvancedComponent implements OnInit {
   @Input() deleteEnabled: boolean = true;
   @Input() showPagination: boolean = true;
   @Input() showTopPagination: boolean = true;
+  @Input() showHeader: boolean = true;
+  @Input() showDensity: boolean = true;
+  @Input() showPreferences: boolean = true;
   @Input() entityFactory: (data: any) => any;
   @Input() textOptions = {};
   @Input() dedicatedOptions: boolean;

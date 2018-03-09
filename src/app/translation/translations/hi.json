@@ -248,7 +248,22 @@
     "leavetitle": "क्या आप वाकई छोड़ना चाहते हैं",
     "leavetext": "आपके पास सहेजे नहीं गए बदलाव हैं, अगर आप इसे बंद करते हैं तो यह मॉडल परिवर्तन छोड़े जाएंगे",
     "leavecancel": "रद्द करें",
-    "leaveleave": "छोड़"
+    "leaveleave": "छोड़",
+    "entityacl": {
+      "title": "Entity ACL Setup",
+      "basic": "BASIC",
+      "advanced": "ADVANCED",
+      "save": "SAVE",
+      "cancel": "CANCEL",
+      "visibility": "Visibility",
+      "user": "User",
+      "account": "Account",
+      "action": "Action",
+      "advancedtitle": "Advanced Entity Acl Permissions",
+      "edit": "Edit",
+      "remove": "Remove",
+      "nodata": "No Permissions Found."
+    }
   },
   "profile": {
     "title": "प्रोफाइल",

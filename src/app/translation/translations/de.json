@@ -248,7 +248,22 @@
     "leavetitle": "Sind Sie sicher, dass Sie diesen Bereich verlassen wollen?",
     "leavetext": "Sie haben nicht gesicherte Änderungen. Wenn sie dieses Modal-Fenster schliessen, Ihre Änderungen werden abgelegt.",
     "leavecancel": "ABBRECHEN",
-    "leaveleave": "VERLASSEN"
+    "leaveleave": "VERLASSEN",
+    "entityacl": {
+      "title": "Entity ACL Setup",
+      "basic": "BASIC",
+      "advanced": "ADVANCED",
+      "save": "SAVE",
+      "cancel": "CANCEL",
+      "visibility": "Visibility",
+      "user": "User",
+      "account": "Account",
+      "action": "Action",
+      "advancedtitle": "Advanced Entity Acl Permissions",
+      "edit": "Edit",
+      "remove": "Remove",
+      "nodata": "No Permissions Found."
+    }
   },
   "profile": {
     "title": "Profil",

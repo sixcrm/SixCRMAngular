@@ -248,7 +248,22 @@
     "leavetitle": "你确定要离开吗？",
     "leavetext": "你的内容尚未保持，关闭此窗口将取消改变，你确定吗？",
     "leavecancel": "取消",
-    "leaveleave": "离开"
+    "leaveleave": "离开",
+    "entityacl": {
+      "title": "Entity ACL Setup",
+      "basic": "BASIC",
+      "advanced": "ADVANCED",
+      "save": "SAVE",
+      "cancel": "CANCEL",
+      "visibility": "Visibility",
+      "user": "User",
+      "account": "Account",
+      "action": "Action",
+      "advancedtitle": "Advanced Entity Acl Permissions",
+      "edit": "Edit",
+      "remove": "Remove",
+      "nodata": "No Permissions Found."
+    }
   },
   "profile": {
     "title": "档案",

@@ -248,7 +248,22 @@
     "leavetitle": "Are you sure you want to leave?",
     "leavetext": "You have unsaved changes, if you close this modal changes will be discarded.",
     "leavecancel": "CANCEL",
-    "leaveleave": "LEAVE"
+    "leaveleave": "LEAVE",
+    "entityacl": {
+      "title": "Entity ACL Setup",
+      "basic": "BASIC",
+      "advanced": "ADVANCED",
+      "save": "SAVE",
+      "cancel": "CANCEL",
+      "visibility": "Visibility",
+      "user": "User",
+      "account": "Account",
+      "action": "Action",
+      "advancedtitle": "Advanced Entity Acl Permissions",
+      "edit": "Edit",
+      "remove": "Remove",
+      "nodata": "No Permissions Found."
+    }
   },
   "profile": {
     "title": "Profile",

@@ -12,6 +12,8 @@ export class TableAdvancedHeaderComponent implements OnInit {
   @Input() hasWritePermission: boolean;
   @Input() columnParams: ColumnParams<any>[] = [];
   @Input() density: number = 1;
+  @Input() showDensity: boolean;
+  @Input() showPreferences: boolean;
   @Input() addEnabled: boolean;
   @Input() showPagination: boolean;
   @Input() limit: number = 10;

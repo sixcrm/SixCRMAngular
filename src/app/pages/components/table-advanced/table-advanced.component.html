@@ -3,10 +3,13 @@
      [class.density--l]="density === 2"
      [class.density--m]="density !== 0 && density !==2">
 
-  <table-advanced-header [textOptions]="textOptions"
+  <table-advanced-header *ngIf="showHeader"
+                         [textOptions]="textOptions"
                          [hasWritePermission]="hasWritePermission"
                          [columnParams]="columnParams"
                          [density]="density"
+                         [showDensity]="showDensity"
+                         [showPreferences]="showPreferences"
                          [addEnabled]="addEnabled"
                          [showPagination]="showTopPagination"
                          [paginationValues]="paginationValues"
