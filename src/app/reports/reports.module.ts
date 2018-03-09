@@ -29,8 +29,6 @@ import {TranslationModule} from "../translation/translation.module";
     TranslationModule
   ],
   declarations: [
-    SummaryReportComponent,
-    TransactionsReportComponent,
     ReportTableComponent,
     MerchantReportComponent,
     AffiliateReportComponent,

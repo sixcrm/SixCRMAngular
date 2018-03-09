@@ -47,25 +47,6 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
 
   // Add reports
   let reportItems: MenuItem[] = [];
-  if (authService.hasPermissions('analytics', 'getOrders')) {
-    reportItems.push(new MenuItem('SIDENAV_REPORTS_ORDER', 'reports/order'));
-  }
-  if (authService.hasPermissions('analytics', 'getTransactions')) {
-    reportItems.push(new MenuItem('SIDENAV_REPORTS_SUMMARY', 'reports/summary'));
-  }
-  if (authService.hasPermissions('analytics', 'getTransactions')) {
-    reportItems.push(new MenuItem('SIDENAV_REPORTS_TRANSACTION', 'reports/transaction'));
-  }
-  if (authService.hasPermissions('analytics', 'getFullfillment')) {
-    reportItems.push(new MenuItem('SIDENAV_REPORTS_FULFILLMENT', 'reports/fulfillment'));
-  }
-  if (authService.hasPermissions('analytics', 'getRetention')) {
-    reportItems.push(new MenuItem('SIDENAV_REPORTS_RETENTION', 'reports/retention'));
-  }
-  if (authService.hasPermissions('analytics', 'getProjections')) {
-    reportItems.push(new MenuItem('SIDENAV_REPORTS_PROJECTION', 'reports/projection'));
-  }
-
   let cycle: MenuItem[] = [];
   if (authService.hasPermissions('analytics', 'getDayToDay')) {
     cycle.push(new MenuItem('SIDENAV_REPORTS_CYCLE_DAYTODAY', 'reports/daytoday'))
