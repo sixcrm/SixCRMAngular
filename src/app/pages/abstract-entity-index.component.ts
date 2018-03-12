@@ -298,6 +298,8 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
     if (index > -1) {
       this.entitiesHolder[index] = entity;
+      this.allEntities.emit(this.entitiesHolder);
+
       this.reshuffleEntities();
     }
   }

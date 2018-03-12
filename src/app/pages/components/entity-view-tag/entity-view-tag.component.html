@@ -3,8 +3,9 @@
 
   <div *ngIf="showTags" class="tag-modal-container" (click)="overlayClicked($event)">
     <div class="tag-modal">
+      <div class="title">{{'SINGLEPAGE_TAG_TABLETITLE' | translate}}</div>
 
-      <table-advanced class="table-advanced--no-margin"
+      <table-advanced class="table-advanced--no-margin table-advanced--thin-pagination table-advanced--autocomplete-full-width"
                       [data]="allTags"
                       [columnParams]="tagParams"
                       [textOptions]="tagTextOptions"

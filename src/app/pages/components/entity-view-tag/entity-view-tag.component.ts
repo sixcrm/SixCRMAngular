@@ -23,7 +23,7 @@ export class EntityViewTagComponent extends AbstractEntityIndexComponent<Tag> im
 
   tagParams: ColumnParams<Tag>[] = [];
   tagTextOptions: TableMemoryTextOptions = {
-    title: 'SINGLEPAGE_TAG_TABLETITLE',
+    title: '',
     noDataText: 'SINGLEPAGE_TAG_NODATA',
     disassociateOptionText: 'SINGLEPAGE_TAG_DELETE',
     editOptionText: 'SINGLEPAGE_TAG_EDIT'
@@ -45,7 +45,7 @@ export class EntityViewTagComponent extends AbstractEntityIndexComponent<Tag> im
 
     this.allEntities.takeUntil(this.unsubscribe$).subscribe(tags => {
       if (tags) {
-        this.allTags = tags.slice()
+        this.allTags = tags.slice();
       }
     });
   }
