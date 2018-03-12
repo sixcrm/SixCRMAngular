@@ -7,10 +7,10 @@ import {firstIndexOf} from '../utils/array.utils';
 
 export class EntityAclPermissionParsed {
 
-  constructor(public user?: User, public account?: Account, public action?: string) {};
+  constructor(public account?: Account, public user?: User, public action?: string) {};
 
   copy(): EntityAclPermissionParsed {
-    return new EntityAclPermissionParsed(this.user, this.account, this.action);
+    return new EntityAclPermissionParsed(this.account, this.user, this.action);
   }
 }
 
@@ -60,22 +60,22 @@ export class EntityAcl implements Entity<EntityAcl> {
 
   parseAllowed(allowed: string[]): EntityAclPermissionParsed[] {
     const temp = allowed.map(allow => {
-      let user = '*';
       let acc = '*';
+      let user = '*';
       let permissions = getAllPermissionActions().join(' ');
 
       if (allow !== '*') {
         const splitted = allow.split('/');
 
-        user = splitted[0];
-        acc = splitted[1];
+        acc = splitted[0];
+        user = splitted[1];
 
         if (splitted[2] !== '*') {
           permissions = splitted[2];
         }
       }
 
-      return new EntityAclPermissionParsed(new User({name: user, id: user}), new Account({name: acc, id: acc}), permissions)
+      return new EntityAclPermissionParsed(new Account({name: acc, id: acc}), new User({name: user, id: user}), permissions)
     });
 
     const result: EntityAclPermissionParsed[] = [];

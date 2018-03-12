@@ -151,7 +151,7 @@ export function getAllPermissionEntities() {
 export function getAllPermissionActions() {
   return [
     'read',
-    'write',
+    'update',
     'create',
     'delete'
   ]

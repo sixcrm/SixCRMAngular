@@ -4,6 +4,7 @@
   position: relative;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   cursor: pointer;
+  text-transform: capitalize;
 }
 
 .item {
@@ -20,6 +21,9 @@
   margin-top: 5px;
 
   span {
+    &:first-of-type {
+      margin-right: 16px;
+    }
     &:last-of-type {
       margin-left: auto;
       color: #5B9BE1;
@@ -39,4 +43,7 @@
 .multiselect-container-error {
   border-color: #D00140;
   border-width: 2px;
+}
+
+.md-checkbox {
 }

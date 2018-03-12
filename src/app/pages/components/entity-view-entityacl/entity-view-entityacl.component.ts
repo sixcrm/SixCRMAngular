@@ -40,7 +40,7 @@ export class EntityViewEntityaclComponent implements OnInit, OnDestroy {
     disassociateOptionText: 'SINGLEPAGE_ENTITYACL_REMOVE'
   };
 
-  permissionFactory = (data) => new EntityAclPermissionParsed(new User(), new Account(), '');
+  permissionFactory = (data) => new EntityAclPermissionParsed(new Account(), new User(), '');
 
   private unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
@@ -86,16 +86,21 @@ export class EntityViewEntityaclComponent implements OnInit, OnDestroy {
   addAllowed(permission: EntityAclPermissionParsed) {
     let actions: string[] = permission.action === getAllPermissionActions().join(' ') ? ['*'] : permission.action.split(' ');
 
-    const newAllowed = actions.map(a => `${permission.user.id}/${permission.account.id}/${a}`);
+    const newAllowed = actions.map(a => `${permission.account.id}/${permission.user.id}/${a}`);
 
-    this.entityAcl.allow = [...this.entityAcl.allow, ...newAllowed];
-    this.entityAclsService.updateEntity(this.entityAcl);
+    if (this.entityAcl.entity) {
+      this.entityAcl.allow = [...this.entityAcl.allow, ...newAllowed];
+      this.entityAclsService.updateEntity(this.entityAcl);
+    } else {
+      const newAcl = new EntityAcl({entity: this.entityId, type: this.type, allow: newAllowed});
+      this.entityAclsService.createEntity(newAcl);
+    }
   }
 
   updateAllowed(permission: EntityAclPermissionParsed) {
     const acl = this.entityAcl.allowParsed[permission['tableAdvancedIdentifier']];
 
-    const delPerm = new EntityAclPermissionParsed(acl.user, acl.account, getAllPermissionActions().join(' '));
+    const delPerm = new EntityAclPermissionParsed(acl.account, acl.user, getAllPermissionActions().join(' '));
 
     this.deleteAllowed(delPerm, true);
     this.addAllowed(permission);
@@ -105,7 +110,7 @@ export class EntityViewEntityaclComponent implements OnInit, OnDestroy {
     const perms = this.getParameterActions(permission);
 
     perms.forEach(p => {
-      const index = firstIndexOf(this.entityAcl.allow, (el) => el === `${permission.user.id}/${permission.account.id}/${p}`);
+      const index = firstIndexOf(this.entityAcl.allow, (el) => el === `${permission.account.id}/${permission.user.id}/${p}`);
 
       if (index !== -1) {
         this.entityAcl.allow.splice(index, 1);
@@ -182,23 +187,23 @@ export class EntityViewEntityaclComponent implements OnInit, OnDestroy {
 
   private setAdvanceTableParameters() {
     this.allowedParams = [
-      new ColumnParams<EntityAclPermissionParsed>('SINGLEPAGE_ENTITYACL_USER')
-        .setMappingFunction((e: EntityAclPermissionParsed) => e.user.name)
-        .setAssigningFunction((e: EntityAclPermissionParsed, value) => e.user = value)
-        .setValidator((e: EntityAclPermissionParsed) => !!e.user.id)
-        .setInputType(ColumnParamsInputType.AUTOCOMPLETE)
-        .setAutofocus(true)
-        .setAutocompleteOptions(this.users)
-        .setAutocompleteMapper((e: User) => e.name)
-        .setAutocompleteInitialValue((e: EntityAclPermissionParsed) => e.user),
       new ColumnParams<EntityAclPermissionParsed>('SINGLEPAGE_ENTITYACL_ACCOUNT')
-        .setMappingFunction((e: EntityAclPermissionParsed) => e.account.name)
+        .setMappingFunction((e: EntityAclPermissionParsed) => e.account.name === '*' ? 'All' : e.account.name)
         .setAssigningFunction((e: EntityAclPermissionParsed, value) => e.account = value)
         .setValidator((e: EntityAclPermissionParsed) => !!e.account.id)
         .setInputType(ColumnParamsInputType.AUTOCOMPLETE)
         .setAutocompleteOptions(this.accounts)
-        .setAutocompleteMapper((e: Account) => e.name)
+        .setAutofocus(true)
+        .setAutocompleteMapper((e: Account) => e.name === '*' ? 'All' : e.name)
         .setAutocompleteInitialValue((e: EntityAclPermissionParsed) => e.account),
+      new ColumnParams<EntityAclPermissionParsed>('SINGLEPAGE_ENTITYACL_USER')
+        .setMappingFunction((e: EntityAclPermissionParsed) => e.user.name === '*' ? 'All' : e.user.name)
+        .setAssigningFunction((e: EntityAclPermissionParsed, value) => e.user = value)
+        .setValidator((e: EntityAclPermissionParsed) => !!e.user.id)
+        .setInputType(ColumnParamsInputType.AUTOCOMPLETE)
+        .setAutocompleteOptions(this.users)
+        .setAutocompleteMapper((e: User) => e.name === '*' ? 'All' : e.name)
+        .setAutocompleteInitialValue((e: EntityAclPermissionParsed) => e.user),
       new ColumnParams<EntityAclPermissionParsed>('SINGLEPAGE_ENTITYACL_ACTION')
         .setMappingFunction((e: EntityAclPermissionParsed) => e.action)
         .setAssigningFunction((e: EntityAclPermissionParsed, value) => {

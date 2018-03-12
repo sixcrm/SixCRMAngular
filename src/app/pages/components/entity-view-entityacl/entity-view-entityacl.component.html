@@ -6,9 +6,9 @@
 
       <div class="title">{{'SINGLEPAGE_ENTITYACL_TITLE' | translate}}</div>
 
-      <div class="subtitle">
-        <div [class.subtitle--selected]="selectedIndex === 0" (click)="selectedIndex = 0">{{'SINGLEPAGE_ENTITYACL_BASIC' | translate}}</div>
-        <div *ngIf="entityAcl.entity" [class.subtitle--selected]="selectedIndex === 1" (click)="selectedIndex = 1">{{'SINGLEPAGE_ENTITYACL_ADVANCED' | translate}}</div>
+      <div class="tabz">
+        <div [class.tabz--selected]="selectedIndex === 0" (click)="selectedIndex = 0">{{'SINGLEPAGE_ENTITYACL_BASIC' | translate}}</div>
+        <div [class.tabz--selected]="selectedIndex === 1" (click)="selectedIndex = 1">{{'SINGLEPAGE_ENTITYACL_ADVANCED' | translate}}</div>
       </div>
 
       <ng-container *ngIf="selectedIndex === 0; else advanced">
@@ -27,7 +27,7 @@
       </ng-container>
 
       <ng-template #advanced>
-        <table-advanced class="table-advanced--no-margin"
+        <table-advanced class="table-advanced--no-margin table-advanced--thin-pagination table-advanced--autocomplete-full-width"
                         [data]="entityAcl.allowParsed"
                         [columnParams]="allowedParams"
                         [textOptions]="allowedTextOptions"

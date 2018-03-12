@@ -1041,3 +1041,19 @@ $blue-color: #4A90E2;
     margin: 0;
   }
 }
+
+.table-advanced--thin-pagination {
+  .entity-view__table-component--advanced {
+    padding-bottom: 0;
+  }
+
+  .entity-index__pagination__buttons {
+    margin-top: 0;
+  }
+}
+
+.table-advanced--autocomplete-full-width {
+  .default-autocomplete-input__options {
+    width: auto;
+  }
+}
