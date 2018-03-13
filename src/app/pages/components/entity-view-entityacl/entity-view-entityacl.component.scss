@@ -52,7 +52,7 @@
     cursor: pointer;
 
     &:first-of-type {
-      margin-left: 55px;
+      margin-left: auto;
       margin-right: 10px;
     }
 
@@ -63,7 +63,8 @@
 }
 
 .basic-container {
-  padding: 15px 15px 25px;
+  width: 740px;
+  padding: 25px 15px;
 }
 
 table-advanced {
@@ -71,4 +72,8 @@ table-advanced {
   display: inline-block;
   width: 740px;
   max-width: 100%;
+}
+
+dropdown-component {
+  width: 200px;
 }

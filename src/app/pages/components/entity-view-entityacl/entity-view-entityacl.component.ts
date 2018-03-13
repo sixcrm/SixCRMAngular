@@ -205,7 +205,7 @@ export class EntityViewEntityaclComponent implements OnInit, OnDestroy {
         .setAutocompleteMapper((e: User) => e.name === '*' ? 'All' : e.name)
         .setAutocompleteInitialValue((e: EntityAclPermissionParsed) => e.user),
       new ColumnParams<EntityAclPermissionParsed>('SINGLEPAGE_ENTITYACL_ACTION')
-        .setMappingFunction((e: EntityAclPermissionParsed) => e.action)
+        .setMappingFunction((e: EntityAclPermissionParsed) => e.action.replace(/(^|\s)\S/g, l => l.toUpperCase()))
         .setAssigningFunction((e: EntityAclPermissionParsed, value) => {
           e.action = value.map(v => v.value).join(' ');
           return e;
