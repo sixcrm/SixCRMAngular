@@ -17,7 +17,8 @@
       "mobile": false,
       "styles": [
         "styles.scss",
-        "../node_modules/codemirror/lib/codemirror.css"
+        "../node_modules/codemirror/lib/codemirror.css",
+        "../node_modules/codemirror/theme/material.css"
       ],
       "scripts": [
         "../node_modules/tinymce/tinymce.js",

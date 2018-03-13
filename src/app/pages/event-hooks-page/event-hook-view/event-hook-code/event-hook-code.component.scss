@@ -1,0 +1,44 @@
+codemirror {
+  display: inline-block;
+  width: 620px;
+  font-size: 12px;
+}
+
+.code-console {
+  margin-left: 15px;
+  font-size: 10px;
+  width: 200px;
+
+  .save {
+    color: #5B9BE1;
+    cursor: pointer;
+    font-size: 12px;
+  }
+
+  md-icon {
+    color: #4A4A4A;
+    cursor: pointer;
+  }
+
+  md-icon:last-of-type {
+    margin-right: auto;
+    margin-left: 5px;
+  }
+
+  .logger {
+    height: calc(100% - 35px);
+    box-sizing: border-box;
+    overflow: auto;
+    border: 1px solid rgba(0,0,0,0.1);
+    margin-top: 10px;
+    padding: 8px;
+
+    div {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.entity-view__card__content {
+  flex-direction: row;
+}

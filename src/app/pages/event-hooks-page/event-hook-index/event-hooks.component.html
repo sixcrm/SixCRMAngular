@@ -1,0 +1,22 @@
+<div class="entity-index">
+  <div class="entity-index__title">
+    {{'EVENTHOOK_INDEX_TITLE' | translate}}
+  </div>
+
+  <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
+
+  <md-tab-group [(selectedIndex)]="selectedIndex">
+    <md-tab>
+      <event-hooks-custom (addSelected)="toggleAddModal()"></event-hooks-custom>
+    </md-tab>
+
+    <md-tab>
+      <event-hooks-shared></event-hooks-shared>
+    </md-tab>
+
+  </md-tab-group>
+</div>
+
+<div *ngIf="addMode" (click)="overlayClicked($event)" class="full-overlay">
+  <event-hook-add-new class="modal-center" [mode]="modes.Add" [entity]="entity" (save)="saveEventHook($event)" (cancel)="closeAddMode()"></event-hook-add-new>
+</div>

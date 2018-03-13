@@ -95,6 +95,8 @@ import {EmailTemplatesSharedService} from './services/email-templates-shared.ser
 import { CurrencyInputDirective } from './directives/currency-input.directive';
 import {TagsService} from './services/tags.service';
 import {EntityAclsService} from './services/entityacl.service';
+import {EventHooksService} from './services/event-hooks.service';
+import {EventHooksSharedService} from './services/event-hooks-shared.service';
 
 @NgModule({
   declarations : [
@@ -243,7 +245,9 @@ export class SharedModule {
         ImagesService,
         MerchantProviderGroupAssociationsService,
         TagsService,
-        EntityAclsService
+        EntityAclsService,
+        EventHooksService,
+        EventHooksSharedService
       ]
     };
   }

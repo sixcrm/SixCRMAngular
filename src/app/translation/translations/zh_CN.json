@@ -50,6 +50,7 @@
       "productschedule": "产品时间表",
       "campaign": "广告活动",
       "emailtemplate": "电子邮件模板",
+      "eventhook": "Event Hooks",
       "traffic": {
         "title": "Traffic Setup",
         "affiliate": "商业伙伴",
@@ -1179,6 +1180,44 @@
       "title": "跟踪代码",
       "subtitle": "将此代码复制到您的HTML页面标题",
       "copy": "复制到剪贴板"
+    }
+  },
+  "eventhook": {
+    "index": {
+      "title": "Event Hooks",
+      "header": {
+        "id": "ID",
+        "name": "Name",
+        "active": "Active",
+        "type": "Event Type",
+        "created": "Created",
+        "updated": "Updated"
+      }
+    },
+    "tab": {
+      "general": "GENERAL DETAILS",
+      "custom": "EVENT HOOKS",
+      "shared": "MANAGED EVENT HOOKS"
+    },
+    "shared": {
+      "title": "Managed Event Hooks",
+      "subtitle": "Copy code of managed event hook",
+      "type": "Event Type",
+      "search": "Search"
+    },
+    "info": {
+      "title": "Event Hook Details",
+      "createtitle": "Create new Event Hook",
+      "name": "Name",
+      "type": "Event Type",
+      "active": "Event Hook Active",
+      "edit": "Edit Event Hook",
+      "save": "SAVE",
+      "cancel": "CANCEL"
+    },
+    "code": {
+      "title": "Event Hook Code",
+      "save": "SAVE"
     }
   },
   "emailtemplate": {

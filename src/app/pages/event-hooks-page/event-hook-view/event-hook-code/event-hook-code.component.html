@@ -1,0 +1,21 @@
+<div class="entity-view__card">
+  <div class="entity-view__card__header">
+    <div class="entity-view__card__header__title">{{'EVENTHOOK_CODE_TITLE' | translate}}</div>
+  </div>
+
+  <div class="entity-view__card__content">
+    <codemirror class="event-hook-codemirror" #codemirror [(ngModel)]="eventHook.hookDecoded" [config]="config"></codemirror>
+
+    <div class="code-console">
+      <div class="flex-custom flex-custom--center">
+        <md-icon (click)="execute()">play_arrow</md-icon>
+        <md-icon (click)="clearConsole()">delete</md-icon>
+        <div class="save" (click)="save.emit(true)">{{'EVENTHOOK_CODE_SAVE' | translate}}</div>
+      </div>
+      <div class="logger">
+        <div *ngFor="let v of value">{{v === null ? 'null': v === undefined ? 'undefined' : v}}</div>
+      </div>
+    </div>
+  </div>
+</div>
+

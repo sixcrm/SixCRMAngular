@@ -1,0 +1,43 @@
+<div *ngIf="entity; else spinner" class="entity-view">
+  <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
+
+  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+
+  <div class="entity-view__info">
+    <div class="entity-view__info__image">
+      <img src="/assets/images/result-item-transaction-white.svg" alt="">
+    </div>
+    <div class="entity-view__info__data">
+      <div class="entity-view__info__data__date">{{'SINGLEPAGE_CREATED' | translate}}: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+      <div class="entity-view__info__data__name">
+        <span>{{entityBackup.name}}</span>
+      </div>
+    </div>
+  </div>
+
+  <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
+
+  <md-tab-group [(selectedIndex)]="selectedIndex">
+    <md-tab>
+      <div class="flex-custom">
+        <div class="cont">
+          <event-hook-add-new [entity]="entity"
+                              [shared]="isShared"
+                              [mode]="viewMode ? modes.View : modes.Update"
+                              (changeMode)="setMode($event)"
+                              (cancel)="cancelUpdate()"
+                              (save)="saveOrUpdate($event)">
+          </event-hook-add-new>
+          <shared-hooks-list class="entity-view__card" (hookSelected)="appendHookBody($event)"></shared-hooks-list>
+        </div>
+
+        <event-hook-code [shared]="isShared" [eventHook]="entity" (save)="updateEntity(entity)"></event-hook-code>
+
+      </div>
+    </md-tab>
+  </md-tab-group>
+</div>
+
+<ng-template #spinner>
+  <spe-loader [numberOfTabs]="2" [cardsExpression]="'300px;840px'" [title]="'EVENTHOOK_INDEX_TITLE' | translate"></spe-loader>
+</ng-template>

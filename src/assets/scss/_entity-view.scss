@@ -1057,3 +1057,8 @@ $blue-color: #4A90E2;
     width: auto;
   }
 }
+.event-hook-codemirror {
+  .cm-s-material {
+    min-height: 470px;
+  }
+}

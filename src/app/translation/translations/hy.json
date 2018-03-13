@@ -50,6 +50,7 @@
 			"productschedule": "Ապրանքների հերթացուցակներ",
 			"campaign": "Արշավներ",
 			"emailtemplate": "Էլ. փոստի ձևանմուշներ",
+      "eventhook": "Event Hooks",
       "traffic": {
         "title": "Traffic Setup",
         "affiliate": "Գործընկերներ",
@@ -1181,6 +1182,44 @@
 			"copy": "Պատճենել"
 		}
 	},
+  "eventhook": {
+    "index": {
+      "title": "Event Hooks",
+      "header": {
+        "id": "ID",
+        "name": "Name",
+        "active": "Active",
+        "type": "Event Type",
+        "created": "Created",
+        "updated": "Updated"
+      }
+    },
+    "tab": {
+      "general": "GENERAL DETAILS",
+      "custom": "EVENT HOOKS",
+      "shared": "MANAGED EVENT HOOKS"
+    },
+    "shared": {
+      "title": "Managed Event Hooks",
+      "subtitle": "Copy code of managed event hook",
+      "type": "Event Type",
+      "search": "Search"
+    },
+    "info": {
+      "title": "Event Hook Details",
+      "createtitle": "Create new Event Hook",
+      "name": "Name",
+      "type": "Event Type",
+      "active": "Event Hook Active",
+      "edit": "Edit Event Hook",
+      "save": "SAVE",
+      "cancel": "CANCEL"
+    },
+    "code": {
+      "title": "Event Hook Code",
+      "save": "SAVE"
+    }
+  },
 	"emailtemplate": {
 		"title": "Էլ. նամակի ձևանմուշ",
 		"index": {

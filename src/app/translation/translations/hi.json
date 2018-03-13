@@ -50,6 +50,7 @@
       "productschedule": "उत्पाद अनुसूचियों",
       "campaign": "अभियान",
       "emailtemplate": "ईमेल टेम्पलेट",
+      "eventhook": "Event Hooks",
       "traffic": {
         "title": "Traffic Setup",
         "affiliate" : "संबद्ध",
@@ -1179,6 +1180,44 @@
       "title": "ट्रैकिंग कोड",
       "subtitle": "इस कोड को अपने HTML पृष्ठ शीर्षलेख में कॉपी करें",
       "copy": "क्लिपबोर्ड पर कॉपी करें"
+    }
+  },
+  "eventhook": {
+    "index": {
+      "title": "Event Hooks",
+      "header": {
+        "id": "ID",
+        "name": "Name",
+        "active": "Active",
+        "type": "Event Type",
+        "created": "Created",
+        "updated": "Updated"
+      }
+    },
+    "tab": {
+      "general": "GENERAL DETAILS",
+      "custom": "EVENT HOOKS",
+      "shared": "MANAGED EVENT HOOKS"
+    },
+    "shared": {
+      "title": "Managed Event Hooks",
+      "subtitle": "Copy code of managed event hook",
+      "type": "Event Type",
+      "search": "Search"
+    },
+    "info": {
+      "title": "Event Hook Details",
+      "createtitle": "Create new Event Hook",
+      "name": "Name",
+      "type": "Event Type",
+      "active": "Event Hook Active",
+      "edit": "Edit Event Hook",
+      "save": "SAVE",
+      "cancel": "CANCEL"
+    },
+    "code": {
+      "title": "Event Hook Code",
+      "save": "SAVE"
     }
   },
   "emailtemplate": {

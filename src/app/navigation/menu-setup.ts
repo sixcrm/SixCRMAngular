@@ -88,6 +88,10 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
     crmItems.push(new MenuItem('SIDENAV_CRM_EMAILTEMPLATE', 'emailtemplates'));
   }
 
+  if (authService.hasPermissions('eventhook', 'view')) {
+    crmItems.push(new MenuItem('SIDENAV_CRM_EVENTHOOK', 'eventhooks'));
+  }
+
   let tracking: MenuItem[] = [];
   if (authService.hasPermissions('affiliate', 'view')) {
     tracking.push(new MenuItem('SIDENAV_CRM_TRAFFIC_AFFILIATE', 'affiliates'));
@@ -144,7 +148,6 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   if (authService.hasPermissions('role', 'view')) {
     settings.push(new MenuItem('SIDENAV_SETTINGS_ROLE', 'roles'));
   }
-
   if (authService.hasPermissions('bill', 'view') && authService.isActiveAclMasterAccount()) {
     settings.push(new MenuItem('SIDENAV_SETTINGS_BILL', 'bills'));
   }
