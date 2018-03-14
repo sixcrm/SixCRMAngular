@@ -3,7 +3,8 @@
 
     <div class="schedule-container__header">
       <md-icon (click)="close.emit(true)">close</md-icon>
-      <div>{{schedule?.name || schedule?.product?.name}}</div>
+      <div *ngIf="isProductSchedule()">{{schedule.name}}</div>
+      <div *ngIf="isSchedule()">{{schedule.product.name}}</div>
     </div>
 
     <div class="schedule-container__ship-info">
