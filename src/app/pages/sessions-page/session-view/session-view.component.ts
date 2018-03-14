@@ -92,11 +92,19 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
   }
 
   ngOnDestroy() {
+    this.navigation.resetSidenavAuto();
+
     this.destroy();
   }
 
   setIndex(value: number): void {
     this.selectedIndex = value;
+
+    if (this.selectedIndex === 1) {
+      this.navigation.setSidenavAuto(false);
+    } else {
+      this.navigation.resetSidenavAuto();
+    }
   }
 
   viewRebill(rebill: Rebill): void {
