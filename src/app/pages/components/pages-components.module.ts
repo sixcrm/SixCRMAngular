@@ -22,6 +22,10 @@ import {RouterModule} from '@angular/router';
 import { EntityViewGalleryComponent } from './entity-view-gallery/entity-view-gallery.component';
 import { EntityViewTagComponent } from './entity-view-tag/entity-view-tag.component';
 import { EntityViewEntityaclComponent } from './entity-view-entityacl/entity-view-entityacl.component';
+import {SchedulesDetailedComponent} from './schedules-detailed/schedules-detailed.component';
+import { ScheduleDetailsComponent } from './schedules-detailed/schedule-details/schedule-details.component';
+import { ScheduleDetailedHeaderComponent } from './schedules-detailed/schedule-detailed-header/schedule-detailed-header.component';
+import { ScheduleDetailedListComponent } from './schedules-detailed/schedule-detailed-list/schedule-detailed-list.component';
 
 @NgModule({
   imports : [
@@ -49,7 +53,11 @@ import { EntityViewEntityaclComponent } from './entity-view-entityacl/entity-vie
     EntityViewBreadcrumbsComponent,
     EntityViewGalleryComponent,
     EntityViewTagComponent,
-    EntityViewEntityaclComponent
+    EntityViewEntityaclComponent,
+    SchedulesDetailedComponent,
+    ScheduleDetailsComponent,
+    ScheduleDetailedHeaderComponent,
+    ScheduleDetailedListComponent
   ],
   exports : [
     TableActionsComponent,
@@ -63,7 +71,8 @@ import { EntityViewEntityaclComponent } from './entity-view-entityacl/entity-vie
     EntityViewBreadcrumbsComponent,
     EntityViewGalleryComponent,
     EntityViewTagComponent,
-    EntityViewEntityaclComponent
+    EntityViewEntityaclComponent,
+    SchedulesDetailedComponent
   ],
   providers: [
 

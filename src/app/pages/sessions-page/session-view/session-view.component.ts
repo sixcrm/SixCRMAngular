@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, ElementRef} from '@angular/core';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {Session} from '../../../shared/models/session.model';
 import {SessionsService} from '../../../shared/services/sessions.service';
@@ -19,6 +19,8 @@ import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-vi
   styleUrls: ['./session-view.component.scss']
 })
 export class SessionViewComponent extends AbstractEntityViewComponent<Session> implements OnInit, OnDestroy {
+
+  detailsElement: ElementRef;
 
   selectedIndex: number = 0;
 
@@ -47,6 +49,7 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
 
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'SESSION_TAB_GENERAL'},
+    {name: 'watermark', label: 'SESSION_TAB_WATERMARK'},
     {name: 'affiliates', label: 'SESSION_TAB_AFFILIATE'}
   ];
 
@@ -106,6 +109,10 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
 
   viewAffiliate(affiliate: Affiliate): void {
     this.router.navigate(['/affiliates', affiliate.id]);
+  }
+
+  setDetails(details) {
+    this.detailsElement = details;
   }
 
 }

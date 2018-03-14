@@ -1,0 +1,7 @@
+<schedule-detailed-header [displayMode]="displayMode" (displayModeChanged)="displayMode = $event" (filterChanged)="filterProductSchedulesValue = $event"></schedule-detailed-header>
+
+<schedule-detailed-list [productSchedules]="productSchedules | filterStrings: filterProductSchedulesValue: productScheduleFilterMapper" (selected)="selectDetails($event)"></schedule-detailed-list>
+
+<ng-template #details>
+  <schedule-details [schedule]="selectedSchedule" (close)="deselectSchedule()"></schedule-details>
+</ng-template>

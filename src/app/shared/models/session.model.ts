@@ -5,6 +5,7 @@ import {Campaign} from './campaign.model';
 import {Entity} from './entity.interface';
 import {Affiliate} from './affiliate.model';
 import {utc, Moment} from 'moment';
+import {Watermark} from './watermark/watermark.model';
 
 export class Session implements Entity<Session> {
   id: string;
@@ -19,6 +20,7 @@ export class Session implements Entity<Session> {
   subAffiliate3: Affiliate;
   subAffiliate4: Affiliate;
   subAffiliate5: Affiliate;
+  watermark: Watermark;
   createdAt: Moment;
   updatedAt: Moment;
 
@@ -37,6 +39,7 @@ export class Session implements Entity<Session> {
     this.subAffiliate3 = new Affiliate(obj.subaffiliate_3);
     this.subAffiliate4 = new Affiliate(obj.subaffiliate_4);
     this.subAffiliate5 = new Affiliate(obj.subaffiliate_5);
+    this.watermark = new Watermark(obj.watermark);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
 
@@ -95,6 +98,7 @@ export class Session implements Entity<Session> {
       subaffiliate_3: this.subAffiliate3.inverse(),
       subaffiliate_4: this.subAffiliate4.inverse(),
       subaffiliate_5: this.subAffiliate5.inverse(),
+      watermark: this.watermark.inverse(),
       created_at: this.createdAt.clone().format(),
       updated_at: this.updatedAt.clone().format()
     }

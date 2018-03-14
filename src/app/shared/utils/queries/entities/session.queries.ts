@@ -55,6 +55,10 @@ export function deleteSessionsMutation(id: string[]): string {
 export function sessionResponseQuery(): string {
   return `
     id alias created_at updated_at,
+    watermark {
+      product_schedules { quantity, product_schedule { name, schedule { price, start, end, period, product {id, name, attributes { images { path, default_image } } } } } },
+      products { quantity, price, product { id name } }
+    }
     customer { id firstname lastname address { line1 line2 city state zip country } }
     affiliate { id name affiliate_id created_at updated_at }
     subaffiliate_1 { id name affiliate_id created_at updated_at }

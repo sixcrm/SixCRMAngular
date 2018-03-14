@@ -1404,7 +1404,8 @@
     },
     "tab": {
       "general": "सामान्य विवरण",
-      "affiliate": "संबद्ध"
+      "affiliate": "संबद्ध",
+      "watermark": "WATERMARK"
     },
     "customer": {
       "title": "ग्राहक सूचना",

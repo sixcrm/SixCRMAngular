@@ -147,7 +147,7 @@ export class EntityViewEntityaclComponent implements OnInit, OnDestroy {
 
   private assignAccounts(accounts) {
     this.accounts = [new Account({name: '*', id: '*'}), ...accounts];
-    this.allowedParams[1].setAutocompleteOptions(this.accounts);
+    this.allowedParams[0].setAutocompleteOptions(this.accounts);
   }
 
   private fetchUsers() {
@@ -161,7 +161,7 @@ export class EntityViewEntityaclComponent implements OnInit, OnDestroy {
 
   private assignUsers(users) {
     this.users = [new User({name: '*', id: '*'}), ...users];
-    this.allowedParams[0].setAutocompleteOptions(this.users);
+    this.allowedParams[1].setAutocompleteOptions(this.users);
   }
 
   private fetchEntityAcl() {

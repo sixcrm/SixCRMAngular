@@ -1,0 +1,69 @@
+<div class="schedule-details" [class.schedule-details--hidden]="!schedule">
+  <div class="schedule-container">
+
+    <div class="schedule-container__header">
+      <md-icon (click)="close.emit(true)">close</md-icon>
+      <div>{{schedule?.name || schedule?.product?.name}}</div>
+    </div>
+
+    <div class="schedule-container__ship-info">
+
+    </div>
+
+    <div *ngIf="isSchedule()" class="schedule-container__schedule-details">
+      <div class="header">
+        <div>View Product</div>
+        <div class="button">DELETE</div>
+      </div>
+
+      <div class="body">
+        <div class="body__row">
+          <md-input-container>
+            <input type="text" autoFocus md-input placeholder="Start" [(ngModel)]="schedule.start">
+          </md-input-container>
+
+          <md-input-container>
+            <input type="text" md-input placeholder="End" [(ngModel)]="schedule.end">
+          </md-input-container>
+        </div>
+
+        <div class="body__row">
+          <md-input-container>
+            <input type="text" md-input placeholder="Cycle" [(ngModel)]="schedule.cycle">
+          </md-input-container>
+
+          <md-input-container>
+            <input type="text" md-input placeholder="Price" currencyInput [initPrice]="schedule.price" (priceChanged)="schedule.price = $event">
+          </md-input-container>
+        </div>
+
+        <autocomplete-input
+          [initialValue]="schedule.product"
+          [options]="[]"
+          [applyAutofocus]="false"
+          [placeholder]="'Product'"
+          [mapFunction]="productMapper"
+          (selected)="schedule.product = $event">
+        </autocomplete-input>
+      </div>
+
+      <div class="buttons">
+        <div>SAVE</div>
+        <div (click)="cancel()">CANCEL</div>
+      </div>
+    </div>
+
+    <div *ngIf="isProductSchedule()" class="schedule-container__items">
+      <div class="header">
+        <div>Schedule</div>
+        <div>EDIT</div>
+      </div>
+
+      <div class="item" *ngFor="let s of schedule.schedules; let i = index">
+        <div class="number"><span>{{i}}</span></div>
+        <div class="text">{{s.product.name}}</div>
+        <md-icon>more_vert</md-icon>
+      </div>
+    </div>
+  </div>
+</div>

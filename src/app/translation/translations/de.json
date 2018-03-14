@@ -1404,7 +1404,8 @@
     },
     "tab": {
       "general": "ALLGEMEINES",
-      "affiliate": "VERTRIEBSPARTNER"
+      "affiliate": "VERTRIEBSPARTNER",
+      "watermark": "WATERMARK"
     },
     "customer": {
       "title": "Über den Kunden",

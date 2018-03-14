@@ -1404,7 +1404,8 @@
 		},
 		"tab": {
 			"general": "ԸՆԴՀԱՆՈՒՐ ՄԱՆՐԱՄԱՍՆԵՐ",
-			"affiliate": "ԳՈՐԾԸՆԿԵՐՆԵՐ"
+			"affiliate": "ԳՈՐԾԸՆԿԵՐՆԵՐ",
+      "watermark": "WATERMARK"
 		},
 		"customer": {
 			"title": "Հաճախորդի տեղեկություն",

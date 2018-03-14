@@ -1404,7 +1404,8 @@
     },
     "tab": {
       "general": "GENERAL DETAILS",
-      "affiliate": "AFFILIATES"
+      "affiliate": "AFFILIATES",
+      "watermark": "WATERMARK"
     },
     "customer": {
       "title": "Customer Information",

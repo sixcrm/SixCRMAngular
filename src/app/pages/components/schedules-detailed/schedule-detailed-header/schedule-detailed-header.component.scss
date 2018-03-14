@@ -1,0 +1,60 @@
+.details-header-container {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  height: 46px;
+  line-height: 46px;
+  padding: 0 15px;
+  background: white;
+  color: #8E8E8E;
+  font-size: 12px;
+
+  md-icon {
+    cursor: pointer;
+    width: 22px;
+    height: 22px;
+    font-size: 22px;
+    color: #8E8E8E;
+  }
+
+  .icon-selected {
+    color: #4A90E2;
+  }
+
+  .add-button {
+    margin-right: 9px;
+    color: white;
+    font-weight: 500;
+    background: #4A90E2;
+    padding: 0 12px;
+    height: 28px;
+    line-height: 28px;
+    cursor: pointer;
+  }
+
+  .search-icon {
+    margin: 0 3px;
+  }
+
+  .grid-icon {
+    margin: 0 3px 0 auto;
+  }
+
+  .list-icon {
+    margin: 0 3px;
+  }
+
+  md-input-container {
+  }
+
+  .zoom-label {
+    margin: 0 3px;
+  }
+
+  .divider {
+    margin: 0 6px;
+    width: 1px;
+    height: 38px;
+    background: rgba(0,0,0,0.15);
+  }
+}

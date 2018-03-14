@@ -1404,7 +1404,8 @@
     },
     "tab": {
       "general": "一般细节",
-      "affiliate": "联盟"
+      "affiliate": "联盟",
+      "watermark": "WATERMARK"
     },
     "customer": {
       "title": "客户信息",

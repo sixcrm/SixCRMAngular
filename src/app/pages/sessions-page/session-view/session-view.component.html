@@ -1,98 +1,110 @@
-<div *ngIf="entity; else spinner" class="entity-view">
-  <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
+<div class="entity-view__container" *ngIf="entity; else spinner">
 
-  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+  <div class="entity-view">
+    <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
 
-  <div class="entity-view__info">
-    <div class="entity-view__info__image">
-      <img src="/assets/images/result-item-transaction-white.svg" alt="">
-    </div>
-    <div class="entity-view__info__data">
-      <div class="entity-view__info__data__date">{{'SINGLEPAGE_CREATED' | translate}}: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
-      <div class="entity-view__info__data__name">
-        <span>{{entityBackup.alias || entityBackup.id}}</span>
+    <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+
+    <div class="entity-view__info">
+      <div class="entity-view__info__image">
+        <img src="/assets/images/result-item-transaction-white.svg" alt="">
+      </div>
+      <div class="entity-view__info__data">
+        <div class="entity-view__info__data__date">{{'SINGLEPAGE_CREATED' | translate}}: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
+        <div class="entity-view__info__data__name">
+          <span>{{entityBackup.alias || entityBackup.id}}</span>
+        </div>
       </div>
     </div>
-  </div>
 
-  <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
+    <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-  <md-tab-group [(selectedIndex)]="selectedIndex">
-    <md-tab>
-      <div class="flex-custom session-view__card-container">
-        <div class="entity-view__card">
-          <div class="entity-view__card__header">
-            <div class="entity-view__card__header__title">{{'SESSION_CUSTOMER_TITLE' | translate}}</div>
-            <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-            <md-menu #actionsMenu="mdMenu" x-position="before">
-              <button md-menu-item [routerLink]="['/customers', entity.customer.id]">{{'SESSION_CUSTOMER_VIEW' | translate}}</button>
-            </md-menu>
-          </div>
+    <md-tab-group [(selectedIndex)]="selectedIndex">
+      <md-tab>
+        <div class="flex-custom session-view__card-container">
+            <div class="entity-view__card">
+              <div class="entity-view__card__header">
+                <div class="entity-view__card__header__title">{{'SESSION_CUSTOMER_TITLE' | translate}}</div>
+                <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
+                <md-menu #actionsMenu="mdMenu" x-position="before">
+                  <button md-menu-item [routerLink]="['/customers', entity.customer.id]">{{'SESSION_CUSTOMER_VIEW' | translate}}</button>
+                </md-menu>
+              </div>
 
-          <div class="entity-view__card__content">
-            <md-input-container class="entity-view__card__content__item">
-              <input md-input disabled placeholder="{{'FORMINPUTS_FIRSTNAME' | translate}}" [(ngModel)]="entity.customer.firstName" type="text">
-            </md-input-container>
+              <div class="entity-view__card__content">
+                <md-input-container class="entity-view__card__content__item">
+                  <input md-input disabled placeholder="{{'FORMINPUTS_FIRSTNAME' | translate}}" [(ngModel)]="entity.customer.firstName" type="text">
+                </md-input-container>
 
-            <md-input-container class="entity-view__card__content__item">
-              <input md-input disabled placeholder="{{'FORMINPUTS_LASTNAME' | translate}}" [(ngModel)]="entity.customer.lastName" type="text">
-            </md-input-container>
+                <md-input-container class="entity-view__card__content__item">
+                  <input md-input disabled placeholder="{{'FORMINPUTS_LASTNAME' | translate}}" [(ngModel)]="entity.customer.lastName" type="text">
+                </md-input-container>
 
-            <md-input-container class="entity-view__card__content__item">
-              <input md-input disabled placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="entity.customer.address.line1" type="text">
-            </md-input-container>
+                <md-input-container class="entity-view__card__content__item">
+                  <input md-input disabled placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="entity.customer.address.line1" type="text">
+                </md-input-container>
 
-            <md-input-container class="entity-view__card__content__item">
-              <input md-input disabled placeholder="{{'FORMINPUTS_CITY' | translate}}" [(ngModel)]="entity.customer.address.city" type="text">
-            </md-input-container>
+                <md-input-container class="entity-view__card__content__item">
+                  <input md-input disabled placeholder="{{'FORMINPUTS_CITY' | translate}}" [(ngModel)]="entity.customer.address.city" type="text">
+                </md-input-container>
 
-            <div class="flex-custom">
-              <dropdown-component class="session-view__item--left" [placeholder]="'FORMINPUTS_STATE' | translate" [disabled]="true" [selected]="entity.customer.address.state"></dropdown-component>
+                <div class="flex-custom">
+                  <dropdown-component class="session-view__item--left" [placeholder]="'FORMINPUTS_STATE' | translate" [disabled]="true" [selected]="entity.customer.address.state"></dropdown-component>
 
-              <md-input-container class="entity-view__card__content__item session-view__item--right">
-                <input md-input disabled placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="entity.customer.address.zip" type="text">
-              </md-input-container>
+                  <md-input-container class="entity-view__card__content__item session-view__item--right">
+                    <input md-input disabled placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="entity.customer.address.zip" type="text">
+                  </md-input-container>
+                </div>
+
+                <dropdown-component [placeholder]="'FORMINPUTS_COUNTRY' | translate" [disabled]="true" [selected]="entity.customer.address.country"></dropdown-component>
+              </div>
             </div>
 
-            <dropdown-component [placeholder]="'FORMINPUTS_COUNTRY' | translate" [disabled]="true" [selected]="entity.customer.address.country"></dropdown-component>
+            <div class="flex-custom flex-custom--wrap">
+              <table-memory class="session-view__table"
+                            [data]="entity.rebills"
+                            [filterEnabled]="false"
+                            [textOptions]="rebillText"
+                            [columnParams]="rebillColumnParams"
+                            [associationEnabled]="false"
+                            [dissociationEnabled]="false"
+                            (view)="viewRebill($event)">
+              </table-memory>
+
+              <table-memory class="session-view__table"
+                            [data]="[entity.campaign]"
+                            [filterEnabled]="false"
+                            [textOptions]="campaignText"
+                            [columnParams]="campaignColumnParams"
+                            [associationEnabled]="false"
+                            [dissociationEnabled]="false"
+                            (view)="viewCampaign($event)">
+              </table-memory>
+            </div>
           </div>
-        </div>
+      </md-tab>
 
-        <div class="flex-custom flex-custom--wrap">
-          <table-memory class="session-view__table"
-                        [data]="entity.rebills"
-                        [filterEnabled]="false"
-                        [textOptions]="rebillText"
-                        [columnParams]="rebillColumnParams"
-                        [associationEnabled]="false"
-                        [dissociationEnabled]="false"
-                        (view)="viewRebill($event)">
-          </table-memory>
+      <md-tab>
+        <schedules-detailed [productSchedules]="entity.watermark.extractedProductSchedules" (detailsComponent)="setDetails($event)"></schedules-detailed>
+      </md-tab>
 
-          <table-memory class="session-view__table"
-                        [data]="[entity.campaign]"
-                        [filterEnabled]="false"
-                        [textOptions]="campaignText"
-                        [columnParams]="campaignColumnParams"
-                        [associationEnabled]="false"
-                        [dissociationEnabled]="false"
-                        (view)="viewCampaign($event)">
-          </table-memory>
-        </div>
-      </div>
-    </md-tab>
+      <md-tab>
+        <table-memory [data]="affiliates"
+                      [textOptions]="affiliateText"
+                      [filterEnabled]="false"
+                      [columnParams]="affiliateColumnParams"
+                      [associationEnabled]="false"
+                      [dissociationEnabled]="false"
+                      (view)="viewAffiliate($event)">
+        </table-memory>
+      </md-tab>
+    </md-tab-group>
+  </div>
 
-    <md-tab>
-      <table-memory [data]="affiliates"
-                    [textOptions]="affiliateText"
-                    [filterEnabled]="false"
-                    [columnParams]="affiliateColumnParams"
-                    [associationEnabled]="false"
-                    [dissociationEnabled]="false"
-                    (view)="viewAffiliate($event)">
-      </table-memory>
-    </md-tab>
-  </md-tab-group>
+  <div class="details-container" [class.details-container--hidden]="selectedIndex !== 1">
+    <ng-container *ngTemplateOutlet="detailsElement"></ng-container>
+  </div>
+
 </div>
 
 <ng-template #spinner>

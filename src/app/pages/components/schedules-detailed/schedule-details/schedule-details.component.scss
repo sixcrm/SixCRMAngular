@@ -1,0 +1,151 @@
+.schedule-details {
+  width: 320px;
+  transition: width 200ms ease-in-out;
+  min-height: 100%;
+  background: white;
+  overflow: hidden;
+
+  &--hidden {
+    width: 0;
+    overflow: hidden;
+    transition: width 200ms ease-in-out;
+  }
+}
+
+.schedule-container {
+  width: 320px;
+
+  &__schedule-details {
+    .header {
+      border-bottom: 1px solid rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      padding: 12px 12px 13px;
+      font-size: 18px;
+
+      .button {
+        margin-left: auto;
+        font-size: 12px;
+        color: white;
+        background: #EF4339;
+        font-weight: 500;
+        padding: 6px 16px;
+        cursor: pointer;
+      }
+    }
+
+    .body {
+      padding: 18px 12px;
+
+      .body__row {
+        display: flex;
+
+        md-input-container:first-of-type {
+          margin-right: 12px;
+        }
+      }
+
+      md-input-container {
+        font-size: 14px;
+      }
+
+      autocomplete-input {
+        font-size: 14px;
+      }
+    }
+
+    .buttons {
+      padding: 12px 12px;
+      border-top: 1px solid rgba(0,0,0,0.2);
+      display: flex;
+
+      div {
+        font-size: 12px;
+        cursor: pointer;
+
+        &:first-of-type {
+          margin-left: auto;
+        }
+
+        &:last-of-type {
+          margin-left: 8px;
+          color: #4A90E2;
+        }
+      }
+    }
+  }
+
+  &__header {
+    display: flex;
+    padding: 0 12px;
+    align-items: center;
+    height: 64px;
+    background: #355EF5;
+    color: white;
+    font-size: 15px;
+
+    md-icon {
+      margin-right: 8px;
+      cursor: pointer;
+    }
+  }
+
+  &__ship-info {
+    background: #4B90DD;
+    color: white;
+    font-weight: 500;
+    height: 161px;
+  }
+
+  &__items {
+    .header {
+      display: flex;
+      align-items: center;
+      padding: 15px 12px;
+      font-size: 18px;
+
+      div:last-of-type {
+        margin-left: auto;
+        font-size: 12px;
+        cursor: pointer;
+      }
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-top: 1px solid rgba(0,0,0,0.2);
+      font-size: 14px;
+
+      .number {
+        display: flex;
+        width: 34px;
+        height: 34px;
+        background: #EEEEEE;
+        border-radius: 50%;
+        margin-right: 10px;
+
+        span {
+          margin: auto;
+          font-size: 18px;
+        }
+      }
+
+      .text {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: 225px;
+        white-space: nowrap;
+      }
+
+      md-icon {
+        margin-left: auto;
+        font-size: 20px;
+        height: 20px;
+        width: 20px;
+        cursor: pointer;
+      }
+    }
+  }
+}
