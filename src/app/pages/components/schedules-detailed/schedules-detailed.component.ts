@@ -1,6 +1,10 @@
 import {Component, OnInit, Output, EventEmitter, ViewChild, Input, ElementRef, AfterViewInit} from '@angular/core';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 import {Schedule} from '../../../shared/models/schedule.model';
+import {Product} from '../../../shared/models/product.model';
+import {ProductsService} from '../../../shared/services/products.service';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {Moment} from 'moment';
 
 export enum DisplayModes {
   grid,
@@ -15,27 +19,47 @@ export enum DisplayModes {
 export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
 
   @Input() productSchedules: ProductSchedule[] = [];
+  @Input() startDate: Moment;
 
   @Output() detailsComponent: EventEmitter<ElementRef> = new EventEmitter();
 
   @ViewChild('details') details: ElementRef;
 
+  products: Product[] = [];
   selectedSchedule: ProductSchedule | Schedule;
   displayMode: DisplayModes = DisplayModes.grid;
+  modes = DisplayModes;
+  zoomLevel: number = 1;
 
   productScheduleFilterMapper = (ps: ProductSchedule) => ps.name;
   filterProductSchedulesValue: string;
 
-  constructor() { }
+  selectedIndex: number = 0;
 
-  ngOnInit() {}
+  constructor(private productService: ProductsService) { }
+
+  ngOnInit() {
+    this.fetchProducts();
+  }
+
+  private fetchProducts() {
+    this.productService.entities$.take(1).subscribe(products => {
+      if (products instanceof CustomServerError) return;
+
+      this.products = products;
+    });
+    this.productService.getEntities();
+  }
 
   ngAfterViewInit() {
     this.detailsComponent.emit(this.details);
   }
 
   selectDetails(selected: ProductSchedule | Schedule) {
+    this.deselectSchedule();
+
     this.selectedSchedule = selected;
+    this.selectedSchedule['detailedListSelected'] = true;
 
     this.detailsComponent.emit(this.details);
   }
@@ -50,5 +74,11 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
         this.productSchedules[i].schedules[j]['detailedListSelected'] = false;
       }
     }
+  }
+
+  changeDisplayMode(mode: DisplayModes) {
+    this.displayMode = mode;
+
+    this.selectedIndex = this.displayMode === DisplayModes.grid ? 0 : 1;
   }
 }

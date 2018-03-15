@@ -91,10 +91,40 @@
   }
 
   &__ship-info {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 15px;
     background: #4B90DD;
     color: white;
     font-weight: 500;
     height: 161px;
+
+    div {
+      &:first-of-type {
+        font-size: 12px;
+        margin-top: auto;
+        padding-left: 32px;
+        margin-bottom: 8px;
+      }
+
+      &:last-of-type {
+        display: flex;
+        align-items: center;
+        margin-bottom: auto;
+
+        md-icon {
+          font-size: 20px;
+          height: 20px;
+          width: 20px;
+        }
+
+        span {
+          margin-left: 12px;
+          font-size: 24px;
+        }
+      }
+    }
   }
 
   &__items {

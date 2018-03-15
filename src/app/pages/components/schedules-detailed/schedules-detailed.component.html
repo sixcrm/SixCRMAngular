@@ -1,7 +1,39 @@
-<schedule-detailed-header [displayMode]="displayMode" (displayModeChanged)="displayMode = $event" (filterChanged)="filterProductSchedulesValue = $event"></schedule-detailed-header>
+<schedule-detailed-header
+  [displayMode]="displayMode"
+  (zoomChanged)="zoomLevel = $event"
+  (displayModeChanged)="changeDisplayMode($event)"
+  (filterChanged)="filterProductSchedulesValue = $event">
+</schedule-detailed-header>
 
-<schedule-detailed-list [productSchedules]="productSchedules | filterStrings: filterProductSchedulesValue: productScheduleFilterMapper" (selected)="selectDetails($event)"></schedule-detailed-list>
+<md-tab-group [(selectedIndex)]="selectedIndex" class="no-header">
+
+  <md-tab>
+    <div class="flex-custom">
+      <schedule-detailed-list
+        [productSchedules]="productSchedules | filterStrings: filterProductSchedulesValue: productScheduleFilterMapper"
+        (selected)="selectDetails($event)">
+      </schedule-detailed-list>
+      <schedule-detailed-timeline
+        [productSchedules]="productSchedules | filterStrings: filterProductSchedulesValue: productScheduleFilterMapper"
+        [zoomLevel]="zoomLevel"
+        [start]="startDate"
+        (selected)="selectDetails($event)">
+      </schedule-detailed-timeline>
+    </div>
+  </md-tab>
+
+  <md-tab>
+    <schedule-detailed-list-view [products]="products" [productSchedules]="productSchedules | filterStrings: filterProductSchedulesValue: productScheduleFilterMapper"></schedule-detailed-list-view>
+  </md-tab>
+
+</md-tab-group>
 
 <ng-template #details>
-  <schedule-details [schedule]="selectedSchedule" (close)="deselectSchedule()"></schedule-details>
+  <schedule-details
+    [hideDetails]="selectedIndex === 1"
+    [products]="products"
+    [schedule]="selectedSchedule"
+    [startDate]="startDate"
+    (close)="deselectSchedule()">
+  </schedule-details>
 </ng-template>

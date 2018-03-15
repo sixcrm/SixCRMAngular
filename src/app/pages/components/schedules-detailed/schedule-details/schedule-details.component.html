@@ -1,4 +1,4 @@
-<div class="schedule-details" [class.schedule-details--hidden]="!schedule">
+<div class="schedule-details" [class.schedule-details--hidden]="!schedule || hideDetails">
   <div class="schedule-container">
 
     <div class="schedule-container__header">
@@ -8,7 +8,8 @@
     </div>
 
     <div class="schedule-container__ship-info">
-
+      <div>NEXT CYCLE:</div>
+      <div><md-icon>date_range</md-icon> <span>{{calculateNextCycle()}}</span></div>
     </div>
 
     <div *ngIf="isSchedule()" class="schedule-container__schedule-details">
@@ -30,7 +31,7 @@
 
         <div class="body__row">
           <md-input-container>
-            <input type="text" md-input placeholder="Cycle" [(ngModel)]="schedule.cycle">
+            <input type="text" md-input placeholder="Cycle" [(ngModel)]="schedule.period">
           </md-input-container>
 
           <md-input-container>
@@ -40,7 +41,7 @@
 
         <autocomplete-input
           [initialValue]="schedule.product"
-          [options]="[]"
+          [options]="products"
           [applyAutofocus]="false"
           [placeholder]="'Product'"
           [mapFunction]="productMapper"

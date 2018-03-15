@@ -68,7 +68,8 @@ export function sessionResponseQuery(): string {
     subaffiliate_5 { id name affiliate_id created_at updated_at }
     cid { id name affiliate_id created_at updated_at }
     rebills { id bill_at amount},
-    campaign { id name }`;
+    campaign { id name }
+    canceled { canceled canceled_at canceled_by { id name } }`;
 }
 
 export function sessionInfoResponseQuery(): string {

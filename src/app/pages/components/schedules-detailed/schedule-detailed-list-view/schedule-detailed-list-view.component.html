@@ -1,0 +1,10 @@
+<div>
+
+  <table-advanced *ngFor="let ps of productSchedules"
+                  [data]="ps.schedules"
+                  [columnParams]="scheduleColumnParams"
+                  [entityFactory]="scheduleFactory(ps)"
+                  [textOptions]="getTableText(ps)">
+  </table-advanced>
+
+</div>

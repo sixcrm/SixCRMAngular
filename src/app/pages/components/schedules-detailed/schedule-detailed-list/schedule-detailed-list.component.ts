@@ -17,10 +17,10 @@ export class ScheduleDetailedListComponent implements OnInit {
   ngOnInit() {
   }
 
-  productScheduleCheckboxToggle(event, productSchedule: ProductSchedule) {
+  productScheduleCheckboxToggle(checked, productSchedule: ProductSchedule) {
     this.deselectAll();
 
-    if (event.checked) {
+    if (checked) {
       productSchedule['detailedListSelected'] = true;
       this.selected.emit(productSchedule);
     } else {
@@ -28,10 +28,10 @@ export class ScheduleDetailedListComponent implements OnInit {
     }
   }
 
-  scheduleCheckboxToggle(event, schedule: Schedule) {
+  scheduleCheckboxToggle(checked, schedule: Schedule) {
     this.deselectAll();
 
-    if (event.checked) {
+    if (checked) {
       schedule['detailedListSelected'] = true;
       this.selected.emit(schedule);
     } else {

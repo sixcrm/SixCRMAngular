@@ -45,3 +45,34 @@
     transition: max-width 120ms ease-in-out;
   }
 }
+
+.entity-view__info__edit {
+  margin: auto 25px auto auto;
+
+  .cancel {
+    font-size: 12px;
+    color: white;
+    background: #EF4339;
+    font-weight: 500;
+    padding: 6px 16px;
+    cursor: pointer;
+  }
+
+  .canceled-message {
+    div {
+      text-align: right;
+      color: rgba(0,0,0,0.5);
+
+      &:first-of-type {
+        margin-bottom: 3px;
+        font-size: 16px;
+        font-weight: 500;
+        text-transform: uppercase;
+      }
+
+      &:last-of-type {
+        font-size: 12px;
+      }
+    }
+  }
+}

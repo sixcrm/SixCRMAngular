@@ -15,6 +15,16 @@
           <span>{{entityBackup.alias || entityBackup.id}}</span>
         </div>
       </div>
+
+      <div class="entity-view__info__edit">
+        <div *ngIf="!entity.canceled.canceled; else cancelmessage" class="cancel">CANCEL</div>
+        <ng-template #cancelmessage>
+          <div class="canceled-message">
+            <div>Session canceled</div>
+            <div>by {{entity.canceled.canceledBy.name}} at {{entity.canceled.canceledAt.format('MM/DD/YY')}}</div>
+          </div>
+        </ng-template>
+      </div>
     </div>
 
     <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
@@ -85,7 +95,11 @@
       </md-tab>
 
       <md-tab>
-        <schedules-detailed [productSchedules]="entity.watermark.extractedProductSchedules" (detailsComponent)="setDetails($event)"></schedules-detailed>
+        <schedules-detailed
+          [productSchedules]="entity.watermark.extractedProductSchedules"
+          [startDate]="entity.createdAt.clone()"
+          (detailsComponent)="setDetails($event)">
+        </schedules-detailed>
       </md-tab>
 
       <md-tab>
