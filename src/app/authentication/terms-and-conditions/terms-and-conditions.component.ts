@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {AclsService} from '../../shared/services/acls.service';
 import {firstIndexOf} from '../../shared/utils/array.utils';
 import {Subscription} from 'rxjs';
+import {HttpWrapperService} from '../../shared/services/http-wrapper.service';
 
 interface TermsAndConditions {
   version?: string,
@@ -33,7 +34,8 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
     public authService: AuthenticationService,
     private userService: UsersService,
     private aclService: AclsService,
-    private router: Router
+    private router: Router,
+    public http: HttpWrapperService
   ) { }
 
   ngOnInit() {

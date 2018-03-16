@@ -1,5 +1,7 @@
 <div class="terms-and-conditions__container">
 
+  <md-progress-bar class="progress-bar" *ngIf="http.requestInProgress$ | async" mode="query"></md-progress-bar>
+
   <div class="terms-and-conditions__header">
     <img class="terms-and-conditions__header__logo" src="/assets/images/logo-white-small.svg" alt="">
     <img class="terms-and-conditions__header__cloud terms-and-conditions__header__cloud--one" src="/assets/images/cloud1.svg" alt="">
@@ -30,7 +32,7 @@
       <div class="terms-and-conditions__content__body" [innerHtml]="termsAndConditions.body | htmlSanitizer"></div>
     </div>
 
-    <button class="terms-and-conditions__button" (click)="acceptTermsAndConditions()">{{'TERMS_ACCEPT' | translate}}</button>
+    <button class="terms-and-conditions__button" (click)="acceptTermsAndConditions()" [disabled]="http.requestInProgress$ | async">{{'TERMS_ACCEPT' | translate}}</button>
 
     <div>
       <div class="terms-and-conditions__button--cancel" (click)="logout()">{{'TERMS_LOGOUT' | translate}}</div>

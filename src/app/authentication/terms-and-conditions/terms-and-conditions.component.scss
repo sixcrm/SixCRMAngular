@@ -142,6 +142,10 @@
     font-weight: 500;
     cursor: pointer;
 
+    &--disabled {
+      background: rgba(0,0,0,0.6);
+    }
+
     @media only screen and (max-width: 600px) {
       font-size: 16px;
     }
@@ -155,5 +159,9 @@
       color: #E6AB4C;
     }
   }
+}
+
+.progress-bar {
+  position: absolute;
 }
 
