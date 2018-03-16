@@ -1,19 +1,23 @@
 <schedule-detailed-header
   [displayMode]="displayMode"
+  [zoomLevel]="zoomLevel"
+  [sideVisible]="sideVisible"
+  (sideVisibleChanged)="sideVisible = $event"
   (zoomChanged)="zoomLevel = $event"
   (displayModeChanged)="changeDisplayMode($event)"
   (filterChanged)="filterProductSchedulesValue = $event">
 </schedule-detailed-header>
 
 <md-tab-group [(selectedIndex)]="selectedIndex" class="no-header">
-
   <md-tab>
     <div class="flex-custom">
       <schedule-detailed-list
         [productSchedules]="productSchedules | filterStrings: filterProductSchedulesValue: productScheduleFilterMapper"
+        [sideVisible]="sideVisible"
         (selected)="selectDetails($event)">
       </schedule-detailed-list>
       <schedule-detailed-timeline
+        #element
         [productSchedules]="productSchedules | filterStrings: filterProductSchedulesValue: productScheduleFilterMapper"
         [zoomLevel]="zoomLevel"
         [start]="startDate"

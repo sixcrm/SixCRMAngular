@@ -17,12 +17,19 @@
     color: #8E8E8E;
   }
 
+  .side-icon {
+    margin-right: 3px;
+    width: 26px;
+    height: 26px;
+    font-size: 26px;
+  }
+
   .icon-selected {
     color: #4A90E2;
   }
 
   .add-button {
-    margin-right: 9px;
+    margin: 0 8px;
     color: white;
     font-weight: 500;
     background: #4A90E2;

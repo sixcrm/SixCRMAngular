@@ -1,41 +1,52 @@
-<div class="timeline-container">
+<div class="top-line">DAYS</div>
 
-  <div class="timeline-body">
+<div class="view-container">
+  <div class="timeline-container" [style.width]="(365 / _zoom) * cellwidth + 20 + 'px'">
 
-    <div class="timeline-header">
-      <ng-container *ngFor="let measure of measureArray">
-        <div [style.left]="measure * cellwidth + 'px'">
-          {{measure * _zoom}}
-        </div>
-      </ng-container>
+    <div class="date-placeholder" [style.left]="((_diff * cellwidth) / _zoom) + 'px'">
+      <div class="date-placeholder__line"></div>
     </div>
 
-    <ng-container *ngFor="let productSchedule of productSchedules">
-      <div class="product-schedule-container" [style.height]="productSchedule.detailedListOpened ? (productSchedule.schedules.length + 1) * cellheight + 'px' : cellheight + 'px'">
-
-        <ng-container *ngFor="let schedule of productSchedule.schedules; let scheduleNum = index">
-          <div class="schedule-container">
-
-            <ng-container *ngFor="let cycle of schedule.cycles; let cycleNum = index">
-              <div class="cycle-container"
-                   [style.width]="(cycle.diff * cellwidth) / _zoom + 'px'"
-                   [style.left]="(cycle.start * cellwidth) / _zoom + 'px'">
-                <div class="tail"
-                     [style.height]="productSchedule.detailedListOpened ? (scheduleNum + 1) * cellheight + 'px' : 0"
-                     [style.background]="cycleNum % 2 === 0 ? 'rgba(53, 94, 245, 0.25)' : 'rgba(47, 195, 97, 0.25)'">
-                </div>
-                <div class="bar" (click)="selected.emit(schedule)" [style.background]="cycleNum % 2 === 0 ? '#355EF5' : '#2FC361'">
-                  {{cycleNum}}
-                </div>
-              </div>
-            </ng-container>
-
+    <div class="timeline-body">
+      <div class="timeline-header">
+        <ng-container *ngFor="let measure of measureArray">
+          <div [style.left]="measure * cellwidth + 'px'">
+            {{measure * _zoom}}
           </div>
         </ng-container>
-
       </div>
-    </ng-container>
+
+      <ng-container *ngFor="let productSchedule of productSchedules">
+        <div class="product-schedule-container"
+             [class.item-selected]="productSchedule.detailedListSelected"
+             [style.height]="productSchedule.detailedListOpened ? (productSchedule.schedules.length + 1) * cellheight + 'px' : cellheight + 'px'">
+
+          <ng-container *ngFor="let schedule of productSchedule.schedules; let scheduleNum = index">
+            <div class="schedule-container" [class.item-selected]="schedule.detailedListSelected">
+
+              <ng-container *ngFor="let cycle of schedule.cycles; let cycleNum = index">
+                <div class="cycle-container"
+                     [style.width]="(cycle.diff * cellwidth) / _zoom + 'px'"
+                     [style.left]="(cycle.start * cellwidth) / _zoom + 'px'">
+                  <div class="tail"
+                       [style.height]="productSchedule.detailedListOpened ? (scheduleNum + 1) * cellheight + 'px' : 0"
+                       [style.background]="(cycleNum + scheduleNum) % 2 === 0 ? 'rgba(241,135,63,0.22)' : 'rgba(83,131,195,0.22)'">
+                  </div>
+                  <div class="bar"
+                       (click)="selected.emit(schedule)"
+                       [style.background]="(cycleNum + scheduleNum) % 2 === 0 ? 'rgba(241,135,63,1)' : 'rgba(83,131,195,1)'">
+                    {{_start.clone().add(cycle.start, 'd').format('MMM DD, YYYY')}}
+                  </div>
+                </div>
+              </ng-container>
+
+            </div>
+          </ng-container>
+
+        </div>
+      </ng-container>
+
+    </div>
 
   </div>
-
 </div>

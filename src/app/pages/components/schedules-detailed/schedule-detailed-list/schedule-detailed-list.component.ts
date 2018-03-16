@@ -10,6 +10,7 @@ import {Schedule} from '../../../../shared/models/schedule.model';
 export class ScheduleDetailedListComponent implements OnInit {
 
   @Input() productSchedules: ProductSchedule[] = [];
+  @Input() sideVisible: boolean;
   @Output() selected: EventEmitter<ProductSchedule | Schedule> = new EventEmitter();
 
   constructor() { }
@@ -17,7 +18,7 @@ export class ScheduleDetailedListComponent implements OnInit {
   ngOnInit() {
   }
 
-  productScheduleCheckboxToggle(checked, productSchedule: ProductSchedule) {
+  productScheduleToggle(checked, productSchedule: ProductSchedule) {
     this.deselectAll();
 
     if (checked) {
@@ -28,7 +29,7 @@ export class ScheduleDetailedListComponent implements OnInit {
     }
   }
 
-  scheduleCheckboxToggle(checked, schedule: Schedule) {
+  scheduleToggle(checked, schedule: Schedule) {
     this.deselectAll();
 
     if (checked) {

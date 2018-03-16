@@ -72,6 +72,6 @@ export class ScheduleDetailsComponent implements OnInit {
 
     if (daysAfterLast === 0) return utc();
 
-    return utc().add((schedule.period || schedule.end || 1) - daysAfterLast, 'd');
+    return utc().add((schedule.start || 0) + (schedule.period || schedule.end || 1) - daysAfterLast, 'd');
   }
 }

@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {ProductSchedule} from '../../../../shared/models/product-schedule.model';
-import {Moment} from 'moment';
+import {Moment, utc} from 'moment';
 import {Schedule} from '../../../../shared/models/schedule.model';
 
 @Component({
@@ -9,15 +9,19 @@ import {Schedule} from '../../../../shared/models/schedule.model';
   styleUrls: ['./schedule-detailed-timeline.component.scss']
 })
 export class ScheduleDetailedTimelineComponent implements OnInit {
-
   @Input() productSchedules: ProductSchedule[] = [];
-  @Input() start: Moment;
+  @Input() set start(value: Moment) {
+    this._start = value;
+    this._diff = utc().diff(this._start.clone(), 'd');
+  };
   @Input() set zoomLevel(value: number) {
     this._zoom = value;
     this.measureArray = this.createRangeArray(365 / value);
   }
   @Output() selected: EventEmitter<Schedule> = new EventEmitter();
 
+  _start: Moment = utc();
+  _diff: number = 0;
   _zoom: number = 1;
   measureArray: number[] = this.createRangeArray(365);
 

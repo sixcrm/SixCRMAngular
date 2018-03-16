@@ -1,5 +1,9 @@
 <div class="details-header-container">
-  <div class="add-button">Add Product</div>
+  <md-icon class="side-icon" [class.icon-selected]="sideVisible" (click)="sideVisibleChanged.emit(!sideVisible)">view_list</md-icon>
+
+  <div class="divider"></div>
+
+  <div class="add-button">Add</div>
 
   <div class="divider"></div>
 
@@ -14,5 +18,5 @@
   <div class="divider"></div>
 
   <div class="zoom-label">Zoom</div>
-  <md-slider [min]="1" [max]="10" [step]="1" [value]="1" (change)="zoomChanged.emit($event.value)"></md-slider>
+  <md-slider [min]="1" [max]="10" [step]="1" [value]="zoomLevel" (change)="zoomChanged.emit($event.value)"></md-slider>
 </div>

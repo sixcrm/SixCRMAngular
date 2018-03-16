@@ -29,7 +29,8 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
   selectedSchedule: ProductSchedule | Schedule;
   displayMode: DisplayModes = DisplayModes.grid;
   modes = DisplayModes;
-  zoomLevel: number = 1;
+  zoomLevel: number = 7;
+  sideVisible: boolean = true;
 
   productScheduleFilterMapper = (ps: ProductSchedule) => ps.name;
   filterProductSchedulesValue: string;
@@ -80,5 +81,9 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
     this.displayMode = mode;
 
     this.selectedIndex = this.displayMode === DisplayModes.grid ? 0 : 1;
+  }
+
+  w(e) {
+    console.log(e);
   }
 }
