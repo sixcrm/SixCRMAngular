@@ -45,7 +45,7 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
           .reduce((a, b) => a.concat(b), [])
           .map(s => +s.price.amount)
           .reduce((a, b) => a+b, 0)).usd()
-        , 'right').setNumberOption(true),
+        , 'right'),
       new ColumnParams('CAMPAIGN_INDEX_HEADER_CREATED', (e: Campaign) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
       new ColumnParams('CAMPAIGN_INDEX_HEADER_UPDATED', (e: Campaign) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false)
     ];
