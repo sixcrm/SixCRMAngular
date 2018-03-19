@@ -1,10 +1,10 @@
-<div class="schedule-details" [class.schedule-details--hidden]="!schedule || hideDetails">
+<div class="schedule-details" [class.schedule-details--hidden]="(!_schedule && !_productSchedule) || hideDetails">
   <div class="schedule-container">
 
     <div class="schedule-container__header">
-      <md-icon (click)="close.emit(true)">close</md-icon>
-      <div *ngIf="isProductSchedule()">{{schedule.name}}</div>
-      <div *ngIf="isSchedule()">{{schedule.product.name}}</div>
+      <md-icon (click)="closeModal()">close</md-icon>
+      <div *ngIf="_schedule">{{_schedule.name}}</div>
+      <div *ngIf="_productSchedule">{{_productSchedule.product.name}}</div>
     </div>
 
     <div class="schedule-container__ship-info">
@@ -12,7 +12,7 @@
       <div><md-icon>date_range</md-icon> <span>{{calculateNextCycle()}}</span></div>
     </div>
 
-    <div *ngIf="isSchedule()" class="schedule-container__schedule-details">
+    <div *ngIf="_schedule" class="schedule-container__schedule-details">
       <div class="header">
         <div>View Product</div>
         <div class="button">DELETE</div>
@@ -21,47 +21,47 @@
       <div class="body">
         <div class="body__row">
           <md-input-container>
-            <input type="text" autoFocus md-input placeholder="Start" [(ngModel)]="schedule.start">
+            <input type="text" autoFocus md-input placeholder="Start" (keydown)="isNumeric($event)" [(ngModel)]="_schedule.start" (input)="recalculate()">
           </md-input-container>
 
           <md-input-container>
-            <input type="text" md-input placeholder="End" [(ngModel)]="schedule.end">
+            <input type="text" md-input placeholder="End" (keydown)="isNumeric($event)" [(ngModel)]="_schedule.end" (input)="recalculate()">
           </md-input-container>
         </div>
 
         <div class="body__row">
           <md-input-container>
-            <input type="text" md-input placeholder="Cycle" [(ngModel)]="schedule.period">
+            <input type="text" md-input placeholder="Cycle" (keydown)="isNumeric($event)" [(ngModel)]="_schedule.period" (input)="recalculate()">
           </md-input-container>
 
           <md-input-container>
-            <input type="text" md-input placeholder="Price" currencyInput [initPrice]="schedule.price" (priceChanged)="schedule.price = $event">
+            <input type="text" md-input placeholder="Price" currencyInput [initPrice]="_schedule.price" (priceChanged)="_schedule.price = $event">
           </md-input-container>
         </div>
 
         <autocomplete-input
-          [initialValue]="schedule.product"
+          [initialValue]="_schedule.product"
           [options]="products"
           [applyAutofocus]="false"
           [placeholder]="'Product'"
           [mapFunction]="productMapper"
-          (selected)="schedule.product = $event">
+          (selected)="_schedule.product = $event">
         </autocomplete-input>
       </div>
 
       <div class="buttons">
-        <div>SAVE</div>
         <div (click)="cancel()">CANCEL</div>
+        <div (click)="saveSchedule()">SAVE</div>
       </div>
     </div>
 
-    <div *ngIf="isProductSchedule()" class="schedule-container__items">
+    <div *ngIf="_productSchedule" class="schedule-container__items">
       <div class="header">
         <div>Schedule</div>
         <div>EDIT</div>
       </div>
 
-      <div class="item" *ngFor="let s of schedule.schedules; let i = index">
+      <div class="item" *ngFor="let s of _productSchedule.schedules; let i = index">
         <div class="number"><span>{{i}}</span></div>
         <div class="text">{{s.product.name}}</div>
         <md-icon>more_vert</md-icon>

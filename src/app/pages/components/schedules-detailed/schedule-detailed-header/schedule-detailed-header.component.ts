@@ -23,4 +23,12 @@ export class ScheduleDetailedHeaderComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  mouseWheel(event) {
+    if (event.deltaY > 0) {
+      this.zoomChanged.emit(this.zoomLevel - 1)
+    } else if (event.deltaY < 0) {
+      this.zoomChanged.emit(this.zoomLevel + 1)
+    }
+  }
 }

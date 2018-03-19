@@ -19,6 +19,19 @@
           <div (click)="scheduleToggle(!schedule.detailedListSelected, schedule)" class="text">{{schedule.product.name}}</div>
         </div>
       </div>
+
+    </div>
+
+    <div class="new-product-schedule">
+      <autocomplete-input [mapFunction]="productScheduleMapper"
+                          [initialValue]="productScheduleToAdd"
+                          [options]="productScheduleService.entities$ | async"
+                          [placeholder]="'Product Schedules'"
+                          [applyAutofocus]="false"
+                          (selected)="addProductSchedule($event)">
+      </autocomplete-input>
+
+      <md-icon [class.arrow--hidden]="!sideVisible">add</md-icon>
     </div>
 
   </div>

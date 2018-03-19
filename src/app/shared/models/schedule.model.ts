@@ -4,6 +4,8 @@ import {Currency} from '../utils/currency/currency';
 
 export class Cycle {
   diff: number;
+  dragDiff: number = 0;
+  dragdiffDiff: number = 0;
 
   constructor(public start: number, public end: number) {
     this.diff = end - start;
@@ -46,6 +48,10 @@ export class Schedule implements Entity<Schedule>{
     }
   }
 
+  recalculateCyclesForDays(days: number) {
+    this.cycles = this.calculateCyclesForDays(days);
+  }
+
   calculateCyclesForDays(days: number) {
     let cycles = [];
 
@@ -55,13 +61,13 @@ export class Schedule implements Entity<Schedule>{
       return cycles;
     }
 
-    const end = this.end || days;
-    const period = this.period || end;
+    const end = +(this.end || days);
+    const period = this.period && +this.period > 0 ? +this.period : end;
 
-    let start = this.start;
+    let start = +this.start;
 
     while (start < end) {
-      cycles.push(new Cycle(start, start + period <= days ? start + period : days));
+      cycles.push(new Cycle(start, start + period <= end ? start + period : end));
       start = start + period;
     }
 

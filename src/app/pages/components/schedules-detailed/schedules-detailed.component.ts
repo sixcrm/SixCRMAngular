@@ -83,7 +83,9 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
     this.selectedIndex = this.displayMode === DisplayModes.grid ? 0 : 1;
   }
 
-  w(e) {
-    console.log(e);
+  addNewProductSchedule(productSchedule: ProductSchedule) {
+    console.log(productSchedule);
+
+    this.productSchedules.push(productSchedule);
   }
 }

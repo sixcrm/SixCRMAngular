@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {ProductSchedule} from '../../../../shared/models/product-schedule.model';
 import {Schedule} from '../../../../shared/models/schedule.model';
+import {Product} from '../../../../shared/models/product.model';
+import {ProductScheduleService} from '../../../../shared/services/product-schedule.service';
 
 @Component({
   selector: 'schedule-detailed-list',
@@ -11,11 +13,17 @@ export class ScheduleDetailedListComponent implements OnInit {
 
   @Input() productSchedules: ProductSchedule[] = [];
   @Input() sideVisible: boolean;
+  @Input() products: Product[] = [];
   @Output() selected: EventEmitter<ProductSchedule | Schedule> = new EventEmitter();
+  @Output() newProductScheduleAdded: EventEmitter<ProductSchedule> = new EventEmitter();
 
-  constructor() { }
+  productScheduleToAdd: ProductSchedule = new ProductSchedule();
+  productScheduleMapper = (p: ProductSchedule) => p.name;
+
+  constructor(public productScheduleService: ProductScheduleService) { }
 
   ngOnInit() {
+    this.productScheduleService.getEntities();
   }
 
   productScheduleToggle(checked, productSchedule: ProductSchedule) {
@@ -52,5 +60,17 @@ export class ScheduleDetailedListComponent implements OnInit {
 
   scheduleCollapseToggle(productSchedule: ProductSchedule) {
     productSchedule['detailedListOpened'] = !productSchedule['detailedListOpened'];
+  }
+
+  addProductSchedule(productSchedule: ProductSchedule) {
+
+    this.productScheduleToAdd = productSchedule;
+  }
+
+  persistProductSchedule() {
+    this.productScheduleToAdd['detailedListOpened'] = true;
+    this.newProductScheduleAdded.emit(this.productScheduleToAdd);
+
+    this.productScheduleToAdd = new ProductSchedule();
   }
 }

@@ -1,7 +1,9 @@
 <div class="top-line">DAYS</div>
 
 <div class="view-container">
-  <div class="timeline-container" [style.width]="(365 / _zoom) * cellwidth + 20 + 'px'">
+  <div class="timeline-container"
+       [style.width]="(365 / _zoom) * cellwidth + 20 + 'px'"
+       [style.background-size]="cellwidth / _zoom + 'px 46px'">
 
     <div class="date-placeholder" [style.left]="((_diff * cellwidth) / _zoom) + 'px'">
       <div class="date-placeholder__line"></div>
@@ -26,8 +28,9 @@
 
               <ng-container *ngFor="let cycle of schedule.cycles; let cycleNum = index">
                 <div class="cycle-container"
-                     [style.width]="(cycle.diff * cellwidth) / _zoom + 'px'"
-                     [style.left]="(cycle.start * cellwidth) / _zoom + 'px'">
+                     [class.cycle-container--slow]="cycle.dragDiff !== 0 || cycle.dragdiffDiff !== 0"
+                     [style.width]="(cycle.diff * cellwidth) / _zoom + + cycle.dragdiffDiff + 'px'"
+                     [style.left]="(cycle.start * cellwidth) / _zoom + cycle.dragDiff + 'px'">
                   <div class="tail"
                        [style.height]="productSchedule.detailedListOpened ? (scheduleNum + 1) * cellheight + 'px' : 0"
                        [style.background]="(cycleNum + scheduleNum) % 2 === 0 ? 'rgba(241,135,63,0.22)' : 'rgba(83,131,195,0.22)'">
@@ -35,7 +38,20 @@
                   <div class="bar"
                        (click)="selected.emit(schedule)"
                        [style.background]="(cycleNum + scheduleNum) % 2 === 0 ? 'rgba(241,135,63,1)' : 'rgba(83,131,195,1)'">
-                    {{_start.clone().add(cycle.start, 'd').format('MMM DD, YYYY')}}
+                    <div
+                      class="body"
+                      draggable="true"
+                      (dragstart)="dragStarted($event, schedule)"
+                      (drag)="drag($event, schedule)"
+                      (dragend)="dragEnded($event, schedule)">
+                      {{_start.clone().add(cycle.start, 'd').format('MMM DD, YYYY')}}
+                    </div>
+                    <div class="resizer"
+                         draggable="true"
+                         (dragstart)="dragResizeStarted($event, schedule)"
+                         (drag)="dragResize($event, schedule)"
+                         (dragend)="dragResizeEnded($event, schedule)">
+                    </div>
                   </div>
                 </div>
               </ng-container>

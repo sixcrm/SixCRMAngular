@@ -28,6 +28,8 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
   cellwidth: number = 65;
   cellheight: number = 46;
 
+  startX: number;
+
   constructor() { }
 
   ngOnInit() {
@@ -42,4 +44,83 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
     return temp;
   }
 
+  dragStarted(event, schedule: Schedule) {
+    this.selected.emit(schedule);
+
+    this.startX = event.clientX;
+    for (let i = 0; i < schedule.cycles.length; i++) {
+      schedule.cycles[i].dragDiff = 0;
+    }
+  }
+
+  drag(event, schedule: Schedule) {
+    if (event.clientX === 0) return;
+
+    const diff = event.clientX - this.startX;
+
+    for (let i = 0; i < schedule.cycles.length; i++) {
+      schedule.cycles[i].dragDiff = diff;
+    }
+  }
+
+  dragEnded(event, schedule: Schedule) {
+    const diffInDays = Math.floor((event.clientX - this.startX) / (this.cellwidth / this._zoom));
+
+    schedule.start = +schedule.start + diffInDays;
+
+    if (schedule.end) {
+      schedule.end = schedule.end + diffInDays;
+    }
+
+    for (let i = 0; i < schedule.cycles.length; i++) {
+      schedule.cycles[i].start += diffInDays;
+      schedule.cycles[i].end += diffInDays;
+      schedule.cycles[i].dragDiff = 0;
+    }
+  }
+
+  dragResizeStarted(event, schedule: Schedule) {
+    this.selected.emit(schedule);
+
+    this.startX = event.clientX;
+    for (let i = 0; i < schedule.cycles.length; i++) {
+      schedule.cycles[i].dragdiffDiff = 0;
+    }
+  }
+
+  dragResize(event, schedule: Schedule) {
+    if (event.clientX === 0) return;
+
+    const diff = event.clientX - this.startX;
+
+    for (let i = 0; i < schedule.cycles.length; i++) {
+      schedule.cycles[i].dragdiffDiff = diff;
+    }
+  }
+
+  dragResizeEnded(event, schedule: Schedule) {
+    let diffInDays = Math.floor((event.clientX - this.startX) / (this.cellwidth / this._zoom));
+
+    if (+schedule.period + diffInDays < 1) {
+      diffInDays = 1 - +schedule.period;
+    }
+
+    if (schedule.end) {
+      schedule.end = +schedule.end + diffInDays;
+    }
+    if (schedule.period) {
+      schedule.period = +schedule.period + diffInDays;
+    }
+
+    for (let i = 0; i < schedule.cycles.length; i++) {
+      schedule.cycles[i].end += diffInDays;
+      schedule.cycles[i].diff += diffInDays;
+
+      if (i !== 0) {
+        schedule.cycles[i].start += i*diffInDays;
+      }
+
+      schedule.cycles[i].dragdiffDiff = 0;
+    }
+  }
 }

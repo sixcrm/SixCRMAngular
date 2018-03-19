@@ -14,6 +14,8 @@
       <schedule-detailed-list
         [productSchedules]="productSchedules | filterStrings: filterProductSchedulesValue: productScheduleFilterMapper"
         [sideVisible]="sideVisible"
+        [products]="products"
+        (newProductScheduleAdded)="addNewProductSchedule($event)"
         (selected)="selectDetails($event)">
       </schedule-detailed-list>
       <schedule-detailed-timeline
