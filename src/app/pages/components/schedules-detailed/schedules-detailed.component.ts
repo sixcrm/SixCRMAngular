@@ -84,8 +84,6 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
   }
 
   addNewProductSchedule(productSchedule: ProductSchedule) {
-    console.log(productSchedule);
-
     this.productSchedules.push(productSchedule);
   }
 }

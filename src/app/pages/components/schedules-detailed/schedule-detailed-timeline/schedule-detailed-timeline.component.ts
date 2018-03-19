@@ -10,7 +10,6 @@ import {Schedule} from '../../../../shared/models/schedule.model';
 })
 export class ScheduleDetailedTimelineComponent implements OnInit {
 
-  @Input() parentHeight: number = 1;
   @Input() productSchedules: ProductSchedule[] = [];
   @Input() set start(value: Moment) {
     this._start = value;
