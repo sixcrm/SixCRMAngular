@@ -203,7 +203,7 @@ export class TransactionSummaryChartComponent extends AbstractDashboardItem impl
 
   private emitSum(data) {
     const success = data['success'];
-    const sum = success.length > 0 ? success[success.length - 1][1] : 0;
+    const sum = (success && success.length > 0) ? success[success.length - 1][1] : 0;
 
     this.sum.emit(sum.toFixed(0));
   }
