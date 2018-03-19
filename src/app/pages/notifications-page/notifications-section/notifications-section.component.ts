@@ -9,6 +9,7 @@ import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {updateLocally, arrangeNotificationsByDate, isEmpty} from '../../../shared/utils/notification.utils';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'notifications-section',
@@ -45,11 +46,14 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
     {label: 'NOTIFICATIONS_OTHER', entities: [], contains: (n: Notification) => true}
   ];
 
-  constructor(public notificationsService: NotificationsService,
-              auth: AuthenticationService,
-              dialog: MdDialog,
-              paginationService: PaginationService) {
-    super(notificationsService, auth, dialog, paginationService);
+  constructor(
+    public notificationsService: NotificationsService,
+    router: Router,
+    auth: AuthenticationService,
+    dialog: MdDialog,
+    paginationService: PaginationService
+  ) {
+    super(notificationsService, auth, dialog, paginationService, router);
     this.setInfiniteScroll(true);
   }
 
@@ -90,7 +94,13 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
   }
 
   readNotification(notification: Notification): void {
-    this.notificationsService.updateEntity(notification, {ignoreSnack: true});
+    if (!notification.readAt) {
+      this.notificationsService.updateEntity(notification, {ignoreSnack: true});
+    }
+
+    if (notification.actionParsed.entity && notification.actionParsed.id) {
+      this.router.navigate([notification.actionParsed.entity + 's', notification.actionParsed.id]);
+    }
   }
 
   arrangeNotifications(nots: Notification[]): void {

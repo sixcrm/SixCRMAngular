@@ -92,7 +92,13 @@ export class AlertsSectionComponent extends AbstractEntityIndexComponent<Notific
   }
 
   readNotification(notification: Notification): void {
-    this.notificationsService.updateEntity(notification);
+    if (!notification.readAt) {
+      this.notificationsService.updateEntity(notification, {ignoreSnack: true});
+    }
+
+    if (notification.actionParsed.entity && notification.actionParsed.id) {
+      this.router.navigate([notification.actionParsed.entity + 's', notification.actionParsed.id]);
+    }
   }
 
   arrangeNotifications(nots: Notification[]): void {

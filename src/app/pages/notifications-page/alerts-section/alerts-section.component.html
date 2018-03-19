@@ -27,7 +27,7 @@
         <div class="notifications-list__content__title notifications-list__content__title--standalone">{{notificationsByDate.label | translate}}</div>
 
         <div *ngFor="let notification of notificationsByDate.entities | filterStrings: filter: filterMapper">
-          <alert-component [alert]="notification" [enableClear]="false"></alert-component>
+          <alert-component (view)="readNotification($event)" [alert]="notification" [enableClear]="false"></alert-component>
         </div>
       </div>
 

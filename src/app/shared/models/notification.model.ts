@@ -1,6 +1,20 @@
 import {Moment, utc} from 'moment';
 import {Entity} from './entity.interface';
 
+export class ActionParsed {
+  entity: string;
+  id: string;
+
+  constructor(obj?: any) {
+    if (!obj) {
+      obj = {};
+    }
+
+    this.entity = obj.entity || '';
+    this.id = obj.id || '';
+  }
+}
+
 export class Notification implements Entity<Notification> {
   id: string;
   user: string;
@@ -8,6 +22,7 @@ export class Notification implements Entity<Notification> {
   type: string;
   category: string;
   action: string;
+  actionParsed: ActionParsed;
   title: string;
   body: string;
   readAt: string;
@@ -26,6 +41,13 @@ export class Notification implements Entity<Notification> {
     this.type = obj.type || '';
     this.category = obj.category || '';
     this.action = obj.action || '';
+
+    try {
+      this.actionParsed = new ActionParsed(JSON.parse(this.action));
+    } catch (e) {
+      this.actionParsed = new ActionParsed();
+    }
+
     this.title = obj.title || '';
     this.body = obj.body || '';
     this.readAt = obj.read_at || '';

@@ -90,12 +90,12 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
   }
 
   readNotification(notification: Notification): void {
-    if (notification.readAt) return;
+    if (!notification.readAt) {
+      this.notificationsService.updateEntity(notification, {ignoreSnack: true, ignoreProgress: true});
+    }
 
-    this.notificationsService.updateEntity(notification, {ignoreSnack: true, ignoreProgress: true});
-
-    if (notification.action && notification.action.indexOf('customer') !== -1) {
-      this.router.navigateByUrl(notification.action);
+    if (notification.actionParsed.entity && notification.actionParsed.id) {
+      this.router.navigate([notification.actionParsed.entity + 's', notification.actionParsed.id]);
     }
   }
 
