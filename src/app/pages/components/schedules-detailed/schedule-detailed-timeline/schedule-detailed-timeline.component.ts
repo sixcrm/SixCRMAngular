@@ -9,6 +9,8 @@ import {Schedule} from '../../../../shared/models/schedule.model';
   styleUrls: ['./schedule-detailed-timeline.component.scss']
 })
 export class ScheduleDetailedTimelineComponent implements OnInit {
+
+  @Input() parentHeight: number = 1;
   @Input() productSchedules: ProductSchedule[] = [];
   @Input() set start(value: Moment) {
     this._start = value;
@@ -122,5 +124,20 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
 
       schedule.cycles[i].dragdiffDiff = 0;
     }
+  }
+
+  getHeightInPixels(): string {
+    if (!this.productSchedules) return '1px';
+
+    let count = 1;
+    for (let i = 0; i < this.productSchedules.length; i++) {
+      count++;
+
+      if (this.productSchedules[i]['detailedListOpened']) {
+        count += this.productSchedules[i].schedules.length;
+      }
+    }
+
+    return count * this.cellheight - 16 + this.productSchedules.length + 'px';
   }
 }

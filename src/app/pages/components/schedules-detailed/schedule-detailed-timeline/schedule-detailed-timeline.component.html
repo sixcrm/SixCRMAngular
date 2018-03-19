@@ -1,6 +1,6 @@
 <div class="top-line">DAYS</div>
 
-<div class="view-container">
+<div class="view-container" [style.height]="getHeightInPixels()">
   <div class="timeline-container"
        [style.width]="(365 / _zoom) * cellwidth + 20 + 'px'"
        [style.background-size]="cellwidth / _zoom + 'px 46px'">

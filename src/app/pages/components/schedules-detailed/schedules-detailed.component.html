@@ -19,7 +19,6 @@
         (selected)="selectDetails($event)">
       </schedule-detailed-list>
       <schedule-detailed-timeline
-        #element
         [productSchedules]="productSchedules | filterStrings: filterProductSchedulesValue: productScheduleFilterMapper"
         [zoomLevel]="zoomLevel"
         [start]="startDate"

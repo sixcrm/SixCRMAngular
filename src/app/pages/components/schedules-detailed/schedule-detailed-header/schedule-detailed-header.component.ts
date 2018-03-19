@@ -26,9 +26,15 @@ export class ScheduleDetailedHeaderComponent implements OnInit {
 
   mouseWheel(event) {
     if (event.deltaY > 0) {
+      if (this.zoomLevel <= 1) return;
+
       this.zoomChanged.emit(this.zoomLevel - 1)
     } else if (event.deltaY < 0) {
+      if (this.zoomLevel >= 10) return;
+
       this.zoomChanged.emit(this.zoomLevel + 1)
     }
+
+    event.preventDefault();
   }
 }

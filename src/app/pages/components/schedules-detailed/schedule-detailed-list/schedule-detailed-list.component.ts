@@ -68,7 +68,6 @@ export class ScheduleDetailedListComponent implements OnInit {
   }
 
   persistProductSchedule() {
-    this.productScheduleToAdd['detailedListOpened'] = true;
     this.newProductScheduleAdded.emit(this.productScheduleToAdd);
 
     this.productScheduleToAdd = new ProductSchedule();

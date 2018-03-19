@@ -3,7 +3,17 @@
 
   <div class="list__content">
 
-    <div class="header"></div>
+    <div class="header">
+      <autocomplete-input [mapFunction]="productScheduleMapper"
+                          [initialValue]="productScheduleToAdd"
+                          [options]="productScheduleService.entities$ | async"
+                          [placeholder]="'Product Schedules'"
+                          [applyAutofocus]="false"
+                          (selected)="addProductSchedule($event)">
+      </autocomplete-input>
+
+      <md-icon [class.arrow--hidden]="!sideVisible" (click)="persistProductSchedule()">add</md-icon>
+    </div>
 
     <div *ngFor="let ps of productSchedules">
 
@@ -20,18 +30,6 @@
         </div>
       </div>
 
-    </div>
-
-    <div class="new-product-schedule">
-      <autocomplete-input [mapFunction]="productScheduleMapper"
-                          [initialValue]="productScheduleToAdd"
-                          [options]="productScheduleService.entities$ | async"
-                          [placeholder]="'Product Schedules'"
-                          [applyAutofocus]="false"
-                          (selected)="addProductSchedule($event)">
-      </autocomplete-input>
-
-      <md-icon [class.arrow--hidden]="!sideVisible">add</md-icon>
     </div>
 
   </div>

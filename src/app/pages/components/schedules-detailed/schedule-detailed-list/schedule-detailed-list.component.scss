@@ -13,7 +13,15 @@
   }
 
   .header {
+    display: flex;
+    align-items: center;
+    padding: 0 10px 0 15px;
     height: 46px;
+
+    md-icon {
+      margin-left: auto;
+      cursor: pointer;
+    }
   }
 
   .arrow--hidden {
