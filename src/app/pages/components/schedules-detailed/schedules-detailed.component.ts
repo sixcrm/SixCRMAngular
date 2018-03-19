@@ -59,6 +59,8 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
   selectDetails(selected: ProductSchedule | Schedule) {
     this.deselectSchedule();
 
+    if (!selected) return;
+
     this.selectedSchedule = selected;
     this.selectedSchedule['detailedListSelected'] = true;
 

@@ -18,7 +18,7 @@
     <div *ngFor="let ps of productSchedules">
 
       <div class="item item--schedule" [class.item--selected]="ps.detailedListSelected">
-        <div class="text" (click)="productScheduleToggle(!ps.detailedListSelected, ps)">{{ps.name}}</div>
+        <div class="text" (click)="productScheduleToggle(!ps.detailedListSelected, ps)">{{ps.name || 'Unnamed'}}</div>
         <md-icon [class.arrow--hidden]="!sideVisible" (click)="scheduleCollapseToggle(ps)" [class.rotated]="ps.detailedListOpened">keyboard_arrow_down</md-icon>
       </div>
 

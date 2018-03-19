@@ -27,10 +27,7 @@ export class ScheduleDetailedListComponent implements OnInit {
   }
 
   productScheduleToggle(checked, productSchedule: ProductSchedule) {
-    this.deselectAll();
-
     if (checked) {
-      productSchedule['detailedListSelected'] = true;
       this.selected.emit(productSchedule);
     } else {
       this.selected.emit(null);
@@ -38,23 +35,10 @@ export class ScheduleDetailedListComponent implements OnInit {
   }
 
   scheduleToggle(checked, schedule: Schedule) {
-    this.deselectAll();
-
     if (checked) {
-      schedule['detailedListSelected'] = true;
       this.selected.emit(schedule);
     } else {
       this.selected.emit(null);
-    }
-  }
-
-  deselectAll() {
-    for (let i = 0; i < this.productSchedules.length; i++) {
-      this.productSchedules[i]['detailedListSelected'] = false;
-
-      for (let j = 0; j < this.productSchedules[i].schedules.length; j++) {
-        this.productSchedules[i].schedules[j]['detailedListSelected'] = false;
-      }
     }
   }
 
@@ -63,7 +47,6 @@ export class ScheduleDetailedListComponent implements OnInit {
   }
 
   addProductSchedule(productSchedule: ProductSchedule) {
-
     this.productScheduleToAdd = productSchedule;
   }
 
