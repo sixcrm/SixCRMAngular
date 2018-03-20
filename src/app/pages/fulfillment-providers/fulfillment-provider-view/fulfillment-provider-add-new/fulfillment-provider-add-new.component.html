@@ -13,7 +13,7 @@
     <dropdown-component [class.error]="formInvalid && !entity.provider.name" [required]="true" [disabled]="mode === modes.View" [placeholder]="'FULFILLMENT_INFO_PROVIDER' | translate" [selected]="entity.provider.name" [options]="providers" (onSelect)="entity.provider.name = $event"></dropdown-component>
 
     <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-      <input autoFocus required md-input [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_NAME' | translate}}" [(ngModel)]="entity.name" name="name" type="text">
+      <input auto-focus required md-input [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_NAME' | translate}}" [(ngModel)]="entity.name" name="name" type="text">
     </md-input-container>
 
     <ng-container *ngIf="entity.provider.name && (entity.provider.name === 'Hashtag' || entity.provider.name === 'ThreePL')">

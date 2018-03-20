@@ -31,6 +31,8 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
 
   startX: number;
 
+  today: string = utc().format('MMMM DD');
+
   constructor() { }
 
   ngOnInit() {

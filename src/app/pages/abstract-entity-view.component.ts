@@ -28,6 +28,7 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
   isFloatNumeric = isAllowedFloatNumeric;
   numberMask = getCurrencyMask();
 
+  protected isInited: boolean = false;
   protected takeUpdated: boolean = true;
   protected fetchEntityOnInit: boolean = true;
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
@@ -39,6 +40,10 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
       } else {
         this.setMode(Modes.View);
         this.entityId = params['id'];
+
+        if (this.isInited) {
+          this.fetchData();
+        }
       }
     });
 
@@ -50,6 +55,8 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
   }
 
   protected init(notFound?: () => void): void {
+    this.isInited = true;
+
     this.service.entity$.takeUntil(this.unsubscribe$).subscribe((entity: T) => {
       if (notFound && (!entity || !entity.id)) {
         notFound();
@@ -73,7 +80,12 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
       this.setMode(Modes.View);
     });
 
+    this.fetchData();
+  }
+
+  private fetchData() {
     if (this.fetchEntityOnInit && (this.viewMode || this.updateMode)) {
+      this.entity = null;
       this.service.getEntity(this.entityId);
     }
   }

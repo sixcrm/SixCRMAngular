@@ -1,11 +1,11 @@
 <div class="details-header-container">
-  <md-icon class="side-icon" [class.icon-selected]="sideVisible" (click)="sideVisibleChanged.emit(!sideVisible)">view_list</md-icon>
-
-  <div class="divider"></div>
-
-  <div class="add-button">Add</div>
-
-  <div class="divider"></div>
+  <div class="side-container" [class.side-container--hidden]="!sideVisible">
+    <ng-container *ngIf="sideVisible">
+      <span>Items</span>
+      <md-icon (click)="sideVisibleChanged.emit(false)">close</md-icon>
+    </ng-container>
+    <md-icon *ngIf="!sideVisible" (click)="sideVisibleChanged.emit(true)">keyboard_arrow_right</md-icon>
+  </div>
 
   <md-icon class="search-icon">search</md-icon>
   <md-input-container>

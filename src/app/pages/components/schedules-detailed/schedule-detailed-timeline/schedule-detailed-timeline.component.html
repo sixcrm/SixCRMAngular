@@ -1,13 +1,25 @@
 <div class="top-line">DAYS</div>
 
 <div class="view-container" [style.height]="getHeightInPixels()">
+  <div class="infinity-container">
+    <div *ngFor="let productSchedule of productSchedules"
+         class="schedule-container"
+         [style.height]="productSchedule.detailedListOpened ? (productSchedule.schedules.length + 1) * cellheight + 'px' : cellheight + 'px'">
+      <ng-container *ngFor="let schedule of productSchedule.schedules; let i = index">
+        <div *ngIf="!schedule.end"
+             class="item"
+             [style.top]="productSchedule.detailedListOpened ? (i + 1) * cellheight + 8 + 'px' : '8px'">
+          <md-icon>
+            autorenew
+          </md-icon>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
   <div class="timeline-container"
        [style.width]="(365 / _zoom) * cellwidth + 20 + 'px'"
        [style.background-size]="cellwidth / _zoom + 'px 46px'">
-
-    <div class="date-placeholder" [style.left]="((_diff * cellwidth) / _zoom) + 'px'">
-      <div class="date-placeholder__line"></div>
-    </div>
 
     <div class="timeline-body">
       <div class="timeline-header">
@@ -18,6 +30,14 @@
         </ng-container>
       </div>
 
+      <div class="date-placeholder" [style.left]="((_diff * cellwidth) / _zoom) + 'px'">
+        <div class="date-placeholder__box">
+          {{today}}
+          <div class="date-placeholder__box__pointer"></div>
+        </div>
+        <div class="date-placeholder__line"></div>
+      </div>
+
       <ng-container *ngFor="let productSchedule of productSchedules">
         <div class="product-schedule-container"
              [class.item-selected]="productSchedule.detailedListSelected"
@@ -25,7 +45,6 @@
 
           <ng-container *ngFor="let schedule of productSchedule.schedules; let scheduleNum = index">
             <div class="schedule-container" [class.item-selected]="schedule.detailedListSelected">
-
               <ng-container *ngFor="let cycle of schedule.cycles; let cycleNum = index">
                 <div class="cycle-container"
                      [class.cycle-container--slow]="cycle.dragDiff !== 0 || cycle.dragdiffDiff !== 0"

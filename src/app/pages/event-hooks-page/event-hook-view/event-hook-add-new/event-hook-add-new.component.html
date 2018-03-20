@@ -12,7 +12,7 @@
 
   <div class="entity-view__card__content">
     <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-      <input autoFocus required md-input [disabled]="mode === modes.View" placeholder="{{'EVENTHOOK_INFO_NAME' | translate}}" [(ngModel)]="entity.name" type="text">
+      <input auto-focus required md-input [disabled]="mode === modes.View" placeholder="{{'EVENTHOOK_INFO_NAME' | translate}}" [(ngModel)]="entity.name" type="text">
     </md-input-container>
 
     <dropdown-component [class.error]="formInvalid && !entity"

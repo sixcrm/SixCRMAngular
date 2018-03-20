@@ -18,7 +18,7 @@
 
   <form form #emailTemplateInput="ngForm" class="entity-view__card__content">
     <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item email-template-view__input">
-      <input autoFocus required md-input [disabled]="mode === modes.View" placeholder="{{'EMAILTEMPLATE_INFO_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text">
+      <input auto-focus required md-input [disabled]="mode === modes.View" placeholder="{{'EMAILTEMPLATE_INFO_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text">
     </md-input-container>
 
     <dropdown-component class="email-template-view__dropdown"

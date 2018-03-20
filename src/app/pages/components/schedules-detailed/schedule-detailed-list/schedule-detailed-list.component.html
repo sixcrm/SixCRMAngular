@@ -4,29 +4,38 @@
   <div class="list__content">
 
     <div class="header">
-      <autocomplete-input [mapFunction]="productScheduleMapper"
+      <autocomplete-input *ngIf="sideVisible" [mapFunction]="productScheduleMapper"
                           [initialValue]="productScheduleToAdd"
                           [options]="productScheduleService.entities$ | async"
-                          [placeholder]="'Product Schedules'"
-                          [applyAutofocus]="false"
+                          [placeholder]="'Product Schedule'"
                           (selected)="addProductSchedule($event)">
       </autocomplete-input>
-
-      <md-icon [class.arrow--hidden]="!sideVisible" (click)="persistProductSchedule()">add</md-icon>
+      <md-icon (click)="persistProductSchedule()">add</md-icon>
     </div>
 
-    <div *ngFor="let ps of productSchedules">
+    <div *ngFor="let ps of productSchedules; let i = index">
 
       <div class="item item--schedule" [class.item--selected]="ps.detailedListSelected">
-        <div class="text" (click)="productScheduleToggle(!ps.detailedListSelected, ps)">{{ps.name || 'Unnamed'}}</div>
-        <md-icon [class.arrow--hidden]="!sideVisible" (click)="scheduleCollapseToggle(ps)" [class.rotated]="ps.detailedListOpened">keyboard_arrow_down</md-icon>
+        <ng-container *ngIf="sideVisible; else number">
+          <div class="text"(click)="productScheduleToggle(!ps.detailedListSelected, ps)">{{ps.name || 'Unnamed'}}</div>
+          <md-icon (click)="scheduleCollapseToggle(ps)" [class.rotated]="ps.detailedListOpened">keyboard_arrow_down</md-icon>
+        </ng-container>
+
+        <ng-template #number><span class="number" (click)="productScheduleToggle(!ps.detailedListSelected, ps)">{{i+1}}</span></ng-template>
       </div>
 
       <div [style.height]="ps.schedules.length * 46 + 'px'" class="products-list" [class.products-list--hidden]="!ps.detailedListOpened">
-        <div class="item item--product" *ngFor="let schedule of ps.schedules" [class.item--selected]="schedule.detailedListSelected">
-          <div *ngIf="schedule.product.getDefaultImagePath(); else defaultimage" class="image" [style.background-image]="'url(' + schedule.product.getDefaultImagePath() + ')'"></div>
+        <div class="item item--product"
+             *ngFor="let schedule of ps.schedules"
+             (click)="scheduleToggle(!schedule.detailedListSelected, schedule)"
+             [class.item--product--collapsed]="!sideVisible"
+             [class.item--selected]="schedule.detailedListSelected">
+          <div *ngIf="schedule.product.getDefaultImagePath(); else defaultimage"
+               class="image"
+               [style.background-image]="'url(' + schedule.product.getDefaultImagePath() + ')'">
+          </div>
           <ng-template #defaultimage><div class="image image--default"></div></ng-template>
-          <div (click)="scheduleToggle(!schedule.detailedListSelected, schedule)" class="text">{{schedule.product.name}}</div>
+          <div *ngIf="sideVisible" class="text">{{schedule.product.name}}</div>
         </div>
       </div>
 

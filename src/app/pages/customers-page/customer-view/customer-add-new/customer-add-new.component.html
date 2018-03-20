@@ -9,7 +9,7 @@
   <div class="entity-view__card__content customer-add__content">
     <div class="flex-custom">
       <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.firstName">
-        <input autoFocus md-input name="firstName" [(ngModel)]="customer.firstName" placeholder="{{'FORMINPUTS_FIRSTNAME' | translate}}" required type="text">
+        <input auto-focus md-input name="firstName" [(ngModel)]="customer.firstName" placeholder="{{'FORMINPUTS_FIRSTNAME' | translate}}" required type="text">
       </md-input-container>
 
       <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.lastName">

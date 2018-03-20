@@ -17,13 +17,46 @@
   overflow: auto;
   min-height: calc(100vh - 420px);
   transition: height 0.6s cubic-bezier(0.35, 0, 0.25, 1);
+
+  .infinity-container {
+    position: absolute;
+    right: 6px;
+    top: 46px;
+    z-index: 3;
+
+    .schedule-container {
+      min-width: 1px;
+      position: relative;
+      transition: height 0.6s cubic-bezier(0.35, 0, 0.25, 1);
+    }
+
+    .item {
+      position: absolute;
+      display: flex;
+      right: 0;
+      z-index: 3;
+      border-radius: 5px;
+      height: 29px;
+      width: 29px;
+      background: white;
+      transition: top 0.6s cubic-bezier(0.35, 0, 0.25, 1);
+
+      md-icon {
+        margin: auto;
+        height: 20px;
+        width: 20px;
+        font-size: 20px;
+        color: #8E8E8E;
+      }
+    }
+  }
 }
 
 .timeline-container {
   position: relative;
   height: 100%;
   overflow: hidden;
-  background-position-y: 21px;
+  background-position-y: 20px;
   background-image: linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px);
   transition: background-size 500ms ease-in-out;
 
@@ -34,9 +67,31 @@
     height: 100%;
     transition: left 0.6s cubic-bezier(0.35, 0, 0.25, 1);
 
+    &__box {
+      padding: 4px 6px;
+      background: #373737;
+      color: white;
+      border-radius: 3px;
+      font-weight: 500;
+      font-size: 9px;
+      transform: translateX(-50%);
+
+      &__pointer {
+        position: absolute;
+        left: calc(50% + 1px);
+        transform: translateX(-50%);
+        bottom: -6px;
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 6px solid #373737;
+      }
+    }
+
     &__line {
       width: 2px;
-      background: #5383C3;
+      background: #373737;
       height: 100%;
     }
   }
@@ -67,6 +122,12 @@
     transition: height 0.6s cubic-bezier(0.35, 0, 0.25, 1);
   }
 
+  .infinite {
+    position: absolute;
+    z-index: 3;
+    transition: top 0.6s cubic-bezier(0.35, 0, 0.25, 1);
+  }
+
   .item-selected {
     .bar {
       border: 3px solid #24F5FE;
@@ -77,6 +138,7 @@
   .schedule-container {
     position: relative;
     height: 46px;
+    z-index: 2;
   }
 
 

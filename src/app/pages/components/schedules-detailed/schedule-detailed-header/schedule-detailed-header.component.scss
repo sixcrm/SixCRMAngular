@@ -4,7 +4,7 @@
   border-bottom: 1px solid rgba(0,0,0,0.2);
   height: 46px;
   line-height: 46px;
-  padding: 0 15px;
+  padding: 0 15px 0 0;
   background: white;
   color: #8E8E8E;
   font-size: 12px;
@@ -17,26 +17,32 @@
     color: #8E8E8E;
   }
 
-  .side-icon {
-    margin-right: 3px;
-    width: 26px;
-    height: 26px;
-    font-size: 26px;
+  .side-container {
+    display: flex;
+    height: 100%;
+    width: 230px;
+    border-right: 1px solid rgba(0,0,0,0.2);
+    transition: 0.25s ease-in-out;
+    overflow: hidden;
+
+    &--hidden {
+      width: 42px;
+      transition: 0.25s ease-in-out;
+    }
+
+    span {
+      margin-left: 15px;
+      color: rgba(0,0,0,0.87);
+      font-weight: 500;
+    }
+
+    md-icon {
+      margin: auto 10px auto auto;
+    }
   }
 
   .icon-selected {
     color: #4A90E2;
-  }
-
-  .add-button {
-    margin: 0 8px;
-    color: white;
-    font-weight: 500;
-    background: #4A90E2;
-    padding: 0 12px;
-    height: 28px;
-    line-height: 28px;
-    cursor: pointer;
   }
 
   .search-icon {
