@@ -97,6 +97,7 @@ import {TagsService} from './services/tags.service';
 import {EntityAclsService} from './services/entityacl.service';
 import {EventHooksService} from './services/event-hooks.service';
 import {EventHooksSharedService} from './services/event-hooks-shared.service';
+import { DragScrollXDirective } from './directives/drag-scroll-x.directive';
 
 @NgModule({
   declarations : [
@@ -143,7 +144,8 @@ import {EventHooksSharedService} from './services/event-hooks-shared.service';
     SpeLoaderBlueHeaderComponent,
     MultiselectComponent,
     CurrencyInputDirective,
-    VisibleYDirective
+    VisibleYDirective,
+    DragScrollXDirective
   ],
   exports : [
     AutocompleteComponent,
@@ -184,7 +186,8 @@ import {EventHooksSharedService} from './services/event-hooks-shared.service';
     FilterInputComponent,
     MultiselectComponent,
     CurrencyInputDirective,
-    VisibleYDirective
+    VisibleYDirective,
+    DragScrollXDirective
   ],
   imports : [
     FormsModule,
