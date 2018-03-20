@@ -21,6 +21,7 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
   @Input() set schedule(value: ProductSchedule | Schedule) {
     this._productSchedule = null;
     this._schedule = null;
+    this.productToAdd = new Product();
 
     if (value instanceof Schedule) {
       this._schedule = value;
@@ -39,6 +40,7 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
 
   isNumeric = isAllowedNumeric;
   productMapper = (p: Product) => p.name;
+  productToAdd: Product = new Product();
 
   changeBouncer: Subject<boolean> = new Subject();
   changeSub: Subscription;
@@ -118,5 +120,24 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
   closeModal() {
     this.cancel();
     this.close.emit(true)
+  }
+
+  persistNewSchedule() {
+    if (!this.productToAdd.id || !this._productSchedule) return;
+
+    const last = this._productSchedule.schedules.length > 0
+      ? this._productSchedule.schedules[this._productSchedule.schedules.length - 1]
+      : new Schedule();
+
+    const schedule = new Schedule({
+      product: this.productToAdd.copy(),
+      start: last.end || 0,
+      period: last.period || 30,
+      end: (last.end || 0) + (last.period || 30)
+    });
+
+    this._productSchedule.schedules.push(schedule);
+
+    this.productToAdd = new Product();
   }
 }

@@ -66,6 +66,21 @@
         <div class="text">{{s.product.name}}</div>
         <md-icon>more_vert</md-icon>
       </div>
+
+      <div class="item">
+        <autocomplete-input
+          class="session-autocomplete"
+          [initialValue]="productToAdd"
+          [fullWidth]="true"
+          [options]="products"
+          [applyAutofocus]="false"
+          [placeholder]="'Add Product'"
+          [mapFunction]="productMapper"
+          (selected)="productToAdd = $event">
+        </autocomplete-input>
+
+        <md-icon (click)="persistNewSchedule()">add</md-icon>
+      </div>
     </div>
   </div>
 </div>

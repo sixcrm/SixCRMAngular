@@ -1057,6 +1057,17 @@ $blue-color: #4A90E2;
     width: auto;
   }
 }
+
+.session-autocomplete {
+  .default-autocomplete-input__options {
+    width: auto;
+
+    &__item {
+      line-height: 1;
+    }
+  }
+}
+
 .event-hook-codemirror {
   .cm-s-material {
     min-height: 470px;

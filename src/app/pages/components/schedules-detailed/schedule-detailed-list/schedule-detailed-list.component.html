@@ -4,10 +4,12 @@
   <div class="list__content">
 
     <div class="header">
-      <autocomplete-input *ngIf="sideVisible" [mapFunction]="productScheduleMapper"
+      <autocomplete-input *ngIf="sideVisible"
+                          class="session-autocomplete"
+                          [mapFunction]="productScheduleMapper"
                           [initialValue]="productScheduleToAdd"
                           [options]="productScheduleService.entities$ | async"
-                          [placeholder]="'Product Schedule'"
+                          [placeholder]="'Add Product Schedule'"
                           (selected)="addProductSchedule($event)">
       </autocomplete-input>
       <md-icon (click)="persistProductSchedule()">add</md-icon>

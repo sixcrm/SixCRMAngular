@@ -22,7 +22,7 @@
     position: absolute;
     right: 6px;
     top: 46px;
-    z-index: 3;
+    z-index: 999;
 
     .schedule-container {
       min-width: 1px;
@@ -134,13 +134,6 @@
       margin: -3px;
     }
   }
-
-  .schedule-container {
-    position: relative;
-    height: 46px;
-    z-index: 2;
-  }
-
 
   .cycle-container {
     position: absolute;
