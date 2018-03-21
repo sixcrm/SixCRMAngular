@@ -6,6 +6,7 @@ import {Products} from '../../../../shared/models/products.model';
 import {Moment, utc} from 'moment';
 import {isAllowedNumeric} from '../../../../shared/utils/form.utils';
 import {Subject, Subscription} from 'rxjs';
+import {AuthenticationService} from '../../../../authentication/authentication.service';
 
 @Component({
   selector: 'schedule-details',
@@ -45,7 +46,7 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
   changeBouncer: Subject<boolean> = new Subject();
   changeSub: Subscription;
 
-  constructor() { }
+  constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
     this.changeSub = this.changeBouncer.debounceTime(500).subscribe(() => this._schedule.recalculateCyclesForDays(365));
@@ -76,25 +77,19 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
 
     if (!next) return 'Completed';
 
-    return next.format('MMMM DD, YYYY');
+    return next.tz(this.authService.getTimezone()).format('MMMM DD, YYYY');
   }
 
   calculateNexCycleOfSchedule(schedule: Schedule): Moment {
     const dayInCycle = utc().diff(this.startDate.clone(), 'd');
 
-    if (schedule.start && schedule.start > dayInCycle) return this.startDate.clone().add(schedule.start, 'd');
+    for (let i = 0; i < schedule.cycles.length; i++) {
+      if (schedule.cycles[i].start >= dayInCycle) {
+        return utc().add(schedule.cycles[i].start - dayInCycle, 'd')
+      }
+    }
 
-    if (schedule.end === 0 && dayInCycle === 0) return utc();
-
-    if (schedule.end === 0 && dayInCycle > 0) return null;
-
-    if (schedule.end && (schedule.end < dayInCycle)) return null;
-
-    const daysAfterLast = dayInCycle % (schedule.period || schedule.end || 1);
-
-    if (daysAfterLast === 0) return utc();
-
-    return utc().add((schedule.start || 0) + (schedule.period || schedule.end || 1) - daysAfterLast, 'd');
+    return null;
   }
 
   cancel() {

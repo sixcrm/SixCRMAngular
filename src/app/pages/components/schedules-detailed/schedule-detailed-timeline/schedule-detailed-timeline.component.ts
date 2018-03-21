@@ -2,6 +2,7 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {ProductSchedule} from '../../../../shared/models/product-schedule.model';
 import {Moment, utc} from 'moment';
 import {Schedule} from '../../../../shared/models/schedule.model';
+import {AuthenticationService} from '../../../../authentication/authentication.service';
 
 @Component({
   selector: 'schedule-detailed-timeline',
@@ -31,11 +32,12 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
 
   startX: number;
 
-  today: string = utc().format('MMMM DD');
+  today: string = '';
 
-  constructor() { }
+  constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
+    this.today = utc().tz(this.authService.getTimezone()).format('MMMM DD')
   }
 
   createRangeArray(count: number) {
@@ -67,7 +69,11 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
   }
 
   dragEnded(event, schedule: Schedule) {
-    const diffInDays = Math.floor((event.clientX - this.startX) / (this.cellwidth / this._zoom));
+    let diffInDays = Math.floor((event.clientX - this.startX) / (this.cellwidth / this._zoom));
+
+    if (schedule.start + diffInDays < 0) {
+      diffInDays = -schedule.start;
+    }
 
     schedule.start = +schedule.start + diffInDays;
 

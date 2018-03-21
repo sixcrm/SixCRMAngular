@@ -168,7 +168,8 @@
     }
 
     .resizer {
-      width: 6px;
+      width: 10px;
+      margin-right: -4px;
       cursor: col-resize;
     }
   }

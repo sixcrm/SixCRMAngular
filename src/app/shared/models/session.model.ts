@@ -25,6 +25,7 @@ export class Session implements Entity<Session> {
   canceled: SessionCancelation;
   createdAt: Moment;
   updatedAt: Moment;
+  startedAt: Moment;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -45,6 +46,7 @@ export class Session implements Entity<Session> {
     this.canceled = new SessionCancelation(obj.canceled);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.startedAt = utc(obj.created_at).hour(0).minute(0).second(0).millisecond(0);
 
     if (obj.product_schedules) {
       for (let i = 0; i < obj.product_schedules.length; i++) {
