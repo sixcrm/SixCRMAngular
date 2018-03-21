@@ -53,11 +53,11 @@
                      [style.left]="(cycle.start * cellwidth) / _zoom + cycle.dragDiff + 'px'">
                   <div class="tail"
                        [style.height]="productSchedule.detailedListOpened ? (scheduleNum + 1) * cellheight + 'px' : 0"
-                       [style.background]="(cycleNum + scheduleNum) % 2 === 0 ? 'rgba(241,135,63,0.22)' : 'rgba(83,131,195,0.22)'">
+                       [style.background]="cycle.start < _diff ? greenTail : blueTail">
                   </div>
                   <div class="bar"
                        (click)="selected.emit(schedule)"
-                       [style.background]="(cycleNum + scheduleNum) % 2 === 0 ? 'rgba(241,135,63,1)' : 'rgba(83,131,195,1)'">
+                       [style.background]="cycle.start < _diff ? green : blue">
                     <div
                       class="body"
                       draggable="true"

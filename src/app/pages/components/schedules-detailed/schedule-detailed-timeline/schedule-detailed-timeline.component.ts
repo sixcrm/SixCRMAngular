@@ -35,6 +35,12 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
 
   today: string = '';
 
+  green: string = 'rgba(47,195,97,1)';
+  greenTail: string = 'rgba(47,195,97,0.22)';
+
+  blue: string = 'rgba(83,131,195,1)';
+  blueTail: string = 'rgba(83,131,195,0.22)';
+
   constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
