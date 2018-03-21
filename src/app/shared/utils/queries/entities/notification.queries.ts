@@ -69,9 +69,9 @@ export function updateNotificationMutation(notification: Notification): string {
 }
 
 export function notificationsResponseQuery(): string {
-  return 'id user account type category action title body read_at expires_at created_at updated_at';
+  return 'id user account type category name context read_at expires_at created_at updated_at';
 }
 
 export function notificationInputQuery(notification: Notification): string {
-  return `id: "${notification.id}", user: "${notification.user}", account: "${notification.account}", type: "${notification.type}", ${notification.category ? `category: "${notification.category}", ` : ''}action: "${clean(notification.action)}", title: "${notification.title}" body: "${notification.body}", read_at: "${utc().format()}", ${addUpdatedAtApi(notification, true)}`;
+  return `id: "${notification.id}", user: "${notification.user}", account: "${notification.account}", type: "${notification.type}", ${notification.category ? `category: "${notification.category}", ` : ''}, ${notification.context ? `context: "${notification.context}", ` : ''}, name: "${notification.name}", read_at: "${utc().format()}", ${addUpdatedAtApi(notification, true)}`;
 }

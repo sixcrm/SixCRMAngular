@@ -94,8 +94,8 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
       this.notificationsService.updateEntity(notification, {ignoreSnack: true, ignoreProgress: true});
     }
 
-    if (notification.actionParsed.entity && notification.actionParsed.id) {
-      this.router.navigate([notification.actionParsed.entity + 's', notification.actionParsed.id]);
+    if (notification.category && notification.context[`${notification.category}.id`]) {
+      this.router.navigate([notification.category + 's', notification.context[`${notification.category}.id`]]);
     }
   }
 

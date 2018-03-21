@@ -24,7 +24,7 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
   selectedIndex: number = 0;
 
   filter: string;
-  filterMapper = (notification: Notification) => `${notification.body} ${notification.title}`;
+  filterMapper = (notification: Notification) => `${notification.name}`;
 
   notsByDate: EntitiesByDate<Notification>[] = [
     {label: 'NOTIFICATIONS_TODAY', entities: [], contains: (n: Notification) => utc(n.createdAt).isSame(utc(), 'day')},
@@ -98,8 +98,8 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
       this.notificationsService.updateEntity(notification, {ignoreSnack: true});
     }
 
-    if (notification.actionParsed.entity && notification.actionParsed.id) {
-      this.router.navigate([notification.actionParsed.entity + 's', notification.actionParsed.id]);
+    if (notification.category && notification.context[`${notification.category}.id`]) {
+      this.router.navigate([notification.category + 's', notification.context[`${notification.category}.id`]]);
     }
   }
 

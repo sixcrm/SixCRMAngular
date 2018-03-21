@@ -30,7 +30,7 @@
           <div class="notifications-list__content__notification notifications-list__content__notification--standalone" (click)="readNotification(notification)">
             <div class="notifications-list__content__notification__image"><img src="assets/images/{{notification.getIconName()}}" alt=""></div>
             <div class="notifications-list__content__notification__message notifications-list__content__notification__message--standalone">
-              <div>{{notification.body}}</div>
+              <div>{{notification.name}}</div>
               <div class="notifications-list__content__notification__message__date">
                 {{notification.createdAt.format('MMMM Do [at] h:mm A')}}
               </div>

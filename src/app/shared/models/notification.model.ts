@@ -1,30 +1,14 @@
 import {Moment, utc} from 'moment';
 import {Entity} from './entity.interface';
 
-export class ActionParsed {
-  entity: string;
-  id: string;
-
-  constructor(obj?: any) {
-    if (!obj) {
-      obj = {};
-    }
-
-    this.entity = obj.entity || '';
-    this.id = obj.id || '';
-  }
-}
-
 export class Notification implements Entity<Notification> {
   id: string;
   user: string;
   account: string;
   type: string;
   category: string;
-  action: string;
-  actionParsed: ActionParsed;
-  title: string;
-  body: string;
+  name: string;
+  context: string;
   readAt: string;
   createdAt: Moment;
   updatedAt: Moment;
@@ -40,16 +24,8 @@ export class Notification implements Entity<Notification> {
     this.account = obj.account || '';
     this.type = obj.type || '';
     this.category = obj.category || '';
-    this.action = obj.action || '';
-
-    try {
-      this.actionParsed = new ActionParsed(JSON.parse(this.action));
-    } catch (e) {
-      this.actionParsed = new ActionParsed();
-    }
-
-    this.title = obj.title || '';
-    this.body = obj.body || '';
+    this.name = obj.name || '';
+    this.context = obj.context || '';
     this.readAt = obj.read_at || '';
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
@@ -67,9 +43,8 @@ export class Notification implements Entity<Notification> {
       account: this.account,
       type: this.type,
       category: this.category,
-      action: this.action,
-      title: this.title,
-      body: this.body,
+      name: this.name,
+      context: this.context,
       readAt: this.readAt,
       createdAt: this.createdAt.format(),
       updatedAt: this.updatedAtAPI
@@ -93,10 +68,6 @@ export class Notification implements Entity<Notification> {
       default:
         return 'usericon_action.svg';
     }
-  }
-
-  getActionText(): string {
-    return `action: ${this.action}`;
   }
 }
 
