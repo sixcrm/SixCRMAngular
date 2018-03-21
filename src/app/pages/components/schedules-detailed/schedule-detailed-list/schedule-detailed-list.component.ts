@@ -14,6 +14,8 @@ export class ScheduleDetailedListComponent implements OnInit {
   @Input() productSchedules: ProductSchedule[] = [];
   @Input() sideVisible: boolean;
   @Input() products: Product[] = [];
+  @Input() singleScheduleMode: boolean;
+
   @Output() selected: EventEmitter<ProductSchedule | Schedule> = new EventEmitter();
   @Output() newProductScheduleAdded: EventEmitter<ProductSchedule> = new EventEmitter();
 
@@ -23,7 +25,9 @@ export class ScheduleDetailedListComponent implements OnInit {
   constructor(public productScheduleService: ProductScheduleService) { }
 
   ngOnInit() {
-    this.productScheduleService.getEntities();
+    if (!this.singleScheduleMode) {
+      this.productScheduleService.getEntities();
+    }
   }
 
   productScheduleToggle(checked, productSchedule: ProductSchedule) {

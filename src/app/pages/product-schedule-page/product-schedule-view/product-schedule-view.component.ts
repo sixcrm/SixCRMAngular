@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild, ElementRef} from '@angular/core';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {ProductScheduleService} from '../../../shared/services/product-schedule.service';
@@ -12,13 +12,12 @@ import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {AddScheduleComponent} from '../../../shared/components/add-schedule/add-schedule.component';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
-import {Currency} from '../../../shared/utils/currency/currency';
 import {ProductsService} from '../../../shared/services/products.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
-import {parseCurrencyMaskedValue} from '../../../shared/utils/mask.utils';
 import {MdDialog} from '@angular/material';
 import {DeleteDialogComponent} from '../../delete-dialog.component';
 import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {utc, Moment} from 'moment'
 
 @Component({
   selector: 'product-schedule-view',
@@ -30,7 +29,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   @ViewChild('endField') endField;
   @ViewChild('addScheduleComponent') addScheduleComponent: AddScheduleComponent;
 
-  imageMapper = (schedule: Schedule) => schedule.product.getDefaultImagePath();
+  startDate: Moment = utc().millisecond(0).second(0).minute(0).hour(0);
 
   selectedIndex: number = 0;
   scheduleColumnParams = [
@@ -112,6 +111,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'PRODUCTSCHEDULE_TAB_GENERAL'},
     {name: 'cycles', label: 'PRODUCTSCHEDULE_TAB_CYCLE'},
+    {name: 'list', label: 'PRODUCTSCHEDULE_TAB_LIST'},
     {name: 'campaigns', label: 'PRODUCTSCHEDULE_TAB_CAMPAIGN'}
   ];
 
@@ -119,6 +119,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     {label: () => 'PRODUCTSCHEDULE_INDEX_TITLE', url: '/productschedules'},
     {label: () => this.entity.name}
   ];
+
+  detailsElement: ElementRef;
 
   constructor(
     service: ProductScheduleService,
@@ -133,6 +135,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   }
 
   ngOnInit() {
+    this.takeUpdated = false;
+
     super.init(() => this.navigation.goToNotFoundPage());
 
     if (this.addMode) {
@@ -216,5 +220,37 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
         callback();
       }
     });
+  }
+
+  setDetails(details) {
+    this.detailsElement = details;
+  }
+
+  saveEmitted() {
+    this.service.entityUpdated$.take(1).takeUntil(this.unsubscribe$).subscribe(ps => {
+      if (ps instanceof CustomServerError) return;
+
+      this.entity.updatedAtAPI = ps.updatedAtAPI;
+      this.entity.updatedAt = ps.updatedAt.clone();
+      this.entityBackup = this.entity.copy();
+    });
+
+    this.updateEntity(this.entity);
+  }
+
+  deleteSchedule(schedule: Schedule) {
+    let index = -1;
+
+    for (let i = 0; i < this.entity.schedules.length; i++) {
+      if (schedule === this.entity.schedules[i]) {
+        index = i;
+        break;
+      }
+    }
+
+    if (index !== -1) {
+      this.entity.schedules.splice(index, 1);
+      this.saveEmitted();
+    }
   }
 }

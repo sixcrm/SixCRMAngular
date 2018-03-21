@@ -20,8 +20,11 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
 
   @Input() productSchedules: ProductSchedule[] = [];
   @Input() startDate: Moment;
+  @Input() singleScheduleMode: boolean;
 
   @Output() detailsComponent: EventEmitter<ElementRef> = new EventEmitter();
+  @Output() save: EventEmitter<boolean> = new EventEmitter();
+  @Output() deleteSchedule: EventEmitter<Schedule> = new EventEmitter();
 
   @ViewChild('details') details: ElementRef;
 
@@ -87,5 +90,10 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
 
   addNewProductSchedule(productSchedule: ProductSchedule) {
     this.productSchedules.push(productSchedule);
+  }
+
+  removeSchedule(schedule: Schedule) {
+    this.deselectSchedule();
+    this.deleteSchedule.emit(schedule);
   }
 }

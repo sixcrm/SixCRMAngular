@@ -6,3 +6,33 @@ table-advanced {
   display: block;
   margin-top: 18px;
 }
+
+.entity-view__container {
+  display: flex;
+  overflow: hidden;
+
+  .entity-view {
+    width: 100%;
+  }
+}
+
+.details-container {
+  max-width: 320px;
+  transition: max-width 200ms ease-in-out;
+  box-shadow: 0 0 8px rgba(0,0,0,0.4);
+  z-index: 1;
+
+  &--hidden {
+    max-width: 0;
+    overflow: hidden;
+    transition: max-width 120ms ease-in-out;
+  }
+}
+
+spe-loader {
+  width: 100%;
+}
+
+.entity-view__header__title {
+  margin-top: 27px;
+}

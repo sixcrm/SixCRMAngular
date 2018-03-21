@@ -21,7 +21,12 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
 
   @Input() set schedule(value: ProductSchedule | Schedule) {
     this._productSchedule = null;
+
+    if (this._schedule && this._scheduleBackup) {
+      this.cancel();
+    }
     this._schedule = null;
+
     this.productToAdd = new Product();
 
     if (value instanceof Schedule) {
@@ -38,6 +43,8 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
   @Input() startDate: Moment;
 
   @Output() close: EventEmitter<boolean> = new EventEmitter();
+  @Output() save: EventEmitter<boolean> = new EventEmitter();
+  @Output() deleteSchedule: EventEmitter<Schedule> = new EventEmitter();
 
   isNumeric = isAllowedNumeric;
   productMapper = (p: Product) => p.name;
@@ -109,7 +116,14 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
   }
 
   saveSchedule() {
+    this._scheduleBackup.start = this._schedule.start;
+    this._scheduleBackup.end = this._schedule.end;
+    this._scheduleBackup.period = this._schedule.period;
+    this.save.emit(true);
+  }
 
+  removeSchedule() {
+    this.deleteSchedule.emit(this._schedule);
   }
 
   closeModal() {
@@ -134,5 +148,7 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
     this._productSchedule.schedules.push(schedule);
 
     this.productToAdd = new Product();
+
+    this.save.emit(true);
   }
 }

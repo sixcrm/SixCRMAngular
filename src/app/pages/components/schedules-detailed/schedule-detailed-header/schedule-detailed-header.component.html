@@ -7,10 +7,12 @@
     <md-icon *ngIf="!sideVisible" (click)="sideVisibleChanged.emit(true)">keyboard_arrow_right</md-icon>
   </div>
 
-  <md-icon class="search-icon">search</md-icon>
-  <md-input-container>
-    <input md-input type="text" placeholder="Filter Product Schedules" (input)="filterChanged.emit($event.target.value)">
-  </md-input-container>
+  <ng-container *ngIf="!singleScheduleMode">
+    <md-icon class="search-icon">search</md-icon>
+    <md-input-container>
+      <input md-input type="text" placeholder="Filter Product Schedules" (input)="filterChanged.emit($event.target.value)">
+    </md-input-container>
+  </ng-container>
 
   <md-icon class="grid-icon" [class.icon-selected]="displayMode === modes.grid" (click)="displayModeChanged.emit(modes.grid)">grid_on</md-icon>
 

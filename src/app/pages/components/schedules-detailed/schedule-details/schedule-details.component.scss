@@ -23,6 +23,10 @@
       padding: 12px 12px 13px;
       font-size: 18px;
 
+      div {
+        cursor: pointer;
+      }
+
       .button {
         margin-left: auto;
         font-size: 12px;
@@ -30,7 +34,6 @@
         background: #EF4339;
         font-weight: 500;
         padding: 6px 16px;
-        cursor: pointer;
       }
     }
 

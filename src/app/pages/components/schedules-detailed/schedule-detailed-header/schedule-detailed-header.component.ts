@@ -11,6 +11,7 @@ export class ScheduleDetailedHeaderComponent implements OnInit {
   @Input() displayMode: DisplayModes;
   @Input() zoomLevel: number;
   @Input() sideVisible: boolean;
+  @Input() singleScheduleMode: boolean;
 
   @Output() zoomChanged: EventEmitter<number> = new EventEmitter();
   @Output() filterChanged: EventEmitter<string> = new EventEmitter();

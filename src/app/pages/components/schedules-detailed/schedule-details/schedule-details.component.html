@@ -14,8 +14,8 @@
 
     <div *ngIf="_schedule" class="schedule-container__schedule-details">
       <div class="header">
-        <div>View Product</div>
-        <div class="button">DELETE</div>
+        <div [routerLink]="['/products', _schedule.product.id]">View Product</div>
+        <div (click)="removeSchedule()" class="button">DELETE</div>
       </div>
 
       <div class="body">
@@ -40,6 +40,7 @@
         </div>
 
         <autocomplete-input
+          [fullWidth]="true"
           [initialValue]="_schedule.product"
           [options]="products"
           [applyAutofocus]="false"

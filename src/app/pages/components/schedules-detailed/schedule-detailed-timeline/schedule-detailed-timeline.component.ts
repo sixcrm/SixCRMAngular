@@ -12,6 +12,7 @@ import {AuthenticationService} from '../../../../authentication/authentication.s
 export class ScheduleDetailedTimelineComponent implements OnInit {
 
   @Input() productSchedules: ProductSchedule[] = [];
+  @Input() singleScheduleMode: boolean;
   @Input() set start(value: Moment) {
     this._start = value;
     this._diff = utc().diff(this._start.clone(), 'd');

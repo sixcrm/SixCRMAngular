@@ -1,55 +1,70 @@
-<div *ngIf="entity; else spinner" class="entity-view">
+<div class="entity-view__container">
+  <div *ngIf="entity; else spinner" class="entity-view">
 
-  <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
+    <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
 
-  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+    <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
 
-  <div class="entity-view__header">
-    <entity-view-gallery [images]="entity.schedules" [mapper]="imageMapper" [defaultImage]="'/assets/images/product-image-placeholder.svg'"></entity-view-gallery>
-
-    <div class="entity-view__header__title">{{entity.name}}</div>
-    <div class="entity-view__header__details">
-      <div class="date">{{'SINGLEPAGE_CREATED' | translate}}: {{entity.createdAt | formatDateTime: 'M/DD/YY h:mm A'}}</div>
-      <div class="id">ID: {{entity.id}}</div>
+    <div class="entity-view__header">
+      <div class="entity-view__header__title">{{entity.name}}</div>
+      <div class="entity-view__header__details">
+        <div class="date">{{'SINGLEPAGE_CREATED' | translate}}: {{entity.createdAt | formatDateTime: 'M/DD/YY h:mm A'}}</div>
+        <div class="id">ID: {{entity.id}}</div>
+      </div>
     </div>
+
+    <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
+
+    <md-tab-group [(selectedIndex)]="selectedIndex">
+      <md-tab>
+
+        <product-schedule-add-new [entity]="entity"
+                                  [mode]="viewMode ? modes.View : modes.Update"
+                                  (save)="saveOrUpdate(entity)"
+                                  (cancel)="cancelUpdate()"
+                                  (changeMode)="setMode($event)">
+        </product-schedule-add-new>
+
+      </md-tab>
+
+      <md-tab>
+        <schedules-detailed
+          [singleScheduleMode]="true"
+          [productSchedules]="[entity]"
+          [startDate]="startDate"
+          (save)="saveEmitted()"
+          (deleteSchedule)="deleteSchedule($event)"
+          (detailsComponent)="setDetails($event)">
+        </schedules-detailed>
+      </md-tab>
+
+      <md-tab>
+        <table-advanced [data]="entity.schedules"
+                        [columnParams]="scheduleColumnParams"
+                        [entityFactory]="scheduleFactory"
+                        [textOptions]="tableTexts"
+                        (viewEntity)="navigateToProduct($event)"
+                        (deleteEntity)="disassociateSchedule($event)"
+                        (deleteMultipleEntities)="disassociateSchedules($event)"
+                        (add)="addSchedule($event)"
+                        (update)="updateSchedule($event)">
+        </table-advanced>
+      </md-tab>
+
+      <md-tab>
+        <product-schedule-campaigns [id]="entity.id"></product-schedule-campaigns>
+      </md-tab>
+
+    </md-tab-group>
   </div>
 
-  <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
-
-  <md-tab-group [(selectedIndex)]="selectedIndex">
-    <md-tab>
-
-      <product-schedule-add-new [entity]="entity"
-                                [mode]="viewMode ? modes.View : modes.Update"
-                                (save)="saveOrUpdate(entity)"
-                                (cancel)="cancelUpdate()"
-                                (changeMode)="setMode($event)">
-      </product-schedule-add-new>
-
-    </md-tab>
-
-    <md-tab>
-      <table-advanced [data]="entity.schedules"
-                      [columnParams]="scheduleColumnParams"
-                      [entityFactory]="scheduleFactory"
-                      [textOptions]="tableTexts"
-                      (viewEntity)="navigateToProduct($event)"
-                      (deleteEntity)="disassociateSchedule($event)"
-                      (deleteMultipleEntities)="disassociateSchedules($event)"
-                      (add)="addSchedule($event)"
-                      (update)="updateSchedule($event)">
-      </table-advanced>
-    </md-tab>
-
-    <md-tab>
-      <product-schedule-campaigns [id]="entity.id"></product-schedule-campaigns>
-    </md-tab>
-
-  </md-tab-group>
+  <div class="details-container" [class.details-container--hidden]="selectedIndex !== 1">
+    <ng-container *ngTemplateOutlet="detailsElement"></ng-container>
+  </div>
 </div>
 
 <ng-template #spinner>
-  <spe-loader [numberOfTabs]="3" [title]="'PRODUCTSCHEDULE_INDEX_TITLE' | translate" [cardsExpression]="'300px'" [blue]="true"></spe-loader>
+  <spe-loader [numberOfTabs]="3" [title]="'PRODUCTSCHEDULE_INDEX_TITLE' | translate" [cardsExpression]="'300px'" [blue]="true" [images]="false"></spe-loader>
 </ng-template>
 
 

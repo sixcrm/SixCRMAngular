@@ -30,7 +30,7 @@
         </ng-container>
       </div>
 
-      <div class="date-placeholder" [style.left]="((_diff * cellwidth) / _zoom) + 'px'">
+      <div *ngIf="!singleScheduleMode" class="date-placeholder" [style.left]="((_diff * cellwidth) / _zoom) + 'px'">
         <div class="date-placeholder__box">
           {{today}}
           <div class="date-placeholder__box__pointer"></div>

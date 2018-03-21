@@ -2,6 +2,7 @@
   [displayMode]="displayMode"
   [zoomLevel]="zoomLevel"
   [sideVisible]="sideVisible"
+  [singleScheduleMode]="singleScheduleMode"
   (sideVisibleChanged)="sideVisible = $event"
   (zoomChanged)="zoomLevel = $event"
   (displayModeChanged)="changeDisplayMode($event)"
@@ -10,6 +11,7 @@
 
 <div class="flex-custom">
   <schedule-detailed-list
+    [singleScheduleMode]="singleScheduleMode"
     [productSchedules]="productSchedules | filterStrings: filterProductSchedulesValue: productScheduleFilterMapper"
     [sideVisible]="sideVisible"
     [products]="products"
@@ -18,6 +20,7 @@
   </schedule-detailed-list>
   <schedule-detailed-timeline
     [productSchedules]="productSchedules | filterStrings: filterProductSchedulesValue: productScheduleFilterMapper"
+    [singleScheduleMode]="singleScheduleMode"
     [zoomLevel]="zoomLevel"
     [start]="startDate"
     (selected)="selectDetails($event)">
@@ -30,6 +33,8 @@
     [products]="products"
     [schedule]="selectedSchedule"
     [startDate]="startDate"
+    (save)="save.emit(true)"
+    (deleteSchedule)="removeSchedule($event)"
     (close)="deselectSchedule()">
   </schedule-details>
 </ng-template>

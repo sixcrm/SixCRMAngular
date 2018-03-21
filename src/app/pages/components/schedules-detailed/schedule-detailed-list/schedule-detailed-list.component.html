@@ -4,15 +4,17 @@
   <div class="list__content">
 
     <div class="header">
-      <autocomplete-input *ngIf="sideVisible"
-                          class="session-autocomplete"
-                          [mapFunction]="productScheduleMapper"
-                          [initialValue]="productScheduleToAdd"
-                          [options]="productScheduleService.entities$ | async"
-                          [placeholder]="'Add Product Schedule'"
-                          (selected)="addProductSchedule($event)">
-      </autocomplete-input>
-      <md-icon (click)="persistProductSchedule()">add</md-icon>
+      <ng-container *ngIf="!singleScheduleMode">
+        <autocomplete-input *ngIf="sideVisible"
+                            class="session-autocomplete"
+                            [mapFunction]="productScheduleMapper"
+                            [initialValue]="productScheduleToAdd"
+                            [options]="productScheduleService.entities$ | async"
+                            [placeholder]="'Add Product Schedule'"
+                            (selected)="addProductSchedule($event)">
+        </autocomplete-input>
+        <md-icon (click)="persistProductSchedule()">add</md-icon>
+      </ng-container>
     </div>
 
     <div *ngFor="let ps of productSchedules; let i = index">

@@ -1048,6 +1048,7 @@
     "tab": {
       "general": "GENERAL DETAILS",
       "cycle": "CYCLES",
+      "list": "LIST",
       "campaign": "CAMPAIGNS"
     },
     "info": {
