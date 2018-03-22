@@ -3,6 +3,7 @@ import {ProductSchedule} from '../../../../shared/models/product-schedule.model'
 import {Schedule} from '../../../../shared/models/schedule.model';
 import {Product} from '../../../../shared/models/product.model';
 import {ProductScheduleService} from '../../../../shared/services/product-schedule.service';
+import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'schedule-detailed-list',
@@ -22,10 +23,19 @@ export class ScheduleDetailedListComponent implements OnInit {
   productScheduleToAdd: ProductSchedule = new ProductSchedule();
   productScheduleMapper = (p: ProductSchedule) => p.name;
 
+  allProductSchedules: ProductSchedule[] = [];
+  addProductScheduleMode: boolean;
+
   constructor(public productScheduleService: ProductScheduleService) { }
 
   ngOnInit() {
     if (!this.singleScheduleMode) {
+      this.productScheduleService.entities$.take(1).subscribe(productSchedules => {
+        if (productSchedules instanceof CustomServerError) return;
+
+        this.allProductSchedules = productSchedules;
+      });
+
       this.productScheduleService.getEntities();
     }
   }
@@ -58,6 +68,12 @@ export class ScheduleDetailedListComponent implements OnInit {
     if (!this.productScheduleToAdd.id) return;
 
     this.newProductScheduleAdded.emit(this.productScheduleToAdd);
+
+    this.toggleAddProductScheduleMode();
+  }
+
+  toggleAddProductScheduleMode() {
+    this.addProductScheduleMode = !this.addProductScheduleMode;
 
     this.productScheduleToAdd = new ProductSchedule();
   }

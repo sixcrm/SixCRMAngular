@@ -21,14 +21,37 @@
     align-items: center;
     height: 46px;
 
-    autocomplete-input {
-      margin-left: 15px;
+    &--collapsed {
+      div {
+        margin: auto 8px !important;
+
+        md-icon {
+          margin: auto !important;
+          transition: 0.25s ease-in-out;
+        }
+      }
     }
 
-    md-icon {
-      margin-left: auto;
-      margin-right: 10px;
+    div {
+      display: flex;
+      margin: 0 15px;
+      align-items: center;
+      border: 1px solid rgba(0,0,0,0.2);
+      width: 100%;
       cursor: pointer;
+      transition: 0.25s ease-in-out;
+
+      span {
+        margin-right: auto;
+        font-size: 12px;
+        font-weight: 500;
+        color: #8e8e8e;
+      }
+
+      md-icon {
+        margin-left: auto;
+        margin-right: 10px;
+      }
     }
   }
 
@@ -143,5 +166,21 @@
   md-icon {
     cursor: pointer;
     margin-left: auto;
+  }
+}
+
+.add-product-schedule-container {
+  display: flex;
+  align-items: center;
+  height: 46px;
+
+  autocomplete-input {
+    margin-left: 15px;
+  }
+
+  md-icon {
+    margin-left: auto;
+    margin-right: 10px;
+    cursor: pointer;
   }
 }

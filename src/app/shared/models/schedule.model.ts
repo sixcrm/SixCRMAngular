@@ -6,6 +6,7 @@ export class Cycle {
   diff: number;
   dragDiff: number = 0;
   dragdiffDiff: number = 0;
+  stackCount: number = 0;
 
   constructor(public start: number, public end: number) {
     this.diff = end - start;

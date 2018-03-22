@@ -47,8 +47,10 @@
             <div [class.item-selected]="schedule.detailedListSelected">
               <ng-container *ngFor="let cycle of schedule.cycles; let cycleNum = index">
                 <div class="cycle-container"
-                     [style.z-index]="productSchedule.detailedListOpened ? productSchedule.schedules.length + 2 - scheduleNum : cycle.start + 2"
+                     [style.z-index]="productSchedule.detailedListOpened ? productSchedule.schedules.length + 2 - scheduleNum : schedule.detailedListSelected ? 999 : cycle.start + 2"
                      [class.cycle-container--slow]="cycle.dragDiff !== 0 || cycle.dragdiffDiff !== 0"
+                     [style.padding-left]="cycleNum === 0 ? '2px' : 0"
+                     [style.padding-right]="cycleNum === schedule.cycles.length - 1 ? '2px' : 0"
                      [style.width]="(cycle.diff * cellwidth) / _zoom + + cycle.dragdiffDiff + 'px'"
                      [style.left]="(cycle.start * cellwidth) / _zoom + cycle.dragDiff + 'px'">
                   <div class="tail"
