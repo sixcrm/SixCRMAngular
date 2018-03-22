@@ -58,7 +58,7 @@
   overflow: hidden;
   background-position-y: 20px;
   background-image: linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px);
-  transition: background-size 500ms ease-in-out;
+  transition: background-size 250ms ease-in-out;
 
   .date-placeholder {
     position: absolute;
@@ -140,10 +140,10 @@
     height: 46px;
     padding: 6px 0;
     box-sizing: border-box;
-    transition: width 500ms ease-in-out, height 500ms ease-in-out, left 500ms ease-in-out;
+    transition: width 250ms ease-in-out, height 250ms ease-in-out, left 250ms ease-in-out;
 
     &--slow {
-      transition: width 50ms ease-in-out, height 500ms ease-in-out, left 50ms ease-in-out;
+      transition: width 50ms ease-in-out, height 250ms ease-in-out, left 50ms ease-in-out;
     }
 
     .tail {

@@ -14,6 +14,11 @@
     </md-input-container>
   </ng-container>
 
+  <div class="actions-container">
+    <md-icon (click)="doUndo()" [class.action-inactive]="!undoEnabled">undo</md-icon>
+    <md-icon (click)="doRevert()" [class.action-inactive]="!undoEnabled">settings_backup_restore</md-icon>
+  </div>
+
   <md-icon class="grid-icon" [class.icon-selected]="displayMode === modes.grid" (click)="displayModeChanged.emit(modes.grid)">grid_on</md-icon>
 
   <div class="divider"></div>

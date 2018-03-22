@@ -3,6 +3,7 @@ import {ProductSchedule} from '../../../../shared/models/product-schedule.model'
 import {Moment, utc} from 'moment';
 import {Schedule} from '../../../../shared/models/schedule.model';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'schedule-detailed-timeline',
@@ -22,6 +23,7 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
     this.measureArray = this.createRangeArray(365 / value);
   }
   @Output() selected: EventEmitter<Schedule> = new EventEmitter();
+  @Output() scheduleChanged: EventEmitter<boolean> = new EventEmitter();
 
   _start: Moment = utc();
   _diff: number = 0;
@@ -41,10 +43,14 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
   blue: string = 'rgba(83,131,195,1)';
   blueTail: string = 'rgba(83,131,195,0.22)';
 
+  changeDebouncer: Subject<boolean> = new Subject();
+
   constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.today = utc().tz(this.authService.getTimezone()).format('MMMM DD')
+    this.today = utc().tz(this.authService.getTimezone()).format('MMMM DD');
+
+    this.changeDebouncer.debounceTime(270).subscribe(() => this.scheduleChanged.emit(true));
   }
 
   createRangeArray(count: number) {
@@ -76,6 +82,8 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
   }
 
   dragEnded(event, schedule: Schedule) {
+    this.changeDebouncer.next(true);
+
     let diffInDays = Math.floor((event.clientX - this.startX) / (this.cellwidth / this._zoom));
 
     if (schedule.start + diffInDays < 0) {
@@ -115,6 +123,8 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
   }
 
   dragResizeEnded(event, schedule: Schedule) {
+    this.changeDebouncer.next(true);
+
     let diffInDays = Math.floor((event.clientX - this.startX) / (this.cellwidth / this._zoom));
 
     if (+schedule.period + diffInDays < 1) {

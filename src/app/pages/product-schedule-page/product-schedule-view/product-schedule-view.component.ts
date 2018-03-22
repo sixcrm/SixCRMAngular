@@ -18,6 +18,7 @@ import {MdDialog} from '@angular/material';
 import {DeleteDialogComponent} from '../../delete-dialog.component';
 import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 import {utc, Moment} from 'moment'
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'product-schedule-view',
@@ -121,6 +122,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   ];
 
   detailsElement: ElementRef;
+  saveDebouncer: Subject<ProductSchedule> = new Subject();
+  productScheduleWaitingForUpdate: ProductSchedule;
 
   constructor(
     service: ProductScheduleService,
@@ -136,6 +139,21 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
 
   ngOnInit() {
     this.takeUpdated = false;
+
+    this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(ps => {
+      if (ps instanceof CustomServerError) return;
+
+      this.entity.updatedAtAPI = ps.updatedAtAPI;
+      this.entity.updatedAt = ps.updatedAt.clone();
+      this.entityBackup = this.entity.copy();
+    });
+
+    this.saveDebouncer.debounceTime(5000).takeUntil(this.unsubscribe$).subscribe(productSchedule => {
+      productSchedule.updatedAtAPI = this.entity.updatedAtAPI;
+      productSchedule.updatedAt = this.entity.updatedAt.clone();
+      this.productScheduleWaitingForUpdate = null;
+      this.updateEntity(productSchedule);
+    });
 
     super.init(() => this.navigation.goToNotFoundPage());
 
@@ -154,6 +172,12 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
 
   ngOnDestroy() {
     this.destroy();
+
+    if (this.productScheduleWaitingForUpdate) {
+      this.productScheduleWaitingForUpdate.updatedAtAPI = this.entity.updatedAtAPI;
+      this.productScheduleWaitingForUpdate.updatedAt = this.entity.updatedAt.clone();
+      this.updateEntity(this.productScheduleWaitingForUpdate);
+    }
   }
 
   setIndex(value: number): void {
@@ -226,31 +250,10 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     this.detailsElement = details;
   }
 
-  saveEmitted() {
-    this.service.entityUpdated$.take(1).takeUntil(this.unsubscribe$).subscribe(ps => {
-      if (ps instanceof CustomServerError) return;
-
-      this.entity.updatedAtAPI = ps.updatedAtAPI;
-      this.entity.updatedAt = ps.updatedAt.clone();
-      this.entityBackup = this.entity.copy();
-    });
-
-    this.updateEntity(this.entity);
-  }
-
-  deleteSchedule(schedule: Schedule) {
-    let index = -1;
-
-    for (let i = 0; i < this.entity.schedules.length; i++) {
-      if (schedule === this.entity.schedules[i]) {
-        index = i;
-        break;
-      }
-    }
-
-    if (index !== -1) {
-      this.entity.schedules.splice(index, 1);
-      this.saveEmitted();
+  productSchedulesChanged(productSchedules: ProductSchedule[]) {
+    if (productSchedules && productSchedules.length > 0) {
+      this.productScheduleWaitingForUpdate = productSchedules[0];
+      this.saveDebouncer.next(productSchedules[0]);
     }
   }
 }

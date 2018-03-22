@@ -1,57 +1,56 @@
-<div class="schedule-details" [class.schedule-details--hidden]="(!_schedule && !_productSchedule) || hideDetails">
+<div class="schedule-details" [class.schedule-details--hidden]="(!_scheduleBackup && !_productSchedule) || hideDetails">
   <div class="schedule-container">
 
     <div class="schedule-container__header">
       <md-icon (click)="closeModal()">close</md-icon>
-      <div *ngIf="_schedule">{{_schedule?.name}}</div>
+      <div *ngIf="_scheduleBackup">{{_scheduleBackup?.name}}</div>
       <div *ngIf="_productSchedule">{{_productSchedule?.product?.name}}</div>
     </div>
 
     <div class="schedule-container__ship-info">
       <div>NEXT CYCLE:</div>
-      <div><md-icon>date_range</md-icon> <span>{{calculateNextCycle()}}</span></div>
+      <div><md-icon>date_range</md-icon> <span>{{nextCycle}}</span></div>
     </div>
 
-    <div *ngIf="_schedule" class="schedule-container__schedule-details">
+    <div *ngIf="_scheduleBackup" class="schedule-container__schedule-details">
       <div class="header">
-        <div [routerLink]="['/products', _schedule.product.id]">View Product</div>
-        <div (click)="removeSchedule()" class="button">DELETE</div>
+        <div [routerLink]="['/products', _scheduleBackup.product.id]">View Product</div>
+        <div (click)="removeSchedule()" class="red-button">DELETE</div>
       </div>
 
       <div class="body">
         <div class="body__row">
           <md-input-container>
-            <input type="text" auto-focus md-input placeholder="Start" (keydown)="isNumeric($event)" [(ngModel)]="_schedule.start" (input)="recalculate()">
+            <input type="text" auto-focus md-input placeholder="Start" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.start" (input)="recalculate()">
           </md-input-container>
 
           <md-input-container>
-            <input type="text" md-input placeholder="End" (keydown)="isNumeric($event)" [(ngModel)]="_schedule.end" (input)="recalculate()">
+            <input type="text" md-input placeholder="End" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.end" (input)="recalculate()">
           </md-input-container>
         </div>
 
         <div class="body__row">
           <md-input-container>
-            <input type="text" md-input placeholder="Cycle" (keydown)="isNumeric($event)" [(ngModel)]="_schedule.period" (input)="recalculate()">
+            <input type="text" md-input placeholder="Cycle" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.period" (input)="recalculate()">
           </md-input-container>
 
           <md-input-container>
-            <input type="text" md-input placeholder="Price" currencyInput [initPrice]="_schedule.price" (priceChanged)="_schedule.price = $event">
+            <input type="text" md-input placeholder="Price" currencyInput [initPrice]="_scheduleBackup.price" (priceChanged)="_scheduleBackup.price = $event">
           </md-input-container>
         </div>
 
         <autocomplete-input
           [fullWidth]="true"
-          [initialValue]="_schedule.product"
+          [initialValue]="_scheduleBackup.product"
           [options]="products"
           [applyAutofocus]="false"
           [placeholder]="'Product'"
           [mapFunction]="productMapper"
-          (selected)="_schedule.product = $event">
+          (selected)="_scheduleBackup.product = $event">
         </autocomplete-input>
       </div>
 
       <div class="buttons">
-        <div (click)="cancel()">CANCEL</div>
         <div (click)="saveSchedule()">SAVE</div>
       </div>
     </div>
@@ -59,13 +58,18 @@
     <div *ngIf="_productSchedule" class="schedule-container__items">
       <div class="header">
         <div>Schedule</div>
-        <div>EDIT</div>
+        <div *ngIf="!singleScheduleMode" (click)="removeProductSchedule()" class="red-button">DELETE</div>
       </div>
 
       <div class="item" *ngFor="let s of _productSchedule.schedules; let i = index">
         <div class="number"><span>{{i}}</span></div>
         <div class="text">{{s.product.name}}</div>
-        <md-icon>more_vert</md-icon>
+        <md-icon [md-menu-trigger-for]="scheduleoptions">more_vert</md-icon>
+        <md-menu #scheduleoptions="mdMenu" x-position="before">
+          <button md-menu-item [routerLink]="['/products', s.product.id]">View Product</button>
+          <button md-menu-item (click)="deleteSchedule.emit(s)">Delete Schedule</button>
+          <button md-menu-item (click)="focusSchedule.emit(s)">Focus Schedule</button>
+        </md-menu>
       </div>
 
       <div class="item">

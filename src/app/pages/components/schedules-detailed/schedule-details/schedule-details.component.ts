@@ -21,11 +21,8 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
 
   @Input() set schedule(value: ProductSchedule | Schedule) {
     this._productSchedule = null;
-
-    if (this._schedule && this._scheduleBackup) {
-      this.cancel();
-    }
     this._schedule = null;
+    this._scheduleBackup = null;
 
     this.productToAdd = new Product();
 
@@ -37,6 +34,8 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
     if (value instanceof ProductSchedule) {
       this._productSchedule = value;
     }
+
+    this.nextCycle = this.calculateNextCycle();
   };
   @Input() hideDetails: boolean;
   @Input() products: Products[] = [];
@@ -44,20 +43,20 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
 
   @Output() close: EventEmitter<boolean> = new EventEmitter();
   @Output() save: EventEmitter<boolean> = new EventEmitter();
+  @Output() focusSchedule: EventEmitter<Schedule> = new EventEmitter();
   @Output() deleteSchedule: EventEmitter<Schedule> = new EventEmitter();
+  @Output() deleteProductSchedule: EventEmitter<ProductSchedule> = new EventEmitter();
 
   isNumeric = isAllowedNumeric;
   productMapper = (p: Product) => p.name;
   productToAdd: Product = new Product();
 
-  changeBouncer: Subject<boolean> = new Subject();
   changeSub: Subscription;
+  nextCycle: string = '';
 
   constructor(private authService: AuthenticationService) { }
 
-  ngOnInit() {
-    this.changeSub = this.changeBouncer.debounceTime(500).subscribe(() => this._schedule.recalculateCyclesForDays(365));
-  }
+  ngOnInit() { }
 
   ngOnDestroy() {
     if (this.changeSub) {
@@ -99,26 +98,14 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
     return null;
   }
 
-  cancel() {
-    if (this._schedule) {
-      this._schedule.start = this._scheduleBackup.start;
-      this._schedule.end = this._scheduleBackup.end;
-      this._schedule.period = this._scheduleBackup.period;
-      this._schedule.product = this._scheduleBackup.product.copy();
-      this._schedule.recalculateCyclesForDays(365);
-    }
-  }
-
-  recalculate() {
-    if (this._schedule) {
-      this.changeBouncer.next(true);
-    }
-  }
+  recalculate() { }
 
   saveSchedule() {
-    this._scheduleBackup.start = this._schedule.start;
-    this._scheduleBackup.end = this._schedule.end;
-    this._scheduleBackup.period = this._schedule.period;
+    this._schedule.start = +this._scheduleBackup.start;
+    this._schedule.end = +this._scheduleBackup.end;
+    this._schedule.period = +this._scheduleBackup.period;
+    this._schedule.product = this._scheduleBackup.product.copy();
+
     this.save.emit(true);
   }
 
@@ -126,8 +113,11 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
     this.deleteSchedule.emit(this._schedule);
   }
 
+  removeProductSchedule() {
+    this.deleteProductSchedule.emit(this._productSchedule);
+  }
+
   closeModal() {
-    this.cancel();
     this.close.emit(true)
   }
 
