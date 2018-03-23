@@ -151,4 +151,22 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
       schedule.cycles[i].dragdiffDiff = 0;
     }
   }
+
+  getHeight(productScheduleNum, scheduleNum): string {
+    if (productScheduleNum === 0) {
+      if (this.productSchedules[0]['detailedListOpened']) {
+        return (scheduleNum + 1) * this.cellheight + 30 + 'px';
+      } else {
+        return '30px';
+      }
+    }
+
+    let cells = 0;
+
+    for (let i = 0; i < productScheduleNum; i++) {
+        cells += this.productSchedules[i]['detailedListOpened'] ? this.productSchedules[i].schedules.length + 1 : 1;
+    }
+
+    return (cells + (this.productSchedules[productScheduleNum]['detailedListOpened'] ? (scheduleNum + 1) : 0)) * this.cellheight + 30 + 'px';
+  }
 }

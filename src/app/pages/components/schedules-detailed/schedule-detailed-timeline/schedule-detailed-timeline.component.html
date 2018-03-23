@@ -1,5 +1,3 @@
-<div class="top-line">DAYS</div>
-
 <div class="view-container" drag-scroll-x>
   <div class="infinity-container">
     <div *ngFor="let productSchedule of productSchedules"
@@ -32,7 +30,7 @@
         </ng-container>
       </div>
 
-      <div *ngIf="!singleScheduleMode" class="date-placeholder" [style.left]="((_diff * cellwidth) / _zoom) + 'px'">
+      <div *ngIf="!singleScheduleMode" class="date-placeholder" [style.left]="((_diff + 0.5) * cellwidth) / _zoom + 'px'">
         <div class="date-placeholder__box">
           {{today}}
           <div class="date-placeholder__box__pointer"></div>
@@ -40,7 +38,7 @@
         <div class="date-placeholder__line"></div>
       </div>
 
-      <ng-container *ngFor="let productSchedule of productSchedules">
+      <ng-container *ngFor="let productSchedule of productSchedules; let productScheduleNum = index">
         <div class="product-schedule-container"
              [class.item-selected]="productSchedule.detailedListSelected"
              [style.height]="productSchedule.detailedListOpened ? (productSchedule.schedules.length + 1) * cellheight + 'px' : cellheight + 'px'">
@@ -48,6 +46,13 @@
           <ng-container *ngFor="let schedule of productSchedule.schedules; let scheduleNum = index">
             <div [class.item-selected]="schedule.detailedListSelected">
               <ng-container *ngFor="let cycle of schedule.cycles; let cycleNum = index">
+                <div class="cycle-flag"
+                     *ngIf="schedule.detailedListSelected || productSchedule.detailedListSelected"
+                     [class.cycle-flag--slow]="cycle.dragDiff !== 0 || cycle.dragdiffDiff !== 0"
+                     [style.height]="getHeight(productScheduleNum, scheduleNum)"
+                     [style.left]="((cycle.start + 0.5) * cellwidth) / _zoom + cycle.dragDiff + 'px'">
+                  <div class="date-box">{{_start.clone().add(cycle.start, 'd').format('MMM DD')}}</div>
+                </div>
                 <div class="cycle-container"
                      [style.z-index]="productSchedule.detailedListOpened ? productSchedule.schedules.length + 2 - scheduleNum : cycle.start + 2"
                      [class.cycle-container--slow]="cycle.dragDiff !== 0 || cycle.dragdiffDiff !== 0"
@@ -62,16 +67,13 @@
                   <div class="bar"
                        (click)="selected.emit(schedule)"
                        [style.background]="cycle.start < _diff ? green : blue">
-                    <div
-                      class="body"
-                      draggable="true"
-                      (dragstart)="dragStarted($event, schedule)"
-                      (drag)="drag($event, schedule)"
-                      (dragend)="dragEnded($event, schedule)">
+                    <div class="body"
+                         draggable="true"
+                         (dragstart)="dragStarted($event, schedule)"
+                         (drag)="drag($event, schedule)"
+                         (dragend)="dragEnded($event, schedule)">
                       <div class="order" [style.background]="cycle.start < _diff ? '#2F824D' : '#3F587B'">
-                        <span>
-                        {{ cycle.order }}
-                        </span>
+                        <span>{{ cycle.order }}</span>
                       </div>
                       <ng-container>
                         {{ productSchedule['detailedListOpened'] ? schedule.product.name : cycle.stack === 1 ? schedule.product.name : cycle.stack + ' Items' }}
