@@ -49,7 +49,7 @@
             <div [class.item-selected]="schedule.detailedListSelected">
               <ng-container *ngFor="let cycle of schedule.cycles; let cycleNum = index">
                 <div class="cycle-container"
-                     [style.z-index]="productSchedule.detailedListOpened ? productSchedule.schedules.length + 2 - scheduleNum : schedule.detailedListSelected ? 999 : cycle.start + 2"
+                     [style.z-index]="productSchedule.detailedListOpened ? productSchedule.schedules.length + 2 - scheduleNum : cycle.start + 2"
                      [class.cycle-container--slow]="cycle.dragDiff !== 0 || cycle.dragdiffDiff !== 0"
                      [style.padding-left]="cycleNum === 0 ? '2px' : 0"
                      [style.padding-right]="cycleNum === schedule.cycles.length - 1 ? '2px' : 0"
@@ -68,7 +68,14 @@
                       (dragstart)="dragStarted($event, schedule)"
                       (drag)="drag($event, schedule)"
                       (dragend)="dragEnded($event, schedule)">
-                      {{_start.clone().add(cycle.start, 'd').format('MMM DD, YYYY')}}
+                      <div class="order" [style.background]="cycle.start < _diff ? '#2F824D' : '#3F587B'">
+                        <span>
+                        {{ cycle.order }}
+                        </span>
+                      </div>
+                      <ng-container>
+                        {{ productSchedule['detailedListOpened'] ? schedule.product.name : cycle.stack === 1 ? schedule.product.name : cycle.stack + ' Items' }}
+                      </ng-container>
                     </div>
                     <div class="resizer"
                          draggable="true"

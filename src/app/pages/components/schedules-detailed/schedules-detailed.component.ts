@@ -182,8 +182,32 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
     this.schedulesHistory.push(newState);
     this.historyIndex++;
 
+    this.calculateCyclesOrderAndStack(newState);
+
     if (emitChangeToParent) {
       this.productSchedulesChanged.emit(this.schedulesHistory[this.historyIndex]);
+    }
+  }
+
+  private calculateCyclesOrderAndStack(productSchedules: ProductSchedule[]) {
+    for (let i = 0; i < productSchedules.length; i++) {
+      let cycles = [];
+
+      for (let j = 0; j < productSchedules[i].schedules.length; j++) {
+        cycles = [...cycles, ...productSchedules[i].schedules[j].cycles]
+      }
+
+      cycles.sort((a, b) => a.start - b.start);
+
+      for (let i = 0; i < cycles.length; i++) {
+        cycles[i].order = i + 1;
+
+        for (let j = 0; j < cycles.length; j++) {
+          if (cycles[j].start <= cycles[i].start && cycles[i].start < cycles[j].end) {
+            cycles[i].stack++;
+          }
+        }
+      }
     }
   }
 

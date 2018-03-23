@@ -56,7 +56,7 @@ export function sessionResponseQuery(): string {
   return `
     id alias created_at updated_at,
     watermark {
-      product_schedules { quantity, product_schedule { name, schedule { price, start, end, period, product {id, name, attributes { images { path, default_image } } } } } },
+      product_schedules { quantity, product_schedule { name, schedule { price, start, end, period, product {id, name } } } },
       products { quantity, price, product { id name } }
     }
     customer { id firstname lastname address { line1 line2 city state zip country } }
