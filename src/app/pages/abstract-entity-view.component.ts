@@ -105,8 +105,8 @@ export abstract class AbstractEntityViewComponent<T extends Entity<T>> {
     this.service.createEntity(entity);
   }
 
-  updateEntity(entity: T): void {
-    this.service.updateEntity(entity);
+  updateEntity(entity: T, options?: {ignoreSnack?: boolean, ignoreProgress?: boolean, ignorePermissions?: boolean}): void {
+    this.service.updateEntity(entity, options);
   }
 
   cancelUpdate(): void {

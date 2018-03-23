@@ -3,6 +3,7 @@
   [zoomLevel]="zoomLevel"
   [sideVisible]="sideVisible"
   [singleScheduleMode]="singleScheduleMode"
+  [statusMessage]="statusMessage"
   (undo)="undo()"
   (revert)="revert()"
   (sideVisibleChanged)="sideVisible = $event"
@@ -22,6 +23,7 @@
   </schedule-detailed-list>
   <schedule-detailed-timeline
     [productSchedules]="schedulesHistory[historyIndex] | filterStrings: filterProductSchedulesValue: productScheduleFilterMapper"
+    [products]="products"
     [singleScheduleMode]="singleScheduleMode"
     [zoomLevel]="zoomLevel"
     [start]="startDate"
@@ -33,7 +35,7 @@
 <ng-template #details>
   <schedule-details
     [hideDetails]="selectedIndex === 1"
-    [products]="products"
+    [allProducts]="allProducts"
     [schedule]="selectedSchedule"
     [startDate]="startDate"
     (focusSchedule)="selectDetails($event)"

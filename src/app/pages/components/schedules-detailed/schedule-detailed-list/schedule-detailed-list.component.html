@@ -40,12 +40,25 @@
 
     </div>
 
+    <div *ngFor="let p of products; let i = index">
+      <div class="item item--schedule">
+        <ng-container *ngIf="sideVisible; else number">
+          <div class="text">{{p.name || 'Unnamed'}}</div>
+        </ng-container>
+
+        <ng-template #number><span class="number">{{productSchedules.length + i+1}}</span></ng-template>
+      </div>
+    </div>
+
     <div class="add-product-schedule-container" *ngIf="!singleScheduleMode && addProductScheduleMode && sideVisible">
       <autocomplete-input class="session-autocomplete"
                           [mapFunction]="productScheduleMapper"
                           [initialValue]="productScheduleToAdd"
                           [options]="allProductSchedules"
                           [placeholder]="'Add Product Schedule'"
+                          [unmatchedEnabled]="true"
+                          [unmatchedFactory]="productScheduleFactory"
+                          [applyAutofocus]="true"
                           (selected)="addProductSchedule($event)">
       </autocomplete-input>
       <md-icon (click)="persistProductSchedule()">add</md-icon>

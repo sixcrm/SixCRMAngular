@@ -13,8 +13,8 @@ import {CustomServerError} from '../../../../shared/models/errors/custom-server-
 export class ScheduleDetailedListComponent implements OnInit {
 
   @Input() productSchedules: ProductSchedule[] = [];
-  @Input() sideVisible: boolean;
   @Input() products: Product[] = [];
+  @Input() sideVisible: boolean;
   @Input() singleScheduleMode: boolean;
 
   @Output() selected: EventEmitter<ProductSchedule | Schedule> = new EventEmitter();
@@ -25,6 +25,8 @@ export class ScheduleDetailedListComponent implements OnInit {
 
   allProductSchedules: ProductSchedule[] = [];
   addProductScheduleMode: boolean;
+
+  productScheduleFactory = (name: string) => new ProductSchedule({name: name});
 
   constructor(public productScheduleService: ProductScheduleService) { }
 
@@ -65,7 +67,7 @@ export class ScheduleDetailedListComponent implements OnInit {
   }
 
   persistProductSchedule() {
-    if (!this.productScheduleToAdd.id) return;
+    if (!this.productScheduleToAdd.id && !this.productScheduleToAdd.name) return;
 
     this.newProductScheduleAdded.emit(this.productScheduleToAdd);
 

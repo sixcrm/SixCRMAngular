@@ -13,6 +13,7 @@ export class ScheduleDetailedHeaderComponent implements OnInit {
   @Input() sideVisible: boolean;
   @Input() singleScheduleMode: boolean;
   @Input() undoEnabled: boolean = true;
+  @Input() statusMessage: string;
 
   @Output() zoomChanged: EventEmitter<number> = new EventEmitter();
   @Output() filterChanged: EventEmitter<string> = new EventEmitter();

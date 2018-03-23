@@ -4,6 +4,7 @@ import {Moment, utc} from 'moment';
 import {Schedule} from '../../../../shared/models/schedule.model';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {Subject} from 'rxjs';
+import {Product} from '../../../../shared/models/product.model';
 
 @Component({
   selector: 'schedule-detailed-timeline',
@@ -13,6 +14,7 @@ import {Subject} from 'rxjs';
 export class ScheduleDetailedTimelineComponent implements OnInit {
 
   @Input() productSchedules: ProductSchedule[] = [];
+  @Input() products: Product[] = [];
   @Input() singleScheduleMode: boolean;
   @Input() set start(value: Moment) {
     this._start = value;

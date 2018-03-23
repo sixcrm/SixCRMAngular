@@ -10,9 +10,11 @@
   <ng-container *ngIf="!singleScheduleMode">
     <md-icon class="search-icon">search</md-icon>
     <md-input-container>
-      <input md-input type="text" placeholder="Filter Product Schedules" (input)="filterChanged.emit($event.target.value)">
+      <input class="search-input" md-input type="text" placeholder="Filter Product Schedules" (input)="filterChanged.emit($event.target.value)">
     </md-input-container>
   </ng-container>
+
+  <div class="saving"> {{ statusMessage }} </div>
 
   <div class="actions-container">
     <md-icon (click)="doUndo()" [class.action-inactive]="!undoEnabled">undo</md-icon>

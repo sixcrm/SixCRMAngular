@@ -39,6 +39,8 @@ export class AutocompleteInputComponent implements OnInit {
   @Input() required: boolean = false;
   @Input() fullWidth: boolean = false;
   @Input() applyAutofocus: boolean = false;
+  @Input() unmatchedEnabled: boolean = false;
+  @Input() unmatchedFactory: (value: string) => any = (el) => (el);
   @Input() strictFilteringStrategy: boolean = false; // If is true will match ORegon but not califORnia when filtering string 'OR'. If false, will match both.
   @Output() valueChanged: EventEmitter<any> = new EventEmitter();
   @Output() selected: EventEmitter<any> = new EventEmitter();
@@ -65,6 +67,13 @@ export class AutocompleteInputComponent implements OnInit {
     this.showOptions = false;
   }
 
+  createNewSelected(): void {
+    const mapped = this.unmatchedFactory(this.currentValue);
+
+    this.selected.emit(mapped);
+    this.showOptions = false;
+  }
+
   closeDropdown(event): void {
     if (!this.elementRef.nativeElement.contains(event.target)) {
       this.showOptions = false;
@@ -81,13 +90,19 @@ export class AutocompleteInputComponent implements OnInit {
   }
 
   emitSelected() {
-    const selectedValue = this.filteredOptions[this.focusedOptionIndex];
+    if (this.focusedOptionIndex === this.filteredOptions.length) {
+      const mapped = this.unmatchedFactory(this.currentValue);
 
-    if (!selectedValue) {
-      this.currentValue = this.mapFunction(this.initValue);
+      this.selected.emit(mapped);
     } else {
-      this.currentValue = this.mapFunction(selectedValue);
-      this.selected.emit(selectedValue);
+      const selectedValue = this.filteredOptions[this.focusedOptionIndex];
+
+      if (!selectedValue) {
+        this.currentValue = this.mapFunction(this.initValue);
+      } else {
+        this.currentValue = this.mapFunction(selectedValue);
+        this.selected.emit(selectedValue);
+      }
     }
 
     this.showOptions = false;
@@ -102,7 +117,7 @@ export class AutocompleteInputComponent implements OnInit {
       }
       case 'ArrowDown': {
         this.focusedOptionIndex++;
-        if (this.focusedOptionIndex >= this.filteredOptions.length) {
+        if (this.focusedOptionIndex >= (this.filteredOptions.length + (this.unmatchedEnabled ? 1 : 0))) {
           this.focusedOptionIndex = 0;
         }
         this.ensureOptionVisible();
@@ -111,7 +126,7 @@ export class AutocompleteInputComponent implements OnInit {
       case 'ArrowUp': {
         this.focusedOptionIndex--;
         if (this.focusedOptionIndex < 0) {
-          this.focusedOptionIndex = this.filteredOptions.length - 1;
+          this.focusedOptionIndex = this.filteredOptions.length - (this.unmatchedEnabled ? 0 : 1);
         }
         this.ensureOptionVisible();
         break;

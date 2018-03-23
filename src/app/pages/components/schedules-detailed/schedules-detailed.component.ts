@@ -25,15 +25,17 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
     this.schedulesHistory[this.historyIndex] = productSchedules.map(ps => ps.copy());
     this.createNewState();
   }
+  @Input() products: Product[] = [];
   @Input() startDate: Moment;
   @Input() singleScheduleMode: boolean;
+  @Input() statusMessage: string;
 
   @Output() detailsComponent: EventEmitter<ElementRef> = new EventEmitter();
   @Output() productSchedulesChanged: EventEmitter<ProductSchedule[]> = new EventEmitter();
 
   @ViewChild('details') details: ElementRef;
 
-  products: Product[] = [];
+  allProducts: Product[] = [];
   selectedSchedule: ProductSchedule | Schedule;
   displayMode: DisplayModes = DisplayModes.grid;
   modes = DisplayModes;
@@ -53,10 +55,10 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
   }
 
   private fetchProducts() {
-    this.productService.entities$.take(1).subscribe(products => {
-      if (products instanceof CustomServerError) return;
+    this.productService.entities$.take(1).subscribe(allProducts => {
+      if (allProducts instanceof CustomServerError) return;
 
-      this.products = products;
+      this.allProducts = allProducts;
     });
     this.productService.getEntities();
   }

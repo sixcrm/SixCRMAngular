@@ -19,12 +19,14 @@
 
   <div class="timeline-container"
        [style.width]="(365 / _zoom) * cellwidth + 20 + 'px'"
+       [style.background-position-x]="cellwidth / (2*_zoom) + 'px'"
        [style.background-size]="cellwidth / _zoom + 'px 46px'">
 
     <div class="timeline-body">
       <div class="timeline-header">
+        <div></div>
         <ng-container *ngFor="let measure of measureArray">
-          <div [style.left]="measure * cellwidth + 'px'">
+          <div [style.left]="(measure) * cellwidth + cellwidth / (2*_zoom) + 'px'">
             {{measure * _zoom}}
           </div>
         </ng-container>
@@ -52,7 +54,7 @@
                      [style.padding-left]="cycleNum === 0 ? '2px' : 0"
                      [style.padding-right]="cycleNum === schedule.cycles.length - 1 ? '2px' : 0"
                      [style.width]="(cycle.diff * cellwidth) / _zoom + + cycle.dragdiffDiff + 'px'"
-                     [style.left]="(cycle.start * cellwidth) / _zoom + cycle.dragDiff + 'px'">
+                     [style.left]="((cycle.start + 0.5) * cellwidth) / _zoom + cycle.dragDiff + 'px'">
                   <div class="tail"
                        [style.height]="productSchedule.detailedListOpened ? (scheduleNum + 1) * cellheight + 'px' : 0"
                        [style.background]="cycle.start < _diff ? greenTail : blueTail">
@@ -81,6 +83,20 @@
             </div>
           </ng-container>
 
+        </div>
+      </ng-container>
+
+      <ng-container *ngFor="let product of products">
+        <div class="product-container" [style.margin-left]="cellwidth / (2*_zoom) + 'px'">
+          <ng-container *ngIf="product.getDefaultImagePath(); else defaultimage">
+            <div class="image" [style.background-image]="'url(' + product.getDefaultImagePath() + ')'"></div>
+          </ng-container>
+
+          <ng-template #defaultimage>
+            <div class="image image--default"></div>
+          </ng-template>
+
+          <div class="text">{{product.name}}</div>
         </div>
       </ng-container>
 

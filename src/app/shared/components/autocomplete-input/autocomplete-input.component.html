@@ -5,13 +5,22 @@
     </md-input-container>
     <md-icon [class.rotated]="showOptions" *ngIf="showArrow" (click)="arrowClicked(input)">keyboard_arrow_down</md-icon>
   </div>
-  <div #optionsContainer class="default-autocomplete-input__options" *ngIf="showOptions && filteredOptions.length > 0">
+  <div #optionsContainer class="default-autocomplete-input__options" *ngIf="showOptions && (filteredOptions.length > 0 || unmatchedEnabled)">
     <div #autocompleteOption
          class="default-autocomplete-input__options__item"
          *ngFor="let option of filteredOptions; let i = index;"
          (click)="optionSelected(option)"
          [class.focused]="focusedOptionIndex === i">
       {{mapFunction(option)}}
+    </div>
+
+    <div [class.focused]="focusedOptionIndex === filteredOptions.length"
+         #autocompleteOption
+         *ngIf="unmatchedEnabled"
+         (click)="createNewSelected()"
+         class="default-autocomplete-input__options__item create-new">
+      <span>Create New</span>
+      <md-icon>add</md-icon>
     </div>
   </div>
 </div>

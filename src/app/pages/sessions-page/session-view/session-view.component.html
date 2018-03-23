@@ -97,6 +97,7 @@
       <md-tab>
         <schedules-detailed
           [productSchedules]="entity.watermark.extractedProductSchedules"
+          [products]="entity.watermark.extractedProducts"
           [startDate]="entity.startedAt"
           (detailsComponent)="setDetails($event)">
         </schedules-detailed>

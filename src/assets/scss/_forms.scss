@@ -223,6 +223,22 @@ dropdown-component {
       }
     }
 
+    .create-new {
+      display: flex;
+      align-items: center;
+
+      span {
+        margin-right: 15px;
+      }
+
+      md-icon {
+        margin-left: auto;
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+
     .focused {
       background-color: rgba(0,0,0,0.2);
     }

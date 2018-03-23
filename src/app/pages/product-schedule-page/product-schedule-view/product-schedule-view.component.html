@@ -29,6 +29,7 @@
 
       <md-tab>
         <schedules-detailed
+          [statusMessage]="updateError ? 'Error occured on save' : productScheduleWaitingForUpdate ? 'Saving...' : 'All changes saved'"
           [singleScheduleMode]="true"
           [productSchedules]="[entity]"
           [startDate]="startDate"

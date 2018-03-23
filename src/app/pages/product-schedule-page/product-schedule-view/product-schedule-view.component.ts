@@ -124,6 +124,8 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
   detailsElement: ElementRef;
   saveDebouncer: Subject<ProductSchedule> = new Subject();
   productScheduleWaitingForUpdate: ProductSchedule;
+  updateError: boolean;
+  autosaveDebouncer: number = 3500;
 
   constructor(
     service: ProductScheduleService,
@@ -141,18 +143,21 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     this.takeUpdated = false;
 
     this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(ps => {
-      if (ps instanceof CustomServerError) return;
-
-      this.entity.updatedAtAPI = ps.updatedAtAPI;
-      this.entity.updatedAt = ps.updatedAt.clone();
-      this.entityBackup = this.entity.copy();
+      if (ps instanceof CustomServerError) {
+        this.updateError = true;
+      } else {
+        this.updateError = false;
+        this.entity.updatedAtAPI = ps.updatedAtAPI;
+        this.entity.updatedAt = ps.updatedAt.clone();
+        this.entityBackup = this.entity.copy();
+        this.productScheduleWaitingForUpdate = null;
+      }
     });
 
-    this.saveDebouncer.debounceTime(5000).takeUntil(this.unsubscribe$).subscribe(productSchedule => {
+    this.saveDebouncer.debounceTime(this.autosaveDebouncer).takeUntil(this.unsubscribe$).subscribe(productSchedule => {
       productSchedule.updatedAtAPI = this.entity.updatedAtAPI;
       productSchedule.updatedAt = this.entity.updatedAt.clone();
-      this.productScheduleWaitingForUpdate = null;
-      this.updateEntity(productSchedule);
+      this.updateEntity(productSchedule, {ignoreSnack: true});
     });
 
     super.init(() => this.navigation.goToNotFoundPage());

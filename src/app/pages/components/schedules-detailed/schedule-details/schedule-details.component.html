@@ -42,7 +42,7 @@
         <autocomplete-input
           [fullWidth]="true"
           [initialValue]="_scheduleBackup.product"
-          [options]="products"
+          [options]="allProducts"
           [applyAutofocus]="false"
           [placeholder]="'Product'"
           [mapFunction]="productMapper"
@@ -77,7 +77,7 @@
           class="session-autocomplete"
           [initialValue]="productToAdd"
           [fullWidth]="true"
-          [options]="products"
+          [options]="allProducts"
           [applyAutofocus]="false"
           [placeholder]="'Add Product'"
           [mapFunction]="productMapper"

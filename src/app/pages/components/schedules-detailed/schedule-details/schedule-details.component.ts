@@ -38,7 +38,7 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
     this.nextCycle = this.calculateNextCycle();
   };
   @Input() hideDetails: boolean;
-  @Input() products: Products[] = [];
+  @Input() allProducts: Products[] = [];
   @Input() startDate: Moment;
 
   @Output() close: EventEmitter<boolean> = new EventEmitter();
