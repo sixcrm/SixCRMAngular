@@ -84,8 +84,8 @@
                     <div class="resizer"
                          draggable="true"
                          (dragstart)="dragResizeStarted($event, schedule)"
-                         (drag)="dragResize($event, schedule)"
-                         (dragend)="dragResizeEnded($event, schedule)">
+                         (drag)="dragResize($event, schedule, cycleNum)"
+                         (dragend)="dragResizeEnded($event, schedule, cycleNum)">
                     </div>
                   </div>
                 </div>

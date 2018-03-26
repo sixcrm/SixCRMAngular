@@ -114,17 +114,13 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
     }
   }
 
-  dragResize(event, schedule: Schedule) {
+  dragResize(event, schedule: Schedule, cycleNum: number) {
     if (event.clientX === 0) return;
 
-    const diff = event.clientX - this.startX;
-
-    for (let i = 0; i < schedule.cycles.length; i++) {
-      schedule.cycles[i].dragdiffDiff = diff;
-    }
+    schedule.cycles[cycleNum].dragdiffDiff = event.clientX - this.startX;
   }
 
-  dragResizeEnded(event, schedule: Schedule) {
+  dragResizeEnded(event, schedule: Schedule, cycleNum: number) {
     this.changeDebouncer.next(true);
 
     let diffInDays = Math.floor((event.clientX - this.startX) / (this.cellwidth / this._zoom));
@@ -133,22 +129,30 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
       diffInDays = 1 - +schedule.period;
     }
 
-    if (schedule.end) {
-      schedule.end = +schedule.end + diffInDays;
-    }
-    if (schedule.period) {
-      schedule.period = +schedule.period + diffInDays;
-    }
-
-    for (let i = 0; i < schedule.cycles.length; i++) {
-      schedule.cycles[i].end += diffInDays;
-      schedule.cycles[i].diff += diffInDays;
-
-      if (i !== 0) {
-        schedule.cycles[i].start += i*diffInDays;
+    if (cycleNum === (schedule.cycles.length - 1)) {
+      if (schedule.end) {
+        schedule.end = +schedule.end + diffInDays;
       }
+    } else {
+      if (schedule.period) {
+        schedule.period = +schedule.period + diffInDays;
+      }
+    }
 
-      schedule.cycles[i].dragdiffDiff = 0;
+    if (cycleNum === (schedule.cycles.length - 1)) {
+      schedule.cycles[cycleNum].end += diffInDays;
+      schedule.cycles[cycleNum].diff += diffInDays;
+      schedule.cycles[cycleNum].dragdiffDiff = 0;
+    } else {
+      for (let i = 0; i < schedule.cycles.length; i++) {
+        schedule.cycles[i].diff += diffInDays;
+
+        if (i !== 0) {
+          schedule.cycles[i].start += i*diffInDays;
+        }
+
+        schedule.cycles[i].dragdiffDiff = 0;
+      }
     }
   }
 
