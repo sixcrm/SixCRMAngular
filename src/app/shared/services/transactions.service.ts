@@ -29,7 +29,7 @@ export class TransactionsService extends AbstractEntityService<Transaction> {
     );
   }
 
-  public refundTransaction(transactionId: string, refundAmount: number): void {
+  public refundTransaction(transactionId: string, refundAmount: string): void {
     if (!this.hasWritePermission()) {
       return;
     }

@@ -93,7 +93,7 @@ export class TransactionViewComponent extends AbstractEntityViewComponent<Transa
     this.transactionsService.entityUpdated$.take(1).subscribe(() => {
       this.setIndex(0)
     });
-    this.transactionsService.refundTransaction(this.entity.id, amount);
+    this.transactionsService.refundTransaction(this.entity.id, amount.toFixed(2));
   }
 
   cancelRefund() {
