@@ -12,13 +12,14 @@
     <md-input-container>
       <input class="search-input" md-input type="text" placeholder="Filter Product Schedules" (input)="filterChanged.emit($event.target.value)">
     </md-input-container>
+    <div class="divider"></div>
   </ng-container>
 
-  <div class="saving"> {{ statusMessage }} </div>
-
-  <div class="actions-container">
+  <div class="actions-container" [class.actions-container--solo]="singleScheduleMode">
+    <div class="revert" (click)="doRevert()" [class.action-inactive]="!undoEnabled">REVERT</div>
     <md-icon (click)="doUndo()" [class.action-inactive]="!undoEnabled">undo</md-icon>
-    <md-icon (click)="doRevert()" [class.action-inactive]="!undoEnabled">settings_backup_restore</md-icon>
+    <md-icon (click)="doRedo()" [class.action-inactive]="!redoEnabled">redo</md-icon>
+    <div class="saving"> {{ statusMessage }} </div>
   </div>
 
   <md-icon class="grid-icon" [class.icon-selected]="displayMode === modes.grid" (click)="displayModeChanged.emit(modes.grid)">grid_on</md-icon>

@@ -5,6 +5,8 @@ import {Product} from '../../../shared/models/product.model';
 import {ProductsService} from '../../../shared/services/products.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Moment} from 'moment';
+import {YesNoDialogComponent} from '../../yes-no-dialog.component';
+import {MdDialog} from '@angular/material';
 
 export enum DisplayModes {
   grid,
@@ -54,7 +56,7 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
 
   selectedIndex: number = 0;
 
-  constructor(private productService: ProductsService) { }
+  constructor(private productService: ProductsService, private dialog: MdDialog) { }
 
   ngOnInit() {
     this.fetchProducts();
@@ -181,19 +183,49 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
 
       this.consecutiveUndo = true;
 
-      this.schedulesHistory = this.schedulesHistory.slice(0, this.historyIndex + 1);
-
       this.refreshSelectedItem(this.schedulesHistory[this.historyIndex]);
 
       if (this.historyIndex === 0) {
-        this.revert();
+        this.performRevert();
       } else {
         this.productSchedulesChanged.emit(this.schedulesHistory[this.historyIndex]);
       }
     }
   }
 
+  redo() {
+    if (this.historyIndex < (this.schedulesHistory.length - 1)) {
+      if (this.historyIndex === this.schedulesHistory.length - 3) {
+        this.historyIndex += 2;
+      } else {
+        this.historyIndex++;
+      }
+
+      this.consecutiveUndo = false;
+
+      this.productSchedulesChanged.emit(this.schedulesHistory[this.historyIndex]);
+    }
+  }
+
   revert() {
+    if (this.historyIndex === 0 || (!this.consecutiveUndo && this.historyIndex === 1)) return;
+
+    let yesNoDialogRef = this.dialog.open(YesNoDialogComponent, { disableClose : true });
+    yesNoDialogRef.componentInstance.text = 'Revert changes?';
+    yesNoDialogRef.componentInstance.secondaryText = 'Reverting changes is permanent and cannot be undone.';
+    yesNoDialogRef.componentInstance.yesText = 'REVERT';
+    yesNoDialogRef.componentInstance.noText = 'CANCEL';
+
+    yesNoDialogRef.afterClosed().take(1).subscribe(result => {
+      yesNoDialogRef = null;
+
+      if (result.success) {
+        this.performRevert();
+      }
+    });
+  }
+
+  private performRevert() {
     this.historyIndex = 0;
     this.schedulesHistory = [this.schedulesHistory[0]];
     this.createNewState(true);
@@ -207,8 +239,10 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
 
     this.findSelectedItem(previousState, newState);
 
-    this.schedulesHistory.push(newState);
+    this.schedulesHistory.splice(this.historyIndex+1, 0, newState);
     this.historyIndex++;
+
+    this.schedulesHistory = this.schedulesHistory.slice(0, this.historyIndex + 1);
 
     this.calculateCyclesOrderAndStack(newState);
 

@@ -13,6 +13,7 @@ export class ScheduleDetailedHeaderComponent implements OnInit {
   @Input() sideVisible: boolean;
   @Input() singleScheduleMode: boolean;
   @Input() undoEnabled: boolean = true;
+  @Input() redoEnabled: boolean = true;
   @Input() statusMessage: string;
 
   @Output() zoomChanged: EventEmitter<number> = new EventEmitter();
@@ -20,6 +21,7 @@ export class ScheduleDetailedHeaderComponent implements OnInit {
   @Output() displayModeChanged: EventEmitter<DisplayModes> = new EventEmitter();
   @Output() sideVisibleChanged: EventEmitter<boolean> = new EventEmitter();
   @Output() undo: EventEmitter<boolean> = new EventEmitter();
+  @Output() redo: EventEmitter<boolean> = new EventEmitter();
   @Output() revert: EventEmitter<boolean> = new EventEmitter();
 
   modes = DisplayModes;
@@ -53,5 +55,11 @@ export class ScheduleDetailedHeaderComponent implements OnInit {
     if (!this.undoEnabled) return;
 
     this.revert.emit(true);
+  }
+
+  doRedo() {
+    if (!this.redoEnabled) return;
+
+    this.redo.emit(true)
   }
 }
