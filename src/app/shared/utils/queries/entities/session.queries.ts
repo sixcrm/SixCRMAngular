@@ -73,5 +73,5 @@ export function sessionResponseQuery(): string {
 }
 
 export function sessionInfoResponseQuery(): string {
-  return `id alias customer { id firstname lastname } product_schedules { id } rebills { id } campaign { id name }`;
+  return `id alias created_at updated_at customer { id firstname lastname } product_schedules { id } rebills { id } campaign { id name }`;
 }
