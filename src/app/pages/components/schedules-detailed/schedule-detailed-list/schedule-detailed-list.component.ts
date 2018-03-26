@@ -16,15 +16,20 @@ export class ScheduleDetailedListComponent implements OnInit {
   @Input() products: Product[] = [];
   @Input() sideVisible: boolean;
   @Input() singleScheduleMode: boolean;
+  @Input() allProducts: Product[] = [];
 
   @Output() selected: EventEmitter<ProductSchedule | Schedule> = new EventEmitter();
   @Output() newProductScheduleAdded: EventEmitter<ProductSchedule> = new EventEmitter();
+  @Output() newProductAdded: EventEmitter<Product> = new EventEmitter();
 
   productScheduleToAdd: ProductSchedule = new ProductSchedule();
   productScheduleMapper = (p: ProductSchedule) => p.name;
 
+  productToAdd: Product = new Product();
+  productMapper = (p: Product) => p.name;
+
   allProductSchedules: ProductSchedule[] = [];
-  addProductScheduleMode: boolean;
+  addMode: boolean;
 
   productScheduleFactory = (name: string) => new ProductSchedule({name: name});
 
@@ -62,21 +67,28 @@ export class ScheduleDetailedListComponent implements OnInit {
     productSchedule['detailedListOpened'] = !productSchedule['detailedListOpened'];
   }
 
-  addProductSchedule(productSchedule: ProductSchedule) {
-    this.productScheduleToAdd = productSchedule;
+  addSelected(selected: ProductSchedule | Product) {
+    if (selected instanceof Product) {
+      this.productToAdd = selected;
+    } else {
+      this.productScheduleToAdd = selected;
+    }
   }
 
-  persistProductSchedule() {
-    if (!this.productScheduleToAdd.id && !this.productScheduleToAdd.name) return;
-
-    this.newProductScheduleAdded.emit(this.productScheduleToAdd);
+  persistSelected() {
+    if (this.singleScheduleMode && this.productToAdd.id) {
+      this.newProductAdded.emit(this.productToAdd);
+    } else if (this.productScheduleToAdd.id || this.productScheduleToAdd.name) {
+      this.newProductScheduleAdded.emit(this.productScheduleToAdd);
+    }
 
     this.toggleAddProductScheduleMode();
   }
 
   toggleAddProductScheduleMode() {
-    this.addProductScheduleMode = !this.addProductScheduleMode;
+    this.addMode = !this.addMode;
 
     this.productScheduleToAdd = new ProductSchedule();
+    this.productToAdd = new Product();
   }
 }

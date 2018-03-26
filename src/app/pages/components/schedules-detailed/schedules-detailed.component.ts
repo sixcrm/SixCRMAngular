@@ -21,13 +21,19 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
   schedulesHistory: ProductSchedule[][] = [[]];
   historyIndex: number = 0;
 
+  @Input() singleScheduleMode: boolean;
   @Input() set productSchedules(productSchedules: ProductSchedule[]) {
-    this.schedulesHistory[this.historyIndex] = productSchedules.map(ps => ps.copy());
+    const ps = productSchedules.map(ps => ps.copy());
+
+    if (ps.length === 1 && this.singleScheduleMode) {
+      ps[0]['detailedListOpened'] = true
+    }
+
+    this.schedulesHistory[this.historyIndex] = ps;
     this.createNewState();
   }
   @Input() products: Product[] = [];
   @Input() startDate: Moment;
-  @Input() singleScheduleMode: boolean;
   @Input() statusMessage: string;
 
   @Output() detailsComponent: EventEmitter<ElementRef> = new EventEmitter();
@@ -101,6 +107,28 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
     const productSchedules = this.schedulesHistory[this.historyIndex];
 
     productSchedules.push(productSchedule);
+
+    this.createNewState(true);
+  }
+
+  addNewProduct(product: Product) {
+    if (!this.singleScheduleMode) return;
+
+    const state = this.schedulesHistory[this.historyIndex];
+
+    let last = new Schedule({product: product.copy(), start: 0, end: 30, period: 30});
+
+    if (state[0].schedules.length > 0) {
+      last = state[0].schedules[state[0].schedules.length - 1];
+    }
+
+    const start = last.end || 0;
+    const period = last.period || 30;
+    const end = start + period;
+
+    const schedule = new Schedule({product: product.copy(), start: start, end: end, period: period});
+
+    state[0].schedules.push(schedule);
 
     this.createNewState(true);
   }

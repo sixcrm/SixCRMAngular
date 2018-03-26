@@ -18,7 +18,9 @@
     [productSchedules]="schedulesHistory[historyIndex] | filterStrings: filterProductSchedulesValue: productScheduleFilterMapper"
     [sideVisible]="sideVisible"
     [products]="products"
+    [allProducts]="allProducts"
     (newProductScheduleAdded)="addNewProductSchedule($event)"
+    (newProductAdded)="addNewProduct($event)"
     (selected)="selectDetails($event)">
   </schedule-detailed-list>
   <schedule-detailed-timeline
@@ -34,6 +36,7 @@
 
 <ng-template #details>
   <schedule-details
+    [singleScheduleMode]="singleScheduleMode"
     [hideDetails]="selectedIndex === 1"
     [allProducts]="allProducts"
     [schedule]="selectedSchedule"

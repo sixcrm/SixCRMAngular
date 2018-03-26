@@ -11,7 +11,8 @@ import {AuthenticationService} from '../../../../authentication/authentication.s
 @Component({
   selector: 'schedule-details',
   templateUrl: './schedule-details.component.html',
-  styleUrls: ['./schedule-details.component.scss']
+  styleUrls: ['./schedule-details.component.scss'],
+  host: {'(document:keydown)': 'parseDeleteKey($event)'}
 })
 export class ScheduleDetailsComponent implements OnInit, OnDestroy {
 
@@ -40,6 +41,7 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
   @Input() hideDetails: boolean;
   @Input() allProducts: Products[] = [];
   @Input() startDate: Moment;
+  @Input() singleScheduleMode: boolean;
 
   @Output() close: EventEmitter<boolean> = new EventEmitter();
   @Output() save: EventEmitter<boolean> = new EventEmitter();
@@ -140,5 +142,15 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
     this.productToAdd = new Product();
 
     this.save.emit(true);
+  }
+
+  parseDeleteKey(key) {
+    if (key.key !== 'Delete') return;
+
+    if (this._schedule) {
+      this.removeSchedule();
+    } else if (this._productSchedule && !this.singleScheduleMode) {
+      this.removeProductSchedule();
+    }
   }
 }

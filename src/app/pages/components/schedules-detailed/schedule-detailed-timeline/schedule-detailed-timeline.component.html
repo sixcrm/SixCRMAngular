@@ -51,7 +51,9 @@
                      [class.cycle-flag--slow]="cycle.dragDiff !== 0 || cycle.dragdiffDiff !== 0"
                      [style.height]="getHeight(productScheduleNum, scheduleNum)"
                      [style.left]="((cycle.start + 0.5) * cellwidth) / _zoom + cycle.dragDiff + 'px'">
-                  <div class="date-box">{{_start.clone().add(cycle.start, 'd').format('MMM DD')}}</div>
+                  <div class="date-box">
+                    {{singleScheduleMode ? 'Day ' + cycle.start : _start.clone().add(cycle.start, 'd').format('MMM DD')}}
+                  </div>
                 </div>
                 <div class="cycle-container"
                      [style.z-index]="productSchedule.detailedListOpened ? productSchedule.schedules.length + 2 - scheduleNum : cycle.start + 2"

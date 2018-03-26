@@ -15,7 +15,7 @@
     <div *ngIf="_scheduleBackup" class="schedule-container__schedule-details">
       <div class="header">
         <div [routerLink]="['/products', _scheduleBackup.product.id]">View Product</div>
-        <div (click)="removeSchedule()" class="red-button">DELETE</div>
+        <div *ngIf="!singleScheduleMode" (click)="removeSchedule()" class="red-button">DELETE</div>
       </div>
 
       <div class="body">
@@ -58,7 +58,7 @@
     <div *ngIf="_productSchedule" class="schedule-container__items">
       <div class="header">
         <div>Schedule</div>
-        <div *ngIf="!singleScheduleMode" (click)="removeProductSchedule()" class="red-button">DELETE</div>
+        <div (click)="removeProductSchedule()" class="red-button">DELETE</div>
       </div>
 
       <div class="item" *ngFor="let s of _productSchedule.schedules; let i = index">

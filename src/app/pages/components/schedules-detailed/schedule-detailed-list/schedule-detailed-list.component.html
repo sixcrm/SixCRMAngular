@@ -4,12 +4,10 @@
   <div class="list__content">
 
     <div class="header" [class.header--collapsed]="!sideVisible">
-      <ng-container *ngIf="!singleScheduleMode">
-        <div (click)="toggleAddProductScheduleMode()">
-          <md-icon>add</md-icon>
-          <span *ngIf="sideVisible">ADD TO WATERMARK</span>
-        </div>
-      </ng-container>
+      <div (click)="toggleAddProductScheduleMode()">
+        <md-icon>add</md-icon>
+        <span *ngIf="sideVisible">ADD TO {{singleScheduleMode ? 'PRODUCT SCHEDULE' : 'WATERMARK'}}</span>
+      </div>
     </div>
 
     <div *ngFor="let ps of productSchedules; let i = index">
@@ -17,7 +15,7 @@
       <div class="item item--schedule" [class.item--selected]="ps.detailedListSelected">
         <ng-container *ngIf="sideVisible; else number">
           <div class="text"(click)="productScheduleToggle(!ps.detailedListSelected, ps)">{{ps.name || 'Unnamed'}}</div>
-          <md-icon (click)="scheduleCollapseToggle(ps)" [class.rotated]="ps.detailedListOpened">keyboard_arrow_down</md-icon>
+          <md-icon *ngIf="!singleScheduleMode" (click)="scheduleCollapseToggle(ps)" [class.rotated]="ps.detailedListOpened">keyboard_arrow_down</md-icon>
         </ng-container>
 
         <ng-template #number><span class="number" (click)="productScheduleToggle(!ps.detailedListSelected, ps)">{{i+1}}</span></ng-template>
@@ -50,18 +48,18 @@
       </div>
     </div>
 
-    <div class="add-product-schedule-container" *ngIf="!singleScheduleMode && addProductScheduleMode && sideVisible">
+    <div class="add-product-schedule-container" *ngIf="addMode && sideVisible">
       <autocomplete-input class="session-autocomplete"
-                          [mapFunction]="productScheduleMapper"
-                          [initialValue]="productScheduleToAdd"
-                          [options]="allProductSchedules"
-                          [placeholder]="'Add Product Schedule'"
-                          [unmatchedEnabled]="true"
+                          [mapFunction]="singleScheduleMode ? productMapper : productScheduleMapper"
+                          [initialValue]="singleScheduleMode ? productToAdd : productScheduleToAdd"
+                          [options]="singleScheduleMode ? allProducts: allProductSchedules"
+                          [placeholder]="singleScheduleMode ? 'Add Product' : 'Add Product Schedule'"
+                          [unmatchedEnabled]="!singleScheduleMode"
                           [unmatchedFactory]="productScheduleFactory"
                           [applyAutofocus]="true"
-                          (selected)="addProductSchedule($event)">
+                          (selected)="addSelected($event)">
       </autocomplete-input>
-      <md-icon (click)="persistProductSchedule()">add</md-icon>
+      <md-icon (click)="persistSelected()">add</md-icon>
     </div>
   </div>
 </div>
