@@ -98,8 +98,11 @@ export class TranslationService {
   }
 
   translateNotificationBody(notification: Notification) {
-    const category = notification.category;
     const name = notification.name;
+    if (name === 'test_alert') return name;
+
+    const category = notification.category;
+
     let body = this.selectedTranslation.translations.notifications.default[category][name].body;
 
     const regex = /\{\{[a-z|.]+}}/g;
