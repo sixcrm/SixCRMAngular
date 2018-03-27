@@ -18,7 +18,7 @@ export class ScheduleDetailedListComponent implements OnInit {
   @Input() singleScheduleMode: boolean;
   @Input() allProducts: Product[] = [];
 
-  @Output() selected: EventEmitter<ProductSchedule | Schedule> = new EventEmitter();
+  @Output() selected: EventEmitter<ProductSchedule | Schedule | Product> = new EventEmitter();
   @Output() newProductScheduleAdded: EventEmitter<ProductSchedule> = new EventEmitter();
   @Output() newProductAdded: EventEmitter<Product> = new EventEmitter();
 
@@ -58,6 +58,14 @@ export class ScheduleDetailedListComponent implements OnInit {
   scheduleToggle(checked, schedule: Schedule) {
     if (checked) {
       this.selected.emit(schedule);
+    } else {
+      this.selected.emit(null);
+    }
+  }
+
+  productToggle(checked, product: Product) {
+    if (checked) {
+      this.selected.emit(product);
     } else {
       this.selected.emit(null);
     }

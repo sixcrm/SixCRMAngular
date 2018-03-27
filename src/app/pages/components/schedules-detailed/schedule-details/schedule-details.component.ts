@@ -19,11 +19,13 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
   _schedule: Schedule;
   _scheduleBackup: Schedule;
   _productSchedule: ProductSchedule;
+  _product: Product;
 
-  @Input() set schedule(value: ProductSchedule | Schedule) {
+  @Input() set schedule(value: ProductSchedule | Schedule | Product) {
     this._productSchedule = null;
     this._schedule = null;
     this._scheduleBackup = null;
+    this._product = null;
 
     this.productToAdd = new Product();
 
@@ -36,7 +38,11 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
       this._productSchedule = value;
     }
 
-    this.nextCycle = this.calculateNextCycle();
+    if (value instanceof Product) {
+      this._product = value;
+    }
+
+    this.calculateNextCycle();
   };
   @Input() hideDetails: boolean;
   @Input() allProducts: Products[] = [];
@@ -55,6 +61,7 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
 
   changeSub: Subscription;
   nextCycle: string = '';
+  imagePath: string = '/assets/images/product-image-placeholder.svg';
 
   constructor(private authService: AuthenticationService) { }
 
@@ -66,26 +73,36 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  calculateNextCycle(): string {
-    if ((!this._schedule && !this._productSchedule) || !this.startDate) return '';
+  calculateNextCycle(): void {
+    if ((!this._schedule && !this._productSchedule && !this._product) || !this.startDate) return;
 
     let next = null;
+    let imagePath = null;
 
     if (this._schedule) {
       next = this.calculateNexCycleOfSchedule(this._schedule);
+      imagePath = this._schedule.product.getDefaultImagePath();
     } else if (this._productSchedule) {
       this._productSchedule.schedules.forEach(s => {
         const current = this.calculateNexCycleOfSchedule(s);
 
         if (current && (!next || current.isBefore(next))) {
           next = current;
+          imagePath = s.product.getDefaultImagePath();
         }
       });
+    } else if (this._product) {
+      next = null;
+      imagePath = this._product.getDefaultImagePath();
     }
 
-    if (!next) return 'Completed';
+    if (!next) {
+      this.nextCycle = 'Completed';
+    } else {
+      this.nextCycle = next.tz(this.authService.getTimezone()).format('MMMM DD, YYYY');
+    }
 
-    return next.tz(this.authService.getTimezone()).format('MMMM DD, YYYY');
+    this.imagePath = imagePath || '/assets/images/product-image-placeholder.svg';
   }
 
   calculateNexCycleOfSchedule(schedule: Schedule): Moment {
@@ -117,6 +134,10 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
 
   removeProductSchedule() {
     this.deleteProductSchedule.emit(this._productSchedule);
+  }
+
+  removeProduct() {
+
   }
 
   closeModal() {
@@ -151,6 +172,8 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
       this.removeSchedule();
     } else if (this._productSchedule && !this.singleScheduleMode) {
       this.removeProductSchedule();
+    }else if (this._product && !this.singleScheduleMode) {
+      this.removeProduct();
     }
   }
 }

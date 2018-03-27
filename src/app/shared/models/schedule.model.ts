@@ -23,7 +23,7 @@ export class Schedule implements Entity<Schedule>{
   product: Product;
   cycles: Cycle[] = [];
 
-  constructor(obj?: any) {
+  constructor(obj?: any, days?: number) {
     if (!obj) {
       obj = {};
     }
@@ -33,7 +33,7 @@ export class Schedule implements Entity<Schedule>{
     this.end = obj.end === undefined ? 30 : obj.end;
     this.period = obj.period || 30;
     this.product = new Product(obj.product);
-    this.cycles = this.calculateCyclesForDays(365);
+    this.cycles = this.calculateCyclesForDays(days || 365);
   }
 
   copy(): Schedule {

@@ -25,12 +25,18 @@ export class ProductSchedule implements Entity<ProductSchedule> {
     this.updatedAtAPI = obj.updated_at;
 
     if (obj.schedule) {
-      this.schedules = obj.schedule.map(s => new Schedule(s));
+      this.schedules = obj.schedule.map(s => new Schedule(s, obj.days));
     }
   }
 
-  copy(): ProductSchedule {
-    return new ProductSchedule(this.inverse());
+  copy(days?: number): ProductSchedule {
+    const obj = this.inverse();
+
+    if (days) {
+      obj['days'] = days;
+    }
+
+    return new ProductSchedule(obj);
   }
 
   inverse(): any {

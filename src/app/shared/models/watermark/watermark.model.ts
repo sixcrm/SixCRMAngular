@@ -18,7 +18,12 @@ export class Watermark {
     if (obj.products) {
       this.products = obj.products.map(p => new WatermarkProduct(p));
 
-      this.extractedProducts = this.products.map(ps => ps.product);
+      this.extractedProducts = this.products.map(p => {
+        const product = p.product.inverse();
+        const additional = {price: p.price, quantity: p.quantity};
+
+        return new Product(product, additional);
+      });
     }
 
     if (obj.product_schedules) {

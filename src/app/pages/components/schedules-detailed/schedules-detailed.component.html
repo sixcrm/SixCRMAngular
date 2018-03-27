@@ -27,11 +27,13 @@
     (selected)="selectDetails($event)">
   </schedule-detailed-list>
   <schedule-detailed-timeline
+    [numberOfDays]="numberOfDays"
     [productSchedules]="schedulesHistory[historyIndex] | filterStrings: filterProductSchedulesValue: productScheduleFilterMapper"
     [products]="products"
     [singleScheduleMode]="singleScheduleMode"
     [zoomLevel]="zoomLevel"
     [start]="startDate"
+    (loadMoreDays)="loadMore()"
     (scheduleChanged)="createNewState(true)"
     (selected)="selectDetails($event)">
   </schedule-detailed-timeline>

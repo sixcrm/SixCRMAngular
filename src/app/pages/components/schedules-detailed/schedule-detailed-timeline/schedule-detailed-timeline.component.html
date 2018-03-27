@@ -1,4 +1,4 @@
-<div class="view-container" drag-scroll-x>
+<div class="view-container" drag-scroll-x (scroll)="scrolled($event)">
   <div class="infinity-container">
     <div *ngFor="let productSchedule of productSchedules"
          class="schedule-container"
@@ -16,7 +16,7 @@
   </div>
 
   <div class="timeline-container"
-       [style.width]="(365 / _zoom) * cellwidth + 20 + 'px'"
+       [style.width]="(days / _zoom) * cellwidth + 20 + 'px'"
        [style.background-position-x]="cellwidth / (2*_zoom) + 'px'"
        [style.background-size]="cellwidth / _zoom + 'px 46px'">
 
@@ -56,7 +56,7 @@
                   </div>
                 </div>
                 <div class="cycle-container"
-                     [style.z-index]="productSchedule.detailedListOpened ? productSchedule.schedules.length + 2 - scheduleNum : cycle.start + 2"
+                     [style.z-index]="productSchedule.detailedListOpened ? productSchedule.schedules.length + 2 - scheduleNum : cycle.order + 2"
                      [class.cycle-container--slow]="cycle.dragDiff !== 0 || cycle.dragdiffDiff !== 0"
                      [style.padding-left]="cycleNum === 0 ? '2px' : 0"
                      [style.padding-right]="cycleNum === schedule.cycles.length - 1 ? '2px' : 0"
@@ -100,14 +100,14 @@
       <ng-container *ngFor="let product of products">
         <div class="product-container" [style.margin-left]="cellwidth / (2*_zoom) + 'px'">
           <ng-container *ngIf="product.getDefaultImagePath(); else defaultimage">
-            <div class="image" [style.background-image]="'url(' + product.getDefaultImagePath() + ')'"></div>
+            <div (click)="selected.emit(product)" class="image" [style.background-image]="'url(' + product.getDefaultImagePath() + ')'"></div>
           </ng-container>
 
           <ng-template #defaultimage>
-            <div class="image image--default"></div>
+            <div (click)="selected.emit(product)" class="image image--default"></div>
           </ng-template>
 
-          <div class="text">{{product.name}}</div>
+          <div (click)="selected.emit(product)" class="text">{{product.name}}</div>
         </div>
       </ng-container>
 

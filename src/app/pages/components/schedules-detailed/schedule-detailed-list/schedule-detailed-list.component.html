@@ -14,8 +14,8 @@
 
       <div class="item item--schedule" [class.item--selected]="ps.detailedListSelected">
         <ng-container *ngIf="sideVisible; else number">
-          <div class="text"(click)="productScheduleToggle(!ps.detailedListSelected, ps)">{{ps.name || 'Unnamed'}}</div>
-          <md-icon *ngIf="!singleScheduleMode" (click)="scheduleCollapseToggle(ps)" [class.rotated]="ps.detailedListOpened">keyboard_arrow_down</md-icon>
+          <div class="text" (click)="productScheduleToggle(!ps.detailedListSelected, ps)">{{ps.name || 'Unnamed'}}</div>
+          <md-icon *ngIf="!singleScheduleMode" (click)="scheduleCollapseToggle(ps)" [class.rotated]="ps.detailedListOpened">keyboard_arrow_left</md-icon>
         </ng-container>
 
         <ng-template #number><span class="number" (click)="productScheduleToggle(!ps.detailedListSelected, ps)">{{i+1}}</span></ng-template>
@@ -39,9 +39,9 @@
     </div>
 
     <div *ngFor="let p of products; let i = index">
-      <div class="item item--schedule">
+      <div class="item item--schedule" [class.item--selected]="p.detailedListSelected">
         <ng-container *ngIf="sideVisible; else number">
-          <div class="text">{{p.name || 'Unnamed'}}</div>
+          <div (click)="productToggle(!p.detailedListSelected, p)" class="text">{{p.name || 'Unnamed'}}</div>
         </ng-container>
 
         <ng-template #number><span class="number">{{productSchedules.length + i+1}}</span></ng-template>

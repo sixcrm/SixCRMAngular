@@ -1,15 +1,20 @@
-<div class="schedule-details" [class.schedule-details--hidden]="(!_scheduleBackup && !_productSchedule) || hideDetails">
+<div class="schedule-details" [class.schedule-details--hidden]="(!_scheduleBackup && !_productSchedule && !_product) || hideDetails">
   <div class="schedule-container">
 
     <div class="schedule-container__header">
       <md-icon (click)="closeModal()">close</md-icon>
       <div *ngIf="_scheduleBackup">{{_scheduleBackup?.name}}</div>
       <div *ngIf="_productSchedule">{{_productSchedule?.product?.name}}</div>
+      <div *ngIf="_product">{{_product?.name}}</div>
     </div>
 
-    <div class="schedule-container__ship-info">
-      <div>NEXT CYCLE:</div>
-      <div><md-icon>date_range</md-icon> <span>{{nextCycle}}</span></div>
+    <div class="schedule-container__subheader">
+      <div class="schedule-container__ship-info">
+        <div>NEXT CYCLE:</div>
+        <div><md-icon>date_range</md-icon> <span>{{nextCycle}}</span></div>
+      </div>
+
+      <div class="image" [style.background-image]="'url(' + imagePath + ')'"></div>
     </div>
 
     <div *ngIf="_scheduleBackup" class="schedule-container__schedule-details">
@@ -86,6 +91,25 @@
 
         <md-icon (click)="persistNewSchedule()">add</md-icon>
       </div>
+    </div>
+
+    <div *ngIf="_product" class="schedule-container__schedule-details">
+      <div class="header">
+        <div [routerLink]="['/products', _product.id]">View Product</div>
+      </div>
+
+      <div class="body">
+        <div class="body__row">
+          <md-input-container>
+            <input md-input disabled type="text" placeholder="Quantity" [(ngModel)]="_product.quantity">
+          </md-input-container>
+
+          <md-input-container>
+            <input md-input disabled type="text" placeholder="Price" currencyInput [initPrice]="_product.price">
+          </md-input-container>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

@@ -213,6 +213,10 @@
   height: 46px;
   transition: margin 250ms ease-in-out;
 
+  div {
+    cursor: pointer;
+  }
+
   .image {
     display: flex;
     margin-right: 12px;

@@ -44,12 +44,13 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
   @ViewChild('details') details: ElementRef;
 
   allProducts: Product[] = [];
-  selectedSchedule: ProductSchedule | Schedule;
+  selectedSchedule: ProductSchedule | Schedule | Product;
   displayMode: DisplayModes = DisplayModes.grid;
   modes = DisplayModes;
   zoomLevel: number = 7;
   sideVisible: boolean = true;
   consecutiveUndo: boolean;
+  numberOfDays: number = 365;
 
   productScheduleFilterMapper = (ps: ProductSchedule) => ps.name;
   filterProductSchedulesValue: string;
@@ -75,7 +76,7 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
     this.detailsComponent.emit(this.details);
   }
 
-  selectDetails(selected: ProductSchedule | Schedule) {
+  selectDetails(selected: ProductSchedule | Schedule | Product) {
     this.deselectSchedule();
 
     if (!selected) return;
@@ -96,6 +97,10 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
       for (let j = 0; j < productSchedules[i].schedules.length; j++) {
         productSchedules[i].schedules[j]['detailedListSelected'] = false;
       }
+    }
+
+    for (let i = 0; i < this.products.length; i++) {
+      this.products[i]['detailedListSelected'] = false;
     }
   }
 
@@ -235,7 +240,7 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
   createNewState(emitChangeToParent?: boolean): void {
     this.consecutiveUndo = false;
     const previousState = this.schedulesHistory[this.historyIndex];
-    const newState = previousState.map(ps => ps.copy());
+    const newState = previousState.map(ps => ps.copy(this.numberOfDays));
 
     this.findSelectedItem(previousState, newState);
 
@@ -320,5 +325,41 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
     if (!found) {
       this.selectDetails(null);
     }
+  }
+
+  loadMore() {
+    if (this.shouldLoadMore()) {
+      const days = this.numberOfDays + 92;
+
+      for (let i = 0; i < this.schedulesHistory.length; i++) {
+        for (let j = 0; j < this.schedulesHistory[i].length; j++) {
+          for (let k = 0; k < this.schedulesHistory[i][j].schedules.length; k++) {
+            this.schedulesHistory[i][j].schedules[k].recalculateCyclesForDays(days)
+          }
+
+          this.calculateCyclesOrderAndStack(this.schedulesHistory[i]);
+        }
+      }
+
+      this.numberOfDays = days;
+    }
+  }
+
+  shouldLoadMore() {
+    if (this.numberOfDays > 1010) return false;
+
+    const currentState = this.schedulesHistory[this.historyIndex];
+
+    for (let i = 0 ; i < currentState.length; i++) {
+      for (let j = 0; j < currentState[i].schedules.length; j++) {
+        if (currentState[i].schedules[j].end !== 0
+            && (!currentState[i].schedules[j].end || currentState[i].schedules[j].end > this.numberOfDays)
+        ) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 }

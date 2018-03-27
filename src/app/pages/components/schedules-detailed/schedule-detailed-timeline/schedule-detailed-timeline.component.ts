@@ -13,6 +13,13 @@ import {Product} from '../../../../shared/models/product.model';
 })
 export class ScheduleDetailedTimelineComponent implements OnInit {
 
+  days: number = 365;
+
+  @Input() set numberOfDays(value: number) {
+    this.days = value;
+    this.measureArray = this.createRangeArray(this.days / this._zoom);
+  }
+
   @Input() productSchedules: ProductSchedule[] = [];
   @Input() products: Product[] = [];
   @Input() singleScheduleMode: boolean;
@@ -22,15 +29,16 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
   };
   @Input() set zoomLevel(value: number) {
     this._zoom = value;
-    this.measureArray = this.createRangeArray(365 / value);
+    this.measureArray = this.createRangeArray(this.days / this._zoom);
   }
-  @Output() selected: EventEmitter<Schedule> = new EventEmitter();
+  @Output() selected: EventEmitter<Schedule | Product> = new EventEmitter();
   @Output() scheduleChanged: EventEmitter<boolean> = new EventEmitter();
+  @Output() loadMoreDays: EventEmitter<boolean> = new EventEmitter();
 
   _start: Moment = utc();
   _diff: number = 0;
   _zoom: number = 1;
-  measureArray: number[] = this.createRangeArray(365);
+  measureArray: number[] = this.createRangeArray(this.days);
 
   cellwidth: number = 65;
   cellheight: number = 46;
@@ -46,6 +54,7 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
   blueTail: string = 'rgba(83,131,195,0.22)';
 
   changeDebouncer: Subject<boolean> = new Subject();
+  loadMoreDebouncer: Subject<boolean> = new Subject();
 
   constructor(private authService: AuthenticationService) { }
 
@@ -53,6 +62,7 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
     this.today = utc().tz(this.authService.getTimezone()).format('MMMM DD');
 
     this.changeDebouncer.debounceTime(270).subscribe(() => this.scheduleChanged.emit(true));
+    this.loadMoreDebouncer.debounceTime(500).subscribe(() => this.loadMoreDays.emit(true));
   }
 
   createRangeArray(count: number) {
@@ -172,5 +182,11 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
     }
 
     return (cells + (this.productSchedules[productScheduleNum]['detailedListOpened'] ? (scheduleNum + 1) : 0)) * this.cellheight + 30 + 'px';
+  }
+
+  scrolled(event) {
+    if (event.target.scrollLeft + event.target.offsetWidth >= event.target.scrollWidth) {
+      this.loadMoreDebouncer.next(true);
+    }
   }
 }

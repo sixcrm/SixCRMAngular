@@ -20,8 +20,10 @@ export class Product implements Entity<Product> {
   updatedAt: Moment;
   updatedAtAPI: string;
   dynamicPrice: ProductDynamicPricing;
+  quantity: number;
+  price: Currency;
 
-  constructor(obj?: any) {
+  constructor(obj?: any, additional?: any) {
     if (!obj) {
       obj = {};
     }
@@ -39,6 +41,11 @@ export class Product implements Entity<Product> {
     this.updatedAt = utc(obj.updated_at);
     this.updatedAtAPI = obj.updated_at;
     this.dynamicPrice = new ProductDynamicPricing(obj.dynamic_pricing);
+
+    if (additional) {
+      this.quantity = additional.quantity || 1;
+      this.price = additional.price || new Currency(0);
+    }
   }
 
   getDefaultImage(): SixImage {

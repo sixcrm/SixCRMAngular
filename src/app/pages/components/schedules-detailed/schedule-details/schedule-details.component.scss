@@ -77,12 +77,17 @@
     }
   }
 
+  &__subheader {
+    display: flex;
+    background: #4B90DD;
+    align-items: center;
+    padding: 0 15px;
+  }
+
   &__ship-info {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    padding: 15px;
-    background: #4B90DD;
     color: white;
     font-weight: 500;
     height: 161px;
@@ -108,10 +113,21 @@
 
         span {
           margin-left: 12px;
-          font-size: 24px;
+          font-size: 20px;
         }
       }
     }
+  }
+
+  .image {
+    display: flex;
+    margin-left: auto;
+    width: 90px;
+    height: 90px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
   }
 
   &__items {
