@@ -13,6 +13,7 @@ export class Notification implements Entity<Notification> {
   createdAt: Moment;
   updatedAt: Moment;
   updatedAtAPI: string;
+  body: string;
 
   constructor(obj?: any) {
     if (!obj) {

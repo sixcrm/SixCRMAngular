@@ -10,6 +10,7 @@ import {
 } from '../utils/queries/entities/notification.queries';
 import {CustomServerError} from '../models/errors/custom-server-error';
 import {MdSnackBar} from '@angular/material';
+import {TranslationService} from '../../translation/translation.service';
 
 @Injectable()
 export class NotificationsQuickService extends AbstractEntityService<Notification> {
@@ -22,7 +23,12 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
   countSub: Subscription;
   alertSub: Subscription;
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
+  constructor(
+    http: HttpWrapperService,
+    authService: AuthenticationService,
+    snackBar: MdSnackBar,
+    private translationService: TranslationService
+  ) {
     super(
       http,
       authService,
@@ -36,6 +42,13 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
       'default',
       snackBar
     );
+
+    this.toEntity = (data) => {
+      let n = new Notification(data);
+      n.body = this.translationService.translateNotificationBody(n);
+
+      return n;
+    }
   }
 
   startPoolingNotifications(): void {

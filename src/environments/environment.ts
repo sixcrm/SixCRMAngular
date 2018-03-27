@@ -11,5 +11,6 @@ export const environment = {
   clientID: 'JM1tC2j7tycbu62el3oBhyklpNbk5x6F',
   domain: 'sixcrm.auth0.com',
   auth0RedirectUrl: 'http://localhost:4200',
+  translationsUrl: 'http://development-crossrepositorytranslations.s3-website-us-east-1.amazonaws.com/',
   version: '0.0.0'
 };

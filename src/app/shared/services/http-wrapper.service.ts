@@ -30,6 +30,10 @@ export class HttpWrapperService {
     private tacService: TermsAndConditionsControllerService
   ) { }
 
+  get(url: string, options?: RequestOptionsArgs): Observable<Response> {
+    return this.http.get(url, options);
+  }
+
   post(url: string, body: any, requestOptions: RequestOptionsArgs, requestBehaviourOptions?: RequestBehaviourOptions): Observable<Response> {
     const response: Subject<Response> = new Subject();
 

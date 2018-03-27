@@ -27,7 +27,6 @@ deployment:
   production:
     branch: production
     commands:
-      - npm run lint-translations
       - node libs/deployment_scripts/src/versioning.js
       - ./libs/deployment_scripts/src/build-angular.sh:
           timeout: 1200
@@ -37,7 +36,6 @@ deployment:
   staging:
     branch: staging
     commands:
-      - npm run lint-translations
       - node libs/deployment_scripts/src/versioning.js
       - ./libs/deployment_scripts/src/build-angular.sh:
           timeout: 1200
@@ -50,9 +48,6 @@ deployment:
   development:
     branch: development
     commands:
-      # Lint .json translation files
-      - npm run check-translations
-
       # Set version
       - node libs/deployment_scripts/src/versioning.js
 

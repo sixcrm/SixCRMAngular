@@ -1,23 +1,38 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {AuthenticationService} from '../authentication/authentication.service';
+import {environment} from '../../environments/environment';
+import {Http} from '@angular/http';
+import {Notification} from '../shared/models/notification.model';
 
-const languages = require('./translations/languages.json');
-const allTranslations = languages.map(l => {
-  l['translations'] = require('./translations/'+l.filename);
+export interface LanguageDefinition {
+  name: string,
+  locale: string
+}
 
-  return l;
-});
+export interface LanguageTranslation {
+  name: string,
+  translations: {
+    notifications: any,
+    client: any
+  }
+}
 
 @Injectable()
 export class TranslationService {
+  private allDefinitions: LanguageDefinition[] = [];
+  private allTranslations: LanguageTranslation[] = [];
 
-  private translations;
-  private locale;
+  private selectedTranslation: LanguageTranslation;
+  private selectedDefinition: LanguageDefinition;
+
+  public selectedLanguage: string;
   public translationChanged$: Subject<boolean> = new Subject();
-  public language: string;
+  public allTranslationsFetched: Subject<boolean> = new Subject();
 
-  constructor(private authService: AuthenticationService) {
+  constructor(private authService: AuthenticationService, private http: Http) {
+    this.fetchLanguages();
+
     this.updateTranslation(this.authService.getUserSettings().language);
 
     this.authService.userSettings$.subscribe(userSettings => {
@@ -29,30 +44,52 @@ export class TranslationService {
     })
   }
 
+  fetchLanguages() {
+    this.http.get(environment.translationsUrl).subscribe(res => {
+      this.allDefinitions = res.json();
+
+      this.allTranslationsFetched.next(true);
+    });
+  }
+
   getLanguages(): string[] {
-    return languages.map(l => l.name);
+    return this.allDefinitions.map(l => l.name);
   }
 
   updateTranslation(language?: string) {
-    language = language || 'English';
-    this.language = language;
+    if (!this.allDefinitions || this.allDefinitions.length === 0) {
+      this.allTranslationsFetched.take(1).subscribe(() => this.updateTranslation(language));
+      return;
+    }
 
-    const trans = allTranslations.find((el) => el.name === language) || allTranslations.find((el) => el.name === 'English');
-    this.translations = trans.translations;
+    this.selectedLanguage = language || 'English';
+    this.selectedDefinition = this.allDefinitions.find(el => el.name === language);
 
-    const loc = languages.find((el) => el.name === language);
-    this.locale = loc && loc.locale ? loc.locale : 'en';
+    const trans = this.allTranslations.find((el) => el.name === this.selectedLanguage);
 
-    this.translationChanged$.next(true);
+    if (!trans) {
+      this.http.get(environment.translationsUrl + this.selectedDefinition.locale.replace(/-/g, '_') +'.json').subscribe(res => {
+        const newTranslations: LanguageTranslation = {name: language, translations: res.json()};
+        this.allTranslations.push(newTranslations);
+
+        this.updateTranslation(language);
+      });
+    } else {
+      this.selectedTranslation = trans;
+
+      this.translationChanged$.next(true);
+    }
   }
 
   translate(value: string) {
+    if (!this.selectedTranslation) return value;
+
     const keys = value.toLowerCase().split('_');
 
     let translation = value;
 
     try {
-      translation = this.parseTranslation(this.translations, keys) || value;
+      translation = this.parseTranslation(this.selectedTranslation.translations.client, keys) || value;
     } catch (error) {
       // handle missing translation;
     }
@@ -60,7 +97,27 @@ export class TranslationService {
     return translation;
   }
 
+  translateNotificationBody(notification: Notification) {
+    const category = notification.category;
+    const name = notification.name;
+    let body = this.selectedTranslation.translations.notifications.default[category][name].body;
+
+    const regex = /\{\{[a-z|.]+}}/g;
+    let match;
+
+    do {
+      match = regex.exec(body);
+      if (match && match[0]) {
+        body = body.replace(match[0], notification.context[match[0].replace(/\{\{/, '').replace(/}}/, '')]);
+      }
+    } while (match);
+
+    return body;
+  }
+
   transformNumber(value) {
+    if (!this.selectedDefinition) return value;
+
     if (value === null || value === undefined) return value;
 
     if (typeof value === 'string') {
@@ -71,17 +128,17 @@ export class TranslationService {
       }
 
       if (value.indexOf('$') !== -1) {
-        return `${appendMinus ? '-' : ''}$${(+value.slice(1)).toLocaleString(this.locale || 'en')}`
+        return `${appendMinus ? '-' : ''}$${(+value.slice(1)).toLocaleString(this.selectedDefinition.locale || 'en')}`
       }
 
       if (value.indexOf('%') !== -1) {
-        return `${appendMinus ? '-' : ''}${(+value.slice(0,-1)).toLocaleString(this.locale || 'en')}%`
+        return `${appendMinus ? '-' : ''}${(+value.slice(0,-1)).toLocaleString(this.selectedDefinition.locale || 'en')}%`
       }
 
-      return (appendMinus ? '-' : '') + (+value).toLocaleString(this.locale || 'en');
+      return (appendMinus ? '-' : '') + (+value).toLocaleString(this.selectedDefinition.locale || 'en');
     }
 
-    return value.toLocaleString(this.locale || 'en');
+    return value.toLocaleString(this.selectedDefinition.locale || 'en');
   }
 
   parseTranslation(obj: any, keys: string[]): string {

@@ -58,7 +58,7 @@ import { MerchantProviderGroupAssociationDialogComponent } from './dialog-modals
     routing,
     MaterialModule.forRoot(),
     ClipboardModule,
-    TranslationModule,
+    TranslationModule.forRoot(),
     TextMaskModule
   ],
   exports: [
