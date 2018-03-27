@@ -99,6 +99,7 @@ export class TranslationService {
 
   translateNotificationBody(notification: Notification) {
     const name = notification.name;
+
     if (name === 'test_alert') return name;
 
     const category = notification.category;
