@@ -4,29 +4,33 @@
     <img src="/assets/images/ic_sort.svg">
   </button>
 
+  <div class="topnav__search__wrapper">
+    <md-icon class="topnav__search__icon">search</md-icon>
+    <div class="topnav__search__container">
+      <md-input-container id="topnav-search search-visible" [floatingPlaceholder]="false" class="topnav-search-input">
+        <input
+          #searchField
+          md-input
+          class="search-field"
+          placeholder="{{'TOPNAV_SEARCH' | translate}}"
+          type="text"
+          (focus)="searchInputFocus()"
+          (blur)="searchInputBlur()"
+          [value]="searchTerm"
+          (input)="searchInputChanged($event)"
+          (keydown)="onSearchKey($event)">
+      </md-input-container>
+      <autocomplete #autocomplete *ngIf="showAutoComplete && options.length > 0" [options]="options" (select)="selectOption($event)"></autocomplete>
+    </div>
+
+  </div>
+
+  <topnav-dropdown [icon]="'add'" [options]="addOptions"></topnav-dropdown>
+
   <span class="app-flex-filler"></span>
 
   <div class="topnav__acting-as" *ngIf="authService.actingAsAccount$ | async">
     {{'TOPNAV_ACTINGAS' | translate}} <span>{{(authService.actingAsAccount$ | async).name}}</span> <md-icon (click)="authService.stopActingAs(null)">close</md-icon>
-  </div>
-
-  <button md-icon-button (click)="toggleSearchInput(searchField)"><md-icon class="topnav__search__icon">search</md-icon></button>
-
-  <div class="topnav__search__container">
-    <md-input-container id="topnav-search" [ngClass]="{'search-visible': showSearchInput}" [floatingPlaceholder]="false">
-      <input
-        #searchField
-        md-input
-        class="search-field"
-        placeholder="{{'TOPNAV_SEARCH' | translate}}"
-        type="text"
-        (focus)="searchInputFocus()"
-        (blur)="searchInputBlur()"
-        [value]="searchTerm"
-        (input)="searchInputChanged($event)"
-        (keydown)="onSearchKey($event)">
-    </md-input-container>
-    <autocomplete #autocomplete *ngIf="showSearchInput && showAutoComplete && options.length > 0" [options]="options" (select)="selectOption($event)"></autocomplete>
   </div>
 
   <div class="topnav__items--expanded">
@@ -43,10 +47,10 @@
 
     <profile-dropdown [userProfile]="userProfile"></profile-dropdown>
 
-    <span class="topnav__separator"></span>
+    <topnav-dropdown class="support-dropdown" [text]="'?'" [small]="true" [openOnLeft]="true" [options]="supportOptions"></topnav-dropdown>
 
     <div class="topnav__notifications" (click)="showNotifications()">
-      <md-icon class="topnav__notifications__icon">chat</md-icon>
+      <md-icon class="topnav__notifications__icon">notifications</md-icon>
       <div *ngIf="notificationsCount && notificationsCount > 0" class="topnav__notifications__count">
           {{notificationsCount}}
       </div>

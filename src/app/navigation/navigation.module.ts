@@ -15,6 +15,7 @@ import {AuthenticationModule} from '../authentication/authentication.module';
 import { AlertsQuickComponent } from './alerts-quick/alerts-quick.component';
 import { PersistentNotificationsQuickComponent } from './persistent-notifications-quick/persistent-notifications-quick.component';
 import {TranslationModule} from '../translation/translation.module';
+import { TopnavDropdownComponent } from './topnav/topnav-dropdown/topnav-dropdown.component';
 
 @NgModule({
   imports : [
@@ -34,7 +35,8 @@ import {TranslationModule} from '../translation/translation.module';
     NotificationsQuickComponent,
     ProfileDropdownComponent,
     AlertsQuickComponent,
-    PersistentNotificationsQuickComponent
+    PersistentNotificationsQuickComponent,
+    TopnavDropdownComponent
   ],
   exports : [
     SidenavComponent,

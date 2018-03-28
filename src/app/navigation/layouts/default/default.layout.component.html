@@ -5,7 +5,7 @@
 <md-sidenav-layout>
 
   <header>
-    <app-topnav [class.header--hover]="!showSidenav && showOnHover" [class.header--with-sidenav]="showSidenav" [sideNav]="sidenav"></app-topnav>
+    <app-topnav [class.header--hover]="!showSidenav && showOnHover" [sideNav]="sidenav"></app-topnav>
   </header>
   <md-sidenav (mouseenter)="hover(true)" (mouseleave)="hover(false)" #sidenav
               [mode]="(navigation.mediumScreenAndDown || showOnHover) ? 'over' : 'side'"

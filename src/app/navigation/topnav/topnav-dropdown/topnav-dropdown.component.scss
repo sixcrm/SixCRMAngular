@@ -1,0 +1,85 @@
+.container {
+  position: relative;
+
+  .icon-container  {
+    display: flex;
+    height: 32px;
+    width: 32px;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &--small {
+      height: 20px;
+      width: 20px;
+    }
+
+    md-icon {
+      margin: auto;
+      color: #5383C3;
+      height: 22px;
+      width: 22px;
+      font-size: 22px;
+    }
+
+    div {
+      margin: auto;
+      color: #5383C3;
+      font-weight: 500;
+    }
+  }
+
+  .options {
+    position: absolute;
+    top: 46px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 0;
+    background: white;
+    white-space: nowrap;
+    border-radius: 3px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
+
+    &--small {
+      top: 42px;
+    }
+
+    &--left {
+      transform: translateX(-75%);
+
+      .arrow {
+        right: 25%;
+        -webkit-transform: translateX(50%);
+      }
+    }
+
+    &--right {
+      .arrow {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    div {
+      padding: 10px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+
+      &:hover {
+        background: rgba(0,0,0,0.05);
+      }
+    }
+
+    .arrow {
+      position: absolute;
+      top: -10px;
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+
+      border-bottom: 10px solid white;
+    }
+  }
+}

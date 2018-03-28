@@ -60,6 +60,12 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   ) { }
 
   init(fetch: boolean = true): void {
+    this.activatedRoute.queryParams.takeUntil(this.unsubscribe$).subscribe((params) => {
+      if (params['action'] === 'new') {
+        this.openAddMode();
+      }
+    });
+
     this.service.entities$.takeUntil(this.unsubscribe$).subscribe((entities: (T[] | CustomServerError)) => {
       if (!this.loadingData) return;
 

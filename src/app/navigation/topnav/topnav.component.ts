@@ -9,6 +9,7 @@ import {Acl} from '../../shared/models/acl.model';
 import {SearchService} from '../../shared/services/search.service';
 import {NotificationsQuickService} from '../../shared/services/notifications-quick.service';
 import {AutocompleteComponent} from '../../shared/components/autocomplete/autocomplete.component';
+import {TopnavDropdownOption} from './topnav-dropdown/topnav-dropdown.component';
 
 @Component({
   selector : 'app-topnav',
@@ -25,7 +26,6 @@ export class TopnavComponent implements OnInit {
   userProfile: User = new User();
 
   showCollapseMenu: boolean = false;
-  showSearchInput: boolean = false;
   showAutoComplete: boolean = false;
   searchTerm: string = '';
   options: string[] = [];
@@ -33,6 +33,19 @@ export class TopnavComponent implements OnInit {
   notificationsCount: number;
 
   mapAcl = (acl: Acl) => acl.account.name;
+
+  addOptions: TopnavDropdownOption[] = [
+    {label: 'New Campaign', callback: () => this.router.navigate(['campaigns'], {queryParams: {action: 'new'}})},
+    {label: 'New Product Schedule', callback: () => this.router.navigate(['productschedules'], {queryParams: {action: 'new'}})},
+    {label: 'New Product', callback: () => this.router.navigate(['products'], {queryParams: {action: 'new'}})},
+    {label: 'New Merchant', callback: () => this.router.navigate(['merchantproviders'], {queryParams: {action: 'new'}})},
+    {label: 'New Merchant Group', callback: () => this.router.navigate(['merchantprovidergroups'], {queryParams: {action: 'new'}})},
+  ];
+
+  supportOptions: TopnavDropdownOption[] = [
+    {label: 'API documentation', callback: () => this.router.navigate(['documentation', 'graph'])},
+    {label: 'Support', callback: () => window.open('https://six.zendesk.com', '_blank').focus()}
+  ];
 
   constructor(
     public navigation: NavigationService,
@@ -84,10 +97,6 @@ export class TopnavComponent implements OnInit {
 
   searchInputBlur(): void {
     setTimeout(() => {
-      if(StringUtils.isEmpty(this.searchTerm)) {
-        this.showSearchInput = false;
-      }
-
       this.showAutoComplete = false;
       this.options = [];
     }, 150);
@@ -103,6 +112,8 @@ export class TopnavComponent implements OnInit {
   }
 
   onSearchKey(event): void {
+    this.showAutoComplete = true;
+
     if (event.key === 'Enter' && this.searchTerm && this.searchTerm.length > 0) {
 
       if (this.autocomplete && this.autocomplete.getSelected()) {
@@ -120,7 +131,7 @@ export class TopnavComponent implements OnInit {
   search(): void {
     this.router.navigate(['/search'], {queryParams: {query: this.searchTerm}});
     this.searchTerm = '';
-    this.showSearchInput = false;
+    this.showAutoComplete = false;
   };
 
   toggleSidenav(): void {
@@ -131,17 +142,6 @@ export class TopnavComponent implements OnInit {
     this.showCollapseMenu = !this.showCollapseMenu;
   }
 
-  toggleSearchInput(input: HTMLInputElement): void {
-    this.showSearchInput = !this.showSearchInput;
-    if (this.showSearchInput) {
-      window.setTimeout(() => {
-        input.focus();
-      }, 0);
-    } else {
-      this.searchTerm = '';
-    }
-  }
-
   navigateToProfile(): void {
     this.router.navigateByUrl('/profile');
   }
@@ -150,7 +150,7 @@ export class TopnavComponent implements OnInit {
     this.navigation.toggleNotifications(true);
   }
 
-  private hideElements(event): void {
+  hideElements(event): void {
     if (!event.target.attributes.class || event.target.attributes.class.value !== 'topnav__items--collapsed__icon material-icons') {
       this.showCollapseMenu = false;
     }

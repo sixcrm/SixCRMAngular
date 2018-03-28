@@ -11,6 +11,8 @@ $sidebar-color: #fff;
 $sidebar-text-color: #9B9B9B;
 $sidebar-text-color-hover: #5AA3E8;
 
+$navigation-color: #5383C3;
+
 md-sidenav {
   max-width: $sidenav-width-overflow;
   min-width: 0 !important;
@@ -23,11 +25,9 @@ md-sidenav {
   }
 
   md-toolbar {
-    box-shadow: 0 1px 0 rgba(0, 0, 0, .12);
-    padding: 0 72px 0 18px;
-    background: url("/assets/images/leftrailtop.png") no-repeat;
-    background-size: 100% 100%;
+    padding: 0 72px 0 15px;
     height: $topnav-height;
+    background-color: white;
 
     .logo {
       height: 40px;
@@ -91,8 +91,8 @@ md-sidenav-layout {
 }
 
 md-nav-list.side-navigation {
-  padding-top: 25px;
   width: 100%;
+  padding-top: 0;
 
   a[md-list-item] {
     position: relative;
@@ -247,15 +247,7 @@ md-nav-list.side-navigation {
 
 header {
 
-  .header--with-sidenav {
-    md-toolbar {
-      background: #fff url("/assets/images/topbluesmall.png") no-repeat !important;
-      background-size: 644px $topnav-height !important;
-    }
-  }
-
   md-toolbar {
-    background: #fff url("/assets/images/topblue.png") no-repeat !important;
     background-size: 827px $topnav-height !important;
     padding: 0 !important;
     height: $topnav-height;
@@ -403,5 +395,22 @@ header {
     width: 90px;
     font-size: 14px;
     font-family: Montserrat, sans-serif;
+  }
+}
+
+.topnav {
+  background-color: $navigation-color !important;
+}
+
+.topnav-search-input {
+  color: white;
+  font-size: 16px;
+
+  .md-input-placeholder {
+    color: white;
+  }
+
+  .md-input-underline {
+    display: none;
   }
 }

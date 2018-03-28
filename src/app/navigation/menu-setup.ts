@@ -172,13 +172,5 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
     items.push(new MenuItem('SIDENAV_SEARCH', 'search').setIcon('search'));
   }
 
-  // Add Help menu item
-  let help: MenuItem[] = [];
-
-  help.push(new MenuItem('SIDENAV_HELP_GRAPHQL', 'documentation/graph'));
-  help.push(new MenuItem({title: 'SIDENAV_HELP_SUPPORT', clickHandler: () => window.open('https://six.zendesk.com', '_blank').focus()}, ''));
-
-  items.push(new MenuItem('SIDENAV_HELP_TITLE', null, help).setIcon('help'));
-
   return items;
 }

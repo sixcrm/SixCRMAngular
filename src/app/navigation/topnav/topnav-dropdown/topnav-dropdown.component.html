@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="icon-container" [class.icon-container--small]="small" (click)="dropdownVisible = !dropdownVisible">
+    <md-icon *ngIf="icon">{{icon}}</md-icon>
+    <div *ngIf="text">{{text}}</div>
+  </div>
+
+  <div class="options"
+       [class.options--small]="small"
+       [class.options--left]="openOnLeft"
+       [class.options--right]="!openOnLeft"
+       *ngIf="dropdownVisible">
+    <span class="arrow"></span>
+    <div *ngFor="let option of options" (click)="optionClicked(option)">
+      {{option.label}}
+    </div>
+  </div>
+</div>

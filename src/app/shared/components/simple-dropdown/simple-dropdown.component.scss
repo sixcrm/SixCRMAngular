@@ -35,13 +35,23 @@
     align-items: center;
     padding: 0 10px;
     height: 70px;
+    font-weight: 500;
+    color: white;
+
+    &--active {
+      color: #4A4A4A;
+
+      .simple-dropdown__header__icon {
+        color: #9B9A9B;
+      }
+    }
 
     &__value {
       transition: min-width 0.25s ease-in-out;
     }
 
     &__icon {
-      color: #9B9A9B;
+      color: white;
       margin-right: 8px;
     }
 
