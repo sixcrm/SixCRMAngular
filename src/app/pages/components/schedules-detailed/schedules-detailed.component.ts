@@ -56,6 +56,7 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
   filterProductSchedulesValue: string;
 
   selectedIndex: number = 0;
+  scrollToElement: ProductSchedule | Schedule | Product;
 
   constructor(private productService: ProductsService, private dialog: MdDialog) { }
 
@@ -74,6 +75,11 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.detailsComponent.emit(this.details);
+  }
+
+  selectDetailsAndScroll(selected: ProductSchedule | Schedule | Product) {
+    this.scrollToElement = selected;
+    this.selectDetails(selected);
   }
 
   selectDetails(selected: ProductSchedule | Schedule | Product) {

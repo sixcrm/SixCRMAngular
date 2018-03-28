@@ -1,4 +1,4 @@
-<div class="view-container" drag-scroll-x (scroll)="scrolled($event)">
+<div class="view-container" #container drag-scroll-x (scroll)="scrolled($event)">
   <div class="infinity-container">
     <div *ngFor="let productSchedule of productSchedules"
          class="schedule-container"
@@ -71,9 +71,9 @@
                        [style.background]="cycle.start < _diff ? green : blue">
                     <div class="body"
                          draggable="true"
-                         (dragstart)="dragStarted($event, schedule)"
-                         (drag)="drag($event, schedule)"
-                         (dragend)="dragEnded($event, schedule)">
+                         (dragstart)="dragStarted($event, schedule, productSchedule)"
+                         (drag)="drag($event, schedule, productSchedule)"
+                         (dragend)="dragEnded($event, schedule, productSchedule)">
                       <div class="order" [style.background]="cycle.start < _diff ? '#2F824D' : '#3F587B'">
                         <span>{{ cycle.order }}</span>
                       </div>

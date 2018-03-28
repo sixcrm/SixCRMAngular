@@ -15,6 +15,26 @@ export function scrollToTop(element: any, durationInMillis?: number): void {
   });
 }
 
+export function scrollByX(element: any, scrollTo: number, durationInMillis?: number): void {
+  if (!element && !element.nativeElement) return;
+
+  const duration = durationInMillis || 160;
+  const interval = 20;
+  const steps = duration / interval;
+  const scrollDistance = scrollTo - element.nativeElement.scrollLeft;
+  const scrollStep = scrollDistance / steps;
+
+  Observable.interval(interval).take(steps).subscribe(() => {
+    let scroll = element.nativeElement.scrollLeft + scrollStep;
+
+    if (scroll < 0) {
+      scroll = 0;
+    }
+
+    element.nativeElement.scrollLeft = scroll;
+  });
+}
+
 export function scrollContentToTop(durationInMillis?: number): void {
   scrollToTop(scrollToTop(document.querySelector('.md-sidenav-content')), durationInMillis);
 }

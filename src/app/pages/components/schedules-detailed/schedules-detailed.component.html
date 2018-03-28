@@ -24,7 +24,7 @@
     [allProducts]="allProducts"
     (newProductScheduleAdded)="addNewProductSchedule($event)"
     (newProductAdded)="addNewProduct($event)"
-    (selected)="selectDetails($event)">
+    (selected)="selectDetailsAndScroll($event)">
   </schedule-detailed-list>
   <schedule-detailed-timeline
     [numberOfDays]="numberOfDays"
@@ -33,6 +33,7 @@
     [singleScheduleMode]="singleScheduleMode"
     [zoomLevel]="zoomLevel"
     [start]="startDate"
+    [scrollTo]="scrollToElement"
     (loadMoreDays)="loadMore()"
     (scheduleChanged)="createNewState(true)"
     (selected)="selectDetails($event)">

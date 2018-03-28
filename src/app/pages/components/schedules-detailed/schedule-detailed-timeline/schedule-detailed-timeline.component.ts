@@ -1,10 +1,11 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import {ProductSchedule} from '../../../../shared/models/product-schedule.model';
 import {Moment, utc} from 'moment';
 import {Schedule} from '../../../../shared/models/schedule.model';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {Subject} from 'rxjs';
 import {Product} from '../../../../shared/models/product.model';
+import {scrollByX} from '../../../../shared/utils/document.utils';
 
 @Component({
   selector: 'schedule-detailed-timeline',
@@ -13,11 +14,17 @@ import {Product} from '../../../../shared/models/product.model';
 })
 export class ScheduleDetailedTimelineComponent implements OnInit {
 
+  @ViewChild('container') container;
+
   days: number = 365;
 
   @Input() set numberOfDays(value: number) {
     this.days = value;
     this.measureArray = this.createRangeArray(this.days / this._zoom);
+  }
+
+  @Input() set scrollTo(value: ProductSchedule | Schedule | Product) {
+    this.performScroll(value);
   }
 
   @Input() productSchedules: ProductSchedule[] = [];
@@ -31,7 +38,7 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
     this._zoom = value;
     this.measureArray = this.createRangeArray(this.days / this._zoom);
   }
-  @Output() selected: EventEmitter<Schedule | Product> = new EventEmitter();
+  @Output() selected: EventEmitter<ProductSchedule | Schedule | Product> = new EventEmitter();
   @Output() scheduleChanged: EventEmitter<boolean> = new EventEmitter();
   @Output() loadMoreDays: EventEmitter<boolean> = new EventEmitter();
 
@@ -74,16 +81,37 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
     return temp;
   }
 
-  dragStarted(event, schedule: Schedule) {
-    this.selected.emit(schedule);
+  dragStarted(event, schedule: Schedule, productSchedule: ProductSchedule) {
+    if (!productSchedule['detailedListOpened']) {
+      this.selected.emit(productSchedule);
+      for (let i = 0; i < productSchedule.schedules.length; i++) {
+        this.dragScheduleStarted(event, productSchedule.schedules[i])
+      }
+    } else {
+      this.selected.emit(schedule);
+      this.dragScheduleStarted(event, schedule);
+    }
 
+  }
+
+  private dragScheduleStarted(event, schedule: Schedule) {
     this.startX = event.clientX;
     for (let i = 0; i < schedule.cycles.length; i++) {
       schedule.cycles[i].dragDiff = 0;
     }
   }
 
-  drag(event, schedule: Schedule) {
+  drag(event, schedule: Schedule, productSchedule: ProductSchedule) {
+    if (!productSchedule['detailedListOpened']) {
+      for (let i = 0; i < productSchedule.schedules.length; i++) {
+        this.dragSchedule(event, productSchedule.schedules[i])
+      }
+    } else {
+      this.dragSchedule(event, schedule);
+    }
+  }
+
+  private dragSchedule(event, schedule: Schedule) {
     if (event.clientX === 0) return;
 
     const diff = event.clientX - this.startX;
@@ -93,9 +121,19 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
     }
   }
 
-  dragEnded(event, schedule: Schedule) {
+  dragEnded(event, schedule: Schedule, productSchedule: ProductSchedule) {
     this.changeDebouncer.next(true);
 
+    if (!productSchedule['detailedListOpened']) {
+      for (let i = 0; i < productSchedule.schedules.length; i++) {
+        this.dragScheduleEnded(event, productSchedule.schedules[i])
+      }
+    } else {
+      this.dragScheduleEnded(event, schedule)
+    }
+  }
+
+  private dragScheduleEnded(event, schedule: Schedule) {
     let diffInDays = Math.floor((event.clientX - this.startX) / (this.cellwidth / this._zoom));
 
     if (schedule.start + diffInDays < 0) {
@@ -187,6 +225,29 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
   scrolled(event) {
     if (event.target.scrollLeft + event.target.offsetWidth >= event.target.scrollWidth) {
       this.loadMoreDebouncer.next(true);
+    }
+  }
+
+  private performScroll(value: Product | Schedule | ProductSchedule) {
+    if (value instanceof ProductSchedule) {
+      if (value.schedules.length === 0) return;
+
+      let start = value.schedules[0].start;
+      for (let i = 1; i < value.schedules.length; i++) {
+        if (value.schedules[i].start < start) {
+          start = value.schedules[i].start;
+        }
+      }
+
+      start = start * this.cellwidth / this._zoom;
+
+      scrollByX(this.container, start);
+    } else if (value instanceof Schedule) {
+      const start = value.start * this.cellwidth / this._zoom;
+
+      scrollByX(this.container, start);
+    } else if (value instanceof Product) {
+      scrollByX(this.container, 0);
     }
   }
 }
