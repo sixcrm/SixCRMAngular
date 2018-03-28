@@ -3,7 +3,7 @@ import {MenuItem} from '../../menu-item';
 import {StringUtils} from '../../../shared/utils/string-utils';
 import {NavigationService} from '../../navigation.service';
 import {Subscription} from 'rxjs';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector : 'c-sidenav-item',
@@ -18,25 +18,19 @@ export class SidenavItemComponent implements AfterViewInit, OnDestroy {
   @Input() parent: SidenavItemComponent;
   @Input() full: boolean = false;
 
+  selected: boolean;
+
   private _subscription: Subscription;
 
-  constructor(private _navigation: NavigationService, private _router: Router, private _activatedRoute: ActivatedRoute) {
+  constructor(private _navigation: NavigationService, private _router: Router) {
   }
 
   ngAfterViewInit() {
     if(!this.hasChildren && this.hasLink) {
       this._subscription = this._navigation.currentRoute.subscribe(currentRoute => { // Open up the current menu item on initial load (i.e. someones refreshes the page or you go directly to an inner page)
-        if(StringUtils.cleanLinkString(currentRoute) === this.menuItem.link) {
-          if(this.hasQuery) {
-            this._activatedRoute.queryParams.take(1).subscribe(params => {
-              if(StringUtils.deepCompare(this.menuItem.queryParams, params)) {
-                this.toggle(true);
-              }
-            });
-          } else {
-            this.toggle(true);
-          }
-        }
+        const url = StringUtils.cleanLinkString(currentRoute) || '';
+
+        this.selected = (url + '/').indexOf(this.menuItem.link + '/') !== -1;
       });
     }
   }
