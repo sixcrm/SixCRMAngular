@@ -5,9 +5,9 @@ import {
 import {utc} from 'moment';
 import {Notification} from '../../../models/notification.model'
 
-export function notificationsListQuery(limit?:number, cursor?:string): string {
+export function notificationsListQuery(limit?:number, cursor?:string, search?:string, exclusiveStartKey?: string): string {
   return `{
-    notificationlist ${paginationParamsQuery(limit, cursor)} {
+    notificationlist ${paginationParamsQuery(limit, cursor, false, exclusiveStartKey)} {
 			notifications {
 			  ${notificationsResponseQuery()}
 			}

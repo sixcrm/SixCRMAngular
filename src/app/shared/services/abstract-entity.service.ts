@@ -21,12 +21,13 @@ export abstract class AbstractEntityService<T> {
   requestInProgress$: BehaviorSubject<boolean>;
 
   protected cursor: string;
+  protected exclusiveStartKey: string;
 
   constructor(
     private http: HttpWrapperService,
     protected authService: AuthenticationService,
     protected toEntity: (data: any) => T,
-    public indexQuery: (limit?: number, cursor?: string, search?: string) => string,
+    public indexQuery: (limit?: number, cursor?: string, search?: string, exclusiveStartKey?: string) => string,
     public viewQuery: (id: string) => string,
     public deleteQuery: (id: string) => string,
     public deleteManyQuery: (id: string[]) => string,
@@ -45,7 +46,7 @@ export abstract class AbstractEntityService<T> {
   };
 
   getEntities(limit?: number, search?: string, requestBehaviourOptions?: RequestBehaviourOptions): void {
-    this.customEntitiesQuery(this.indexQuery(limit, this.cursor, search), requestBehaviourOptions);
+    this.customEntitiesQuery(this.indexQuery(limit, this.cursor, search, this.exclusiveStartKey), requestBehaviourOptions);
   }
 
   getEntity(id: string): void {
@@ -161,6 +162,7 @@ export abstract class AbstractEntityService<T> {
 
   resetPagination(): void {
     this.cursor = '';
+    this.exclusiveStartKey = '';
   }
 
   hasWritePermission(): boolean {
@@ -209,6 +211,7 @@ export abstract class AbstractEntityService<T> {
         if (listData && listData.pagination) {
           this.entitiesHasMore$.next(listData.pagination.end_cursor !== '' && listData.pagination.has_next_page);
           this.cursor = listData.pagination.end_cursor;
+          this.exclusiveStartKey = listData.pagination.last_evaluated;
         }
 
         if (entitiesData) {

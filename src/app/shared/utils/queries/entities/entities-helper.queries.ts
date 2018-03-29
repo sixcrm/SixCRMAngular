@@ -64,12 +64,13 @@ export function listQueryParams(limit?: number, cursor?: string, search?: string
   return query;
 }
 
-export function paginationParamsQuery(limit?: number, cursor?: string, ignoreBraces?: boolean): string {
+export function paginationParamsQuery(limit?: number, cursor?: string, ignoreBraces?: boolean, exclusiveStartKey?: string): string {
   if (!cursor && !limit) return '';
 
   let builder = new QueryBuilder('pagination: {');
   if (!!limit) builder.appendEnd(`limit:"${limit}"`);
   if (!!cursor) builder.appendEnd(`cursor:"${cursor}"`);
+  if (!!exclusiveStartKey) builder.appendEnd(`exclusive_start_key:"${clean(exclusiveStartKey)}"`);
   builder.appendEnd('}');
 
   if (!ignoreBraces) {
