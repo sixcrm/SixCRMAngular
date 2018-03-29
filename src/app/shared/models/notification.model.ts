@@ -8,7 +8,7 @@ export class Notification implements Entity<Notification> {
   type: string;
   category: string;
   name: string;
-  context: string;
+  context: object;
   readAt: string;
   createdAt: Moment;
   updatedAt: Moment;
@@ -26,7 +26,7 @@ export class Notification implements Entity<Notification> {
     this.type = obj.type || '';
     this.category = obj.category || '';
     this.name = obj.name || '';
-    this.context = obj.context || '';
+    this.context = obj.context || {};
     this.readAt = obj.read_at || '';
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
