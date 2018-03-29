@@ -1,0 +1,35 @@
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  padding: 15px 25px;
+}
+
+.dashboard-filters {
+  display: flex;
+  border-radius: 5px;
+  border: 1px solid white;
+  color: white;
+  font-size: 16px;
+
+  .selected {
+    background: white;
+    color: #5186C5;
+  }
+
+  div {
+    padding: 6px 8px;
+    cursor: pointer;
+  }
+}
+
+.dashboard-campaigns {
+  margin: 0 20px;
+}
+
+.dashboard-message {
+  margin-left: auto;
+  color: #97B7DD;
+  font-style: italic;
+  font-size: 24px;
+  font-weight: 300;
+}

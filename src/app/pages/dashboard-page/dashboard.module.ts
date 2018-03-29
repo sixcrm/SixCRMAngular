@@ -18,6 +18,9 @@ import {TransactionByComponent} from './transaction-by/transaction-by.component'
 import {EventsByComponent} from './events-by/events-by.component';
 import {ChartsModule} from '../../charts/charts.module';
 import {TranslationModule} from "../../translation/translation.module";
+import { DashboardHeaderComponent } from './dashboard-header/dashboard-header.component';
+import { DashboardHeaderDropdownComponent } from './dashboard-header/dashboard-header-dropdown/dashboard-header-dropdown.component';
+import { DashboardDualGraphComponent } from './dashboard-dual-graph/dashboard-dual-graph.component';
 
 export function highchartsFactory() {
   let hc = require('highcharts');
@@ -51,7 +54,10 @@ export function highchartsFactory() {
     EventsSummaryComponent,
     TopCampaignsComponent,
     TransactionOverviewComponent,
-    TransactionByComponent
+    TransactionByComponent,
+    DashboardHeaderComponent,
+    DashboardHeaderDropdownComponent,
+    DashboardDualGraphComponent
   ],
   exports : [ ],
   providers: [{

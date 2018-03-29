@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="selected" (click)="dropdownVisible = !dropdownVisible">
+    <div>{{mapper(selectedItem)}}</div>
+    <md-icon [class.arrow-rotated]="!dropdownVisible">arrow_drop_down</md-icon>
+  </div>
+
+  <div class="options" *ngIf="dropdownVisible">
+    <div
+      class="options__item" *ngFor="let i of items"
+      (click)="emitSelected(i)">
+
+      <div class="options__icon-holder">
+        <md-icon *ngIf="selectedMapper(i)">done</md-icon>
+      </div>
+
+      {{mapper(i)}}
+    </div>
+  </div>
+</div>

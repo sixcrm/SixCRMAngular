@@ -1,41 +1,19 @@
 <div class="dashboard">
+  <dashboard-header [campaigns]="campaigns"
+                    [selectedCampaign]="selectedCampaign"
+                    [queries]="queries"
+                    [selectedQuery]="selectedQuery"
+                    [timeFilters]="timeFilters"
+                    (campaignSelected)="selectCampaign($event)"
+                    (querySelected)="selectQuery($event)"
+                    (timeFilterSelected)="selectTimeFilter($event)">
+  </dashboard-header>
 
-  <div class="dashboard__filters__container">
-    <advanced-filter
-      [date]="date"
-      [filterTerms]="filterTerms"
-      [refreshText]="'ADVANCEDFILTER_REFRESHDASHBOARDTEXT'"
-      [refreshValue]="getLastUpdatedTime()"
-      [shareUrl]="shareUrl"
-      (dateChanged)="dateChanged($event)"
-      (filterTermAdded)="addFilterTerm($event)"
-      (filterTermRemoved)="removeFilterTerm($event)"
-      (resetFilters)="resetFilters()"
-      (applyFilters)="applyFilters()"
-      (refreshFilters)="refresh()">
-    </advanced-filter>
+  <div class="info">
+    <div>Welcome back, {{name}}</div>
+    <div>{{totalAmount.usd()}}</div>
+    <div>Lifetime Total Revenue</div>
   </div>
 
-  <div class="dashboard__column dashboard__column--left">
-    <transaction-overview [date]="date"></transaction-overview>
-
-    <events-summary [date]="date"></events-summary>
-
-    <transaction-summary-chart [date]="date" [filters]="dataFilterTerms"></transaction-summary-chart>
-
-    <div class="dashboard__boxes">
-      <movers-card [date]="date"></movers-card>
-      <dashboard-reports></dashboard-reports>
-    </div>
-
-    <top-campaigns [date]="date" ></top-campaigns>
-  </div>
-
-  <div class="dashboard__column dashboard__column--right">
-    <funnel-graph [date]="date"></funnel-graph>
-
-    <events-by [date]="date"></events-by>
-
-    <transaction-by [date]="date"></transaction-by>
-  </div>
+  <dashboard-dual-graph></dashboard-dual-graph>
 </div>

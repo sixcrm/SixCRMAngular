@@ -1,9 +1,6 @@
 $color-orange: #F16C00;
 
 .dashboard {
-  position: relative;
-  padding: 20px;
-  font-size: 0;
 
   &__column {
     display: inline-block;
@@ -292,6 +289,21 @@ $color-orange: #F16C00;
       height: 0 !important;
     }
   }
+}
+
+.dashboard-chart {
+  .highcharts-container {
+    width: 100% !important;
+
+    .highcharts-root {
+      width: 100%;
+    }
+  }
+}
+
+.dashboard-tooltip-text {
+  font-size: 24px;
+  font-weight: 500;
 }
 
 .md-tooltip {

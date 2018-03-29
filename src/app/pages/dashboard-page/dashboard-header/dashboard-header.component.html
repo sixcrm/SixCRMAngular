@@ -1,0 +1,29 @@
+<div class="dashboard-header">
+  <div class="dashboard-filters">
+    <div
+      *ngFor="let filter of timeFilters"
+      [class.selected]="filter.selected"
+      (click)="timeFilterSelected.emit(filter)">
+      {{filter.label}}
+    </div>
+  </div>
+  <div class="dashboard-campaigns">
+    <dashboard-header-dropdown
+      [items]="campaigns"
+      [selectedItem]="selectedCampaign"
+      [mapper]="campaignMapper"
+      [selectedMapper]="campaignSelectedMapper"
+      (selected)="campaignSelected.emit($event)">
+    </dashboard-header-dropdown>
+  </div>
+  <div class="dashboard-queries">
+    <dashboard-header-dropdown
+      [items]="queries"
+      [selectedItem]="selectedQuery"
+      [mapper]="queryMapper"
+      [selectedMapper]="querySelectedMapper"
+      (selected)="querySelected.emit($event)">
+    </dashboard-header-dropdown>
+  </div>
+  <div class="dashboard-message">Fortune sides with him who dares.</div>
+</div>
