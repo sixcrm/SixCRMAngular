@@ -43,12 +43,14 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
       snackBar
     );
 
-    this.toEntity = (data) => {
-      let n = new Notification(data);
-      n.body = this.translationService.translateNotificationBody(n);
+    this.toEntity = this.buildNotificationWithBody;
+  }
 
-      return n;
-    }
+  private buildNotificationWithBody(data) {
+    let n = new Notification(data);
+    n.body = this.translationService.translateNotificationBody(n);
+
+    return n;
   }
 
   startPoolingNotifications(): void {
@@ -117,7 +119,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
       let alerts = extractData(data).notificationlistbytypes.notifications;
 
       if (alerts) {
-        this.alerts$.next(alerts.map(alert => new Notification(alert)));
+        this.alerts$.next(alerts.map(alert => this.buildNotificationWithBody(alert)));
       } else {
         this.alerts$.next([]);
       }
@@ -137,7 +139,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
       let alerts = extractData(data).notificationlistbytypes.notifications;
 
       if (alerts) {
-        this.notificationsPersistent$.next(alerts.map(alert => new Notification(alert)));
+        this.notificationsPersistent$.next(alerts.map(alert => this.buildNotificationWithBody(alert)));
       } else {
         this.notificationsPersistent$.next([]);
       }

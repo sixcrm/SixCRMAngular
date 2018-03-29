@@ -100,15 +100,18 @@ export class TranslationService {
   translateNotificationBody(notification: Notification) {
     const name = notification.name;
 
-    if (name === 'test_alert' || name === 'test') return name;
-
     const category = notification.category;
 
     let body;
     try {
-      body = this.selectedTranslation.translations.notifications.default[category][name].body;
+      body = this.selectedTranslation.translations.notifications.six[category][name].body;
     } catch(err) {
-      return name;
+      try {
+        body = this.selectedTranslation.translations.notifications.default[category][name].body
+      } catch(er) {
+        console.log('TRANSLATION ERROR, cant find translation for notification:', category, '>', name);
+        return name;
+      }
     }
 
     const regex = /\{\{[a-z|.]+}}/g;
