@@ -73,5 +73,5 @@ export function notificationsResponseQuery(): string {
 }
 
 export function notificationInputQuery(notification: Notification): string {
-  return `id: "${notification.id}", user: "${notification.user}", account: "${notification.account}", type: "${notification.type}", ${notification.category ? `category: "${notification.category}", ` : ''}, ${notification.context ? `context: "${notification.context}", ` : ''}, name: "${notification.name}", read_at: "${utc().format()}", ${addUpdatedAtApi(notification, true)}`;
+  return `id: "${notification.id}", user: "${notification.user}", account: "${notification.account}", type: "${notification.type}", ${notification.category ? `category: "${notification.category}", ` : ''}, ${notification.context ? `context: ${JSON.stringify(notification.context)}, ` : ''}, name: "${notification.name}", read_at: "${utc().format()}", ${addUpdatedAtApi(notification, true)}`;
 }
