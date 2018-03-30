@@ -8,7 +8,7 @@ export class Notification implements Entity<Notification> {
   type: string;
   category: string;
   name: string;
-  context: object;
+  context: any;
   readAt: string;
   createdAt: Moment;
   updatedAt: Moment;
