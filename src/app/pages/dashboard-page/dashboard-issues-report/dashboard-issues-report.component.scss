@@ -1,0 +1,41 @@
+.reports {
+  display: flex;
+  background: #1E456A;
+
+  &__item {
+    display: flex;
+    margin: 0 auto;
+    padding: 25px 0;
+
+    .icon-holder {
+      margin-right: 10px;
+      display: flex;
+      height: 28px;
+      width: 28px;
+      border-radius: 50%;
+      background: #2FC362;
+
+      md-icon {
+        margin: auto;
+        width: 24px;
+        height: 24px;
+        font-size: 24px;
+        color: white;
+      }
+    }
+
+    .label {
+      margin-bottom: 10px;
+      line-height: 24px;
+      color: white;
+      font-weight: 300;
+    }
+
+    .issues {
+      &--none {
+        color: #63A6E6;
+        font-size: 14px;
+      }
+    }
+  }
+}

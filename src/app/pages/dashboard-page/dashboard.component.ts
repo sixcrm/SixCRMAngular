@@ -8,6 +8,7 @@ import {AsyncSubject} from 'rxjs';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {Currency} from '../../shared/utils/currency/currency';
 import {AuthenticationService} from '../../authentication/authentication.service';
+import {DashboardIssueReportItem} from './dashboard-issues-report/dashboard-issues-report.component';
 
 @Component({
   selector: 'c-dashboard',
@@ -64,6 +65,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ];
 
   data = this.dataFirst.slice();
+
+  issueReports: DashboardIssueReportItem[] = [
+    {label: 'Orders', issues: []},
+    {label: 'Fulfillment', issues: []},
+    {label: 'Billing', issues: []},
+    {label: 'MIDS', issues: []}
+  ];
 
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 

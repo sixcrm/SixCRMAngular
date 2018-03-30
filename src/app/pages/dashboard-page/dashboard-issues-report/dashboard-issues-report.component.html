@@ -1,0 +1,17 @@
+<div class="reports">
+
+  <div class="reports__item" *ngFor="let report of reports">
+    <div class="icon-holder">
+      <md-icon>{{report.issues.length === 0 ? 'done' : 'close'}}</md-icon>
+    </div>
+    <div>
+      <div class="label">{{report.label}}</div>
+      <div class="issues--none" *ngIf="report.issues.length === 0; else issues">No issues reported</div>
+
+      <ng-template #issues>
+        <div *ngFor="let issue of report.issues"></div>
+      </ng-template>
+    </div>
+  </div>
+
+</div>

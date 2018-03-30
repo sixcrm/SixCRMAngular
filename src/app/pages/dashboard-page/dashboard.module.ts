@@ -21,6 +21,7 @@ import {TranslationModule} from "../../translation/translation.module";
 import { DashboardHeaderComponent } from './dashboard-header/dashboard-header.component';
 import { DashboardHeaderDropdownComponent } from './dashboard-header/dashboard-header-dropdown/dashboard-header-dropdown.component';
 import { DashboardDualGraphComponent } from './dashboard-dual-graph/dashboard-dual-graph.component';
+import { DashboardIssuesReportComponent } from './dashboard-issues-report/dashboard-issues-report.component';
 
 export function highchartsFactory() {
   let hc = require('highcharts');
@@ -57,7 +58,8 @@ export function highchartsFactory() {
     TransactionByComponent,
     DashboardHeaderComponent,
     DashboardHeaderDropdownComponent,
-    DashboardDualGraphComponent
+    DashboardDualGraphComponent,
+    DashboardIssuesReportComponent
   ],
   exports : [ ],
   providers: [{
