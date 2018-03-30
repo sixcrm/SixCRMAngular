@@ -5,12 +5,12 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {Subject} from 'rxjs';
 import {NotificationsQuickService} from './notifications-quick.service';
 import {HttpWrapperService, extractData} from './http-wrapper.service';
-import {
-  notificationSettingsQuery, createNotificationSettingsMutation,
-  updateNotificationSettingsMutation, defaultNotificationSettingsQuery, sendTestNotification, sendTestAlert
-} from '../utils/query-builder';
 import {CustomServerError} from '../models/errors/custom-server-error';
 import {MdSnackBar} from '@angular/material';
+import {
+  notificationSettingsQuery, sendTestNotification, sendTestAlert,
+  updateNotificationSettingsMutation, createNotificationSettingsMutation, defaultNotificationSettingsQuery
+} from '../utils/queries/entities/notification-settings.queries';
 
 @Injectable()
 export class NotificationSettingsService extends AbstractEntityService<NotificationSettings> {

@@ -50,6 +50,15 @@ export function updateAccountMutation(account: Account): string {
 	  }`
 }
 
+export function updateAccountForRegistrationMutation(account: Account, name: string): string {
+  return `
+    mutation { 
+      updateaccount (account: { id: "${account.id}", name: "${name}", active: true, updated_at:"${account.updatedAtAPI}"}) { 
+        id, name, active, created_at, updated_at
+      } 
+    }`
+}
+
 export function accountResponseQuery(): string {
   return 'id name active created_at updated_at acl{ id updated_at, created_at, pending account {id, name} role {id, name} user {id, name}}';
 }

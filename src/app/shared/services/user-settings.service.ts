@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {UserSettings} from '../models/user-settings';
-import { userSettingsQuery, updateUserSettingsMutation } from '../utils/query-builder';
 import {HttpWrapperService} from './http-wrapper.service';
 import {CustomServerError} from '../models/errors/custom-server-error';
 import {MdSnackBar} from '@angular/material';
 import {ColumnParams} from '../models/column-params.model';
+import {userSettingsQuery, updateUserSettingsMutation} from '../utils/queries/entities/user-settings.queries';
 
 @Injectable()
 export class UserSettingsService extends AbstractEntityService<UserSettings> {

@@ -13,11 +13,11 @@ import {
 } from '../shared/utils/queries/entities/user.queries';
 import {extractData, HttpWrapperService, generateHeaders, FailStrategy} from '../shared/services/http-wrapper.service';
 import {Response} from '@angular/http';
-import {updateAccountMutation} from '../shared/utils/query-builder';
 import {Account} from '../shared/models/account.model';
 import {YesNoDialogComponent} from '../pages/yes-no-dialog.component';
 import {MdDialogRef, MdDialog} from '@angular/material';
 import {UserSettings} from '../shared/models/user-settings';
+import {updateAccountForRegistrationMutation} from '../shared/utils/queries/entities/account.queries';
 
 declare var Auth0Lock: any;
 
@@ -292,7 +292,7 @@ export class AuthenticationService {
     let account = this.getSixUser().acls[0].account;
     let endpoint = environment.endpoint + account.id;
 
-    return this.http.post(endpoint, updateAccountMutation(account, company), {headers: generateHeaders(this.getToken())});
+    return this.http.post(endpoint, updateAccountForRegistrationMutation(account, company), {headers: generateHeaders(this.getToken())});
   }
 
   public updateUserForAcceptInvite(user: User): Observable<boolean> {
