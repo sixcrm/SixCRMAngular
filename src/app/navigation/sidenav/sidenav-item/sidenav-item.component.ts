@@ -18,7 +18,7 @@ export class SidenavItemComponent implements AfterViewInit, OnDestroy {
   @Input() parent: SidenavItemComponent;
   @Input() full: boolean = false;
 
-  selected: boolean;
+  selected: boolean = false;
 
   private _subscription: Subscription;
 
@@ -27,10 +27,11 @@ export class SidenavItemComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     if(!this.hasChildren && this.hasLink) {
-      this._subscription = this._navigation.currentRoute.subscribe(currentRoute => { // Open up the current menu item on initial load (i.e. someones refreshes the page or you go directly to an inner page)
-        const url = StringUtils.cleanLinkString(currentRoute) || '';
+      this._subscription = this._navigation.currentRoute.subscribe(currentRoute => {
+        let url = StringUtils.cleanLinkString(currentRoute) || '';
+        url = url.replace(/\/[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}.*/g, '');
 
-        this.selected = (url + '/').indexOf(this.menuItem.link + '/') !== -1;
+        this.selected = url === '/' + this.menuItem.link;
       });
     }
   }
@@ -87,12 +88,10 @@ export class SidenavItemComponent implements AfterViewInit, OnDestroy {
     let addedHeight = 0;
     if(this.children) {
       this.children.forEach(childComponent => {
-        if(childComponent.active) {
-          addedHeight += childComponent.height;
-        }
+        addedHeight += childComponent.height;
       });
     }
-    return (this.menuItem.children.length * 48) + addedHeight;
+    return (this.menuItem.children.length * 38) + addedHeight;
   }
 
   get levelClass(): string {

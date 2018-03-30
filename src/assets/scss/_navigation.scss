@@ -93,6 +93,16 @@ md-sidenav-layout {
 .item-selected {
   .md-list-item {
     padding-left: 0 !important;
+    background-color: darken($sidebar-color, 4%) !important;
+
+    md-icon {
+      color: $sidebar-text-color-hover;
+    }
+
+    .sidenav-item__text {
+      color: #828282;
+      font-weight: 600;
+    }
   }
 }
 
@@ -110,10 +120,6 @@ md-nav-list.side-navigation {
     -webkit-font-smoothing: antialiased;
     line-height: 20px;
     letter-spacing: .14px;
-
-    &:hover {
-      color: $sidebar-text-color-hover;
-    }
 
     > i.material-icons:last-child {
       line-height: 40px;
@@ -136,74 +142,66 @@ md-nav-list.side-navigation {
     padding-top: 0;
     overflow: hidden;
     transition: height 0.75s cubic-bezier(0.35, 0, 0.25, 1);
+
     &:not(.active) {
       transition: height 0.75s cubic-bezier(0.35, 0, 0.25, 1);
       height: 0 !important;
     }
 
+    .nav-dropdown {
+      .sidenav-item__text {
+        font-weight: 600;
+        color: #828282;
+      }
+    }
+
+
     $base-padding: 16px;
     $base-padding-left: 25px;
-
     $base-color-change: 2%;
-    &.level1 a > .md-list-item {
-      padding-left: $base-padding-left + 8px !important;
-      padding-right: 15px !important;
-      background-color: darken(#ffffff, $base-color-change);
 
-      &:hover, &.active {
-        background-color: darken($sidebar-color, $base-color-change * 2);
-      }
+    &.level1 a > .md-list-item {
+      height: 38px;
+      padding-left: $base-padding-left + 30px !important;
+      padding-right: 5px !important;
 
       .sidenav-item__text {
         width: 100%;
-        font-size: 0.7em;
+        font-size: 12px;
       }
     }
     &.level1 .item-selected > .md-list-item {
       padding-left: 0 !important;
 
       .selected-placeholder {
-        margin-right: 26px;
+        margin-right: 49px;
       }
     }
     &.level2 a > .md-list-item {
-      padding-left: $base-padding-left + 15px !important;
-      background-color: darken($sidebar-color, $base-color-change * 2);
-
-      &:hover, &.active {
-        background-color: darken($sidebar-color, $base-color-change * 3);
-      }
+      padding-left: $base-padding-left + 45px !important;
+      height: 38px;
 
       .sidenav-item__text {
         width: 140px;
-        font-size: 0.7em;
+        font-size: 12px;
       }
     }
     &.level2 a > .md-list-item {
       .selected-placeholder {
-        margin-right: 33px !important;
+        margin-right: 62px !important;
       }
     }
     &.level3 a > .md-list-item {
+      height: 38px;
       padding-left: $base-padding * 4;
-      background-color: darken($sidebar-color, $base-color-change * 3);
-      &:hover, &.active {
-        background-color: darken($sidebar-color, $base-color-change * 4);
-      }
     }
     &.level4 a > .md-list-item {
+      height: 38px;
       padding-left: $base-padding * 5;
-      background-color: darken($sidebar-color, $base-color-change * 4);
-      &:hover, &.active {
-        background-color: darken($sidebar-color, $base-color-change * 5);
-      }
     }
     &.level5 a > .md-list-item {
+      height: 38px;
       padding-left: $base-padding * 6;
-      background-color: darken($sidebar-color, $base-color-change * 5);
-      &:hover, &.active {
-        background-color: darken($sidebar-color, $base-color-change * 6);
-      }
     }
   }
 }
@@ -246,12 +244,10 @@ md-nav-list.side-navigation {
 }
 
 .side-navigation md-nav-list.nav-children:before, .side-navigation a.active:before {
-  background: linear-gradient(to bottom, rgba(0, 0, 0, .1) 0%, transparent 100%);
   top: 0;
 }
 
 .side-navigation md-nav-list.nav-children:after, .side-navigation a.active:after {
-  background: linear-gradient(to top, rgba(0, 0, 0, .1) 0%, transparent 100%);
   bottom: 0;
 }
 
@@ -276,64 +272,6 @@ header {
     md-toolbar-row:not(:first-child) {
       @media #{$medium-and-down} {
         height: 44px;
-      }
-    }
-    .breadcrumb-holder {
-      white-space: nowrap;
-      .breadcrumb {
-        &:before {
-          content: '\E5CC';
-          color: hsla(0, 0%, 100%, .7);
-          vertical-align: top;
-          display: inline-block;
-          font-family: Material Icons;
-          font-weight: 400;
-          font-style: normal;
-          font-size: 25px;
-          margin: 0 10px 0 8px;
-          -webkit-font-smoothing: antialiased
-        }
-
-        &:first-child:before {
-          display: none;
-        }
-
-        > .breadcrumb-link {
-          @media #{$large-and-up} {
-            color: $font-color;
-          }
-          @media #{$medium-and-down} {
-            color: white;
-          }
-        }
-
-        line-height: 44px;
-
-        @media #{$large-and-up} {
-          color: $font-color;
-          &:before {
-            color: $font-color
-          }
-          &:last-child {
-            color: $font-color;
-          }
-        }
-        @media #{$medium-and-down} {
-          color: white;
-          &:before {
-            color: white
-          }
-          &:last-child {
-            color: white !important;
-          }
-        }
-      }
-    }
-
-    md-toolbar-row > .breadcrumb-holder {
-      overflow-x: scroll;
-      > .breadcrumb:last-child {
-        color: $font-color;
       }
     }
 
