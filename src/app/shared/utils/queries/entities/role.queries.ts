@@ -3,10 +3,11 @@ import {
   deleteMutationQuery, addId, addUpdatedAtApi
 } from './entities-helper.queries';
 import {Role} from '../../../models/role.model';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function rolesListQuery(limit?: number, cursor?: string, search?: string): string {
+export function rolesListQuery(params: IndexQueryParameters): string {
   return `{
-		rolelist ${listQueryParams(limit, cursor, search)} {
+		rolelist ${listQueryParams(params)} {
 			roles {
 			  ${roleResponseQuery()}
 			}
@@ -15,9 +16,9 @@ export function rolesListQuery(limit?: number, cursor?: string, search?: string)
   }`
 }
 
-export function rolesSharedListQuery(limit?: number, cursor?: string, search?: string): string {
+export function rolesSharedListQuery(params: IndexQueryParameters): string {
   return `{
-		sharedrolelist ${listQueryParams(limit, cursor, search)} {
+		sharedrolelist ${listQueryParams(params)} {
 			roles {
 			  ${roleResponseQuery()}
 			}

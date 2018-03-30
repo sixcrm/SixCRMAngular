@@ -2,10 +2,11 @@ import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
   deleteManyMutationQuery, listQueryParams
 } from './entities-helper.queries';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function sessionsInfoListQuery(limit?:number, cursor?:string, search?: string): string {
+export function sessionsInfoListQuery(params: IndexQueryParameters): string {
   return `{
-    sessionlist ${listQueryParams(limit, cursor, search)} {
+    sessionlist ${listQueryParams(params)} {
 			sessions {
 			  ${sessionInfoResponseQuery()}
 			}
@@ -13,9 +14,9 @@ export function sessionsInfoListQuery(limit?:number, cursor?:string, search?: st
 		}}`
 }
 
-export function sessionsByCustomer(customerId: string, limit?:number, cursor?:string): string {
+export function sessionsByCustomer(customerId: string, params: IndexQueryParameters): string {
   return `{
-		sessionlistbycustomer (customer:"${customerId}" ${paginationParamsQuery(limit, cursor, true)}) {
+		sessionlistbycustomer (customer:"${customerId}" ${paginationParamsQuery(params, true)}) {
 			sessions {
 			  ${sessionInfoResponseQuery()}
 			}
@@ -24,9 +25,9 @@ export function sessionsByCustomer(customerId: string, limit?:number, cursor?:st
   }`
 }
 
-export function sessionsByAffiliate(affiliateId: string, limit?:number, cursor?:string): string {
+export function sessionsByAffiliate(affiliateId: string, params: IndexQueryParameters): string {
   return `{
-		sessionlistbyaffiliate (affiliate:"${affiliateId}" ${paginationParamsQuery(limit, cursor, true)}) {
+		sessionlistbyaffiliate (affiliate:"${affiliateId}" ${paginationParamsQuery(params, true)}) {
 			sessions {
 			  ${sessionInfoResponseQuery()}
 			}

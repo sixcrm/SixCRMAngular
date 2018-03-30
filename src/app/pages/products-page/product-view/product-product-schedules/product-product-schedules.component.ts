@@ -15,6 +15,7 @@ import {CustomServerError} from '../../../../shared/models/errors/custom-server-
 import {AddProductScheduleDialogComponent} from '../../../add-product-schedule-dialog.component';
 import {Currency} from '../../../../shared/utils/currency/currency';
 import {Schedule} from '../../../../shared/models/schedule.model';
+import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
 
 @Component({
   selector: 'product-product-schedules',
@@ -45,7 +46,7 @@ export class ProductProductSchedulesComponent extends AbstractEntityIndexCompone
   }
 
   ngOnInit() {
-    this.service.indexQuery = (limit?:number, cursor?:string) => productSchedulesByProduct(this.id, limit, cursor);
+    this.service.indexQuery = (params: IndexQueryParameters) => productSchedulesByProduct(this.id, params);
     this.init();
   }
 
@@ -75,7 +76,7 @@ export class ProductProductSchedulesComponent extends AbstractEntityIndexCompone
     this.addProductScheduleDialog.componentInstance.productId = this.id;
 
     this.addProductScheduleDialog.afterClosed().take(1).subscribe(result => {
-      this.service.indexQuery = (limit?:number, cursor?:string) => productSchedulesByProduct(this.id, limit, cursor);
+      this.service.indexQuery = (params: IndexQueryParameters) => productSchedulesByProduct(this.id, params);
       this.addProductScheduleDialog = null;
 
       if (result && result.id) {

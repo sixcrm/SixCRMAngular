@@ -1,13 +1,14 @@
 import {
   fullPaginationStringResponseQuery, paginationParamsQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery, addUpdatedAtApi
+  deleteManyMutationQuery, addUpdatedAtApi
 } from './entities-helper.queries';
 import {User} from '../../../models/user.model';
 import {Acl} from '../../../models/acl.model';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function usersListQuery(limit?: number, cursor?: string): string {
+export function usersListQuery(params: IndexQueryParameters): string {
   return `{
-    userlist ${paginationParamsQuery(limit,cursor)} {
+    userlist ${paginationParamsQuery(params)} {
 			users {
 			  ${userInfoResponseQuery()}
 			}

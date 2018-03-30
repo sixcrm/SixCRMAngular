@@ -4,10 +4,11 @@ import {
   fullPaginationStringResponseQuery, paginationParamsQuery, deleteMutationQuery,
   addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function campaignsInfoListQuery(limit?:number, cursor?:string, search?: string): string {
+export function campaignsInfoListQuery(params: IndexQueryParameters): string {
   return `{
-    campaignlist ${listQueryParams(limit, cursor, search)} {
+    campaignlist ${listQueryParams(params)} {
       campaigns {
         ${campaignInfoResponseQuery()}
       }
@@ -15,9 +16,9 @@ export function campaignsInfoListQuery(limit?:number, cursor?:string, search?: s
     }}`
 }
 
-export function campaignsByProductSchedule(id: string, limit?:number, cursor?:string): string {
+export function campaignsByProductSchedule(id: string, params: IndexQueryParameters): string {
   return `{
-    campaignlistbyproductschedule (productschedule: "${id}", ${paginationParamsQuery(limit, cursor, true)}) {
+    campaignlistbyproductschedule (productschedule: "${id}", ${paginationParamsQuery(params, true)}) {
       campaigns {
         ${campaignInfoResponseQuery()}
       }
@@ -25,9 +26,9 @@ export function campaignsByProductSchedule(id: string, limit?:number, cursor?:st
     }}`
 }
 
-export function campaignsByProduct(id: string, limit?:number, cursor?:string): string {
+export function campaignsByProduct(id: string, params: IndexQueryParameters): string {
   return `{
-    campaignlistbyproduct (product: "${id}", ${paginationParamsQuery(limit, cursor, true)}) {
+    campaignlistbyproduct (product: "${id}", ${paginationParamsQuery(params, true)}) {
       campaigns {
         ${campaignInfoResponseQuery()}
       }
@@ -35,9 +36,9 @@ export function campaignsByProduct(id: string, limit?:number, cursor?:string): s
     }}`
 }
 
-export function campaignsByAffiliate(id: string, limit?:number, cursor?:string): string {
+export function campaignsByAffiliate(id: string, params: IndexQueryParameters): string {
   return `{
-    campaignlistbyaffiliateallowed (affiliate: "${id}", ${paginationParamsQuery(limit, cursor, true)}) {
+    campaignlistbyaffiliateallowed (affiliate: "${id}", ${paginationParamsQuery(params, true)}) {
       campaigns {
         ${campaignInfoResponseQuery()}
       }

@@ -9,6 +9,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {rebillListByState, rebillsListQuery} from '../../../../shared/utils/queries/entities/rebill.queries';
 import {TableMemoryTextOptions} from '../../../components/table-memory/table-memory.component';
+import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
 
 @Component({
   selector: 'state-machine-rebills',
@@ -58,7 +59,7 @@ export class StateMachineRebillsComponent extends AbstractEntityIndexComponent<R
 
   reinit(): void {
     this.resetEntities();
-    this.service.indexQuery = (limit, cursor) => rebillListByState(this.queue, limit, this.entitiesHolder.length);
+    this.service.indexQuery = (params: IndexQueryParameters) => rebillListByState(this.queue, params.limit, this.entitiesHolder.length);
     this.refreshData();
   }
 

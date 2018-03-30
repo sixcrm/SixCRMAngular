@@ -3,10 +3,11 @@ import {
   addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {Rebill} from '../../../models/rebill.model';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function rebillsListQuery(limit?: number, cursor?: string, search?: string): string {
+export function rebillsListQuery(params: IndexQueryParameters): string {
   return `{
-		rebilllist ${listQueryParams(limit, cursor, search)} {
+		rebilllist ${listQueryParams(params)} {
 			rebills {
 			  ${rebillInfoResponseQuery()}
 			}
@@ -15,9 +16,9 @@ export function rebillsListQuery(limit?: number, cursor?: string, search?: strin
   }`
 }
 
-export function rebillsPendingListQuery(limit?: number, cursor?: string, search?: string): string {
+export function rebillsPendingListQuery(params: IndexQueryParameters): string {
   return `{
-		rebillpendinglist ${listQueryParams(limit, cursor, search)} {
+		rebillpendinglist ${listQueryParams(params)} {
 			rebills {
 			  ${rebillInfoResponseQuery()}
 			}
@@ -34,9 +35,9 @@ export function rebillQuery(id: string): string {
   }`
 }
 
-export function rebillsByCustomer(customerId: string, limit?: number, cursor?: string): string {
+export function rebillsByCustomer(customerId: string, params: IndexQueryParameters): string {
   return `{
-		rebilllistbycustomer (customer:"${customerId}" ${paginationParamsQuery(limit, cursor, true)}) {
+		rebilllistbycustomer (customer:"${customerId}" ${paginationParamsQuery(params, true)}) {
 			rebills {
 			  ${rebillInfoResponseQuery()}
 			}

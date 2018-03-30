@@ -3,10 +3,11 @@ import {
   addUpdatedAtApi
 } from './entities-helper.queries';
 import {AccessKey} from '../../../models/access-key.model';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function accessKeysListQuery(limit?:number, cursor?:string): string {
+export function accessKeysListQuery(params: IndexQueryParameters): string {
   return `{
-    accesskeylist ${paginationParamsQuery(limit, cursor)} {
+    accesskeylist ${paginationParamsQuery(params)} {
       accesskeys {
         ${accessKeyResponseQuery()}
       }

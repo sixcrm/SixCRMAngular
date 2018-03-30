@@ -9,6 +9,7 @@ import {
   transactionsInfoListQuery
 } from '../../../../shared/utils/queries/entities/transaction.queries';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
+import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
 
 @Component({
   selector: 'perfect-customer',
@@ -54,7 +55,7 @@ export class PerfectCustomerComponent extends AbstractPerfectMatch implements On
 
     this.customersService.getEntity(this.id);
 
-    this.transactionsService.indexQuery = (limit?: number, cursor?: string) => transactionsByCustomer(this.id, limit, cursor);
+    this.transactionsService.indexQuery = (params: IndexQueryParameters) => transactionsByCustomer(this.id, params);
     this.refreshTransactions();
   }
 

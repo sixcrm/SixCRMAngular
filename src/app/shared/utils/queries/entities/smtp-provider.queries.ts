@@ -3,10 +3,11 @@ import {
   addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {SmtpProvider} from '../../../models/smtp-provider.model';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function smtpProvidersListQuery(limit?:number, cursor?:string, search?:string): string {
+export function smtpProvidersListQuery(params: IndexQueryParameters): string {
   return `{
-    smtpproviderlist ${listQueryParams(limit, cursor, search)} {
+    smtpproviderlist ${listQueryParams(params)} {
 			smtpproviders {
         ${smtpProviderResponseQuery()}
       }

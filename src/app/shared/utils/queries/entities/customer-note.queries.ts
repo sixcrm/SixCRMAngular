@@ -3,10 +3,11 @@ import {
   deleteManyMutationQuery
 } from './entities-helper.queries';
 import {CustomerNote} from '../../../models/customer-note.model';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function customerNotesByCustomerQuery(id: string, limit?: number, cursor?: string): string {
+export function customerNotesByCustomerQuery(id: string, params: IndexQueryParameters): string {
   return `{
-    customernotelistbycustomer (customer:"${id}" ${paginationParamsQuery(limit, cursor, true)}) {
+    customernotelistbycustomer (customer:"${id}" ${paginationParamsQuery(params, true)}) {
       customernotes {
         ${customerNoteResponseQuery()}
       }

@@ -2,13 +2,11 @@ import {Response} from '@angular/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {
-  extractData, HttpWrapperService, generateHeaders, FailStrategy,
-  RequestBehaviourOptions
-} from './http-wrapper.service';
+import {extractData, HttpWrapperService, generateHeaders, RequestBehaviourOptions} from './http-wrapper.service';
 import {CustomServerError} from '../models/errors/custom-server-error';
 import {MdSnackBar} from '@angular/material';
 import {ErrorSnackBarComponent, SnackBarType} from '../components/error-snack-bar/error-snack-bar.component';
+import {IndexQueryParameters} from '../utils/queries/index-query-parameters.model';
 
 export abstract class AbstractEntityService<T> {
 
@@ -27,7 +25,7 @@ export abstract class AbstractEntityService<T> {
     private http: HttpWrapperService,
     protected authService: AuthenticationService,
     protected toEntity: (data: any) => T,
-    public indexQuery: (limit?: number, cursor?: string, search?: string, exclusiveStartKey?: string) => string,
+    public indexQuery: (params: IndexQueryParameters) => string,
     public viewQuery: (id: string) => string,
     public deleteQuery: (id: string) => string,
     public deleteManyQuery: (id: string[]) => string,
@@ -46,7 +44,15 @@ export abstract class AbstractEntityService<T> {
   };
 
   getEntities(limit?: number, search?: string, requestBehaviourOptions?: RequestBehaviourOptions): void {
-    this.customEntitiesQuery(this.indexQuery(limit, this.cursor, search, this.exclusiveStartKey), requestBehaviourOptions);
+    this.customEntitiesQuery(
+      this.indexQuery({
+        limit: limit,
+        cursor: this.cursor,
+        search: search,
+        exclusiveStartKey: this.exclusiveStartKey
+      }),
+      requestBehaviourOptions
+    );
   }
 
   getEntity(id: string): void {

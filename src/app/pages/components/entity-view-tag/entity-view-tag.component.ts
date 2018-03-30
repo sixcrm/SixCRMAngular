@@ -9,6 +9,7 @@ import {tagsByEntityQuery, tagsListQuery} from '../../../shared/utils/queries/en
 import {Tag} from '../../../shared/models/tag.model';
 import {TableMemoryTextOptions} from '../table-memory/table-memory.component';
 import {ColumnParams, ColumnParamsInputType} from '../../../shared/models/column-params.model';
+import {IndexQueryParameters} from '../../../shared/utils/queries/index-query-parameters.model';
 
 @Component({
   selector: 'entity-view-tag',
@@ -52,7 +53,7 @@ export class EntityViewTagComponent extends AbstractEntityIndexComponent<Tag> im
 
   ngOnInit() {
     this.viewAfterCrate = false;
-    this.service.indexQuery = (limit: number, cursor: string, search: string) => tagsByEntityQuery(this.entityId, null, null, search);
+    this.service.indexQuery = (params: IndexQueryParameters) => tagsByEntityQuery(this.entityId, {limit: null, cursor: null, search: params.search});
 
     this.tagParams = [
       new ColumnParams<Tag>('SINGLEPAGE_TAG_KEY')

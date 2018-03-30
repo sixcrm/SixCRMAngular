@@ -3,10 +3,11 @@ import {
   addUpdatedAtApi
 } from './entities-helper.queries';
 import {UserSigningString} from "../../../models/user-signing-string.model";
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function userSigningStringsListQuery(limit?:number, cursor?:string): string {
+export function userSigningStringsListQuery(params: IndexQueryParameters): string {
   return `{
-    usersigningstringlist ${paginationParamsQuery(limit, cursor)} {
+    usersigningstringlist ${paginationParamsQuery(params)} {
       usersigningstrings {
         ${userSigningStringResponseQuery()}
       }

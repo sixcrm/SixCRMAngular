@@ -1,3 +1,4 @@
+import {IndexQueryParameters} from '../index-query-parameters.model';
 const uuidV4 = require('uuid/v4');
 
 export function paginationStringResponseQuery(): string {
@@ -52,10 +53,10 @@ function cleanQuote(value: string): string {
   return value.replace(/"/g, '\\"');
 }
 
-export function listQueryParams(limit?: number, cursor?: string, search?: string, ignoreBrackets?: boolean): string {
-  if (!limit && !cursor && !search) return '';
+export function listQueryParams(params: IndexQueryParameters, ignoreBrackets?: boolean): string {
+  if (!params.limit && !params.cursor && !params.search) return '';
 
-  let query = ` ${paginationParamsQuery(limit, cursor, true)} ${searchParamsQuery(search)} `;
+  let query = ` ${paginationParamsQuery(params, true)} ${searchParamsQuery(params.search)} `;
 
   if (!ignoreBrackets) {
     query = `(${query})`
@@ -64,13 +65,13 @@ export function listQueryParams(limit?: number, cursor?: string, search?: string
   return query;
 }
 
-export function paginationParamsQuery(limit?: number, cursor?: string, ignoreBraces?: boolean, exclusiveStartKey?: string): string {
-  if (!cursor && !limit) return '';
+export function paginationParamsQuery(params: IndexQueryParameters, ignoreBraces?: boolean): string {
+  if (!params.cursor && !params.limit) return '';
 
   let builder = new QueryBuilder('pagination: {');
-  if (!!limit) builder.appendEnd(`limit:"${limit}"`);
-  if (!!cursor) builder.appendEnd(`cursor:"${cursor}"`);
-  if (!!exclusiveStartKey) builder.appendEnd(`exclusive_start_key:"${clean(exclusiveStartKey)}"`);
+  if (!!params.limit) builder.appendEnd(`limit:"${params.limit}"`);
+  if (!!params.cursor) builder.appendEnd(`cursor:"${params.cursor}"`);
+  if (!!params.exclusiveStartKey) builder.appendEnd(`exclusive_start_key:"${clean(params.exclusiveStartKey)}"`);
   builder.appendEnd('}');
 
   if (!ignoreBraces) {

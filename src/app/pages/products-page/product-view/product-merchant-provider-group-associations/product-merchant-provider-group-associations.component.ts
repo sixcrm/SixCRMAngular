@@ -19,6 +19,7 @@ import {
   merchantProviderGroupAssociationsListQuery,
   merchantProviderGroupAssociationsByEntityListQuery
 } from '../../../../shared/utils/queries/entities/merchant-provider-group-associations.queries';
+import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
 
 @Component({
   selector: 'product-merchant-provider-group-associations',
@@ -56,7 +57,7 @@ export class ProductMerchantProviderGroupAssociationsComponent extends AbstractE
   }
 
   ngOnInit() {
-    this.service.indexQuery = (limit?:number, cursor?:string, search?: string) => merchantProviderGroupAssociationsByEntityListQuery(this.id, limit, cursor, search);
+    this.service.indexQuery = (params: IndexQueryParameters) => merchantProviderGroupAssociationsByEntityListQuery(this.id, params);
 
     this.init();
   }

@@ -4,10 +4,11 @@ import {
 } from './entities-helper.queries';
 import {CreditCard} from '../../../models/credit-card.model';
 import {stateCode, countryCode} from '../../address.utils';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function creditCardsListQuery(limit?:number, cursor?:string, search?: string): string {
+export function creditCardsListQuery(params: IndexQueryParameters): string {
   return `{
-    creditcardlist ${listQueryParams(limit, cursor, search)}{
+    creditcardlist ${listQueryParams(params)}{
 			creditcards {
 			  ${creditCardResponseQuery()}
 			}

@@ -2,10 +2,11 @@ import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
   deleteManyMutationQuery, listQueryParams
 } from './entities-helper.queries';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function transactionsInfoListQuery(limit?:number, cursor?:string, search?: string): string {
+export function transactionsInfoListQuery(params: IndexQueryParameters): string {
   return `{
-    transactionlist ${listQueryParams(limit, cursor, search)} {
+    transactionlist ${listQueryParams(params)} {
       transactions {
         ${transactionInfoResponseQuery()}
       }
@@ -30,9 +31,9 @@ export function deleteTransactionsMutation(id: string[]): string {
   return deleteManyMutationQuery('transaction', id);
 }
 
-export function transactionsByCustomer(customerId: string, limit?:number, cursor?:string): string {
+export function transactionsByCustomer(customerId: string, params: IndexQueryParameters): string {
   return `{
-		transactionlistbycustomer (customer:"${customerId}" ${paginationParamsQuery(limit, cursor, true)}) {
+		transactionlistbycustomer (customer:"${customerId}" ${paginationParamsQuery(params, true)}) {
 			transactions {
 			  ${transactionInfoResponseQuery()}
 			}

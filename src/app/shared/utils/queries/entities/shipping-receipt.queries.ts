@@ -2,10 +2,11 @@ import {
   fullPaginationStringResponseQuery,
   deleteMutationQuery, deleteManyMutationQuery, listQueryParams
 } from './entities-helper.queries';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function shippingReceiptsListQuery(limit?:number, cursor?:string, search?: string): string {
+export function shippingReceiptsListQuery(params: IndexQueryParameters): string {
   return `{
-    shippingreceiptlist ${listQueryParams(limit, cursor, search)} {
+    shippingreceiptlist ${listQueryParams(params)} {
 			shippingreceipts {
 			  ${shippingReceiptInfoResponseQuery()}
 			}

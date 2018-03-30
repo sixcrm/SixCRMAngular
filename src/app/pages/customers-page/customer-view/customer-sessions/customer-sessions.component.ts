@@ -7,6 +7,7 @@ import {Session} from '../../../../shared/models/session.model';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {sessionsByCustomer, sessionsInfoListQuery} from '../../../../shared/utils/queries/entities/session.queries';
+import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
 
 @Component({
   selector: 'customer-sessions',
@@ -40,7 +41,7 @@ export class CustomerSessionsComponent extends AbstractEntityIndexComponent<Sess
   }
 
   ngOnInit() {
-    this.service.indexQuery = (limit?: number, cursor?: string) => sessionsByCustomer(this.id, limit, cursor);
+    this.service.indexQuery = (params: IndexQueryParameters) => sessionsByCustomer(this.id, params);
 
     this.init(!!this.id);
   }

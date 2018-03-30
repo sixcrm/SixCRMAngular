@@ -3,10 +3,11 @@ import {
   fullPaginationStringResponseQuery, addUpdatedAtApi
 } from './entities-helper.queries';
 import {Acl} from '../../../models/acl.model';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function aclListQuery(limit?:number, cursor?:string): string {
+export function aclListQuery(params: IndexQueryParameters): string {
   return `{
-    useracllist ${paginationParamsQuery(limit, cursor)} {
+    useracllist ${paginationParamsQuery(params)} {
       useracls {
         ${userAclResponseQuery()}
       }
@@ -15,9 +16,9 @@ export function aclListQuery(limit?:number, cursor?:string): string {
   }`
 }
 
-export function aclListByRoleQuery(roleId: string, limit?:number, cursor?:string): string {
+export function aclListByRoleQuery(roleId: string, params: IndexQueryParameters): string {
   return `{
-    useracllistbyrole (${paginationParamsQuery(limit, cursor, true)} role: "${roleId}") {
+    useracllistbyrole (${paginationParamsQuery(params, true)} role: "${roleId}") {
       useracl {
         ${userAclResponseQuery()}
       }

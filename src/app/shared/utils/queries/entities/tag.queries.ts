@@ -3,10 +3,11 @@ import {
   addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {Tag} from '../../../models/tag.model';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function tagsListQuery(limit?: number, cursor?: string, search?: string): string {
+export function tagsListQuery(params: IndexQueryParameters): string {
   return `{
-		taglist ${listQueryParams(limit, cursor, search)} {
+		taglist ${listQueryParams(params)} {
 			tags {
 			  ${tagResponseQuery()}
 			}
@@ -15,9 +16,9 @@ export function tagsListQuery(limit?: number, cursor?: string, search?: string):
   }`
 }
 
-export function tagsByEntityQuery(entity: string, limit?: number, cursor?: string, search?: string): string {
+export function tagsByEntityQuery(entity: string, params: IndexQueryParameters): string {
   return `{
-		taglistbyentity ( id: "${entity}", ${listQueryParams(limit, cursor, search, true)} ) {
+		taglistbyentity ( id: "${entity}", ${listQueryParams(params, true)} ) {
 			tags {
 			  ${tagResponseQuery()}
 			}

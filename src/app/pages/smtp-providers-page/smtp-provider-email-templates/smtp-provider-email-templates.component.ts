@@ -11,6 +11,7 @@ import {
   emailTemplatesListBySmtpProviderQuery,
   emailTemplatesListQuery
 } from '../../../shared/utils/queries/entities/email-template.queries';
+import {IndexQueryParameters} from '../../../shared/utils/queries/index-query-parameters.model';
 
 @Component({
   selector: 'smtp-provider-email-templates',
@@ -37,7 +38,7 @@ export class SmtpProviderEmailTemplatesComponent extends AbstractEntityIndexComp
   }
 
   ngOnInit() {
-    this.service.indexQuery = (limit?: number, cursor?: string) => emailTemplatesListBySmtpProviderQuery(this.smtpProvider.id, limit, cursor);
+    this.service.indexQuery = (params: IndexQueryParameters) => emailTemplatesListBySmtpProviderQuery(this.smtpProvider.id, params);
     this.takeUpdated = false;
     this.init();
   }

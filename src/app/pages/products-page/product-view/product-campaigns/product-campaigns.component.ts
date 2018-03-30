@@ -9,6 +9,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {campaignsByProduct, campaignsInfoListQuery} from '../../../../shared/utils/queries/entities/campaign.queries';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {Currency} from '../../../../shared/utils/currency/currency';
+import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
 
 @Component({
   selector: 'product-campaigns',
@@ -46,7 +47,7 @@ export class ProductCampaignsComponent extends AbstractEntityIndexComponent<Camp
   }
 
   ngOnInit() {
-    this.service.indexQuery = (limit?: number, cursor?: string) => campaignsByProduct(this.id, limit, cursor);
+    this.service.indexQuery = (params: IndexQueryParameters) => campaignsByProduct(this.id, params);
     this.init();
   }
 

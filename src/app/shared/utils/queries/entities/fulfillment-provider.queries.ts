@@ -4,10 +4,11 @@ import {
 } from './entities-helper.queries';
 
 import {FulfillmentProvider} from '../../../models/fulfillment-provider.model';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function fulfillmentProvidersListQuery(limit?:number, cursor?:string, search?:string): string {
+export function fulfillmentProvidersListQuery(params: IndexQueryParameters): string {
   return `{
-    fulfillmentproviderlist ${listQueryParams(limit, cursor, search)} {
+    fulfillmentproviderlist ${listQueryParams(params)} {
       fulfillmentproviders {
         ${fulfillmentProviderResponseQuery()}
       }

@@ -11,6 +11,7 @@ import {
   transactionsByCustomer,
   transactionsInfoListQuery
 } from '../../../../shared/utils/queries/entities/transaction.queries';
+import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
 
 @Component({
   selector: 'customer-transactions',
@@ -45,7 +46,7 @@ export class CustomerTransactionsComponent extends AbstractEntityIndexComponent<
   }
 
   ngOnInit() {
-    this.service.indexQuery = (limit?: number, cursor?: string) => transactionsByCustomer(this.id, limit, cursor);
+    this.service.indexQuery = (params: IndexQueryParameters) => transactionsByCustomer(this.id, params);
     this.init(!!this.id);
   }
 

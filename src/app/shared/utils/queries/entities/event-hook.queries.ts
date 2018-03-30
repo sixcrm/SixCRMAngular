@@ -3,10 +3,11 @@ import {
   addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {EventHook} from '../../../models/event-hook.model';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function eventHooksListQuery(limit?:number, cursor?:string, search?:string): string {
+export function eventHooksListQuery(params: IndexQueryParameters): string {
   return `{
-    eventhooklist ${listQueryParams(limit, cursor, search)} {
+    eventhooklist ${listQueryParams(params)} {
 			eventhooks {
         ${eventHookResponseQuery()}
       }
@@ -14,9 +15,9 @@ export function eventHooksListQuery(limit?:number, cursor?:string, search?:strin
 		}}`
 }
 
-export function eventHooksSharedListQuery(limit?:number, cursor?:string, search?:string): string {
+export function eventHooksSharedListQuery(params: IndexQueryParameters): string {
   return `{
-    eventhooksharedlist ${listQueryParams(limit, cursor, search)} {
+    eventhooksharedlist ${listQueryParams(params)} {
 			eventhooks {
         ${eventHookResponseQuery()}
       }

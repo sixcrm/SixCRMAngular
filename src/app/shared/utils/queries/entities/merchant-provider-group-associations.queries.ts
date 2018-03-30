@@ -3,10 +3,11 @@ import {
   addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {MerchantProviderGroupAssociation} from '../../../models/merchant-provider-group-association.model';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function merchantProviderGroupAssociationsListQuery(limit?:number, cursor?:string, search?: string): string {
+export function merchantProviderGroupAssociationsListQuery(params: IndexQueryParameters): string {
   return `{
-    merchantprovidergroupassociationlist ${listQueryParams(limit, cursor, search)} {
+    merchantprovidergroupassociationlist ${listQueryParams(params)} {
 			merchantprovidergroupassociations { 
 			  ${merchantProviderGroupAssociationResponseQuery()} 
       }
@@ -14,9 +15,9 @@ export function merchantProviderGroupAssociationsListQuery(limit?:number, cursor
 		}}`
 }
 
-export function merchantProviderGroupAssociationsByEntityListQuery(entityId: string, limit?:number, cursor?:string, search?: string): string {
+export function merchantProviderGroupAssociationsByEntityListQuery(entityId: string, params: IndexQueryParameters): string {
   return `{
-    merchantprovidergroupassociationbyentitylist ( entity: "${entityId}", ${listQueryParams(limit, cursor, search, true)} ) {
+    merchantprovidergroupassociationbyentitylist ( entity: "${entityId}", ${listQueryParams(params, true)} ) {
 			merchantprovidergroupassociations { 
 			  ${merchantProviderGroupAssociationResponseQuery()} 
       }

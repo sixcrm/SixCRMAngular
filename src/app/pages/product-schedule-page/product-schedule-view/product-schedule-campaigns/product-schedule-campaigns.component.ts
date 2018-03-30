@@ -12,6 +12,7 @@ import {
   campaignsByProductSchedule,
   campaignsInfoListQuery
 } from '../../../../shared/utils/queries/entities/campaign.queries';
+import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
 
 @Component({
   selector: 'product-schedule-campaigns',
@@ -31,7 +32,7 @@ export class ProductScheduleCampaignsComponent extends AbstractEntityIndexCompon
     activatedRoute: ActivatedRoute
   ) {
     super(campaignService, auth, dialog, paginationService, router, activatedRoute);
-    
+
     let f = this.authService.getTimezone();
     this.columnParams = [
       new ColumnParams('PRODUCTSCHEDULE_CAMPAIGN_NAME', (e: Campaign) => e.name),
@@ -49,7 +50,7 @@ export class ProductScheduleCampaignsComponent extends AbstractEntityIndexCompon
   }
 
   ngOnInit() {
-    this.service.indexQuery = (limit?: number, cursor?: string) => campaignsByProductSchedule(this.id, limit, cursor);
+    this.service.indexQuery = (params: IndexQueryParameters) => campaignsByProductSchedule(this.id, params);
     this.init(!!this.id);
   }
 

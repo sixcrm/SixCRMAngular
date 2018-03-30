@@ -3,10 +3,11 @@ import {
   addId, deleteManyMutationQuery
 } from './entities-helper.queries';
 import {Bill} from '../../../models/bill.model';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function billListQuery(limit?:number, cursor?:string): string {
+export function billListQuery(params: IndexQueryParameters): string {
   return `{
-    billlist ${paginationParamsQuery(limit, cursor)} {
+    billlist ${paginationParamsQuery(params)} {
       bills {
         ${billResponseQuery()}
 			}

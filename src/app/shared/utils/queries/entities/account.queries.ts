@@ -3,10 +3,11 @@ import {
   addUpdatedAtApi
 } from './entities-helper.queries';
 import {Account} from '../../../models/account.model';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function accountsListQuery(limit?:number, cursor?:string): string {
+export function accountsListQuery(params: IndexQueryParameters): string {
   return `{
-    accountlist ${paginationParamsQuery(limit, cursor)} {
+    accountlist ${paginationParamsQuery(params)} {
       accounts {
         ${accountInfoResponseQuery()}
       }

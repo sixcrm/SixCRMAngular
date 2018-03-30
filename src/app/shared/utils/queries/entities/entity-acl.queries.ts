@@ -1,12 +1,12 @@
 import {
-  fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
+  fullPaginationStringResponseQuery, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {EntityAcl} from '../../../models/entityacl.model';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function entityAclsListQuery(limit?: number, cursor?: string, search?: string): string {
+export function entityAclsListQuery(params: IndexQueryParameters): string {
   return `{
-		entityacllist ${listQueryParams(limit, cursor, search)} {
+		entityacllist ${listQueryParams(params)} {
 			entityacls {
 			  ${entityAclResponseQuery()}
 			}

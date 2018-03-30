@@ -8,6 +8,7 @@ import {MdDialog} from '@angular/material';
 import {firstIndexOf} from '../../../../shared/utils/array.utils';
 import {customerNotesByCustomerQuery} from '../../../../shared/utils/queries/entities/customer-note.queries';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
+import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
 
 @Component({
   selector: 'customer-notes',
@@ -33,7 +34,7 @@ export class CustomerNotesComponent extends AbstractEntityIndexComponent<Custome
   }
 
   ngOnInit() {
-    this.service.indexQuery = (limit?: number, cursor?: string) => customerNotesByCustomerQuery(this.customerId, limit, cursor);
+    this.service.indexQuery = (params: IndexQueryParameters) => customerNotesByCustomerQuery(this.customerId, params);
     this.shareLimit = false;
     this.limit = 50;
 

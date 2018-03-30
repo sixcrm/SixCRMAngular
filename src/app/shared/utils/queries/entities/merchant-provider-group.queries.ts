@@ -4,10 +4,11 @@ import {
 } from './entities-helper.queries';
 import {merchantProviderResponseQuery} from './merchant-provider.queries';
 import {MerchantProviderGroup} from '../../../models/merchant-provider-group.model';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function merchantProviderGroupsInfoListQuery(limit?:number, cursor?:string, search?: string): string {
+export function merchantProviderGroupsInfoListQuery(params: IndexQueryParameters): string {
   return `{
-    merchantprovidergrouplist ${listQueryParams(limit, cursor, search)} {
+    merchantprovidergrouplist ${listQueryParams(params)} {
 			merchantprovidergroups { 
 			  ${merchantProviderGroupInfoResponseQuery()} 
       }

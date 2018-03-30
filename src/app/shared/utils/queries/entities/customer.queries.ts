@@ -4,10 +4,11 @@ import {
 } from './entities-helper.queries';
 import {Customer} from '../../../models/customer.model';
 import {stateCode, countryCode} from '../../address.utils';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function customersInfoListQuery(limit?:number, cursor?:string, search?: string): string {
+export function customersInfoListQuery(params: IndexQueryParameters): string {
   return `{
-    customerlist ${listQueryParams(limit, cursor, search)} {
+    customerlist ${listQueryParams(params)} {
       customers {
         ${customerInfoResponseQuery()}
 			}

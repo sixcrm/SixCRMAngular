@@ -8,6 +8,7 @@ import {PaginationService} from '../../../../shared/services/pagination.service'
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {Currency} from '../../../../shared/utils/currency/currency';
 import {campaignsInfoListQuery, campaignsByAffiliate} from '../../../../shared/utils/queries/entities/campaign.queries';
+import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
 
 @Component({
   selector: 'affiliate-campaigns',
@@ -43,7 +44,7 @@ export class AffiliateCampaignsComponent extends AbstractEntityIndexComponent<Ca
   }
 
   ngOnInit() {
-    this.service.indexQuery = (limit?: number, cursor?: string) => campaignsByAffiliate(this.affiliateId, limit, cursor);
+    this.service.indexQuery = (params: IndexQueryParameters) => campaignsByAffiliate(this.affiliateId, params);
 
     this.init();
   }

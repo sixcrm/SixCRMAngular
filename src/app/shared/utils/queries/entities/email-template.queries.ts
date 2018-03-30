@@ -4,10 +4,11 @@ import {
 } from './entities-helper.queries';
 import {smtpProviderResponseQuery} from './smtp-provider.queries';
 import {EmailTemplate} from '../../../models/email-template.model';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function emailTemplatesListQuery(limit?:number, cursor?:string, search?: string): string {
+export function emailTemplatesListQuery(params: IndexQueryParameters): string {
   return `{
-    emailtemplatelist ${listQueryParams(limit, cursor, search)} {
+    emailtemplatelist ${listQueryParams(params)} {
 			emailtemplates {
 			  ${emailTemplateInfoResponseQuery()}
 			}
@@ -15,9 +16,9 @@ export function emailTemplatesListQuery(limit?:number, cursor?:string, search?: 
 		}}`
 }
 
-export function emailTemplatesSharedListQuery(limit?:number, cursor?:string, search?: string): string {
+export function emailTemplatesSharedListQuery(params: IndexQueryParameters): string {
   return `{
-    sharedemailtemplatelist ${listQueryParams(limit, cursor, search)} {
+    sharedemailtemplatelist ${listQueryParams(params)} {
 			emailtemplates {
 			  ${emailTemplateInfoResponseQuery()}
 			}
@@ -25,9 +26,9 @@ export function emailTemplatesSharedListQuery(limit?:number, cursor?:string, sea
 		}}`
 }
 
-export function emailTemplatesListBySmtpProviderQuery(smtpproviderID: string, limit?:number, cursor?:string): string {
+export function emailTemplatesListBySmtpProviderQuery(smtpproviderID: string, params: IndexQueryParameters): string {
   return `{
-    emailtemplatelistbysmtpprovider (smtpprovider:"${smtpproviderID}", ${paginationParamsQuery(limit, cursor, true)}) {
+    emailtemplatelistbysmtpprovider (smtpprovider:"${smtpproviderID}", ${paginationParamsQuery(params, true)}) {
 			emailtemplates {
 			  ${emailTemplateInfoResponseQuery()}
 			}

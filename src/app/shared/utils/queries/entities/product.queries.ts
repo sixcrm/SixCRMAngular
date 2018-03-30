@@ -3,10 +3,11 @@ import {
   addId, clean, addField, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {Product} from '../../../models/product.model';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function productsListQuery(limit?:number, cursor?:string, search?: string): string {
+export function productsListQuery(params: IndexQueryParameters): string {
   return `{
-    productlist ${listQueryParams(limit, cursor, search)} {
+    productlist ${listQueryParams(params)} {
 			products {
 			  ${productResponseQuery()}
 			}

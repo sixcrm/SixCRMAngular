@@ -14,6 +14,7 @@ import {
   trackersByAffiliateListQuery,
   trackersListQuery
 } from '../../../../shared/utils/queries/entities/tracker.queries';
+import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
 
 @Component({
   selector: 'affiliate-trackers',
@@ -43,7 +44,7 @@ export class AffiliateTrackersComponent extends AbstractEntityIndexComponent<Tra
   }
 
   ngOnInit() {
-    this.service.indexQuery = (limit?: number, cursor?: string) => trackersByAffiliateListQuery(this.affiliate.id, limit, cursor);
+    this.service.indexQuery = (params: IndexQueryParameters) => trackersByAffiliateListQuery(this.affiliate.id, params);
     this.takeUpdated = false;
     this.init();
   }
@@ -76,7 +77,7 @@ export class AffiliateTrackersComponent extends AbstractEntityIndexComponent<Tra
   }
 
   showAddTracker(): void {
-    this.service.planeCustomEntitiesQuery(trackersListQuery()).subscribe((trackers: Tracker[]) => {
+    this.service.planeCustomEntitiesQuery(trackersListQuery({})).subscribe((trackers: Tracker[]) => {
       this.associateDialogRef = this.deleteDialog.open(AssociateDialogComponent);
       this.associateDialogRef.componentInstance.options = trackers.filter(tracker => firstIndexOf(this.entities, (el) => el.id === tracker.id) === -1);
       this.associateDialogRef.componentInstance.text = 'AFFILIATE_TRACKING_ASSOCIATETEXT';

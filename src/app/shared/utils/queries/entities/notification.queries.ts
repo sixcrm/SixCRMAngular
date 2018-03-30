@@ -1,13 +1,11 @@
-import {
-  paginationParamsQuery, fullPaginationStringResponseQuery, addUpdatedAtApi,
-  clean
-} from './entities-helper.queries';
+import { paginationParamsQuery, fullPaginationStringResponseQuery, addUpdatedAtApi } from './entities-helper.queries';
 import {utc} from 'moment';
 import {Notification} from '../../../models/notification.model'
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function notificationsListQuery(limit?:number, cursor?:string, search?:string, exclusiveStartKey?: string): string {
+export function notificationsListQuery(params: IndexQueryParameters): string {
   return `{
-    notificationlist ${paginationParamsQuery(limit, cursor, false, exclusiveStartKey)} {
+    notificationlist ${paginationParamsQuery(params)} {
 			notifications {
 			  ${notificationsResponseQuery()}
 			}
@@ -15,9 +13,9 @@ export function notificationsListQuery(limit?:number, cursor?:string, search?:st
 		}}`
 }
 
-export function plainNotificationsListQuery(limit?: number, cursor?: string): string {
+export function plainNotificationsListQuery(params: IndexQueryParameters): string {
   return `{
-    notificationlistbytypes ( types:["notification"], user: true, ${paginationParamsQuery(limit, cursor, true)} ) {
+    notificationlistbytypes ( types:["notification"], user: true, ${paginationParamsQuery(params, true)} ) {
 			notifications {
 			  ${notificationsResponseQuery()}
 			}
@@ -25,7 +23,7 @@ export function plainNotificationsListQuery(limit?: number, cursor?: string): st
 		}}`
 }
 
-export function alertsListQuery(limit?: number, cursor?: string): string {
+export function alertsListQuery(): string {
   return `{
     notificationlistbytypes ( types:["alert"], user: true ) {
 			notifications {
@@ -45,9 +43,9 @@ export function notificationsPersistentListQuery(): string {
 		}}`
 }
 
-export function notificationsQuickListQuery(limit?:number, cursor?:string): string {
+export function notificationsQuickListQuery(params: IndexQueryParameters): string {
   return `{
-    notificationlist ${paginationParamsQuery(limit, null)} {
+    notificationlist ${paginationParamsQuery({limit: params.limit, cursor: null})} {
 			notifications {
 			  ${notificationsResponseQuery()}
 			}

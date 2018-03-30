@@ -3,10 +3,11 @@ import {
   fullPaginationStringResponseQuery, deleteMutationQuery, addId,
   deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function merchantProvidersListQuery(limit?:number, cursor?:string, search?: string): string {
+export function merchantProvidersListQuery(params: IndexQueryParameters): string {
   return `{
-    merchantproviderlist ${listQueryParams(limit, cursor, search)} {
+    merchantproviderlist ${listQueryParams(params)} {
       merchantproviders {
         ${merchantProviderInfoResponseQuery()}
       }

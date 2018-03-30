@@ -4,10 +4,11 @@ import {
   addId, clean, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {ProductSchedule} from '../../../models/product-schedule.model';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function  productScheduleListQuery(limit?:number, cursor?:string, search?: string): string {
+export function  productScheduleListQuery(params: IndexQueryParameters): string {
   return `{
-    productschedulelist ${listQueryParams(limit, cursor, search)} {
+    productschedulelist ${listQueryParams(params)} {
 			productschedules {
         ${productScheduleResponseQuery()}
 			}
@@ -16,9 +17,9 @@ export function  productScheduleListQuery(limit?:number, cursor?:string, search?
   }`;
 }
 
-export function productSchedulesByProduct(id: string, limit?: number, cursor?: string): string {
+export function productSchedulesByProduct(id: string, params: IndexQueryParameters): string {
   return `{
-    productschedulelistbyproduct (product:"${id}" ${paginationParamsQuery(limit, cursor, true)}) {
+    productschedulelistbyproduct (product:"${id}" ${paginationParamsQuery(params, true)}) {
 			productschedules {
         ${productScheduleResponseQuery()}
 			}

@@ -3,10 +3,11 @@ import {
   addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {Tracker} from '../../../models/tracker.model';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function trackersListQuery(limit?: number, cursor?: string, search?: string): string {
+export function trackersListQuery(params: IndexQueryParameters): string {
   return `{
-		trackerlist ${listQueryParams(limit, cursor, search)} {
+		trackerlist ${listQueryParams(params)} {
 		  trackers {
         ${trackerResponseInfoQuery()}
       }
@@ -15,10 +16,10 @@ export function trackersListQuery(limit?: number, cursor?: string, search?: stri
   }`
 }
 
-export function trackersByAffiliateListQuery(affiliateId: string, limit?: number, cursor?: string): string {
+export function trackersByAffiliateListQuery(affiliateId: string, params: IndexQueryParameters): string {
   return `
     query {
-      trackerlistbyaffiliate (affiliate: "${affiliateId}" ${paginationParamsQuery(limit, cursor, true)}) {
+      trackerlistbyaffiliate (affiliate: "${affiliateId}" ${paginationParamsQuery(params, true)}) {
         trackers {
           ${trackerResponseQuery()}
         }

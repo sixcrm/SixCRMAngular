@@ -3,10 +3,11 @@ import {
   addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
 } from './entities-helper.queries';
 import {Affiliate} from '../../../models/affiliate.model';
+import {IndexQueryParameters} from '../index-query-parameters.model';
 
-export function affiliatesListQuery(limit?:number, cursor?:string, search?:string): string {
+export function affiliatesListQuery(params: IndexQueryParameters): string {
   return `{
-    affiliatelist ${listQueryParams(limit, cursor, search)} {
+    affiliatelist ${listQueryParams(params)} {
       affiliates {
         ${affiliateResponseQuery()}
       }

@@ -8,6 +8,7 @@ import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {Currency} from '../../../../shared/utils/currency/currency';
 import {sessionsByAffiliate, sessionsInfoListQuery} from '../../../../shared/utils/queries/entities/session.queries';
+import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
 
 @Component({
   selector: 'affiliate-sessions',
@@ -48,7 +49,7 @@ export class AffiliateSessionsComponent extends AbstractEntityIndexComponent<Ses
   }
 
   ngOnInit() {
-    this.service.indexQuery = (limit?: number, cursor?: string) => sessionsByAffiliate(this.affiliateId, limit, cursor);
+    this.service.indexQuery = (params: IndexQueryParameters) => sessionsByAffiliate(this.affiliateId, params);
     this.init();
   }
 

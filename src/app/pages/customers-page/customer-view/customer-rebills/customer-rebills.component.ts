@@ -7,6 +7,7 @@ import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {rebillsByCustomer, rebillsListQuery} from '../../../../shared/utils/queries/entities/rebill.queries';
+import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
 
 @Component({
   selector: 'customer-rebills',
@@ -37,7 +38,7 @@ export class CustomerRebillsComponent extends AbstractEntityIndexComponent<Rebil
   }
 
   ngOnInit() {
-    this.service.indexQuery = (limit?: number, cursor?: string) => rebillsByCustomer(this.id, limit, cursor);
+    this.service.indexQuery = (params: IndexQueryParameters) => rebillsByCustomer(this.id, params);
 
     this.init(!!this.id);
   }
