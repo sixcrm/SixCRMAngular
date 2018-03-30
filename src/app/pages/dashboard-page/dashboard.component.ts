@@ -28,12 +28,42 @@ export class DashboardComponent implements OnInit, OnDestroy {
   selectedQuery: DashboardQuery = this.queries[0];
 
   timeFilters: DashboardTimeFilter[] = [
-    {label: 'Lifetime', selected: true},
-    {label: 'Past 30 Days', selected: false}
+    {
+      label: 'Lifetime',
+      selected: true,
+      callback: () => {
+        this.data = this.dataFirst.slice();
+        this.totalAmount = new Currency(52302.25);
+        this.revenueMessage = 'Lifetime Total Revenue';
+      }
+    },
+    {
+      label: 'Past 30 Days',
+      selected: false,
+      callback: () => {
+        this.data = this.dataSecond.slice();
+        this.totalAmount = new Currency(8012.13);
+        this.revenueMessage = 'Last 30 Days Revenue';
+      }
+    }
   ];
 
   totalAmount: Currency = new Currency(12015.25);
+  revenueMessage: string = 'Lifetime Total Revenue';
+
   name: string;
+
+  dataFirst = [
+    [0, 2, 7, 10, 12, 18.7, 26, 28, 30, 31, 36, 52.3],
+    [0, 1, 3, 5, 9, 11.2, 20, 21.1, 22, 25, 28, 42]
+  ];
+
+  dataSecond = [
+    [18.7, 26, 28, 30, 31, 36, 52.3],
+    [11.2, 20, 21.1, 22, 25, 28, 42]
+  ];
+
+  data = this.dataFirst.slice();
 
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
@@ -71,5 +101,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   selectTimeFilter(filter: DashboardTimeFilter) {
     this.timeFilters.forEach(f => f.selected = (f === filter));
+
+    filter.callback();
   }
 }

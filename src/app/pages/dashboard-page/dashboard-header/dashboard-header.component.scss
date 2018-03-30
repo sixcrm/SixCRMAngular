@@ -32,4 +32,9 @@
   font-style: italic;
   font-size: 24px;
   font-weight: 300;
+  text-align: right;
+
+  div:last-of-type {
+    font-size: 16px;
+  }
 }
