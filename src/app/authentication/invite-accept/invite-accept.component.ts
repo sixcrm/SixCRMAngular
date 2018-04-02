@@ -40,20 +40,17 @@ export class InviteAcceptComponent implements OnInit {
       this.token = params['t'];
       this.param = params['p'];
 
-      let decParam = atob(this.param);
+      let dec = atob(this.param);
+      let decParam = {};
 
-      if (decParam && decParam.split(':')[0]) {
-        this.email = decParam.split(':')[0];
-      }
-      if (decParam && decParam.split(':')[2]) {
-        this.invitor = decParam.split(':')[2];
-      }
-      if (decParam && decParam.split(':')[3]) {
-        this.account = decParam.split(':')[3];
-      }
-      if (decParam && decParam.split(':')[4]) {
-        this.role = decParam.split(':')[4];
-      }
+      try {
+        decParam = JSON.parse(dec);
+      } catch (error) { }
+
+      this.email = decParam['email'];
+      this.invitor = decParam['invitor'];
+      this.account = decParam['account'];
+      this.role = decParam['role'];
 
       if (!this.token || !this.param || !this.email) {
         this.router.navigate(['/']);
