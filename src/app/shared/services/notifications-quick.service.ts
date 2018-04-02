@@ -67,7 +67,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
     this.getAlerts();
   }
 
-  restartPoolingNotifications(): void {
+  restartPoolingNotifications(timeout?: number): void {
     if (this.notificationsSub) {
       this.notificationsSub.unsubscribe();
     }
@@ -80,7 +80,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
       this.alertSub.unsubscribe();
     }
 
-    this.startPoolingNotifications();
+    setTimeout(() => this.startPoolingNotifications(), timeout || 1);
   }
 
   getNotificationCount(): void {
