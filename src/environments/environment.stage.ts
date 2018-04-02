@@ -6,6 +6,6 @@ export const environment = {
   clientID: 'JM1tC2j7tycbu62el3oBhyklpNbk5x6F',
   domain: 'sixcrm.auth0.com',
   auth0RedirectUrl: 'https://staging-admin.sixcrm.com',
-  translationsUrl: 'http://staging-crossrepositorytranslations.s3-website-us-east-1.amazonaws.com/',
+  translationsUrl: 'https://d3gac4cnrn5mn6.cloudfront.net/',
   version: '0.0.0'
 };
