@@ -309,11 +309,11 @@ export class AuthenticationService {
     return subject;
   }
 
-  public activateUser(token: string, param: string): Observable<User> {
+  public activateUser(token: string, param: string, account?: string): Observable<User> {
     let subject = new Subject<User>();
 
     this.http.post(
-      environment.endpoint + '*', acceptInviteMutation(token, param),
+      environment.endpoint + (account || '*'), acceptInviteMutation(token, param),
       { headers: generateHeaders(this.getToken()) },
       { failStrategy: FailStrategy.HardStandalone }
     ).subscribe(

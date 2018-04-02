@@ -16,6 +16,7 @@ export class InviteAcceptComponent implements OnInit {
   invitor: string;
   account: string;
   role: string;
+  accountId: string;
 
   loginRequiredScreen: boolean;
   welcomeScreen: boolean;
@@ -50,6 +51,7 @@ export class InviteAcceptComponent implements OnInit {
       this.email = decParam['email'];
       this.invitor = decParam['invitor'];
       this.account = decParam['account'];
+      this.accountId = decParam['account_id'];
       this.role = decParam['role'];
 
       if (!this.token || !this.param || !this.email) {
@@ -65,7 +67,7 @@ export class InviteAcceptComponent implements OnInit {
   }
 
   acceptInvite(): void {
-    this.authService.activateUser(this.token, this.param).subscribe((user: User) =>{
+    this.authService.activateUser(this.token, this.param, this.accountId).subscribe((user: User) =>{
       if (user) {
         this.user = user;
 
