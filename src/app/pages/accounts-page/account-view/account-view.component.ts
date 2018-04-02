@@ -44,7 +44,7 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
 
   menuOptions: CustomMenuOption[] = [
     {label: 'ACCOUNT_USERS_VIEW', option: 'view', show: (acl: Acl) => !acl.pending && this.authService.isActiveAclMasterAccount()},
-    {label: 'ACCOUNT_USERS_INVITE', option: 'resend', show: (acl: Acl) => !!acl.pending}
+    {label: 'ACCOUNT_USERS_RESEND', option: 'resend', show: (acl: Acl) => !!acl.pending}
   ];
 
   formInvalid: boolean;
