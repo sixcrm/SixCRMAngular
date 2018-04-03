@@ -10,7 +10,7 @@ export function  productScheduleListQuery(params: IndexQueryParameters): string 
   return `{
     productschedulelist ${listQueryParams(params)} {
 			productschedules {
-        ${productScheduleResponseQuery()}
+        ${productScheduleInfoResponseQuery()}
 			}
       ${fullPaginationStringResponseQuery()}
 		}
@@ -66,7 +66,7 @@ export function productScheduleResponseQuery(): string {
   return `
     id name created_at updated_at,
     schedule { price start end period,
-      product { id name ship attributes { images { path default_image} } }
+      product { id name ship attributes { images { path default_image } } }
     }
     merchantprovidergroup {
       ${merchantProviderGroupResponseQuery()}
@@ -74,7 +74,7 @@ export function productScheduleResponseQuery(): string {
 }
 
 export function productScheduleInfoResponseQuery(): string {
-  return `id name merchantprovidergroup {id name} created_at updated_at schedule { price}`
+  return `id name merchantprovidergroup {id name} created_at updated_at schedule { start end price product {id name default_price attributes {images {path default_image}}} }`
 }
 
 export function productScheduleInputQuery(productSchedule: ProductSchedule, includeId?: boolean): string {

@@ -6,19 +6,21 @@ import {Moment, utc} from 'moment';
 export class ProductSchedule implements Entity<ProductSchedule> {
   id: string;
   name: string;
+  quantity: number;
   schedules: Schedule[] = [];
   merchantProviderGroup: MerchantProviderGroup;
   createdAt: Moment;
   updatedAt: Moment;
   updatedAtAPI: string;
 
-  constructor(obj?: any) {
+  constructor(obj?: any, additional?: any) {
     if (!obj) {
       obj = {};
     }
 
     this.id = obj.id || '';
     this.name = obj.name || '';
+    this.quantity = additional && additional.quantity ? additional.quantity : 1;
     this.merchantProviderGroup = new MerchantProviderGroup(obj.merchantprovidergroup);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);

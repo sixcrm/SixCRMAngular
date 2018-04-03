@@ -12,6 +12,12 @@ import {Affiliate} from '../../../shared/models/affiliate.model';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {ProductSchedule} from '../../../shared/models/product-schedule.model';
+import {Subject} from 'rxjs';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {Product} from '../../../shared/models/product.model';
+import {WatermarkProductSchedule} from '../../../shared/models/watermark/watermark-product-schedule.model';
+import {WatermarkProduct} from '../../../shared/models/watermark/watermark-product.model';
 
 @Component({
   selector: 'session-view',
@@ -58,6 +64,11 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
     {label: () => this.entity.alias}
   ];
 
+  saveDebouncer: Subject<ProductSchedule[]> = new Subject();
+  productSchedulesWaitingForUpdate: ProductSchedule[];
+  updateError: boolean;
+  autosaveDebouncer: number = 3500;
+
   constructor(service: SessionsService,
               route: ActivatedRoute,
               public navigation: NavigationService,
@@ -68,6 +79,24 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
   }
 
   ngOnInit() {
+    this.takeUpdated = false;
+
+    this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(session => {
+      if (session instanceof CustomServerError) {
+        this.updateError = true;
+      } else {
+        this.updateError = false;
+        this.entity.updatedAtAPI = session.updatedAtAPI;
+        this.entity.updatedAt = session.updatedAt.clone();
+        this.entityBackup = this.entity.copy();
+        this.productSchedulesWaitingForUpdate = null;
+      }
+    });
+
+    this.saveDebouncer.debounceTime(this.autosaveDebouncer).takeUntil(this.unsubscribe$).subscribe(productSchedules => {
+      this.updateEntity(this.copyWithWatermark(productSchedules, this.entity.watermark.extractedProducts), {ignoreSnack: true});
+    });
+
     super.init(() => this.navigation.goToNotFoundPage());
 
     let f = this.authService.getTimezone();
@@ -92,9 +121,29 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
   }
 
   ngOnDestroy() {
+    if (this.productSchedulesWaitingForUpdate) {
+      this.updateEntity(this.copyWithWatermark(this.productSchedulesWaitingForUpdate, this.entity.watermark.extractedProducts));
+    }
+
     this.navigation.resetSidenavAuto();
 
     this.destroy();
+  }
+
+  copyWithWatermark(productSchedules: ProductSchedule[], products: Product[]): Session {
+    let copy: Session = this.entity.copy();
+
+    if (productSchedules) {
+      copy.watermark.productSchedules = productSchedules.map(ps => new WatermarkProductSchedule({quantity: ps.quantity, product_schedule: ps.inverse()}))
+      copy.watermark.extractedProductSchedules = productSchedules;
+    }
+
+    if (products) {
+      copy.watermark.products = products.map(p => new WatermarkProduct({quantity: p.quantity, price: p.price.amount, product: p.inverse()}))
+      copy.watermark.extractedProducts = products;
+    }
+
+    return copy;
   }
 
   setIndex(value: number): void {
@@ -121,6 +170,13 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
 
   setDetails(details) {
     this.detailsElement = details;
+  }
+
+  updateItems(productSchedules: ProductSchedule[]) {
+    if (productSchedules && productSchedules.length > 0) {
+      this.productSchedulesWaitingForUpdate = productSchedules;
+      this.saveDebouncer.next(productSchedules);
+    }
   }
 
 }

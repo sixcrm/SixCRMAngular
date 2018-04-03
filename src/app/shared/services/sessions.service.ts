@@ -5,7 +5,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {HttpWrapperService} from './http-wrapper.service';
 import {
   sessionsInfoListQuery, sessionQuery, deleteSessionMutation,
-  deleteSessionsMutation
+  deleteSessionsMutation, updateSessionMutation
 } from '../utils/queries/entities/session.queries';
 import {MdSnackBar} from '@angular/material';
 
@@ -22,7 +22,7 @@ export class SessionsService extends AbstractEntityService<Session> {
       deleteSessionMutation,
       deleteSessionsMutation,
       null,
-      null,
+      updateSessionMutation,
       'session',
       snackBar
     );

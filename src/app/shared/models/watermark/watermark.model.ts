@@ -29,7 +29,12 @@ export class Watermark {
     if (obj.product_schedules) {
       this.productSchedules = obj.product_schedules.map(ps => new WatermarkProductSchedule(ps));
 
-      this.extractedProductSchedules = this.productSchedules.map(ps => ps.productSchedule);
+      this.extractedProductSchedules = this.productSchedules.map(ps => {
+        const productSchedule = ps.productSchedule.inverse();
+        const additional = {quantity: ps.quantity};
+
+        return new ProductSchedule(productSchedule, additional);
+      });
     }
   }
 

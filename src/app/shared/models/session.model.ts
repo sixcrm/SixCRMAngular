@@ -13,8 +13,10 @@ export class Session implements Entity<Session> {
   alias: string;
   customer: Customer;
   productSchedules: ProductSchedule[] = [];
+  completed: boolean;
   rebills: Rebill[] = [];
   campaign: Campaign;
+  cid: Affiliate;
   affiliate: Affiliate;
   subAffiliate1: Affiliate;
   subAffiliate2: Affiliate;
@@ -25,6 +27,7 @@ export class Session implements Entity<Session> {
   canceled: SessionCancelation;
   createdAt: Moment;
   updatedAt: Moment;
+  updatedAtAPI: string;
   startedAt: Moment;
 
   constructor(obj?: any) {
@@ -35,7 +38,9 @@ export class Session implements Entity<Session> {
     this.id = obj.id || '';
     this.alias = obj.alias || '';
     this.customer = new Customer(obj.customer);
+    this.completed = !!obj.completed;
     this.campaign = new Campaign(obj.campaign);
+    this.cid = new Affiliate(obj.cid);
     this.affiliate = new Affiliate(obj.affiliate);
     this.subAffiliate1 = new Affiliate(obj.subaffiliate_1);
     this.subAffiliate2 = new Affiliate(obj.subaffiliate_2);
@@ -46,6 +51,7 @@ export class Session implements Entity<Session> {
     this.canceled = new SessionCancelation(obj.canceled);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
+    this.updatedAtAPI = obj.updated_at;
     this.startedAt = utc(obj.created_at).hour(0).minute(0).second(0).millisecond(0);
 
     if (obj.product_schedules) {
@@ -98,6 +104,8 @@ export class Session implements Entity<Session> {
       rebills: this.rebills.map(r => r.inverse()),
       campaign: this.campaign.inverse(),
       affiliate: this.affiliate.inverse(),
+      completed: this.completed,
+      cid: this.cid.inverse(),
       subaffiliate_1: this.subAffiliate1.inverse(),
       subaffiliate_2: this.subAffiliate2.inverse(),
       subaffiliate_3: this.subAffiliate3.inverse(),
@@ -106,7 +114,7 @@ export class Session implements Entity<Session> {
       watermark: this.watermark.inverse(),
       canceled: this.canceled.inverse(),
       created_at: this.createdAt.clone().format(),
-      updated_at: this.updatedAt.clone().format()
+      updated_at: this.updatedAtAPI
     }
   }
 }

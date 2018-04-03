@@ -99,6 +99,8 @@
           [productSchedules]="entity.watermark.extractedProductSchedules"
           [products]="entity.watermark.extractedProducts"
           [startDate]="entity.startedAt"
+          (productSchedulesChanged)="updateItems($event)"
+          [statusMessage]="updateError ? 'Error occured on save' : productSchedulesWaitingForUpdate ? 'Saving...' : 'All changes saved'"
           (detailsComponent)="setDetails($event)">
         </schedules-detailed>
       </md-tab>
