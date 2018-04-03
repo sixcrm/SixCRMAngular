@@ -47,7 +47,7 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
   selectedSchedule: ProductSchedule | Schedule | Product;
   displayMode: DisplayModes = DisplayModes.grid;
   modes = DisplayModes;
-  zoomLevel: number = 7;
+  zoomLevel: number = 5;
   sideVisible: boolean = true;
   consecutiveUndo: boolean;
   numberOfDays: number = 365;

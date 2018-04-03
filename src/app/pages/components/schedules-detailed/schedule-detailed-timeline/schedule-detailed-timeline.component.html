@@ -7,9 +7,7 @@
         <div *ngIf="!schedule.end"
              class="item"
              [style.top]="productSchedule.detailedListOpened ? (i + 1) * cellheight + 8 + 'px' : '8px'">
-          <md-icon>
-            autorenew
-          </md-icon>
+          <md-icon>autorenew</md-icon>
         </div>
       </ng-container>
     </div>
@@ -17,20 +15,23 @@
 
   <div class="timeline-container"
        [style.width]="(days / _zoom) * cellwidth + 20 + 'px'"
-       [style.background-position-x]="cellwidth / (2*_zoom) + 'px'"
-       [style.background-size]="cellwidth / _zoom + 'px 46px'">
+       [style.background-position-x]="'8px'"
+       [style.background-size]="cellwidth + 'px ' + cellheight + 'px'">
 
     <div class="timeline-body">
       <div class="timeline-header">
-        <div></div>
+        <div class="item" style="width: 8px"><div class="item__text"></div><div class="item__background"></div></div>
         <ng-container *ngFor="let measure of measureArray">
-          <div [style.left]="(measure) * cellwidth + cellwidth / (2*_zoom) + 'px'">
-            {{measure * _zoom}}
+          <div class="item" [style.left]="(measure) * cellwidth + 8 + 'px'">
+            <div class="item__text">
+              {{measure * _zoom}}
+            </div>
+            <div class="item__background" [style.background-size]="cellwidth / _zoom + 'px 26px'"></div>
           </div>
         </ng-container>
       </div>
 
-      <div *ngIf="!singleScheduleMode" class="date-placeholder" [style.left]="((_diff + 0.5) * cellwidth) / _zoom + 'px'">
+      <div *ngIf="!singleScheduleMode" class="date-placeholder" [style.left]="(_diff * cellwidth) / _zoom + 8 + 'px'">
         <div class="date-placeholder__box">
           {{today}}
           <div class="date-placeholder__box__pointer"></div>
@@ -49,43 +50,72 @@
                 <div class="cycle-flag"
                      *ngIf="schedule.detailedListSelected || productSchedule.detailedListSelected"
                      [class.cycle-flag--slow]="cycle.dragDiff !== 0 || cycle.dragdiffDiff !== 0"
+                     [class.cycle-flag--active]="cycle.start === schedule.start && cycle.dragDiff !== 0"
                      [style.height]="getHeight(productScheduleNum, scheduleNum)"
-                     [style.left]="((cycle.start + 0.5) * cellwidth) / _zoom + cycle.dragDiff + 'px'">
+                     [style.left]="(cycle.start * cellwidth) / _zoom + cycle.dragDiff + 8 + 'px'">
                   <div class="date-box">
                     {{singleScheduleMode ? 'Day ' + cycle.start : _start.clone().add(cycle.start, 'd').format('MMM DD')}}
                   </div>
                 </div>
-                <div class="cycle-container"
-                     [style.z-index]="productSchedule.detailedListOpened ? productSchedule.schedules.length + 2 - scheduleNum : cycle.order + 2"
-                     [class.cycle-container--slow]="cycle.dragDiff !== 0 || cycle.dragdiffDiff !== 0"
-                     [style.padding-left]="cycleNum === 0 ? '2px' : 0"
-                     [style.padding-right]="cycleNum === schedule.cycles.length - 1 ? '2px' : 0"
-                     [style.width]="(cycle.diff * cellwidth) / _zoom + + cycle.dragdiffDiff + 'px'"
-                     [style.left]="((cycle.start + 0.5) * cellwidth) / _zoom + cycle.dragDiff + 'px'">
-                  <div class="tail"
-                       [style.height]="productSchedule.detailedListOpened ? (scheduleNum + 1) * cellheight + 'px' : 0"
-                       [style.background]="cycle.start < _diff ? greenTail : blueTail">
+                <div class="cycle-container--wrapper">
+                  <div *ngIf="(schedule.detailedListSelected && cycle.start === schedule.start) || (productSchedule.detailedListSelected && !productSchedule.detailedListOpened && cycle.order === 1)"
+                       class="cycle-container--background"
+                       [style.width]="days * cellwidth + 'px'"
+                       [style.background]="cycle.start < _diff ? greenBackground : blueBackground"
+                       [style.top]="productSchedule.detailedListOpened ? (scheduleNum + 1) * cellheight + 'px' : 0">
                   </div>
-                  <div class="bar"
-                       (click)="selected.emit(schedule)"
-                       [style.background]="cycle.start < _diff ? green : blue">
-                    <div class="body"
-                         draggable="true"
-                         (dragstart)="dragStarted($event, schedule, productSchedule)"
-                         (drag)="drag($event, schedule, productSchedule)"
-                         (dragend)="dragEnded($event, schedule, productSchedule)">
-                      <div class="order" [style.background]="cycle.start < _diff ? '#2F824D' : '#3F587B'">
-                        <span>{{ cycle.order }}</span>
+                  <div *ngIf="cycle.dragInProgress"
+                       class="cycle-container--fixed"
+                       [style.top]="productSchedule.detailedListOpened ? (scheduleNum + 1) * cellheight + 'px' : 0"
+                       [style.width]="(cycle.diff * cellwidth) / _zoom + 'px'"
+                       [style.left]="(cycle.start * cellwidth) / _zoom + 8 + 'px'">
+                    <div class="content"
+                         [style.color]="cycle.start < _diff ? greenText : blueText"
+                         [class.content--border-left]="cycle.start === schedule.start"
+                         [class.content--border-right]="cycle.end === schedule.end">
+                      <div [class.content--right]="(cycle.end === schedule.end && cycle.start !== schedule.start) || cycle.dragdiffDiff !== 0">
+                        {{calculateDaysDiff(cycle, schedule)}}
                       </div>
-                      <ng-container>
-                        {{ productSchedule['detailedListOpened'] ? schedule.product.name : cycle.stack === 1 ? schedule.product.name : cycle.stack + ' Items' }}
-                      </ng-container>
                     </div>
-                    <div class="resizer"
-                         draggable="true"
-                         (dragstart)="dragResizeStarted($event, schedule)"
-                         (drag)="dragResize($event, schedule, cycleNum)"
-                         (dragend)="dragResizeEnded($event, schedule, cycleNum)">
+                  </div>
+                  <div class="cycle-container"
+                       [style.z-index]="(cycle.dragInProgress || schedule.detailedListSelected) ? 995 : productSchedule.detailedListOpened ? productSchedule.schedules.length + 2 - scheduleNum : cycle.order + 2"
+                       [class.cycle-container--slow]="cycle.dragDiff !== 0 || cycle.dragdiffDiff !== 0"
+                       [style.top]="productSchedule.detailedListOpened ? (scheduleNum + 1) * cellheight + 'px' : 0"
+                       [style.width]="(cycle.diff * cellwidth) / _zoom + cycle.dragdiffDiff + 'px'"
+                       [style.left]="(cycle.start * cellwidth) / _zoom + cycle.dragDiff + 8 + 'px'">
+                    <div class="bar"
+                         (click)="selected.emit(schedule)"
+                         [class.bar--drag-in-progress]="cycle.dragInProgress"
+                         [class.bar--border-left]="cycle.start === schedule.start"
+                         [class.bar--border-right]="cycle.end === schedule.end"
+                         [style.border-color]="cycle.start < _diff ? greenSelected : blueSelected"
+                         [style.background]="schedule.detailedListSelected || productSchedule.detailedListSelected ? cycle.start < _diff ? greenSelected : blueSelected : cycle.start < _diff ? green : blue">
+                      <div class="body"
+                           draggable="true"
+                           [style.color]="schedule.detailedListSelected || productSchedule.detailedListSelected ? 'white' : cycle.start < _diff ? greenText : blueText"
+                           (dragstart)="dragStarted($event, schedule, productSchedule)"
+                           (drag)="drag($event, schedule, productSchedule)"
+                           (dragend)="dragEnded($event, schedule, productSchedule)">
+                        <div *ngIf="cycle.start === schedule.start" class="order" [style.background]="cycle.start < _diff ? greenText : blueText">
+                          <span>{{ cycle.order }}</span>
+                        </div>
+                        <ng-container>
+                          <span class="name" draggable="true">
+                            {{ productSchedule['detailedListOpened'] ? cycle.start === schedule.start ? schedule.product.name : '' : cycle.stack === 1 ? cycle.start === schedule.start ? schedule.product.name : '' : cycle.stack + ' Items' }}
+                          </span>
+                          <ng-container *ngIf="productSchedule['detailedListOpened'] || cycle.stack < 2">
+                            <span draggable="true" class="duration" *ngIf="schedule.cycles.length === 1"> {{cycle.diff}} Days </span>
+                            <span draggable="true" class="duration" *ngIf="cycleNum > 0 && (cycleNum % 2 === 0 || (cycleNum === (schedule.cycles.length - 1)))"> <md-icon>loop</md-icon> Every {{schedule.period}} days </span>
+                          </ng-container>
+                        </ng-container>
+                      </div>
+                      <div class="resizer"
+                           draggable="true"
+                           (dragstart)="dragResizeStarted($event, schedule, cycleNum)"
+                           (drag)="dragResize($event, schedule, cycleNum)"
+                           (dragend)="dragResizeEnded($event, schedule, cycleNum)">
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -98,7 +128,7 @@
       </ng-container>
 
       <ng-container *ngFor="let product of products">
-        <div class="product-container" [style.margin-left]="cellwidth / (2*_zoom) + 'px'">
+        <div class="product-container" [style.margin-left]="'8px'">
           <ng-container *ngIf="product.getDefaultImagePath(); else defaultimage">
             <div (click)="selected.emit(product)" class="image" [style.background-image]="'url(' + product.getDefaultImagePath() + ')'"></div>
           </ng-container>

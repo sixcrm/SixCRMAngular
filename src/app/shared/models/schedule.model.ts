@@ -8,6 +8,7 @@ export class Cycle {
   dragdiffDiff: number = 0;
   order: number = 0;
   stack: number = 0;
+  dragInProgress: boolean = false;
 
   constructor(public start: number, public end: number) {
     this.diff = end - start;

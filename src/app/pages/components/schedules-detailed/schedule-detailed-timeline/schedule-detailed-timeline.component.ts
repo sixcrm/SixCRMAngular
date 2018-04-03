@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import {ProductSchedule} from '../../../../shared/models/product-schedule.model';
 import {Moment, utc} from 'moment';
-import {Schedule} from '../../../../shared/models/schedule.model';
+import {Schedule, Cycle} from '../../../../shared/models/schedule.model';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {Subject} from 'rxjs';
 import {Product} from '../../../../shared/models/product.model';
@@ -54,11 +54,15 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
 
   today: string = '';
 
-  green: string = 'rgba(47,195,97,1)';
-  greenTail: string = 'rgba(47,195,97,0.22)';
+  green: string = 'rgba(193,244,221,1)';
+  greenText: string = '#2F824D';
+  greenSelected: string = 'rgba(47,195,98,1)';
+  greenBackground: string = 'rgba(47,195,97,0.12)';
 
-  blue: string = 'rgba(83,131,195,1)';
-  blueTail: string = 'rgba(83,131,195,0.22)';
+  blue: string = 'rgba(167,220,246,1)';
+  blueText: string = '#3F587B';
+  blueSelected: string = 'rgba(75,144,221,1)';
+  blueBackground: string = 'rgba(83,131,195,0.12)';
 
   changeDebouncer: Subject<boolean> = new Subject();
   loadMoreDebouncer: Subject<boolean> = new Subject();
@@ -98,6 +102,7 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
     this.startX = event.clientX;
     for (let i = 0; i < schedule.cycles.length; i++) {
       schedule.cycles[i].dragDiff = 0;
+      schedule.cycles[i].dragInProgress = true;
     }
   }
 
@@ -150,15 +155,17 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
       schedule.cycles[i].start += diffInDays;
       schedule.cycles[i].end += diffInDays;
       schedule.cycles[i].dragDiff = 0;
+      schedule.cycles[i].dragInProgress = false;
     }
   }
 
-  dragResizeStarted(event, schedule: Schedule) {
+  dragResizeStarted(event, schedule: Schedule, cycleNum: number) {
     this.selected.emit(schedule);
 
     this.startX = event.clientX;
     for (let i = 0; i < schedule.cycles.length; i++) {
       schedule.cycles[i].dragdiffDiff = 0;
+      schedule.cycles[i].dragInProgress = true;
     }
   }
 
@@ -191,6 +198,9 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
       schedule.cycles[cycleNum].end += diffInDays;
       schedule.cycles[cycleNum].diff += diffInDays;
       schedule.cycles[cycleNum].dragdiffDiff = 0;
+      for (let i = 0; i < schedule.cycles.length; i++) {
+        schedule.cycles[i].dragInProgress = false;
+      }
     } else {
       for (let i = 0; i < schedule.cycles.length; i++) {
         schedule.cycles[i].diff += diffInDays;
@@ -200,6 +210,7 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
         }
 
         schedule.cycles[i].dragdiffDiff = 0;
+        schedule.cycles[i].dragInProgress = false;
       }
     }
   }
@@ -207,9 +218,9 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
   getHeight(productScheduleNum, scheduleNum): string {
     if (productScheduleNum === 0) {
       if (this.productSchedules[0]['detailedListOpened']) {
-        return (scheduleNum + 1) * this.cellheight + 30 + 'px';
+        return (scheduleNum + 1) * this.cellheight + 55 + 'px';
       } else {
-        return '30px';
+        return '55px';
       }
     }
 
@@ -219,13 +230,31 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
         cells += this.productSchedules[i]['detailedListOpened'] ? this.productSchedules[i].schedules.length + 1 : 1;
     }
 
-    return (cells + (this.productSchedules[productScheduleNum]['detailedListOpened'] ? (scheduleNum + 1) : 0)) * this.cellheight + 30 + 'px';
+    return (cells + (this.productSchedules[productScheduleNum]['detailedListOpened'] ? (scheduleNum + 1) : 0)) * this.cellheight + 55 + 'px';
   }
 
   scrolled(event) {
     if (event.target.scrollLeft + event.target.offsetWidth >= event.target.scrollWidth) {
       this.loadMoreDebouncer.next(true);
     }
+  }
+
+  calculateDaysDiff(cycle: Cycle, schedule: Schedule): string {
+    if (cycle.dragInProgress && cycle.dragdiffDiff !== 0) {
+      const days = Math.floor(cycle.dragdiffDiff / (this.cellwidth / this._zoom));
+
+      if (days === 0) return '';
+
+      return `${days > 0 ? '+': ''}${days} Days`;
+    }
+
+    if (cycle.start !== schedule.start && cycle.end !== schedule.end) return '';
+
+    const days = Math.floor(cycle.dragDiff / (this.cellwidth / this._zoom));
+
+    if (days === 0) return '';
+
+    return `${days > 0 ? '+': ''}${days} Days`;
   }
 
   private performScroll(value: Product | Schedule | ProductSchedule) {

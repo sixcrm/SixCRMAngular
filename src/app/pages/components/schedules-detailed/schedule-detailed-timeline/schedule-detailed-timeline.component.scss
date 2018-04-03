@@ -45,7 +45,7 @@
   height: 100%;
   overflow: hidden;
   background-position-y: 46px;
-  background-image: linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px);
+  background-image: linear-gradient(to right, rgba(0,0,0,0.07) 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px);
   transition: background-size 250ms ease-in-out, background-position-x 250ms ease-in-out;
 
   .date-placeholder {
@@ -88,16 +88,26 @@
     position: relative;
     height: 46px;
 
-    div {
+    .item {
       position: absolute;
-      display: inline-block;
+      display: flex;
+      flex-direction: column;
       width: 65px;
-      background: #F3F3F3;
       height: 46px;
       line-height: 20px;
       font-size: 10px;
       color: rgba(0,0,0,0.45);
       border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+      &__text {
+        height: 20px;
+        background: white;
+      }
+
+      &__background {
+        height: 26px;
+        background-image: linear-gradient(to right, rgba(0,0,0,0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.07) 1px, transparent 1px);
+      }
     }
   }
 
@@ -118,17 +128,23 @@
 
   .item-selected {
     .bar {
-      border: 3px solid #24F5FE;
-      margin: -3px;
     }
   }
 
   .cycle-flag {
     position: absolute;
-    width: 2px;
+    width: 1px;
     top: 22px;
     background: #8C8787;
     transition: height 0.6s cubic-bezier(0.35, 0, 0.25, 1), left 250ms ease-in-out;
+
+    &--active {
+      background: #428ADB;
+
+      .date-box {
+        background: #428ADB !important;
+      }
+    }
 
     &--slow {
       transition: left 50ms ease-in-out;
@@ -152,15 +168,52 @@
     height: 46px;
     padding: 6px 0;
     box-sizing: border-box;
-    transition: width 250ms ease-in-out, height 250ms ease-in-out, left 250ms ease-in-out;
+    transition: width 250ms ease-in-out, height 250ms ease-in-out, left 250ms ease-in-out, top 0.6s cubic-bezier(0.35, 0, 0.25, 1);
 
     &--slow {
       transition: width 50ms ease-in-out, height 250ms ease-in-out, left 50ms ease-in-out;
     }
 
-    .tail {
-      border-radius: 5px 5px 0 0;
-      transition: height 0.6s cubic-bezier(0.35, 0, 0.25, 1);
+    &--background {
+      position: absolute;
+      height: 46px;
+      background: rgba(0,0,0,0.1);
+      transition: top 0.6s cubic-bezier(0.35, 0, 0.25, 1);
+    }
+
+    &--fixed {
+      position: absolute;
+      height: 46px;
+      padding: 6px 0;
+      box-sizing: border-box;
+
+      .content {
+        height: 34px;
+        box-sizing: border-box;
+        border-top: 1.4px solid;
+        border-bottom: 1.4px solid;
+        border-radius: 5px;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 2px 4px;
+        white-space: nowrap;
+
+        &--border-left {
+          border-left: 1.4px solid;
+        }
+
+        &--border-right {
+          border-right: 1.4px solid;
+        }
+
+        &--right {
+          text-align: right;
+        }
+      }
+    }
+
+    &--wrapper {
+      position: relative;
     }
 
     .bar {
@@ -168,11 +221,26 @@
       color: white;
       font-size: 11px;
       font-weight: 500;
+      border-top: 1px solid;
+      border-bottom: 1px solid;
       border-radius: 5px;
       height: 34px;
       line-height: 34px;
       padding-left: 8px;
       cursor: pointer;
+      transition: margin-top 150ms ease-in-out;
+
+      &--border-left {
+        border-left: 1px solid;
+      }
+
+      &--border-right {
+        border-right: 1px solid;
+      }
+
+      &--drag-in-progress {
+        margin-top: 20px;
+      }
     }
 
     .body {
@@ -182,6 +250,22 @@
       white-space: nowrap;
       overflow: hidden;
       width: calc(100% - 6px);
+
+      .name {
+        margin-right: 10px;
+      }
+
+      .duration {
+        margin-left: auto;
+        font-size: 10px;
+
+        md-icon {
+          height: 16px;
+          width: 16px;
+          font-size: 16px;
+          vertical-align: middle;
+        }
+      }
     }
 
     .order {
@@ -196,6 +280,7 @@
       span {
         margin: 0 auto;
         font-size: 10px;
+        color: white;
       }
     }
 
