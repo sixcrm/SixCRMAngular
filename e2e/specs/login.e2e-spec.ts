@@ -1,3 +1,4 @@
+///<reference path="../po/dashboard.po.ts"/>
 import {AuthPage} from '../po/auth.po';
 import {browser} from 'protractor';
 import {DashboardPage} from '../po/dashboard.po';
@@ -90,6 +91,6 @@ describe('Login', function() {
 
     browser.sleep(1000);
     expectPresent(authPage.getAuth0Lock());
-  })
+  });
 });
 

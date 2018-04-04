@@ -10,11 +10,11 @@ export class DashboardPage {
   }
 
   getCollapsedMenuButton() {
-    return element(by.css('.topnav__items--collapsed__icon'));
+    return element(by.css('.profile-dropdown__header'));
   }
 
   getCollapsedMenuItems() {
-    return element.all(by.css('.topnav__items--collapsed__menu__button'));
+    return element.all(by.css('.profile-dropdown__menu__item'));
   }
 
   getAdvancedFilterComponent() {
