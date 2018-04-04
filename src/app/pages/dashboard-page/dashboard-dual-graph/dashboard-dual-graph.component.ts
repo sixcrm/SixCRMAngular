@@ -39,8 +39,10 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
 
     this.options = {
       chart: {
+        margin: [0,0,0,0],
+        spacing: [0,0,0,0],
         animation: true,
-        height: '35%',
+        height: '30%',
         type: 'area',
         backgroundColor: 'rgba(0,0,0,0)'
       },
@@ -60,6 +62,7 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
         gridLineWidth: 0
       },
       xAxis: {
+        visible: false,
         labels: {
           enabled: false
         }
@@ -89,6 +92,7 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
       },
       plotOptions: {
         area: {
+          fillOpacity: 1,
           marker: {
             enabled: false
           },
@@ -100,7 +104,7 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
                 return `
                 <div class="dashboard-tooltip-text" style="color: white">
                   ${this.series.index === 0 ? '$' : ''}
-                  ${this.y}
+                  ${this.y}k
                   ${this.series.index === 1
                   ? `<div class="dashboard-label-icon-holder"><i class="material-icons">shopping_cart</i></div>`
                   : `<div class="dashboard-label-icon-holder"> <div>$</div></div>`}

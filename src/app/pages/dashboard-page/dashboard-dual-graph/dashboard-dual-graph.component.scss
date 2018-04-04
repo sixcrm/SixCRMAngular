@@ -1,3 +1,14 @@
 chart {
   display: block;
 }
+
+.dashboard-chart-footer {
+  margin-top: -1px;
+  width: 100%;
+  height: 35px;
+  //background: #4DABF5;
+}
+
+.dashboard-dual-graph-container {
+  overflow: hidden;
+}

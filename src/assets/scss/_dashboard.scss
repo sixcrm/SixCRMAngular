@@ -294,9 +294,11 @@ $color-orange: #F16C00;
 .dashboard-chart {
   .highcharts-container {
     width: 100% !important;
+    overflow: visible !important;
 
     .highcharts-root {
       width: 100%;
+      overflow: visible !important;
     }
   }
 }
