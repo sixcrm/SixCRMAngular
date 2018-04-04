@@ -21,9 +21,9 @@ describe('Affiliate Report', function() {
 
   it('should navigate to affiliate report page', () => {
     const sidenav = new SidenavPage();
-    sidenav.getLink(2).click();
+    sidenav.getItems().get(10).click();
     browser.sleep(500);
-    sidenav.getLink(7).click();
+    sidenav.getLink(15).click();
     waitForUrlContains('reports/affiliate');
     expectUrlToContain('reports/affiliate');
   });

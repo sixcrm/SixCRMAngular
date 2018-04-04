@@ -47,6 +47,7 @@ describe('Navigation', function() {
     expectUrlToContain('state-machine');
   });
 
+  // Orders
   it('should navigate to customers', () => {
     sidenav.getItems().get(2).click();
     browser.sleep(500);
@@ -93,8 +94,7 @@ describe('Navigation', function() {
     expectUrlToContain('shippingreceipts');
   });
 
-  // CRM Section
-
+  // CRM Setup Section
   it('should navigate to products', () => {
     sidenav.getItems().get(17).click();
     browser.sleep(500);
@@ -167,7 +167,9 @@ describe('Navigation', function() {
     expectUrlToContain('smtpproviders');
   });
 
-  // Setting Section
+  // Reports Section
+
+  // Settings Section
   it('should navigate to accounts', () => {
     sidenav.getItems().get(32).click();
     browser.sleep(500);

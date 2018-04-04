@@ -63,7 +63,7 @@ export class EntityViewPage {
   }
 
   getAssocitionMenuButton(num: number) {
-    return this.getAssociationTable(num).element(by.css('.entity-view__table-component__header')).element(by.css('md-icon'));
+    return this.getAssociationTable(num).element(by.css('.entity-view__table-component__header')).element(by.css('.entity-view__table-component__header__action'));
   }
 
   getAssociationButton() {
