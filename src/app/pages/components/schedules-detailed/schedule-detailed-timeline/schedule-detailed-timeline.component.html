@@ -50,7 +50,7 @@
                 <div class="cycle-flag"
                      *ngIf="schedule.detailedListSelected || productSchedule.detailedListSelected"
                      [class.cycle-flag--slow]="cycle.dragDiff !== 0 || cycle.dragdiffDiff !== 0"
-                     [class.cycle-flag--active]="cycle.start === schedule.start && cycle.dragDiff !== 0"
+                     [class.cycle-flag--active]="cycle.start === schedule.start && schedule.detailedListSelected"
                      [style.height]="getHeight(productScheduleNum, scheduleNum)"
                      [style.left]="(cycle.start * cellwidth) / _zoom + cycle.dragDiff + 8 + 'px'">
                   <div class="date-box">
@@ -89,7 +89,7 @@
                          [class.bar--drag-in-progress]="cycle.dragInProgress"
                          [class.bar--border-left]="cycle.start === schedule.start"
                          [class.bar--border-right]="cycle.end === schedule.end"
-                         [style.border-color]="cycle.start < _diff ? greenSelected : blueSelected"
+                         [style.border-color]="schedule.detailedListSelected || productSchedule.detailedListSelected ? 'rgba(0,0,0,0.55)' : cycle.start < _diff ? greenSelected : blueSelected"
                          [style.background]="schedule.detailedListSelected || productSchedule.detailedListSelected ? cycle.start < _diff ? greenSelected : blueSelected : cycle.start < _diff ? green : blue">
                       <div class="body"
                            draggable="true"
@@ -105,14 +105,14 @@
                             {{ productSchedule['detailedListOpened'] ? cycle.start === schedule.start ? schedule.product.name : '' : cycle.stack === 1 ? cycle.start === schedule.start ? schedule.product.name : '' : cycle.stack + ' Items' }}
                           </span>
                           <ng-container *ngIf="productSchedule['detailedListOpened'] || cycle.stack < 2">
-                            <span draggable="true" class="duration" *ngIf="schedule.cycles.length === 1"> {{cycle.diff}} Days </span>
-                            <span draggable="true" class="duration" *ngIf="cycleNum > 0 && (cycleNum % 2 === 0 || (cycleNum === (schedule.cycles.length - 1)))"> <md-icon>loop</md-icon> Every {{schedule.period}} days </span>
+                            <span draggable="true" class="duration" *ngIf="schedule.cycles.length === 1"> {{cycle.diff + (cycle.durationDragInProgress ? cycle.dragdiffDays : 0)}} Days </span>
+                            <span draggable="true" class="duration" *ngIf="cycleNum > 0 && (cycleNum === 1 || (cycleNum === (schedule.cycles.length - 1)))"> <md-icon>loop</md-icon> Every {{schedule.period + (cycle.periodDragInProgress ? cycle.dragdiffDays : 0)}} days </span>
                           </ng-container>
                         </ng-container>
                       </div>
                       <div class="resizer"
                            draggable="true"
-                           (dragstart)="dragResizeStarted($event, schedule, cycleNum)"
+                           (dragstart)="dragResizeStarted($event, schedule)"
                            (drag)="dragResize($event, schedule, cycleNum)"
                            (dragend)="dragResizeEnded($event, schedule, cycleNum)">
                       </div>
