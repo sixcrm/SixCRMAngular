@@ -6,6 +6,8 @@
   [statusMessage]="statusMessage"
   [redoEnabled]="historyIndex < (schedulesHistory.length - 1)"
   [undoEnabled]="historyIndex !== 0 && (consecutiveUndo || historyIndex !== 1)"
+  [infoEnabled]="infoEnabled"
+  (infoEnabledChanged)="infoEnabled = $event"
   (undo)="undo()"
   (redo)="redo()"
   (revert)="revert()"
@@ -43,7 +45,7 @@
 <ng-template #details>
   <schedule-details
     [singleScheduleMode]="singleScheduleMode"
-    [hideDetails]="selectedIndex === 1"
+    [hideDetails]="!infoEnabled || selectedIndex === 1"
     [allProducts]="allProducts"
     [schedule]="selectedSchedule"
     [startDate]="startDate"

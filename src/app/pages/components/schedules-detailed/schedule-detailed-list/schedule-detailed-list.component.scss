@@ -5,11 +5,11 @@
   font-size: 13px;
   min-height: calc(100vh - 394px);
   border-right: 1px solid rgba(0,0,0,0.2);
-  transition: 0.25s ease-in-out;
+  transition: 0.15s ease-in-out;
 
   &--hidden {
-    width: 42px;
-    transition: 0.25s ease-in-out;
+    width: 45px;
+    transition: 0.15s ease-in-out;
   }
 
   md-icon {
@@ -27,29 +27,31 @@
 
         md-icon {
           margin: auto !important;
-          transition: 0.25s ease-in-out;
+          transition: 0.15s ease-in-out;
         }
       }
     }
 
     div {
       display: flex;
-      margin: 0 15px;
+      margin: 0 15px 0 25px;
+      padding: 3px;
       align-items: center;
       border: 1px solid rgba(0,0,0,0.2);
       width: 100%;
       cursor: pointer;
-      transition: 0.25s ease-in-out;
+      transition: 0.15s ease-in-out;
+      overflow: hidden;
 
       span {
         margin-right: auto;
-        font-size: 10px;
+        font-size: 12px;
         font-weight: 500;
         color: #8e8e8e;
       }
 
       md-icon {
-        margin-left: 8px;
+        margin-left: auto;
         margin-right: 8px;
         height: 22px;
         width: 22px;
@@ -58,11 +60,50 @@
     }
   }
 
-  .number {
-    font-size: 16px;
-    margin: auto;
-    color: #8E8E8E;
-    cursor: pointer;
+  .section {
+    display: flex;
+
+    &--dropdown {
+      margin-bottom: 185px;
+    }
+
+    &:last-of-type {
+      border-bottom: 1px solid rgba(0,0,0,0.2);
+    }
+
+    &__number {
+      font-size: 14px;
+      line-height: 46px;
+      min-height: 46px;
+      width: 25px;
+      text-align: center;
+      color: #8E8E8E;
+      cursor: pointer;
+      border-right: 1px solid rgba(0,0,0,0.2);
+      border-top: 1px solid rgba(0,0,0,0.2);
+      transition: 0.15s ease-in-out;
+
+      &--collapsed {
+        width: 46px;
+        border-right: 1px solid rgba(0,0,0,0);
+        transition: 0.15s ease-in-out;
+      }
+    }
+
+    &__content {
+      width: 205px;
+      overflow: hidden;
+      transition: 0.15s ease-in-out;
+
+      &--collapsed {
+        width: 0;
+        transition: 0.15s ease-in-out;
+      }
+
+      &--dropdown {
+        overflow: visible;
+      }
+    }
   }
 
   .item {
@@ -81,16 +122,29 @@
 
     &--schedule {
       display: flex;
-      padding: 0 12px;
+      padding: 0 5px 0 0;
       border-top: 1px solid rgba(0,0,0,0.2);
       height: 45px;
       line-height: 45px;
 
+      span {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        text-align: center;
+        border-radius: 5px;
+        color: white;
+        background: #5483C3;
+        font-size: 10px;
+        font-weight: 500;
+        margin-left: 5px;
+      }
+
       div {
-        margin-left: 3px;
+        margin-left: 5px;
         text-overflow: ellipsis;
         overflow: hidden;
-        width: 160px;
+        width: 150px;
         white-space: nowrap;
         cursor: pointer;
       }
@@ -98,23 +152,22 @@
       md-icon {
         margin-left: auto;
         cursor: pointer;
-        transition: 0.25s ease-in-out;
+        transition: 0.15s ease-in-out;
       }
 
       .rotated {
         transform: rotate(-90deg);
-        transition: 0.25s ease-in-out;
+        transition: 0.15s ease-in-out;
       }
     }
 
     &--product {
       display: flex;
-      padding: 0 12px 0 28px;
+      padding: 0 12px 0 18px;
       font-size: 12px;
-      width: 230px;
       overflow: hidden;
       box-sizing: border-box;
-      transition: padding 0.25s ease-in-out;
+      transition: padding 0.15s ease-in-out;
       cursor: pointer;
 
       &--collapsed {
@@ -141,7 +194,7 @@
         background-position: center;
         background-repeat: no-repeat;
         border-radius: 50%;
-        transition: margin 0.25s ease-in-out;
+        transition: margin 0.15s ease-in-out;
 
         &--default {
           background-image: url("/assets/images/product-image-placeholder.svg");
@@ -151,42 +204,17 @@
   }
 
   .products-list {
-    transition: height 0.6s cubic-bezier(0.35, 0, 0.25, 1);
+    transition: height 0.6s cubic-bezier(0.35, 0, 0.15, 1);
     overflow: hidden;
 
     &--hidden {
       height: 0 !important;
       overflow: hidden;
-      transition: height 0.6s cubic-bezier(0.35, 0, 0.25, 1);
+      transition: height 0.6s cubic-bezier(0.35, 0, 0.15, 1);
     }
   }
 }
 
-.new-product-schedule {
-  display: flex;
-  margin-top: 10px;
-  align-items: center;
-  padding: 0 12px;
-
-  md-icon {
-    cursor: pointer;
-    margin-left: auto;
-  }
-}
-
-.add-product-schedule-container {
-  display: flex;
-  align-items: center;
-  height: 46px;
-  margin-bottom: 185px;
-
-  autocomplete-input {
-    margin-left: 15px;
-  }
-
-  md-icon {
-    margin-left: auto;
-    margin-right: 10px;
-    cursor: pointer;
-  }
+autocomplete-input {
+  margin-left: 6px;
 }

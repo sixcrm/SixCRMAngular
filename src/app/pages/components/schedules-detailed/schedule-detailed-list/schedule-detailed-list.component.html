@@ -6,60 +6,69 @@
     <div class="header" [class.header--collapsed]="!sideVisible">
       <div (click)="toggleAddProductScheduleMode()">
         <md-icon>add</md-icon>
-        <span *ngIf="sideVisible">ADD TO {{singleScheduleMode ? 'PRODUCT SCHEDULE' : 'WATERMARK'}}</span>
+        <span *ngIf="sideVisible">ADD</span>
       </div>
     </div>
 
-    <div *ngFor="let ps of productSchedules; let i = index">
+    <div class="section" *ngFor="let ps of productSchedules; let i = index">
+      <span class="section__number" [class.section__number--collapsed]="!sideVisible" (click)="productScheduleToggle(!ps.detailedListSelected, ps)">{{i+1}}</span>
 
-      <div class="item item--schedule" [class.item--selected]="ps.detailedListSelected">
-        <ng-container *ngIf="sideVisible; else number">
-          <div class="text" (click)="productScheduleToggle(!ps.detailedListSelected, ps)">{{ps.name || 'Unnamed'}}</div>
-          <md-icon *ngIf="!singleScheduleMode" (click)="scheduleCollapseToggle(ps)" [class.rotated]="ps.detailedListOpened">keyboard_arrow_left</md-icon>
-        </ng-container>
+      <div class="section__content" [class.section__content--collapsed]="!sideVisible">
+        <div class="item item--schedule" [class.item--selected]="ps.detailedListSelected">
+          <ng-container *ngIf="sideVisible;">
+            <span>{{ps.schedules.length}}</span>
+            <div (click)="productScheduleToggle(!ps.detailedListSelected, ps)"> {{ps.name || 'Unnamed'}}</div>
+            <md-icon *ngIf="!singleScheduleMode" (click)="scheduleCollapseToggle(ps)" [class.rotated]="ps.detailedListOpened">keyboard_arrow_left</md-icon>
+          </ng-container>
+        </div>
 
-        <ng-template #number><span class="number" (click)="productScheduleToggle(!ps.detailedListSelected, ps)">{{i+1}}</span></ng-template>
-      </div>
-
-      <div [style.height]="ps.schedules.length * 46 + 'px'" class="products-list" [class.products-list--hidden]="!ps.detailedListOpened">
-        <div class="item item--product"
-             *ngFor="let schedule of ps.schedules"
-             (click)="scheduleToggle(!schedule.detailedListSelected, schedule)"
-             [class.item--product--collapsed]="!sideVisible"
-             [class.item--selected]="schedule.detailedListSelected">
-          <div *ngIf="schedule.product.getDefaultImagePath(); else defaultimage"
-               class="image"
-               [style.background-image]="'url(' + schedule.product.getDefaultImagePath() + ')'">
+        <div [style.height]="ps.schedules.length * 46 + 'px'" class="products-list" [class.products-list--hidden]="!ps.detailedListOpened">
+          <div class="item item--product"
+               *ngFor="let schedule of ps.schedules"
+               (click)="scheduleToggle(!schedule.detailedListSelected, schedule)"
+               [class.item--product--collapsed]="!sideVisible"
+               [class.item--selected]="schedule.detailedListSelected">
+            <div *ngIf="schedule.product.getDefaultImagePath(); else defaultimage"
+                 class="image"
+                 [style.background-image]="'url(' + schedule.product.getDefaultImagePath() + ')'">
+            </div>
+            <ng-template #defaultimage><div class="image image--default"></div></ng-template>
+            <div *ngIf="sideVisible" class="text">{{schedule.product.name}}</div>
           </div>
-          <ng-template #defaultimage><div class="image image--default"></div></ng-template>
-          <div *ngIf="sideVisible" class="text">{{schedule.product.name}}</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section" *ngFor="let p of products; let i = index">
+      <span class="section__number" [class.section__number--collapsed]="!sideVisible">{{productSchedules.length + i+1}}</span>
+      <div class="section__content" [class.section__content--collapsed]="!sideVisible">
+        <div class="item item--schedule" [class.item--selected]="p.detailedListSelected">
+          <ng-container *ngIf="sideVisible;">
+            <div (click)="productToggle(!p.detailedListSelected, p)">{{p.name || 'Unnamed'}}</div>
+          </ng-container>
         </div>
       </div>
-
     </div>
 
-    <div *ngFor="let p of products; let i = index">
-      <div class="item item--schedule" [class.item--selected]="p.detailedListSelected">
-        <ng-container *ngIf="sideVisible; else number">
-          <div (click)="productToggle(!p.detailedListSelected, p)" class="text">{{p.name || 'Unnamed'}}</div>
-        </ng-container>
-
-        <ng-template #number><span class="number">{{productSchedules.length + i+1}}</span></ng-template>
+    <div *ngIf="sideVisible && addMode" class="section section--dropdown">
+      <span class="section__number">{{productSchedules.length + products.length + 1}}</span>
+      <div class="section__content section__content--dropdown">
+        <div class="item item--schedule">
+          <autocomplete-input class="session-autocomplete"
+                              [mapFunction]="singleScheduleMode ? productMapper : productScheduleMapper"
+                              [initialValue]="singleScheduleMode ? productToAdd : productScheduleToAdd"
+                              [options]="singleScheduleMode ? allProducts: allProductSchedules"
+                              [placeholder]="singleScheduleMode ? 'Add Product' : 'Add Product Schedule'"
+                              [unmatchedEnabled]="!singleScheduleMode"
+                              [unmatchedFactory]="productScheduleFactory"
+                              [floatingPlaceholder]="false"
+                              [applyAutofocus]="true"
+                              (selected)="addSelected($event)">
+          </autocomplete-input>
+          <md-icon (click)="persistSelected()">add</md-icon>
+        </div>
       </div>
-    </div>
-
-    <div class="add-product-schedule-container" *ngIf="addMode && sideVisible">
-      <autocomplete-input class="session-autocomplete"
-                          [mapFunction]="singleScheduleMode ? productMapper : productScheduleMapper"
-                          [initialValue]="singleScheduleMode ? productToAdd : productScheduleToAdd"
-                          [options]="singleScheduleMode ? allProducts: allProductSchedules"
-                          [placeholder]="singleScheduleMode ? 'Add Product' : 'Add Product Schedule'"
-                          [unmatchedEnabled]="!singleScheduleMode"
-                          [unmatchedFactory]="productScheduleFactory"
-                          [applyAutofocus]="true"
-                          (selected)="addSelected($event)">
-      </autocomplete-input>
-      <md-icon (click)="persistSelected()">add</md-icon>
     </div>
   </div>
 </div>

@@ -14,12 +14,14 @@ export class ScheduleDetailedHeaderComponent implements OnInit {
   @Input() singleScheduleMode: boolean;
   @Input() undoEnabled: boolean = true;
   @Input() redoEnabled: boolean = true;
+  @Input() infoEnabled: boolean = true;
   @Input() statusMessage: string;
 
   @Output() zoomChanged: EventEmitter<number> = new EventEmitter();
   @Output() filterChanged: EventEmitter<string> = new EventEmitter();
   @Output() displayModeChanged: EventEmitter<DisplayModes> = new EventEmitter();
   @Output() sideVisibleChanged: EventEmitter<boolean> = new EventEmitter();
+  @Output() infoEnabledChanged: EventEmitter<boolean> = new EventEmitter();
   @Output() undo: EventEmitter<boolean> = new EventEmitter();
   @Output() redo: EventEmitter<boolean> = new EventEmitter();
   @Output() revert: EventEmitter<boolean> = new EventEmitter();

@@ -34,6 +34,7 @@ export class AutocompleteInputComponent implements OnInit {
     }
   }
   @Input() placeholder: string;
+  @Input() floatingPlaceholder: boolean = true;
   @Input() showArrow: boolean = false;
   @Input() disabled: boolean = false;
   @Input() required: boolean = false;

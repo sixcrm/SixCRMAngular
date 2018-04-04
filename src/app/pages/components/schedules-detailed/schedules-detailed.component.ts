@@ -43,6 +43,8 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
 
   @ViewChild('details') details: ElementRef;
 
+  infoEnabled: boolean = true;
+
   allProducts: Product[] = [];
   selectedSchedule: ProductSchedule | Schedule | Product;
   displayMode: DisplayModes = DisplayModes.grid;
