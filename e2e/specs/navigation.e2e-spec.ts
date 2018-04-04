@@ -30,7 +30,7 @@ describe('Navigation', function() {
     waitForUrlContains('/dashboard');
 
     browser.sleep(500);
-    expect(sidenav.getItems().count()).toBe(36);
+    expect(sidenav.getItems().count()).toBe(39);
   });
 
   it('should navigate to dashboard', () => {
@@ -48,103 +48,98 @@ describe('Navigation', function() {
   });
 
   it('should navigate to customers', () => {
-    sidenav.getLink(11).click();
+    sidenav.getItems().get(2).click();
+    browser.sleep(500);
+    sidenav.getLink(3).click();
 
     waitForUrlContains('customers');
     expectUrlToContain('customers');
   });
 
-  it('should navigate to products', () => {
-    sidenav.getLink(12).click();
+  it('should navigate to credit cards', () => {
+    sidenav.getItems().get(2).click();
     browser.sleep(500);
-    sidenav.getLink(13).click();
+    sidenav.getLink(4).click();
 
-    waitForUrlContains('products');
-    expectUrlToContain('products');
-  });
-
-  it('should navigate to product schedules', () => {
-    sidenav.getLink(14).click();
-
-    waitForUrlContains('productschedules');
-    expectUrlToContain('productschedules');
-  });
-
-  it('should navigate to campaigns', () => {
-    sidenav.getLink(15).click();
-
-    waitForUrlContains('campaigns');
-    expectUrlToContain('campaigns');
-  });
-
-  it('should navigate to email templates', () => {
-    sidenav.getLink(16).click();
-
-    waitForUrlContains('emailtemplates');
-    expectUrlToContain('emailtemplates');
-  });
-
-  it('should navigate to affiliates', () => {
-    sidenav.getLink(17).click();
-
-    waitForUrlContains('affiliates');
-    expectUrlToContain('affiliates');
-  });
-
-  it('should navigate to trackers', () => {
-    sidenav.getLink(18).click();
-
-    waitForUrlContains('trackers');
-    expectUrlToContain('trackers');
+    waitForUrlContains('creditcards');
+    expectUrlToContain('creditcards');
   });
 
   it('should navigate to sessions', () => {
-    sidenav.getLink(19).click();
+    sidenav.getLink(5).click();
 
     waitForUrlContains('sessions');
     expectUrlToContain('sessions');
   });
 
   it('should navigate to transactions', () => {
-    sidenav.getLink(20).click();
+    sidenav.getLink(6).click();
 
     waitForUrlContains('transactions');
     expectUrlToContain('transactions');
   });
 
   it('should navigate to rebills', () => {
-    sidenav.getLink(21).click();
+    sidenav.getLink(7).click();
 
     waitForUrlContains('rebills');
     expectUrlToContain('rebills');
   });
 
   it('should navigate to shippingreceipts', () => {
-    sidenav.getLink(22).click();
+    sidenav.getLink(8).click();
 
     waitForUrlContains('shippingreceipts');
     expectUrlToContain('shippingreceipts');
   });
 
-  it('should navigate to fulfillment providers', () => {
-    sidenav.getLink(23).click();
-    browser.sleep(500);
-    sidenav.getLink(24).click();
+  // CRM Section
 
-    waitForUrlContains('fulfillmentproviders');
-    expectUrlToContain('fulfillmentproviders');
+  it('should navigate to products', () => {
+    sidenav.getItems().get(17).click();
+    browser.sleep(500);
+    sidenav.getLink(19).click();
+
+     waitForUrlContains('products');
+     expectUrlToContain('products');
   });
 
-  it('should navigate to smtp providers', () => {
+  it('should navigate to product schedules', () => {
+    sidenav.getLink(20).click();
+
+    waitForUrlContains('productschedules');
+    expectUrlToContain('productschedules');
+  });
+
+  it('should navigate to campaigns', () => {
+    sidenav.getLink(18).click();
+
+    waitForUrlContains('campaigns');
+    expectUrlToContain('campaigns');
+  });
+
+  it('should navigate to email templates', () => {
+    sidenav.getLink(21).click();
+
+    waitForUrlContains('emailtemplates');
+    expectUrlToContain('emailtemplates');
+  });
+
+  it('should navigate to affiliates', () => {
+    sidenav.getLink(24).click();
+
+    waitForUrlContains('affiliates');
+    expectUrlToContain('affiliates');
+  });
+
+  it('should navigate to trackers', () => {
     sidenav.getLink(25).click();
 
-    waitForUrlContains('smtpproviders');
-    expectUrlToContain('smtpproviders');
+    waitForUrlContains('trackers');
+    expectUrlToContain('trackers');
   });
 
   it('should navigate to merchant providers', () => {
-    sidenav.getLink(26).click();
-    browser.sleep(500);
     sidenav.getLink(27).click();
 
     waitForUrlContains('merchantproviders');
@@ -154,34 +149,49 @@ describe('Navigation', function() {
   it('should navigate to merchantProviderGroups', () => {
     sidenav.getLink(28).click();
 
-    waitForUrlContains('merchantProviderGroups');
-    expectUrlToContain('merchantProviderGroups');
+    waitForUrlContains('merchantprovidergroups');
+    expectUrlToContain('merchantprovidergroups');
   });
 
-  it('should navigate to accounts', () => {
-    sidenav.getLink(29).click();
-    browser.sleep(500);
+  it('should navigate to fulfillment providers', () => {
     sidenav.getLink(30).click();
+
+    waitForUrlContains('fulfillmentproviders');
+    expectUrlToContain('fulfillmentproviders');
+  });
+
+  it('should navigate to smtp providers', () => {
+    sidenav.getLink(31).click();
+
+    waitForUrlContains('smtpproviders');
+    expectUrlToContain('smtpproviders');
+  });
+  // Setting Section
+  it('should navigate to accounts', () => {
+    sidenav.getItems().get(32).click();
+    browser.sleep(500);
+    sidenav.getLink(33).click();
 
     waitForUrlContains('accounts');
     expectUrlToContain('accounts');
   });
 
   it('should navigate to roles', () => {
-    sidenav.getLink(31).click();
+    sidenav.getLink(35).click();
 
     waitForUrlContains('roles');
     expectUrlToContain('roles');
   });
+  /*
+    it('should navigate to graph docs', () => {
+      sidenav.getLink(35).click();
+      browser.sleep(500);
+      sidenav.getLink(36).click();
 
-  it('should navigate to graph docs', () => {
-    sidenav.getLink(35).click();
-    browser.sleep(500);
-    sidenav.getLink(36).click();
-
-    waitForUrlContains('documentation/graph');
-    expectUrlToContain('documentation/graph');
-  });
+      waitForUrlContains('documentation/graph');
+      expectUrlToContain('documentation/graph');
+    });
+    */
 
   it('should navigate to search', () => {
     sidenav.getLink(38).click();

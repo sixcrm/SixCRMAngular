@@ -8,8 +8,10 @@ exports.config = {
   allScriptsTimeout: 11000,
   specs: [
     // './e2e/**/*.e2e-spec.ts'
-    //'./e2e/**/register.e2e-spec.ts'
-    './e2e/**/login.e2e-spec.ts'
+    // './e2e/**/register.e2e-spec.ts'
+    // './e2e/**/login.e2e-spec.ts'
+    './e2e/**/navigation.e2e-spec.ts'
+    // './e2e/**/dashboard.e2e-spec.ts'
   ],
   capabilities: {
     'browserName': 'chrome'
