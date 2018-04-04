@@ -27,11 +27,11 @@ describe('Dashboard', function() {
   it('should navigate to dashboard after login', () => {
     expectUrlToContain('dashboard');
   });
-
+  /*
   it('should display advanced filter component', () => {
     expect(dashboard.getAdvancedFilterComponent()).toBeDefined();
   });
-
+  */
   it('should display all chart component', () => {
     expectDefined(dashboard.getDashboardReports());
     expectDefined(dashboard.getEventsBy());
@@ -48,7 +48,7 @@ describe('Dashboard', function() {
     browser.sleep(6000);
     expectNotPresent(dashboard.getTransactionOverviewLoader());
   });
-
+/*
   it('should reload when advanced filter reload is clicked in less than 2 seconds', () => {
     dashboard.getAdvancedFilterReload().click();
 
@@ -68,11 +68,15 @@ describe('Dashboard', function() {
     browser.sleep(6000);
     expectNotPresent(app.getProgressBar());
   });
-
+*/
   it('should cache dashboard results', () => {
     const sidenav = new SidenavPage();
 
-    sidenav.getLink(11).click();
+    sidenav.getItems().get(2).click();
+    browser.sleep(500);
+    sidenav.getLink(3).click();
+
+    // sidenav.getLink(3).click();
     waitForUrlContains('customers');
     waitForNotPresenceOf(app.getProgressBar());
 
