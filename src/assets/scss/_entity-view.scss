@@ -1027,6 +1027,20 @@ $blue-color: #4A90E2;
   }
 }
 
+
+.details-container {
+  max-width: 350px;
+  transition: max-width 200ms ease-in-out;
+  box-shadow: 0 0 8px rgba(0,0,0,0.4);
+  z-index: 1;
+
+  &--hidden {
+    max-width: 0;
+    overflow: hidden;
+    transition: max-width 120ms ease-in-out;
+  }
+}
+
 .multiselect-checkbox {
 
   .md-checkbox-inner-container {

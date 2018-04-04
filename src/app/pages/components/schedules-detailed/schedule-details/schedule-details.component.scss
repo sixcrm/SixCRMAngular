@@ -1,5 +1,8 @@
+$primary-blue-color: #5383C3;
+$container-width: 320px;
+
 .schedule-details {
-  width: 320px;
+  width: $container-width;
   transition: width 200ms ease-in-out;
   min-height: 100%;
   background: white;
@@ -13,14 +16,13 @@
 }
 
 .schedule-container {
-  width: 320px;
+  width: $container-width;
 
   &__schedule-details {
     .header {
-      border-bottom: 1px solid rgba(0,0,0,0.2);
       display: flex;
       align-items: center;
-      padding: 12px 12px 13px;
+      padding: 12px 12px 0;
       font-size: 18px;
 
       div {
@@ -29,7 +31,7 @@
     }
 
     .body {
-      padding: 18px 12px;
+      padding: 12px;
 
       .body__row {
         display: flex;
@@ -57,7 +59,7 @@
         font-size: 12px;
         cursor: pointer;
         margin-left: auto;
-        color: #4A90E2;
+        color: $primary-blue-color;
       }
     }
   }
@@ -66,20 +68,27 @@
     display: flex;
     padding: 0 12px;
     align-items: center;
-    height: 64px;
-    background: #355EF5;
+    height: 45px;
+    background: $primary-blue-color;
     color: white;
-    font-size: 15px;
+    font-size: 18px;
 
     md-icon {
-      margin-right: 8px;
       cursor: pointer;
+    }
+
+    .close-icon {
+      margin-right: 8px;
+    }
+
+    .menu-icon {
+      margin-left: auto;
     }
   }
 
   &__subheader {
     display: flex;
-    background: #4B90DD;
+    background: $primary-blue-color;
     align-items: center;
     padding: 0 15px;
   }
@@ -90,14 +99,15 @@
     box-sizing: border-box;
     color: white;
     font-weight: 500;
-    height: 161px;
+    height: 180px;
 
     div {
       &:first-of-type {
         font-size: 12px;
         margin-top: auto;
         padding-left: 32px;
-        margin-bottom: 8px;
+        margin-bottom: 6px;
+        color: #ABC2E1;
       }
 
       &:last-of-type {
@@ -109,6 +119,7 @@
           font-size: 20px;
           height: 20px;
           width: 20px;
+          color: #ABC2E1;
         }
 
         span {

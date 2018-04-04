@@ -2,10 +2,18 @@
   <div class="schedule-container">
 
     <div class="schedule-container__header">
-      <md-icon (click)="closeModal()">close</md-icon>
-      <div *ngIf="_scheduleBackup">{{_scheduleBackup?.name}}</div>
-      <div *ngIf="_productSchedule">{{_productSchedule?.product?.name}}</div>
+      <md-icon class="close-icon" (click)="closeModal()">close</md-icon>
+      <div *ngIf="_scheduleBackup">{{_scheduleBackup?.product?.name}}</div>
+      <div *ngIf="_productSchedule">{{_productSchedule?.name}}</div>
       <div *ngIf="_product">{{_product?.name}}</div>
+      <md-icon [md-menu-trigger-for]="headerOptions" class="menu-icon">more_vert</md-icon>
+      <md-menu #headerOptions="mdMenu" x-position="before">
+        <button md-menu-item *ngIf="_product && _product.id" [routerLink]="['/products', _product.id]">View Product</button>
+        <button md-menu-item *ngIf="_productSchedule && _productSchedule.id" [routerLink]="['/productschedules', _productSchedule.id]">View Product Schedule</button>
+        <button md-menu-item *ngIf="_scheduleBackup && _scheduleBackup.product && _scheduleBackup.product.id" [routerLink]="['/products', _scheduleBackup.product.id]">View Product</button>
+        <button md-menu-item *ngIf="_scheduleBackup" (click)="removeSchedule()">Remove Schedule from Session</button>
+        <button md-menu-item *ngIf="_productSchedule" (click)="removeProductSchedule()">Remove Product Schedule from Session</button>
+      </md-menu>
     </div>
 
     <div class="schedule-container__subheader">
@@ -19,10 +27,8 @@
 
     <div *ngIf="_scheduleBackup" class="schedule-container__schedule-details">
       <div class="header">
-        <div [routerLink]="['/products', _scheduleBackup.product.id]">View Product</div>
-        <div *ngIf="!singleScheduleMode" (click)="removeSchedule()" class="red-button">DELETE</div>
+        <div>Schedule</div>
       </div>
-
       <div class="body">
         <div class="body__row">
           <md-input-container>
@@ -63,7 +69,6 @@
     <div *ngIf="_productSchedule" class="schedule-container__items">
       <div class="header">
         <div>Schedule</div>
-        <div (click)="removeProductSchedule()" class="red-button">DELETE</div>
       </div>
 
       <div class="item" *ngFor="let s of _productSchedule.schedules; let i = index">
