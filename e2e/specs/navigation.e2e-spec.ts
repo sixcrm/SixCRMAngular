@@ -178,7 +178,7 @@ describe('Navigation', function() {
   });
 
   it('should navigate to roles', () => {
-    sidenav.getLink(35).click();
+    sidenav.getLink(34).click();
 
     waitForUrlContains('roles');
     expectUrlToContain('roles');
