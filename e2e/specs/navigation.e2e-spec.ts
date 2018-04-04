@@ -166,6 +166,7 @@ describe('Navigation', function() {
     waitForUrlContains('smtpproviders');
     expectUrlToContain('smtpproviders');
   });
+
   // Setting Section
   it('should navigate to accounts', () => {
     sidenav.getItems().get(32).click();
@@ -182,16 +183,6 @@ describe('Navigation', function() {
     waitForUrlContains('roles');
     expectUrlToContain('roles');
   });
-  /*
-    it('should navigate to graph docs', () => {
-      sidenav.getLink(35).click();
-      browser.sleep(500);
-      sidenav.getLink(36).click();
-
-      waitForUrlContains('documentation/graph');
-      expectUrlToContain('documentation/graph');
-    });
-    */
 
   it('should navigate to search', () => {
     sidenav.getLink(38).click();
