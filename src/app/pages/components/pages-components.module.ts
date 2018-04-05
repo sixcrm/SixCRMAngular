@@ -28,6 +28,8 @@ import { ScheduleDetailedHeaderComponent } from './schedules-detailed/schedule-d
 import { ScheduleDetailedListComponent } from './schedules-detailed/schedule-detailed-list/schedule-detailed-list.component';
 import {ScheduleDetailedListViewComponent} from './schedules-detailed/schedule-detailed-list-view/schedule-detailed-list-view.component';
 import { ScheduleDetailedTimelineComponent } from './schedules-detailed/schedule-detailed-timeline/schedule-detailed-timeline.component';
+import { ScheduleDetailsHeaderComponent } from './schedules-detailed/schedule-details/schedule-details-header/schedule-details-header.component';
+import { ScheduleDetailsTitleComponent } from './schedules-detailed/schedule-details/schedule-details-title/schedule-details-title.component';
 
 @NgModule({
   imports : [
@@ -61,7 +63,9 @@ import { ScheduleDetailedTimelineComponent } from './schedules-detailed/schedule
     ScheduleDetailedHeaderComponent,
     ScheduleDetailedListComponent,
     ScheduleDetailedListViewComponent,
-    ScheduleDetailedTimelineComponent
+    ScheduleDetailedTimelineComponent,
+    ScheduleDetailsHeaderComponent,
+    ScheduleDetailsTitleComponent
   ],
   exports : [
     TableActionsComponent,

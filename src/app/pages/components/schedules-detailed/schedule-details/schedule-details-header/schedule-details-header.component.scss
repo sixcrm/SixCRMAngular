@@ -1,0 +1,23 @@
+$primary-blue-color: #5383C3;
+
+.schedule-container__header {
+  display: flex;
+  padding: 0 12px;
+  align-items: center;
+  height: 45px;
+  background: $primary-blue-color;
+  color: white;
+  font-size: 18px;
+
+  md-icon {
+    cursor: pointer;
+  }
+
+  .close-icon {
+    margin-right: 8px;
+  }
+
+  .menu-icon {
+    margin-left: auto;
+  }
+}

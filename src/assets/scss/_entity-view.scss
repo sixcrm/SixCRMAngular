@@ -1087,3 +1087,9 @@ $blue-color: #4A90E2;
     min-height: 470px;
   }
 }
+
+.tab-container--no-header {
+  md-tab-header {
+    display: none;
+  }
+}

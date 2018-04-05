@@ -1,120 +1,149 @@
 <div class="schedule-details" [class.schedule-details--hidden]="(!_scheduleBackup && !_productSchedule && !_product) || hideDetails">
-  <div class="schedule-container">
+  <div class="schedule-container tab-container--no-header">
 
-    <div class="schedule-container__header">
-      <md-icon class="close-icon" (click)="closeModal()">close</md-icon>
-      <div *ngIf="_scheduleBackup">{{_scheduleBackup?.product?.name}}</div>
-      <div *ngIf="_productSchedule">{{_productSchedule?.name}}</div>
-      <div *ngIf="_product">{{_product?.name}}</div>
-      <md-icon [md-menu-trigger-for]="headerOptions" class="menu-icon">more_vert</md-icon>
-      <md-menu #headerOptions="mdMenu" x-position="before">
-        <button md-menu-item *ngIf="_product && _product.id" [routerLink]="['/products', _product.id]">View Product</button>
-        <button md-menu-item *ngIf="_productSchedule && _productSchedule.id" [routerLink]="['/productschedules', _productSchedule.id]">View Product Schedule</button>
-        <button md-menu-item *ngIf="_scheduleBackup && _scheduleBackup.product && _scheduleBackup.product.id" [routerLink]="['/products', _scheduleBackup.product.id]">View Product</button>
-        <button md-menu-item *ngIf="_scheduleBackup" (click)="removeSchedule()">Remove Schedule from Session</button>
-        <button md-menu-item *ngIf="_productSchedule" (click)="removeProductSchedule()">Remove Product Schedule from Session</button>
-      </md-menu>
+    <schedule-details-header
+      [product]="_product"
+      [schedule]="_scheduleBackup"
+      [productSchedule]="_productSchedule"
+      (close)="closeModal()"
+      (removeSchedule)="removeSchedule()"
+      (removeProductSchedule)="removeProductSchedule()">
+    </schedule-details-header>
+
+    <schedule-details-title [imagePath]="imagePath" [nextCycle]="nextCycle"></schedule-details-title>
+
+    <div class="schedule-tab-header">
+      <div [class.selected]="selectedIndex === 0" (click)="selectedIndex = 0">Info</div>
+      <div *ngIf="_productSchedule" [class.selected]="selectedIndex === 1" (click)="selectedIndex = 1">Cycles</div>
     </div>
 
-    <div class="schedule-container__subheader">
-      <div class="schedule-container__ship-info">
-        <div>NEXT CYCLE:</div>
-        <div><md-icon>date_range</md-icon> <span>{{nextCycle}}</span></div>
-      </div>
+    <md-tab-group [(selectedIndex)]="selectedIndex">
+      <md-tab>
+        <div *ngIf="_scheduleBackup" class="schedule-container__schedule-details">
+          <div class="header"><div>Schedule</div></div>
 
-      <div class="image" [style.background-image]="'url(' + imagePath + ')'"></div>
-    </div>
+          <div class="body">
+            <div class="body__row">
+              <md-input-container>
+                <input type="text" auto-focus md-input placeholder="Start" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.start" (input)="recalculate()">
+              </md-input-container>
 
-    <div *ngIf="_scheduleBackup" class="schedule-container__schedule-details">
-      <div class="header">
-        <div>Schedule</div>
-      </div>
-      <div class="body">
-        <div class="body__row">
-          <md-input-container>
-            <input type="text" auto-focus md-input placeholder="Start" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.start" (input)="recalculate()">
-          </md-input-container>
+              <md-input-container>
+                <input type="text" md-input placeholder="End" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.end" (input)="recalculate()">
+              </md-input-container>
+            </div>
 
-          <md-input-container>
-            <input type="text" md-input placeholder="End" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.end" (input)="recalculate()">
-          </md-input-container>
+            <div class="body__row">
+              <md-input-container>
+                <input type="text" md-input placeholder="Cycle" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.period" (input)="recalculate()">
+              </md-input-container>
+
+              <autocomplete-input
+                [fullWidth]="true"
+                [initialValue]="_scheduleBackup.product"
+                [options]="allProducts"
+                [applyAutofocus]="false"
+                [placeholder]="'Product'"
+                [mapFunction]="productMapper"
+                (selected)="_scheduleBackup.product = $event">
+              </autocomplete-input>
+            </div>
+          </div>
+
+          <div class="header"><div>Pricing</div></div>
+
+          <div class="body">
+            <div class="body__row">
+              <md-input-container>
+                <input type="text" md-input placeholder="Price" currencyInput [initPrice]="_scheduleBackup.price" (priceChanged)="_scheduleBackup.price = $event">
+              </md-input-container>
+            </div>
+          </div>
+
+          <div class="buttons"><div (click)="saveSchedule()">SAVE</div></div>
         </div>
 
-        <div class="body__row">
-          <md-input-container>
-            <input type="text" md-input placeholder="Cycle" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.period" (input)="recalculate()">
-          </md-input-container>
+        <div *ngIf="_productSchedule" class="schedule-container__schedule-details">
+          <div class="header"><div>Schedule</div></div>
 
-          <md-input-container>
-            <input type="text" md-input placeholder="Price" currencyInput [initPrice]="_scheduleBackup.price" (priceChanged)="_scheduleBackup.price = $event">
-          </md-input-container>
+          <div class="body">
+            <div class="body__row">
+              <md-input-container>
+                <input type="text" md-input disabled placeholder="Start" [(ngModel)]="_productSchedule.start">
+              </md-input-container>
+
+              <md-input-container>
+                <input type="text" md-input disabled placeholder="End" [(ngModel)]="_productSchedule.end">
+              </md-input-container>
+            </div>
+          </div>
+
+          <div class="header"><div>Pricing</div></div>
+
+          <div class="body">
+            <md-input-container>
+              <input type="text" md-input placeholder="Quantity" [(ngModel)]="_productSchedule.quantity">
+            </md-input-container>
+
+            <md-input-container>
+              <input md-input disabled type="text" placeholder="Discount Code">
+            </md-input-container>
+          </div>
+
+          <div class="buttons"><div (click)="saveProductSchedule()">SAVE</div></div>
         </div>
 
-        <autocomplete-input
-          [fullWidth]="true"
-          [initialValue]="_scheduleBackup.product"
-          [options]="allProducts"
-          [applyAutofocus]="false"
-          [placeholder]="'Product'"
-          [mapFunction]="productMapper"
-          (selected)="_scheduleBackup.product = $event">
-        </autocomplete-input>
-      </div>
+        <div *ngIf="_product" class="schedule-container__schedule-details">
+          <div class="header">
+            <div>Pricing</div>
+          </div>
 
-      <div class="buttons">
-        <div (click)="saveSchedule()">SAVE</div>
-      </div>
-    </div>
-
-    <div *ngIf="_productSchedule" class="schedule-container__items">
-      <div class="header">
-        <div>Schedule</div>
-      </div>
-
-      <div class="item" *ngFor="let s of _productSchedule.schedules; let i = index">
-        <div class="number"><span>{{i}}</span></div>
-        <div class="text">{{s.product.name}}</div>
-        <md-icon [md-menu-trigger-for]="scheduleoptions">more_vert</md-icon>
-        <md-menu #scheduleoptions="mdMenu" x-position="before">
-          <button md-menu-item [routerLink]="['/products', s.product.id]">View Product</button>
-          <button md-menu-item (click)="deleteSchedule.emit(s)">Delete Schedule</button>
-          <button md-menu-item (click)="focusSchedule.emit(s)">Focus Schedule</button>
-        </md-menu>
-      </div>
-
-      <div class="item">
-        <autocomplete-input
-          class="session-autocomplete"
-          [initialValue]="productToAdd"
-          [fullWidth]="true"
-          [options]="allProducts"
-          [applyAutofocus]="false"
-          [placeholder]="'Add Product'"
-          [mapFunction]="productMapper"
-          (selected)="productToAdd = $event">
-        </autocomplete-input>
-
-        <md-icon (click)="persistNewSchedule()">add</md-icon>
-      </div>
-    </div>
-
-    <div *ngIf="_product" class="schedule-container__schedule-details">
-      <div class="header">
-        <div [routerLink]="['/products', _product.id]">View Product</div>
-      </div>
-
-      <div class="body">
-        <div class="body__row">
-          <md-input-container>
-            <input md-input disabled type="text" placeholder="Quantity" [(ngModel)]="_product.quantity">
-          </md-input-container>
-
-          <md-input-container>
-            <input md-input disabled type="text" placeholder="Price" currencyInput [initPrice]="_product.price">
-          </md-input-container>
+          <div class="body">
+            <md-input-container>
+              <input md-input disabled type="text" placeholder="Quantity" [(ngModel)]="_product.quantity">
+            </md-input-container>
+            <md-input-container>
+              <input md-input disabled type="text" placeholder="Price" currencyInput [initPrice]="_product.price">
+            </md-input-container>
+            <md-input-container>
+              <input md-input disabled type="text" placeholder="Discount Code">
+            </md-input-container>
+          </div>
         </div>
-      </div>
 
-    </div>
+      </md-tab>
+
+      <md-tab>
+        <div *ngIf="_productSchedule" class="schedule-container__items">
+
+          <div class="item" *ngFor="let s of _productSchedule.schedules; let i = index">
+            <div class="number"><span>{{i}}</span></div>
+            <div class="text">{{s.product.name}}</div>
+            <md-icon [md-menu-trigger-for]="scheduleoptions">more_vert</md-icon>
+            <md-menu #scheduleoptions="mdMenu" x-position="before">
+              <button md-menu-item [routerLink]="['/products', s.product.id]">View Product</button>
+              <button md-menu-item (click)="deleteSchedule.emit(s)">Delete Schedule</button>
+              <button md-menu-item (click)="focusSchedule.emit(s)">Focus Schedule</button>
+            </md-menu>
+          </div>
+
+          <div class="item">
+            <autocomplete-input
+              class="session-autocomplete"
+              [initialValue]="productToAdd"
+              [fullWidth]="true"
+              [options]="allProducts"
+              [applyAutofocus]="false"
+              [placeholder]="'Add Product'"
+              [mapFunction]="productMapper"
+              (selected)="productToAdd = $event">
+            </autocomplete-input>
+
+            <md-icon (click)="persistNewSchedule()">add</md-icon>
+          </div>
+        </div>
+      </md-tab>
+    </md-tab-group>
+
   </div>
 </div>

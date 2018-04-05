@@ -13,6 +13,9 @@ export class ProductSchedule implements Entity<ProductSchedule> {
   updatedAt: Moment;
   updatedAtAPI: string;
 
+  start: number;
+  end: number;
+
   constructor(obj?: any, additional?: any) {
     if (!obj) {
       obj = {};
@@ -28,7 +31,41 @@ export class ProductSchedule implements Entity<ProductSchedule> {
 
     if (obj.schedule) {
       this.schedules = obj.schedule.map(s => new Schedule(s, obj.days));
+      this.start = this.getStart();
+      this.end = this.getEnd();
     }
+  }
+
+  getStart(): number {
+    if (!this.schedules || this.schedules.length === 0) return 0;
+
+    let start = this.schedules[0].start || 0;
+
+    for (let i = 0; i < this.schedules.length; i++) {
+      if (this.schedules[i].start < start) {
+        start = this.schedules[i].start;
+      }
+    }
+
+    return start;
+  }
+
+  getEnd(): number {
+    if (!this.schedules || this.schedules.length === 0) return null;
+
+    let end = this.schedules[0].end;
+
+    if (!end) return null;
+
+    for (let i = 0; i < this.schedules.length; i++) {
+      if (!this.schedules[i].end) return null;
+
+      if (this.schedules[i].end > end) {
+        end = this.schedules[i].end;
+      }
+    }
+
+    return end;
   }
 
   copy(days?: number): ProductSchedule {
@@ -38,7 +75,12 @@ export class ProductSchedule implements Entity<ProductSchedule> {
       obj['days'] = days;
     }
 
-    return new ProductSchedule(obj);
+    let additional = {};
+    if (this.quantity) {
+      additional['quantity'] = this.quantity;
+    }
+
+    return new ProductSchedule(obj, additional);
   }
 
   inverse(): any {
