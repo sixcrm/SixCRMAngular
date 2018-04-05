@@ -78,8 +78,8 @@ export class EntityViewPage {
     return element(by.css('.default-autocomplete-input__options__item'));
   }
 
-  getFirstAssociationOption() {
-    return element(by.css('.default-autocomplete-input__options__item'));
+  getFirstAssociationOption(num: number) {
+    return element.all(by.css('.default-autocomplete-input__options__item')).get(num);
   }
 
   getAssociateButton() {

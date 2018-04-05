@@ -103,12 +103,12 @@ describe('Affiliates', function() {
     view.getAssociationInput().click();
     view.getAssociationInput().sendKeys('t');
     browser.sleep(200);
-    view.getAssociatedInputOption().click();
+    view.getFirstAssociationOption(0).click();
     browser.sleep(200);
 
     view.getAssociateButton().click();
 
-    browser.sleep(1000);
+    browser.sleep(3000);
 
     expect(view.getAssociatedElements(0).count()).toEqual(1);
   });

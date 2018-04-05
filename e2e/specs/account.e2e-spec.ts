@@ -32,9 +32,9 @@ describe('Accounts', function() {
 
   it('should navigate to accounts page', () => {
     const sidenav = new SidenavPage();
-    sidenav.getLink(29).click();
+    sidenav.getItems().get(32).click();
     browser.sleep(500);
-    sidenav.getLink(30).click();
+    sidenav.getLink(33).click();
     waitForUrlContains('account');
     expectUrlToContain('account');
   });
