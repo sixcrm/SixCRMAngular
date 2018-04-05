@@ -38,7 +38,7 @@ describe('Affiliates', function() {
   });
 
   it('should render affiliates index title', () => {
-    expect(page.getTitle().getText()).toContain('Affiliates')
+    expect(page.getTitle().getText()).toContain('Affiliates');
   });
 
   it('should render affiliates index add button', () => {
@@ -112,6 +112,6 @@ describe('Affiliates', function() {
     browser.sleep(1000);
 
     expect(view.getAssociatedElements(0).count()).toEqual(1);
-  })
+  });
 
 });
