@@ -46,10 +46,9 @@ describe('Affiliates', function() {
   });
 
   it('should render affiliates index table headers', () => {
-    expect(page.getTableHeaders().get(1).getText()).toEqual('Name');
-    expect(page.getTableHeaders().get(2).getText()).toEqual('Affiliate ID');
-    // expect(page.getTableHeaders().get(3).getText()).toEqual('Created');
-    // expect(page.getTableHeaders().get(4).getText()).toEqual('Updated');
+    expect(page.getTableHeaders().get(1).getText()).toContain('Name');
+    // Have to use contain or regex to pull out the nested tags in in the table headers
+    expect(page.getTableHeaders().get(2).getText()).toContain('Affiliate ID');
   });
 
   it('should render add modal when add button is clicked', () => {
