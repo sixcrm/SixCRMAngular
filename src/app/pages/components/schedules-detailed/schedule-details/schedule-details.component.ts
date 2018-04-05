@@ -32,14 +32,17 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
     if (value instanceof Schedule) {
       this._schedule = value;
       this._scheduleBackup = this._schedule.copy();
+      this.selectedIndex = 0;
     }
 
     if (value instanceof ProductSchedule) {
       this._productSchedule = value;
     }
 
+
     if (value instanceof Product) {
       this._product = value;
+      this.selectedIndex = 0;
     }
 
     this.calculateNextCycle();
@@ -59,6 +62,7 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
   productMapper = (p: Product) => p.name;
   productToAdd: Product = new Product();
 
+  selectedIndex: number = 0;
   changeSub: Subscription;
   nextCycle: string = '';
   imagePath: string = '/assets/images/product-image-placeholder.svg';
@@ -122,6 +126,7 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
   saveSchedule() {
     this._schedule.start = +this._scheduleBackup.start;
     this._schedule.end = +this._scheduleBackup.end;
+    this._schedule.price = this._scheduleBackup.price;
     this._schedule.period = +this._scheduleBackup.period;
     this._schedule.product = this._scheduleBackup.product.copy();
 
@@ -161,6 +166,12 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
     this._productSchedule.schedules.push(schedule);
 
     this.productToAdd = new Product();
+
+    this.save.emit(true);
+  }
+
+  saveProductSchedule() {
+    if (!this._productSchedule) return;
 
     this.save.emit(true);
   }
