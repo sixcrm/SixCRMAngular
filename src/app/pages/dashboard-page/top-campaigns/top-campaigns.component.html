@@ -1,7 +1,6 @@
-<div inViewport (inside)="fetch()" class="dashboard__table-chart">
-  <div class="dashboard__table-chart__title">
-    <div class="dashboard__table-chart__title__main">{{'DASHBOARD_TOPCAMPAIGNS_TITLE' | translate}}</div>
-    <div class="dashboard__table-chart__title__sub">{{'DASHBOARD_TOPCAMPAIGNS_SUBTITLE' | translate}}</div>
+<div inViewport (inside)="fetch()" class="dashboard__gray-table-chart">
+  <div class="dashboard__gray-table-chart__title">
+    <div class="main">{{'DASHBOARD_TOPCAMPAIGNS_TITLE' | translate}}</div>
     <md-icon [md-menu-trigger-for]="downloadOptions">more_vert</md-icon>
     <md-menu #downloadOptions="mdMenu" x-position="before">
       <button md-menu-item (click)="download('json')">{{'CHART_DOWNLOADJSON' | translate}}</button>
@@ -9,33 +8,24 @@
       <button md-menu-item (click)="download('excel')">{{'CHART_DOWNLOADEXCEL' | translate}}</button>
     </md-menu>
   </div>
+
+  <div class="dashboard__gray-table-chart__chart">
+    <chart #chartI class="dashboard-chart" [options]="chartOptions" (load)="loadChart(chartI)"></chart>
+  </div>
+
   <server-error-message (refresh)="refreshData()" *ngIf="serverError; else data"></server-error-message>
 
   <ng-template #data>
-    <table *ngIf="campaigns" class="highlight table--no-border">
-      <thead>
-      <tr>
-        <th class="clickable" *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'" (click)="sort(params)">
-          {{params.label | translate}}
-          <ng-container *ngIf="params.label === sortParams.label">
-            <md-icon *ngIf="sortOrder === 'asc'">keyboard_arrow_up</md-icon>
-            <md-icon *ngIf="sortOrder !== 'asc'">keyboard_arrow_down</md-icon>
-          </ng-container>
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let campaign of campaigns | sortEntities: sortParams.mappingFunction: sortOrder" [routerLink]="['/campaigns', campaign.campaign]">
-        <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'">
-          <ng-container *ngIf="params.number; else nan">{{params.mappingFunction(campaign) | numberlocale}}</ng-container>
-          <ng-template #nan>{{params.mappingFunction(campaign)}}</ng-template>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <div *ngIf="campaigns" class="dashboard__gray-table-chart__table">
+      <div class="item" *ngFor="let campaign of campaigns; let i = index" [routerLink]="['/campaigns', campaign.campaign]">
+        <div class="num" [style.background-color]="colors[i]">
+          <div>{{i + 1}}</div>
+        </div>
+        <div class="name">{{campaign.campaign}}</div>
+        <div class="amount">{{campaign.amount.usd()}}</div>
+      </div>
+    </div>
 
     <table-loader *ngIf="!campaigns"></table-loader>
   </ng-template>
-
-  <div class="dashboard__table-chart__actions"><span [routerLink]="['/coming-soon']">{{'CHART_VIEWMORE' | translate}}</span></div>
 </div>

@@ -4,6 +4,7 @@ import {AuthenticationService} from '../authentication/authentication.service';
 import {environment} from '../../environments/environment';
 import {Http} from '@angular/http';
 import {Notification} from '../shared/models/notification.model';
+import {TranslatedQuote} from "./translated-quote.model";
 
 export interface LanguageDefinition {
   name: string,
@@ -13,6 +14,7 @@ export interface LanguageDefinition {
 export interface LanguageTranslation {
   name: string,
   translations: {
+    quotes: any,
     notifications: any,
     client: any
   }
@@ -168,5 +170,15 @@ export class TranslationService {
     const key = keys.shift();
 
     return this.parseTranslation(obj[key], keys);
+  }
+
+  getRandomQuote(): TranslatedQuote {
+    if (!this.selectedTranslation) return null;
+
+    const quotes = this.selectedTranslation.translations.quotes;
+    const numberOfQuotes = quotes.length;
+    const randomQuoteIndex =  Math.floor(Math.random()*(numberOfQuotes));
+
+    return quotes[randomQuoteIndex];
   }
 }

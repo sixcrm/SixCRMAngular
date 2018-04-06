@@ -4,8 +4,13 @@
 
   &__item {
     display: flex;
-    margin: 0 auto;
-    padding: 25px 0;
+    padding: 30px 0;
+    border-right: 1px solid rgba(0,0,0,0.12);
+
+    .wrapper {
+      margin: auto;
+      display: flex;
+    }
 
     .icon-holder {
       margin-right: 10px;
@@ -29,12 +34,13 @@
       line-height: 24px;
       color: white;
       font-weight: 300;
+      font-size: 24px;
     }
 
     .issues {
       &--none {
         color: #63A6E6;
-        font-size: 14px;
+        font-size: 18px;
       }
     }
   }

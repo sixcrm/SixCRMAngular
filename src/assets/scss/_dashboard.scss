@@ -128,6 +128,74 @@ $color-orange: #F16C00;
     }
   }
 
+  &__gray-table-chart {
+    background: #F4F4F4;
+    padding: 18px;
+
+    &__title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+
+      .main {
+        color: #5383C3;
+        font-size: 24px;
+      }
+
+      md-icon {
+        margin-left: auto;
+        width: 18px;
+        height: 18px;
+        font-size:18px;
+        color: rgba(0,0,0,0.5);
+        cursor: pointer;
+      }
+    }
+
+    &__chart {
+
+    }
+
+    &__table {
+      margin-top: 15px;
+
+      &--loader {
+
+      }
+
+      .item {
+        margin: 12px 0;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        .num {
+          display: flex;
+          height: 30px;
+          width: 30px;
+          color: white;
+          border-radius: 50%;
+          margin-right: 10px;
+          font-size: 20px;
+
+          div {
+            margin: auto;
+          }
+        }
+
+        .name {
+          font-size: 14px;
+        }
+
+        .amount {
+          margin-left: auto;
+          font-size: 18px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
   &__table-chart {
     margin: 10px 0 20px;
     box-shadow: 0 0 5px rgba(0,0,0,0.2);

@@ -1,6 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Campaign} from '../../../shared/models/campaign.model';
 import {DashboardQuery, DashboardTimeFilter} from '../dashboard.exports';
+import {TranslatedQuote} from "../../../translation/translated-quote.model";
 
 @Component({
   selector: 'dashboard-header',
@@ -14,6 +15,7 @@ export class DashboardHeaderComponent implements OnInit {
   @Input() queries: DashboardQuery[] = [];
   @Input() selectedQuery: DashboardQuery;
   @Input() timeFilters: DashboardTimeFilter[] = [];
+  @Input() quote: TranslatedQuote;
 
   @Output() campaignSelected: EventEmitter<Campaign> = new EventEmitter();
   @Output() querySelected: EventEmitter<DashboardQuery> = new EventEmitter();
