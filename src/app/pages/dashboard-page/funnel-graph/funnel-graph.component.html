@@ -1,7 +1,6 @@
-<div inViewport (inside)="fetch()" class="dashboard__table-chart">
-  <div class="dashboard__table-chart__title">
-    <div class="dashboard__table-chart__title__main">{{'DASHBOARD_EVENTSFUNNEL_TITLE' | translate}}</div>
-    <div class="dashboard__table-chart__title__sub">{{'DASHBOARD_EVENTSFUNNEL_SUBTITLE' | translate}}</div>
+<div inViewport (inside)="fetch()" class="dashboard__gray-table-chart">
+  <div class="dashboard__gray-table-chart__title">
+    <div class="main">{{'DASHBOARD_EVENTSFUNNEL_TITLE' | translate}}</div>
     <md-icon [md-menu-trigger-for]="downloadOptions">more_vert</md-icon>
     <md-menu #downloadOptions="mdMenu" x-position="before">
       <button md-menu-item (click)="download('json')">{{'CHART_DOWNLOADJSON' | translate}}</button>
@@ -18,54 +17,43 @@
     <server-error-message (refresh)="refresh()"></server-error-message>
   </ng-template>
 
-  <div class="dashboard__table" [style.height]="calculateHeight()" [class.dashboard__table--inactive]="!showTable || !funnel">
-  <table class="highlight">
-    <thead>
-      <tr>
-        <th>{{'DASHBOARD_EVENTSFUNNEL_EVENT' | translate}}</th>
-        <th class="cell--align-right">{{'DASHBOARD_EVENTSFUNNEL_COUNT' | translate}}</th>
-        <th class="cell--align-right">{{'DASHBOARD_EVENTSFUNNEL_PERCENTAGE' | translate}}</th>
-        <th class="cell--align-right">{{'DASHBOARD_EVENTSFUNNEL_RELATIVEPERCENTAGE' | translate}}</th>
-      </tr>
-    </thead>
+  <div *ngIf="funnel" class="table-container">
 
-    <tbody *ngIf="funnel">
-      <tr>
-        <td><div [style.background]="colors[0]" class="color-indicator"></div>{{'DASHBOARD_EVENTSFUNNEL_CLICK' | translate}}</td>
-        <td class="cell--align-right">{{funnel.click.count | numberlocale}}</td>
-        <td class="cell--align-right">{{(funnel.click.percentage | numberlocale) || '-'}}%</td>
-        <td class="cell--align-right">{{(funnel.click.relativePercentage | numberlocale) || '-'}}%</td>
-      </tr>
-      <tr>
-        <td><div [style.background]="colors[1]" class="color-indicator"></div>{{'DASHBOARD_EVENTSFUNNEL_LEAD' | translate}}</td>
-        <td class="cell--align-right">{{funnel.lead.count | numberlocale}}</td>
-        <td class="cell--align-right">{{(funnel.lead.percentage | numberlocale) || '-'}}%</td>
-        <td class="cell--align-right">{{(funnel.lead.relativePercentage | numberlocale) || '-'}}%</td>
-      </tr>
-      <tr>
-        <td><div [style.background]="colors[2]" class="color-indicator"></div>{{'DASHBOARD_EVENTSFUNNEL_MAIN' | translate}}</td>
-        <td class="cell--align-right">{{funnel.main.count | numberlocale}}</td>
-        <td class="cell--align-right">{{(funnel.main.percentage | numberlocale) || '-'}}%</td>
-        <td class="cell--align-right">{{(funnel.main.relativePercentage | numberlocale) || '-'}}%</td>
-      </tr><tr>
-        <td><div [style.background]="colors[3]" class="color-indicator"></div>{{'DASHBOARD_EVENTSFUNNEL_UPSELL' | translate}}</td>
-        <td class="cell--align-right">{{funnel.upsell.count | numberlocale}}</td>
-        <td class="cell--align-right">{{(funnel.upsell.percentage | numberlocale) || '-'}}%</td>
-        <td class="cell--align-right">{{(funnel.upsell.relativePercentage | numberlocale) || '-'}}%</td>
-      </tr>
-      <tr>
-        <td><div [style.background]="colors[4]" class="color-indicator"></div>{{'DASHBOARD_EVENTSFUNNEL_CONFIRM' | translate}}</td>
-        <td class="cell--align-right">{{funnel.confirm.count | numberlocale}}</td>
-        <td class="cell--align-right">{{(funnel.confirm.percentage | numberlocale) || '-'}}%</td>
-        <td class="cell--align-right">{{(funnel.confirm.relativePercentage | numberlocale) || '-'}}%</td>
-      </tr>
-    </tbody>
-  </table>
-  </div>
+    <div class="column">
+      <div class="item item--title"></div>
+      <div class="item item--title">{{'DASHBOARD_EVENTSFUNNEL_CLICK' | translate}}</div>
+      <div class="item item--title">{{'DASHBOARD_EVENTSFUNNEL_LEAD' | translate}}</div>
+      <div class="item item--title">{{'DASHBOARD_EVENTSFUNNEL_MAIN' | translate}}</div>
+      <div class="item item--title">{{'DASHBOARD_EVENTSFUNNEL_UPSELL' | translate}}</div>
+      <div class="item item--title">{{'DASHBOARD_EVENTSFUNNEL_CONFIRM' | translate}}</div>
+    </div>
 
-  <ng-content></ng-content>
+    <div class="column">
+      <div class="item item--title"></div>
+      <div class="item">{{funnel.click.count | numberlocale}}</div>
+      <div class="item">{{funnel.lead.count | numberlocale}}</div>
+      <div class="item">{{funnel.main.count | numberlocale}}</div>
+      <div class="item">{{funnel.upsell.count | numberlocale}}</div>
+      <div class="item">{{funnel.confirm.count | numberlocale}}</div>
+    </div>
 
-  <div class="dashboard__table-chart__actions">
-    <span *ngIf="funnel" (click)="toggleTable()">{{(showTable ? 'CHART_COLLAPSE' : 'CHART_SHOWTABLE') | translate}}</span>
+    <div class="column">
+      <div class="item item--title">% of Clicks</div>
+      <div class="item item--line"><div class="line"></div></div>
+      <div class="item">{{(funnel.lead.percentage | numberlocale) || '-'}}%</div>
+      <div class="item">{{(funnel.main.percentage | numberlocale) || '-'}}%</div>
+      <div class="item">{{(funnel.upsell.percentage | numberlocale) || '-'}}%</div>
+      <div class="item">{{(funnel.confirm.percentage | numberlocale) || '-'}}%</div>
+    </div>
+
+    <div class="column">
+      <div class="item item--title">% of Sales</div>
+      <div class="item item--line"><div class="line"></div></div>
+      <div class="item item--line"><div class="line"></div></div>
+      <div class="item item--line"><div class="line"></div></div>
+      <div class="item">{{(funnel.upsell.relativePercentage | numberlocale) || '-'}}%</div>
+      <div class="item">{{(funnel.upsell.relativePercentage | numberlocale) || '-'}}%</div>
+    </div>
+
   </div>
 </div>

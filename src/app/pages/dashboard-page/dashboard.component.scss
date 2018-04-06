@@ -2,6 +2,10 @@
   background: linear-gradient(#5185C4, #39C2F4);
 }
 
+.dashboard-container {
+  background: white;
+}
+
 .info {
   margin: 50px 25px 0;
   color: white;
@@ -20,5 +24,21 @@
     &:last-of-type {
       font-size: 14px;
     }
+  }
+}
+
+.charts-container {
+  margin: 15px 5px;
+  display: flex;
+
+  top-campaigns {
+    display: block;
+    margin: 15px;
+    width: 30%;
+  }
+
+  funnel-graph {
+    display: block;
+    margin: 15px;
   }
 }

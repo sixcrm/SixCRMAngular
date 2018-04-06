@@ -1,23 +1,30 @@
-<div class="dashboard">
-  <dashboard-header [campaigns]="campaigns"
-                    [selectedCampaign]="selectedCampaign"
-                    [queries]="queries"
-                    [selectedQuery]="selectedQuery"
-                    [timeFilters]="timeFilters"
-                    [quote]="quote"
-                    (campaignSelected)="selectCampaign($event)"
-                    (querySelected)="selectQuery($event)"
-                    (timeFilterSelected)="selectTimeFilter($event)">
-  </dashboard-header>
+<div class="dashboard-container">
+  <div class="dashboard">
+    <dashboard-header [campaigns]="campaigns"
+                      [selectedCampaign]="selectedCampaign"
+                      [queries]="queries"
+                      [selectedQuery]="selectedQuery"
+                      [timeFilters]="timeFilters"
+                      [quote]="quote"
+                      (campaignSelected)="selectCampaign($event)"
+                      (querySelected)="selectQuery($event)"
+                      (timeFilterSelected)="selectTimeFilter($event)">
+    </dashboard-header>
 
-  <div class="info">
-    <div>Welcome back, {{name}}</div>
-    <div>{{totalAmount.usd()}}</div>
-    <div>{{revenueMessage}}</div>
+    <div class="info">
+      <div>Welcome back, {{name}}</div>
+      <div>{{totalAmount.usd()}}</div>
+      <div>{{revenueMessage}}</div>
+    </div>
+
+    <dashboard-dual-graph [graphData]="data"></dashboard-dual-graph>
   </div>
 
-  <dashboard-dual-graph [graphData]="data"></dashboard-dual-graph>
+  <dashboard-issues-report [reports]="issueReports"></dashboard-issues-report>
+
+  <div class="charts-container">
+    <top-campaigns></top-campaigns>
+
+    <funnel-graph></funnel-graph>
+  </div>
 </div>
-
-<dashboard-issues-report [reports]="issueReports"></dashboard-issues-report>
-
