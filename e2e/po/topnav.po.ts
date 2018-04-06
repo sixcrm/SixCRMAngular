@@ -7,7 +7,7 @@ export class TopnavPage {
   }
 
   getSearchInput() {
-    return element(by.css('app-topnav')).all(by.css('input')).first()
+    return element(by.css('.md-input-element')).all(by.css('input')).first()
   }
 
   getProfileName() {

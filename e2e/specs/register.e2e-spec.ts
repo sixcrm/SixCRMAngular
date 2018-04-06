@@ -84,6 +84,6 @@ describe('Register', function() {
     registerPage.getContinueButton().click();
     browser.sleep(3000);
 
-    expect(registerPage.getSuccessTitle().getText()).toContain('Your account is now active and you may begin exploring at your leisure.')
+    expect(registerPage.getSuccessTitle().getText()).toContain('Your account is now active and you may begin exploring at your leisure.');
   });
 });

@@ -44,8 +44,8 @@ describe('Search', function() {
   it ('should navigate to search page when search via topnav', () => {
     browser.get('/dashboard');
 
-    topnav.getSearchButton().click();
-    browser.sleep(300);
+    // topnav.getSearchButton().click();
+    // browser.sleep(300);
 
     waitForPresenceOf(topnav.getSearchInput());
     topnav.getSearchInput().sendKeys('test');
