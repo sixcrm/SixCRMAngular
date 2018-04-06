@@ -25,8 +25,8 @@
       (selected)="querySelected.emit($event)">
     </dashboard-header-dropdown>
   </div>
-  <div class="dashboard-message">
-    <div>Fortune sides with him who dares.</div>
-    <div>-Virgil</div>
+  <div *ngIf="quote" class="dashboard-message">
+    <div>{{quote.quote}}</div>
+    <div>-{{quote.attribution.author}}</div>
   </div>
 </div>

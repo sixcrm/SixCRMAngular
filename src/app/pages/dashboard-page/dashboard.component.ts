@@ -9,6 +9,9 @@ import {CustomServerError} from '../../shared/models/errors/custom-server-error'
 import {Currency} from '../../shared/utils/currency/currency';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {DashboardIssueReportItem} from './dashboard-issues-report/dashboard-issues-report.component';
+import {TranslationService} from "../../translation/translation.service";
+import {Observable} from "rxjs/Observable";
+import {TranslatedQuote} from "../../translation/translated-quote.model";
 
 @Component({
   selector: 'c-dashboard',
@@ -53,6 +56,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   revenueMessage: string = 'Lifetime Total Revenue';
 
   name: string;
+  quote: TranslatedQuote;
 
   dataFirst = [
     [0, 2, 7, 10, 12, 18.7, 26, 28, 30, 31, 36, 52.3],
@@ -75,7 +79,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
-  constructor(private authService: AuthenticationService, private campaignService: CampaignsService) { }
+  constructor(
+    private authService: AuthenticationService,
+    private campaignService: CampaignsService,
+    private translationService: TranslationService
+  ) { }
 
   ngOnInit() {
     this.authService.sixUser$.takeUntil(this.unsubscribe$).subscribe(user => {
@@ -89,6 +97,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
 
     this.campaignService.getEntities(null, null, {ignoreProgress: true});
+
+    let quoteSub = Observable.interval(50).take(40).subscribe(() => {
+      if (!this.quote) {
+        this.quote = this.translationService.getRandomQuote();
+      } else {
+        quoteSub.unsubscribe();
+      }
+    });
   }
 
   ngOnDestroy() {
