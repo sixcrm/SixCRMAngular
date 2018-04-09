@@ -1,0 +1,31 @@
+.entity-view__body {
+  min-height: calc(100vh - 257px);
+  box-sizing: border-box;
+  display: block;
+  padding: 25px 25px 0;
+  background: white;
+}
+
+.entity-view__title--blue {
+  display: flex;
+  align-items: center;
+  padding: 50px 50px 0;
+}
+
+.notification-title-icon {
+  margin-left: auto;
+  width: 85px;
+  height: 85px;
+  display: flex;
+  border-radius: 50%;
+  background-color: #29366E;
+
+  md-icon {
+    margin: auto;
+    height: 65px;
+    width: 65px;
+    line-height: 65px;
+    font-size: 65px;
+    color: #7393F3;
+  }
+}

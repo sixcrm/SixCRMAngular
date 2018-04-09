@@ -1,16 +1,16 @@
 <div class="entity-view">
-  <div class="entity-view__title">{{'NOTIFICATIONS_TITLE' | translate}}</div>
-  <div class="entity-view__navigation">
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===0" (click)="setIndex(0)">{{'NOTIFICATIONS_TAB_NOTIFICATIONS' | translate}}</span>
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===1" (click)="setIndex(1)">{{'NOTIFICATIONS_TAB_ALERTS' | translate}}</span>
+  <div class="entity-view__title entity-view__title--blue">
+    {{'NOTIFICATIONS_TITLE' | translate}}
+    <div class="notification-title-icon">
+      <md-icon>notifications</md-icon>
+    </div>
   </div>
-</div>
-<md-tab-group class="no-header" [(selectedIndex)]="selectedIndex">
-  <md-tab>
-    <notifications-section></notifications-section>
-  </md-tab>
+  <div class="entity-view__navigation entity-view__navigation--blue">
+    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===0" (click)="setIndex(0)">{{'NOTIFICATIONS_TAB_NOTIFICATIONS' | translate}}</span>
+  </div>
 
-  <md-tab>
-    <alerts-section></alerts-section>
-  </md-tab>
-</md-tab-group>
+  <div class="entity-view__body">
+    <notifications-section></notifications-section>
+  </div>
+
+</div>

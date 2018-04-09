@@ -18,33 +18,15 @@ import {Router} from '@angular/router';
 })
 export class NotificationsSectionComponent extends AbstractEntityIndexComponent<Notification> implements OnInit, OnDestroy {
 
-  private loading: boolean;
+  notifications: Notification[] = [];
+
+  loading: boolean;
   isEmpty: boolean = false;
 
   selectedIndex: number = 0;
 
   filter: string;
-  filterMapper = (notification: Notification) => `${notification.name}`;
-
-  notsByDate: EntitiesByDate<Notification>[] = [
-    {label: 'NOTIFICATIONS_TODAY', entities: [], contains: (n: Notification) => utc(n.createdAt).isSame(utc(), 'day')},
-    {
-      label: 'NOTIFICATIONS_YESTERDAY',
-      entities: [],
-      contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(1, 'd').hour(0).minute(0).second(0))
-    },
-    {
-      label: 'NOTIFICATIONS_DAYS3',
-      entities: [],
-      contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(3, 'd').hour(0).minute(0).second(0))
-    },
-    {
-      label: 'NOTIFICATIONS_WEEK',
-      entities: [],
-      contains: (n: Notification) => utc(n.createdAt).isAfter(utc().subtract(7, 'd').hour(0).minute(0).second(0))
-    },
-    {label: 'NOTIFICATIONS_OTHER', entities: [], contains: (n: Notification) => true}
-  ];
+  filterMapper = (notification: Notification) => `${notification.body}`;
 
   constructor(
     public notificationsService: NotificationsService,
@@ -69,7 +51,11 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
       }
 
       this.serverError = null;
-      this.arrangeNotifications(entities);
+      this.notifications = this.notifications.concat(entities).sort((a,b) => {
+        if (a.createdAt.isBefore(b.createdAt)) return 1;
+        if (b.createdAt.isBefore(a.createdAt)) return -1;
+        return 0;
+      });
     });
 
     this.notificationsService.requestInProgress$.takeUntil(this.unsubscribe$).subscribe(loading => this.loading = loading);
@@ -77,7 +63,11 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
     this.notificationsService.entityUpdated$.subscribe(notification => {
       if (notification instanceof CustomServerError) return;
 
-      updateLocally(notification, this.notsByDate)
+      for (let i = 0; i < this.notifications.length; i++) {
+        if (this.notifications[i].id === notification.id) {
+          this.notifications[i] = notification;
+        }
+      }
     });
 
     this.init();
@@ -101,10 +91,5 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
     if (notification.category && notification.context[`${notification.category}.id`]) {
       this.router.navigate([notification.category + 's', notification.context[`${notification.category}.id`]]);
     }
-  }
-
-  arrangeNotifications(nots: Notification[]): void {
-    this.notsByDate = arrangeNotificationsByDate(nots, this.notsByDate);
-    this.isEmpty = isEmpty(this.notsByDate);
   }
 }

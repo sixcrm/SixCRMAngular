@@ -1,5 +1,6 @@
 $title-color: #8D8888;
 $blue-color: #4A90E2;
+$main-blue: #5383C3;
 
 .entity-view {
   md-tab-header {
@@ -11,6 +12,11 @@ $blue-color: #4A90E2;
     font-size: 20px;
     font-weight: 500;
     color: $title-color;
+
+    &--blue {
+      color: white;
+      background-color: $main-blue;
+    }
 
     &__breadcrumb {
       cursor: pointer;
@@ -286,6 +292,26 @@ $blue-color: #4A90E2;
     background-color: #F3F3F3;
     border-top: 1px solid rgba(0, 0, 0, 0.4);
     border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+
+    &--blue {
+      background-color: $main-blue;
+      border-top: none;
+      border-bottom: none;
+
+      .entity-view__navigation__label {
+        height: 45px;
+        line-height: 45px;
+        color: rgba(255,255,255, 0.75);
+        font-weight: 500;
+        border-bottom: 5px solid rgba(0,0,0,0);
+
+        &--active {
+          color: white;
+          border-color: #4CB2FF;
+          padding-bottom: 0;
+        }
+      }
+    }
 
     &__label {
       margin: 0 20px;

@@ -1,53 +1,51 @@
-<div class="notifications__filter">
-  <md-input-container>
-    <input md-input placeholder="{{'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filter" type="text">
-  </md-input-container>
-</div>
+<div class="container">
+  <div class="notifications-content">
 
-<div class="notifications notifications-list notifications-list--standalone">
-
-  <div class="notifications-list__topnav notifications-list__topnav--standalone">
-    <span>{{'NOTIFICATIONSQUICK_TITLE' | translate}}</span>
-    <div class="notifications-list__topnav__options notifications-list__topnav__options--standalone">
-      <div [routerLink]="['/profile']" fragment="notifications">{{'NOTIFICATIONSQUICK_SETTINGS' | translate}}</div>
-    </div>
-  </div>
-
-  <div class="notifications-list__content notifications-list__content--standalone"
-       infiniteScroll
-       [infiniteScrollDistance]="2"
-       [infiniteScrollThrottle]="300"
-       [scrollWindow]="false"
-       (scrolled)="onScroll()">
-    <div class="notifications-list__content__no-results" *ngIf="isEmpty">{{'NOTIFICATIONSQUICK_NORESULTS' | translate}}</div>
-
-    <div *ngFor="let notificationsByDate of notsByDate">
-
-      <div *ngIf="notificationsByDate.entities.length > 0">
-        <div class="notifications-list__content__title notifications-list__content__title--standalone">{{notificationsByDate.label | translate}}</div>
-
-        <div *ngFor="let notification of notificationsByDate.entities | filterStrings: filter: filterMapper">
-          <div class="notifications-list__content__notification notifications-list__content__notification--standalone" (click)="readNotification(notification)">
-            <div class="notifications-list__content__notification__image"><img src="assets/images/{{notification.getIconName()}}" alt=""></div>
-            <div class="notifications-list__content__notification__message notifications-list__content__notification__message--standalone">
-              <div>{{notification.body}}</div>
-              <div class="notifications-list__content__notification__message__date">
-                {{notification.createdAt.format('MMMM Do [at] h:mm A')}}
-              </div>
-            </div>
-            <div class="notifications-list__content__notification__read">
-              <div [class.unread]="!notification.readAt"></div>
-            </div>
-          </div>
-        </div>
+    <div class="header flex-custom flex-custom--center">
+      <div class="mrw-bi-input">
+        <md-icon>search</md-icon>
+        <md-input-container [floatingPlaceholder]="false">
+          <input md-input placeholder="{{'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filter" type="text">
+        </md-input-container>
       </div>
 
+      <div class="mrw-button">MARK ALL AS READ</div>
     </div>
 
-    <div *ngIf="notificationsService.requestInProgress$ | async" class="spinner">
-      <md-spinner></md-spinner>
-    </div>
+    <div class="notifications-container"
+         infiniteScroll
+         [infiniteScrollDistance]="2"
+         [infiniteScrollThrottle]="300"
+         [scrollWindow]="false"
+         (scrolled)="onScroll()">
+      <table class="highlight">
+        <thead>
+        <th>Read</th>
+        <th>Message</th>
+        <th>Date</th>
+        <th>Type</th>
+        </thead>
+        <tbody>
+        <tr *ngFor="let notification of notifications | filterStrings: filter: filterMapper" (click)="readNotification(notification)">
+          <td><div *ngIf="!notification.readAt" class="circle"></div><md-icon *ngIf="notification.readAt" class="circle-icon">done</md-icon></td>
+          <td [class.unread]="!notification.readAt">{{notification.body}}</td>
+          <td>{{notification.createdAt | formatDateTime}}</td>
+          <td>{{notification.type}}</td>
+        </tr>
+        </tbody>
+      </table>
 
+      <div *ngIf="notificationsService.requestInProgress$ | async" class="spinner">
+        <md-spinner></md-spinner>
+      </div>
+    </div>
   </div>
 
+  <div class="notifications-settings-instructions">
+    <div class="content">
+      <div>You can send notifications to more of your devices and applications by adding them to Devices and Apps</div>
+      <div class="icon"><div class="layer1"><div class="layer2"><div class="text">?</div></div></div></div>
+    </div>
+    <div class="mrw-button apps-button" [routerLink]="['/profile']" fragment="notifications">APPS AND DEVICES</div>
+  </div>
 </div>
