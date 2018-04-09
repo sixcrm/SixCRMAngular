@@ -22,6 +22,7 @@ import { DashboardHeaderComponent } from './dashboard-header/dashboard-header.co
 import { DashboardHeaderDropdownComponent } from './dashboard-header/dashboard-header-dropdown/dashboard-header-dropdown.component';
 import { DashboardDualGraphComponent } from './dashboard-dual-graph/dashboard-dual-graph.component';
 import { DashboardIssuesReportComponent } from './dashboard-issues-report/dashboard-issues-report.component';
+import { TopSubscriptionsComponent } from './top-subscriptions/top-subscriptions.component';
 
 export function highchartsFactory() {
   let hc = require('highcharts');
@@ -59,7 +60,8 @@ export function highchartsFactory() {
     DashboardHeaderComponent,
     DashboardHeaderDropdownComponent,
     DashboardDualGraphComponent,
-    DashboardIssuesReportComponent
+    DashboardIssuesReportComponent,
+    TopSubscriptionsComponent
   ],
   exports : [ ],
   providers: [{

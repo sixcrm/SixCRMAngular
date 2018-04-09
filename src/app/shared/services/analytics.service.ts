@@ -23,6 +23,8 @@ import {Activity} from '../models/analytics/activity.model';
 import {HttpWrapperService, extractData, generateHeaders, FailStrategy} from './http-wrapper.service';
 import {CustomServerError} from '../models/errors/custom-server-error';
 import {OrderVsRevenue} from "../models/order-vs-revenue.model";
+import {SubscriptionStats} from "../models/subscription-stats.model";
+import {Currency} from "../utils/currency/currency";
 
 @Injectable()
 export class AnalyticsService {
@@ -36,6 +38,7 @@ export class AnalyticsService {
   transactionsBy$: BehaviorSubject<TransactionsBy | CustomServerError>;
   eventsSummary$: BehaviorSubject<EventSummary[] | CustomServerError>;
   campaignsByAmount$: BehaviorSubject<CampaignStats[] | CustomServerError>;
+  subscriptionsByAmount$: BehaviorSubject<SubscriptionStats[] | CustomServerError>;
 
   activitiesByCustomer$: Subject<Activity[] | CustomServerError>;
 
@@ -49,6 +52,7 @@ export class AnalyticsService {
     this.eventsSummary$ = new BehaviorSubject(null);
     this.transactionsBy$ = new BehaviorSubject(null);
     this.campaignsByAmount$ = new BehaviorSubject(null);
+    this.subscriptionsByAmount$ = new BehaviorSubject(null);
 
     this.activitiesByCustomer$ = new Subject();
 
@@ -262,6 +266,16 @@ export class AnalyticsService {
         this.analyticsStorage.setEventSummary(start, end, result);
       }
     })
+  }
+
+  getSubscriptionsByAmount(start: string, end: string, downloadFormat?: string): void {
+    this.subscriptionsByAmount$.next([
+      {subscription: 'Example Sub 1', amount: new Currency(1802)},
+      {subscription: 'Sub 2', amount: new Currency(1100)},
+      {subscription: 'Sub 3', amount: new Currency(900)},
+      {subscription: 'Example Sub 2', amount: new Currency(550)},
+      {subscription: 'Sub 5', amount: new Currency(412)},
+    ])
   }
 
   getCampaignsByAmount(start: string, end: string, downloadFormat?: string): void {
