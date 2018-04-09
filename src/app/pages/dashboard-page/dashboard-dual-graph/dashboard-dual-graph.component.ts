@@ -77,8 +77,8 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
           const firstPoint = this.points[0];
           const secondPoint = this.points[1];
 
-          const first = `<div class="dashboard-tooltip-text" style="color: white">${firstPoint.y}${firstPoint.y === 0 ? '' : 'k'}</div>`;
-          const second = `<div class="dashboard-tooltip-text" style="color: white">${secondPoint.y}${secondPoint.y === 0 ? '' : 'k'}</div>`;
+          const first = `<div class="dashboard-tooltip-text" style="color: white">${firstPoint.y}</div>`;
+          const second = `<div class="dashboard-tooltip-text" style="color: white">${secondPoint.y}</div>`;
           const date = `<div class="dashboard-tooltip-date" style="color: white">${self.calculateDate(firstPoint.x)}</div>`;
 
           return [date, self.displayLabel(firstPoint.x) ? '' : first, self.displayLabel(secondPoint.x) ? '' : second];
@@ -104,7 +104,7 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
                 return `
                 <div class="dashboard-tooltip-text" style="color: white">
                   ${this.series.index === 0 ? '$' : ''}
-                  ${this.y}k
+                  ${this.y}
                   ${this.series.index === 1
                   ? `<div class="dashboard-label-icon-holder"><i class="material-icons">shopping_cart</i></div>`
                   : `<div class="dashboard-label-icon-holder"> <div>$</div></div>`}
@@ -117,8 +117,8 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
         }
       },
       series: [
-        { name: 'first', color: '#4383CC', data: this.data[0]},
-        { name: 'second', color: '#4DABF5', data: this.data[1]},
+        { name: 'first', color: '#4383CC', data: []},
+        { name: 'second', color: '#4DABF5', data: []},
       ]
     };
   }
@@ -133,7 +133,7 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
   }
 
   displayLabel(xValue: number) {
-    return xValue === 5 || xValue === this.data[0].length - 1;
+    return xValue === this.data[0].length - 15 || xValue === this.data[0].length - 1;
   }
 
   calculateDate(xValue: number) {
@@ -143,9 +143,9 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
       return 'Today';
     }
 
-    const date = utc().subtract(this.data[0].length - 1 - xValue, 'd').tz(tz).format('MMMM D, YYYY');
+    const date = this.data[0][xValue][0].tz(tz).format('MMMM D, YYYY');
 
-    if (xValue === 5) {
+    if (xValue === this.data[0].length - 15) {
       return 'Last login, ' + date;
     }
 

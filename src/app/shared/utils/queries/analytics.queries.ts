@@ -14,6 +14,15 @@ export function transactionSummaryQuery(start: string, end: string, filterTerms:
 	}`
 }
 
+export function revenueVsOrderQuery(start: string, end: string, period: string, campaignId?: string): string {
+  return `{
+		herocharttimeseries ( analyticsfilter: {start: "${start}", end: "${end}", period: "${period}" ${campaignId ? `, campaign: "${campaignId}"` : ``} } ) {
+			timeseries { datetime, orders, revenue }
+		}
+  }`;
+}
+
+
 export function eventsFunnelQuery(start: string, end: string): string {
   return `{
 		eventfunnel (analyticsfilter:{${dateRange(start, end)}}) {

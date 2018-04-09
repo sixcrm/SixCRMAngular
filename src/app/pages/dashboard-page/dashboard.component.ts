@@ -12,6 +12,8 @@ import {DashboardIssueReportItem} from './dashboard-issues-report/dashboard-issu
 import {TranslationService} from "../../translation/translation.service";
 import {Observable} from "rxjs/Observable";
 import {TranslatedQuote} from "../../translation/translated-quote.model";
+import {AnalyticsService} from "../../shared/services/analytics.service";
+import {utc} from 'moment';
 
 @Component({
   selector: 'c-dashboard',
@@ -34,41 +36,33 @@ export class DashboardComponent implements OnInit, OnDestroy {
   timeFilters: DashboardTimeFilter[] = [
     {
       label: 'Lifetime',
-      selected: true,
+      start: utc().subtract(365, 'd').format(),
+      end: utc().format(),
+      selected: false,
       callback: () => {
-        this.data = this.dataFirst.slice();
-        this.totalAmount = new Currency(52302.25);
+        this.fetchData();
         this.revenueMessage = 'Lifetime Total Revenue';
       }
     },
     {
       label: 'Past 30 Days',
-      selected: false,
+      start: utc().subtract(30, 'd').format(),
+      end: utc().format(),
+      selected: true,
       callback: () => {
-        this.data = this.dataSecond.slice();
-        this.totalAmount = new Currency(8012.13);
+        this.fetchData();
         this.revenueMessage = 'Last 30 Days Revenue';
       }
     }
   ];
 
-  totalAmount: Currency = new Currency(12015.25);
+  totalAmount: Currency = new Currency(0);
   revenueMessage: string = 'Lifetime Total Revenue';
 
   name: string;
   quote: TranslatedQuote;
 
-  dataFirst = [
-    [0, 2, 7, 10, 12, 18.7, 26, 28, 30, 31, 36, 52.3],
-    [0, 1, 3, 5, 9, 11.2, 20, 21.1, 22, 25, 28, 42]
-  ];
-
-  dataSecond = [
-    [18.7, 26, 28, 30, 31, 36, 52.3],
-    [11.2, 20, 21.1, 22, 25, 28, 42]
-  ];
-
-  data = this.dataFirst.slice();
+  data = [];
 
   issueReports: DashboardIssueReportItem[] = [
     {label: 'Orders', issues: []},
@@ -81,6 +75,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthenticationService,
+    private analyticsService: AnalyticsService,
     private campaignService: CampaignsService,
     private translationService: TranslationService
   ) { }
@@ -105,6 +100,34 @@ export class DashboardComponent implements OnInit, OnDestroy {
         quoteSub.unsubscribe();
       }
     });
+
+    this.analyticsService.orderVsRevenue$.subscribe(data => {
+      if (!data || data instanceof CustomServerError) return;
+
+      const reducer = (arr, val) => {
+        if (arr.length === 0) return arr.concat([val]);
+
+        const v = [val[0], val[1] + arr[arr.length - 1][1]];
+
+        return arr.concat([v]);
+      };
+
+      const o = data.map(ovr => [ovr.datetime, ovr.orders]).reduce(reducer, []);
+      const r = data.map(ovr => [ovr.datetime, ovr.revenue]).reduce(reducer, []);
+
+      this.data = [r, o];
+      this.totalAmount = new Currency(r.length > 0 ? r[r.length - 1][1] : 0);
+    });
+
+    this.fetchData();
+  }
+
+  fetchData() {
+    const selectedTimeFilter = this.timeFilters.find((tf) => tf.selected);
+
+    if (!selectedTimeFilter) return;
+
+    this.analyticsService.getOrderVsRevenue(selectedTimeFilter.start, selectedTimeFilter.end, 'day', this.selectedCampaign ? this.selectedCampaign.id : null);
   }
 
   ngOnDestroy() {
@@ -114,6 +137,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   selectCampaign(campaign: Campaign) {
     this.selectedCampaign = campaign;
+
+    this.fetchData()
   }
 
   selectQuery(query: DashboardQuery) {
