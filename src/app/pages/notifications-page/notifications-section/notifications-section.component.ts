@@ -1,14 +1,11 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Notification} from '../../../shared/models/notification.model';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
-import {EntitiesByDate} from '../../../shared/models/entities-by-date.interface';
-import {utc} from 'moment';
 import {NotificationsService} from '../../../shared/services/notifications.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
-import {updateLocally, arrangeNotificationsByDate, isEmpty} from '../../../shared/utils/notification.utils';
 import {Router} from '@angular/router';
 
 @Component({
