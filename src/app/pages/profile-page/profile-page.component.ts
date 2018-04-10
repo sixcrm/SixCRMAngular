@@ -41,6 +41,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   userSettingsBackup: UserSettings;
   phone: string;
 
+  notificationSettingsBackup: NotificationSettings;
   notificationSettings: NotificationSettings;
   defaultNotificationSettings: NotificationSettingsData;
 
@@ -71,7 +72,8 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'PROFILE_TABS_GENERAL'},
-    {name: 'notifications', label: 'PROFILE_TABS_NOTIFICATIONS'},
+    {name: 'appsanddevices', label: 'PROFILE_TABS_APPSANDDEVICES'},
+    {name: 'notificationpreferences', label: 'PROFILE_TABS_NOTIFICATIONPREFERENCES'},
     {name: 'accounts', label: 'PROFILE_TABS_ACCOUNTS'},
     {name: 'signingstrings', label: 'PROFILE_TABS_SIGNINGSTRINGS'}
   ];
@@ -122,8 +124,9 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
       }
 
       this.notificationSettings = settings;
+      this.notificationSettingsBackup = this.notificationSettings.copy();
 
-      if (!this.notificationSettings.settings) {
+      if (!this.notificationSettings.id) {
         this.notificationSettingsService.fetchDefaultNotificationSettings();
       }
     });

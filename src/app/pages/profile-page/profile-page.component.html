@@ -67,62 +67,16 @@
         </md-tab>
 
         <md-tab>
-          <div class="profile-page__content__notifications">
-            <div class="profile-page__content__notifications__item">
-              <div class="profile-page__content__notifications__title">
-                <div class="profile-page__content__notifications__title__main">{{'PROFILE_NOTIFICATIONS_TITLE' | translate}}</div>
-                <div class="profile-page__content__notifications__title__sub">{{'PROFILE_NOTIFICATIONS_SUBTITLE' | translate}}</div>
-              </div>
+          <notification-devices
+            [settings]="userSettings"
+            (sendTestNotification)="sendTestNotification()"
+            (sendTestAlert)="sendTestAlert()"
+            (settingToggled)="userSettingsFieldUpdated()">
+          </notification-devices>
+        </md-tab>
 
-              <div *ngIf="userSettings" class="profile-page__content__notifications__body profile-page__content__notifications__body--toggles">
-                <md-checkbox
-                  *ngFor="let settings of userSettings.notificationSettings"
-                  [(ngModel)]="settings.receive"
-                  (change)="userSettingsFieldUpdated()"
-                  [color]="'primary'">{{deviceLabels[settings.name]}}</md-checkbox>
-              </div>
-            </div>
-            <div class="profile-page__content__notifications__item">
-              <div class="profile-page__content__notifications__title">
-                <div class="profile-page__content__notifications__title__main">{{'PROFILE_NOTIFICATIONS_DEVICES_TITLE' | translate}}</div>
-                <div class="profile-page__content__notifications__title__sub">{{'PROFILE_NOTIFICATIONS_DEVICES_SUBTITLE' | translate}}</div>
-                <!--<md-icon>more_vert</md-icon>-->
-              </div>
-
-              <div class="profile-page__content__notifications__body">
-                <md-input-container>
-                  <input md-input placeholder="{{'PROFILE_NOTIFICATIONS_DEVICES_SMS' | translate}}" type="text" (blur)="userSettingsFieldUpdated()" [textMask]="{mask: mask, guide: false}" [(ngModel)]="getNotificationUserSettings('sms').data">
-                </md-input-container>
-                <md-input placeholder="{{'PROFILE_NOTIFICATIONS_DEVICES_EMAIL' | translate}}" (blur)="userSettingsFieldUpdated()" [(ngModel)]="getNotificationUserSettings('email').data"></md-input>
-                <md-input placeholder="{{'PROFILE_NOTIFICATIONS_DEVICES_SKYPE' | translate}}" (blur)="userSettingsFieldUpdated()" [(ngModel)]="getNotificationUserSettings('skype').data"></md-input>
-                <md-input placeholder="{{'PROFILE_NOTIFICATIONS_DEVICES_SLACK' | translate}}" (blur)="userSettingsFieldUpdated()" [(ngModel)]="getNotificationUserSettings('slack').data"></md-input>
-              </div>
-            </div>
-            <div class="profile-page__content__notifications__item">
-              <div class="profile-page__content__notifications__title">
-                <div class="profile-page__content__notifications__title__main">{{'PROFILE_NOTIFICATIONS_SETTINGS_TITLE' | translate}}</div>
-                <div class="profile-page__content__notifications__title__sub">{{'PROFILE_NOTIFICATIONS_SETTINGS_SUBTITLE' | translate}}</div>
-                <!--<md-icon>more_vert</md-icon>-->
-              </div>
-
-              <div class="profile-page__content__notifications__body">
-                <table class="highlight">
-                  <tbody *ngIf="notificationSettings && notificationSettings.settings">
-                    <ng-container *ngFor="let group of notificationSettings.settings.notification_groups">
-                      <tr *ngFor="let notification of group.notifications">
-                        <td>{{notification.name}}</td>
-                        <td><md-checkbox [color]="'primary'" (change)="notificationSettingsFieldUpdated()" [(ngModel)]="notification.default"></md-checkbox></td>
-                      </tr>
-                    </ng-container>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <div class="card-outside-button" (click)="sendTestNotification()">{{'PROFILE_NOTIFICATIONS_TESTNOTIFICATION' | translate}}</div>
-          <div class="card-outside-button" (click)="sendTestAlert()">{{'PROFILE_NOTIFICATIONS_TESTALERT' | translate}}</div>
-
+        <md-tab>
+          <notification-preferences [notificationSettings]="notificationSettings"></notification-preferences>
         </md-tab>
 
         <md-tab>

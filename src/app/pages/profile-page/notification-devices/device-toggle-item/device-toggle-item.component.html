@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="icon"></div>
+
+  <div class="content">
+    <div class="title">{{deviceLabels[notificationSettings.name]}}</div>
+    <div class="subtitle">{{notificationSettings.data || 'Click to enter data'}}</div>
+  </div>
+
+  <md-slide-toggle class="slider-blue" [(ngModel)]="notificationSettings.receive" (change)="toggled.emit(true)"></md-slide-toggle>
+</div>

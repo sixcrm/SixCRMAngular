@@ -10,6 +10,9 @@ import {PageComponentsModule} from '../components/pages-components.module';
 import {TranslationModule} from "../../translation/translation.module";
 import {UserSigningStringsComponent} from "./user-signing-strings/user-signing-strings.component";
 import {ClipboardModule} from "ngx-clipboard";
+import { NotificationDevicesComponent } from './notification-devices/notification-devices.component';
+import { NotificationPreferencesComponent } from './notification-preferences/notification-preferences.component';
+import { DeviceToggleItemComponent } from './notification-devices/device-toggle-item/device-toggle-item.component';
 
 @NgModule({
   imports : [
@@ -25,7 +28,10 @@ import {ClipboardModule} from "ngx-clipboard";
   ],
   declarations : [
     ProfilePageComponent,
-    UserSigningStringsComponent
+    UserSigningStringsComponent,
+    NotificationDevicesComponent,
+    NotificationPreferencesComponent,
+    DeviceToggleItemComponent
   ],
   exports : [
   ],

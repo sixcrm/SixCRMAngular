@@ -1,0 +1,57 @@
+th {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #131313;
+  text-transform: capitalize;
+
+  &--secondary {
+    padding-left: 30px;
+    font-size: 14px;
+    color: rgba(0,0,0,0.6);
+    font-weight: 400;
+  }
+}
+
+.container {
+  padding: 25px;
+  margin-bottom: 25px;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  padding: 10px 0;
+  right: 50px;
+  bottom: 0;
+
+  div {
+
+    &:first-of-type {
+      color: #4B90DD;
+      font-size: 14px;
+    }
+
+    &:last-of-type {
+      color: white;
+      background-color: #4B90DD;
+    }
+  }
+}
+
+.title-tr {
+  border-top: 1px solid #d0d0d0;
+}
+
+.subtitle-tr {
+
+}
+
+md-checkbox {
+  color: #767676;
+}

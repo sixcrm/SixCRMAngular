@@ -2,9 +2,7 @@ import {utc, Moment} from 'moment';
 
 export class NotificationGroupItem {
   key: string;
-  description: string;
-  default: boolean;
-  name: string;
+  channels: string[];
 
   constructor(obj?: any) {
     if (!obj) {
@@ -12,16 +10,20 @@ export class NotificationGroupItem {
     }
 
     this.key = obj.key || '';
-    this.description = obj.description || '';
-    this.default = obj.default || false;
-    this.name = obj.name || '';
+    this.channels = obj.channels || [];
+  }
+
+  inverse(): any {
+    return {
+      key: this.key,
+      channels: this.channels.slice()
+    }
   }
 }
 
 export class NotificationGroup {
   key: string;
-  name: string;
-  description: string;
+  def: string[];
   display: boolean;
   notifications: NotificationGroupItem[] = [];
 
@@ -31,12 +33,20 @@ export class NotificationGroup {
     }
 
     this.key = obj.key || '';
-    this.name = obj.name || '';
-    this.description = obj.name || '';
+    this.def = obj.default || '';
     this.display = obj.display || false;
 
     if (obj.notifications) {
       obj.notifications.forEach(notification => this.notifications.push(new NotificationGroupItem(notification)));
+    }
+  }
+
+  inverse(): any {
+    return {
+      key: this.key,
+      default: this.def,
+      display: this.display,
+      notifications: this.notifications.map(n => n.inverse())
     }
   }
 }
@@ -51,6 +61,12 @@ export class NotificationSettingsData {
 
     if (obj.notification_groups) {
       obj.notification_groups.forEach(group => this.notification_groups.push(new NotificationGroup(group)));
+    }
+  }
+
+  inverse(): any {
+    return {
+      notification_groups: this.notification_groups.map(ng => ng.inverse())
     }
   }
 }
@@ -68,9 +84,22 @@ export class NotificationSettings {
     }
 
     this.id = obj.id || '';
-    this.settings = obj.settings ? new NotificationSettingsData(JSON.parse(obj.settings)) : null;
+    this.settings = new NotificationSettingsData(obj.settings);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
     this.updatedAtAPI = obj.updated_at;
+  }
+
+  inverse(): any {
+    return {
+      id: this.id,
+      settings: this.settings.inverse(),
+      created_at: this.createdAt.format(),
+      updated_at: this.updatedAtAPI
+    }
+  }
+
+  copy(): NotificationSettings {
+    return new NotificationSettings(this.inverse())
   }
 }

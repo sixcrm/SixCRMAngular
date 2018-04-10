@@ -1,0 +1,27 @@
+.container {
+  margin: 5px 0 10px;
+  display: flex;
+  align-items: center;
+
+  .icon {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: rgba(0,0,0,0.1);
+  }
+
+  .content {
+    margin: 0 8px 0 12px;
+    width: 160px;
+
+    .title {
+      font-size: 14px;
+    }
+
+    .subtitle {
+      margin-top: 5px;
+      color: rgba(0,0,0,0.5);
+      font-size: 12px;
+    }
+  }
+}

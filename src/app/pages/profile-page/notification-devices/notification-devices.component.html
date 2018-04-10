@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="appsdevices">
+    <div class="column">
+      <div class="title">Applications</div>
+
+      <div *ngFor="let app of appNotificationSettingsItem">
+        <device-toggle-item [notificationSettings]="app" (toggled)="settingToggled.emit(true)"></device-toggle-item>
+      </div>
+
+      <div *ngIf="!_settings" class="loader">
+        <div></div><div></div><div></div></div>
+    </div>
+
+    <div class="column">
+      <div class="title">Devices</div>
+
+      <div *ngFor="let dev of devNotificationSettingsItem">
+        <device-toggle-item [notificationSettings]="dev" (toggled)="settingToggled.emit(true)"></device-toggle-item>
+      </div>
+
+      <div *ngIf="!_settings" class="loader">
+        <div></div><div></div><div></div></div>
+    </div>
+  </div>
+
+  <div class="test-container">
+    <div class="content">
+      <div>You can send a test notification to every device and application based on your settings</div>
+    </div>
+    <div>
+      <div class="mrw-button test-button" (click)="sendTestAlert.emit(true)">TEST</div> <span class="test-text">Send alert level notification</span>
+    </div>
+
+    <div>
+      <div class="mrw-button test-button" (click)="sendTestNotification.emit(true)">TEST</div> <span class="test-text">Send general level notification</span>
+    </div>
+  </div>
+</div>

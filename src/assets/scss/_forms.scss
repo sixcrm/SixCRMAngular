@@ -1,4 +1,5 @@
 $error-color: #D00140 !important;
+$main-blue: #5383C3;
 
 .content {
 
@@ -278,3 +279,16 @@ dropdown-component {
   }
 }
 
+.slider-blue.md-checked:not(.md-disabled) .md-slide-toggle-bar {
+  background: $main-blue;
+}
+.slider-blue.md-checked:not(.md-disabled) {
+  .md-slide-toggle-thumb {
+    background-color: $main-blue !important;
+  }
+}
+.slider-blue {
+  .md-slide-toggle-thumb {
+    background-color: #E4E4E4;
+  }
+}
