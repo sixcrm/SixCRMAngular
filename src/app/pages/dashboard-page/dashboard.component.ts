@@ -14,6 +14,8 @@ import {Observable} from "rxjs/Observable";
 import {TranslatedQuote} from "../../translation/translated-quote.model";
 import {AnalyticsService} from "../../shared/services/analytics.service";
 import {utc} from 'moment';
+import {HeroChartSeries} from '../../shared/models/hero-chart-series.model';
+import {SeriesType} from './series-type';
 
 @Component({
   selector: 'c-dashboard',
@@ -24,12 +26,62 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   campaigns: Campaign[] = [new Campaign({name: 'All Campaigns'})];
   selectedCampaign: Campaign = this.campaigns[0];
+  seriesType: SeriesType = SeriesType.amountcount;
 
   queries: DashboardQuery[] = [
-    {label: 'Revenue vs Orders', selected: true},
-    {label: 'Orders vs Upsells', selected: false},
-    {label: 'Direct $ vs Rebill $', selected: false},
-    {label: 'Average $ per Order', selected: false}
+    {
+      label: 'Revenue vs Orders',
+      comparisonType: 'revenueVersusOrders',
+      selected: true,
+      process: (series: HeroChartSeries[]) => {
+        this.seriesType = SeriesType.amountcount;
+
+        let revenue = series.find(el => el.facet === 'revenue').timeseries.map(s => [s.datetime, s.value]);
+        let orders = series.find(el => el.facet === 'orders').timeseries.map(s => [s.datetime, s.value]);
+
+        this.totalAmount = new Currency(series.find(el => el.facet === 'revenue').timeseries.map(s => s.value).reduce((a,b) => a+b, 0));
+
+        this.data = [revenue, orders];
+      }
+    },
+    {
+      label: 'Orders vs Upsells',
+      comparisonType: 'ordersVersusUpsells',
+      selected: false,
+      process: (series: HeroChartSeries[]) => {
+        this.seriesType = SeriesType.count;
+
+        let orders = series.find(el => el.facet === 'orders').timeseries.map(s => [s.datetime, s.value]);
+        let upsells = series.find(el => el.facet === 'upsells').timeseries.map(s => [s.datetime, s.value]);
+
+        this.data = [upsells, orders];
+      }
+    },
+    {
+      label: 'Direct $ vs Rebill $',
+      comparisonType: 'directVersusRebill',
+      selected: false,
+      process: (series: HeroChartSeries[]) => {
+        this.seriesType = SeriesType.amount;
+
+        let direct = series.find(el => el.facet === 'direct').timeseries.map(s => [s.datetime, s.value]);
+        let rebill = series.find(el => el.facet === 'rebill').timeseries.map(s => [s.datetime, s.value]);
+
+        this.data = [direct, rebill];
+      }
+    },
+    {
+      label: 'Average $ per Order',
+      comparisonType: 'averageRevenuePerOrder',
+      selected: false,
+      process: (series: HeroChartSeries[]) => {
+        this.seriesType = SeriesType.amount;
+
+        let average = series.find(el => el.facet === 'averageRevenue').timeseries.map(s => [s.datetime, s.value]);
+
+        this.data = [average, []];
+      }
+    }
   ];
   selectedQuery: DashboardQuery = this.queries[0];
 
@@ -101,22 +153,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.analyticsService.orderVsRevenue$.subscribe(data => {
+    this.analyticsService.heroChartSeries$.subscribe(data => {
       if (!data || data instanceof CustomServerError) return;
 
-      const reducer = (arr, val) => {
-        if (arr.length === 0) return arr.concat([val]);
-
-        const v = [val[0], val[1] + arr[arr.length - 1][1]];
-
-        return arr.concat([v]);
-      };
-
-      const o = data.map(ovr => [ovr.datetime, ovr.orders]).reduce(reducer, []);
-      const r = data.map(ovr => [ovr.datetime, ovr.revenue]).reduce(reducer, []);
-
-      this.data = [r, o];
-      this.totalAmount = new Currency(r.length > 0 ? r[r.length - 1][1] : 0);
+      this.selectedQuery.process(data);
     });
 
     this.fetchData();
@@ -125,9 +165,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   fetchData() {
     const selectedTimeFilter = this.timeFilters.find((tf) => tf.selected);
 
-    if (!selectedTimeFilter) return;
+    if (!selectedTimeFilter || !this.selectedQuery) return;
 
-    this.analyticsService.getOrderVsRevenue(selectedTimeFilter.start, selectedTimeFilter.end, 'day', this.selectedCampaign ? this.selectedCampaign.id : null);
+    this.analyticsService.getHeroChartSeries(selectedTimeFilter.start, selectedTimeFilter.end, 'day', this.selectedQuery.comparisonType, this.selectedCampaign ? this.selectedCampaign.id : null);
   }
 
   ngOnDestroy() {
@@ -146,6 +186,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     this.selectedQuery = query;
     this.selectedQuery.selected = true;
+    this.fetchData();
   }
 
   selectTimeFilter(filter: DashboardTimeFilter) {

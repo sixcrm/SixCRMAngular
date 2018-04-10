@@ -1,7 +1,10 @@
+import {HeroChartSeries} from '../../shared/models/hero-chart-series.model';
+
 export interface DashboardQuery {
   label: string,
   selected: boolean,
-  callback?: () => void
+  comparisonType: string,
+  process: (series: HeroChartSeries[]) => void
 }
 
 export interface DashboardTimeFilter {

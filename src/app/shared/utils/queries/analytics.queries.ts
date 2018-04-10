@@ -14,10 +14,10 @@ export function transactionSummaryQuery(start: string, end: string, filterTerms:
 	}`
 }
 
-export function revenueVsOrderQuery(start: string, end: string, period: string, campaignId?: string): string {
+export function heroChartQuery(start: string, end: string, period: string, comparisonType: string, campaignId?: string): string {
   return `{
-		herocharttimeseries ( analyticsfilter: {start: "${start}", end: "${end}", period: "${period}" ${campaignId ? `, campaign: "${campaignId}"` : ``} } ) {
-			timeseries { datetime, orders, revenue }
+		herocharttimeseries ( analyticsfilter: {start: "${start}", end: "${end}", period: "${period}", comparisonType: ${comparisonType}${campaignId ? `, campaign: "${campaignId}"` : ``} } ) {
+			facets { facet, timeseries { datetime, value } }
 		}
   }`;
 }

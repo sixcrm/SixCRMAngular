@@ -1,4 +1,4 @@
 <div class="dashboard-dual-graph-container">
-  <chart *ngIf="options" #chartI class="dashboard-chart" [options]="options" (load)="loadChart(chartI)"></chart>
-  <div class="dashboard-chart-footer" *ngIf="options && chartInstance"></div>
+  <chart #chartI class="dashboard-chart" [options]="options" (load)="loadChart(chartI)"></chart>
+  <div class="dashboard-chart-footer"></div>
 </div>

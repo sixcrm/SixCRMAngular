@@ -34,7 +34,7 @@ export class MerchantProvider implements Entity<MerchantProvider>{
     this.customerService = new MerchantProviderCustomerService(obj.customer_service);
     this.gateway = new MerchantProviderGateway(obj.gateway);
     this.processing = new MerchantProviderProcessingConfig(obj.processing);
-    this.processor = new MerchantProviderProcessor(obj.processor);
+    this.processor = new MerchantProviderProcessor(obj.process);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
     this.updatedAtAPI = obj.updated_at;

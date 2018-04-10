@@ -1,6 +1,6 @@
 import {Component, OnInit, AfterViewInit, Input} from '@angular/core';
-import {utc} from 'moment';
 import {AuthenticationService} from '../../../authentication/authentication.service';
+import {SeriesType} from '../series-type';
 
 @Component({
   selector: 'dashboard-dual-graph',
@@ -14,6 +14,8 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
   chartInstance;
 
   data = [[],[]];
+
+  @Input() type: SeriesType = SeriesType.amountcount;
 
   @Input() set graphData(value) {
     if (!value || value.length === 0) return;
@@ -77,11 +79,11 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
           const firstPoint = this.points[0];
           const secondPoint = this.points[1];
 
-          const first = `<div class="dashboard-tooltip-text" style="color: white">${firstPoint.y}</div>`;
-          const second = `<div class="dashboard-tooltip-text" style="color: white">${secondPoint.y}</div>`;
+          const first = `<div class="dashboard-tooltip-text" style="color: white">${self.type === SeriesType.amountcount || self.type === SeriesType.amount ? '$':''}${firstPoint.y}</div>`;
+          const second = secondPoint ? `<div class="dashboard-tooltip-text" style="color: white">${self.type === SeriesType.amount ? '$':''}${secondPoint.y}</div>` : null;
           const date = `<div class="dashboard-tooltip-date" style="color: white">${self.calculateDate(firstPoint.x)}</div>`;
 
-          return [date, self.displayLabel(firstPoint.x) ? '' : first, self.displayLabel(secondPoint.x) ? '' : second];
+          return [date, self.displayLabel(firstPoint.x) ? '' : first, second && self.displayLabel(secondPoint.x) ? '' : second];
         }
       },
       legend: {
@@ -92,7 +94,6 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
       },
       plotOptions: {
         area: {
-          fillOpacity: 1,
           marker: {
             enabled: false
           },
@@ -101,13 +102,17 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
             useHTML: true,
             formatter: function() {
               if (self.displayLabel(this.x)) {
+                if (!this.series) return '';
+
+                const type = self.type;
+
                 return `
                 <div class="dashboard-tooltip-text" style="color: white">
-                  ${this.series.index === 0 ? '$' : ''}
+                  ${((type === SeriesType.amountcount && this.series.index === 0) || type === SeriesType.amount) ? '$' : ''}
                   ${this.y}
-                  ${this.series.index === 1
-                  ? `<div class="dashboard-label-icon-holder"><i class="material-icons">shopping_cart</i></div>`
-                  : `<div class="dashboard-label-icon-holder"> <div>$</div></div>`}
+                  ${((type === SeriesType.amountcount && this.series.index === 0) || type == SeriesType.amount)
+                  ? `<div class="dashboard-label-icon-holder"> <div>$</div></div>`
+                  : `<div class="dashboard-label-icon-holder"><i class="material-icons">shopping_cart</i></div>`}
                 </div>`;
               }
 
@@ -124,10 +129,16 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
   }
 
   refreshData() {
-    if (!this.data || !this.chartInstance) return;
+    if (!this.data || !this.chartInstance || !this.chartInstance.chart) return;
 
     this.chartInstance.chart.series[0].update({data: this.data[0]}, true);
-    this.chartInstance.chart.series[1].update({data: this.data[1]}, true);
+
+    if (this.data[1].length > 0) {
+      this.chartInstance.chart.series[1].setVisible(true);
+      this.chartInstance.chart.series[1].update({data: this.data[1]}, true);
+    } else {
+      this.chartInstance.chart.series[1].setVisible(false, true);
+    }
 
     this.initialLoad = true;
   }

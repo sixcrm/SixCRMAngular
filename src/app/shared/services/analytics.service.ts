@@ -9,7 +9,7 @@ import {TransactionSummary} from '../models/transaction-summary.model';
 import {
   transactionSummaryQuery, transactionOverviewQuery, eventsFunnelQuery,
   campaignDeltaQuery, eventsByAffiliateQuery, eventsSummaryQuery, transactionsByAffiliateQuery, campaignsByAmountQuery,
-  activitiesByCustomer, revenueVsOrderQuery
+  activitiesByCustomer, heroChartQuery
 } from '../utils/queries/analytics.queries';
 import {CampaignDelta} from '../models/campaign-delta.model';
 import {EventSummary} from '../models/event-summary.model';
@@ -22,16 +22,16 @@ import {downloadFile} from '../utils/file.utils';
 import {Activity} from '../models/analytics/activity.model';
 import {HttpWrapperService, extractData, generateHeaders, FailStrategy} from './http-wrapper.service';
 import {CustomServerError} from '../models/errors/custom-server-error';
-import {OrderVsRevenue} from "../models/order-vs-revenue.model";
 import {SubscriptionStats} from "../models/subscription-stats.model";
 import {Currency} from "../utils/currency/currency";
+import {HeroChartSeries} from '../models/hero-chart-series.model';
 
 @Injectable()
 export class AnalyticsService {
 
   eventFunnel$: BehaviorSubject<EventFunnel | CustomServerError>;
   transactionsSummaries$: BehaviorSubject<TransactionSummary[] | CustomServerError>;
-  orderVsRevenue$: BehaviorSubject<OrderVsRevenue[] | CustomServerError>;
+  heroChartSeries$: BehaviorSubject<HeroChartSeries[] | CustomServerError>;
   transactionsOverview$: BehaviorSubject<TransactionOverview | CustomServerError>;
   campaignDelta$: BehaviorSubject<CampaignDelta[] | CustomServerError>;
   eventsBy$: BehaviorSubject<EventsBy | CustomServerError>;
@@ -45,7 +45,7 @@ export class AnalyticsService {
   constructor(private authService: AuthenticationService, private analyticsStorage: AnalyticsStorageService, private http: HttpWrapperService) {
     this.eventFunnel$ = new BehaviorSubject(null);
     this.transactionsSummaries$ = new BehaviorSubject(null);
-    this.orderVsRevenue$ = new BehaviorSubject(null);
+    this.heroChartSeries$ = new BehaviorSubject(null);
     this.transactionsOverview$ = new BehaviorSubject(null);
     this.campaignDelta$ = new BehaviorSubject(null);
     this.eventsBy$ = new BehaviorSubject(null);
@@ -68,13 +68,13 @@ export class AnalyticsService {
     })
   }
 
-  getOrderVsRevenue(start: string, end: string, period: string, campaignId?: string): void {
-    this.queryRequest(revenueVsOrderQuery(start, end, period, campaignId)).subscribe(data => {
-      const result = this.handleResponse(
+  getHeroChartSeries(start: string, end: string, period: string, comparisonType: string, campaignId?: string): void {
+    this.queryRequest(heroChartQuery(start, end, period, comparisonType, campaignId)).subscribe(data => {
+      this.handleResponse(
         data,
-        this.orderVsRevenue$,
-        (t: any) => new OrderVsRevenue(t),
-        (data: any) => extractData(data).herocharttimeseries.timeseries
+        this.heroChartSeries$,
+        (t: any) => new HeroChartSeries(t),
+        (data: any) => extractData(data).herocharttimeseries.facets
       );
     })
   }
@@ -269,13 +269,17 @@ export class AnalyticsService {
   }
 
   getSubscriptionsByAmount(start: string, end: string, downloadFormat?: string): void {
-    this.subscriptionsByAmount$.next([
-      {subscription: 'Example Sub 1', amount: new Currency(1802)},
-      {subscription: 'Sub 2', amount: new Currency(1100)},
-      {subscription: 'Sub 3', amount: new Currency(900)},
-      {subscription: 'Example Sub 2', amount: new Currency(550)},
-      {subscription: 'Sub 5', amount: new Currency(412)},
-    ])
+
+    setTimeout(() => {
+      this.subscriptionsByAmount$.next([
+        {subscription: 'Example Sub 1', amount: new Currency(1802)},
+        {subscription: 'Sub 2', amount: new Currency(1100)},
+        {subscription: 'Sub 3', amount: new Currency(900)},
+        {subscription: 'Example Sub 2', amount: new Currency(550)},
+        {subscription: 'Sub 5', amount: new Currency(412)},
+      ])
+    }, 250);
+
   }
 
   getCampaignsByAmount(start: string, end: string, downloadFormat?: string): void {
