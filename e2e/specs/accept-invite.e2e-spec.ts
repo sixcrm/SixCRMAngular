@@ -301,11 +301,18 @@ describe('Accept Invite', function() {
 });
 
 function generateDummyInviteLink() {
-  let pre_encrypted_string =
-    'testingregistration@example.com:5db7ed46-75b1-4ecd-b489-e61ef5d1107a:test@test.com:test-account:test-role:'+Math.floor(Date.now() / 1000);
+  let preEncryptedString = JSON.stringify({
+    email: 'testingregistration@example.com',
+    acl: '5db7ed46-75b1-4ecd-b489-e61ef5d1107a',
+    invitor: 'test@test.com',
+    account: 'test-account',
+    account_id: 'test-account_id',
+    role: 'test-role',
+    timestamp: Math.floor(Date.now() / 1000)
+  });
 
-  let invite_token = crypto.createHash('sha1').update('awdawdadawt33209sfsiofjsef'+pre_encrypted_string).digest('hex');
-  let encoded_params = new Buffer(pre_encrypted_string).toString('base64');
+  let invite_token = crypto.createHash('sha1').update('awdawdadawt33209sfsiofjsef'+preEncryptedString).digest('hex');
+  let encoded_params = new Buffer(preEncryptedString).toString('base64');
 
   return '/acceptinvite?t='+invite_token+'&p='+encoded_params;
 }
