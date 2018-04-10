@@ -20,23 +20,23 @@
          (scrolled)="onScroll()">
       <table class="highlight">
         <thead>
-        <th>Read</th>
-        <th>Message</th>
-        <th>Date</th>
-        <th>Type</th>
+          <th>Read</th>
+          <th>Message</th>
+          <th>Date</th>
+          <th>Type</th>
         </thead>
         <tbody>
-        <tr *ngFor="let notification of notifications | filterStrings: filter: filterMapper" (click)="readNotification(notification)">
-          <td><div *ngIf="!notification.readAt" class="circle"></div><md-icon *ngIf="notification.readAt" class="circle-icon">done</md-icon></td>
-          <td [class.unread]="!notification.readAt">{{notification.body}}</td>
-          <td>{{notification.createdAt | formatDateTime}}</td>
-          <td>{{notification.type}}</td>
-        </tr>
+          <tr *ngFor="let notification of notifications | filterStrings: filter: filterMapper" (click)="readNotification(notification)">
+            <td><div *ngIf="!notification.readAt" class="circle"></div><md-icon *ngIf="notification.readAt" class="circle-icon">done</md-icon></td>
+            <td [class.unread]="!notification.readAt">{{notification.body}}</td>
+            <td>{{notification.createdAt | formatDateTime: 'MMMM DD': true}}</td>
+            <td>{{notification.category}}</td>
+          </tr>
         </tbody>
       </table>
 
-      <div *ngIf="notificationsService.requestInProgress$ | async" class="spinner">
-        <md-spinner></md-spinner>
+      <div class="spinner">
+        <div></div><div></div><div></div>
       </div>
     </div>
   </div>

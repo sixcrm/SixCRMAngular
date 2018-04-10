@@ -10,8 +10,8 @@ export class FormatDateTimePipe implements PipeTransform {
 
   constructor(private timeService: TimeService) {};
 
-  transform(value: Moment, format?: string): any {
-    return this.timeService.format(value, format);
+  transform(value: Moment, format?: string, dayGranularity?: boolean): any {
+    return this.timeService.format(value, format, dayGranularity);
   }
 
 }

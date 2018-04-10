@@ -7,7 +7,7 @@ export class TimeService {
 
   constructor(private authService: AuthenticationService) {}
 
-  format(moment: Moment | string, formatString?: string): string {
+  format(moment: Moment | string, formatString?: string, dayGranularity?: boolean): string {
     let f: string;
 
     if (!formatString) {
@@ -20,6 +20,14 @@ export class TimeService {
         f = 'h:mm A';
       } else  {
         f = formatString;
+      }
+    }
+
+    if (dayGranularity) {
+      if (utc(moment).isSame(utc(), 'd')) {
+        return `Today, ${utc(moment).tz(this.authService.getTimezone()).format('h:mm A')}`
+      } else if (utc(moment).isSameOrAfter(utc().subtract(1, 'd'), 'd')) {
+        return `Yesterday, ${utc(moment).tz(this.authService.getTimezone()).format('h:mm A')}`
       }
     }
 
