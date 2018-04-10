@@ -1,21 +1,10 @@
 // Protractor configuration file, see link for more information
 // https://github.com/angular/protractor/blob/master/docs/referenceConf.js
 
-/*global jasmine */
-var SpecReporter = require('jasmine-spec-reporter');
-
 exports.config = {
   allScriptsTimeout: 11000,
   specs: [
-    // './e2e/**/*.e2e-spec.ts'
-    // './e2e/**/affiliate.e2e-spec.ts',
-    // './e2e/**/navigation.e2e-spec.ts',
-    // './e2e/**/dashboard.e2e-spec.ts',
-    // './e2e/**/login.e2e-spec.ts',
-    // './e2e/**/advanced-search.e2e-spec.ts',
-    // './e2e/**/app.e2e-spec.ts',
-    // './e2e/**/register.e2e-spec.ts',
-    './e2e/**/search.e2e-spec.ts'
+    './e2e/**/accept-invite.e2e-spec.ts'
   ],
   capabilities: {
     'browserName': 'chrome'
@@ -35,6 +24,8 @@ exports.config = {
     });
   },
   onPrepare: function() {
+
+    /*global jasmine */
     var SpecReporter = require('jasmine-spec-reporter');
     jasmine.getEnv().addReporter(new SpecReporter(
             {

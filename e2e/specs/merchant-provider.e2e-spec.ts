@@ -29,7 +29,7 @@ describe('Merchant Provider', function() {
 
   it('should navigate to merchant provider page', () => {
     const sidenav = new SidenavPage();
-    sidenav.getLink(26).click();
+    sidenav.getLink(17).click();
     browser.sleep(500);
     sidenav.getLink(27).click();
     waitForUrlContains('merchantproviders');
@@ -41,7 +41,7 @@ describe('Merchant Provider', function() {
   });
 
   it('should render merchant provider index title', () => {
-    expect(page.getTitle().getText()).toContain('Merchant Providers')
+    expect(page.getTitle().getText()).toContain('Merchant Providers');
   });
 
   it('should render merchant provider index add button', () => {
@@ -49,9 +49,9 @@ describe('Merchant Provider', function() {
   });
 
   it('should render merchant provider index table headers', () => {
-    expect(page.getTableHeaders().get(0).getText()).toEqual('Name');
-    expect(page.getTableHeaders().get(1).getText()).toEqual('Processor Name');
-    expect(page.getTableHeaders().get(2).getText()).toEqual('Processor Type');
+    expect(page.getTableHeaders().get(1).getText()).toContain('Name');
+    expect(page.getTableHeaders().get(3).getText()).toContain('Processor Name');
+    expect(page.getTableHeaders().get(4).getText()).toContain('Processor Type');
   });
 
   it('should render add modal when add button is clicked', () => {

@@ -81,7 +81,7 @@ describe('Search', function() {
   });
 
   it('should show perfect match advanced search is performed', () => {
-    browser.get('/search?query=t');
+    browser.get('/search?query=test');
 
     waitForUrlContains('/search?query=t');
 
@@ -113,10 +113,10 @@ describe('Search', function() {
     expectPresent(searchPage.getSpinner());
   });
 
-  it('should perform search and show search results when search by query "t"', () => {
-    browser.get('/search?query=t');
+  it('should perform search and show search results when search by query "test"', () => {
+    browser.get('/search?query=test');
 
-    waitForUrlContains('/search?query=t');
+    waitForUrlContains('/search?query=test');
     waitForPresenceOf(searchPage.getOneSearchResult());
     waitForPresenceOf(searchPage.getOneCheckbox());
 
@@ -125,9 +125,9 @@ describe('Search', function() {
   });
 
   it('should toggle between table and grid', () => {
-    browser.get('/search?query=t');
+    browser.get('/search?query=test');
 
-    waitForUrlContains('/search?query=t');
+    waitForUrlContains('/search?query=test');
     waitForPresenceOf(searchPage.getOneSearchResult());
 
     searchPage.getViewModeToggle().click();
