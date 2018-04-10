@@ -5,6 +5,7 @@ import {environment} from '../../environments/environment';
 import {Http} from '@angular/http';
 import {Notification} from '../shared/models/notification.model';
 import {TranslatedQuote} from "./translated-quote.model";
+import {utc} from 'moment';
 
 export interface LanguageDefinition {
   name: string,
@@ -177,8 +178,8 @@ export class TranslationService {
 
     const quotes = this.selectedTranslation.translations.quotes;
     const numberOfQuotes = quotes.length;
-    const randomQuoteIndex =  Math.floor(Math.random()*(numberOfQuotes));
+    const quoteIndex = utc().dayOfYear() % numberOfQuotes;
 
-    return quotes[randomQuoteIndex];
+    return quotes[quoteIndex];
   }
 }
