@@ -12,7 +12,6 @@
               [opened]="showSidenav || !navigation.mediumScreenAndDown">
     <app-sidenav [isHovering]="isHovering || showSidenav || navigation.mediumScreenAndDown"></app-sidenav>
   </md-sidenav>
-  <md-progress-bar class="progress-bar" *ngIf="http.requestInProgress$ | async" mode="query"></md-progress-bar>
 
   <main [class.container--hover]="!(navigation.showSidenav | async) && showOnHover">
     <div class="container">

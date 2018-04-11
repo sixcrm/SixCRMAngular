@@ -40,6 +40,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   sortedColumnParams: ColumnParams<T> = new ColumnParams<T>();
 
   loadingData: boolean = false;
+  initialLoaded: boolean = false;
 
   serverError: CustomServerError;
 
@@ -70,6 +71,8 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
     this.service.entities$.takeUntil(this.unsubscribe$).subscribe((entities: (T[] | CustomServerError)) => {
       if (!this.loadingData) return;
+
+      this.initialLoaded = true;
 
       if (entities instanceof CustomServerError) {
         this.serverError = entities;

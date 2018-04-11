@@ -100,6 +100,26 @@ export class TranslationService {
     return translation;
   }
 
+  translateNotificationName(value: string) {
+    if (!this.selectedTranslation) return value;
+
+    const keys = value.toLowerCase().split('%');
+
+    let translation = value;
+
+    try {
+      translation = this.selectedTranslation.translations.notifications.six[keys[0]][keys[1]].name;
+    } catch (error) {
+      try {
+        translation = this.selectedTranslation.translations.notifications.default[keys[0]][keys[1]].name
+      } catch(er) {
+        // handle missing translation
+      }
+    }
+
+    return translation;
+  }
+
   translateNotificationBody(notification: Notification) {
     const name = notification.name;
 

@@ -35,4 +35,10 @@
       color: inherit;
     }
   }
+
+  &-input--no-margin {
+    .md-input-wrapper {
+      margin: 0;
+    }
+  }
 }

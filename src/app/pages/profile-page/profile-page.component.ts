@@ -5,7 +5,7 @@ import {UsersService} from '../../shared/services/users.service';
 import {NavigationService} from '../../navigation/navigation.service';
 import {Acl} from '../../shared/models/acl.model';
 import {Subject} from 'rxjs';
-import {UserSettings, NotificationUserSettings} from '../../shared/models/user-settings';
+import {UserSettings} from '../../shared/models/user-settings';
 import {UserSettingsService} from '../../shared/services/user-settings.service';
 import {NotificationSettings, NotificationSettingsData} from '../../shared/models/notification-settings.model';
 import {NotificationSettingsService} from '../../shared/services/notification-settings.service';
@@ -47,8 +47,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
   public mask = getPhoneNumberMask();
 
-  private userSettingsUpdateDebouncer: Subject<boolean> = new Subject();
-  private notificationSettingsUpdateDebouncer: Subject<boolean> = new Subject();
   private unsubscribe$: Subject<boolean> = new Subject();
 
   accountColumnParams = [
@@ -59,15 +57,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   accountTextOptions: TableMemoryTextOptions = {
     title: 'PROFILE_ACCOUNTS_TITLE',
     viewOptionText: 'PROFILE_ACCOUNTS_VIEW'
-  };
-
-  deviceLabels = {
-    six: 'SixCRM',
-    ios: 'iOS App',
-    email: 'E-Mail',
-    sms: 'SMS',
-    skype: 'Skype',
-    slack: 'Slack'
   };
 
   tabHeaders: TabHeaderElement[] = [
@@ -156,14 +145,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
         this.notificationSettingsService.getEntity(this.user.id);
       }
     });
-
-    this.userSettingsUpdateDebouncer.takeUntil(this.unsubscribe$).debounceTime(2000).subscribe(() => {
-      this.userSettingsService.updateEntity(this.userSettings);
-    });
-
-    this.notificationSettingsUpdateDebouncer.takeUntil(this.unsubscribe$).debounceTime(2000).subscribe(() => {
-      this.notificationSettingsService.updateEntity(this.notificationSettings)
-    });
   }
 
   ngOnDestroy() {
@@ -178,27 +159,27 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   updateUserDetails(): void {
     this.userBackup.name = `${this.userBackup.firstName} ${this.userBackup.lastName}`;
     this.userService.updateEntity(this.userBackup, {ignorePermissions: true});
-    this.userSettingsService.updateEntity(this.userSettingsBackup);
-  }
 
-  getNotificationUserSettings(name: string): NotificationUserSettings {
-    if (!this.userSettings) return new NotificationUserSettings();
-
-    for (let i = 0; i < this.userSettings.notificationSettings.length; i++) {
-      if (this.userSettings.notificationSettings[i].name === name) {
-        return this.userSettings.notificationSettings[i];
+    if (this.userSettings.cellPhone !== this.userSettingsBackup.cellPhone) {
+      const smsSettings = this.userSettingsBackup.notificationSettings.find(n => n.name === 'sms');
+      if (smsSettings) {
+        smsSettings.data = this.userSettingsBackup.cellPhone;
       }
     }
 
-    return new NotificationUserSettings();
+    this.userSettingsService.updateEntity(this.userSettingsBackup);
   }
 
-  userSettingsFieldUpdated(): void {
-    this.userSettingsUpdateDebouncer.next(true);
+  updateUserSettings(): void {
+    this.userSettingsService.updateEntity(this.userSettings);
   }
 
-  notificationSettingsFieldUpdated(): void {
-    this.notificationSettingsUpdateDebouncer.next(true);
+  cancelNotificationSettingsUpdate(): void {
+    this.notificationSettings = this.notificationSettingsBackup.copy();
+  }
+
+  notificationSettingsUpdated(): void {
+    this.notificationSettingsService.updateEntity(this.notificationSettings)
   }
 
   sendTestNotification(): void {

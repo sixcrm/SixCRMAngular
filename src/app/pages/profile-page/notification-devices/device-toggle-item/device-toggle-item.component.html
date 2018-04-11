@@ -3,7 +3,28 @@
 
   <div class="content">
     <div class="title">{{deviceLabels[notificationSettings.name]}}</div>
-    <div class="subtitle">{{notificationSettings.data || 'Click to enter data'}}</div>
+
+    <ng-container *ngIf="notificationSettings.name !== 'six' && notificationSettings.name !== 'ios'">
+      <div class="subtitle">
+        <md-input-container auto-focus [applyAutofocus]="true" class="mrw-input--no-margin" *ngIf="editMode; else displayMode">
+          <input #valueInput md-input type="text" [value]="notificationSettings.data">
+        </md-input-container>
+        <ng-template #displayMode>
+          <div class="value">{{notificationSettings.data || deviceNoDataLabels[notificationSettings.name]}}</div>
+        </ng-template>
+
+        <ng-container *ngIf="!editMode; else editActions">
+          <md-icon (click)="editMode = true">edit</md-icon>
+          <md-icon *ngIf="notificationSettings.data" (click)="deleteData()">delete</md-icon>
+        </ng-container>
+
+        <ng-template #editActions>
+          <md-icon (click)="updateData()">done</md-icon>
+          <md-icon (click)="editMode = false">close</md-icon>
+        </ng-template>
+
+      </div>
+    </ng-container>
   </div>
 
   <md-slide-toggle class="slider-blue" [(ngModel)]="notificationSettings.receive" (change)="toggled.emit(true)"></md-slide-toggle>

@@ -35,17 +35,17 @@
         </tbody>
       </table>
 
-      <div class="spinner">
+      <div class="spinner" *ngIf="notificationsService.requestInProgress$ | async">
         <div></div><div></div><div></div>
       </div>
     </div>
   </div>
 
-  <div class="notifications-settings-instructions">
+  <div class="notifications-test-container">
     <div class="content">
       <div>You can send notifications to more of your devices and applications by adding them to Devices and Apps</div>
       <div class="icon"><div class="layer1"><div class="layer2"><div class="text">?</div></div></div></div>
     </div>
-    <div class="mrw-button apps-button" [routerLink]="['/profile']" fragment="appsanddevices">APPS AND DEVICES</div>
+    <div class="mrw-button test-button test-button--solo" [routerLink]="['/profile']" fragment="appsanddevices">APPS AND DEVICES</div>
   </div>
 </div>

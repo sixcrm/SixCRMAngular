@@ -1,43 +1,75 @@
 <div class="container">
 
-  <div *ngIf="notificationSettings && notificationSettings.settings; else loader">
-    <table>
-      <thead>
-      <th>Setting</th>
-      <th>Six</th>
-      <th>Email</th>
-      <th>SMS</th>
-      <th>Slack</th>
-      </thead>
+  <div class="table-container">
+    <div>
+      <div class="table">
+        <table *ngIf="notificationSettings && notificationSettings.settings; else loader">
+          <thead>
+          <th>Setting</th>
+          <th>Active</th>
+          <th>Six</th>
+          <th>Email</th>
+          <th>SMS</th>
+          <th>Slack</th>
+          </thead>
 
-      <tbody class="highlight">
-      <ng-container *ngFor="let group of notificationSettings.settings.notification_groups">
-        <tr class="title-tr">
-          <td class="title">{{group.key}}</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr class="subtitle-tr" *ngFor="let item of group.notifications">
-          <td class="title title--secondary"><div>{{item.key}}</div></td>
-          <td><md-checkbox class="checkbox-blue" [checked]="item.channels.indexOf('six') !== -1"></md-checkbox></td>
-          <td><md-checkbox class="checkbox-blue" [checked]="item.channels.indexOf('email') !== -1"></md-checkbox></td>
-          <td><md-checkbox class="checkbox-blue" [checked]="item.channels.indexOf('sms') !== -1"></md-checkbox></td>
-          <td><md-checkbox class="checkbox-blue" [checked]="item.channels.indexOf('slack') !== -1"></md-checkbox></td>
-        </tr>
-      </ng-container>
-      </tbody>
-    </table>
+          <tbody class="highlight">
+          <ng-container *ngFor="let group of notificationSettings.settings.notification_groups">
+            <tr class="title-tr">
+              <td class="title">{{group.key}}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr class="subtitle-tr" *ngFor="let item of group.notifications">
+              <td class="title title--secondary"><div>{{group.key + '%' + item.key | translate: 'notification-name'}}</div></td>
+              <td><md-slide-toggle class="slider-blue" [(ngModel)]="item.active"></md-slide-toggle></td>
+              <td><md-checkbox class="checkbox-blue" [checked]="item.channels.indexOf('six') !== -1" (change)="itemToggled($event, item, 'six')"></md-checkbox></td>
+              <td><md-checkbox class="checkbox-blue" [checked]="item.channels.indexOf('email') !== -1" (change)="itemToggled($event, item, 'email')"></md-checkbox></td>
+              <td><md-checkbox class="checkbox-blue" [checked]="item.channels.indexOf('sms') !== -1" (change)="itemToggled($event, item, 'sms')"></md-checkbox></td>
+              <td><md-checkbox class="checkbox-blue" [checked]="item.channels.indexOf('slack') !== -1" (change)="itemToggled($event, item, 'slack')"></md-checkbox></td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
 
-    <div class="buttons">
-      <div>CANCEL</div>
-      <div class="mrw-button">SAVE</div>
+      <div class="buttons">
+        <div (click)="cancel.emit(true)">CANCEL</div>
+        <div class="mrw-button" (click)="save.emit(true)">SAVE</div>
+      </div>
     </div>
+
+    <ng-template #loader>
+      <div class="loader">
+        <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+      </div>
+    </ng-template>
   </div>
 
-  <ng-template #loader>
+  <div class="modals">
+    <div class="notifications-test-container modal-first">
+      <div class="content">
+        <div>You can send notifications to more of your devices and applications by adding them to Devices and Apps</div>
+        <div class="icon"><div class="layer1"><div class="layer2"><div class="text">?</div></div></div></div>
+      </div>
+      <div class="mrw-button test-button test-button--solo" [routerLink]="['/profile']" fragment="appsanddevices">APPS AND DEVICES</div>
+    </div>
 
-  </ng-template>
+    <div class="notifications-test-container">
+      <div class="content">
+        <div>You can send a test notification to every device and application based on your settings</div>
+      </div>
+      <div>
+        <div class="mrw-button test-button" (click)="sendTestAlert.emit(true)">TEST</div> <span class="test-text">Send alert level notification</span>
+      </div>
+
+      <div>
+        <div class="mrw-button test-button" (click)="sendTestNotification.emit(true)">TEST</div> <span class="test-text">Send general level notification</span>
+      </div>
+    </div>
+  </div>
 
 </div>
