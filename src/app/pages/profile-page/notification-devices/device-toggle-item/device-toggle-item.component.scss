@@ -11,7 +11,7 @@
   }
 
   .content {
-    margin: 0 8px 0 12px;
+    margin: 0 12px 0 12px;
     width: 160px;
 
     .title {
@@ -19,9 +19,29 @@
     }
 
     .subtitle {
+      display: flex;
+      align-items: center;
       margin-top: 5px;
       color: rgba(0,0,0,0.5);
       font-size: 12px;
+
+      .value {
+        width: 120px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      md-icon {
+        font-size: 16px;
+        height: 16px;
+        width: 16px;
+        cursor: pointer;
+
+        &:first-of-type {
+          margin-left: auto;
+        }
+      }
     }
   }
 }

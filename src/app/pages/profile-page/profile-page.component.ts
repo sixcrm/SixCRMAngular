@@ -47,7 +47,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
   public mask = getPhoneNumberMask();
 
-  private userSettingsUpdateDebouncer: Subject<boolean> = new Subject();
   private unsubscribe$: Subject<boolean> = new Subject();
 
   accountColumnParams = [
@@ -146,10 +145,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
         this.notificationSettingsService.getEntity(this.user.id);
       }
     });
-
-    this.userSettingsUpdateDebouncer.takeUntil(this.unsubscribe$).debounceTime(2000).subscribe(() => {
-      this.userSettingsService.updateEntity(this.userSettings);
-    });
   }
 
   ngOnDestroy() {
@@ -164,11 +159,19 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   updateUserDetails(): void {
     this.userBackup.name = `${this.userBackup.firstName} ${this.userBackup.lastName}`;
     this.userService.updateEntity(this.userBackup, {ignorePermissions: true});
+
+    if (this.userSettings.cellPhone !== this.userSettingsBackup.cellPhone) {
+      const smsSettings = this.userSettingsBackup.notificationSettings.find(n => n.name === 'sms');
+      if (smsSettings) {
+        smsSettings.data = this.userSettingsBackup.cellPhone;
+      }
+    }
+
     this.userSettingsService.updateEntity(this.userSettingsBackup);
   }
 
-  userSettingsFieldUpdated(): void {
-    this.userSettingsUpdateDebouncer.next(true);
+  updateUserSettings(): void {
+    this.userSettingsService.updateEntity(this.userSettings);
   }
 
   cancelNotificationSettingsUpdate(): void {
