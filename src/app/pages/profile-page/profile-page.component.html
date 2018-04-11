@@ -76,7 +76,11 @@
         </md-tab>
 
         <md-tab>
-          <notification-preferences [notificationSettings]="notificationSettings"></notification-preferences>
+          <notification-preferences
+            [notificationSettings]="notificationSettings"
+            (cancel)="cancelNotificationSettingsUpdate()"
+            (save)="notificationSettingsUpdated()">
+          </notification-preferences>
         </md-tab>
 
         <md-tab>

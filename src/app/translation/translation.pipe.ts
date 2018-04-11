@@ -21,7 +21,7 @@ export class TranslationPipe implements PipeTransform, OnDestroy {
 
   };
 
-  transform(value: string): any {
+  transform(value: string, mode?: 'standard' | 'notification-name'): any {
     if (this.input !== value) {
       this.refresh = true;
     }
@@ -33,7 +33,16 @@ export class TranslationPipe implements PipeTransform, OnDestroy {
     }
 
     this.refresh = false;
-    this.value = this.translationService.translate(value);
+
+    if (mode) {
+      if (mode === 'notification-name') {
+        this.value = this.translationService.translateNotificationName(value);
+      } else {
+        this.value = this.translationService.translate(value);
+      }
+    } else {
+      this.value = this.translationService.translate(value);
+    }
 
     return this.value;
   }

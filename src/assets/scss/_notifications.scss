@@ -209,3 +209,62 @@ snack-bar-container {
     display: none;
   }
 }
+
+.notifications-test-container {
+  margin-left: auto;
+  box-sizing: border-box;
+  width: 300px;
+  padding: 15px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+  background: white;
+
+  .content {
+    display: flex;
+    font-size: 14px;
+    color: rgba(0,0,0,0.6);
+
+    .icon {
+      margin-left: 15px;
+
+      .layer1 {
+        display: flex;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background-color: #F3F3F3;
+      }
+
+      .layer2 {
+        margin: auto;
+        display: flex;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: #C9C9C9;
+      }
+
+      .text {
+        margin: auto;
+        font-size: 32px;
+        color: #F3F3F3;
+      }
+    }
+  }
+
+  .test-button {
+    margin-top: 18px;
+    background-color: #00C9A6;
+    color: white;
+    border-color: #00C9A6;
+
+    &--solo {
+      margin-top: 40px;
+    }
+  }
+
+  .test-text {
+    margin-left: 10px;
+    font-size: 14px;
+    color: rgba(0,0,0,0.6);
+  }
+}

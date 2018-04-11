@@ -2,6 +2,7 @@ import {utc, Moment} from 'moment';
 
 export class NotificationGroupItem {
   key: string;
+  active: boolean;
   channels: string[];
 
   constructor(obj?: any) {
@@ -10,12 +11,14 @@ export class NotificationGroupItem {
     }
 
     this.key = obj.key || '';
+    this.active = !!obj.active;
     this.channels = obj.channels || [];
   }
 
   inverse(): any {
     return {
       key: this.key,
+      active: this.active,
       channels: this.channels.slice()
     }
   }

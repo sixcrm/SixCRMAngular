@@ -9,7 +9,7 @@ export function defaultNotificationSettingsQuery(): string {
     {
 		  notificationsettingdefault {
         notification_groups { key display default,
-          notifications { key channels }
+          notifications { key active channels }
         }
 		  }
 	  }`
@@ -51,7 +51,7 @@ export function sendTestAlert(): string {
 
 export function notificationSettingsInputQuery(notificationSettings: NotificationSettings, includeId?: boolean): string {
   const parseGroupItem = (item: NotificationGroupItem) => {
-    return `{key: "${item.key}", channels: [${item.channels.reduce((a,b)=>`${a}${a?',':''}"${b}"`,'')}]}`;
+    return `{key: "${item.key}", active: ${!!item.active}, channels: [${item.channels.reduce((a,b)=>`${a}${a?',':''}"${b}"`,'')}]}`;
   };
 
   const parseGroup = (group: NotificationGroup) => {
@@ -65,5 +65,5 @@ export function notificationSettingsInputQuery(notificationSettings: Notificatio
 
 
 function notificationSettingsResponse(): string {
-  return `id settings { notification_groups { key, display, default, notifications { key, channels } } } created_at updated_at`;
+  return `id settings { notification_groups { key, display, default, notifications { key, active, channels } } } created_at updated_at`;
 }
