@@ -2,6 +2,7 @@
   <md-card-content class="entity-index__card__content">
     <entities-table
       [data]="entities"
+      [loaded]="initialLoaded"
       [columnParams]="columnParams"
       [filterString]="filterValue"
       [serverError]="serverError"

@@ -11,6 +11,7 @@
 
       <entities-table
         [data]="entities"
+        [loaded]="initialLoaded"
         [columnParams]="columnParams"
         [filterString]="filterValue"
         (selected)="viewEntity($event.id)"

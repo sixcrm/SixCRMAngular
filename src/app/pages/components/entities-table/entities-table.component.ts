@@ -17,6 +17,7 @@ export class EntitiesTableComponent implements OnInit {
   // table
   @Input() columnParams: ColumnParams<any>[] = [];
   @Input() data: any[] = [];
+  @Input() loaded: boolean = true;
   @Input() filterString: string;
   @Input() serverError: CustomServerError;
   @Input() customOptionText: string;

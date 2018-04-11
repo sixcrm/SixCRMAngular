@@ -75,45 +75,76 @@
     </ng-container>
 
     <tbody [class.density--s]="density === 0"  [class.density--l]="density === 2" [class.density--m]="density !== 0 && density !==2">
-    <ng-container *ngFor="let entity of (data | filterEntitiesByParams: columnParams: filterString | sortEntities: sortParams.mappingFunction: sortParams.sortOrder)">
-      <tr [class.selected]="entity.bulkSelected">
+    <ng-container *ngIf="data && loaded; else dataLoader">
+      <ng-container *ngFor="let entity of (data | filterEntitiesByParams: columnParams: filterString | sortEntities: sortParams.mappingFunction: sortParams.sortOrder)">
+        <tr [class.selected]="entity.bulkSelected">
+          <td class="bulk-option">
+            <md-checkbox class="checkbox-blue" [(ngModel)]="entity.bulkSelected"></md-checkbox>
+          </td>
+          <ng-container *ngFor="let param of columnParams">
+            <ng-container *ngIf="param.selected">
+              <td (click)="selected.emit(entity)" [class.cell--align-right]="param.align === 'right'">
+                <div class="codeblock" *ngIf="param.code; else noCode">
+                  {{param.mappingFunction(entity)}}
+                </div>
+                <ng-template #noCode>
+                  <ng-container *ngIf="param.number; else nan">{{param.mappingFunction(entity) | numberlocale}}</ng-container>
+                  <ng-template #nan>
+                    <ng-container *ngIf="param.translate; else notranslate">{{param.mappingFunction(entity) | translate}}</ng-container>
+                    <ng-template #notranslate>{{param.mappingFunction(entity)}}</ng-template>
+                  </ng-template>
+                </ng-template>
+              </td>
+            </ng-container>
+          </ng-container>
+          <td>
+            <table-actions
+              [service]="service"
+              [customText]="customOptionText"
+              [showView]="showView"
+              [showDelete]="showDelete"
+              [showCopy]="showCopy"
+              [dedicatedOptions]="dedicatedOptions"
+              (viewClicked)="viewClicked.emit(entity)"
+              (copyClicked)="copyClicked.emit(entity)"
+              (exportClicked)="exportClicked.emit(entity)"
+              (editClicked)="editClicked.emit(entity)"
+              (deleteClicked)="deleteClicked.emit(entity)"
+              (customClicked)="customOptionClicked.emit(entity)">
+            </table-actions>
+          </td>
+        </tr>
+      </ng-container>
+    </ng-container>
+
+    <ng-template #dataLoader>
+      <ng-container *ngTemplateOutlet="dataLoaderItem"></ng-container>
+      <ng-container *ngTemplateOutlet="dataLoaderItem"></ng-container>
+      <ng-container *ngTemplateOutlet="dataLoaderItem"></ng-container>
+      <ng-container *ngTemplateOutlet="dataLoaderItem"></ng-container>
+      <ng-container *ngTemplateOutlet="dataLoaderItem"></ng-container>
+      <ng-container *ngTemplateOutlet="dataLoaderItem"></ng-container>
+      <ng-container *ngTemplateOutlet="dataLoaderItem"></ng-container>
+      <ng-container *ngTemplateOutlet="dataLoaderItem"></ng-container>
+      <ng-container *ngTemplateOutlet="dataLoaderItem"></ng-container>
+      <ng-container *ngTemplateOutlet="dataLoaderItem"></ng-container>
+    </ng-template>
+
+    <ng-template #dataLoaderItem>
+      <tr>
         <td class="bulk-option">
-          <md-checkbox class="checkbox-blue" [(ngModel)]="entity.bulkSelected"></md-checkbox>
+          <md-checkbox class="checkbox-blue"></md-checkbox>
         </td>
         <ng-container *ngFor="let param of columnParams">
           <ng-container *ngIf="param.selected">
-            <td (click)="selected.emit(entity)" [class.cell--align-right]="param.align === 'right'">
-              <div class="codeblock" *ngIf="param.code; else noCode">
-                {{param.mappingFunction(entity)}}
-              </div>
-              <ng-template #noCode>
-                <ng-container *ngIf="param.number; else nan">{{param.mappingFunction(entity) | numberlocale}}</ng-container>
-                <ng-template #nan>
-                  <ng-container *ngIf="param.translate; else notranslate">{{param.mappingFunction(entity) | translate}}</ng-container>
-                  <ng-template #notranslate>{{param.mappingFunction(entity)}}</ng-template>
-                </ng-template>
-              </ng-template>
-            </td>
+            <td><div class="blurred-line" [class.blurred-line--align-right]="param.align === 'right'"></div></td>
           </ng-container>
         </ng-container>
         <td>
-          <table-actions
-            [service]="service"
-            [customText]="customOptionText"
-            [showView]="showView"
-            [showDelete]="showDelete"
-            [showCopy]="showCopy"
-            [dedicatedOptions]="dedicatedOptions"
-            (viewClicked)="viewClicked.emit(entity)"
-            (copyClicked)="copyClicked.emit(entity)"
-            (exportClicked)="exportClicked.emit(entity)"
-            (editClicked)="editClicked.emit(entity)"
-            (deleteClicked)="deleteClicked.emit(entity)"
-            (customClicked)="customOptionClicked.emit(entity)">
-          </table-actions>
+
         </td>
       </tr>
-    </ng-container>
+    </ng-template>
     </tbody>
   </table>
 

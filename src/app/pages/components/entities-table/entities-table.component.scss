@@ -44,3 +44,16 @@ md-checkbox {
     }
   }
 }
+
+.blurred-line {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 20px;
+  width: 120px;
+  border-radius: 5px;
+  background-color: rgba(0,0,0,0.08);
+
+  &--align-right {
+    margin-left: auto;
+  }
+}
