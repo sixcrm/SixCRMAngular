@@ -1,0 +1,19 @@
+.summary {
+  background: #EAEAEA;
+  .item {
+    display: flex;
+    padding: 10px 12px;
+    font-size: 12px;
+
+    &--bold {
+      font-weight: 500;
+    }
+
+    .key {
+    }
+
+    .value {
+      margin-left: auto;
+    }
+  }
+}

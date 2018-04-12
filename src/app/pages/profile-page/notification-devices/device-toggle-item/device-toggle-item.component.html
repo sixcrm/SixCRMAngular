@@ -1,30 +1,27 @@
 <div class="container">
   <div class="icon"></div>
 
-  <div class="content">
-    <div class="title">{{deviceLabels[notificationSettings.name]}}</div>
-
-    <ng-container *ngIf="notificationSettings.name !== 'six' && notificationSettings.name !== 'ios'">
-      <div class="subtitle">
-        <md-input-container auto-focus [applyAutofocus]="true" class="mrw-input--no-margin" *ngIf="editMode; else displayMode">
-          <input #valueInput md-input type="text" [value]="notificationSettings.data">
-        </md-input-container>
-        <ng-template #displayMode>
-          <div class="value">{{notificationSettings.data || deviceNoDataLabels[notificationSettings.name]}}</div>
-        </ng-template>
-
-        <ng-container *ngIf="!editMode; else editActions">
-          <md-icon (click)="editMode = true">edit</md-icon>
-          <md-icon *ngIf="notificationSettings.data" (click)="deleteData()">delete</md-icon>
-        </ng-container>
-
-        <ng-template #editActions>
-          <md-icon (click)="updateData()">done</md-icon>
-          <md-icon (click)="editMode = false">close</md-icon>
-        </ng-template>
-
+  <div class="content" [class.content--shadow]="editMode">
+    <ng-container *ngIf="!editMode; else edit">
+      <div class="title">
+        {{deviceLabels[notificationSettings.name]}}
+        <md-icon *ngIf="notificationSettings.name !== 'six' && notificationSettings.name !== 'ios'" (click)="editMode = true">edit</md-icon>
       </div>
+
+      <ng-container>
+        <div class="subtitle">
+          <div class="value">{{notificationSettings.data || deviceNoDataLabels[notificationSettings.name]}}</div>
+          <div class="value">notifications {{notificationSettings.receive ? 'on' : 'off'}}</div>
+        </div>
+      </ng-container>
     </ng-container>
+
+    <ng-template #edit>
+      <div class="label">{{deviceLabels[notificationSettings.name]}}</div>
+      <md-input-container class="mrw-input--no-margin-top">
+        <input #valueInput auto-focus (blur)="updateData()" [applyAutofocus]="true" md-input type="text" [value]="notificationSettings.data">
+      </md-input-container>
+    </ng-template>
   </div>
 
   <md-slide-toggle class="slider-blue" [(ngModel)]="notificationSettings.receive" (change)="toggled.emit(true)"></md-slide-toggle>

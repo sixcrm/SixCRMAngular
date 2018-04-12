@@ -12,6 +12,8 @@ export class NotificationPreferencesComponent implements OnInit {
 
   @Output() save: EventEmitter<boolean> = new EventEmitter();
   @Output() cancel: EventEmitter<boolean> = new EventEmitter();
+  @Output() sendTestAlert: EventEmitter<boolean> = new EventEmitter();
+  @Output() sendTestNotification: EventEmitter<boolean> = new EventEmitter();
 
   constructor() { }
 

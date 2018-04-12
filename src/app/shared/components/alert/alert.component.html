@@ -1,13 +1,29 @@
 <div class="notifications__alert">
-  <div class="notifications__alert__image">
-    <img src="assets/images/alertIcon.svg" alt="">
-  </div>
   <div class="notifications__alert__content">
-    <div> {{alert.body}} </div>
+
+    <div>
+      <div class="header">
+        <div>{{alert.category}}</div>
+        <div class="divider"></div>
+        <div class="time">{{ calculateTime() }}</div>
+      </div>
+
+      <div class="title">
+        {{alert.title}}
+      </div>
+
+      <div class="body">
+        {{alert.body}}
+      </div>
+    </div>
+
+    <div>
+      <md-icon>priority_high</md-icon>
+    </div>
+
   </div>
-</div>
-<div class="notifications__alert__actions">
-  <div class="view" *ngIf="enableView" (click)="viewAlert()">{{'NOTIFICATIONSQUICK_VIEW' | translate}}</div>
-  <div class="dismiss" *ngIf="enableClear" (click)="clearAlert()">{{'NOTIFICATIONSQUICK_DISMISS' | translate}}</div>
-  <div class="date">{{ alert.createdAt.tz(authService.getTimezone()).format('MM/DD/YYYY h:mm a') }}</div>
+
+  <div class="notifications__alert__actions">
+    <div class="dismiss" *ngIf="enableClear" (click)="clearAlert()">{{'NOTIFICATIONSQUICK_DISMISS' | translate}}</div>
+  </div>
 </div>

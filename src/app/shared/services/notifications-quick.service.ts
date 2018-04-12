@@ -49,6 +49,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
   private buildNotificationWithBody(data) {
     let n = new Notification(data);
     n.body = this.translationService.translateNotificationBody(n);
+    n.title = this.translationService.translateNotificationTitle(n);
 
     return n;
   }

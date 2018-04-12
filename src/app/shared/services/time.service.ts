@@ -7,7 +7,7 @@ export class TimeService {
 
   constructor(private authService: AuthenticationService) {}
 
-  format(moment: Moment | string, formatString?: string, dayGranularity?: boolean): string {
+  format(moment: Moment | string, formatString?: string, dayGranularity?: boolean, timeGranularity?: boolean): string {
     let f: string;
 
     if (!formatString) {
@@ -21,6 +21,14 @@ export class TimeService {
       } else  {
         f = formatString;
       }
+    }
+
+    if (timeGranularity) {
+      const mins = utc().diff(utc(moment), 'm');
+
+      if (mins < 1) return 'Just now';
+      if (mins < 50) return `${mins} minutes ago`;
+      if (mins < 70) return `About hour ago`;
     }
 
     if (dayGranularity) {
