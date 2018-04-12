@@ -7,6 +7,7 @@ import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Router} from '@angular/router';
+import {NotificationsQuickService} from '../../../shared/services/notifications-quick.service';
 
 @Component({
   selector: 'notifications-section',
@@ -30,7 +31,8 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
     router: Router,
     auth: AuthenticationService,
     dialog: MdDialog,
-    paginationService: PaginationService
+    paginationService: PaginationService,
+    private notificationsQuickService: NotificationsQuickService
   ) {
     super(notificationsService, auth, dialog, paginationService, router);
     this.setInfiniteScroll(true);
@@ -57,15 +59,17 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
 
     this.notificationsService.requestInProgress$.takeUntil(this.unsubscribe$).subscribe(loading => this.loading = loading);
 
-    this.notificationsService.entityUpdated$.subscribe(notification => {
-      if (notification instanceof CustomServerError) return;
+    this.notificationsService.entityUpdated$
+      .merge(this.notificationsQuickService.entityUpdated$)
+      .subscribe(notification => {
+        if (notification instanceof CustomServerError) return;
 
-      for (let i = 0; i < this.notifications.length; i++) {
-        if (this.notifications[i].id === notification.id) {
-          this.notifications[i] = notification;
+        for (let i = 0; i < this.notifications.length; i++) {
+          if (this.notifications[i].id === notification.id) {
+            this.notifications[i] = notification;
+          }
         }
-      }
-    });
+      });
 
     this.init();
   }

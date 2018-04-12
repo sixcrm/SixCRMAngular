@@ -78,6 +78,8 @@
         <md-tab>
           <notification-preferences
             [notificationSettings]="notificationSettings"
+            (sendTestNotification)="sendTestNotification()"
+            (sendTestAlert)="sendTestAlert()"
             (cancel)="cancelNotificationSettingsUpdate()"
             (save)="notificationSettingsUpdated()">
           </notification-preferences>

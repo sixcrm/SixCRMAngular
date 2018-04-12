@@ -28,10 +28,10 @@ registration-form {
 }
 
 .notifications-popup {
-  position: absolute;
-  display: block;
+  position: fixed;
+  bottom: 10px;
   z-index: 4;
-  right: 0;
+  right: 10px;
   width: 350px;
   font-family: Roboto, sans-serif;
 }

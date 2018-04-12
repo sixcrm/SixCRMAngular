@@ -33,6 +33,7 @@ export class AlertsService extends AbstractEntityService<Notification> {
     this.toEntity = (data) => {
       let n = new Notification(data);
       n.body = this.translationService.translateNotificationBody(n);
+      n.title = this.translationService.translateNotificationTitle(n);
 
       return n;
     }

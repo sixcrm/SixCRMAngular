@@ -49,10 +49,10 @@
     <topnav-dropdown class="support-dropdown" [text]="'?'" [small]="true" [openOnLeft]="true" [options]="supportOptions"></topnav-dropdown>
 
     <div class="topnav__notifications" (click)="showNotifications()">
-      <md-icon class="topnav__notifications__icon">notifications</md-icon>
-      <div *ngIf="notificationsCount && notificationsCount > 0" class="topnav__notifications__count">
-          {{notificationsCount}}
-      </div>
+      <md-icon class="topnav__notifications__icon" *ngIf="!notificationsCount || notificationsCount === 0; else counter">notifications</md-icon>
+      <ng-template #counter>
+        <div class="topnav__notifications__count">{{notificationsCount}}</div>
+      </ng-template>
     </div>
   </div>
   <div class="topnav__items--collapsed">

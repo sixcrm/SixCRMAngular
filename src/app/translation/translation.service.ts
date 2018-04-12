@@ -120,17 +120,24 @@ export class TranslationService {
     return translation;
   }
 
-  translateNotificationBody(notification: Notification) {
-    const name = notification.name;
+  translateNotificationTitle(notification: Notification) {
+    return this.translateNotificationElement(notification, 'title');
+  }
 
+  translateNotificationBody(notification: Notification) {
+    return this.translateNotificationElement(notification, 'body');
+  }
+
+  private translateNotificationElement(notification: Notification, el: string) {
+    const name = notification.name;
     const category = notification.category;
 
-    let body;
+    let element;
     try {
-      body = this.selectedTranslation.translations.notifications.six[category][name].body;
+      element = this.selectedTranslation.translations.notifications.six[category][name][el];
     } catch(err) {
       try {
-        body = this.selectedTranslation.translations.notifications.default[category][name].body
+        element = this.selectedTranslation.translations.notifications.default[category][name][el]
       } catch(er) {
         console.log('TRANSLATION ERROR, cant find translation for notification:', category, '>', name);
         return name;
@@ -141,13 +148,13 @@ export class TranslationService {
     let match;
 
     do {
-      match = regex.exec(body);
+      match = regex.exec(element);
       if (match && match[0]) {
-        body = body.replace(match[0], notification.context[match[0].replace(/\{\{/, '').replace(/}}/, '')]);
+        element = element.replace(match[0], notification.context[match[0].replace(/\{\{/, '').replace(/}}/, '')]);
       }
     } while (match);
 
-    return body;
+    return element;
   }
 
   transformNumber(value) {

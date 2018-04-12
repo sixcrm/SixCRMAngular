@@ -1,62 +1,62 @@
 .notifications__alert {
-  display: flex;
-  color: rgba(0,0,0,0.7);
-
-  &__image {
-    position: relative;
-    min-width: 70px;
-    min-height: 70px;
-    margin-right: 8px;
-    background-color: #CD0524;
-
-    img {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translateX(-50%) translateY(-50%);
-    }
-  }
 
   &__content {
     display: flex;
-    flex-direction: column;
+    padding: 15px;
 
-    div {
-      &:first-of-type {
-        margin-top: auto;
-        margin-bottom: 5px;
-        font-size: 14px;
-        text-transform: uppercase;
-        font-weight: 500;
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 12px;
+
+      .divider {
+        margin: 0 5px;
+        height: 5px;
+        width: 5px;
+        border-radius: 50%;
+        background: rgba(0,0,0,0.5);
       }
 
-      &:last-of-type {
-        margin-bottom: auto;
-        font-size: 12px;
+      .time {
+        color: rgba(0,0,0,0.5);
       }
+    }
+
+    .title {
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .body {
+      font-size: 14px;
+      color: rgba(0,0,0,0.5);
+    }
+
+    md-icon {
+      margin-left: 12px;
+      padding: 5px;
+      color: white;
+      background: #FD1F47;
+      border-radius: 50%;
     }
   }
 
   &__actions {
     display: flex;
-    font-size: 12px;
-    background: #9B9B9B;
-    color: #ffffff;
+    font-size: 10px;
+    font-weight: 500;
+    background: #F0F0F0;
+    color: #FD1F47;
 
     div {
-      padding: 8px 10px;
-    }
-
-    .view {
-      cursor: pointer;
+      padding: 15px;
     }
 
     .dismiss {
       cursor: pointer;
+      text-transform: uppercase;
     }
 
-    .date {
-      margin-left: auto;
-    }
   }
 }

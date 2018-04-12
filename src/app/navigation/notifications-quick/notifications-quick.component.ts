@@ -114,4 +114,9 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
     this.close.emit(true);
   }
 
+  navigateToSettings() {
+    this.router.navigate(['/profile'], {fragment: 'appsanddevices'});
+
+    this.close.emit(true);
+  }
 }

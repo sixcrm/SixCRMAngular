@@ -165,18 +165,16 @@ $main-color: #9B9A9B;
     cursor: pointer;
 
     &__count {
-      position: absolute;
-      top: -5px;
-      right: -5px;
       border-radius: 50%;
-      background: #FE7274;
-      height: 18px;
-      width: 18px;
-      line-height: 19px;
+      background: #FB1F47;
+      height: 24px;
+      width: 24px;
+      line-height: 24px;
       text-align: center;
       font-weight: 600;
       font-size: 10px;
       color: #ffffff;
+      box-shadow: 0 0 4px black;
     }
   }
 }
