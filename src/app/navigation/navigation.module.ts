@@ -16,6 +16,7 @@ import { AlertsQuickComponent } from './alerts-quick/alerts-quick.component';
 import { PersistentNotificationsQuickComponent } from './persistent-notifications-quick/persistent-notifications-quick.component';
 import {TranslationModule} from '../translation/translation.module';
 import { TopnavDropdownComponent } from './topnav/topnav-dropdown/topnav-dropdown.component';
+import {OrdersModule} from '../orders/orders.module';
 
 @NgModule({
   imports : [
@@ -25,7 +26,8 @@ import { TopnavDropdownComponent } from './topnav/topnav-dropdown/topnav-dropdow
     SharedModule,
     FormsModule,
     AuthenticationModule,
-    TranslationModule
+    TranslationModule,
+    OrdersModule
   ],
   declarations : [
     SidenavComponent,

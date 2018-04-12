@@ -1,0 +1,42 @@
+.container {
+  background: white;
+  font-family: Roboto, sans-serif;
+
+  .header {
+    padding: 25px 15px;
+    background: #4478BD;
+
+    div {
+      font-size: 28px;
+      color: white;
+    }
+
+  }
+
+  .content {
+    display: flex;
+  }
+
+  .form-container {
+    margin: 15px;
+    width: calc(100% - 250px);
+  }
+
+  .details {
+    margin: 15px;
+    width: 250px;
+  }
+
+  .cancel {
+    display: flex;
+    color: #66AAEB;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 20px;
+
+    div {
+      margin: auto;
+      cursor: pointer;
+    }
+  }
+}

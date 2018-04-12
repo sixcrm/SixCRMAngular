@@ -2,7 +2,6 @@ import {Component, OnInit, Input, ViewChild} from '@angular/core';
 import {MdSidenav} from '@angular/material';
 import {NavigationService} from '../navigation.service';
 import {AuthenticationService} from "../../authentication/authentication.service";
-import {StringUtils} from '../../shared/utils/string-utils';
 import {Router} from '@angular/router';
 import {User} from '../../shared/models/user.model';
 import {Acl} from '../../shared/models/acl.model';
@@ -35,6 +34,7 @@ export class TopnavComponent implements OnInit {
   mapAcl = (acl: Acl) => acl.account.name;
 
   addOptions: TopnavDropdownOption[] = [
+    {label: 'New Order', callback: () => this.navigation.setShowCreateNewModal(true)},
     {label: 'New Campaign', callback: () => this.router.navigate(['campaigns'], {queryParams: {action: 'new'}})},
     {label: 'New Product Schedule', callback: () => this.router.navigate(['productschedules'], {queryParams: {action: 'new'}})},
     {label: 'New Product', callback: () => this.router.navigate(['products'], {queryParams: {action: 'new'}})},

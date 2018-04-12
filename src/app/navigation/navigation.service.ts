@@ -22,6 +22,7 @@ export class NavigationService {
   private _showSidenav: Subject<boolean> = new BehaviorSubject(this.largeScreen);
   private _isRouteLoading: Subject<boolean> = new BehaviorSubject(true);
   private _showNotifications: Subject<boolean> = new BehaviorSubject(false);
+  private _showCreateNewOrderModal: Subject<boolean> = new BehaviorSubject(true);
 
   private showSidenavSelectedValue: boolean = this.largeScreen;
 
@@ -108,6 +109,15 @@ export class NavigationService {
   public setIsRouteLoading(isRouteLoading: boolean): void {
     this._isRouteLoading.next(isRouteLoading);
   }
+
+  public get showCreateNewModal(): Subject<boolean> {
+    return this._showCreateNewOrderModal;
+  }
+
+  public setShowCreateNewModal(value: boolean): void {
+    this._showCreateNewOrderModal.next(value);
+  }
+
 
   public get mediumScreenAndDown(): boolean {
     return window !== undefined ? window.matchMedia(`(max-width: ${NavigationService.largeViewportWidth}px)`).matches : false;
