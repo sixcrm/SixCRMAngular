@@ -22,7 +22,7 @@ export class NavigationService {
   private _showSidenav: Subject<boolean> = new BehaviorSubject(this.largeScreen);
   private _isRouteLoading: Subject<boolean> = new BehaviorSubject(true);
   private _showNotifications: Subject<boolean> = new BehaviorSubject(false);
-  private _showCreateNewOrderModal: Subject<boolean> = new BehaviorSubject(true);
+  private _showCreateNewOrderModal: Subject<boolean> = new BehaviorSubject(false);
 
   private showSidenavSelectedValue: boolean = this.largeScreen;
 
