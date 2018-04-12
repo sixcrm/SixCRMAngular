@@ -5,13 +5,22 @@
   color: #4A4A4A;
 }
 
+.explanation {
+  margin-bottom: 45px;
+  font-size: 15px;
+  width: 340px;
+}
+
 .appsdevices {
   width: calc(100% - 300px);
-  display: flex;
-  flex-wrap: wrap;
+
+  .items {
+    display: flex;
+    flex-wrap: wrap;
+  }
 
   .column {
-    margin-right: 60px;
+    margin-right: 80px;
 
     .title {
       font-size: 20px;

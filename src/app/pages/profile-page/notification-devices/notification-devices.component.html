@@ -1,25 +1,34 @@
 <div class="container">
   <div class="appsdevices">
-    <div class="column">
-      <div class="title">Applications</div>
 
-      <div *ngFor="let app of appNotificationSettingsItem">
-        <device-toggle-item [notificationSettings]="app" (toggled)="settingToggled.emit(true)"></device-toggle-item>
+    <div>
+      <div class="explanation">
+        You can send Six CRM notifications to more of your applications and devices.
       </div>
-
-      <div *ngIf="!_settings" class="loader">
-        <div></div><div></div><div></div></div>
     </div>
 
-    <div class="column">
-      <div class="title">Devices</div>
+    <div class="items">
+      <div class="column">
+        <div class="title">Applications</div>
 
-      <div *ngFor="let dev of devNotificationSettingsItem">
-        <device-toggle-item [notificationSettings]="dev" (toggled)="settingToggled.emit(true)"></device-toggle-item>
+        <div *ngFor="let app of appNotificationSettingsItem">
+          <device-toggle-item [notificationSettings]="app" (toggled)="settingToggled.emit(true)"></device-toggle-item>
+        </div>
+
+        <div *ngIf="!_settings" class="loader">
+          <div></div><div></div><div></div></div>
       </div>
 
-      <div *ngIf="!_settings" class="loader">
-        <div></div><div></div><div></div></div>
+      <div class="column">
+        <div class="title">Devices</div>
+
+        <div *ngFor="let dev of devNotificationSettingsItem">
+          <device-toggle-item [notificationSettings]="dev" (toggled)="settingToggled.emit(true)"></device-toggle-item>
+        </div>
+
+        <div *ngIf="!_settings" class="loader">
+          <div></div><div></div><div></div></div>
+      </div>
     </div>
   </div>
 

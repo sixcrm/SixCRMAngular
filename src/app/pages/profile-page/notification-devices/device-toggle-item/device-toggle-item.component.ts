@@ -19,16 +19,17 @@ export class DeviceToggleItemComponent implements OnInit {
     six: 'SixCRM',
     ios: 'iOS App',
     email: 'E-Mail',
-    sms: 'SMS',
+    sms: 'SMS Phone',
     skype: 'Skype',
     slack: 'Slack'
   };
 
   deviceNoDataLabels = {
-    email: 'Enter E-Mail',
-    sms: 'Enter phone number',
-    skype: 'Enter Skype web hook',
-    slack: 'Enter Slack web hook'
+    email: 'Add E-Mail',
+    sms: 'Add phone number',
+    skype: 'Add Skype web hook',
+    slack: 'Add Slack web hook',
+    ios: 'App not registered',
   };
 
   constructor() { }
@@ -36,12 +37,12 @@ export class DeviceToggleItemComponent implements OnInit {
   ngOnInit() {
   }
 
-  deleteData() {
-    this.notificationSettings.data = null;
-    this.toggled.emit(true);
-  }
-
   updateData() {
+    if (this.notificationSettings.data === this.valueInput.nativeElement.value) {
+      this.editMode = false;
+      return;
+    }
+
     this.notificationSettings.data = this.valueInput.nativeElement.value;
     this.editMode = false;
 
