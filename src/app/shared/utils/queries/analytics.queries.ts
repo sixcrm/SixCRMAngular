@@ -21,7 +21,7 @@ export function heroChartQuery(start: string, end: string, period: string, compa
   }
 
   return `{
-		analytics ( analyticsfacets: { reportType: ${comparisonType}, facets: [ ${facets} ] } ) {
+		analytics ( facets: { reportType: ${comparisonType}, facets: [ ${facets} ] } ) {
 			records { key, value }
 		}
   }`;
