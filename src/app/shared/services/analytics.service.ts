@@ -74,7 +74,7 @@ export class AnalyticsService {
         data,
         this.heroChartSeries$,
         (t: any) => new HeroChartSeries(t),
-        (data: any) => extractData(data).herocharttimeseries.facets
+        (data: any) => extractData(data).analytics.records[0]
       );
     })
   }

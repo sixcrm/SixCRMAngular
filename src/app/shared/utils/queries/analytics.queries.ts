@@ -15,13 +15,17 @@ export function transactionSummaryQuery(start: string, end: string, filterTerms:
 }
 
 export function heroChartQuery(start: string, end: string, period: string, comparisonType: string, campaignId?: string): string {
+  let facets = `{ facet: "start", values: ["${start}"] }, { facet: "end", values: ["${end}"] }, { facet: "period", values: ["${period}"] }`;
+  if (campaignId) {
+    facets += `, { facet: "campaign", values: ["${campaignId}"]}`
+  }
+
   return `{
-		herocharttimeseries ( analyticsfilter: {start: "${start}", end: "${end}", period: "${period}", comparisonType: ${comparisonType}${campaignId ? `, campaign: "${campaignId}"` : ``} } ) {
-			facets { facet, timeseries { datetime, value } }
+		analytics ( analyticsfacets: { reportType: ${comparisonType}, facets: [ ${facets} ] } ) {
+			records { key, value }
 		}
   }`;
 }
-
 
 export function eventsFunnelQuery(start: string, end: string): string {
   return `{

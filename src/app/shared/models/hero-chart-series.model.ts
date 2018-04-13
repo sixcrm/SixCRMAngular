@@ -9,8 +9,8 @@ export class HeroChartSeries {
       obj = {};
     }
 
-    this.facet = obj.facet;
-    this.timeseries = obj.timeseries.map(t => {
+    this.facet = obj.key;
+    this.timeseries = obj.value.map(t => {
       return {datetime: utc(t.datetime), value: t.value}
     })
   }

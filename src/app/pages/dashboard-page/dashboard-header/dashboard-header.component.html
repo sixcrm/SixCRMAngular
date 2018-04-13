@@ -1,29 +1,31 @@
 <div class="dashboard-header">
-  <div class="dashboard-filters">
-    <div
-      *ngFor="let filter of timeFilters"
-      [class.selected]="filter.selected"
-      (click)="timeFilterSelected.emit(filter)">
-      {{filter.label}}
+  <div class="flex-custom flex-custom--center">
+    <div class="dashboard-filters">
+      <div
+        *ngFor="let filter of timeFilters"
+        [class.selected]="filter.selected"
+        (click)="timeFilterSelected.emit(filter)">
+        {{filter.label}}
+      </div>
     </div>
-  </div>
-  <div class="dashboard-campaigns">
-    <dashboard-header-dropdown
-      [items]="campaigns"
-      [selectedItem]="selectedCampaign"
-      [mapper]="campaignMapper"
-      [selectedMapper]="campaignSelectedMapper"
-      (selected)="campaignSelected.emit($event)">
-    </dashboard-header-dropdown>
-  </div>
-  <div class="dashboard-queries">
-    <dashboard-header-dropdown
-      [items]="queries"
-      [selectedItem]="selectedQuery"
-      [mapper]="queryMapper"
-      [selectedMapper]="querySelectedMapper"
-      (selected)="querySelected.emit($event)">
-    </dashboard-header-dropdown>
+    <div class="dashboard-campaigns">
+      <dashboard-header-dropdown
+        [items]="campaigns"
+        [selectedItem]="selectedCampaign"
+        [mapper]="campaignMapper"
+        [selectedMapper]="campaignSelectedMapper"
+        (selected)="campaignSelected.emit($event)">
+      </dashboard-header-dropdown>
+    </div>
+    <div class="dashboard-queries">
+      <dashboard-header-dropdown
+        [items]="queries"
+        [selectedItem]="selectedQuery"
+        [mapper]="queryMapper"
+        [selectedMapper]="querySelectedMapper"
+        (selected)="querySelected.emit($event)">
+      </dashboard-header-dropdown>
+    </div>
   </div>
   <div *ngIf="quote" class="dashboard-message">
     <div>{{quote.quote}}</div>
