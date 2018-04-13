@@ -117,7 +117,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
         return;
       }
 
-      let alerts = extractData(data).notificationlistbytypes.notifications;
+      let alerts = extractData(data).notificationlistbytype.notifications;
 
       if (alerts) {
         this.alerts$.next(alerts.map(alert => this.buildNotificationWithBody(alert)));
@@ -137,7 +137,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
         return;
       }
 
-      let alerts = extractData(data).notificationlistbytypes.notifications;
+      let alerts = extractData(data).notificationlistbytype.notifications;
 
       if (alerts) {
         this.notificationsPersistent$.next(alerts.map(alert => this.buildNotificationWithBody(alert)));
