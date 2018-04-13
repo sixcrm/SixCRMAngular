@@ -42,7 +42,7 @@ export class CustomerPage {
   }
 
   getCustomerNotesMenu() {
-    return element(by.css('customer-notes')).element(by.css('mat-card-title')).element(by.css('md-icon'));
+    return element(by.css('customer-notes')).element(by.css('mat-card-title')).element(by.css('mat-icon'));
   }
 
   getFirstMenuButton() {
@@ -66,7 +66,7 @@ export class CustomerPage {
   }
 
   getFirstNoteMenuButton() {
-    return element(by.css('.note__content')).element(by.css('md-icon'));
+    return element(by.css('.note__content')).element(by.css('mat-icon'));
   }
 
   getConfirmDeleteButton() {
@@ -74,7 +74,7 @@ export class CustomerPage {
   }
 
   getBillingMenuButton() {
-    return element.all(by.css('.customer-view__card')).get(1).element(by.css('md-icon'));
+    return element.all(by.css('.customer-view__card')).get(1).element(by.css('mat-icon'));
   }
 
   getBillingAddCardButton() {
@@ -106,7 +106,7 @@ export class CustomerPage {
   }
 
   getBillingCardMenuButtons() {
-    return element.all(by.css('.credit-cards__item md-icon'));
+    return element.all(by.css('.credit-cards__item mat-icon'));
   }
 
   getBillingRemoveCardButton() {

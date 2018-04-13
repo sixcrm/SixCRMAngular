@@ -28,7 +28,7 @@ export class StateMachineService {
       }
 
       this.timeseries$.next(
-        res.body.json().response.data.rebillsummary.summary
+        res.body.response.data.rebillsummary.summary
           .map(t => new StateMachineTimeseries(t))
           .sort((a,b) => {
             if (a.datetime.isBefore(b.datetime)) return -1;

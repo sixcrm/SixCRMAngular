@@ -37,7 +37,7 @@
         </ng-container>
       </ng-container>
       <td>
-        <button md-icon-button [matMenuTriggerFor]="actionsMenu"><mat-icon>more_vert</mat-icon></button>
+        <button mat-icon-button [matMenuTriggerFor]="actionsMenu"><mat-icon>more_vert</mat-icon></button>
         <mat-menu #actionsMenu="matMenu" x-position="before">
           <button md-menu-item [routerLink]="['/campaigns', entity.id]">{{'AFFILIATE_CAMPAIGN_VIEW' | translate}}</button>
         </mat-menu>

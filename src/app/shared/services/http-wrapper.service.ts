@@ -127,10 +127,10 @@ export class HttpWrapperService {
   }
 
   handleError(error) {
-    if (!error.json().message) return;
+    if (!error || !error.message) return;
 
-    const duration = error.json().code === 403 ? 6000 : 3000;
-    this.snackbarService.showErrorSnack(error.json().message, duration);
+    const duration = error.code === 403 ? 6000 : 3000;
+    this.snackbarService.showErrorSnack(error.message, duration);
   }
 
   setInProgress() {
@@ -149,13 +149,11 @@ export class HttpWrapperService {
 }
 
 export function extractData(response: HttpResponse<any>) {
-  return response.body.json().response.data;
+  return response.body.response.data;
 }
 
 export function generateHeaders(token: string, contentType?: string): HttpHeaders {
-  let headers = new HttpHeaders();
-  headers.append('Content-Type', contentType ? contentType : 'application/json');
-  headers.append('Authorization', token);
+  let headers = new HttpHeaders().append('Content-Type', contentType ? contentType : 'application/json').append('Authorization', token);
 
   return headers;
 }

@@ -7,7 +7,7 @@ export class AccountPage {
   }
 
   getLastUserButton() {
-    return element.all(by.css('tr')).last().element(by.css('md-icon'));
+    return element.all(by.css('tr')).last().element(by.css('mat-icon'));
   }
 
   getRemoveUserButton() {
@@ -31,7 +31,7 @@ export class AccountPage {
   }
 
   getLastAccessKeysButton() {
-    return element(by.css('access-keys')).element(by.css('tbody')).all(by.css('tr')).last().element(by.css('md-icon'));
+    return element(by.css('access-keys')).element(by.css('tbody')).all(by.css('tr')).last().element(by.css('mat-icon'));
   }
 
   getAKTableHeaderCells() {
@@ -43,7 +43,7 @@ export class AccountPage {
   }
 
   getAKFirstRowMenuButton() {
-    return this.getAKTableCells().get(4).element(by.css('md-icon'));
+    return this.getAKTableCells().get(4).element(by.css('mat-icon'));
   }
 
   getAKEditButton() {

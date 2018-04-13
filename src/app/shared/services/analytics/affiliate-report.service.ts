@@ -35,7 +35,7 @@ export class AffiliateReportService {
             this.affiliates$.next(affiliates.map(affiliate => new AffiliateReport(affiliate)))
           }
         } else {
-          downloadJSON(data.body.json(), 'affiliate-details-report.json');
+          downloadJSON(data.body, 'affiliate-details-report.json');
         }
       })
   }
@@ -50,7 +50,7 @@ export class AffiliateReportService {
             this.affiliateSummary$.next(new AffiliateReport(affiliateSummary));
           }
         } else {
-          downloadJSON(data.body.json().response, 'transaction-summary-total-report.json');
+          downloadJSON(data.body.response, 'transaction-summary-total-report.json');
         }
       })
   }
@@ -65,7 +65,7 @@ export class AffiliateReportService {
             this.subaffiliates$.next(subaffiliates.map(subaffiliate => new AffiliateReport(subaffiliate)))
           }
         } else {
-          downloadJSON(data.body.json(), 'subaffiliate-details-report.json');
+          downloadJSON(data.body, 'subaffiliate-details-report.json');
         }
       })
   }

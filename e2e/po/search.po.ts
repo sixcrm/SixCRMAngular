@@ -14,7 +14,7 @@ export class SearchPage {
   }
 
   getFilterValueButtons() {
-    return element(by.css('.search__sidenav__options')).all(by.css('md-icon'));
+    return element(by.css('.search__sidenav__options')).all(by.css('mat-icon'));
   }
 
   getResults() {
@@ -58,7 +58,7 @@ export class SearchPage {
   }
 
   getViewModeToggle() {
-    return element(by.css('.search__content__title__options')).all(by.css('md-icon')).last();
+    return element(by.css('.search__content__title__options')).all(by.css('mat-icon')).last();
   }
 
   getAdvancedSearchToggle() {

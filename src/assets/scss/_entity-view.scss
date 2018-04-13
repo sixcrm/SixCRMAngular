@@ -22,7 +22,7 @@ $main-blue: #5383C3;
       cursor: pointer;
     }
 
-    md-icon {
+    mat-icon {
       height: 20px;
       line-height: 20px;
       vertical-align: middle;
@@ -102,7 +102,7 @@ $main-blue: #5383C3;
         width: 100px;
         transition: background-color 250ms ease-in-out;
 
-        md-icon {
+        mat-icon {
           font-size: 56px;
           height: 56px;
           width: 56px;
@@ -113,7 +113,7 @@ $main-blue: #5383C3;
           left: 50px;
           background: linear-gradient(to right, rgba(92,155,221,1), rgba(92,155,221,0));
 
-          md-icon {
+          mat-icon {
             margin: auto auto auto 15px;
           }
         }
@@ -122,7 +122,7 @@ $main-blue: #5383C3;
           right: 10px;
           background: linear-gradient(to right, rgba(92,155,221,0), rgba(92,155,221,1));
 
-          md-icon {
+          mat-icon {
             margin: auto 15px auto auto;
           }
         }
@@ -160,7 +160,7 @@ $main-blue: #5383C3;
     z-index: 1;
     cursor: pointer;
 
-    md-icon {
+    mat-icon {
       position: absolute;
       top: 10px;
       left: 10px;
@@ -252,7 +252,7 @@ $main-blue: #5383C3;
             width: 90px;
           }
 
-          md-icon {
+          mat-icon {
             margin-right: 5px;
             font-size: 14px;
             width: 14px;
@@ -268,7 +268,7 @@ $main-blue: #5383C3;
       align-self: flex-start;
       margin: 35px 60px 0 auto;
 
-      md-icon {
+      mat-icon {
         cursor: pointer;
       }
 
@@ -346,7 +346,7 @@ $main-blue: #5383C3;
         margin-top: 50px;
       }
 
-      md-icon {
+      mat-icon {
         position: relative;
         top: 7px;
         margin-left: 20px;
@@ -382,7 +382,7 @@ $main-blue: #5383C3;
             font-weight: 600;
           }
 
-          md-icon {
+          mat-icon {
             position: absolute;
             top: 8px;
             right: 10px;
@@ -551,7 +551,7 @@ $main-blue: #5383C3;
         color: #5B9BE1;
         font-size: 18px;
 
-        md-icon {
+        mat-icon {
           height: 18px;
           line-height: 18px;
           vertical-align: middle;
@@ -613,7 +613,7 @@ $main-blue: #5383C3;
           color: rgba(0,0,0,0.5);
           font-size: 10px;
 
-          md-icon {
+          mat-icon {
             position: absolute;
             width: 16px;
             height: 16px;
@@ -643,7 +643,7 @@ $main-blue: #5383C3;
         }
 
         td {
-          md-icon {
+          mat-icon {
             width: 18px;
             height: 18px;
             vertical-align: middle;
@@ -772,7 +772,7 @@ $main-blue: #5383C3;
         color: rgba(0,0,0,0.6);
       }
 
-      md-icon {
+      mat-icon {
         margin-left: auto;
         width: 18px;
         height: 18px;
@@ -845,7 +845,7 @@ $main-blue: #5383C3;
   &__nav {
     padding: 15px 18px 10px 18px;
 
-    md-icon {
+    mat-icon {
       cursor: pointer;
     }
 
@@ -932,7 +932,7 @@ $main-blue: #5383C3;
           font-size: 16px;
           line-height: 24px;
 
-          md-icon {
+          mat-icon {
             float: right;
             cursor: pointer;
           }
@@ -1008,7 +1008,7 @@ $main-blue: #5383C3;
           border-bottom: 1px solid rgba(0, 0, 0, 0.12);
           width: 210px;
 
-          md-icon {
+          mat-icon {
             float: right;
             height: 18px;
             vertical-align: middle;

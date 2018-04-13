@@ -38,7 +38,7 @@
         </ng-container>
       </ng-container>
       <td>
-        <button md-icon-button [matMenuTriggerFor]="actionsMenu"><mat-icon>more_vert</mat-icon></button>
+        <button mat-icon-button [matMenuTriggerFor]="actionsMenu"><mat-icon>more_vert</mat-icon></button>
         <mat-menu #actionsMenu="matMenu" x-position="before">
           <button md-menu-item [routerLink]="['/trackers', entity.id]">{{'AFFILIATE_TRACKING_VIEW' | translate}}</button>
           <button md-menu-item (click)="dissociate(entity)">{{'AFFILIATE_TRACKING_DISASSOCIATE' | translate}}</button>

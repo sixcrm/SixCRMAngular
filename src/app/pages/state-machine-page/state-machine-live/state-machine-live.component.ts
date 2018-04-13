@@ -104,7 +104,7 @@ export class StateMachineLiveComponent implements OnInit, OnDestroy {
         return;
       }
 
-      let summary = res.body.json().response.data.currentqueuesummary.summary[0];
+      let summary = res.body.response.data.currentqueuesummary.summary[0];
 
       this.queue.count = summary.number_of_rebills;
       this.queue.avgTimeInSeconds = summary.avg_time;

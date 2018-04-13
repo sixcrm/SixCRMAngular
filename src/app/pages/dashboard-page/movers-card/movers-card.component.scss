@@ -22,7 +22,7 @@ $color-orange: #F16C00;
       color: rgba(0,0,0,0.6);
     }
 
-    md-icon {
+    mat-icon {
       position: absolute;
       right: 10px;
       top: 16px;
@@ -38,7 +38,7 @@ $color-orange: #F16C00;
     position: relative;
     height: 358px;
 
-    md-spinner {
+    mat-spinner {
       position: absolute;
       left: 50%;
       top: 50%;
@@ -94,7 +94,7 @@ $color-orange: #F16C00;
           vertical-align: middle;
         }
 
-        md-icon {
+        mat-icon {
           height: 20px;
           vertical-align: middle;
           font-size: 20px;

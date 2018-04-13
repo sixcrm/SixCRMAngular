@@ -1,5 +1,5 @@
 <mat-toolbar class="topnav">
-  <button md-icon-button (click)="toggleSidenav()" id="menu-toggler">
+  <button mat-icon-button (click)="toggleSidenav()" id="menu-toggler">
     <img src="/assets/images/ic_sort.svg">
   </button>
 
@@ -9,7 +9,7 @@
       <mat-input-container id="topnav-search search-visible" [floatPlaceholder]="false" class="topnav-search-input">
         <input
           #searchField
-          md-input
+          matInput
           class="search-field"
           placeholder="{{'TOPNAV_SEARCH' | translate}}"
           type="text"

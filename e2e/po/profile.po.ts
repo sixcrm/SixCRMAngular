@@ -35,7 +35,7 @@ export class ProfilePage {
   }
 
   getSSFirstRowMenuButton() {
-    return this.getSSTableCells().get(3).element(by.css('md-icon'));
+    return this.getSSTableCells().get(3).element(by.css('mat-icon'));
   }
 
   getSSEditButton() {

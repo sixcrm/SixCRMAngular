@@ -23,7 +23,7 @@ export class ProductSchedulePage {
   }
 
   getDetailsMenuButton() {
-    return element(by.css('.entity-view__card__header')).element(by.css('md-icon'));
+    return element(by.css('.entity-view__card__header')).element(by.css('mat-icon'));
   }
 
   getMenuButton(index: number) {
@@ -47,7 +47,7 @@ export class ProductSchedulePage {
   }
 
   getTableRowOptionsButton() {
-    return element(by.css('tbody')).element(by.css('tr')).element(by.css('md-icon'));
+    return element(by.css('tbody')).element(by.css('tr')).element(by.css('mat-icon'));
   }
 
   getConfirmDeleteButton() {

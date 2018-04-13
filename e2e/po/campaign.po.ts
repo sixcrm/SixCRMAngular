@@ -27,7 +27,7 @@ export class CampaignPage {
   }
 
   getMenuButton() {
-    return element(by.css('.entity-view__card__header')).element(by.css('md-icon'));
+    return element(by.css('.entity-view__card__header')).element(by.css('mat-icon'));
   }
 
   getEditButton() {

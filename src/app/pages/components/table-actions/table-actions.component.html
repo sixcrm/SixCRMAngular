@@ -1,8 +1,8 @@
 <div class="flex-custom">
-  <button *ngIf="dedicatedOptions && showDelete" md-icon-button (click)="deleteClicked.emit(true)"><mat-icon>delete</mat-icon></button>
-  <button *ngIf="dedicatedOptions && showView" md-icon-button (click)="viewClicked.emit(true)"><mat-icon>arrow_forward</mat-icon></button>
+  <button *ngIf="dedicatedOptions && showDelete" mat-icon-button (click)="deleteClicked.emit(true)"><mat-icon>delete</mat-icon></button>
+  <button *ngIf="dedicatedOptions && showView" mat-icon-button (click)="viewClicked.emit(true)"><mat-icon>arrow_forward</mat-icon></button>
   <ng-container *ngIf="!dedicatedOptions || showCopy">
-    <button md-icon-button [matMenuTriggerFor]="actionsMenu"><mat-icon>more_vert</mat-icon></button>
+    <button mat-icon-button [matMenuTriggerFor]="actionsMenu"><mat-icon>more_vert</mat-icon></button>
     <mat-menu #actionsMenu="matMenu" x-position="before">
       <button *ngIf="!dedicatedOptions && showView" md-menu-item (click)="viewClicked.emit(true)">{{'INDEXPAGE_VIEW' | translate}}</button>
       <button *ngIf="!dedicatedOptions && showEdit" md-menu-item (click)="editClicked.emit(true)">{{'INDEXPAGE_EDIT' | translate}}</button>

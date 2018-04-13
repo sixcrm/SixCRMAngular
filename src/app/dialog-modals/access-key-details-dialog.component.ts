@@ -27,7 +27,9 @@ import {MatDialogRef} from '@angular/material';
       <div class="show-more" (click)="toggleShowSecret()">{{showSecret ? 'hide' : 'show'}}</div>
     </div>
     
-    <md-textarea [disabled]="!editMode" [readonly]="!editMode" placeholder="{{ 'ACCOUNT_KEYS_HEADER_NOTES' | translate}}" [(ngModel)]="accessKey.notes" type="text"></md-textarea>
+    <mat-input-container>
+      <textarea matInput [disabled]="!editMode" [readonly]="!editMode" placeholder="{{ 'ACCOUNT_KEYS_HEADER_NOTES' | translate}}" [(ngModel)]="accessKey.notes"></textarea>    
+    </mat-input-container>
   
     <div class="access-key-details-actions">
       <div (click)="cancel()">{{(editMode ? 'ACCOUNT_KEYS_CANCEL' : 'ACCOUNT_KEYS_CLOSE') | translate}}</div>
@@ -38,7 +40,7 @@ import {MatDialogRef} from '@angular/material';
   styles : [`
     .access-key-details-container { font-family: Roboto, sans-serif; font-size: 14px; min-width: 450px; display: flex; flex-direction: column; padding: 10px;}
     md-input-container {margin: 10px 0 0; width: 100%;}
-    md-textarea {margin: 10px 0 0}
+    textarea {margin: 10px 0 0}
     .show-more { font-size: 12px; text-align: right; color: #5B9BE1; cursor: pointer}
     .access-key-details-actions { display: flex; padding: 15px 0; font-size: 12px; }
     .access-key-details-actions > div { cursor: pointer; }
@@ -46,7 +48,7 @@ import {MatDialogRef} from '@angular/material';
     .access-key-details-actions > div:nth-of-type(2) { margin-left: 10px; }
     .access-key-details-actions > div:last-of-type { color: #5B9BE1; }
     .flex-custom { align-items: center; }
-     md-icon { margin-left: 15px; height: 18px; width: 18px; font-size: 18px; color: rgba(0,0,0,0.8); cursor: pointer; }
+     mat-icon { margin-left: 15px; height: 18px; width: 18px; font-size: 18px; color: rgba(0,0,0,0.8); cursor: pointer; }
   `]
 })
 export class AccessKeyDetailsDialogComponent {

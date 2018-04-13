@@ -22,7 +22,7 @@ export class ProductPage {
   }
 
   getDetailsMenuButton() {
-    return element(by.css('.entity-view__card__header')).element(by.css('md-icon'));
+    return element(by.css('.entity-view__card__header')).element(by.css('mat-icon'));
   }
 
   getMenuButton(index: number) {

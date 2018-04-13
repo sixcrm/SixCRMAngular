@@ -33,9 +33,11 @@ export function hchartFactory() {
     MerchantReportChartComponent,
     StateMachineDetailsChartComponent
   ],
-  providers: [{
-    provide: HighchartsStatic,
-    useFactory: hchartFactory
-  }]
+  providers: [
+    {
+      provide: HighchartsStatic,
+      useFactory: hchartFactory
+    }
+  ]
 })
 export class ChartsModule { }

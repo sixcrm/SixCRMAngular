@@ -64,7 +64,7 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
         return;
       }
 
-      this.termsAndConditions = response.body.json().response.data.latesttermsandconditions;
+      this.termsAndConditions = response.body.response.data.latesttermsandconditions;
     })
   }
 
@@ -74,7 +74,7 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
         return;
       }
 
-      this.termsAndConditions = response.body.json().response.data.latesttermsandconditions;
+      this.termsAndConditions = response.body.response.data.latesttermsandconditions;
     })
   }
 
@@ -100,7 +100,7 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
         return;
       }
 
-      this.activeUser.updatedAtAPI = user.body.json().response.data.updateuser.updated_at;
+      this.activeUser.updatedAtAPI = user.body.response.data.updateuser.updated_at;
       this.activeUser.termsAndConditionsOutdated = false;
       this.authService.updateSixUser(this.activeUser);
 

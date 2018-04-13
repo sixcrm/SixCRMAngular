@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import {
   MatInputModule, MatCardModule, MatIconModule, MatTabsModule, MatCheckboxModule,
   MatSliderModule, MatDialogModule, MatProgressBarModule, MatProgressSpinnerModule, MatSnackBarModule, MatTooltipModule,
-  MatMenuModule, MatToolbarModule, MatListModule
+  MatMenuModule, MatToolbarModule, MatListModule, MatSidenavModule
 } from '@angular/material';
 
 @NgModule({
@@ -20,7 +20,8 @@ import {
     MatTooltipModule,
     MatMenuModule,
     MatToolbarModule,
-    MatListModule
+    MatListModule,
+    MatSidenavModule
   ],
   exports: [
     MatInputModule,
@@ -36,7 +37,8 @@ import {
     MatTooltipModule,
     MatMenuModule,
     MatToolbarModule,
-    MatListModule
+    MatListModule,
+    MatSidenavModule
   ],
   declarations: []
 })

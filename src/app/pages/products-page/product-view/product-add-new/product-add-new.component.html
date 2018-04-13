@@ -19,7 +19,9 @@
         <input auto-focus required matInput [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text">
       </mat-input-container>
 
-      <md-textarea [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_DESCRIPTION' | translate}}" name="description" [(ngModel)]="entity.description" type="text" rows="2"></md-textarea>
+      <mat-input-container>
+        <textarea matInput [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_DESCRIPTION' | translate}}" name="description" [(ngModel)]="entity.description" rows="2"></textarea>
+      </mat-input-container>
 
       <div class="product-view__group">
         <mat-input-container [class.error]="formInvalid && !entity.sku" class="entity-view__card__content__item">
