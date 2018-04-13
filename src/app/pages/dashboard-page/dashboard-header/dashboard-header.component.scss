@@ -1,6 +1,6 @@
 .dashboard-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   padding: 15px 25px;
 }
 
@@ -28,6 +28,7 @@
 
 .dashboard-message {
   margin-left: auto;
+  max-width: 600px;
   color: #97B7DD;
   font-style: italic;
   font-size: 24px;
@@ -35,6 +36,7 @@
   text-align: right;
 
   div:last-of-type {
+    margin-top: 5px;
     font-size: 16px;
   }
 }
