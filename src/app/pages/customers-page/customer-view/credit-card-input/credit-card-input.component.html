@@ -17,8 +17,8 @@
 
   <div class="customer-view__edit__info" [class.body-add]="addMode">
     <md-input [disabled]="viewMode" [class.error]="formInvalid && !ccard.name" required placeholder="{{'FORMINPUTS_CREDITCARD_NAME' | translate}}" [(ngModel)]="ccard.name"></md-input>
-    <input-credit-card [disabled]="viewMode" [class.error]="formInvalid && !ccard.ccnumber" [value]="ccard.ccnumber" [placeholder]="'FORMINPUTS_CREDITCARD_NUMBER' | translate" (result)="ccard.ccnumber = $event"></input-credit-card>
-    <input-credit-card [disabled]="viewMode" [class.error]="formInvalid && !ccard.ccv" [value]="ccard.ccv" [mode]="'ccv'" [placeholder]="'FORMINPUTS_CREDITCARD_CCV' | translate" (result)="ccard.ccv = $event"></input-credit-card>
+    <input-credit-card [disabled]="viewMode" [class.error]="formInvalid && !ccard.ccnumber" [value]="ccard.ccnumber || (viewMode ? '************' + ccard.lastFour : ccard.ccnumber)" [placeholder]="'FORMINPUTS_CREDITCARD_NUMBER' | translate" (result)="ccard.ccnumber = $event"></input-credit-card>
+    <input-credit-card [disabled]="viewMode" [class.error]="formInvalid && !ccard.ccv" [value]="ccard.ccv || (viewMode ? '****' : ccard.ccv)" [mode]="'ccv'" [placeholder]="'FORMINPUTS_CREDITCARD_CCV' | translate" (result)="ccard.ccv = $event"></input-credit-card>
 
     <div class="customer-view__edit__info__expiration">
       <div class="customer-view__edit__info__expiration__item">
