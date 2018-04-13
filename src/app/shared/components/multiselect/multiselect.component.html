@@ -9,9 +9,9 @@
   </ng-template>
 
   <div class="default-autocomplete-input__options" *ngIf="dropdownVisible">
-    <div class="item item--first"><md-checkbox class="multiselect-checkbox checkbox-blue" [(ngModel)]="allSelected" (change)="selectAll()">Select All</md-checkbox></div>
+    <div class="item item--first"><mat-checkbox class="multiselect-checkbox checkbox-blue" [(ngModel)]="allSelected" (change)="selectAll()">Select All</mat-checkbox></div>
     <div class="item" *ngFor="let option of _options">
-      <md-checkbox class="multiselect-checkbox checkbox-blue" [(ngModel)]="option.multiselectSelected">{{mapper(option.value)}}</md-checkbox>
+      <mat-checkbox class="multiselect-checkbox checkbox-blue" [(ngModel)]="option.multiselectSelected">{{mapper(option.value)}}</mat-checkbox>
     </div>
     <div class="item actions">
       <span (click)="cancel()">CANCEL</span>

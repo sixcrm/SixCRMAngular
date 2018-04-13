@@ -10,7 +10,7 @@
     <div class="flex-custom">
       <dropdown-component [options]="tokenTypes" [placeholder]="'EMAILTEMPLATE_TOKEN_TYPE' | translate" [showFloatingPlaceholder]="true" [selected]="selectedType" (onSelect)="selectedType = $event"></dropdown-component>
 
-      <md-icon>search</md-icon>
+      <mat-icon>search</mat-icon>
       <md-input-container>
         <input type="text" placeholder="{{'EMAILTEMPLATE_TOKEN_SEARCH' | translate}}" md-input [(ngModel)]="filterString" autocomplete=off>
       </md-input-container>

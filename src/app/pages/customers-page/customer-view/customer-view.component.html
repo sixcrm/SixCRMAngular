@@ -1,7 +1,7 @@
 <div *ngIf="entity; else spinner" class="entity-view">
   <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
 
-  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+  <div (click)="navigation.back()" class="entity-view__change-mode"><mat-icon>reply</mat-icon></div>
 
   <div *ngIf="!addMode; else addCustomer">
 
@@ -25,7 +25,7 @@
         </div>
         <div class="entity-view__info__data__other">
           <div class="entity-view__info__data__other__item">
-            <md-icon>phone</md-icon>
+            <mat-icon>phone</mat-icon>
             <md-input-container [class.error]="formInvalid && !userDataForm.form.controls.phoneNumber.valid" *ngIf="!viewMode; else phoneNoEdit">
               <input required md-input class="phone-number" name="phoneNumber" type="text" [textMask]="{mask: mask, guide: false}" [(ngModel)]="entity.phone">
             </md-input-container>
@@ -33,7 +33,7 @@
           </div>
 
           <div class="entity-view__info__data__other__item">
-            <md-icon>email</md-icon>
+            <mat-icon>email</mat-icon>
             <md-input-container style="width: 200px;" [class.error]="formInvalid && !userDataForm.form.controls.email.valid" *ngIf="!viewMode; else emailNoEdit">
               <input required md-input name="email" type="text" [(ngModel)]="entity.email">
             </md-input-container>
@@ -61,10 +61,10 @@
               <md-card-title>
                 <div class="title">{{'CUSTOMER_INFO_SHIPTITLE' | translate}}</div>
                 <div class="subtitle">{{'CUSTOMER_INFO_SHIPSUBTITLE' | translate}}</div>
-                <md-icon [md-menu-trigger-for]="shipOptions">more_vert</md-icon>
-                <md-menu #shipOptions="mdMenu" x-position="before">
+                <mat-icon [matMenuTriggerFor]="shipOptions">more_vert</mat-icon>
+                <mat-menu #shipOptions="matMenu" x-position="before">
                   <button md-menu-item (click)="shippingInfoEditMode = true;">{{'CUSTOMER_INFO_SHIPEDIT' | translate}}</button>
-                </md-menu>
+                </mat-menu>
               </md-card-title>
               <md-card-content>
 

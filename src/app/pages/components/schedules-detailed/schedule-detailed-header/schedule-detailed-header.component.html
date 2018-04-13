@@ -2,13 +2,13 @@
   <div class="side-container" [class.side-container--hidden]="!sideVisible">
     <ng-container *ngIf="sideVisible">
       <span>Items</span>
-      <md-icon (click)="sideVisibleChanged.emit(false)">close</md-icon>
+      <mat-icon (click)="sideVisibleChanged.emit(false)">close</mat-icon>
     </ng-container>
-    <md-icon *ngIf="!sideVisible" (click)="sideVisibleChanged.emit(true)">keyboard_arrow_right</md-icon>
+    <mat-icon *ngIf="!sideVisible" (click)="sideVisibleChanged.emit(true)">keyboard_arrow_right</mat-icon>
   </div>
 
   <ng-container *ngIf="!singleScheduleMode">
-    <md-icon class="search-icon">search</md-icon>
+    <mat-icon class="search-icon">search</mat-icon>
     <md-input-container [floatingPlaceholder]="false">
       <input class="search-input" md-input type="text" placeholder="Filter Items" (input)="filterChanged.emit($event.target.value)">
     </md-input-container>
@@ -17,12 +17,12 @@
 
   <div class="actions-container" [class.actions-container--solo]="singleScheduleMode">
     <div class="revert" (click)="doRevert()" [class.action-inactive]="!undoEnabled">REVERT</div>
-    <md-icon (click)="doUndo()" [class.action-inactive]="!undoEnabled">undo</md-icon>
-    <md-icon (click)="doRedo()" [class.action-inactive]="!redoEnabled">redo</md-icon>
+    <mat-icon (click)="doUndo()" [class.action-inactive]="!undoEnabled">undo</mat-icon>
+    <mat-icon (click)="doRedo()" [class.action-inactive]="!redoEnabled">redo</mat-icon>
     <div class="saving"> {{ statusMessage }} </div>
   </div>
 
-  <md-icon class="grid-icon" [class.icon-selected]="displayMode === modes.grid" (click)="displayModeChanged.emit(modes.grid)">grid_on</md-icon>
+  <mat-icon class="grid-icon" [class.icon-selected]="displayMode === modes.grid" (click)="displayModeChanged.emit(modes.grid)">grid_on</mat-icon>
 
   <div class="divider"></div>
 
@@ -31,5 +31,5 @@
 
   <div class="divider"></div>
 
-  <md-icon [class.info--active]="infoEnabled" (click)="infoEnabledChanged.emit(!infoEnabled)">info</md-icon>
+  <mat-icon [class.info--active]="infoEnabled" (click)="infoEnabledChanged.emit(!infoEnabled)">info</mat-icon>
 </div>

@@ -52,7 +52,7 @@
       </ng-container>
     </ng-template>
     <div *ngIf="standalone && enableLivePolling" class="state-machine-details__polling" (click)="togglePolling.emit(!isPolling)">
-      <md-icon>{{isPolling ? 'pause_circle_outline' : 'play_circle_outline'}}</md-icon>
+      <mat-icon>{{isPolling ? 'pause_circle_outline' : 'play_circle_outline'}}</mat-icon>
       <span> {{isPolling ? 'PAUSE' : 'START'}} {{'ORDERENGINE_DETAILS_LIVEPOLLING' | translate}}</span>
     </div>
   </div>

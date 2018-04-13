@@ -10,9 +10,9 @@
         <div class="flex-custom" *ngFor="let event of rebill.history; let i = index">
 
           <div>
-            <md-icon class="warning-icon" *ngIf="event.errorMessage">warning</md-icon>
+            <mat-icon class="warning-icon" *ngIf="event.errorMessage">warning</mat-icon>
             <div *ngIf="!event.errorMessage && event.enteredAt" class="done-icon">
-              <md-icon>done</md-icon>
+              <mat-icon>done</mat-icon>
             </div>
             <div class="number-icon" *ngIf="!event.errorMessage && !event.enteredAt">
               <div>{{i + 1}}</div>
@@ -40,10 +40,10 @@
         <div class="title">Customer Information</div>
         <div class="subtitle">Address where fulfillment will ship packages</div>
         <div *ngIf="rebill.parentSession.customer.id">
-          <md-icon [md-menu-trigger-for]="shipOptions">more_vert</md-icon>
-          <md-menu #shipOptions="mdMenu" x-position="before">
+          <mat-icon [matMenuTriggerFor]="shipOptions">more_vert</mat-icon>
+          <mat-menu #shipOptions="matMenu" x-position="before">
             <button md-menu-item [routerLink]="['/customers', rebill.parentSession.customer.id]"> View Customer </button>
-          </md-menu>
+          </mat-menu>
         </div>
       </md-card-title>
 

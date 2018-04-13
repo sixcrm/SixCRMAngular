@@ -1,7 +1,7 @@
 <div *ngIf="entity; else spinner" class="entity-view">
   <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
 
-  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+  <div (click)="navigation.back()" class="entity-view__change-mode"><mat-icon>reply</mat-icon></div>
 
   <div class="entity-view__info">
     <div class="entity-view__info__image">
@@ -27,10 +27,10 @@
         <div class="entity-view__card">
           <div class="entity-view__card__header">
             <div class="entity-view__card__header__title">{{'SHIPPINGRECEIPT_INFO_TITLE' | translate}}</div>
-            <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-            <md-menu #actionsMenu="mdMenu" x-position="before">
+            <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+            <mat-menu #actionsMenu="matMenu" x-position="before">
               <button md-menu-item (click)="goToFulfillmentProvider()">{{'SHIPPINGRECEIPT_INFO_FULFILLMENTPROVIDERVIEW' | translate}}</button>
-            </md-menu>
+            </mat-menu>
           </div>
 
           <div class="entity-view__card__content">
@@ -38,14 +38,14 @@
               <md-input-container class="entity-view__card__content__item number-input">
                 <input md-input disabled placeholder="{{'SHIPPINGRECEIPT_INFO_NUMBER' | translate}}" [(ngModel)]="entity.tracking.id" type="text">
               </md-input-container>
-              <md-icon *ngIf="entity.tracking.id" class="copy-icon" md-tooltip="{{'SHARE_COPY' | translate}}" ngxClipboard [cbContent]="entity.tracking.id">content_copy</md-icon>
+              <mat-icon *ngIf="entity.tracking.id" class="copy-icon" matTooltip="{{'SHARE_COPY' | translate}}" ngxClipboard [cbContent]="entity.tracking.id">content_copy</mat-icon>
             </div>
 
             <div class="flex-custom">
               <md-input-container class="entity-view__card__content__item number-input">
                 <input md-input disabled placeholder="{{'SHIPPINGRECEIPT_INFO_CARRIER' | translate}}" [(ngModel)]="entity.tracking.carrier" type="text">
               </md-input-container>
-              <md-icon *ngIf="entity.tracking.id" class="copy-icon" md-tooltip="{{'SHARE_COPY' | translate}}" ngxClipboard [cbContent]="entity.tracking.carrier">content_copy</md-icon>
+              <mat-icon *ngIf="entity.tracking.id" class="copy-icon" matTooltip="{{'SHARE_COPY' | translate}}" ngxClipboard [cbContent]="entity.tracking.carrier">content_copy</mat-icon>
             </div>
 
             <md-input-container class="entity-view__card__content__item">
@@ -64,7 +64,7 @@
 
               <div>
                 <div class="done-icon">
-                  <md-icon>done</md-icon>
+                  <mat-icon>done</mat-icon>
                 </div>
 
                 <div *ngIf="i < entity.history.length - 1" class="line"></div>

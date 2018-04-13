@@ -4,10 +4,10 @@
     <div class="subtitle">{{'CUSTOMER_CREDITCARD_SUBTITLE' | translate}}</div>
 
     <ng-container *ngIf="!ripped">
-      <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
-      <md-menu #creditCardOptions="mdMenu" x-position="before">
+      <mat-icon [matMenuTriggerFor]="creditCardOptions">more_vert</mat-icon>
+      <mat-menu #creditCardOptions="matMenu" x-position="before">
         <button md-menu-item (click)="addCreditCard.emit(true)">{{'CUSTOMER_CREDITCARD_ADDOPTION' | translate}}</button>
-      </md-menu>
+      </mat-menu>
     </ng-container>
 
   </md-card-title>
@@ -22,11 +22,11 @@
 
       <span class="credit-cards__item__expiration">{{'CUSTOMER_CREDITCARD_EXPIRATION' | translate}}: {{cc.expiration | creditCardExpiration}}</span>
       <ng-container *ngIf="!ripped">
-        <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
-        <md-menu #creditCardOptions="mdMenu" x-position="before">
+        <mat-icon [matMenuTriggerFor]="creditCardOptions">more_vert</mat-icon>
+        <mat-menu #creditCardOptions="matMenu" x-position="before">
           <button md-menu-item (click)="editCreditCard.emit(cc)">{{'CUSTOMER_CREDITCARD_EDITOPTION' | translate}}</button>
           <button md-menu-item (click)="deleteCreditCard.emit(cc)">{{'CUSTOMER_CREDITCARD_REMOVEOPTION' | translate}}</button>
-        </md-menu>
+        </mat-menu>
       </ng-container>
     </div>
 
@@ -39,11 +39,11 @@
     <div class="title">{{'CUSTOMER_CREDITCARD_TITLE' | translate}}</div>
     <div class="subtitle">{{'CUSTOMER_CREDITCARD_SUBTITLE' | translate}}</div>
     <ng-container *ngIf="!ripped">
-      <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
-      <md-menu #creditCardOptions="mdMenu" x-position="before">
+      <mat-icon [matMenuTriggerFor]="creditCardOptions">more_vert</mat-icon>
+      <mat-menu #creditCardOptions="matMenu" x-position="before">
         <button md-menu-item (click)="addCreditCard.emit(true)">{{'CUSTOMER_CREDITCARD_ADDOPTION' | translate}}</button>
         <button md-menu-item (click)="editCreditCard.emit(creditCards[0])">{{'CUSTOMER_CREDITCARD_EDITOPTION' | translate}}</button>
-      </md-menu>
+      </mat-menu>
     </ng-container>
   </md-card-title>
   <md-card-content class="flex-custom">

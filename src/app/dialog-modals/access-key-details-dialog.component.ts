@@ -14,7 +14,7 @@ import {MatDialogRef} from '@angular/material';
       <md-input-container>
         <input #accessKeyInput readonly md-input placeholder="{{ 'ACCOUNT_KEYS_HEADER_ACCESS' | translate}}" [(ngModel)]="accessKey.accessKey" type="text">
       </md-input-container>
-      <md-icon ngxClipboard [cbContent]="accessKey.accessKey" (click)="selectInput(accessKeyInput)">content_copy</md-icon>
+      <mat-icon ngxClipboard [cbContent]="accessKey.accessKey" (click)="selectInput(accessKeyInput)">content_copy</mat-icon>
     </div>
     
     <div *ngIf="!editMode">
@@ -22,7 +22,7 @@ import {MatDialogRef} from '@angular/material';
         <md-input-container>
           <input #secretKeyInput readonly md-input placeholder="{{ 'ACCOUNT_KEYS_HEADER_SECRET' | translate}}" [(ngModel)]="showSecret ? accessKey.secretKey : accessKey.secretKeyMasked" type="text">
         </md-input-container>
-        <md-icon ngxClipboard [cbContent]="accessKey.secretKey" (click)="selectInput(secretKeyInput)">content_copy</md-icon>
+        <mat-icon ngxClipboard [cbContent]="accessKey.secretKey" (click)="selectInput(secretKeyInput)">content_copy</mat-icon>
       </div>
       <div class="show-more" (click)="toggleShowSecret()">{{showSecret ? 'hide' : 'show'}}</div>
     </div>

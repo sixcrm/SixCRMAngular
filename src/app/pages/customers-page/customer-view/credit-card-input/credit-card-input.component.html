@@ -8,10 +8,10 @@
     </div>
 
     <ng-container *ngIf="standalone">
-      <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
-      <md-menu #editOptions="mdMenu" x-position="before">
+      <mat-icon [matMenuTriggerFor]="editOptions">more_vert</mat-icon>
+      <mat-menu #editOptions="matMenu" x-position="before">
         <button md-menu-item (click)="edit.emit(update)">{{'CUSTOMER_CREDITCARD_UPDATE' | translate}}</button>
-      </md-menu>
+      </mat-menu>
     </ng-container>
   </div>
 
@@ -44,7 +44,7 @@
   <div class="customer-view__edit__address" [class.body-add]="addMode">
     <div class="flex-custom">
       <div class="customer-view__edit__address__title">{{'CUSTOMER_CREDITCARD_BILLINGADDRESS' | translate}}</div>
-      <md-checkbox *ngIf="!addMode && !standalone" (change)="toggleSameShippingAddress($event)">{{'CUSTOMER_CREDITCARD_SAMEADDRESS' | translate}}</md-checkbox>
+      <mat-checkbox *ngIf="!addMode && !standalone" (change)="toggleSameShippingAddress($event)">{{'CUSTOMER_CREDITCARD_SAMEADDRESS' | translate}}</mat-checkbox>
     </div>
 
     <md-input [disabled]="viewMode" [class.error]="formInvalid && !ccard.address.line1" required placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="ccard.address.line1"></md-input>

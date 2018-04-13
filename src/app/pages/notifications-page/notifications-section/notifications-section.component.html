@@ -3,7 +3,7 @@
 
     <div class="header flex-custom flex-custom--center">
       <div class="mrw-bi-input">
-        <md-icon>search</md-icon>
+        <mat-icon>search</mat-icon>
         <md-input-container [floatingPlaceholder]="false">
           <input md-input placeholder="{{'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filter" type="text">
         </md-input-container>
@@ -27,7 +27,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let notification of notifications | filterStrings: filter: filterMapper" (click)="readNotification(notification)">
-            <td><div *ngIf="!notification.readAt" class="circle"></div><md-icon *ngIf="notification.readAt" class="circle-icon">done</md-icon></td>
+            <td><div *ngIf="!notification.readAt" class="circle"></div><mat-icon *ngIf="notification.readAt" class="circle-icon">done</mat-icon></td>
             <td [class.unread]="!notification.readAt">{{notification.body}}</td>
             <td>{{notification.createdAt | formatDateTime: 'MMMM DD': true}}</td>
             <td>{{notification.category}}</td>

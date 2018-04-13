@@ -10,9 +10,9 @@
         <div class="image-wrapper">
           <img src="{{image.path}}">
           <div class="image-overlay">
-            <md-icon (click)="viewImage(image)">zoom_in</md-icon>
-            <md-icon (click)="editImage(image)">mode_edit</md-icon>
-            <md-icon (click)="deleteImage(image)">delete</md-icon>
+            <mat-icon (click)="viewImage(image)">zoom_in</mat-icon>
+            <mat-icon (click)="editImage(image)">mode_edit</mat-icon>
+            <mat-icon (click)="deleteImage(image)">delete</mat-icon>
           </div>
         </div>
         <div class="image-details">
@@ -24,7 +24,7 @@
           </md-input-container>
 
           <ng-container *ngIf="image.editMode">
-            <md-checkbox class="image-checkbox checkbox-blue" [(ngModel)]="image.defaultImage">{{ 'PRODUCT_IMAGE_VIEW_DEFAULT' | translate }}</md-checkbox>
+            <mat-checkbox class="image-checkbox checkbox-blue" [(ngModel)]="image.defaultImage">{{ 'PRODUCT_IMAGE_VIEW_DEFAULT' | translate }}</mat-checkbox>
             <div class="image-actions">
               <div (click)="cancelEdit(image)">{{ 'PRODUCT_IMAGE_VIEW_CANCEL' | translate }}</div>
               <div (click)="updateImage(image)">{{ 'PRODUCT_IMAGE_VIEW_SAVE' | translate }}</div>

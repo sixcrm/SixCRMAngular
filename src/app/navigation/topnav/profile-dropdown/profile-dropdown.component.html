@@ -3,7 +3,7 @@
     <img *ngIf="userProfile.picture" class="profile-dropdown__header__image" [src]="userProfile.picture">
     <span class="profile-dropdown__header__hello">{{'TOPNAV_GREETING' | translate}},</span>
     <span class="profile-dropdown__header__name">{{userProfile.name}}</span>
-    <md-icon class="profile-dropdown__header__arrow" [class.arrow--rotate]="dropdownVisible">keyboard_arrow_down</md-icon>
+    <mat-icon class="profile-dropdown__header__arrow" [class.arrow--rotate]="dropdownVisible">keyboard_arrow_down</mat-icon>
   </div>
 
   <div [class.profile-dropdown__menu--active]="dropdownVisible" class="profile-dropdown__menu">

@@ -13,17 +13,17 @@
       (next)="next()"
       (updateLimit)="updateLimit($event)">
     </table-pagination>
-    <md-icon [md-menu-trigger-for]="optionsMenu" class="entity-view__table-component__header__action">more_vert</md-icon>
-    <md-menu #optionsMenu="mdMenu" x-position="before">
+    <mat-icon [matMenuTriggerFor]="optionsMenu" class="entity-view__table-component__header__action">more_vert</mat-icon>
+    <mat-menu #optionsMenu="matMenu" x-position="before">
       <button md-menu-item (click)="addOrUpdateSigningString()">{{ 'PROFILE_SIGNINGSTRINGS_ADD' | translate}}</button>
-    </md-menu>
+    </mat-menu>
   </div>
   <table class="highlight table__custom">
     <thead>
     <tr>
       <th *ngFor="let params of columnParams" (click)="setSortedColumnParams(params)" [class.cell--align-right]="params.align === 'right'">
         {{params.label | translate}}
-        <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+        <mat-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
       </th>
       <th></th>
     </tr>
@@ -33,14 +33,14 @@
     <tr *ngFor="let entity of entities | filterEntities: filterValue | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder">
       <td *ngFor="let params of columnParams" [class.cell--align-right]="params.align === 'right'">
         {{params.mappingFunction(entity)}}
-        <md-icon *ngIf="params.copy" class="copy-icon" md-tooltip="{{'SHARE_COPY' | translate}}" ngxClipboard [cbContent]="params.mappingFunction(entity)">content_copy</md-icon>
+        <mat-icon *ngIf="params.copy" class="copy-icon" matTooltip="{{'SHARE_COPY' | translate}}" ngxClipboard [cbContent]="params.mappingFunction(entity)">content_copy</mat-icon>
       </td>
       <td>
-        <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-        <md-menu #actionsMenu="mdMenu" x-position="before">
+        <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+        <mat-menu #actionsMenu="matMenu" x-position="before">
           <button md-menu-item (click)="addOrUpdateSigningString(entity)">{{ 'PROFILE_SIGNINGSTRINGS_EDIT' | translate}}</button>
           <button md-menu-item (click)="deleteEntity(entity.id)">{{ 'PROFILE_SIGNINGSTRINGS_REMOVE' | translate}}</button>
-        </md-menu>
+        </mat-menu>
       </td>
     </tr>
     </tbody>

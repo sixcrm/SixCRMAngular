@@ -2,10 +2,10 @@
   <div class="entity-view__card__header">
     <div class="entity-view__card__header__title">{{(mode === modes.Add ? 'USER_DETAILS_CREATETITLE' : 'USER_DETAILS_TITLE') | translate}}</div>
     <ng-container *ngIf="mode !== modes.Add && !!editEnabled">
-      <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
-      <md-menu #editOptions="mdMenu" x-position="before">
+      <mat-icon [matMenuTriggerFor]="editOptions">more_vert</mat-icon>
+      <mat-menu #editOptions="matMenu" x-position="before">
         <button md-menu-item (click)="changeMode.emit(modes.Update)">{{'USER_DETAILS_EDIT' | translate}}</button>
-      </md-menu>
+      </mat-menu>
     </ng-container>
   </div>
 
@@ -13,7 +13,7 @@
 
     <div class="user-view__item flex-custom flex-custom--center">
       <span>{{'USER_DETAILS_ACTIVATED' | translate}}</span>
-      <md-checkbox class="flex-align--right" [checked]="entity.active" (change)="entity.toggleActive()" [disabled]="mode === modes.View"></md-checkbox>
+      <mat-checkbox class="flex-align--right" [checked]="entity.active" (change)="entity.toggleActive()" [disabled]="mode === modes.View"></mat-checkbox>
     </div>
 
     <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
@@ -27,7 +27,7 @@
     <ng-container *ngIf="mode === modes.Add">
       <div class="user-view__item flex-custom flex-custom--center">
         <span>{{'USER_DETAILS_NEWACCOUNT' | translate}}</span>
-        <md-checkbox class="flex-align--right" [checked]="newAccount" (change)="newAccount = !newAccount"></md-checkbox>
+        <mat-checkbox class="flex-align--right" [checked]="newAccount" (change)="newAccount = !newAccount"></mat-checkbox>
       </div>
 
       <ng-container *ngIf="!newAccount">

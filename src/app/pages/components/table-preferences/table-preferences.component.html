@@ -1,14 +1,14 @@
 <div class="container" [class.small]="small">
-  <md-icon (click)="toggleParams()">view_column</md-icon>
+  <mat-icon (click)="toggleParams()">view_column</mat-icon>
 
   <div *ngIf="showParams" class="params-container">
 
     <div class="option" *ngFor="let params of columnParams">
-      <md-checkbox class="checkbox-blue checkbox-index" [(ngModel)]="params.selected">
+      <mat-checkbox class="checkbox-blue checkbox-index" [(ngModel)]="params.selected">
         <span>
           {{params.label | translate}}
         </span>
-      </md-checkbox>
+      </mat-checkbox>
     </div>
 
     <div class="buttons">

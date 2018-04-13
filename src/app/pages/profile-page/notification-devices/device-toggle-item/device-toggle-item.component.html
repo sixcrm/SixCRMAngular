@@ -5,7 +5,7 @@
     <ng-container *ngIf="!editMode; else edit">
       <div class="title">
         {{deviceLabels[notificationSettings.name]}}
-        <md-icon *ngIf="notificationSettings.name !== 'six' && notificationSettings.name !== 'ios'" (click)="editMode = true">edit</md-icon>
+        <mat-icon *ngIf="notificationSettings.name !== 'six' && notificationSettings.name !== 'ios'" (click)="editMode = true">edit</mat-icon>
       </div>
 
       <ng-container>

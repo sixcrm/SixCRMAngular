@@ -1,25 +1,25 @@
 <a md-list-item [class.icon--solo]="!full" *ngIf="!hasLink && !hasChildren && !hasQuery"(click)="clicked($event)">
-  <md-icon *ngIf='menuItem.icon'>{{menuItem.icon}}</md-icon>
+  <mat-icon *ngIf='menuItem.icon'>{{menuItem.icon}}</mat-icon>
   <span class="sidenav-item__text" *ngIf="full">{{ menuItem.title | translate }}</span>
 </a>
 <a md-list-item [class.item-selected]="selected" [class.icon--solo]="!full" *ngIf="hasLink && !hasChildren && !hasQuery" routerLinkActive="active" (toggle)="true" (click)="clicked($event)">
   <div *ngIf="selected" class="selected-placeholder"></div>
-  <md-icon class="image-icon" *ngIf='menuItem.icon'>{{menuItem.icon}}</md-icon>
+  <mat-icon class="image-icon" *ngIf='menuItem.icon'>{{menuItem.icon}}</mat-icon>
   <span class="sidenav-item__text" *ngIf="full">{{ menuItem.title | translate}}</span>
 </a>
 <a md-list-item [class.icon--solo]="!full" *ngIf="hasLink && !hasChildren && hasQuery" routerLinkActive="active" (toggle)="true">
-  <md-icon *ngIf='menuItem.icon'>{{menuItem.icon}}</md-icon>
+  <mat-icon *ngIf='menuItem.icon'>{{menuItem.icon}}</mat-icon>
   <span class="sidenav-item__text" *ngIf="full">{{ menuItem.title | translate}}</span>
 </a>
 <a md-list-item [class.icon--solo]="!full" *ngIf="hasClickHandler" routerLinkActive="active" (toggle)="true" (click)="menuItem.clickHandler()">
-  <md-icon *ngIf='menuItem.icon'>{{menuItem.icon}}</md-icon>
+  <mat-icon *ngIf='menuItem.icon'>{{menuItem.icon}}</mat-icon>
   <span class="sidenav-item__text" *ngIf="full">{{ menuItem.title | translate}}</span>
 </a>
 <a md-list-item [class.icon--solo]="!full" class="nav-dropdown" *ngIf="hasChildren" (click)="toggleDropdown(!active)" [ngClass]="{ 'active' : level > 1 || (active && full) }" (click)="clicked($event)">
-  <md-icon *ngIf='menuItem.icon'>{{menuItem.icon}}</md-icon>
+  <mat-icon *ngIf='menuItem.icon'>{{menuItem.icon}}</mat-icon>
   <span class="sidenav-item__text" *ngIf="full">{{ menuItem?.title | translate}}</span>
   <span class="app-flex-filler"></span>
-  <md-icon class="icon--more" [class.icon--more--rotate]="active" *ngIf="level === 1 && full">keyboard_arrow_down</md-icon>
+  <mat-icon class="icon--more" [class.icon--more--rotate]="active" *ngIf="level === 1 && full">keyboard_arrow_down</mat-icon>
 </a>
 <md-nav-list *ngIf="hasChildren" class="nav-children {{levelClass}}" [ngClass]="{ 'active' : level > 1 || (active && full) }" [ngStyle]="{'height.px': height}">
   <c-sidenav-item *ngFor="let menuItemChild of menuItem.children" [menuItem]="menuItemChild" [level]="level + 1" [parent]="_this" [full]="full"></c-sidenav-item>

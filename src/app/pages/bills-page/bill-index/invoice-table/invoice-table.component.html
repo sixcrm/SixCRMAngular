@@ -38,10 +38,10 @@
           <div class="pay-button" *ngIf="type !== 'PAST'" (click)="pay.emit(entity)">{{'ACCOUNT_BILLING_PAY' | translate}}</div>
         </td>
         <td>
-          <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-          <md-menu #actionsMenu="mdMenu" x-position="before">
+          <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+          <mat-menu #actionsMenu="matMenu" x-position="before">
             <button md-menu-item (click)="view.emit(entity)">{{'ACCOUNT_BILLING_VIEW' | translate}}</button>
-          </md-menu>
+          </mat-menu>
         </td>
       </tr>
     </tbody>

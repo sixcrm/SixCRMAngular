@@ -1,23 +1,23 @@
 <div class="entity-index__pagination__buttons">
-  <md-checkbox #checkbox *ngIf="showCheckbox" (change)="toggleCheckbox($event)"></md-checkbox>
+  <mat-checkbox #checkbox *ngIf="showCheckbox" (change)="toggleCheckbox($event)"></mat-checkbox>
 
   <span>{{'PAGINATION_ROWSPERPAGE' | translate}} : {{limit}} </span>
-  <button md-icon-button [md-menu-trigger-for]="paginationMenu">
-    <md-icon>arrow_drop_down</md-icon>
+  <button md-icon-button [matMenuTriggerFor]="paginationMenu">
+    <mat-icon>arrow_drop_down</mat-icon>
   </button>
 
-  <md-menu #paginationMenu="mdMenu">
+  <mat-menu #paginationMenu="matMenu">
     <button md-menu-item *ngFor="let val of paginationValues" (click)="updateLimit.emit(val)">
       {{val}}
     </button>
-  </md-menu>
+  </mat-menu>
 
   <span *ngIf="paginationString">{{paginationString}}</span>
 
   <button class="entity-index__pagination__buttons__button--left" [disabled]="previousDisabled" md-icon-button (click)="onPrevious()">
-    <md-icon>keyboard_arrow_left</md-icon>
+    <mat-icon>keyboard_arrow_left</mat-icon>
   </button>
   <button [disabled]="nextDisabled" md-icon-button (click)="onNext()">
-    <md-icon>keyboard_arrow_right</md-icon>
+    <mat-icon>keyboard_arrow_right</mat-icon>
   </button>
 </div>

@@ -1,9 +1,9 @@
 <div class="entity__nav">
-  <md-icon class="entity__nav__close" (click)="close.emit(true)">arrow_forward</md-icon>
-  <md-icon class="entity__nav__more" [md-menu-trigger-for]="topnavMenu">more_vert</md-icon>
-  <md-icon *ngIf="service.hasWritePermission()" class="entity__nav__add">add</md-icon>
+  <mat-icon class="entity__nav__close" (click)="close.emit(true)">arrow_forward</mat-icon>
+  <mat-icon class="entity__nav__more" [matMenuTriggerFor]="topnavMenu">more_vert</mat-icon>
+  <mat-icon *ngIf="service.hasWritePermission()" class="entity__nav__add">add</mat-icon>
 
-  <md-menu #topnavMenu="mdMenu">
+  <mat-menu #topnavMenu="matMenu">
     <button *ngIf="service.hasWritePermission() && mode !== 'add'" (click)="deleteEntity()" md-menu-item>delete</button>
-  </md-menu>
+  </mat-menu>
 </div>

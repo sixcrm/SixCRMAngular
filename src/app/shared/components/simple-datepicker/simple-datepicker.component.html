@@ -2,7 +2,7 @@
   <div *ngIf="pholder" class="datepicker-placeholder">{{pholder | translate}}</div>
   <div class="datepicker--custom datepicker--custom--{{identifier}}" [class.datepicker-visible]="datepickerVisible">
     <div (showDaterangepicker)="datepickerShown()" [options]="options" (hideDaterangepicker)="datepickerHidden()" (selected)="dateSelected($event)" daterangepicker>
-      <span class="datepicker-input" [class.datepicker-input--disabled]="disabled" name="daterange">  {{initialDate.clone().format('MM/DD/YYYY')}} <md-icon>keyboard_arrow_down</md-icon> </span>
+      <span class="datepicker-input" [class.datepicker-input--disabled]="disabled" name="daterange">  {{initialDate.clone().format('MM/DD/YYYY')}} <mat-icon>keyboard_arrow_down</mat-icon> </span>
     </div>
   </div>
 

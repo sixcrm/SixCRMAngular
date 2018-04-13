@@ -15,10 +15,10 @@
       [columnParams]="columnParams"
       [small]="true">
     </table-preferences>
-    <md-icon class="entity-view__table-component__header__action" [md-menu-trigger-for]="optionsMenu">more_vert</md-icon>
-    <md-menu #optionsMenu="mdMenu" x-position="before">
+    <mat-icon class="entity-view__table-component__header__action" [matMenuTriggerFor]="optionsMenu">more_vert</mat-icon>
+    <mat-menu #optionsMenu="matMenu" x-position="before">
       <button md-menu-item (click)="showAddAssociation()">{{'PRODUCT_MERCHANTGROUPASSOCIATION_ADD' | translate}}</button>
-    </md-menu>
+    </mat-menu>
   </div>
   <table class="highlight table__custom">
     <thead>
@@ -27,7 +27,7 @@
         <ng-container *ngIf="params.selected">
           <th (click)="setSortedColumnParams(params)" [class.cell--align-right]="params.align === 'right'">
             {{params.label | translate}}
-            <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+            <mat-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
           </th>
         </ng-container>
       </ng-container>
@@ -46,12 +46,12 @@
         </ng-container>
       </ng-container>
       <td>
-        <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-        <md-menu #actionsMenu="mdMenu" x-position="before">
+        <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+        <mat-menu #actionsMenu="matMenu" x-position="before">
           <button md-menu-item [routerLink]="['/campaigns', entity.campaign.id]">{{'PRODUCT_MERCHANTGROUPASSOCIATION_VIEWCAMPAIGN' | translate}}</button>
           <button md-menu-item [routerLink]="['/merchantprovidergroups', entity.merchantProviderGroup.id]">{{'PRODUCT_MERCHANTGROUPASSOCIATION_VIEWPROVIDER' | translate}}</button>
           <button md-menu-item (click)="removeAssociation(entity)">{{'PRODUCT_MERCHANTGROUPASSOCIATION_REMOVE' | translate}}</button>
-        </md-menu>
+        </mat-menu>
       </td>
     </tr>
     </tbody>

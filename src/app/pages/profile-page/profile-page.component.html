@@ -1,7 +1,7 @@
 <div class="entity-view">
   <div class="entity-view__title">{{'PROFILE_TITLE' | translate}}</div>
 
-  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+  <div (click)="navigation.back()" class="entity-view__change-mode"><mat-icon>reply</mat-icon></div>
 
   <div *ngIf="user">
     <div class="entity-view__info">
@@ -12,8 +12,8 @@
         <div class="entity-view__info__data__date">{{'PROFILE_CREATED' | translate}}: {{user.createdAt | formatDateTime}}</div>
         <div class="entity-view__info__data__name">{{user.name}}</div>
         <div class="entity-view__info__data__other">
-          <span *ngIf="phone" class="entity-view__info__data__other__item"><md-icon>phone</md-icon>{{phone}}</span>
-          <span class="entity-view__info__data__other__item"><md-icon>email</md-icon>{{user.email}}</span>
+          <span *ngIf="phone" class="entity-view__info__data__other__item"><mat-icon>phone</mat-icon>{{phone}}</span>
+          <span class="entity-view__info__data__other__item"><mat-icon>email</mat-icon>{{user.email}}</span>
         </div>
       </div>
     </div>
@@ -27,7 +27,7 @@
             <div class="profile-page__content__general__title">
               <div class="profile-page__content__general__title__main">{{'PROFILE_DETAILS_TITLE' | translate}}</div>
               <div class="profile-page__content__general__title__sub">{{'PROFILE_DETAILS_SUBTITLE' | translate}}</div>
-              <!--<md-icon>more_vert</md-icon>-->
+              <!--<mat-icon>more_vert</mat-icon>-->
             </div>
 
             <div class="profile-page__content__general__data">

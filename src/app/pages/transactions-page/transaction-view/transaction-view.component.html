@@ -1,7 +1,7 @@
 <div *ngIf="entity; else spinner" class="entity-view">
   <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
 
-  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+  <div (click)="navigation.back()" class="entity-view__change-mode"><mat-icon>reply</mat-icon></div>
 
   <div class="entity-view__info">
     <div class="entity-view__info__image">
@@ -23,11 +23,11 @@
         <div class="entity-view__card">
           <div class="entity-view__card__header">
             <div class="entity-view__card__header__title">{{'TRANSACTION_INFO_TITLE' | translate}}</div>
-            <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-            <md-menu #actionsMenu="mdMenu" x-position="before">
+            <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+            <mat-menu #actionsMenu="matMenu" x-position="before">
               <button md-menu-item (click)="goToRebill()">{{'TRANSACTION_INFO_REBILLVIEW' | translate}}</button>
               <button md-menu-item (click)="goToMerchantProvider()">{{'TRANSACTION_INFO_MERCHANTPROVIDERVIEW' | translate}}</button>
-            </md-menu>
+            </mat-menu>
           </div>
 
           <div class="entity-view__card__content">
@@ -99,7 +99,7 @@
                 <input #refundInput md-input type="text" currencyInput [initPrice]="amountToRefund" (priceChanged)="amountToRefund = $event">
               </md-input-container>
 
-              <md-checkbox [(ngModel)]="refundAllSelected" (change)="refundAllSelect()">{{'TRANSACTION_REFUND_REFUNDALL' | translate}}</md-checkbox>
+              <mat-checkbox [(ngModel)]="refundAllSelected" (change)="refundAllSelect()">{{'TRANSACTION_REFUND_REFUNDALL' | translate}}</mat-checkbox>
             </div>
           </div>
 

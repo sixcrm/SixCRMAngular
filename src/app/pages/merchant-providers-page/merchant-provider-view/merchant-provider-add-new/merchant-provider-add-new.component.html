@@ -11,21 +11,21 @@
       </md-input-container>
 
       <div class="flex-custom flex-custom--center merchant-provider-view__details__selectable">
-        <md-icon>power_settings_new</md-icon>
+        <mat-icon>power_settings_new</mat-icon>
         <span>{{'MERCHANTPROVIDER_INFO_SETTINGS_ENABLED' | translate}}</span>
-        <md-checkbox class="flex-align--right" [disabled]="mode === modes.View" name="enabled" [(ngModel)]="entity.enabled"></md-checkbox>
+        <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View" name="enabled" [(ngModel)]="entity.enabled"></mat-checkbox>
       </div>
       <div class="flex-custom flex-custom--center merchant-provider-view__details__selectable">
-        <md-icon>credit_card</md-icon>
+        <mat-icon>credit_card</mat-icon>
         <span>{{'MERCHANTPROVIDER_INFO_SETTINGS_ALLOWPREPAID' | translate}}</span>
-        <md-checkbox class="flex-align--right" [disabled]="mode === modes.View" name="allowPrepaid" [(ngModel)]="entity.allowPrepaid"></md-checkbox>
+        <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View" name="allowPrepaid" [(ngModel)]="entity.allowPrepaid"></mat-checkbox>
       </div>
 
       <div class="merchant-provider-view__details__subtitle">{{'MERCHANTPROVIDER_INFO_SETTINGS_ACCEPTED' | translate}}</div>
 
       <div *ngFor="let card of allCreditCards" class="flex-custom flex-custom--center merchant-provider-view__details__selectable">
         <span>{{card}}</span>
-        <md-checkbox class="flex-align--right" [disabled]="mode === modes.View" [checked]="entity.containsPaymentMethod(card)" (change)="entity.togglePaymentMethod(card)"></md-checkbox>
+        <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View" [checked]="entity.containsPaymentMethod(card)" (change)="entity.togglePaymentMethod(card)"></mat-checkbox>
       </div>
     </div>
   </div>

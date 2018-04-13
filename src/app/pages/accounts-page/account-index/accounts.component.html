@@ -3,7 +3,7 @@
     {{ 'ACCOUNT_INDEX_TITLE' | translate}}
   </div>
 
-  <button md-icon-button color="primary" *ngIf="hasWritePermission() && authService.isActiveAclMasterAccount()" class="entity-index__add" (click)="openAddMode()"><md-icon>add</md-icon></button>
+  <button md-icon-button color="primary" *ngIf="hasWritePermission() && authService.isActiveAclMasterAccount()" class="entity-index__add" (click)="openAddMode()"><mat-icon>add</mat-icon></button>
 
   <md-card class="entity-index__card">
     <md-card-content class="entity-index__card__content">

@@ -3,7 +3,7 @@
     <md-input-container [floatingPlaceholder]="floatingPlaceholder" [class.default-autocomplete-input__input--full-width]="fullWidth">
       <input #input md-input autocomplete=off auto-focus [applyAutofocus]="applyAutofocus" (ngModelChange)="change($event)" (input)="valueChanged.emit($event)" [ngModel]="currentValue" (keydown)="onKey($event)" [required]="required" (blur)="blurred()" (focus)="focused()" (click)="focused()" [disabled]="disabled" placeholder="{{placeholder}}" type="text">
     </md-input-container>
-    <md-icon [class.rotated]="showOptions" *ngIf="showArrow" (click)="arrowClicked(input)">keyboard_arrow_down</md-icon>
+    <mat-icon [class.rotated]="showOptions" *ngIf="showArrow" (click)="arrowClicked(input)">keyboard_arrow_down</mat-icon>
   </div>
   <div #optionsContainer class="default-autocomplete-input__options" *ngIf="showOptions && (filteredOptions.length > 0 || unmatchedEnabled)">
     <div #autocompleteOption
@@ -20,7 +20,7 @@
          (click)="createNewSelected()"
          class="default-autocomplete-input__options__item create-new">
       <span>Create New</span>
-      <md-icon>add</md-icon>
+      <mat-icon>add</mat-icon>
     </div>
   </div>
 </div>
