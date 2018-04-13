@@ -5,8 +5,8 @@
 
   <button md-icon-button color="primary" *ngIf="hasWritePermission() && authService.isActiveAclMasterAccount()" class="entity-index__add" (click)="openAddMode()"><mat-icon>add</mat-icon></button>
 
-  <md-card class="entity-index__card">
-    <md-card-content class="entity-index__card__content">
+  <mat-card class="entity-index__card">
+    <mat-card-content class="entity-index__card__content">
 
       <entities-table
         [data]="entities"
@@ -38,8 +38,8 @@
       >
       </entities-table>
 
-    </md-card-content>
-  </md-card>
+    </mat-card-content>
+  </mat-card>
 </div>
 
 <div *ngIf="addMode" (click)="overlayClicked($event)" class="full-overlay">

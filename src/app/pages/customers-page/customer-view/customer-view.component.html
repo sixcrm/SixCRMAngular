@@ -57,16 +57,16 @@
       <md-tab>
         <div [class.customer-view__content--invisible]="creditCardInputMode" class="customer-view__content">
           <div class="flex-custom">
-            <md-card class="customer-view__card column--small">
-              <md-card-title>
+            <mat-card class="customer-view__card column--small">
+              <mat-card-title>
                 <div class="title">{{'CUSTOMER_INFO_SHIPTITLE' | translate}}</div>
                 <div class="subtitle">{{'CUSTOMER_INFO_SHIPSUBTITLE' | translate}}</div>
                 <mat-icon [matMenuTriggerFor]="shipOptions">more_vert</mat-icon>
                 <mat-menu #shipOptions="matMenu" x-position="before">
                   <button md-menu-item (click)="shippingInfoEditMode = true;">{{'CUSTOMER_INFO_SHIPEDIT' | translate}}</button>
                 </mat-menu>
-              </md-card-title>
-              <md-card-content>
+              </mat-card-title>
+              <mat-card-content>
 
                 <form #addressDataForm="ngForm">
                   <mat-input-container>
@@ -97,8 +97,8 @@
                   <div (click)="cancelCustomerUpdate()">{{'CUSTOMER_INFO_CANCEL' | translate}}</div>
                   <div (click)="updateCustomer(addressDataForm.form.valid)">{{'CUSTOMER_INFO_UPDATE' | translate}}</div>
                 </div>
-              </md-card-content>
-            </md-card>
+              </mat-card-content>
+            </mat-card>
 
             <customer-credit-card-view class="flex-custom column--medium" [creditCards]="entity.creditCards" (addCreditCard)="addNewCreditCard()" (editCreditCard)="editCreditCard($event)" (deleteCreditCard)="deleteCreditCard($event)"></customer-credit-card-view>
 

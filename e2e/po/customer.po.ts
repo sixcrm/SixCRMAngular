@@ -42,7 +42,7 @@ export class CustomerPage {
   }
 
   getCustomerNotesMenu() {
-    return element(by.css('customer-notes')).element(by.css('md-card-title')).element(by.css('md-icon'));
+    return element(by.css('customer-notes')).element(by.css('mat-card-title')).element(by.css('md-icon'));
   }
 
   getFirstMenuButton() {

@@ -1,5 +1,5 @@
-<md-card>
-  <md-card-content style="display: flex; flex-direction: column">
+<mat-card>
+  <mat-card-content style="display: flex; flex-direction: column">
     <div style="margin-bottom: 25px;">{{ 'PRODUCT_MERCHANTGROUPASSOCIATION_DIALOG_TITLE' | translate}}</div>
     <autocomplete-input [class.error]="error && (!selectedGroup || !selectedGroup.id)"
                         [mapFunction]="groupMapper"
@@ -18,9 +18,9 @@
                         (selected)="selectedCampaign = $event">
     </autocomplete-input>
 
-  </md-card-content>
-  <md-card-actions class="custom-dialog__buttons">
+  </mat-card-content>
+  <mat-card-actions class="custom-dialog__buttons">
     <div (click)="cancel()">{{ 'PRODUCT_MERCHANTGROUPASSOCIATION_DIALOG_CANCEL' | translate}}</div>
     <div (click)="add()">{{ 'PRODUCT_MERCHANTGROUPASSOCIATION_DIALOG_ADD' | translate}}</div>
-  </md-card-actions>
-</md-card>
+  </mat-card-actions>
+</mat-card>

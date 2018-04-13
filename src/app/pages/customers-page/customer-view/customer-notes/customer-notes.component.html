@@ -1,5 +1,5 @@
-<md-card class="customer-view__card notes">
-  <md-card-title>
+<mat-card class="customer-view__card notes">
+  <mat-card-title>
     <div class="title">{{'CUSTOMER_NOTES_TITLE' | translate}}</div>
     <div class="subtitle">{{'CUSTOMER_NOTES_SUBTITLE' | translate}}</div>
 
@@ -7,8 +7,8 @@
     <mat-menu #creditCardOptions="matMenu" x-position="before">
       <button md-menu-item (click)="newNote()">{{'CUSTOMER_NOTES_ADD' | translate}}</button>
     </mat-menu>
-  </md-card-title>
-  <md-card-content>
+  </mat-card-title>
+  <mat-card-content>
     <div *ngIf="showNewNote" class="notes__new">
       <md-textarea [(ngModel)]="note"></md-textarea>
 
@@ -51,5 +51,5 @@
       </ng-template>
     </div>
 
-  </md-card-content>
-</md-card>
+  </mat-card-content>
+</mat-card>

@@ -51,6 +51,6 @@ export class ProductSchedulePage {
   }
 
   getConfirmDeleteButton() {
-    return element(by.css('delete-dialog')).element(by.css('md-card-actions')).all(by.css('div')).last();
+    return element(by.css('delete-dialog')).element(by.css('mat-card-actions')).all(by.css('div')).last();
   }
 }

@@ -11,15 +11,15 @@ import {MatDialogRef} from '@angular/material';
 @Component({
   selector : 'delete-dialog',
   template : `
-    <md-card>
-      <md-card-content>
+    <mat-card>
+      <mat-card-content>
         {{text | translate}}
-      </md-card-content>
-      <md-card-actions class="custom-dialog__buttons">
+      </mat-card-content>
+      <mat-card-actions class="custom-dialog__buttons">
         <div (click)="no()">{{'DELETEDIALOG_CANCEL' | translate}}</div>
         <div (click)="yes()">{{'DELETEDIALOG_DEL' | translate}}</div>
-      </md-card-actions>
-    </md-card>
+      </mat-card-actions>
+    </mat-card>
   `,
   styles : []
 })

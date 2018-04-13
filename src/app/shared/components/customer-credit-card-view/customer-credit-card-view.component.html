@@ -1,5 +1,5 @@
-<md-card *ngIf="creditCards && creditCards.length !== 1" class="customer-view__card credit-cards">
-  <md-card-title class="credit-cards__title">
+<mat-card *ngIf="creditCards && creditCards.length !== 1" class="customer-view__card credit-cards">
+  <mat-card-title class="credit-cards__title">
     <div class="title">{{'CUSTOMER_CREDITCARD_TITLE' | translate}}</div>
     <div class="subtitle">{{'CUSTOMER_CREDITCARD_SUBTITLE' | translate}}</div>
 
@@ -10,8 +10,8 @@
       </mat-menu>
     </ng-container>
 
-  </md-card-title>
-  <md-card-content>
+  </mat-card-title>
+  <mat-card-content>
     <div *ngFor="let cc of creditCards" class="credit-cards__item">
       <img src="/assets/images/credit-card-notification.svg">
 
@@ -31,11 +31,11 @@
     </div>
 
     <div class="entity-view__no-results entity-view__no-results--small-padding" *ngIf="!creditCards || creditCards.length === 0">{{'CUSTOMER_CREDITCARD_NODATA' | translate}}</div>
-  </md-card-content>
-</md-card>
+  </mat-card-content>
+</mat-card>
 
-<md-card *ngIf="creditCards && creditCards.length === 1" class="customer-view__card">
-  <md-card-title>
+<mat-card *ngIf="creditCards && creditCards.length === 1" class="customer-view__card">
+  <mat-card-title>
     <div class="title">{{'CUSTOMER_CREDITCARD_TITLE' | translate}}</div>
     <div class="subtitle">{{'CUSTOMER_CREDITCARD_SUBTITLE' | translate}}</div>
     <ng-container *ngIf="!ripped">
@@ -45,8 +45,8 @@
         <button md-menu-item (click)="editCreditCard.emit(creditCards[0])">{{'CUSTOMER_CREDITCARD_EDITOPTION' | translate}}</button>
       </mat-menu>
     </ng-container>
-  </md-card-title>
-  <md-card-content class="flex-custom">
+  </mat-card-title>
+  <mat-card-content class="flex-custom">
     <div class="customer-view__card__column customer-view__card__column--first">
       <mat-input-container [class.small]="ripped">
         <input disabled matInput placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="creditCards[0].address.line1">
@@ -77,5 +77,5 @@
         <input disabled matInput placeholder="{{'FORMINPUTS_CREDITCARD_EXPIRATION' | translate}}" [(ngModel)]="creditCards[0].expirationFormatted">
       </mat-input-container>
     </div>
-  </md-card-content>
-</md-card>
+  </mat-card-content>
+</mat-card>

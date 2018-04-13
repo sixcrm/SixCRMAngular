@@ -1,12 +1,12 @@
 <div class="flex-custom">
   <div class="column--small">
-    <md-card class="customer-view__card">
-      <md-card-title>
+    <mat-card class="customer-view__card">
+      <mat-card-title>
         <div class="title">{{'ORDERENGINE_REBILL_HISTORY_TITLE' | translate}}</div>
         <div class="subtitle">{{'ORDERENGINE_REBILL_HISTORY_SUBTITLE' | translate}}</div>
-      </md-card-title>
+      </mat-card-title>
 
-      <md-card-content class="history-container">
+      <mat-card-content class="history-container">
         <div class="flex-custom" *ngFor="let event of rebill.history; let i = index">
 
           <div>
@@ -30,13 +30,13 @@
             <div class="warning" *ngIf="event.errorMessage">{{event.errorMessage}}</div>
           </div>
         </div>
-      </md-card-content>
-    </md-card>
+      </mat-card-content>
+    </mat-card>
   </div>
 
   <div class="column--large">
-    <md-card class="customer-view__card">
-      <md-card-title>
+    <mat-card class="customer-view__card">
+      <mat-card-title>
         <div class="title">Customer Information</div>
         <div class="subtitle">Address where fulfillment will ship packages</div>
         <div *ngIf="rebill.parentSession.customer.id">
@@ -45,9 +45,9 @@
             <button md-menu-item [routerLink]="['/customers', rebill.parentSession.customer.id]"> View Customer </button>
           </mat-menu>
         </div>
-      </md-card-title>
+      </mat-card-title>
 
-      <md-card-content>
+      <mat-card-content>
         <div>
           <div class="half">
             <mat-input-container class="full">
@@ -80,8 +80,8 @@
             </mat-input-container>
           </div>
         </div>
-      </md-card-content>
-    </md-card>
+      </mat-card-content>
+    </mat-card>
 
     <customer-credit-card-view
       [class.customer-credit-card-view--multiple]="rebill.parentSession.customer.creditCards.length > 1"
@@ -92,21 +92,21 @@
 
   <div class="column--medium">
 
-    <md-card class="customer-view__card">
-      <md-card-title>
+    <mat-card class="customer-view__card">
+      <mat-card-title>
         <div class="title">{{'ORDERENGINE_REBILL_PROPERTIES_TITLE' | translate}}</div>
         <div class="subtitle">{{'ORDERENGINE_REBILL_PROPERTIES_SUBTITLE' | translate}}</div>
-      </md-card-title>
+      </mat-card-title>
 
-      <md-card-content class="properties-container">
+      <mat-card-content class="properties-container">
         <div><span>{{'ORDERENGINE_REBILL_PROPERTIES_REBILL' | translate}}:</span>{{rebill.id}}</div>
         <div class="clickable" [routerLink]="['/sessions', rebill.parentSession.id]"><span>{{'ORDERENGINE_REBILL_PROPERTIES_PARENTSESSION' | translate}}:</span>{{rebill.parentSession.id}}</div>
         <div><span>{{'ORDERENGINE_REBILL_PROPERTIES_CREATED' | translate}}:</span>{{rebill.createdAt.tz(authService.getTimezone()).format('MM/DD/YYYY h:mm a')}}</div>
         <div><span>{{'ORDERENGINE_REBILL_PROPERTIES_UPDATED' | translate}}:</span>{{rebill.updatedAt.tz(authService.getTimezone()).format('MM/DD/YYYY h:mm a')}}</div>
         <div><span>{{'ORDERENGINE_REBILL_PROPERTIES_AMOUNT' | translate}}:</span>{{rebill.amount.usd() | numberlocale}}</div>
         <div class="clickable" [routerLink]="['/campaigns', rebill.parentSession.campaign.id]"><span>{{'ORDERENGINE_REBILL_PROPERTIES_CAMPAIGN' | translate}}:</span>{{rebill.parentSession.campaign.name}}</div>
-      </md-card-content>
-    </md-card>
+      </mat-card-content>
+    </mat-card>
 
     <table-memory [data]="getSchedules()"
                   [columnParams]="columnParams"
