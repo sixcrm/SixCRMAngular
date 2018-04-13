@@ -17,6 +17,8 @@ export class CreditCard implements Entity<CreditCard> {
   createdAt: Moment;
   updatedAt: Moment;
   updatedAtAPI: string;
+  lastFour: string;
+  firstSix: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -35,6 +37,8 @@ export class CreditCard implements Entity<CreditCard> {
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.created_at);
     this.updatedAtAPI = obj.updated_at;
+    this.lastFour = obj.last_four || '';
+    this.firstSix = obj.first_six || '';
 
     if (obj.customers) {
       this.customers = obj.customers.map(customer => new Customer(customer));
@@ -55,7 +59,9 @@ export class CreditCard implements Entity<CreditCard> {
       address: this.address.inverse(),
       customers: this.customers.map(customer => customer.inverse()),
       created_at: this.createdAt.format(),
-      updated_at: this.updatedAtAPI
+      updated_at: this.updatedAtAPI,
+      last_four: this.lastFour,
+      first_six: this.firstSix
     }
   }
 
