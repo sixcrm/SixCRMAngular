@@ -3,12 +3,12 @@ import {Campaign} from '../../../../shared/models/campaign.model';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {CampaignsService} from '../../../../shared/services/campaigns.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {Currency} from '../../../../shared/utils/currency/currency';
 import {campaignsInfoListQuery, campaignsByAffiliate} from '../../../../shared/utils/queries/entities/campaign.queries';
 import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'affiliate-campaigns',
@@ -22,7 +22,7 @@ export class AffiliateCampaignsComponent extends AbstractEntityIndexComponent<Ca
   constructor(
     campaignsService: CampaignsService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService
   ) {
     super(campaignsService, auth, dialog, paginationService);

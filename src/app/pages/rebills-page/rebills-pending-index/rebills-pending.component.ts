@@ -3,9 +3,9 @@ import {RebillsService} from '../../../shared/services/rebills.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PaginationService} from '../../../shared/services/pagination.service';
-import {MdDialog} from '@angular/material';
 import {RebillsComponent} from "../rebills-index/rebills.component";
 import {rebillsListQuery, rebillsPendingListQuery} from "../../../shared/utils/queries/entities/rebill.queries";
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'rebills-pending',
@@ -17,7 +17,7 @@ export class RebillsPendingComponent extends RebillsComponent implements OnInit,
   constructor(
     service: RebillsService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

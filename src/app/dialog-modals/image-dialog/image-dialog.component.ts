@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {MdDialogRef} from '@angular/material';
 import {SixImage} from '../../shared/models/six-image.model';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'image-dialog',
@@ -11,7 +11,7 @@ export class ImageDialogComponent implements OnInit {
 
   image: SixImage;
 
-  constructor(public dialogRef: MdDialogRef<ImageDialogComponent>) {}
+  constructor(public dialogRef: MatDialogRef<ImageDialogComponent>) {}
 
   ngOnInit() { }
 

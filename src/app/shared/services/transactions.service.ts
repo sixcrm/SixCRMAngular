@@ -8,12 +8,12 @@ import {
   transactionQuery, refundTransactionMutation, deleteTransactionsMutation
 } from '../utils/queries/entities/transaction.queries';
 import {CustomServerError} from '../models/errors/custom-server-error';
-import {MdSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 export class TransactionsService extends AbstractEntityService<Transaction> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MatSnackBar) {
     super(
       http,
       authService,

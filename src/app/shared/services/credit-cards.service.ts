@@ -7,11 +7,11 @@ import {
   creditCardsListQuery, creditCardQuery,
   deleteCreditCardMutation, createCreditCardMutation, updateCreditCardMutation, deleteCreditCardsMutation
 } from '../utils/queries/entities/credit-card.queries';
-import {MdSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 export class CreditCardsService extends AbstractEntityService<CreditCard> {
-  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MatSnackBar) {
     super(
       http,
       authService,

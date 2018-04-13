@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {MdDialogRef} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector : 'single-input-dialog',
@@ -33,7 +33,7 @@ export class SingleInputDialogComponent {
 
   inputContent: string;
 
-  constructor(public dialogRef: MdDialogRef<SingleInputDialogComponent>) {}
+  constructor(public dialogRef: MatDialogRef<SingleInputDialogComponent>) {}
 
   ngOnInit() { }
 

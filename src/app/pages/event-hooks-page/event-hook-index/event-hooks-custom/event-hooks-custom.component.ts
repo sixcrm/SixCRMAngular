@@ -3,10 +3,10 @@ import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.compo
 import {EventHook} from '../../../../shared/models/event-hook.model';
 import {EventHooksService} from '../../../../shared/services/event-hooks.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'event-hooks-custom',
@@ -20,7 +20,7 @@ export class EventHooksCustomComponent extends AbstractEntityIndexComponent<Even
   constructor(
     eventHooksService: EventHooksService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

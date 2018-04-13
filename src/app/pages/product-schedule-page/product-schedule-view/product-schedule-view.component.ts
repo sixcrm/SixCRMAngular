@@ -14,11 +14,11 @@ import {TableMemoryTextOptions} from '../../components/table-memory/table-memory
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {ProductsService} from '../../../shared/services/products.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
-import {MdDialog} from '@angular/material';
-import {DeleteDialogComponent} from '../../delete-dialog.component';
 import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 import {utc, Moment} from 'moment'
 import {Subject} from 'rxjs';
+import {MatDialog} from '@angular/material';
+import {DeleteDialogComponent} from '../../delete-dialog.component';
 
 @Component({
   selector: 'product-schedule-view',
@@ -134,7 +134,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
     public authService: AuthenticationService,
     private router: Router,
     private productService: ProductsService,
-    private dialog: MdDialog
+    private dialog: MatDialog
   ) {
     super(service, route);
   }

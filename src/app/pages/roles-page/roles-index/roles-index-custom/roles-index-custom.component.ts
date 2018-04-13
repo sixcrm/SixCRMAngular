@@ -3,7 +3,7 @@ import {Role} from '../../../../shared/models/role.model';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {RolesService} from '../../../../shared/services/roles.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {MdDialog} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
@@ -23,7 +23,7 @@ export class RolesIndexCustomComponent extends AbstractEntityIndexComponent<Role
   constructor(
     service: RolesService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

@@ -5,12 +5,12 @@ import {ProductsService} from '../../../shared/services/products.service';
 import {ActivatedRoute} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {MessageDialogComponent} from '../../message-dialog.component';
-import {MdDialog} from '@angular/material';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {DeleteDialogComponent} from '../../delete-dialog.component';
 import {ProductAttributes} from '../../../shared/models/product-attributes.model';
 import {SixImage} from '../../../shared/models/six-image.model';
 import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'product-view',
@@ -40,7 +40,7 @@ export class ProductViewComponent extends AbstractEntityViewComponent<Product> i
     service: ProductsService,
     route: ActivatedRoute,
     public navigation: NavigationService,
-    private dialog: MdDialog
+    private dialog: MatDialog
   ) {
     super(service, route);
   }

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {MaterialModule} from '@angular/material';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {fulfillmentProvidersRouting} from './fulfillment-providers.routing';
 import {FulfillmentProvidersComponent} from './fulfillment-providers-index/fulfillment-providers.component';
@@ -11,13 +10,14 @@ import {FulfillmentProviderViewComponent} from './fulfillment-provider-view/fulf
 import { FulfillmentProviderAddNewComponent } from './fulfillment-provider-view/fulfillment-provider-add-new/fulfillment-provider-add-new.component';
 import { FulfillmentProviderValidationComponent } from './fulfillment-provider-view/fulfillment-provider-validation/fulfillment-provider-validation.component';
 import {TranslationModule} from '../../translation/translation.module';
+import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 
 @NgModule({
   imports : [
     fulfillmentProvidersRouting,
     CommonModule,
     FormsModule,
-    MaterialModule.forRoot(),
+    MaterialSelectionModule,
     PageComponentsModule,
     SharedModule,
     TranslationModule

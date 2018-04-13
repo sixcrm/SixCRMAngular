@@ -7,12 +7,12 @@ import {
   deleteMerchantProviderGroupMutation, createMerchantProviderGroupMutation, updateMerchantProviderGroupMutation, deleteMerchantProviderGroupsMutation
 } from '../utils/queries/entities/merchant-provider-group.queries';
 import {HttpWrapperService} from './http-wrapper.service';
-import {MdSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 export class MerchantProviderGroupsService extends AbstractEntityService<MerchantProviderGroup> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MatSnackBar) {
     super(
       http,
       authService,

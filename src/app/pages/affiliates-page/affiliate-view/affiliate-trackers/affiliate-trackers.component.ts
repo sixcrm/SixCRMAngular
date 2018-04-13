@@ -1,7 +1,6 @@
 import {Component, Input, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {MdDialog, MdDialogRef} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {Tracker} from '../../../../shared/models/tracker.model';
@@ -15,6 +14,7 @@ import {
   trackersListQuery
 } from '../../../../shared/utils/queries/entities/tracker.queries';
 import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
+import {MatDialogRef, MatDialog} from '@angular/material';
 
 @Component({
   selector: 'affiliate-trackers',
@@ -25,12 +25,12 @@ export class AffiliateTrackersComponent extends AbstractEntityIndexComponent<Tra
 
   @Input() affiliate: Affiliate;
 
-  associateDialogRef: MdDialogRef<AssociateDialogComponent<Tracker>>;
+  associateDialogRef: MatDialogRef<AssociateDialogComponent<Tracker>>;
 
   constructor(
     trackersService: TrackersService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService
   ) {
     super(trackersService, auth, dialog, paginationService);

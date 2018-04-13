@@ -40,7 +40,7 @@ export class RegistrationFormComponent implements OnInit {
 
   register() {
     this.authService.registerUser(this.company, this.firstName, this.lastName).subscribe(res => {
-      let user = new User(res.json().response.data.updateuser);
+      let user = new User(res.body.json().response.data.updateuser);
       this.authService.updateSixUser(user);
       this.authService.refreshActiveAcl();
 

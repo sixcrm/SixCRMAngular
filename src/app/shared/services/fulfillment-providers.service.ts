@@ -8,16 +8,16 @@ import {
   updateFulfillmentProviderMutation, validateFulfillmentProviderQuery, deleteFulfillmentProvidersMutation
 } from '../utils/queries/entities/fulfillment-provider.queries';
 import { extractData, HttpWrapperService } from './http-wrapper.service';
-import {MdSnackBar} from '@angular/material';
 import { CustomServerError } from '../models/errors/custom-server-error';
 import {Subject} from 'rxjs';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 export class FulfillmentProvidersService extends AbstractEntityService<FulfillmentProvider> {
 
   validationResponse$: Subject<any> = new Subject();
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MatSnackBar) {
     super(
       http,
       authService,

@@ -6,7 +6,7 @@ import {
   affiliateReportListQuery, affiliteReportSummaryQuery,
   subaffiliateReportListQuery
 } from '../../utils/queries/reports.queries';
-import { Response} from '@angular/http';
+import { HttpResponse } from '@angular/common/http';
 import {FilterTerm} from '../../components/advanced-filter/advanced-filter.component';
 import {downloadJSON} from '../../utils/file.utils';
 import {extractData, HttpWrapperService, generateHeaders} from '../http-wrapper.service';
@@ -35,7 +35,7 @@ export class AffiliateReportService {
             this.affiliates$.next(affiliates.map(affiliate => new AffiliateReport(affiliate)))
           }
         } else {
-          downloadJSON(data.json(), 'affiliate-details-report.json');
+          downloadJSON(data.body.json(), 'affiliate-details-report.json');
         }
       })
   }
@@ -50,7 +50,7 @@ export class AffiliateReportService {
             this.affiliateSummary$.next(new AffiliateReport(affiliateSummary));
           }
         } else {
-          downloadJSON(data.json().response, 'transaction-summary-total-report.json');
+          downloadJSON(data.body.json().response, 'transaction-summary-total-report.json');
         }
       })
   }
@@ -65,12 +65,12 @@ export class AffiliateReportService {
             this.subaffiliates$.next(subaffiliates.map(subaffiliate => new AffiliateReport(subaffiliate)))
           }
         } else {
-          downloadJSON(data.json(), 'subaffiliate-details-report.json');
+          downloadJSON(data.body.json(), 'subaffiliate-details-report.json');
         }
       })
   }
 
-  private queryRequest(query: string, download: boolean): Observable<Response> {
+  private queryRequest(query: string, download: boolean): Observable<HttpResponse<any>> {
     let endpoint = environment.endpoint;
 
     if (this.authService.getActingAsAccount()) {

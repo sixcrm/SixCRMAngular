@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Subject, Observable} from 'rxjs';
-import {Response} from '@angular/http';
+import {HttpResponse} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {
@@ -62,6 +62,10 @@ export class SearchService {
     }
 
     this.queryRequest(q, {failStrategy: FailStrategy.Soft}).subscribe(response => {
+      if (response instanceof CustomServerError) {
+        return;
+      }
+
       let hits = this.parseSearchResults(response);
 
       this.searchResults$.next(hits);
@@ -83,6 +87,10 @@ export class SearchService {
     }
 
     this.queryRequest(q).subscribe(response => {
+      if (response instanceof CustomServerError) {
+        return;
+      }
+
       let json = extractData(response).search;
       let facets = JSON.parse(json.facets);
 
@@ -108,18 +116,24 @@ export class SearchService {
   searchDashboardFiltersAdvanced(query: string, type: string): Observable<any> {
     let obs: Subject<any> = new Subject();
 
-    this.queryRequest(dashboardFiltersAdvancedQuery(query, type)).subscribe(
-      (response: Response) => {
-        obs.next(this.parseSearchResults(response));
-        obs.complete();
+    this.queryRequest(dashboardFiltersAdvancedQuery(query, type)).subscribe(response => {
+      if (response instanceof CustomServerError) {
+        return;
       }
-    );
+
+      obs.next(this.parseSearchResults(response));
+      obs.complete();
+    });
 
     return obs;
   }
 
   private fetchSuggestions(query: string): void {
     this.queryRequest(suggestionsQuery(query)).subscribe(response => {
+      if (response instanceof CustomServerError) {
+        return;
+      }
+
       let hit = extractData(response).search.hits.hit;
       let suggestions: string[] = hit.map(h => JSON.parse(h.fields).suggestion_field_1[0]);
 
@@ -135,13 +149,17 @@ export class SearchService {
 
   private fetchDashboardFilters(query: string): void {
     this.queryRequest(dashboardFiltersQuery(query)).subscribe(response => {
+      if (response instanceof CustomServerError) {
+        return;
+      }
+
       let hits = this.parseSearchResults(response);
 
       this.dashboardFilterResults$.next(hits);
     })
   }
 
-  private queryRequest(query: string, requestBehaviourOptions?: RequestBehaviourOptions): Observable<Response> {
+  private queryRequest(query: string, requestBehaviourOptions?: RequestBehaviourOptions): Observable<CustomServerError | HttpResponse<any>> {
     let endpoint = environment.endpoint;
 
     if (this.authService.getActingAsAccount()) {
@@ -159,7 +177,7 @@ export class SearchService {
       requestBehaviourOptions);
   }
 
-  private parseSearchResults(response: Response): any {
+  private parseSearchResults(response: HttpResponse<any>): any {
     if (response instanceof CustomServerError) {
       return {hit: [], found: 0};
     }

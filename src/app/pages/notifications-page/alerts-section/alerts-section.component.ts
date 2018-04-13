@@ -4,11 +4,11 @@ import {AbstractEntityIndexComponent} from '../../abstract-entity-index.componen
 import {EntitiesByDate} from '../../../shared/models/entities-by-date.interface';
 import {utc} from 'moment';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {updateLocally, arrangeNotificationsByDate, isEmpty} from '../../../shared/utils/notification.utils';
 import {AlertsService} from '../../../shared/services/alerts.service';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'alerts-section',
@@ -47,7 +47,7 @@ export class AlertsSectionComponent extends AbstractEntityIndexComponent<Notific
 
   constructor(public notificationsService: AlertsService,
               auth: AuthenticationService,
-              dialog: MdDialog,
+              dialog: MatDialog,
               paginationService: PaginationService) {
     super(notificationsService, auth, dialog, paginationService);
     this.setInfiniteScroll(true);

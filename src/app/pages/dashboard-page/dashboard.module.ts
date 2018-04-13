@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {dashboardRouting} from './dashboard.routing';
-import {MaterialModule} from '@angular/material';
 import {DashboardComponent} from './dashboard.component';
 import {SharedModule} from '../../shared/shared.module';
 import {ChartModule} from 'angular2-highcharts';
@@ -23,6 +22,7 @@ import { DashboardHeaderDropdownComponent } from './dashboard-header/dashboard-h
 import { DashboardDualGraphComponent } from './dashboard-dual-graph/dashboard-dual-graph.component';
 import { DashboardIssuesReportComponent } from './dashboard-issues-report/dashboard-issues-report.component';
 import { TopSubscriptionsComponent } from './top-subscriptions/top-subscriptions.component';
+import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 
 export function highchartsFactory() {
   let hc = require('highcharts');
@@ -40,7 +40,7 @@ export function highchartsFactory() {
     dashboardRouting,
     SharedModule,
     CommonModule,
-    MaterialModule.forRoot(),
+    MaterialSelectionModule,
     ChartModule,
     Daterangepicker,
     ChartsModule,

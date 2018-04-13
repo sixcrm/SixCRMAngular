@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {affiliatesRouting } from './affiliates.routing';
-import {MaterialModule} from '@angular/material';
 import {AffiliatesComponent} from './affiliates-index/affiliates.component';
 import {AffiliateViewComponent} from './affiliate-view/affiliate-view.component';
 import {PageComponentsModule} from '../components/pages-components.module';
@@ -13,13 +12,14 @@ import { AffiliateSessionsComponent } from './affiliate-view/affiliate-sessions/
 import { AffiliateCampaignsComponent } from './affiliate-view/affiliate-campaigns/affiliate-campaigns.component';
 import { AffiliateAddNewComponent } from './affiliate-view/affiliate-add-new/affiliate-add-new.component';
 import {TranslationModule} from '../../translation/translation.module';
+import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 
 @NgModule({
   imports : [
     affiliatesRouting,
     CommonModule,
     FormsModule,
-    MaterialModule.forRoot(),
+    MaterialSelectionModule,
     PageComponentsModule,
     SharedModule,
     TranslationModule

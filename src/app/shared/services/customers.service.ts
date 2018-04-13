@@ -7,12 +7,12 @@ import {
   customersInfoListQuery, customerQuery,
   deleteCustomerMutation, createCustomerMutation, updateCustomerMutation, deleteCustomersMutation
 } from '../utils/queries/entities/customer.queries';
-import {MdSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 export class CustomersService extends AbstractEntityService<Customer> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MatSnackBar) {
     super(
       http,
       authService,

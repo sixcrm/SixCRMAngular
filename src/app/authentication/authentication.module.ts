@@ -5,7 +5,6 @@ import {AuthComponent} from './auth/auth.component';
 import {routing} from './authentication.routing';
 import {AuthGuard} from './auth-guard.service';
 import { RegistrationComponent } from './registration/registration.component';
-import {MaterialModule} from '@angular/material';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {RegisterGuard} from './register-guard.service';
@@ -15,12 +14,13 @@ import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-co
 import {TermsAndConditionsGuard} from './terms-and-conditions-guard.service';
 import {SharedModule} from '../shared/shared.module';
 import {TranslationModule} from '../translation/translation.module';
+import {MaterialSelectionModule} from '../material-selection/material-selection.module';
 
 @NgModule({
   imports : [
     routing,
     RouterModule,
-    MaterialModule.forRoot(),
+    MaterialSelectionModule,
     CommonModule,
     FormsModule,
     SharedModule,

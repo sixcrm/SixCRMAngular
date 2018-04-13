@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule} from '@angular/forms';
-import {MaterialModule} from '@angular/material';
 import {TableActionsComponent} from './table-actions/table-actions.component';
 import {EntityViewTopnavComponent} from './entity-view-topnav/entity-view-topnav.component';
 import {EntityViewInfoComponent} from './entity-view-info/entity-view-info.component';
@@ -30,12 +29,13 @@ import {ScheduleDetailedListViewComponent} from './schedules-detailed/schedule-d
 import { ScheduleDetailedTimelineComponent } from './schedules-detailed/schedule-detailed-timeline/schedule-detailed-timeline.component';
 import { ScheduleDetailsHeaderComponent } from './schedules-detailed/schedule-details/schedule-details-header/schedule-details-header.component';
 import { ScheduleDetailsTitleComponent } from './schedules-detailed/schedule-details/schedule-details-title/schedule-details-title.component';
+import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 
 @NgModule({
   imports : [
     CommonModule,
     RouterModule,
-    MaterialModule.forRoot(),
+    MaterialSelectionModule,
     SharedModule,
     FormsModule,
     TranslationModule,

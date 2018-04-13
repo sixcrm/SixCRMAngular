@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {Http, RequestOptionsArgs, Response, Headers} from '@angular/http';
 import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import {CustomServerError} from '../models/errors/custom-server-error';
 import {Router} from '@angular/router';
 import {SnackbarService} from './snackbar.service';
 import {TermsAndConditionsControllerService} from './terms-and-conditions-controller.service';
+import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 
 export enum FailStrategy {
   Ignore, Hard, Soft, HardStandalone
@@ -24,18 +24,22 @@ export class HttpWrapperService {
   numberOfWaitingRequests = 0;
 
   constructor(
-    private http: Http,
+    private http: HttpClient,
     private snackbarService: SnackbarService,
     private router: Router,
     private tacService: TermsAndConditionsControllerService
   ) { }
 
-  get(url: string, options?: RequestOptionsArgs): Observable<Response> {
-    return this.http.get(url, options);
+  get(url: string, options?: any): Observable<HttpResponse<any>> {
+    if (!options) {
+      options = {};
+    }
+
+    return this.http.get(url, {observe: 'response', responseType: 'json', headers: options.headers});
   }
 
-  post(url: string, body: any, requestOptions: RequestOptionsArgs, requestBehaviourOptions?: RequestBehaviourOptions): Observable<Response> {
-    const response: Subject<Response> = new Subject();
+  post(url: string, body: any, requestOptions: any, requestBehaviourOptions?: RequestBehaviourOptions): Observable<HttpResponse<any>> {
+    const response: Subject<HttpResponse<any>> = new Subject();
 
     if ((!requestBehaviourOptions || !requestBehaviourOptions.ignoreTermsAndConditions) && this.tacService.isTermsAndConditionsOutdated) {
       return response;
@@ -46,7 +50,11 @@ export class HttpWrapperService {
 
     if (!ignoreProgress) this.setInProgress();
 
-    this.http.post(url, body, requestOptions).subscribe(
+    if (!requestOptions) {
+      requestOptions = {};
+    }
+
+    this.http.post<any>(url, body, {observe: 'response', responseType: 'json', headers: requestOptions.headers}).subscribe(
       r => {
         if (!ignoreProgress) this.setNotInProgress();
 
@@ -74,8 +82,8 @@ export class HttpWrapperService {
     return response;
   }
 
-  postWithError(url: string, body: any, requestOptions: RequestOptionsArgs, requestBehaviourOptions?: RequestBehaviourOptions): Observable<Response | CustomServerError> {
-    const response: Subject<Response | CustomServerError> = new Subject();
+  postWithError(url: string, body: any, requestOptions: any, requestBehaviourOptions?: RequestBehaviourOptions): Observable<HttpResponse<any> | CustomServerError> {
+    const response: Subject<HttpResponse<any> | CustomServerError> = new Subject();
 
     if ((!requestBehaviourOptions || !requestBehaviourOptions.ignoreTermsAndConditions) && this.tacService.isTermsAndConditionsOutdated) {
       return response;
@@ -86,7 +94,11 @@ export class HttpWrapperService {
 
     if (!ignoreProgress) this.setInProgress();
 
-    this.http.post(url, body, requestOptions).subscribe(
+    if (!requestOptions) {
+      requestOptions = {};
+    }
+
+    this.http.post<any>(url, body, {observe: 'response', responseType: 'json', headers: requestOptions.headers}).subscribe(
       r => {
         if (!ignoreProgress) this.setNotInProgress();
 
@@ -136,12 +148,12 @@ export class HttpWrapperService {
   }
 }
 
-export function extractData(response: Response) {
-  return response.json().response.data;
+export function extractData(response: HttpResponse<any>) {
+  return response.body.json().response.data;
 }
 
-export function generateHeaders(token: string, contentType?: string): Headers {
-  let headers = new Headers();
+export function generateHeaders(token: string, contentType?: string): HttpHeaders {
+  let headers = new HttpHeaders();
   headers.append('Content-Type', contentType ? contentType : 'application/json');
   headers.append('Authorization', token);
 

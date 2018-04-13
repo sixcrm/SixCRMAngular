@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MaterialModule} from '@angular/material';
 import {FormsModule} from '@angular/forms';
 import {profileRouting} from './profile-page.routing';
 import {ProfilePageComponent} from './profile-page.component';
@@ -13,13 +12,14 @@ import {ClipboardModule} from "ngx-clipboard";
 import { NotificationDevicesComponent } from './notification-devices/notification-devices.component';
 import { NotificationPreferencesComponent } from './notification-preferences/notification-preferences.component';
 import { DeviceToggleItemComponent } from './notification-devices/device-toggle-item/device-toggle-item.component';
+import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 
 @NgModule({
   imports : [
     profileRouting,
     CommonModule,
     FormsModule,
-    MaterialModule.forRoot(),
+    MaterialSelectionModule,
     SharedModule,
     PageComponentsModule,
     TextMaskModule,

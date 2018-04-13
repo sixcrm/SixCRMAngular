@@ -1,9 +1,9 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {ColumnParams} from '../../../shared/models/column-params.model';
-import {MdDialogRef, MdDialog} from '@angular/material';
 import {AssociateDialogComponent} from '../../associate-dialog.component';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {DeleteDialogComponent} from '../../delete-dialog.component';
+import {MatDialogRef, MatDialog} from '@angular/material';
 export interface TableMemoryTextOptions {
   title?: string,
   viewOptionText?: string,
@@ -80,10 +80,10 @@ export class TableMemoryComponent implements OnInit {
   paginationValues: number[] = [5, 10, 25, 50, 75, 100];
   filterValue: string = '';
 
-  associateDialogRef: MdDialogRef<AssociateDialogComponent<any>>;
-  disassociateDialogRef: MdDialogRef<DeleteDialogComponent>;
+  associateDialogRef: MatDialogRef<AssociateDialogComponent<any>>;
+  disassociateDialogRef: MatDialogRef<DeleteDialogComponent>;
 
-  constructor(private dialog: MdDialog) { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit() { }
 

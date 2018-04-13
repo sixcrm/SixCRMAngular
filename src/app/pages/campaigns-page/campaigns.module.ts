@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {campaignsRouting } from './campaigns.routing';
-import {MaterialModule} from '@angular/material';
 import {CampaignsComponent} from './campaigns-index/campaigns.component';
 import {CampaignViewComponent} from './campaign-view/campaign-view.component';
 import {PageComponentsModule} from '../components/pages-components.module';
@@ -13,13 +12,14 @@ import { PixelTrackerComponent } from './campaign-view/pixel-tracker/pixel-track
 import {CodemirrorModule} from 'ng2-codemirror';
 import {ClipboardModule} from 'ngx-clipboard';
 import {TranslationModule} from '../../translation/translation.module';
+import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 
 @NgModule({
   imports : [
     campaignsRouting,
     CommonModule,
     FormsModule,
-    MaterialModule.forRoot(),
+    MaterialSelectionModule,
     PageComponentsModule,
     SharedModule,
     CodemirrorModule,

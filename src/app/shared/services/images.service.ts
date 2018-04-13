@@ -4,12 +4,12 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {uploadImage} from '../utils/queries/images.queries';
 import {SixImage} from '../models/six-image.model';
 import {AbstractEntityService} from './abstract-entity.service';
-import {MdSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 export class ImagesService extends AbstractEntityService<SixImage> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MatSnackBar) {
     super(
       http,
       authService,

@@ -7,8 +7,8 @@ import {Subscription} from 'rxjs';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 import {ProductsService} from '../../../../shared/services/products.service';
 import {ImageDialogComponent} from '../../../../dialog-modals/image-dialog/image-dialog.component';
-import {MdDialog} from '@angular/material';
 import {DeleteDialogComponent} from '../../../delete-dialog.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'product-images',
@@ -35,7 +35,7 @@ export class ProductImagesComponent implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer,
     private imageService: ImagesService,
     private productService: ProductsService,
-    private dialog: MdDialog
+    private dialog: MatDialog
   ) { }
 
   uploadImage() {

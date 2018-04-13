@@ -7,12 +7,12 @@ import {
   sessionsInfoListQuery, sessionQuery, deleteSessionMutation,
   deleteSessionsMutation, updateSessionMutation
 } from '../utils/queries/entities/session.queries';
-import {MdSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 export class SessionsService extends AbstractEntityService<Session> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MatSnackBar) {
     super(
       http,
       authService,

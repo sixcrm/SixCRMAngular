@@ -2,7 +2,6 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {User} from '../../../shared/models/user.model';
 import {UsersService} from '../../../shared/services/users.service';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service'
 import {ActivatedRoute, Router} from '@angular/router';
@@ -14,6 +13,7 @@ import {RolesService} from '../../../shared/services/roles.service';
 import {Role} from '../../../shared/models/role.model';
 import {Account} from '../../../shared/models/account.model';
 import {AclsService} from '../../../shared/services/acls.service';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'c-users',
@@ -29,7 +29,7 @@ export class UsersComponent extends AbstractEntityIndexComponent<User> implement
   constructor(
     usersService: UsersService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute,

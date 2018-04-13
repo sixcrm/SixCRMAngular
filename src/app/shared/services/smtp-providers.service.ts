@@ -8,13 +8,13 @@ import {
   deleteSmptProviderMutation, createSmptProviderMutation, updateSmptProviderMutation, validateSmtpProviderQuery,
   deleteSmptProvidersMutation
 } from '../utils/queries/entities/smtp-provider.queries';
-import {MdSnackBar} from '@angular/material';
 import {Observable} from 'rxjs';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 export class SmtpProvidersService extends AbstractEntityService<SmtpProvider> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MatSnackBar) {
     super(
       http,
       authService,

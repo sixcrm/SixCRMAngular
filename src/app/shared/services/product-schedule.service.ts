@@ -8,12 +8,12 @@ import {
   deleteProductSchedulesMutation
 } from '../utils/queries/entities/product-schedule.queries';
 import {HttpWrapperService} from './http-wrapper.service';
-import {MdSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 export class ProductScheduleService extends AbstractEntityService<ProductSchedule> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MatSnackBar) {
     super(
       http,
       authService,

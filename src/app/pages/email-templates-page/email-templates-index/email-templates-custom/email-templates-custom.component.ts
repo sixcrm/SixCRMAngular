@@ -3,10 +3,10 @@ import {EmailTemplate} from '../../../../shared/models/email-template.model';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {EmailTemplatesService} from '../../../../shared/services/email-templates.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'email-templates-custom',
@@ -19,7 +19,7 @@ export class EmailTemplatesCustomComponent extends AbstractEntityIndexComponent<
 
   constructor(emailsService: EmailTemplatesService,
               auth: AuthenticationService,
-              dialog: MdDialog,
+              dialog: MatDialog,
               paginationService: PaginationService,
               router: Router,
               activatedRoute: ActivatedRoute) {

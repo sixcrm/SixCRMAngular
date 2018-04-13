@@ -5,7 +5,6 @@ import {HttpModule} from '@angular/http';
 import {routing} from './app.routing';
 import {AppComponent} from './app.component';
 import {NavigationModule} from './navigation/navigation.module';
-import {MaterialModule} from '@angular/material';
 import {AuthenticationModule} from "./authentication/authentication.module";
 import {DeleteDialogComponent} from './pages/delete-dialog.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
@@ -28,6 +27,7 @@ import {AddBillDetailsDialogComponent} from './dialog-modals/add-bill-details-di
 import {TextMaskModule} from 'angular2-text-mask';
 import { ImageDialogComponent } from './dialog-modals/image-dialog/image-dialog.component';
 import { MerchantProviderGroupAssociationDialogComponent } from './dialog-modals/merchantprovidergroup-association-dialog/merchantprovidergroup-association-dialog.component';
+import {MaterialSelectionModule} from './material-selection/material-selection.module';
 
 @NgModule({
   declarations : [
@@ -56,17 +56,13 @@ import { MerchantProviderGroupAssociationDialogComponent } from './dialog-modals
     HttpModule,
     AuthenticationModule,
     routing,
-    MaterialModule.forRoot(),
+    MaterialSelectionModule,
     ClipboardModule,
     TranslationModule.forRoot(),
     TextMaskModule
   ],
-  exports: [
-    MaterialModule
-  ],
-  providers : [
-    HttpWrapperService
-  ],
+  exports: [ ],
+  providers : [ HttpWrapperService ],
   entryComponents : [
     AppComponent,
     DeleteDialogComponent,

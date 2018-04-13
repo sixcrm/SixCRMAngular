@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Subject, Observable} from 'rxjs';
 import {environment} from '../../../../environments/environment';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import { Response} from '@angular/http';
+import { HttpResponse} from '@angular/common/http';
 import {FilterTerm} from '../../components/advanced-filter/advanced-filter.component';
 import {downloadJSON} from '../../utils/file.utils';
 import {extractData, HttpWrapperService, generateHeaders} from '../http-wrapper.service';
@@ -28,12 +28,12 @@ export class MerchantReportService {
             this.merchants$.next(merchants.map(merchant => new MerchantReport(merchant)))
           }
         } else {
-          downloadJSON(data.json(), 'merchants-report.json');
+          downloadJSON(data.body.json(), 'merchants-report.json');
         }
       })
   }
 
-  private queryRequest(query: string, download: boolean): Observable<Response> {
+  private queryRequest(query: string, download: boolean): Observable<HttpResponse<any>> {
     let endpoint = environment.endpoint;
 
     if (this.authService.getActingAsAccount()) {

@@ -5,8 +5,8 @@ import {RebillsService} from '../../../shared/services/rebills.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PaginationService} from '../../../shared/services/pagination.service';
-import {MdDialog} from '@angular/material';
 import {ColumnParams} from '../../../shared/models/column-params.model';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'rebills',
@@ -18,7 +18,7 @@ export class RebillsComponent extends AbstractEntityIndexComponent<Rebill> imple
   constructor(
     service: RebillsService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

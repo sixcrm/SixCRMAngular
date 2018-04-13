@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {Moment, utc} from 'moment';
 import {StateMachineTimeseries} from '../../shared/models/state-machine/state-machine-timeseries.model';
 import {Subject, Observable} from 'rxjs';
 import {StateMachineQueue} from '../../shared/models/state-machine/state-machine-queue';
@@ -9,7 +8,7 @@ import {
   FailStrategy
 } from '../../shared/services/http-wrapper.service';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
-import {Response} from '@angular/http';
+import {HttpResponse} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {getQueueSummary, getCurrentQueueSummary} from '../../shared/utils/queries/queue.queries';
 
@@ -29,7 +28,7 @@ export class StateMachineService {
       }
 
       this.timeseries$.next(
-        res.json().response.data.rebillsummary.summary
+        res.body.json().response.data.rebillsummary.summary
           .map(t => new StateMachineTimeseries(t))
           .sort((a,b) => {
             if (a.datetime.isBefore(b.datetime)) return -1;
@@ -45,11 +44,11 @@ export class StateMachineService {
     this.queues$.next(generateQueues());
   }
 
-  getCurrentQueueSummary(queueName: string): Observable<Response> {
+  getCurrentQueueSummary(queueName: string): Observable<CustomServerError | HttpResponse<any>> {
     return this.queryRequest(getCurrentQueueSummary(queueName), {failStrategy: FailStrategy.Soft});
   }
 
-  protected queryRequest(query: string, requestBehaviourOptions?: RequestBehaviourOptions): Observable<Response | CustomServerError> {
+  protected queryRequest(query: string, requestBehaviourOptions?: RequestBehaviourOptions): Observable<HttpResponse<any> | CustomServerError> {
     let endpoint = environment.endpoint;
 
     if (this.authService.getActingAsAccount()) {

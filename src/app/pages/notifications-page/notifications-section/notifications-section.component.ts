@@ -3,11 +3,11 @@ import {Notification} from '../../../shared/models/notification.model';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {NotificationsService} from '../../../shared/services/notifications.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Router} from '@angular/router';
 import {NotificationsQuickService} from '../../../shared/services/notifications-quick.service';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'notifications-section',
@@ -30,7 +30,7 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
     public notificationsService: NotificationsService,
     router: Router,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     private notificationsQuickService: NotificationsQuickService
   ) {

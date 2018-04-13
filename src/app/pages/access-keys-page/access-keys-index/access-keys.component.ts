@@ -1,5 +1,4 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {MdDialog} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {AccessKey} from '../../../shared/models/access-key.model';
@@ -9,6 +8,7 @@ import {PaginationService} from '../../../shared/services/pagination.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {TextMaskPipe} from '../../../shared/pipes/text-mask.pipe';
 import {AccessKeyDetailsDialogComponent} from '../../../dialog-modals/access-key-details-dialog.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'access-keys',
@@ -20,7 +20,7 @@ export class AccessKeysComponent extends AbstractEntityIndexComponent<AccessKey>
   constructor(
     accessKeysService: AccessKeysService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

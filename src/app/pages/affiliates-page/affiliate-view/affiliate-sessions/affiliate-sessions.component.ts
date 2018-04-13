@@ -3,12 +3,12 @@ import {Session} from '../../../../shared/models/session.model';
 import {SessionsService} from '../../../../shared/services/sessions.service';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {MdDialog} from '@angular/material';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {Currency} from '../../../../shared/utils/currency/currency';
 import {sessionsByAffiliate, sessionsInfoListQuery} from '../../../../shared/utils/queries/entities/session.queries';
 import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'affiliate-sessions',
@@ -22,7 +22,7 @@ export class AffiliateSessionsComponent extends AbstractEntityIndexComponent<Ses
   constructor(
     sessionService: SessionsService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService
   ) {
     super(sessionService, auth, dialog, paginationService);

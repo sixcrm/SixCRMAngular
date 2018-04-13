@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import {ChartsModule} from '../../charts/charts.module';
 import {SharedModule} from '../../shared/shared.module';
 import {PageComponentsModule} from '../components/pages-components.module';
-import {MaterialModule} from '@angular/material';
 import {FormsModule} from '@angular/forms';
 import {billsRouting} from './bills.routing';
 import {BillsOverviewComponent} from './bill-index/bills-overview/bills-overview.component';
@@ -16,13 +15,14 @@ import { BillAddNewComponent } from './bill-view/bill-add-new/bill-add-new.compo
 import {BillBodyComponent} from './bill-view/bill-body/bill-body.component';
 import {BillViewComponent} from './bill-view/bill-view.component';
 import {TranslationModule} from '../../translation/translation.module';
+import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 
 @NgModule({
   imports: [
     billsRouting,
     CommonModule,
     FormsModule,
-    MaterialModule.forRoot(),
+    MaterialSelectionModule,
     PageComponentsModule,
     SharedModule,
     ChartsModule,

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {MdDialogRef} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector : 'message-dialog',
@@ -20,7 +20,7 @@ export class MessageDialogComponent {
   text: string = 'MESSAGEDIALOG_TITLE';
   button: string = 'MESSAGEDIALOG_BUTTON';
 
-  constructor(public dialogRef: MdDialogRef<MessageDialogComponent>) {}
+  constructor(public dialogRef: MatDialogRef<MessageDialogComponent>) {}
 
   ngOnInit() { }
 

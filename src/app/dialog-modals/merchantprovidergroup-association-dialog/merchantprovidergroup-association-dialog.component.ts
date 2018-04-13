@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {MdDialogRef} from '@angular/material';
 import {MerchantProviderGroup} from '../../shared/models/merchant-provider-group.model';
 import {Campaign} from '../../shared/models/campaign.model';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'merchantprovidergroup-association-dialog',
@@ -21,7 +21,7 @@ export class MerchantProviderGroupAssociationDialogComponent implements OnInit {
 
   error: boolean;
 
-  constructor(public dialogRef: MdDialogRef<MerchantProviderGroupAssociationDialogComponent>) { }
+  constructor(public dialogRef: MatDialogRef<MerchantProviderGroupAssociationDialogComponent>) { }
 
   ngOnInit() {
   }

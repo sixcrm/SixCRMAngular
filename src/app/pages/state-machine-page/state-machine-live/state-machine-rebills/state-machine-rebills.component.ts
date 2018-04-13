@@ -3,13 +3,13 @@ import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.compo
 import {Rebill} from '../../../../shared/models/rebill.model';
 import {RebillsService} from '../../../../shared/services/rebills.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {rebillListByState, rebillsListQuery} from '../../../../shared/utils/queries/entities/rebill.queries';
 import {TableMemoryTextOptions} from '../../../components/table-memory/table-memory.component';
 import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'state-machine-rebills',
@@ -38,7 +38,7 @@ export class StateMachineRebillsComponent extends AbstractEntityIndexComponent<R
   constructor(
     service: RebillsService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

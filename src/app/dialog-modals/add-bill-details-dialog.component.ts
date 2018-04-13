@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {MdDialogRef} from '@angular/material';
 import {isAllowedCurrency} from '../shared/utils/form.utils';
 import {Currency} from '../shared/utils/currency/currency';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector : 'add-bill-details-dialog',
@@ -35,7 +35,7 @@ export class AddBillDetailsDialogComponent {
   amount: Currency = new Currency(0);
   isCurrency = isAllowedCurrency;
 
-  constructor(public dialogRef: MdDialogRef<AddBillDetailsDialogComponent>) {}
+  constructor(public dialogRef: MatDialogRef<AddBillDetailsDialogComponent>) {}
 
   ngOnInit() { }
 

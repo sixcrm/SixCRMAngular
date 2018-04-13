@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ProductsService} from "../../../shared/services/products.service";
 import {Product} from "../../../shared/models/product.model";
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
-import {MdDialog} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -18,7 +18,7 @@ export class ProductsComponent extends AbstractEntityIndexComponent<Product> imp
   constructor(
     productsService: ProductsService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

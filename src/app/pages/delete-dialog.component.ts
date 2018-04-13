@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {MdDialogRef} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
 
 /*
 
@@ -27,7 +27,7 @@ export class DeleteDialogComponent {
 
   text: string = 'DELETEDIALOG_TEXT';
 
-  constructor(public dialogRef: MdDialogRef<DeleteDialogComponent>) {}
+  constructor(public dialogRef: MatDialogRef<DeleteDialogComponent>) {}
 
   ngOnInit() {
   }

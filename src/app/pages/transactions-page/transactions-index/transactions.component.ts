@@ -2,11 +2,11 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {TransactionsService} from "../../../shared/services/transactions.service";
 import {Transaction} from '../../../shared/models/transaction.model';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
-import {MdDialog} from '@angular/material';
-import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
+import {MatDialog} from '@angular/material';
+import {PaginationService} from '../../../shared/services/pagination.service';
 
 @Component({
   selector: 'transactions',
@@ -18,7 +18,7 @@ export class TransactionsComponent extends AbstractEntityIndexComponent<Transact
   constructor(
     transactionsService: TransactionsService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

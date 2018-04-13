@@ -7,14 +7,15 @@ import {
   createAclMutation, deleteAclMutation, updateAclMutation,
   updateUserAclTermsAndConditions, deleteAclsMutation, aclListQuery
 } from '../utils/queries/entities/acl.queries';
-import {MdSnackBar} from '@angular/material';
-import {Response} from '@angular/http';
+import {HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {MatSnackBar} from '@angular/material';
+import {CustomServerError} from '../models/errors/custom-server-error';
 
 @Injectable()
 export class AclsService extends AbstractEntityService<Acl> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MatSnackBar) {
     super(
       http,
       authService,
@@ -30,7 +31,7 @@ export class AclsService extends AbstractEntityService<Acl> {
     );
   }
 
-  updateUserAclTermsAndConditions(acl: Acl, version: string): Observable<Response> {
+  updateUserAclTermsAndConditions(acl: Acl, version: string): Observable<CustomServerError | HttpResponse<any>> {
     return this.queryRequest(updateUserAclTermsAndConditions(acl, version), {ignoreTermsAndConditions: true})
   }
 

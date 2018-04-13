@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {MdDialogRef} from '@angular/material';
 import {Role} from '../shared/models/role.model';
 import {isAllowedEmail} from '../shared/utils/form.utils';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector : 'invite-user-dialog',
@@ -30,7 +30,7 @@ export class InviteUserDialogComponent {
   mapper = (el: Role) => el.name;
   isEmail = isAllowedEmail;
 
-  constructor(public dialogRef: MdDialogRef<InviteUserDialogComponent>) {}
+  constructor(public dialogRef: MatDialogRef<InviteUserDialogComponent>) {}
 
   ngOnInit() {}
 

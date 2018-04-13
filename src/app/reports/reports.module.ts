@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import {SharedModule} from '../shared/shared.module';
 import {reportsRouting} from './reports.routing';
 import { ReportTableComponent } from './components/report-table/report-table.component';
-import {MaterialModule} from '@angular/material';
 import {Daterangepicker} from 'ng2-daterangepicker';
 import {ChartsModule} from '../charts/charts.module';
 import {FormsModule} from '@angular/forms';
@@ -15,6 +14,7 @@ import { MerchantReportComponent } from './merchant-report/merchant-report.compo
 import { AffiliateReportComponent } from './affiliate-report/affiliate-report.component';
 import {SubaffiliateReportComponent} from './subaffiliate-report/subaffiliate-report.component';
 import {TranslationModule} from "../translation/translation.module";
+import {MaterialSelectionModule} from '../material-selection/material-selection.module';
 
 @NgModule({
   imports: [
@@ -23,7 +23,7 @@ import {TranslationModule} from "../translation/translation.module";
     SharedModule,
     PageComponentsModule,
     reportsRouting,
-    MaterialModule.forRoot(),
+    MaterialSelectionModule,
     Daterangepicker,
     ChartsModule,
     TranslationModule

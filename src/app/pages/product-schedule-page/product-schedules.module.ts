@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {MaterialModule} from '@angular/material';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {productSchedulesRouting} from './product-schedules.routing';
 import {ProductSchedulesComponent} from './product-schedules-index/product-schedules.component';
@@ -12,13 +11,14 @@ import {TextMaskModule} from 'angular2-text-mask';
 import { ProductScheduleCampaignsComponent } from './product-schedule-view/product-schedule-campaigns/product-schedule-campaigns.component';
 import { ProductScheduleAddNewComponent } from './product-schedule-view/product-schedule-add-new/product-schedule-add-new.component';
 import {TranslationModule} from '../../translation/translation.module';
+import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 
 @NgModule({
   imports : [
     productSchedulesRouting,
     CommonModule,
     FormsModule,
-    MaterialModule.forRoot(),
+    MaterialSelectionModule,
     PageComponentsModule,
     SharedModule,
     TextMaskModule,

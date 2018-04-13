@@ -1,7 +1,6 @@
 import {NgModule, ModuleWithProviders} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {MaterialModule} from '@angular/material';
 import {CampaignsService} from "./services/campaigns.service";
 import {ProductsService} from "./services/products.service";
 import {MerchantProvidersService} from "./services/merchant-providers.service";
@@ -98,6 +97,7 @@ import {EntityAclsService} from './services/entityacl.service';
 import {EventHooksService} from './services/event-hooks.service';
 import {EventHooksSharedService} from './services/event-hooks-shared.service';
 import { DragScrollXDirective } from './directives/drag-scroll-x.directive';
+import {MaterialSelectionModule} from '../material-selection/material-selection.module';
 
 @NgModule({
   declarations : [
@@ -192,7 +192,7 @@ import { DragScrollXDirective } from './directives/drag-scroll-x.directive';
   imports : [
     FormsModule,
     CommonModule,
-    MaterialModule,
+    MaterialSelectionModule,
     ChartModule,
     Daterangepicker,
     TextMaskModule,

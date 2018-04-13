@@ -2,7 +2,7 @@ import {Component, OnInit, AfterViewInit, ViewChild, ElementRef} from '@angular/
 import {NavigationService} from '../../navigation.service';
 import {HttpWrapperService} from '../../../shared/services/http-wrapper.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {MdSidenav} from '@angular/material';
+import {MatSidenav} from '@angular/material';
 import {PersistentNotificationsQuickComponent} from '../../persistent-notifications-quick/persistent-notifications-quick.component';
 
 @Component({
@@ -10,7 +10,7 @@ import {PersistentNotificationsQuickComponent} from '../../persistent-notificati
   styleUrls : ['./default.layout.component.scss']
 })
 export class DefaultLayoutComponent implements OnInit, AfterViewInit {
-  @ViewChild('sidenav') sidenav: MdSidenav;
+  @ViewChild('sidenav') sidenav: MatSidenav;
   @ViewChild('persistentNotifications') persistentNotifications: PersistentNotificationsQuickComponent;
   @ViewChild('persistentNotificationsContainer') persistentNotificationsContainer: ElementRef;
 
@@ -43,7 +43,7 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.sidenav.onCloseStart.filter(() => this.navigation.mediumScreenAndDown).subscribe(() => {
+    this.sidenav.closedStart.filter(() => this.navigation.mediumScreenAndDown).subscribe(() => {
       this.navigation.toggleSidenav(false);
     });
   }

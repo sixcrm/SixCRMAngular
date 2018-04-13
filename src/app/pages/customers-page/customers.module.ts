@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {customersRouting } from './customers.routing';
-import {MaterialModule} from '@angular/material';
 import {CustomersComponent} from './customers-index/customers.component';
 import {CustomerViewComponent} from './customer-view/customer-view.component';
 import {PageComponentsModule} from '../components/pages-components.module';
@@ -22,13 +21,14 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import { SingleEventComponent } from './customer-view/customer-events/single-event/single-event.component';
 import { CustomerAddNewComponent } from './customer-view/customer-add-new/customer-add-new.component';
 import {TranslationModule} from '../../translation/translation.module';
+import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 
 @NgModule({
   imports : [
     customersRouting,
     CommonModule,
     FormsModule,
-    MaterialModule,
+    MaterialSelectionModule,
     PageComponentsModule,
     SharedModule,
     TextMaskModule,

@@ -4,11 +4,11 @@ import {HighchartsStatic} from 'angular2-highcharts/dist/HighchartsService';
 import {TransactionSummaryChartComponent} from './transaction-summary/transaction-summary.component';
 import {ChartModule} from 'angular2-highcharts';
 import {SharedModule} from '../shared/shared.module';
-import {MaterialModule} from '@angular/material';
 import {RouterModule} from '@angular/router';
 import {MerchantReportChartComponent} from './merchant-report-chart/merchant-report-chart.component';
 import { StateMachineDetailsChartComponent } from './state-machine-details-chart/state-machine-details-chart.component';
 import {TranslationModule} from '../translation/translation.module';
+import {MaterialSelectionModule} from '../material-selection/material-selection.module';
 
 export function hchartFactory() {
   return require('highcharts');
@@ -19,7 +19,7 @@ export function hchartFactory() {
     CommonModule,
     ChartModule,
     SharedModule,
-    MaterialModule,
+    MaterialSelectionModule,
     RouterModule,
     TranslationModule
   ],

@@ -12,13 +12,13 @@ import {CustomServerError} from '../../../shared/models/errors/custom-server-err
 import {Acl} from '../../../shared/models/acl.model';
 import {AclsService} from '../../../shared/services/acls.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
-import {MdDialogRef, MdDialog} from '@angular/material';
 import {AddUserAclDialogComponent} from '../../add-user-acl-dialog.component';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {MessageDialogComponent} from '../../message-dialog.component';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {MatDialogRef, MatDialog} from '@angular/material';
 
 @Component({
   selector: 'user-view',
@@ -55,7 +55,7 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
     new ColumnParams('USER_ACCOUNT_STATUS', (e: Acl) => e.pending || 'Active')
   ];
 
-  addAclDialogRef: MdDialogRef<AddUserAclDialogComponent>;
+  addAclDialogRef: MatDialogRef<AddUserAclDialogComponent>;
 
   isOwner = (acl: Acl) => acl.role.name === 'Owner';
 
@@ -73,7 +73,7 @@ export class UserViewComponent extends AbstractEntityViewComponent<User> impleme
               private rolesService: RolesService,
               public aclService: AclsService,
               private router: Router,
-              private dialog: MdDialog
+              private dialog: MatDialog
   ) {
     super(service, route);
   }

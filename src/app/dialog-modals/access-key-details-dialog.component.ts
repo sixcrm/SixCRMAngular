@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {MdDialogRef} from '@angular/material';
 import {AccessKey} from '../shared/models/access-key.model';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector : 'access-key-details-dialog',
@@ -55,7 +55,7 @@ export class AccessKeyDetailsDialogComponent {
   showSecret: boolean = false;
   editMode: boolean;
 
-  constructor(public dialogRef: MdDialogRef<AccessKeyDetailsDialogComponent>) {}
+  constructor(public dialogRef: MatDialogRef<AccessKeyDetailsDialogComponent>) {}
 
   ngOnInit() { }
 

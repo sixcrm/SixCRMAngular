@@ -3,11 +3,11 @@ import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.compo
 import {Rebill} from '../../../../shared/models/rebill.model';
 import {RebillsService} from '../../../../shared/services/rebills.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {rebillsByCustomer, rebillsListQuery} from '../../../../shared/utils/queries/entities/rebill.queries';
 import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'customer-rebills',
@@ -24,7 +24,7 @@ export class CustomerRebillsComponent extends AbstractEntityIndexComponent<Rebil
   constructor(
     rebillsService: RebillsService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService
   ) {
     super(rebillsService, auth, dialog, paginationService);

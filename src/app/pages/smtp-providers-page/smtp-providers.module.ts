@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {MaterialModule} from '@angular/material';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {smtpProvidersRouting} from './smtp-providers.routing';
 import {SmtpProvidersComponent} from './smtp-providers-index/smtp-providers.component';
@@ -12,13 +11,14 @@ import { SmtpProviderAddNewComponent } from './smtp-provider-view/smtp-provider-
 import { SmtpProviderValidateComponent } from './smtp-provider-view/smtp-provider-validate/smtp-provider-validate.component';
 import {TranslationModule} from '../../translation/translation.module';
 import { SmtpProviderEmailTemplatesComponent } from './smtp-provider-email-templates/smtp-provider-email-templates.component';
+import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 
 @NgModule({
   imports : [
     smtpProvidersRouting,
     CommonModule,
     FormsModule,
-    MaterialModule.forRoot(),
+    MaterialSelectionModule,
     PageComponentsModule,
     SharedModule,
     TranslationModule

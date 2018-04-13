@@ -2,11 +2,11 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {CustomersService} from "../../../shared/services/customers.service";
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {Customer} from '../../../shared/models/customer.model';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'customers',
@@ -18,7 +18,7 @@ export class CustomersComponent extends AbstractEntityIndexComponent<Customer> i
   constructor(
     customersService: CustomersService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

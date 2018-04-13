@@ -3,13 +3,13 @@ import {Campaign} from '../../../../shared/models/campaign.model';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {CampaignsService} from '../../../../shared/services/campaigns.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {campaignsByProduct, campaignsInfoListQuery} from '../../../../shared/utils/queries/entities/campaign.queries';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {Currency} from '../../../../shared/utils/currency/currency';
 import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'product-campaigns',
@@ -23,7 +23,7 @@ export class ProductCampaignsComponent extends AbstractEntityIndexComponent<Camp
   constructor(
     campaignService: CampaignsService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {MdDialogRef} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector : 'yes-no-dialog',
@@ -24,7 +24,7 @@ export class YesNoDialogComponent {
   yesText: string = 'Yes';
   noText: string = 'No';
 
-  constructor(public dialogRef: MdDialogRef<YesNoDialogComponent>) {}
+  constructor(public dialogRef: MatDialogRef<YesNoDialogComponent>) {}
 
   ngOnInit() { }
 

@@ -4,12 +4,12 @@ import {AuthenticationService} from '../../../../authentication/authentication.s
 import {Currency} from '../../../../shared/utils/currency/currency';
 import {BillDetails} from '../../../../shared/models/bill-details.model';
 import {firstIndexOf} from '../../../../shared/utils/array.utils';
-import {MdDialog} from '@angular/material';
 import {AddBillDetailsDialogComponent} from '../../../../dialog-modals/add-bill-details-dialog.component';
 import {utc} from 'moment';
 import {Bill} from '../../../../shared/models/bill.model';
 import {AccountsService} from '../../../../shared/services/accounts.service';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'bill-body',
@@ -31,7 +31,7 @@ export class BillBodyComponent implements OnInit {
   accountMapper = (account: Account) => account.name;
   formInvalid: boolean;
 
-  constructor(public authService: AuthenticationService, private dialog: MdDialog, private accountService: AccountsService) { }
+  constructor(public authService: AuthenticationService, private dialog: MatDialog, private accountService: AccountsService) { }
 
   ngOnInit() {
     this.accountService.entities$.take(1).subscribe(accounts => {

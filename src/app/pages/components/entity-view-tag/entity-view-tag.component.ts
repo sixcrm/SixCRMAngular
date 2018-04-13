@@ -1,6 +1,5 @@
 import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import {TagsService} from '../../../shared/services/tags.service';
-import {MdDialog} from '@angular/material';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
@@ -10,6 +9,7 @@ import {Tag} from '../../../shared/models/tag.model';
 import {TableMemoryTextOptions} from '../table-memory/table-memory.component';
 import {ColumnParams, ColumnParamsInputType} from '../../../shared/models/column-params.model';
 import {IndexQueryParameters} from '../../../shared/utils/queries/index-query-parameters.model';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'entity-view-tag',
@@ -37,7 +37,7 @@ export class EntityViewTagComponent extends AbstractEntityIndexComponent<Tag> im
   constructor(
     service: TagsService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

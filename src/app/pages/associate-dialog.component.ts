@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {MdDialogRef} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector : 'associate-dialog',
@@ -27,7 +27,7 @@ export class AssociateDialogComponent<T> {
   entity: T;
   mapper = el => el;
 
-  constructor(public dialogRef: MdDialogRef<AssociateDialogComponent<T>>) {}
+  constructor(public dialogRef: MatDialogRef<AssociateDialogComponent<T>>) {}
 
   ngOnInit() {
   }

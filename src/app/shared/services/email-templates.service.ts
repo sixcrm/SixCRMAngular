@@ -7,17 +7,17 @@ import {
   emailTemplatesListQuery, emailTemplateQuery,
   deleteEmailTemplateMutation, createEmailTemplateMutation, updateEmailTemplateMutation, deleteEmailTemplatesMutation
 } from '../utils/queries/entities/email-template.queries';
-import {MdSnackBar} from '@angular/material';
 import {Subject} from 'rxjs';
 import {tokenListQuery} from '../utils/queries/entities/token.queries';
 import {CustomServerError} from '../models/errors/custom-server-error';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 export class EmailTemplatesService extends AbstractEntityService<EmailTemplate> {
 
   tokens: Subject<any> = new Subject();
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MatSnackBar) {
     super(
       http,
       authService,
