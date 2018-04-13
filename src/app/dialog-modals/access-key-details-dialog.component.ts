@@ -39,7 +39,7 @@ import {MatDialogRef} from '@angular/material';
   `,
   styles : [`
     .access-key-details-container { font-family: Roboto, sans-serif; font-size: 14px; min-width: 450px; display: flex; flex-direction: column; padding: 10px;}
-    md-input-container {margin: 10px 0 0; width: 100%;}
+    mat-input-container {margin: 10px 0 0; width: 100%;}
     textarea {margin: 10px 0 0}
     .show-more { font-size: 12px; text-align: right; color: #5B9BE1; cursor: pointer}
     .access-key-details-actions { display: flex; padding: 15px 0; font-size: 12px; }

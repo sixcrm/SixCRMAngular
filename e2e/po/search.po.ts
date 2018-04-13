@@ -38,11 +38,11 @@ export class SearchPage {
   }
 
   getCheckboxes() {
-    return element.all(by.css('.md-checkbox-layout'));
+    return element.all(by.css('.mat-checkbox-layout'));
   }
 
   getOneCheckbox() {
-    return element(by.css('.md-checkbox-layout'));
+    return element(by.css('.mat-checkbox-layout'));
   }
 
   getQuickSearchInput() {

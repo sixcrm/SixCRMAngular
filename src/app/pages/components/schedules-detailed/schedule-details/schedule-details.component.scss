@@ -51,12 +51,12 @@ $container-width: 350px;
       .body__row {
         display: flex;
 
-        md-input-container:first-of-type {
+        mat-input-container:first-of-type {
           margin-right: 12px;
         }
       }
 
-      md-input-container {
+      mat-input-container {
         font-size: 14px;
       }
 

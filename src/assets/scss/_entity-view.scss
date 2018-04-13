@@ -41,7 +41,7 @@ $main-blue: #5383C3;
       margin-top: 22px;
       margin-bottom: 10px;
 
-      md-input-container {
+      mat-input-container {
         .md-input-wrapper {
           margin: 0;
         }
@@ -972,7 +972,7 @@ $main-blue: #5383C3;
           font-size: 14px;
         }
 
-        md-checkbox {
+        mat-checkbox {
           margin-left: 15px;
         }
       }
@@ -1069,7 +1069,7 @@ $main-blue: #5383C3;
 
 .multiselect-checkbox {
 
-  .md-checkbox-inner-container {
+  .mat-checkbox-inner-container {
     width: 14px;
     height: 14px;
     color: rgba(0,0,0,0.6);

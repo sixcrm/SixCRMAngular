@@ -153,7 +153,7 @@ dropdown-component {
 .product-autocomplete-input {
   font-size: 14px;
 
-  md-input-container {
+  mat-input-container {
     width: calc(100% - 25px);
   }
 }
@@ -161,7 +161,7 @@ dropdown-component {
 .campaign-autocomplete-input {
   font-size: 14px;
 
-  md-input-container {
+  mat-input-container {
     width: 100%;
   }
 }
@@ -170,7 +170,7 @@ dropdown-component {
   position: relative;
 
   &--full-width {
-    md-input-container {
+    mat-input-container {
       width: 100%;
     }
   }
@@ -268,13 +268,13 @@ dropdown-component {
   }
 }
 
-.checkbox-blue.md-checkbox-checked {
-  .md-checkbox-background {
+.checkbox-blue.mat-checkbox-checked {
+  .mat-checkbox-background {
     background-color: #4A90E2;;
   }
 }
 .checkbox-standalone {
-  .md-checkbox-inner-container {
+  .mat-checkbox-inner-container {
     margin: auto;
   }
 }

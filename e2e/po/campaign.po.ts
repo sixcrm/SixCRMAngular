@@ -15,7 +15,7 @@ export class CampaignPage {
   }
 
   getCampaignFormCheckboxes() {
-    return element(by.css('campaign-add-new')).element(by.css('md-checkbox'));
+    return element(by.css('campaign-add-new')).element(by.css('mat-checkbox'));
   }
 
   getCampaignFormSaveButton() {
