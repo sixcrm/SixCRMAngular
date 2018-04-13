@@ -24,7 +24,7 @@ md-sidenav {
     }
   }
 
-  md-toolbar {
+  mat-toolbar {
     padding: 0 72px 0 15px;
     height: $topnav-height;
     background-color: white;
@@ -37,16 +37,16 @@ md-sidenav {
       height: 40px;
     }
 
-    .md-toolbar-layout {
+    .mat-toolbar-layout {
       height: $topnav-height;
 
-      md-toolbar-row {
+      mat-toolbar-row {
         height: $topnav-height;
       }
     }
   }
 
-  .md-list-item {
+  .mat-list-item {
     padding-left: 25px !important;
     padding-right: 25px !important;
   }
@@ -91,7 +91,7 @@ md-sidenav-layout {
 }
 
 .item-selected {
-  .md-list-item {
+  .mat-list-item {
     padding-left: 0 !important;
     background-color: darken($sidebar-color, 4%) !important;
 
@@ -106,15 +106,15 @@ md-sidenav-layout {
   }
 }
 
-md-nav-list.side-navigation {
+mat-nav-list.side-navigation {
   width: 100%;
   padding-top: 0;
 
-  a[md-list-item] {
+  a[mat-list-item] {
     position: relative;
   }
 
-  a[md-list-item] > .md-list-item {
+  a[mat-list-item] > .mat-list-item {
     @include font-body();
     color: $sidebar-text-color;
     -webkit-font-smoothing: antialiased;
@@ -130,11 +130,11 @@ md-nav-list.side-navigation {
     }
   }
 
-  a.active > .md-list-item > i.material-icons:last-child {
+  a.active > .mat-list-item > i.material-icons:last-child {
     transform: rotate(180deg) translateZ(0);
   }
 
-  a.active:not(.nav-dropdown) > .md-list-item:not(:hover) {
+  a.active:not(.nav-dropdown) > .mat-list-item:not(:hover) {
     background-color: darken($sidebar-color, 4%) !important;
   }
 
@@ -160,7 +160,7 @@ md-nav-list.side-navigation {
     $base-padding-left: 25px;
     $base-color-change: 2%;
 
-    &.level1 a > .md-list-item {
+    &.level1 a > .mat-list-item {
       height: 38px;
       padding-left: $base-padding-left + 30px !important;
       padding-right: 5px !important;
@@ -170,14 +170,14 @@ md-nav-list.side-navigation {
         font-size: 12px;
       }
     }
-    &.level1 .item-selected > .md-list-item {
+    &.level1 .item-selected > .mat-list-item {
       padding-left: 0 !important;
 
       .selected-placeholder {
         margin-right: 49px;
       }
     }
-    &.level2 a > .md-list-item {
+    &.level2 a > .mat-list-item {
       padding-left: $base-padding-left + 45px !important;
       height: 38px;
 
@@ -186,20 +186,20 @@ md-nav-list.side-navigation {
         font-size: 12px;
       }
     }
-    &.level2 a > .md-list-item {
+    &.level2 a > .mat-list-item {
       .selected-placeholder {
         margin-right: 62px !important;
       }
     }
-    &.level3 a > .md-list-item {
+    &.level3 a > .mat-list-item {
       height: 38px;
       padding-left: $base-padding * 4;
     }
-    &.level4 a > .md-list-item {
+    &.level4 a > .mat-list-item {
       height: 38px;
       padding-left: $base-padding * 5;
     }
-    &.level5 a > .md-list-item {
+    &.level5 a > .mat-list-item {
       height: 38px;
       padding-left: $base-padding * 6;
     }
@@ -230,11 +230,11 @@ md-nav-list.side-navigation {
   }
 }
 
-.side-navigation md-nav-list {
+.side-navigation mat-nav-list {
   position: relative;
 }
 
-.side-navigation md-nav-list.nav-children:before, .side-navigation md-nav-list.nav-children:after, .side-navigation a.active:not(.nav-dropdown):before, .side-navigation a.active:not(.nav-dropdown):after {
+.side-navigation mat-nav-list.nav-children:before, .side-navigation mat-nav-list.nav-children:after, .side-navigation a.active:not(.nav-dropdown):before, .side-navigation a.active:not(.nav-dropdown):after {
   content: "";
   left: 0;
   position: absolute;
@@ -243,11 +243,11 @@ md-nav-list.side-navigation {
   z-index: 10;
 }
 
-.side-navigation md-nav-list.nav-children:before, .side-navigation a.active:before {
+.side-navigation mat-nav-list.nav-children:before, .side-navigation a.active:before {
   top: 0;
 }
 
-.side-navigation md-nav-list.nav-children:after, .side-navigation a.active:after {
+.side-navigation mat-nav-list.nav-children:after, .side-navigation a.active:after {
   bottom: 0;
 }
 
@@ -259,23 +259,23 @@ md-nav-list.side-navigation {
 
 header {
 
-  md-toolbar {
+  mat-toolbar {
     background-size: 827px $topnav-height !important;
     padding: 0 !important;
     height: $topnav-height;
     font-family: Montserrat, sans-serif;
 
-    md-toolbar-row {
+    mat-toolbar-row {
       height: $topnav-height;
     }
 
-    md-toolbar-row:not(:first-child) {
+    mat-toolbar-row:not(:first-child) {
       @media #{$medium-and-down} {
         height: 44px;
       }
     }
 
-    .md-toolbar-layout {
+    .mat-toolbar-layout {
       height: $topnav-height;
       padding: 0 16px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
