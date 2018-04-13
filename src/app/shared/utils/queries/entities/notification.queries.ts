@@ -15,7 +15,7 @@ export function notificationsListQuery(params: IndexQueryParameters): string {
 
 export function plainNotificationsListQuery(params: IndexQueryParameters): string {
   return `{
-    notificationlistbytypes ( types:["notification"], user: true, ${paginationParamsQuery(params, true)} ) {
+    notificationlistbytype ( type:"notification", ${paginationParamsQuery(params, true)} ) {
 			notifications {
 			  ${notificationsResponseQuery()}
 			}
@@ -25,7 +25,7 @@ export function plainNotificationsListQuery(params: IndexQueryParameters): strin
 
 export function alertsListQuery(): string {
   return `{
-    notificationlistbytypes ( types:["alert"], user: true ) {
+    notificationlistbytype ( type:"alert" ) {
 			notifications {
 			  ${notificationsResponseQuery()}
 			}
@@ -35,7 +35,7 @@ export function alertsListQuery(): string {
 
 export function notificationsPersistentListQuery(): string {
   return `{
-    notificationlistbytypes ( types:["persistent"], onlyUnexpired: true, user: true ) {
+    notificationlistbytype ( type:"persistent" ) {
 			notifications {
 			  ${notificationsResponseQuery()}
 			}
