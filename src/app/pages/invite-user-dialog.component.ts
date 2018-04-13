@@ -9,9 +9,9 @@ import {MatDialogRef} from '@angular/material';
     <md-card>
       <md-card-content style="display: flex; flex-direction: column">
         <div>{{'INVITEUSER_TITLE' | translate}}</div>
-        <md-input-container style="margin: 20px 0 0 0;">
-          <input md-input (keydown)="isEmail($event, email)" placeholder="{{'INVITEUSER_EMAIL' | translate}}" [(ngModel)]="email">
-        </md-input-container>
+        <mat-input-container style="margin: 20px 0 0 0;">
+          <input matInput (keydown)="isEmail($event, email)" placeholder="{{'INVITEUSER_EMAIL' | translate}}" [(ngModel)]="email">
+        </mat-input-container>
         <dropdown-component [mapper]="mapper" [options]="options" [selected]="role || {}" [placeholder]="'INVITEUSER_ROLE' | translate" (onSelect)="role = $event"></dropdown-component>
       </md-card-content>
       <md-card-actions class="custom-dialog__buttons">

@@ -6,22 +6,22 @@ import {MatDialogRef} from '@angular/material';
   selector : 'access-key-details-dialog',
   template : `
   <div class="access-key-details-container">
-    <md-input-container>
-      <input [disabled]="!editMode" [readonly]="!editMode" md-input placeholder="{{ 'ACCOUNT_KEYS_HEADER_NAME' | translate}}" [(ngModel)]="accessKey.name" type="text">
-    </md-input-container>
+    <mat-input-container>
+      <input [disabled]="!editMode" [readonly]="!editMode" matInput placeholder="{{ 'ACCOUNT_KEYS_HEADER_NAME' | translate}}" [(ngModel)]="accessKey.name" type="text">
+    </mat-input-container>
     
     <div class="flex-custom" *ngIf="!editMode">
-      <md-input-container>
-        <input #accessKeyInput readonly md-input placeholder="{{ 'ACCOUNT_KEYS_HEADER_ACCESS' | translate}}" [(ngModel)]="accessKey.accessKey" type="text">
-      </md-input-container>
+      <mat-input-container>
+        <input #accessKeyInput readonly matInput placeholder="{{ 'ACCOUNT_KEYS_HEADER_ACCESS' | translate}}" [(ngModel)]="accessKey.accessKey" type="text">
+      </mat-input-container>
       <mat-icon ngxClipboard [cbContent]="accessKey.accessKey" (click)="selectInput(accessKeyInput)">content_copy</mat-icon>
     </div>
     
     <div *ngIf="!editMode">
       <div class="flex-custom" >
-        <md-input-container>
-          <input #secretKeyInput readonly md-input placeholder="{{ 'ACCOUNT_KEYS_HEADER_SECRET' | translate}}" [(ngModel)]="showSecret ? accessKey.secretKey : accessKey.secretKeyMasked" type="text">
-        </md-input-container>
+        <mat-input-container>
+          <input #secretKeyInput readonly matInput placeholder="{{ 'ACCOUNT_KEYS_HEADER_SECRET' | translate}}" [(ngModel)]="showSecret ? accessKey.secretKey : accessKey.secretKeyMasked" type="text">
+        </mat-input-container>
         <mat-icon ngxClipboard [cbContent]="accessKey.secretKey" (click)="selectInput(secretKeyInput)">content_copy</mat-icon>
       </div>
       <div class="show-more" (click)="toggleShowSecret()">{{showSecret ? 'hide' : 'show'}}</div>

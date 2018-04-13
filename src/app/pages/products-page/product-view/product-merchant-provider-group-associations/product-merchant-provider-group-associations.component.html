@@ -1,7 +1,9 @@
 <div class="entity-view__table-component">
   <div class="entity-view__table-component__header">
     <div class="entity-view__table-component__header__title">{{'PRODUCT_MERCHANTGROUPASSOCIATION_TITLE' | translate}}</div>
-    <md-input class="entity-view__table-component__header__filter" placeholder="{{'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filterValue"></md-input>
+    <mat-input-container>
+      <input matInput class="entity-view__table-component__header__filter" placeholder="{{'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filterValue">
+    </mat-input-container>
     <table-pagination
       [limit]="limit"
       [paginationValues]="paginationValues"

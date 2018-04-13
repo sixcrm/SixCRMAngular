@@ -12,45 +12,45 @@
   <form class="entity-view__card__content" #inputForm="ngForm">
     <dropdown-component [class.error]="formInvalid && !entity.provider.name" [required]="true" [disabled]="mode === modes.View" [placeholder]="'FULFILLMENT_INFO_PROVIDER' | translate" [selected]="entity.provider.name" [options]="providers" (onSelect)="entity.provider.name = $event"></dropdown-component>
 
-    <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-      <input auto-focus required md-input [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_NAME' | translate}}" [(ngModel)]="entity.name" name="name" type="text">
-    </md-input-container>
+    <mat-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
+      <input auto-focus required matInput [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_NAME' | translate}}" [(ngModel)]="entity.name" name="name" type="text">
+    </mat-input-container>
 
     <ng-container *ngIf="entity.provider.name && (entity.provider.name === 'Hashtag' || entity.provider.name === 'ThreePL')">
-      <md-input-container [class.error]="formInvalid && !entity.provider.username" class="entity-view__card__content__item">
-        <input required md-input [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_USERNAME' | translate}}" [(ngModel)]="entity.provider.username" name="username" type="text">
-      </md-input-container>
+      <mat-input-container [class.error]="formInvalid && !entity.provider.username" class="entity-view__card__content__item">
+        <input required matInput [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_USERNAME' | translate}}" [(ngModel)]="entity.provider.username" name="username" type="text">
+      </mat-input-container>
 
-      <md-input-container [class.error]="formInvalid && !entity.provider.password" class="entity-view__card__content__item">
-        <input required md-input [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_PASSWORD' | translate}}" [(ngModel)]="entity.provider.password" name="password" type="text">
-      </md-input-container>
+      <mat-input-container [class.error]="formInvalid && !entity.provider.password" class="entity-view__card__content__item">
+        <input required matInput [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_PASSWORD' | translate}}" [(ngModel)]="entity.provider.password" name="password" type="text">
+      </mat-input-container>
 
-      <md-input-container [class.error]="formInvalid && !entity.provider.threeplKey" class="entity-view__card__content__item">
-        <input required md-input [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_THREEPLKEY' | translate}}" [(ngModel)]="entity.provider.threeplKey" name="threeplKey" type="text">
-      </md-input-container>
+      <mat-input-container [class.error]="formInvalid && !entity.provider.threeplKey" class="entity-view__card__content__item">
+        <input required matInput [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_THREEPLKEY' | translate}}" [(ngModel)]="entity.provider.threeplKey" name="threeplKey" type="text">
+      </mat-input-container>
 
-      <md-input-container *ngIf="entity.provider.name === 'ThreePL'" [class.error]="formInvalid && (!entity.provider.threeplFacilityId && entity.provider.threeplFacilityId !== 0)" class="entity-view__card__content__item">
-        <input md-input [disabled]="mode === modes.View" (keydown)="isNumeric($event)" placeholder="{{'FULFILLMENT_INFO_FACILITYID' | translate}}" [(ngModel)]="entity.provider.threeplFacilityId" name="facilityId" type="text">
-      </md-input-container>
+      <mat-input-container *ngIf="entity.provider.name === 'ThreePL'" [class.error]="formInvalid && (!entity.provider.threeplFacilityId && entity.provider.threeplFacilityId !== 0)" class="entity-view__card__content__item">
+        <input matInput [disabled]="mode === modes.View" (keydown)="isNumeric($event)" placeholder="{{'FULFILLMENT_INFO_FACILITYID' | translate}}" [(ngModel)]="entity.provider.threeplFacilityId" name="facilityId" type="text">
+      </mat-input-container>
 
-      <md-input-container *ngIf="entity.provider.name === 'ThreePL'" [class.error]="formInvalid && (!entity.provider.threeplId && entity.provider.threeplId !== 0)" class="entity-view__card__content__item">
-        <input required md-input [disabled]="mode === modes.View" (keydown)="isNumeric($event)" placeholder="{{'FULFILLMENT_INFO_THREEPLID' | translate}}" [(ngModel)]="entity.provider.threeplId" name="threeplId" type="text">
-      </md-input-container>
+      <mat-input-container *ngIf="entity.provider.name === 'ThreePL'" [class.error]="formInvalid && (!entity.provider.threeplId && entity.provider.threeplId !== 0)" class="entity-view__card__content__item">
+        <input required matInput [disabled]="mode === modes.View" (keydown)="isNumeric($event)" placeholder="{{'FULFILLMENT_INFO_THREEPLID' | translate}}" [(ngModel)]="entity.provider.threeplId" name="threeplId" type="text">
+      </mat-input-container>
 
-      <md-input-container [class.error]="formInvalid && (!entity.provider.threeplCustomerId && entity.provider.threeplCustomerId !==0)" class="entity-view__card__content__item">
-        <input required md-input [disabled]="mode === modes.View" (keydown)="isNumeric($event)" placeholder="{{'FULFILLMENT_INFO_CUSTOMERID' | translate}}" [(ngModel)]="entity.provider.threeplCustomerId" name="customerId" type="text">
-      </md-input-container>
+      <mat-input-container [class.error]="formInvalid && (!entity.provider.threeplCustomerId && entity.provider.threeplCustomerId !==0)" class="entity-view__card__content__item">
+        <input required matInput [disabled]="mode === modes.View" (keydown)="isNumeric($event)" placeholder="{{'FULFILLMENT_INFO_CUSTOMERID' | translate}}" [(ngModel)]="entity.provider.threeplCustomerId" name="customerId" type="text">
+      </mat-input-container>
     </ng-container>
 
     <ng-container *ngIf="entity.provider.name && entity.provider.name === 'ShipStation'">
 
-      <md-input-container [class.error]="formInvalid && !entity.provider.apiKey" class="entity-view__card__content__item">
-        <input required md-input [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_APIKEY' | translate}}" [(ngModel)]="entity.provider.apiKey" name="apikey" type="text">
-      </md-input-container>
+      <mat-input-container [class.error]="formInvalid && !entity.provider.apiKey" class="entity-view__card__content__item">
+        <input required matInput [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_APIKEY' | translate}}" [(ngModel)]="entity.provider.apiKey" name="apikey" type="text">
+      </mat-input-container>
 
-      <md-input-container [class.error]="formInvalid && !entity.provider.apiSecret" class="entity-view__card__content__item">
-        <input required md-input [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_APISECRET' | translate}}" [(ngModel)]="entity.provider.apiSecret" name="apisecret" type="text">
-      </md-input-container>
+      <mat-input-container [class.error]="formInvalid && !entity.provider.apiSecret" class="entity-view__card__content__item">
+        <input required matInput [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_APISECRET' | translate}}" [(ngModel)]="entity.provider.apiSecret" name="apisecret" type="text">
+      </mat-input-container>
 
     </ng-container>
 

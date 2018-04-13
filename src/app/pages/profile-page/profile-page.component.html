@@ -31,14 +31,18 @@
             </div>
 
             <div class="profile-page__content__general__data">
-              <md-input placeholder="{{'PROFILE_DETAILS_FIRSTNAME' | translate}}" [(ngModel)]="userBackup.firstName"></md-input>
-              <md-input placeholder="{{'PROFILE_DETAILS_LASTNAME' | translate}}" [(ngModel)]="userBackup.lastName"></md-input>
-              <md-input-container>
-                <input md-input placeholder="{{'PROFILE_DETAILS_WORKPHONE' | translate}}" type="text" [textMask]="{mask: mask, guide: false}" [(ngModel)]="userSettingsBackup.workPhone">
-              </md-input-container>
-              <md-input-container>
-                <input md-input placeholder="{{'PROFILE_DETAILS_CELLPHONE' | translate}}" type="text" [textMask]="{mask: mask, guide: false}" [(ngModel)]="userSettingsBackup.cellPhone">
-              </md-input-container>
+              <mat-input-container>
+                <input matInput placeholder="{{'PROFILE_DETAILS_FIRSTNAME' | translate}}" [(ngModel)]="userBackup.firstName">
+              </mat-input-container>
+              <mat-input-container>
+                <input matInput placeholder="{{'PROFILE_DETAILS_LASTNAME' | translate}}" [(ngModel)]="userBackup.lastName">
+              </mat-input-container>
+              <mat-input-container>
+                <input matInput placeholder="{{'PROFILE_DETAILS_WORKPHONE' | translate}}" type="text" [textMask]="{mask: mask, guide: false}" [(ngModel)]="userSettingsBackup.workPhone">
+              </mat-input-container>
+              <mat-input-container>
+                <input matInput placeholder="{{'PROFILE_DETAILS_CELLPHONE' | translate}}" type="text" [textMask]="{mask: mask, guide: false}" [(ngModel)]="userSettingsBackup.cellPhone">
+              </mat-input-container>
               <div class="profile-page__content__general__data__dropdown">
                 <autocomplete-input
                   [initialValue]="userSettingsBackup.timezone"
@@ -48,7 +52,9 @@
                 </autocomplete-input>
               </div>
 
-              <md-input placeholder="{{'PROFILE_DETAILS_EMAIL' | translate}}" [value]="user.email"></md-input>
+              <mat-input-container>
+                <input matInput placeholder="{{'PROFILE_DETAILS_EMAIL' | translate}}" [value]="user.email">
+              </mat-input-container>
 
               <div class="profile-page__content__general__data__dropdown">
 

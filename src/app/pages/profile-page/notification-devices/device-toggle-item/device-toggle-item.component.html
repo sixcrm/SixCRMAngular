@@ -18,9 +18,9 @@
 
     <ng-template #edit>
       <div class="label">{{deviceLabels[notificationSettings.name]}}</div>
-      <md-input-container class="mrw-input--no-margin-top">
-        <input #valueInput auto-focus (blur)="updateData()" [applyAutofocus]="true" md-input type="text" [value]="notificationSettings.data">
-      </md-input-container>
+      <mat-input-container class="mrw-input--no-margin-top">
+        <input #valueInput auto-focus (blur)="updateData()" [applyAutofocus]="true" matInput type="text" [value]="notificationSettings.data">
+      </mat-input-container>
     </ng-template>
   </div>
 

@@ -10,9 +10,10 @@
         <div class="search__sidenav">
           <md-nav-list>
             <div class="search__sidenav__query__container">
-              <md-input (focus)="showAutoComplete()" [value]="queryString" (input)="quickSearchInputChanged($event)" (keydown)="quickSearchKeyDown($event)" (blur)="hideAutoComplete()">
-                <mat-icon class="search__sidenav__query__icon" md-prefix (click)="quickSearch()">search</mat-icon>
-              </md-input>
+              <mat-input-container>
+                <input matInput (focus)="showAutoComplete()" [value]="queryString" (input)="quickSearchInputChanged($event)" (keydown)="quickSearchKeyDown($event)" (blur)="hideAutoComplete()">
+                <mat-icon class="search__sidenav__query__icon" matPrefix (click)="quickSearch()">search</mat-icon>
+              </mat-input-container>
               <autocomplete #autocomplete *ngIf="showAutocomplete && autocompleteOptions.length > 0" (select)="suggestionSelected($event)" [options]="autocompleteOptions"></autocomplete>
             </div>
             <div class="search__sidenav__button--advanced" (click)="toggleAdvancedSearch()"><span>{{'SEARCH_ADVANCED_TOGGLE' | translate}}</span> <mat-icon>{{showAdvancedSearch ? 'keyboard_arrow_left' : 'keyboard_arrow_right'}}</mat-icon></div>
@@ -77,7 +78,9 @@
           <button md-menu-item (click)="setSortBy('def')">{{'SEARCH_SORT_DEF' | translate}}</button>
         </mat-menu>
 
-        <md-input placeholder="{{'SEARCH_FILTER' | translate}}" [(ngModel)]="filterValue"></md-input>
+        <mat-input-container>
+          <input matInput placeholder="{{'SEARCH_FILTER' | translate}}" [(ngModel)]="filterValue">
+        </mat-input-container>
 
         <table-pagination
           *ngIf="!cardMode"

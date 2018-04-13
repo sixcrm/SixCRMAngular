@@ -15,42 +15,42 @@
     </div>
 
     <div class="entity-view__card__content">
-      <md-input-container style="margin-right: 25px;" [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-        <input auto-focus required md-input [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text">
-      </md-input-container>
+      <mat-input-container style="margin-right: 25px;" [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
+        <input auto-focus required matInput [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text">
+      </mat-input-container>
 
       <md-textarea [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_DESCRIPTION' | translate}}" name="description" [(ngModel)]="entity.description" type="text" rows="2"></md-textarea>
 
       <div class="product-view__group">
-        <md-input-container [class.error]="formInvalid && !entity.sku" class="entity-view__card__content__item">
-          <input required md-input [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_SKU' | translate}}" name="sku" [(ngModel)]="entity.sku" type="text">
-        </md-input-container>
+        <mat-input-container [class.error]="formInvalid && !entity.sku" class="entity-view__card__content__item">
+          <input required matInput [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_SKU' | translate}}" name="sku" [(ngModel)]="entity.sku" type="text">
+        </mat-input-container>
       </div>
 
       <div style="margin-top: 15px;" class="product-view__group">
-        <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && defaultInvalid()">
-          <input md-input currencyInput [initPrice]="entity.defaultPrice" (priceChanged)="priceUpdated($event)" [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_DEFAULTPRICE' | translate}}" name="defaultPrice" (keydown)="isCurrency($event)" type="text">
-        </md-input-container>
+        <mat-input-container class="entity-view__card__content__item" [class.error]="formInvalid && defaultInvalid()">
+          <input matInput currencyInput [initPrice]="entity.defaultPrice" (priceChanged)="priceUpdated($event)" [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_DEFAULTPRICE' | translate}}" name="defaultPrice" (keydown)="isCurrency($event)" type="text">
+        </mat-input-container>
 
         <mat-checkbox class="dynamic-checkbox" [disabled]="mode === view" [checked]="entity.dynamicPrice.enabled" (change)="toggleDynamic()">{{'PRODUCT_INFO_DYNAMICPRICE' | translate}}</mat-checkbox>
       </div>
 
       <div *ngIf="entity.dynamicPrice.enabled" style="margin-top: 15px;" class="product-view__group">
-        <md-input-container [class.error]="formInvalid && dynamicInvalid()" class="entity-view__card__content__item">
-          <input md-input [disabled]="mode === view" currencyInput [initPrice]="entity.dynamicPrice.min" (priceChanged)="entity.dynamicPrice.min = $event" placeholder="{{'PRODUCT_INFO_MINPRICE' | translate}}" name="defaultPrice" (keydown)="isCurrency($event)" type="text">
-        </md-input-container>
+        <mat-input-container [class.error]="formInvalid && dynamicInvalid()" class="entity-view__card__content__item">
+          <input matInput [disabled]="mode === view" currencyInput [initPrice]="entity.dynamicPrice.min" (priceChanged)="entity.dynamicPrice.min = $event" placeholder="{{'PRODUCT_INFO_MINPRICE' | translate}}" name="defaultPrice" (keydown)="isCurrency($event)" type="text">
+        </mat-input-container>
 
-        <md-input-container [class.error]="formInvalid && dynamicInvalid()" class="entity-view__card__content__item">
-          <input md-input [disabled]="mode === view" currencyInput [initPrice]="entity.dynamicPrice.max" (priceChanged)="entity.dynamicPrice.max = $event" placeholder="{{'PRODUCT_INFO_MAXPRICE' | translate}}" name="defaultPrice" (keydown)="isCurrency($event)" type="text">
-        </md-input-container>
+        <mat-input-container [class.error]="formInvalid && dynamicInvalid()" class="entity-view__card__content__item">
+          <input matInput [disabled]="mode === view" currencyInput [initPrice]="entity.dynamicPrice.max" (priceChanged)="entity.dynamicPrice.max = $event" placeholder="{{'PRODUCT_INFO_MAXPRICE' | translate}}" name="defaultPrice" (keydown)="isCurrency($event)" type="text">
+        </mat-input-container>
       </div>
 
       <div style="margin-top: 15px;" class="product-view__group">
         <mat-checkbox style="font-size: 14px;" [disabled]="mode === view" [checked]="entity.ship" (change)="toggleShip()">{{'PRODUCT_INFO_SHIP' | translate}}</mat-checkbox>
 
-        <md-input-container [class.error]="formInvalid && !entity.shippingDelay && entity.shippingDelay !== 0 && entity.ship" class="entity-view__card__content__item">
-          <input [required]="entity.ship" md-input [disabled]="mode === view || !entity.ship" (keydown)="isNumeric($event)" placeholder="{{'PRODUCT_INFO_SHIPDELAY' | translate}}" name="shippingDelay" [(ngModel)]="entity.shippingDelay" type="number">
-        </md-input-container>
+        <mat-input-container [class.error]="formInvalid && !entity.shippingDelay && entity.shippingDelay !== 0 && entity.ship" class="entity-view__card__content__item">
+          <input [required]="entity.ship" matInput [disabled]="mode === view || !entity.ship" (keydown)="isNumeric($event)" placeholder="{{'PRODUCT_INFO_SHIPDELAY' | translate}}" name="shippingDelay" [(ngModel)]="entity.shippingDelay" type="number">
+        </mat-input-container>
       </div>
 
       <autocomplete-input class="product-autocomplete-input"

@@ -35,22 +35,22 @@
 
           <div class="entity-view__card__content">
             <div class="flex-custom">
-              <md-input-container class="entity-view__card__content__item number-input">
-                <input md-input disabled placeholder="{{'SHIPPINGRECEIPT_INFO_NUMBER' | translate}}" [(ngModel)]="entity.tracking.id" type="text">
-              </md-input-container>
+              <mat-input-container class="entity-view__card__content__item number-input">
+                <input matInput disabled placeholder="{{'SHIPPINGRECEIPT_INFO_NUMBER' | translate}}" [(ngModel)]="entity.tracking.id" type="text">
+              </mat-input-container>
               <mat-icon *ngIf="entity.tracking.id" class="copy-icon" matTooltip="{{'SHARE_COPY' | translate}}" ngxClipboard [cbContent]="entity.tracking.id">content_copy</mat-icon>
             </div>
 
             <div class="flex-custom">
-              <md-input-container class="entity-view__card__content__item number-input">
-                <input md-input disabled placeholder="{{'SHIPPINGRECEIPT_INFO_CARRIER' | translate}}" [(ngModel)]="entity.tracking.carrier" type="text">
-              </md-input-container>
+              <mat-input-container class="entity-view__card__content__item number-input">
+                <input matInput disabled placeholder="{{'SHIPPINGRECEIPT_INFO_CARRIER' | translate}}" [(ngModel)]="entity.tracking.carrier" type="text">
+              </mat-input-container>
               <mat-icon *ngIf="entity.tracking.id" class="copy-icon" matTooltip="{{'SHARE_COPY' | translate}}" ngxClipboard [cbContent]="entity.tracking.carrier">content_copy</mat-icon>
             </div>
 
-            <md-input-container class="entity-view__card__content__item">
-              <input md-input disabled placeholder="{{'SHIPPINGRECEIPT_INFO_FULFILLMENTPROVIDER' | translate}}" [(ngModel)]="entity.fulfillmentProvider.name" type="text">
-            </md-input-container>
+            <mat-input-container class="entity-view__card__content__item">
+              <input matInput disabled placeholder="{{'SHIPPINGRECEIPT_INFO_FULFILLMENTPROVIDER' | translate}}" [(ngModel)]="entity.fulfillmentProvider.name" type="text">
+            </mat-input-container>
           </div>
         </div>
 

@@ -9,9 +9,9 @@ import {MatDialogRef} from '@angular/material';
         <div style="margin-bottom: 10px;">{{text | translate}}</div>
         <div style="margin-bottom: 10px;" *ngIf="secondaryText">{{secondaryText | translate}}</div>
         
-        <md-input-container>
-          <input md-input (keydown)="keydownAllowFunction($event, inputContent)" placeholder="{{inputPlaceholder | translate}}" [(ngModel)]="inputContent" type="text">
-        </md-input-container>
+        <mat-input-container>
+          <input matInput (keydown)="keydownAllowFunction($event, inputContent)" placeholder="{{inputPlaceholder | translate}}" [(ngModel)]="inputContent" type="text">
+        </mat-input-container>
         
       </md-card-content>
       <md-card-actions class="custom-dialog__buttons">

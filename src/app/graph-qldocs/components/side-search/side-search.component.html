@@ -1,5 +1,7 @@
 <div class="side-search">
-  <md-input placeholder="Filter by name" [(ngModel)]="filterString"></md-input>
+  <mat-input-container>
+    <input matInput placeholder="Filter by name" [(ngModel)]="filterString">
+  </mat-input-container>
 
   <ng-container *ngFor="let searchItem of searchItems">
     <div *ngIf="searchItem.children && searchItem.children.length > 0" class="side-search__item">

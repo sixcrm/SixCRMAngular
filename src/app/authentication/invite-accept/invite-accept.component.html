@@ -41,13 +41,13 @@
         </div>
       </div>
       <form #regForm="ngForm" class="registration-form__form">
-        <md-input-container [class.form-error]="formInvalid && !firstName">
-          <input md-input required placeholder="{{'ACCEPTINVITE_FORM_FIRSTNAME' | translate}}" type="text" name="firstName" [(ngModel)]="firstName">
-        </md-input-container>
+        <mat-input-container [class.form-error]="formInvalid && !firstName">
+          <input matInput required placeholder="{{'ACCEPTINVITE_FORM_FIRSTNAME' | translate}}" type="text" name="firstName" [(ngModel)]="firstName">
+        </mat-input-container>
 
-        <md-input-container [class.form-error]="formInvalid && !lastName">
-          <input md-input required placeholder="{{'ACCEPTINVITE_FORM_LASTNAME' | translate}}" type="text" name="lastName" [(ngModel)]="lastName">
-        </md-input-container>
+        <mat-input-container [class.form-error]="formInvalid && !lastName">
+          <input matInput required placeholder="{{'ACCEPTINVITE_FORM_LASTNAME' | translate}}" type="text" name="lastName" [(ngModel)]="lastName">
+        </mat-input-container>
       </form>
       <div class="registration-form__button accept-invite__button--standalone" (click)="submitInfo(regForm.form.valid)">{{'ACCEPTINVITE_FORM_CONT' | translate}}</div>
 

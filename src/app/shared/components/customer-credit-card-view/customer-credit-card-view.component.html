@@ -48,34 +48,34 @@
   </md-card-title>
   <md-card-content class="flex-custom">
     <div class="customer-view__card__column customer-view__card__column--first">
-      <md-input-container [class.small]="ripped">
-        <input disabled md-input placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="creditCards[0].address.line1">
-      </md-input-container>
-      <md-input-container [class.small]="ripped">
-        <input disabled md-input placeholder="{{'FORMINPUTS_CITY' | translate}}" [(ngModel)]="creditCards[0].address.city">
-      </md-input-container>
+      <mat-input-container [class.small]="ripped">
+        <input disabled matInput placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="creditCards[0].address.line1">
+      </mat-input-container>
+      <mat-input-container [class.small]="ripped">
+        <input disabled matInput placeholder="{{'FORMINPUTS_CITY' | translate}}" [(ngModel)]="creditCards[0].address.city">
+      </mat-input-container>
 
       <div class="flex-custom customer-view__card__address-row">
         <dropdown-component [disabled]="true" [selected]="creditCards[0].address.state" [placeholder]="'FORMINPUTS_STATE' | translate"></dropdown-component>
-        <md-input-container>
-          <input disabled md-input placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="creditCards[0].address.zip">
-        </md-input-container>
+        <mat-input-container>
+          <input disabled matInput placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="creditCards[0].address.zip">
+        </mat-input-container>
       </div>
       <dropdown-component [disabled]="true" [selected]="creditCards[0].address.country" [placeholder]="'FORMINPUTS_COUNTRY' | translate"></dropdown-component>
     </div>
     <div class="customer-view__card__column">
-      <md-input-container [class.small]="ripped">
-        <input disabled md-input placeholder="{{'FORMINPUTS_CREDITCARD_NAME' | translate}}" [(ngModel)]="creditCards[0].name">
-      </md-input-container>
-      <md-input-container [class.small]="ripped">
-        <input disabled md-input placeholder="{{'FORMINPUTS_CREDITCARD_TYPE' | translate}}" [(ngModel)]="creditCards[0].type">
-      </md-input-container>
-      <md-input-container [class.small]="ripped">
-        <input disabled md-input placeholder="{{'FORMINPUTS_CREDITCARD_NUMBER' | translate}}" [(ngModel)]="creditCards[0].maskedNumber">
-      </md-input-container>
-      <md-input-container [class.small]="ripped">
-        <input disabled md-input placeholder="{{'FORMINPUTS_CREDITCARD_EXPIRATION' | translate}}" [(ngModel)]="creditCards[0].expirationFormatted">
-      </md-input-container>
+      <mat-input-container [class.small]="ripped">
+        <input disabled matInput placeholder="{{'FORMINPUTS_CREDITCARD_NAME' | translate}}" [(ngModel)]="creditCards[0].name">
+      </mat-input-container>
+      <mat-input-container [class.small]="ripped">
+        <input disabled matInput placeholder="{{'FORMINPUTS_CREDITCARD_TYPE' | translate}}" [(ngModel)]="creditCards[0].type">
+      </mat-input-container>
+      <mat-input-container [class.small]="ripped">
+        <input disabled matInput placeholder="{{'FORMINPUTS_CREDITCARD_NUMBER' | translate}}" [(ngModel)]="creditCards[0].maskedNumber">
+      </mat-input-container>
+      <mat-input-container [class.small]="ripped">
+        <input disabled matInput placeholder="{{'FORMINPUTS_CREDITCARD_EXPIRATION' | translate}}" [(ngModel)]="creditCards[0].expirationFormatted">
+      </mat-input-container>
     </div>
   </md-card-content>
 </md-card>

@@ -27,8 +27,9 @@
 
       <div class="advanced-filter__query" [class.advanced-filter__query--no-group-by]="!groupByEnabled">
         <div class="advanced-filter__query__input" [class.advanced-filter__query__input--advanced]="advanced">
-          <md-input placeholder="{{'ADVANCEDFILTER_FILTERS' | translate}}" [value]="currentFilterTerm" (input)="filterTermInput($event)" (blur)="filterTermInputBlur()" (focus)="filterTermInputFocus()">
-            <div class="advanced-filter__query__input__prefix" md-prefix>
+          <mat-input-container>
+            <input matInput placeholder="{{'ADVANCEDFILTER_FILTERS' | translate}}" [value]="currentFilterTerm" (input)="filterTermInput($event)" (blur)="filterTermInputBlur()" (focus)="filterTermInputFocus()">
+            <div matPrefix class="advanced-filter__query__input__prefix">
               <div *ngFor="let filterTerm of filterTerms" class="advanced-filter__query__input__prefix__item">
                 <div class="advanced-filter__query__input__prefix__item__image" [style.background]="colors[filterTerm.type] || '#F16C00'">{{filterTerm.type.substring(0,1).toUpperCase()}}</div>
                 <div class="advanced-filter__query__input__prefix__item__text">{{filterTerm.label}}</div>
@@ -42,7 +43,7 @@
                 </div>
               </div>
             </div>
-          </md-input>
+          </mat-input-container>
         </div>
       </div>
 
@@ -70,9 +71,17 @@
         <div class="advanced-filter__advanced__row--flex">
           <input-autocomplete [title]="'ADVANCEDFILTER_PRODUCTSCHEDULE' | translate" [entityType]="'productschedule'" (selected)="addFilterTerm($event)"></input-autocomplete>
           <div>
-            <md-input class="advanced-filter__advanced__small" placeholder="{{'ADVANCEDFILTER_SUBID1' | translate}}"></md-input>
-            <md-input class="advanced-filter__advanced__small" placeholder="{{'ADVANCEDFILTER_SUBID2' | translate}}"></md-input>
-            <md-input class="advanced-filter__advanced__small" placeholder="{{'ADVANCEDFILTER_SUBID3' | translate}}"></md-input>
+            <mat-input-container>
+              <input matInput class="advanced-filter__advanced__small" placeholder="{{'ADVANCEDFILTER_SUBID1' | translate}}">
+            </mat-input-container>
+
+            <mat-input-container>
+              <input matInput class="advanced-filter__advanced__small" placeholder="{{'ADVANCEDFILTER_SUBID2' | translate}}">
+            </mat-input-container>
+
+            <mat-input-container>
+              <input matInput class="advanced-filter__advanced__small" placeholder="{{'ADVANCEDFILTER_SUBID3' | translate}}">
+            </mat-input-container>
           </div>
         </div>
 
@@ -80,8 +89,13 @@
           <input-autocomplete [title]="'ADVANCEDFILTER_MERCHANTPROVIDER' | translate" [entityType]="'merchantprocessor'" (selected)="addFilterTerm($event)"></input-autocomplete>
 
           <div>
-            <md-input class="advanced-filter__advanced__small" placeholder="{{'ADVANCEDFILTER_SUBID4' | translate}}"></md-input>
-            <md-input class="advanced-filter__advanced__small" placeholder="{{'ADVANCEDFILTER_SUBID5' | translate}}"></md-input>
+            <mat-input-container>
+              <input matInput class="advanced-filter__advanced__small" placeholder="{{'ADVANCEDFILTER_SUBID4' | translate}}">
+            </mat-input-container>
+
+            <mat-input-container>
+              <input matInput class="advanced-filter__advanced__small" placeholder="{{'ADVANCEDFILTER_SUBID5' | translate}}">
+            </mat-input-container>
           </div>
         </div>
 

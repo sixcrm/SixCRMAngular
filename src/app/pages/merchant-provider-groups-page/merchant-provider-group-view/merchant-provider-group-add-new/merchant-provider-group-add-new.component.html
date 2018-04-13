@@ -4,9 +4,9 @@
   </div>
 
   <form class="entity-view__card__content">
-    <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-      <input auto-focus required md-input placeholder="{{'MERCHANTPROVIDERGROUP_INFO_NAME' | translate}}" [(ngModel)]="entity.name" name="name" type="text">
-    </md-input-container>
+    <mat-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
+      <input auto-focus required matInput placeholder="{{'MERCHANTPROVIDERGROUP_INFO_NAME' | translate}}" [(ngModel)]="entity.name" name="name" type="text">
+    </mat-input-container>
   </form>
 
   <div class="entity-view__card__actions">

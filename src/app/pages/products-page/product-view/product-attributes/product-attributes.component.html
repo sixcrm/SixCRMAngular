@@ -18,17 +18,17 @@
         </dropdown-component>
       </div>
 
-      <md-input-container class="entity-view__card__content__item">
-        <input md-input [disabled]="mode === modes.View" placeholder="{{'PRODUCT_INFO_ATTRIBUTES_HEIGHT' | translate}}" name="height" [(ngModel)]="attributes.dimensions.height.units" type="text">
-      </md-input-container>
+      <mat-input-container class="entity-view__card__content__item">
+        <input matInput [disabled]="mode === modes.View" placeholder="{{'PRODUCT_INFO_ATTRIBUTES_HEIGHT' | translate}}" name="height" [(ngModel)]="attributes.dimensions.height.units" type="text">
+      </mat-input-container>
 
-      <md-input-container class="entity-view__card__content__item">
-        <input md-input [disabled]="mode === modes.View" placeholder="{{'PRODUCT_INFO_ATTRIBUTES_LENGTH' | translate}}" name="length" [(ngModel)]="attributes.dimensions.length.units" type="text">
-      </md-input-container>
+      <mat-input-container class="entity-view__card__content__item">
+        <input matInput [disabled]="mode === modes.View" placeholder="{{'PRODUCT_INFO_ATTRIBUTES_LENGTH' | translate}}" name="length" [(ngModel)]="attributes.dimensions.length.units" type="text">
+      </mat-input-container>
 
-      <md-input-container class="entity-view__card__content__item">
-        <input md-input [disabled]="mode === modes.View" placeholder="{{'PRODUCT_INFO_ATTRIBUTES_WIDTH' | translate}}" name="width" [(ngModel)]="attributes.dimensions.width.units" type="text">
-      </md-input-container>
+      <mat-input-container class="entity-view__card__content__item">
+        <input matInput [disabled]="mode === modes.View" placeholder="{{'PRODUCT_INFO_ATTRIBUTES_WIDTH' | translate}}" name="width" [(ngModel)]="attributes.dimensions.width.units" type="text">
+      </mat-input-container>
 
       <div style="margin-top: 35px;" class="flex-custom">
         <div class="attribute-title">{{'PRODUCT_INFO_ATTRIBUTES_WEIGHT' | translate}}</div>
@@ -42,9 +42,9 @@
         </dropdown-component>
       </div>
 
-      <md-input-container class="entity-view__card__content__item">
-        <input md-input [disabled]="mode === modes.View" placeholder="{{'PRODUCT_INFO_ATTRIBUTES_WEIGHT' | translate}}" name="weight" [(ngModel)]="attributes.weight.units" type="text">
-      </md-input-container>
+      <mat-input-container class="entity-view__card__content__item">
+        <input matInput [disabled]="mode === modes.View" placeholder="{{'PRODUCT_INFO_ATTRIBUTES_WEIGHT' | translate}}" name="weight" [(ngModel)]="attributes.weight.units" type="text">
+      </mat-input-container>
 
     </div>
 

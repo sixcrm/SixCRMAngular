@@ -24,19 +24,19 @@
 
           <div class="body">
             <div class="body__row">
-              <md-input-container>
-                <input type="text" auto-focus md-input placeholder="Start" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.start" (input)="recalculate()">
-              </md-input-container>
+              <mat-input-container>
+                <input type="text" auto-focus matInput placeholder="Start" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.start" (input)="recalculate()">
+              </mat-input-container>
 
-              <md-input-container>
-                <input type="text" md-input placeholder="End" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.end" (input)="recalculate()">
-              </md-input-container>
+              <mat-input-container>
+                <input type="text" matInput placeholder="End" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.end" (input)="recalculate()">
+              </mat-input-container>
             </div>
 
             <div class="body__row">
-              <md-input-container>
-                <input type="text" md-input placeholder="Cycle" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.period" (input)="recalculate()">
-              </md-input-container>
+              <mat-input-container>
+                <input type="text" matInput placeholder="Cycle" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.period" (input)="recalculate()">
+              </mat-input-container>
 
               <autocomplete-input
                 [fullWidth]="true"
@@ -54,9 +54,9 @@
 
           <div class="body">
             <div class="body__row">
-              <md-input-container>
-                <input type="text" md-input placeholder="Price" currencyInput [initPrice]="_scheduleBackup.price" (priceChanged)="_scheduleBackup.price = $event">
-              </md-input-container>
+              <mat-input-container>
+                <input type="text" matInput placeholder="Price" currencyInput [initPrice]="_scheduleBackup.price" (priceChanged)="_scheduleBackup.price = $event">
+              </mat-input-container>
             </div>
           </div>
 
@@ -68,26 +68,26 @@
 
           <div class="body">
             <div class="body__row">
-              <md-input-container>
-                <input type="text" md-input disabled placeholder="Start" [(ngModel)]="_productSchedule.start">
-              </md-input-container>
+              <mat-input-container>
+                <input type="text" matInput disabled placeholder="Start" [(ngModel)]="_productSchedule.start">
+              </mat-input-container>
 
-              <md-input-container>
-                <input type="text" md-input disabled placeholder="End" [(ngModel)]="_productSchedule.end">
-              </md-input-container>
+              <mat-input-container>
+                <input type="text" matInput disabled placeholder="End" [(ngModel)]="_productSchedule.end">
+              </mat-input-container>
             </div>
           </div>
 
           <div class="header"><div>Pricing</div></div>
 
           <div class="body">
-            <md-input-container>
-              <input type="text" md-input placeholder="Quantity" [(ngModel)]="_productSchedule.quantity">
-            </md-input-container>
+            <mat-input-container>
+              <input type="text" matInput placeholder="Quantity" [(ngModel)]="_productSchedule.quantity">
+            </mat-input-container>
 
-            <md-input-container>
-              <input md-input disabled type="text" placeholder="Discount Code">
-            </md-input-container>
+            <mat-input-container>
+              <input matInput disabled type="text" placeholder="Discount Code">
+            </mat-input-container>
           </div>
 
           <div class="buttons"><div (click)="saveProductSchedule()">SAVE</div></div>
@@ -99,15 +99,15 @@
           </div>
 
           <div class="body">
-            <md-input-container>
-              <input md-input disabled type="text" placeholder="Quantity" [(ngModel)]="_product.quantity">
-            </md-input-container>
-            <md-input-container>
-              <input md-input disabled type="text" placeholder="Price" currencyInput [initPrice]="_product.price">
-            </md-input-container>
-            <md-input-container>
-              <input md-input disabled type="text" placeholder="Discount Code">
-            </md-input-container>
+            <mat-input-container>
+              <input matInput disabled type="text" placeholder="Quantity" [(ngModel)]="_product.quantity">
+            </mat-input-container>
+            <mat-input-container>
+              <input matInput disabled type="text" placeholder="Price" currencyInput [initPrice]="_product.price">
+            </mat-input-container>
+            <mat-input-container>
+              <input matInput disabled type="text" placeholder="Discount Code">
+            </mat-input-container>
           </div>
         </div>
 

@@ -9,9 +9,9 @@
 
   <div class="entity-view__card__content">
     <div *ngIf="mode !== modes.View" class="tracker-view__card__content__name">
-      <md-input-container [class.error]="formInvalid && !entity.name">
-        <input auto-focus md-input type="text" placeholder="{{'TRACKER_INFO_NAME' | translate}}" [(ngModel)]="entity.name">
-      </md-input-container>
+      <mat-input-container [class.error]="formInvalid && !entity.name">
+        <input auto-focus matInput type="text" placeholder="{{'TRACKER_INFO_NAME' | translate}}" [(ngModel)]="entity.name">
+      </mat-input-container>
     </div>
 
     <div class="tracker-view__card__content__type">

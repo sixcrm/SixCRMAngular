@@ -3,7 +3,9 @@
     <div class="customer-transactions__title-container">
       <div class="title">{{ 'PROFILE_SIGNINGSTRINGS_TITLE' | translate}}</div>
     </div>
-    <md-input class="entity-view__table-component__header__filter" placeholder="{{ 'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filterValue"></md-input>
+    <mat-input-container>
+      <input matInput class="entity-view__table-component__header__filter" placeholder="{{ 'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filterValue">
+    </mat-input-container>
     <table-pagination
       [limit]="limit"
       [paginationValues]="paginationValues"

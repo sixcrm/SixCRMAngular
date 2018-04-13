@@ -16,12 +16,12 @@
           </div>
         </div>
         <div class="image-details">
-          <md-input-container>
-            <input md-input placeholder="{{ 'PRODUCT_IMAGE_VIEW_NAME' | translate }}" [(ngModel)]="image.name" type="text" [disabled]="!image.editMode">
-          </md-input-container>
-          <md-input-container>
-            <input md-input placeholder="{{ 'PRODUCT_IMAGE_VIEW_DESCRIPTION' | translate }}" [(ngModel)]="image.description" type="text" [disabled]="!image.editMode">
-          </md-input-container>
+          <mat-input-container>
+            <input matInput placeholder="{{ 'PRODUCT_IMAGE_VIEW_NAME' | translate }}" [(ngModel)]="image.name" type="text" [disabled]="!image.editMode">
+          </mat-input-container>
+          <mat-input-container>
+            <input matInput placeholder="{{ 'PRODUCT_IMAGE_VIEW_DESCRIPTION' | translate }}" [(ngModel)]="image.description" type="text" [disabled]="!image.editMode">
+          </mat-input-container>
 
           <ng-container *ngIf="image.editMode">
             <mat-checkbox class="image-checkbox checkbox-blue" [(ngModel)]="image.defaultImage">{{ 'PRODUCT_IMAGE_VIEW_DEFAULT' | translate }}</mat-checkbox>

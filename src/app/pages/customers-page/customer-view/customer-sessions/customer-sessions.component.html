@@ -2,7 +2,10 @@
   <div class="entity-view__table-component__header">
     <div class="entity-view__table-component__header__title">{{'CUSTOMER_SESSION_TITLE' | translate}}</div>
 
-    <md-input class="entity-view__table-component__header__filter" placeholder="Filter" [(ngModel)]="filterValue"></md-input>
+    <mat-input-container>
+      <input matInput class="entity-view__table-component__header__filter" placeholder="Filter" [(ngModel)]="filterValue">
+    </mat-input-container>
+
     <table-pagination
       [limit]="limit"
       [paginationValues]="paginationValues"

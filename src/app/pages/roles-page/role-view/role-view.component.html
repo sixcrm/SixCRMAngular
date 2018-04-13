@@ -9,9 +9,9 @@
 
     <div class="entity-view__header__title">
       <ng-container *ngIf="updateMode; else viewmode">
-        <md-input-container>
-          <input auto-focus md-input type="text" [(ngModel)]="entity.name">
-        </md-input-container>
+        <mat-input-container>
+          <input auto-focus matInput type="text" [(ngModel)]="entity.name">
+        </mat-input-container>
       </ng-container>
 
       <ng-template #viewmode>{{entity.name}}</ng-template>

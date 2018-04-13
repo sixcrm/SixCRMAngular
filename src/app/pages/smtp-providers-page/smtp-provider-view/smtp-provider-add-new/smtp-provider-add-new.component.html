@@ -11,33 +11,33 @@
   </div>
 
   <form class="entity-view__card__content" #smtpInputForm="ngForm">
-    <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-      <input auto-focus required md-input [disabled]="mode === modes.View" placeholder="{{'SMTP_INFO_NAME' | translate}}" [(ngModel)]="entity.name" name="name" type="text">
-    </md-input-container>
+    <mat-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
+      <input auto-focus required matInput [disabled]="mode === modes.View" placeholder="{{'SMTP_INFO_NAME' | translate}}" [(ngModel)]="entity.name" name="name" type="text">
+    </mat-input-container>
 
-    <md-input-container [class.error]="formInvalid && !entity.fromName" class="entity-view__card__content__item">
-      <input required md-input [disabled]="mode === modes.View" placeholder="{{'SMTP_INFO_FROMNAME' | translate}}" [(ngModel)]="entity.fromName" name="fromName" type="text">
-    </md-input-container>
+    <mat-input-container [class.error]="formInvalid && !entity.fromName" class="entity-view__card__content__item">
+      <input required matInput [disabled]="mode === modes.View" placeholder="{{'SMTP_INFO_FROMNAME' | translate}}" [(ngModel)]="entity.fromName" name="fromName" type="text">
+    </mat-input-container>
 
-    <md-input-container [class.error]="formInvalid && !entity.fromEmail" class="entity-view__card__content__item">
-      <input required md-input [disabled]="mode === modes.View" placeholder="{{'SMTP_INFO_FROMEMAIL' | translate}}" [(ngModel)]="entity.fromEmail" name="fromEmail" type="text">
-    </md-input-container>
+    <mat-input-container [class.error]="formInvalid && !entity.fromEmail" class="entity-view__card__content__item">
+      <input required matInput [disabled]="mode === modes.View" placeholder="{{'SMTP_INFO_FROMEMAIL' | translate}}" [(ngModel)]="entity.fromEmail" name="fromEmail" type="text">
+    </mat-input-container>
 
-    <md-input-container [class.error]="formInvalid && !entity.hostname" class="entity-view__card__content__item">
-      <input required md-input [disabled]="mode === modes.View" placeholder="{{'SMTP_INFO_HOST' | translate}}" [(ngModel)]="entity.hostname" name="host" type="text">
-    </md-input-container>
+    <mat-input-container [class.error]="formInvalid && !entity.hostname" class="entity-view__card__content__item">
+      <input required matInput [disabled]="mode === modes.View" placeholder="{{'SMTP_INFO_HOST' | translate}}" [(ngModel)]="entity.hostname" name="host" type="text">
+    </mat-input-container>
 
-    <md-input-container [class.error]="formInvalid && !entity.username" class="entity-view__card__content__item">
-      <input required md-input [disabled]="mode === modes.View" placeholder="{{'SMTP_INFO_USERNAME' | translate}}" [(ngModel)]="entity.username" name="username" type="text">
-    </md-input-container>
+    <mat-input-container [class.error]="formInvalid && !entity.username" class="entity-view__card__content__item">
+      <input required matInput [disabled]="mode === modes.View" placeholder="{{'SMTP_INFO_USERNAME' | translate}}" [(ngModel)]="entity.username" name="username" type="text">
+    </mat-input-container>
 
-    <md-input-container [class.error]="formInvalid && !entity.password" class="entity-view__card__content__item">
-      <input required md-input [disabled]="mode === modes.View" placeholder="{{'SMTP_INFO_PASSWORD' | translate}}" [(ngModel)]="entity.password" name="password" type="text">
-    </md-input-container>
+    <mat-input-container [class.error]="formInvalid && !entity.password" class="entity-view__card__content__item">
+      <input required matInput [disabled]="mode === modes.View" placeholder="{{'SMTP_INFO_PASSWORD' | translate}}" [(ngModel)]="entity.password" name="password" type="text">
+    </mat-input-container>
 
-    <md-input-container [class.error]="formInvalid && !entity.port" class="entity-view__card__content__item">
-      <input required md-input [disabled]="mode === modes.View" placeholder="{{'SMTP_INFO_PORT' | translate}}" (keydown)="isNumeric($event)" [(ngModel)]="entity.port" name="port" type="text">
-    </md-input-container>
+    <mat-input-container [class.error]="formInvalid && !entity.port" class="entity-view__card__content__item">
+      <input required matInput [disabled]="mode === modes.View" placeholder="{{'SMTP_INFO_PORT' | translate}}" (keydown)="isNumeric($event)" [(ngModel)]="entity.port" name="port" type="text">
+    </mat-input-container>
   </form>
 
   <div *ngIf="mode !== modes.View" class="entity-view__card__actions">

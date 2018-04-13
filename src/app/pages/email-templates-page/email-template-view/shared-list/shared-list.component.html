@@ -11,9 +11,9 @@
       <dropdown-component [options]="types" [placeholder]="'EMAILTEMPLATE_TOKEN_TYPE' | translate" [showFloatingPlaceholder]="true" [selected]="selectedType" (onSelect)="selectedType = $event"></dropdown-component>
 
       <mat-icon>search</mat-icon>
-      <md-input-container>
-        <input type="text" placeholder="{{'EMAILTEMPLATE_TOKEN_SEARCH' | translate}}" md-input [(ngModel)]="filterString" autocomplete=off>
-      </md-input-container>
+      <mat-input-container>
+        <input type="text" placeholder="{{'EMAILTEMPLATE_TOKEN_SEARCH' | translate}}" matInput [(ngModel)]="filterString" autocomplete=off>
+      </mat-input-container>
     </div>
   </div>
 

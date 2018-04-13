@@ -12,9 +12,9 @@
 
   <div class="entity-view__card__content">
 
-    <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-      <input auto-focus required md-input [disabled]="mode === modes.View" placeholder="{{ 'ACCOUNT_DETAILS_NAME' | translate}}" [(ngModel)]="entity.name" type="text">
-    </md-input-container>
+    <mat-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
+      <input auto-focus required matInput [disabled]="mode === modes.View" placeholder="{{ 'ACCOUNT_DETAILS_NAME' | translate}}" [(ngModel)]="entity.name" type="text">
+    </mat-input-container>
 
     <div style="margin-top: 25px;" class="user-view__item flex-custom flex-custom--center">
       <span>{{ 'ACCOUNT_DETAILS_ACTIVATED' | translate}}</span>

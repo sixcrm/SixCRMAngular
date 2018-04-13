@@ -9,9 +9,9 @@
 
   <ng-container *ngIf="!singleScheduleMode">
     <mat-icon class="search-icon">search</mat-icon>
-    <md-input-container [floatingPlaceholder]="false">
-      <input class="search-input" md-input type="text" placeholder="Filter Items" (input)="filterChanged.emit($event.target.value)">
-    </md-input-container>
+    <mat-input-container [floatPlaceholder]="false">
+      <input class="search-input" matInput type="text" placeholder="Filter Items" (input)="filterChanged.emit($event.target.value)">
+    </mat-input-container>
     <div class="divider"></div>
   </ng-container>
 
