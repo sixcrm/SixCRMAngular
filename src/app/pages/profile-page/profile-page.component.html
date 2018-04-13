@@ -21,8 +21,8 @@
     <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
     <div class="profile-page__content">
-      <md-tab-group [(selectedIndex)]="selectedIndex">
-        <md-tab>
+      <mat-tab-group [(selectedIndex)]="selectedIndex">
+        <mat-tab>
           <div *ngIf="userSettings" class="profile-page__content__general">
             <div class="profile-page__content__general__title">
               <div class="profile-page__content__general__title__main">{{'PROFILE_DETAILS_TITLE' | translate}}</div>
@@ -70,18 +70,18 @@
 
             <div class="profile-page__content__general__button" (click)="updateUserDetails()">{{'PROFILE_DETAILS_UPDATE' | translate}}</div>
           </div>
-        </md-tab>
+        </mat-tab>
 
-        <md-tab>
+        <mat-tab>
           <notification-devices
             [settings]="userSettings"
             (sendTestNotification)="sendTestNotification()"
             (sendTestAlert)="sendTestAlert()"
             (settingToggled)="updateUserSettings()">
           </notification-devices>
-        </md-tab>
+        </mat-tab>
 
-        <md-tab>
+        <mat-tab>
           <notification-preferences
             [notificationSettings]="notificationSettings"
             (sendTestNotification)="sendTestNotification()"
@@ -89,9 +89,9 @@
             (cancel)="cancelNotificationSettingsUpdate()"
             (save)="notificationSettingsUpdated()">
           </notification-preferences>
-        </md-tab>
+        </mat-tab>
 
-        <md-tab>
+        <mat-tab>
           <table-memory
             class="accounts-table"
             [data]="accounts"
@@ -101,12 +101,12 @@
             (view)="viewAccount($event)"
             [textOptions]="accountTextOptions">
           </table-memory>
-        </md-tab>
+        </mat-tab>
 
-        <md-tab>
+        <mat-tab>
           <user-signing-strings></user-signing-strings>
-        </md-tab>
-      </md-tab-group>
+        </mat-tab>
+      </mat-tab-group>
     </div>
   </div>
 </div>

@@ -17,8 +17,8 @@
       <div *ngIf="_productSchedule" [class.selected]="selectedIndex === 1" (click)="selectedIndex = 1">Cycles</div>
     </div>
 
-    <md-tab-group [(selectedIndex)]="selectedIndex">
-      <md-tab>
+    <mat-tab-group [(selectedIndex)]="selectedIndex">
+      <mat-tab>
         <div *ngIf="_scheduleBackup" class="schedule-container__schedule-details">
           <div class="header"><div>Schedule</div></div>
 
@@ -111,9 +111,9 @@
           </div>
         </div>
 
-      </md-tab>
+      </mat-tab>
 
-      <md-tab>
+      <mat-tab>
         <div *ngIf="_productSchedule" class="schedule-container__items">
 
           <div class="item" *ngFor="let s of _productSchedule.schedules; let i = index">
@@ -142,8 +142,8 @@
             <mat-icon (click)="persistNewSchedule()">add</mat-icon>
           </div>
         </div>
-      </md-tab>
-    </md-tab-group>
+      </mat-tab>
+    </mat-tab-group>
 
   </div>
 </div>

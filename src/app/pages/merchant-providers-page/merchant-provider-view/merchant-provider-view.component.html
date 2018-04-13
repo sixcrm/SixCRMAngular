@@ -40,8 +40,8 @@
 
     <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-    <md-tab-group [(selectedIndex)]="selectedIndex">
-      <md-tab>
+    <mat-tab-group [(selectedIndex)]="selectedIndex">
+      <mat-tab>
         <div class="flex-custom flex-custom--wrap">
 
           <merchant-provider-add-new [entity]="entity"
@@ -53,13 +53,13 @@
           </merchant-provider-add-new>
 
         </div>
-      </md-tab>
+      </mat-tab>
 
-      <md-tab>
+      <mat-tab>
         <coming-soon [inPage]="true"></coming-soon>
-      </md-tab>
+      </mat-tab>
 
-      <md-tab>
+      <mat-tab>
         <table-memory class="merchant-provider-view__merchant-groups"
                       [data]="entity.merchantProviderGroups || []"
                       [textOptions]="merchantProviderGroupText"
@@ -69,8 +69,8 @@
                       [dissociationEnabled]="false"
                       (view)="navigateToMerchantProviderGroup($event)">
         </table-memory>
-      </md-tab>
-    </md-tab-group>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 
 </div>

@@ -53,8 +53,8 @@
 
     <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-    <md-tab-group [(selectedIndex)]="selectedIndex">
-      <md-tab>
+    <mat-tab-group [(selectedIndex)]="selectedIndex">
+      <mat-tab>
         <div [class.customer-view__content--invisible]="creditCardInputMode" class="customer-view__content">
           <div class="flex-custom">
             <mat-card class="customer-view__card column--small">
@@ -120,9 +120,9 @@
             (created)="creditCardCreated($event)">
           </credit-card-input>
         </div>
-      </md-tab>
+      </mat-tab>
 
-      <md-tab>
+      <mat-tab>
         <div class="tab-container">
           <div [class.customer-view__content--invisible]="rebillEditMode">
             <customer-rebills [id]="entityId" (editRebill)="editRebillMode($event)"></customer-rebills>
@@ -134,20 +134,20 @@
             (cancel)="cancelRebillMode()">
           </customer-rebill-edit>
         </div>
-      </md-tab>
+      </mat-tab>
 
-      <md-tab>
+      <mat-tab>
         <div class="tab-container">
           <customer-sessions [id]="entityId"></customer-sessions>
         </div>
-      </md-tab>
+      </mat-tab>
 
-      <md-tab>
+      <mat-tab>
         <div class="tab-container">
           <customer-fulfillment></customer-fulfillment>
         </div>
-      </md-tab>
-    </md-tab-group>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 
   <ng-template #addCustomer>

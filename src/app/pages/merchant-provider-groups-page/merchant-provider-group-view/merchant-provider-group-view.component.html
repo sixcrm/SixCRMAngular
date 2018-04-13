@@ -32,8 +32,8 @@
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-  <md-tab-group [(selectedIndex)]="selectedIndex">
-    <md-tab>
+  <mat-tab-group [(selectedIndex)]="selectedIndex">
+    <mat-tab>
       <div class="entity-view__card">
         <div class="entity-view__card__header">
           <div class="entity-view__card__header__title">{{'MERCHANTPROVIDERGROUP_MERCHANT_ADDTITLE' | translate}}</div>
@@ -74,8 +74,8 @@
                       (disassociate)="disassociateMerchantProvider($event)">
         </table-memory>
       </div>
-    </md-tab>
-  </md-tab-group>
+    </mat-tab>
+  </mat-tab-group>
 </div>
 
 <ng-template #spinner>

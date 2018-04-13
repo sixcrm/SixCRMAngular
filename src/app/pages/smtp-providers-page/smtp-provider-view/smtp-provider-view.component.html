@@ -17,8 +17,8 @@
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-  <md-tab-group [(selectedIndex)]="selectedIndex">
-    <md-tab>
+  <mat-tab-group [(selectedIndex)]="selectedIndex">
+    <mat-tab>
 
       <smtp-provider-add-new [entity]="entity"
                              [mode]="viewMode ? modes.View : modes.Update"
@@ -27,17 +27,17 @@
                              (save)="saveOrUpdate($event)">
       </smtp-provider-add-new>
 
-    </md-tab>
+    </mat-tab>
 
-    <md-tab>
+    <mat-tab>
       <smtp-provider-email-templates [smtpProvider]="entity"></smtp-provider-email-templates>
-    </md-tab>
+    </mat-tab>
 
-    <md-tab>
+    <mat-tab>
       <smtp-provider-validate [entity]="entity"></smtp-provider-validate>
-    </md-tab>
+    </mat-tab>
 
-  </md-tab-group>
+  </mat-tab-group>
 </div>
 
 <ng-template #spinner>

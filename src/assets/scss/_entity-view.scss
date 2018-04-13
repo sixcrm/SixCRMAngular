@@ -3,7 +3,7 @@ $blue-color: #4A90E2;
 $main-blue: #5383C3;
 
 .entity-view {
-  md-tab-header {
+  mat-tab-header {
     display: none;
   }
 
@@ -870,11 +870,11 @@ $main-blue: #5383C3;
   &__content {
     margin-bottom: 20px;
 
-    .md-tab-label {
+    .mat-tab-label {
       width: 50%;
     }
 
-    .md-tab-list {
+    .mat-tab-list {
       md-ink-bar {
         margin-left: 0 !important;
         width: 50% !important;
@@ -1115,7 +1115,7 @@ $main-blue: #5383C3;
 }
 
 .tab-container--no-header {
-  md-tab-header {
+  mat-tab-header {
     display: none;
   }
 }

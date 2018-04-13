@@ -17,8 +17,8 @@
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-  <md-tab-group [(selectedIndex)]="selectedIndex">
-    <md-tab>
+  <mat-tab-group [(selectedIndex)]="selectedIndex">
+    <mat-tab>
       <div class="flex-custom">
         <div class="cont">
           <event-hook-add-new [entity]="entity"
@@ -34,8 +34,8 @@
         <event-hook-code [shared]="isShared" [eventHook]="entity" (save)="updateEntity(entity)"></event-hook-code>
 
       </div>
-    </md-tab>
-  </md-tab-group>
+    </mat-tab>
+  </mat-tab-group>
 </div>
 
 <ng-template #spinner>

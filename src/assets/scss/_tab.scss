@@ -1,8 +1,8 @@
-.md-tab-header {
+.mat-tab-header {
   border-bottom: none;
 }
 
-.md-tab-label {
+.mat-tab-label {
   min-width: 100px !important;
   height: 28px !important;
   line-height: 28px !important;
@@ -13,7 +13,7 @@
   color: #333333;
 }
 
-.md-tab-list {
+.mat-tab-list {
   md-ink-bar {
     margin-left: 7px !important;
     width: 86px !important;
@@ -21,15 +21,15 @@
   }
 }
 
-md-tab-body {
+mat-tab-body {
   overflow-x: visible !important;
   overflow-y: visible !important;
 
-  .md-tab-body-content {
+  .mat-tab-body-content {
     transform: none !important;
   }
 }
 
-.md-tab-body-wrapper {
+.mat-tab-body-wrapper {
   overflow: visible !important;
 }

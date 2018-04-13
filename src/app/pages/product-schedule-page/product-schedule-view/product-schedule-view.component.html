@@ -15,8 +15,8 @@
 
     <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-    <md-tab-group [(selectedIndex)]="selectedIndex">
-      <md-tab>
+    <mat-tab-group [(selectedIndex)]="selectedIndex">
+      <mat-tab>
 
         <product-schedule-add-new [entity]="entity"
                                   [mode]="viewMode ? modes.View : modes.Update"
@@ -25,9 +25,9 @@
                                   (changeMode)="setMode($event)">
         </product-schedule-add-new>
 
-      </md-tab>
+      </mat-tab>
 
-      <md-tab>
+      <mat-tab>
         <schedules-detailed
           [statusMessage]="updateError ? 'Error occured on save' : productScheduleWaitingForUpdate ? 'Saving...' : 'All changes saved'"
           [singleScheduleMode]="true"
@@ -36,9 +36,9 @@
           (productSchedulesChanged)="productSchedulesChanged($event)"
           (detailsComponent)="setDetails($event)">
         </schedules-detailed>
-      </md-tab>
+      </mat-tab>
 
-      <md-tab>
+      <mat-tab>
         <table-advanced [data]="entity.schedules"
                         [columnParams]="scheduleColumnParams"
                         [entityFactory]="scheduleFactory"
@@ -49,13 +49,13 @@
                         (add)="addSchedule($event)"
                         (update)="updateSchedule($event)">
         </table-advanced>
-      </md-tab>
+      </mat-tab>
 
-      <md-tab>
+      <mat-tab>
         <product-schedule-campaigns [id]="entity.id"></product-schedule-campaigns>
-      </md-tab>
+      </mat-tab>
 
-    </md-tab-group>
+    </mat-tab-group>
   </div>
 
   <div class="details-container" [class.details-container--hidden]="selectedIndex !== 1">

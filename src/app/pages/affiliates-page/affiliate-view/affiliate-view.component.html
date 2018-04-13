@@ -47,27 +47,27 @@
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-  <md-tab-group *ngIf="!addMode" [(selectedIndex)]="selectedIndex">
+  <mat-tab-group *ngIf="!addMode" [(selectedIndex)]="selectedIndex">
 
-    <md-tab>
+    <mat-tab>
       <div class="tab-container">
         <affiliate-trackers [affiliate]="entity"></affiliate-trackers>
       </div>
-    </md-tab>
+    </mat-tab>
 
-    <md-tab>
+    <mat-tab>
       <div class="tab-container">
         <affiliate-sessions [affiliateId]="entity.id"></affiliate-sessions>
       </div>
-    </md-tab>
+    </mat-tab>
 
-    <md-tab>
+    <mat-tab>
       <div class="tab-container">
         <affiliate-campaigns [affiliateId]="entity.id"></affiliate-campaigns>
       </div>
-    </md-tab>
+    </mat-tab>
 
-  </md-tab-group>
+  </mat-tab-group>
 </div>
 
 <ng-template #spinner>

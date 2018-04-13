@@ -19,8 +19,8 @@
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-  <md-tab-group [(selectedIndex)]="selectedIndex">
-    <md-tab>
+  <mat-tab-group [(selectedIndex)]="selectedIndex">
+    <mat-tab>
 
       <div class="flex-custom email-template-view__card-container">
         <email-template-add-new [entity]="entity"
@@ -40,9 +40,9 @@
         </div>
       </div>
 
-    </md-tab>
+    </mat-tab>
 
-    <md-tab>
+    <mat-tab>
       <div class="entity-view__card entity-view__card--large">
         <div class="entity-view__card__header">
           <div>
@@ -55,8 +55,8 @@
           <div class="email-template-view__preview__body" [innerHTML]="entity.body"></div>
         </div>
       </div>
-    </md-tab>
-  </md-tab-group>
+    </mat-tab>
+  </mat-tab-group>
 </div>
 
 <ng-template #spinner>

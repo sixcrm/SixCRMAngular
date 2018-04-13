@@ -5,16 +5,16 @@
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-  <md-tab-group [(selectedIndex)]="selectedIndex">
-    <md-tab>
+  <mat-tab-group [(selectedIndex)]="selectedIndex">
+    <mat-tab>
       <event-hooks-custom (addSelected)="toggleAddModal()"></event-hooks-custom>
-    </md-tab>
+    </mat-tab>
 
-    <md-tab>
+    <mat-tab>
       <event-hooks-shared></event-hooks-shared>
-    </md-tab>
+    </mat-tab>
 
-  </md-tab-group>
+  </mat-tab-group>
 </div>
 
 <div *ngIf="addMode" (click)="overlayClicked($event)" class="full-overlay">

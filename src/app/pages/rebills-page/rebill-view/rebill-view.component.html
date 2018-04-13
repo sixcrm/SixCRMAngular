@@ -19,8 +19,8 @@
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-  <md-tab-group [(selectedIndex)]="selectedIndex">
-    <md-tab>
+  <mat-tab-group [(selectedIndex)]="selectedIndex">
+    <mat-tab>
 
       <div class="flex-custom">
         <div class="entity-view__card campaign-view__card">
@@ -67,9 +67,9 @@
         </div>
       </div>
 
-    </md-tab>
+    </mat-tab>
 
-    <md-tab>
+    <mat-tab>
       <table-memory
         [data]="entity.transactions"
         [columnParams]="transactionColumnParams"
@@ -81,9 +81,9 @@
         [showMenuOptions]="false"
         (view)="goToTransaction($event)">
       </table-memory>
-    </md-tab>
+    </mat-tab>
 
-    <md-tab>
+    <mat-tab>
       <table-memory
         [data]="entity.shippingReceipts"
         [columnParams]="shippingReceiptColumnParams"
@@ -95,8 +95,8 @@
         [showMenuOptions]="false"
         (view)="goToShippingReceipt($event)">
       </table-memory>
-    </md-tab>
-  </md-tab-group>
+    </mat-tab>
+  </mat-tab-group>
 </div>
 
 <ng-template #spinner>

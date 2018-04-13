@@ -34,8 +34,8 @@
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-  <md-tab-group [(selectedIndex)]="selectedIndex">
-    <md-tab>
+  <mat-tab-group [(selectedIndex)]="selectedIndex">
+    <mat-tab>
 
       <table-advanced [data]="entity.permissions.parsedAllowed"
                       [columnParams]="permissionsColumnParams"
@@ -52,12 +52,12 @@
                       (update)="updateAllowed($event)">
       </table-advanced>
 
-    </md-tab>
+    </mat-tab>
 
-    <md-tab>
+    <mat-tab>
       <role-acls [role]="entity"></role-acls>
-    </md-tab>
-  </md-tab-group>
+    </mat-tab>
+  </mat-tab-group>
 </div>
 
 <ng-template #spinner>

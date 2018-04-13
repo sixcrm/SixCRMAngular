@@ -29,8 +29,8 @@
 
     <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-    <md-tab-group [(selectedIndex)]="selectedIndex">
-      <md-tab>
+    <mat-tab-group [(selectedIndex)]="selectedIndex">
+      <mat-tab>
         <div class="flex-custom session-view__card-container">
             <div class="entity-view__card">
               <div class="entity-view__card__header">
@@ -92,9 +92,9 @@
               </table-memory>
             </div>
           </div>
-      </md-tab>
+      </mat-tab>
 
-      <md-tab>
+      <mat-tab>
         <schedules-detailed
           [productSchedules]="entity.watermark.extractedProductSchedules"
           [products]="entity.watermark.extractedProducts"
@@ -103,9 +103,9 @@
           [statusMessage]="updateError ? 'Error occured on save' : productSchedulesWaitingForUpdate ? 'Saving...' : 'All changes saved'"
           (detailsComponent)="setDetails($event)">
         </schedules-detailed>
-      </md-tab>
+      </mat-tab>
 
-      <md-tab>
+      <mat-tab>
         <table-memory [data]="affiliates"
                       [textOptions]="affiliateText"
                       [filterEnabled]="false"
@@ -114,8 +114,8 @@
                       [dissociationEnabled]="false"
                       (view)="viewAffiliate($event)">
         </table-memory>
-      </md-tab>
-    </md-tab-group>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 
   <div class="details-container" [class.details-container--hidden]="selectedIndex !== 1">
