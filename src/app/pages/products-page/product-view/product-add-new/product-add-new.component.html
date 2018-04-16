@@ -5,9 +5,9 @@
       <ng-container *ngIf="mode === view">
         <mat-icon [matMenuTriggerFor]="editOptions">more_vert</mat-icon>
         <mat-menu #editOptions="matMenu" x-position="before">
-          <button md-menu-item (click)="changeMode.emit(update)">{{'PRODUCT_INFO_EDIT' | translate}}</button>
-          <button md-menu-item (click)="deleteEntity.emit(entity)">{{'PRODUCT_INFO_DEL' | translate}}</button>
-          <button md-menu-item *ngIf="entity.ship && entity.fulfillmentProvider && entity.fulfillmentProvider.id" [routerLink]="['/fulfillmentproviders', entity.fulfillmentProvider.id]">
+          <button mat-menu-item (click)="changeMode.emit(update)">{{'PRODUCT_INFO_EDIT' | translate}}</button>
+          <button mat-menu-item (click)="deleteEntity.emit(entity)">{{'PRODUCT_INFO_DEL' | translate}}</button>
+          <button mat-menu-item *ngIf="entity.ship && entity.fulfillmentProvider && entity.fulfillmentProvider.id" [routerLink]="['/fulfillmentproviders', entity.fulfillmentProvider.id]">
             {{'PRODUCT_INFO_VIEWFULFILLMENTPROVIDER' | translate}}
           </button>
         </mat-menu>

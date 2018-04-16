@@ -4,6 +4,6 @@
   <mat-icon *ngIf="service.hasWritePermission()" class="entity__nav__add">add</mat-icon>
 
   <mat-menu #topnavMenu="matMenu">
-    <button *ngIf="service.hasWritePermission() && mode !== 'add'" (click)="deleteEntity()" md-menu-item>delete</button>
+    <button *ngIf="service.hasWritePermission() && mode !== 'add'" (click)="deleteEntity()" mat-menu-item>delete</button>
   </mat-menu>
 </div>

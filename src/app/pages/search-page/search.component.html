@@ -71,11 +71,11 @@
         </button>
 
         <mat-menu #sortByMenu="matMenu">
-          <button md-menu-item (click)="setSortBy('created_at asc')">{{'SEARCH_SORT_CREATEASC' | translate}}</button>
-          <button md-menu-item (click)="setSortBy('created_at desc')">{{'SEARCH_SORT_CREATEDESC' | translate}}</button>
-          <button md-menu-item (click)="setSortBy('created_at desc')">{{'SEARCH_SORT_UPDATEASC' | translate}}</button>
-          <button md-menu-item (click)="setSortBy('created_at desc')">{{'SEARCH_SORT_UPDATEDESC' | translate}}</button>
-          <button md-menu-item (click)="setSortBy('def')">{{'SEARCH_SORT_DEF' | translate}}</button>
+          <button mat-menu-item (click)="setSortBy('created_at asc')">{{'SEARCH_SORT_CREATEASC' | translate}}</button>
+          <button mat-menu-item (click)="setSortBy('created_at desc')">{{'SEARCH_SORT_CREATEDESC' | translate}}</button>
+          <button mat-menu-item (click)="setSortBy('created_at desc')">{{'SEARCH_SORT_UPDATEASC' | translate}}</button>
+          <button mat-menu-item (click)="setSortBy('created_at desc')">{{'SEARCH_SORT_UPDATEDESC' | translate}}</button>
+          <button mat-menu-item (click)="setSortBy('def')">{{'SEARCH_SORT_DEF' | translate}}</button>
         </mat-menu>
 
         <mat-input-container>

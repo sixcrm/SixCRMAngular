@@ -25,8 +25,8 @@
             <div class="entity-view__card__header__title">{{'TRANSACTION_INFO_TITLE' | translate}}</div>
             <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
             <mat-menu #actionsMenu="matMenu" x-position="before">
-              <button md-menu-item (click)="goToRebill()">{{'TRANSACTION_INFO_REBILLVIEW' | translate}}</button>
-              <button md-menu-item (click)="goToMerchantProvider()">{{'TRANSACTION_INFO_MERCHANTPROVIDERVIEW' | translate}}</button>
+              <button mat-menu-item (click)="goToRebill()">{{'TRANSACTION_INFO_REBILLVIEW' | translate}}</button>
+              <button mat-menu-item (click)="goToMerchantProvider()">{{'TRANSACTION_INFO_MERCHANTPROVIDERVIEW' | translate}}</button>
             </mat-menu>
           </div>
 

@@ -10,7 +10,7 @@
     <ng-container *ngIf="standalone">
       <mat-icon [matMenuTriggerFor]="editOptions">more_vert</mat-icon>
       <mat-menu #editOptions="matMenu" x-position="before">
-        <button md-menu-item (click)="edit.emit(update)">{{'CUSTOMER_CREDITCARD_UPDATE' | translate}}</button>
+        <button mat-menu-item (click)="edit.emit(update)">{{'CUSTOMER_CREDITCARD_UPDATE' | translate}}</button>
       </mat-menu>
     </ng-container>
   </div>

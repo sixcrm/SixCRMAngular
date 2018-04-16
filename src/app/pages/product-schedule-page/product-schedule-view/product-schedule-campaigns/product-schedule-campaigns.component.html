@@ -46,7 +46,7 @@
       <td>
         <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
         <mat-menu #actionsMenu="matMenu" x-position="before">
-          <button md-menu-item [routerLink]="['/campaigns', entity.id]">{{'PRODUCTSCHEDULE_CAMPAIGN_VIEW' | translate}}</button>
+          <button mat-menu-item [routerLink]="['/campaigns', entity.id]">{{'PRODUCTSCHEDULE_CAMPAIGN_VIEW' | translate}}</button>
         </mat-menu>
       </td>
     </tr>

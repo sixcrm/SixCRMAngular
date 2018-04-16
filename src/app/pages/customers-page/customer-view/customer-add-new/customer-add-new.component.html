@@ -8,9 +8,9 @@
 
   <div class="entity-view__card__content customer-add__content">
     <div class="flex-custom">
-      <mat-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.firstName">
+      <mat-form-field class="entity-view__card__content__item" [class.error]="formInvalid && !customer.firstName">
         <input auto-focus matInput name="firstName" [(ngModel)]="customer.firstName" placeholder="{{'FORMINPUTS_FIRSTNAME' | translate}}" required type="text">
-      </mat-input-container>
+      </mat-form-field>
 
       <mat-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.lastName">
         <input matInput name="lastName" [(ngModel)]="customer.lastName" placeholder="{{'FORMINPUTS_LASTNAME' | translate}}" required type="text">

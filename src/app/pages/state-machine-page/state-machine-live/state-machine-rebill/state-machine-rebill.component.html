@@ -42,7 +42,7 @@
         <div *ngIf="rebill.parentSession.customer.id">
           <mat-icon [matMenuTriggerFor]="shipOptions">more_vert</mat-icon>
           <mat-menu #shipOptions="matMenu" x-position="before">
-            <button md-menu-item [routerLink]="['/customers', rebill.parentSession.customer.id]"> View Customer </button>
+            <button mat-menu-item [routerLink]="['/customers', rebill.parentSession.customer.id]"> View Customer </button>
           </mat-menu>
         </div>
       </mat-card-title>

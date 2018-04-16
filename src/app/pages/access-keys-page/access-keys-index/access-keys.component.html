@@ -21,7 +21,7 @@
     </table-preferences>
     <mat-icon [matMenuTriggerFor]="optionsMenu" class="entity-view__table-component__header__action">more_vert</mat-icon>
     <mat-menu #optionsMenu="matMenu" x-position="before">
-      <button md-menu-item (click)="addAccessKey()">{{ 'ACCOUNT_KEYS_ADD' | translate}}</button>
+      <button mat-menu-item (click)="addAccessKey()">{{ 'ACCOUNT_KEYS_ADD' | translate}}</button>
     </mat-menu>
   </div>
   <table class="highlight table__custom">
@@ -49,9 +49,9 @@
       <td>
         <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
         <mat-menu #actionsMenu="matMenu" x-position="before">
-          <button md-menu-item (click)="viewAccessKey(entity)">{{ 'ACCOUNT_KEYS_VIEW' | translate}}</button>
-          <button md-menu-item (click)="editAccessKey(entity)">{{ 'ACCOUNT_KEYS_EDIT' | translate}}</button>
-          <button md-menu-item (click)="deleteEntity(entity.id)">{{ 'ACCOUNT_KEYS_REMOVE' | translate}}</button>
+          <button mat-menu-item (click)="viewAccessKey(entity)">{{ 'ACCOUNT_KEYS_VIEW' | translate}}</button>
+          <button mat-menu-item (click)="editAccessKey(entity)">{{ 'ACCOUNT_KEYS_EDIT' | translate}}</button>
+          <button mat-menu-item (click)="deleteEntity(entity.id)">{{ 'ACCOUNT_KEYS_REMOVE' | translate}}</button>
         </mat-menu>
       </td>
     </tr>

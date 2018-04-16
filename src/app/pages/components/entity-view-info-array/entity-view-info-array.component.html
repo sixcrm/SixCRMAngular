@@ -9,7 +9,7 @@
       <button mat-icon-button [matMenuTriggerFor]="providersMenu"><mat-icon>add</mat-icon></button>
 
       <mat-menu #providersMenu="matMenu">
-        <button md-menu-item *ngFor="let option of options" (click)="selectOption(option)">{{option[optionsField]}}</button>
+        <button mat-menu-item *ngFor="let option of options" (click)="selectOption(option)">{{option[optionsField]}}</button>
       </mat-menu>
     </ng-container>
   </div>

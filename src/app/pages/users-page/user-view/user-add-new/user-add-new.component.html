@@ -4,7 +4,7 @@
     <ng-container *ngIf="mode !== modes.Add && !!editEnabled">
       <mat-icon [matMenuTriggerFor]="editOptions">more_vert</mat-icon>
       <mat-menu #editOptions="matMenu" x-position="before">
-        <button md-menu-item (click)="changeMode.emit(modes.Update)">{{'USER_DETAILS_EDIT' | translate}}</button>
+        <button mat-menu-item (click)="changeMode.emit(modes.Update)">{{'USER_DETAILS_EDIT' | translate}}</button>
       </mat-menu>
     </ng-container>
   </div>

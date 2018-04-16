@@ -7,7 +7,7 @@
   </button>
 
   <mat-menu #paginationMenu="matMenu">
-    <button md-menu-item *ngFor="let val of paginationValues" (click)="updateLimit.emit(val)">
+    <button mat-menu-item *ngFor="let val of paginationValues" (click)="updateLimit.emit(val)">
       {{val}}
     </button>
   </mat-menu>

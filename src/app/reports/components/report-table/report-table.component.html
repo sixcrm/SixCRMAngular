@@ -21,9 +21,9 @@
     </table-preferences>
     <mat-icon class="reports-table__title__icon--more" [matMenuTriggerFor]="downloadOptions">more_vert</mat-icon>
     <mat-menu #downloadOptions="matMenu" x-position="before">
-      <button md-menu-item (click)="download.emit('json')"> {{'CHART_DOWNLOADJSON' | translate}}</button>
-      <button md-menu-item> {{'CHART_DOWNLOADCSV' | translate}}</button>
-      <button md-menu-item> {{'CHART_DOWNLOADEXCEL' | translate}}</button>
+      <button mat-menu-item (click)="download.emit('json')"> {{'CHART_DOWNLOADJSON' | translate}}</button>
+      <button mat-menu-item> {{'CHART_DOWNLOADCSV' | translate}}</button>
+      <button mat-menu-item> {{'CHART_DOWNLOADEXCEL' | translate}}</button>
     </mat-menu>
   </div>
 

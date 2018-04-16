@@ -45,7 +45,7 @@
       <td>
         <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
         <mat-menu #actionsMenu="matMenu" x-position="before">
-          <button md-menu-item [routerLink]="['/sessions', entity.id]">{{'CUSTOMER_SESSION_VIEW' | translate}}</button>
+          <button mat-menu-item [routerLink]="['/sessions', entity.id]">{{'CUSTOMER_SESSION_VIEW' | translate}}</button>
         </mat-menu>
       </td>
     </tr>

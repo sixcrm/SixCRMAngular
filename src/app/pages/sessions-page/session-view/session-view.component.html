@@ -37,7 +37,7 @@
                 <div class="entity-view__card__header__title">{{'SESSION_CUSTOMER_TITLE' | translate}}</div>
                 <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
                 <mat-menu #actionsMenu="matMenu" x-position="before">
-                  <button md-menu-item [routerLink]="['/customers', entity.customer.id]">{{'SESSION_CUSTOMER_VIEW' | translate}}</button>
+                  <button mat-menu-item [routerLink]="['/customers', entity.customer.id]">{{'SESSION_CUSTOMER_VIEW' | translate}}</button>
                 </mat-menu>
               </div>
 

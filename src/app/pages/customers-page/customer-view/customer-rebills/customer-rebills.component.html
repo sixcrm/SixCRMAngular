@@ -54,8 +54,8 @@
       <td *ngIf="!homepageMode">
         <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
         <mat-menu #actionsMenu="matMenu" x-position="before">
-          <button md-menu-item (click)="updateRebill(entity)">{{'CUSTOMER_REBILL_EDIT' | translate}}</button>
-          <button md-menu-item (click)="deleteEntity(entity.id)">{{'CUSTOMER_REBILL_CANCEL' | translate}}</button>
+          <button mat-menu-item (click)="updateRebill(entity)">{{'CUSTOMER_REBILL_EDIT' | translate}}</button>
+          <button mat-menu-item (click)="deleteEntity(entity.id)">{{'CUSTOMER_REBILL_CANCEL' | translate}}</button>
         </mat-menu>
       </td>
     </tr>

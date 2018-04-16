@@ -168,9 +168,9 @@
               <ng-template #nodedicated>
                 <mat-icon class="row-options" [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
                 <mat-menu #actionsMenu="matMenu" x-position="before">
-                  <button *ngIf="viewEnabled" md-menu-item (click)="view(entity)">{{textOptions.viewOptionText | translate}}</button>
-                  <button *ngIf="editEnabled && hasWritePermission" md-menu-item (click)="edit(entity)">{{textOptions.editOptionText | translate}}</button>
-                  <button *ngIf="deleteEnabled && hasWritePermission" md-menu-item (click)="del(entity)">{{textOptions.disassociateOptionText | translate}}</button>
+                  <button *ngIf="viewEnabled" mat-menu-item (click)="view(entity)">{{textOptions.viewOptionText | translate}}</button>
+                  <button *ngIf="editEnabled && hasWritePermission" mat-menu-item (click)="edit(entity)">{{textOptions.editOptionText | translate}}</button>
+                  <button *ngIf="deleteEnabled && hasWritePermission" mat-menu-item (click)="del(entity)">{{textOptions.disassociateOptionText | translate}}</button>
                 </mat-menu>
               </ng-template>
             </ng-container>

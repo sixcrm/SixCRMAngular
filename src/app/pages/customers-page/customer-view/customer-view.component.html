@@ -63,7 +63,7 @@
                 <div class="subtitle">{{'CUSTOMER_INFO_SHIPSUBTITLE' | translate}}</div>
                 <mat-icon [matMenuTriggerFor]="shipOptions">more_vert</mat-icon>
                 <mat-menu #shipOptions="matMenu" x-position="before">
-                  <button md-menu-item (click)="shippingInfoEditMode = true;">{{'CUSTOMER_INFO_SHIPEDIT' | translate}}</button>
+                  <button mat-menu-item (click)="shippingInfoEditMode = true;">{{'CUSTOMER_INFO_SHIPEDIT' | translate}}</button>
                 </mat-menu>
               </mat-card-title>
               <mat-card-content>

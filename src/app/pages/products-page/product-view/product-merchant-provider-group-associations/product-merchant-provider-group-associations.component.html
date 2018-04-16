@@ -19,7 +19,7 @@
     </table-preferences>
     <mat-icon class="entity-view__table-component__header__action" [matMenuTriggerFor]="optionsMenu">more_vert</mat-icon>
     <mat-menu #optionsMenu="matMenu" x-position="before">
-      <button md-menu-item (click)="showAddAssociation()">{{'PRODUCT_MERCHANTGROUPASSOCIATION_ADD' | translate}}</button>
+      <button mat-menu-item (click)="showAddAssociation()">{{'PRODUCT_MERCHANTGROUPASSOCIATION_ADD' | translate}}</button>
     </mat-menu>
   </div>
   <table class="highlight table__custom">
@@ -50,9 +50,9 @@
       <td>
         <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
         <mat-menu #actionsMenu="matMenu" x-position="before">
-          <button md-menu-item [routerLink]="['/campaigns', entity.campaign.id]">{{'PRODUCT_MERCHANTGROUPASSOCIATION_VIEWCAMPAIGN' | translate}}</button>
-          <button md-menu-item [routerLink]="['/merchantprovidergroups', entity.merchantProviderGroup.id]">{{'PRODUCT_MERCHANTGROUPASSOCIATION_VIEWPROVIDER' | translate}}</button>
-          <button md-menu-item (click)="removeAssociation(entity)">{{'PRODUCT_MERCHANTGROUPASSOCIATION_REMOVE' | translate}}</button>
+          <button mat-menu-item [routerLink]="['/campaigns', entity.campaign.id]">{{'PRODUCT_MERCHANTGROUPASSOCIATION_VIEWCAMPAIGN' | translate}}</button>
+          <button mat-menu-item [routerLink]="['/merchantprovidergroups', entity.merchantProviderGroup.id]">{{'PRODUCT_MERCHANTGROUPASSOCIATION_VIEWPROVIDER' | translate}}</button>
+          <button mat-menu-item (click)="removeAssociation(entity)">{{'PRODUCT_MERCHANTGROUPASSOCIATION_REMOVE' | translate}}</button>
         </mat-menu>
       </td>
     </tr>

@@ -28,8 +28,8 @@
             <div class="entity-view__card__header__title">{{'REBILL_INFO_TITLE' | translate}}</div>
             <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
             <mat-menu #actionsMenu="matMenu" x-position="before">
-              <button md-menu-item (click)="goToCustomer()">{{'REBILL_INFO_CUSTOMERVIEW' | translate}}</button>
-              <button md-menu-item (click)="goToSession()">{{'REBILL_INFO_SESSIONVIEW' | translate}}</button>
+              <button mat-menu-item (click)="goToCustomer()">{{'REBILL_INFO_CUSTOMERVIEW' | translate}}</button>
+              <button mat-menu-item (click)="goToSession()">{{'REBILL_INFO_SESSIONVIEW' | translate}}</button>
             </mat-menu>
           </div>
 

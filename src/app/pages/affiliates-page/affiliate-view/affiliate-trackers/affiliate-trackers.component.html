@@ -7,7 +7,7 @@
     </table-preferences>
     <mat-icon class="entity-view__table-component__header__action" [matMenuTriggerFor]="optionsMenu">more_vert</mat-icon>
     <mat-menu #optionsMenu="matMenu" x-position="before">
-      <button md-menu-item (click)="showAddTracker()">{{'AFFILIATE_TRACKING_ASSOCIATE' | translate}}</button>
+      <button mat-menu-item (click)="showAddTracker()">{{'AFFILIATE_TRACKING_ASSOCIATE' | translate}}</button>
     </mat-menu>
   </div>
   <table class="highlight table__custom">
@@ -40,8 +40,8 @@
       <td>
         <button mat-icon-button [matMenuTriggerFor]="actionsMenu"><mat-icon>more_vert</mat-icon></button>
         <mat-menu #actionsMenu="matMenu" x-position="before">
-          <button md-menu-item [routerLink]="['/trackers', entity.id]">{{'AFFILIATE_TRACKING_VIEW' | translate}}</button>
-          <button md-menu-item (click)="dissociate(entity)">{{'AFFILIATE_TRACKING_DISASSOCIATE' | translate}}</button>
+          <button mat-menu-item [routerLink]="['/trackers', entity.id]">{{'AFFILIATE_TRACKING_VIEW' | translate}}</button>
+          <button mat-menu-item (click)="dissociate(entity)">{{'AFFILIATE_TRACKING_DISASSOCIATE' | translate}}</button>
         </mat-menu>
       </td>
     </tr>

@@ -12,7 +12,7 @@
       <ng-container *ngIf="!addMode && authService.isActiveAclMasterAccount()">
         <mat-icon [matMenuTriggerFor]="editOptions">more_vert</mat-icon>
         <mat-menu #editOptions="matMenu" x-position="before">
-          <button md-menu-item (click)="editMode = true">{{ 'BILL_DETAILS_EDIT' | translate}}</button>
+          <button mat-menu-item (click)="editMode = true">{{ 'BILL_DETAILS_EDIT' | translate}}</button>
         </mat-menu>
       </ng-container>
     </div>
@@ -59,7 +59,7 @@
       <ng-container *ngIf="editMode">
         <mat-icon [matMenuTriggerFor]="editOptions">more_vert</mat-icon>
         <mat-menu #editOptions="matMenu" x-position="before">
-          <button md-menu-item (click)="showAddDetailsModal()">{{ 'BILL_DETAILS_ADDITEM_TITLE' | translate}}</button>
+          <button mat-menu-item (click)="showAddDetailsModal()">{{ 'BILL_DETAILS_ADDITEM_TITLE' | translate}}</button>
         </mat-menu>
       </ng-container>
     </div>
@@ -81,8 +81,8 @@
         <td *ngIf="editMode">
           <mat-icon [matMenuTriggerFor]="editOptions">more_vert</mat-icon>
           <mat-menu #editOptions="matMenu" x-position="before">
-            <button md-menu-item (click)="showAddDetailsModal(detail)">{{ 'BILL_DETAILS_DETAILEDIT' | translate}}</button>
-            <button md-menu-item (click)="removeItem(detail)">{{ 'BILL_DETAILS_DETAILREMOVE' | translate}}</button>
+            <button mat-menu-item (click)="showAddDetailsModal(detail)">{{ 'BILL_DETAILS_DETAILEDIT' | translate}}</button>
+            <button mat-menu-item (click)="removeItem(detail)">{{ 'BILL_DETAILS_DETAILREMOVE' | translate}}</button>
           </mat-menu>
         </td>
       </tr>

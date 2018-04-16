@@ -3,7 +3,7 @@
     <div class="entity-view__card__header__title">{{(mode === modes.Add ? 'TRACKER_INFO_CREATETITLE' : 'TRACKER_INFO_TITLE') | translate}}</div>
     <mat-icon *ngIf="mode !== modes.Add" [matMenuTriggerFor]="trackerOptions">more_vert</mat-icon>
     <mat-menu #trackerOptions="matMenu" x-position="before">
-      <button md-menu-item (click)="enableEdit()">{{'TRACKER_INFO_EDIT' | translate}}</button>
+      <button mat-menu-item (click)="enableEdit()">{{'TRACKER_INFO_EDIT' | translate}}</button>
     </mat-menu>
   </div>
 

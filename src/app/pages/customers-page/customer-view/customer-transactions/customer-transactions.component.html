@@ -49,7 +49,7 @@
       <td>
         <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
         <mat-menu #actionsMenu="matMenu" x-position="before">
-          <button md-menu-item (click)="router.navigate(['transactions',entity.id])">{{'CUSTOMER_TRANSACTION_VIEW' | translate}}</button>
+          <button mat-menu-item (click)="router.navigate(['transactions',entity.id])">{{'CUSTOMER_TRANSACTION_VIEW' | translate}}</button>
         </mat-menu>
       </td>
     </tr>

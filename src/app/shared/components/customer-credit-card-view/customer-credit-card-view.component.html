@@ -6,7 +6,7 @@
     <ng-container *ngIf="!ripped">
       <mat-icon [matMenuTriggerFor]="creditCardOptions">more_vert</mat-icon>
       <mat-menu #creditCardOptions="matMenu" x-position="before">
-        <button md-menu-item (click)="addCreditCard.emit(true)">{{'CUSTOMER_CREDITCARD_ADDOPTION' | translate}}</button>
+        <button mat-menu-item (click)="addCreditCard.emit(true)">{{'CUSTOMER_CREDITCARD_ADDOPTION' | translate}}</button>
       </mat-menu>
     </ng-container>
 
@@ -24,8 +24,8 @@
       <ng-container *ngIf="!ripped">
         <mat-icon [matMenuTriggerFor]="creditCardOptions">more_vert</mat-icon>
         <mat-menu #creditCardOptions="matMenu" x-position="before">
-          <button md-menu-item (click)="editCreditCard.emit(cc)">{{'CUSTOMER_CREDITCARD_EDITOPTION' | translate}}</button>
-          <button md-menu-item (click)="deleteCreditCard.emit(cc)">{{'CUSTOMER_CREDITCARD_REMOVEOPTION' | translate}}</button>
+          <button mat-menu-item (click)="editCreditCard.emit(cc)">{{'CUSTOMER_CREDITCARD_EDITOPTION' | translate}}</button>
+          <button mat-menu-item (click)="deleteCreditCard.emit(cc)">{{'CUSTOMER_CREDITCARD_REMOVEOPTION' | translate}}</button>
         </mat-menu>
       </ng-container>
     </div>
@@ -41,8 +41,8 @@
     <ng-container *ngIf="!ripped">
       <mat-icon [matMenuTriggerFor]="creditCardOptions">more_vert</mat-icon>
       <mat-menu #creditCardOptions="matMenu" x-position="before">
-        <button md-menu-item (click)="addCreditCard.emit(true)">{{'CUSTOMER_CREDITCARD_ADDOPTION' | translate}}</button>
-        <button md-menu-item (click)="editCreditCard.emit(creditCards[0])">{{'CUSTOMER_CREDITCARD_EDITOPTION' | translate}}</button>
+        <button mat-menu-item (click)="addCreditCard.emit(true)">{{'CUSTOMER_CREDITCARD_ADDOPTION' | translate}}</button>
+        <button mat-menu-item (click)="editCreditCard.emit(creditCards[0])">{{'CUSTOMER_CREDITCARD_EDITOPTION' | translate}}</button>
       </mat-menu>
     </ng-container>
   </mat-card-title>
