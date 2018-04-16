@@ -17,7 +17,7 @@
 
       <div class="credit-cards__item__column">
         <span>{{cc.name}}</span>
-        <span>{{cc.getType() | uppercase}} {{cc.ccnumber | creditCardFormat: true}}</span>
+        <span>{{cc.getType() | uppercase}} {{cc.maskedNumber}}</span>
       </div>
 
       <span class="credit-cards__item__expiration">{{'CUSTOMER_CREDITCARD_EXPIRATION' | translate}}: {{cc.expiration | creditCardExpiration}}</span>

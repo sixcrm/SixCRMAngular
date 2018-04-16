@@ -33,12 +33,12 @@ export class CreditCard implements Entity<CreditCard> {
     this.address = new Address(obj.address);
     this.type = this.getType().toUpperCase();
     this.expirationFormatted = this.formatExpiration();
-    this.maskedNumber = this.maskNumber();
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.created_at);
     this.updatedAtAPI = obj.updated_at;
     this.lastFour = obj.last_four || '';
     this.firstSix = obj.first_six || '';
+    this.maskedNumber = this.maskNumber();
 
     if (obj.customers) {
       this.customers = obj.customers.map(customer => new Customer(customer));
@@ -98,8 +98,8 @@ export class CreditCard implements Entity<CreditCard> {
   }
 
   private maskNumber() {
-    if (this.ccnumber.length < 4) return Array(this.ccnumber.length).join('*');
+    if (!this.lastFour) return '';
 
-    return Array(this.ccnumber.length - 4).join('*') + this.ccnumber.substr(this.ccnumber.length - 4, this.ccnumber.length);
+    return `************${this.lastFour}`;
   }
 }
