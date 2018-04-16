@@ -27,11 +27,19 @@
       width: 190px;
     }
 
-    .md-input-underline {
+    .mat-input-wrapper {
+      padding: 0;
+    }
+
+    .mat-form-field-infix {
+      border-top: none;
+
+    }
+    .mat-input-underline {
       display: none;
     }
 
-    .md-input-placeholder {
+    .mat-input-placeholder {
       color: inherit;
     }
   }

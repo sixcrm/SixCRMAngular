@@ -7,9 +7,10 @@
       </div>
     </div>
 
-    <mat-input-container>
-      <input matInput *ngIf="!homepageMode" class="entity-view__table-component__header__filter" placeholder="Filter" [(ngModel)]="filterValue">
-    </mat-input-container>
+    <!--<mat-input-container class="entity-view__table-component__header__filter">-->
+      <!--<input matInput type="text" *ngIf="!homepageMode" placeholder="Filter" [(ngModel)]="filterValue">-->
+    <!--</mat-input-container>-->
+
     <table-pagination
       *ngIf="!homepageMode"
       [limit]="limit"

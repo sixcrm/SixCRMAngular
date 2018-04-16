@@ -9,7 +9,7 @@
 
   <ng-container *ngIf="!singleScheduleMode">
     <mat-icon class="search-icon">search</mat-icon>
-    <mat-input-container [floatPlaceholder]="false">
+    <mat-input-container [floatLabel]="'never'">
       <input class="search-input" matInput type="text" placeholder="Filter Items" (input)="filterChanged.emit($event.target.value)">
     </mat-input-container>
     <div class="divider"></div>

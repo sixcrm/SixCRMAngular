@@ -13,13 +13,13 @@
         <div class="entity-view__info__data__date">{{(displayCreatedAt() ? 'SINGLEPAGE_CREATED' : 'SINGLEPAGE_UPDATED') | translate}}: {{(displayCreatedAt() ? entity.createdAt : entity.updatedAt) | formatDateTime: 'date-time'}}</div>
 
         <div class="entity-view__info__data__name">
-          <mat-input-container [class.error]="formInvalid && !userDataForm.form.controls.firstName.valid" class="name" *ngIf="!viewMode; else firstname">
-            <input required matInput type="text" name="firstName" [(ngModel)]="entity.firstName">
+          <mat-input-container [class.error]="formInvalid && !userDataForm.form.controls.firstName.valid" *ngIf="!viewMode; else firstname">
+            <input required matInput type="text" name="firstName" [(ngModel)]="entity.firstName" class="name">
           </mat-input-container>
           <ng-template #firstname>{{entity.firstName}}</ng-template>
 
-          <mat-input-container [class.error]="formInvalid && !userDataForm.form.controls.lastName.valid" class="name" *ngIf="!viewMode; else lastname">
-            <input required matInput type="text" name="lastName" [(ngModel)]="entity.lastName">
+          <mat-input-container [class.error]="formInvalid && !userDataForm.form.controls.lastName.valid" *ngIf="!viewMode; else lastname">
+            <input required matInput type="text" name="lastName" [(ngModel)]="entity.lastName" class="name">
           </mat-input-container>
           <ng-template #lastname>{{entity.lastName}}</ng-template>
         </div>
