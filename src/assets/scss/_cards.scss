@@ -10,8 +10,8 @@ mat-card {
   }
 }
 
-md-dialog-container mat-card, .mat-tab-body mat-card {
-  box-shadow: none;
+.mat-dialog-container .mat-card, .mat-tab-body .mat-card {
+  box-shadow: none !important;
   margin-bottom: 0;
 
   &:hover {

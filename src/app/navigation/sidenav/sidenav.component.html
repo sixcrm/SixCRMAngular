@@ -3,9 +3,9 @@
   <img *ngIf="!isHovering" src="/assets/images/logo-navigation-small.svg" class="logo-small">
 </mat-toolbar>
 <mat-nav-list class="side-navigation">
-  <c-sidenav-item *ngFor="let menuItem of menuItems" [menuItem]="menuItem" [parent]="_this" [full]="isHovering"></c-sidenav-item>
+  <sidenav-item *ngFor="let menuItem of menuItems" [menuItem]="menuItem" [parent]="_this" [full]="isHovering"></sidenav-item>
 
-  <div *ngIf="isHovering" class="side-navigation__version">
+  <div *ngIf="isHovering" class="version">
     <img src="/assets/images/logo-blue.svg">
     <span>Version - {{versionNumber}}</span>
   </div>

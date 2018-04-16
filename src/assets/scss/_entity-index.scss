@@ -14,18 +14,6 @@ $title-color: #8D8888;
     font-size: 20px;
     font-weight: 500;
     color: $title-color;
-
-    md-input {
-      margin-left: auto;
-      padding-left: 10px;
-      width: 150px;
-      font-size: 14px;
-      font-weight: 400;
-
-      .md-focused {
-        color: #FF8D20;
-      }
-    }
   }
 
   &__options {
@@ -53,7 +41,7 @@ $title-color: #8D8888;
 
   &__card {
     margin: 0;
-    padding: 0;
+    padding: 0 !important;
 
     &__title {
       position: absolute;

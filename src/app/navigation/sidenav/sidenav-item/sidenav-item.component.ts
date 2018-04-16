@@ -6,7 +6,7 @@ import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
 
 @Component({
-  selector : 'c-sidenav-item',
+  selector : 'sidenav-item',
   templateUrl : './sidenav-item.component.html',
   styleUrls : ['./sidenav-item.component.scss'],
 })

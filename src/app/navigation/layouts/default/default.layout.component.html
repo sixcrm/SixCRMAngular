@@ -2,7 +2,7 @@
   <persistent-notifications-quick #persistentNotifications></persistent-notifications-quick>
 </div>
 
-<mat-sidenav-container>
+<mat-sidenav-container [autosize]="true">
   <mat-sidenav (mouseenter)="hover(true)" (mouseleave)="hover(false)" #sidenav
               [mode]="(navigation.mediumScreenAndDown || showOnHover) ? 'over' : 'side'"
               [opened]="showSidenav || !navigation.mediumScreenAndDown">
