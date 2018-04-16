@@ -7,7 +7,6 @@ export class CreditCard implements Entity<CreditCard> {
   id: string;
   ccnumber: string;
   expiration: string;
-  ccv: string;
   name: string;
   address: Address;
   type: string;
@@ -28,7 +27,6 @@ export class CreditCard implements Entity<CreditCard> {
     this.id = obj.id || '';
     this.ccnumber = obj.number || '';
     this.expiration = obj.expiration || '';
-    this.ccv = obj.ccv || '';
     this.name = obj.name || '';
     this.address = new Address(obj.address);
     this.type = this.getType().toUpperCase();
@@ -54,7 +52,6 @@ export class CreditCard implements Entity<CreditCard> {
       id: this.id,
       number: this.ccnumber,
       expiration: this.expiration,
-      ccv: this.ccv,
       name: this.name,
       address: this.address.inverse(),
       customers: this.customers.map(customer => customer.inverse()),
