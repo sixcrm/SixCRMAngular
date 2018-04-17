@@ -29,6 +29,6 @@
 
   <div *ngIf="mode !== view" class="entity-view__card__actions product-schedule-view__details__actions">
     <div (click)="cancel.emit(true)">{{'PRODUCTSCHEDULE_INFO_CANCEL' | translate}}</div>
-    <div (click)="saveSchedule(productScheduleInputForm.form.valid)">{{'PRODUCTSCHEDULE_INFO_SAVE' | translate}}</div>
+    <div (click)="saveSchedule(productScheduleInputForm.form.valid && entity.merchantProviderGroup.id)">{{'PRODUCTSCHEDULE_INFO_SAVE' | translate}}</div>
   </div>
 </div>
