@@ -4,7 +4,7 @@ dev environment for local development (auth0 set to allow localhost:4200)
 prod environment for production (admin.sixcrm.com)
 
 Start local HR server
-* `npm run start.dev`
+* `npm run start`
 
 Start local HR server with production variables
 * `npm run start.prod`
