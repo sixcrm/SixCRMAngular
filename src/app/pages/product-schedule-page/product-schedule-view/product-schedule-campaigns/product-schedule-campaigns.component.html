@@ -1,8 +1,8 @@
 <div class="entity-view__table-component">
   <div class="entity-view__table-component__header">
     <div class="entity-view__table-component__header__title">{{'PRODUCTSCHEDULE_CAMPAIGN_TITLE' | translate}}</div>
-    <mat-input-container>
-      <input matInput class="entity-view__table-component__header__filter" placeholder="{{'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filterValue">
+    <mat-input-container class="entity-view__table-component__header__filter">
+      <input matInput placeholder="{{'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filterValue">
     </mat-input-container>
     <table-pagination
       [limit]="limit"
