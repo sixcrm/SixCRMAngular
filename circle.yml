@@ -48,8 +48,6 @@ deployment:
   development:
     branch: development
     commands:
-      - killall node
-
       # Set version
       - node libs/deployment_scripts/src/versioning.js
 
