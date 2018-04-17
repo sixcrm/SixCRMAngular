@@ -49,16 +49,24 @@
       <mat-checkbox *ngIf="!addMode && !standalone" (change)="toggleSameShippingAddress($event)">{{'CUSTOMER_CREDITCARD_SAMEADDRESS' | translate}}</mat-checkbox>
     </div>
 
-    <md-input [disabled]="viewMode" [class.error]="formInvalid && !ccard.address.line1" required placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="ccard.address.line1"></md-input>
-    <md-input [disabled]="viewMode" placeholder="{{'FORMINPUTS_ADDRESS2' | translate}}" [(ngModel)]="ccard.address.line2"></md-input>
+    <mat-input-container>
+      <input matInput [disabled]="viewMode" required placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="ccard.address.line1">
+    </mat-input-container>
+    <mat-input-container>
+      <input matInput [disabled]="viewMode" placeholder="{{'FORMINPUTS_ADDRESS2' | translate}}" [(ngModel)]="ccard.address.line2">
+    </mat-input-container>
 
     <div class="customer-view__edit__address__group">
-      <md-input [disabled]="viewMode" [class.error]="formInvalid && !ccard.address.city" required placeholder="{{'FORMINPUTS_CITY' | translate}}" [(ngModel)]="ccard.address.city"></md-input>
+      <mat-input-container [class.error]="formInvalid && !ccard.address.city">
+        <input matInput [disabled]="viewMode" required placeholder="{{'FORMINPUTS_CITY' | translate}}" [(ngModel)]="ccard.address.city">
+      </mat-input-container>
       <dropdown-component [disabled]="viewMode" [class.error]="formInvalid && !ccard.address.state" [required]="true" [selected]="ccard.address.state" [placeholder]="'FORMINPUTS_STATE' | translate" (onSelect)="ccard.address.state = $event" [options]="states"></dropdown-component>
     </div>
 
     <div class="customer-view__edit__address__group">
-      <md-input [disabled]="viewMode" [class.error]="formInvalid && !ccard.address.zip" required placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="ccard.address.zip"></md-input>
+      <mat-input-container [class.error]="formInvalid && !ccard.address.zip">
+        <input matInput [disabled]="viewMode" required placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="ccard.address.zip">
+      </mat-input-container>
       <dropdown-component [disabled]="viewMode" [class.error]="formInvalid && !ccard.address.country" [required]="true" [selected]="ccard.address.country" [placeholder]="'FORMINPUTS_COUNTRY' | translate"  (onSelect)="ccard.address.country = $event" [options]="countries"></dropdown-component>
     </div>
   </div>
