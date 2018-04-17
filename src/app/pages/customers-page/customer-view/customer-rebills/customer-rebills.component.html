@@ -7,9 +7,9 @@
       </div>
     </div>
 
-    <!--<mat-input-container class="entity-view__table-component__header__filter">-->
-      <!--<input matInput type="text" *ngIf="!homepageMode" placeholder="Filter" [(ngModel)]="filterValue">-->
-    <!--</mat-input-container>-->
+    <mat-input-container *ngIf="!homepageMode" class="entity-view__table-component__header__filter">
+      <input matInput type="text" placeholder="Filter" [(ngModel)]="filterValue">
+    </mat-input-container>
 
     <table-pagination
       *ngIf="!homepageMode"

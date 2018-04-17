@@ -31,10 +31,6 @@ $main-blue: #5383C3;
   }
 }
 
-md-input {
-  margin: 0 5px 0 5px;
-}
-
 .input-error-message {
   margin-top: -8px;
   font-size: 10px;
@@ -61,7 +57,7 @@ md-input {
     color: $error-color;
   }
 
-  .md-input-underline {
+  .mat-input-underline {
     background-color: $error-color;
 
     span {
@@ -279,10 +275,10 @@ dropdown-component {
   }
 }
 
-.slider-blue.md-checked:not(.md-disabled) .mat-slide-toggle-bar {
+.slider-blue.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
   background: $main-blue;
 }
-.slider-blue.md-checked:not(.md-disabled) {
+.slider-blue.mat-checked:not(.mat-disabled) {
   .mat-slide-toggle-thumb {
     background-color: $main-blue !important;
   }

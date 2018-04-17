@@ -11,7 +11,7 @@
   <mat-card-content>
     <div *ngIf="showNewNote" class="notes__new">
       <mat-input-container>
-        <textarea matInput [(ngModel)]="note"></textarea>
+        <textarea auto-focus matInput [(ngModel)]="note"></textarea>
       </mat-input-container>
 
       <div class="notes__new__actions">

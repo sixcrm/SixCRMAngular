@@ -37,6 +37,7 @@ export class CustomerNotesComponent extends AbstractEntityIndexComponent<Custome
     this.service.indexQuery = (params: IndexQueryParameters) => customerNotesByCustomerQuery(this.customerId, params);
     this.shareLimit = false;
     this.limit = 50;
+    this.viewAfterCrate = false;
 
     this.service.entities$.takeUntil(this.unsubscribe$).subscribe(notes => {
       if (notes instanceof CustomServerError) {

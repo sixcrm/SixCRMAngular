@@ -52,7 +52,7 @@ $container-width: 350px;
         display: flex;
 
         mat-input-container:first-of-type {
-          margin-right: 12px;
+          margin-right: auto;
         }
       }
 
@@ -87,6 +87,10 @@ $container-width: 350px;
       padding: 8px 12px;
       border-top: 1px solid rgba(0,0,0,0.2);
       font-size: 14px;
+
+      &--last {
+        margin-bottom: 180px;
+      }
 
       .number {
         display: flex;
@@ -132,4 +136,8 @@ $container-width: 350px;
   background: #EF4339;
   font-weight: 500;
   padding: 6px 16px;
+}
+
+mat-input-container {
+  width: 140px;
 }

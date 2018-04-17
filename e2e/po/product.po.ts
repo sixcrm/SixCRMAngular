@@ -26,7 +26,7 @@ export class ProductPage {
   }
 
   getMenuButton(index: number) {
-    return element(by.css('.md-menu-content')).all(by.css('button')).get(index);
+    return element(by.css('.mat-menu-content')).all(by.css('button')).get(index);
   }
 
   getProductFromTable(index) {

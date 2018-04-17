@@ -11,7 +11,7 @@ export class AccountPage {
   }
 
   getRemoveUserButton() {
-    return element(by.css('.md-menu-content')).all(by.css('button')).last();
+    return element(by.css('.mat-menu-content')).all(by.css('button')).last();
   }
 
   getConfirmDeleteButton() {

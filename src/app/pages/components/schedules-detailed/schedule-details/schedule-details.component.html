@@ -81,13 +81,15 @@
           <div class="header"><div>Pricing</div></div>
 
           <div class="body">
-            <mat-input-container>
-              <input type="text" matInput placeholder="Quantity" [(ngModel)]="_productSchedule.quantity">
-            </mat-input-container>
+            <div class="body__row">
+              <mat-input-container>
+                <input type="text" matInput placeholder="Quantity" [(ngModel)]="_productSchedule.quantity">
+              </mat-input-container>
 
-            <mat-input-container>
-              <input matInput disabled type="text" placeholder="Discount Code">
-            </mat-input-container>
+              <mat-input-container>
+                <input matInput disabled type="text" placeholder="Discount Code">
+              </mat-input-container>
+            </div>
           </div>
 
           <div class="buttons"><div (click)="saveProductSchedule()">SAVE</div></div>
@@ -127,7 +129,7 @@
             </mat-menu>
           </div>
 
-          <div class="item">
+          <div class="item item--last">
             <autocomplete-input
               class="session-autocomplete"
               [initialValue]="productToAdd"

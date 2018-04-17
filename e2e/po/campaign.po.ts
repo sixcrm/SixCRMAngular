@@ -31,7 +31,7 @@ export class CampaignPage {
   }
 
   getEditButton() {
-    return element(by.css('.md-menu-content')).element(by.css('button'));
+    return element(by.css('.mat-menu-content')).element(by.css('button'));
   }
 
   getCampaignNameInCard() {

@@ -46,7 +46,7 @@ export class CustomerPage {
   }
 
   getFirstMenuButton() {
-    return element(by.css('.md-menu-content')).element(by.css('button'));
+    return element(by.css('.mat-menu-content')).element(by.css('button'));
   }
 
   getNoteTextArea() {

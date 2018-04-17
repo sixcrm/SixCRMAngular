@@ -1,6 +1,6 @@
 <div class="default-autocomplete-input">
   <div class="default-autocomplete-input__input">
-    <mat-input-container [floatLabel]="floatingPlaceholder ? 'never' : 'always'" [class.default-autocomplete-input__input--full-width]="fullWidth">
+    <mat-input-container [floatLabel]="floatingPlaceholder ? 'float' : 'never'" [class.default-autocomplete-input__input--full-width]="fullWidth">
       <input #input matInput autocomplete=off auto-focus [applyAutofocus]="applyAutofocus" (ngModelChange)="change($event)" (input)="valueChanged.emit($event)" [ngModel]="currentValue" (keydown)="onKey($event)" [required]="required" (blur)="blurred()" (focus)="focused()" (click)="focused()" [disabled]="disabled" placeholder="{{placeholder}}" type="text">
     </mat-input-container>
     <mat-icon [class.rotated]="showOptions" *ngIf="showArrow" (click)="arrowClicked(input)">keyboard_arrow_down</mat-icon>
