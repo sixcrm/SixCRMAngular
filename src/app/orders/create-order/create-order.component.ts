@@ -84,7 +84,7 @@ export class CreateOrderComponent implements OnInit {
     return `${customer.firstName.toLowerCase()} ${customer.lastName.toLowerCase()} ${customer.phone.toLowerCase()} ${customer.email.toLowerCase()}`.indexOf(filter) !== -1;
   };
 
-  customerInputChanged(event) {
+  customerInputChanged(event?: any) {
     const pattern = /[0-9]|[a-z]|[A-Z]|@|-|\(|\)Backspace|ArrowUp|ArrowDown|ArrowRight|ArrowLeft|Tab/;
 
     if (event && event.key && !pattern.test(event.key)) {
