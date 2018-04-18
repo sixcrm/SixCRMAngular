@@ -117,7 +117,7 @@ export class CreateOrderComponent implements OnInit {
     return campaign.name.toLowerCase().indexOf(filter) !== -1;
   };
 
-  campaignInputChanged(event) {
+  campaignInputChanged(event?: any) {
     const pattern = /[0-9]|[a-z]|[A-Z]|@|-|\(|\)Backspace|ArrowUp|ArrowDown|ArrowRight|ArrowLeft|Tab/;
 
     if (event && event.key && !pattern.test(event.key)) {
@@ -145,7 +145,7 @@ export class CreateOrderComponent implements OnInit {
     return product.name.toLowerCase().indexOf(filter) !== -1;
   };
 
-  productInputChanged(event) {
+  productInputChanged(event?: any) {
     const pattern = /[0-9]|[a-z]|[A-Z]|@|-|\(|\)Backspace|ArrowUp|ArrowDown|ArrowRight|ArrowLeft|Tab/;
 
     if (event && event.key && !pattern.test(event.key)) {
