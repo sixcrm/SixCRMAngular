@@ -52,8 +52,8 @@
                 </autocomplete-input>
               </div>
 
-              <mat-input-container>
-                <input matInput placeholder="{{'PROFILE_DETAILS_EMAIL' | translate}}" [value]="user.email">
+              <mat-input-container [class.error]="formInvalid && !validEmail()">
+                <input matInput placeholder="{{'PROFILE_DETAILS_EMAIL' | translate}}" [(ngModel)]="user.email">
               </mat-input-container>
 
               <div class="profile-page__content__general__data__dropdown">

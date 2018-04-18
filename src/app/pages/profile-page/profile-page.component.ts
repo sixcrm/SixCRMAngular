@@ -17,6 +17,7 @@ import {ColumnParams} from '../../shared/models/column-params.model';
 import {TableMemoryTextOptions} from "../components/table-memory/table-memory.component";
 import {TabHeaderElement} from "../../shared/components/tab-header/tab-header.component";
 import {TranslationService} from '../../translation/translation.service';
+import {isValidEmail} from '../../shared/utils/form.utils';
 
 let moment = require('moment-timezone');
 
@@ -44,6 +45,8 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   notificationSettingsBackup: NotificationSettings;
   notificationSettings: NotificationSettings;
   defaultNotificationSettings: NotificationSettingsData;
+
+  formInvalid: boolean = false;
 
   public mask = getPhoneNumberMask();
 
@@ -157,6 +160,9 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   }
 
   updateUserDetails(): void {
+    this.formInvalid = !this.validEmail();
+    if (this.formInvalid) return;
+
     this.userBackup.name = `${this.userBackup.firstName} ${this.userBackup.lastName}`;
     this.userService.updateEntity(this.userBackup, {ignorePermissions: true});
 
@@ -210,5 +216,9 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
   setLanguage(language: string) {
     this.userSettingsBackup.language = language;
+  }
+
+  validEmail(): boolean {
+    return isValidEmail(this.user.email);
   }
 }
