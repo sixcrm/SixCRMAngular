@@ -26,9 +26,9 @@ describe('Products', function() {
 
   it('should navigate to products page', () => {
     const sidenav = new SidenavPage();
-    sidenav.getLink(12).click();
+    sidenav.getLink(17).click();
     browser.sleep(500);
-    sidenav.getLink(13).click();
+    sidenav.getLink(19).click();
     waitForUrlContains('products');
     expectUrlToContain('products');
   });
@@ -38,7 +38,7 @@ describe('Products', function() {
   });
 
   it('should render products index title', () => {
-    expect(page.getTitle().getText()).toContain('Products')
+    expect(page.getTitle().getText()).toContain('Products');
   });
 
   it('should render products index add button', () => {
@@ -46,10 +46,10 @@ describe('Products', function() {
   });
 
   it('should render products index table headers', () => {
-    expect(page.getTableHeaders().get(0).getText()).toEqual('Product Name');
-    expect(page.getTableHeaders().get(1).getText()).toEqual('SKU');
-    expect(page.getTableHeaders().get(2).getText()).toEqual('Ship');
-    expect(page.getTableHeaders().get(3).getText()).toEqual('Shipping Delay');
+    expect(page.getTableHeaders().get(1).getText()).toEqual('Product Name');
+    expect(page.getTableHeaders().get(2).getText()).toEqual('SKU');
+    expect(page.getTableHeaders().get(3).getText()).toEqual('Ship');
+    expect(page.getTableHeaders().get(4).getText()).toEqual('Shipping Delay');
   });
 
   it('should render add modal when add button is clicked', () => {
@@ -102,6 +102,6 @@ describe('Products', function() {
 
     browser.sleep(2000);
 
-  })
+  });
 
 });

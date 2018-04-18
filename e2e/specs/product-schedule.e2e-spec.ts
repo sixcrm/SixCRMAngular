@@ -26,9 +26,9 @@ describe('Product Schedules', function() {
 
   it('should navigate to products page', () => {
     const sidenav = new SidenavPage();
-    sidenav.getLink(12).click();
+    sidenav.getLink(17).click();
     browser.sleep(500);
-    sidenav.getLink(14).click();
+    sidenav.getLink(20).click();
     waitForUrlContains('productschedules');
     expectUrlToContain('productschedules');
   });
@@ -38,7 +38,7 @@ describe('Product Schedules', function() {
   });
 
   it('should render product schedules index title', () => {
-    expect(page.getTitle().getText()).toContain('Product Schedules')
+    expect(page.getTitle().getText()).toContain('Product Schedules');
   });
 
   it('should render product schedules index add button', () => {
@@ -63,8 +63,9 @@ describe('Product Schedules', function() {
 
   it('should remove errors when form is valid', () => {
     productSchedulePage.getNewProductScheduleInputs().get(0).sendKeys('e2e product schedule');
+    browser.sleep(500);
     productSchedulePage.getNewProductScheduleInputs().get(1).click();
-    browser.sleep(1500);
+    browser.sleep(200);
     productSchedulePage.getAutoCompleteOption().click();
     expect(productSchedulePage.getErrorInputs().count()).toEqual(0);
   });
@@ -117,6 +118,6 @@ describe('Product Schedules', function() {
     browser.sleep(2000);
 
     expect(productSchedulePage.getAssociatedSchedulesRows().count()).toEqual(0);
-  })
+  });
 
 });

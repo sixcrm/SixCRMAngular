@@ -7,7 +7,7 @@ export class ProductSchedulePage {
   }
 
   getNewProductScheduleInputs() {
-    return element(by.css('product-schedule-add-new')).all(by.css('input'));
+    return element(by.css('product-schedule-add-new')).all(by.css('.md-input-element'));
   }
 
   getNewProductScheduleSaveButton() {
