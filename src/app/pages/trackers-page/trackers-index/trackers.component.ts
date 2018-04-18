@@ -3,10 +3,10 @@ import {Tracker} from '../../../shared/models/tracker.model';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {TrackersService} from '../../../shared/services/trackers.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'trackers',
@@ -18,7 +18,7 @@ export class TrackersComponent extends AbstractEntityIndexComponent<Tracker> imp
   constructor(
     trackersService: TrackersService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

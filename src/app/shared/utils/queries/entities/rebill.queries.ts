@@ -69,7 +69,7 @@ export function rebillResponseQuery(): string {
     parentsession { id,
       customer { id firstname lastname,
         address { line1 line2 city state zip },
-        creditcards {	id number expiration ccv name,
+        creditcards {	id expiration last_four first_six name,
           address { line1 line2 city state zip country }
         }
       }

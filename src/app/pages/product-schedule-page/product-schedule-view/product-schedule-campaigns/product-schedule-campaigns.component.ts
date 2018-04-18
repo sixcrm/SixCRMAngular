@@ -3,7 +3,6 @@ import {Campaign} from '../../../../shared/models/campaign.model';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {CampaignsService} from '../../../../shared/services/campaigns.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
@@ -13,6 +12,7 @@ import {
   campaignsInfoListQuery
 } from '../../../../shared/utils/queries/entities/campaign.queries';
 import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'product-schedule-campaigns',
@@ -26,7 +26,7 @@ export class ProductScheduleCampaignsComponent extends AbstractEntityIndexCompon
   constructor(
     campaignService: CampaignsService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

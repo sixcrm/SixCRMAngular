@@ -2,11 +2,11 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ShippingReceiptsService} from "../../../shared/services/shipping-receipts.service";
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {ShippingReceipt} from '../../../shared/models/shipping-receipt.model';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'shipping-receipt',
@@ -18,7 +18,7 @@ export class ShippingReceiptsComponent extends AbstractEntityIndexComponent<Ship
   constructor(
     shippingReceiptsService: ShippingReceiptsService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

@@ -13,7 +13,7 @@
         <ng-container *ngIf="params.selected">
           <th (click)="setSortedColumnParams(params)" [class.cell--align-right]="params.align === 'right'">
             {{params.label | translate}}
-            <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+            <mat-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
           </th>
         </ng-container>
       </ng-container>
@@ -37,10 +37,10 @@
         </ng-container>
       </ng-container>
       <td>
-        <button md-icon-button [md-menu-trigger-for]="actionsMenu"><md-icon>more_vert</md-icon></button>
-        <md-menu #actionsMenu="mdMenu" x-position="before">
-          <button md-menu-item [routerLink]="['/sessions', entity.id]">{{'AFFILIATE_SESSION_VIEW' | translate}}</button>
-        </md-menu>
+        <button mat-icon-button [matMenuTriggerFor]="actionsMenu"><mat-icon>more_vert</mat-icon></button>
+        <mat-menu #actionsMenu="matMenu" x-position="before">
+          <button mat-menu-item [routerLink]="['/sessions', entity.id]">{{'AFFILIATE_SESSION_VIEW' | translate}}</button>
+        </mat-menu>
       </td>
     </tr>
     </tbody>

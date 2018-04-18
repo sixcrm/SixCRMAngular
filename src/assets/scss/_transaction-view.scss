@@ -70,17 +70,17 @@ $card-title-color: #5B9BE1;
         }
       }
 
-      md-input-container {
+      mat-input-container {
         margin: 0;
         width: 100px;
         color: rgba(0, 0, 0, 0.5);
 
-        .md-input-wrapper {
+        .mat-input-wrapper {
           margin: 0;
         }
       }
 
-      md-checkbox {
+      mat-checkbox {
         margin-left: 50px;
         font-size: 12px;
         color: rgba(0, 0, 0, 0.5);
@@ -96,7 +96,7 @@ $card-title-color: #5B9BE1;
         align-items: center;
       }
 
-      md-icon {
+      mat-icon {
         position: absolute;
         right: 15px;
         top: 10px;
@@ -135,7 +135,7 @@ $card-title-color: #5B9BE1;
       cursor: pointer;
     }
 
-    md-card {
+    mat-card {
       padding: 0 0 20px 0;
       margin: 5px;
     }

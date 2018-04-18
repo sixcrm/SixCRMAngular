@@ -1,12 +1,12 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Bill} from '../../../shared/models/bill.model';
 import {BillsService} from '../../../shared/services/bills.service';
-import {MdDialog} from '@angular/material';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {ColumnParams} from '../../../shared/models/column-params.model';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'bills',
@@ -18,7 +18,7 @@ export class BillsComponent extends AbstractEntityIndexComponent<Bill> implement
   constructor(
     billsService: BillsService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {environment} from '../../environments/environment';
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 import {Notification} from '../shared/models/notification.model';
 import {TranslatedQuote} from "./translated-quote.model";
 import {utc} from 'moment';
@@ -33,7 +33,7 @@ export class TranslationService {
   public translationChanged$: Subject<boolean> = new Subject();
   public allTranslationsFetched: Subject<boolean> = new Subject();
 
-  constructor(private authService: AuthenticationService, private http: Http) {
+  constructor(private authService: AuthenticationService, private http: HttpClient) {
     this.fetchLanguages();
 
     this.updateTranslation(this.authService.getUserSettings().language);
@@ -48,8 +48,8 @@ export class TranslationService {
   }
 
   fetchLanguages() {
-    this.http.get(environment.translationsUrl).subscribe(res => {
-      this.allDefinitions = res.json();
+    this.http.get<any>(environment.translationsUrl).subscribe(res => {
+      this.allDefinitions = res;
 
       this.allTranslationsFetched.next(true);
     });
@@ -71,8 +71,8 @@ export class TranslationService {
     const trans = this.allTranslations.find((el) => el.name === this.selectedLanguage);
 
     if (!trans) {
-      this.http.get(environment.translationsUrl + this.selectedDefinition.locale.replace(/-/g, '_') +'.json').subscribe(res => {
-        const newTranslations: LanguageTranslation = {name: language, translations: res.json()};
+      this.http.get<any>(environment.translationsUrl + this.selectedDefinition.locale.replace(/-/g, '_') +'.json').subscribe(res => {
+        const newTranslations: LanguageTranslation = {name: language, translations: res};
         this.allTranslations.push(newTranslations);
 
         this.updateTranslation(language);

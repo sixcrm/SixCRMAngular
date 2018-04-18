@@ -22,7 +22,7 @@ export class DashboardPage {
   }
 
   getAdvancedFilterReload() {
-    return element(by.css('.advanced-filter__icons')).all(by.css('md-icon')).first();
+    return element(by.css('.advanced-filter__icons')).all(by.css('mat-icon')).first();
   }
 
   getAdvancedFilterDates() {
@@ -38,7 +38,7 @@ export class DashboardPage {
   }
 
   getTransactionOverviewLoader() {
-    return element(by.css('transaction-overview')).element(by.css('md-spinner'));
+    return element(by.css('transaction-overview')).element(by.css('mat-spinner'));
   }
 
   getFunnelGraph() {

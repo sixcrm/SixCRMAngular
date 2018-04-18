@@ -85,7 +85,7 @@ $color-orange: #F16C00;
           color: rgba(0,0,0,0.5);
         }
 
-        md-icon {
+        mat-icon {
           vertical-align: middle;
           width: 18px;
           height: 18px;
@@ -137,18 +137,18 @@ $color-orange: #F16C00;
           transition: 0.75s ease-in-out;
         }
 
-        md-input {
-          .md-input-prefix {
+        mat-input-container {
+          .mat-input-prefix {
             max-width: 100% !important;
           }
 
-          .md-input-infix {
+          .mat-input-infix {
             display: none;
           }
         }
       }
 
-      md-input {
+      mat-input-container {
         width: 100%;
         font-size: 14px;
         margin: 0;
@@ -159,16 +159,16 @@ $color-orange: #F16C00;
         }
       }
 
-      .md-input-wrapper {
+      .mat-input-wrapper {
         margin-top: 0;
 
-        .md-input-table {
+        .mat-input-table {
           display: flex;
           flex-flow: row;
           align-items: flex-end;
           height: 35px;
 
-          .md-input-prefix {
+          .mat-input-prefix {
             max-width: 70%;
           }
         }
@@ -203,7 +203,7 @@ $color-orange: #F16C00;
             font-size: 11px;
           }
 
-          md-icon {
+          mat-icon {
             margin-right: 5px;
             width: 16px;
             height: 16px;
@@ -216,13 +216,13 @@ $color-orange: #F16C00;
         }
       }
 
-      .md-input-underline {
-        .md-input-ripple {
+      .mat-input-underline {
+        .mat-input-ripple {
           background-color: $color-orange;
         }
       }
 
-      .md-input-placeholder.md-focused {
+      .mat-input-placeholder.mat-focused {
         color: $color-orange !important;
       }
     }
@@ -281,7 +281,7 @@ $color-orange: #F16C00;
       top: 10px;
     }
 
-    md-icon {
+    mat-icon {
       width: 20px;
       height: 20px;
       font-size: 20px;
@@ -329,7 +329,7 @@ $color-orange: #F16C00;
         }
       }
 
-      md-input {
+      mat-input-container {
         font-size: 14px;
       }
     }
@@ -362,7 +362,7 @@ $color-orange: #F16C00;
         font-size: 14px;
         cursor: pointer;
 
-        md-icon {
+        mat-icon {
           margin-left: auto;
           height: 16px;
           width: 16px;

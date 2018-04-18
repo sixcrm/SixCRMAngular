@@ -8,6 +8,7 @@ import {AclsService} from '../../shared/services/acls.service';
 import {firstIndexOf} from '../../shared/utils/array.utils';
 import {Subscription} from 'rxjs';
 import {HttpWrapperService} from '../../shared/services/http-wrapper.service';
+import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 
 interface TermsAndConditions {
   version?: string,
@@ -59,13 +60,21 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
 
   fetchUser(): void {
     this.userService.getLatestTermsAndConditions().take(1).subscribe((response) => {
-      this.termsAndConditions = response.json().response.data.latesttermsandconditions;
+      if (response instanceof CustomServerError) {
+        return;
+      }
+
+      this.termsAndConditions = response.body.response.data.latesttermsandconditions;
     })
   }
 
   fetchOwner(): void {
     this.userService.getLatestTermsAndConditions('owner').take(1).subscribe((response) => {
-      this.termsAndConditions = response.json().response.data.latesttermsandconditions;
+      if (response instanceof CustomServerError) {
+        return;
+      }
+
+      this.termsAndConditions = response.body.response.data.latesttermsandconditions;
     })
   }
 
@@ -87,7 +96,11 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
     this.activeUser.termsAndConditions = this.termsAndConditions.version;
 
     this.userService.updateUserForAcceptTermsAndConditions(this.activeUser).take(1).subscribe(user => {
-      this.activeUser.updatedAtAPI = user.json().response.data.updateuser.updated_at;
+      if (user instanceof CustomServerError) {
+        return;
+      }
+
+      this.activeUser.updatedAtAPI = user.body.response.data.updateuser.updated_at;
       this.activeUser.termsAndConditionsOutdated = false;
       this.authService.updateSixUser(this.activeUser);
 
@@ -101,7 +114,11 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
   }
 
   acceptOwnerTermsAndConditions(): void {
-    this.aclService.updateUserAclTermsAndConditions(this.activeAcl, this.termsAndConditions.version).take(1).subscribe(() => {
+    this.aclService.updateUserAclTermsAndConditions(this.activeAcl, this.termsAndConditions.version).take(1).subscribe(data => {
+      if (data instanceof CustomServerError) {
+        return;
+      }
+
       let user = this.authService.getSixUser().copy();
 
       const index = firstIndexOf(user.acls || [], (acl) => acl.id === this.activeAcl.id);

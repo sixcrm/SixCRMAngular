@@ -1,7 +1,7 @@
 <div #container class="entity-view__header__gallery__container">
 
   <div class="entity-view__header__gallery__icon entity-view__header__gallery__icon--left" *ngIf="marginLeft !== 0">
-    <md-icon (mousedown)="moveLeft()" (mouseup)="stopMoving()" (mouseleave)="stopMoving()">keyboard_arrow_left</md-icon>
+    <mat-icon (mousedown)="moveLeft()" (mouseup)="stopMoving()" (mouseleave)="stopMoving()">keyboard_arrow_left</mat-icon>
   </div>
 
   <div class="entity-view__header__gallery">
@@ -27,6 +27,6 @@
   </div>
 
   <div class="entity-view__header__gallery__icon entity-view__header__gallery__icon--right" *ngIf="showRightArrow()">
-    <md-icon (mousedown)="moveRight()" (mouseup)="stopMoving()" (mouseleave)="stopMoving()">keyboard_arrow_right</md-icon>
+    <mat-icon (mousedown)="moveRight()" (mouseup)="stopMoving()" (mouseleave)="stopMoving()">keyboard_arrow_right</mat-icon>
   </div>
 </div>

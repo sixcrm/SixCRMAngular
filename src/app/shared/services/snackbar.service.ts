@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import {MdSnackBar} from '@angular/material';
 import {SnackBarType, ErrorSnackBarComponent} from '../components/error-snack-bar/error-snack-bar.component';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 export class SnackbarService {
 
-  constructor(private snackBar: MdSnackBar) { }
+  constructor(private snackBar: MatSnackBar) { }
 
   showErrorSnack(message: string, duration: number) {
     const instance = this.snackBar.openFromComponent(ErrorSnackBarComponent, {duration: duration}).instance;

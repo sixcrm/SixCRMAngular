@@ -7,7 +7,7 @@
         <div *ngIf="!schedule.end"
              class="item"
              [style.top]="productSchedule.detailedListOpened ? (i + 1) * cellheight + 8 + 'px' : '8px'">
-          <md-icon>autorenew</md-icon>
+          <mat-icon>autorenew</mat-icon>
         </div>
       </ng-container>
     </div>
@@ -106,7 +106,7 @@
                           </span>
                           <ng-container *ngIf="productSchedule['detailedListOpened'] || cycle.stack < 2">
                             <span draggable="true" class="duration" *ngIf="schedule.cycles.length === 1"> {{cycle.diff + (cycle.durationDragInProgress ? cycle.dragdiffDays : 0)}} Days </span>
-                            <span draggable="true" class="duration" *ngIf="cycleNum > 0 && (cycleNum === 1 || (cycleNum === (schedule.cycles.length - 1)))"> <md-icon>loop</md-icon> Every {{schedule.period + (cycle.periodDragInProgress ? cycle.dragdiffDays : 0)}} days </span>
+                            <span draggable="true" class="duration" *ngIf="cycleNum > 0 && (cycleNum === 1 || (cycleNum === (schedule.cycles.length - 1)))"> <mat-icon>loop</mat-icon> Every {{schedule.period + (cycle.periodDragInProgress ? cycle.dragdiffDays : 0)}} days </span>
                           </ng-container>
                         </ng-container>
                       </div>

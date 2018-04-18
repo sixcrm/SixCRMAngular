@@ -9,9 +9,9 @@
       <div class="smtp-validation__explanation"> {{'SMTP_VALIDATE_TEXT' | translate}} '{{entity.fromEmail}}'.
         <br><br> {{'SMTP_VALIDATE_TEXTSECOND' | translate}}</div>
 
-      <md-input-container [class.error]="emailInvalid && !validEmail()" class="entity-view__card__content__item">
-        <input md-input required placeholder="{{'SMTP_VALIDATE_EMAIL' | translate}}" (keydown)="checkKey($event, validationEmail)" [(ngModel)]="validationEmail" type="text">
-      </md-input-container>
+      <mat-input-container [class.error]="emailInvalid && !validEmail()" class="entity-view__card__content__item">
+        <input matInput required placeholder="{{'SMTP_VALIDATE_EMAIL' | translate}}" (keydown)="checkKey($event, validationEmail)" [(ngModel)]="validationEmail" type="text">
+      </mat-input-container>
       <div class="input-error-message" *ngIf="emailInvalid && !validEmail()">{{'SMTP_VALIDATE_EMAILTIP' | translate}}</div>
 
     </div>
@@ -26,7 +26,7 @@
                   readonly>
         </textarea>
       </div>
-      <md-icon *ngIf="!validationInProgress && !!validationResponse" md-tooltip="Copy to clipboard" (click)="copyUrlToClipboard(responseMessage)">content_copy</md-icon>
+      <mat-icon *ngIf="!validationInProgress && !!validationResponse" matTooltip="Copy to clipboard" (click)="copyUrlToClipboard(responseMessage)">content_copy</mat-icon>
     </div>
   </div>
 

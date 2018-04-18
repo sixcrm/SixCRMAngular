@@ -3,7 +3,7 @@ import {element, by} from 'protractor';
 export class MaterialItems {
 
   getMenuButton(num: number) {
-    return element(by.css('.md-menu-content')).all(by.css('button')).get(num);
+    return element(by.css('.mat-menu-content')).all(by.css('button')).get(num);
   }
 
   getConfirmDeleteButton() {

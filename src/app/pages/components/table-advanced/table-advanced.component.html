@@ -36,8 +36,8 @@
               <ng-container *ngIf="params.showLabel">
                 {{params.label | translate}}
                 <ng-container *ngIf="params.sortEnabled">
-                  <md-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'asc'" class="up-icon">arrow_drop_up</md-icon>
-                  <md-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'desc'" class="down-icon">arrow_drop_down</md-icon>
+                  <mat-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'asc'" class="up-icon">arrow_drop_up</mat-icon>
+                  <mat-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'desc'" class="down-icon">arrow_drop_down</mat-icon>
                 </ng-container>
               </ng-container>
             </th>
@@ -57,8 +57,8 @@
               <ng-container *ngIf="params.showLabel">
                 {{params.label | translate}}
                 <ng-container *ngIf="params.sortEnabled">
-                  <md-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'asc'" class="up-icon">arrow_drop_up</md-icon>
-                  <md-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'desc'" class="down-icon">arrow_drop_down</md-icon>
+                  <mat-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'asc'" class="up-icon">arrow_drop_up</mat-icon>
+                  <mat-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'desc'" class="down-icon">arrow_drop_down</mat-icon>
                 </ng-container>
               </ng-container>
             </th>
@@ -72,7 +72,7 @@
     <tbody>
       <ng-container *ngFor="let entity of entities | filterEntitiesByParams: columnParams: filterString | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder">
         <tr [class.no-border]="entity.inlineEditMode">
-          <td class="checkbox-container"><md-checkbox class="checkbox-blue small-table-checkbox" [(ngModel)]="entity.bulkSelected"></md-checkbox></td>
+          <td class="checkbox-container"><mat-checkbox class="checkbox-blue small-table-checkbox" [(ngModel)]="entity.bulkSelected"></mat-checkbox></td>
           <ng-container *ngFor="let params of columnParams">
             <ng-container *ngIf="params.selected">
               <td [class.cell--align-right]="params.align === 'right'" [class.cell--align-center]="params.align === 'center'" [class.cell-image]="params.inputType === inputTypes.IMAGE">
@@ -84,7 +84,7 @@
 
                   <ng-template #notranslate>
                     <ng-container *ngIf="params.inputType === inputTypes.BOOLEAN; else nobool">
-                      <md-checkbox class="checkbox-blue checkbox-standalone" [checked]="params.mappingFunction(entity)" [disabled]="!params.editable || !entity.inlineEditMode"></md-checkbox>
+                      <mat-checkbox class="checkbox-blue checkbox-standalone" [checked]="params.mappingFunction(entity)" [disabled]="!params.editable || !entity.inlineEditMode"></mat-checkbox>
                     </ng-container>
                   </ng-template>
 
@@ -114,9 +114,9 @@
                   <ng-template #editinput>
                     <div class="placeholder">{{params.label | translate}}</div>
                     <ng-container *ngIf="params.inputType === inputTypes.CURRENCY; else nocurrency">
-                      <md-input-container class="numeric-container" [class.error]="editInvalid && !params.validator(entity)">
-                        <input md-input type="text" (keydown)="keydown($event, params)" [disabled]="!params.editable" currencyInput (priceChanged)="params.assigningFunction(entity, $event)" [initPrice]="params.mappingFunction(entity)">
-                      </md-input-container>
+                      <mat-input-container class="numeric-container" [class.error]="editInvalid && !params.validator(entity)">
+                        <input matInput type="text" (keydown)="keydown($event, params)" [disabled]="!params.editable" currencyInput (priceChanged)="params.assigningFunction(entity, $event)" [initPrice]="params.mappingFunction(entity)">
+                      </mat-input-container>
                     </ng-container>
                   </ng-template>
 
@@ -133,9 +133,9 @@
                   </ng-template>
 
                   <ng-template #nomultiselect>
-                    <md-input-container [class.error]="editInvalid && !params.validator(entity)" [class.numeric-container]="params.inputType === inputTypes.NUMERIC || params.inputType === inputTypes.CURRENCY">
-                      <input md-input type="text" (keydown)="keydown($event, params)" [disabled]="!params.editable" [value]="params.mappingFunction(entity)" (input)="params.assigningFunction(entity, $event.srcElement.value)">
-                    </md-input-container>
+                    <mat-input-container [class.error]="editInvalid && !params.validator(entity)" [class.numeric-container]="params.inputType === inputTypes.NUMERIC || params.inputType === inputTypes.CURRENCY">
+                      <input matInput type="text" (keydown)="keydown($event, params)" [disabled]="!params.editable" [value]="params.mappingFunction(entity)" (input)="params.assigningFunction(entity, $event.srcElement.value)">
+                    </mat-input-container>
                   </ng-template>
 
                   <ng-template #autocompleteinput>
@@ -151,7 +151,7 @@
                     </autocomplete-input>
                   </ng-template>
 
-                  <md-icon *ngIf="params.copy" class="copy-icon" md-tooltip="{{'SHARE_COPY' | translate}}" ngxClipboard [cbContent]="params.mappingFunction(entity)">content_copy</md-icon>
+                  <mat-icon *ngIf="params.copy" class="copy-icon" matTooltip="{{'SHARE_COPY' | translate}}" ngxClipboard [cbContent]="params.mappingFunction(entity)">content_copy</mat-icon>
                 </div>
               </td>
             </ng-container>
@@ -160,18 +160,18 @@
             <ng-container *ngIf="viewEnabled || deleteEnabled || editEnabled">
               <div *ngIf="dedicatedOptions; else nodedicated">
                 <div class="flex-custom">
-                  <md-icon class="row-options aligned" *ngIf="viewEnabled" (click)="view(entity)">visibility</md-icon>
-                  <md-icon class="row-options aligned" *ngIf="editEnabled && hasWritePermission" (click)="edit(entity)">mode_edit</md-icon>
-                  <md-icon class="row-options aligned" *ngIf="deleteEnabled && hasWritePermission" (click)="del(entity)">delete</md-icon>
+                  <mat-icon class="row-options aligned" *ngIf="viewEnabled" (click)="view(entity)">visibility</mat-icon>
+                  <mat-icon class="row-options aligned" *ngIf="editEnabled && hasWritePermission" (click)="edit(entity)">mode_edit</mat-icon>
+                  <mat-icon class="row-options aligned" *ngIf="deleteEnabled && hasWritePermission" (click)="del(entity)">delete</mat-icon>
                 </div>
               </div>
               <ng-template #nodedicated>
-                <md-icon class="row-options" [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-                <md-menu #actionsMenu="mdMenu" x-position="before">
-                  <button *ngIf="viewEnabled" md-menu-item (click)="view(entity)">{{textOptions.viewOptionText | translate}}</button>
-                  <button *ngIf="editEnabled && hasWritePermission" md-menu-item (click)="edit(entity)">{{textOptions.editOptionText | translate}}</button>
-                  <button *ngIf="deleteEnabled && hasWritePermission" md-menu-item (click)="del(entity)">{{textOptions.disassociateOptionText | translate}}</button>
-                </md-menu>
+                <mat-icon class="row-options" [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+                <mat-menu #actionsMenu="matMenu" x-position="before">
+                  <button *ngIf="viewEnabled" mat-menu-item (click)="view(entity)">{{textOptions.viewOptionText | translate}}</button>
+                  <button *ngIf="editEnabled && hasWritePermission" mat-menu-item (click)="edit(entity)">{{textOptions.editOptionText | translate}}</button>
+                  <button *ngIf="deleteEnabled && hasWritePermission" mat-menu-item (click)="del(entity)">{{textOptions.disassociateOptionText | translate}}</button>
+                </mat-menu>
               </ng-template>
             </ng-container>
           </td>
@@ -219,7 +219,7 @@
 
                   <ng-template #noimage>
                     <ng-container *ngIf="params.inputType === inputTypes.BOOLEAN; else nobool">
-                      <md-checkbox class="checkbox-blue checkbox-standalone" [checked]="params.mappingFunction(entity)" [disabled]="!params.editable"></md-checkbox>
+                      <mat-checkbox class="checkbox-blue checkbox-standalone" [checked]="params.mappingFunction(entity)" [disabled]="!params.editable"></mat-checkbox>
                     </ng-container>
                   </ng-template>
 
@@ -227,9 +227,9 @@
                     <div class="placeholder">{{params.label | translate}}</div>
 
                     <ng-container *ngIf="params.inputType === inputTypes.CURRENCY; else nocurrency">
-                      <md-input-container class="numeric-container" [class.error]="addInvalid && !params.validator(entity)">
-                        <input md-input type="text" (keydown)="keydown($event, params)" [disabled]="!params.editable" currencyInput (priceChanged)="params.assigningFunction(entity, $event)" [initPrice]="params.mappingFunction(entity)">
-                      </md-input-container>
+                      <mat-input-container class="numeric-container" [class.error]="addInvalid && !params.validator(entity)">
+                        <input matInput type="text" (keydown)="keydown($event, params)" [disabled]="!params.editable" currencyInput (priceChanged)="params.assigningFunction(entity, $event)" [initPrice]="params.mappingFunction(entity)">
+                      </mat-input-container>
                     </ng-container>
                   </ng-template>
 
@@ -246,9 +246,9 @@
                   </ng-template>
 
                   <ng-template #nomultiselect>
-                    <md-input-container [class.error]="addInvalid && !params.validator(entity)" [class.numeric-container]="params.inputType === inputTypes.NUMERIC || params.inputType === inputTypes.CURRENCY">
-                      <input md-input type="text" (keydown)="keydown($event, params)" [disabled]="!params.editable" [value]="params.mappingFunction(entity)" (input)="params.assigningFunction(entity, $event.srcElement.value)">
-                    </md-input-container>
+                    <mat-input-container [class.error]="addInvalid && !params.validator(entity)" [class.numeric-container]="params.inputType === inputTypes.NUMERIC || params.inputType === inputTypes.CURRENCY">
+                      <input matInput type="text" (keydown)="keydown($event, params)" [disabled]="!params.editable" [value]="params.mappingFunction(entity)" (input)="params.assigningFunction(entity, $event.srcElement.value)">
+                    </mat-input-container>
                   </ng-template>
                 </div>
               </td>

@@ -7,7 +7,7 @@ import {
   transactionReportListQuery, transactionsSumReport,
   transactionsSumTotalReport
 } from '../../utils/queries/reports.queries';
-import { Response} from '@angular/http';
+import { HttpResponse} from '@angular/common/http';
 import {FilterTerm} from '../../components/advanced-filter/advanced-filter.component';
 import {downloadJSON} from '../../utils/file.utils';
 import {extractData, HttpWrapperService, generateHeaders} from '../http-wrapper.service';
@@ -36,7 +36,7 @@ export class TransactionReportService {
             this.transactions$.next(transactions.map(transaction => new TransactionReport(transaction)))
           }
         } else {
-          downloadJSON(data.json(), 'transactions-details-report.json');
+          downloadJSON(data.body, 'transactions-details-report.json');
         }
       })
   }
@@ -51,7 +51,7 @@ export class TransactionReportService {
             this.transactionsSumItems$.next(transactionsSumItems.map(t => new TransactionsSumItem(t)));
           }
         } else {
-          downloadJSON(data.json().response, 'transaction-summary-report.json');
+          downloadJSON(data.body.response, 'transaction-summary-report.json');
         }
       })
   }
@@ -66,12 +66,12 @@ export class TransactionReportService {
             this.transactionsSumTotal$.next(new TransactionsSumItem(transactionsSumTotal));
           }
         } else {
-          downloadJSON(data.json().response, 'transaction-summary-total-report.json');
+          downloadJSON(data.body.response, 'transaction-summary-total-report.json');
         }
       })
   }
 
-  private queryRequest(query: string, download: boolean): Observable<Response> {
+  private queryRequest(query: string, download: boolean): Observable<HttpResponse<any>> {
     let endpoint = environment.endpoint;
 
     if (this.authService.getActingAsAccount()) {

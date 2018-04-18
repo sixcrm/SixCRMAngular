@@ -1,6 +1,6 @@
 import {AbstractEntityService} from '../shared/services/abstract-entity.service';
 import {DeleteDialogComponent} from './delete-dialog.component';
-import {MdDialog, MdDialogRef} from '@angular/material';
+import {MatDialogRef, MatDialog} from '@angular/material';
 import {PaginationService} from '../shared/services/pagination.service';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Entity} from '../shared/models/entity.interface';
@@ -16,7 +16,7 @@ import 'rxjs/Rx';
 
 export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 
-  deleteDialogRef: MdDialogRef<DeleteDialogComponent>;
+  deleteDialogRef: MatDialogRef<DeleteDialogComponent>;
   limit: number;
   page: number = 0;
   hasMore: boolean;
@@ -54,7 +54,7 @@ export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
   constructor(
     public service: AbstractEntityService<T>,
     public authService: AuthenticationService,
-    protected deleteDialog: MdDialog,
+    protected deleteDialog: MatDialog,
     protected paginationService?: PaginationService,
     protected router?: Router,
     protected activatedRoute?: ActivatedRoute

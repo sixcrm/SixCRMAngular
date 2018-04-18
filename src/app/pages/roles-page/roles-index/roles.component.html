@@ -5,16 +5,16 @@
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-  <md-tab-group [(selectedIndex)]="selectedIndex">
-    <md-tab>
+  <mat-tab-group [(selectedIndex)]="selectedIndex">
+    <mat-tab>
       <roles-index-custom [acls]="aclService.entities$ | async" (addSelected)="toggleAddModal()"></roles-index-custom>
-    </md-tab>
+    </mat-tab>
 
-    <md-tab>
+    <mat-tab>
       <roles-index-shared [acls]="aclService.entities$ | async"></roles-index-shared>
-    </md-tab>
+    </mat-tab>
 
-  </md-tab-group>
+  </mat-tab-group>
 
 </div>
 

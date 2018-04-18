@@ -1,18 +1,18 @@
 <div class="flex-custom">
   <div class="column--small">
-    <md-card class="customer-view__card">
-      <md-card-title>
+    <mat-card class="customer-view__card">
+      <mat-card-title>
         <div class="title">{{'ORDERENGINE_REBILL_HISTORY_TITLE' | translate}}</div>
         <div class="subtitle">{{'ORDERENGINE_REBILL_HISTORY_SUBTITLE' | translate}}</div>
-      </md-card-title>
+      </mat-card-title>
 
-      <md-card-content class="history-container">
+      <mat-card-content class="history-container">
         <div class="flex-custom" *ngFor="let event of rebill.history; let i = index">
 
           <div>
-            <md-icon class="warning-icon" *ngIf="event.errorMessage">warning</md-icon>
+            <mat-icon class="warning-icon" *ngIf="event.errorMessage">warning</mat-icon>
             <div *ngIf="!event.errorMessage && event.enteredAt" class="done-icon">
-              <md-icon>done</md-icon>
+              <mat-icon>done</mat-icon>
             </div>
             <div class="number-icon" *ngIf="!event.errorMessage && !event.enteredAt">
               <div>{{i + 1}}</div>
@@ -30,58 +30,58 @@
             <div class="warning" *ngIf="event.errorMessage">{{event.errorMessage}}</div>
           </div>
         </div>
-      </md-card-content>
-    </md-card>
+      </mat-card-content>
+    </mat-card>
   </div>
 
   <div class="column--large">
-    <md-card class="customer-view__card">
-      <md-card-title>
+    <mat-card class="customer-view__card">
+      <mat-card-title>
         <div class="title">Customer Information</div>
         <div class="subtitle">Address where fulfillment will ship packages</div>
         <div *ngIf="rebill.parentSession.customer.id">
-          <md-icon [md-menu-trigger-for]="shipOptions">more_vert</md-icon>
-          <md-menu #shipOptions="mdMenu" x-position="before">
-            <button md-menu-item [routerLink]="['/customers', rebill.parentSession.customer.id]"> View Customer </button>
-          </md-menu>
+          <mat-icon [matMenuTriggerFor]="shipOptions">more_vert</mat-icon>
+          <mat-menu #shipOptions="matMenu" x-position="before">
+            <button mat-menu-item [routerLink]="['/customers', rebill.parentSession.customer.id]"> View Customer </button>
+          </mat-menu>
         </div>
-      </md-card-title>
+      </mat-card-title>
 
-      <md-card-content>
+      <mat-card-content>
         <div>
           <div class="half">
-            <md-input-container class="full">
-              <input required disabled md-input name="fullName" placeholder="{{'FORMINPUTS_FULLNAME' | translate}}" [(ngModel)]="rebill.parentSession.customer.fullName">
-            </md-input-container>
+            <mat-input-container class="full">
+              <input required disabled matInput name="fullName" placeholder="{{'FORMINPUTS_FULLNAME' | translate}}" [(ngModel)]="rebill.parentSession.customer.fullName">
+            </mat-input-container>
           </div>
 
           <div class="flex-custom full">
-            <md-input-container class="half">
-              <input required disabled md-input name="address" placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="rebill.parentSession.customer.address.line1">
-            </md-input-container>
-            <md-input-container class="half space-left">
-              <input required disabled md-input name="city" placeholder="{{'FORMINPUTS_CITY' | translate}}" [(ngModel)]="rebill.parentSession.customer.address.city">
-            </md-input-container>
+            <mat-input-container class="half">
+              <input required disabled matInput name="address" placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="rebill.parentSession.customer.address.line1">
+            </mat-input-container>
+            <mat-input-container class="half space-left">
+              <input required disabled matInput name="city" placeholder="{{'FORMINPUTS_CITY' | translate}}" [(ngModel)]="rebill.parentSession.customer.address.city">
+            </mat-input-container>
           </div>
 
           <div class="flex-custom full">
             <div class="flex-custom half">
-              <md-input-container class="half">
-                <input required disabled md-input name="state" placeholder="{{'FORMINPUTS_STATE' | translate}}" [(ngModel)]="rebill.parentSession.customer.address.state">
-              </md-input-container>
+              <mat-input-container class="half">
+                <input required disabled matInput name="state" placeholder="{{'FORMINPUTS_STATE' | translate}}" [(ngModel)]="rebill.parentSession.customer.address.state">
+              </mat-input-container>
 
-              <md-input-container class="half space-left">
-                <input required disabled md-input name="postalCode" placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="rebill.parentSession.customer.address.zip">
-              </md-input-container>
+              <mat-input-container class="half space-left">
+                <input required disabled matInput name="postalCode" placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="rebill.parentSession.customer.address.zip">
+              </mat-input-container>
             </div>
 
-            <md-input-container class="half space-left">
-              <input required disabled md-input name="country" placeholder="{{'FORMINPUTS_COUNTRY' | translate}}" [(ngModel)]="rebill.parentSession.customer.address.country">
-            </md-input-container>
+            <mat-input-container class="half space-left">
+              <input required disabled matInput name="country" placeholder="{{'FORMINPUTS_COUNTRY' | translate}}" [(ngModel)]="rebill.parentSession.customer.address.country">
+            </mat-input-container>
           </div>
         </div>
-      </md-card-content>
-    </md-card>
+      </mat-card-content>
+    </mat-card>
 
     <customer-credit-card-view
       [class.customer-credit-card-view--multiple]="rebill.parentSession.customer.creditCards.length > 1"
@@ -92,21 +92,21 @@
 
   <div class="column--medium">
 
-    <md-card class="customer-view__card">
-      <md-card-title>
+    <mat-card class="customer-view__card">
+      <mat-card-title>
         <div class="title">{{'ORDERENGINE_REBILL_PROPERTIES_TITLE' | translate}}</div>
         <div class="subtitle">{{'ORDERENGINE_REBILL_PROPERTIES_SUBTITLE' | translate}}</div>
-      </md-card-title>
+      </mat-card-title>
 
-      <md-card-content class="properties-container">
+      <mat-card-content class="properties-container">
         <div><span>{{'ORDERENGINE_REBILL_PROPERTIES_REBILL' | translate}}:</span>{{rebill.id}}</div>
         <div class="clickable" [routerLink]="['/sessions', rebill.parentSession.id]"><span>{{'ORDERENGINE_REBILL_PROPERTIES_PARENTSESSION' | translate}}:</span>{{rebill.parentSession.id}}</div>
         <div><span>{{'ORDERENGINE_REBILL_PROPERTIES_CREATED' | translate}}:</span>{{rebill.createdAt.tz(authService.getTimezone()).format('MM/DD/YYYY h:mm a')}}</div>
         <div><span>{{'ORDERENGINE_REBILL_PROPERTIES_UPDATED' | translate}}:</span>{{rebill.updatedAt.tz(authService.getTimezone()).format('MM/DD/YYYY h:mm a')}}</div>
         <div><span>{{'ORDERENGINE_REBILL_PROPERTIES_AMOUNT' | translate}}:</span>{{rebill.amount.usd() | numberlocale}}</div>
         <div class="clickable" [routerLink]="['/campaigns', rebill.parentSession.campaign.id]"><span>{{'ORDERENGINE_REBILL_PROPERTIES_CAMPAIGN' | translate}}:</span>{{rebill.parentSession.campaign.name}}</div>
-      </md-card-content>
-    </md-card>
+      </mat-card-content>
+    </mat-card>
 
     <table-memory [data]="getSchedules()"
                   [columnParams]="columnParams"

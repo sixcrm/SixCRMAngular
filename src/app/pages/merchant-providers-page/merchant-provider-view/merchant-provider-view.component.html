@@ -1,7 +1,7 @@
 <div *ngIf="entity; else spinner" class="entity-view">
   <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
 
-  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+  <div (click)="navigation.back()" class="entity-view__change-mode"><mat-icon>reply</mat-icon></div>
 
   <div>
     <form #inputForm="ngForm" class="entity-view__info">
@@ -15,9 +15,9 @@
             {{entityBackup.name}}
           </span>
           <ng-template #editableMode>
-            <md-input-container *ngIf="updateMode || addMode; else viewName" [class.error]="formInvalid && !entity.name">
-              <input required #nameFieldAddMode md-input name="name" [(ngModel)]="entity.name">
-            </md-input-container>
+            <mat-input-container *ngIf="updateMode || addMode; else viewName" [class.error]="formInvalid && !entity.name">
+              <input required #nameFieldAddMode matInput name="name" [(ngModel)]="entity.name">
+            </mat-input-container>
           </ng-template>
         </div>
       </div>
@@ -40,8 +40,8 @@
 
     <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-    <md-tab-group [(selectedIndex)]="selectedIndex">
-      <md-tab>
+    <mat-tab-group [(selectedIndex)]="selectedIndex">
+      <mat-tab>
         <div class="flex-custom flex-custom--wrap">
 
           <merchant-provider-add-new [entity]="entity"
@@ -53,13 +53,13 @@
           </merchant-provider-add-new>
 
         </div>
-      </md-tab>
+      </mat-tab>
 
-      <md-tab>
+      <mat-tab>
         <coming-soon [inPage]="true"></coming-soon>
-      </md-tab>
+      </mat-tab>
 
-      <md-tab>
+      <mat-tab>
         <table-memory class="merchant-provider-view__merchant-groups"
                       [data]="entity.merchantProviderGroups || []"
                       [textOptions]="merchantProviderGroupText"
@@ -69,8 +69,8 @@
                       [dissociationEnabled]="false"
                       (view)="navigateToMerchantProviderGroup($event)">
         </table-memory>
-      </md-tab>
-    </md-tab-group>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 
 </div>

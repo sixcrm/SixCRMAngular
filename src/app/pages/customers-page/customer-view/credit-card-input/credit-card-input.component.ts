@@ -49,7 +49,7 @@ export class CreditCardInputComponent implements OnInit {
   ngOnInit() { }
 
   createCreditCard(): void {
-    this.formInvalid = !this.ccard.name || !this.ccard.ccnumber || !this.ccard.ccv || !this.expirationMonth
+    this.formInvalid = !this.ccard.name || !this.ccard.ccnumber || !this.expirationMonth
       || !this.expirationYear || !this.ccard.address.line1 || !this.ccard.address.city || !this.ccard.address.state
       || !this.ccard.address.zip || !this.ccard.address.country;
 

@@ -31,10 +31,6 @@ $main-blue: #5383C3;
   }
 }
 
-md-input {
-  margin: 0 5px 0 5px;
-}
-
 .input-error-message {
   margin-top: -8px;
   font-size: 10px;
@@ -61,7 +57,7 @@ md-input {
     color: $error-color;
   }
 
-  .md-input-underline {
+  .mat-input-underline {
     background-color: $error-color;
 
     span {
@@ -110,7 +106,7 @@ dropdown-component {
         }
       }
 
-      md-icon {
+      mat-icon {
         margin-left: auto;
         width: 18px;
         height: 18px;
@@ -153,7 +149,7 @@ dropdown-component {
 .product-autocomplete-input {
   font-size: 14px;
 
-  md-input-container {
+  mat-input-container {
     width: calc(100% - 25px);
   }
 }
@@ -161,7 +157,7 @@ dropdown-component {
 .campaign-autocomplete-input {
   font-size: 14px;
 
-  md-input-container {
+  mat-input-container {
     width: 100%;
   }
 }
@@ -170,7 +166,7 @@ dropdown-component {
   position: relative;
 
   &--full-width {
-    md-input-container {
+    mat-input-container {
       width: 100%;
     }
   }
@@ -187,7 +183,7 @@ dropdown-component {
       transform: rotate(180deg);
     }
 
-    md-icon {
+    mat-icon {
       margin-top: 8px;
       margin-left: 12px;
       width: 18px;
@@ -232,7 +228,7 @@ dropdown-component {
         margin-right: 20px;
       }
 
-      md-icon {
+      mat-icon {
         margin-left: auto;
         font-size: 18px;
         width: 18px;
@@ -268,27 +264,27 @@ dropdown-component {
   }
 }
 
-.checkbox-blue.md-checkbox-checked {
-  .md-checkbox-background {
+.checkbox-blue.mat-checkbox-checked {
+  .mat-checkbox-background {
     background-color: #4A90E2;;
   }
 }
 .checkbox-standalone {
-  .md-checkbox-inner-container {
+  .mat-checkbox-inner-container {
     margin: auto;
   }
 }
 
-.slider-blue.md-checked:not(.md-disabled) .md-slide-toggle-bar {
+.slider-blue.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
   background: $main-blue;
 }
-.slider-blue.md-checked:not(.md-disabled) {
-  .md-slide-toggle-thumb {
+.slider-blue.mat-checked:not(.mat-disabled) {
+  .mat-slide-toggle-thumb {
     background-color: $main-blue !important;
   }
 }
 .slider-blue {
-  .md-slide-toggle-thumb {
+  .mat-slide-toggle-thumb {
     background-color: #E4E4E4;
   }
 }

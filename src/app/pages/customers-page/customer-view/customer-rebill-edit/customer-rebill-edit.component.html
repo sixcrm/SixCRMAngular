@@ -14,14 +14,14 @@
 
       <div class="datepicker--custom" [class.datepicker-visible]="datepickerVisible">
         <div (showDaterangepicker)="datepickerShown()" (hideDaterangepicker)="datepickerHidden()" (selected)="dateSelected($event)" daterangepicker>
-          <md-icon class="date-icon">date_range</md-icon><span class="datepicker--custom__input" name="daterange" > {{ date | formatDateTime }} <md-icon>keyboard_arrow_down</md-icon> </span>
+          <mat-icon class="date-icon">date_range</mat-icon><span class="datepicker--custom__input" name="daterange" > {{ date | formatDateTime }} <mat-icon>keyboard_arrow_down</mat-icon> </span>
         </div>
       </div>
 
       <div class="customer-rebill-edit__data__date__title">{{'CUSTOMER_REBILLEDIT_PRICE' | translate}}</div>
-      <md-input-container class="no-margin">
-        <input #priceInput md-input type="text" currencyInput [initPrice]="rebill.amount" (priceChanged)="rebill.amount = $event">
-      </md-input-container>
+      <mat-input-container class="no-margin">
+        <input #priceInput matInput type="text" currencyInput [initPrice]="rebill.amount" (priceChanged)="rebill.amount = $event">
+      </mat-input-container>
     </div>
   </div>
 

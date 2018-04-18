@@ -1,7 +1,7 @@
 <div class="notifications__filter">
-  <md-input-container>
-    <input md-input placeholder="{{'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filter" type="text">
-  </md-input-container>
+  <mat-input-container>
+    <input matInput placeholder="{{'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filter" type="text">
+  </mat-input-container>
 </div>
 
 <div class="notifications notifications-list notifications-list--standalone">
@@ -34,7 +34,7 @@
     </div>
 
     <div *ngIf="notificationsService.requestInProgress$ | async" class="spinner">
-      <md-spinner></md-spinner>
+      <mat-spinner></mat-spinner>
     </div>
 
   </div>

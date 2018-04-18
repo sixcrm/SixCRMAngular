@@ -12,9 +12,14 @@
     &--small {
       height: 20px;
       width: 20px;
+
+      div {
+        height: 20px;
+        line-height: 20px;
+      }
     }
 
-    md-icon {
+    mat-icon {
       margin: auto;
       color: #5383C3;
       height: 22px;
@@ -63,7 +68,9 @@
     div {
       padding: 10px 14px;
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 400;
+      height: 12px;
+      line-height: 12px;
       cursor: pointer;
 
       &:hover {

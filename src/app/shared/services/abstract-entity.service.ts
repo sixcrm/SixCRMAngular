@@ -1,12 +1,12 @@
-import {Response} from '@angular/http';
+import {HttpResponse} from '@angular/common/http';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {extractData, HttpWrapperService, generateHeaders, RequestBehaviourOptions} from './http-wrapper.service';
 import {CustomServerError} from '../models/errors/custom-server-error';
-import {MdSnackBar} from '@angular/material';
 import {ErrorSnackBarComponent, SnackBarType} from '../components/error-snack-bar/error-snack-bar.component';
 import {IndexQueryParameters} from '../utils/queries/index-query-parameters.model';
+import {MatSnackBar} from '@angular/material';
 
 export abstract class AbstractEntityService<T> {
 
@@ -32,7 +32,7 @@ export abstract class AbstractEntityService<T> {
     public createQuery: (entity: T) => string,
     public updateQuery: (entity: T) => string,
     public accessRole: string,
-    public snackBar: MdSnackBar
+    public snackBar: MatSnackBar
   ) {
     this.entities$ = new Subject<T[] | CustomServerError>();
     this.entitiesHasMore$ = new Subject<boolean>();
@@ -256,7 +256,7 @@ export abstract class AbstractEntityService<T> {
     })
   }
 
-  protected queryRequest(query: string, requestBehaviourOptions?: RequestBehaviourOptions): Observable<Response | CustomServerError> {
+  protected queryRequest(query: string, requestBehaviourOptions?: RequestBehaviourOptions): Observable<HttpResponse<any> | CustomServerError> {
     let endpoint = environment.endpoint;
 
     if (this.authService.getActingAsAccount()) {

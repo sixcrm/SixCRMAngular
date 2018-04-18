@@ -1,14 +1,14 @@
 <div class="schedule-container__header">
-  <md-icon class="close-icon" (click)="close.emit(true)">close</md-icon>
+  <mat-icon class="close-icon" (click)="close.emit(true)">close</mat-icon>
   <div *ngIf="schedule">{{schedule?.product?.name}}</div>
   <div *ngIf="productSchedule">{{productSchedule?.name}}</div>
   <div *ngIf="product">{{product?.name}}</div>
-  <md-icon [md-menu-trigger-for]="headerOptions" class="menu-icon">more_vert</md-icon>
-  <md-menu #headerOptions="mdMenu" x-position="before">
-    <button md-menu-item *ngIf="product && product.id" [routerLink]="['/products', product.id]">View Product</button>
-    <button md-menu-item *ngIf="productSchedule && productSchedule.id" [routerLink]="['/productschedules', productSchedule.id]">View Product Schedule</button>
-    <button md-menu-item *ngIf="schedule && schedule.product && schedule.product.id" [routerLink]="['/products', schedule.product.id]">View Product</button>
-    <button md-menu-item *ngIf="schedule" (click)="removeSchedule.emit(true)">Remove Schedule from Session</button>
-    <button md-menu-item *ngIf="productSchedule" (click)="removeProductSchedule.emit(true)">Remove Product Schedule from Session</button>
-  </md-menu>
+  <mat-icon [matMenuTriggerFor]="headerOptions" class="menu-icon">more_vert</mat-icon>
+  <mat-menu #headerOptions="matMenu" x-position="before">
+    <button mat-menu-item *ngIf="product && product.id" [routerLink]="['/products', product.id]">View Product</button>
+    <button mat-menu-item *ngIf="productSchedule && productSchedule.id" [routerLink]="['/productschedules', productSchedule.id]">View Product Schedule</button>
+    <button mat-menu-item *ngIf="schedule && schedule.product && schedule.product.id" [routerLink]="['/products', schedule.product.id]">View Product</button>
+    <button mat-menu-item *ngIf="schedule" (click)="removeSchedule.emit(true)">Remove Schedule from Session</button>
+    <button mat-menu-item *ngIf="productSchedule" (click)="removeProductSchedule.emit(true)">Remove Product Schedule from Session</button>
+  </mat-menu>
 </div>

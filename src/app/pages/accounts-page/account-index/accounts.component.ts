@@ -2,12 +2,12 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {AccountsService} from '../../../shared/services/accounts.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {Account} from '../../../shared/models/account.model';
 import {Acl} from '../../../shared/models/acl.model';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'accounts',
@@ -21,7 +21,7 @@ export class AccountsComponent extends AbstractEntityIndexComponent<Account> imp
   constructor(
     affiliatesService: AccountsService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

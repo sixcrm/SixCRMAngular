@@ -10,10 +10,10 @@
     <div class="flex-custom">
       <dropdown-component [options]="types" [placeholder]="'EVENTHOOK_SHARED_TYPE' | translate" [showFloatingPlaceholder]="true" [selected]="selectedType" (onSelect)="selectedType = $event"></dropdown-component>
 
-      <md-icon>search</md-icon>
-      <md-input-container>
-        <input type="text" placeholder="{{'EVENTHOOK_SHARED_SEARCH' | translate}}" md-input [(ngModel)]="filterString" autocomplete=off>
-      </md-input-container>
+      <mat-icon>search</mat-icon>
+      <mat-input-container>
+        <input type="text" placeholder="{{'EVENTHOOK_SHARED_SEARCH' | translate}}" matInput [(ngModel)]="filterString" autocomplete=off>
+      </mat-input-container>
     </div>
   </div>
 
@@ -25,7 +25,7 @@
             <div class="hook-view__path__title">{{hook.name}}</div>
             <div class="hook-view__path__type">{{hook.eventType}}</div>
           </div>
-          <md-icon>add</md-icon>
+          <mat-icon>add</mat-icon>
         </div>
       </div>
     </div>

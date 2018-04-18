@@ -67,7 +67,7 @@ $color-orange: #F16C00;
       margin-bottom: 15px;
     }
 
-    md-spinner {
+    mat-spinner {
       margin: 7px auto;
     }
   }
@@ -101,7 +101,7 @@ $color-orange: #F16C00;
         color: rgba(0,0,0,0.6);
       }
 
-      md-icon {
+      mat-icon {
         position: absolute;
         right: 10px;
         top: 16px;
@@ -123,7 +123,7 @@ $color-orange: #F16C00;
       }
     }
 
-    md-spinner {
+    mat-spinner {
       margin: 50px auto;
     }
   }
@@ -142,7 +142,7 @@ $color-orange: #F16C00;
         font-size: 24px;
       }
 
-      md-icon {
+      mat-icon {
         margin-left: auto;
         width: 18px;
         height: 18px;
@@ -207,7 +207,7 @@ $color-orange: #F16C00;
       color: rgba(0, 0, 0, 0.6);
     }
 
-    md-spinner {
+    mat-spinner {
       margin: 60px auto;
     }
 
@@ -226,7 +226,7 @@ $color-orange: #F16C00;
         color: rgba(0,0,0,0.6);
       }
 
-      md-icon {
+      mat-icon {
         position: absolute;
         right: 10px;
         top: 16px;
@@ -284,7 +284,7 @@ $color-orange: #F16C00;
               padding: 10px;
             }
 
-            md-icon {
+            mat-icon {
               position: absolute;
               height: 20px;
               width: 20px;
@@ -410,7 +410,7 @@ $color-orange: #F16C00;
   }
 }
 
-.md-tooltip {
+.matTooltip {
   height: auto !important;
   width: 118px !important;
   text-align: center !important;

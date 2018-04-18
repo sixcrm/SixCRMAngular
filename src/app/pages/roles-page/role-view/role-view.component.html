@@ -1,7 +1,7 @@
 <div *ngIf="entity; else spinner" class="entity-view">
   <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
 
-  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+  <div (click)="navigation.back()" class="entity-view__change-mode"><mat-icon>reply</mat-icon></div>
 
   <div class="entity-view__header">
 
@@ -9,9 +9,9 @@
 
     <div class="entity-view__header__title">
       <ng-container *ngIf="updateMode; else viewmode">
-        <md-input-container>
-          <input auto-focus md-input type="text" [(ngModel)]="entity.name">
-        </md-input-container>
+        <mat-input-container>
+          <input auto-focus matInput type="text" [(ngModel)]="entity.name">
+        </mat-input-container>
       </ng-container>
 
       <ng-template #viewmode>{{entity.name}}</ng-template>
@@ -34,8 +34,8 @@
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-  <md-tab-group [(selectedIndex)]="selectedIndex">
-    <md-tab>
+  <mat-tab-group [(selectedIndex)]="selectedIndex">
+    <mat-tab>
 
       <table-advanced [data]="entity.permissions.parsedAllowed"
                       [columnParams]="permissionsColumnParams"
@@ -52,12 +52,12 @@
                       (update)="updateAllowed($event)">
       </table-advanced>
 
-    </md-tab>
+    </mat-tab>
 
-    <md-tab>
+    <mat-tab>
       <role-acls [role]="entity"></role-acls>
-    </md-tab>
-  </md-tab-group>
+    </mat-tab>
+  </mat-tab-group>
 </div>
 
 <ng-template #spinner>

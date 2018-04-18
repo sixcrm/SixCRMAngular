@@ -3,11 +3,10 @@ import {EmailTemplate} from '../../../../shared/models/email-template.model';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PaginationService} from '../../../../shared/services/pagination.service';
-import {MdDialog} from '@angular/material';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {EmailTemplatesSharedService} from '../../../../shared/services/email-templates-shared.service';
-import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'email-templates-shared',
@@ -21,7 +20,7 @@ export class EmailTemplatesSharedComponent extends AbstractEntityIndexComponent<
   constructor(
     emailsService: EmailTemplatesSharedService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

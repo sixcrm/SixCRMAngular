@@ -8,50 +8,50 @@
 
   <div class="entity-view__card__content customer-add__content">
     <div class="flex-custom">
-      <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.firstName">
-        <input auto-focus md-input name="firstName" [(ngModel)]="customer.firstName" placeholder="{{'FORMINPUTS_FIRSTNAME' | translate}}" required type="text">
-      </md-input-container>
+      <mat-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.firstName">
+        <input auto-focus matInput name="firstName" [(ngModel)]="customer.firstName" placeholder="{{'FORMINPUTS_FIRSTNAME' | translate}}" required type="text">
+      </mat-input-container>
 
-      <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.lastName">
-        <input md-input name="lastName" [(ngModel)]="customer.lastName" placeholder="{{'FORMINPUTS_LASTNAME' | translate}}" required type="text">
-      </md-input-container>
+      <mat-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.lastName">
+        <input matInput name="lastName" [(ngModel)]="customer.lastName" placeholder="{{'FORMINPUTS_LASTNAME' | translate}}" required type="text">
+      </mat-input-container>
     </div>
 
     <div class="flex-custom">
-      <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.phone">
-        <input md-input name="phone" [(ngModel)]="customer.phone" [textMask]="{mask: mask, guide: false}" placeholder="{{'FORMINPUTS_PHONE' | translate}}" required type="text">
-      </md-input-container>
+      <mat-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.phone">
+        <input matInput name="phone" [(ngModel)]="customer.phone" [textMask]="{mask: mask, guide: false}" placeholder="{{'FORMINPUTS_PHONE' | translate}}" required type="text">
+      </mat-input-container>
 
-      <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.email">
-        <input md-input name="email" [(ngModel)]="customer.email" placeholder="{{'FORMINPUTS_EMAIL' | translate}}" required type="text">
-      </md-input-container>
+      <mat-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.email">
+        <input matInput name="email" [(ngModel)]="customer.email" placeholder="{{'FORMINPUTS_EMAIL' | translate}}" required type="text">
+      </mat-input-container>
     </div>
 
     <div class="flex-custom">
-      <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.line1">
-        <input md-input name="address" [(ngModel)]="customer.address.line1" placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" required type="text">
-      </md-input-container>
+      <mat-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.line1">
+        <input matInput name="address" [(ngModel)]="customer.address.line1" placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" required type="text">
+      </mat-input-container>
 
-      <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.line2">
-        <input md-input name="address" [(ngModel)]="customer.address.line2" placeholder="{{'FORMINPUTS_ADDRESS2' | translate}}" type="text">
-      </md-input-container>
+      <mat-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.line2">
+        <input matInput name="address" [(ngModel)]="customer.address.line2" placeholder="{{'FORMINPUTS_ADDRESS2' | translate}}" type="text">
+      </mat-input-container>
 
     </div>
 
     <div class="flex-custom">
       <autocomplete-input class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.state" [strictFilteringStrategy]="true" [required]="true" [initialValue]="customer.address.state" [placeholder]="'FORMINPUTS_STATE' | translate" [options]="states" (selected)="customer.address.state = $event"></autocomplete-input>
 
-      <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.city">
-        <input md-input name="city" [(ngModel)]="customer.address.city" placeholder="{{'FORMINPUTS_CITY' | translate}}" required type="text">
-      </md-input-container>
+      <mat-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.city">
+        <input matInput name="city" [(ngModel)]="customer.address.city" placeholder="{{'FORMINPUTS_CITY' | translate}}" required type="text">
+      </mat-input-container>
     </div>
 
     <div class="flex-custom">
       <autocomplete-input class="entity-view__card__content__item" [class.error]="formInvalid && !customer.address.country" [strictFilteringStrategy]="true" [required]="true" [initialValue]="customer.address.country" [placeholder]="'FORMINPUTS_COUNTRY' | translate" [options]="countries" (selected)="customer.address.country = $event"></autocomplete-input>
 
-      <md-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !isZip(customer.address.zip)">
-        <input md-input (keydown)="isAllowedZipKey($event)" maxlength="10" name="postalCode" [(ngModel)]="customer.address.zip" placeholder="{{'FORMINPUTS_ZIP' | translate}}" required type="text">
-      </md-input-container>
+      <mat-input-container class="entity-view__card__content__item" [class.error]="formInvalid && !isZip(customer.address.zip)">
+        <input matInput (keydown)="isAllowedZipKey($event)" maxlength="10" name="postalCode" [(ngModel)]="customer.address.zip" placeholder="{{'FORMINPUTS_ZIP' | translate}}" required type="text">
+      </mat-input-container>
     </div>
   </div>
   <div class="entity-view__card__actions">

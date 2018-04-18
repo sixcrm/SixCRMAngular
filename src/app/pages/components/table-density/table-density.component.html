@@ -1,5 +1,5 @@
 <div class="container" [class.small]="small">
-  <md-icon (click)="toggleMenu()">view_day</md-icon>
+  <mat-icon (click)="toggleMenu()">view_day</mat-icon>
 
   <div *ngIf="showMenu" class="params-container">
     <div class="option" [class.option--selected]="density === 0" (click)="changed(0)">Small</div>

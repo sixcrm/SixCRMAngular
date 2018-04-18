@@ -7,12 +7,12 @@ import {
   createProductMutation, updateProductMutation, deleteProductsMutation
 } from '../utils/queries/entities/product.queries';
 import {HttpWrapperService} from './http-wrapper.service';
-import {MdSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 export class ProductsService extends AbstractEntityService<Product> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MatSnackBar) {
     super(
       http,
       authService,

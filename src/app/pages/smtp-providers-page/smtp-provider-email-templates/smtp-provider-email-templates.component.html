@@ -13,7 +13,7 @@
         <ng-container *ngIf="params.selected">
           <th (click)="setSortedColumnParams(params)" [class.cell--align-right]="params.align === 'right'" [class.cell--codeblock]="params.code">
             {{params.label | translate}}
-            <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+            <mat-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
           </th>
         </ng-container>
       </ng-container>
@@ -37,10 +37,10 @@
         </ng-container>
       </ng-container>
       <td>
-        <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-        <md-menu #actionsMenu="mdMenu" x-position="before">
-          <button md-menu-item [routerLink]="['/emailtemplates', entity.id]">{{'SMTP_EMAILTEMPLATE_VIEW' | translate}}</button>
-        </md-menu>
+        <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+        <mat-menu #actionsMenu="matMenu" x-position="before">
+          <button mat-menu-item [routerLink]="['/emailtemplates', entity.id]">{{'SMTP_EMAILTEMPLATE_VIEW' | translate}}</button>
+        </mat-menu>
       </td>
     </tr>
     </tbody>

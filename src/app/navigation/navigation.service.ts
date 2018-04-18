@@ -2,11 +2,11 @@ import {Injectable} from '@angular/core';
 import {Location} from '@angular/common';
 import {Subject, BehaviorSubject} from 'rxjs';
 import {MenuItem} from './menu-item';
-import {MdDialog} from '../../../node_modules/@angular/material/dialog/dialog';
 import {menuItems} from './menu-setup';
 import {StringUtils} from '../shared/utils/string-utils';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Router} from '@angular/router';
+import {MatDialog} from '@angular/material';
 
 @Injectable()
 export class NavigationService {
@@ -28,7 +28,7 @@ export class NavigationService {
 
   private latestPath: string;
 
-  constructor(public dialog: MdDialog,
+  constructor(public dialog: MatDialog,
               private authService: AuthenticationService,
               private location: Location,
               private router: Router

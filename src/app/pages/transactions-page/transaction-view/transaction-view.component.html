@@ -1,7 +1,7 @@
 <div *ngIf="entity; else spinner" class="entity-view">
   <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
 
-  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+  <div (click)="navigation.back()" class="entity-view__change-mode"><mat-icon>reply</mat-icon></div>
 
   <div class="entity-view__info">
     <div class="entity-view__info__image">
@@ -16,32 +16,32 @@
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-  <md-tab-group [(selectedIndex)]="selectedIndex">
-    <md-tab>
+  <mat-tab-group [(selectedIndex)]="selectedIndex">
+    <mat-tab>
       <div class="transaction-view">
 
         <div class="entity-view__card">
           <div class="entity-view__card__header">
             <div class="entity-view__card__header__title">{{'TRANSACTION_INFO_TITLE' | translate}}</div>
-            <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-            <md-menu #actionsMenu="mdMenu" x-position="before">
-              <button md-menu-item (click)="goToRebill()">{{'TRANSACTION_INFO_REBILLVIEW' | translate}}</button>
-              <button md-menu-item (click)="goToMerchantProvider()">{{'TRANSACTION_INFO_MERCHANTPROVIDERVIEW' | translate}}</button>
-            </md-menu>
+            <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+            <mat-menu #actionsMenu="matMenu" x-position="before">
+              <button mat-menu-item (click)="goToRebill()">{{'TRANSACTION_INFO_REBILLVIEW' | translate}}</button>
+              <button mat-menu-item (click)="goToMerchantProvider()">{{'TRANSACTION_INFO_MERCHANTPROVIDERVIEW' | translate}}</button>
+            </mat-menu>
           </div>
 
           <div class="entity-view__card__content">
-            <md-input-container class="entity-view__card__content__item">
-              <input disabled md-input placeholder="{{'TRANSACTION_INFO_ALIAS' | translate}}" [(ngModel)]="entity.alias" type="text">
-            </md-input-container>
+            <mat-input-container class="entity-view__card__content__item">
+              <input disabled matInput placeholder="{{'TRANSACTION_INFO_ALIAS' | translate}}" [(ngModel)]="entity.alias" type="text">
+            </mat-input-container>
 
-            <md-input-container class="entity-view__card__content__item">
-              <input disabled md-input placeholder="{{'TRANSACTION_INFO_AMOUNT' | translate}}" [(ngModel)]="amount" type="text">
-            </md-input-container>
+            <mat-input-container class="entity-view__card__content__item">
+              <input disabled matInput placeholder="{{'TRANSACTION_INFO_AMOUNT' | translate}}" [(ngModel)]="amount" type="text">
+            </mat-input-container>
 
-            <md-input-container class="entity-view__card__content__item">
-              <input disabled md-input placeholder="{{'TRANSACTION_INFO_MERCHANTPROVIDER' | translate}}" [(ngModel)]="entity.merchantProvider.name" type="text">
-            </md-input-container>
+            <mat-input-container class="entity-view__card__content__item">
+              <input disabled matInput placeholder="{{'TRANSACTION_INFO_MERCHANTPROVIDER' | translate}}" [(ngModel)]="entity.merchantProvider.name" type="text">
+            </mat-input-container>
 
           </div>
         </div>
@@ -52,17 +52,17 @@
           </div>
 
           <div class="entity-view__card__content">
-            <md-input-container class="entity-view__card__content__item">
-              <input disabled md-input placeholder="{{'TRANSACTION_PROCESSOR_CODE' | translate}}" [(ngModel)]="entity.processorResponse.authCode" type="text">
-            </md-input-container>
+            <mat-input-container class="entity-view__card__content__item">
+              <input disabled matInput placeholder="{{'TRANSACTION_PROCESSOR_CODE' | translate}}" [(ngModel)]="entity.processorResponse.authCode" type="text">
+            </mat-input-container>
 
-            <md-input-container class="entity-view__card__content__item">
-              <input disabled md-input placeholder="{{'TRANSACTION_PROCESSOR_MESSAGE' | translate}}" [(ngModel)]="entity.processorResponse.message" type="text">
-            </md-input-container>
+            <mat-input-container class="entity-view__card__content__item">
+              <input disabled matInput placeholder="{{'TRANSACTION_PROCESSOR_MESSAGE' | translate}}" [(ngModel)]="entity.processorResponse.message" type="text">
+            </mat-input-container>
 
-            <md-input-container class="entity-view__card__content__item">
-              <input disabled md-input placeholder="{{'TRANSACTION_PROCESSOR_TEXT' | translate}}" [(ngModel)]="entity.processorResponse.responseText" type="text">
-            </md-input-container>
+            <mat-input-container class="entity-view__card__content__item">
+              <input disabled matInput placeholder="{{'TRANSACTION_PROCESSOR_TEXT' | translate}}" [(ngModel)]="entity.processorResponse.responseText" type="text">
+            </mat-input-container>
           </div>
         </div>
 
@@ -78,9 +78,9 @@
         </table-memory>
 
       </div>
-    </md-tab>
+    </mat-tab>
 
-    <md-tab>
+    <mat-tab>
       <div class="transaction-view__content">
 
         <div class="entity-view__card">
@@ -89,17 +89,17 @@
           </div>
 
           <div class="entity-view__card__content">
-            <md-input-container class="entity-view__card__content__item">
-              <input disabled md-input placeholder="{{'TRANSACTION_REFUND_AMOUNT' | translate}}" [(ngModel)]="amount" type="text">
-            </md-input-container>
+            <mat-input-container class="entity-view__card__content__item">
+              <input disabled matInput placeholder="{{'TRANSACTION_REFUND_AMOUNT' | translate}}" [(ngModel)]="amount" type="text">
+            </mat-input-container>
 
             <div class="transaction-view__content__item transaction-view__content__item--no-border">
               <div class="transaction-view__content__item__label">{{'TRANSACTION_REFUND_AMOUNTTOREFUND' | translate}}</div>
-              <md-input-container>
-                <input #refundInput md-input type="text" currencyInput [initPrice]="amountToRefund" (priceChanged)="amountToRefund = $event">
-              </md-input-container>
+              <mat-input-container>
+                <input #refundInput matInput type="text" currencyInput [initPrice]="amountToRefund" (priceChanged)="amountToRefund = $event">
+              </mat-input-container>
 
-              <md-checkbox [(ngModel)]="refundAllSelected" (change)="refundAllSelect()">{{'TRANSACTION_REFUND_REFUNDALL' | translate}}</md-checkbox>
+              <mat-checkbox [(ngModel)]="refundAllSelected" (change)="refundAllSelect()">{{'TRANSACTION_REFUND_REFUNDALL' | translate}}</mat-checkbox>
             </div>
           </div>
 
@@ -110,9 +110,9 @@
         </div>
 
       </div>
-    </md-tab>
+    </mat-tab>
 
-  </md-tab-group>
+  </mat-tab-group>
 </div>
 
 <ng-template #spinner>

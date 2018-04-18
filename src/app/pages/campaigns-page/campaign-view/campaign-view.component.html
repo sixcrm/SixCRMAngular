@@ -1,7 +1,7 @@
 <div *ngIf="entity; else spinner" class="entity-view">
   <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
 
-  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+  <div (click)="navigation.back()" class="entity-view__change-mode"><mat-icon>reply</mat-icon></div>
 
     <div class="entity-view__info">
       <div class="entity-view__info__image">
@@ -19,8 +19,8 @@
 
     <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-    <md-tab-group [(selectedIndex)]="selectedIndex">
-      <md-tab>
+    <mat-tab-group [(selectedIndex)]="selectedIndex">
+      <mat-tab>
 
         <div class="flex-custom flex-custom--wrap">
 
@@ -44,9 +44,9 @@
           </table-memory>
         </div>
 
-      </md-tab>
+      </mat-tab>
 
-      <md-tab>
+      <mat-tab>
         <table-memory
           [data]="entity.productSchedules"
           [columnParams]="productScheduleColumnParams"
@@ -57,9 +57,9 @@
           (disassociate)="disassociateProductSchedule($event)"
           (view)="viewProductSchedule($event)">
         </table-memory>
-      </md-tab>
+      </mat-tab>
 
-      <md-tab>
+      <mat-tab>
         <div class="flex-custom">
           <table-memory
             class="campaign-view__affiliate-table"
@@ -89,12 +89,12 @@
           >
           </table-memory>
         </div>
-      </md-tab>
+      </mat-tab>
 
-      <md-tab>
+      <mat-tab>
         <pixel-tracker [campaignId]="entityId"></pixel-tracker>
-      </md-tab>
-    </md-tab-group>
+      </mat-tab>
+    </mat-tab-group>
 
 </div>
 

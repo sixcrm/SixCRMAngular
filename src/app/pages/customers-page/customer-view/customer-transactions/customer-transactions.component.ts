@@ -2,7 +2,6 @@ import {Component, Input, OnInit, OnDestroy} from '@angular/core';
 import {Transaction} from '../../../../shared/models/transaction.model';
 import {TransactionsService} from '../../../../shared/services/transactions.service';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
-import {MdDialog} from '@angular/material';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
@@ -12,6 +11,7 @@ import {
   transactionsInfoListQuery
 } from '../../../../shared/utils/queries/entities/transaction.queries';
 import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'customer-transactions',
@@ -25,7 +25,7 @@ export class CustomerTransactionsComponent extends AbstractEntityIndexComponent<
   constructor(
     transactionsService: TransactionsService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router
   ) {

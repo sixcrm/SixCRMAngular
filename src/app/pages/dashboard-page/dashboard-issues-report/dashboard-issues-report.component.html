@@ -3,7 +3,7 @@
   <div class="reports__item" *ngFor="let report of reports" [style.width]="100 / reports.length + '%'">
     <div class="wrapper">
       <div class="icon-holder">
-        <md-icon>{{report.issues.length === 0 ? 'done' : 'close'}}</md-icon>
+        <mat-icon>{{report.issues.length === 0 ? 'done' : 'close'}}</mat-icon>
       </div>
       <div>
         <div class="label">{{report.label}}</div>

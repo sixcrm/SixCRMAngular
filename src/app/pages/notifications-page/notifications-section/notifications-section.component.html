@@ -3,10 +3,10 @@
 
     <div class="header flex-custom flex-custom--center">
       <div class="mrw-bi-input">
-        <md-icon>search</md-icon>
-        <md-input-container [floatingPlaceholder]="false">
-          <input md-input placeholder="{{'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filter" type="text">
-        </md-input-container>
+        <mat-icon>search</mat-icon>
+        <mat-input-container [floatLabel]="'never'">
+          <input matInput placeholder="{{'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filter" type="text">
+        </mat-input-container>
       </div>
 
       <div class="mrw-button">MARK ALL AS READ</div>
@@ -27,7 +27,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let notification of notifications | filterStrings: filter: filterMapper" (click)="readNotification(notification)">
-            <td><div *ngIf="!notification.readAt" class="circle"></div><md-icon *ngIf="notification.readAt" class="circle-icon">done</md-icon></td>
+            <td><div *ngIf="!notification.readAt" class="circle"></div><mat-icon *ngIf="notification.readAt" class="circle-icon">done</mat-icon></td>
             <td [class.unread]="!notification.readAt">{{notification.body}}</td>
             <td>{{notification.createdAt | formatDateTime: 'MMMM DD': true}}</td>
             <td>{{notification.category}}</td>

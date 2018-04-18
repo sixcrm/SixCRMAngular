@@ -6,17 +6,17 @@ import { TypeComponent } from './components/type/type.component';
 import { FieldComponent } from './components/field/field.component';
 import { ArgumentsComponent } from './components/arguments/arguments.component';
 import { InputFieldsComponent } from './components/input-fields/input-fields.component';
-import {MaterialModule} from '@angular/material';
 import { FilterSearchItemsPipe } from './filter-types.pipe';
 import {FormsModule} from '@angular/forms';
 import { SideSearchComponent } from './components/side-search/side-search.component';
 import {ClipboardModule} from 'ngx-clipboard';
+import {MaterialSelectionModule} from '../material-selection/material-selection.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    MaterialModule,
+    MaterialSelectionModule,
     ClipboardModule
   ],
   exports: [

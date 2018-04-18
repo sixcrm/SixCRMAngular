@@ -3,9 +3,9 @@ import {Bill} from '../../../../shared/models/bill.model';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {BillsService} from '../../../../shared/services/bills.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'bills-overview',
@@ -26,7 +26,7 @@ export class BillsOverviewComponent  extends AbstractEntityIndexComponent<Bill> 
   constructor(
     billsService: BillsService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

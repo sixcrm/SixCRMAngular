@@ -2,18 +2,18 @@
   <div class="entity-view__card__header">
     <div class="entity-view__card__header__title">{{(mode === modes.Add ? 'EVENTHOOK_INFO_CREATETITLE' : 'EVENTHOOK_INFO_TITLE') | translate}}</div>
     <ng-container *ngIf="mode !== modes.Add">
-      <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
-      <md-menu #editOptions="mdMenu" x-position="before">
-        <button *ngIf="mode !== modes.Add" md-menu-item (click)="changeMode.emit(modes.Update)">{{'EVENTHOOK_INFO_EDIT' | translate}}</button>
-      </md-menu>
+      <mat-icon [matMenuTriggerFor]="editOptions">more_vert</mat-icon>
+      <mat-menu #editOptions="matMenu" x-position="before">
+        <button *ngIf="mode !== modes.Add" mat-menu-item (click)="changeMode.emit(modes.Update)">{{'EVENTHOOK_INFO_EDIT' | translate}}</button>
+      </mat-menu>
     </ng-container>
 
   </div>
 
   <div class="entity-view__card__content">
-    <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-      <input auto-focus required md-input [disabled]="mode === modes.View" placeholder="{{'EVENTHOOK_INFO_NAME' | translate}}" [(ngModel)]="entity.name" type="text">
-    </md-input-container>
+    <mat-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
+      <input auto-focus required matInput [disabled]="mode === modes.View" placeholder="{{'EVENTHOOK_INFO_NAME' | translate}}" [(ngModel)]="entity.name" type="text">
+    </mat-input-container>
 
     <dropdown-component [class.error]="formInvalid && !entity"
                         [disabled]="mode === modes.View"
@@ -23,7 +23,7 @@
                         (onSelect)="entity.eventType = $event">
     </dropdown-component>
 
-    <md-checkbox [disabled]="mode === modes.View" [(ngModel)]="entity.active">{{'EVENTHOOK_INFO_ACTIVE' | translate}}</md-checkbox>
+    <mat-checkbox [disabled]="mode === modes.View" [(ngModel)]="entity.active">{{'EVENTHOOK_INFO_ACTIVE' | translate}}</mat-checkbox>
   </div>
 
   <div *ngIf="!shared && mode !== modes.View" class="entity-view__card__actions">

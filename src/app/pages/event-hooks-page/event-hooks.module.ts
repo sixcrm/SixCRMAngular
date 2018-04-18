@@ -4,7 +4,6 @@ import { EventHooksComponent} from './event-hook-index/event-hooks.component';
 import { EventHookViewComponent } from './event-hook-view/event-hook-view.component';
 import { EventHookAddNewComponent } from './event-hook-view/event-hook-add-new/event-hook-add-new.component';
 import {eventHooksRouting} from './event-hooks.routing';
-import {MaterialModule} from '@angular/material';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {SharedModule} from '../../shared/shared.module';
 import {TranslationModule} from '../../translation/translation.module';
@@ -15,13 +14,14 @@ import { EventHooksSharedComponent } from './event-hook-index/event-hooks-shared
 import { EventHooksCustomComponent } from './event-hook-index/event-hooks-custom/event-hooks-custom.component';
 import {SharedHooksListComponent} from './event-hook-view/shared-hooks-list/shared-hooks-list.component';
 import {FilterHooksByTypePipe} from './filter-hooks-by-type.pipe';
+import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 
 @NgModule({
   imports: [
     CommonModule,
     eventHooksRouting,
     CommonModule,
-    MaterialModule.forRoot(),
+    MaterialSelectionModule,
     PageComponentsModule,
     SharedModule,
     TranslationModule,

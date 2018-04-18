@@ -2,11 +2,11 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {SmtpProvidersService} from '../../../shared/services/smtp-providers.service';
 import {SmtpProvider} from '../../../shared/models/smtp-provider.model';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'c-smtp-providers',
@@ -18,7 +18,7 @@ export class SmtpProvidersComponent extends AbstractEntityIndexComponent<SmtpPro
   constructor(
     smtpProvidersService: SmtpProvidersService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

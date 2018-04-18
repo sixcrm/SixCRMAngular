@@ -7,12 +7,12 @@ import {
   accountsListQuery, accountQuery,
   deleteAccountMutation, createAccountMutation, updateAccountMutation, deleteAccountsMutation
 } from '../utils/queries/entities/account.queries';
-import {MdSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 export class AccountsService extends AbstractEntityService<Account> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MatSnackBar) {
     super(
       http,
       authService,

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {rolesRouting} from './roles.routing';
 import {FormsModule} from '@angular/forms';
-import {MaterialModule} from '@angular/material';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {TranslationModule} from '../../translation/translation.module';
 import {SharedModule} from '../../shared/shared.module';
@@ -12,13 +11,14 @@ import { RolesIndexSharedComponent } from './roles-index/roles-index-shared/role
 import { RolesIndexCustomComponent } from './roles-index/roles-index-custom/roles-index-custom.component';
 import { RoleAclsComponent } from './role-view/role-acls/role-acls.component';
 import { RoleAddNewComponent } from './roles-index/role-add-new/role-add-new.component';
+import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 
 @NgModule({
   imports: [
     rolesRouting,
     CommonModule,
     FormsModule,
-    MaterialModule.forRoot(),
+    MaterialSelectionModule,
     PageComponentsModule,
     TranslationModule,
     SharedModule

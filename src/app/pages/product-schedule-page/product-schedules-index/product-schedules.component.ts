@@ -2,11 +2,11 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ProductScheduleService} from '../../../shared/services/product-schedule.service';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'c-product-schedules',
@@ -18,7 +18,7 @@ export class ProductSchedulesComponent extends AbstractEntityIndexComponent<Prod
   constructor(
     productScheduleService: ProductScheduleService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

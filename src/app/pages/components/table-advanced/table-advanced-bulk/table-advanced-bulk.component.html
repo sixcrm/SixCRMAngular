@@ -5,7 +5,7 @@
       {{'INDEXPAGE_SELECTED' | translate}}
     </div>
     <div class="flex-custom" #arrow>
-      <md-icon (click)="showOptions = !showOptions" class="arrow" [class.arrow--rotated]="showOptions">keyboard_arrow_up</md-icon>
+      <mat-icon (click)="showOptions = !showOptions" class="arrow" [class.arrow--rotated]="showOptions">keyboard_arrow_up</mat-icon>
     </div>
     <div #options *ngIf="showOptions" class="options-container">
       <div class="options-item" (click)="selectAll()">{{'INDEXPAGE_SELECTALL' | translate}}</div>

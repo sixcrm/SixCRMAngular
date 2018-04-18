@@ -1,6 +1,6 @@
 <div class="state-machine-live__breadcrumb">
   <div class="root" [routerLink]="['/state-machine']">{{'ORDERENGINE_TITLE' | translate}}</div>
-  <md-icon>keyboard_arrow_right</md-icon>
+  <mat-icon>keyboard_arrow_right</mat-icon>
   <div class="queue">{{('ORDERENGINE_ITEM_' + queueName) | translate}} {{'ORDERENGINE_QUEUE' | translate}}</div>
 </div>
 
@@ -18,7 +18,7 @@
 
   <div class="state-machine-live__breadcrumb state-machine-live__breadcrumb--separator">
     <div class="root" [class.root--active]="!rebill" (click)="hideRebill()">{{'ORDERENGINE_REBILLS_SNACK_MAIN' | translate}}</div>
-    <md-icon *ngIf="rebill">keyboard_arrow_right</md-icon>
+    <mat-icon *ngIf="rebill">keyboard_arrow_right</mat-icon>
     <div *ngIf="rebill" class="queue"> {{'ORDERENGINE_REBILLS_SNACK_SUB' | translate}}: {{rebill.id}}</div>
   </div>
 

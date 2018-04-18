@@ -18,7 +18,7 @@
     border-radius: 3px;
     margin-right: 16px;
 
-    md-input-container {
+    mat-input-container {
       margin-left: 10px;
       font-size: 14px;
     }
@@ -27,17 +27,25 @@
       width: 190px;
     }
 
-    .md-input-underline {
+    .mat-input-wrapper {
+      padding: 0;
+    }
+
+    .mat-form-field-infix {
+      border-top: none;
+
+    }
+    .mat-input-underline {
       display: none;
     }
 
-    .md-input-placeholder {
+    .mat-input-placeholder {
       color: inherit;
     }
   }
 
   &-input--no-margin-top {
-    .md-input-wrapper {
+    .mat-input-wrapper {
       margin-top: 0;
     }
   }

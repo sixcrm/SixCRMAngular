@@ -1,7 +1,7 @@
 <div  *ngIf="entity; else spinner" class="entity-view">
   <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
 
-  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+  <div (click)="navigation.back()" class="entity-view__change-mode"><mat-icon>reply</mat-icon></div>
 
   <div class="entity-view__info">
     <div class="entity-view__info__image">
@@ -15,7 +15,9 @@
           <span *ngIf="viewMode; else nameEdit">{{entity.name}}</span>
 
           <ng-template #nameEdit>
-            <md-input #nameInputField [class.error]="formInvalid && !entity.name" required [(ngModel)]="entity.name" name="name"></md-input>
+            <mat-input-container>
+              <input matInput #nameInputField [class.error]="formInvalid && !entity.name" required [(ngModel)]="entity.name" name="name">
+            </mat-input-container>
           </ng-template>
         </div>
 
@@ -24,7 +26,9 @@
           <span *ngIf="viewMode; else affidEdit">{{entity.affiliateId}}</span>
 
           <ng-template #affidEdit>
-            <md-input [class.error]="formInvalid && !entity.affiliateId" required [(ngModel)]="entity.affiliateId" name="affiliateId"></md-input>
+            <mat-input-container [class.error]="formInvalid && !entity.affiliateId">
+              <input matInput required [(ngModel)]="entity.affiliateId" name="affiliateId">
+            </mat-input-container>
           </ng-template>
         </div>
       </form>
@@ -43,27 +47,27 @@
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-  <md-tab-group *ngIf="!addMode" [(selectedIndex)]="selectedIndex">
+  <mat-tab-group *ngIf="!addMode" [(selectedIndex)]="selectedIndex">
 
-    <md-tab>
+    <mat-tab>
       <div class="tab-container">
         <affiliate-trackers [affiliate]="entity"></affiliate-trackers>
       </div>
-    </md-tab>
+    </mat-tab>
 
-    <md-tab>
+    <mat-tab>
       <div class="tab-container">
         <affiliate-sessions [affiliateId]="entity.id"></affiliate-sessions>
       </div>
-    </md-tab>
+    </mat-tab>
 
-    <md-tab>
+    <mat-tab>
       <div class="tab-container">
         <affiliate-campaigns [affiliateId]="entity.id"></affiliate-campaigns>
       </div>
-    </md-tab>
+    </mat-tab>
 
-  </md-tab-group>
+  </mat-tab-group>
 </div>
 
 <ng-template #spinner>

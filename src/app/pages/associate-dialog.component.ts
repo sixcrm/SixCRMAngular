@@ -1,19 +1,19 @@
 import {Component} from '@angular/core';
-import {MdDialogRef} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector : 'associate-dialog',
   template : `
-    <md-card>
-      <md-card-content>
+    <mat-card>
+      <mat-card-content>
         {{text | translate}}
         <autocomplete-input [initialValue]="entity ? entity : ''" [options]="options" [placeholder]="placeholder | translate" [mapFunction]="mapper" (selected)="entity = $event"></autocomplete-input>
-      </md-card-content>
-      <md-card-actions class="custom-dialog__buttons">
+      </mat-card-content>
+      <mat-card-actions class="custom-dialog__buttons">
         <div (click)="cancel()">{{associateCancelText | translate}}</div>
         <div (click)="associate()">{{associateButtonText | translate}}</div>
-      </md-card-actions>
-    </md-card>
+      </mat-card-actions>
+    </mat-card>
   `,
   styles : []
 })
@@ -27,7 +27,7 @@ export class AssociateDialogComponent<T> {
   entity: T;
   mapper = el => el;
 
-  constructor(public dialogRef: MdDialogRef<AssociateDialogComponent<T>>) {}
+  constructor(public dialogRef: MatDialogRef<AssociateDialogComponent<T>>) {}
 
   ngOnInit() {
   }

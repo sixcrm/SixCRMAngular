@@ -5,7 +5,7 @@
 
     <div class="header" [class.header--collapsed]="!sideVisible">
       <div (click)="toggleAddProductScheduleMode()">
-        <md-icon>add</md-icon>
+        <mat-icon>add</mat-icon>
         <span *ngIf="sideVisible">ADD</span>
       </div>
     </div>
@@ -18,7 +18,7 @@
           <ng-container *ngIf="sideVisible;">
             <span>{{ps.schedules.length}}</span>
             <div (click)="productScheduleToggle(!ps.detailedListSelected, ps)"> {{ps.name || 'Unnamed'}}</div>
-            <md-icon *ngIf="!singleScheduleMode" (click)="scheduleCollapseToggle(ps)" [class.rotated]="ps.detailedListOpened">keyboard_arrow_left</md-icon>
+            <mat-icon *ngIf="!singleScheduleMode" (click)="scheduleCollapseToggle(ps)" [class.rotated]="ps.detailedListOpened">keyboard_arrow_left</mat-icon>
           </ng-container>
         </div>
 
@@ -66,7 +66,7 @@
                               [applyAutofocus]="true"
                               (selected)="addSelected($event)">
           </autocomplete-input>
-          <md-icon (click)="persistSelected()">add</md-icon>
+          <mat-icon (click)="persistSelected()">add</mat-icon>
         </div>
       </div>
     </div>

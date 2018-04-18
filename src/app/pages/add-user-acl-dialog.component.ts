@@ -1,14 +1,14 @@
 import {Component} from '@angular/core';
-import {MdDialogRef} from '@angular/material';
 import {Role} from '../shared/models/role.model';
 import {Account} from '../shared/models/account.model';
 import {User} from '../shared/models/user.model';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector : 'add-user-acl-dialog',
   template : `
-    <md-card>
-      <md-card-content style="display: flex; flex-direction: column">
+    <mat-card>
+      <mat-card-content style="display: flex; flex-direction: column">
         <div style="margin-bottom: 25px;">{{text}}</div>
         <autocomplete-input *ngIf="accountView"
                             [disabled]="editMode"
@@ -35,12 +35,12 @@ import {User} from '../shared/models/user.model';
                             (onSelect)="role = $event">
         </dropdown-component>
 
-      </md-card-content>
-      <md-card-actions class="custom-dialog__buttons">
+      </mat-card-content>
+      <mat-card-actions class="custom-dialog__buttons">
         <div (click)="cancel()">CANCEL</div>
         <div (click)="add()">{{editMode ? 'EDIT' : 'ADD'}}</div>
-      </md-card-actions>
-    </md-card>
+      </mat-card-actions>
+    </mat-card>
   `,
   styles : []
 })
@@ -60,7 +60,7 @@ export class AddUserAclDialogComponent {
   roleMapper = (role: Role) => role.name;
   userMapper = (user: User) => user.name;
 
-  constructor(public dialogRef: MdDialogRef<AddUserAclDialogComponent>) {}
+  constructor(public dialogRef: MatDialogRef<AddUserAclDialogComponent>) {}
 
   ngOnInit() {}
 

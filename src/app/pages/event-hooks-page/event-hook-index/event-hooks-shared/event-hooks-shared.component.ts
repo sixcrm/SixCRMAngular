@@ -3,10 +3,10 @@ import {EventHook} from '../../../../shared/models/event-hook.model';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PaginationService} from '../../../../shared/services/pagination.service';
-import {MdDialog} from '@angular/material';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {EventHooksSharedService} from '../../../../shared/services/event-hooks-shared.service';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'event-hooks-shared',
@@ -18,7 +18,7 @@ export class EventHooksSharedComponent extends AbstractEntityIndexComponent<Even
   constructor(
     eventHooksService: EventHooksSharedService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

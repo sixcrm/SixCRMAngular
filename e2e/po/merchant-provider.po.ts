@@ -7,11 +7,11 @@ export class MerchantProviderPage {
   }
 
   getNewFormInput(num: number) {
-    return element(by.css('merchant-provider-add-new')).all(by.css('md-input-container')).get(num).element(by.css('input'));
+    return element(by.css('merchant-provider-add-new')).all(by.css('mat-input-container')).get(num).element(by.css('input'));
   }
 
   getNewFormCheckbox(num: number) {
-    return element(by.css('merchant-provider-add-new')).all(by.css('md-checkbox')).get(num);
+    return element(by.css('merchant-provider-add-new')).all(by.css('mat-checkbox')).get(num);
   }
 
   getNewFormSaveButton() {

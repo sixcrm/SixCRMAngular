@@ -12,7 +12,7 @@
     transition: 0.15s ease-in-out;
   }
 
-  md-icon {
+  mat-icon {
     color: #8E8E8E;
   }
 
@@ -25,7 +25,7 @@
       div {
         margin: auto 8px !important;
 
-        md-icon {
+        mat-icon {
           margin: auto !important;
           transition: 0.15s ease-in-out;
         }
@@ -50,7 +50,7 @@
         color: #8e8e8e;
       }
 
-      md-icon {
+      mat-icon {
         margin-left: auto;
         margin-right: 8px;
         height: 22px;
@@ -149,7 +149,7 @@
         cursor: pointer;
       }
 
-      md-icon {
+      mat-icon {
         margin-left: auto;
         cursor: pointer;
         transition: 0.15s ease-in-out;

@@ -1,17 +1,17 @@
 <div class="entity-view__card tracker-view" [class.entity-view__card--create]="mode === modes.Add">
   <div class="entity-view__card__header">
     <div class="entity-view__card__header__title">{{(mode === modes.Add ? 'TRACKER_INFO_CREATETITLE' : 'TRACKER_INFO_TITLE') | translate}}</div>
-    <md-icon *ngIf="mode !== modes.Add" [md-menu-trigger-for]="trackerOptions">more_vert</md-icon>
-    <md-menu #trackerOptions="mdMenu" x-position="before">
-      <button md-menu-item (click)="enableEdit()">{{'TRACKER_INFO_EDIT' | translate}}</button>
-    </md-menu>
+    <mat-icon *ngIf="mode !== modes.Add" [matMenuTriggerFor]="trackerOptions">more_vert</mat-icon>
+    <mat-menu #trackerOptions="matMenu" x-position="before">
+      <button mat-menu-item (click)="enableEdit()">{{'TRACKER_INFO_EDIT' | translate}}</button>
+    </mat-menu>
   </div>
 
   <div class="entity-view__card__content">
     <div *ngIf="mode !== modes.View" class="tracker-view__card__content__name">
-      <md-input-container [class.error]="formInvalid && !entity.name">
-        <input auto-focus md-input type="text" placeholder="{{'TRACKER_INFO_NAME' | translate}}" [(ngModel)]="entity.name">
-      </md-input-container>
+      <mat-input-container [class.error]="formInvalid && !entity.name">
+        <input auto-focus matInput type="text" placeholder="{{'TRACKER_INFO_NAME' | translate}}" [(ngModel)]="entity.name">
+      </mat-input-container>
     </div>
 
     <div class="tracker-view__card__content__type">
@@ -36,14 +36,14 @@
         [options]="['upsell', 'lead', 'main']">
       </dropdown-component>
       <ng-container *ngIf="mode !== modes.View">
-        <span *ngFor="let t of entity.eventType"> <md-icon class="cancel" (click)="removeEventType(t)">cancel</md-icon> {{t}} </span>
+        <span *ngFor="let t of entity.eventType"> <mat-icon class="cancel" (click)="removeEventType(t)">cancel</mat-icon> {{t}} </span>
       </ng-container>
     </div>
 
     <div *ngIf="entity.link && mode !== modes.Update" class="tracker-view__card__content__link">
       <div class="tracker-view__card__content__label">{{'TRACKER_INFO_LINK' | translate}}:</div>
       <input type="text" #urlField class="share-link__url__content" value="{{entity.link}}" readonly>
-      <md-icon md-tooltip="{{'SHARE_COPY' | translate}}" (click)="copyUrlToClipboard(urlField)">content_copy</md-icon>
+      <mat-icon matTooltip="{{'SHARE_COPY' | translate}}" (click)="copyUrlToClipboard(urlField)">content_copy</mat-icon>
     </div>
 
     <div class="tracker-view__card__content__body">
@@ -52,7 +52,9 @@
       <codemirror [class.invisible]="entity.type !== 'html'" [(ngModel)]="entity.body" [config]="config"></codemirror>
 
       <ng-container *ngIf="entity.type !== 'html'">
-        <md-textarea class="codeblock" *ngIf="mode !== modes.View; else bodyNoEdit" [(ngModel)]="entity.body"></md-textarea>
+        <mat-input-container>
+          <textarea matInput class="codeblock" *ngIf="mode !== modes.View; else bodyNoEdit" [(ngModel)]="entity.body"></textarea>
+        </mat-input-container>
 
         <ng-template #bodyNoEdit>
           <div class="codeblock">

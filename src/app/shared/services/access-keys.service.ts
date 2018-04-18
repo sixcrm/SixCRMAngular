@@ -3,16 +3,16 @@ import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {AccessKey} from '../models/access-key.model';
 import {HttpWrapperService} from './http-wrapper.service';
-import {MdSnackBar} from '@angular/material';
 import {
   accessKeyQuery, deleteAccessKeyMutation,
   accessKeysListQuery, createAccessKeyMutation, updateAccessKeyMutation, deleteAccessKeysMutation
 } from '../utils/queries/entities/access-key.queries';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 export class AccessKeysService extends AbstractEntityService<AccessKey> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MatSnackBar) {
     super(
       http,
       authService,

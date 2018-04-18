@@ -1,13 +1,9 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {EventFunnel} from '../../../shared/models/event-funnel.model';
-import {NavigationService} from '../../../navigation/navigation.service';
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
 import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
-import {TranslationService} from '../../../translation/translation.service';
 import {utc} from 'moment';
-
-const hc = require('highcharts');
 
 @Component({
   selector: 'funnel-graph',

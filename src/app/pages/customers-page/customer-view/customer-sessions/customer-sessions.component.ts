@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {SessionsService} from '../../../../shared/services/sessions.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {Session} from '../../../../shared/models/session.model';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {sessionsByCustomer, sessionsInfoListQuery} from '../../../../shared/utils/queries/entities/session.queries';
 import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'customer-sessions',
@@ -21,7 +21,7 @@ export class CustomerSessionsComponent extends AbstractEntityIndexComponent<Sess
   constructor(
     transactionsService: SessionsService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService
   ) {
     super(transactionsService, auth, dialog, paginationService);

@@ -4,8 +4,8 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {Notification} from './../models/notification.model'
 import {HttpWrapperService} from './http-wrapper.service';
 import {notificationsListQuery, updateNotificationMutation} from '../utils/queries/entities/notification.queries';
-import {MdSnackBar} from '@angular/material';
 import {TranslationService} from '../../translation/translation.service';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 export class NotificationsService extends AbstractEntityService<Notification> {
@@ -13,7 +13,7 @@ export class NotificationsService extends AbstractEntityService<Notification> {
   constructor(
     http: HttpWrapperService,
     authService: AuthenticationService,
-    snackBar: MdSnackBar,
+    snackBar: MatSnackBar,
     private translationService: TranslationService
   ) {
     super(

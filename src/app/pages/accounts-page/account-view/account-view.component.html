@@ -1,7 +1,7 @@
 <div *ngIf="entity; else spinner" class="entity-view">
   <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
 
-  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+  <div (click)="navigation.back()" class="entity-view__change-mode"><mat-icon>reply</mat-icon></div>
 
   <div class="entity-view__info">
     <div class="entity-view__info__image">
@@ -21,8 +21,8 @@
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-  <md-tab-group [(selectedIndex)]="selectedIndex">
-    <md-tab>
+  <mat-tab-group [(selectedIndex)]="selectedIndex">
+    <mat-tab>
 
         <account-add-new
           [entity]="entity"
@@ -35,8 +35,8 @@
           (save)="saveOrUpdate($event)">
         </account-add-new>
 
-    </md-tab>
-    <md-tab>
+    </mat-tab>
+    <mat-tab>
       <table-memory
         class="account-view__acls-table"
         [data]="entity.acls || []"
@@ -58,15 +58,15 @@
         (associate)="showAddAclModal()"
         (disassociate)="removeAcl($event)">
       </table-memory>
-    </md-tab>
-    <md-tab>
+    </mat-tab>
+    <mat-tab>
       <access-keys></access-keys>
-    </md-tab>
+    </mat-tab>
 
-    <md-tab *ngIf="showBilling()">
+    <mat-tab *ngIf="showBilling()">
       <bills-overview [focused]="isBillingFocused"></bills-overview>
-    </md-tab>
-  </md-tab-group>
+    </mat-tab>
+  </mat-tab-group>
 </div>
 
 <ng-template #spinner>

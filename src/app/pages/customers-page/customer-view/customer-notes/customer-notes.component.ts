@@ -4,11 +4,11 @@ import {CustomerNotesService} from '../../../../shared/services/customer-notes.s
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {PaginationService} from '../../../../shared/services/pagination.service';
-import {MdDialog} from '@angular/material';
 import {firstIndexOf} from '../../../../shared/utils/array.utils';
 import {customerNotesByCustomerQuery} from '../../../../shared/utils/queries/entities/customer-note.queries';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'customer-notes',
@@ -26,7 +26,7 @@ export class CustomerNotesComponent extends AbstractEntityIndexComponent<Custome
   constructor(
     customerNotesService: CustomerNotesService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
   ) {
     super(customerNotesService, auth, dialog, paginationService);
@@ -37,6 +37,7 @@ export class CustomerNotesComponent extends AbstractEntityIndexComponent<Custome
     this.service.indexQuery = (params: IndexQueryParameters) => customerNotesByCustomerQuery(this.customerId, params);
     this.shareLimit = false;
     this.limit = 50;
+    this.viewAfterCrate = false;
 
     this.service.entities$.takeUntil(this.unsubscribe$).subscribe(notes => {
       if (notes instanceof CustomServerError) {

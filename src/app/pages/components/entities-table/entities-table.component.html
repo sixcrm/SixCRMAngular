@@ -8,7 +8,7 @@
         {{'INDEXPAGE_SELECTED' | translate}}
       </div>
       <div #arrow>
-        <md-icon (click)="showActionOptions = !showActionOptions" class="arrow" [class.arrow--rotated]="showActionOptions">keyboard_arrow_up</md-icon>
+        <mat-icon (click)="showActionOptions = !showActionOptions" class="arrow" [class.arrow--rotated]="showActionOptions">keyboard_arrow_up</mat-icon>
       </div>
       <div #options *ngIf="showActionOptions" class="options__container">
         <div class="options__item" (click)="selectAll()">{{'INDEXPAGE_SELECTALL' | translate}}</div>
@@ -44,8 +44,8 @@
           <th #originalheader (click)="setSortParams(params)" [class.cell--align-right]="params.align === 'right'" [class.cell--codeblock]="params.code">
             {{params.label | translate}}
             <ng-container *ngIf="params.sortEnabled">
-              <md-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'asc'" class="up-icon">arrow_drop_up</md-icon>
-              <md-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'desc'" class="down-icon">arrow_drop_down</md-icon>
+              <mat-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'asc'" class="up-icon">arrow_drop_up</mat-icon>
+              <mat-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'desc'" class="down-icon">arrow_drop_down</mat-icon>
             </ng-container>
           </th>
         </ng-container>
@@ -63,8 +63,8 @@
             <th [style.width]="getHeaderWidth(params)" (click)="setSortParams(params)" [class.cell--align-right]="params.align === 'right'" [class.cell--codeblock]="params.code">
               {{params.label | translate}}
               <ng-container *ngIf="params.sortEnabled">
-                <md-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'asc'" class="up-icon">arrow_drop_up</md-icon>
-                <md-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'desc'" class="down-icon">arrow_drop_down</md-icon>
+                <mat-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'asc'" class="up-icon">arrow_drop_up</mat-icon>
+                <mat-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'desc'" class="down-icon">arrow_drop_down</mat-icon>
               </ng-container>
             </th>
           </ng-container>
@@ -79,7 +79,7 @@
       <ng-container *ngFor="let entity of (data | filterEntitiesByParams: columnParams: filterString | sortEntities: sortParams.mappingFunction: sortParams.sortOrder)">
         <tr [class.selected]="entity.bulkSelected">
           <td class="bulk-option">
-            <md-checkbox class="checkbox-blue" [(ngModel)]="entity.bulkSelected"></md-checkbox>
+            <mat-checkbox class="checkbox-blue" [(ngModel)]="entity.bulkSelected"></mat-checkbox>
           </td>
           <ng-container *ngFor="let param of columnParams">
             <ng-container *ngIf="param.selected">
@@ -133,7 +133,7 @@
     <ng-template #dataLoaderItem>
       <tr>
         <td class="bulk-option">
-          <md-checkbox class="checkbox-blue"></md-checkbox>
+          <mat-checkbox class="checkbox-blue"></mat-checkbox>
         </td>
         <ng-container *ngFor="let param of columnParams">
           <ng-container *ngIf="param.selected">

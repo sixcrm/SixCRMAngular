@@ -3,7 +3,7 @@ $border-color: rgba(0, 0, 0, 0.2);
 
 .search {
 
-  .md-tab-label-container {
+  .mat-tab-label-container {
     display: none;
   }
 
@@ -63,7 +63,7 @@ $border-color: rgba(0, 0, 0, 0.2);
       }
     }
 
-    md-nav-list {
+    mat-nav-list {
       display: flex;
       flex-flow: column;
       padding: 15px 25px;
@@ -80,7 +80,7 @@ $border-color: rgba(0, 0, 0, 0.2);
           font-size: 11px;
         }
 
-        md-icon {
+        mat-icon {
           height: 16px;
           width: 16px;
           font-size: 16px;
@@ -120,7 +120,7 @@ $border-color: rgba(0, 0, 0, 0.2);
         font-weight: 500;
       }
 
-      md-icon {
+      mat-icon {
         height: 16px;
         width: 16px;
         border: 1px solid rgba(0, 0, 0, 0.5);
@@ -147,7 +147,7 @@ $border-color: rgba(0, 0, 0, 0.2);
         }
       }
 
-      md-icon {
+      mat-icon {
         color: rgba(0,0,0,0.3);
         border-color: rgba(0,0,0,0.3);
       }
@@ -185,15 +185,9 @@ $border-color: rgba(0, 0, 0, 0.2);
       }
     }
 
-    md-checkbox > .md-checkbox-layout > .md-checkbox-inner-container {
+    mat-checkbox > .mat-checkbox-layout > .mat-checkbox-inner-container {
       height: 16px;
       width: 16px;
-    }
-
-    &__radio-group {
-      md-radio-button {
-        display: block;
-      }
     }
 
     &__reset {
@@ -229,7 +223,7 @@ $border-color: rgba(0, 0, 0, 0.2);
         vertical-align: middle;
       }
 
-      md-icon {
+      mat-icon {
         vertical-align: middle;
         cursor: pointer;
       }
@@ -304,7 +298,7 @@ $border-color: rgba(0, 0, 0, 0.2);
         &__spinner {
           background: white;
 
-          md-spinner {
+          mat-spinner {
             margin: auto;
             padding: 30px 0;
           }
@@ -412,7 +406,7 @@ $border-color: rgba(0, 0, 0, 0.2);
               right: 0;
             }
 
-            md-icon {
+            mat-icon {
               margin-right: 5px;
               vertical-align: middle;
             }
@@ -444,7 +438,7 @@ $border-color: rgba(0, 0, 0, 0.2);
           margin-left: 20px;
           width: 100%;
 
-          md-icon {
+          mat-icon {
             margin-top: 8px;
             cursor: pointer;
           }
@@ -457,13 +451,13 @@ $border-color: rgba(0, 0, 0, 0.2);
       }
     }
 
-    md-card {
+    mat-card {
 
-      md-card-title {
+      mat-card-title {
         padding-bottom: 5px;
         border-bottom: solid 1px #B2B2B2;
 
-        md-icon {
+        mat-icon {
           float: right;
         }
       }
@@ -562,7 +556,7 @@ $border-color: rgba(0, 0, 0, 0.2);
         font-size: 14px;
       }
 
-      md-icon {
+      mat-icon {
         width: 20px;
         height: 20px;
         font-size: 20px;
@@ -572,7 +566,7 @@ $border-color: rgba(0, 0, 0, 0.2);
     }
   }
 
-  md-spinner {
+  mat-spinner {
     margin: auto;
     padding: 30px 0;
   }

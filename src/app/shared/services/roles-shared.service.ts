@@ -3,13 +3,13 @@ import {Role} from '../models/role.model';
 import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {HttpWrapperService} from './http-wrapper.service';
-import {MdSnackBar} from '@angular/material';
 import {rolesSharedListQuery, roleSharedQuery, createRoleMutation} from '../utils/queries/entities/role.queries';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 export class RolesSharedService extends AbstractEntityService<Role>{
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MatSnackBar) {
     super(
       http,
       authService,

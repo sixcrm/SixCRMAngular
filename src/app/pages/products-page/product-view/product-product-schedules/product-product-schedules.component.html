@@ -1,7 +1,9 @@
 <div class="entity-view__table-component">
   <div class="entity-view__table-component__header">
     <div class="entity-view__table-component__header__title">{{'PRODUCT_SCHEDULES_TITLE' | translate}}</div>
-    <md-input class="entity-view__table-component__header__filter" placeholder="{{'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filterValue"></md-input>
+    <mat-input-container class="entity-view__table-component__header__filter">
+      <input matInput placeholder="{{'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filterValue">
+    </mat-input-container>
     <table-pagination
       [limit]="limit"
       [paginationValues]="paginationValues"
@@ -15,10 +17,10 @@
       [columnParams]="columnParams"
       [small]="true">
     </table-preferences>
-    <md-icon class="entity-view__table-component__header__action" [md-menu-trigger-for]="optionsMenu">more_vert</md-icon>
-    <md-menu #optionsMenu="mdMenu" x-position="before">
-      <button md-menu-item (click)="showAddProductScheduleModal()">{{'PRODUCT_SCHEDULES_ADD' | translate}}</button>
-    </md-menu>
+    <mat-icon class="entity-view__table-component__header__action" [matMenuTriggerFor]="optionsMenu">more_vert</mat-icon>
+    <mat-menu #optionsMenu="matMenu" x-position="before">
+      <button mat-menu-item (click)="showAddProductScheduleModal()">{{'PRODUCT_SCHEDULES_ADD' | translate}}</button>
+    </mat-menu>
   </div>
   <table class="highlight table__custom">
     <thead>
@@ -27,7 +29,7 @@
         <ng-container *ngIf="params.selected">
           <th (click)="setSortedColumnParams(params)" [class.cell--align-right]="params.align === 'right'">
             {{params.label | translate}}
-            <md-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+            <mat-icon *ngIf="params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
           </th>
         </ng-container>
       </ng-container>
@@ -46,11 +48,11 @@
         </ng-container>
       </ng-container>
       <td>
-        <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-        <md-menu #actionsMenu="mdMenu" x-position="before">
-          <button md-menu-item [routerLink]="['/productschedules', entity.id]">{{'PRODUCT_SCHEDULES_VIEW' | translate}}</button>
-          <button md-menu-item (click)="removeProductSchedule(entity)">{{'PRODUCT_SCHEDULES_REMOVE' | translate}}</button>
-        </md-menu>
+        <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+        <mat-menu #actionsMenu="matMenu" x-position="before">
+          <button mat-menu-item [routerLink]="['/productschedules', entity.id]">{{'PRODUCT_SCHEDULES_VIEW' | translate}}</button>
+          <button mat-menu-item (click)="removeProductSchedule(entity)">{{'PRODUCT_SCHEDULES_REMOVE' | translate}}</button>
+        </mat-menu>
       </td>
     </tr>
     </tbody>

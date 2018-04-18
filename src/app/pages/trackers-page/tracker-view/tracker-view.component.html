@@ -1,7 +1,7 @@
 <div *ngIf="entity; else spinner" class="entity-view">
   <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
 
-  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+  <div (click)="navigation.back()" class="entity-view__change-mode"><mat-icon>reply</mat-icon></div>
 
   <div class="entity-view__info">
     <div class="entity-view__info__image">
@@ -14,13 +14,13 @@
   </div>
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-  <md-tab-group [(selectedIndex)]="selectedIndex">
-    <md-tab>
+  <mat-tab-group [(selectedIndex)]="selectedIndex">
+    <mat-tab>
 
       <tracker-add-new [entity]="entity" [mode]="viewMode ? modes.View : modes.Update" (changeMode)="setMode($event)" (save)="saveOrUpdate($event)" (cancel)="cancelUpdate()"></tracker-add-new>
 
-    </md-tab>
-    <md-tab>
+    </mat-tab>
+    <mat-tab>
       <table-memory [data]="entity.affiliates"
                     [columnParams]="affiliateColumnParams"
                     [associateData]="affiliateService.entities$ | async"
@@ -30,9 +30,9 @@
                     (associate)="associateAffiliate($event)"
                     (disassociate)="dissociateAffiliate($event)">
       </table-memory>
-    </md-tab>
+    </mat-tab>
 
-    <md-tab>
+    <mat-tab>
       <table-memory [data]="entity.campaigns"
                     [columnParams]="campaignColumnParams"
                     [associateData]="campaignService.entities$ | async"
@@ -42,8 +42,8 @@
                     (associate)="associateCampaign($event)"
                     (disassociate)="dissociateCampaign($event)">
       </table-memory>
-    </md-tab>
-  </md-tab-group>
+    </mat-tab>
+  </mat-tab-group>
 </div>
 
 <ng-template #spinner>

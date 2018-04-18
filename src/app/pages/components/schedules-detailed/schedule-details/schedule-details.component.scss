@@ -51,12 +51,12 @@ $container-width: 350px;
       .body__row {
         display: flex;
 
-        md-input-container:first-of-type {
-          margin-right: 12px;
+        mat-input-container:first-of-type {
+          margin-right: auto;
         }
       }
 
-      md-input-container {
+      mat-input-container {
         font-size: 14px;
       }
 
@@ -88,6 +88,10 @@ $container-width: 350px;
       border-top: 1px solid rgba(0,0,0,0.2);
       font-size: 14px;
 
+      &--last {
+        margin-bottom: 180px;
+      }
+
       .number {
         display: flex;
         width: 34px;
@@ -109,7 +113,7 @@ $container-width: 350px;
         white-space: nowrap;
       }
 
-      md-icon {
+      mat-icon {
         margin-left: auto;
         font-size: 20px;
         height: 20px;
@@ -132,4 +136,8 @@ $container-width: 350px;
   background: #EF4339;
   font-weight: 500;
   padding: 6px 16px;
+}
+
+mat-input-container {
+  width: 140px;
 }

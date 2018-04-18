@@ -9,7 +9,7 @@
   color: #8E8E8E;
   font-size: 12px;
 
-  md-icon {
+  mat-icon {
     cursor: pointer;
     width: 22px;
     height: 22px;
@@ -29,7 +29,7 @@
       width: 45px;
       transition: 0.15s ease-in-out;
 
-      md-icon {
+      mat-icon {
         margin: auto !important;
         padding: 2px;
         border: 1px solid rgba(0,0,0,0.2);
@@ -42,7 +42,7 @@
       font-weight: 500;
     }
 
-    md-icon {
+    mat-icon {
       margin: auto 10px auto auto;
     }
   }
@@ -78,7 +78,7 @@
     margin: 0 3px;
   }
 
-  md-input-container {
+  mat-input-container {
   }
 
   .zoom-label {

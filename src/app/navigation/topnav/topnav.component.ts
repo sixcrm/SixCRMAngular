@@ -1,5 +1,4 @@
-import {Component, OnInit, Input, ViewChild} from '@angular/core';
-import {MdSidenav} from '@angular/material';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {NavigationService} from '../navigation.service';
 import {AuthenticationService} from "../../authentication/authentication.service";
 import {Router} from '@angular/router';
@@ -17,7 +16,6 @@ import {TopnavDropdownOption} from './topnav-dropdown/topnav-dropdown.component'
   host: {'(document:click)': 'hideElements($event)'},
 })
 export class TopnavComponent implements OnInit {
-  @Input() sideNav: MdSidenav;
   @ViewChild('autocomplete') autocomplete: AutocompleteComponent;
 
   showSidenav: boolean;

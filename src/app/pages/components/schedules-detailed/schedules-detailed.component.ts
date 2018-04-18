@@ -6,7 +6,7 @@ import {ProductsService} from '../../../shared/services/products.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Moment} from 'moment';
 import {YesNoDialogComponent} from '../../yes-no-dialog.component';
-import {MdDialog} from '@angular/material';
+import {MatDialog} from '@angular/material';
 
 export enum DisplayModes {
   grid,
@@ -60,7 +60,7 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
   selectedIndex: number = 0;
   scrollToElement: ProductSchedule | Schedule | Product;
 
-  constructor(private productService: ProductsService, private dialog: MdDialog) { }
+  constructor(private productService: ProductsService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.fetchProducts();

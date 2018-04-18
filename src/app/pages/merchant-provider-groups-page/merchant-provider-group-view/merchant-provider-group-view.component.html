@@ -1,7 +1,7 @@
 <div *ngIf="entity; else spinner" class="entity-view">
   <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
 
-  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+  <div (click)="navigation.back()" class="entity-view__change-mode"><mat-icon>reply</mat-icon></div>
 
   <div class="entity-view__info">
     <div class="entity-view__info__image">
@@ -14,9 +14,9 @@
           {{entityBackup.name}}
         </span>
         <ng-template #createForm>
-          <md-input-container [class.error]="detailsFormInvalid && !entity.name">
-            <input required md-input placeholder="{{(addMode ? 'MERCHANTPROVIDERGROUP_INFO_NAME' : '') | translate}}" type="text" [(ngModel)]="entity.name">
-          </md-input-container>
+          <mat-input-container [class.error]="detailsFormInvalid && !entity.name">
+            <input required matInput placeholder="{{(addMode ? 'MERCHANTPROVIDERGROUP_INFO_NAME' : '') | translate}}" type="text" [(ngModel)]="entity.name">
+          </mat-input-container>
         </ng-template>
       </div>
     </div>
@@ -32,16 +32,16 @@
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-  <md-tab-group [(selectedIndex)]="selectedIndex">
-    <md-tab>
+  <mat-tab-group [(selectedIndex)]="selectedIndex">
+    <mat-tab>
       <div class="entity-view__card">
         <div class="entity-view__card__header">
           <div class="entity-view__card__header__title">{{'MERCHANTPROVIDERGROUP_MERCHANT_ADDTITLE' | translate}}</div>
         </div>
         <form #merchantProviderInputForm="ngForm" class="entity-view__card__content">
-          <md-input-container style="width: 110px" class="entity-view__card__content__item" [class.error]="formInvalid && !providerToAdd.distribution">
-            <input required md-input placeholder="{{'MERCHANTPROVIDERGROUP_MERCHANT_DISTRIBUTION' | translate}}" name="distribution" (keydown)="isFloatNumeric($event)" [(ngModel)]="providerToAdd.distribution" type="text">
-          </md-input-container>
+          <mat-input-container style="width: 110px" class="entity-view__card__content__item" [class.error]="formInvalid && !providerToAdd.distribution">
+            <input required matInput placeholder="{{'MERCHANTPROVIDERGROUP_MERCHANT_DISTRIBUTION' | translate}}" name="distribution" (keydown)="isFloatNumeric($event)" [(ngModel)]="providerToAdd.distribution" type="text">
+          </mat-input-container>
 
           <autocomplete-input style="font-size: 14px;"
                               [class.error]="formInvalid && !providerToAdd.merchantProvider.id"
@@ -74,8 +74,8 @@
                       (disassociate)="disassociateMerchantProvider($event)">
         </table-memory>
       </div>
-    </md-tab>
-  </md-tab-group>
+    </mat-tab>
+  </mat-tab-group>
 </div>
 
 <ng-template #spinner>

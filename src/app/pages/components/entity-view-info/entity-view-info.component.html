@@ -2,15 +2,15 @@
   <div class="entity__content__general__title">
     <span>{{title}}</span>
 
-    <button *ngIf="show" md-icon-button (click)="toggle()"><md-icon>keyboard_arrow_up</md-icon></button>
-    <button *ngIf="!show" md-icon-button (click)="toggle()"><md-icon>keyboard_arrow_down</md-icon></button>
+    <button *ngIf="show" mat-icon-button (click)="toggle()"><mat-icon>keyboard_arrow_up</mat-icon></button>
+    <button *ngIf="!show" mat-icon-button (click)="toggle()"><mat-icon>keyboard_arrow_down</mat-icon></button>
 
     <ng-container *ngIf="options && optionsField">
-      <button md-icon-button [md-menu-trigger-for]="providersMenu"><md-icon>add</md-icon></button>
+      <button mat-icon-button [matMenuTriggerFor]="providersMenu"><mat-icon>add</mat-icon></button>
 
-      <md-menu #providersMenu="mdMenu">
-        <button md-menu-item *ngFor="let option of options" (click)="selectOption(option)">{{option[optionsField]}}</button>
-      </md-menu>
+      <mat-menu #providersMenu="matMenu">
+        <button mat-menu-item *ngFor="let option of options" (click)="selectOption(option)">{{option[optionsField]}}</button>
+      </mat-menu>
     </ng-container>
   </div>
 

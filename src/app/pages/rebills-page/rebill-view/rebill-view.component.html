@@ -1,7 +1,7 @@
 <div *ngIf="entity; else spinner" class="entity-view">
   <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
 
-  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+  <div (click)="navigation.back()" class="entity-view__change-mode"><mat-icon>reply</mat-icon></div>
 
   <div class="entity-view__info">
     <div class="entity-view__info__image">
@@ -19,36 +19,36 @@
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-  <md-tab-group [(selectedIndex)]="selectedIndex">
-    <md-tab>
+  <mat-tab-group [(selectedIndex)]="selectedIndex">
+    <mat-tab>
 
       <div class="flex-custom">
         <div class="entity-view__card campaign-view__card">
           <div class="entity-view__card__header">
             <div class="entity-view__card__header__title">{{'REBILL_INFO_TITLE' | translate}}</div>
-            <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-            <md-menu #actionsMenu="mdMenu" x-position="before">
-              <button md-menu-item (click)="goToCustomer()">{{'REBILL_INFO_CUSTOMERVIEW' | translate}}</button>
-              <button md-menu-item (click)="goToSession()">{{'REBILL_INFO_SESSIONVIEW' | translate}}</button>
-            </md-menu>
+            <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+            <mat-menu #actionsMenu="matMenu" x-position="before">
+              <button mat-menu-item (click)="goToCustomer()">{{'REBILL_INFO_CUSTOMERVIEW' | translate}}</button>
+              <button mat-menu-item (click)="goToSession()">{{'REBILL_INFO_SESSIONVIEW' | translate}}</button>
+            </mat-menu>
           </div>
 
           <div class="entity-view__card__content">
-            <md-input-container style="width: 120px;" class="entity-view__card__content__item">
-              <input disabled md-input placeholder="{{'REBILL_INFO_BILLED' | translate}}" [(ngModel)]="billdate" type="text">
-            </md-input-container>
+            <mat-input-container style="width: 120px;" class="entity-view__card__content__item">
+              <input disabled matInput placeholder="{{'REBILL_INFO_BILLED' | translate}}" [(ngModel)]="billdate" type="text">
+            </mat-input-container>
 
-            <md-input-container style="width: 120px;" class="entity-view__card__content__item">
-              <input disabled md-input placeholder="{{'REBILL_INFO_AMOUNT' | translate}}" [(ngModel)]="billamount" type="text">
-            </md-input-container>
+            <mat-input-container style="width: 120px;" class="entity-view__card__content__item">
+              <input disabled matInput placeholder="{{'REBILL_INFO_AMOUNT' | translate}}" [(ngModel)]="billamount" type="text">
+            </mat-input-container>
 
-            <md-input-container class="entity-view__card__content__item">
-              <input disabled md-input placeholder="{{'REBILL_INFO_PARENTSESSION' | translate}}" [(ngModel)]="entity.parentSession.id" type="text">
-            </md-input-container>
+            <mat-input-container class="entity-view__card__content__item">
+              <input disabled matInput placeholder="{{'REBILL_INFO_PARENTSESSION' | translate}}" [(ngModel)]="entity.parentSession.id" type="text">
+            </mat-input-container>
 
-            <md-input-container class="entity-view__card__content__item">
-              <input disabled md-input placeholder="{{'REBILL_INFO_CUSTOMER' | translate}}" [(ngModel)]="customername" type="text">
-            </md-input-container>
+            <mat-input-container class="entity-view__card__content__item">
+              <input disabled matInput placeholder="{{'REBILL_INFO_CUSTOMER' | translate}}" [(ngModel)]="customername" type="text">
+            </mat-input-container>
           </div>
         </div>
 
@@ -67,9 +67,9 @@
         </div>
       </div>
 
-    </md-tab>
+    </mat-tab>
 
-    <md-tab>
+    <mat-tab>
       <table-memory
         [data]="entity.transactions"
         [columnParams]="transactionColumnParams"
@@ -81,9 +81,9 @@
         [showMenuOptions]="false"
         (view)="goToTransaction($event)">
       </table-memory>
-    </md-tab>
+    </mat-tab>
 
-    <md-tab>
+    <mat-tab>
       <table-memory
         [data]="entity.shippingReceipts"
         [columnParams]="shippingReceiptColumnParams"
@@ -95,8 +95,8 @@
         [showMenuOptions]="false"
         (view)="goToShippingReceipt($event)">
       </table-memory>
-    </md-tab>
-  </md-tab-group>
+    </mat-tab>
+  </mat-tab-group>
 </div>
 
 <ng-template #spinner>

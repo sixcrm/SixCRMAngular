@@ -1,81 +1,81 @@
-<md-card *ngIf="creditCards && creditCards.length !== 1" class="customer-view__card credit-cards">
-  <md-card-title class="credit-cards__title">
+<mat-card *ngIf="creditCards && creditCards.length !== 1" class="customer-view__card credit-cards">
+  <mat-card-title class="credit-cards__title">
     <div class="title">{{'CUSTOMER_CREDITCARD_TITLE' | translate}}</div>
     <div class="subtitle">{{'CUSTOMER_CREDITCARD_SUBTITLE' | translate}}</div>
 
     <ng-container *ngIf="!ripped">
-      <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
-      <md-menu #creditCardOptions="mdMenu" x-position="before">
-        <button md-menu-item (click)="addCreditCard.emit(true)">{{'CUSTOMER_CREDITCARD_ADDOPTION' | translate}}</button>
-      </md-menu>
+      <mat-icon [matMenuTriggerFor]="creditCardOptions">more_vert</mat-icon>
+      <mat-menu #creditCardOptions="matMenu" x-position="before">
+        <button mat-menu-item (click)="addCreditCard.emit(true)">{{'CUSTOMER_CREDITCARD_ADDOPTION' | translate}}</button>
+      </mat-menu>
     </ng-container>
 
-  </md-card-title>
-  <md-card-content>
+  </mat-card-title>
+  <mat-card-content>
     <div *ngFor="let cc of creditCards" class="credit-cards__item">
       <img src="/assets/images/credit-card-notification.svg">
 
       <div class="credit-cards__item__column">
         <span>{{cc.name}}</span>
-        <span>{{cc.getType() | uppercase}} {{cc.ccnumber | creditCardFormat: true}}</span>
+        <span>{{cc.getType() | uppercase}} {{cc.maskedNumber}}</span>
       </div>
 
       <span class="credit-cards__item__expiration">{{'CUSTOMER_CREDITCARD_EXPIRATION' | translate}}: {{cc.expiration | creditCardExpiration}}</span>
       <ng-container *ngIf="!ripped">
-        <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
-        <md-menu #creditCardOptions="mdMenu" x-position="before">
-          <button md-menu-item (click)="editCreditCard.emit(cc)">{{'CUSTOMER_CREDITCARD_EDITOPTION' | translate}}</button>
-          <button md-menu-item (click)="deleteCreditCard.emit(cc)">{{'CUSTOMER_CREDITCARD_REMOVEOPTION' | translate}}</button>
-        </md-menu>
+        <mat-icon [matMenuTriggerFor]="creditCardOptions">more_vert</mat-icon>
+        <mat-menu #creditCardOptions="matMenu" x-position="before">
+          <button mat-menu-item (click)="editCreditCard.emit(cc)">{{'CUSTOMER_CREDITCARD_EDITOPTION' | translate}}</button>
+          <button mat-menu-item (click)="deleteCreditCard.emit(cc)">{{'CUSTOMER_CREDITCARD_REMOVEOPTION' | translate}}</button>
+        </mat-menu>
       </ng-container>
     </div>
 
     <div class="entity-view__no-results entity-view__no-results--small-padding" *ngIf="!creditCards || creditCards.length === 0">{{'CUSTOMER_CREDITCARD_NODATA' | translate}}</div>
-  </md-card-content>
-</md-card>
+  </mat-card-content>
+</mat-card>
 
-<md-card *ngIf="creditCards && creditCards.length === 1" class="customer-view__card">
-  <md-card-title>
+<mat-card *ngIf="creditCards && creditCards.length === 1" class="customer-view__card">
+  <mat-card-title>
     <div class="title">{{'CUSTOMER_CREDITCARD_TITLE' | translate}}</div>
     <div class="subtitle">{{'CUSTOMER_CREDITCARD_SUBTITLE' | translate}}</div>
     <ng-container *ngIf="!ripped">
-      <md-icon [md-menu-trigger-for]="creditCardOptions">more_vert</md-icon>
-      <md-menu #creditCardOptions="mdMenu" x-position="before">
-        <button md-menu-item (click)="addCreditCard.emit(true)">{{'CUSTOMER_CREDITCARD_ADDOPTION' | translate}}</button>
-        <button md-menu-item (click)="editCreditCard.emit(creditCards[0])">{{'CUSTOMER_CREDITCARD_EDITOPTION' | translate}}</button>
-      </md-menu>
+      <mat-icon [matMenuTriggerFor]="creditCardOptions">more_vert</mat-icon>
+      <mat-menu #creditCardOptions="matMenu" x-position="before">
+        <button mat-menu-item (click)="addCreditCard.emit(true)">{{'CUSTOMER_CREDITCARD_ADDOPTION' | translate}}</button>
+        <button mat-menu-item (click)="editCreditCard.emit(creditCards[0])">{{'CUSTOMER_CREDITCARD_EDITOPTION' | translate}}</button>
+      </mat-menu>
     </ng-container>
-  </md-card-title>
-  <md-card-content class="flex-custom">
+  </mat-card-title>
+  <mat-card-content class="flex-custom">
     <div class="customer-view__card__column customer-view__card__column--first">
-      <md-input-container [class.small]="ripped">
-        <input disabled md-input placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="creditCards[0].address.line1">
-      </md-input-container>
-      <md-input-container [class.small]="ripped">
-        <input disabled md-input placeholder="{{'FORMINPUTS_CITY' | translate}}" [(ngModel)]="creditCards[0].address.city">
-      </md-input-container>
+      <mat-input-container [class.small]="ripped">
+        <input disabled matInput placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="creditCards[0].address.line1">
+      </mat-input-container>
+      <mat-input-container [class.small]="ripped">
+        <input disabled matInput placeholder="{{'FORMINPUTS_CITY' | translate}}" [(ngModel)]="creditCards[0].address.city">
+      </mat-input-container>
 
       <div class="flex-custom customer-view__card__address-row">
         <dropdown-component [disabled]="true" [selected]="creditCards[0].address.state" [placeholder]="'FORMINPUTS_STATE' | translate"></dropdown-component>
-        <md-input-container>
-          <input disabled md-input placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="creditCards[0].address.zip">
-        </md-input-container>
+        <mat-input-container>
+          <input disabled matInput placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="creditCards[0].address.zip">
+        </mat-input-container>
       </div>
       <dropdown-component [disabled]="true" [selected]="creditCards[0].address.country" [placeholder]="'FORMINPUTS_COUNTRY' | translate"></dropdown-component>
     </div>
     <div class="customer-view__card__column">
-      <md-input-container [class.small]="ripped">
-        <input disabled md-input placeholder="{{'FORMINPUTS_CREDITCARD_NAME' | translate}}" [(ngModel)]="creditCards[0].name">
-      </md-input-container>
-      <md-input-container [class.small]="ripped">
-        <input disabled md-input placeholder="{{'FORMINPUTS_CREDITCARD_TYPE' | translate}}" [(ngModel)]="creditCards[0].type">
-      </md-input-container>
-      <md-input-container [class.small]="ripped">
-        <input disabled md-input placeholder="{{'FORMINPUTS_CREDITCARD_NUMBER' | translate}}" [(ngModel)]="creditCards[0].maskedNumber">
-      </md-input-container>
-      <md-input-container [class.small]="ripped">
-        <input disabled md-input placeholder="{{'FORMINPUTS_CREDITCARD_EXPIRATION' | translate}}" [(ngModel)]="creditCards[0].expirationFormatted">
-      </md-input-container>
+      <mat-input-container [class.small]="ripped">
+        <input disabled matInput placeholder="{{'FORMINPUTS_CREDITCARD_NAME' | translate}}" [(ngModel)]="creditCards[0].name">
+      </mat-input-container>
+      <mat-input-container [class.small]="ripped">
+        <input disabled matInput placeholder="{{'FORMINPUTS_CREDITCARD_TYPE' | translate}}" [(ngModel)]="creditCards[0].type">
+      </mat-input-container>
+      <mat-input-container [class.small]="ripped">
+        <input disabled matInput placeholder="{{'FORMINPUTS_CREDITCARD_NUMBER' | translate}}" [(ngModel)]="creditCards[0].maskedNumber">
+      </mat-input-container>
+      <mat-input-container [class.small]="ripped">
+        <input disabled matInput placeholder="{{'FORMINPUTS_CREDITCARD_EXPIRATION' | translate}}" [(ngModel)]="creditCards[0].expirationFormatted">
+      </mat-input-container>
     </div>
-  </md-card-content>
-</md-card>
+  </mat-card-content>
+</mat-card>

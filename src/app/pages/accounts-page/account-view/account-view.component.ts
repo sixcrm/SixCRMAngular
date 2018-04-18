@@ -10,7 +10,6 @@ import {
   TableMemoryTextOptions, CustomMenuOption,
   CustomMenuOptionResult
 } from '../../components/table-memory/table-memory.component';
-import {MdDialog, MdDialogRef} from '@angular/material';
 import {AddUserAclDialogComponent} from '../../add-user-acl-dialog.component';
 import {Role} from '../../../shared/models/role.model';
 import {AclsService} from '../../../shared/services/acls.service';
@@ -25,6 +24,7 @@ import {BillsService} from '../../../shared/services/bills.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 import {RolesSharedService} from '../../../shared/services/roles-shared.service';
+import {MatDialogRef, MatDialog} from '@angular/material';
 
 @Component({
   selector: 'account-view',
@@ -56,7 +56,7 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
     new ColumnParams('ACCOUNT_USERS_HEADER_STATUS', (e: Acl) => e.pending || 'Active')
   ];
 
-  addAclDialogRef: MdDialogRef<AddUserAclDialogComponent>;
+  addAclDialogRef: MatDialogRef<AddUserAclDialogComponent>;
   roles: Role[] = [];
   users: User[] = [];
 
@@ -80,7 +80,7 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
               route: ActivatedRoute,
               public navigation: NavigationService,
               private router: Router,
-              private dialog: MdDialog,
+              private dialog: MatDialog,
               private userService: UsersService,
               private aclService: AclsService,
               private roleService: RolesSharedService,
@@ -242,7 +242,11 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
       inviteDialogRef = null;
 
       if (result.email && result.role) {
-        this.userService.sendUserInvite(result.email, result.role, this.entityId).subscribe(() => {
+        this.userService.sendUserInvite(result.email, result.role, this.entityId).subscribe(response => {
+          if (response instanceof CustomServerError) {
+            return;
+          }
+
           this.service.getEntity(this.entityId);
         });
       }
@@ -250,7 +254,11 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
   }
 
   resendInvite(acl: Acl): void {
-    this.userService.resendUserInvite(acl).subscribe(() => {
+    this.userService.resendUserInvite(acl).subscribe(response => {
+      if (response instanceof CustomServerError) {
+        return;
+      }
+
       this.snackbarService.showSuccessSnack('Invitation Successfully Resent!', 3000);
     });
   }

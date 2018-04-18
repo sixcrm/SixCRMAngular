@@ -2,7 +2,6 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {CampaignsService} from "../../../shared/services/campaigns.service";
 import {Campaign} from '../../../shared/models/campaign.model';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -10,6 +9,7 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {Currency} from '../../../shared/utils/currency/currency';
 import {MerchantProviderGroupAssociationsService} from '../../../shared/services/merchant-provider-group-associations.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'campaigns',
@@ -21,7 +21,7 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
   constructor(
     campaignService: CampaignsService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute,

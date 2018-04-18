@@ -1,9 +1,9 @@
 <div class="entity-view__table-component">
   <div *ngIf="showHeader" class="entity-view__table-component__header entity-view__table-component__header--homepage">
     <div class="entity-view__table-component__header__title">{{textOptions.title || 'Associated ' + title | translate}}</div>
-    <md-input-container *ngIf="filterEnabled" class="entity-view__table-component__header__filter">
-      <input md-input placeholder="{{ 'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filterString" type="text">
-    </md-input-container>
+    <mat-input-container *ngIf="filterEnabled" class="entity-view__table-component__header__filter">
+      <input matInput placeholder="{{ 'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filterString" type="text">
+    </mat-input-container>
 
     <table-preferences
       *ngIf="columnPreferencesEnabled"
@@ -13,11 +13,11 @@
     </table-preferences>
 
     <ng-container *ngIf="(associationEnabled || customTopMenuOptions.length > 0) && hasWritePermission">
-      <md-icon class="entity-view__table-component__header__action" [class.alone]="!filterEnabled" [md-menu-trigger-for]="optionsMenu">more_vert</md-icon>
-      <md-menu #optionsMenu="mdMenu" x-position="before">
-        <button *ngIf="associationEnabled" md-menu-item (click)="showAssociateDialog()">{{textOptions.associateOptionText || 'Associate ' + title | translate}}</button>
-        <button *ngFor="let customOption of customTopMenuOptions" md-menu-item (click)="customTopMenuOptionSelected.emit(customOption)">{{customOption | translate}}</button>
-      </md-menu>
+      <mat-icon class="entity-view__table-component__header__action" [class.alone]="!filterEnabled" [matMenuTriggerFor]="optionsMenu">more_vert</mat-icon>
+      <mat-menu #optionsMenu="matMenu" x-position="before">
+        <button *ngIf="associationEnabled" mat-menu-item (click)="showAssociateDialog()">{{textOptions.associateOptionText || 'Associate ' + title | translate}}</button>
+        <button *ngFor="let customOption of customTopMenuOptions" mat-menu-item (click)="customTopMenuOptionSelected.emit(customOption)">{{customOption | translate}}</button>
+      </mat-menu>
     </ng-container>
   </div>
   <table class="highlight table__custom">
@@ -27,7 +27,7 @@
         <ng-container *ngIf="params.selected">
           <th (click)="setSortedColumnParams(params)" [class.cell--align-right]="params.align === 'right'">
             {{params.label | translate}}
-            <md-icon *ngIf="sortEnabled && params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</md-icon>
+            <mat-icon *ngIf="sortEnabled && params.sortApplied">{{params.sortOrder === 'asc' ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
           </th>
         </ng-container>
       </ng-container>
@@ -51,7 +51,7 @@
                   <ng-container *ngIf="params.translate; else notranslate">{{params.mappingFunction(entity) | translate}}</ng-container>
                   <ng-template #notranslate>{{params.mappingFunction(entity)}}</ng-template>
                 </ng-template>
-                <md-icon *ngIf="params.copy" class="copy-icon" md-tooltip="{{'SHARE_COPY' | translate}}" ngxClipboard [cbContent]="params.mappingFunction(entity)">content_copy</md-icon>
+                <mat-icon *ngIf="params.copy" class="copy-icon" matTooltip="{{'SHARE_COPY' | translate}}" ngxClipboard [cbContent]="params.mappingFunction(entity)">content_copy</mat-icon>
               </div>
             </ng-template>
           </td>
@@ -59,15 +59,15 @@
       </ng-container>
       <td>
         <ng-container *ngIf="showMenuOptions">
-          <md-icon [md-menu-trigger-for]="actionsMenu">more_vert</md-icon>
-          <md-menu #actionsMenu="mdMenu" x-position="before">
-            <button *ngIf="viewEnabled" md-menu-item (click)="view.emit(entity)">{{textOptions.viewOptionText || 'View ' + title | translate}}</button>
-            <button *ngIf="editEnabled && hasWritePermission" md-menu-item (click)="edit.emit(entity)">{{textOptions.editOptionText || 'Edit ' + title || '' | translate}}</button>
+          <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+          <mat-menu #actionsMenu="matMenu" x-position="before">
+            <button *ngIf="viewEnabled" mat-menu-item (click)="view.emit(entity)">{{textOptions.viewOptionText || 'View ' + title | translate}}</button>
+            <button *ngIf="editEnabled && hasWritePermission" mat-menu-item (click)="edit.emit(entity)">{{textOptions.editOptionText || 'Edit ' + title || '' | translate}}</button>
             <ng-container *ngFor="let customOption of customMenuOptions">
-              <button *ngIf="!customOption.show || customOption.show(entity)" md-menu-item (click)="customMenuOptionSelected.emit({entity: entity, option: customOption.option})">{{customOption.label | translate}}</button>
+              <button *ngIf="!customOption.show || customOption.show(entity)" mat-menu-item (click)="customMenuOptionSelected.emit({entity: entity, option: customOption.option})">{{customOption.label | translate}}</button>
             </ng-container>
-            <button *ngIf="dissociationEnabled && hasWritePermission" md-menu-item (click)="showDisassociateDialog(entity)">{{textOptions.disassociateOptionText || 'Disassociate ' + title || '' | translate}}</button>
-          </md-menu>
+            <button *ngIf="dissociationEnabled && hasWritePermission" mat-menu-item (click)="showDisassociateDialog(entity)">{{textOptions.disassociateOptionText || 'Disassociate ' + title || '' | translate}}</button>
+          </mat-menu>
         </ng-container>
       </td>
     </tr>

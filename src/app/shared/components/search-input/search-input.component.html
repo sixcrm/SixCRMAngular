@@ -1,15 +1,15 @@
 <div class="flex-custom flex-custom--center">
-  <button md-icon-button (click)="toggleSearchInput(searchInputField)"><md-icon>search</md-icon></button>
+  <button mat-icon-button (click)="toggleSearchInput(searchInputField)"><mat-icon>search</mat-icon></button>
 
   <div class="search-container">
-    <md-input-container [ngClass]="{'search-visible': searchVisible}">
+    <mat-input-container [ngClass]="{'search-visible': searchVisible}">
       <input
         #searchInputField
-        md-input
+        matInput
         placeholder="{{'INDEXPAGE_SEARCH' | translate}}"
         type="text"
         [(ngModel)]="searchValue"
         (keydown)="onKey($event)">
-    </md-input-container>
+    </mat-input-container>
   </div>
 </div>

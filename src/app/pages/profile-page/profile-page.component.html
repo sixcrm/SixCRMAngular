@@ -1,7 +1,7 @@
 <div class="entity-view">
   <div class="entity-view__title">{{'PROFILE_TITLE' | translate}}</div>
 
-  <div (click)="navigation.back()" class="entity-view__change-mode"><md-icon>reply</md-icon></div>
+  <div (click)="navigation.back()" class="entity-view__change-mode"><mat-icon>reply</mat-icon></div>
 
   <div *ngIf="user">
     <div class="entity-view__info">
@@ -12,8 +12,8 @@
         <div class="entity-view__info__data__date">{{'PROFILE_CREATED' | translate}}: {{user.createdAt | formatDateTime}}</div>
         <div class="entity-view__info__data__name">{{user.name}}</div>
         <div class="entity-view__info__data__other">
-          <span *ngIf="phone" class="entity-view__info__data__other__item"><md-icon>phone</md-icon>{{phone}}</span>
-          <span class="entity-view__info__data__other__item"><md-icon>email</md-icon>{{user.email}}</span>
+          <span *ngIf="phone" class="entity-view__info__data__other__item"><mat-icon>phone</mat-icon>{{phone}}</span>
+          <span class="entity-view__info__data__other__item"><mat-icon>email</mat-icon>{{user.email}}</span>
         </div>
       </div>
     </div>
@@ -21,24 +21,28 @@
     <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
     <div class="profile-page__content">
-      <md-tab-group [(selectedIndex)]="selectedIndex">
-        <md-tab>
+      <mat-tab-group [(selectedIndex)]="selectedIndex">
+        <mat-tab>
           <div *ngIf="userSettings" class="profile-page__content__general">
             <div class="profile-page__content__general__title">
               <div class="profile-page__content__general__title__main">{{'PROFILE_DETAILS_TITLE' | translate}}</div>
               <div class="profile-page__content__general__title__sub">{{'PROFILE_DETAILS_SUBTITLE' | translate}}</div>
-              <!--<md-icon>more_vert</md-icon>-->
+              <!--<mat-icon>more_vert</mat-icon>-->
             </div>
 
             <div class="profile-page__content__general__data">
-              <md-input placeholder="{{'PROFILE_DETAILS_FIRSTNAME' | translate}}" [(ngModel)]="userBackup.firstName"></md-input>
-              <md-input placeholder="{{'PROFILE_DETAILS_LASTNAME' | translate}}" [(ngModel)]="userBackup.lastName"></md-input>
-              <md-input-container>
-                <input md-input placeholder="{{'PROFILE_DETAILS_WORKPHONE' | translate}}" type="text" [textMask]="{mask: mask, guide: false}" [(ngModel)]="userSettingsBackup.workPhone">
-              </md-input-container>
-              <md-input-container>
-                <input md-input placeholder="{{'PROFILE_DETAILS_CELLPHONE' | translate}}" type="text" [textMask]="{mask: mask, guide: false}" [(ngModel)]="userSettingsBackup.cellPhone">
-              </md-input-container>
+              <mat-input-container>
+                <input matInput placeholder="{{'PROFILE_DETAILS_FIRSTNAME' | translate}}" [(ngModel)]="userBackup.firstName">
+              </mat-input-container>
+              <mat-input-container>
+                <input matInput placeholder="{{'PROFILE_DETAILS_LASTNAME' | translate}}" [(ngModel)]="userBackup.lastName">
+              </mat-input-container>
+              <mat-input-container>
+                <input matInput placeholder="{{'PROFILE_DETAILS_WORKPHONE' | translate}}" type="text" [textMask]="{mask: mask, guide: false}" [(ngModel)]="userSettingsBackup.workPhone">
+              </mat-input-container>
+              <mat-input-container>
+                <input matInput placeholder="{{'PROFILE_DETAILS_CELLPHONE' | translate}}" type="text" [textMask]="{mask: mask, guide: false}" [(ngModel)]="userSettingsBackup.cellPhone">
+              </mat-input-container>
               <div class="profile-page__content__general__data__dropdown">
                 <autocomplete-input
                   [initialValue]="userSettingsBackup.timezone"
@@ -48,7 +52,9 @@
                 </autocomplete-input>
               </div>
 
-              <md-input placeholder="{{'PROFILE_DETAILS_EMAIL' | translate}}" [value]="user.email"></md-input>
+              <mat-input-container>
+                <input matInput placeholder="{{'PROFILE_DETAILS_EMAIL' | translate}}" [value]="user.email">
+              </mat-input-container>
 
               <div class="profile-page__content__general__data__dropdown">
 
@@ -64,18 +70,18 @@
 
             <div class="profile-page__content__general__button" (click)="updateUserDetails()">{{'PROFILE_DETAILS_UPDATE' | translate}}</div>
           </div>
-        </md-tab>
+        </mat-tab>
 
-        <md-tab>
+        <mat-tab>
           <notification-devices
             [settings]="userSettings"
             (sendTestNotification)="sendTestNotification()"
             (sendTestAlert)="sendTestAlert()"
             (settingToggled)="updateUserSettings()">
           </notification-devices>
-        </md-tab>
+        </mat-tab>
 
-        <md-tab>
+        <mat-tab>
           <notification-preferences
             [notificationSettings]="notificationSettings"
             (sendTestNotification)="sendTestNotification()"
@@ -83,9 +89,9 @@
             (cancel)="cancelNotificationSettingsUpdate()"
             (save)="notificationSettingsUpdated()">
           </notification-preferences>
-        </md-tab>
+        </mat-tab>
 
-        <md-tab>
+        <mat-tab>
           <table-memory
             class="accounts-table"
             [data]="accounts"
@@ -95,12 +101,12 @@
             (view)="viewAccount($event)"
             [textOptions]="accountTextOptions">
           </table-memory>
-        </md-tab>
+        </mat-tab>
 
-        <md-tab>
+        <mat-tab>
           <user-signing-strings></user-signing-strings>
-        </md-tab>
-      </md-tab-group>
+        </mat-tab>
+      </mat-tab-group>
     </div>
   </div>
 </div>

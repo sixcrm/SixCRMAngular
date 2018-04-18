@@ -2,11 +2,11 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {MerchantProvidersService} from "../../../shared/services/merchant-providers.service";
 import {MerchantProvider} from '../../../shared/models/merchant-provider/merchant-provider.model';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'merchant-providers',
@@ -18,7 +18,7 @@ export class MerchantProvidersComponent extends AbstractEntityIndexComponent<Mer
   constructor(
     merchantProvidersService: MerchantProvidersService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

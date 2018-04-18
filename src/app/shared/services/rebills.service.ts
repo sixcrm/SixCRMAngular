@@ -7,12 +7,12 @@ import {
   rebillsListQuery, rebillQuery, deleteRebillMutation,
   updateRebillMutation, deleteRebillsMutation
 } from '../utils/queries/entities/rebill.queries';
-import {MdSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 export class RebillsService extends AbstractEntityService<Rebill>{
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MatSnackBar) {
     super(
       http,
       authService,

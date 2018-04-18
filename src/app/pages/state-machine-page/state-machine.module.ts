@@ -5,7 +5,6 @@ import {stateMachineRouting} from "./state-machine.routing";
 import {StateMachineAclGuard} from "../guards/state-machine-acl-guard.service";
 import {SharedModule} from "../../shared/shared.module";
 import {Daterangepicker} from "ng2-daterangepicker";
-import {MaterialModule} from "@angular/material";
 import { StateMachineSchemaComponent } from './state-machine-dashboard/state-machine-schema/state-machine-schema.component';
 import { ArrowComponent } from './state-machine-dashboard/arrow/arrow.component';
 import { DottedLineComponent } from './state-machine-dashboard/dotted-line/dotted-line.component';
@@ -21,13 +20,14 @@ import { StateMachineRebillComponent } from './state-machine-live/state-machine-
 import {FormsModule} from '@angular/forms';
 import {StateMachineRebillsComponent} from './state-machine-live/state-machine-rebills/state-machine-rebills.component';
 import {TranslationModule} from '../../translation/translation.module';
+import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 
 @NgModule({
   imports: [
     CommonModule,
     stateMachineRouting,
     SharedModule,
-    MaterialModule,
+    MaterialSelectionModule,
     Daterangepicker,
     ChartsModule,
     PageComponentsModule,

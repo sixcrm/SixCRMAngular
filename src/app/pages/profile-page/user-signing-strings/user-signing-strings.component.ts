@@ -1,5 +1,4 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {MdDialog} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AbstractEntityIndexComponent} from "../../abstract-entity-index.component";
 import {UserSigningString} from "../../../shared/models/user-signing-string.model";
@@ -8,6 +7,7 @@ import {AuthenticationService} from "../../../authentication/authentication.serv
 import {PaginationService} from "../../../shared/services/pagination.service";
 import {ColumnParams} from "../../../shared/models/column-params.model";
 import {SingleInputDialogComponent} from "../../../dialog-modals/single-input-dialog.component";
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'user-signing-strings',
@@ -19,7 +19,7 @@ export class UserSigningStringsComponent extends AbstractEntityIndexComponent<Us
   constructor(
     userSigningStringService: UserSigningStringsService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

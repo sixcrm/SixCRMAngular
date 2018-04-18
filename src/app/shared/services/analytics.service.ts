@@ -3,7 +3,7 @@ import {Observable, BehaviorSubject, Subject} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {EventFunnel} from '../models/event-funnel.model';
-import {Response} from '@angular/http';
+import {HttpResponse} from '@angular/common/http';
 import {TransactionOverview} from '../models/transaction-overview.model';
 import {TransactionSummary} from '../models/transaction-summary.model';
 import {
@@ -336,7 +336,7 @@ export class AnalyticsService {
   }
 
   private handleResponse(
-    response: Response | CustomServerError,
+    response: HttpResponse<any> | CustomServerError,
     dataStream: Subject<any | CustomServerError>,
     mapFunction: (el: any) => any,
     extractFunction: (el: any) => any[]
@@ -356,7 +356,7 @@ export class AnalyticsService {
     return e;
   }
 
-  private queryRequest(query: string, downloadFormat?: string | boolean): Observable<Response | CustomServerError> {
+  private queryRequest(query: string, downloadFormat?: string | boolean): Observable<HttpResponse<any> | CustomServerError> {
 
     let endpoint = environment.endpoint;
 

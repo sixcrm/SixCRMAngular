@@ -3,7 +3,7 @@ import {element, by} from 'protractor';
 export class SmtpProviderPage {
 
   getCopyIcon() {
-    return element(by.css('.smtp-validation__container--results')).element(by.css('md-icon'));
+    return element(by.css('.smtp-validation__container--results')).element(by.css('mat-icon'));
   }
 
   getEmailInput() {

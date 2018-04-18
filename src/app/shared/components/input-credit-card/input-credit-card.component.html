@@ -1,3 +1,5 @@
 <div class="input-cc">
-  <md-input [disabled]="disabled" required placeholder="{{placeholder}}" [ngModel]="inputValue" (ngModelChange)="change($event)" (keydown)="isAllowedNumeric($event)"></md-input>
+  <mat-input-container>
+    <input matInput [disabled]="disabled" required placeholder="{{placeholder}}" [ngModel]="inputValue" (ngModelChange)="change($event)" (keydown)="isAllowedNumeric($event)">
+  </mat-input-container>
 </div>

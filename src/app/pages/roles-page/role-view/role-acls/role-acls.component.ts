@@ -3,7 +3,6 @@ import {Acl} from '../../../../shared/models/acl.model';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {AclsService} from '../../../../shared/services/acls.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams, ColumnParamsInputType} from '../../../../shared/models/column-params.model';
@@ -12,6 +11,7 @@ import {TableMemoryTextOptions} from '../../../components/table-memory/table-mem
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 import {firstIndexOf} from '../../../../shared/utils/array.utils';
 import {YesNoDialogComponent} from '../../../yes-no-dialog.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'role-acls',
@@ -34,7 +34,7 @@ export class RoleAclsComponent extends AbstractEntityIndexComponent<Acl> impleme
   constructor(
     service: AclsService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

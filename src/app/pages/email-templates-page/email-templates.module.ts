@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {MaterialModule} from '@angular/material';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {EmailTemplatesComponent} from './email-templates-index/email-templates.component';
 import {EmailTemplatesAclGuard} from '../guards/email-templates-acl-guard.service';
@@ -17,12 +16,13 @@ import { EmailTemplatesSharedComponent } from './email-templates-index/email-tem
 import { EmailTemplatesCustomComponent } from './email-templates-index/email-templates-custom/email-templates-custom.component';
 import { SharedListComponent } from './email-template-view/shared-list/shared-list.component';
 import { FilterTemplatesByTypePipe } from './filter-templates-by-type.pipe';
+import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 
 @NgModule({
   imports : [
     CommonModule,
     FormsModule,
-    MaterialModule.forRoot(),
+    MaterialSelectionModule,
     PageComponentsModule,
     SharedModule,
     emailTemplatesRouting,

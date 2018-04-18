@@ -2,9 +2,9 @@
   <div *ngIf="addEnabled" class="add-button" (click)="addModeSelected.emit(true)"> <div>+</div></div>
   <div class="entity-view__table-component__header__title">{{textOptions.title | translate}}</div>
 
-  <md-input-container class="entity-view__table-component__header__filter">
-    <input md-input placeholder="{{ 'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filterString" (input)="filterChanged()" type="text">
-  </md-input-container>
+  <mat-input-container class="entity-view__table-component__header__filter">
+    <input matInput placeholder="{{ 'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filterString" (input)="filterChanged()" type="text">
+  </mat-input-container>
 
   <table-density *ngIf="showDensity" [density]="density" (densityChanged)="densitySelected.emit($event)" [small]="true"></table-density>
 

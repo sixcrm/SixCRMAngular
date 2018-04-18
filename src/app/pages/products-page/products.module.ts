@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {productsRouting} from './products.routing';
-import {MaterialModule} from '@angular/material';
 import {ProductsComponent} from './products-index/products.component';
 import {ProductViewComponent} from './product-view/product-view.component';
 import {ProductsAclGuard} from '../guards/products-acl-guard.service';
@@ -18,13 +17,14 @@ import {FileUploadModule} from 'ng2-file-upload';
 import { ProductImagesComponent } from './product-view/product-images/product-images.component';
 import { SortByDefaultPipe } from './product-view/product-images/sort-by-default.pipe';
 import {ProductMerchantProviderGroupAssociationsComponent} from './product-view/product-merchant-provider-group-associations/product-merchant-provider-group-associations.component';
+import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 
 @NgModule({
   imports : [
     productsRouting,
     CommonModule,
     FormsModule,
-    MaterialModule.forRoot(),
+    MaterialSelectionModule,
     PageComponentsModule,
     SharedModule,
     TextMaskModule,

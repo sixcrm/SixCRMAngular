@@ -14,7 +14,7 @@
     font-size: 20px;
     color: rgba(0,0,0,0.87);;
 
-    md-input {
+    mat-input-container {
       margin-left: auto;
       margin-right: 20px;
       font-size: 12px;
@@ -51,7 +51,7 @@
             padding-left: 15px;
           }
 
-          md-icon {
+          mat-icon {
             position: absolute;
             font-size: 18px;
             height: 18px;
@@ -78,7 +78,7 @@
             padding-left: 15px;
           }
 
-          md-icon {
+          mat-icon {
             font-size: 20px;
             width: 20px;
             height: 20px;
@@ -94,7 +94,7 @@
     font-size: 12px;
   }
 
-  md-spinner {
+  mat-spinner {
     margin: auto;
     padding: 20px;
   }

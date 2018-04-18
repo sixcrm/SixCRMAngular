@@ -101,8 +101,8 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
 
   onClick(event): void {
     if (!this.elementRef.nativeElement.contains(event.target) // close notifications sidebar if clicked outside
-        && (!event.target.attributes.class || event.target.attributes.class.value !== 'topnav__notifications__icon material-icons') // and not clicked on notifications icon
-        && (!event.target.attributes.class || event.target.attributes.class.value !== 'topnav__notifications__count') // and not clicked on notifications count icon
+        && (!event.target.attributes.class || event.target.attributes.class.value.indexOf('topnav__notifications__icon') !== 0) // and not clicked on notifications icon
+        && (!event.target.attributes.class || event.target.attributes.class.value.indexOf('topnav__notifications__count') !== 0) // and not clicked on notifications count icon
         && (!event.target.attributes.class || event.target.attributes.class.value !== 'cdk-overlay-backdrop') // and not clicked on material menu overlay
     ) {
       this.close.emit(true);

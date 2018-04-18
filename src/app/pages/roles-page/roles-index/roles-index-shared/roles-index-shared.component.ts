@@ -3,12 +3,12 @@ import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.compo
 import {Role} from '../../../../shared/models/role.model';
 import {RolesSharedService} from '../../../../shared/services/roles-shared.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {MdDialog} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {Acl} from '../../../../shared/models/acl.model';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'roles-index-shared',
@@ -22,7 +22,7 @@ export class RolesIndexSharedComponent extends AbstractEntityIndexComponent<Role
   constructor(
     service: RolesSharedService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

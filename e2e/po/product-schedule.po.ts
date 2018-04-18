@@ -23,11 +23,11 @@ export class ProductSchedulePage {
   }
 
   getDetailsMenuButton() {
-    return element(by.css('.entity-view__card__header')).element(by.css('md-icon'));
+    return element(by.css('.entity-view__card__header')).element(by.css('mat-icon'));
   }
 
   getMenuButton(index: number) {
-    return element(by.css('.md-menu-content')).all(by.css('button')).get(index);
+    return element(by.css('.mat-menu-content')).all(by.css('button')).get(index);
   }
 
   getAutoCompleteOption() {
@@ -47,10 +47,10 @@ export class ProductSchedulePage {
   }
 
   getTableRowOptionsButton() {
-    return element(by.css('tbody')).element(by.css('tr')).element(by.css('md-icon'));
+    return element(by.css('tbody')).element(by.css('tr')).element(by.css('mat-icon'));
   }
 
   getConfirmDeleteButton() {
-    return element(by.css('delete-dialog')).element(by.css('md-card-actions')).all(by.css('div')).last();
+    return element(by.css('delete-dialog')).element(by.css('mat-card-actions')).all(by.css('div')).last();
   }
 }

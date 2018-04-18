@@ -67,7 +67,7 @@
   margin: 0 15px 0 35px;
   width: 280px;
 
-  md-input-container {
+  mat-input-container {
     font-size: 14px;
     width: 95%;
   }
@@ -92,7 +92,7 @@
   height: 100%;
   width: 100%;
 
-  md-icon {
+  mat-icon {
     display: none;
     margin: auto;
     width: 32px;
@@ -105,7 +105,7 @@
   &:hover {
     background: rgba(0,0,0,0.5);
 
-    md-icon {
+    mat-icon {
       display: block;
     }
   }

@@ -3,7 +3,7 @@ import {element, by} from 'protractor';
 export class FulfillmentProviderPage {
 
   getCopyIcon() {
-    return element(by.css('.fulfillment-view__validation')).element(by.css('md-icon'));
+    return element(by.css('.fulfillment-view__validation')).element(by.css('mat-icon'));
   }
 
   getValidationResponse() {

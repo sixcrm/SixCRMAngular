@@ -25,7 +25,7 @@ $main-color: #9B9A9B;
       font-weight: 500;
     }
 
-    md-icon {
+    mat-icon {
       margin-left: 10px;
       height: 30px;
       width: 30px;
@@ -43,7 +43,7 @@ $main-color: #9B9A9B;
         display: none;
       }
 
-      md-icon, img {
+      mat-icon, img {
         vertical-align: middle;
       }
     }
@@ -181,4 +181,16 @@ $main-color: #9B9A9B;
 
 .support-dropdown {
   margin: 0 16px 0 8px;
+}
+
+profile-dropdown {
+  z-index: 1;
+}
+
+simple-dropdown {
+  z-index: 1;
+}
+
+topnav-dropdown {
+  z-index: 1;
 }

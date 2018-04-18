@@ -3,7 +3,6 @@ import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.compo
 import {ProductSchedule} from '../../../../shared/models/product-schedule.model';
 import {ProductScheduleService} from '../../../../shared/services/product-schedule.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {MdDialog, MdDialogRef} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
@@ -16,6 +15,7 @@ import {AddProductScheduleDialogComponent} from '../../../add-product-schedule-d
 import {Currency} from '../../../../shared/utils/currency/currency';
 import {Schedule} from '../../../../shared/models/schedule.model';
 import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
+import {MatDialog, MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'product-product-schedules',
@@ -27,12 +27,12 @@ export class ProductProductSchedulesComponent extends AbstractEntityIndexCompone
   @Input() id: string;
   @Input() defaultPrice: Currency = new Currency(0);
 
-  private addProductScheduleDialog: MdDialogRef<AddProductScheduleDialogComponent>;
+  private addProductScheduleDialog: MatDialogRef<AddProductScheduleDialogComponent>;
 
   constructor(
     productScheduleService: ProductScheduleService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute

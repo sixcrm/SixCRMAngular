@@ -4,13 +4,13 @@
   </div>
 
   <div class="entity-view__card__content">
-    <md-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
-      <input auto-focus required md-input placeholder="{{'AFFILIATE_INFO_NAME' | translate}}" [(ngModel)]="entity.name" type="text">
-    </md-input-container>
+    <mat-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item">
+      <input auto-focus required matInput placeholder="{{'AFFILIATE_INFO_NAME' | translate}}" [(ngModel)]="entity.name" type="text">
+    </mat-input-container>
 
-    <md-input-container [class.error]="formInvalid && !entity.affiliateId" class="entity-view__card__content__item">
-      <input required md-input placeholder="{{'AFFILIATE_INFO_ID' | translate}}" [(ngModel)]="entity.affiliateId" type="text">
-    </md-input-container>
+    <mat-input-container [class.error]="formInvalid && !entity.affiliateId" class="entity-view__card__content__item">
+      <input required matInput placeholder="{{'AFFILIATE_INFO_ID' | translate}}" [(ngModel)]="entity.affiliateId" type="text">
+    </mat-input-container>
   </div>
 
   <div class="entity-view__card__actions">

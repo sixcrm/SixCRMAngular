@@ -10,15 +10,15 @@ import {
   latestTermsAndConditions, deleteUsersMutation
 } from '../utils/queries/entities/user.queries';
 import {HttpWrapperService} from './http-wrapper.service';
-import {Response} from '@angular/http'
-import {MdSnackBar} from '@angular/material';
+import {HttpResponse} from '@angular/common/http'
 import {Acl} from '../models/acl.model';
 import {CustomServerError} from '../models/errors/custom-server-error';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 export class UsersService extends AbstractEntityService<User> {
 
-  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MdSnackBar) {
+  constructor(http: HttpWrapperService, authService: AuthenticationService, snackBar: MatSnackBar) {
     super(
       http,
       authService,
@@ -42,19 +42,19 @@ export class UsersService extends AbstractEntityService<User> {
     });
   }
 
-  sendUserInvite(email: string, role: Role, accountId: string): Observable<Response> {
+  sendUserInvite(email: string, role: Role, accountId: string): Observable<HttpResponse<any> | CustomServerError> {
     return this.queryRequest(inviteUserMutation(email, accountId, role.id));
   }
 
-  resendUserInvite(acl: Acl): Observable<Response> {
+  resendUserInvite(acl: Acl): Observable<HttpResponse<any> | CustomServerError> {
     return this.queryRequest(inviteResendMutation(acl));
   }
 
-  updateUserForAcceptTermsAndConditions(user: User): Observable<Response> {
+  updateUserForAcceptTermsAndConditions(user: User): Observable<HttpResponse<any> | CustomServerError> {
     return this.queryRequest(updateUserMutation(user), {ignoreTermsAndConditions: true});
   }
 
-  getLatestTermsAndConditions(role?: string): Observable<Response> {
+  getLatestTermsAndConditions(role?: string): Observable<HttpResponse<any> | CustomServerError> {
     return this.queryRequest(latestTermsAndConditions(role), {ignoreTermsAndConditions: true});
   }
 

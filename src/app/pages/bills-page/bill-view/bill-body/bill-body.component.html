@@ -10,10 +10,10 @@
       </div>
 
       <ng-container *ngIf="!addMode && authService.isActiveAclMasterAccount()">
-        <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
-        <md-menu #editOptions="mdMenu" x-position="before">
-          <button md-menu-item (click)="editMode = true">{{ 'BILL_DETAILS_EDIT' | translate}}</button>
-        </md-menu>
+        <mat-icon [matMenuTriggerFor]="editOptions">more_vert</mat-icon>
+        <mat-menu #editOptions="matMenu" x-position="before">
+          <button mat-menu-item (click)="editMode = true">{{ 'BILL_DETAILS_EDIT' | translate}}</button>
+        </mat-menu>
       </ng-container>
     </div>
 
@@ -57,10 +57,10 @@
       </div>
 
       <ng-container *ngIf="editMode">
-        <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
-        <md-menu #editOptions="mdMenu" x-position="before">
-          <button md-menu-item (click)="showAddDetailsModal()">{{ 'BILL_DETAILS_ADDITEM_TITLE' | translate}}</button>
-        </md-menu>
+        <mat-icon [matMenuTriggerFor]="editOptions">more_vert</mat-icon>
+        <mat-menu #editOptions="matMenu" x-position="before">
+          <button mat-menu-item (click)="showAddDetailsModal()">{{ 'BILL_DETAILS_ADDITEM_TITLE' | translate}}</button>
+        </mat-menu>
       </ng-container>
     </div>
     <table class="highlight table__custom">
@@ -79,11 +79,11 @@
         <td>{{detail.createdAt.format('MM/DD/YYYY')}}</td>
         <td class="cell--align-right">{{detail.amount.usd() | numberlocale}}</td>
         <td *ngIf="editMode">
-          <md-icon [md-menu-trigger-for]="editOptions">more_vert</md-icon>
-          <md-menu #editOptions="mdMenu" x-position="before">
-            <button md-menu-item (click)="showAddDetailsModal(detail)">{{ 'BILL_DETAILS_DETAILEDIT' | translate}}</button>
-            <button md-menu-item (click)="removeItem(detail)">{{ 'BILL_DETAILS_DETAILREMOVE' | translate}}</button>
-          </md-menu>
+          <mat-icon [matMenuTriggerFor]="editOptions">more_vert</mat-icon>
+          <mat-menu #editOptions="matMenu" x-position="before">
+            <button mat-menu-item (click)="showAddDetailsModal(detail)">{{ 'BILL_DETAILS_DETAILEDIT' | translate}}</button>
+            <button mat-menu-item (click)="removeItem(detail)">{{ 'BILL_DETAILS_DETAILREMOVE' | translate}}</button>
+          </mat-menu>
         </td>
       </tr>
       </tbody>

@@ -7,7 +7,6 @@ export class CreditCard implements Entity<CreditCard> {
   id: string;
   ccnumber: string;
   expiration: string;
-  ccv: string;
   name: string;
   address: Address;
   type: string;
@@ -28,17 +27,16 @@ export class CreditCard implements Entity<CreditCard> {
     this.id = obj.id || '';
     this.ccnumber = obj.number || '';
     this.expiration = obj.expiration || '';
-    this.ccv = obj.ccv || '';
     this.name = obj.name || '';
     this.address = new Address(obj.address);
     this.type = this.getType().toUpperCase();
     this.expirationFormatted = this.formatExpiration();
-    this.maskedNumber = this.maskNumber();
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.created_at);
     this.updatedAtAPI = obj.updated_at;
     this.lastFour = obj.last_four || '';
     this.firstSix = obj.first_six || '';
+    this.maskedNumber = this.maskNumber();
 
     if (obj.customers) {
       this.customers = obj.customers.map(customer => new Customer(customer));
@@ -54,7 +52,6 @@ export class CreditCard implements Entity<CreditCard> {
       id: this.id,
       number: this.ccnumber,
       expiration: this.expiration,
-      ccv: this.ccv,
       name: this.name,
       address: this.address.inverse(),
       customers: this.customers.map(customer => customer.inverse()),
@@ -98,8 +95,8 @@ export class CreditCard implements Entity<CreditCard> {
   }
 
   private maskNumber() {
-    if (this.ccnumber.length < 4) return Array(this.ccnumber.length).join('*');
+    if (!this.lastFour) return '';
 
-    return Array(this.ccnumber.length - 4).join('*') + this.ccnumber.substr(this.ccnumber.length - 4, this.ccnumber.length);
+    return `************${this.lastFour}`;
   }
 }

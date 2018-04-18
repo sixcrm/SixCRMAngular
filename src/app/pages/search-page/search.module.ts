@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MaterialModule} from '@angular/material';
 import {FormsModule} from '@angular/forms';
 import {SearchComponent} from './search.component';
 import {searchRouting} from './search.routing';
@@ -23,6 +22,7 @@ import {TranslationModule} from '../../translation/translation.module';
 import {PerfectMerchantProviderComponent} from './perfect-match/perfect-merchant-provider/perfect-merchant-provider.component';
 import {PerfectCreditCardComponent} from './perfect-match/perfect-creditcard-provider/perfect-credit-card.component';
 import {PerfectAffiliateComponent} from './perfect-match/perfect-affiliate-provider/perfect-affiliate.component';
+import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 
 @NgModule({
   imports : [
@@ -31,7 +31,7 @@ import {PerfectAffiliateComponent} from './perfect-match/perfect-affiliate-provi
     PageComponentsModule,
     CommonModule,
     FormsModule,
-    MaterialModule.forRoot(),
+    MaterialSelectionModule,
     Daterangepicker,
     TranslationModule
   ],

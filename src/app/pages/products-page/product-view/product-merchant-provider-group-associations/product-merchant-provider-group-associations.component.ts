@@ -1,8 +1,6 @@
 import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {MdDialog} from '@angular/material';
-import {PaginationService} from '../../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {MerchantProviderGroupAssociation} from '../../../../shared/models/merchant-provider-group-association.model';
@@ -20,6 +18,8 @@ import {
   merchantProviderGroupAssociationsByEntityListQuery
 } from '../../../../shared/utils/queries/entities/merchant-provider-group-associations.queries';
 import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
+import {MatDialog} from '@angular/material';
+import {PaginationService} from '../../../../shared/services/pagination.service';
 
 @Component({
   selector: 'product-merchant-provider-group-associations',
@@ -38,7 +38,7 @@ export class ProductMerchantProviderGroupAssociationsComponent extends AbstractE
   constructor(
     merchantProviderGroupAssociationsService: MerchantProviderGroupAssociationsService,
     auth: AuthenticationService,
-    dialog: MdDialog,
+    dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
     activatedRoute: ActivatedRoute,

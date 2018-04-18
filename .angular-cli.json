@@ -15,6 +15,12 @@
       "tsconfig": "tsconfig.json",
       "prefix": "",
       "mobile": false,
+      "showCircularDependencies": false,
+      "defaults": {
+        "build": {
+          "showCircularDependencies": false
+        }
+      },
       "styles": [
         "styles.scss",
         "../node_modules/codemirror/lib/codemirror.css",

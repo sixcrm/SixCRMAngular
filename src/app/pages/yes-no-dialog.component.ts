@@ -1,19 +1,19 @@
 import {Component} from '@angular/core';
-import {MdDialogRef} from '@angular/material';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector : 'yes-no-dialog',
   template : `
-    <md-card>
-      <md-card-content>
+    <mat-card>
+      <mat-card-content>
         <div class="yes-no-dialog__primary">{{text | translate}}</div>
         <div *ngIf="secondaryText" class="yes-no-dialog__secondary">{{secondaryText | translate}}</div>
-      </md-card-content>
-      <md-card-actions class="custom-dialog__buttons">
+      </mat-card-content>
+      <mat-card-actions class="custom-dialog__buttons">
         <div (click)="no()">{{noText | translate}}</div>
         <div (click)="yes()">{{yesText | translate}}</div>
-      </md-card-actions>
-    </md-card>
+      </mat-card-actions>
+    </mat-card>
   `,
   styles : []
 })
@@ -24,7 +24,7 @@ export class YesNoDialogComponent {
   yesText: string = 'Yes';
   noText: string = 'No';
 
-  constructor(public dialogRef: MdDialogRef<YesNoDialogComponent>) {}
+  constructor(public dialogRef: MatDialogRef<YesNoDialogComponent>) {}
 
   ngOnInit() { }
 

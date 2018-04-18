@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Headers} from '@angular/http';
+import {HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {getSchemaQuery} from './queries/schema.query';
 import {Type} from './models/type.model';
@@ -33,11 +33,11 @@ export class GraphqlDocsService {
 
   getSchemaTypes(endpoint: string, headersInput: HeadersInput[]): Observable<Type[]> {
     return this.http.post(endpoint, getSchemaQuery(), { headers: this.generateHeaders(headersInput)})
-      .map(response => response.json().response.data.__schema.types);
+      .map(response => response.body.response.data.__schema.types);
   }
 
-  private generateHeaders(headersInput: HeadersInput[]): Headers {
-    let headers = new Headers();
+  private generateHeaders(headersInput: HeadersInput[]): HttpHeaders {
+    let headers = new HttpHeaders();
 
     if (headersInput && headersInput.length > 0) {
       Object.keys(headersInput).forEach(key => headers.append(headersInput[key].key, headersInput[key].value))

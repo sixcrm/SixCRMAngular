@@ -47,7 +47,7 @@ export class AcceptInvitePage {
   }
 
   getErrorHints() {
-    return element.all(by.css('md-hint'));
+    return element.all(by.css('mat-hint'));
   }
 
   getRegistrationCompleteMessage() {

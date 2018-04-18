@@ -5,16 +5,16 @@
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
-  <md-tab-group [(selectedIndex)]="selectedIndex">
-    <md-tab>
+  <mat-tab-group [(selectedIndex)]="selectedIndex">
+    <mat-tab>
       <email-templates-custom (addSelected)="addTemplate()"></email-templates-custom>
-    </md-tab>
+    </mat-tab>
 
-    <md-tab>
+    <mat-tab>
       <email-templates-shared (copySelected)="copyShared($event)"></email-templates-shared>
-    </md-tab>
+    </mat-tab>
 
-  </md-tab-group>
+  </mat-tab-group>
 
 </div>
 

@@ -12,12 +12,12 @@ import {
   userIntrospection, acceptInviteMutation, registerUser
 } from '../shared/utils/queries/entities/user.queries';
 import {extractData, HttpWrapperService, generateHeaders, FailStrategy} from '../shared/services/http-wrapper.service';
-import {Response} from '@angular/http';
+import {HttpResponse} from '@angular/common/http';
 import {Account} from '../shared/models/account.model';
 import {YesNoDialogComponent} from '../pages/yes-no-dialog.component';
-import {MdDialogRef, MdDialog} from '@angular/material';
 import {UserSettings} from '../shared/models/user-settings';
 import {updateAccountForRegistrationMutation} from '../shared/utils/queries/entities/account.queries';
+import {MatDialog, MatDialogRef} from '@angular/material';
 
 declare var Auth0Lock: any;
 
@@ -46,13 +46,13 @@ export class AuthenticationService {
   public actingAsAccount$: BehaviorSubject<Account> = new BehaviorSubject<Account>(null);
   public newSessionStarted$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  private yesNoDialogRef: MdDialogRef<YesNoDialogComponent>;
+  private yesNoDialogRef: MatDialogRef<YesNoDialogComponent>;
 
   constructor(
     private router: Router,
     private http: HttpWrapperService,
     private location: Location,
-    private dialog: MdDialog,
+    private dialog: MatDialog,
   ) {
     this.lock = new Auth0Lock(
       environment.clientID,
@@ -276,7 +276,7 @@ export class AuthenticationService {
 
   }
 
-  public registerUser(company: string, firstName: string, lastName: string): Observable<Response> {
+  public registerUser(company: string, firstName: string, lastName: string): Observable<HttpResponse<any>> {
     let endpoint = environment.endpoint + this.getSixUser().acls[0].account.id;
     let user = this.getSixUser();
     user.name = `${firstName} ${lastName}`;
@@ -288,7 +288,7 @@ export class AuthenticationService {
     return this.http.post(endpoint, registerUser(user), {headers: generateHeaders(this.getToken())});
   }
 
-  public updateCurrentAccount(company: string): Observable<Response> {
+  public updateCurrentAccount(company: string): Observable<HttpResponse<any>> {
     let account = this.getSixUser().acls[0].account;
     let endpoint = environment.endpoint + account.id;
 

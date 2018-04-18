@@ -7,7 +7,7 @@
       : <span class="link" (click)="nav()">{{field.type.name || field.type.ofType.name || field.type.ofType.ofType.name}}</span>
       : {{field.type.kind || field.type.ofType.kind || field.type.ofType.ofType.kind }}
     </div>
-    <md-icon *ngIf="enableLink" class="field__copy-icon" md-tooltip="Share, Copy to clipboard" ngxClipboard [cbContent]="getShareLink()">link</md-icon>
+    <mat-icon *ngIf="enableLink" class="field__copy-icon" matTooltip="Share, Copy to clipboard" ngxClipboard [cbContent]="getShareLink()">link</mat-icon>
   </div>
   <div class="field__description">{{field.description}}</div>
   <div *ngIf="field.example" class="field__example">{{field.example}}</div>

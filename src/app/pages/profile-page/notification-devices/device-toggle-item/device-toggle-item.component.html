@@ -5,7 +5,7 @@
     <ng-container *ngIf="!editMode; else edit">
       <div class="title">
         {{deviceLabels[notificationSettings.name]}}
-        <md-icon *ngIf="notificationSettings.name !== 'six' && notificationSettings.name !== 'ios'" (click)="editMode = true">edit</md-icon>
+        <mat-icon *ngIf="notificationSettings.name !== 'six' && notificationSettings.name !== 'ios'" (click)="editMode = true">edit</mat-icon>
       </div>
 
       <ng-container>
@@ -18,11 +18,11 @@
 
     <ng-template #edit>
       <div class="label">{{deviceLabels[notificationSettings.name]}}</div>
-      <md-input-container class="mrw-input--no-margin-top">
-        <input #valueInput auto-focus (blur)="updateData()" [applyAutofocus]="true" md-input type="text" [value]="notificationSettings.data">
-      </md-input-container>
+      <mat-input-container class="mrw-input--no-margin-top">
+        <input #valueInput auto-focus (blur)="updateData()" [applyAutofocus]="true" matInput type="text" [value]="notificationSettings.data">
+      </mat-input-container>
     </ng-template>
   </div>
 
-  <md-slide-toggle class="slider-blue" [(ngModel)]="notificationSettings.receive" (change)="toggled.emit(true)"></md-slide-toggle>
+  <mat-slide-toggle class="slider-blue" [(ngModel)]="notificationSettings.receive" (change)="toggled.emit(true)"></mat-slide-toggle>
 </div>

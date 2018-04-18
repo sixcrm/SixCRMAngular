@@ -74,29 +74,15 @@
     font-size: 12px;
     width: 255px;
 
-    md-input-container {
+    mat-input-container {
       width: 100%;
 
       label {
         color: #ffffff !important;
       }
 
-      .md-input-underline {
-        border-color: white;
+      .mat-input-underline {
 
-        span {
-          background-color: white;
-        }
-      }
-    }
-
-    .form-error {
-      .md-input-underline {
-        border-color: #F05D5D;
-
-        span {
-          background-color: #F05D5D;
-        }
       }
     }
   }

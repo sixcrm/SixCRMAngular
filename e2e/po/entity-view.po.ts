@@ -31,7 +31,7 @@ export class EntityViewPage {
   }
 
   getAddNewModalTextarea() {
-    return element(by.css('.modal-center')).element(by.css('.md-input-element-textarea'));
+    return element(by.css('.modal-center')).element(by.css('.mat-input-element-textarea'));
   }
 
   getAddNewModalDropdowns() {
@@ -67,7 +67,7 @@ export class EntityViewPage {
   }
 
   getAssociationButton() {
-    return element(by.css('.md-menu-content')).element(by.css('button'));
+    return element(by.css('.mat-menu-content')).element(by.css('button'));
   }
 
   getAssociationInput() {
@@ -91,7 +91,7 @@ export class EntityViewPage {
   }
 
   getFirstCardMenuButton() {
-    return element(by.css('.entity-view__card__header')).element(by.css('md-icon'))
+    return element(by.css('.entity-view__card__header')).element(by.css('mat-icon'))
   }
 
   gitFirstCardInputs() {

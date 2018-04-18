@@ -2,7 +2,6 @@ import {NgModule, ModuleWithProviders} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {MaterialModule} from '@angular/material';
 import {SidenavComponent} from './sidenav/sidenav.component';
 import {TopnavComponent} from './topnav/topnav.component';
 import {SharedModule} from '../shared/shared.module';
@@ -17,10 +16,11 @@ import { PersistentNotificationsQuickComponent } from './persistent-notification
 import {TranslationModule} from '../translation/translation.module';
 import { TopnavDropdownComponent } from './topnav/topnav-dropdown/topnav-dropdown.component';
 import {OrdersModule} from '../orders/orders.module';
+import {MaterialSelectionModule} from '../material-selection/material-selection.module';
 
 @NgModule({
   imports : [
-    MaterialModule,
+    MaterialSelectionModule,
     RouterModule,
     CommonModule,
     SharedModule,

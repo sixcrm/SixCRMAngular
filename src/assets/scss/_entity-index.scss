@@ -3,7 +3,7 @@ $title-color: #8D8888;
 .entity-index {
   position: relative;
 
-  md-tab-header {
+  mat-tab-header {
     display: none;
   }
 
@@ -14,18 +14,6 @@ $title-color: #8D8888;
     font-size: 20px;
     font-weight: 500;
     color: $title-color;
-
-    md-input {
-      margin-left: auto;
-      padding-left: 10px;
-      width: 150px;
-      font-size: 14px;
-      font-weight: 400;
-
-      .md-focused {
-        color: #FF8D20;
-      }
-    }
   }
 
   &__options {
@@ -46,14 +34,14 @@ $title-color: #8D8888;
     z-index: 1;
     box-shadow: 0 2px 10px 0 rgba(0,0,0,0.16), 0 2px 5px 0 rgba(0,0,0,0.26);
 
-    md-icon {
+    mat-icon {
       color: white;
     }
   }
 
   &__card {
     margin: 0;
-    padding: 0;
+    padding: 0 !important;
 
     &__title {
       position: absolute;
@@ -80,7 +68,7 @@ $title-color: #8D8888;
     color: #666666;
     font-size: 12px;
 
-    .md-checkbox-inner-container {
+    .mat-checkbox-inner-container {
       margin: auto;
       width: 16px;
       height: 16px;
@@ -160,7 +148,7 @@ $title-color: #8D8888;
           width: 40px;
         }
 
-        md-icon {
+        mat-icon {
           position: absolute;
           width: 18px;
           height: 18px;
@@ -312,7 +300,7 @@ $title-color: #8D8888;
 
 .checkbox-index {
 
-  .md-checkbox-inner-container {
+  .mat-checkbox-inner-container {
     margin: auto;
     width: 16px;
     height: 16px;

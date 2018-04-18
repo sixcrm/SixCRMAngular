@@ -13,11 +13,11 @@ import {
   CustomMenuOption, CustomMenuOptionResult,
   TableMemoryTextOptions
 } from '../../components/table-memory/table-memory.component';
-import {MdDialog} from '@angular/material';
 import {SingleInputDialogComponent} from '../../../dialog-modals/single-input-dialog.component';
 import {isAllowedFloatNumeric} from '../../../shared/utils/form.utils';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'merchant-provider-group-view',
@@ -63,7 +63,7 @@ export class MerchantProviderGroupViewComponent extends AbstractEntityViewCompon
               public navigation: NavigationService,
               public router: Router,
               public merchantProviderService: MerchantProvidersService,
-              public dialog: MdDialog
+              public dialog: MatDialog
   ) {
     super(service, route);
   }

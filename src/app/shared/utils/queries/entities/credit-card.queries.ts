@@ -78,7 +78,6 @@ export function creditCardInputQuery(cc: CreditCard, includeId?: boolean): strin
   let zip = cc.address.zip ? `zip:"${cc.address.zip}"` : '';
   let country = cc.address.country ? `country:"${countryCode(cc.address.country)}"` : '';
   let number = cc.ccnumber ? ` number:"${cc.ccnumber}"` : '';
-  let ccv = cc.ccv ? ` ccv:"${cc.ccv}"` : '';
 
-  return `${addId(cc.id, includeId)} ${number} ${expiration} ${ccv} name: "${cc.name}" address: { ${line1} ${line2} ${city} ${state} ${zip} ${country} }, , ${addUpdatedAtApi(cc, includeId)}`
+  return `${addId(cc.id, includeId)} ${number} ${expiration} name: "${cc.name}" address: { ${line1} ${line2} ${city} ${state} ${zip} ${country} }, , ${addUpdatedAtApi(cc, includeId)}`
 }

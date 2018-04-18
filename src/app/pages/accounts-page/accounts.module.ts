@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {accountsRouting} from './accounts.routing';
 import {FormsModule} from '@angular/forms';
-import {MaterialModule} from '@angular/material';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {SharedModule} from '../../shared/shared.module';
 import {AccountsAclGuard} from '../guards/accounts-acl-guard.service';
@@ -12,13 +11,14 @@ import { AccountAddNewComponent } from './account-view/account-add-new/account-a
 import {AccessKeysComponent} from '../access-keys-page/access-keys-index/access-keys.component';
 import {BillsModule} from '../bills-page/bills.module';
 import {TranslationModule} from '../../translation/translation.module';
+import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 
 @NgModule({
   imports: [
     accountsRouting,
     CommonModule,
     FormsModule,
-    MaterialModule.forRoot(),
+    MaterialSelectionModule,
     PageComponentsModule,
     SharedModule,
     TranslationModule,

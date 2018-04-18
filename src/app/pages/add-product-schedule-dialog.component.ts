@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {MdDialogRef} from '@angular/material';
 import {Schedule} from '../shared/models/schedule.model';
 import {ProductSchedule} from '../shared/models/product-schedule.model';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector : 'add-product-schedule-dialog',
@@ -28,7 +28,7 @@ export class AddProductScheduleDialogComponent {
   addProductMode = false;
   editMode = false;
 
-  constructor(public dialogRef: MdDialogRef<AddProductScheduleDialogComponent>) {}
+  constructor(public dialogRef: MatDialogRef<AddProductScheduleDialogComponent>) {}
 
   ngOnInit() {
   }

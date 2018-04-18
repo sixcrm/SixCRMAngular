@@ -1,10 +1,10 @@
-<md-card class="customer-view__card events">
-  <md-card-title>
+<mat-card class="customer-view__card events">
+  <mat-card-title>
     <div class="title">{{'CUSTOMER_EVENTS_TITLE' | translate}}</div>
     <div class="subtitle">{{'CUSTOMER_EVENTS_SUBTITLE' | translate}}</div>
-  </md-card-title>
+  </mat-card-title>
 
-  <md-card-content>
+  <mat-card-content>
     <server-error-message (refresh)="fetch()" *ngIf="serverError; else data"></server-error-message>
 
     <ng-template #data>
@@ -39,5 +39,5 @@
         <div class="entity-view__no-results entity-view__no-results--small-padding" *ngIf="!loadingData && isEmpty">{{'CUSTOMER_EVENTS_NODATA' | translate}}</div>
       </div>
     </ng-template>
-  </md-card-content>
-</md-card>
+  </mat-card-content>
+</mat-card>

@@ -1,15 +1,15 @@
-<md-toolbar class="topnav">
-  <button md-icon-button (click)="toggleSidenav()" id="menu-toggler">
+<mat-toolbar class="topnav">
+  <button mat-icon-button (click)="toggleSidenav()" id="menu-toggler">
     <img src="/assets/images/ic_sort.svg">
   </button>
 
   <div class="topnav__search__wrapper">
-    <md-icon class="topnav__search__icon">search</md-icon>
+    <mat-icon class="topnav__search__icon">search</mat-icon>
     <div class="topnav__search__container">
-      <md-input-container id="topnav-search search-visible" [floatingPlaceholder]="false" class="topnav-search-input">
+      <mat-input-container id="topnav-search search-visible" [floatLabel]="'never'" class="topnav-search-input">
         <input
           #searchField
-          md-input
+          matInput
           class="search-field"
           placeholder="{{'TOPNAV_SEARCH' | translate}}"
           type="text"
@@ -18,7 +18,7 @@
           [value]="searchTerm"
           (input)="searchInputChanged($event)"
           (keydown)="onSearchKey($event)">
-      </md-input-container>
+      </mat-input-container>
       <autocomplete #autocomplete *ngIf="showAutoComplete && options.length > 0" [options]="options" (select)="selectOption($event)"></autocomplete>
     </div>
 
@@ -29,7 +29,7 @@
   <span class="app-flex-filler"></span>
 
   <div class="topnav__acting-as" *ngIf="authService.actingAsAccount$ | async">
-    {{'TOPNAV_ACTINGAS' | translate}} <span>{{(authService.actingAsAccount$ | async).name}}</span> <md-icon (click)="authService.stopActingAs(null)">close</md-icon>
+    {{'TOPNAV_ACTINGAS' | translate}} <span>{{(authService.actingAsAccount$ | async).name}}</span> <mat-icon (click)="authService.stopActingAs(null)">close</mat-icon>
   </div>
 
   <div class="topnav__items--expanded">
@@ -49,14 +49,14 @@
     <topnav-dropdown class="support-dropdown" [text]="'?'" [small]="true" [openOnLeft]="true" [options]="supportOptions"></topnav-dropdown>
 
     <div class="topnav__notifications" (click)="showNotifications()">
-      <md-icon class="topnav__notifications__icon" *ngIf="!notificationsCount || notificationsCount === 0; else counter">notifications</md-icon>
+      <mat-icon class="topnav__notifications__icon" *ngIf="!notificationsCount || notificationsCount === 0; else counter">notifications</mat-icon>
       <ng-template #counter>
         <div class="topnav__notifications__count">{{notificationsCount}}</div>
       </ng-template>
     </div>
   </div>
   <div class="topnav__items--collapsed">
-    <md-icon class="topnav__items--collapsed__icon" (click)="toggleCollapseMenu()">more_vert</md-icon>
+    <mat-icon class="topnav__items--collapsed__icon" (click)="toggleCollapseMenu()">more_vert</mat-icon>
 
     <div *ngIf="showCollapseMenu" class="topnav__items--collapsed__menu">
       <div class="topnav__items--collapsed__menu__profile topnav__items--collapsed__menu__button">
@@ -77,4 +77,4 @@
       <div class="topnav__items--collapsed__menu__button" (click)="logout()"> <span>{{'TOPNAV_MOBILE_SIGNOUT' | translate}}</span> </div>
     </div>
   </div>
-</md-toolbar>
+</mat-toolbar>
