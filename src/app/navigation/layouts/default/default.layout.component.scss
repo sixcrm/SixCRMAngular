@@ -39,6 +39,7 @@ registration-form {
 
 .create-order-modal-container {
   display: flex;
+  z-index: 5;
   height: 100vh;
   width: 100vw;
   position: fixed;
@@ -51,5 +52,7 @@ registration-form {
   create-order {
     display: block;
     margin: auto;
+    width: 100%;
+    max-width: 1120px;
   }
 }

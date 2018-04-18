@@ -288,3 +288,21 @@ dropdown-component {
     background-color: #E4E4E4;
   }
 }
+
+.three-row-autocomplete {
+  .autocomplete-row {
+    margin-bottom: 2px;
+    height: 10px;
+    line-height: 10px;
+    font-size: 10px;
+    color: rgba(0,0,0,0.5);
+
+    &:first-of-type {
+      margin-bottom: 6px;
+      height: 11px;
+      line-height: 11px;
+      font-size: 11px;
+      color: rgba(0,0,0,0.85);
+    }
+  }
+}

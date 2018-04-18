@@ -3,14 +3,13 @@
   font-family: Roboto, sans-serif;
 
   .header {
-    padding: 25px 15px;
+    padding: 40px 15px;
     background: #4478BD;
 
     div {
       font-size: 28px;
       color: white;
     }
-
   }
 
   .content {
@@ -29,7 +28,7 @@
 
   .cancel {
     display: flex;
-    color: #66AAEB;
+    color: #2897EF;
     font-size: 12px;
     font-weight: 500;
     margin-top: 20px;
@@ -38,5 +37,66 @@
       margin: auto;
       cursor: pointer;
     }
+  }
+
+  .expansion-header {
+    display: flex;
+    align-items: center;
+
+    .title {
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+
+      .placeholder {
+        margin-right: 5px;
+        height: 14px;
+        width: 14px;
+        border-radius: 50%;
+        background: #DFDFDF;
+      }
+
+      mat-icon {
+        margin-right: 5px;
+        height: 14px;
+        width: 14px;
+        font-size: 14px;
+        border-radius: 50%;
+        background: #1DBDA5;
+        color: white;
+      }
+    }
+
+    mat-chip-list {
+      margin-left: 25px;
+    }
+
+    mat-chip {
+      font-size: 11px;
+    }
+  }
+
+  .expansion-body {
+    margin-left: 100px;
+
+    &--customer {
+      display: flex;
+      align-items: center;
+
+      .autocomplete-input-container {
+        width: 240px;
+      }
+    }
+
+    .separator {
+      font-size: 12px;
+      margin: 0 10px;
+    }
+  }
+
+  button {
+    background: #2897EF;
+    color: white;
+    font-size: 12px;
   }
 }

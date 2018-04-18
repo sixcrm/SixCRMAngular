@@ -10,6 +10,155 @@
 
     <div class="form-container">
 
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <div class="expansion-header">
+              <span class="title">
+                <mat-icon *ngIf="selectedCustomer && selectedCustomer.id; else placeholder">done</mat-icon>
+                Customer
+              </span>
+
+              <mat-chip-list  [selectable]="false">
+                <mat-chip *ngIf="selectedCustomer && selectedCustomer.id"
+                          [removable]="true"
+                          (remove)="removeCustomer()">
+                  {{selectedCustomer.firstName}} {{selectedCustomer.lastName}}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </div>
+          </mat-expansion-panel-header>
+
+          <div class="expansion-body expansion-body--customer">
+
+            <mat-form-field class="autocomplete-input-container">
+              <input type="text" matInput placeholder="Email, Phone or Last Name" [matAutocomplete]="autoCustomer" [(ngModel)]="customerFilterValue" (keyup)="customerInputChanged($event)" (focus)="customerInputChanged()">
+
+              <mat-autocomplete class="three-row-autocomplete" #autoCustomer="matAutocomplete" [displayWith]="displayFn()" (optionSelected)="customerSelected($event)">
+                <mat-option *ngFor="let customer of filteredCustomers" [value]="customer">
+                  <div class="autocomplete-row">{{ customer.firstName }} {{ customer.lastName}}</div>
+                  <div class="autocomplete-row">{{ customer.phone }}</div>
+                  <div class="autocomplete-row">{{ customer.email }}</div>
+                </mat-option>
+              </mat-autocomplete>
+
+            </mat-form-field>
+
+            <div class="separator">or</div>
+
+            <button mat-button (click)="newCustomer()">NEW CUSTOMER</button>
+          </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <div class="expansion-header">
+              <span class="title">
+                <mat-icon *ngIf="selectedCampaign && selectedCampaign.id; else placeholder">done</mat-icon>
+                Campaign
+              </span>
+
+              <mat-chip-list  [selectable]="false">
+                <mat-chip *ngIf="selectedCampaign && selectedCampaign.id"
+                          [removable]="true"
+                          (remove)="removeCampaign()">
+                  {{selectedCampaign.name}}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </div>
+          </mat-expansion-panel-header>
+
+          <div class="expansion-body expansion-body--customer">
+
+            <mat-form-field class="autocomplete-input-container">
+              <input type="text" matInput placeholder="Choose Campaign" [matAutocomplete]="autoCampaign" [(ngModel)]="campaignFilterValue" (keyup)="campaignInputChanged($event)" (focus)="campaignInputChanged()">
+
+              <mat-autocomplete #autoCampaign="matAutocomplete" [displayWith]="displayFn" (optionSelected)="campaignSelected($event)">
+                <mat-option *ngFor="let campaign of filteredCampaigns" [value]="campaign">
+                  <div>{{ campaign.name }} </div>
+                </mat-option>
+              </mat-autocomplete>
+
+            </mat-form-field>
+
+          </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <div class="expansion-header">
+              <span class="title">
+                <mat-icon *ngIf="selectedProducts && selectedProducts.length > 0; else placeholder">done</mat-icon>
+                Products
+              </span>
+
+              <mat-chip-list  [selectable]="false">
+                <mat-chip *ngFor="let product of selectedProducts"
+                          [removable]="true"
+                          (remove)="removeProduct(product)">
+                  {{product.name}}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </div>
+          </mat-expansion-panel-header>
+
+          <div class="expansion-body expansion-body--customer">
+
+            <mat-form-field class="autocomplete-input-container">
+              <input type="text" matInput placeholder="Choose Subscriptions and Products" [matAutocomplete]="autoProduct" [(ngModel)]="productFilterValue" (keyup)="productInputChanged($event)" (focus)="productInputChanged()">
+
+              <mat-autocomplete class="three-row-autocomplete" #autoProduct="matAutocomplete" [displayWith]="displayFn" (optionSelected)="productSelected($event)">
+                <mat-option *ngFor="let product of filteredProducts" [value]="product">
+                  <div class="autocomplete-row">{{ product.name }} </div>
+                  <div class="autocomplete-row">{{ product.defaultPrice ? product.defaultPrice.usd() : '$0' }} </div>
+                  <div class="autocomplete-row"> One line description </div>
+                </mat-option>
+              </mat-autocomplete>
+
+            </mat-form-field>
+
+          </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <div class="expansion-header">
+              <span class="title">
+                <div class="placeholder"></div>
+                Shipping Address
+              </span>
+            </div>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <div class="expansion-header">
+              <span class="title">
+                <div class="placeholder"></div>
+                Shipping
+              </span>
+            </div>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <div class="expansion-header">
+              <span class="title">
+                <div class="placeholder"></div>
+                Billing
+              </span>
+            </div>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+      </mat-accordion>
+
     </div>
 
     <div class="details">
@@ -22,3 +171,7 @@
   </div>
 
 </div>
+
+<ng-template #placeholder>
+  <div class="placeholder"></div>
+</ng-template>
