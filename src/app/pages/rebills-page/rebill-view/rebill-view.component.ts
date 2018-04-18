@@ -83,7 +83,6 @@ export class RebillViewComponent extends AbstractEntityViewComponent<Rebill> imp
 
     this.productScheduleColumnParams = [
       new ColumnParams('REBILL_PRODUCTSCHEDULE_NAME', (e: ProductSchedule) => e.name),
-      new ColumnParams('REBILL_PRODUCTSCHEDULE_MERCHANTPROVIDERGROUP', (e: ProductSchedule) => e.merchantProviderGroup.name),
       new ColumnParams('REBILL_PRODUCTSCHEDULE_COUNT', (e: ProductSchedule) => e.schedules.length.toString(), 'right').setNumberOption(true)
     ];
 

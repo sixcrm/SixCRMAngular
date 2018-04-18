@@ -67,18 +67,15 @@ export function productScheduleResponseQuery(): string {
     id name created_at updated_at,
     schedule { price start end period,
       product { id name ship attributes { images { path default_image } } }
-    }
-    merchantprovidergroup {
-      ${merchantProviderGroupResponseQuery()}
     }`
 }
 
 export function productScheduleInfoResponseQuery(): string {
-  return `id name merchantprovidergroup {id name} created_at updated_at schedule { start end price product {id name default_price attributes {images {path default_image}}} }`
+  return `id name created_at updated_at schedule { start end price product {id name default_price attributes {images {path default_image}}} }`
 }
 
 export function productScheduleInputQuery(productSchedule: ProductSchedule, includeId?: boolean): string {
   let schedules = productSchedule.schedules.reduce((a,b) => `${a} {product: "${b.product.id}", start: ${b.start}, ${b.end ? `end: ${b.end},` : ''} price: ${b.price.amount}, period: ${b.period}}, `, '');
 
-  return `${addId(productSchedule.id, includeId)}, name: "${clean(productSchedule.name)}", ${productSchedule.merchantProviderGroup.id ? `merchantprovidergroup: "${productSchedule.merchantProviderGroup.id}",` : ''} schedule: [${schedules}], ${addUpdatedAtApi(productSchedule, includeId)}`;
+  return `${addId(productSchedule.id, includeId)}, name: "${clean(productSchedule.name)}", schedule: [${schedules}], ${addUpdatedAtApi(productSchedule, includeId)}`;
 }

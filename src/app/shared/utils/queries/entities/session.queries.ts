@@ -90,7 +90,6 @@ function parseWatermarkProductSchedules(watermark: Watermark): string {
       product_schedule:{
         ${productSchedule.id ? `id: "${productSchedule.id}",`: ''}
         ${productSchedule.name ? `name: "${productSchedule.name}",`: ''}
-        ${productSchedule.merchantProviderGroup.id ? `merchantprovidergroup: "${productSchedule.merchantProviderGroup.id}",`: ''}
         schedule: [${productSchedule.schedules.map(s => parseSchedule(s))}]
       }
     }`

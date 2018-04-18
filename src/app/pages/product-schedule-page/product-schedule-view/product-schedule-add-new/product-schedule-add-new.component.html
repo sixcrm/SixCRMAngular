@@ -14,17 +14,6 @@
     <mat-input-container [class.error]="formInvalid && !entity.name">
       <input auto-focus [disabled]="mode === view" required matInput placeholder="{{'PRODUCTSCHEDULE_INFO_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text">
     </mat-input-container>
-
-    <autocomplete-input class="default-autocomplete-input--full-width"
-                        [class.error]="formInvalid && !entity.merchantProviderGroup.id"
-                        [disabled]="mode === view"
-                        [mapFunction]="merchantProviderGroupMapper"
-                        [initialValue]="entity.merchantProviderGroup"
-                        [options]="merchantProviderGroupService.entities$ | async"
-                        [placeholder]="'PRODUCTSCHEDULE_INFO_MERCHANTPROVIDERGROUP' | translate"
-                        [required]="true"
-                        (selected)="entity.merchantProviderGroup = $event">
-    </autocomplete-input>
   </form>
 
   <div *ngIf="mode !== view" class="entity-view__card__actions product-schedule-view__details__actions">
