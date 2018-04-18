@@ -52,7 +52,7 @@ deployment:
       - node libs/deployment_scripts/src/versioning.js
 
       # Build Angular App
-      - node --max_old_space_size=3072 ./node_modules/@angular/cli/bin/ng build --environment=dev --prod --aot:
+      - ./libs/deployment_scripts/src/build-angular.sh:
           timeout: 1200
 
       # Deploy App to S3
