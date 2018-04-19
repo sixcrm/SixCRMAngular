@@ -67,6 +67,10 @@ export class NotificationSettingsData {
     }
   }
 
+  copy(): NotificationSettingsData {
+    return new NotificationSettingsData(this.inverse());
+  }
+
   inverse(): any {
     return {
       notification_groups: this.notification_groups.map(ng => ng.inverse())

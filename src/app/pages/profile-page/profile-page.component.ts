@@ -102,8 +102,25 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
         return;
       }
 
-      this.defaultNotificationSettings = settings;
-      this.notificationSettings.settings = settings;
+      let parsedSettings = settings.copy();
+
+      parsedSettings.notification_groups.forEach((group) => {
+          group.notifications.forEach((notification) => {
+            group.def.forEach(def => {
+              if (def ==='all') {
+                notification.channels.push('six');
+                notification.channels.push('email');
+                notification.channels.push('sms');
+                notification.channels.push('slack');
+              } else {
+                notification.channels.push(def);
+              }
+            });
+        })
+      });
+
+      this.defaultNotificationSettings = parsedSettings;
+      this.notificationSettings.settings = parsedSettings;
       this.notificationSettings.id = this.user.id;
 
       this.notificationSettingsService.createEntity(this.notificationSettings);
