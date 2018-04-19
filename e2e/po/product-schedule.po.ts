@@ -1,5 +1,4 @@
 import {element, by} from 'protractor';
-import {all} from 'q';
 
 export class ProductSchedulePage {
 
@@ -59,25 +58,16 @@ export class ProductSchedulePage {
   }
 
   getAddProductToScheduleButton(){
-    // return element(by.css('schedule-detailed-list')).element(by.css('mat-icon'));
-    return element(by.css('.list__content')).element(by.cssContainingText('.mat-icon', 'add'));
+    return element(by.css('.header')).element(by.css('.mat-icon'));
   }
   getNewProductInput(){
-    return element(by.css('schedule-detailed-list')).element(by.css('.mat-input-infix')).element(by.css('input'));
+    return element(by.css('autocomplete-input')).element(by.css('input'));
   }
   getSaveProductToScheduleButton(){
-    return element(by.css('.list-content')).all(by.css('.section')).last().element(by.cssContainingText('.mat-icon', 'add'));
+    return element(by.css('.section--dropdown')).element(by.css('mat-icon'));
   }
-  getNewProductIsScheduled(){
-    return element(by.css('.item--schedule')).element(by.cssContainingText('.mat-icon', 'add'));
-  }
-  generateNumber(length: number = 2): string {
-    var text = "";
-    var possible = "0123456789";
 
-    for (var i = 0; i < length; i++)
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-    return text;
+  getProductIsScheduledName(){
+    return element(by.css('.products-list')).all(by.css('.text')).last();
   }
 }

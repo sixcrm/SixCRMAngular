@@ -98,17 +98,14 @@ describe('Product Schedules', function() {
     expectUrlToContain('cycles');
   });
   it('should add new product to cycle', () => {
-    let onum = productSchedulePage.generateNumber();
+    browser.sleep(500);
     productSchedulePage.getAddProductToScheduleButton().click();
-    browser.sleep(5000);
-    productSchedulePage.getNewProductInput().sendKeys('Demo Product' + onum );
-    // browser.sleep(500);
-    // productSchedulePage.getAutoCompleteOption().click();
-    browser.sleep(5000);
+    browser.sleep(500);
+    productSchedulePage.getAutoCompleteOption().click();
+    browser.sleep(200);
     productSchedulePage.getSaveProductToScheduleButton().click();
-    browser.sleep(5000);
-    expect(productSchedulePage.getNewProductIsScheduled().getText()).toContain('Demo Product');
-    // expect(productSchedulePage.getAssociatedSchedulesRows().count()).toEqual(1);
+    browser.sleep(200);
+    expect(productSchedulePage.getProductIsScheduledName().getText()).toContain('e2e product');
   });
   it('should jump to list section', () => {
     productSchedulePage.getProductScheduleSubnav().get(2).click();
