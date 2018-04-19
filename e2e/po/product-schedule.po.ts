@@ -60,9 +60,11 @@ export class ProductSchedulePage {
   getAddProductToScheduleButton(){
     return element(by.css('.header')).element(by.css('.mat-icon'));
   }
+
   getNewProductInput(){
     return element(by.css('autocomplete-input')).element(by.css('input'));
   }
+
   getSaveProductToScheduleButton(){
     return element(by.css('.section--dropdown')).element(by.css('mat-icon'));
   }

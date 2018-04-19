@@ -92,40 +92,42 @@ describe('Product Schedules', function() {
     browser.sleep(2000);
     expect(productSchedulePage.getProductScheduleName().getText()).toEqual('e2e product schedule updated');
   });
+
   it('should jump to cycles section', () => {
     productSchedulePage.getProductScheduleSubnav().get(1).click();
     waitForUrlContains('cycles');
     expectUrlToContain('cycles');
   });
+
   it('should add new product to cycle', () => {
     browser.sleep(500);
     productSchedulePage.getAddProductToScheduleButton().click();
-    browser.sleep(500);
+    browser.sleep(200);
     productSchedulePage.getAutoCompleteOption().click();
     browser.sleep(200);
     productSchedulePage.getSaveProductToScheduleButton().click();
-    browser.sleep(200);
     expect(productSchedulePage.getProductIsScheduledName().getText()).toContain('e2e product');
   });
+
   it('should jump to list section', () => {
     productSchedulePage.getProductScheduleSubnav().get(2).click();
     waitForUrlContains('list');
     expectUrlToContain('list');
   });
+
   it('should jump to campaigns section', () => {
     productSchedulePage.getProductScheduleSubnav().get(3).click();
     waitForUrlContains('campaigns');
     expectUrlToContain('campaigns');
   });
+
   it('should remove added schedule', () => {
     productSchedulePage.getTableRowOptionsButton().click();
     browser.sleep(500);
-
     productSchedulePage.getMenuButton(2).click();
     browser.sleep(500);
     productSchedulePage.getConfirmDeleteButton().click();
     browser.sleep(2000);
-
     expect(productSchedulePage.getAssociatedSchedulesRows().count()).toEqual(0);
   });
 
