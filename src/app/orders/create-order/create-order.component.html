@@ -70,7 +70,7 @@
 
           <div class="buttons">
             <button mat-button (click)="newCustomerMode = false">PREVIOUS</button>
-            <button mat-button (click)="newCustomerMode ? confirmNewCustomer(customerForm.form.valid) : customerNextStep()">NEXT</button>
+            <button mat-button (click)="newCustomerMode ? confirmNewCustomer(true) : customerNextStep()">NEXT</button>
           </div>
 
         </mat-expansion-panel>
@@ -236,7 +236,7 @@
 
           <div class="buttons">
             <button mat-button (click)="setStep(2)">PREVIOUS</button>
-            <button mat-button (click)="confirmShippingAddress(inputForm.form.valid)">NEXT</button>
+            <button mat-button (click)="confirmShippingAddress(true)">NEXT</button>
           </div>
         </mat-expansion-panel>
 
