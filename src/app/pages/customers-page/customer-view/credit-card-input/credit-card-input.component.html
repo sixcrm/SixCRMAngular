@@ -19,7 +19,7 @@
     <mat-input-container [class.error]="formInvalid && !ccard.name">
       <input matInput [disabled]="viewMode" required placeholder="{{'FORMINPUTS_CREDITCARD_NAME' | translate}}" [(ngModel)]="ccard.name">
     </mat-input-container>
-    <input-credit-card [disabled]="viewMode" [class.error]="formInvalid && !ccard.ccnumber" [value]="ccard.ccnumber || (viewMode ? ccard.maskedNumber : ccard.ccnumber)" [placeholder]="'FORMINPUTS_CREDITCARD_NUMBER' | translate" (result)="ccard.ccnumber = $event"></input-credit-card>
+    <input-credit-card [disabled]="viewMode" [class.error]="formInvalid && (ccard.ccnumber.length < 12)" [value]="ccard.ccnumber || (viewMode ? ccard.maskedNumber : ccard.ccnumber)" [placeholder]="'FORMINPUTS_CREDITCARD_NUMBER' | translate" (result)="ccard.ccnumber = $event"></input-credit-card>
 
     <div class="customer-view__edit__info__expiration">
       <div class="customer-view__edit__info__expiration__item">
@@ -49,7 +49,7 @@
       <mat-checkbox *ngIf="!addMode && !standalone" (change)="toggleSameShippingAddress($event)">{{'CUSTOMER_CREDITCARD_SAMEADDRESS' | translate}}</mat-checkbox>
     </div>
 
-    <mat-input-container>
+    <mat-input-container [class.error]="formInvalid && !isValidAddress(ccard.address.line1)">
       <input matInput [disabled]="viewMode" required placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="ccard.address.line1">
     </mat-input-container>
     <mat-input-container>
@@ -57,15 +57,15 @@
     </mat-input-container>
 
     <div class="customer-view__edit__address__group">
-      <mat-input-container [class.error]="formInvalid && !ccard.address.city">
+      <mat-input-container [class.error]="formInvalid && !isValidCity(ccard.address.city)">
         <input matInput [disabled]="viewMode" required placeholder="{{'FORMINPUTS_CITY' | translate}}" [(ngModel)]="ccard.address.city">
       </mat-input-container>
       <dropdown-component [disabled]="viewMode" [class.error]="formInvalid && !ccard.address.state" [required]="true" [selected]="ccard.address.state" [placeholder]="'FORMINPUTS_STATE' | translate" (onSelect)="ccard.address.state = $event" [options]="states"></dropdown-component>
     </div>
 
     <div class="customer-view__edit__address__group">
-      <mat-input-container [class.error]="formInvalid && !ccard.address.zip">
-        <input matInput [disabled]="viewMode" required placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="ccard.address.zip">
+      <mat-input-container [class.error]="formInvalid && !isZip(ccard.address.zip)">
+        <input matInput [disabled]="viewMode" (keydown)="isAllowedZipKey($event)" required placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="ccard.address.zip">
       </mat-input-container>
       <dropdown-component [disabled]="viewMode" [class.error]="formInvalid && !ccard.address.country" [required]="true" [selected]="ccard.address.country" [placeholder]="'FORMINPUTS_COUNTRY' | translate"  (onSelect)="ccard.address.country = $event" [options]="countries"></dropdown-component>
     </div>

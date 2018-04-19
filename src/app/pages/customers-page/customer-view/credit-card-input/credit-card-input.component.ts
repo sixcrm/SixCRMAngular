@@ -4,6 +4,7 @@ import {CreditCardsService} from '../../../../shared/services/credit-cards.servi
 import {getStates, getCountries} from '../../../../shared/utils/address.utils';
 import {Address} from '../../../../shared/models/address.model';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
+import {isValidZip, isAllowedZip} from '../../../../shared/utils/form.utils';
 
 @Component({
   selector: 'credit-card-input',
@@ -15,6 +16,8 @@ export class CreditCardInputComponent implements OnInit {
   ccard: CreditCard;
   expirationMonth: string;
   expirationYear: string;
+  isZip = isValidZip;
+  isAllowedZipKey = isAllowedZip;
 
   months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
   years = ['2017','2018','2019','2020','2021','2022','2023','2024','2025','2026','2027'];
@@ -50,8 +53,9 @@ export class CreditCardInputComponent implements OnInit {
 
   createCreditCard(): void {
     this.formInvalid = !this.ccard.name || !this.ccard.ccnumber || !this.expirationMonth
-      || !this.expirationYear || !this.ccard.address.line1 || !this.ccard.address.city || !this.ccard.address.state
-      || !this.ccard.address.zip || !this.ccard.address.country;
+      || !this.expirationYear || !this.ccard.address.line1 || !this.isValidAddress(this.ccard.address.line1)
+      || !this.isValidCity(this.ccard.address.city) || !this.ccard.address.state || !this.ccard.address.zip
+      || !this.isZip(this.ccard.address.zip) || !this.ccard.address.country;
 
     if (this.formInvalid) return;
 
@@ -97,6 +101,16 @@ export class CreditCardInputComponent implements OnInit {
     } else  {
       this.ccard.address = this.backupAddress;
     }
+  }
+
+  isValidAddress(address): boolean {
+    let regex = /^[0-9]+\s.*/;
+    return regex.test(address);
+  }
+
+  isValidCity(city): boolean {
+    let regex = /^[a-zA-Z -]*$/;
+    return regex.test(city) && city;
   }
 
 }
