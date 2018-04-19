@@ -120,7 +120,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         });
       } else {
         this.isAdvancedSearch = false;
-        this.queryString = params['query'];
+        this.queryString = params['query'] || '';
 
         this.currentRoute = this.queryString;
       }
