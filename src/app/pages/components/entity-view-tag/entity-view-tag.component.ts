@@ -86,7 +86,7 @@ export class EntityViewTagComponent extends AbstractEntityIndexComponent<Tag> im
   }
 
   overlayClicked(event: any): void {
-    if (event && event.target && event.target.className === 'tag-modal-container') {
+    if (event && event.target && event.target.className === 'tag-modal-container ng-star-inserted') {
       this.showTags = false;
       this.allTags = this.allTags.map(e => e.copy());
     }
