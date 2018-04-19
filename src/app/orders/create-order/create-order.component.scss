@@ -46,6 +46,7 @@
     .title {
       display: flex;
       align-items: center;
+      width: 180px;
       font-size: 13px;
 
       .placeholder {
@@ -67,17 +68,13 @@
       }
     }
 
-    mat-chip-list {
-      margin-left: 25px;
-    }
-
     mat-chip {
       font-size: 11px;
     }
   }
 
   .expansion-body {
-    margin-left: 100px;
+    margin-left: 180px;
 
     &--customer {
       display: flex;
@@ -98,5 +95,126 @@
     background: #2897EF;
     color: white;
     font-size: 12px;
+  }
+
+  .shipping-form {
+    display: flex;
+    flex-direction: column;
+
+    .customer-name {
+      margin-bottom: 20px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    mat-form-field {
+      width: 250px;
+    }
+  }
+
+  table {
+    margin-top: 15px;
+    thead {
+      th {
+        padding: 2px 5px;
+        font-weight: 400;
+        font-size: 12px;
+      }
+    }
+
+    tbody {
+
+      tr {
+        border-bottom: 1px solid rgba(0,0,0,0.19);
+
+        &:last-of-type {
+          border-bottom: none;
+        }
+
+        td {
+          &:last-of-type {
+            width: 60px;
+          }
+        }
+      }
+
+      .quantity-container {
+        display: flex;
+        align-items: center;
+
+        mat-icon {
+          font-size: 16px;
+          height: 16px;
+          width: 16px;
+          padding: 4px;
+          background: #DFDFDF;
+          color: #9B9797;
+
+          &:first-of-type {
+            border-radius: 3px 0 0 3px;
+            margin-left: auto;
+          }
+
+          &:last-of-type {
+            border-radius: 0 3px 3px 0;
+            margin-right: auto;
+          }
+        }
+
+        div {
+          background: #F0F0F0;
+          height: 24px;
+          line-height: 24px;
+          width: 22px;
+          text-align: center;
+        }
+      }
+
+      mat-icon {
+        color: #6F6F6F;
+        background: #F5F5F5;
+        font-size: 20px;
+        height: 20px;
+        width: 20px;
+        padding: 4px;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+    }
+
+    .mid {
+      text-align: center;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    margin: 12px -24px 0;
+    padding: 16px 24px 0;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    background-color: white;
+
+    button {
+      font-size: 12px;
+
+      &:first-of-type {
+        margin-left: auto;
+        background: white;
+        color: #1DBDA5;
+      }
+
+      &:last-of-type {
+        background: #1DBDA5;
+        color: white;
+      }
+    }
+  }
+
+  .new-card {
+    margin-top: 15px;
+
+    mat-radio-button {
+      padding: 0 25px 0 5px;
+    }
   }
 }

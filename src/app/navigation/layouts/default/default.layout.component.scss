@@ -42,10 +42,11 @@ registration-form {
   z-index: 5;
   height: 100vh;
   width: 100vw;
+  overflow: auto;
   position: fixed;
   left: 0;
   top: 0;
-  padding: 60px;
+  padding: 15px 60px;
   box-sizing: border-box;
   background: rgba(0,0,0,0.5);
 

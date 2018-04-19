@@ -20,7 +20,7 @@ export class Product implements Entity<Product> {
   updatedAt: Moment;
   updatedAtAPI: string;
   dynamicPrice: ProductDynamicPricing;
-  quantity: number;
+  quantity: number = 1;
   price: Currency;
 
   constructor(obj?: any, additional?: any) {
