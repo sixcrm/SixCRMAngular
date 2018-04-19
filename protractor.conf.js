@@ -20,6 +20,9 @@ exports.config = {
     //'./e2e/**/product.e2e-spec.ts',
     './e2e/**/product-schedule.e2e-spec.ts'
   ],
+  suites:  {
+    repeatable: './e2e/**/product-schedule.e2e-spec.ts'
+  },
   capabilities: {
     'browserName': 'chrome'
   },

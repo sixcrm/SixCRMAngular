@@ -64,9 +64,6 @@ describe('Product Schedules', function() {
   it('should remove errors when form is valid', () => {
     productSchedulePage.getNewProductScheduleInputs().get(0).sendKeys('e2e product schedule');
     browser.sleep(500);
-    productSchedulePage.getNewProductScheduleInputs().get(1).click();
-    browser.sleep(200);
-    productSchedulePage.getAutoCompleteOption().click();
     expect(productSchedulePage.getErrorInputs().count()).toEqual(0);
   });
 
@@ -87,7 +84,6 @@ describe('Product Schedules', function() {
     browser.sleep(500);
     productSchedulePage.getMenuButton(0).click();
     browser.sleep(200);
-
     productSchedulePage.getNewProductScheduleInputs().get(0).sendKeys(' updated');
     productSchedulePage.getNewProductScheduleSaveButton().click();
   });
@@ -96,18 +92,34 @@ describe('Product Schedules', function() {
     browser.sleep(2000);
     expect(productSchedulePage.getProductScheduleName().getText()).toEqual('e2e product schedule updated');
   });
-
-  it('should add new schedule', () => {
-    productSchedulePage.getAddScheduleInputs().get(0).click();
-    browser.sleep(500);
-    productSchedulePage.getAutoCompleteOption().click();
-    browser.sleep(500);
-    productSchedulePage.getAddScheduleAddButton().click();
-    browser.sleep(2000);
-
-    expect(productSchedulePage.getAssociatedSchedulesRows().count()).toEqual(1);
+  it('should jump to cycles section', () => {
+    productSchedulePage.getProductScheduleSubnav().get(1).click();
+    waitForUrlContains('cycles');
+    expectUrlToContain('cycles');
   });
-
+  it('should add new product to cycle', () => {
+    let onum = productSchedulePage.generateNumber();
+    productSchedulePage.getAddProductToScheduleButton().click();
+    browser.sleep(5000);
+    productSchedulePage.getNewProductInput().sendKeys('Demo Product' + onum );
+    // browser.sleep(500);
+    // productSchedulePage.getAutoCompleteOption().click();
+    browser.sleep(5000);
+    productSchedulePage.getSaveProductToScheduleButton().click();
+    browser.sleep(5000);
+    expect(productSchedulePage.getNewProductIsScheduled().getText()).toContain('Demo Product');
+    // expect(productSchedulePage.getAssociatedSchedulesRows().count()).toEqual(1);
+  });
+  it('should jump to list section', () => {
+    productSchedulePage.getProductScheduleSubnav().get(2).click();
+    waitForUrlContains('list');
+    expectUrlToContain('list');
+  });
+  it('should jump to campaigns section', () => {
+    productSchedulePage.getProductScheduleSubnav().get(3).click();
+    waitForUrlContains('campaigns');
+    expectUrlToContain('campaigns');
+  });
   it('should remove added schedule', () => {
     productSchedulePage.getTableRowOptionsButton().click();
     browser.sleep(500);
