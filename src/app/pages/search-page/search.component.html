@@ -73,6 +73,8 @@
                 </mat-menu>
 
                 <share-link [shareUrl]="getShareUrl()"></share-link>
+
+                <mat-icon class="info" [class.info--active]="showDetails" (click)="showDetails = !showDetails">info</mat-icon>
               </div>
 
             </div>
