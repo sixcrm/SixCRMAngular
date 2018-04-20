@@ -3,7 +3,7 @@
   <div class="title">{{entities.length}} Orders</div>
 
   <div class="content">
-    <div class="session" *ngFor="let session of entities">
+    <div class="session" *ngFor="let session of entities" (click)="sessionClicked.emit(session)">
       <div class="next">
         <ng-container *ngIf="session.nextRebill; else norebill">
           <div class="days">Next Rebill {{session.nextRebill.billAt.diff(utcf(), 'd')}} days</div>

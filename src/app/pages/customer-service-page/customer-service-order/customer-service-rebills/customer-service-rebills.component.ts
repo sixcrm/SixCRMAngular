@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, Input} from '@angular/core';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {MatDialog} from '@angular/material';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
@@ -16,7 +16,8 @@ export class CustomerServiceRebillsComponent extends CustomerRebillsComponent im
 
   utcf = utc;
 
-  rebills: Rebill[] = [];
+  @Input() rebills: Rebill[] = [];
+  @Input() singleItemMode: boolean;
 
   constructor(
     rebillsService: RebillsService,

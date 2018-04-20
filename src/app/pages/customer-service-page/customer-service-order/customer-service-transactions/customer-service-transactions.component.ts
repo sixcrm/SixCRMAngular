@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, Input} from '@angular/core';
 import {Router} from '@angular/router';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {MatDialog} from '@angular/material';
@@ -14,6 +14,8 @@ import {Currency} from '../../../../shared/utils/currency/currency';
   styleUrls: ['./customer-service-transactions.component.scss']
 })
 export class CustomerServiceTransactionsComponent extends CustomerTransactionsComponent implements OnInit, OnDestroy {
+
+  @Input() transactions: Transaction[];
 
   constructor(
     transactionsService: TransactionsService,

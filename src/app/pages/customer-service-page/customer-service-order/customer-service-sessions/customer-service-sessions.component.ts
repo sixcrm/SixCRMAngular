@@ -1,10 +1,11 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, Output, EventEmitter} from '@angular/core';
 import {CustomerSessionsComponent} from '../../../customers-page/customer-view/customer-sessions/customer-sessions.component';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {MatDialog} from '@angular/material';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {SessionsService} from '../../../../shared/services/sessions.service';
 import {utc} from 'moment';
+import {Session} from '../../../../shared/models/session.model';
 
 @Component({
   selector: 'customer-service-sessions',
@@ -14,6 +15,8 @@ import {utc} from 'moment';
 export class CustomerServiceSessionsComponent extends CustomerSessionsComponent implements OnInit, OnDestroy {
 
   utcf = utc;
+
+  @Output() sessionClicked: EventEmitter<Session> = new EventEmitter();
 
   constructor(
     transactionsService: SessionsService,

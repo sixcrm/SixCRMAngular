@@ -2,7 +2,7 @@
 
   <div class="rebill" *ngFor="let rebill of rebills">
 
-    <div class="order">
+    <div *ngIf="!singleItemMode" class="order">
       <div>ORDER {{rebill.parentSession.alias}}</div>
       <div>CANCEL</div>
     </div>

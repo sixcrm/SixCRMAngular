@@ -1,38 +1,87 @@
-<div class="customer-service-item">
-  <div class="header">
-    <div>Purchases</div>
-
-    <div class="order-data">
-
-    </div>
-  </div>
-
-  <div class="blue-tab-header">
-    <div class="blue-tab-header__item" [class.blue-tab-header__item--active]="selectedIndex === 0" (click)="setIndex(0)">ORDERS</div>
-    <div class="blue-tab-header__item" [class.blue-tab-header__item--active]="selectedIndex === 1" (click)="setIndex(1)">REBILLS</div>
-    <div class="blue-tab-header__item" [class.blue-tab-header__item--active]="selectedIndex === 2" (click)="setIndex(2)">HISTORY</div>
-  </div>
-
+<div class="container">
   <mat-tab-group class="tab--no-header" [(selectedIndex)]="selectedIndex">
 
     <mat-tab>
-      <div class="content">
-        <customer-service-sessions [id]="customerId"></customer-service-sessions>
+
+      <div class="customer-service-item">
+
+        <div class="header">
+          <div class="title">Purchases</div>
+          <div class="order-data">
+
+          </div>
+        </div>
+
+        <div class="blue-tab-header">
+          <div class="blue-tab-header__item" [class.blue-tab-header__item--active]="purchasesIndex === 0" (click)="setPurchasesIndex(0)">ORDERS</div>
+          <div class="blue-tab-header__item" [class.blue-tab-header__item--active]="purchasesIndex === 1" (click)="setPurchasesIndex(1)">REBILLS</div>
+          <div class="blue-tab-header__item" [class.blue-tab-header__item--active]="purchasesIndex === 2" (click)="setPurchasesIndex(2)">HISTORY</div>
+        </div>
+
+        <mat-tab-group class="tab--no-header" [(selectedIndex)]="purchasesIndex">
+
+          <mat-tab>
+            <div class="content">
+              <customer-service-sessions [id]="customerId" (sessionClicked)="openSession($event)"></customer-service-sessions>
+            </div>
+          </mat-tab>
+
+          <mat-tab>
+            <div class="content">
+              <customer-service-rebills [id]="customerId"></customer-service-rebills>
+            </div>
+          </mat-tab>
+
+          <mat-tab>
+            <div class="content">
+              <customer-service-transactions [id]="customerId"></customer-service-transactions>
+            </div>
+          </mat-tab>
+
+        </mat-tab-group>
       </div>
+
     </mat-tab>
 
     <mat-tab>
-      <div class="content">
-        <customer-service-rebills [id]="customerId"></customer-service-rebills>
-      </div>
-    </mat-tab>
+      <div *ngIf="selectedSession" class="customer-service-item">
 
-    <mat-tab>
-      <div class="content">
-        <customer-service-transactions [id]="customerId"></customer-service-transactions>
+        <div class="header">
+          <div class="title"><mat-icon (click)="backToOrders()">keyboard_backspace</mat-icon>Purchases</div>
+
+          <div class="order-data">
+            <div>ORDER {{selectedSession.alias}}</div>
+            <div>{{selectedSession.createdAt | formatDateTime: 'MMMM DD, YYYY'}}</div>
+          </div>
+        </div>
+
+        <div class="blue-tab-header">
+          <div class="blue-tab-header__item" [class.blue-tab-header__item--active]="orderIndex === 0" (click)="setOrderIndex(0)">NEXT REBILL</div>
+          <div class="blue-tab-header__item" [class.blue-tab-header__item--active]="orderIndex === 1" (click)="setOrderIndex(1)">HISTORY</div>
+          <div class="blue-tab-header__item" [class.blue-tab-header__item--active]="orderIndex === 2">RETURNS</div>
+          <button mat-button [routerLink]="['/sessions', selectedSession.id]" fragment="watermark">EDIT WATERMARK</button>
+        </div>
+        <mat-tab-group class="tab--no-header" [(selectedIndex)]="orderIndex">
+          <mat-tab>
+            <div class="content">
+              <customer-service-rebills [rebills]="selectedSession.nextRebill ? [selectedSession.nextRebill] : []" [singleItemMode]="true"></customer-service-rebills>
+            </div>
+          </mat-tab>
+
+          <mat-tab>
+            <div class="content">
+              <customer-service-transactions [transactions]="selectedSessionTransactions"></customer-service-transactions>
+            </div>
+          </mat-tab>
+
+          <mat-tab>
+            <div class="content">
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+
       </div>
     </mat-tab>
 
   </mat-tab-group>
-
 </div>

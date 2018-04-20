@@ -9,7 +9,7 @@
     </thead>
 
     <tbody>
-      <ng-container *ngFor="let transaction of entities; let i = index">
+      <ng-container *ngFor="let transaction of transactions || entities; let i = index">
 
         <tr [class.transaction]="i !== 0">
           <td class="date">{{transaction.createdAt | formatDateTime}}</td>
@@ -38,6 +38,6 @@
   </table>
   <div class="total">
     <div>{{entities.length}} Items</div>
-    <div>{{sumAmount(entities).usd()}}</div>
+    <div>{{sumAmount(transactions || entities).usd()}}</div>
   </div>
 </div>
