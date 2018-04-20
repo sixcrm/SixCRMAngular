@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import {MAT_SNACK_BAR_DATA} from '@angular/material';
 
 export enum SnackBarType {
   error,
@@ -18,7 +19,12 @@ export class ErrorSnackBarComponent implements OnInit {
   errorType = SnackBarType.error;
   successType = SnackBarType.success;
 
-  constructor() { }
+  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: {message, type}) {
+    if (data) {
+      this.message = data.message;
+      this.type = data.type;
+    }
+  }
 
   ngOnInit() {}
 

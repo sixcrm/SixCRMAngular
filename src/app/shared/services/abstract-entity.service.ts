@@ -116,11 +116,8 @@ export abstract class AbstractEntityService<T> {
   }
 
   openSnackBar(message: string) {
-    const ctx = this.snackBar.openFromComponent(ErrorSnackBarComponent, {duration: 2000});
-    const instance = ctx.instance;
-
-    instance.message = message;
-    instance.type = SnackBarType.success;
+    this.snackBar.openFromComponent(
+      ErrorSnackBarComponent, {duration: 2000, data: {message: message, type: SnackBarType.success}});
   }
 
   createEntity(entity: T): void {
