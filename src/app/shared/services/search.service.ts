@@ -89,9 +89,9 @@ export class SearchService {
     let types: string[] = entityTypes;
     if (this.authService.isActiveAclCustomerService()) {
       if (entityTypes && entityTypes.length > 0) {
-        types = types.filter(type => type === 'customer' || type === 'product' || type === 'productschedule' || type === 'transaction' || type === 'rebill');
+        types = types.filter(type => type === 'customer' || type === 'product' || type === 'productschedule' || type === 'transaction' || type === 'rebill' || type === 'session');
       } else {
-        types = ['customer', 'product', 'productschedule', 'transaction', 'rebill'];
+        types = ['customer', 'product', 'productschedule', 'transaction', 'rebill', 'session'];
       }
     }
 
@@ -117,7 +117,7 @@ export class SearchService {
   searchFacets(query: string, createdAtRange: string, entityTypes?: string[]): void {
     let types: string[] = entityTypes;
     if (this.authService.isActiveAclCustomerService()) {
-      types = ['customer', 'product', 'productschedule', 'transaction', 'rebill'];
+      types = ['customer', 'product', 'productschedule', 'transaction', 'rebill', 'session'];
     }
 
     let q = '';

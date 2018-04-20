@@ -20,23 +20,25 @@
 
         <mat-tab-group class="tab--no-header" [(selectedIndex)]="purchasesIndex">
 
-          <mat-tab>
-            <div class="content">
-              <customer-service-sessions [id]="customerId" (sessionClicked)="openSession($event)"></customer-service-sessions>
-            </div>
-          </mat-tab>
+          <ng-container *ngIf="customerId">
+            <mat-tab>
+              <div class="content">
+                <customer-service-sessions [id]="customerId" (sessionClicked)="openSession($event)"></customer-service-sessions>
+              </div>
+            </mat-tab>
 
-          <mat-tab>
-            <div class="content">
-              <customer-service-rebills [id]="customerId"></customer-service-rebills>
-            </div>
-          </mat-tab>
+            <mat-tab>
+              <div class="content">
+                <customer-service-rebills [id]="customerId"></customer-service-rebills>
+              </div>
+            </mat-tab>
 
-          <mat-tab>
-            <div class="content">
-              <customer-service-transactions [id]="customerId"></customer-service-transactions>
-            </div>
-          </mat-tab>
+            <mat-tab>
+              <div class="content">
+                <customer-service-transactions [id]="customerId"></customer-service-transactions>
+              </div>
+            </mat-tab>
+          </ng-container>
 
         </mat-tab-group>
       </div>
