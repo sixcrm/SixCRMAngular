@@ -52,8 +52,8 @@ mat-dialog-container {
 
 .custom-dialog {
   &__buttons {
-    display: flex;
-    padding: 15px;
+    display: flex !important;
+    padding: 15px !important;
     font-size: 12px;
 
     div {
