@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, ViewChild} from '@angular/core';
 import {CustomersService} from '../../shared/services/customers.service';
 import {Customer} from '../../shared/models/customer.model';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
@@ -13,6 +13,12 @@ import {Address} from '../../shared/models/address.model';
 import {Currency} from '../../shared/utils/currency/currency';
 import {CreditCard} from '../../shared/models/credit-card.model';
 import {Subscription} from 'rxjs';
+import {PaymentFormComponent} from '../../shared/components/payment-form/payment-form.component';
+import {
+  isValidState, isValidCountry, isValidAddress, isValidCity, isAllowedZip,
+  isValidZip, isAllowedNumeric
+} from '../../shared/utils/form.utils';
+import {HttpWrapperTransactionalService} from '../../shared/services/http-wrapper-transactional.service';
 
 @Component({
   selector: 'create-order',
@@ -20,7 +26,7 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./create-order.component.scss']
 })
 export class CreateOrderComponent implements OnInit {
-
+  @ViewChild('paymentForm') paymentForm: PaymentFormComponent;
   @Output() close: EventEmitter<boolean> = new EventEmitter();
 
   selectedCustomer: Customer;
@@ -28,6 +34,7 @@ export class CreateOrderComponent implements OnInit {
   customers: Customer[] = [];
   filteredCustomers: Customer[] = [];
   newCustomerMode: boolean;
+  newCustomerInvalid: boolean;
 
   selectedCampaign: Campaign;
   campaignFilterValue: string;
@@ -41,6 +48,7 @@ export class CreateOrderComponent implements OnInit {
 
   shippingAddress: Address = new Address();
   selectedShippingAddress: Address;
+  shippingAddressInvalid: boolean;
 
   shippings: Product[] = [];
   selectedShippings: Product[] = [];
@@ -55,12 +63,22 @@ export class CreateOrderComponent implements OnInit {
   newCardMode: boolean = true;
 
   customerSub: Subscription;
+  selectedCcvError: boolean = false;
+
+  isAllowedNumericKey = isAllowedNumeric;
+  isZipValid = isValidZip;
+  isAllowedZipKey = isAllowedZip;
+  isCityValid = isValidCity;
+  isAddressValid = isValidAddress;
+  isCountryValid = isValidCountry;
+  isStateValid = isValidState;
 
   constructor(
     private customerService: CustomersService,
     private campaignService: CampaignsService,
     private productService: ProductsService,
-    private productScheduleService: ProductScheduleService
+    private productScheduleService: ProductScheduleService,
+    private httpTransactionalService: HttpWrapperTransactionalService
   ) { }
 
   ngOnInit() {
@@ -92,7 +110,7 @@ export class CreateOrderComponent implements OnInit {
       this.shippings = shippings;
     });
 
-    this.customerService.getEntities();
+    this.customerService.getEntities(100);
     this.campaignService.getEntities();
     this.productService.getEntities();
     this.productScheduleService.getEntities();
@@ -145,10 +163,17 @@ export class CreateOrderComponent implements OnInit {
   newCustomer() {
     this.removeCustomer();
     this.newCustomerMode = true;
+    this.newCustomerInvalid = false;
   }
 
-  confirmNewCustomer(valid: boolean) {
-    if (!valid) return;
+  confirmNewCustomer() {
+    this.newCustomerInvalid =
+      !this.selectedCustomer.firstName
+      || !this.selectedCustomer.lastName
+      || !this.selectedCustomer.phone
+      || !this.selectedCustomer.email;
+
+    if (this.newCustomerInvalid) return;
 
     this.selectedCustomer.id = 'newid';
     this.setStep(1);
@@ -221,8 +246,16 @@ export class CreateOrderComponent implements OnInit {
     this.productFilterValue = '';
   }
 
-  confirmShippingAddress(valid: boolean) {
-    if (!valid) return;
+  confirmShippingAddress() {
+    this.shippingAddressInvalid =
+    !this.shippingAddress.line1 || !this.isAddressValid(this.shippingAddress.line1)
+    || (this.shippingAddress.line2 && !this.isAddressValid(this.shippingAddress.line2))
+    || !this.isCityValid(this.shippingAddress.city)
+    || !this.isStateValid(this.shippingAddress.state)
+    || !this.shippingAddress.zip || !this.isZipValid(this.shippingAddress.zip)
+    || !this.isCountryValid(this.shippingAddress.country);
+
+    if (this.shippingAddressInvalid) return;
 
     this.selectedShippingAddress = this.shippingAddress.copy();
     this.setStep(4);
@@ -272,7 +305,8 @@ export class CreateOrderComponent implements OnInit {
   }
 
   ccChanged(event) {
-    this.selectedCreditCard = event.value;
+    this.selectedCreditCard = event.value.copy();
+
     this.newCardMode = false;
   }
 
@@ -296,13 +330,13 @@ export class CreateOrderComponent implements OnInit {
   }
 
   customerNextStep() {
-    if (!this.selectedCustomer.id) return;
+    if (!this.selectedCustomer || !this.selectedCustomer.id) return;
 
     this.setStep(1)
   }
 
   campaignNextStep() {
-    if (!this.selectedCampaign.id) return;
+    if (!this.selectedCampaign || !this.selectedCampaign.id) return;
 
     this.setStep(2)
   }
@@ -318,7 +352,66 @@ export class CreateOrderComponent implements OnInit {
   }
 
   billingNextStep() {
+    if (!this.selectedCreditCard && this.newCardMode && this.paymentForm) {
+      if (this.paymentForm.isValid()) {
+        this.selectedCreditCard = this.newCreditCard.copy();
+      } else {
+        return;
+      }
+    }
 
+    if (this.allSelectedValid()) {
+      this.createNewOrder();
+    }
+  }
+
+  allSelectedValid() {
+    this.selectedCcvError = false;
+
+    if (!this.selectedCustomer || !this.selectedCustomer.id) {
+      this.setStep(0);
+
+      return false;
+    }
+
+    if (!this.selectedCampaign || !this.selectedCampaign.id) {
+      this.setStep(1);
+
+      return false;
+    }
+
+    if (!this.selectedProducts || this.selectedProducts.length === 0) {
+      this.setStep(2);
+
+      return false;
+    }
+
+    if (!this.selectedShippingAddress) {
+      this.setStep(3);
+
+      return false;
+    }
+
+    if (!this.selectedCreditCard) {
+      this.setStep(5);
+
+      return false;
+    }
+
+    if (!this.selectedCreditCard.ccv || this.ccvInvalid(this.selectedCreditCard)) {
+      this.selectedCcvError = true;
+      this.setStep(5);
+
+      return false;
+    }
+
+    return true;
+  }
+
+  ccvInvalid(creditCard: CreditCard): boolean {
+    if (!creditCard.ccv) return true;
+
+    return !/[0-9]/.test(creditCard.ccv) || creditCard.ccv.length < 3 || creditCard.ccv.length > 4;
   }
 
   getPrice() {
@@ -345,5 +438,11 @@ export class CreateOrderComponent implements OnInit {
     const s = this.getShipping();
 
     return new Currency(p.amount + s.amount);
+  }
+
+  createNewOrder() {
+    this.httpTransactionalService.checkout({
+      campaign: this.selectedCampaign.id
+    })
   }
 }

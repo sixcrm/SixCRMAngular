@@ -76,13 +76,11 @@
   .expansion-body {
     margin-left: 180px;
 
-    &--customer {
-      display: flex;
-      align-items: center;
+    display: flex;
+    align-items: center;
 
-      .autocomplete-input-container {
-        width: 240px;
-      }
+    .autocomplete-input-container {
+      width: 240px;
     }
 
     .separator {
@@ -132,8 +130,21 @@
         }
 
         td {
+          vertical-align: top;
+          font-size: 12px;
+
           &:last-of-type {
             width: 60px;
+          }
+
+          mat-form-field {
+            display: block;
+            font-size: 12px;
+            width: 80px;
+          }
+
+          .delete-icon {
+            margin-top: -4px;
           }
         }
       }
@@ -214,7 +225,11 @@
     margin-top: 15px;
 
     mat-radio-button {
-      padding: 0 25px 0 5px;
+      padding: 0 5px 0 5px;
+    }
+
+    payment-form {
+      margin-top: 15px;
     }
   }
 }

@@ -28,6 +28,7 @@ import {TextMaskModule} from 'angular2-text-mask';
 import { ImageDialogComponent } from './dialog-modals/image-dialog/image-dialog.component';
 import { MerchantProviderGroupAssociationDialogComponent } from './dialog-modals/merchantprovidergroup-association-dialog/merchantprovidergroup-association-dialog.component';
 import {MaterialSelectionModule} from './material-selection/material-selection.module';
+import {HttpWrapperTransactionalService} from './shared/services/http-wrapper-transactional.service';
 
 @NgModule({
   declarations : [
@@ -62,7 +63,7 @@ import {MaterialSelectionModule} from './material-selection/material-selection.m
     TextMaskModule
   ],
   exports: [ ],
-  providers : [ HttpWrapperService ],
+  providers : [ HttpWrapperService, HttpWrapperTransactionalService ],
   entryComponents : [
     AppComponent,
     DeleteDialogComponent,

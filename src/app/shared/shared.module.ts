@@ -98,6 +98,7 @@ import {EventHooksService} from './services/event-hooks.service';
 import {EventHooksSharedService} from './services/event-hooks-shared.service';
 import { DragScrollXDirective } from './directives/drag-scroll-x.directive';
 import {MaterialSelectionModule} from '../material-selection/material-selection.module';
+import { PaymentFormComponent } from './components/payment-form/payment-form.component';
 
 @NgModule({
   declarations : [
@@ -145,7 +146,8 @@ import {MaterialSelectionModule} from '../material-selection/material-selection.
     MultiselectComponent,
     CurrencyInputDirective,
     VisibleYDirective,
-    DragScrollXDirective
+    DragScrollXDirective,
+    PaymentFormComponent
   ],
   exports : [
     AutocompleteComponent,
@@ -187,7 +189,8 @@ import {MaterialSelectionModule} from '../material-selection/material-selection.
     MultiselectComponent,
     CurrencyInputDirective,
     VisibleYDirective,
-    DragScrollXDirective
+    DragScrollXDirective,
+    PaymentFormComponent
   ],
   imports : [
     FormsModule,

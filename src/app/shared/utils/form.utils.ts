@@ -1,3 +1,5 @@
+import {getStates, getCountries} from './address.utils';
+
 export function isAllowedNumeric(event): boolean {
   const pattern = /[0-9]|Backspace|ArrowRight|ArrowLeft|Tab/;
 
@@ -68,4 +70,28 @@ function isAllowedNumber(event): boolean {
 
   return pattern.test(event.key);
 
+}
+
+export function isValidAddress(address): boolean {
+  const regex = /^[0-9]+\s.*/;
+
+  return regex.test(address);
+}
+
+export function isValidCity(city): boolean {
+  const regex = /^[a-zA-Z -]*$/;
+
+  return regex.test(city) && city;
+}
+
+export function isValidState(state): boolean {
+  if (!state) return false;
+
+  return getStates().indexOf(state) !== -1;
+}
+
+export function isValidCountry(country): boolean {
+  if (!country) return false;
+
+  return getCountries().indexOf(country) !== -1;
 }

@@ -6,11 +6,14 @@ import {Moment, utc} from 'moment'
 export class CreditCard implements Entity<CreditCard> {
   id: string;
   ccnumber: string;
+  ccv: string;
   expiration: string;
   name: string;
   address: Address;
   type: string;
   expirationFormatted: string;
+  expirationMonth: string;
+  expirationYear: string;
   maskedNumber: string;
   customers: Customer[] = [];
   createdAt: Moment;
@@ -26,7 +29,10 @@ export class CreditCard implements Entity<CreditCard> {
 
     this.id = obj.id || '';
     this.ccnumber = obj.number || '';
+    this.ccv = obj.ccv || '';
     this.expiration = obj.expiration || '';
+    this.expirationMonth = this.parseExpirationMonth();
+    this.expirationYear = this.parseExpirationYear();
     this.name = obj.name || '';
     this.address = new Address(obj.address);
     this.type = this.getType().toUpperCase();
@@ -51,6 +57,7 @@ export class CreditCard implements Entity<CreditCard> {
     return {
       id: this.id,
       number: this.ccnumber,
+      ccv: this.ccv,
       expiration: this.expiration,
       name: this.name,
       address: this.address.inverse(),
@@ -86,6 +93,18 @@ export class CreditCard implements Entity<CreditCard> {
     }
 
     return 'other';
+  }
+
+  private parseExpirationMonth() {
+    if (!this.expiration || this.expiration.length !== 7) return '';
+
+    return this.expiration.substr(0, 2);
+  }
+
+  private parseExpirationYear() {
+    if (!this.expiration || this.expiration.length !== 7) return '';
+
+    return this.expiration.substr(3, 7);
   }
 
   private formatExpiration() {

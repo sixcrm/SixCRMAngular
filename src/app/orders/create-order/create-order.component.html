@@ -30,7 +30,7 @@
             </div>
           </mat-expansion-panel-header>
 
-          <div *ngIf="!newCustomerMode; else newCustomerTemp" class="expansion-body expansion-body--customer">
+          <div *ngIf="!newCustomerMode; else newCustomerTemp" class="expansion-body">
             <mat-form-field class="autocomplete-input-container">
               <input type="text" matInput placeholder="Email, Phone or Last Name" [matAutocomplete]="autoCustomer" [(ngModel)]="customerFilterValue" (keyup)="customerInputChanged($event)" (focus)="customerInputChanged()">
 
@@ -50,18 +50,18 @@
           </div>
 
           <ng-template #newCustomerTemp>
-            <div class="expansion-body expansion-body--customer">
+            <div class="expansion-body">
               <form class="shipping-form" #customerForm="ngForm">
-                <mat-form-field>
+                <mat-form-field [class.error]="newCustomerInvalid && !selectedCustomer.firstName">
                   <input type="text" matInput [(ngModel)]="selectedCustomer.firstName" placeholder="First Name" name="firstname" required>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field [class.error]="newCustomerInvalid && !selectedCustomer.lastName">
                   <input type="text" matInput [(ngModel)]="selectedCustomer.lastName" placeholder="Last Name" name="lastname" required>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field [class.error]="newCustomerInvalid && !selectedCustomer.phone">
                   <input type="text" matInput [(ngModel)]="selectedCustomer.phone" placeholder="Phone" name="phone" required>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field [class.error]="newCustomerInvalid && !selectedCustomer.email">
                   <input type="text" matInput [(ngModel)]="selectedCustomer.email" placeholder="Email" name="email" required>
                 </mat-form-field>
               </form>
@@ -70,7 +70,7 @@
 
           <div class="buttons">
             <button mat-button (click)="newCustomerMode = false">PREVIOUS</button>
-            <button mat-button (click)="newCustomerMode ? confirmNewCustomer(true) : customerNextStep()">NEXT</button>
+            <button mat-button (click)="newCustomerMode ? confirmNewCustomer() : customerNextStep()">NEXT</button>
           </div>
 
         </mat-expansion-panel>
@@ -94,7 +94,7 @@
             </div>
           </mat-expansion-panel-header>
 
-          <div class="expansion-body expansion-body--customer">
+          <div class="expansion-body">
 
             <mat-form-field class="autocomplete-input-container">
               <input type="text" matInput placeholder="Choose Campaign" [matAutocomplete]="autoCampaign" [(ngModel)]="campaignFilterValue" (keyup)="campaignInputChanged($event)" (focus)="campaignInputChanged()">
@@ -134,7 +134,7 @@
             </div>
           </mat-expansion-panel-header>
 
-          <div class="expansion-body expansion-body--customer">
+          <div class="expansion-body">
 
             <mat-form-field class="autocomplete-input-container">
               <input type="text" matInput placeholder="Choose Subscriptions and Products" [matAutocomplete]="autoProduct" [(ngModel)]="productFilterValue" (keyup)="productInputChanged($event)" (focus)="productInputChanged()">
@@ -202,32 +202,32 @@
             </div>
           </mat-expansion-panel-header>
 
-          <div class="expansion-body expansion-body--customer">
+          <div class="expansion-body">
 
             <form class="shipping-form" #inputForm="ngForm">
               <div class="customer-name" *ngIf="selectedCustomer">{{selectedCustomer.firstName}} {{selectedCustomer.lastName}}</div>
 
-              <mat-form-field>
+              <mat-form-field [class.error]="shippingAddressInvalid && (!shippingAddress.line1 || !isAddressValid(shippingAddress.line1))">
                 <input type="text" matInput [(ngModel)]="shippingAddress.line1" placeholder="Street Address 1" name="line1" required>
               </mat-form-field>
 
-              <mat-form-field>
+              <mat-form-field [class.error]="shippingAddressInvalid && (shippingAddress.line2 && !isAddressValid(shippingAddress.line2))">
                 <input type="text" matInput [(ngModel)]="shippingAddress.line2" placeholder="Street Address 2 (optional)" name="line2">
               </mat-form-field>
 
-              <mat-form-field>
+              <mat-form-field [class.error]="shippingAddressInvalid && (!shippingAddress.line1 || !isAddressValid(shippingAddress.line1))">
                 <input type="text" matInput [(ngModel)]="shippingAddress.city" placeholder="City" required name="city">
               </mat-form-field>
 
-              <mat-form-field>
-                <input type="text" matInput [(ngModel)]="shippingAddress.zip" placeholder="Zip" required name="zip">
+              <mat-form-field [class.error]="shippingAddressInvalid && !isZipValid(shippingAddress.zip)">
+                <input type="text" matInput (keydown)="isAllowedZipKey($event)" [(ngModel)]="shippingAddress.zip" placeholder="Zip" required name="zip">
               </mat-form-field>
 
-              <mat-form-field>
+              <mat-form-field [class.error]="shippingAddressInvalid && !isCountryValid(shippingAddress.country)">
                 <input type="text" matInput [(ngModel)]="shippingAddress.country" placeholder="Country" required name="country">
               </mat-form-field>
 
-              <mat-form-field>
+              <mat-form-field [class.error]="shippingAddressInvalid && !isStateValid(shippingAddress.state)">
                 <input type="text" matInput [(ngModel)]="shippingAddress.state" placeholder="State" required name="state">
               </mat-form-field>
             </form>
@@ -236,7 +236,7 @@
 
           <div class="buttons">
             <button mat-button (click)="setStep(2)">PREVIOUS</button>
-            <button mat-button (click)="confirmShippingAddress(true)">NEXT</button>
+            <button mat-button (click)="confirmShippingAddress()">NEXT</button>
           </div>
         </mat-expansion-panel>
 
@@ -259,7 +259,7 @@
             </div>
           </mat-expansion-panel-header>
 
-          <div class="expansion-body expansion-body--customer">
+          <div class="expansion-body">
 
             <mat-form-field class="autocomplete-input-container">
               <input type="text" matInput placeholder="Choose Shipping and Insurance" [matAutocomplete]="autoShipping" [(ngModel)]="shippingFilterValue" (keyup)="shippingInputChanged($event)" (focus)="shippingInputChanged()">
@@ -295,7 +295,7 @@
                   </div>
                 </td>
                 <td class="mid">{{shipping.defaultPrice ? shipping.defaultPrice.usd() : '$0.00'}}</td>
-                <td class="mid"><mat-icon (click)="removeShipping(shipping)">delete</mat-icon></td>
+                <td class="mid"><mat-icon class="delete-icon" (click)="removeShipping(shipping)">delete</mat-icon></td>
               </tr>
               </tbody>
             </table>
@@ -316,7 +316,7 @@
               </span>
 
               <mat-chip-list [selectable]="false">
-                <mat-chip *ngIf="selectedCreditCard"
+                <mat-chip *ngIf="selectedCreditCard && selectedCreditCard.ccv && !ccvInvalid(selectedCreditCard)"
                           [removable]="true"
                           (remove)="removeCreditCard()">
                   ****{{selectedCreditCard.lastFour}}
@@ -333,15 +333,18 @@
                 <th>Card</th>
                 <th>Exp. Date</th>
                 <th>Last used</th>
-                <th></th>
               </thead>
               <tbody>
                 <tr *ngFor="let ccard of selectedCustomer.creditCards">
-                  <td><mat-radio-button (change)="ccChanged($event)" [value]="ccard"></mat-radio-button></td>
-                  <td>{{ccard.type}} ****{{ccard.lastFour}}</td>
+                  <td style="width: 1px;"><mat-radio-button (change)="ccChanged($event)" [value]="ccard"></mat-radio-button></td>
+                  <td>
+                    {{ccard.type}} ****{{ccard.lastFour}}
+                    <mat-form-field [class.error]="selectedCcvError && ccvInvalid(selectedCreditCard)" *ngIf="selectedCreditCard && selectedCreditCard.id === ccard.id">
+                      <input required type="text" matInput placeholder="CCV" [(ngModel)]="selectedCreditCard.ccv">
+                    </mat-form-field>
+                  </td>
                   <td>{{ccard.expirationFormatted}}</td>
                   <td></td>
-                  <td><mat-icon>delete</mat-icon><mat-icon>edit</mat-icon></td>
                 </tr>
               </tbody>
             </table>
@@ -349,6 +352,10 @@
             <div class="new-card">
               <mat-radio-button (change)="newCardSelected()"></mat-radio-button>
               <button mat-button>NEW CARD</button>
+            </div>
+
+            <div class="expansion-body" *ngIf="newCardMode">
+              <payment-form #paymentForm [creditCard]="newCreditCard" [defaultAddress]="selectedShippingAddress"></payment-form>
             </div>
           </mat-radio-group>
 
