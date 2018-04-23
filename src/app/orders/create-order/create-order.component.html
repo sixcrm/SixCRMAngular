@@ -59,10 +59,10 @@
                   <input type="text" matInput [(ngModel)]="selectedCustomer.lastName" placeholder="Last Name" name="lastname" required>
                 </mat-form-field>
                 <mat-form-field [class.error]="newCustomerInvalid && !selectedCustomer.phone">
-                  <input type="text" matInput [(ngModel)]="selectedCustomer.phone" placeholder="Phone" name="phone" required>
+                  <input type="text" matInput [textMask]="{mask: mask, guide: false}" [(ngModel)]="selectedCustomer.phone" placeholder="Phone" name="phone" required>
                 </mat-form-field>
                 <mat-form-field [class.error]="newCustomerInvalid && !selectedCustomer.email">
-                  <input type="text" matInput [(ngModel)]="selectedCustomer.email" placeholder="Email" name="email" required>
+                  <input type="text" matInput [(ngModel)]="selectedCustomer.email" (keydown)="isAllowedEmailKey($event, selectedCustomer.email)" placeholder="Email" name="email" required>
                 </mat-form-field>
               </form>
             </div>
@@ -142,7 +142,9 @@
               <mat-autocomplete class="three-row-autocomplete" #autoProduct="matAutocomplete" [displayWith]="displayFn" (optionSelected)="productSelected($event)">
                 <mat-option *ngFor="let product of filteredProducts" [value]="product">
                   <div class="autocomplete-row">{{ product.name }} </div>
-                  <div class="autocomplete-row">{{ product.defaultPrice ? product.defaultPrice.usd() : '$0' }} </div>
+                  <div class="autocomplete-row">
+                    {{ product.defaultPrice ? product.defaultPrice.usd() : product.firstSchedulePrice ? product.firstSchedulePrice.usd() : '-' }}
+                  </div>
                   <div class="autocomplete-row"> One line description </div>
                 </mat-option>
               </mat-autocomplete>
@@ -169,7 +171,15 @@
                     <mat-icon (click)="quantityPlus(product)">add</mat-icon>
                   </div>
                 </td>
-                <td class="mid">{{product.defaultPrice ? product.defaultPrice.usd() : '$0.00'}}</td>
+                <td class="mid">
+                  <div class="flex-custom flex-custom--center price-edit-container">
+                    <mat-form-field class="input-align-right" [class.error]=" productInEdit.id === product.id && productInEdit['error']" [class.solo]="productInEdit.id === product.id || !product.dynamicPrice || !product.dynamicPrice.enabled">
+                      <input matInput currencyInput (keydown)="isCurrencyInput($event)" [initPrice]="productInEdit.id === product.id ? productInEdit.defaultPrice : product.defaultPrice ? product.defaultPrice : product.firstSchedulePrice" [disabled]="productInEdit.id !== product.id" (priceChanged)="productInEdit.defaultPrice = $event" name="defaultPrice" type="text">
+                      <mat-hint align="end" *ngIf="productInEdit.id === product.id">{{product.dynamicPrice.min.usd()}} - {{product.dynamicPrice.max.usd()}}</mat-hint>
+                    </mat-form-field>
+                    <mat-icon *ngIf="productInEdit.id !== product.id && product.dynamicPrice && product.dynamicPrice.enabled" (click)="setProductInEdit(product)">edit</mat-icon>
+                  </div>
+                </td>
                 <td class="mid"><mat-icon (click)="removeProduct(product)">delete</mat-icon></td>
               </tr>
               </tbody>

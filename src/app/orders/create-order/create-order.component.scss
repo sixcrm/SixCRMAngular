@@ -130,7 +130,8 @@
         }
 
         td {
-          vertical-align: top;
+          padding-top: 0;
+          padding-bottom: 0;
           font-size: 12px;
 
           &:last-of-type {
@@ -230,6 +231,22 @@
 
     payment-form {
       margin-top: 15px;
+    }
+  }
+
+  .price-edit-container {
+    mat-form-field {
+      margin-left: auto;
+      margin-right: 15px;
+      text-align: right;
+    }
+
+    .solo {
+      margin-right: auto;
+    }
+
+    mat-icon {
+      margin-right: auto;
     }
   }
 }

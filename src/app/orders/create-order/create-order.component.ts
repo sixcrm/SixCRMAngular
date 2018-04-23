@@ -16,9 +16,10 @@ import {Subscription} from 'rxjs';
 import {PaymentFormComponent} from '../../shared/components/payment-form/payment-form.component';
 import {
   isValidState, isValidCountry, isValidAddress, isValidCity, isAllowedZip,
-  isValidZip, isAllowedNumeric
+  isValidZip, isAllowedNumeric, isAllowedCurrency, isAllowedEmail
 } from '../../shared/utils/form.utils';
 import {HttpWrapperTransactionalService} from '../../shared/services/http-wrapper-transactional.service';
+import {getPhoneNumberMask} from '../../shared/utils/mask.utils';
 
 @Component({
   selector: 'create-order',
@@ -35,6 +36,7 @@ export class CreateOrderComponent implements OnInit {
   filteredCustomers: Customer[] = [];
   newCustomerMode: boolean;
   newCustomerInvalid: boolean;
+  mask = getPhoneNumberMask();
 
   selectedCampaign: Campaign;
   campaignFilterValue: string;
@@ -45,6 +47,7 @@ export class CreateOrderComponent implements OnInit {
   productFilterValue: string;
   products: (Product | ProductSchedule)[] = [];
   filteredProducts: (Product | ProductSchedule)[] = [];
+  productInEdit: Product = new Product();
 
   shippingAddress: Address = new Address();
   selectedShippingAddress: Address;
@@ -72,6 +75,8 @@ export class CreateOrderComponent implements OnInit {
   isAddressValid = isValidAddress;
   isCountryValid = isValidCountry;
   isStateValid = isValidState;
+  isCurrencyValid = isAllowedCurrency;
+  isAllowedEmailKey = isAllowedEmail;
 
   constructor(
     private customerService: CustomersService,
@@ -420,7 +425,7 @@ export class CreateOrderComponent implements OnInit {
     return new Currency(this.selectedProducts.map(p => {
 
       if (p instanceof ProductSchedule) {
-        return p.schedules.map(s => s.price.amount).reduce((a,b) => a+b,0) * p.quantity;
+        return (p.firstSchedulePrice.amount || 0) * p.quantity;
       }
 
       return (p.defaultPrice.amount || 0) * p.quantity;
@@ -444,5 +449,44 @@ export class CreateOrderComponent implements OnInit {
     this.httpTransactionalService.checkout({
       campaign: this.selectedCampaign.id
     })
+  }
+
+  isCurrencyInput(event) {
+    if (!event) return;
+
+    if (event.key === 'Enter') {
+      this.setProductInEditPrice();
+    }
+
+    this.isCurrencyValid(event);
+  }
+
+  setProductInEdit(product: Product | ProductSchedule) {
+    if (product instanceof ProductSchedule) {
+      this.productInEdit = new Product();
+      return;
+    }
+
+    this.productInEdit = product.copy();
+  }
+
+  setProductInEditPrice() {
+    for (let i = 0; i < this.selectedProducts.length; i++) {
+      if (this.selectedProducts[i].id === this.productInEdit.id) {
+        let selected = this.selectedProducts[i];
+
+        if (selected instanceof Product) {
+          this.productInEdit['error'] = !selected.dynamicPrice || !selected.dynamicPrice.enabled || this.productInEdit.defaultPrice.amount < selected.dynamicPrice.min.amount || this.productInEdit.defaultPrice.amount > selected.dynamicPrice.max.amount;
+
+          selected.defaultPrice = this.productInEdit.defaultPrice;
+        }
+
+        if (!this.productInEdit['error']) {
+          this.productInEdit = new Product();
+        }
+
+        return;
+      }
+    }
   }
 }
