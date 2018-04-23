@@ -1,0 +1,66 @@
+mat-card {
+  margin-bottom: 0;
+}
+
+.customer-info-container {
+  display: flex;
+
+  .shipping {
+    margin-right: 35px;
+  }
+
+  .payment {
+
+  }
+}
+
+.summary {
+  display: flex;
+
+  &__column {
+    margin-right: 10px;
+  }
+}
+
+button {
+  margin-top: 15px;
+  background: #2897EF;
+  color: white;
+  font-size: 12px;
+  padding: 5px 25px;
+}
+
+.product-container {
+  display: flex;
+
+  .product-data {
+    font-size: 14px;
+    color: rgba(0,0,0,0.8);
+
+    .name {
+      font-size: 16px;
+      color: black;
+      margin-bottom: 16px !important;
+    }
+
+    div {
+      margin-bottom: 8px;
+    };
+
+    .subscription {
+      margin-right: 6px;
+      display: inline-block;
+      padding: 2px 4px;
+      border-radius: 3px;
+      color: white;
+      background: #00C9A6;
+      font-weight: 500;
+      font-size:11px;
+    }
+  }
+
+  img {
+    margin-left: auto;
+    height: 120px;
+  }
+}

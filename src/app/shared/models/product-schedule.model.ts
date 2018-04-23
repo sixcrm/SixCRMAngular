@@ -9,6 +9,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
   name: string;
   quantity: number;
   firstSchedulePrice: Currency = new Currency(0);
+  firstSchedule: Schedule = new Schedule();
   schedules: Schedule[] = [];
   createdAt: Moment;
   updatedAt: Moment;
@@ -31,28 +32,29 @@ export class ProductSchedule implements Entity<ProductSchedule> {
 
     if (obj.schedule) {
       this.schedules = obj.schedule.map(s => new Schedule(s, obj.days));
-      this.firstSchedulePrice = this.calculateFirstSchedulePrice();
+      this.firstSchedule = this.calculateFirstSchedule();
+      this.firstSchedulePrice = this.firstSchedule ? this.firstSchedule.price : new Currency(0);
       this.start = this.getStart();
       this.end = this.getEnd();
     }
   }
 
-  calculateFirstSchedulePrice(): Currency {
+  calculateFirstSchedule(): Schedule {
     let start = this.schedules[0] ? this.schedules[0].start : 0;
-    let price = this.schedules[0] ? this.schedules[0].price : new Currency(0);
+    let schedule = this.schedules[0] ? this.schedules[0] : new Schedule;
 
     for (let i = 0; i < this.schedules.length; i++) {
       if (this.schedules[i].start === 0) {
-        return this.schedules[i].price;
+        return this.schedules[i];
       }
 
       if (this.schedules[i].start < start) {
         start = this.schedules[i].start;
-        price = this.schedules[i].price;
+        schedule = this.schedules[i];
       }
     }
 
-    return price;
+    return schedule;
   }
 
   getStart(): number {

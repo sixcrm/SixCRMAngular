@@ -1,0 +1,56 @@
+<mat-card>
+  <div>Order Summary</div>
+  <div>{{utcf().tz(authService.getTimezone()).format('MMMM D, YYYY')}}</div>
+
+  <div class="customer-info-container">
+    <div class="shipping">
+      <div>Shipping Address</div>
+
+      <div>{{customer.firstName}} {{customer.lastName}}</div>
+      <div>{{shippingAdderss.line1}}</div>
+      <div *ngIf="shippingAdderss.line2">{{shippingAdderss.line2}}</div>
+      <div>{{shippingAdderss.city}}, {{shippingAdderss.state}} {{shippingAdderss.zip}}</div>
+      <div>{{shippingAdderss.country}}</div>
+    </div>
+
+    <div class="payment">
+      <div>Payment Method</div>
+      <div>{{creditCard.getType()}} ****{{creditCard.lastFour}}</div>
+
+      <div class="summary">
+        <div class="summary__column">
+          <div>Item(s) Subtotal</div>
+          <div>Shipping</div>
+          <div>Total</div>
+        </div>
+        <div class="summary__column">
+          <div>$0</div>
+          <div>$0</div>
+          <div>$0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>
+<mat-card *ngFor="let product of products">
+  <div class="product-container">
+    <div class="product-data">
+      <div class="name">{{product.name}}</div>
+      <div class="sku">SKU {{product.sku || product.firstSchedule.product.sku}}</div>
+      <div class="price">Price {{product.defaultPrice ? product.defaultPrice.usd() : product.firstSchedulePrice.usd()}} <div class="subscription" *ngIf="product.firstSchedule">SUBSCRIPTION</div></div>
+
+      <div class="description">{{product.description || (product.firstSchedule ? product.firstSchedule.product.description : '') }}</div>
+    </div>
+
+    <img *ngIf="product.attributes && product.attributes[0]; else scheduleimage" src="{{product.attributes[0].path || '/assets/images/product-image-placeholder.svg'}}" alt="">
+    <ng-template #scheduleimage>
+      <img *ngIf="product.firstSchedule && product.firstSchedule.product.attributes && product.firstSchedule.product.attributes.images[0]; else defaultimage" src="{{product.firstSchedule.product.attributes.images[0].path || '/assets/images/product-image-placeholder.svg'}}" alt="">
+    </ng-template>
+    <ng-template #defaultimage>
+      <img src="/assets/images/product-image-placeholder.svg" alt="">
+    </ng-template>
+
+  </div>
+</mat-card>
+
+<button mat-button>SUBMIT THIS ORDER</button>

@@ -376,6 +376,14 @@
         </mat-expansion-panel>
       </mat-accordion>
 
+      <create-order-preview
+        *ngIf="showSummary && selectedCustomer && selectedCustomer.id && selectedProducts && selectedProducts.length > 0 && selectedCreditCard && selectedCreditCard.ccv && selectedShippingAddress && selectedCampaign && selectedCampaign.id"
+        [customer]="selectedCustomer"
+        [creditCard]="selectedCreditCard"
+        [shippingAdderss]="selectedShippingAddress"
+        [products]="selectedProducts"
+        [shippings]="selectedShippings">
+      </create-order-preview>
     </div>
 
     <div class="details">
