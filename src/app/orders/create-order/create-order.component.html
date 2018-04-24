@@ -154,7 +154,7 @@
           </div>
 
           <ng-container *ngIf="selectedProducts && selectedProducts.length > 0">
-            <table class="highlight">
+            <table class="highlight products-table">
               <thead>
               <th>Items</th>
               <th class="mid">Quantity</th>
@@ -287,7 +287,7 @@
           </div>
 
           <ng-container *ngIf="selectedShippings && selectedShippings.length > 0">
-            <table class="highlight">
+            <table class="highlight products-table">
               <thead>
               <th>Items</th>
               <th class="mid">Quantity</th>
@@ -326,7 +326,7 @@
               </span>
 
               <mat-chip-list [selectable]="false">
-                <mat-chip *ngIf="selectedCreditCard && selectedCreditCard.ccv && !ccvInvalid(selectedCreditCard)"
+                <mat-chip *ngIf="selectedCreditCard && (!selectedCreditCard.ccv || !ccvInvalid(selectedCreditCard))"
                           [removable]="true"
                           (remove)="removeCreditCard()">
                   ****{{selectedCreditCard.lastFour}}
@@ -337,7 +337,7 @@
           </mat-expansion-panel-header>
 
           <mat-radio-group [selected]="false">
-            <table *ngIf="selectedCustomer && selectedCustomer.creditCards && selectedCustomer.creditCards.length > 0" class="highlight">
+            <table *ngIf="selectedCustomer && selectedCustomer.creditCards && selectedCustomer.creditCards.length > 0" class="highlight cards-table">
               <thead>
                 <th></th>
                 <th>Card</th>
@@ -345,12 +345,12 @@
                 <th>Last used</th>
               </thead>
               <tbody>
-                <tr *ngFor="let ccard of selectedCustomer.creditCards">
-                  <td style="width: 1px;"><mat-radio-button (change)="ccChanged($event)" [value]="ccard"></mat-radio-button></td>
+                <tr *ngFor="let ccard of selectedCustomer.creditCards; let i = index">
+                  <td style="width: 1px;"><mat-radio-button [checked]="selectedCreditCard?.id === ccard.id" (change)="ccChanged($event)" [value]="ccard"></mat-radio-button></td>
                   <td>
                     {{ccard.type}} ****{{ccard.lastFour}}
                     <mat-form-field [class.error]="selectedCcvError && ccvInvalid(selectedCreditCard)" *ngIf="selectedCreditCard && selectedCreditCard.id === ccard.id">
-                      <input required type="text" matInput placeholder="CCV" [(ngModel)]="selectedCreditCard.ccv">
+                      <input type="text" matInput placeholder="CCV" [(ngModel)]="selectedCreditCard.ccv">
                     </mat-form-field>
                   </td>
                   <td>{{ccard.expirationFormatted}}</td>
@@ -360,8 +360,8 @@
             </table>
 
             <div class="new-card">
-              <mat-radio-button (change)="newCardSelected()"></mat-radio-button>
-              <button mat-button>NEW CARD</button>
+              <mat-radio-button [checked]="!selectedCreditCard || !selectedCreditCard.id" (change)="newCardSelected()"></mat-radio-button>
+              <button mat-button (click)="newCardSelected()">NEW CARD</button>
             </div>
 
             <div class="expansion-body" *ngIf="newCardMode">
@@ -377,10 +377,10 @@
       </mat-accordion>
 
       <create-order-preview
-        *ngIf="showSummary && selectedCustomer && selectedCustomer.id && selectedProducts && selectedProducts.length > 0 && selectedCreditCard && selectedCreditCard.ccv && selectedShippingAddress && selectedCampaign && selectedCampaign.id"
+        *ngIf="showPreview && selectedCustomer?.id && selectedProducts?.length > 0 && selectedCreditCard && (!selectedCreditCard.ccv || !ccvInvalid(selectedCreditCard)) && selectedShippingAddress && selectedCampaign?.id"
         [customer]="selectedCustomer"
         [creditCard]="selectedCreditCard"
-        [shippingAdderss]="selectedShippingAddress"
+        [shippingAddress]="selectedShippingAddress"
         [products]="selectedProducts"
         [shippings]="selectedShippings">
       </create-order-preview>

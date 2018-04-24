@@ -16,9 +16,8 @@ import {Subscription} from 'rxjs';
 import {PaymentFormComponent} from '../../shared/components/payment-form/payment-form.component';
 import {
   isValidState, isValidCountry, isValidAddress, isValidCity, isAllowedZip,
-  isValidZip, isAllowedNumeric, isAllowedCurrency, isAllowedEmail
+  isValidZip, isAllowedCurrency, isAllowedEmail
 } from '../../shared/utils/form.utils';
-import {HttpWrapperTransactionalService} from '../../shared/services/http-wrapper-transactional.service';
 import {getPhoneNumberMask} from '../../shared/utils/mask.utils';
 
 @Component({
@@ -61,15 +60,15 @@ export class CreateOrderComponent implements OnInit {
   step: number = 0;
 
   selectedCreditCard: CreditCard;
+  creditCardSelection: CreditCard;
   newCreditCard: CreditCard = new CreditCard();
 
   newCardMode: boolean = true;
 
   customerSub: Subscription;
   selectedCcvError: boolean = false;
-  showSummary: boolean;
+  showPreview: boolean;
 
-  isAllowedNumericKey = isAllowedNumeric;
   isZipValid = isValidZip;
   isAllowedZipKey = isAllowedZip;
   isCityValid = isValidCity;
@@ -83,8 +82,7 @@ export class CreateOrderComponent implements OnInit {
     private customerService: CustomersService,
     private campaignService: CampaignsService,
     private productService: ProductsService,
-    private productScheduleService: ProductScheduleService,
-    private httpTransactionalService: HttpWrapperTransactionalService
+    private productScheduleService: ProductScheduleService
   ) { }
 
   ngOnInit() {
@@ -157,6 +155,10 @@ export class CreateOrderComponent implements OnInit {
       if (customer instanceof CustomServerError) return;
 
       this.selectedCustomer = customer;
+      if (this.selectedCustomer.creditCards[0]) {
+        this.selectedCreditCard = this.selectedCustomer.creditCards[0].copy();
+        this.newCardMode = false;
+      }
     });
     this.customerService.getEntity(this.selectedCustomer.id);
 
@@ -383,7 +385,8 @@ export class CreateOrderComponent implements OnInit {
     }
 
     if (this.allSelectedValid()) {
-      this.triggerShowSummary();
+      this.setStep(6);
+      this.showPreview = true;
     }
   }
 
@@ -420,7 +423,7 @@ export class CreateOrderComponent implements OnInit {
       return false;
     }
 
-    if (!this.selectedCreditCard.ccv || this.ccvInvalid(this.selectedCreditCard)) {
+    if (this.selectedCreditCard.ccv && this.ccvInvalid(this.selectedCreditCard)) {
       this.selectedCcvError = true;
       this.setStep(5);
 
@@ -460,10 +463,6 @@ export class CreateOrderComponent implements OnInit {
     const s = this.getShipping();
 
     return new Currency(p.amount + s.amount);
-  }
-
-  triggerShowSummary() {
-    this.showSummary = true;
   }
 
   isCurrencyInput(event) {

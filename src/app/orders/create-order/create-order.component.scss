@@ -110,8 +110,22 @@
     }
   }
 
+  .products-table {
+    td {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  .cards-table {
+    td {
+      vertical-align: top;
+    }
+  }
+
   table {
     margin-top: 15px;
+
     thead {
       th {
         padding: 2px 5px;
@@ -130,8 +144,6 @@
         }
 
         td {
-          padding-top: 0;
-          padding-bottom: 0;
           font-size: 12px;
 
           &:last-of-type {

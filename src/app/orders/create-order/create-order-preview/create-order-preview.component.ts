@@ -15,7 +15,7 @@ import {Product} from '../../../shared/models/product.model';
 export class CreateOrderPreviewComponent implements OnInit {
 
   @Input() customer: Customer;
-  @Input() shippingAdderss: Address;
+  @Input() shippingAddress: Address;
   @Input() creditCard: CreditCard;
   @Input() products: (Product | ProductSchedule)[] = [];
   @Input() shippings: Product[] = [];
