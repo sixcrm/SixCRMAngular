@@ -86,7 +86,8 @@ export class DeviceToggleItemComponent implements OnInit {
     if ((open_brackets > 1) ||
         (closed_brackets > 1) ||
         (open_brackets !== closed_brackets) ||
-        (open_bracket_position > closed_bracket_position))
+        (open_bracket_position > closed_bracket_position) ||
+        phone.length < 6)
     return false;
 
     return regex.test(phone);
