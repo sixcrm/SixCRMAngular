@@ -7,11 +7,14 @@ export interface CheckoutCustomer {
 }
 
 export interface CheckoutProductSchedule {
-  id: string
+  quantity: number,
+  product_schedule: string
 }
 
 export interface CheckoutProduct {
-  id: string;
+  quantity: number,
+  price: number;
+  product: string
 }
 
 export interface CheckoutCreditCard {

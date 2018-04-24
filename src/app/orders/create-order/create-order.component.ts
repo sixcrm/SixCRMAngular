@@ -25,6 +25,9 @@ import {
   CheckoutCreditCard
 } from '../../shared/models/checkout-body.model';
 import {NavigationService} from '../../navigation/navigation.service';
+import {countryCode, stateCode} from '../../shared/utils/address.utils';
+import {CheckoutResponse} from '../../shared/models/checkout-response.model';
+import {SnackbarService} from '../../shared/services/snackbar.service';
 
 @Component({
   selector: 'create-order',
@@ -83,13 +86,17 @@ export class CreateOrderComponent implements OnInit {
   isCurrencyValid = isAllowedCurrency;
   isAllowedEmailKey = isAllowedEmail;
 
+  orderComplete: boolean;
+  checkoutResponse: CheckoutResponse;
+
   constructor(
     private customerService: CustomersService,
     private campaignService: CampaignsService,
     private productService: ProductsService,
     private productScheduleService: ProductScheduleService,
     private transactionalAPI: HttpWrapperTransactionalService,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    private snackService: SnackbarService
   ) { }
 
   ngOnInit() {
@@ -126,7 +133,7 @@ export class CreateOrderComponent implements OnInit {
     this.productService.getEntities();
     this.productScheduleService.getEntities();
 
-    this.generateDummyData();
+    // this.generateDummyData();
   }
 
   private generateDummyData() {
@@ -140,7 +147,10 @@ export class CreateOrderComponent implements OnInit {
     this.selectedProducts = [
       new Product({id: 'product1', sku: '55123', name: 'Product Simple', description: 'This is super cool product', default_price: 10}),
       new ProductSchedule({id: 'productschedule1', name: 'Subscription', schedule: [{start: 0, end: 90, period: 30, price: 12, product: {name: 'Sub Product', description: 'This is even more cool product', sku: '88182'}}]})
-    ]
+    ];
+
+    this.orderComplete = true;
+    this.checkoutResponse = new CheckoutResponse({customer: {id: '1234'}, session: {id: '5678', alias: 'session-alias'}});
   }
 
   setStep(num: number) {
@@ -515,9 +525,9 @@ export class CreateOrderComponent implements OnInit {
     const shippingAddress: CheckoutAddress = {
       line1: this.selectedShippingAddress.line1,
       city: this.selectedShippingAddress.city,
-      state: this.selectedShippingAddress.state,
+      state: stateCode(this.selectedShippingAddress.state),
       zip: this.selectedShippingAddress.zip,
-      country: this.selectedShippingAddress.country
+      country: countryCode(this.selectedShippingAddress.country)
     };
 
     if (this.selectedShippingAddress.line2) {
@@ -535,9 +545,9 @@ export class CreateOrderComponent implements OnInit {
     const billingAddress: CheckoutAddress = {
       line1: this.selectedCreditCard.address.line1,
       city: this.selectedCreditCard.address.city,
-      state: this.selectedCreditCard.address.state,
+      state: stateCode(this.selectedCreditCard.address.state),
       zip: this.selectedCreditCard.address.zip,
-      country: this.selectedCreditCard.address.country
+      country: countryCode(this.selectedCreditCard.address.country)
     };
 
     if (this.selectedCreditCard.address.line2) {
@@ -560,32 +570,43 @@ export class CreateOrderComponent implements OnInit {
 
     this.selectedProducts.forEach(p => {
       if (p instanceof Product) {
-        products.push(p.id);
+        products.push({quantity: p.quantity || 1, price: p.defaultPrice.amount || 0, product: p.id});
       }
 
       if (p instanceof ProductSchedule) {
-        productSchedules.push(p.id);
+        productSchedules.push({quantity: p.quantity || 1, product_schedule: p.id});
       }
     });
 
     if (this.shippings && this.shippings.length > 0) {
-      products = [...products,...this.shippings.map(s => s.id)];
+      products = [...products,...this.selectedShippings.map(s => s.id)];
     }
 
     const checkoutBody: CheckoutBody = {
       campaign: this.selectedCampaign.id,
       customer: customer,
-      creditcard: creditCard,
-      products: products,
-      product_schedules: productSchedules
+      creditcard: creditCard
     };
+
+    if (products && products.length > 0) {
+      checkoutBody.products = products;
+    }
+
+    if (productSchedules && productSchedules.length > 0) {
+      checkoutBody.product_schedules = productSchedules;
+    }
 
     this.navigationService.setShowProcessingOrderOverlay(true);
 
     this.transactionalAPI.checkout(checkoutBody).subscribe(response => {
       this.navigationService.setShowProcessingOrderOverlay(false);
 
-      console.log(response);
+      if (response instanceof CheckoutResponse) {
+        this.orderComplete = true;
+        this.checkoutResponse = response;
+      } else {
+        this.snackService.showErrorSnack(response.message, 6000);
+      }
     })
   }
 }

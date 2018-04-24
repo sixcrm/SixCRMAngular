@@ -7,6 +7,7 @@ import {MaterialSelectionModule} from '../material-selection/material-selection.
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TextMaskModule} from 'angular2-text-mask';
 import { CreateOrderPreviewComponent } from './create-order/create-order-preview/create-order-preview.component';
+import { CreateOrderSuccessComponent } from './create-order/create-order-success/create-order-success.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { CreateOrderPreviewComponent } from './create-order/create-order-preview
   declarations: [
     CreateOrderComponent,
     CreateOrderSummaryComponent,
-    CreateOrderPreviewComponent
+    CreateOrderPreviewComponent,
+    CreateOrderSuccessComponent
   ],
   exports: [
     CreateOrderComponent

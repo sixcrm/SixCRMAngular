@@ -23,7 +23,7 @@ export class HttpWrapperTransactionalService {
     const body = {campaign: campaignId};
     const endpoint = environment.bareEndpoint + 'token/acquire/' + this.authService.getActiveAcl().account.id;
 
-    return this.http.post(endpoint, body, {observe: 'response', responseType: 'json', headers: headers})
+    return this.http.post<any>(endpoint, body, {observe: 'response', responseType: 'json', headers: headers})
   }
 
   private performCheckout(checkoutBody: CheckoutBody, token: string) {
@@ -34,19 +34,17 @@ export class HttpWrapperTransactionalService {
     const body = checkoutBody;
     const endpoint = environment.bareEndpoint + 'checkout/' + this.authService.getActiveAcl().account.id;
 
-    return this.http.post(endpoint, body, {observe: 'response', responseType: 'json', headers: headers})
+    return this.http.post<any>(endpoint, body, {observe: 'response', responseType: 'json', headers: headers})
   }
 
   checkout(checkoutBody: CheckoutBody): Observable<CheckoutResponse | TransactionalResponseError> {
     let response: Subject<CheckoutResponse | TransactionalResponseError> = new Subject();
 
     this.acquireToken(checkoutBody.campaign).subscribe(acquireTokenResponse => {
-      console.log('acquire token', acquireTokenResponse);
-
-      this.performCheckout(checkoutBody, 'testtoken').subscribe(checkoutResponse => {
-        console.log('checkout', checkoutResponse)
-      }, error => response.next(error))
-    }, error => response.next(error));
+      this.performCheckout(checkoutBody, acquireTokenResponse.body.response).subscribe(checkoutResponse => {
+        response.next(new CheckoutResponse(checkoutResponse.body.response));
+      }, error => response.next({code: error.status, message: error.body ? error.body.message: error.message}))
+    }, error => response.next({code: error.status, message: error.body ? error.body.message: error.message}));
 
     return response;
   }

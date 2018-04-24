@@ -1,0 +1,49 @@
+<div class="success-container">
+
+  <div class="column">
+    <div class="alias">
+      <div>Order Confirmation</div>
+      <div>#{{checkoutResponse.session.alias}}</div>
+    </div>
+
+    <button mat-button>COPY ORDER INFORMATION</button>
+    <button mat-button (click)="navigateToCustomer()">VIEW CUSTOMER RECORD</button>
+    <button mat-button (click)="navigateToSession()">VIEW SESSION RECORD</button>
+  </div>
+
+  <div class="column">
+
+    <div class="title">Purchase Date</div>
+    <div>{{utcf().tz(authService.getTimezone()).format('MMMM D, YYYY')}}</div>
+
+    <div class="title title--separated">Order Summary</div>
+    <div *ngFor="let product of products">
+      - {{product.name}} {{product.firstSchedule ? ', subscription' : ''}}
+    </div>
+
+    <div class="summary">
+      <div class="summary__column">
+        <div>Item(s) Subtotal</div>
+        <div>Shipping</div>
+        <div>Total</div>
+      </div>
+      <div class="summary__column">
+        <div>{{getPrice().usd()}}</div>
+        <div>{{getShipping().usd()}}</div>
+        <div>{{getTotal().usd()}}</div>
+      </div>
+    </div>
+
+    <div class="title title--separated">Payment Method</div>
+    <div>{{creditCard.type}} ****{{creditCard.lastFour}}</div>
+
+    <div class="title title--separated">Shipping Address</div>
+    <div>{{customer.firstName}} {{customer.lastName}}</div>
+    <div>{{shippingAddress.line1}}</div>
+    <div *ngIf="shippingAddress.line2">{{shippingAddress.line2}}</div>
+    <div>{{shippingAddress.city}}, {{shippingAddress.state}} {{shippingAddress.zip}}</div>
+    <div>{{shippingAddress.country}}</div>
+
+    <button mat-button (click)="done.emit(true)">DONE</button>
+  </div>
+</div>
