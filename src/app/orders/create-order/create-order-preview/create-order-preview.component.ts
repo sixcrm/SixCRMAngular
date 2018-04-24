@@ -22,7 +22,7 @@ export class CreateOrderPreviewComponent implements OnInit {
 
   utcf = utc;
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(public authService: AuthenticationService) { }
 
   ngOnInit() {
   }
