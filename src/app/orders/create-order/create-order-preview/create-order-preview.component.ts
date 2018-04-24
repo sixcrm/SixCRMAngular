@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {utc} from 'moment';
 import {Address} from '../../../shared/models/address.model';
@@ -19,6 +19,8 @@ export class CreateOrderPreviewComponent implements OnInit {
   @Input() creditCard: CreditCard;
   @Input() products: (Product | ProductSchedule)[] = [];
   @Input() shippings: Product[] = [];
+
+  @Output() confirm: EventEmitter<boolean> = new EventEmitter();
 
   utcf = utc;
 

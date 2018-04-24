@@ -19,6 +19,12 @@ import {
   isValidZip, isAllowedCurrency, isAllowedEmail
 } from '../../shared/utils/form.utils';
 import {getPhoneNumberMask} from '../../shared/utils/mask.utils';
+import {HttpWrapperTransactionalService} from '../../shared/services/http-wrapper-transactional.service';
+import {
+  CheckoutBody, CheckoutAddress, CheckoutCustomer,
+  CheckoutCreditCard
+} from '../../shared/models/checkout-body.model';
+import {NavigationService} from '../../navigation/navigation.service';
 
 @Component({
   selector: 'create-order',
@@ -60,7 +66,6 @@ export class CreateOrderComponent implements OnInit {
   step: number = 0;
 
   selectedCreditCard: CreditCard;
-  creditCardSelection: CreditCard;
   newCreditCard: CreditCard = new CreditCard();
 
   newCardMode: boolean = true;
@@ -82,7 +87,9 @@ export class CreateOrderComponent implements OnInit {
     private customerService: CustomersService,
     private campaignService: CampaignsService,
     private productService: ProductsService,
-    private productScheduleService: ProductScheduleService
+    private productScheduleService: ProductScheduleService,
+    private transactionalAPI: HttpWrapperTransactionalService,
+    private navigationService: NavigationService
   ) { }
 
   ngOnInit() {
@@ -119,7 +126,7 @@ export class CreateOrderComponent implements OnInit {
     this.productService.getEntities();
     this.productScheduleService.getEntities();
 
-    // this.generateDummyData();
+    this.generateDummyData();
   }
 
   private generateDummyData() {
@@ -502,5 +509,83 @@ export class CreateOrderComponent implements OnInit {
         return;
       }
     }
+  }
+
+  processOrder() {
+    const shippingAddress: CheckoutAddress = {
+      line1: this.selectedShippingAddress.line1,
+      city: this.selectedShippingAddress.city,
+      state: this.selectedShippingAddress.state,
+      zip: this.selectedShippingAddress.zip,
+      country: this.selectedShippingAddress.country
+    };
+
+    if (this.selectedShippingAddress.line2) {
+      shippingAddress.line2 = this.selectedShippingAddress.line2;
+    }
+
+    const customer: CheckoutCustomer = {
+      first_name: this.selectedCustomer.firstName,
+      last_name: this.selectedCustomer.lastName,
+      email: this.selectedCustomer.email,
+      phone: this.selectedCustomer.phone,
+      address: shippingAddress
+    };
+
+    const billingAddress: CheckoutAddress = {
+      line1: this.selectedCreditCard.address.line1,
+      city: this.selectedCreditCard.address.city,
+      state: this.selectedCreditCard.address.state,
+      zip: this.selectedCreditCard.address.zip,
+      country: this.selectedCreditCard.address.country
+    };
+
+    if (this.selectedCreditCard.address.line2) {
+      billingAddress.line2 = this.selectedCreditCard.address.line2;
+    }
+
+    const creditCard: CheckoutCreditCard = {
+      name: this.selectedCreditCard.name,
+      number: this.selectedCreditCard.ccnumber,
+      expiration: this.selectedCreditCard.expiration,
+      address: billingAddress
+    };
+
+    if (this.selectedCreditCard.ccv) {
+      creditCard.ccv = this.selectedCreditCard.ccv;
+    }
+
+    let products = [];
+    let productSchedules = [];
+
+    this.selectedProducts.forEach(p => {
+      if (p instanceof Product) {
+        products.push(p.id);
+      }
+
+      if (p instanceof ProductSchedule) {
+        productSchedules.push(p.id);
+      }
+    });
+
+    if (this.shippings && this.shippings.length > 0) {
+      products = [...products,...this.shippings.map(s => s.id)];
+    }
+
+    const checkoutBody: CheckoutBody = {
+      campaign: this.selectedCampaign.id,
+      customer: customer,
+      creditcard: creditCard,
+      products: products,
+      product_schedules: productSchedules
+    };
+
+    this.navigationService.setShowProcessingOrderOverlay(true);
+
+    this.transactionalAPI.checkout(checkoutBody).subscribe(response => {
+      this.navigationService.setShowProcessingOrderOverlay(false);
+
+      console.log(response);
+    })
   }
 }

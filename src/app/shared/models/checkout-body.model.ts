@@ -18,7 +18,7 @@ export interface CheckoutCreditCard {
   name: string,
   number: string,
   expiration: string,
-  ccv: string,
+  ccv?: string,
   address: CheckoutAddress
 }
 
@@ -33,8 +33,8 @@ export interface CheckoutAddress {
 
 export interface CheckoutBody {
   campaign: string,
-  customer?: CheckoutCustomer,
-  creditcard?: CheckoutCreditCard,
+  customer: CheckoutCustomer,
+  creditcard: CheckoutCreditCard,
   products?: CheckoutProduct[],
   product_schedules?: CheckoutProductSchedule[]
 }

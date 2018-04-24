@@ -1,13 +1,10 @@
 <div class="container">
 
   <div class="header">
-    <div>
-      Create New Order
-    </div>
+    <div>Create New Order</div>
   </div>
 
   <div class="content">
-
     <div class="form-container">
 
       <mat-accordion>
@@ -382,12 +379,16 @@
         [creditCard]="selectedCreditCard"
         [shippingAddress]="selectedShippingAddress"
         [products]="selectedProducts"
-        [shippings]="selectedShippings">
+        [shippings]="selectedShippings"
+        (confirm)="processOrder()">
       </create-order-preview>
     </div>
 
     <div class="details">
-      <create-order-summary [price]="getPrice()" [shipping]="getShipping()" [total]="getTotal()"></create-order-summary>
+      <create-order-summary [price]="getPrice()"
+                            [shipping]="getShipping()"
+                            [total]="getTotal()">
+      </create-order-summary>
       <div class="cancel" (click)="close.emit(true)">
         <div>CANCEL ORDER</div>
       </div>

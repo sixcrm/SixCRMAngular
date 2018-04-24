@@ -23,6 +23,7 @@ export class NavigationService {
   private _isRouteLoading: Subject<boolean> = new BehaviorSubject(true);
   private _showNotifications: Subject<boolean> = new BehaviorSubject(false);
   private _showCreateNewOrderModal: Subject<boolean> = new BehaviorSubject(false);
+  private _showProcessingOrderOverlay: Subject<boolean> = new BehaviorSubject(false);
 
   private showSidenavSelectedValue: boolean = this.largeScreen;
 
@@ -118,6 +119,13 @@ export class NavigationService {
     this._showCreateNewOrderModal.next(value);
   }
 
+  public get showProcessingOrderOverlay(): Subject<boolean> {
+    return this._showProcessingOrderOverlay;
+  }
+
+  public setShowProcessingOrderOverlay(value: boolean): void {
+    this._showProcessingOrderOverlay.next(value);
+  }
 
   public get mediumScreenAndDown(): boolean {
     return window !== undefined ? window.matchMedia(`(max-width: ${NavigationService.largeViewportWidth}px)`).matches : false;

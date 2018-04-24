@@ -33,3 +33,7 @@
   <create-order (close)="navigation.setShowCreateNewModal(false)"></create-order>
 </div>
 
+<div *ngIf="navigation.showProcessingOrderOverlay | async" class="processing-order-overlay">
+  <div>Processing Order</div>
+</div>
+
