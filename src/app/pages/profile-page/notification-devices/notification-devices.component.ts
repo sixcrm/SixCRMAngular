@@ -30,7 +30,7 @@ export class NotificationDevicesComponent implements OnInit {
   }
 
   parseNotificationSettingsItems() {
-    let app = this._settings.notificationSettings.filter(f => f.name === 'six' || f.name === 'ios' || f.name === 'slack' || f.name === 'skype');
+    let app = this._settings.notificationSettings.filter(f => f.name === 'six' || f.name === 'ios' || f.name === 'slack');
     let dev = this._settings.notificationSettings.filter(f => f.name !== 'six' && f.name !== 'ios' && f.name !== 'slack' && f.name !== 'skype');
 
     this.appNotificationSettingsItem = app;
