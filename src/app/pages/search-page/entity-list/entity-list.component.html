@@ -1,54 +1,12 @@
 <div class="entity-list" *ngIf="data && data.length > 0">
 
   <div class="entity-list__item" *ngFor="let d of data" (click)="navigateToEntity(d)">
-    <div class="entity-list__item__title" [innerHTML]="getName(d) | highlight: query"></div>
-    <div class="entity-list__item__subtitle">{{(d.fields.entity_type + '_TITLE') | translate}}</div>
-
-    <div class="entity-list__item__fields">
-      <div class="entity-list__item__fields__single" *ngIf="d.fields.firstname">
-        <div class="entity-list__item__fields__key">{{'SEARCH_ADVANCED_FIRSTNAME' | translate}}:</div>
-        <div class="entity-list__item__fields__value">{{d.fields.firstname}}</div>
-      </div>
-
-      <div class="entity-list__item__fields__single" *ngIf="d.fields.lastname">
-        <div class="entity-list__item__fields__key">{{'SEARCH_ADVANCED_LASTNAME' | translate}}:</div>
-        <div class="entity-list__item__fields__value">{{d.fields.lastname}}</div>
-      </div>
-
-      <div class="entity-list__item__fields__single" *ngIf="d.fields.name && d.fields.entity_type === 'creditcard'">
-        <div class="entity-list__item__fields__key">{{'SEARCH_ADVANCED_NAME' | translate}}:</div>
-        <div class="entity-list__item__fields__value">{{d.fields.name}}</div>
-      </div>
-
-      <div class="entity-list__item__fields__single" *ngIf="d.fields.city && d.fields.entity_type !== 'creditcard'">
-        <div class="entity-list__item__fields__key">{{'SEARCH_ADVANCED_CITY' | translate}}:</div>
-        <div class="entity-list__item__fields__value">{{d.fields.city}}</div>
-      </div>
-
-      <div class="entity-list__item__fields__single" *ngIf="d.fields.phone">
-        <div class="entity-list__item__fields__key">{{'SEARCH_ADVANCED_PHONE' | translate}}:</div>
-        <div class="entity-list__item__fields__value">{{d.fields.phone}}</div>
-      </div>
-
-      <div class="entity-list__item__fields__single" *ngIf="d.fields.sku">
-        <div class="entity-list__item__fields__key">{{'SEARCH_ADVANCED_SKU' | translate}}:</div>
-        <div class="entity-list__item__fields__value">{{d.fields.sku}}</div>
-      </div>
-
-      <div class="entity-list__item__fields__single" *ngIf="d.fields.amount">
-        <div class="entity-list__item__fields__key">{{'SEARCH_ADVANCED_AMOUNT' | translate}}:</div>
-        <div class="entity-list__item__fields__value">${{d.fields.amount | numberlocale}}</div>
-      </div>
-
-      <div class="entity-list__item__fields__single" *ngIf="d.fields.tracking_number">
-        <div class="entity-list__item__fields__key">{{'SEARCH_ADVANCED_TRACKINGNUMBER' | translate}}:</div>
-        <div class="entity-list__item__fields__value">{{d.fields.tracking_number}}</div>
-      </div>
-
-      <div class="entity-list__item__fields__single" *ngIf="d.fields.created_at && d.fields.entity_type !== 'customer'">
-        <div class="entity-list__item__fields__key">{{'SEARCH_ADVANCED_CREATED' | translate}}:</div>
-        <div class="entity-list__item__fields__value">{{format(d.fields.created_at)}}</div>
-      </div>
+    <div>
+      <div class="entity-list__item__title" [innerHTML]="getName(d) | highlight: query"></div>
+      <div class="entity-list__item__subtitle">{{getFieldValue(d)}}</div>
     </div>
+
+    <div class="entity-list__item__type">{{(d.fields.entity_type + '_TITLE') | translate}}</div>
+    <div class="entity-list__item__date">{{format(d.fields.created_at)}}</div>
   </div>
 </div>

@@ -191,38 +191,6 @@ $border-color: rgba(0, 0, 0, 0.2);
     width: 100%;
     background: #F3F3F3;
 
-    &__title {
-      line-height: 40px;
-      padding: 10px 20px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      color: $main-color;
-      background: #ffffff;
-      font-size: 18px;
-
-      span {
-        vertical-align: middle;
-      }
-
-      mat-icon {
-        vertical-align: middle;
-        cursor: pointer;
-      }
-
-      &__share {
-        display: inline-block;
-      }
-
-      &__options {
-        display: inline-block;
-        float: right;
-        font-size: 12px;
-
-        .search__content__pagination {
-          margin-left: 30px;
-        }
-      }
-    }
-
     table-pagination > div {
       display: inline-block;
       margin: 0 10px;
@@ -245,38 +213,81 @@ $border-color: rgba(0, 0, 0, 0.2);
       }
 
       &__container {
-        font-size: 0;
+        display: flex;
       }
 
       &__perfect-match {
-        display: inline-block;
-        width: 45%;
+        width: 0;
+        overflow: hidden;
+        transition: width 250ms ease-in-out;
         vertical-align: top;
         font-size: 14px;
+
+        &--visible {
+          width: 80%;
+          transition: width 250ms ease-in-out;
+        }
       }
 
       &__cards {
-        display: inline-block;
-        margin: 15px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-        width: calc(55% - 30px);
-        vertical-align: top;
+        width: 100%;
         font-size: 14px;
         background: white;
+        border-right: 1px solid rgba(0, 0, 0, 0.2);
 
-        &__header {
+        .header {
           display: flex;
+          align-items: center;
           background: white;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+          line-height: 40px;
+          height: 65px;
+          box-sizing: border-box;
+          padding: 10px 20px;
+          color: $main-color;
+          font-size: 16px;
+
+          span {
+            vertical-align: middle;
+          }
+
+          .options {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+          }
+
+          mat-icon {
+            vertical-align: middle;
+          }
+
+          .info {
+            margin-left: 10px;
+            cursor: pointer;
+
+            &--active {
+              color: #14B1FB;
+            }
+          }
+        }
+
+        entity-list {
+          display: block;
+          height: calc(100vh - 190px);
+          overflow: auto;
         }
 
         &__footer {
           display: flex;
+          padding: 6px 0;
           border-top: 1px solid rgba(0, 0, 0, 0.2);
           background: white;
         }
 
         &__spinner {
           background: white;
+          height: calc(100vh - 190px);
 
           mat-spinner {
             margin: auto;
@@ -552,7 +563,67 @@ $border-color: rgba(0, 0, 0, 0.2);
   }
 }
 
+.perfect-match {
+  min-width: 200px;
+  background: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+
+  &__header {
+    padding: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+    img {
+      display: inline-block;
+      margin-right: 10px;
+      width: 40px;
+      height: 40px;
+      vertical-align: middle;
+    }
+
+    &__title {
+      display: inline-block;
+      vertical-align: middle;
+      max-width: calc(100% - 100px);
+
+      &__main {
+        margin-bottom: 3px;
+        font-size: 16px;
+        color: #4089E0;
+        font-weight: 500;
+      }
+
+      &__sub {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.7);
+        text-transform: capitalize;
+      }
+    }
+
+    &__buttons {
+      display: inline-block;
+      float: right;
+
+      mat-icon {
+        width: 18px;
+        height: 18px;
+        font-size: 18px;
+        color: rgba(0, 0, 0, 0.7);
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__view-more {
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    color: #3AB0EA;
+    text-transform: uppercase;
+    font-size: 12px;
+    cursor: pointer;
+  }
+}
+
 .query-highlight {
-  font-weight: 600;
+  font-weight: 500;
 }
 

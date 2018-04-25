@@ -1,179 +1,143 @@
 <div class="search">
-  <mat-tab-group [(selectedIndex)]="selectedIndex">
-    <mat-tab>
-      <div class="search__layout">
-        <div class="search__sidenav">
-          <mat-nav-list>
-            <div class="search__sidenav__query__container">
-              <mat-input-container>
-                <input matInput (focus)="showAutoComplete()" [value]="queryString" (input)="quickSearchInputChanged($event)" (keydown)="quickSearchKeyDown($event)" (blur)="hideAutoComplete()">
-                <mat-icon class="search__sidenav__query__icon" matPrefix (click)="quickSearch()">search</mat-icon>
-              </mat-input-container>
-              <autocomplete #autocomplete *ngIf="showAutocomplete && autocompleteOptions.length > 0" (select)="suggestionSelected($event)" [options]="autocompleteOptions"></autocomplete>
-            </div>
-            <div class="search__sidenav__button--advanced" (click)="toggleAdvancedSearch()"><span>{{'SEARCH_ADVANCED_TOGGLE' | translate}}</span> <mat-icon>{{showAdvancedSearch ? 'keyboard_arrow_left' : 'keyboard_arrow_right'}}</mat-icon></div>
-
-            <div class="search__sidenav__options" *ngIf="queryOptions && queryOptions.length !== 0">
-              <ng-container *ngFor="let option of queryOptions">
-                <div [class.option--disabled]="!option.enabled" class="search__sidenav__option">
-                  <div class="search__sidenav__option__content">
-                    <span class="search__sidenav__option__label">{{queryOptsLabel[option.key]}}:</span>
-                    <span class="search__sidenav__option__value">{{option.value}}</span>
-                  </div>
-                  <mat-icon [style.transform]="option.enabled ? 'rotate(45deg)' : 'rotate(90deg)'" (click)="toggleAdvancedSearchFieldEnabled(option)">add</mat-icon>
-                </div>
-              </ng-container>
-            </div>
-
-            <div class="search__sidenav__title">{{'SEARCH_REFINED' | translate}}</div>
-
-            <div *ngIf="facets.length !== 0" class="search__sidenav__subtitle">{{'SEARCH_CATEGORY' | translate}}</div>
-
-            <ng-container *ngFor="let facet of facets">
-              <mat-checkbox [(ngModel)]="facet.checked" class="search__sidenav__item" (change)="checkboxClicked()">
-                <span class="search__sidenav__item__name">{{(facet.name + '_TITLE') | translate}}</span>
-                <span class="search__sidenav__item__count">({{facet.count | numberlocale}})</span>
-              </mat-checkbox>
-            </ng-container>
-
-            <div class="search__sidenav__subtitle">{{'SEARCH_DATE_RANGE' | translate}}</div>
-            <mat-checkbox (change)="dateCheckboxClicked()" [(ngModel)]="applyDateFilter" class="search__sidenav__item search__sidenav__item--date">
-              <span class="search__sidenav__item__name"> {{'SEARCH_DATE_TOGGLE' | translate}} </span>
-            </mat-checkbox>
-            <div class="datepicker--custom" [class.datepicker-visible]="datepickerVisible">
-              <div (showDaterangepicker)="datepickerShown()" (hideDaterangepicker)="datepickerHidden()" (selected)="dateSelected($event)" daterangepicker>
-                <span class="datepicker--custom__input" name="daterange" >  {{ startDate.format('MM/DD/YYYY').substring(0,10) }} <span>{{'SEARCH_DATE_TO' | translate}}</span> {{ endDate.format('MM/DD/YYYY').substring(0, 10) }} <mat-icon>keyboard_arrow_down</mat-icon> </span>
-              </div>
-            </div>
-
-            <div class="search__sidenav__reset" (click)="resetSearch(advancedSearch)">{{'SEARCH_RESET' | translate}}</div>
-          </mat-nav-list>
+  <div class="search__layout">
+    <div class="search__sidenav">
+      <mat-nav-list>
+        <div class="search__sidenav__query__container">
+          <mat-input-container>
+            <input matInput (focus)="showAutoComplete()" [value]="queryString" (input)="quickSearchInputChanged($event)" (keydown)="quickSearchKeyDown($event)" (blur)="hideAutoComplete()">
+            <mat-icon class="search__sidenav__query__icon" matPrefix (click)="quickSearch()">search</mat-icon>
+          </mat-input-container>
+          <autocomplete #autocomplete *ngIf="showAutocomplete && autocompleteOptions.length > 0" (select)="suggestionSelected($event)" [options]="autocompleteOptions"></autocomplete>
         </div>
-
-        <div class="search__content">
-    <advanced-search #advancedSearch [active]="showAdvancedSearch"></advanced-search>
-
-    <div class="search__content__title">
-      <span>{{'SEARCH_RESULTS' | translate}}
-        <span *ngIf="numberOfSearchResults && numberOfSearchResults > 0">({{numberOfSearchResults | numberlocale}})</span>
-      </span>
-
-      <div class="search__content__title__options">
-        <span>{{'SEARCH_SORT_TITLE' | translate}}:</span>
-        <span>{{sortBy}}</span>
-        <button mat-icon-button [matMenuTriggerFor]="sortByMenu">
-          <mat-icon>arrow_drop_down</mat-icon>
-        </button>
-
-        <mat-menu #sortByMenu="matMenu">
-          <button mat-menu-item (click)="setSortBy('created_at asc')">{{'SEARCH_SORT_CREATEASC' | translate}}</button>
-          <button mat-menu-item (click)="setSortBy('created_at desc')">{{'SEARCH_SORT_CREATEDESC' | translate}}</button>
-          <button mat-menu-item (click)="setSortBy('created_at desc')">{{'SEARCH_SORT_UPDATEASC' | translate}}</button>
-          <button mat-menu-item (click)="setSortBy('created_at desc')">{{'SEARCH_SORT_UPDATEDESC' | translate}}</button>
-          <button mat-menu-item (click)="setSortBy('def')">{{'SEARCH_SORT_DEF' | translate}}</button>
-        </mat-menu>
+        <div class="search__sidenav__button--advanced" (click)="toggleAdvancedSearch()"><span>{{'SEARCH_ADVANCED_TOGGLE' | translate}}</span> <mat-icon>{{showAdvancedSearch ? 'keyboard_arrow_left' : 'keyboard_arrow_right'}}</mat-icon></div>
 
         <mat-input-container>
           <input matInput placeholder="{{'SEARCH_FILTER' | translate}}" [(ngModel)]="filterValue">
         </mat-input-container>
 
-        <table-pagination
-          *ngIf="!cardMode"
-          [limit]="limit"
-          [paginationString]="paginationString()"
-          [paginationValues]="paginationValues"
-          [previousDisabled]="page <= 0"
-          [nextDisabled]="!hasMorePages() || numberOfSearchResults === 0"
-          (previous)="previousPage()"
-          (next)="nextPage()"
-          (updateLimit)="updateLimit($event)">
-        </table-pagination>
+        <div class="search__sidenav__options" *ngIf="queryOptions && queryOptions.length !== 0">
+          <ng-container *ngFor="let option of queryOptions">
+            <div [class.option--disabled]="!option.enabled" class="search__sidenav__option">
+              <div class="search__sidenav__option__content">
+                <span class="search__sidenav__option__label">{{queryOptsLabel[option.key]}}:</span>
+                <span class="search__sidenav__option__value">{{option.value}}</span>
+              </div>
+              <mat-icon [style.transform]="option.enabled ? 'rotate(45deg)' : 'rotate(90deg)'" (click)="toggleAdvancedSearchFieldEnabled(option)">add</mat-icon>
+            </div>
+          </ng-container>
+        </div>
 
-        <share-link class="search__content__title__share" [shareUrl]="getShareUrl()"></share-link>
+        <div class="search__sidenav__title">{{'SEARCH_REFINED' | translate}}</div>
 
-        <mat-icon (click)="toggleView()">{{cardMode ? 'view_headline' : 'view_module'}}</mat-icon>
-      </div>
+        <div *ngIf="facets.length !== 0" class="search__sidenav__subtitle">{{'SEARCH_CATEGORY' | translate}}</div>
+
+        <ng-container *ngFor="let facet of facets">
+          <mat-checkbox [(ngModel)]="facet.checked" class="search__sidenav__item" (change)="checkboxClicked()">
+            <span class="search__sidenav__item__name">{{(facet.name + '_TITLE') | translate}}</span>
+            <span class="search__sidenav__item__count">({{facet.count | numberlocale}})</span>
+          </mat-checkbox>
+        </ng-container>
+
+        <div class="search__sidenav__subtitle">{{'SEARCH_DATE_RANGE' | translate}}</div>
+        <mat-checkbox (change)="dateCheckboxClicked()" [(ngModel)]="applyDateFilter" class="search__sidenav__item search__sidenav__item--date">
+          <span class="search__sidenav__item__name"> {{'SEARCH_DATE_TOGGLE' | translate}} </span>
+        </mat-checkbox>
+        <div class="datepicker--custom" [class.datepicker-visible]="datepickerVisible">
+          <div (showDaterangepicker)="datepickerShown()" (hideDaterangepicker)="datepickerHidden()" (selected)="dateSelected($event)" daterangepicker>
+            <span class="datepicker--custom__input" name="daterange" >  {{ startDate.format('MM/DD/YYYY').substring(0,10) }} <span>{{'SEARCH_DATE_TO' | translate}}</span> {{ endDate.format('MM/DD/YYYY').substring(0, 10) }} <mat-icon>keyboard_arrow_down</mat-icon> </span>
+          </div>
+        </div>
+
+        <div class="search__sidenav__reset" (click)="resetSearch(advancedSearch)">{{'SEARCH_RESET' | translate}}</div>
+      </mat-nav-list>
     </div>
 
-    <ng-container *ngIf="searchResultsToDisplay.length > 0 || fetchingData; else noresults">
-      <div *ngIf="cardMode; else table" class="search__content__results__container">
-        <div class="search__content__results__cards">
-          <div class="search__content__results__cards__header">
-            <table-pagination
-              *ngIf="searchResultsToDisplay.length > 0"
-              class="search__content__results__cards__pagination"
-              [limit]="limit"
-              [paginationString]="paginationString()"
-              [paginationValues]="paginationValues"
-              [previousDisabled]="page <= 0"
-              [nextDisabled]="!hasMorePages()"
-              (previous)="previousPage()"
-              (next)="nextPage()"
-              (updateLimit)="updateLimit($event)">
-            </table-pagination>
+    <div class="search__content">
+      <advanced-search #advancedSearch [active]="showAdvancedSearch"></advanced-search>
+
+      <ng-container *ngIf="searchResultsToDisplay.length > 0 || fetchingData; else noresults">
+        <div *ngIf="cardMode; else table" class="search__content__results__container">
+          <div class="search__content__results__cards">
+            <div class="header">
+              <span>{{'SEARCH_RESULTS' | translate}}
+                <span *ngIf="numberOfSearchResults && numberOfSearchResults > 0">({{numberOfSearchResults | numberlocale}})</span>
+              </span>
+
+              <div class="options">
+                <span>{{'SEARCH_SORT_TITLE' | translate}}:</span>
+                <span>{{sortBy}}</span>
+                <button mat-icon-button [matMenuTriggerFor]="sortByMenu">
+                  <mat-icon>arrow_drop_down</mat-icon>
+                </button>
+
+                <mat-menu #sortByMenu="matMenu">
+                  <button mat-menu-item (click)="setSortBy('created_at asc')">{{'SEARCH_SORT_CREATEASC' | translate}}</button>
+                  <button mat-menu-item (click)="setSortBy('created_at desc')">{{'SEARCH_SORT_CREATEDESC' | translate}}</button>
+                  <button mat-menu-item (click)="setSortBy('created_at desc')">{{'SEARCH_SORT_UPDATEASC' | translate}}</button>
+                  <button mat-menu-item (click)="setSortBy('created_at desc')">{{'SEARCH_SORT_UPDATEDESC' | translate}}</button>
+                  <button mat-menu-item (click)="setSortBy('def')">{{'SEARCH_SORT_DEF' | translate}}</button>
+                </mat-menu>
+
+                <share-link [shareUrl]="getShareUrl()"></share-link>
+
+                <mat-icon class="info" [class.info--active]="showDetails" (click)="showDetails = !showDetails">info</mat-icon>
+              </div>
+
+            </div>
+            <entity-list *ngIf="searchResultsToDisplay.length > 0 && !fetchingData" [data]="searchResultsToDisplay | filterSearchResults: filterValue" [query]="queryString"></entity-list>
+            <div class="search__content__results__cards__spinner" *ngIf="searchResultsToDisplay.length === 0 && fetchingData">
+              <search-loader></search-loader>
+            </div>
+            <div class="search__content__results__cards__footer">
+              <table-pagination
+                class="search__content__results__cards__pagination"
+                [limit]="limit"
+                [paginationString]="paginationString()"
+                [paginationValues]="paginationValues"
+                [previousDisabled]="page <= 0"
+                [nextDisabled]="!hasMorePages()"
+                (previous)="previousPage()"
+                (next)="nextPage()"
+                (updateLimit)="updateLimit($event)">
+              </table-pagination>
+            </div>
           </div>
-          <entity-list *ngIf="searchResultsToDisplay.length > 0 && !fetchingData" [data]="searchResultsToDisplay | filterSearchResults: filterValue" [query]="queryString"></entity-list>
-          <div class="search__content__results__cards__spinner" *ngIf="searchResultsToDisplay.length === 0 && fetchingData">
-            <search-loader></search-loader>
-          </div>
-          <div class="search__content__results__cards__footer">
-            <table-pagination
-              *ngIf="searchResultsToDisplay.length > 0"
-              class="search__content__results__cards__pagination"
-              [limit]="limit"
-              [paginationString]="paginationString()"
-              [paginationValues]="paginationValues"
-              [previousDisabled]="page <= 0"
-              [nextDisabled]="!hasMorePages()"
-              (previous)="previousPage()"
-              (next)="nextPage()"
-              (updateLimit)="updateLimit($event)">
-            </table-pagination>
+
+          <div class="search__content__results__perfect-match" [class.search__content__results__perfect-match--visible]="showDetails">
+            <perfect-match *ngIf="searchResults" [entity]="searchResults[0]"></perfect-match>
           </div>
         </div>
 
-        <div class="search__content__results__perfect-match">
-          <perfect-match *ngIf="searchResults" [entity]="searchResults[0]"></perfect-match>
-        </div>
-      </div>
+        <ng-template #table>
+          <div class="search__content__results">
+            <result-item *ngFor="let res of searchResultsToDisplay | filterSearchResults: filterValue" [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResultDetails($event)"></result-item>
+          </div>
 
-      <ng-template #table>
-        <div class="search__content__results">
-          <result-item *ngFor="let res of searchResultsToDisplay | filterSearchResults: filterValue" [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResultDetails($event)"></result-item>
-        </div>
-
-        <table-pagination
-          *ngIf="searchResultsToDisplay.length > 0"
-          class="search__content__pagination--bottom"
-          [limit]="limit"
-          [paginationString]="paginationString()"
-          [paginationValues]="paginationValues"
-          [previousDisabled]="page <= 0"
-          [nextDisabled]="!hasMorePages()"
-          (previous)="previousPage()"
-          (next)="nextPage()"
-          (updateLimit)="updateLimit($event)">
-        </table-pagination>
-      </ng-template>
-    </ng-container>
-
-    <ng-template #noresults>
-      <div class="search__content__results__no-results">
-        <span *ngIf="searchPerformed; else instructions">
-          {{'SEARCH_NODATA' | translate}}
-        </span>
-        <ng-template #instructions>
-          {{'SEARCH_ENTERSEARCH' | translate}}
+          <table-pagination
+            *ngIf="searchResultsToDisplay.length > 0"
+            class="search__content__pagination--bottom"
+            [limit]="limit"
+            [paginationString]="paginationString()"
+            [paginationValues]="paginationValues"
+            [previousDisabled]="page <= 0"
+            [nextDisabled]="!hasMorePages()"
+            (previous)="previousPage()"
+            (next)="nextPage()"
+            (updateLimit)="updateLimit($event)">
+          </table-pagination>
         </ng-template>
-      </div>
-    </ng-template>
+      </ng-container>
+
+      <ng-template #noresults>
+        <div class="search__content__results__no-results">
+          <span *ngIf="searchPerformed; else instructions">
+            {{'SEARCH_NODATA' | translate}}
+          </span>
+          <ng-template #instructions>
+            {{'SEARCH_ENTERSEARCH' | translate}}
+          </ng-template>
+        </div>
+      </ng-template>
+    </div>
   </div>
-      </div>
-
-    </mat-tab>
-
-    <mat-tab>
-      <coming-soon [inPage]="true"></coming-soon>
-    </mat-tab>
-  </mat-tab-group>
 </div>
