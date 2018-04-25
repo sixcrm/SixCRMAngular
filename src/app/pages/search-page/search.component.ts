@@ -82,10 +82,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   fetchingData: boolean = false;
   searchPerformed: boolean = false;
 
-  selectedIndex: number = 0;
+  showDetails: boolean = true;
 
   constructor(
-    public authService: AuthenticationService,
     private route: ActivatedRoute,
     private router: Router,
     private searchService: SearchService,
@@ -434,10 +433,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     advancedSearchComponent.resetFields();
 
     this.router.navigate(['/search']);
-  }
-
-  setIndex(index: number): void {
-    this.selectedIndex = index;
   }
 
   private prepareNewSearch(): void {

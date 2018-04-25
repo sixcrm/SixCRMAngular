@@ -1,0 +1,64 @@
+.notifications-list {
+
+  mat-icon {
+    color: dimgrey;
+  }
+
+  &__content {
+
+    &__notification {
+
+      &__read {
+
+        div {
+          width: 9px;
+          height: 9px;
+          margin: 13px -9px 0 10px;
+          border: none
+        }
+
+        .unread {
+          background-color: #049AE4;
+          border-radius: 50%;
+          border: 1px solid #049AE4
+        }
+      }
+
+      &__message {
+        margin-right: 3px;
+
+        .title {
+          margin-bottom: 10px;
+          font-size: 14px;
+          font-weight: 500;
+        }
+
+        .body {
+          font-size: 13px;
+          color: rgba(0,0,0,0.5);
+        }
+
+        .header {
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px;
+          font-size: 13px;
+
+          .divider {
+            margin: 0 5px -4px 5px;
+            height: 3px;
+            width: 3px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.5);
+          }
+
+          mat-icon {
+            margin-right: 3px;
+            margin-top: 5px;
+          }
+        }
+      }
+    }
+
+  }
+}

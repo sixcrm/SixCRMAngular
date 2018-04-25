@@ -76,7 +76,7 @@ export class PaymentFormComponent implements OnInit {
   isValid(): boolean {
     this.formInvalid = !this.creditCard.name
       || this.ccNumberInvalid(this.creditCard)
-      || this.ccvInvalid(this.creditCard)
+      || (this.creditCard.ccv && this.ccvInvalid(this.creditCard))
       || this.expirationMonthInvalid(this.creditCard)
       || this.expirationYearInvalid(this.creditCard)
       || !this.address.line1 || !this.isAddressValid(this.address.line1)

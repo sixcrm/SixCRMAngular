@@ -1,7 +1,7 @@
 .advanced-search {
   position: relative;
   overflow: hidden;
-  height: 370px;
+  height: 380px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
   transition: height 0.75s cubic-bezier(0.35, 0, 0.25, 1);
 
@@ -39,7 +39,7 @@
     border-top: 1px solid rgba(0, 0, 0, 0.12);
     box-sizing: border-box;
     width: 100%;
-    padding-top: 50px;
+    padding-top: 20px;
     background-color: white;
 
     &__title {

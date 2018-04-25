@@ -12,6 +12,9 @@ import {
   FailStrategy
 } from './http-wrapper.service';
 import {CustomServerError} from "../models/errors/custom-server-error";
+import {Customer} from '../models/customer.model';
+import {Session} from '../models/session.model';
+import {Campaign} from '../models/campaign.model';
 
 @Injectable()
 export class SearchService {
@@ -41,6 +44,45 @@ export class SearchService {
     this.dashboardFilterInput$.debounceTime(300).filter(q => !!q).subscribe((query) => {
       this.fetchDashboardFilters(query);
     })
+  }
+
+  searchCustomers(value: string): Observable<Customer[]> {
+    return this.searchByEntities(value, ['customer']).map(hits =>
+      (hits.hit || []).map(hit =>
+        new Customer({ id: hit.id, firstname: hit.fields.firstname, lastname: hit.fields.lastname, email: hit.fields.email, phone: hit.fields.phone })
+      )
+    )
+  }
+
+  searchCampaigns(value: string): Observable<Campaign[]> {
+    return this.searchByEntities(value, ['campaign']).map(hits =>
+      (hits.hit || []).map(hit => new Campaign({id: hit.id, name: hit.fields.name}))
+    )
+  }
+
+  searchSessions(value: string): Observable<Session[]> {
+    return this.searchByEntities(value, ['session']).map(hits =>
+      (hits.hit || []).map(hit =>
+        new Session({id: hit.id, alias: hit.fields.alias, created_at: hit.fields.created_at})
+      )
+    )
+  }
+
+  private searchByEntities(value: string, entities: string[]): Observable<any> {
+    if (!value) return Observable.of([]);
+
+    const obs = new Subject<any[]>();
+    const q = searchQuery(value, null, null, 0, 20, entities);
+
+    this.queryRequest(q, {failStrategy: FailStrategy.Soft}).subscribe(response => {
+      if (response instanceof CustomServerError) {
+        return;
+      }
+
+      obs.next(this.parseSearchResults(response) || []);
+    });
+
+    return obs;
   }
 
   searchByQuery(query: string | any, createdAtRange: string, sortBy: string, start: number, count: number, entityTypes?: string[]): void {

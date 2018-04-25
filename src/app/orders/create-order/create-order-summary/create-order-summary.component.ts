@@ -10,7 +10,6 @@ export class CreateOrderSummaryComponent implements OnInit {
 
   @Input() price: Currency = new Currency(0);
   @Input() shipping: Currency = new Currency(0);
-  @Input() tax: Currency = new Currency(0);
   @Input() total: Currency = new Currency(0);
 
   constructor() { }

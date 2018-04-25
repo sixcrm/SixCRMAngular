@@ -3,7 +3,6 @@ import {CustomersService} from '../../shared/services/customers.service';
 import {Customer} from '../../shared/models/customer.model';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {Campaign} from '../../shared/models/campaign.model';
-import {CampaignsService} from '../../shared/services/campaigns.service';
 import {ProductSchedule} from '../../shared/models/product-schedule.model';
 import {Product} from '../../shared/models/product.model';
 import {ProductsService} from '../../shared/services/products.service';
@@ -12,13 +11,23 @@ import {firstIndexOf} from '../../shared/utils/array.utils';
 import {Address} from '../../shared/models/address.model';
 import {Currency} from '../../shared/utils/currency/currency';
 import {CreditCard} from '../../shared/models/credit-card.model';
-import {Subscription} from 'rxjs';
+import {Subscription, Subject} from 'rxjs';
 import {PaymentFormComponent} from '../../shared/components/payment-form/payment-form.component';
 import {
   isValidState, isValidCountry, isValidAddress, isValidCity, isAllowedZip,
-  isValidZip, isAllowedNumeric
+  isValidZip, isAllowedCurrency, isAllowedEmail
 } from '../../shared/utils/form.utils';
+import {getPhoneNumberMask} from '../../shared/utils/mask.utils';
 import {HttpWrapperTransactionalService} from '../../shared/services/http-wrapper-transactional.service';
+import {
+  CheckoutBody, CheckoutAddress, CheckoutCustomer,
+  CheckoutCreditCard
+} from '../../shared/models/checkout-body.model';
+import {NavigationService} from '../../navigation/navigation.service';
+import {countryCode, stateCode} from '../../shared/utils/address.utils';
+import {CheckoutResponse} from '../../shared/models/checkout-response.model';
+import {SnackbarService} from '../../shared/services/snackbar.service';
+import {SearchService} from '../../shared/services/search.service';
 
 @Component({
   selector: 'create-order',
@@ -30,21 +39,19 @@ export class CreateOrderComponent implements OnInit {
   @Output() close: EventEmitter<boolean> = new EventEmitter();
 
   selectedCustomer: Customer;
-  customerFilterValue: string;
   customers: Customer[] = [];
-  filteredCustomers: Customer[] = [];
   newCustomerMode: boolean;
   newCustomerInvalid: boolean;
+  mask = getPhoneNumberMask();
 
   selectedCampaign: Campaign;
-  campaignFilterValue: string;
   campaigns: Campaign[] = [];
-  filteredCampaigns: Campaign[] = [];
 
   selectedProducts: (Product | ProductSchedule)[] = [];
   productFilterValue: string;
   products: (Product | ProductSchedule)[] = [];
   filteredProducts: (Product | ProductSchedule)[] = [];
+  productInEdit: Product = new Product();
 
   shippingAddress: Address = new Address();
   selectedShippingAddress: Address;
@@ -63,35 +70,52 @@ export class CreateOrderComponent implements OnInit {
   newCardMode: boolean = true;
 
   customerSub: Subscription;
-  selectedCcvError: boolean = false;
+  customerSearchSub: Subscription;
+  customerSearchDebouncer: Subject<string> = new Subject();
 
-  isAllowedNumericKey = isAllowedNumeric;
+  campaignSearchSub: Subscription;
+  campaignSearchDebouncer: Subject<string> = new Subject();
+
+  selectedCcvError: boolean = false;
+  showPreview: boolean;
+
   isZipValid = isValidZip;
   isAllowedZipKey = isAllowedZip;
   isCityValid = isValidCity;
   isAddressValid = isValidAddress;
   isCountryValid = isValidCountry;
   isStateValid = isValidState;
+  isCurrencyValid = isAllowedCurrency;
+  isAllowedEmailKey = isAllowedEmail;
+
+  orderComplete: boolean;
+  checkoutResponse: CheckoutResponse;
 
   constructor(
     private customerService: CustomersService,
-    private campaignService: CampaignsService,
     private productService: ProductsService,
     private productScheduleService: ProductScheduleService,
-    private httpTransactionalService: HttpWrapperTransactionalService
+    private transactionalAPI: HttpWrapperTransactionalService,
+    private navigationService: NavigationService,
+    private snackService: SnackbarService,
+    private searchService: SearchService
   ) { }
 
   ngOnInit() {
-    this.customerService.entities$.take(1).subscribe(customers => {
-      if (customers instanceof CustomServerError) return;
+    this.customerSearchDebouncer.debounceTime(250).subscribe(value => {
+      if (this.customerSearchSub) {
+        this.customerSearchSub.unsubscribe();
+      }
 
-      this.customers = customers;
+      this.customerSearchSub = this.searchService.searchCustomers(value).subscribe(customers => this.customers = customers);
     });
 
-    this.campaignService.entities$.take(1).subscribe(campaigns => {
-      if (campaigns instanceof CustomServerError) return;
+    this.campaignSearchDebouncer.debounceTime(250).subscribe(value => {
+      if (this.campaignSearchSub) {
+        this.campaignSearchSub.unsubscribe();
+      }
 
-      this.campaigns = campaigns;
+      this.campaignSearchSub = this.searchService.searchCampaigns(value).subscribe(campaigns => this.campaigns = campaigns);
     });
 
     this.productService.entities$.take(1).merge(this.productScheduleService.entities$.take(1)).subscribe(products => {
@@ -110,10 +134,27 @@ export class CreateOrderComponent implements OnInit {
       this.shippings = shippings;
     });
 
-    this.customerService.getEntities(100);
-    this.campaignService.getEntities();
     this.productService.getEntities();
     this.productScheduleService.getEntities();
+
+    // this.generateDummyData();
+  }
+
+  private generateDummyData() {
+    this.selectedCustomer = new Customer({id: 'customer1', firstname: 'nikola', lastname: 'bosic', phone: '123456789', email: 'nikola@nikola.com'});
+    this.selectedCampaign = new Campaign({id: 'campaign1', name: 'my campaign'});
+    this.selectedShippingAddress = new Address({line1: '1st City street', city: 'My City', state: 'Arizona', country: 'United States', zip: '21000'});
+    this.selectedCreditCard = new CreditCard({number: '4111111111111111', last_four: '8888', expiration: '10/2020', ccv: '1234', address: this.selectedShippingAddress.inverse()});
+    this.selectedShippings = [
+      new Product({id: 'shipping1', name: 'UPS', default_price: 3.99})
+    ];
+    this.selectedProducts = [
+      new Product({id: 'product1', sku: '55123', name: 'Product Simple', description: 'This is super cool product', default_price: 10}),
+      new ProductSchedule({id: 'productschedule1', name: 'Subscription', schedule: [{start: 0, end: 90, period: 30, price: 12, product: {name: 'Sub Product', description: 'This is even more cool product', sku: '88182'}}]})
+    ];
+
+    this.orderComplete = true;
+    this.checkoutResponse = new CheckoutResponse({customer: {id: '1234'}, session: {id: '5678', alias: 'session-alias'}});
   }
 
   setStep(num: number) {
@@ -135,29 +176,18 @@ export class CreateOrderComponent implements OnInit {
       if (customer instanceof CustomServerError) return;
 
       this.selectedCustomer = customer;
+      if (this.selectedCustomer.creditCards[0]) {
+        this.selectedCreditCard = this.selectedCustomer.creditCards[0].copy();
+        this.newCardMode = false;
+      }
     });
     this.customerService.getEntity(this.selectedCustomer.id);
 
-    this.customerFilterValue = '';
     this.setStep(1);
   }
 
-  customerFilterFunction = (customer: Customer) => {
-    if (!this.customerFilterValue || !this.customerFilterValue.toLowerCase) return true;
-
-    const filter = this.customerFilterValue.toLowerCase();
-
-    return `${customer.firstName.toLowerCase()} ${customer.lastName.toLowerCase()} ${customer.phone.toLowerCase()} ${customer.email.toLowerCase()}`.indexOf(filter) !== -1;
-  };
-
-  customerInputChanged(event?: any) {
-    const pattern = /[0-9]|[a-z]|[A-Z]|@|-|\(|\)Backspace|ArrowUp|ArrowDown|ArrowRight|ArrowLeft|Tab/;
-
-    if (event && event.key && !pattern.test(event.key)) {
-      return;
-    }
-
-    this.filteredCustomers = this.customers.filter(this.customerFilterFunction);
+  customerInputChanged(event: any) {
+    this.customerSearchDebouncer.next(event.srcElement.value);
   }
 
   newCustomer() {
@@ -181,36 +211,19 @@ export class CreateOrderComponent implements OnInit {
 
   removeCustomer() {
     this.selectedCustomer = new Customer();
-    this.customerFilterValue = '';
   }
 
   campaignSelected(option) {
     this.selectedCampaign = option.option.value;
-    this.campaignFilterValue = '';
     this.setStep(2);
   }
 
-  campaignFilterFunction = (campaign: Campaign) => {
-    if (!this.campaignFilterValue || !this.campaignFilterValue.toLowerCase) return true;
-
-    const filter = this.campaignFilterValue.toLowerCase();
-
-    return campaign.name.toLowerCase().indexOf(filter) !== -1;
-  };
-
-  campaignInputChanged(event?: any) {
-    const pattern = /[0-9]|[a-z]|[A-Z]|@|-|\(|\)Backspace|ArrowUp|ArrowDown|ArrowRight|ArrowLeft|Tab/;
-
-    if (event && event.key && !pattern.test(event.key)) {
-      return;
-    }
-
-    this.filteredCampaigns = this.campaigns.filter(this.campaignFilterFunction);
+  campaignInputChanged(event: any) {
+    this.campaignSearchDebouncer.next(event.srcElement.value);
   }
 
   removeCampaign() {
     this.selectedCampaign = new Campaign();
-    this.campaignFilterValue = '';
   }
 
   productSelected(option) {
@@ -361,7 +374,8 @@ export class CreateOrderComponent implements OnInit {
     }
 
     if (this.allSelectedValid()) {
-      this.createNewOrder();
+      this.setStep(6);
+      this.showPreview = true;
     }
   }
 
@@ -398,7 +412,7 @@ export class CreateOrderComponent implements OnInit {
       return false;
     }
 
-    if (!this.selectedCreditCard.ccv || this.ccvInvalid(this.selectedCreditCard)) {
+    if (this.selectedCreditCard.ccv && this.ccvInvalid(this.selectedCreditCard)) {
       this.selectedCcvError = true;
       this.setStep(5);
 
@@ -420,7 +434,7 @@ export class CreateOrderComponent implements OnInit {
     return new Currency(this.selectedProducts.map(p => {
 
       if (p instanceof ProductSchedule) {
-        return p.schedules.map(s => s.price.amount).reduce((a,b) => a+b,0) * p.quantity;
+        return (p.firstSchedulePrice.amount || 0) * p.quantity;
       }
 
       return (p.defaultPrice.amount || 0) * p.quantity;
@@ -440,9 +454,131 @@ export class CreateOrderComponent implements OnInit {
     return new Currency(p.amount + s.amount);
   }
 
-  createNewOrder() {
-    this.httpTransactionalService.checkout({
-      campaign: this.selectedCampaign.id
+  isCurrencyInput(event) {
+    if (!event) return;
+
+    if (event.key === 'Enter') {
+      this.setProductInEditPrice();
+    }
+
+    this.isCurrencyValid(event);
+  }
+
+  setProductInEdit(product: Product | ProductSchedule) {
+    if (product instanceof ProductSchedule) {
+      this.productInEdit = new Product();
+      return;
+    }
+
+    this.productInEdit = product.copy();
+  }
+
+  setProductInEditPrice() {
+    for (let i = 0; i < this.selectedProducts.length; i++) {
+      if (this.selectedProducts[i].id === this.productInEdit.id) {
+        let selected = this.selectedProducts[i];
+
+        if (selected instanceof Product) {
+          this.productInEdit['error'] = !selected.dynamicPrice || !selected.dynamicPrice.enabled || this.productInEdit.defaultPrice.amount < selected.dynamicPrice.min.amount || this.productInEdit.defaultPrice.amount > selected.dynamicPrice.max.amount;
+
+          selected.defaultPrice = this.productInEdit.defaultPrice;
+        }
+
+        if (!this.productInEdit['error']) {
+          this.productInEdit = new Product();
+        }
+
+        return;
+      }
+    }
+  }
+
+  processOrder() {
+    const shippingAddress: CheckoutAddress = {
+      line1: this.selectedShippingAddress.line1,
+      city: this.selectedShippingAddress.city,
+      state: stateCode(this.selectedShippingAddress.state),
+      zip: this.selectedShippingAddress.zip,
+      country: countryCode(this.selectedShippingAddress.country)
+    };
+
+    if (this.selectedShippingAddress.line2) {
+      shippingAddress.line2 = this.selectedShippingAddress.line2;
+    }
+
+    const customer: CheckoutCustomer = {
+      first_name: this.selectedCustomer.firstName,
+      last_name: this.selectedCustomer.lastName,
+      email: this.selectedCustomer.email,
+      phone: this.selectedCustomer.phone,
+      address: shippingAddress
+    };
+
+    const billingAddress: CheckoutAddress = {
+      line1: this.selectedCreditCard.address.line1,
+      city: this.selectedCreditCard.address.city,
+      state: stateCode(this.selectedCreditCard.address.state),
+      zip: this.selectedCreditCard.address.zip,
+      country: countryCode(this.selectedCreditCard.address.country)
+    };
+
+    if (this.selectedCreditCard.address.line2) {
+      billingAddress.line2 = this.selectedCreditCard.address.line2;
+    }
+
+    const creditCard: CheckoutCreditCard = {
+      name: this.selectedCreditCard.name,
+      number: this.selectedCreditCard.ccnumber,
+      expiration: this.selectedCreditCard.expiration,
+      address: billingAddress
+    };
+
+    if (this.selectedCreditCard.ccv) {
+      creditCard.ccv = this.selectedCreditCard.ccv;
+    }
+
+    let products = [];
+    let productSchedules = [];
+
+    this.selectedProducts.forEach(p => {
+      if (p instanceof Product) {
+        products.push({quantity: p.quantity || 1, price: p.defaultPrice.amount || 0, product: p.id});
+      }
+
+      if (p instanceof ProductSchedule) {
+        productSchedules.push({quantity: p.quantity || 1, product_schedule: p.id});
+      }
+    });
+
+    if (this.shippings && this.shippings.length > 0) {
+      products = [...products,...this.selectedShippings.map(s => s.id)];
+    }
+
+    const checkoutBody: CheckoutBody = {
+      campaign: this.selectedCampaign.id,
+      customer: customer,
+      creditcard: creditCard
+    };
+
+    if (products && products.length > 0) {
+      checkoutBody.products = products;
+    }
+
+    if (productSchedules && productSchedules.length > 0) {
+      checkoutBody.product_schedules = productSchedules;
+    }
+
+    this.navigationService.setShowProcessingOrderOverlay(true);
+
+    this.transactionalAPI.checkout(checkoutBody).subscribe(response => {
+      this.navigationService.setShowProcessingOrderOverlay(false);
+
+      if (response instanceof CheckoutResponse) {
+        this.orderComplete = true;
+        this.checkoutResponse = response;
+      } else {
+        this.snackService.showErrorSnack(response.message, 6000);
+      }
     })
   }
 }

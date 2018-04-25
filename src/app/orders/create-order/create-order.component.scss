@@ -3,8 +3,12 @@
   font-family: Roboto, sans-serif;
 
   .header {
-    padding: 40px 15px;
+    padding: 40px 25px;
     background: #4478BD;
+
+    &--complete {
+      background: #1DBDA5;
+    }
 
     div {
       font-size: 28px;
@@ -17,12 +21,12 @@
   }
 
   .form-container {
-    margin: 15px;
+    margin: 25px;
     width: calc(100% - 250px);
   }
 
   .details {
-    margin: 15px;
+    margin: 25px 25px 25px 0;
     width: 250px;
   }
 
@@ -110,8 +114,22 @@
     }
   }
 
+  .products-table {
+    td {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  .cards-table {
+    td {
+      vertical-align: top;
+    }
+  }
+
   table {
     margin-top: 15px;
+
     thead {
       th {
         padding: 2px 5px;
@@ -130,7 +148,6 @@
         }
 
         td {
-          vertical-align: top;
           font-size: 12px;
 
           &:last-of-type {
@@ -232,4 +249,24 @@
       margin-top: 15px;
     }
   }
+
+  .price-edit-container {
+    mat-form-field {
+      margin-left: auto;
+      margin-right: 15px;
+      text-align: right;
+    }
+
+    .solo {
+      margin-right: auto;
+    }
+
+    mat-icon {
+      margin-right: auto;
+    }
+  }
+}
+
+create-order-preview {
+  margin-top: 15px;
 }

@@ -1,379 +1,413 @@
 <div class="container">
 
-  <div class="header">
-    <div>
-      Create New Order
-    </div>
+  <div class="header" [class.header--complete]="orderComplete && checkoutResponse">
+    <div>{{!orderComplete && !checkoutResponse ? 'Create New Order' : 'Order Complete'}}</div>
   </div>
 
   <div class="content">
 
-    <div class="form-container">
+    <ng-container *ngIf="!orderComplete && !checkoutResponse; else successMessage">
+      <div class="form-container">
 
-      <mat-accordion>
-        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
-          <mat-expansion-panel-header>
-            <div class="expansion-header">
+        <mat-accordion>
+          <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+            <mat-expansion-panel-header>
+              <div class="expansion-header">
               <span class="title">
                 <mat-icon *ngIf="selectedCustomer && selectedCustomer.id; else placeholder">done</mat-icon>
                 Customer
               </span>
 
-              <mat-chip-list  [selectable]="false">
-                <mat-chip *ngIf="selectedCustomer && selectedCustomer.id"
-                          [removable]="true"
-                          (remove)="removeCustomer()">
-                  {{selectedCustomer.firstName}} {{selectedCustomer.lastName}}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-              </mat-chip-list>
+                <mat-chip-list  [selectable]="false">
+                  <mat-chip *ngIf="selectedCustomer && selectedCustomer.id"
+                            [removable]="true"
+                            (remove)="removeCustomer()">
+                    {{selectedCustomer.firstName}} {{selectedCustomer.lastName}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+            </mat-expansion-panel-header>
+
+            <div *ngIf="!newCustomerMode; else newCustomerTemp" class="expansion-body">
+              <mat-form-field class="autocomplete-input-container">
+                <input type="text" matInput placeholder="Email, Phone or Last Name" [matAutocomplete]="autoCustomer" (input)="customerInputChanged($event)">
+
+                <mat-autocomplete class="three-row-autocomplete" #autoCustomer="matAutocomplete" [displayWith]="displayFn" (optionSelected)="customerSelected($event)">
+                  <mat-option *ngFor="let customer of customers" [value]="customer">
+                    <div class="autocomplete-row">{{ customer.firstName }} {{ customer.lastName}}</div>
+                    <div class="autocomplete-row">{{ customer.phone }}</div>
+                    <div class="autocomplete-row">{{ customer.email }}</div>
+                  </mat-option>
+                </mat-autocomplete>
+
+              </mat-form-field>
+
+              <div class="separator">or</div>
+
+              <button mat-button (click)="newCustomer()">NEW CUSTOMER</button>
             </div>
-          </mat-expansion-panel-header>
 
-          <div *ngIf="!newCustomerMode; else newCustomerTemp" class="expansion-body">
-            <mat-form-field class="autocomplete-input-container">
-              <input type="text" matInput placeholder="Email, Phone or Last Name" [matAutocomplete]="autoCustomer" [(ngModel)]="customerFilterValue" (keyup)="customerInputChanged($event)" (focus)="customerInputChanged()">
+            <ng-template #newCustomerTemp>
+              <div class="expansion-body">
+                <form class="shipping-form" #customerForm="ngForm">
+                  <mat-form-field [class.error]="newCustomerInvalid && !selectedCustomer.firstName">
+                    <input type="text" matInput [(ngModel)]="selectedCustomer.firstName" placeholder="First Name" name="firstname" required>
+                  </mat-form-field>
+                  <mat-form-field [class.error]="newCustomerInvalid && !selectedCustomer.lastName">
+                    <input type="text" matInput [(ngModel)]="selectedCustomer.lastName" placeholder="Last Name" name="lastname" required>
+                  </mat-form-field>
+                  <mat-form-field [class.error]="newCustomerInvalid && !selectedCustomer.phone">
+                    <input type="text" matInput [textMask]="{mask: mask, guide: false}" [(ngModel)]="selectedCustomer.phone" placeholder="Phone" name="phone" required>
+                  </mat-form-field>
+                  <mat-form-field [class.error]="newCustomerInvalid && !selectedCustomer.email">
+                    <input type="text" matInput [(ngModel)]="selectedCustomer.email" (keydown)="isAllowedEmailKey($event, selectedCustomer.email)" placeholder="Email" name="email" required>
+                  </mat-form-field>
+                </form>
+              </div>
+            </ng-template>
 
-              <mat-autocomplete class="three-row-autocomplete" #autoCustomer="matAutocomplete" [displayWith]="displayFn()" (optionSelected)="customerSelected($event)">
-                <mat-option *ngFor="let customer of filteredCustomers" [value]="customer">
-                  <div class="autocomplete-row">{{ customer.firstName }} {{ customer.lastName}}</div>
-                  <div class="autocomplete-row">{{ customer.phone }}</div>
-                  <div class="autocomplete-row">{{ customer.email }}</div>
-                </mat-option>
-              </mat-autocomplete>
-
-            </mat-form-field>
-
-            <div class="separator">or</div>
-
-            <button mat-button (click)="newCustomer()">NEW CUSTOMER</button>
-          </div>
-
-          <ng-template #newCustomerTemp>
-            <div class="expansion-body">
-              <form class="shipping-form" #customerForm="ngForm">
-                <mat-form-field [class.error]="newCustomerInvalid && !selectedCustomer.firstName">
-                  <input type="text" matInput [(ngModel)]="selectedCustomer.firstName" placeholder="First Name" name="firstname" required>
-                </mat-form-field>
-                <mat-form-field [class.error]="newCustomerInvalid && !selectedCustomer.lastName">
-                  <input type="text" matInput [(ngModel)]="selectedCustomer.lastName" placeholder="Last Name" name="lastname" required>
-                </mat-form-field>
-                <mat-form-field [class.error]="newCustomerInvalid && !selectedCustomer.phone">
-                  <input type="text" matInput [(ngModel)]="selectedCustomer.phone" placeholder="Phone" name="phone" required>
-                </mat-form-field>
-                <mat-form-field [class.error]="newCustomerInvalid && !selectedCustomer.email">
-                  <input type="text" matInput [(ngModel)]="selectedCustomer.email" placeholder="Email" name="email" required>
-                </mat-form-field>
-              </form>
+            <div class="buttons">
+              <button mat-button (click)="newCustomerMode = false">PREVIOUS</button>
+              <button mat-button (click)="newCustomerMode ? confirmNewCustomer() : customerNextStep()">NEXT</button>
             </div>
-          </ng-template>
 
-          <div class="buttons">
-            <button mat-button (click)="newCustomerMode = false">PREVIOUS</button>
-            <button mat-button (click)="newCustomerMode ? confirmNewCustomer() : customerNextStep()">NEXT</button>
-          </div>
+          </mat-expansion-panel>
 
-        </mat-expansion-panel>
-
-        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)">
-          <mat-expansion-panel-header>
-            <div class="expansion-header">
+          <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)">
+            <mat-expansion-panel-header>
+              <div class="expansion-header">
               <span class="title">
                 <mat-icon *ngIf="selectedCampaign && selectedCampaign.id; else placeholder">done</mat-icon>
                 Campaign
               </span>
 
-              <mat-chip-list  [selectable]="false">
-                <mat-chip *ngIf="selectedCampaign && selectedCampaign.id"
-                          [removable]="true"
-                          (remove)="removeCampaign()">
-                  {{selectedCampaign.name}}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-              </mat-chip-list>
+                <mat-chip-list  [selectable]="false">
+                  <mat-chip *ngIf="selectedCampaign && selectedCampaign.id"
+                            [removable]="true"
+                            (remove)="removeCampaign()">
+                    {{selectedCampaign.name}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+            </mat-expansion-panel-header>
+
+            <div class="expansion-body">
+
+              <mat-form-field class="autocomplete-input-container">
+                <input type="text" matInput placeholder="Choose Campaign" [matAutocomplete]="autoCampaign" (input)="campaignInputChanged($event)">
+
+                <mat-autocomplete #autoCampaign="matAutocomplete" [displayWith]="displayFn" (optionSelected)="campaignSelected($event)">
+                  <mat-option *ngFor="let campaign of campaigns" [value]="campaign">
+                    <div>{{ campaign.name }} </div>
+                  </mat-option>
+                </mat-autocomplete>
+
+              </mat-form-field>
+
             </div>
-          </mat-expansion-panel-header>
 
-          <div class="expansion-body">
+            <div class="buttons">
+              <button mat-button (click)="setStep(0)">PREVIOUS</button>
+              <button mat-button (click)="campaignNextStep()">NEXT</button>
+            </div>
+          </mat-expansion-panel>
 
-            <mat-form-field class="autocomplete-input-container">
-              <input type="text" matInput placeholder="Choose Campaign" [matAutocomplete]="autoCampaign" [(ngModel)]="campaignFilterValue" (keyup)="campaignInputChanged($event)" (focus)="campaignInputChanged()">
-
-              <mat-autocomplete #autoCampaign="matAutocomplete" [displayWith]="displayFn" (optionSelected)="campaignSelected($event)">
-                <mat-option *ngFor="let campaign of filteredCampaigns" [value]="campaign">
-                  <div>{{ campaign.name }} </div>
-                </mat-option>
-              </mat-autocomplete>
-
-            </mat-form-field>
-
-          </div>
-
-          <div class="buttons">
-            <button mat-button (click)="setStep(0)">PREVIOUS</button>
-            <button mat-button (click)="campaignNextStep()">NEXT</button>
-          </div>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)">
-          <mat-expansion-panel-header>
-            <div class="expansion-header">
+          <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)">
+            <mat-expansion-panel-header>
+              <div class="expansion-header">
               <span class="title">
                 <mat-icon *ngIf="selectedProducts && selectedProducts.length > 0; else placeholder">done</mat-icon>
                 Products
               </span>
 
-              <mat-chip-list  [selectable]="false">
-                <mat-chip *ngFor="let product of selectedProducts"
-                          [removable]="true"
-                          (remove)="removeProduct(product)">
-                  {{product.name}}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-              </mat-chip-list>
+                <mat-chip-list  [selectable]="false">
+                  <mat-chip *ngFor="let product of selectedProducts"
+                            [removable]="true"
+                            (remove)="removeProduct(product)">
+                    {{product.name}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+            </mat-expansion-panel-header>
+
+            <div class="expansion-body">
+
+              <mat-form-field class="autocomplete-input-container">
+                <input type="text" matInput placeholder="Choose Subscriptions and Products" [matAutocomplete]="autoProduct" [(ngModel)]="productFilterValue" (keyup)="productInputChanged($event)" (focus)="productInputChanged()">
+
+                <mat-autocomplete class="three-row-autocomplete" #autoProduct="matAutocomplete" [displayWith]="displayFn" (optionSelected)="productSelected($event)">
+                  <mat-option *ngFor="let product of filteredProducts" [value]="product">
+                    <div class="autocomplete-row">{{ product.name }} </div>
+                    <div class="autocomplete-row">
+                      {{ product.defaultPrice ? product.defaultPrice.usd() : product.firstSchedulePrice ? product.firstSchedulePrice.usd() : '-' }}
+                    </div>
+                    <div class="autocomplete-row"> One line description </div>
+                  </mat-option>
+                </mat-autocomplete>
+
+              </mat-form-field>
+
             </div>
-          </mat-expansion-panel-header>
 
-          <div class="expansion-body">
+            <ng-container *ngIf="selectedProducts && selectedProducts.length > 0">
+              <table class="highlight products-table">
+                <thead>
+                <th>Items</th>
+                <th class="mid">Quantity</th>
+                <th class="mid">Price</th>
+                <th></th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let product of selectedProducts">
+                  <td>{{product.name}}</td>
+                  <td class="mid">
+                    <div class="quantity-container">
+                      <mat-icon (click)="quantityMinus(product)">remove</mat-icon>
+                      <div>{{product.quantity || 1}}</div>
+                      <mat-icon (click)="quantityPlus(product)">add</mat-icon>
+                    </div>
+                  </td>
+                  <td class="mid">
+                    <div class="flex-custom flex-custom--center price-edit-container">
+                      <mat-form-field class="input-align-right" [class.error]=" productInEdit.id === product.id && productInEdit['error']" [class.solo]="productInEdit.id === product.id || !product.dynamicPrice || !product.dynamicPrice.enabled">
+                        <input matInput currencyInput (keydown)="isCurrencyInput($event)" [initPrice]="productInEdit.id === product.id ? productInEdit.defaultPrice : product.defaultPrice ? product.defaultPrice : product.firstSchedulePrice" [disabled]="productInEdit.id !== product.id" (priceChanged)="productInEdit.defaultPrice = $event" name="defaultPrice" type="text">
+                        <mat-hint align="end" *ngIf="productInEdit.id === product.id">{{product.dynamicPrice.min.usd()}} - {{product.dynamicPrice.max.usd()}}</mat-hint>
+                      </mat-form-field>
+                      <mat-icon *ngIf="productInEdit.id !== product.id && product.dynamicPrice && product.dynamicPrice.enabled" (click)="setProductInEdit(product)">edit</mat-icon>
+                    </div>
+                  </td>
+                  <td class="mid"><mat-icon (click)="removeProduct(product)">delete</mat-icon></td>
+                </tr>
+                </tbody>
+              </table>
+            </ng-container>
 
-            <mat-form-field class="autocomplete-input-container">
-              <input type="text" matInput placeholder="Choose Subscriptions and Products" [matAutocomplete]="autoProduct" [(ngModel)]="productFilterValue" (keyup)="productInputChanged($event)" (focus)="productInputChanged()">
+            <div class="buttons">
+              <button mat-button (click)="setStep(1)">PREVIOUS</button>
+              <button mat-button (click)="productNextStep()">NEXT</button>
+            </div>
 
-              <mat-autocomplete class="three-row-autocomplete" #autoProduct="matAutocomplete" [displayWith]="displayFn" (optionSelected)="productSelected($event)">
-                <mat-option *ngFor="let product of filteredProducts" [value]="product">
-                  <div class="autocomplete-row">{{ product.name }} </div>
-                  <div class="autocomplete-row">{{ product.defaultPrice ? product.defaultPrice.usd() : '$0' }} </div>
-                  <div class="autocomplete-row"> One line description </div>
-                </mat-option>
-              </mat-autocomplete>
+          </mat-expansion-panel>
 
-            </mat-form-field>
-
-          </div>
-
-          <ng-container *ngIf="selectedProducts && selectedProducts.length > 0">
-            <table class="highlight">
-              <thead>
-              <th>Items</th>
-              <th class="mid">Quantity</th>
-              <th class="mid">Price</th>
-              <th></th>
-              </thead>
-              <tbody>
-              <tr *ngFor="let product of selectedProducts">
-                <td>{{product.name}}</td>
-                <td class="mid">
-                  <div class="quantity-container">
-                    <mat-icon (click)="quantityMinus(product)">remove</mat-icon>
-                    <div>{{product.quantity || 1}}</div>
-                    <mat-icon (click)="quantityPlus(product)">add</mat-icon>
-                  </div>
-                </td>
-                <td class="mid">{{product.defaultPrice ? product.defaultPrice.usd() : '$0.00'}}</td>
-                <td class="mid"><mat-icon (click)="removeProduct(product)">delete</mat-icon></td>
-              </tr>
-              </tbody>
-            </table>
-          </ng-container>
-
-          <div class="buttons">
-            <button mat-button (click)="setStep(1)">PREVIOUS</button>
-            <button mat-button (click)="productNextStep()">NEXT</button>
-          </div>
-
-        </mat-expansion-panel>
-
-        <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)">
-          <mat-expansion-panel-header>
-            <div class="expansion-header">
+          <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)">
+            <mat-expansion-panel-header>
+              <div class="expansion-header">
               <span class="title">
                 <mat-icon *ngIf="selectedShippingAddress; else placeholder">done</mat-icon>
                 Shipping Address
               </span>
 
-              <mat-chip-list  [selectable]="false">
-                <mat-chip *ngIf="selectedShippingAddress"
-                          [removable]="true"
-                          (remove)="removeShippingAddress()">
-                  {{selectedShippingAddress.line1}}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-              </mat-chip-list>
+                <mat-chip-list  [selectable]="false">
+                  <mat-chip *ngIf="selectedShippingAddress"
+                            [removable]="true"
+                            (remove)="removeShippingAddress()">
+                    {{selectedShippingAddress.line1}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+            </mat-expansion-panel-header>
+
+            <div class="expansion-body">
+
+              <form class="shipping-form" #inputForm="ngForm">
+                <div class="customer-name" *ngIf="selectedCustomer">{{selectedCustomer.firstName}} {{selectedCustomer.lastName}}</div>
+
+                <mat-form-field [class.error]="shippingAddressInvalid && (!shippingAddress.line1 || !isAddressValid(shippingAddress.line1))">
+                  <input type="text" matInput [(ngModel)]="shippingAddress.line1" placeholder="Street Address 1" name="line1" required>
+                </mat-form-field>
+
+                <mat-form-field [class.error]="shippingAddressInvalid && (shippingAddress.line2 && !isAddressValid(shippingAddress.line2))">
+                  <input type="text" matInput [(ngModel)]="shippingAddress.line2" placeholder="Street Address 2 (optional)" name="line2">
+                </mat-form-field>
+
+                <mat-form-field [class.error]="shippingAddressInvalid && (!shippingAddress.line1 || !isAddressValid(shippingAddress.line1))">
+                  <input type="text" matInput [(ngModel)]="shippingAddress.city" placeholder="City" required name="city">
+                </mat-form-field>
+
+                <mat-form-field [class.error]="shippingAddressInvalid && !isZipValid(shippingAddress.zip)">
+                  <input type="text" matInput (keydown)="isAllowedZipKey($event)" [(ngModel)]="shippingAddress.zip" placeholder="Zip" required name="zip">
+                </mat-form-field>
+
+                <mat-form-field [class.error]="shippingAddressInvalid && !isCountryValid(shippingAddress.country)">
+                  <input type="text" matInput [(ngModel)]="shippingAddress.country" placeholder="Country" required name="country">
+                </mat-form-field>
+
+                <mat-form-field [class.error]="shippingAddressInvalid && !isStateValid(shippingAddress.state)">
+                  <input type="text" matInput [(ngModel)]="shippingAddress.state" placeholder="State" required name="state">
+                </mat-form-field>
+              </form>
+
             </div>
-          </mat-expansion-panel-header>
 
-          <div class="expansion-body">
+            <div class="buttons">
+              <button mat-button (click)="setStep(2)">PREVIOUS</button>
+              <button mat-button (click)="confirmShippingAddress()">NEXT</button>
+            </div>
+          </mat-expansion-panel>
 
-            <form class="shipping-form" #inputForm="ngForm">
-              <div class="customer-name" *ngIf="selectedCustomer">{{selectedCustomer.firstName}} {{selectedCustomer.lastName}}</div>
-
-              <mat-form-field [class.error]="shippingAddressInvalid && (!shippingAddress.line1 || !isAddressValid(shippingAddress.line1))">
-                <input type="text" matInput [(ngModel)]="shippingAddress.line1" placeholder="Street Address 1" name="line1" required>
-              </mat-form-field>
-
-              <mat-form-field [class.error]="shippingAddressInvalid && (shippingAddress.line2 && !isAddressValid(shippingAddress.line2))">
-                <input type="text" matInput [(ngModel)]="shippingAddress.line2" placeholder="Street Address 2 (optional)" name="line2">
-              </mat-form-field>
-
-              <mat-form-field [class.error]="shippingAddressInvalid && (!shippingAddress.line1 || !isAddressValid(shippingAddress.line1))">
-                <input type="text" matInput [(ngModel)]="shippingAddress.city" placeholder="City" required name="city">
-              </mat-form-field>
-
-              <mat-form-field [class.error]="shippingAddressInvalid && !isZipValid(shippingAddress.zip)">
-                <input type="text" matInput (keydown)="isAllowedZipKey($event)" [(ngModel)]="shippingAddress.zip" placeholder="Zip" required name="zip">
-              </mat-form-field>
-
-              <mat-form-field [class.error]="shippingAddressInvalid && !isCountryValid(shippingAddress.country)">
-                <input type="text" matInput [(ngModel)]="shippingAddress.country" placeholder="Country" required name="country">
-              </mat-form-field>
-
-              <mat-form-field [class.error]="shippingAddressInvalid && !isStateValid(shippingAddress.state)">
-                <input type="text" matInput [(ngModel)]="shippingAddress.state" placeholder="State" required name="state">
-              </mat-form-field>
-            </form>
-
-          </div>
-
-          <div class="buttons">
-            <button mat-button (click)="setStep(2)">PREVIOUS</button>
-            <button mat-button (click)="confirmShippingAddress()">NEXT</button>
-          </div>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)">
-          <mat-expansion-panel-header>
-            <div class="expansion-header">
+          <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)">
+            <mat-expansion-panel-header>
+              <div class="expansion-header">
               <span class="title">
                 <mat-icon *ngIf="selectedShippings && selectedShippings.length > 0; else placeholder">done</mat-icon>
                 Shipping
               </span>
 
-              <mat-chip-list  [selectable]="false">
-                <mat-chip *ngFor="let shipping of selectedShippings"
-                          [removable]="true"
-                          (remove)="removeShipping(shipping)">
-                  {{shipping.name}}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-              </mat-chip-list>
+                <mat-chip-list  [selectable]="false">
+                  <mat-chip *ngFor="let shipping of selectedShippings"
+                            [removable]="true"
+                            (remove)="removeShipping(shipping)">
+                    {{shipping.name}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+            </mat-expansion-panel-header>
+
+            <div class="expansion-body">
+
+              <mat-form-field class="autocomplete-input-container">
+                <input type="text" matInput placeholder="Choose Shipping and Insurance" [matAutocomplete]="autoShipping" [(ngModel)]="shippingFilterValue" (keyup)="shippingInputChanged($event)" (focus)="shippingInputChanged()">
+
+                <mat-autocomplete class="three-row-autocomplete" #autoShipping="matAutocomplete" [displayWith]="displayFn" (optionSelected)="shippingSelected($event)">
+                  <mat-option *ngFor="let shipping of filteredShippings" [value]="shipping">
+                    <div class="autocomplete-row">{{ shipping.name }} </div>
+                    <div class="autocomplete-row">{{ shipping.defaultPrice ? shipping.defaultPrice.usd() : '$0' }} </div>
+                    <div class="autocomplete-row"> One line description </div>
+                  </mat-option>
+                </mat-autocomplete>
+
+              </mat-form-field>
+
             </div>
-          </mat-expansion-panel-header>
 
-          <div class="expansion-body">
+            <ng-container *ngIf="selectedShippings && selectedShippings.length > 0">
+              <table class="highlight products-table">
+                <thead>
+                <th>Items</th>
+                <th class="mid">Quantity</th>
+                <th class="mid">Price</th>
+                <th></th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let shipping of selectedShippings">
+                  <td>{{shipping.name}}</td>
+                  <td class="mid">
+                    <div class="quantity-container">
+                      <mat-icon (click)="quantityMinus(shipping)">remove</mat-icon>
+                      <div>{{shipping.quantity || 1}}</div>
+                      <mat-icon (click)="quantityPlus(shipping)">add</mat-icon>
+                    </div>
+                  </td>
+                  <td class="mid">{{shipping.defaultPrice ? shipping.defaultPrice.usd() : '$0.00'}}</td>
+                  <td class="mid"><mat-icon class="delete-icon" (click)="removeShipping(shipping)">delete</mat-icon></td>
+                </tr>
+                </tbody>
+              </table>
+            </ng-container>
 
-            <mat-form-field class="autocomplete-input-container">
-              <input type="text" matInput placeholder="Choose Shipping and Insurance" [matAutocomplete]="autoShipping" [(ngModel)]="shippingFilterValue" (keyup)="shippingInputChanged($event)" (focus)="shippingInputChanged()">
+            <div class="buttons">
+              <button mat-button (click)="setStep(3)">PREVIOUS</button>
+              <button mat-button (click)="shippingNextStep()">NEXT</button>
+            </div>
+          </mat-expansion-panel>
 
-              <mat-autocomplete class="three-row-autocomplete" #autoShipping="matAutocomplete" [displayWith]="displayFn" (optionSelected)="shippingSelected($event)">
-                <mat-option *ngFor="let shipping of filteredShippings" [value]="shipping">
-                  <div class="autocomplete-row">{{ shipping.name }} </div>
-                  <div class="autocomplete-row">{{ shipping.defaultPrice ? shipping.defaultPrice.usd() : '$0' }} </div>
-                  <div class="autocomplete-row"> One line description </div>
-                </mat-option>
-              </mat-autocomplete>
-
-            </mat-form-field>
-
-          </div>
-
-          <ng-container *ngIf="selectedShippings && selectedShippings.length > 0">
-            <table class="highlight">
-              <thead>
-              <th>Items</th>
-              <th class="mid">Quantity</th>
-              <th class="mid">Price</th>
-              <th></th>
-              </thead>
-              <tbody>
-              <tr *ngFor="let shipping of selectedShippings">
-                <td>{{shipping.name}}</td>
-                <td class="mid">
-                  <div class="quantity-container">
-                    <mat-icon (click)="quantityMinus(shipping)">remove</mat-icon>
-                    <div>{{shipping.quantity || 1}}</div>
-                    <mat-icon (click)="quantityPlus(shipping)">add</mat-icon>
-                  </div>
-                </td>
-                <td class="mid">{{shipping.defaultPrice ? shipping.defaultPrice.usd() : '$0.00'}}</td>
-                <td class="mid"><mat-icon class="delete-icon" (click)="removeShipping(shipping)">delete</mat-icon></td>
-              </tr>
-              </tbody>
-            </table>
-          </ng-container>
-
-          <div class="buttons">
-            <button mat-button (click)="setStep(3)">PREVIOUS</button>
-            <button mat-button (click)="shippingNextStep()">NEXT</button>
-          </div>
-        </mat-expansion-panel>
-
-        <mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)">
-          <mat-expansion-panel-header>
-            <div class="expansion-header">
+          <mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)">
+            <mat-expansion-panel-header>
+              <div class="expansion-header">
               <span class="title">
                 <mat-icon *ngIf="selectedCreditCard; else placeholder">done</mat-icon>
                 Billing
               </span>
 
-              <mat-chip-list [selectable]="false">
-                <mat-chip *ngIf="selectedCreditCard && selectedCreditCard.ccv && !ccvInvalid(selectedCreditCard)"
-                          [removable]="true"
-                          (remove)="removeCreditCard()">
-                  ****{{selectedCreditCard.lastFour}}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-              </mat-chip-list>
-            </div>
-          </mat-expansion-panel-header>
+                <mat-chip-list [selectable]="false">
+                  <mat-chip *ngIf="selectedCreditCard && (!selectedCreditCard.ccv || !ccvInvalid(selectedCreditCard))"
+                            [removable]="true"
+                            (remove)="removeCreditCard()">
+                    ****{{selectedCreditCard.lastFour}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+            </mat-expansion-panel-header>
 
-          <mat-radio-group [selected]="false">
-            <table *ngIf="selectedCustomer && selectedCustomer.creditCards && selectedCustomer.creditCards.length > 0" class="highlight">
-              <thead>
+            <mat-radio-group [selected]="false">
+              <table *ngIf="selectedCustomer && selectedCustomer.creditCards && selectedCustomer.creditCards.length > 0" class="highlight cards-table">
+                <thead>
                 <th></th>
                 <th>Card</th>
                 <th>Exp. Date</th>
                 <th>Last used</th>
-              </thead>
-              <tbody>
-                <tr *ngFor="let ccard of selectedCustomer.creditCards">
-                  <td style="width: 1px;"><mat-radio-button (change)="ccChanged($event)" [value]="ccard"></mat-radio-button></td>
+                </thead>
+                <tbody>
+                <tr *ngFor="let ccard of selectedCustomer.creditCards; let i = index">
+                  <td style="width: 1px;"><mat-radio-button [checked]="selectedCreditCard?.id === ccard.id" (change)="ccChanged($event)" [value]="ccard"></mat-radio-button></td>
                   <td>
                     {{ccard.type}} ****{{ccard.lastFour}}
                     <mat-form-field [class.error]="selectedCcvError && ccvInvalid(selectedCreditCard)" *ngIf="selectedCreditCard && selectedCreditCard.id === ccard.id">
-                      <input required type="text" matInput placeholder="CCV" [(ngModel)]="selectedCreditCard.ccv">
+                      <input type="text" matInput placeholder="CCV" [(ngModel)]="selectedCreditCard.ccv">
                     </mat-form-field>
                   </td>
                   <td>{{ccard.expirationFormatted}}</td>
                   <td></td>
                 </tr>
-              </tbody>
-            </table>
+                </tbody>
+              </table>
 
-            <div class="new-card">
-              <mat-radio-button (change)="newCardSelected()"></mat-radio-button>
-              <button mat-button>NEW CARD</button>
+              <div class="new-card">
+                <mat-radio-button [checked]="!selectedCreditCard || !selectedCreditCard.id" (change)="newCardSelected()"></mat-radio-button>
+                <button mat-button (click)="newCardSelected()">NEW CARD</button>
+              </div>
+
+              <div class="expansion-body" *ngIf="newCardMode">
+                <payment-form #paymentForm [creditCard]="newCreditCard" [defaultAddress]="selectedShippingAddress"></payment-form>
+              </div>
+            </mat-radio-group>
+
+            <div class="buttons">
+              <button mat-button (click)="setStep(4)">PREVIOUS</button>
+              <button mat-button (click)="billingNextStep()">DONE</button>
             </div>
+          </mat-expansion-panel>
+        </mat-accordion>
 
-            <div class="expansion-body" *ngIf="newCardMode">
-              <payment-form #paymentForm [creditCard]="newCreditCard" [defaultAddress]="selectedShippingAddress"></payment-form>
-            </div>
-          </mat-radio-group>
-
-          <div class="buttons">
-            <button mat-button (click)="setStep(4)">PREVIOUS</button>
-            <button mat-button (click)="billingNextStep()">DONE</button>
-          </div>
-        </mat-expansion-panel>
-      </mat-accordion>
-
-    </div>
-
-    <div class="details">
-      <create-order-summary [price]="getPrice()" [shipping]="getShipping()" [total]="getTotal()"></create-order-summary>
-      <div class="cancel" (click)="close.emit(true)">
-        <div>CANCEL ORDER</div>
+        <create-order-preview
+          *ngIf="showPreview && selectedCustomer?.id && selectedProducts?.length > 0 && selectedCreditCard && (!selectedCreditCard.ccv || !ccvInvalid(selectedCreditCard)) && selectedShippingAddress && selectedCampaign?.id"
+          [customer]="selectedCustomer"
+          [creditCard]="selectedCreditCard"
+          [shippingAddress]="selectedShippingAddress"
+          [products]="selectedProducts"
+          [shippings]="selectedShippings"
+          (confirm)="processOrder()">
+        </create-order-preview>
       </div>
-    </div>
+
+      <div class="details">
+        <create-order-summary [price]="getPrice()"
+                              [shipping]="getShipping()"
+                              [total]="getTotal()">
+        </create-order-summary>
+        <div class="cancel" (click)="close.emit(true)">
+          <div>CANCEL ORDER</div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #successMessage>
+      <create-order-success
+        (done)="close.emit(true)"
+        [customer]="selectedCustomer"
+        [products]="selectedProducts"
+        [shippings]="selectedShippings"
+        [creditCard]="selectedCreditCard"
+        [shippingAddress]="selectedShippingAddress"
+        [checkoutResponse]="checkoutResponse">
+      </create-order-success>
+    </ng-template>
 
   </div>
 

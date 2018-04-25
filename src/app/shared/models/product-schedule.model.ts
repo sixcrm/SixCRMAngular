@@ -2,11 +2,14 @@ import {Schedule} from './schedule.model';
 import {Entity} from './entity.interface';
 import {MerchantProviderGroup} from './merchant-provider-group.model';
 import {Moment, utc} from 'moment';
+import {Currency} from '../utils/currency/currency';
 
 export class ProductSchedule implements Entity<ProductSchedule> {
   id: string;
   name: string;
   quantity: number;
+  firstSchedulePrice: Currency = new Currency(0);
+  firstSchedule: Schedule = new Schedule();
   schedules: Schedule[] = [];
   createdAt: Moment;
   updatedAt: Moment;
@@ -29,9 +32,29 @@ export class ProductSchedule implements Entity<ProductSchedule> {
 
     if (obj.schedule) {
       this.schedules = obj.schedule.map(s => new Schedule(s, obj.days));
+      this.firstSchedule = this.calculateFirstSchedule();
+      this.firstSchedulePrice = this.firstSchedule ? this.firstSchedule.price : new Currency(0);
       this.start = this.getStart();
       this.end = this.getEnd();
     }
+  }
+
+  calculateFirstSchedule(): Schedule {
+    let start = this.schedules[0] ? this.schedules[0].start : 0;
+    let schedule = this.schedules[0] ? this.schedules[0] : new Schedule;
+
+    for (let i = 0; i < this.schedules.length; i++) {
+      if (this.schedules[i].start === 0) {
+        return this.schedules[i];
+      }
+
+      if (this.schedules[i].start < start) {
+        start = this.schedules[i].start;
+        schedule = this.schedules[i];
+      }
+    }
+
+    return schedule;
   }
 
   getStart(): number {

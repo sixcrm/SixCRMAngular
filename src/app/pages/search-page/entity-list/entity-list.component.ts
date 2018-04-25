@@ -26,6 +26,15 @@ export class EntityListComponent implements OnInit {
     return utc(date).tz(this.authService.getTimezone()).format('MM/DD/YYYY');
   }
 
+  getFieldValue(entity): string {
+    switch (entity.fields.entity_type) {
+      case 'customer': return entity.fields.email;
+      case 'affiliate': return entity.fields.affiliate_id;
+      case 'product': return entity.fields.sku;
+      default: return '';
+    }
+  }
+
   navigateToEntity(entity): void {
     this.router.navigate([`/${entity.fields.entity_type}s`, entity.id]);
   }

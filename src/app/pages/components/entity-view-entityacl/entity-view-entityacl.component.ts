@@ -131,7 +131,7 @@ export class EntityViewEntityaclComponent implements OnInit, OnDestroy {
   }
 
   overlayClicked(event: any): void {
-    if (event && event.target && event.target.className === 'acl-modal-container') {
+    if (event && event.target && event.target.className.includes('acl-modal-container')) {
       this.cancel();
     }
   }

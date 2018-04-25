@@ -57,3 +57,21 @@ registration-form {
     max-width: 1120px;
   }
 }
+
+.processing-order-overlay {
+  display: flex;
+  z-index: 6;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 24px;
+  font-family: Roboto, serif;
+
+  div {
+    margin: auto;
+  }
+}

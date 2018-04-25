@@ -5,6 +5,9 @@ import {SharedModule} from '../shared/shared.module';
 import { CreateOrderSummaryComponent } from './create-order/create-order-summary/create-order-summary.component';
 import {MaterialSelectionModule} from '../material-selection/material-selection.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {TextMaskModule} from 'angular2-text-mask';
+import { CreateOrderPreviewComponent } from './create-order/create-order-preview/create-order-preview.component';
+import { CreateOrderSuccessComponent } from './create-order/create-order-success/create-order-success.component';
 
 @NgModule({
   imports: [
@@ -12,11 +15,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialSelectionModule
+    MaterialSelectionModule,
+    TextMaskModule
   ],
   declarations: [
     CreateOrderComponent,
-    CreateOrderSummaryComponent
+    CreateOrderSummaryComponent,
+    CreateOrderPreviewComponent,
+    CreateOrderSuccessComponent
   ],
   exports: [
     CreateOrderComponent

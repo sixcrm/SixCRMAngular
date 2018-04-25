@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import {NotificationUserSettings} from '../../../../shared/models/user-settings';
+import {isValidEmail} from "../../../../shared/utils/form.utils";
 
 @Component({
   selector: 'device-toggle-item',
@@ -24,6 +25,13 @@ export class DeviceToggleItemComponent implements OnInit {
     slack: 'Slack'
   };
 
+  validationFunctions = {
+    email: (email: string) => this.validEmail(email),
+    sms: (phone: string) => this.validPhone(phone),
+    slack: (slackWebHook: string) => this.validSlackWebHook(slackWebHook),
+    skype: () => {}
+  };
+
   deviceNoDataLabels = {
     email: 'Add E-Mail',
     sms: 'Add phone number',
@@ -31,6 +39,8 @@ export class DeviceToggleItemComponent implements OnInit {
     slack: 'Add Slack web hook',
     ios: 'App not registered',
   };
+
+  formInvalid: boolean;
 
   constructor() { }
 
@@ -43,9 +53,43 @@ export class DeviceToggleItemComponent implements OnInit {
       return;
     }
 
-    this.notificationSettings.data = this.valueInput.nativeElement.value;
-    this.editMode = false;
+    if (this.validationFunctions[this.notificationSettings.name](this.valueInput.nativeElement.value) ||
+        !this.valueInput.nativeElement.value) {
+      this.notificationSettings.data = this.valueInput.nativeElement.value;
+      this.editMode = false;
 
-    this.toggled.emit(true);
+      this.toggled.emit(true);
+      this.formInvalid = false
+    } else {
+      this.formInvalid = true;
+    }
+  }
+
+  validEmail(email: string): boolean {
+    return isValidEmail(email);
+  }
+
+  validSlackWebHook(slackWebHook: string): boolean {
+    let regex = /^https?:\/\/(hooks\.slack\.com\/services\/){1}[-a-zA-Z0-9]{9}\/[-a-zA-Z0-9]{9}\/[-a-zA-Z0-9]{24}$/;
+    return regex.test(slackWebHook);
+  }
+
+  validPhone(phone: string): boolean {
+    let regex = /^\+?[0-9-/()\s]*$/;
+
+    let open_brackets = (phone.match(/\(/g) || []).length;
+    let closed_brackets = (phone.match(/\)/g) || []).length;
+
+    let open_bracket_position = phone.indexOf("(");
+    let closed_bracket_position = phone.indexOf(")");
+
+    if ((open_brackets > 1) ||
+        (closed_brackets > 1) ||
+        (open_brackets !== closed_brackets) ||
+        (open_bracket_position > closed_bracket_position) ||
+        phone.length < 6)
+    return false;
+
+    return regex.test(phone);
   }
 }

@@ -59,7 +59,7 @@ export function customerResponseQuery(): string {
   return `
     id email firstname lastname phone created_at updated_at,
     address { line1 line2 city state zip country }
-    creditcards { id expiration last_four first_six,
+    creditcards { id name expiration last_four first_six,
       address { line1 line2 city state zip country }
     }`
 }
