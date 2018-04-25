@@ -31,10 +31,10 @@
 
             <div *ngIf="!newCustomerMode; else newCustomerTemp" class="expansion-body">
               <mat-form-field class="autocomplete-input-container">
-                <input type="text" matInput placeholder="Email, Phone or Last Name" [matAutocomplete]="autoCustomer" [(ngModel)]="customerFilterValue" (keyup)="customerInputChanged($event)" (focus)="customerInputChanged()">
+                <input type="text" matInput placeholder="Email, Phone or Last Name" [matAutocomplete]="autoCustomer" (input)="customerInputChanged($event)">
 
-                <mat-autocomplete class="three-row-autocomplete" #autoCustomer="matAutocomplete" [displayWith]="displayFn()" (optionSelected)="customerSelected($event)">
-                  <mat-option *ngFor="let customer of filteredCustomers" [value]="customer">
+                <mat-autocomplete class="three-row-autocomplete" #autoCustomer="matAutocomplete" [displayWith]="displayFn" (optionSelected)="customerSelected($event)">
+                  <mat-option *ngFor="let customer of customers" [value]="customer">
                     <div class="autocomplete-row">{{ customer.firstName }} {{ customer.lastName}}</div>
                     <div class="autocomplete-row">{{ customer.phone }}</div>
                     <div class="autocomplete-row">{{ customer.email }}</div>
@@ -96,10 +96,10 @@
             <div class="expansion-body">
 
               <mat-form-field class="autocomplete-input-container">
-                <input type="text" matInput placeholder="Choose Campaign" [matAutocomplete]="autoCampaign" [(ngModel)]="campaignFilterValue" (keyup)="campaignInputChanged($event)" (focus)="campaignInputChanged()">
+                <input type="text" matInput placeholder="Choose Campaign" [matAutocomplete]="autoCampaign" (input)="campaignInputChanged($event)">
 
                 <mat-autocomplete #autoCampaign="matAutocomplete" [displayWith]="displayFn" (optionSelected)="campaignSelected($event)">
-                  <mat-option *ngFor="let campaign of filteredCampaigns" [value]="campaign">
+                  <mat-option *ngFor="let campaign of campaigns" [value]="campaign">
                     <div>{{ campaign.name }} </div>
                   </mat-option>
                 </mat-autocomplete>

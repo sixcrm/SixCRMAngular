@@ -3,7 +3,6 @@ import {CustomersService} from '../../shared/services/customers.service';
 import {Customer} from '../../shared/models/customer.model';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {Campaign} from '../../shared/models/campaign.model';
-import {CampaignsService} from '../../shared/services/campaigns.service';
 import {ProductSchedule} from '../../shared/models/product-schedule.model';
 import {Product} from '../../shared/models/product.model';
 import {ProductsService} from '../../shared/services/products.service';
@@ -12,7 +11,7 @@ import {firstIndexOf} from '../../shared/utils/array.utils';
 import {Address} from '../../shared/models/address.model';
 import {Currency} from '../../shared/utils/currency/currency';
 import {CreditCard} from '../../shared/models/credit-card.model';
-import {Subscription} from 'rxjs';
+import {Subscription, Subject} from 'rxjs';
 import {PaymentFormComponent} from '../../shared/components/payment-form/payment-form.component';
 import {
   isValidState, isValidCountry, isValidAddress, isValidCity, isAllowedZip,
@@ -28,6 +27,7 @@ import {NavigationService} from '../../navigation/navigation.service';
 import {countryCode, stateCode} from '../../shared/utils/address.utils';
 import {CheckoutResponse} from '../../shared/models/checkout-response.model';
 import {SnackbarService} from '../../shared/services/snackbar.service';
+import {SearchService} from '../../shared/services/search.service';
 
 @Component({
   selector: 'create-order',
@@ -39,17 +39,13 @@ export class CreateOrderComponent implements OnInit {
   @Output() close: EventEmitter<boolean> = new EventEmitter();
 
   selectedCustomer: Customer;
-  customerFilterValue: string;
   customers: Customer[] = [];
-  filteredCustomers: Customer[] = [];
   newCustomerMode: boolean;
   newCustomerInvalid: boolean;
   mask = getPhoneNumberMask();
 
   selectedCampaign: Campaign;
-  campaignFilterValue: string;
   campaigns: Campaign[] = [];
-  filteredCampaigns: Campaign[] = [];
 
   selectedProducts: (Product | ProductSchedule)[] = [];
   productFilterValue: string;
@@ -74,6 +70,12 @@ export class CreateOrderComponent implements OnInit {
   newCardMode: boolean = true;
 
   customerSub: Subscription;
+  customerSearchSub: Subscription;
+  customerSearchDebouncer: Subject<string> = new Subject();
+
+  campaignSearchSub: Subscription;
+  campaignSearchDebouncer: Subject<string> = new Subject();
+
   selectedCcvError: boolean = false;
   showPreview: boolean;
 
@@ -91,25 +93,29 @@ export class CreateOrderComponent implements OnInit {
 
   constructor(
     private customerService: CustomersService,
-    private campaignService: CampaignsService,
     private productService: ProductsService,
     private productScheduleService: ProductScheduleService,
     private transactionalAPI: HttpWrapperTransactionalService,
     private navigationService: NavigationService,
-    private snackService: SnackbarService
+    private snackService: SnackbarService,
+    private searchService: SearchService
   ) { }
 
   ngOnInit() {
-    this.customerService.entities$.take(1).subscribe(customers => {
-      if (customers instanceof CustomServerError) return;
+    this.customerSearchDebouncer.debounceTime(250).subscribe(value => {
+      if (this.customerSearchSub) {
+        this.customerSearchSub.unsubscribe();
+      }
 
-      this.customers = customers;
+      this.customerSearchSub = this.searchService.searchCustomers(value).subscribe(customers => this.customers = customers);
     });
 
-    this.campaignService.entities$.take(1).subscribe(campaigns => {
-      if (campaigns instanceof CustomServerError) return;
+    this.campaignSearchDebouncer.debounceTime(250).subscribe(value => {
+      if (this.campaignSearchSub) {
+        this.campaignSearchSub.unsubscribe();
+      }
 
-      this.campaigns = campaigns;
+      this.campaignSearchSub = this.searchService.searchCampaigns(value).subscribe(campaigns => this.campaigns = campaigns);
     });
 
     this.productService.entities$.take(1).merge(this.productScheduleService.entities$.take(1)).subscribe(products => {
@@ -128,8 +134,6 @@ export class CreateOrderComponent implements OnInit {
       this.shippings = shippings;
     });
 
-    this.customerService.getEntities(100);
-    this.campaignService.getEntities();
     this.productService.getEntities();
     this.productScheduleService.getEntities();
 
@@ -179,26 +183,11 @@ export class CreateOrderComponent implements OnInit {
     });
     this.customerService.getEntity(this.selectedCustomer.id);
 
-    this.customerFilterValue = '';
     this.setStep(1);
   }
 
-  customerFilterFunction = (customer: Customer) => {
-    if (!this.customerFilterValue || !this.customerFilterValue.toLowerCase) return true;
-
-    const filter = this.customerFilterValue.toLowerCase();
-
-    return `${customer.firstName.toLowerCase()} ${customer.lastName.toLowerCase()} ${customer.phone.toLowerCase()} ${customer.email.toLowerCase()}`.indexOf(filter) !== -1;
-  };
-
-  customerInputChanged(event?: any) {
-    const pattern = /[0-9]|[a-z]|[A-Z]|@|-|\(|\)Backspace|ArrowUp|ArrowDown|ArrowRight|ArrowLeft|Tab/;
-
-    if (event && event.key && !pattern.test(event.key)) {
-      return;
-    }
-
-    this.filteredCustomers = this.customers.filter(this.customerFilterFunction);
+  customerInputChanged(event: any) {
+    this.customerSearchDebouncer.next(event.srcElement.value);
   }
 
   newCustomer() {
@@ -222,36 +211,19 @@ export class CreateOrderComponent implements OnInit {
 
   removeCustomer() {
     this.selectedCustomer = new Customer();
-    this.customerFilterValue = '';
   }
 
   campaignSelected(option) {
     this.selectedCampaign = option.option.value;
-    this.campaignFilterValue = '';
     this.setStep(2);
   }
 
-  campaignFilterFunction = (campaign: Campaign) => {
-    if (!this.campaignFilterValue || !this.campaignFilterValue.toLowerCase) return true;
-
-    const filter = this.campaignFilterValue.toLowerCase();
-
-    return campaign.name.toLowerCase().indexOf(filter) !== -1;
-  };
-
-  campaignInputChanged(event?: any) {
-    const pattern = /[0-9]|[a-z]|[A-Z]|@|-|\(|\)Backspace|ArrowUp|ArrowDown|ArrowRight|ArrowLeft|Tab/;
-
-    if (event && event.key && !pattern.test(event.key)) {
-      return;
-    }
-
-    this.filteredCampaigns = this.campaigns.filter(this.campaignFilterFunction);
+  campaignInputChanged(event: any) {
+    this.campaignSearchDebouncer.next(event.srcElement.value);
   }
 
   removeCampaign() {
     this.selectedCampaign = new Campaign();
-    this.campaignFilterValue = '';
   }
 
   productSelected(option) {

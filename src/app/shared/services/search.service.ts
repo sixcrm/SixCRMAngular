@@ -14,6 +14,7 @@ import {
 import {CustomServerError} from "../models/errors/custom-server-error";
 import {Customer} from '../models/customer.model';
 import {Session} from '../models/session.model';
+import {Campaign} from '../models/campaign.model';
 
 @Injectable()
 export class SearchService {
@@ -60,6 +61,26 @@ export class SearchService {
       const hits = this.parseSearchResults(response);
 
       obs.next(hits.hit.map(hit => new Customer({id: hit.id, firstname: hit.fields.firstname, lastname: hit.fields.lastname, email: hit.fields.email, phone: hit.fields.phone})));
+    });
+
+    return obs;
+  }
+
+  searchCampaigns(value: string): Observable<Campaign[]> {
+    if (!value) return Observable.of([]);
+
+    const obs = new Subject<Campaign[]>();
+    const types: string[] = ['campaign'];
+    const q = searchQuery(value, null, null, 0, 20, types);
+
+    this.queryRequest(q, {failStrategy: FailStrategy.Soft}).subscribe(response => {
+      if (response instanceof CustomServerError) {
+        return;
+      }
+
+      const hits = this.parseSearchResults(response);
+
+      obs.next(hits.hit.map(hit => new Campaign({id: hit.id, name: hit.fields.name})));
     });
 
     return obs;
