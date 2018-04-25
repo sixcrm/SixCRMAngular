@@ -49,4 +49,18 @@
       margin-top: 0;
     }
   }
+
+  &--search-input {
+    .mat-input-wrapper {
+      padding-bottom: 0;
+    }
+
+    .mat-form-field-infix {
+      border-top: none;
+    }
+
+    .mat-input-underline {
+      display: none;
+    }
+  }
 }

@@ -1,0 +1,68 @@
+.customer-service-container {
+  display: flex;
+  height: calc(100vh - 70px);
+  padding: 15px;
+  box-sizing: border-box;
+  background: #38639A;
+
+  .item {
+    display: flex;
+    margin: 10px;
+    width: 22%;
+    background: #3F6DAC;
+    cursor: pointer;
+    overflow: hidden;
+    transition: width 250ms ease-in-out;
+
+    .content {
+      position: relative;
+      text-align: center;
+      margin: auto;
+
+      .title {
+        font-size: 22px;
+        margin-bottom: 0;
+        transition: margin 250ms ease-in-out;
+        color: rgba(255,255,255,0.75);
+
+        &--focused {
+          margin-bottom: 20px;
+          transition: margin 250ms ease-in-out;
+          color: white;
+        }
+      }
+
+      mat-form-field {
+        width: 240px;
+        padding: 4px 10px 8px 10px;
+        box-sizing: border-box;
+        font-size: 12px;
+        background: white;
+        border-radius: 5px;
+        color: rgba(0,0,0,0.8);
+      }
+
+      .input-container {
+        height: 0;
+        width: 0;
+        overflow: hidden;
+        transition: height 250ms ease-in-out;
+      }
+
+      .visible {
+        height: 45px;
+        width: 240px;
+        transition: height 250ms ease-in-out;
+      }
+    }
+  }
+
+  .expanded {
+    width: 56%;
+    transition: width 250ms ease-in-out;
+  }
+
+  .focused {
+    background: #4478BE;
+  }
+}

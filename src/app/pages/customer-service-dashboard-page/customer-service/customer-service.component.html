@@ -1,0 +1,65 @@
+<div class="customer-service-container">
+
+  <div (click)="setFocus(0, orderInput)"
+       class="item"
+       [class.expanded]="focusedItem === 0 || !focusedItem"
+       [class.focused]="focusedItem === 0">
+    <div class="content">
+      <div class="title" [class.title--focused]="focusedItem === 0">
+        Find Order
+      </div>
+
+      <div class="input-container" [class.visible]="focusedItem === 0">
+        <mat-form-field class="mrw--search-input" [floatLabel]="'never'">
+          <input #orderInput type="text" [matAutocomplete]="sessionAutocomplete" (input)="sessionInputChanged($event)" matInput placeholder="Session ID or Alias">
+          <mat-icon matSuffix>search</mat-icon>
+          <mat-autocomplete class="three-row-autocomplete" #sessionAutocomplete="matAutocomplete" (optionSelected)="navigateToSession($event)">
+            <mat-option *ngFor="let session of sessions" [value]="session.id">
+              <div class="autocomplete-row">{{ session.alias }}</div>
+              <div class="autocomplete-row">{{ session.createdAt.tz(authService.getTimezone('MM/DD/YYYY')).format() }}</div>
+              <div class="autocomplete-row">{{ session.customer.firstName }} {{session.customer.lastName}}</div>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div (click)="setFocus(1, customerInput)"
+       class="item"
+       [class.expanded]="focusedItem === 1"
+       [class.focused]="focusedItem === 1">
+    <div class="content">
+      <div class="title" [class.title--focused]="focusedItem === 1">
+        Find Customer
+      </div>
+
+      <div class="input-container" [class.visible]="focusedItem === 1">
+        <mat-form-field class="mrw--search-input" [floatLabel]="'never'">
+          <input #customerInput type="text" [matAutocomplete]="customerAutocomplete" (input)="customerInputChanged($event)" matInput placeholder="Name, email or phone number">
+          <mat-icon matSuffix>search</mat-icon>
+          <mat-autocomplete class="three-row-autocomplete" #customerAutocomplete="matAutocomplete" (optionSelected)="navigateToCustomer($event)">
+            <mat-option *ngFor="let customer of customers" [value]="customer.id">
+              <div class="autocomplete-row">{{ customer.firstName }} {{customer.lastName}}</div>
+              <div class="autocomplete-row">{{ customer.email }}</div>
+              <div class="autocomplete-row">{{ customer.phone }}</div>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+
+  <div (click)="openCreateOrder()"
+       class="item"
+       [class.expanded]="focusedItem === 2"
+       [class.focused]="focusedItem === 2 && (navigationService.showCreateNewOrderModal | async)">
+    <div class="content">
+      <div class="title">
+        Create Order
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,12 +1,7 @@
 <div class="search">
-  <div *ngIf="authService.isActiveAclCustomerService()" class="search__header">
-    <div class="search__header__item" [class.search__header__item--active]="selectedIndex === 0" (click)="setIndex(0)">{{'SEARCH_TAB_CUSTOMER' | translate}}</div>
-    <div class="search__header__item" [class.search__header__item--active]="selectedIndex === 1" (click)="setIndex(1)">{{'SEARCH_TAB_ORDER' | translate}}</div>
-  </div>
-
   <mat-tab-group [(selectedIndex)]="selectedIndex">
     <mat-tab>
-      <div class="search__layout" [class.search__layout--customer-service]="authService.isActiveAclCustomerService()">
+      <div class="search__layout">
         <div class="search__sidenav">
           <mat-nav-list>
             <div class="search__sidenav__query__container">

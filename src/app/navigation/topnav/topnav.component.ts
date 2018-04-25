@@ -32,7 +32,7 @@ export class TopnavComponent implements OnInit {
   mapAcl = (acl: Acl) => acl.account.name;
 
   addOptions: TopnavDropdownOption[] = [
-    {label: 'New Order', callback: () => this.navigation.setShowCreateNewModal(true)},
+    {label: 'New Order', callback: () => this.navigation.setShowCreateNewOrderModal(true)},
     {label: 'New Campaign', callback: () => this.router.navigate(['campaigns'], {queryParams: {action: 'new'}})},
     {label: 'New Product Schedule', callback: () => this.router.navigate(['productschedules'], {queryParams: {action: 'new'}})},
     {label: 'New Product', callback: () => this.router.navigate(['products'], {queryParams: {action: 'new'}})},

@@ -111,11 +111,11 @@ export class NavigationService {
     this._isRouteLoading.next(isRouteLoading);
   }
 
-  public get showCreateNewModal(): Subject<boolean> {
+  public get showCreateNewOrderModal(): Subject<boolean> {
     return this._showCreateNewOrderModal;
   }
 
-  public setShowCreateNewModal(value: boolean): void {
+  public setShowCreateNewOrderModal(value: boolean): void {
     this._showCreateNewOrderModal.next(value);
   }
 

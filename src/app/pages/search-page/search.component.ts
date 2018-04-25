@@ -85,7 +85,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   selectedIndex: number = 0;
 
   constructor(
-    public authService: AuthenticationService,
     private route: ActivatedRoute,
     private router: Router,
     private searchService: SearchService,
