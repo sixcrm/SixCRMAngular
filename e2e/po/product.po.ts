@@ -30,6 +30,15 @@ export class ProductPage {
   }
 
   getProductFromTable(index) {
-    return element(by.css('tbody')).all(by.css('tr')).get(index).element(by.css('td'));
+    return element(by.css('tbody')).all(by.css('tr')).get(index);
   }
+
+  getEditProductInputs() {
+    return element(by.css('.entity-view__card__content')).all(by.css('input'));
+  }
+
+  getProductDescriptionInput() {
+    return element(by.name('description'));
+  }
+
 }

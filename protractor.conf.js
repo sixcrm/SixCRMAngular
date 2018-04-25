@@ -4,21 +4,7 @@
 exports.config = {
   allScriptsTimeout: 110000,
   specs: [
-    // './e2e/**/*.e2e-spec.ts'
-    // './e2e/**/app.e2e-spec.ts',
-    // './e2e/**/register.e2e-spec.ts',
-    // './e2e/**/login.e2e-spec.ts',
-    // './e2e/**/dashboard.e2e-spec.ts',
-    // './e2e/**/profile.e2e-spec.ts',
-    //'./e2e/**/navigation.e2e-spec.ts',
-    // './e2e/**/affiliate.e2e-spec.ts',
-    //'./e2e/**/search.e2e-spec.ts',
-    //'./e2e/**/advanced-search.e2e-spec.ts',
-    //'./e2e/**/accept-invite.e2e-spec.ts',
-    //'./e2e/**/merchant-provider.e2e-spec.ts',
-    //'./e2e/**/app.e2e-spec.ts'
-    //'./e2e/**/product.e2e-spec.ts',
-    './e2e/**/product-schedule.e2e-spec.ts'
+    './e2e/**/product.e2e-spec.ts'
   ],
   suites:  {
     repeatable: './e2e/**/product-schedule.e2e-spec.ts'

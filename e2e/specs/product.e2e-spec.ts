@@ -84,24 +84,44 @@ describe('Products', function() {
     browser.sleep(500);
     productPage.getMenuButton(0).click();
     browser.sleep(200);
-
-    productPage.getNewProductInputs().get(0).sendKeys(' updated');
+    productPage.getEditProductInputs().get(0).sendKeys(' updated');
+    productPage.getProductDescriptionInput().sendKeys('e2e Product Description updated');
+    productPage.getEditProductInputs().get(1).sendKeys(' updated');
+    productPage.getEditProductInputs().get(2).sendKeys('1000');
+    browser.sleep(500);
     productPage.getNewProductSaveButton().click();
   });
 
   it('should persist updated product details', () => {
-    browser.sleep(2000);
+    browser.sleep(1000);
     expect(productPage.getProductName().getText()).toEqual('e2e product updated');
   });
 
-  it('should delete product and navigate back to i', () => {
+  it('should delete product and navigate back to index', () => {
     productPage.getDetailsMenuButton().click();
     browser.sleep(500);
     productPage.getMenuButton(1).click();
     browser.sleep(200);
+  });
 
-    browser.sleep(2000);
+  it('should go to products details', () => {
+    waitForUrlContains('products');
+    productPage.getProductFromTable(1).click();
+    browser.sleep(5000);
+    expectUrlToContain('products');
+    expectUrlToContain('products');
+  });
 
+  it('should go to images and upload an image', () => {
+  });
+
+  it('should go schedules and add a new schedule', () => {
+  });
+
+  it('should go to campaigns', () => {
+  });
+
+  it('should go to merchant group associations', () => {
   });
 
 });
