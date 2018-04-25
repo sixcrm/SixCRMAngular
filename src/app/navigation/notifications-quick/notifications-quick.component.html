@@ -1,8 +1,11 @@
 <div class="notifications-list">
   <div class="notifications-list__topnav">
-    <span>{{'NOTIFICATIONSQUICK_TITLE' | translate}}</span>
+    <span>{{'ALLNOTIFICATIONS_TITLE' | translate}}</span>
     <div class="notifications-list__topnav__options">
-      <div (click)="navigateToSettings()">{{'NOTIFICATIONSQUICK_SETTINGS' | translate}}</div>
+    <span>{{'MARKALLASREAD_TITLE' | translate}}</span>
+    </div>
+    <div class="notifications-list__topnav__options">
+      <mat-icon (click)="navigateToSettings()">settings</mat-icon>
     </div>
   </div>
 
@@ -28,16 +31,21 @@
 
           <div *ngFor="let notification of notificationsByDate.entities">
             <div class="notifications-list__content__notification" (click)="readNotification(notification)">
-              <div class="notifications-list__content__notification__image"><img src="assets/images/{{notification.getIconName()}}" alt=""></div>
-              <div class="notifications-list__content__notification__message">
-                <div>{{notification.body}}</div>
-                <div class="notifications-list__content__notification__message__date">
-                  {{notification.createdAt.format('MMMM Do [at] h:mm A')}}
-                </div>
-              </div>
               <div class="notifications-list__content__notification__read">
                 <div [class.unread]="!notification.readAt"></div>
               </div>
+              <div class="notifications-list__content__notification__message">
+                <div class="header">
+                  <div class="category">{{notification.category}}</div>
+                  <div class="divider"></div>
+                  <div class="notifications-list__content__notification__message__date">
+                    {{notification.createdAt.format('MMMM Do [at] h:mm A')}}
+                  </div>
+                </div>
+                <div class="title">{{notification.title}}</div>
+                <div class="body">{{notification.body}}</div>
+              </div>
+              <mat-icon>more_vert</mat-icon>
             </div>
           </div>
         </div>

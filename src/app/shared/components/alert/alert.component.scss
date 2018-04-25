@@ -11,9 +11,9 @@
       font-size: 12px;
 
       .divider {
-        margin: 0 5px;
-        height: 5px;
-        width: 5px;
+        margin: 0 5px 2px 5px;
+        height: 3px;
+        width: 3px;
         border-radius: 50%;
         background: rgba(0,0,0,0.5);
       }
@@ -21,30 +21,33 @@
       .time {
         color: rgba(0,0,0,0.5);
       }
+
+      .category {
+        color: #FD1F47;
+      }
     }
 
     .title {
       margin-bottom: 10px;
       font-size: 14px;
+      font-weight: 500;
     }
 
     .body {
-      font-size: 14px;
+      font-size: 13px;
       color: rgba(0,0,0,0.5);
     }
 
     mat-icon {
-      margin-left: 12px;
-      padding: 5px;
-      color: white;
-      background: #FD1F47;
-      border-radius: 50%;
+      color: #FD1F47;
+      font-size: 15px;
+      margin: 0px -4px -5px -3px
     }
   }
 
   &__actions {
     display: flex;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 500;
     background: #F0F0F0;
     color: #FD1F47;

@@ -3,7 +3,8 @@
 
     <div>
       <div class="header">
-        <div>{{alert.category}}</div>
+        <mat-icon>flag</mat-icon>
+        <div class="category">{{alert.category}}</div>
         <div class="divider"></div>
         <div class="time">{{ calculateTime() }}</div>
       </div>
@@ -15,10 +16,6 @@
       <div class="body">
         {{alert.body}}
       </div>
-    </div>
-
-    <div>
-      <mat-icon>priority_high</mat-icon>
     </div>
 
   </div>
