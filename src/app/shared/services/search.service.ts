@@ -47,60 +47,39 @@ export class SearchService {
   }
 
   searchCustomers(value: string): Observable<Customer[]> {
-    if (!value) return Observable.of([]);
-
-    const obs = new Subject<Customer[]>();
-    const types: string[] = ['customer'];
-    const q = searchQuery(value, null, null, 0, 20, types);
-
-    this.queryRequest(q, {failStrategy: FailStrategy.Soft}).subscribe(response => {
-      if (response instanceof CustomServerError) {
-        return;
-      }
-
-      const hits = this.parseSearchResults(response);
-
-      obs.next(hits.hit.map(hit => new Customer({id: hit.id, firstname: hit.fields.firstname, lastname: hit.fields.lastname, email: hit.fields.email, phone: hit.fields.phone})));
-    });
-
-    return obs;
+    return this.searchByEntities(value, ['customer']).map(hits =>
+      (hits.hit || []).map(hit =>
+        new Customer({ id: hit.id, firstname: hit.fields.firstname, lastname: hit.fields.lastname, email: hit.fields.email, phone: hit.fields.phone })
+      )
+    )
   }
 
   searchCampaigns(value: string): Observable<Campaign[]> {
-    if (!value) return Observable.of([]);
-
-    const obs = new Subject<Campaign[]>();
-    const types: string[] = ['campaign'];
-    const q = searchQuery(value, null, null, 0, 20, types);
-
-    this.queryRequest(q, {failStrategy: FailStrategy.Soft}).subscribe(response => {
-      if (response instanceof CustomServerError) {
-        return;
-      }
-
-      const hits = this.parseSearchResults(response);
-
-      obs.next(hits.hit.map(hit => new Campaign({id: hit.id, name: hit.fields.name})));
-    });
-
-    return obs;
+    return this.searchByEntities(value, ['campaign']).map(hits =>
+      (hits.hit || []).map(hit => new Campaign({id: hit.id, name: hit.fields.name}))
+    )
   }
 
   searchSessions(value: string): Observable<Session[]> {
+    return this.searchByEntities(value, ['session']).map(hits =>
+      (hits.hit || []).map(hit =>
+        new Session({id: hit.id, alias: hit.fields.alias, created_at: hit.fields.created_at})
+      )
+    )
+  }
+
+  private searchByEntities(value: string, entities: string[]): Observable<any> {
     if (!value) return Observable.of([]);
 
-    const obs = new Subject<Session[]>();
-    const types: string[] = ['session'];
-    const q = searchQuery(value, null, null, 0, 20, types);
+    const obs = new Subject<any[]>();
+    const q = searchQuery(value, null, null, 0, 20, entities);
 
     this.queryRequest(q, {failStrategy: FailStrategy.Soft}).subscribe(response => {
       if (response instanceof CustomServerError) {
         return;
       }
 
-      const hits = this.parseSearchResults(response);
-
-      obs.next(hits.hit.map(hit => new Session({id: hit.id, alias: hit.fields.alias, created_at: hit.fields.created_at})));
+      obs.next(this.parseSearchResults(response) || []);
     });
 
     return obs;
