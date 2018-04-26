@@ -110,11 +110,11 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
   }
 
   markAllAsRead() {
-    return this.notificationsService.updateEntities(this.notifications.map(n => n.markAsRead()));
+    this.notificationsService.updateEntities(this.notifications.map(n => n.markAsRead()));
   }
 
   markAsUnread(notification: Notification) {
-    return notification.markAsUnread();
+    this.notificationsService.updateEntity(notification.markAsUnread());
   }
 
   goToLink() {}

@@ -127,7 +127,7 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
   }
 
   markAsUnread(notification: Notification) {
-    return this.notificationsService.updateEntity(notification.markAsUnread());
+    this.notificationsService.updateEntity(notification.markAsUnread());
   }
 
   goToLink() {}
@@ -137,7 +137,7 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
   markAllAsRead() {
     let notifications: Notification[] = allNotifications(this.notsByDate);
 
-    return this.notificationsService.updateEntities(notifications.map(n => n.markAsRead()));
+    this.notificationsService.updateEntities(notifications.map(n => n.markAsRead()));
   }
 
 }
