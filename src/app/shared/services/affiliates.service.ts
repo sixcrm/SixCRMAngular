@@ -23,6 +23,7 @@ export class AffiliatesService extends AbstractEntityService<Affiliate> {
       deleteAffiliatesMutation,
       createAffiliateMutation,
       updateAffiliateMutation,
+      null,
       'affiliate',
       snackBar
     );

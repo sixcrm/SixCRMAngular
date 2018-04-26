@@ -23,6 +23,7 @@ export class AccessKeysService extends AbstractEntityService<AccessKey> {
       deleteAccessKeysMutation,
       createAccessKeyMutation,
       updateAccessKeyMutation,
+      null,
       'accesskey',
       snackBar
     );

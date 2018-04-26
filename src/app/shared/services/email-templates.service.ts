@@ -28,6 +28,7 @@ export class EmailTemplatesService extends AbstractEntityService<EmailTemplate> 
       deleteEmailTemplatesMutation,
       createEmailTemplateMutation,
       updateEmailTemplateMutation,
+      null,
       'emailtemplate',
       snackBar
     )

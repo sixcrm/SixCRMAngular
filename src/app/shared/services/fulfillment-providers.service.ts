@@ -28,6 +28,7 @@ export class FulfillmentProvidersService extends AbstractEntityService<Fulfillme
       deleteFulfillmentProvidersMutation,
       createFulfillmentProviderMutation,
       updateFulfillmentProviderMutation,
+      null,
       'fulfillmentprovider',
       snackBar
     );

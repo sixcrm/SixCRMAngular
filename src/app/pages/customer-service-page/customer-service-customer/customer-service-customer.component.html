@@ -1,0 +1,53 @@
+<div class="customer-service-item">
+  <ng-container *ngIf="customer; else customerLoader">
+    <div class="header">
+      <div>{{customer.firstName}} {{customer.lastName}}</div>
+      <div>{{customer.phone}}</div>
+      <div>{{customer.email}}</div>
+    </div>
+
+    <div class="blue-tab-header">
+      <div class="blue-tab-header__item" [class.blue-tab-header__item--active]="selectedIndex === 0" (click)="setIndex(0)">GENERAL</div>
+      <div class="blue-tab-header__item" [class.blue-tab-header__item--active]="selectedIndex === 1" (click)="setIndex(1)">NOTES</div>
+    </div>
+
+    <mat-tab-group class="tab--no-header" [(selectedIndex)]="selectedIndex">
+
+      <mat-tab>
+        <div class="content">
+          <div class="info">
+            <div class="section">
+              <div>Contact</div>
+              <div>{{customer.phone}}</div>
+              <div>{{customer.email}}</div>
+            </div>
+
+            <div class="section">
+              <div>Payment</div>
+              <div *ngFor="let creditCard of customer.creditCards">
+                <div>{{creditCard.type}}</div>
+                <div>****{{creditCard.lastFour}}</div>
+              </div>
+            </div>
+
+            <div class="section">
+              <div>Shipping</div>
+              <div>{{customer.address.line1}}</div>
+              <div *ngIf="customer.address.line2">{{customer.address.line2}}</div>
+              <div>{{customer.address.city}}, {{customer.address.state}} {{customer.address.zip}}</div>
+            </div>
+          </div>
+
+          <div class="events"></div>
+        </div>
+      </mat-tab>
+
+      <mat-tab>
+        <div class="content"></div>
+      </mat-tab>
+
+    </mat-tab-group>
+  </ng-container>
+
+  <ng-template #customerLoader></ng-template>
+</div>

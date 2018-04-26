@@ -32,7 +32,7 @@
           <th></th>
         </thead>
         <tbody>
-          <tr *ngFor="let notification of notifications | filterStrings: filter: filterMapper" (click)="readNotification(notification)">
+          <tr *ngFor="let notification of notifications | filterEntitiesByField: 'type' : notificationType | filterStrings: filter: filterMapper" (click)="readNotification(notification)">
             <td><div *ngIf="!notification.readAt" class="circle"></div><mat-icon *ngIf="notification.readAt" class="circle-icon">done</mat-icon></td>
             <td>
               <mat-icon class="alert-flag" [class.unread]="!notification.readAt" *ngIf="notification.type == 'alert'">flag</mat-icon>
@@ -42,9 +42,9 @@
             <td>{{notification.category}}</td>
             <mat-icon [matMenuTriggerFor]="actionsMenu" class="notification-options">more_vert</mat-icon>
             <mat-menu #actionsMenu="matMenu" x-position="before">
-              <button mat-menu-item (click)="markAsUnread()">{{'NOTIFICATIONSSECTION_MARKASUNREAD' | translate}}</button>
-              <button mat-menu-item (click)="goToLink()">{{'NOTIFICATIONSSECTION_GOTOLINK' | translate}}</button>
-              <button mat-menu-item (click)="copyToClipboard()">{{'NOTIFICATIONSSECTION_COPYTOCLIPBOARD' | translate}}</button>
+              <button mat-menu-item (click)="markAsUnread(notification)">{{'NOTIFICATIONSSECTION_MARKASUNREAD' | translate}}</button>
+              <button mat-menu-item (click)="goToLink(notification)">{{'NOTIFICATIONSSECTION_GOTOLINK' | translate}}</button>
+              <button mat-menu-item (click)="copyToClipboard(notification)">{{'NOTIFICATIONSSECTION_COPYTOCLIPBOARD' | translate}}</button>
             </mat-menu>
           </tr>
         </tbody>

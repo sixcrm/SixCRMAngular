@@ -23,6 +23,7 @@ export class CampaignsService extends AbstractEntityService<Campaign> {
       deleteCampaignsMutation,
       createCampaignMutation,
       updateCampaignMutation,
+      null,
       'campaign',
       snackBar
     );

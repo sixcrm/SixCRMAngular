@@ -33,3 +33,33 @@ mat-tab-body {
 .mat-tab-body-wrapper {
   overflow: visible !important;
 }
+
+.blue-tab-header {
+  display: flex;
+  padding-bottom: 4px;
+  box-sizing: border-box;
+  align-items: center;
+  height: 36px;
+  line-height: 36px;
+
+  &__item {
+    margin-right: 25px;
+    color: rgba(255,255,255,0.85);
+    vertical-align: middle;
+    border-bottom: 4px solid rgba(0,0,0,0);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+
+    &--active {
+      color: white;
+      border-color: #09AEFC;
+    }
+  }
+}
+
+.tab--no-header {
+  mat-tab-header {
+    display: none;
+  }
+}

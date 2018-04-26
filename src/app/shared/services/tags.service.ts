@@ -23,6 +23,7 @@ export class TagsService extends AbstractEntityService<Tag>{
       deleteTagsMutation,
       createTagMutation,
       updateTagMutation,
+      null,
       'tag',
       snackBar
     );

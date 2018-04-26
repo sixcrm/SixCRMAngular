@@ -23,6 +23,7 @@ export class RolesService extends AbstractEntityService<Role>{
       deleteRolesMutation,
       createRoleMutation,
       updateRoleMutation,
+      null,
       'role',
       snackBar
     );

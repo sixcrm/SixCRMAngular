@@ -23,6 +23,7 @@ export class MerchantProviderGroupsService extends AbstractEntityService<Merchan
       deleteMerchantProviderGroupsMutation,
       createMerchantProviderGroupMutation,
       updateMerchantProviderGroupMutation,
+      null,
       'merchantprovidergroup',
       snackBar
     );

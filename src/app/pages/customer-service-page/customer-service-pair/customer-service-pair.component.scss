@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  min-height: calc(100vh - 70px);
+  padding: 25px;
+  box-sizing: border-box;
+  background: #38639A;
+}
+
+.item {
+  width: 50%;
+  background: #4478BE;
+  border-radius: 3px;
+
+  &:first-of-type {
+    margin-right: 25px;
+  }
+}

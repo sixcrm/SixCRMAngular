@@ -23,6 +23,7 @@ export class AccountsService extends AbstractEntityService<Account> {
       deleteAccountsMutation,
       createAccountMutation,
       updateAccountMutation,
+      null,
       'account',
       snackBar
     );

@@ -1,0 +1,57 @@
+.customer-service-item {
+  min-height: 100%;
+  overflow: hidden;
+
+  .header {
+    padding: 45px 15px;
+    color: rgba(255,255,255,0.85);
+
+    div {
+      font-size: 14px;
+      margin-top: 10px;
+
+      &:first-of-type {
+        margin-top: 0;
+        font-size: 28px;
+        color: white;
+      }
+    }
+  }
+
+  .blue-tab-header {
+    margin: 0 15px;
+  }
+
+  .content {
+    display: flex;
+    background: #F5F5F5;
+    font-size: 12px;
+    padding: 15px;
+
+    .info {
+      padding: 15px;
+      box-shadow: 0 0 3px rgba(0,0,0,0.3);
+      border-radius: 3px;
+      background: white;
+      color: black;
+
+      .section {
+        div {
+          margin-bottom: 5px;
+
+          &:first-of-type {
+            color: rgba(0,0,0,0.4);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+          }
+
+          &:last-of-type {
+            margin-bottom: 25px;
+          }
+        }
+
+      }
+    }
+  }
+}

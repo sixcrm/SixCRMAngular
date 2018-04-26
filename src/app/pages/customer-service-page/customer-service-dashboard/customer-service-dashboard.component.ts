@@ -8,11 +8,11 @@ import {Session} from '../../../shared/models/session.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 
 @Component({
-  selector: 'customer-service',
-  templateUrl: './customer-service.component.html',
-  styleUrls: ['./customer-service.component.scss']
+  selector: 'customer-service-dashboard',
+  templateUrl: './customer-service-dashboard.component.html',
+  styleUrls: ['./customer-service-dashboard.component.scss']
 })
-export class CustomerServiceComponent implements OnInit {
+export class CustomerServiceDashboardComponent implements OnInit {
 
   focusedItem: number;
 
@@ -77,12 +77,12 @@ export class CustomerServiceComponent implements OnInit {
 
   navigateToCustomer(event) {
     this.preventSearch = true;
-    this.router.navigate(['/customers', event.option.value])
+    this.router.navigate(['/customer-service', 'pair'], {queryParams: {customer: event.option.value}})
   }
 
   navigateToSession(event) {
     this.preventSearch = true;
-    this.router.navigate(['/sessions', event.option.value])
+    this.router.navigate(['/customer-service', 'pair'], {queryParams: {session: event.option.value}})
   }
 
   searchKeyDown(event, input, filter) {

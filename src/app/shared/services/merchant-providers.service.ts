@@ -24,6 +24,7 @@ export class MerchantProvidersService extends AbstractEntityService<MerchantProv
       deleteMerchantProvidersMutation,
       createMerchantProviderMutation,
       updateMerchantProviderMutation,
+      null,
       'merchantprovider',
       snackBar
     );

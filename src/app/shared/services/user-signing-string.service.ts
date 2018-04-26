@@ -25,6 +25,7 @@ export class UserSigningStringsService extends AbstractEntityService<UserSigning
       deleteUserSigningStringsMutation,
       createUserSigningStringMutation,
       updateUserSigningStringMutation,
+      null,
       'user',
       snackBar
     );

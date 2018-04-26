@@ -31,6 +31,7 @@ export abstract class AbstractEntityService<T> {
     public deleteManyQuery: (id: string[]) => string,
     public createQuery: (entity: T) => string,
     public updateQuery: (entity: T) => string,
+    public updateManyQuery: (entities: T[]) => string,
     public accessRole: string,
     public snackBar: MatSnackBar
   ) {
@@ -160,6 +161,27 @@ export abstract class AbstractEntityService<T> {
       }
 
       this.entityUpdated$.next(this.toEntity(entityData));
+    });
+  }
+
+  updateEntities(entities: T[]): void {
+    if (!this.hasWritePermission() || !this.updateManyQuery) {
+      return;
+    }
+
+    this.queryRequest(this.updateManyQuery(entities)).subscribe(data => {
+      if (data instanceof CustomServerError) {
+        this.entityUpdated$.next(data);
+        return;
+      }
+
+      const json = extractData(data);
+
+      Object.keys(json).forEach(key => {
+        this.entityUpdated$.next(this.toEntity(json[key]));
+      });
+
+      this.openSnackBar('SNACK_UPDATED');
     });
   }
 

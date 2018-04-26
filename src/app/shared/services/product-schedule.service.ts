@@ -24,6 +24,7 @@ export class ProductScheduleService extends AbstractEntityService<ProductSchedul
       deleteProductSchedulesMutation,
       createProductScheduleMutation,
       updateProductScheduleMutation,
+      null,
       'productschedule',
       snackBar
     )

@@ -52,6 +52,18 @@ export class Notification implements Entity<Notification> {
       updatedAt: this.updatedAtAPI
     }
   }
+
+  markAsRead() {
+    this.readAt = utc().format();
+
+    return this;
+  }
+
+  markAsUnread() {
+    this.readAt = null;
+
+    return this;
+  }
 }
 
 export function compareNotifications(f: Notification, s: Notification): number {

@@ -23,6 +23,7 @@ export class EntityAclsService extends AbstractEntityService<EntityAcl>{
       deleteEntityAclsMutation,
       createEntityAclMutation,
       updateEntityAclMutation,
+      null,
       'entityacl',
       snackBar
     );

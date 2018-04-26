@@ -20,6 +20,7 @@ export class EventHooksSharedService extends AbstractEntityService<EventHook> {
       null,
       createEventHookMutation,
       null,
+      null,
       'eventhook',
       snackBar
     );

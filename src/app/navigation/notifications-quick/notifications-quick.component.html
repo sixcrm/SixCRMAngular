@@ -2,7 +2,7 @@
   <div class="notifications-list__topnav">
     <span (click)="navigateAllNotifications()">{{'NOTIFICATIONSQUICK_VIEWALL' | translate}}</span>
     <div class="notifications-list__topnav__options">
-    <span>{{'NOTIFICATIONSQUICK_MARKALLASREAD' | translate}}</span>
+    <span (click)="markAllAsRead()">{{'NOTIFICATIONSQUICK_MARKALLASREAD' | translate}}</span>
     </div>
     <div class="notifications-list__topnav__options">
       <mat-icon (click)="navigateToSettings()">settings</mat-icon>
@@ -48,9 +48,12 @@
               </div>
               <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
               <mat-menu #actionsMenu="matMenu" x-position="before">
-                <button mat-menu-item (click)="markAsUnread()">{{'NOTIFICATIONSSECTION_MARKASUNREAD' | translate}}</button>
-                <button mat-menu-item (click)="goToLink()">{{'NOTIFICATIONSSECTION_GOTOLINK' | translate}}</button>
-                <button mat-menu-item (click)="copyToClipboard()">{{'NOTIFICATIONSSECTION_COPYTOCLIPBOARD' | translate}}</button>
+                <button mat-menu-item class="notifications-list__content_notification_menu_item_markasunread"
+                        (click)="markAsUnread(notification)">{{'NOTIFICATIONSQUICK_MARKASUNREAD' | translate}}</button>
+                <button mat-menu-item class="notifications-list__content_notification_menu_item"
+                        (click)="goToLink(notification)">{{'NOTIFICATIONSQUICK_GOTOLINK' | translate}}</button>
+                <button mat-menu-item class="notifications-list__content_notification_menu_item"
+                        (click)="copyToClipboard(notification)">{{'NOTIFICATIONSQUICK_COPYTOCLIPBOARD' | translate}}</button>
               </mat-menu>
             </div>
           </div>

@@ -23,6 +23,7 @@ export class CustomerNotesService extends AbstractEntityService<CustomerNote> {
       deleteCustomerNotesMutation,
       createCustomerNoteMutation,
       null,
+      null,
       'customer',
       snackBar
     );

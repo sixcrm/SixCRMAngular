@@ -3,7 +3,11 @@ import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Notification} from './../models/notification.model'
 import {HttpWrapperService} from './http-wrapper.service';
-import {notificationsListQuery, updateNotificationMutation} from '../utils/queries/entities/notification.queries';
+import {
+  notificationsListQuery,
+  updateManyNotificationsMutationQuery,
+  updateNotificationMutation
+} from '../utils/queries/entities/notification.queries';
 import {TranslationService} from '../../translation/translation.service';
 import {MatSnackBar} from '@angular/material';
 
@@ -26,6 +30,7 @@ export class NotificationsService extends AbstractEntityService<Notification> {
       null,
       null,
       updateNotificationMutation,
+      updateManyNotificationsMutationQuery,
       'default',
       snackBar
     );
