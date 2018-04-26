@@ -267,7 +267,7 @@ export class AuthenticationService {
     this.setActiveAcl(acl);
 
     if (acl.role.name === 'Customer Service') {
-      this.router.navigateByUrl('/customer-service-dashboard');
+      this.router.navigateByUrl('/customer-service');
     } else if (acl.role.name === 'Owner' && acl.termsAndConditionsOutdated) {
       this.router.navigateByUrl('/terms-and-conditions');
     } else {
@@ -417,7 +417,7 @@ export class AuthenticationService {
     }
 
     if (this.shouldRedirectToDashboard()) {
-      this.router.navigateByUrl(this.isActiveAclCustomerService() ? '/customer-service-dashboard' : '/dashboard');
+      this.router.navigateByUrl(this.isActiveAclCustomerService() ? '/customer-service' : '/dashboard');
     }
   }
 
