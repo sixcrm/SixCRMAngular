@@ -1,12 +1,12 @@
 <div class="entity-view">
   <div class="entity-view__title entity-view__title--blue">
-    {{'NOTIFICATIONS_TITLE' | translate}}
+    <div class="entity-view__title__heading">
+      <div>{{'NOTIFICATIONS_TITLE' | translate}}</div>
+      <div>{{'NOTIFICATIONS_UNREAD' | translate}}</div>
+    </div>
     <div class="notification-title-icon">
       <mat-icon>notifications</mat-icon>
     </div>
-  </div>
-  <div class="entity-view__navigation entity-view__navigation--blue">
-    <span class="entity-view__navigation__label" [class.entity-view__navigation__label--active]="selectedIndex===0" (click)="setIndex(0)">{{'NOTIFICATIONS_TAB_NOTIFICATIONS' | translate}}</span>
   </div>
 
   <div class="entity-view__body">

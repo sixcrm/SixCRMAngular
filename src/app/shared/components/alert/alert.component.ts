@@ -13,6 +13,7 @@ export class AlertComponent implements OnInit {
   @Input() alert: Notification;
   @Input() enableClear: boolean = true;
   @Input() enableView: boolean = true;
+  @Input() inList: boolean = false;
   @Output() clear: EventEmitter<Notification> = new EventEmitter();
   @Output() view: EventEmitter<Notification> = new EventEmitter();
 
@@ -34,4 +35,9 @@ export class AlertComponent implements OnInit {
     return this.timeService.format(this.alert.createdAt, 'date-time', true, true);
   }
 
+  markAsUnread() {}
+
+  goToLink() {}
+
+  copyToClipboard() {}
 }

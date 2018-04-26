@@ -128,7 +128,6 @@ export class TopnavComponent implements OnInit {
 
   search(): void {
     this.router.navigate(['/search'], {queryParams: {query: this.searchTerm}});
-    this.searchTerm = '';
     this.showAutoComplete = false;
   };
 

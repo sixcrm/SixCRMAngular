@@ -1,6 +1,6 @@
 <div class="notifications-list">
   <div class="notifications-list__topnav">
-    <span>{{'NOTIFICATIONSQUICK_VIEWALL' | translate}}</span>
+    <span (click)="navigateAllNotifications()">{{'NOTIFICATIONSQUICK_VIEWALL' | translate}}</span>
     <div class="notifications-list__topnav__options">
     <span>{{'NOTIFICATIONSQUICK_MARKALLASREAD' | translate}}</span>
     </div>
@@ -20,7 +20,8 @@
         <alert-component class="notifications-list__content__alert"
                          *ngFor="let alert of alerts"
                          (clear)="readNotification($event)"
-                         [alert]="alert">
+                         [alert]="alert"
+                         [inList]="true">
         </alert-component>
       </ng-container>
 
@@ -30,7 +31,7 @@
           <div class="notifications-list__content__title">{{notificationsByDate.label | translate}}</div>
 
           <div *ngFor="let notification of notificationsByDate.entities">
-            <div class="notifications-list__content__notification" (click)="readNotification(notification)">
+            <div class="notifications-list__content__notification" [class.unread]="!notification.readAt" (click)="readNotification(notification)">
               <div class="notifications-list__content__notification__read">
                 <div [class.unread]="!notification.readAt"></div>
               </div>
@@ -45,7 +46,12 @@
                 <div class="title">{{notification.title}}</div>
                 <div class="body">{{notification.body}}</div>
               </div>
-              <mat-icon>more_vert</mat-icon>
+              <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+              <mat-menu #actionsMenu="matMenu" x-position="before">
+                <button mat-menu-item (click)="markAsUnread()">{{'NOTIFICATIONSSECTION_MARKASUNREAD' | translate}}</button>
+                <button mat-menu-item (click)="goToLink()">{{'NOTIFICATIONSSECTION_GOTOLINK' | translate}}</button>
+                <button mat-menu-item (click)="copyToClipboard()">{{'NOTIFICATIONSSECTION_COPYTOCLIPBOARD' | translate}}</button>
+              </mat-menu>
             </div>
           </div>
         </div>
@@ -58,9 +64,5 @@
   <ng-template #loader>
     <table-loader [rowMarginVertical]="30" [rowHeight]="45" [numberOfRows]="12"></table-loader>
   </ng-template>
-
-  <div class="notifications-list__view-all">
-    <span (click)="navigateAllNotifications()">{{'NOTIFICATIONSQUICK_VIEWALL' | translate}}</span>
-  </div>
 
 </div>

@@ -1,6 +1,4 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'notifications',
@@ -9,28 +7,11 @@ import {Subscription} from 'rxjs';
 })
 export class NotificationsComponent implements OnInit, OnDestroy {
 
-  selectedIndex: number = 0;
-  private sub: Subscription;
-
-  constructor(private route: ActivatedRoute) { }
+  constructor() { }
 
   ngOnInit() {
-    this.sub = this.route.queryParams.subscribe(params => {
-      const view = params['view'];
-
-      if (view === 'alerts') {
-        this.selectedIndex = 1;
-      }
-    })
   }
 
   ngOnDestroy() {
-    if (this.sub) {
-      this.sub.unsubscribe();
-    }
-  }
-
-  setIndex(value: number): void {
-    this.selectedIndex = value;
   }
 }

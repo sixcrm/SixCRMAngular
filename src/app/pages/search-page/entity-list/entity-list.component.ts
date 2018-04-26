@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {utc, tz} from 'moment-timezone';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'entity-list',
@@ -12,8 +11,11 @@ export class EntityListComponent implements OnInit {
 
   @Input() query: string;
   @Input() data: any[] = [];
+  @Input() selectedEntity: any;
 
-  constructor(private authService: AuthenticationService, private router: Router) { }
+  @Output() select: EventEmitter<any> = new EventEmitter();
+
+  constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
   }
@@ -35,7 +37,7 @@ export class EntityListComponent implements OnInit {
     }
   }
 
-  navigateToEntity(entity): void {
-    this.router.navigate([`/${entity.fields.entity_type}s`, entity.id]);
+  selectEntity(entity): void {
+    this.select.emit(entity);
   }
 }

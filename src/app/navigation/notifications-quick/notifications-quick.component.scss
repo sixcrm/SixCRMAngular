@@ -2,9 +2,19 @@
 
   mat-icon {
     color: dimgrey;
+    cursor: pointer;
+  }
+
+  &__topnav {
+    span {
+      color: dimgrey;
+      cursor: pointer;
+    }
   }
 
   &__content {
+
+    overflow-x: hidden;
 
     &__notification {
 
@@ -18,7 +28,7 @@
         }
 
         .unread {
-          background-color: #049AE4;
+          background-color: #049AE4 !important;
           border-radius: 50%;
           border: 1px solid #049AE4
         }
@@ -58,6 +68,15 @@
           }
         }
       }
+
+      mat-icon {
+        margin-top: 8px;
+      }
+    }
+
+    .unread {
+      background-color: #EDFFFF;
+      margin-left: 4px;
     }
 
   }

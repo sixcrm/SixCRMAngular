@@ -1,14 +1,18 @@
 <div class="perfect-match">
 
+  <div class="perfect-match__title">
+    <mat-icon (click)="hidePerfectMatch.emit(true)">keyboard_arrow_right</mat-icon>
+    <div>{{'SEARCH_PERFECT_PREVIEW' | translate}}</div>
+  </div>
+
   <div *ngIf="entity">
     <div class="perfect-match__header">
-      <img src="{{imageSrc()}}">
       <div class="perfect-match__header__title">
-        <div class="perfect-match__header__title__main">{{getName()}}</div>
-        <div class="perfect-match__header__title__sub">{{(entity.fields.entity_type + '_TITLE') | translate}}</div>
+        <div class="main">{{getName()}}</div>
+        <div class="sub">{{'SEARCH_PERFECT_CREATED' | translate}} {{utcf(entity.fields.created_at).tz(authService.getTimezone()).format('MMMM D, YYYY') }}</div>
       </div>
-      <div class="perfect-match__header__buttons">
-        <mat-icon (click)="navigateToEntity()">open_in_new</mat-icon>
+      <div class="perfect-match__header__view">
+        <button mat-button (click)="navigateToEntity()">{{'SEARCH_PERFECT_VIEW' | translate}}</button>
       </div>
     </div>
 
@@ -21,9 +25,5 @@
     <perfect-merchant-provider *ngIf="entity.fields.entity_type === 'merchantprovider'" [id]="entity.id"></perfect-merchant-provider>
     <perfect-credit-card *ngIf="entity.fields.entity_type === 'creditcard'" [id]="entity.id"></perfect-credit-card>
     <perfect-affiliate *ngIf="entity.fields.entity_type === 'affiliate'" [id]="entity.id"></perfect-affiliate>
-
-    <div (click)="navigateToEntity()" class="perfect-match__view-more">
-      {{'SEARCH_PERFECT_VIEW' | translate}} {{(entity.fields.entity_type + '_TITLE') | translate}}
-    </div>
   </div>
 </div>

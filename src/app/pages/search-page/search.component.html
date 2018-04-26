@@ -1,17 +1,14 @@
 <div class="search">
   <div class="search__layout">
-    <div class="search__sidenav">
+    <div class="search__sidenav" [class.search__sidenav--visible]="showFilters" [class.search__sidenav--no-overflow]="datepickerVisible">
+      <div class="search__sidenav__header">
+        <span>{{'SEARCH_REFINED' | translate}}</span>
+        <mat-icon (click)="showFilters = false">keyboard_arrow_left</mat-icon>
+      </div>
       <mat-nav-list>
-        <div class="search__sidenav__query__container">
-          <mat-input-container>
-            <input matInput (focus)="showAutoComplete()" [value]="queryString" (input)="quickSearchInputChanged($event)" (keydown)="quickSearchKeyDown($event)" (blur)="hideAutoComplete()">
-            <mat-icon class="search__sidenav__query__icon" matPrefix (click)="quickSearch()">search</mat-icon>
-          </mat-input-container>
-          <autocomplete #autocomplete *ngIf="showAutocomplete && autocompleteOptions.length > 0" (select)="suggestionSelected($event)" [options]="autocompleteOptions"></autocomplete>
-        </div>
-        <div class="search__sidenav__button--advanced" (click)="toggleAdvancedSearch()"><span>{{'SEARCH_ADVANCED_TOGGLE' | translate}}</span> <mat-icon>{{showAdvancedSearch ? 'keyboard_arrow_left' : 'keyboard_arrow_right'}}</mat-icon></div>
+        <button mat-button class="search__sidenav__reset" (click)="resetSearch()">{{'SEARCH_RESET' | translate}}</button>
 
-        <mat-input-container>
+        <mat-input-container [floatLabel]="'never'">
           <input matInput placeholder="{{'SEARCH_FILTER' | translate}}" [(ngModel)]="filterValue">
         </mat-input-container>
 
@@ -27,8 +24,6 @@
           </ng-container>
         </div>
 
-        <div class="search__sidenav__title">{{'SEARCH_REFINED' | translate}}</div>
-
         <div *ngIf="facets.length !== 0" class="search__sidenav__subtitle">{{'SEARCH_CATEGORY' | translate}}</div>
 
         <ng-container *ngFor="let facet of facets">
@@ -39,28 +34,27 @@
         </ng-container>
 
         <div class="search__sidenav__subtitle">{{'SEARCH_DATE_RANGE' | translate}}</div>
-        <mat-checkbox (change)="dateCheckboxClicked()" [(ngModel)]="applyDateFilter" class="search__sidenav__item search__sidenav__item--date">
-          <span class="search__sidenav__item__name"> {{'SEARCH_DATE_TOGGLE' | translate}} </span>
-        </mat-checkbox>
-        <div class="datepicker--custom" [class.datepicker-visible]="datepickerVisible">
-          <div (showDaterangepicker)="datepickerShown()" (hideDaterangepicker)="datepickerHidden()" (selected)="dateSelected($event)" daterangepicker>
-            <span class="datepicker--custom__input" name="daterange" >  {{ startDate.format('MM/DD/YYYY').substring(0,10) }} <span>{{'SEARCH_DATE_TO' | translate}}</span> {{ endDate.format('MM/DD/YYYY').substring(0, 10) }} <mat-icon>keyboard_arrow_down</mat-icon> </span>
+        <div class="search__sidenav__date">
+          <mat-checkbox (change)="dateCheckboxClicked()" [(ngModel)]="applyDateFilter" class="search__sidenav__item search__sidenav__item--date">
+          </mat-checkbox><div class="datepicker--custom" [class.datepicker-visible]="datepickerVisible">
+            <div (showDaterangepicker)="datepickerShown()" (hideDaterangepicker)="datepickerHidden()" (selected)="dateSelected($event)" daterangepicker>
+              <span class="datepicker--custom__input" name="daterange" >  {{ startDate.format('MM/DD/YYYY').substring(0,10) }} <span>{{'SEARCH_DATE_TO' | translate}}</span> {{ endDate.format('MM/DD/YYYY').substring(0, 10) }} <mat-icon>keyboard_arrow_down</mat-icon> </span>
+            </div>
           </div>
         </div>
-
-        <div class="search__sidenav__reset" (click)="resetSearch(advancedSearch)">{{'SEARCH_RESET' | translate}}</div>
       </mat-nav-list>
     </div>
 
     <div class="search__content">
-      <advanced-search #advancedSearch [active]="showAdvancedSearch"></advanced-search>
-
-      <ng-container *ngIf="searchResultsToDisplay.length > 0 || fetchingData; else noresults">
-        <div *ngIf="cardMode; else table" class="search__content__results__container">
+      <ng-container>
+        <div class="search__content__results__container">
           <div class="search__content__results__cards">
             <div class="header">
+              <mat-icon class="filters" [class.filters--active]="showFilters" (click)="showFilters = !showFilters">details</mat-icon>
+
               <span>{{'SEARCH_RESULTS' | translate}}
-                <span *ngIf="numberOfSearchResults && numberOfSearchResults > 0">({{numberOfSearchResults | numberlocale}})</span>
+                <span>({{numberOfSearchResults | numberlocale}})</span>
+                <span *ngIf="queryString">for "{{queryString}}"</span>
               </span>
 
               <div class="options">
@@ -84,48 +78,38 @@
               </div>
 
             </div>
-            <entity-list *ngIf="searchResultsToDisplay.length > 0 && !fetchingData" [data]="searchResultsToDisplay | filterSearchResults: filterValue" [query]="queryString"></entity-list>
-            <div class="search__content__results__cards__spinner" *ngIf="searchResultsToDisplay.length === 0 && fetchingData">
-              <search-loader></search-loader>
-            </div>
-            <div class="search__content__results__cards__footer">
-              <table-pagination
-                class="search__content__results__cards__pagination"
-                [limit]="limit"
-                [paginationString]="paginationString()"
-                [paginationValues]="paginationValues"
-                [previousDisabled]="page <= 0"
-                [nextDisabled]="!hasMorePages()"
-                (previous)="previousPage()"
-                (next)="nextPage()"
-                (updateLimit)="updateLimit($event)">
-              </table-pagination>
-            </div>
+
+            <ng-container *ngIf="searchResultsToDisplay.length > 0 || fetchingData; else noresults">
+              <entity-list *ngIf="searchResultsToDisplay.length > 0 && !fetchingData"
+                           [data]="searchResultsToDisplay | filterSearchResults: filterValue"
+                           [query]="queryString"
+                           [selectedEntity]="selectedEntity"
+                           (select)="entitySelected($event)">
+              </entity-list>
+              <div class="search__content__results__cards__spinner" *ngIf="searchResultsToDisplay.length === 0 && fetchingData">
+                <search-loader></search-loader>
+              </div>
+              <div class="search__content__results__cards__footer">
+                <table-pagination
+                  class="search__content__results__cards__pagination"
+                  [limit]="limit"
+                  [paginationString]="paginationString()"
+                  [paginationValues]="paginationValues"
+                  [previousDisabled]="page <= 0"
+                  [nextDisabled]="!hasMorePages()"
+                  (previous)="previousPage()"
+                  (next)="nextPage()"
+                  (updateLimit)="updateLimit($event)">
+                </table-pagination>
+              </div>
+            </ng-container>
           </div>
 
-          <div class="search__content__results__perfect-match" [class.search__content__results__perfect-match--visible]="showDetails">
-            <perfect-match *ngIf="searchResults" [entity]="searchResults[0]"></perfect-match>
+          <div class="search__content__results__perfect-match" [class.search__content__results__perfect-match--visible]="showDetails && selectedEntity">
+            <perfect-match *ngIf="searchResults" [entity]="selectedEntity" (hidePerfectMatch)="showDetails = false"></perfect-match>
           </div>
         </div>
 
-        <ng-template #table>
-          <div class="search__content__results">
-            <result-item *ngFor="let res of searchResultsToDisplay | filterSearchResults: filterValue" [fields]="res.fields" [id]="res.id" [entityType]="res.fields.entity_type" [queryString]="queryString" (showDetails)="showResultDetails($event)"></result-item>
-          </div>
-
-          <table-pagination
-            *ngIf="searchResultsToDisplay.length > 0"
-            class="search__content__pagination--bottom"
-            [limit]="limit"
-            [paginationString]="paginationString()"
-            [paginationValues]="paginationValues"
-            [previousDisabled]="page <= 0"
-            [nextDisabled]="!hasMorePages()"
-            (previous)="previousPage()"
-            (next)="nextPage()"
-            (updateLimit)="updateLimit($event)">
-          </table-pagination>
-        </ng-template>
       </ng-container>
 
       <ng-template #noresults>

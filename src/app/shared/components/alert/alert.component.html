@@ -3,24 +3,30 @@
 
     <div>
       <div class="header">
-        <mat-icon>flag</mat-icon>
+        <mat-icon [class.unread]="!alert.readAt" [class.flag-icon--in-list]="inList">flag</mat-icon>
         <div class="category">{{alert.category}}</div>
         <div class="divider"></div>
         <div class="time">{{ calculateTime() }}</div>
+        <mat-icon [matMenuTriggerFor]="actionsMenu"  class="notification-options" *ngIf="inList">more_vert</mat-icon>
+        <mat-menu #actionsMenu="matMenu" x-position="before">
+          <button mat-menu-item (click)="markAsUnread()">{{'NOTIFICATIONSSECTION_MARKASUNREAD' | translate}}</button>
+          <button mat-menu-item (click)="goToLink()">{{'NOTIFICATIONSSECTION_GOTOLINK' | translate}}</button>
+          <button mat-menu-item (click)="copyToClipboard()">{{'NOTIFICATIONSSECTION_COPYTOCLIPBOARD' | translate}}</button>
+        </mat-menu>
       </div>
 
-      <div class="title">
+      <div class="title" [class.title--in-list]="inList">
         {{alert.title}}
       </div>
 
-      <div class="body">
+      <div class="body" [class.body--in-list]="inList">
         {{alert.body}}
       </div>
     </div>
 
   </div>
 
-  <div class="notifications__alert__actions">
-    <div class="dismiss" *ngIf="enableClear" (click)="clearAlert()">{{'NOTIFICATIONSQUICK_DISMISS' | translate}}</div>
+  <div class="notifications__alert__actions"  [class.actions--in-list]="inList">
+    <div class="dismiss" [class.dismiss--in-list]="inList" *ngIf="enableClear" (click)="clearAlert()">{{'NOTIFICATIONSQUICK_DISMISS' | translate}}</div>
   </div>
 </div>
