@@ -7,8 +7,8 @@
         <div class="category">{{alert.category}}</div>
         <div class="divider"></div>
         <div class="time">{{ calculateTime() }}</div>
-        <mat-icon class="notification-options" *ngIf="inList">more_vert</mat-icon>
-        <mat-menu [matMenuTriggerFor]="actionsMenu" #actionsMenu="matMenu" x-position="before">
+        <mat-icon [matMenuTriggerFor]="actionsMenu"  class="notification-options" *ngIf="inList">more_vert</mat-icon>
+        <mat-menu #actionsMenu="matMenu" x-position="before">
           <button mat-menu-item (click)="markAsUnread()">{{'NOTIFICATIONSSECTION_MARKASUNREAD' | translate}}</button>
           <button mat-menu-item (click)="goToLink()">{{'NOTIFICATIONSSECTION_GOTOLINK' | translate}}</button>
           <button mat-menu-item (click)="copyToClipboard()">{{'NOTIFICATIONSSECTION_COPYTOCLIPBOARD' | translate}}</button>
