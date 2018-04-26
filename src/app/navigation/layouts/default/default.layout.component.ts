@@ -4,6 +4,7 @@ import {HttpWrapperService} from '../../../shared/services/http-wrapper.service'
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {MatSidenav} from '@angular/material';
 import {PersistentNotificationsQuickComponent} from '../../persistent-notifications-quick/persistent-notifications-quick.component';
+import {Subscription, Observable} from 'rxjs';
 
 @Component({
   templateUrl : './default.layout.component.html',
@@ -18,6 +19,7 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
 
   isHovering: boolean = false;
   showOnHover: boolean = false;
+  subscription: Subscription;
 
   constructor(
     public navigation: NavigationService,
@@ -48,12 +50,24 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
     });
   }
 
-  hover(value: boolean): void {
-    this.isHovering = value;
+  hover(hovering: boolean): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+
+    if (!hovering) {
+      this.updateHoverState(false);
+    } else {
+      this.subscription = Observable.of(true).delay(250).subscribe(() => this.updateHoverState(true))
+    }
+  }
+
+  private updateHoverState(hovering: boolean) {
+    this.isHovering = hovering;
 
     setTimeout(() => {
       this.showOnHover = !!(!this.showSidenav && this.isHovering);
-    }, 50)
+    }, 1)
   }
 
 }

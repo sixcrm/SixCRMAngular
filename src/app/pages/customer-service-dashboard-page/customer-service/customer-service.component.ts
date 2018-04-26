@@ -24,6 +24,7 @@ export class CustomerServiceComponent implements OnInit {
 
   sessionDebouncer: Subject<string> = new Subject();
   sessionSub: Subscription;
+  preventSearch: boolean;
 
   constructor(
     public navigationService: NavigationService,
@@ -75,10 +76,20 @@ export class CustomerServiceComponent implements OnInit {
   }
 
   navigateToCustomer(event) {
+    this.preventSearch = true;
     this.router.navigate(['/customers', event.option.value])
   }
 
   navigateToSession(event) {
+    this.preventSearch = true;
     this.router.navigate(['/sessions', event.option.value])
+  }
+
+  searchKeyDown(event, input, filter) {
+    if (event.key === 'Enter' && !this.preventSearch) {
+      this.router.navigate(['/search'], {queryParams: {query: input.value, filters: filter}})
+    } else {
+      this.preventSearch = false;
+    }
   }
 }

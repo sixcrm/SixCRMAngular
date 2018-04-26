@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {SearchService} from '../../shared/services/search.service';
 import {Subscription, Subject} from 'rxjs';
 import {PaginationService} from '../../shared/services/pagination.service';
@@ -7,9 +7,7 @@ import {utc, Moment} from 'moment';
 import {DaterangepickerConfig} from 'ng2-daterangepicker';
 import {NavigationService} from '../../navigation/navigation.service';
 import {environment} from '../../../environments/environment';
-import {AdvancedSearchComponent} from './advanced-search/advanced-search.component';
 import {firstIndexOf} from '../../shared/utils/array.utils';
-import {AuthenticationService} from '../../authentication/authentication.service';
 import {AutocompleteComponent} from '../../shared/components/autocomplete/autocomplete.component';
 import {getMonths, getDays} from '../../shared/utils/date.utils';
 import {TranslationService} from '../../translation/translation.service';
@@ -28,32 +26,21 @@ export interface FacetCount {
 export class SearchComponent implements OnInit, OnDestroy {
   @ViewChild('autocomplete') autocomplete: AutocompleteComponent;
 
-  // quick search string
   queryString: string;
-
-  // advanced search options
   queryOptions: any[] = [];
 
-  // should advanced search or quick search be performed
   isAdvancedSearch: boolean;
-
-  showAdvancedSearch: boolean;
 
   currentRoute: string;
   paramsSub: Subscription;
 
-  // should show quick search auto-complete
-  showAutocomplete: boolean = false;
-  autocompleteOptions: string[] = [];
-
-  // pagination limit
   limit: number;
   paginationValues: number[] = [5, 10, 25, 50, 75, 100];
   page: number = 0;
 
   searchResults: any[] = [];
   searchResultsToDisplay: any[] = [];
-  numberOfSearchResults: number = 0;
+  numberOfSearchResults: number;
 
   facets: FacetCount[] = [];
   createdAtRange: string;
@@ -83,10 +70,12 @@ export class SearchComponent implements OnInit, OnDestroy {
   searchPerformed: boolean = false;
 
   showDetails: boolean = true;
+  showFilters: boolean = true;
+
+  selectedEntity: any;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private searchService: SearchService,
     private paginationService: PaginationService,
     private daterangepickerOptions: DaterangepickerConfig,
@@ -106,7 +95,6 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     this.paramsSub = this.route.queryParams.subscribe(params => {
       this.queryOptions = [];
-      this.showAdvancedSearch = !params['advanced'] && !params['query'];
       this.parseShareParams(params);
 
       if (params['advanced']) {
@@ -130,11 +118,10 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.searchService.searchResults$.subscribe(data => {
       this.fetchingData = false;
       this.searchResults = [...this.searchResults, ...data.hit];
+      this.selectedEntity = this.searchResults[0];
       this.numberOfSearchResults = data.found;
       this.reshuffleSearchResults();
     });
-
-    this.searchService.suggestionResults$.subscribe(data => this.autocompleteOptions = data);
 
     this.searchService.facets$.subscribe(data => {
       let temp: FacetCount[] = this.facets.filter(f => f.checked).map(f => { return {name: f.name, count: 0, checked: true} });
@@ -196,9 +183,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   setDatepickerOptions(): void {
-
     this.updateDatepicker();
-
   }
 
   updateDatepicker(): void {
@@ -259,67 +244,12 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
   }
 
-  quickSearch(): void {
-    this.showAutocomplete = false;
-
-    if (this.queryString === this.currentRoute) {
-      this.search();
-    } else {
-      this.router.navigate(['/search'], {queryParams: {query: this.queryString}})
-    }
-  }
-
-  quickSearchInputChanged(input): void {
-    this.queryString = input.target.value;
-    this.searchService.searchSuggestions(this.queryString);
-    this.showAutocomplete = true;
-
-    if (!this.queryString) {
-      this.autocompleteOptions = [];
-    }
-  };
-
-  quickSearchKeyDown(event): void {
-    if (event && event.key === 'Enter') {
-
-      if (this.autocomplete && this.autocomplete.getSelected()) {
-        this.queryString = this.autocomplete.getSelected();
-      }
-
-      this.quickSearch();
-    }
-
-    if (event.key === 'Tab' && this.autocomplete) {
-      event.preventDefault();
-    }
-  }
-
-  suggestionSelected(option: string): void {
-    this.autocompleteOptions = [];
-    this.queryString = option;
-
-    this.quickSearch();
-  }
-
   checkboxClicked(): void {
     this.checkboxClicked$.next(true);
   }
 
   dateCheckboxClicked(): void {
     this.checkboxClicked$.next(true);
-  }
-
-  hideAutoComplete(): void {
-    setTimeout(() => this.showAutocomplete = false, 150);
-  }
-
-  showAutoComplete(): void {
-    this.autocompleteOptions = [];
-    this.showAutocomplete = true;
-
-    if (this.queryString) {
-      this.searchService.searchSuggestions(this.queryString);
-    }
   }
 
   previousPage(): void {
@@ -353,21 +283,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     return nextPage * this.limit < this.numberOfSearchResults;
   }
 
-  showResultDetails(data: any): void {
-    this.router.navigate([data.entityType + 's', data.id]);
-  }
-
-  toggleAdvancedSearch(): void {
-    this.showAdvancedSearch = !this.showAdvancedSearch;
-  }
-
   toggleAdvancedSearchFieldEnabled(option: any): void {
     option.enabled = !option.enabled;
     this.checkboxClicked$.next(true);
-  }
-
-  toggleView(): void {
-    this.cardMode = !this.cardMode;
   }
 
   paginationString(): string {
@@ -417,10 +335,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     return url + dateFilter + `&sortBy=${this.sortBy}&page=${this.page}&limit=${this.limit}&cardMode=${this.cardMode}&filterValue=${this.filterValue}` + filters;
   }
 
-  resetSearch(advancedSearchComponent: AdvancedSearchComponent): void {
+  resetSearch(): void {
     this.isAdvancedSearch = false;
     this.applyDateFilter = false;
-    this.queryString = '';
     this.sortBy = '';
     this.startDate = utc().subtract(1, 'M');
     this.endDate = utc();
@@ -430,9 +347,11 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.searchResultsToDisplay = [];
     this.prepareNewSearch();
     this.setDatepickerOptions();
-    advancedSearchComponent.resetFields();
+    this.search();
+  }
 
-    this.router.navigate(['/search']);
+  entitySelected(entity: any): void {
+    this.selectedEntity = entity;
   }
 
   private prepareNewSearch(): void {
