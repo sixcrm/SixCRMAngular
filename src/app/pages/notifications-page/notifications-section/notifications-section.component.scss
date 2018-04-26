@@ -9,11 +9,15 @@
 
   .header {
     margin: 10px 0 20px;
+
+    .mark-read {
+      margin-left: auto;
+    }
   }
 }
 
 .notifications-container {
-  height: calc(100vh - 345px);
+  height: calc(100vh - 330px);
   overflow: auto;
 }
 
@@ -75,10 +79,30 @@ table {
     font-weight: 400;
     font-size: 12px;
     color: #777777;
+
+    mat-icon {
+      color: #FD1F47;
+      font-size: 17px;
+    }
   }
 
   td {
     font-size: 14px;
+
+    .alert-flag {
+      font-size: 17px;
+      color: dimgrey;
+    }
+
+    .unread {
+      color: #FD1F47;
+    }
+
+  }
+
+  .notification-options {
+    margin-top: 17px;
+    color: dimgrey;
   }
 
   .unread {

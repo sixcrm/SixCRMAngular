@@ -93,4 +93,18 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
       this.router.navigate([notification.category + 's', notification.context[`${notification.category}.id`]]);
     }
   }
+
+  showAll() {}
+
+  showAlerts() {}
+
+  markAllAsRead() {}
+
+  markAsUnread() {}
+
+  goToLink() {}
+
+  copyToClipboard() {}
+
+  showNotifications() {}
 }

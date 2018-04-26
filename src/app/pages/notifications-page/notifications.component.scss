@@ -12,8 +12,13 @@
   padding: 50px 50px 0;
 }
 
+.entity-view__title__heading {
+  display: inline-block;
+}
+
 .notification-title-icon {
   margin-left: auto;
+  margin-bottom: 30px;
   width: 85px;
   height: 85px;
   display: flex;

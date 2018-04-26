@@ -52,25 +52,6 @@ export class Notification implements Entity<Notification> {
       updatedAt: this.updatedAtAPI
     }
   }
-
-  getIconName(): string {
-    if (this.type === 'alert') {
-      return 'alert-notification-icon.svg';
-    }
-
-    switch (this.category) {
-      case 'acl':
-      case 'invitation_sent':
-        return 'newuser_icon.svg';
-      case 'merchant':
-      case 'payment':
-        return 'merchant_icon.svg';
-      case 'fulfillment':
-        return 'fulfillment_icon.svg';
-      default:
-        return 'usericon_action.svg';
-    }
-  }
 }
 
 export function compareNotifications(f: Notification, s: Notification): number {

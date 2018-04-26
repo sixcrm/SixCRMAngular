@@ -8,8 +8,10 @@
           <input matInput placeholder="{{'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filter" type="text">
         </mat-input-container>
       </div>
-
-      <div class="mrw-button">MARK ALL AS READ</div>
+      <div class="mrw-button" (click)="showAll()">ALL</div>
+      <div class="mrw-button" (click)="showAlerts()">ALERTS</div>
+      <div class="mrw-button" (click)="showNotifications()">NOTIFICATIONS</div>
+      <div class="mrw-button mark-read" (click)="markAllAsRead()">MARK ALL AS READ</div>
     </div>
 
     <div class="notifications-container"
@@ -21,16 +23,29 @@
       <table class="highlight">
         <thead>
           <th>Read</th>
+          <th>
+            <mat-icon>flag</mat-icon>
+          </th>
           <th>Message</th>
           <th>Date</th>
-          <th>Type</th>
+          <th>Category</th>
+          <th></th>
         </thead>
         <tbody>
           <tr *ngFor="let notification of notifications | filterStrings: filter: filterMapper" (click)="readNotification(notification)">
             <td><div *ngIf="!notification.readAt" class="circle"></div><mat-icon *ngIf="notification.readAt" class="circle-icon">done</mat-icon></td>
-            <td [class.unread]="!notification.readAt">{{notification.body}}</td>
+            <td>
+              <mat-icon class="alert-flag" [class.unread]="!notification.readAt" *ngIf="notification.type == 'alert'">flag</mat-icon>
+            </td>
+            <td [class.unread]="!notification.readAt"><div>{{notification.name}}</div><div>{{notification.body}}</div></td>
             <td>{{notification.createdAt | formatDateTime: 'MMMM DD': true}}</td>
             <td>{{notification.category}}</td>
+            <mat-icon [matMenuTriggerFor]="actionsMenu" class="notification-options">more_vert</mat-icon>
+            <mat-menu #actionsMenu="matMenu" x-position="before">
+              <button mat-menu-item (click)="markAsUnread()">{{'NOTIFICATIONSSECTION_MARKASUNREAD' | translate}}</button>
+              <button mat-menu-item (click)="goToLink()">{{'NOTIFICATIONSSECTION_GOTOLINK' | translate}}</button>
+              <button mat-menu-item (click)="copyToClipboard()">{{'NOTIFICATIONSSECTION_COPYTOCLIPBOARD' | translate}}</button>
+            </mat-menu>
           </tr>
         </tbody>
       </table>

@@ -119,4 +119,10 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
 
     this.close.emit(true);
   }
+
+  markAsUnread() {}
+
+  goToLink() {}
+
+  copyToClipboard() {}
 }
