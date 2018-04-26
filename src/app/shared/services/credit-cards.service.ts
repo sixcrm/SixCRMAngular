@@ -22,6 +22,7 @@ export class CreditCardsService extends AbstractEntityService<CreditCard> {
       deleteCreditCardsMutation,
       createCreditCardMutation,
       updateCreditCardMutation,
+      null,
       'creditcard',
       snackBar
     );

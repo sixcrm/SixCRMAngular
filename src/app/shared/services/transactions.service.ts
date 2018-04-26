@@ -24,6 +24,7 @@ export class TransactionsService extends AbstractEntityService<Transaction> {
       deleteTransactionsMutation,
       null,
       null,
+      null,
       'transaction',
       snackBar
     );

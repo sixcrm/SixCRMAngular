@@ -26,6 +26,8 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
   filter: string;
   filterMapper = (notification: Notification) => `${notification.body}`;
 
+  notificationType: string = null;
+
   constructor(
     public notificationsService: NotificationsService,
     router: Router,
@@ -86,6 +88,7 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
 
   readNotification(notification: Notification): void {
     if (!notification.readAt) {
+      notification.markAsRead();
       this.notificationsService.updateEntity(notification, {ignoreSnack: true});
     }
 
@@ -94,17 +97,28 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
     }
   }
 
-  showAll() {}
+  showAll() {
+    this.notificationType = null;
+  }
 
-  showAlerts() {}
+  showAlerts() {
+    this.notificationType = 'alert';
+  }
 
-  markAllAsRead() {}
+  showNotifications() {
+    this.notificationType = 'notification';
+  }
 
-  markAsUnread() {}
+  markAllAsRead() {
+    return this.notificationsService.updateEntities(this.notifications.map(n => n.markAsRead()));
+  }
+
+  markAsUnread(notification: Notification) {
+    return notification.markAsUnread();
+  }
 
   goToLink() {}
 
   copyToClipboard() {}
 
-  showNotifications() {}
 }

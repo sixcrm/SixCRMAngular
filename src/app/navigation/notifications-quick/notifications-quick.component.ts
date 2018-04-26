@@ -6,8 +6,12 @@ import {NotificationsQuickService} from '../../shared/services/notifications-qui
 import {EntitiesByDate} from '../../shared/models/entities-by-date.interface';
 import {AsyncSubject} from 'rxjs';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
-import {arrangeNotificationsByDate, isEmpty, updateLocally} from '../../shared/utils/notification.utils';
+import {
+  allNotifications, arrangeNotificationsByDate, isEmpty,
+  updateLocally
+} from '../../shared/utils/notification.utils';
 import {firstIndexOf} from '../../shared/utils/array.utils';
+import { not } from 'rxjs/util/not';
 
 @Component({
   selector: 'notifications-quick',
@@ -91,6 +95,7 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
 
   readNotification(notification: Notification): void {
     if (!notification.readAt) {
+      notification.markAsRead();
       this.notificationsService.updateEntity(notification, {ignoreSnack: true, ignoreProgress: true});
     }
 
@@ -104,6 +109,7 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
         && (!event.target.attributes.class || event.target.attributes.class.value.indexOf('topnav__notifications__icon') !== 0) // and not clicked on notifications icon
         && (!event.target.attributes.class || event.target.attributes.class.value.indexOf('topnav__notifications__count') !== 0) // and not clicked on notifications count icon
         && (!event.target.attributes.class || event.target.attributes.class.value !== 'cdk-overlay-backdrop') // and not clicked on material menu overlay
+        && (!event.target.attributes.class || !event.target.attributes.class.value.includes('notifications-list__content_notification_menu_item_markasunread')) // and not clicked on context menu item
     ) {
       this.close.emit(true);
     }
@@ -120,9 +126,18 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
     this.close.emit(true);
   }
 
-  markAsUnread() {}
+  markAsUnread(notification: Notification) {
+    return this.notificationsService.updateEntity(notification.markAsUnread());
+  }
 
   goToLink() {}
 
-  copyToClipboard() {}
+  copyToClipboard(notification: Notification) {}
+
+  markAllAsRead() {
+    let notifications: Notification[] = allNotifications(this.notsByDate);
+
+    return this.notificationsService.updateEntities(notifications.map(n => n.markAsRead()));
+  }
+
 }

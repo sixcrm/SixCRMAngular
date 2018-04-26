@@ -24,6 +24,7 @@ export class MerchantProviderGroupAssociationsService extends AbstractEntityServ
       deleteMerchantProviderGroupAssociationssMutation,
       createMerchantProviderGroupAssociationMutation,
       null,
+      null,
       'merchantprovidergroupassociation',
       snackBar
     );

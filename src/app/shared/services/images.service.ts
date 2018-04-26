@@ -20,6 +20,7 @@ export class ImagesService extends AbstractEntityService<SixImage> {
       null,
       uploadImage,
       null,
+      null,
       'default',
       snackBar
     );

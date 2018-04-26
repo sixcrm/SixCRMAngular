@@ -23,6 +23,7 @@ export class ProductsService extends AbstractEntityService<Product> {
       deleteProductsMutation,
       createProductMutation,
       updateProductMutation,
+      null,
       'product',
       snackBar
     );

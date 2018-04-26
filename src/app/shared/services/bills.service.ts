@@ -23,6 +23,7 @@ export class BillsService extends AbstractEntityService<Bill> {
       deleteBillsMutation,
       createBillMutation,
       updateBillMutation,
+      null,
       'bill',
       snackBar
     );

@@ -6,7 +6,7 @@ import {Notification} from '../models/notification.model';
 import {HttpWrapperService, extractData} from './http-wrapper.service';
 import {
   notificationsQuickListQuery, updateNotificationMutation,
-  notificationCountQuery, alertsListQuery, notificationsPersistentListQuery
+  notificationCountQuery, alertsListQuery, notificationsPersistentListQuery, updateManyNotificationsMutationQuery
 } from '../utils/queries/entities/notification.queries';
 import {CustomServerError} from '../models/errors/custom-server-error';
 import {TranslationService} from '../../translation/translation.service';
@@ -39,6 +39,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
       null,
       null,
       updateNotificationMutation,
+      updateManyNotificationsMutationQuery,
       'default',
       snackBar
     );

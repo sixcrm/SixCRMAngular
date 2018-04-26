@@ -23,6 +23,7 @@ export class RebillsService extends AbstractEntityService<Rebill>{
       deleteRebillsMutation,
       null,
       updateRebillMutation,
+      null,
       'rebill',
       snackBar
     )

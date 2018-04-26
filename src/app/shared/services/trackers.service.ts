@@ -23,6 +23,7 @@ export class TrackersService extends AbstractEntityService<Tracker> {
       deleteTrackersMutation,
       createTrackerMutation,
       updateTrackerMutation,
+      null,
       'tracker',
       snackBar
     );

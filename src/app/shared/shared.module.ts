@@ -53,6 +53,7 @@ import { CreditCardMaskPipe } from './pipes/credit-card-mask.pipe';
 import {TrackersService} from './services/trackers.service';
 import { AutocompleteInputComponent } from './components/autocomplete-input/autocomplete-input.component';
 import { FilterStringsPipe } from './pipes/filter-strings.pipe';
+import { FilterEntitiesByField, FilterEntitiesByFieldPipe } from './pipes/filter-entities-by-field.pipe';
 import { FilterEntitiesByParamsPipe } from './pipes/filter-entities-by-params.pipe';
 import {AutofocusDirective} from './directives/autofocus.directive';
 import {ServerErrorMessageComponent} from './components/server-error-message/server-error-message.component';
@@ -125,6 +126,7 @@ import { PaymentFormComponent } from './components/payment-form/payment-form.com
     AutocompleteInputComponent,
     FilterStringsPipe,
     FilterEntitiesByParamsPipe,
+    FilterEntitiesByFieldPipe,
     ServerErrorMessageComponent,
     AddScheduleComponent,
     ErrorSnackBarComponent,
@@ -173,6 +175,7 @@ import { PaymentFormComponent } from './components/payment-form/payment-form.com
     AutocompleteInputComponent,
     FilterStringsPipe,
     FilterEntitiesByParamsPipe,
+    FilterEntitiesByFieldPipe,
     ServerErrorMessageComponent,
     AddScheduleComponent,
     TextMaskPipe,

@@ -44,3 +44,13 @@ export function updateLocally(notification: Notification, notsByDate: EntitiesBy
 
   return arrangeNotificationsByDate([notification], notsByDate);
 }
+
+export function allNotifications(notsByDate: EntitiesByDate<Notification>[]) {
+  let allNotifications = [];
+
+  for (const notsByDateItem of notsByDate) {
+    allNotifications.push(...notsByDateItem.entities)
+  }
+
+  return allNotifications;
+}

@@ -23,6 +23,7 @@ export class ShippingReceiptsService extends AbstractEntityService<ShippingRecei
       deleteShippingReceiptsMutation,
       null,
       null,
+      null,
       'shippingreceipt',
       snackBar
     );

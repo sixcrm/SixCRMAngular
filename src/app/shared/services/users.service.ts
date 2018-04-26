@@ -29,6 +29,7 @@ export class UsersService extends AbstractEntityService<User> {
       deleteUsersMutation,
       createUserMutation,
       updateUserMutation,
+      null,
       'user',
       snackBar
     );

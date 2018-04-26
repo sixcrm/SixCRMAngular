@@ -23,6 +23,7 @@ export class SessionsService extends AbstractEntityService<Session> {
       deleteSessionsMutation,
       null,
       updateSessionMutation,
+      null,
       'session',
       snackBar
     );

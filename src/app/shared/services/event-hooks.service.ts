@@ -23,6 +23,7 @@ export class EventHooksService extends AbstractEntityService<EventHook> {
       deleteEventHooksMutation,
       createEventHookMutation,
       updateEventHookMutation,
+      null,
       'eventhook',
       snackBar
     );
