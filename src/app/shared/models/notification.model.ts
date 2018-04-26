@@ -55,10 +55,14 @@ export class Notification implements Entity<Notification> {
 
   markAsRead() {
     this.readAt = utc().format();
+
+    return this;
   }
 
   markAsUnread() {
     this.readAt = null;
+
+    return this;
   }
 }
 
