@@ -9,7 +9,7 @@
     <div class="perfect-match__header">
       <div class="perfect-match__header__title">
         <div class="main">{{getName()}}</div>
-        <div class="sub">{{(entity.fields.entity_type + '_TITLE') | translate}}</div>
+        <div class="sub">{{'SEARCH_PERFECT_CREATED' | translate}} {{utcf(entity.fields.created_at).tz(authService.getTimezone()).format('MMMM D, YYYY') }}</div>
       </div>
       <div class="perfect-match__header__view">
         <button mat-button (click)="navigateToEntity()">{{'SEARCH_PERFECT_VIEW' | translate}}</button>

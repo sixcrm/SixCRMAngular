@@ -1,5 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Router} from '@angular/router';
+import {AuthenticationService} from '../../../authentication/authentication.service';
+import {utc} from 'moment';
 
 @Component({
   selector: 'perfect-match',
@@ -11,7 +13,9 @@ export class PerfectMatchComponent implements OnInit {
   @Input() entity: any;
   @Output() hidePerfectMatch: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(private router: Router) { }
+  utcf = utc;
+
+  constructor(private router: Router, public authService: AuthenticationService) { }
 
   ngOnInit() {
   }
