@@ -1,14 +1,19 @@
-<div class="entity-list" *ngIf="data && data.length > 0">
+<div class="entity-list">
 
-  <ng-container *ngFor="let d of data">
-    <div class="entity-list__item" [class.selected]="d.id && selectedEntity && d.id === selectedEntity.id" (click)="selectEntity(d)">
-      <div>
-        <div class="entity-list__item__title" [innerHTML]="getName(d) | highlight: query"></div>
-        <div class="entity-list__item__subtitle">{{getFieldValue(d)}}</div>
+  <ng-container *ngIf="data && data.length > 0">
+    <ng-container *ngFor="let d of data">
+      <div class="entity-list__item" [class.selected]="d.id && selectedEntity && d.id === selectedEntity.id" (click)="selectEntity(d)">
+        <div>
+          <div class="entity-list__item__title" [innerHTML]="getName(d) | highlight: query"></div>
+          <div class="entity-list__item__subtitle">{{getFieldValue(d)}}</div>
+        </div>
+
+        <div class="entity-list__item__type">{{(d.fields.entity_type + '_TITLE') | translate}}</div>
+        <div class="entity-list__item__date">{{format(d.fields.created_at)}}</div>
       </div>
-
-      <div class="entity-list__item__type">{{(d.fields.entity_type + '_TITLE') | translate}}</div>
-      <div class="entity-list__item__date">{{format(d.fields.created_at)}}</div>
-    </div>
+    </ng-container>
   </ng-container>
+
+  <search-loader *ngIf="fetchInProgress"></search-loader>
+
 </div>

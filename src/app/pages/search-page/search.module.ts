@@ -21,6 +21,7 @@ import {PerfectMerchantProviderComponent} from './perfect-match/perfect-merchant
 import {PerfectCreditCardComponent} from './perfect-match/perfect-creditcard-provider/perfect-credit-card.component';
 import {PerfectAffiliateComponent} from './perfect-match/perfect-affiliate-provider/perfect-affiliate.component';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 @NgModule({
   imports : [
@@ -31,7 +32,8 @@ import {MaterialSelectionModule} from '../../material-selection/material-selecti
     FormsModule,
     MaterialSelectionModule,
     Daterangepicker,
-    TranslationModule
+    TranslationModule,
+    InfiniteScrollModule
   ],
   declarations : [
     SearchComponent,

@@ -142,6 +142,7 @@ $border-color: rgba(0, 0, 0, 0.2);
 
     &__date {
       display: flex;
+      align-items: center;
 
       mat-checkbox {
         margin-right: 8px;
@@ -185,18 +186,6 @@ $border-color: rgba(0, 0, 0, 0.2);
   &__content {
     width: 100%;
     background: #F3F3F3;
-
-    table-pagination > div {
-      display: inline-block;
-      margin: 0 10px;
-      font-size: 12px;
-      color: $main-color;
-    }
-
-    .search__content__pagination--bottom > div {
-      margin: 0 20px 20px 0;
-      float: right;
-    }
 
     &__results {
       margin-top: 1px;
@@ -259,14 +248,6 @@ $border-color: rgba(0, 0, 0, 0.2);
             cursor: pointer;
           }
 
-          .info {
-            margin-left: 10px;
-
-            &--active {
-              color: #14B1FB;
-            }
-          }
-
           .filters {
             margin-right: 10px;
             cursor: pointer;
@@ -279,29 +260,8 @@ $border-color: rgba(0, 0, 0, 0.2);
 
         entity-list {
           display: block;
-          height: calc(100vh - 190px);
+          height: calc(100vh - 140px);
           overflow: auto;
-        }
-
-        &__footer {
-          display: flex;
-          padding: 6px 0;
-          border-top: 1px solid rgba(0, 0, 0, 0.2);
-          background: white;
-        }
-
-        &__spinner {
-          background: white;
-          height: calc(100vh - 190px);
-
-          mat-spinner {
-            margin: auto;
-            padding: 30px 0;
-          }
-        }
-
-        &__pagination {
-          margin-left: auto;
         }
       }
 
@@ -560,11 +520,6 @@ $border-color: rgba(0, 0, 0, 0.2);
         cursor: pointer;
       }
     }
-  }
-
-  mat-spinner {
-    margin: auto;
-    padding: 30px 0;
   }
 }
 

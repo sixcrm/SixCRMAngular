@@ -73,35 +73,22 @@
                 </mat-menu>
 
                 <share-link [shareUrl]="getShareUrl()"></share-link>
-
-                <mat-icon class="info" [class.info--active]="showDetails" (click)="showDetails = !showDetails">info</mat-icon>
               </div>
 
             </div>
 
-            <ng-container *ngIf="searchResultsToDisplay.length > 0 || fetchingData; else noresults">
-              <entity-list *ngIf="searchResultsToDisplay.length > 0 && !fetchingData"
-                           [data]="searchResultsToDisplay | filterSearchResults: filterValue"
+            <ng-container *ngIf="fetchingData || (searchPerformed && searchResults.length > 0); else noresults">
+              <entity-list infiniteScroll
+                           [infiniteScrollDistance]="2"
+                           [infiniteScrollThrottle]="300"
+                           [scrollWindow]="false"
+                           (scrolled)="fetchMoreResults()"
+                           [data]="searchResults | filterSearchResults: filterValue"
                            [query]="queryString"
                            [selectedEntity]="selectedEntity"
+                           [fetchInProgress]="fetchingData"
                            (select)="entitySelected($event)">
               </entity-list>
-              <div class="search__content__results__cards__spinner" *ngIf="searchResultsToDisplay.length === 0 && fetchingData">
-                <search-loader></search-loader>
-              </div>
-              <div class="search__content__results__cards__footer">
-                <table-pagination
-                  class="search__content__results__cards__pagination"
-                  [limit]="limit"
-                  [paginationString]="paginationString()"
-                  [paginationValues]="paginationValues"
-                  [previousDisabled]="page <= 0"
-                  [nextDisabled]="!hasMorePages()"
-                  (previous)="previousPage()"
-                  (next)="nextPage()"
-                  (updateLimit)="updateLimit($event)">
-                </table-pagination>
-              </div>
             </ng-container>
           </div>
 
