@@ -7,14 +7,7 @@ import {ChartModule} from 'angular2-highcharts';
 import {HighchartsStatic} from 'angular2-highcharts/dist/HighchartsService';
 import {Daterangepicker} from 'ng2-daterangepicker';
 import { FunnelGraphComponent } from './funnel-graph/funnel-graph.component';
-import { DashboardReportsComponent } from './dashboard-reports/dashboard-reports.component';
-import { MoversCardComponent } from './movers-card/movers-card.component';
-import { EventsSummaryComponent } from './events-summary/events-summary.component';
 import { TopCampaignsComponent } from './top-campaigns/top-campaigns.component';
-import { TransactionOverviewCardComponent } from './transaction-overview/transaction-overview-card/transaction-overview-card.component';
-import { TransactionOverviewComponent } from './transaction-overview/transaction-overview.component';
-import {TransactionByComponent} from './transaction-by/transaction-by.component';
-import {EventsByComponent} from './events-by/events-by.component';
 import {ChartsModule} from '../../charts/charts.module';
 import {TranslationModule} from "../../translation/translation.module";
 import { DashboardHeaderComponent } from './dashboard-header/dashboard-header.component';
@@ -22,7 +15,7 @@ import { DashboardHeaderDropdownComponent } from './dashboard-header/dashboard-h
 import { DashboardDualGraphComponent } from './dashboard-dual-graph/dashboard-dual-graph.component';
 import { DashboardIssuesReportComponent } from './dashboard-issues-report/dashboard-issues-report.component';
 import { TopSubscriptionsComponent } from './top-subscriptions/top-subscriptions.component';
-import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
+import { MaterialSelectionModule } from '../../material-selection/material-selection.module';
 
 export function highchartsFactory() {
   let hc = require('highcharts');
@@ -48,15 +41,8 @@ export function highchartsFactory() {
   ],
   declarations : [
     DashboardComponent,
-    TransactionOverviewCardComponent,
     FunnelGraphComponent,
-    DashboardReportsComponent,
-    MoversCardComponent,
-    EventsByComponent,
-    EventsSummaryComponent,
     TopCampaignsComponent,
-    TransactionOverviewComponent,
-    TransactionByComponent,
     DashboardHeaderComponent,
     DashboardHeaderDropdownComponent,
     DashboardDualGraphComponent,

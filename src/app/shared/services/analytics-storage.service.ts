@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
 import {EventFunnel} from '../models/event-funnel.model';
 import {TransactionSummary} from '../models/transaction-summary.model';
-import {TransactionOverview} from '../models/transaction-overview.model';
-import {EventSummary} from '../models/event-summary.model';
-import {CampaignDelta} from '../models/campaign-delta.model';
 import {CampaignStats} from '../models/campaign-stats.model';
 import {Moment, utc} from 'moment';
-import {TransactionsBy} from '../models/analytics/transaction-by.model';
-import {EventsBy} from '../models/analytics/events-by.model';
 import {FilterTerm} from '../components/advanced-filter/advanced-filter.component';
+import {SubscriptionStats} from '../models/subscription-stats.model';
 
 export class AnalyticsStateEntry<T> {
   startDate: string;
@@ -69,13 +65,9 @@ export class AnalyticsStorageService {
   private lastUpdated: string = 'last_updated';
 
   private eventFunnelKey: string = 'event_funnel';
-  private eventsByKey: string = 'events_by';
-  private transactionByKey: string = 'transactions_by';
   private transactionSummariesKey: string = 'transaction_summaries';
-  private transactionOverviewKey: string = 'transaction_overview';
-  private eventSummaryKey: string = 'event_summary';
-  private campaignsDeltaKey: string = 'campaigns_delta';
   private campaignsByAmountKey: string = 'campaign_by_amount';
+  private subscriptionsByAmountKey: string = 'subscriptions_by_amount';
 
   private storage: any = {};
 
@@ -115,34 +107,6 @@ export class AnalyticsStorageService {
     this.storage[this.eventFunnelKey] = new AnalyticsStateEntry(start, end, funnel)
   }
 
-  getEventsBy(start: string, end: string): EventsBy {
-    let eventsEntry: AnalyticsStateEntry<EventsBy> = this.storage[this.eventsByKey];
-
-    if (this.isInvalid(eventsEntry, start, end)) return null;
-
-    return eventsEntry.entry
-  }
-
-  setEventsBy(start: string, end: string, events: EventsBy): void {
-    this.saveStartEnd(start, end);
-
-    this.storage[this.eventsByKey] = new AnalyticsStateEntry(start, end, events);
-  }
-
-  getTransactionsBy(start: string, end: string): TransactionsBy {
-    let eventsEntry: AnalyticsStateEntry<TransactionsBy> = this.storage[this.transactionByKey];
-
-    if (this.isInvalid(eventsEntry, start, end)) return null;
-
-    return eventsEntry.entry
-  }
-
-  setTransactionsBy(start: string, end: string, events: TransactionsBy): void {
-    this.saveStartEnd(start, end);
-
-    this.storage[this.transactionByKey] = new AnalyticsStateEntry(start, end, events);
-  }
-
   getTransactionSummaries(start: string, end: string, filters?: FilterTerm[]): TransactionSummary[] {
     let summariesEntry: AnalyticsStateEntry<TransactionSummary[]> = this.storage[this.transactionSummariesKey];
 
@@ -160,48 +124,6 @@ export class AnalyticsStorageService {
     this.storage[this.transactionSummariesKey] = new AnalyticsStateEntry(start, end, summaries).setFilters(filters);
   }
 
-  getTransactionOverview(start: string, end: string): TransactionOverview {
-    let overviewEntry: AnalyticsStateEntry<TransactionOverview> = this.storage[this.transactionOverviewKey];
-
-    if (this.isInvalid(overviewEntry, start, end)) return null;
-
-    return overviewEntry.entry
-  }
-
-  setTransactionOverview(start: string, end: string, overview: TransactionOverview): void {
-    this.saveStartEnd(start, end);
-
-    this.storage[this.transactionOverviewKey] = new AnalyticsStateEntry(start, end, overview);
-  }
-
-  getEventSummary(start: string, end: string): EventSummary[] {
-    let summaryEntry: AnalyticsStateEntry<EventSummary[]> = this.storage[this.eventSummaryKey];
-
-    if (this.isInvalid(summaryEntry, start, end)) return null;
-
-    return summaryEntry.entry
-  }
-
-  setEventSummary(start: string, end: string, summary: EventSummary[]): void {
-    this.saveStartEnd(start, end);
-
-    this.storage[this.eventSummaryKey] = new AnalyticsStateEntry(start, end, summary);
-  }
-
-  getCampaignsDelta(start: string, end: string): CampaignDelta[] {
-    let deltaEntry: AnalyticsStateEntry<CampaignDelta[]> = this.storage[this.campaignsDeltaKey];
-
-    if (this.isInvalid(deltaEntry, start, end)) return null;
-
-    return deltaEntry.entry
-  }
-
-  setCampaignsDelta(start: string, end: string, delta: CampaignDelta[]): void {
-    this.saveStartEnd(start, end);
-
-    this.storage[this.campaignsDeltaKey] = new AnalyticsStateEntry(start, end, delta);
-  }
-
   getCampaignsByAmount(start: string, end: string): CampaignStats[] {
     let campaignEntry: AnalyticsStateEntry<CampaignStats[]> = this.storage[this.campaignsByAmountKey];
 
@@ -214,6 +136,20 @@ export class AnalyticsStorageService {
     this.saveStartEnd(start, end);
 
     this.storage[this.campaignsByAmountKey] = new AnalyticsStateEntry(start, end, campaigns);
+  }
+
+  getSubscriptionsByAmount(start: string, end: string): SubscriptionStats[] {
+    let subEntry: AnalyticsStateEntry<SubscriptionStats[]> = this.storage[this.subscriptionsByAmountKey];
+
+    if (this.isInvalid(subEntry, start, end)) return null;
+
+    return subEntry.entry
+  }
+
+  setSubscriptionsByAmount(start: string, end: string, subs: SubscriptionStats[]): void {
+    this.saveStartEnd(start, end);
+
+    this.storage[this.subscriptionsByAmountKey] = new AnalyticsStateEntry(start, end, subs);
   }
 
   private isInvalid(entry: any, start: string, end: string): boolean {

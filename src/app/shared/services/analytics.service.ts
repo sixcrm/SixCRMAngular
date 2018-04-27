@@ -4,19 +4,13 @@ import {environment} from '../../../environments/environment';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {EventFunnel} from '../models/event-funnel.model';
 import {HttpResponse} from '@angular/common/http';
-import {TransactionOverview} from '../models/transaction-overview.model';
 import {TransactionSummary} from '../models/transaction-summary.model';
 import {
-  transactionSummaryQuery, transactionOverviewQuery, eventsFunnelQuery,
-  campaignDeltaQuery, eventsByAffiliateQuery, eventsSummaryQuery, transactionsByAffiliateQuery, campaignsByAmountQuery,
+  transactionSummaryQuery, eventsFunnelQuery, campaignsByAmountQuery,
   activitiesByCustomer, heroChartQuery
 } from '../utils/queries/analytics.queries';
-import {CampaignDelta} from '../models/campaign-delta.model';
-import {EventSummary} from '../models/event-summary.model';
 import {CampaignStats} from '../models/campaign-stats.model';
 import {AnalyticsStorageService} from './analytics-storage.service';
-import {TransactionsBy} from '../models/analytics/transaction-by.model';
-import {EventsBy} from '../models/analytics/events-by.model';
 import {FilterTerm} from '../components/advanced-filter/advanced-filter.component';
 import {downloadFile} from '../utils/file.utils';
 import {Activity} from '../models/analytics/activity.model';
@@ -32,11 +26,6 @@ export class AnalyticsService {
   eventFunnel$: BehaviorSubject<EventFunnel | CustomServerError>;
   transactionsSummaries$: BehaviorSubject<TransactionSummary[] | CustomServerError>;
   heroChartSeries$: BehaviorSubject<HeroChartSeries[] | CustomServerError>;
-  transactionsOverview$: BehaviorSubject<TransactionOverview | CustomServerError>;
-  campaignDelta$: BehaviorSubject<CampaignDelta[] | CustomServerError>;
-  eventsBy$: BehaviorSubject<EventsBy | CustomServerError>;
-  transactionsBy$: BehaviorSubject<TransactionsBy | CustomServerError>;
-  eventsSummary$: BehaviorSubject<EventSummary[] | CustomServerError>;
   campaignsByAmount$: BehaviorSubject<CampaignStats[] | CustomServerError>;
   subscriptionsByAmount$: BehaviorSubject<SubscriptionStats[] | CustomServerError>;
 
@@ -46,11 +35,6 @@ export class AnalyticsService {
     this.eventFunnel$ = new BehaviorSubject(null);
     this.transactionsSummaries$ = new BehaviorSubject(null);
     this.heroChartSeries$ = new BehaviorSubject(null);
-    this.transactionsOverview$ = new BehaviorSubject(null);
-    this.campaignDelta$ = new BehaviorSubject(null);
-    this.eventsBy$ = new BehaviorSubject(null);
-    this.eventsSummary$ = new BehaviorSubject(null);
-    this.transactionsBy$ = new BehaviorSubject(null);
     this.campaignsByAmount$ = new BehaviorSubject(null);
     this.subscriptionsByAmount$ = new BehaviorSubject(null);
 
@@ -106,32 +90,6 @@ export class AnalyticsService {
     })
   }
 
-  getTransactionOverview(start: string, end: string, downloadFormat?: string): void {
-    const overviewStorage = this.analyticsStorage.getTransactionOverview(start, end);
-    if (!downloadFormat && overviewStorage) {
-      this.transactionsOverview$.next(overviewStorage);
-      return;
-    }
-
-    this.queryRequest(transactionOverviewQuery(start, end), downloadFormat).subscribe(data => {
-      if (downloadFormat) {
-        downloadFile(data, 'transactions-overview', downloadFormat);
-        return;
-      }
-
-      const result = this.handleResponse(
-        data,
-        this.transactionsOverview$,
-        (t: any) => new TransactionOverview(t),
-        (data: any) => extractData(data).transactionoverview.overview
-      );
-
-      if (result) {
-        this.analyticsStorage.setTransactionOverview(start, end, result);
-      }
-    })
-  }
-
   getEventFunnel(start: string, end: string, downloadFormat?: string): void {
     const funnelStorage = this.analyticsStorage.getEventFunnel(start, end);
     if (!downloadFormat && funnelStorage) {
@@ -165,110 +123,26 @@ export class AnalyticsService {
     })
   }
 
-  getCampaignDelta(start: string, end: string, downloadFormat?: string): void {
-    const deltaStorage = this.analyticsStorage.getCampaignsDelta(start, end);
-    if (!downloadFormat && deltaStorage) {
-      this.campaignDelta$.next(deltaStorage);
-      return;
-    }
-
-    this.queryRequest(campaignDeltaQuery(start, end), downloadFormat).subscribe(data => {
-      if (downloadFormat) {
-        downloadFile(data, 'campaigns-delta', downloadFormat);
-        return;
-      }
-
-      const result = this.handleResponse(
-        data,
-        this.campaignDelta$,
-        (t: any) => new CampaignDelta(t),
-        (data: any) => extractData(data).campaigndelta.campaigns
-      );
-
-      if (result) {
-        this.analyticsStorage.setCampaignsDelta(start, end, result);
-      }
-    })
-  }
-
-  getEventsBy(start: string, end: string, downloadFormat?: string): void {
-    const eventsStorage = this.analyticsStorage.getEventsBy(start, end);
-    if (!downloadFormat && eventsStorage) {
-      this.eventsBy$.next(eventsStorage);
-      return
-    }
-
-    this.queryRequest(eventsByAffiliateQuery(start, end), downloadFormat).subscribe(data => {
-      if (downloadFormat) {
-        downloadFile(data, 'events-by-affiliate', downloadFormat);
-        return;
-      }
-
-      const result = this.handleResponse(
-        data,
-        this.eventsBy$,
-        (t: any) => new EventsBy(t),
-        (data: any) => extractData(data).eventsbyfacet
-      );
-
-      if (result) {
-        this.analyticsStorage.setEventsBy(start, end, result);
-      }
-    });
-  }
-
-  getTransactionsBy(start: string, end: string, downloadFormat?: string): void {
-    const transactionsStorage = this.analyticsStorage.getTransactionsBy(start, end);
-    if (!downloadFormat && transactionsStorage) {
-      this.transactionsBy$.next(transactionsStorage);
-      return;
-    }
-
-    this.queryRequest(transactionsByAffiliateQuery(start, end), downloadFormat).subscribe(data => {
-      if (downloadFormat) {
-        downloadFile(data, 'transactions-by-affiliate', downloadFormat);
-        return;
-      }
-
-      const result = this.handleResponse(
-        data,
-        this.transactionsBy$,
-        (t: any) => new TransactionsBy(t),
-        (data: any) => extractData(data).transactionsbyfacet
-      );
-
-      if (result) {
-        this.analyticsStorage.setTransactionsBy(start, end, result);
-      }
-    });
-  }
-
-  getEventsSummary(start: string, end: string, downloadFormat?: string): void {
-    const summaryStorage = this.analyticsStorage.getEventSummary(start, end);
-    if (!downloadFormat && summaryStorage) {
-      this.eventsSummary$.next(summaryStorage);
-      return;
-    }
-
-    this.queryRequest(eventsSummaryQuery(start, end), downloadFormat).subscribe(data => {
-      if (downloadFormat) {
-        downloadFile(data, 'events-summary', downloadFormat);
-        return;
-      }
-
-      const result = this.handleResponse(
-        data,
-        this.eventsSummary$,
-        (t: any) => new EventSummary(t),
-        (data: any) => extractData(data).eventsummary.events
-      );
-      if (result) {
-        this.analyticsStorage.setEventSummary(start, end, result);
-      }
-    })
-  }
-
   getSubscriptionsByAmount(start: string, end: string, downloadFormat?: string): void {
+    const subsStorage = this.analyticsStorage.getSubscriptionsByAmount(start, end);
+
+    if (!downloadFormat && subsStorage) {
+      this.subscriptionsByAmount$.next(subsStorage);
+      return;
+    }
+
+    const data = [
+      {subscription: 'Example Sub 1', amount: new Currency(1802)},
+      {subscription: 'Sub 2', amount: new Currency(1100)},
+      {subscription: 'Sub 3', amount: new Currency(900)},
+      {subscription: 'Example Sub 2', amount: new Currency(550)},
+      {subscription: 'Sub 5', amount: new Currency(412)},
+    ];
+
+    if (downloadFormat) {
+      downloadFile(data, 'subscriptions-by-amount', downloadFormat);
+      return;
+    }
 
     setTimeout(() => {
       this.subscriptionsByAmount$.next([
@@ -280,6 +154,9 @@ export class AnalyticsService {
       ])
     }, 250);
 
+    if (data) {
+      this.analyticsStorage.setSubscriptionsByAmount(start, end, data);
+    }
   }
 
   getCampaignsByAmount(start: string, end: string, downloadFormat?: string): void {
@@ -325,14 +202,11 @@ export class AnalyticsService {
   }
 
   clearAllSubjects(): void {
+    this.heroChartSeries$.next(null);
     this.eventFunnel$.next(null);
     this.transactionsSummaries$.next(null);
-    this.transactionsOverview$.next(null);
-    this.campaignDelta$.next(null);
-    this.eventsBy$.next(null);
-    this.eventsSummary$.next(null);
-    this.transactionsBy$.next(null);
     this.campaignsByAmount$.next(null);
+    this.subscriptionsByAmount$.next(null);
   }
 
   private handleResponse(
