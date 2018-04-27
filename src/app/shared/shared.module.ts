@@ -100,6 +100,7 @@ import {EventHooksSharedService} from './services/event-hooks-shared.service';
 import { DragScrollXDirective } from './directives/drag-scroll-x.directive';
 import {MaterialSelectionModule} from '../material-selection/material-selection.module';
 import { PaymentFormComponent } from './components/payment-form/payment-form.component';
+import {ClipboardModule} from 'ngx-clipboard';
 
 @NgModule({
   declarations : [
@@ -202,7 +203,8 @@ import { PaymentFormComponent } from './components/payment-form/payment-form.com
     ChartModule,
     Daterangepicker,
     TextMaskModule,
-    TranslationModule
+    TranslationModule,
+    ClipboardModule
   ]
 })
 export class SharedModule {

@@ -132,8 +132,6 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
 
   goToLink() {}
 
-  copyToClipboard(notification: Notification) {}
-
   markAllAsRead() {
     let notifications: Notification[] = allNotifications(this.notsByDate);
 

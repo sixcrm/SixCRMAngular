@@ -8,6 +8,8 @@ import {SharedModule} from '../../shared/shared.module';
 import {TranslationModule} from "../../translation/translation.module";
 import {FormsModule} from '@angular/forms';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
+import {ClipboardModule} from 'ngx-clipboard';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
   imports: [
@@ -17,7 +19,9 @@ import {MaterialSelectionModule} from '../../material-selection/material-selecti
     MaterialSelectionModule,
     InfiniteScrollModule,
     SharedModule,
-    TranslationModule
+    TranslationModule,
+    ClipboardModule,
+    MatButtonToggleModule
   ],
   declarations: [
     NotificationsComponent,

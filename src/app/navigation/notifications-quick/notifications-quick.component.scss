@@ -10,6 +10,17 @@
       color: dimgrey;
       cursor: pointer;
     }
+
+    &__options {
+      margin-right: -36px;
+
+      .arrow {
+        margin-left: -75px;
+        margin-top: -51px;
+        font-size: 42px;
+        color: white !important;
+      }
+    }
   }
 
   &__content {
@@ -75,7 +86,7 @@
     }
 
     .unread {
-      background-color: #EDFFFF;
+      background-color: #DAFAFA;
       margin-left: 4px;
     }
 

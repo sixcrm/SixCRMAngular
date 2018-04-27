@@ -119,6 +119,4 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
 
   goToLink() {}
 
-  copyToClipboard() {}
-
 }

@@ -10,6 +10,11 @@
   .header {
     margin: 10px 0 20px;
 
+    .mrw-button {
+      padding: 0;
+      height: 33px;
+    }
+
     .mark-read {
       margin-left: auto;
     }
@@ -103,10 +108,19 @@ table {
   .notification-options {
     margin-top: 17px;
     color: dimgrey;
+    cursor: pointer;
   }
 
   .unread {
     font-weight: 500;
+  }
+
+  .unread-alert {
+    background-color: #FFE7E6;
+  }
+
+  .unread-notification {
+    background-color: #DAFAFA;
   }
 }
 
@@ -115,6 +129,7 @@ table {
   height: 18px;
   border-radius: 50%;
   border: 1px solid #808080;
+  cursor: pointer;
 }
 
 .circle-icon {
@@ -124,6 +139,7 @@ table {
   color: white;
   background: #5383C3;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .spinner {

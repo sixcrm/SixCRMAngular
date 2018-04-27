@@ -1,4 +1,4 @@
-<div class="notifications__alert">
+<div class="notifications__alert" [class.unread-in-list]="!alert.readAt && inList">
   <div class="notifications__alert__content">
 
     <div>
@@ -9,9 +9,9 @@
         <div class="time">{{ calculateTime() }}</div>
         <mat-icon [matMenuTriggerFor]="actionsMenu"  class="notification-options" *ngIf="inList">more_vert</mat-icon>
         <mat-menu #actionsMenu="matMenu" x-position="before">
-          <button mat-menu-item (click)="markAsUnread()">{{'NOTIFICATIONSSECTION_MARKASUNREAD' | translate}}</button>
-          <button mat-menu-item (click)="goToLink()">{{'NOTIFICATIONSSECTION_GOTOLINK' | translate}}</button>
-          <button mat-menu-item (click)="copyToClipboard()">{{'NOTIFICATIONSSECTION_COPYTOCLIPBOARD' | translate}}</button>
+          <button mat-menu-item (click)="markAsUnread()">{{'NOTIFICATIONSQUICK_MARKASUNREAD' | translate}}</button>
+          <button mat-menu-item (click)="goToLink()">{{'NOTIFICATIONSQUICK_GOTOLINK' | translate}}</button>
+          <button mat-menu-item ngxClipboard [cbContent]="alert.body">{{'NOTIFICATIONSQUICK_COPYTOCLIPBOARD' | translate}}</button>
         </mat-menu>
       </div>
 

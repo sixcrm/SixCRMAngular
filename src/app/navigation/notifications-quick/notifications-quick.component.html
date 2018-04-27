@@ -7,8 +7,10 @@
     <div class="notifications-list__topnav__options">
       <mat-icon (click)="navigateToSettings()">settings</mat-icon>
     </div>
+    <div class="notifications-list__topnav__options">
+      <mat-icon class="arrow">arrow_drop_up</mat-icon>
+    </div>
   </div>
-
   <div class="notifications-list__content">
 
     <ng-container *ngIf="loaded; else loader">
@@ -53,7 +55,7 @@
                 <button mat-menu-item class="notifications-list__content_notification_menu_item"
                         (click)="goToLink(notification)">{{'NOTIFICATIONSQUICK_GOTOLINK' | translate}}</button>
                 <button mat-menu-item class="notifications-list__content_notification_menu_item"
-                        (click)="copyToClipboard(notification)">{{'NOTIFICATIONSQUICK_COPYTOCLIPBOARD' | translate}}</button>
+                        ngxClipboard [cbContent]="notification.body">{{'NOTIFICATIONSQUICK_COPYTOCLIPBOARD' | translate}}</button>
               </mat-menu>
             </div>
           </div>

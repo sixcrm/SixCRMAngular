@@ -17,6 +17,7 @@ import {TranslationModule} from '../translation/translation.module';
 import { TopnavDropdownComponent } from './topnav/topnav-dropdown/topnav-dropdown.component';
 import {OrdersModule} from '../orders/orders.module';
 import {MaterialSelectionModule} from '../material-selection/material-selection.module';
+import {ClipboardModule} from 'ngx-clipboard';
 
 @NgModule({
   imports : [
@@ -27,7 +28,8 @@ import {MaterialSelectionModule} from '../material-selection/material-selection.
     FormsModule,
     AuthenticationModule,
     TranslationModule,
-    OrdersModule
+    OrdersModule,
+    ClipboardModule
   ],
   declarations : [
     SidenavComponent,

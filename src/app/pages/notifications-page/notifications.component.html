@@ -2,7 +2,7 @@
   <div class="entity-view__title entity-view__title--blue">
     <div class="entity-view__title__heading">
       <div>{{'NOTIFICATIONS_TITLE' | translate}}</div>
-      <div>7 {{'NOTIFICATIONS_UNREAD' | translate}}</div>
+      <div>{{numberOfUnreadNotifications()}} {{'NOTIFICATIONS_UNREAD' | translate}}</div>
     </div>
     <div class="notification-title-icon">
       <mat-icon>notifications</mat-icon>
@@ -10,7 +10,7 @@
   </div>
 
   <div class="entity-view__body">
-    <notifications-section></notifications-section>
+    <notifications-section #notifications></notifications-section>
   </div>
 
 </div>
