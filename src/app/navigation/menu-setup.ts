@@ -167,10 +167,5 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
 
   items.push(new MenuItem('SIDENAV_SETTINGS_TITLE', null, settings).setIcon('settings'));
 
-  // Add Search menu item
-  if (acl.role.name !== 'Customer Service') {
-    items.push(new MenuItem('SIDENAV_SEARCH', 'search').setIcon('search'));
-  }
-
   return items;
 }
