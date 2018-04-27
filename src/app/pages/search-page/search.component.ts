@@ -1,8 +1,7 @@
 import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {SearchService} from '../../shared/services/search.service';
 import {Subscription, Subject} from 'rxjs';
-import {PaginationService} from '../../shared/services/pagination.service';
 import {utc, Moment} from 'moment';
 import {DaterangepickerConfig} from 'ng2-daterangepicker';
 import {NavigationService} from '../../navigation/navigation.service';
@@ -34,12 +33,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   currentRoute: string;
   paramsSub: Subscription;
 
-  limit: number;
-  paginationValues: number[] = [5, 10, 25, 50, 75, 100];
-  page: number = 0;
+  limit: number = 20;
 
   searchResults: any[] = [];
-  searchResultsToDisplay: any[] = [];
   numberOfSearchResults: number;
 
   facets: FacetCount[] = [];
@@ -50,8 +46,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   cardMode: boolean = true;
 
   sortBy: string = '';
-
-  shareSearch: boolean = false;
 
   queryOptsLabel = {
     firstname: 'First Name', lastname: 'Last Name', phone: 'Phone Number', email: 'Email Address',
@@ -69,15 +63,13 @@ export class SearchComponent implements OnInit, OnDestroy {
   fetchingData: boolean = false;
   searchPerformed: boolean = false;
 
-  showDetails: boolean = true;
+  showDetails: boolean = false;
   showFilters: boolean = true;
-
-  selectedEntity: any;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private searchService: SearchService,
-    private paginationService: PaginationService,
     private daterangepickerOptions: DaterangepickerConfig,
     private navigationService: NavigationService,
     private translationService: TranslationService
@@ -90,8 +82,6 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.navigationService.setSidenavAuto(false);
-
-    this.paginationService.searchResultsLimit$.subscribe(limit => this.limit = limit);
 
     this.paramsSub = this.route.queryParams.subscribe(params => {
       this.queryOptions = [];
@@ -117,16 +107,15 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     this.searchService.searchResults$.subscribe(data => {
       this.fetchingData = false;
+      this.searchPerformed = true;
       this.searchResults = [...this.searchResults, ...data.hit];
-      this.selectedEntity = this.searchResults[0];
       this.numberOfSearchResults = data.found;
-      this.reshuffleSearchResults();
     });
 
     this.searchService.facets$.subscribe(data => {
-      let temp: FacetCount[] = this.facets.filter(f => f.checked).map(f => { return {name: f.name, count: 0, checked: true} });
+      const temp: FacetCount[] = this.facets.filter(f => f.checked).map(f => { return {name: f.name, count: 0, checked: true} });
       Object.keys(data).forEach(key => {
-        let index = firstIndexOf(temp, (el) => el.name === key);
+        const index = firstIndexOf(temp, (el) => el.name === key);
 
         if (index !== -1) {
           temp[index].count = data[key];
@@ -158,7 +147,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.startDate = params['startDate'] ? utc(params['startDate']) : utc().subtract(1,'M');
     this.endDate = params['endDate'] ? utc(params['endDate']) : utc();
     this.createdAtRange = `['${this.startDate.format()}', '${this.endDate.format()}']`;
-    this.page = +params['page'] || 0;
     this.limit = +params['limit'] || this.limit;
     this.sortBy = params['sortBy'] || this.sortBy;
     this.cardMode = !params['cardMode'] || params['cardMode'] === 'true';
@@ -177,8 +165,6 @@ export class SearchComponent implements OnInit, OnDestroy {
       });
     }
 
-    this.shareSearch = params['page'] && params['limit'];
-
     this.setDatepickerOptions();
   }
 
@@ -187,7 +173,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   updateDatepicker(): void {
-    let ranges = {};
+    const ranges = {};
     ranges[this.translationService.translate('DATEPICKER_TODAY')] = [utc(), utc()];
     ranges[this.translationService.translate('DATEPICKER_YESTERDAY')] = [utc().subtract(1, 'd'), utc().subtract(1, 'd')];
     ranges[this.translationService.translate('DATEPICKER_DAY7')] = [utc().subtract(7, 'd'), utc()];
@@ -230,7 +216,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   search(): void {
     if (this.isAdvancedSearch) {
-      let opt: any = this.transformSearchOptions();
+      const opt: any = this.transformSearchOptions();
       this.prepareNewSearch();
       if (Object.keys(opt).length > 0) {
         this.performSearch(opt, this.createdAtRange, this.sortBy, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
@@ -252,53 +238,13 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.checkboxClicked$.next(true);
   }
 
-  previousPage(): void {
-    this.page--;
-    this.reshuffleSearchResults();
-  }
-
-  nextPage(): void {
-    this.page++;
-    this.reshuffleSearchResults();
-  }
-
-  updateLimit(limit: number): void {
-    if (!limit) return;
-
-    let firstElement: number = this.page * this.limit;
-
-    this.page = Math.floor(firstElement / limit);
-    this.paginationService.setSearchResultsLimit(limit);
-
-    this.reshuffleSearchResults();
-  }
-
   canFetchMore(): boolean {
     return this.searchResults.length < this.numberOfSearchResults;
-  }
-
-  hasMorePages(): boolean {
-    let nextPage = this.page + 1;
-
-    return nextPage * this.limit < this.numberOfSearchResults;
   }
 
   toggleAdvancedSearchFieldEnabled(option: any): void {
     option.enabled = !option.enabled;
     this.checkboxClicked$.next(true);
-  }
-
-  paginationString(): string {
-    if (!this.numberOfSearchResults || this.numberOfSearchResults === 0) {
-      return '';
-    }
-
-    let upper = this.page * this.limit + this.limit;
-    if (upper > this.numberOfSearchResults) {
-      upper = this.numberOfSearchResults;
-    }
-
-    return `${this.page * this.limit + 1}-${upper} of ${this.numberOfSearchResults}`;
   }
 
   setSortBy(value: string): void {
@@ -330,9 +276,9 @@ export class SearchComponent implements OnInit, OnDestroy {
       }
     });
 
-    const dateFilter = this.applyDateFilter ? `&startDate=${this.startDate.format()}&endDate=${this.endDate.format()}` : ''
+    const dateFilter = this.applyDateFilter ? `&startDate=${this.startDate.format()}&endDate=${this.endDate.format()}` : '';
 
-    return url + dateFilter + `&sortBy=${this.sortBy}&page=${this.page}&limit=${this.limit}&cardMode=${this.cardMode}&filterValue=${this.filterValue}` + filters;
+    return url + dateFilter + `&sortBy=${this.sortBy}&limit=${this.limit}&cardMode=${this.cardMode}&filterValue=${this.filterValue}` + filters;
   }
 
   resetSearch(): void {
@@ -341,48 +287,32 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.sortBy = '';
     this.startDate = utc().subtract(1, 'M');
     this.endDate = utc();
-    this.shareSearch = false;
     this.filterValue = '';
     this.facets = [];
-    this.searchResultsToDisplay = [];
     this.prepareNewSearch();
     this.setDatepickerOptions();
     this.search();
   }
 
-  entitySelected(entity: any): void {
-    this.selectedEntity = entity;
+  fetchMoreResults() {
+    if (this.canFetchMore() && !this.fetchingData) {
+      const query: any = this.isAdvancedSearch ? this.transformSearchOptions() : this.queryString;
+
+      this.performSearch(query, this.createdAtRange, this.sortBy, this.searchResults.length, this.limit, this.getCheckedEntityTypes());
+    }
+  }
+
+  entitySelected(entity) {
+    this.router.navigate([`/${entity.fields.entity_type}s`, entity.id])
   }
 
   private prepareNewSearch(): void {
     this.searchResults = [];
-    this.searchResultsToDisplay = [];
     this.numberOfSearchResults = 0;
-
-    if (!this.shareSearch) {
-      this.page = 0;
-    } else {
-      this.shareSearch = false;
-    }
-  }
-
-  private reshuffleSearchResults(): void {
-    let tempResults = this.searchResults.slice(this.page * this.limit, this.page * this.limit + this.limit);
-
-    if (tempResults.length >= this.limit || !this.canFetchMore()) {
-      this.searchResultsToDisplay = tempResults;
-    }
-    else {
-      if (this.canFetchMore()) {
-        let query: any = this.isAdvancedSearch ? this.transformSearchOptions() : this.queryString;
-
-        this.performSearch(query, this.createdAtRange, this.sortBy, this.searchResults.length, this.limit - tempResults.length, this.getCheckedEntityTypes());
-      }
-    }
   }
 
   private transformSearchOptions(): any {
-    let opt: any = {};
+    const opt: any = {};
     this.queryOptions.forEach(option => {
       if (option.enabled) {
         opt[option.key] = option.value;
@@ -394,7 +324,6 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   private performSearch(query: string|any, createdAtRange: string, sortBy: string, offset: number, count: number, entityTypes: any): void {
     this.fetchingData = true;
-    this.searchPerformed = true;
     this.searchService.searchByQuery(query, this.applyDateFilter ? createdAtRange : '', sortBy, offset, count, entityTypes);
     this.searchService.searchFacets(query, this.applyDateFilter ? createdAtRange : '');
   }

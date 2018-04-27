@@ -16,7 +16,6 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
 
   chart;
   funnel: EventFunnel;
-  showTable: boolean = true;
 
   chartOptions =  {
     chart: {

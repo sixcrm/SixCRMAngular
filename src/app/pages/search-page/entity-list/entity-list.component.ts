@@ -12,6 +12,7 @@ export class EntityListComponent implements OnInit {
   @Input() query: string;
   @Input() data: any[] = [];
   @Input() selectedEntity: any;
+  @Input() fetchInProgress: boolean;
 
   @Output() select: EventEmitter<any> = new EventEmitter();
 

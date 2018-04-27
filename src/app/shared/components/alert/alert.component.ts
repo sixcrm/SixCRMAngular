@@ -38,6 +38,4 @@ export class AlertComponent implements OnInit {
   markAsUnread() {}
 
   goToLink() {}
-
-  copyToClipboard() {}
 }

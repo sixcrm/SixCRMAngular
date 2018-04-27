@@ -4,11 +4,12 @@ import { NotificationsComponent } from './notifications.component';
 import {notificationsRouting} from './notifications.routing';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import { NotificationsSectionComponent } from './notifications-section/notifications-section.component';
-import { AlertsSectionComponent } from './alerts-section/alerts-section.component';
 import {SharedModule} from '../../shared/shared.module';
 import {TranslationModule} from "../../translation/translation.module";
 import {FormsModule} from '@angular/forms';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
+import {ClipboardModule} from 'ngx-clipboard';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
   imports: [
@@ -18,8 +19,13 @@ import {MaterialSelectionModule} from '../../material-selection/material-selecti
     MaterialSelectionModule,
     InfiniteScrollModule,
     SharedModule,
-    TranslationModule
+    TranslationModule,
+    ClipboardModule,
+    MatButtonToggleModule
   ],
-  declarations: [NotificationsComponent, NotificationsSectionComponent, AlertsSectionComponent]
+  declarations: [
+    NotificationsComponent,
+    NotificationsSectionComponent
+  ]
 })
 export class NotificationsModule { }

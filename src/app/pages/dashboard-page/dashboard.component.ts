@@ -36,8 +36,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
       process: (series: HeroChartSeries[]) => {
         this.seriesType = SeriesType.amountcount;
 
-        let revenue = series.find(el => el.facet === 'revenue').timeseries.map(s => [s.datetime, s.value]);
-        let orders = series.find(el => el.facet === 'orders').timeseries.map(s => [s.datetime, s.value]);
+        const revenue = series.find(el => el.facet === 'revenue').timeseries.map(s => [s.datetime, s.value]);
+        const orders = series.find(el => el.facet === 'orders').timeseries.map(s => [s.datetime, s.value]);
 
         this.totalAmount = new Currency(series.find(el => el.facet === 'revenue').timeseries.map(s => s.value).reduce((a,b) => a+b, 0));
 
@@ -51,8 +51,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
       process: (series: HeroChartSeries[]) => {
         this.seriesType = SeriesType.count;
 
-        let orders = series.find(el => el.facet === 'orders').timeseries.map(s => [s.datetime, s.value]);
-        let upsells = series.find(el => el.facet === 'upsells').timeseries.map(s => [s.datetime, s.value]);
+        const orders = series.find(el => el.facet === 'orders').timeseries.map(s => [s.datetime, s.value]);
+        const upsells = series.find(el => el.facet === 'upsells').timeseries.map(s => [s.datetime, s.value]);
 
         this.data = [upsells, orders];
       }
@@ -64,8 +64,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
       process: (series: HeroChartSeries[]) => {
         this.seriesType = SeriesType.amount;
 
-        let direct = series.find(el => el.facet === 'direct').timeseries.map(s => [s.datetime, s.value]);
-        let rebill = series.find(el => el.facet === 'rebill').timeseries.map(s => [s.datetime, s.value]);
+        const direct = series.find(el => el.facet === 'direct').timeseries.map(s => [s.datetime, s.value]);
+        const rebill = series.find(el => el.facet === 'rebill').timeseries.map(s => [s.datetime, s.value]);
 
         this.data = [direct, rebill];
       }
@@ -77,7 +77,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       process: (series: HeroChartSeries[]) => {
         this.seriesType = SeriesType.amount;
 
-        let average = series.find(el => el.facet === 'averageRevenue').timeseries.map(s => [s.datetime, s.value]);
+        const average = series.find(el => el.facet === 'averageRevenue').timeseries.map(s => [s.datetime, s.value]);
 
         this.data = [average, []];
       }
