@@ -5,7 +5,7 @@ import {CustomerNote} from '../models/customer-note.model';
 import {HttpWrapperService} from './http-wrapper.service';
 import {
   deleteCustomerNoteMutation, createCustomerNoteMutation,
-  deleteCustomerNotesMutation
+  deleteCustomerNotesMutation, customerNotesByCustomerQuery, updateCustomerNoteMutation
 } from '../utils/queries/entities/customer-note.queries';
 import {MatSnackBar} from '@angular/material';
 
@@ -22,9 +22,9 @@ export class CustomerNotesService extends AbstractEntityService<CustomerNote> {
       deleteCustomerNoteMutation,
       deleteCustomerNotesMutation,
       createCustomerNoteMutation,
+      updateCustomerNoteMutation,
       null,
-      null,
-      'customer',
+      'default',
       snackBar
     );
   }

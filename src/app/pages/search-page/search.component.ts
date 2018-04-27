@@ -66,6 +66,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   showDetails: boolean = false;
   showFilters: boolean = true;
 
+  selectedEntity: any;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,

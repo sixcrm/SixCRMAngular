@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 
 @Component({
   selector: 'customer-service-order',
@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerServiceOrderComponent implements OnInit {
 
+  @Input() customerId: string;
+
+  selectedIndex: number = 0;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  setIndex(index: number) {
+    this.selectedIndex = index;
   }
 
 }

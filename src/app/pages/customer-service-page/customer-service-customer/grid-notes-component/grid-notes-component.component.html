@@ -1,0 +1,44 @@
+<div>
+
+  <div class="title">
+    {{notes.length || 0}} Notes
+  </div>
+
+  <div class="container">
+
+    <div class="column" [style.width]="100 / groups.length + '%'" *ngFor="let group of groups; let i = index;">
+      <div class="note" *ngIf="i === 0">
+        <button class="add-button" mat-button (click)="newNote()">ADD A NOTE</button>
+      </div>
+
+      <div class="note" *ngFor="let n of group">
+
+        <div class="header">
+          <div class="date">{{n.createdAt.tz(authService.getTimezone()).format('MM/DD/YY')}}</div>
+          <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+          <mat-menu #actionsMenu="matMenu" x-position="before">
+            <button mat-menu-item (click)="deleteEntity(n.id)">Delete Note</button>
+            <button mat-menu-item (click)="editNote(n)">Edit Note</button>
+          </mat-menu>
+        </div>
+
+        <div class="body">{{n.body}}</div>
+
+        <div class="author">{{n.user.name}}</div>
+      </div>
+    </div>
+
+    <div *ngIf="showNewNote || showEditNote" class="new">
+      <mat-input-container>
+        <textarea auto-focus matInput [(ngModel)]="note"></textarea>
+      </mat-input-container>
+
+      <div class="new__actions">
+        <mat-icon (click)="closeNote()" class="new__actions__close">clear</mat-icon>
+        <mat-icon (click)="saveOrUpdateNote()" class="new__actions__done">done</mat-icon>
+      </div>
+    </div>
+
+  </div>
+
+</div>

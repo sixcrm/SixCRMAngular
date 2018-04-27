@@ -1,0 +1,25 @@
+.customer-service-item {
+  min-height: 100%;
+  overflow: hidden;
+
+  .header {
+    padding: 45px 15px;
+    color: rgba(255,255,255,0.85);
+
+    .order-data {
+      height: 62px;
+    }
+  }
+
+  .blue-tab-header {
+    margin: 0 15px;
+  }
+
+  .content {
+    background: #F5F5F5;
+    font-size: 12px;
+    padding: 15px;
+    height: calc(100vh - 360px);
+    overflow: auto;
+  }
+}
