@@ -16,7 +16,7 @@ export class CustomerEventsComponent implements OnInit, OnDestroy {
 
   @Input() customer: Customer;
 
-  limit: number = 8;
+  limit: number = 20;
   offset: number = 0;
   hasMore: boolean;
   loadingData: boolean = false;
@@ -34,7 +34,7 @@ export class CustomerEventsComponent implements OnInit, OnDestroy {
 
   private unsubscribe$: AsyncSubject<boolean> = new AsyncSubject();
 
-  constructor(private analyticsService: AnalyticsService) { }
+  constructor(protected analyticsService: AnalyticsService) { }
 
   ngOnInit() {
     this.analyticsService.activitiesByCustomer$.takeUntil(this.unsubscribe$).subscribe(activities => {

@@ -27,31 +27,63 @@
     background: #F5F5F5;
     font-size: 12px;
     padding: 15px;
+    height: calc(100vh - 360px);
+    overflow: auto;
 
     .info {
       padding: 15px;
-      box-shadow: 0 0 3px rgba(0,0,0,0.3);
+      margin-right: 5px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.16);
       border-radius: 3px;
       background: white;
       color: black;
 
       .section {
+        display: flex;
+
+        mat-icon {
+          background: rgba(0,0,0,0.06);
+          padding: 1px;
+          color: rgba(0,0,0,0.6);
+          font-size: 14px;
+          height: 14px;
+          width: 14px;
+          margin-right: 6px;
+          cursor: pointer;
+        }
+
         div {
-          margin-bottom: 5px;
 
-          &:first-of-type {
-            color: rgba(0,0,0,0.4);
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 8px;
-          }
+          div {
+            margin-bottom: 5px;
+            font-size: 11px;
 
-          &:last-of-type {
-            margin-bottom: 25px;
+            &:first-of-type {
+              color: rgba(0,0,0,0.4);
+              font-size: 14px;
+              font-weight: 500;
+              margin-bottom: 8px;
+            }
+
+            &:last-of-type {
+              margin-bottom: 25px;
+            }
           }
         }
 
       }
     }
+
+    .events {
+      min-width: 65%;
+      margin-left: 15px;
+      border-radius: 3px;
+      color: black;
+    }
   }
+}
+
+grid-notes-component {
+  display: block;
+  width: 100%;
 }

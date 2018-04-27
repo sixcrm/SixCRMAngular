@@ -29,8 +29,20 @@ export class CustomerNote implements Entity<CustomerNote>{
     this.updatedAtAPI = obj.updated_at;
   }
 
+  inverse() {
+    return {
+      id: this.id,
+      customer: this.customer.inverse(),
+      user: this.user.inverse(),
+      account: this.account,
+      body: this.body,
+      created_at: this.createdAt.format(),
+      updated_at: this.updatedAtAPI
+    }
+  }
+
   copy(): CustomerNote {
-    return null;
+    return new CustomerNote(this.inverse());
   }
 
 }

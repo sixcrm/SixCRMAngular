@@ -9,6 +9,9 @@ import {customerNotesByCustomerQuery} from '../../../../shared/utils/queries/ent
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
 import {MatDialog} from '@angular/material';
+import {Subject} from 'rxjs';
+import {Customer} from '../../../../shared/models/customer.model';
+import {User} from '../../../../shared/models/user.model';
 
 @Component({
   selector: 'customer-notes',
@@ -21,7 +24,12 @@ export class CustomerNotesComponent extends AbstractEntityIndexComponent<Custome
 
   notes: CustomerNote[] = [];
   showNewNote: boolean;
+  showEditNote: boolean;
   note: string;
+
+  noteToEdit: CustomerNote;
+
+  notesRefreshed$: Subject<boolean> = new Subject();
 
   constructor(
     customerNotesService: CustomerNotesService,
@@ -48,6 +56,7 @@ export class CustomerNotesComponent extends AbstractEntityIndexComponent<Custome
       this.serverError = null;
       this.hasMore = notes && notes.length === this.limit;
       this.notes = [...this.notes, ...notes];
+      this.notesRefreshed$.next(true);
     });
 
     this.service.entityCreated$.takeUntil(this.unsubscribe$).subscribe(note => {
@@ -59,6 +68,7 @@ export class CustomerNotesComponent extends AbstractEntityIndexComponent<Custome
       this.serverError = null;
       this.notes.unshift(note);
       this.closeNote();
+      this.notesRefreshed$.next(true);
     });
 
     this.service.entityDeleted$.takeUntil(this.unsubscribe$).subscribe(note => {
@@ -69,6 +79,17 @@ export class CustomerNotesComponent extends AbstractEntityIndexComponent<Custome
 
       this.serverError = null;
       this.deleteNoteLocally(note);
+    });
+
+    this.service.entityUpdated$.takeUntil(this.unsubscribe$).subscribe(note => {
+      if (note instanceof CustomServerError) {
+        this.serverError = note;
+        return;
+      }
+
+      this.serverError = null;
+      this.closeNote();
+      this.updateNoteLocally(note);
     });
 
     this.init(!!this.customerId);
@@ -88,10 +109,38 @@ export class CustomerNotesComponent extends AbstractEntityIndexComponent<Custome
   newNote(): void {
     this.note = '';
     this.showNewNote = true;
+    this.showEditNote = false;
+  }
+
+  editNote(note: CustomerNote): void {
+    this.noteToEdit = note.copy();
+    this.noteToEdit.customer = new Customer({id: this.customerId});
+    this.noteToEdit.user = new User({id: this.authService.getSixUser().id});
+    this.note = this.noteToEdit.body;
+    this.showNewNote = false;
+    this.showEditNote = true;
+  }
+
+  updateNote() {
+    if (!this.noteToEdit || !this.noteToEdit.id) return;
+
+    this.noteToEdit.body = this.note;
+
+    this.service.updateEntity(this.noteToEdit)
+  }
+
+  saveOrUpdateNote() {
+    if (this.showNewNote) {
+      this.saveNote();
+    } else {
+      this.updateNote();
+    }
   }
 
   closeNote(): void {
     this.note = '';
+    this.noteToEdit = null;
+    this.showEditNote = false;
     this.showNewNote = false;
   }
 
@@ -113,6 +162,16 @@ export class CustomerNotesComponent extends AbstractEntityIndexComponent<Custome
 
     if (index > -1) {
       this.notes.splice(index, 1);
+      this.notesRefreshed$.next(true);
+    }
+  }
+
+  updateNoteLocally(note: CustomerNote): void {
+    let index = firstIndexOf(this.notes, (el) => el.id === note.id);
+
+    if (index > -1) {
+      this.notes[index] = note.copy();
+      this.notesRefreshed$.next(true);
     }
   }
 }

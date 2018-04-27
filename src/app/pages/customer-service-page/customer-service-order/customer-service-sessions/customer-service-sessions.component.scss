@@ -1,0 +1,33 @@
+.container {
+
+  .title {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .content {
+    display: flex;
+    margin-top: 15px;
+
+    .session {
+      margin-right: 15px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.16);
+      cursor: pointer;
+
+      .info {
+        padding: 10px;
+
+        div {
+          font-size: 12px;
+          line-height: 20px;
+
+          &:last-of-type {
+            color: rgba(0,0,0,0.6);
+          }
+        }
+      }
+    }
+  }
+
+}

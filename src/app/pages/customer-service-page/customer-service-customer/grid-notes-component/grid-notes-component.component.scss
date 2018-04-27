@@ -1,0 +1,94 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin: -5px;
+
+  .column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .note {
+    margin: 5px;
+    background: white;
+    padding: 12px;
+    font-size: 12px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.16);
+
+    .add-button {
+      margin: 10px 0;
+      background: #1DBDA5;
+      color: white;
+      font-size: 14px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      color: rgba(0,0,0,0.6);
+
+      mat-icon {
+        margin-left: auto;
+        height: 18px;
+        width: 18px;
+        font-size: 18px;
+        cursor: pointer;
+      }
+    }
+
+    .body {
+      margin: 15px 0;
+    }
+
+    .author {
+      display: inline-block;
+      background: rgba(0,0,0,0.1);
+      padding: 6px 8px;
+      border-radius: 12px;
+      font-size: 10px;
+    }
+  }
+
+  .new {
+    position: absolute;
+    top: 62px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    width: 85%;
+    padding: 10px 10px 5px;
+    background: white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.4);
+
+    mat-input-container {
+      width: 100%;
+
+      textarea {
+        height: 120px;
+      }
+
+    }
+
+    &__actions {
+
+      mat-icon {
+        padding: 0 10px;
+        cursor: pointer;
+      }
+      &__close {
+        color: #D0021B;
+      }
+
+      &__done {
+        color: #60B003;
+      }
+    }
+  }
+
+}
+
+.title {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: rgba(0,0,0,0.6);
+}
