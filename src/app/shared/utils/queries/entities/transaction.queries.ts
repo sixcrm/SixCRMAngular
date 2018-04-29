@@ -35,7 +35,7 @@ export function transactionsByCustomer(customerId: string, params: IndexQueryPar
   return `{
 		transactionlistbycustomer (customer:"${customerId}" ${paginationParamsQuery(params, true)}) {
 			transactions {
-			  ${transactionInfoResponseQuery()}
+			  ${transactionCustomerInfoResponseQuery()}
 			}
 			${fullPaginationStringResponseQuery()}
     }
@@ -52,6 +52,10 @@ export function refundTransactionMutation(transactionId: string, refundAmount: s
 
 export function transactionInfoResponseQuery(): string {
   return 'id amount alias created_at updated_at merchant_provider { id name } processor_response';
+}
+
+export function transactionCustomerInfoResponseQuery(): string {
+  return 'id amount alias created_at updated_at processor_response products { amount, product { id name } }';
 }
 
 export function transactionResponseQuery(): string {

@@ -18,8 +18,8 @@
           <div class="info">
             <div class="section">
               <mat-icon>edit</mat-icon>
-              <div>
-                <div>Contact</div>
+              <div class="data">
+                <div class="title">Contact</div>
                 <div>{{customer.phone}}</div>
                 <div>{{customer.email}}</div>
               </div>
@@ -27,19 +27,21 @@
 
             <div class="section">
               <mat-icon>edit</mat-icon>
-              <div>
-                <div>Payment</div>
-                <div *ngFor="let creditCard of customer.creditCards">
-                  <div>{{creditCard.type}}</div>
-                  <div>****{{creditCard.lastFour}}</div>
+              <div class="data">
+                <div class="title">Payment</div>
+                <div class="cards">
+                  <div class="item" *ngFor="let creditCard of customer.creditCards">
+                    <span>{{creditCard.type}}</span>
+                    <span>****{{creditCard.lastFour}}</span>
+                  </div>
                 </div>
               </div>
             </div>
 
             <div class="section">
               <mat-icon>edit</mat-icon>
-              <div>
-                <div>Shipping</div>
+              <div class="data">
+                <div class="title">Shipping</div>
                 <div>{{customer.address.line1}}</div>
                 <div *ngIf="customer.address.line2">{{customer.address.line2}}</div>
                 <div>{{customer.address.city}}, {{customer.address.state}} {{customer.address.zip}}</div>
@@ -55,7 +57,7 @@
 
       <mat-tab>
         <div class="content">
-          <grid-notes-component *ngIf="customer" [customerId]="customer.id"></grid-notes-component>
+          <notes-component *ngIf="customer" [customerId]="customer.id"></notes-component>
         </div>
       </mat-tab>
 

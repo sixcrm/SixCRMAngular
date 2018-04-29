@@ -15,6 +15,7 @@ export class Session implements Entity<Session> {
   productSchedules: ProductSchedule[] = [];
   completed: boolean;
   rebills: Rebill[] = [];
+  nextRebill: Rebill;
   campaign: Campaign;
   cid: Affiliate;
   affiliate: Affiliate;
@@ -55,15 +56,12 @@ export class Session implements Entity<Session> {
     this.startedAt = utc(obj.created_at).hour(0).minute(0).second(0).millisecond(0);
 
     if (obj.product_schedules) {
-      for (let i = 0; i < obj.product_schedules.length; i++) {
-        this.productSchedules.push(new ProductSchedule(obj.product_schedules[i]))
-      }
+      this.productSchedules = obj.product_schedules.map(ps => new ProductSchedule(ps));
     }
 
     if (obj.rebills) {
-      for (let i = 0; i < obj.rebills.length; i++) {
-        this.rebills.push(new Rebill(obj.rebills[i]))
-      }
+      this.rebills = obj.rebills.map(r => new Rebill(r));
+      this.nextRebill = this.getNextRebill();
     }
 
     this.transformAffiliates();
@@ -89,6 +87,21 @@ export class Session implements Entity<Session> {
     ];
 
     return affiliates.filter(a => a.id);
+  }
+
+  getNextRebill(): Rebill {
+    if (!this.rebills || this.rebills.length === 0) return null;
+
+    const now = utc();
+    let next: Rebill = null;
+
+    for (let i = 0; i < this.rebills.length; i++) {
+      if (this.rebills[i].billAt.isSameOrAfter(next ? next.billAt : now)) {
+        next = this.rebills[i];
+      }
+    }
+
+    return next;
   }
 
   copy(): Session {

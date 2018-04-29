@@ -4,6 +4,7 @@ import {PaginationService} from '../../../../shared/services/pagination.service'
 import {MatDialog} from '@angular/material';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {SessionsService} from '../../../../shared/services/sessions.service';
+import {utc} from 'moment';
 
 @Component({
   selector: 'customer-service-sessions',
@@ -11,6 +12,8 @@ import {SessionsService} from '../../../../shared/services/sessions.service';
   styleUrls: ['./customer-service-sessions.component.scss']
 })
 export class CustomerServiceSessionsComponent extends CustomerSessionsComponent implements OnInit, OnDestroy {
+
+  utcf = utc;
 
   constructor(
     transactionsService: SessionsService,

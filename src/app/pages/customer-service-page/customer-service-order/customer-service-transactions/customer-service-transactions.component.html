@@ -1,0 +1,31 @@
+<div>
+  <table class="highlight">
+    <thead>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Amount</th>
+    </thead>
+
+    <tbody>
+      <ng-container *ngFor="let transaction of entities">
+
+        <tr>
+          <td>{{transaction.createdAt | formatDateTime}}</td>
+          <td>{{transaction.alias}}</td>
+          <td></td>
+          <td>{{transaction.amount.usd()}}</td>
+        </tr>
+
+        <ng-container *ngFor="let transactionProduct of transaction.products">
+          <tr>
+            <td></td>
+            <td>{{transactionProduct.product.name}}</td>
+            <td></td>
+            <td>{{transactionProduct.amount.usd()}}</td>
+          </tr>
+        </ng-container>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,48 @@
+.order {
+  display: flex;
+  padding: 8px 10px;
+  background: #D7F1FF;
+
+  div {
+    &:first-of-type {
+      font-weight: 500;
+    }
+
+    &:last-of-type {
+      margin-left: auto;
+      color: #1DBDA5;
+    }
+  }
+}
+
+.details {
+  padding: 10px;
+  background: #D7F1FF;
+}
+
+.rebill {
+  box-shadow: 0 0 4px rgba(0,0,0,0.16);
+  margin-bottom: 15px;
+  background: white;
+}
+
+.schedule {
+  padding: 15px;
+
+  .name {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .sku {
+    margin-bottom: 10px;
+  }
+
+  .price {
+    margin-bottom: 10px;
+  }
+
+  .description {
+
+  }
+}

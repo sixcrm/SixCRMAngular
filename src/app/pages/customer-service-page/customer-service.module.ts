@@ -7,12 +7,14 @@ import { CustomerServiceOrderComponent } from './customer-service-order/customer
 import { CustomerServicePairComponent } from './customer-service-pair/customer-service-pair.component';
 import {customerServiceRouting} from './customer-service.routing';
 import {CustomerServiceDashboardComponent} from './customer-service-dashboard/customer-service-dashboard.component';
-import { GridNotesComponentComponent } from './customer-service-customer/grid-notes-component/grid-notes-component.component';
+import { NotesComponentComponent } from './customer-service-customer/notes-component/notes-component.component';
 import { EventsTableComponent } from './customer-service-customer/events-table/events-table.component';
 import {TranslationModule} from '../../translation/translation.module';
 import {SharedModule} from '../../shared/shared.module';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import { CustomerServiceSessionsComponent } from './customer-service-order/customer-service-sessions/customer-service-sessions.component';
+import { CustomerServiceRebillsComponent } from './customer-service-order/customer-service-rebills/customer-service-rebills.component';
+import { CustomerServiceTransactionsComponent } from './customer-service-order/customer-service-transactions/customer-service-transactions.component';
 
 @NgModule({
   imports: [
@@ -29,9 +31,11 @@ import { CustomerServiceSessionsComponent } from './customer-service-order/custo
     CustomerServiceCustomerComponent,
     CustomerServiceOrderComponent,
     CustomerServicePairComponent,
-    GridNotesComponentComponent,
+    NotesComponentComponent,
     EventsTableComponent,
-    CustomerServiceSessionsComponent
+    CustomerServiceSessionsComponent,
+    CustomerServiceRebillsComponent,
+    CustomerServiceTransactionsComponent
   ]
 })
 export class CustomerServiceModule { }

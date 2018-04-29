@@ -5,13 +5,20 @@
   <div class="content">
     <div class="session" *ngFor="let session of entities">
       <div class="next">
-
+        <ng-container *ngIf="session.nextRebill; else norebill">
+          <div class="days">Next Rebill {{session.nextRebill.billAt.diff(utcf(), 'd')}} days</div>
+          <div class="date">{{session.nextRebill.billAt.format() | formatDateTime}}</div>
+          <div class="price">{{session.nextRebill.amount.usd()}}</div>
+        </ng-container>
+        <ng-template #norebill>
+          <div class="no-future">No Future Rebills</div>
+        </ng-template>
       </div>
 
       <div class="info">
         <div>{{session.alias}}</div>
         <div>{{session.campaign.name}}</div>
-        <div>{{session.createdAt.format()}}</div>
+        <div>Purchase {{session.createdAt | formatDateTime}}</div>
       </div>
     </div>
   </div>

@@ -23,7 +23,7 @@ export function sessionsByCustomer(customerId: string, params: IndexQueryParamet
   return `{
 		sessionlistbycustomer (customer:"${customerId}" ${paginationParamsQuery(params, true)}) {
 			sessions {
-			  ${sessionInfoResponseQuery()}
+			  ${sessionInfoDetailedResponseQuery()}
 			}
 			${fullPaginationStringResponseQuery()}
     }
@@ -160,4 +160,8 @@ export function sessionResponseQuery(): string {
 
 export function sessionInfoResponseQuery(): string {
   return `id alias created_at updated_at customer { id firstname lastname } product_schedules { id } rebills { id } campaign { id name }`;
+}
+
+export function sessionInfoDetailedResponseQuery(): string {
+  return `id alias created_at updated_at product_schedules { id } rebills { id, bill_at, amount } campaign { id name }`;
 }

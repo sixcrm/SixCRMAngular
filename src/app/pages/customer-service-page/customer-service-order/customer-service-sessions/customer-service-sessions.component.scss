@@ -8,22 +8,53 @@
 
   .content {
     display: flex;
+    flex-wrap: wrap;
     margin-top: 15px;
 
     .session {
+      width: calc(33% - 15px);
       margin-right: 15px;
       box-shadow: 0 0 4px rgba(0,0,0,0.16);
       cursor: pointer;
 
+      .next {
+        display: flex;
+        height: 100px;
+        box-sizing: border-box;
+        flex-direction: column;
+        padding: 10px;
+        background: #4478BE;
+        color: white;
+
+        .no-future {
+          font-size: 22px;
+        }
+
+        .days {
+          margin-bottom: auto;
+        }
+
+        .date {
+          font-size: 18px;
+          margin-bottom: 3px;
+        }
+
+        .price {
+          font-size: 16px;
+        }
+
+      }
+
       .info {
         padding: 10px;
+        background: white;
 
         div {
           font-size: 12px;
-          line-height: 20px;
+          line-height: 22px;
 
           &:last-of-type {
-            color: rgba(0,0,0,0.6);
+            color: rgba(0,0,0,0.5);
           }
         }
       }
