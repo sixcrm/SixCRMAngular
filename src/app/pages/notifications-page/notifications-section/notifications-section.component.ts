@@ -91,10 +91,6 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
       notification.markAsRead();
       this.notificationsService.updateEntity(notification, {ignoreSnack: true});
     }
-
-    if (notification.category && notification.context[`${notification.category}.id`]) {
-      this.router.navigate([notification.category + 's', notification.context[`${notification.category}.id`]]);
-    }
   }
 
   showAll() {
@@ -110,13 +106,15 @@ export class NotificationsSectionComponent extends AbstractEntityIndexComponent<
   }
 
   markAllAsRead() {
-    this.notificationsService.updateEntities(this.notifications.map(n => n.markAsRead()));
+    this.notificationsService.updateEntities(this.notifications.filter(n => !n.readAt).map(n => n.markAsRead()));
   }
 
   markAsUnread(notification: Notification) {
     this.notificationsService.updateEntity(notification.markAsUnread());
   }
 
-  goToLink() {}
+  goToLink(notification: Notification) {
+    this.router.navigateByUrl(notification.contextLink());
+  }
 
 }

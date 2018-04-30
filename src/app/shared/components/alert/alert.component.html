@@ -10,7 +10,7 @@
         <mat-icon [matMenuTriggerFor]="actionsMenu"  class="notification-options" *ngIf="inList">more_vert</mat-icon>
         <mat-menu #actionsMenu="matMenu" x-position="before">
           <button mat-menu-item (click)="markAsUnread()">{{'NOTIFICATIONSQUICK_MARKASUNREAD' | translate}}</button>
-          <button mat-menu-item (click)="goToLink()">{{'NOTIFICATIONSQUICK_GOTOLINK' | translate}}</button>
+          <button *ngIf="alert.hasContext()" mat-menu-item (click)="goToLink()">{{'NOTIFICATIONSQUICK_GOTOLINK' | translate}}</button>
           <button mat-menu-item ngxClipboard [cbContent]="alert.body">{{'NOTIFICATIONSQUICK_COPYTOCLIPBOARD' | translate}}</button>
         </mat-menu>
       </div>

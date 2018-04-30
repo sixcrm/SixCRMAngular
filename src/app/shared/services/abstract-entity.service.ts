@@ -165,7 +165,7 @@ export abstract class AbstractEntityService<T> {
   }
 
   updateEntities(entities: T[]): void {
-    if (!this.hasWritePermission() || !this.updateManyQuery) {
+    if (!this.hasWritePermission() || !this.updateManyQuery || entities.length < 1) {
       return;
     }
 

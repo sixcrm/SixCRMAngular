@@ -64,6 +64,22 @@ export class Notification implements Entity<Notification> {
 
     return this;
   }
+
+  hasContext(): boolean {
+    return Object.keys(this.context).length > 0;
+  }
+
+  contextLink(): string {
+    let identifiableEntityId;
+    let identifiableEntityName;
+    for (let key in this.context) {
+      if (key.includes('.id')) {
+        identifiableEntityId = this.context[key];
+        identifiableEntityName = key.replace('.id', '');
+      }
+    }
+    return `/${identifiableEntityName}s/${identifiableEntityId}`;
+  }
 }
 
 export function compareNotifications(f: Notification, s: Notification): number {

@@ -9,13 +9,11 @@
         </mat-input-container>
       </div>
       <mat-button-toggle-group #group="matButtonToggleGroup" value="buttonAll">
-        <mat-button-toggle class="mrw-button" (click)="showAll()" value="buttonAll">ALL</mat-button-toggle>
-        <mat-button-toggle class="mrw-button" (click)="showAlerts()" value="buttonAlerts">ALERTS</mat-button-toggle>
-        <mat-button-toggle class="mrw-button" (click)="showNotifications()" value="buttonNotifications">NOTIFICATIONS</mat-button-toggle>
+        <mat-button-toggle class="mrw-button" (click)="showAll()" value="buttonAll">{{'NOTIFICATIONS_TAB_ALL' | translate}}</mat-button-toggle>
+        <mat-button-toggle class="mrw-button" (click)="showAlerts()" value="buttonAlerts">{{'NOTIFICATIONS_TAB_ALERTS' | translate}}</mat-button-toggle>
+        <mat-button-toggle class="mrw-button" (click)="showNotifications()" value="buttonNotifications">{{'NOTIFICATIONS_TAB_NOTIFICATIONS' | translate}}</mat-button-toggle>
       </mat-button-toggle-group>
-      <mat-button-toggle-group class="mark-read" #group="matButtonToggleGroup">
-      <mat-button-toggle class="mrw-button" (click)="markAllAsRead()" value="markAllRead">MARK ALL AS READ</mat-button-toggle>
-      </mat-button-toggle-group>
+      <div class="mrw-button mark-read" (click)="markAllAsRead()">{{'NOTIFACTIONSQUICK_MARKALLASREAD' | translate}}</div>
     </div>
 
     <div class="notifications-container"
@@ -49,7 +47,7 @@
             <mat-icon [matMenuTriggerFor]="actionsMenu" class="notification-options">more_vert</mat-icon>
             <mat-menu #actionsMenu="matMenu" x-position="before">
               <button mat-menu-item (click)="markAsUnread(notification)">{{'NOTIFICATIONSQUICK_MARKASUNREAD' | translate}}</button>
-              <button mat-menu-item (click)="goToLink(notification)">{{'NOTIFICATIONSQUICK_GOTOLINK' | translate}}</button>
+              <button *ngIf="notification.hasContext()" mat-menu-item (click)="goToLink(notification)">{{'NOTIFICATIONSQUICK_GOTOLINK' | translate}}</button>
               <button mat-menu-item ngxClipboard [cbContent]="notification.body">{{'NOTIFICATIONSQUICK_COPYTOCLIPBOARD' | translate}}</button>
             </mat-menu>
           </tr>

@@ -2,6 +2,7 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Notification} from '../../models/notification.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {TimeService} from '../../services/time.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'alert-component',
@@ -17,7 +18,7 @@ export class AlertComponent implements OnInit {
   @Output() clear: EventEmitter<Notification> = new EventEmitter();
   @Output() view: EventEmitter<Notification> = new EventEmitter();
 
-  constructor(public authService: AuthenticationService, private timeService: TimeService) { }
+  constructor(public authService: AuthenticationService, private timeService: TimeService, private router: Router,) { }
 
   ngOnInit() { }
 
@@ -37,5 +38,7 @@ export class AlertComponent implements OnInit {
 
   markAsUnread() {}
 
-  goToLink() {}
+  goToLink() {
+    this.router.navigateByUrl(this.alert.contextLink());
+  }
 }

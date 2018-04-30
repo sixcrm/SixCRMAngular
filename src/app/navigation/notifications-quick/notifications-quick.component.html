@@ -52,7 +52,7 @@
               <mat-menu #actionsMenu="matMenu" x-position="before">
                 <button mat-menu-item class="notifications-list__content_notification_menu_item_markasunread"
                         (click)="markAsUnread(notification)">{{'NOTIFICATIONSQUICK_MARKASUNREAD' | translate}}</button>
-                <button mat-menu-item class="notifications-list__content_notification_menu_item"
+                <button *ngIf="notification.hasContext()" mat-menu-item class="notifications-list__content_notification_menu_item"
                         (click)="goToLink(notification)">{{'NOTIFICATIONSQUICK_GOTOLINK' | translate}}</button>
                 <button mat-menu-item class="notifications-list__content_notification_menu_item"
                         ngxClipboard [cbContent]="notification.body">{{'NOTIFICATIONSQUICK_COPYTOCLIPBOARD' | translate}}</button>
