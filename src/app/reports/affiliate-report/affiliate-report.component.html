@@ -7,6 +7,7 @@
     [refreshText]="'ADVANCEDFILTER_REFRESHREPORTTEXT'"
     [shareUrl]="shareUrl"
     [groupByEnabled]="true"
+    [hasAdvancedFilter]="false"
     (dateChanged)="dateChanged($event)"
     (groupByChanged)="groupByChanged($event)"
     (filterTermAdded)="addFilter($event)"
@@ -16,20 +17,6 @@
     (refreshFilters)="refresh()">
   </advanced-filter>
 </div>
-
-<table-memory
-  [title]="'affiliate'"
-  [data]="reportsTotal"
-  [loading]="reportSummaryLoading"
-  [loadingNumberOfRows]="1"
-  [columnParams]="columnParamsTotal"
-  [associationEnabled]="false"
-  [dissociationEnabled]="false"
-  [sortEnabled]="false"
-  [showHeader]="false"
-  [showMenuOptions]="false"
-  [showPagination]="false">
-</table-memory>
 
 <report-table
   [title]="'AFFILIATEREPORT_TABLETITLE' | translate"

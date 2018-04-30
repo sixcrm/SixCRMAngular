@@ -17,20 +17,33 @@ export class AffiliateReport {
 
   constructor(obj?: any) {
     if (!obj) {
-      obj = {};
+      obj = [];
     }
 
     this.affiliate = new Affiliate(obj.affiliate);
-    this.countClick = +obj.count_click || 0;
-    this.countPartials = +obj.count_partials || 0;
-    this.partialsPercent = +obj.partials_percent || 0;
-    this.declineCount = +obj.decline_count || 0;
-    this.declinesPercent = +obj.declines_percent || 0;
-    this.countSales = +obj.count_sales || 0;
-    this.salesPercent = +obj.sales_percent || 0;
-    this.countUpsell = +obj.count_upsell || 0;
-    this.upsellPercent = +obj.upsell_percent || 0;
-    this.sumUpsell = new Currency(obj.sum_upsell);
-    this.sumAmount = new Currency(obj.sum_amount);
+    this.countClick = AffiliateReport.getValueOf('clicks', obj);
+    this.countPartials = AffiliateReport.getValueOf('partials', obj);
+    this.partialsPercent = AffiliateReport.getValueOf('partials_percentage', obj);
+    this.declineCount = AffiliateReport.getValueOf('declines', obj);
+    this.declinesPercent = AffiliateReport.getValueOf('declines_percentage', obj);
+    this.countSales = AffiliateReport.getValueOf('sales', obj);
+    this.salesPercent = AffiliateReport.getValueOf('sales_percentage', obj);
+    this.countUpsell = AffiliateReport.getValueOf('upsells', obj);
+    this.upsellPercent = AffiliateReport.getValueOf('upsells_percentage', obj);
+    this.sumUpsell = new Currency(AffiliateReport.getValueOf('upsels_revenue', obj));
+    this.sumAmount = new Currency(AffiliateReport.getValueOf('sales_revenue', obj));
+  }
+
+  public static getValueOf(field, obj) {
+    if (!obj.length) {
+      obj = [];
+    }
+
+    let array = obj.filter(o => o.key === field);
+    if (array.length > 0) {
+      return parseInt(array[0].value)
+    }
+
+    return 0;
   }
 }

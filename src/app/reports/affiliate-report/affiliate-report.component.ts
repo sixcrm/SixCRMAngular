@@ -18,8 +18,6 @@ export class AffiliateReportComponent  extends ReportsAbstractComponent<Affiliat
   columnParamsTotal: ReportColumnParams<AffiliateReport>[] = [];
   reportsTotal: AffiliateReport[] = [];
 
-  reportSummaryLoading: boolean = true;
-
   constructor(
     public affiliateReportService: AffiliateReportService,
     paginationService: PaginationService,
@@ -34,7 +32,6 @@ export class AffiliateReportComponent  extends ReportsAbstractComponent<Affiliat
       this.immutableFilterTerms = this.filterTerms.slice();
       this.dateMap = {start: flatDown(this.start), end: flatUp(this.end)};
       this.affiliateReportService.getAffiliatesReport(this.start.format(), this.end.format(), this.filterTerms, false, this.limit + 1, this.page * this.limit);
-      this.affiliateReportService.getAffiliatesSummary(this.start.format(), this.end.format(), this.filterTerms);
     };
 
     this.endpointExtension = 'affiliate';
@@ -69,12 +66,6 @@ export class AffiliateReportComponent  extends ReportsAbstractComponent<Affiliat
 
       this.reshuffle();
     });
-
-    this.affiliateReportService.affiliateSummary$.takeUntil(this.unsubscribe$).subscribe(reports => {
-      this.reportSummaryLoading = false;
-      this.reportsTotal = [reports];
-    });
-
   }
 
   ngOnDestroy() {

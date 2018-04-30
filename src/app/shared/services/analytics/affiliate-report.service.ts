@@ -29,7 +29,7 @@ export class AffiliateReportService {
     this.queryRequest(affiliateReportListQuery(start, end, filters, download, limit, offset, order), download).subscribe(
       (data) => {
         if (!download) {
-          let affiliates = extractData(data).affiliatereport.affiliates;
+          let affiliates = extractData(data).analytics.records;
 
           if (affiliates) {
             this.affiliates$.next(affiliates.map(affiliate => new AffiliateReport(affiliate)))
