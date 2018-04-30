@@ -98,10 +98,6 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
       notification.markAsRead();
       this.notificationsService.updateEntity(notification, {ignoreSnack: true, ignoreProgress: true});
     }
-
-    if (notification.category && notification.context[`${notification.category}.id`]) {
-      this.router.navigate([notification.category + 's', notification.context[`${notification.category}.id`]]);
-    }
   }
 
   onClick(event): void {
@@ -130,12 +126,14 @@ export class NotificationsQuickComponent implements OnInit, OnDestroy {
     this.notificationsService.updateEntity(notification.markAsUnread());
   }
 
-  goToLink() {}
+  goToLink(notification: Notification) {
+    this.router.navigateByUrl(notification.contextLink());
+  }
 
   markAllAsRead() {
     let notifications: Notification[] = allNotifications(this.notsByDate);
 
-    this.notificationsService.updateEntities(notifications.map(n => n.markAsRead()));
+    this.notificationsService.updateEntities(notifications.filter(n => !n.readAt).map(n => n.markAsRead()));
   }
 
 }

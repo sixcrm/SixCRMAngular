@@ -256,6 +256,13 @@ $border-color: rgba(0, 0, 0, 0.2);
               color: #14B1FB;
             }
           }
+
+          .info {
+            margin-left: 10px;
+            &--active {
+              color: #14B1FB;
+            }
+          }
         }
 
         entity-list {

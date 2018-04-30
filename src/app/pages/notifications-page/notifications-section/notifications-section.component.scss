@@ -10,7 +10,7 @@
   .header {
     margin: 10px 0 20px;
 
-    .mrw-button {
+    mat-button-toggle {
       padding: 0;
       height: 33px;
     }
@@ -19,6 +19,13 @@
       margin-left: auto;
     }
   }
+}
+
+.mrw-button.mark-read {
+
+  background-color: white;
+  color: rgba(0, 0, 0, 0.38)
+
 }
 
 .notifications-container {

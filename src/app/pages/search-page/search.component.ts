@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {SearchService} from '../../shared/services/search.service';
 import {Subscription, Subject} from 'rxjs';
 import {utc, Moment} from 'moment';
@@ -63,14 +63,13 @@ export class SearchComponent implements OnInit, OnDestroy {
   fetchingData: boolean = false;
   searchPerformed: boolean = false;
 
-  showDetails: boolean = false;
+  showDetails: boolean = true;
   showFilters: boolean = true;
 
   selectedEntity: any;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private searchService: SearchService,
     private daterangepickerOptions: DaterangepickerConfig,
     private navigationService: NavigationService,
@@ -111,6 +110,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.fetchingData = false;
       this.searchPerformed = true;
       this.searchResults = [...this.searchResults, ...data.hit];
+      this.selectedEntity = this.searchResults[0];
       this.numberOfSearchResults = data.found;
     });
 
@@ -305,7 +305,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   entitySelected(entity) {
-    this.router.navigate([`/${entity.fields.entity_type}s`, entity.id])
+    this.selectedEntity = entity;
   }
 
   private prepareNewSearch(): void {

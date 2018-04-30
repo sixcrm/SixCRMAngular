@@ -39,7 +39,7 @@ export function rebillsByCustomer(customerId: string, params: IndexQueryParamete
   return `{
 		rebilllistbycustomer (customer:"${customerId}" ${paginationParamsQuery(params, true)}) {
 			rebills {
-			  ${rebillInfoResponseQuery()}
+			  ${rebillByCustomerResponseQuery()}
 			}
 			${fullPaginationStringResponseQuery()}
 		}
@@ -90,6 +90,10 @@ export function rebillResponseQuery(): string {
 
 export function rebillInfoResponseQuery(): string {
   return `id bill_at amount created_at updated_at state parentsession { id customer { firstname lastname} }`
+}
+
+export function rebillByCustomerResponseQuery(): string {
+  return `id bill_at amount created_at updated_at state parentsession { id alias created_at } product_schedules { id, name , schedule { price, start, end, period, product { id, name, sku, description } }}`
 }
 
 export function rebillListByState(queueName: string, limit?: number, offset?: number): string {

@@ -1,0 +1,57 @@
+.order {
+  display: flex;
+  padding: 8px 10px;
+  background: #D7F1FF;
+  font-weight: 500;
+
+  div {
+    &:last-of-type {
+      margin-left: auto;
+      color: #14B0FB;
+    }
+  }
+}
+
+.details {
+  padding: 10px;
+  background: #D7F1FF;
+}
+
+.rebill {
+  box-shadow: 0 0 4px rgba(0,0,0,0.16);
+  margin-bottom: 15px;
+  background: white;
+}
+
+.schedule {
+  display: flex;
+  padding: 15px;
+
+  .info {
+    width: 60%;
+
+    .name {
+      margin-bottom: 10px;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .sku {
+      margin-bottom: 10px;
+    }
+
+    .price {
+      margin-bottom: 10px;
+    }
+
+    .description {
+
+    }
+  }
+
+  img {
+    margin-left: auto;
+    min-height: 130px;
+  }
+
+}

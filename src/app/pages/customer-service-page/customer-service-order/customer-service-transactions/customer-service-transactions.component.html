@@ -1,0 +1,43 @@
+<div class="container">
+  <table class="highlight">
+    <thead>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th class="amount">Amount</th>
+      <th></th>
+    </thead>
+
+    <tbody>
+      <ng-container *ngFor="let transaction of transactions || entities; let i = index">
+
+        <tr [class.transaction]="i !== 0">
+          <td class="date">{{transaction.createdAt | formatDateTime}}</td>
+          <td>{{transaction.alias}}</td>
+          <td></td>
+          <td class="amount">{{transaction.amount.usd()}}</td>
+          <td><mat-icon [matMenuTriggerFor]="downloadOptions">more_vert</mat-icon>
+            <mat-menu #downloadOptions="matMenu" x-position="before">
+              <button mat-menu-item>REFUND</button>
+              <button mat-menu-item>RETURN</button>
+            </mat-menu>
+          </td>
+        </tr>
+
+        <ng-container *ngFor="let transactionProduct of transaction.products">
+          <tr class="products-row">
+            <td></td>
+            <td>{{transactionProduct.product.name}}</td>
+            <td></td>
+            <td class="amount">{{transactionProduct.amount.usd()}}</td>
+            <td></td>
+          </tr>
+        </ng-container>
+      </ng-container>
+    </tbody>
+  </table>
+  <div class="total">
+    <div>{{entities.length}} Items</div>
+    <div>{{sumAmount(transactions || entities).usd()}}</div>
+  </div>
+</div>

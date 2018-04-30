@@ -67,7 +67,7 @@ export function updateNotificationMutation(notification: Notification): string {
 }
 
 export function updateManyNotificationsMutationQuery(notifications: Notification[]): string {
-  const body = notifications.reduce((a,b) => `${a} ${generateRandomString(7)}: updatenotification (notification: "${notificationInputQuery(b)}") {${notificationsResponseQuery()}}`, '');
+  const body = notifications.reduce((a,b) => `${a} ${generateRandomString(7)}: updatenotification (notification: { ${notificationInputQuery(b)} }) {${notificationsResponseQuery()}}`, '');
 
   return `mutation { ${body} }`;
 }
@@ -77,13 +77,13 @@ export function notificationsResponseQuery(): string {
 }
 
 export function notificationInputQueryUpdateRead(notification: Notification): string {
-  return `id: "${notification.id}", user: "${notification.user}", account: "${notification.account}", type: "${notification.type}", ${notification.category ? `category: "${notification.category}", ` : ''}, ${notification.context ? `context: ${JSON.stringify(notification.context)}, ` : ''}, name: "${notification.name}", read_at: "${utc().format()}", ${addUpdatedAtApi(notification, true)}`;
+  return `id: "${notification.id}", user: "${notification.user}", account: "${notification.account}", type: "${notification.type}", ${notification.category ? `category: "${notification.category}", ` : ''} ${notification.context ? `context: ${JSON.stringify(notification.context)}, ` : ''} name: "${notification.name}", read_at: "${utc().format()}", ${addUpdatedAtApi(notification, true)}`;
 }
 
 export function notificationInputQuery(notification: Notification): string {
-  return `id: "${notification.id}", user: "${notification.user}", account: "${notification.account}", type: "${notification.type}", ${notification.category ? `category: "${notification.category}", ` : ''}, ${notification.context ? `context: ${JSON.stringify(notification.context)}, ` : ''}, name: "${notification.name}", read_at: "${notification.readAt}", ${addUpdatedAtApi(notification, true)}`;
+  return `id: "${notification.id}", user: "${notification.user}", account: "${notification.account}", type: "${notification.type}", ${notification.category ? `category: "${notification.category}",` : ''} ${notification.context ? `context: ${JSON.stringify(notification.context)}, ` : ''} name: "${notification.name}", read_at: ${notification.readAt ? `"${notification.readAt}"` : null}, ${addUpdatedAtApi(notification, true)}`;
 }
 
 function generateRandomString(length) {
-  return (Math.random()*1e32).toString(36).substr(0, length);
+  return 'r' + (Math.random()*1e32).toString(36).substr(0, length - 1);
 }

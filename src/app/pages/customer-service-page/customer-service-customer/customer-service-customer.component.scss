@@ -52,18 +52,25 @@
           cursor: pointer;
         }
 
-        div {
+        .data {
+
+          .title {
+            color: rgba(0,0,0,0.4);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+          }
+
+          .cards {
+            .item {
+              display: flex;
+              margin-bottom: 5px;
+            }
+          }
 
           div {
             margin-bottom: 5px;
             font-size: 11px;
-
-            &:first-of-type {
-              color: rgba(0,0,0,0.4);
-              font-size: 14px;
-              font-weight: 500;
-              margin-bottom: 8px;
-            }
 
             &:last-of-type {
               margin-bottom: 25px;
@@ -83,7 +90,7 @@
   }
 }
 
-grid-notes-component {
+notes-component {
   display: block;
   width: 100%;
 }

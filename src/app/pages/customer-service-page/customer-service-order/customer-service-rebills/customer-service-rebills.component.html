@@ -1,0 +1,36 @@
+<div>
+
+  <div class="rebill" *ngFor="let rebill of rebills">
+
+    <div *ngIf="!singleItemMode" class="order">
+      <div>ORDER {{rebill.parentSession.alias}}</div>
+      <div>CANCEL</div>
+    </div>
+    <div class="details">
+      <span>{{rebill.amount.usd()}}</span>
+      <span>Next Order bills in {{rebill.billAt.diff(utcf(), 'd')}} days, {{rebill.billAt | formatDateTime: 'MMMM D YYYY'}}</span>
+    </div>
+
+    <ng-container *ngFor="let ps of rebill.productSchedules">
+
+      <div class="schedule" *ngFor="let schedule of ps.schedulesOnDay">
+
+        <div class="info">
+          <div class="name">{{schedule.product.name}}</div>
+          <div class="sku">SKU {{schedule.product.sku}}</div>
+          <div class="price">{{schedule.price.usd()}}</div>
+          <div class="description">{{schedule.product.description}}</div>
+        </div>
+
+        <img *ngIf="schedule.product.attributes && schedule.product.attributes[0]; else defaultimage"
+             src="{{schedule.product.attributes[0].path || '/assets/images/product-image-placeholder.svg'}}" alt="">
+        <ng-template #defaultimage>
+          <img src="/assets/images/product-image-placeholder.svg" alt="">
+        </ng-template>
+      </div>
+
+    </ng-container>
+
+  </div>
+
+</div>

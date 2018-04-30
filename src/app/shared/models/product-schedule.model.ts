@@ -11,6 +11,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
   firstSchedulePrice: Currency = new Currency(0);
   firstSchedule: Schedule = new Schedule();
   schedules: Schedule[] = [];
+  schedulesOnDay: Schedule[] = [];
   createdAt: Moment;
   updatedAt: Moment;
   updatedAtAPI: string;
@@ -55,6 +56,18 @@ export class ProductSchedule implements Entity<ProductSchedule> {
     }
 
     return schedule;
+  }
+
+  calculateSchedulesOnDay(day: number): Schedule[] {
+    let schedules = [];
+
+    for (let i = 0; i < this.schedules.length; i++) {
+      if (this.schedules[i].start === day || (this.schedules[i].end <= day && this.schedules[i].period % day === 0)) {
+        schedules.push(this.schedules[i])
+      }
+    }
+
+    return schedules;
   }
 
   getStart(): number {

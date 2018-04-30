@@ -16,7 +16,7 @@
           <mat-autocomplete class="three-row-autocomplete" #sessionAutocomplete="matAutocomplete" (optionSelected)="navigateToSession($event)">
             <mat-option *ngFor="let session of sessions" [value]="session.id">
               <div class="autocomplete-row">{{ session.alias }}</div>
-              <div class="autocomplete-row">{{ session.createdAt.tz(authService.getTimezone('MM/DD/YYYY')).format() }}</div>
+              <div class="autocomplete-row">{{ session.createdAt | formatDateTime }}</div>
               <div class="autocomplete-row">{{ session.customer.firstName }} {{session.customer.lastName}}</div>
             </mat-option>
           </mat-autocomplete>
