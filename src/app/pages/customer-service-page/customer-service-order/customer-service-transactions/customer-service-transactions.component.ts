@@ -5,6 +5,8 @@ import {MatDialog} from '@angular/material';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {TransactionsService} from '../../../../shared/services/transactions.service';
 import {CustomerTransactionsComponent} from '../../../customers-page/customer-view/customer-transactions/customer-transactions.component';
+import {Transaction} from '../../../../shared/models/transaction.model';
+import {Currency} from '../../../../shared/utils/currency/currency';
 
 @Component({
   selector: 'customer-service-transactions',
@@ -31,4 +33,9 @@ export class CustomerServiceTransactionsComponent extends CustomerTransactionsCo
     super.ngOnDestroy();
   }
 
+  sumAmount(transactions: Transaction[]): Currency {
+    if (!transactions || transactions.length === 0) return new Currency(0);
+
+    return new Currency(transactions.reduce((a,b) => a + b.amount.amount, 0));
+  }
 }

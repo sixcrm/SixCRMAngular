@@ -2,15 +2,12 @@
   display: flex;
   padding: 8px 10px;
   background: #D7F1FF;
+  font-weight: 500;
 
   div {
-    &:first-of-type {
-      font-weight: 500;
-    }
-
     &:last-of-type {
       margin-left: auto;
-      color: #1DBDA5;
+      color: #14B0FB;
     }
   }
 }
@@ -27,22 +24,34 @@
 }
 
 .schedule {
+  display: flex;
   padding: 15px;
 
-  .name {
-    font-size: 16px;
-    margin-bottom: 10px;
+  .info {
+    width: 60%;
+
+    .name {
+      margin-bottom: 10px;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .sku {
+      margin-bottom: 10px;
+    }
+
+    .price {
+      margin-bottom: 10px;
+    }
+
+    .description {
+
+    }
   }
 
-  .sku {
-    margin-bottom: 10px;
+  img {
+    margin-left: auto;
+    min-height: 130px;
   }
 
-  .price {
-    margin-bottom: 10px;
-  }
-
-  .description {
-
-  }
 }

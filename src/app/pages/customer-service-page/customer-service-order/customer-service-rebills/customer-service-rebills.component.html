@@ -15,11 +15,18 @@
 
       <div class="schedule" *ngFor="let schedule of ps.schedulesOnDay">
 
-        <div class="name">{{schedule.product.name}}</div>
-        <div class="sku">{{schedule.product.sku}}</div>
-        <div class="price">{{schedule.price.usd()}}</div>
-        <div class="description">{{schedule.product.description}}</div>
+        <div class="info">
+          <div class="name">{{schedule.product.name}}</div>
+          <div class="sku">SKU {{schedule.product.sku}}</div>
+          <div class="price">{{schedule.price.usd()}}</div>
+          <div class="description">{{schedule.product.description}}</div>
+        </div>
 
+        <img *ngIf="schedule.product.attributes && schedule.product.attributes[0]; else defaultimage"
+             src="{{schedule.product.attributes[0].path || '/assets/images/product-image-placeholder.svg'}}" alt="">
+        <ng-template #defaultimage>
+          <img src="/assets/images/product-image-placeholder.svg" alt="">
+        </ng-template>
       </div>
 
     </ng-container>
