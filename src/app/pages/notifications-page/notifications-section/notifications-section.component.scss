@@ -45,33 +45,10 @@
     font-size: 14px;
     color: rgba(0,0,0,0.6);
   }
+}
 
-  .icon {
-    margin-left: 15px;
-
-    .layer1 {
-      display: flex;
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background-color: #F3F3F3;
-    }
-
-    .layer2 {
-      margin: auto;
-      display: flex;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background-color: #C9C9C9;
-    }
-
-    .text {
-      margin: auto;
-      font-size: 32px;
-      color: #F3F3F3;
-    }
-  }
+.modal-first {
+  margin-bottom: 15px;
 }
 
 .apps-button {
@@ -84,6 +61,36 @@
 .mrw-bi-input {
   color: #6F6F6F;
   background-color: #DFDFDF;
+}
+
+.notifications-test-container {
+
+  .content {
+    align-items: flex-start;
+  }
+
+  .text {
+    width: 200px;
+  }
+
+  .icon-wrapper {
+    border-radius: 50%;
+    padding: 5px;
+    overflow: hidden;
+    margin-left: auto;
+    background: rgba(0, 0, 0, 0.08);
+  }
+
+  .mat-icon {
+    font-size: 32px;
+    min-width: 32px;
+    min-height: 32px;
+    line-height: 1;
+    opacity: 1;
+    vertical-align: middle;
+    color: rgba(0, 0, 0, 0.24);
+    text-shadow: rgb(220, 220, 220) 0px 0px 0px, rgb(220, 220, 220) 1px 1px 0px, rgb(220, 220, 220) 2px 2px 0px, rgb(220, 220, 220) 3px 3px 0px, rgb(220, 220, 220) 4px 4px 0px, rgb(220, 220, 220) 5px 5px 0px, rgb(220, 220, 220) 6px 6px 0px, rgb(220, 220, 220) 7px 7px 0px, rgb(220, 220, 220) 8px 8px 0px, rgb(220, 220, 220) 9px 9px 0px, rgb(220, 220, 220) 10px 10px 0px, rgb(220, 220, 220) 11px 11px 0px, rgb(220, 220, 220) 12px 12px 0px, rgb(220, 220, 220) 13px 13px 0px, rgb(220, 220, 220) 14px 14px 0px, rgb(220, 220, 220) 15px 15px 0px, rgb(220, 220, 220) 16px 16px 0px, rgb(220, 220, 220) 17px 17px 0px, rgb(220, 220, 220) 18px 18px 0px, rgb(220, 220, 220) 19px 19px 0px, rgb(220, 220, 220) 20px 20px 0px, rgb(220, 220, 220) 21px 21px 0px, rgb(220, 220, 220) 22px 22px 0px, rgb(220, 220, 220) 23px 23px 0px;
+  }
 }
 
 table {

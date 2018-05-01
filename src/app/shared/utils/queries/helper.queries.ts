@@ -24,6 +24,20 @@ export function parseFilterTerms(filterTerms: FilterTerm[]): string {
   return filterString;
 }
 
+export function createFacets(filterTerms: FilterTerm[]): string {
+  let stringifiedFacets = '';
+
+  filterTerms.forEach(term => {
+    stringifiedFacets += `{facet: "${term.type}", values:["${term.id}"]}`;
+  });
+
+  if (stringifiedFacets.length < 1) {
+    return '';
+  }
+
+  return ',' + stringifiedFacets;
+}
+
 export function parseAdditionalFilters(additionalFilters?: any[]): string {
   let additional = '';
 
