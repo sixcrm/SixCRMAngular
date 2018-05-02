@@ -1,8 +1,9 @@
 .accept-invite {
   position: absolute;
-  background: rgba(0,0,0,0.2);
-  height: 100vh;
+  display: flex;
   width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to bottom left, #4277C2, #2C98F0);
 
   &__form {
     height: 455px;
@@ -15,37 +16,12 @@
       max-width: 100%;
       overflow: hidden;
     }
-
-    &--instructions {
-      height: 540px;
-    }
   }
 
-  &__button {
-    margin: 25px auto 0;
-
-    &--small-margin {
-      margin: 10px auto 0;
-    }
-
-    &--standalone {
-      margin: 25px auto 35px;
-    }
-  }
 }
 
-.title {
-  padding: 10px 20px 0;
-  font-size: 16px;
-  line-height: 21px;
-
-  &--final {
-    padding: 10px;
-  }
-}
-.subtitle {
-  margin-top: 45px;
-  font-size: 14px;
+.with-instructions {
+  height: 500px !important;
 }
 
 .instructions {
@@ -56,15 +32,15 @@
   &__header {
     display: flex;
     align-items: center;
-    background: white;
-    color: #4A4A4A;
+    background: #5383c3;
+    color: white;
     height: 40px;
   }
 
   &__menu {
     position: relative;
     top: 40px;
-    margin-left: 8px;
+    margin: 0 auto;
     background: white;
     box-shadow: 0 3px 12px rgba(0,0,0,0.4);
     width: 132px;
@@ -74,6 +50,11 @@
       display: flex;
       align-items: center;
       height: 40px;
+      color: rgba(0,0,0,.87);
+
+      &:first-of-type {
+        font-weight: 500;
+      }
 
       span {
         margin-left: 5px;
@@ -120,12 +101,13 @@
     display: flex;
     align-items: center;
     margin: 0 auto;
+    font-weight: 500;
 
-    img {
+    mat-icon {
       margin-right: 4px;
-      width: 25px;
-      height: 25px;
-      border-radius: 50%;
+      height: 32px;
+      width: 32px;
+      font-size: 32px;
     }
 
     .key {
@@ -133,30 +115,6 @@
       width: 18px;
       height: 18px;
       font-size: 18px;
-    }
-  }
-
-  &__notifications {
-    position: relative;
-    margin: 0 8px 0 0;;
-
-    mat-icon {
-      color: #9b9a9b;
-    }
-
-    &__count {
-      position: absolute;
-      top: -4px;
-      right: -4px;
-      border-radius: 50%;
-      background: #fe7274;
-      height: 18px;
-      width: 18px;
-      line-height: 19px;
-      text-align: center;
-      font-weight: 600;
-      font-size: 11px;
-      color: #fff;
     }
   }
 

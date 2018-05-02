@@ -1,3 +1,72 @@
 <div class="registration">
-  <registration-form [embedded]="true" (completed)="registrationCompleted()"></registration-form>
+
+  <img class="logo" src="/assets/images/logo-white.svg" alt="" (click)="authService.logout()">
+
+  <div class="progress" *ngIf="showProgress">
+    <div class="circle" [class.active]="accountInProgress" [class.finished]="planInProgress || paymentInProgress">
+      <div *ngIf="accountInProgress">ACCOUNT</div>
+    </div>
+    <div class="line" [class.finished]="planInProgress || paymentInProgress"></div>
+    <div class="circle" [class.active]="planInProgress" [class.finished]="paymentInProgress">
+      <div *ngIf="planInProgress">PLAN</div>
+    </div>
+    <div class="line" [class.finished]="paymentInProgress"></div>
+    <div class="circle" [class.active]="paymentInProgress">
+      <div *ngIf="paymentInProgress">PAYMENT</div>
+    </div>
+  </div>
+
+  <div *ngIf="accountInProgress" class="registration-form" [class.group]="showProgress">
+
+    <div class="title">
+      {{'REGISTER_FORM_TITLE' | translate}}
+    </div>
+
+    <div class="subtitle">
+      {{'REGISTER_FORM_SUBTITLE' | translate}}
+    </div>
+
+    <div>
+      <mat-input-container *ngIf="activatingUser" [class.form-error]="formInvalid && !firstName">
+        <input matInput required placeholder="{{'REGISTER_FORM_FIRSTNAME' | translate}}" type="text" name="firstName" [(ngModel)]="firstName">
+      </mat-input-container>
+
+      <mat-input-container *ngIf="activatingUser" [class.form-error]="formInvalid && !lastName">
+        <input matInput required placeholder="{{'REGISTER_FORM_LASTNAME' | translate}}" type="text" name="lastName" [(ngModel)]="lastName">
+      </mat-input-container>
+
+      <mat-input-container *ngIf="activatingAccount" [class.form-error]="formInvalid && !accountName">
+        <input matInput required placeholder="{{'REGISTER_FORM_COMPANY' | translate}}" type="text" name="company" [(ngModel)]="companyName">
+        <mat-hint>{{'REGISTER_FORM_COMPANY_HINT' | translate}}</mat-hint>
+      </mat-input-container>
+    </div>
+
+    <div class="terms" (click)="openUserTerms()">
+      {{'REGISTER_USERTERMS' | translate}}
+    </div>
+
+    <div class="actions">
+      <button mat-button [disabled]="!formValid() || requestInProgress" [class.disabled]="!formValid() || requestInProgress" (click)="submitRegistration()">{{'REGISTER_FORM_CONT' | translate}}</button>
+    </div>
+
+  </div>
+
+  <div *ngIf="planInProgress" class="container">
+    <plans (planSelected)="setSelectedPlan($event)"></plans>
+  </div>
+
+  <div *ngIf="paymentInProgress" class="container">
+    <payment (changePlan)="changePlanEmitted()"
+             (displayOwnerTerms)="openOwnerTerms()"
+             (paymentSuccessful)="accountRegistrationFinished()"
+             [plan]="plan"
+             [user]="user">
+    </payment>
+  </div>
+
+  <div class="welcome" *ngIf="showWelcome">
+    <mat-icon>done</mat-icon>
+    <div class="text">Welcome!</div>
+  </div>
+
 </div>

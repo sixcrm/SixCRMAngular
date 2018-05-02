@@ -1,65 +1,28 @@
 <div class="accept-invite">
-  <div class="registration-form accept-invite__form" [class.accept-invite__form--instructions]="showAclInstructions && completeScreen">
+
+  <div class="registration-form accept-invite__form" [class.with-instructions]="completeScreen && showAclInstructions">
+
     <div class="registration-form__header">
-      <img class="registration-form__header__logo" src="/assets/images/sixlogo-circles.svg" alt="">
-      <img class="registration-form__header__clouds" src="/assets/images/clouds.svg" alt="">
+      <img src="/assets/images/logo-registration.svg" alt="">
     </div>
 
-    <ng-container *ngIf="loginRequiredScreen">
-      <div style="margin: auto" class="title">
-        {{'ACCEPTINVITE_BADLOGIN' | translate}}
-        <br><br>
-        {{email}}
-      </div>
-
-      <div class="registration-form__button registration-form__button--no-margin accept-invite__button" (click)="goToLogin()">{{'ACCEPTINVITE_LOGIN' | translate}}</div>
-      <div class="registration-form__button--cancel" (click)="logout()">Log Out</div>
-    </ng-container>
-
     <ng-container *ngIf="welcomeScreen">
-      <div style="margin: auto" class="title">
-        {{'ACCEPTINVITE_TEXT1' | translate}} {{invitor}}'s {{'ACCEPTINVITE_TEXT2' | translate}} "{{account}}" {{'ACCEPTINVITE_TEXT3' | translate}} "{{role}}"?
+      <div class="registration-form__main">
+        {{'ACCEPTINVITE_TEXT1' | translate}} <span>{{acknowledgeInvite.invitor}}</span>'s {{'ACCEPTINVITE_TEXT2' | translate}} <span>{{acknowledgeInvite.accountName}}</span> {{'ACCEPTINVITE_TEXT3' | translate}} <span>{{acknowledgeInvite.role}}</span>?
       </div>
-      <div style="margin-top: auto" class="subtitle">
+      <div class="registration-form__sub">
         {{'ACCEPTINVITE_EXPLANATION' | translate}}
       </div>
 
-      <div class="registration-form__button registration-form__button--no-margin accept-invite__button--small-margin" (click)="acceptInvite()">{{'ACCEPTINVITE_ACCEPT' | translate}}</div>
-      <div class="registration-form__button--cancel" (click)="logout()">{{'ACCEPTINVITE_LOGOUT' | translate}}</div>
-    </ng-container>
-
-    <ng-container *ngIf="infoScreen">
-      <div class="registration-form__title">
-        <div class="registration-form__title__main">
-          {{'ACCEPTINVITE_FORM_TITLE' | translate}}
-        </div>
-        <div class="registration-form__title__sub">
-          {{'ACCEPTINVITE_FORM_SUBTITLE' | translate}}
-        </div>
-        <div class="registration-form__title__text">
-          {{'ACCEPTINVITE_FORM_TEXT' | translate}}
-        </div>
-      </div>
-      <form #regForm="ngForm" class="registration-form__form">
-        <mat-input-container [class.form-error]="formInvalid && !firstName">
-          <input matInput required placeholder="{{'ACCEPTINVITE_FORM_FIRSTNAME' | translate}}" type="text" name="firstName" [(ngModel)]="firstName">
-        </mat-input-container>
-
-        <mat-input-container [class.form-error]="formInvalid && !lastName">
-          <input matInput required placeholder="{{'ACCEPTINVITE_FORM_LASTNAME' | translate}}" type="text" name="lastName" [(ngModel)]="lastName">
-        </mat-input-container>
-      </form>
-      <div class="registration-form__button accept-invite__button--standalone" (click)="submitInfo(regForm.form.valid)">{{'ACCEPTINVITE_FORM_CONT' | translate}}</div>
-
+      <button class="registration-form__accept" mat-button (click)="acceptInvite()">{{'ACCEPTINVITE_ACCEPT' | translate}}</button>
     </ng-container>
 
     <ng-container *ngIf="completeScreen">
-      <div style="margin: auto;" class="title title--final">
+      <div class="registration-form__main">
         {{'ACCEPTINVITE_THANKYOU_TITLE' | translate}}
       </div>
 
       <div *ngIf="showAclInstructions" class="instructions">
-
         <div class="instructions__header">
           <div class="instructions__menu">
             <div class="instructions__menu__item instructions__menu__first"><mat-icon class="domain domain--blue">domain</mat-icon><span>Big new LLC</span> <mat-icon class="key">keyboard_arrow_left</mat-icon></div>
@@ -67,13 +30,9 @@
             <div class="instructions__menu__item"><mat-icon class="domain domain--orange">domain</mat-icon><span>Bigger LLC</span></div>
           </div>
           <div class="instructions__profile">
-            <img src="" alt="">
+            <mat-icon>account_circle</mat-icon>
             <div>Hello, John Smith</div>
             <mat-icon class="key">keyboard_arrow_down</mat-icon>
-          </div>
-          <div class="instructions__notifications">
-            <mat-icon>chat</mat-icon>
-            <div class="instructions__notifications__count">5</div>
           </div>
         </div>
 
@@ -85,9 +44,10 @@
         </div>
       </div>
 
-      <div class="registration-form__button accept-invite__button--standalone" (click)="complete()">{{'ACCEPTINVITE_THANKYOU_CONT' | translate}}</div>
-    </ng-container>
+      <div *ngIf="showSignupInstructions" class="registration-form__main registration-form__main--signup">{{'ACCEPTINVITE_THANKYOU_SIGNUPINSTRUCTIONS' | translate}}</div>
 
+      <button class="registration-form__accept" mat-button (click)="complete()">{{'ACCEPTINVITE_THANKYOU_CONT' | translate}}</button>
+    </ng-container>
   </div>
 
 </div>

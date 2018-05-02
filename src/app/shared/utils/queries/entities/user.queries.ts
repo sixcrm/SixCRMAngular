@@ -61,25 +61,11 @@ export function updateUserMutation(user: User): string {
 }
 
 export function registerUser(user: User): string {
-  if (!user.termsAndConditions) user.termsAndConditions = '0.1';
-
   return `
     mutation {
 		  updateuser (
 		    user: { ${userInputQuery(user, true)} }) {
 			    ${userResponseQuery()}
-			}
-	}`
-}
-
-export function updateUserForActivation(user: User): string {
-  if (!user.termsAndConditions) user.termsAndConditions = '0.0';
-
-  return `
-    mutation {
-		  updateuser (
-		    user: { ${userInputQuery(user, true)} } ) {
-			    ${userInfoResponseQuery()}
 			}
 	}`
 }
@@ -113,13 +99,23 @@ export function inviteResendMutation(acl: Acl): string {
 	}`
 }
 
-export function acceptInviteMutation(token: string, parameters: string): string {
+export function acknowledgeInviteQuery(hash: string): string {
+  return `
+    query {
+      acknowledgeinvite (hash: "${hash}") {
+        hash, email, acl, invitor, account, account_name, role, signature
+      }
+	  }`
+}
+
+export function acceptInviteMutation(hash: string, signature: string): string {
   return `
     mutation {
-		acceptinvite (invite: {token: "${token}", parameters:"${parameters}"}) {
-			${userResponseQuery()}
-		}
-	}`
+      acceptinvite (hash: "${hash}", signature: "${signature}") {
+        is_new, account
+      }
+    }
+  `
 }
 
 export function userResponseQuery(): string {
@@ -141,11 +137,14 @@ export function userIntrospectionResponseQuery(): string {
   return `
     id name alias first_name last_name auth0_id active termsandconditions termsandconditions_outdated created_at updated_at,
     acl {
-      id
+      id,
+      pending,
       created_at,
       updated_at,
       termsandconditions_outdated
-      account { id name active created_at updated_at }
+      account { id name active created_at updated_at,
+        billing { plan, disabled }
+      }
       role { id name active created_at updated_at,
         permissions {allow deny} 
       }

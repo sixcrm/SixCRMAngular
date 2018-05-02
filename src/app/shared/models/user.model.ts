@@ -102,7 +102,7 @@ export class User implements Entity<User> {
       return null;
     }
 
-    const filtered = this.acls.filter(acl => acl.id === id);
+    const filtered = this.acls.filter(acl => !acl.pending && acl.id === id);
 
     if (filtered && filtered[0]) {
       return filtered[0];

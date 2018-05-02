@@ -9,12 +9,13 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {RegisterGuard} from './register-guard.service';
 import { InviteAcceptComponent } from './invite-accept/invite-accept.component';
-import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 import {TermsAndConditionsGuard} from './terms-and-conditions-guard.service';
 import {SharedModule} from '../shared/shared.module';
 import {TranslationModule} from '../translation/translation.module';
 import {MaterialSelectionModule} from '../material-selection/material-selection.module';
+import { PlansComponent } from './registration/plans/plans.component';
+import { PaymentComponent } from './registration/payment/payment.component';
 
 @NgModule({
   imports : [
@@ -30,11 +31,11 @@ import {MaterialSelectionModule} from '../material-selection/material-selection.
     AuthComponent,
     RegistrationComponent,
     InviteAcceptComponent,
-    RegistrationFormComponent,
-    TermsAndConditionsComponent
+    TermsAndConditionsComponent,
+    PlansComponent,
+    PaymentComponent
   ],
   exports: [
-    RegistrationFormComponent,
     TermsAndConditionsComponent
   ],
   providers : [

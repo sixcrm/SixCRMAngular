@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import 'rxjs/Rx';
 import {environment} from '../../environments/environment';
 import {User} from '../shared/models/user.model';
 import {Acl} from '../shared/models/acl.model';
 import {
-  updateUserForActivation,
-  userIntrospection, acceptInviteMutation, registerUser
+  userIntrospection, registerUser, acknowledgeInviteQuery,
+  acceptInviteMutation
 } from '../shared/utils/queries/entities/user.queries';
 import {extractData, HttpWrapperService, generateHeaders, FailStrategy} from '../shared/services/http-wrapper.service';
 import {HttpResponse} from '@angular/common/http';
@@ -18,6 +18,8 @@ import {YesNoDialogComponent} from '../pages/yes-no-dialog.component';
 import {UserSettings} from '../shared/models/user-settings';
 import {updateAccountForRegistrationMutation} from '../shared/utils/queries/entities/account.queries';
 import {MatDialog, MatDialogRef} from '@angular/material';
+import {AcknowledgeInvite} from '../shared/models/acknowledge-invite.model';
+import {CustomServerError} from '../shared/models/errors/custom-server-error';
 
 declare var Auth0Lock: any;
 
@@ -209,26 +211,6 @@ export class AuthenticationService {
     return this.currentUserSettings;
   }
 
-  public getUserEmail(): string {
-    let payload = this.getPayload();
-
-    if (!payload) {
-      return '';
-    }
-
-    return payload.email;
-  }
-
-  public getUserPicture(): string {
-    let payload = this.getPayload();
-
-    if (!payload) {
-      return '';
-    }
-
-    return payload.picture;
-  }
-
   public getPayload(): any {
     let payload = localStorage.getItem(this.idTokenPayload);
 
@@ -236,7 +218,7 @@ export class AuthenticationService {
   }
 
   public getAcls(): Acl[] {
-    return this.getSixUser().acls;
+    return this.getSixUser().acls.filter(acl => !acl.pending);
   }
 
   public getActiveAcl(): Acl {
@@ -259,12 +241,14 @@ export class AuthenticationService {
     return this.getActiveAcl().account.id === '*';
   }
 
-  public changeActiveAcl(acl: Acl): void {
+  public changeActiveAcl(acl: Acl, noRedirection?: boolean): void {
     if (this.getActingAsAccount()) {
       this.actingAsAccount$.next(null);
     }
 
     this.setActiveAcl(acl);
+
+    if (noRedirection) return;
 
     if (acl.role.name === 'Customer Service') {
       this.router.navigateByUrl('/customer-service');
@@ -276,72 +260,66 @@ export class AuthenticationService {
 
   }
 
-  public registerUser(company: string, firstName: string, lastName: string): Observable<HttpResponse<any>> {
-    let endpoint = environment.endpoint + this.getSixUser().acls[0].account.id;
+  public registerUser(company: string, firstName: string, lastName: string, terms?: string): Observable<HttpResponse<any> | CustomServerError> {
+    let endpoint = environment.endpoint + this.getActiveAcl().account.id;
     let user = this.getSixUser();
     user.name = `${firstName} ${lastName}`;
     user.company = company;
     user.firstName = firstName;
     user.lastName = lastName;
     user.active = true;
+    user.termsAndConditions = terms || '0.1';
 
-    return this.http.post(endpoint, registerUser(user), {headers: generateHeaders(this.getToken())});
+    return this.http.postWithError(endpoint, registerUser(user), {headers: generateHeaders(this.getToken())}, {failStrategy: FailStrategy.Soft});
   }
 
-  public updateCurrentAccount(company: string): Observable<HttpResponse<any>> {
-    let account = this.getSixUser().acls[0].account;
+  public acknowledgeInvite(hash: string): Observable<AcknowledgeInvite> {
+    return this.http.post(
+      environment.publicendpoint,
+      acknowledgeInviteQuery(hash),
+      null,
+      { failStrategy: FailStrategy.HardStandalone }
+    ).map(data =>
+      new AcknowledgeInvite(data.body.response.data.acknowledgeinvite)
+    );
+  }
+
+  public acceptInvite(hash: string, signature: string): Observable<{isNew: string, account: string}> {
+    return this.http.post(
+      environment.publicendpoint,
+      acceptInviteMutation(hash, signature),
+      null,
+      { failStrategy: FailStrategy.HardStandalone }
+    ).map(data => {
+      const d = data.body.response.data.acceptinvite;
+
+      return {isNew: d.is_new, account: d.account};
+    })
+  }
+
+  public updateCurrentAccount(company: string): Observable<HttpResponse<any> | CustomServerError> {
+    let account = this.getActiveAcl().account;
     let endpoint = environment.endpoint + account.id;
 
-    return this.http.post(endpoint, updateAccountForRegistrationMutation(account, company), {headers: generateHeaders(this.getToken())});
-  }
-
-  public updateUserForAcceptInvite(user: User): Observable<boolean> {
-    let subject: Subject<boolean> = new Subject<boolean>();
-
-    let endpoint = environment.endpoint + this.getActiveAcl().account.id;
-    this.http.post(endpoint, updateUserForActivation(user), { headers: generateHeaders(this.getToken()) })
-      .subscribe(
-        () => {
-          subject.next(true);
-        }
-      );
-
-    return subject;
-  }
-
-  public activateUser(token: string, param: string, account?: string): Observable<User> {
-    let subject = new Subject<User>();
-
-    this.http.post(
-      environment.endpoint + (account || '*'), acceptInviteMutation(token, param),
-      { headers: generateHeaders(this.getToken()) },
-      { failStrategy: FailStrategy.HardStandalone }
-    ).subscribe(
-      (data) => {
-        let userData = extractData(data).acceptinvite;
-        let user: User = new User(userData);
-        user.picture = this.getUserPicture();
-
-        this.updateSixUser(user);
-        this.updateActiveAcl(user);
-
-        subject.next(new User(userData));
-      }
-    );
-
-    return subject;
+    return this.http.post(endpoint, updateAccountForRegistrationMutation(account, company), {headers: generateHeaders(this.getToken())}, {failStrategy: FailStrategy.Soft});
   }
 
   public hasPermissions(entity: string, operation: string): boolean {
     return this.getSixUser().hasPermissions(entity, operation, this.getActiveAcl());
   }
 
-  public refreshSixUser(): void {
-    this.router.navigateByUrl('/');
+  public refreshAfterAcceptInvite(defaultAcl: Acl): void {
+    if (defaultAcl && defaultAcl.id) {
+      localStorage.setItem(this.activeAcl, JSON.stringify(defaultAcl));
+      this.currentActiveAcl = defaultAcl;
+    }
 
-    localStorage.removeItem(this.activeAcl);
-    this.currentActiveAcl = new Acl();
-    this.getUserData(JSON.parse(localStorage.getItem(this.idTokenPayload)));
+    if (!this.authenticated()) {
+      this.logout();
+      return;
+    }
+
+    this.updateUserData(JSON.parse(localStorage.getItem(this.idTokenPayload)));
   }
 
   private setUser(authResult): void {
@@ -349,28 +327,28 @@ export class AuthenticationService {
     localStorage.setItem(this.idToken, authResult.idToken);
     localStorage.setItem(this.idTokenPayload, JSON.stringify(authResult.idTokenPayload));
 
-    this.getUserData(authResult.idTokenPayload);
+    this.updateUserData(authResult.idTokenPayload);
   }
 
-  private getUserData(profile: any): void {
+  private updateUserData(profile: any): void {
     if (!profile) {
       this.logout();
       return;
     }
 
-    let redirectUrl = localStorage.getItem(this.redirectUrl);
+    const redirectUrl = localStorage.getItem(this.redirectUrl);
     localStorage.removeItem(this.redirectUrl);
 
-    if (redirectUrl && redirectUrl.indexOf('acceptinvite') !== -1) {
+    if (redirectUrl) {
       setTimeout(() => {
         this.router.navigateByUrl(redirectUrl);
       }, 300);
     } else {
-      this.getUserIntrospection(profile, redirectUrl);
+      this.getUserIntrospection(profile);
     }
   }
 
-  private getUserIntrospection(profile: any, redirectUrl?: string): void {
+  getUserIntrospection(profile: any, redirectUrl?: string): void {
     this.http.post(environment.endpoint + '*', userIntrospection(), { headers: generateHeaders(this.getToken())}).subscribe(
       (data) => {
         let user = extractData(data).userintrospection;
@@ -397,7 +375,6 @@ export class AuthenticationService {
           this.updateSettings(new UserSettings(user.usersetting));
 
           this.redirectAfterIntrospection(redirectUrl);
-
         } else {
           this.logout();
         }
@@ -406,6 +383,11 @@ export class AuthenticationService {
   }
 
   private redirectAfterIntrospection(redirectUrl?: string) {
+    if (this.shouldRedirectToRegister()) {
+      this.router.navigateByUrl('/register');
+      return;
+    }
+
     if (this.active() && redirectUrl) {
       this.router.navigateByUrl(redirectUrl);
       return;
@@ -421,12 +403,18 @@ export class AuthenticationService {
     }
   }
 
+  private shouldRedirectToRegister() {
+    return !this.active() || !this.getActiveAcl().account.active;
+  }
+
   private shouldRedirectToTermsAndConditions(): boolean {
     return this.active() && (this.getSixUser().termsAndConditionsOutdated || this.getActiveAcl().termsAndConditionsOutdated)
   }
 
   private shouldRedirectToDashboard(): boolean {
-    return this.router.url === '/' || (!this.active() && this.router.url.indexOf('/register') === -1)
+    return this.router.url === '/'
+      || (this.router.url || '').indexOf('acceptinvite/') !== -1
+      || (!this.active() && this.router.url.indexOf('/register') === -1)
   }
 
   private getUserIntrospectionExternal(redirect: string): void {
@@ -469,7 +457,7 @@ export class AuthenticationService {
     if (currentAcl) {
       this.setActiveAcl(currentAcl);
     } else {
-      let defaultAcl: Acl = user.acls.filter((acl) => acl.account.name === 'Master Account')[0] || user.acls[0];
+      let defaultAcl: Acl = user.acls.filter((acl) => !acl.pending && acl.account.name === 'Master Account')[0] || user.acls.filter(acl => !acl.pending)[0];
 
       if (defaultAcl) {
         this.setActiveAcl(defaultAcl);

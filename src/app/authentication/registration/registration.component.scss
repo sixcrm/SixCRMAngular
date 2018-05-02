@@ -1,6 +1,140 @@
 .registration {
-  height: 100vh;
-  width: 100vw;
   position: absolute;
-  background: rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to bottom left, #4277C2, #2C98F0);
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  margin: auto auto 0 auto;
+
+  .circle {
+    position: relative;
+    box-sizing: border-box;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    height: 22px;
+    width: 22px;
+
+    div {
+      top: 24px;
+      font-size: 13px;
+      left: 50%;
+      transform: translateX(-50%);
+      position: absolute;
+      font-family: 'Roboto', serif;
+      color: rgba(255, 255, 255, 0.4);
+      font-weight: 500;
+    }
+  }
+
+  .line {
+    width: 46px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .active {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0);
+  }
+
+  .finished {
+    background: #1EBEA5;
+    border-color: #1EBEA5;
+  }
+}
+
+.group {
+  margin-top: 35px;
+}
+
+.registration-form {
+  padding: 25px;
+  background: white;
+  text-align: left;
+
+  .title {
+    color: #4277C2;
+    font-size: 20px;
+    margin-bottom: 18px;
+  }
+
+  .subtitle {
+    color: rgba(0, 0, 0, 0.5413);
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 35px;
+  }
+
+  mat-input-container {
+    width: 100%;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.5413);
+  }
+
+  .terms {
+    margin-top: 55px;
+    font-size: 13px;
+    line-height: 15px;
+    color: rgba(0, 0, 0, 0.75);
+    cursor: pointer;
+  }
+
+  .actions {
+    display: flex;
+    margin-top: 25px;
+
+    button {
+      margin: 0 0 0 auto;
+      width: 140px;
+      background: #1EBEA5;
+      color: white;
+    }
+
+    .disabled {
+      background: rgba(0, 0, 0, 0.12);
+      color: rgba(0, 0, 0, 0.26);
+    }
+  }
+}
+
+.container {
+  margin: 35px auto auto;
+}
+
+.welcome {
+  margin: auto;
+  text-align: center;
+
+  mat-icon {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.25);
+    background: #1EBEA5;
+    font-size: 120px;
+    color: white;
+  }
+
+  .text {
+    margin-top: 20px;
+    line-height: 84px;
+    font-family: "Roboto", serif;
+    font-weight: 300;
+    font-size: 74px;
+    color: white;
+  }
+}
+
+.logo {
+  width: 120px;
+  position: absolute;
+  top: 16px;
+  left: 24px;
+  cursor: pointer;
 }

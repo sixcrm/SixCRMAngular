@@ -1,4 +1,4 @@
-export interface TransactionalResponseError {
-  code: boolean,
-  message: string
+export class TransactionalResponseError {
+
+  constructor(public code: number, public message: string) {}
 }

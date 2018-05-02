@@ -1,6 +1,7 @@
 import {Entity} from './entity.interface';
 import {Moment, utc} from 'moment';
 import {Acl} from './acl.model';
+import {AccountBilling} from './account-billing.model';
 
 export class Account implements Entity<Account> {
 
@@ -8,6 +9,7 @@ export class Account implements Entity<Account> {
   name: string;
   active: boolean;
   acls: Acl[];
+  billing: AccountBilling;
   createdAt: Moment;
   updatedAt: Moment;
   updatedAtAPI: string;
@@ -24,6 +26,9 @@ export class Account implements Entity<Account> {
     this.acls = [];
     if (obj.acl) {
       this.acls = obj.acl.map(acl => new Acl(acl));
+    }
+    if (obj.billing) {
+      this.billing = new AccountBilling(obj.billing);
     }
 
     this.createdAt = utc(obj.created_at);
@@ -44,6 +49,8 @@ export class Account implements Entity<Account> {
       id: this.id,
       name: this.name,
       active: this.active,
+      acl: this.acls.map(acl => acl.inverse()),
+      billing: this.billing ? this.billing.inverse() : undefined,
       created_at: this.createdAt.format(),
       updated_at: this.updatedAtAPI
     }
