@@ -22,7 +22,7 @@ export class MerchantReportService {
     this.queryRequest(merchantReportListQuery(start, end, filters, download, limit, offset, order), download).subscribe(
       (data) => {
         if (!download) {
-          let merchants = extractData(data).merchantreport.merchants;
+          let merchants = extractData(data).analytics.records;
 
           if (merchants) {
             this.merchants$.next(merchants.map(merchant => new MerchantReport(merchant)))

@@ -63,7 +63,7 @@ export class AdvancedFilterComponent implements OnInit, OnDestroy {
   @Input() shareUrl: string = 'url';
   @Input() groupByEnabled: boolean = false;
   @Input() embedded: boolean = false;
-  @Input() hasAdvancedFilter: boolean = true;
+  @Input() hasMenu: boolean = true;
 
   groupByFilters: string[] = [
     "Merchant Provider",

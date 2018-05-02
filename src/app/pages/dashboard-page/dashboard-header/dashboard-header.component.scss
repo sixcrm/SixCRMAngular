@@ -2,6 +2,10 @@
   display: flex;
   align-items: flex-start;
   padding: 15px 25px;
+
+  .flex-custom {
+    min-width: 520px;
+  }
 }
 
 .dashboard-filters {

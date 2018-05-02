@@ -16,6 +16,8 @@ export class DeviceToggleItemComponent implements OnInit {
 
   editMode: boolean;
 
+  originalValue;
+
   deviceLabels = {
     six: 'SixCRM',
     ios: 'iOS App',
@@ -45,6 +47,18 @@ export class DeviceToggleItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.originalValue = this.notificationSettings.data;
+  }
+
+  keyup(event) {
+    if (event.keyCode === 13) { // Enter
+      this.updateData();
+    }
+
+    if (event.keyCode === 27) { //Esc
+      this.valueInput.nativeElement.value = this.originalValue;
+      this.updateData();
+    }
   }
 
   updateData() {
@@ -60,6 +74,7 @@ export class DeviceToggleItemComponent implements OnInit {
 
       this.toggled.emit(true);
       this.formInvalid = false
+      this.originalValue = this.notificationSettings.data;
     } else {
       this.formInvalid = true;
     }

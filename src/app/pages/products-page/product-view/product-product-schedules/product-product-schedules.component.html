@@ -17,10 +17,6 @@
       [columnParams]="columnParams"
       [small]="true">
     </table-preferences>
-    <mat-icon class="entity-view__table-component__header__action" [matMenuTriggerFor]="optionsMenu">more_vert</mat-icon>
-    <mat-menu #optionsMenu="matMenu" x-position="before">
-      <button mat-menu-item (click)="showAddProductScheduleModal()">{{'PRODUCT_SCHEDULES_ADD' | translate}}</button>
-    </mat-menu>
   </div>
   <table class="highlight table__custom">
     <thead>
@@ -51,7 +47,6 @@
         <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
         <mat-menu #actionsMenu="matMenu" x-position="before">
           <button mat-menu-item [routerLink]="['/productschedules', entity.id]">{{'PRODUCT_SCHEDULES_VIEW' | translate}}</button>
-          <button mat-menu-item (click)="removeProductSchedule(entity)">{{'PRODUCT_SCHEDULES_REMOVE' | translate}}</button>
         </mat-menu>
       </td>
     </tr>

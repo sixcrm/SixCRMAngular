@@ -97,5 +97,10 @@ export function productInputQuery(p: Product, includeId?: boolean): string {
     dynamic = `dynamic_pricing: { min:${product.dynamicPrice.min.amount}, max:${product.dynamicPrice.max.amount} }`
   }
 
-  return `${addId(product.id, includeId)} name: "${clean(product.name)}", ${dynamic}, ${attributes ? attributes : ''} ${product.description ? `description: "${product.description}",` : ''} sku: "${product.sku}", ship: ${!!product.ship} ${product.defaultPrice.amount || product.defaultPrice.amount===0 ? `, default_price:${product.defaultPrice.amount}` : ''} ${product.shippingDelay || product.shippingDelay===0 ? `, shipping_delay:${product.shippingDelay}` : ''} ${product.fulfillmentProvider.id ? `, fulfillment_provider:"${product.fulfillmentProvider.id}"` : ''}, ${addUpdatedAtApi(product, includeId)}`
+  let sku = '';
+  if (product.sku !== '') {
+    sku = `sku: "${product.sku}"`;
+  }
+
+  return `${addId(product.id, includeId)} name: "${clean(product.name)}", ${dynamic}, ${attributes ? attributes : ''} ${product.description ? `description: "${product.description}",` : ''} ${sku}, ship: ${!!product.ship} ${product.defaultPrice.amount || product.defaultPrice.amount===0 ? `, default_price:${product.defaultPrice.amount}` : ''} ${product.shippingDelay || product.shippingDelay===0 ? `, shipping_delay:${product.shippingDelay}` : ''} ${product.fulfillmentProvider.id ? `, fulfillment_provider:"${product.fulfillmentProvider.id}"` : ''}, ${addUpdatedAtApi(product, includeId)}`
 }
