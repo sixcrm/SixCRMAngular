@@ -48,6 +48,7 @@ export class RegistrationComponent implements OnInit {
 
   inited: boolean;
   showProgress: boolean;
+  plan: Plan;
 
   constructor(
     public authService: AuthenticationService,
