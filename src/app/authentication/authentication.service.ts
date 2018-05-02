@@ -67,11 +67,12 @@ export class AuthenticationService {
             scope: 'openid email name given_name family_name user_metadata app_metadata picture'
           }
         },
+        closeable: false,
         theme: {
-          logo: '/assets/favicons/favicon-icon.png'
+          logo: '/assets/images/logo-navigation.svg'
         },
         languageDictionary: {
-          title: 'SixCRM'
+          title: ''
         }
       });
 
