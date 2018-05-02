@@ -19,7 +19,7 @@
     <ng-template #edit>
       <div class="label">{{deviceLabels[notificationSettings.name]}}</div>
       <mat-input-container [class.error]="formInvalid" class="mrw-input--no-margin-top">
-        <input #valueInput auto-focus (blur)="updateData()" [applyAutofocus]="true" matInput type="text" [value]="notificationSettings.data">
+        <input #valueInput auto-focus (blur)="updateData()" (keyup)="keyup($event)" [applyAutofocus]="true" matInput type="text" [value]="notificationSettings.data">
       </mat-input-container>
     </ng-template>
   </div>
