@@ -35,7 +35,6 @@ export class RegistrationComponent implements OnInit {
 
   userTerms: Terms = {version: '0.1', title: 'USER TERMS AND CONDITIONS', body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'};
   ownerTerms: Terms = {version: '0.1', title: 'OWNER TERMS AND CONDITIONS', body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'};
-  plan: Plan = {name: 'Premium', price: 2000, id: 'd4dbbe5e-0413-44f1-98fc-a154db812541'};
 
   activatingAccount: boolean;
   activatingUser: boolean;
@@ -109,10 +108,6 @@ export class RegistrationComponent implements OnInit {
     if (this.inited || !this.user || !this.acl) return;
 
     this.inited = true;
-
-    // this.showProgress = true;
-    // this.setPlanInProgress();
-    // this.accountRegistrationFinished();
 
     if (this.activatingUser || this.activatingAccount) {
       this.showProgress = this.activatingAccount;
@@ -259,7 +254,7 @@ export class RegistrationComponent implements OnInit {
 
     setTimeout(() => {
       this.authService.getUserIntrospection({}, '/dashboard');
-    }, 3000)
+    }, 1000)
   }
 
   private openTerms(title: string, text: string) {
