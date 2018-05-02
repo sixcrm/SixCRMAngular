@@ -24,8 +24,8 @@
       </mat-input-container>
 
       <div class="product-view__group">
-        <mat-input-container [class.error]="formInvalid && !entity.sku" class="entity-view__card__content__item">
-          <input required matInput [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_SKU' | translate}}" name="sku" [(ngModel)]="entity.sku" type="text">
+        <mat-input-container class="entity-view__card__content__item">
+          <input matInput [disabled]="mode === view" placeholder="{{'PRODUCT_INFO_SKU' | translate}}" name="sku" [(ngModel)]="entity.sku" type="text">
         </mat-input-container>
       </div>
 
