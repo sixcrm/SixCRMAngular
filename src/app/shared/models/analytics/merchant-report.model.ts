@@ -13,15 +13,15 @@ export class MerchantReport {
 
   constructor(obj?: any) {
     if (!obj) {
-      obj = {};
+      obj = [];
     }
 
     this.merchantProvider = new MerchantProvider(obj.merchant_provider);
-    this.saleCount = obj.sale_count || 0;
-    this.saleGrossRevenue = new Currency(obj.sale_gross_revenue);
-    this.refundExpenses = new Currency(obj.refund_expenses);
-    this.refundCount = obj.refund_count || 0;
-    this.netRevenue = new Currency(obj.net_revenue);
+    this.saleCount = obj.sales || 0;
+    this.saleGrossRevenue = new Currency(obj.sales_revenue);
+    this.refundExpenses = new Currency(obj.total_refund_expenses);
+    this.refundCount = obj.full_refunds || 0 + obj.partial_refunds || 0;
+    this.netRevenue = new Currency(obj.sales_revenue);
     this.mtdSalesCount = obj.mtd_sales_count || 0;
     this.mtdGrossCount = obj.mtd_gross_count || 0;
   }
