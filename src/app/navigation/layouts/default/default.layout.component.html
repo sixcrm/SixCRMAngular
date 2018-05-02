@@ -25,10 +25,6 @@
   </mat-sidenav-content>
 </mat-sidenav-container>
 
-<div *ngIf="!(authService.sixUserActivated$ | async)" class="registration-form__container">
-  <registration-form></registration-form>
-</div>
-
 <div *ngIf="navigation.showCreateNewOrderModal | async" class="create-order-modal-container">
   <create-order (close)="navigation.setShowCreateNewOrderModal(false)"></create-order>
 </div>

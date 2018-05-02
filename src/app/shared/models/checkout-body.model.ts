@@ -2,7 +2,7 @@ export interface CheckoutCustomer {
   first_name: string,
   last_name: string,
   email: string,
-  phone: string;
+  phone?: string;
   address: CheckoutAddress
 }
 

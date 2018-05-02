@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 import {AuthenticationService} from '../authentication.service';
-import {User} from '../../shared/models/user.model';
+import {AcknowledgeInvite} from '../../shared/models/acknowledge-invite.model';
+import {Acl} from '../../shared/models/acl.model';
 
 @Component({
   selector: 'invite-accept',
@@ -10,123 +11,66 @@ import {User} from '../../shared/models/user.model';
 })
 export class InviteAcceptComponent implements OnInit {
 
-  token: string;
-  param: string;
-  email: string;
-  invitor: string;
-  account: string;
-  role: string;
-  accountId: string;
+  hash: string;
 
-  loginRequiredScreen: boolean;
+  acknowledgeInvite: AcknowledgeInvite;
+
   welcomeScreen: boolean;
-  infoScreen: boolean;
   completeScreen: boolean;
   showAclInstructions: boolean;
-
-  user: User;
-
-  firstName: string = '';
-  lastName: string = '';
+  showSignupInstructions: boolean;
 
   formInvalid: boolean;
-  payload: any;
 
-  constructor(private route: ActivatedRoute, private router: Router, private authService: AuthenticationService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthenticationService
+  ) { }
 
   ngOnInit() {
-    this.payload = this.authService.getPayload();
-
-    this.route.queryParams.subscribe((params: Params) => {
-      this.token = params['t'];
-      this.param = params['p'];
-
-      let dec = atob(this.param);
-      let decParam = {};
-
-      try {
-        decParam = JSON.parse(dec);
-      } catch (error) { }
-
-      this.email = decParam['email'];
-      this.invitor = decParam['invitor'];
-      this.account = decParam['account'];
-      this.accountId = decParam['account_id'];
-      this.role = decParam['role'];
-
-      if (!this.token || !this.param || !this.email) {
-        this.router.navigate(['/']);
+    this.route.params.take(1).subscribe((params: Params) => {
+      if (params['hash']) {
+        this.hash = params['hash'];
+        this.initiateAcknowledgeInvite();
       } else {
-        this.validateLoggedInUser();
+        this.logout();
       }
     });
-  }
-
-  goToLogin(): void {
-    this.authService.logout(this.router.url);
   }
 
   acceptInvite(): void {
-    this.authService.activateUser(this.token, this.param, this.accountId).subscribe((user: User) =>{
-      if (user) {
-        this.user = user;
+    this.authService.acceptInvite(this.acknowledgeInvite.hash, this.acknowledgeInvite.signature).subscribe((res: {isNew: string, account: string}) => {
+      this.welcomeScreen = false;
+      this.completeScreen = true;
 
-        this.showAclInstructions = user.acls && user.acls.length > 1;
-
-        if (this.user.firstName && this.user.lastName) {
-          this.welcomeScreen = false;
-          this.infoScreen = false;
-          this.completeScreen = true;
-        } else {
-          this.firstName = this.user.firstName || this.payload.first_name || '';
-          this.lastName = this.user.lastName || this.payload.last_name || '';
-
-          this.welcomeScreen = false;
-          this.infoScreen = true;
-          this.completeScreen = false;
-        }
+      if (this.signupNeeded(res)) {
+        this.showSignupInstructions = true;
+      } else if (this.instructionsNeeded(res)) {
+        this.showAclInstructions = true;
       }
     });
   }
 
-  submitInfo(valid: boolean): void {
-    this.formInvalid = !valid;
-    if (this.formInvalid) return;
-
-    this.user.firstName = this.firstName;
-    this.user.lastName = this.lastName;
-    this.user.auth0Id = this.payload.sub || 'auth0id';
-    this.user.active = true;
-
-    this.authService.updateUserForAcceptInvite(this.user).subscribe(success => {
-      if (success) {
-        this.welcomeScreen = false;
-        this.infoScreen = false;
-        this.completeScreen = true;
-      }
-    })
-  }
-
   complete(): void {
-    this.authService.refreshSixUser();
-  }
-
-  private validateLoggedInUser(): void {
-    if (this.authService.authenticated()) {
-      let loggedInEmail = this.authService.getUserEmail();
-
-      if (this.email === loggedInEmail) {
-        this.welcomeScreen = true;
-      } else {
-        this.loginRequiredScreen = true;
-      }
-
-    } else {
-      this.loginRequiredScreen = true;
-    }
+    this.authService.refreshAfterAcceptInvite(new Acl({id: this.acknowledgeInvite.acl}));
   }
 
   logout(): void {
     this.authService.logout();
+  }
+
+  private signupNeeded(res) {
+    return res.isNew;
+  }
+
+  private instructionsNeeded(res) {
+    return !res.isNew;
+  }
+
+  private initiateAcknowledgeInvite() {
+    this.authService.acknowledgeInvite(this.hash).subscribe(acknowledge => {
+      this.acknowledgeInvite = acknowledge;
+      this.welcomeScreen = true;
+    });
   }
 }

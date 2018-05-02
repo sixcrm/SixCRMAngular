@@ -29,6 +29,7 @@ import { ImageDialogComponent } from './dialog-modals/image-dialog/image-dialog.
 import { MerchantProviderGroupAssociationDialogComponent } from './dialog-modals/merchantprovidergroup-association-dialog/merchantprovidergroup-association-dialog.component';
 import {MaterialSelectionModule} from './material-selection/material-selection.module';
 import {HttpWrapperTransactionalService} from './shared/services/http-wrapper-transactional.service';
+import { TermsDialogComponent } from './dialog-modals/terms-dialog/terms-dialog.component';
 
 @NgModule({
   declarations : [
@@ -46,7 +47,8 @@ import {HttpWrapperTransactionalService} from './shared/services/http-wrapper-tr
     ErrorPageStandaloneComponent,
     AddBillDetailsDialogComponent,
     ImageDialogComponent,
-    MerchantProviderGroupAssociationDialogComponent
+    MerchantProviderGroupAssociationDialogComponent,
+    TermsDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -78,7 +80,8 @@ import {HttpWrapperTransactionalService} from './shared/services/http-wrapper-tr
     AccessKeyDetailsDialogComponent,
     AddBillDetailsDialogComponent,
     ImageDialogComponent,
-    MerchantProviderGroupAssociationDialogComponent
+    MerchantProviderGroupAssociationDialogComponent,
+    TermsDialogComponent
   ],
   bootstrap : [AppComponent]
 })

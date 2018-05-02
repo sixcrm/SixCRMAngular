@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="column left">
+
+    <div class="title" [class.error]="transactionalError">{{transactionalError ? 'Payment Declined' : 'Payment'}}</div>
+    <div *ngIf="transactionalError" class="error-message error">Please check your card information and try again or use a different card</div>
+
+    <div class="cards">
+      <div>VISA</div>
+      <div>MASTER</div>
+      <div>AMEX</div>
+      <div>DISCOVER</div>
+    </div>
+
+    <div class="form">
+      <mat-form-field [class.error]="formInvalid && ccNumberInvalid()">
+        <input type="text" matInput placeholder="Card Number" [(ngModel)]="creditCard.ccnumber" (keydown)="isAllowedNumericKey($event)">
+      </mat-form-field>
+
+
+      <mat-form-field class="code" [class.error]="formInvalid && ccvInvalid()">
+        <input type="text" matInput placeholder="Security Code" [(ngModel)]="creditCard.ccv" (keydown)="isAllowedNumericKey($event)">
+      </mat-form-field>
+
+
+      <mat-form-field [class.error]="formInvalid && (!creditCard.name || creditCard.name.length < 2)">
+        <input type="text" matInput placeholder="Name on Card" [(ngModel)]="creditCard.name">
+      </mat-form-field>
+
+      <div class="dates">
+        <div class="element"
+             [matMenuTriggerFor]="monthMenu"
+             [class.error]="formInvalid && !creditCard.expirationMonth"
+             [class.selected]="creditCard.expirationMonth">
+          <div>{{creditCard.expirationMonth || 'Month'}}</div>
+          <mat-icon>keyboard_arrow_down</mat-icon>
+          <mat-menu #monthMenu="matMenu">
+            <button mat-menu-item *ngFor="let month of months" (click)="setMonth(month)">{{month}}</button>
+          </mat-menu>
+        </div>
+
+        <div class="element"
+             [matMenuTriggerFor]="yearMenu"
+             [class.error]="formInvalid && !creditCard.expirationYear"
+             [class.selected]="creditCard.expirationYear">
+          <div>{{creditCard.expirationYear || 'Year'}}</div>
+          <mat-icon>keyboard_arrow_down</mat-icon>
+          <mat-menu #yearMenu="matMenu">
+            <button mat-menu-item *ngFor="let year of years" (click)="setYear(year)">{{year}}</button>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="column right">
+
+    <div class="title">You have chosen SIX {{plan.name}} Tier</div>
+    <div class="subtitle" (click)="changePlan.emit(true)">Change Plan</div>
+
+    <div class="details">
+      <div>Total billed today:</div>
+      <div class="line"></div>
+      <div>${{plan.price}}</div>
+    </div>
+
+    <div class="terms" (click)="displayOwnerTerms.emit(true)">{{'REGISTER_OWNERTERMS' | translate}}</div>
+    <button mat-button (click)="pay()">Finish and Pay</button>
+  </div>
+</div>
+
+<div class="process-overlay" *ngIf="paymentInProgress">
+  <div>Processing Payment ...</div>
+</div>

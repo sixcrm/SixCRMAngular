@@ -2,6 +2,7 @@ export const environment = {
   production: true,
   bareEndpoint: 'https://staging-api.sixcrm.com/',
   endpoint: 'https://staging-api.sixcrm.com/graph/',
+  publicendpoint: 'https://staging-api.sixcrm.com/publicgraph',
   jwtEndpoint: 'https://staging-api.sixcrm.com/token/acquire',
   clientID: 'JM1tC2j7tycbu62el3oBhyklpNbk5x6F',
   domain: 'sixcrm.auth0.com',

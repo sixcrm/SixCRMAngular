@@ -1,111 +1,52 @@
 .registration-form {
-  margin: 60px auto auto;
-  max-width: 350px;
-  padding-top: 30px;
-  background: linear-gradient(to bottom right, #428CE4, #0E3BD9);
-  color: white;
+  margin: auto;
+  padding-bottom: 20px;
+  width: 360px;
+  background: white;
+  color: rgba(0, 0, 0, 0.87);
   text-align: center;
-  font-family: 'Montserrat', sans-serif;
-  box-shadow: 0 0 25px rgba(0,0,0,0.6);
-
-  @media only screen and (max-width: 600px) {
-    margin-top: 10px;
-  }
+  font-family: 'Roboto', sans-serif;
+  box-shadow:  0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
 
   &__header {
-    &__logo {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      height: 120px;
-    }
+    padding: 45px;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
 
-    &__clouds {
-      max-width: 350px;
+    img {
+      width: 150px;
     }
   }
 
-  &__title {
-    margin: 15px auto;
-    width: 255px;
+  &__main {
+    margin: auto 40px;
+    font-size: 16px;
+    line-height: 24px;
 
-    &--secondary {
-      width: 260px;
+    span {
+      color: black;
+      font-weight: 500;
     }
 
-    &__main {
-      margin-bottom: 8px;
-      font-size: 16px;
-
-      &--secondary {
-        margin: 20px 0;
-        text-align: left;
-        font-size: 14px;
-        font-weight: 500;
-      }
-    }
-
-    &__sub {
-      margin-bottom: 20px;
-      font-size: 15px;
-
-      &--secondary {
-        font-size: 12px;
-        text-align: left;
-        margin: 25px 0;
-        font-weight: 500;
-      }
-    }
-
-    &__text {
-      text-align: justify;
-      font-size: 12px;
-
-      &--secondary {
-        font-size: 12px;
-        text-align: left;
-      }
+    &--signup {
+      margin: 0 40px auto;
     }
   }
 
-  &__form {
-    margin-top: 5px;
-    padding: 0 45px;
+  &__sub {
     font-size: 12px;
-    width: 255px;
-
-    mat-input-container {
-      width: 100%;
-
-      label {
-        color: #ffffff !important;
-      }
-
-      .mat-input-underline {
-
-      }
-    }
   }
 
-  &__button {
+  button {
+    margin: 0 auto;
     display: inline-block;
-    margin: 25px 0 35px;
     width: 200px;
-    padding: 10px;
-    background: #F57C00;
-    font-size: 12px;
-    cursor: pointer;
+    color: #2C98F0;
+  }
 
-    &--no-margin {
-      margin-bottom: 0;
-    }
-
-    &--cancel {
-      display: inline-block;
-      margin: 10px 0 25px;
-      width: 100%;
-      font-size: 10px;
-      cursor: pointer;
-    }
+  &__accept {
+    margin-top: 10px !important;
+    font-size: 16px;
+    text-transform: uppercase;
   }
 }

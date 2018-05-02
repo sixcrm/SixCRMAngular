@@ -1,0 +1,37 @@
+.container {
+  font-family: 'Roboto', serif;
+  max-width: 640px;
+
+  .title {
+    margin-bottom: 20px;
+    font-weight: 500;
+    font-size: 20px;
+    color: #4277C2;
+  }
+
+  .content {
+    margin-right: -24px;
+    padding: 10px 22px 10px 0;
+    overflow: auto;
+    text-align: justify;
+    color: rgba(0, 0, 0, 0.5413);
+    font-size: 16px;
+    line-height: 24px;
+    max-height: calc(100vh - 230px);
+
+    .end {
+      margin-top: 20px;
+    }
+  }
+
+  .done {
+    display: flex;
+    margin-top: 8px;
+
+    button {
+      margin-left: auto;
+      background: #2C98F0;
+      color: white;
+    }
+  }
+}

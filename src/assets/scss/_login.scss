@@ -1,10 +1,48 @@
 .auth0-lock-overlay {
   opacity: 1 !important;
-  background: -webkit-radial-gradient(#0A38D9, #067BE9) rgba(34,34,40,0.94) !important;
-  background: radial-gradient(#0A38D9, #067BE9) rgba(34,34,40,0.94) !important;
+  background: linear-gradient(to bottom left, #4277C2, #2C98F0) !important;
 }
 
 .auth0-lock-widget {
   box-shadow: 0 0 40px 4px rgba(0,0,0,0.3) !important;
   transition-delay: 0.1s !important;
+}
+
+.auth0-lock-close-button {
+  display: none;
+}
+
+.auth0-lock-header {
+  display: flex !important;
+
+  div {
+    background: white !important;
+  }
+
+  .auth0-lock-header-welcome {
+    margin: auto !important;
+
+    .auth0-lock-header-logo {
+      margin: auto !important;
+    }
+  }
+
+}
+
+.auth0-lock-submit {
+  width: 120px !important;
+  border-radius: 2px !important;
+  margin: auto auto 20px auto !important;
+  height: 42px !important;
+  line-height: 42px !important;
+  padding: 0 !important;
+  background: #2C98F0 !important;
+  box-shadow: 0 0 2px rgba(0,0,0,0.24), 0 0 2px rgba(0,0,0,0.12);
+  svg {
+    display: none;
+  }
+}
+
+.auth0-lock-social-button {
+  background: #2C98F0 !important;
 }

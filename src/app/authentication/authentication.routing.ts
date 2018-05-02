@@ -9,6 +9,6 @@ import {AuthGuard} from './auth-guard.service';
 export const routing = RouterModule.forChild([
   { path: '', component: AuthComponent},
   { path: 'register', component: RegistrationComponent, canActivate: [RegisterGuard]},
-  { path: 'acceptinvite', component: InviteAcceptComponent},
+  { path: 'acceptinvite/:hash', component: InviteAcceptComponent},
   { path: 'terms-and-conditions', component: TermsAndConditionsComponent, canActivate: [AuthGuard]}
 ]);
