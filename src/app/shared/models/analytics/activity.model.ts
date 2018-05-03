@@ -10,7 +10,7 @@ export class Activity {
   acted_upon_type: string;
   associated_with: string;
   associated_with_type: string;
-  activity_statement: string;
+  activity_statement: any;
   parsed_statement: string;
 
   constructor(obj?: any) {
