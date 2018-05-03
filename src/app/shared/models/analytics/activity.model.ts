@@ -10,27 +10,31 @@ export class Activity {
   acted_upon_type: string;
   associated_with: string;
   associated_with_type: string;
-  english: string;
+  activity_statement: any;
+  parsed_statement: any;
 
   constructor(obj?: any) {
     if (!obj) {
-      obj = {};
+      obj = [];
     }
 
-    this.id = obj.id || '';
-    this.date = utc(obj.datetime);
-    this.actor = obj.actor || '';
-    this.actor_type = obj.actor_type || '';
-    this.action = obj.action || '';
-    this.acted_upon = obj.acted_upon || '';
-    this.acted_upon_type = obj.acted_upon_type || '';
-    this.associated_with = obj.associated_with || '';
-    this.associated_with_type = obj.associated_with_type || '';
-    this.english = obj.english || '';
+    this.id = Activity.getValueOf('id', obj) || '';
+    this.date = utc(Activity.getValueOf('datetime', obj));
+    this.actor = Activity.getValueOf('actor', obj) || '';
+    this.actor_type = Activity.getValueOf('actor_type', obj) || '';
+    this.action = Activity.getValueOf('action', obj) || '';
+    this.acted_upon = Activity.getValueOf('acted_upon', obj) || '';
+    this.acted_upon_type = Activity.getValueOf('acted_upon_type', obj) || '';
+    this.associated_with = Activity.getValueOf('associated_with', obj) || '';
+    this.associated_with_type = Activity.getValueOf('associated_with_type', obj) || '';
+    this.activity_statement = Activity.getValueOf('activityStatement', obj) || {};
+
+    this.parsed_statement = this.parse();
+
   }
 
   parse(): any {
-    let data = JSON.parse(this.english);
+    let data = this.activity_statement;
     let sentence = data.english_template;
 
     let parsedData = {};
@@ -55,6 +59,19 @@ export class Activity {
     if (info.email) return info.email;
 
     return entity_type;
+  }
+
+  public static getValueOf(field, obj) {
+    if (!obj.length) {
+      obj = [];
+    }
+
+    let array = obj.filter(o => o.key === field);
+    if (array.length > 0) {
+      return array[0].value;
+    }
+
+    return '';
   }
 }
 

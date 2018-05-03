@@ -192,7 +192,7 @@ export class AnalyticsService {
         data,
         this.activitiesByCustomer$,
         (t: any) => new Activity(t),
-        (data: any) => extractData(data).listactivitybyidentifier.activity
+        (data: any) => extractData(data).analytics.records
       );
     })
   }
@@ -222,9 +222,11 @@ export class AnalyticsService {
     }
 
     const entities = extractFunction(response);
+
     if (!entities) return null;
 
     const e = entities instanceof Array ? entities.map(entity => mapFunction(entity)) : mapFunction(entities);
+
     dataStream.next(e);
 
     return e;
