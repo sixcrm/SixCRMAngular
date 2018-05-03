@@ -6,11 +6,11 @@
     <div class="circle finished"></div>
     <div class="line finished"></div>
     <div class="circle" [class.active]="planInProgress" [class.finished]="paymentInProgress">
-      <div *ngIf="planInProgress">PLAN</div>
+      <div *ngIf="planInProgress">{{'REGISTER_PROGRESS_PLAN' | translate}}</div>
     </div>
     <div class="line" [class.finished]="paymentInProgress"></div>
     <div class="circle" [class.active]="paymentInProgress">
-      <div *ngIf="paymentInProgress">PAYMENT</div>
+      <div *ngIf="paymentInProgress">{{'REGISTER_PROGRESS_PAYMENT' | translate}}</div>
     </div>
   </div>
 
@@ -28,7 +28,7 @@
 
   <div class="welcome" *ngIf="showWelcome">
     <mat-icon>done</mat-icon>
-    <div class="text">Welcome!</div>
+    <div class="text">{{'REGISTER_WELCOME' | translate}}</div>
   </div>
 
 </div>

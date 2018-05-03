@@ -3,7 +3,7 @@
   <img class="logo" src="/assets/images/logo-white.svg" alt="">
 
   <div class="progress" *ngIf="showProgress">
-    <div class="circle active"><div>ACCOUNT</div></div>
+    <div class="circle active"><div>{{'REGISTER_PROGRESS_ACCOUNT' | translate}}</div></div>
     <div class="line"></div>
     <div class="circle"></div>
     <div class="line"></div>
@@ -31,7 +31,7 @@
 
       <mat-input-container *ngIf="activatingAccount" [class.form-error]="formInvalid && !accountName">
         <input matInput required placeholder="{{'REGISTER_FORM_COMPANY' | translate}}" type="text" name="company" [(ngModel)]="companyName">
-        <mat-hint>{{'REGISTER_FORM_COMPANY_HINT' | translate}}</mat-hint>
+        <mat-hint>{{'REGISTER_FORM_COMPANYHINT' | translate}}</mat-hint>
       </mat-input-container>
     </div>
 
