@@ -102,39 +102,9 @@
     }
   }
 }
-
-.container {
-  margin: 35px auto auto;
-}
-
-.welcome {
-  margin: auto;
-  text-align: center;
-
-  mat-icon {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    box-shadow: 0 4px 4px rgba(0,0,0,0.25);
-    background: #1EBEA5;
-    font-size: 120px;
-    color: white;
-  }
-
-  .text {
-    margin-top: 20px;
-    line-height: 84px;
-    font-family: "Roboto", serif;
-    font-weight: 300;
-    font-size: 74px;
-    color: white;
-  }
-}
-
 .logo {
-  width: 120px;
+  width: 109px;
   position: absolute;
-  top: 16px;
-  left: 24px;
-  cursor: pointer;
+  top: 15px;
+  left: 15px;
 }

@@ -15,6 +15,7 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import { CustomerServiceSessionsComponent } from './customer-service-order/customer-service-sessions/customer-service-sessions.component';
 import { CustomerServiceRebillsComponent } from './customer-service-order/customer-service-rebills/customer-service-rebills.component';
 import { CustomerServiceTransactionsComponent } from './customer-service-order/customer-service-transactions/customer-service-transactions.component';
+import { CustomerServiceReturnComponent } from './customer-service-order/customer-service-return/customer-service-return.component';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { CustomerServiceTransactionsComponent } from './customer-service-order/c
     EventsTableComponent,
     CustomerServiceSessionsComponent,
     CustomerServiceRebillsComponent,
-    CustomerServiceTransactionsComponent
+    CustomerServiceTransactionsComponent,
+    CustomerServiceReturnComponent
   ]
 })
 export class CustomerServiceModule { }

@@ -3,7 +3,7 @@ export interface CheckoutCustomer {
   last_name: string,
   email: string,
   phone?: string;
-  address: CheckoutAddress
+  address?: CheckoutAddress
 }
 
 export interface CheckoutProductSchedule {
@@ -22,7 +22,7 @@ export interface CheckoutCreditCard {
   number: string,
   expiration: string,
   ccv?: string,
-  address: CheckoutAddress
+  address?: CheckoutAddress
 }
 
 export interface CheckoutAddress {

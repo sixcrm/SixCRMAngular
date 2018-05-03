@@ -1,26 +1,23 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "SIXCRMadmi"
+    "name": "SIXCRMadmi",
+    "ejected": true
   },
   "apps": [
     {
       "root": "src",
       "outDir": "dist",
-      "assets": ["assets"],
+      "assets": [
+        "assets"
+      ],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
       "test": "test.ts",
       "tsconfig": "tsconfig.json",
+      "testTsconfig": "tsconfig.json",
       "prefix": "",
-      "mobile": false,
-      "showCircularDependencies": false,
-      "defaults": {
-        "build": {
-          "showCircularDependencies": false
-        }
-      },
       "styles": [
         "styles.scss",
         "../node_modules/codemirror/lib/codemirror.css",
@@ -42,8 +39,6 @@
       }
     }
   ],
-  "addons": [],
-  "packages": [],
   "e2e": {
     "protractor": {
       "config": "./protractor.conf.js"
@@ -55,8 +50,6 @@
     }
   },
   "defaults": {
-    "styleExt": "scss",
-    "prefixInterfaces": false,
-    "lazyRoutePrefix": "+"
+    "styleExt": "scss"
   }
 }

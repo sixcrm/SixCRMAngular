@@ -57,28 +57,18 @@ export class HttpWrapperTransactionalService {
     const secretKey = '0463ac5595ff97473972ea9472fff69eb08ca0a2';
     const account = '3f4abaf6-52ac-40c6-b155-d04caeb0391f';
 
-    const address: CheckoutAddress = {
-      line1: 'Fixed Address',
-      city: 'Fixed City',
-      state: 'Arizona',
-      zip: '21000',
-      country: 'United States'
-    };
-
     const checkoutBody: CheckoutBody = {
       campaign: campaignId,
       customer: {
         first_name: user.firstName || 'Fixed',
         last_name: user.lastName || 'Fixed',
-        email: user.id,
-        address: address
+        email: user.id
       },
       creditcard: {
         name: creditCard.name,
         number: creditCard.ccnumber,
         expiration: creditCard.expiration,
-        ccv: creditCard.ccv,
-        address: address
+        ccv: creditCard.ccv
       },
       product_schedules: [{quantity: 1, product_schedule: planId}]
     };

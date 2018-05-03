@@ -1,0 +1,81 @@
+<div class="container">
+  <div class="column left">
+
+    <div class="title" [class.error]="transactionalError">{{(transactionalError ? 'PAYMENT_TITLE' : 'PAYMENT_ERRORTITLE') | translate}}</div>
+    <div *ngIf="transactionalError" class="error-message error">{{'PAYMENT_ERRORMESSAGE' | translate}}</div>
+
+    <div class="cards" [class.cards-error]="transactionalError">
+      <img *ngIf="creditCard.typeUnknown() || creditCard.getType() === 'visa'" src="/assets/cards/visa.svg">
+      <img *ngIf="!creditCard.typeUnknown() && creditCard.getType() !== 'visa'" src="/assets/cards/visa_grayed.svg">
+
+      <img *ngIf="creditCard.typeUnknown() || creditCard.getType() === 'mastercard'" src="/assets/cards/mastercard.svg">
+      <img *ngIf="!creditCard.typeUnknown() && creditCard.getType() !== 'mastercard'" src="/assets/cards/mastercard_grayed.svg">
+
+      <img *ngIf="creditCard.typeUnknown() || creditCard.getType() === 'amex'" src="/assets/cards/amex.svg">
+      <img *ngIf="!creditCard.typeUnknown() && creditCard.getType() !== 'amex'" src="/assets/cards/amex_grayed.svg">
+
+      <img *ngIf="creditCard.typeUnknown() || creditCard.getType() === 'discover'" src="/assets/cards/discover.svg">
+      <img *ngIf="!creditCard.typeUnknown() && creditCard.getType() !== 'discover'" src="/assets/cards/discover_grayed.svg">
+    </div>
+
+    <div class="form">
+      <mat-form-field [class.error]="formInvalid && ccNumberInvalid()">
+        <input type="text" matInput placeholder="{{'PAYMENT_FORM_NUMBER' | translate}}" [(ngModel)]="creditCard.ccnumber" (keydown)="isAllowedNumericKey($event)">
+      </mat-form-field>
+
+
+      <mat-form-field class="code" [class.error]="formInvalid && ccvInvalid()">
+        <input type="text" matInput placeholder="{{'PAYMENT_FORM_CODE' | translate}}" [(ngModel)]="creditCard.ccv" (keydown)="isAllowedNumericKey($event)">
+      </mat-form-field>
+
+
+      <mat-form-field [class.error]="formInvalid && (!creditCard.name || creditCard.name.length < 2)">
+        <input type="text" matInput placeholder="{{'PAYMENT_FORM_NAME' | translate}}" [(ngModel)]="creditCard.name">
+      </mat-form-field>
+
+      <div class="dates">
+        <div class="element"
+             [matMenuTriggerFor]="monthMenu"
+             [class.error]="formInvalid && !creditCard.expirationMonth"
+             [class.selected]="creditCard.expirationMonth">
+          <div>{{(creditCard.expirationMonth || 'PAYMENT_FORM_MONTH') | translate}}</div>
+          <mat-icon>keyboard_arrow_down</mat-icon>
+          <mat-menu #monthMenu="matMenu">
+            <button mat-menu-item *ngFor="let month of months" (click)="setMonth(month)">{{month}}</button>
+          </mat-menu>
+        </div>
+
+        <div class="element"
+             [matMenuTriggerFor]="yearMenu"
+             [class.error]="formInvalid && !creditCard.expirationYear"
+             [class.selected]="creditCard.expirationYear">
+          <div>{{(creditCard.expirationYear || 'PAYMENT_FORM_YEAR') | translate}}</div>
+          <mat-icon>keyboard_arrow_down</mat-icon>
+          <mat-menu #yearMenu="matMenu">
+            <button mat-menu-item *ngFor="let year of years" (click)="setYear(year)">{{year}}</button>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="column right">
+
+    <div class="title">{{'PAYMENT_INFO_TITLE' | translate}} {{plan.name}} {{'PAYMENT_INFO_TIER' | translate}}</div>
+    <div class="subtitle" (click)="changePlan.emit(true)">{{'PAYMENT_INFO_CHANGE' | translate}}</div>
+
+    <div class="details">
+      <div>{{'PAYMENT_INFO_TOTAL' | translate}}:</div>
+      <div class="line"></div>
+      <div>${{plan.price}}</div>
+    </div>
+
+    <div class="terms" (click)="openOwnerTerms()">{{'PAYMENT_OWNERTERMS' | translate}}</div>
+    <button mat-button (click)="pay()">{{'PAYMENT_INFO_FINISH' | translate}}</button>
+  </div>
+</div>
+
+<div class="process-overlay" *ngIf="paymentInProgress">
+  <div>{{'PAYMENT_PROCESSING' | translate}}</div>
+</div>

@@ -233,11 +233,21 @@
                 </mat-form-field>
 
                 <mat-form-field [class.error]="shippingAddressInvalid && !isCountryValid(shippingAddress.country)">
-                  <input type="text" matInput [(ngModel)]="shippingAddress.country" placeholder="Country" required name="country">
+                  <input type="text" matInput [(ngModel)]="shippingAddress.country" placeholder="Country" required name="country" [matAutocomplete]="countriesAutocomplete">
+                  <mat-autocomplete #countriesAutocomplete="matAutocomplete">
+                    <mat-option *ngFor="let country of countries | filterStrings: shippingAddress.country: plainMapper" [value]="country">
+                      <div>{{country}}</div>
+                    </mat-option>
+                  </mat-autocomplete>
                 </mat-form-field>
 
                 <mat-form-field [class.error]="shippingAddressInvalid && !isStateValid(shippingAddress.state)">
-                  <input type="text" matInput [(ngModel)]="shippingAddress.state" placeholder="State" required name="state">
+                  <input type="text" matInput [(ngModel)]="shippingAddress.state" placeholder="State" required name="state" [matAutocomplete]="statesAutocomplete">
+                  <mat-autocomplete #statesAutocomplete="matAutocomplete">
+                    <mat-option *ngFor="let state of states | filterStrings: shippingAddress.state: plainMapper" [value]="state">
+                      <div>{{state}}</div>
+                    </mat-option>
+                  </mat-autocomplete>
                 </mat-form-field>
               </form>
 

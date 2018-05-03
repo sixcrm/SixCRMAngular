@@ -1,0 +1,18 @@
+<div class="payment">
+
+  <img class="logo" src="/assets/images/logo-white.svg" alt="">
+  <button mat-button class="logout" (click)="logout()">{{'PAYMENT_ALERT_SIGNOUT' | translate}}</button>
+
+  <div class="text">
+    <ng-container *ngIf="isOwner; else infotext">
+      <div>{{'PAYMENT_ALERT_OWNER' | translate}}</div>
+
+      <button class="proceed" [routerLink]="['/payment']" mat-button>{{'PAYMENT_ALERT_PROCEED' | translate}}</button>
+    </ng-container>
+
+    <ng-template #infotext>
+      <div>{{'PAYMENT_ALERT_USER' | translate}}</div>
+    </ng-template>
+  </div>
+
+</div>

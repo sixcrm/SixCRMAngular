@@ -94,3 +94,22 @@ notes-component {
   display: block;
   width: 100%;
 }
+
+.header--loader {
+  div {
+    background: rgba(0,0,0,0.2);
+    width: 180px;
+    height: 17px;
+
+    &:first-of-type {
+      width: 210px;
+      height: 30px;
+    }
+  }
+}
+
+.body--loader {
+  height: calc(100vh - 330px);
+  width: 100%;
+  background: #F5F5F5;
+}

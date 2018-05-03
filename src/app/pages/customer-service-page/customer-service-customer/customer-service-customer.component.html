@@ -64,5 +64,18 @@
     </mat-tab-group>
   </ng-container>
 
-  <ng-template #customerLoader></ng-template>
+  <ng-template #customerLoader>
+    <div class="header header--loader">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <div class="blue-tab-header">
+      <div class="blue-tab-header__item blue-tab-header__item--active">GENERAL</div>
+      <div class="blue-tab-header__item">NOTES</div>
+    </div>
+
+    <div class="body--loader"></div>
+  </ng-template>
 </div>

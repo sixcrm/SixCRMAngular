@@ -26,6 +26,12 @@ export class SmtpProviderAddNewComponent implements OnInit {
   ngOnInit() {
   }
 
+  enterEditMode() {
+    this.changeMode.emit(this.modes.Update);
+    this.entity.username = '';
+    this.entity.password = '';
+  }
+
   saveProvider(value: boolean): void {
     this.formInvalid = !value;
     if (this.formInvalid) return;

@@ -27,6 +27,14 @@ export class FulfillmentProviderAddNewComponent implements OnInit {
   ngOnInit() {
   }
 
+  enterEditMode() {
+    this.changeMode.emit(this.modes.Update);
+    this.entity.provider.username = '';
+    this.entity.provider.password = '';
+    this.entity.provider.apiKey = '';
+    this.entity.provider.apiSecret = '';
+  }
+
   saveProvider(value: boolean): void {
     this.formInvalid = !value || !this.entity.provider.name;
     if (this.formInvalid) return;

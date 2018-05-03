@@ -14,8 +14,6 @@ import {TermsAndConditionsGuard} from './terms-and-conditions-guard.service';
 import {SharedModule} from '../shared/shared.module';
 import {TranslationModule} from '../translation/translation.module';
 import {MaterialSelectionModule} from '../material-selection/material-selection.module';
-import { PlansComponent } from './registration/plans/plans.component';
-import { PaymentComponent } from './registration/payment/payment.component';
 
 @NgModule({
   imports : [
@@ -31,9 +29,7 @@ import { PaymentComponent } from './registration/payment/payment.component';
     AuthComponent,
     RegistrationComponent,
     InviteAcceptComponent,
-    TermsAndConditionsComponent,
-    PlansComponent,
-    PaymentComponent
+    TermsAndConditionsComponent
   ],
   exports: [
     TermsAndConditionsComponent

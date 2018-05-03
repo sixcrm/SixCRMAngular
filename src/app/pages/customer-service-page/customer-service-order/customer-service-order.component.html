@@ -60,7 +60,7 @@
         <div class="blue-tab-header">
           <div class="blue-tab-header__item" [class.blue-tab-header__item--active]="orderIndex === 0" (click)="setOrderIndex(0)">NEXT REBILL</div>
           <div class="blue-tab-header__item" [class.blue-tab-header__item--active]="orderIndex === 1" (click)="setOrderIndex(1)">HISTORY</div>
-          <div class="blue-tab-header__item" [class.blue-tab-header__item--active]="orderIndex === 2">RETURNS</div>
+          <div class="blue-tab-header__item" [class.blue-tab-header__item--active]="orderIndex === 2" (click)="setOrderIndex(2)">RETURNS</div>
           <button mat-button [routerLink]="['/sessions', selectedSession.id]" fragment="watermark">EDIT WATERMARK</button>
         </div>
         <mat-tab-group class="tab--no-header" [(selectedIndex)]="orderIndex">
@@ -78,6 +78,7 @@
 
           <mat-tab>
             <div class="content">
+              <customer-service-return></customer-service-return>
             </div>
           </mat-tab>
         </mat-tab-group>

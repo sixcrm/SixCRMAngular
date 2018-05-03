@@ -70,7 +70,7 @@ export class CreditCard implements Entity<CreditCard> {
   }
 
   getType(): string {
-    if (!this.ccnumber || this.ccnumber.length !== 16) return 'other';
+    if (!this.ccnumber || this.ccnumber.length <= 12) return 'other';
 
     let types = {
       electron: /^(4026|417500|4405|4508|4844|4913|4917)\d+$/,
@@ -93,6 +93,12 @@ export class CreditCard implements Entity<CreditCard> {
     }
 
     return 'other';
+  }
+
+  typeUnknown() {
+    const type = this.getType();
+
+    return type !== 'visa' && type !== 'mastercard' && type !== 'amex' && type !== 'discover';
   }
 
   private parseExpirationMonth() {
