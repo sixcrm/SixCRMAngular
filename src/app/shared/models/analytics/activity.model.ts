@@ -11,7 +11,7 @@ export class Activity {
   associated_with: string;
   associated_with_type: string;
   activity_statement: any;
-  parsed_statement: string;
+  parsed_statement: any;
 
   constructor(obj?: any) {
     if (!obj) {
