@@ -27,14 +27,14 @@ export class Activity {
     this.acted_upon_type = Activity.getValueOf('acted_upon_type', obj) || '';
     this.associated_with = Activity.getValueOf('associated_with', obj) || '';
     this.associated_with_type = Activity.getValueOf('associated_with_type', obj) || '';
-    this.activity_statement = Activity.getValueOf('activityStatement', obj) || '';
+    this.activity_statement = Activity.getValueOf('activityStatement', obj) || {};
 
     this.parsed_statement = this.parse();
 
   }
 
   parse(): any {
-    let data = JSON.parse(this.activity_statement);
+    let data = this.activity_statement;
     let sentence = data.english_template;
 
     let parsedData = {};
@@ -71,7 +71,7 @@ export class Activity {
       return array[0].value;
     }
 
-    return 0;
+    return '';
   }
 }
 
