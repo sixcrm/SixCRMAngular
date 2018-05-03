@@ -195,7 +195,7 @@ module.exports = {
           {
             "loader": "cache-loader",
             "options": {
-              "cacheDirectory": "/home/nikola/dev/toptal/sixcrmangular/node_modules/@angular-devkit/build-optimizer/src/.cache"
+              "cacheDirectory": "node_modules/@angular-devkit/build-optimizer/src/.cache"
             }
           },
           {
@@ -449,13 +449,13 @@ module.exports = {
       "sourceMap": false,
       "filename": "scripts.[hash:20].bundle.js",
       "scripts": [
-        "/home/nikola/dev/toptal/sixcrmangular/node_modules/tinymce/tinymce.js",
-        "/home/nikola/dev/toptal/sixcrmangular/node_modules/tinymce/themes/modern/theme.js",
-        "/home/nikola/dev/toptal/sixcrmangular/node_modules/tinymce/plugins/link/plugin.js",
-        "/home/nikola/dev/toptal/sixcrmangular/node_modules/tinymce/plugins/code/plugin.js",
-        "/home/nikola/dev/toptal/sixcrmangular/node_modules/tinymce/plugins/preview/plugin.js"
+        "node_modules/tinymce/tinymce.js",
+        "node_modules/tinymce/themes/modern/theme.js",
+        "node_modules/tinymce/plugins/link/plugin.js",
+        "node_modules/tinymce/plugins/code/plugin.js",
+        "node_modules/tinymce/plugins/preview/plugin.js"
       ],
-      "basePath": "/home/nikola/dev/toptal/sixcrmangular"
+      "basePath": "."
     }),
     new CopyWebpackPlugin([
       {
