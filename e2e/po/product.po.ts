@@ -41,4 +41,16 @@ export class ProductPage {
     return element(by.name('description'));
   }
 
+  getDeletionModal() {
+    return element(by.css('mat-card'));
+  }
+
+  getDeletionModalContent() {
+    return element(by.css('.mat-card-content'));
+  }
+
+  getDeletionModalButton() {
+    return element(by.css('.mat-card-actions')).element(by.css('div'));
+  }
+
 }

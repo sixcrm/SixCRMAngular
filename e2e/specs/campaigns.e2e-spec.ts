@@ -26,9 +26,9 @@ describe('Campaigns', function() {
 
   it('should navigate to campaigns page', () => {
     const sidenav = new SidenavPage();
-    sidenav.getLink(12).click();
+    sidenav.getLink(17).click();
     browser.sleep(500);
-    sidenav.getLink(15).click();
+    sidenav.getLink(18).click();
     waitForUrlContains('campaigns');
     expectUrlToContain('campaigns');
   });
@@ -38,18 +38,11 @@ describe('Campaigns', function() {
   });
 
   it('should render campaigns index title', () => {
-    expect(page.getTitle().getText()).toContain('Campaigns')
+    expect(page.getTitle().getText()).toContain('Campaigns');
   });
 
   it('should render campaigns index add button', () => {
     expectDefined(page.getAddButton());
-  });
-
-  it('should render campaigns index table headers', () => {
-    expect(page.getTableHeaders().get(0).getText()).toEqual('Name');
-    expect(page.getTableHeaders().get(1).getText()).toEqual('Total Products');
-    expect(page.getTableHeaders().get(2).getText()).toEqual('Total Scheduled');
-    expect(page.getTableHeaders().get(3).getText()).toEqual('Created at');
   });
 
   it('should render add modal when add button is clicked', () => {
@@ -66,11 +59,12 @@ describe('Campaigns', function() {
 
   it('should remove error when proper name is entered', () => {
     campaignPage.getNewCampaignFormNameInput().sendKeys('e2e test campaign');
-
+    browser.sleep(1200);
     expect(campaignPage.getNewCampaignFormInvalidInputs().count()).toBe(0);
   });
 
   it('should save campaign and open it', () => {
+    browser.sleep(1200);
     campaignPage.getCampaignFormSaveButton().click();
 
     waitForUrlContains('campaigns/');
@@ -92,5 +86,6 @@ describe('Campaigns', function() {
 
     browser.sleep(2000);
     expect(campaignPage.getCampaignNameInHeader().getText()).toEqual('e2e test campaign updated');
-  })
+  });
+
 });

@@ -3,7 +3,7 @@ import {EntityIndexPage} from '../po/entity-index.po';
 import {SidenavPage} from '../po/sidenav.po';
 import {login} from '../utils/action.utils';
 import {browser} from 'protractor';
-import {expectUrlToContain, expectDefined} from '../utils/assertation.utils';
+import {expectUrlToContain, expectDefined, expectPresent} from '../utils/assertation.utils';
 import {ProductPage} from '../po/product.po';
 
 describe('Products', function() {
@@ -102,17 +102,25 @@ describe('Products', function() {
     browser.sleep(500);
     productPage.getMenuButton(1).click();
     browser.sleep(200);
+    expect(productPage.getDeletionModalContent().getText()).toEqual('Are you sure you want to delete?\n');
   });
 
   it('should go to products details', () => {
+    const sidenav = new SidenavPage();
+    productPage.getDeletionModalButton().click();
+    sidenav.getLink(17).click();
+    browser.sleep(500);
+    sidenav.getLink(19).click();
+    browser.sleep(2000);
     waitForUrlContains('products');
     productPage.getProductFromTable(1).click();
-    browser.sleep(5000);
+    browser.sleep(500);
     expectUrlToContain('products');
     expectUrlToContain('products');
   });
 
   it('should go to images and upload an image', () => {
+
   });
 
   it('should go schedules and add a new schedule', () => {
