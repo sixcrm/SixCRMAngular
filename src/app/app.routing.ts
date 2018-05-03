@@ -9,6 +9,7 @@ import {ErrorPageStandaloneComponent} from './error-page-standalone/error-page-s
 
 const appRoutes: Routes = [
   { path : '', loadChildren : './authentication/authentication.module#AuthenticationModule' },
+  { path : 'payment', loadChildren : './payment/payment.module#PaymentModule', canActivate: [AuthGuard] },
   { path : '404', component : ErrorPageStandaloneComponent },
   { path : '', component : DefaultLayoutComponent, children : [
     { path : '', loadChildren : './pages/search-page/search.module#SearchModule', canActivate: [AuthGuard, TermsAndConditionsGuard] },

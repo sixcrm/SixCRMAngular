@@ -4,11 +4,18 @@
     <div class="title" [class.error]="transactionalError">{{transactionalError ? 'Payment Declined' : 'Payment'}}</div>
     <div *ngIf="transactionalError" class="error-message error">Please check your card information and try again or use a different card</div>
 
-    <div class="cards">
-      <div>VISA</div>
-      <div>MASTER</div>
-      <div>AMEX</div>
-      <div>DISCOVER</div>
+    <div class="cards" [class.cards-error]="transactionalError">
+      <img *ngIf="creditCard.typeUnknown() || creditCard.getType() === 'visa'" src="/assets/cards/visa.svg">
+      <img *ngIf="!creditCard.typeUnknown() && creditCard.getType() !== 'visa'" src="/assets/cards/visa_grayed.svg">
+
+      <img *ngIf="creditCard.typeUnknown() || creditCard.getType() === 'mastercard'" src="/assets/cards/mastercard.svg">
+      <img *ngIf="!creditCard.typeUnknown() && creditCard.getType() !== 'mastercard'" src="/assets/cards/mastercard_grayed.svg">
+
+      <img *ngIf="creditCard.typeUnknown() || creditCard.getType() === 'amex'" src="/assets/cards/amex.svg">
+      <img *ngIf="!creditCard.typeUnknown() && creditCard.getType() !== 'amex'" src="/assets/cards/amex_grayed.svg">
+
+      <img *ngIf="creditCard.typeUnknown() || creditCard.getType() === 'discover'" src="/assets/cards/discover.svg">
+      <img *ngIf="!creditCard.typeUnknown() && creditCard.getType() !== 'discover'" src="/assets/cards/discover_grayed.svg">
     </div>
 
     <div class="form">
@@ -64,7 +71,7 @@
       <div>${{plan.price}}</div>
     </div>
 
-    <div class="terms" (click)="displayOwnerTerms.emit(true)">{{'REGISTER_OWNERTERMS' | translate}}</div>
+    <div class="terms" (click)="openOwnerTerms()">{{'REGISTER_OWNERTERMS' | translate}}</div>
     <button mat-button (click)="pay()">Finish and Pay</button>
   </div>
 </div>

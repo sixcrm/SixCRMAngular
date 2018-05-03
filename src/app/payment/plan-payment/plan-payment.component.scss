@@ -46,9 +46,15 @@
     margin-top: 60px;
     margin-bottom: auto;
 
-    div {
-      margin-right: 22px;
+    img {
+      width: 64px;
+      height: 40px;
+      margin-right: 20px;
     }
+  }
+
+  .cards-error {
+    margin-top: 12px;
   }
 
   .details {

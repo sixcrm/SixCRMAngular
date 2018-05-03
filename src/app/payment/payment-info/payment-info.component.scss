@@ -1,0 +1,35 @@
+.payment {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to bottom left, #4277C2, #2C98F0);
+}
+
+.text {
+  margin: auto;
+  text-align: center;
+  color: white;
+  font-size: 36px;
+  font-family: "Roboto", sans-serif;
+
+  .proceed {
+    margin-top: 24px;
+    background: #1EBEA5;
+  }
+}
+
+.logout {
+  color: white;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.logo {
+  width: 109px;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}

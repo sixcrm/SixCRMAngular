@@ -1,4 +1,4 @@
-.registration {
+.payment {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -49,59 +49,34 @@
   }
 }
 
-.group {
-  margin-top: 35px;
+.container {
+  margin: 35px auto auto;
 }
 
-.registration-form {
-  padding: 25px;
-  background: white;
-  text-align: left;
+.welcome {
+  margin: auto;
+  text-align: center;
 
-  .title {
-    color: #4277C2;
-    font-size: 20px;
-    margin-bottom: 18px;
+  mat-icon {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.25);
+    background: #1EBEA5;
+    font-size: 120px;
+    color: white;
   }
 
-  .subtitle {
-    color: rgba(0, 0, 0, 0.5413);
-    font-size: 16px;
-    line-height: 24px;
-    margin-bottom: 35px;
-  }
-
-  mat-input-container {
-    width: 100%;
-    font-size: 16px;
-    color: rgba(0, 0, 0, 0.5413);
-  }
-
-  .terms {
-    margin-top: 55px;
-    font-size: 13px;
-    line-height: 15px;
-    color: rgba(0, 0, 0, 0.75);
-    cursor: pointer;
-  }
-
-  .actions {
-    display: flex;
-    margin-top: 25px;
-
-    button {
-      margin: 0 0 0 auto;
-      width: 140px;
-      background: #1EBEA5;
-      color: white;
-    }
-
-    .disabled {
-      background: rgba(0, 0, 0, 0.12);
-      color: rgba(0, 0, 0, 0.26);
-    }
+  .text {
+    margin-top: 20px;
+    line-height: 84px;
+    font-family: "Roboto", serif;
+    font-weight: 300;
+    font-size: 74px;
+    color: white;
   }
 }
+
 .logo {
   width: 109px;
   position: absolute;

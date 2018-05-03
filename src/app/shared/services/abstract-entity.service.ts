@@ -22,7 +22,7 @@ export abstract class AbstractEntityService<T> {
   protected exclusiveStartKey: string;
 
   constructor(
-    private http: HttpWrapperService,
+    protected http: HttpWrapperService,
     protected authService: AuthenticationService,
     protected toEntity: (data: any) => T,
     public indexQuery: (params: IndexQueryParameters) => string,

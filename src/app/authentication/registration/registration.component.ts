@@ -9,7 +9,6 @@ import {AclsService} from '../../shared/services/acls.service';
 import {UsersService} from '../../shared/services/users.service';
 import {TermsDialogComponent} from '../../dialog-modals/terms-dialog/terms-dialog.component';
 import {MatDialog} from '@angular/material';
-import {Plan} from './plan.model';
 
 interface Terms {
   version?: string,
@@ -33,27 +32,19 @@ export class RegistrationComponent implements OnInit {
 
   formInvalid: boolean;
 
-  userTerms: Terms = {version: '0.1', title: 'USER TERMS AND CONDITIONS', body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'};
-  ownerTerms: Terms = {version: '0.1', title: 'OWNER TERMS AND CONDITIONS', body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'};
+  userTerms: Terms;
 
   activatingAccount: boolean;
   activatingUser: boolean;
 
   requestInProgress: boolean;
 
-  accountInProgress: boolean;
-  planInProgress: boolean;
-  paymentInProgress: boolean;
-  showWelcome: boolean;
-
   inited: boolean;
   showProgress: boolean;
-  plan: Plan;
 
   constructor(
     public authService: AuthenticationService,
     private router: Router,
-    private aclService: AclsService,
     private userService: UsersService,
     private dialog: MatDialog
   ) { }
@@ -72,21 +63,13 @@ export class RegistrationComponent implements OnInit {
       this.userTerms = response.body.response.data.latesttermsandconditions;
     });
 
-    this.userService.getLatestTermsAndConditions('owner').take(1).subscribe((response) => {
-      if (response instanceof CustomServerError) {
-        return;
-      }
-
-      this.ownerTerms = response.body.response.data.latesttermsandconditions;
-    });
-
     this.authService.activeAcl$.subscribe(acl => {
       if (!acl || !acl.id) return;
 
       this.acl = acl;
 
       if (!this.activatingAccount) {
-        this.activatingAccount = !this.acl.account.active;
+        this.activatingAccount = this.acl.account.createdAt.isSame(this.acl.account.updatedAt, 's');
       }
 
       this.init();
@@ -110,21 +93,7 @@ export class RegistrationComponent implements OnInit {
 
     this.inited = true;
 
-    if (this.activatingUser || this.activatingAccount) {
-      this.showProgress = this.activatingAccount;
-      this.setActivationInProgress();
-      return;
-    }
-
-    if (!this.acl.account.billing || this.acl.account.billing.disabled) {
-      this.showProgress = true;
-      this.setPlanInProgress();
-      return;
-    }
-  }
-
-  changePlanEmitted() {
-    this.setPlanInProgress();
+    this.showProgress = this.activatingAccount;
   }
 
   submitRegistration() {
@@ -150,19 +119,10 @@ export class RegistrationComponent implements OnInit {
         return;
       }
 
-      const account = new Account(res.body.response.data.updateaccount);
+      this.acl.account = new Account(res.body.response.data.updateaccount);
+      this.authService.changeActiveAcl(this.acl, true);
 
-      this.aclService.updateUserAclTermsAndConditions(this.acl, this.ownerTerms.version).take(1).subscribe(data => {
-        if (data instanceof CustomServerError) {
-          return;
-        }
-
-        this.acl.account = account;
-        this.acl.termsAndConditionsOutdated = false;
-        this.authService.changeActiveAcl(this.acl, true);
-
-        this.registrationCompleted();
-      });
+      this.registrationCompleted();
     });
   }
 
@@ -202,60 +162,22 @@ export class RegistrationComponent implements OnInit {
   registrationCompleted() {
     this.authService.setActive(true);
 
-    if (this.activatingAccount) {
-      this.requestInProgress = false;
-      this.setPlanInProgress();
+    if (!this.authService.getActiveAcl().account.billing || this.authService.getActiveAcl().account.billing.disabled) {
+      if (this.authService.getActiveAcl().role.name === 'Owner') {
+        this.router.navigate(['/payment']);
+      } else {
+        this.router.navigate(['/payment/info']);
+      }
     } else {
       const redirectRoute = this.authService.isActiveAclCustomerService() ? '/customer-service' :'/dashboard';
       this.router.navigate([redirectRoute]);
     }
   }
 
-  setActivationInProgress() {
-    this.accountInProgress = true;
-    this.planInProgress = false;
-    this.paymentInProgress = false;
-  }
-
-  setPlanInProgress() {
-    this.accountInProgress = false;
-    this.planInProgress = true;
-    this.paymentInProgress = false;
-  }
-
-  setPaymentInProgress() {
-    this.accountInProgress = false;
-    this.planInProgress = false;
-    this.paymentInProgress = true;
-  }
-
   openUserTerms() {
     if (!this.userTerms) return;
 
     this.openTerms(this.userTerms.title, this.userTerms.body);
-  }
-
-  openOwnerTerms() {
-    if (!this.ownerTerms) return;
-
-    this.openTerms(this.ownerTerms.title, this.ownerTerms.body);
-  }
-
-  setSelectedPlan(plan: Plan) {
-    this.plan = plan;
-    this.setPaymentInProgress();
-  }
-
-  accountRegistrationFinished() {
-    this.accountInProgress = false;
-    this.planInProgress = false;
-    this.paymentInProgress = false;
-    this.showProgress = false;
-    this.showWelcome = true;
-
-    setTimeout(() => {
-      this.authService.getUserIntrospection({}, '/dashboard');
-    }, 1000)
   }
 
   private openTerms(title: string, text: string) {

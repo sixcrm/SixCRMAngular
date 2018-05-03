@@ -1,0 +1,18 @@
+<div class="payment">
+
+  <img class="logo" src="/assets/images/logo-white.svg" alt="">
+  <button mat-button class="logout" (click)="logout()">SIGN OUT</button>
+
+  <div class="text">
+    <ng-container *ngIf="isOwner; else infotext">
+      <div>Please pay!</div>
+
+      <button class="proceed" [routerLink]="['/payment']" mat-button>PROCEED TO PAYMENT</button>
+    </ng-container>
+
+    <ng-template #infotext>
+      <div>Account payment issues, please contact account owner.</div>
+    </ng-template>
+  </div>
+
+</div>

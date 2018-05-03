@@ -1,0 +1,34 @@
+<div class="payment">
+
+  <img class="logo" src="/assets/images/logo-white.svg" alt="">
+
+  <div *ngIf="!showWelcome" class="progress">
+    <div class="circle finished"></div>
+    <div class="line finished"></div>
+    <div class="circle" [class.active]="planInProgress" [class.finished]="paymentInProgress">
+      <div *ngIf="planInProgress">PLAN</div>
+    </div>
+    <div class="line" [class.finished]="paymentInProgress"></div>
+    <div class="circle" [class.active]="paymentInProgress">
+      <div *ngIf="paymentInProgress">PAYMENT</div>
+    </div>
+  </div>
+
+  <div *ngIf="planInProgress" class="container">
+    <plans (planSelected)="setSelectedPlan($event)"></plans>
+  </div>
+
+  <div *ngIf="paymentInProgress" class="container">
+    <plan-payment
+      (changePlan)="changePlanEmitted()"
+      (paymentSuccessful)="accountRegistrationFinished()"
+      [plan]="plan">
+    </plan-payment>
+  </div>
+
+  <div class="welcome" *ngIf="showWelcome">
+    <mat-icon>done</mat-icon>
+    <div class="text">Welcome!</div>
+  </div>
+
+</div>

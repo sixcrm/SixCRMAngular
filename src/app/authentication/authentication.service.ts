@@ -340,13 +340,7 @@ export class AuthenticationService {
     const redirectUrl = localStorage.getItem(this.redirectUrl);
     localStorage.removeItem(this.redirectUrl);
 
-    if (redirectUrl) {
-      setTimeout(() => {
-        this.router.navigateByUrl(redirectUrl);
-      }, 300);
-    } else {
-      this.getUserIntrospection(profile);
-    }
+    this.getUserIntrospection(profile, redirectUrl);
   }
 
   getUserIntrospection(profile: any, redirectUrl?: string): void {
@@ -389,13 +383,20 @@ export class AuthenticationService {
       return;
     }
 
-    if (this.active() && redirectUrl) {
-      this.router.navigateByUrl(redirectUrl);
+    if (this.shouldRedirectToPayment()) {
+      this.router.navigate(['/payment/info']);
+
       return;
     }
 
     if (this.shouldRedirectToTermsAndConditions()) {
       this.router.navigateByUrl('/terms-and-conditions');
+
+      return;
+    }
+
+    if (redirectUrl) {
+      this.router.navigateByUrl(redirectUrl);
       return;
     }
 
@@ -404,18 +405,21 @@ export class AuthenticationService {
     }
   }
 
+  private shouldRedirectToPayment() {
+    return !this.getActiveAcl().account.billing || this.getActiveAcl().account.billing.disabled;
+  }
+
   private shouldRedirectToRegister() {
     return !this.active() || !this.getActiveAcl().account.active;
   }
 
   private shouldRedirectToTermsAndConditions(): boolean {
-    return this.active() && (this.getSixUser().termsAndConditionsOutdated || this.getActiveAcl().termsAndConditionsOutdated)
+    return this.getSixUser().termsAndConditionsOutdated || (this.getActiveAcl().role.name === 'Owner' && this.getActiveAcl().termsAndConditionsOutdated);
   }
 
   private shouldRedirectToDashboard(): boolean {
     return this.router.url === '/'
-      || (this.router.url || '').indexOf('acceptinvite/') !== -1
-      || (!this.active() && this.router.url.indexOf('/register') === -1)
+      || (this.router.url || '').indexOf('acceptinvite/') !== -1;
   }
 
   private getUserIntrospectionExternal(redirect: string): void {

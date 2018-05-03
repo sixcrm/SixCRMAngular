@@ -1,10 +1,10 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
-import {Plan} from '../plan.model';
+import {Plan} from './plan.model';
 
 @Component({
   selector: 'plans',
-  templateUrl: './plans.component.html',
-  styleUrls: ['./plans.component.scss']
+  templateUrl: 'plans.component.html',
+  styleUrls: ['plans.component.scss']
 })
 export class PlansComponent implements OnInit {
 

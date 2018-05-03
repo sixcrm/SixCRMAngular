@@ -14,6 +14,7 @@ import {HttpResponse} from '@angular/common/http'
 import {Acl} from '../models/acl.model';
 import {CustomServerError} from '../models/errors/custom-server-error';
 import {MatSnackBar} from '@angular/material';
+import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class UsersService extends AbstractEntityService<User> {
@@ -56,9 +57,6 @@ export class UsersService extends AbstractEntityService<User> {
   }
 
   getLatestTermsAndConditions(role?: string): Observable<HttpResponse<any> | CustomServerError> {
-    return this.queryRequest(latestTermsAndConditions(role), {ignoreTermsAndConditions: true});
+    return this.http.postWithError(environment.publicendpoint, latestTermsAndConditions(role), { });
   }
-
-
-
 }
