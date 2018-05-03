@@ -2,10 +2,7 @@ import { Injectable } from '@angular/core';
 import {Subject, Observable} from 'rxjs';
 import {environment} from '../../../../environments/environment';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {
-  affiliateReportListQuery, affiliteReportSummaryQuery,
-  subaffiliateReportListQuery
-} from '../../utils/queries/reports.queries';
+import { affiliateReportListQuery } from '../../utils/queries/reports.queries';
 import { HttpResponse } from '@angular/common/http';
 import {FilterTerm} from '../../components/advanced-filter/advanced-filter.component';
 import {downloadJSON} from '../../utils/file.utils';
@@ -36,36 +33,6 @@ export class AffiliateReportService {
           }
         } else {
           downloadJSON(data.body, 'affiliate-details-report.json');
-        }
-      })
-  }
-
-  getAffiliatesSummary(start: string, end: string, filters: FilterTerm[], download?: boolean) {
-    this.queryRequest(affiliteReportSummaryQuery(start, end, filters), download).subscribe(
-      (data) => {
-        if (!download) {
-          let affiliateSummary = extractData(data).affiliatereportsummary;
-
-          if (affiliateSummary) {
-            this.affiliateSummary$.next(new AffiliateReport(affiliateSummary));
-          }
-        } else {
-          downloadJSON(data.body.response, 'transaction-summary-total-report.json');
-        }
-      })
-  }
-
-  getSubffiliatesReport(start: string, end: string, filters: FilterTerm[], download?: boolean, limit?: number, offset?: number, order?: string) {
-    this.queryRequest(subaffiliateReportListQuery(start, end, filters, download, limit, offset, order), download).subscribe(
-      (data) => {
-        if (!download) {
-          let subaffiliates = extractData(data).affiliatereportsubaffiliates.subaffiliates;
-
-          if (subaffiliates) {
-            this.subaffiliates$.next(subaffiliates.map(subaffiliate => new AffiliateReport(subaffiliate)))
-          }
-        } else {
-          downloadJSON(data.body, 'subaffiliate-details-report.json');
         }
       })
   }
