@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../../authentication/authentication.service';
+import {Acl} from '../../shared/models/acl.model';
 
 @Component({
   selector: 'payment-info',
@@ -10,7 +11,9 @@ export class PaymentInfoComponent implements OnInit {
 
   isOwner: boolean;
 
-  constructor(private authService: AuthenticationService) { }
+  mapAcl = (acl: Acl) => acl.account.name;
+
+  constructor(public authService: AuthenticationService) { }
 
   ngOnInit() {
     this.isOwner = this.authService.getActiveAcl().role.name === 'Owner';
@@ -18,5 +21,9 @@ export class PaymentInfoComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+  }
+
+  changeAcl(acl: Acl) {
+    this.authService.changeActiveAcl(acl);
   }
 }

@@ -251,7 +251,9 @@ export class AuthenticationService {
 
     if (noRedirection) return;
 
-    if (acl.role.name === 'Customer Service') {
+    if (!acl.account.billing || acl.account.billing.disabled) {
+      this.router.navigateByUrl('/payment/info');
+    } else if (acl.role.name === 'Customer Service') {
       this.router.navigateByUrl('/customer-service');
     } else if (acl.role.name === 'Owner' && acl.termsAndConditionsOutdated) {
       this.router.navigateByUrl('/terms-and-conditions');

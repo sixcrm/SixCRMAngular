@@ -10,6 +10,7 @@ import {FormsModule} from '@angular/forms';
 import {TranslationModule} from '../translation/translation.module';
 import { PaymentInfoComponent } from './payment-info/payment-info.component';
 import {PaymentInfoGuard} from './payment-info-guard.service';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import {PaymentInfoGuard} from './payment-info-guard.service';
     MaterialSelectionModule,
     FormsModule,
     TranslationModule,
-    paymentRouting
+    paymentRouting,
+    SharedModule
   ],
   declarations: [
     PaymentComponent,
