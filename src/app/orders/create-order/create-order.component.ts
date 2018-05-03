@@ -141,25 +141,6 @@ export class CreateOrderComponent implements OnInit {
 
     this.productService.getEntities();
     this.productScheduleService.getEntities();
-
-    // this.generateDummyData();
-  }
-
-  private generateDummyData() {
-    this.selectedCustomer = new Customer({id: 'customer1', firstname: 'nikola', lastname: 'bosic', phone: '123456789', email: 'nikola@nikola.com'});
-    this.selectedCampaign = new Campaign({id: 'campaign1', name: 'my campaign'});
-    this.selectedShippingAddress = new Address({line1: '1st City street', city: 'My City', state: 'Arizona', country: 'United States', zip: '21000'});
-    this.selectedCreditCard = new CreditCard({number: '4111111111111111', last_four: '8888', expiration: '10/2020', ccv: '1234', address: this.selectedShippingAddress.inverse()});
-    this.selectedShippings = [
-      new Product({id: 'shipping1', name: 'UPS', default_price: 3.99})
-    ];
-    this.selectedProducts = [
-      new Product({id: 'product1', sku: '55123', name: 'Product Simple', description: 'This is super cool product', default_price: 10}),
-      new ProductSchedule({id: 'productschedule1', name: 'Subscription', schedule: [{start: 0, end: 90, period: 30, price: 12, product: {name: 'Sub Product', description: 'This is even more cool product', sku: '88182'}}]})
-    ];
-
-    this.orderComplete = true;
-    this.checkoutResponse = new CheckoutResponse({customer: {id: '1234'}, session: {id: '5678', alias: 'session-alias'}});
   }
 
   setStep(num: number) {
@@ -172,7 +153,6 @@ export class CreateOrderComponent implements OnInit {
 
   customerSelected(option) {
     this.selectedCustomer = option.option.value;
-    this.shippingAddress = this.selectedCustomer.address.copy();
 
     if (this.customerSub) {
       this.customerSub.unsubscribe();
@@ -181,6 +161,11 @@ export class CreateOrderComponent implements OnInit {
       if (customer instanceof CustomServerError) return;
 
       this.selectedCustomer = customer;
+
+      if (!this.selectedShippingAddress) {
+        this.shippingAddress = this.selectedCustomer.address.copy();
+      }
+
       if (this.selectedCustomer.creditCards[0]) {
         this.selectedCreditCard = this.selectedCustomer.creditCards[0].copy();
         this.newCardMode = false;
