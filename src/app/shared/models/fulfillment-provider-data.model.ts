@@ -7,7 +7,7 @@ export class FulfillmentproviderData {
   threeplId: number;
   threeplFacilityId: number;
   apiKey: string;
-  apiSecret: number;
+  apiSecret: string;
 
   constructor(obj?: any) {
     if (!obj) {
