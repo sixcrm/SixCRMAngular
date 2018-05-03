@@ -573,7 +573,7 @@ module.exports = {
       "extractComments": false,
       "sourceMap": false,
       "cache": true,
-      "parallel": true,
+      "parallel": false,
       "uglifyOptions": {
         "output": {
           "ascii_only": true,
