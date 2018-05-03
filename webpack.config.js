@@ -598,7 +598,7 @@ module.exports = {
       "mainPath": "main.ts",
       "platform": 0,
       "hostReplacementPaths": {
-        "environments/environment.ts": "environments/environment.prod.ts"
+        "environments/environment.ts": "environments/environment.dev.ts"
       },
       "sourceMap": false,
       "tsConfigPath": "src/tsconfig.json",
