@@ -24,7 +24,7 @@ import {
   CheckoutCreditCard
 } from '../../shared/models/checkout-body.model';
 import {NavigationService} from '../../navigation/navigation.service';
-import {countryCode, stateCode} from '../../shared/utils/address.utils';
+import {countryCode, stateCode, getCountries, getStates} from '../../shared/utils/address.utils';
 import {CheckoutResponse} from '../../shared/models/checkout-response.model';
 import {SnackbarService} from '../../shared/services/snackbar.service';
 import {SearchService} from '../../shared/services/search.service';
@@ -90,6 +90,11 @@ export class CreateOrderComponent implements OnInit {
 
   orderComplete: boolean;
   checkoutResponse: CheckoutResponse;
+
+  countries: string[] = getCountries();
+  states: string[] = getStates();
+
+  plainMapper = (el) => el;
 
   constructor(
     private customerService: CustomersService,
