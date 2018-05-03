@@ -44,13 +44,52 @@ export function campaignsByAmountQuery(start: string, end: string): string {
 }
 
 export function activitiesByCustomer(start: string, end: string, customer: string, limit: number, offset: number): string {
-  return `
+  return  `
   {
-    listactivitybyidentifier (activityfilter:{${dateRange(start, end)}, actor:"${customer}", actor_type:"customer", acted_upon:"${customer}", acted_upon_type:"customer", associated_with:"${customer}", associated_with_type:"customer"}, pagination: { limit:${limit}, offset:${offset} }) {
-      activity { id datetime actor actor_type action acted_upon acted_upon_type associated_with associated_with_type english }
-      pagination { order limit offset count }
-    }
-  }`
+		analytics (
+		  reportType: activities
+		  facets: [{
+        facet: "start"
+          values: ["${start}"]
+        },
+        {
+          facet: "end"
+          values: ["${end}"]
+        },
+        {
+          facet: "actor"
+          values: ["${customer}"]
+        },
+        {
+          facet: "actorType"
+          values: ["customer"]
+        },
+        {
+          facet: "actedUpon"
+          values: ["${customer}"]
+        },
+        {
+          facet: "actedUponType"
+          values: ["customer"]
+        },
+        {
+          facet: "associatedWith"
+          values: ["${customer}"]
+        },
+        {
+          facet: "associatedWithType"
+          values: ["customer"]
+        }
+        ]
+      pagination: {
+        limit: 10,
+        offset: ${offset},
+        order: ["datetime"]
+      }
+    ) {
+			records { key value }
+		}
+	}`;
 }
 
 function dateRange(start: string, end: string): string {

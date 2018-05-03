@@ -27,7 +27,7 @@
                 <div class="events__content__info">
                   <div>{{activity.date | formatDateTime: 'date-time'}}</div>
                   <div>
-                    <single-event [data]="activity.parse()"></single-event>
+                    <single-event [data]="activity.parsed_statement"></single-event>
                   </div>
                 </div>
               </div>
