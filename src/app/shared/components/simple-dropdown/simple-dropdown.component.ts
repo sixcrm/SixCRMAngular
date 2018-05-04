@@ -21,6 +21,7 @@ export class SimpleDropdownComponent implements OnInit {
     this._options = (values || []).slice();
   }
   @Input() icon: string;
+  @Input() disabled: boolean;
   @Input() small: boolean;
   @Output() optionSelected: EventEmitter<any> = new EventEmitter();
 
@@ -38,7 +39,7 @@ export class SimpleDropdownComponent implements OnInit {
   }
 
   toggleDropdown(): void {
-    if (!this.dropdownVisible && this.getOptions().length === 0) {
+    if (this.disabled || (!this.dropdownVisible && this.getOptions().length === 0)) {
       return;
     }
 

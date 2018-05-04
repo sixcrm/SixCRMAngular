@@ -497,8 +497,8 @@ export class CreateOrderComponent implements OnInit {
     }
 
     const customer: CheckoutCustomer = {
-      first_name: this.selectedCustomer.firstName,
-      last_name: this.selectedCustomer.lastName,
+      firstname: this.selectedCustomer.firstName,
+      lastname: this.selectedCustomer.lastName,
       email: this.selectedCustomer.email,
       phone: this.selectedCustomer.phone,
       address: shippingAddress

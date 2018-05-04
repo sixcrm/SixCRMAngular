@@ -159,37 +159,6 @@ export class NavigationService {
     return window !== undefined ? window.matchMedia(`(max-width: ${NavigationService.tabletBreakpoint}px`).matches : false;
   }
 
-  public findMenuItem(link: string | MenuItem, items: MenuItem[]): MenuItem {
-    if(typeof link === 'string') {
-      link = StringUtils.cleanLinkString(<string>link);
-    }
-    let menuItem: MenuItem = null;
-    for (let i = 0; i < items.length; i++) {
-      if(link instanceof MenuItem) {
-        if(items[i].link === (<MenuItem>link).link && items[i].title === (<MenuItem>link).title) {
-          menuItem = items[i];
-          break;
-        } else if(items[i].children.length > 0) {
-          menuItem = this.findMenuItem(link, items[i].children);
-          if(menuItem !== null) {
-            break;
-          }
-        }
-      } else {
-        if(items[i].link === <string>link) {
-          menuItem = items[i];
-          break;
-        } else if(items[i].children.length > 0) {
-          menuItem = this.findMenuItem(link, items[i].children);
-          if(menuItem !== null) {
-            break;
-          }
-        }
-      }
-    }
-    return menuItem;
-  }
-
   public back(): void {
     this.latestPath = this.location.path();
 

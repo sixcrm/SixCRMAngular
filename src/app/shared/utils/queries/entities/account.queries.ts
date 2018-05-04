@@ -50,6 +50,16 @@ export function updateAccountMutation(account: Account): string {
 	  }`
 }
 
+export function activateAccountMutation(accountId: string, sessionId: string): string {
+  return `
+    mutation {
+      activateaccount (account: "${accountId}", session: "${sessionId}") {
+        activated, message
+      }
+    }
+  `
+}
+
 export function updateAccountForRegistrationMutation(account: Account, name: string): string {
   return `
     mutation { 

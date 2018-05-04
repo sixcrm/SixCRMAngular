@@ -53,7 +53,7 @@ export class UsersService extends AbstractEntityService<User> {
   }
 
   updateUserForAcceptTermsAndConditions(user: User): Observable<HttpResponse<any> | CustomServerError> {
-    return this.queryRequest(updateUserMutation(user), {ignoreTermsAndConditions: true});
+    return this.queryRequest(updateUserMutation(user));
   }
 
   getLatestTermsAndConditions(role?: string): Observable<HttpResponse<any> | CustomServerError> {

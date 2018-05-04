@@ -5,6 +5,9 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {MatSidenav} from '@angular/material';
 import {PersistentNotificationsQuickComponent} from '../../persistent-notifications-quick/persistent-notifications-quick.component';
 import {Subscription, Observable} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
+import {Acl} from '../../../shared/models/acl.model';
+import {User} from '../../../shared/models/user.model';
 
 @Component({
   templateUrl : './default.layout.component.html',
@@ -21,13 +24,39 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
   showOnHover: boolean = false;
   subscription: Subscription;
 
+  showWelcomeOverlay: boolean;
+
+  userAclOutdated: boolean;
+  ownerAclOutdated: boolean;
+
   constructor(
     public navigation: NavigationService,
     public http: HttpWrapperService,
-    public authService: AuthenticationService
+    public authService: AuthenticationService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      if (!!params['w']) {
+        this.showWelcomeOverlay = true;
+
+        setTimeout(() => this.showWelcomeOverlay = false, 2000);
+      }
+    });
+
+    this.authService.activeAcl$.subscribe((acl: Acl) => {
+      if (!acl || !acl.id) return;
+
+      this.ownerAclOutdated = acl.termsAndConditionsOutdated && acl.role.name === 'Owner';
+    });
+
+    this.authService.sixUser$.subscribe((user: User) => {
+      if (!user || !user.id) return;
+
+      this.userAclOutdated = user.termsAndConditionsOutdated;
+    });
+
     this.navigation.showSidenav.subscribe(showSidenav => this.showSidenav = showSidenav);
 
     this.persistentNotifications.notificationsFiltered$.subscribe(() => {

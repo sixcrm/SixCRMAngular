@@ -1,43 +1,21 @@
-<div class="terms-and-conditions__container">
+<div class="container">
+  <div class="title">{{termsAndConditions.title}}</div>
+  <div class="body" [innerHtml]="termsAndConditions.body | htmlSanitizer"></div>
 
-  <mat-progress-bar class="progress-bar" *ngIf="http.requestInProgress$ | async" mode="query"></mat-progress-bar>
+  <div class="actions">
 
-  <div class="terms-and-conditions__header">
-    <img class="terms-and-conditions__header__logo" src="/assets/images/logo-white-small.svg" alt="">
-    <img class="terms-and-conditions__header__cloud terms-and-conditions__header__cloud--one" src="/assets/images/cloud1.svg" alt="">
-    <img class="terms-and-conditions__header__cloud terms-and-conditions__header__cloud--two" src="/assets/images/cloud2.svg" alt="">
-    <img class="terms-and-conditions__header__cloud terms-and-conditions__header__cloud--three" src="/assets/images/cloud1.svg" alt="">
-    <img class="terms-and-conditions__header__cloud terms-and-conditions__header__cloud--four" src="/assets/images/cloud2.svg" alt="">
-  </div>
+    <simple-dropdown
+      class="terms-switcher"
+      [selectedOption]="authService.activeAcl$ | async"
+      [disabled]="requestInProgress"
+      [small]="true"
+      [options]="authService.getAcls()"
+      [mapper]="mapAcl"
+      (optionSelected)="changeAcl($event)">
+    </simple-dropdown>
 
-  <simple-dropdown
-    *ngIf="(authService.activeAcl$ | async) && !(activeUser && activeUser.termsAndConditionsOutdated)"
-    class="terms-and-conditions__acl-dropdown"
-    [selectedOption]="authService.activeAcl$ | async"
-    [small]="true"
-    [options]="authService.getAcls()"
-    [mapper]="mapAcl"
-    [icon]="'domain'"
-    (optionSelected)="changeAcl($event)">
-  </simple-dropdown>
-
-  <div class="terms-and-conditions__body">
-
-    <div class="terms-and-conditions__title">
-      {{'TERMS_TITLE' | translate}}
-    </div>
-
-    <div class="terms-and-conditions__content">
-      <div class="terms-and-conditions__content__title">{{termsAndConditions.title}}</div>
-      <div class="terms-and-conditions__content__body" [innerHtml]="termsAndConditions.body | htmlSanitizer"></div>
-    </div>
-
-    <button class="terms-and-conditions__button" (click)="acceptTermsAndConditions()" [disabled]="http.requestInProgress$ | async">{{'TERMS_ACCEPT' | translate}}</button>
-
-    <div>
-      <div class="terms-and-conditions__button--cancel" (click)="logout()">{{'TERMS_LOGOUT' | translate}}</div>
-    </div>
-
+    <button class="logout" mat-button (click)="logout()" [disabled]="requestInProgress">{{'TERMS_LOGOUT' | translate}}</button>
+    <button class="accept" mat-button (click)="acceptTermsAndConditions()" [class.disabled]="requestInProgress" [disabled]="requestInProgress">{{'TERMS_ACCEPT' | translate}}</button>
   </div>
 
 </div>

@@ -33,7 +33,7 @@ export class AclsService extends AbstractEntityService<Acl> {
   }
 
   updateUserAclTermsAndConditions(acl: Acl, version: string): Observable<CustomServerError | HttpResponse<any>> {
-    return this.queryRequest(updateUserAclTermsAndConditions(acl, version), {ignoreTermsAndConditions: true})
+    return this.queryRequest(updateUserAclTermsAndConditions(acl, version))
   }
 
 }

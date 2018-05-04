@@ -5,7 +5,6 @@ import {Acl} from '../../shared/models/acl.model';
 import {User} from '../../shared/models/user.model';
 import {Account} from '../../shared/models/account.model';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
-import {AclsService} from '../../shared/services/acls.service';
 import {UsersService} from '../../shared/services/users.service';
 import {TermsDialogComponent} from '../../dialog-modals/terms-dialog/terms-dialog.component';
 import {MatDialog} from '@angular/material';
@@ -170,7 +169,7 @@ export class RegistrationComponent implements OnInit {
       }
     } else {
       const redirectRoute = this.authService.isActiveAclCustomerService() ? '/customer-service' :'/dashboard';
-      this.router.navigate([redirectRoute]);
+      this.router.navigate([redirectRoute], {queryParams: { w: true }});
     }
   }
 

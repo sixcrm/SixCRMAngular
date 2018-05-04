@@ -70,7 +70,6 @@ import {AlertsService} from './services/alerts.service';
 import {AlertComponent} from './components/alert/alert.component';
 import { TableLoaderComponent } from './components/table-loader/table-loader.component';
 import { SpeLoaderComponent } from './components/spe-loader/spe-loader.component';
-import {TermsAndConditionsControllerService} from './services/terms-and-conditions-controller.service';
 import { FormatDurationPipe } from './pipes/format-duration.pipe';
 import { HtmlSanitizerPipe } from './pipes/html-sanitizer.pipe';
 import {CustomerCreditCardViewComponent} from './components/customer-credit-card-view/customer-credit-card-view.component';
@@ -249,7 +248,6 @@ export class SharedModule {
         TimeService,
         TrackersService,
         SnackbarService,
-        TermsAndConditionsControllerService,
         BillsService,
         UserSigningStringsService,
         ShippingReceiptsService,

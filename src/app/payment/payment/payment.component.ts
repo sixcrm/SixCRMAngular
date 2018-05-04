@@ -11,7 +11,6 @@ export class PaymentComponent implements OnInit {
 
   planInProgress: boolean = true;
   paymentInProgress: boolean;
-  showWelcome: boolean;
 
   plan: Plan;
 
@@ -37,13 +36,7 @@ export class PaymentComponent implements OnInit {
     this.paymentInProgress = false;
   }
 
-  accountRegistrationFinished() {
-    this.planInProgress = false;
-    this.paymentInProgress = false;
-    this.showWelcome = true;
-
-    setTimeout(() => {
-      this.authService.getUserIntrospection({}, '/dashboard');
-    }, 1000)
+  accountPaymentFinished() {
+    this.authService.getUserIntrospection({}, '/dashboard?w=true');
   }
 }

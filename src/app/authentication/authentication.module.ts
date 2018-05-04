@@ -10,7 +10,6 @@ import {FormsModule} from '@angular/forms';
 import {RegisterGuard} from './register-guard.service';
 import { InviteAcceptComponent } from './invite-accept/invite-accept.component';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
-import {TermsAndConditionsGuard} from './terms-and-conditions-guard.service';
 import {SharedModule} from '../shared/shared.module';
 import {TranslationModule} from '../translation/translation.module';
 import {MaterialSelectionModule} from '../material-selection/material-selection.module';
@@ -37,7 +36,6 @@ import {MaterialSelectionModule} from '../material-selection/material-selection.
   providers : [
     AuthenticationService,
     AuthGuard,
-    TermsAndConditionsGuard,
     RegisterGuard
   ]
 })

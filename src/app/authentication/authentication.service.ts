@@ -255,8 +255,6 @@ export class AuthenticationService {
       this.router.navigateByUrl('/payment/info');
     } else if (acl.role.name === 'Customer Service') {
       this.router.navigateByUrl('/customer-service');
-    } else if (acl.role.name === 'Owner' && acl.termsAndConditionsOutdated) {
-      this.router.navigateByUrl('/terms-and-conditions');
     } else {
       this.router.navigateByUrl('/dashboard');
     }
@@ -387,12 +385,6 @@ export class AuthenticationService {
 
     if (this.shouldRedirectToPayment()) {
       this.router.navigate(['/payment/info']);
-
-      return;
-    }
-
-    if (this.shouldRedirectToTermsAndConditions()) {
-      this.router.navigateByUrl('/terms-and-conditions');
 
       return;
     }

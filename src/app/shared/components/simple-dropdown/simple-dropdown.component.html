@@ -4,7 +4,7 @@
     <div class="simple-dropdown__header" [class.simple-dropdown__header--active]="dropdownVisible" (click)="toggleDropdown()">
       <mat-icon *ngIf="icon" class="simple-dropdown__header__icon">{{icon}}</mat-icon>
       <span [style.min-width]="getWidth()" class="simple-dropdown__header__value">{{mapper(selectedOption)}}</span>
-      <mat-icon class="simple-dropdown__header__arrow" [class.simple-dropdown__header__arrow--disabled]="getOptions().length === 0" [class.arrow--rotate]="dropdownVisible">keyboard_arrow_down</mat-icon>
+      <mat-icon class="simple-dropdown__header__arrow" [style.color]="color" [class.simple-dropdown__header__arrow--disabled]="getOptions().length === 0" [class.arrow--rotate]="dropdownVisible">keyboard_arrow_down</mat-icon>
     </div>
 
     <div [style.height]="getHeight()" class="simple-dropdown__menu">

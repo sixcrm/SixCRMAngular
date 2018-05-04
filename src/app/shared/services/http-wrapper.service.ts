@@ -3,7 +3,6 @@ import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import {CustomServerError} from '../models/errors/custom-server-error';
 import {Router} from '@angular/router';
 import {SnackbarService} from './snackbar.service';
-import {TermsAndConditionsControllerService} from './terms-and-conditions-controller.service';
 import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 
 export enum FailStrategy {
@@ -12,7 +11,6 @@ export enum FailStrategy {
 
 export interface RequestBehaviourOptions {
   ignoreProgress?: boolean;
-  ignoreTermsAndConditions?: boolean;
   failStrategy?: FailStrategy;
 }
 
@@ -26,8 +24,7 @@ export class HttpWrapperService {
   constructor(
     private http: HttpClient,
     private snackbarService: SnackbarService,
-    private router: Router,
-    private tacService: TermsAndConditionsControllerService
+    private router: Router
   ) { }
 
   get(url: string, options?: any): Observable<HttpResponse<any>> {
@@ -40,10 +37,6 @@ export class HttpWrapperService {
 
   post(url: string, body: any, requestOptions: any, requestBehaviourOptions?: RequestBehaviourOptions): Observable<HttpResponse<any>> {
     const response: Subject<HttpResponse<any>> = new Subject();
-
-    if ((!requestBehaviourOptions || !requestBehaviourOptions.ignoreTermsAndConditions) && this.tacService.isTermsAndConditionsOutdated) {
-      return response;
-    }
 
     const ignoreProgress: boolean = requestBehaviourOptions && requestBehaviourOptions.ignoreProgress;
     const failStrategy: FailStrategy = requestBehaviourOptions ? requestBehaviourOptions.failStrategy : FailStrategy.Ignore;
@@ -84,10 +77,6 @@ export class HttpWrapperService {
 
   postWithError(url: string, body: any, requestOptions: any, requestBehaviourOptions?: RequestBehaviourOptions): Observable<HttpResponse<any> | CustomServerError> {
     const response: Subject<HttpResponse<any> | CustomServerError> = new Subject();
-
-    if ((!requestBehaviourOptions || !requestBehaviourOptions.ignoreTermsAndConditions) && this.tacService.isTermsAndConditionsOutdated) {
-      return response;
-    }
 
     const ignoreProgress: boolean = requestBehaviourOptions && requestBehaviourOptions.ignoreProgress;
     const failStrategy: FailStrategy = requestBehaviourOptions ? requestBehaviourOptions.failStrategy : FailStrategy.Ignore;

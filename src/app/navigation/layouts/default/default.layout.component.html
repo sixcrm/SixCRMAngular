@@ -33,3 +33,14 @@
   <div>Processing Order</div>
 </div>
 
+<div *ngIf="userAclOutdated || ownerAclOutdated" class="terms-and-conditions-container">
+  <terms-and-conditions></terms-and-conditions>
+</div>
+
+<div *ngIf="showWelcomeOverlay" class="welcome-container">
+  <div class="welcome">
+    <mat-icon>done</mat-icon>
+    <div class="text">{{'REGISTER_WELCOME' | translate}}</div>
+  </div>
+</div>
+

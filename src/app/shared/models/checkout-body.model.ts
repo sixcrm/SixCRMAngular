@@ -1,6 +1,6 @@
 export interface CheckoutCustomer {
-  first_name: string,
-  last_name: string,
+  firstname: string,
+  lastname: string,
   email: string,
   phone?: string;
   address?: CheckoutAddress

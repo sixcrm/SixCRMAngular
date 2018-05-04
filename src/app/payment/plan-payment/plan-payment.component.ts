@@ -11,6 +11,8 @@ import {UsersService} from '../../shared/services/users.service';
 import {MatDialog} from '@angular/material';
 import {TermsDialogComponent} from '../../dialog-modals/terms-dialog/terms-dialog.component';
 import {AuthenticationService} from '../../authentication/authentication.service';
+import {CheckoutResponse} from '../../shared/models/checkout-response.model';
+import {AccountsService} from '../../shared/services/accounts.service';
 
 @Component({
   selector: 'plan-payment',
@@ -42,6 +44,7 @@ export class PlanPaymentComponent implements OnInit {
   constructor(
     private transactionalApi: HttpWrapperTransactionalService,
     private aclService: AclsService,
+    private accountService: AccountsService,
     private userService: UsersService,
     private dialog: MatDialog,
     private authService: AuthenticationService
@@ -100,7 +103,13 @@ export class PlanPaymentComponent implements OnInit {
           return;
         }
 
-        this.paymentSuccessful.emit(true);
+        this.accountService.activateAccount(this.authService.getActiveAcl().account, response.session).subscribe(res => {
+          if (res instanceof CustomServerError) {
+            return;
+          }
+
+          this.paymentSuccessful.emit(true);
+        })
       })
 
     });

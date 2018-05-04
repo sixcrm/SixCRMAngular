@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
       return false;
     }
 
-    if (this.isLandingOnDashboardCorrectly(state) || this.isLandingOnTermsAndConditionsCorrectly(state)) {
+    if (this.isLandingOnDashboardCorrectly(state)) {
       return true;
     }
 
@@ -28,9 +28,5 @@ export class AuthGuard implements CanActivate {
 
   isLandingOnDashboardCorrectly(state: RouterStateSnapshot) {
     return state.url.indexOf('/dashboard') !== -1 && this.authService.authenticated()
-  }
-
-  isLandingOnTermsAndConditionsCorrectly(state: RouterStateSnapshot) {
-    return state.url.indexOf('/terms-and-conditions') !== -1 && this.authService.authenticated()
   }
 }

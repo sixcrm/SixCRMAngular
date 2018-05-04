@@ -28,6 +28,7 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
   activeUser: User;
   sub: Subscription;
   updateMode: boolean;
+  requestInProgress: boolean;
 
   mapAcl = (acl: Acl) => acl.account.name;
 
@@ -94,8 +95,11 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
 
   acceptUserTermsAndConditions(): void {
     this.activeUser.termsAndConditions = this.termsAndConditions.version;
+    this.requestInProgress = true;
 
     this.userService.updateUserForAcceptTermsAndConditions(this.activeUser).take(1).subscribe(user => {
+      this.requestInProgress = false;
+
       if (user instanceof CustomServerError) {
         return;
       }
@@ -114,7 +118,11 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
   }
 
   acceptOwnerTermsAndConditions(): void {
+    this.requestInProgress = true;
+
     this.aclService.updateUserAclTermsAndConditions(this.activeAcl, this.termsAndConditions.version).take(1).subscribe(data => {
+      this.requestInProgress = false;
+
       if (data instanceof CustomServerError) {
         return;
       }

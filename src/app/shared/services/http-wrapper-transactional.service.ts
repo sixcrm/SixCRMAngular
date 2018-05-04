@@ -23,18 +23,18 @@ export class HttpWrapperTransactionalService {
       .append('Authorization', this.createSignature(secretKey, accessKey));
 
     const body = {campaign: campaignId};
-    const endpoint = environment.bareEndpoint + 'token/acquire/' + account || this.authService.getActiveAcl().account.id;
+    const endpoint = environment.bareEndpoint + 'token/acquire/' + (account || this.authService.getActiveAcl().account.id);
 
     return this.http.post<any>(endpoint, body, {observe: 'response', responseType: 'json', headers: headers})
   }
 
-  private performCheckout(checkoutBody: CheckoutBody, token: string) {
+  private performCheckout(checkoutBody: CheckoutBody, token: string, account?: string) {
     const headers = new HttpHeaders()
       .append('Content-Type', 'application/json')
       .append('Authorization', token);
 
     const body = checkoutBody;
-    const endpoint = environment.bareEndpoint + 'checkout/' + this.authService.getActiveAcl().account.id;
+    const endpoint = environment.bareEndpoint + 'checkout/' + (account || this.authService.getActiveAcl().account.id);
 
     return this.http.post<any>(endpoint, body, {observe: 'response', responseType: 'json', headers: headers})
   }
@@ -57,12 +57,21 @@ export class HttpWrapperTransactionalService {
     const secretKey = '0463ac5595ff97473972ea9472fff69eb08ca0a2';
     const account = '3f4abaf6-52ac-40c6-b155-d04caeb0391f';
 
+    const address: CheckoutAddress = {
+      line1: '1 Fake Street',
+      city: 'Fake City',
+      state: 'AL',
+      zip: '21000',
+      country: 'US'
+    };
+
     const checkoutBody: CheckoutBody = {
       campaign: campaignId,
       customer: {
-        first_name: user.firstName || 'Fixed',
-        last_name: user.lastName || 'Fixed',
-        email: user.id
+        firstname: user.firstName || 'Fixed',
+        lastname: user.lastName || 'Fixed',
+        email: user.id,
+        address: address
       },
       creditcard: {
         name: creditCard.name,
@@ -76,9 +85,11 @@ export class HttpWrapperTransactionalService {
     let response: Subject<CheckoutResponse | TransactionalResponseError> = new Subject();
 
     this.acquireToken(campaignId, account, secretKey, accessKey).subscribe(acquireTokenResponse => {
-      this.performCheckout(checkoutBody, acquireTokenResponse.body.response).subscribe(checkoutResponse => {
+
+      this.performCheckout(checkoutBody, acquireTokenResponse.body.response, account).subscribe(checkoutResponse => {
         response.next(new CheckoutResponse(checkoutResponse.body.response));
       }, error => response.next(new TransactionalResponseError(error.status, error.body ? error.body.message: error.message)))
+
     }, error => response.next(new TransactionalResponseError(error.status, error.body ? error.body.message: error.message)));
 
     return response;
