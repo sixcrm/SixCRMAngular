@@ -59,7 +59,7 @@ export class NotificationSettingsService extends AbstractEntityService<Notificat
     )
   }
 
-  createEntity(entity: T, options?: {ignoreSnack?: boolean}): void {
+  createEntity(entity: NotificationSettings, options?: {ignoreSnack?: boolean}): void {
     let opts = options || {};
     opts.ignoreSnack = true;
     super.createEntity(entity, opts)
