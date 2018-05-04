@@ -58,4 +58,10 @@ export class NotificationSettingsService extends AbstractEntityService<Notificat
       this.notificationsQuickService.restartPoolingNotifications(2000)
     )
   }
+
+  createEntity(entity: T, options?: {ignoreSnack?: boolean}): void {
+    let opts = options || {};
+    opts.ignoreSnack = true;
+    super.createEntity(entity, opts)
+  }
 }

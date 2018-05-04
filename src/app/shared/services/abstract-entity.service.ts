@@ -121,7 +121,7 @@ export abstract class AbstractEntityService<T> {
       ErrorSnackBarComponent, {duration: 2000, data: {message: message, type: SnackBarType.success}});
   }
 
-  createEntity(entity: T): void {
+  createEntity(entity: T, options?: {ignoreSnack?: boolean}): void {
     if (!this.hasWritePermission()) {
       return;
     }
@@ -136,7 +136,9 @@ export abstract class AbstractEntityService<T> {
       const entityKey = Object.keys(json)[0];
       const entityData =json[entityKey];
 
-      this.openSnackBar('SNACK_CREATED');
+      if (!options || !options.ignoreSnack) {
+        this.openSnackBar('SNACK_CREATED');
+      }
       this.entityCreated$.next(this.toEntity(entityData));
     });
   }
