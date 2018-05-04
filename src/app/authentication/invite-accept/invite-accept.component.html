@@ -7,13 +7,9 @@
     </div>
 
     <ng-container *ngIf="welcomeScreen">
-      <div class="registration-form__main">
+      <div class="registration-form__main registration-form__main--left">
         {{'ACCEPTINVITE_TEXT1' | translate}} <span>{{acknowledgeInvite.invitor}}</span>'s {{'ACCEPTINVITE_TEXT2' | translate}} <span>{{acknowledgeInvite.accountName}}</span> {{'ACCEPTINVITE_TEXT3' | translate}} <span>{{acknowledgeInvite.role}}</span>?
       </div>
-      <div class="registration-form__sub">
-        {{'ACCEPTINVITE_EXPLANATION' | translate}}
-      </div>
-
       <button class="registration-form__accept" mat-button (click)="acceptInvite()">{{'ACCEPTINVITE_ACCEPT' | translate}}</button>
     </ng-container>
 

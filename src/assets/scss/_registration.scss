@@ -23,6 +23,10 @@
     font-size: 16px;
     line-height: 24px;
 
+    &--left {
+      text-align: left;
+    }
+
     span {
       color: black;
       font-weight: 500;
@@ -40,8 +44,9 @@
   button {
     margin: 0 auto;
     display: inline-block;
-    width: 200px;
-    color: #2C98F0;
+    width: 160px;
+    background: #2C98F0;
+    color: white;
   }
 
   &__accept {
