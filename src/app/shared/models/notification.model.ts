@@ -29,8 +29,8 @@ export class Notification implements Entity<Notification> {
     this.name = obj.name || '';
     this.context = obj.context || {};
     this.readAt = obj.read_at || '';
-    this.createdAt = utc(obj.created_at);
-    this.updatedAt = utc(obj.updated_at);
+    this.createdAt = utc(obj.created_at).local();
+    this.updatedAt = utc(obj.updated_at).local();
     this.updatedAtAPI = obj.updated_at;
   }
 
