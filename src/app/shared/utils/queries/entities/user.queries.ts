@@ -143,7 +143,7 @@ export function userIntrospectionResponseQuery(): string {
       updated_at,
       termsandconditions_outdated
       account { id name active created_at updated_at,
-        billing { plan, disabled }
+        billing { plan, session, disable }
       }
       role { id name active created_at updated_at,
         permissions {allow deny} 

@@ -1,6 +1,7 @@
 export class AccountBilling {
   plan: string;
-  disabled: boolean;
+  disable: boolean;
+  session: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -8,13 +9,15 @@ export class AccountBilling {
     }
 
     this.plan = obj.plan;
-    this.disabled = !!obj.disabled;
+    this.session = obj.session;
+    this.disable = !!obj.disable;
   }
 
   inverse(): any {
     return {
       plan: this.plan,
-      disabled: this.disabled
+      disable: this.disable,
+      session: this.session
     }
   }
 

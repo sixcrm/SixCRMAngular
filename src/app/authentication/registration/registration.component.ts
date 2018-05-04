@@ -162,7 +162,7 @@ export class RegistrationComponent implements OnInit {
   registrationCompleted() {
     this.authService.setActive(true);
 
-    if (!this.authService.getActiveAcl().account.billing || this.authService.getActiveAcl().account.billing.disabled) {
+    if (!this.authService.getActiveAcl().account.billing || this.authService.getActiveAcl().account.billing.disable) {
       if (this.authService.getActiveAcl().role.name === 'Owner') {
         this.router.navigate(['/payment']);
       } else {

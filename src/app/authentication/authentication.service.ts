@@ -251,7 +251,7 @@ export class AuthenticationService {
 
     if (noRedirection) return;
 
-    if (!acl.account.billing || acl.account.billing.disabled) {
+    if (!acl.account.billing || acl.account.billing.disable) {
       this.router.navigateByUrl('/payment/info');
     } else if (acl.role.name === 'Customer Service') {
       this.router.navigateByUrl('/customer-service');
@@ -408,7 +408,7 @@ export class AuthenticationService {
   }
 
   private shouldRedirectToPayment() {
-    return !this.getActiveAcl().account.billing || this.getActiveAcl().account.billing.disabled;
+    return !this.getActiveAcl().account.billing || this.getActiveAcl().account.billing.disable;
   }
 
   private shouldRedirectToRegister() {

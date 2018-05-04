@@ -10,7 +10,7 @@ export class PaymentGuard implements CanActivate {
   canActivate(): boolean {
     if (this.authService.getActiveAcl().role.name !== 'Owner') return false;
 
-    if (!this.authService.getActiveAcl().account.billing || this.authService.getActiveAcl().account.billing.disabled) {
+    if (!this.authService.getActiveAcl().account.billing || this.authService.getActiveAcl().account.billing.disable) {
       return true;
     }
 
