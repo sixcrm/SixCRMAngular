@@ -29,11 +29,10 @@ describe('SMTP Provider', function() {
 
   it('should navigate to providers page', () => {
     const sidenav = new SidenavPage();
-    sidenav.getLink(12).click();
+    sidenav.getLink(17).click();
     browser.sleep(500);
-    sidenav.getLink(23).click();
+    sidenav.getLink(31).click();
     browser.sleep(500);
-    sidenav.getLink(25).click();
     waitForUrlContains('smtpproviders');
     expectUrlToContain('smtpproviders');
   });
@@ -48,14 +47,6 @@ describe('SMTP Provider', function() {
 
   it('should render providers index add button', () => {
     expectDefined(page.getAddButton());
-  });
-
-  it('should render providers index table headers', () => {
-    expect(page.getTableHeaders().get(0).getText()).toEqual('Name');
-    expect(page.getTableHeaders().get(1).getText()).toEqual('From Name');
-    expect(page.getTableHeaders().get(2).getText()).toEqual('From Email');
-    expect(page.getTableHeaders().get(3).getText()).toEqual('Hostname');
-    expect(page.getTableHeaders().get(4).getText()).toEqual('Username');
   });
 
   it('should render add modal when add button is clicked', () => {
@@ -113,7 +104,7 @@ describe('SMTP Provider', function() {
     browser.sleep(1000);
     view.getAddNewModalSave().click();
 
-    expect(smtpPage.getInputValidationErrorMessage().getText()).toEqual('Please enter a valid email address')
+    expect(smtpPage.getInputValidationErrorMessage().getText()).toEqual('Please enter a valid email address');
   });
 
   it('should remove error when email is provided', () => {
@@ -127,5 +118,5 @@ describe('SMTP Provider', function() {
     browser.sleep(2000);
 
     expectPresent(smtpPage.getCopyIcon());
-  })
+  });
 });

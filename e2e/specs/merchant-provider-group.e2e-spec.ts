@@ -41,7 +41,7 @@ describe('Merchant Provider Group', function() {
   });
 
   it('should render load balancer index title', () => {
-    expect(page.getTitle().getText()).toContain('Load Balancers')
+    expect(page.getTitle().getText()).toContain('Merchant Provider Groups');
   });
 
   it('should render load balancer index add button', () => {

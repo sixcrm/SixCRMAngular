@@ -13,7 +13,8 @@ exports.config = {
     './e2e/**/tracker.e2e-spec.ts',
     './e2e/**/merchant-provider.e2e-spec.ts',
     './e2e/**/merchant-provider-group.e2e-spec.ts',
-    './e2e/**/fulfillment-provider.e2e-spec.ts'
+    './e2e/**/fulfillment-provider.e2e-spec.ts',
+    './e2e/**/smtp-provider.e2e-spec.ts'
   ],
   suites:  {
     repeatable: './e2e/**/product-schedule.e2e-spec.ts'
