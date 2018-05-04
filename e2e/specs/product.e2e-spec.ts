@@ -45,13 +45,6 @@ describe('Products', function() {
     expectDefined(page.getAddButton());
   });
 
-  it('should render products index table headers', () => {
-    expect(page.getTableHeaders().get(1).getText()).toEqual('Product Name');
-    expect(page.getTableHeaders().get(2).getText()).toEqual('SKU');
-    expect(page.getTableHeaders().get(3).getText()).toEqual('Ship');
-    expect(page.getTableHeaders().get(4).getText()).toEqual('Shipping Delay');
-  });
-
   it('should render add modal when add button is clicked', () => {
     page.getAddButton().click();
     expectDefined(productPage.getNewProductForm());

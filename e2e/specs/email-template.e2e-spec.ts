@@ -29,9 +29,9 @@ describe('Email Template', function() {
 
   it('should navigate to email templates page', () => {
     const sidenav = new SidenavPage();
-    sidenav.getLink(12).click();
+    sidenav.getLink(17).click();
     browser.sleep(500);
-    sidenav.getLink(16).click();
+    sidenav.getLink(21).click();
     waitForUrlContains('emailtemplates');
     expectUrlToContain('emailtemplates');
   });
@@ -41,7 +41,7 @@ describe('Email Template', function() {
   });
 
   it('should render email templates index title', () => {
-    expect(page.getTitle().getText()).toContain('Email Template')
+    expect(page.getTitle().getText()).toContain('Email Template');
   });
 
   it('should render email templates index add button', () => {

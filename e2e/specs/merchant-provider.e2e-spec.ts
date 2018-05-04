@@ -48,12 +48,6 @@ describe('Merchant Provider', function() {
     expectDefined(page.getAddButton());
   });
 
-  it('should render merchant provider index table headers', () => {
-    expect(page.getTableHeaders().get(1).getText()).toContain('Name');
-    expect(page.getTableHeaders().get(3).getText()).toContain('Processor Name');
-    expect(page.getTableHeaders().get(4).getText()).toContain('Processor Type');
-  });
-
   it('should render add modal when add button is clicked', () => {
     page.getAddButton().click();
     expectDefined(merchantProvider.getNewForm());
