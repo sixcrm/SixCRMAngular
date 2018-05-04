@@ -185,11 +185,5 @@ describe('Navigation', function() {
     waitForUrlContains('roles');
     expectUrlToContain('roles');
   });
-
-  it('should navigate to search', () => {
-    sidenav.getLink(38).click();
-
-    waitForUrlContains('search');
-    expectUrlToContain('search');
-  });
+  
 });

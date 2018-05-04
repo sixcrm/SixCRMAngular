@@ -26,9 +26,9 @@ describe('Trackers', function() {
 
   it('should navigate to trackers page', () => {
     const sidenav = new SidenavPage();
-    sidenav.getLink(12).click();
+    sidenav.getLink(17).click();
     browser.sleep(500);
-    sidenav.getLink(18).click();
+    sidenav.getLink(25).click();
     waitForUrlContains('trackers');
     expectUrlToContain('trackers');
   });

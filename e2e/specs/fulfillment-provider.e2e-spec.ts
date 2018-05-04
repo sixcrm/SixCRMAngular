@@ -29,11 +29,10 @@ describe('Fulfillment Provider', function() {
 
   it('should navigate to providers page', () => {
     const sidenav = new SidenavPage();
-    sidenav.getLink(12).click();
+    sidenav.getLink(17).click();
     browser.sleep(500);
-    sidenav.getLink(23).click();
+    sidenav.getLink(30).click();
     browser.sleep(500);
-    sidenav.getLink(24).click();
     waitForUrlContains('fulfillmentproviders');
     expectUrlToContain('fulfillmentproviders');
   });

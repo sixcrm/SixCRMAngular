@@ -29,7 +29,7 @@ describe('Merchant Provider Group', function() {
 
   it('should navigate to merchantProviderGroup page', () => {
     const sidenav = new SidenavPage();
-    sidenav.getLink(26).click();
+    sidenav.getLink(17).click();
     browser.sleep(500);
     sidenav.getLink(28).click();
     waitForUrlContains('merchantprovidergroup');
