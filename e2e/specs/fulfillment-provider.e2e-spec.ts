@@ -42,7 +42,7 @@ describe('Fulfillment Provider', function() {
   });
 
   it('should render providers index title', () => {
-    expect(page.getTitle().getText()).toContain('Fulfillment Provider')
+    expect(page.getTitle().getText()).toContain('Fulfillment Provider');
   });
 
   it('should render providers index add button', () => {
@@ -118,6 +118,6 @@ describe('Fulfillment Provider', function() {
 
   it('should show copy icon', () => {
     expectPresent(fulfillmentView.getCopyIcon());
-  })
+  });
 
 });
