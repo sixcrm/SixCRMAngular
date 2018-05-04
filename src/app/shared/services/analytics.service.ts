@@ -176,7 +176,7 @@ export class AnalyticsService {
         data,
         this.campaignsByAmount$,
         (t: any) => new CampaignStats(t),
-        (data: any) => extractData(data).campaignsbyamount.campaigns
+        (data: any) => extractData(data).analytics.records
       );
       if (result) {
         this.analyticsStorage.setCampaignsByAmount(start, end, result);

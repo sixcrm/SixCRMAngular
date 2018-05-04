@@ -21,7 +21,7 @@
         <div class="num" [style.background-color]="colors[i]">
           <div>{{i + 1}}</div>
         </div>
-        <div class="name">{{campaign.campaign}}</div>
+        <div class="name">{{campaign.campaign_name || campaign.campaign}}</div>
         <div class="amount">{{campaign.amount.usd()}}</div>
       </div>
     </div>
