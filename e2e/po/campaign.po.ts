@@ -34,6 +34,10 @@ export class CampaignPage {
     return element(by.css('.mat-menu-content')).element(by.css('button'));
   }
 
+  getCampaignIndividualCampaign(num: number) {
+    return element(by.css('tbody')).all(by.css('tr')).get(num);
+  }
+
   getCampaignNameInCard() {
     return element(by.css('.entity-view__card__content')).element(by.css('input'));
   }

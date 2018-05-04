@@ -59,21 +59,25 @@ describe('Campaigns', function() {
 
   it('should remove error when proper name is entered', () => {
     campaignPage.getNewCampaignFormNameInput().sendKeys('e2e test campaign');
-    browser.sleep(1200);
+    browser.sleep(200);
     expect(campaignPage.getNewCampaignFormInvalidInputs().count()).toBe(0);
   });
 
-  it('should save campaign and open it', () => {
-    browser.sleep(1200);
+  it('should save campaign', () => {
     campaignPage.getCampaignFormSaveButton().click();
+    waitForUrlContains('campaigns');
+    expectUrlToContain('campaigns');
+  });
 
+  it('should go to an individual campaign and open it', () => {
+    campaignPage.getCampaignIndividualCampaign(0).click();
     waitForUrlContains('campaigns/');
     expectUrlToContain('campaigns/');
   });
 
   it('should render campaign name correctly', () => {
     browser.sleep(1200);
-    expect(campaignPage.getCampaignNameInHeader().getText()).toEqual('e2e test campaign');
+    expect(campaignPage.getCampaignNameInHeader().getText()).toContain('e2e test campaign');
   });
 
   it('should update campaign name', () => {
