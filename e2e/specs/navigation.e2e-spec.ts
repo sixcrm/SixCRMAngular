@@ -185,5 +185,5 @@ describe('Navigation', function() {
     waitForUrlContains('roles');
     expectUrlToContain('roles');
   });
-  
+
 });

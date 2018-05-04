@@ -48,13 +48,6 @@ describe('Email Template', function() {
     expectDefined(page.getAddButton());
   });
 
-  it('should render email templates index table headers', () => {
-    expect(page.getTableHeaders().get(0).getText()).toEqual('Name');
-    expect(page.getTableHeaders().get(1).getText()).toEqual('Subject');
-    expect(page.getTableHeaders().get(2).getText()).toEqual('Type');
-    expect(page.getTableHeaders().get(3).getText()).toEqual('SMTP Provider');
-  });
-
   it('should render add modal when add button is clicked', () => {
     page.getAddButton().click();
     expectDefined(emailTemplate.getNewForm());
