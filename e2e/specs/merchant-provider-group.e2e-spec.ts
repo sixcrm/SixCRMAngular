@@ -48,11 +48,6 @@ describe('Merchant Provider Group', function() {
     expectDefined(page.getAddButton());
   });
 
-  it('should render load balancer index table headers', () => {
-    expect(page.getTableHeaders().get(0).getText()).toEqual('Name');
-    expect(page.getTableHeaders().get(1).getText()).toEqual('Number of Merchant Providers');
-  });
-
   it('should render add modal when add button is clicked', () => {
     page.getAddButton().click();
     expectDefined(merchantProviderGroup.getNewForm());
