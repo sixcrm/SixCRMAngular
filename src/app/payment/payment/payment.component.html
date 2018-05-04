@@ -2,7 +2,7 @@
 
   <img class="logo" src="/assets/images/logo-white.svg" alt="">
 
-  <div *ngIf="!showWelcome" class="progress">
+  <div class="progress">
     <div class="circle finished"></div>
     <div class="line finished"></div>
     <div class="circle" [class.active]="planInProgress" [class.finished]="paymentInProgress">
