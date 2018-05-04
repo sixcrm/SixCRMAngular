@@ -40,6 +40,10 @@ export class Account implements Entity<Account> {
     this.active = !this.active;
   }
 
+  hasBillingIssue(): boolean {
+    return !this.billing || !!this.billing.disable;
+  }
+
   copy(): Account {
     return new Account(this.inverse());
   }

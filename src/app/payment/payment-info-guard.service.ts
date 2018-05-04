@@ -8,10 +8,6 @@ export class PaymentInfoGuard implements CanActivate {
   constructor(private authService: AuthenticationService) {}
 
   canActivate(): boolean {
-    if (!this.authService.getActiveAcl().account.billing || this.authService.getActiveAcl().account.billing.disable) {
-      return true;
-    }
-
-    return false;
+    return this.authService.getActiveAcl().account.hasBillingIssue();
   }
 }

@@ -10,8 +10,7 @@ export class RegisterGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.authService.active()
       && this.authService.getActiveAcl().account.active
-      && this.authService.getActiveAcl().account.billing
-      && !this.authService.getActiveAcl().account.billing.disable
+      && !this.authService.getActiveAcl().account.hasBillingIssue()
     ) {
       return false;
     }
