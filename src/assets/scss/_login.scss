@@ -38,11 +38,33 @@
   padding: 0 !important;
   background: #2C98F0 !important;
   box-shadow: 0 0 2px rgba(0,0,0,0.24), 0 0 2px rgba(0,0,0,0.12);
+  font-weight: 500;
+
   svg {
     display: none;
+  }
+
+  .auth0-loading {
+    left: 45px !important;
   }
 }
 
 .auth0-lock-social-button {
   background: #2C98F0 !important;
+}
+
+.auth0-lock-cred-pane {
+  display: flex;
+  flex-direction: column;
+  min-height: 490px;
+}
+
+.auth0-lock:not(.auth0-lock-with-tabs) {
+  .auth0-lock-cred-pane {
+
+    div:nth-of-type(2) {
+      margin: auto;
+    }
+
+  }
 }
