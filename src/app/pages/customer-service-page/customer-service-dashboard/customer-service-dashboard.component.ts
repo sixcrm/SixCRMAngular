@@ -14,7 +14,7 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 })
 export class CustomerServiceDashboardComponent implements OnInit {
 
-  focusedItem: number;
+  focusedItem: number = 0;
 
   customers: Customer[] = [];
   sessions: Session[] = [];

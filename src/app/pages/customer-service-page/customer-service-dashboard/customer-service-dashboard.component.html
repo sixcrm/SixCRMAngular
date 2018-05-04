@@ -11,7 +11,7 @@
 
       <div class="input-container" [class.visible]="focusedItem === 0">
         <mat-form-field class="mrw--search-input" [floatLabel]="'never'">
-          <input #orderInput type="text" [matAutocomplete]="sessionAutocomplete" (keydown)="searchKeyDown($event, customerInput, 'order')" (input)="sessionInputChanged($event)" matInput placeholder="Session ID or Alias">
+          <input auto-focus #orderInput type="text" [matAutocomplete]="sessionAutocomplete" (keydown)="searchKeyDown($event, customerInput, 'order')" (input)="sessionInputChanged($event)" matInput placeholder="Session ID or Alias">
           <mat-icon matSuffix>search</mat-icon>
           <mat-autocomplete class="three-row-autocomplete" #sessionAutocomplete="matAutocomplete" (optionSelected)="navigateToSession($event)">
             <mat-option *ngFor="let session of sessions" [value]="session.id">
