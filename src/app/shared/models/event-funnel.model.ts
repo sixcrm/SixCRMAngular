@@ -7,14 +7,30 @@ export class EventFunnel {
 
   constructor(obj?: any) {
     if (!obj) {
-      obj = {};
+      obj = [];
     }
 
-    this.click = new EventStatisticsResult(obj.click);
-    this.lead = new EventStatisticsResult(obj.lead);
-    this.main = new EventStatisticsResult(obj.main);
-    this.upsell = new EventStatisticsResult(obj.upsell);
-    this.confirm = new EventStatisticsResult(obj.confirm);
+    let values = {
+      click: {},
+      lead: {},
+      main: {},
+      upsell: {},
+      confirm: {}
+    };
+
+    for (let array of obj) {
+      for (let element of array) {
+        if (element.key === 'name') {
+          array.forEach(e => values[element.value][e.key] = e.value);
+        }
+      }
+    }
+
+    this.click = new EventStatisticsResult(values.click);
+    this.lead = new EventStatisticsResult(values.lead);
+    this.main = new EventStatisticsResult(values.main);
+    this.upsell = new EventStatisticsResult(values.upsell);
+    this.confirm = new EventStatisticsResult(values.confirm);
   }
 }
 

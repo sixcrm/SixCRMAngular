@@ -28,10 +28,21 @@ export function heroChartQuery(start: string, end: string, period: string, compa
 }
 
 export function eventsFunnelQuery(start: string, end: string): string {
-  return `{
-		eventfunnel (analyticsfilter:{${dateRange(start, end)}}) {
-			funnel {name, count, percentage, relative_percentage}
-		}}`;
+  return `
+    query {
+      analytics (
+        reportType: eventFunnel
+        facets: [{
+        facet: "start"
+          values: ["${start}"]
+        },
+        {
+          facet: "end"
+          values: ["${end}"]
+        }
+      ]) {records { key value }}
+    }
+  `;
 }
 
 export function campaignsByAmountQuery(start: string, end: string): string {

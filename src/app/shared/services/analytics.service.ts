@@ -109,14 +109,9 @@ export class AnalyticsService {
         return;
       }
 
-      let extracted = extractData(data).eventfunnel.funnel;
-      let transformed = {};
+      let extracted = extractData(data).analytics.records;
 
-      for (let i = 0; i < extracted.length; i++) {
-        transformed[extracted[i].name] = extracted[i];
-      }
-
-      const funnel = new EventFunnel(transformed);
+      const funnel = new EventFunnel(extracted);
 
       this.eventFunnel$.next(funnel);
       this.analyticsStorage.setEventFunnel(start, end, funnel);
