@@ -49,13 +49,6 @@ describe('Fulfillment Provider', function() {
     expectDefined(page.getAddButton());
   });
 
-  it('should render providers index table headers', () => {
-    expect(page.getTableHeaders().get(0).getText()).toEqual('Name');
-    expect(page.getTableHeaders().get(1).getText()).toEqual('Provider');
-    expect(page.getTableHeaders().get(2).getText()).toEqual('Username');
-    expect(page.getTableHeaders().get(3).getText()).toEqual('Password');
-  });
-
   it('should render add modal when add button is clicked', () => {
     page.getAddButton().click();
 
