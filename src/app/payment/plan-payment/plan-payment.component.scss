@@ -77,7 +77,11 @@
     margin-bottom: 15px;
     color: rgba(0, 0, 0, 0.54);
     font-size: 13px;
-    cursor: pointer;
+
+    .licenseagreement {
+      cursor: pointer;
+      color: #2C98F0;
+    }
   }
 
   .form {

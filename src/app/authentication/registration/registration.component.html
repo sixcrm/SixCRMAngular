@@ -35,8 +35,8 @@
       </mat-input-container>
     </div>
 
-    <div class="terms" (click)="openUserTerms()">
-      {{'REGISTER_USERTERMS' | translate}}
+    <div class="terms">
+      {{'REGISTER_USERTERMS' | translate}} <span class="licenseagreement" (click)="openUserTerms()">{{'REGISTER_LICENSEAGREEMENT' | translate}}</span>.
     </div>
 
     <div class="actions">

@@ -71,7 +71,7 @@
       <div>${{plan.price}}</div>
     </div>
 
-    <div class="terms" (click)="openOwnerTerms()">{{'PAYMENT_OWNERTERMS' | translate}}</div>
+    <div class="terms">{{'PAYMENT_OWNERTERMS' | translate}} <span class="licenseagreement" (click)="openOwnerTerms()">{{'PAYMENT_LICENSEAGREEMENT' | translate}}</span>.</div>
     <button mat-button (click)="pay()">{{'PAYMENT_INFO_FINISH' | translate}}</button>
   </div>
 </div>

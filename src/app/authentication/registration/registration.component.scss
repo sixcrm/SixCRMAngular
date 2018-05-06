@@ -82,7 +82,11 @@
     font-size: 13px;
     line-height: 15px;
     color: rgba(0, 0, 0, 0.75);
-    cursor: pointer;
+
+    .licenseagreement {
+      cursor: pointer;
+      color: #2C98F0;
+    }
   }
 
   .actions {
