@@ -7,7 +7,7 @@ import {HttpResponse} from '@angular/common/http';
 import {TransactionSummary} from '../models/transaction-summary.model';
 import {
   transactionSummaryQuery, eventsFunnelQuery, campaignsByAmountQuery,
-  activitiesByCustomer, heroChartQuery
+  activitiesByCustomer, heroChartQuery, eventsFunnelTimeseriesQuery
 } from '../utils/queries/analytics.queries';
 import {CampaignStats} from '../models/campaign-stats.model';
 import {AnalyticsStorageService} from './analytics-storage.service';
@@ -19,11 +19,13 @@ import {CustomServerError} from '../models/errors/custom-server-error';
 import {SubscriptionStats} from "../models/subscription-stats.model";
 import {Currency} from "../utils/currency/currency";
 import {HeroChartSeries} from '../models/hero-chart-series.model';
+import {EventFunnelTimeseries} from "../models/event-funnel-timeseries.model";
 
 @Injectable()
 export class AnalyticsService {
 
   eventFunnel$: BehaviorSubject<EventFunnel | CustomServerError>;
+  eventFunnelTimeseries$: BehaviorSubject<EventFunnelTimeseries | CustomServerError>;
   transactionsSummaries$: BehaviorSubject<TransactionSummary[] | CustomServerError>;
   heroChartSeries$: BehaviorSubject<HeroChartSeries[] | CustomServerError>;
   campaignsByAmount$: BehaviorSubject<CampaignStats[] | CustomServerError>;
@@ -33,6 +35,7 @@ export class AnalyticsService {
 
   constructor(private authService: AuthenticationService, private analyticsStorage: AnalyticsStorageService, private http: HttpWrapperService) {
     this.eventFunnel$ = new BehaviorSubject(null);
+    this.eventFunnelTimeseries$ = new BehaviorSubject(null);
     this.transactionsSummaries$ = new BehaviorSubject(null);
     this.heroChartSeries$ = new BehaviorSubject(null);
     this.campaignsByAmount$ = new BehaviorSubject(null);
@@ -116,6 +119,20 @@ export class AnalyticsService {
       this.eventFunnel$.next(funnel);
       this.analyticsStorage.setEventFunnel(start, end, funnel);
     })
+
+    // this.queryRequest(eventsFunnelTimeseriesQuery(start, end, "DAY", "click")).subscribe(data => {
+    //   if (data instanceof CustomServerError) {
+    //     this.eventFunnelTimeseries$.next(data);
+    //
+    //     return;
+    //   }
+    //
+    //   let extracted = extractData(data).analytics.records;
+    //
+    //   const timeseries = new EventFunnelTimeseries(extracted);
+    //
+    //   this.eventFunnelTimeseries$.next(timeseries);
+    // })
   }
 
   getSubscriptionsByAmount(start: string, end: string, downloadFormat?: string): void {

@@ -5,6 +5,7 @@ import {CampaignStats} from '../models/campaign-stats.model';
 import {Moment, utc} from 'moment';
 import {FilterTerm} from '../components/advanced-filter/advanced-filter.component';
 import {SubscriptionStats} from '../models/subscription-stats.model';
+import {EventFunnelTimeseries} from "../models/event-funnel-timeseries.model";
 
 export class AnalyticsStateEntry<T> {
   startDate: string;
@@ -65,6 +66,7 @@ export class AnalyticsStorageService {
   private lastUpdated: string = 'last_updated';
 
   private eventFunnelKey: string = 'event_funnel';
+  private eventFunnelTimeseriesKey: string = 'event_funnel_timeseries';
   private transactionSummariesKey: string = 'transaction_summaries';
   private campaignsByAmountKey: string = 'campaign_by_amount';
   private subscriptionsByAmountKey: string = 'subscriptions_by_amount';

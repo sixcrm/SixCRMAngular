@@ -45,6 +45,32 @@ export function eventsFunnelQuery(start: string, end: string): string {
   `;
 }
 
+export function eventsFunnelTimeseriesQuery(start: string, end: string, period: string, eventType: string): string {
+  return `
+    query {
+      analytics (
+        reportType: eventFunnelTimeseries
+        facets: [{
+          facet: "start"
+            values: ["${start}"]
+          },
+          {
+            facet: "end"
+            values: ["${end}"]
+          },
+          {
+            facet: "period"
+            values: ["${period}"]
+          },
+          {
+            facet: "eventType"
+            values: ["${eventType}"]
+          }]
+      ) {records { key value }}
+    }
+  `;
+}
+
 export function campaignsByAmountQuery(start: string, end: string): string {
   return `
     query {
