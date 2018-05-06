@@ -1,7 +1,7 @@
 <div class="container">
   <div class="column left">
 
-    <div class="title" [class.error]="transactionalError">{{(transactionalError ? 'PAYMENT_TITLE' : 'PAYMENT_ERRORTITLE') | translate}}</div>
+    <div class="title" [class.error]="transactionalError">{{(!transactionalError ? 'PAYMENT_TITLE' : 'PAYMENT_ERRORTITLE') | translate}}</div>
     <div *ngIf="transactionalError" class="error-message error">{{'PAYMENT_ERRORMESSAGE' | translate}}</div>
 
     <div class="cards" [class.cards-error]="transactionalError">
