@@ -312,7 +312,7 @@ export class AuthenticationService {
     );
   }
 
-  public acceptInvite(hash: string, signature: string): Observable<{isNew: string, account: string}> {
+  public acceptInvite(hash: string, signature: string): Observable<{isNew: boolean, account: string}> {
     return this.http.post(
       environment.publicendpoint,
       acceptInviteMutation(hash, signature),

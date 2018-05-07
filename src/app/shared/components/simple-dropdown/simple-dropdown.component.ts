@@ -56,7 +56,7 @@ export class SimpleDropdownComponent implements OnInit {
   }
 
   getHeightNumber(): number {
-    if ((!this.dropdownVisible && !this.showInstructions) || !this.getOptions()) return '0';
+    if ((!this.dropdownVisible && !this.showInstructions) || !this.getOptions()) return 0;
 
     return this.getOptions().length * (this.small ? 44 : 48);
   }
