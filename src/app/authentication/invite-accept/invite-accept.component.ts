@@ -37,7 +37,7 @@ export class InviteAcceptComponent implements OnInit {
   }
 
   acceptInvite(): void {
-    this.authService.acceptInvite(this.acknowledgeInvite.hash, this.acknowledgeInvite.signature).subscribe((res: {isNew: string, account: string}) => {
+    this.authService.acceptInvite(this.acknowledgeInvite.hash, this.acknowledgeInvite.signature).subscribe((res: {isNew: boolean, account: string}) => {
       this.authService.refreshAfterAcceptInvite(new Acl({id: this.acknowledgeInvite.acl}), res.isNew);
     });
   }
