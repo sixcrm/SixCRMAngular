@@ -13,6 +13,8 @@ import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-co
 import {SharedModule} from '../shared/shared.module';
 import {TranslationModule} from '../translation/translation.module';
 import {MaterialSelectionModule} from '../material-selection/material-selection.module';
+import { AccountInfoComponent } from './account-info/account-info.component';
+import {AccountInfoGuard} from './account-info-guard.service';
 
 @NgModule({
   imports : [
@@ -28,7 +30,8 @@ import {MaterialSelectionModule} from '../material-selection/material-selection.
     AuthComponent,
     RegistrationComponent,
     InviteAcceptComponent,
-    TermsAndConditionsComponent
+    TermsAndConditionsComponent,
+    AccountInfoComponent
   ],
   exports: [
     TermsAndConditionsComponent
@@ -36,7 +39,8 @@ import {MaterialSelectionModule} from '../material-selection/material-selection.
   providers : [
     AuthenticationService,
     AuthGuard,
-    RegisterGuard
+    RegisterGuard,
+    AccountInfoGuard
   ]
 })
 export class AuthenticationModule { }

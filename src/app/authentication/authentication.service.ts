@@ -231,7 +231,7 @@ export class AuthenticationService {
   }
 
   public isActiveAclCustomerService(): boolean {
-    return this.getActiveAcl().role.name === 'Customer Service';
+    return this.getActiveAcl().role.isCustomerService();
   }
 
   public isActiveAclMasterAccount(): boolean {
@@ -251,14 +251,7 @@ export class AuthenticationService {
 
     if (noRedirection) return;
 
-    if (acl.account.hasBillingIssue()) {
-      this.router.navigateByUrl('/payment/info');
-    } else if (acl.role.name === 'Customer Service') {
-      this.router.navigateByUrl('/customer-service');
-    } else {
-      this.router.navigateByUrl('/dashboard');
-    }
-
+    this.redirectAfterAclChange(this.isActiveAclCustomerService() ? '/customer-service' : '/dashboard');
   }
 
   public registerUser(company: string, firstName: string, lastName: string, terms?: string): Observable<HttpResponse<any> | CustomServerError> {
@@ -369,7 +362,7 @@ export class AuthenticationService {
 
           this.updateSettings(new UserSettings(user.usersetting));
 
-          this.redirectAfterIntrospection(redirectUrl);
+          this.redirectAfterAclChange(redirectUrl);
         } else {
           this.logout();
         }
@@ -377,7 +370,12 @@ export class AuthenticationService {
     );
   }
 
-  private redirectAfterIntrospection(redirectUrl?: string) {
+  private redirectAfterAclChange(redirectUrl?: string) {
+    if (this.shouldRedirectToAccountInfo()) {
+      this.router.navigateByUrl('/account-info');
+      return;
+    }
+
     if (this.shouldRedirectToRegister()) {
       this.router.navigateByUrl('/register');
       return;
@@ -385,7 +383,6 @@ export class AuthenticationService {
 
     if (this.shouldRedirectToPayment()) {
       this.router.navigate(['/payment/info']);
-
       return;
     }
 
@@ -399,16 +396,19 @@ export class AuthenticationService {
     }
   }
 
+  private shouldRedirectToAccountInfo() {
+    return this.getSixUser().acls.length === 0
+      || !this.getActiveAcl().account.active
+      || this.getActiveAcl().role.isDisabled()
+      || this.getActiveAcl().role.isNoPermissions();
+  }
+
   private shouldRedirectToPayment() {
     return this.getActiveAcl().account.hasBillingIssue();
   }
 
   private shouldRedirectToRegister() {
-    return !this.active() || !this.getActiveAcl().account.active;
-  }
-
-  private shouldRedirectToTermsAndConditions(): boolean {
-    return this.getSixUser().termsAndConditionsOutdated || (this.getActiveAcl().role.name === 'Owner' && this.getActiveAcl().termsAndConditionsOutdated);
+    return !this.active() || (this.getActiveAcl().account.isNew() && (this.getActiveAcl().role.isOwner() || this.getActiveAcl().role.isAdmin()));
   }
 
   private shouldRedirectToDashboard(): boolean {

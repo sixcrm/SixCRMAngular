@@ -241,3 +241,43 @@ app-topnav {
     font-weight: 400;
   }
 }
+
+.info-blue-screen {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to bottom left, #4277C2, #2C98F0);
+
+  .text {
+    margin: auto;
+    text-align: center;
+    color: white;
+    font-size: 36px;
+    font-family: "Roboto", sans-serif;
+  }
+
+  .logout {
+    color: white;
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    font-size: 18px;
+  }
+
+  .logo {
+    width: 109px;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+  }
+
+  simple-dropdown {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-family: "Roboto", serif;
+    font-size: 16px;
+  }
+}
