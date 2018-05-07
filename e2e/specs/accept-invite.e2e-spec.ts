@@ -21,6 +21,7 @@ var crypto = require('crypto');
 
 let newEmail = `e2e${new Date().getTime()}@sixcrm.com`;
 let newPassword = '123456789';
+let newCompany = `e2e_Company_${new Date().getTime()}`;
 
 describe('Accept Invite', function() {
   let authPage: AuthPage;
@@ -79,9 +80,36 @@ describe('Accept Invite', function() {
   it('should accept invite and proceed to auth0 sign up', () => {
     browser.waitForAngularEnabled(false);
     acceptInvitePage.getAcceptButton().click();
-    browser.sleep(5000);
+    browser.sleep(3500);
     acceptInvitePage.getAuth0SignUpTab().click();
     expect(acceptInvitePage.getAuth0SignUpTab().last().getText()).toEqual('Sign Up');
     });
+
+  it('should fill sign up info and proceed', () => {
+    browser.waitForAngularEnabled(false);
+    acceptInvitePage.getInputs().first().sendKeys(newEmail);
+    acceptInvitePage.getInputs().last().sendKeys(newPassword);
+    browser.sleep(500);
+    acceptInvitePage.getAuth0SubmitButton().click();
+    browser.sleep(2500);
+    waitForUrlContains('/register');
+    expectUrlToContain('/register');
+  });
+
+  it('should fill in the registration fields and and verify terms and conditions are present', () => {
+    browser.waitForAngularEnabled(false);
+    acceptInvitePage.getRegisterInputs(0).sendKeys('e2e First');
+    acceptInvitePage.getRegisterInputs(1).sendKeys('e2e Last');
+    acceptInvitePage.getRegisterInputs(2).sendKeys(newCompany);
+    browser.sleep(5000);
+    expect(acceptInvitePage.getRegisterTitle().getText()).toEqual(`We\'re excited to have you join us`);
+    expect(acceptInvitePage.getRegisterTerms().getText()).toEqual(`By accepting this invitation and creating a SIX account, you agree to the End User License Agreement.`);
+  });
+
+  it('should submit registration and proceed', () => {
+    browser.waitForAngularEnabled(false);
+    acceptInvitePage.getAcceptButton().click();
+    browser.pause();
+  } );
 
 });

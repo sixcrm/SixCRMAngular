@@ -22,12 +22,24 @@ export class AcceptInvitePage {
     return element(by.css('.auth0-lock-tabs')).all(by.css('li'));
   }
 
-  getContinueButton() {
-    return element(by.css('.accept-invite__button--standalone'));
+  getInputs() {
+    return element.all(by.css('input'));
   }
 
-  getTitle() {
-    return element(by.css('.title'));
+  getAuth0SubmitButton() {
+    return element(by.css('.auth0-lock-submit'));
+  }
+
+  getRegisterTitle() {
+    return element(by.css('.subtitle'));
+  }
+
+  getRegisterInputs(num) {
+    return element.all(by.css('input')).get(num);
+  }
+
+  getRegisterTerms() {
+    return element(by.css('.terms'));
   }
 
   getLoginButton() {
@@ -38,17 +50,11 @@ export class AcceptInvitePage {
     return element(by.css('.registration-form__button--cancel'))
   }
 
-
-
   getWelcomeInstructions() {
     return element(by.css('.subtitle'));
   }
 
 
-
-  getInputs() {
-    return element.all(by.css('input'));
-  }
 
   getAclSwitchGraphics() {
     return element(by.css('.instructions'));
