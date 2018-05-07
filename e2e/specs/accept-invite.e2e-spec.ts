@@ -283,7 +283,7 @@ describe('Accept Invite', function() {
 
     browser.sleep(600);
 
-    accountPage.getAssociatedUsers().count().then(count =>{
+    accountPage.getAssociatedUsers().count().then(count => {
       for (let i = 0; i < count - 2; i++) {
         accountPage.getLastUserButton().click();
         browser.sleep(200);

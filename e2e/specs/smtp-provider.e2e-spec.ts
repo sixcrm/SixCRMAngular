@@ -42,7 +42,7 @@ describe('SMTP Provider', function() {
   });
 
   it('should render providers index title', () => {
-    expect(page.getTitle().getText()).toContain('SMTP Providers')
+    expect(page.getTitle().getText()).toContain('SMTP Providers');
   });
 
   it('should render providers index add button', () => {
