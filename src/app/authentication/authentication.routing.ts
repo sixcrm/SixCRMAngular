@@ -8,6 +8,7 @@ import {AccountInfoGuard} from './account-info-guard.service';
 
 export const routing = RouterModule.forChild([
   { path: '', component: AuthComponent},
+  { path: 'signup', component: AuthComponent},
   { path: 'register', component: RegistrationComponent, canActivate: [RegisterGuard]},
   { path: 'account-info', component: AccountInfoComponent, canActivate: [AccountInfoGuard]},
   { path: 'acceptinvite/:hash', component: InviteAcceptComponent}

@@ -56,36 +56,7 @@ export class AuthenticationService {
     private location: Location,
     private dialog: MatDialog,
   ) {
-    this.lock = new Auth0Lock(
-      environment.clientID,
-      environment.domain,
-      {
-        auth: {
-          redirectUrl: environment.auth0RedirectUrl,
-          responseType: 'token',
-          params: {
-            scope: 'openid email name given_name family_name user_metadata app_metadata picture'
-          }
-        },
-        closeable: false,
-        theme: {
-          logo: '/assets/images/logo-navigation.svg'
-        },
-        languageDictionary: {
-          title: ''
-        }
-      });
-
-    this.lock.on('authenticated', (authResult) => {
-      let sub = this.activeAcl$.subscribe(acl => {
-        if (acl && acl.id) {
-          this.newSessionStarted$.next(true);
-          sub.unsubscribe();
-        }
-      });
-
-      this.setUser(authResult);
-    });
+    this.initLock();
 
     // wait for router to load route so that we can check if we should trigger user introspection
     setTimeout(() => {
@@ -98,6 +69,47 @@ export class AuthenticationService {
       this.actingAs = account;
     });
 
+  }
+
+  private initLock(signup?: boolean) {
+    const options = {
+      auth: {
+        redirectUrl: environment.auth0RedirectUrl,
+        responseType: 'token',
+        params: {
+          scope: 'openid email name given_name family_name user_metadata app_metadata picture'
+        }
+      },
+      closeable: false,
+      theme: {
+        logo: '/assets/images/logo-navigation.svg'
+      },
+      languageDictionary: {
+        title: ''
+      },
+      rememberLastLogin: false
+    };
+
+    if (signup) {
+      options['initialScreen'] = 'signUp';
+    }
+
+    this.lock = new Auth0Lock(
+      environment.clientID,
+      environment.domain,
+      options
+    );
+
+    this.lock.on('authenticated', (authResult) => {
+      let sub = this.activeAcl$.subscribe(acl => {
+        if (acl && acl.id) {
+          this.newSessionStarted$.next(true);
+          sub.unsubscribe();
+        }
+      });
+
+      this.setUser(authResult);
+    });
   }
 
   public startActingAs(account: Account) {
@@ -153,6 +165,7 @@ export class AuthenticationService {
   }
 
   public showLogin(): void {
+    this.initLock(this.router.url === '/signup');
     this.lock.show();
   }
 
@@ -170,6 +183,16 @@ export class AuthenticationService {
     localStorage.removeItem(this.activated);
     localStorage.removeItem(this.idTokenPayload);
     localStorage.removeItem(this.sixUser);
+  }
+
+  public logoutToSignup(): void {
+    localStorage.removeItem(this.accessToken);
+    localStorage.removeItem(this.idToken);
+    localStorage.removeItem(this.activated);
+    localStorage.removeItem(this.idTokenPayload);
+    localStorage.removeItem(this.sixUser);
+
+    this.router.navigate(['/signup']);
   }
 
   public logoutWithJwt(jwt: string, url: string): void {
@@ -302,14 +325,19 @@ export class AuthenticationService {
     return this.getSixUser().hasPermissions(entity, operation, this.getActiveAcl());
   }
 
-  public refreshAfterAcceptInvite(defaultAcl: Acl): void {
+  public refreshAfterAcceptInvite(defaultAcl: Acl, isNewUser: boolean): void {
     if (defaultAcl && defaultAcl.id) {
       localStorage.setItem(this.activeAcl, JSON.stringify(defaultAcl));
       this.currentActiveAcl = defaultAcl;
     }
 
     if (!this.authenticated()) {
-      this.logout();
+      if (isNewUser) {
+        this.logoutToSignup();
+      } else {
+        this.logout();
+      }
+
       return;
     }
 
