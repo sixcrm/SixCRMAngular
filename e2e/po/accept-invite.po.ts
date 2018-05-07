@@ -11,11 +11,15 @@ export class AcceptInvitePage {
   }
 
   getAcceptButton() {
-    return element(by.css('.registration-form__accept'));
+    return element(by.css('button'));
   }
 
-  getWelcomeText() {
-    return element(by.css('.registration-form__main'));
+  getAuth0Modal() {
+    return element(by.css('.auth0-lock-widget'));
+  }
+
+  getAuth0SignUpTab() {
+    return element(by.css('.auth0-lock-tabs')).all(by.css('li'));
   }
 
   getContinueButton() {
