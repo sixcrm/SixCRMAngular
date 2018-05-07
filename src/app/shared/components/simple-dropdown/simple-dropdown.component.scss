@@ -80,6 +80,29 @@
     }
   }
 
+  &__instructions {
+    position: absolute;
+    width: calc(100% + 30px);
+    left: -15px;
+    background: #FFFCAB;
+
+    .text {
+      white-space: pre-wrap;
+      color: rgba(0, 0, 0, 0.54);
+      padding: 0 25px;
+      font-size: 14px;
+      line-height: 19px;
+    }
+
+    .actions {
+      display: flex;
+
+      button {
+        margin: 10px 20px 5px auto;
+      }
+    }
+  }
+
   &__menu {
     position: absolute;
     top: 70px;

@@ -34,6 +34,7 @@ export class AuthenticationService {
   private idTokenPayload: string = 'id_token_payload';
   private sixUser: string = 'six_user';
   private activeAcl: string = 'active_acl';
+  private isInvitedUserKey: string = 'is_invited_user';
 
   private currentSixUser: User = new User();
   private currentUserSettings: UserSettings = new UserSettings();
@@ -56,36 +57,7 @@ export class AuthenticationService {
     private location: Location,
     private dialog: MatDialog,
   ) {
-    this.lock = new Auth0Lock(
-      environment.clientID,
-      environment.domain,
-      {
-        auth: {
-          redirectUrl: environment.auth0RedirectUrl,
-          responseType: 'token',
-          params: {
-            scope: 'openid email name given_name family_name user_metadata app_metadata picture'
-          }
-        },
-        closeable: false,
-        theme: {
-          logo: '/assets/images/logo-navigation.svg'
-        },
-        languageDictionary: {
-          title: ''
-        }
-      });
-
-    this.lock.on('authenticated', (authResult) => {
-      let sub = this.activeAcl$.subscribe(acl => {
-        if (acl && acl.id) {
-          this.newSessionStarted$.next(true);
-          sub.unsubscribe();
-        }
-      });
-
-      this.setUser(authResult);
-    });
+    this.initLock();
 
     // wait for router to load route so that we can check if we should trigger user introspection
     setTimeout(() => {
@@ -98,6 +70,47 @@ export class AuthenticationService {
       this.actingAs = account;
     });
 
+  }
+
+  private initLock(signup?: boolean) {
+    const options = {
+      auth: {
+        redirectUrl: environment.auth0RedirectUrl,
+        responseType: 'token',
+        params: {
+          scope: 'openid email name given_name family_name user_metadata app_metadata picture'
+        }
+      },
+      closeable: false,
+      theme: {
+        logo: '/assets/images/logo-navigation.svg'
+      },
+      languageDictionary: {
+        title: ''
+      },
+      rememberLastLogin: false
+    };
+
+    if (signup) {
+      options['initialScreen'] = 'signUp';
+    }
+
+    this.lock = new Auth0Lock(
+      environment.clientID,
+      environment.domain,
+      options
+    );
+
+    this.lock.on('authenticated', (authResult) => {
+      let sub = this.activeAcl$.subscribe(acl => {
+        if (acl && acl.id) {
+          this.newSessionStarted$.next(true);
+          sub.unsubscribe();
+        }
+      });
+
+      this.setUser(authResult);
+    });
   }
 
   public startActingAs(account: Account) {
@@ -148,11 +161,22 @@ export class AuthenticationService {
     }
   }
 
+  public isInvitedUser(): boolean {
+    const isInvited = !!localStorage.getItem(this.isInvitedUserKey);
+
+    if (isInvited) {
+      localStorage.removeItem(this.isInvitedUserKey);
+    }
+
+    return isInvited;
+  }
+
   public authenticatedAndActivated(): boolean {
     return this.authenticated() && this.active();
   }
 
   public showLogin(): void {
+    this.initLock(this.router.url === '/signup');
     this.lock.show();
   }
 
@@ -170,6 +194,16 @@ export class AuthenticationService {
     localStorage.removeItem(this.activated);
     localStorage.removeItem(this.idTokenPayload);
     localStorage.removeItem(this.sixUser);
+  }
+
+  public logoutToSignup(): void {
+    localStorage.removeItem(this.accessToken);
+    localStorage.removeItem(this.idToken);
+    localStorage.removeItem(this.activated);
+    localStorage.removeItem(this.idTokenPayload);
+    localStorage.removeItem(this.sixUser);
+
+    this.router.navigate(['/signup']);
   }
 
   public logoutWithJwt(jwt: string, url: string): void {
@@ -231,7 +265,7 @@ export class AuthenticationService {
   }
 
   public isActiveAclCustomerService(): boolean {
-    return this.getActiveAcl().role.name === 'Customer Service';
+    return this.getActiveAcl().role.isCustomerService();
   }
 
   public isActiveAclMasterAccount(): boolean {
@@ -251,14 +285,7 @@ export class AuthenticationService {
 
     if (noRedirection) return;
 
-    if (acl.account.hasBillingIssue()) {
-      this.router.navigateByUrl('/payment/info');
-    } else if (acl.role.name === 'Customer Service') {
-      this.router.navigateByUrl('/customer-service');
-    } else {
-      this.router.navigateByUrl('/dashboard');
-    }
-
+    this.redirectAfterAclChange(this.isActiveAclCustomerService() ? '/customer-service' : '/dashboard');
   }
 
   public registerUser(company: string, firstName: string, lastName: string, terms?: string): Observable<HttpResponse<any> | CustomServerError> {
@@ -309,14 +336,21 @@ export class AuthenticationService {
     return this.getSixUser().hasPermissions(entity, operation, this.getActiveAcl());
   }
 
-  public refreshAfterAcceptInvite(defaultAcl: Acl): void {
+  public refreshAfterAcceptInvite(defaultAcl: Acl, isNewUser: boolean): void {
     if (defaultAcl && defaultAcl.id) {
       localStorage.setItem(this.activeAcl, JSON.stringify(defaultAcl));
       this.currentActiveAcl = defaultAcl;
     }
 
+    localStorage.setItem(this.isInvitedUserKey, 'true');
+
     if (!this.authenticated()) {
-      this.logout();
+      if (isNewUser) {
+        this.logoutToSignup();
+      } else {
+        this.logout();
+      }
+
       return;
     }
 
@@ -369,7 +403,7 @@ export class AuthenticationService {
 
           this.updateSettings(new UserSettings(user.usersetting));
 
-          this.redirectAfterIntrospection(redirectUrl);
+          this.redirectAfterAclChange(redirectUrl);
         } else {
           this.logout();
         }
@@ -377,7 +411,12 @@ export class AuthenticationService {
     );
   }
 
-  private redirectAfterIntrospection(redirectUrl?: string) {
+  private redirectAfterAclChange(redirectUrl?: string) {
+    if (this.shouldRedirectToAccountInfo()) {
+      this.router.navigateByUrl('/account-info');
+      return;
+    }
+
     if (this.shouldRedirectToRegister()) {
       this.router.navigateByUrl('/register');
       return;
@@ -385,7 +424,6 @@ export class AuthenticationService {
 
     if (this.shouldRedirectToPayment()) {
       this.router.navigate(['/payment/info']);
-
       return;
     }
 
@@ -399,16 +437,19 @@ export class AuthenticationService {
     }
   }
 
+  private shouldRedirectToAccountInfo() {
+    return this.getSixUser().acls.length === 0
+      || !this.getActiveAcl().account.active
+      || this.getActiveAcl().role.isDisabled()
+      || this.getActiveAcl().role.isNoPermissions();
+  }
+
   private shouldRedirectToPayment() {
     return this.getActiveAcl().account.hasBillingIssue();
   }
 
   private shouldRedirectToRegister() {
-    return !this.active() || !this.getActiveAcl().account.active;
-  }
-
-  private shouldRedirectToTermsAndConditions(): boolean {
-    return this.getSixUser().termsAndConditionsOutdated || (this.getActiveAcl().role.name === 'Owner' && this.getActiveAcl().termsAndConditionsOutdated);
+    return !this.active() || (this.getActiveAcl().account.isNew() && (this.getActiveAcl().role.isOwner() || this.getActiveAcl().role.isAdmin()));
   }
 
   private shouldRedirectToDashboard(): boolean {

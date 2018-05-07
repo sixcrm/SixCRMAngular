@@ -11,7 +11,7 @@
 
   <mat-sidenav-content [class.container--hover]="!(navigation.showSidenav | async) && showOnHover">
     <header>
-      <app-topnav></app-topnav>
+      <app-topnav [isInvitedUser]="isInvitedUser" (invitedUserInstructionsDismissed)="isInvitedUser = false"></app-topnav>
     </header>
 
     <div class="container">

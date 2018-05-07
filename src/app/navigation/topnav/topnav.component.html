@@ -36,10 +36,12 @@
     <ng-container *ngIf="authService.activeAcl$ | async">
       <simple-dropdown
         class="topnav__acl__dropdown"
+        [showInstructions]="isInvitedUser"
         [mapper]="mapAcl"
         [selectedOption]="authService.activeAcl$ | async"
         [options]="authService.getAcls()"
         [icon]="'domain'"
+        (dismissInstructions)="invitedUserInstructionsDismissed.emit(true)"
         (optionSelected)="changeAcl($event)">
       </simple-dropdown>
     </ng-container>

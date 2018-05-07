@@ -1,6 +1,8 @@
+import {Moment, utc} from 'moment';
+
 export class AccountBilling {
   plan: string;
-  disable: boolean;
+  disable: Moment;
   session: string;
 
   constructor(obj?: any) {
@@ -10,7 +12,7 @@ export class AccountBilling {
 
     this.plan = obj.plan;
     this.session = obj.session;
-    this.disable = !!obj.disable;
+    this.disable = !!obj.disable ? utc(obj.disable) : null;
   }
 
   inverse(): any {

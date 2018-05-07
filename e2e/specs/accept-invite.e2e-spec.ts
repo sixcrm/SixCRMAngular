@@ -31,10 +31,6 @@ describe('Accept Invite', function() {
   let accountPage: AccountPage;
   let termsAndConditionsPage: TermsAndConditionsPage;
 
-  let inviteeEmail = 'testingregistration@example.com';
-  let inviteePassword = 'testingregistrationpassword';
-  let link = generateDummyInviteLink();
-
   beforeEach(() => {
     authPage = new AuthPage();
     acceptInvitePage = new AcceptInvitePage();
@@ -47,57 +43,7 @@ describe('Accept Invite', function() {
     browser.waitForAngularEnabled(true);
   });
 
-  it('should display message with invitee\'s email if non logged in user tries to accept invite', () => {
-    acceptInvitePage.navigateTo(link);
-
-    waitForUrlContains('acceptinvite');
-
-    expect(acceptInvitePage.getAcceptInviteDialog().isPresent()).toBeTruthy();
-    expect(acceptInvitePage.getLoginButton().isPresent()).toBeTruthy();
-    expect(acceptInvitePage.getCancelButton().isPresent()).toBeTruthy();
-    expect(acceptInvitePage.getTitle().isPresent()).toBeTruthy();
-    expect(acceptInvitePage.getTitle().getText()).toContain(inviteeEmail);
-  });
-
-  it('should display message with invitee\'s email if different logged in user tries to accept invite', () => {
-    navigateSuperuserToHomepage();
-
-    acceptInvitePage.navigateTo(link);
-    waitForUrlContains('acceptinvite');
-
-    expect(acceptInvitePage.getAcceptInviteDialog().isPresent()).toBeTruthy();
-    expect(acceptInvitePage.getLoginButton().isPresent()).toBeTruthy();
-    expect(acceptInvitePage.getCancelButton().isPresent()).toBeTruthy();
-    expect(acceptInvitePage.getTitle().isPresent()).toBeTruthy();
-    expect(acceptInvitePage.getTitle().getText()).toContain(inviteeEmail);
-  });
-
-  it('should redirect to accept invite and show welcome message if invitee gets logged in', () => {
-    acceptInvitePage.navigateTo(link);
-    waitForUrlContains('acceptinvite');
-
-    acceptInvitePage.getLoginButton().click();
-
-    waitForPresenceOfLoginFields(authPage);
-    browser.waitForAngularEnabled(false);
-
-    doLogin(authPage, inviteeEmail, inviteePassword);
-    waitForUrlContains('acceptinvite');
-
-    browser.sleep(1000);
-    expect(acceptInvitePage.getWelcomeText().getText()).toContain(`Would you like to accept test@test.com's invite to account "test-account" with role "test-role"`);
-    expect(acceptInvitePage.getWelcomeInstructions().getText()).toEqual('Press "Accept" below to continue');
-  });
-
-  it('should show 404 when try to accept non existing invite', () => {
-    acceptInvitePage.getAcceptButton().click();
-
-    waitForUrlContains('404');
-
-    expect(errorPage.getTitle().getText()).toEqual('Strong Effort.');
-  });
-
-  it('should send proper invite for existing user', () => {
+  it('should send proper invite for existing user', (doneCallback) => {
     let jwt = createTestAuth0JWT('e2e-test-admin@sixcrm.com');
     let request = supertest(environment.bareEndpoint);
 
@@ -115,7 +61,7 @@ describe('Accept Invite', function() {
         browser.sleep(1200);
         expect(acceptInvitePage.getTitle().getText()).toContain('e2e-test-user@sixcrm.com');
 
-        // doneCallback();
+        doneCallback();
       });
   });
 
@@ -298,20 +244,3 @@ describe('Accept Invite', function() {
     });
   });
 });
-
-function generateDummyInviteLink() {
-  let preEncryptedString = JSON.stringify({
-    email: 'testingregistration@example.com',
-    acl: '5db7ed46-75b1-4ecd-b489-e61ef5d1107a',
-    invitor: 'test@test.com',
-    account: 'test-account',
-    account_id: 'test-account_id',
-    role: 'test-role',
-    timestamp: Math.floor(Date.now() / 1000)
-  });
-
-  let invite_token = crypto.createHash('sha1').update('awdawdadawt33209sfsiofjsef'+preEncryptedString).digest('hex');
-  let encoded_params = new Buffer(preEncryptedString).toString('base64');
-
-  return '/acceptinvite?t='+invite_token+'&p='+encoded_params;
-}

@@ -68,7 +68,7 @@ export class RegistrationComponent implements OnInit {
       this.acl = acl;
 
       if (!this.activatingAccount) {
-        this.activatingAccount = this.acl.account.createdAt.isSame(this.acl.account.updatedAt, 's');
+        this.activatingAccount = this.acl.account.isNew();
       }
 
       this.init();

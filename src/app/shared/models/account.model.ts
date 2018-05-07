@@ -41,7 +41,11 @@ export class Account implements Entity<Account> {
   }
 
   hasBillingIssue(): boolean {
-    return !this.billing || !!this.billing.disable;
+    return !this.billing || !this.billing.plan;
+  }
+
+  isNew(): boolean {
+    return this.createdAt.isSame(this.updatedAt, 's')
   }
 
   copy(): Account {

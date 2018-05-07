@@ -13,37 +13,6 @@
       <button class="registration-form__accept" mat-button (click)="acceptInvite()">{{'ACCEPTINVITE_ACCEPT' | translate}}</button>
     </ng-container>
 
-    <ng-container *ngIf="completeScreen">
-      <div class="registration-form__main">
-        {{'ACCEPTINVITE_THANKYOU_TITLE' | translate}}
-      </div>
-
-      <div *ngIf="showAclInstructions" class="instructions">
-        <div class="instructions__header">
-          <div class="instructions__menu">
-            <div class="instructions__menu__item instructions__menu__first"><mat-icon class="domain domain--blue">domain</mat-icon><span>Big new LLC</span> <mat-icon class="key">keyboard_arrow_left</mat-icon></div>
-            <div class="instructions__menu__item"><mat-icon class="domain domain--green">domain</mat-icon><span>ABC Corp</span></div>
-            <div class="instructions__menu__item"><mat-icon class="domain domain--orange">domain</mat-icon><span>Bigger LLC</span></div>
-          </div>
-          <div class="instructions__profile">
-            <mat-icon>account_circle</mat-icon>
-            <div>Hello, John Smith</div>
-            <mat-icon class="key">keyboard_arrow_down</mat-icon>
-          </div>
-        </div>
-
-        <div class="instructions__content">
-          <div class="instructions__content__box">
-            <div class="point"></div>
-            {{'ACCEPTINVITE_THANKYOU_SWITCHTEXT' | translate}}
-          </div>
-        </div>
-      </div>
-
-      <div *ngIf="showSignupInstructions" class="registration-form__main registration-form__main--signup">{{'ACCEPTINVITE_THANKYOU_SIGNUPINSTRUCTIONS' | translate}}</div>
-
-      <button class="registration-form__accept" mat-button (click)="complete()">{{'ACCEPTINVITE_THANKYOU_CONT' | translate}}</button>
-    </ng-container>
   </div>
 
 </div>

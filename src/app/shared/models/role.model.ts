@@ -35,6 +35,26 @@ export class Role implements Entity<Role> {
     return this.permissions.hasPermission(entity, operation);
   }
 
+  isOwner(): boolean {
+    return this.name === 'Owner';
+  }
+
+  isDisabled(): boolean {
+    return this.name === 'Disabled';
+  }
+
+  isAdmin(): boolean {
+    return this.name === 'Administrator';
+  }
+
+  isNoPermissions(): boolean {
+    return this.name === 'No Permissions';
+  }
+
+  isCustomerService(): boolean {
+    return this.name === 'Customer Service';
+  }
+
   copy(): Role {
     return new Role(this.inverse());
   }

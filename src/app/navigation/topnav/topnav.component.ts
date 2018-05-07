@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, Input, Output, EventEmitter} from '@angular/core';
 import {NavigationService} from '../navigation.service';
 import {AuthenticationService} from "../../authentication/authentication.service";
 import {Router} from '@angular/router';
@@ -17,6 +17,9 @@ import {TopnavDropdownOption} from './topnav-dropdown/topnav-dropdown.component'
 })
 export class TopnavComponent implements OnInit {
   @ViewChild('autocomplete') autocomplete: AutocompleteComponent;
+
+  @Input() isInvitedUser: boolean;
+  @Output() invitedUserInstructionsDismissed: EventEmitter<boolean> = new EventEmitter();
 
   showSidenav: boolean;
 

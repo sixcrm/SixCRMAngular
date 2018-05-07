@@ -17,8 +17,6 @@ export class InviteAcceptComponent implements OnInit {
 
   welcomeScreen: boolean;
   completeScreen: boolean;
-  showAclInstructions: boolean;
-  showSignupInstructions: boolean;
 
   formInvalid: boolean;
 
@@ -40,31 +38,15 @@ export class InviteAcceptComponent implements OnInit {
 
   acceptInvite(): void {
     this.authService.acceptInvite(this.acknowledgeInvite.hash, this.acknowledgeInvite.signature).subscribe((res: {isNew: string, account: string}) => {
-      this.welcomeScreen = false;
-      this.completeScreen = true;
-
-      if (this.signupNeeded(res)) {
-        this.showSignupInstructions = true;
-      } else if (this.instructionsNeeded(res)) {
-        this.showAclInstructions = true;
-      }
+      this.authService.refreshAfterAcceptInvite(new Acl({id: this.acknowledgeInvite.acl}), res.isNew);
     });
   }
 
   complete(): void {
-    this.authService.refreshAfterAcceptInvite(new Acl({id: this.acknowledgeInvite.acl}));
   }
 
   logout(): void {
     this.authService.logout();
-  }
-
-  private signupNeeded(res) {
-    return res.isNew;
-  }
-
-  private instructionsNeeded(res) {
-    return !res.isNew;
   }
 
   private initiateAcknowledgeInvite() {
