@@ -93,9 +93,9 @@ export class AnalyticsService {
     })
   }
 
-  getEventFunnel(start: string, end: string, downloadFormat?: string): void {
+  getEventFunnel(start: string, end: string, downloadFormat?: string, eventType?: string): void {
     const funnelStorage = this.analyticsStorage.getEventFunnel(start, end);
-    if (!downloadFormat && funnelStorage) {
+    if (!downloadFormat && funnelStorage && !eventType) {
       this.eventFunnel$.next(funnelStorage);
       return;
     }
@@ -118,21 +118,21 @@ export class AnalyticsService {
 
       this.eventFunnel$.next(funnel);
       this.analyticsStorage.setEventFunnel(start, end, funnel);
-    })
+    });
 
-    // this.queryRequest(eventsFunnelTimeseriesQuery(start, end, "DAY", "click")).subscribe(data => {
-    //   if (data instanceof CustomServerError) {
-    //     this.eventFunnelTimeseries$.next(data);
-    //
-    //     return;
-    //   }
-    //
-    //   let extracted = extractData(data).analytics.records;
-    //
-    //   const timeseries = new EventFunnelTimeseries(extracted);
-    //
-    //   this.eventFunnelTimeseries$.next(timeseries);
-    // })
+    this.queryRequest(eventsFunnelTimeseriesQuery(start, end, "DAY", eventType)).subscribe(data => {
+      if (data instanceof CustomServerError) {
+        this.eventFunnelTimeseries$.next(data);
+
+        return;
+      }
+
+      let extracted = extractData(data).analytics.records;
+
+      const timeseries = new EventFunnelTimeseries(extracted);
+
+      this.eventFunnelTimeseries$.next(timeseries);
+    })
   }
 
   getSubscriptionsByAmount(start: string, end: string, downloadFormat?: string): void {

@@ -1,5 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {EventFunnel} from '../../../shared/models/event-funnel.model';
+import {EventFunnelTimeseries} from "../../../shared/models/event-funnel-timeseries.model";
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
 import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
@@ -12,10 +13,13 @@ import {utc} from 'moment';
 })
 export class FunnelGraphComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
+  public eventType: 'click' | 'lead' | 'main' | 'upsell' | 'confirm';
+
   colors = ['#4383CC', '#4DABF5', '#9ADDFB', '#FDAB31', '#F28933'];
 
   chart;
   funnel: EventFunnel;
+  funnelTimeseries : EventFunnelTimeseries;
 
   chartOptions =  {
     chart: {
@@ -38,8 +42,21 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       }
     },
     series: [
-      {name: '', color: '#00DC59', data: [3, 3, 5, 4, 6, 8, 6, 9, 10, 9, 10], lineWidth: 8}
+      {
+        name: '',
+        color: '#F4F4F4',
+        data: [3, 3, 5, 4, 6, 8, 6, 9, 10, 9, 10],
+        lineWidth: 8
+      }
     ]
+  };
+
+  eventTypeMap = {
+    'click': 'DASHBOARD_EVENTSFUNNEL_CLICK',
+    'lead': 'DASHBOARD_EVENTSFUNNEL_LEAD',
+    'main': 'DASHBOARD_EVENTSFUNNEL_MAIN',
+    'upsell': 'DASHBOARD_EVENTSFUNNEL_UPSELL',
+    'confirm': 'DASHBOARD_EVENTSFUNNEL_CONFIRM'
   };
   constructor(private analyticsService: AnalyticsService) {
     super();
@@ -61,8 +78,24 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       }
     });
 
+    this.analyticsService.eventFunnelTimeseries$.takeUntil(this.unsubscribe$).subscribe((funnelTimeseries: EventFunnelTimeseries | CustomServerError) => {
+      if (funnelTimeseries instanceof CustomServerError) {
+        this.serverError = funnelTimeseries;
+        this.funnelTimeseries = null;
+        return;
+      }
+
+      this.serverError = null;
+      this.funnelTimeseries = funnelTimeseries;
+
+      if (this.chart && this.funnelTimeseries) {
+        this.redrawChartData();
+      }
+    });
+
     this.start = utc().subtract(30, 'd');
     this.end = utc();
+    this.eventType = 'click';
     this.shouldFetch = true;
   }
 
@@ -78,7 +111,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
 
   fetch(): void {
     if (this.shouldFetch) {
-      this.analyticsService.getEventFunnel(this.start.format(), this.end.format());
+      this.analyticsService.getEventFunnel(this.start.format(), this.end.format(), null, this.eventType);
       this.shouldFetch = false;
     }
   }
@@ -95,7 +128,26 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
     }
   }
 
-  redrawChartData(): void {
+  changeEventType(eventType) {
+    this.eventType = eventType;
+    this.refresh();
+  }
 
+  redrawChartData(): void {
+    if (!this.chart || !this.funnelTimeseries || this.funnelTimeseries.datetime.length === 0) return;
+
+    let data = [];
+
+    for (let i = 0; i < this.funnelTimeseries.datetime.length; i++) {
+      data.push({
+        y: this.funnelTimeseries.count[i]
+      });
+    }
+
+    this.chart.series[0].update({
+      color: '#00DC59'
+    });
+
+    this.chart.series[0].setData(data, true, true);
   }
 }

@@ -1,6 +1,17 @@
 <div inViewport (inside)="fetch()" class="dashboard__gray-table-chart">
   <div class="dashboard__gray-table-chart__title">
     <div class="main">{{'DASHBOARD_EVENTSFUNNEL_TITLE' | translate}}</div>
+    <div class="event-type-options">
+      <span>{{(eventTypeMap[eventType] | translate)}}</span>
+      <mat-icon [matMenuTriggerFor]="eventTypeOptions">keyboard_arrow_down</mat-icon>
+      <mat-menu #eventTypeOptions="matMenu" x-position="before">
+        <button mat-menu-item (click)="changeEventType('click')">{{'DASHBOARD_EVENTSFUNNEL_CLICK' | translate}}</button>
+        <button mat-menu-item (click)="changeEventType('lead')">{{'DASHBOARD_EVENTSFUNNEL_LEAD' | translate}}</button>
+        <button mat-menu-item (click)="changeEventType('main')">{{'DASHBOARD_EVENTSFUNNEL_MAIN' | translate}}</button>
+        <button mat-menu-item (click)="changeEventType('upsell')">{{'DASHBOARD_EVENTSFUNNEL_UPSELL' | translate}}</button>
+        <button mat-menu-item (click)="changeEventType('confirm')">{{'DASHBOARD_EVENTSFUNNEL_CONFIRM' | translate}}</button>
+      </mat-menu>
+    </div>
     <mat-icon [matMenuTriggerFor]="downloadOptions">more_vert</mat-icon>
     <mat-menu #downloadOptions="matMenu" x-position="before">
       <button mat-menu-item (click)="download('json')">{{'CHART_DOWNLOADJSON' | translate}}</button>
