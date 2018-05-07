@@ -75,7 +75,6 @@ describe('Accept Invite', function() {
     waitForUrlContains('acceptinvite');
 
     browser.sleep(1000);
-    // expect(acceptInvitePage.getWelcomeText().getText()).toContain(`Would you like to accept e2e-test-admin@sixcrm.com's invite to account "E2E Test Acc" with role "Administrator"?`);
     expect(acceptInvitePage.getWelcomeInstructions().getText()).toEqual('Press "Accept" below to continue');
   });
 
