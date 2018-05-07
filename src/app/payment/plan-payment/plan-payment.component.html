@@ -20,12 +20,12 @@
 
     <div class="form">
       <mat-form-field [class.error]="formInvalid && ccNumberInvalid()">
-        <input type="text" matInput placeholder="{{'PAYMENT_FORM_NUMBER' | translate}}" [(ngModel)]="creditCard.ccnumber" (keydown)="isAllowedNumericKey($event)">
+        <input type="text" matInput placeholder="{{'PAYMENT_FORM_NUMBER' | translate}}" [(ngModel)]="creditCard.ccnumber" (keydown)="isAllowedNumericKey($event) && isShorterThan(20, creditCard.ccnumber, $event)">
       </mat-form-field>
 
 
       <mat-form-field class="code" [class.error]="formInvalid && ccvInvalid()">
-        <input type="text" matInput placeholder="{{'PAYMENT_FORM_CODE' | translate}}" [(ngModel)]="creditCard.ccv" (keydown)="isAllowedNumericKey($event)">
+        <input type="text" matInput placeholder="{{'PAYMENT_FORM_CODE' | translate}}" [(ngModel)]="creditCard.ccv" (keydown)="isAllowedNumericKey($event) && isShorterThan(5, creditCard.ccv, $event)">
       </mat-form-field>
 
 

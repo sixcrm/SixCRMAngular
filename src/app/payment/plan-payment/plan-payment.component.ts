@@ -2,7 +2,7 @@ import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import {Plan} from '../plans/plan.model';
 import {User} from '../../shared/models/user.model';
 import {CreditCard} from '../../shared/models/credit-card.model';
-import {isAllowedNumeric} from '../../shared/utils/form.utils';
+import {isAllowedNumeric, isShorterThan} from '../../shared/utils/form.utils';
 import {HttpWrapperTransactionalService} from '../../shared/services/http-wrapper-transactional.service';
 import {TransactionalResponseError} from '../../shared/models/transactional-response-error.model';
 import {AclsService} from '../../shared/services/acls.service';
@@ -34,6 +34,7 @@ export class PlanPaymentComponent implements OnInit {
   formInvalid: boolean;
 
   isAllowedNumericKey = isAllowedNumeric;
+  isShorterThan = isShorterThan;
 
   paymentInProgress: boolean;
 

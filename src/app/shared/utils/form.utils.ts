@@ -95,3 +95,15 @@ export function isValidCountry(country): boolean {
 
   return getCountries().indexOf(country) !== -1;
 }
+
+export function isShorterThan(limit: number, string: string, event): boolean {
+  if (!string) return true;
+
+  const pattern = /Backspace|ArrowRight|ArrowLeft|Tab/;
+
+  if (pattern.test(event.key)) {
+    return true;
+  }
+
+  return string.length + 1 < limit;
+}
