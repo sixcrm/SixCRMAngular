@@ -14,7 +14,7 @@ export function createTestAuth0JWT(email: string): string {
 export function getJwtContent(email: string): any {
   let now = createTimestampSeconds();
 
-  switch(email) {
+  switch (email) {
     case 'super.user@test.com':
       return {
         "email": email,

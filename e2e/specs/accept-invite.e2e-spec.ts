@@ -109,7 +109,6 @@ describe('Accept Invite', function() {
   it('should submit registration and proceed', () => {
     browser.waitForAngularEnabled(false);
     acceptInvitePage.getAcceptButton().click();
-    browser.pause();
   } );
 
 });
