@@ -43,7 +43,7 @@ describe('Accept Invite', function() {
     browser.waitForAngularEnabled(true);
   });
 
-  it('should send proper invite for existing user', (doneCallback) => {
+  it('should send proper invite for user', (doneCallback) => {
     let jwt = createTestAuth0JWT('e2e-test-admin@sixcrm.com');
     let request = supertest(environment.bareEndpoint);
 
@@ -58,194 +58,187 @@ describe('Accept Invite', function() {
         link = link.replace('https://admin.sixcrm.com', '');
 
         browser.get(link);
-        browser.sleep(5200);
-        //expect(acceptInvitePage.getTitle().getText()).toContain('e2e-test-user@sixcrm.com');
+        browser.sleep(200);
 
-        waitForUrlContains('campaigns');
-        expectUrlToContain('campaigns');
+        waitForUrlContains('acceptinvite/');
+        expectUrlToContain('acceptinvite/');
 
         doneCallback();
       });
   });
-  /*
-   it('should display message when logged in user opens proper invite link', () => {
-     acceptInvitePage.getLoginButton().click();
 
-     waitForPresenceOfLoginFields(authPage);
-     browser.waitForAngularEnabled(false);
+  it('should display welcome modal and accept button when user opens sent link', () => {
+    browser.waitForAngularEnabled(false);
+    acceptInvitePage.getAcceptInviteDialog();
+    acceptInvitePage.getAcceptButton();
+     browser.sleep(500);
+     expect(acceptInvitePage.getAcceptInviteDialog().isPresent()).toBeTruthy();
+     expect(acceptInvitePage.getAcceptButton().isPresent()).toBeTruthy();
+  });
+/*
+  it('should accept invite', () => {
+      browser.waitForAngularEnabled(false);
+      //browser.sleep(500);
+      acceptInvitePage.getAcceptButton().click();
+      browser.sleep(4500);
+    expect(acceptInvitePage.getWelcomeText().getText()).toContain(`Great! We've added you to the account.`);
+    });
 
-     doLogin(authPage, 'e2e-test-user@sixcrm.com', '123456789');
-     waitForUrlContains('acceptinvite');
+  it('should show acl switch graphics', () => {
+        expect(acceptInvitePage.getAclSwitchGraphics().isPresent()).toBeTruthy();
+      });
 
-     browser.sleep(1000);
-     expect(acceptInvitePage.getWelcomeInstructions().getText()).toEqual('Press "Accept" below to continue');
-   });
+      it('should navigate to dashboard after invite accepted', () => {
+        browser.waitForAngularEnabled(false);
 
-   it('should accept invite and display welcome message message', () => {
-     browser.waitForAngularEnabled(false);
+        acceptInvitePage.getContinueButton().click();
 
-     acceptInvitePage.getAcceptButton().click();
+        browser.sleep(1000);
 
-     browser.sleep(1500);
+        waitForUrlContains('dashboard');
+        expectUrlToContain('dashboard');
+      });
 
-     expect(acceptInvitePage.getWelcomeText().getText()).toContain(`Great! We've added you to the account.`);
-   });
+      it('should send proper invite for new user', () => {
 
-     it('should show acl switch graphics', () => {
-       expect(acceptInvitePage.getAclSwitchGraphics().isPresent()).toBeTruthy();
-     });
+        let jwt = createTestAuth0JWT('e2e-test-admin@sixcrm.com');
+        let request = supertest(environment.bareEndpoint);
 
-     it('should navigate to dashboard after invite accepted', () => {
-       browser.waitForAngularEnabled(false);
+        request.post('graph/d3fa3bf3-7111-49f4-8261-87674482bf1c')
+          .set('Authorization', jwt)
+          .send(sendInvite(newEmail))
+          .end((err, response) => {
+            let link = response.body.response.data.inviteuser.link;
+            const envUrl = environment.auth0RedirectUrl;
 
-       acceptInvitePage.getContinueButton().click();
+            if (envUrl === 'http://localhost:4200') {
+              link = link.replace('https://development-admin.sixcrm.com', 'http://localhost:4200');
+            }
 
-       browser.sleep(1000);
+            browser.get(link);
+            browser.sleep(1000);
+            expect(acceptInvitePage.getTitle().getText()).toContain(newEmail);
 
-       waitForUrlContains('dashboard');
-       expectUrlToContain('dashboard');
-     });
+            // doneCallback();
+          });
+      });
 
-     it('should send proper invite for new user', () => {
+      it('should display message when new user opens proper invite link', () => {
+        acceptInvitePage.getLoginButton().click();
 
-       let jwt = createTestAuth0JWT('e2e-test-admin@sixcrm.com');
-       let request = supertest(environment.bareEndpoint);
+        waitForPresenceOfLoginFields(authPage);
+        browser.waitForAngularEnabled(false);
 
-       request.post('graph/d3fa3bf3-7111-49f4-8261-87674482bf1c')
-         .set('Authorization', jwt)
-         .send(sendInvite(newEmail))
-         .end((err, response) => {
-           let link = response.body.response.data.inviteuser.link;
-           const envUrl = environment.auth0RedirectUrl;
+        doSignUp(authPage, newEmail, newPassword);
+        waitForUrlContains('acceptinvite');
 
-           if (envUrl === 'http://localhost:4200') {
-             link = link.replace('https://development-admin.sixcrm.com', 'http://localhost:4200');
-           }
+        browser.sleep(1000);
+        expect(acceptInvitePage.getWelcomeText().getText()).toContain(`Would you like to accept e2e-test-admin@sixcrm.com's invite to account "E2E Test Acc" with role "Administrator"?`);
+        expect(acceptInvitePage.getWelcomeInstructions().getText()).toEqual('Press "Accept" below to continue');
+      });
 
-           browser.get(link);
-           browser.sleep(1000);
-           expect(acceptInvitePage.getTitle().getText()).toContain(newEmail);
+      it('should accept invite of new user and display info form', () => {
+        browser.waitForAngularEnabled(false);
 
-           // doneCallback();
-         });
-     });
+        acceptInvitePage.getAcceptButton().click();
 
-     it('should display message when new user opens proper invite link', () => {
-       acceptInvitePage.getLoginButton().click();
+        browser.sleep(1000);
 
-       waitForPresenceOfLoginFields(authPage);
-       browser.waitForAngularEnabled(false);
+        acceptInvitePage.getInputs().first().sendKeys('firstanem');
+        acceptInvitePage.getInputs().last().sendKeys('lastname');
 
-       doSignUp(authPage, newEmail, newPassword);
-       waitForUrlContains('acceptinvite');
+        acceptInvitePage.getContinueButton().click();
+      });
 
-       browser.sleep(1000);
-       expect(acceptInvitePage.getWelcomeText().getText()).toContain(`Would you like to accept e2e-test-admin@sixcrm.com's invite to account "E2E Test Acc" with role "Administrator"?`);
-       expect(acceptInvitePage.getWelcomeInstructions().getText()).toEqual('Press "Accept" below to continue');
-     });
+      it('should display welcome message message', () => {
+        browser.waitForAngularEnabled(false);
+        browser.sleep(1000);
 
-     it('should accept invite of new user and display info form', () => {
-       browser.waitForAngularEnabled(false);
+        expect(acceptInvitePage.getWelcomeText().getText()).toContain(`Great! We've added you to the account.`);
+      });
 
-       acceptInvitePage.getAcceptButton().click();
+      it('should not show acl switch graphics', () => {
+        expect(acceptInvitePage.getAclSwitchGraphics().isPresent()).toBeFalsy();
+      });
 
-       browser.sleep(1000);
+      it('should navigate to terms and conditions', () => {
+        browser.waitForAngularEnabled(false);
 
-       acceptInvitePage.getInputs().first().sendKeys('firstanem');
-       acceptInvitePage.getInputs().last().sendKeys('lastname');
+        acceptInvitePage.getContinueButton().click();
 
-       acceptInvitePage.getContinueButton().click();
-     });
+        browser.sleep(1000);
 
-     it('should display welcome message message', () => {
-       browser.waitForAngularEnabled(false);
-       browser.sleep(1000);
+        waitForUrlContains('terms-and-conditions');
+        expectUrlToContain('terms-and-conditions');
+      });
 
-       expect(acceptInvitePage.getWelcomeText().getText()).toContain(`Great! We've added you to the account.`);
-     });
+      it('should navigate to dashboard after accepting terms and conditions', () => {
+        browser.waitForAngularEnabled(false);
 
-     it('should not show acl switch graphics', () => {
-       expect(acceptInvitePage.getAclSwitchGraphics().isPresent()).toBeFalsy();
-     });
+        termsAndConditionsPage.getAcceptButton().click();
 
-     it('should navigate to terms and conditions', () => {
-       browser.waitForAngularEnabled(false);
+        waitForUrlContains('dashboard');
+        expectUrlToContain('dashboard');
+      });
 
-       acceptInvitePage.getContinueButton().click();
+      it('should login as admin and open profile page', () => {
+        browser.waitForAngularEnabled(false);
+        browser.driver.manage().window().setSize(1440, 900);
 
-       browser.sleep(1000);
+        browser.get('/');
+        clearLocalStorage();
+        login();
+        waitForUrlContains('dashboard');
+        expectUrlToContain('dashboard');
 
-       waitForUrlContains('terms-and-conditions');
-       expectUrlToContain('terms-and-conditions');
-     });
+        topnavPage.getProfileMenuButton().click();
+        browser.sleep(200);
 
-     it('should navigate to dashboard after accepting terms and conditions', () => {
-       browser.waitForAngularEnabled(false);
+        topnavPage.getUserSettingsMenuOption().click();
+        browser.sleep(200);
+        expectUrlToContain('profile');
+      });
 
-       termsAndConditionsPage.getAcceptButton().click();
+      it('should open account page', () => {
+        browser.waitForAngularEnabled(false);
 
-       waitForUrlContains('dashboard');
-       expectUrlToContain('dashboard');
-     });
+        profilePage.getAccountsTabButton().click();
+        browser.sleep(600);
+        profilePage.getFirstAccount().click();
+        browser.sleep(1200);
+        waitForUrlContains('/accounts/d3fa3bf3-7111-49f4-8261-87674482bf1c');
+        expectUrlToContain('/accounts/d3fa3bf3-7111-49f4-8261-87674482bf1c');
+      });
 
-     it('should login as admin and open profile page', () => {
-       browser.waitForAngularEnabled(false);
-       browser.driver.manage().window().setSize(1440, 900);
+      it('should have more than one user', () => {
+        browser.waitForAngularEnabled(false);
 
-       browser.get('/');
-       clearLocalStorage();
-       login();
-       waitForUrlContains('dashboard');
-       expectUrlToContain('dashboard');
+        accountPage.getTabs().get(1).click();
+        browser.sleep(600);
 
-       topnavPage.getProfileMenuButton().click();
-       browser.sleep(200);
+        expect(accountPage.getAssociatedUsers().count()).toBeGreaterThan(2);
+      });
 
-       topnavPage.getUserSettingsMenuOption().click();
-       browser.sleep(200);
-       expectUrlToContain('profile');
-     });
+      it('should remove all except owner user', () => {
+        browser.waitForAngularEnabled(false);
 
-     it('should open account page', () => {
-       browser.waitForAngularEnabled(false);
+        browser.sleep(600);
 
-       profilePage.getAccountsTabButton().click();
-       browser.sleep(600);
-       profilePage.getFirstAccount().click();
-       browser.sleep(1200);
-       waitForUrlContains('/accounts/d3fa3bf3-7111-49f4-8261-87674482bf1c');
-       expectUrlToContain('/accounts/d3fa3bf3-7111-49f4-8261-87674482bf1c');
-     });
+        accountPage.getAssociatedUsers().count().then(count => {
+          for (let i = 0; i < count - 2; i++) {
+            accountPage.getLastUserButton().click();
+            browser.sleep(200);
+            accountPage.getRemoveUserButton().click();
+            browser.sleep(200);
+            accountPage.getConfirmDeleteButton().click();
+            browser.sleep(2000);
+          }
 
-     it('should have more than one user', () => {
-       browser.waitForAngularEnabled(false);
+          expect(accountPage.getAssociatedUsers().count()).toBe(2);
+          // doneFunction();
+        });
+      });
 
-       accountPage.getTabs().get(1).click();
-       browser.sleep(600);
-
-       expect(accountPage.getAssociatedUsers().count()).toBeGreaterThan(2);
-     });
-
-     it('should remove all except owner user', () => {
-       browser.waitForAngularEnabled(false);
-
-       browser.sleep(600);
-
-       accountPage.getAssociatedUsers().count().then(count => {
-         for (let i = 0; i < count - 2; i++) {
-           accountPage.getLastUserButton().click();
-           browser.sleep(200);
-           accountPage.getRemoveUserButton().click();
-           browser.sleep(200);
-           accountPage.getConfirmDeleteButton().click();
-           browser.sleep(2000);
-         }
-
-         expect(accountPage.getAssociatedUsers().count()).toBe(2);
-         // doneFunction();
-       });
-     });
-
-    */
+     */
 
 });

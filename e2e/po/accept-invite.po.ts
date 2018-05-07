@@ -10,6 +10,18 @@ export class AcceptInvitePage {
     return element(by.css('.accept-invite__form'))
   }
 
+  getAcceptButton() {
+    return element(by.css('.registration-form__accept'));
+  }
+
+  getWelcomeText() {
+    return element(by.css('.registration-form__main'));
+  }
+
+  getContinueButton() {
+    return element(by.css('.accept-invite__button--standalone'));
+  }
+
   getTitle() {
     return element(by.css('.title'));
   }
@@ -22,21 +34,13 @@ export class AcceptInvitePage {
     return element(by.css('.registration-form__button--cancel'))
   }
 
-  getWelcomeText() {
-    return element(by.css('.title'));
-  }
+
 
   getWelcomeInstructions() {
     return element(by.css('.subtitle'));
   }
 
-  getAcceptButton() {
-    return element(by.css('.accept-invite__button--small-margin'));
-  }
 
-  getContinueButton() {
-    return element(by.css('.accept-invite__button--standalone'));
-  }
 
   getInputs() {
     return element.all(by.css('input'));
