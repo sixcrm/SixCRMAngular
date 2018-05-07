@@ -34,6 +34,7 @@ export class AuthenticationService {
   private idTokenPayload: string = 'id_token_payload';
   private sixUser: string = 'six_user';
   private activeAcl: string = 'active_acl';
+  private isInvitedUserKey: string = 'is_invited_user';
 
   private currentSixUser: User = new User();
   private currentUserSettings: UserSettings = new UserSettings();
@@ -158,6 +159,16 @@ export class AuthenticationService {
     } else {
       localStorage.removeItem(this.activated);
     }
+  }
+
+  public isInvitedUser(): boolean {
+    const isInvited = !!localStorage.getItem(this.isInvitedUserKey);
+
+    if (isInvited) {
+      localStorage.removeItem(this.isInvitedUserKey);
+    }
+
+    return isInvited;
   }
 
   public authenticatedAndActivated(): boolean {
@@ -330,6 +341,8 @@ export class AuthenticationService {
       localStorage.setItem(this.activeAcl, JSON.stringify(defaultAcl));
       this.currentActiveAcl = defaultAcl;
     }
+
+    localStorage.setItem(this.isInvitedUserKey, 'true');
 
     if (!this.authenticated()) {
       if (isNewUser) {

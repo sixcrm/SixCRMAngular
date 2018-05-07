@@ -29,6 +29,8 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
   userAclOutdated: boolean;
   ownerAclOutdated: boolean;
 
+  isInvitedUser: boolean;
+
   constructor(
     public navigation: NavigationService,
     public http: HttpWrapperService,
@@ -38,7 +40,9 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      if (!!params['w']) {
+      this.isInvitedUser = this.authService.isInvitedUser();
+
+      if (this.isInvitedUser || !!params['w']) {
         this.showWelcomeOverlay = true;
 
         setTimeout(() => this.showWelcomeOverlay = false, 2000);

@@ -23,7 +23,10 @@ export class SimpleDropdownComponent implements OnInit {
   @Input() icon: string;
   @Input() disabled: boolean;
   @Input() small: boolean;
+  @Input() showInstructions: boolean;
+
   @Output() optionSelected: EventEmitter<any> = new EventEmitter();
+  @Output() dismissInstructions: EventEmitter<boolean> = new EventEmitter();
 
   dropdownVisible: boolean = false;
 
@@ -47,9 +50,15 @@ export class SimpleDropdownComponent implements OnInit {
   }
 
   getHeight(): string {
-    if (!this.dropdownVisible || !this.getOptions()) return '0';
+    if ((!this.dropdownVisible && !this.showInstructions) || !this.getOptions()) return '0';
 
     return this.getOptions().length * (this.small ? 44 : 48) + 'px';
+  }
+
+  getHeightNumber(): string {
+    if ((!this.dropdownVisible && !this.showInstructions) || !this.getOptions()) return '0';
+
+    return this.getOptions().length * (this.small ? 44 : 48);
   }
 
   select(option: any): void {
