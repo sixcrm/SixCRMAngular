@@ -27,8 +27,8 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
   activeAcl: Acl;
   activeUser: User;
   sub: Subscription;
-  updateMode: boolean;
   requestInProgress: boolean;
+  showingOwnerTermsAndConditions: boolean;
 
   mapAcl = (acl: Acl) => acl.account.name;
 
@@ -75,6 +75,7 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
         return;
       }
 
+      this.showingOwnerTermsAndConditions = true;
       this.termsAndConditions = response.body.response.data.latesttermsandconditions;
     })
   }
@@ -132,6 +133,7 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
       const index = firstIndexOf(user.acls || [], (acl) => acl.id === this.activeAcl.id);
 
       if (index !== -1) {
+        this.showingOwnerTermsAndConditions = false;
         user.acls[index].termsAndConditionsOutdated = false;
 
         this.authService.updateSixUser(user);

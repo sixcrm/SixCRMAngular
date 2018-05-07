@@ -6,6 +6,7 @@
   <div class="actions">
 
     <simple-dropdown
+      *ngIf="showingOwnerTermsAndConditions"
       class="terms-switcher"
       [selectedOption]="authService.activeAcl$ | async"
       [disabled]="requestInProgress"
