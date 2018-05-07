@@ -1,6 +1,8 @@
 <div class="container">
 
-  <div class="plan">
+  <div class="plan"
+       [class.plan--selected]="selectedPlan && selectedPlan === 'basic'"
+       [class.plan--nonselected]="selectedPlan && selectedPlan !== 'basic'">
     <div class="name">{{'PAYMENT_PLANS_BASIC' | translate}}</div>
 
     <div class="item">
@@ -18,10 +20,16 @@
       <div class="key">{{'PAYMENT_PLANS_CAMPAIGN' | translate}}</div>
     </div>
 
-    <button mat-button (click)="selectBasic()">{{'PAYMENT_PLANS_CHOOSE' | translate}}</button>
+    <button mat-button
+            (click)="selectBasic()"
+            [disabled]="selectedPlan">
+      {{'PAYMENT_PLANS_CHOOSE' | translate}}
+    </button>
   </div>
 
-  <div class="plan">
+  <div class="plan"
+       [class.plan--selected]="selectedPlan && selectedPlan === 'pro'"
+       [class.plan--nonselected]="selectedPlan && selectedPlan !== 'pro'">
     <div class="name">{{'PAYMENT_PLANS_PROFESSIONAL' | translate}}</div>
 
     <div class="item">
@@ -39,11 +47,16 @@
       <div class="key">{{'PAYMENT_PLANS_CAMPAIGN' | translate}}</div>
     </div>
 
-    <button mat-button (click)="selectProfessional()">{{'PAYMENT_PLANS_CHOOSE' | translate}}</button>
+    <button mat-button
+            (click)="selectProfessional()"
+            [disabled]="selectedPlan">
+      {{'PAYMENT_PLANS_CHOOSE' | translate}}
+    </button>
   </div>
 
-
-  <div class="plan">
+  <div class="plan"
+       [class.plan--selected]="selectedPlan && selectedPlan === 'premium'"
+       [class.plan--nonselected]="selectedPlan && selectedPlan !== 'premium'">
     <div class="name">{{'PAYMENT_PLANS_PREMIUM' | translate}}</div>
 
     <div class="item">
@@ -61,7 +74,11 @@
       <div class="key">{{'PAYMENT_PLANS_CAMPAIGN' | translate}}</div>
     </div>
 
-    <button mat-button (click)="selectPremium()">{{'PAYMENT_PLANS_CHOOSE' | translate}}</button>
+    <button mat-button
+            (click)="selectPremium()"
+            [disabled]="selectedPlan">
+      {{'PAYMENT_PLANS_CHOOSE' | translate}}
+    </button>
   </div>
 
 </div>
