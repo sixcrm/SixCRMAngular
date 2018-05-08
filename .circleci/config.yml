@@ -144,6 +144,7 @@ jobs:
               node libs/deployment_scripts/src/merge-branches.js production
             elif [ "${CIRCLE_BRANCH}" == "production" ]; then
               node libs/deployment_scripts/src/merge-branches.js priority
+            fi
 
 workflows:
   version: 2
