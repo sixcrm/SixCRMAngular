@@ -49,7 +49,7 @@ jobs:
           name: Build Angular app
           command: ./libs/deployment_scripts/src/build-angular.sh
           no_output_timeout: 20m
-  sts:
+  aws_sts:
     <<: *job-defaults
     steps:
       - checkout
@@ -133,15 +133,15 @@ workflows:
       - build:
           requires:
             - version
-      - sts:
+      - aws_sts:
           requires:
             - build
       - deploy_s3:
           requires:
-            - sts
+            - aws_sts
       - deploy_cloudfront:
           requires:
-            - sts
+            - aws_sts
             - deploy_s3
       - merge:
           requires:
