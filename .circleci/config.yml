@@ -180,7 +180,7 @@ workflows:
             branches:
               only:
                 - development
-      - merge_staging_production:
+      - hold:
           type: approval
           requires:
             - deploy_cloudfront
@@ -188,3 +188,6 @@ workflows:
             branches:
               ignore:
                 - development
+      - merge_staging_production:
+          requires:
+            - hold
