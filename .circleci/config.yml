@@ -187,8 +187,9 @@ workflows:
             - deploy_cloudfront
           filters:
             branches:
-              ignore:
-                - development
+              only:
+                - staging
+                - production
       - merge_staging_production:
           requires:
             - hold
