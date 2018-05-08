@@ -50,7 +50,7 @@ describe('Accept Invite', function() {
 
     request.post('graph/d3fa3bf3-7111-49f4-8261-87674482bf1c')
       .set('Authorization', jwt)
-      .send(sendInvite('e2e-test-user@sixcrm.com'))
+      .send(sendInvite(newEmail))
       .end((err, response) => {
         let link = response.body.response.data.inviteuser.link;
 
@@ -70,18 +70,18 @@ describe('Accept Invite', function() {
 
   it('should display welcome modal and accept button when user opens sent link', () => {
     browser.waitForAngularEnabled(false);
-    acceptInvitePage.getAcceptInviteDialog();
-    acceptInvitePage.getAcceptButton();
      browser.sleep(500);
      expectPresent(acceptInvitePage.getAcceptInviteDialog());
-     expect(acceptInvitePage.getAcceptButton().isPresent()).toBeTruthy();
+     expectPresent(acceptInvitePage.getAcceptButton());
   });
 
   it('should accept invite and proceed to auth0 sign up', () => {
     browser.waitForAngularEnabled(false);
+
     acceptInvitePage.getAcceptButton().click();
     browser.sleep(3500);
-    acceptInvitePage.getAuth0SignUpTab().click();
+    waitForUrlContains('/signup');
+    expectUrlToContain('/signup');
     expect(acceptInvitePage.getAuth0SignUpTab().last().getText()).toEqual('Sign Up');
     });
 
@@ -100,23 +100,18 @@ describe('Accept Invite', function() {
     browser.waitForAngularEnabled(false);
     acceptInvitePage.getRegisterInputs(0).sendKeys('e2e First');
     acceptInvitePage.getRegisterInputs(1).sendKeys('e2e Last');
-    acceptInvitePage.getRegisterInputs(2).sendKeys(newCompany);
-    browser.sleep(3000);
+    // acceptInvitePage.getRegisterInputs(2).sendKeys(newCompany);
+    browser.sleep(500);
     expect(acceptInvitePage.getRegisterTitle().getText()).toEqual(`We\'re excited to have you join us`);
     expect(acceptInvitePage.getRegisterTerms().getText()).toEqual(`By accepting this invitation and creating a SIX account, you agree to the End User License Agreement.`);
   });
 
-  it('should submit registration and proceed', () => {
+  it('should submit registration and proceed to dashboard', () => {
     browser.waitForAngularEnabled(false);
     acceptInvitePage.getAcceptButton().click();
     browser.sleep(5000);
-    waitForUrlContains('/payment');
-    expectUrlToContain('/payment');
+    waitForUrlContains('/dashboard');
+    expectUrlToContain('/dashboard');
   } );
-
-  it('should now choose a plan and proceed to payment method', () => {
-
-    }
-  );
 
 });
