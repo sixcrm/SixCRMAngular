@@ -329,7 +329,7 @@ export class AuthenticationService {
     let account = this.getActiveAcl().account;
     let endpoint = environment.endpoint + account.id;
 
-    return this.http.post(endpoint, updateAccountForRegistrationMutation(account, company), {headers: generateHeaders(this.getToken())}, {failStrategy: FailStrategy.Soft});
+    return this.http.postWithError(endpoint, updateAccountForRegistrationMutation(account, company), {headers: generateHeaders(this.getToken())}, {failStrategy: FailStrategy.Soft, ignoreSnack: true});
   }
 
   public hasPermissions(entity: string, operation: string): boolean {

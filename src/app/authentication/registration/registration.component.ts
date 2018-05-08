@@ -37,6 +37,7 @@ export class RegistrationComponent implements OnInit {
   activatingUser: boolean;
 
   requestInProgress: boolean;
+  duplicateAccountError: boolean;
 
   inited: boolean;
   showProgress: boolean;
@@ -49,6 +50,8 @@ export class RegistrationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.duplicateAccountError = false;
+
     const payload = this.authService.getPayload();
 
     this.firstName = payload.given_name;
@@ -102,6 +105,7 @@ export class RegistrationComponent implements OnInit {
 
     this.requestInProgress = true;
 
+    this.activateAccount();
     if (this.activatingUser) {
       this.activateUser();
     } else if (this.activatingAccount) {
@@ -114,6 +118,8 @@ export class RegistrationComponent implements OnInit {
   private activateAccount() {
     this.authService.updateCurrentAccount(this.companyName).subscribe(res => {
       if (res instanceof CustomServerError) {
+        this.duplicateAccountError = true;
+        this.formInvalid = true;
         this.requestInProgress = false;
         return;
       }
@@ -159,6 +165,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   registrationCompleted() {
+    this.duplicateAccountError = false;
     this.authService.setActive(true);
 
     if (this.authService.getActiveAcl().account.hasBillingIssue()) {
@@ -177,6 +184,10 @@ export class RegistrationComponent implements OnInit {
     if (!this.userTerms) return;
 
     this.openTerms(this.userTerms.title, this.userTerms.body);
+  }
+
+  resetError() {
+    this.duplicateAccountError = false;
   }
 
   private openTerms(title: string, text: string) {

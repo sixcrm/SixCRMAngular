@@ -12,6 +12,7 @@ export enum FailStrategy {
 export interface RequestBehaviourOptions {
   ignoreProgress?: boolean;
   failStrategy?: FailStrategy;
+  ignoreSnack?: boolean;
 }
 
 @Injectable()
@@ -80,6 +81,7 @@ export class HttpWrapperService {
 
     const ignoreProgress: boolean = requestBehaviourOptions && requestBehaviourOptions.ignoreProgress;
     const failStrategy: FailStrategy = requestBehaviourOptions ? requestBehaviourOptions.failStrategy : FailStrategy.Ignore;
+    const ignoreSnack: boolean = requestBehaviourOptions ? requestBehaviourOptions.ignoreSnack : false;
 
     if (!ignoreProgress) this.setInProgress();
 
@@ -98,7 +100,9 @@ export class HttpWrapperService {
         // handle error
         if (!ignoreProgress) this.setNotInProgress();
 
-        this.handleError(error);
+        if (!ignoreSnack) {
+          this.handleError(error);
+        }
 
         if (failStrategy === FailStrategy.Hard) {
           this.router.navigateByUrl('/error');
