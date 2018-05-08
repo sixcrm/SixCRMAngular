@@ -7,10 +7,15 @@ export class StateMachineTimeseries {
 
   constructor(obj?: any) {
     if (!obj) {
-      obj = {};
+      obj = [];
     }
 
-    this.datetime = utc(obj.datetime);
-    this.count = obj.count || 0;
+    for (let element of obj) {
+      if (element.key === 'count') {
+        this.count = parseInt(element.value) || 0;
+      } else if (element.key === 'datetime') {
+        this.datetime = utc(element.value);
+      }
+    }
   }
 }

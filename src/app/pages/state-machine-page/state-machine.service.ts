@@ -21,14 +21,14 @@ export class StateMachineService {
   constructor(private authService: AuthenticationService, private http: HttpWrapperService) { }
 
   getTimeseries(queue: string, start: string, end: string): void {
-    this.queryRequest(getQueueSummary(queue, start, end)).subscribe(res => {
+    this.queryRequest(getQueueSummary(queue, start, end, 'DAY')).subscribe(res => {
       if (res instanceof CustomServerError) {
         this.timeseries$.next([]);
         return;
       }
 
       this.timeseries$.next(
-        res.body.response.data.rebillsummary.summary
+        res.body.response.data.analytics.records
           .map(t => new StateMachineTimeseries(t))
           .sort((a,b) => {
             if (a.datetime.isBefore(b.datetime)) return -1;

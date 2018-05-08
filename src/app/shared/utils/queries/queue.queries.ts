@@ -1,10 +1,32 @@
-export function getQueueSummary(queueName: string, start: string, end: string, limit?: string, offset?: string): string {
+export function getQueueSummary(queueName: string, start: string, end: string, period: string, limit?: string, offset?: string): string {
   return `
     query {
-      rebillsummary (analyticsfilter:{start:"${start}", end:"${end}"}, pagination: { limit:${limit ? limit : 16}, offset:${offset ? offset: 0} }, queuename:"${queueName}", period:"day")
-        {summary { datetime, count }
-      }
-    }`
+      analytics (
+        reportType: rebillSummary
+        facets: [{
+        facet: "start"
+          values: ["${start}"]
+        },
+        {
+          facet: "end"
+          values: ["${end}"]
+        },
+        {
+          facet: "period"
+          values: ["${period}"]
+        },
+        {
+          facet: "queueName"
+          values: ["${queueName}"]
+        }]
+        pagination: {
+          limit: ${limit ? limit : 16}
+          offset: ${offset ? offset : 0}
+          direction: "ASC"
+        }
+     ) {records { key value }}
+    }
+  `;
 }
 
 export function getCurrentQueueSummary(queuename: string) : string {
