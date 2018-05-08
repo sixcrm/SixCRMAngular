@@ -97,6 +97,9 @@ jobs:
       - restore_cache:
           key: deployment-credentials-{{ .Branch }}-{{ .Revision }}
       - run:
+          name: Set Credentials
+          command: cat deployment_credentials/stscredentials >> $BASH_ENV
+      - run:
           name: Deploy App to s3
           command: node libs/deployment_scripts/src/deploy-s3.js deployment/deploy-config.json
   deploy_cloudfront:
@@ -111,6 +114,9 @@ jobs:
           key: deployment-credentials-{{ .Branch }}-{{ .Revision }}
       - restore_cache:
           key: dist-{{ .Branch }}-{{ .Revision }}
+      - run:
+          name: Set Credentials
+          command: cat deployment_credentials/stscredentials >> $BASH_ENV
       - run:
           name: Add/Update CloudFront Distribution
           command: node libs/deployment_scripts/src/deploy-cloudfront.js deployment/deploy-config.json
