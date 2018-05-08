@@ -104,6 +104,14 @@ export class PlanPaymentComponent implements OnInit {
           return;
         }
 
+        const transaction = (response.transactions || [])[0];
+
+        if (!transaction || transaction.processorResponse.code !== 'success') {
+          this.paymentInProgress = false;
+          this.transactionalError = true;
+          return;
+        }
+
         this.accountService.activateAccount(this.authService.getActiveAcl().account, response.session).subscribe(res => {
           if (res instanceof CustomServerError) {
             return;

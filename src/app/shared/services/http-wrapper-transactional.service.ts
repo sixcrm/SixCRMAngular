@@ -70,7 +70,7 @@ export class HttpWrapperTransactionalService {
       customer: {
         firstname: user.firstName || 'Fixed',
         lastname: user.lastName || 'Fixed',
-        email: user.id,
+        email: user.id || 'fixed@sixcrm.com',
         address: address
       },
       creditcard: {
