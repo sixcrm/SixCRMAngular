@@ -50,11 +50,9 @@ export class AcceptInvitePage {
     return element(by.css('.registration-form__button--cancel'))
   }
 
-  getWelcomeInstructions() {
+  getWelcome() {
     return element(by.css('.subtitle'));
   }
-
-
 
   getAclSwitchGraphics() {
     return element(by.css('.instructions'));

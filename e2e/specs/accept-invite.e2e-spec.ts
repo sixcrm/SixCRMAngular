@@ -101,7 +101,7 @@ describe('Accept Invite', function() {
     acceptInvitePage.getRegisterInputs(0).sendKeys('e2e First');
     acceptInvitePage.getRegisterInputs(1).sendKeys('e2e Last');
     acceptInvitePage.getRegisterInputs(2).sendKeys(newCompany);
-    browser.sleep(5000);
+    browser.sleep(3000);
     expect(acceptInvitePage.getRegisterTitle().getText()).toEqual(`We\'re excited to have you join us`);
     expect(acceptInvitePage.getRegisterTerms().getText()).toEqual(`By accepting this invitation and creating a SIX account, you agree to the End User License Agreement.`);
   });
@@ -109,6 +109,14 @@ describe('Accept Invite', function() {
   it('should submit registration and proceed', () => {
     browser.waitForAngularEnabled(false);
     acceptInvitePage.getAcceptButton().click();
+    browser.sleep(5000);
+    waitForUrlContains('/payment');
+    expectUrlToContain('/payment');
   } );
+
+  it('should now choose a plan and proceed to payment method', () => {
+
+    }
+  );
 
 });
