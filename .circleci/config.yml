@@ -1,0 +1,164 @@
+defaults: &job-defaults
+  docker:
+    - image: circleci/node:8.10
+      environment:
+        - TZ: "/usr/share/zoneinfo/America/Los_Angeles"
+
+version: 2
+jobs:
+  install:
+    <<: *job-defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - restore_cache:
+          key: git-modules-{{ .Branch }}-{{ .Revision }}
+      - run: git submodule update --init --remote --merge
+      - run:
+          name: npm install
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+      - save_cache:
+          key: git-modules-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - libs/deployment_scripts
+  version:
+    <<: *job-defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - restore_cache:
+          key: git-modules-{{ .Branch }}-{{ .Revision }}
+      - run:
+          name: Set version
+          command: node libs/deployment_scripts/src/versioning.js
+  build:
+    <<: *job-defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - restore_cache:
+          key: git-modules-{{ .Branch }}-{{ .Revision }}
+      - restore_cache:
+          key: dist-{{ .Branch }}-{{ .Revision }}
+      - run:
+          name: Build Angular app
+          command: ./libs/deployment_scripts/src/build-angular.sh
+          no_output_timeout: 20m
+      - save_cache:
+          key: dist-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - dist
+  aws_sts:
+    <<: *job-defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - restore_cache:
+          key: git-modules-{{ .Branch }}-{{ .Revision }}
+      - run:
+          name: debugging
+          command: printenv
+      - restore_cache:
+          key: deployment-credentials-{{ .Branch }}-{{ .Revision }}
+      - run:
+          name: Make Access Credentials directory
+          command: mkdir -p deployment_credentials/
+      - run:
+          name: Create Credentials
+          command: node ./libs/deployment_scripts/src/sts-assume-role.js $CIRCLE_BRANCH >> deployment_credentials/stscredentials
+      - save_cache:
+          key: deployment-credentials-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - deployment_credentials
+      - run:
+          name: set credentials
+          command: cat deployment_credentials/stscredentials >> $BASH_ENV
+      - run:
+          name: Debugging 2
+          command: printenv
+  deploy_s3:
+    <<: *job-defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - restore_cache:
+          key: git-modules-{{ .Branch }}-{{ .Revision }}
+      - restore_cache:
+          key: dist-{{ .Branch }}-{{ .Revision }}
+      - restore_cache:
+          key: deployment-credentials-{{ .Branch }}-{{ .Revision }}
+      - run:
+          name: Deploy App to s3
+          command: node libs/deployment_scripts/src/deploy-s3.js deployment/deploy-config.json
+  deploy_cloudfront:
+    <<: *job-defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - restore_cache:
+          key: git-modules-{{ .Branch }}-{{ .Revision }}
+      - restore_cache:
+          key: deployment-credentials-{{ .Branch }}-{{ .Revision }}
+      - restore_cache:
+          key: dist-{{ .Branch }}-{{ .Revision }}
+      - run:
+          name: Add/Update CloudFront Distribution
+          command: node libs/deployment_scripts/src/deploy-cloudfront.js deployment/deploy-config.json
+  merge:
+    <<: *job-defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - restore_cache:
+          key: git-modules-{{ .Branch }}-{{ .Revision }}
+      - run:
+          name: Promote changes
+          command: node libs/deployment_scripts/src/merge-branches.js deployment/deploy-config.json
+
+workflows:
+  version: 2
+  build_deploy_test_and_merge:
+    jobs:
+      - install:
+          filters:
+            branches:
+              only:
+                - development
+                - staging
+                - production
+      - version:
+          requires:
+            - install
+      - build:
+          requires:
+            - version
+      - aws_sts:
+          requires:
+            - install
+      - deploy_s3:
+          requires:
+            - build
+            - aws_sts
+      - deploy_cloudfront:
+          requires:
+            - aws_sts
+            - deploy_s3
+      - merge:
+          requires:
+            - deploy_s3
+            - deploy_cloudfront
+          filters:
+            branches:
+              ignore:
+                - production
