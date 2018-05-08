@@ -152,11 +152,9 @@ workflows:
             - aws_sts
       - deploy_cloudfront:
           requires:
-            - aws_sts
             - deploy_s3
       - merge:
           requires:
-            - deploy_s3
             - deploy_cloudfront
           filters:
             branches:
