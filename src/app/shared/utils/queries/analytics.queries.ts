@@ -2,16 +2,24 @@ import {parseFilterTerms, parseAdditionalFilters} from './helper.queries';
 import {FilterTerm} from '../../components/advanced-filter/advanced-filter.component';
 
 export function transactionSummaryQuery(start: string, end: string, filterTerms: FilterTerm[], additionalFilters?: any[]): string {
-  let filterString = parseFilterTerms(filterTerms);
-
-  let additional = parseAdditionalFilters(additionalFilters);
-
-  return `{
-		transactionsummary (analyticsfilter:{${dateRange(start, end)} ${filterString} ${additional} targetperiodcount: 24}) {
-			transactions { datetime byprocessorresult { processor_result amount count }
-			}
-		}
-	}`
+  return `
+    query {
+      analytics (
+        reportType: transactionSummary
+        facets: [{
+        facet: "start"
+          values: ["${start}"]
+        },
+        {
+          facet: "end"
+          values: ["${end}"]
+        },
+        {
+          facet: "period"
+          values: ["DAY"]
+        }
+      ]) {records { key value }}
+    }`;
 }
 
 export function heroChartQuery(start: string, end: string, period: string, comparisonType: string, campaignId?: string): string {

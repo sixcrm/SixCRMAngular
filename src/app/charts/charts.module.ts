@@ -11,7 +11,7 @@ import {TranslationModule} from '../translation/translation.module';
 import {MaterialSelectionModule} from '../material-selection/material-selection.module';
 
 export function hchartFactory() {
-  return require('highcharts');
+  return require('highcharts/highstock');
 }
 
 @NgModule({
