@@ -1,0 +1,69 @@
+general:
+  branches:
+    only:
+      - staging
+      - development
+      - production
+
+machine:
+  timezone:
+    America/Los_Angeles
+  node:
+    version: 8.9.0
+
+checkout:
+  post:
+    - git submodule update --init --remote --merge
+
+dependencies:
+  pre:
+    - openssl aes-256-cbc -d -in ./deployment/config/aws.$CIRCLE_BRANCH.encrypted -k $SIX_SKELETON_KEY >> ~/.circlerc
+
+test:
+  override:
+    - "true"
+
+deployment:
+  production:
+    branch: production
+    commands:
+      - node libs/deployment_scripts/src/versioning.js
+      - ./libs/deployment_scripts/src/build-angular.sh:
+          timeout: 1200
+      - node libs/deployment_scripts/src/deploy-s3.js deployment/deploy-config.json
+      - node libs/deployment_scripts/src/deploy-cloudfront.js deployment/deploy-config.json
+
+  staging:
+    branch: staging
+    commands:
+      - node libs/deployment_scripts/src/versioning.js
+      - ./libs/deployment_scripts/src/build-angular.sh:
+          timeout: 1200
+      - node libs/deployment_scripts/src/deploy-s3.js deployment/deploy-config.json
+      - node libs/deployment_scripts/src/deploy-cloudfront.js deployment/deploy-config.json
+      # - npm run webdriver-update
+      # - npm run e2e.stage
+      - node libs/deployment_scripts/src/merge-branches.js deployment/deploy-config.json
+
+  development:
+    branch: development
+    commands:
+      # Set version
+      - node libs/deployment_scripts/src/versioning.js
+
+      # Build Angular App
+      - ./libs/deployment_scripts/src/build-angular.sh:
+          timeout: 1200
+
+      # Deploy App to S3
+      - node libs/deployment_scripts/src/deploy-s3.js deployment/deploy-config.json
+
+      # Add/Update CloudFront Distribution
+      - node libs/deployment_scripts/src/deploy-cloudfront.js deployment/deploy-config.json
+
+      # Run e2e tests before propagation
+      # - npm run webdriver-update
+      # - npm run e2e.dev
+
+      # Promote changes
+      - node libs/deployment_scripts/src/merge-branches.js deployment/deploy-config.json
