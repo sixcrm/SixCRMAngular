@@ -120,7 +120,7 @@ jobs:
       - run:
           name: Add/Update CloudFront Distribution
           command: node libs/deployment_scripts/src/deploy-cloudfront.js deployment/deploy-config.json
-  merge:
+  merge_development:
     <<: *job-defaults
     steps:
       - checkout
@@ -129,7 +129,21 @@ jobs:
       - run: git submodule update --init --remote --merge
       - run:
           name: Promote changes
-          command: node libs/deployment_scripts/src/merge-branches.js deployment/deploy-config.json
+          command: node libs/deployment_scripts/src/merge-branches.js staging
+  merge_staging_production:
+    <<: *job-defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run: git submodule update --init --remote --merge
+      - run:
+          name: Promote changes
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "staging" ]; then
+              node libs/deployment_scripts/src/merge-branches.js production
+            elif [ "${CIRCLE_BRANCH}" == "production" ]; then
+              node libs/deployment_scripts/src/merge-branches.js priority
 
 workflows:
   version: 2
@@ -142,6 +156,7 @@ workflows:
                 - development
                 - staging
                 - production
+                - priority
       - version:
           requires:
             - install
@@ -158,10 +173,18 @@ workflows:
       - deploy_cloudfront:
           requires:
             - deploy_s3
-      - merge:
+      - merge_development:
+          requires:
+            - deploy_cloudfront
+          filters:
+            branches:
+              only:
+                - development
+      - merge_staging_production:
+          type: approval
           requires:
             - deploy_cloudfront
           filters:
             branches:
               ignore:
-                - production
+                - development
