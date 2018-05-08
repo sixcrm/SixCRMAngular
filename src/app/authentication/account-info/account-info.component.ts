@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../authentication.service';
 import {Acl} from '../../shared/models/acl.model';
 
@@ -9,6 +9,7 @@ import {Acl} from '../../shared/models/acl.model';
 })
 export class AccountInfoComponent implements OnInit {
 
+  title: string;
   text: string;
 
   mapAcl = (acl: Acl) => acl.account.name;
@@ -17,14 +18,16 @@ export class AccountInfoComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.getSixUser().acls.length === 0) {
-      this.text = 'You don\'t have any account. Please create a new Account.';
+      this.title = 'No Available Accounts';
+      this.text = 'You do not have permission to view any active accounts. Contact an administrator for access, or create your own account.';
     } else if (!this.authService.getActiveAcl().account.active) {
-      this.text = 'This account is not active. Please contact Account Owner.';
-    } else if (this.authService.getActiveAcl().role.isDisabled()) {
-      this.text = 'Your access to this account has been disabled. Please contact Account Owner.';
+      this.title = 'Account Inactive';
+      this.text = 'You cannot currently sign in to this account. Please contact your administrator for more information.';
     } else if (this.authService.getActiveAcl().role.isNoPermissions()) {
-      this.text = 'Your don\'t have permissions to access this account. Please contact Account Owner.';
+      this.title = 'No Permissions';
+      this.text = 'You do not have permissions to view content for this account. Contact an administrator for access.';
     } else {
+      this.title = 'Account Issues';
       this.text = 'There are some issues with this account. Please contact Account Owner.';
     }
   }

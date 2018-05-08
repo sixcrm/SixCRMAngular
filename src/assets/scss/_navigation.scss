@@ -249,13 +249,13 @@ app-topnav {
   width: 100vw;
   height: 100vh;
   background: linear-gradient(to bottom left, #4277C2, #2C98F0);
+  font-family: "Roboto", sans-serif;
 
   .text {
     margin: auto;
     text-align: center;
     color: white;
     font-size: 36px;
-    font-family: "Roboto", sans-serif;
   }
 
   .logout {
