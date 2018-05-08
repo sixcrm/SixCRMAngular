@@ -1,4 +1,4 @@
-<div class="simple-dropdown" [class.simple-dropdown--small]="small">
+<div class="simple-dropdown" [class.simple-dropdown--small]="small" [class.simple-dropdown--instructions]="showInstructions">
 
   <div class="simple-dropdown" [class.simple-dropdown--active]="dropdownVisible || showInstructions">
     <div class="simple-dropdown__header" [class.simple-dropdown__header--active]="dropdownVisible || showInstructions" (click)="toggleDropdown()">
@@ -9,7 +9,7 @@
 
     <div *ngIf="showInstructions" [style.height]="getHeightNumber() + 115 + 'px'" class="simple-dropdown__instructions">
       <div [style.margin-top]="getHeightNumber() + 10 + 'px'">
-        <div class="text">You can switch between all of your accounts here</div>
+        <div class="text">You can switch between all of your accounts here.</div>
         <div class="actions">
           <button mat-button (click)="dismissInstructions.emit(true)">DISMISS</button>
         </div>
