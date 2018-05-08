@@ -18,7 +18,5 @@ export class EventFunnelTimeseries {
         }
       }
     }
-
-    console.log(obj)
   }
 }

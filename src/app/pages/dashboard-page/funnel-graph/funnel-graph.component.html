@@ -2,7 +2,7 @@
   <div class="dashboard__gray-table-chart__title">
     <div class="main">{{'DASHBOARD_EVENTSFUNNEL_TITLE' | translate}}</div>
     <div class="event-type-options">
-      <span>{{(eventTypeMap[eventType] | translate)}}</span>
+      <span mat-icon-button [matMenuTriggerFor]="eventTypeOptions">{{(eventTypeMap[eventType] | translate)}}</span>
       <mat-icon [matMenuTriggerFor]="eventTypeOptions">keyboard_arrow_down</mat-icon>
       <mat-menu #eventTypeOptions="matMenu" x-position="before">
         <button mat-menu-item (click)="changeEventType('click')">{{'DASHBOARD_EVENTSFUNNEL_CLICK' | translate}}</button>
