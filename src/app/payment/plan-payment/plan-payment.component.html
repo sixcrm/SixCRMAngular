@@ -1,10 +1,11 @@
 <div class="container">
-  <div class="column left">
+  <div class="row above" [class.error-row-above]="transactionalError">
+    <div class="title">{{(!transactionalError ? 'PAYMENT_TITLE' : 'PAYMENT_ERRORTITLE') | translate}}</div>
+  </div>
+  <div class="row below">
+    <div class="column left">
 
-    <div class="title" [class.error]="transactionalError">{{(!transactionalError ? 'PAYMENT_TITLE' : 'PAYMENT_ERRORTITLE') | translate}}</div>
-    <div *ngIf="transactionalError" class="error-message error">{{'PAYMENT_ERRORMESSAGE' | translate}}</div>
-
-    <div class="cards" [class.cards-error]="transactionalError">
+    <div class="cards">
       <img *ngIf="creditCard.typeUnknown() || creditCard.getType() === 'visa'" src="/assets/cards/visa.svg">
       <img *ngIf="!creditCard.typeUnknown() && creditCard.getType() !== 'visa'" src="/assets/cards/visa_grayed.svg">
 
@@ -23,10 +24,12 @@
         <input type="text" matInput placeholder="{{'PAYMENT_FORM_NUMBER' | translate}}" [(ngModel)]="creditCard.ccnumber" (keydown)="isAllowedNumericKey($event) && isShorterThan(20, creditCard.ccnumber, $event)">
       </mat-form-field>
 
-
-      <mat-form-field class="code" [class.error]="formInvalid && ccvInvalid()">
-        <input type="text" matInput placeholder="{{'PAYMENT_FORM_CODE' | translate}}" [(ngModel)]="creditCard.ccv" (keydown)="isAllowedNumericKey($event) && isShorterThan(5, creditCard.ccv, $event)">
-      </mat-form-field>
+      <div>
+        <mat-form-field class="code" [class.error]="formInvalid && ccvInvalid()">
+          <input type="text" matInput placeholder="{{'PAYMENT_FORM_CODE' | translate}}" [(ngModel)]="creditCard.ccv" (keydown)="isAllowedNumericKey($event) && isShorterThan(5, creditCard.ccv, $event)">
+        </mat-form-field>
+        <img class="code__image" src="/assets/images/security_code.png">
+      </div>
 
 
       <mat-form-field [class.error]="formInvalid && (!creditCard.name || creditCard.name.length < 2)">
@@ -58,21 +61,30 @@
       </div>
     </div>
 
+    <div class="options">
+      <button mat-button *ngIf="existingPayment">{{'PAYMENT_REVERT' | translate}}</button>
+      <button mat-button *ngIf="existingPayment">{{'PAYMENT_SAVE' | translate}}</button>
+    </div>
   </div>
 
-  <div class="column right">
+  <div class="column right" [class.payment-info-error]="transactionalError">
 
-    <div class="title">{{'PAYMENT_INFO_TITLE' | translate}} {{plan.name}} {{'PAYMENT_INFO_TIER' | translate}}</div>
-    <div class="subtitle" (click)="changePlan.emit(true)">{{'PAYMENT_INFO_CHANGE' | translate}}</div>
+    <div class="title">
+      {{(!transactionalError ? 'PAYMENT_INFO_TITLE' : 'PAYMENT_DECLINE_TITLE') | translate}}
+      {{plan.name}}
+      {{(!transactionalError ? 'PAYMENT_INFO_TIER' : 'PAYMENT_INFO_DECLINE') | translate}}
+    </div>
+    <div class="subtitle" *ngIf="!transactionalError" (click)="changePlan.emit(true)">{{'PAYMENT_INFO_CHANGE' | translate}}</div>
+    <div *ngIf="transactionalError" class="error-message">{{'PAYMENT_ERRORMESSAGE' | translate}}</div>
 
     <div class="details">
-      <div>{{'PAYMENT_INFO_TOTAL' | translate}}:</div>
-      <div class="line"></div>
-      <div>${{plan.price}}</div>
+      <div>{{(!transactionalError ? 'PAYMENT_INFO_TOTAL' : 'PAYMENT_BALANCE_DUE') | translate}}:</div>
+      <div style="margin-left: auto">${{plan.price}}</div>
     </div>
 
     <div class="terms">{{'PAYMENT_OWNERTERMS' | translate}} <span class="licenseagreement" (click)="openOwnerTerms()">{{'PAYMENT_LICENSEAGREEMENT' | translate}}</span>.</div>
-    <button mat-button (click)="pay()">{{'PAYMENT_INFO_FINISH' | translate}}</button>
+    <button mat-button (click)="pay()">{{(!transactionalError ? 'PAYMENT_INFO_FINISH' : 'PAYMENT_REACTIVATE_ACCOUNT') | translate}}</button>
+  </div>
   </div>
 </div>
 

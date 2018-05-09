@@ -30,6 +30,7 @@ export class PlanPaymentComponent implements OnInit {
   creditCard: CreditCard = new CreditCard();
 
   formInvalid: boolean;
+  existingPayment: boolean = false;
 
   isAllowedNumericKey = isAllowedNumeric;
   isShorterThan = isShorterThan;
