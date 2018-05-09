@@ -12,6 +12,7 @@ import {Subscription, Subject} from 'rxjs';
 export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy {
 
   persistentNotifications: Notification[] = [];
+  persistentNotificationsToShow: Notification[] = [];
   filteredPersistentNotification: Notification;
 
   sessionSub: Subscription;
@@ -39,7 +40,20 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
         predefined.push(this.notificationsService.buildNotificationWithBody({name: 'billing_disabled', category: 'billing'}))
       }
 
-      this.persistentNotifications = [...predefined, ...notifications];
+      this.persistentNotifications = notifications;
+      this.persistentNotificationsToShow = [...predefined, ...notifications];
+
+      this.filterNotifications();
+    });
+
+    this.aclSub = this.authService.activeAcl$.subscribe(() => {
+      const predefined = [];
+
+      if (this.authService.isBillingDisabled()) {
+        predefined.push(this.notificationsService.buildNotificationWithBody({name: 'billing_disabled', category: 'billing'}))
+      }
+
+      this.persistentNotificationsToShow = [...predefined, ...this.persistentNotifications];
 
       this.filterNotifications();
     })
@@ -66,7 +80,7 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
   filterNotifications(): void {
     const hiddenNotifications = this.getHiddenNotificationIDs();
 
-    const filtered = this.persistentNotifications.filter(n => hiddenNotifications.indexOf(n.id) === -1);
+    const filtered = this.persistentNotificationsToShow.filter(n => hiddenNotifications.indexOf(n.id) === -1);
     this.filteredPersistentNotification = filtered && filtered.length > 0 ? filtered[0] : undefined;
 
     this.notificationsFiltered$.next(true);
