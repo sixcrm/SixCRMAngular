@@ -19,6 +19,7 @@ import {MatDialog} from '@angular/material';
 export class EntityViewTagComponent extends AbstractEntityIndexComponent<Tag> implements OnInit, OnDestroy {
 
   @Input() entityId: string;
+  @Input() inAssociatedTags: boolean = false;
 
   showTags: boolean;
 

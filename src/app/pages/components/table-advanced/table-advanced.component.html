@@ -26,7 +26,7 @@
 
   <table-advanced-bulk [entities]="entities" (deleteAllSelected)="delMultiple($event)" [deleteEnabled]="deleteEnabled"></table-advanced-bulk>
 
-  <table class="highlight table__custom">
+  <table [class.table__custom--associated-tags]="associatedTags" class="highlight table__custom">
     <thead #head visibleY [offset]="40" (visible)="visible($event)">
       <tr>
         <th #bulkheader></th>

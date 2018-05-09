@@ -595,6 +595,7 @@ $main-blue: #5383C3;
       tr {
         td,th {
           cursor: pointer;
+          padding: 8px 20px;
 
           &:last-child {
             width: 1px;
