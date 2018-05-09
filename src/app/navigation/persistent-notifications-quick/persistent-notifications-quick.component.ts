@@ -17,6 +17,7 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
 
   sessionSub: Subscription;
   notificationsSub: Subscription;
+  aclSub: Subscription;
 
   notificationsFiltered$: Subject<boolean> = new Subject();
 
@@ -93,6 +94,10 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
 
     if (this.notificationsSub) {
       this.notificationsSub.unsubscribe();
+    }
+
+    if (this.aclSub) {
+      this.aclSub.unsubscribe();
     }
   }
 
