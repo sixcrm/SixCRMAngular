@@ -33,7 +33,13 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
     });
 
     this.notificationsSub = this.notificationsService.notificationsPersistent$.subscribe(notifications => {
-      this.persistentNotifications = notifications;
+      const predefined = [];
+
+      if (this.authService.isBillingDisabled()) {
+        predefined.push(this.notificationsService.buildNotificationWithBody({name: 'billing_disabled', category: 'billing'}))
+      }
+
+      this.persistentNotifications = [...predefined, ...notifications];
 
       this.filterNotifications();
     })

@@ -19,25 +19,25 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   // Add Order items
   let orderItems: MenuItem[] = [];
 
-  if (authService.hasPermissions('customer', 'view')) {
+  if (authService.hasPermissions('customer', 'view') || authService.isBillingDisabled()) {
     orderItems.push(new MenuItem('SIDENAV_ORDER_CUSTOMER', 'customers'));
   }
-  if (authService.hasPermissions('creditcard', 'view')) {
+  if (authService.hasPermissions('creditcard', 'view') || authService.isBillingDisabled()) {
     orderItems.push(new MenuItem('SIDENAV_ORDER_CREDITCARD', 'creditcards'));
   }
-  if (authService.hasPermissions('session', 'view')) {
+  if (authService.hasPermissions('session', 'view') || authService.isBillingDisabled()) {
     orderItems.push(new MenuItem('SIDENAV_ORDER_SESSION', 'sessions'));
   }
-  if (authService.hasPermissions('transaction', 'view')) {
+  if (authService.hasPermissions('transaction', 'view') || authService.isBillingDisabled()) {
     orderItems.push(new MenuItem('SIDENAV_ORDER_TRANSACTION', 'transactions'));
   }
-  if (authService.hasPermissions('rebill', 'view')) {
+  if (authService.hasPermissions('rebill', 'view') || authService.isBillingDisabled()) {
     orderItems.push(new MenuItem('SIDENAV_ORDER_REBILL', 'rebills'));
   }
-  if (authService.hasPermissions('shippingreceipt', 'view')) {
+  if (authService.hasPermissions('shippingreceipt', 'view') || authService.isBillingDisabled()) {
     orderItems.push(new MenuItem('SIDENAV_ORDER_SHIPPINGRECEIPT', 'shippingreceipts'));
   }
-  if (authService.hasPermissions('rebill', 'view')) {
+  if (authService.hasPermissions('rebill', 'view') || authService.isBillingDisabled()) {
     orderItems.push(new MenuItem('SIDENAV_ORDER_PENDINGREBILL', 'rebills/pending'));
   }
 
@@ -48,10 +48,10 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   // Add reports
   let reportItems: MenuItem[] = [];
   let cycle: MenuItem[] = [];
-  if (authService.hasPermissions('analytics', 'getDayToDay')) {
+  if (authService.hasPermissions('analytics', 'getDayToDay') || authService.isBillingDisabled()) {
     cycle.push(new MenuItem('SIDENAV_REPORTS_CYCLE_DAYTODAY', 'reports/daytoday'))
   }
-  if (authService.hasPermissions('analytics', 'getCycleReport')) {
+  if (authService.hasPermissions('analytics', 'getCycleReport') || authService.isBillingDisabled()) {
     cycle.push(new MenuItem('SIDENAV_REPORTS_CYCLE_CYCLE', 'reports/cycle'))
   }
   if (cycle.length > 0) {
@@ -59,10 +59,10 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   }
 
   let traffic: MenuItem[] = [];
-  if (authService.hasPermissions('analytics', 'getAffiliates')) {
+  if (authService.hasPermissions('analytics', 'getAffiliates') || authService.isBillingDisabled()) {
     traffic.push(new MenuItem('SIDENAV_REPORTS_TRAFFIC_AFFILIATE', 'reports/affiliate'));
   }
-  if (authService.hasPermissions('analytics', 'getMerchants')) {
+  if (authService.hasPermissions('analytics', 'getMerchants') || authService.isBillingDisabled()) {
     traffic.push(new MenuItem('SIDENAV_REPORTS_TRAFFIC_MERCHANT', 'reports/merchant'));
   }
   if (traffic.length > 0) {
@@ -75,28 +75,28 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
 
   // Add CRM menu items
   let crmItems: MenuItem[] = [];
-  if (authService.hasPermissions('campaign', 'view')) {
+  if (authService.hasPermissions('campaign', 'view') || authService.isBillingDisabled()) {
     crmItems.push(new MenuItem('SIDENAV_CRM_CAMPAIGN', 'campaigns'));
   }
-  if (authService.hasPermissions('product', 'view')) {
+  if (authService.hasPermissions('product', 'view') || authService.isBillingDisabled()) {
     crmItems.push(new MenuItem('SIDENAV_CRM_PRODUCT', 'products'));
   }
-  if (authService.hasPermissions('productschedule', 'view')) {
+  if (authService.hasPermissions('productschedule', 'view') || authService.isBillingDisabled()) {
     crmItems.push(new MenuItem('SIDENAV_CRM_PRODUCTSCHEDULE', 'productschedules'));
   }
-  if (authService.hasPermissions('emailtemplate', 'view')) {
+  if (authService.hasPermissions('emailtemplate', 'view') || authService.isBillingDisabled()) {
     crmItems.push(new MenuItem('SIDENAV_CRM_EMAILTEMPLATE', 'emailtemplates'));
   }
 
-  if (authService.hasPermissions('eventhook', 'view')) {
+  if (authService.hasPermissions('eventhook', 'view') || authService.isBillingDisabled()) {
     crmItems.push(new MenuItem('SIDENAV_CRM_EVENTHOOK', 'eventhooks'));
   }
 
   let tracking: MenuItem[] = [];
-  if (authService.hasPermissions('affiliate', 'view')) {
+  if (authService.hasPermissions('affiliate', 'view') || authService.isBillingDisabled()) {
     tracking.push(new MenuItem('SIDENAV_CRM_TRAFFIC_AFFILIATE', 'affiliates'));
   }
-  if (authService.hasPermissions('tracker', 'view')) {
+  if (authService.hasPermissions('tracker', 'view') || authService.isBillingDisabled()) {
     tracking.push(new MenuItem('SIDENAV_CRM_TRAFFIC_TRACKER', 'trackers'));
   }
   if (tracking.length > 0) {
@@ -105,10 +105,10 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
 
   // Add Merchants menu item
   let merchants: MenuItem[] = [];
-  if (authService.hasPermissions('merchantprovider', 'view')) {
+  if (authService.hasPermissions('merchantprovider', 'view') || authService.isBillingDisabled()) {
     merchants.push(new MenuItem('SIDENAV_CRM_MERCHANT_MERCHANTPROVIDER', 'merchantproviders'))
   }
-  if (authService.hasPermissions('merchantprovidergroup', 'view')) {
+  if (authService.hasPermissions('merchantprovidergroup', 'view') || authService.isBillingDisabled()) {
     merchants.push(new MenuItem('SIDENAV_CRM_MERCHANT_MERCHANTPROVIDERGROUP', 'merchantprovidergroups'))
   }
   if (merchants.length > 0) {
@@ -117,10 +117,10 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
 
   // Add 3rd party providers to CRM menu
   let thirdPartyProviders: MenuItem[] = [];
-  if (authService.hasPermissions('fulfillmentprovider', 'view')) {
+  if (authService.hasPermissions('fulfillmentprovider', 'view') || authService.isBillingDisabled()) {
     thirdPartyProviders.push(new MenuItem('SIDENAV_CRM_PROVIDERS_FULFILLMENT', 'fulfillmentproviders'))
   }
-  if (authService.hasPermissions('smtpprovider', 'view')) {
+  if (authService.hasPermissions('smtpprovider', 'view') || authService.isBillingDisabled()) {
     thirdPartyProviders.push(new MenuItem('SIDENAV_CRM_PROVIDERS_SMTP', 'smtpproviders'))
   }
   if (thirdPartyProviders.length > 0) {
@@ -133,7 +133,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
 
   // Add Settings menu item
   let settings: MenuItem[] = [];
-  if (authService.hasPermissions('account', 'view')) {
+  if (authService.hasPermissions('account', 'view') || authService.isBillingDisabled()) {
     let accountlink = 'accounts';
 
     if (authService.getActiveAcl().account && (authService.getActiveAcl().account.id !== '*')) {
@@ -153,10 +153,10 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   }
 
   let keys = [];
-  if (authService.hasPermissions('usersigningstring', 'view')) {
+  if (authService.hasPermissions('usersigningstring', 'view') || authService.isBillingDisabled()) {
     keys.push(new MenuItem('SIDENAV_SETTINGS_KEY_SIGNINGSTRING', 'profile#signingstrings'));
   }
-  if (authService.hasPermissions('accesskey', 'view') && authService.getActiveAcl().account) {
+  if ((authService.hasPermissions('accesskey', 'view') || authService.isBillingDisabled()) && authService.getActiveAcl().account ) {
     const accesslink = `accounts/${authService.getActiveAcl().account.id}#accesskeys`;
     keys.push(new MenuItem('SIDENAV_SETTINGS_KEY_ACCESSKEY', accesslink));
   }

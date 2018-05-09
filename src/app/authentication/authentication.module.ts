@@ -15,6 +15,7 @@ import {TranslationModule} from '../translation/translation.module';
 import {MaterialSelectionModule} from '../material-selection/material-selection.module';
 import { AccountInfoComponent } from './account-info/account-info.component';
 import {AccountInfoGuard} from './account-info-guard.service';
+import {BillingDisabledGuard} from './payment-dissabled-guard.service';
 
 @NgModule({
   imports : [
@@ -40,7 +41,8 @@ import {AccountInfoGuard} from './account-info-guard.service';
     AuthenticationService,
     AuthGuard,
     RegisterGuard,
-    AccountInfoGuard
+    AccountInfoGuard,
+    BillingDisabledGuard
   ]
 })
 export class AuthenticationModule { }

@@ -70,8 +70,10 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
       setTimeout(() => {
         const elementHeight = this.persistentNotificationsContainer.nativeElement.offsetHeight;
 
-        (<any>(document.getElementsByClassName('mat-sidenav-content')[0])).style.height =
+        (<any>(document.getElementsByClassName('mat-sidenav-container')[0])).style.height =
           `calc(100vh - ${elementHeight}px)`;
+        (<any>(document.getElementsByClassName('side-navigation')[0])).style.minHeight =
+          `calc(100vh - ${80 + elementHeight}px)`;
       }, 100)
 
     })

@@ -172,7 +172,7 @@ export class RegistrationComponent implements OnInit {
       if (this.authService.getActiveAcl().role.name === 'Owner') {
         this.router.navigate(['/payment']);
       } else {
-        this.router.navigate(['/payment/info']);
+        this.router.navigate(['/billing-disable']);
       }
     } else {
       const redirectRoute = this.authService.isActiveAclCustomerService() ? '/customer-service' :'/dashboard';

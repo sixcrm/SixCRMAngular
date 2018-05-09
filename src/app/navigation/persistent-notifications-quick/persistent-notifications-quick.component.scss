@@ -1,7 +1,7 @@
 .persistent-notification {
   display: flex;
   align-items: center;
-  padding: 14px 24px;
+  padding: 12px 24px;
   background: #F7EBCF;
   font-family: Roboto, sans-serif;
 
@@ -15,18 +15,12 @@
     font-size: 16px;
   }
 
-  img {
-    width: 30px;
-    height: 30px;
-  }
-
   mat-icon {
-    margin-right: 8px;
-    margin-left: auto;
+    margin-right: 5px;
     height: 18px;
     width: 18px;
     font-size: 18px;
-    color: rgba(0,0,0,0.4);
+    color: #FD1F47;
     cursor: pointer;
   }
 

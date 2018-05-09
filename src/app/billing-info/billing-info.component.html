@@ -1,0 +1,37 @@
+<div class="container">
+
+  <div class="header">
+    <div>Account Disabled</div>
+    <mat-icon>error_outline</mat-icon>
+  </div>
+
+  <div class="body">
+
+    <div>
+      Your account has been suspended due to a problem with payment.
+    </div>
+    <button mat-button [routerLink]="['/payment']">MAKE PAYMENT</button>
+
+  </div>
+
+  <div class="switcher" [matMenuTriggerFor]="switcherOptions">
+    <div class="current">
+      <div>{{authService.getActiveAcl().account.name}}</div>
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </div>
+
+    <mat-menu #switcherOptions="matMenu" x-position="before">
+      <button *ngFor="let acl of authService.getAcls()"
+              style="width: 260px"
+              mat-menu-item (click)="authService.changeActiveAcl(acl)">
+        {{acl.account.name}}
+      </button>
+    </mat-menu>
+  </div>
+
+  <div class="buttons">
+    <button mat-button>SIX SUPPORT</button>
+    <button mat-button (click)="authService.logout()">SIGN OUT</button>
+  </div>
+
+</div>
