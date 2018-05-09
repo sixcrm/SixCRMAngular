@@ -8,8 +8,6 @@ import {PlansComponent} from './plans/plans.component';
 import {PlanPaymentComponent} from './plan-payment/plan-payment.component';
 import {FormsModule} from '@angular/forms';
 import {TranslationModule} from '../translation/translation.module';
-import { PaymentInfoComponent } from './payment-info/payment-info.component';
-import {PaymentInfoGuard} from './payment-info-guard.service';
 import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
@@ -25,8 +23,7 @@ import {SharedModule} from '../shared/shared.module';
     PaymentComponent,
     PlansComponent,
     PlanPaymentComponent,
-    PaymentInfoComponent
   ],
-  providers: [PaymentGuard, PaymentInfoGuard]
+  providers: [PaymentGuard]
 })
 export class PaymentModule { }

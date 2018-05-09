@@ -9,7 +9,7 @@ export class TransactionSummaryResult {
     }
 
     this.processorResult = obj.processor_result || '';
-    this.amount = obj.amount || 0;
-    this.count = obj.count || 0;
+    this.amount = obj.value.total || 0;
+    this.count = obj.value.count || 0;
   }
 }

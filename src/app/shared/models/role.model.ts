@@ -35,6 +35,10 @@ export class Role implements Entity<Role> {
     return this.permissions.hasPermission(entity, operation);
   }
 
+  isOwnerOrAdministrator(): boolean {
+    return this.hasPermission('bill', 'write');
+  }
+
   isOwner(): boolean {
     return this.name === 'Owner';
   }

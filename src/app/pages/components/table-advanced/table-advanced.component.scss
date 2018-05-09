@@ -113,3 +113,11 @@ tr {
     box-sizing: border-box;
   }
 }
+
+.table__custom--associated-tags {
+  tr {
+    td, th {
+      padding: 15px 9px;
+    }
+  }
+}

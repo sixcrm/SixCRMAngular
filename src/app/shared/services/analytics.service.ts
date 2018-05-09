@@ -84,7 +84,7 @@ export class AnalyticsService {
         data,
         this.transactionsSummaries$,
         (t: any) => new TransactionSummary(t),
-        (data: any) => extractData(data).transactionsummary.transactions
+        (data: any) => extractData(data).analytics.records
       );
 
       if (result) {

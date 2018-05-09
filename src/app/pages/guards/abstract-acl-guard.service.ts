@@ -18,7 +18,7 @@ export class AbstractAclGuard {
       return true;
     }
 
-    this.router.navigateByUrl('/dashboard');
+    this.router.navigateByUrl(this.authService.isBillingDisabled() ? '/billing-disabled': '/dashboard');
   }
 
   canDeactivate(component): Promise<boolean> {

@@ -30,6 +30,7 @@ import { MerchantProviderGroupAssociationDialogComponent } from './dialog-modals
 import {MaterialSelectionModule} from './material-selection/material-selection.module';
 import {HttpWrapperTransactionalService} from './shared/services/http-wrapper-transactional.service';
 import { TermsDialogComponent } from './dialog-modals/terms-dialog/terms-dialog.component';
+import { BillingInfoComponent } from './billing-info/billing-info.component';
 
 @NgModule({
   declarations : [
@@ -48,7 +49,8 @@ import { TermsDialogComponent } from './dialog-modals/terms-dialog/terms-dialog.
     AddBillDetailsDialogComponent,
     ImageDialogComponent,
     MerchantProviderGroupAssociationDialogComponent,
-    TermsDialogComponent
+    TermsDialogComponent,
+    BillingInfoComponent
   ],
   imports : [
     NavigationModule.forRoot(),

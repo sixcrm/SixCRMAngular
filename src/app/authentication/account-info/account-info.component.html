@@ -17,7 +17,7 @@
         <mat-icon>keyboard_arrow_down</mat-icon>
       </div>
 
-      <mat-menu #switcherOptions="matMenu" x-position="before" panelClass="'account-info-switcher'">
+      <mat-menu #switcherOptions="matMenu" x-position="before">
         <button *ngFor="let acl of authService.getAcls()"
                 style="width: 260px"
                 mat-menu-item (click)="authService.changeActiveAcl(acl)">

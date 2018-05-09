@@ -11,6 +11,7 @@ import {firstIndexOf} from '../../../shared/utils/array.utils';
 export class TableAdvancedComponent implements OnInit {
 
   @ViewChildren('originalheader') originalHeaders;
+  @Input() associatedTags: boolean = false;
 
   @Input() set data(data: any[]) {
     this.assignEntities(data);

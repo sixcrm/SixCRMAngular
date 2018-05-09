@@ -30,8 +30,8 @@
       </mat-input-container>
 
       <mat-input-container *ngIf="activatingAccount" [class.form-error]="formInvalid && !accountName">
-        <input matInput required placeholder="{{'REGISTER_FORM_COMPANY' | translate}}" type="text" name="company" [(ngModel)]="companyName">
-        <mat-hint>{{'REGISTER_FORM_COMPANYHINT' | translate}}</mat-hint>
+        <input matInput required placeholder="{{'REGISTER_FORM_COMPANY' | translate}}" type="text" name="company" [(ngModel)]="companyName" (keyup)="resetError()">
+        <mat-hint [class.error]="duplicateAccountError">{{'REGISTER_FORM_COMPANYHINT' | translate}}</mat-hint>
       </mat-input-container>
     </div>
 

@@ -19,6 +19,7 @@
                       [showPreferences]="false"
                       [dedicatedOptions]="true"
                       (deleteEntity)="deleteTag($event)"
+                      [associatedTags]="inAssociatedTags"
                       (deleteMultipleEntities)="deleteTags($event)"
                       (add)="addTag($event)"
                       (update)="updateTag($event)">

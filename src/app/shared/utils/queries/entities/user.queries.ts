@@ -145,7 +145,7 @@ export function userIntrospectionResponseQuery(): string {
       account { id name active created_at updated_at,
         billing { plan, session, disable }
       }
-      role { id name active created_at updated_at,
+      role { id name active updated_at,
         permissions {allow deny} 
       }
     }

@@ -1,11 +1,8 @@
 <div class="persistent-notification" *ngIf="filteredPersistentNotification">
-  <img alt="" src="assets/images/alert-icon.svg">
+  <mat-icon>flag</mat-icon>
   <div>
-    <strong>New:</strong>
+    <strong>{{filteredPersistentNotification.name}}:</strong>
     {{filteredPersistentNotification.body}}
-    <span class="persistent-notification__action" (click)="performAction(filteredPersistentNotification)">
-      {{filteredPersistentNotification.getActionText()}}
-    </span>
   </div>
-  <mat-icon (click)="dismissPersistent(filteredPersistentNotification)">close</mat-icon>
+  <mat-icon *ngIf="filteredPersistentNotification.id" (click)="dismissPersistent(filteredPersistentNotification)">close</mat-icon>
 </div>

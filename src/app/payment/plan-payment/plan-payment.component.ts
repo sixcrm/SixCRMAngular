@@ -1,6 +1,5 @@
 import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import {Plan} from '../plans/plan.model';
-import {User} from '../../shared/models/user.model';
 import {CreditCard} from '../../shared/models/credit-card.model';
 import {isAllowedNumeric, isShorterThan} from '../../shared/utils/form.utils';
 import {HttpWrapperTransactionalService} from '../../shared/services/http-wrapper-transactional.service';
@@ -11,7 +10,6 @@ import {UsersService} from '../../shared/services/users.service';
 import {MatDialog} from '@angular/material';
 import {TermsDialogComponent} from '../../dialog-modals/terms-dialog/terms-dialog.component';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {CheckoutResponse} from '../../shared/models/checkout-response.model';
 import {AccountsService} from '../../shared/services/accounts.service';
 
 @Component({
@@ -32,6 +30,7 @@ export class PlanPaymentComponent implements OnInit {
   creditCard: CreditCard = new CreditCard();
 
   formInvalid: boolean;
+  existingPayment: boolean = false;
 
   isAllowedNumericKey = isAllowedNumeric;
   isShorterThan = isShorterThan;

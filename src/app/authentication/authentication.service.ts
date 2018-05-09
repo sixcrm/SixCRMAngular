@@ -20,6 +20,7 @@ import {updateAccountForRegistrationMutation} from '../shared/utils/queries/enti
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {AcknowledgeInvite} from '../shared/models/acknowledge-invite.model';
 import {CustomServerError} from '../shared/models/errors/custom-server-error';
+import {utc} from 'moment';
 
 declare var Auth0Lock: any;
 
@@ -288,6 +289,14 @@ export class AuthenticationService {
     this.redirectAfterAclChange(this.isActiveAclCustomerService() ? '/customer-service' : '/dashboard');
   }
 
+  public isBillingDisabled(): boolean {
+    const account = this.getActiveAcl().account;
+
+    if (!account.billing || !account.billing.disable) return false;
+
+    return utc().isAfter(utc(account.billing.disable))
+  }
+
   public registerUser(company: string, firstName: string, lastName: string, terms?: string): Observable<HttpResponse<any> | CustomServerError> {
     let endpoint = environment.endpoint + this.getActiveAcl().account.id;
     let user = this.getSixUser();
@@ -329,7 +338,7 @@ export class AuthenticationService {
     let account = this.getActiveAcl().account;
     let endpoint = environment.endpoint + account.id;
 
-    return this.http.post(endpoint, updateAccountForRegistrationMutation(account, company), {headers: generateHeaders(this.getToken())}, {failStrategy: FailStrategy.Soft});
+    return this.http.postWithError(endpoint, updateAccountForRegistrationMutation(account, company), {headers: generateHeaders(this.getToken())}, {failStrategy: FailStrategy.Soft, ignoreSnack: true});
   }
 
   public hasPermissions(entity: string, operation: string): boolean {
@@ -422,8 +431,13 @@ export class AuthenticationService {
       return;
     }
 
+    if (this.shouldRedirectToBillingDisabled()) {
+      this.router.navigate(['/billing-disabled']);
+      return;
+    }
+
     if (this.shouldRedirectToPayment()) {
-      this.router.navigate(['/payment/info']);
+      this.router.navigate(['/payment']);
       return;
     }
 
@@ -446,6 +460,10 @@ export class AuthenticationService {
 
   private shouldRedirectToPayment() {
     return this.getActiveAcl().account.hasBillingIssue();
+  }
+
+  private shouldRedirectToBillingDisabled() {
+    return this.isBillingDisabled();
   }
 
   private shouldRedirectToRegister() {

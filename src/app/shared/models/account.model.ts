@@ -41,7 +41,7 @@ export class Account implements Entity<Account> {
   }
 
   hasBillingIssue(): boolean {
-    return !this.billing || !this.billing.plan;
+    return !this.billing || !this.billing.plan || (this.billing.disable && utc().isAfter(utc(this.billing.disable)));
   }
 
   isNew(): boolean {
