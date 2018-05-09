@@ -10,7 +10,7 @@
     <div>
       Your account has been suspended due to a problem with payment.
     </div>
-    <button mat-button [routerLink]="['/payment']">MAKE PAYMENT</button>
+    <button *ngIf="authService.getActiveAcl().role.isOwnerOrAdministrator()" mat-button [routerLink]="['/payment']">MAKE PAYMENT</button>
 
   </div>
 
