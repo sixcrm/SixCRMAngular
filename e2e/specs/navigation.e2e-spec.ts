@@ -27,6 +27,7 @@ describe('Navigation', function() {
 
   it('should render full sidenav when registered as master', () => {
     sidenav.get();
+    browser.sleep(500);
     waitForUrlContains('/dashboard');
 
     browser.sleep(500);

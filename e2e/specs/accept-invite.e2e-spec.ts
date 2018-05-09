@@ -10,7 +10,7 @@ import {doLogin, login, doSignUp} from '../utils/action.utils';
 import {sha1} from '@angular/compiler/src/i18n/digest';
 import {ErrorPage} from '../po/error-page.po';
 import {environment} from '../../src/environments/environment';
-import {expectUrlToContain, expectNotPresent, expectPresent, expectDefined } from '../utils/assertation.utils';
+import {expectUrlToContain, expectNotPresent, expectPresent, expectDefined} from '../utils/assertation.utils';
 import {TopnavPage} from '../po/topnav.po';
 import {ProfilePage} from '../po/profile.po';
 import {AccountPage} from '../po/account.po';
@@ -23,7 +23,7 @@ let newEmail = `e2e${new Date().getTime()}@sixcrm.com`;
 let newPassword = '123456789';
 let newCompany = `e2e_Company_${new Date().getTime()}`;
 
-describe('Accept Invite', function() {
+describe('Accept Invite', function () {
   let authPage: AuthPage;
   let acceptInvitePage: AcceptInvitePage;
   let errorPage: ErrorPage;
@@ -70,9 +70,9 @@ describe('Accept Invite', function() {
 
   it('should display welcome modal and accept button when user opens sent link', () => {
     browser.waitForAngularEnabled(false);
-     browser.sleep(500);
-     expectPresent(acceptInvitePage.getAcceptInviteDialog());
-     expectPresent(acceptInvitePage.getAcceptButton());
+    browser.sleep(500);
+    expectPresent(acceptInvitePage.getAcceptInviteDialog());
+    expectPresent(acceptInvitePage.getAcceptButton());
   });
 
   it('should accept invite and proceed to auth0 sign up', () => {
@@ -83,7 +83,7 @@ describe('Accept Invite', function() {
     waitForUrlContains('/signup');
     expectUrlToContain('/signup');
     expect(acceptInvitePage.getAuth0SignUpTab().last().getText()).toEqual('Sign Up');
-    });
+  });
 
   it('should fill sign up info and proceed', () => {
     browser.waitForAngularEnabled(false);
@@ -112,6 +112,6 @@ describe('Accept Invite', function() {
     browser.sleep(5000);
     waitForUrlContains('/dashboard');
     expectUrlToContain('/dashboard');
-  } );
+  });
 
 });
