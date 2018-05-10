@@ -11,6 +11,7 @@ import {MatDialog} from '@angular/material';
 import {TermsDialogComponent} from '../../dialog-modals/terms-dialog/terms-dialog.component';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {AccountsService} from '../../shared/services/accounts.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'plan-payment',
@@ -48,7 +49,8 @@ export class PlanPaymentComponent implements OnInit {
     private accountService: AccountsService,
     private userService: UsersService,
     private dialog: MatDialog,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -151,5 +153,41 @@ export class PlanPaymentComponent implements OnInit {
     ref.afterClosed().take(1).subscribe(() => {
       ref = null;
     });
+  }
+
+  submitButtonText() {
+    if (this.isRecurringPayment) {
+      return 'Complete Purchase & Reactivate Account'
+    } else if (this.transactionalError) {
+      return 'PAYMENT_COMPLETEPURCHASE'
+    } else {
+      return 'PAYMENT_INFO_FINISH'
+    }
+  }
+
+  paymentTitle() {
+    if (this.isRecurringPayment) {
+      return 'Make Payment'
+    } else if (this.transactionalError) {
+      return 'PAYMENT_ERRORTITLE'
+    } else {
+      return 'PAYMENT_TITLE'
+    }
+  }
+
+  paymentSummaryText() {
+    return this.isRecurringPayment ? 'PAYMENT_BALANCEDUE' : 'PAYMENT_INFO_TOTAL';
+  }
+
+  paymentInfoFirstPart() {
+    return this.isRecurringPayment ? 'PAYMENT_DECLINETITLE' : 'PAYMENT_INFO_TITLE';
+  }
+
+  paymentInfoSecondPart() {
+    return this.isRecurringPayment ? 'PAYMENT_DECLINEINFO' : 'PAYMENT_INFO_TIER';
+  }
+
+  cancel() {
+    this.location.back();
   }
 }
