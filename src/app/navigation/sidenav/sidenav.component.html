@@ -1,5 +1,5 @@
 <mat-toolbar [class.toolbar--small]="!isHovering">
-  <img *ngIf="isHovering" src="/assets/images/logo-navigation.svg" class="logo">
+  <img *ngIf="isHovering" src="{{'/assets/images/' + sidenavLogo}}" class="logo">
   <img *ngIf="!isHovering" src="/assets/images/logo-navigation-small.svg" class="logo-small">
 </mat-toolbar>
 <mat-nav-list class="side-navigation">
