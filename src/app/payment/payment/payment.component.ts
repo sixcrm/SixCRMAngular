@@ -18,7 +18,7 @@ export class PaymentComponent implements OnInit {
   mapAcl = (acl: Acl) => acl.account.name;
 
   constructor(
-    private authService: AuthenticationService
+    public authService: AuthenticationService
   ) { }
 
   ngOnInit() {
