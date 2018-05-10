@@ -37,7 +37,7 @@ describe('Register', function() {
 
   it('should redirect to /terms-and-conditions', () => {
     authPage.navigateTo();
-
+    browser.pause();
     waitForPresenceOfLoginFields(authPage);
 
     doSignUp(authPage, registrationUsername, registrationPassword);
