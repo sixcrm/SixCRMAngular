@@ -60,30 +60,21 @@
         </div>
       </div>
     </div>
-
-    <div class="options">
-      <button mat-button *ngIf="existingPayment">{{'PAYMENT_REVERT' | translate}}</button>
-      <button mat-button *ngIf="existingPayment">{{'PAYMENT_SAVE' | translate}}</button>
-    </div>
   </div>
 
   <div class="column right" [class.payment-info-error]="transactionalError">
 
-    <div class="title">
-      {{(!transactionalError ? 'PAYMENT_INFO_TITLE' : 'PAYMENT_DECLINETITLE') | translate}}
-      {{plan.name}}
-      {{(!transactionalError ? 'PAYMENT_INFO_TIER' : 'PAYMENT_DECLINEINFO') | translate}}
-    </div>
-    <div class="subtitle" *ngIf="!transactionalError" (click)="changePlan.emit(true)">{{'PAYMENT_INFO_CHANGE' | translate}}</div>
+    <div class="title">{{'PAYMENT_INFO_TITLE' | translate}} {{plan.name}} {{'PAYMENT_INFO_TIER' | translate}}</div>
+    <div class="subtitle" (click)="changePlan.emit(true)">{{'PAYMENT_INFO_CHANGE' | translate}}</div>
     <div *ngIf="transactionalError" class="error-message">{{'PAYMENT_ERRORMESSAGE' | translate}}</div>
 
     <div class="details">
-      <div>{{(!transactionalError ? 'PAYMENT_INFO_TOTAL' : 'PAYMENT_BALANCEDUE') | translate}}:</div>
+      <div>{{'PAYMENT_INFO_TOTAL' | translate}}:</div>
       <div style="margin-left: auto">${{plan.price}}</div>
     </div>
 
     <div class="terms">{{'PAYMENT_OWNERTERMS' | translate}} <span class="licenseagreement" (click)="openOwnerTerms()">{{'PAYMENT_LICENSEAGREEMENT' | translate}}</span>.</div>
-    <button mat-button (click)="pay()">{{(!transactionalError ? 'PAYMENT_INFO_FINISH' : 'PAYMENT_COMPLETEPURCHASE') | translate}}</button>
+    <button mat-button (click)="pay()">{{'PAYMENT_INFO_FINISH' | translate}}</button>
   </div>
   </div>
 </div>

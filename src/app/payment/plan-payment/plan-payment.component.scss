@@ -9,6 +9,8 @@
     color: #ffffff;
     background-color: #4277C2;
     font-weight: bold;
+    border-radius: 4px 4px 0 0;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.25);
   }
 
   .error-row-above {
@@ -61,25 +63,11 @@
     }
 
     .payment-info-error {
-      background-color: #f8e4e7;
-
-      .title {
-        color: #766c6e;
-      }
 
       .error-message {
-        color: #928789;
+        color: #D00140;
         padding-top: 10px;
         font-size: 15px;
-      }
-
-      .details {
-        color: #e23753;
-      }
-
-      button {
-        color: #ffffff;
-        background-color: #1e95ec;
       }
     }
 
@@ -161,13 +149,6 @@
           color: rgba(0, 0, 0, 0.87);
         }
       }
-    }
-
-    .options {
-      padding-top: 10px;
-      margin-left: auto;
-      color: #727272;
-      min-height: 36px;
     }
   }
 
