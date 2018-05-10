@@ -1,40 +1,42 @@
 <div class="info-blue-screen">
-  <img class="logo" src="/assets/images/logo-white.svg" alt="">
+  <img class="logo" src="{{'/assets/images/' + sidenavLogo}}" alt="">
+
+  <div class="blue-screen__account-switcher">
+    <simple-dropdown
+      *ngIf="authService.getAcls().length > 0"
+      [mapper]="mapAcl"
+      [selectedOption]="authService.activeAcl$ | async"
+      [options]="authService.getAcls()"
+      [icon]="'domain'"
+      (optionSelected)="changeAcl($event)">
+    </simple-dropdown>
+
+    <button mat-button (click)="signout()">{{'REGISTER_SIGNOUT' | translate}}</button>
+  </div>
 
   <div class="body">
 
-    <div class="header">
+    <div class="header" [class.header--payment]="accountHasNoBilling()">
       <div class="title">{{title}}</div>
-      <mat-icon>lock_outline</mat-icon>
+      <mat-icon *ngIf="accountHasNoBilling(); else lock">attach_money</mat-icon>
+      <ng-template #lock>
+        <mat-icon>lock_outline</mat-icon>
+      </ng-template>
     </div>
 
     <div class="content">{{text}}</div>
 
-    <div class="switcher" [matMenuTriggerFor]="switcherOptions" *ngIf="authService.getSixUser().acls.length > 0">
-      <div class="current">
-        <div>{{authService.getActiveAcl().account.name}}</div>
-        <mat-icon>keyboard_arrow_down</mat-icon>
-      </div>
-
-      <mat-menu #switcherOptions="matMenu" x-position="before">
-        <button *ngFor="let acl of authService.getAcls()"
-                style="width: 260px"
-                mat-menu-item (click)="authService.changeActiveAcl(acl)">
-          {{acl.account.name}}
-        </button>
-      </mat-menu>
-    </div>
-
-    <button *ngIf="accountHasNoBilling() && authService.getActiveAcl().role.isOwnerOrAdministrator()"
-            class="payment"
-            mat-button
-            [routerLink]="['/payment']">
-      MAKE PAYMENT
-    </button>
-
     <div class="buttons">
-      <button mat-button (click)="logout()">SIGN OUT</button>
-      <button mat-button [routerLink]="['/register']">CREATE ACCOUNT</button>
+      <button *ngIf="accountHasNoBilling() && authService.getActiveAcl().role.isOwnerOrAdministrator(); else createbutton"
+              mat-button
+              class="payment"
+              [routerLink]="['/payment']">
+        SETUP PAYMENT PLAN
+      </button>
+
+      <ng-template #createbutton>
+        <button class="create" mat-button [routerLink]="['/register']">CREATE ACCOUNT</button>
+      </ng-template>
     </div>
   </div>
 </div>

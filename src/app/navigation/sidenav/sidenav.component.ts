@@ -36,6 +36,7 @@ export class SidenavComponent implements OnInit {
   private _initialLoad: boolean = true; // Used to show slide in effect on page load for sidenav
 
   sidenavLogo = environment.branding ? environment.branding.sidenavLogo : 'logo-navigation.svg';
+  sidenavCollapsedLogo = environment.branding ? environment.branding.sidenavCollapsedLogo : 'logo-navigation-small.svg';
 
   constructor(private _navigation: NavigationService) { }
 

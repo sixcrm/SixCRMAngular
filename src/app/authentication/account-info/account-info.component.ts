@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../authentication.service';
 import {Acl} from '../../shared/models/acl.model';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'account-info',
@@ -14,6 +15,8 @@ export class AccountInfoComponent implements OnInit {
 
   mapAcl = (acl: Acl) => acl.account.name;
 
+  sidenavLogo = environment.branding ? environment.branding.sidenavLogo : 'logo-white.svg';
+
   constructor(public authService: AuthenticationService) { }
 
   ngOnInit() {
@@ -21,8 +24,8 @@ export class AccountInfoComponent implements OnInit {
       this.title = 'No Available Accounts';
       this.text = 'You do not have permission to view any active accounts. Contact an administrator for access, or create your own account.';
     } else if (this.accountHasNoBilling()) {
-      this.title = 'Account Disabled';
-      this.text = 'Your account has been suspended due to a problem with payment.';
+      this.title = 'Select Payment Plan';
+      this.text = 'Your account must have payment plan selected in order to continue';
     } else if (this.accountInactive()) {
       this.title = 'Account Inactive';
       this.text = 'You cannot currently sign in to this account. Please contact your administrator for more information.';

@@ -14,5 +14,6 @@ export interface EnvironmentModel {
 
 export interface Branding {
   sidenavLogo?: string,
+  sidenavCollapsedLogo?: string,
   registrationLogo: string
 }

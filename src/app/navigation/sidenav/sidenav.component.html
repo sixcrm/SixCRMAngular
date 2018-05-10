@@ -1,6 +1,6 @@
 <mat-toolbar [class.toolbar--small]="!isHovering">
   <img *ngIf="isHovering" src="{{'/assets/images/' + sidenavLogo}}" class="logo">
-  <img *ngIf="!isHovering" src="/assets/images/logo-navigation-small.svg" class="logo-small">
+  <img *ngIf="!isHovering" src="{{'/assets/images/' + sidenavCollapsedLogo}}" class="logo-small">
 </mat-toolbar>
 <mat-nav-list class="side-navigation">
   <sidenav-item *ngFor="let menuItem of menuItems" [menuItem]="menuItem" [parent]="_this" [full]="isHovering"></sidenav-item>

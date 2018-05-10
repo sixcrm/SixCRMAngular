@@ -5,6 +5,7 @@ import {SessionsService} from '../../shared/services/sessions.service';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {CreditCard} from '../../shared/models/credit-card.model';
 import {Acl} from '../../shared/models/acl.model';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'payment',
@@ -21,6 +22,8 @@ export class PaymentComponent implements OnInit {
   creditCards: CreditCard[] = [];
 
   mapAcl = (acl: Acl) => acl.account.name;
+
+  sidenavLogo = environment.branding ? environment.branding.sidenavLogo : 'logo-white.svg';
 
   constructor(
     public authService: AuthenticationService,

@@ -18,6 +18,7 @@ export const environment: EnvironmentModel = {
   version: '0.0.0',
   branding: {
     sidenavLogo: 'logo-recursix.png',
+    sidenavCollapsedLogo: 'logo-recursix-collapsed.png',
     registrationLogo: 'logo-recursix-registration.png'
   }
 };

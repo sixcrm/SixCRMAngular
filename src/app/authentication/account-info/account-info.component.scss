@@ -13,6 +13,13 @@
     align-items: center;
     padding: 30px 25px;
     background: #FFFCAB;
+    border-radius: 4px 4px 0 0;
+
+    &--payment {
+      mat-icon {
+
+      }
+    }
 
     .title {
       font-size: 20px;
@@ -41,50 +48,25 @@
     text-align: justify;
   }
 
-  .switcher {
-    margin: 0 25px;
-    border: 1px solid rgba(0, 0, 0, 0.12);
-    padding: 6px 12px;
-    color: rgba(0, 0, 0, 0.87);
-    cursor: pointer;
-
-    .current {
-      display: flex;
-      align-items: center;
-      font-size: 14px;
-
-      mat-icon {
-        margin-left: auto;
-      }
-    }
-  }
-
-  .payment {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    margin: 25px;
-    color: white;
-    background: #DC2547;
-    width: calc(100% - 50px);
-    font-size: 18px;
-    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
-  }
-
   .buttons {
     display: flex;
     margin: auto 25px 30px;
     font-size: 14px;
 
-    button:first-of-type {
+    button {
       margin-left: auto;
-      margin-right: 10px;
-      color: #2C98F0;
+      color: white;
     }
 
-    button:last-of-type {
-      color: white;
+    .create {
       background: #2C98F0;
+    }
+
+    .payment {
+      padding: 16px 0;
+      font-weight: 500;
+      background: #2C98F0;
+      width: 100%;
     }
   }
 }
