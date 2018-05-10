@@ -38,7 +38,7 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
       const predefined = [];
 
       if (this.authService.isBillingDisabled()) {
-        predefined.push(this.notificationsService.buildNotificationWithBody({name: 'billing_disabled', category: 'billing'}))
+        predefined.push(this.notificationsService.buildNotificationWithBody({name: 'BILLING_DISABLE', category: 'BILLING'}))
       }
 
       this.persistentNotifications = notifications;
@@ -51,7 +51,7 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
       const predefined = [];
 
       if (this.authService.isBillingDisabled()) {
-        predefined.push(this.notificationsService.buildNotificationWithBody({name: 'billing_disabled', category: 'billing'}))
+        predefined.push(this.notificationsService.buildNotificationWithBody({name: 'BILLING_DISABLE', category: 'BILLING'}))
       }
 
       this.persistentNotificationsToShow = [...predefined, ...this.persistentNotifications];
