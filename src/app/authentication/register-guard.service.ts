@@ -11,6 +11,7 @@ export class RegisterGuard implements CanActivate {
     if (this.authService.active()
       && this.authService.getActiveAcl().account.active
       && !this.authService.getActiveAcl().account.hasBillingIssue()
+      && this.authService.getSixUser().acls.length > 0
     ) {
       return false;
     }

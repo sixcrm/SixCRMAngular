@@ -421,13 +421,13 @@ export class AuthenticationService {
   }
 
   private redirectAfterAclChange(redirectUrl?: string) {
-    if (this.shouldRedirectToAccountInfo()) {
-      this.router.navigateByUrl('/account-info');
+    if (this.shouldRedirectToRegister()) {
+      this.router.navigateByUrl('/register');
       return;
     }
 
-    if (this.shouldRedirectToRegister()) {
-      this.router.navigateByUrl('/register');
+    if (this.shouldRedirectToAccountInfo()) {
+      this.router.navigateByUrl('/account-info');
       return;
     }
 
@@ -459,7 +459,8 @@ export class AuthenticationService {
   }
 
   private shouldRedirectToRegister() {
-    return !this.active() || (this.getActiveAcl().account.isNew() && (this.getActiveAcl().role.isOwner() || this.getActiveAcl().role.isAdmin()));
+    return !this.active()
+      || (this.getActiveAcl().account.isNew() && (this.getActiveAcl().role.isOwner() || this.getActiveAcl().role.isAdmin()));
   }
 
   private shouldRedirectToDashboard(): boolean {

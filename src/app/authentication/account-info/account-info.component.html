@@ -11,20 +11,20 @@
       (optionSelected)="changeAcl($event)">
     </simple-dropdown>
 
-    <button mat-button (click)="signout()">{{'REGISTER_SIGNOUT' | translate}}</button>
+    <button mat-button (click)="logout()">{{'REGISTER_SIGNOUT' | translate}}</button>
   </div>
 
   <div class="body">
 
     <div class="header" [class.header--payment]="accountHasNoBilling()">
-      <div class="title">{{title}}</div>
+      <div class="title">{{getTitle()}}</div>
       <mat-icon *ngIf="accountHasNoBilling(); else lock">attach_money</mat-icon>
       <ng-template #lock>
         <mat-icon>lock_outline</mat-icon>
       </ng-template>
     </div>
 
-    <div class="content">{{text}}</div>
+    <div class="content">{{getText()}}</div>
 
     <div class="buttons">
       <button *ngIf="accountHasNoBilling() && authService.getActiveAcl().role.isOwnerOrAdministrator(); else createbutton"

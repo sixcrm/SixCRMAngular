@@ -277,15 +277,21 @@ export abstract class AbstractEntityService<T> {
     })
   }
 
-  protected queryRequest(query: string, requestBehaviourOptions?: RequestBehaviourOptions): Observable<HttpResponse<any> | CustomServerError> {
+  protected queryRequest(query: string, requestBehaviourOptions?: RequestBehaviourOptions, forceAccount?: string): Observable<HttpResponse<any> | CustomServerError> {
     let endpoint = environment.endpoint;
 
-    if (this.authService.getActingAsAccount()) {
-      endpoint += this.authService.getActingAsAccount().id;
-    } else if (this.authService.getActiveAcl() && this.authService.getActiveAcl().account) {
-      endpoint += this.authService.getActiveAcl().account.id;
+    if (forceAccount) {
+      endpoint += forceAccount;
     } else {
-      endpoint += '*';
+
+      if (this.authService.getActingAsAccount()) {
+        endpoint += this.authService.getActingAsAccount().id;
+      } else if (this.authService.getActiveAcl() && this.authService.getActiveAcl().account) {
+        endpoint += this.authService.getActiveAcl().account.id;
+      } else {
+        endpoint += '*';
+      }
+
     }
 
     return this.http.postWithError(endpoint, query, { headers: generateHeaders(this.authService.getToken())}, requestBehaviourOptions);

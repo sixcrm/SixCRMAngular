@@ -10,9 +10,6 @@ import {environment} from '../../../environments/environment';
 })
 export class AccountInfoComponent implements OnInit {
 
-  title: string;
-  text: string;
-
   mapAcl = (acl: Acl) => acl.account.name;
 
   sidenavLogo = environment.branding ? environment.branding.sidenavLogo : 'logo-white.svg';
@@ -20,21 +17,33 @@ export class AccountInfoComponent implements OnInit {
   constructor(public authService: AuthenticationService) { }
 
   ngOnInit() {
-    if (this.noAvailableAccounts()) {
-      this.title = 'No Available Accounts';
-      this.text = 'You do not have permission to view any active accounts. Contact an administrator for access, or create your own account.';
-    } else if (this.accountHasNoBilling()) {
-      this.title = 'Select Payment Plan';
-      this.text = 'Your account must have payment plan selected in order to continue';
+  }
+
+  getText() {
+    if (this.accountHasNoBilling()) {
+      return 'Your account must have payment plan selected in order to continue';
+    } else if (this.noAvailableAccounts()) {
+      return 'You do not have permission to view any active accounts. Contact an administrator for access, or create your own account.';
     } else if (this.accountInactive()) {
-      this.title = 'Account Inactive';
-      this.text = 'You cannot currently sign in to this account. Please contact your administrator for more information.';
+      return 'You cannot currently sign in to this account. Please contact your administrator for more information.';
     } else if (this.userHasNoPermissions()) {
-      this.title = 'No Permissions';
-      this.text = 'You do not have permissions to view content for this account. Contact an administrator for access.';
+      return 'You do not have permissions to view content for this account. Contact an administrator for access.';
     } else {
-      this.title = 'Account Issues';
-      this.text = 'There are some issues with this account. Please contact Account Owner.';
+      return 'There are some issues with this account. Please contact Account Owner.';
+    }
+  }
+
+  getTitle() {
+    if (this.accountHasNoBilling()) {
+      return 'Select Payment Plan';
+    } else if (this.noAvailableAccounts()) {
+      return 'No Available Accounts';
+    } else if (this.accountInactive()) {
+      return 'Account Inactive';
+    } else if (this.userHasNoPermissions()) {
+      return 'No Permissions';
+    } else {
+      return 'Account Issues';
     }
   }
 

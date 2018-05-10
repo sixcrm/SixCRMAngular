@@ -41,6 +41,16 @@ export function createAccountMutation(account: Account): string {
 	  }`
 }
 
+export function createNewAccountMutation(accountName: string): string {
+  return `
+    mutation {
+      createnewaccount (account: {name: "${accountName}"}) {
+        ${accountResponseQuery()}
+      }
+    }
+  `
+}
+
 export function updateAccountMutation(account: Account): string {
   return `
     mutation {

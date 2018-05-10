@@ -132,6 +132,17 @@ export class RegistrationComponent implements OnInit {
 
   private createNewAccount() {
     this.requestInProgress = false;
+
+    this.accountService.createNewAccount(this.companyName).subscribe(account => {
+      if (account instanceof CustomServerError) {
+        this.duplicateAccountError = true;
+        this.formInvalid = true;
+        this.requestInProgress = false;
+        return;
+      }
+
+      this.authService.getUserIntrospection({});
+    })
   }
 
   private updateExistingAccount() {
