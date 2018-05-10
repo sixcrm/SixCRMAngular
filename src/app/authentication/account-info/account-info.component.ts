@@ -17,12 +17,12 @@ export class AccountInfoComponent implements OnInit {
   constructor(public authService: AuthenticationService) { }
 
   ngOnInit() {
-    if (this.accountHasNoBilling()) {
-      this.title = 'Account Disabled';
-      this.text = 'Your account has been suspended due to a problem with payment.';
-    } else if (this.noAvailableAccounts()) {
+    if (this.noAvailableAccounts()) {
       this.title = 'No Available Accounts';
       this.text = 'You do not have permission to view any active accounts. Contact an administrator for access, or create your own account.';
+    } else if (this.accountHasNoBilling()) {
+      this.title = 'Account Disabled';
+      this.text = 'Your account has been suspended due to a problem with payment.';
     } else if (this.accountInactive()) {
       this.title = 'Account Inactive';
       this.text = 'You cannot currently sign in to this account. Please contact your administrator for more information.';

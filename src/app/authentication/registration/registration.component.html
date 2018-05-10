@@ -4,6 +4,7 @@
 
   <div class="blue-screen__account-switcher">
     <simple-dropdown
+      *ngIf="(authService.activeAcl$ | async).id"
       [mapper]="mapAcl"
       [selectedOption]="authService.activeAcl$ | async"
       [options]="authService.getAcls()"
