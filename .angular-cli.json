@@ -35,7 +35,8 @@
         "local": "environments/environment.ts",
         "dev": "environments/environment.dev.ts",
         "stage": "environments/environment.stage.ts",
-        "prod": "environments/environment.prod.ts"
+        "prod": "environments/environment.prod.ts",
+        "priority": "environments/environment.priority.ts"
       }
     }
   ],
