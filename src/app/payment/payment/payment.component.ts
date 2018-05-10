@@ -23,9 +23,8 @@ export class PaymentComponent implements OnInit {
   mapAcl = (acl: Acl) => acl.account.name;
 
   constructor(
-    private authService: AuthenticationService,
+    public authService: AuthenticationService,
     private sessionService: SessionsService
-    public authService: AuthenticationService
   ) { }
 
   ngOnInit() {
@@ -72,5 +71,9 @@ export class PaymentComponent implements OnInit {
 
   accountPaymentFinished() {
     this.authService.getUserIntrospection({}, '/dashboard?w=true');
+  }
+
+  signout() {
+    this.authService.logout();
   }
 }
