@@ -17,11 +17,11 @@
       </div>
 
       <div class="entity-view__info__edit">
-        <div *ngIf="!entity.canceled.canceled; else cancelmessage" class="cancel">CANCEL</div>
+        <div *ngIf="!entity.cancelled.cancelled; else cancelmessage" class="cancel">CANCEL</div>
         <ng-template #cancelmessage>
-          <div class="canceled-message">
-            <div>Session canceled</div>
-            <div>by {{entity.canceled.canceledBy.name}} at {{entity.canceled.canceledAt.format('MM/DD/YY')}}</div>
+          <div class="cancelled-message">
+            <div>Session cancelled</div>
+            <div>by {{entity.cancelled.cancelledBy.name}} at {{entity.cancelled.cancelledAt.format('MM/DD/YY')}}</div>
           </div>
         </ng-template>
       </div>
