@@ -1,11 +1,12 @@
-<div class="container">
+<div class="container" [class.recurring-payment]="isRecurringPayment">
   <div class="row above" [class.error-row-above]="transactionalError">
-    <div class="title">{{(!transactionalError ? 'PAYMENT_TITLE' : 'PAYMENT_ERRORTITLE') | translate}}</div>
+    <div class="title">{{paymentTitle() | translate}}</div>
+    <button *ngIf="isRecurringPayment" mat-button (click)="cancel()">CANCEL</button>
   </div>
   <div class="row below">
     <div class="column left">
 
-    <div class="cards">
+    <div *ngIf="!isRecurringPayment" class="cards">
       <img *ngIf="creditCard.typeUnknown() || creditCard.getType() === 'visa'" src="/assets/cards/visa.svg">
       <img *ngIf="!creditCard.typeUnknown() && creditCard.getType() !== 'visa'" src="/assets/cards/visa_grayed.svg">
 
@@ -19,6 +20,27 @@
       <img *ngIf="!creditCard.typeUnknown() && creditCard.getType() !== 'discover'" src="/assets/cards/discover_grayed.svg">
     </div>
 
+    <div *ngIf="isRecurringPayment" class="cards-recurring">
+      <div class="title">{{'Choose Card' | translate}}</div>
+      <mat-label class="saved-card">{{'Saved card' | translate}}</mat-label>
+      <div class="switcher" [matMenuTriggerFor]="switcherOptions">
+        <div class="current">
+
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </div>
+
+        <mat-menu #switcherOptions="matMenu" x-position="before" *ngIf="creditCards.length > 0">
+          <button *ngFor="let card of creditCards"
+                  style="width: 260px"
+                  mat-menu-item>
+
+          </button>
+        </mat-menu>
+      </div>
+
+      <div class="title new-card">{{'Or Use a New Card' | translate}}</div>
+    </div>
+
     <div class="form">
       <mat-form-field [class.error]="formInvalid && ccNumberInvalid()">
         <input type="text" matInput placeholder="{{'PAYMENT_FORM_NUMBER' | translate}}" [(ngModel)]="creditCard.ccnumber" (keydown)="isAllowedNumericKey($event) && isShorterThan(20, creditCard.ccnumber, $event)">
@@ -30,7 +52,6 @@
         </mat-form-field>
         <img class="code__image" src="/assets/images/security_code.png">
       </div>
-
 
       <mat-form-field [class.error]="formInvalid && (!creditCard.name || creditCard.name.length < 2)">
         <input type="text" matInput placeholder="{{'PAYMENT_FORM_NAME' | translate}}" [(ngModel)]="creditCard.name">
@@ -60,30 +81,20 @@
         </div>
       </div>
     </div>
-
-    <div class="options">
-      <button mat-button *ngIf="existingPayment">{{'PAYMENT_REVERT' | translate}}</button>
-      <button mat-button *ngIf="existingPayment">{{'PAYMENT_SAVE' | translate}}</button>
-    </div>
   </div>
 
-  <div class="column right" [class.payment-info-error]="transactionalError">
-
-    <div class="title">
-      {{(!transactionalError ? 'PAYMENT_INFO_TITLE' : 'PAYMENT_DECLINETITLE') | translate}}
-      {{plan.name}}
-      {{(!transactionalError ? 'PAYMENT_INFO_TIER' : 'PAYMENT_DECLINEINFO') | translate}}
-    </div>
-    <div class="subtitle" *ngIf="!transactionalError" (click)="changePlan.emit(true)">{{'PAYMENT_INFO_CHANGE' | translate}}</div>
-    <div *ngIf="transactionalError" class="error-message">{{'PAYMENT_ERRORMESSAGE' | translate}}</div>
+  <div class="column right">
+    <div class="title">{{paymentInfoFirstPart() | translate}} {{plan.name}} {{paymentInfoSecondPart() | translate}}</div>
+    <div class="subtitle" *ngIf="!isRecurringPayment" (click)="changePlan.emit(true)">{{'PAYMENT_INFO_CHANGE' | translate}}</div>
+    <div *ngIf="transactionalError || isRecurringPayment"  [class.error-message-recurring]="!transactionalError" class="error-message">{{'PAYMENT_ERRORMESSAGE' | translate}}</div>
 
     <div class="details">
-      <div>{{(!transactionalError ? 'PAYMENT_INFO_TOTAL' : 'PAYMENT_BALANCEDUE') | translate}}:</div>
+      <div>{{paymentSummaryText() | translate}}:</div>
       <div style="margin-left: auto">${{plan.price}}</div>
     </div>
 
     <div class="terms">{{'PAYMENT_OWNERTERMS' | translate}} <span class="licenseagreement" (click)="openOwnerTerms()">{{'PAYMENT_LICENSEAGREEMENT' | translate}}</span>.</div>
-    <button mat-button (click)="pay()">{{(!transactionalError ? 'PAYMENT_INFO_FINISH' : 'PAYMENT_COMPLETEPURCHASE') | translate}}</button>
+    <button mat-button (click)="pay()" [class.disable-pay]="formInvalid">{{submitButtonText() | translate}}</button>
   </div>
   </div>
 </div>

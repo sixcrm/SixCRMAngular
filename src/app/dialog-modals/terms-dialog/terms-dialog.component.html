@@ -2,7 +2,7 @@
   <div class="title">{{title}}</div>
 
   <div class="content">
-    <div class="text" [innerHtml]="text | htmlSanitizer"></div>
+    <div class="text" Markdown>{{text}}</div>
 
     <div class="end">{{'TERMS_END' | translate}}</div>
   </div>

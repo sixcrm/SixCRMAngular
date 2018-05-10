@@ -1,6 +1,6 @@
 .container {
-  width: 860px;
-  min-height: 493px;
+  width: 856px;
+  min-height: 610px;
   box-shadow: 0 4px 4px rgba(0,0,0,0.25);
   font-family: Roboto, serif;
 
@@ -9,14 +9,27 @@
     color: #ffffff;
     background-color: #4277C2;
     font-weight: bold;
+    border-radius: 4px 4px 0 0;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.25);
+    display: flex;
+
+    button {
+      margin: -15px 0 -2px auto;
+      border: 1px solid #ffffff;
+      font-size: 13px;
+      padding: 0px 25px;
+    }
   }
 
   .error-row-above {
     background-color: #e02c4a;
+    border-radius: 4px 4px 0 0;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.25);
   }
 
   .below {
     display: flex;
+    min-height: 510px;
 
     .title {
       color: #4277C2;
@@ -41,14 +54,15 @@
 
     .left {
       background: #FAFAFA;
-      border-radius: 4px 0 0 4px;
+      border-radius: 0 0 0 4px;
     }
 
     .right {
       background: #E5F0F9;
-      border-radius: 0 4px 4px 0;
+      border-radius: 0 0 4px 0;
 
       button {
+        margin-bottom: 15px;
         padding-top: 5px;
         padding-bottom: 5px;
         background: #1EBEA5;
@@ -58,27 +72,10 @@
       }
     }
 
-    .payment-info-error {
-      background-color: #f8e4e7;
-
-      .title {
-        color: #766c6e;
-      }
-
-      .error-message {
-        color: #928789;
-        padding-top: 10px;
-        font-size: 15px;
-      }
-
-      .details {
-        color: #e23753;
-      }
-
-      button {
-        color: #ffffff;
-        background-color: #1e95ec;
-      }
+    .error-message {
+      color: #D00140;
+      padding-top: 10px;
+      font-size: 15px;
     }
 
     .cards {
@@ -96,7 +93,7 @@
     .details {
       display: flex;
       align-items: center;
-      margin: auto 0 50px 0;
+      margin: auto 0;
       color: #4277C2;
       font-weight: 500;
       font-size: 18px;
@@ -160,13 +157,6 @@
         }
       }
     }
-
-    .options {
-      padding-top: 10px;
-      margin-left: auto;
-      color: #727272;
-      min-height: 36px;
-    }
   }
 
   .process-overlay {
@@ -183,6 +173,79 @@
       margin: auto;
       color: white;
       font-size: 20px;
+    }
+  }
+
+  .disable-pay {
+    background-color: #7a7a7a !important;
+  }
+}
+
+.recurring-payment {
+  .above {
+    background-color: #D00140;
+    color: #ffffff;
+
+    button {
+      font-weight: normal;
+    }
+  }
+
+  .below {
+
+    .cards-recurring {
+      .title {
+        color: #7a7a7a;
+        margin-bottom: 20px;
+      }
+    }
+
+    .saved-card {
+      color: #7a7a7a;
+      font-size: 12px;
+    }
+
+    .new-card {
+      margin-top: 35px;
+    }
+
+    .switcher {
+      width: 250px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      padding: 6px 12px;
+      color: rgba(0, 0, 0, 0.87);
+      cursor: pointer;
+
+      .current {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+
+        mat-icon {
+          margin-left: auto;
+        }
+      }
+    }
+
+    .right {
+      background-color: #f8e4e7;
+
+      .title {
+        color: #7a7a7a;
+      }
+
+      button {
+        background-color: #1e95ec;
+      }
+
+      .error-message-recurring {
+        color: #7a7a7a;
+      }
+
+      .details {
+        color: #D00140;
+      }
     }
   }
 }

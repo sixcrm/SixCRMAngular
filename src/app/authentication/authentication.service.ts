@@ -436,11 +436,6 @@ export class AuthenticationService {
       return;
     }
 
-    if (this.shouldRedirectToPayment()) {
-      this.router.navigate(['/payment']);
-      return;
-    }
-
     if (redirectUrl) {
       this.router.navigateByUrl(redirectUrl);
       return;
@@ -452,14 +447,11 @@ export class AuthenticationService {
   }
 
   private shouldRedirectToAccountInfo() {
-    return this.getSixUser().acls.length === 0
+    return !this.getActiveAcl().account.billing
+      || this.getSixUser().acls.length === 0
       || !this.getActiveAcl().account.active
       || this.getActiveAcl().role.isDisabled()
       || this.getActiveAcl().role.isNoPermissions();
-  }
-
-  private shouldRedirectToPayment() {
-    return this.getActiveAcl().account.hasBillingIssue();
   }
 
   private shouldRedirectToBillingDisabled() {

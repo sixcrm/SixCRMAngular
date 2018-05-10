@@ -59,6 +59,18 @@
     }
   }
 
+  .payment {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin: 25px;
+    color: white;
+    background: #DC2547;
+    width: calc(100% - 50px);
+    font-size: 18px;
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  }
+
   .buttons {
     display: flex;
     margin: auto 25px 30px;

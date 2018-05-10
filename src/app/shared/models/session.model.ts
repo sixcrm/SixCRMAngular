@@ -25,7 +25,7 @@ export class Session implements Entity<Session> {
   subAffiliate4: Affiliate;
   subAffiliate5: Affiliate;
   watermark: Watermark;
-  canceled: SessionCancelation;
+  cancelled: SessionCancelation;
   createdAt: Moment;
   updatedAt: Moment;
   updatedAtAPI: string;
@@ -49,7 +49,7 @@ export class Session implements Entity<Session> {
     this.subAffiliate4 = new Affiliate(obj.subaffiliate_4);
     this.subAffiliate5 = new Affiliate(obj.subaffiliate_5);
     this.watermark = new Watermark(obj.watermark);
-    this.canceled = new SessionCancelation(obj.canceled);
+    this.cancelled = new SessionCancelation(obj.cancelled);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
     this.updatedAtAPI = obj.updated_at;
@@ -125,7 +125,7 @@ export class Session implements Entity<Session> {
       subaffiliate_4: this.subAffiliate4.inverse(),
       subaffiliate_5: this.subAffiliate5.inverse(),
       watermark: this.watermark.inverse(),
-      canceled: this.canceled.inverse(),
+      cancelled: this.cancelled.inverse(),
       created_at: this.createdAt.clone().format(),
       updated_at: this.updatedAtAPI
     }

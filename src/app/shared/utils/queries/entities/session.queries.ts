@@ -164,7 +164,7 @@ export function sessionResponseQuery(): string {
     cid { id name affiliate_id created_at updated_at }
     rebills { id bill_at amount},
     campaign { id name }
-    canceled { canceled canceled_at canceled_by { id name } }`;
+    cancelled { cancelled cancelled_at cancelled_by { id name } }`;
 }
 
 export function sessionDetailedResponseQuery(): string {
@@ -182,7 +182,7 @@ export function sessionDetailedResponseQuery(): string {
         products { amount product { id name sku ship shipping_delay } }
       }
     },
-    canceled { canceled canceled_at canceled_by { id name } }`;
+    cancelled { cancelled cancelled_at cancelled_by { id name } }`;
 }
 
 

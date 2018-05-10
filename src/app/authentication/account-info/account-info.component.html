@@ -1,7 +1,6 @@
 <div class="info-blue-screen">
   <img class="logo" src="/assets/images/logo-white.svg" alt="">
 
-
   <div class="body">
 
     <div class="header">
@@ -25,6 +24,13 @@
         </button>
       </mat-menu>
     </div>
+
+    <button *ngIf="accountHasNoBilling() && authService.getActiveAcl().role.isOwnerOrAdministrator()"
+            class="payment"
+            mat-button
+            [routerLink]="['/payment']">
+      MAKE PAYMENT
+    </button>
 
     <div class="buttons">
       <button mat-button (click)="logout()">SIGN OUT</button>

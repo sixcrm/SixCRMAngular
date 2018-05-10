@@ -3,18 +3,18 @@ import {User} from './user.model';
 
 export class SessionCancelation {
 
-  canceled: boolean;
-  canceledAt: Moment;
-  canceledBy: User;
+  cancelled: boolean;
+  cancelledAt: Moment;
+  cancelledBy: User;
 
   constructor(obj?: any) {
     if (!obj) {
       obj = {};
     }
 
-    this.canceled = obj.canceled;
-    this.canceledAt = utc(obj.canceled_at);
-    this.canceledBy = new User(obj.canceled_by);
+    this.cancelled = obj.cancelled;
+    this.cancelledAt = utc(obj.cancelled_at);
+    this.cancelledBy = new User(obj.cancelled_by);
   }
 
   copy(): SessionCancelation {
@@ -23,9 +23,9 @@ export class SessionCancelation {
 
   inverse(): any {
     return {
-      canceled: this.canceled,
-      canceled_at: this.canceledAt.clone(),
-      canceled_by: this.canceledBy.inverse()
+      cancelled: this.cancelled,
+      cancelled_at: this.cancelledAt.clone(),
+      cancelled_by: this.cancelledBy.inverse()
     }
   }
 }

@@ -42,6 +42,8 @@ export class RegistrationComponent implements OnInit {
   inited: boolean;
   showProgress: boolean;
 
+  mapAcl = (acl: Acl) => acl.account.name;
+
   constructor(
     public authService: AuthenticationService,
     private router: Router,
@@ -188,6 +190,14 @@ export class RegistrationComponent implements OnInit {
 
   resetError() {
     this.duplicateAccountError = false;
+  }
+
+  signout() {
+    this.authService.logout();
+  }
+
+  changeAcl(acl: Acl) {
+    this.authService.changeActiveAcl(acl);
   }
 
   private openTerms(title: string, text: string) {
