@@ -6,15 +6,15 @@
 import {EnvironmentModel} from './environment-model';
 
 export const environment: EnvironmentModel = {
-  production: false,
-  bareEndpoint: 'https://development-api.sixcrm.com/',
-  endpoint: 'https://development-api.sixcrm.com/graph/',
-  publicendpoint: 'https://development-api.sixcrm.com/publicgraph',
-  jwtEndpoint: 'https://development-api.sixcrm.com/token/acquire',
+  production: true,
+  bareEndpoint: 'https://api.recursix.com/',
+  endpoint: 'https://api.recursix.com/graph/',
+  publicendpoint: 'https://api.recursix.com/publicgraph',
+  jwtEndpoint: 'https://api.recursix.com/token/acquire',
   clientID: 'JM1tC2j7tycbu62el3oBhyklpNbk5x6F',
-  domain: 'sixcrm.auth0.com',
-  auth0RedirectUrl: 'http://localhost:4200',
-  translationsUrl: 'https://d3gac4cnrn5mn6.cloudfront.net/',
+  domain: 'recursix.auth0.com',
+  auth0RedirectUrl: 'https://admin.recursix.com',
+  translationsUrl: 'https://d35owrek0vay6q.cloudfront.net',
   version: '0.0.0',
   branding: {
     sidenavLogo: 'logo-recursix.png',
