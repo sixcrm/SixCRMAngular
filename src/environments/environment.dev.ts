@@ -1,4 +1,6 @@
-export const environment = {
+import {EnvironmentModel} from './environment-model';
+
+export const environment: EnvironmentModel = {
   production: true,
   bareEndpoint: 'https://development-api.sixcrm.com/',
   endpoint: 'https://development-api.sixcrm.com/graph/',

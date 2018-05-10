@@ -8,6 +8,7 @@ import {CustomServerError} from '../../shared/models/errors/custom-server-error'
 import {UsersService} from '../../shared/services/users.service';
 import {TermsDialogComponent} from '../../dialog-modals/terms-dialog/terms-dialog.component';
 import {MatDialog} from '@angular/material';
+import {AccountsService} from '../../shared/services/accounts.service';
 
 interface Terms {
   version?: string,
@@ -48,7 +49,8 @@ export class RegistrationComponent implements OnInit {
     public authService: AuthenticationService,
     private router: Router,
     private userService: UsersService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private accountService: AccountsService
   ) { }
 
   ngOnInit() {
@@ -86,6 +88,10 @@ export class RegistrationComponent implements OnInit {
 
       if (!this.activatingUser) {
         this.activatingUser = !this.user.active;
+
+        if (this.user.acls.length === 0) {
+          this.activatingAccount = true;
+        }
       }
 
       this.init();
@@ -107,7 +113,6 @@ export class RegistrationComponent implements OnInit {
 
     this.requestInProgress = true;
 
-    this.activateAccount();
     if (this.activatingUser) {
       this.activateUser();
     } else if (this.activatingAccount) {
@@ -118,6 +123,18 @@ export class RegistrationComponent implements OnInit {
   }
 
   private activateAccount() {
+    if (this.acl) {
+      this.updateExistingAccount();
+    } else {
+      this.createNewAccount();
+    }
+  }
+
+  private createNewAccount() {
+    this.requestInProgress = false;
+  }
+
+  private updateExistingAccount() {
     this.authService.updateCurrentAccount(this.companyName).subscribe(res => {
       if (res instanceof CustomServerError) {
         this.duplicateAccountError = true;

@@ -84,7 +84,7 @@ export class AuthenticationService {
       },
       closeable: false,
       theme: {
-        logo: '/assets/images/logo-navigation.svg'
+        logo: '/assets/images/' + (environment.branding ? environment.branding.registrationLogo : 'logo-navigation.svg')
       },
       languageDictionary: {
         title: ''

@@ -3,7 +3,9 @@
 // you can create your own and use it with the --env flag.
 // The build system defaults to the dev environment.
 
-export const environment = {
+import {EnvironmentModel} from './environment-model';
+
+export const environment: EnvironmentModel = {
   production: false,
   bareEndpoint: 'https://development-api.sixcrm.com/',
   endpoint: 'https://development-api.sixcrm.com/graph/',

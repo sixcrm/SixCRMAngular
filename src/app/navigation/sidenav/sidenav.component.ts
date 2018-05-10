@@ -35,6 +35,8 @@ export class SidenavComponent implements OnInit {
   private _screenWidth: number = NavigationService.largeViewportWidth;
   private _initialLoad: boolean = true; // Used to show slide in effect on page load for sidenav
 
+  sidenavLogo = environment.branding ? environment.branding.sidenavLogo : 'logo-navigation.svg';
+
   constructor(private _navigation: NavigationService) { }
 
   ngOnInit() {
