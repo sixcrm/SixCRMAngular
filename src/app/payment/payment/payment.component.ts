@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Plan} from '../plans/plan.model';
 import {AuthenticationService} from '../../authentication/authentication.service';
+import {Acl} from '../../shared/models/acl.model';
 
 @Component({
   selector: 'payment',
@@ -13,6 +14,8 @@ export class PaymentComponent implements OnInit {
   paymentInProgress: boolean;
 
   plan: Plan;
+
+  mapAcl = (acl: Acl) => acl.account.name;
 
   constructor(
     private authService: AuthenticationService
@@ -34,6 +37,10 @@ export class PaymentComponent implements OnInit {
   changePlanEmitted() {
     this.planInProgress = true;
     this.paymentInProgress = false;
+  }
+
+  changeAcl(acl: Acl) {
+    this.authService.changeActiveAcl(acl);
   }
 
   accountPaymentFinished() {

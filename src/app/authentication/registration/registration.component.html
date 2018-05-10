@@ -2,6 +2,18 @@
 
   <img class="logo" src="/assets/images/logo-white.svg" alt="">
 
+  <div class="blue-screen__account-switcher">
+    <simple-dropdown
+      [mapper]="mapAcl"
+      [selectedOption]="authService.activeAcl$ | async"
+      [options]="authService.getAcls()"
+      [icon]="'domain'"
+      (optionSelected)="changeAcl($event)">
+    </simple-dropdown>
+
+    <button mat-button (click)="signout()">{{'REGISTER_SIGNOUT' | translate}}</button>
+  </div>
+
   <div class="progress" *ngIf="showProgress">
     <div class="circle active"><div>{{'REGISTER_PROGRESS_ACCOUNT' | translate}}</div></div>
     <div class="line"></div>
