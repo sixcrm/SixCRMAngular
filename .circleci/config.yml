@@ -12,8 +12,6 @@ jobs:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
-      - restore_cache:
-          key: git-modules-{{ .Branch }}-{{ .Revision }}
       - run: git submodule update --init --remote --merge
       - run:
           name: npm install
