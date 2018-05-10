@@ -90,7 +90,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
       return;
     }
 
-    this.countSub = this.queryRequest(notificationCountQuery(), {ignoreProgress: true}).subscribe(data => {
+    this.countSub = this.queryRequest(notificationCountQuery(), {ignoreProgress: true, ignoreSnack: true}).subscribe(data => {
       if (data instanceof CustomServerError) {
         this.notificationCount$.next(0);
         return;
@@ -113,7 +113,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
       return;
     }
 
-    this.alertSub = this.queryRequest(alertsListQuery(), {ignoreProgress: true}).subscribe(data => {
+    this.alertSub = this.queryRequest(alertsListQuery(), {ignoreProgress: true, ignoreSnack: true}).subscribe(data => {
       if (data instanceof CustomServerError) {
         return;
       }
@@ -133,7 +133,7 @@ export class NotificationsQuickService extends AbstractEntityService<Notificatio
       return;
     }
 
-    this.queryRequest(notificationsPersistentListQuery(), {ignoreProgress: true}).take(1).subscribe(data => {
+    this.queryRequest(notificationsPersistentListQuery(), {ignoreProgress: true, ignoreSnack: true}).take(1).subscribe(data => {
       if (data instanceof CustomServerError) {
         return;
       }
