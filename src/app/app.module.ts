@@ -31,6 +31,7 @@ import {MaterialSelectionModule} from './material-selection/material-selection.m
 import {HttpWrapperTransactionalService} from './shared/services/http-wrapper-transactional.service';
 import { TermsDialogComponent } from './dialog-modals/terms-dialog/terms-dialog.component';
 import { BillingInfoComponent } from './billing-info/billing-info.component';
+import { MarkdownModule } from 'angular2-markdown';
 
 @NgModule({
   declarations : [
@@ -64,7 +65,8 @@ import { BillingInfoComponent } from './billing-info/billing-info.component';
     MaterialSelectionModule,
     ClipboardModule,
     TranslationModule.forRoot(),
-    TextMaskModule
+    TextMaskModule,
+    MarkdownModule.forRoot()
   ],
   exports: [ ],
   providers : [ HttpWrapperService, HttpWrapperTransactionalService ],
