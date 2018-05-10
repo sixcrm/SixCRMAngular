@@ -34,7 +34,9 @@
     <plan-payment
       (changePlan)="changePlanEmitted()"
       (paymentSuccessful)="accountPaymentFinished()"
-      [plan]="plan">
+      [plan]="plan"
+      [isRecurringPayment]="isRecurringPayment"
+      [creditCards]="creditCards">
     </plan-payment>
   </div>
 

@@ -20,6 +20,8 @@ import {AccountsService} from '../../shared/services/accounts.service';
 export class PlanPaymentComponent implements OnInit {
 
   @Input() plan: Plan;
+  @Input() isRecurringPayment: boolean;
+  @Input() creditCards: CreditCard[] = [];
 
   @Output() changePlan: EventEmitter<boolean> = new EventEmitter();
   @Output() paymentSuccessful: EventEmitter<boolean> = new EventEmitter();
