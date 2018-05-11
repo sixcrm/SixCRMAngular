@@ -39,7 +39,13 @@ exports.config = {
       './e2e/**/smtp-provider.e2e-spec.ts'
     ],
     invite: './e2e/**/accept-invite.e2e-spec.ts',
-    register: './e2e/**/register.e2e-spec.ts'
+    register: './e2e/**/register.e2e-spec.ts',
+    base: [
+      './e2e/**/dashboard.e2e-spec.ts',
+      './e2e/**/accept-invite.e2e-spec.ts',
+      './e2e/**/register.e2e-spec.ts',
+      './e2e/**/user.e2e-spec.ts'
+    ]
   },
   capabilities: {
     'browserName': 'chrome'

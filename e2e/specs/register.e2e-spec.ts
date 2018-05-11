@@ -1,5 +1,6 @@
 import {AuthPage} from '../po/auth.po';
 import {RegisterPage} from '../po/register.po';
+import {AcceptInvitePage} from '../po/accept-invite.po';
 import {browser} from 'protractor';
 import {waitForPresenceOfLoginFields, waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
 import {doSignUp} from '../utils/action.utils';
@@ -9,18 +10,21 @@ import {TermsAndConditionsPage} from '../po/terms-and-conditions.po';
 
 let registrationUsername = `tr${new Date().getTime()}@example.com`;
 let registrationPassword = 'testingregistrationpassword';
+let newCompany = `e2e_Company_${new Date().getTime()}`;
 
 describe('Register', function() {
   let authPage: AuthPage;
   let registerPage: RegisterPage;
   let appTopNav: TopnavPage;
   let termsAndConditionsPage: TermsAndConditionsPage;
+  let acceptInvitePage: AcceptInvitePage;
 
   beforeEach(() => {
     authPage = new AuthPage();
     registerPage = new RegisterPage();
     appTopNav = new TopnavPage();
     termsAndConditionsPage = new TermsAndConditionsPage();
+    acceptInvitePage = new AcceptInvitePage();
   });
 
   afterAll(() => {
@@ -35,55 +39,63 @@ describe('Register', function() {
     clearLocalStorage();
   });
 
-  it('should redirect to /terms-and-conditions', () => {
+  it('should redirect to base registration page', () => {
     authPage.navigateTo();
-    browser.pause();
     waitForPresenceOfLoginFields(authPage);
 
     doSignUp(authPage, registrationUsername, registrationPassword);
 
     // Wait for angular is disabled, so we need to tell protractor to wait for page to load
-    waitForUrlContains('terms-and-conditions');
-
-    expectUrlToContain('/terms-and-conditions');
-    expectPresent(termsAndConditionsPage.getContainer());
+    waitForUrlContains('/register');
+    expectUrlToContain('/register');
   });
 
-  it('should redirect to /dashboard when accept user and owner terms and conditions', () => {
+  it('should redirect to /payment and show payment views when register info is filled out', () => {
     browser.sleep(2000);
-    termsAndConditionsPage.getAcceptButton().click();
-    browser.sleep(2000);
-    termsAndConditionsPage.getAcceptButton().click();
-
-    waitForUrlContains('dashboard');
-
-    expectUrlToContain('/dashboard');
-    expectPresent(registerPage.getWelcomeScreen());
-    expectPresent(registerPage.getWelcomeContinueButton());
+    browser.waitForAngularEnabled(false);
+    acceptInvitePage.getRegisterInputs(0).sendKeys('e2e First');
+    acceptInvitePage.getRegisterInputs(1).sendKeys('e2e Last');
+    acceptInvitePage.getRegisterInputs(2).sendKeys(newCompany);
+    browser.sleep(500);
+    acceptInvitePage.getRegisterAcceptButton().click();
+    waitForUrlContains('/payment');
+    expectUrlToContain('/payment');
+    expectPresent(registerPage.getPaymentView());
+    expect(registerPage.getPaymentOptions().get(0).getText()).toEqual('Basic');
+    expect(registerPage.getPaymentOptions().get(1).getText()).toEqual('Professional');
+    expect(registerPage.getPaymentOptions().get(2).getText()).toEqual('Premium');
   });
 
-  it('should render sign up form on registration field', () => {
-    expect(registerPage.getInputs().count()).toEqual(3);
+  it ('should choose Professional Plan and move to payment entry', () => {
+    browser.waitForAngularEnabled(false);
+    registerPage.getPaymentButtons().get(1).click();
+    browser.sleep(1500);
+    expect(registerPage.getPaymentEntryTitle().getText()).toEqual('You have chosen the SIX Professional Tier');
+    browser.sleep(1500);
   });
 
-  it('should show errors if inputs of sign up form are invalid', () => {
-    registerPage.getContinueButton().click();
-
-    expect(registerPage.getInvalidInputs().count()).toEqual(3);
+  it ('should enter CC info and then SUCCESS', () => {
+    browser.waitForAngularEnabled(false);
+    // card number
+    registerPage.getInputs().get(0).sendKeys(4242424242424242);
+    // security code
+    registerPage.getInputs().get(1).sendKeys(123);
+    // name on card
+    registerPage.getInputs().get(2).sendKeys('Card Name');
+    // choose month
+    registerPage.getPaymentEntryCardDate().first().click();
+    browser.sleep(200);
+    registerPage.getPaymentEntryCardMonth().get(6).click();
+    // choose year
+    registerPage.getPaymentEntryCardDate().last().click();
+    browser.sleep(200);
+    registerPage.getPaymentEntryCardMonth().get(4).click();
+    // Finish Registration
+    registerPage.getPaymentContinueButton().click();
+    browser.sleep(10000);
+    waitForUrlContains('/dashboard?w=true');
+    browser.sleep(5000);
+    expectUrlToContain('/dashboard?w=true');
   });
 
-  it('should remove errors if inputs of sign up form get corrected', () => {
-    registerPage.getInputs().get(0).sendKeys('test company');
-    registerPage.getInputs().get(1).sendKeys('test name');
-    registerPage.getInputs().get(2).sendKeys('test lastname');
-
-    expect(registerPage.getInvalidInputs().count()).toEqual(0);
-  });
-
-  it('should render registration success', () => {
-    registerPage.getContinueButton().click();
-    browser.sleep(3000);
-
-    expect(registerPage.getSuccessTitle().getText()).toContain('Your account is now active and you may begin exploring at your leisure.');
-  });
 });

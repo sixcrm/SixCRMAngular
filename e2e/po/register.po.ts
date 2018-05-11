@@ -10,6 +10,38 @@ export class RegisterPage {
     return element(by.css('.registration-form__container'));
   }
 
+  getPaymentView() {
+    return element(by.css('.plan'));
+  }
+
+  getPaymentOptions() {
+    return element(by.css('.container')).all(by.css('.name'));
+  }
+
+  getPaymentPlan() {
+    return element(by.css('.container')).all(by.css('.plan'));
+  }
+
+  getPaymentButtons() {
+    return element(by.css('.container')).all(by.css('button'));
+  }
+
+  getPaymentEntryTitle() {
+    return element(by.css('.registration-column-right')).element(by.css('.title'));
+  }
+
+  getPaymentEntryCardDate() {
+    return element(by.css('.dates')).all(by.css('.element'));
+  }
+
+  getPaymentEntryCardMonth() {
+    return element(by.css('.mat-menu-content')).all(by.css('button'));
+  }
+
+  getPaymentContinueButton() {
+    return element(by.css('.registration-column-right')).element(by.css('button'));
+  }
+
   getWelcomeScreen() {
     return element(by.css('.registration-form__title'));
   }
@@ -19,7 +51,7 @@ export class RegisterPage {
   }
 
   getInputs() {
-    return element(by.css('.registration-form__form')).all(by.css('input'));
+    return element(by.css('.form')).all(by.css('input'));
   }
 
   getInvalidInputs() {
