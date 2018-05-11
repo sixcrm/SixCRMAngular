@@ -59,7 +59,7 @@ export class PaymentComponent implements OnInit {
           return;
         }
 
-        this.unpaidBills = response.filter(bill => !fill.paid);
+        this.unpaidBills = response.filter(bill => !bill.paid);
       });
 
       this.billService.getEntities();
