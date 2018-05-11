@@ -21,29 +21,29 @@ export class AccountInfoComponent implements OnInit {
 
   getText() {
     if (this.noAvailableAccounts()) {
-      return 'You do not have permission to view any active accounts. Contact an administrator for access, or create your own account.';
+      return 'INFOSCREEN_NOACCOUNTS_TEXT';
     } else if (this.accountHasNoBilling()) {
-      return 'Your account must have payment plan selected in order to continue';
+      return 'INFOSCREEN_NOBILLING_TEXT';
     } else if (this.accountInactive()) {
-      return 'You cannot currently sign in to this account. Please contact your administrator for more information.';
+      return 'INFOSCREEN_INACTIVE_TEXT';
     } else if (this.userHasNoPermissions()) {
-      return 'You do not have permissions to view content for this account. Contact an administrator for access.';
+      return 'INFOSCREEN_NOPERMISSIONS_TEXT';
     } else {
-      return 'There are some issues with this account. Please contact Account Owner.';
+      return 'INFOSCREEN_OTHER_TEXT';
     }
   }
 
   getTitle() {
     if (this.noAvailableAccounts()) {
-      return 'No Available Accounts';
+      return 'INFOSCREEN_NOACCOUNTS_TITLE';
     } else if (this.accountHasNoBilling()) {
-      return 'Select Payment Plan';
+      return 'INFOSCREEN_NOBILLING_TITLE';
     } else if (this.accountInactive()) {
-      return 'Account Inactive';
+      return 'INFOSCREEN_INACTIVE_TITLE';
     } else if (this.userHasNoPermissions()) {
-      return 'No Permissions';
+      return 'INFOSCREEN_NOPERMISSIONS_TITLE';
     } else {
-      return 'Account Issues';
+      return 'INFOSCREEN_OTHER_TITLE';
     }
   }
 
