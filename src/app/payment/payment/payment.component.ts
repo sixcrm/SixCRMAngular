@@ -6,6 +6,8 @@ import {CustomServerError} from '../../shared/models/errors/custom-server-error'
 import {CreditCard} from '../../shared/models/credit-card.model';
 import {Acl} from '../../shared/models/acl.model';
 import {environment} from '../../../environments/environment';
+import {BillsService} from '../../shared/services/bills.service';
+import {Bill} from '../../shared/models/bill.model';
 
 @Component({
   selector: 'payment',
@@ -20,6 +22,7 @@ export class PaymentComponent implements OnInit {
   plan: Plan;
   isRecurringPayment: boolean = false;
   creditCards: CreditCard[] = [];
+  unpaidBills: Bill[] = [];
 
   mapAcl = (acl: Acl) => acl.account.name;
 
@@ -27,7 +30,8 @@ export class PaymentComponent implements OnInit {
 
   constructor(
     public authService: AuthenticationService,
-    private sessionService: SessionsService
+    private sessionService: SessionsService,
+    private billService: BillsService
   ) { }
 
   ngOnInit() {
@@ -42,7 +46,6 @@ export class PaymentComponent implements OnInit {
         }
 
         this.creditCards = response.customer.creditCards;
-
       });
 
       this.sessionService.getEntity(sessionId);
@@ -50,6 +53,16 @@ export class PaymentComponent implements OnInit {
 
     if (this.isRecurringPayment) {
       this.setSelectedPlan(Plan.ofServerName(this.authService.getActiveAcl().account.billing.plan));
+
+      this.billService.entities$.take(1).subscribe((response) => {
+        if (response instanceof CustomServerError) {
+          return;
+        }
+
+        this.unpaidBills = response.filter(bill => !fill.paid);
+      });
+
+      this.billService.getEntities();
     }
   }
 

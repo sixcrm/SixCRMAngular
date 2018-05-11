@@ -13,6 +13,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {AccountsService} from '../../shared/services/accounts.service';
 import {Location} from '@angular/common';
 import {environment} from '../../../environments/environment';
+import {Bill} from '../../shared/models/bill.model';
 
 @Component({
   selector: 'plan-payment',
@@ -24,6 +25,7 @@ export class PlanPaymentComponent implements OnInit {
   @Input() plan: Plan;
   @Input() isRecurringPayment: boolean;
   @Input() creditCards: CreditCard[] = [];
+  @Input() unpaidBills: Bill[] = [];
 
   @Output() changePlan: EventEmitter<boolean> = new EventEmitter();
   @Output() paymentSuccessful: EventEmitter<boolean> = new EventEmitter();
