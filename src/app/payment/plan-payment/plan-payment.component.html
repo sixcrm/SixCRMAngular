@@ -1,12 +1,16 @@
 <div class="container" [class.recurring-payment]="isRecurringPayment">
-  <div class="row above" [class.error-row-above]="transactionalError">
+  <div class="row above"  *ngIf="isRecurringPayment || transactionalError" [class.error-row-above]="transactionalError">
     <div class="title">{{paymentTitle() | translate}}</div>
     <button *ngIf="isRecurringPayment" mat-button (click)="cancel()">CANCEL</button>
+    <mat-icon *ngIf="transactionalError">error_outline</mat-icon>
   </div>
   <div class="row below">
-    <div class="column left">
+    <div class="column left" [class.registration-column-left]="!isRecurringPayment && !transactionalError">
 
-    <div *ngIf="!isRecurringPayment || !creditCards.length" class="cards">
+    <div class="title" *ngIf="!isRecurringPayment && !transactionalError">{{paymentTitle() | translate}}</div>
+    <div *ngIf="!isRecurringPayment && transactionalError"  [class.error-message-recurring]="!transactionalError" class="error-message">{{'PAYMENT_ERRORMESSAGE' | translate}}</div>
+
+    <div *ngIf="!isRecurringPayment || !creditCards.length" class="cards" [class.cards-layout]="isRecurringPayment">
       <img *ngIf="creditCard.typeUnknown() || creditCard.getType() === 'visa'" src="/assets/cards/visa.svg">
       <img *ngIf="!creditCard.typeUnknown() && creditCard.getType() !== 'visa'" src="/assets/cards/visa_grayed.svg">
 
@@ -21,8 +25,8 @@
     </div>
 
     <div *ngIf="isRecurringPayment && creditCards.length" class="cards-recurring">
-      <div class="title">{{'Choose Card' | translate}}</div>
-      <mat-label class="saved-card">{{'Saved card' | translate}}</mat-label>
+      <div class="title">{{'PAYMENT_EXISTINGCARD' | translate}}</div>
+      <mat-label class="saved-card">{{'PAYMENT_SAVEDCARD' | translate}}</mat-label>
       <div class="switcher" [matMenuTriggerFor]="switcherOptions">
         <div class="current">
 
@@ -38,7 +42,7 @@
         </mat-menu>
       </div>
 
-      <div class="title new-card">{{'Or Use a New Card' | translate}}</div>
+      <div class="title new-card">{{'PAYMENT_NEWCARD' | translate}}</div>
     </div>
 
     <div class="form">
@@ -83,18 +87,34 @@
     </div>
   </div>
 
-  <div class="column right">
+  <div class="column right" [class.registration-column-right]="!isRecurringPayment && !transactionalError">
     <div class="title">{{paymentInfoFirstPart() | translate}} {{plan.name}} {{paymentInfoSecondPart() | translate}}</div>
     <div class="subtitle" *ngIf="!isRecurringPayment" (click)="changePlan.emit(true)">{{'PAYMENT_INFO_CHANGE' | translate}}</div>
-    <div *ngIf="transactionalError || isRecurringPayment"  [class.error-message-recurring]="!transactionalError" class="error-message">{{'PAYMENT_ERRORMESSAGE' | translate}}</div>
+    <div *ngIf="isRecurringPayment" [class.error-message-recurring]="!transactionalError" class="error-message">{{'PAYMENT_ERRORMESSAGE' | translate}}</div>
 
-    <div class="details">
-      <div>{{paymentSummaryText() | translate}}:</div>
-      <div style="margin-left: auto">${{plan.price}}</div>
+    <div class="fees">
+      <div *ngIf="isRecurringPayment">
+        <div *ngFor="let bill of unpaidBills.bills">
+          <div *ngFor="let detail of bill.detail">
+            <div class="fees-details">
+              <div>{{detail.description}}</div>
+              <div class="amount">{{detail.amount.usd() | numberlocale}}</div>
+            </div>
+          </div>
+          <div class="horizontal-line"></div>
+        </div>
+      </div>
+
+      <div class="details" [class.details-registration] = "!isRecurringPayment">
+        <div>{{paymentSummaryText() | translate}}:</div>
+        <div *ngIf="!isRecurringPayment" class="line"></div>
+        <div *ngIf="!isRecurringPayment">${{plan.price}}</div>
+        <div *ngIf="isRecurringPayment" class="amount">{{unpaidBills.total().usd() | numberlocale }}</div>
+      </div>
     </div>
 
     <div class="terms">{{'PAYMENT_OWNERTERMS' | translate}} <span class="licenseagreement" (click)="openOwnerTerms()">{{'PAYMENT_LICENSEAGREEMENT' | translate}}</span>.</div>
-    <button mat-button (click)="pay()">{{submitButtonText() | translate}}</button>
+    <button mat-button (click)="pay()" [class.disable-pay]="formInvalid && isDataInvalid()">{{submitButtonText() | translate}}</button>
   </div>
   </div>
 </div>

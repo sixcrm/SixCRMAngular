@@ -8,6 +8,7 @@ import {Acl} from '../../shared/models/acl.model';
 import {environment} from '../../../environments/environment';
 import {BillsService} from '../../shared/services/bills.service';
 import {Bill} from '../../shared/models/bill.model';
+import {UnpaidBills} from "../unpaid-bills.model";
 
 @Component({
   selector: 'payment',
@@ -22,7 +23,7 @@ export class PaymentComponent implements OnInit {
   plan: Plan;
   isRecurringPayment: boolean = false;
   creditCards: CreditCard[] = [];
-  unpaidBills: Bill[] = [];
+  unpaidBills: UnpaidBills;
 
   mapAcl = (acl: Acl) => acl.account.name;
 
@@ -59,7 +60,7 @@ export class PaymentComponent implements OnInit {
           return;
         }
 
-        this.unpaidBills = response.filter(bill => !bill.paid);
+        this.unpaidBills = UnpaidBills.ofBills(response);
       });
 
       this.billService.getEntities();

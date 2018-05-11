@@ -13,7 +13,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {AccountsService} from '../../shared/services/accounts.service';
 import {Location} from '@angular/common';
 import {environment} from '../../../environments/environment';
-import {Bill} from '../../shared/models/bill.model';
+import {UnpaidBills} from "../unpaid-bills.model";
 
 @Component({
   selector: 'plan-payment',
@@ -25,7 +25,7 @@ export class PlanPaymentComponent implements OnInit {
   @Input() plan: Plan;
   @Input() isRecurringPayment: boolean;
   @Input() creditCards: CreditCard[] = [];
-  @Input() unpaidBills: Bill[] = [];
+  @Input() unpaidBills: UnpaidBills;
 
   @Output() changePlan: EventEmitter<boolean> = new EventEmitter();
   @Output() paymentSuccessful: EventEmitter<boolean> = new EventEmitter();
@@ -159,9 +159,9 @@ export class PlanPaymentComponent implements OnInit {
 
   submitButtonText() {
     if (this.isRecurringPayment) {
-      return 'Complete Purchase & Reactivate Account'
+      return 'PAYMENT_COMPLETEPURCHASEREACTIVATEACCOUNT'
     } else if (this.transactionalError) {
-      return 'PAYMENT_COMPLETEPURCHASE'
+      return 'PAYMENT_RETRY'
     } else {
       return 'PAYMENT_INFO_FINISH'
     }
@@ -169,7 +169,7 @@ export class PlanPaymentComponent implements OnInit {
 
   paymentTitle() {
     if (this.isRecurringPayment) {
-      return 'Make Payment'
+      return 'PAYMENT_RECURRINGTITLE'
     } else if (this.transactionalError) {
       return 'PAYMENT_ERRORTITLE'
     } else {
@@ -191,5 +191,14 @@ export class PlanPaymentComponent implements OnInit {
 
   cancel() {
     this.location.back();
+  }
+
+  isDataInvalid() {
+    return this.ccNumberInvalid()
+    || this.ccvInvalid()
+    || !this.creditCard.expirationMonth
+    || !this.creditCard.expirationYear
+    || !this.creditCard.name
+    || this.creditCard.name.length < 2;
   }
 }
