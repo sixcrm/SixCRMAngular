@@ -6,6 +6,7 @@ export class CheckoutResponse {
   session: Session;
   customer: Customer;
   transactions: Transaction[] = [];
+  success: boolean;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -15,5 +16,10 @@ export class CheckoutResponse {
     this.session = new Session(obj.session);
     this.customer = new Customer(obj.customer);
     this.transactions = (obj.transactions || []).map(t => new Transaction(t));
+  }
+
+  setSuccess(success: boolean): CheckoutResponse {
+    this.success = success;
+    return this;
   }
 }
