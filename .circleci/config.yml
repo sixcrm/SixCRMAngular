@@ -148,14 +148,7 @@ workflows:
   version: 2
   build_deploy_test_and_merge:
     jobs:
-      - install:
-          filters:
-            branches:
-              only:
-                - development
-                - staging
-                - production
-                - priority
+      - install
       - version:
           requires:
             - install
@@ -165,10 +158,24 @@ workflows:
       - aws_sts:
           requires:
             - install
+          filters:
+            branches:
+              only:
+                - development
+                - staging
+                - production
+                - priority
       - deploy_s3:
           requires:
             - build
             - aws_sts
+          filters:
+            branches:
+              only:
+                - development
+                - staging
+                - production
+                - priority
       - deploy_cloudfront:
           requires:
             - deploy_s3
