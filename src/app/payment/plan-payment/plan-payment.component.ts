@@ -174,7 +174,7 @@ export class PlanPaymentComponent implements OnInit {
   }
 
   paymentTitle() {
-    if (this.isRecurringPayment) {
+    if (this.isRecurringPayment && !this.transactionalError) {
       return 'PAYMENT_RECURRINGTITLE'
     } else if (this.transactionalError) {
       return 'PAYMENT_ERRORTITLE'

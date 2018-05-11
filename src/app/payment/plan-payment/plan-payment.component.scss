@@ -12,9 +12,13 @@
     border-radius: 4px 4px 0 0;
     box-shadow: 0 4px 4px rgba(0,0,0,0.25);
     display: flex;
+    justify-content: space-between;
+
+    .title {
+      align-self: center;
+    }
 
     button {
-      margin: -15px 0 -2px auto;
       border: 1px solid #ffffff;
       font-size: 13px;
       padding: 0px 25px;
@@ -96,7 +100,7 @@
     }
 
     .error-message {
-      color: #D00140;
+      color: #DC2547;
       padding-top: 10px;
       font-size: 17px;
     }
@@ -180,7 +184,7 @@
         }
 
         .error {
-          border-color: #D00140 !important;
+          border-color: #DC2547 !important;
         }
 
         .selected {
@@ -201,7 +205,7 @@
 
 .recurring-payment {
   .above {
-    background-color: #D00140;
+    background-color: #DC2547;
     color: #ffffff;
 
     button {
@@ -255,7 +259,7 @@
       background-color: #f8e4e7;
 
       .title {
-        color: #D00140;
+        color: #DC2547;
       }
 
       button {
