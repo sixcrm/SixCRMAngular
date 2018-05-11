@@ -14,6 +14,10 @@ export class AcceptInvitePage {
     return element(by.css('button'));
   }
 
+  getRegisterAcceptButton() {
+    return element(by.css('.actions')).element(by.css('button'));
+  }
+
   getAuth0Modal() {
     return element(by.css('.auth0-lock-widget'));
   }
