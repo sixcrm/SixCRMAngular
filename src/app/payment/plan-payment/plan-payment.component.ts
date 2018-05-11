@@ -110,9 +110,7 @@ export class PlanPaymentComponent implements OnInit {
           return;
         }
 
-        const transaction = (response.transactions || [])[0];
-
-        if (!transaction || transaction.processorResponse.code !== 'success') {
+        if (!response.success) {
           this.paymentInProgress = false;
           this.transactionalError = true;
           return;
