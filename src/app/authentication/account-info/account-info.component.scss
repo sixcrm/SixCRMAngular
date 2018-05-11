@@ -16,8 +16,11 @@
     border-radius: 4px 4px 0 0;
 
     &--payment {
-      mat-icon {
+      background: #CDEBF9;
 
+      mat-icon {
+        background: #92D2F5 !important;
+        color: white !important;
       }
     }
 

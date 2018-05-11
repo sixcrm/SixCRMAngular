@@ -20,7 +20,10 @@
       <div class="title">{{getTitle()}}</div>
       <mat-icon *ngIf="accountHasNoBilling(); else lock">attach_money</mat-icon>
       <ng-template #lock>
-        <mat-icon>lock_outline</mat-icon>
+        <mat-icon *ngIf="accountHasNoBilling(); else lock">attach_money</mat-icon>
+        <ng-template #lock>
+          <mat-icon>attach_money</mat-icon>
+        </ng-template>
       </ng-template>
     </div>
 
