@@ -12,6 +12,7 @@ import {TermsDialogComponent} from '../../dialog-modals/terms-dialog/terms-dialo
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {AccountsService} from '../../shared/services/accounts.service';
 import {Location} from '@angular/common';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'plan-payment',
@@ -42,6 +43,7 @@ export class PlanPaymentComponent implements OnInit {
   transactionalError: boolean;
 
   ownerTerms: { version?: string, title?: string, body?: string };
+  showGenericLoader = environment.branding && environment.branding.useGenericLoader;
 
   constructor(
     private transactionalApi: HttpWrapperTransactionalService,

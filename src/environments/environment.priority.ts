@@ -20,6 +20,7 @@ export const environment: EnvironmentModel = {
     registrationLogo: 'logo-recursix-registration.png',
     sidenavLogo: 'logo-recursix.png',
     sidenavCollapsedLogo: 'logo-recursix-collapsed.png',
-    infoScreensLogo: 'logo-recursix.png'
+    infoScreensLogo: 'logo-recursix.png',
+    showGenericLoader: true
   }
 };

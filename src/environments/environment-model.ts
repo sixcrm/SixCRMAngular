@@ -16,5 +16,6 @@ export interface Branding {
   registrationLogo: string,
   sidenavLogo: string,
   sidenavCollapsedLogo: string,
-  infoScreensLogo: string
+  infoScreensLogo: string,
+  showGenericLoader: boolean
 }
