@@ -294,7 +294,7 @@ export class AuthenticationService {
   }
 
   public registerUser(company: string, firstName: string, lastName: string, terms?: string): Observable<HttpResponse<any> | CustomServerError> {
-    let endpoint = environment.endpoint + this.getActiveAcl().account.id;
+    const endpoint = `${environment.endpoint}*`;
     let user = this.getSixUser();
     user.name = `${firstName} ${lastName}`;
     user.company = company;
