@@ -17,7 +17,7 @@
   <div class="body">
 
     <div class="header" [class.header--payment]="accountHasNoBilling()">
-      <div class="title">{{getTitle()}}</div>
+      <div class="title">{{getTitle() | translate}}</div>
       <mat-icon *ngIf="accountHasNoBilling(); else lock">attach_money</mat-icon>
       <ng-template #lock>
         <mat-icon *ngIf="accountHasNoBilling(); else lock">attach_money</mat-icon>
@@ -27,18 +27,18 @@
       </ng-template>
     </div>
 
-    <div class="content">{{getText()}}</div>
+    <div class="content">{{getText() | translate}}</div>
 
     <div class="buttons">
       <button *ngIf="accountHasNoBilling() && authService.getActiveAcl().role.isOwnerOrAdministrator(); else createbutton"
               mat-button
               class="payment"
               [routerLink]="['/payment']">
-        SETUP PAYMENT PLAN
+        {{'INFOSCREEN_PAY' | translate}}
       </button>
 
       <ng-template #createbutton>
-        <button class="create" mat-button [routerLink]="['/register']">CREATE ACCOUNT</button>
+        <button class="create" mat-button [routerLink]="['/register']">{{'INFOSCREEN_CREATE' | translate}}</button>
       </ng-template>
     </div>
   </div>
