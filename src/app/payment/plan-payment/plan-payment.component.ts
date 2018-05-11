@@ -45,7 +45,7 @@ export class PlanPaymentComponent implements OnInit {
   transactionalError: boolean;
 
   ownerTerms: { version?: string, title?: string, body?: string };
-  showGenericLoader = environment.branding && environment.branding.useGenericLoader;
+  showGenericLoader = environment.branding && environment.branding.showGenericLoader;
 
   constructor(
     private transactionalApi: HttpWrapperTransactionalService,

@@ -20,10 +20,10 @@ export class AccountInfoComponent implements OnInit {
   }
 
   getText() {
-    if (this.accountHasNoBilling()) {
-      return 'Your account must have payment plan selected in order to continue';
-    } else if (this.noAvailableAccounts()) {
+    if (this.noAvailableAccounts()) {
       return 'You do not have permission to view any active accounts. Contact an administrator for access, or create your own account.';
+    } else if (this.accountHasNoBilling()) {
+      return 'Your account must have payment plan selected in order to continue';
     } else if (this.accountInactive()) {
       return 'You cannot currently sign in to this account. Please contact your administrator for more information.';
     } else if (this.userHasNoPermissions()) {
@@ -34,10 +34,10 @@ export class AccountInfoComponent implements OnInit {
   }
 
   getTitle() {
-    if (this.accountHasNoBilling()) {
-      return 'Select Payment Plan';
-    } else if (this.noAvailableAccounts()) {
+    if (this.noAvailableAccounts()) {
       return 'No Available Accounts';
+    } else if (this.accountHasNoBilling()) {
+      return 'Select Payment Plan';
     } else if (this.accountInactive()) {
       return 'Account Inactive';
     } else if (this.userHasNoPermissions()) {
@@ -60,7 +60,7 @@ export class AccountInfoComponent implements OnInit {
   }
 
   accountHasNoBilling() {
-    return !this.authService.getActiveAcl().account.billing;
+    return this.authService.getSixUser().acls.length > 0 && !this.authService.getActiveAcl().account.billing;
   }
 
   logout() {

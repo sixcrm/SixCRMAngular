@@ -45,7 +45,7 @@ export function createNewAccountMutation(accountName: string): string {
   return `
     mutation {
       createnewaccount (account: {name: "${accountName}"}) {
-        ${accountResponseQuery()}
+        id name
       }
     }
   `

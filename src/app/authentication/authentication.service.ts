@@ -382,7 +382,7 @@ export class AuthenticationService {
     this.getUserIntrospection(profile, redirectUrl);
   }
 
-  getUserIntrospection(profile: any, redirectUrl?: string): void {
+  getUserIntrospection(profile: any, redirectUrl?: string, forceRedirect?: boolean): void {
     this.http.post(environment.endpoint + '*', userIntrospection(), { headers: generateHeaders(this.getToken())}).subscribe(
       (data) => {
         let user = extractData(data).userintrospection;
@@ -407,6 +407,11 @@ export class AuthenticationService {
           }
 
           this.updateSettings(new UserSettings(user.usersetting));
+
+          if (redirectUrl && forceRedirect) {
+            this.router.navigateByUrl(redirectUrl);
+            return;
+          }
 
           this.redirectAfterAclChange(redirectUrl);
         } else {

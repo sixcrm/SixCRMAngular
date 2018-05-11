@@ -131,7 +131,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   private createNewAccount() {
-    this.requestInProgress = false;
+    this.requestInProgress = true;
 
     this.accountService.createNewAccount(this.companyName).subscribe(account => {
       if (account instanceof CustomServerError) {
@@ -141,7 +141,7 @@ export class RegistrationComponent implements OnInit {
         return;
       }
 
-      this.authService.getUserIntrospection({});
+      this.authService.getUserIntrospection({}, '/payment', true);
     })
   }
 
