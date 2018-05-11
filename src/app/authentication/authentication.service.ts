@@ -172,10 +172,6 @@ export class AuthenticationService {
     return isInvited;
   }
 
-  public authenticatedAndActivated(): boolean {
-    return this.authenticated() && this.active();
-  }
-
   public showLogin(): void {
     this.initLock(this.router.url === '/signup');
     this.lock.show();

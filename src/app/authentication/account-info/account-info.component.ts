@@ -12,7 +12,7 @@ export class AccountInfoComponent implements OnInit {
 
   mapAcl = (acl: Acl) => acl.account.name;
 
-  sidenavLogo = environment.branding ? environment.branding.sidenavLogo : 'logo-white.svg';
+  sidenavLogo = environment.branding ? environment.branding.infoScreensLogo : 'logo-white.svg';
 
   constructor(public authService: AuthenticationService) { }
 
