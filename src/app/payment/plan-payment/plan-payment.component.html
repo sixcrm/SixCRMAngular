@@ -46,41 +46,41 @@
     </div>
 
     <div class="form">
-      <mat-form-field [class.error]="formInvalid && ccNumberInvalid()">
-        <input type="text" matInput placeholder="{{'PAYMENT_FORM_NUMBER' | translate}}" [(ngModel)]="creditCard.ccnumber" (keydown)="isAllowedNumericKey($event) && isShorterThan(20, creditCard.ccnumber, $event)">
+      <mat-form-field [class.error]="formInvalid && ccInvalid">
+        <input type="text" matInput placeholder="{{'PAYMENT_FORM_NUMBER' | translate}}" [(ngModel)]="creditCard.ccnumber" (keydown)="ccInvalid=false;isAllowedNumericKey($event) && isShorterThan(20, creditCard.ccnumber, $event)">
       </mat-form-field>
 
       <div>
-        <mat-form-field class="code" [class.error]="formInvalid && ccvInvalid()">
-          <input type="text" matInput placeholder="{{'PAYMENT_FORM_CODE' | translate}}" [(ngModel)]="creditCard.ccv" (keydown)="isAllowedNumericKey($event) && isShorterThan(5, creditCard.ccv, $event)">
+        <mat-form-field class="code" [class.error]="formInvalid && ccvInvalid">
+          <input type="text" matInput placeholder="{{'PAYMENT_FORM_CODE' | translate}}" [(ngModel)]="creditCard.ccv" (keydown)="ccvInvalid=false;isAllowedNumericKey($event) && isShorterThan(5, creditCard.ccv, $event)">
         </mat-form-field>
         <img class="code__image" src="/assets/images/security_code.png">
       </div>
 
-      <mat-form-field [class.error]="formInvalid && (!creditCard.name || creditCard.name.length < 2)">
-        <input type="text" matInput placeholder="{{'PAYMENT_FORM_NAME' | translate}}" [(ngModel)]="creditCard.name">
+      <mat-form-field [class.error]="formInvalid && nameInvalid">
+        <input type="text" matInput placeholder="{{'PAYMENT_FORM_NAME' | translate}}" [(ngModel)]="creditCard.name" (keydown)="nameInvalid=false;true">
       </mat-form-field>
 
       <div class="dates">
         <div class="element"
              [matMenuTriggerFor]="monthMenu"
-             [class.error]="formInvalid && !creditCard.expirationMonth"
+             [class.error]="formInvalid && monthInvalid"
              [class.selected]="creditCard.expirationMonth">
           <div>{{(creditCard.expirationMonth || 'PAYMENT_FORM_MONTH') | translate}}</div>
           <mat-icon>keyboard_arrow_down</mat-icon>
           <mat-menu #monthMenu="matMenu">
-            <button mat-menu-item *ngFor="let month of months" (click)="setMonth(month)">{{month}}</button>
+            <button mat-menu-item *ngFor="let month of months" (click)="monthInvalid=false;setMonth(month)">{{month}}</button>
           </mat-menu>
         </div>
 
         <div class="element"
              [matMenuTriggerFor]="yearMenu"
-             [class.error]="formInvalid && !creditCard.expirationYear"
+             [class.error]="formInvalid && yearInvalid"
              [class.selected]="creditCard.expirationYear">
           <div>{{(creditCard.expirationYear || 'PAYMENT_FORM_YEAR') | translate}}</div>
           <mat-icon>keyboard_arrow_down</mat-icon>
           <mat-menu #yearMenu="matMenu">
-            <button mat-menu-item *ngFor="let year of years" (click)="setYear(year)">{{year}}</button>
+            <button mat-menu-item *ngFor="let year of years" (click)="yearInvalid=false;setYear(year)">{{year}}</button>
           </mat-menu>
         </div>
       </div>
