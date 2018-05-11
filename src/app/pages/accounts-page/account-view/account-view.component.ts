@@ -39,7 +39,8 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
     associateOptionText: 'ACCOUNT_USERS_ADD',
     viewOptionText: 'ACCOUNT_USERS_VIEW',
     disassociateModalTitle: 'ACCOUNT_USERS_REMOVEMESSAGE',
-    editOptionText: 'ACCOUNT_USERS_EDIT'
+    editOptionText: 'ACCOUNT_USERS_EDIT',
+    noDataText: 'ACCOUNT_USERS_NODATA'
   };
 
   menuOptions: CustomMenuOption[] = [
