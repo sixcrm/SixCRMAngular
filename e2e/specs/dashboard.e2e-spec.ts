@@ -48,27 +48,7 @@ describe('Dashboard', function() {
     browser.sleep(6000);
     expectNotPresent(dashboard.getTransactionOverviewLoader());
   });
-/*
-  it('should reload when advanced filter reload is clicked in less than 2 seconds', () => {
-    dashboard.getAdvancedFilterReload().click();
 
-    browser.sleep(50);
-    expectPresent(app.getProgressBar());
-
-    browser.sleep(6000);
-    expectNotPresent(app.getProgressBar());
-  });
-
-  it('should reload when advanced filter date is changed in less than 6 seconds', () => {
-    dashboard.getAdvancedFilterDates().get(0).click();
-
-    browser.sleep(50);
-    expectPresent(app.getProgressBar());
-
-    browser.sleep(6000);
-    expectNotPresent(app.getProgressBar());
-  });
-*/
   it('should cache dashboard results', () => {
     const sidenav = new SidenavPage();
 
