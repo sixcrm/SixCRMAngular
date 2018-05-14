@@ -16,6 +16,8 @@ import {AnalyticsService} from "../../shared/services/analytics.service";
 import {utc} from 'moment';
 import {HeroChartSeries} from '../../shared/models/hero-chart-series.model';
 import {SeriesType} from './series-type';
+import { DashboardType } from './dashboard-type';
+import { TransactionsService } from '../../shared/services/transactions.service';
 
 @Component({
   selector: 'c-dashboard',
@@ -24,9 +26,12 @@ import {SeriesType} from './series-type';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
+  public DashboardType: any = DashboardType;
+
   campaigns: Campaign[] = [new Campaign({name: 'All Campaigns'})];
   selectedCampaign: Campaign = this.campaigns[0];
   seriesType: SeriesType = SeriesType.amountcount;
+  activeDashboard: DashboardType = DashboardType.setup;
 
   queries: DashboardQuery[] = [
     {
@@ -129,10 +134,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private authService: AuthenticationService,
     private analyticsService: AnalyticsService,
     private campaignService: CampaignsService,
-    private translationService: TranslationService
+    private translationService: TranslationService,
+    private transactionService: TransactionsService
   ) { }
 
   ngOnInit() {
+    this.determineType();
+
+    this.authService.activeAcl$.subscribe(() => {
+      this.determineType();
+    });
+
     this.authService.sixUser$.takeUntil(this.unsubscribe$).subscribe(user => {
       this.name = user.firstName;
     });
@@ -193,5 +205,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.timeFilters.forEach(f => f.selected = (f === filter));
 
     filter.callback();
+  }
+
+  determineType() {
+    this.transactionService.entities$.take(1).subscribe((response) => {
+
+      if (response instanceof CustomServerError) return;
+
+      if (response.length > 0) {
+        this.activeDashboard = DashboardType.full;
+      }
+
+      if (!response || response.length === 0) {
+        this.activeDashboard = DashboardType.setup;
+      }
+
+    });
+
+    this.transactionService.getEntities(1);
   }
 }
