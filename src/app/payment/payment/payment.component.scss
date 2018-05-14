@@ -5,6 +5,13 @@
   width: 100vw;
   height: 100vh;
   background: linear-gradient(to bottom left, #4277C2, #2C98F0);
+
+  .blue-screen__account-switcher {
+    button {
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
 }
 
 .progress {
