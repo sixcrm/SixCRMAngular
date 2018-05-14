@@ -25,13 +25,11 @@
 }
 
 .sixLogo {
-  width: 180px;
-  height: 180px;
+  width: 159px;
+  height: 159px;
   position: absolute;
   top: 0;
   left: 0;
-  -webkit-animation: six-icon 850ms infinite ease-in-out;
-  animation: six-icon 850ms infinite ease-in-out;
 }
 
 @-webkit-keyframes six-icon {
