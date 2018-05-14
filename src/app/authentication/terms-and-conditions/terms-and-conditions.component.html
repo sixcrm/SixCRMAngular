@@ -1,7 +1,7 @@
 <div class="container">
 
   <div class="title">{{termsAndConditions.title}}</div>
-  <div class="body" Markdown>{{termsAndConditions.body}}</div>
+  <div *ngIf="termsAndConditions && termsAndConditions.body" class="body" Markdown>{{termsAndConditions.body}}</div>
 
   <div class="actions">
 

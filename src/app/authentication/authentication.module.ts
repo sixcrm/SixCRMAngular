@@ -16,6 +16,7 @@ import {MaterialSelectionModule} from '../material-selection/material-selection.
 import { AccountInfoComponent } from './account-info/account-info.component';
 import {AccountInfoGuard} from './account-info-guard.service';
 import {BillingDisabledGuard} from './payment-dissabled-guard.service';
+import {MarkdownModule} from 'angular2-markdown';
 
 @NgModule({
   imports : [
@@ -25,7 +26,8 @@ import {BillingDisabledGuard} from './payment-dissabled-guard.service';
     CommonModule,
     FormsModule,
     SharedModule,
-    TranslationModule
+    TranslationModule,
+    MarkdownModule
   ],
   declarations : [
     AuthComponent,
