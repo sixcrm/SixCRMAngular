@@ -1,8 +1,6 @@
 <div class="persistent-notification" *ngIf="filteredPersistentNotification">
-  <mat-icon>flag</mat-icon>
-  <div>
-    <strong>{{filteredPersistentNotification.name}}:</strong>
-    {{filteredPersistentNotification.body}}
-  </div>
+  <mat-icon>error_outline</mat-icon>
+  <div>{{filteredPersistentNotification.body}}</div>
   <mat-icon *ngIf="filteredPersistentNotification.id" (click)="dismissPersistent(filteredPersistentNotification)">close</mat-icon>
+  <button mat-button [routerLink]="['/payment']">{{'NOTIFICATIONSPERSISTENT_PAY' | translate}}</button>
 </div>

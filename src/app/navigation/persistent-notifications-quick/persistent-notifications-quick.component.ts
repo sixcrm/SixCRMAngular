@@ -37,8 +37,8 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
     this.notificationsSub = this.notificationsService.notificationsPersistent$.subscribe(notifications => {
       const predefined = [];
 
-      if (this.authService.isBillingDisabled()) {
-        predefined.push(this.notificationsService.buildNotificationWithBody({name: 'BILLING_DISABLE', category: 'BILLING'}))
+      if (this.authService.isBillingSoonToBeDisabled()) {
+        predefined.push(this.createBillingDisableNotification(this.authService.daysTillBillingDisabled()))
       }
 
       this.persistentNotifications = notifications;
@@ -50,14 +50,34 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
     this.aclSub = this.authService.activeAcl$.subscribe(() => {
       const predefined = [];
 
-      if (this.authService.isBillingDisabled()) {
-        predefined.push(this.notificationsService.buildNotificationWithBody({name: 'BILLING_DISABLE', category: 'BILLING'}))
+      if (this.authService.isBillingSoonToBeDisabled()) {
+        predefined.push(this.createBillingDisableNotification(this.authService.daysTillBillingDisabled()))
       }
 
       this.persistentNotificationsToShow = [...predefined, ...this.persistentNotifications];
 
       this.filterNotifications();
     })
+  }
+
+  private createBillingDisableNotification(numberOfDays) {
+    let key = 'billing_disable_soon';
+
+    if (numberOfDays === 0) {
+      key = 'billing_disable_today'
+    }
+    if (numberOfDays > 0) {
+      key = 'billing_disable_soon'
+    }
+    if (numberOfDays < 0) {
+      key = 'billing_disabled'
+    }
+
+    return this.notificationsService.buildNotificationWithBody({
+      name: key,
+      category: 'billing',
+      context: {days: numberOfDays}
+    });
   }
 
   getHiddenNotificationIDs(): string[] {

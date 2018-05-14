@@ -2,31 +2,36 @@
   display: flex;
   align-items: center;
   padding: 12px 24px;
-  background: #F7EBCF;
+  background: #DC2547;
   font-family: Roboto, sans-serif;
-
-  strong {
-    margin-right: 5px;
-    margin-left: 10px;
-  }
 
   div {
     padding: 5px;
     font-size: 16px;
+    color: rgba(255, 255, 255, 0.87);
   }
 
   mat-icon {
-    margin-right: 5px;
-    height: 18px;
-    width: 18px;
-    font-size: 18px;
-    color: #FD1F47;
-    cursor: pointer;
+    margin-right: 10px;
+    font-size: 31px;
+    height: 30px;
+    width: 30px;
+    color: rgba(255, 255, 255, 0.87);
   }
 
   &__action {
     margin-left: 10px;
     color: #5B9BE1;
     cursor: pointer;
+  }
+
+  button {
+    margin-left: auto;
+    color: rgba(255, 255, 255, 0.87);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.87);
+    font-size: 13px;
+    width: 125px;
+    padding: 0px 25px;
   }
 }
