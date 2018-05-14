@@ -17,10 +17,10 @@ export const environment: EnvironmentModel = {
   translationsUrl: 'https://d35owrek0vay6q.cloudfront.net',
   version: '0.0.0',
   branding: {
-    registrationLogo: 'logo-recursix-registration.png',
-    sidenavLogo: 'logo-recursix.png',
-    sidenavCollapsedLogo: 'logo-recursix-collapsed.png',
-    infoScreensLogo: 'logo-recursix.png',
+    registrationLogo: 'logo-recursix-registration.svg',
+    sidenavLogo: 'logo-recursix.svg',
+    sidenavCollapsedLogo: 'logo-recursix-collapsed.svg',
+    infoScreensLogo: 'logo-recursix.svg',
     showGenericLoader: true
   }
 };
