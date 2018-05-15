@@ -21,6 +21,8 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
 
   notificationsFiltered$: Subject<boolean> = new Subject();
 
+  daysTillBillingDisabled: number;
+
   private hiddenNotifications: string = 'hidden_notifications';
 
   constructor(private notificationsService: NotificationsQuickService, private authService: AuthenticationService) { }
@@ -36,9 +38,10 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
 
     this.notificationsSub = this.notificationsService.notificationsPersistent$.subscribe(notifications => {
       const predefined = [];
+      this.daysTillBillingDisabled = this.authService.daysTillBillingDisabled();
 
       if (this.authService.isBillingSoonToBeDisabled()) {
-        predefined.push(this.createBillingDisableNotification(this.authService.daysTillBillingDisabled()))
+        predefined.push(this.createBillingDisableNotification(this.daysTillBillingDisabled))
       }
 
       this.persistentNotifications = notifications;
@@ -51,7 +54,7 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
       const predefined = [];
 
       if (this.authService.isBillingSoonToBeDisabled()) {
-        predefined.push(this.createBillingDisableNotification(this.authService.daysTillBillingDisabled()))
+        predefined.push(this.createBillingDisableNotification(this.daysTillBillingDisabled))
       }
 
       this.persistentNotificationsToShow = [...predefined, ...this.persistentNotifications];

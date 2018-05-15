@@ -35,3 +35,15 @@
     padding: 0px 25px;
   }
 }
+
+.notification {
+  background: #FAFAAA;
+
+  div, mat-icon, button {
+    color: grey;
+  }
+
+  button {
+    border-color: grey;
+  }
+}
