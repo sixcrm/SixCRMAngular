@@ -1,0 +1,123 @@
+.setup-container {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  background: linear-gradient(180deg, #4277C2 8.44%, #2C98F0 100%);
+  min-height: 100vh;
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 20px 0px 20px;
+    min-height: 198px;
+
+    .quote {
+      justify-content: space-between;
+      margin-left: auto;
+      font-size: 24px;
+      font-weight: lighter;
+      font-style: italic;
+
+      div:last-child {
+        font-size: 16px;
+        margin-left: auto;
+        float: right;
+      }
+    }
+
+    .greeting {
+      font-size: 30px;
+      font-weight: lighter;
+      line-height: 35px;
+      color: #b5d0fa;
+      z-index: 20;
+      margin-left: 15px;
+
+      &__content {
+        font-size: 72px;
+        display: flex;
+        line-height: 63px;
+        color: #ffffff;
+
+        &__img {
+          margin-top: 23px;
+          margin-left: 15px;
+          z-index: 20;
+        }
+      }
+    }
+
+  }
+
+  &__settings {
+    color: #8ed8fd;
+    padding: 20px;
+    margin: -60px 20px 20px 20px;
+    background-color: #36629f;
+    border-radius: 4px;
+    z-index: 10;
+
+    &__heading {
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 19px;
+      margin-top: 30px;
+
+      div {
+        width: 33%;
+      }
+    }
+
+    &__columns {
+      display: flex;
+
+      .column {
+        padding: 0 20px 20px 0;
+        display: flex;
+        flex-direction: column;
+        width: 33%;
+
+        .segment {
+          display: flex;
+          margin-top: 15px;
+
+          .icon-wrapper {
+            border-radius: 50%;
+            background-color: #1EB1FC;
+            width: 32px;
+            height: 32px;
+            margin: 5px
+          }
+
+          mat-icon {
+            color: #294a78;
+            font-size: 40px;
+            width: 40px;
+            height: 40px;
+            margin: -5px;
+          }
+
+          &__content {
+            display: flex;
+            flex-direction: column;
+            color: #ffffff;
+            font-size: 14px;
+            line-height: 16px;
+            font-weight: 400;
+            margin-left: 15px;
+
+            .title {
+              margin: 10px 0;
+              font-size: 16px;
+              line-height: 19px;
+              font-weight: 500;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}

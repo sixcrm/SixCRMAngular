@@ -1,11 +1,137 @@
 <div class="dashboard-container">
-  <div class="dashboard">
+    <div class="dashboard setup-container">
 
-    <div class="info">
-      <div>Welcome, {{name}}</div>
+      <div class="setup-container__header">
+
+        <div class="quote">
+          <div>Fortune sides with him who dares</div>
+          <div>-Virgil</div>
+        </div>
+
+        <div class="greeting">
+          <div>Hello, {{name}}!</div>
+          <div class="greeting__content">
+            <div>Let's get started</div>
+            <div class="greeting__content__img">
+              <svg width="23" height="49" viewBox="0 0 23 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="Group 2">
+                  <path id="Vector" d="M0 0V14L13 8.81481L0 0Z" transform="translate(9 35)" fill="#1EB1FC"/>
+                  <path id="Vector_2" d="M0 0C13.291 0 28.8735 15.5175 15.5825 37.6" transform="translate(0 2)" stroke="#1EB1FC" stroke-width="4"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="setup-container__settings">
+        <div class="setup-container__settings__heading">
+          <div>{{'DASHBOARD_STATE_SETUP_ACCOUNT_TITLE' | translate}}</div>
+          <div>{{'DASHBOARD_STATE_SETUP_PROVIDERS_TITLE' | translate}}</div>
+          <div>{{'DASHBOARD_STATE_SETUP_PRODUCTSANDCAMPAIGNS_TITLE' | translate}}</div>
+        </div>
+
+        <div class="setup-container__settings__columns">
+        <div class="column">
+          <div class="segment">
+            <div class="icon-wrapper">
+              <mat-icon>account_circle</mat-icon>
+            </div>
+            <div class="segment__content">
+              <div class="title" [routerLink]="['/profile']">{{'DASHBOARD_STATE_SETUP_ACCOUNT_SETTINGS_TITLE' | translate}}</div>
+              <div class="text">{{'DASHBOARD_STATE_SETUP_ACCOUNT_SETTINGS_DESCRIPTION' | translate}}</div>
+            </div>
+          </div>
+          <div class="segment">
+            <div class="icon-wrapper">
+              <mat-icon>account_circle</mat-icon>
+            </div>
+            <div class="segment__content">
+              <div class="title" [routerLink]="['/users']">{{'DASHBOARD_STATE_SETUP_ACCOUNT_INVITEUSERS_TITLE' | translate}}</div>
+              <div class="text">{{'DASHBOARD_STATE_SETUP_ACCOUNT_INVITEUSERS_DESCRIPTION' | translate}}</div>
+            </div>
+          </div>
+          <div class="segment">
+            <div class="icon-wrapper">
+              <mat-icon>account_circle</mat-icon>
+            </div>
+            <div class="segment__content">
+              <div class="title" [routerLink]="['/']">{{'DASHBOARD_STATE_SETUP_ACCOUNT_SUBSCRIPTIONS_TITLE' | translate}}</div>
+              <div class="text">{{'DASHBOARD_STATE_SETUP_ACCOUNT_SUBSCRIPTIONS_DESCRIPTION' | translate}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="segment">
+            <div class="icon-wrapper">
+              <mat-icon>account_circle</mat-icon>
+            </div>
+            <div class="segment__content">
+              <div class="title" [routerLink]="['/merchantproviders']">{{'DASHBOARD_STATE_SETUP_PROVIDERS_MERCHANT_TITLE' | translate}}</div>
+              <div class="text">{{'DASHBOARD_STATE_SETUP_PROVIDERS_MERCHANT_DESCRIPTION' | translate}}</div>
+            </div>
+          </div>
+          <div class="segment">
+            <div class="icon-wrapper">
+              <mat-icon>account_circle</mat-icon>
+            </div>
+            <div class="segment__content">
+              <div class="title" [routerLink]="['/fulfillmentproviders']">{{'DASHBOARD_STATE_SETUP_PROVIDERS_FULFILLMENT_TITLE' | translate}}</div>
+              <div class="text">{{'DASHBOARD_STATE_SETUP_PROVIDERS_FULFILLMENT_DESCRIPTION' | translate}}</div>
+            </div>
+          </div>
+          <div class="segment">
+            <div class="icon-wrapper">
+              <mat-icon>account_circle</mat-icon>
+            </div>
+            <div class="segment__content">
+              <div class="title" [routerLink]="['/smtpproviders']">{{'DASHBOARD_STATE_SETUP_PROVIDERS_SMTP_TITLE' | translate}}</div>
+              <div class="text">{{'DASHBOARD_STATE_SETUP_PROVIDERS_SMTP_DESCRIPTION' | translate}}</div>
+            </div>
+          </div>
+          <div class="segment">
+            <div class="icon-wrapper">
+              <mat-icon>account_circle</mat-icon>
+            </div>
+            <div class="segment__content">
+              <div class="title" [routerLink]="['/documentation/graph']">{{'DASHBOARD_STATE_SETUP_PROVIDERS_API_TITLE' | translate}}</div>
+              <div class="text">{{'DASHBOARD_STATE_SETUP_PROVIDERS_API_DESCRIPTION' | translate}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="segment">
+            <div class="icon-wrapper">
+              <mat-icon>account_circle</mat-icon>
+            </div>
+            <div class="segment__content">
+              <div class="title" [routerLink]="['/products']">{{'DASHBOARD_STATE_SETUP_PRODUCTSANDCAMPAIGNS_PRODUCTS_TITLE' | translate}}</div>
+              <div class="text">{{'DASHBOARD_STATE_SETUP_PRODUCTSANDCAMPAIGNS_PRODUCTS_DESCRIPTION' | translate}}</div>
+            </div>
+          </div>
+          <div class="segment">
+            <div class="icon-wrapper">
+              <mat-icon>account_circle</mat-icon>
+            </div>
+            <div class="segment__content">
+              <div class="title" [routerLink]="['/productschedules']">{{'DASHBOARD_STATE_SETUP_PRODUCTSANDCAMPAIGNS_PRODUCTSCHEDULES_TITLE' | translate}}</div>
+              <div class="text">{{'DASHBOARD_STATE_SETUP_PRODUCTSANDCAMPAIGNS_PRODUCTSCHEDULES_DESCRIPTION' | translate}}</div>
+            </div>
+          </div>
+          <div class="segment">
+            <div class="icon-wrapper">
+              <mat-icon>account_circle</mat-icon>
+            </div>
+            <div class="segment__content">
+              <div class="title" [routerLink]="['/campaigns']">{{'DASHBOARD_STATE_SETUP_PRODUCTSANDCAMPAIGNS_CAMPAIGNS_TITLE' | translate}}</div>
+              <div class="text">{{'DASHBOARD_STATE_SETUP_PRODUCTSANDCAMPAIGNS_CAMPAIGNS_DESCRIPTION' | translate}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
   </div>
-
-
 </div>
