@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../authentication.service';
 import {ActivatedRoute} from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector : 'auth',
@@ -10,6 +11,7 @@ import {ActivatedRoute} from '@angular/router';
 export class AuthComponent implements OnInit {
 
   showSpinner: boolean = true;
+  showGenericSpinner: boolean= environment.branding && environment.branding.showGenericLoader;
 
   constructor(private auth: AuthenticationService) { }
 

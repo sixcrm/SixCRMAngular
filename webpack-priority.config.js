@@ -482,7 +482,7 @@ module.exports = {
       "cwd": projectRoot
     }),
     new HtmlWebpackPlugin({
-      "template": "./src/index.html",
+      "template": "./src/index.priority.html",
       "filename": "./index.html",
       "hash": false,
       "inject": true,
