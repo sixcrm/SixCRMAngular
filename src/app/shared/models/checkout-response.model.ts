@@ -18,7 +18,7 @@ export class CheckoutResponse {
     this.transactions = (obj.transactions || []).map(t => new Transaction(t));
   }
 
-  setSuccess(success: boolean): CheckoutResponse {
+  withSuccess(success: boolean): CheckoutResponse {
     this.success = success;
     return this;
   }

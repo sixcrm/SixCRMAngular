@@ -87,7 +87,7 @@ export class HttpWrapperTransactionalService {
     this.acquireToken(campaignId, account, secretKey, accessKey).subscribe(acquireTokenResponse => {
 
       this.performCheckout(checkoutBody, acquireTokenResponse.body.response, account).subscribe(checkoutResponse => {
-        response.next(new CheckoutResponse(checkoutResponse.body.response).setSuccess(checkoutResponse.body.success));
+        response.next(new CheckoutResponse(checkoutResponse.body.response).withSuccess(checkoutResponse.body.response.result === "success"));
       }, error => response.next(new TransactionalResponseError(error.status, error.body ? error.body.message: error.message)))
 
     }, error => response.next(new TransactionalResponseError(error.status, error.body ? error.body.message: error.message)));
