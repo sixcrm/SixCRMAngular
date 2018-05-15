@@ -16,6 +16,8 @@ import { DashboardDualGraphComponent } from './dashboard-dual-graph/dashboard-du
 import { DashboardIssuesReportComponent } from './dashboard-issues-report/dashboard-issues-report.component';
 import { TopSubscriptionsComponent } from './top-subscriptions/top-subscriptions.component';
 import { MaterialSelectionModule } from '../../material-selection/material-selection.module';
+import {DashboardSetupComponent} from './states/setup/dashboard-setup.component'
+import {DashboardFullComponent} from './states/full/dashboard-full.component'
 
 export function highchartsFactory() {
   let hc = require('highcharts');
@@ -47,7 +49,9 @@ export function highchartsFactory() {
     DashboardHeaderDropdownComponent,
     DashboardDualGraphComponent,
     DashboardIssuesReportComponent,
-    TopSubscriptionsComponent
+    TopSubscriptionsComponent,
+    DashboardSetupComponent,
+    DashboardFullComponent
   ],
   exports : [ ],
   providers: [{
