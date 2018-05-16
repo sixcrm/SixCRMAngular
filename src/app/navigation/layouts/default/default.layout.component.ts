@@ -43,9 +43,12 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
       this.isInvitedUser = this.authService.isInvitedUser();
 
       if (this.isInvitedUser || !!params['w']) {
-        this.showWelcomeOverlay = true;
+        this.showWelcomeOverlay = this.authService.shouldShowWelcome();
 
-        setTimeout(() => this.showWelcomeOverlay = false, 2000);
+        setTimeout(() => {
+          this.showWelcomeOverlay = false;
+          this.authService.setShowWelcome(this.showWelcomeOverlay);
+        }, 2000);
       }
     });
 

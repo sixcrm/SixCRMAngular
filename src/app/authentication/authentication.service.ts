@@ -372,6 +372,16 @@ export class AuthenticationService {
     this.updateUserData(JSON.parse(localStorage.getItem(this.idTokenPayload)));
   }
 
+  public setShowWelcome(show: boolean): void {
+    localStorage.setItem(this.currentSixUser.email + ':welcome', show);
+  }
+
+  public shouldShowWelcome(): boolean {
+    let show = localStorage.getItem(this.currentSixUser.email + ':welcome');
+
+    return show === null || show === 'true';
+  }
+
   private setUser(authResult): void {
     localStorage.setItem(this.accessToken, authResult.accessToken);
     localStorage.setItem(this.idToken, authResult.idToken);
