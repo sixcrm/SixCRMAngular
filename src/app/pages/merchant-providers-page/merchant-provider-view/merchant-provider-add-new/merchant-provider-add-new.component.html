@@ -122,7 +122,7 @@
     <div class="entity-view__card__content merchant-provider-view__details merchant-provider-view__details--align">
 
       <mat-input-container class="entity-view__card__content__item">
-        <input [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_SERVICE_URI' | translate}}" name="url" [(ngModel)]="entity.customerService.url" type="text">
+        <input [disabled]="mode === modes.View" pattern="https?://.+" matInput placeholder="{{'MERCHANTPROVIDER_INFO_SERVICE_URI' | translate}}" name="url" [(ngModel)]="entity.customerService.url" type="text">
       </mat-input-container>
 
       <mat-input-container class="entity-view__card__content__item">
