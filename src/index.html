@@ -16,7 +16,9 @@
   <style>
     app-root > .background {
       background: linear-gradient(to bottom left, #4277C2, #2C98F0);
-      display: block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       position: absolute;
       top: 0;
       left: 0;
@@ -24,26 +26,23 @@
       height: 100%;
     }
 
-    app-root > .background > .wrapper {
-      position: fixed;
-      top: 40%;
-      left: 50%;
-      margin-left: -40px;
+    .background > .wrapper {
+      position: relative;
       width: 159px;
       height: 159px;
-      transform: translate(-50%, -50%);
-      -webkit-transform: translate(-50%, -50%);
+    }
+
+    .background > .wrapper > .spinner-wrapper {
+      position: absolute;
+      z-index: 1;
     }
 
     .sixLogo {
-      width: 159px;
-      height: 159px;
       position: absolute;
-      top: 0;
-      left: 0;
+      z-index: 2;
     }
 
-    .wrapper > .mat-spinner circle {
+    .spinner-wrapper > .mat-spinner circle {
       stroke: #1EB1FC;
     }
   </style>
