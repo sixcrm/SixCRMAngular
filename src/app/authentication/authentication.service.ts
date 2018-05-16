@@ -373,7 +373,7 @@ export class AuthenticationService {
   }
 
   public setShowWelcome(show: boolean): void {
-    localStorage.setItem(this.currentSixUser.email + ':welcome', show);
+    localStorage.setItem(this.currentSixUser.email + ':welcome', String(show));
   }
 
   public shouldShowWelcome(): boolean {

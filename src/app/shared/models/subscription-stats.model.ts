@@ -5,6 +5,8 @@ export class SubscriptionStats {
   subscription_name: string;
   amount: Currency;
 
+  obj: any;
+
   constructor(obj?: any) {
     if (!obj) {
       obj = []

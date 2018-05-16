@@ -7,7 +7,7 @@ import {HttpResponse} from '@angular/common/http';
 import {TransactionSummary} from '../models/transaction-summary.model';
 import {
   transactionSummaryQuery, eventsFunnelQuery, campaignsByAmountQuery,
-  activitiesByCustomer, heroChartQuery, eventsFunnelTimeseriesQuery, productSchedulesByAmount,
+  activitiesByCustomer, heroChartQuery, eventsFunnelTimeseriesQuery,
   productSchedulesByAmountQuery
 } from '../utils/queries/analytics.queries';
 import {CampaignStats} from '../models/campaign-stats.model';
