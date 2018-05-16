@@ -1,6 +1,8 @@
 .background {
   background: linear-gradient(to bottom left, #4277C2, #2C98F0);
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 0;
   left: 0;
@@ -9,47 +11,17 @@
 }
 
 .background > .wrapper {
-  position: fixed;
-  top: 40%;
-  left: 50%;
-  margin-left: -40px;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
+  position: relative;
+  width: 159px;
+  height: 159px;
 }
 
-.background > .wrapper > .spinner {
-  margin: 100px auto;
-  width: 80px;
-  height: 80px;
-  position: relative;
+.background > .wrapper > .spinner-wrapper {
+  position: absolute;
+  z-index: 1;
 }
 
 .sixLogo {
-  width: 159px;
-  height: 159px;
   position: absolute;
-  top: 0;
-  left: 0;
-}
-
-@-webkit-keyframes six-icon {
-  25% {
-    -webkit-transform:  rotate(-90deg);
-  }
-
-  100% {
-    -webkit-transform: rotate(-360deg);
-  }
-}
-
-@keyframes six-icon {
-  25% {
-    transform: rotate(-90deg);
-    -webkit-transform:  rotate(-90deg);
-  }
-
-  100% {
-    transform: rotate(-360deg);
-    -webkit-transform: rotate(-360deg) ;
-  }
+  z-index: 2;
 }
