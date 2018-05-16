@@ -3,6 +3,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {AuthenticationService} from '../authentication.service';
 import {AcknowledgeInvite} from '../../shared/models/acknowledge-invite.model';
 import {Acl} from '../../shared/models/acl.model';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'invite-accept',
@@ -19,6 +20,8 @@ export class InviteAcceptComponent implements OnInit {
   completeScreen: boolean;
 
   formInvalid: boolean;
+
+  registrationLogo = environment.branding ? environment.branding.registrationLogo : 'logo-registration.svg';
 
   constructor(
     private route: ActivatedRoute,
