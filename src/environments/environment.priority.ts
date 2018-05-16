@@ -14,7 +14,7 @@ export const environment: EnvironmentModel = {
   clientID: 'JM1tC2j7tycbu62el3oBhyklpNbk5x6F',
   domain: 'sixcrm.auth0.com',
   auth0RedirectUrl: 'https://admin.recursix.com',
-  translationsUrl: 'https://d35owrek0vay6q.cloudfront.net',
+  translationsUrl: 'https://d3gac4cnrn5mn6.cloudfront.net/',
   version: '0.0.0',
   branding: {
     registrationLogo: 'logo-recursix-registration.svg',
