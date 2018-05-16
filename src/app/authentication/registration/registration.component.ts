@@ -9,6 +9,7 @@ import {UsersService} from '../../shared/services/users.service';
 import {TermsDialogComponent} from '../../dialog-modals/terms-dialog/terms-dialog.component';
 import {MatDialog} from '@angular/material';
 import {AccountsService} from '../../shared/services/accounts.service';
+import {environment} from '../../../environments/environment';
 
 interface Terms {
   version?: string,
@@ -44,6 +45,8 @@ export class RegistrationComponent implements OnInit {
   showProgress: boolean;
 
   mapAcl = (acl: Acl) => acl.account.name;
+
+  sidenavLogo = environment.branding ? environment.branding.sidenavLogo : 'logo-white.svg';
 
   constructor(
     public authService: AuthenticationService,
