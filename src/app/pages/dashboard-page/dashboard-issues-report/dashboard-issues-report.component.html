@@ -1,4 +1,4 @@
-<div class="reports">
+<div class="reports" [class.background]="background">
 
   <div class="reports__item" *ngFor="let report of reports" [style.width]="100 / reports.length + '%'">
     <div class="wrapper">

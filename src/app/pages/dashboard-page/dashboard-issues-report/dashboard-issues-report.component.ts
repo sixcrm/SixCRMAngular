@@ -13,6 +13,7 @@ export interface DashboardIssueReportItem {
 export class DashboardIssuesReportComponent implements OnInit {
 
   @Input() reports: DashboardIssueReportItem[] = [];
+  @Input() background: boolean = false;
 
   constructor() { }
 

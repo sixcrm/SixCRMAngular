@@ -18,6 +18,7 @@ import { TopSubscriptionsComponent } from './top-subscriptions/top-subscriptions
 import { MaterialSelectionModule } from '../../material-selection/material-selection.module';
 import {DashboardSetupComponent} from './states/setup/dashboard-setup.component'
 import {DashboardFullComponent} from './states/full/dashboard-full.component'
+import {DashboardLowDataComponent} from './states/low-data/dashboard-low-data.component'
 
 export function highchartsFactory() {
   let hc = require('highcharts');
@@ -51,7 +52,8 @@ export function highchartsFactory() {
     DashboardIssuesReportComponent,
     TopSubscriptionsComponent,
     DashboardSetupComponent,
-    DashboardFullComponent
+    DashboardFullComponent,
+    DashboardLowDataComponent
   ],
   exports : [ ],
   providers: [{

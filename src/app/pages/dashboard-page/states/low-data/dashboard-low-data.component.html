@@ -1,0 +1,56 @@
+<div class="dashboard-container">
+    <div class="dashboard lowdata-container">
+
+      <div class="lowdata-container__header">
+        <div class="greeting">
+          <div>Welcome back, {{name}}!</div>
+          <div class="total-revenue-text">Lifetime Total Revenue</div>
+          <div class="total-revenue-amount">$453.23</div>
+        </div>
+
+        <div class="quote">
+          <div>Fortune sides with him who dares</div>
+          <div>-Virgil</div>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <funnel-graph [simpleChart]="true"></funnel-graph>
+        <div class="transactions">
+          <div>Latest Transactions</div>
+
+          <table>
+            <thead>
+            <tr>
+              <th>Status</th>
+              <th>Amount</th>
+              <th>Date</th>
+              <th>Merchant Provider</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let transaction of transactions">
+              <td>
+                <div class="icon-holder">
+                  <mat-icon role="img" aria-hidden="true">done</mat-icon>
+                </div>
+                <div class="success">{{transaction.status}}</div>
+              </td>
+              <td>{{transaction.amount}}</td>
+              <td>{{transaction.date}}</td>
+              <td>{{transaction.merchantprovider}}</td>
+            </tr>
+            </tbody>
+          </table>
+
+
+          <div class="more">MORE</div>
+        </div>
+      </div>
+
+      <dashboard-issues-report [reports]="issueReports" [background]=true></dashboard-issues-report>
+
+      <div>
+    </div>
+  </div>
+</div>

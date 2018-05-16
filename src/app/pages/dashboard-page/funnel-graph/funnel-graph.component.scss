@@ -40,3 +40,44 @@
   margin-left: inherit;
   vertical-align: text-top;
 }
+
+.simpleChart {
+  background-color: #fafafa;
+
+  .event-type-options {
+    margin-left: 20px;
+    font-size: 20px;
+    font-weight: 500;
+
+    mat-icon {
+      margin-left: 0;
+    }
+  }
+
+  .table-container {
+    justify-content: space-between;
+    margin-left: 20px;
+
+    .column {
+      margin-right: 0;
+    }
+
+    .first-column {
+      font-size: 13px;
+      color: rgba(0, 0, 0, 0.87);
+      font-weight: normal;
+    }
+
+    .first-row {
+      font-weight: 500;
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.54);
+    }
+
+    .item {
+      color: rgba(0, 0, 0, 0.87);
+      font-size: 13px;
+      font-weight: 500;
+    }
+  }
+}

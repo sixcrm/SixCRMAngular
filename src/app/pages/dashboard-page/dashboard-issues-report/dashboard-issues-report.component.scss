@@ -45,3 +45,27 @@
     }
   }
 }
+
+.background {
+  background-color: #333333;
+
+  .icon-holder {
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .reports__item {
+    border-right: 1px solid #4f4f4f;
+  }
+
+  .issues {
+    &--none {
+      font-size: 16px;
+      font-weight: normal;
+      color: #828282;
+    }
+  }
+}

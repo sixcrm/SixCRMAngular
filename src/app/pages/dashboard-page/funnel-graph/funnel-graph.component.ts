@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 import {EventFunnel} from '../../../shared/models/event-funnel.model';
 import {EventFunnelTimeseries} from "../../../shared/models/event-funnel-timeseries.model";
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
@@ -14,6 +14,7 @@ import {utc} from 'moment';
 export class FunnelGraphComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
   public eventType: 'click' | 'lead' | 'main' | 'upsell' | 'confirm';
+  @Input() simpleChart: boolean = false;
 
   colors = ['#4383CC', '#4DABF5', '#9ADDFB', '#FDAB31', '#F28933'];
 
@@ -72,6 +73,10 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
 
       this.serverError = null;
       this.funnel = funnel;
+
+      if (this.simpleChart) {
+        this.setSimpleChartOptions();
+      }
 
       if (this.chart && this.funnel) {
         this.redrawChartData();
@@ -144,10 +149,17 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       });
     }
 
+    let chartLineColor = this.simpleChart ? '#1be1fc' : '#00DC59';
+
     this.chart.series[0].update({
-      color: '#00DC59'
+      color: chartLineColor
     });
 
     this.chart.series[0].setData(data, true, true);
+  }
+
+  setSimpleChartOptions() {
+    this.chartOptions.chart.type = 'column';
+    this.chartOptions.chart.backgroundColor = '#fafafa';
   }
 }
