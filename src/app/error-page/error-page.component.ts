@@ -1,5 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {NavigationService} from '../navigation/navigation.service';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'error-page',
@@ -9,6 +10,8 @@ import {NavigationService} from '../navigation/navigation.service';
 export class ErrorPageComponent implements OnInit {
 
   @Input() showNavigation: boolean = true;
+
+  errorLogo = environment.branding ? environment.branding.errorLogo : 'sleepingHamster.svg';
 
   constructor(public navigation: NavigationService) { }
 

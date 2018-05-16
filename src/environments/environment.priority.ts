@@ -23,6 +23,7 @@ export const environment: EnvironmentModel = {
     sidenavFooterLogo: 'logo-recursix-collapsed.svg',
     infoScreensLogo: 'logo-recursix.svg',
     comingSoonLogo: 'logo-recursix-collapsed.svg',
+    errorLogo: 'logo-recursix-collapsed.svg',
     showGenericLoader: true
   }
 };
