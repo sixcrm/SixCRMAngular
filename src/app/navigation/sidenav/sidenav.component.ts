@@ -37,6 +37,7 @@ export class SidenavComponent implements OnInit {
 
   sidenavLogo = environment.branding ? environment.branding.sidenavLogo : 'logo-navigation.svg';
   sidenavCollapsedLogo = environment.branding ? environment.branding.sidenavCollapsedLogo : 'logo-navigation-small.svg';
+  sidenavFooterLogo = environment.branding ? environment.branding.sidenavFooterLogo : 'logo-blue.svg';
 
   constructor(private _navigation: NavigationService) { }
 
