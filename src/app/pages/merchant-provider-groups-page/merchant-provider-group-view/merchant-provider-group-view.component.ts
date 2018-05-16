@@ -107,9 +107,10 @@ export class MerchantProviderGroupViewComponent extends AbstractEntityViewCompon
   }
 
   addProvider(valid: boolean): void {
-    this.formInvalid = !valid;
-
-    if (this.formInvalid) return;
+    if (!valid) {
+      this.formInvalid = true;
+      return;
+    }
 
     this.entity.merchantProviderConfigurations.push(this.providerToAdd);
     if (!this.addMode) {

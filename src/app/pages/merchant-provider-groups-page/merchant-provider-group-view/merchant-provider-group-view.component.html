@@ -40,7 +40,7 @@
         </div>
         <form #merchantProviderInputForm="ngForm" class="entity-view__card__content">
           <mat-input-container style="width: 110px" class="entity-view__card__content__item" [class.error]="formInvalid && !providerToAdd.distribution">
-            <input required matInput placeholder="{{'MERCHANTPROVIDERGROUP_MERCHANT_DISTRIBUTION' | translate}}" name="distribution" (keydown)="isFloatNumeric($event)" [(ngModel)]="providerToAdd.distribution" type="text">
+            <input matInput placeholder="{{'MERCHANTPROVIDERGROUP_MERCHANT_DISTRIBUTION' | translate}}" name="distribution" (keydown)="isFloatNumeric($event)" [(ngModel)]="providerToAdd.distribution" type="text">
           </mat-input-container>
 
           <autocomplete-input style="font-size: 14px;"
@@ -49,14 +49,13 @@
                               [initialValue]="providerToAdd.merchantProvider"
                               [options]="merchantProviderService.entities$ | async"
                               [placeholder]="'MERCHANTPROVIDERGROUP_MERCHANT_MERCHANT' | translate"
-                              [required]="true"
                               (selected)="providerToAdd.merchantProvider = $event">
           </autocomplete-input>
         </form>
 
         <div class="entity-view__card__actions">
           <div (click)="clearAddProvider()">{{'MERCHANTPROVIDERGROUP_MERCHANT_CLEAR' | translate}}</div>
-          <div (click)="addProvider(merchantProviderInputForm.form.valid)">{{'MERCHANTPROVIDERGROUP_MERCHANT_ADD' | translate}}</div>
+          <div (click)="addProvider(providerToAdd.merchantProvider.id && providerToAdd.distribution)">{{'MERCHANTPROVIDERGROUP_MERCHANT_ADD' | translate}}</div>
         </div>
       </div>
 
