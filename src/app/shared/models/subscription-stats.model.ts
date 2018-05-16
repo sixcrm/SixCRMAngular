@@ -2,7 +2,6 @@ import {Currency} from '../utils/currency/currency';
 
 export class SubscriptionStats {
   subscription: string;
-  subscription_name: string;
   amount: Currency;
 
   obj: any;
@@ -14,8 +13,9 @@ export class SubscriptionStats {
 
     this.obj = obj;
 
-    this.subscription = this.getValueOf('product_schedule') || '';
-    this.subscription_name = this.getValueOf('product_schedule_name') || '';
+    console.log(obj);
+
+    this.subscription = this.getValueOf('name') || '';
     this.amount = new Currency(this.getValueOf('amount'));
   }
 

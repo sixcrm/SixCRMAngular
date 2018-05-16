@@ -17,7 +17,7 @@
 
   <ng-template #data>
     <div *ngIf="subscriptions" class="dashboard__gray-table-chart__table">
-      <div class="item" *ngFor="let subscription of subscriptions; let i = index" [routerLink]="['/productschedules', subscription.subscription_name || subscription.subscription]">
+      <div class="item" *ngFor="let subscription of subscriptions; let i = index" [routerLink]="['/productschedules', subscription.subscription]">
         <div class="num" [style.background-color]="colors[i]">
           <div>{{i + 1}}</div>
         </div>
