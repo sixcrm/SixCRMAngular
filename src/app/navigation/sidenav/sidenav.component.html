@@ -6,7 +6,7 @@
   <sidenav-item *ngFor="let menuItem of menuItems" [menuItem]="menuItem" [parent]="_this" [full]="isHovering"></sidenav-item>
 
   <div *ngIf="isHovering" class="version">
-    <img src="/assets/images/logo-blue.svg">
+    <img src="{{'/assets/images/' + sidenavFooterLogo}}">
     <span>Version - {{versionNumber}}</span>
   </div>
 </mat-nav-list>
