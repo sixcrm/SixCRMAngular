@@ -7,7 +7,8 @@ import {HttpResponse} from '@angular/common/http';
 import {TransactionSummary} from '../models/transaction-summary.model';
 import {
   transactionSummaryQuery, eventsFunnelQuery, campaignsByAmountQuery,
-  activitiesByCustomer, heroChartQuery, eventsFunnelTimeseriesQuery
+  activitiesByCustomer, heroChartQuery, eventsFunnelTimeseriesQuery, productSchedulesByAmount,
+  productSchedulesByAmountQuery
 } from '../utils/queries/analytics.queries';
 import {CampaignStats} from '../models/campaign-stats.model';
 import {AnalyticsStorageService} from './analytics-storage.service';
@@ -143,32 +144,22 @@ export class AnalyticsService {
       return;
     }
 
-    const data = [
-      {subscription: 'Example Sub 1', amount: new Currency(1802)},
-      {subscription: 'Sub 2', amount: new Currency(1100)},
-      {subscription: 'Sub 3', amount: new Currency(900)},
-      {subscription: 'Example Sub 2', amount: new Currency(550)},
-      {subscription: 'Sub 5', amount: new Currency(412)},
-    ];
+    this.queryRequest(productSchedulesByAmountQuery(start, end), downloadFormat).subscribe(data => {
+      if (downloadFormat) {
+        downloadFile(data, 'subscriptions-by-amount', downloadFormat);
+        return;
+      }
 
-    if (downloadFormat) {
-      downloadFile(data, 'subscriptions-by-amount', downloadFormat);
-      return;
-    }
-
-    setTimeout(() => {
-      this.subscriptionsByAmount$.next([
-        {subscription: 'Example Sub 1', amount: new Currency(1802)},
-        {subscription: 'Sub 2', amount: new Currency(1100)},
-        {subscription: 'Sub 3', amount: new Currency(900)},
-        {subscription: 'Example Sub 2', amount: new Currency(550)},
-        {subscription: 'Sub 5', amount: new Currency(412)},
-      ])
-    }, 250);
-
-    if (data) {
-      this.analyticsStorage.setSubscriptionsByAmount(start, end, data);
-    }
+      const result = this.handleResponse(
+        data,
+        this.subscriptionsByAmount$,
+        (t: any) => new SubscriptionStats(t),
+        (data: any) => extractData(data).analytics.records
+      );
+      if (result) {
+        this.analyticsStorage.setSubscriptionsByAmount(start, end, result);
+      }
+    })
   }
 
   getCampaignsByAmount(start: string, end: string, downloadFormat?: string): void {
