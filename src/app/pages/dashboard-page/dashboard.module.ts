@@ -19,6 +19,7 @@ import { MaterialSelectionModule } from '../../material-selection/material-selec
 import {DashboardSetupComponent} from './states/setup/dashboard-setup.component'
 import {DashboardFullComponent} from './states/full/dashboard-full.component'
 import {DashboardLowDataComponent} from './states/low-data/dashboard-low-data.component'
+import { DashboardAvailabilityService } from './dashboard-availability.service';
 
 export function highchartsFactory() {
   let hc = require('highcharts');
@@ -56,10 +57,13 @@ export function highchartsFactory() {
     DashboardLowDataComponent
   ],
   exports : [ ],
-  providers: [{
-    provide: HighchartsStatic,
-    useFactory: highchartsFactory
-  }],
+  providers: [
+    {
+      provide: HighchartsStatic,
+      useFactory: highchartsFactory
+    },
+    DashboardAvailabilityService
+  ],
 })
 export class DashboardModule {
 }

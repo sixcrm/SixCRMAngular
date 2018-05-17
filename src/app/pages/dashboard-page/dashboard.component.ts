@@ -2,52 +2,39 @@ import 'rxjs/add/operator/takeUntil';
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {AsyncSubject} from 'rxjs';
-import {CustomServerError} from '../../shared/models/errors/custom-server-error';
-import {AuthenticationService} from '../../authentication/authentication.service';
 import { DashboardType } from './dashboard-type';
-import { TransactionsService } from '../../shared/services/transactions.service';
+import { DashboardAvailabilityService } from './dashboard-availability.service';
 
 @Component({
   selector: 'c-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   public DashboardType: any = DashboardType;
-  activeDashboard: DashboardType = DashboardType.setup;
+  activeDashboard: DashboardType;
 
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
   constructor(
-    private authService: AuthenticationService,
-    private transactionService: TransactionsService
+    private dashboardAvailabilityService: DashboardAvailabilityService
   ) { }
 
   ngOnInit() {
-    this.determineType();
 
-    this.authService.activeAcl$.subscribe(() => {
-      this.determineType();
+    this.dashboardAvailabilityService.availableDashboards.takeUntil(this.unsubscribe$).subscribe(dbTypes => {
+      if (dbTypes.length) {
+        this.activeDashboard = dbTypes[dbTypes.length - 1];
+      } else {
+        this.activeDashboard = null;
+      }
     });
 
   }
 
-  determineType() {
-    this.transactionService.entities$.take(1).subscribe((response) => {
-
-      if (response instanceof CustomServerError) return;
-
-      if (response.length > 0) {
-        this.activeDashboard = DashboardType.full;
-      }
-
-      if (!response || response.length === 0) {
-        this.activeDashboard = DashboardType.setup;
-      }
-
-    });
-
-    this.transactionService.getEntities(1);
+  ngOnDestroy() {
+    this.unsubscribe$.next(true);
+    this.unsubscribe$.complete();
   }
 }
