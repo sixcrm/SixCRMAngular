@@ -13,8 +13,6 @@ export class SubscriptionStats {
 
     this.obj = obj;
 
-    console.log(obj);
-
     this.subscription = this.getValueOf('name') || '';
     this.amount = new Currency(this.getValueOf('amount'));
   }
