@@ -25,6 +25,7 @@ import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header
 import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 import {RolesSharedService} from '../../../shared/services/roles-shared.service';
 import {MatDialogRef, MatDialog} from '@angular/material';
+import { RolesService } from '../../../shared/services/roles.service';
 
 @Component({
   selector: 'account-view',
@@ -84,7 +85,8 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
               private dialog: MatDialog,
               private userService: UsersService,
               private aclService: AclsService,
-              private roleService: RolesSharedService,
+              private rolesSharedService: RolesSharedService,
+              private rolesService: RolesService,
               private snackbarService: SnackbarService,
               public authService: AuthenticationService,
               private billsService: BillsService
@@ -108,15 +110,24 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
       this.users = users.filter(user => existingUsersIds.indexOf(user.id) === -1);
     });
 
-    this.roleService.entities$.takeUntil(this.unsubscribe$).subscribe(roles => {
+    this.rolesSharedService.entities$.takeUntil(this.unsubscribe$).subscribe(rolesShared => {
+      if (rolesShared instanceof CustomServerError) return;
+
+      this.roles = rolesShared.filter(role => role.name !== 'Owner');
+
+      this.rolesService.getEntities();
+    });
+
+    this.rolesService.entities$.takeUntil(this.unsubscribe$).subscribe(roles => {
       if (roles instanceof CustomServerError) return;
 
-      this.roles = roles.filter(role => role.name !== 'Owner');
+      this.roles = [...this.roles, ...roles.filter(role => role.name !== 'Owner')];
     });
+
 
     this.service.entity$.takeUntil(this.unsubscribe$).subscribe(() => {
       if (this.authService.isActiveAclMasterAccount() || this.isOwnerOrAdministrator()) {
-        this.roleService.getEntities();
+        this.rolesSharedService.getEntities();
       }
 
       if (this.authService.isActiveAclMasterAccount()) {
@@ -144,7 +155,7 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
 
       this.router.navigate(['/accounts', account.id]);
       this.userService.getEntities();
-      this.roleService.getEntities();
+      this.rolesSharedService.getEntities();
     });
 
     this.saveOrUpdate(this.entity);
