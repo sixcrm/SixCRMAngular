@@ -4,6 +4,7 @@ import { AuthenticationService } from '../../authentication/authentication.servi
 import { TransactionsService } from '../../shared/services/transactions.service';
 import { DashboardType } from './dashboard-type';
 import { CustomServerError } from '../../shared/models/errors/custom-server-error';
+import { FailStrategy } from '../../shared/services/http-wrapper.service';
 
 @Injectable()
 export class DashboardAvailabilityService {
@@ -23,7 +24,11 @@ export class DashboardAvailabilityService {
   determineAvailableTypes() {
     this.transactionService.entities$.take(1).subscribe((response) => {
 
-      if (response instanceof CustomServerError) return;
+      if (response instanceof CustomServerError) {
+        this.availableDashboards.next([DashboardType.setup]);
+
+        return;
+      }
 
       if (response.length > 0) {
         this.availableDashboards.next([DashboardType.setup, DashboardType.full]);
@@ -35,7 +40,7 @@ export class DashboardAvailabilityService {
 
     });
 
-    this.transactionService.getEntities(1);
+    this.transactionService.getEntities(1, null, {failStrategy: FailStrategy.Soft});
   }
 
 }
