@@ -20,7 +20,7 @@
     </mat-menu>
   </div>
 
-  <ng-container *ngIf="!serverError; else error" style="width: 33%">
+  <ng-container *ngIf="!serverError; else error">
     <chart [options]="chartOptions" (load)="saveChart($event.context)"></chart>
   </ng-container>
 
@@ -30,8 +30,8 @@
 
   <div *ngIf="funnel" class="table-container">
 
-    <div class="column">
-      <div class="item item--title" [class.first-column]="simpleChart"></div>
+    <div class="column" [class.first-column]="simpleChart">
+      <div class="item item--title"></div>
       <div class="item item--title">{{'DASHBOARD_EVENTSFUNNEL_CLICK' | translate}}</div>
       <div class="item item--title">{{'DASHBOARD_EVENTSFUNNEL_LEAD' | translate}}</div>
       <div class="item item--title">{{'DASHBOARD_EVENTSFUNNEL_MAIN' | translate}}</div>

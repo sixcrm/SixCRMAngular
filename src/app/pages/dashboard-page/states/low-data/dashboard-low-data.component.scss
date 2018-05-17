@@ -55,17 +55,23 @@
     }
 
     .transactions {
-      padding: 20px;
-      font-weight: 500;
-      font-size: 20px;
-      color: rgba(0, 0, 0, 0.87);
+      padding: 22px;
       width: 66%;
+      color: rgba(0, 0, 0, 0.87);
+      border-left: 1px solid rgba(0, 0, 0, 0.15);
+
+      &__title {
+        font-weight: 500;
+        font-size: 20px;
+      }
 
       .more {
         font-weight: 500;
         font-size: 14px;
         letter-spacing: 0.1em;
         text-align: center;
+        cursor: pointer;
+        margin-top: 20px;
       }
 
       table {
@@ -75,6 +81,10 @@
           font-weight: 500;
           font-size: 13px;
           color: rgba(0, 0, 0, 0.54);
+        }
+
+        tr {
+          border-bottom: 1px solid  rgba(0, 0, 0, 0.15);
         }
 
         td {
@@ -93,18 +103,19 @@
 
         .icon-holder {
           margin-right: 10px;
+          margin-top: 3px;
           display: flex;
-          height: 28px;
-          width: 28px;
           border-radius: 50%;
-          background: #2FC362;
+          width: 20px;
+          height: 20px;
+          background-color: #1ebea5;
 
           mat-icon {
             margin: auto;
             color: white;
-            font-size: 20px;
-            width: 20px;
-            height: 20px;
+            font-size: 18px;
+            width: 18px;
+            height: 18px;
           }
         }
       }

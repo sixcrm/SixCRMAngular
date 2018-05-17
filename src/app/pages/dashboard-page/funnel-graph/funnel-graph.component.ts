@@ -15,6 +15,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
 
   public eventType: 'click' | 'lead' | 'main' | 'upsell' | 'confirm';
   @Input() simpleChart: boolean = false;
+  @Input() period: string = 'DAY';
 
   colors = ['#4383CC', '#4DABF5', '#9ADDFB', '#FDAB31', '#F28933'];
 
@@ -64,6 +65,8 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
   }
 
   ngOnInit() {
+    let amount = 30;
+
     this.analyticsService.eventFunnel$.takeUntil(this.unsubscribe$).subscribe((funnel: EventFunnel | CustomServerError) => {
       if (funnel instanceof CustomServerError) {
         this.serverError = funnel;
@@ -75,6 +78,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       this.funnel = funnel;
 
       if (this.simpleChart) {
+        amount = 1;
         this.setSimpleChartOptions();
       }
 
@@ -98,7 +102,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       }
     });
 
-    this.start = utc().subtract(30, 'd');
+    this.start = utc().subtract(amount, 'd');
     this.end = utc();
     this.eventType = 'click';
     this.shouldFetch = true;
@@ -116,7 +120,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
 
   fetch(): void {
     if (this.shouldFetch) {
-      this.analyticsService.getEventFunnel(this.start.format(), this.end.format(), null, this.eventType);
+      this.analyticsService.getEventFunnel(this.start.format(), this.end.format(), null, this.eventType, this.period);
       this.shouldFetch = false;
     }
   }

@@ -94,7 +94,7 @@ export class AnalyticsService {
     })
   }
 
-  getEventFunnel(start: string, end: string, downloadFormat?: string, eventType?: string): void {
+  getEventFunnel(start: string, end: string, downloadFormat?: string, eventType?: string, period?: string): void {
     const funnelStorage = this.analyticsStorage.getEventFunnel(start, end);
     if (!downloadFormat && funnelStorage && !eventType) {
       this.eventFunnel$.next(funnelStorage);
@@ -121,7 +121,7 @@ export class AnalyticsService {
       this.analyticsStorage.setEventFunnel(start, end, funnel);
     });
 
-    this.queryRequest(eventsFunnelTimeseriesQuery(start, end, "DAY", eventType)).subscribe(data => {
+    this.queryRequest(eventsFunnelTimeseriesQuery(start, end, period || "DAY", eventType)).subscribe(data => {
       if (data instanceof CustomServerError) {
         this.eventFunnelTimeseries$.next(data);
 

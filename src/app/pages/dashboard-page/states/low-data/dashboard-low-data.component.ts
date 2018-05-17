@@ -1,8 +1,17 @@
 import 'rxjs/add/operator/takeUntil';
 import {DashboardIssueReportItem} from '../../dashboard-issues-report/dashboard-issues-report.component';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {AsyncSubject} from 'rxjs';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
+import {TranslatedQuote} from "../../../../translation/translated-quote.model";
+import {Observable} from "rxjs/Observable";
+import {TranslationService} from "../../../../translation/translation.service";
+import {TransactionsService} from "../../../../shared/services/transactions.service";
+import {CustomServerError} from "../../../../shared/models/errors/custom-server-error";
+import {Transaction} from "../../../../shared/models/transaction.model";
+import {HeroChartSeries} from "../../../../shared/models/hero-chart-series.model";
+import {AnalyticsService} from "../../../../shared/services/analytics.service";
+import {utc} from 'moment';
 
 @Component({
   selector: 'c-dashboard-low-data',
@@ -11,6 +20,8 @@ import {AuthenticationService} from '../../../../authentication/authentication.s
 })
 export class DashboardLowDataComponent implements OnInit {
 
+  @Input() quote: TranslatedQuote;
+
   issueReports: DashboardIssueReportItem[] = [
     {label: 'Orders', issues: []},
     {label: 'Fulfillment', issues: []},
@@ -18,26 +29,56 @@ export class DashboardLowDataComponent implements OnInit {
     {label: 'MIDS', issues: []}
   ];
 
-  name: string;
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
-  transactions = [
-    {status: 'Success', amount: '$34.99', date: '05/01/18 11:16am UTC', merchantprovider: 'NMI Account 1'},
-    {status: 'Success', amount: '$34.99', date: '05/01/18 11:16am UTC', merchantprovider: 'NMI Account 1'},
-    {status: 'Success', amount: '$34.99', date: '05/01/18 11:16am UTC', merchantprovider: 'NMI Account 1'},
-    {status: 'Success', amount: '$34.99', date: '05/01/18 11:16am UTC', merchantprovider: 'NMI Account 1'},
-    {status: 'Success', amount: '$34.99', date: '05/01/18 11:16am UTC', merchantprovider: 'NMI Account 1'},
-    {status: 'Success', amount: '$34.99', date: '05/01/18 11:16am UTC', merchantprovider: 'NMI Account 1'},
-    {status: 'Success', amount: '$34.99', date: '05/01/18 11:16am UTC', merchantprovider: 'NMI Account 1'}
-    ];
+  name: string;
+  revenue: any;
+  transactions: Transaction[];
 
   constructor(
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private translationService: TranslationService,
+    private transactionService: TransactionsService,
+    private analyticsService: AnalyticsService
   ) { }
 
   ngOnInit() {
     this.authService.sixUser$.takeUntil(this.unsubscribe$).subscribe(user => {
       this.name = user.firstName;
     });
+
+    let quoteSub = Observable.interval(50).take(40).subscribe(() => {
+      if (!this.quote) {
+        this.quote = this.translationService.getRandomQuote();
+      } else {
+        quoteSub.unsubscribe();
+      }
+    });
+
+    this.transactionService.entities$.takeUntil(this.unsubscribe$).subscribe((transactions) => {
+
+      if (transactions instanceof CustomServerError) return;
+
+      this.transactions = transactions.sort((a,b) => {
+        if (a.createdAt > b.createdAt) return 1;
+        if (a.createdAt < b.createdAt) return -1;
+        return 0;
+      });
+
+    });
+
+    this.transactionService.getEntities(7);
+
+    this.analyticsService.heroChartSeries$.subscribe(data => {
+      if (!data || data instanceof CustomServerError) return;
+
+      this.calculateRevenue(data);
+    });
+
+    this.analyticsService.getHeroChartSeries(utc().subtract(1, 'd').format(), utc().format(), 'day', 'revenueVersusOrders', null);
+  }
+
+  calculateRevenue(series: HeroChartSeries[]){
+    this.revenue = series.find(el => el.facet === 'revenue').timeseries.map(s => s.value).reduce((a,b) => a+b, 0);
   }
 }

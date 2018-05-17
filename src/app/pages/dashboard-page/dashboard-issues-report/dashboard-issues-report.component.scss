@@ -50,14 +50,30 @@
   background-color: #333333;
 
   .icon-holder {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    background-color: #1ebea5;
+
     mat-icon {
-      font-size: 20px;
-      width: 20px;
-      height: 20px;
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
     }
   }
 
   .reports__item {
+    border-right: none;
+  }
+
+  .reports__item:first-child {
+    margin-left: 20px;
+  }
+
+  .reports__item:after {
+    content: "";
+    display: block;
+    width: 50%;
     border-right: 1px solid #4f4f4f;
   }
 

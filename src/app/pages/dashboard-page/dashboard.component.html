@@ -7,9 +7,6 @@
   <mat-tab label="SETUP">
     <c-dashboard-setup></c-dashboard-setup>
   </mat-tab>
-  <mat-tab label="TRANSACTIONS">
-    <c-dashboard-low-data></c-dashboard-low-data>
-  </mat-tab>
   <mat-tab *ngIf="availableDashboards.includes(DashboardType.full)" label="DASHBOARD">
     <c-dashboard-full></c-dashboard-full>
   </mat-tab>
