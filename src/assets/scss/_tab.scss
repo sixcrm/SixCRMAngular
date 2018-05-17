@@ -63,3 +63,33 @@ mat-tab-body {
     display: none;
   }
 }
+
+.tab--dashboard-header {
+  background: linear-gradient(180deg, #4277C2 8.44%, #2C98F0 100%);
+
+  .mat-tab-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  }
+
+  .mat-tab-labels {
+    padding-bottom: 17px;
+    padding-top: 17px;
+  }
+
+  .mat-tab-label {
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: .7;
+    line-height: 20px !important;
+    min-width: 110px !important;
+
+    &-active {
+      opacity: 1;
+    }
+  }
+
+  .mat-ink-bar {
+    background-color: #1EB1FC !important;
+  }
+}

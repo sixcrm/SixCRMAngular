@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   public DashboardType: any = DashboardType;
   activeDashboard: DashboardType;
+  availableDashboards: DashboardType[] = [];
 
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
@@ -26,6 +27,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.dashboardAvailabilityService.availableDashboards.takeUntil(this.unsubscribe$).subscribe(dbTypes => {
       if (dbTypes.length) {
         this.activeDashboard = dbTypes[dbTypes.length - 1];
+        this.availableDashboards = dbTypes;
       } else {
         this.activeDashboard = null;
       }
