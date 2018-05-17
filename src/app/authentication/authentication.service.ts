@@ -351,7 +351,7 @@ export class AuthenticationService {
     return this.getSixUser().hasPermissions(entity, operation, this.getActiveAcl());
   }
 
-  public refreshAfterAcceptInvite(defaultAcl: Acl, isNewUser: boolean): void {
+  public refreshAfterAcceptInvite(defaultAcl: Acl, isNewUser: boolean, acknowledgedInvite: AcknowledgeInvite): void {
     if (defaultAcl && defaultAcl.id) {
       localStorage.setItem(this.activeAcl, JSON.stringify(defaultAcl));
       this.currentActiveAcl = defaultAcl;
@@ -360,16 +360,26 @@ export class AuthenticationService {
     localStorage.setItem(this.isInvitedUserKey, 'true');
 
     if (!this.authenticated()) {
-      if (isNewUser) {
-        this.logoutToSignup();
-      } else {
-        this.logout();
-      }
+      this.educatedLogout(isNewUser);
+
+      return;
+    }
+
+    if (this.getSixUser().email !== acknowledgedInvite.email) {
+      this.educatedLogout(isNewUser);
 
       return;
     }
 
     this.updateUserData(JSON.parse(localStorage.getItem(this.idTokenPayload)));
+  }
+
+  private educatedLogout(isNewUser: boolean) {
+    if (isNewUser) {
+      this.logoutToSignup();
+    } else {
+      this.logout();
+    }
   }
 
   public setShowWelcome(show: boolean): void {
