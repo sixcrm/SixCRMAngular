@@ -7,7 +7,7 @@
   <mat-tab label="SETUP">
     <c-dashboard-setup></c-dashboard-setup>
   </mat-tab>
-  <mat-tab *ngIf="availableDashboards.includes(DashboardType.full)" label="DASHBOARD">
+  <mat-tab [hidden]="!availableDashboards.includes(DashboardType.full)" label="DASHBOARD">
     <c-dashboard-full></c-dashboard-full>
   </mat-tab>
 </mat-tab-group>
