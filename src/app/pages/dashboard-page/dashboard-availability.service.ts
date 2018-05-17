@@ -26,7 +26,7 @@ export class DashboardAvailabilityService {
       if (response instanceof CustomServerError) return;
 
       if (response.length > 0) {
-        this.availableDashboards.next([DashboardType.setup, DashboardType.full]);
+        this.availableDashboards.next([DashboardType.setup, DashboardType.low_data, DashboardType.full]);
       }
 
       if (!response || response.length === 0) {

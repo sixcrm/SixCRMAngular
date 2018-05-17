@@ -1,3 +1,20 @@
-<c-dashboard-setup *ngIf="activeDashboard===DashboardType.setup"></c-dashboard-setup>
-<c-dashboard-low-data *ngIf="activeDashboard===DashboardType.low_data"></c-dashboard-low-data>
-<c-dashboard-full *ngIf="activeDashboard===DashboardType.full"></c-dashboard-full>
+<mat-tab-group
+  *ngIf="activeDashboard !== undefined && availableDashboards.length > 1; else setup"
+  class="tab--dashboard-header"
+  [(selectedIndex)]="activeDashboard"
+>
+  <!--TODO translations-->
+  <mat-tab label="SETUP">
+    <c-dashboard-setup></c-dashboard-setup>
+  </mat-tab>
+  <mat-tab label="TRANSACTIONS">
+    <c-dashboard-low-data></c-dashboard-low-data>
+  </mat-tab>
+  <mat-tab *ngIf="availableDashboards.includes(DashboardType.full)" label="DASHBOARD">
+    <c-dashboard-full></c-dashboard-full>
+  </mat-tab>
+</mat-tab-group>
+
+<ng-template #setup>
+  <c-dashboard-setup></c-dashboard-setup>
+</ng-template>
