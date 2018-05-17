@@ -426,6 +426,7 @@ export class AuthenticationService {
           }
 
           let introspectionUser: User = new User(user);
+          introspectionUser.acls = introspectionUser.acls.filter(acl => !acl.pending);
           if (profile) {
             introspectionUser.picture = profile.picture;
           }
