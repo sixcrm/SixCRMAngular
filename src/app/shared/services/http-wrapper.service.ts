@@ -81,7 +81,7 @@ export class HttpWrapperService {
 
     const ignoreProgress: boolean = requestBehaviourOptions && requestBehaviourOptions.ignoreProgress;
     const failStrategy: FailStrategy = requestBehaviourOptions ? requestBehaviourOptions.failStrategy : FailStrategy.Ignore;
-    const ignoreSnack: boolean = requestBehaviourOptions ? requestBehaviourOptions.ignoreSnack : false;
+    const ignoreSnack: boolean = true; // Technical Debt: This should not be permanent.
 
     if (!ignoreProgress) this.setInProgress();
 
