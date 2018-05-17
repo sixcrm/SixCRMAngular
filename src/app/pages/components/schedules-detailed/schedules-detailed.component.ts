@@ -137,7 +137,7 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
       last = state[0].schedules[state[0].schedules.length - 1];
     }
 
-    const start: number;
+    let start: number;
     if (state[0].schedules.length === 0) {
       start = 0;
     } else {
