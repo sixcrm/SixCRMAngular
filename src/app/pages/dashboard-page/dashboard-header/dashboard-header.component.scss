@@ -11,13 +11,15 @@
 .dashboard-filters {
   display: flex;
   border-radius: 5px;
-  border: 1px solid white;
-  color: white;
-  font-size: 16px;
+  border: 2px solid #B5CFFA;
+  color: #294A78;
+  font-size: 14px;
+  background-color: #B5CFFA;
 
   .selected {
     background: white;
-    color: #5186C5;
+    color: black;
+    opacity: 0.78;
   }
 
   div {

@@ -28,7 +28,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let transaction of transactions">
+            <tr [routerLink]="['/transactions', transaction.id]" *ngFor="let transaction of transactions">
               <td>
                 <div class="icon-holder">
                   <mat-icon role="img" aria-hidden="true">done</mat-icon>
@@ -48,7 +48,7 @@
         </div>
       </div>
 
-      <dashboard-issues-report [reports]="issueReports" [background]=true></dashboard-issues-report>
+      <dashboard-issues-report [reports]="issueReports"></dashboard-issues-report>
       <div>
     </div>
   </div>

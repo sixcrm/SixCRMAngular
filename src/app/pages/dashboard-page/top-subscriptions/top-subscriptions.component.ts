@@ -12,7 +12,7 @@ import {utc} from 'moment';
 })
 export class TopSubscriptionsComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
-  colors = ['#00DC59', '#00C2B0', '#4CB2FF', '#7393F3', '#6269CA'];
+  colors = ['rgba(30, 190, 165, 1)', 'rgba(30, 190, 165, 0.8)', 'rgba(30, 190, 165, 0.6)', 'rgba(30, 190, 165, 0.4)', 'rgba(30, 190, 165, 0.2)'];
 
   subscriptions: SubscriptionStats[] = [];
 

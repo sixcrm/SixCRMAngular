@@ -79,9 +79,9 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
           const firstPoint = this.points[0];
           const secondPoint = this.points[1];
 
-          const first = `<div class="dashboard-tooltip-text" style="color: white">${self.type === SeriesType.amountcount || self.type === SeriesType.amount ? '$':''}${firstPoint.y}</div>`;
-          const second = secondPoint ? `<div class="dashboard-tooltip-text" style="color: white">${self.type === SeriesType.amount ? '$':''}${secondPoint.y}</div>` : null;
-          const date = `<div class="dashboard-tooltip-date" style="color: white">${self.calculateDate(firstPoint.x)}</div>`;
+          const first = `<div class="dashboard-tooltip-text" style="color: white; font-size: 20px; font-weight: 500">${self.type === SeriesType.amountcount || self.type === SeriesType.amount ? '$':''}${firstPoint.y}</div>`;
+          const second = secondPoint ? `<div class="dashboard-tooltip-text" style="color: white; font-size: 20px;">${self.type === SeriesType.amount ? '$':''}${secondPoint.y}</div>` : null;
+          const date = `<div class="dashboard-tooltip-date" style="color: white; font-size: 14px; font-weight: 500; opacity: 0.5">${self.calculateDate(firstPoint.x)}</div>`;
 
           return [date, self.displayLabel(firstPoint.x) ? '' : first, second && self.displayLabel(secondPoint.x) ? '' : second];
         }
@@ -95,7 +95,9 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
       plotOptions: {
         area: {
           marker: {
-            enabled: false
+            enabled: false,
+            fillColor: '#86FCEA',
+            radius: 8
           },
           dataLabels: {
             enabled: true,
@@ -107,7 +109,7 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
                 const type = self.type;
 
                 return `
-                <div class="dashboard-tooltip-text" style="color: white">
+                <div class="dashboard-tooltip-text" style="color: white; font-size: 20px; font-weight: 500">
                   ${((type === SeriesType.amountcount && this.series.index === 0) || type === SeriesType.amount) ? '$' : ''}
                   ${this.y}
                   ${((type === SeriesType.amountcount && this.series.index === 0) || type == SeriesType.amount)
@@ -119,10 +121,15 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
               return null;
             }
           }
+        },
+        series: {
+          lineWidth: 4,
+          lineColor: '#1EB1FC'
         }
       },
+
       series: [
-        { name: 'first', color: '#4383CC', data: []},
+        { name: 'first', color: '#1EB1FC', data: []},
         { name: 'second', color: '#4DABF5', data: []},
       ]
     };

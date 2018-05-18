@@ -1,11 +1,11 @@
 .reports {
   display: flex;
-  background: #1E456A;
+  background-color: #333333;
 
   &__item {
     display: flex;
     padding: 30px 0;
-    border-right: 1px solid rgba(0,0,0,0.12);
+    border-right: none;
 
     .wrapper {
       margin: auto;
@@ -15,16 +15,17 @@
     .icon-holder {
       margin-right: 10px;
       display: flex;
-      height: 28px;
-      width: 28px;
+      height: 20px;
+      width: 20px;
       border-radius: 50%;
-      background: #2FC362;
+      background: #1ebea5;
+      margin-top: 2px;
 
       mat-icon {
         margin: auto;
-        width: 24px;
-        height: 24px;
-        font-size: 24px;
+        width: 18px;
+        height: 18px;
+        font-size: 18px;
         color: white;
       }
     }
@@ -39,49 +40,21 @@
 
     .issues {
       &--none {
-        color: #63A6E6;
-        font-size: 18px;
+        color: #828282;
+        font-size: 16px;
+        font-weight: normal;
       }
     }
   }
-}
 
-.background {
-  background-color: #333333;
-
-  .icon-holder {
-    width: 20px;
-    height: 20px;
-    margin-top: 2px;
-    background-color: #1ebea5;
-
-    mat-icon {
-      font-size: 18px;
-      width: 18px;
-      height: 18px;
-    }
-  }
-
-  .reports__item {
-    border-right: none;
-  }
-
-  .reports__item:first-child {
+  &__item:first-child {
     margin-left: 20px;
   }
 
-  .reports__item:after {
+  &__item:after {
     content: "";
     display: block;
     width: 50%;
     border-right: 1px solid #4f4f4f;
-  }
-
-  .issues {
-    &--none {
-      font-size: 16px;
-      font-weight: normal;
-      color: #828282;
-    }
   }
 }

@@ -48,7 +48,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
         name: '',
         color: '#F4F4F4',
         data: [3, 3, 5, 4, 6, 8, 6, 9, 10, 9, 10],
-        lineWidth: 8
+        lineWidth: 6
       }
     ]
   };
@@ -153,7 +153,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       });
     }
 
-    let chartLineColor = this.simpleChart ? '#12AEF9' : '#00DC59';
+    let chartLineColor = this.simpleChart ? '#12AEF9' : '#1ebea5';
 
     this.chart.series[0].update({
       color: chartLineColor
