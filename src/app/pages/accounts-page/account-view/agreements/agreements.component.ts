@@ -4,7 +4,6 @@ import { AuthenticationService } from '../../../../authentication/authentication
 import { Subscription } from 'rxjs';
 import { UsersService } from '../../../../shared/services/users.service';
 import * as jsPDF from 'jspdf';
-import * as html2canvas from 'html2canvas';
 
 @Component({
   selector: 'agreements',
@@ -14,6 +13,7 @@ import * as html2canvas from 'html2canvas';
 export class AgreementsComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   termsAndConditions: any = {};
+  downloadDisabled: boolean = false;
 
   constructor(
     private authService: AuthenticationService,
@@ -46,14 +46,22 @@ export class AgreementsComponent implements OnInit, OnDestroy {
   }
 
   download() {
+    if (this.downloadDisabled) {
+      return;
+    }
+
+    this.downloadDisabled = true;
     const elementToPrint = document.getElementById('terms');
     const pdf = new jsPDF();
 
-    pdf.addHTML(elementToPrint, 0, 0, {
+    pdf.addHTML(elementToPrint, 5, 5, {
       pagesplit: true,
       format: 'PNG',
       margin: {top: 10, right: 10, bottom: 10, left: 10, useFor: 'page'}
-    }, () => {pdf.save("terms-and-conditions.pdf")})
+    }, () => {
+      pdf.save("terms-and-conditions.pdf");
+      this.downloadDisabled = false;
+    });
 
   }
 
