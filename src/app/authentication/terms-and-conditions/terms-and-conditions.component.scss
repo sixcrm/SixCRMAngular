@@ -29,7 +29,7 @@
 
   .actions {
     display: flex;
-    margin: auto 25px;
+    margin: auto 25px 25px 25px;
     align-items: center;
     color: #2C98F0;
 
@@ -55,6 +55,10 @@
 
   simple-dropdown {
     font-size: 13px;
+  }
+
+  mat-spinner {
+    margin: auto;
   }
 }
 

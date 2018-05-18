@@ -3,6 +3,8 @@
   <div class="title">{{termsAndConditions.title}}</div>
   <div *ngIf="termsAndConditions && termsAndConditions.body" class="body" Markdown>{{termsAndConditions.body}}</div>
 
+  <mat-spinner diameter="80" *ngIf="!termsAndConditions || !termsAndConditions.body" class="entity-view__spinner"></mat-spinner>
+
   <div class="actions">
 
     <simple-dropdown
