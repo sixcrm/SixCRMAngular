@@ -153,7 +153,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       });
     }
 
-    let chartLineColor = this.simpleChart ? '#1be1fc' : '#00DC59';
+    let chartLineColor = this.simpleChart ? '#12AEF9' : '#00DC59';
 
     this.chart.series[0].update({
       color: chartLineColor
@@ -166,5 +166,6 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
     this.chartOptions.chart.type = 'column';
     this.chartOptions.chart.backgroundColor = '#fafafa';
     this.chartOptions.chart.height = 240;
+    this.chartOptions.chart['width'] = 350;
   }
 }
