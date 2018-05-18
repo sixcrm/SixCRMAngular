@@ -84,7 +84,7 @@ export function latestTermsAndConditions(role?: string): string {
 export function latestTermsAndConditionsForAccount(accountId: string): string {
   return `
     {
-      latesttermsandconditions ( account: "${accountId}" ) {
+      latesttermsandconditions ( account: "${accountId}", role: "owner" ) {
         version,
         title,
         body

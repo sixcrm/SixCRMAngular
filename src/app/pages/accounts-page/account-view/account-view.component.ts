@@ -298,6 +298,16 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
     return false;
   }
 
+  showAgreements(): boolean {
+    return this.isMasterOrOwner();
+  }
+
+  isMasterOrOwner() {
+    const acl = this.authService.getActiveAcl();
+
+    return this.authService.isActiveOrActingAclMasterAccount() || (acl && acl.account.id === this.entityId && this.billsService.hasReadPermission());
+  }
+
   setIndex(index: number) {
     this.selectedIndex = index;
 

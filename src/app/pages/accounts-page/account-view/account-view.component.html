@@ -67,7 +67,7 @@
       <bills-overview [focused]="isBillingFocused"></bills-overview>
     </mat-tab>
 
-    <mat-tab class="agreements">
+    <mat-tab class="agreements" *ngIf="showAgreements()">
       <agreements></agreements>
     </mat-tab>
   </mat-tab-group>
