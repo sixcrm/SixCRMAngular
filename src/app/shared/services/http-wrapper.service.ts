@@ -41,6 +41,7 @@ export class HttpWrapperService {
 
     const ignoreProgress: boolean = requestBehaviourOptions && requestBehaviourOptions.ignoreProgress;
     const failStrategy: FailStrategy = requestBehaviourOptions ? requestBehaviourOptions.failStrategy : FailStrategy.Ignore;
+    const ignoreSnack: boolean = true; // Technical Debt: This should not be permanent.
 
     if (!ignoreProgress) this.setInProgress();
 
@@ -59,7 +60,9 @@ export class HttpWrapperService {
         // handle error
         if (!ignoreProgress) this.setNotInProgress();
 
-        this.handleError(error);
+        if (!ignoreSnack) {
+          this.handleError(error);
+        }
 
         if (failStrategy === FailStrategy.Hard) {
           this.router.navigateByUrl('/error');
