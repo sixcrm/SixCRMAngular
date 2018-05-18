@@ -40,8 +40,7 @@
     </div>
 
     <div class="column">
-      <div class="item item--title" *ngIf="simpleChart" [class.first-row]="simpleChart">Number</div>
-      <div class="item item--title" *ngIf="!simpleChart"></div>
+      <div class="item item--title" [class.first-row]="simpleChart">Number</div>
       <div class="item">{{funnel.click.count | numberlocale}}</div>
       <div class="item">{{funnel.lead.count | numberlocale}}</div>
       <div class="item">{{funnel.main.count | numberlocale}}</div>
@@ -51,8 +50,7 @@
 
     <div class="column">
       <div class="item item--title" [class.first-row]="simpleChart">% of Clicks</div>
-      <div class="item item--line" *ngIf="!simpleChart"><div class="line"></div></div>
-      <div class="item" *ngIf="simpleChart"></div>
+      <div class="item"></div>
       <div class="item">{{(funnel.lead.percentage | numberlocale) || '-'}}%</div>
       <div class="item">{{(funnel.main.percentage | numberlocale) || '-'}}%</div>
       <div class="item">{{(funnel.upsell.percentage | numberlocale) || '-'}}%</div>
@@ -61,9 +59,9 @@
 
     <div class="column" *ngIf="!simpleChart">
       <div class="item item--title">% of Sales</div>
-      <div class="item item--line"><div class="line"></div></div>
-      <div class="item item--line"><div class="line"></div></div>
-      <div class="item item--line"><div class="line"></div></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
       <div class="item">{{(funnel.upsell.relativePercentage | numberlocale) || '-'}}%</div>
       <div class="item">{{(funnel.upsell.relativePercentage | numberlocale) || '-'}}%</div>
     </div>

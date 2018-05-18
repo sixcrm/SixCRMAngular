@@ -60,8 +60,8 @@ export class DashboardLowDataComponent implements OnInit {
       if (transactions instanceof CustomServerError) return;
 
       this.transactions = transactions.sort((a,b) => {
-        if (a.createdAt > b.createdAt) return 1;
-        if (a.createdAt < b.createdAt) return -1;
+        if (a.createdAt > b.createdAt) return -1;
+        if (a.createdAt < b.createdAt) return 1;
         return 0;
       });
 

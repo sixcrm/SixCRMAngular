@@ -165,5 +165,6 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
   setSimpleChartOptions() {
     this.chartOptions.chart.type = 'column';
     this.chartOptions.chart.backgroundColor = '#fafafa';
+    this.chartOptions.chart.height = 240;
   }
 }

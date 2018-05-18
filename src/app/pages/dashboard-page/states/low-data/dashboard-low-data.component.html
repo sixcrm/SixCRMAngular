@@ -8,14 +8,14 @@
           <div class="total-revenue-amount">${{revenue}}</div>
         </div>
 
-        <div class="quote">
+        <div *ngIf="quote" class="quote">
           <div>{{quote.quote}}</div>
           <div>-{{quote.attribution.author}}</div>
         </div>
       </div>
 
       <div class="chart-container">
-        <funnel-graph #graph [simpleChart]="true" [period]="'HOUR'"></funnel-graph>
+        <funnel-graph [simpleChart]="true" [period]="'HOUR'"></funnel-graph>
         <div class="transactions">
           <div class="transactions__title">{{'DASHBOARD_STATE_LOWDATA_TRANSACTIONS_TITLE' | translate}}</div>
           <table>
@@ -42,7 +42,9 @@
             </tbody>
           </table>
 
-          <div class="more" [routerLink]="['/transactions']">{{'DASHBOARD_STATE_LOWDATA_TRANSACTIONS_MORE' | translate}}</div>
+          <div class="more">
+            <button mat-button [routerLink]="['/transactions']">{{'DASHBOARD_STATE_LOWDATA_TRANSACTIONS_MORE' | translate}}</button>
+          </div>
         </div>
       </div>
 
