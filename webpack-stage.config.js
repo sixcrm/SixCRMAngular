@@ -453,7 +453,7 @@ module.exports = {
         "node_modules/tinymce/themes/modern/theme.js",
         "node_modules/tinymce/plugins/link/plugin.js",
         "node_modules/tinymce/plugins/code/plugin.js",
-        "node_modules/tinymce/plugins/preview/plugin.js"
+        "node_modules/tinymce/plugins/preview/plugin.js", "node_modules/html2canvas/dist/html2canvas.min.js"
       ],
       "basePath": "."
     }),

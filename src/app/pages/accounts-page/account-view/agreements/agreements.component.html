@@ -1,0 +1,9 @@
+<div class="container">
+
+  <div class="title" id="title">
+    <div>{{termsAndConditions.title}}</div>
+    <button class="accept" mat-button (click)="download()">{{'TERMS_DOWNLOAD' | translate}}</button>
+  </div>
+  <div *ngIf="termsAndConditions && termsAndConditions.body" class="body" Markdown id="terms">{{termsAndConditions.body}}</div>
+
+</div>

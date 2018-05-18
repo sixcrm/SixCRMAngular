@@ -81,6 +81,17 @@ export function latestTermsAndConditions(role?: string): string {
     }`
 }
 
+export function latestTermsAndConditionsForAccount(accountId: string): string {
+  return `
+    {
+      latesttermsandconditions ( account: "${accountId}" ) {
+        version,
+        title,
+        body
+      }
+    }`
+}
+
 export function inviteUserMutation(email: string, accountId: string, roleId: string): string {
   return `
     mutation {

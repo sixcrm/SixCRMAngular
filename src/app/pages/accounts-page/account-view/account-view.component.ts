@@ -70,7 +70,8 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'ACCOUNT_TAB_GENERAL'},
     {name: 'users', label: 'ACCOUNT_TAB_USERS'},
-    {name: 'accesskeys', label: 'ACCOUNT_TAB_KEYS'}
+    {name: 'accesskeys', label: 'ACCOUNT_TAB_KEYS'},
+    {name: 'agreements', label: 'ACCOUNT_TAB_AGREEMENTS'}
   ];
 
   breadcrumbs: BreadcrumbItem[] = [
@@ -294,9 +295,7 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
   }
 
   showBilling(): boolean {
-    const acl = this.authService.getActiveAcl();
-
-    return this.authService.isActiveOrActingAclMasterAccount() || (acl && acl.account.id === this.entityId && this.billsService.hasReadPermission());
+    return false;
   }
 
   setIndex(index: number) {
