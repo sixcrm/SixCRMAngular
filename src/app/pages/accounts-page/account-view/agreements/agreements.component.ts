@@ -49,8 +49,9 @@ export class AgreementsComponent implements OnInit, OnDestroy {
     const elementToPrint = document.getElementById('terms');
     const pdf = new jsPDF();
 
-    pdf.addHTML(elementToPrint, 10, 10, {
+    pdf.addHTML(elementToPrint, 0, 0, {
       pagesplit: true,
+      format: 'PNG',
       margin: {top: 10, right: 10, bottom: 10, left: 10, useFor: 'page'}
     }, () => {pdf.save("terms-and-conditions.pdf")})
 
