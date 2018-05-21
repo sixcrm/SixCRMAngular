@@ -7,11 +7,11 @@ import {CustomServerError} from '../../../shared/models/errors/custom-server-err
 import {utc} from 'moment';
 
 @Component({
-  selector: 'funnel-graph',
-  templateUrl: './funnel-graph.component.html',
-  styleUrls: ['./funnel-graph.component.scss']
+  selector: 'funnel-graph-simple',
+  templateUrl: './funnel-graph-simple.component.html',
+  styleUrls: ['./funnel-graph-simple.component.scss']
 })
-export class FunnelGraphComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
+export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
   public eventType: 'click' | 'lead' | 'main' | 'upsell' | 'confirm';
   @Input() simpleChart: boolean = false;
@@ -84,7 +84,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       }
 
       if (this.chart && this.funnel) {
-        this.redrawChartData();
+        // this.redrawChartData();
       }
     });
 
@@ -99,7 +99,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       this.funnelTimeseries = funnelTimeseries;
 
       if (this.chart && this.funnelTimeseries) {
-        this.redrawChartData();
+        // this.redrawChartData();
       }
     });
 
@@ -134,7 +134,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
     this.chart = chartInstance;
 
     if (this.funnel) {
-      this.redrawChartData();
+      this.redrawChartData(true);
     }
   }
 
@@ -143,18 +143,24 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
     this.refresh();
   }
 
-  redrawChartData(): void {
-    console.log(this.active);
+  redrawChartData(force: boolean): void {
 
-    if (!this.active) {
+    console.log(this.active, force);
+
+    if (!this.active && !force) {
       return;
     }
 
+    console.trace('redraw!');
+
     if (!this.chart || !this.funnelTimeseries || this.funnelTimeseries.datetime.length === 0) return;
+
+    // console.log(this.chart, this.funnelTimeseries, this.funnelTimeseries.datetime);
 
     let data = [];
 
     for (let i = 0; i < this.funnelTimeseries.datetime.length; i++) {
+      console.log('push!', this.funnelTimeseries.count[i]);
       data.push({
         y: this.funnelTimeseries.count[i]
       });

@@ -21,6 +21,7 @@ import {utc} from 'moment';
 export class DashboardLowDataComponent implements OnInit {
 
   @Input() quote: TranslatedQuote;
+  @Input() active: boolean;
 
   issueReports: DashboardIssueReportItem[] = [
     {label: 'Orders', issues: []},
@@ -34,6 +35,7 @@ export class DashboardLowDataComponent implements OnInit {
   name: string;
   revenue: any;
   transactions: Transaction[];
+  show: boolean;
 
   constructor(
     private authService: AuthenticationService,

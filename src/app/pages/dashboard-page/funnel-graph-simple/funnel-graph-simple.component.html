@@ -1,0 +1,70 @@
+<div inViewport (inside)="fetch()" class="dashboard__gray-table-chart" [class.simpleChart]="simpleChart">
+  <div class="dashboard__gray-table-chart__title">
+    <div class="main" *ngIf="!simpleChart">{{'DASHBOARD_EVENTSFUNNEL_TITLE' | translate}}</div>
+    <div class="event-type-options">
+      <span mat-icon-button [matMenuTriggerFor]="eventTypeOptions">{{(eventTypeMap[eventType] | translate)}}</span>
+      <mat-icon [matMenuTriggerFor]="eventTypeOptions">keyboard_arrow_down</mat-icon>
+      <mat-menu #eventTypeOptions="matMenu" x-position="before">
+        <button mat-menu-item (click)="changeEventType('click')">{{'DASHBOARD_EVENTSFUNNEL_CLICK' | translate}}</button>
+        <button mat-menu-item (click)="changeEventType('lead')">{{'DASHBOARD_EVENTSFUNNEL_LEAD' | translate}}</button>
+        <button mat-menu-item (click)="changeEventType('main')">{{'DASHBOARD_EVENTSFUNNEL_MAIN' | translate}}</button>
+        <button mat-menu-item (click)="changeEventType('upsell')">{{'DASHBOARD_EVENTSFUNNEL_UPSELL' | translate}}</button>
+        <button mat-menu-item (click)="changeEventType('confirm')">{{'DASHBOARD_EVENTSFUNNEL_CONFIRM' | translate}}</button>
+      </mat-menu>
+    </div>
+    <mat-icon *ngIf="!simpleChart" [matMenuTriggerFor]="downloadOptions">more_vert</mat-icon>
+    <mat-menu #downloadOptions="matMenu" x-position="before">
+      <button mat-menu-item (click)="download('json')">{{'CHART_DOWNLOADJSON' | translate}}</button>
+      <button mat-menu-item (click)="download('csv')">{{'CHART_DOWNLOADCSV' | translate}}</button>
+      <button mat-menu-item (click)="download('excel')">{{'CHART_DOWNLOADEXCEL' | translate}}</button>
+    </mat-menu>
+  </div>
+
+  <ng-container *ngIf="!serverError; else error">
+    <chart [options]="chartOptions" (load)="saveChart($event.context, true)"></chart>
+  </ng-container>
+
+  <ng-template #error>
+    <server-error-message (refresh)="refresh()"></server-error-message>
+  </ng-template>
+
+  <div *ngIf="funnel" class="table-container">
+
+    <div class="column first-column">
+      <div class="item item--title"></div>
+      <div class="item item--title">{{'DASHBOARD_EVENTSFUNNEL_CLICK' | translate}}</div>
+      <div class="item item--title">{{'DASHBOARD_EVENTSFUNNEL_LEAD' | translate}}</div>
+      <div class="item item--title">{{'DASHBOARD_EVENTSFUNNEL_MAIN' | translate}}</div>
+      <div class="item item--title">{{'DASHBOARD_EVENTSFUNNEL_UPSELL' | translate}}</div>
+      <div class="item item--title">{{'DASHBOARD_EVENTSFUNNEL_CONFIRM' | translate}}</div>
+    </div>
+
+    <div class="column">
+      <div class="item item--title first-row">Number</div>
+      <div class="item">{{funnel.click.count | numberlocale}}</div>
+      <div class="item">{{funnel.lead.count | numberlocale}}</div>
+      <div class="item">{{funnel.main.count | numberlocale}}</div>
+      <div class="item">{{funnel.upsell.count | numberlocale}}</div>
+      <div class="item">{{funnel.confirm.count | numberlocale}}</div>
+    </div>
+
+    <div class="column">
+      <div class="item item--title first-row">% of Clicks</div>
+      <div class="item"></div>
+      <div class="item">{{(funnel.lead.percentage | numberlocale) || '-'}}%</div>
+      <div class="item">{{(funnel.main.percentage | numberlocale) || '-'}}%</div>
+      <div class="item">{{(funnel.upsell.percentage | numberlocale) || '-'}}%</div>
+      <div class="item">{{(funnel.confirm.percentage | numberlocale) || '-'}}%</div>
+    </div>
+
+    <div class="column" *ngIf="!simpleChart">
+      <div class="item item--title first-row">% of Sales</div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item"></div>
+      <div class="item">{{(funnel.upsell.relativePercentage | numberlocale) || '-'}}%</div>
+      <div class="item">{{(funnel.upsell.relativePercentage | numberlocale) || '-'}}%</div>
+    </div>
+
+  </div>
+</div>

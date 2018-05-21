@@ -15,7 +15,9 @@
       </div>
 
       <div class="chart-container">
-        <funnel-graph [simpleChart]="true" [period]="'HOUR'"></funnel-graph>
+        <div (click)="show = true" style="width: 350px">
+          <funnel-graph-simple *ngIf="show" [active]="active" [simpleChart]="true" [period]="'HOUR'"></funnel-graph-simple>
+        </div>
         <div class="transactions">
           <div class="transactions__title">{{'DASHBOARD_STATE_LOWDATA_TRANSACTIONS_TITLE' | translate}}</div>
           <table>

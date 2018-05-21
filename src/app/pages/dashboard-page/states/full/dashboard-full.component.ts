@@ -1,6 +1,6 @@
 import 'rxjs/add/operator/takeUntil';
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {Campaign} from '../../../../shared/models/campaign.model';
 import {DashboardQuery, DashboardTimeFilter} from '../../dashboard.exports';
 import {CampaignsService} from '../../../../shared/services/campaigns.service';
@@ -23,6 +23,8 @@ import {SeriesType} from '../../series-type';
   styleUrls: ['./dashboard-full.component.scss']
 })
 export class DashboardFullComponent implements OnInit, OnDestroy {
+
+  @Input() active: boolean;
 
   campaigns: Campaign[] = [new Campaign({name: 'All Campaigns'})];
   selectedCampaign: Campaign = this.campaigns[0];
