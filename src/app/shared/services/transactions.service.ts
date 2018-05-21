@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Transaction} from '../models/transaction.model';
-import {HttpWrapperService, extractData} from './http-wrapper.service';
+import { HttpWrapperService, extractData, FailStrategy } from './http-wrapper.service';
 import {
   transactionsInfoListQuery, deleteTransactionMutation,
   transactionQuery, refundTransactionMutation, deleteTransactionsMutation
 } from '../utils/queries/entities/transaction.queries';
 import {CustomServerError} from '../models/errors/custom-server-error';
 import {MatSnackBar} from '@angular/material';
+import { Moment } from 'moment';
 
 @Injectable()
 export class TransactionsService extends AbstractEntityService<Transaction> {
@@ -49,5 +50,9 @@ export class TransactionsService extends AbstractEntityService<Transaction> {
         this.entityUpdated$.next(new Transaction(entityData.transaction));
       }
     );
+  }
+
+  public transactionsUntil(date: Moment): void {
+    this.getEntities(20, null, {failStrategy: FailStrategy.Soft})
   }
 }
