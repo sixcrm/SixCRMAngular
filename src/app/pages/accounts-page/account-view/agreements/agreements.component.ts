@@ -14,6 +14,7 @@ export class AgreementsComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   termsAndConditions: any = {};
   downloadDisabled: boolean = false;
+  licenceAgreement: boolean = false;
 
   constructor(
     private authService: AuthenticationService,
