@@ -81,10 +81,10 @@ export function latestTermsAndConditions(role?: string): string {
     }`
 }
 
-export function latestTermsAndConditionsForAccount(accountId: string): string {
+export function latestTermsAndConditionsForAccount(accountId: string, role?: string): string {
   return `
     {
-      latesttermsandconditions ( account: "${accountId}", role: "owner" ) {
+      latesttermsandconditions ( account: "${accountId}" ${role ? `, role: "${role}"` : ''} ) {
         version,
         title,
         body

@@ -60,7 +60,7 @@ export class UsersService extends AbstractEntityService<User> {
     return this.http.postWithError(environment.publicendpoint, latestTermsAndConditions(role), { });
   }
 
-  getLatestTermsAndConditionsForAccount(accountId: string): Observable<HttpResponse<any> | CustomServerError> {
-    return this.http.postWithError(environment.publicendpoint, latestTermsAndConditionsForAccount(accountId), { });
+  getLatestTermsAndConditionsForAccount(accountId: string, role?: string): Observable<HttpResponse<any> | CustomServerError> {
+    return this.http.postWithError(environment.publicendpoint, latestTermsAndConditionsForAccount(accountId, role), { });
   }
 }

@@ -14,7 +14,7 @@ export class AgreementsComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   termsAndConditions: any = {};
   downloadDisabled: boolean = false;
-  licenceAgreement: boolean = false;
+  licenceAgreement: any = {};
 
   constructor(
     private authService: AuthenticationService,
@@ -37,12 +37,20 @@ export class AgreementsComponent implements OnInit, OnDestroy {
   }
 
   fetch(): void {
-    this.userService.getLatestTermsAndConditionsForAccount(this.authService.getActiveAcl().account.id).take(1).subscribe((response) => {
+    this.userService.getLatestTermsAndConditionsForAccount(this.authService.getActiveAcl().account.id, 'owner').take(1).subscribe((response) => {
       if (response instanceof CustomServerError) {
         return;
       }
 
       this.termsAndConditions = response.body.response.data.latesttermsandconditions;
+    });
+
+    this.userService.getLatestTermsAndConditionsForAccount(this.authService.getActiveAcl().account.id).take(1).subscribe((response) => {
+      if (response instanceof CustomServerError) {
+        return;
+      }
+
+      this.licenceAgreement = response.body.response.data.latesttermsandconditions;
     })
   }
 
