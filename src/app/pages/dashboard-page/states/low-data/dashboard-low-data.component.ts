@@ -35,7 +35,7 @@ export class DashboardLowDataComponent implements OnInit {
   name: string;
   revenue: any;
   transactions: Transaction[];
-  show: boolean;
+  showChart: boolean;
 
   constructor(
     private authService: AuthenticationService,
@@ -77,7 +77,6 @@ export class DashboardLowDataComponent implements OnInit {
       this.calculateRevenue(data);
     });
 
-    this.analyticsService.getHeroChartSeries(utc().subtract(1, 'd').format(), utc().format(), 'day', 'revenueVersusOrders', null);
   }
 
   calculateRevenue(series: HeroChartSeries[]){

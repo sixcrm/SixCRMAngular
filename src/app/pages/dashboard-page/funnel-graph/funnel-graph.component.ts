@@ -16,7 +16,6 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
   public eventType: 'click' | 'lead' | 'main' | 'upsell' | 'confirm';
   @Input() simpleChart: boolean = false;
   @Input() period: string = 'DAY';
-  @Input() active: boolean;
 
   colors = ['#4383CC', '#4DABF5', '#9ADDFB', '#FDAB31', '#F28933'];
 
@@ -144,11 +143,6 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
   }
 
   redrawChartData(): void {
-    console.log(this.active);
-
-    if (!this.active) {
-      return;
-    }
 
     if (!this.chart || !this.funnelTimeseries || this.funnelTimeseries.datetime.length === 0) return;
 

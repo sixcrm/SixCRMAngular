@@ -16,7 +16,7 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
   public eventType: 'click' | 'lead' | 'main' | 'upsell' | 'confirm';
   @Input() simpleChart: boolean = false;
   @Input() period: string = 'DAY';
-  @Input() active: boolean;
+  showChart: boolean;
 
   colors = ['#4383CC', '#4DABF5', '#9ADDFB', '#FDAB31', '#F28933'];
 
@@ -68,7 +68,7 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
   ngOnInit() {
     let amount = 30;
 
-    this.analyticsService.eventFunnel$.takeUntil(this.unsubscribe$).subscribe((funnel: EventFunnel | CustomServerError) => {
+    this.analyticsService.eventFunnelSimple$.takeUntil(this.unsubscribe$).subscribe((funnel: EventFunnel | CustomServerError) => {
       if (funnel instanceof CustomServerError) {
         this.serverError = funnel;
         this.funnel = null;
@@ -84,11 +84,11 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
       }
 
       if (this.chart && this.funnel) {
-        // this.redrawChartData();
+        this.redrawChartData();
       }
     });
 
-    this.analyticsService.eventFunnelTimeseries$.takeUntil(this.unsubscribe$).subscribe((funnelTimeseries: EventFunnelTimeseries | CustomServerError) => {
+    this.analyticsService.eventFunnelTimeseriesSimple$.takeUntil(this.unsubscribe$).subscribe((funnelTimeseries: EventFunnelTimeseries | CustomServerError) => {
       if (funnelTimeseries instanceof CustomServerError) {
         this.serverError = funnelTimeseries;
         this.funnelTimeseries = null;
@@ -99,7 +99,7 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
       this.funnelTimeseries = funnelTimeseries;
 
       if (this.chart && this.funnelTimeseries) {
-        // this.redrawChartData();
+        this.redrawChartData();
       }
     });
 
@@ -107,6 +107,7 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
     this.end = utc();
     this.eventType = 'click';
     this.shouldFetch = true;
+    this.showChart = true;
   }
 
   ngOnDestroy() {
@@ -121,20 +122,20 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
 
   fetch(): void {
     if (this.shouldFetch) {
-      this.analyticsService.getEventFunnel(this.start.format(), this.end.format(), null, this.eventType, this.period);
+      this.analyticsService.getEventFunnelSimple(this.start.format(), this.end.format(), null, this.eventType, this.period);
       this.shouldFetch = false;
     }
   }
 
   download(format: string): void {
-    this.analyticsService.getEventFunnel(this.start.format(), this.end.format(), format);
+    this.analyticsService.getEventFunnelSimple(this.start.format(), this.end.format(), format);
   }
 
   saveChart(chartInstance): void {
     this.chart = chartInstance;
 
     if (this.funnel) {
-      this.redrawChartData(true);
+      this.redrawChartData();
     }
   }
 
@@ -143,24 +144,13 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
     this.refresh();
   }
 
-  redrawChartData(force: boolean): void {
-
-    console.log(this.active, force);
-
-    if (!this.active && !force) {
-      return;
-    }
-
-    console.trace('redraw!');
+  redrawChartData(): void {
 
     if (!this.chart || !this.funnelTimeseries || this.funnelTimeseries.datetime.length === 0) return;
-
-    // console.log(this.chart, this.funnelTimeseries, this.funnelTimeseries.datetime);
 
     let data = [];
 
     for (let i = 0; i < this.funnelTimeseries.datetime.length; i++) {
-      console.log('push!', this.funnelTimeseries.count[i]);
       data.push({
         y: this.funnelTimeseries.count[i]
       });

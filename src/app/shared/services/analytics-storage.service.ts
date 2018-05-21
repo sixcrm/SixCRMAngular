@@ -67,6 +67,8 @@ export class AnalyticsStorageService {
 
   private eventFunnelKey: string = 'event_funnel';
   private eventFunnelTimeseriesKey: string = 'event_funnel_timeseries';
+  private eventFunnelSimpleKey: string = 'event_funnel_timeseries_simple';
+  private eventFunnelTimeseriesSimpleKey: string = 'event_funnel_timeseries_simple';
   private transactionSummariesKey: string = 'transaction_summaries';
   private campaignsByAmountKey: string = 'campaign_by_amount';
   private subscriptionsByAmountKey: string = 'subscriptions_by_amount';
@@ -103,10 +105,36 @@ export class AnalyticsStorageService {
     return funnelEntry.entry
   }
 
+  getEventFunnelSimple(start: string, end: string): EventFunnel {
+    let funnelEntry: AnalyticsStateEntry<EventFunnel> = this.storage[this.eventFunnelSimpleKey];
+
+    if (this.isInvalid(funnelEntry, start, end)) return null;
+
+    return funnelEntry.entry
+  }
+
   setEventFunnel(start: string, end: string, funnel: EventFunnel): void {
     this.saveStartEnd(start, end);
 
     this.storage[this.eventFunnelKey] = new AnalyticsStateEntry(start, end, funnel)
+  }
+
+  setEventFunnelTimeseries(start: string, end: string, funnel: EventFunnelTimeseries): void {
+    this.saveStartEnd(start, end);
+
+    this.storage[this.eventFunnelTimeseriesKey] = new AnalyticsStateEntry(start, end, funnel)
+  }
+
+  setEventFunnelSimple(start: string, end: string, funnel: EventFunnel): void {
+    this.saveStartEnd(start, end);
+
+    this.storage[this.eventFunnelSimpleKey] = new AnalyticsStateEntry(start, end, funnel)
+  }
+
+  setEventFunnelTimeseriesSimple(start: string, end: string, funnel: EventFunnelTimeseries): void {
+    this.saveStartEnd(start, end);
+
+    this.storage[this.eventFunnelTimeseriesSimpleKey] = new AnalyticsStateEntry(start, end, funnel)
   }
 
   getTransactionSummaries(start: string, end: string, filters?: FilterTerm[]): TransactionSummary[] {

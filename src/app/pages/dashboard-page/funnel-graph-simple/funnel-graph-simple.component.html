@@ -21,7 +21,7 @@
   </div>
 
   <ng-container *ngIf="!serverError; else error">
-    <chart [options]="chartOptions" (load)="saveChart($event.context, true)"></chart>
+    <chart *ngIf="showChart" [options]="chartOptions" (load)="saveChart($event.context, true)"></chart>
   </ng-container>
 
   <ng-template #error>
