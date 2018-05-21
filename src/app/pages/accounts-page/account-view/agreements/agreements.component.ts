@@ -54,21 +54,21 @@ export class AgreementsComponent implements OnInit, OnDestroy {
     })
   }
 
-  download() {
+  download(id: string) {
     if (this.downloadDisabled) {
       return;
     }
 
     this.downloadDisabled = true;
-    const elementToPrint = document.getElementById('terms');
+    const elementToPrint = document.getElementById(id);
     const pdf = new jsPDF();
 
-    pdf.addHTML(elementToPrint, 5, 5, {
+    pdf.fromHTML(elementToPrint, 5, 5, {
       pagesplit: true,
       format: 'PNG',
       margin: {top: 10, right: 10, bottom: 10, left: 10, useFor: 'page'}
     }, () => {
-      pdf.save("terms-and-conditions.pdf");
+      pdf.save(`${id}.pdf`);
       this.downloadDisabled = false;
     });
 

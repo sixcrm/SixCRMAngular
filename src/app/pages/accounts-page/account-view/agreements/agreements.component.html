@@ -1,13 +1,15 @@
 <div class="container">
   <div class="item" *ngIf="termsAndConditions">
     <div class="title">{{termsAndConditions.title}}</div>
+    <div id="terms-and-conditions" Markdown *ngIf="termsAndConditions && termsAndConditions.body" style="display:none">{{termsAndConditions.body}}</div>
     <div class="revised-date" *ngIf="termsAndConditions.version">{{'TERMS_VERSION' | translate}} {{termsAndConditions.version}}</div>
-    <button mat-button>{{'TERMS_DOWNLOAD' | translate}}</button>
+    <button mat-button (click)="download('terms-and-conditions')">{{'TERMS_DOWNLOAD' | translate}}</button>
   </div>
   <div class="line" *ngIf="licenceAgreement.version"></div>
   <div class="item" *ngIf="licenceAgreement.version">
     <div class="title">{{licenceAgreement.title}}</div>
-    <div class="revised-date">{{'TERMS_VERSION' | translate}} {{licenceAgreement.version}}</div>
-    <button mat-button>{{'TERMS_DOWNLOAD' | translate}}</button>
+    <div id="license-agreement" Markdown *ngIf="licenceAgreement && licenceAgreement.body" style="display:none">{{licenceAgreement.body}}</div>
+    <div class="revised-date" *ngIf="licenceAgreement.version">{{'TERMS_VERSION' | translate}} {{licenceAgreement.version}}</div>
+    <button mat-button (click)="download('license-agreement')">{{'TERMS_DOWNLOAD' | translate}}</button>
   </div>
 </div>
