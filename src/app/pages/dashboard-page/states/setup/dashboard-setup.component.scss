@@ -3,7 +3,7 @@
   flex-direction: column;
   color: white;
   background: linear-gradient(180deg, #4277C2 8.44%, #2C98F0 100%);
-  height: calc(100vh - 70px - 63px); //substract height of top nav and height of dashboard state tabs
+  min-height: calc(100vh - 70px); //subtract height of top nav
   font-family: Roboto;
 
   &__header {
@@ -59,6 +59,10 @@
     border-radius: 4px;
     z-index: 0;
 
+    @media only screen and (min-width: 990px) and (max-width: 1165px) {
+      margin-top: -32px;
+    }
+
     &__heading {
       display: flex;
       justify-content: space-between;
@@ -112,4 +116,8 @@
       }
     }
   }
+}
+
+:host-context(.tab--dashboard-header) .setup-container {
+  min-height: calc(100vh - 70px - 62px); //subtract height of top nav and height of dashboard state tabs
 }

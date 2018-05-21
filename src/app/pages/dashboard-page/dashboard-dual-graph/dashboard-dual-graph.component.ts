@@ -45,7 +45,7 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
         spacing: [0,0,0,0],
         animation: true,
         height: '30%',
-        type: 'area',
+        type: 'areaspline',
         backgroundColor: 'rgba(0,0,0,0)'
       },
       title: {
@@ -93,7 +93,7 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
         size: 100
       },
       plotOptions: {
-        area: {
+        areaspline: {
           marker: {
             enabled: false,
             fillColor: '#86FCEA',
@@ -129,8 +129,34 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
       },
 
       series: [
-        { name: 'first', color: '#1EB1FC', data: []},
-        { name: 'second', color: '#4DABF5', data: []},
+        { name: 'first',
+          color: {
+            linearGradient: {
+              x1: 0,
+              y1: 0,
+              x2: 0,
+              y2: 1
+            },
+            stops: [
+              [0, 'rgba(30, 177, 252, 1)'],
+              [1, 'rgba(30, 177, 252, 0)']
+            ]
+          },
+          data: []},
+        { name: 'second',
+          color: {
+            linearGradient: {
+              x1: 0,
+              y1: 0,
+              x2: 0,
+              y2: 1
+            },
+            stops: [
+              [0, 'rgba(77, 171, 245, 1)'],
+              [1, 'rgba(77, 171, 245, 0)']
+            ]
+          },
+          data: []},
       ]
     };
   }
