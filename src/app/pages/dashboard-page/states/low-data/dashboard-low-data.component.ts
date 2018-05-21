@@ -80,6 +80,10 @@ export class DashboardLowDataComponent implements OnInit {
   }
 
   calculateRevenue(series: HeroChartSeries[]){
-    this.revenue = series.find(el => el.facet === 'revenue').timeseries.map(s => s.value).reduce((a,b) => a+b, 0);
+    let revenues = series.find(el => el.facet === 'revenue');
+    if (!revenues) {
+      return;
+    }
+    this.revenue = revenues.timeseries.map(s => s.value).reduce((a, b) => a+b, 0);
   }
 }
