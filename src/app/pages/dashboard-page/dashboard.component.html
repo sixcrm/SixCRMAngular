@@ -2,15 +2,16 @@
   *ngIf="activeDashboard !== undefined && availableDashboards.length > 1; else setup"
   class="tab--dashboard-header"
   [(selectedIndex)]="activeDashboard"
+  (selectedTabChange)="saveActiveDashboard()"
 >
   <!--TODO translations-->
   <mat-tab label="SETUP">
     <c-dashboard-setup></c-dashboard-setup>
   </mat-tab>
-  <mat-tab [hidden]="!availableDashboards.includes(DashboardType.low_data)" label="TRANSACTIONS">
-    <c-dashboard-low-data [active]="activeDashboard === DashboardType.low_data"></c-dashboard-low-data>
+  <mat-tab [hidden]="(!availableDashboards.includes(DashboardType.low_data) && (activeDashboard !== DashboardType.low_data))" label="TRANSACTIONS">
+    <c-dashboard-low-data></c-dashboard-low-data>
   </mat-tab>
-  <mat-tab [hidden]="!availableDashboards.includes(DashboardType.full)" label="DASHBOARD">
+  <mat-tab [hidden]="(!availableDashboards.includes(DashboardType.full) && (activeDashboard !== DashboardType.full))" label="DASHBOARD">
     <c-dashboard-full></c-dashboard-full>
   </mat-tab>
 </mat-tab-group>

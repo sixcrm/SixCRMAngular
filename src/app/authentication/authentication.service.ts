@@ -392,6 +392,16 @@ export class AuthenticationService {
     return show === null || show === 'true';
   }
 
+  public setActiveDashboard(dashboard): void {
+    localStorage.setItem(this.currentSixUser.email + ':dashboard', dashboard);
+  }
+
+  public getActiveDashboard(): any {
+    let dashboard = localStorage.getItem(this.currentSixUser.email + ':dashboard');
+
+    return dashboard || 0;
+  }
+
   private setUser(authResult): void {
     localStorage.setItem(this.accessToken, authResult.accessToken);
     localStorage.setItem(this.idToken, authResult.idToken);

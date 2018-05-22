@@ -4,6 +4,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import {AsyncSubject} from 'rxjs';
 import { DashboardType } from './dashboard-type';
 import { DashboardAvailabilityService } from './dashboard-availability.service';
+import { AuthenticationService } from '../../authentication/authentication.service';
 
 @Component({
   selector: 'c-dashboard',
@@ -19,17 +20,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
   constructor(
-    private dashboardAvailabilityService: DashboardAvailabilityService
+    private dashboardAvailabilityService: DashboardAvailabilityService,
+    private authService: AuthenticationService
   ) { }
 
   ngOnInit() {
-
+    this.activeDashboard = this.authService.getActiveDashboard();
     this.dashboardAvailabilityService.availableDashboards.takeUntil(this.unsubscribe$).subscribe(dbTypes => {
       if (dbTypes.length) {
-        this.activeDashboard = dbTypes[dbTypes.length - 1];
         this.availableDashboards = dbTypes;
-      } else {
-        this.activeDashboard = null;
       }
     });
 
@@ -38,5 +37,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsubscribe$.next(true);
     this.unsubscribe$.complete();
+  }
+
+  saveActiveDashboard() {
+    console.log('should save', this.activeDashboard);
+    this.authService.setActiveDashboard(this.activeDashboard);
   }
 }
