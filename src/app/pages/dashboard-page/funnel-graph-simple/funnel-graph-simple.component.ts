@@ -17,6 +17,7 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
   @Input() simpleChart: boolean = false;
   @Input() period: string = 'DAY';
   showChart: boolean;
+  showStatisticDetails: boolean = true;
 
   colors = ['#4383CC', '#4DABF5', '#9ADDFB', '#FDAB31', '#F28933'];
 
@@ -156,7 +157,7 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
       });
     }
 
-    let chartLineColor = this.simpleChart ? '#12AEF9' : '#1ebea5';
+    let chartLineColor = this.simpleChart ? '#1EBEA5' : '#1ebea5';
 
     this.chart.series[0].update({
       color: chartLineColor
@@ -169,6 +170,5 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
     this.chartOptions.chart.type = 'column';
     this.chartOptions.chart.backgroundColor = '#fafafa';
     this.chartOptions.chart.height = 240;
-    this.chartOptions.chart['width'] = 350;
   }
 }

@@ -13,7 +13,7 @@
     .greeting {
       font-size: 30px;
       font-weight: lighter;
-      color: #b5d0fa;
+      color: #8EC9FD;
       margin-left: 20px;
 
       .total-revenue-text {
@@ -23,9 +23,16 @@
       }
 
       .total-revenue-amount {
-        color: #b7faf0;
-        font-weight: lighter;
+        display: flex;
+        color: #ffffff;
+        font-weight: 400;
         font-size: 60px;
+        line-height: 70px;
+
+        :first-child {
+          font-size: 30px;
+          line-height: 35px;
+        }
       }
     }
 
@@ -35,8 +42,7 @@
       font-size: 24px;
       font-weight: lighter;
       font-style: italic;
-      color: white;
-      opacity: 0.7;
+      color: #8EC9FD;
 
       div:last-child {
         font-size: 16px;
@@ -54,25 +60,36 @@
       display: block;
     }
 
+    .funnel-graph {
+      width: 50%;
+    }
+
     .transactions {
       padding: 22px;
-      width: 66%;
+      width: 50%;
       color: rgba(0, 0, 0, 0.87);
       border-left: 1px solid rgba(0, 0, 0, 0.15);
 
-      &__title {
-        font-weight: 500;
-        font-size: 20px;
-      }
+      .transactions-header {
+        display: flex;
+        justify-content: space-between;
 
-      .more {
-        text-align: center;
-        cursor: pointer;
-
-        button {
+        &__title {
           font-weight: 500;
-          font-size: 14px;
-          letter-spacing: 0.1em;
+          font-size: 20px;
+        }
+
+        .more {
+          text-align: center;
+          cursor: pointer;
+          color: #2C98F0;
+
+          button {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 16px;
+            letter-spacing: 0.1em;
+          }
         }
       }
 

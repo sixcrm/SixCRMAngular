@@ -1,9 +1,15 @@
 <div inViewport (inside)="fetch()" class="dashboard__gray-table-chart" [class.simpleChart]="simpleChart">
   <div class="dashboard__gray-table-chart__title">
-    <div class="main" *ngIf="!simpleChart">{{'DASHBOARD_EVENTSFUNNEL_TITLE' | translate}}</div>
+    <div class="main">{{'DASHBOARD_EVENTSFUNNEL_TITLE' | translate}}</div>
     <div class="event-type-options">
-      <span mat-icon-button [matMenuTriggerFor]="eventTypeOptions">{{(eventTypeMap[eventType] | translate)}}</span>
-      <mat-icon [matMenuTriggerFor]="eventTypeOptions">keyboard_arrow_down</mat-icon>
+      <span mat-icon-button [matMenuTriggerFor]="timeframeOptions">Week</span>
+      <mat-icon [matMenuTriggerFor]="timeframeOptions">keyboard_arrow_down</mat-icon>
+      <mat-menu #timeframeOptions="matMenu" x-position="before">
+
+      </mat-menu>
+
+      <span *ngIf="showStatisticDetails" mat-icon-button [matMenuTriggerFor]="eventTypeOptions">{{(eventTypeMap[eventType] | translate)}}</span>
+      <mat-icon *ngIf="showStatisticDetails" [matMenuTriggerFor]="eventTypeOptions">keyboard_arrow_down</mat-icon>
       <mat-menu #eventTypeOptions="matMenu" x-position="before">
         <button mat-menu-item (click)="changeEventType('click')">{{'DASHBOARD_EVENTSFUNNEL_CLICK' | translate}}</button>
         <button mat-menu-item (click)="changeEventType('lead')">{{'DASHBOARD_EVENTSFUNNEL_LEAD' | translate}}</button>
@@ -12,6 +18,8 @@
         <button mat-menu-item (click)="changeEventType('confirm')">{{'DASHBOARD_EVENTSFUNNEL_CONFIRM' | translate}}</button>
       </mat-menu>
     </div>
+    <mat-icon (click)="showStatisticDetails = true" [class.selected]="showStatisticDetails" class="chart-statistics">show_chart</mat-icon>
+    <mat-icon (click)="showStatisticDetails = false" [class.selected]="!showStatisticDetails" class="chart-statistics">border_all</mat-icon>
     <mat-icon *ngIf="!simpleChart" [matMenuTriggerFor]="downloadOptions">more_vert</mat-icon>
     <mat-menu #downloadOptions="matMenu" x-position="before">
       <button mat-menu-item (click)="download('json')">{{'CHART_DOWNLOADJSON' | translate}}</button>
@@ -21,14 +29,14 @@
   </div>
 
   <ng-container *ngIf="!serverError; else error">
-    <chart *ngIf="showChart" [options]="chartOptions" (load)="saveChart($event.context, true)"></chart>
+    <chart *ngIf="showChart && !showStatisticDetails" [options]="chartOptions" (load)="saveChart($event.context, true)"></chart>
   </ng-container>
 
   <ng-template #error>
     <server-error-message (refresh)="refresh()"></server-error-message>
   </ng-template>
 
-  <div *ngIf="funnel" class="table-container">
+  <div *ngIf="funnel && showStatisticDetails" class="table-container">
 
     <div class="column first-column">
       <div class="item item--title"></div>

@@ -5,7 +5,10 @@
         <div class="greeting">
           <div>{{'DASHBOARD_STATE_LOWDATA_GREETING' | translate}} {{name}}</div>
           <div class="total-revenue-text">{{'DASHBOARD_STATE_LOWDATA_TOTALREVENUE' | translate}}</div>
-          <div class="total-revenue-amount">${{revenue}}</div>
+          <div class="total-revenue-amount">
+            <div>$</div>
+            <div>{{revenue}}</div>
+          </div>
         </div>
 
         <div *ngIf="quote" class="quote">
@@ -15,11 +18,16 @@
       </div>
 
       <div class="chart-container">
-        <div (click)="showChart = true" style="width: 350px">
+        <div class="funnel-graph" (click)="showChart = true">
           <funnel-graph-simple *ngIf="active" [simpleChart]="true" [period]="'HOUR'"></funnel-graph-simple>
         </div>
         <div class="transactions">
-          <div class="transactions__title">{{'DASHBOARD_STATE_LOWDATA_TRANSACTIONS_TITLE' | translate}}</div>
+          <div class="transactions-header">
+            <div class="transactions__title">{{'DASHBOARD_STATE_LOWDATA_TRANSACTIONS_TITLE' | translate}}</div>
+            <div class="more">
+              <button mat-button [routerLink]="['/transactions']">{{'DASHBOARD_STATE_LOWDATA_TRANSACTIONS_MORE' | translate}}</button>
+            </div>
+          </div>
           <table>
             <thead>
             <tr>
@@ -36,7 +44,7 @@
                   <mat-icon class="success-icon" role="img" aria-hidden="true">done</mat-icon>
                 </div>
                 <div *ngIf="transaction.processorResponse.message === 'Failed'" class="icon-holder icon-holder__fail">
-                  <mat-icon class="fail-icon" role="img" aria-hidden="true">cancel</mat-icon>
+                  <mat-icon class="fail-icon" role="img" aria-hidden="true">not_interested</mat-icon>
                 </div>
                 <div class="success">{{transaction.processorResponse.message}}</div>
               </td>
@@ -46,10 +54,6 @@
             </tr>
             </tbody>
           </table>
-
-          <div class="more">
-            <button mat-button [routerLink]="['/transactions']">{{'DASHBOARD_STATE_LOWDATA_TRANSACTIONS_MORE' | translate}}</button>
-          </div>
         </div>
       </div>
 

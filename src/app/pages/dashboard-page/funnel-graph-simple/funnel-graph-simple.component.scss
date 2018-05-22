@@ -1,12 +1,11 @@
 .table-container {
-  margin-top: 15px;
-
+  margin-top: 20px;
   display: flex;
+  justify-content: space-between;
 
   .column {
     display: flex;
     flex-direction: column;
-    margin-right: 60px;
 
     .item {
       height: 36px;
@@ -15,6 +14,7 @@
       font-weight: 500;
       text-align: right;
       color: rgba(0, 0, 0, 0.87);
+      padding-top: 15px;
 
       &--title {
         text-align: left;
@@ -51,12 +51,30 @@
   vertical-align: text-top;
 }
 
+.chart-statistics {
+  color: #333333;
+  background-color: rgba(0, 0, 0, 0.12);
+  margin: auto 10px;
+  cursor: pointer;
+}
+
+.selected {
+  color: #ffffff;
+  background-color: #333333;
+}
+
+.main {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 21px;
+}
+
 .simpleChart {
   background-color: #fafafa;
 
   .event-type-options {
-    margin-left: 20px;
-    font-size: 20px;
+    font-size: 13px;
+    line-height: 24px;
 
     mat-icon {
       margin-left: 0;
