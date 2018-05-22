@@ -40,7 +40,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   saveActiveDashboard() {
-    console.log('should save', this.activeDashboard);
     this.authService.setActiveDashboard(this.activeDashboard);
   }
 }
