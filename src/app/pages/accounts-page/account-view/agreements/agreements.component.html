@@ -1,7 +1,7 @@
 <div class="container">
-  <div class="item" *ngIf="termsAndConditions">
+  <div class="item" *ngIf="termsAndConditions.version">
     <div class="title">{{termsAndConditions.title}}</div>
-    <div id="terms-and-conditions" Markdown *ngIf="termsAndConditions && termsAndConditions.body" style="display:none">{{termsAndConditions.body}}</div>
+    <div id="terms-and-conditions" Markdown *ngIf="termsAndConditions && termsAndConditions.body" style="display:block; width:400px">{{termsAndConditions.body}}</div>
     <div class="revised-date" *ngIf="termsAndConditions.version">{{'TERMS_VERSION' | translate}} {{termsAndConditions.version}}</div>
     <button mat-button (click)="download('terms-and-conditions')">{{'TERMS_DOWNLOAD' | translate}}</button>
   </div>

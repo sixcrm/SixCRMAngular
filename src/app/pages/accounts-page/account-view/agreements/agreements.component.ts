@@ -61,12 +61,10 @@ export class AgreementsComponent implements OnInit, OnDestroy {
 
     this.downloadDisabled = true;
     const elementToPrint = document.getElementById(id);
-    const pdf = new jsPDF();
+    const pdf = new jsPDF('p', 'mm', 'a4');
 
-    pdf.fromHTML(elementToPrint, 5, 5, {
-      pagesplit: true,
-      format: 'PNG',
-      margin: {top: 10, right: 10, bottom: 10, left: 10, useFor: 'page'}
+    pdf.fromHTML(elementToPrint.innerHTML, 5, 5, {
+
     }, () => {
       pdf.save(`${id}.pdf`);
       this.downloadDisabled = false;
