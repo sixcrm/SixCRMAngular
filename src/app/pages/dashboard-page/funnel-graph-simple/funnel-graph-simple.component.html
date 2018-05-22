@@ -29,14 +29,14 @@
   </div>
 
   <ng-container *ngIf="!serverError; else error">
-    <chart *ngIf="showChart && !showStatisticDetails" [options]="chartOptions" (load)="saveChart($event.context, true)"></chart>
+    <chart *ngIf="showChart && showStatisticDetails" [options]="chartOptions" (load)="saveChart($event.context, true)"></chart>
   </ng-container>
 
   <ng-template #error>
     <server-error-message (refresh)="refresh()"></server-error-message>
   </ng-template>
 
-  <div *ngIf="funnel && showStatisticDetails" class="table-container">
+  <div *ngIf="funnel && !showStatisticDetails" class="table-container">
 
     <div class="column first-column">
       <div class="item item--title"></div>
