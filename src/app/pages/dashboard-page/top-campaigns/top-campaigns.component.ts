@@ -4,6 +4,7 @@ import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {utc} from 'moment';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'top-campaigns',
@@ -57,6 +58,8 @@ export class TopCampaignsComponent extends AbstractDashboardItem implements OnIn
 
   private chartInstance: any;
 
+  chartVisible: boolean = false;
+
   constructor(private analyticsService: AnalyticsService) {
     super();
   }
@@ -72,6 +75,17 @@ export class TopCampaignsComponent extends AbstractDashboardItem implements OnIn
       this.serverError = null;
       this.campaigns = campaigns;
       this.updateChart();
+    });
+
+    let chartUpdateSubscription = Observable.timer(300, 1000).takeUntil(this.unsubscribe$).subscribe(() => {
+      if (this.campaigns) {
+        this.chartVisible = true;
+      }
+
+      if (this.campaigns && this.chartInstance) {
+        this.updateChart();
+        chartUpdateSubscription.unsubscribe();
+      }
     });
 
     this.start = utc().subtract(30, 'd');

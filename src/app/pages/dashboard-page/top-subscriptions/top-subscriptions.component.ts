@@ -4,6 +4,7 @@ import {AnalyticsService} from "../../../shared/services/analytics.service";
 import {CustomServerError} from "../../../shared/models/errors/custom-server-error";
 import {SubscriptionStats} from "../../../shared/models/subscription-stats.model";
 import {utc} from 'moment';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'top-subscriptions',
@@ -56,6 +57,8 @@ export class TopSubscriptionsComponent extends AbstractDashboardItem implements 
 
   private chartInstance: any;
 
+  chartVisible: boolean = false;
+
   constructor(private analyticsService: AnalyticsService) {
     super();
   }
@@ -71,6 +74,17 @@ export class TopSubscriptionsComponent extends AbstractDashboardItem implements 
       this.serverError = null;
       this.subscriptions = subscriptions;
       this.updateChart();
+    });
+
+    let chartUpdateSubscription = Observable.timer(300, 1000).takeUntil(this.unsubscribe$).subscribe(() => {
+      if (this.subscriptions) {
+        this.chartVisible = true;
+      }
+
+      if (this.subscriptions && this.chartInstance) {
+        this.updateChart();
+        chartUpdateSubscription.unsubscribe();
+      }
     });
 
     this.start = utc().subtract(30, 'd');
