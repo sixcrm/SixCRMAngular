@@ -5,6 +5,7 @@ import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
 import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {utc} from 'moment';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'funnel-graph',
@@ -17,7 +18,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
   @Input() simpleChart: boolean = false;
   @Input() period: string = 'DAY';
 
-  showStatisticDetails: boolean = true;
+  showStatisticDetails: boolean = false;
 
   colors = ['#4383CC', '#4DABF5', '#9ADDFB', '#FDAB31', '#F28933'];
 
@@ -101,6 +102,12 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       if (this.chart && this.funnelTimeseries) {
         this.redrawChartData();
       }
+    });
+
+
+    Observable.timer(300).takeUntil(this.unsubscribe$).subscribe(() => {
+      this.showStatisticDetails = true;
+      this.redrawChartData();
     });
 
     this.start = utc().subtract(amount, 'd');
