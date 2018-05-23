@@ -81,7 +81,7 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
 
           const first = `<div class="dashboard-tooltip-text" style="color: white; font-size: 20px; font-weight: 500">${self.type === SeriesType.amountcount || self.type === SeriesType.amount ? '$':''}${firstPoint.y}</div>`;
           const second = secondPoint ? `<div class="dashboard-tooltip-text" style="color: white; font-size: 20px;">${self.type === SeriesType.amount ? '$':''}${secondPoint.y}</div>` : null;
-          const date = `<div class="dashboard-tooltip-date" style="color: white; font-size: 14px; font-weight: 500; opacity: 0.5">${self.calculateDate(firstPoint.x)}</div>`;
+          const date = `<div class="dashboard-tooltip-date" style="color: #8EC9FD; font-size: 14px; font-weight: 500;">${self.calculateDate(firstPoint.x)}</div>`;
 
           return [date, self.displayLabel(firstPoint.x) ? '' : first, second && self.displayLabel(secondPoint.x) ? '' : second];
         }
@@ -109,6 +109,9 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
                 return `
                 <div class="dashboard-tooltip-text" style="color: white; font-size: 20px; font-weight: 500">
                   ${this.y}
+                </div>
+                <div class="dashboard-tooltip-date" style="color: #8EC9FD; font-size: 14px; font-weight: 500;">
+                  ${self.calculateDate(this.x)}
                 </div>`;
               }
 
