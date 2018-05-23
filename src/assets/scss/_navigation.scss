@@ -1,7 +1,7 @@
 @import "mixins";
 
 $sidenav-width: 256px;
-$sidenav-width-collapsed: 80px;
+$sidenav-width-collapsed: 76px;
 $topnav-height: 70px;
 $sidebar-color-light: #385F8D;
 $sidebar-color-middle: #2C486F;
@@ -28,7 +28,7 @@ $navigation-color: #5383C3;
   }
 
   .mat-toolbar {
-    padding: 0 72px 0 15px;
+    padding: 0 72px 0 18px;
     height: $topnav-height;
     width: $sidenav-width;
     background-color: white;
@@ -63,6 +63,10 @@ $navigation-color: #5383C3;
 
     mat-icon {
       margin-right: 0;
+    }
+
+    .mat-list-item-content {
+      padding-right: 0px !important;
     }
   }
 
@@ -270,6 +274,6 @@ app-topnav {
     height: 38px;
     position: absolute;
     top: 15px;
-    left: 15px;
+    left: 18px;
   }
 }
