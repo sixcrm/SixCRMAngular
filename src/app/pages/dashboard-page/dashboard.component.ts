@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.dashboardAvailabilityService.availableDashboards.takeUntil(this.unsubscribe$).subscribe(dbTypes => {
       if (dbTypes.length) {
-        this.activeDashboard = dbTypes[dbTypes.length - 1];
+        this.activeDashboard = this.authService.getActiveDashboard();
         this.availableDashboards = dbTypes;
       }
     });
