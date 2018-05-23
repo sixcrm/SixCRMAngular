@@ -44,6 +44,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   activeIndex(): number {
-    return parseInt(this.activeDashboard);
+    return parseInt(this.activeDashboard.toString());
   }
 }

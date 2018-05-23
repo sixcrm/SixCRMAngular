@@ -8,10 +8,10 @@
   <mat-tab label="SETUP">
     <c-dashboard-setup></c-dashboard-setup>
   </mat-tab>
-  <mat-tab *ngIf="availableDashboards.includes(DashboardType.low_data) || activeIndex() === 1" label="TRANSACTIONS">
+  <mat-tab [hidden]="!availableDashboards.includes(DashboardType.low_data)" label="TRANSACTIONS">
     <c-dashboard-low-data *ngIf="activeIndex() === 1"></c-dashboard-low-data>
   </mat-tab>
-  <mat-tab *ngIf="availableDashboards.includes(DashboardType.full) || activeIndex() === 2" label="DASHBOARD">
+  <mat-tab [hidden]="!availableDashboards.includes(DashboardType.full)" label="DASHBOARD">
     <c-dashboard-full *ngIf="activeIndex() === 2"></c-dashboard-full>
   </mat-tab>
 </mat-tab-group>
