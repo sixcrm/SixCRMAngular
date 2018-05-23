@@ -1,11 +1,14 @@
 <div class="dashboard-header">
   <div class="flex-custom flex-custom--center">
     <div class="dashboard-filters">
-      <div
+      <div class="time-filters"
         *ngFor="let filter of timeFilters"
         [class.selected]="filter.selected"
         (click)="timeFilterSelected.emit(filter)">
-        {{filter.label}}
+        <div>
+          <mat-icon *ngIf="filter.selected">check</mat-icon>
+          {{filter.label}}
+        </div>
       </div>
     </div>
     <div class="dashboard-campaigns">

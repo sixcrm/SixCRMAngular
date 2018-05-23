@@ -9,14 +9,9 @@
     cursor: pointer;
 
     mat-icon {
-      transition: 250ms ease-in-out;
       width: 24px;
       height: 24px;
       font-size: 24px;
-    }
-
-    .arrow-rotated {
-      transform: rotate(90deg);
     }
   }
 

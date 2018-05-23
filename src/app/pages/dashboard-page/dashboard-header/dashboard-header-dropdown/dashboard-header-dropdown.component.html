@@ -1,7 +1,7 @@
 <div class="container">
   <div class="selected" (click)="dropdownVisible = !dropdownVisible">
     <div>{{mapper(selectedItem)}}</div>
-    <mat-icon [class.arrow-rotated]="!dropdownVisible">arrow_drop_down</mat-icon>
+    <mat-icon>arrow_drop_down</mat-icon>
   </div>
 
   <div class="options" *ngIf="dropdownVisible">

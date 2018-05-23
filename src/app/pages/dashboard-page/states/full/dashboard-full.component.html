@@ -14,7 +14,10 @@
     <div class="info">
       <div>Welcome back, {{name}}</div>
       <div>{{revenueMessage}}</div>
-      <div>{{totalAmount.usd()}}</div>
+      <div>
+        <div>$</div>
+        <div>{{totalAmount.amount}}</div>
+      </div>
     </div>
 
     <dashboard-dual-graph [graphData]="data" [type]="seriesType"></dashboard-dual-graph>

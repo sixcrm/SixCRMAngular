@@ -27,8 +27,8 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
 
   chartOptions =  {
     chart: {
-      type: 'line',
-      backgroundColor: '#F4F4F4',
+      type: 'column',
+      backgroundColor: '#FAFAFA',
       height: 280
     },
     title: { text: null },
@@ -50,7 +50,7 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
         name: '',
         color: '#F4F4F4',
         data: [3, 3, 5, 4, 6, 8, 6, 9, 10, 9, 10],
-        lineWidth: 6
+        lineWidth: 2
       }
     ]
   };
@@ -81,7 +81,6 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
 
       if (this.simpleChart) {
         amount = 1;
-        this.setSimpleChartOptions();
       }
 
       if (this.chart && this.funnel) {
@@ -164,11 +163,5 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
     });
 
     this.chart.series[0].setData(data, true, true);
-  }
-
-  setSimpleChartOptions() {
-    this.chartOptions.chart.type = 'column';
-    this.chartOptions.chart.backgroundColor = '#fafafa';
-    this.chartOptions.chart.height = 240;
   }
 }

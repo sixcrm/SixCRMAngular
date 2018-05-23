@@ -106,15 +106,9 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
               if (self.displayLabel(this.x)) {
                 if (!this.series) return '';
 
-                const type = self.type;
-
                 return `
                 <div class="dashboard-tooltip-text" style="color: white; font-size: 20px; font-weight: 500">
-                  ${((type === SeriesType.amountcount && this.series.index === 0) || type === SeriesType.amount) ? '$' : ''}
                   ${this.y}
-                  ${((type === SeriesType.amountcount && this.series.index === 0) || type == SeriesType.amount)
-                  ? `<div class="dashboard-label-icon-holder"> <div>$</div></div>`
-                  : `<div class="dashboard-label-icon-holder"><i class="material-icons">shopping_cart</i></div>`}
                 </div>`;
               }
 

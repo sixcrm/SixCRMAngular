@@ -1,11 +1,17 @@
+.dashboard__gray-table-chart {
+  background-color: #ffffff;
+}
+
 .table-container {
   margin-top: 20px;
   display: flex;
   justify-content: space-between;
+  margin-left: 20px;
 
   .column {
     display: flex;
     flex-direction: column;
+    margin-right: 0;
 
     .item {
       height: 36px;
@@ -39,11 +45,20 @@
   }
 }
 
-.event-type-options {
+.options {
   margin-left: auto;
   cursor: pointer;
-  font-size: 18px;
   font-weight: 500;
+  font-size: 13px;
+
+  mat-icon {
+    margin-left: 0;
+    color: black;
+  }
+
+  .event-type-options {
+    margin-left: 20px;
+  }
 }
 
 .mat-icon {
@@ -54,8 +69,21 @@
 .chart-statistics {
   color: #333333;
   background-color: rgba(0, 0, 0, 0.12);
-  margin: auto 10px;
   cursor: pointer;
+  padding: 3px 5px;
+  width: 38px;
+  height: 32px;
+  font-size: 30px;
+  text-align: center;
+
+  &__chart {
+    border-radius: 2px 0 0 2px;
+    margin-left: 20px;
+  }
+
+  &__graph {
+    border-radius: 0 2px 2px 0;
+  }
 }
 
 .selected {
@@ -67,26 +95,4 @@
   font-size: 18px;
   font-weight: 500;
   line-height: 21px;
-}
-
-.simpleChart {
-  background-color: #fafafa;
-
-  .event-type-options {
-    font-size: 13px;
-    line-height: 24px;
-
-    mat-icon {
-      margin-left: 0;
-    }
-  }
-
-  .table-container {
-    justify-content: space-between;
-    margin-left: 20px;
-
-    .column {
-      margin-right: 0;
-    }
-  }
 }

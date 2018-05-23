@@ -17,6 +17,8 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
   @Input() simpleChart: boolean = false;
   @Input() period: string = 'DAY';
 
+  showStatisticDetails: boolean = true;
+
   colors = ['#4383CC', '#4DABF5', '#9ADDFB', '#FDAB31', '#F28933'];
 
   chart;
@@ -25,8 +27,8 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
 
   chartOptions =  {
     chart: {
-      type: 'line',
-      backgroundColor: '#F4F4F4',
+      type: 'column',
+      backgroundColor: '#FAFAFA',
       height: 280
     },
     title: { text: null },
@@ -48,7 +50,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
         name: '',
         color: '#F4F4F4',
         data: [3, 3, 5, 4, 6, 8, 6, 9, 10, 9, 10],
-        lineWidth: 6
+        lineWidth: 2
       }
     ]
   };
@@ -79,7 +81,6 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
 
       if (this.simpleChart) {
         amount = 1;
-        this.setSimpleChartOptions();
       }
 
       if (this.chart && this.funnel) {
@@ -154,19 +155,12 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       });
     }
 
-    let chartLineColor = this.simpleChart ? '#12AEF9' : '#1ebea5';
+    let chartLineColor = this.simpleChart ? '#1EBEA5' : '#1ebea5';
 
     this.chart.series[0].update({
       color: chartLineColor
     });
 
     this.chart.series[0].setData(data, true, true);
-  }
-
-  setSimpleChartOptions() {
-    this.chartOptions.chart.type = 'column';
-    this.chartOptions.chart.backgroundColor = '#fafafa';
-    this.chartOptions.chart.height = 240;
-    this.chartOptions.chart['width'] = 350;
   }
 }

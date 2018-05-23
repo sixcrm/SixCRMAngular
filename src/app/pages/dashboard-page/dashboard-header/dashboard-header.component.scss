@@ -10,21 +10,34 @@
 
 .dashboard-filters {
   display: flex;
-  border-radius: 5px;
-  border: 2px solid #B5CFFA;
-  color: #294A78;
+  border-radius: 0 2px 2px 0;
+  border: 2px solid #3967A8;
+  background-color: #3967A8;
+  color: #8ec9fd;
   font-size: 14px;
-  background-color: #B5CFFA;
+  height: 36px;
+  line-height: 24px;
+  text-align: center;
 
   .selected {
-    background: white;
-    color: black;
-    opacity: 0.78;
+    background: #C4E3FD;
+    opacity: 1;
+    color: #4277C2;
+    border-radius: 2px 0 0 2px;
+    padding-left: 10px !important;
   }
 
-  div {
-    padding: 6px 8px;
+  .time-filters {
     cursor: pointer;
+    padding: 5px 20px;
+
+    div {
+      display: flex;
+
+      mat-icon {
+        margin-right: 10px;
+      }
+    }
   }
 }
 

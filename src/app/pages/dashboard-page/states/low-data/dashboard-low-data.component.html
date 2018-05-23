@@ -19,13 +19,15 @@
 
       <div class="chart-container">
         <div class="funnel-graph" (click)="showChart = true">
-          <funnel-graph-simple *ngIf="active" [simpleChart]="true" [period]="'HOUR'"></funnel-graph-simple>
+          <funnel-graph-simple [simpleChart]="true" [period]="'HOUR'"></funnel-graph-simple>
         </div>
         <div class="transactions">
           <div class="transactions-header">
-            <div class="transactions__title">{{'DASHBOARD_STATE_LOWDATA_TRANSACTIONS_TITLE' | translate}}</div>
+            <div class="transactions-header__title">{{'DASHBOARD_STATE_LOWDATA_TRANSACTIONS_TITLE' | translate}}</div>
             <div class="more">
-              <button mat-button [routerLink]="['/transactions']">{{'DASHBOARD_STATE_LOWDATA_TRANSACTIONS_MORE' | translate}}</button>
+              <button mat-button [routerLink]="['/transactions']">{{'DASHBOARD_STATE_LOWDATA_TRANSACTIONS_MORE' | translate}}
+                <mat-icon>expand_more</mat-icon>
+              </button>
             </div>
           </div>
           <table>
@@ -49,7 +51,7 @@
                 <div class="success">{{transaction.processorResponse.message}}</div>
               </td>
               <td>{{transaction.amount.usd()}}</td>
-              <td>{{transaction.createdAt | formatDateTime}}</td>
+              <td>{{transaction.createdAt | formatDateTime: 'date-time'}}</td>
               <td>{{transaction.merchantProvider.name}}</td>
             </tr>
             </tbody>
