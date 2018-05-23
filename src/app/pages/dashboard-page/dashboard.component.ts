@@ -42,4 +42,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   saveActiveDashboard() {
     this.authService.setActiveDashboard(this.activeDashboard);
   }
+
+  activeIndex(): number {
+    return parseInt(this.activeDashboard);
+  }
 }
