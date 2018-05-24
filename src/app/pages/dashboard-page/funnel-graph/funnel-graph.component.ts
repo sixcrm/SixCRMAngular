@@ -33,7 +33,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
     chart: {
       type: 'column',
       backgroundColor: '#FAFAFA',
-      height: 440,
+      height: 280,
       width: 700
     },
     title: { text: null },
