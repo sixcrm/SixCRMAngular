@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, Input} from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Inject } from '@angular/core';
 import {EventFunnel} from '../../../shared/models/event-funnel.model';
 import {EventFunnelTimeseries} from "../../../shared/models/event-funnel-timeseries.model";
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
@@ -16,10 +16,10 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
 
   public eventType: 'click' | 'lead' | 'main' | 'upsell' | 'confirm';
   @Input() simpleChart: boolean = false;
-  @Input() period: string = 'HOUR';
+  @Input() period: string = 'DAY';
   showChart: boolean;
   showStatisticDetails: boolean = false;
-  numberOfDays: number = 7;
+  numberOfDays: number = 30;
 
   colors = ['#4383CC', '#4DABF5', '#9ADDFB', '#FDAB31', '#F28933'];
 
@@ -31,7 +31,8 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
     chart: {
       type: 'column',
       backgroundColor: '#FAFAFA',
-      height: 280
+      height: 440,
+      width: 700
     },
     title: { text: null },
     credits: { enabled: false },

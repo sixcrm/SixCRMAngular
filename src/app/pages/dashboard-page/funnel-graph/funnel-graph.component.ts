@@ -17,11 +17,11 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
   public eventType: 'click' | 'lead' | 'main' | 'upsell' | 'confirm';
 
   @Input() simpleChart: boolean = false;
-  @Input() period: string = 'HOUR';
+  @Input() period: string = 'DAY';
   @Input() renderChart: boolean;
 
   showStatisticDetails: boolean = false;
-  numberOfDays: number = 7;
+  numberOfDays: number = 30;
 
   colors = ['#4383CC', '#4DABF5', '#9ADDFB', '#FDAB31', '#F28933'];
 
