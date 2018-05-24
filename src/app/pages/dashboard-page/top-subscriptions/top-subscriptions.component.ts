@@ -12,7 +12,7 @@ import {utc} from 'moment';
 })
 export class TopSubscriptionsComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
-  subscriptions: SubscriptionStats[] = [];
+  subscriptions: SubscriptionStats[];
 
   constructor(private analyticsService: AnalyticsService) {
     super();
