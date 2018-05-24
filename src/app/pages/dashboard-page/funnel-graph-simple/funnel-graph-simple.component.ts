@@ -19,6 +19,7 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
   @Input() period: string = 'DAY';
   showChart: boolean;
   showStatisticDetails: boolean = false;
+  numberOfDays: number = 7;
 
   colors = ['#4383CC', '#4DABF5', '#9ADDFB', '#FDAB31', '#F28933'];
 
@@ -63,13 +64,17 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
     'upsell': 'DASHBOARD_EVENTSFUNNEL_UPSELL',
     'confirm': 'DASHBOARD_EVENTSFUNNEL_CONFIRM'
   };
+
+  periodMap = {
+    '7': 'Week',
+    '30': 'Month'
+  };
+
   constructor(private analyticsService: AnalyticsService) {
     super();
   }
 
   ngOnInit() {
-    let amount = 30;
-
     this.analyticsService.eventFunnelSimple$.takeUntil(this.unsubscribe$).subscribe((funnel: EventFunnel | CustomServerError) => {
       if (funnel instanceof CustomServerError) {
         this.serverError = funnel;
@@ -79,10 +84,6 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
 
       this.serverError = null;
       this.funnel = funnel;
-
-      if (this.simpleChart) {
-        amount = 1;
-      }
 
       if (this.chart && this.funnel) {
         this.redrawChartData();
@@ -109,7 +110,7 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
       this.redrawChartData();
     });
 
-    this.start = utc().subtract(amount, 'd');
+    this.start = utc().subtract(this.numberOfDays, 'd');
     this.end = utc();
     this.eventType = 'click';
     this.shouldFetch = true;
@@ -128,6 +129,8 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
 
   fetch(): void {
     if (this.shouldFetch) {
+      this.start = utc().subtract(this.numberOfDays, 'd');
+      console.log(this.numberOfDays);
       this.analyticsService.getEventFunnelSimple(this.start.format(), this.end.format(), null, this.eventType, this.period);
       this.shouldFetch = false;
     }
@@ -150,6 +153,20 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
     this.refresh();
   }
 
+  changeNumberOfDays(number) {
+    this.numberOfDays = number;
+    this.period = this.determinePeriod();
+    this.refresh();
+  }
+
+  determinePeriod() {
+    if (this.numberOfDays > 7) {
+      return 'DAY'
+    } else {
+      return 'HOUR'
+    }
+  }
+
   redrawChartData(): void {
 
     if (!this.chart || !this.funnelTimeseries || this.funnelTimeseries.datetime.length === 0) return;
@@ -162,7 +179,7 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
       });
     }
 
-    let chartLineColor = this.simpleChart ? '#1EBEA5' : '#1ebea5';
+    const chartLineColor = '#1EBEA5';
 
     this.chart.series[0].update({
       color: chartLineColor

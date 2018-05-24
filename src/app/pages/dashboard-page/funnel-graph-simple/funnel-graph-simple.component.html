@@ -2,6 +2,13 @@
   <div class="dashboard__gray-table-chart__title">
     <div class="main">{{'DASHBOARD_EVENTSFUNNEL_TITLE' | translate}}</div>
     <div class="options">
+      <span mat-icon-button [matMenuTriggerFor]="timeframeOptions">{{(periodMap[numberOfDays] | translate)}}</span>
+      <mat-icon [matMenuTriggerFor]="timeframeOptions">arrow_drop_down</mat-icon>
+      <mat-menu #timeframeOptions="matMenu" x-position="before">
+        <button mat-menu-item (click)="changeNumberOfDays(7)">Week</button>
+        <button mat-menu-item (click)="changeNumberOfDays(30)">Month</button>
+      </mat-menu>
+
       <span class="event-type-options" *ngIf="showStatisticDetails" mat-icon-button [matMenuTriggerFor]="eventTypeOptions">{{(eventTypeMap[eventType] | translate)}}</span>
       <mat-icon *ngIf="showStatisticDetails" [matMenuTriggerFor]="eventTypeOptions">arrow_drop_down</mat-icon>
       <mat-menu #eventTypeOptions="matMenu" x-position="before">
