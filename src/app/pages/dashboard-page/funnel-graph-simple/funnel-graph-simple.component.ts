@@ -31,8 +31,7 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
     chart: {
       type: 'column',
       backgroundColor: '#FAFAFA',
-      height: 370,
-      width: 700
+      height: 370
     },
     title: { text: null },
     credits: { enabled: false },
