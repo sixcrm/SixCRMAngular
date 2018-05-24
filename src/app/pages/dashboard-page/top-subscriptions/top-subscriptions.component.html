@@ -3,23 +3,26 @@
     <div class="main">Top Subscriptions</div>
   </div>
 
-  <div class="dashboard__gray-table-chart__chart">
-    <chart *ngIf="chartVisible && renderChart" #chartI class="dashboard-chart" [options]="chartOptions" (load)="loadChart(chartI)"></chart>
-  </div>
-
   <server-error-message (refresh)="refreshData()" *ngIf="serverError; else data"></server-error-message>
 
   <ng-template #data>
-    <div *ngIf="subscriptions" class="dashboard__gray-table-chart__table">
-      <div class="item" *ngFor="let subscription of subscriptions; let i = index" [routerLink]="['/productschedules', subscription.subscription]">
-        <div class="num" [style.background-color]="colors[i]">
+    <div class="dashboard__gray-table-chart__table" *ngIf="subscriptions">
+      <div class="item" *ngFor="let subscription of subscriptions; let i = index">
+        <div class="num">
           <div>{{i + 1}}</div>
         </div>
-        <div class="name">{{subscription.subscription}}</div>
-        <div class="amount">{{subscription.amount.usd()}}</div>
+
+        <div class="line-container" [style.width]="calculateLineWidth(i)">
+          <div class="line"></div>
+        </div>
+
+        <div class="row">
+          <div class="name" [routerLink]="['/subscriptions', subscription.subscription]">{{subscription.subscription}}</div>
+          <div class="amount">{{subscription.amount.usd()}}</div>
+        </div>
       </div>
     </div>
 
-    <table-loader *ngIf="!subscriptions"></table-loader>
+    <table-loader [numberOfRows]="5" *ngIf="!subscriptions"></table-loader>
   </ng-template>
 </div>

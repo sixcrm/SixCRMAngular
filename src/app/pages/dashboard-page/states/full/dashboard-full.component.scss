@@ -40,25 +40,29 @@
 }
 
 .charts-container {
-  margin-top: 15px;
   display: flex;
+  margin-top: 15px;
+  padding-bottom: 25px;
 
   top-campaigns {
     display: block;
     margin-left: 24px;
-    width: 25%;
+    width: calc(25% - 24px);
+    background: white;
   }
 
   top-subscriptions {
     display: block;
     margin-left: 24px;
-    width: 25%;
+    width: calc(25% - 24px);
+    background: white;
   }
 
   funnel-graph {
     display: block;
     margin-left: 24px;
     margin-right: 24px;
-    width: 50%;
+    width: calc(50% - 24px);
+    background: white;
   }
 }

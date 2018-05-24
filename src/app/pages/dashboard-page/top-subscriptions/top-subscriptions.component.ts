@@ -4,7 +4,6 @@ import {AnalyticsService} from "../../../shared/services/analytics.service";
 import {CustomServerError} from "../../../shared/models/errors/custom-server-error";
 import {SubscriptionStats} from "../../../shared/models/subscription-stats.model";
 import {utc} from 'moment';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'top-subscriptions',
@@ -13,53 +12,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class TopSubscriptionsComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
-  colors = ['rgba(30, 190, 165, 1)', 'rgba(30, 190, 165, 0.8)', 'rgba(30, 190, 165, 0.6)', 'rgba(30, 190, 165, 0.4)', 'rgba(30, 190, 165, 0.2)'];
-
   subscriptions: SubscriptionStats[] = [];
-
-  @Input() renderChart: boolean;
-
-  chartOptions = {
-    chart: {
-      plotBackgroundColor: null,
-      plotBorderWidth: 0,
-      plotShadow: false,
-      height: 280,
-      width: 280,
-      backgroundColor: '#F4F4F4'
-    },
-    title: { text: null },
-    credits: { enabled: false },
-    tooltip: {
-      formatter: function () {
-        if (!this.key) return false;
-
-        return `${this.key} \$${this.y.toLocaleString()}`
-      }
-    },
-    plotOptions: {
-      pie: {
-        dataLabels: {
-          enabled: false
-        }
-      }
-    },
-    series: [{
-      type: 'pie',
-      innerSize: '86%',
-      data: [
-        {name: '', y: 40, color: '#C3C3C3'},
-        {name: '', y: 25, color: '#CBCBCB'},
-        {name: '', y: 15, color: '#D8D8D8'},
-        {name: '', y: 12, color: '#ECECEC'},
-        {name: '', y: 8, color: '#E2E2E2'}
-      ]
-    }]
-  };
-
-  private chartInstance: any;
-
-  chartVisible: boolean = false;
 
   constructor(private analyticsService: AnalyticsService) {
     super();
@@ -74,18 +27,21 @@ export class TopSubscriptionsComponent extends AbstractDashboardItem implements 
       }
 
       this.serverError = null;
-      this.subscriptions = subscriptions;
-      this.updateChart();
-    });
 
-    let chartUpdateSubscription = Observable.timer(300, 1000).takeUntil(this.unsubscribe$).subscribe(() => {
-      if (this.subscriptions) {
-        this.chartVisible = true;
-      }
+      if (!subscriptions) return;
 
-      if (this.subscriptions && this.chartInstance) {
-        this.updateChart();
-        chartUpdateSubscription.unsubscribe();
+      const sortFunction = (first: SubscriptionStats, second: SubscriptionStats) => {
+        if (first.amount.amount > second.amount.amount) return -1;
+
+        if (first.amount.amount < second.amount.amount) return 1;
+
+        return 0;
+      };
+
+      if (subscriptions.length > 5) {
+        this.subscriptions = subscriptions.slice(0,5).sort(sortFunction);
+      } else {
+        this.subscriptions = subscriptions.sort(sortFunction);
       }
     });
 
@@ -111,29 +67,20 @@ export class TopSubscriptionsComponent extends AbstractDashboardItem implements 
     }
   }
 
-  download(format: string): void {
-    this.analyticsService.getSubscriptionsByAmount(this.start.format(), this.end.format(), format);
-  }
 
-  loadChart(chartInstance) {
-    this.chartInstance = chartInstance;
-    this.updateChart();
-  }
+  calculateLineWidth(index: number): string {
+    if (index === 0) return '100%';
 
-  updateChart() {
-    if (!this.chartInstance || !this.chartInstance.chart || !this.subscriptions || this.subscriptions.length === 0) return;
+    const biggest = this.subscriptions[0].amount.amount;
+    const current = this.subscriptions[index].amount.amount;
 
-    let data = [];
+    let value = (current / biggest) * 100;
 
-    for (let i = 0; i < this.subscriptions.length; i++) {
-      data.push({
-        name: this.subscriptions[i].subscription,
-        y: this.subscriptions[i].amount.amount,
-        color: this.colors[i]
-      })
+    if (value < 1) {
+      value = 1;
     }
 
-    this.chartInstance.chart.series[0].setData(data, true, true);
+    return value + '%'
   }
 
 }

@@ -4,7 +4,6 @@ import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {utc} from 'moment';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'top-campaigns',
@@ -14,53 +13,9 @@ import { Observable } from 'rxjs/Observable';
 })
 export class TopCampaignsComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
-  colors = ['rgba(30, 190, 165, 1)', 'rgba(30, 190, 165, 0.8)', 'rgba(30, 190, 165, 0.6)', 'rgba(30, 190, 165, 0.4)', 'rgba(30, 190, 165, 0.2)'];
-
   campaigns: CampaignStats[];
 
-  @Input() renderChart: boolean;
-
-  chartOptions = {
-    chart: {
-      plotBackgroundColor: null,
-      plotBorderWidth: 0,
-      plotShadow: false,
-      height: 280,
-      width: 280,
-      backgroundColor: '#F4F4F4'
-    },
-    title: { text: null },
-    credits: { enabled: false },
-    tooltip: {
-      formatter: function () {
-        if (!this.key) return false;
-
-        return `${this.key} \$${this.y.toLocaleString()}`
-      }
-    },
-    plotOptions: {
-      pie: {
-        dataLabels: {
-          enabled: false
-        }
-      }
-    },
-    series: [{
-      type: 'pie',
-      innerSize: '86%',
-      data: [
-        {name: '', y: 40, color: '#C3C3C3'},
-        {name: '', y: 25, color: '#CBCBCB'},
-        {name: '', y: 15, color: '#D8D8D8'},
-        {name: '', y: 12, color: '#ECECEC'},
-        {name: '', y: 8, color: '#E2E2E2'}
-      ]
-    }]
-  };
-
-  private chartInstance: any;
-
-  chartVisible: boolean = false;
+  campaignsToShow: CampaignStats[];
 
   constructor(private analyticsService: AnalyticsService) {
     super();
@@ -75,18 +30,21 @@ export class TopCampaignsComponent extends AbstractDashboardItem implements OnIn
       }
 
       this.serverError = null;
-      this.campaigns = campaigns;
-      this.updateChart();
-    });
 
-    let chartUpdateSubscription = Observable.timer(300, 1000).takeUntil(this.unsubscribe$).subscribe(() => {
-      if (this.campaigns) {
-        this.chartVisible = true;
-      }
+      if (!campaigns) return;
 
-      if (this.campaigns && this.chartInstance) {
-        this.updateChart();
-        chartUpdateSubscription.unsubscribe();
+      const sortFunction = (first: CampaignStats, second: CampaignStats) => {
+        if (first.amount.amount > second.amount.amount) return -1;
+
+        if (first.amount.amount < second.amount.amount) return 1;
+
+        return 0;
+      };
+
+      if (campaigns.length > 5) {
+        this.campaigns = campaigns.slice(0,5).sort(sortFunction);
+      } else {
+        this.campaigns = campaigns.sort(sortFunction);
       }
     });
 
@@ -112,28 +70,18 @@ export class TopCampaignsComponent extends AbstractDashboardItem implements OnIn
     }
   }
 
-  download(format: string): void {
-    this.analyticsService.getCampaignsByAmount(this.start.format(), this.end.format(), format);
-  }
+  calculateLineWidth(index: number): string {
+    if (index === 0) return '100%';
 
-  loadChart(chartInstance) {
-    this.chartInstance = chartInstance;
-    this.updateChart();
-  }
+    const biggest = this.campaigns[0].amount.amount;
+    const current = this.campaigns[index].amount.amount;
 
-  updateChart() {
-    if (!this.chartInstance || !this.chartInstance.chart || !this.campaigns || this.campaigns.length === 0) return;
+    let value = (current / biggest) * 100;
 
-    let data = [];
-
-    for (let i = 0; i < this.campaigns.length; i++) {
-      data.push({
-        name: this.campaigns[i].campaign,
-        y: this.campaigns[i].amount.amount,
-        color: this.colors[i]
-      })
+    if (value < 1) {
+      value = 1;
     }
 
-    this.chartInstance.chart.series[0].setData(data, true, true);
+    return value + '%'
   }
 }
