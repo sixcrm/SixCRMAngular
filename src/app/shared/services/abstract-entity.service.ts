@@ -56,6 +56,16 @@ export abstract class AbstractEntityService<T> {
     );
   }
 
+  getEntitiesFromBeginning(limit?: number, search?: string, requestBehaviourOptions?: RequestBehaviourOptions): void {
+    this.customEntitiesQuery(
+      this.indexQuery({
+        limit: limit,
+        search: search
+      }),
+      requestBehaviourOptions
+    );
+  }
+
   getEntity(id: string): void {
     if (!this.hasViewPermission()) {
       return;

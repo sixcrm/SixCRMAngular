@@ -69,7 +69,7 @@ export class DashboardLowDataComponent implements OnInit {
 
     });
 
-    this.transactionService.getEntities(6);
+    this.transactionService.getEntitiesFromBeginning(6);
 
     this.analyticsService.heroChartSeries$.subscribe(data => {
       if (!data || data instanceof CustomServerError) return;
