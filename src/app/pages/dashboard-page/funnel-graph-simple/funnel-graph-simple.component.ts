@@ -16,7 +16,7 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
 
   public eventType: 'click' | 'lead' | 'main' | 'upsell' | 'confirm';
   @Input() simpleChart: boolean = false;
-  @Input() period: string = 'DAY';
+  @Input() period: string = 'HOUR';
   showChart: boolean;
   showStatisticDetails: boolean = false;
   numberOfDays: number = 7;
@@ -35,6 +35,14 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
     },
     title: { text: null },
     credits: { enabled: false },
+    xAxis: {
+      type: 'datetime',
+      dateTimeLabelFormats: {
+        day: '%m/%e',
+        week: '%m/%e',
+        month: '%m/%e'
+      }
+    },
     yAxis: {
       title: { enabled: false },
       gridLineWidth: 0
@@ -52,7 +60,9 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
         name: '',
         color: '#F4F4F4',
         data: [3, 3, 5, 4, 6, 8, 6, 9, 10, 9, 10],
-        lineWidth: 2
+        lineWidth: 2,
+        pointStart: utc().subtract(this.numberOfDays, 'd'),
+        pointInterval: this.determinePointInterval()
       }
     ]
   };
@@ -130,7 +140,6 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
   fetch(): void {
     if (this.shouldFetch) {
       this.start = utc().subtract(this.numberOfDays, 'd');
-      console.log(this.numberOfDays);
       this.analyticsService.getEventFunnelSimple(this.start.format(), this.end.format(), null, this.eventType, this.period);
       this.shouldFetch = false;
     }
@@ -167,6 +176,16 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
     }
   }
 
+  determinePointInterval() {
+    const hour =  3600 * 1000;
+    if (this.period === 'HOUR') {
+      return hour;
+    }
+    if (this.period === 'DAY') {
+      return hour * 24;
+    }
+  }
+
   redrawChartData(): void {
 
     if (!this.chart || !this.funnelTimeseries || this.funnelTimeseries.datetime.length === 0) return;
@@ -182,7 +201,9 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
     const chartLineColor = '#1EBEA5';
 
     this.chart.series[0].update({
-      color: chartLineColor
+      color: chartLineColor,
+      pointStart: utc().subtract(this.numberOfDays, 'd'),
+      pointInterval: this.determinePointInterval()
     });
 
     this.chart.series[0].setData(data, true, true);

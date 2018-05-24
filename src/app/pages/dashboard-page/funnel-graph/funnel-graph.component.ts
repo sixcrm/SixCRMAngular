@@ -16,9 +16,10 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
 
   public eventType: 'click' | 'lead' | 'main' | 'upsell' | 'confirm';
   @Input() simpleChart: boolean = false;
-  @Input() period: string = 'DAY';
+  @Input() period: string = 'HOUR';
 
   showStatisticDetails: boolean = false;
+  numberOfDays: number = 7;
 
   colors = ['#4383CC', '#4DABF5', '#9ADDFB', '#FDAB31', '#F28933'];
 
@@ -34,6 +35,14 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
     },
     title: { text: null },
     credits: { enabled: false },
+    xAxis: {
+      type: 'datetime',
+      dateTimeLabelFormats: {
+        day: '%m/%e',
+        week: '%m/%e',
+        month: '%m/%e'
+      }
+    },
     yAxis: {
       title: { enabled: false },
       gridLineWidth: 0
@@ -51,7 +60,9 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
         name: '',
         color: '#F4F4F4',
         data: [3, 3, 5, 4, 6, 8, 6, 9, 10, 9, 10],
-        lineWidth: 2
+        lineWidth: 2,
+        pointStart: utc().subtract(this.numberOfDays, 'd'),
+        pointInterval: this.determinePointInterval()
       }
     ]
   };
@@ -63,13 +74,17 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
     'upsell': 'DASHBOARD_EVENTSFUNNEL_UPSELL',
     'confirm': 'DASHBOARD_EVENTSFUNNEL_CONFIRM'
   };
+
+  periodMap = {
+    '7': 'Week',
+    '30': 'Month'
+  };
+
   constructor(private analyticsService: AnalyticsService) {
     super();
   }
 
   ngOnInit() {
-    let amount = 30;
-
     this.analyticsService.eventFunnel$.takeUntil(this.unsubscribe$).subscribe((funnel: EventFunnel | CustomServerError) => {
       if (funnel instanceof CustomServerError) {
         this.serverError = funnel;
@@ -79,10 +94,6 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
 
       this.serverError = null;
       this.funnel = funnel;
-
-      if (this.simpleChart) {
-        amount = 1;
-      }
 
       if (this.chart && this.funnel) {
         this.redrawChartData();
@@ -104,13 +115,12 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       }
     });
 
-
     Observable.timer(300).takeUntil(this.unsubscribe$).subscribe(() => {
       this.showStatisticDetails = true;
       this.redrawChartData();
     });
 
-    this.start = utc().subtract(amount, 'd');
+    this.start = utc().subtract(this.numberOfDays, 'd');
     this.end = utc();
     this.eventType = 'click';
     this.shouldFetch = true;
@@ -128,6 +138,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
 
   fetch(): void {
     if (this.shouldFetch) {
+      this.start = utc().subtract(this.numberOfDays, 'd');
       this.analyticsService.getEventFunnel(this.start.format(), this.end.format(), null, this.eventType, this.period);
       this.shouldFetch = false;
     }
@@ -150,6 +161,30 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
     this.refresh();
   }
 
+  changeNumberOfDays(number) {
+    this.numberOfDays = number;
+    this.period = this.determinePeriod();
+    this.refresh();
+  }
+
+  determinePeriod() {
+    if (this.numberOfDays > 7) {
+      return 'DAY'
+    } else {
+      return 'HOUR'
+    }
+  }
+
+  determinePointInterval() {
+    const hour =  3600 * 1000;
+    if (this.period === 'HOUR') {
+      return hour;
+    }
+    if (this.period === 'DAY') {
+      return hour * 24;
+    }
+  }
+
   redrawChartData(): void {
 
     if (!this.chart || !this.funnelTimeseries || this.funnelTimeseries.datetime.length === 0) return;
@@ -165,7 +200,9 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
     let chartLineColor = this.simpleChart ? '#1EBEA5' : '#1ebea5';
 
     this.chart.series[0].update({
-      color: chartLineColor
+      color: chartLineColor,
+      pointStart: utc().subtract(this.numberOfDays, 'd'),
+      pointInterval: this.determinePointInterval()
     });
 
     this.chart.series[0].setData(data, true, true);
