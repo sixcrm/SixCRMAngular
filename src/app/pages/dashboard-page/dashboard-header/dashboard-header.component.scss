@@ -10,7 +10,7 @@
 
 .dashboard-filters {
   display: flex;
-  border-radius: 0 2px 2px 0;
+  border-radius: 2px;
   border: 2px solid #3967A8;
   background-color: #3967A8;
   color: #8ec9fd;
@@ -23,13 +23,20 @@
     background: #C4E3FD;
     opacity: 1;
     color: #4277C2;
-    border-radius: 2px 0 0 2px;
     padding-left: 10px !important;
   }
 
   .time-filters {
     cursor: pointer;
     padding: 5px 20px;
+
+    &:first-child {
+      border-radius: 2px 0 0 2px;
+    }
+
+    &:last-child {
+      border-radius: 0 2px 2px 0;
+    }
 
     div {
       display: flex;

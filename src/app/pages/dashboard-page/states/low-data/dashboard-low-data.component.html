@@ -7,7 +7,7 @@
           <div class="total-revenue-text">{{'DASHBOARD_STATE_LOWDATA_TOTALREVENUE' | translate}}</div>
           <div class="total-revenue-amount">
             <div>$</div>
-            <div *ngIf="revenue">{{revenue.toLocaleString()}}</div>
+            <div>{{revenue | numberlocale}}</div>
           </div>
         </div>
 
