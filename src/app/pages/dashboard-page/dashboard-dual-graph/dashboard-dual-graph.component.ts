@@ -106,13 +106,17 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
               if (self.displayLabel(this.x)) {
                 if (!this.series) return '';
 
+                const type = self.type;
+
                 return `
-                <div class="dashboard-tooltip-text" style="color: white; font-size: 20px; font-weight: 500">
+                <div class="dashboard-tooltip-text" style="color: white">
+                  ${((type === SeriesType.amountcount && this.series.index === 0) || type === SeriesType.amount) ? '$' : ''}
                   ${this.y}
                 </div>
                 <div class="dashboard-tooltip-date" style="color: #8EC9FD; font-size: 14px; font-weight: 500;">
                   ${self.calculateDate(this.x)}
                 </div>`;
+
               }
 
               return null;

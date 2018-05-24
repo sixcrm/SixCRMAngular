@@ -7,7 +7,7 @@
           <div class="total-revenue-text">{{'DASHBOARD_STATE_LOWDATA_TOTALREVENUE' | translate}}</div>
           <div class="total-revenue-amount">
             <div>$</div>
-            <div>{{revenue}}</div>
+            <div *ngIf="revenue">{{revenue.toLocaleString()}}</div>
           </div>
         </div>
 
@@ -19,7 +19,7 @@
 
       <div class="chart-container">
         <div class="funnel-graph" (click)="showChart = true">
-          <funnel-graph-simple [simpleChart]="true" [period]="'HOUR'"></funnel-graph-simple>
+          <funnel-graph-simple [simpleChart]="true"></funnel-graph-simple>
         </div>
         <div class="transactions">
           <div class="transactions-header">

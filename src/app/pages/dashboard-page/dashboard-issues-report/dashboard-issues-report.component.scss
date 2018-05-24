@@ -8,7 +8,7 @@
     border-right: none;
 
     .wrapper {
-      margin: auto;
+      margin-left: 17px;
       display: flex;
     }
 
@@ -54,7 +54,11 @@
   &__item:after {
     content: "";
     display: block;
-    width: 50%;
+    width: 53%;
     border-right: 1px solid #4f4f4f;
+  }
+
+  &__item:last-child:after {
+    border-right: none;
   }
 }

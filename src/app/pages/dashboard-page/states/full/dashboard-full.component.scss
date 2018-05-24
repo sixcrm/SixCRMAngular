@@ -32,6 +32,7 @@
         &:first-of-type {
           font-size: 36px;
           margin-top: 11px;
+          font-weight: 400;
         }
       }
     }
@@ -39,24 +40,25 @@
 }
 
 .charts-container {
-  margin: 15px 5px;
+  margin-top: 15px;
   display: flex;
 
   top-campaigns {
     display: block;
-    margin: 15px;
-    width: 28%;
+    margin-left: 24px;
+    width: 25%;
   }
 
   top-subscriptions {
     display: block;
-    margin: 15px;
-    width: 28%;
+    margin-left: 24px;
+    width: 25%;
   }
 
   funnel-graph {
     display: block;
-    margin: 15px;
-    width: 44%;
+    margin-left: 24px;
+    margin-right: 24px;
+    width: 50%;
   }
 }
