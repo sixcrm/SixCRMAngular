@@ -25,6 +25,8 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
     this.refreshData();
   }
 
+  @Input() renderChart: boolean;
+
   initialLoad: boolean;
   options;
 
@@ -200,8 +202,12 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
   loadChart(chartInstance) {
     this.chartInstance = chartInstance;
 
-    if (!this.initialLoad) {
-      this.refreshData();
-    }
+    setTimeout(() => {
+      if (!this.initialLoad) {
+        this.refreshData();
+      }
+    },1);
+
+
   }
 }

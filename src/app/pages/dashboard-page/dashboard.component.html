@@ -1,20 +1,31 @@
-<mat-tab-group
-  *ngIf="activeDashboard !== undefined && availableDashboards.length > 1; else setup"
-  class="tab--dashboard-header"
-  [(selectedIndex)]="activeDashboard"
-  (selectedTabChange)="saveActiveDashboard()"
->
-  <!--TODO translations-->
-  <mat-tab label="SETUP">
-    <c-dashboard-setup></c-dashboard-setup>
-  </mat-tab>
-  <mat-tab [hidden]="!availableDashboards.includes(DashboardType.low_data)" label="TRANSACTIONS">
-    <c-dashboard-low-data *ngIf="activeIndex() === 1"></c-dashboard-low-data>
-  </mat-tab>
-  <mat-tab [hidden]="!availableDashboards.includes(DashboardType.full)" label="DASHBOARD">
-    <c-dashboard-full *ngIf="activeIndex() === 2"></c-dashboard-full>
-  </mat-tab>
-</mat-tab-group>
+<ng-container *ngIf="activeDashboard !== undefined && availableDashboards.length > 1; else setup">
+  <div class="blue-tab-header">
+    <div class="blue-tab-header__item" [class.blue-tab-header__item--active]="activeDashboard === 0" (click)="setIndex(0)">
+      SETUP
+    </div>
+    <div class="blue-tab-header__item" [class.blue-tab-header__item--active]="activeDashboard === 1" (click)="setIndex(1)">
+      TRANSACTIONS
+    </div>
+    <div class="blue-tab-header__item" [class.blue-tab-header__item--active]="activeDashboard === 2" (click)="setIndex(2)">
+      DASHBOARD
+    </div>
+  </div>
+
+  <mat-tab-group
+    class="tab--dashboard-header tab--no-header"
+    [(selectedIndex)]="activeDashboard"
+  >
+    <mat-tab>
+      <c-dashboard-setup></c-dashboard-setup>
+    </mat-tab>
+    <mat-tab [hidden]="!availableDashboards.includes(DashboardType.low_data)">
+      <c-dashboard-low-data [renderChart]="renderLow"></c-dashboard-low-data>
+    </mat-tab>
+    <mat-tab [hidden]="!availableDashboards.includes(DashboardType.full)">
+      <c-dashboard-full [renderCharts]="renderFull"></c-dashboard-full>
+    </mat-tab>
+  </mat-tab-group>
+</ng-container>
 
 <ng-template #setup>
   <c-dashboard-setup></c-dashboard-setup>

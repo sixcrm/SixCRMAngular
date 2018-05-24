@@ -19,7 +19,7 @@
 
       <div class="chart-container">
         <div class="funnel-graph" (click)="showChart = true">
-          <funnel-graph-simple [simpleChart]="true"></funnel-graph-simple>
+          <funnel-graph-simple *ngIf="renderChart" [simpleChart]="true"></funnel-graph-simple>
         </div>
         <div class="transactions">
           <div class="transactions-header">

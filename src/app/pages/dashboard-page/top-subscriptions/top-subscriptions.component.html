@@ -4,7 +4,7 @@
   </div>
 
   <div class="dashboard__gray-table-chart__chart">
-    <chart *ngIf="chartVisible" #chartI class="dashboard-chart" [options]="chartOptions" (load)="loadChart(chartI)"></chart>
+    <chart *ngIf="chartVisible && renderChart" #chartI class="dashboard-chart" [options]="chartOptions" (load)="loadChart(chartI)"></chart>
   </div>
 
   <server-error-message (refresh)="refreshData()" *ngIf="serverError; else data"></server-error-message>

@@ -20,16 +20,16 @@
       </div>
     </div>
 
-    <dashboard-dual-graph [graphData]="data" [type]="seriesType"></dashboard-dual-graph>
+    <dashboard-dual-graph [renderChart]="renderCharts" [graphData]="data" [type]="seriesType"></dashboard-dual-graph>
   </div>
 
   <dashboard-issues-report [reports]="issueReports"></dashboard-issues-report>
 
   <div class="charts-container">
-    <top-campaigns></top-campaigns>
+    <top-campaigns [renderChart]="renderCharts"></top-campaigns>
 
-    <top-subscriptions></top-subscriptions>
+    <top-subscriptions [renderChart]="renderCharts"></top-subscriptions>
 
-    <funnel-graph></funnel-graph>
+    <funnel-graph [renderChart]="renderCharts"></funnel-graph>
   </div>
 </div>

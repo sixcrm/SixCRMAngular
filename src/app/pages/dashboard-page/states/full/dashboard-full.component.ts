@@ -24,6 +24,8 @@ import {SeriesType} from '../../series-type';
 })
 export class DashboardFullComponent implements OnInit, OnDestroy {
 
+  @Input() renderCharts: boolean;
+
   campaigns: Campaign[] = [new Campaign({name: 'All Campaigns'})];
   selectedCampaign: Campaign = this.campaigns[0];
   seriesType: SeriesType = SeriesType.amountcount;

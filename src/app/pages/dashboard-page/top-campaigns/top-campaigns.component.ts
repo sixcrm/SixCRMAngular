@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
 import {CampaignStats} from '../../../shared/models/campaign-stats.model';
 import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
@@ -17,6 +17,8 @@ export class TopCampaignsComponent extends AbstractDashboardItem implements OnIn
   colors = ['rgba(30, 190, 165, 1)', 'rgba(30, 190, 165, 0.8)', 'rgba(30, 190, 165, 0.6)', 'rgba(30, 190, 165, 0.4)', 'rgba(30, 190, 165, 0.2)'];
 
   campaigns: CampaignStats[];
+
+  @Input() renderChart: boolean;
 
   chartOptions = {
     chart: {
@@ -120,7 +122,7 @@ export class TopCampaignsComponent extends AbstractDashboardItem implements OnIn
   }
 
   updateChart() {
-    if (!this.chartInstance || !this.campaigns || this.campaigns.length === 0) return;
+    if (!this.chartInstance || !this.chartInstance.chart || !this.campaigns || this.campaigns.length === 0) return;
 
     let data = [];
 

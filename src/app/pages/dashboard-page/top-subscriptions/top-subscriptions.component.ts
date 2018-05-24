@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {AbstractDashboardItem} from "../abstract-dashboard-item.component";
 import {AnalyticsService} from "../../../shared/services/analytics.service";
 import {CustomServerError} from "../../../shared/models/errors/custom-server-error";
@@ -16,6 +16,8 @@ export class TopSubscriptionsComponent extends AbstractDashboardItem implements 
   colors = ['rgba(30, 190, 165, 1)', 'rgba(30, 190, 165, 0.8)', 'rgba(30, 190, 165, 0.6)', 'rgba(30, 190, 165, 0.4)', 'rgba(30, 190, 165, 0.2)'];
 
   subscriptions: SubscriptionStats[] = [];
+
+  @Input() renderChart: boolean;
 
   chartOptions = {
     chart: {
@@ -119,7 +121,7 @@ export class TopSubscriptionsComponent extends AbstractDashboardItem implements 
   }
 
   updateChart() {
-    if (!this.chartInstance || !this.subscriptions || this.subscriptions.length === 0) return;
+    if (!this.chartInstance || !this.chartInstance.chart || !this.subscriptions || this.subscriptions.length === 0) return;
 
     let data = [];
 

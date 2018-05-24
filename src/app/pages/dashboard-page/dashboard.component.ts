@@ -17,6 +17,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   activeDashboard: DashboardType;
   availableDashboards: DashboardType[] = [];
 
+  renderLow: boolean;
+  renderFull: boolean;
+
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
   constructor(
@@ -27,7 +30,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.dashboardAvailabilityService.availableDashboards.takeUntil(this.unsubscribe$).subscribe(dbTypes => {
       if (dbTypes.length) {
-        this.activeDashboard = this.authService.getActiveDashboard();
+        this.setIndex(+this.authService.getActiveDashboard());
         this.availableDashboards = dbTypes;
       }
     });
@@ -39,11 +42,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  saveActiveDashboard() {
-    this.authService.setActiveDashboard(this.activeDashboard);
+  setIndex(index: number) {
+    this.activeDashboard = index;
+
+    if (index === 1 && !this.renderLow) {
+      setTimeout(() => this.renderLow = true, 200)
+    }
+
+    if (index === 2 && !this.renderFull) {
+      setTimeout(() => this.renderFull = true, 200)
+    }
+
+    this.saveActiveDashboard();
   }
 
-  activeIndex(): number {
-    return parseInt(this.activeDashboard.toString());
+  saveActiveDashboard() {
+    this.authService.setActiveDashboard(this.activeDashboard);
   }
 }

@@ -15,8 +15,10 @@ import { Observable } from 'rxjs/Observable';
 export class FunnelGraphComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
   public eventType: 'click' | 'lead' | 'main' | 'upsell' | 'confirm';
+
   @Input() simpleChart: boolean = false;
   @Input() period: string = 'HOUR';
+  @Input() renderChart: boolean;
 
   showStatisticDetails: boolean = false;
   numberOfDays: number = 7;
