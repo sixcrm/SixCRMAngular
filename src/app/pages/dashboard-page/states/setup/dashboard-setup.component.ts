@@ -17,10 +17,11 @@ export class DashboardSetupComponent implements OnInit {
   @Input() quote: TranslatedQuote;
 
   name: string;
+  accountId: string;
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
   constructor(
-    private authService: AuthenticationService,
+    public authService: AuthenticationService,
     private translationService: TranslationService
   ) { }
 
@@ -28,6 +29,8 @@ export class DashboardSetupComponent implements OnInit {
     this.authService.sixUser$.takeUntil(this.unsubscribe$).subscribe(user => {
       this.name = user.firstName;
     });
+
+    this.accountId = this.authService.getActiveAcl().account.id;
 
     let quoteSub = Observable.interval(50).take(40).subscribe(() => {
       if (!this.quote) {

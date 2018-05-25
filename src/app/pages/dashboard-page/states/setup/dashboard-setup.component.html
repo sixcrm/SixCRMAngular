@@ -41,7 +41,7 @@
           <div class="segment">
             <img src="/assets/images/dashboard/group_add.png">
             <div class="segment__content">
-              <div class="title" [routerLink]="['/users']">{{'DASHBOARD_STATE_SETUP_ACCOUNT_INVITEUSERS_TITLE' | translate}}</div>
+              <div class="title" [routerLink]="['/accounts/' + accountId]" fragment="users">{{'DASHBOARD_STATE_SETUP_ACCOUNT_INVITEUSERS_TITLE' | translate}}</div>
               <div class="text">{{'DASHBOARD_STATE_SETUP_ACCOUNT_INVITEUSERS_DESCRIPTION' | translate}}</div>
             </div>
           </div>
