@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import {Notification} from '../shared/models/notification.model';
 import {TranslatedQuote} from "./translated-quote.model";
 import {utc} from 'moment';
+import { DefaultTranslationService } from './default-translation.service';
 
 export interface LanguageDefinition {
   name: string,
@@ -33,7 +34,11 @@ export class TranslationService {
   public translationChanged$: Subject<boolean> = new Subject();
   public allTranslationsFetched: Subject<boolean> = new Subject();
 
-  constructor(private authService: AuthenticationService, private http: HttpClient) {
+  constructor(
+    private authService: AuthenticationService,
+    private http: HttpClient
+  ) {
+    this.loadTemporaryTranslations();
     this.fetchLanguages();
 
     this.updateTranslation(this.authService.getUserSettings().language);
@@ -45,6 +50,10 @@ export class TranslationService {
       }
 
     })
+  }
+
+  loadTemporaryTranslations(): void {
+    this.selectedTranslation = { translations: DefaultTranslationService.en() };
   }
 
   fetchLanguages() {
@@ -85,7 +94,9 @@ export class TranslationService {
   }
 
   translate(value: string) {
-    if (!this.selectedTranslation) return value;
+    if (!this.selectedTranslation) {
+      return value
+    };
 
     const keys = value.toLowerCase().split('_');
 
