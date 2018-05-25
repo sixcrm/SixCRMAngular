@@ -167,5 +167,26 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
 
   items.push(new MenuItem('SIDENAV_SETTINGS_TITLE', null, settings).setIcon('settings'));
 
+  // Add Account Management menu item
+  let accountManagement: MenuItem[] = [];
+
+  if (authService.hasPermissions('account', 'write')) {
+    accountManagement.push(new MenuItem('General', 'accountmanagement/general'));
+  }
+  if (authService.hasPermissions('billing', 'view')) {
+    accountManagement.push(new MenuItem('Billing', 'accountmanagement/billing'));
+  }
+  if (authService.hasPermissions('useracl', 'view')) {
+    accountManagement.push(new MenuItem('Users', 'accountmanagement/users'));
+  }
+  if (authService.hasPermissions('roles', 'view')) {
+    accountManagement.push(new MenuItem('Roles', 'accountmanagement/roles'));
+  }
+  if (authService.hasPermissions('accesskey', 'view')) {
+    accountManagement.push(new MenuItem('API Access Kyes', 'accountmanagement/apikeys'));
+  }
+
+  items.push(new MenuItem('Account Management', null, accountManagement).setIcon('settings'));
+
   return items;
 }

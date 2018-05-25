@@ -1,0 +1,38 @@
+<account-management-header
+  [path]="'General'"
+  [showApiKey]="true">
+</account-management-header>
+
+<div class="account-management-body" *ngIf="account">
+
+  <div class="column">
+
+    <div class="card">
+      <div class="title">Account Name</div>
+      <div class="body">
+        <mat-input-container>
+          <input type="text" matInput [(ngModel)]="account.name" placeholder="Account Name">
+        </mat-input-container>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="title">Contact Information</div>
+      <div class="body">
+        <mat-input-container>
+          <input type="text" matInput placeholder="Name">
+        </mat-input-container>
+
+        <mat-input-container>
+          <input type="text" matInput placeholder="Email">
+        </mat-input-container>
+
+        <mat-input-container>
+          <input type="text" matInput placeholder="Phone Number">
+        </mat-input-container>
+      </div>
+    </div>
+  </div>
+
+</div>
