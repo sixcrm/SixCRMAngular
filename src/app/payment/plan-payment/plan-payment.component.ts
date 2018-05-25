@@ -48,6 +48,7 @@ export class PlanPaymentComponent implements OnInit {
   paymentInProgress: boolean;
 
   transactionalError: boolean;
+  generalError: boolean;
 
   ownerTerms: { version?: string, title?: string, body?: string };
   showGenericLoader = environment.branding && environment.branding.showGenericLoader;
@@ -89,7 +90,7 @@ export class PlanPaymentComponent implements OnInit {
 
     this.formInvalid = this.isDataInvalid();
 
-    if (this.formInvalid) return;
+    if (this.formInvalid || this.generalError) return;
 
     this.creditCard.expiration = `${this.creditCard.expirationMonth}/${this.creditCard.expirationYear}`;
 
@@ -112,18 +113,21 @@ export class PlanPaymentComponent implements OnInit {
       this.transactionalApi.paySixPlan(this.plan.id, this.creditCard, user).subscribe(response => {
         if (response instanceof TransactionalResponseError) {
           this.paymentInProgress = false;
-          this.transactionalError = true;
+          this.transactionalError = false;
+          this.generalError = true;
           return;
         }
 
         if (!response.success) {
           this.paymentInProgress = false;
           this.transactionalError = true;
+          this.generalError = false;
           return;
         }
 
         this.accountService.activateAccount(this.authService.getActiveAcl().account, response.session).subscribe(res => {
           if (res instanceof CustomServerError) {
+            this.generalError = true;
             return;
           }
 
@@ -174,12 +178,22 @@ export class PlanPaymentComponent implements OnInit {
   }
 
   paymentTitle() {
-    if (this.isRecurringPayment && !this.transactionalError) {
+    if (this.generalError) {
+      return 'PAYMENT_GENERALERRORTITLE'
+    } else if (this.isRecurringPayment && !this.transactionalError) {
       return 'PAYMENT_RECURRINGTITLE'
     } else if (this.transactionalError) {
       return 'PAYMENT_ERRORTITLE'
     } else {
       return 'PAYMENT_TITLE'
+    }
+  }
+
+  paymentErrorMessage() {
+    if (this.transactionalError) {
+      return 'PAYMENT_ERRORMESSAGE'
+    } else if (this.generalError) {
+      return 'PAYMENT_GENERALERRORINFO'
     }
   }
 

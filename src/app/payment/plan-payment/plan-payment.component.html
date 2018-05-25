@@ -1,13 +1,13 @@
 <div class="container" [class.recurring-payment]="isRecurringPayment">
-  <div class="row above"  *ngIf="isRecurringPayment || transactionalError" [class.error-row-above]="transactionalError">
+  <div class="row above"  *ngIf="isRecurringPayment || transactionalError || generalError" [class.error-row-above]="transactionalError">
     <div class="title">{{paymentTitle() | translate}}</div>
     <button *ngIf="isRecurringPayment" mat-button (click)="cancel()">{{'PAYMENT_CANCEL' | translate}}</button>
   </div>
   <div class="row below">
     <div class="column left" [class.registration-column-left]="!isRecurringPayment && !transactionalError">
 
-    <div class="title" *ngIf="!isRecurringPayment && !transactionalError">{{paymentTitle() | translate}}</div>
-    <div *ngIf="!isRecurringPayment && transactionalError"  [class.error-message-recurring]="!transactionalError" class="error-message">{{'PAYMENT_ERRORMESSAGE' | translate}}</div>
+    <div class="title" *ngIf="!isRecurringPayment && !transactionalError && !generalError">{{paymentTitle() | translate}}</div>
+    <div *ngIf="transactionalError || generalError"  [class.error-message-recurring]="!transactionalError" class="error-message">{{paymentErrorMessage() | translate}}</div>
 
     <div *ngIf="!isRecurringPayment || !creditCards.length" class="cards" [class.cards-layout]="isRecurringPayment">
       <img *ngIf="creditCard.typeUnknown() || creditCard.getType() === 'visa'" src="/assets/cards/visa.svg">
@@ -113,7 +113,7 @@
     </div>
 
     <div class="terms">{{'PAYMENT_OWNERTERMS' | translate}} <span class="licenseagreement" (click)="openOwnerTerms()">{{'PAYMENT_LICENSEAGREEMENT' | translate}}</span>.</div>
-    <button mat-button (click)="pay()" [class.disable-pay]="formInvalid && isDataInvalid()">{{submitButtonText() | translate}}</button>
+    <button mat-button (click)="pay()" [class.disable-pay]="formInvalid && isDataInvalid() || generalError">{{submitButtonText() | translate}}</button>
   </div>
   </div>
 </div>
