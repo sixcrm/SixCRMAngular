@@ -13,7 +13,19 @@ export interface RequestBehaviourOptions {
   ignoreProgress?: boolean;
   failStrategy?: FailStrategy;
   ignoreSnack?: boolean;
+  retry?: RetryOptions
 }
+
+export enum RetryStrategy {
+  None, Retry
+}
+
+export interface RetryOptions {
+  strategy?: RetryStrategy
+  previousRetries?: number;
+}
+
+const retryLimit = 3;
 
 @Injectable()
 export class HttpWrapperService {
@@ -41,6 +53,8 @@ export class HttpWrapperService {
 
     const ignoreProgress: boolean = requestBehaviourOptions && requestBehaviourOptions.ignoreProgress;
     const failStrategy: FailStrategy = requestBehaviourOptions ? requestBehaviourOptions.failStrategy : FailStrategy.Ignore;
+    const retryStrategy: RetryStrategy = (requestBehaviourOptions && requestBehaviourOptions.retry && requestBehaviourOptions.retry.strategy) ? requestBehaviourOptions.retry.strategy : RetryStrategy.None;
+    let retryCount: number = (requestBehaviourOptions && requestBehaviourOptions.retry && requestBehaviourOptions.retry.previousRetries) ? requestBehaviourOptions.retry.previousRetries : 0;
     const ignoreSnack: boolean = true; // Technical Debt: This should not be permanent.
 
     if (!ignoreProgress) this.setInProgress();
@@ -57,6 +71,11 @@ export class HttpWrapperService {
         response.complete();
       },
       error => {
+        if (retryStrategy === RetryStrategy.Retry && ++retryCount < retryLimit) {
+          requestBehaviourOptions.retry = { strategy: retryStrategy, previousRetries: retryCount };
+          return this.post(url, body, requestOptions, requestBehaviourOptions);
+        }
+
         // handle error
         if (!ignoreProgress) this.setNotInProgress();
 
@@ -84,6 +103,8 @@ export class HttpWrapperService {
 
     const ignoreProgress: boolean = requestBehaviourOptions && requestBehaviourOptions.ignoreProgress;
     const failStrategy: FailStrategy = requestBehaviourOptions ? requestBehaviourOptions.failStrategy : FailStrategy.Ignore;
+    const retryStrategy: RetryStrategy = (requestBehaviourOptions && requestBehaviourOptions.retry && requestBehaviourOptions.retry.strategy) ? requestBehaviourOptions.retry.strategy : RetryStrategy.None;
+    let retryCount: number = (requestBehaviourOptions && requestBehaviourOptions.retry && requestBehaviourOptions.retry.previousRetries) ? requestBehaviourOptions.retry.previousRetries : 0;
     const ignoreSnack: boolean = true; // Technical Debt: This should not be permanent.
 
     if (!ignoreProgress) this.setInProgress();
@@ -100,6 +121,11 @@ export class HttpWrapperService {
         response.complete();
       },
       error => {
+        if (retryStrategy === RetryStrategy.Retry && ++retryCount < retryLimit) {
+          requestBehaviourOptions.retry = { strategy: retryStrategy, previousRetries: retryCount };
+          return this.post(url, body, requestOptions, requestBehaviourOptions);
+        }
+
         // handle error
         if (!ignoreProgress) this.setNotInProgress();
 
