@@ -53,7 +53,7 @@ export class TranslationService {
   }
 
   loadTemporaryTranslations(): void {
-    this.selectedTranslation = { translations: DefaultTranslationService.en() };
+    this.selectedTranslation = { translations: DefaultTranslationService.en(), name: 'English' };
   }
 
   fetchLanguages() {
