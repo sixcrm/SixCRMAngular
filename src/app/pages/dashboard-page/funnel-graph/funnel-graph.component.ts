@@ -65,7 +65,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
         data: [3, 3, 5, 4, 6, 8, 6, 9, 10, 9, 10],
         lineWidth: 2,
         pointStart: utc().subtract(this.numberOfDays, 'd'),
-        pointInterval: this.determinePointInterval()
+        pointInterval: 24 * 3600 * 1000 //one day
       }
     ]
   };
@@ -166,26 +166,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
 
   changeNumberOfDays(number) {
     this.numberOfDays = number;
-    this.period = this.determinePeriod();
     this.refresh();
-  }
-
-  determinePeriod() {
-    if (this.numberOfDays > 7) {
-      return 'DAY'
-    } else {
-      return 'HOUR'
-    }
-  }
-
-  determinePointInterval() {
-    const hour =  3600 * 1000;
-    if (this.period === 'HOUR') {
-      return hour;
-    }
-    if (this.period === 'DAY') {
-      return hour * 24;
-    }
   }
 
   redrawChartData(): void {
@@ -204,8 +185,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
 
     this.chart.series[0].update({
       color: chartLineColor,
-      pointStart: utc().subtract(this.numberOfDays, 'd'),
-      pointInterval: this.determinePointInterval()
+      pointStart: utc().subtract(this.numberOfDays, 'd')
     });
 
     this.chart.series[0].setData(data, true, true);

@@ -1,19 +1,23 @@
 <div class="dashboard-header">
-  <div class="flex-custom flex-custom--center">
-    <div class="dashboard-filters">
-      <div class="time-filters"
-        *ngFor="let filter of timeFilters"
-        [class.selected]="filter.selected"
-        (click)="timeFilterSelected.emit(filter)">
-        <div>
-          <mat-icon *ngIf="filter.selected">check</mat-icon>
-          {{filter.label}}
-        </div>
+  <div class="dashboard-filters">
+    <div class="time-filters"
+      *ngFor="let filter of timeFilters"
+      [class.selected]="filter.selected"
+      (click)="timeFilterSelected.emit(filter)">
+      <div>
+        <mat-icon *ngIf="filter.selected">check</mat-icon>
+        {{filter.label}}
       </div>
     </div>
   </div>
-  <div *ngIf="quote" class="dashboard-message">
-    <div>{{quote.quote}}</div>
-    <div>-{{quote.attribution.author}}</div>
+
+  <div class="dashboard-campaigns">
+    <dashboard-header-dropdown
+      [items]="campaigns"
+      [selectedItem]="selectedCampaign"
+      [mapper]="campaignMapper"
+      [selectedMapper]="campaignSelectedMapper"
+      (selected)="campaignSelected.emit($event)">
+    </dashboard-header-dropdown>
   </div>
 </div>

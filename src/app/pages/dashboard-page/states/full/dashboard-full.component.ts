@@ -96,6 +96,7 @@ export class DashboardFullComponent implements OnInit, OnDestroy {
       callback: () => {
         this.fetchData();
         this.revenueMessage = 'Lifetime Total Revenue';
+        this.graphTimeFilterData = 365;
       }
     },
     {
@@ -106,6 +107,7 @@ export class DashboardFullComponent implements OnInit, OnDestroy {
       callback: () => {
         this.fetchData();
         this.revenueMessage = 'Last 30 Days Revenue';
+        this.graphTimeFilterData = 30;
       }
     }
   ];
@@ -117,6 +119,7 @@ export class DashboardFullComponent implements OnInit, OnDestroy {
   quote: TranslatedQuote;
 
   data = [];
+  graphTimeFilterData: number = 30;
 
   issueReports: DashboardIssueReportItem[] = [
     {label: 'Orders', issues: []},

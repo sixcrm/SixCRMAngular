@@ -3,6 +3,7 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {SeriesType} from '../series-type';
 import {NumberLocalePipe} from "../../../translation/number-locale.pipe";
 import {TranslationService} from "../../../translation/translation.service";
+import {utc} from 'moment';
 
 @Component({
   selector: 'dashboard-dual-graph',
@@ -16,6 +17,7 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
   chartInstance;
 
   data = [[],[]];
+  numberOfDays = 30;
 
   @Input() type: SeriesType = SeriesType.amountcount;
 
@@ -23,6 +25,14 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
     if (!value || value.length === 0) return;
 
     this.data = value;
+
+    this.refreshData();
+  }
+
+  @Input() set graphTimeFilter(value) {
+    if (!value || value.length === 0) return;
+
+    this.numberOfDays = value;
 
     this.refreshData();
   }
@@ -49,33 +59,64 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
 
     this.options = {
       chart: {
-        margin: [0,0,0,0],
-        spacing: [0,0,0,0],
         animation: true,
         height: '30%',
         type: 'areaspline',
         backgroundColor: 'rgba(0,0,0,0)'
       },
       title: {
-        text: null
+        text: 'Revenue per day',
+        align: 'left',
+        x: 25,
+        y: 120,
+        style: {
+          color: '#8EC9FD',
+          fontSize: '14px'
+        }
       },
       credits: {
         enabled: false
       },
       yAxis: {
-        title: {
-          enabled: false
-        },
+        title: { enabled: false },
+        gridLineWidth: 1,
+        gridLineColor: '#3967A8',
+        tickAmount: 4,
         labels: {
-          enabled: false
+          style: {
+            color: '#8EC9FD',
+            fontSize: '14px'
+          },
+          format: '${value}'
         },
-        gridLineWidth: 0
+        lineColor: '#3967A8'
       },
       xAxis: {
-        visible: false,
+        type: 'datetime',
+        dateTimeLabelFormats: {
+          day: '%m/%e/%y',
+          week: '%m/%e/%y',
+          month: '%m/%e/%y',
+          year: '%m/%e/%y'
+        },
         labels: {
-          enabled: false
-        }
+          style: {
+            color: '#8EC9FD',
+            fontSize: '14px'
+          }
+        },
+        lineColor: '#3967A8',
+        tickInterval: 5 * 24 * 3600 * 1000,
+        title: {
+          text: 'Yesterday',
+          align: 'high',
+          style: {
+            color: '#8EC9FD',
+            fontSize: '14px'
+          },
+          offset: 7
+        },
+        tickLength: 0
       },
       tooltip: {
         useHTML: true,
@@ -84,11 +125,11 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
         borderWidth: 0,
         shadow: false,
         formatter: function() {
+          const days = utc().diff(this.x, 'd');
           const firstPoint = this.points[0];
           const first = `<div class="dashboard-tooltip-text" style="color: white; font-size: 20px; font-weight: 500">$${self.numberLocale.transform(firstPoint.y)}</div>`;
-          const date = `<div class="dashboard-tooltip-date" style="color: #8EC9FD; font-size: 14px; font-weight: 500;">${self.calculateDate(firstPoint.x)}</div>`;
 
-          return [date, first];
+          return ['', days === 1 ? '' : first];
         }
       },
       legend: {
@@ -103,16 +144,36 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
             enabled: false,
             fillColor: '#86FCEA',
             radius: 8
+          },
+          dataLabels: {
+            enabled: true,
+            useHTML: true,
+            formatter: function () {
+
+              const days = utc().diff(this.x, 'd');
+
+              if (days === 1) {
+                if (!this.series) return '';
+                const type = self.type;
+
+                return `
+                <div class="dashboard-tooltip-text" style="color: white; font-size: 20px; font-weight: 500">
+                  ${((type === SeriesType.amountcount && this.series.index === 0) || type === SeriesType.amount) ? '$' : ''}
+                  ${self.numberLocale.transform(this.y)}
+                </div>`;
+              }
+              return null;
+            }
           }
         },
         series: {
           lineWidth: 4,
-          lineColor: '#1EB1FC'
+          lineColor: '#86FCEA'
         }
       },
 
       series: [
-        { name: 'first',
+        { name: '',
           color: {
             linearGradient: {
               x1: 0,
@@ -125,7 +186,11 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
               [1, 'rgba(30, 177, 252, 0)']
             ]
           },
-          data: []}
+          data: [],
+          lineWidth: 2,
+          pointStart: utc().subtract(this.numberOfDays, 'd'),
+          pointInterval: 24 * 3600 * 1000
+        }
       ]
     };
   }
@@ -133,15 +198,14 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
   refreshData() {
     if (!this.data || !this.chartInstance || !this.chartInstance.chart) return;
 
-    this.chartInstance.chart.series[0].update({data: this.data[0]}, true);
+    this.data[0].pop();
+
+    this.chartInstance.chart.series[0].update({
+      data: this.data[0],
+      pointStart: utc().subtract(this.numberOfDays, 'd')
+    }, true);
 
     this.initialLoad = true;
-  }
-
-  calculateDate(xValue: number) {
-    const tz = this.authService.getTimezone();
-
-    return this.data[0][xValue][0].tz(tz).format('MMMM D, YYYY');
   }
 
   loadChart(chartInstance) {

@@ -42,10 +42,10 @@
             <tbody>
             <tr [routerLink]="['/transactions', transaction.id]" *ngFor="let transaction of transactions">
               <td>
-                <div *ngIf="transaction.processorResponse.message === 'Success'" class="icon-holder icon-holder__success">
+                <div *ngIf="transaction.processorResponse.message.toLowerCase() === 'success'" class="icon-holder icon-holder__success">
                   <mat-icon class="success-icon" role="img" aria-hidden="true">done</mat-icon>
                 </div>
-                <div *ngIf="transaction.processorResponse.message === 'Failed'" class="icon-holder icon-holder__fail">
+                <div *ngIf="transaction.processorResponse.message.toLowerCase() === 'failed'" class="icon-holder icon-holder__fail">
                   <mat-icon class="fail-icon" role="img" aria-hidden="true">not_interested</mat-icon>
                 </div>
                 <div class="success">{{transaction.processorResponse.message}}</div>

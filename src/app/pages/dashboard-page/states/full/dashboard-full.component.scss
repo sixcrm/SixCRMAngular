@@ -6,17 +6,34 @@
   background: #F1F3F4;
 }
 
+.dashboard-top-header {
+  display: flex;
+}
+
+.dashboard-message {
+  margin-left: auto;
+  color: #B5D0FA;
+  font-style: italic;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: right;
+  margin-top: 108px;
+
+  &__author {
+    margin-left: 20px;
+    font-size: 16px;
+    line-height: 23px;
+    margin-right: 30px;
+  }
+}
+
 .info {
-  margin: 50px 25px 0;
+  margin: 40px 0 25px 25px;
   color: #B5D0FA;
   font-weight: 300;
 
   div {
     &:first-of-type {
-      font-size: 30px;
-    }
-
-    &:nth-of-type(2) {
       margin-top: 15px;
       font-size: 16px;
       font-weight: 400;
@@ -24,7 +41,7 @@
 
     &:last-of-type {
       margin-top: 0;
-      font-size: 72px;
+      font-size: 60px;
       color: #ffffff;
       display: flex;
 

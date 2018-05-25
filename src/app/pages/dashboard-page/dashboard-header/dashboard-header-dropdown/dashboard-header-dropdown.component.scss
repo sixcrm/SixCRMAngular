@@ -5,11 +5,10 @@
   .selected {
     display: flex;
     align-items: center;
-    color: white;
+    color: #8EC9FD;
     cursor: pointer;
 
     mat-icon {
-      width: 24px;
       height: 24px;
       font-size: 24px;
     }
@@ -18,7 +17,7 @@
   .options {
     padding: 5px 0;
     position: absolute;
-    left: -10px;
+    right: 10px;
     background: white;
     font-size: 14px;
     overflow: auto;

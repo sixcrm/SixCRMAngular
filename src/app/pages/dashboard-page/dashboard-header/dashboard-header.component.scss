@@ -1,6 +1,6 @@
 .dashboard-header {
   display: flex;
-  align-items: flex-start;
+  justify-content: space-between;
   padding: 15px 25px;
 
   .flex-custom {
@@ -48,21 +48,3 @@
   }
 }
 
-.dashboard-campaigns {
-  margin: 0 20px;
-}
-
-.dashboard-message {
-  margin-left: auto;
-  max-width: 600px;
-  color: #B5D0FA;
-  font-style: italic;
-  font-size: 24px;
-  font-weight: 300;
-  text-align: right;
-
-  div:last-of-type {
-    margin-top: 5px;
-    font-size: 16px;
-  }
-}
