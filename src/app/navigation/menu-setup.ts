@@ -186,7 +186,9 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
     accountManagement.push(new MenuItem('API Access Kyes', 'accountmanagement/apikeys'));
   }
 
-  items.push(new MenuItem('Account Management', null, accountManagement).setIcon('settings'));
+  if (accountManagement.length > 0) {
+    items.push(new MenuItem('Account Management', null, accountManagement).setIcon('settings'));
+  }
 
   return items;
 }
