@@ -92,7 +92,7 @@ describe('Register', function() {
     registerPage.getPaymentEntryCardMonth().get(4).click();
     // Finish Registration
     registerPage.getPaymentContinueButton().click();
-    browser.sleep(10000);
+    browser.sleep(14000);
     waitForUrlContains('/dashboard?w=true');
     browser.sleep(5000);
     expectUrlToContain('/dashboard?w=true');

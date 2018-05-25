@@ -5,16 +5,6 @@ exports.config = {
   allScriptsTimeout: 110000,
   specs: [
     './e2e/**/navigation.e2e-spec.ts',
-    './e2e/**/campaigns.e2e-spec.ts',
-    './e2e/**/product.e2e-spec.ts',
-    './e2e/**/product-schedule.e2e-spec.ts',
-    './e2e/**/email-template.e2e-spec.ts',
-    './e2e/**/affiliate.e2e-spec.ts',
-    './e2e/**/tracker.e2e-spec.ts',
-    './e2e/**/merchant-provider.e2e-spec.ts',
-    './e2e/**/merchant-provider-group.e2e-spec.ts',
-    './e2e/**/fulfillment-provider.e2e-spec.ts',
-    './e2e/**/smtp-provider.e2e-spec.ts',
     './e2e/**/accept-invite.e2e-spec.ts',
     './e2e/**/register.e2e-spec.ts'
   ],
@@ -50,7 +40,6 @@ exports.config = {
       ],
     base: [
       './e2e/**/login.e2e-spec.ts',
-      // './e2e/**/dashboard.e2e-spec.ts',
       './e2e/**/accept-invite.e2e-spec.ts',
       './e2e/**/register.e2e-spec.ts',
       './e2e/**/user.e2e-spec.ts'

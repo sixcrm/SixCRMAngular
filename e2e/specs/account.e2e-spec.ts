@@ -40,29 +40,26 @@ describe('Accounts', function() {
   });
 
   it('should render accounts index component', () => {
+    browser.sleep(500);
     expectDefined(page.getComponent());
   });
 
   it('should render accounts index title', () => {
-    expect(page.getTitle().getText()).toContain('Accounts')
+    browser.sleep(10000);
+    browser.pause();
+    expect(page.getTitle().getText()).toContain('Accounts');
   });
 
   it('should not render accounts index add button', () => {
+    browser.sleep(500);
     expectNotPresent(page.getAddButton());
-  });
-
-  it('should render accounts index table headers', () => {
-    expect(page.getTableHeaders().get(0).getText()).toEqual('Name');
-    expect(page.getTableHeaders().get(1).getText()).toEqual('Active');
-    expect(page.getTableHeaders().get(2).getText()).toEqual('Created');
-    expect(page.getTableHeaders().get(3).getText()).toEqual('Updated');
   });
 
   it('should open account when clicked clicked', () => {
     browser.sleep(3000);
-    selectedAccount = page.getCell(0,0).getText();
+    selectedAccount = page.getCell(0, 0).getText();
 
-    page.getCell(0,0).click();
+    page.getCell(0, 0).click();
 
     waitForUrlContains('accounts/');
     expectUrlToContain('accounts/');
@@ -72,7 +69,7 @@ describe('Accounts', function() {
   it('should render correct account name', () => {
     browser.sleep(1000);
 
-    expect(view.getEntityNameHeaderSolo().getText()).toEqual(selectedAccount)
+    expect(view.getEntityNameHeaderSolo().getText()).toEqual(selectedAccount);
   });
 
   it('should render correct number of tab labels', () => {
@@ -99,7 +96,7 @@ describe('Accounts', function() {
   });
 
   it('should remove access keys', (doneFunction) => {
-    accountPage.getAccessKeysRows().count().then(count =>{
+    accountPage.getAccessKeysRows().count().then(count => {
       for (let i = 0; i < count; i++) {
         accountPage.getLastAccessKeysButton().click();
         browser.sleep(200);
@@ -112,5 +109,6 @@ describe('Accounts', function() {
       expect(accountPage.getAccessKeysRows().count()).toBe(0);
       doneFunction();
     });
-  })
+  });
+
 });
