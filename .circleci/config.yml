@@ -118,6 +118,20 @@ jobs:
       - run:
           name: Add/Update CloudFront Distribution
           command: node libs/deployment_scripts/src/deploy-cloudfront.js deployment/deploy-config.json
+  run_e2e:
+    <<: *job-defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run: npm pree2e
+      - run: npm run start
+      - run:
+          name: Run e2e
+          command: |
+            sudo webdriver-manager start
+            npm run e2e
+
   merge_development:
     <<: *job-defaults
     steps:
@@ -179,9 +193,13 @@ workflows:
       - deploy_cloudfront:
           requires:
             - deploy_s3
+      - run_e2e:
+          requires:
+            - build
       - merge_development:
           requires:
             - deploy_cloudfront
+            - run_e2e
           filters:
             branches:
               only:
