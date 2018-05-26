@@ -125,9 +125,23 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - restore_cache:
-                key: git-modules-{{ .Branch }}-{{ .Revision }}
+          key: git-modules-{{ .Branch }}-{{ .Revision }}
       - restore_cache:
-                key: dist-{{ .Branch }}-{{ .Revision }}
+          key: dist-{{ .Branch }}-{{ .Revision }}
+      - run:
+          name: Run install
+          command: npm run install --dev
+          no_output_timeout: 20m
+      - run:
+          name: Run build
+          command: npm run build.dev
+          no_output_timeout: 20m
+      - run:
+          name: Run webmanager
+          command: |
+              npm install -g webdriver-manager
+              webdriver-manager update
+              webdriver-manager start
       - run:
           name: Run e2e
           command: npm run e2e.dev
