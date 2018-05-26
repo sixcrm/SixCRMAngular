@@ -125,29 +125,9 @@ jobs:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
-      - restore_cache:
-          key: git-modules-{{ .Branch }}-{{ .Revision }}
-      - restore_cache:
-          key: dist-{{ .Branch }}-{{ .Revision }}
-      - run:
-          name: Run install
-          command: npm install
-          no_output_timeout: 20m
-      - save_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-          paths:
-            - node_modules
-      - run:
-          name: Run build
-          command: npm run build.dev
-          no_output_timeout: 20m
       - run:
           name: Update webdriver
-          command: |
-            npm run pree2e
-      - run:
-          name: Run webdriver
-          command: node ./node_modules/protractor/node_modules/bin/webdriver-manager start
+          command: npm run pree2e
       - run:
           name: Run e2e
           command: npm run e2e.dev
