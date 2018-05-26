@@ -139,18 +139,16 @@ jobs:
             - "node_modules"
       - run:
           name: Run build
-          command: npm run start
+          command: npm run build.dev
           background: true
           no_output_timeout: 20m
       - run:
-          name: Run webmanager
+          name: Run webdriver
           command: |
-              sudo npm install -g webdriver-manager
-              sudo webdriver-manager update
               sudo webdriver-manager start
       - run:
           name: Run e2e
-          command: xvfb-run -a npm run e2e -- --no-progress --config=protractor-ci.conf.js
+          command: xvfb-run -a npm run e2e.dev -- --no-progress --config=protractor-ci.conf.js
           no_output_timeout: 20m
   merge_development:
     <<: *job-defaults
