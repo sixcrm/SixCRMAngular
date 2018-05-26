@@ -131,7 +131,7 @@ jobs:
           key: dist-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Run install
-          command: npm install --dev
+          command: npm install --only=dev
           no_output_timeout: 20m
       - save_cache:
           key: git-modules-{{ .Branch }}-{{ .Revision }}
@@ -142,10 +142,6 @@ jobs:
           command: npm run build.dev
           background: true
           no_output_timeout: 20m
-      - run:
-          name: Run webdriver
-          command: |
-              sudo webdriver-manager start
       - run:
           name: Run e2e
           command: xvfb-run -a npm run e2e.dev -- --no-progress --config=protractor-ci.conf.js
