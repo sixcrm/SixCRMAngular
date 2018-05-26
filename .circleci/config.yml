@@ -129,11 +129,9 @@ jobs:
       - restore_cache:
                 key: dist-{{ .Branch }}-{{ .Revision }}
       - run:
-          name: Run
-          command: npm run start
-      - run:
           name: Run e2e
-          command: npm run e2e.local
+          command: npm run e2e.dev
+          no_output_timeout: 20m
   merge_development:
     <<: *job-defaults
     steps:
