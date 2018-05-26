@@ -202,7 +202,7 @@ workflows:
             - deploy_s3
       - run_e2e:
           requires:
-            - install
+            - deploy_cloudfront
       - merge_development:
           requires:
             - deploy_cloudfront
