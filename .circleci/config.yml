@@ -130,7 +130,7 @@ jobs:
           key: dist-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Run install
-          command: npm run install --dev
+          command: npm install --dev
           no_output_timeout: 20m
       - run:
           name: Run build
