@@ -127,9 +127,9 @@ jobs:
       - run:
           name: Run e2e
           command: |
-            sudo npm run pree2e
-            sudo webdriver-manager start
-            npm run e2e.dev
+            sudo npm i -g protractor
+            sudo webdriver-manager update
+            sudo npm run e2e.dev
 
   merge_development:
     <<: *job-defaults
