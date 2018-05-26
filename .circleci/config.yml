@@ -147,7 +147,7 @@ jobs:
             npm run pree2e
       - run:
           name: Run webdriver
-          command: node ./node_modules/protractor/bin/webdriver-manager start
+          command: node ./node_modules/protractor/node_modules/bin/webdriver-manager start
       - run:
           name: Run e2e
           command: npm run e2e.dev
