@@ -1,11 +1,9 @@
 defaults: &job-defaults
   docker:
-    - image: circleci/node:8.10
+    - image: circleci/node:8.10-stretch-browsers
       environment:
         - TZ: "/usr/share/zoneinfo/America/Los_Angeles"
-    - image: circleci/node:8-browsers
-      environment:
-          CHROME_BIN: "/usr/bin/google-chrome"
+        - CHROME_BIN: "/usr/bin/google-chrome"
 
 version: 2
 jobs:
@@ -138,21 +136,28 @@ jobs:
       - save_cache:
           key: git-modules-{{ .Branch }}-{{ .Revision }}
           paths:
-            - "node_modules"
+            - ./node_modules
       - run:
           name: Run build
-          command: npm run build.dev
+          command: npm run start
           background: true
           no_output_timeout: 20m
       - run:
+          name: Download Selenium
+          command: |
+            curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
+      - run:
+          name: Start Selenium
+          command: |
+            java -jar selenium-server-standalone-3.5.3.jar -log test-reports/selenium.log
+          background: true
+      - run:
           name: Run webmanager
           command: |
-              sudo npm install -g webdriver-manager
-              sudo webdriver-manager update
-              sudo webdriver-manager start
+            sudo webdriver-manager start
       - run:
           name: Run e2e
-          command: xvfb-run -a npm run e2e.dev -- --no-progress --config=protractor-ci.conf.js
+          command: xvfb-run -a npm run e2e -- --no-progress --config=protractor-ci.conf.js
           no_output_timeout: 20m
   merge_development:
     <<: *job-defaults
