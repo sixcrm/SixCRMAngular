@@ -142,10 +142,12 @@ jobs:
           command: npm run build.dev
           no_output_timeout: 20m
       - run:
-          name: Run webdriver
+          name: Update webdriver
           command: |
             npm run pree2e
-            webdriver-manager start
+      - run:
+          name: Run webdriver
+          command: node ./node_modules/protractor/bin/webdriver-manager start
       - run:
           name: Run e2e
           command: npm run e2e.dev
