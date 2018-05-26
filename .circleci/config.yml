@@ -144,7 +144,7 @@ jobs:
               sudo webdriver-manager start
       - run:
           name: Run e2e
-          command: npm run e2e.dev
+          command: npm run e2e
           no_output_timeout: 20m
   merge_development:
     <<: *job-defaults
