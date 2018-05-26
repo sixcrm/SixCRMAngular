@@ -139,7 +139,7 @@ jobs:
       - run:
           name: Run webmanager
           command: |
-              npm install -g webdriver-manager
+              sudo npm install -g webdriver-manager
               sudo webdriver-manager update
               sudo webdriver-manager start
       - run:
