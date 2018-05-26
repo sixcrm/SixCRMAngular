@@ -124,7 +124,7 @@ jobs:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run: npm pree2e
+      - run: npm run pree2e
       - run: npm run start
       - run:
           name: Run e2e
