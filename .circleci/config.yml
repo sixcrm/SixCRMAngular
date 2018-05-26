@@ -127,7 +127,7 @@ jobs:
       - run:
           name: Run e2e
           command: |
-            npm run pree2e
+            sudo npm run pree2e
             sudo webdriver-manager start
             npm run e2e.dev
 
