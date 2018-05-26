@@ -124,8 +124,6 @@ jobs:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
-          paths:
-            - ./node_modules
       - restore_cache:
           key: git-modules-{{ .Branch }}-{{ .Revision }}
       - restore_cache:
@@ -137,7 +135,6 @@ jobs:
       - run:
           name: Run build
           command: npm run build.dev
-          background: true
           no_output_timeout: 20m
       - run:
           name: Run webmanager
