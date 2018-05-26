@@ -129,8 +129,11 @@ jobs:
       - restore_cache:
                 key: dist-{{ .Branch }}-{{ .Revision }}
       - run:
+          name: Run
+          command: npm run start
+      - run:
           name: Run e2e
-          command: npm run e2e.dev
+          command: npm run e2e.local
   merge_development:
     <<: *job-defaults
     steps:
