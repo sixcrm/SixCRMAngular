@@ -195,7 +195,7 @@ workflows:
             - deploy_s3
       - run_e2e:
           requires:
-            - build
+            - deploy_cloudfront
       - merge_development:
           requires:
             - deploy_cloudfront
