@@ -140,8 +140,8 @@ jobs:
           name: Run webmanager
           command: |
               npm install -g webdriver-manager
-              webdriver-manager update
-              webdriver-manager start
+              sudo webdriver-manager update
+              sudo webdriver-manager start
       - run:
           name: Run e2e
           command: npm run e2e.dev
