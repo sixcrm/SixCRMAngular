@@ -146,6 +146,7 @@ jobs:
           command: |
             sudo npm install -g protractor
             sudo npm install -g selenium-webdriver
+            webdriver-manager update
             webdriver-manager start
       - run:
           name: Run e2e
