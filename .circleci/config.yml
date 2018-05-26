@@ -137,7 +137,12 @@ jobs:
           command: npm run pree2e
       - run:
           name: Run e2e
-          command: npm run e2e.dev
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "development" ]; then
+              npm run e2e.dev
+            elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
+              npm run e2e.stage
+            fi
           no_output_timeout: 20m
   merge_development:
     <<: *job-defaults
@@ -203,6 +208,11 @@ workflows:
       - run_e2e:
           requires:
             - deploy_cloudfront
+          filters:
+            branches:
+              only:
+                - development
+                - staging
       - merge_development:
           requires:
             - deploy_cloudfront
