@@ -139,14 +139,13 @@ jobs:
             - node_modules
       - run:
           name: Run build
-          command: npm run start.dev
-          background: true
+          command: npm run build.dev
           no_output_timeout: 20m
       - run:
           name: Run webdriver
           command: |
-            npm install -g protractor
-            npm install -g selenium-webdriver
+            sudo npm install -g protractor
+            sudo npm install -g selenium-webdriver
             webdriver-manager start
       - run:
           name: Run e2e
