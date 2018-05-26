@@ -124,8 +124,6 @@ jobs:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
-          paths:
-            - ./node_modules
       - restore_cache:
           key: git-modules-{{ .Branch }}-{{ .Revision }}
       - restore_cache:
@@ -134,6 +132,10 @@ jobs:
           name: Run install
           command: npm install --dev
           no_output_timeout: 20m
+      - save_cache:
+          key: git-modules-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - "node_modules"
       - run:
           name: Run build
           command: npm run build.dev
@@ -145,10 +147,8 @@ jobs:
               sudo npm install -g webdriver-manager
               sudo webdriver-manager update
               sudo webdriver-manager start
-      - run:
-          name: Run e2e
-          command: npm run e2e
-          no_output_timeout: 20m
+      - run: xvfb-run -a npm run test -- --single-run --no-progress --browser=ChromeNoSandbox
+      - run: xvfb-run -a npm run e2e -- --no-progress --config=protractor-ci.conf.js
   merge_development:
     <<: *job-defaults
     steps:
