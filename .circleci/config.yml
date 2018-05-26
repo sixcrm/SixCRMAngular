@@ -124,13 +124,12 @@ jobs:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run: npm run pree2e
-      - run: npm run start
       - run:
           name: Run e2e
           command: |
+            npm run pree2e
             sudo webdriver-manager start
-            npm run e2e
+            npm run e2e.dev
 
   merge_development:
     <<: *job-defaults
