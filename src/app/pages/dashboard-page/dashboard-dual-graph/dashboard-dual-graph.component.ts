@@ -65,14 +65,7 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
         backgroundColor: 'rgba(0,0,0,0)'
       },
       title: {
-        text: 'Revenue per day',
-        align: 'left',
-        x: 25,
-        y: 120,
-        style: {
-          color: '#8EC9FD',
-          fontSize: '14px'
-        }
+        text: null
       },
       credits: {
         enabled: false
