@@ -131,42 +131,6 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
     items.push(new MenuItem('SIDENAV_CRM_TITLE', null, crmItems).setIcon('account_balance'));
   }
 
-  // Add Settings menu item
-  let settings: MenuItem[] = [];
-  if (authService.hasPermissions('account', 'view') || authService.isBillingDisabled()) {
-    let accountlink = 'accounts';
-
-    if (authService.getActiveAcl().account && (authService.getActiveAcl().account.id !== '*')) {
-      accountlink += '/' + authService.getActiveAcl().account.id;
-    }
-
-    settings.push(new MenuItem('SIDENAV_SETTINGS_ACCOUNT', accountlink));
-  }
-  if (authService.hasPermissions('user', 'view') && authService.isActiveAclMasterAccount()) {
-    settings.push(new MenuItem('SIDENAV_SETTINGS_USER', 'users'));
-  }
-  if (authService.hasPermissions('role', 'view')) {
-    settings.push(new MenuItem('SIDENAV_SETTINGS_ROLE', 'roles'));
-  }
-  if (authService.hasPermissions('bill', 'view') && authService.isActiveAclMasterAccount()) {
-    settings.push(new MenuItem('SIDENAV_SETTINGS_BILL', 'bills'));
-  }
-
-  let keys = [];
-  if (authService.hasPermissions('usersigningstring', 'view') || authService.isBillingDisabled()) {
-    keys.push(new MenuItem('SIDENAV_SETTINGS_KEY_SIGNINGSTRING', 'profile#signingstrings'));
-  }
-  if ((authService.hasPermissions('accesskey', 'view') || authService.isBillingDisabled()) && authService.getActiveAcl().account ) {
-    const accesslink = `accounts/${authService.getActiveAcl().account.id}#accesskeys`;
-    keys.push(new MenuItem('SIDENAV_SETTINGS_KEY_ACCESSKEY', accesslink));
-  }
-
-  if (keys.length > 0) {
-    settings.push(new MenuItem('SIDENAV_SETTINGS_KEY_TITLE', null, keys));
-  }
-
-  items.push(new MenuItem('SIDENAV_SETTINGS_TITLE', null, settings).setIcon('settings'));
-
   // Add Account Management menu item
   let accountManagement: MenuItem[] = [];
 
@@ -188,6 +152,21 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
 
   if (accountManagement.length > 0) {
     items.push(new MenuItem('Account Management', null, accountManagement).setIcon('settings'));
+  }
+
+  if (authService.isActiveOrActingAclMasterAccount()) {
+    // Add Settings menu item
+    let settings: MenuItem[] = [];
+
+    settings.push(new MenuItem('SIDENAV_SETTINGS_ACCOUNT', 'accounts'));
+
+    settings.push(new MenuItem('SIDENAV_SETTINGS_USER', 'users'));
+
+    settings.push(new MenuItem('SIDENAV_SETTINGS_ROLE', 'roles'));
+
+    settings.push(new MenuItem('SIDENAV_SETTINGS_BILL', 'bills'));
+
+    items.push(new MenuItem('SIDENAV_SETTINGS_TITLE', null, settings).setIcon('settings'));
   }
 
   return items;
