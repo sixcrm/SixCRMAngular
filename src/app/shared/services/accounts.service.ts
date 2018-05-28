@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Account} from '../models/account.model';
 import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import { extractData, FailStrategy, HttpWrapperService } from './http-wrapper.service';
+import { extractData, FailStrategy, HttpWrapperService, RetryStrategy } from './http-wrapper.service';
 import {
   accountsListQuery, accountQuery,
   deleteAccountMutation, createAccountMutation, updateAccountMutation, deleteAccountsMutation, activateAccountMutation,
@@ -42,7 +42,7 @@ export class AccountsService extends AbstractEntityService<Account> {
   }
 
   public createNewAccount(accountName: string): Observable<Account | CustomServerError> {
-    return this.queryRequest(createNewAccountMutation(accountName), {ignoreSnack: true, failStrategy: FailStrategy.Soft}, '*').map(data => {
+    return this.queryRequest(createNewAccountMutation(accountName), {ignoreSnack: true, failStrategy: FailStrategy.Soft, retry: { strategy: RetryStrategy.Retry }}, '*').map(data => {
       if (data instanceof CustomServerError) {
         return data;
       }

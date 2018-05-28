@@ -11,7 +11,10 @@ import {
   userIntrospection, registerUser, acknowledgeInviteQuery,
   acceptInviteMutation
 } from '../shared/utils/queries/entities/user.queries';
-import {extractData, HttpWrapperService, generateHeaders, FailStrategy} from '../shared/services/http-wrapper.service';
+import {
+  extractData, HttpWrapperService, generateHeaders, FailStrategy,
+  RetryStrategy
+} from '../shared/services/http-wrapper.service';
 import {HttpResponse} from '@angular/common/http';
 import {Account} from '../shared/models/account.model';
 import {YesNoDialogComponent} from '../pages/yes-no-dialog.component';
@@ -313,7 +316,7 @@ export class AuthenticationService {
     user.active = true;
     user.termsAndConditions = terms || '0.1';
 
-    return this.http.postWithError(endpoint, registerUser(user), {headers: generateHeaders(this.getToken())}, {failStrategy: FailStrategy.Soft});
+    return this.http.postWithError(endpoint, registerUser(user), {headers: generateHeaders(this.getToken())}, {failStrategy: FailStrategy.Soft, retry: { strategy: RetryStrategy.Retry }});
   }
 
   public acknowledgeInvite(hash: string): Observable<AcknowledgeInvite> {
@@ -332,7 +335,7 @@ export class AuthenticationService {
       environment.publicendpoint,
       acceptInviteMutation(hash, signature),
       null,
-      { failStrategy: FailStrategy.HardStandalone }
+      { failStrategy: FailStrategy.HardStandalone, retry: { strategy: RetryStrategy.Retry }}
     ).map(data => {
       const d = data.body.response.data.acceptinvite;
 
@@ -344,7 +347,7 @@ export class AuthenticationService {
     let account = this.getActiveAcl().account;
     let endpoint = environment.endpoint + account.id;
 
-    return this.http.postWithError(endpoint, updateAccountForRegistrationMutation(account, company), {headers: generateHeaders(this.getToken())}, {failStrategy: FailStrategy.Soft, ignoreSnack: true});
+    return this.http.postWithError(endpoint, updateAccountForRegistrationMutation(account, company), {headers: generateHeaders(this.getToken())}, {failStrategy: FailStrategy.Soft, ignoreSnack: true, retry: { strategy: RetryStrategy.Retry }});
   }
 
   public hasPermissions(entity: string, operation: string): boolean {
@@ -423,7 +426,7 @@ export class AuthenticationService {
   }
 
   getUserIntrospection(profile: any, redirectUrl?: string, forceRedirect?: boolean): void {
-    this.http.post(environment.endpoint + '*', userIntrospection(), { headers: generateHeaders(this.getToken())}).subscribe(
+    this.http.post(environment.endpoint + '*', userIntrospection(), { headers: generateHeaders(this.getToken())}, { retry: { strategy: RetryStrategy.Retry } }).subscribe(
       (data) => {
         let user = extractData(data).userintrospection;
         if (user) {
@@ -511,7 +514,7 @@ export class AuthenticationService {
   }
 
   private getUserIntrospectionExternal(redirect: string): void {
-    this.http.post(environment.endpoint + '*', userIntrospection(), { headers: generateHeaders(this.getToken())}).subscribe(
+    this.http.post(environment.endpoint + '*', userIntrospection(), { headers: generateHeaders(this.getToken())}, { retry: { strategy: RetryStrategy.Retry } }).subscribe(
       (data) => {
         let user = extractData(data).userintrospection;
         if (user) {

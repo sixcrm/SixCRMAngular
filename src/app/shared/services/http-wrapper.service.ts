@@ -22,10 +22,8 @@ export enum RetryStrategy {
 
 export interface RetryOptions {
   strategy?: RetryStrategy
-  previousRetries?: number;
+  count?: number;
 }
-
-const retryLimit = 3;
 
 @Injectable()
 export class HttpWrapperService {
@@ -54,7 +52,7 @@ export class HttpWrapperService {
     const ignoreProgress: boolean = requestBehaviourOptions && requestBehaviourOptions.ignoreProgress;
     const failStrategy: FailStrategy = requestBehaviourOptions ? requestBehaviourOptions.failStrategy : FailStrategy.Ignore;
     const retryStrategy: RetryStrategy = (requestBehaviourOptions && requestBehaviourOptions.retry && requestBehaviourOptions.retry.strategy) ? requestBehaviourOptions.retry.strategy : RetryStrategy.None;
-    let retryCount: number = (requestBehaviourOptions && requestBehaviourOptions.retry && requestBehaviourOptions.retry.previousRetries) ? requestBehaviourOptions.retry.previousRetries : 0;
+    let retryCount: number = this.determineRetryCount(requestBehaviourOptions);
     const ignoreSnack: boolean = true; // Technical Debt: This should not be permanent.
 
     if (!ignoreProgress) this.setInProgress();
@@ -71,8 +69,8 @@ export class HttpWrapperService {
         response.complete();
       },
       error => {
-        if (retryStrategy === RetryStrategy.Retry && ++retryCount < retryLimit) {
-          requestBehaviourOptions.retry = { strategy: retryStrategy, previousRetries: retryCount };
+        if (retryStrategy === RetryStrategy.Retry && --retryCount > 0) {
+          requestBehaviourOptions.retry = { strategy: retryStrategy, count: retryCount };
           return this.post(url, body, requestOptions, requestBehaviourOptions);
         }
 
@@ -104,7 +102,7 @@ export class HttpWrapperService {
     const ignoreProgress: boolean = requestBehaviourOptions && requestBehaviourOptions.ignoreProgress;
     const failStrategy: FailStrategy = requestBehaviourOptions ? requestBehaviourOptions.failStrategy : FailStrategy.Ignore;
     const retryStrategy: RetryStrategy = (requestBehaviourOptions && requestBehaviourOptions.retry && requestBehaviourOptions.retry.strategy) ? requestBehaviourOptions.retry.strategy : RetryStrategy.None;
-    let retryCount: number = (requestBehaviourOptions && requestBehaviourOptions.retry && requestBehaviourOptions.retry.previousRetries) ? requestBehaviourOptions.retry.previousRetries : 0;
+    let retryCount: number = this.determineRetryCount(requestBehaviourOptions);
     const ignoreSnack: boolean = true; // Technical Debt: This should not be permanent.
 
     if (!ignoreProgress) this.setInProgress();
@@ -121,9 +119,10 @@ export class HttpWrapperService {
         response.complete();
       },
       error => {
-        if (retryStrategy === RetryStrategy.Retry && ++retryCount < retryLimit) {
-          requestBehaviourOptions.retry = { strategy: retryStrategy, previousRetries: retryCount };
-          return this.post(url, body, requestOptions, requestBehaviourOptions);
+        console.log(retryStrategy, retryCount)
+        if (retryStrategy === RetryStrategy.Retry && --retryCount > 0) {
+          requestBehaviourOptions.retry = { strategy: retryStrategy, count: retryCount };
+          return this.postWithError(url, body, requestOptions, requestBehaviourOptions);
         }
 
         // handle error
@@ -146,6 +145,22 @@ export class HttpWrapperService {
     );
 
     return response;
+  }
+
+  private determineRetryCount(requestBehaviourOptions: RequestBehaviourOptions) {
+    if (!requestBehaviourOptions || !requestBehaviourOptions.retry) {
+      return 0;
+    }
+
+    if (requestBehaviourOptions.retry.count === 0) {
+      return requestBehaviourOptions.retry.count;
+    }
+
+    if (!requestBehaviourOptions.retry.count) {
+      return 3;
+    }
+
+    return requestBehaviourOptions.retry.count;
   }
 
   handleError(error) {
