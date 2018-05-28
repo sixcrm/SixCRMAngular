@@ -5,6 +5,7 @@
   flex-direction: column;
   width: 640px;
   height: 720px;
+  max-height: 90vh;
   background: white;
   font-family: "Roboto", serif;
 
@@ -29,7 +30,7 @@
 
   .actions {
     display: flex;
-    margin: auto 25px 25px 25px;
+    margin: 15px 25px 15px 25px;
     align-items: center;
     color: #2C98F0;
 
