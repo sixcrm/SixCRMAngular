@@ -25,7 +25,7 @@ jobs:
           key: git-modules-{{ .Branch }}-{{ .Revision }}
           paths:
             - libs/deployment_scripts
-  version:
+  build:
     <<: *job-defaults
     steps:
       - checkout
@@ -36,16 +36,6 @@ jobs:
       - run:
           name: Set version
           command: node libs/deployment_scripts/src/versioning.js
-  build:
-    <<: *job-defaults
-    steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
-      - restore_cache:
-          key: git-modules-{{ .Branch }}-{{ .Revision }}
-      - restore_cache:
-          key: dist-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Build Angular app
           command: ./libs/deployment_scripts/src/build-angular.sh
@@ -175,12 +165,9 @@ workflows:
   build_deploy_test_and_merge:
     jobs:
       - install
-      - version:
-          requires:
-            - install
       - build:
           requires:
-            - version
+            - install
       - aws_sts:
           requires:
             - install
