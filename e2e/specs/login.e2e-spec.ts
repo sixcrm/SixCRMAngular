@@ -46,11 +46,11 @@ describe('Login', function() {
 
     browser.sleep(2000);
     browser.waitForAngularEnabled(false);
-
-    doLogin(authPage, 'nikola.bosic@toptal.com', '123456789');
-
+    browser.pause();
+    doLogin(authPage, 'e2e-test-admin@sixcrm.com', '123456789');
     // Wait for angular is disabled, so we need to tell protractor to wait for page to load
     waitForUrlContains('dashboard');
+
 
     expectUrlToContain('/dashboard');
   });

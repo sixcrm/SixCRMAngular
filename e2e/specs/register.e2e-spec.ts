@@ -56,8 +56,8 @@ describe('Register', function() {
     acceptInvitePage.getRegisterInputs(0).sendKeys('e2e First');
     acceptInvitePage.getRegisterInputs(1).sendKeys('e2e Last');
     acceptInvitePage.getRegisterInputs(2).sendKeys(newCompany);
-    browser.sleep(500);
     acceptInvitePage.getRegisterAcceptButton().click();
+    browser.sleep(2000);
     waitForUrlContains('/payment');
     expectUrlToContain('/payment');
     expectPresent(registerPage.getPaymentView());
