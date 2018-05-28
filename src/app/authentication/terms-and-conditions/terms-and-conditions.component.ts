@@ -60,7 +60,7 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
   }
 
   fetchUser(): void {
-    this.userService.getLatestTermsAndConditions().take(1).subscribe((response) => {
+    this.userService.getLatestTermsAndConditionsForAccount(this.authService.getActiveAcl().account.id).take(1).subscribe((response) => {
       if (response instanceof CustomServerError) {
         return;
       }
@@ -70,7 +70,7 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
   }
 
   fetchOwner(): void {
-    this.userService.getLatestTermsAndConditions('owner').take(1).subscribe((response) => {
+    this.userService.getLatestTermsAndConditionsForAccount(this.authService.getActiveAcl().account.id, 'owner').take(1).subscribe((response) => {
       if (response instanceof CustomServerError) {
         return;
       }

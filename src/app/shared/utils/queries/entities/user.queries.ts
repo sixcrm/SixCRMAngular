@@ -70,17 +70,6 @@ export function registerUser(user: User): string {
 	}`
 }
 
-export function latestTermsAndConditions(role?: string): string {
-  return `
-    {
-      latesttermsandconditions ${role ? `( role: "${role}" )` : ''} {
-        version,
-        title,
-        body
-      }
-    }`
-}
-
 export function latestTermsAndConditionsForAccount(accountId: string, role?: string): string {
   return `
     {
