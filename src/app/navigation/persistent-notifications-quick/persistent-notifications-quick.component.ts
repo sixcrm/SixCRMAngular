@@ -3,6 +3,7 @@ import {Notification} from '../../shared/models/notification.model';
 import {NotificationsQuickService} from '../../shared/services/notifications-quick.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Subscription, Subject} from 'rxjs';
+import {utc} from 'moment';
 
 @Component({
   selector: 'persistent-notifications-quick',
@@ -21,7 +22,7 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
 
   notificationsFiltered$: Subject<boolean> = new Subject();
 
-  daysTillBillingDisabled: number;
+  billingDisabledAlready: boolean;
 
   private hiddenNotifications: string = 'hidden_notifications';
 
@@ -37,11 +38,11 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
     });
 
     this.notificationsSub = this.notificationsService.notificationsPersistent$.subscribe(notifications => {
-      const predefined = [];
-      this.daysTillBillingDisabled = this.authService.daysTillBillingDisabled();
+      let predefined = [];
 
-      if (this.authService.isBillingSoonToBeDisabled()) {
-        predefined.push(this.createBillingDisableNotification(this.daysTillBillingDisabled))
+      if (this.authService.isBillingDisabledOrSoonToBeDisabled()) {
+        this.billingDisabledAlready = this.isBillingAlreadyDisabled();
+        predefined = this.appendBillingDisabledNotification(predefined);
       }
 
       this.persistentNotifications = notifications;
@@ -51,10 +52,11 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
     });
 
     this.aclSub = this.authService.activeAcl$.subscribe(() => {
-      const predefined = [];
+      let predefined = [];
 
-      if (this.authService.isBillingSoonToBeDisabled()) {
-        predefined.push(this.createBillingDisableNotification(this.daysTillBillingDisabled))
+      if (this.authService.isBillingDisabledOrSoonToBeDisabled()) {
+        this.billingDisabledAlready = this.isBillingAlreadyDisabled();
+        predefined = this.appendBillingDisabledNotification(predefined);
       }
 
       this.persistentNotificationsToShow = [...predefined, ...this.persistentNotifications];
@@ -63,7 +65,25 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
     })
   }
 
-  private createBillingDisableNotification(numberOfDays) {
+  private appendBillingDisabledNotification(notifications: Notification[]): Notification[] {
+    const account = this.authService.getActiveAcl().account;
+
+    if (!account.billing || !account.billing.disable) return notifications.slice();
+
+    const daysTillBilling = (account.billing.disable).diff(utc(), 'd');
+
+    return [...notifications, this.createBillingDisableNotification(daysTillBilling)];
+  }
+
+  private isBillingAlreadyDisabled(): boolean {
+    const account = this.authService.getActiveAcl().account;
+
+    if (!account.billing || !account.billing.disable) return false;
+
+    return (account.billing.disable).diff(utc(), 'd') >= 0;
+  }
+
+  private createBillingDisableNotification(numberOfDays): Notification {
     let key = 'billing_disable_soon';
 
     if (numberOfDays === 0) {

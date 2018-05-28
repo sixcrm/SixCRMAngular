@@ -1,4 +1,7 @@
-<div class="persistent-notification" *ngIf="filteredPersistentNotification" [class.notification]="daysTillBillingDisabled >= 0">
+<div class="persistent-notification"
+     *ngIf="filteredPersistentNotification"
+     [class.notification]="billingDisabledAlready"
+>
   <mat-icon>error_outline</mat-icon>
   <div>{{filteredPersistentNotification.body}}</div>
   <mat-icon *ngIf="filteredPersistentNotification.id" (click)="dismissPersistent(filteredPersistentNotification)">close</mat-icon>

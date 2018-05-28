@@ -296,14 +296,12 @@ export class AuthenticationService {
     return utc().isAfter(utc(account.billing.disable))
   }
 
-  public isBillingSoonToBeDisabled(): boolean {
-    return this.daysTillBillingDisabled() <= 7;
-  }
+  public isBillingDisabledOrSoonToBeDisabled(): boolean {
+    if (!this.getActiveAcl().account.billing) return false;
 
-  public daysTillBillingDisabled() {
     const account = this.getActiveAcl().account;
-    const days = utc(account.billing.disable).diff(utc(), 'd');
-    return days;
+
+    return utc(account.billing.disable).diff(utc(), 'd') <= 7;
   }
 
   public registerUser(company: string, firstName: string, lastName: string, terms?: string): Observable<HttpResponse<any> | CustomServerError> {
