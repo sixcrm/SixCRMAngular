@@ -13,6 +13,7 @@ import {FormsModule} from '@angular/forms';
 import { AccountManagementBillingTransactionsChartComponent } from './account-management-billing/account-management-billing-transactions-chart/account-management-billing-transactions-chart.component';
 import {ChartModule} from 'angular2-highcharts';
 import {HighchartsStatic} from 'angular2-highcharts/dist/HighchartsService';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import {HighchartsStatic} from 'angular2-highcharts/dist/HighchartsService';
     accountManagementRouting,
     MaterialSelectionModule,
     ChartModule,
+    SharedModule,
     ClipboardModule
   ],
   declarations: [

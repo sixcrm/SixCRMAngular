@@ -1,1 +1,37 @@
-<account-management-header [path]="'Users'"></account-management-header>
+<account-management-header [path]="'Users'"
+                           [account]="account">
+</account-management-header>
+
+<div class="body">
+  <div class="header">
+    <button mat-button>NEW</button>
+
+    <div class="mrw-bi-input">
+      <mat-input-container [floatLabel]="'never'">
+        <input matInput type="text" placeholder="Find user..." [(ngModel)]="filterString">
+      </mat-input-container>
+    </div>
+
+    <div class="count" *ngIf="account">{{account.acls.length}} Users</div>
+  </div>
+
+  <div class="content-wrapper" *ngIf="account">
+
+    <div class="user-card" *ngFor="let acl of account.acls | filterStrings: filterString: filterFunction">
+      <div class="avatar">TS</div>
+      <div class="data">
+        <div class="name">{{acl.user.name}}</div>
+        <div class="email">{{acl.user.email}}</div>
+        <div class="login">Last login:</div>
+        <div>{{acl.role.name}}</div>
+      </div>
+
+      <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+      <mat-menu #actionsMenu="matMenu" x-position="before">
+        <button mat-menu-item>View</button>
+        <button mat-menu-item>Delete</button>
+      </mat-menu>
+    </div>
+
+  </div>
+</div>
