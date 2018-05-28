@@ -1,0 +1,43 @@
+.top-data {
+  display: flex;
+  padding: 15px 25px;
+  background: #333333;
+
+  .chart {
+    width: calc(65% - 12px);
+
+    .title {
+      color: #999999;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    margin-left: 24px;
+    width: calc(35% - 12px);
+
+    .box {
+      padding: 20px;
+      background: #4F4F4F;
+      border-radius: 4px;
+      height: 100%;
+      width: 100%;
+      box-sizing:  border-box;
+
+      .date {
+        color: white;
+        font-size: 20px;
+        font-weight: 500;
+      }
+
+      &:first-of-type {
+        margin-bottom: 15px;
+      }
+    }
+
+  }
+}

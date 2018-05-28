@@ -10,6 +10,9 @@ import {MaterialSelectionModule} from '../../material-selection/material-selecti
 import { AccountManagementHeaderComponent } from './account-management-header/account-management-header.component';
 import {ClipboardModule} from 'ngx-clipboard/dist';
 import {FormsModule} from '@angular/forms';
+import { AccountManagementBillingTransactionsChartComponent } from './account-management-billing/account-management-billing-transactions-chart/account-management-billing-transactions-chart.component';
+import {ChartModule} from 'angular2-highcharts';
+import {HighchartsStatic} from 'angular2-highcharts/dist/HighchartsService';
 
 @NgModule({
   imports: [
@@ -17,6 +20,7 @@ import {FormsModule} from '@angular/forms';
     FormsModule,
     accountManagementRouting,
     MaterialSelectionModule,
+    ChartModule,
     ClipboardModule
   ],
   declarations: [
@@ -25,7 +29,14 @@ import {FormsModule} from '@angular/forms';
     AccountManagementUsersComponent,
     AccountManagementRolesComponent,
     AccountManagementApikeysComponent,
-    AccountManagementHeaderComponent
+    AccountManagementHeaderComponent,
+    AccountManagementBillingTransactionsChartComponent
+  ],
+  providers: [
+    {
+      provide: HighchartsStatic,
+      useFactory: () => require('highcharts/highstock')
+    }
   ]
 })
 export class AccountManagementModule { }

@@ -1,9 +1,10 @@
 <account-management-header
   [path]="'General'"
+  [account]="account"
   [showApiKey]="true">
 </account-management-header>
 
-<div class="account-management-body" *ngIf="account">
+<div class="account-management-body" *ngIf="accountBackup">
 
   <div class="column">
 
@@ -11,9 +12,21 @@
       <div class="title">Account Name</div>
       <div class="body">
         <mat-input-container>
-          <input type="text" matInput [(ngModel)]="account.name" placeholder="Account Name">
+          <input type="text" matInput [(ngModel)]="accountBackup.name" placeholder="Account Name">
         </mat-input-container>
-
+      </div>
+      <div class="buttons">
+        <button mat-button
+                [disabled]="accountBackup.name === account.name"
+                (click)="cancelAccountUpdate()">
+          Cancel
+        </button>
+        <button mat-button
+                [disabled]="accountBackup.name === account.name"
+                [class.button-disabled]="accountBackup.name === account.name"
+                (click)="updateCustomer()">
+          Save
+        </button>
       </div>
     </div>
 

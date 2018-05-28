@@ -80,7 +80,7 @@ export function updateAccountForRegistrationMutation(account: Account, name: str
 }
 
 export function accountResponseQuery(): string {
-  return 'id name active created_at updated_at acl{ id updated_at, created_at, pending account {id, name} role {id, name} user {id, name}}';
+  return 'id name active created_at updated_at billing {plan, disable, session} acl{ id updated_at, created_at, pending account {id, name} role {id, name} user {id, name}}';
 }
 
 export function accountInfoResponseQuery(): string {
@@ -88,5 +88,10 @@ export function accountInfoResponseQuery(): string {
 }
 
 export function accountInputQuery(account: Account, includeId?: boolean): string {
+  let billing = '';
+  if (account.billing) {
+    billing = `, billing { plan: "${account.billing}" ${account.billing.disable ? `, disable: "${account.billing.disable.format()}"` : ''} ${account.billing.session ? `, session: "${account.billing.session}"`: ''} }`;
+  }
+
   return `${addId(account.id, includeId)}, name: "${account.name}", active: ${account.active || 'false'}, ${addUpdatedAtApi(account, includeId)}`;
 }

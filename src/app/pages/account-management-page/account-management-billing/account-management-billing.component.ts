@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {BillsService} from '../../../shared/services/bills.service';
-import {Bill} from '../../../shared/models/bill.model';
-import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {AuthenticationService} from '../../../authentication/authentication.service';
+import {Account} from '../../../shared/models/account.model';
 
 @Component({
   selector: 'account-management-billing',
@@ -10,24 +9,12 @@ import {CustomServerError} from '../../../shared/models/errors/custom-server-err
 })
 export class AccountManagementBillingComponent implements OnInit {
 
-  overdue: Bill[] = [];
-  paid: Bill[] = [];
-  unpaid: Bill[] = [];
+  account: Account;
 
-  constructor(private billsService: BillsService) { }
+  constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.billsService.entities$.take(1).subscribe(bills => {
-      if (bills instanceof CustomServerError) {
-        return;
-      }
-
-      this.overdue = bills.filter(bill => bill.outstanding);
-      this.paid = bills.filter(bill => !bill.outstanding && bill.paid);
-      this.unpaid = bills.filter(bill => !bill.outstanding && !bill.paid);
-    });
-
-    this.billsService.getEntities(10);
+    this.account = this.authService.getActiveAcl().account;
   }
 
 }

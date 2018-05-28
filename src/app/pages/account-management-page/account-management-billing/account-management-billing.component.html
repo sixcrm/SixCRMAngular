@@ -1,1 +1,8 @@
-<account-management-header [path]="'Billing'"></account-management-header>
+<account-management-header
+  [path]="'Billing'"
+  [account]="account">
+</account-management-header>
+
+<div>
+  <account-management-billing-transactions-chart></account-management-billing-transactions-chart>
+</div>

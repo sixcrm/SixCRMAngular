@@ -5,7 +5,6 @@ import {CampaignStats} from '../models/campaign-stats.model';
 import {Moment, utc} from 'moment';
 import {FilterTerm} from '../components/advanced-filter/advanced-filter.component';
 import {SubscriptionStats} from '../models/subscription-stats.model';
-import {EventFunnelTimeseries} from "../models/event-funnel-timeseries.model";
 
 export class AnalyticsStateEntry<T> {
   startDate: string;
@@ -66,9 +65,7 @@ export class AnalyticsStorageService {
   private lastUpdated: string = 'last_updated';
 
   private eventFunnelKey: string = 'event_funnel';
-  private eventFunnelTimeseriesKey: string = 'event_funnel_timeseries';
   private eventFunnelSimpleKey: string = 'event_funnel_timeseries_simple';
-  private eventFunnelTimeseriesSimpleKey: string = 'event_funnel_timeseries_simple';
   private transactionSummariesKey: string = 'transaction_summaries';
   private campaignsByAmountKey: string = 'campaign_by_amount';
   private subscriptionsByAmountKey: string = 'subscriptions_by_amount';
@@ -79,22 +76,6 @@ export class AnalyticsStorageService {
 
   refresh(): void {
     this.storage = {};
-  }
-
-  getStartDate(): string {
-    return this.storage[this.startKey];
-  }
-
-  getEndDate(): string {
-    return this.storage[this.endKey];
-  }
-
-  getFilters(): FilterTerm[] {
-    return this.storage[this.filters];
-  }
-
-  getLastUpdatedTime(): Moment {
-    return utc(this.storage[this.lastUpdated]);
   }
 
   getEventFunnel(start: string, end: string): EventFunnel {
@@ -119,22 +100,10 @@ export class AnalyticsStorageService {
     this.storage[this.eventFunnelKey] = new AnalyticsStateEntry(start, end, funnel)
   }
 
-  setEventFunnelTimeseries(start: string, end: string, funnel: EventFunnelTimeseries): void {
-    this.saveStartEnd(start, end);
-
-    this.storage[this.eventFunnelTimeseriesKey] = new AnalyticsStateEntry(start, end, funnel)
-  }
-
   setEventFunnelSimple(start: string, end: string, funnel: EventFunnel): void {
     this.saveStartEnd(start, end);
 
     this.storage[this.eventFunnelSimpleKey] = new AnalyticsStateEntry(start, end, funnel)
-  }
-
-  setEventFunnelTimeseriesSimple(start: string, end: string, funnel: EventFunnelTimeseries): void {
-    this.saveStartEnd(start, end);
-
-    this.storage[this.eventFunnelTimeseriesSimpleKey] = new AnalyticsStateEntry(start, end, funnel)
   }
 
   getTransactionSummaries(start: string, end: string, filters?: FilterTerm[]): TransactionSummary[] {

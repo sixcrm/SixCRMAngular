@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {NavigationService} from '../../../navigation/navigation.service';
+import {Account} from '../../../shared/models/account.model';
 
 @Component({
   selector: 'account-management-header',
@@ -11,8 +12,8 @@ export class AccountManagementHeaderComponent implements OnInit {
 
   @Input() path: string;
   @Input() showApiKey: boolean;
+  @Input() account: Account;
 
-  account: Account;
   idExpanded: boolean;
 
   constructor(
@@ -21,11 +22,10 @@ export class AccountManagementHeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.account = this.authService.getActiveAcl().account;
   }
 
   toggleExpanded() {
-    this.idExpanded = !this.idExpanded
+    this.idExpanded = this.account && !this.idExpanded
   }
 
 }

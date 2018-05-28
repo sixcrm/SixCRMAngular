@@ -8,11 +8,15 @@
 
     <div class="details">
       <mat-icon class="back" (click)="navigationService.back()">arrow_back</mat-icon>
-      <div class="title">{{account.name}}</div>
+      <div class="title" *ngIf="account; else titleplaceholder">{{account.name}}</div>
+
+      <ng-template #titleplaceholder>
+        <div class="title-placeholder"></div>
+      </ng-template>
 
       <div *ngIf="showApiKey" class="app-id-container">
         <div class="button" [class.button--active]="idExpanded" (click)="toggleExpanded()">APP ID</div>
-        <div class="content" [class.content--visible]="idExpanded">
+        <div *ngIf="account" class="content" [class.content--visible]="idExpanded">
           <div>{{account.id}}</div>
           <mat-icon matTooltip="Copy App ID" ngxClipboard [cbContent]="account.id">content_copy</mat-icon>
         </div>
