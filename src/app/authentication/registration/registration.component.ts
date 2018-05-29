@@ -64,7 +64,7 @@ export class RegistrationComponent implements OnInit {
     this.firstName = payload.given_name;
     this.lastName = payload.family_name;
 
-    this.userService.getlatestTermsAndConditions(this.authService.getActiveAcl().account.id).take(1).subscribe((response) => {
+    this.userService.getlatestTermsAndConditions().take(1).subscribe((response) => {
       if (response instanceof CustomServerError) {
         return;
       }

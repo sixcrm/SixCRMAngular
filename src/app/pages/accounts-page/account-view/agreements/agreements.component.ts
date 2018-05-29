@@ -45,7 +45,7 @@ export class AgreementsComponent implements OnInit, OnDestroy {
       this.termsAndConditions = response.body.response.data.latesttermsandconditions;
     });
 
-    this.userService.getlatestTermsAndConditions(this.authService.getActiveAcl().account.id).take(1).subscribe((response) => {
+    this.userService.getlatestTermsAndConditions().take(1).subscribe((response) => {
       if (response instanceof CustomServerError) {
         return;
       }

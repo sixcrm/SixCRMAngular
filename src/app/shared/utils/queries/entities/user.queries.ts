@@ -71,9 +71,20 @@ export function registerUser(user: User): string {
 }
 
 export function latestTermsAndConditions(accountId?: string, role?: string): string {
+  if (accountId && role) {
+    return `
+    {
+      latesttermsandconditions ( account: "${accountId}", role: "${role}") {
+        version,
+        title,
+        body
+      }
+    }`
+  }
+
   return `
     {
-      latesttermsandconditions ( ${accountId ? `, account: "${accountId}"` : ''} ${role ? `, role: "${role}"` : ''} ) {
+      latesttermsandconditions {
         version,
         title,
         body
