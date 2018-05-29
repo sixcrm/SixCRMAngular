@@ -1,1 +1,48 @@
-<account-management-header [path]="['API Keys']"></account-management-header>
+<account-management-header
+  [path]="['API Keys']"
+  [account]="account">
+</account-management-header>
+
+
+<div class="body">
+  <div class="header">
+    <button mat-button (click)="createNewAccessKey()">NEW</button>
+
+    <div class="mrw-bi-input">
+      <mat-input-container [floatLabel]="'never'">
+        <input matInput type="text" placeholder="Find key..." [(ngModel)]="filterString">
+      </mat-input-container>
+    </div>
+
+    <div class="count" *ngIf="accessKeys">{{accessKeys.length}} Keys</div>
+  </div>
+
+  <div class="content-wrapper" *ngIf="accessKeys">
+
+    <div class="key-card" *ngFor="let keys of accessKeys | filterStrings: filterString: filterFunction">
+
+      <div class="title">{{keys.name || 'Unnamed'}}</div>
+      <div class="date">Created {{keys.createdAt | formatDateTime}}</div>
+      <div class="description">{{keys.description}}</div>
+
+      <div class="key-container">
+        <div class="label">Access Key</div>
+        <div class="value">{{keys.accessKey}}</div>
+        <mat-icon matTooltip="Copy Access Key" ngxClipboard [cbContent]="keys.accessKey">content_copy</mat-icon>
+      </div>
+
+      <div class="key-container">
+        <div class="label">Secret Key</div>
+        <div class="value">{{keys.secretKeyMasked}}</div>
+        <mat-icon matTooltip="Copy Secret Key" ngxClipboard [cbContent]="keys.secretKey">content_copy</mat-icon>
+      </div>
+
+      <mat-icon class="menu-icon" [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+      <mat-menu #actionsMenu="matMenu" x-position="before">
+        <button mat-menu-item (click)="editKey(keys)">Edit</button>
+        <button mat-menu-item (click)="deleteKey(keys)">Delete</button>
+      </mat-menu>
+    </div>
+
+  </div>
+</div>
