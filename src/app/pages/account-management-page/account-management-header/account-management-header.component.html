@@ -2,13 +2,15 @@
   <div class="info-section">
     <div class="crumbs">
       <div class="item">Account Management</div>
-      <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
-      <div class="item">{{path}}</div>
+      <ng-container *ngFor="let p of path">
+        <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
+        <div class="item">{{p}}</div>
+      </ng-container>
     </div>
 
     <div class="details">
       <mat-icon class="back" (click)="navigationService.back()">arrow_back</mat-icon>
-      <div class="title" *ngIf="account; else titleplaceholder">{{account.name}}</div>
+      <div class="title" *ngIf="account || value; else titleplaceholder">{{account ? account.name : value}}</div>
 
       <ng-template #titleplaceholder>
         <div class="title-placeholder"></div>

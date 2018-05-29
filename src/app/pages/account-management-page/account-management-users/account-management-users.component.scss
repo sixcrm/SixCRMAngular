@@ -52,9 +52,12 @@
     .avatar {
       font-size: 16px;
       color: rgba(255, 255, 255, 0.87);
-      padding: 12px;
       background: #2C98F0;
       border-radius: 50%;
+      min-height: 38px;
+      min-width: 38px;
+      line-height: 38px;
+      text-align: center;
     }
 
     .data {
@@ -86,9 +89,27 @@
         padding-bottom: 10px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.12)
       }
+
+      .roles {
+        .roles__input {
+          display: flex;
+          align-items: center;
+          font-size: 16px;
+          font-weight: 500;
+          cursor: pointer;
+
+          .roles__input__arrow {
+            margin-left: 8px;
+            font-size: 20px;
+            height: 20px;
+            width: 20px;
+            font-weight: 400;
+          }
+        }
+      }
     }
 
-    mat-icon {
+    .menu-icon {
       position: absolute;
       top: 10px;
       right: 5px;
@@ -105,4 +126,35 @@
   margin-left: 24px;
   color: #5F6368;
   background-color: rgba(0, 0, 0, 0.12);
+}
+
+.separator {
+  width: 100%;
+  height: 1px;
+  background: rgba(0,0,0,0.2);
+}
+
+.check-container {
+  margin-right: 10px;
+  width: 18px;
+
+  &__icon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+  }
+}
+
+.menu-button {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  line-height: 32px;
+  height: 32px;
+
+  img {
+    margin-left: auto;
+    height: 14px;
+    width: 14px;
+  }
 }

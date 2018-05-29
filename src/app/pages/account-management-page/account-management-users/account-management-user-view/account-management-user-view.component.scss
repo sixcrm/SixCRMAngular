@@ -1,0 +1,76 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  font-size: 14px;
+  width: 300px;
+}
+
+.buttons {
+  margin-top: 15px;
+  display: flex;
+
+  button {
+    font-size: 14px;
+
+    &:first-of-type{
+      margin-left: auto;
+      margin-right: 15px;
+      color: #2C98F0;
+    }
+
+    &:last-of-type {
+      background: #2C98F0;
+      color: #ffffff;
+    }
+  }
+}
+
+.roles {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+  font-size: 14px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+
+  &__arrow {
+    margin-left: auto;
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+    font-weight: 400;
+  }
+}
+
+.separator {
+  width: 100%;
+  height: 1px;
+  background: rgba(0,0,0,0.2);
+}
+
+.check-container {
+  margin-right: 10px;
+  width: 18px;
+
+  &__icon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+  }
+}
+
+.menu-button {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  line-height: 32px;
+  height: 32px;
+
+  img {
+    margin-left: auto;
+    height: 14px;
+    width: 14px;
+  }
+}
+

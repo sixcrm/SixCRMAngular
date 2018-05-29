@@ -32,6 +32,7 @@ import {HttpWrapperTransactionalService} from './shared/services/http-wrapper-tr
 import { TermsDialogComponent } from './dialog-modals/terms-dialog/terms-dialog.component';
 import { BillingInfoComponent } from './billing-info/billing-info.component';
 import { MarkdownModule } from 'angular2-markdown';
+import { InviteDialogComponent } from './dialog-modals/invite-dialog/invite-dialog.component';
 
 @NgModule({
   declarations : [
@@ -51,7 +52,8 @@ import { MarkdownModule } from 'angular2-markdown';
     ImageDialogComponent,
     MerchantProviderGroupAssociationDialogComponent,
     TermsDialogComponent,
-    BillingInfoComponent
+    BillingInfoComponent,
+    InviteDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -85,7 +87,8 @@ import { MarkdownModule } from 'angular2-markdown';
     AddBillDetailsDialogComponent,
     ImageDialogComponent,
     MerchantProviderGroupAssociationDialogComponent,
-    TermsDialogComponent
+    TermsDialogComponent,
+    InviteDialogComponent
   ],
   bootstrap : [AppComponent]
 })

@@ -4,12 +4,14 @@ import {AccountManagementBillingComponent} from './account-management-billing/ac
 import {AccountManagementUsersComponent} from './account-management-users/account-management-users.component';
 import {AccountManagementRolesComponent} from './account-management-roles/account-management-roles.component';
 import {AccountManagementApikeysComponent} from './account-management-apikeys/account-management-apikeys.component';
+import {AccountManagementUserViewComponent} from './account-management-users/account-management-user-view/account-management-user-view.component';
 
 export const accountManagementRouting = RouterModule.forChild([
   { path : '', redirectTo: 'general' },
   { path : 'general', component : AccountManagementGeneralComponent },
   { path : 'billing', component : AccountManagementBillingComponent },
   { path : 'users', component : AccountManagementUsersComponent },
+  { path : 'users/:id', component : AccountManagementUserViewComponent },
   { path : 'roles', component : AccountManagementRolesComponent },
   { path : 'apikeys', component : AccountManagementApikeysComponent }
 ]);

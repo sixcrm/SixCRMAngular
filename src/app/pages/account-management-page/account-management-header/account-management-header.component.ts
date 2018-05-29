@@ -10,9 +10,10 @@ import {Account} from '../../../shared/models/account.model';
 })
 export class AccountManagementHeaderComponent implements OnInit {
 
-  @Input() path: string;
+  @Input() path: string[];
   @Input() showApiKey: boolean;
   @Input() account: Account;
+  @Input() value: string;
 
   idExpanded: boolean;
 

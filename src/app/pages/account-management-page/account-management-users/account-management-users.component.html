@@ -1,10 +1,10 @@
-<account-management-header [path]="'Users'"
+<account-management-header [path]="['Users']"
                            [account]="account">
 </account-management-header>
 
 <div class="body">
   <div class="header">
-    <button mat-button>NEW</button>
+    <button mat-button (click)="showInviteDialog()">NEW</button>
 
     <div class="mrw-bi-input">
       <mat-input-container [floatLabel]="'never'">
@@ -18,18 +18,42 @@
   <div class="content-wrapper" *ngIf="account">
 
     <div class="user-card" *ngFor="let acl of account.acls | filterStrings: filterString: filterFunction">
-      <div class="avatar">TS</div>
+      <div class="avatar">{{getAvatar(acl)}}</div>
       <div class="data">
         <div class="name">{{acl.user.name}}</div>
         <div class="email">{{acl.user.email}}</div>
         <div class="login">Last login:</div>
-        <div>{{acl.role.name}}</div>
+
+        <div class="roles">
+          <div class="roles__input" [matMenuTriggerFor]="rolesMenu">
+            <div>{{acl.role.name}}</div>
+            <mat-icon class="roles__input__arrow">keyboard_arrow_down</mat-icon>
+          </div>
+          <mat-menu #rolesMenu="matMenu" x-position="before">
+            <button class="menu-button" *ngFor="let sharedRole of sharedRoles" mat-menu-item (click)="updateAclRole(acl, sharedRole)">
+              <div class="check-container">
+                <mat-icon class="check-container__icon" *ngIf="sharedRole.id === acl.role.id">done</mat-icon>
+              </div>
+              <div>{{sharedRole.name}}</div>
+              <img src="/assets/images/logo-navigation-small.svg" alt="">
+            </button>
+
+            <div class="separator"></div>
+
+            <button class="menu-button" *ngFor="let role of roles" mat-menu-item (click)="updateAclRole(acl, role)">
+              <div class="check-container">
+                <mat-icon class="check-container__icon" *ngIf="role.id === acl.role.id">done</mat-icon>
+              </div>
+              <div>{{role.name}}</div>
+            </button>
+          </mat-menu>
+        </div>
       </div>
 
-      <mat-icon [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+      <mat-icon class="menu-icon" [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
       <mat-menu #actionsMenu="matMenu" x-position="before">
-        <button mat-menu-item>View</button>
-        <button mat-menu-item>Delete</button>
+        <button mat-menu-item (click)="viewUser(acl)">View</button>
+        <button mat-menu-item (click)="deleteAcl(acl)">Delete</button>
       </mat-menu>
     </div>
 

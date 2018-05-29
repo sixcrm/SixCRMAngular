@@ -63,7 +63,7 @@ export function deleteAclsMutation(id: string[]): string {
 }
 
 export function userAclResponseQuery(): string {
-  return `id user { id name } role { id name } account{ id name } created_at updated_at`;
+  return `id user { id name first_name last_name } role { id name } account{ id name } created_at updated_at`;
 }
 
 export function userAclInputQuery(acl: Acl, includeId?: boolean): string {

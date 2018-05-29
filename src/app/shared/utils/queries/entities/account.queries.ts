@@ -80,7 +80,7 @@ export function updateAccountForRegistrationMutation(account: Account, name: str
 }
 
 export function accountResponseQuery(): string {
-  return 'id name active created_at updated_at billing {plan, disable, session} acl{ id updated_at, created_at, pending account {id, name} role {id, name} user {id, name}}';
+  return 'id name active created_at updated_at billing {plan, disable, session} acl{ id updated_at, created_at, pending account {id, name} role {id, name} user {id, name, first_name, last_name}}';
 }
 
 export function accountInfoResponseQuery(): string {
