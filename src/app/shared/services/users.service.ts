@@ -7,7 +7,7 @@ import {Role} from '../models/role.model';
 import {
   usersListQuery, userQuery, deleteUserMutation,
   updateUserMutation, inviteUserMutation, createUserMutation, inviteResendMutation,
-  deleteUsersMutation, latestTermsAndConditionsForAccount
+  deleteUsersMutation, latestTermsAndConditions
 } from '../utils/queries/entities/user.queries';
 import {HttpWrapperService} from './http-wrapper.service';
 import {HttpResponse} from '@angular/common/http'
@@ -56,7 +56,7 @@ export class UsersService extends AbstractEntityService<User> {
     return this.queryRequest(updateUserMutation(user));
   }
 
-  getLatestTermsAndConditionsForAccount(accountId: string, role?: string): Observable<HttpResponse<any> | CustomServerError> {
-    return this.http.postWithError(environment.publicendpoint, latestTermsAndConditionsForAccount(accountId, role), { });
+  getlatestTermsAndConditions(accountId?: string, role?: string): Observable<HttpResponse<any> | CustomServerError> {
+    return this.http.postWithError(environment.publicendpoint, latestTermsAndConditions(accountId, role), { });
   }
 }

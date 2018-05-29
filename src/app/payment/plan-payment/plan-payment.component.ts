@@ -64,7 +64,7 @@ export class PlanPaymentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userService.getLatestTermsAndConditionsForAccount(this.authService.getActiveAcl().account.id, 'owner').take(1).subscribe((response) => {
+    this.userService.getlatestTermsAndConditions(this.authService.getActiveAcl().account.id, 'owner').take(1).subscribe((response) => {
       if (response instanceof CustomServerError) {
         return;
       }

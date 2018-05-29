@@ -70,10 +70,10 @@ export function registerUser(user: User): string {
 	}`
 }
 
-export function latestTermsAndConditionsForAccount(accountId: string, role?: string): string {
+export function latestTermsAndConditions(accountId?: string, role?: string): string {
   return `
     {
-      latesttermsandconditions ( account: "${accountId}" ${role ? `, role: "${role}"` : ''} ) {
+      latesttermsandconditions ( ${accountId ? `, account: "${accountId}"` : ''} ${role ? `, role: "${role}"` : ''} ) {
         version,
         title,
         body
