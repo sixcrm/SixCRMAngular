@@ -394,11 +394,11 @@ export class AuthenticationService {
   }
 
   public setActiveDashboard(dashboard): void {
-    localStorage.setItem(this.currentSixUser.email + ':dashboard', dashboard);
+    localStorage.setItem(this.currentSixUser.email + ':' + this.getActiveAcl().account.id + ':dashboard', dashboard);
   }
 
   public getActiveDashboard(): any {
-    let dashboard = localStorage.getItem(this.currentSixUser.email + ':dashboard');
+    let dashboard = localStorage.getItem(this.currentSixUser.email + ':' + this.getActiveAcl().account.id + ':dashboard');
 
     return dashboard || 0;
   }

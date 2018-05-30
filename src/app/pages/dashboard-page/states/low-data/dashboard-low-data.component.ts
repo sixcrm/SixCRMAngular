@@ -57,9 +57,10 @@ export class DashboardLowDataComponent implements OnInit {
       }
     });
 
-    this.transactionService.entities$.takeUntil(this.unsubscribe$).subscribe((transactions) => {
+    this.transactionService.entities$.take(1).subscribe((transactions) => {
 
       if (transactions instanceof CustomServerError) return;
+      if (transactions.length > 6) return;
 
       this.transactions = transactions.sort((a,b) => {
         if (a.createdAt > b.createdAt) return -1;
@@ -75,6 +76,10 @@ export class DashboardLowDataComponent implements OnInit {
       if (!data || data instanceof CustomServerError) return;
 
       this.calculateRevenue(data);
+    });
+
+    this.authService.activeAcl$.takeUntil(this.unsubscribe$).subscribe(() => {
+      this.calculateRevenue();
     });
 
   }

@@ -35,6 +35,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }
     });
 
+    this.authService.activeAcl$.takeUntil(this.unsubscribe$).subscribe(() => {
+      this.setIndex(+this.authService.getActiveDashboard());
+    });
   }
 
   ngOnDestroy() {

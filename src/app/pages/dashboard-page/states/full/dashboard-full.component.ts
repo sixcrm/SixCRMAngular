@@ -164,6 +164,10 @@ export class DashboardFullComponent implements OnInit, OnDestroy {
       this.selectedQuery.process(data);
     });
 
+    this.authService.activeAcl$.takeUntil(this.unsubscribe$).subscribe(() => {
+      this.fetchData();
+    });
+
     this.fetchData();
   }
 
