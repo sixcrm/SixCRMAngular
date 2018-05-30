@@ -9,7 +9,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   if (acl && acl.role.name === 'Customer Service') {
     items.push(new MenuItem('SIDENAV_DASHBOARD', 'customer-service').setIcon('headset_mic'));
   } else {
-    items.push(new MenuItem('SIDENAV_DASHBOARD', 'dashboard').setIcon('view_quilt'));
+    items.push(new MenuItem('SIDENAV_DASHBOARD', 'dashboard').setIcon('home'));
   }
 
   if (acl && acl.role.name !== 'Customer Service') {
@@ -70,7 +70,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   }
 
   if (reportItems.length > 0) {
-    items.push(new MenuItem('SIDENAV_REPORTS_TITLE', null, reportItems).setIcon('library_books'));
+    items.push(new MenuItem('SIDENAV_REPORTS_TITLE', null, reportItems).setIcon('insert_chart'));
   }
 
   // Add CRM menu items
@@ -128,30 +128,30 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   }
 
   if (crmItems.length > 0) {
-    items.push(new MenuItem('SIDENAV_CRM_TITLE', null, crmItems).setIcon('account_balance'));
+    items.push(new MenuItem('SIDENAV_CRM_TITLE', null, crmItems).setIcon('apps'));
   }
 
   // Add Account Management menu item
   let accountManagement: MenuItem[] = [];
 
-  if (authService.hasPermissions('account', 'write')) {
-    accountManagement.push(new MenuItem('General', 'accountmanagement/general'));
+  if (authService.hasPermissions('account', 'view')) {
+    accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_GENERAL', 'accountmanagement/general'));
   }
   if (authService.hasPermissions('billing', 'view')) {
-    accountManagement.push(new MenuItem('Billing', 'accountmanagement/billing'));
+    accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_BILLING', 'accountmanagement/billing'));
   }
   if (authService.hasPermissions('useracl', 'view')) {
-    accountManagement.push(new MenuItem('Users', 'accountmanagement/users'));
+    accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_USERS', 'accountmanagement/users'));
   }
   if (authService.hasPermissions('roles', 'view')) {
-    accountManagement.push(new MenuItem('Roles', 'accountmanagement/roles'));
+    accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_ROLES', 'accountmanagement/roles'));
   }
   if (authService.hasPermissions('accesskey', 'view')) {
-    accountManagement.push(new MenuItem('API Access Kyes', 'accountmanagement/apikeys'));
+    accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_KEYS', 'accountmanagement/apikeys'));
   }
 
   if (accountManagement.length > 0) {
-    items.push(new MenuItem('Account Management', null, accountManagement).setIcon('settings'));
+    items.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_TITLE', null, accountManagement).setIcon('settings'));
   }
 
   if (authService.isActiveOrActingAclMasterAccount()) {
@@ -166,7 +166,11 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
 
     settings.push(new MenuItem('SIDENAV_SETTINGS_BILL', 'bills'));
 
-    items.push(new MenuItem('SIDENAV_SETTINGS_TITLE', null, settings).setIcon('settings'));
+    items.push(
+      new MenuItem('SIDENAV_SETTINGS_TITLE', null, settings)
+        .setImage('/assets/images/logo-navigation-sidenav.svg')
+        .setSeparator(true)
+    );
   }
 
   return items;

@@ -59,6 +59,20 @@ $navigation-color: #4277C2;
     font-size: 20px !important;
   }
 
+  .menu-item-image {
+    margin-right: 10px;
+    padding: 1px;
+    width: 19px;
+    height: 20px;
+  }
+
+  .menu-separator {
+    margin: 5px 0;
+    width: 100%;
+    height: 1px;
+    background: rgba(0,0,0,0.12);
+  }
+
   .icon--solo {
 
     mat-icon {
@@ -66,7 +80,7 @@ $navigation-color: #4277C2;
     }
 
     .mat-list-item-content {
-      padding-right: 0px !important;
+      padding-right: 0 !important;
     }
   }
 
