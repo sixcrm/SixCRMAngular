@@ -59,7 +59,7 @@ export class DashboardLowDataComponent implements OnInit {
     this.transactionService.entities$.take(1).subscribe((transactions) => {
 
       if (transactions instanceof CustomServerError) return;
-      if (transactions.length > 6) return;
+      if (transactions.length > 7) return;
 
       this.transactions = transactions.sort((a,b) => {
         if (a.createdAt > b.createdAt) return -1;
@@ -69,7 +69,7 @@ export class DashboardLowDataComponent implements OnInit {
 
     });
 
-    this.transactionService.getEntitiesFromBeginning(6);
+    this.transactionService.getEntitiesFromBeginning(7);
 
     this.analyticsService.heroChartSeries$.subscribe(data => {
       if (!data || data instanceof CustomServerError) return;

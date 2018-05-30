@@ -18,8 +18,7 @@
       </div>
 
       <div class="chart-container">
-        <div *ngIf="!revenue">Loading</div>
-        <div *ngIf="revenue" class="funnel-graph">
+        <div class="funnel-graph">
           <funnel-graph-simple *ngIf="renderChart" [simpleChart]="true"></funnel-graph-simple>
         </div>
         <div class="transactions">

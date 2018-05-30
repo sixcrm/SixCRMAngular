@@ -24,6 +24,7 @@
   </div>
 
   <ng-container *ngIf="!serverError; else error">
+    <mat-spinner *ngIf="!(showChart && showStatisticDetails)"></mat-spinner>
     <chart *ngIf="showChart && showStatisticDetails" [options]="chartOptions" (load)="saveChart($event.context, true)"></chart>
   </ng-container>
 
