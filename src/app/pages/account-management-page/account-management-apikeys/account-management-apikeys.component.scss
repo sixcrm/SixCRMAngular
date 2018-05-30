@@ -29,6 +29,8 @@
   margin-right: -12px;
 
   .key-card {
+    display: flex;
+    flex-direction: column;
     position: relative;
     margin-bottom: 24px;
     margin-right: 12px;
@@ -82,8 +84,13 @@
         font-size: 18px;
       }
 
-      &:first-of-type {
+      &--first {
+        margin-top: auto;
         border-bottom: none;
+      }
+
+      &:last-of-type {
+        border-radius: 0 0 4px 4px;
       }
 
       .label {
@@ -116,4 +123,56 @@
   margin-left: 24px;
   color: #5F6368;
   background-color: rgba(0, 0, 0, 0.12);
+}
+
+.userstrings {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 24px;
+  min-height: 307px;
+  box-sizing: border-box;
+
+  &__title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 18px;
+  }
+
+  &__description {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.54);
+  }
+
+  &__button {
+    margin-top: auto;
+    margin-right: auto;
+    padding: 0;
+    font-size: 14px;
+    color: #2C98F0;
+  }
+
+  &__container {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  &__content {
+    margin-right: 30px;
+    max-width: 250px;
+  }
+
+  &__help-icon {
+    display: flex;
+    padding: 6px;
+    margin-left: auto;
+    background: rgba(0,0,0,0.12);
+    border-radius: 50%;
+
+    mat-icon {
+      height: 25px;
+      width: 25px;
+      font-size:25px;
+      color: rgba(0,0,0,0.12);
+    }
+  }
 }

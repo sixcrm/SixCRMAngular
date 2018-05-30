@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="title">{{editMode ? 'Edit API Access Key' : 'Create API Access Key'}}</div>
+
+  <div class="body">
+
+    <mat-input-container>
+      <input matInput type="text" [(ngModel)]="name" placeholder="Key Name">
+    </mat-input-container>
+
+    <mat-input-container>
+      <input matInput type="text" [(ngModel)]="notes" placeholder="Notes">
+    </mat-input-container>
+
+  </div>
+
+  <div class="buttons">
+    <button mat-button (click)="cancel()">CANCEL</button>
+    <button mat-button (click)="save()">SAVE</button>
+  </div>
+</div>

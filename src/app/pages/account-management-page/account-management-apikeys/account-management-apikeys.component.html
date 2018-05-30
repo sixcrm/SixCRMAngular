@@ -19,29 +19,57 @@
 
   <div class="content-wrapper" *ngIf="accessKeys">
 
-    <div class="key-card" *ngFor="let keys of accessKeys | filterStrings: filterString: filterFunction">
+    <ng-container *ngFor="let keys of accessKeys | filterStrings: filterString: filterFunction; let i = index">
+      <div class="key-card">
+        <div class="title">{{keys.name || 'Unnamed'}}</div>
+        <div class="date">Created {{keys.createdAt | formatDateTime}}</div>
+        <div class="description">{{keys.notes}}</div>
 
-      <div class="title">{{keys.name || 'Unnamed'}}</div>
-      <div class="date">Created {{keys.createdAt | formatDateTime}}</div>
-      <div class="description">{{keys.description}}</div>
+        <div class="key-container key-container--first">
+          <div class="label">Access Key</div>
+          <div class="value">{{keys.accessKey}}</div>
+          <mat-icon matTooltip="Copy Access Key" ngxClipboard [cbContent]="keys.accessKey">content_copy</mat-icon>
+        </div>
 
-      <div class="key-container">
-        <div class="label">Access Key</div>
-        <div class="value">{{keys.accessKey}}</div>
-        <mat-icon matTooltip="Copy Access Key" ngxClipboard [cbContent]="keys.accessKey">content_copy</mat-icon>
+        <div class="key-container">
+          <div class="label">Secret Key</div>
+          <div class="value">{{keys.secretKeyMasked}}</div>
+          <mat-icon matTooltip="Copy Secret Key" ngxClipboard [cbContent]="keys.secretKey">content_copy</mat-icon>
+        </div>
+
+        <mat-icon class="menu-icon" [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+        <mat-menu #actionsMenu="matMenu" x-position="before">
+          <button mat-menu-item (click)="editKey(keys)">Edit</button>
+          <button mat-menu-item (click)="deleteKey(keys)">Delete</button>
+        </mat-menu>
       </div>
 
-      <div class="key-container">
-        <div class="label">Secret Key</div>
-        <div class="value">{{keys.secretKeyMasked}}</div>
-        <mat-icon matTooltip="Copy Secret Key" ngxClipboard [cbContent]="keys.secretKey">content_copy</mat-icon>
+      <div class="key-card userstrings" *ngIf="i === 1">
+        <div class="userstrings__container">
+          <div class="userstrings__content">
+            <div class="userstrings__title">Looking for your User Signing Strings?</div>
+            <div class="userstrings__description">Your User Signing Strings enable access for non-SIX users to your Graph API</div>
+          </div>
+          <div class="userstrings__help-icon">
+            <mat-icon>help</mat-icon>
+          </div>
+        </div>
+        <button class="userstrings__button" mat-button (click)="navigateToSigningStrings()">USER SIGNING STRINGS</button>
       </div>
 
-      <mat-icon class="menu-icon" [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
-      <mat-menu #actionsMenu="matMenu" x-position="before">
-        <button mat-menu-item (click)="editKey(keys)">Edit</button>
-        <button mat-menu-item (click)="deleteKey(keys)">Delete</button>
-      </mat-menu>
+    </ng-container>
+
+    <div class="key-card userstrings" *ngIf="(accessKeys | filterStrings: filterString: filterFunction).length < 2">
+      <div class="userstrings__container">
+        <div class="userstrings__content">
+          <div class="userstrings__title">Looking for your User Signing Strings?</div>
+          <div class="userstrings__description">Your User Signing Strings enable access for non-SIX users to your Graph API</div>
+        </div>
+        <div class="userstrings__help-icon">
+          <mat-icon>help</mat-icon>
+        </div>
+      </div>
+      <button class="userstrings__button" (click)="navigateToSigningStrings()" mat-button>USER SIGNING STRINGS</button>
     </div>
 
   </div>

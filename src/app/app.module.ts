@@ -33,6 +33,7 @@ import { TermsDialogComponent } from './dialog-modals/terms-dialog/terms-dialog.
 import { BillingInfoComponent } from './billing-info/billing-info.component';
 import { MarkdownModule } from 'angular2-markdown';
 import { InviteDialogComponent } from './dialog-modals/invite-dialog/invite-dialog.component';
+import { AccessKeysDialogComponent } from './dialog-modals/access-keys-dialog/access-keys-dialog.component';
 
 @NgModule({
   declarations : [
@@ -53,7 +54,8 @@ import { InviteDialogComponent } from './dialog-modals/invite-dialog/invite-dial
     MerchantProviderGroupAssociationDialogComponent,
     TermsDialogComponent,
     BillingInfoComponent,
-    InviteDialogComponent
+    InviteDialogComponent,
+    AccessKeysDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -88,7 +90,8 @@ import { InviteDialogComponent } from './dialog-modals/invite-dialog/invite-dial
     ImageDialogComponent,
     MerchantProviderGroupAssociationDialogComponent,
     TermsDialogComponent,
-    InviteDialogComponent
+    InviteDialogComponent,
+    AccessKeysDialogComponent
   ],
   bootstrap : [AppComponent]
 })
