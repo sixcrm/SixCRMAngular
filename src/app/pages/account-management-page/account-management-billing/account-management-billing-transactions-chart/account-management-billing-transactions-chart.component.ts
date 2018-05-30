@@ -6,6 +6,7 @@ import {utc, Moment} from 'moment';
 import {Subscription} from 'rxjs';
 import {flatDown, flatUp} from '../../../../shared/components/advanced-filter/advanced-filter.component';
 import {Rebill} from '../../../../shared/models/rebill.model';
+import {Currency} from '../../../../shared/utils/currency/currency';
 
 @Component({
   selector: 'account-management-billing-transactions-chart',
@@ -19,15 +20,21 @@ export class AccountManagementBillingTransactionsChartComponent implements OnIni
   @Input() set lastBill(rebill: Rebill) {
     if (rebill) {
       this.lastBillDate = rebill.billAt;
+      this.lastBillAmount = rebill.amount;
       this.nextBillDate = this.lastBillDate.clone().add(1, 'month');
+      this.plan = rebill.productSchedules[0].name;
     }
   };
 
   lastBillDate: Moment;
   nextBillDate: Moment;
 
+  lastBillAmount: Currency;
+
   summaries: TransactionSummary[];
   summariesSub: Subscription;
+
+  plan: string;
 
   chartOptions = {
     chart: {
@@ -128,6 +135,22 @@ export class AccountManagementBillingTransactionsChartComponent implements OnIni
     });
 
     this.chartInstance.series[0].setData(data, true, true);
+  }
+
+  getPlanPrice() {
+    if (this.plan === 'Basic Subscription') {
+      return new Currency(30);
+    }
+
+    if (this.plan === 'Professional Subscription') {
+      return new Currency(150);
+    }
+
+    if (this.plan === 'Premium Subscription') {
+      return new Currency(2000);
+    }
+
+    return new Currency(0);
   }
 
 }
