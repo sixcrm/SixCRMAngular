@@ -56,7 +56,7 @@ export class DashboardLowDataComponent implements OnInit {
       }
     });
 
-    this.transactionService.entities$.take(1).subscribe((transactions) => {
+    this.transactionService.entities$.takeUntil(this.unsubscribe$).subscribe((transactions) => {
 
       if (transactions instanceof CustomServerError) return;
       if (transactions.length > 7) return;

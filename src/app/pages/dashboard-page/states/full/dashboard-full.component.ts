@@ -142,7 +142,7 @@ export class DashboardFullComponent implements OnInit, OnDestroy {
       this.name = user.firstName;
     });
 
-    this.campaignService.entities$.take(1).takeUntil(this.unsubscribe$).subscribe(campaigns => {
+    this.campaignService.entities$.takeUntil(this.unsubscribe$).subscribe(campaigns => {
       if (campaigns instanceof CustomServerError) return;
 
       this.campaigns = [...this.campaigns, ...campaigns];
@@ -158,7 +158,7 @@ export class DashboardFullComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.analyticsService.heroChartSeries$.subscribe(data => {
+    this.analyticsService.heroChartSeries$.takeUntil(this.unsubscribe$).subscribe(data => {
       if (!data || data instanceof CustomServerError) return;
 
       this.selectedQuery.process(data);

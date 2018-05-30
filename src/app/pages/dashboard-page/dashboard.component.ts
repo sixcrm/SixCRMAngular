@@ -5,20 +5,24 @@ import {AsyncSubject} from 'rxjs';
 import { DashboardType } from './dashboard-type';
 import { DashboardAvailabilityService } from './dashboard-availability.service';
 import { AuthenticationService } from '../../authentication/authentication.service';
+import { routerTransition } from '../../routing.animations';
 
 @Component({
   selector: 'c-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  animations: [routerTransition()]
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
   public DashboardType: any = DashboardType;
+  public transition: 'void' | '*' = '*';
   activeDashboard: DashboardType;
   availableDashboards: DashboardType[] = [];
 
   renderLow: boolean;
   renderFull: boolean;
+  show: boolean;
 
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
@@ -36,7 +40,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
 
     this.authService.activeAcl$.takeUntil(this.unsubscribe$).subscribe(() => {
+      this.renderFull = false;
+      this.renderLow = false;
+
       this.setIndex(+this.authService.getActiveDashboard());
+
+      this.show = false;
+      setTimeout(() => this.show = true, 1);
     });
   }
 

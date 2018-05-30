@@ -6,13 +6,17 @@ import {SearchService} from '../../../shared/services/search.service';
 import {Router} from '@angular/router';
 import {Session} from '../../../shared/models/session.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
+import { routerTransition } from '../../../routing.animations';
 
 @Component({
   selector: 'customer-service-dashboard',
   templateUrl: './customer-service-dashboard.component.html',
-  styleUrls: ['./customer-service-dashboard.component.scss']
+  styleUrls: ['./customer-service-dashboard.component.scss'],
+  animations: [routerTransition(true)]
 })
 export class CustomerServiceDashboardComponent implements OnInit {
+
+  public transition: 'void' | '*' = '*';
 
   focusedItem: number = 0;
 

@@ -6,6 +6,12 @@
   background: white;
 }
 
+.animation-wrapper {
+  min-height: calc(100vh - 70px);
+  min-width: 100%;
+  background: linear-gradient(180deg, #4277C2 8.44%, #2C98F0 100%);
+}
+
 .info {
   margin: 50px 25px 0;
   color: white;
