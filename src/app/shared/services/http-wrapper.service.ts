@@ -119,7 +119,6 @@ export class HttpWrapperService {
         response.complete();
       },
       error => {
-        console.log(retryStrategy, retryCount)
         if (retryStrategy === RetryStrategy.Retry && --retryCount > 0) {
           requestBehaviourOptions.retry = { strategy: retryStrategy, count: retryCount };
           return this.postWithError(url, body, requestOptions, requestBehaviourOptions);
