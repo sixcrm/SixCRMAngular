@@ -4,11 +4,11 @@
   [showApiKey]="true">
 </account-management-header>
 
-<div class="account-management-body" *ngIf="accountBackup">
+<div class="account-management-body">
 
   <div class="column">
 
-    <div class="card">
+    <div class="card" *ngIf="accountBackup">
       <div class="title">Account Name</div>
       <div class="body">
         <mat-input-container>
@@ -30,20 +30,42 @@
       </div>
     </div>
 
-    <div class="card">
+    <div *ngIf="session" class="card">
       <div class="title">Contact Information</div>
       <div class="body">
         <mat-input-container>
-          <input type="text" matInput placeholder="Name">
+          <input type="text" readonly matInput placeholder="Name" value="{{session.customer.firstName}} {{session.customer.lastName}}">
         </mat-input-container>
 
         <mat-input-container>
-          <input type="text" matInput placeholder="Email">
+          <input type="text" readonly matInput placeholder="Email" value="{{session.customer.email}}">
         </mat-input-container>
 
         <mat-input-container>
-          <input type="text" matInput placeholder="Phone Number">
+          <input type="text" readonly matInput placeholder="Phone Number" value="{{session.customer.phone}}">
         </mat-input-container>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="session" class="column">
+    <div class="card">
+      <div class="title">Cards on file</div>
+
+      <div class="credit-card" *ngFor="let card of session.customer.creditCards">
+
+        <img src="/assets/cards/visa.svg">
+
+        <div class="info">
+          <div class="number">**** **** **** {{card.lastFour}}</div>
+          <div class="data">{{card.name}}</div>
+          <div class="data">Expires {{card.expiration}}</div>
+        </div>
+
+        <div class="actions">
+          <mat-icon>delete</mat-icon>
+          <mat-icon>edit</mat-icon>
+        </div>
       </div>
     </div>
   </div>

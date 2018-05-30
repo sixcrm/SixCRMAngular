@@ -34,6 +34,7 @@ import { BillingInfoComponent } from './billing-info/billing-info.component';
 import { MarkdownModule } from 'angular2-markdown';
 import { InviteDialogComponent } from './dialog-modals/invite-dialog/invite-dialog.component';
 import { AccessKeysDialogComponent } from './dialog-modals/access-keys-dialog/access-keys-dialog.component';
+import { HttpWrapperCustomerService } from './shared/services/http-wrapper-customer.service';
 
 @NgModule({
   declarations : [
@@ -73,7 +74,7 @@ import { AccessKeysDialogComponent } from './dialog-modals/access-keys-dialog/ac
     MarkdownModule.forRoot()
   ],
   exports: [ ],
-  providers : [ HttpWrapperService, HttpWrapperTransactionalService ],
+  providers : [ HttpWrapperService, HttpWrapperTransactionalService, HttpWrapperCustomerService ],
   entryComponents : [
     AppComponent,
     DeleteDialogComponent,

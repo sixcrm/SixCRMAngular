@@ -3,6 +3,8 @@ import {AccountsService} from '../../../shared/services/accounts.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Account} from '../../../shared/models/account.model';
+import {HttpWrapperCustomerService} from '../../../shared/services/http-wrapper-customer.service';
+import {Session} from '../../../shared/models/session.model';
 
 @Component({
   selector: 'account-management-general',
@@ -13,10 +15,12 @@ export class AccountManagementGeneralComponent implements OnInit {
 
   account: Account;
   accountBackup: Account;
+  session: Session;
 
   constructor(
     private accountService: AccountsService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private customerGraphAPI: HttpWrapperCustomerService
   ) { }
 
   ngOnInit() {
@@ -28,6 +32,18 @@ export class AccountManagementGeneralComponent implements OnInit {
     });
 
     this.accountService.getEntity(this.authService.getActiveAcl().account.id);
+
+    this.fetchSession();
+  }
+
+  fetchSession() {
+    const currentAcc = this.authService.getActiveAcl().account;
+
+    if (currentAcc.billing && currentAcc.billing.session) {
+      this.customerGraphAPI.fetchSessionInfo(currentAcc.billing.session).subscribe(session => {
+        this.session = session;
+      });
+    }
   }
 
   cancelAccountUpdate() {

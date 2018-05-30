@@ -1,10 +1,11 @@
-import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild, Input} from '@angular/core';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 import {AnalyticsService} from '../../../../shared/services/analytics.service';
 import {TransactionSummary} from '../../../../shared/models/transaction-summary.model';
-import {utc} from 'moment';
+import {utc, Moment} from 'moment';
 import {Subscription} from 'rxjs';
 import {flatDown, flatUp} from '../../../../shared/components/advanced-filter/advanced-filter.component';
+import {Rebill} from '../../../../shared/models/rebill.model';
 
 @Component({
   selector: 'account-management-billing-transactions-chart',
@@ -14,6 +15,16 @@ import {flatDown, flatUp} from '../../../../shared/components/advanced-filter/ad
 })
 export class AccountManagementBillingTransactionsChartComponent implements OnInit, OnDestroy {
   @ViewChild('chartContainer') chartContainer;
+
+  @Input() set lastBill(rebill: Rebill) {
+    if (rebill) {
+      this.lastBillDate = rebill.billAt;
+      this.nextBillDate = this.lastBillDate.clone().add(1, 'month');
+    }
+  };
+
+  lastBillDate: Moment;
+  nextBillDate: Moment;
 
   summaries: TransactionSummary[];
   summariesSub: Subscription;

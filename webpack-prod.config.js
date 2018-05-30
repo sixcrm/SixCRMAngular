@@ -612,7 +612,7 @@ module.exports = {
   "node": {
     "fs": "empty",
     "global": true,
-    "crypto": "empty",
+    "crypto": true,
     "tls": "empty",
     "net": "empty",
     "process": true,
