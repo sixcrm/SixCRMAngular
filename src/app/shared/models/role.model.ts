@@ -10,6 +10,7 @@ export class Role implements Entity<Role> {
   permissions: Permissions;
   createdAt: Moment;
   updatedAt: Moment;
+  isShared: boolean;
   updatedAtAPI: string;
 
   constructor(obj?: any) {
@@ -20,6 +21,7 @@ export class Role implements Entity<Role> {
     this.id = obj.id || '';
     this.name = obj.name || '';
     this.active = obj.active || '';
+    this.isShared = obj.is_shared || false;
     this.permissions = new Permissions(obj.permissions);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
@@ -67,6 +69,7 @@ export class Role implements Entity<Role> {
     return {
       id: this.id,
       name: this.name,
+      is_shared: this.isShared,
       active: this.active,
       permissions: this.permissions.inverse(),
       created_at: this.createdAt.format(),

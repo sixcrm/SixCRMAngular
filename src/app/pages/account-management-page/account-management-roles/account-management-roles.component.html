@@ -1,1 +1,32 @@
-<account-management-header [path]="['Roles']"></account-management-header>
+<account-management-header [path]="['Roles']" [account]="account"></account-management-header>
+
+<div class="body">
+  <div class="header">
+    <button mat-button (click)="addNewRole()">NEW</button>
+
+    <div class="mrw-bi-input">
+      <mat-input-container [floatLabel]="'never'">
+        <input matInput type="text" placeholder="Find role..." [(ngModel)]="filterString">
+      </mat-input-container>
+    </div>
+
+    <div class="count" *ngIf="allRoles">{{allRoles.length}} Roles</div>
+  </div>
+
+  <div class="content-wrapper" *ngIf="allRoles">
+
+    <div class="role-card" *ngFor="let role of allRoles | filterStrings: filterString: filterFunction">
+      <div class="title">{{role.name}} {{role.isShared ? '(system role)' : ''}}</div>
+      <div class="date">Created {{role.createdAt | formatDateTime}}</div>
+      <div class="users" *ngIf="acls">{{getNumberOfUsers(role)}} Users</div>
+
+      <mat-icon class="menu-icon" [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+      <mat-menu #actionsMenu="matMenu" x-position="before">
+        <button mat-menu-item (click)="viewRole(role)">View</button>
+        <button mat-menu-item (click)="deleteRole(role)">Delete</button>
+      </mat-menu>
+    </div>
+
+  </div>
+
+</div>
