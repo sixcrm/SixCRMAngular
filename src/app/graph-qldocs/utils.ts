@@ -8,7 +8,7 @@ export function navigateToField(type: TypeRef): void {
   if (path) {
     let el = document.querySelector('#' + path);
     if (el) {
-      // el.scrollIntoView(el);
+      el.scrollIntoView();
     }
   }
 }
@@ -16,7 +16,7 @@ export function navigateToField(type: TypeRef): void {
 export function navigateToFieldByString(path: string): void {
   let el = document.querySelector('#' + path);
   if (el) {
-    // el.scrollIntoView(el);
+    el.scrollIntoView();
   }
 }
 
