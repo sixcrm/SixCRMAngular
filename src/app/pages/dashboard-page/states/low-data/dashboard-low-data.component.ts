@@ -35,7 +35,6 @@ export class DashboardLowDataComponent implements OnInit {
   name: string;
   revenue: any;
   transactions: Transaction[];
-  showChart: boolean;
 
   constructor(
     private authService: AuthenticationService,
