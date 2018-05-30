@@ -40,7 +40,9 @@ export class GraphqlDocsService {
     let headers = new HttpHeaders();
 
     if (headersInput && headersInput.length > 0) {
-      Object.keys(headersInput).forEach(key => headers.append(headersInput[key].key, headersInput[key].value))
+      for (let headerInput of headersInput) {
+        headers = headers.append(headerInput.key, headerInput.value)
+      }
     }
 
     return headers;
