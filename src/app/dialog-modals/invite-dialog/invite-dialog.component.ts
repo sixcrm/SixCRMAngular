@@ -14,6 +14,8 @@ export class InviteDialogComponent implements OnInit {
 
   email: string;
   selectedRole: Role = new Role();
+  firstName: string;
+  lastName: string;
 
   formInvalid: boolean;
 

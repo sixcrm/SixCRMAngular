@@ -14,7 +14,6 @@ import {MatDialog} from '@angular/material';
 import {InviteDialogComponent} from '../../../dialog-modals/invite-dialog/invite-dialog.component';
 import {UsersService} from '../../../shared/services/users.service';
 import {Subscription} from 'rxjs';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'account-management-users',
@@ -39,8 +38,7 @@ export class AccountManagementUsersComponent implements OnInit, OnDestroy {
     private rolesSharedService: RolesSharedService,
     private aclService: AclsService,
     private dialog: MatDialog,
-    private userService: UsersService,
-    private router: Router
+    private userService: UsersService
   ) { }
 
   ngOnInit() {
@@ -142,10 +140,6 @@ export class AccountManagementUsersComponent implements OnInit, OnDestroy {
     backupAcl.role = role;
 
     this.aclService.updateEntity(backupAcl);
-  }
-
-  viewUser(acl: Acl) {
-    this.router.navigateByUrl('/accountmanagement/users/' + acl.user.id);
   }
 
 }
