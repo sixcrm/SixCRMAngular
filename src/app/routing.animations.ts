@@ -4,7 +4,7 @@ export function routerTransition(fixed?) {
   return fixed ? slideToLeft() : slideToLeftAbsolute();
 }
 
-function slideToLeft() {
+export function slideToLeft() {
   return trigger('routerTransition', [
     transition(':enter', [
       style({transform: 'translateX(85%)', position: 'fixed', width: '100%'}),
@@ -17,7 +17,7 @@ function slideToLeft() {
   ]);
 }
 
-function slideToLeftAbsolute() {
+export function slideToLeftAbsolute() {
   return trigger('routerTransition', [
     state('void', style({position: 'absolute', width: '100%'}) ),
     state('*', style({position: 'absolute', width: '100%'}) ),
