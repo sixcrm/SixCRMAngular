@@ -78,10 +78,6 @@ export class DashboardLowDataComponent implements OnInit {
       this.calculateRevenue(data);
     });
 
-    this.authService.activeAcl$.takeUntil(this.unsubscribe$).subscribe(() => {
-      this.calculateRevenue();
-    });
-
   }
 
   calculateRevenue(series: HeroChartSeries[]){
