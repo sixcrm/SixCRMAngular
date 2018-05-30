@@ -7,7 +7,6 @@ import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {DeleteDialogComponent} from '../../delete-dialog.component';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
-import {InviteDialogComponent} from '../../../dialog-modals/invite-dialog/invite-dialog.component';
 import {AccessKeysDialogComponent} from '../../../dialog-modals/access-keys-dialog/access-keys-dialog.component';
 
 @Component({
@@ -20,7 +19,7 @@ export class AccountManagementApikeysComponent implements OnInit {
   account: Account;
   accessKeys: AccessKey[];
   filterString: string;
-  filterFunction = (keys: AccessKey) => keys.name;
+  filterFunction = (keys: AccessKey) => `${keys.name} ${keys.notes}`;
 
   constructor(
     private authService: AuthenticationService,

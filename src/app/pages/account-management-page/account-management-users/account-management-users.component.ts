@@ -24,7 +24,7 @@ export class AccountManagementUsersComponent implements OnInit, OnDestroy {
 
   account: Account;
   filterString: string;
-  filterFunction = (acl: Acl) => acl.user.email;
+  filterFunction = (acl: Acl) => `${acl.user.email} ${acl.user.name} ${acl.role.name}`;
 
   roles: Role[] = [];
   sharedRoles: Role[] = [];
