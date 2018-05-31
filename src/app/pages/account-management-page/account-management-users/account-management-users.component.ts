@@ -93,7 +93,7 @@ export class AccountManagementUsersComponent implements OnInit, OnDestroy {
 
       if (result && result.email && result.role) {
 
-        this.userService.sendUserInvite(result.email, result.role, this.account.id).take(1).subscribe(response => {
+        this.userService.sendUserInvite(result.email, result.firstName, result.lastName, result.role, this.account.id).take(1).subscribe(response => {
           if (response instanceof CustomServerError) return;
 
           this.accountService.getEntity(this.account.id);

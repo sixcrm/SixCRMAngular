@@ -92,10 +92,10 @@ export function latestTermsAndConditions(accountId?: string, role?: string): str
     }`
 }
 
-export function inviteUserMutation(email: string, accountId: string, roleId: string): string {
+export function inviteUserMutation(email: string, firstName: string, lastName: string, accountId: string, roleId: string): string {
   return `
     mutation {
-		  inviteuser (userinvite: {email: "${email}" account:"${accountId}" role:"${roleId}"}) {
+		  inviteuser (userinvite: {email: "${email}" account:"${accountId}" ${firstName ? `firstname: "${firstName}"`:''} ${lastName ? `lastname: "${lastName}"`: ''} role:"${roleId}"}) {
 			  link
 		  }
 	  }`

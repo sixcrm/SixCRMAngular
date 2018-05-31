@@ -44,8 +44,14 @@ export class UsersService extends AbstractEntityService<User> {
     });
   }
 
-  sendUserInvite(email: string, role: Role, accountId: string): Observable<HttpResponse<any> | CustomServerError> {
-    return this.queryRequest(inviteUserMutation(email, accountId, role.id));
+  sendUserInvite(
+    email: string,
+    firstName: string,
+    lastName: string,
+    role: Role,
+    accountId: string
+  ): Observable<HttpResponse<any> | CustomServerError> {
+    return this.queryRequest(inviteUserMutation(email, firstName, lastName, accountId, role.id));
   }
 
   resendUserInvite(acl: Acl): Observable<HttpResponse<any> | CustomServerError> {

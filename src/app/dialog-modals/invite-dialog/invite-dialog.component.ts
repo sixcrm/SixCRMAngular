@@ -31,7 +31,12 @@ export class InviteDialogComponent implements OnInit {
       return;
     }
 
-    this.dialogRef.close({email: this.email, role: this.selectedRole})
+    this.dialogRef.close({
+      email: this.email,
+      role: this.selectedRole,
+      firstName: this.firstName,
+      lastName: this.lastName
+    })
   }
 
   close(): void {

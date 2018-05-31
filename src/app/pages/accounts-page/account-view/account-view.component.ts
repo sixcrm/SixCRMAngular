@@ -255,7 +255,7 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
       inviteDialogRef = null;
 
       if (result.email && result.role) {
-        this.userService.sendUserInvite(result.email, result.role, this.entityId).subscribe(response => {
+        this.userService.sendUserInvite(result.email, '', '', result.role, this.entityId).subscribe(response => {
           if (response instanceof CustomServerError) {
             return;
           }
