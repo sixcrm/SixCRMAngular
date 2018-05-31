@@ -17,7 +17,8 @@ export function doLogin(authPage: AuthPage, email: string, password: string) {
   authPage.getPasswordInput().sendKeys(password);
   authPage.getLoginButton().click();
 
-  dashboardPage.getTOS().isDisplayed().then(function() {
+  dashboardPage.getTOS().isDisplayed().then(function(result) {
+    browser.sleep(3000);
     dashboardPage.getTOSButton().click();
   }, function(err) {
     console.log('No TOS for this user', err);
@@ -47,8 +48,11 @@ export function login(user?: boolean) {
   browser.waitForAngularEnabled(false);
 
   doLogin(authPage, user ? usernameU : username, user ? passwordU : password);
+
   // Wait for angular is disabled, so we need to tell protractor to wait for page to load
-  dashboardPage.getTOS().isDisplayed().then(function() {
+
+  dashboardPage.getTOS().isDisplayed().then(function(result) {
+    browser.sleep(3000);
     dashboardPage.getTOSButton().click();
     browser.sleep(3000);
     expectUrlToContain('/dashboard');
