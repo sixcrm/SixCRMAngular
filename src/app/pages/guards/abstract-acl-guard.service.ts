@@ -14,7 +14,7 @@ export class AbstractAclGuard {
   ) { }
 
   hasPermission(aclRole: string): boolean {
-    if (this.authService.hasPermissions(aclRole, 'view')) {
+    if (this.authService.hasPermissions(aclRole, 'read')) {
       return true;
     }
 

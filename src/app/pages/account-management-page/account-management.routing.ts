@@ -4,6 +4,7 @@ import {AccountManagementBillingComponent} from './account-management-billing/ac
 import {AccountManagementUsersComponent} from './account-management-users/account-management-users.component';
 import {AccountManagementRolesComponent} from './account-management-roles/account-management-roles.component';
 import {AccountManagementApikeysComponent} from './account-management-apikeys/account-management-apikeys.component';
+import {AccountManagementRoleViewComponent} from './account-management-roles/account-management-role-view/account-management-role-view.component';
 
 export const accountManagementRouting = RouterModule.forChild([
   { path : '', redirectTo: 'general' },
@@ -11,6 +12,7 @@ export const accountManagementRouting = RouterModule.forChild([
   { path : 'billing', component : AccountManagementBillingComponent },
   { path : 'users', component : AccountManagementUsersComponent },
   { path : 'roles', component : AccountManagementRolesComponent },
+  { path : 'roles/:id', component : AccountManagementRoleViewComponent },
   { path : 'apikeys', component : AccountManagementApikeysComponent }
 ]);
 

@@ -11,6 +11,7 @@ export class Role implements Entity<Role> {
   createdAt: Moment;
   updatedAt: Moment;
   isShared: boolean;
+  description: string;
   updatedAtAPI: string;
 
   constructor(obj?: any) {
@@ -38,7 +39,7 @@ export class Role implements Entity<Role> {
   }
 
   isOwnerOrAdministrator(): boolean {
-    return this.hasPermission('bill', 'write');
+    return this.hasPermission('bill', 'create');
   }
 
   isOwner(): boolean {

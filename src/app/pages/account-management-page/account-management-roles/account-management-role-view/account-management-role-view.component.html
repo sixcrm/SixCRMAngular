@@ -1,0 +1,54 @@
+<account-management-header [path]="path" [value]="value"></account-management-header>
+
+<tab-header class="tab-header--account-management" [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
+
+<mat-tab-group *ngIf="role" class="tab--no-header" [(selectedIndex)]="selectedIndex">
+  <mat-tab>
+    <div class="body body--general">
+      <mat-input-container [class.error]="formInvalid && !roleBackup.name">
+        <input type="text" matInput [(ngModel)]="roleBackup.name" [readonly]="isShared && !authService.isActiveAclMasterAccount()" placeholder="Role Name">
+      </mat-input-container>
+
+      <mat-input-container>
+        <input type="text" matInput [(ngModel)]="roleBackup.description" [readonly]="isShared && !authService.isActiveAclMasterAccount()" placeholder="Description">
+      </mat-input-container>
+
+      <div class="buttons" *ngIf="!isShared || authService.isActiveAclMasterAccount()">
+        <button mat-button (click)="cancel()">CANCEL</button>
+        <button mat-button (click)="updateRoleName()">SAVE</button>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab>
+
+    <div class="table-wrapper" [class.table-wrapper--readonly]="isShared && !authService.isActiveAclMasterAccount()">
+      <table>
+        <thead>
+        <tr>
+          <th>Permission Name</th>
+          <th *ngFor="let action of allActions">{{action}}</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let entity of allEntities">
+          <td>{{entity}}</td>
+          <td *ngFor="let action of allActions">
+            <mat-checkbox [disabled]="isShared && !authService.isActiveAclMasterAccount()" [checked]="role.permissions.hasPermission(entity,action)" (change)="togglePermission(entity, action, $event)"></mat-checkbox>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="!isShared || authService.isActiveAclMasterAccount()" [class.table-buttons--disabled]="!isChanged()" class="table-buttons">
+      <button mat-button (click)="revertPermissions()" [disabled]="!isChanged()">CANCEL</button>
+      <button mat-button (click)="savePermissions()" [disabled]="!isChanged()">SAVE</button>
+    </div>
+  </mat-tab>
+
+  <mat-tab>
+
+  </mat-tab>
+</mat-tab-group>

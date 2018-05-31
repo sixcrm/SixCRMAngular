@@ -11,6 +11,7 @@ import {MatDialog} from '@angular/material';
 import {RoleDialogComponent} from '../../../dialog-modals/role-dialog/role-dialog.component';
 import {DeleteDialogComponent} from '../../delete-dialog.component';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'account-management-roles',
@@ -36,7 +37,8 @@ export class AccountManagementRolesComponent implements OnInit {
     private roleService: RolesService,
     private roleSharedService: RolesSharedService,
     private aclService: AclsService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -110,7 +112,7 @@ export class AccountManagementRolesComponent implements OnInit {
   }
 
   viewRole(role: Role) {
-
+    this.router.navigate(['/accountmanagement', 'roles', role.id])
   }
 
   deleteRole(role: Role) {

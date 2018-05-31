@@ -68,37 +68,9 @@ export class Permissions {
   }
 
   hasPermission(entity: string, operation: string): boolean {
-    let allowed = this.getFromAllowed(entity);
-
-    if (!allowed) {
-      return false;
-    }
-
-    let op = allowed.split('/')[1];
-
-    if (operation === op || op === '*') {
-      return true;
-    }
-
-    if (operation === 'view' && (op === 'view' || op === 'read' || op === 'write' || op === '*')) {
-      return true;
-    }
-
-    if (operation === 'read' && (op === 'read' || op === 'write' || op === '*')) {
-      return true;
-    }
-
-    if (operation === 'write' && (op === 'write' || op === '*')) {
-      return true;
-    }
-
-    return false;
-  }
-
-  private getFromAllowed(entity: string): string {
-    let allowed = this.allow.filter(a => a.split('/')[0] === entity);
-
-    return allowed[0] ? allowed[0] : null;
+    return this.allow.filter(a =>
+      a === '*' || a === '*/*' || a === `${entity}/${operation}` || a === `*/${operation}` || a === `${entity}/*`
+    ).length > 0;
   }
 
   inverse(): any {
@@ -113,6 +85,43 @@ export class Permissions {
 export function getAllPermissionEntities() {
   return [
     '*',
+    'analytics',
+    'accesskey',
+    'affiliate',
+    'account',
+    'bill',
+    'campaign',
+    'creditcard',
+    'customer',
+    'customernote',
+    'emailtemplate',
+    'merchantprovidergroup',
+    'merchantprovidergroupassociation',
+    'merchantprovider',
+    'productschedule',
+    'product',
+    'rebill',
+    'role',
+    'session',
+    'shippingreceipt',
+    'smtpprovider',
+    'transaction',
+    'notification',
+    'notificationread',
+    'notificationsetting',
+    'user',
+    'useracl',
+    'usersetting',
+    'usersigningstring',
+    'userdevicetoken',
+    'tracker',
+    'register',
+    'fulfillmentprovider'
+  ]
+}
+
+export function getRestrictedPermissionEntities() {
+  return [
     'analytics',
     'accesskey',
     'affiliate',

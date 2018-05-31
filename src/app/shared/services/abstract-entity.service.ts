@@ -207,7 +207,7 @@ export abstract class AbstractEntityService<T> {
       return true;
     }
 
-    return this.authService.hasPermissions(this.accessRole, 'write');
+    return this.authService.hasPermissions(this.accessRole, 'create');
   }
 
   hasViewPermission(): boolean {
@@ -215,7 +215,7 @@ export abstract class AbstractEntityService<T> {
       return true;
     }
 
-    return this.authService.hasPermissions(this.accessRole, 'view');
+    return this.authService.hasPermissions(this.accessRole, 'read');
   }
 
   hasReadPermission(): boolean {

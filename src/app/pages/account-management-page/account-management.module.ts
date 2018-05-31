@@ -14,6 +14,7 @@ import { AccountManagementBillingTransactionsChartComponent } from './account-ma
 import {ChartModule} from 'angular2-highcharts';
 import {HighchartsStatic} from 'angular2-highcharts/dist/HighchartsService';
 import {SharedModule} from '../../shared/shared.module';
+import { AccountManagementRoleViewComponent } from './account-management-roles/account-management-role-view/account-management-role-view.component';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import {SharedModule} from '../../shared/shared.module';
     AccountManagementRolesComponent,
     AccountManagementApikeysComponent,
     AccountManagementHeaderComponent,
-    AccountManagementBillingTransactionsChartComponent
+    AccountManagementBillingTransactionsChartComponent,
+    AccountManagementRoleViewComponent
   ],
   providers: [
     {

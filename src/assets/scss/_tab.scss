@@ -94,3 +94,15 @@ mat-tab-body {
     background-color: #1EB1FC !important;
   }
 }
+
+.tab-header--account-management {
+
+  .entity-view__navigation {
+    padding-left: 25px;
+
+    &__label {
+      margin-left: 0;
+      margin-right: 20px;
+    }
+  }
+}
