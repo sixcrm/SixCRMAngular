@@ -4,8 +4,10 @@
 exports.config = {
   allScriptsTimeout: 110000,
   specs: [
+    './e2e/**/login.e2e-spec.ts',
     './e2e/**/register.e2e-spec.ts',
-    './e2e/**/accept-invite.e2e-spec.ts'
+    './e2e/**/accept-invite.e2e-spec.ts',
+    './e2e/**/navigation.e2e-spec.ts'
   ],
   suites:  {
     repeatable: [
