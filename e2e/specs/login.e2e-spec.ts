@@ -44,7 +44,17 @@ describe('Login', function() {
     doLogin(authPage, 'e2e-test-admin@sixcrm.com', '123456789');
     browser.sleep(3000);
     waitForUrlContains('dashboard');
-    expectUrlToContain('/dashboard');
+    // look for TOS before moving on to the dashboard if it's not there move on
+    browser.sleep(2000);
+    dashboardPage.getTOS().isDisplayed().then(function(result) {
+      dashboardPage.getTOSButton().click();
+      browser.sleep(3000);
+      expectUrlToContain('/dashboard');
+    }, function(err) {
+      console.log('No TOS for this user', err);
+    });
+
+    //expectUrlToContain('/dashboard');
 
     });
 
@@ -68,11 +78,22 @@ describe('Login', function() {
   it ('should display Auth0 lock and navigate to / when user logs out', () => {
     navigateSuperuserToHomepage();
     browser.waitForAngularEnabled(false);
-    dashboardPage.getCollapsedMenuButton().click();
-    browser.sleep(600);
-    dashboardPage.getCollapsedMenuItems().last().click();
-    browser.sleep(1000);
-    expectPresent(authPage.getAuth0Lock());
+    dashboardPage.getTOS().isDisplayed().then(function(result) {
+      dashboardPage.getTOSButton().click();
+      browser.sleep(3000);
+      dashboardPage.getCollapsedMenuButton().click();
+      browser.sleep(600);
+      dashboardPage.getCollapsedMenuItems().last().click();
+      browser.sleep(1000);
+      expectPresent(authPage.getAuth0Lock());
+    }, function(err) {
+      console.log('No TOS for this user', err);
+      dashboardPage.getCollapsedMenuButton().click();
+      browser.sleep(600);
+      dashboardPage.getCollapsedMenuItems().last().click();
+      browser.sleep(1000);
+      expectPresent(authPage.getAuth0Lock());
+    });
 
   });
 });
