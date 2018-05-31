@@ -113,7 +113,7 @@
     </div>
 
     <div class="terms">{{'PAYMENT_OWNERTERMS' | translate}} <span class="licenseagreement" (click)="openOwnerTerms()">{{'PAYMENT_LICENSEAGREEMENT' | translate}}</span>.</div>
-    <button mat-button (click)="pay()" [class.disable-pay]="formInvalid && isDataInvalid() || generalError">{{submitButtonText() | translate}}</button>
+    <button mat-button (click)="pay()" [class.disable-pay]="formInvalid && isDataInvalid()">{{submitButtonText() | translate}}</button>
   </div>
   </div>
 </div>
