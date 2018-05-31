@@ -16,6 +16,7 @@ export const environment: EnvironmentModel = {
   auth0RedirectUrl: 'https://admin.recursix.com',
   translationsUrl: 'https://d3gac4cnrn5mn6.cloudfront.net/',
   version: '0.0.0',
+  name: 'priority',
   branding: {
     registrationLogo: 'logo-recursix-registration.svg',
     sidenavLogo: 'logo-recursix.svg',

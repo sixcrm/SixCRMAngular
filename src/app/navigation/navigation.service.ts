@@ -7,6 +7,7 @@ import {StringUtils} from '../shared/utils/string-utils';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
+import {FeatureFlagService} from "../authentication/feature-flag.service";
 
 @Injectable()
 export class NavigationService {
@@ -32,17 +33,22 @@ export class NavigationService {
   constructor(public dialog: MatDialog,
               private authService: AuthenticationService,
               private location: Location,
-              private router: Router
+              private router: Router,
+              public featureFlagService: FeatureFlagService
   ) {
     this.authService.activeAcl$.subscribe(acl => {
       if (!acl || !acl.account.id) return;
 
-      this.setMenuItems(menuItems(authService, acl));
+      this.setMenuItems(menuItems(authService, acl, featureFlagService));
     });
 
     this.authService.actingAsAccount$.subscribe(() => {
-      this.setMenuItems(menuItems(authService, this.authService.getActiveAcl()));
-    })
+      this.setMenuItems(menuItems(authService, this.authService.getActiveAcl(), featureFlagService));
+    });
+
+    this.featureFlagService.featureFlagsUpdated$.subscribe(() => {
+      this.setMenuItems(menuItems(authService, this.authService.getActiveAcl(), featureFlagService));
+    });
   }
 
   public goToNotFoundPage(): void {

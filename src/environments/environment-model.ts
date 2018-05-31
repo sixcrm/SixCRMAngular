@@ -10,6 +10,7 @@ export interface EnvironmentModel {
   translationsUrl: string,
   version: string,
   branding?: Branding;
+  name: string;
 }
 
 export interface Branding {

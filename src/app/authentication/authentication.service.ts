@@ -59,7 +59,7 @@ export class AuthenticationService {
     private router: Router,
     private http: HttpWrapperService,
     private location: Location,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {
     this.initLock();
 

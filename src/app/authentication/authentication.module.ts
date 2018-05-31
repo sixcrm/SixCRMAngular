@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {AuthenticationService} from './authentication.service';
+import {FeatureFlagService} from './feature-flag.service';
 import {AuthComponent} from './auth/auth.component';
 import {routing} from './authentication.routing';
 import {AuthGuard} from './auth-guard.service';
@@ -41,6 +42,7 @@ import {MarkdownModule} from 'angular2-markdown';
   ],
   providers : [
     AuthenticationService,
+    FeatureFlagService,
     AuthGuard,
     RegisterGuard,
     AccountInfoGuard,

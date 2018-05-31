@@ -1,8 +1,9 @@
 import {MenuItem} from './menu-item';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Acl} from '../shared/models/acl.model';
+import {FeatureFlagService} from "../authentication/feature-flag.service";
 
-export function menuItems(authService: AuthenticationService, acl: Acl): MenuItem[] {
+export function menuItems(authService: AuthenticationService, acl: Acl, featureFlagService: FeatureFlagService): MenuItem[] {
   let items: MenuItem[] = [];
 
   // Add dashboard
@@ -12,7 +13,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
     items.push(new MenuItem('SIDENAV_DASHBOARD', 'dashboard').setIcon('home'));
   }
 
-  if (acl && acl.role.name !== 'Customer Service') {
+  if (featureFlagService.isEnabled('state-machine') && acl && acl.role.name !== 'Customer Service') {
     items.push(new MenuItem('SIDENAV_ORDERENGINE', 'state-machine').setIcon('device_hub'));
   }
 
@@ -37,7 +38,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   if (authService.hasPermissions('shippingreceipt', 'read') || authService.isBillingDisabled()) {
     orderItems.push(new MenuItem('SIDENAV_ORDER_SHIPPINGRECEIPT', 'shippingreceipts'));
   }
-  if (authService.hasPermissions('rebill', 'read') || authService.isBillingDisabled()) {
+  if (featureFlagService.isEnabled('orders.pending-rebills') && authService.hasPermissions('rebill', 'read') || authService.isBillingDisabled()) {
     orderItems.push(new MenuItem('SIDENAV_ORDER_PENDINGREBILL', 'rebills/pending'));
   }
 
@@ -48,10 +49,10 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   // Add reports
   let reportItems: MenuItem[] = [];
   let cycle: MenuItem[] = [];
-  if (authService.hasPermissions('analytics', 'getDayToDay') || authService.isBillingDisabled()) {
+  if (featureFlagService.isEnabled('cycle-reports.day-to-day') && (authService.hasPermissions('analytics', 'getDayToDay') || authService.isBillingDisabled())) {
     cycle.push(new MenuItem('SIDENAV_REPORTS_CYCLE_DAYTODAY', 'reports/daytoday'))
   }
-  if (authService.hasPermissions('analytics', 'getCycleReport') || authService.isBillingDisabled()) {
+  if (featureFlagService.isEnabled('cycle-reports.cycle') && (authService.hasPermissions('analytics', 'getCycleReport') || authService.isBillingDisabled())) {
     cycle.push(new MenuItem('SIDENAV_REPORTS_CYCLE_CYCLE', 'reports/cycle'))
   }
   if (cycle.length > 0) {
@@ -75,28 +76,28 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
 
   // Add CRM menu items
   let crmItems: MenuItem[] = [];
-  if (authService.hasPermissions('campaign', 'read') || authService.isBillingDisabled()) {
+  if (featureFlagService.isEnabled('crm-setup') && (authService.hasPermissions('campaign', 'read') || authService.isBillingDisabled())) {
     crmItems.push(new MenuItem('SIDENAV_CRM_CAMPAIGN', 'campaigns'));
   }
-  if (authService.hasPermissions('product', 'read') || authService.isBillingDisabled()) {
+  if (featureFlagService.isEnabled('crm-setup') && (authService.hasPermissions('product', 'read') || authService.isBillingDisabled())) {
     crmItems.push(new MenuItem('SIDENAV_CRM_PRODUCT', 'products'));
   }
-  if (authService.hasPermissions('productschedule', 'read') || authService.isBillingDisabled()) {
+  if (featureFlagService.isEnabled('crm-setup') && (authService.hasPermissions('productschedule', 'read') || authService.isBillingDisabled())) {
     crmItems.push(new MenuItem('SIDENAV_CRM_PRODUCTSCHEDULE', 'productschedules'));
   }
-  if (authService.hasPermissions('emailtemplate', 'read') || authService.isBillingDisabled()) {
+  if (featureFlagService.isEnabled('crm-setup') && (authService.hasPermissions('emailtemplate', 'read') || authService.isBillingDisabled())) {
     crmItems.push(new MenuItem('SIDENAV_CRM_EMAILTEMPLATE', 'emailtemplates'));
   }
 
-  if (authService.hasPermissions('eventhook', 'read') || authService.isBillingDisabled()) {
+  if (featureFlagService.isEnabled('crm-setup.event-hooks') && (authService.hasPermissions('eventhook', 'read') || authService.isBillingDisabled())) {
     crmItems.push(new MenuItem('SIDENAV_CRM_EVENTHOOK', 'eventhooks'));
   }
 
   let tracking: MenuItem[] = [];
-  if (authService.hasPermissions('affiliate', 'read') || authService.isBillingDisabled()) {
+  if (featureFlagService.isEnabled('crm-setup') && (authService.hasPermissions('affiliate', 'read') || authService.isBillingDisabled())) {
     tracking.push(new MenuItem('SIDENAV_CRM_TRAFFIC_AFFILIATE', 'affiliates'));
   }
-  if (authService.hasPermissions('tracker', 'read') || authService.isBillingDisabled()) {
+  if (featureFlagService.isEnabled('crm-setup') && (authService.hasPermissions('tracker', 'read') || authService.isBillingDisabled())) {
     tracking.push(new MenuItem('SIDENAV_CRM_TRAFFIC_TRACKER', 'trackers'));
   }
   if (tracking.length > 0) {
@@ -134,19 +135,19 @@ export function menuItems(authService: AuthenticationService, acl: Acl): MenuIte
   // Add Account Management menu item
   let accountManagement: MenuItem[] = [];
 
-  if (authService.hasPermissions('account', 'read')) {
+  if (featureFlagService.isEnabled('account-management') && (authService.hasPermissions('account', 'read'))) {
     accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_GENERAL', 'accountmanagement/general'));
   }
-  if (authService.hasPermissions('billing', 'read')) {
+  if (featureFlagService.isEnabled('account-management') && (authService.hasPermissions('billing', 'read'))) {
     accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_BILLING', 'accountmanagement/billing'));
   }
-  if (authService.hasPermissions('useracl', 'read')) {
+  if (featureFlagService.isEnabled('account-management') && (authService.hasPermissions('useracl', 'read'))) {
     accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_USERS', 'accountmanagement/users'));
   }
-  if (authService.hasPermissions('roles', 'read')) {
+  if (featureFlagService.isEnabled('account-management') && (authService.hasPermissions('roles', 'read'))) {
     accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_ROLES', 'accountmanagement/roles'));
   }
-  if (authService.hasPermissions('accesskey', 'read')) {
+  if (featureFlagService.isEnabled('account-management') && (authService.hasPermissions('accesskey', 'read'))) {
     accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_KEYS', 'accountmanagement/apikeys'));
   }
 
