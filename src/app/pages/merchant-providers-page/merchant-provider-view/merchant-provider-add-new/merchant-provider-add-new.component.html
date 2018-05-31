@@ -25,7 +25,7 @@
 
       <div *ngFor="let card of allCreditCards" class="flex-custom flex-custom--center merchant-provider-view__details__selectable">
         <span>{{card}}</span>
-        <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View" [checked]="entity.containsPaymentMethod(card)" (change)="entity.togglePaymentMethod(card)"></mat-checkbox>
+        <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View" [checked]="entity.containsPaymentMethod(card) || (mode === modes.Add)" (change)="entity.togglePaymentMethod(card)"></mat-checkbox>
       </div>
     </div>
   </div>
