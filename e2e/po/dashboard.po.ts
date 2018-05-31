@@ -17,6 +17,14 @@ export class DashboardPage {
     return element(by.css('.accept'));
   }
 
+  getTOSTitle() {
+    return element(by.css('.title'));
+  }
+
+  getSaasTitle() {
+    return element(by.css('.title'));
+  }
+
   getCollapsedMenuButton() {
     return element(by.css('.profile-dropdown__header'));
   }

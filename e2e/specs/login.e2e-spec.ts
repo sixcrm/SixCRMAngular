@@ -42,21 +42,25 @@ describe('Login', function() {
     browser.sleep(2000);
     browser.waitForAngularEnabled(false);
     doLogin(authPage, 'e2e-test-admin@sixcrm.com', '123456789');
-    browser.sleep(3000);
-    waitForUrlContains('dashboard');
-    // look for TOS before moving on to the dashboard if it's not there move on
     browser.sleep(2000);
-    dashboardPage.getTOS().isDisplayed().then(function(result) {
-      dashboardPage.getTOSButton().click();
-      browser.sleep(3000);
-      expectUrlToContain('/dashboard');
-    }, function(err) {
-      console.log('No TOS for this user', err);
-    });
+    waitForUrlContains('dashboard');
+    browser.sleep(2000);
+    dashboardPage.getTOSButton().click().then(function() {
+        /* passing case */
+        console.log('Found a TOS button');
+        browser.sleep(2000);
+        dashboardPage.getTOSButton().click();
+        browser.sleep(3000);
+      },
+      function(err) {
+        /* error handling here */
+        console.log('No TOS button found');
+      });
+    browser.sleep(2000);
+    expectUrlToContain('/dashboard');
 
-    //expectUrlToContain('/dashboard');
 
-    });
+  });
 
   it ('should login and navigate to /customers when landed on /customers before login', () => {
     browser.get('/customers');
@@ -65,6 +69,18 @@ describe('Login', function() {
     browser.waitForAngularEnabled(false);
     doLogin(authPage, 'e2e-test-admin@sixcrm.com', '123456789');
     // Wait for angular is disabled, so we need to tell protractor to wait for page to load
+    browser.sleep(2000);
+    dashboardPage.getTOSButton().click().then(function() {
+        /* passing case */
+        console.log('Found a TOS button');
+        browser.sleep(2000);
+        dashboardPage.getTOSButton().click();
+        browser.sleep(3000);
+      },
+      function(err) {
+        /* error handling here */
+        console.log('No TOS button found');
+      });
     waitForUrlContains('customers');
     expectUrlToContain('/customers');
   });
@@ -72,28 +88,42 @@ describe('Login', function() {
   it ('should navigate to /dashboard when valid token is present in local storage', () => {
     navigateSuperuserToHomepage();
     browser.waitForAngularEnabled(false);
+    browser.sleep(2000);
+    dashboardPage.getTOSButton().click().then(function() {
+        /* passing case */
+        console.log('Found a TOS button');
+        browser.sleep(2000);
+        dashboardPage.getTOSButton().click();
+        browser.sleep(3000);
+      },
+      function(err) {
+        /* error handling here */
+        console.log('No TOS button found');
+      });
     expectUrlToContain('/dashboard');
   });
 
   it ('should display Auth0 lock and navigate to / when user logs out', () => {
     navigateSuperuserToHomepage();
     browser.waitForAngularEnabled(false);
-    dashboardPage.getTOS().isDisplayed().then(function(result) {
+    browser.sleep(2000);
+      dashboardPage.getTOSButton().click().then(function() {
+      /* passing case */
+          console.log('Found a TOS button');
+          browser.sleep(2000);
       dashboardPage.getTOSButton().click();
-      browser.sleep(3000);
-      dashboardPage.getCollapsedMenuButton().click();
-      browser.sleep(600);
-      dashboardPage.getCollapsedMenuItems().last().click();
-      browser.sleep(1000);
-      expectPresent(authPage.getAuth0Lock());
-    }, function(err) {
-      console.log('No TOS for this user', err);
-      dashboardPage.getCollapsedMenuButton().click();
-      browser.sleep(600);
-      dashboardPage.getCollapsedMenuItems().last().click();
-      browser.sleep(1000);
-      expectPresent(authPage.getAuth0Lock());
-    });
+          browser.sleep(3000);
+      },
+      function(err) {
+      /* error handling here */
+        console.log('No TOS button found');
+      });
+    browser.sleep(4000);
+    dashboardPage.getCollapsedMenuButton().click();
+    browser.sleep(600);
+    dashboardPage.getCollapsedMenuItems().last().click();
+    browser.sleep(1000);
+    expectPresent(authPage.getAuth0Lock());
 
   });
 });
