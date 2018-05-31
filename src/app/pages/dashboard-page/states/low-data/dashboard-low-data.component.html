@@ -30,7 +30,8 @@
               </button>
             </div>
           </div>
-          <table>
+          <mat-spinner *ngIf="!transactions"></mat-spinner>
+          <table *ngIf="transactions">
             <thead>
             <tr>
               <th>{{'DASHBOARD_STATE_LOWDATA_TRANSACTIONS_STATUS' | translate}}</th>
