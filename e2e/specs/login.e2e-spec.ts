@@ -23,19 +23,14 @@ describe('Login', function() {
 
   it ('should fail login when wrong email and password are used', () => {
     authPage.navigateTo();
-
     waitForPresenceOfLoginFields(authPage);
-
     // Email and password are in DOM, but may still not be visible
     browser.sleep(2000);
     // Email field input triggers some asynchronous call that never gets resolved, so we tell protractor not to wait for it
     browser.waitForAngularEnabled(false);
-
     doLogin(authPage, `wrongemail${Math.random()}@example.com`, 'wrongpassword');
-
     // Wait for angular is disabled, so we need to tell protractor to wait for error message
     waitForPresenceOf(authPage.getErrorMessage());
-
     expectPresent(authPage.getErrorMessage());
   });
 
@@ -46,21 +41,19 @@ describe('Login', function() {
 
     browser.sleep(2000);
     browser.waitForAngularEnabled(false);
-    browser.pause();
     doLogin(authPage, 'e2e-test-admin@sixcrm.com', '123456789');
-    // Wait for angular is disabled, so we need to tell protractor to wait for page to load
+    browser.sleep(3000);
     waitForUrlContains('dashboard');
-
-
     expectUrlToContain('/dashboard');
-  });
+
+    });
 
   it ('should login and navigate to /customers when landed on /customers before login', () => {
     browser.get('/customers');
     waitForPresenceOfLoginFields(authPage);
     browser.sleep(2000);
     browser.waitForAngularEnabled(false);
-    doLogin(authPage, 'nikola.bosic@toptal.com', '123456789');
+    doLogin(authPage, 'e2e-test-admin@sixcrm.com', '123456789');
     // Wait for angular is disabled, so we need to tell protractor to wait for page to load
     waitForUrlContains('customers');
     expectUrlToContain('/customers');
@@ -80,6 +73,7 @@ describe('Login', function() {
     dashboardPage.getCollapsedMenuItems().last().click();
     browser.sleep(1000);
     expectPresent(authPage.getAuth0Lock());
+
   });
 });
 

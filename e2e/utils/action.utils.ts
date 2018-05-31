@@ -1,4 +1,5 @@
 import {AuthPage} from '../po/auth.po';
+import {DashboardPage} from '../po/dashboard.po';
 import {expectUrlToContain} from './assertation.utils';
 import {waitForUrlContains, waitForPresenceOfLoginFields} from './navigation.utils';
 import {browser} from 'protractor';
@@ -10,9 +11,17 @@ let usernameU = 'e2e-test-user@sixcrm.com';
 let passwordU = '123456789';
 
 export function doLogin(authPage: AuthPage, email: string, password: string) {
+  let dashboardPage = new DashboardPage();
+
   authPage.getEmailInput().sendKeys(email);
   authPage.getPasswordInput().sendKeys(password);
   authPage.getLoginButton().click();
+
+  dashboardPage.getTOS().isDisplayed().then(function() {
+    dashboardPage.getTOSButton().click();
+  }, function(err) {
+    console.log('No TOS for this user', err);
+  });
 }
 
 export function doSignUp(authPage: AuthPage, email: string, password: string) {
@@ -28,6 +37,7 @@ export function doRegister(authPage: AuthPage, email: string, password: string) 
 
 export function login(user?: boolean) {
   let authPage = new AuthPage();
+  let dashboardPage = new DashboardPage();
 
   authPage.navigateTo();
 
@@ -37,9 +47,14 @@ export function login(user?: boolean) {
   browser.waitForAngularEnabled(false);
 
   doLogin(authPage, user ? usernameU : username, user ? passwordU : password);
-
   // Wait for angular is disabled, so we need to tell protractor to wait for page to load
-  waitForUrlContains('dashboard');
-
-  expectUrlToContain('/dashboard');
+  dashboardPage.getTOS().isDisplayed().then(function() {
+    dashboardPage.getTOSButton().click();
+    browser.sleep(3000);
+    expectUrlToContain('/dashboard');
+  }, function(err) {
+    console.log('No TOS for this user', err);
+    waitForUrlContains('dashboard');
+    expectUrlToContain('/dashboard');
+  });
 }

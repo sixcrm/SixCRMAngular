@@ -9,6 +9,14 @@ export class DashboardPage {
     browser.get('/dashboard');
   }
 
+  getTOS() {
+    return element(by.css('.terms-and-conditions-container'));
+  }
+
+  getTOSButton() {
+    return element(by.css('.accept'));
+  }
+
   getCollapsedMenuButton() {
     return element(by.css('.profile-dropdown__header'));
   }
