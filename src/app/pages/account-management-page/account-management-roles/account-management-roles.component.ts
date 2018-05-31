@@ -7,6 +7,10 @@ import {CustomServerError} from '../../../shared/models/errors/custom-server-err
 import {RolesSharedService} from '../../../shared/services/roles-shared.service';
 import {Acl} from '../../../shared/models/acl.model';
 import {AclsService} from '../../../shared/services/acls.service';
+import {MatDialog} from '@angular/material';
+import {RoleDialogComponent} from '../../../dialog-modals/role-dialog/role-dialog.component';
+import {DeleteDialogComponent} from '../../delete-dialog.component';
+import {firstIndexOf} from '../../../shared/utils/array.utils';
 
 @Component({
   selector: 'account-management-roles',
@@ -31,7 +35,8 @@ export class AccountManagementRolesComponent implements OnInit {
     private authService: AuthenticationService,
     private roleService: RolesService,
     private roleSharedService: RolesSharedService,
-    private aclService: AclsService
+    private aclService: AclsService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -84,8 +89,24 @@ export class AccountManagementRolesComponent implements OnInit {
     return this.acls.filter(acl => acl.role.id === role.id).length;
   }
 
-  addNewRole() {
+  addNewRole(): void {
+    let dialogRef = this.dialog.open(RoleDialogComponent, {backdropClass: 'backdrop-blue'});
 
+
+    dialogRef.afterClosed().subscribe(result => {
+      dialogRef = null;
+
+      if (result && result.name) {
+        this.roleService.entityCreated$.take(1).subscribe(role => {
+          if (role instanceof CustomServerError) return;
+
+          this.roles = [role, ...this.roles];
+          this.allRoles = [...this.sharedRoles, ...this.roles];
+        });
+
+        this.roleService.createEntity(new Role({name: result.name, active: true}));
+      }
+    });
   }
 
   viewRole(role: Role) {
@@ -93,6 +114,28 @@ export class AccountManagementRolesComponent implements OnInit {
   }
 
   deleteRole(role: Role) {
+    let dialogRef = this.dialog.open(DeleteDialogComponent);
 
+    dialogRef.afterClosed().subscribe(result => {
+      dialogRef = null;
+      if (result && result.success) {
+        this.performRoleDelete(role);
+      }
+    });
+  }
+
+  performRoleDelete(role: Role) {
+    this.roleService.entityDeleted$.take(1).subscribe(deletedRole => {
+      if (deletedRole instanceof CustomServerError) return;
+
+      const index = firstIndexOf(this.roles, (el: Role) => el.id === deletedRole.id);
+
+      if (index !== -1) {
+        this.roles.splice(index, 1);
+        this.allRoles = [...this.sharedRoles, ...this.roles];
+      }
+    });
+
+    this.roleService.deleteEntity(role.id);
   }
 }

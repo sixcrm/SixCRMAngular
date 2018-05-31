@@ -23,7 +23,7 @@
       <mat-icon class="menu-icon" [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
       <mat-menu #actionsMenu="matMenu" x-position="before">
         <button mat-menu-item (click)="viewRole(role)">View</button>
-        <button mat-menu-item (click)="deleteRole(role)">Delete</button>
+        <button mat-menu-item *ngIf="!role.isShared" (click)="deleteRole(role)">Delete</button>
       </mat-menu>
     </div>
 

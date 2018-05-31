@@ -5,6 +5,7 @@ import {HttpWrapperCustomerService} from '../../../shared/services/http-wrapper-
 import {Session} from '../../../shared/models/session.model';
 import {Rebill} from '../../../shared/models/rebill.model';
 import {utc} from 'moment';
+import {Currency} from '../../../shared/utils/currency/currency';
 
 @Component({
   selector: 'account-management-billing',
@@ -43,5 +44,37 @@ export class AccountManagementBillingComponent implements OnInit {
           })[0];
       });
     }
+  }
+
+  isStatusSuccess(rebill): boolean {
+    if (!rebill.transactions || !rebill.transactions[0]) return false;
+
+    return rebill.transactions[0].processorResponse.code === 'success';
+  }
+
+  getCard(rebill): {brand?: string, last4?: string} {
+    if (!rebill.transactions || !rebill.transactions[0]) return {};
+
+    return rebill.transactions[0].processorResponse.getCard();
+  }
+
+  getPlanPrice(rebill) {
+    if (!rebill) return new Currency(0);
+
+    const plan = rebill.productSchedules[0].name;
+
+    if (plan === 'Basic Subscription') {
+      return new Currency(30);
+    }
+
+    if (plan === 'Professional Subscription') {
+      return new Currency(150);
+    }
+
+    if (plan === 'Premium Subscription') {
+      return new Currency(2000);
+    }
+
+    return new Currency(0);
   }
 }

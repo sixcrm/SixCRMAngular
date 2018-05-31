@@ -1,0 +1,21 @@
+<div class="container">
+
+  <div class="title">Create Role</div>
+
+  <div class="body">
+
+    <mat-input-container [class.error]="formInvalid && !name">
+      <input type="text" matInput [(ngModel)]="name" placeholder="Role Name">
+    </mat-input-container>
+
+    <mat-input-container>
+      <input type="text" matInput [(ngModel)]="description" placeholder="Description">
+    </mat-input-container>
+
+  </div>
+
+  <div class="buttons">
+    <button mat-button (click)="close()">CANCEL</button>
+    <button mat-button (click)="submit()">SAVE</button>
+  </div>
+</div>

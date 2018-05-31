@@ -35,6 +35,7 @@ import { MarkdownModule } from 'angular2-markdown';
 import { InviteDialogComponent } from './dialog-modals/invite-dialog/invite-dialog.component';
 import { AccessKeysDialogComponent } from './dialog-modals/access-keys-dialog/access-keys-dialog.component';
 import { HttpWrapperCustomerService } from './shared/services/http-wrapper-customer.service';
+import { RoleDialogComponent } from './dialog-modals/role-dialog/role-dialog.component';
 
 @NgModule({
   declarations : [
@@ -56,7 +57,8 @@ import { HttpWrapperCustomerService } from './shared/services/http-wrapper-custo
     TermsDialogComponent,
     BillingInfoComponent,
     InviteDialogComponent,
-    AccessKeysDialogComponent
+    AccessKeysDialogComponent,
+    RoleDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -92,7 +94,8 @@ import { HttpWrapperCustomerService } from './shared/services/http-wrapper-custo
     MerchantProviderGroupAssociationDialogComponent,
     TermsDialogComponent,
     InviteDialogComponent,
-    AccessKeysDialogComponent
+    AccessKeysDialogComponent,
+    RoleDialogComponent
   ],
   bootstrap : [AppComponent]
 })

@@ -6,3 +6,50 @@
 <div>
   <account-management-billing-transactions-chart [lastBill]="lastBill"></account-management-billing-transactions-chart>
 </div>
+
+<div class="options">
+  <div class="option payment">
+    <div>Current Payment Option</div>
+    <button mat-button>MANAGE PAYMENT OPTIONS</button>
+  </div>
+
+  <div class="option upgrade">
+    <div>Upgrade today to eliminate transaction fees!</div>
+    <button mat-button>UPGRADE</button>
+  </div>
+</div>
+
+<div class="table-wrapper" *ngIf="session">
+  <div class="table-title">Billing History</div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Card</th>
+        <th>Card Brand</th>
+        <th>Plan</th>
+        <th>Plan Minimum</th>
+        <th>Amount Billed</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let rebill of session.rebills">
+        <td>
+          <mat-icon class="status-icon success-icon" *ngIf="isStatusSuccess(rebill); else erroricon">done</mat-icon>
+          <ng-template #erroricon>
+            <mat-icon class="status-icon erorr-icon">error_outline</mat-icon>
+          </ng-template>
+        </td>
+        <td>{{rebill.billAt | formatDateTime: 'DD/MM/YY'}}</td>
+        <td>****{{getCard(rebill).last4}}</td>
+        <td>{{getCard(rebill).brand}}</td>
+        <td>{{rebill.productSchedules[0].name}}</td>
+        <td>{{getPlanPrice(rebill).usd()}}</td>
+        <td>{{rebill.amount.usd()}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

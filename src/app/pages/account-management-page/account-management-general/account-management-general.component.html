@@ -54,7 +54,7 @@
 
       <div class="credit-card" *ngFor="let card of session.customer.creditCards">
 
-        <img src="/assets/cards/visa.svg">
+        <img *ngIf="card.type !== 'OTHER'" src="{{'/assets/cards/' + (card.type || '').toLowerCase() + '.svg'}}">
 
         <div class="info">
           <div class="number">**** **** **** {{card.lastFour}}</div>

@@ -12,7 +12,7 @@ export function getCustomerSession(sessionId: string): string {
       id created_at updated_at
       customer {
         firstname lastname email phone
-        creditcards { name expiration last_four }
+        creditcards { name expiration last_four type }
       },
       rebills { id bill_at amount
         transactions { processor_response },

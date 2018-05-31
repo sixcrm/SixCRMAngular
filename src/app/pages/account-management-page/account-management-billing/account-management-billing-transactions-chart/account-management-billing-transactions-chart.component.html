@@ -8,6 +8,22 @@
 
   <div class="details">
 
+    <div class="box" [class.box--error]="lastOverdue">
+      <div class="date" *ngIf="lastBillDate">
+        {{lastOverdue ? 'Past Due: ' : 'Previous Billing: '}}{{lastBillDate | formatDateTime: 'MMMM DD, YYYY'}}
+      </div>
+
+      <div class="minimum">
+        <div>Minimum monthly fee</div>
+        <div>{{getPlanPrice().usd()}}</div>
+      </div>
+
+      <div class="amount" *ngIf="lastBillAmount">
+        <div>{{lastOverdue ? 'Total to be billed as of today' : 'Total billed'}}</div>
+        <div>{{lastBillAmount.usd()}}</div>
+      </div>
+    </div>
+
     <div class="box">
       <div class="date" *ngIf="nextBillDate">
         Next Billing: {{nextBillDate | formatDateTime: 'MMMM DD, YYYY'}}
@@ -24,21 +40,6 @@
       </div>
     </div>
 
-    <div class="box">
-      <div class="date" *ngIf="lastBillDate">
-        Previous Billing: {{lastBillDate | formatDateTime: 'MMMM DD, YYYY'}}
-      </div>
-
-      <div class="minimum">
-        <div>Minimum monthly fee</div>
-        <div>{{getPlanPrice().usd()}}</div>
-      </div>
-
-      <div class="amount" *ngIf="lastBillAmount">
-        <div>Total billed</div>
-        <div>{{lastBillAmount.usd()}}</div>
-      </div>
-    </div>
 
   </div>
 </div>

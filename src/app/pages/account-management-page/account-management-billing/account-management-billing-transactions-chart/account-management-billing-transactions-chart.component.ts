@@ -20,6 +20,7 @@ export class AccountManagementBillingTransactionsChartComponent implements OnIni
   @Input() set lastBill(rebill: Rebill) {
     if (rebill) {
       this.lastBillDate = rebill.billAt;
+      this.lastOverdue = !rebill.transactions || !rebill.transactions[0] || rebill.transactions[0].processorResponse.code !== 'success';
       this.lastBillAmount = rebill.amount;
       this.nextBillDate = this.lastBillDate.clone().add(1, 'month');
       this.plan = rebill.productSchedules[0].name;
@@ -27,6 +28,7 @@ export class AccountManagementBillingTransactionsChartComponent implements OnIni
   };
 
   lastBillDate: Moment;
+  lastOverdue: boolean;
   nextBillDate: Moment;
 
   lastBillAmount: Currency;

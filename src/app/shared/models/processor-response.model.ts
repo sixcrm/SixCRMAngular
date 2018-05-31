@@ -5,7 +5,7 @@ export class ProcessorResponse implements Entity<ProcessorResponse> {
   message: string;
   code: string;
   authCode: string;
-  responseText: string;
+  responseText: any;
   transactionId: string;
 
   constructor(obj?: any) {
@@ -16,11 +16,19 @@ export class ProcessorResponse implements Entity<ProcessorResponse> {
       this.code = obj.code || '';
 
       if (obj.result) {
-        this.responseText = obj.result.responsetext || '';
+        this.responseText = obj.result.response || {};
         this.authCode = obj.result.authcode || '';
         this.transactionId = obj.result.transactionid || '';
       }
     }
+  }
+
+  getCard(): {brand?: string, last4?: string} {
+    if (!this.responseText || !this.responseText.body || !this.responseText.body.source || !this.responseText.body.source.card) {
+      return {}
+    }
+
+    return this.responseText.body.source.card;
   }
 
   copy(): ProcessorResponse {
@@ -33,7 +41,7 @@ export class ProcessorResponse implements Entity<ProcessorResponse> {
       message: this.message,
       code: this.code,
       result: {
-        responsetext: this.responseText,
+        response: this.responseText,
         authcode: this.authCode,
         transactionid: this.transactionId
       }
