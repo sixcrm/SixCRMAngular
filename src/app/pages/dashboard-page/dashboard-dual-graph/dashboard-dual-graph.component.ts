@@ -1,9 +1,8 @@
 import {Component, OnInit, AfterViewInit, Input} from '@angular/core';
-import {AuthenticationService} from '../../../authentication/authentication.service';
 import {SeriesType} from '../series-type';
 import {NumberLocalePipe} from "../../../translation/number-locale.pipe";
 import {TranslationService} from "../../../translation/translation.service";
-import {utc} from 'moment';
+import {Moment, utc} from 'moment';
 
 @Component({
   selector: 'dashboard-dual-graph',
@@ -18,6 +17,7 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
 
   data = [[],[]];
   numberOfDays = 30;
+  startDate: Moment;
 
   @Input() type: SeriesType = SeriesType.amountcount;
 
@@ -43,8 +43,7 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
   options;
   numberLocale: NumberLocalePipe;
 
-  constructor(private authService: AuthenticationService,
-              private translationService: TranslationService) {
+  constructor(private translationService: TranslationService) {
     this.numberLocale = new NumberLocalePipe(translationService);
   }
 
@@ -109,7 +108,8 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
           },
           offset: 7
         },
-        tickLength: 0
+        tickLength: 0,
+        showLastLabel: true
       },
       tooltip: {
         useHTML: true,
@@ -189,13 +189,17 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
   }
 
   refreshData() {
-    if (!this.data || !this.chartInstance || !this.chartInstance.chart) return;
+    if (!this.data || !this.chartInstance || !this.chartInstance.chart || !this.data[0].length) return;
 
-    this.data[0].pop();
+    let revenue = this.data[0];
+
+    revenue.pop(); //remove today's data
+
+    this.startDate = revenue[0][0];
 
     this.chartInstance.chart.series[0].update({
-      data: this.data[0],
-      pointStart: utc().subtract(this.numberOfDays, 'd')
+      data: revenue,
+      pointStart: utc(this.startDate)
     }, true);
 
     this.initialLoad = true;
@@ -209,7 +213,5 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
         this.refreshData();
       }
     },1);
-
-
   }
 }

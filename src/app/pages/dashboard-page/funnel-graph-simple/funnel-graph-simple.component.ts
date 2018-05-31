@@ -4,7 +4,7 @@ import {EventFunnelTimeseries} from "../../../shared/models/event-funnel-timeser
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
 import {AnalyticsService} from '../../../shared/services/analytics.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
-import {utc} from 'moment';
+import {Moment, utc} from 'moment';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -20,6 +20,7 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
   showChart: boolean;
   showStatisticDetails: boolean = false;
   numberOfDays: number = 30;
+  startDate: Moment;
 
   colors = ['#4383CC', '#4DABF5', '#9ADDFB', '#FDAB31', '#F28933'];
 
@@ -172,6 +173,7 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
     if (!this.chart || !this.funnelTimeseries || this.funnelTimeseries.datetime.length === 0) return;
 
     let data = [];
+    this.startDate = this.funnelTimeseries.datetime[0];
 
     for (let i = 0; i < this.funnelTimeseries.datetime.length; i++) {
       data.push({
@@ -183,7 +185,7 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
 
     this.chart.series[0].update({
       color: chartLineColor,
-      pointStart: utc().subtract(this.numberOfDays, 'd')
+      pointStart: utc(this.startDate)
     });
 
     this.chart.series[0].setData(data, true, true);
