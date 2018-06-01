@@ -9,8 +9,8 @@ import {Acl} from '../../../shared/models/acl.model';
 })
 export class AccountManagementRolesSelectorComponent implements OnInit {
 
-  @Input() roles: Roles;
-  @Input() sharedRoles: Roles;
+  @Input() roles: Role;
+  @Input() sharedRoles: Role;
   @Input() acl: Acl;
 
   @Output() updateRole: EventEmitter<{acl: Acl, role: Role}> = new EventEmitter();
