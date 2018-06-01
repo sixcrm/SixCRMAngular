@@ -22,20 +22,41 @@
 
   <mat-tab>
 
+    <div class="toggle-container">
+      <div class="text">SHOW ACTIVE ONLY</div>
+      <mat-slide-toggle class="slider-blue" (change)="toggleActiveOnly($event)"></mat-slide-toggle>
+    </div>
     <div class="table-wrapper" [class.table-wrapper--readonly]="isShared && !authService.isActiveAclMasterAccount()">
       <table>
         <thead>
         <tr>
           <th>Permission Name</th>
-          <th *ngFor="let action of allActions">{{action}}</th>
+          <th>All
+            <span [matMenuTriggerFor]="bulk" class="options">...</span>
+            <mat-menu #bulk="matMenu" x-position="before">
+              <button mat-menu-item (click)="enableAllActionsForAllEntities()">Enable All</button>
+              <button mat-menu-item (click)="disableAllActionsForAllEntities()">Disable All</button>
+            </mat-menu>
+          </th>
+          <th *ngFor="let action of allActions">
+            {{action}}
+            <span [matMenuTriggerFor]="bulk" class="options">...</span>
+            <mat-menu #bulk="matMenu" x-position="before">
+              <button mat-menu-item (click)="enableAllAction(action)">Enable All</button>
+              <button mat-menu-item (click)="disableAllAction(action)">Disable All</button>
+            </mat-menu>
+          </th>
         </tr>
         </thead>
 
         <tbody>
-        <tr *ngFor="let entity of allEntities">
+        <tr *ngFor="let entity of visibleEntities">
           <td>{{entity}}</td>
+          <td>
+            <mat-checkbox class="checkbox-blue" [disabled]="isShared && !authService.isActiveAclMasterAccount()" [checked]="hasAllPermissionsFor(entity)" (change)="toggleAllPermissionsFor(entity, $event)"></mat-checkbox>
+          </td>
           <td *ngFor="let action of allActions">
-            <mat-checkbox [disabled]="isShared && !authService.isActiveAclMasterAccount()" [checked]="role.permissions.hasPermission(entity,action)" (change)="togglePermission(entity, action, $event)"></mat-checkbox>
+            <mat-checkbox class="checkbox-blue" [disabled]="isShared && !authService.isActiveAclMasterAccount()" [checked]="role.permissions.hasPermission(entity, action)" (change)="togglePermission(entity, action, $event)"></mat-checkbox>
           </td>
         </tr>
         </tbody>

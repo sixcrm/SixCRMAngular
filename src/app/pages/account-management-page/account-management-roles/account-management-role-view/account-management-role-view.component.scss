@@ -34,7 +34,7 @@
 
 .table-wrapper {
   margin: 25px 10px 0 25px;
-  height: calc(100vh - 300px);
+  height: calc(100vh - 348px);
   overflow: auto;
 
   &--readonly {
@@ -53,6 +53,12 @@
 
         &:first-of-type {
           text-align: left;
+        }
+
+        .options {
+          font-size: 22px;
+          margin-left: 3px;
+          cursor: pointer;
         }
       }
     }
@@ -108,5 +114,17 @@
       color: #ffffff;
       background: #2C98F0;
     }
+  }
+}
+
+.toggle-container {
+  display: flex;
+  align-items: center;
+  margin: 25px 25px 0;
+
+  .text {
+    font-size: 14px;
+    margin-right: 12px;
+    font-weight: 500;
   }
 }

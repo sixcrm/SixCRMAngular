@@ -39,6 +39,7 @@ export class AccountManagementRoleViewComponent implements OnInit {
 
   allActions: string[] = getAllPermissionActions();
   allEntities: string[] = getRestrictedPermissionEntities();
+  visibleEntities: string[] = getRestrictedPermissionEntities();
 
   constructor(
     public authService: AuthenticationService,
@@ -123,6 +124,8 @@ export class AccountManagementRoleViewComponent implements OnInit {
   togglePermission(entity: string, action: string, value) {
 
     if (value.checked) {
+      if (this.role.permissions.hasPermission(entity, action)) return;
+
       this.role.permissions.allow = [...this.role.permissions.allow, `${entity}/${action}`];
     } else {
       const exactIndex = firstIndexOf(this.role.permissions.allow, (allowed) => allowed === `${entity}/${action}`);
@@ -151,5 +154,61 @@ export class AccountManagementRoleViewComponent implements OnInit {
 
   isChanged(): boolean {
     return this.role.permissions.allow.toString() !== this.roleBackup.permissions.allow.toString();
+  }
+
+  toggleAllPermissionsFor(entity: string, value) {
+    for (let action of this.allActions) {
+      this.togglePermission(entity, action, value)
+    }
+  }
+
+  hasAllPermissionsFor(entity) {
+    for (let action of this.allActions) {
+      if (!this.role.permissions.hasPermission(entity,action)) return false;
+    }
+
+    return true;
+  }
+
+  enableAllActionsForAllEntities() {
+    for (let action of this.allActions) {
+      this.enableAllAction(action);
+    }
+  }
+
+  disableAllActionsForAllEntities() {
+    this.role.permissions.allow = [];
+  }
+
+  enableAllAction(action: string) {
+    this.disableAllAction(action);
+
+    for (let entity of this.allEntities) {
+      this.role.permissions.allow.push(`${entity}/${action}`);
+    }
+  }
+
+  disableAllAction(action: string) {
+    this.role.permissions.allow = this.role.permissions.allow.filter(allowed => {
+      const splitted = allowed.split('/');
+
+      return splitted[1] !== action;
+    })
+  }
+
+  toggleActiveOnly(value) {
+    if (value.checked) {
+      this.visibleEntities = this.allEntities.filter(entity => this.hasAtLeastOnePermission(entity)).slice();
+    } else {
+      this.visibleEntities = this.allEntities.slice();
+    }
+  }
+
+  hasAtLeastOnePermission(entity: string) {
+    for (let action of this.allActions) {
+      if (this.role.hasPermission(entity, action)) return true;
+    }
+
+    return false;
   }
 }
