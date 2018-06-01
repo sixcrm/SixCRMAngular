@@ -6,7 +6,7 @@ import {PageComponentsModule} from "../components/pages-components.module";
 import {MaterialSelectionModule} from "../../material-selection/material-selection.module";
 import {SharedModule} from "../../shared/shared.module";
 import {TranslationModule} from "../../translation/translation.module";
-import {FeaturesComponent} from "./roles-index/features.component";
+import {FeaturesComponent} from "./features-index/features.component";
 
 @NgModule({
   imports: [
