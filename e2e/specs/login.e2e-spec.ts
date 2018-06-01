@@ -40,7 +40,7 @@ describe('Login', function() {
     browser.sleep(1200);
     browser.waitForAngularEnabled(false);
     doLogin(authPage, 'e2e-test-admin@sixcrm.com', '123456789');
-    browser.sleep(500);
+    browser.sleep(2000);
     doTOSCheck();
     waitForUrlContains('dashboard');
     expectUrlToContain('/dashboard');
@@ -63,6 +63,7 @@ describe('Login', function() {
     navigateSuperuserToHomepage();
     browser.waitForAngularEnabled(false);
     browser.sleep(2000);
+    waitForUrlContains('dashboard');
     doTOSCheck();
     expectUrlToContain('/dashboard');
   });

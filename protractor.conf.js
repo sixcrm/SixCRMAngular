@@ -61,7 +61,6 @@ exports.config = {
     });
   },
   onPrepare: function() {
-
     /*global jasmine */
     var SpecReporter = require('jasmine-spec-reporter');
     jasmine.getEnv().addReporter(new SpecReporter(

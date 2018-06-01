@@ -17,6 +17,7 @@ export function doLogin(authPage: AuthPage, email: string, password: string) {
   authPage.getEmailInput().sendKeys(email);
   authPage.getPasswordInput().sendKeys(password);
   authPage.getLoginButton().click();
+  browser.sleep(5000);
 }
 
 export function doSignUp(authPage: AuthPage, email: string, password: string) {
@@ -43,13 +44,13 @@ export function login(user?: boolean) {
 
 export function doTOSCheck() {
   dashboardPage.getTOSButton().click().then(function() {
-      browser.sleep(2000);
-      console.log('Found a TOS button');
+      browser.sleep(5000);
+      waitForUrlContains('dashboard');
       browser.sleep(2000);
       dashboardPage.getTOSButton().click();
-      browser.sleep(3000);
+      console.log('Found a TOS button');
     },
     function(err) {
       console.log('No TOS button found');
-    });
+  });
 }
