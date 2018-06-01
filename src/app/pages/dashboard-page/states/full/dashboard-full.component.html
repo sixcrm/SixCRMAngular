@@ -10,8 +10,10 @@
         </div>
       </div>
 
-      <div *ngIf="quote" class="dashboard-message">{{quote.quote}}</div>
-      <div *ngIf="quote" class="dashboard-message dashboard-message__author">-{{quote.attribution.author}}</div>
+      <div *ngIf="quote" class="quote">
+        <div class="dashboard-message">{{quote.quote}}</div>
+        <div class="dashboard-message dashboard-message__author">-{{quote.attribution.author}}</div>
+      </div>
 
     </div>
 

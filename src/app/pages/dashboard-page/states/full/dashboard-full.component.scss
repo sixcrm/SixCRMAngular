@@ -8,22 +8,26 @@
 
 .dashboard-top-header {
   display: flex;
+  justify-content: space-between;
 }
 
-.dashboard-message {
-  margin-left: auto;
-  color: #B5D0FA;
-  font-style: italic;
-  font-size: 20px;
-  font-weight: 400;
-  text-align: right;
-  margin-top: 108px;
+.quote {
+  display: flex;
+  flex-direction: column;
+  margin-top: 90px;
 
-  &__author {
-    margin-left: 20px;
-    font-size: 16px;
-    line-height: 23px;
+  .dashboard-message {
+    color: #8EC9FD;
+    font-style: italic;
+    font-size: 20px;
+    font-weight: 400;
     margin-right: 30px;
+
+    &__author {
+      font-size: 16px;
+      line-height: 23px;
+      margin-left: auto;
+    }
   }
 }
 
