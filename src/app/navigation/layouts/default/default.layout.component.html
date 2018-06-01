@@ -33,8 +33,12 @@
   <div>Processing Order</div>
 </div>
 
-<div *ngIf="userAclOutdated || ownerAclOutdated" class="terms-and-conditions-container">
-  <terms-and-conditions></terms-and-conditions>
+<div *ngIf="userAclOutdated" class="terms-and-conditions-container">
+  <terms-and-conditions [type]="'user'"></terms-and-conditions>
+</div>
+
+<div *ngIf="ownerAclOutdated" class="terms-and-conditions-container">
+  <terms-and-conditions [type]="'owner'"></terms-and-conditions>
 </div>
 
 <div *ngIf="showWelcomeOverlay" class="welcome-container">

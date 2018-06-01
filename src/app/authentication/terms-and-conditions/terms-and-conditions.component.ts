@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 import {AuthenticationService} from '../authentication.service';
 import {UsersService} from '../../shared/services/users.service';
 import {Acl} from '../../shared/models/acl.model';
@@ -23,6 +23,7 @@ interface TermsAndConditions {
 })
 export class TermsAndConditionsComponent implements OnInit, OnDestroy {
 
+  @Input() type: 'user' | 'owner';
   termsAndConditions: TermsAndConditions = {};
   activeAcl: Acl;
   activeUser: User;
@@ -52,24 +53,29 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
     this.activeUser = this.authService.getSixUser().copy();
     this.activeAcl = this.authService.getActiveAcl().copy();
 
-    if (this.activeUser.termsAndConditionsOutdated) {
+    console.log(this.type);
+
+    if (this.type === 'user') {
       this.fetchUser();
-    } else if (this.activeAcl.role.name === 'Owner' && this.activeAcl.termsAndConditionsOutdated) {
+    } else if (this.type === 'owner') {
       this.fetchOwner();
     }
   }
 
   fetchUser(): void {
+    console.log('f user');
     this.userService.getlatestTermsAndConditions().take(1).subscribe((response) => {
       if (response instanceof CustomServerError) {
         return;
       }
 
+      this.showingOwnerTermsAndConditions = false;
       this.termsAndConditions = response.body.response.data.latesttermsandconditions;
     })
   }
 
   fetchOwner(): void {
+    console.log('f owner');
     this.userService.getlatestTermsAndConditions(this.authService.getActiveAcl().account.id, 'owner').take(1).subscribe((response) => {
       if (response instanceof CustomServerError) {
         return;
@@ -87,9 +93,9 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
   }
 
   acceptTermsAndConditions(): void {
-    if (this.activeUser.termsAndConditionsOutdated) {
+    if (this.type === 'user') {
       this.acceptUserTermsAndConditions();
-    } else if (this.activeAcl.termsAndConditionsOutdated) {
+    } else if (this.type === 'owner') {
       this.acceptOwnerTermsAndConditions();
     }
   }
