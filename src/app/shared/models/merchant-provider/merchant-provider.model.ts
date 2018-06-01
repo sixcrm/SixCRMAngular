@@ -30,7 +30,7 @@ export class MerchantProvider implements Entity<MerchantProvider>{
     this.name = obj.name || '';
     this.enabled = obj.enabled || true;
     this.allowPrepaid = obj.allow_prepaid || false;
-    this.acceptedPaymentMethods = obj.accepted_payment_methods || ['American Express', 'Mastercard', 'Visa', 'LOCAL CARD'];
+    this.acceptedPaymentMethods = obj.accepted_payment_methods || ['American Express', 'Mastercard', 'Visa', 'Discover', 'LOCAL CARD'];
     this.customerService = new MerchantProviderCustomerService(obj.customer_service);
     this.gateway = new MerchantProviderGateway(obj.gateway);
     this.processing = new MerchantProviderProcessingConfig(obj.processingOrder);
