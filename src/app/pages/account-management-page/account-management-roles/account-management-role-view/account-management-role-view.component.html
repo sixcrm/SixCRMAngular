@@ -70,6 +70,79 @@
   </mat-tab>
 
   <mat-tab>
+    <div class="body--users">
+      <div class="users-editor" [class.users-editor--visible]="usersEditMode">
+        <div class="content">
+          <div class="title">
+            Assign Role to Users
+          </div>
+
+          <div class="subtitle">
+            Assigning users this role will replace existing role.
+          </div>
+
+          <div class="mrw-bi-input">
+            <mat-input-container [floatLabel]="'never'">
+              <input matInput type="text" placeholder="Find user..." [(ngModel)]="filterEditString">
+            </mat-input-container>
+          </div>
+
+          <div class="items">
+            <div class="item" *ngFor="let acl of acls | filterStrings: filterEditString: filterFunction">
+              <mat-checkbox class="checkbox-blue" (change)="aclRoleToggle(acl, $event)" [checked]="acl.role.id === entityId"></mat-checkbox>
+
+              <div class="details">
+                <div>{{acl.user.name}}</div>
+                <div>{{acl.user.email}}</div>
+                <div>{{acl.role.name}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-container" [class.grid-container--partial]="usersEditMode">
+        <div class="header">
+          <button mat-button (click)="usersEditMode = !usersEditMode">TOGGLE ADD USERS</button>
+
+          <div class="mrw-bi-input">
+            <mat-input-container [floatLabel]="'never'">
+              <input matInput type="text" placeholder="Find user..." [(ngModel)]="filterString">
+            </mat-input-container>
+          </div>
+
+          <div class="count" *ngIf="acls">{{roleAcls.length}} Users</div>
+        </div>
+
+        <div class="content-wrapper" *ngIf="acls">
+
+          <div *ngIf="!roleAcls || roleAcls.length === 0" class="no-data">No Users are assigned to this Role</div>
+
+          <div class="user-card" [class.user-card--partial]="usersEditMode" *ngFor="let acl of roleAcls | filterStrings: filterString: filterFunction">
+            <div class="avatar">{{getAvatar(acl)}}</div>
+            <div class="data">
+              <div class="name">{{acl.user.name}}</div>
+              <div class="email">{{acl.user.email}}</div>
+              <div class="login">Last login:</div>
+
+              <account-management-roles-selector
+                *ngIf="roles && sharedRoles"
+                [acl]="acl"
+                [sharedRoles]="sharedRoles"
+                [roles]="roles"
+                (updateRole)="updateAclRole($event)">
+              </account-management-roles-selector>
+            </div>
+
+            <mat-icon class="menu-icon" [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+            <mat-menu #actionsMenu="matMenu" x-position="before">
+              <button mat-menu-item (click)="deleteAcl(acl)">Delete</button>
+            </mat-menu>
+          </div>
+
+        </div>
+      </div>
+    </div>
 
   </mat-tab>
 </mat-tab-group>

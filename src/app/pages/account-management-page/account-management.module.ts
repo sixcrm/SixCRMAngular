@@ -16,6 +16,7 @@ import {HighchartsStatic} from 'angular2-highcharts/dist/HighchartsService';
 import {SharedModule} from '../../shared/shared.module';
 import { AccountManagementRoleViewComponent } from './account-management-roles/account-management-role-view/account-management-role-view.component';
 import {TextMaskModule} from 'angular2-text-mask';
+import { AccountManagementRolesSelectorComponent } from './account-management-roles-selector/account-management-roles-selector.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import {TextMaskModule} from 'angular2-text-mask';
     AccountManagementApikeysComponent,
     AccountManagementHeaderComponent,
     AccountManagementBillingTransactionsChartComponent,
-    AccountManagementRoleViewComponent
+    AccountManagementRoleViewComponent,
+    AccountManagementRolesSelectorComponent
   ],
   providers: [
     {

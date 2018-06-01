@@ -124,7 +124,7 @@ export class AccountManagementUsersComponent implements OnInit, OnDestroy {
     return `${fn.length > 0 ? fn.charAt(0) : ''}${ln.length > 0 ? ln.charAt(0) : ''}`
   }
 
-  updateAclRole(acl: Acl, role: Role) {
+  updateAclRole(result: {acl: Acl, role: Role}) {
     this.aclService.entityUpdated$.take(1).subscribe((updatedAcl) => {
       if (updatedAcl instanceof CustomServerError) return;
 
@@ -136,8 +136,8 @@ export class AccountManagementUsersComponent implements OnInit, OnDestroy {
       }
     });
 
-    let backupAcl = acl.copy();
-    backupAcl.role = role;
+    let backupAcl = result.acl.copy();
+    backupAcl.role = result.role;
 
     this.aclService.updateEntity(backupAcl);
   }

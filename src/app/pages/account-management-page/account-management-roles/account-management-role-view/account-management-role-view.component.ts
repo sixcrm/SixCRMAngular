@@ -10,6 +10,8 @@ import {
   getAllPermissionActions, getRestrictedPermissionEntities
 } from '../../../../shared/models/permissions.model';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
+import {AclsService} from '../../../../shared/services/acls.service';
+import {Acl} from '../../../../shared/models/acl.model';
 
 @Component({
   selector: 'account-management-role-view',
@@ -41,11 +43,24 @@ export class AccountManagementRoleViewComponent implements OnInit {
   allEntities: string[] = getRestrictedPermissionEntities();
   visibleEntities: string[] = getRestrictedPermissionEntities();
 
+  acls: Acl[];
+  roleAcls: Acl[];
+
+  roles: Role[];
+  sharedRoles: Role[];
+
+  filterString: string;
+  filterEditString: string;
+  filterFunction = (acl: Acl) => `${acl.user.email} ${acl.user.name}`;
+
+  usersEditMode: boolean;
+
   constructor(
     public authService: AuthenticationService,
     private service: RolesService,
     private sharedService: RolesSharedService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private aclService: AclsService
   ) {
     this.activatedRoute.params.take(1).subscribe((params: Params) => {
       this.entityId = params['id'];
@@ -55,6 +70,18 @@ export class AccountManagementRoleViewComponent implements OnInit {
   }
 
   fetch() {
+    this.service.entities$.take(1).subscribe(roles => {
+      if (roles instanceof CustomServerError) return;
+
+      this.roles = roles;
+    });
+
+    this.sharedService.entities$.take(1).subscribe(roles => {
+      if (roles instanceof CustomServerError) return;
+
+      this.sharedRoles = roles;
+    });
+
     this.service.entity$.take(1).subscribe(role => {
       if (role instanceof CustomServerError) return;
 
@@ -82,11 +109,28 @@ export class AccountManagementRoleViewComponent implements OnInit {
       }
     });
 
+    this.aclService.entities$.take(1).subscribe(acls => {
+      if (acls instanceof CustomServerError) return;
+
+      this.acls = acls;
+      this.roleAcls = this.acls.filter(acl => acl.role.id === this.entityId);
+    });
+
     this.service.getEntity(this.entityId);
+    this.service.getEntities();
+    this.sharedService.getEntities();
+    this.aclService.getEntities();
   }
 
   ngOnInit() {
 
+  }
+
+  getAvatar(acl: Acl): string {
+    const fn = acl.user.firstName;
+    const ln = acl.user.lastName;
+
+    return `${fn.length > 0 ? fn.charAt(0) : ''}${ln.length > 0 ? ln.charAt(0) : ''}`
   }
 
   setIndex(index: number): void {
@@ -210,5 +254,29 @@ export class AccountManagementRoleViewComponent implements OnInit {
     }
 
     return false;
+  }
+
+  updateAclRole(result: {acl: Acl, role: Role}) {
+    this.aclService.entityUpdated$.take(1).subscribe((updatedAcl) => {
+      if (updatedAcl instanceof CustomServerError) return;
+
+      const index = firstIndexOf(this.acls, (el) => el.id === updatedAcl.id);
+
+      if (index !== -1)  {
+        this.acls[index] = updatedAcl;
+        this.roleAcls = this.acls.filter(acl => acl.role.id === this.entityId);
+      }
+    });
+
+    let backupAcl = result.acl.copy();
+    backupAcl.role = result.role;
+
+    this.aclService.updateEntity(backupAcl);
+  }
+
+  aclRoleToggle(acl: Acl, value) {
+    if (value.checked) {
+      this.updateAclRole({acl: acl, role: this.role})
+    }
   }
 }
