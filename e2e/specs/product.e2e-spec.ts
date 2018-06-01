@@ -1,7 +1,7 @@
 import {waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
 import {SidenavPage} from '../po/sidenav.po';
-import {login} from '../utils/action.utils';
+import {doTOSCheck, login} from '../utils/action.utils';
 import {browser} from 'protractor';
 import {expectUrlToContain, expectDefined, expectPresent} from '../utils/assertation.utils';
 import {ProductPage} from '../po/product.po';
@@ -22,6 +22,7 @@ describe('Products', function() {
     clearLocalStorage();
     login();
     waitForUrlContains('dashboard');
+    doTOSCheck();
   });
 
   it('should navigate to products page', () => {
