@@ -51,7 +51,7 @@ export class ProductSchedulePage {
   }
 
   getConfirmDeleteButton() {
-    return element(by.css('delete-dialog')).element(by.css('mat-card-actions')).all(by.css('div')).last();
+    return element(by.css('.custom-dialog__buttons')).all(by.css('div')).last();
   }
   getProductScheduleSubnav(){
     return element(by.css('.entity-view__navigation')).all(by.css('span'));
@@ -72,4 +72,9 @@ export class ProductSchedulePage {
   getProductIsScheduledName(){
     return element(by.css('.products-list')).all(by.css('.text')).last();
   }
+
+  getProductSchedIndexButton() {
+    return element(by.css('.entity-view__change-mode'));
+  }
+
 }

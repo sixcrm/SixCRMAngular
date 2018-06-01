@@ -109,7 +109,7 @@ describe('Campaigns', function() {
     browser.sleep(200);
     campaignPage.getCampaignDeleteModalButton().click();
     browser.sleep(1200);
-    expect(campaignPage.getCampaignIndividualCampaign().count()).toEqual(1);
+    expect(campaignPage.getCampaignIndividualCampaign().count()).toEqual(0);
   });
 
 });

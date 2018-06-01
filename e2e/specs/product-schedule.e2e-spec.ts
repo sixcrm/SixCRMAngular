@@ -26,9 +26,9 @@ describe('Product Schedules', function() {
 
   it('should navigate to products page', () => {
     const sidenav = new SidenavPage();
-    sidenav.getLink(17).click();
+    sidenav.getLink(12).click();
     browser.sleep(500);
-    sidenav.getLink(20).click();
+    sidenav.getLink(15).click();
     waitForUrlContains('productschedules');
     expectUrlToContain('productschedules');
   });
@@ -116,12 +116,12 @@ describe('Product Schedules', function() {
   });
 
   it('should remove added schedule', () => {
+    productSchedulePage.getProductSchedIndexButton().click();
+    browser.sleep(500);
     productSchedulePage.getTableRowOptionsButton().click();
     browser.sleep(500);
-    productSchedulePage.getMenuButton(2).click();
-    browser.sleep(500);
     productSchedulePage.getConfirmDeleteButton().click();
-    browser.sleep(2000);
+    browser.sleep(1200);
     expect(productSchedulePage.getAssociatedSchedulesRows().count()).toEqual(0);
   });
 
