@@ -99,15 +99,6 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
         },
         lineColor: '#3967A8',
         tickInterval: 5 * 24 * 3600 * 1000,
-        title: {
-          text: 'Yesterday',
-          align: 'high',
-          style: {
-            color: '#8EC9FD',
-            fontSize: '14px'
-          },
-          offset: 7
-        },
         tickLength: 0,
         showLastLabel: true
       },
