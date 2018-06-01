@@ -53,8 +53,6 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
     this.activeUser = this.authService.getSixUser().copy();
     this.activeAcl = this.authService.getActiveAcl().copy();
 
-    console.log(this.type);
-
     if (this.type === 'user') {
       this.fetchUser();
     } else if (this.type === 'owner') {
@@ -63,7 +61,6 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
   }
 
   fetchUser(): void {
-    console.log('f user');
     this.userService.getlatestTermsAndConditions().take(1).subscribe((response) => {
       if (response instanceof CustomServerError) {
         return;
@@ -75,7 +72,6 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
   }
 
   fetchOwner(): void {
-    console.log('f owner');
     this.userService.getlatestTermsAndConditions(this.authService.getActiveAcl().account.id, 'owner').take(1).subscribe((response) => {
       if (response instanceof CustomServerError) {
         return;
