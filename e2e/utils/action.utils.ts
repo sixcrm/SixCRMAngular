@@ -37,5 +37,18 @@ export function login(user?: boolean) {
   doLogin(authPage, user ? usernameU : username, user ? passwordU : password);
   // Wait for angular is disabled, so we need to tell protractor to wait for page to load
   waitForUrlContains('dashboard');
+
+  dashboardPage.getTOSButton().click().then(function() {
+      /* passing case */
+      console.log('Found a TOS button');
+      browser.sleep(2000);
+      dashboardPage.getTOSButton().click();
+      browser.sleep(3000);
+    },
+    function(err) {
+      /* error handling here */
+      console.log('No TOS button found');
+    });
+
   expectUrlToContain('/dashboard');
 }

@@ -1,4 +1,5 @@
 import {element, by} from 'protractor';
+import any = jasmine.any;
 
 export class CampaignPage {
 
@@ -34,12 +35,24 @@ export class CampaignPage {
     return element(by.css('.mat-menu-content')).element(by.css('button'));
   }
 
-  getCampaignIndividualCampaign(num: number) {
-    return element(by.css('tbody')).all(by.css('tr')).get(num);
+  getCampaignIndividualCampaign() {
+    return element(by.css('tbody')).all(by.css('tr'));
   }
 
   getCampaignNameInCard() {
     return element(by.css('.entity-view__card__content')).element(by.css('input'));
+  }
+
+  getCampaignDeleteButton() {
+    return element(by.css('tbody')).all(by.css('tr')).first().element(by.buttonText('delete'));
+  }
+
+  getCampaignDeleteModalButton() {
+    return element(by.css('.custom-dialog__buttons')).all(by.css('div')).last();
+  }
+
+  getCampaignIndexButton() {
+    return element(by.css('.entity-view__change-mode'));
   }
 
 }

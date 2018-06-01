@@ -56,7 +56,6 @@ describe('Dashboard', function() {
     browser.sleep(500);
     sidenav.getLink(3).click();
 
-    // sidenav.getLink(3).click();
     waitForUrlContains('customers');
     waitForNotPresenceOf(app.getProgressBar());
 
@@ -66,5 +65,5 @@ describe('Dashboard', function() {
     browser.sleep(50);
     expectNotPresent(app.getProgressBar());
     expectNotPresent(dashboard.getTransactionOverviewLoader());
-  })
+  });
 });
