@@ -6,7 +6,7 @@ import {
   waitForPresenceOfLoginFields, waitForPresenceOf, waitForUrlContains,
   navigateSuperuserToHomepage, clearLocalStorage
 } from '../utils/navigation.utils';
-import {doLogin} from '../utils/action.utils';
+import {doLogin, doTOSCheck} from '../utils/action.utils';
 import {expectPresent, expectUrlToContain} from '../utils/assertation.utils';
 
 describe('Login', function() {
@@ -41,11 +41,9 @@ describe('Login', function() {
     browser.waitForAngularEnabled(false);
     doLogin(authPage, 'e2e-test-admin@sixcrm.com', '123456789');
     browser.sleep(500);
+    doTOSCheck();
     waitForUrlContains('dashboard');
-    browser.sleep(2000);
     expectUrlToContain('/dashboard');
-
-
   });
 
   it ('should login and navigate to /customers when landed on /customers before login', () => {
@@ -56,6 +54,7 @@ describe('Login', function() {
     doLogin(authPage, 'e2e-test-admin@sixcrm.com', '123456789');
     // Wait for angular is disabled, so we need to tell protractor to wait for page to load
     browser.sleep(2000);
+    doTOSCheck();
     waitForUrlContains('customers');
     expectUrlToContain('/customers');
   });
@@ -64,6 +63,7 @@ describe('Login', function() {
     navigateSuperuserToHomepage();
     browser.waitForAngularEnabled(false);
     browser.sleep(2000);
+    doTOSCheck();
     expectUrlToContain('/dashboard');
   });
 
@@ -71,18 +71,7 @@ describe('Login', function() {
     navigateSuperuserToHomepage();
     browser.waitForAngularEnabled(false);
     browser.sleep(2000);
-      dashboardPage.getTOSButton().click().then(function() {
-      /* passing case */
-          console.log('Found a TOS button');
-          browser.sleep(2000);
-      dashboardPage.getTOSButton().click();
-          browser.sleep(3000);
-      },
-      function(err) {
-      /* error handling here */
-        console.log('No TOS button found');
-      });
-    browser.sleep(3000);
+    doTOSCheck();
     dashboardPage.getCollapsedMenuButton().click();
     browser.sleep(600);
     dashboardPage.getCollapsedMenuItems().last().click();
