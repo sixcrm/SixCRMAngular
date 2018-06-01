@@ -2132,7 +2132,7 @@ export class DefaultTranslationService {
               "name": "Name",
               "enabled": "Enabled",
               "allowprepaid": "Allow Prepaid cards",
-              "accepted": "Accepted paypment methods"
+              "accepted": "Accepted payment methods"
             },
             "processing": {
               "title": "Processing",

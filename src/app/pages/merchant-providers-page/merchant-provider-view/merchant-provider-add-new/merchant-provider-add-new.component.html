@@ -21,7 +21,7 @@
         <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View" name="allowPrepaid" [(ngModel)]="entity.allowPrepaid"></mat-checkbox>
       </div>
 
-      <div class="merchant-provider-view__details__subtitle">{{'MERCHANTPROVIDER_INFO_SETTINGS_ACCEPTED' | translate}}</div>
+      <div class="merchant-provider-view__details__subtitle" [class.error]="!entity.acceptedPaymentMethods.length">{{'MERCHANTPROVIDER_INFO_SETTINGS_ACCEPTED' | translate}}</div>
 
       <div *ngFor="let card of allCreditCards" class="flex-custom flex-custom--center merchant-provider-view__details__selectable">
         <span>{{card}}</span>
