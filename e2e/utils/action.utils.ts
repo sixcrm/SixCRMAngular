@@ -43,12 +43,12 @@ export function login(user?: boolean) {
 }
 
 export function doTOSCheck() {
+  browser.sleep(2000);
   dashboardPage.getTOSButton().click().then(function() {
-      browser.sleep(5000);
-      waitForUrlContains('dashboard');
-      browser.sleep(2000);
+      browser.sleep(1200);
       dashboardPage.getTOSButton().click();
       console.log('Found a TOS button');
+      browser.sleep(1200);
     },
     function(err) {
       console.log('No TOS button found');

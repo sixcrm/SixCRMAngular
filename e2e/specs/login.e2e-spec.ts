@@ -42,6 +42,7 @@ describe('Login', function() {
     doLogin(authPage, 'e2e-test-admin@sixcrm.com', '123456789');
     browser.sleep(2000);
     doTOSCheck();
+    browser.sleep(2000);
     waitForUrlContains('dashboard');
     expectUrlToContain('/dashboard');
   });
@@ -55,6 +56,7 @@ describe('Login', function() {
     // Wait for angular is disabled, so we need to tell protractor to wait for page to load
     browser.sleep(2000);
     doTOSCheck();
+    browser.sleep(1200);
     waitForUrlContains('customers');
     expectUrlToContain('/customers');
   });
@@ -65,6 +67,7 @@ describe('Login', function() {
     browser.sleep(2000);
     waitForUrlContains('dashboard');
     doTOSCheck();
+    browser.sleep(2000);
     expectUrlToContain('/dashboard');
   });
 
@@ -73,6 +76,7 @@ describe('Login', function() {
     browser.waitForAngularEnabled(false);
     browser.sleep(2000);
     doTOSCheck();
+    browser.sleep(2000);
     dashboardPage.getCollapsedMenuButton().click();
     browser.sleep(600);
     dashboardPage.getCollapsedMenuItems().last().click();
