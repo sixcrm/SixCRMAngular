@@ -105,7 +105,7 @@ describe('Products', function() {
     sidenav.getLink(14).click();
     browser.sleep(1200);
     waitForUrlContains('products');
-    productPage.getProductFromTable(1).click();
+    productPage.getProductFromTable(0).click();
     browser.sleep(500);
     expectUrlToContain('products');
   });
