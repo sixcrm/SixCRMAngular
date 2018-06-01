@@ -135,24 +135,26 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
   // Add Account Management menu item
   let accountManagement: MenuItem[] = [];
 
-  if (featureFlagService.isEnabled('account-management') && (authService.hasPermissions('account', 'read'))) {
-    accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_GENERAL', 'accountmanagement/general'));
-  }
-  if (featureFlagService.isEnabled('account-management') && (authService.hasPermissions('billing', 'read'))) {
-    accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_BILLING', 'accountmanagement/billing'));
-  }
-  if (featureFlagService.isEnabled('account-management') && (authService.hasPermissions('useracl', 'read'))) {
-    accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_USERS', 'accountmanagement/users'));
-  }
-  if (featureFlagService.isEnabled('account-management') && (authService.hasPermissions('roles', 'read'))) {
-    accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_ROLES', 'accountmanagement/roles'));
-  }
-  if (featureFlagService.isEnabled('account-management') && (authService.hasPermissions('accesskey', 'read'))) {
-    accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_KEYS', 'accountmanagement/apikeys'));
-  }
+  if (featureFlagService.isEnabled('account-management')) {
+    if (authService.hasPermissions('account', 'read')) {
+      accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_GENERAL', 'accountmanagement/general'));
+    }
+    if (authService.hasPermissions('billing', 'read')) {
+      accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_BILLING', 'accountmanagement/billing'));
+    }
+    if (authService.hasPermissions('useracl', 'read')) {
+      accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_USERS', 'accountmanagement/users'));
+    }
+    if (authService.hasPermissions('roles', 'read')) {
+      accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_ROLES', 'accountmanagement/roles'));
+    }
+    if (authService.hasPermissions('accesskey', 'read')) {
+      accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_KEYS', 'accountmanagement/apikeys'));
+    }
 
-  if (accountManagement.length > 0) {
-    items.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_TITLE', null, accountManagement).setIcon('settings'));
+    if (accountManagement.length > 0) {
+      items.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_TITLE', null, accountManagement).setIcon('settings'));
+    }
   }
 
   if (authService.isActiveOrActingAclMasterAccount()) {

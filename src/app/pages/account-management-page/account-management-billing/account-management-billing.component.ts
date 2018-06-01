@@ -6,6 +6,9 @@ import {Session} from '../../../shared/models/session.model';
 import {Rebill} from '../../../shared/models/rebill.model';
 import {utc} from 'moment';
 import {Currency} from '../../../shared/utils/currency/currency';
+import {firstIndexOf} from '../../../shared/utils/array.utils';
+import {CreditCard} from '../../../shared/models/credit-card.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'account-management-billing',
@@ -19,7 +22,13 @@ export class AccountManagementBillingComponent implements OnInit {
 
   lastBill: Rebill;
 
-  constructor(private authService: AuthenticationService, private customerGraphAPI: HttpWrapperCustomerService) { }
+  defaultCreditCard: CreditCard;
+
+  constructor(
+    private authService: AuthenticationService,
+    private customerGraphAPI: HttpWrapperCustomerService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.account = this.authService.getActiveAcl().account;
@@ -33,6 +42,14 @@ export class AccountManagementBillingComponent implements OnInit {
     if (currentAcc.billing && currentAcc.billing.session) {
       this.customerGraphAPI.fetchSessionInfo(currentAcc.billing.session).subscribe(session => {
         this.session = session;
+
+        if (this.session.customer.defaultCreditCard) {
+          const index = firstIndexOf(this.session.customer.creditCards, (el) => el.id === this.session.customer.defaultCreditCard);
+
+          if (index !== -1) {
+            this.defaultCreditCard = this.session.customer.creditCards[index];
+          }
+        }
 
         this.lastBill = this.session.rebills
           .filter(rebill => rebill.billAt.isBefore(utc()))
@@ -76,5 +93,9 @@ export class AccountManagementBillingComponent implements OnInit {
     }
 
     return new Currency(0);
+  }
+
+  navigateToGeneral() {
+    this.router.navigate(['/accountmanagement', 'general']);
   }
 }

@@ -15,6 +15,7 @@ import {ChartModule} from 'angular2-highcharts';
 import {HighchartsStatic} from 'angular2-highcharts/dist/HighchartsService';
 import {SharedModule} from '../../shared/shared.module';
 import { AccountManagementRoleViewComponent } from './account-management-roles/account-management-role-view/account-management-role-view.component';
+import {TextMaskModule} from 'angular2-text-mask';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { AccountManagementRoleViewComponent } from './account-management-roles/a
     MaterialSelectionModule,
     ChartModule,
     SharedModule,
-    ClipboardModule
+    ClipboardModule,
+    TextMaskModule
   ],
   declarations: [
     AccountManagementGeneralComponent,

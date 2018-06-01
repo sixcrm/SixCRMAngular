@@ -94,7 +94,6 @@ export class AccountManagementRolesComponent implements OnInit {
   addNewRole(): void {
     let dialogRef = this.dialog.open(RoleDialogComponent, {backdropClass: 'backdrop-blue'});
 
-
     dialogRef.afterClosed().subscribe(result => {
       dialogRef = null;
 

@@ -1,0 +1,28 @@
+.body {
+  padding: 20px 25px !important;
+}
+
+table {
+  width: 450px;
+  max-width: 100%;
+
+  thead {
+    th {
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(0,0,0,0.54);
+      text-transform: capitalize;
+    }
+  }
+
+  tbody {
+    td {
+      font-size: 13px;
+      text-transform: capitalize;
+    }
+  }
+}
+
+.selected-row {
+  background: rgba(30, 177, 252, 0.2);
+}

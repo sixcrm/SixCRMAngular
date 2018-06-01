@@ -36,6 +36,7 @@ import { InviteDialogComponent } from './dialog-modals/invite-dialog/invite-dial
 import { AccessKeysDialogComponent } from './dialog-modals/access-keys-dialog/access-keys-dialog.component';
 import { HttpWrapperCustomerService } from './shared/services/http-wrapper-customer.service';
 import { RoleDialogComponent } from './dialog-modals/role-dialog/role-dialog.component';
+import { CardSwitcherDialogComponent } from './dialog-modals/card-switcher-dialog/card-switcher-dialog.component';
 
 @NgModule({
   declarations : [
@@ -58,7 +59,8 @@ import { RoleDialogComponent } from './dialog-modals/role-dialog/role-dialog.com
     BillingInfoComponent,
     InviteDialogComponent,
     AccessKeysDialogComponent,
-    RoleDialogComponent
+    RoleDialogComponent,
+    CardSwitcherDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -95,7 +97,8 @@ import { RoleDialogComponent } from './dialog-modals/role-dialog/role-dialog.com
     TermsDialogComponent,
     InviteDialogComponent,
     AccessKeysDialogComponent,
-    RoleDialogComponent
+    RoleDialogComponent,
+    CardSwitcherDialogComponent
   ],
   bootstrap : [AppComponent]
 })

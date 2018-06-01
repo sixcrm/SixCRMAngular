@@ -57,7 +57,7 @@ export function customerInfoResponseQuery(): string {
 
 export function customerResponseQuery(): string {
   return `
-    id email firstname lastname phone created_at updated_at,
+    id email firstname lastname phone created_at updated_at default_creditcard,
     address { line1 line2 city state zip country }
     creditcards { id name expiration last_four first_six,
       address { line1 line2 city state zip country }
@@ -73,7 +73,8 @@ export function customerInputQuery(customer: Customer, includeId?: boolean): str
       firstname: "${customer.firstName}",
       lastname: "${customer.lastName}",
       phone: "${customer.phone}",
-      creditcards:[${creditCards}]
+      creditcards:[${creditCards}],
+      ${customer.defaultCreditCard ? `default_creditcard: "${customer.defaultCreditCard}",` : ''}
       address: {
         ${customer.address.line1 ? `line1:"${customer.address.line1}"` : ''}
         ${customer.address.line2 ? `line2:"${customer.address.line2}"` : ''}

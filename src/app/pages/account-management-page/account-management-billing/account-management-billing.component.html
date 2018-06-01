@@ -7,15 +7,27 @@
   <account-management-billing-transactions-chart [lastBill]="lastBill"></account-management-billing-transactions-chart>
 </div>
 
-<div class="options">
-  <div class="option payment">
-    <div>Current Payment Option</div>
-    <button mat-button>MANAGE PAYMENT OPTIONS</button>
-  </div>
+<div *ngIf="session" class="options">
+  <div class="option">
+    <div class="title">
+      <div>Current Payment Option</div>
+      <button mat-button (click)="navigateToGeneral()">MANAGE PAYMENT OPTIONS</button>
+    </div>
 
-  <div class="option upgrade">
-    <div>Upgrade today to eliminate transaction fees!</div>
-    <button mat-button>UPGRADE</button>
+    <div class="details">
+
+      <ng-container *ngIf="defaultCreditCard; else nocard">
+        <img *ngIf="defaultCreditCard.type !== 'OTHER'" src="{{'/assets/cards/' + (defaultCreditCard.type || '').toLowerCase() + '.svg'}}">
+
+        <div>**** {{defaultCreditCard.lastFour}}</div>
+        <div>{{defaultCreditCard.name}}</div>
+        <div>Expires {{defaultCreditCard.expiration}}</div>
+      </ng-container>
+
+      <ng-template #nocard>
+        Please select payment option
+      </ng-template>
+    </div>
   </div>
 </div>
 
