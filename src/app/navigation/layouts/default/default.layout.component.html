@@ -37,7 +37,7 @@
   <terms-and-conditions [type]="'user'"></terms-and-conditions>
 </div>
 
-<div *ngIf="ownerAclOutdated" class="terms-and-conditions-container">
+<div *ngIf="!userAclOutdated && ownerAclOutdated" class="terms-and-conditions-container">
   <terms-and-conditions [type]="'owner'"></terms-and-conditions>
 </div>
 
