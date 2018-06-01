@@ -169,8 +169,6 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
 
     settings.push(new MenuItem('SIDENAV_SETTINGS_BILL', 'bills'));
 
-    settings.push(new MenuItem('Features', 'features'));
-
     items.push(
       new MenuItem('SIDENAV_SETTINGS_TITLE', null, settings)
         .setImage('/assets/images/logo-navigation-sidenav.svg')
