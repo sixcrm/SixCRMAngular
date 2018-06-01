@@ -1,9 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 import { CustomServerError } from '../../../../shared/models/errors/custom-server-error';
 import { AuthenticationService } from '../../../../authentication/authentication.service';
 import { Subscription } from 'rxjs';
 import { UsersService } from '../../../../shared/services/users.service';
 import * as jsPDF from 'jspdf';
+import {PrivacyPolicy} from "./privacy-policy.md";
+import {TermsDialogComponent} from "../../../../dialog-modals/terms-dialog/terms-dialog.component";
+import {MatDialog} from "@angular/material";
 
 @Component({
   selector: 'agreements',
@@ -13,12 +16,17 @@ import * as jsPDF from 'jspdf';
 export class AgreementsComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   termsAndConditions: any = {};
-  downloadDisabled: boolean = false;
   licenceAgreement: any = {};
+  privacyPolicy: any = {};
+  downloadDisabled: boolean = false;
+
+  @Input()
+  accountId: string;
 
   constructor(
     private authService: AuthenticationService,
-    private userService: UsersService
+    private userService: UsersService,
+    private dialog: MatDialog,
   ) {
   }
 
@@ -37,7 +45,7 @@ export class AgreementsComponent implements OnInit, OnDestroy {
   }
 
   fetch(): void {
-    this.userService.getlatestTermsAndConditions(this.authService.getActiveAcl().account.id, 'owner').take(1).subscribe((response) => {
+    this.userService.getlatestTermsAndConditions(this.accountId, 'owner').take(1).subscribe((response) => {
       if (response instanceof CustomServerError) {
         return;
       }
@@ -51,7 +59,9 @@ export class AgreementsComponent implements OnInit, OnDestroy {
       }
 
       this.licenceAgreement = response.body.response.data.latesttermsandconditions;
-    })
+    });
+
+    this.privacyPolicy = PrivacyPolicy.get();
   }
 
   download(id: string) {
@@ -63,13 +73,23 @@ export class AgreementsComponent implements OnInit, OnDestroy {
     const elementToPrint = document.getElementById(id);
     const pdf = new jsPDF('p', 'mm', 'a4');
 
-    pdf.fromHTML(elementToPrint.innerHTML, 5, 5, {
-
+    pdf.fromHTML(elementToPrint.innerHTML, 10, 10, {
+      width: 185
     }, () => {
       pdf.save(`${id}.pdf`);
       this.downloadDisabled = false;
     });
 
+  }
+
+  private openTerms(title: string, text: string) {
+    let ref = this.dialog.open(TermsDialogComponent, { disableClose : true });
+    ref.componentInstance.title = title;
+    ref.componentInstance.text = text;
+
+    ref.afterClosed().take(1).subscribe(() => {
+      ref = null;
+    });
   }
 
 }

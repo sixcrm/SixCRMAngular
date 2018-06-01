@@ -3,13 +3,27 @@
     <div class="title">{{termsAndConditions.title}}</div>
     <div id="terms-and-conditions" Markdown *ngIf="termsAndConditions && termsAndConditions.body" style="display:none">{{termsAndConditions.body}}</div>
     <div class="revised-date" *ngIf="termsAndConditions.version">{{'TERMS_VERSION' | translate}} {{termsAndConditions.version}}</div>
-    <button mat-button (click)="download('terms-and-conditions')">{{'TERMS_DOWNLOAD' | translate}}</button>
+    <div class="buttons">
+      <button mat-button class="download" (click)="download('terms-and-conditions')">{{'TERMS_DOWNLOAD' | translate}}</button>
+    </div>
   </div>
   <div class="line" *ngIf="licenceAgreement.version"></div>
   <div class="item" *ngIf="licenceAgreement.version">
     <div class="title">{{licenceAgreement.title}}</div>
     <div id="license-agreement" Markdown *ngIf="licenceAgreement && licenceAgreement.body" style="display:none">{{licenceAgreement.body}}</div>
     <div class="revised-date" *ngIf="licenceAgreement.version">{{'TERMS_VERSION' | translate}} {{licenceAgreement.version}}</div>
-    <button mat-button (click)="download('license-agreement')">{{'TERMS_DOWNLOAD' | translate}}</button>
+    <div class="buttons">
+      <button mat-button class="download" (click)="download('license-agreement')">{{'TERMS_DOWNLOAD' | translate}}</button>
+    </div>
+  </div>
+  <div class="line" *ngIf="privacyPolicy.version"></div>
+  <div class="item" *ngIf="privacyPolicy.version">
+    <div class="title">{{privacyPolicy.title}}</div>
+    <div id="privacy-policy" Markdown *ngIf="privacyPolicy && privacyPolicy.body" style="display:none">{{privacyPolicy.body}}</div>
+    <div class="revised-date" *ngIf="privacyPolicy.version">{{'TERMS_VERSION' | translate}} {{privacyPolicy.version}}</div>
+    <div class="buttons">
+      <button mat-button class="view" (click)="openTerms(privacyPolicy.title, privacyPolicy.body)">{{'INDEXPAGE_VIEW' | translate}}</button>
+      <button mat-button class="download" (click)="download('privacy-policy')">{{'TERMS_DOWNLOAD' | translate}}</button>
+    </div>
   </div>
 </div>
