@@ -22,6 +22,7 @@ export class DashboardLowDataComponent implements OnInit {
 
   @Input() quote: TranslatedQuote;
   @Input() renderChart: boolean;
+  @Input() showFunnelTable: boolean;
 
   issueReports: DashboardIssueReportItem[] = [
     {label: 'Orders', issues: []},

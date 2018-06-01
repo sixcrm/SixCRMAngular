@@ -20,7 +20,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
   @Input() period: string = 'DAY';
   @Input() renderChart: boolean;
 
-  showStatisticDetails: boolean = false;
+  @Input() showFunnelTable: boolean;
   numberOfDays: number = 30;
   startDate: Moment;
 
@@ -34,8 +34,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
     chart: {
       type: 'column',
       backgroundColor: '#FAFAFA',
-      height: 280,
-      width: 700
+      height: 370
     },
     title: { text: null },
     credits: { enabled: false },
@@ -99,6 +98,11 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       this.serverError = null;
       this.funnel = funnel;
 
+      if (!this.simpleChart) {
+        this.chartOptions.chart.height = 280;
+        this.chartOptions.chart['width'] = 700;
+      }
+
       if (this.chart && this.funnel) {
         this.redrawChartData();
       }
@@ -120,7 +124,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
     });
 
     Observable.timer(300).takeUntil(this.unsubscribe$).subscribe(() => {
-      this.showStatisticDetails = true;
+      this.showFunnelTable = true;
       this.redrawChartData();
     });
 
@@ -183,7 +187,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       });
     }
 
-    let chartLineColor = this.simpleChart ? '#1EBEA5' : '#1ebea5';
+    let chartLineColor = '#1EBEA5';
 
     this.chart.series[0].update({
       color: chartLineColor,

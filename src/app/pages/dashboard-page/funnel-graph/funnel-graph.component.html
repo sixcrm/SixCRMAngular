@@ -1,6 +1,6 @@
 <div inViewport (inside)="fetch()" class="dashboard__gray-table-chart" [class.simpleChart]="simpleChart">
   <div class="dashboard__gray-table-chart__title">
-    <div class="main" *ngIf="!simpleChart">{{'DASHBOARD_EVENTSFUNNEL_TITLE' | translate}}</div>
+    <div class="main">{{'DASHBOARD_EVENTSFUNNEL_TITLE' | translate}}</div>
     <div class="options">
       <span mat-icon-button [matMenuTriggerFor]="timeframeOptions">{{(periodMap[numberOfDays] | translate)}}</span>
       <mat-icon [matMenuTriggerFor]="timeframeOptions">arrow_drop_down</mat-icon>
@@ -9,8 +9,8 @@
         <button mat-menu-item (click)="changeNumberOfDays(30)">Month</button>
       </mat-menu>
 
-      <span class="event-type-options" *ngIf="showStatisticDetails" mat-icon-button [matMenuTriggerFor]="eventTypeOptions">{{(eventTypeMap[eventType] | translate)}}</span>
-      <mat-icon *ngIf="showStatisticDetails" [matMenuTriggerFor]="eventTypeOptions">arrow_drop_down</mat-icon>
+      <span class="event-type-options" *ngIf="showFunnelTable" mat-icon-button [matMenuTriggerFor]="eventTypeOptions">{{(eventTypeMap[eventType] | translate)}}</span>
+      <mat-icon *ngIf="showFunnelTable" [matMenuTriggerFor]="eventTypeOptions">arrow_drop_down</mat-icon>
       <mat-menu #eventTypeOptions="matMenu" x-position="before">
         <button mat-menu-item (click)="changeEventType('click')">{{'DASHBOARD_EVENTSFUNNEL_CLICK' | translate}}</button>
         <button mat-menu-item (click)="changeEventType('lead')">{{'DASHBOARD_EVENTSFUNNEL_LEAD' | translate}}</button>
@@ -19,19 +19,20 @@
         <button mat-menu-item (click)="changeEventType('confirm')">{{'DASHBOARD_EVENTSFUNNEL_CONFIRM' | translate}}</button>
       </mat-menu>
     </div>
-    <mat-icon (click)="showStatisticDetails = true" [class.selected]="showStatisticDetails" class="chart-statistics chart-statistics__chart">show_chart</mat-icon>
-    <mat-icon (click)="showStatisticDetails = false" [class.selected]="!showStatisticDetails" class="chart-statistics chart-statistics__graph">border_all</mat-icon>
+    <mat-icon (click)="showFunnelTable = true" [class.selected]="showFunnelTable" class="chart-statistics chart-statistics__chart">show_chart</mat-icon>
+    <mat-icon (click)="showFunnelTable = false" [class.selected]="!showFunnelTable" class="chart-statistics chart-statistics__graph">border_all</mat-icon>
   </div>
 
   <ng-container *ngIf="!serverError; else error">
-    <chart *ngIf="showStatisticDetails && renderChart" [options]="chartOptions" (load)="saveChart($event.context)"></chart>
+    <mat-spinner *ngIf="(showFunnelTable && !renderChart) || (!showFunnelTable && !funnel)"></mat-spinner>
+    <chart *ngIf="showFunnelTable && renderChart" [options]="chartOptions" (load)="saveChart($event.context, true)"></chart>
   </ng-container>
 
   <ng-template #error>
     <server-error-message (refresh)="refresh()"></server-error-message>
   </ng-template>
 
-  <div *ngIf="funnel && !showStatisticDetails" class="table-container">
+  <div *ngIf="funnel && !showFunnelTable" class="table-container">
 
     <div class="column first-column">
       <div class="item item--title"></div>
