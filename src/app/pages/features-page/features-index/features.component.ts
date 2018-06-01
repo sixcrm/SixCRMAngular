@@ -19,7 +19,8 @@ export class FeaturesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.featureFlags = JSON.stringify(JSON.parse(localStorage.getItem(this.featureFlagService.storageKey())), null, 4);
+    let flags = this.featureFlagService.localFeatureFlags();
+    this.featureFlags = JSON.stringify(flags, null, 4);
 
     this.featureFlagService.featureFlagsStored$.takeUntil(this.unsubscribe$).subscribe(() => {
       this.featureFlags = JSON.stringify(JSON.parse(localStorage.getItem(this.featureFlagService.storageKey())), null, 4);

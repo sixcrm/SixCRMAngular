@@ -68,7 +68,11 @@ export class FeatureFlagService {
   }
 
   public localFeatureFlags() {
-    return new FeatureFlags(JSON.parse(localStorage.getItem(this.storageKey())).obj);
+    let localFlags = localStorage.getItem(this.storageKey());
+    if (!localFlags) {
+      return this.featureFlags;
+    }
+    return new FeatureFlags(JSON.parse(localFlags).obj);
   }
 
 }
