@@ -71,7 +71,11 @@ export class HttpWrapperService {
       error => {
         if (retryStrategy === RetryStrategy.Retry && --retryCount > 0) {
           requestBehaviourOptions.retry = { strategy: retryStrategy, count: retryCount };
-          return this.post(url, body, requestOptions, requestBehaviourOptions);
+          this.post(url, body, requestOptions, requestBehaviourOptions).subscribe(data => {
+            response.next(data);
+          });
+
+          return;
         }
 
         // handle error
@@ -121,7 +125,11 @@ export class HttpWrapperService {
       error => {
         if (retryStrategy === RetryStrategy.Retry && --retryCount > 0) {
           requestBehaviourOptions.retry = { strategy: retryStrategy, count: retryCount };
-          return this.postWithError(url, body, requestOptions, requestBehaviourOptions);
+          this.postWithError(url, body, requestOptions, requestBehaviourOptions).subscribe(data => {
+            response.next(data);
+          });
+
+          return;
         }
 
         // handle error
