@@ -71,3 +71,11 @@
     stroke-width: 6px !important;
   }
 }
+
+.search--focused {
+  span {
+    label {
+      color: transparent !important;
+    }
+  }
+}

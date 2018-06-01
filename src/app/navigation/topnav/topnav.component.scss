@@ -146,6 +146,10 @@ $main-color: #9B9A9B;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
         overflow: auto;
       }
+
+      .search-input--focused {
+        caret-color: white;
+      }
     }
 
     &__input {

@@ -6,11 +6,12 @@
   <div class="topnav__search__wrapper">
     <mat-icon class="topnav__search__icon">search</mat-icon>
     <div class="topnav__search__container">
-      <mat-input-container id="topnav-search search-visible" [floatLabel]="'never'" class="topnav-search-input">
+      <mat-input-container id="topnav-search search-visible" [floatLabel]="'never'" class="topnav-search-input" [class.search--focused]="focused">
         <input
           #searchField
           matInput
           class="search-field"
+          [class.search-input--focused]="focused"
           placeholder="{{'TOPNAV_SEARCH' | translate}}"
           type="text"
           (focus)="searchInputFocus()"

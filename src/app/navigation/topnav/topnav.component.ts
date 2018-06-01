@@ -19,6 +19,7 @@ export class TopnavComponent implements OnInit {
   @ViewChild('autocomplete') autocomplete: AutocompleteComponent;
 
   @Input() isInvitedUser: boolean;
+  @Input() focused: boolean = false;
   @Output() invitedUserInstructionsDismissed: EventEmitter<boolean> = new EventEmitter();
 
   showSidenav: boolean;
@@ -97,6 +98,7 @@ export class TopnavComponent implements OnInit {
   }
 
   searchInputBlur(): void {
+    this.focused = false;
     setTimeout(() => {
       this.showAutoComplete = false;
       this.options = [];
@@ -104,6 +106,7 @@ export class TopnavComponent implements OnInit {
   }
 
   searchInputFocus(): void {
+    this.focused = true;
     this.options = [];
     this.showAutoComplete = true;
 
