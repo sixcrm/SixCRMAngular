@@ -91,24 +91,22 @@ describe('Products', function() {
   });
 
   it('should delete product and navigate back to index', () => {
-    productPage.getDetailsMenuButton().click();
     browser.sleep(500);
-    productPage.getMenuButton(1).click();
+    productPage.getDetailsMenuButton().click();
     browser.sleep(200);
-    expect(productPage.getDeletionModalContent().getText()).toEqual('Are you sure you want to delete?\n');
+    productPage.getMenuButton(1).click();
+    browser.sleep(1200);
+    expect(productPage.getDeletionModalContent().getText()).toEqual('Are you sure you want to delete?');
   });
 
   it('should go to products details', () => {
     const sidenav = new SidenavPage();
     productPage.getDeletionModalButton().click();
-    sidenav.getLink(17).click();
-    browser.sleep(500);
-    sidenav.getLink(19).click();
-    browser.sleep(2000);
+    sidenav.getLink(14).click();
+    browser.sleep(1200);
     waitForUrlContains('products');
     productPage.getProductFromTable(1).click();
     browser.sleep(500);
-    expectUrlToContain('products');
     expectUrlToContain('products');
   });
 
