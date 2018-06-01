@@ -92,7 +92,7 @@ describe('Campaigns', function() {
     browser.sleep(200);
     campaignPage.getCampaignNameInCard().sendKeys(' updated');
     campaignPage.getCampaignFormSaveButton().click();
-    browser.sleep(500);
+    browser.sleep(1200);
     expect(campaignPage.getCampaignNameInHeader().getText()).toEqual('e2e test campaign updated');
   });
 

@@ -49,7 +49,9 @@ export class ProductSchedulePage {
   getTableRowOptionsButton() {
     return element(by.css('tbody')).element(by.css('tr')).element(by.css('mat-icon'));
   }
-
+  getProdSchedDeleteButton() {
+    return element(by.css('tbody')).all(by.css('tr')).first().element(by.buttonText('delete'));
+  }
   getConfirmDeleteButton() {
     return element(by.css('.custom-dialog__buttons')).all(by.css('div')).last();
   }

@@ -10,10 +10,25 @@ let password = '123456789';
 let usernameU = 'e2e-test-user@sixcrm.com';
 let passwordU = '123456789';
 
+let authPage = new AuthPage();
+let dashboardPage = new DashboardPage();
+
 export function doLogin(authPage: AuthPage, email: string, password: string) {
   authPage.getEmailInput().sendKeys(email);
   authPage.getPasswordInput().sendKeys(password);
   authPage.getLoginButton().click();
+
+  dashboardPage.getTOSButton().click().then(function() {
+      /* passing case */
+      console.log('Found a TOS button');
+      browser.sleep(2000);
+      dashboardPage.getTOSButton().click();
+      browser.sleep(3000);
+    },
+    function(err) {
+      /* error handling here */
+      console.log('No TOS button found');
+    });
 }
 
 export function doSignUp(authPage: AuthPage, email: string, password: string) {
@@ -28,8 +43,6 @@ export function doRegister(authPage: AuthPage, email: string, password: string) 
 }
 
 export function login(user?: boolean) {
-  let authPage = new AuthPage();
-  let dashboardPage = new DashboardPage();
   authPage.navigateTo();
   waitForPresenceOfLoginFields(authPage);
   browser.sleep(2000);

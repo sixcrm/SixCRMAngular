@@ -36,26 +36,12 @@ describe('Login', function() {
 
   it ('should login and navigate to /dashboard when correct email and password are used', () => {
     authPage.navigateTo();
-
     waitForPresenceOfLoginFields(authPage);
-
-    browser.sleep(2000);
+    browser.sleep(1200);
     browser.waitForAngularEnabled(false);
     doLogin(authPage, 'e2e-test-admin@sixcrm.com', '123456789');
-    browser.sleep(2000);
+    browser.sleep(500);
     waitForUrlContains('dashboard');
-    browser.sleep(2000);
-    dashboardPage.getTOSButton().click().then(function() {
-        /* passing case */
-        console.log('Found a TOS button');
-        browser.sleep(2000);
-        dashboardPage.getTOSButton().click();
-        browser.sleep(3000);
-      },
-      function(err) {
-        /* error handling here */
-        console.log('No TOS button found');
-      });
     browser.sleep(2000);
     expectUrlToContain('/dashboard');
 
@@ -65,22 +51,11 @@ describe('Login', function() {
   it ('should login and navigate to /customers when landed on /customers before login', () => {
     browser.get('/customers');
     waitForPresenceOfLoginFields(authPage);
-    browser.sleep(2000);
+    browser.sleep(1200);
     browser.waitForAngularEnabled(false);
     doLogin(authPage, 'e2e-test-admin@sixcrm.com', '123456789');
     // Wait for angular is disabled, so we need to tell protractor to wait for page to load
     browser.sleep(2000);
-    dashboardPage.getTOSButton().click().then(function() {
-        /* passing case */
-        console.log('Found a TOS button');
-        browser.sleep(2000);
-        dashboardPage.getTOSButton().click();
-        browser.sleep(3000);
-      },
-      function(err) {
-        /* error handling here */
-        console.log('No TOS button found');
-      });
     waitForUrlContains('customers');
     expectUrlToContain('/customers');
   });
@@ -89,17 +64,6 @@ describe('Login', function() {
     navigateSuperuserToHomepage();
     browser.waitForAngularEnabled(false);
     browser.sleep(2000);
-    dashboardPage.getTOSButton().click().then(function() {
-        /* passing case */
-        console.log('Found a TOS button');
-        browser.sleep(2000);
-        dashboardPage.getTOSButton().click();
-        browser.sleep(3000);
-      },
-      function(err) {
-        /* error handling here */
-        console.log('No TOS button found');
-      });
     expectUrlToContain('/dashboard');
   });
 
@@ -118,7 +82,7 @@ describe('Login', function() {
       /* error handling here */
         console.log('No TOS button found');
       });
-    browser.sleep(4000);
+    browser.sleep(3000);
     dashboardPage.getCollapsedMenuButton().click();
     browser.sleep(600);
     dashboardPage.getCollapsedMenuItems().last().click();

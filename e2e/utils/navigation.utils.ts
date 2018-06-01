@@ -1,12 +1,14 @@
 import {browser, protractor, ElementFinder} from 'protractor';
 import {AuthPage} from '../po/auth.po';
 import {createTestAuth0JWT, getJwtContent} from './jwt.utils';
+import {DashboardPage} from '../po/dashboard.po';
+
+let dashboardPage = new DashboardPage();
 
 export function navigateSuperuserToHomepage() {
   browser.get('/');
   addSuperUserToken();
   browser.get('/');
-
   waitForUrlContains('dashboard');
 }
 

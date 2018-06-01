@@ -116,12 +116,13 @@ describe('Product Schedules', function() {
   });
 
   it('should remove added schedule', () => {
-    productSchedulePage.getProductSchedIndexButton().click();
     browser.sleep(500);
-    productSchedulePage.getTableRowOptionsButton().click();
+    productSchedulePage.getProductSchedIndexButton().click();
+    browser.sleep(1200);
+    productSchedulePage.getProdSchedDeleteButton().click();
     browser.sleep(500);
     productSchedulePage.getConfirmDeleteButton().click();
-    browser.sleep(1200);
+    browser.sleep(2000);
     expect(productSchedulePage.getAssociatedSchedulesRows().count()).toEqual(0);
   });
 
