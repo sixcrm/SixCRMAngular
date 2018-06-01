@@ -11,8 +11,8 @@ import {Subject} from "rxjs/Subject";
 export class FeatureFlagService {
 
   public featureFlagsUpdated$: Subject<FeatureFlags> = new Subject();
-  private featureFlags: FeatureFlags;
-
+  public featureFlagsStored$: Subject<boolean> = new Subject();
+  public featureFlags: FeatureFlags;
 
   constructor(private http: HttpWrapperService, private authService: AuthenticationService) {
     this.authService.activeAcl$.subscribe(acl => {
@@ -27,9 +27,14 @@ export class FeatureFlagService {
   }
 
   public isEnabled(featureName: string): boolean {
-    if (!this.featureFlags) return false;
+    let flags = this.featureFlags;
+    if (this.authService.isActiveOrActingAclMasterAccount()) {
+      flags = this.localFeatureFlags();
+    }
 
-    return this.featureFlags.isEnabled(featureName);
+    if (!flags) return false;
+
+    return flags.isEnabled(featureName);
   }
 
   private fetchFeatureFlags(acl: Acl): void {
@@ -41,17 +46,29 @@ export class FeatureFlagService {
     .map(data => new FeatureFlags(data.body.response.data.featureflag.configuration))
     .subscribe((flags) => {
       this.featureFlags = flags;
-      this.storeFlagsInLocalStorage(flags);
       this.featureFlagsUpdated$.next(flags);
     });
   }
 
-  private storeFlagsInLocalStorage(flags): void {
-    localStorage.setItem(this.storageKey(), JSON.stringify(flags));
+  public updateLocalFeatureFlags() {
+    this.featureFlagsUpdated$.take(1).subscribe((flags) => {
+      this.storeFlagsInLocalStorage(flags);
+    });
+
+    this.fetchFeatureFlags(this.authService.getActiveAcl());
   }
 
-  private storageKey(): string {
+  private storeFlagsInLocalStorage(flags): void {
+    localStorage.setItem(this.storageKey(), JSON.stringify(flags));
+    this.featureFlagsStored$.next(true);
+  }
+
+  public storageKey(): string {
     return `featureFlags:${this.authService.getActiveAcl().account.id}:${this.authService.getSixUser().email}`;
+  }
+
+  public localFeatureFlags() {
+    return new FeatureFlags(JSON.parse(localStorage.getItem(this.storageKey())).obj);
   }
 
 }

@@ -18,6 +18,7 @@ import { AccountInfoComponent } from './account-info/account-info.component';
 import {AccountInfoGuard} from './account-info-guard.service';
 import {BillingDisabledGuard} from './payment-dissabled-guard.service';
 import {MarkdownModule} from 'angular2-markdown';
+import {MasterAccountGuard} from "./master-account-guard.service";
 
 @NgModule({
   imports : [
@@ -46,7 +47,8 @@ import {MarkdownModule} from 'angular2-markdown';
     AuthGuard,
     RegisterGuard,
     AccountInfoGuard,
-    BillingDisabledGuard
+    BillingDisabledGuard,
+    MasterAccountGuard
   ]
 })
 export class AuthenticationModule { }

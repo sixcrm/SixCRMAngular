@@ -1,0 +1,19 @@
+<div>
+
+  <mat-input-container>
+    <label class="entity-index__title">
+      {{'Features' | translate}}
+    </label>
+
+    <textarea rows="30" auto-focus matInput [(ngModel)]="featureFlags"></textarea>
+  </mat-input-container>
+
+  <br>
+
+  <div class="buttons">
+    <button mat-button (click)="save()">Save</button>
+    <button mat-button (click)="fetch()">Reset to defaults</button>
+  </div>
+
+</div>
+
