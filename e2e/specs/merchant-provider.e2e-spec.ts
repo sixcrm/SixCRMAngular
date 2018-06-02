@@ -29,9 +29,9 @@ describe('Merchant Provider', function() {
 
   it('should navigate to merchant provider page', () => {
     const sidenav = new SidenavPage();
-    sidenav.getLink(17).click();
+    sidenav.getLink(12).click();
     browser.sleep(500);
-    sidenav.getLink(27).click();
+    sidenav.getLink(21).click();
     waitForUrlContains('merchantproviders');
     expectUrlToContain('merchantproviders');
   });
