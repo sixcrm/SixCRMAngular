@@ -29,4 +29,20 @@ export class MerchantProviderPage {
   getDropdownOption() {
     return element(by.css('merchant-provider-add-new')).element(by.css('.dropdown-component__options__item'));
   }
+
+  getMerchantIndividualCampaign() {
+    return element(by.css('tbody')).all(by.css('tr'));
+  }
+
+  getMerchantDeleteButton() {
+    return element(by.css('tbody')).all(by.css('tr')).last().element(by.buttonText('delete'));
+  }
+
+  getMerchantDeleteModalButton() {
+    return element(by.css('.custom-dialog__buttons')).all(by.css('div')).last();
+  }
+
+  getMerchantIndexButton() {
+    return element(by.css('.entity-view__change-mode'));
+  }
 }

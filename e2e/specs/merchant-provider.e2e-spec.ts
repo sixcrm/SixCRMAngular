@@ -107,4 +107,21 @@ describe('Merchant Provider', function() {
     expect(view.getEntityNameHeader().getText()).toEqual('e2e merchant provider updated');
   });
 
+  it( 'should go back to campaign index', () =>  {
+    merchantProvider.getMerchantIndexButton().click();
+    browser.sleep(500);
+    waitForUrlContains('merchantproviders');
+    expectUrlToContain('merchantproviders');
+  });
+
+  it('should delete merchant provider', () => {
+
+    browser.sleep(500);
+    merchantProvider.getMerchantDeleteButton().click();
+    browser.sleep(200);
+    merchantProvider.getMerchantDeleteModalButton().click();
+    browser.sleep(2000);
+    expect(merchantProvider.getMerchantIndividualCampaign().count()).toEqual(1);
+  });
+
 });
