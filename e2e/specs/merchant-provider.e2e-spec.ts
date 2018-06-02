@@ -88,6 +88,8 @@ describe('Merchant Provider', function() {
     expectUrlToContain('merchantproviders/');
   });
 
+
+
   it('should merchant provider details', () => {
     browser.sleep(2000);
     expect(view.getEntityNameHeader().getText()).toEqual('e2e merchant provider');
@@ -120,7 +122,7 @@ describe('Merchant Provider', function() {
     merchantProvider.getMerchantDeleteButton().click();
     browser.sleep(200);
     merchantProvider.getMerchantDeleteModalButton().click();
-    browser.sleep(2000);
+    browser.sleep(2500);
     expect(merchantProvider.getMerchantIndividualCampaign().count()).toEqual(1);
   });
 

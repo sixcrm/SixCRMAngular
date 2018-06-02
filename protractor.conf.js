@@ -36,7 +36,7 @@ exports.config = {
     user: './e2e/**/user.e2e-spec.ts',
     account: './e2e/**/account.e2e-spec.ts',
     navigation: './e2e/**/navigation.e2e-spec.ts',
-    current: './e2e/**/merchant-provider.e2e-spec.ts',
+    current: './e2e/**/merchant-provider-group.e2e-spec.ts',
     useraccount: [
       './e2e/**/user.e2e-spec.ts',
       './e2e/**/account.e2e-spec.ts',

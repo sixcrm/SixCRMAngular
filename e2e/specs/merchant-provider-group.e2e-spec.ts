@@ -1,7 +1,7 @@
 import {waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
 import {SidenavPage} from '../po/sidenav.po';
-import {login} from '../utils/action.utils';
+import {doTOSCheck, login} from '../utils/action.utils';
 import {browser} from 'protractor';
 import {expectUrlToContain, expectDefined} from '../utils/assertation.utils';
 import {EntityViewPage} from '../po/entity-view.po';
@@ -24,14 +24,15 @@ describe('Merchant Provider Group', function() {
     browser.get('/');
     clearLocalStorage();
     login();
+    doTOSCheck();
     waitForUrlContains('dashboard');
   });
 
   it('should navigate to merchantProviderGroup page', () => {
     const sidenav = new SidenavPage();
-    sidenav.getLink(17).click();
+    sidenav.getLink(12).click();
     browser.sleep(500);
-    sidenav.getLink(28).click();
+    sidenav.getLink(22).click();
     waitForUrlContains('merchantprovidergroup');
     expectUrlToContain('merchantprovidergroup');
   });
