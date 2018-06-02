@@ -89,4 +89,20 @@ describe('Merchant Provider Group', function() {
     expect(view.getEntityNameHeader().getText()).toEqual('e2e load balancer updated');
   });
 
+  it( 'should go back to merchant provider group index', () =>  {
+    merchantProviderGroup.getMerchantProviderIndexButton().click();
+    browser.sleep(500);
+    waitForUrlContains('merchantprovidergroups');
+    expectUrlToContain('merchantprovidergroups');
+  });
+
+  it( 'should delete the provider group', () => {
+    browser.sleep(500);
+    merchantProviderGroup.getProviderGroupDeleteButton().click();
+    browser.sleep(200);
+    merchantProviderGroup.getProviderGroupDeleteModalButton().click();
+    browser.sleep(1200);
+    expect(merchantProviderGroup.getIndividualProvidergroup().count()).toEqual(0);
+  });
+
 });
