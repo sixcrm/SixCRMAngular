@@ -26,6 +26,8 @@ export class AnalyticsService {
 
   eventFunnel$: BehaviorSubject<EventFunnel | CustomServerError>;
   eventFunnelTimeseries$: BehaviorSubject<EventFunnelTimeseries | CustomServerError>;
+  eventFunnelSimple$: BehaviorSubject<EventFunnel | CustomServerError>;
+  eventFunnelTimeseriesSimple$: BehaviorSubject<EventFunnelTimeseries | CustomServerError>;
   transactionsSummaries$: BehaviorSubject<TransactionSummary[] | CustomServerError>;
   heroChartSeries$: BehaviorSubject<HeroChartSeries[] | CustomServerError>;
   campaignsByAmount$: BehaviorSubject<CampaignStats[] | CustomServerError>;
@@ -36,6 +38,8 @@ export class AnalyticsService {
   constructor(private authService: AuthenticationService, private analyticsStorage: AnalyticsStorageService, private http: HttpWrapperService) {
     this.eventFunnel$ = new BehaviorSubject(null);
     this.eventFunnelTimeseries$ = new BehaviorSubject(null);
+    this.eventFunnelSimple$ = new BehaviorSubject(null);
+    this.eventFunnelTimeseriesSimple$ = new BehaviorSubject(null);
     this.transactionsSummaries$ = new BehaviorSubject(null);
     this.heroChartSeries$ = new BehaviorSubject(null);
     this.campaignsByAmount$ = new BehaviorSubject(null);
@@ -135,7 +139,48 @@ export class AnalyticsService {
     })
   }
 
-  getSubscriptionsByAmount(start: string, end: string, downloadFormat?: string): void {
+  getEventFunnelSimple(start: string, end: string, downloadFormat?: string, eventType?: string, period?: string): void {
+    const funnelStorage = this.analyticsStorage.getEventFunnelSimple(start, end);
+    if (!downloadFormat && funnelStorage && !eventType) {
+      this.eventFunnelSimple$.next(funnelStorage);
+      return;
+    }
+
+    this.queryRequest(eventsFunnelQuery(start, end), downloadFormat).subscribe(data => {
+      if (downloadFormat) {
+          downloadFile(data, 'events-by', downloadFormat);
+          return;
+        }
+
+        if (data instanceof CustomServerError) {
+          this.eventFunnelSimple$.next(data);
+          return;
+        }
+
+        let extracted = extractData(data).analytics.records;
+
+        const funnel = new EventFunnel(extracted);
+
+        this.eventFunnelSimple$.next(funnel);
+      this.analyticsStorage.setEventFunnelSimple(start, end, funnel);
+    });
+
+    this.queryRequest(eventsFunnelTimeseriesQuery(start, end, period || "DAY", eventType)).subscribe(data => {
+      if (data instanceof CustomServerError) {
+          this.eventFunnelTimeseriesSimple$.next(data);
+          return;
+        }
+
+        let extracted = extractData(data).analytics.records;
+
+        const timeseries = new EventFunnelTimeseries(extracted);
+
+        this.eventFunnelTimeseriesSimple$.next(timeseries);
+    })
+  }
+
+
+        getSubscriptionsByAmount(start: string, end: string, downloadFormat?: string): void {
     const subsStorage = this.analyticsStorage.getSubscriptionsByAmount(start, end);
 
     if (!downloadFormat && subsStorage) {
@@ -207,6 +252,7 @@ export class AnalyticsService {
     this.heroChartSeries$.next(null);
     this.eventFunnel$.next(null);
     this.eventFunnelTimeseries$.next(null);
+    this.eventFunnelSimple$.next(null);
     this.transactionsSummaries$.next(null);
     this.campaignsByAmount$.next(null);
     this.subscriptionsByAmount$.next(null);

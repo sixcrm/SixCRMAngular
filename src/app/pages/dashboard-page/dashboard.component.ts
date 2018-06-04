@@ -23,7 +23,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   renderLow: boolean;
   renderFull: boolean;
   show: boolean;
-  showFunnelTable: boolean;
 
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 

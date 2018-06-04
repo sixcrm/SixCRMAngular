@@ -5,10 +5,10 @@
         <div class="blue-tab-header__item" *ngIf="availableDashboards.length > 1" [class.blue-tab-header__item--active]="activeDashboard === 0" (click)="setIndex(0)">
           SETUP
         </div>
-        <div class="blue-tab-header__item" *ngIf="availableDashboards.length > 1" [class.blue-tab-header__item--active]="activeDashboard === 1" (click)="setIndex(1); showFunnelTable=false">
+        <div class="blue-tab-header__item" *ngIf="availableDashboards.length > 1" [class.blue-tab-header__item--active]="activeDashboard === 1" (click)="setIndex(1);">
           TRANSACTIONS
         </div>
-        <div class="blue-tab-header__item" *ngIf="availableDashboards.length > 2" [class.blue-tab-header__item--active]="activeDashboard === 2" (click)="setIndex(2); showFunnelTable=false">
+        <div class="blue-tab-header__item" *ngIf="availableDashboards.length > 2" [class.blue-tab-header__item--active]="activeDashboard === 2" (click)="setIndex(2);">
           DASHBOARD
         </div>
       </div>
@@ -21,10 +21,10 @@
           <c-dashboard-setup></c-dashboard-setup>
         </mat-tab>
         <mat-tab [hidden]="availableDashboards.length < 2">
-          <c-dashboard-low-data [renderChart]="renderLow" [showFunnelTable]="showFunnelTable"></c-dashboard-low-data>
+          <c-dashboard-low-data [renderChart]="renderLow"></c-dashboard-low-data>
         </mat-tab>
         <mat-tab [hidden]="availableDashboards.length < 3">
-          <c-dashboard-full [renderCharts]="renderFull" [showFunnelTable]="showFunnelTable"></c-dashboard-full>
+          <c-dashboard-full [renderCharts]="renderFull"></c-dashboard-full>
         </mat-tab>
       </mat-tab-group>
     </ng-container>

@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, Input} from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import {EventFunnel} from '../../../shared/models/event-funnel.model';
 import {EventFunnelTimeseries} from "../../../shared/models/event-funnel-timeseries.model";
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
@@ -8,19 +8,17 @@ import {Moment, utc} from 'moment';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
-  selector: 'funnel-graph',
-  templateUrl: './funnel-graph.component.html',
-  styleUrls: ['./funnel-graph.component.scss']
+  selector: 'funnel-graph-simple',
+  templateUrl: './funnel-graph-simple.component.html',
+  styleUrls: ['./funnel-graph-simple.component.scss']
 })
-export class FunnelGraphComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
+export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
   public eventType: 'click' | 'lead' | 'main' | 'upsell' | 'confirm';
-
   @Input() simpleChart: boolean = false;
   @Input() period: string = 'DAY';
-  @Input() renderChart: boolean;
-
-  showFunnelTable: boolean = false;
+  showChart: boolean;
+  showStatisticDetails: boolean = false;
   numberOfDays: number = 30;
   startDate: Moment;
 
@@ -34,8 +32,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
     chart: {
       type: 'column',
       backgroundColor: '#FAFAFA',
-      height: 280,
-      width: 700
+      height: 370
     },
     title: { text: null },
     credits: { enabled: false },
@@ -89,7 +86,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
   }
 
   ngOnInit() {
-    this.analyticsService.eventFunnel$.takeUntil(this.unsubscribe$).subscribe((funnel: EventFunnel | CustomServerError) => {
+    this.analyticsService.eventFunnelSimple$.takeUntil(this.unsubscribe$).subscribe((funnel: EventFunnel | CustomServerError) => {
       if (funnel instanceof CustomServerError) {
         this.serverError = funnel;
         this.funnel = null;
@@ -104,7 +101,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       }
     });
 
-    this.analyticsService.eventFunnelTimeseries$.takeUntil(this.unsubscribe$).subscribe((funnelTimeseries: EventFunnelTimeseries | CustomServerError) => {
+    this.analyticsService.eventFunnelTimeseriesSimple$.takeUntil(this.unsubscribe$).subscribe((funnelTimeseries: EventFunnelTimeseries | CustomServerError) => {
       if (funnelTimeseries instanceof CustomServerError) {
         this.serverError = funnelTimeseries;
         this.funnelTimeseries = null;
@@ -120,7 +117,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
     });
 
     Observable.timer(300).takeUntil(this.unsubscribe$).subscribe(() => {
-      this.showFunnelTable = true;
+      this.showStatisticDetails = true;
       this.redrawChartData();
     });
 
@@ -128,6 +125,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
     this.end = utc();
     this.eventType = 'click';
     this.shouldFetch = true;
+    this.showChart = true;
   }
 
   ngOnDestroy() {
@@ -143,13 +141,13 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
   fetch(): void {
     if (this.shouldFetch) {
       this.start = utc().subtract(this.numberOfDays, 'd');
-      this.analyticsService.getEventFunnel(this.start.format(), this.end.format(), null, this.eventType, this.period);
+      this.analyticsService.getEventFunnelSimple(this.start.format(), this.end.format(), null, this.eventType, this.period);
       this.shouldFetch = false;
     }
   }
 
   download(format: string): void {
-    this.analyticsService.getEventFunnel(this.start.format(), this.end.format(), format);
+    this.analyticsService.getEventFunnelSimple(this.start.format(), this.end.format(), format);
   }
 
   saveChart(chartInstance): void {
@@ -183,7 +181,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       });
     }
 
-    let chartLineColor = '#1EBEA5';
+    const chartLineColor = '#1EBEA5';
 
     this.chart.series[0].update({
       color: chartLineColor,
