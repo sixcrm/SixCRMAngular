@@ -73,7 +73,7 @@ export class AgreementsComponent implements OnInit, OnDestroy {
     const elementToPrint = document.getElementById(id);
     const pdf = new jsPDF('p', 'mm', 'a4');
 
-    pdf.fromHTML(elementToPrint.innerHTML, 10, 10, {
+    pdf.fromHTML(elementToPrint.innerHTML.replace(/[^\x00-\x7F]/g, ""), 10, 10, {
       width: 185
     }, () => {
       pdf.save(`${id}.pdf`);
