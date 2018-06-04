@@ -11,6 +11,15 @@
     </div>
 
     <div class="count" *ngIf="allRoles">{{allRoles.length}} Roles</div>
+
+    <div class="sort" [matMenuTriggerFor]="sortoptions">
+      <div>Sort by <span>{{selectedSortBy ? ' ' + selectedSortBy.label : ''}}</span></div>
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </div>
+
+    <mat-menu #sortoptions="matMenu" x-position="before">
+      <button mat-menu-item *ngFor="let sort of sortBy" (click)="applySortBy(sort)">{{sort.label}}</button>
+    </mat-menu>
   </div>
 
   <div class="content-wrapper" *ngIf="allRoles">

@@ -21,6 +21,26 @@ export class AccountManagementApikeysComponent implements OnInit {
   filterString: string;
   filterFunction = (keys: AccessKey) => `${keys.name} ${keys.notes}`;
 
+  sortBy: {label: string, sortFunction: (f: AccessKey, s: AccessKey) => number}[] = [
+    {label: 'Name', sortFunction: (f: AccessKey, s: AccessKey) => {
+      if ((f.name || '').toLowerCase() < (s.name || '').toLowerCase()) return -1;
+      if ((f.name || '').toLowerCase() > (s.name || '').toLowerCase()) return 1;
+      return 0;
+    }},
+    {label: 'Notes', sortFunction: (f: AccessKey, s: AccessKey) => {
+      if ((f.notes || '').toLowerCase() < (s.notes || '').toLowerCase()) return -1;
+      if ((f.notes || '').toLowerCase() > (s.notes || '').toLowerCase()) return 1;
+      return 0;
+    }},
+    {label: 'Created at', sortFunction: (f: AccessKey, s: AccessKey) => {
+      if (f.createdAt.isBefore(s.createdAt)) return -1;
+      if (f.createdAt.isAfter(s.createdAt)) return 1;
+      return 0;
+    }}
+  ];
+
+  selectedSortBy: {label: string, sortFunction: (f: AccessKey, s: AccessKey) => number};
+
   constructor(
     private authService: AuthenticationService,
     private accessKeyService: AccessKeysService,
@@ -115,5 +135,10 @@ export class AccountManagementApikeysComponent implements OnInit {
 
   navigateToSigningStrings() {
     this.router.navigate(['/profile'], {fragment: 'signingstrings'})
+  }
+
+  applySortBy(sort: {label: string, sortFunction: (f: AccessKey, s: AccessKey) => number}) {
+    this.selectedSortBy = sort;
+    this.accessKeys = this.accessKeys.sort(sort.sortFunction);
   }
 }

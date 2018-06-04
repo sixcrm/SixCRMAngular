@@ -32,6 +32,31 @@ export class AccountManagementRolesComponent implements OnInit {
 
   acls: Acl[];
 
+  sortBy: {label: string, sortFunction: (f: Role, s: Role) => number}[] = [
+    {label: 'Name', sortFunction: (f: Role, s: Role) => {
+      if ((f.name || '').toLowerCase() < (s.name || '').toLowerCase()) return -1;
+      if ((f.name || '').toLowerCase() > (s.name || '').toLowerCase()) return 1;
+      return 0;
+    }},
+    {label: 'System', sortFunction: (f: Role, s: Role) => {
+      if (f.isShared && !s.isShared) return -1;
+      if (!f.isShared && s.isShared) return 1;
+      return 0;
+    }},
+    {label: 'Number of Users', sortFunction: (f: Role, s: Role) => {
+      if (this.getNumberOfUsers(f) > this.getNumberOfUsers(s)) return -1;
+      if (this.getNumberOfUsers(f) < this.getNumberOfUsers(s)) return 1;
+      return 0;
+    }},
+    {label: 'Created at', sortFunction: (f: Role, s: Role) => {
+      if (f.createdAt.isBefore(s.createdAt)) return -1;
+      if (f.createdAt.isAfter(s.createdAt)) return 1;
+      return 0;
+    }}
+  ];
+
+  selectedSortBy: {label: string, sortFunction: (f: Acl, s: Acl) => number};
+
   constructor(
     private authService: AuthenticationService,
     private roleService: RolesService,
@@ -138,5 +163,10 @@ export class AccountManagementRolesComponent implements OnInit {
     });
 
     this.roleService.deleteEntity(role.id);
+  }
+
+  applySortBy(sort: {label: string, sortFunction: (f: Acl, s: Acl) => number}) {
+    this.selectedSortBy = sort;
+    this.allRoles = this.allRoles.sort(sort.sortFunction);
   }
 }

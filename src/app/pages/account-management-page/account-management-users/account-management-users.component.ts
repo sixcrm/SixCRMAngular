@@ -31,6 +31,36 @@ export class AccountManagementUsersComponent implements OnInit, OnDestroy {
 
   accountSub: Subscription;
 
+  sortBy: {label: string, sortFunction: (f: Acl, s: Acl) => number}[] = [
+    {label: 'First Name', sortFunction: (f: Acl, s: Acl) => {
+      if ((f.user.firstName || '').toLowerCase() < (s.user.firstName || '').toLowerCase()) return -1;
+      if ((f.user.firstName || '').toLowerCase() > (s.user.firstName || '').toLowerCase()) return 1;
+      return 0;
+    }},
+    {label: 'Last Name', sortFunction: (f: Acl, s: Acl) => {
+      if ((f.user.lastName || '').toLowerCase() < (s.user.lastName || '').toLowerCase()) return -1;
+      if ((f.user.lastName || '').toLowerCase() > (s.user.lastName || '').toLowerCase()) return 1;
+      return 0;
+    }},
+    {label: 'Email', sortFunction: (f: Acl, s: Acl) => {
+      if ((f.user.email || '').toLowerCase() < (s.user.email || '').toLowerCase()) return -1;
+      if ((f.user.email || '').toLowerCase() > (s.user.email || '').toLowerCase()) return 1;
+      return 0;
+    }},
+    {label: 'Role Name', sortFunction: (f: Acl, s: Acl) => {
+      if ((f.role.name || '').toLowerCase() < (s.role.name || '').toLowerCase()) return -1;
+      if ((f.role.name || '').toLowerCase() > (s.role.name || '').toLowerCase()) return 1;
+      return 0;
+    }},
+    {label: 'Created at', sortFunction: (f: Acl, s: Acl) => {
+      if (f.createdAt.isBefore(s.createdAt)) return -1;
+      if (f.createdAt.isAfter(s.createdAt)) return 1;
+      return 0;
+    }}
+  ];
+
+  selectedSortBy: {label: string, sortFunction: (f: Acl, s: Acl) => number};
+
   constructor(
     private accountService: AccountsService,
     private authService: AuthenticationService,
@@ -140,6 +170,11 @@ export class AccountManagementUsersComponent implements OnInit, OnDestroy {
     backupAcl.role = result.role;
 
     this.aclService.updateEntity(backupAcl);
+  }
+
+  applySortBy(sort: {label: string, sortFunction: (f: Acl, s: Acl) => number}) {
+    this.selectedSortBy = sort;
+    this.account.acls = this.account.acls.sort(sort.sortFunction);
   }
 
 }

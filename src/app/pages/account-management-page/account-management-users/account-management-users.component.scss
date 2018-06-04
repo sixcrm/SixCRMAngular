@@ -19,6 +19,16 @@
     font-size: 16px;
     font-weight: 500;
   }
+
+  .sort {
+    display: flex;
+    align-items: center;
+    margin-left: 35px;
+    color: #5F6368;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+  }
 }
 
 .content-wrapper {
