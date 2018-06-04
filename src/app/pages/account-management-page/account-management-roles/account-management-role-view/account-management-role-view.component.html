@@ -88,8 +88,8 @@
           </div>
 
           <div class="items">
-            <div class="item" *ngFor="let acl of acls | filterStrings: filterEditString: filterFunction">
-              <mat-checkbox class="checkbox-blue" (change)="aclRoleToggle(acl, $event)" [checked]="acl.role.id === entityId"></mat-checkbox>
+            <div class="item" *ngFor="let acl of otherAcls | filterStrings: filterEditString: filterFunction">
+              <mat-checkbox class="checkbox-blue" (change)="aclRoleToggle(acl, $event)" [checked]="shouldAclRoleBeChanged(acl)"></mat-checkbox>
 
               <div class="details">
                 <div>{{acl.user.name}}</div>
@@ -97,6 +97,11 @@
                 <div>{{acl.role.name}}</div>
               </div>
             </div>
+          </div>
+
+          <div class="buttons buttons--users">
+            <button mat-button (click)="cancelAclRoleUpdate()">CANCEL</button>
+            <button mat-button (click)="saveAclRoleUpdate()">SAVE</button>
           </div>
         </div>
       </div>

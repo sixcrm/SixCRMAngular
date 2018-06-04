@@ -16,13 +16,14 @@
   <div class="content-wrapper" *ngIf="allRoles">
 
     <div class="role-card" *ngFor="let role of allRoles | filterStrings: filterString: filterFunction">
-      <div class="title">{{role.name}} {{role.isShared ? '(system role)' : ''}}</div>
-      <div class="date">Created {{role.createdAt | formatDateTime}}</div>
-      <div class="users" *ngIf="acls">{{getNumberOfUsers(role)}} Users</div>
+      <div (click)="viewRole(role)" class="container">
+        <div class="title">{{role.name}} {{role.isShared ? '(system role)' : ''}}</div>
+        <div class="date">Created {{role.createdAt | formatDateTime}}</div>
+        <div class="users" *ngIf="acls">{{getNumberOfUsers(role)}} Users</div>
+      </div>
 
-      <mat-icon class="menu-icon" [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+      <mat-icon *ngIf="!role.isShared" class="menu-icon" [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
       <mat-menu #actionsMenu="matMenu" x-position="before">
-        <button mat-menu-item (click)="viewRole(role)">View</button>
         <button mat-menu-item *ngIf="!role.isShared" (click)="deleteRole(role)">Delete</button>
       </mat-menu>
     </div>

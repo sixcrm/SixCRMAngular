@@ -10,26 +10,6 @@
     flex-direction: column;
     font-size: 16px;
   }
-
-  .buttons {
-    display: flex;
-    margin-top: 25px;
-
-    button {
-      cursor: pointer;
-
-      &:first-of-type {
-        margin-left: auto;
-        margin-right: 15px;
-        color: #2C98F0;
-      }
-
-      &:last-of-type {
-        color: #ffffff;
-        background: #2C98F0;
-      }
-    }
-  }
 }
 
 .table-wrapper {
@@ -192,6 +172,8 @@
 
       .items {
         margin-top: 20px;
+        overflow: auto;
+        height: calc(100vh - 430px);
 
         .item {
           display: flex;
@@ -241,6 +223,8 @@
   margin-top: 24px;
   margin-left: -12px;
   margin-right: -12px;
+  overflow: auto;
+  max-height: calc(100vh - 325px);
 
   .user-card {
     position: relative;
@@ -328,4 +312,29 @@
   margin: 0;
   color: #5F6368;
   background-color: rgba(0, 0, 0, 0.12);
+}
+
+.buttons {
+  display: flex;
+  margin-top: 25px;
+
+  &--users {
+    margin-top: auto;
+    margin-bottom: 10px;
+  }
+
+  button {
+    cursor: pointer;
+
+    &:first-of-type {
+      margin-left: auto;
+      margin-right: 15px;
+      color: #2C98F0;
+    }
+
+    &:last-of-type {
+      color: #ffffff;
+      background: #2C98F0;
+    }
+  }
 }

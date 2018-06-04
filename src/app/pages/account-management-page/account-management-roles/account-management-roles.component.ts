@@ -6,12 +6,12 @@ import {RolesService} from '../../../shared/services/roles.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {RolesSharedService} from '../../../shared/services/roles-shared.service';
 import {Acl} from '../../../shared/models/acl.model';
-import {AclsService} from '../../../shared/services/acls.service';
 import {MatDialog} from '@angular/material';
 import {RoleDialogComponent} from '../../../dialog-modals/role-dialog/role-dialog.component';
 import {DeleteDialogComponent} from '../../delete-dialog.component';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {Router} from '@angular/router';
+import {AccountsService} from '../../../shared/services/accounts.service';
 
 @Component({
   selector: 'account-management-roles',
@@ -36,7 +36,7 @@ export class AccountManagementRolesComponent implements OnInit {
     private authService: AuthenticationService,
     private roleService: RolesService,
     private roleSharedService: RolesSharedService,
-    private aclService: AclsService,
+    private accountService: AccountsService,
     private dialog: MatDialog,
     private router: Router
   ) { }
@@ -74,15 +74,15 @@ export class AccountManagementRolesComponent implements OnInit {
     });
 
 
-    this.aclService.entities$.take(1).subscribe(acls => {
-      if (acls instanceof CustomServerError) return;
+    this.accountService.entity$.take(1).subscribe(account => {
+      if (account instanceof CustomServerError) return;
 
-      this.acls = acls;
+      this.acls = account.acls;
     });
 
     this.roleService.getEntities();
     this.roleSharedService.getEntities();
-    this.aclService.getEntities();
+    this.accountService.getEntity(this.authService.getActiveAcl().account.id);
   }
 
   getNumberOfUsers(role: Role): number {
