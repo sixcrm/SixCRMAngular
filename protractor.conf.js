@@ -15,19 +15,10 @@ exports.config = {
     './e2e/**/merchant-provider-group.e2e-spec.ts'
   ],
   suites:  {
-    repeatable: [
-      './e2e/**/login.e2e-spec.ts',
-      './e2e/**/navigation.e2e-spec.ts'
-      ],
     crm: [
-      './e2e/**/campaigns.e2e-spec.ts',
-      './e2e/**/product.e2e-spec.ts',
-      './e2e/**/product-schedule.e2e-spec.ts',
       './e2e/**/email-template.e2e-spec.ts',
       './e2e/**/affiliate.e2e-spec.ts',
       './e2e/**/tracker.e2e-spec.ts',
-      './e2e/**/merchant-provider.e2e-spec.ts',
-      './e2e/**/merchant-provider-group.e2e-spec.ts',
       './e2e/**/fulfillment-provider.e2e-spec.ts',
       './e2e/**/smtp-provider.e2e-spec.ts'
     ],
@@ -37,7 +28,7 @@ exports.config = {
     user: './e2e/**/user.e2e-spec.ts',
     account: './e2e/**/account.e2e-spec.ts',
     navigation: './e2e/**/navigation.e2e-spec.ts',
-    current: './e2e/**/merchant-provider-group.e2e-spec.ts',
+    current: './e2e/**/email-template.e2e-spec.ts',
     useraccount: [
       './e2e/**/user.e2e-spec.ts',
       './e2e/**/account.e2e-spec.ts',
