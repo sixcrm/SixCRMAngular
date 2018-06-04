@@ -52,7 +52,7 @@ export class FeatureFlagService {
 
   public updateLocalFeatureFlags() {
     this.featureFlagsUpdated$.take(1).subscribe((flags) => {
-      this.storeFlagsInLocalStorage(flags);
+      this.storeFlagsInLocalStorage(flags.obj);
     });
 
     this.fetchFeatureFlags(this.authService.getActiveAcl());
@@ -72,7 +72,12 @@ export class FeatureFlagService {
     if (!localFlags) {
       return this.featureFlags;
     }
-    return new FeatureFlags(JSON.parse(localFlags).obj);
+
+    try {
+      return new FeatureFlags(JSON.parse(localFlags));
+    } catch (error) {
+      return new FeatureFlags({});
+    }
   }
 
 }

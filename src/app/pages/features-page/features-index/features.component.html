@@ -1,17 +1,22 @@
 <div>
 
-  <mat-input-container>
-    <label class="entity-index__title">
-      {{'Features' | translate}}
-    </label>
+  <div class="entity-index__title">
+    {{'Features' | translate}}
+  </div>
 
-    <textarea rows="30" auto-focus matInput [(ngModel)]="featureFlags"></textarea>
-  </mat-input-container>
+  <div class="flags" *ngIf="featureFlags">
+    <div class="flag" *ngFor="let flag of featureFlags.flags">
+      <mat-checkbox [checked]="flag.isDefault" (change)="toggle(flag)" ></mat-checkbox> <span class="name">{{flag.name}}</span>  - {{flag.description}}
+      <div  class="flag" *ngFor="let f of flag.flags">
+        <mat-checkbox [checked]="f.isDefault" [disabled]="!flag.isDefault" (change)="toggle(f)"></mat-checkbox> <span class="name">{{f.name}}</span>  - {{f.description}}
+      </div>
+    </div>
+  </div>
 
   <br>
 
   <div class="buttons">
-    <button mat-button (click)="save()">Save</button>
+    <!--<button mat-button (click)="save()">Save</button>-->
     <button mat-button (click)="fetch()">Reset to defaults</button>
   </div>
 

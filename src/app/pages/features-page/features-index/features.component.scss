@@ -7,3 +7,27 @@ mat-input-container {
 .buttons {
   margin: 0 0 0 30px;
 }
+
+.flags {
+  max-width: 900px;
+  padding-left: 25px;
+  margin-bottom: 25px;
+  font-size: 14px;
+}
+
+.flag {
+  margin-left: 30px;
+  margin-top: 20px;
+
+  .name {
+    font-weight: 500;
+  }
+}
+
+.enabled:hover {
+  background-color: #fafafa;
+}
+
+mat-checkbox {
+  margin-right: 4px;
+}
