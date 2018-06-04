@@ -7,6 +7,10 @@ import {Session} from '../models/session.model';
 import {Observable, Subject} from 'rxjs';
 import {Customer} from '../models/customer.model';
 import {updateCustomerMutation} from '../utils/queries/entities/customer.queries';
+import {CreditCard} from '../models/credit-card.model';
+import {
+  createCreditCardMutation, updateCreditCardPartialMutation, deleteCreditCardMutation
+} from '../utils/queries/entities/credit-card.queries';
 
 @Injectable()
 export class HttpWrapperCustomerService {
@@ -38,6 +42,39 @@ export class HttpWrapperCustomerService {
 
     return this.http.post<any>(endpoint, updateCustomerMutation(customer), {observe: 'response', responseType: 'json', headers: headers})
       .map(response => new Customer(response.body.response.data.updatecustomer));
+  }
+
+  public createCreditCard(creditCard: CreditCard): Observable<CreditCard> {
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'application/json')
+      .append('Authorization', this.jwt);
+
+    const endpoint = environment.bareEndpoint + 'customergraph/3f4abaf6-52ac-40c6-b155-d04caeb0391f';
+
+    return this.http.post<any>(endpoint, createCreditCardMutation(creditCard), {observe: 'response', responseType: 'json', headers: headers})
+      .map(response => new CreditCard(response.body.response.data.createcreditcard));
+  }
+
+  public deleteCreditCard(creditCard: CreditCard): Observable<CreditCard> {
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'application/json')
+      .append('Authorization', this.jwt);
+
+    const endpoint = environment.bareEndpoint + 'customergraph/3f4abaf6-52ac-40c6-b155-d04caeb0391f';
+
+    return this.http.post<any>(endpoint, deleteCreditCardMutation(creditCard.id), {observe: 'response', responseType: 'json', headers: headers})
+      .map(response => new CreditCard(response.body.response.data.deletecreditcard));
+  }
+
+  public updateCreditCard(creditCard: CreditCard): Observable<CreditCard> {
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'application/json')
+      .append('Authorization', this.jwt);
+
+    const endpoint = environment.bareEndpoint + 'customergraph/3f4abaf6-52ac-40c6-b155-d04caeb0391f';
+
+    return this.http.post<any>(endpoint, updateCreditCardPartialMutation(creditCard), {observe: 'response', responseType: 'json', headers: headers})
+      .map(response =>  new CreditCard(response.body.response.data.updatecreditcardpartial));
   }
 
   private fetchSession(sessionId: string, customerToken: string): Observable<Session> {

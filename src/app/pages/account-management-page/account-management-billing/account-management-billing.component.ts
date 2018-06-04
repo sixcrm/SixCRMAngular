@@ -8,7 +8,8 @@ import {utc} from 'moment';
 import {Currency} from '../../../shared/utils/currency/currency';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {CreditCard} from '../../../shared/models/credit-card.model';
-import {Router} from '@angular/router';
+import {CardSwitcherDialogComponent} from '../../../dialog-modals/card-switcher-dialog/card-switcher-dialog.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'account-management-billing',
@@ -27,7 +28,7 @@ export class AccountManagementBillingComponent implements OnInit {
   constructor(
     private authService: AuthenticationService,
     private customerGraphAPI: HttpWrapperCustomerService,
-    private router: Router
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -95,7 +96,29 @@ export class AccountManagementBillingComponent implements OnInit {
     return new Currency(0);
   }
 
-  navigateToGeneral() {
-    this.router.navigate(['/accountmanagement', 'general']);
+  openCardSwitcher(): void {
+    let dialogRef = this.dialog.open(CardSwitcherDialogComponent, {backdropClass: 'backdrop-blue'});
+
+    dialogRef.componentInstance.cards = this.session.customer.creditCards;
+    dialogRef.componentInstance.selectedDefaultCard = this.defaultCreditCard || new CreditCard();
+
+    dialogRef.afterClosed().subscribe(result => {
+      dialogRef = null;
+
+      if (result && result.selectedDefaultCard && result.selectedDefaultCard.id) {
+        const customer = this.session.customer.copy();
+        customer.defaultCreditCard = result.selectedDefaultCard.id;
+
+        this.customerGraphAPI.updateCustomerInfo(customer).subscribe(updatedCustomer => {
+          this.session.customer = updatedCustomer;
+
+          const index = firstIndexOf(updatedCustomer.creditCards, (el) => el.id === result.selectedDefaultCard.id);
+
+          if (index !== -1) {
+            this.defaultCreditCard = updatedCustomer.creditCards[index];
+          }
+        });
+      }
+    });
   }
 }

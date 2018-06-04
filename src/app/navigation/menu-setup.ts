@@ -135,7 +135,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
   // Add Account Management menu item
   let accountManagement: MenuItem[] = [];
 
-  if (featureFlagService.isEnabled('account-management')) {
+  // if (featureFlagService.isEnabled('account-management')) {
     if (authService.hasPermissions('account', 'read')) {
       accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_GENERAL', 'accountmanagement/general'));
     }
@@ -155,7 +155,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
     if (accountManagement.length > 0) {
       items.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_TITLE', null, accountManagement).setIcon('settings'));
     }
-  }
+  // }
 
   if (authService.isActiveOrActingAclMasterAccount()) {
     // Add Settings menu item

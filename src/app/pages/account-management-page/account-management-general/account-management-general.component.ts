@@ -12,6 +12,8 @@ import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {Customer} from '../../../shared/models/customer.model';
 import {getPhoneNumberMask} from '../../../shared/utils/mask.utils';
 import {isValidEmail} from '../../../shared/utils/form.utils';
+import {AddCreditCardDialogComponent} from '../../../dialog-modals/add-credit-card-dialog/add-credit-card-dialog.component';
+import {DeleteDialogComponent} from '../../delete-dialog.component';
 
 @Component({
   selector: 'account-management-general',
@@ -123,7 +125,7 @@ export class AccountManagementGeneralComponent implements OnInit {
       dialogRef = null;
 
       if (result && result.selectedDefaultCard && result.selectedDefaultCard.id) {
-        const customer = this.session.customer.copy();
+        const customer = this.customer.copy();
         customer.defaultCreditCard = result.selectedDefaultCard.id;
 
         this.customerGraphAPI.updateCustomerInfo(customer).subscribe(updatedCustomer => {
@@ -138,5 +140,99 @@ export class AccountManagementGeneralComponent implements OnInit {
         });
       }
     });
+  }
+
+  openCardModal(creditCard?: CreditCard) {
+    let dialogRef = this.dialog.open(AddCreditCardDialogComponent, {backdropClass: 'backdrop-blue'});
+
+    dialogRef.componentInstance.creditCard = creditCard ? creditCard.copy() : new CreditCard();
+    dialogRef.componentInstance.isDefaultCreditCard = creditCard ? this.customer.defaultCreditCard === creditCard.id : false;
+
+    dialogRef.afterClosed().subscribe(result => {
+      dialogRef = null;
+
+      if (result && result.creditCard) {
+        if (creditCard) {
+          this.customerGraphAPI.updateCreditCard(result.creditCard).subscribe(card => {
+            const index = firstIndexOf(this.session.customer.creditCards, (el) => el.id === card.id);
+            if (index !== -1) {
+              card.type = this.session.customer.creditCards[index].type;
+              this.session.customer.creditCards[index] = card;
+              this.session.customer.creditCards = this.session.customer.creditCards.slice();
+            }
+
+            const newDefaultCardId = result.isDefaultCard ? card.id : '';
+
+            if (newDefaultCardId !== this.session.customer.defaultCreditCard) {
+              this.updateDefaultCreditCard(newDefaultCardId);
+            } else {
+              this.setDefaultCreditCard();
+            }
+          })
+        } else {
+          this.customerGraphAPI.createCreditCard(result.creditCard).subscribe(card => {
+            this.session.customer.creditCards = [card, ...this.session.customer.creditCards];
+            this.customer = this.session.customer.copy();
+            this.customerBackup = this.customer.copy();
+
+            if (result.isDefaultCard) {
+              this.updateDefaultCreditCard(card.id);
+            } else {
+              this.setDefaultCreditCard();
+            }
+          })
+        }
+      }
+    });
+  }
+
+  deleteCard(card: CreditCard): void {
+    let dialogRef = this.dialog.open(DeleteDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      dialogRef = null;
+      if (result && result.success) {
+        this.performCreditCardDelete(card);
+      }
+    });
+  }
+
+  performCreditCardDelete(card: CreditCard) {
+    this.customerGraphAPI.deleteCreditCard(card).subscribe(deletedCard => {
+      const customerIndex = firstIndexOf(this.customer.creditCards, (el: CreditCard) => el.id === deletedCard.id);
+      const sessionIndex = firstIndexOf(this.session.customer.creditCards, (el: CreditCard) => el.id === deletedCard.id);
+
+      if (customerIndex !== -1) {
+        this.customer.creditCards.splice(customerIndex, 1);
+        this.customerBackup = this.customer.copy();
+        this.session.customer.creditCards.splice(sessionIndex, 1);
+      }
+
+      if (this.customer.defaultCreditCard === deletedCard.id) {
+        this.updateDefaultCreditCard(deletedCard.id);
+      }
+    })
+  }
+
+
+  private updateDefaultCreditCard(defaultCardId: string) {
+    const customer = this.customer.copy();
+    customer.defaultCreditCard = defaultCardId;
+
+    this.customerGraphAPI.updateCustomerInfo(customer).subscribe(updatedCustomer => {
+      this.customer = updatedCustomer;
+      this.customerBackup = updatedCustomer.copy();
+      this.session.customer = updatedCustomer.copy();
+
+      this.setDefaultCreditCard();
+    });
+  }
+
+  private setDefaultCreditCard() {
+    const index = firstIndexOf(this.session.customer.creditCards, (el) => el.id === this.session.customer.defaultCreditCard);
+
+    if (index !== -1) {
+      this.defaultCreditCard = this.session.customer.creditCards[index];
+    }
   }
 }

@@ -66,7 +66,7 @@ export function updateCreditCardPartialMutation(cc: CreditCard): string {
 }
 
 export function creditCardResponseQuery(): string {
-  return `id expiration name last_four first_six created_at updated_at address { line1 line2 city state zip country } customers {id, firstname, lastname, address {city, state, zip}}`;
+  return `id expiration name last_four first_six type created_at updated_at address { line1 line2 city state zip country } customers {id, firstname, lastname, address {city, state, zip}}`;
 }
 
 export function creditCardInputQuery(cc: CreditCard, includeId?: boolean): string {

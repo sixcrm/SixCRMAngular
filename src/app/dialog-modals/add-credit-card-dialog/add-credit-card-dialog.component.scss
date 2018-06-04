@@ -1,0 +1,46 @@
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  padding: 15px 25px;
+  background: rgba(30, 177, 252, 0.15);
+  font-size: 16px;
+
+  mat-checkbox {
+    margin-right: 10px;
+  }
+}
+
+.title {
+  border-bottom: none !important;
+}
+
+.column {
+  width: 320px;
+
+  .column-title {
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  &:first-of-type {
+    margin-right: 35px;
+  }
+}
+
+.body {
+  padding: 35px 25px !important;
+  flex-direction: row !important;
+}
+
+.row {
+  display: flex;
+
+  mat-input-container {
+    width: 150px;
+
+    &:first-of-type {
+      margin-right: auto;
+    }
+  }
+}

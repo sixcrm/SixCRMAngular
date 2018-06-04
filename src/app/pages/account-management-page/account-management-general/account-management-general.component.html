@@ -108,8 +108,8 @@
           </div>
 
           <div class="actions">
-            <mat-icon>delete</mat-icon>
-            <mat-icon>edit</mat-icon>
+            <mat-icon (click)="deleteCard(card)">delete</mat-icon>
+            <mat-icon (click)="openCardModal(card)">edit</mat-icon>
           </div>
         </div>
       </ng-container>
@@ -117,6 +117,8 @@
       <ng-template #nocards>
         <div class="no-card">No Cards found</div>
       </ng-template>
+
+      <button class="add-card-button" mat-button (click)="openCardModal()">ADD CARD</button>
     </div>
 
   </div>
