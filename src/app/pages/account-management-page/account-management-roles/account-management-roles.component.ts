@@ -55,7 +55,7 @@ export class AccountManagementRolesComponent implements OnInit {
     }}
   ];
 
-  selectedSortBy: {label: string, sortFunction: (f: Acl, s: Acl) => number};
+  selectedSortBy: {label: string, sortFunction: (f: Role, s: Role) => number};
 
   constructor(
     private authService: AuthenticationService,
@@ -165,7 +165,7 @@ export class AccountManagementRolesComponent implements OnInit {
     this.roleService.deleteEntity(role.id);
   }
 
-  applySortBy(sort: {label: string, sortFunction: (f: Acl, s: Acl) => number}) {
+  applySortBy(sort: {label: string, sortFunction: (f: Role, s: Role) => number}) {
     this.selectedSortBy = sort;
     this.allRoles = this.allRoles.sort(sort.sortFunction);
   }
