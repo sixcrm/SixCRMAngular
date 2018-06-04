@@ -1,64 +1,69 @@
 <div class="animation-wrapper">
   <div class="customer-service-container" [@routerTransition]="transition">
 
-    <div (click)="setFocus(0, orderInput)"
-         class="item"
-         [class.expanded]="focusedItem === 0 || !focusedItem"
-         [class.focused]="focusedItem === 0">
+    <div class="item">
       <div class="content">
-        <div class="title" [class.title--focused]="focusedItem === 0">
-          Find Order
-        </div>
+        <div class="title">
 
-        <div class="input-container" [class.visible]="focusedItem === 0">
-          <mat-form-field class="mrw--search-input" [floatLabel]="'never'">
-            <input auto-focus #orderInput type="text" [matAutocomplete]="sessionAutocomplete" (keydown)="searchKeyDown($event, customerInput, 'order')" (input)="sessionInputChanged($event)" matInput placeholder="Session ID or Alias">
-            <mat-icon matSuffix>search</mat-icon>
-            <mat-autocomplete class="three-row-autocomplete" #sessionAutocomplete="matAutocomplete" (optionSelected)="navigateToSession($event)">
-              <mat-option *ngFor="let session of sessions" [value]="session.id">
-                <div class="autocomplete-row">{{ session.alias }}</div>
-                <div class="autocomplete-row">{{ session.createdAt | formatDateTime }}</div>
-                <div class="autocomplete-row">{{ session.customer.firstName }} {{session.customer.lastName}}</div>
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-        </div>
-      </div>
-    </div>
+          <div class="icon-wrapper">
+            <mat-icon>person</mat-icon>
+          </div>
 
-    <div (click)="setFocus(1, customerInput)"
-         class="item"
-         [class.expanded]="focusedItem === 1"
-         [class.focused]="focusedItem === 1">
-      <div class="content">
-        <div class="title" [class.title--focused]="focusedItem === 1">
           Find Customer
         </div>
 
-        <div class="input-container" [class.visible]="focusedItem === 1">
-          <mat-form-field class="mrw--search-input" [floatLabel]="'never'">
-            <input #customerInput type="text" [matAutocomplete]="customerAutocomplete" (keydown)="searchKeyDown($event, customerInput, 'customer')" (input)="customerInputChanged($event)" matInput placeholder="Name, email or phone number">
-            <mat-icon matSuffix>search</mat-icon>
-            <mat-autocomplete class="three-row-autocomplete" #customerAutocomplete="matAutocomplete" (optionSelected)="navigateToCustomer($event)">
-              <mat-option *ngFor="let customer of customers" [value]="customer.id">
-                <div class="autocomplete-row">{{ customer.firstName }} {{customer.lastName}}</div>
-                <div class="autocomplete-row">{{ customer.email }}</div>
-                <div class="autocomplete-row">{{ customer.phone }}</div>
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
+        <div class="search">
+
+          <div class="mrw--search-input">
+            <mat-form-field [floatLabel]="'never'">
+              <input type="text" (keydown)="customerSearchKeyDown($event)" [(ngModel)]="customersInputValue" (input)="customerInputChanged()" (blur)="customersBlurred()" (focus)="customersFocused()" matInput placeholder="Name, email or phone">
+            </mat-form-field>
+            <mat-icon>search</mat-icon>
+
+            <div class="autocomplete" *ngIf="customers && customers.length > 0">
+              <div class="result" *ngFor="let customer of customers">
+                <div class="row">{{ customer.firstName }} {{customer.lastName}}</div>
+                <div class="row"><span>EMAIL:</span> {{ customer.email }}</div>
+                <div class="row"><span>PHONE:</span> {{ customer.phone }}</div>
+                <div class="row"><span>ZIP:</span> {{ customer.zip }}</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-
-    <div (click)="openCreateOrder()"
-         class="item"
-         [class.expanded]="focusedItem === 2"
-         [class.focused]="focusedItem === 2 && (navigationService.showCreateNewOrderModal | async)">
+    <div class="item">
       <div class="content">
+
         <div class="title">
-          Create Order
+
+          <div class="icon-wrapper">
+            <mat-icon>payment</mat-icon>
+          </div>
+
+          Find Order
+        </div>
+
+        <div class="search">
+
+          <div class="mrw--search-input">
+            <mat-form-field [floatLabel]="'never'">
+              <input #orderInput type="text" (keydown)="sessionSearchKeyDown($event)" (focused)="sessionFocused()" (blur)="sessionBlurred()" (input)="sessionInputChanged()" [(ngModel)]="sessionsInputValue" matInput placeholder="Session ID or Alias">
+            </mat-form-field>
+            <mat-icon>search</mat-icon>
+
+            <div class="autocomplete" *ngIf="sessions && sessions.length > 0">
+              <div class="result" *ngFor="let session of sessions">
+                <div class="row">Order {{ session.alias }}</div>
+                <div class="row"><span>NAME:</span> {{ customer.firstName }} {{customer.lastName}}</div>
+                <div class="row"><span>EMAIL:</span> {{ customer.email }}</div>
+                <div class="row"><span>PHONE:</span> {{ customer.phone }}</div>
+                <div class="row"><span>ZIP:</span> {{ customer.zip }}</div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

@@ -18,8 +18,6 @@ export class CustomerServiceDashboardComponent implements OnInit {
 
   public transition: 'void' | '*' = '*';
 
-  focusedItem: number = 0;
-
   customers: Customer[] = [];
   sessions: Session[] = [];
 
@@ -29,6 +27,9 @@ export class CustomerServiceDashboardComponent implements OnInit {
   sessionDebouncer: Subject<string> = new Subject();
   sessionSub: Subscription;
   preventSearch: boolean;
+
+  customersInputValue: string;
+  sessionsInputValue: string;
 
   constructor(
     public navigationService: NavigationService,
@@ -55,28 +56,32 @@ export class CustomerServiceDashboardComponent implements OnInit {
     })
   }
 
-  customerInputChanged(event) {
-    this.customerDebouncer.next(event.srcElement.value);
-  }
-
-  sessionInputChanged(event) {
-    this.sessionDebouncer.next(event.srcElement.value);
-  }
-
-  setFocus(val: number, element?: any) {
-    if (this.focusedItem === val) return;
-
-    if (element && element.focus) {
-      element.value = '';
-      element.focus();
+  customersFocused() {
+    if (this.customersInputValue) {
+      this.customerDebouncer.next(this.customersInputValue);
     }
-
-    this.focusedItem = val;
   }
 
-  openCreateOrder() {
-    this.focusedItem = 2;
-    this.navigationService.setShowCreateNewOrderModal(true)
+  customersBlurred() {
+    this.customers = [];
+  }
+
+  sessionFocused() {
+    if (this.sessionsInputValue) {
+      this.sessionDebouncer.next(this.sessionsInputValue);
+    }
+  }
+
+  sessionBlurred() {
+    this.sessions = [];
+  }
+
+  customerInputChanged() {
+    this.customerDebouncer.next(this.customersInputValue);
+  }
+
+  sessionInputChanged() {
+    this.sessionDebouncer.next(this.sessionsInputValue);
   }
 
   navigateToCustomer(event) {
@@ -89,9 +94,17 @@ export class CustomerServiceDashboardComponent implements OnInit {
     this.router.navigate(['/customer-service', 'pair'], {queryParams: {session: event.option.value}})
   }
 
-  searchKeyDown(event, input, filter) {
+  customerSearchKeyDown(event) {
     if (event.key === 'Enter' && !this.preventSearch) {
-      this.router.navigate(['/search'], {queryParams: {query: input.value, filters: filter}})
+      this.router.navigate(['/search'], {queryParams: {query: this.customersInputValue, filters: 'customer'}})
+    } else {
+      this.preventSearch = false;
+    }
+  }
+
+  sessionSearchKeyDown(event) {
+    if (event.key === 'Enter' && !this.preventSearch) {
+      this.router.navigate(['/search'], {queryParams: {query: this.sessionsInputValue, filters: 'session'}})
     } else {
       this.preventSearch = false;
     }
