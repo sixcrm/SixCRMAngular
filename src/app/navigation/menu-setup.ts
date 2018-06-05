@@ -75,61 +75,65 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
   }
 
   // Add CRM menu items
-  let crmItems: MenuItem[] = [];
-  if (featureFlagService.isEnabled('crm-setup') && (authService.hasPermissions('campaign', 'read') || authService.isBillingDisabled())) {
-    crmItems.push(new MenuItem('SIDENAV_CRM_CAMPAIGN', 'campaigns'));
-  }
-  if (featureFlagService.isEnabled('crm-setup') && (authService.hasPermissions('product', 'read') || authService.isBillingDisabled())) {
-    crmItems.push(new MenuItem('SIDENAV_CRM_PRODUCT', 'products'));
-  }
-  if (featureFlagService.isEnabled('crm-setup') && (authService.hasPermissions('productschedule', 'read') || authService.isBillingDisabled())) {
-    crmItems.push(new MenuItem('SIDENAV_CRM_PRODUCTSCHEDULE', 'productschedules'));
-  }
-  if (featureFlagService.isEnabled('crm-setup') && (authService.hasPermissions('emailtemplate', 'read') || authService.isBillingDisabled())) {
-    crmItems.push(new MenuItem('SIDENAV_CRM_EMAILTEMPLATE', 'emailtemplates'));
-  }
+  if (featureFlagService.isEnabled('crm-setup')) {
 
-  if (featureFlagService.isEnabled('crm-setup.event-hooks') && (authService.hasPermissions('eventhook', 'read') || authService.isBillingDisabled())) {
-    crmItems.push(new MenuItem('SIDENAV_CRM_EVENTHOOK', 'eventhooks'));
-  }
+    let crmItems: MenuItem[] = [];
+    if (authService.hasPermissions('campaign', 'read') || authService.isBillingDisabled()) {
+      crmItems.push(new MenuItem('SIDENAV_CRM_CAMPAIGN', 'campaigns'));
+    }
+    if (authService.hasPermissions('product', 'read') || authService.isBillingDisabled()) {
+      crmItems.push(new MenuItem('SIDENAV_CRM_PRODUCT', 'products'));
+    }
+    if (authService.hasPermissions('productschedule', 'read') || authService.isBillingDisabled()) {
+      crmItems.push(new MenuItem('SIDENAV_CRM_PRODUCTSCHEDULE', 'productschedules'));
+    }
+    if (authService.hasPermissions('emailtemplate', 'read') || authService.isBillingDisabled()) {
+      crmItems.push(new MenuItem('SIDENAV_CRM_EMAILTEMPLATE', 'emailtemplates'));
+    }
 
-  let tracking: MenuItem[] = [];
-  if (featureFlagService.isEnabled('crm-setup') && (authService.hasPermissions('affiliate', 'read') || authService.isBillingDisabled())) {
-    tracking.push(new MenuItem('SIDENAV_CRM_TRAFFIC_AFFILIATE', 'affiliates'));
-  }
-  if (featureFlagService.isEnabled('crm-setup') && (authService.hasPermissions('tracker', 'read') || authService.isBillingDisabled())) {
-    tracking.push(new MenuItem('SIDENAV_CRM_TRAFFIC_TRACKER', 'trackers'));
-  }
-  if (tracking.length > 0) {
-    crmItems.push(new MenuItem('SIDENAV_CRM_TRAFFIC_TITLE', null, tracking));
-  }
+    if (featureFlagService.isEnabled('crm-setup.event-hooks') && (authService.hasPermissions('eventhook', 'read') || authService.isBillingDisabled())) {
+      crmItems.push(new MenuItem('SIDENAV_CRM_EVENTHOOK', 'eventhooks'));
+    }
 
-  // Add Merchants menu item
-  let merchants: MenuItem[] = [];
-  if (authService.hasPermissions('merchantprovider', 'read') || authService.isBillingDisabled()) {
-    merchants.push(new MenuItem('SIDENAV_CRM_MERCHANT_MERCHANTPROVIDER', 'merchantproviders'))
-  }
-  if (authService.hasPermissions('merchantprovidergroup', 'read') || authService.isBillingDisabled()) {
-    merchants.push(new MenuItem('SIDENAV_CRM_MERCHANT_MERCHANTPROVIDERGROUP', 'merchantprovidergroups'))
-  }
-  if (merchants.length > 0) {
-    crmItems.push(new MenuItem('SIDENAV_CRM_MERCHANT_TITLE', null, merchants));
-  }
+    let tracking: MenuItem[] = [];
+    if (authService.hasPermissions('affiliate', 'read') || authService.isBillingDisabled()) {
+      tracking.push(new MenuItem('SIDENAV_CRM_TRAFFIC_AFFILIATE', 'affiliates'));
+    }
+    if (authService.hasPermissions('tracker', 'read') || authService.isBillingDisabled()) {
+      tracking.push(new MenuItem('SIDENAV_CRM_TRAFFIC_TRACKER', 'trackers'));
+    }
+    if (tracking.length > 0) {
+      crmItems.push(new MenuItem('SIDENAV_CRM_TRAFFIC_TITLE', null, tracking));
+    }
 
-  // Add 3rd party providers to CRM menu
-  let thirdPartyProviders: MenuItem[] = [];
-  if (authService.hasPermissions('fulfillmentprovider', 'read') || authService.isBillingDisabled()) {
-    thirdPartyProviders.push(new MenuItem('SIDENAV_CRM_PROVIDERS_FULFILLMENT', 'fulfillmentproviders'))
-  }
-  if (authService.hasPermissions('smtpprovider', 'read') || authService.isBillingDisabled()) {
-    thirdPartyProviders.push(new MenuItem('SIDENAV_CRM_PROVIDERS_SMTP', 'smtpproviders'))
-  }
-  if (thirdPartyProviders.length > 0) {
-    crmItems.push(new MenuItem('SIDENAV_CRM_PROVIDERS_TITLE', null, thirdPartyProviders));
-  }
+    // Add Merchants menu item
+    let merchants: MenuItem[] = [];
+    if (authService.hasPermissions('merchantprovider', 'read') || authService.isBillingDisabled()) {
+      merchants.push(new MenuItem('SIDENAV_CRM_MERCHANT_MERCHANTPROVIDER', 'merchantproviders'))
+    }
+    if (authService.hasPermissions('merchantprovidergroup', 'read') || authService.isBillingDisabled()) {
+      merchants.push(new MenuItem('SIDENAV_CRM_MERCHANT_MERCHANTPROVIDERGROUP', 'merchantprovidergroups'))
+    }
+    if (merchants.length > 0) {
+      crmItems.push(new MenuItem('SIDENAV_CRM_MERCHANT_TITLE', null, merchants));
+    }
 
-  if (crmItems.length > 0) {
-    items.push(new MenuItem('SIDENAV_CRM_TITLE', null, crmItems).setIcon('apps'));
+    // Add 3rd party providers to CRM menu
+    let thirdPartyProviders: MenuItem[] = [];
+    if (authService.hasPermissions('fulfillmentprovider', 'read') || authService.isBillingDisabled()) {
+      thirdPartyProviders.push(new MenuItem('SIDENAV_CRM_PROVIDERS_FULFILLMENT', 'fulfillmentproviders'))
+    }
+    if (authService.hasPermissions('smtpprovider', 'read') || authService.isBillingDisabled()) {
+      thirdPartyProviders.push(new MenuItem('SIDENAV_CRM_PROVIDERS_SMTP', 'smtpproviders'))
+    }
+    if (thirdPartyProviders.length > 0) {
+      crmItems.push(new MenuItem('SIDENAV_CRM_PROVIDERS_TITLE', null, thirdPartyProviders));
+    }
+
+    if (crmItems.length > 0) {
+      items.push(new MenuItem('SIDENAV_CRM_TITLE', null, crmItems).setIcon('apps'));
+    }
+
   }
 
   // Add Account Management menu item

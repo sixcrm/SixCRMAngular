@@ -36,7 +36,7 @@ export class FeatureFlags {
     let flag: string = flags[0];
     let feature = features[flag];
 
-    if (!feature.enabled && !feature.default) {
+    if (!feature || (!feature.enabled && !feature.default)) {
       return false;
     }
 

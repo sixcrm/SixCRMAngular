@@ -1,0 +1,45 @@
+$content-height: calc(100vh - 225px);
+
+.body {
+  display: flex;
+
+  .section {
+    overflow: hidden;
+    transition: 250ms ease-in-out;
+
+    &--full {
+      width: 100% !important;
+      transition: 250ms ease-in-out;
+    }
+
+    &:first-of-type {
+      width: calc(100% - 290px);
+    }
+
+    &:last-of-type {
+      width: 290px;
+      border-left: 1px solid rgba(0,0,0,0.12);
+    }
+
+    &--invisible {
+      width: 0 !important;
+      transition: 250ms ease-in-out;
+    }
+  }
+}
+
+customer-info, customer-info-notes {
+  display: block;
+  height: $content-height;
+}
+
+.info-icon {
+  color: rgba(0,0,0,0.7);
+  margin-left: auto;
+  margin-right: 25px;
+  cursor: pointer;
+
+  &--active {
+    color: #2C98F0;
+  }
+}
