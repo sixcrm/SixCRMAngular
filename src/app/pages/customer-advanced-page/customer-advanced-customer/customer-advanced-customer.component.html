@@ -1,0 +1,41 @@
+<blue-header [path]="path" [titleValue]="entity ? entity.firstName + ' ' + entity.lastName : null"></blue-header>
+
+<div class="body">
+  <div class="section" [class.section--full]="!infoVisible">
+    <tab-header [elements]="tabHeaders"
+                [selectedIndex]="selectedIndex"
+                (select)="setIndex($event)">
+      <mat-icon class="info-icon" [class.info-icon--active]="infoVisible" (click)="infoVisible = !infoVisible">info</mat-icon>
+    </tab-header>
+
+    <mat-tab-group class="tab--no-header" [(selectedIndex)]="selectedIndex">
+
+      <mat-tab></mat-tab>
+      <mat-tab></mat-tab>
+      <mat-tab></mat-tab>
+      <mat-tab></mat-tab>
+      <mat-tab></mat-tab>
+
+    </mat-tab-group>
+  </div>
+
+  <div class="section" [class.section--invisible]="!infoVisible">
+    <tab-header [elements]="secondaryTabHeaders"
+                [selectedIndex]="selectedSecondaryIndex"
+                [ignoreUrl]="true"
+                (select)="setSecondaryIndex($event)">
+    </tab-header>
+
+    <mat-tab-group class="tab--no-header" [(selectedIndex)]="selectedSecondaryIndex">
+
+      <mat-tab>
+        <customer-info [customer]="entity"></customer-info>
+      </mat-tab>
+
+      <mat-tab>
+        <customer-info-notes #customernotes [customer]="entity"></customer-info-notes>
+      </mat-tab>
+
+    </mat-tab-group>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+.body {
+  background: #ffffff;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+
+  .note {
+    border-top: 1px solid rgba(0,0,0,0.12);
+    padding: 15px;
+    font-size: 13px;
+    line-height: 24px;
+
+    .date {
+      font-weight: 500;
+    }
+
+    .author {
+      display: inline-block;
+      margin: 14px 0;
+      border-radius: 16px;
+      padding: 6px 16px;
+      background: rgba(0,0,0,0.06);
+      font-weight: 500;
+    }
+  }
+
+  .no-data {
+    margin: 25px 15px;
+    font-size: 16px;
+    color: rgba(0,0,0,0.54);
+  }
+
+  .new-note {
+    width: calc(100% - 30px);
+    border: none;
+    box-sizing: border-box;
+    margin: 100px 15px 10px;
+    background: rgba(44, 152, 240, 0.2);
+    outline: none;
+    padding: 6px;
+    font-size: 14px;
+    resize: none;
+  }
+
+  .button-holder {
+    display: flex;
+    margin-bottom: 10px;
+
+    button {
+      margin-left: auto;
+      margin-right: 15px;
+      color: #ffffff;
+      font-size: 13px;
+      background: #2C98F0
+    }
+  }
+}

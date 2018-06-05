@@ -1,0 +1,24 @@
+<div class="blue-header-container">
+  <div class="info-section">
+    <div class="crumbs">
+      <ng-container *ngFor="let p of path; let i = index">
+        <div class="item">{{p}}</div>
+        <mat-icon *ngIf="i + 1 < path.length" class="arrow">keyboard_arrow_right</mat-icon>
+      </ng-container>
+    </div>
+
+    <div class="details">
+      <mat-icon class="back" (click)="navigationService.back()">arrow_back</mat-icon>
+      <div class="title" *ngIf="titleValue; else titleplaceholder">{{titleValue}}</div>
+
+      <ng-template #titleplaceholder>
+        <div class="title-placeholder"></div>
+      </ng-template>
+
+    </div>
+  </div>
+
+  <div class="icon">
+    <img src="/assets/images/circle-3-dots.svg" alt="">
+  </div>
+</div>

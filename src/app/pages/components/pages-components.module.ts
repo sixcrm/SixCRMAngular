@@ -30,6 +30,7 @@ import { ScheduleDetailedTimelineComponent } from './schedules-detailed/schedule
 import { ScheduleDetailsHeaderComponent } from './schedules-detailed/schedule-details/schedule-details-header/schedule-details-header.component';
 import { ScheduleDetailsTitleComponent } from './schedules-detailed/schedule-details/schedule-details-title/schedule-details-title.component';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
+import { BlueHeaderComponent } from './blue-header/blue-header.component';
 
 @NgModule({
   imports : [
@@ -65,7 +66,8 @@ import {MaterialSelectionModule} from '../../material-selection/material-selecti
     ScheduleDetailedListViewComponent,
     ScheduleDetailedTimelineComponent,
     ScheduleDetailsHeaderComponent,
-    ScheduleDetailsTitleComponent
+    ScheduleDetailsTitleComponent,
+    BlueHeaderComponent
   ],
   exports : [
     TableActionsComponent,
@@ -80,7 +82,8 @@ import {MaterialSelectionModule} from '../../material-selection/material-selecti
     EntityViewGalleryComponent,
     EntityViewTagComponent,
     EntityViewEntityaclComponent,
-    SchedulesDetailedComponent
+    SchedulesDetailedComponent,
+    BlueHeaderComponent
   ],
   providers: [
 

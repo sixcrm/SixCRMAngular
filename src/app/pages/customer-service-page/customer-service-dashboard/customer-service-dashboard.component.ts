@@ -117,12 +117,12 @@ export class CustomerServiceDashboardComponent implements OnInit {
 
     if (event instanceof Customer) {
       this.preventSearch = true;
-      this.router.navigate(['/customer-service', 'pair'], {queryParams: {customer: event.id}})
+      this.router.navigate(['/customer-advanced', event.id]);
     }
 
     if (event instanceof Session) {
       this.preventSearch = true;
-      this.router.navigate(['/customer-service', 'pair'], {queryParams: {session: event.id}})
+      this.router.navigate(['/customer-advanced', 'session', event.id]);
     }
 
   }

@@ -1,0 +1,41 @@
+.body {
+  padding: 20px;
+  background: #ffffff;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+
+  .title {
+    margin-top: 24px;
+    font-size: 16px;
+    line-height: 24px;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+
+  .text {
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.54);
+    line-height: 24px;
+  }
+
+  .card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
+    padding: 5px 10px 5px 5px;
+    font-size: 13px;
+
+    &--default {
+      background: rgba(0, 0, 0, 0.12);
+      border-radius: 4px;
+    }
+
+    img {
+      height: 32px;
+    }
+  }
+}

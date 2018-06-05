@@ -27,6 +27,7 @@ const appRoutes: Routes = [
     { path : 'campaigns', loadChildren : './pages/campaigns-page/campaigns.module#CampaignsModule', canActivate: [AuthGuard] },
     { path : 'creditcards', loadChildren : './pages/credit-cards-page/credit-cards.module#CreditCardsModule', canActivate: [AuthGuard] },
     { path : 'customers', loadChildren : './pages/customers-page/customers.module#CustomersModule', canActivate: [AuthGuard] },
+    { path : 'customer-advanced', loadChildren : './pages/customer-advanced-page/customer-advanced.module#CustomerAdvancedModule', canActivate: [AuthGuard] },
     { path : 'customer-service', loadChildren : './pages/customer-service-page/customer-service.module#CustomerServiceModule', canActivate: [AuthGuard] },
     { path : 'eventhooks', loadChildren : './pages/event-hooks-page/event-hooks.module#EventHooksModule', canActivate: [AuthGuard] },
     { path : 'fulfillmentproviders', loadChildren : './pages/fulfillment-providers/fulfillment-providers.module#FulfillmentProvidersModule', canActivate: [AuthGuard] },
