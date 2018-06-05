@@ -108,7 +108,7 @@ describe('Campaigns', function() {
     campaignPage.getCampaignDeleteButton().click();
     browser.sleep(200);
     campaignPage.getCampaignDeleteModalButton().click();
-    browser.sleep(1200);
+    browser.sleep(2000);
     expect(campaignPage.getCampaignIndividualCampaign().count()).toEqual(0);
   });
 
