@@ -31,7 +31,7 @@ describe('Navigation', function() {
     waitForUrlContains('/dashboard');
 
     browser.sleep(500);
-    expect(sidenav.getItems().count()).toBe(26);
+    expect(sidenav.getItems().count()).toBe(32);
   });
 
   it('should navigate to dashboard', () => {
