@@ -101,7 +101,7 @@ describe('Merchant Provider Group', function() {
     merchantProviderGroup.getProviderGroupDeleteButton().click();
     browser.sleep(200);
     merchantProviderGroup.getProviderGroupDeleteModalButton().click();
-    browser.sleep(1200);
+    browser.sleep(2000);
     expect(merchantProviderGroup.getIndividualProvidergroup().count()).toEqual(0);
   });
 
