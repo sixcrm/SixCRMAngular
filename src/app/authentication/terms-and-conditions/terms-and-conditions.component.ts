@@ -139,7 +139,7 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
         user.acls[index].termsAndConditionsOutdated = false;
 
         this.authService.updateSixUser(user);
-        this.authService.refreshActiveAcl();
+        this.authService.refreshActiveAcl(user.acls[index].id);
       }
 
       this.router.navigate(['/dashboard']);

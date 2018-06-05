@@ -539,15 +539,21 @@ export class AuthenticationService {
     this.sixUser$.next(user);
   }
 
-  public refreshActiveAcl(): void {
-    localStorage.removeItem(this.activeAcl);
-    this.updateActiveAcl(this.currentSixUser);
+  public refreshActiveAcl(aclId?: string): void {
+    if (!aclId) {
+      localStorage.removeItem(this.activeAcl);
+    }
+    this.updateActiveAcl(this.currentSixUser, aclId);
   }
 
-  private updateActiveAcl(user: User): void {
-    const currentAclId = new Acl(JSON.parse(localStorage.getItem(this.activeAcl))).id;
+  private updateActiveAcl(user: User, aclId?: string): void {
+    let currentAclId;
+    if (!aclId) {
+      currentAclId = new Acl(JSON.parse(localStorage.getItem(this.activeAcl))).id;
+    } else {
+      currentAclId = aclId;
+    }
     const currentAcl = user.getAclWithId(currentAclId);
-
     if (currentAcl) {
       this.setActiveAcl(currentAcl);
     } else {
