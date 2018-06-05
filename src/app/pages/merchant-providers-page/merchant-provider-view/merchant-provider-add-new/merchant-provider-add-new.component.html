@@ -110,6 +110,14 @@
         <mat-input-container *ngIf="entity.gateway.isStripe()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.apiKey">
           <input required [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_APIKEY' | translate}}" name="apikey" [(ngModel)]="entity.gateway.apiKey" type="text">
         </mat-input-container>
+
+        <mat-input-container *ngIf="entity.gateway.isAuthorizeNet()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.apiKey">
+          <input required [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_APIKEY' | translate}}" name="apikey" [(ngModel)]="entity.gateway.apiKey" type="text">
+        </mat-input-container>
+
+        <mat-input-container *ngIf="entity.gateway.isAuthorizeNet()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.transactionKey">
+          <input required [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_TRANSACTIONKEY' | translate}}" name="transactionkey" [(ngModel)]="entity.gateway.transactionKey" type="text">
+        </mat-input-container>
       </ng-container>
     </div>
   </div>

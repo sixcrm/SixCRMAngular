@@ -63,6 +63,7 @@ export function merchantProviderResponseQuery(): string {
       ... on TestMerchantProvider { name type }
       ... on Innovio { name type username password product_id }
       ... on Stripe {name type api_key}
+      ... on AuthorizeNet {name type api_key transaction_key}
     }
     customer_service { email url description phone }`
 }
@@ -100,6 +101,8 @@ export function merchantProviderInputQuery(provider: MerchantProvider, includeId
       ${provider.gateway.isNMI() || provider.gateway.isInnovio() ? `username:"${provider.gateway.username}",` : ''}
       ${provider.gateway.isNMI() || provider.gateway.isInnovio() ? `password:"${provider.gateway.password}",` : ''}
       ${provider.gateway.isStripe() ? `api_key:"${provider.gateway.apiKey}",` : ''}
+      ${provider.gateway.isAuthorizeNet() ? `api_key:"${provider.gateway.apiKey}",` : ''}
+      ${provider.gateway.isAuthorizeNet() ? `transaction_key:"${provider.gateway.transactionKey}",` : ''}
     },
     customer_service:{
       ${provider.customerService.email ? `email: "${provider.customerService.email}",` : ''}

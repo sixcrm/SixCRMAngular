@@ -3,6 +3,7 @@ export enum MerchantProviderGatewayType {
   Innovio,
   Test,
   Stripe,
+  AuthorizeNet,
   Other
 }
 
@@ -15,6 +16,7 @@ export class MerchantProviderGateway {
   username: string;
   password: string;
   apiKey: string;
+  transactionKey: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -29,6 +31,7 @@ export class MerchantProviderGateway {
     this.username = obj.username || '';
     this.password = obj.password || '';
     this.apiKey = obj.api_key || '';
+    this.transactionKey = obj.transaction_key || '';
   }
 
   isNMI() {
@@ -47,8 +50,12 @@ export class MerchantProviderGateway {
     return this.type === MerchantProviderGatewayType.Stripe;
   }
 
+  isAuthorizeNet() {
+    return this.type === MerchantProviderGatewayType.AuthorizeNet;
+  }
+
   isTypeSelected() {
-    return this.isTest() || this.isInnovio() || this.isNMI() || this.isStripe();
+    return this.isTest() || this.isInnovio() || this.isNMI() || this.isStripe() || this.isAuthorizeNet();
   }
 
   getType() {
@@ -64,6 +71,10 @@ export class MerchantProviderGateway {
     if (this.isStripe())
       return 'Stripe';
 
+    if (this.isAuthorizeNet())
+      return 'AuthorizeNet';
+
+
     return '';
   }
 
@@ -76,6 +87,8 @@ export class MerchantProviderGateway {
       this.type = MerchantProviderGatewayType.Test;
     else if (type === 'Stripe')
       this.type = MerchantProviderGatewayType.Stripe;
+    else if (type === 'AuthorizeNet')
+      this.type = MerchantProviderGatewayType.AuthorizeNet;
     else
       this.type = MerchantProviderGatewayType.Other;
   }
@@ -92,7 +105,8 @@ export class MerchantProviderGateway {
       product_id: this.productId,
       username: this.username,
       password: this.password,
-      api_key: this.apiKey
+      api_key: this.apiKey,
+      transaction_key: this.transactionKey
     }
   }
 }
