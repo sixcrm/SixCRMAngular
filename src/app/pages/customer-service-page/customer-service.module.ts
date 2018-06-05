@@ -16,6 +16,7 @@ import { CustomerServiceSessionsComponent } from './customer-service-order/custo
 import { CustomerServiceRebillsComponent } from './customer-service-order/customer-service-rebills/customer-service-rebills.component';
 import { CustomerServiceTransactionsComponent } from './customer-service-order/customer-service-transactions/customer-service-transactions.component';
 import { CustomerServiceReturnComponent } from './customer-service-order/customer-service-return/customer-service-return.component';
+import { CustomerServiceDashboardAutocompleteComponent } from './customer-service-dashboard/customer-service-dashboard-autocomplete/customer-service-dashboard-autocomplete.component';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { CustomerServiceReturnComponent } from './customer-service-order/custome
     CustomerServiceSessionsComponent,
     CustomerServiceRebillsComponent,
     CustomerServiceTransactionsComponent,
-    CustomerServiceReturnComponent
+    CustomerServiceReturnComponent,
+    CustomerServiceDashboardAutocompleteComponent
   ]
 })
 export class CustomerServiceModule { }

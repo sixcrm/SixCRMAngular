@@ -1,0 +1,37 @@
+<div #autocompleteContainer class="auto-complete">
+
+  <ng-container *ngIf="customers; else sessionoptions">
+    <div #autocompleteOptions class="auto-complete__option"
+         *ngFor="let customer of customers; let i = index;"
+         [class.focused]="i === focusedOptionIndex"
+         (click)="select.emit(customer)">
+
+      <div class="result">
+        <div class="row">{{ customer.firstName }} {{customer.lastName}}</div>
+        <div class="row"><span>EMAIL:</span> {{ customer.email }}</div>
+        <div class="row"><span>PHONE:</span> {{ customer.phone }}</div>
+        <div class="row"><span>ZIP:</span> {{ customer.zip }}</div>
+      </div>
+
+    </div>
+  </ng-container>
+
+  <ng-template #sessionoptions>
+
+    <ng-container *ngIf="sessions">
+      <div #autocompleteOptions class="auto-complete__option"
+           *ngFor="let session of sessions; let i = index;"
+           [class.focused]="i === focusedOptionIndex"
+           (click)="select.emit(session)">
+        <div class="result">
+          <div class="row">Order {{ session.alias }}</div>
+          <div class="row"><span>NAME:</span> {{ session.customer.firstName }} {{session.customer.lastName}}</div>
+          <div class="row"><span>EMAIL:</span> {{ session.customer.email }}</div>
+          <div class="row"><span>PHONE:</span> {{ session.customer.phone }}</div>
+          <div class="row"><span>ZIP:</span> {{ session.customer.zip }}</div>
+        </div>
+      </div>
+    </ng-container>
+
+  </ng-template>
+</div>

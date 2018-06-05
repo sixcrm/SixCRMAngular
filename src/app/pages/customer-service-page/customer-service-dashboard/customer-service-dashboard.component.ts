@@ -63,7 +63,13 @@ export class CustomerServiceDashboardComponent implements OnInit {
   }
 
   customersBlurred() {
-    this.customers = [];
+    setTimeout(() => {
+      if (this.customerSub) {
+        this.customerSub.unsubscribe();
+      }
+
+      this.customers = []
+    }, 150);
   }
 
   sessionFocused() {
@@ -73,7 +79,13 @@ export class CustomerServiceDashboardComponent implements OnInit {
   }
 
   sessionBlurred() {
-    this.sessions = [];
+    setTimeout(() => {
+      if (this.sessionSub) {
+        this.sessionSub.unsubscribe();
+      }
+
+      this.sessions = []
+    }, 150);
   }
 
   customerInputChanged() {
@@ -84,29 +96,34 @@ export class CustomerServiceDashboardComponent implements OnInit {
     this.sessionDebouncer.next(this.sessionsInputValue);
   }
 
-  navigateToCustomer(event) {
-    this.preventSearch = true;
-    this.router.navigate(['/customer-service', 'pair'], {queryParams: {customer: event.option.value}})
-  }
-
-  navigateToSession(event) {
-    this.preventSearch = true;
-    this.router.navigate(['/customer-service', 'pair'], {queryParams: {session: event.option.value}})
-  }
-
   customerSearchKeyDown(event) {
-    if (event.key === 'Enter' && !this.preventSearch) {
-      this.router.navigate(['/search'], {queryParams: {query: this.customersInputValue, filters: 'customer'}})
-    } else {
-      this.preventSearch = false;
-    }
+    setTimeout(() => {
+      if (event.key === 'Enter' && !this.preventSearch) {
+        this.router.navigate(['/search'], {queryParams: {query: this.customersInputValue, filters: 'customer'}})
+      }
+    }, 150);
   }
 
   sessionSearchKeyDown(event) {
-    if (event.key === 'Enter' && !this.preventSearch) {
-      this.router.navigate(['/search'], {queryParams: {query: this.sessionsInputValue, filters: 'session'}})
-    } else {
-      this.preventSearch = false;
+    setTimeout(() => {
+      if (event.key === 'Enter' && !this.preventSearch) {
+        this.router.navigate(['/search'], {queryParams: {query: this.sessionsInputValue, filters: 'session'}})
+      }
+    }, 150);
+
+  }
+
+  selected(event: Customer | Session) {
+
+    if (event instanceof Customer) {
+      this.preventSearch = true;
+      this.router.navigate(['/customer-service', 'pair'], {queryParams: {customer: event.id}})
     }
+
+    if (event instanceof Session) {
+      this.preventSearch = true;
+      this.router.navigate(['/customer-service', 'pair'], {queryParams: {session: event.id}})
+    }
+
   }
 }

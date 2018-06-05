@@ -20,14 +20,12 @@
             </mat-form-field>
             <mat-icon>search</mat-icon>
 
-            <div class="autocomplete" *ngIf="customers && customers.length > 0">
-              <div class="result" *ngFor="let customer of customers">
-                <div class="row">{{ customer.firstName }} {{customer.lastName}}</div>
-                <div class="row"><span>EMAIL:</span> {{ customer.email }}</div>
-                <div class="row"><span>PHONE:</span> {{ customer.phone }}</div>
-                <div class="row"><span>ZIP:</span> {{ customer.zip }}</div>
-              </div>
-            </div>
+            <customer-service-dashboard-autocomplete
+              *ngIf="customers && customers.length > 0"
+              (select)="selected($event)"
+              [customers]="customers">
+            </customer-service-dashboard-autocomplete>
+
           </div>
         </div>
       </div>
@@ -49,19 +47,15 @@
 
           <div class="mrw--search-input">
             <mat-form-field [floatLabel]="'never'">
-              <input #orderInput type="text" (keydown)="sessionSearchKeyDown($event)" (focused)="sessionFocused()" (blur)="sessionBlurred()" (input)="sessionInputChanged()" [(ngModel)]="sessionsInputValue" matInput placeholder="Session ID or Alias">
+              <input #orderInput type="text" (keydown)="sessionSearchKeyDown($event)" (focus)="sessionFocused()" (blur)="sessionBlurred()" (input)="sessionInputChanged()" [(ngModel)]="sessionsInputValue" matInput placeholder="Session ID or Alias">
             </mat-form-field>
             <mat-icon>search</mat-icon>
 
-            <div class="autocomplete" *ngIf="sessions && sessions.length > 0">
-              <div class="result" *ngFor="let session of sessions">
-                <div class="row">Order {{ session.alias }}</div>
-                <div class="row"><span>NAME:</span> {{ customer.firstName }} {{customer.lastName}}</div>
-                <div class="row"><span>EMAIL:</span> {{ customer.email }}</div>
-                <div class="row"><span>PHONE:</span> {{ customer.phone }}</div>
-                <div class="row"><span>ZIP:</span> {{ customer.zip }}</div>
-              </div>
-            </div>
+            <customer-service-dashboard-autocomplete
+              *ngIf="sessions && sessions.length > 0"
+              (select)="selected($event)"
+              [sessions]="sessions">
+            </customer-service-dashboard-autocomplete>
           </div>
 
         </div>

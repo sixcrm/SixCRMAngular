@@ -79,35 +79,10 @@
             font-size: 26px;
           }
 
-          .autocomplete {
+          customer-service-dashboard-autocomplete {
             position: absolute;
             top: 42px;
             left: 0;
-            max-height: calc(100vh - 450px);
-            overflow: auto;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.33);
-            border-radius: 0 0 4px 4px;
-            border-top: 2px solid #1EB1FC;
-
-            .result {
-              padding: 12px;
-
-              .row {
-                font-size: 13px;
-                line-height: 24px;
-                color: rgba(0, 0, 0, 0.54);
-                text-align: left;
-
-                &:first-of-type {
-                  color: rgba(0, 0, 0, 0.87);
-                  font-weight: 500;
-                }
-
-                span {
-                  width: 50px;
-                }
-              }
-            }
           }
         }
 
