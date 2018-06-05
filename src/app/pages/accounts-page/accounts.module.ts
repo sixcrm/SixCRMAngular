@@ -12,7 +12,6 @@ import {AccessKeysComponent} from '../access-keys-page/access-keys-index/access-
 import {BillsModule} from '../bills-page/bills.module';
 import {TranslationModule} from '../../translation/translation.module';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
-import {AgreementsComponent} from './account-view/agreements/agreements.component';
 import { MarkdownModule } from 'angular2-markdown';
 
 @NgModule({
@@ -31,8 +30,7 @@ import { MarkdownModule } from 'angular2-markdown';
     AccountViewComponent,
     AccountsComponent,
     AccountAddNewComponent,
-    AccessKeysComponent,
-    AgreementsComponent
+    AccessKeysComponent
   ],
   providers: [AccountsAclGuard]
 })

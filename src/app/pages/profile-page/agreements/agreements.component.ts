@@ -1,12 +1,12 @@
-import {Component, OnInit, OnDestroy, Input} from '@angular/core';
-import { CustomServerError } from '../../../../shared/models/errors/custom-server-error';
-import { AuthenticationService } from '../../../../authentication/authentication.service';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import { Subscription } from 'rxjs';
-import { UsersService } from '../../../../shared/services/users.service';
 import * as jsPDF from 'jspdf';
 import {PrivacyPolicy} from "./privacy-policy.md";
-import {TermsDialogComponent} from "../../../../dialog-modals/terms-dialog/terms-dialog.component";
 import {MatDialog} from "@angular/material";
+import {AuthenticationService} from "../../../authentication/authentication.service";
+import {UsersService} from "../../../shared/services/users.service";
+import {TermsDialogComponent} from "../../../dialog-modals/terms-dialog/terms-dialog.component";
+import {CustomServerError} from "../../../shared/models/errors/custom-server-error";
 
 @Component({
   selector: 'agreements',
@@ -19,9 +19,6 @@ export class AgreementsComponent implements OnInit, OnDestroy {
   licenceAgreement: any = {};
   privacyPolicy: any = {};
   downloadDisabled: boolean = false;
-
-  @Input()
-  accountId: string;
 
   constructor(
     private authService: AuthenticationService,
@@ -45,13 +42,15 @@ export class AgreementsComponent implements OnInit, OnDestroy {
   }
 
   fetch(): void {
-    this.userService.getlatestTermsAndConditions(this.accountId, 'owner').take(1).subscribe((response) => {
-      if (response instanceof CustomServerError) {
-        return;
-      }
+    if (this.authService.getActiveAcl().role.isOwner()) {
+      this.userService.getlatestTermsAndConditions(this.authService.getActiveAcl().account.id, 'owner').take(1).subscribe((response) => {
+        if (response instanceof CustomServerError) {
+          return;
+        }
 
-      this.termsAndConditions = response.body.response.data.latesttermsandconditions;
-    });
+        this.termsAndConditions = response.body.response.data.latesttermsandconditions;
+      });
+    }
 
     this.userService.getlatestTermsAndConditions().take(1).subscribe((response) => {
       if (response instanceof CustomServerError) {

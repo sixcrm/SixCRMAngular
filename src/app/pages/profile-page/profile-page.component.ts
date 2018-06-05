@@ -67,7 +67,8 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     {name: 'appsanddevices', label: 'PROFILE_TABS_APPSANDDEVICES'},
     {name: 'notificationpreferences', label: 'PROFILE_TABS_NOTIFICATIONPREFERENCES'},
     {name: 'accounts', label: 'PROFILE_TABS_ACCOUNTS'},
-    {name: 'signingstrings', label: 'PROFILE_TABS_SIGNINGSTRINGS'}
+    {name: 'signingstrings', label: 'PROFILE_TABS_SIGNINGSTRINGS'},
+    {name: 'agreements', label: 'ACCOUNT_TAB_AGREEMENTS'}
   ];
 
   constructor(

@@ -70,8 +70,7 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'ACCOUNT_TAB_GENERAL'},
     {name: 'users', label: 'ACCOUNT_TAB_USERS'},
-    {name: 'accesskeys', label: 'ACCOUNT_TAB_KEYS'},
-    {name: 'agreements', label: 'ACCOUNT_TAB_AGREEMENTS'}
+    {name: 'accesskeys', label: 'ACCOUNT_TAB_KEYS'}
   ];
 
   breadcrumbs: BreadcrumbItem[] = [

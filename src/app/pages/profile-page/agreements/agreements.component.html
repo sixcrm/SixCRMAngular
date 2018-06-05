@@ -7,7 +7,7 @@
       <button mat-button class="download" (click)="download('terms-and-conditions')">{{'TERMS_DOWNLOAD' | translate}}</button>
     </div>
   </div>
-  <div class="line" *ngIf="licenceAgreement.version"></div>
+  <div class="line" *ngIf="termsAndConditions.version"></div>
   <div class="item" *ngIf="licenceAgreement.version">
     <div class="title">{{licenceAgreement.title}}</div>
     <div id="license-agreement" Markdown *ngIf="licenceAgreement && licenceAgreement.body" style="display:none">{{licenceAgreement.body}}</div>

@@ -13,6 +13,8 @@ import { NotificationDevicesComponent } from './notification-devices/notificatio
 import { NotificationPreferencesComponent } from './notification-preferences/notification-preferences.component';
 import { DeviceToggleItemComponent } from './notification-devices/device-toggle-item/device-toggle-item.component';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
+import {AgreementsComponent} from "./agreements/agreements.component";
+import {MarkdownModule} from "angular2-markdown";
 
 @NgModule({
   imports : [
@@ -24,14 +26,16 @@ import {MaterialSelectionModule} from '../../material-selection/material-selecti
     PageComponentsModule,
     TextMaskModule,
     TranslationModule,
-    ClipboardModule
+    ClipboardModule,
+    MarkdownModule
   ],
   declarations : [
     ProfilePageComponent,
     UserSigningStringsComponent,
     NotificationDevicesComponent,
     NotificationPreferencesComponent,
-    DeviceToggleItemComponent
+    DeviceToggleItemComponent,
+    AgreementsComponent
   ],
   exports : [
   ],
