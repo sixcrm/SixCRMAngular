@@ -36,7 +36,7 @@ export class AccountManagementGeneralComponent implements OnInit {
 
   constructor(
     private accountService: AccountsService,
-    private authService: AuthenticationService,
+    public authService: AuthenticationService,
     private customerGraphAPI: HttpWrapperCustomerService,
     private dialog: MatDialog
   ) { }
@@ -55,6 +55,8 @@ export class AccountManagementGeneralComponent implements OnInit {
   }
 
   fetchSession() {
+    if (!this.authService.hasPermissions('billing', 'read')) return;
+
     const currentAcc = this.authService.getActiveAcl().account;
 
     if (currentAcc.billing && currentAcc.billing.session) {

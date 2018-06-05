@@ -145,7 +145,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
     if (authService.hasPermissions('useracl', 'read')) {
       accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_USERS', 'accountmanagement/users'));
     }
-    if (authService.hasPermissions('roles', 'read')) {
+    if (authService.hasPermissions('role', 'read')) {
       accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_ROLES', 'accountmanagement/roles'));
     }
     if (authService.hasPermissions('accesskey', 'read')) {
