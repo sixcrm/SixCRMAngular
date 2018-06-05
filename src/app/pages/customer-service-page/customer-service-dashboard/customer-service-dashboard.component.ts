@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {NavigationService} from '../../../navigation/navigation.service';
 import {Customer} from '../../../shared/models/customer.model';
 import {Subject, Subscription} from 'rxjs';
 import {SearchService} from '../../../shared/services/search.service';
@@ -7,6 +6,7 @@ import {Router} from '@angular/router';
 import {Session} from '../../../shared/models/session.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import { routerTransition } from '../../../routing.animations';
+import {FeatureFlagService} from '../../../authentication/feature-flag.service';
 
 @Component({
   selector: 'customer-service-dashboard',
@@ -32,10 +32,10 @@ export class CustomerServiceDashboardComponent implements OnInit {
   sessionsInputValue: string;
 
   constructor(
-    public navigationService: NavigationService,
     public authService: AuthenticationService,
     private searchService: SearchService,
-    private router: Router
+    private router: Router,
+    private featuresFlagService: FeatureFlagService
   ) { }
 
   ngOnInit() {
@@ -117,12 +117,22 @@ export class CustomerServiceDashboardComponent implements OnInit {
 
     if (event instanceof Customer) {
       this.preventSearch = true;
-      this.router.navigate(['/customer-advanced', event.id]);
+
+      if (this.featuresFlagService.isEnabled('advanced-session-model')) {
+        this.router.navigate(['/customer-advanced', event.id]);
+      } else {
+        this.router.navigate(['/customer-service', 'pair'], {queryParams: {customer: event.id}})
+      }
     }
 
     if (event instanceof Session) {
       this.preventSearch = true;
-      this.router.navigate(['/customer-advanced', 'session', event.id]);
+
+      if (this.featuresFlagService.isEnabled('advanced-session-model')) {
+        this.router.navigate(['/customer-advanced', 'session', event.id]);
+      } else {
+        this.router.navigate(['/customer-service', 'pair'], {queryParams: {session: event.id}})
+      }
     }
 
   }
