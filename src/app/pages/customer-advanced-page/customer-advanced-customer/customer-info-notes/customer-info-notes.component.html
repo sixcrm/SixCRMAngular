@@ -1,14 +1,16 @@
-<div #notescontainer class="body">
+<div class="body">
 
   <div *ngIf="notes.length === 0" class="no-data">This customer has no notes...</div>
 
-  <div class="note" *ngFor="let note of notes">
-    <div class="date">{{note.createdAt | formatDateTime: 'MM/DD/YY'}}</div>
-    <div class="author">{{note.user.name}}</div>
-    <div>{{note.body}}</div>
+  <div #notescontainer class="notes-wrapper">
+    <div class="note" *ngFor="let note of notes">
+      <div class="date">{{note.createdAt | formatDateTime: 'MM/DD/YY'}}</div>
+      <div class="author">{{note.user.name}}</div>
+      <div>{{note.body}}</div>
+    </div>
   </div>
 
-  <textarea class="new-note" rows="9" placeholder="Add note..." [(ngModel)]="newNoteText"></textarea>
+  <textarea class="new-note" rows="7" placeholder="Add note..." [(ngModel)]="newNoteText"></textarea>
   <div class="button-holder">
     <button mat-button (click)="saveNote()">SAVE</button>
   </div>

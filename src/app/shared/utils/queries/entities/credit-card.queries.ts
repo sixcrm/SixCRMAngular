@@ -42,7 +42,7 @@ export function createCreditCardMutation(cc: CreditCard): string {
 }
 
 export function updateCreditCardMutation(cc: CreditCard): string {
-  if (cc.ccnumber.indexOf('*') !== -1) {
+  if (!cc.ccnumber || cc.ccnumber.indexOf('*') !== -1) {
     const copy = cc.copy();
     delete copy.ccnumber;
     return updateCreditCardPartialMutation(copy);

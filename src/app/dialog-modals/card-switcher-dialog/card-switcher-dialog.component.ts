@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {CreditCard} from '../../shared/models/credit-card.model';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'card-switcher-dialog',
@@ -11,6 +12,10 @@ export class CardSwitcherDialogComponent implements OnInit {
 
   cards: CreditCard[];
   selectedDefaultCard: CreditCard = new CreditCard();
+  updateEmbedded: boolean;
+
+  editCard: Subject<CreditCard> = new Subject();
+  addCard: Subject<boolean> = new Subject();
 
   constructor(private dialogRef: MatDialogRef<CardSwitcherDialogComponent>) { }
 

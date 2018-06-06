@@ -14,9 +14,11 @@ import {utc} from 'moment';
 })
 export class AddCreditCardDialogComponent implements OnInit {
 
-  formInvalid: boolean;
   creditCard: CreditCard;
   isDefaultCreditCard: boolean;
+  hideDefaultCardSelection: boolean;
+
+  formInvalid: boolean;
   plainMapper = (el) => el;
 
   countries: string[] = getCountries();

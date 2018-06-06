@@ -1,8 +1,8 @@
 <div *ngIf="creditCard" class="container">
 
-  <div class="title">{{creditCard.id ? 'Edit Card ****' + creditCard.lastFour : 'Add New Card' }}</div>
+  <div class="title" [class.title--no-border]="!hideDefaultCardSelection">{{creditCard.id ? 'Edit Card ****' + creditCard.lastFour : 'Add New Card' }}</div>
 
-  <div class="checkbox-container">
+  <div *ngIf="!hideDefaultCardSelection" class="checkbox-container">
     <mat-checkbox [(ngModel)]="isDefaultCreditCard"></mat-checkbox>
     <div>Make this my default card</div>
   </div>

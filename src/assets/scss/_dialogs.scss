@@ -94,6 +94,14 @@ mat-dialog-container {
   }
 }
 
+.backdrop-none {
+  background: rgba(0,0,0,0);
+
+  mat-dialog-container {
+    padding: 0 !important;
+  }
+}
+
 mat-dialog-container {
   .container {
     font-family: Roboto, serif;

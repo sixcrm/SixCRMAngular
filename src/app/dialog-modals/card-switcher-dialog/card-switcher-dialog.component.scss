@@ -12,6 +12,10 @@ table {
       font-weight: 500;
       color: rgba(0,0,0,0.54);
       text-transform: capitalize;
+
+      &:first-of-type {
+        width: 1px;
+      }
     }
   }
 
@@ -21,6 +25,21 @@ table {
       text-transform: capitalize;
     }
   }
+}
+
+.add-new-button {
+  margin: 15px 15px 0 40px;;
+  width: 120px;
+  font-size: 14px;
+  color: #2C98F0;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 2px;
+}
+
+.edit-link {
+  color: #2C98F0;
+  font-size: 13px;
+  cursor: pointer;
 }
 
 .selected-row {

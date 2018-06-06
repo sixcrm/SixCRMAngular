@@ -15,7 +15,7 @@
   <div class="section">
     <div class="title title--payment">
       <div>Payment</div>
-      <mat-icon class="edit-icon">edit</mat-icon>
+      <mat-icon class="edit-icon" (click)="openCardSwitcher()">edit</mat-icon>
     </div>
     <ng-container *ngFor="let card of _customer.creditCards">
       <div class="card" [class.card--default]="_defaultCreditCard && (_defaultCreditCard.id === card.id)">

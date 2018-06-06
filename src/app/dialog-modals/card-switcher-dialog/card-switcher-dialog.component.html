@@ -11,6 +11,8 @@
           <th>Card</th>
           <th>Name on Card</th>
           <th>Expires</th>
+
+          <th *ngIf="updateEmbedded"></th>
         </tr>
       </thead>
 
@@ -20,9 +22,12 @@
           <td>****{{card.lastFour}}</td>
           <td>{{card.name}}</td>
           <td>{{card.expiration}}</td>
+          <td><span class="edit-link" (click)="editCard.next(card)">Edit</span></td>
         </tr>
       </tbody>
     </table>
+
+    <button class="add-new-button" mat-button *ngIf="updateEmbedded" (click)="addCard.next(true)">Add New Card</button>
 
   </div>
 

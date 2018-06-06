@@ -4,6 +4,11 @@
   box-sizing: border-box;
   overflow: auto;
 
+  .notes-wrapper {
+    height: calc(100% - 210px);
+    overflow: auto;
+  }
+
   .note {
     border-top: 1px solid rgba(0,0,0,0.12);
     padding: 12px;
@@ -34,7 +39,7 @@
     width: calc(100% - 30px);
     border: none;
     box-sizing: border-box;
-    margin: 80px 15px 10px;
+    margin: 20px 15px 10px;
     background: rgba(44, 152, 240, 0.2);
     outline: none;
     padding: 6px;
