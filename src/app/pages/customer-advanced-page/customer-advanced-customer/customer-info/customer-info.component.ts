@@ -54,6 +54,7 @@ export class CustomerInfoComponent implements OnInit {
     let dialogRef = this.dialog.open(AddCustomerDialogComponent, {backdropClass: 'backdrop-blue'});
 
     dialogRef.componentInstance.customer = this._customer.copy();
+    dialogRef.componentInstance.editMode = true;
 
     dialogRef.afterClosed().take(1).subscribe(result => {
       dialogRef = null;

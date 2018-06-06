@@ -16,6 +16,7 @@ import {getCountries, getStates} from '../../shared/utils/address.utils';
 export class AddCustomerDialogComponent implements OnInit {
 
   customer: Customer;
+  editMode: boolean;
 
   isZipValid = isValidZip;
   isAllowedZipKey = isAllowedZip;
