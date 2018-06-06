@@ -6,7 +6,7 @@
 
   .note {
     border-top: 1px solid rgba(0,0,0,0.12);
-    padding: 15px;
+    padding: 12px;
     font-size: 13px;
     line-height: 24px;
 
@@ -16,9 +16,9 @@
 
     .author {
       display: inline-block;
-      margin: 14px 0;
+      margin: 8px 0 12px;
       border-radius: 16px;
-      padding: 6px 16px;
+      padding: 4px 16px;
       background: rgba(0,0,0,0.06);
       font-weight: 500;
     }
@@ -34,7 +34,7 @@
     width: calc(100% - 30px);
     border: none;
     box-sizing: border-box;
-    margin: 100px 15px 10px;
+    margin: 80px 15px 10px;
     background: rgba(44, 152, 240, 0.2);
     outline: none;
     padding: 6px;

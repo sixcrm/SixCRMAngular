@@ -3,7 +3,7 @@
   <div *ngIf="notes.length === 0" class="no-data">This customer has no notes...</div>
 
   <div class="note" *ngFor="let note of notes">
-    <div class="date">{{note.createdAt | formatDateTime}}</div>
+    <div class="date">{{note.createdAt | formatDateTime: 'MM/DD/YY'}}</div>
     <div class="author">{{note.user.name}}</div>
     <div>{{note.body}}</div>
   </div>

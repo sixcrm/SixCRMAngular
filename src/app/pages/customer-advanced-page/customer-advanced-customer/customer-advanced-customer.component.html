@@ -24,6 +24,7 @@
                 [selectedIndex]="selectedSecondaryIndex"
                 [ignoreUrl]="true"
                 (select)="setSecondaryIndex($event)">
+      <mat-icon class="info-icon" (click)="infoVisible = false">close</mat-icon>
     </tab-header>
 
     <mat-tab-group class="tab--no-header" [(selectedIndex)]="selectedSecondaryIndex">

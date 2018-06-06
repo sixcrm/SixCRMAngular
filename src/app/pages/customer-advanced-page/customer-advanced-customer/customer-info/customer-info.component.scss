@@ -1,17 +1,48 @@
 .body {
-  padding: 20px;
   background: #ffffff;
   height: 100%;
   box-sizing: border-box;
   overflow: auto;
 
+  .section {
+    padding: 20px;
+
+    &--blue {
+      background-color: rgba(44, 152, 240, 0.1);
+    }
+  }
+
+  .separator {
+    width: calc(100% - 40px);
+    margin: 0 20px;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.12);
+  }
+
   .title {
-    margin-top: 24px;
+    display: flex;
+    align-items: center;
     font-size: 16px;
     line-height: 24px;
 
     &:first-of-type {
       margin-top: 0;
+    }
+
+    &--payment {
+      margin-bottom: 15px;
+    }
+
+    .edit-icon {
+      margin-left: auto;
+      font-size: 16px;
+      height: 16px;
+      width: 16px;
+      color: #5F6368;
+      border-radius: 2px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      padding: 2px;
+      cursor: pointer;
     }
   }
 
@@ -19,6 +50,13 @@
     font-size: 13px;
     color: rgba(0, 0, 0, 0.54);
     line-height: 24px;
+  }
+
+  .label {
+    color: #5F6368;
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 15px;
   }
 
   .card {
