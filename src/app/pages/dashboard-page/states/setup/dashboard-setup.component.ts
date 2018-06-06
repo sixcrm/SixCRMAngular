@@ -6,6 +6,8 @@ import {AuthenticationService} from '../../../../authentication/authentication.s
 import {Observable} from "rxjs/Observable";
 import {TranslationService} from "../../../../translation/translation.service";
 import {TranslatedQuote} from "../../../../translation/translated-quote.model";
+import {FeatureFlagService} from "../../../../authentication/feature-flag.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'c-dashboard-setup',
@@ -22,7 +24,9 @@ export class DashboardSetupComponent implements OnInit {
 
   constructor(
     public authService: AuthenticationService,
-    private translationService: TranslationService
+    private translationService: TranslationService,
+    private featureFlagService: FeatureFlagService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -39,5 +43,29 @@ export class DashboardSetupComponent implements OnInit {
         quoteSub.unsubscribe();
       }
     });
+  }
+
+  navigateToAccountSettings() {
+    if (this.featureFlagService.isEnabled('account-management')) {
+      this.router.navigate(['/accountmanagement', 'general']);
+    } else {
+      this.router.navigate(['/profile']);
+    }
+  }
+
+  navigateToUsers() {
+    if (this.featureFlagService.isEnabled('account-management')) {
+      this.router.navigate(['/accountmanagement', 'users']);
+    } else {
+      this.router.navigate(['/accounts', this.accountId], {fragment: 'users'})
+    }
+  }
+
+  navigateToSubscription() {
+    if (this.featureFlagService.isEnabled('account-management')) {
+      this.router.navigate(['/accountmanagement', 'billing']);
+    } else {
+      this.router.navigate(['/']);
+    }
   }
 }
