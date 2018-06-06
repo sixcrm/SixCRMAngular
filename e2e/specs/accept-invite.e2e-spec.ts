@@ -3,25 +3,23 @@ import {browser} from 'protractor';
 import {createTestAuth0JWT} from '../utils/jwt.utils';
 import {sendInvite} from '../utils/graph.utils';
 import {AcceptInvitePage} from '../po/accept-invite.po';
-import {
-  waitForUrlContains, navigateSuperuserToHomepage, waitForPresenceOfLoginFields, clearLocalStorage
-} from '../utils/navigation.utils';
-import {doLogin, login, doSignUp} from '../utils/action.utils';
-import {sha1} from '@angular/compiler/src/i18n/digest';
+import {waitForUrlContains} from '../utils/navigation.utils';
 import {ErrorPage} from '../po/error-page.po';
 import {environment} from '../../src/environments/environment';
-import {expectUrlToContain, expectNotPresent, expectPresent, expectDefined} from '../utils/assertation.utils';
+import * as environmentStage from '../../src/environments/environment.stage';
+import * as environmentProd from '../../src/environments/environment.prod';
+import {expectUrlToContain, expectPresent} from '../utils/assertation.utils';
 import {TopnavPage} from '../po/topnav.po';
 import {ProfilePage} from '../po/profile.po';
 import {AccountPage} from '../po/account.po';
 import {TermsAndConditionsPage} from '../po/terms-and-conditions.po';
+import {EnvironmentModel} from '../../src/environments/environment-model';
 
 var supertest = require('supertest');
 var crypto = require('crypto');
 
 let newEmail = `e2e${new Date().getTime()}@sixcrm.com`;
 let newPassword = '123456789';
-let newCompany = `e2e_Company_${new Date().getTime()}`;
 
 describe('Accept Invite', function () {
   let authPage: AuthPage;
@@ -45,8 +43,9 @@ describe('Accept Invite', function () {
   });
 
   it('should send proper invite for user', (doneCallback) => {
+    const apiEndpoint = getApiEndpoint();
     let jwt = createTestAuth0JWT('e2e-test-admin@sixcrm.com');
-    let request = supertest(environment.bareEndpoint);
+    let request = supertest(apiEndpoint);
 
     request.post('graph/d3fa3bf3-7111-49f4-8261-87674482bf1c')
       .set('Authorization', jwt)
@@ -113,3 +112,16 @@ describe('Accept Invite', function () {
   });
 
 });
+
+function getApiEndpoint(): string {
+  const baseUrl = browser.baseUrl;
+  const environments: EnvironmentModel[] = [environment, environmentStage.environment, environmentProd.environment];
+
+  for (let env of environments) {
+    if (env.auth0RedirectUrl === baseUrl) {
+      return env.bareEndpoint;
+    }
+  }
+
+  return environment.bareEndpoint;
+}
