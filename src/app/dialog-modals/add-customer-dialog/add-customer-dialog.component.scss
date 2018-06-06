@@ -1,0 +1,22 @@
+.section-title {
+  color: #202124;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  margin-bottom: 15px;
+
+  &--second {
+    margin-top: 25px;
+  }
+}
+
+.body {
+  max-height: calc(100vh - 465px);
+  overflow: auto;
+}
+
+.buttons {
+  margin-top: 10px !important;
+  padding: 20px 25px 20px !important;
+  border-top: 1px solid rgba(0,0,0,0.12);
+}

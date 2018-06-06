@@ -38,6 +38,7 @@ import { HttpWrapperCustomerService } from './shared/services/http-wrapper-custo
 import { RoleDialogComponent } from './dialog-modals/role-dialog/role-dialog.component';
 import { CardSwitcherDialogComponent } from './dialog-modals/card-switcher-dialog/card-switcher-dialog.component';
 import { AddCreditCardDialogComponent } from './dialog-modals/add-credit-card-dialog/add-credit-card-dialog.component';
+import { AddCustomerDialogComponent } from './dialog-modals/add-customer-dialog/add-customer-dialog.component';
 
 @NgModule({
   declarations : [
@@ -62,7 +63,8 @@ import { AddCreditCardDialogComponent } from './dialog-modals/add-credit-card-di
     AccessKeysDialogComponent,
     RoleDialogComponent,
     CardSwitcherDialogComponent,
-    AddCreditCardDialogComponent
+    AddCreditCardDialogComponent,
+    AddCustomerDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -101,7 +103,8 @@ import { AddCreditCardDialogComponent } from './dialog-modals/add-credit-card-di
     AccessKeysDialogComponent,
     RoleDialogComponent,
     CardSwitcherDialogComponent,
-    AddCreditCardDialogComponent
+    AddCreditCardDialogComponent,
+    AddCustomerDialogComponent
   ],
   bootstrap : [AppComponent]
 })

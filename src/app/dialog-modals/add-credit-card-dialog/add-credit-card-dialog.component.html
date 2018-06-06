@@ -60,7 +60,7 @@
           <input type="text" (keydown)="isAllowedZipKey($event)" matInput [(ngModel)]="creditCard.address.zip" placeholder="Zip" name="zip">
         </mat-input-container>
 
-        <mat-input-container [class.error]="formInvalid && !isCountryValid(creditCard.address.country)">
+        <mat-input-container [class.error]="formInvalid && !isStateValid(creditCard.address.state)">
           <input type="text" matInput [(ngModel)]="creditCard.address.state" placeholder="State" name="state" [matAutocomplete]="statesAutocomplete">
           <mat-autocomplete #statesAutocomplete="matAutocomplete">
             <mat-option *ngFor="let state of states | filterStrings: creditCard.address.state: plainMapper" [value]="state">
@@ -71,7 +71,7 @@
 
       </div>
 
-      <mat-input-container [class.error]="formInvalid && !isStateValid(creditCard.address.state)">
+      <mat-input-container [class.error]="formInvalid && !isCountryValid(creditCard.address.country)">
         <input type="text" matInput [(ngModel)]="creditCard.address.country" placeholder="Country" name="country" [matAutocomplete]="countriesAutocomplete">
         <mat-autocomplete #countriesAutocomplete="matAutocomplete">
           <mat-option *ngFor="let country of countries | filterStrings: creditCard.address.country: plainMapper" [value]="country">

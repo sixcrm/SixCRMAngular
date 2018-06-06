@@ -20,8 +20,13 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
 
   @Input() set customer(customer: Customer) {
     if (customer) {
+      const performInit = !this._customer;
+
       this._customer = customer;
-      this.initialize();
+
+      if (performInit) {
+        this.initialize();
+      }
     }
   }
 

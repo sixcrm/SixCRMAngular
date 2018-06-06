@@ -2,7 +2,7 @@
   <div class="section section--blue">
     <div class="title">
       <div>General</div>
-      <mat-icon class="edit-icon">edit</mat-icon>
+      <mat-icon class="edit-icon" (click)="editCustomer()">edit</mat-icon>
     </div>
     <div class="label">Name</div>
     <div class="text">{{_customer.firstName}} {{_customer.lastName}}</div>
@@ -40,7 +40,7 @@
   <div class="section">
     <div class="title">
       <div>Shipping Address</div>
-      <mat-icon class="edit-icon">edit</mat-icon>
+      <mat-icon class="edit-icon" (click)="editCustomer()">edit</mat-icon>
     </div>
     <div class="text">{{_customer.firstName}} {{_customer.lastName}}</div>
     <div class="text">{{_customer.address.line1}}</div>
