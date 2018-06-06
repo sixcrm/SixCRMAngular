@@ -1,0 +1,67 @@
+<div class="body">
+
+  <div class="heading">
+
+    <div class="mrw-bi-input">
+      <mat-input-container [floatLabel]="'never'">
+        <input matInput type="text" placeholder="{{'Filter ' + title}}" [(ngModel)]="filterString">
+      </mat-input-container>
+    </div>
+
+    <div class="number-of">{{(items || []).length}} {{title}}</div>
+
+    <div class="selected"> {{getNumberOfSelected()}} Selected</div>
+
+    <div *ngIf="bulkOptions" class="bulk-options">
+      <div class="bulk-options__selection" [matMenuTriggerFor]="bulkOpts">
+        <span>{{selectedBulkOption || bulkOptions[0]}}</span> <mat-icon>keyboard_arrow_down</mat-icon>
+      </div>
+
+      <mat-menu #bulkOpts="matMenu" x-position="before">
+        <button mat-menu-item *ngFor="let option of bulkOptions" (click)="selectedBulkOption = option">{{ option | translate}}</button>
+      </mat-menu>
+
+      <button mat-button [disabled]="getNumberOfSelected() === 0">APPLY</button>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th><mat-checkbox (change)="globalCheckboxClicked($event)" class="checkbox-blue"></mat-checkbox></th>
+
+        <ng-container *ngFor="let param of columnParams">
+          <th [class.cell--separator]="param.separator">
+            {{param.label | translate}}
+          </th>
+        </ng-container>
+
+        <th class="options-header" *ngIf="options.length > 0"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td><mat-checkbox [(ngModel)]="item.bulkSelected" class="checkbox-blue"></mat-checkbox></td>
+
+        <ng-container *ngFor ="let param of columnParams">
+          <td [class.cell--separator]="param.separator"
+              [class.clickable]="param.clickable"
+              [style.text-align]="param.align || 'left'"
+              [style.color]="param.color || 'rgba(0, 0, 0, 0.87)'"
+              (click)="clicked(item, param)">
+            {{param.mappingFunction(item) | translate}}
+          </td>
+        </ng-container>
+
+        <td *ngIf="options.length > 0">
+          <mat-icon class="menu-icon" [matMenuTriggerFor]="opts">more_vert</mat-icon>
+          <mat-menu #opts="matMenu" x-position="before">
+            <button mat-menu-item *ngFor="let option of options">{{ option | translate}}</button>
+          </mat-menu>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

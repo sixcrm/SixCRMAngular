@@ -11,7 +11,9 @@
     <mat-tab-group class="tab--no-header" [(selectedIndex)]="selectedIndex">
 
       <mat-tab></mat-tab>
-      <mat-tab></mat-tab>
+      <mat-tab>
+        <customer-advanced-transactions [customer]="entity"></customer-advanced-transactions>
+      </mat-tab>
       <mat-tab></mat-tab>
       <mat-tab></mat-tab>
       <mat-tab></mat-tab>

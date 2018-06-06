@@ -32,9 +32,11 @@ export class ColumnParams<T> {
 
   autocompleteMapper: (any) => string = e => e;
   autocompleteOptions: any[];
-  autocompleteInitialValue: (any) => string;
+  autocompleteInitialValue: (T) => string;
 
   autofocus: boolean;
+  separator: boolean;
+  clickable: boolean;
 
   constructor(label?: string, mappingFunction?: (e: T) => string | number | boolean, align?: string, order?: string, applied?: boolean) {
     this.label = label;
@@ -42,6 +44,18 @@ export class ColumnParams<T> {
     this.align = align || 'left';
     this.sortOrder = order || 'asc';
     this.sortApplied = applied || false;
+  }
+
+  setClickable(value: boolean) {
+    this.clickable = value;
+
+    return this;
+  }
+
+  setSeparator(value: boolean) {
+    this.separator = value;
+
+    return this;
   }
 
   setLabel(value: string) {

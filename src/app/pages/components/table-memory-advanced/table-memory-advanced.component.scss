@@ -1,0 +1,124 @@
+.body {
+  padding: 15px 20px;
+
+  .heading {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background: #F2F2F2;
+
+    .mrw-bi-input {
+      background: rgba(0, 0, 0, 0.06);
+      border-radius: 4px;
+      font-size: 16px;
+      color: rgba(0,0,0,0.54);
+    }
+
+    .number-of {
+      margin-left: 15px;
+      color: rgba(0,0,0,0.54);
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    .selected {
+      margin-left: auto;
+      color: rgba(0,0,0,0.54);
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    .bulk-options {
+      display: flex;
+      align-items: center;
+      margin-left: 15px;
+      font-size: 13px;
+
+      &__selection {
+        align-items: center;
+        display: flex;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        border-radius: 4px;
+        padding: 6px 10px;
+        cursor: pointer;
+        background: #FAFAFA;
+        color: #828282;
+
+        span {
+          width: 76px;
+        }
+
+        mat-icon {
+          font-size: 16px;
+          width: 16px;
+          height: 16px;
+        }
+      }
+
+      button {
+        margin-left: 15px;
+        font-size: 13px;
+        border: 1px solid rgba(0,0,0,0.12);
+        height: 30px;
+        line-height: 30px;
+        padding: 0;
+        font-weight: normal;
+        background: #FAFAFA;
+        color: #828282;
+      }
+    }
+  }
+
+  table {
+    background: #ffffff;
+
+    th {
+      font-size: 12px;
+      color: rgba(0,0,0,0.54);
+      font-weight: 500;
+    }
+
+    td {
+      font-size: 13px;
+    }
+
+    td, th {
+      padding-left: 10px;
+      padding-right: 10px;
+
+      &:first-of-type {
+        padding-left: 20px;
+      }
+
+      &:last-of-type {
+        padding-right: 20px;
+      }
+    }
+
+    .clickable {
+      cursor: pointer;
+    }
+
+    .options-header {
+      width: 1px;
+      padding: 0;
+    }
+
+    .menu-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+      color: rgba(0, 0, 0, 0.54);
+      cursor: pointer;
+    }
+  }
+
+  .cell {
+
+    &--separator {
+      border-right: 1px solid rgba(0,0,0,0.12);
+    }
+
+  }
+
+}

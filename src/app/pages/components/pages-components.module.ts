@@ -31,6 +31,7 @@ import { ScheduleDetailsHeaderComponent } from './schedules-detailed/schedule-de
 import { ScheduleDetailsTitleComponent } from './schedules-detailed/schedule-details/schedule-details-title/schedule-details-title.component';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 import { BlueHeaderComponent } from './blue-header/blue-header.component';
+import { TableMemoryAdvancedComponent } from './table-memory-advanced/table-memory-advanced.component';
 
 @NgModule({
   imports : [
@@ -67,7 +68,8 @@ import { BlueHeaderComponent } from './blue-header/blue-header.component';
     ScheduleDetailedTimelineComponent,
     ScheduleDetailsHeaderComponent,
     ScheduleDetailsTitleComponent,
-    BlueHeaderComponent
+    BlueHeaderComponent,
+    TableMemoryAdvancedComponent
   ],
   exports : [
     TableActionsComponent,
@@ -83,7 +85,8 @@ import { BlueHeaderComponent } from './blue-header/blue-header.component';
     EntityViewTagComponent,
     EntityViewEntityaclComponent,
     SchedulesDetailedComponent,
-    BlueHeaderComponent
+    BlueHeaderComponent,
+    TableMemoryAdvancedComponent
   ],
   providers: [
 
