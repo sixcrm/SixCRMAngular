@@ -32,7 +32,7 @@ export function deleteShippingReceiptsMutation(id: string[]): string {
 }
 
 export function shippingReceiptInfoResponseQuery(): string {
-  return `id status fulfillment_provider { name } tracking {carrier id} created_at updated_at`
+  return `id status fulfillment_provider { id name } tracking {carrier id} created_at updated_at`
 }
 
 export function shippingReceiptResponseQuery(): string {
