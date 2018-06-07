@@ -14,6 +14,8 @@ export class FeatureFlagService {
   public featureFlagsStored$: Subject<boolean> = new Subject();
   public featureFlags: FeatureFlags;
 
+  private ignoreFeaturesFlag: boolean = !environment.useFeatureFlags;
+
   constructor(private http: HttpWrapperService, private authService: AuthenticationService) {
     this.authService.activeAcl$.subscribe(acl => {
       if (!acl.account.id) return;
@@ -27,6 +29,8 @@ export class FeatureFlagService {
   }
 
   public isEnabled(featureName: string): boolean {
+    if (this.ignoreFeaturesFlag) return true;
+
     let flags = this.featureFlags;
     if (this.authService.isActiveOrActingAclMasterAccount()) {
       flags = this.localFeatureFlags();
@@ -38,6 +42,8 @@ export class FeatureFlagService {
   }
 
   private fetchFeatureFlags(acl: Acl): void {
+    if (this.ignoreFeaturesFlag) return;
+
     this.http.post(
       environment.endpoint + acl.account.id,
       featureFlagsQuery(environment.name),

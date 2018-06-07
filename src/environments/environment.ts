@@ -16,5 +16,6 @@ export const environment: EnvironmentModel = {
   auth0RedirectUrl: 'http://localhost:4200',
   translationsUrl: 'https://d3gac4cnrn5mn6.cloudfront.net/',
   version: '0.0.0',
-  name: 'development'
+  name: 'development',
+  useFeatureFlags: true
 };

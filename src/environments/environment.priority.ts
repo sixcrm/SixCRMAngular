@@ -17,6 +17,7 @@ export const environment: EnvironmentModel = {
   translationsUrl: 'https://d3gac4cnrn5mn6.cloudfront.net/',
   version: '0.0.0',
   name: 'priority',
+  useFeatureFlags: true,
   branding: {
     registrationLogo: 'logo-recursix-registration.svg',
     sidenavLogo: 'logo-recursix.svg',

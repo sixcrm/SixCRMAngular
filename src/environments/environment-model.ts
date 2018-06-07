@@ -11,6 +11,7 @@ export interface EnvironmentModel {
   version: string,
   branding?: Branding;
   name: string;
+  useFeatureFlags: boolean
 }
 
 export interface Branding {

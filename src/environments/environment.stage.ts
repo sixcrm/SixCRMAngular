@@ -11,5 +11,6 @@ export const environment: EnvironmentModel = {
   auth0RedirectUrl: 'https://staging-admin.sixcrm.com',
   translationsUrl: 'https://d3gac4cnrn5mn6.cloudfront.net/',
   version: '0.0.0',
-  name: 'staging'
+  name: 'staging',
+  useFeatureFlags: true
 };
