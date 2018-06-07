@@ -67,7 +67,7 @@ export class CustomerAdvancedFulfillmentComponent implements OnInit {
       this.receipts = receipts;
     });
 
-    this.shippingReceiptsService.getEntities(5);
+    this.shippingReceiptsService.getEntities(10);
   }
 
   itemClicked(option: {item: ShippingReceipt, param: ColumnParams<ShippingReceipt>}) {

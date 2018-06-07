@@ -78,7 +78,7 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
       this.transactions = transactions;
     });
 
-    this.transactionService.getEntities();
+    this.transactionService.getEntities(10);
   }
 
   itemClicked(option: {item: Transaction, param: ColumnParams<Transaction>}) {

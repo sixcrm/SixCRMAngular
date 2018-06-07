@@ -290,8 +290,8 @@ $main-blue: #5383C3;
     height: 50px;
     padding-left: 5px;
     background-color: #F3F3F3;
-    border-top: 1px solid rgba(0, 0, 0, 0.4);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 
     &--blue {
       background-color: $main-blue;

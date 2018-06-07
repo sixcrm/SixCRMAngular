@@ -5,23 +5,29 @@
   overflow: auto;
 
   .notes-wrapper {
-    height: calc(100% - 210px);
+    height: calc(100% - 188px);
     overflow: auto;
   }
 
   .note {
-    border-top: 1px solid rgba(0,0,0,0.12);
-    padding: 10px 12px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    padding: 10px 24px 10px 12px;
     font-size: 13px;
     line-height: 24px;
 
     .date {
+      margin-top: 6px;
+      margin-bottom: 6px;
+      margin-left: 12px;
       font-weight: 500;
+    }
+
+    .text {
+      margin-left: 12px;
     }
 
     .author {
       display: inline-block;
-      margin: 6px 0 12px;
       border-radius: 16px;
       padding: 0 14px;
       background: rgba(0,0,0,0.06);
@@ -36,16 +42,22 @@
     color: rgba(0,0,0,0.54);
   }
 
+  .new-note-container {
+    padding-top: 15px;
+    border-top: 1px solid rgba(0,0,0,0.12);
+  }
+
   .new-note {
     width: calc(100% - 30px);
-    border: none;
+    border: 1px solid rgba(44, 152, 240, 0.2);
     box-sizing: border-box;
-    margin: 20px 15px 10px;
-    background: rgba(44, 152, 240, 0.2);
+    margin: 0 15px 10px;
+    background: rgba(30, 177, 252, 0.1);
     outline: none;
     padding: 6px;
     font-size: 14px;
     resize: none;
+    border-radius: 4px;
   }
 
   .button-holder {

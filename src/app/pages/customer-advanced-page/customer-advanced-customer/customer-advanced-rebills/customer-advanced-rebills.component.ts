@@ -81,7 +81,7 @@ export class CustomerAdvancedRebillsComponent implements OnInit {
       this.rebills = rebills;
     });
 
-    this.rebillService.getEntities();
+    this.rebillService.getEntities(10);
   }
 
   itemClicked(option: {item: Rebill, param: ColumnParams<Rebill>}) {
