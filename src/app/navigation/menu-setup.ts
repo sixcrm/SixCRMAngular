@@ -38,7 +38,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
   if (authService.hasPermissions('shippingreceipt', 'read') || authService.isBillingDisabled()) {
     orderItems.push(new MenuItem('SIDENAV_ORDER_SHIPPINGRECEIPT', 'shippingreceipts'));
   }
-  if (featureFlagService.isEnabled('orders.pending-rebills') && authService.hasPermissions('rebill', 'read') || authService.isBillingDisabled()) {
+  if (featureFlagService.isEnabled('orders|pending-rebills') && authService.hasPermissions('rebill', 'read') || authService.isBillingDisabled()) {
     orderItems.push(new MenuItem('SIDENAV_ORDER_PENDINGREBILL', 'rebills/pending'));
   }
 
@@ -49,10 +49,10 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
   // Add reports
   let reportItems: MenuItem[] = [];
   let cycle: MenuItem[] = [];
-  if (featureFlagService.isEnabled('cycle-reports.day-to-day') && (authService.hasPermissions('analytics', 'getDayToDay') || authService.isBillingDisabled())) {
+  if (featureFlagService.isEnabled('cycle-reports|day-to-day') && (authService.hasPermissions('analytics', 'getDayToDay') || authService.isBillingDisabled())) {
     cycle.push(new MenuItem('SIDENAV_REPORTS_CYCLE_DAYTODAY', 'reports/daytoday'))
   }
-  if (featureFlagService.isEnabled('cycle-reports.cycle') && (authService.hasPermissions('analytics', 'getCycleReport') || authService.isBillingDisabled())) {
+  if (featureFlagService.isEnabled('cycle-reports|cycle') && (authService.hasPermissions('analytics', 'getCycleReport') || authService.isBillingDisabled())) {
     cycle.push(new MenuItem('SIDENAV_REPORTS_CYCLE_CYCLE', 'reports/cycle'))
   }
   if (cycle.length > 0) {
@@ -91,7 +91,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
       crmItems.push(new MenuItem('SIDENAV_CRM_EMAILTEMPLATE', 'emailtemplates'));
     }
 
-    if (featureFlagService.isEnabled('crm-setup.event-hooks') && (authService.hasPermissions('eventhook', 'read') || authService.isBillingDisabled())) {
+    if (featureFlagService.isEnabled('crm-setup|event-hooks') && (authService.hasPermissions('eventhook', 'read') || authService.isBillingDisabled())) {
       crmItems.push(new MenuItem('SIDENAV_CRM_EVENTHOOK', 'eventhooks'));
     }
 

@@ -14,7 +14,7 @@ export class FeatureFlags {
   }
 
   public isEnabled(featurePath: string) {
-    return this.enabled(featurePath.split('.'), this.obj.features);
+    return this.enabled(featurePath.split('|'), this.obj.features);
   }
 
   private createFlags() {
