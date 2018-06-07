@@ -91,7 +91,7 @@ export class AccountManagementRoleViewComponent implements OnInit {
     this.sharedService.entities$.take(1).subscribe(roles => {
       if (roles instanceof CustomServerError) return;
 
-      this.sharedRoles = roles;
+      this.sharedRoles = roles.filter(r => this.sharedService.isRoleAvailable(r));
     });
 
     this.service.entity$.take(1).subscribe(role => {

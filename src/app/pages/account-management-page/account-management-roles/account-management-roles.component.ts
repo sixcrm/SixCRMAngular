@@ -86,11 +86,13 @@ export class AccountManagementRolesComponent implements OnInit {
     this.roleSharedService.entities$.take(1).subscribe(roles => {
       if (roles instanceof CustomServerError) return;
 
-      this.sharedRoles = roles.map(r => {
-        r.isShared = true;
+      this.sharedRoles = roles
+        .filter(r => this.roleSharedService.isRoleAvailable(r))
+        .map(r => {
+          r.isShared = true;
 
-        return r;
-      });
+          return r;
+        });
 
 
       if (this.roles) {
