@@ -38,12 +38,34 @@ export class ColumnParams<T> {
   separator: boolean;
   clickable: boolean;
 
+  materialIconMapper: (any) => string;
+  materialIconColorMapper: (any) => string;
+  materialIconBackgroundColorMapper: (any) => string;
+
   constructor(label?: string, mappingFunction?: (e: T) => string | number | boolean, align?: string, order?: string, applied?: boolean) {
     this.label = label;
     this.mappingFunction = mappingFunction;
     this.align = align || 'left';
     this.sortOrder = order || 'asc';
     this.sortApplied = applied || false;
+  }
+
+  setMaterialIconMapper(value: (any) => string) {
+    this.materialIconMapper = value;
+
+    return this;
+  }
+
+  setMaterialIconBackgroundColorMapper(value: (any) => string) {
+    this.materialIconBackgroundColorMapper = value;
+
+    return this;
+  }
+
+  setMaterialIconColorMapper(value: (any) => string) {
+    this.materialIconColorMapper = value;
+
+    return this;
   }
 
   setClickable(value: boolean) {

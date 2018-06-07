@@ -6,6 +6,11 @@ import {CustomServerError} from '../../../../shared/models/errors/custom-server-
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {Router} from '@angular/router';
+import {
+  transactionsByCustomer,
+  transactionsInfoListQuery
+} from '../../../../shared/utils/queries/entities/transaction.queries';
+import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
 
 @Component({
   selector: 'customer-advanced-transactions',
@@ -31,7 +36,7 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
   }
 
   columnParams: ColumnParams<Transaction>[] = [];
-
+  rowColorFunction = (e: Transaction) => (e.processorResponse.message || '').toLowerCase() === 'success' ? '#FFFFFF' : 'rgba(220, 37, 71, 0.05)';
   options: string[] = ['Refund', 'Return', 'Notify User', 'View Details'];
   bulkOptions: string[] = ['Refund', 'Return'];
 
@@ -43,12 +48,15 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
     let f = this.authService.getTimezone();
 
     this.columnParams = [
-      new ColumnParams('CUSTOMER_TRANSACTION_STATUS', (e: Transaction) => e.processorResponse.message),
+      new ColumnParams('CUSTOMER_TRANSACTION_STATUS', (e: Transaction) => e.processorResponse.message)
+        .setMaterialIconMapper((e: Transaction) => (e.processorResponse.message || '').toLowerCase() === 'success' ? 'done' : 'error')
+        .setMaterialIconBackgroundColorMapper((e: Transaction) => (e.processorResponse.message || '').toLowerCase() === 'success' ? '#1EBEA5' : '#ffffff')
+        .setMaterialIconColorMapper((e: Transaction) => (e.processorResponse.message || '').toLowerCase() === 'success' ? '#ffffff' : '#DC2547'),
       new ColumnParams('CUSTOMER_TRANSACTION_AMOUNT', (e: Transaction) => e.amount.usd()),
       new ColumnParams('CUSTOMER_TRANSACTION_REFUND', (e: Transaction) => '-').setAlign('center'),
       new ColumnParams('CUSTOMER_TRANSACTION_CHARGEBACK', (e: Transaction) => '-').setAlign('center').setSeparator(true),
       new ColumnParams('CUSTOMER_TRANSACTION_DATE', (e: Transaction) => e.createdAt.tz(f).format('MM/DD/YY h:mm A')),
-      new ColumnParams('CUSTOMER_TRANSACTION_MID', (e: Transaction) => e.merchantProvider.id).setClickable(true).setColor('#2C98F0'),
+      new ColumnParams('CUSTOMER_TRANSACTION_MID', (e: Transaction) => e.merchantProvider.name).setClickable(true).setColor('#2C98F0'),
       new ColumnParams('CUSTOMER_TRANSACTION_ALIAS', (e: Transaction) => e.alias).setSeparator(true).setClickable(true).setColor('#2C98F0'),
       new ColumnParams('CUSTOMER_TRANSACTION_ORDER', (e: Transaction) => e.rebill.parentSession.alias).setClickable(true).setColor('#2C98F0')
     ]
@@ -58,11 +66,11 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    // this.transactionService.indexQuery = transactionsInfoListQuery;
+    this.transactionService.indexQuery = transactionsInfoListQuery;
   }
 
   initialize() {
-    // this.transactionService.indexQuery = (params: IndexQueryParameters) => transactionsByCustomer(this._customer.id, params);
+    this.transactionService.indexQuery = (params: IndexQueryParameters) => transactionsByCustomer(this._customer.id, params);
 
     this.transactionService.entities$.take(1).subscribe(transactions => {
       if (transactions instanceof CustomServerError) return;
@@ -70,8 +78,7 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
       this.transactions = transactions;
     });
 
-    // this.transactionService.getEntities();
-    this.transactionService.getEntities(5);
+    this.transactionService.getEntities();
   }
 
   itemClicked(option: {item: Transaction, param: ColumnParams<Transaction>}) {

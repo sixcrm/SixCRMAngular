@@ -4,11 +4,11 @@
 
     <div class="mrw-bi-input">
       <mat-input-container [floatLabel]="'never'">
-        <input matInput type="text" placeholder="{{'Filter ' + title}}" [(ngModel)]="filterString">
+        <input #filterinput matInput type="text" placeholder="{{'Filter ' + title}}" [(ngModel)]="filterString" (keyup)="filterDebouncer.next(true)">
       </mat-input-container>
     </div>
 
-    <div class="number-of">{{(items || []).length}} {{title}}</div>
+    <div class="number-of">{{getNumberOfVisible()}} {{title}}</div>
 
     <div class="selected"> {{getNumberOfSelected()}} Selected</div>
 
@@ -41,26 +41,39 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let item of items">
-        <td><mat-checkbox [(ngModel)]="item.bulkSelected" class="checkbox-blue"></mat-checkbox></td>
+      <ng-container *ngFor="let item of items">
+        <tr *ngIf="!item['hideAfterFilter']" [style.background-color]="rowColorFunction ? rowColorFunction(item) : '#ffffff'">
+          <td><mat-checkbox [(ngModel)]="item.bulkSelected" class="checkbox-blue"></mat-checkbox></td>
 
-        <ng-container *ngFor ="let param of columnParams">
-          <td [class.cell--separator]="param.separator"
-              [class.clickable]="param.clickable"
-              [style.text-align]="param.align || 'left'"
-              [style.color]="param.color || 'rgba(0, 0, 0, 0.87)'"
-              (click)="clicked(item, param)">
-            {{param.mappingFunction(item) | translate}}
+          <ng-container *ngFor ="let param of columnParams">
+            <td [class.cell--separator]="param.separator"
+                [class.clickable]="param.clickable"
+                (click)="clicked(item, param)">
+              <div class="cell-data-wrapper"
+                   [style.text-align]="param.align || 'left'"
+                   [style.color]="param.color || 'rgba(0, 0, 0, 0.87)'">
+                <mat-icon
+                  *ngIf="param.materialIconMapper"
+                  class="cell-icon"
+                  [style.background-color]="param.materialIconBackgroundColorMapper(item)"
+                  [style.color]="param.materialIconColorMapper(item)">
+                  {{param.materialIconMapper(item)}}
+                </mat-icon>
+
+                <span>{{param.mappingFunction(item) | translate}}</span>
+              </div>
+
+            </td>
+          </ng-container>
+
+          <td *ngIf="options.length > 0">
+            <mat-icon class="menu-icon" [matMenuTriggerFor]="opts">more_vert</mat-icon>
+            <mat-menu #opts="matMenu" x-position="before">
+              <button mat-menu-item *ngFor="let option of options">{{ option | translate}}</button>
+            </mat-menu>
           </td>
-        </ng-container>
-
-        <td *ngIf="options.length > 0">
-          <mat-icon class="menu-icon" [matMenuTriggerFor]="opts">more_vert</mat-icon>
-          <mat-menu #opts="matMenu" x-position="before">
-            <button mat-menu-item *ngFor="let option of options">{{ option | translate}}</button>
-          </mat-menu>
-        </td>
-      </tr>
+        </tr>
+      </ng-container>
     </tbody>
   </table>
 

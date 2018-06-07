@@ -55,7 +55,7 @@ export function transactionInfoResponseQuery(): string {
 }
 
 export function transactionCustomerInfoResponseQuery(): string {
-  return 'id amount alias created_at updated_at processor_response products { amount, product { id name } }';
+  return 'id amount alias created_at updated_at processor_response rebill { parentsession { id alias } } merchant_provider { id name }';
 }
 
 export function transactionResponseQuery(): string {
