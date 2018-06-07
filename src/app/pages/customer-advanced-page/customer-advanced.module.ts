@@ -11,6 +11,7 @@ import {FormsModule} from '@angular/forms';
 import { CustomerAdvancedTransactionsComponent } from './customer-advanced-customer/customer-advanced-transactions/customer-advanced-transactions.component';
 import { CustomerAdvancedRebillsComponent } from './customer-advanced-customer/customer-advanced-rebills/customer-advanced-rebills.component';
 import { CustomerAdvancedFulfillmentComponent } from './customer-advanced-customer/customer-advanced-fulfillment/customer-advanced-fulfillment.component';
+import { CustomerAdvancedEventsComponent } from './customer-advanced-customer/customer-advanced-events/customer-advanced-events.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,6 @@ import { CustomerAdvancedFulfillmentComponent } from './customer-advanced-custom
     MaterialSelectionModule,
     FormsModule
   ],
-  declarations: [CustomerAdvancedCustomerComponent, CustomerInfoComponent, CustomerInfoNotesComponent, CustomerAdvancedTransactionsComponent, CustomerAdvancedRebillsComponent, CustomerAdvancedFulfillmentComponent]
+  declarations: [CustomerAdvancedCustomerComponent, CustomerInfoComponent, CustomerInfoNotesComponent, CustomerAdvancedTransactionsComponent, CustomerAdvancedRebillsComponent, CustomerAdvancedFulfillmentComponent, CustomerAdvancedEventsComponent]
 })
 export class CustomerAdvancedModule { }

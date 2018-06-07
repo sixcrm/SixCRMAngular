@@ -232,8 +232,6 @@ export class AnalyticsService {
   }
 
   getActivityByCustomer(start: string, end: string, customer: string, limit: number, offset: number) {
-    if (!this.hasPermission('getActivityByIdentifier')) return;
-
     this.queryRequest(activitiesByCustomer(start, end, customer, limit, offset)).subscribe(data => {
       this.handleResponse(
         data,

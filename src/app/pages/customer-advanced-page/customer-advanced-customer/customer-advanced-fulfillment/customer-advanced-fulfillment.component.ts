@@ -31,8 +31,8 @@ export class CustomerAdvancedFulfillmentComponent implements OnInit {
   }
 
   columnParams: ColumnParams<ShippingReceipt>[] = [];
-  options: string[] = [];
-  bulkOptions: string[] = [];
+  options: string[];
+  bulkOptions: string[];
 
   constructor(
     private shippingReceiptsService: ShippingReceiptsService,

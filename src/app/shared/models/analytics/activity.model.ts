@@ -12,6 +12,7 @@ export class Activity {
   associated_with_type: string;
   activity_statement: any;
   parsed_statement: any;
+  description: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -31,6 +32,11 @@ export class Activity {
 
     this.parsed_statement = this.parse();
 
+    const parts: string[] =
+      this.parsed_statement.template.split(' ')
+        .map(item => this.parsed_statement.values[item].value);
+
+    this.description = parts.join(' ');
   }
 
   parse(): any {
