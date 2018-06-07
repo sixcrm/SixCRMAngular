@@ -1,0 +1,10 @@
+<div class="type">
+  <div class="type__content">
+    <ng-container *ngIf="isQueryOrMutation()">
+      <query-mutation-card *ngFor="let field of type.fields" [field]="field" [type]="type"></query-mutation-card>
+    </ng-container>
+    <ng-container *ngIf="!isQueryOrMutation()">
+      <type-card [type]="type"></type-card>
+    </ng-container>
+  </div>
+</div>

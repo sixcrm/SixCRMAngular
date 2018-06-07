@@ -1,0 +1,28 @@
+.search-queries {
+  .mat-input-wrapper {
+    padding-bottom: 0;
+  }
+
+  .mat-input-infix {
+    border-top: none;
+  }
+
+  .mat-input-underline {
+    display: none;
+  }
+
+  span {
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 15px;
+    margin-left: 14px;
+  }
+}
+
+.search-queries--focused {
+  span {
+    label {
+      color: transparent !important;
+    }
+  }
+}
+

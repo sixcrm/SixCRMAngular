@@ -1,0 +1,12 @@
+<div class="docs">
+  <mat-spinner *ngIf="!loaded; else load"></mat-spinner>
+
+  <ng-template #load>
+    <div class="docs__sidenav">
+      <side-search [searchItems]="searchItems"></side-search>
+    </div>
+    <div class="docs__content">
+      <doc-type *ngFor="let type of types" [type]="type"></doc-type>
+    </div>
+  </ng-template>
+</div>

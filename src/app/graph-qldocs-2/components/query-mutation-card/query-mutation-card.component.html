@@ -1,0 +1,38 @@
+<div class="field">
+  <div [class.field__container]="showQueryDetails">
+    <div class="field__main">
+      <div class="field__header">
+        <div class="type__name">{{type.name}}</div>
+        <div class="field__name">
+          <div id="{{field.name}}">{{field.name}}</div>
+          <mat-icon class="link" matTooltip="" ngxClipboard (click)="showQueryDetails = !showQueryDetails">link</mat-icon>
+        </div>
+      </div>
+
+      <div class="table__title">Arguments</div>
+      <table>
+        <thead>
+        <tr>
+          <th>Argument</th>
+          <th>Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let arg of field.args; let i = index;">
+          <td>{{arg.name}}</td>
+          <td><span class="field-type">{{arg.type.name || arg.type.ofType.name || arg.type.ofType.ofType.name}}</span></td>
+        </tr>
+        <tr class="returns">
+          <td>Returns:</td>
+          <td><span class="field-type">{{field.type.name || field.type.ofType.name || field.type.ofType.ofType.name}}</span></td>
+          <td><{{field.type.kind || field.type.ofType.kind || field.type.ofType.ofType.kind }}></td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="field__example" *ngIf="!showQueryDetails">{{field.example}}</div>
+    </div>
+
+    <side-container *ngIf="showQueryDetails" [example]="field.example"></side-container>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+.side-search {
+  background: #E5E5E5;
+
+  mat-input-container {
+    margin: 20px;
+    width: 223px;
+    background: rgba(0, 0, 0, 0.06);
+    height: 36px;
+    padding-top: 7px;
+    border-radius: 4px;
+
+    input {
+      caret-color: #1EB1FC;
+      margin-left: 14px;
+    }
+}
+
+&__item {
+  margin-top: 20px;
+  margin-bottom: 24px;
+  margin-left: 20px;
+  font-size: 16px;
+
+  &__title {
+    margin-bottom: 14px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  &__child {
+    margin-bottom: 6px;
+    white-space: nowrap;
+    font-size: 13px;
+    line-height: 32px;
+    cursor: pointer;
+    margin-left: 12px;
+
+    &:hover {
+      span {
+        border-bottom: 1px solid;
+      }
+    }
+  }
+}
+
+  .line {
+    margin: 0 20px;
+    height: 1px;
+    width: 223px;
+    background: rgba(0, 0, 0, 0.12);
+  }
+}

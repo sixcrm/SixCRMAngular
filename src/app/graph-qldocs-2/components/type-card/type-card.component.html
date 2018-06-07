@@ -1,0 +1,30 @@
+<div class="field">
+  <div class="field__container">
+    <div class="type__name">TYPE</div>
+    <div class="field__name">
+      <div id="{{type.name}}">{{type.name}}</div>
+      <mat-icon class="link" matTooltip="" ngxClipboard>link</mat-icon>
+    </div>
+    <div class="type__description">{{type.description}}</div>
+  </div>
+
+  <div class="table__title">Properties</div>
+  <table>
+    <thead>
+    <tr>
+      <th>Property</th>
+      <th>Type</th>
+      <th>Returns</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let arg of type.fields; let i = index;">
+      <td>{{arg.name}}</td>
+      <td><span class="field-type">{{arg.type.name || arg.type.ofType.name || arg.type.ofType.ofType.name}}</span></td>
+      <td>{{arg.type.kind || arg.type.ofType.kind || arg.type.ofType.ofType.kind }}</td>
+      <td>{{arg.description }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

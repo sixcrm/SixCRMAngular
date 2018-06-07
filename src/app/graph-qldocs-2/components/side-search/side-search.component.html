@@ -1,0 +1,26 @@
+<div class="side-search">
+  <mat-input-container [floatLabel]="'never'" class="search-queries" [class.search-queries--focused]="focused">
+    <input matInput
+      (focus)="focused = true"
+      (blur)="focused = false"
+      placeholder="Search" [(ngModel)]="filterString">
+  </mat-input-container>
+
+  <div class="line"></div>
+
+  <ng-container *ngFor="let searchItem of searchItems">
+    <div *ngIf="searchItem.children && searchItem.children.length > 0" class="side-search__item">
+      <div
+        (click)="nav(searchItem.name)"
+        class="side-search__item__title">
+        <span>{{searchItem.name}}</span>
+      </div>
+      <div
+        *ngFor="let child of searchItem.children | filterSearchItems: filterString"
+        (click)="nav(child)"
+        class="side-search__item__child">
+        <span>{{child}}</span>
+      </div>
+    </div>
+  </ng-container>
+</div>

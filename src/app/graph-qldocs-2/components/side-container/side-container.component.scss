@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background: #333333;
+  color: rgba(30, 177, 252, 0.3);
+  line-height: 16px;
+  font-size: 13px;
+  font-weight: 500;
+  height: 100%;
+
+  .details {
+    height: 50%;
+    margin: 25px;
+  }
+
+  .line {
+    margin: 10px 0;
+    height: 1px;
+    width: auto;
+    background: #000000;
+  }
+
+  .title {
+    color: #BDBDBD;
+    letter-spacing: 0.05em;
+    line-height: 32px;
+    font-size: 14px;
+    margin-bottom: 25px;
+  }
+}
