@@ -120,7 +120,7 @@ export class CustomerInfoComponent implements OnInit {
 
     dialogRef.componentInstance.creditCard = creditCard ? creditCard.copy() : new CreditCard();
     dialogRef.componentInstance.hideDefaultCardSelection = !!creditCard;
-    dialogRef.componentInstance.isDefaultCreditCard = creditCard ? this._customer.defaultCreditCard === creditCard.id : false;
+    dialogRef.componentInstance.isDefaultCreditCard = creditCard ? this._customer.defaultCreditCard === creditCard.id : true;
 
     dialogRef.afterClosed().subscribe(result => {
       dialogRef = null;

@@ -17,15 +17,16 @@
       <div>Payment</div>
       <mat-icon class="edit-icon" (click)="openCardSwitcher()">edit</mat-icon>
     </div>
-    <ng-container *ngFor="let card of _customer.creditCards">
-      <div class="card" [class.card--default]="_defaultCreditCard && (_defaultCreditCard.id === card.id)">
-        <img *ngIf="card.type !== 'OTHER'" src="{{'/assets/cards/' + (card.typeShort || '').toLowerCase() + '.svg'}}">
-        <div>****{{card.lastFour}}</div>
-        <div>{{card.expiration}}</div>
-      </div>
-    </ng-container>
 
     <ng-container *ngIf="_defaultCreditCard">
+      <div class="card">
+        <img *ngIf="_defaultCreditCard.type !== 'OTHER'" src="{{'/assets/cards/' + (_defaultCreditCard.typeShort || '').toLowerCase() + '.svg'}}">
+        <div class="info">
+          <div>**** **** **** {{_defaultCreditCard.lastFour}}</div>
+          <div>{{_defaultCreditCard.expiration}}</div>
+        </div>
+      </div>
+
       <div class="label">Billing Address</div>
       <div class="text">{{_defaultCreditCard.name}}</div>
       <div class="text">{{_defaultCreditCard.address.line1}}</div>
