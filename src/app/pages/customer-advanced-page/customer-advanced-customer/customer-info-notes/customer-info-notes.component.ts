@@ -76,7 +76,7 @@ export class CustomerInfoNotesComponent implements OnInit {
       body: this.newNoteText
     });
 
-    this.customerNotesService.createEntity(note);
+    this.customerNotesService.createEntity(note, {ignoreSnack: true});
   }
 
 }
