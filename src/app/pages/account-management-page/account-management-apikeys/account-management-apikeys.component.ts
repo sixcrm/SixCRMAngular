@@ -49,7 +49,7 @@ export class AccountManagementApikeysComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.account = this.authService.getActiveAcl().account;
+    this.account = this.authService.getActiveAccount();
 
     this.accessKeyService.entities$.subscribe(keys => {
       if (keys instanceof CustomServerError) return;

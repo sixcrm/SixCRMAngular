@@ -42,7 +42,7 @@
 
         <div class="credit-card credit-card--single">
 
-          <img *ngIf="defaultCreditCard.type !== 'OTHER'" src="{{'/assets/cards/' + (defaultCreditCard.type || '').toLowerCase() + '.svg'}}">
+          <img *ngIf="defaultCreditCard.type !== 'OTHER'" src="{{'/assets/cards/' + (defaultCreditCard.typeShort || '').toLowerCase() + '.svg'}}">
 
           <div class="info">
             <div class="number">**** **** **** {{defaultCreditCard.lastFour}}</div>
@@ -99,7 +99,7 @@
       <ng-container *ngIf="session.customer.creditCards.length > 0; else nocards">
         <div class="credit-card" *ngFor="let card of session.customer.creditCards">
 
-          <img *ngIf="card.type !== 'OTHER'" src="{{'/assets/cards/' + (card.type || '').toLowerCase() + '.svg'}}">
+          <img *ngIf="card.type !== 'OTHER'" src="{{'/assets/cards/' + (card.typeShort || '').toLowerCase() + '.svg'}}">
 
           <div class="info">
             <div class="number">**** **** **** {{card.lastFour}}</div>

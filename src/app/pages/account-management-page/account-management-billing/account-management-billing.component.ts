@@ -32,13 +32,13 @@ export class AccountManagementBillingComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.account = this.authService.getActiveAcl().account;
+    this.account = this.authService.getActiveAccount();
 
     this.fetchSession();
   }
 
   fetchSession() {
-    const currentAcc = this.authService.getActiveAcl().account;
+    const currentAcc = this.authService.getActiveAccount();
 
     if (currentAcc.billing && currentAcc.billing.session) {
       this.customerGraphAPI.fetchSessionInfo(currentAcc.billing.session).subscribe(session => {

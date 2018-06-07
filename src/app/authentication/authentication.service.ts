@@ -264,6 +264,16 @@ export class AuthenticationService {
     return this.currentActiveAcl;
   }
 
+  public getActiveAccount(): Account {
+    const actingAs = this.getActingAsAccount();
+
+    if (!actingAs || !actingAs.id) {
+      return this.getActiveAcl().account;
+    }
+
+    return actingAs;
+  }
+
   public isActiveAclCustomerService(): boolean {
     return this.getActiveAcl().role.isCustomerService();
   }
@@ -349,6 +359,8 @@ export class AuthenticationService {
   }
 
   public hasPermissions(entity: string, operation: string): boolean {
+    if (this.actingAs && this.actingAs.id) return true;
+
     return this.getSixUser().hasPermissions(entity, operation, this.getActiveAcl());
   }
 

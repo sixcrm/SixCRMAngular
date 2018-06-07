@@ -49,7 +49,7 @@ export class AccountManagementGeneralComponent implements OnInit {
       this.accountBackup = this.account.copy();
     });
 
-    this.accountService.getEntity(this.authService.getActiveAcl().account.id);
+    this.accountService.getEntity(this.authService.getActiveAccount().id);
 
     this.fetchSession();
   }
@@ -57,7 +57,7 @@ export class AccountManagementGeneralComponent implements OnInit {
   fetchSession() {
     if (!this.authService.hasPermissions('billing', 'read')) return;
 
-    const currentAcc = this.authService.getActiveAcl().account;
+    const currentAcc = this.authService.getActiveAccount();
 
     if (currentAcc.billing && currentAcc.billing.session) {
       this.customerGraphAPI.fetchSessionInfo(currentAcc.billing.session).subscribe(session => {

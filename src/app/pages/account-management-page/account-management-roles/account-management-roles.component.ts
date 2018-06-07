@@ -107,7 +107,7 @@ export class AccountManagementRolesComponent implements OnInit {
 
     this.roleService.getEntities();
     this.roleSharedService.getEntities();
-    this.accountService.getEntity(this.authService.getActiveAcl().account.id);
+    this.accountService.getEntity(this.authService.getActiveAccount().id);
   }
 
   getNumberOfUsers(role: Role): number {

@@ -17,7 +17,7 @@
     <div class="details">
 
       <ng-container *ngIf="defaultCreditCard; else nocard">
-        <img *ngIf="defaultCreditCard.type !== 'OTHER'" src="{{'/assets/cards/' + (defaultCreditCard.type || '').toLowerCase() + '.svg'}}">
+        <img *ngIf="defaultCreditCard.type !== 'OTHER'" src="{{'/assets/cards/' + (defaultCreditCard.typeShort || '').toLowerCase() + '.svg'}}">
 
         <div>**** {{defaultCreditCard.lastFour}}</div>
         <div>{{defaultCreditCard.name}}</div>

@@ -19,7 +19,7 @@
     </div>
     <ng-container *ngFor="let card of _customer.creditCards">
       <div class="card" [class.card--default]="_defaultCreditCard && (_defaultCreditCard.id === card.id)">
-        <img *ngIf="card.type !== 'OTHER'" src="{{'/assets/cards/' + (card.type || '').toLowerCase() + '.svg'}}">
+        <img *ngIf="card.type !== 'OTHER'" src="{{'/assets/cards/' + (card.typeShort || '').toLowerCase() + '.svg'}}">
         <div>****{{card.lastFour}}</div>
         <div>{{card.expiration}}</div>
       </div>

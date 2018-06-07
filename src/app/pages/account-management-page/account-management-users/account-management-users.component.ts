@@ -90,7 +90,7 @@ export class AccountManagementUsersComponent implements OnInit, OnDestroy {
       this.sharedRoles = roles;
     });
 
-    this.accountService.getEntity(this.authService.getActiveAcl().account.id);
+    this.accountService.getEntity(this.authService.getActiveAccount().id);
     this.rolesService.getEntities();
     this.rolesSharedService.getEntities();
   }

@@ -11,6 +11,7 @@ export class CreditCard implements Entity<CreditCard> {
   name: string;
   address: Address;
   type: string;
+  typeShort: string;
   expirationFormatted: string;
   expirationMonth: string;
   expirationYear: string;
@@ -36,6 +37,7 @@ export class CreditCard implements Entity<CreditCard> {
     this.name = obj.name || '';
     this.address = new Address(obj.address);
     this.type = obj.type ? obj.type.toLowerCase() : this.getType().toUpperCase();
+    this.typeShort = this.type === 'american express' ? 'amex' : this.type;
     this.expirationFormatted = this.formatExpiration();
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.created_at);
