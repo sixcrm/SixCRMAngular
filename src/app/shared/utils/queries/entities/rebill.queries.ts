@@ -93,7 +93,7 @@ export function rebillInfoResponseQuery(): string {
 }
 
 export function rebillByCustomerResponseQuery(): string {
-  return `id bill_at amount created_at updated_at state parentsession { id alias created_at } product_schedules { id, name , schedule { price, start, end, period, product { id, name, sku, description } }}`
+  return `id bill_at amount created_at updated_at state parentsession { id alias created_at campaign { id name } }`
 }
 
 export function rebillListByState(queueName: string, limit?: number, offset?: number): string {

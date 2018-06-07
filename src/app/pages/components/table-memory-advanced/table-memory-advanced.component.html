@@ -41,7 +41,13 @@
     </thead>
 
     <tbody>
-      <ng-container *ngFor="let item of items">
+      <ng-container *ngFor="let item of items; let i = index">
+        <tr *ngIf="lineBreakFunction && lineBreakFunction(items[i - 1], item)">
+          <td class="line-breaker" colspan="100">
+            {{lineBreakFunction(items[i - 1], item)}}
+          </td>
+        </tr>
+
         <tr *ngIf="!item['hideAfterFilter']" [style.background-color]="rowColorFunction ? rowColorFunction(item) : '#ffffff'">
           <td><mat-checkbox [(ngModel)]="item.bulkSelected" class="checkbox-blue"></mat-checkbox></td>
 

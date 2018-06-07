@@ -1,0 +1,12 @@
+<div>
+  <table-memory-advanced
+    [title]="'Rebills'"
+    [items]="rebills"
+    [columnParams]="columnParams"
+    [rowColorFunction]="rowColorFunction"
+    [lineBreakFunction]="lineBreakFunction"
+    [options]="options"
+    [bulkOptions]="bulkOptions"
+    (itemClicked)="itemClicked($event)">
+  </table-memory-advanced>
+</div>

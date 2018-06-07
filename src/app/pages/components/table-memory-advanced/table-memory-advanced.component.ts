@@ -12,6 +12,7 @@ export class TableMemoryAdvancedComponent implements OnInit, OnDestroy {
   @Input() items: any[];
   @Input() columnParams: ColumnParams<any>[] = [];
   @Input() rowColorFunction: (any) => string;
+  @Input() lineBreakFunction: (previous: any, next: any) => string;
   @Input() options: string[] = [];
   @Input() bulkOptions: string[] = [];
   @Input() title: string;

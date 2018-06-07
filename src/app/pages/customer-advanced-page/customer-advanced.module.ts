@@ -9,6 +9,7 @@ import { CustomerInfoComponent } from './customer-advanced-customer/customer-inf
 import { CustomerInfoNotesComponent } from './customer-advanced-customer/customer-info-notes/customer-info-notes.component';
 import {FormsModule} from '@angular/forms';
 import { CustomerAdvancedTransactionsComponent } from './customer-advanced-customer/customer-advanced-transactions/customer-advanced-transactions.component';
+import { CustomerAdvancedRebillsComponent } from './customer-advanced-customer/customer-advanced-rebills/customer-advanced-rebills.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import { CustomerAdvancedTransactionsComponent } from './customer-advanced-custo
     MaterialSelectionModule,
     FormsModule
   ],
-  declarations: [CustomerAdvancedCustomerComponent, CustomerInfoComponent, CustomerInfoNotesComponent, CustomerAdvancedTransactionsComponent]
+  declarations: [CustomerAdvancedCustomerComponent, CustomerInfoComponent, CustomerInfoNotesComponent, CustomerAdvancedTransactionsComponent, CustomerAdvancedRebillsComponent]
 })
 export class CustomerAdvancedModule { }
