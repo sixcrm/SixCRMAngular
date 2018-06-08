@@ -1,14 +1,16 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {Rebill} from '../../../../shared/models/rebill.model';
-import {ColumnParams} from '../../../../shared/models/column-params.model';
-import {Customer} from '../../../../shared/models/customer.model';
-import {RebillsService} from '../../../../shared/services/rebills.service';
-import {AuthenticationService} from '../../../../authentication/authentication.service';
+import {Rebill} from '../../../shared/models/rebill.model';
+import {ColumnParams} from '../../../shared/models/column-params.model';
+import {Customer} from '../../../shared/models/customer.model';
+import {RebillsService} from '../../../shared/services/rebills.service';
+import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Router} from '@angular/router';
-import {rebillsListQuery, rebillsByCustomer} from '../../../../shared/utils/queries/entities/rebill.queries';
-import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
-import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
+import {rebillsListQuery, rebillsByCustomer} from '../../../shared/utils/queries/entities/rebill.queries';
+import {IndexQueryParameters} from '../../../shared/utils/queries/index-query-parameters.model';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {utc} from 'moment';
+import {Products} from '../../../shared/models/products.model';
+import {ShippingReceipt} from '../../../shared/models/shipping-receipt.model';
 
 @Component({
   selector: 'customer-advanced-rebills',
@@ -20,6 +22,8 @@ export class CustomerAdvancedRebillsComponent implements OnInit {
   _customer: Customer;
 
   rebills: Rebill[] = [];
+
+  selectedIndex: number = 0;
 
   @Input() set customer(customer: Customer) {
     if (customer) {
@@ -43,8 +47,7 @@ export class CustomerAdvancedRebillsComponent implements OnInit {
 
   columnParams: ColumnParams<Rebill>[] = [];
   rowColorFunction = (e: Rebill) => e.billAt.isSameOrAfter(utc()) ? '#ffffff' : '#F2F2F2';
-  options: string[] = ['Cancel Order', 'Edit Order', 'Notify User', 'View Details'];
-  bulkOptions: string[] = ['Cancel', 'Refund'];
+  options: string[] = ['Refund', 'Return', 'Notify User', 'View Details'];
 
   constructor(
     private rebillService: RebillsService,
@@ -78,6 +81,24 @@ export class CustomerAdvancedRebillsComponent implements OnInit {
     this.rebillService.entities$.take(1).subscribe(rebills => {
       if (rebills instanceof CustomServerError) return;
 
+      // const products = [
+      //   new Products({
+      //     amount: 12,
+      //     quantity: 1,
+      //     product: {id:"ea449cb1-0c47-40ed-82d7-2834de40be5d",name:"The Dalmore 21",description: "This is the finest scotch you can find","sku":"DAL-21",ship:true,shipping_delay:0,default_price:119,dynamic_pricing:null,fulfillment_provider:null,attributes:{images:[{path:"https://s3.amazonaws.com/sixcrm-staging-account-resources/11b2bb9d-ece0-4251-80f4-ba02e2329386/user/images/78b1a3b0962c685e15d65da7947edf90a1c02787.jpg",default_image:false}]},created_at:"2018-02-23T21:00:30.922Z",updated_at:"2018-03-02T17:44:37.825Z"}})
+      // ];
+      //
+      // const shippingReceipt = new ShippingReceipt({
+      //   id:"d6c96609-1d51-4263-967e-96a5671c1304",status:"pending",tracking:null, history:[{created_at:"2018-05-11T18:37:04.281Z",status:"pending",detail:"Fulfillment Provider notified."}],created_at:"2018-05-11T18:37:04.287Z",updated_at:"2018-05-11T18:37:04.287Z"
+      // });
+      //
+      // this.rebills = rebills.map(r => {
+      //   r.products = [...products, ...products];
+      //   r.shippingReceipts = [shippingReceipt];
+      //
+      //   return r;
+      // });
+
       this.rebills = rebills;
     });
 
@@ -98,4 +119,7 @@ export class CustomerAdvancedRebillsComponent implements OnInit {
     }
   }
 
+  setIndex(index: number) {
+    this.selectedIndex = index;
+  }
 }

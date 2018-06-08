@@ -1,0 +1,49 @@
+<div>
+  <mat-tab-group class="tab--no-header" [(selectedIndex)]="selectedIndex">
+
+    <mat-tab>
+      <div>
+        <div class="heading">
+
+          <div class="mrw-bi-input">
+            <mat-input-container [floatLabel]="'never'">
+              <input matInput type="text" placeholder="Filter Orders">
+            </mat-input-container>
+          </div>
+
+          <div class="number-of">{{(rebills || []).length}} Orders</div>
+
+          <div class="switcher">
+            <mat-icon class="icon" [class.icon--active]="selectedIndex === 0" (click)="setIndex(0)">view_agenda</mat-icon>
+            <mat-icon class="icon" [class.icon--active]="selectedIndex === 1" (click)="setIndex(1)">view_headline</mat-icon>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <ng-container *ngFor="let rebill of rebills">
+            <rebill-item [rebill]="rebill"></rebill-item>
+          </ng-container>
+        </div>
+      </div>
+    </mat-tab>
+
+    <mat-tab>
+      <table-memory-advanced
+        [title]="'Orders'"
+        [items]="rebills"
+        [columnParams]="columnParams"
+        [rowColorFunction]="rowColorFunction"
+        [lineBreakFunction]="lineBreakFunction"
+        [options]="options"
+        (itemClicked)="itemClicked($event)">
+
+        <div class="switcher">
+          <mat-icon class="icon" [class.icon--active]="selectedIndex === 0" (click)="setIndex(0)">view_agenda</mat-icon>
+          <mat-icon class="icon" [class.icon--active]="selectedIndex === 1" (click)="setIndex(1)">view_headline</mat-icon>
+        </div>
+
+      </table-memory-advanced>
+    </mat-tab>
+
+  </mat-tab-group>
+</div>

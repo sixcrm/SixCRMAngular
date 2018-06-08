@@ -1,7 +1,7 @@
 import {RouterModule} from '@angular/router';
-import {CustomerAdvancedCustomerComponent} from './customer-advanced-customer/customer-advanced-customer.component';
+import {CustomerAdvancedComponent} from './customer-advanced.component';
 
 export const customerAdvancedRouting = RouterModule.forChild([
-  { path : ':id', component : CustomerAdvancedCustomerComponent }
+  { path : ':id', component : CustomerAdvancedComponent }
 ]);
 

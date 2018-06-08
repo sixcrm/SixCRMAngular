@@ -1,14 +1,14 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {CreditCard} from '../../../../shared/models/credit-card.model';
-import {Customer} from '../../../../shared/models/customer.model';
+import {CreditCard} from '../../../shared/models/credit-card.model';
+import {Customer} from '../../../shared/models/customer.model';
 import {MatDialog} from '@angular/material';
-import {AddCustomerDialogComponent} from '../../../../dialog-modals/add-customer-dialog/add-customer-dialog.component';
-import {CustomersService} from '../../../../shared/services/customers.service';
-import {CardSwitcherDialogComponent} from '../../../../dialog-modals/card-switcher-dialog/card-switcher-dialog.component';
-import {AddCreditCardDialogComponent} from '../../../../dialog-modals/add-credit-card-dialog/add-credit-card-dialog.component';
-import {CreditCardsService} from '../../../../shared/services/credit-cards.service';
-import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
-import {firstIndexOf} from '../../../../shared/utils/array.utils';
+import {AddCustomerDialogComponent} from '../../../dialog-modals/add-customer-dialog/add-customer-dialog.component';
+import {CustomersService} from '../../../shared/services/customers.service';
+import {CardSwitcherDialogComponent} from '../../../dialog-modals/card-switcher-dialog/card-switcher-dialog.component';
+import {AddCreditCardDialogComponent} from '../../../dialog-modals/add-credit-card-dialog/add-credit-card-dialog.component';
+import {CreditCardsService} from '../../../shared/services/credit-cards.service';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {firstIndexOf} from '../../../shared/utils/array.utils';
 
 @Component({
   selector: 'customer-info',

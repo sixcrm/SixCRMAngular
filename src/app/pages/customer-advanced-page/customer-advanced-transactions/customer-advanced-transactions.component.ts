@@ -1,16 +1,16 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {Customer} from '../../../../shared/models/customer.model';
-import {TransactionsService} from '../../../../shared/services/transactions.service';
-import {Transaction} from '../../../../shared/models/transaction.model';
-import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
-import {ColumnParams} from '../../../../shared/models/column-params.model';
-import {AuthenticationService} from '../../../../authentication/authentication.service';
+import {Customer} from '../../../shared/models/customer.model';
+import {TransactionsService} from '../../../shared/services/transactions.service';
+import {Transaction} from '../../../shared/models/transaction.model';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {ColumnParams} from '../../../shared/models/column-params.model';
+import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Router} from '@angular/router';
 import {
   transactionsByCustomer,
   transactionsInfoListQuery
-} from '../../../../shared/utils/queries/entities/transaction.queries';
-import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
+} from '../../../shared/utils/queries/entities/transaction.queries';
+import {IndexQueryParameters} from '../../../shared/utils/queries/index-query-parameters.model';
 
 @Component({
   selector: 'customer-advanced-transactions',
@@ -78,7 +78,7 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
       this.transactions = transactions;
     });
 
-    this.transactionService.getEntities(10);
+    this.transactionService.getEntities();
   }
 
   itemClicked(option: {item: Transaction, param: ColumnParams<Transaction>}) {

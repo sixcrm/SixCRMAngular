@@ -5,6 +5,7 @@ import {Currency} from '../utils/currency/currency';
 export class Products {
   amount: Currency;
   product: Product;
+  quantity: number;
   shippingReceipt: ShippingReceipt;
 
   constructor(obj?: any) {
@@ -14,6 +15,7 @@ export class Products {
 
     this.amount = new Currency(obj.amount);
     this.product = new Product(obj.product);
+    this.quantity = obj.quantity || 0;
     this.shippingReceipt = new ShippingReceipt(obj.shippingreceipt);
   }
 
