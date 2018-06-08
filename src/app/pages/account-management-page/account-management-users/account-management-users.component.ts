@@ -141,6 +141,7 @@ export class AccountManagementUsersComponent implements OnInit, OnDestroy {
 
       if (index !== -1) {
         this.account.acls.splice(index, 1);
+        this.account.acls = this.account.acls.slice();
       }
     });
 
