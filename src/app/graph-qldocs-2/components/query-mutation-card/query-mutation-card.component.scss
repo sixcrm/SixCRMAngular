@@ -108,5 +108,18 @@
 
   &__container {
     display: flex;
+
+    .field__main {
+      width: 50%;
+    }
+  }
+
+  side-container{
+    width: 50%;
+    height: calc(100vh - 210px);
+  }
+
+  pre {
+    margin-top: 0;
   }
 }

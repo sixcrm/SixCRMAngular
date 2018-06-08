@@ -12,6 +12,7 @@ export class FormatGraphQlPipe implements PipeTransform {
     let result = '';
     let tabCounter = 0;
 
+    if (!text) return result;
 
     for (let c of text) {
       if (c === '{' || c === '(') {

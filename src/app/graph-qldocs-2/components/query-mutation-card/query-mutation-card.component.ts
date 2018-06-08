@@ -1,8 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Field} from '../../models/field.model';
-import {navigateToField} from '../../utils'
-import {environment} from '../../../../environments/environment';
 import {Type} from '../../models/type.model';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'query-mutation-card',
@@ -13,10 +12,16 @@ export class QueryMutationCardComponent implements OnInit {
 
   @Input() field: Field;
   @Input() type: Type;
+  @Input() isQuery: boolean;
+  @Input() isMutation: boolean;
 
-  showQueryDetails: boolean = false;
-
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() { }
+
+  navigateTo(): void {
+    this.router.navigate(['documentation/graph2/', this.type.name.toLowerCase(), this.field.name]);
+  }
 }

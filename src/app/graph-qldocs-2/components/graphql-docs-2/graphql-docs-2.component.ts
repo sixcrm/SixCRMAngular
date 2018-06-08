@@ -1,15 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import {GraphqlDocs2Service, HeadersInput} from '../../graphql-docs-2.service';
 import {Type} from '../../models/type.model';
 import {sortTypes, sortFields} from '../../utils';
 import {SearchItem} from '../side-search/side-search.component';
+import {ResolveEnd, Router} from "@angular/router";
+import {AsyncSubject} from "rxjs/AsyncSubject";
+import {Field} from "../../models/field.model";
+import {fieldNameString} from "aws-sdk/clients/datapipeline";
 
 @Component({
   selector: 'graphql-docs-2',
   templateUrl: './graphql-docs-2.component.html',
   styleUrls: ['./graphql-docs-2.component.scss']
 })
-export class GraphqlDocs2Component implements OnInit {
+export class GraphqlDocs2Component implements OnInit, OnDestroy {
 
   @Input() endpoint: string;
   @Input() headers: HeadersInput[];
@@ -21,9 +25,17 @@ export class GraphqlDocs2Component implements OnInit {
     {name: 'Type', children: []}
   ];
 
+  isQuery : boolean;
+  isMutation: boolean;
+  isType : boolean;
+  isAll : boolean;
   loaded: boolean = false;
+  field: Field;
+  type: Type;
 
-  constructor(private graphqlService: GraphqlDocs2Service) { }
+  protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
+
+  constructor(private graphqlService: GraphqlDocs2Service, private router: Router) { }
 
   ngOnInit() {
     this.graphqlService.getSchemaTypes(this.endpoint, this.headers).subscribe((data: Type[]) => {
@@ -50,6 +62,7 @@ export class GraphqlDocs2Component implements OnInit {
 
       this.loaded = true;
       this.graphqlService.navigateByAnchor();
+      this.determineParameters(this.router.url);
 
       let queryExamples = generateTypes(this.types, 'Query');
       for (let i = 0; i < this.types[0].fields.length; i++) {
@@ -61,6 +74,54 @@ export class GraphqlDocs2Component implements OnInit {
         this.types[1].fields[i].example = mutationExamples[i];
       }
     })
+
+    this.router.events.takeUntil(this.unsubscribe$).subscribe((routeEvent) => {
+      if (routeEvent instanceof ResolveEnd) {
+        this.determineParameters(routeEvent.url);
+      }
+    });
+
+    this.determineParameters(this.router.url);
+  }
+
+  private determineParameters(url: string) {
+    let baseUrl = '/documentation/graph2/';
+    let query = url.replace(baseUrl + 'query/', '');
+    let mutation = url.replace(baseUrl + 'mutation/', '');
+    let type = url.replace(baseUrl + 'type/', '');
+
+    this.isQuery = query !== url;
+    this.isMutation = mutation !== url;
+    this.isType = type !== url;
+    this.isAll = !this.isQuery && !this.isMutation && !this.isType;
+
+    let fieldName;
+    if (this.types && !this.isAll) {
+      this.type = this.types.find(el => {
+        let name;
+        if(this.isQuery) {
+          fieldName = query;
+          name = 'Query';
+        }
+        if(this.isMutation) {
+          fieldName = mutation;
+          name = 'Mutation';
+        }
+        if(this.isType) {
+          fieldName = type;
+          name = 'Type';
+        }
+        return el.name === name
+      });
+
+      this.field = this.type.fields.find( el => el.name === fieldName)
+    }
+
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next(true);
+    this.unsubscribe$.complete();
   }
 }
 

@@ -6,6 +6,7 @@ import {Type} from './models/type.model';
 import {HttpWrapperService} from '../shared/services/http-wrapper.service';
 import {ActivatedRoute} from '@angular/router';
 import {navigateToFieldByString} from './utils';
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 export interface HeadersInput {
   key: string;
@@ -16,6 +17,8 @@ export interface HeadersInput {
 export class GraphqlDocs2Service {
 
   hash: string;
+
+  public schemaTypes$: BehaviorSubject<Type[]>;
 
   constructor(private http: HttpWrapperService, private route: ActivatedRoute) { }
 
@@ -31,7 +34,13 @@ export class GraphqlDocs2Service {
     });
   }
 
-  getSchemaTypes(endpoint: string, headersInput: HeadersInput[]): Observable<Type[]> {
+  public fetchSchemaTypes(endpoint: string, headersInput: HeadersInput[]): void {
+    this.getSchemaTypes(endpoint, headersInput).subscribe((types) => {
+      this.schemaTypes$.next(types)
+    })
+  };
+
+  public getSchemaTypes(endpoint: string, headersInput: HeadersInput[]): Observable<Type[]> {
     return this.http.post(endpoint, getSchemaQuery(), { headers: this.generateHeaders(headersInput)})
       .map(response => response.body.response.data.__schema.types);
   }
