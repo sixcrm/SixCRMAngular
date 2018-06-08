@@ -329,7 +329,7 @@ jobs:
                     name: Run e2e merchant provider group
                     command: |
                       if [ "${CIRCLE_BRANCH}" == "development" ]; then
-                        npm run e2e.dev -- --suite merchant_provider_grouo
+                        npm run e2e.dev -- --suite merchant_provider_group
                       elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
                         npm run e2e.stage -- --suite merchant_provider_group
                       fi
