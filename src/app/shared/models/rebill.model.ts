@@ -6,6 +6,7 @@ import {Currency} from '../utils/currency/currency';
 import {Moment, utc} from 'moment'
 import {RebillStateHistory} from './rebill-state-history.model';
 import {ShippingReceipt} from './shipping-receipt.model';
+import {Products} from './products.model';
 
 export class Rebill implements Entity<Rebill> {
   id: string;
@@ -16,6 +17,7 @@ export class Rebill implements Entity<Rebill> {
   updatedAtAPI: string;
   parentSession: ParentSession;
   productSchedules: ProductSchedule[] = [];
+  products: Products[] = [];
   transactions: Transaction[] = [];
   history: RebillStateHistory[] = [];
   shippingReceipts: ShippingReceipt[] = [];
@@ -34,8 +36,13 @@ export class Rebill implements Entity<Rebill> {
     this.updatedAtAPI = obj.updated_at;
     this.parentSession = new ParentSession(obj.parentsession);
     this.state = obj.state || '';
+
     if (obj.product_schedules) {
       this.productSchedules = obj.product_schedules.map(ps => new ProductSchedule(ps));
+    }
+
+    if (obj.products) {
+      this.products = obj.products.map(p => new Products(p));
     }
 
     if (obj.transactions) {

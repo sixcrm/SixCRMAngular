@@ -1,11 +1,11 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {AnalyticsService} from '../../../../shared/services/analytics.service';
-import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
-import {Activity} from '../../../../shared/models/analytics/activity.model';
-import {Customer} from '../../../../shared/models/customer.model';
+import {AnalyticsService} from '../../../shared/services/analytics.service';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {Activity} from '../../../shared/models/analytics/activity.model';
+import {Customer} from '../../../shared/models/customer.model';
 import {utc} from 'moment';
-import {ColumnParams} from '../../../../shared/models/column-params.model';
-import {AuthenticationService} from '../../../../authentication/authentication.service';
+import {ColumnParams} from '../../../shared/models/column-params.model';
+import {AuthenticationService} from '../../../authentication/authentication.service';
 
 @Component({
   selector: 'customer-advanced-events',

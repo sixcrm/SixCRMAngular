@@ -1,11 +1,11 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {Customer} from '../../../../shared/models/customer.model';
-import {ShippingReceipt} from '../../../../shared/models/shipping-receipt.model';
-import {ColumnParams} from '../../../../shared/models/column-params.model';
-import {AuthenticationService} from '../../../../authentication/authentication.service';
+import {Customer} from '../../../shared/models/customer.model';
+import {ShippingReceipt} from '../../../shared/models/shipping-receipt.model';
+import {ColumnParams} from '../../../shared/models/column-params.model';
+import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Router} from '@angular/router';
-import {ShippingReceiptsService} from '../../../../shared/services/shipping-receipts.service';
-import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
+import {ShippingReceiptsService} from '../../../shared/services/shipping-receipts.service';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'customer-advanced-fulfillments',

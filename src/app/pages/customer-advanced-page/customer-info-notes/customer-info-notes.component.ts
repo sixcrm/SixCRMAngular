@@ -1,12 +1,12 @@
 import {Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
-import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {CustomerNotesService} from '../../../../shared/services/customer-notes.service';
-import {CustomerNote} from '../../../../shared/models/customer-note.model';
-import {Customer} from '../../../../shared/models/customer.model';
-import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
-import {customerNotesByCustomerQuery} from '../../../../shared/utils/queries/entities/customer-note.queries';
-import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
-import {scrollToBottom} from '../../../../shared/utils/document.utils';
+import {AuthenticationService} from '../../../authentication/authentication.service';
+import {CustomerNotesService} from '../../../shared/services/customer-notes.service';
+import {CustomerNote} from '../../../shared/models/customer-note.model';
+import {Customer} from '../../../shared/models/customer.model';
+import {IndexQueryParameters} from '../../../shared/utils/queries/index-query-parameters.model';
+import {customerNotesByCustomerQuery} from '../../../shared/utils/queries/entities/customer-note.queries';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {scrollToBottom} from '../../../shared/utils/document.utils';
 
 @Component({
   selector: 'customer-info-notes',

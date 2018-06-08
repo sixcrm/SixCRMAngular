@@ -1,26 +1,26 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Customer} from '../../../shared/models/customer.model';
-import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
-import {CustomersService} from '../../../shared/services/customers.service';
+import {Customer} from '../../shared/models/customer.model';
+import {AbstractEntityViewComponent} from '../abstract-entity-view.component';
+import {CustomersService} from '../../shared/services/customers.service';
 import {ActivatedRoute} from '@angular/router';
-import {NavigationService} from '../../../navigation/navigation.service';
-import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
-import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
+import {NavigationService} from '../../navigation/navigation.service';
+import {CustomServerError} from '../../shared/models/errors/custom-server-error';
+import {TabHeaderElement} from '../../shared/components/tab-header/tab-header.component';
 import {CustomerInfoNotesComponent} from './customer-info-notes/customer-info-notes.component';
 
 @Component({
-  selector: 'customer-advanced-customer',
-  templateUrl: './customer-advanced-customer.component.html',
-  styleUrls: ['./customer-advanced-customer.component.scss']
+  selector: 'customer-advanced',
+  templateUrl: './customer-advanced.component.html',
+  styleUrls: ['./customer-advanced.component.scss']
 })
-export class CustomerAdvancedCustomerComponent  extends AbstractEntityViewComponent<Customer> implements OnInit {
+export class CustomerAdvancedComponent  extends AbstractEntityViewComponent<Customer> implements OnInit {
 
   path = ['Home', 'Customers'];
 
   tabHeaders: TabHeaderElement[] = [
+    {name: 'subscriptions', label: 'SUBSCRIPTIONS'},
     {name: 'orders', label: 'ORDERS'},
     {name: 'transactions', label: 'TRANSACTIONS'},
-    {name: 'rebills', label: 'REBILLS'},
     {name: 'fulfillment', label: 'FULFILLMENT'},
     {name: 'activity', label: 'ACTIVITY'}
   ];
