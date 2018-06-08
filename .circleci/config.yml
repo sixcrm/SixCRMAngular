@@ -225,6 +225,14 @@ workflows:
               only:
                 - development
                 - staging
+      - e2e_accept_invite:
+                requires:
+                  - deploy_cloudfront
+                filters:
+                  branches:
+                    only:
+                      - development
+                      - staging
       - merge_development:
           requires:
             - deploy_cloudfront
