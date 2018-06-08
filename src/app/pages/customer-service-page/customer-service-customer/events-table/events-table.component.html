@@ -26,7 +26,7 @@
             <span class="body">
 
               <ng-container *ngFor="let word of activity.parse().template.split(' ')">
-                <ng-container *ngIf="data.values[word]; else other">
+                <ng-container *ngIf="data && data.values[word]; else other">
                   <span class="link" (click)="navigateTo(data.values[word])" *ngIf="data.values[word].id; else noLink">
                     {{data.values[word].value}}
                   </span>
