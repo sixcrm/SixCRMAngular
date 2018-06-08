@@ -56,7 +56,7 @@ describe('Login', function() {
     // Wait for angular is disabled, so we need to tell protractor to wait for page to load
     browser.sleep(2000);
     doTOSCheck();
-    browser.sleep(1200);
+    browser.sleep(1500);
     waitForUrlContains('customers');
     expectUrlToContain('/customers');
   });
@@ -74,13 +74,13 @@ describe('Login', function() {
   it ('should display Auth0 lock and navigate to / when user logs out', () => {
     navigateSuperuserToHomepage();
     browser.waitForAngularEnabled(false);
-    browser.sleep(2000);
+    browser.sleep(1000);
     doTOSCheck();
     browser.sleep(2000);
     dashboardPage.getCollapsedMenuButton().click();
     browser.sleep(600);
     dashboardPage.getCollapsedMenuItems().last().click();
-    browser.sleep(1000);
+    browser.sleep(1500);
     expectPresent(authPage.getAuth0Lock());
 
   });

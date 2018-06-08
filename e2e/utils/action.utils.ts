@@ -2,7 +2,7 @@ import {AuthPage} from '../po/auth.po';
 import {DashboardPage} from '../po/dashboard.po';
 import {expectUrlToContain} from './assertation.utils';
 import {waitForUrlContains, waitForPresenceOfLoginFields} from './navigation.utils';
-import {browser} from 'protractor';
+import {browser, element, by, ExpectedConditions} from 'protractor';
 
 let username = 'e2e-test-admin@sixcrm.com';
 let password = '123456789';
@@ -45,12 +45,13 @@ export function login(user?: boolean) {
 export function doTOSCheck() {
   browser.sleep(1500);
   dashboardPage.getTOSButton().click().then(function() {
-      browser.sleep(500);
+      browser.sleep(900);
       dashboardPage.getTOSButton().click();
       console.log('Found a TOS button');
-      browser.sleep(1000);
+      browser.sleep(1500);
+      console.log('TOS button found');
     },
     function(err) {
-      console.log('No TOS button found');
-  });
+    console.log('No TOS button found');
+    });
 }
