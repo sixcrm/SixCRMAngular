@@ -87,7 +87,7 @@ export class AccountManagementUsersComponent implements OnInit, OnDestroy {
     this.rolesSharedService.entities$.take(1).subscribe(roles => {
       if (roles instanceof CustomServerError) return;
 
-      this.sharedRoles = roles.filter(r => this.rolesSharedService.isRoleAvailable(r));
+      this.sharedRoles = roles.filter(r => !r.isOwner() && this.rolesSharedService.isRoleAvailable(r));
     });
 
     this.accountService.getEntity(this.authService.getActiveAccount().id);

@@ -43,23 +43,23 @@ export class Role implements Entity<Role> {
   }
 
   isOwner(): boolean {
-    return this.name === 'Owner';
+    return this.id === 'cae614de-ce8a-40b9-8137-3d3bdff78039';
   }
 
   isDisabled(): boolean {
-    return this.name === 'Disabled';
+    return this.name === '78e507dd-93fc-413b-b21a-819480209740';
   }
 
   isAdmin(): boolean {
-    return this.name === 'Administrator';
+    return this.name === 'e09ac44b-6cde-4572-8162-609f6f0aeca8';
   }
 
   isNoPermissions(): boolean {
-    return this.name === 'No Permissions';
+    return this.name === '6341d12d-4c36-4717-bf6d-1d0cbebe63d8';
   }
 
   isCustomerService(): boolean {
-    return this.name === 'Customer Service';
+    return this.name === '1116c054-42bb-4bf5-841e-ee0c413fa69e';
   }
 
   copy(): Role {

@@ -1,22 +1,28 @@
-<div class="roles__input" [matMenuTriggerFor]="rolesMenu">
+<div *ngIf="!canChange(); else changeable" class="roles__input">
   <div>{{acl.role.name}}</div>
-  <mat-icon class="roles__input__arrow">keyboard_arrow_down</mat-icon>
 </div>
-<mat-menu #rolesMenu="matMenu" x-position="before">
-  <button class="menu-button" *ngFor="let sharedRole of sharedRoles" mat-menu-item (click)="updateAclRole(acl, sharedRole)">
-    <div class="check-container">
-      <mat-icon class="check-container__icon" *ngIf="sharedRole.id === acl.role.id">done</mat-icon>
-    </div>
-    <div>{{sharedRole.name}}</div>
-    <img src="/assets/images/logo-navigation-small.svg" alt="">
-  </button>
 
-  <div class="separator"></div>
+<ng-template #changeable>
+  <div class="roles__input" [matMenuTriggerFor]="rolesMenu">
+    <div>{{acl.role.name}}</div>
+    <mat-icon class="roles__input__arrow">keyboard_arrow_down</mat-icon>
+  </div>
+  <mat-menu #rolesMenu="matMenu" x-position="before">
+    <button class="menu-button" *ngFor="let sharedRole of sharedRoles" mat-menu-item (click)="updateAclRole(acl, sharedRole)">
+      <div class="check-container">
+        <mat-icon class="check-container__icon" *ngIf="sharedRole.id === acl.role.id">done</mat-icon>
+      </div>
+      <div>{{sharedRole.name}}</div>
+      <img src="/assets/images/logo-navigation-small.svg" alt="">
+    </button>
 
-  <button class="menu-button" *ngFor="let role of roles" mat-menu-item (click)="updateAclRole(acl, role)">
-    <div class="check-container">
-      <mat-icon class="check-container__icon" *ngIf="role.id === acl.role.id">done</mat-icon>
-    </div>
-    <div>{{role.name}}</div>
-  </button>
-</mat-menu>
+    <div class="separator"></div>
+
+    <button class="menu-button" *ngFor="let role of roles" mat-menu-item (click)="updateAclRole(acl, role)">
+      <div class="check-container">
+        <mat-icon class="check-container__icon" *ngIf="role.id === acl.role.id">done</mat-icon>
+      </div>
+      <div>{{role.name}}</div>
+    </button>
+  </mat-menu>
+</ng-template>

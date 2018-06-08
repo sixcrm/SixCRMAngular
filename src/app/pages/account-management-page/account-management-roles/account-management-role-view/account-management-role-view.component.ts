@@ -79,7 +79,7 @@ export class AccountManagementRoleViewComponent implements OnInit {
 
       this.acls = account.acls;
       this.roleAcls = this.acls.filter(acl => acl.role.id === this.entityId);
-      this.otherAcls = this.acls.filter(acl => acl.role.id !== this.entityId);
+      this.otherAcls = this.acls.filter(acl => this.isOtherAcl(acl));
     });
 
     this.service.entities$.take(1).subscribe(roles => {
@@ -91,7 +91,7 @@ export class AccountManagementRoleViewComponent implements OnInit {
     this.sharedService.entities$.take(1).subscribe(roles => {
       if (roles instanceof CustomServerError) return;
 
-      this.sharedRoles = roles.filter(r => this.sharedService.isRoleAvailable(r));
+      this.sharedRoles = roles.filter(r => !r.isOwner() && this.sharedService.isRoleAvailable(r));
     });
 
     this.service.entity$.take(1).subscribe(role => {
@@ -270,7 +270,7 @@ export class AccountManagementRoleViewComponent implements OnInit {
       if (index !== -1)  {
         this.acls[index] = updatedAcl;
         this.roleAcls = this.acls.filter(acl => acl.role.id === this.entityId);
-        this.otherAcls = this.acls.filter(acl => acl.role.id !== this.entityId);
+        this.otherAcls = this.acls.filter(acl => this.isOtherAcl(acl));
       }
     });
 
@@ -306,7 +306,7 @@ export class AccountManagementRoleViewComponent implements OnInit {
         if (index !== -1)  {
           this.acls[index] = updatedAcl;
           this.roleAcls = this.acls.filter(acl => acl.role.id === this.entityId);
-          this.otherAcls = this.acls.filter(acl => acl.role.id !== this.entityId);
+          this.otherAcls = this.acls.filter(acl => this.isOtherAcl(acl));
           this.aclsRoleToBeChanged = this.aclsRoleToBeChanged.filter(acl => acl.id !== updatedAcl.id);
         }
       });
@@ -321,5 +321,11 @@ export class AccountManagementRoleViewComponent implements OnInit {
 
   shouldAclRoleBeChanged(acl: Acl) {
     return firstIndexOf(this.aclsRoleToBeChanged, (el) => acl.id === el.id) !== -1;
+  }
+
+  private isOtherAcl(acl) {
+    return acl.id !== this.authService.getActiveAcl().id
+      && !acl.role.isOwner()
+      && acl.role.id !== this.entityId
   }
 }

@@ -108,7 +108,7 @@
 
       <div class="grid-container" [class.grid-container--partial]="usersEditMode">
         <div class="header">
-          <button mat-button (click)="usersEditMode = !usersEditMode">TOGGLE ADD USERS</button>
+          <button *ngIf="role && !role.isOwner()" mat-button (click)="usersEditMode = !usersEditMode">TOGGLE ADD USERS</button>
 
           <div class="mrw-bi-input">
             <mat-input-container [floatLabel]="'never'">
