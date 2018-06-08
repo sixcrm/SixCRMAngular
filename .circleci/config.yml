@@ -159,6 +159,181 @@ jobs:
                 npm run e2e.stage -- --suite invite
               fi
             no_output_timeout: 20m
+  e2e_login:
+        <<: *job-defaults
+        steps:
+          - checkout
+          - restore_cache:
+              key: dependency-cache-{{ checksum "package-lock.json" }}
+          - run:
+              name: Install Chrome
+              command: |
+                wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+                sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+                sudo apt-get update
+                sudo apt-get -y install google-chrome-stable
+          - run:
+              name: Update webdriver
+              command: npm run pree2e
+          - run:
+              name: Run e2e login
+              command: |
+                if [ "${CIRCLE_BRANCH}" == "development" ]; then
+                  npm run e2e.dev -- --suite login
+                elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
+                  npm run e2e.stage -- --suite login
+                fi
+              no_output_timeout: 20m
+  e2e_navigation:
+          <<: *job-defaults
+          steps:
+            - checkout
+            - restore_cache:
+                key: dependency-cache-{{ checksum "package-lock.json" }}
+            - run:
+                name: Install Chrome
+                command: |
+                  wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+                  sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+                  sudo apt-get update
+                  sudo apt-get -y install google-chrome-stable
+            - run:
+                name: Update webdriver
+                command: npm run pree2e
+            - run:
+                name: Run e2e navigation
+                command: |
+                  if [ "${CIRCLE_BRANCH}" == "development" ]; then
+                    npm run e2e.dev -- --suite navigation
+                  elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
+                    npm run e2e.stage -- --suite navigation
+                  fi
+                no_output_timeout: 20m
+  e2e_campaign:
+            <<: *job-defaults
+            steps:
+              - checkout
+              - restore_cache:
+                  key: dependency-cache-{{ checksum "package-lock.json" }}
+              - run:
+                  name: Install Chrome
+                  command: |
+                    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+                    sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+                    sudo apt-get update
+                    sudo apt-get -y install google-chrome-stable
+              - run:
+                  name: Update webdriver
+                  command: npm run pree2e
+              - run:
+                  name: Run e2e campaign
+                  command: |
+                    if [ "${CIRCLE_BRANCH}" == "development" ]; then
+                      npm run e2e.dev -- --suite campaign
+                    elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
+                      npm run e2e.stage -- --suite campaign
+                    fi
+                  no_output_timeout: 20m
+  e2e_product:
+            <<: *job-defaults
+            steps:
+              - checkout
+              - restore_cache:
+                  key: dependency-cache-{{ checksum "package-lock.json" }}
+              - run:
+                  name: Install Chrome
+                  command: |
+                    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+                    sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+                    sudo apt-get update
+                    sudo apt-get -y install google-chrome-stable
+              - run:
+                  name: Update webdriver
+                  command: npm run pree2e
+              - run:
+                  name: Run e2e product
+                  command: |
+                    if [ "${CIRCLE_BRANCH}" == "development" ]; then
+                      npm run e2e.dev -- --suite product
+                    elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
+                      npm run e2e.stage -- --suite product
+                    fi
+                  no_output_timeout: 20m
+  e2e_product_schedule:
+            <<: *job-defaults
+            steps:
+              - checkout
+              - restore_cache:
+                  key: dependency-cache-{{ checksum "package-lock.json" }}
+              - run:
+                  name: Install Chrome
+                  command: |
+                    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+                    sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+                    sudo apt-get update
+                    sudo apt-get -y install google-chrome-stable
+              - run:
+                  name: Update webdriver
+                  command: npm run pree2e
+              - run:
+                  name: Run e2e product schedule
+                  command: |
+                    if [ "${CIRCLE_BRANCH}" == "development" ]; then
+                      npm run e2e.dev -- --suite product_schedule
+                    elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
+                      npm run e2e.stage -- --suite product_schedule
+                    fi
+                  no_output_timeout: 20m
+  e2e_merchant_provider:
+            <<: *job-defaults
+            steps:
+              - checkout
+              - restore_cache:
+                  key: dependency-cache-{{ checksum "package-lock.json" }}
+              - run:
+                  name: Install Chrome
+                  command: |
+                    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+                    sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+                    sudo apt-get update
+                    sudo apt-get -y install google-chrome-stable
+              - run:
+                  name: Update webdriver
+                  command: npm run pree2e
+              - run:
+                  name: Run e2e merchant provider
+                  command: |
+                    if [ "${CIRCLE_BRANCH}" == "development" ]; then
+                      npm run e2e.dev -- --suite merchant_provider
+                    elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
+                      npm run e2e.stage -- --suite merchant_provider
+                    fi
+                  no_output_timeout: 20m
+  e2e_merchant_provider_group:
+              <<: *job-defaults
+              steps:
+                - checkout
+                - restore_cache:
+                    key: dependency-cache-{{ checksum "package-lock.json" }}
+                - run:
+                    name: Install Chrome
+                    command: |
+                      wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+                      sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+                      sudo apt-get update
+                      sudo apt-get -y install google-chrome-stable
+                - run:
+                    name: Update webdriver
+                    command: npm run pree2e
+                - run:
+                    name: Run e2e merchant provider group
+                    command: |
+                      if [ "${CIRCLE_BRANCH}" == "development" ]; then
+                        npm run e2e.dev -- --suite merchant_provider_grouo
+                      elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
+                        npm run e2e.stage -- --suite merchant_provider_group
+                      fi
+                    no_output_timeout: 20m
   merge_development:
     <<: *job-defaults
     steps:
@@ -238,6 +413,13 @@ workflows:
             - deploy_cloudfront
             - e2e_register
             - e2e_accept_invite
+            - e2e_login
+            - e2e_navigation
+            - e2e_campaign
+            - e2e_product
+            - e2e_product_schedule
+            - e2e_merchant_provider
+            - e2e_merchant_provider_group
           filters:
             branches:
               only:
