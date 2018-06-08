@@ -30,9 +30,9 @@
         </tbody>
       </table>
 
-      <div class="field__example" *ngIf="!showQueryDetails">{{field.example}}</div>
+      <pre class="field__example" *ngIf="!showQueryDetails">{{field.example | formatGraphQl}}</pre>
     </div>
 
-    <side-container *ngIf="showQueryDetails" [example]="field.example"></side-container>
+    <side-container *ngIf="showQueryDetails" [example]="field.example | formatGraphQl"></side-container>
   </div>
 </div>

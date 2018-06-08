@@ -11,6 +11,7 @@ import { SideSearchComponent } from './components/side-search/side-search.compon
 import { SideContainerComponent } from './components/side-container/side-container.component';
 import {ClipboardModule} from 'ngx-clipboard';
 import {MaterialSelectionModule} from '../material-selection/material-selection.module';
+import {FormatGraphQlPipe} from "./pipes/format-graphql.pipe";
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import {MaterialSelectionModule} from '../material-selection/material-selection.
     FilterSearchItemsPipe,
     SideSearchComponent,
     TypeCardComponent,
-    SideContainerComponent
+    SideContainerComponent,
+    FormatGraphQlPipe
   ],
   providers: [
     GraphqlDocs2Service
