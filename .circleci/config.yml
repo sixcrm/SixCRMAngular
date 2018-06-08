@@ -109,7 +109,7 @@ jobs:
       - run:
           name: Add/Update CloudFront Distribution
           command: node libs/deployment_scripts/src/deploy-cloudfront.js deployment/deploy-config.json
-  run_e2e:
+  e2e_register:
     <<: *job-defaults
     steps:
       - checkout
@@ -126,14 +126,39 @@ jobs:
           name: Update webdriver
           command: npm run pree2e
       - run:
-          name: Run e2e
+          name: Run e2e register
           command: |
             if [ "${CIRCLE_BRANCH}" == "development" ]; then
-              npm run e2e.dev
+              npm run e2e.dev -- --suite register
             elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
-              npm run e2e.stage
+              npm run e2e.stage -- --suite register
             fi
           no_output_timeout: 20m
+  e2e_accept_invite:
+      <<: *job-defaults
+      steps:
+        - checkout
+        - restore_cache:
+            key: dependency-cache-{{ checksum "package-lock.json" }}
+        - run:
+            name: Install Chrome
+            command: |
+              wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+              sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+              sudo apt-get update
+              sudo apt-get -y install google-chrome-stable
+        - run:
+            name: Update webdriver
+            command: npm run pree2e
+        - run:
+            name: Run e2e accept invite
+            command: |
+              if [ "${CIRCLE_BRANCH}" == "development" ]; then
+                npm run e2e.dev -- --suite invite
+              elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
+                npm run e2e.stage -- --suite invite
+              fi
+            no_output_timeout: 20m
   merge_development:
     <<: *job-defaults
     steps:
@@ -192,7 +217,7 @@ workflows:
       - deploy_cloudfront:
           requires:
             - deploy_s3
-      - run_e2e:
+      - e2e_register:
           requires:
             - deploy_cloudfront
           filters:
@@ -203,7 +228,8 @@ workflows:
       - merge_development:
           requires:
             - deploy_cloudfront
-            - run_e2e
+            - e2e_register
+            - e2e_accept_invite
           filters:
             branches:
               only:
