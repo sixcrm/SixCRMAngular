@@ -401,6 +401,62 @@ workflows:
                 - development
                 - staging
       - e2e_accept_invite:
+          requires:
+            - deploy_cloudfront
+          filters:
+            branches:
+              only:
+                - development
+                - staging
+      - e2e_login:
+          requires:
+            - deploy_cloudfront
+          filters:
+            branches:
+              only:
+                - development
+                - staging
+      - e2e_navigation:
+          requires:
+            - deploy_cloudfront
+          filters:
+            branches:
+              only:
+                - development
+                - staging
+      - e2e_campaign:
+          requires:
+            - deploy_cloudfront
+          filters:
+            branches:
+              only:
+                - development
+                - staging
+      - e2e_product:
+          requires:
+            - deploy_cloudfront
+          filters:
+            branches:
+              only:
+                - development
+                - staging
+      - e2e_product_schedule:
+                requires:
+                  - deploy_cloudfront
+                filters:
+                  branches:
+                    only:
+                      - development
+                      - staging
+      - e2e_merchant_provider:
+                requires:
+                  - deploy_cloudfront
+                filters:
+                  branches:
+                    only:
+                      - development
+                      - staging
+      - e2e_merchant_provider_group:
                 requires:
                   - deploy_cloudfront
                 filters:
