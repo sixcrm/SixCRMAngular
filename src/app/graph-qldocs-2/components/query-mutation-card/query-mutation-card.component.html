@@ -9,10 +9,10 @@
         </div>
       </div>
 
-      <div class="table__title">Arguments</div>
+      <div *ngIf="field.args.length > 0" class="table__title">Arguments</div>
       <table>
         <thead>
-        <tr>
+        <tr *ngIf="field.args.length > 0">
           <th>Argument</th>
           <th>Type</th>
         </tr>
