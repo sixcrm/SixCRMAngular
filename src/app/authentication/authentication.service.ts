@@ -519,8 +519,7 @@ export class AuthenticationService {
   }
 
   private shouldRedirectToDashboard(): boolean {
-    return this.router.url === '/'
-      || (this.router.url || '').indexOf('acceptinvite/') !== -1;
+    return this.router.url === '/';
   }
 
   private getUserIntrospectionExternal(redirect: string): void {

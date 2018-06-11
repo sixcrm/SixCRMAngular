@@ -15,18 +15,10 @@ export class AuthGuard implements CanActivate {
       return false;
     }
 
-    if (this.isLandingOnDashboardCorrectly(state)) {
-      return true;
-    }
-
     if (this.authService.authenticated()) {
       return true;
     }
 
     this.authService.logout(state.url);
-  }
-
-  isLandingOnDashboardCorrectly(state: RouterStateSnapshot) {
-    return state.url.indexOf('/dashboard') !== -1 && this.authService.authenticated()
   }
 }

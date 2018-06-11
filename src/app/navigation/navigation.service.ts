@@ -21,7 +21,6 @@ export class NavigationService {
   private _currentRoute: Subject<string> = new BehaviorSubject(null);
   private _windowSize: Subject<number> = new BehaviorSubject(NavigationService.largeViewportWidth);
   private _showSidenav: Subject<boolean> = new BehaviorSubject(this.largeScreen);
-  private _isRouteLoading: Subject<boolean> = new BehaviorSubject(true);
   private _showNotifications: Subject<boolean> = new BehaviorSubject(false);
   private _showCreateNewOrderModal: Subject<boolean> = new BehaviorSubject(false);
   private _showProcessingOrderOverlay: Subject<boolean> = new BehaviorSubject(false);
@@ -109,14 +108,6 @@ export class NavigationService {
     this._showNotifications.next(visible);
   }
 
-  public get isRouteLoading(): Subject<boolean> {
-    return this._isRouteLoading;
-  }
-
-  public setIsRouteLoading(isRouteLoading: boolean): void {
-    this._isRouteLoading.next(isRouteLoading);
-  }
-
   public get showCreateNewOrderModal(): Subject<boolean> {
     return this._showCreateNewOrderModal;
   }
@@ -173,7 +164,6 @@ export class NavigationService {
 
   public revertLocation(): void {
     this.location.go(this.latestPath || '/');
-    this.setIsRouteLoading(false);
   }
 
   public forward(): void {

@@ -19,13 +19,11 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this._router.events.subscribe((event: Event) => {
       if(event instanceof NavigationStart) {
-        this._navigation.setIsRouteLoading(true);
         if(this._navigation.mediumScreenAndDown) {
           this._navigation.toggleSidenav(false); // Hide nav on initial load if smaller than large screen
         }
       } else if(event instanceof NavigationEnd) {
         this._navigation.setCurrentRoute((<NavigationEnd>event).urlAfterRedirects);
-        this._navigation.setIsRouteLoading(false);
         let routerOutletComponent: HTMLElement = this._elementRef.nativeElement.getElementsByTagName('app-topnav')[0];
         if(routerOutletComponent) {
           routerOutletComponent.scrollIntoView(); // Scroll back to top after route change

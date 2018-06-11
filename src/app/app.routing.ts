@@ -14,7 +14,7 @@ const appRoutes: Routes = [
   { path : 'payment', loadChildren : './payment/payment.module#PaymentModule', canActivate: [AuthGuard] },
   { path : '404', component : ErrorPageStandaloneComponent },
   { path : '', component : DefaultLayoutComponent, children : [
-    { path : '', loadChildren : './pages/search-page/search.module#SearchModule', canActivate: [AuthGuard] },
+    { path : 'search', loadChildren : './pages/search-page/search.module#SearchModule', canActivate: [AuthGuard] },
     { path : 'dashboard', loadChildren : './pages/dashboard-page/dashboard.module#DashboardModule', canActivate: [AuthGuard] },
     { path : 'state-machine',
       loadChildren : './pages/state-machine-page/state-machine.module#StateMachineModule', canActivate: [AuthGuard] },
