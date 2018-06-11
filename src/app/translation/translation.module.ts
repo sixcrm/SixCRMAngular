@@ -4,10 +4,12 @@ import { TranslationPipe } from './translation.pipe';
 import {TranslationService} from './translation.service';
 import {NumberLocalePipe} from './number-locale.pipe';
 import { DefaultTranslationService } from './default-translation.service';
+import {FeatureFlagService} from "../authentication/feature-flag.service";
+import {FeatureFlags} from "../shared/models/feature-flags.model";
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports: [
     TranslationPipe,
@@ -15,10 +17,11 @@ import { DefaultTranslationService } from './default-translation.service';
   ],
   declarations: [
     TranslationPipe,
-    NumberLocalePipe,
+    NumberLocalePipe
   ],
   providers : [
-    DefaultTranslationService
+    DefaultTranslationService,
+    FeatureFlagService
   ]
 })
 export class TranslationModule {

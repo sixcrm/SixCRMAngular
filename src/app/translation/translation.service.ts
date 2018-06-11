@@ -7,6 +7,7 @@ import {Notification} from '../shared/models/notification.model';
 import {TranslatedQuote} from "./translated-quote.model";
 import {utc} from 'moment';
 import { DefaultTranslationService } from './default-translation.service';
+import {FeatureFlagService} from "../authentication/feature-flag.service";
 
 export interface LanguageDefinition {
   name: string,
@@ -36,7 +37,8 @@ export class TranslationService {
 
   constructor(
     private authService: AuthenticationService,
-    private http: HttpClient
+    private http: HttpClient,
+    private featureFlagService: FeatureFlagService
   ) {
     this.loadTemporaryTranslations();
     this.fetchLanguages();
@@ -65,7 +67,9 @@ export class TranslationService {
   }
 
   getLanguages(): string[] {
-    return this.allDefinitions.map(l => l.name);
+    return this.allDefinitions
+      .map(l => l.name)
+      .filter(l => this.featureFlagService.isEnabled(`user-settings-languages|${l.toLowerCase()}`));
   }
 
   updateTranslation(language?: string) {
