@@ -64,6 +64,7 @@ export function merchantProviderResponseQuery(): string {
       ... on Innovio { name type username password product_id }
       ... on Stripe {name type api_key}
       ... on AuthorizeNet {name type api_key transaction_key}
+      ... on PaymentXP {name type username password merchant_id merchant_key}
     }
     customer_service { email url description phone }`
 }
@@ -98,11 +99,13 @@ export function merchantProviderInputQuery(provider: MerchantProvider, includeId
       name:"${provider.gateway.getType()}",
       type:"${provider.gateway.getType()}",
       ${provider.gateway.isNMI() ? `processor_id:"${provider.gateway.processorId}",` : provider.gateway.isInnovio() ? `product_id: "${provider.gateway.productId}",` : ''}
-      ${provider.gateway.isNMI() || provider.gateway.isInnovio() ? `username:"${provider.gateway.username}",` : ''}
-      ${provider.gateway.isNMI() || provider.gateway.isInnovio() ? `password:"${provider.gateway.password}",` : ''}
+      ${provider.gateway.isNMI() || provider.gateway.isInnovio() || provider.gateway.isPaymentXP() ? `username:"${provider.gateway.username}",` : ''}
+      ${provider.gateway.isNMI() || provider.gateway.isInnovio() || provider.gateway.isPaymentXP() ? `password:"${provider.gateway.password}",` : ''}
       ${provider.gateway.isStripe() ? `api_key:"${provider.gateway.apiKey}",` : ''}
       ${provider.gateway.isAuthorizeNet() ? `api_key:"${provider.gateway.apiKey}",` : ''}
       ${provider.gateway.isAuthorizeNet() ? `transaction_key:"${provider.gateway.transactionKey}",` : ''}
+      ${provider.gateway.isPaymentXP() ? `merchant_id:"${provider.gateway.merchantId}",` : ''}
+      ${provider.gateway.isPaymentXP() ? `merchant_key:"${provider.gateway.merchantKey}",` : ''}
     },
     customer_service:{
       ${provider.customerService.email ? `email: "${provider.customerService.email}",` : ''}

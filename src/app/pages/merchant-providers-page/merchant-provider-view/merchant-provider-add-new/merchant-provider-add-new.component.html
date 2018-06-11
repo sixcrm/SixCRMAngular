@@ -99,11 +99,11 @@
           <input [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_PRODUCTID' | translate}}" name="productId" [(ngModel)]="entity.gateway.productId" type="text">
         </mat-input-container>
 
-        <mat-input-container *ngIf="entity.gateway.isNMI() || entity.gateway.isInnovio()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.username && (entity.gateway.isNMI() || entity.gateway.isInnovio())">
+        <mat-input-container *ngIf="entity.gateway.isNMI() || entity.gateway.isInnovio() || entity.gateway.isPaymentXP()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.username && (entity.gateway.isNMI() || entity.gateway.isInnovio())">
           <input [required]="entity.gateway.isNMI() || entity.gateway.isInnovio()" [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_USERNAME' | translate}}" name="username" [(ngModel)]="entity.gateway.username" type="text">
         </mat-input-container>
 
-        <mat-input-container *ngIf="entity.gateway.isNMI() || entity.gateway.isInnovio()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.password && (entity.gateway.isNMI() || entity.gateway.isInnovio())">
+        <mat-input-container *ngIf="entity.gateway.isNMI() || entity.gateway.isInnovio() || entity.gateway.isPaymentXP()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.password && (entity.gateway.isNMI() || entity.gateway.isInnovio())">
           <input [required]="entity.gateway.isNMI() || entity.gateway.isInnovio()" [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_PASSWORD' | translate}}" name="password" [(ngModel)]="entity.gateway.password" type="text">
         </mat-input-container>
 
@@ -117,6 +117,14 @@
 
         <mat-input-container *ngIf="entity.gateway.isAuthorizeNet()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.transactionKey">
           <input required [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_TRANSACTIONKEY' | translate}}" name="transactionkey" [(ngModel)]="entity.gateway.transactionKey" type="text">
+        </mat-input-container>
+
+        <mat-input-container *ngIf="entity.gateway.isPaymentXP()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.merchantId">
+          <input required [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_MERCHANTID' | translate}}" name="merchantid" [(ngModel)]="entity.gateway.merchantId" type="text">
+        </mat-input-container>
+
+        <mat-input-container *ngIf="entity.gateway.isPaymentXP()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.merchantKey">
+          <input required [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_MERCHANTKEY' | translate}}" name="merchantkey" [(ngModel)]="entity.gateway.merchantKey" type="text">
         </mat-input-container>
       </ng-container>
     </div>

@@ -4,6 +4,7 @@ export enum MerchantProviderGatewayType {
   Test,
   Stripe,
   AuthorizeNet,
+  PaymentXP,
   Other
 }
 
@@ -17,6 +18,8 @@ export class MerchantProviderGateway {
   password: string;
   apiKey: string;
   transactionKey: string;
+  merchantId: string;
+  merchantKey: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -32,6 +35,8 @@ export class MerchantProviderGateway {
     this.password = obj.password || '';
     this.apiKey = obj.api_key || '';
     this.transactionKey = obj.transaction_key || '';
+    this.merchantId = obj.merchant_id || '';
+    this.merchantKey = obj.merchant_key || '';
   }
 
   isNMI() {
@@ -54,8 +59,12 @@ export class MerchantProviderGateway {
     return this.type === MerchantProviderGatewayType.AuthorizeNet;
   }
 
+  isPaymentXP() {
+    return this.type === MerchantProviderGatewayType.PaymentXP;
+  }
+
   isTypeSelected() {
-    return this.isTest() || this.isInnovio() || this.isNMI() || this.isStripe() || this.isAuthorizeNet();
+    return this.isTest() || this.isInnovio() || this.isNMI() || this.isStripe() || this.isAuthorizeNet() || this.isPaymentXP();
   }
 
   getType() {
@@ -74,6 +83,8 @@ export class MerchantProviderGateway {
     if (this.isAuthorizeNet())
       return 'AuthorizeNet';
 
+    if (this.isPaymentXP())
+      return 'PaymentXP';
 
     return '';
   }
@@ -89,6 +100,8 @@ export class MerchantProviderGateway {
       this.type = MerchantProviderGatewayType.Stripe;
     else if (type === 'AuthorizeNet')
       this.type = MerchantProviderGatewayType.AuthorizeNet;
+    else if (type === 'PaymentXP')
+      this.type = MerchantProviderGatewayType.PaymentXP;
     else
       this.type = MerchantProviderGatewayType.Other;
   }
@@ -106,7 +119,9 @@ export class MerchantProviderGateway {
       username: this.username,
       password: this.password,
       api_key: this.apiKey,
-      transaction_key: this.transactionKey
+      transaction_key: this.transactionKey,
+      merchant_id: this.merchantId,
+      merchant_key: this.merchantKey
     }
   }
 }
