@@ -24,4 +24,9 @@ export class QueryMutationCardComponent implements OnInit {
   navigateTo(): void {
     this.router.navigate(['documentation/graph2/', this.type.name.toLowerCase(), this.field.name]);
   }
+
+  navigateToType(): void {
+    let fieldName = this.field.type.name || this.field.type.ofType.name || this.field.type.ofType.ofType.name;
+    this.router.navigate(['documentation/graph2/type', fieldName]);
+  }
 }

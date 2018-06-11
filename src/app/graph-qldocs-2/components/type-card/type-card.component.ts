@@ -23,6 +23,11 @@ export class TypeCardComponent implements OnInit {
     this.router.navigate(['documentation/graph2/type', this.type.name]);
   }
 
+  navigateToType(arg: Field): void {
+    let fieldName = arg.type.name || arg.type.ofType.name || arg.type.ofType.ofType.name;
+    this.router.navigate(['documentation/graph2/type', fieldName]);
+  }
+
   showProperties() {
     if (this.type.fields) {
       return this.type.fields.length > 0
