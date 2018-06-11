@@ -5,7 +5,7 @@
         <div class="type__name">{{type.name}}</div>
         <div class="field__name">
           <div id="{{field.name}}">{{field.name}}</div>
-          <mat-icon class="link" matTooltip="" ngxClipboard (click)="navigateTo()">link</mat-icon>
+          <mat-icon *ngIf="!(isQuery || isMutation)" class="link" matTooltip="" ngxClipboard (click)="navigateTo()">link</mat-icon>
         </div>
       </div>
 
