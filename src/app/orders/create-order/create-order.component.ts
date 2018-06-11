@@ -131,7 +131,7 @@ export class CreateOrderComponent implements OnInit {
     this.campaignService.entities$.take(1).subscribe((campaigns) => {
       if (campaigns instanceof CustomServerError) return;
 
-      const numberOfCampaigns = campaigns.length === 0;
+      const numberOfCampaigns = campaigns.length;
 
       if (numberOfCampaigns === 0) {
         this.hasNoCampaigns = true;
