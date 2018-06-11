@@ -28,6 +28,8 @@ import {countryCode, stateCode, getCountries, getStates} from '../../shared/util
 import {CheckoutResponse} from '../../shared/models/checkout-response.model';
 import {SnackbarService} from '../../shared/services/snackbar.service';
 import {SearchService} from '../../shared/services/search.service';
+import {CampaignsService} from '../../shared/services/campaigns.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'create-order',
@@ -46,6 +48,7 @@ export class CreateOrderComponent implements OnInit {
 
   selectedCampaign: Campaign;
   campaigns: Campaign[] = [];
+  hasNoCampaigns: boolean;
 
   selectedProducts: (Product | ProductSchedule)[] = [];
   productFilterValue: string;
@@ -100,10 +103,12 @@ export class CreateOrderComponent implements OnInit {
     private customerService: CustomersService,
     private productService: ProductsService,
     private productScheduleService: ProductScheduleService,
+    private campaignService: CampaignsService,
     private transactionalAPI: HttpWrapperTransactionalService,
     private navigationService: NavigationService,
     private snackService: SnackbarService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -123,6 +128,20 @@ export class CreateOrderComponent implements OnInit {
       this.campaignSearchSub = this.searchService.searchCampaigns(value).subscribe(campaigns => this.campaigns = campaigns);
     });
 
+    this.campaignService.entities$.take(1).subscribe((campaigns) => {
+      if (campaigns instanceof CustomServerError) return;
+
+      const numberOfCampaigns = campaigns.length === 0;
+
+      if (numberOfCampaigns === 0) {
+        this.hasNoCampaigns = true;
+      }
+
+      if (numberOfCampaigns === 1) {
+        this.selectedCampaign = campaigns[0];
+      }
+    });
+
     this.productService.entities$.take(1).merge(this.productScheduleService.entities$.take(1)).subscribe(products => {
       if (products instanceof CustomServerError) return;
 
@@ -139,6 +158,7 @@ export class CreateOrderComponent implements OnInit {
       this.shippings = shippings;
     });
 
+    this.campaignService.getEntities(2);
     this.productService.getEntities();
     this.productScheduleService.getEntities();
   }
@@ -570,5 +590,10 @@ export class CreateOrderComponent implements OnInit {
         this.snackService.showErrorSnack(response.message, 6000);
       }
     })
+  }
+
+  navigateToNewCampaign() {
+    this.router.navigate(['/campaigns'], {queryParams: {action: 'new'}});
+    this.close.emit(true);
   }
 }
