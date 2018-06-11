@@ -18,7 +18,7 @@ export class GraphqlDocs2Service {
 
   hash: string;
 
-  public schemaTypes$: BehaviorSubject<Type[]>;
+  private schemaTypes: Type[];
 
   constructor(private http: HttpWrapperService, private route: ActivatedRoute) { }
 
@@ -34,15 +34,17 @@ export class GraphqlDocs2Service {
     });
   }
 
-  public fetchSchemaTypes(endpoint: string, headersInput: HeadersInput[]): void {
-    this.getSchemaTypes(endpoint, headersInput).subscribe((types) => {
-      this.schemaTypes$.next(types)
-    })
-  };
-
   public getSchemaTypes(endpoint: string, headersInput: HeadersInput[]): Observable<Type[]> {
-    return this.http.post(endpoint, getSchemaQuery(), { headers: this.generateHeaders(headersInput)})
-      .map(response => response.body.response.data.__schema.types);
+    if (this.schemaTypes) {
+      return Observable.of(this.schemaTypes);
+    }
+
+    return this.http.post(endpoint, getSchemaQuery(), {headers: this.generateHeaders(headersInput)})
+      .map(response => {
+        this.schemaTypes = response.body.response.data.__schema.types;
+
+        return this.schemaTypes;
+      });
   }
 
   private generateHeaders(headersInput: HeadersInput[]): HttpHeaders {
