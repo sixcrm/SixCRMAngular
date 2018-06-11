@@ -27,7 +27,7 @@
     </tr>
     <tr *ngFor="let arg of type.inputFields; let i = index;">
       <td>{{ arg.name }}</td>
-      <td><span class="field-type">{{ arg.type.name || arg.type.ofType.name || arg.type.ofType.ofType.name }}</span></td>
+      <td (click)="navigateToType(arg)"><span class="field-type">{{ arg.type.name || arg.type.ofType.name || arg.type.ofType.ofType.name }}</span></td>
       <td>{{ arg.type.kind || arg.type.ofType.kind || arg.type.ofType.ofType.kind }}</td>
       <td>{{ arg.description }}</td>
     </tr>

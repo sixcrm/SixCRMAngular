@@ -9,7 +9,7 @@
         </div>
       </div>
 
-      <div *ngIf="field.args.length > 0" class="table__title">Arguments</div>
+      <div *ngIf="field.args.length > 0 && (isQuery || isMutation)" class="table__title">Arguments</div>
       <table>
         <thead>
         <tr *ngIf="field.args.length > 0">
@@ -20,11 +20,11 @@
         <tbody>
         <tr *ngFor="let arg of field.args; let i = index;">
           <td>{{arg.name}}</td>
-          <td><span class="field-type">{{arg.type.name || arg.type.ofType.name || arg.type.ofType.ofType.name}}</span></td>
+          <td><span class="field-type" (click)="navigateToType(arg)">{{arg.type.name || arg.type.ofType.name || arg.type.ofType.ofType.name}}</span></td>
         </tr>
         <tr class="returns">
           <td>Returns:</td>
-          <td><span class="field-type" (click)="navigateToType()">{{field.type.name || field.type.ofType.name || field.type.ofType.ofType.name}}</span></td>
+          <td><span class="field-type" (click)="navigateToFieldType()">{{field.type.name || field.type.ofType.name || field.type.ofType.ofType.name}}</span></td>
         </tr>
         </tbody>
       </table>
