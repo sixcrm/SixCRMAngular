@@ -22,4 +22,14 @@ export class TypeCardComponent implements OnInit {
   navigateTo(): void {
     this.router.navigate(['documentation/graph2/type', this.type.name]);
   }
+
+  showProperties() {
+    if (this.type.fields) {
+      return this.type.fields.length > 0
+    }
+
+    if (this.type.inputFields) {
+      return this.type.inputFields.length > 0;
+    }
+  }
 }
