@@ -39,6 +39,7 @@ import { RoleDialogComponent } from './dialog-modals/role-dialog/role-dialog.com
 import { CardSwitcherDialogComponent } from './dialog-modals/card-switcher-dialog/card-switcher-dialog.component';
 import { AddCreditCardDialogComponent } from './dialog-modals/add-credit-card-dialog/add-credit-card-dialog.component';
 import { AddCustomerDialogComponent } from './dialog-modals/add-customer-dialog/add-customer-dialog.component';
+import { ViewTransactionDialogComponent } from './dialog-modals/view-transaction-dialog/view-transaction-dialog.component';
 
 @NgModule({
   declarations : [
@@ -64,7 +65,8 @@ import { AddCustomerDialogComponent } from './dialog-modals/add-customer-dialog/
     RoleDialogComponent,
     CardSwitcherDialogComponent,
     AddCreditCardDialogComponent,
-    AddCustomerDialogComponent
+    AddCustomerDialogComponent,
+    ViewTransactionDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -104,7 +106,8 @@ import { AddCustomerDialogComponent } from './dialog-modals/add-customer-dialog/
     RoleDialogComponent,
     CardSwitcherDialogComponent,
     AddCreditCardDialogComponent,
-    AddCustomerDialogComponent
+    AddCustomerDialogComponent,
+    ViewTransactionDialogComponent
   ],
   bootstrap : [AppComponent]
 })

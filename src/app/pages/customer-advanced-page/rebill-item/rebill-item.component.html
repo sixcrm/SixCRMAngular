@@ -58,7 +58,7 @@
         <div>Amount</div>
         <div class="value" *ngFor="let transaction of rebill.transactions">
           <div class="transaction-amount">{{transaction.amount.usd()}}</div>
-          <button mat-button [routerLink]="['/transactions', transaction.id]">View</button>
+          <button mat-button (click)="viewTransaction(transaction)">View</button>
         </div>
       </div>
 
@@ -85,25 +85,25 @@
 
   </div>
 
-  <div class="shipping" *ngIf="hasShippingReceipt() && showTracking">
+  <div class="shipping" *ngIf="rebill && showTracking">
     <div class="title">Fulfillment</div>
 
     <div class="timeline">
+      <ng-container *ngIf="rebill.shippingReceipts[0]">
+        <div *ngFor="let historyItem of rebill.shippingReceipts[0].history" class="circle">
+          <div class="label">
+            <div>{{historyItem.detail}}</div>
+            <div>{{historyItem.createdAt | formatDateTime: 'MM/DD/YY h:mm A'}}</div>
+          </div>
+        </div>
+        <div class="line"></div>
+      </ng-container>
       <div class="circle">
         <div class="label">
           <div>Order Placed</div>
           <div>{{rebill.createdAt | formatDateTime: 'MM/DD/YY h:mm A'}}</div>
         </div>
       </div>
-      <ng-container *ngFor="let historyItem of rebill.shippingReceipts[0].history">
-        <div class="line"></div>
-        <div class="circle">
-          <div class="label">
-            <div>{{historyItem.detail}}</div>
-            <div>{{historyItem.createdAt | formatDateTime: 'MM/DD/YY h:mm A'}}</div>
-          </div>
-        </div>
-      </ng-container>
     </div>
   </div>
 

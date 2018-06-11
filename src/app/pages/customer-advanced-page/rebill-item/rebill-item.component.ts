@@ -1,6 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Rebill} from '../../../shared/models/rebill.model';
 import {Product} from '../../../shared/models/product.model';
+import {Transaction} from '../../../shared/models/transaction.model';
+import {MatDialog} from '@angular/material';
+import {ViewTransactionDialogComponent} from '../../../dialog-modals/view-transaction-dialog/view-transaction-dialog.component';
 
 @Component({
   selector: 'rebill-item',
@@ -14,7 +17,7 @@ export class RebillItemComponent implements OnInit {
   showTransactions: boolean;
   showTracking: boolean;
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
   }
@@ -35,7 +38,13 @@ export class RebillItemComponent implements OnInit {
     this.showTracking = !this.showTracking;
   }
 
-  hasShippingReceipt() {
-    return this.rebill && this.rebill.shippingReceipts && this.rebill.shippingReceipts.length > 0;
+  viewTransaction(transaction: Transaction) {
+    let dialogRef = this.dialog.open(ViewTransactionDialogComponent, {backdropClass: 'backdrop-blue'});
+
+    dialogRef.componentInstance.transaction = transaction.copy();
+
+    dialogRef.afterClosed.take(1).subscribe(() => {
+      dialogRef = null;
+    })
   }
 }

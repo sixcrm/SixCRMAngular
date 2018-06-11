@@ -1,0 +1,36 @@
+<div *ngIf="transaction" class="container">
+
+  <div class="title" [class.chargeback]="isChargeback()">
+    Transaction {{transaction.alias}}
+  </div>
+
+  <div class="body">
+
+    <div class="item">
+      <div class="key">Status</div>
+      <div class="value">
+        <mat-icon class="icon" [class.icon--chargeback]="isChargeback()">{{isChargeback() ? 'error' : 'done'}}</mat-icon>
+        {{transaction.processorResponse.message}}
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="key">Transaction Date</div>
+      <div class="value">{{transaction.createdAt | formatDateTime: 'MM/DD/YYYY h:mm A'}}</div>
+    </div>
+
+    <div class="item">
+      <div class="key">Card</div>
+      <div class="value">{{transaction.processorResponse.getCard().brand}}</div>
+    </div>
+
+    <div class="item">
+      <div class="key">Amount</div>
+      <div class="value">{{transaction.amount.usd()}}</div>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button mat-button (click)="close()">DONE</button>
+  </div>
+</div>

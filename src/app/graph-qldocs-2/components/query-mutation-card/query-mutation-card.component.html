@@ -5,14 +5,14 @@
         <div class="type__name">{{type.name}}</div>
         <div class="field__name">
           <div id="{{field.name}}">{{field.name}}</div>
-          <mat-icon class="link" matTooltip="" ngxClipboard (click)="navigateTo()">link</mat-icon>
+          <mat-icon *ngIf="!(isQuery || isMutation)" class="link" matTooltip="" ngxClipboard (click)="navigateTo()">link</mat-icon>
         </div>
       </div>
 
-      <div class="table__title">Arguments</div>
+      <div *ngIf="field.args.length > 0 && (isQuery || isMutation)" class="table__title">Arguments</div>
       <table>
         <thead>
-        <tr>
+        <tr *ngIf="field.args.length > 0">
           <th>Argument</th>
           <th>Type</th>
         </tr>
@@ -20,12 +20,11 @@
         <tbody>
         <tr *ngFor="let arg of field.args; let i = index;">
           <td>{{arg.name}}</td>
-          <td><span class="field-type">{{arg.type.name || arg.type.ofType.name || arg.type.ofType.ofType.name}}</span></td>
+          <td><span class="field-type" (click)="navigateToType(arg)">{{arg.type.name || arg.type.ofType.name || arg.type.ofType.ofType.name}}</span></td>
         </tr>
         <tr class="returns">
           <td>Returns:</td>
-          <td><span class="field-type">{{field.type.name || field.type.ofType.name || field.type.ofType.ofType.name}}</span></td>
-          <td><{{field.type.kind || field.type.ofType.kind || field.type.ofType.ofType.kind }}></td>
+          <td><span class="field-type" (click)="navigateToFieldType()">{{field.type.name || field.type.ofType.name || field.type.ofType.ofType.name}}</span></td>
         </tr>
         </tbody>
       </table>

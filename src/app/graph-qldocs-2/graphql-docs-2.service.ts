@@ -19,6 +19,8 @@ export class GraphqlDocs2Service {
   hash: string;
 
   private schemaTypes: Type[];
+  public selectedItem: string;
+  public filterString: string;
 
   constructor(private http: HttpWrapperService, private route: ActivatedRoute) { }
 

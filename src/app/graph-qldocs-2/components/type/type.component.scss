@@ -11,10 +11,6 @@
   &__content {
     transition: height 1s;
     overflow: hidden;
-
-    &__collapse {
-      height: 0;
-    }
   }
 
   .share-icon {

@@ -3,15 +3,15 @@
     <div class="type__name">TYPE</div>
     <div class="field__name">
       <div id="{{type.name}}">{{type.name}}</div>
-      <mat-icon class="link" matTooltip="" ngxClipboard>link</mat-icon>
+      <mat-icon *ngIf="!isType" class="link" matTooltip="" ngxClipboard (click)="navigateTo()">link</mat-icon>
     </div>
     <div class="type__description">{{type.description}}</div>
   </div>
 
-  <div class="table__title">Properties</div>
+  <div *ngIf="showProperties()" class="table__title">Properties</div>
   <table>
     <thead>
-    <tr>
+    <tr *ngIf="showProperties()">
       <th>Property</th>
       <th>Type</th>
       <th>Returns</th>
@@ -20,10 +20,16 @@
     </thead>
     <tbody>
     <tr *ngFor="let arg of type.fields; let i = index;">
-      <td>{{arg.name}}</td>
-      <td><span class="field-type">{{arg.type.name || arg.type.ofType.name || arg.type.ofType.ofType.name}}</span></td>
-      <td>{{arg.type.kind || arg.type.ofType.kind || arg.type.ofType.ofType.kind }}</td>
-      <td>{{arg.description }}</td>
+      <td>{{ arg.name}}</td>
+      <td (click)="navigateToType(arg)"><span class="field-type">{{ arg.type.name || arg.type.ofType.name || arg.type.ofType.ofType.name}}</span></td>
+      <td>{{ arg.type.kind || arg.type.ofType.kind || arg.type.ofType.ofType.kind }}</td>
+      <td>{{ arg.description }}</td>
+    </tr>
+    <tr *ngFor="let arg of type.inputFields; let i = index;">
+      <td>{{ arg.name }}</td>
+      <td (click)="navigateToType(arg)"><span class="field-type">{{ arg.type.name || arg.type.ofType.name || arg.type.ofType.ofType.name }}</span></td>
+      <td>{{ arg.type.kind || arg.type.ofType.kind || arg.type.ofType.ofType.kind }}</td>
+      <td>{{ arg.description }}</td>
     </tr>
     </tbody>
   </table>

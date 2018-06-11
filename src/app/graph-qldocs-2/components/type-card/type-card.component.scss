@@ -29,6 +29,7 @@
   }
 
   table {
+    table-layout: fixed;
 
     thead{
       border-bottom: none;
@@ -59,6 +60,10 @@
         &:first-child {
           padding-left: 36px;
         }
+
+        &:nth-child(2) {
+          cursor: pointer;
+        }
       }
     }
 
@@ -70,10 +75,6 @@
         &:first-child {
           font-weight: 500;
           font-size: 16px;
-        }
-
-        &:last-child {
-          width: auto;
         }
       }
     }

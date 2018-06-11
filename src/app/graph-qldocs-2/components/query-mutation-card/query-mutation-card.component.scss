@@ -55,8 +55,11 @@
       line-height: 32px;
 
       td {
-        width: 12%;
         padding-left: 39px;
+
+        &:last-child {
+          cursor: pointer;
+        }
       }
     }
 
@@ -68,10 +71,7 @@
         &:first-child {
           font-weight: 500;
           font-size: 16px;
-        }
-
-        &:last-child {
-          width: auto;
+          width: 25%;
         }
       }
     }
@@ -121,5 +121,6 @@
 
   pre {
     margin-top: 0;
+    color: #B8E7FD;
   }
 }

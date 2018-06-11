@@ -1,13 +1,13 @@
 <div class="type">
   <div class="type__content">
-    <ng-container *ngIf="isAll">
+    <ng-container *ngIf="isAll && !otherTypes">
       <query-mutation-card *ngFor="let field of type.fields" [field]="field" [type]="type" [isMutation]="isMutation" [isQuery]="isQuery"></query-mutation-card>
     </ng-container>
     <ng-container *ngIf="isQuery || isMutation">
       <query-mutation-card [field]="field" [type]="type" [isMutation]="isMutation" [isQuery]="isQuery"></query-mutation-card>
     </ng-container>
-    <ng-container *ngIf="isType || isAll">
-      <type-card [type]="type"></type-card>
+    <ng-container *ngIf="isType || otherTypes">
+      <type-card [type]="type || otherTypes"></type-card>
     </ng-container>
   </div>
 </div>

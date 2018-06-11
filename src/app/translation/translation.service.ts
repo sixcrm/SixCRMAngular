@@ -38,7 +38,7 @@ export class TranslationService {
   constructor(
     private authService: AuthenticationService,
     private http: HttpClient,
-    private featureFlagService: FeatureFlagService
+    public featureFlagService: FeatureFlagService
   ) {
     this.loadTemporaryTranslations();
     this.fetchLanguages();

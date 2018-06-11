@@ -18,6 +18,7 @@ export class GraphqlDocs2Component implements OnInit, OnDestroy {
   @Input() endpoint: string;
   @Input() headers: HeadersInput[];
 
+  queryMutationTypes: Type[];
   types: Type[];
   searchItems: SearchItem[] = [
     {name: 'Query', children: []},
@@ -32,6 +33,7 @@ export class GraphqlDocs2Component implements OnInit, OnDestroy {
   loaded: boolean = false;
   field: Field;
   type: Type;
+  otherTypes: Type[];
 
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
@@ -96,27 +98,52 @@ export class GraphqlDocs2Component implements OnInit, OnDestroy {
     this.isAll = !this.isQuery && !this.isMutation && !this.isType;
 
     let fieldName;
-    if (this.types && !this.isAll) {
-      this.type = this.types.find(el => {
-        let name;
-        if(this.isQuery) {
-          fieldName = query;
-          name = 'Query';
-        }
-        if(this.isMutation) {
-          fieldName = mutation;
-          name = 'Mutation';
-        }
-        if(this.isType) {
-          fieldName = type;
-          name = 'Type';
-        }
-        return el.name === name
-      });
+    if (this.types) {
+      if (!this.isAll) {
+        this.type = this.types.find(el => {
+          let name;
 
-      this.field = this.type.fields.find( el => el.name === fieldName)
+          if (this.isQuery) {
+            fieldName = query;
+            name = 'Query';
+          }
+
+          if (this.isMutation) {
+            fieldName = mutation;
+            name = 'Mutation';
+          }
+
+          if (this.isType) {
+            fieldName = type;
+            return (!this.isQueryOrMutation(el.name) && (el.name === fieldName));
+          }
+
+          return el.name === name
+        });
+
+        if (this.isQueryOrMutation(this.type.name)) {
+          this.field = this.type.fields.find(el => el.name === fieldName)
+        }
+      }
+
+      if (this.isAll) {
+        this.separateTypes();
+      }
     }
+  }
 
+  separateTypes() {
+    this.queryMutationTypes = this.types.filter(el => {
+      return this.isQueryOrMutation(el.name)
+    });
+
+    this.otherTypes = this.types.filter(el => {
+      return (!this.isQueryOrMutation(el.name));
+    });
+  }
+
+  isQueryOrMutation(typeName: string) {
+    return (typeName === 'Query') || (typeName === 'Mutation')
   }
 
   ngOnDestroy() {

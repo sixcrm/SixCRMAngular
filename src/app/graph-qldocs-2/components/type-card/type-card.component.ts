@@ -10,8 +10,6 @@ import {Router} from "@angular/router";
 })
 export class TypeCardComponent implements OnInit {
 
-  @Input() field: Field;
-  @Input() enableLink: boolean = false;
   @Input() type: Type;
   @Input() isType: boolean;
 
@@ -22,6 +20,21 @@ export class TypeCardComponent implements OnInit {
   ngOnInit() { }
 
   navigateTo(): void {
-    this.router.navigate(['documentation/graph2', this.type.name.toLowerCase(), this.field.name]);
+    this.router.navigate(['documentation/graph2/type', this.type.name]);
+  }
+
+  navigateToType(arg: Field): void {
+    let fieldName = arg.type.name || arg.type.ofType.name || arg.type.ofType.ofType.name;
+    this.router.navigate(['documentation/graph2/type', fieldName]);
+  }
+
+  showProperties() {
+    if (this.type.fields) {
+      return this.type.fields.length > 0
+    }
+
+    if (this.type.inputFields) {
+      return this.type.inputFields.length > 0;
+    }
   }
 }

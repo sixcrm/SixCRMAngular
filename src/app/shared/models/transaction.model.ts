@@ -16,6 +16,7 @@ export class Transaction implements Entity<Transaction>{
   processorResponse: ProcessorResponse;
   rebill: Rebill;
   products: Products[];
+  chargeback: boolean;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -30,7 +31,7 @@ export class Transaction implements Entity<Transaction>{
     this.updatedAt = utc(obj.updated_at);
     this.processorResponse = new ProcessorResponse(obj.processor_response);
     this.rebill = new Rebill(obj.rebill);
-
+    this.chargeback = !!obj.chargeback;
     this.products = [];
     if (obj.products) {
       for (let i = 0; i < obj.products.length; i++) {
@@ -52,7 +53,8 @@ export class Transaction implements Entity<Transaction>{
       merchant_provider: this.merchantProvider.inverse(),
       processor_response: this.processorResponse.inverse(),
       rebill: this.rebill.inverse(),
-      products: this.products.map(p => p.inverse())
+      products: this.products.map(p => p.inverse()),
+      chargeback: this.chargeback
     }
   }
 }

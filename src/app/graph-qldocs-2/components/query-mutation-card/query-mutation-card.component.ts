@@ -1,7 +1,8 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {Field} from '../../models/field.model';
 import {Type} from '../../models/type.model';
 import {Router} from "@angular/router";
+import {InputValue} from '../../models/input-value.model';
 
 @Component({
   selector: 'query-mutation-card',
@@ -23,5 +24,15 @@ export class QueryMutationCardComponent implements OnInit {
 
   navigateTo(): void {
     this.router.navigate(['documentation/graph2/', this.type.name.toLowerCase(), this.field.name]);
+  }
+
+  navigateToType(arg: InputValue): void {
+    let fieldName = arg.type.name || arg.type.ofType.name || arg.type.ofType.ofType.name;
+    this.router.navigate(['documentation/graph2/type', fieldName]);
+  }
+
+  navigateToFieldType(): void {
+    let fieldName = this.field.type.name || this.field.type.ofType.name || this.field.type.ofType.ofType.name;
+    this.router.navigate(['documentation/graph2/type', fieldName]);
   }
 }
