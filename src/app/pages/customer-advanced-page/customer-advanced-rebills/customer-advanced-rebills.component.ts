@@ -81,23 +81,15 @@ export class CustomerAdvancedRebillsComponent implements OnInit {
     this.rebillService.entities$.take(1).subscribe(rebills => {
       if (rebills instanceof CustomServerError) return;
 
-      // const products = [
-      //   new Products({
-      //     amount: 12,
-      //     quantity: 1,
-      //     product: {id:"ea449cb1-0c47-40ed-82d7-2834de40be5d",name:"The Dalmore 21",description: "This is the finest scotch you can find","sku":"DAL-21",ship:true,shipping_delay:0,default_price:119,dynamic_pricing:null,fulfillment_provider:null,attributes:{images:[{path:"https://s3.amazonaws.com/sixcrm-staging-account-resources/11b2bb9d-ece0-4251-80f4-ba02e2329386/user/images/78b1a3b0962c685e15d65da7947edf90a1c02787.jpg",default_image:false}]},created_at:"2018-02-23T21:00:30.922Z",updated_at:"2018-03-02T17:44:37.825Z"}})
-      // ];
-      //
       // const shippingReceipt = new ShippingReceipt({
-      //   id:"d6c96609-1d51-4263-967e-96a5671c1304",status:"pending",tracking:null, history:[{created_at:"2018-05-11T18:37:04.281Z",status:"pending",detail:"Fulfillment Provider notified."}],created_at:"2018-05-11T18:37:04.287Z",updated_at:"2018-05-11T18:37:04.287Z"
+      //   id:"d6c96609-1d51-4263-967e-96a5671c1304",status:"pending",tracking:null, history:[{created_at:"2018-05-11T18:37:04.281Z",status:"pending",detail:"Fulfillment Provider notified."}],created_at:"2018-05-30T18:37:04.287Z",updated_at:"2018-05-30T18:37:04.287Z"
       // });
-      //
-      // this.rebills = rebills.map(r => {
-      //   r.products = [...products, ...products];
-      //   r.shippingReceipts = [shippingReceipt];
-      //
-      //   return r;
-      // });
+
+      this.rebills = rebills.map(r => {
+        // r.shippingReceipts = [shippingReceipt];
+
+        return r;
+      });
 
       this.rebills = rebills;
     });
