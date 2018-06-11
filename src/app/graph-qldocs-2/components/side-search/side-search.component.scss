@@ -1,5 +1,5 @@
 .side-search {
-  background: #E5E5E5;
+  background: #F0F3F4;
 
   mat-input-container {
     margin: 20px;
@@ -20,6 +20,11 @@
   margin-bottom: 24px;
   margin-left: 20px;
   font-size: 16px;
+
+  .selected {
+    background-color: #E2E3E4;
+    margin-right: 30px;
+  }
 
   &__title {
     margin-bottom: 14px;
