@@ -484,6 +484,15 @@ workflows:
           type: approval
           requires:
             - deploy_cloudfront
+            - e2e_register
+            - e2e_accept_invite
+            - e2e_login
+            - e2e_navigation
+            - e2e_campaign
+            - e2e_product
+            - e2e_product_schedule
+            - e2e_merchant_provider
+            - e2e_merchant_provider_group
           filters:
             branches:
               only:
