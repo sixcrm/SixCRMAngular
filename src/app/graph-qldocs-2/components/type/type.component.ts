@@ -11,13 +11,12 @@ import {Field} from "../../models/field.model";
 export class TypeComponent implements OnInit {
 
   @Input() type: Type;
+  @Input() otherTypes: Type;
   @Input() field: Field;
   @Input() isQuery: boolean;
   @Input() isMutation: boolean;
   @Input() isAll: boolean;
   @Input() isType: boolean;
-
-  show: boolean = true;
 
   constructor() { }
 

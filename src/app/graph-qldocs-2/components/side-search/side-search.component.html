@@ -17,7 +17,7 @@
       </div>
       <div
         *ngFor="let child of searchItem.children | filterSearchItems: filterString"
-        (click)="nav(child)"
+        (click)="navigateTo(child, searchItem.name)"
         class="side-search__item__child">
         <span>{{child}}</span>
       </div>

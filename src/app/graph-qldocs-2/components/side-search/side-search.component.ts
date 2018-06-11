@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {navigateToFieldByString} from '../../utils';
+import {Router} from "@angular/router";
 
 export interface SearchItem {
   name: string;
@@ -17,11 +18,17 @@ export class SideSearchComponent implements OnInit {
   @Input() focused: boolean = false;
   filterString: string;
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() { }
 
   nav(path: string): void {
     navigateToFieldByString(path);
+  }
+
+  navigateTo(path: string, type: string): void {
+    this.router.navigate(['documentation/graph2/', type.toLowerCase(), path]);
   }
 }

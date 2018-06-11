@@ -3,7 +3,7 @@
     <div class="type__name">TYPE</div>
     <div class="field__name">
       <div id="{{type.name}}">{{type.name}}</div>
-      <mat-icon class="link" matTooltip="" ngxClipboard>link</mat-icon>
+      <mat-icon class="link" matTooltip="" ngxClipboard (click)="navigateTo()">link</mat-icon>
     </div>
     <div class="type__description">{{type.description}}</div>
   </div>

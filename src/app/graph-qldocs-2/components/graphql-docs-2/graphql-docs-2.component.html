@@ -7,13 +7,14 @@
     </div>
     <div class="docs__content">
       <ng-container *ngIf="isAll">
-        <doc-type *ngFor="let aType of types" [type]="aType" [isAll]="true"></doc-type>
+        <doc-type *ngFor="let aType of queryMutationTypes" [type]="aType" [isAll]="true"></doc-type>
+        <doc-type *ngFor="let aType of otherTypes" [otherTypes]="aType" [isAll]="true"></doc-type>
       </ng-container>
       <ng-container *ngIf="isQuery || isMutation">
         <doc-type [isMutation]="isMutation" [isQuery]="isQuery" [isType]=false [type]="type" [field]="field"></doc-type>
       </ng-container>
       <ng-container *ngIf="isType">
-        <type-card [isType]="isType" [type]="type" [field]="field"></type-card>
+        <type-card [isType]="isType" [type]="type"></type-card>
       </ng-container>
     </div>
   </ng-template>
