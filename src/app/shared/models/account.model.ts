@@ -21,7 +21,7 @@ export class Account implements Entity<Account> {
 
     this.id = obj.id || '';
     this.name = obj.name || '';
-    this.active = obj.active;
+    this.active = !!obj.active;
 
     this.acls = [];
     if (obj.acl) {
