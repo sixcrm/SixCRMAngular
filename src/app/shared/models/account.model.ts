@@ -45,7 +45,7 @@ export class Account implements Entity<Account> {
   }
 
   isNew(): boolean {
-    return this.createdAt.isSame(this.updatedAt, 's')
+    return this.createdAt.isSame(this.updatedAt, 'ms')
   }
 
   copy(): Account {

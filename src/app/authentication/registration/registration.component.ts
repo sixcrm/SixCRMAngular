@@ -120,9 +120,9 @@ export class RegistrationComponent implements OnInit {
       this.activateUser();
     } else if (this.activatingAccount) {
       this.activateAccount();
-    } else {
-      this.registrationCompleted();
     }
+
+    this.authService.getUserIntrospection({}, '/payment', true);
   }
 
   private activateAccount() {
