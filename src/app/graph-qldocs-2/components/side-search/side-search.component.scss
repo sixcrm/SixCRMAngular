@@ -16,14 +16,11 @@
 }
 
 &__item {
-  margin-top: 20px;
-  margin-bottom: 24px;
-  margin-left: 20px;
+  margin: 20px 30px 24px 20px;
   font-size: 16px;
 
   .selected {
     background-color: #E2E3E4;
-    margin-right: 30px;
   }
 
   &__title {
@@ -39,6 +36,8 @@
     line-height: 32px;
     cursor: pointer;
     margin-left: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     &:hover {
       span {
