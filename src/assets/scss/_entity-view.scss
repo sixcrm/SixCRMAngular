@@ -540,9 +540,10 @@ $main-blue: #5383C3;
       padding: 10px;
 
       &--homepage {
-        padding: 15px;
+        padding: 15px 15px 15px 20px;
 
         .entity-view__table-component__header__title {
+          margin-right: 25px;
           font-size: 14pt;
           font-weight: 400;
         }
@@ -708,7 +709,7 @@ $main-blue: #5383C3;
   }
 
   &__no-results {
-    padding: 0 15px;
+    padding: 0 20px;
     color: rgba(0, 0, 0, 0.6);
     font-size: 14px;
 
