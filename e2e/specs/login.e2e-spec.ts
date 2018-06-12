@@ -85,5 +85,6 @@ describe('Login', function() {
 
     tosCheck(done);
   });
+
 });
 
