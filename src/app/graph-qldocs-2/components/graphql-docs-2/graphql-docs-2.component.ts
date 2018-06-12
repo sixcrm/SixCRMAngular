@@ -6,7 +6,8 @@ import {SearchItem} from '../side-search/side-search.component';
 import {ResolveEnd, Router} from "@angular/router";
 import {AsyncSubject} from "rxjs/AsyncSubject";
 import {Field} from "../../models/field.model";
-import {fieldNameString} from "aws-sdk/clients/datapipeline";
+
+let allTypes;
 
 @Component({
   selector: 'graphql-docs-2',
@@ -51,6 +52,8 @@ export class GraphqlDocs2Component implements OnInit, OnDestroy {
           return type;
         });
 
+      allTypes = this.types;
+
       // parse side search items
       Object.keys(this.types).forEach(key => {
         if (this.types[key].name === 'Query') {
@@ -69,11 +72,13 @@ export class GraphqlDocs2Component implements OnInit, OnDestroy {
       let queryExamples = generateTypes(this.types, 'Query');
       for (let i = 0; i < this.types[0].fields.length; i++) {
         this.types[0].fields[i].example = queryExamples[i];
+        this.types[0].fields[i].response = generateExampleResponse(this.types[0].fields[i], allTypes);
       }
 
       let mutationExamples = generateTypes(this.types, 'Mutation');
       for (let i = 0; i < this.types[1].fields.length; i++) {
         this.types[1].fields[i].example = mutationExamples[i];
+        this.types[1].fields[i].response = generateExampleResponse(this.types[1].fields[i], allTypes);
       }
     })
 
@@ -168,6 +173,7 @@ function generateInput(input, types: Type[]): string {
 }
 
 function generateInputValue(value, types: Type[]): string {
+
   let inputType = value.type ? value.type.kind : value.ofType.kind;
 
   if (inputType === 'LIST') return `[ ${extractScalar(value.type.ofType, value.name)} ]`;
@@ -186,11 +192,108 @@ function extractScalar(type, value) {
   return '""';
 }
 
-function generateResponse(type, types: Type[]) {
-  let fullType = types.filter(t => t.name === type.name)[0];
-  if (!fullType || !fullType.fields) return '';
+function generateResponse(type, types: Type[], callChain?: string[]) {
 
-  let value = fullType.fields.filter(f => f.type.kind === 'SCALAR' || f.type.kind === 'NON_NULL').map(f => f.name).reduce((a,b)=> `${a} ${b}`, '');
+  callChain = callChain || [];
 
-  return `{ ${value} }`
+  let typeName = type.name;
+  if (!typeName) {
+    typeName = type;
+  }
+
+  let fullType = types.filter(t => t.name === typeName)[0];
+  if (!fullType || !fullType.fields) {
+    return ''
+  }
+
+  let result: string = '';
+  fullType.fields.forEach(f => {
+    if (f.type.kind === 'SCALAR' || f.type.kind === 'NON_NULL') {
+      result += `${f.name},`
+    }
+
+    if (f.type.kind === 'OBJECT') {
+
+      if (callChain.indexOf(f.type.name) < 0) {
+        result += `${f.name} {${generateResponse(f.type.name, allTypes, [...callChain, f.type.name])}}`
+      }
+    }
+
+    if (f.type.kind === 'LIST') {
+      let name = f.type.ofType.name;
+      if (!name) {
+        name = f.type.ofType.ofType.name;
+      }
+      if (callChain.indexOf(name) < 0) {
+        result += `${f.name} {${generateResponse(name, allTypes, [...callChain, name])}}`
+      }
+    }
+  });
+
+
+  if (result[result.length-1] === ',') {
+    result = result.slice(0, -1);
+  }
+
+  return result;
+}
+
+function generateExampleResponse(field, types) {
+
+  let result = {
+    success: true,
+    code: 200,
+    response: {
+      data: {}
+    }
+  };
+
+  let body: string = `{${responseBody(field.type, types)}}`;
+
+  result.response.data[field.name] = JSON.parse(body);
+
+  return JSON.stringify(result, null, 2);
+}
+
+function responseBody(type, types) {
+  let typeName = type.name;
+  if (!typeName) {
+    typeName = type;
+  }
+
+  let fullType = types.filter(t => t.name === typeName)[0];
+  if (!fullType || !fullType.fields) {
+    return ''
+  }
+
+  let result: string = '';
+
+  fullType.fields.forEach(f => {
+    if (f.type.kind === 'SCALAR') {
+      result += `"${f.name}": ${extractScalar(f.type, f.name)},`
+    }
+
+
+    if (f.type.kind === 'NON_NULL' && (f.type.ofType && f.type.ofType.kind !== 'OBJECT')) {
+      result += `"${f.name}": ${extractScalar(f.type.ofType, f.name)},`
+    }
+
+    if (f.type.kind === 'OBJECT' || (f.type.ofType && f.type.ofType.kind === 'OBJECT')) {
+      result += `"${f.name}": {},`
+    }
+
+    if (f.type.kind === 'LIST') {
+      let name = f.type.ofType.name;
+      if (!name) {
+        name = f.type.ofType.ofType.name;
+      }
+      result += `"${f.name}": [],`
+    }
+  });
+
+  if (result[result.length-1] === ',') {
+    result = result.slice(0, -1);
+  }
+
+  return result;
 }

@@ -20,7 +20,7 @@ export class FormatGraphQlPipe implements PipeTransform {
         result += c + '\n' + this.tabs(tabCounter)
       } else if (c === '}' || c === ')') {
         tabCounter--;
-        result += '\n' + this.tabs(tabCounter) + c
+        result += '\n ' + this.tabs(tabCounter) + c + '\n' + this.tabs(tabCounter)
       } else if (c === ',') {
         result += c +'\n' + this.tabs(tabCounter)
       } else {
