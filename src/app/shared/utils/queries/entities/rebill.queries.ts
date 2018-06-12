@@ -46,6 +46,28 @@ export function rebillsByCustomer(customerId: string, params: IndexQueryParamete
   }`
 }
 
+export function pastRebillsByCustomer(customerId: string, params: IndexQueryParameters): string {
+  return `{
+		pastrebillsforcustomer (customer:"${customerId}" ${paginationParamsQuery(params, true)}) {
+			rebills {
+			  ${rebillByCustomerResponseQuery()}
+			}
+			${fullPaginationStringResponseQuery()}
+		}
+  }`
+}
+
+export function pendingRebillsByCustomer(customerId: string, params: IndexQueryParameters): string {
+  return `{
+		pendingrebillsforcustomer (customer:"${customerId}" ${paginationParamsQuery(params, true)}) {
+			rebills {
+			  ${rebillByCustomerResponseQuery()}
+			}
+			${fullPaginationStringResponseQuery()}
+		}
+  }`
+}
+
 export function deleteRebillMutation(id: string): string {
   return deleteMutationQuery('rebill', id);
 }
@@ -94,7 +116,7 @@ export function rebillInfoResponseQuery(): string {
 
 export function rebillByCustomerResponseQuery(): string {
   return `id bill_at amount created_at updated_at state
-  products { quantity, amount, product { id, name, sku }}
+  products { quantity, amount, product { id, name, sku }, returns { quantity, return{ id, alias, created_at }}}
   transactions { id amount alias created_at updated_at processor_response chargeback}
   parentsession { id alias created_at campaign { id name } }
   shippingreceipts { id, status, tracking {id, carrier}, created_at, updated_at }`

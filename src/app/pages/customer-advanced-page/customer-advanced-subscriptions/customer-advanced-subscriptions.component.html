@@ -1,0 +1,22 @@
+<div>
+  <div>
+    <div class="heading">
+
+      <div class="mrw-bi-input">
+        <mat-input-container [floatLabel]="'never'">
+          <input matInput type="text" placeholder="Filter Subscriptions">
+        </mat-input-container>
+      </div>
+
+      <div class="number-of">{{(rebills || []).length}} Subscriptions</div>
+
+    </div>
+
+    <div class="card-body" *ngIf="rebills">
+      <ng-container *ngFor="let rebill of rebills">
+        <rebill-item [rebill]="rebill" [pending]="true"></rebill-item>
+      </ng-container>
+    </div>
+  </div>
+
+</div>

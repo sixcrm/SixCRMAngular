@@ -17,6 +17,7 @@ export class Transaction implements Entity<Transaction>{
   rebill: Rebill;
   products: Products[];
   chargeback: boolean;
+  type: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -33,10 +34,10 @@ export class Transaction implements Entity<Transaction>{
     this.rebill = new Rebill(obj.rebill);
     this.chargeback = !!obj.chargeback;
     this.products = [];
+    this.type = obj.type || 'sale';
+
     if (obj.products) {
-      for (let i = 0; i < obj.products.length; i++) {
-        this.products.push(new Products(obj.products[i]))
-      }
+      this.products = obj.products.map(p => new Products(p));
     }
   }
 
@@ -54,7 +55,8 @@ export class Transaction implements Entity<Transaction>{
       processor_response: this.processorResponse.inverse(),
       rebill: this.rebill.inverse(),
       products: this.products.map(p => p.inverse()),
-      chargeback: this.chargeback
+      chargeback: this.chargeback,
+      type: this.type
     }
   }
 }

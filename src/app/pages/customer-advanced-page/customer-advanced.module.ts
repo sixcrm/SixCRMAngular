@@ -13,6 +13,7 @@ import { CustomerAdvancedRebillsComponent } from './customer-advanced-rebills/cu
 import { CustomerAdvancedFulfillmentComponent } from './customer-advanced-fulfillment/customer-advanced-fulfillment.component';
 import { CustomerAdvancedEventsComponent } from './customer-advanced-events/customer-advanced-events.component';
 import { RebillItemComponent } from './rebill-item/rebill-item.component';
+import { CustomerAdvancedSubscriptionsComponent } from './customer-advanced-subscriptions/customer-advanced-subscriptions.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { RebillItemComponent } from './rebill-item/rebill-item.component';
     CustomerAdvancedRebillsComponent,
     CustomerAdvancedFulfillmentComponent,
     CustomerAdvancedEventsComponent,
-    RebillItemComponent
+    RebillItemComponent,
+    CustomerAdvancedSubscriptionsComponent
   ]
 })
 export class CustomerAdvancedModule { }

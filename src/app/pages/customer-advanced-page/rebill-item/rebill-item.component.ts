@@ -4,6 +4,7 @@ import {Product} from '../../../shared/models/product.model';
 import {Transaction} from '../../../shared/models/transaction.model';
 import {MatDialog} from '@angular/material';
 import {ViewTransactionDialogComponent} from '../../../dialog-modals/view-transaction-dialog/view-transaction-dialog.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'rebill-item',
@@ -13,11 +14,12 @@ import {ViewTransactionDialogComponent} from '../../../dialog-modals/view-transa
 export class RebillItemComponent implements OnInit {
 
   @Input() rebill: Rebill;
+  @Input() pending: boolean;
 
   showTransactions: boolean;
   showTracking: boolean;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private router: Router) { }
 
   ngOnInit() {
   }
@@ -46,5 +48,9 @@ export class RebillItemComponent implements OnInit {
     dialogRef.afterClosed().take(1).subscribe(() => {
       dialogRef = null;
     })
+  }
+
+  navigateToWatermark(rebill: Rebill) {
+    this.router.navigate(['/sessions', rebill.parentSession.id], {fragment: 'watermark'})
   }
 }

@@ -1,13 +1,30 @@
 <div>
 
+  <div class="chargeback" *ngIf="!pending && rebill.hasChargeback()">
+    CHARGEBACK
+  </div>
+
   <div class="header">
     <div class="info">
-      <div>Billed {{rebill.billAt | formatDateTime: 'MMMM d, YYYY'}}</div>
-      <div class="separator"></div>
-      <div>{{rebill.amount.usd()}}</div>
+      <div>{{pending ? 'Bills' : 'Billed'}} {{rebill.billAt | formatDateTime: 'MMMM DD, YYYY'}}</div>
+      <ng-container *ngIf="!pending">
+        <div class="separator"></div>
+        <div class="refund" *ngIf="rebill.hasRefund(); else norefund">{{rebill.amountAfterRefund().usd()}}</div>
+        <ng-template #norefund>
+          <div>{{rebill.amount.usd()}}</div>
+        </ng-template>
+      </ng-container>
 
-      <button mat-button (click)="toggleTransactions()">Transactions</button>
-      <button mat-button (click)="toggleShipping()">Track Delivery</button>
+      <ng-container *ngIf="pending; else pastrebillactions">
+        <button mat-button>Cancel</button>
+        <button mat-button (click)="navigateToWatermark(rebill)">Edit</button>
+      </ng-container>
+
+      <ng-template #pastrebillactions>
+        <button mat-button (click)="toggleTransactions()">Transactions</button>
+        <button mat-button (click)="toggleShipping()">Track Delivery</button>
+      </ng-template>
+
     </div>
 
     <div class="details">
@@ -36,7 +53,12 @@
       <div class="item">
         <div>Status</div>
         <div class="value" *ngFor="let transaction of rebill.transactions">
-          <div>{{transaction.processorResponse.message}}</div>
+          <mat-icon [class.icon-success]="!transaction.chargeback" [class.icon-error]="transaction.chargeback">
+            {{transaction.chargeback ? 'error' : 'done'}}
+          </mat-icon>
+          <div>
+            {{transaction.processorResponse.message}}
+          </div>
         </div>
       </div>
 
@@ -70,6 +92,12 @@
     <div class="product" *ngFor="let product of rebill.products">
       <div class="name">{{product.product.name}}</div>
       <div class="image-wrapper">
+        <div class="returns-wrapper">
+          <div class="return" *ngFor="let return of product.returns">
+            <mat-icon>sync</mat-icon>
+            <span>Returned ({{return.quantity}}) {{return.return.createdAt | formatDateTime: 'M/D/YY'}}</span>
+          </div>
+        </div>
         <div class="image" [style.background-image]="'url(' + getProductImage(product.product) + ')'"></div>
       </div>
       <div class="info">
@@ -78,8 +106,15 @@
       </div>
 
       <div class="buttons">
-        <button mat-button>Return</button>
-        <button mat-button>Refund</button>
+        <ng-container *ngIf="pending; else pastrebillproductactions">
+          <button mat-button>Remove</button>
+          <button mat-button>Edit</button>
+        </ng-container>
+
+        <ng-template #pastrebillproductactions>
+          <button mat-button *ngIf="product.returns.length === 0">Return</button>
+          <button mat-button>Refund</button>
+        </ng-template>
       </div>
     </div>
 

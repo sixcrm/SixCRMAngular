@@ -7,6 +7,7 @@ import {Moment, utc} from 'moment'
 import {RebillStateHistory} from './rebill-state-history.model';
 import {ShippingReceipt} from './shipping-receipt.model';
 import {Products} from './products.model';
+import {firstIndexOf} from '../utils/array.utils';
 
 export class Rebill implements Entity<Rebill> {
   id: string;
@@ -56,6 +57,28 @@ export class Rebill implements Entity<Rebill> {
     if (obj.history) {
       this.history = obj.history.map(h => new RebillStateHistory(h));
     }
+  }
+
+  hasChargeback() {
+    return this.transactions && (firstIndexOf(this.transactions, (t) => t.chargeback) !== -1);
+  }
+
+  hasRefund() {
+    return this.transactions && (firstIndexOf(this.transactions, (t) => t.type === 'refund') !== -1);
+  }
+
+  refundedAmount(): Currency {
+    if (!this.transactions) return new Currency(0);
+
+    return new Currency(
+      this.transactions.filter(t => t.type === 'refund').map(t => t.amount.amount).reduce((a,b) => a+b,0)
+    )
+  }
+
+  amountAfterRefund(): Currency {
+    if (this.refundedAmount().amount === 0) return this.amount;
+
+    return new Currency(this.amount.amount - this.refundedAmount().amount);
   }
 
   copy(): Rebill {

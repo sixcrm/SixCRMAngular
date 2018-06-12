@@ -36,7 +36,7 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
   }
 
   columnParams: ColumnParams<Transaction>[] = [];
-  rowColorFunction = (e: Transaction) => (e.processorResponse.message || '').toLowerCase() === 'success' ? '#FFFFFF' : 'rgba(220, 37, 71, 0.05)';
+  rowColorFunction = (e: Transaction) => e.chargeback ? 'rgba(220, 37, 71, 0.05)' : '#ffffff';
   options: string[] = ['Refund', 'Return', 'Notify User', 'View Details'];
   bulkOptions: string[] = ['Refund', 'Return'];
 
@@ -48,10 +48,10 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
     let f = this.authService.getTimezone();
 
     this.columnParams = [
-      new ColumnParams('CUSTOMER_TRANSACTION_STATUS', (e: Transaction) => e.processorResponse.message)
-        .setMaterialIconMapper((e: Transaction) => (e.processorResponse.message || '').toLowerCase() === 'success' ? 'done' : 'error')
-        .setMaterialIconBackgroundColorMapper((e: Transaction) => (e.processorResponse.message || '').toLowerCase() === 'success' ? '#1EBEA5' : '#ffffff')
-        .setMaterialIconColorMapper((e: Transaction) => (e.processorResponse.message || '').toLowerCase() === 'success' ? '#ffffff' : '#DC2547'),
+      new ColumnParams('CUSTOMER_TRANSACTION_STATUS', (e: Transaction) => e.chargeback ? 'Chargeback' : e.processorResponse.message)
+        .setMaterialIconMapper((e: Transaction) => e.chargeback ? 'error' : 'done')
+        .setMaterialIconBackgroundColorMapper((e: Transaction) => e.chargeback ? '#ffffff' : '#1EBEA5')
+        .setMaterialIconColorMapper((e: Transaction) => e.chargeback ? '#DC2547' : '#ffffff'),
       new ColumnParams('CUSTOMER_TRANSACTION_AMOUNT', (e: Transaction) => e.amount.usd()),
       new ColumnParams('CUSTOMER_TRANSACTION_REFUND', (e: Transaction) => '-').setAlign('center'),
       new ColumnParams('CUSTOMER_TRANSACTION_CHARGEBACK', (e: Transaction) => '-').setAlign('center').setSeparator(true),

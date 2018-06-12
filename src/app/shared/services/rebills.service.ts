@@ -5,9 +5,12 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {HttpWrapperService} from './http-wrapper.service';
 import {
   rebillsListQuery, rebillQuery, deleteRebillMutation,
-  updateRebillMutation, deleteRebillsMutation
+  updateRebillMutation, deleteRebillsMutation, pendingRebillsByCustomer, pastRebillsByCustomer
 } from '../utils/queries/entities/rebill.queries';
 import {MatSnackBar} from '@angular/material';
+import {Customer} from '../models/customer.model';
+import {IndexQueryParameters} from '../utils/queries/index-query-parameters.model';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class RebillsService extends AbstractEntityService<Rebill>{
@@ -27,6 +30,14 @@ export class RebillsService extends AbstractEntityService<Rebill>{
       'rebill',
       snackBar
     )
+  }
+
+  getPendingRebillsByCustomer(customer: Customer, params: IndexQueryParameters): Observable<Rebill[]> {
+    return this.planeCustomEntitiesQuery(pendingRebillsByCustomer(customer.id, params));
+  }
+
+  getPastRebillsByCustomer(customer: Customer, params: IndexQueryParameters): Observable<Rebill[]> {
+    return this.planeCustomEntitiesQuery(pastRebillsByCustomer(customer.id, params));
   }
 
 }

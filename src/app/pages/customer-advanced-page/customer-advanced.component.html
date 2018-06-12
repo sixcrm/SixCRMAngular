@@ -10,7 +10,9 @@
 
     <mat-tab-group class="tab--no-header" [(selectedIndex)]="selectedIndex">
 
-      <mat-tab></mat-tab>
+      <mat-tab>
+        <customer-advanced-subscriptions [customer]="entity"></customer-advanced-subscriptions>
+      </mat-tab>
       <mat-tab>
         <customer-advanced-rebills [customer]="entity"></customer-advanced-rebills>
       </mat-tab>

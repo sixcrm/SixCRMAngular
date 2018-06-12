@@ -5,12 +5,8 @@ import {Customer} from '../../../shared/models/customer.model';
 import {RebillsService} from '../../../shared/services/rebills.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Router} from '@angular/router';
-import {rebillsListQuery, rebillsByCustomer} from '../../../shared/utils/queries/entities/rebill.queries';
-import {IndexQueryParameters} from '../../../shared/utils/queries/index-query-parameters.model';
-import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {utc} from 'moment';
-import {Products} from '../../../shared/models/products.model';
-import {ShippingReceipt} from '../../../shared/models/shipping-receipt.model';
+import {Return} from '../../../shared/models/return.model';
 
 @Component({
   selector: 'customer-advanced-rebills',
@@ -46,7 +42,7 @@ export class CustomerAdvancedRebillsComponent implements OnInit {
   };
 
   columnParams: ColumnParams<Rebill>[] = [];
-  rowColorFunction = (e: Rebill) => e.billAt.isSameOrAfter(utc()) ? '#ffffff' : '#F2F2F2';
+  rowColorFunction = (e: Rebill) => e.hasChargeback() ? 'rgba(220, 37, 71, 0.05)' : '#ffffff';
   options: string[] = ['Refund', 'Return', 'Notify User', 'View Details'];
 
   constructor(
@@ -57,7 +53,10 @@ export class CustomerAdvancedRebillsComponent implements OnInit {
     let f = this.authService.getTimezone();
 
     this.columnParams = [
-      new ColumnParams('CUSTOMER_REBILL_STATE', (e: Rebill) => e.state),
+      new ColumnParams('CUSTOMER_REBILL_STATE', (e: Rebill) => e.hasChargeback() ? 'Chargeback' : e.state)
+        .setMaterialIconMapper((e: Rebill) => e.hasChargeback() ? 'error' : 'done')
+        .setMaterialIconBackgroundColorMapper((e: Rebill) => e.hasChargeback() ? '#ffffff' : '#1EBEA5')
+        .setMaterialIconColorMapper((e: Rebill) => e.hasChargeback() ? '#DC2547' : '#ffffff'),
       new ColumnParams('CUSTOMER_REBILL_AMOUNT', (e: Rebill) => e.amount.usd()),
       new ColumnParams('CUSTOMER_REBILL_REFUND', (e: Rebill) => '-').setAlign('center'),
       new ColumnParams('CUSTOMER_REBILL_CHARGEBACK', (e: Rebill) => '-').setAlign('center').setSeparator(true),
@@ -66,35 +65,30 @@ export class CustomerAdvancedRebillsComponent implements OnInit {
       new ColumnParams('CUSTOMER_REBILL_CAMPAIGN', (e: Rebill) => e.parentSession.campaign.name).setClickable(true).setColor('#2C98F0'),
       new ColumnParams('CUSTOMER_REBILL_TYPE', (e: Rebill) => '-').setAlign('center')
     ];
+
   }
 
-  ngOnInit() {
-  }
-
-  ngOnDestroy() {
-    this.rebillService.indexQuery = rebillsListQuery;
-  }
+  ngOnInit() { }
 
   initialize() {
-    this.rebillService.indexQuery = (params: IndexQueryParameters) => rebillsByCustomer(this._customer.id, params);
-
-    this.rebillService.entities$.take(1).subscribe(rebills => {
-      if (rebills instanceof CustomServerError) return;
-
-      // const shippingReceipt = new ShippingReceipt({
-      //   id:"d6c96609-1d51-4263-967e-96a5671c1304",status:"pending",tracking:null, history:[{created_at:"2018-05-11T18:37:04.281Z",status:"pending",detail:"Fulfillment Provider notified."}],created_at:"2018-05-30T18:37:04.287Z",updated_at:"2018-05-30T18:37:04.287Z"
-      // });
-
+    this.rebillService.getPastRebillsByCustomer(this._customer, {limit: 10}).subscribe(rebills => {
       this.rebills = rebills.map(r => {
-        // r.shippingReceipts = [shippingReceipt];
+        r.products = r.products.map(p => {
+          // p.returns = [{quantity: 1, 'return': new Return({created_at: utc()})}];
+
+          return p;
+        });
+
+        r.transactions = r.transactions.map(t => {
+          // t.chargeback = true;
+          // t.type = 'refund';
+
+          return t;
+        });
 
         return r;
       });
-
-      this.rebills = rebills;
     });
-
-    this.rebillService.getEntities(10);
   }
 
   itemClicked(option: {item: Rebill, param: ColumnParams<Rebill>}) {
