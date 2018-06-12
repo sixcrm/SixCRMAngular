@@ -43,7 +43,7 @@ export class RebillItemComponent implements OnInit {
 
     dialogRef.componentInstance.transaction = transaction.copy();
 
-    dialogRef.afterClosed.take(1).subscribe(() => {
+    dialogRef.afterClosed().take(1).subscribe(() => {
       dialogRef = null;
     })
   }
