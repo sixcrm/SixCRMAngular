@@ -1,7 +1,7 @@
 import { clearLocalStorage, waitForUrlContains } from '../utils/navigation.utils';
 import {expectUrlToContain} from '../utils/assertation.utils';
 import {browser} from 'protractor';
-import {login} from '../utils/action.utils';
+import {login, tosCheck} from '../utils/action.utils';
 import {SidenavPage} from '../po/sidenav.po';
 
 describe('Navigation', function() {
@@ -13,12 +13,13 @@ describe('Navigation', function() {
     browser.sleep(100);
   });
 
-  beforeAll(() => {
+  beforeAll((done) => {
     browser.driver.manage().window().setSize(1440, 1440);
 
     browser.get('/');
     clearLocalStorage();
     login();
+    tosCheck(done);
   });
 
   afterAll(() => {

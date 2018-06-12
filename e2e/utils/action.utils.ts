@@ -42,20 +42,6 @@ export function login(user?: boolean) {
   expectUrlToContain('/dashboard');
 }
 
-export function doTOSCheck() {
-  browser.sleep(1500);
-  dashboardPage.getTOSButton().click().then(function() {
-      browser.sleep(900);
-      dashboardPage.getTOSButton().click();
-      console.log('Found a TOS button');
-      browser.sleep(1500);
-      console.log('TOS button found');
-    },
-    function(err) {
-    console.log('No TOS button found');
-    });
-}
-
 export function tosCheck(doneCallback) {
   // give it some time to appear
   browser.sleep(1500);
@@ -73,6 +59,6 @@ export function tosCheck(doneCallback) {
       // if button is not present, then inform test caller that it can be finished
       doneCallback();
     }
-  })
+  });
 
 }

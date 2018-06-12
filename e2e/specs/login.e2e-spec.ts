@@ -49,7 +49,7 @@ describe('Login', function() {
     tosCheck(done);
   });
 
-  it ('should login and navigate to /customers when landed on /customers before login', () => {
+  it ('should login and navigate to /customers when landed on /customers before login', (done) => {
     browser.get('/customers');
     waitForPresenceOfLoginFields(authPage);
     browser.sleep(1200);
@@ -59,21 +59,23 @@ describe('Login', function() {
     browser.sleep(2000);
     waitForUrlContains('customers');
     expectUrlToContain('/customers');
+
+    tosCheck(done);
   });
 
-  it ('should navigate to /dashboard when valid token is present in local storage', () => {
+  it ('should navigate to /dashboard when valid token is present in local storage', (done) => {
     navigateSuperuserToHomepage();
     browser.waitForAngularEnabled(false);
     browser.sleep(2000);
     waitForUrlContains('dashboard');
     expectUrlToContain('/dashboard');
+
+    tosCheck(done);
   });
 
-  it ('should display Auth0 lock and navigate to / when user logs out', () => {
+  it ('should display Auth0 lock and navigate to / when user logs out', (done) => {
     navigateSuperuserToHomepage();
     browser.waitForAngularEnabled(false);
-    browser.sleep(1000);
-    doTOSCheck();
     browser.sleep(2000);
     dashboardPage.getCollapsedMenuButton().click();
     browser.sleep(600);
@@ -81,6 +83,7 @@ describe('Login', function() {
     browser.sleep(1500);
     expectPresent(authPage.getAuth0Lock());
 
+    tosCheck(done);
   });
 });
 

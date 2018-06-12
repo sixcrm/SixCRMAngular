@@ -1,7 +1,7 @@
 import {waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
 import {SidenavPage} from '../po/sidenav.po';
-import {login} from '../utils/action.utils';
+import {login, tosCheck} from '../utils/action.utils';
 import {browser} from 'protractor';
 import {expectUrlToContain, expectDefined} from '../utils/assertation.utils';
 import {ProductSchedulePage} from '../po/product-schedule.po';
@@ -15,13 +15,14 @@ describe('Product Schedules', function() {
     productSchedulePage = new ProductSchedulePage();
   });
 
-  beforeAll(() => {
+  beforeAll((done) => {
     browser.driver.manage().window().setSize(1440, 900);
 
     browser.get('/');
     clearLocalStorage();
     login();
     waitForUrlContains('dashboard');
+    tosCheck(done);
   });
 
   it('should navigate to products page', () => {

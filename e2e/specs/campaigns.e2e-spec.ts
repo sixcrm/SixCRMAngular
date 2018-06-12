@@ -1,7 +1,7 @@
 import {waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
 import {SidenavPage} from '../po/sidenav.po';
-import {login} from '../utils/action.utils';
+import {login, tosCheck} from '../utils/action.utils';
 import {browser} from 'protractor';
 import {expectUrlToContain, expectDefined} from '../utils/assertation.utils';
 import {CampaignPage} from '../po/campaign.po';
@@ -15,13 +15,14 @@ describe('Campaigns', function() {
     campaignPage = new CampaignPage();
   });
 
-  beforeAll(() => {
+  beforeAll((done) => {
     browser.driver.manage().window().setSize(1440, 900);
 
     browser.get('/');
     clearLocalStorage();
     login();
     waitForUrlContains('dashboard');
+    tosCheck(done);
   });
 
   it('should navigate to campaigns page', () => {
