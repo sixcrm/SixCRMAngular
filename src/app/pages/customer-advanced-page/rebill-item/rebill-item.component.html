@@ -105,34 +105,25 @@
         <div>({{product.quantity}}) at {{product.amount.usd()}}</div>
       </div>
 
-      <div class="buttons">
-        <ng-container *ngIf="pending; else pastrebillproductactions">
-          <button mat-button>Remove</button>
-          <button mat-button>Edit</button>
-        </ng-container>
-
-        <ng-template #pastrebillproductactions>
-          <button mat-button *ngIf="product.returns.length === 0">Return</button>
-          <button mat-button>Refund</button>
-        </ng-template>
+      <div class="buttons" *ngIf="!pending">
+        <button mat-button *ngIf="product.returns.length === 0">Return</button>
+        <button mat-button>Refund</button>
       </div>
     </div>
 
   </div>
 
   <div class="shipping" *ngIf="rebill && showTracking">
-    <div class="title">Fulfillment</div>
+    <div class="title">{{rebill.shippingReceipts.length === 0 ? 'This order does not require fulfillment' : 'Fulfillment'}}</div>
 
-    <div class="timeline">
-      <ng-container *ngIf="rebill.shippingReceipts[0]">
-        <div *ngFor="let historyItem of rebill.shippingReceipts[0].history" class="circle">
-          <div class="label">
-            <div>{{historyItem.detail}}</div>
-            <div>{{historyItem.createdAt | formatDateTime: 'MM/DD/YY h:mm A'}}</div>
-          </div>
+    <div class="timeline" *ngIf="rebill.shippingReceipts[0]">
+      <div *ngFor="let historyItem of rebill.shippingReceipts[0].history" class="circle">
+        <div class="label">
+          <div>{{historyItem.detail}}</div>
+          <div>{{historyItem.createdAt | formatDateTime: 'MM/DD/YY h:mm A'}}</div>
         </div>
-        <div class="line"></div>
-      </ng-container>
+      </div>
+      <div class="line"></div>
       <div class="circle">
         <div class="label">
           <div>Order Placed</div>
