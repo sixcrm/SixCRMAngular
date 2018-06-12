@@ -8,8 +8,10 @@ import {Component, Input, OnInit} from '@angular/core';
 export class SideContainerComponent implements OnInit {
 
   @Input() example: any;
+  @Input() response: any;
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 }
