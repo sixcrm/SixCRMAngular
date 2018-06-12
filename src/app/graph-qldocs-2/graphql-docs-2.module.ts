@@ -9,6 +9,7 @@ import { FilterSearchItemsPipe } from './filter-types.pipe';
 import {FormsModule} from '@angular/forms';
 import { SideSearchComponent } from './components/side-search/side-search.component';
 import { SideContainerComponent } from './components/side-container/side-container.component';
+import { GraphqlHeaderComponent } from './components/graphql-header/graphql-header.component';
 import {ClipboardModule} from 'ngx-clipboard';
 import {MaterialSelectionModule} from '../material-selection/material-selection.module';
 import {FormatGraphQlPipe} from "./pipes/format-graphql.pipe";
@@ -31,7 +32,8 @@ import {FormatGraphQlPipe} from "./pipes/format-graphql.pipe";
     SideSearchComponent,
     TypeCardComponent,
     SideContainerComponent,
-    FormatGraphQlPipe
+    FormatGraphQlPipe,
+    GraphqlHeaderComponent
   ],
   providers: [
     GraphqlDocs2Service
