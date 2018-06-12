@@ -6,7 +6,7 @@ import {
   waitForPresenceOfLoginFields, waitForPresenceOf, waitForUrlContains,
   navigateSuperuserToHomepage, clearLocalStorage
 } from '../utils/navigation.utils';
-import {doLogin, doTOSCheck, tosCheck} from '../utils/action.utils';
+import {doLogin, tosCheck} from '../utils/action.utils';
 import {expectPresent, expectUrlToContain} from '../utils/assertation.utils';
 
 describe('Login', function() {
