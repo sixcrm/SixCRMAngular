@@ -33,6 +33,11 @@
       <span> {{'CAMPAIGN_INFO_SHOWPREPAID' | translate}} </span>
       <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View" [(ngModel)]="entity.showPrepaid"></mat-checkbox>
     </div>
+
+    <div class="flex-custom flex-custom--center prepaid-checkbox">
+      <span> {{'CAMPAIGN_INFO_ALLOWORDER' | translate}} </span>
+      <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View" [(ngModel)]="entity.allowOrderCreation"></mat-checkbox>
+    </div>
   </div>
 
   <div *ngIf="mode !== modes.View" class="entity-view__card__actions">

@@ -10,6 +10,7 @@ export class Campaign implements Entity<Campaign>{
   name: string;
   allowPrepaid: boolean;
   showPrepaid: boolean;
+  allowOrderCreation: boolean;
   productSchedules: ProductSchedule[] = [];
   emailTemplates: EmailTemplate[] = [];
   affiliateAllow: Affiliate[] = [];
@@ -26,8 +27,9 @@ export class Campaign implements Entity<Campaign>{
 
     this.id = obj.id;
     this.name = obj.name;
-    this.allowPrepaid = obj.allow_prepaid || false;
-    this.showPrepaid = obj.show_prepaid || false;
+    this.allowPrepaid = !!obj.allow_prepaid;
+    this.showPrepaid = !!obj.show_prepaid;
+    this.allowOrderCreation = !!obj.allow_order_creation;
     this.productSchedules = [];
     this.emailTemplates = [];
     this.createdAt = utc(obj.created_at);
@@ -65,6 +67,7 @@ export class Campaign implements Entity<Campaign>{
       name: this.name,
       allow_prepaid: this.allowPrepaid,
       show_prepaid: this.showPrepaid,
+      allow_order_creation: this.allowOrderCreation,
       affiliate_allow: this.affiliateAllow.map(a => a.inverse()),
       affiliate_deny: this.affiliateDeny.map(a => a.inverse()),
       productschedules: this.productSchedules.map(p => p.inverse()),

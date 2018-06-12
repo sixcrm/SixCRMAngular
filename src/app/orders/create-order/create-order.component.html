@@ -96,15 +96,15 @@
             <div class="expansion-body">
 
               <div *ngIf="hasNoCampaigns; else campaignsinput">
-                You have no Campaigns, please create <span class="new-campaign-link" (click)="navigateToNewCampaign()">new Campaign</span>.
+                You have no Campaigns available for order creation.
               </div>
 
               <ng-template #campaignsinput>
                 <mat-form-field class="autocomplete-input-container">
-                  <input type="text" matInput placeholder="Choose Campaign" [matAutocomplete]="autoCampaign" (input)="campaignInputChanged($event)">
+                  <input type="text" matInput placeholder="Choose Campaign" [matAutocomplete]="autoCampaign" (keyup)="campaignInputChanged()" [(ngModel)]="campaignFilterValue">
 
                   <mat-autocomplete #autoCampaign="matAutocomplete" [displayWith]="displayFn" (optionSelected)="campaignSelected($event)">
-                    <mat-option *ngFor="let campaign of campaigns" [value]="campaign">
+                    <mat-option *ngFor="let campaign of filteredCampaigns" [value]="campaign">
                       <div>{{ campaign.name }} </div>
                     </mat-option>
                   </mat-autocomplete>

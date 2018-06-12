@@ -48,6 +48,8 @@ export class CreateOrderComponent implements OnInit {
 
   selectedCampaign: Campaign;
   campaigns: Campaign[] = [];
+  filteredCampaigns: Campaign[] = [];
+  campaignFilterValue: string;
   hasNoCampaigns: boolean;
 
   selectedProducts: (Product | ProductSchedule)[] = [];
@@ -75,9 +77,6 @@ export class CreateOrderComponent implements OnInit {
   customerSub: Subscription;
   customerSearchSub: Subscription;
   customerSearchDebouncer: Subject<string> = new Subject();
-
-  campaignSearchSub: Subscription;
-  campaignSearchDebouncer: Subject<string> = new Subject();
 
   selectedCcvError: boolean = false;
   showPreview: boolean;
@@ -107,8 +106,7 @@ export class CreateOrderComponent implements OnInit {
     private transactionalAPI: HttpWrapperTransactionalService,
     private navigationService: NavigationService,
     private snackService: SnackbarService,
-    private searchService: SearchService,
-    private router: Router
+    private searchService: SearchService
   ) { }
 
   ngOnInit() {
@@ -120,18 +118,13 @@ export class CreateOrderComponent implements OnInit {
       this.customerSearchSub = this.searchService.searchCustomers(value).subscribe(customers => this.customers = customers);
     });
 
-    this.campaignSearchDebouncer.debounceTime(250).subscribe(value => {
-      if (this.campaignSearchSub) {
-        this.campaignSearchSub.unsubscribe();
-      }
-
-      this.campaignSearchSub = this.searchService.searchCampaigns(value).subscribe(campaigns => this.campaigns = campaigns);
-    });
-
     this.campaignService.entities$.take(1).subscribe((campaigns) => {
       if (campaigns instanceof CustomServerError) return;
 
-      const numberOfCampaigns = campaigns.length;
+      this.campaigns = campaigns.filter(c => !c.allowOrderCreation);
+      this.filteredCampaigns = this.campaigns.slice();
+
+      const numberOfCampaigns = this.campaigns.length;
 
       if (numberOfCampaigns === 0) {
         this.hasNoCampaigns = true;
@@ -158,7 +151,7 @@ export class CreateOrderComponent implements OnInit {
       this.shippings = shippings;
     });
 
-    this.campaignService.getEntities(2);
+    this.campaignService.getEntities();
     this.productService.getEntities();
     this.productScheduleService.getEntities();
   }
@@ -228,8 +221,16 @@ export class CreateOrderComponent implements OnInit {
     this.setStep(2);
   }
 
-  campaignInputChanged(event: any) {
-    this.campaignSearchDebouncer.next(event.srcElement.value);
+  campaignFilterFunction = (campaign: Campaign) => {
+    if (!this.campaignFilterValue || !this.campaignFilterValue.toLowerCase) return true;
+
+    const filter = this.campaignFilterValue.toLowerCase();
+
+    return campaign.name.toLowerCase().indexOf(filter) !== -1;
+  };
+
+  campaignInputChanged() {
+    this.filteredCampaigns = this.campaigns.filter(this.campaignFilterFunction);
   }
 
   removeCampaign() {
@@ -590,10 +591,5 @@ export class CreateOrderComponent implements OnInit {
         this.snackService.showErrorSnack(response.message, 6000);
       }
     })
-  }
-
-  navigateToNewCampaign() {
-    this.router.navigate(['/campaigns'], {queryParams: {action: 'new'}});
-    this.close.emit(true);
   }
 }
