@@ -32,7 +32,7 @@ export class CustomerAdvancedSubscriptionsComponent implements OnInit {
   }
 
   initialize() {
-    this.rebillService.getPastRebillsByCustomer(this._customer, {}).subscribe(rebills => {
+    this.rebillService.getPendingRebillsByCustomer(this._customer, {}).subscribe(rebills => {
       this.rebills = rebills;
     });
   }
