@@ -17,9 +17,9 @@
       </div>
       <div
         *ngFor="let child of searchItem.children | filterSearchItems: filterString"
-        (click)="navigateTo(child, searchItem.name); selectedItem = child;"
+        (click)="navigateTo(child, searchItem.name); selectedItem = searchItem.name + child"
         class="side-search__item__child"
-        [class.selected]="child === selectedItem">
+        [class.selected]="searchItem.name + child === selectedItem">
         <span matTooltip="{{child}}">{{child}}</span>
       </div>
     </div>
