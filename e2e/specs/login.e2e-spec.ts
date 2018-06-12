@@ -6,7 +6,7 @@ import {
   waitForPresenceOfLoginFields, waitForPresenceOf, waitForUrlContains,
   navigateSuperuserToHomepage, clearLocalStorage
 } from '../utils/navigation.utils';
-import {doLogin, doTOSCheck} from '../utils/action.utils';
+import {doLogin, doTOSCheck, tosCheck} from '../utils/action.utils';
 import {expectPresent, expectUrlToContain} from '../utils/assertation.utils';
 
 describe('Login', function() {
@@ -34,17 +34,19 @@ describe('Login', function() {
     expectPresent(authPage.getErrorMessage());
   });
 
-  it ('should login and navigate to /dashboard when correct email and password are used', () => {
+  // test function has optional parameter function (we name it 'done' here). If present, test wont finish until this function is executed
+  it ('should login and navigate to /dashboard when correct email and password are used', (done) => {
     authPage.navigateTo();
     waitForPresenceOfLoginFields(authPage);
     browser.sleep(1200);
     browser.waitForAngularEnabled(false);
     doLogin(authPage, 'e2e-test-admin@sixcrm.com', '123456789');
     browser.sleep(2000);
-    doTOSCheck();
-    browser.sleep(2000);
     waitForUrlContains('dashboard');
     expectUrlToContain('/dashboard');
+
+    // make sure we check for TOS after login, as we have done function, test won't be finished until someone executes it 'done()'
+    tosCheck(done);
   });
 
   it ('should login and navigate to /customers when landed on /customers before login', () => {
@@ -55,8 +57,6 @@ describe('Login', function() {
     doLogin(authPage, 'e2e-test-admin@sixcrm.com', '123456789');
     // Wait for angular is disabled, so we need to tell protractor to wait for page to load
     browser.sleep(2000);
-    doTOSCheck();
-    browser.sleep(1500);
     waitForUrlContains('customers');
     expectUrlToContain('/customers');
   });
@@ -66,8 +66,6 @@ describe('Login', function() {
     browser.waitForAngularEnabled(false);
     browser.sleep(2000);
     waitForUrlContains('dashboard');
-    doTOSCheck();
-    browser.sleep(2000);
     expectUrlToContain('/dashboard');
   });
 

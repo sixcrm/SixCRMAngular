@@ -55,3 +55,24 @@ export function doTOSCheck() {
     console.log('No TOS button found');
     });
 }
+
+export function tosCheck(doneCallback) {
+  // give it some time to appear
+  browser.sleep(1500);
+
+  // ask if button is present
+  dashboardPage.getTOSButton().isPresent().then((isPresent: boolean) => {
+    // if button is present
+    if (isPresent) {
+      // click on it
+      dashboardPage.getTOSButton().click();
+
+      // and call function recursively (for another set of terms and conditions, owner TOS)
+      tosCheck(doneCallback);
+    } else {
+      // if button is not present, then inform test caller that it can be finished
+      doneCallback();
+    }
+  })
+
+}
