@@ -31,6 +31,8 @@ export class ProductImagesComponent implements OnInit, OnDestroy {
 
   onDropzone: boolean;
 
+  uploadInProgress: boolean;
+
   constructor(
     private sanitizer: DomSanitizer,
     private imageService: ImagesService,
@@ -39,15 +41,22 @@ export class ProductImagesComponent implements OnInit, OnDestroy {
   ) { }
 
   uploadImage() {
-    if (!this.rawImage) return;
+    if (!this.rawImage || this.uploadInProgress) return;
+
+    this.uploadInProgress = true;
 
     this.sub = this.imageService.entityCreated$.take(1).subscribe(img => {
-      if (img instanceof CustomServerError) return;
+      if (img instanceof CustomServerError) {
+        this.uploadInProgress = false;
+        return;
+      }
 
       this.imageUploaded.next(img);
     });
 
     this.productSub = this.productService.entityUpdated$.subscribe((data) => {
+      this.uploadInProgress = false;
+
       if (data instanceof CustomServerError) return;
 
       this.uploader.clearQueue();
