@@ -4,7 +4,7 @@
       <div class="item" (click)="navigateToHome()">Home</div>
       <ng-container *ngFor="let p of path">
         <mat-icon class="arrow">keyboard_arrow_right</mat-icon>
-        <div class="item">{{p}}</div>
+        <div class="item" (click)="navigateToGraph()">{{p}}</div>
       </ng-container>
     </div>
 

@@ -21,4 +21,8 @@ export class GraphqlHeaderComponent implements OnInit {
   navigateToHome() {
     this.router.navigate(['/dashboard']);
   }
+
+  navigateToGraph() {
+    this.router.navigate(['/documentation/graph2']);
+  }
 }
