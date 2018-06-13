@@ -160,7 +160,8 @@ export class GraphqlDocs2Component implements OnInit, OnDestroy {
 function generateTypes(types: Type[], parent: string): string[] {
   let examples = [];
   types.filter(t => t.name === parent).forEach(type => {
-    examples = [...examples,...type.fields.map(t => `{ ${t.name} ${generateInput(t.args, types)} ${generateResponse(t.type, types)} }`)];
+    let typeName = type.name.toLowerCase();
+    examples = [...examples,...type.fields.map(t => `${typeName} { ${t.name} ${generateInput(t.args, types)} ${generateResponse(t.type, types)} }`)];
   });
 
   return examples;
