@@ -30,7 +30,7 @@ export class ProductsComponent extends AbstractEntityIndexComponent<Product> imp
     let f = this.authService.getTimezone();
     this.columnParams = [
       new ColumnParams('PRODUCT_INDEX_HEADER_ID', (e: Product) => e.id).setSelected(false),
-      new ColumnParams('PRODUCT_INDEX_HEADER_NAME', (e: Product) => e.name),
+      new ColumnParams('PRODUCT_INDEX_HEADER_NAME', (e: Product) => e.name).setImageMapper((e: Product) => e.getDefaultImagePath() || '/assets/images/product-image-placeholder.svg'),
       new ColumnParams('PRODUCT_INDEX_HEADER_PRICE', (e: Product) => e.defaultPrice.usd(), 'right'),
       new ColumnParams('PRODUCT_INDEX_HEADER_SKU',(e: Product) => e.sku),
       new ColumnParams('PRODUCT_INDEX_HEADER_SHIP', (e: Product) => e.ship + ''),

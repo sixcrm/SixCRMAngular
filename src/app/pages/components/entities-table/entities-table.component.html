@@ -88,11 +88,14 @@
                   {{param.mappingFunction(entity)}}
                 </div>
                 <ng-template #noCode>
-                  <ng-container *ngIf="param.number; else nan">{{param.mappingFunction(entity) | numberlocale}}</ng-container>
-                  <ng-template #nan>
-                    <ng-container *ngIf="param.translate; else notranslate">{{param.mappingFunction(entity) | translate}}</ng-container>
-                    <ng-template #notranslate>{{param.mappingFunction(entity)}}</ng-template>
-                  </ng-template>
+                  <div class="wrapper">
+                    <div class="image" *ngIf="param.imageMapper && param.imageMapper(entity)" [style.background-image]="'url(' + param.imageMapper(entity) + ')'"></div>
+                    <ng-container *ngIf="param.number; else nan">{{param.mappingFunction(entity) | numberlocale}}</ng-container>
+                    <ng-template #nan>
+                      <ng-container *ngIf="param.translate; else notranslate">{{param.mappingFunction(entity) | translate}}</ng-container>
+                      <ng-template #notranslate>{{param.mappingFunction(entity)}}</ng-template>
+                    </ng-template>
+                  </div>
                 </ng-template>
               </td>
             </ng-container>
