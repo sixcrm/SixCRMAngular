@@ -17,6 +17,13 @@ jobs:
       - run:
           name: npm install
           command: npm install
+      - run:
+          name: Install Chrome
+          command: |
+            wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+            sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+            sudo apt-get update
+            sudo apt-get -y install google-chrome-stable
       - save_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
@@ -25,6 +32,10 @@ jobs:
           key: git-modules-{{ .Branch }}-{{ .Revision }}
           paths:
             - libs/deployment_scripts
+      - save_cache:
+          key: google-chrome-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - /opt/google/chrome
   build:
     <<: *job-defaults
     steps:
@@ -115,13 +126,8 @@ jobs:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
-      - run:
-          name: Install Chrome
-          command: |
-            wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-            sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-            sudo apt-get update
-            sudo apt-get -y install google-chrome-stable
+      - restore_cache:
+          key: google-chrome-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Update webdriver
           command: npm run pree2e
@@ -394,7 +400,7 @@ workflows:
             - deploy_s3
       - e2e_register:
           requires:
-            - deploy_cloudfront
+            - install
           filters:
             branches:
               only:
