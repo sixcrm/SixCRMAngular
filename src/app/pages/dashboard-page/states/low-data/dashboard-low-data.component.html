@@ -49,6 +49,9 @@
                 <div *ngIf="transaction.processorResponse.message.toLowerCase() === 'failed'" class="icon-holder icon-holder__fail">
                   <mat-icon class="fail-icon" role="img" aria-hidden="true">not_interested</mat-icon>
                 </div>
+                <div *ngIf="transaction.processorResponse.message.toLowerCase() === 'error'" class="icon-holder icon-holder__fail">
+                  <mat-icon class="fail-icon" role="img" aria-hidden="true">error</mat-icon>
+                </div>
                 <div class="success">{{transaction.processorResponse.message}}</div>
               </td>
               <td>{{transaction.amount.usd()}}</td>
