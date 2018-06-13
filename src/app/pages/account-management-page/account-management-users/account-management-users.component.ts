@@ -62,8 +62,8 @@ export class AccountManagementUsersComponent implements OnInit, OnDestroy {
   selectedSortBy: {label: string, sortFunction: (f: Acl, s: Acl) => number};
 
   constructor(
+    public authService: AuthenticationService,
     private accountService: AccountsService,
-    private authService: AuthenticationService,
     private rolesService: RolesService,
     private rolesSharedService: RolesSharedService,
     private aclService: AclsService,
@@ -176,6 +176,14 @@ export class AccountManagementUsersComponent implements OnInit, OnDestroy {
   applySortBy(sort: {label: string, sortFunction: (f: Acl, s: Acl) => number}) {
     this.selectedSortBy = sort;
     this.account.acls = this.account.acls.sort(sort.sortFunction);
+  }
+
+  resendInvite(acl: Acl): void {
+    this.userService.resendUserInvite(acl).subscribe(response => {
+      if (response instanceof CustomServerError) {
+        return;
+      }
+    });
   }
 
 }

@@ -27,7 +27,12 @@
   <div class="content-wrapper" *ngIf="account">
 
     <div class="user-card" *ngFor="let acl of account.acls | filterStrings: filterString: filterFunction">
-      <div class="avatar">{{getAvatar(acl)}}</div>
+      <div class="avatar avatar--pending" *ngIf="!!acl.pending; else accepted">
+        <img src="/assets/images/envelope.svg" alt="">
+      </div>
+      <ng-template #accepted>
+        <div class="avatar">{{getAvatar(acl)}}</div>
+      </ng-template>
       <div class="data">
         <div class="name">{{acl.user.name}}</div>
         <div class="email">{{acl.user.email}}</div>
@@ -43,10 +48,13 @@
         </div>
       </div>
 
-      <mat-icon class="menu-icon" [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
-      <mat-menu #actionsMenu="matMenu" x-position="before">
-        <button mat-menu-item (click)="deleteAcl(acl)">Delete</button>
-      </mat-menu>
+      <ng-container *ngIf="!acl.role.isOwner() && acl.id !== authService.getActiveAcl().id">
+        <mat-icon class="menu-icon" [matMenuTriggerFor]="actionsMenu">more_vert</mat-icon>
+        <mat-menu #actionsMenu="matMenu" x-position="before">
+          <button mat-menu-item (click)="deleteAcl(acl)">Delete</button>
+          <button mat-menu-item (click)="resendInvite(acl)" *ngIf="!!acl.pending">Resend</button>
+        </mat-menu>
+      </ng-container>
     </div>
 
   </div>

@@ -70,6 +70,15 @@
       min-width: 38px;
       line-height: 38px;
       text-align: center;
+
+      &--pending {
+        display: flex;
+        background: #DCDCDC;
+      }
+
+      img {
+        margin: auto;
+      }
     }
 
     .data {

@@ -124,7 +124,12 @@
           <div *ngIf="!roleAcls || roleAcls.length === 0" class="no-data">No Users are assigned to this Role</div>
 
           <div class="user-card" [class.user-card--partial]="usersEditMode" *ngFor="let acl of roleAcls | filterStrings: filterString: filterFunction">
-            <div class="avatar">{{getAvatar(acl)}}</div>
+            <div class="avatar avatar--pending" *ngIf="!!acl.pending; else accepted">
+              <img src="/assets/images/envelope.svg" alt="">
+            </div>
+            <ng-template #accepted>
+              <div class="avatar">{{getAvatar(acl)}}</div>
+            </ng-template>
             <div class="data">
               <div class="name">{{acl.user.name}}</div>
               <div class="email">{{acl.user.email}}</div>
