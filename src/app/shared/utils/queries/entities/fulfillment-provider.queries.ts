@@ -52,7 +52,7 @@ export function updateFulfillmentProviderMutation(provider: FulfillmentProvider)
 }
 
 export function fulfillmentProviderResponseQuery(): string {
-  return `id, name, provider { ... on Hashtag { name, username, password, threepl_customer_id, threepl_key } ... on ThreePL { name, username, password, threepl_customer_id, threepl_key, threepl_id, threepl_facility_id }, ... on TestFulfillmentProvider {name}, ... on ShipStation { name, api_key, api_secret } }, created_at, updated_at`;
+  return `id, name, provider { ... on Hashtag { name, username, password, threepl_customer_id, threepl_key } ... on ThreePL { name, username, password, threepl_customer_id, threepl_key, threepl_id, threepl_facility_id }, ... on TestFulfillmentProvider {name}, ... on ShipStation { name, api_key, api_secret, store_id } }, created_at, updated_at`;
 }
 
 export function validateFulfillmentProviderQuery(provider: FulfillmentProvider): string {
@@ -77,7 +77,7 @@ export function fulfillmentProviderInputQuery(provider: FulfillmentProvider, inc
   }
 
   if (provider.provider.name === 'ShipStation') {
-    data += `, api_secret:"${provider.provider.apiSecret}", api_key:"${provider.provider.apiKey}"`;
+    data += `, api_secret:"${provider.provider.apiSecret}", api_key:"${provider.provider.apiKey}", store_id: ${provider.provider.storeId}`;
   }
 
   return `${addId(provider.id, includeId)} name: "${provider.name}", provider: { ${data} }, ${addUpdatedAtApi(provider, includeId)}`;

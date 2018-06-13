@@ -52,6 +52,10 @@
         <input required matInput [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_APISECRET' | translate}}" [(ngModel)]="entity.provider.apiSecret" name="apisecret" type="text">
       </mat-input-container>
 
+      <mat-input-container [class.error]="formInvalid" class="entity-view__card__content__item">
+        <input matInput [disabled]="mode === modes.View" (keydown)="isNumeric($event)" placeholder="{{'FULFILLMENT_INFO_STOREID' | translate}}" [(ngModel)]="entity.provider.storeId" name="storeid" type="text">
+      </mat-input-container>
+
     </ng-container>
 
   </form>
