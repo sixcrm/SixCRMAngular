@@ -3,7 +3,6 @@ import {AuthenticationService} from '../authentication.service';
 import {UsersService} from '../../shared/services/users.service';
 import {Acl} from '../../shared/models/acl.model';
 import {User} from '../../shared/models/user.model';
-import {Router} from '@angular/router';
 import {AclsService} from '../../shared/services/acls.service';
 import {firstIndexOf} from '../../shared/utils/array.utils';
 import {Subscription} from 'rxjs';
@@ -37,7 +36,6 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
     public authService: AuthenticationService,
     private userService: UsersService,
     private aclService: AclsService,
-    private router: Router,
     public http: HttpWrapperService
   ) { }
 
@@ -113,9 +111,6 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
 
       if (this.activeAcl.role.name === 'Owner' && this.authService.getActiveAcl().termsAndConditionsOutdated) {
         this.fetchOwner();
-      } else {
-        const redirectRoute = this.authService.isActiveAclCustomerService() ? '/customer-service' :'/dashboard';
-        this.router.navigate([redirectRoute]);
       }
     });
   }
@@ -141,8 +136,6 @@ export class TermsAndConditionsComponent implements OnInit, OnDestroy {
         this.authService.updateSixUser(user);
         this.authService.refreshActiveAcl(user.acls[index].id);
       }
-
-      this.router.navigate(['/dashboard']);
     });
   }
 
