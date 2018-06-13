@@ -6,38 +6,94 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class FormatGraphQlPipe implements PipeTransform {
 
   tab = '  ';
+  result = '';
+  tabCounter = 0;
+  bracketCounter = 0;
+  wrap = '';
+  addLastBracket = false;
 
   transform(text: string): string {
+    this.result = '';
+    this.bracketCounter = 0;
+    this.tabCounter = 0;
+    this.addLastBracket = false;
 
-    let result = '';
-    let tabCounter = 0;
+    if (!text) return this.result;
 
-    if (!text) return result;
-
-    for (let c of text) {
-      if (c === '{' || c === '(') {
-        tabCounter++;
-        result += c + '\n' + this.tabs(tabCounter)
-      } else if (c === '}' || c === ')') {
-        tabCounter--;
-        result += '\n ' + this.tabs(tabCounter) + c + '\n' + this.tabs(tabCounter)
-      } else if (c === ',') {
-        result += c +'\n' + this.tabs(tabCounter)
-      } else {
-        result += c;
+    for (let i = 0; i < text.length; i++) {
+      let c = text[i];
+      switch (c) {
+        case '(': {
+          this.bracketCounter++;
+          this.openBracket(c);
+          break;
+        }
+        case '{': {
+          this.openBracket(c);
+          break;
+        }
+        case '}': {
+          this.closedCurlyBracket(c);
+          break;
+        }
+        case ')': {
+          this.closedBracket(c, text[i+1]);
+          break;
+        }
+        case ',': {
+          this.result += c + '\n' + this.tabs(this.tabCounter);
+          break;
+        }
+        default: {
+          this.result += c;
+        }
       }
     }
 
-    return result;
+    if (this.addLastBracket) {
+      this.result += '\n' + '}';
+    }
+
+    return this.result;
+  }
+
+  openBracket(c: string) {
+    this.tabCounter++;
+    this.result += c + '\n' + this.tabs(this.tabCounter);
+  }
+
+  closedBracket(c: string, next: string) {
+    this.tabCounter--;
+    this.addWrap();
+
+    this.result += '\n' + this.tabs(this.tabCounter) + c + this.wrap;
+
+    if (next !== ',') {
+      this.result += '\n' + this.tabs(this.tabCounter);
+    }
+  }
+
+  closedCurlyBracket(c: string) {
+    this.tabCounter--;
+    this.result += '\n ' + this.tabs(this.tabCounter) + c + '\n' + this.tabs(this.tabCounter);
+  }
+
+  addWrap() {
+    this.wrap = '';
+    this.bracketCounter--;
+    if (!this.addLastBracket && this.bracketCounter === 0) {
+      this.wrap = ' {';
+      this.addLastBracket = true;
+    }
   }
 
   tabs(count: number) {
-    let result = '';
+    let tabs = '';
     for (let i = 0; i < count; i++) {
-      result += this.tab;
+      tabs += this.tab;
     }
 
-    return result;
+    return tabs;
   }
 
 }
