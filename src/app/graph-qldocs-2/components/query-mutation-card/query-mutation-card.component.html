@@ -32,6 +32,6 @@
       <pre class="field__example" *ngIf="!(isQuery || isMutation)">{{field.example | formatGraphQl}}</pre>
     </div>
 
-    <side-container *ngIf="isQuery || isMutation" [example]="field.example" [response]="field.response"></side-container>
+    <side-container *ngIf="isQuery || isMutation" [example]="field.example" [response]="field.response" [fieldType]="field.type"></side-container>
   </div>
 </div>
