@@ -1,0 +1,16 @@
+<div class="product" *ngIf="product">
+  <div class="name">{{product.product.name}}</div>
+  <div class="image-wrapper">
+    <div class="returns-wrapper">
+      <div class="return" *ngFor="let return of product.returns">
+        <mat-icon>sync</mat-icon>
+        <span>Returned ({{return.quantity}}) {{return.return.createdAt | formatDateTime: 'M/D/YY'}}</span>
+      </div>
+    </div>
+    <div class="image" [style.background-image]="'url(' + getProductImage(product.product) + ')'"></div>
+  </div>
+  <div class="info">
+    <div>SKU {{product.product.sku}}</div>
+    <div>({{product.quantity}}) at {{product.amount.usd()}}</div>
+  </div>
+</div>

@@ -14,6 +14,9 @@ import { CustomerAdvancedFulfillmentComponent } from './customer-advanced-fulfil
 import { CustomerAdvancedEventsComponent } from './customer-advanced-events/customer-advanced-events.component';
 import { RebillItemComponent } from './rebill-item/rebill-item.component';
 import { CustomerAdvancedSubscriptionsComponent } from './customer-advanced-subscriptions/customer-advanced-subscriptions.component';
+import { InfoTableComponent } from './rebill-item-components/info-table/info-table.component';
+import { ProductItemComponent } from './rebill-item-components/product-item/product-item.component';
+import { RebillExpandedDetailsComponent } from './rebill-expanded-details/rebill-expanded-details.component';
 
 @NgModule({
   imports: [
@@ -33,7 +36,10 @@ import { CustomerAdvancedSubscriptionsComponent } from './customer-advanced-subs
     CustomerAdvancedFulfillmentComponent,
     CustomerAdvancedEventsComponent,
     RebillItemComponent,
-    CustomerAdvancedSubscriptionsComponent
+    CustomerAdvancedSubscriptionsComponent,
+    InfoTableComponent,
+    ProductItemComponent,
+    RebillExpandedDetailsComponent
   ]
 })
 export class CustomerAdvancedModule { }

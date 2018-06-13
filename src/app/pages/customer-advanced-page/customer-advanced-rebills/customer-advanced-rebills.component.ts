@@ -18,8 +18,10 @@ export class CustomerAdvancedRebillsComponent implements OnInit {
   _customer: Customer;
 
   rebills: Rebill[] = [];
+  selectedRebill: Rebill;
 
   selectedIndex: number = 0;
+  selectedGranularityIndex: number = 0;
 
   @Input() set customer(customer: Customer) {
     if (customer) {
@@ -107,5 +109,15 @@ export class CustomerAdvancedRebillsComponent implements OnInit {
 
   setIndex(index: number) {
     this.selectedIndex = index;
+  }
+
+  viewSingleRebill(rebill: Rebill) {
+    this.selectedRebill = rebill.copy();
+
+    this.selectedGranularityIndex = 1;
+  }
+
+  viewAllRebills() {
+    this.selectedGranularityIndex = 0;
   }
 }

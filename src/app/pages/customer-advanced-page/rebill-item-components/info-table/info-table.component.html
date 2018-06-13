@@ -1,0 +1,21 @@
+<div *ngIf="rebill" class="details" [class.details--column]="columnStyle">
+  <div class="item" [class.item--column]="columnStyle">
+    <div>Order Number</div>
+    <div>{{rebill.parentSession.alias}}</div>
+  </div>
+
+  <div class="item" [class.item--column]="columnStyle">
+    <div>Initial Order Date</div>
+    <div>{{rebill.parentSession.createdAt | formatDateTime}}</div>
+  </div>
+
+  <div class="item" [class.item--column]="columnStyle">
+    <div>Rebill No</div>
+    <div>{{calculateCycle()}}</div>
+  </div>
+
+  <div class="item" [class.item--column]="columnStyle">
+    <div>Campaign</div>
+    <div class="campaign" [routerLink]="['/campaigns', rebill.parentSession.campaign.id]">{{rebill.parentSession.campaign.name}}</div>
+  </div>
+</div>

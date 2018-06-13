@@ -93,6 +93,7 @@ export class Rebill implements Entity<Rebill> {
       created_at: this.createdAt.clone().format(),
       updated_at: this.updatedAtAPI,
       parentsession: this.parentSession.inverse(),
+      products: this.products.map(p => p.inverse()),
       product_schedules: this.productSchedules.map(p => p.inverse()),
       shippingreceipts: this.shippingReceipts.map(r => r.inverse()),
       transactions: this.transactions.map(t => t.inverse()),

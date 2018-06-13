@@ -1,0 +1,68 @@
+<div class="container">
+
+  <div class="chargeback" *ngIf="rebill.hasChargeback()">
+    CHARGEBACK
+  </div>
+
+  <div class="header">
+    <div class="info">
+      <button mat-button (click)="backButtonSelected.emit(true)"><mat-icon>keyboard_arrow_left</mat-icon> All Orders</button>
+
+      <div>Billed {{rebill.billAt | formatDateTime: 'MMMM DD, YYYY'}}</div>
+      <div class="separator"></div>
+      <div class="refund" *ngIf="rebill.hasRefund(); else norefund">{{rebill.amountAfterRefund().usd()}}</div>
+      <ng-template #norefund>
+        <div>{{rebill.amount.usd()}}</div>
+      </ng-template>
+
+      <button style="margin-left: auto" mat-button>Refund All</button>
+      <button mat-button>Return All</button>
+    </div>
+  </div>
+
+  <div class="details">
+
+    <div class="tables">
+      <info-table [rebill]="rebill" [columnStyle]="true"></info-table>
+
+      <div class="transactions">
+        <div class="title">Transactions</div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Card</th>
+              <th>Amount</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transaction of rebill.transactions">
+              <td>{{transaction.chargeback ? 'Chargeback' : transaction.processorResponse.message}}</td>
+              <td>{{transaction.createdAt | formatDateTime: 'MM/DD/YYYY h:mm: A'}}</td>
+              <td>{{transaction.processorResponse.getCard().brand}} {{transaction.processorResponse.getCard().last4}}</td>
+              <td>{{transaction.amount.usd()}}</td>
+              <td><button mat-button>View</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="fulfillment">
+
+    </div>
+
+  </div>
+
+  <div class="products">
+
+    <ng-container *ngFor="let product of rebill.products">
+      <product-item [product]="product"></product-item>
+    </ng-container>
+
+  </div>
+
+</div>

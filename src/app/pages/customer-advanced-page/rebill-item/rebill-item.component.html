@@ -1,4 +1,4 @@
-<div>
+<div class="container">
 
   <div class="chargeback" *ngIf="!pending && rebill.hasChargeback()">
     CHARGEBACK
@@ -21,116 +21,24 @@
       </ng-container>
 
       <ng-template #pastrebillactions>
-        <button mat-button (click)="toggleTransactions()">Transactions</button>
-        <button mat-button (click)="toggleShipping()">Track Delivery</button>
+        <button mat-button>Refund All</button>
+        <button mat-button>Return All</button>
+        <button mat-button>Track Delivery</button>
+        <div class="separator separator--buttons"></div>
+        <button mat-button (click)="rebillSelected.emit(rebill)">Order #{{rebill.parentSession.alias}} <mat-icon>keyboard_arrow_right</mat-icon></button>
       </ng-template>
 
     </div>
-
-    <div class="details">
-      <div class="item">
-        <div>Order Number</div>
-        <div class="value-simple">{{rebill.parentSession.alias}}</div>
-      </div>
-
-      <div class="item">
-        <div>Initial Order Date</div>
-        <div class="value-simple">{{rebill.parentSession.createdAt | formatDateTime}}</div>
-      </div>
-
-      <div class="item">
-        <div>Rebill No</div>
-        <div class="value-simple">{{calculateCycle()}}</div>
-      </div>
-
-      <div class="item">
-        <div>Campaign</div>
-        <div class="campaign value-simple" [routerLink]="['/campaigns', rebill.parentSession.campaign.id]">{{rebill.parentSession.campaign.name}}</div>
-      </div>
-    </div>
-
-    <div class="details transactions" *ngIf="showTransactions">
-      <div class="item">
-        <div>Status</div>
-        <div class="value" *ngFor="let transaction of rebill.transactions">
-          <mat-icon [class.icon-success]="!transaction.chargeback" [class.icon-error]="transaction.chargeback">
-            {{transaction.chargeback ? 'error' : 'done'}}
-          </mat-icon>
-          <div>
-            {{transaction.processorResponse.message}}
-          </div>
-        </div>
-      </div>
-
-      <div class="item">
-        <div>Date</div>
-        <div class="value" *ngFor="let transaction of rebill.transactions">
-          <div>{{transaction.createdAt | formatDateTime: 'MM/DD/YYYY h:mm A'}}</div>
-        </div>
-      </div>
-
-      <div class="item">
-        <div>Card</div>
-        <div class="value" *ngFor="let transaction of rebill.transactions">
-          <div>{{transaction.processorResponse.getCard().brand}}</div>
-        </div>
-      </div>
-
-      <div class="item">
-        <div>Amount</div>
-        <div class="value" *ngFor="let transaction of rebill.transactions">
-          <div class="transaction-amount">{{transaction.amount.usd()}}</div>
-          <button mat-button (click)="viewTransaction(transaction)">View</button>
-        </div>
-      </div>
-
-    </div>
   </div>
+
+  <info-table *ngIf="pending" [rebill]="rebill"></info-table>
 
   <div class="products">
 
-    <div class="product" *ngFor="let product of rebill.products">
-      <div class="name">{{product.product.name}}</div>
-      <div class="image-wrapper">
-        <div class="returns-wrapper">
-          <div class="return" *ngFor="let return of product.returns">
-            <mat-icon>sync</mat-icon>
-            <span>Returned ({{return.quantity}}) {{return.return.createdAt | formatDateTime: 'M/D/YY'}}</span>
-          </div>
-        </div>
-        <div class="image" [style.background-image]="'url(' + getProductImage(product.product) + ')'"></div>
-      </div>
-      <div class="info">
-        <div>SKU {{product.product.sku}}</div>
-        <div>({{product.quantity}}) at {{product.amount.usd()}}</div>
-      </div>
+    <ng-container *ngFor="let product of rebill.products">
+      <product-item [product]="product"></product-item>
+    </ng-container>
 
-      <div class="buttons" *ngIf="!pending">
-        <button mat-button *ngIf="product.returns.length === 0">Return</button>
-        <button mat-button>Refund</button>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="shipping" *ngIf="rebill && showTracking">
-    <div class="title">{{rebill.shippingReceipts.length === 0 ? 'This order does not require fulfillment' : 'Fulfillment'}}</div>
-
-    <div class="timeline" *ngIf="rebill.shippingReceipts[0]">
-      <div *ngFor="let historyItem of rebill.shippingReceipts[0].history" class="circle">
-        <div class="label">
-          <div>{{historyItem.detail}}</div>
-          <div>{{historyItem.createdAt | formatDateTime: 'MM/DD/YY h:mm A'}}</div>
-        </div>
-      </div>
-      <div class="line"></div>
-      <div class="circle">
-        <div class="label">
-          <div>Order Placed</div>
-          <div>{{rebill.createdAt | formatDateTime: 'MM/DD/YY h:mm A'}}</div>
-        </div>
-      </div>
-    </div>
   </div>
 
 </div>
