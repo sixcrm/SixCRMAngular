@@ -51,16 +51,16 @@ export function refundTransactionMutation(transactionId: string, refundAmount: s
 }
 
 export function transactionInfoResponseQuery(): string {
-  return 'id amount alias created_at updated_at merchant_provider { id name } processor_response';
+  return 'id amount alias type created_at updated_at merchant_provider { id name } processor_response';
 }
 
 export function transactionCustomerInfoResponseQuery(): string {
-  return 'id amount alias created_at updated_at processor_response rebill { parentsession { id alias } } merchant_provider { id name }';
+  return 'id amount alias created_at updated_at processor_response type rebill { parentsession { id alias } } merchant_provider { id name }';
 }
 
 export function transactionResponseQuery(): string {
   return `
-    id alias amount processor_response created_at updated_at,
+    id alias amount processor_response type created_at updated_at,
     merchant_provider { id name }
     rebill { id amount }
     products { amount,
