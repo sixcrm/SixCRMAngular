@@ -22,11 +22,14 @@
     align-items: center;
 
     .refund {
+      display: flex;
+      align-items: center;
       background: #DC2547;
       font-size: 16px;
       color: #ffffff;
       padding: 2px 6px;
       border-radius: 4px;
+      cursor: pointer;
     }
 
     div {
@@ -67,63 +70,204 @@
 
 }
 
-.details {
+.details-wrapper {
   display: flex;
-  margin: 20px;
+  margin: 0 20px;
+}
 
-  .transactions {
-    padding: 20px 20px 10px;
-    border: 1px solid rgba(0,0,0,0.06);
+.details {
+  width: 50%;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,0.12);
 
-    .title {
-      margin-bottom: 15px;
-      color: #5F6368;
-      font-size: 14px;
-    }
-
-    th,td {
-      padding: 8px 5px;
-    }
-
-    td {
-      color: #202124;
-      font-size: 13px;
-
-      button {
-        font-weight: 400;
-      }
-    }
-
-    th {
-      color: #5F6368;
-      font-size: 12px;
-      font-weight: 500;
-
-      &:last-of-type {
-        width: 1px;
-      }
-    }
+  &:first-of-type {
+    margin-right: 10px;
   }
 
-  info-table {
-    display: block;
-    margin-bottom: 20px;
+  &:last-of-type {
+    margin-left: 10px;
   }
 
-  .tables {
-    width: calc(100% - 270px);
+  .title {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+
+    &--chargeback {
+      background: rgba(220, 37, 71, 0.1);
+    }
+
+    &--fulfillment {
+      background: rgba(30, 190, 165, 0.1);
+    }
+
+    div {
+      font-size: 16px;
+      color: #5F6368;
+      line-height: 24px;
+      padding: 12px 24px;
+
+      &:nth-of-type(2) {
+        margin-left: auto;
+        font-size: 14px;
+        color: #2C98F0;
+        cursor: pointer;
+      }
+    }
   }
 
   .fulfillment {
-    margin-left: 20px;
-    border-radius: 4px;
-    width: 250px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 25px;
+    box-sizing: border-box;
     background: rgba(30, 190, 165, 0.1);
+    min-height: calc(100% - 48px);
+
+    .no-fulfillment {
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+
+      mat-icon {
+        font-size: 38px;
+        height: 38px;
+        width: 38px;
+        margin: auto auto 10px;
+        background: #1EBEA5;
+        color: #ffffff;
+        border-radius: 50%;
+      }
+
+      div {
+        width: 170px;
+        margin: 10px auto auto;
+        line-height: 24px;
+        font-size: 16px;
+        font-weight: 500;
+        color: #202124;
+        text-align: center;
+      }
+    }
+  }
+
+  .transactions {
+
+    &--chargeback {
+      background: rgba(220, 37, 71, 0.1);
+    }
+
+
+    .chargeback-title {
+      display: flex;
+      align-items: center;
+
+      div {
+        color: #202124;
+        margin-left: 10px;
+        font-size: 16px;
+        font-weight: 500;
+      }
+    }
+
+    .column-items {
+      margin-top: 35px;
+
+      .item {
+        margin-top: 8px;
+        display: flex;
+
+        div {
+          line-height: 24px;
+          margin: 0;
+
+          &:first-of-type {
+            width: 100px;
+            color: #5F6368;
+            margin-right: 30px;
+            font-size: 12px;
+          }
+
+          &:last-of-type {
+            color: #202124;
+            font-size: 15px;
+          }
+        }
+      }
+    }
+
+    .transaction {
+      padding: 20px 25px;
+
+      div {
+        margin-left: 22px;
+        font-size: 13px;
+        line-height: 24px;
+        color: #202124;
+      }
+
+      .status {
+        display: flex;
+        align-items: center;
+        margin-left: 0;
+
+        div {
+          margin-left: 6px;
+        }
+      }
+
+      .separator {
+        margin: 10px 20px;
+        height: 1px;
+        background: rgba(0,0,0,0.12);
+      }
+    }
+
+  }
+}
+
+.general {
+  padding: 20px;
+
+  .key {
+    margin-top: 15px;
+    color: #5F6368;
+    font-size: 13px;
+    line-height: 24px;
+    font-weight: 500;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+
+  .value {
+    color: #202124;
+    font-size: 16px;
+    line-height: 24px;
   }
 }
 
 .products {
-  display: flex;
-  flex-wrap: wrap;
+  margin-top: 20px;
+  border-top: 2px solid rgba(0,0,0,0.12);
   padding: 10px;
+  background: #FAFAFA;
+
+  .title {
+    margin: 10px 10px 20px;
+    color: #5F6368;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  &--wrapper {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.details-link {
+  color: #2C98F0 !important;
+  cursor: pointer;
 }

@@ -17,7 +17,7 @@ export class ProductItemComponent implements OnInit {
   }
 
   getProductImage(product: Product) {
-    return product.getDefaultImage() ? product.getDefaultImage().path : null;
+    return product.getDefaultImage() ? product.getDefaultImage().path : '/assets/images/product-default-image.svg';
   }
 
 }

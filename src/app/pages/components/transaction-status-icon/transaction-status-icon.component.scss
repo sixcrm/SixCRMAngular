@@ -1,0 +1,26 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+mat-icon {
+  font-size: 16px;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+}
+
+.chargeback {
+  color: #DC2547;
+}
+
+.success {
+  background: #1EBEA5;
+  color: #ffffff;
+}
+
+.large {
+  font-size: 34px;
+  height: 34px;
+  width: 34px;
+}

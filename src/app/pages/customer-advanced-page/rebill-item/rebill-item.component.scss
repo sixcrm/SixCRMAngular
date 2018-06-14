@@ -21,11 +21,14 @@
     align-items: center;
 
     .refund {
+      display: flex;
+      align-items: center;
       background: #DC2547;
       font-size: 16px;
       color: #ffffff;
       padding: 2px 6px;
       border-radius: 4px;
+      cursor: pointer;
     }
 
     div {
@@ -68,7 +71,6 @@
       }
     }
   }
-
 }
 
 info-table {
@@ -80,4 +82,10 @@ info-table {
   display: flex;
   flex-wrap: wrap;
   padding: 10px;
+
+  &--shadowed {
+    margin-top: 20px;
+    border-top: 2px solid rgba(0,0,0,0.12);
+    background: #FAFAFA;
+  }
 }

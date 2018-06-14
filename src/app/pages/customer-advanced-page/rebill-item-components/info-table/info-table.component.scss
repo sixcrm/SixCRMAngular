@@ -2,33 +2,9 @@
   display: flex;
   border: 1px solid rgba(0,0,0,0.06);
 
-  &--column {
-    flex-direction: column;
-  }
-
   .item {
     width: 25%;
     border-right: 1px solid rgba(0,0,0,0.06);
-
-    &--column {
-      width: 100%;
-      display: flex;
-      border: none;
-
-      div {
-        padding: 15px 20px !important;
-        line-height: 15px;
-        vertical-align: middle;
-
-
-        &:first-of-type {
-          width: 120px;
-          border-bottom: none !important;
-          border-right: 1px solid rgba(0,0,0,0.06);
-        }
-      }
-
-    }
 
     &:last-of-type {
       border-right: none;

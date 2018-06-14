@@ -10,7 +10,19 @@
 
       <div>Billed {{rebill.billAt | formatDateTime: 'MMMM DD, YYYY'}}</div>
       <div class="separator"></div>
-      <div class="refund" *ngIf="rebill.hasRefund(); else norefund">{{rebill.amountAfterRefund().usd()}}</div>
+      <div class="refund" *ngIf="rebill.hasRefund(); else norefund" [matMenuTriggerFor]="refundDetails">
+        {{rebill.amountAfterRefund().usd()}}
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </div>
+      <mat-menu #refundDetails="matMenu" x-position="before">
+        <div class="transactions-details-item" *ngFor="let transaction of rebill.transactions">
+          <div>{{transaction.chargeback ? 'Chargeback' : transaction.type === 'refund' ? 'Refund' : transaction.processorResponse.message}}</div>
+          <div>{{transaction.createdAt | formatDateTime: 'MM/DD/YYYY h:mm A'}}</div>
+          <div>{{transaction.processorResponse.getCard().brand}} {{transaction.processorResponse.getCard().last4}}</div>
+          <div>{{transaction.amount.usd()}}</div>
+        </div>
+      </mat-menu>
+
       <ng-template #norefund>
         <div>{{rebill.amount.usd()}}</div>
       </ng-template>
@@ -20,48 +32,121 @@
     </div>
   </div>
 
-  <div class="details">
+  <div class="details-wrapper">
+    <div class="details">
 
-    <div class="tables">
-      <info-table [rebill]="rebill" [columnStyle]="true"></info-table>
+      <div class="title" [class.title--fulfillment]="showFulfillment" [class.title--chargeback]="!showFulfillment && rebill.hasChargeback()">
+        <div>{{showFulfillment ? 'Fulfillment' : 'Transactions'}}</div>
+        <div (click)="toggleShowFulfillment()">View {{!showFulfillment ? 'Fulfillment' : 'Transactions'}}</div>
+      </div>
 
-      <div class="transactions">
-        <div class="title">Transactions</div>
+      <div *ngIf="showFulfillment; else transactions" class="fulfillment">
+        <div class="no-fulfillment">
+          <mat-icon>done</mat-icon>
+          <div>This order does not require fulfillment.</div>
+        </div>
+      </div>
 
-        <table>
-          <thead>
-            <tr>
-              <th>Status</th>
-              <th>Date</th>
-              <th>Card</th>
-              <th>Amount</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let transaction of rebill.transactions">
-              <td>{{transaction.chargeback ? 'Chargeback' : transaction.processorResponse.message}}</td>
-              <td>{{transaction.createdAt | formatDateTime: 'MM/DD/YYYY h:mm: A'}}</td>
-              <td>{{transaction.processorResponse.getCard().brand}} {{transaction.processorResponse.getCard().last4}}</td>
-              <td>{{transaction.amount.usd()}}</td>
-              <td><button mat-button>View</button></td>
-            </tr>
-          </tbody>
-        </table>
+      <ng-template #transactions>
+        <div class="transactions" [class.transactions--chargeback]="rebill.hasChargeback()">
+          <div class="transaction" *ngFor="let transaction of rebill.transactions; let i = index">
+            <div *ngIf="i !== 0" class="separator"></div>
+
+            <ng-container *ngIf="transaction.chargeback; else successtransaction">
+              <div class="chargeback-title">
+                <transaction-status-icon [transaction]="transaction" [largeSize]="true"></transaction-status-icon>
+                <div>Chargeback</div>
+              </div>
+
+              <div class="column-items">
+                <div class="item">
+                  <div>Status</div>
+                  <div>{{transaction.processorResponse.message}}</div>
+                </div>
+
+                <div class="item">
+                  <div>Transaction Date</div>
+                  <div>{{transaction.createdAt | formatDateTime: 'MM/DD/YYYY h:mm A'}}</div>
+                </div>
+
+                <div class="item">
+                  <div>Card</div>
+                  <div>{{transaction.processorResponse.getCard().brand}} {{transaction.processorResponse.getCard().last4}}</div>
+                </div>
+
+                <div class="item">
+                  <div>Amount</div>
+                  <div>{{transaction.amount.usd()}}</div>
+                </div>
+
+                <div class="item">
+                  <div>MID</div>
+                  <div>{{transaction.merchantProvider.name}}</div>
+                </div>
+
+                <div class="item">
+                  <div>Type</div>
+                  <div>{{transaction.type}}</div>
+                </div>
+
+                <div class="item">
+                  <div>Response</div>
+                  <div>-</div>
+                </div>
+
+                <div class="item">
+                  <div>Message</div>
+                  <div>-</div>
+                </div>
+              </div>
+
+            </ng-container>
+
+            <ng-template #successtransaction>
+              <div class="status">
+                <transaction-status-icon [transaction]="transaction"></transaction-status-icon>
+                <div>{{transaction.processorResponse.message}}</div>
+              </div>
+              <div>{{transaction.createdAt | formatDateTime: 'MM/DD/YYYY h:mm A'}}</div>
+              <div>{{transaction.processorResponse.getCard().brand}} {{transaction.processorResponse.getCard().last4}}</div>
+              <div>{{transaction.amount.usd()}}</div>
+              <div class="details-link" (click)="showTransactionDetails(transaction)">Details</div>
+            </ng-template>
+          </div>
+        </div>
+      </ng-template>
+
+    </div>
+
+    <div class="details">
+      <div class="title">
+        <div>General Information</div>
+      </div>
+
+      <div class="general">
+        <div class="key">Order Number</div>
+        <div class="value">{{rebill.parentSession.alias}}</div>
+
+        <div class="key">Initial Order Date</div>
+        <div class="value">{{rebill.parentSession.createdAt | formatDateTime: 'MMMM D, YYYY'}}</div>
+
+        <div class="key">Campaign</div>
+        <div class="value details-link" [routerLink]="['/campaigns', rebill.parentSession.campaign.id]">{{rebill.parentSession.campaign.name}}</div>
+
+        <div class="key">Rebill No</div>
+        <div class="value">{{calculateCycle()}}</div>
       </div>
     </div>
-
-    <div class="fulfillment">
-
-    </div>
-
   </div>
 
   <div class="products">
+    <div class="title">Products</div>
 
-    <ng-container *ngFor="let product of rebill.products">
-      <product-item [product]="product"></product-item>
-    </ng-container>
+    <div class="products-wrapper">
+      <ng-container *ngFor="let product of rebill.products">
+        <product-item [product]="product"></product-item>
+      </ng-container>
+    </div>
 
   </div>
 

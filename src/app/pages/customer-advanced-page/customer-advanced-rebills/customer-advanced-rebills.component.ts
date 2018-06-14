@@ -72,7 +72,7 @@ export class CustomerAdvancedRebillsComponent implements OnInit {
 
   ngOnInit() { }
 
-  initialize() {
+  initialize(): void {
     this.rebillService.getPastRebillsByCustomer(this._customer, {limit: 10}).subscribe(rebills => {
       this.rebills = rebills.map(r => {
         r.products = r.products.map(p => {

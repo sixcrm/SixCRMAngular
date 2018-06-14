@@ -1,0 +1,5 @@
+<div class="wrapper">
+  <mat-icon [class.large]="largeSize" [class.chargeback]="transaction.chargeback" [class.success]="!transaction.chargeback">
+    {{transaction.chargeback ? 'error' : 'done'}}
+  </mat-icon>
+</div>

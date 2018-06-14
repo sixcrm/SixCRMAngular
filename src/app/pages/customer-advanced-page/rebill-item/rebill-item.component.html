@@ -9,7 +9,19 @@
       <div>{{pending ? 'Bills' : 'Billed'}} {{rebill.billAt | formatDateTime: 'MMMM DD, YYYY'}}</div>
       <ng-container *ngIf="!pending">
         <div class="separator"></div>
-        <div class="refund" *ngIf="rebill.hasRefund(); else norefund">{{rebill.amountAfterRefund().usd()}}</div>
+        <div class="refund" *ngIf="rebill.hasRefund(); else norefund" [matMenuTriggerFor]="refundDetails">
+          {{rebill.amountAfterRefund().usd()}}
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </div>
+        <mat-menu #refundDetails="matMenu" x-position="before">
+          <div class="transactions-details-item" *ngFor="let transaction of rebill.transactions">
+            <div>{{transaction.chargeback ? 'Chargeback' : transaction.type === 'refund' ? 'Refund' : transaction.processorResponse.message}}</div>
+            <div>{{transaction.createdAt | formatDateTime: 'MM/DD/YYYY h:mm A'}}</div>
+            <div>{{transaction.processorResponse.getCard().brand}} {{transaction.processorResponse.getCard().last4}}</div>
+            <div>{{transaction.amount.usd()}}</div>
+          </div>
+        </mat-menu>
+
         <ng-template #norefund>
           <div>{{rebill.amount.usd()}}</div>
         </ng-template>
@@ -33,7 +45,7 @@
 
   <info-table *ngIf="pending" [rebill]="rebill"></info-table>
 
-  <div class="products">
+  <div class="products" [class.products--shadowed]="pending">
 
     <ng-container *ngFor="let product of rebill.products">
       <product-item [product]="product"></product-item>
