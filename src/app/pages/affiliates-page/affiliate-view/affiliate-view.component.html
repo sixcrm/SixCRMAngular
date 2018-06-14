@@ -15,9 +15,9 @@
           <span *ngIf="viewMode; else nameEdit">{{entity.name}}</span>
 
           <ng-template #nameEdit>
-            <mat-input-container>
+            <mat-form-field>
               <input matInput #nameInputField [class.error]="formInvalid && !entity.name" required [(ngModel)]="entity.name" name="name">
-            </mat-input-container>
+            </mat-form-field>
           </ng-template>
         </div>
 
@@ -26,9 +26,9 @@
           <span *ngIf="viewMode; else affidEdit">{{entity.affiliateId}}</span>
 
           <ng-template #affidEdit>
-            <mat-input-container [class.error]="formInvalid && !entity.affiliateId">
+            <mat-form-field [class.error]="formInvalid && !entity.affiliateId">
               <input matInput required [(ngModel)]="entity.affiliateId" name="affiliateId">
-            </mat-input-container>
+            </mat-form-field>
           </ng-template>
         </div>
       </form>

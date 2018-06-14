@@ -27,7 +27,7 @@
 
       <div class="advanced-filter__query" [class.advanced-filter__query--no-group-by]="!groupByEnabled">
         <div class="advanced-filter__query__input" [class.advanced-filter__query__input--advanced]="advanced">
-          <mat-input-container>
+          <mat-form-field>
             <input matInput placeholder="{{'ADVANCEDFILTER_FILTERS' | translate}}" [value]="currentFilterTerm" (input)="filterTermInput($event)" (blur)="filterTermInputBlur()" (focus)="filterTermInputFocus()">
             <div matPrefix class="advanced-filter__query__input__prefix">
               <div *ngFor="let filterTerm of filterTerms" class="advanced-filter__query__input__prefix__item">
@@ -43,7 +43,7 @@
                 </div>
               </div>
             </div>
-          </mat-input-container>
+          </mat-form-field>
         </div>
       </div>
 
@@ -71,17 +71,17 @@
         <div class="advanced-filter__advanced__row--flex">
           <input-autocomplete [title]="'ADVANCEDFILTER_PRODUCTSCHEDULE' | translate" [entityType]="'productschedule'" (selected)="addFilterTerm($event)"></input-autocomplete>
           <div>
-            <mat-input-container>
+            <mat-form-field>
               <input matInput class="advanced-filter__advanced__small" placeholder="{{'ADVANCEDFILTER_SUBID1' | translate}}">
-            </mat-input-container>
+            </mat-form-field>
 
-            <mat-input-container>
+            <mat-form-field>
               <input matInput class="advanced-filter__advanced__small" placeholder="{{'ADVANCEDFILTER_SUBID2' | translate}}">
-            </mat-input-container>
+            </mat-form-field>
 
-            <mat-input-container>
+            <mat-form-field>
               <input matInput class="advanced-filter__advanced__small" placeholder="{{'ADVANCEDFILTER_SUBID3' | translate}}">
-            </mat-input-container>
+            </mat-form-field>
           </div>
         </div>
 
@@ -89,13 +89,13 @@
           <input-autocomplete [title]="'ADVANCEDFILTER_MERCHANTPROVIDER' | translate" [entityType]="'merchantprocessor'" (selected)="addFilterTerm($event)"></input-autocomplete>
 
           <div>
-            <mat-input-container>
+            <mat-form-field>
               <input matInput class="advanced-filter__advanced__small" placeholder="{{'ADVANCEDFILTER_SUBID4' | translate}}">
-            </mat-input-container>
+            </mat-form-field>
 
-            <mat-input-container>
+            <mat-form-field>
               <input matInput class="advanced-filter__advanced__small" placeholder="{{'ADVANCEDFILTER_SUBID5' | translate}}">
-            </mat-input-container>
+            </mat-form-field>
           </div>
         </div>
 

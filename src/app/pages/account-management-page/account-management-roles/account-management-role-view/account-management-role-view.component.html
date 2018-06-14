@@ -5,13 +5,13 @@
 <mat-tab-group *ngIf="role" class="tab--no-header" [(selectedIndex)]="selectedIndex">
   <mat-tab>
     <div class="body body--general">
-      <mat-input-container [class.error]="formInvalid && !roleBackup.name">
+      <mat-form-field [class.error]="formInvalid && !roleBackup.name">
         <input type="text" matInput [(ngModel)]="roleBackup.name" [readonly]="isShared && !authService.isActiveAclMasterAccount()" placeholder="Role Name">
-      </mat-input-container>
+      </mat-form-field>
 
-      <mat-input-container>
+      <mat-form-field>
         <input type="text" matInput [(ngModel)]="roleBackup.description" [readonly]="isShared && !authService.isActiveAclMasterAccount()" placeholder="Description">
-      </mat-input-container>
+      </mat-form-field>
 
       <div class="buttons" *ngIf="!isShared || authService.isActiveAclMasterAccount()">
         <button mat-button (click)="cancel()">CANCEL</button>
@@ -82,9 +82,9 @@
           </div>
 
           <div class="mrw-bi-input">
-            <mat-input-container [floatLabel]="'never'">
+            <mat-form-field [floatLabel]="'never'">
               <input matInput type="text" placeholder="Find user..." [(ngModel)]="filterEditString">
-            </mat-input-container>
+            </mat-form-field>
           </div>
 
           <div class="items">
@@ -111,9 +111,9 @@
           <button *ngIf="role && !role.isOwner()" mat-button (click)="usersEditMode = !usersEditMode">TOGGLE ADD USERS</button>
 
           <div class="mrw-bi-input">
-            <mat-input-container [floatLabel]="'never'">
+            <mat-form-field [floatLabel]="'never'">
               <input matInput type="text" placeholder="Find user..." [(ngModel)]="filterString">
-            </mat-input-container>
+            </mat-form-field>
           </div>
 
           <div class="count" *ngIf="acls">{{roleAcls.length}} Users</div>

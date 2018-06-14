@@ -137,7 +137,7 @@ $color-orange: #F16C00;
           transition: 0.75s ease-in-out;
         }
 
-        mat-input-container {
+        mat-form-field {
           .mat-input-prefix {
             max-width: 100% !important;
           }
@@ -148,7 +148,7 @@ $color-orange: #F16C00;
         }
       }
 
-      mat-input-container {
+      mat-form-field {
         width: 100%;
         font-size: 14px;
         margin: 0;
@@ -329,7 +329,7 @@ $color-orange: #F16C00;
         }
       }
 
-      mat-input-container {
+      mat-form-field {
         font-size: 14px;
       }
     }

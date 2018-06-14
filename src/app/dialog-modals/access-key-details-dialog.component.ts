@@ -6,30 +6,30 @@ import {MatDialogRef} from '@angular/material';
   selector : 'access-key-details-dialog',
   template : `
   <div class="access-key-details-container">
-    <mat-input-container>
+    <mat-form-field>
       <input [disabled]="!editMode" [readonly]="!editMode" matInput placeholder="{{ 'ACCOUNT_KEYS_HEADER_NAME' | translate}}" [(ngModel)]="accessKey.name" type="text">
-    </mat-input-container>
+    </mat-form-field>
     
     <div class="flex-custom" *ngIf="!editMode">
-      <mat-input-container>
+      <mat-form-field>
         <input #accessKeyInput readonly matInput placeholder="{{ 'ACCOUNT_KEYS_HEADER_ACCESS' | translate}}" [(ngModel)]="accessKey.accessKey" type="text">
-      </mat-input-container>
+      </mat-form-field>
       <mat-icon ngxClipboard [cbContent]="accessKey.accessKey" (click)="selectInput(accessKeyInput)">content_copy</mat-icon>
     </div>
     
     <div *ngIf="!editMode">
       <div class="flex-custom" >
-        <mat-input-container>
+        <mat-form-field>
           <input #secretKeyInput readonly matInput placeholder="{{ 'ACCOUNT_KEYS_HEADER_SECRET' | translate}}" [(ngModel)]="showSecret ? accessKey.secretKey : accessKey.secretKeyMasked" type="text">
-        </mat-input-container>
+        </mat-form-field>
         <mat-icon ngxClipboard [cbContent]="accessKey.secretKey" (click)="selectInput(secretKeyInput)">content_copy</mat-icon>
       </div>
       <div class="show-more" (click)="toggleShowSecret()">{{showSecret ? 'hide' : 'show'}}</div>
     </div>
     
-    <mat-input-container>
+    <mat-form-field>
       <textarea matInput [disabled]="!editMode" [readonly]="!editMode" placeholder="{{ 'ACCOUNT_KEYS_HEADER_NOTES' | translate}}" [(ngModel)]="accessKey.notes"></textarea>    
-    </mat-input-container>
+    </mat-form-field>
   
     <div class="access-key-details-actions">
       <div (click)="cancel()">{{(editMode ? 'ACCOUNT_KEYS_CANCEL' : 'ACCOUNT_KEYS_CLOSE') | translate}}</div>
@@ -39,7 +39,7 @@ import {MatDialogRef} from '@angular/material';
   `,
   styles : [`
     .access-key-details-container { font-family: Roboto, sans-serif; font-size: 14px; min-width: 450px; display: flex; flex-direction: column; padding: 10px;}
-    mat-input-container {margin: 10px 0 0; width: 100%;}
+    mat-form-field {margin: 10px 0 0; width: 100%;}
     textarea {margin: 10px 0 0}
     .show-more { font-size: 12px; text-align: right; color: #5B9BE1; cursor: pointer}
     .access-key-details-actions { display: flex; padding: 15px 0; font-size: 12px; }

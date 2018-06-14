@@ -17,9 +17,9 @@
   </div>
 
   <form form #emailTemplateInput="ngForm" class="entity-view__card__content">
-    <mat-input-container [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item email-template-view__input">
+    <mat-form-field [class.error]="formInvalid && !entity.name" class="entity-view__card__content__item email-template-view__input">
       <input auto-focus required matInput [disabled]="mode === modes.View" placeholder="{{'EMAILTEMPLATE_INFO_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text">
-    </mat-input-container>
+    </mat-form-field>
 
     <dropdown-component class="email-template-view__dropdown"
                         [class.error]="formInvalid && !entity.type"
@@ -40,9 +40,9 @@
                         (onSelect)="entity.smtpProvider = $event">
     </dropdown-component>
 
-    <mat-input-container [class.error]="formInvalid && !entity.subject" class="entity-view__card__content__item">
+    <mat-form-field [class.error]="formInvalid && !entity.subject" class="entity-view__card__content__item">
       <input required matInput [disabled]="mode === modes.View" name="subject" placeholder="{{'EMAILTEMPLATE_INFO_SUBJECT' | translate}}" [(ngModel)]="entity.subject" type="text">
-    </mat-input-container>
+    </mat-form-field>
 
     <ng-container *ngIf="mode !== modes.Add">
       <div class="email-template-view__label">{{'EMAILTEMPLATE_INFO_BODY' | translate}}</div>

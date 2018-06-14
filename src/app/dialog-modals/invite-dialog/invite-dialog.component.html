@@ -4,17 +4,17 @@
 
   <div class="body">
 
-    <mat-input-container>
+    <mat-form-field>
       <input type="text" matInput [(ngModel)]="firstName" placeholder="First Name">
-    </mat-input-container>
+    </mat-form-field>
 
-    <mat-input-container>
+    <mat-form-field>
       <input type="text" matInput [(ngModel)]="lastName" placeholder="Last Name">
-    </mat-input-container>
+    </mat-form-field>
 
-    <mat-input-container [class.error]="formInvalid && !email">
+    <mat-form-field [class.error]="formInvalid && !email">
       <input type="text" matInput [(ngModel)]="email" placeholder="Email">
-    </mat-input-container>
+    </mat-form-field>
 
     <div class="roles" [matMenuTriggerFor]="rolesMenu" [class.error]="formInvalid && !selectedRole.id">
       <div [class.unselected]="!selectedRole.name" [class.error]="formInvalid && !selectedRole.id">{{selectedRole.name || 'Select a role'}}</div>

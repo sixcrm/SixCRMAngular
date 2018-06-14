@@ -13,30 +13,30 @@
         <div class="entity-view__info__data__date">{{(displayCreatedAt() ? 'SINGLEPAGE_CREATED' : 'SINGLEPAGE_UPDATED') | translate}}: {{(displayCreatedAt() ? entity.createdAt : entity.updatedAt) | formatDateTime: 'date-time'}}</div>
 
         <div class="entity-view__info__data__name">
-          <mat-input-container [class.error]="formInvalid && !userDataForm.form.controls.firstName.valid" *ngIf="!viewMode; else firstname">
+          <mat-form-field [class.error]="formInvalid && !userDataForm.form.controls.firstName.valid" *ngIf="!viewMode; else firstname">
             <input required matInput type="text" name="firstName" [(ngModel)]="entity.firstName" class="name">
-          </mat-input-container>
+          </mat-form-field>
           <ng-template #firstname>{{entity.firstName}}</ng-template>
 
-          <mat-input-container [class.error]="formInvalid && !userDataForm.form.controls.lastName.valid" *ngIf="!viewMode; else lastname">
+          <mat-form-field [class.error]="formInvalid && !userDataForm.form.controls.lastName.valid" *ngIf="!viewMode; else lastname">
             <input required matInput type="text" name="lastName" [(ngModel)]="entity.lastName" class="name">
-          </mat-input-container>
+          </mat-form-field>
           <ng-template #lastname>{{entity.lastName}}</ng-template>
         </div>
         <div class="entity-view__info__data__other">
           <div class="entity-view__info__data__other__item">
             <mat-icon>phone</mat-icon>
-            <mat-input-container [class.error]="formInvalid && !userDataForm.form.controls.phoneNumber.valid" *ngIf="!viewMode; else phoneNoEdit">
+            <mat-form-field [class.error]="formInvalid && !userDataForm.form.controls.phoneNumber.valid" *ngIf="!viewMode; else phoneNoEdit">
               <input required matInput class="phone-number" name="phoneNumber" type="text" [textMask]="{mask: mask, guide: false}" [(ngModel)]="entity.phone">
-            </mat-input-container>
+            </mat-form-field>
             <ng-template #phoneNoEdit><span class="phone-number">{{getPhoneNumber()}}</span></ng-template>
           </div>
 
           <div class="entity-view__info__data__other__item">
             <mat-icon>email</mat-icon>
-            <mat-input-container style="width: 200px;" [class.error]="formInvalid && !userDataForm.form.controls.email.valid" *ngIf="!viewMode; else emailNoEdit">
+            <mat-form-field style="width: 200px;" [class.error]="formInvalid && !userDataForm.form.controls.email.valid" *ngIf="!viewMode; else emailNoEdit">
               <input required matInput name="email" type="text" [(ngModel)]="entity.email">
-            </mat-input-container>
+            </mat-form-field>
             <ng-template #emailNoEdit><span>{{entity.email}}</span></ng-template>
           </div>
         </div>
@@ -69,25 +69,25 @@
               <mat-card-content>
 
                 <form #addressDataForm="ngForm">
-                  <mat-input-container>
+                  <mat-form-field>
                     <input required disabled matInput name="fullName" placeholder="{{'FORMINPUTS_FULLNAME' | translate}}" [(ngModel)]="entity.fullName">
-                  </mat-input-container>
-                  <mat-input-container [class.error]="formInvalid && !entity.address.line1">
+                  </mat-form-field>
+                  <mat-form-field [class.error]="formInvalid && !entity.address.line1">
                     <input required [disabled]="!shippingInfoEditMode" matInput name="address" placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="entity.address.line1">
-                  </mat-input-container>
-                  <mat-input-container>
+                  </mat-form-field>
+                  <mat-form-field>
                     <input [disabled]="!shippingInfoEditMode" matInput name="address2" placeholder="{{'FORMINPUTS_ADDRESS2' | translate}}" [(ngModel)]="entity.address.line2">
-                  </mat-input-container>
-                  <mat-input-container [class.error]="formInvalid && !entity.address.city">
+                  </mat-form-field>
+                  <mat-form-field [class.error]="formInvalid && !entity.address.city">
                     <input required [disabled]="!shippingInfoEditMode" matInput name="city" placeholder="{{'FORMINPUTS_CITY' | translate}}" [(ngModel)]="entity.address.city">
-                  </mat-input-container>
+                  </mat-form-field>
 
                   <div class="flex-custom customer-view__card__address-row">
                     <autocomplete-input [class.error]="formInvalid && !entity.address.state" [disabled]="!shippingInfoEditMode" [strictFilteringStrategy]="true" [required]="true" [initialValue]="entity.address.state" [placeholder]="'FORMINPUTS_STATE' | translate" [options]="states" (selected)="entity.address.state = $event"></autocomplete-input>
 
-                    <mat-input-container [class.error]="formInvalid && !isZip(entity.address.zip)">
+                    <mat-form-field [class.error]="formInvalid && !isZip(entity.address.zip)">
                       <input required (keydown)="isAllowedZipKey($event)" [disabled]="!shippingInfoEditMode" maxlength="10" matInput name="postalCode" placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="entity.address.zip">
-                    </mat-input-container>
+                    </mat-form-field>
                   </div>
 
                   <autocomplete-input [class.error]="formInvalid && !entity.address.country" [strictFilteringStrategy]="true" [disabled]="!shippingInfoEditMode" [required]="true" [initialValue]="entity.address.country" [placeholder]="'FORMINPUTS_COUNTRY' | translate" [options]="countries" (selected)="entity.address.country = $event"></autocomplete-input>

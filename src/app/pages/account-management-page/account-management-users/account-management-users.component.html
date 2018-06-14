@@ -7,9 +7,9 @@
     <button mat-button (click)="showInviteDialog()">NEW</button>
 
     <div class="mrw-bi-input">
-      <mat-input-container [floatLabel]="'never'">
+      <mat-form-field [floatLabel]="'never'">
         <input matInput type="text" placeholder="Find user..." [(ngModel)]="filterString">
-      </mat-input-container>
+      </mat-form-field>
     </div>
 
     <div class="count" *ngIf="account">{{account.acls.length}} Users</div>

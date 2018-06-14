@@ -2,7 +2,7 @@
   <button mat-icon-button (click)="toggleFilterInput(searchInputField)"><mat-icon>filter_list</mat-icon></button>
 
   <div class="search-container">
-    <mat-input-container [ngClass]="{'search-visible': filterVisible}">
+    <mat-form-field [ngClass]="{'search-visible': filterVisible}">
       <input
         #searchInputField
         matInput
@@ -10,6 +10,6 @@
         type="text"
         [(ngModel)]="filterValue"
         (keyup)="onKeyUp()">
-    </mat-input-container>
+    </mat-form-field>
   </div>
 </div>

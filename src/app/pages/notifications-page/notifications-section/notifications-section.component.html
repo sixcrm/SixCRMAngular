@@ -4,9 +4,9 @@
     <div class="header flex-custom flex-custom--center">
       <div class="mrw-bi-input">
         <mat-icon>search</mat-icon>
-        <mat-input-container [floatLabel]="'never'">
+        <mat-form-field [floatLabel]="'never'">
           <input matInput placeholder="{{'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filter" type="text">
-        </mat-input-container>
+        </mat-form-field>
       </div>
       <mat-button-toggle-group #group="matButtonToggleGroup" value="buttonAll">
         <mat-button-toggle class="mrw-button" (click)="showAll()" value="buttonAll">{{'NOTIFICATIONS_TAB_ALL' | translate}}</mat-button-toggle>

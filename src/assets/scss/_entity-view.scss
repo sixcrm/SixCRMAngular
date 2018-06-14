@@ -41,7 +41,7 @@ $main-blue: #5383C3;
       margin-top: 22px;
       margin-bottom: 10px;
 
-      mat-input-container {
+      mat-form-field {
         .mat-input-wrapper {
           margin: 0;
         }
@@ -205,7 +205,7 @@ $main-blue: #5383C3;
       display: inline-block;
       vertical-align: middle;
 
-      mat-input-container {
+      mat-form-field {
         margin: 0;
       }
 
@@ -457,7 +457,7 @@ $main-blue: #5383C3;
           width: 90px;
         }
 
-        mat-input-container {
+        mat-form-field {
           margin: 0;
           width: 110px;
 
@@ -982,7 +982,7 @@ $main-blue: #5383C3;
         }
       }
 
-      mat-input-container {
+      mat-form-field {
         margin: 0 18px;
         width: 300px;
         font-size: 14px;
@@ -1021,7 +1021,7 @@ $main-blue: #5383C3;
           }
         }
 
-        mat-input-container {
+        mat-form-field {
           display: inline-block;
           width: 200px;
         }
@@ -1031,7 +1031,7 @@ $main-blue: #5383C3;
         }
       }
 
-      mat-input-container {
+      mat-form-field {
         margin: 5px 18px;
         width: 300px;
         font-size: 16px;

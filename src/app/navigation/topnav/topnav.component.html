@@ -6,7 +6,7 @@
   <div class="topnav__search__wrapper">
     <mat-icon class="topnav__search__icon">search</mat-icon>
     <div class="topnav__search__container">
-      <mat-input-container id="topnav-search search-visible" [floatLabel]="'never'" class="topnav-search-input" [class.search--focused]="focused">
+      <mat-form-field id="topnav-search search-visible" [floatLabel]="'never'" class="topnav-search-input" [class.search--focused]="focused">
         <input
           #searchField
           matInput
@@ -19,7 +19,7 @@
           [value]="searchTerm"
           (input)="searchInputChanged($event)"
           (keydown)="onSearchKey($event)">
-      </mat-input-container>
+      </mat-form-field>
       <autocomplete #autocomplete *ngIf="showAutoComplete && options.length > 0" [options]="options" (select)="selectOption($event)"></autocomplete>
     </div>
 

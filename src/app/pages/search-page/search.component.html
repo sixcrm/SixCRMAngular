@@ -8,9 +8,9 @@
       <mat-nav-list>
         <button mat-button class="search__sidenav__reset" (click)="resetSearch()">{{'SEARCH_RESET' | translate}}</button>
 
-        <mat-input-container [floatLabel]="'never'">
+        <mat-form-field [floatLabel]="'never'">
           <input matInput placeholder="{{'SEARCH_FILTER' | translate}}" [(ngModel)]="filterValue">
-        </mat-input-container>
+        </mat-form-field>
 
         <div class="search__sidenav__options" *ngIf="queryOptions && queryOptions.length !== 0">
           <ng-container *ngFor="let option of queryOptions">

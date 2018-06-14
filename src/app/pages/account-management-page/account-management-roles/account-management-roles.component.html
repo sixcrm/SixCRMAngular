@@ -5,9 +5,9 @@
     <button mat-button (click)="addNewRole()">NEW</button>
 
     <div class="mrw-bi-input">
-      <mat-input-container [floatLabel]="'never'">
+      <mat-form-field [floatLabel]="'never'">
         <input matInput type="text" placeholder="Find role..." [(ngModel)]="filterString">
-      </mat-input-container>
+      </mat-form-field>
     </div>
 
     <div class="count" *ngIf="allRoles">{{allRoles.length}} Roles</div>

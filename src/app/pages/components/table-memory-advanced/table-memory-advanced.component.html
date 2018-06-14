@@ -3,9 +3,9 @@
   <div class="heading">
 
     <div class="mrw-bi-input">
-      <mat-input-container [floatLabel]="'never'">
+      <mat-form-field [floatLabel]="'never'">
         <input #filterinput matInput type="text" placeholder="{{'Filter ' + title}}" [(ngModel)]="filterString" (keyup)="filterDebouncer.next(true)">
-      </mat-input-container>
+      </mat-form-field>
     </div>
 
     <div class="number-of">{{getNumberOfVisible()}} {{title}}</div>

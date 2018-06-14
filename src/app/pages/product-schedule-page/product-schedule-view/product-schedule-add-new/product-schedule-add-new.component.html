@@ -11,9 +11,9 @@
   </div>
 
   <form #productScheduleInputForm="ngForm" style="font-size: 14px;" class="entity-view__card__content">
-    <mat-input-container [class.error]="formInvalid && !entity.name">
+    <mat-form-field [class.error]="formInvalid && !entity.name">
       <input auto-focus [disabled]="mode === view" required matInput placeholder="{{'PRODUCTSCHEDULE_INFO_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text">
-    </mat-input-container>
+    </mat-form-field>
   </form>
 
   <div *ngIf="mode !== view" class="entity-view__card__actions product-schedule-view__details__actions">

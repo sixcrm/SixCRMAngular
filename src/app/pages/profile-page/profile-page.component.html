@@ -31,18 +31,18 @@
             </div>
 
             <div class="profile-page__content__general__data">
-              <mat-input-container>
+              <mat-form-field>
                 <input matInput placeholder="{{'PROFILE_DETAILS_FIRSTNAME' | translate}}" [(ngModel)]="userBackup.firstName">
-              </mat-input-container>
-              <mat-input-container>
+              </mat-form-field>
+              <mat-form-field>
                 <input matInput placeholder="{{'PROFILE_DETAILS_LASTNAME' | translate}}" [(ngModel)]="userBackup.lastName">
-              </mat-input-container>
-              <mat-input-container>
+              </mat-form-field>
+              <mat-form-field>
                 <input matInput placeholder="{{'PROFILE_DETAILS_WORKPHONE' | translate}}" type="text" [textMask]="{mask: mask, guide: false}" [(ngModel)]="userSettingsBackup.workPhone">
-              </mat-input-container>
-              <mat-input-container>
+              </mat-form-field>
+              <mat-form-field>
                 <input matInput placeholder="{{'PROFILE_DETAILS_CELLPHONE' | translate}}" type="text" [textMask]="{mask: mask, guide: false}" [(ngModel)]="userSettingsBackup.cellPhone">
-              </mat-input-container>
+              </mat-form-field>
               <div class="profile-page__content__general__data__dropdown">
                 <autocomplete-input
                   [initialValue]="userSettingsBackup.timezone"
@@ -52,9 +52,9 @@
                 </autocomplete-input>
               </div>
 
-              <mat-input-container [class.error]="formInvalid && !validEmail()">
+              <mat-form-field [class.error]="formInvalid && !validEmail()">
                 <input matInput placeholder="{{'PROFILE_DETAILS_EMAIL' | translate}}" [(ngModel)]="user.email">
-              </mat-input-container>
+              </mat-form-field>
 
               <div class="profile-page__content__general__data__dropdown" *ngIf="translationsService.featureFlagService.isEnabled('user-settings-languages')">
 

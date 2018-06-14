@@ -31,17 +31,17 @@
           </div>
 
           <div class="entity-view__card__content">
-            <mat-input-container class="entity-view__card__content__item">
+            <mat-form-field class="entity-view__card__content__item">
               <input disabled matInput placeholder="{{'TRANSACTION_INFO_ALIAS' | translate}}" [(ngModel)]="entity.alias" type="text">
-            </mat-input-container>
+            </mat-form-field>
 
-            <mat-input-container class="entity-view__card__content__item">
+            <mat-form-field class="entity-view__card__content__item">
               <input disabled matInput placeholder="{{'TRANSACTION_INFO_AMOUNT' | translate}}" [(ngModel)]="amount" type="text">
-            </mat-input-container>
+            </mat-form-field>
 
-            <mat-input-container class="entity-view__card__content__item">
+            <mat-form-field class="entity-view__card__content__item">
               <input disabled matInput placeholder="{{'TRANSACTION_INFO_MERCHANTPROVIDER' | translate}}" [(ngModel)]="entity.merchantProvider.name" type="text">
-            </mat-input-container>
+            </mat-form-field>
 
           </div>
         </div>
@@ -52,17 +52,17 @@
           </div>
 
           <div class="entity-view__card__content">
-            <mat-input-container class="entity-view__card__content__item">
+            <mat-form-field class="entity-view__card__content__item">
               <input disabled matInput placeholder="{{'TRANSACTION_PROCESSOR_CODE' | translate}}" [(ngModel)]="entity.processorResponse.authCode" type="text">
-            </mat-input-container>
+            </mat-form-field>
 
-            <mat-input-container class="entity-view__card__content__item">
+            <mat-form-field class="entity-view__card__content__item">
               <input disabled matInput placeholder="{{'TRANSACTION_PROCESSOR_MESSAGE' | translate}}" [(ngModel)]="entity.processorResponse.message" type="text">
-            </mat-input-container>
+            </mat-form-field>
 
-            <mat-input-container class="entity-view__card__content__item">
+            <mat-form-field class="entity-view__card__content__item">
               <input disabled matInput placeholder="{{'TRANSACTION_PROCESSOR_TEXT' | translate}}" [(ngModel)]="entity.processorResponse.responseText" type="text">
-            </mat-input-container>
+            </mat-form-field>
           </div>
         </div>
 
@@ -89,15 +89,15 @@
           </div>
 
           <div class="entity-view__card__content">
-            <mat-input-container class="entity-view__card__content__item">
+            <mat-form-field class="entity-view__card__content__item">
               <input disabled matInput placeholder="{{'TRANSACTION_REFUND_AMOUNT' | translate}}" [(ngModel)]="amount" type="text">
-            </mat-input-container>
+            </mat-form-field>
 
             <div class="transaction-view__content__item transaction-view__content__item--no-border">
               <div class="transaction-view__content__item__label">{{'TRANSACTION_REFUND_AMOUNTTOREFUND' | translate}}</div>
-              <mat-input-container>
+              <mat-form-field>
                 <input #refundInput matInput type="text" currencyInput [initPrice]="amountToRefund" (priceChanged)="amountToRefund = $event">
-              </mat-input-container>
+              </mat-form-field>
 
               <mat-checkbox [(ngModel)]="refundAllSelected" (change)="refundAllSelect()">{{'TRANSACTION_REFUND_REFUNDALL' | translate}}</mat-checkbox>
             </div>

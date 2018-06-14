@@ -41,14 +41,14 @@
         padding: 35px 15px 50px;
         font-size:14px;
 
-        mat-input-container, .profile-page__content__general__data__dropdown {
+        mat-form-field, .profile-page__content__general__data__dropdown {
           display: inline-block;
           margin: 0 45px 10px 0;
           width: calc(50% - 50px);
         }
 
         &__dropdown {
-          mat-input-container {
+          mat-form-field {
             margin: 0;
             width: 100%;
           }

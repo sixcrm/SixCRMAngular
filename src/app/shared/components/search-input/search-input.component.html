@@ -2,7 +2,7 @@
   <button mat-icon-button (click)="toggleSearchInput(searchInputField)"><mat-icon>search</mat-icon></button>
 
   <div class="search-container">
-    <mat-input-container [ngClass]="{'search-visible': searchVisible}">
+    <mat-form-field [ngClass]="{'search-visible': searchVisible}">
       <input
         #searchInputField
         matInput
@@ -10,6 +10,6 @@
         type="text"
         [(ngModel)]="searchValue"
         (keydown)="onKey($event)">
-    </mat-input-container>
+    </mat-form-field>
   </div>
 </div>

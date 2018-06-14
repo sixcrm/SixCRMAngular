@@ -1,5 +1,5 @@
 <div class="input-cc">
-  <mat-input-container>
+  <mat-form-field>
     <input matInput [disabled]="disabled" required placeholder="{{placeholder}}" [ngModel]="inputValue" (ngModelChange)="change($event)" (keydown)="isAllowedNumeric($event)">
-  </mat-input-container>
+  </mat-form-field>
 </div>

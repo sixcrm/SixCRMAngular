@@ -1,9 +1,9 @@
 <div class="entity-view__table-component">
   <div *ngIf="showHeader" class="entity-view__table-component__header entity-view__table-component__header--homepage">
     <div class="entity-view__table-component__header__title">{{textOptions.title || 'Associated ' + title | translate}}</div>
-    <mat-input-container *ngIf="filterEnabled" class="entity-view__table-component__header__filter">
+    <mat-form-field *ngIf="filterEnabled" class="entity-view__table-component__header__filter">
       <input matInput placeholder="{{ 'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filterString" type="text">
-    </mat-input-container>
+    </mat-form-field>
 
     <table-preferences
       *ngIf="columnPreferencesEnabled"

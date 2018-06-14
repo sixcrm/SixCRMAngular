@@ -1,10 +1,10 @@
 <div class="side-search">
-  <mat-input-container [floatLabel]="'never'" class="search-queries" [class.search-queries--focused]="focused">
+  <mat-form-field [floatLabel]="'never'" class="search-queries" [class.search-queries--focused]="focused">
     <input matInput
       (focus)="focused = true"
       (blur)="focused = false"
       placeholder="Search" [(ngModel)]="filterString">
-  </mat-input-container>
+  </mat-form-field>
 
   <div class="line"></div>
 

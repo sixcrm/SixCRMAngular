@@ -25,7 +25,7 @@ export class AffiliateTrackersComponent extends AbstractEntityIndexComponent<Tra
 
   @Input() affiliate: Affiliate;
 
-  associateDialogRef: MatDialogRef<AssociateDialogComponent<Tracker>>;
+  associateDialogRef: any;
 
   constructor(
     trackersService: TrackersService,

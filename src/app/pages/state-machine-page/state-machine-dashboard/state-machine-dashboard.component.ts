@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {utc} from 'moment';
 import {DateMap, flatUp} from "../../../shared/components/advanced-filter/advanced-filter.component";
-import {AsyncSubject} from "rxjs/AsyncSubject";
+import {AsyncSubject} from "rxjs";
 import {StateMachineService} from '../state-machine.service';
 import {StateMachineQueue} from '../../../shared/models/state-machine/state-machine-queue';
 import {StateMachineTimeseries} from '../../../shared/models/state-machine/state-machine-timeseries.model';

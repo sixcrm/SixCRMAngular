@@ -1,10 +1,9 @@
-import 'rxjs/add/operator/takeUntil';
+
 import {DashboardIssueReportItem} from '../../dashboard-issues-report/dashboard-issues-report.component';
 import {Component, OnInit, Input} from '@angular/core';
-import {AsyncSubject} from 'rxjs';
+import {AsyncSubject, Observable} from 'rxjs';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {TranslatedQuote} from "../../../../translation/translated-quote.model";
-import {Observable} from "rxjs/Observable";
 import {TranslationService} from "../../../../translation/translation.service";
 import {TransactionsService} from "../../../../shared/services/transactions.service";
 import {CustomServerError} from "../../../../shared/models/errors/custom-server-error";

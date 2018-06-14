@@ -1,16 +1,15 @@
-import 'rxjs/add/operator/takeUntil';
+
 
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {Campaign} from '../../../../shared/models/campaign.model';
 import {DashboardQuery, DashboardTimeFilter} from '../../dashboard.exports';
 import {CampaignsService} from '../../../../shared/services/campaigns.service';
-import {AsyncSubject} from 'rxjs';
+import {AsyncSubject, Observable} from 'rxjs';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 import {Currency} from '../../../../shared/utils/currency/currency';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {DashboardIssueReportItem} from '../../dashboard-issues-report/dashboard-issues-report.component';
 import {TranslationService} from "../../../../translation/translation.service";
-import {Observable} from "rxjs/Observable";
 import {TranslatedQuote} from "../../../../translation/translated-quote.model";
 import {AnalyticsService} from "../../../../shared/services/analytics.service";
 import {utc} from 'moment';

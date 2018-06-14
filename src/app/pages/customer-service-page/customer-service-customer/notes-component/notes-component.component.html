@@ -24,9 +24,9 @@
     </div>
 
     <div *ngIf="showNewNote || showEditNote" class="new">
-      <mat-input-container>
+      <mat-form-field>
         <textarea auto-focus matInput [(ngModel)]="note"></textarea>
-      </mat-input-container>
+      </mat-form-field>
 
       <div class="new__actions">
         <mat-icon (click)="closeNote()" class="new__actions__close">clear</mat-icon>

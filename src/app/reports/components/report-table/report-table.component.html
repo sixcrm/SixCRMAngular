@@ -1,9 +1,9 @@
 <div class="reports-table">
   <div class="reports-table__title">
     <span>{{title | translate}}</span>
-    <mat-input-container *ngIf="showFilter">
+    <mat-form-field *ngIf="showFilter">
       <input matInput placeholder="Filter" [(ngModel)]="filterString">
-    </mat-input-container>
+    </mat-form-field>
     <table-pagination
       [class.reports-table__pagination--right]="!showFilter"
       [limit]="limit"

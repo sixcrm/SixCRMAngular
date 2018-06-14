@@ -24,19 +24,19 @@
 
           <div class="body">
             <div class="body__row">
-              <mat-input-container>
+              <mat-form-field>
                 <input type="text" auto-focus matInput placeholder="Start" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.start" (input)="recalculate()">
-              </mat-input-container>
+              </mat-form-field>
 
-              <mat-input-container>
+              <mat-form-field>
                 <input type="text" matInput placeholder="End" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.end" (input)="recalculate()">
-              </mat-input-container>
+              </mat-form-field>
             </div>
 
             <div class="body__row">
-              <mat-input-container>
+              <mat-form-field>
                 <input type="text" matInput placeholder="Cycle" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.period" (input)="recalculate()">
-              </mat-input-container>
+              </mat-form-field>
 
               <autocomplete-input
                 [fullWidth]="true"
@@ -54,9 +54,9 @@
 
           <div class="body">
             <div class="body__row">
-              <mat-input-container>
+              <mat-form-field>
                 <input type="text" matInput placeholder="Price" currencyInput [initPrice]="_scheduleBackup.price" (priceChanged)="_scheduleBackup.price = $event">
-              </mat-input-container>
+              </mat-form-field>
             </div>
           </div>
 
@@ -68,13 +68,13 @@
 
           <div class="body">
             <div class="body__row">
-              <mat-input-container>
+              <mat-form-field>
                 <input type="text" matInput disabled placeholder="Start" [(ngModel)]="_productSchedule.start">
-              </mat-input-container>
+              </mat-form-field>
 
-              <mat-input-container>
+              <mat-form-field>
                 <input type="text" matInput disabled placeholder="End" [(ngModel)]="_productSchedule.end">
-              </mat-input-container>
+              </mat-form-field>
             </div>
           </div>
 
@@ -82,13 +82,13 @@
 
           <div class="body">
             <div class="body__row">
-              <mat-input-container>
+              <mat-form-field>
                 <input type="text" matInput placeholder="Quantity" [(ngModel)]="_productSchedule.quantity">
-              </mat-input-container>
+              </mat-form-field>
 
-              <mat-input-container>
+              <mat-form-field>
                 <input matInput disabled type="text" placeholder="Discount Code">
-              </mat-input-container>
+              </mat-form-field>
             </div>
           </div>
 
@@ -101,15 +101,15 @@
           </div>
 
           <div class="body">
-            <mat-input-container>
+            <mat-form-field>
               <input matInput disabled type="text" placeholder="Quantity" [(ngModel)]="_product.quantity">
-            </mat-input-container>
-            <mat-input-container>
+            </mat-form-field>
+            <mat-form-field>
               <input matInput disabled type="text" placeholder="Price" currencyInput [initPrice]="_product.price">
-            </mat-input-container>
-            <mat-input-container>
+            </mat-form-field>
+            <mat-form-field>
               <input matInput disabled type="text" placeholder="Discount Code">
-            </mat-input-container>
+            </mat-form-field>
           </div>
         </div>
 

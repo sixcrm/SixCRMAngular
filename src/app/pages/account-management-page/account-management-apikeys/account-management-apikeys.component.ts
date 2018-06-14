@@ -8,6 +8,7 @@ import {MatDialog} from '@angular/material';
 import {DeleteDialogComponent} from '../../delete-dialog.component';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {AccessKeysDialogComponent} from '../../../dialog-modals/access-keys-dialog/access-keys-dialog.component';
+import {Account} from '../../../shared/models/account.model';
 
 @Component({
   selector: 'account-management-apikeys',

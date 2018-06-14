@@ -114,9 +114,9 @@
                   <ng-template #editinput>
                     <div class="placeholder">{{params.label | translate}}</div>
                     <ng-container *ngIf="params.inputType === inputTypes.CURRENCY; else nocurrency">
-                      <mat-input-container class="numeric-container" [class.error]="editInvalid && !params.validator(entity)">
+                      <mat-form-field class="numeric-container" [class.error]="editInvalid && !params.validator(entity)">
                         <input matInput type="text" (keydown)="keydown($event, params)" [disabled]="!params.editable" currencyInput (priceChanged)="params.assigningFunction(entity, $event)" [initPrice]="params.mappingFunction(entity)">
-                      </mat-input-container>
+                      </mat-form-field>
                     </ng-container>
                   </ng-template>
 
@@ -133,9 +133,9 @@
                   </ng-template>
 
                   <ng-template #nomultiselect>
-                    <mat-input-container [class.error]="editInvalid && !params.validator(entity)" [class.numeric-container]="params.inputType === inputTypes.NUMERIC || params.inputType === inputTypes.CURRENCY">
+                    <mat-form-field [class.error]="editInvalid && !params.validator(entity)" [class.numeric-container]="params.inputType === inputTypes.NUMERIC || params.inputType === inputTypes.CURRENCY">
                       <input matInput type="text" (keydown)="keydown($event, params)" [disabled]="!params.editable" [value]="params.mappingFunction(entity)" (input)="params.assigningFunction(entity, $event.srcElement.value)">
-                    </mat-input-container>
+                    </mat-form-field>
                   </ng-template>
 
                   <ng-template #autocompleteinput>
@@ -227,9 +227,9 @@
                     <div class="placeholder">{{params.label | translate}}</div>
 
                     <ng-container *ngIf="params.inputType === inputTypes.CURRENCY; else nocurrency">
-                      <mat-input-container class="numeric-container" [class.error]="addInvalid && !params.validator(entity)">
+                      <mat-form-field class="numeric-container" [class.error]="addInvalid && !params.validator(entity)">
                         <input matInput type="text" (keydown)="keydown($event, params)" [disabled]="!params.editable" currencyInput (priceChanged)="params.assigningFunction(entity, $event)" [initPrice]="params.mappingFunction(entity)">
-                      </mat-input-container>
+                      </mat-form-field>
                     </ng-container>
                   </ng-template>
 
@@ -246,9 +246,9 @@
                   </ng-template>
 
                   <ng-template #nomultiselect>
-                    <mat-input-container [class.error]="addInvalid && !params.validator(entity)" [class.numeric-container]="params.inputType === inputTypes.NUMERIC || params.inputType === inputTypes.CURRENCY">
+                    <mat-form-field [class.error]="addInvalid && !params.validator(entity)" [class.numeric-container]="params.inputType === inputTypes.NUMERIC || params.inputType === inputTypes.CURRENCY">
                       <input matInput type="text" (keydown)="keydown($event, params)" [disabled]="!params.editable" [value]="params.mappingFunction(entity)" (input)="params.assigningFunction(entity, $event.srcElement.value)">
-                    </mat-input-container>
+                    </mat-form-field>
                   </ng-template>
                 </div>
               </td>

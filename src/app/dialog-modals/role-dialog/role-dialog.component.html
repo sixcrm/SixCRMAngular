@@ -4,13 +4,13 @@
 
   <div class="body">
 
-    <mat-input-container [class.error]="formInvalid && !name">
+    <mat-form-field [class.error]="formInvalid && !name">
       <input type="text" matInput [(ngModel)]="name" placeholder="Role Name">
-    </mat-input-container>
+    </mat-form-field>
 
-    <mat-input-container>
+    <mat-form-field>
       <input type="text" matInput [(ngModel)]="description" placeholder="Description">
-    </mat-input-container>
+    </mat-form-field>
 
   </div>
 

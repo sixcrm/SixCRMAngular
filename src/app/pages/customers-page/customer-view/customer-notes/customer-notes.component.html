@@ -10,9 +10,9 @@
   </mat-card-title>
   <mat-card-content>
     <div *ngIf="showNewNote" class="notes__new">
-      <mat-input-container>
+      <mat-form-field>
         <textarea auto-focus matInput [(ngModel)]="note"></textarea>
-      </mat-input-container>
+      </mat-form-field>
 
       <div class="notes__new__actions">
         <mat-icon (click)="closeNote()" class="notes__new__actions__close">clear</mat-icon>

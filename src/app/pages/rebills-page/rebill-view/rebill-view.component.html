@@ -34,21 +34,21 @@
           </div>
 
           <div class="entity-view__card__content">
-            <mat-input-container style="width: 120px;" class="entity-view__card__content__item">
+            <mat-form-field style="width: 120px;" class="entity-view__card__content__item">
               <input disabled matInput placeholder="{{'REBILL_INFO_BILLED' | translate}}" [(ngModel)]="billdate" type="text">
-            </mat-input-container>
+            </mat-form-field>
 
-            <mat-input-container style="width: 120px;" class="entity-view__card__content__item">
+            <mat-form-field style="width: 120px;" class="entity-view__card__content__item">
               <input disabled matInput placeholder="{{'REBILL_INFO_AMOUNT' | translate}}" [(ngModel)]="billamount" type="text">
-            </mat-input-container>
+            </mat-form-field>
 
-            <mat-input-container class="entity-view__card__content__item">
+            <mat-form-field class="entity-view__card__content__item">
               <input disabled matInput placeholder="{{'REBILL_INFO_PARENTSESSION' | translate}}" [(ngModel)]="entity.parentSession.id" type="text">
-            </mat-input-container>
+            </mat-form-field>
 
-            <mat-input-container class="entity-view__card__content__item">
+            <mat-form-field class="entity-view__card__content__item">
               <input disabled matInput placeholder="{{'REBILL_INFO_CUSTOMER' | translate}}" [(ngModel)]="customername" type="text">
-            </mat-input-container>
+            </mat-form-field>
           </div>
         </div>
 

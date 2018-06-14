@@ -5,7 +5,7 @@ import {featureFlagsQuery} from "../shared/utils/queries/entities/feature-flag.q
 import {FeatureFlags} from "../shared/models/feature-flags.model";
 import {Acl} from "../shared/models/acl.model";
 import {AuthenticationService} from "./authentication.service";
-import {Subject} from "rxjs/Subject";
+import {Subject} from "rxjs";
 
 @Injectable()
 export class FeatureFlagService {

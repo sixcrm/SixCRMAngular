@@ -4,9 +4,9 @@
       <div class="title">{{'CUSTOMER_TRANSACTION_TITLE' | translate}}</div>
       <div class="subtitle">{{'CUSTOMER_TRANSACTION_SUBTITLE' | translate}}</div>
     </div>
-    <mat-input-container class="entity-view__table-component__header__filter">
+    <mat-form-field class="entity-view__table-component__header__filter">
       <input matInput placeholder="Filter" [(ngModel)]="filterValue">
-    </mat-input-container>
+    </mat-form-field>
     <table-pagination
       [limit]="limit"
       [paginationValues]="paginationValues"

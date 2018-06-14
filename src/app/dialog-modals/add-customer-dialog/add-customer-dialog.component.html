@@ -5,57 +5,57 @@
 
     <div class="section-title">General Information</div>
 
-    <mat-input-container [class.error]="formInvalid && !customer.firstName">
+    <mat-form-field [class.error]="formInvalid && !customer.firstName">
       <input matInput type="text" [(ngModel)]="customer.firstName" placeholder="First Name">
-    </mat-input-container>
+    </mat-form-field>
 
-    <mat-input-container [class.error]="formInvalid && !customer.lastName">
+    <mat-form-field [class.error]="formInvalid && !customer.lastName">
       <input matInput type="text" [(ngModel)]="customer.lastName" placeholder="Last Name">
-    </mat-input-container>
+    </mat-form-field>
 
-    <mat-input-container [class.error]="formInvalid && !customer.email">
+    <mat-form-field [class.error]="formInvalid && !customer.email">
       <input matInput type="text" [(ngModel)]="customer.email" placeholder="Email">
-    </mat-input-container>
+    </mat-form-field>
 
-    <mat-input-container [class.error]="formInvalid && !customer.phone">
+    <mat-form-field [class.error]="formInvalid && !customer.phone">
       <input matInput type="text" [textMask]="{mask: mask, guide: false}" [(ngModel)]="customer.phone" placeholder="Phone">
-    </mat-input-container>
+    </mat-form-field>
 
     <div class="section-title section-title--second">Shipping Address</div>
 
-    <mat-input-container [class.error]="formInvalid && !isAddressValid(customer.address.line1)">
+    <mat-form-field [class.error]="formInvalid && !isAddressValid(customer.address.line1)">
       <input matInput type="text" [(ngModel)]="customer.address.line1" placeholder="Address 1">
-    </mat-input-container>
+    </mat-form-field>
 
-    <mat-input-container [class.error]="formInvalid && (customer.address.line2 && !isAddressValid(customer.address.line2))">
+    <mat-form-field [class.error]="formInvalid && (customer.address.line2 && !isAddressValid(customer.address.line2))">
       <input matInput type="text" [(ngModel)]="customer.address.line2" placeholder="Address 1">
-    </mat-input-container>
+    </mat-form-field>
 
-    <mat-input-container [class.error]="formInvalid && !isCityValid(customer.address.city)">
+    <mat-form-field [class.error]="formInvalid && !isCityValid(customer.address.city)">
       <input matInput type="text" [(ngModel)]="customer.address.city" placeholder="City">
-    </mat-input-container>
+    </mat-form-field>
 
-    <mat-input-container [class.error]="formInvalid && !isStateValid(customer.address.state)">
+    <mat-form-field [class.error]="formInvalid && !isStateValid(customer.address.state)">
       <input type="text" matInput [(ngModel)]="customer.address.state" placeholder="State" [matAutocomplete]="statesAutocomplete">
       <mat-autocomplete #statesAutocomplete="matAutocomplete">
         <mat-option *ngFor="let state of states | filterStrings: customer.address.state: plainMapper" [value]="state">
           <div>{{state}}</div>
         </mat-option>
       </mat-autocomplete>
-    </mat-input-container>
+    </mat-form-field>
 
-    <mat-input-container [class.error]="formInvalid && !isZipValid(customer.address.zip)">
+    <mat-form-field [class.error]="formInvalid && !isZipValid(customer.address.zip)">
       <input matInput type="text" [(ngModel)]="customer.address.zip" placeholder="Zip">
-    </mat-input-container>
+    </mat-form-field>
 
-    <mat-input-container [class.error]="formInvalid && !isCountryValid(customer.address.country)">
+    <mat-form-field [class.error]="formInvalid && !isCountryValid(customer.address.country)">
       <input type="text" matInput [(ngModel)]="customer.address.country" placeholder="Country" [matAutocomplete]="countriesAutocomplete">
       <mat-autocomplete #countriesAutocomplete="matAutocomplete">
         <mat-option *ngFor="let country of countries | filterStrings: customer.address.country: plainMapper" [value]="country">
           <div>{{country}}</div>
         </mat-option>
       </mat-autocomplete>
-    </mat-input-container>
+    </mat-form-field>
 
   </div>
 

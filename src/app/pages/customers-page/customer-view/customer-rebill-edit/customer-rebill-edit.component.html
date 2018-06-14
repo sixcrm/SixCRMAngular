@@ -19,9 +19,9 @@
       </div>
 
       <div class="customer-rebill-edit__data__date__title">{{'CUSTOMER_REBILLEDIT_PRICE' | translate}}</div>
-      <mat-input-container class="no-margin">
+      <mat-form-field class="no-margin">
         <input #priceInput matInput type="text" currencyInput [initPrice]="rebill.amount" (priceChanged)="rebill.amount = $event">
-      </mat-input-container>
+      </mat-form-field>
     </div>
   </div>
 

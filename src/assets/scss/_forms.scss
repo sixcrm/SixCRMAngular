@@ -149,7 +149,7 @@ dropdown-component {
 .product-autocomplete-input {
   font-size: 14px;
 
-  mat-input-container {
+  mat-form-field {
     width: calc(100% - 25px);
   }
 }
@@ -157,7 +157,7 @@ dropdown-component {
 .campaign-autocomplete-input {
   font-size: 14px;
 
-  mat-input-container {
+  mat-form-field {
     width: 100%;
   }
 }
@@ -166,7 +166,7 @@ dropdown-component {
   position: relative;
 
   &--full-width {
-    mat-input-container {
+    mat-form-field {
       width: 100%;
     }
   }

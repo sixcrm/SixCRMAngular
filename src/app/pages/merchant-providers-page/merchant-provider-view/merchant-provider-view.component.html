@@ -15,9 +15,9 @@
             {{entityBackup.name}}
           </span>
           <ng-template #editableMode>
-            <mat-input-container *ngIf="updateMode || addMode; else viewName" [class.error]="formInvalid && !entity.name">
+            <mat-form-field *ngIf="updateMode || addMode; else viewName" [class.error]="formInvalid && !entity.name">
               <input required #nameFieldAddMode matInput name="name" [(ngModel)]="entity.name">
-            </mat-input-container>
+            </mat-form-field>
           </ng-template>
         </div>
       </div>

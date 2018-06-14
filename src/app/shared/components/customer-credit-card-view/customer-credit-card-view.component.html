@@ -48,34 +48,34 @@
   </mat-card-title>
   <mat-card-content class="flex-custom">
     <div class="customer-view__card__column customer-view__card__column--first">
-      <mat-input-container [class.small]="ripped">
+      <mat-form-field [class.small]="ripped">
         <input disabled matInput placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="creditCards[0].address.line1">
-      </mat-input-container>
-      <mat-input-container [class.small]="ripped">
+      </mat-form-field>
+      <mat-form-field [class.small]="ripped">
         <input disabled matInput placeholder="{{'FORMINPUTS_CITY' | translate}}" [(ngModel)]="creditCards[0].address.city">
-      </mat-input-container>
+      </mat-form-field>
 
       <div class="flex-custom customer-view__card__address-row">
         <dropdown-component [disabled]="true" [selected]="creditCards[0].address.state" [placeholder]="'FORMINPUTS_STATE' | translate"></dropdown-component>
-        <mat-input-container>
+        <mat-form-field>
           <input disabled matInput placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="creditCards[0].address.zip">
-        </mat-input-container>
+        </mat-form-field>
       </div>
       <dropdown-component [disabled]="true" [selected]="creditCards[0].address.country" [placeholder]="'FORMINPUTS_COUNTRY' | translate"></dropdown-component>
     </div>
     <div class="customer-view__card__column">
-      <mat-input-container [class.small]="ripped">
+      <mat-form-field [class.small]="ripped">
         <input disabled matInput placeholder="{{'FORMINPUTS_CREDITCARD_NAME' | translate}}" [(ngModel)]="creditCards[0].name">
-      </mat-input-container>
-      <mat-input-container [class.small]="ripped">
+      </mat-form-field>
+      <mat-form-field [class.small]="ripped">
         <input disabled matInput placeholder="{{'FORMINPUTS_CREDITCARD_TYPE' | translate}}" [(ngModel)]="creditCards[0].type">
-      </mat-input-container>
-      <mat-input-container [class.small]="ripped">
+      </mat-form-field>
+      <mat-form-field [class.small]="ripped">
         <input disabled matInput placeholder="{{'FORMINPUTS_CREDITCARD_NUMBER' | translate}}" [(ngModel)]="creditCards[0].maskedNumber">
-      </mat-input-container>
-      <mat-input-container [class.small]="ripped">
+      </mat-form-field>
+      <mat-form-field [class.small]="ripped">
         <input disabled matInput placeholder="{{'FORMINPUTS_CREDITCARD_EXPIRATION' | translate}}" [(ngModel)]="creditCards[0].expirationFormatted">
-      </mat-input-container>
+      </mat-form-field>
     </div>
   </mat-card-content>
 </mat-card>

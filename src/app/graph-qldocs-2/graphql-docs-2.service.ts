@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, BehaviorSubject} from 'rxjs';
 import {getSchemaQuery} from './queries/schema.query';
 import {Type} from './models/type.model';
 import {HttpWrapperService} from '../shared/services/http-wrapper.service';
 import {ActivatedRoute} from '@angular/router';
 import {navigateToFieldByString} from './utils';
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 export interface HeadersInput {
   key: string;

@@ -50,34 +50,34 @@
       <mat-card-content>
         <div>
           <div class="half">
-            <mat-input-container class="full">
+            <mat-form-field class="full">
               <input required disabled matInput name="fullName" placeholder="{{'FORMINPUTS_FULLNAME' | translate}}" [(ngModel)]="rebill.parentSession.customer.fullName">
-            </mat-input-container>
+            </mat-form-field>
           </div>
 
           <div class="flex-custom full">
-            <mat-input-container class="half">
+            <mat-form-field class="half">
               <input required disabled matInput name="address" placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="rebill.parentSession.customer.address.line1">
-            </mat-input-container>
-            <mat-input-container class="half space-left">
+            </mat-form-field>
+            <mat-form-field class="half space-left">
               <input required disabled matInput name="city" placeholder="{{'FORMINPUTS_CITY' | translate}}" [(ngModel)]="rebill.parentSession.customer.address.city">
-            </mat-input-container>
+            </mat-form-field>
           </div>
 
           <div class="flex-custom full">
             <div class="flex-custom half">
-              <mat-input-container class="half">
+              <mat-form-field class="half">
                 <input required disabled matInput name="state" placeholder="{{'FORMINPUTS_STATE' | translate}}" [(ngModel)]="rebill.parentSession.customer.address.state">
-              </mat-input-container>
+              </mat-form-field>
 
-              <mat-input-container class="half space-left">
+              <mat-form-field class="half space-left">
                 <input required disabled matInput name="postalCode" placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="rebill.parentSession.customer.address.zip">
-              </mat-input-container>
+              </mat-form-field>
             </div>
 
-            <mat-input-container class="half space-left">
+            <mat-form-field class="half space-left">
               <input required disabled matInput name="country" placeholder="{{'FORMINPUTS_COUNTRY' | translate}}" [(ngModel)]="rebill.parentSession.customer.address.country">
-            </mat-input-container>
+            </mat-form-field>
           </div>
         </div>
       </mat-card-content>

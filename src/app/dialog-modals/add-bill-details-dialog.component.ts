@@ -11,14 +11,14 @@ import {MatDialogRef} from '@angular/material';
         <div style="margin-bottom: 10px;">{{'BILL_DETAILS_ADDITEM_TITLE' | translate}}</div>
         
         <div>
-          <mat-input-container>
+          <mat-form-field>
             <input matInput placeholder="{{'BILL_DETAILS_TABLE_DESCRIPTION' | translate}}" [(ngModel)]="description" type="text">
-          </mat-input-container>
+          </mat-form-field>
         </div>
         <div>
-          <mat-input-container>
+          <mat-form-field>
             <input matInput placeholder="{{'BILL_DETAILS_TABLE_AMOUNT' | translate}}" (keydown)="isCurrency($event)" type="text" currencyInput [initPrice]="amount" (priceChanged)="amount = $event">
-          </mat-input-container>
+          </mat-form-field>
         </div>
       </mat-card-content>
       <mat-card-actions class="custom-dialog__buttons">

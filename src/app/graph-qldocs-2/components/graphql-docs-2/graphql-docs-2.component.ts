@@ -4,7 +4,7 @@ import {Type} from '../../models/type.model';
 import {sortTypes, sortFields} from '../../utils';
 import {SearchItem} from '../side-search/side-search.component';
 import {ResolveEnd, Router} from "@angular/router";
-import {AsyncSubject} from "rxjs/AsyncSubject";
+import {AsyncSubject} from "rxjs";
 import {Field} from "../../models/field.model";
 
 let allTypes;

@@ -1,13 +1,13 @@
 .side-search {
   background: #F0F3F4;
 
-  mat-input-container {
+  mat-form-field {
     margin: 20px;
     width: 223px;
     background: rgba(0, 0, 0, 0.06);
     height: 36px;
-    padding-top: 7px;
     border-radius: 4px;
+    padding-bottom: 16px;
 
     input {
       caret-color: #1EB1FC;

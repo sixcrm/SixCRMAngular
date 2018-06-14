@@ -51,12 +51,12 @@ $container-width: 350px;
       .body__row {
         display: flex;
 
-        mat-input-container:first-of-type {
+        mat-form-field:first-of-type {
           margin-right: auto;
         }
       }
 
-      mat-input-container {
+      mat-form-field {
         font-size: 14px;
       }
 
@@ -138,6 +138,6 @@ $container-width: 350px;
   padding: 6px 16px;
 }
 
-mat-input-container {
+mat-form-field {
   width: 140px;
 }

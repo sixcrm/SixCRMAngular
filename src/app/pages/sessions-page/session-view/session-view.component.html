@@ -42,28 +42,28 @@
               </div>
 
               <div class="entity-view__card__content">
-                <mat-input-container class="entity-view__card__content__item">
+                <mat-form-field class="entity-view__card__content__item">
                   <input matInput disabled placeholder="{{'FORMINPUTS_FIRSTNAME' | translate}}" [(ngModel)]="entity.customer.firstName" type="text">
-                </mat-input-container>
+                </mat-form-field>
 
-                <mat-input-container class="entity-view__card__content__item">
+                <mat-form-field class="entity-view__card__content__item">
                   <input matInput disabled placeholder="{{'FORMINPUTS_LASTNAME' | translate}}" [(ngModel)]="entity.customer.lastName" type="text">
-                </mat-input-container>
+                </mat-form-field>
 
-                <mat-input-container class="entity-view__card__content__item">
+                <mat-form-field class="entity-view__card__content__item">
                   <input matInput disabled placeholder="{{'FORMINPUTS_ADDRESS' | translate}}" [(ngModel)]="entity.customer.address.line1" type="text">
-                </mat-input-container>
+                </mat-form-field>
 
-                <mat-input-container class="entity-view__card__content__item">
+                <mat-form-field class="entity-view__card__content__item">
                   <input matInput disabled placeholder="{{'FORMINPUTS_CITY' | translate}}" [(ngModel)]="entity.customer.address.city" type="text">
-                </mat-input-container>
+                </mat-form-field>
 
                 <div class="flex-custom">
                   <dropdown-component class="session-view__item--left" [placeholder]="'FORMINPUTS_STATE' | translate" [disabled]="true" [selected]="entity.customer.address.state"></dropdown-component>
 
-                  <mat-input-container class="entity-view__card__content__item session-view__item--right">
+                  <mat-form-field class="entity-view__card__content__item session-view__item--right">
                     <input matInput disabled placeholder="{{'FORMINPUTS_ZIP' | translate}}" [(ngModel)]="entity.customer.address.zip" type="text">
-                  </mat-input-container>
+                  </mat-form-field>
                 </div>
 
                 <dropdown-component [placeholder]="'FORMINPUTS_COUNTRY' | translate" [disabled]="true" [selected]="entity.customer.address.country"></dropdown-component>

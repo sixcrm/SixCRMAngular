@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AclsService} from '../../../shared/services/acls.service';
 import {FeatureFlagService} from "../../../authentication/feature-flag.service";
-import {AsyncSubject} from "rxjs/AsyncSubject";
+import {AsyncSubject} from "rxjs";
 import {FeatureFlag, FeatureFlags} from "../../../shared/models/feature-flags.model";
 
 @Component({

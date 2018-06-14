@@ -34,18 +34,18 @@
     </div>
 
     <div>
-      <mat-input-container *ngIf="activatingUser" [class.form-error]="formInvalid && !firstName">
+      <mat-form-field *ngIf="activatingUser" [class.form-error]="formInvalid && !firstName">
         <input matInput required placeholder="{{'REGISTER_FORM_FIRSTNAME' | translate}}" type="text" name="firstName" [(ngModel)]="firstName">
-      </mat-input-container>
+      </mat-form-field>
 
-      <mat-input-container *ngIf="activatingUser" [class.form-error]="formInvalid && !lastName">
+      <mat-form-field *ngIf="activatingUser" [class.form-error]="formInvalid && !lastName">
         <input matInput required placeholder="{{'REGISTER_FORM_LASTNAME' | translate}}" type="text" name="lastName" [(ngModel)]="lastName">
-      </mat-input-container>
+      </mat-form-field>
 
-      <mat-input-container *ngIf="activatingAccount" [class.error]="duplicateAccountError">
+      <mat-form-field *ngIf="activatingAccount" [class.error]="duplicateAccountError">
         <input matInput required placeholder="{{'REGISTER_FORM_COMPANY' | translate}}" type="text" name="company" [(ngModel)]="companyName" (keyup)="resetError()">
         <mat-hint [class.error]="duplicateAccountError">{{'REGISTER_FORM_COMPANYHINT' | translate}}</mat-hint>
-      </mat-input-container>
+      </mat-form-field>
     </div>
 
     <div class="terms">

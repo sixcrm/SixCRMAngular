@@ -1,13 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {AsyncSubject} from "rxjs/AsyncSubject";
+import {AsyncSubject, Subscription, Observable} from "rxjs";
 import {StateMachineService} from '../state-machine.service';
 import {StateMachineQueue} from '../../../shared/models/state-machine/state-machine-queue';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {utc} from 'moment';
 import {StateMachineTimeseries} from '../../../shared/models/state-machine/state-machine-timeseries.model';
 import {DateMap, flatUp} from '../../../shared/components/advanced-filter/advanced-filter.component';
-import {Subscription, Observable} from 'rxjs';
 import {Rebill} from '../../../shared/models/rebill.model';
 import {RebillsService} from '../../../shared/services/rebills.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';

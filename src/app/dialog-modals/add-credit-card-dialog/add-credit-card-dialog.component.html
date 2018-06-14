@@ -13,28 +13,28 @@
 
       <div class="column-title">Card Information</div>
 
-      <mat-input-container (keydown)="isAllowedNumericKey($event)" [class.error]="formInvalid && isCcNumberInvalid()" *ngIf="!creditCard.id">
+      <mat-form-field (keydown)="isAllowedNumericKey($event)" [class.error]="formInvalid && isCcNumberInvalid()" *ngIf="!creditCard.id">
         <input type="text" matInput placeholder="Number" [(ngModel)]="creditCard.ccnumber">
-      </mat-input-container>
+      </mat-form-field>
 
-      <mat-input-container (keydown)="isAllowedNumericKey($event)" [class.error]="formInvalid && isCcvInvalid()" *ngIf="!creditCard.id">
+      <mat-form-field (keydown)="isAllowedNumericKey($event)" [class.error]="formInvalid && isCcvInvalid()" *ngIf="!creditCard.id">
         <input type="text" matInput placeholder="CCV" [(ngModel)]="creditCard.ccv">
-      </mat-input-container>
+      </mat-form-field>
 
-      <mat-input-container [class.error]="formInvalid && !creditCard.name">
+      <mat-form-field [class.error]="formInvalid && !creditCard.name">
         <input type="text" matInput placeholder="Name" [(ngModel)]="creditCard.name">
-      </mat-input-container>
+      </mat-form-field>
 
       <div class="row">
-        <mat-input-container [class.error]="formInvalid && isExpirationMonthInvalid()">
+        <mat-form-field [class.error]="formInvalid && isExpirationMonthInvalid()">
           <input type="text" (keydown)="isAllowedNumericKey($event)" matInput [(ngModel)]="creditCard.expirationMonth" placeholder="Expiration Month">
           <mat-hint>Format: MM</mat-hint>
-        </mat-input-container>
+        </mat-form-field>
 
-        <mat-input-container [class.error]="formInvalid && isExpirationYearInvalid()">
+        <mat-form-field [class.error]="formInvalid && isExpirationYearInvalid()">
           <input type="text" (keydown)="isAllowedNumericKey($event)" matInput (keydown)="isAllowedNumericKey($event)" [(ngModel)]="creditCard.expirationYear" placeholder="Expiration Year">
           <mat-hint>Format: YYYY</mat-hint>
-        </mat-input-container>
+        </mat-form-field>
       </div>
 
     </div>
@@ -42,43 +42,43 @@
     <div class="column">
       <div class="column-title">Billing Address</div>
 
-      <mat-input-container [class.error]="formInvalid && (!creditCard.address.line1 || !isAddressValid(creditCard.address.line1))">
+      <mat-form-field [class.error]="formInvalid && (!creditCard.address.line1 || !isAddressValid(creditCard.address.line1))">
         <input type="text" matInput placeholder="Address" [(ngModel)]="creditCard.address.line1">
-      </mat-input-container>
+      </mat-form-field>
 
-      <mat-input-container [class.error]="formInvalid && (creditCard.address.line2 && !isAddressValid(creditCard.address.line2))">
+      <mat-form-field [class.error]="formInvalid && (creditCard.address.line2 && !isAddressValid(creditCard.address.line2))">
         <input type="text" matInput placeholder="Address 2" [(ngModel)]="creditCard.address.line2">
-      </mat-input-container>
+      </mat-form-field>
 
-      <mat-input-container [class.error]="formInvalid && !isCityValid(creditCard.address.city)">
+      <mat-form-field [class.error]="formInvalid && !isCityValid(creditCard.address.city)">
         <input type="text" matInput placeholder="City" [(ngModel)]="creditCard.address.city">
-      </mat-input-container>
+      </mat-form-field>
 
       <div class="row">
 
-        <mat-input-container [class.error]="formInvalid && !isZipValid(creditCard.address.zip)">
+        <mat-form-field [class.error]="formInvalid && !isZipValid(creditCard.address.zip)">
           <input type="text" (keydown)="isAllowedZipKey($event)" matInput [(ngModel)]="creditCard.address.zip" placeholder="Zip" name="zip">
-        </mat-input-container>
+        </mat-form-field>
 
-        <mat-input-container [class.error]="formInvalid && !isStateValid(creditCard.address.state)">
+        <mat-form-field [class.error]="formInvalid && !isStateValid(creditCard.address.state)">
           <input type="text" matInput [(ngModel)]="creditCard.address.state" placeholder="State" name="state" [matAutocomplete]="statesAutocomplete">
           <mat-autocomplete #statesAutocomplete="matAutocomplete">
             <mat-option *ngFor="let state of states | filterStrings: creditCard.address.state: plainMapper" [value]="state">
               <div>{{state}}</div>
             </mat-option>
           </mat-autocomplete>
-        </mat-input-container>
+        </mat-form-field>
 
       </div>
 
-      <mat-input-container [class.error]="formInvalid && !isCountryValid(creditCard.address.country)">
+      <mat-form-field [class.error]="formInvalid && !isCountryValid(creditCard.address.country)">
         <input type="text" matInput [(ngModel)]="creditCard.address.country" placeholder="Country" name="country" [matAutocomplete]="countriesAutocomplete">
         <mat-autocomplete #countriesAutocomplete="matAutocomplete">
           <mat-option *ngFor="let country of countries | filterStrings: creditCard.address.country: plainMapper" [value]="country">
             <div>{{country}}</div>
           </mat-option>
         </mat-autocomplete>
-      </mat-input-container>
+      </mat-form-field>
 
     </div>
   </div>

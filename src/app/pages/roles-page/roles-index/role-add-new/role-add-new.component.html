@@ -4,9 +4,9 @@
   </div>
 
   <div class="entity-view__card__content">
-    <mat-input-container [class.error]="formInvalid && !role.name" class="entity-view__card__content__item">
+    <mat-form-field [class.error]="formInvalid && !role.name" class="entity-view__card__content__item">
       <input auto-focus required matInput placeholder="{{'ROLE_INFO_NAME' | translate}}" [(ngModel)]="role.name" type="text">
-    </mat-input-container>
+    </mat-form-field>
   </div>
 
   <div class="entity-view__card__actions">

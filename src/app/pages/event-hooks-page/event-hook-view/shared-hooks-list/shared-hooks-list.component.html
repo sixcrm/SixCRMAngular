@@ -11,9 +11,9 @@
       <dropdown-component [options]="types" [placeholder]="'EVENTHOOK_SHARED_TYPE' | translate" [showFloatingPlaceholder]="true" [selected]="selectedType" (onSelect)="selectedType = $event"></dropdown-component>
 
       <mat-icon>search</mat-icon>
-      <mat-input-container>
+      <mat-form-field>
         <input type="text" placeholder="{{'EVENTHOOK_SHARED_SEARCH' | translate}}" matInput [(ngModel)]="filterString" autocomplete=off>
-      </mat-input-container>
+      </mat-form-field>
     </div>
   </div>
 

@@ -251,6 +251,14 @@ app-topnav {
   .mat-input-underline {
     display: none;
   }
+
+  .mat-form-field-underline {
+    display: none;
+  }
+
+  .mat-form-field-wrapper {
+    padding-bottom: 10px;
+  }
 }
 
 .topnav__search__container {

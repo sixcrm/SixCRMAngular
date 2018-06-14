@@ -7,7 +7,7 @@ export class MerchantProviderPage {
   }
 
   getNewFormInput(num: number) {
-    return element(by.css('merchant-provider-add-new')).all(by.css('mat-input-container')).get(num).element(by.css('input'));
+    return element(by.css('merchant-provider-add-new')).all(by.css('mat-form-field')).get(num).element(by.css('input'));
   }
 
   getNewFormCheckbox(num: number) {
