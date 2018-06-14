@@ -8,7 +8,7 @@ import { AccountManagementRolesComponent } from './account-management-roles/acco
 import {AccountManagementApikeysComponent} from './account-management-apikeys/account-management-apikeys.component';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 import { AccountManagementHeaderComponent } from './account-management-header/account-management-header.component';
-import {ClipboardModule} from 'ngx-clipboard/dist';
+import {ClipboardModule} from 'ngx-clipboard';
 import {FormsModule} from '@angular/forms';
 import { AccountManagementBillingTransactionsChartComponent } from './account-management-billing/account-management-billing-transactions-chart/account-management-billing-transactions-chart.component';
 import {ChartModule} from 'angular2-highcharts';
