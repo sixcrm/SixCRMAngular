@@ -82,7 +82,7 @@ export function updateCampaignMutation(campaign: Campaign): string {
 
 function campaignResponseQuery(): string {
   return `
-    id name created_at updated_at allow_prepaid show_prepaid,
+    id name created_at updated_at allow_prepaid show_prepaid allow_on_order_form,
     productschedules {
       ${productScheduleResponseQuery()}
     }
@@ -103,7 +103,7 @@ function campaignResponseQuery(): string {
 
 function campaignInfoResponseQuery(): string {
   return `
-    id name created_at allow_prepaid show_prepaid updated_at,
+    id name created_at allow_prepaid show_prepaid allow_on_order_form updated_at,
     productschedules { ${productScheduleInfoResponseQuery()} }
     emailtemplates { id name }`
 }
@@ -118,5 +118,5 @@ function campaignInputQuery(campaign: Campaign, includeId?: boolean): string {
       campaign.affiliateDeny.reduce((a, b) => `${a} "${b.id}",`, '');
 
 
-  return `${addId(campaign.id, includeId)} name: "${campaign.name}", affiliate_allow: [${affiliateAllowed}], affiliate_deny: [${affiliateDenied}], allow_prepaid: ${campaign.allowPrepaid}, show_prepaid: ${campaign.showPrepaid}, productschedules:[${campaign.productSchedules.map(s => `"${s.id}"`)}], emailtemplates:[${campaign.emailTemplates.map(t => t && t.id ? `"${t.id}"` : '')}], ${addUpdatedAtApi(campaign, includeId)}`;
+  return `${addId(campaign.id, includeId)} name: "${campaign.name}", affiliate_allow: [${affiliateAllowed}], affiliate_deny: [${affiliateDenied}], allow_prepaid: ${!!campaign.allowPrepaid}, show_prepaid: ${!!campaign.showPrepaid}, allow_on_order_form: ${!!campaign.allowOnOrder}, productschedules:[${campaign.productSchedules.map(s => `"${s.id}"`)}], emailtemplates:[${campaign.emailTemplates.map(t => t && t.id ? `"${t.id}"` : '')}], ${addUpdatedAtApi(campaign, includeId)}`;
 }

@@ -29,7 +29,6 @@ import {CheckoutResponse} from '../../shared/models/checkout-response.model';
 import {SnackbarService} from '../../shared/services/snackbar.service';
 import {SearchService} from '../../shared/services/search.service';
 import {CampaignsService} from '../../shared/services/campaigns.service';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'create-order',
@@ -121,7 +120,7 @@ export class CreateOrderComponent implements OnInit {
     this.campaignService.entities$.take(1).subscribe((campaigns) => {
       if (campaigns instanceof CustomServerError) return;
 
-      this.campaigns = campaigns.filter(c => !c.allowOrderCreation);
+      this.campaigns = campaigns.filter((c: Campaign) => c.allowOnOrder);
       this.filteredCampaigns = this.campaigns.slice();
 
       const numberOfCampaigns = this.campaigns.length;
