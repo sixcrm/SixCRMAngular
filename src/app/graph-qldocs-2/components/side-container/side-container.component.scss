@@ -1,6 +1,5 @@
 .container {
   display: flex;
-  flex-direction: column;
   background: #333333;
   color: rgba(30, 177, 252, 0.3);
   line-height: 16px;
@@ -9,15 +8,14 @@
   height: 100%;
 
   .details {
-    height: 50%;
+    width: 50%;
     margin: 25px;
     overflow: auto;
   }
 
   .line {
-    margin: 10px 0;
-    height: 1px;
-    width: auto;
+    height: auto;
+    width: 1px;
     background: #000000;
   }
 
@@ -30,14 +28,14 @@
 
   .response-header {
     display: flex;
+    flex-direction: column;
 
     button {
-      background: #000000;
-      color: #8EC9FD;
-      margin-left: 15px;
+      background: #2C98F0;
+      color: #FFFFFF;
       height: 24px;
       border-radius: 2px;
-      margin-top: 4px;
+      margin: 10px auto 10px 0;
       border: 1px rgba(0, 0, 0, 0.12);
       cursor: pointer;
     }
