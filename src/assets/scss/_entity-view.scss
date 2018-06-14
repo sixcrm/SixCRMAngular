@@ -42,11 +42,11 @@ $main-blue: #5383C3;
       margin-bottom: 10px;
 
       mat-form-field {
-        .mat-input-wrapper {
+        .mat-form-field-wrapper {
           margin: 0;
         }
 
-        .mat-input-underline {
+        .mat-form-field-underline {
           margin: 0;
         }
       }
@@ -227,7 +227,7 @@ $main-blue: #5383C3;
           width: 150px;
         }
 
-        .mat-input-wrapper {
+        .mat-form-field-wrapper {
           margin: 0;
         }
       }
@@ -240,7 +240,7 @@ $main-blue: #5383C3;
           margin-right: 3px;
         }
 
-        .mat-input-wrapper {
+        .mat-form-field-wrapper {
           margin: 0;
         }
 
@@ -572,7 +572,7 @@ $main-blue: #5383C3;
         margin-left: auto;
         font-size: 14px;
 
-        .mat-input-wrapper {
+        .mat-form-field-wrapper {
           margin: 0;
         }
       }
@@ -1052,7 +1052,7 @@ $main-blue: #5383C3;
     height: 100px;
   }
 
-  .mat-input-wrapper {
+  .mat-form-field-wrapper {
     position: relative;
     margin: 0;
   }

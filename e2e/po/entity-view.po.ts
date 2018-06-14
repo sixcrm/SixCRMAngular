@@ -31,7 +31,7 @@ export class EntityViewPage {
   }
 
   getAddNewModalTextarea() {
-    return element(by.css('.modal-center')).element(by.css('.mat-input-element-textarea'));
+    return element(by.css('.modal-center')).element(by.css('.mat-form-field-element-textarea'));
   }
 
   getAddNewModalDropdowns() {
