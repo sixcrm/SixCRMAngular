@@ -52,7 +52,7 @@
       <codemirror [class.invisible]="entity.type !== 'html'" [(ngModel)]="entity.body" [config]="config"></codemirror>
 
       <ng-container *ngIf="entity.type !== 'html'">
-        <mat-form-field>
+        <mat-form-field class="mrw--search-input">
           <textarea matInput class="codeblock" *ngIf="mode !== modes.View; else bodyNoEdit" [(ngModel)]="entity.body"></textarea>
         </mat-form-field>
 
