@@ -44,6 +44,12 @@ export class FormatGraphQlPipe implements PipeTransform {
           this.result += c + '\n' + this.tabs(this.tabCounter);
           break;
         }
+        case ' ':{
+          if (text[i-1] !== '(' && text[i-1] !== '{') {
+            this.result += c;
+          }
+          break;
+        }
         default: {
           this.result += c;
         }
@@ -51,6 +57,7 @@ export class FormatGraphQlPipe implements PipeTransform {
     }
 
     if (this.addLastBracket) {
+      this.tabCounter--;
       this.result += '\n' + '}';
     }
 
@@ -69,13 +76,14 @@ export class FormatGraphQlPipe implements PipeTransform {
     this.result += '\n' + this.tabs(this.tabCounter) + c + this.wrap;
 
     if (next !== ',') {
-      this.result += '\n' + this.tabs(this.tabCounter);
+      this.result += '\n ' + this.tabs(this.tabCounter);
     }
+    this.tabCounter++;
   }
 
   closedCurlyBracket(c: string) {
     this.tabCounter--;
-    this.result += '\n ' + this.tabs(this.tabCounter) + c + '\n' + this.tabs(this.tabCounter);
+    this.result += '\n' + this.tabs(this.tabCounter) + c + '\n' + this.tabs(this.tabCounter);
   }
 
   addWrap() {
