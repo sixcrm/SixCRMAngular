@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject, Subscription} from 'rxjs';
 import { AuthenticationService } from '../../authentication/authentication.service';
 import { TransactionsService } from '../../shared/services/transactions.service';
 import { DashboardType } from './dashboard-type';
@@ -15,6 +15,8 @@ export class DashboardAvailabilityService {
   private sevenDaysAgo = utc().subtract(7, 'd');
   private eightDaysAgo = utc().subtract(8, 'd');
 
+  private subscription: Subscription;
+
   constructor(
     private authService: AuthenticationService,
     private transactionService: TransactionsService
@@ -26,12 +28,12 @@ export class DashboardAvailabilityService {
   }
 
   determineAvailableTypes() {
-    this.transactionService.entities$.take(1).subscribe((response: Transaction[] | CustomServerError) => {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
 
+    this.subscription = this.transactionService.getEntitiesForDashboardCheck().subscribe((response: Transaction[]) => {
       this.availableDashboards.next([DashboardType.setup]);
-      if (response instanceof CustomServerError) {
-        return;
-      }
 
       if (response.length > 0) {
         this.availableDashboards.next([DashboardType.setup, DashboardType.low_data]);

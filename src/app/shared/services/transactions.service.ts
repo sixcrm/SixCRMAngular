@@ -5,11 +5,12 @@ import {Transaction} from '../models/transaction.model';
 import { HttpWrapperService, extractData, FailStrategy } from './http-wrapper.service';
 import {
   transactionsInfoListQuery, deleteTransactionMutation,
-  transactionQuery, refundTransactionMutation, deleteTransactionsMutation
+  transactionQuery, refundTransactionMutation, deleteTransactionsMutation, transactionIDsResponseQuery
 } from '../utils/queries/entities/transaction.queries';
 import {CustomServerError} from '../models/errors/custom-server-error';
 import {MatSnackBar} from '@angular/material';
 import { Moment } from 'moment';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class TransactionsService extends AbstractEntityService<Transaction> {
@@ -54,5 +55,9 @@ export class TransactionsService extends AbstractEntityService<Transaction> {
 
   public transactionsUntil(date: Moment): void {
     this.getEntities(20, null, {failStrategy: FailStrategy.Soft})
+  }
+
+  public getEntitiesForDashboardCheck(): Observable<Transaction[]> {
+    return this.planeCustomEntitiesQuery(transactionIDsResponseQuery({limit: 11}))
   }
 }

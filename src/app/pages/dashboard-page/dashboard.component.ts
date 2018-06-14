@@ -6,6 +6,7 @@ import { DashboardType } from './dashboard-type';
 import { DashboardAvailabilityService } from './dashboard-availability.service';
 import { AuthenticationService } from '../../authentication/authentication.service';
 import { routerTransition } from '../../routing.animations';
+import {Acl} from '../../shared/models/acl.model';
 
 @Component({
   selector: 'c-dashboard',
@@ -15,7 +16,6 @@ import { routerTransition } from '../../routing.animations';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  public DashboardType: any = DashboardType;
   public transition: 'void' | '*' = '*';
   activeDashboard: DashboardType;
   availableDashboards: DashboardType[] = [];
@@ -23,6 +23,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   renderLow: boolean;
   renderFull: boolean;
   show: boolean;
+
+  currentAclId: string;
 
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
@@ -39,15 +41,27 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.authService.activeAcl$.takeUntil(this.unsubscribe$).subscribe(() => {
-      this.renderFull = false;
-      this.renderLow = false;
+    this.authService.activeAcl$.takeUntil(this.unsubscribe$).subscribe((acl: Acl) => {
+      if (acl && acl.id !== this.currentAclId) {
+        this.currentAclId = acl.id;
 
-      this.setIndex(+this.authService.getActiveDashboard());
+        this.redrawDashboards();
 
-      this.show = false;
-      setTimeout(() => this.show = true, 1);
+        this.retriggerScrollAnimation();
+      }
     });
+  }
+
+  redrawDashboards() {
+    this.renderFull = false;
+    this.renderLow = false;
+
+    this.setIndex(+this.authService.getActiveDashboard());
+  }
+
+  retriggerScrollAnimation() {
+    this.show = false;
+    setTimeout(() => this.show = true, 1);
   }
 
   ngOnDestroy() {
