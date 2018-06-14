@@ -11,6 +11,7 @@ export class SideContainerComponent implements OnInit {
   @Input() example: any;
   @Input() response: any;
   @Input() fieldType: any;
+  @Input() fieldName: string;
 
   constructor(private router: Router) { }
 
@@ -18,7 +19,6 @@ export class SideContainerComponent implements OnInit {
   }
 
   navigateToResponseType(): void {
-    let fieldName = this.fieldType.name || this.fieldType.ofType.name || this.fieldType.ofType.ofType.name;
-    this.router.navigate(['documentation/graph2/type', fieldName]);
+    this.router.navigate(['documentation/graph2/type', this.fieldName]);
   }
 }
