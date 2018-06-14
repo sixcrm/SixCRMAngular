@@ -7,6 +7,7 @@ import {AuthenticationService} from "../../../authentication/authentication.serv
 import {UsersService} from "../../../shared/services/users.service";
 import {TermsDialogComponent} from "../../../dialog-modals/terms-dialog/terms-dialog.component";
 import {CustomServerError} from "../../../shared/models/errors/custom-server-error";
+import {MarkdownService} from "angular2-markdown";
 
 @Component({
   selector: 'agreements',
@@ -24,6 +25,7 @@ export class AgreementsComponent implements OnInit, OnDestroy {
     private authService: AuthenticationService,
     private userService: UsersService,
     private dialog: MatDialog,
+    private markdownService: MarkdownService
   ) {
   }
 
@@ -33,6 +35,22 @@ export class AgreementsComponent implements OnInit, OnDestroy {
         this.fetch();
       }
     })
+
+    this.markdownService.renderer.table = (header: string, body: string) => {
+      if (body) {
+        body = '<tbody>' + body + '</tbody>'
+      }
+
+      return `
+        <br>
+        <table style="font-size: 6.5px;">
+          <thead>
+            ${header}
+          </thead>
+          ${body}
+        </table>`;
+
+    };
   }
 
   ngOnDestroy() {
