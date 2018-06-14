@@ -27,7 +27,7 @@
       width: 190px;
     }
 
-    .mat-form-field-wrapper {
+    .mat-input-wrapper {
       padding: 0;
     }
 
@@ -35,11 +35,11 @@
       border-top: none;
 
     }
-    .mat-form-field-underline {
+    .mat-input-underline {
       display: none;
     }
 
-    .mat-form-field-placeholder {
+    .mat-input-placeholder {
       color: inherit;
     }
 
@@ -53,13 +53,13 @@
   }
 
   &-input--no-margin-top {
-    .mat-form-field-wrapper {
+    .mat-input-wrapper {
       margin-top: 0;
     }
   }
 
   &--search-input {
-    .mat-form-field-wrapper {
+    .mat-input-wrapper {
       padding-bottom: 0;
     }
 
@@ -67,7 +67,7 @@
       border-top: none;
     }
 
-    .mat-form-field-underline {
+    .mat-input-underline {
       display: none;
     }
   }

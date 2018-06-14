@@ -138,11 +138,11 @@ $color-orange: #F16C00;
         }
 
         mat-form-field {
-          .mat-form-field-prefix {
+          .mat-input-prefix {
             max-width: 100% !important;
           }
 
-          .mat-form-field-infix {
+          .mat-input-infix {
             display: none;
           }
         }
@@ -159,16 +159,16 @@ $color-orange: #F16C00;
         }
       }
 
-      .mat-form-field-wrapper {
+      .mat-input-wrapper {
         margin-top: 0;
 
-        .mat-form-field-table {
+        .mat-input-table {
           display: flex;
           flex-flow: row;
           align-items: flex-end;
           height: 35px;
 
-          .mat-form-field-prefix {
+          .mat-input-prefix {
             max-width: 70%;
           }
         }
@@ -216,13 +216,13 @@ $color-orange: #F16C00;
         }
       }
 
-      .mat-form-field-underline {
-        .mat-form-field-ripple {
+      .mat-input-underline {
+        .mat-input-ripple {
           background-color: $color-orange;
         }
       }
 
-      .mat-form-field-placeholder.mat-focused {
+      .mat-input-placeholder.mat-focused {
         color: $color-orange !important;
       }
     }
