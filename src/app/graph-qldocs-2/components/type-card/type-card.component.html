@@ -2,6 +2,7 @@
   <div class="field__container">
     <div class="type__name">TYPE</div>
     <div class="field__name">
+      <mat-icon *ngIf="isType" class="arrow" (click)="navigateToGraph()">arrow_back</mat-icon>
       <div id="{{type.name}}">{{type.name}}</div>
       <mat-icon *ngIf="!isType" class="link" matTooltip="" ngxClipboard (click)="navigateTo()">link</mat-icon>
     </div>

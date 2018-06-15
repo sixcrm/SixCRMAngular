@@ -11,11 +11,19 @@
     line-height: 32px;
     display: flex;
 
-    mat-icon {
+    .link {
       margin-left: 10px;
       width: 20px;
       height: 10px;
       line-height: 35px;
+    }
+
+    .arrow {
+      color: #2C98F0;
+      margin-right: 7px;
+      font-size: 20px;
+      line-height: 36px;
+      cursor: pointer;
     }
   }
 
