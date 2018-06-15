@@ -5,7 +5,7 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {MatSidenav} from '@angular/material';
 import {PersistentNotificationsQuickComponent} from '../../persistent-notifications-quick/persistent-notifications-quick.component';
 import {Subscription, Observable} from 'rxjs';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {Acl} from '../../../shared/models/acl.model';
 import {User} from '../../../shared/models/user.model';
 
@@ -31,11 +31,14 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
 
   isInvitedUser: boolean;
 
+  removeShadow: boolean;
+
   constructor(
     public navigation: NavigationService,
     public http: HttpWrapperService,
     public authService: AuthenticationService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -52,6 +55,12 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
       }
     });
 
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.removeShadow = this.showSidenav && this.router.url.includes('documentation/graph2');
+      }
+    });
+
     this.authService.activeAcl$.subscribe((acl: Acl) => {
       if (!acl || !acl.id) return;
 
@@ -64,7 +73,14 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
       this.userAclOutdated = user.termsAndConditionsOutdated;
     });
 
-    this.navigation.showSidenav.subscribe(showSidenav => this.showSidenav = showSidenav);
+    this.navigation.showSidenav.subscribe(showSidenav => {
+      if (this.router.url.includes('documentation/graph2')) {
+        this.removeShadow = showSidenav;
+      } else {
+        this.removeShadow = false;
+      }
+      this.showSidenav = showSidenav;
+    });
 
     this.persistentNotifications.notificationsFiltered$.subscribe(() => {
 

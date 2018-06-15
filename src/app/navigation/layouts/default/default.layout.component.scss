@@ -122,3 +122,8 @@ terms-and-conditions {
     color: white;
   }
 }
+
+.removeShadow {
+  box-shadow: none;
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+}
