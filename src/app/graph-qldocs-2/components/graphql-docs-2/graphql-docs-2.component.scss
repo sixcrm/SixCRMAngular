@@ -3,20 +3,27 @@
   height: calc(100vh - 70px - 110px);
   font-size: 16px;
   overflow: hidden;
-  display: flex;
 
   &__sidenav {
     border-right: 2px solid rgba(0, 0, 0, 0.2);
-    overflow: auto;
-    width: 350px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 360px;
     background: #F0F3F4;
+    display: inline-block;
+    float: left;
+    height: calc(100vh - 170px);
   }
 
   &__content {
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     padding: 20px 20px;
-    width: 100%;
+    width: calc(100vw - 490px);
     background: #F0F3F4;
+    display: inline-block;
+    float: right;
+    height: calc(100vh - 170px);
   }
 
   mat-spinner {
