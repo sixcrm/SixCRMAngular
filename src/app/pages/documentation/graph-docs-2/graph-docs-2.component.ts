@@ -15,15 +15,16 @@ export class GraphDocs2Component implements OnInit {
     {key: 'Content-Type', value: 'application/json'},
     {key: 'Authorization', value: this.authService.getToken()}
   ];
+  showSidenav: boolean;
 
   constructor(private authService: AuthenticationService, private navigationService: NavigationService) {}
 
   ngOnInit() {
-    this.navigationService.setSidenavAuto(false);
+    this.navigationService.showSidenav.subscribe(showSidenav => {
+      this.showSidenav = showSidenav;
+    });
   }
 
-  ngOnDestroy() {
-    this.navigationService.resetSidenavAuto();
-  }
+  ngOnDestroy() { }
 
 }

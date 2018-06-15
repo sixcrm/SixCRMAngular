@@ -8,7 +8,7 @@
     <div class="docs__sidenav">
       <side-search [searchItems]="searchItems"></side-search>
     </div>
-    <div class="docs__content">
+    <div class="docs__content" [class.showSidenav]="showSidenav">
       <ng-container *ngIf="isAll">
         <doc-type *ngFor="let aType of queryMutationTypes" [type]="aType" [isAll]="true"></doc-type>
         <doc-type *ngFor="let aType of otherTypes" [otherTypes]="aType" [isAll]="true"></doc-type>

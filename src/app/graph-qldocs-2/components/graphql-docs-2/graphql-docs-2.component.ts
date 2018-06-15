@@ -18,6 +18,7 @@ export class GraphqlDocs2Component implements OnInit, OnDestroy {
 
   @Input() endpoint: string;
   @Input() headers: HeadersInput[];
+  @Input() showSidenav: boolean;
 
   queryMutationTypes: Type[];
   types: Type[];
