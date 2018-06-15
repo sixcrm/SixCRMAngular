@@ -1,0 +1,56 @@
+.container {
+
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 25px;
+    font-size: 20px;
+    line-height: 24px;
+    color: #202124;
+    font-weight: 500;
+
+    mat-icon {
+      margin-left: auto;
+      cursor: pointer;
+    }
+  }
+
+  table {
+    th {
+      color: #5F6368;
+      font-size: 13px;
+      line-height: 24px;
+      font-weight: 400;
+    }
+
+    td {
+      color: rgba(0, 0, 0, 0.87);
+      line-height: 24px;
+      font-size: 13px;
+    }
+
+    th,td {
+      padding: 10px 15px;
+    }
+  }
+
+  .buttons {
+    padding: 25px;
+
+    button {
+      font-size: 13px;
+      font-weight: 500;
+
+      &:first-of-type {
+        margin-left: auto;
+      }
+
+      &:last-of-type {
+        background: #2c98f0;
+        margin-left: 10px;
+        color: white;
+      }
+    }
+  }
+
+}

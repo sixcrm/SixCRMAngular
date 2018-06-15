@@ -37,8 +37,8 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
 
   columnParams: ColumnParams<Transaction>[] = [];
   rowColorFunction = (e: Transaction) => e.chargeback ? 'rgba(220, 37, 71, 0.05)' : '#ffffff';
-  options: string[] = ['Refund', 'Return', 'Notify User', 'View Details'];
-  bulkOptions: string[] = ['Refund', 'Return'];
+  options: string[] = ['Refund', 'Notify User', 'View Details'];
+  bulkOptions: string[] = ['Refund'];
 
   constructor(
     private transactionService: TransactionsService,

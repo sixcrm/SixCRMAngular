@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="header">
+    Return Products
+    <mat-icon (click)="close()">close</mat-icon>
+  </div>
+
+  <table>
+    <thead>
+      <th><mat-checkbox class="checkbox-blue" (change)="globalCheckboxClicked($event)"></mat-checkbox></th>
+      <th>Product</th>
+      <th>Date Shipped</th>
+      <th>Price</th>
+      <th>Reason for return</th>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td><mat-checkbox class="checkbox-blue" [(ngModel)]="product.selected"></mat-checkbox></td>
+        <td>{{product.product.name}}</td>
+        <td>{{product.shippingReceipt.createdAt | formatDateTime}}</td>
+        <td>{{product.amount.usd()}}</td>
+        <td>-</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="buttons">
+    <button mat-button (click)="close()">CANCEL</button>
+    <button mat-button>PROCESS</button>
+  </div>
+</div>
