@@ -21,6 +21,9 @@ export class GraphqlDocs2Component implements OnInit, OnDestroy {
   @Input() showSidenav: boolean;
 
   queryMutationTypes: Type[];
+  queryMutationTypesFiltered: Type[];
+  otherTypes: Type[];
+  otherTypesFiltered: Type[];
   types: Type[];
   searchItems: SearchItem[] = [
     {name: 'Query', children: []},
@@ -35,7 +38,6 @@ export class GraphqlDocs2Component implements OnInit, OnDestroy {
   loaded: boolean = false;
   field: Field;
   type: Type;
-  otherTypes: Type[];
 
   protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
 
@@ -81,7 +83,7 @@ export class GraphqlDocs2Component implements OnInit, OnDestroy {
         this.types[1].fields[i].example = mutationExamples[i];
         this.types[1].fields[i].response = generateExampleResponse(this.types[1].fields[i], allTypes);
       }
-    })
+    });
 
     this.router.events.takeUntil(this.unsubscribe$).subscribe((routeEvent) => {
       if (routeEvent instanceof ResolveEnd) {
@@ -146,6 +148,9 @@ export class GraphqlDocs2Component implements OnInit, OnDestroy {
     this.otherTypes = this.types.filter(el => {
       return (!this.isQueryOrMutation(el.name));
     });
+
+    this.queryMutationTypesFiltered = this.queryMutationTypes;
+    this.otherTypesFiltered = this.otherTypes;
   }
 
   isQueryOrMutation(typeName: string) {
@@ -155,6 +160,27 @@ export class GraphqlDocs2Component implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsubscribe$.next(true);
     this.unsubscribe$.complete();
+  }
+
+  filterTroughAllTypes(filterString: string): void {
+    if (!filterString) {
+      this.queryMutationTypesFiltered = JSON.parse(JSON.stringify(this.queryMutationTypes));
+      this.otherTypesFiltered = this.otherTypes;
+     return;
+    }
+
+    this.otherTypesFiltered = this.otherTypes.filter( el => {
+      let name = el.name.toLowerCase();
+      return name.includes(filterString.toLowerCase());
+    });
+
+    this.queryMutationTypesFiltered = JSON.parse(JSON.stringify(this.queryMutationTypes));
+    for(let i = 0; i < this.queryMutationTypes.length; i++) {
+      this.queryMutationTypesFiltered[i].fields = this.queryMutationTypes[i].fields.filter( el => {
+        let name = el.name.toLowerCase();
+        return name.includes(filterString.toLowerCase());
+      });
+    }
   }
 }
 

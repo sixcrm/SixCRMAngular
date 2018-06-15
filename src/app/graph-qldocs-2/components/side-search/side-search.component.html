@@ -3,7 +3,8 @@
     <input matInput
       (focus)="focused = true"
       (blur)="focused = false"
-      placeholder="Search" [(ngModel)]="filterString">
+      placeholder="Search" [(ngModel)]="filterString"
+      (input)="filterTypes.emit(filterString)">
   </mat-form-field>
 
   <div class="line"></div>

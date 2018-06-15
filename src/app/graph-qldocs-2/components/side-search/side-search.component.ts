@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {navigateToFieldByString} from '../../utils';
 import {NavigationEnd, Router} from "@angular/router";
 import {GraphqlDocs2Service} from "../../graphql-docs-2.service";
@@ -17,6 +17,7 @@ export class SideSearchComponent implements OnInit {
 
   @Input() searchItems: SearchItem[];
   @Input() focused: boolean = false;
+  @Output() filterTypes: EventEmitter<string> = new EventEmitter();
 
   constructor(
     private router: Router,
