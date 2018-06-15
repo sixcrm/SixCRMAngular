@@ -3,7 +3,7 @@ import {SmtpProvider} from '../../../../shared/models/smtp-provider.model';
 import {isAllowedEmail, isValidEmail} from '../../../../shared/utils/form.utils';
 import {extractData} from '../../../../shared/services/http-wrapper.service';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
-import {SmtpProvidersService} from '../../../../shared/services/smtp-providers.service';
+import {SmtpProvidersService} from '../../../../entity-services/services/smtp-providers.service';
 
 @Component({
   selector: 'smtp-provider-validate',

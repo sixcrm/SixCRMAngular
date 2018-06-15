@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TabHeaderElement} from '../../../../shared/components/tab-header/tab-header.component';
-import {RolesService} from '../../../../shared/services/roles.service';
-import {RolesSharedService} from '../../../../shared/services/roles-shared.service';
+import {RolesService} from '../../../../entity-services/services/roles.service';
+import {RolesSharedService} from '../../../../entity-services/services/roles-shared.service';
 import {ActivatedRoute, Params} from '@angular/router';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 import {Role} from '../../../../shared/models/role.model';
@@ -10,9 +10,9 @@ import {
   getAllPermissionActions, getRestrictedPermissionEntities
 } from '../../../../shared/models/permissions.model';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {AclsService} from '../../../../shared/services/acls.service';
+import {AclsService} from '../../../../entity-services/services/acls.service';
 import {Acl} from '../../../../shared/models/acl.model';
-import {AccountsService} from '../../../../shared/services/accounts.service';
+import {AccountsService} from '../../../../entity-services/services/accounts.service';
 
 @Component({
   selector: 'account-management-role-view',

@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit, Input} from '@angular/core';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {MatDialog} from '@angular/material';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {RebillsService} from '../../../../shared/services/rebills.service';
+import {RebillsService} from '../../../../entity-services/services/rebills.service';
 import {CustomerRebillsComponent} from '../../../customers-page/customer-view/customer-rebills/customer-rebills.component';
 import {utc} from 'moment';
 import {Rebill} from '../../../../shared/models/rebill.model';

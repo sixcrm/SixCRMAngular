@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {ProductSchedule} from '../../../../shared/models/product-schedule.model';
-import {ProductScheduleService} from '../../../../shared/services/product-schedule.service';
+import {ProductScheduleService} from '../../../../entity-services/services/product-schedule.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';

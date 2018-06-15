@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {Account} from '../../../shared/models/account.model';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AccountsService} from '../../../shared/services/accounts.service';
+import {AccountsService} from '../../../entity-services/services/accounts.service';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {Acl} from '../../../shared/models/acl.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
@@ -12,20 +12,20 @@ import {
 } from '../../components/table-memory/table-memory.component';
 import {AddUserAclDialogComponent} from '../../add-user-acl-dialog.component';
 import {Role} from '../../../shared/models/role.model';
-import {AclsService} from '../../../shared/services/acls.service';
-import {UsersService} from '../../../shared/services/users.service';
+import {AclsService} from '../../../entity-services/services/acls.service';
+import {UsersService} from '../../../entity-services/services/users.service';
 import {User} from '../../../shared/models/user.model';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {MessageDialogComponent} from '../../message-dialog.component';
 import {InviteUserDialogComponent} from '../../invite-user-dialog.component';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {SnackbarService} from '../../../shared/services/snackbar.service';
-import {BillsService} from '../../../shared/services/bills.service';
+import {BillsService} from '../../../entity-services/services/bills.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
-import {RolesSharedService} from '../../../shared/services/roles-shared.service';
+import {RolesSharedService} from '../../../entity-services/services/roles-shared.service';
 import {MatDialogRef, MatDialog} from '@angular/material';
-import { RolesService } from '../../../shared/services/roles.service';
+import { RolesService } from '../../../entity-services/services/roles.service';
 
 @Component({
   selector: 'account-view',

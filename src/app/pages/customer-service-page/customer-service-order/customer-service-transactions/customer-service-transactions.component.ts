@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {MatDialog} from '@angular/material';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {TransactionsService} from '../../../../shared/services/transactions.service';
+import {TransactionsService} from '../../../../entity-services/services/transactions.service';
 import {CustomerTransactionsComponent} from '../../../customers-page/customer-view/customer-transactions/customer-transactions.component';
 import {Transaction} from '../../../../shared/models/transaction.model';
 import {Currency} from '../../../../shared/utils/currency/currency';

@@ -22,6 +22,7 @@ import { SingleEventComponent } from './customer-view/customer-events/single-eve
 import { CustomerAddNewComponent } from './customer-view/customer-add-new/customer-add-new.component';
 import {TranslationModule} from '../../translation/translation.module';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
+import {EntityServicesModule} from '../../entity-services/entity-services.module';
 
 @NgModule({
   imports : [
@@ -31,6 +32,7 @@ import {MaterialSelectionModule} from '../../material-selection/material-selecti
     MaterialSelectionModule,
     PageComponentsModule,
     SharedModule,
+    EntityServicesModule,
     TextMaskModule,
     Daterangepicker,
     InfiniteScrollModule,

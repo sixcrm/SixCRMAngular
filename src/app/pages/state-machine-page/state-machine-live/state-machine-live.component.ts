@@ -8,7 +8,7 @@ import {utc} from 'moment';
 import {StateMachineTimeseries} from '../../../shared/models/state-machine/state-machine-timeseries.model';
 import {DateMap, flatUp} from '../../../shared/components/advanced-filter/advanced-filter.component';
 import {Rebill} from '../../../shared/models/rebill.model';
-import {RebillsService} from '../../../shared/services/rebills.service';
+import {RebillsService} from '../../../entity-services/services/rebills.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({

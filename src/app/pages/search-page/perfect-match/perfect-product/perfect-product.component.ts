@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractPerfectMatch} from '../abstract-perfect-match.component';
 import {Product} from '../../../../shared/models/product.model';
-import {ProductsService} from '../../../../shared/services/products.service';
+import {ProductsService} from '../../../../entity-services/services/products.service';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 
 @Component({

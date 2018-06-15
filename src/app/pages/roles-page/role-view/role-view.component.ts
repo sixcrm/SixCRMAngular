@@ -5,7 +5,7 @@ import {NavigationService} from '../../../navigation/navigation.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 import {Role} from '../../../shared/models/role.model';
-import {RolesService} from '../../../shared/services/roles.service';
+import {RolesService} from '../../../entity-services/services/roles.service';
 import {ColumnParams, ColumnParamsInputType} from '../../../shared/models/column-params.model';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {
@@ -13,8 +13,8 @@ import {
   getAllPermissionActions
 } from '../../../shared/models/permissions.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
-import {RolesSharedService} from '../../../shared/services/roles-shared.service';
-import {AclsService} from '../../../shared/services/acls.service';
+import {RolesSharedService} from '../../../entity-services/services/roles-shared.service';
+import {AclsService} from '../../../entity-services/services/acls.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({

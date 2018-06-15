@@ -1,13 +1,13 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {MerchantProviderGroup} from '../../../shared/models/merchant-provider-group.model';
-import {MerchantProviderGroupsService} from '../../../shared/services/merchant-provider-groups.service';
+import {MerchantProviderGroupsService} from '../../../entity-services/services/merchant-provider-groups.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {MerchantProviderConfiguration} from '../../../shared/models/merchant-provider-configuration.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
-import {MerchantProvidersService} from '../../../shared/services/merchant-providers.service';
+import {MerchantProvidersService} from '../../../entity-services/services/merchant-providers.service';
 import {MerchantProvider} from '../../../shared/models/merchant-provider/merchant-provider.model';
 import {
   CustomMenuOption, CustomMenuOptionResult,

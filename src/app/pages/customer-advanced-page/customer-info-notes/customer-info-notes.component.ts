@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {CustomerNotesService} from '../../../shared/services/customer-notes.service';
+import {CustomerNotesService} from '../../../entity-services/services/customer-notes.service';
 import {CustomerNote} from '../../../shared/models/customer-note.model';
 import {Customer} from '../../../shared/models/customer.model';
 import {IndexQueryParameters} from '../../../shared/utils/queries/index-query-parameters.model';

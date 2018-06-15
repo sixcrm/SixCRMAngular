@@ -18,6 +18,7 @@ import { TopnavDropdownComponent } from './topnav/topnav-dropdown/topnav-dropdow
 import {OrdersModule} from '../orders/orders.module';
 import {MaterialSelectionModule} from '../material-selection/material-selection.module';
 import {ClipboardModule} from 'ngx-clipboard';
+import {EntityServicesModule} from '../entity-services/entity-services.module';
 
 @NgModule({
   imports : [
@@ -25,6 +26,7 @@ import {ClipboardModule} from 'ngx-clipboard';
     RouterModule,
     CommonModule,
     SharedModule,
+    EntityServicesModule,
     FormsModule,
     AuthenticationModule,
     TranslationModule,

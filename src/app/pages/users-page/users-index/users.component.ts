@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {User} from '../../../shared/models/user.model';
-import {UsersService} from '../../../shared/services/users.service';
+import {UsersService} from '../../../entity-services/services/users.service';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service'
@@ -8,11 +8,11 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Acl} from '../../../shared/models/acl.model';
-import {AccountsService} from '../../../shared/services/accounts.service';
-import {RolesService} from '../../../shared/services/roles.service';
+import {AccountsService} from '../../../entity-services/services/accounts.service';
+import {RolesService} from '../../../entity-services/services/roles.service';
 import {Role} from '../../../shared/models/role.model';
 import {Account} from '../../../shared/models/account.model';
-import {AclsService} from '../../../shared/services/acls.service';
+import {AclsService} from '../../../entity-services/services/acls.service';
 import {MatDialog} from '@angular/material';
 
 @Component({

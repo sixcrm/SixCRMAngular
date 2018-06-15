@@ -1,21 +1,21 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {CampaignsService} from '../../../shared/services/campaigns.service';
+import {CampaignsService} from '../../../entity-services/services/campaigns.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Campaign} from '../../../shared/models/campaign.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {NavigationService} from '../../../navigation/navigation.service';
-import {EmailTemplatesService} from '../../../shared/services/email-templates.service';
+import {EmailTemplatesService} from '../../../entity-services/services/email-templates.service';
 import {EmailTemplate} from '../../../shared/models/email-template.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
-import {ProductScheduleService} from '../../../shared/services/product-schedule.service';
+import {ProductScheduleService} from '../../../entity-services/services/product-schedule.service';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 import {Affiliate} from '../../../shared/models/affiliate.model';
-import {AffiliatesService} from '../../../shared/services/affiliates.service';
+import {AffiliatesService} from '../../../entity-services/services/affiliates.service';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
-import {MerchantProviderGroupAssociationsService} from '../../../shared/services/merchant-provider-group-associations.service';
+import {MerchantProviderGroupAssociationsService} from '../../../entity-services/services/merchant-provider-group-associations.service';
 import {MerchantProviderGroupAssociation} from '../../../shared/models/merchant-provider-group-association.model';
 import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 

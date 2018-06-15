@@ -4,10 +4,10 @@ import {AuthenticationService} from '../../../../authentication/authentication.s
 import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {MerchantProviderGroupAssociation} from '../../../../shared/models/merchant-provider-group-association.model';
-import {MerchantProviderGroupAssociationsService} from '../../../../shared/services/merchant-provider-group-associations.service';
+import {MerchantProviderGroupAssociationsService} from '../../../../entity-services/services/merchant-provider-group-associations.service';
 import {DeleteDialogComponent} from '../../../delete-dialog.component';
-import {MerchantProviderGroupsService} from '../../../../shared/services/merchant-provider-groups.service';
-import {CampaignsService} from '../../../../shared/services/campaigns.service';
+import {MerchantProviderGroupsService} from '../../../../entity-services/services/merchant-provider-groups.service';
+import {CampaignsService} from '../../../../entity-services/services/campaigns.service';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 import {MerchantProviderGroup} from '../../../../shared/models/merchant-provider-group.model';
 import {Campaign} from '../../../../shared/models/campaign.model';

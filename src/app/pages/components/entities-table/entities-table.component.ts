@@ -1,5 +1,5 @@
 import {Component, OnInit, EventEmitter, Output, Input, ViewChild, ViewChildren} from '@angular/core';
-import {AbstractEntityService} from '../../../shared/services/abstract-entity.service';
+import {AbstractEntityService} from '../../../entity-services/services/abstract-entity.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {firstIndexOf} from '../../../shared/utils/array.utils';

@@ -1,10 +1,10 @@
 import {Component, OnInit, Input, OnDestroy} from '@angular/core';
-import {EntityAclsService} from '../../../shared/services/entityacl.service';
+import {EntityAclsService} from '../../../entity-services/services/entityacl.service';
 import {EntityAcl, EntityAclPermissionParsed} from '../../../shared/models/entityacl.model';
 import {AsyncSubject} from 'rxjs';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
-import {UsersService} from '../../../shared/services/users.service';
-import {AccountsService} from '../../../shared/services/accounts.service';
+import {UsersService} from '../../../entity-services/services/users.service';
+import {AccountsService} from '../../../entity-services/services/accounts.service';
 import {User} from '../../../shared/models/user.model';
 import {Account} from '../../../shared/models/account.model';
 import {TableMemoryTextOptions} from '../table-memory/table-memory.component';

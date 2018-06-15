@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Subscription} from 'rxjs';
 import { AuthenticationService } from '../../authentication/authentication.service';
-import { TransactionsService } from '../../shared/services/transactions.service';
+import { TransactionsService } from '../../entity-services/services/transactions.service';
 import { DashboardType } from './dashboard-type';
 import { CustomServerError } from '../../shared/models/errors/custom-server-error';
 import { FailStrategy } from '../../shared/services/http-wrapper.service';

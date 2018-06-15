@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewChild, Output, Input, EventEmitter} from '@angular/core';
 import {Schedule} from '../../models/schedule.model';
 import {Product} from '../../models/product.model';
-import {ProductsService} from '../../services/products.service';
+import {ProductsService} from '../../../entity-services/services/products.service';
 import {isAllowedCurrency, isAllowedNumeric, isAllowedFloatNumeric} from '../../utils/form.utils';
 import {ProductSchedule} from '../../models/product-schedule.model';
-import {ProductScheduleService} from '../../services/product-schedule.service';
+import {ProductScheduleService} from '../../../entity-services/services/product-schedule.service';
 
 @Component({
   selector: 'add-schedule',

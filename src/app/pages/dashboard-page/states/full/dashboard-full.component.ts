@@ -3,7 +3,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {Campaign} from '../../../../shared/models/campaign.model';
 import {DashboardQuery, DashboardTimeFilter} from '../../dashboard.exports';
-import {CampaignsService} from '../../../../shared/services/campaigns.service';
+import {CampaignsService} from '../../../../entity-services/services/campaigns.service';
 import {AsyncSubject, Observable} from 'rxjs';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 import {Currency} from '../../../../shared/utils/currency/currency';

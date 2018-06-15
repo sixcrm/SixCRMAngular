@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {FulfillmentProvidersService} from '../../../../shared/services/fulfillment-providers.service';
+import {FulfillmentProvidersService} from '../../../../entity-services/services/fulfillment-providers.service';
 import {FulfillmentProvider} from '../../../../shared/models/fulfillment-provider.model';
 
 @Component({

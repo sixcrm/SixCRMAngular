@@ -14,12 +14,14 @@ import { MerchantReportComponent } from './merchant-report/merchant-report.compo
 import { AffiliateReportComponent } from './affiliate-report/affiliate-report.component';
 import {TranslationModule} from "../translation/translation.module";
 import {MaterialSelectionModule} from '../material-selection/material-selection.module';
+import {EntityServicesModule} from '../entity-services/entity-services.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     SharedModule,
+    EntityServicesModule,
     PageComponentsModule,
     reportsRouting,
     MaterialSelectionModule,

@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {CreditCard} from '../../../shared/models/credit-card.model';
-import {CreditCardsService} from '../../../shared/services/credit-cards.service';
+import {CreditCardsService} from '../../../entity-services/services/credit-cards.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';

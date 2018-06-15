@@ -4,7 +4,7 @@ import {AuthenticationService} from '../../../../authentication/authentication.s
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {Tracker} from '../../../../shared/models/tracker.model';
-import {TrackersService} from '../../../../shared/services/trackers.service';
+import {TrackersService} from '../../../../entity-services/services/trackers.service';
 import {DeleteDialogComponent} from '../../../delete-dialog.component';
 import {firstIndexOf} from '../../../../shared/utils/array.utils';
 import {AssociateDialogComponent} from '../../../associate-dialog.component';

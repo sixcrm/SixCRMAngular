@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {CustomerNotesService} from '../../../../shared/services/customer-notes.service';
+import {CustomerNotesService} from '../../../../entity-services/services/customer-notes.service';
 import {CustomerNotesComponent} from '../../../customers-page/customer-view/customer-notes/customer-notes.component';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {MatDialog} from '@angular/material';

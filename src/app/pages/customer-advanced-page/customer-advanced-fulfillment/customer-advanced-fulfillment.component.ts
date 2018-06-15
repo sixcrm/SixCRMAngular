@@ -4,7 +4,7 @@ import {ShippingReceipt} from '../../../shared/models/shipping-receipt.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Router} from '@angular/router';
-import {ShippingReceiptsService} from '../../../shared/services/shipping-receipts.service';
+import {ShippingReceiptsService} from '../../../entity-services/services/shipping-receipts.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({

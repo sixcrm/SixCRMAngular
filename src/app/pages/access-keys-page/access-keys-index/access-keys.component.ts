@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {AccessKey} from '../../../shared/models/access-key.model';
-import {AccessKeysService} from '../../../shared/services/access-keys.service';
+import {AccessKeysService} from '../../../entity-services/services/access-keys.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';

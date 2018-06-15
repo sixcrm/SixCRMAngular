@@ -5,7 +5,7 @@ import {AsyncSubject, Observable} from 'rxjs';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {TranslatedQuote} from "../../../../translation/translated-quote.model";
 import {TranslationService} from "../../../../translation/translation.service";
-import {TransactionsService} from "../../../../shared/services/transactions.service";
+import {TransactionsService} from "../../../../entity-services/services/transactions.service";
 import {CustomServerError} from "../../../../shared/models/errors/custom-server-error";
 import {Transaction} from "../../../../shared/models/transaction.model";
 import {HeroChartSeries} from "../../../../shared/models/hero-chart-series.model";

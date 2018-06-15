@@ -10,6 +10,7 @@ import { RebillViewComponent } from './rebill-view/rebill-view.component';
 import {TranslationModule} from '../../translation/translation.module';
 import {RebillsPendingComponent} from "./rebills-pending-index/rebills-pending.component";
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
+import {EntityServicesModule} from '../../entity-services/entity-services.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import {MaterialSelectionModule} from '../../material-selection/material-selecti
     MaterialSelectionModule,
     PageComponentsModule,
     TranslationModule,
-    SharedModule
+    SharedModule,
+    EntityServicesModule
   ],
   declarations: [RebillsComponent, RebillsPendingComponent, RebillViewComponent],
   providers: [RebillsAclGuard]

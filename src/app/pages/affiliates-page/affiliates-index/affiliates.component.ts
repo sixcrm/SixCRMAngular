@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {AffiliatesService} from "../../../shared/services/affiliates.service";
+import {AffiliatesService} from "../../../entity-services/services/affiliates.service";
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {Affiliate} from '../../../shared/models/affiliate.model';
 import {PaginationService} from '../../../shared/services/pagination.service';

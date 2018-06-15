@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, EventEmitter, Output, ElementRef, OnDestroy} from '@angular/core';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
-import {UserSettingsService} from '../../../shared/services/user-settings.service';
+import {UserSettingsService} from '../../../entity-services/services/user-settings.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {AsyncSubject} from 'rxjs';
 

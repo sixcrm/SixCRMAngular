@@ -18,6 +18,7 @@ import { ProductImagesComponent } from './product-view/product-images/product-im
 import { SortByDefaultPipe } from './product-view/product-images/sort-by-default.pipe';
 import {ProductMerchantProviderGroupAssociationsComponent} from './product-view/product-merchant-provider-group-associations/product-merchant-provider-group-associations.component';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
+import {EntityServicesModule} from '../../entity-services/entity-services.module';
 
 @NgModule({
   imports : [
@@ -27,6 +28,7 @@ import {MaterialSelectionModule} from '../../material-selection/material-selecti
     MaterialSelectionModule,
     PageComponentsModule,
     SharedModule,
+    EntityServicesModule,
     TextMaskModule,
     TranslationModule,
     FileUploadModule

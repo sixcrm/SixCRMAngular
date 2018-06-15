@@ -7,7 +7,7 @@ import {firstIndexOf} from '../../../../shared/utils/array.utils';
 import {AddBillDetailsDialogComponent} from '../../../../dialog-modals/add-bill-details-dialog.component';
 import {utc} from 'moment';
 import {Bill} from '../../../../shared/models/bill.model';
-import {AccountsService} from '../../../../shared/services/accounts.service';
+import {AccountsService} from '../../../../entity-services/services/accounts.service';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 import {MatDialog} from '@angular/material';
 

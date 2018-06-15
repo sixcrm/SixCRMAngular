@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, OnDestroy} from '@angular/core';
 import {Transaction} from '../../../../shared/models/transaction.model';
-import {TransactionsService} from '../../../../shared/services/transactions.service';
+import {TransactionsService} from '../../../../entity-services/services/transactions.service';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {PaginationService} from '../../../../shared/services/pagination.service';

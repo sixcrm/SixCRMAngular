@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy, ElementRef} from '@angular/core';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {Session} from '../../../shared/models/session.model';
-import {SessionsService} from '../../../shared/services/sessions.service';
+import {SessionsService} from '../../../entity-services/services/sessions.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {Rebill} from '../../../shared/models/rebill.model';

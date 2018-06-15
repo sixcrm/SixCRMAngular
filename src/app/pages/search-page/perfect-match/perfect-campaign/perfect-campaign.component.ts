@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractPerfectMatch} from '../abstract-perfect-match.component';
 import {Campaign} from '../../../../shared/models/campaign.model';
-import {CampaignsService} from '../../../../shared/services/campaigns.service';
+import {CampaignsService} from '../../../../entity-services/services/campaigns.service';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 
 @Component({

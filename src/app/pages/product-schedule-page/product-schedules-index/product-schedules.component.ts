@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ProductScheduleService} from '../../../shared/services/product-schedule.service';
+import {ProductScheduleService} from '../../../entity-services/services/product-schedule.service';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {PaginationService} from '../../../shared/services/pagination.service';

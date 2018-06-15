@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractPerfectMatch} from '../abstract-perfect-match.component';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 import {Affiliate} from '../../../../shared/models/affiliate.model';
-import {AffiliatesService} from '../../../../shared/services/affiliates.service';
+import {AffiliatesService} from '../../../../entity-services/services/affiliates.service';
 
 @Component({
   selector: 'perfect-affiliate',

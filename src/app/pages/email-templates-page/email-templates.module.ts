@@ -17,6 +17,7 @@ import { EmailTemplatesCustomComponent } from './email-templates-index/email-tem
 import { SharedListComponent } from './email-template-view/shared-list/shared-list.component';
 import { FilterTemplatesByTypePipe } from './filter-templates-by-type.pipe';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
+import {EntityServicesModule} from '../../entity-services/entity-services.module';
 
 @NgModule({
   imports : [
@@ -25,6 +26,7 @@ import {MaterialSelectionModule} from '../../material-selection/material-selecti
     MaterialSelectionModule,
     PageComponentsModule,
     SharedModule,
+    EntityServicesModule,
     emailTemplatesRouting,
     TranslationModule
   ],

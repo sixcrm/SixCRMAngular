@@ -1,5 +1,5 @@
 import {ActivatedRoute, Params} from '@angular/router';
-import {AbstractEntityService} from '../shared/services/abstract-entity.service';
+import {AbstractEntityService} from '../entity-services/services/abstract-entity.service';
 import {AsyncSubject} from 'rxjs';
 import {Entity} from '../shared/models/entity.interface';
 import {isAllowedNumeric, isAllowedFloatNumeric, isAllowedCurrency, isAllowedEmail} from '../shared/utils/form.utils';

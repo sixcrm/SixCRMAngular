@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {FulfillmentProvider} from '../../../shared/models/fulfillment-provider.model';
-import {FulfillmentProvidersService} from '../../../shared/services/fulfillment-providers.service';
+import {FulfillmentProvidersService} from '../../../entity-services/services/fulfillment-providers.service';
 import {ActivatedRoute} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';

@@ -15,6 +15,7 @@ import { EventHooksCustomComponent } from './event-hook-index/event-hooks-custom
 import {SharedHooksListComponent} from './event-hook-view/shared-hooks-list/shared-hooks-list.component';
 import {FilterHooksByTypePipe} from './filter-hooks-by-type.pipe';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
+import {EntityServicesModule} from '../../entity-services/entity-services.module';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import {MaterialSelectionModule} from '../../material-selection/material-selecti
     MaterialSelectionModule,
     PageComponentsModule,
     SharedModule,
+    EntityServicesModule,
     TranslationModule,
     FormsModule,
     CodemirrorModule

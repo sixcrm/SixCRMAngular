@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {Role} from '../../../../shared/models/role.model';
-import {RolesSharedService} from '../../../../shared/services/roles-shared.service';
+import {RolesSharedService} from '../../../../entity-services/services/roles-shared.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';

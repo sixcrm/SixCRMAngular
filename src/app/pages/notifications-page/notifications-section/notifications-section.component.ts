@@ -1,12 +1,12 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Notification} from '../../../shared/models/notification.model';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
-import {NotificationsService} from '../../../shared/services/notifications.service';
+import {NotificationsService} from '../../../entity-services/services/notifications.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Router} from '@angular/router';
-import {NotificationsQuickService} from '../../../shared/services/notifications-quick.service';
+import {NotificationsQuickService} from '../../../entity-services/services/notifications-quick.service';
 import {MatDialog} from '@angular/material';
 
 @Component({

@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {Product} from '../../../shared/models/product.model';
-import {ProductsService} from '../../../shared/services/products.service';
+import {ProductsService} from '../../../entity-services/services/products.service';
 import {ActivatedRoute} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {MessageDialogComponent} from '../../message-dialog.component';

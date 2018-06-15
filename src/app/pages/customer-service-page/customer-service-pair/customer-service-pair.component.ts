@@ -2,8 +2,8 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Customer} from '../../../shared/models/customer.model';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
-import {CustomersService} from '../../../shared/services/customers.service';
-import {SessionsService} from '../../../shared/services/sessions.service';
+import {CustomersService} from '../../../entity-services/services/customers.service';
+import {SessionsService} from '../../../entity-services/services/sessions.service';
 import {Session} from '../../../shared/models/session.model';
 import {sessionQuery, sessionDetailedQuery} from '../../../shared/utils/queries/entities/session.queries';
 

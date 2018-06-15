@@ -22,11 +22,13 @@ import {PerfectCreditCardComponent} from './perfect-match/perfect-creditcard-pro
 import {PerfectAffiliateComponent} from './perfect-match/perfect-affiliate-provider/perfect-affiliate.component';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import {EntityServicesModule} from '../../entity-services/entity-services.module';
 
 @NgModule({
   imports : [
     searchRouting,
     SharedModule,
+    EntityServicesModule,
     PageComponentsModule,
     CommonModule,
     FormsModule,

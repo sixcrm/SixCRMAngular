@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {CampaignsService} from "../../../shared/services/campaigns.service";
+import {CampaignsService} from "../../../entity-services/services/campaigns.service";
 import {Campaign} from '../../../shared/models/campaign.model';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {PaginationService} from '../../../shared/services/pagination.service';
@@ -7,7 +7,7 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {Currency} from '../../../shared/utils/currency/currency';
-import {MerchantProviderGroupAssociationsService} from '../../../shared/services/merchant-provider-group-associations.service';
+import {MerchantProviderGroupAssociationsService} from '../../../entity-services/services/merchant-provider-group-associations.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {MatDialog} from '@angular/material';
 

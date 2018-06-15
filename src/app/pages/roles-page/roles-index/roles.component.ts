@@ -1,8 +1,8 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
-import {AclsService} from '../../../shared/services/acls.service';
+import {AclsService} from '../../../entity-services/services/acls.service';
 import {Role} from '../../../shared/models/role.model';
-import {RolesService} from '../../../shared/services/roles.service';
+import {RolesService} from '../../../entity-services/services/roles.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';

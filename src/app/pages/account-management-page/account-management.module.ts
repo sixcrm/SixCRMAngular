@@ -17,6 +17,7 @@ import {SharedModule} from '../../shared/shared.module';
 import { AccountManagementRoleViewComponent } from './account-management-roles/account-management-role-view/account-management-role-view.component';
 import {TextMaskModule} from 'angular2-text-mask';
 import { AccountManagementRolesSelectorComponent } from './account-management-roles-selector/account-management-roles-selector.component';
+import {EntityServicesModule} from '../../entity-services/entity-services.module';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { AccountManagementRolesSelectorComponent } from './account-management-ro
     MaterialSelectionModule,
     ChartModule,
     SharedModule,
+    EntityServicesModule,
     ClipboardModule,
     TextMaskModule
   ],

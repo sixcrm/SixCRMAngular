@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Customer} from '../../shared/models/customer.model';
 import {AbstractEntityViewComponent} from '../abstract-entity-view.component';
-import {CustomersService} from '../../shared/services/customers.service';
+import {CustomersService} from '../../entity-services/services/customers.service';
 import {ActivatedRoute} from '@angular/router';
 import {NavigationService} from '../../navigation/navigation.service';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';

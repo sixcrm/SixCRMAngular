@@ -1,18 +1,18 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {AccountsService} from '../../../shared/services/accounts.service';
+import {AccountsService} from '../../../entity-services/services/accounts.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Account} from '../../../shared/models/account.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Acl} from '../../../shared/models/acl.model';
-import {RolesService} from '../../../shared/services/roles.service';
-import {RolesSharedService} from '../../../shared/services/roles-shared.service';
+import {RolesService} from '../../../entity-services/services/roles.service';
+import {RolesSharedService} from '../../../entity-services/services/roles-shared.service';
 import {Role} from '../../../shared/models/role.model';
-import {AclsService} from '../../../shared/services/acls.service';
+import {AclsService} from '../../../entity-services/services/acls.service';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {DeleteDialogComponent} from '../../delete-dialog.component';
 import {MatDialog} from '@angular/material';
 import {InviteDialogComponent} from '../../../dialog-modals/invite-dialog/invite-dialog.component';
-import {UsersService} from '../../../shared/services/users.service';
+import {UsersService} from '../../../entity-services/services/users.service';
 import {Subscription} from 'rxjs';
 
 @Component({

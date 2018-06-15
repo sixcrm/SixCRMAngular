@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
-import {SmtpProvidersService} from '../../../shared/services/smtp-providers.service';
+import {SmtpProvidersService} from '../../../entity-services/services/smtp-providers.service';
 import {SmtpProvider} from '../../../shared/models/smtp-provider.model';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';

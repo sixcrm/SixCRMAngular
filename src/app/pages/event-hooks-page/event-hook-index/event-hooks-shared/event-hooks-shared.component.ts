@@ -5,7 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
-import {EventHooksSharedService} from '../../../../shared/services/event-hooks-shared.service';
+import {EventHooksSharedService} from '../../../../entity-services/services/event-hooks-shared.service';
 import {MatDialog} from '@angular/material';
 
 @Component({

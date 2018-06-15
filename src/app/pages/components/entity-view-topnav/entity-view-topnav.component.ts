@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {AbstractEntityService} from '../../../shared/services/abstract-entity.service';
+import {AbstractEntityService} from '../../../entity-services/services/abstract-entity.service';
 
 @Component({
   selector: 'entity-view-topnav',

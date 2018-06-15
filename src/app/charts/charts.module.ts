@@ -9,6 +9,7 @@ import {MerchantReportChartComponent} from './merchant-report-chart/merchant-rep
 import { StateMachineDetailsChartComponent } from './state-machine-details-chart/state-machine-details-chart.component';
 import {TranslationModule} from '../translation/translation.module';
 import {MaterialSelectionModule} from '../material-selection/material-selection.module';
+import {EntityServicesModule} from '../entity-services/entity-services.module';
 
 export function hchartFactory() {
   return require('highcharts/highstock');
@@ -19,6 +20,7 @@ export function hchartFactory() {
     CommonModule,
     ChartModule,
     SharedModule,
+    EntityServicesModule,
     MaterialSelectionModule,
     RouterModule,
     TranslationModule

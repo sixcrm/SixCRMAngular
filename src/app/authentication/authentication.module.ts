@@ -19,6 +19,7 @@ import {AccountInfoGuard} from './account-info-guard.service';
 import {BillingDisabledGuard} from './payment-dissabled-guard.service';
 import {MarkdownModule} from 'angular2-markdown';
 import {MasterAccountGuard} from "./master-account-guard.service";
+import {EntityServicesModule} from '../entity-services/entity-services.module';
 
 @NgModule({
   imports : [

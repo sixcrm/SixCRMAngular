@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AbstractEntityIndexComponent} from "../../abstract-entity-index.component";
 import {UserSigningString} from "../../../shared/models/user-signing-string.model";
-import {UserSigningStringsService} from "../../../shared/services/user-signing-string.service";
+import {UserSigningStringsService} from "../../../entity-services/services/user-signing-string.service";
 import {AuthenticationService} from "../../../authentication/authentication.service";
 import {PaginationService} from "../../../shared/services/pagination.service";
 import {ColumnParams} from "../../../shared/models/column-params.model";

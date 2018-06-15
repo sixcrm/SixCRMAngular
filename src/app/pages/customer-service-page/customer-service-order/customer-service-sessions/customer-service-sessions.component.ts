@@ -3,7 +3,7 @@ import {CustomerSessionsComponent} from '../../../customers-page/customer-view/c
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {MatDialog} from '@angular/material';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
-import {SessionsService} from '../../../../shared/services/sessions.service';
+import {SessionsService} from '../../../../entity-services/services/sessions.service';
 import {utc} from 'moment';
 import {Session} from '../../../../shared/models/session.model';
 

@@ -5,7 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
-import {EmailTemplatesSharedService} from '../../../../shared/services/email-templates-shared.service';
+import {EmailTemplatesSharedService} from '../../../../entity-services/services/email-templates-shared.service';
 import {MatDialog} from '@angular/material';
 
 @Component({

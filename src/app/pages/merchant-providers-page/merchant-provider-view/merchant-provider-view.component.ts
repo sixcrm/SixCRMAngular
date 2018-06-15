@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {MerchantProvider} from '../../../shared/models/merchant-provider/merchant-provider.model';
-import {MerchantProvidersService} from '../../../shared/services/merchant-providers.service';
+import {MerchantProvidersService} from '../../../entity-services/services/merchant-providers.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
@@ -10,7 +10,7 @@ import {MerchantProviderAddNewComponent} from './merchant-provider-add-new/merch
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
-import {TagsService} from '../../../shared/services/tags.service';
+import {TagsService} from '../../../entity-services/services/tags.service';
 
 @Component({
   selector: 'merchant-provider-view',

@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy, Output, EventEmitter} from '@angular/core';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {EventHook} from '../../../../shared/models/event-hook.model';
-import {EventHooksService} from '../../../../shared/services/event-hooks.service';
+import {EventHooksService} from '../../../../entity-services/services/event-hooks.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';

@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import {Account} from '../../../shared/models/account.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Role} from '../../../shared/models/role.model';
-import {RolesService} from '../../../shared/services/roles.service';
+import {RolesService} from '../../../entity-services/services/roles.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
-import {RolesSharedService} from '../../../shared/services/roles-shared.service';
+import {RolesSharedService} from '../../../entity-services/services/roles-shared.service';
 import {Acl} from '../../../shared/models/acl.model';
 import {MatDialog} from '@angular/material';
 import {RoleDialogComponent} from '../../../dialog-modals/role-dialog/role-dialog.component';
 import {DeleteDialogComponent} from '../../delete-dialog.component';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {Router} from '@angular/router';
-import {AccountsService} from '../../../shared/services/accounts.service';
+import {AccountsService} from '../../../entity-services/services/accounts.service';
 
 @Component({
   selector: 'account-management-roles',

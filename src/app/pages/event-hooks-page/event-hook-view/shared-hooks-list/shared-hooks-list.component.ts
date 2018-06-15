@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy, Output, EventEmitter} from '@angular/core'
 import {Subscription} from 'rxjs';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 import {EventHook} from '../../../../shared/models/event-hook.model';
-import {EventHooksSharedService} from '../../../../shared/services/event-hooks-shared.service';
+import {EventHooksSharedService} from '../../../../entity-services/services/event-hooks-shared.service';
 
 @Component({
   selector: 'shared-hooks-list',

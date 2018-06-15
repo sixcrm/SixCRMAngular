@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy, Output, EventEmitter} from '@angular/core'
 import {EmailTemplate} from '../../../../shared/models/email-template.model';
 import {Subscription} from 'rxjs';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
-import {EmailTemplatesSharedService} from '../../../../shared/services/email-templates-shared.service';
+import {EmailTemplatesSharedService} from '../../../../entity-services/services/email-templates-shared.service';
 
 @Component({
   selector: 'shared-list',

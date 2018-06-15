@@ -1,12 +1,12 @@
 import {Component, OnInit, Output, EventEmitter, ViewChild} from '@angular/core';
-import {CustomersService} from '../../shared/services/customers.service';
+import {CustomersService} from '../../entity-services/services/customers.service';
 import {Customer} from '../../shared/models/customer.model';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {Campaign} from '../../shared/models/campaign.model';
 import {ProductSchedule} from '../../shared/models/product-schedule.model';
 import {Product} from '../../shared/models/product.model';
-import {ProductsService} from '../../shared/services/products.service';
-import {ProductScheduleService} from '../../shared/services/product-schedule.service';
+import {ProductsService} from '../../entity-services/services/products.service';
+import {ProductScheduleService} from '../../entity-services/services/product-schedule.service';
 import {firstIndexOf} from '../../shared/utils/array.utils';
 import {Address} from '../../shared/models/address.model';
 import {Currency} from '../../shared/utils/currency/currency';
@@ -28,7 +28,7 @@ import {countryCode, stateCode, getCountries, getStates} from '../../shared/util
 import {CheckoutResponse} from '../../shared/models/checkout-response.model';
 import {SnackbarService} from '../../shared/services/snackbar.service';
 import {SearchService} from '../../shared/services/search.service';
-import {CampaignsService} from '../../shared/services/campaigns.service';
+import {CampaignsService} from '../../entity-services/services/campaigns.service';
 
 @Component({
   selector: 'create-order',

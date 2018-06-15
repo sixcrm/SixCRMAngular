@@ -1,15 +1,15 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {EmailTemplate} from '../../../shared/models/email-template.model';
-import {EmailTemplatesService} from '../../../shared/services/email-templates.service';
+import {EmailTemplatesService} from '../../../entity-services/services/email-templates.service';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {ActivatedRoute} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
-import {SmtpProvidersService} from '../../../shared/services/smtp-providers.service';
+import {SmtpProvidersService} from '../../../entity-services/services/smtp-providers.service';
 import {Token} from './token-list/token-list.component';
 import {Subject} from 'rxjs';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
-import {EmailTemplatesSharedService} from '../../../shared/services/email-templates-shared.service';
+import {EmailTemplatesSharedService} from '../../../entity-services/services/email-templates-shared.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 
 declare var tinymce;

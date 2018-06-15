@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Notification} from '../../shared/models/notification.model';
-import {NotificationsQuickService} from '../../shared/services/notifications-quick.service';
+import {NotificationsQuickService} from '../../entity-services/services/notifications-quick.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Subscription, Subject} from 'rxjs';
 import {utc} from 'moment';

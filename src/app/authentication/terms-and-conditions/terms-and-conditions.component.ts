@@ -1,9 +1,9 @@
 import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 import {AuthenticationService} from '../authentication.service';
-import {UsersService} from '../../shared/services/users.service';
+import {UsersService} from '../../entity-services/services/users.service';
 import {Acl} from '../../shared/models/acl.model';
 import {User} from '../../shared/models/user.model';
-import {AclsService} from '../../shared/services/acls.service';
+import {AclsService} from '../../entity-services/services/acls.service';
 import {firstIndexOf} from '../../shared/utils/array.utils';
 import {Subscription} from 'rxjs';
 import {HttpWrapperService} from '../../shared/services/http-wrapper.service';

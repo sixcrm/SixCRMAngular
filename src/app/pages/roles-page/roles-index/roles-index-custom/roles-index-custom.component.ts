@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy, Input, Output, EventEmitter} from '@angular/core';
 import {Role} from '../../../../shared/models/role.model';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
-import {RolesService} from '../../../../shared/services/roles.service';
+import {RolesService} from '../../../../entity-services/services/roles.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {MatDialog} from '@angular/material';
 import {PaginationService} from '../../../../shared/services/pagination.service';

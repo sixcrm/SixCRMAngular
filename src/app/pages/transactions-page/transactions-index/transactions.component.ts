@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {TransactionsService} from "../../../shared/services/transactions.service";
+import {TransactionsService} from "../../../entity-services/services/transactions.service";
 import {Transaction} from '../../../shared/models/transaction.model';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {AuthenticationService} from '../../../authentication/authentication.service';

@@ -21,12 +21,14 @@ import {FormsModule} from '@angular/forms';
 import {StateMachineRebillsComponent} from './state-machine-live/state-machine-rebills/state-machine-rebills.component';
 import {TranslationModule} from '../../translation/translation.module';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
+import {EntityServicesModule} from '../../entity-services/entity-services.module';
 
 @NgModule({
   imports: [
     CommonModule,
     stateMachineRouting,
     SharedModule,
+    EntityServicesModule,
     MaterialSelectionModule,
     Daterangepicker,
     ChartsModule,

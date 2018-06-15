@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ProductsService} from "../../../shared/services/products.service";
+import {ProductsService} from "../../../entity-services/services/products.service";
 import {Product} from "../../../shared/models/product.model";
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {MatDialog} from '@angular/material';

@@ -1,7 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {Customer} from '../../../shared/models/customer.model';
 import {Rebill} from '../../../shared/models/rebill.model';
-import {RebillsService} from '../../../shared/services/rebills.service';
+import {RebillsService} from '../../../entity-services/services/rebills.service';
 
 @Component({
   selector: 'customer-advanced-subscriptions',

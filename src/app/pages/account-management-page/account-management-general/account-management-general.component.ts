@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AccountsService} from '../../../shared/services/accounts.service';
+import {AccountsService} from '../../../entity-services/services/accounts.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Account} from '../../../shared/models/account.model';

@@ -16,6 +16,7 @@ import {BillBodyComponent} from './bill-view/bill-body/bill-body.component';
 import {BillViewComponent} from './bill-view/bill-view.component';
 import {TranslationModule} from '../../translation/translation.module';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
+import {EntityServicesModule} from '../../entity-services/entity-services.module';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import {MaterialSelectionModule} from '../../material-selection/material-selecti
     MaterialSelectionModule,
     PageComponentsModule,
     SharedModule,
+    EntityServicesModule,
     ChartsModule,
     TranslationModule
   ],

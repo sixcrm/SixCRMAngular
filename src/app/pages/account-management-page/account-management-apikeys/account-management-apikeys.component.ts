@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {AccessKey} from '../../../shared/models/access-key.model';
-import {AccessKeysService} from '../../../shared/services/access-keys.service';
+import {AccessKeysService} from '../../../entity-services/services/access-keys.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material';

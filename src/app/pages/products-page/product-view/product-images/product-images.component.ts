@@ -2,10 +2,10 @@ import {Component, OnInit, Input, Output, EventEmitter, OnDestroy} from '@angula
 import {FileUploader, FileItem} from 'ng2-file-upload';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {SixImage} from '../../../../shared/models/six-image.model';
-import {ImagesService} from '../../../../shared/services/images.service';
+import {ImagesService} from '../../../../entity-services/services/images.service';
 import {Subscription} from 'rxjs';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
-import {ProductsService} from '../../../../shared/services/products.service';
+import {ProductsService} from '../../../../entity-services/services/products.service';
 import {ImageDialogComponent} from '../../../../dialog-modals/image-dialog/image-dialog.component';
 import {DeleteDialogComponent} from '../../../delete-dialog.component';
 import {MatDialog} from '@angular/material';

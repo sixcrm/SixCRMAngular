@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {CustomersService} from "../../../shared/services/customers.service";
+import {CustomersService} from "../../../entity-services/services/customers.service";
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {Customer} from '../../../shared/models/customer.model';
 import {PaginationService} from '../../../shared/services/pagination.service';

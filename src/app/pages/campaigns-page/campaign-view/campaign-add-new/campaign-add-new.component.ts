@@ -2,7 +2,7 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Campaign} from '../../../../shared/models/campaign.model';
 import {Modes} from '../../../abstract-entity-view.component';
 import {MerchantProviderGroup} from '../../../../shared/models/merchant-provider-group.model';
-import {MerchantProviderGroupsService} from '../../../../shared/services/merchant-provider-groups.service';
+import {MerchantProviderGroupsService} from '../../../../entity-services/services/merchant-provider-groups.service';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 import {MerchantProviderGroupAssociation} from '../../../../shared/models/merchant-provider-group-association.model';
 

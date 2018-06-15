@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {EventHook} from '../../../shared/models/event-hook.model';
 import {Modes} from '../../abstract-entity-view.component';
-import {EventHooksService} from '../../../shared/services/event-hooks.service';
+import {EventHooksService} from '../../../entity-services/services/event-hooks.service';
 
 @Component({
   selector: 'event-hooks',

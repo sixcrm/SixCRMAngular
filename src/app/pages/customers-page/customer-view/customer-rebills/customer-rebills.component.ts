@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy, Input, Output, EventEmitter} from '@angular/core';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {Rebill} from '../../../../shared/models/rebill.model';
-import {RebillsService} from '../../../../shared/services/rebills.service';
+import {RebillsService} from '../../../../entity-services/services/rebills.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {ColumnParams} from '../../../../shared/models/column-params.model';

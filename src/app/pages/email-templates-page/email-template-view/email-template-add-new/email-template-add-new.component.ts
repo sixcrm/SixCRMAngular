@@ -2,7 +2,7 @@ import {Component, OnInit, EventEmitter, Input, Output, AfterViewInit, OnDestroy
 import {EmailTemplate} from '../../../../shared/models/email-template.model';
 import {Modes} from '../../../abstract-entity-view.component';
 import {SmtpProvider} from '../../../../shared/models/smtp-provider.model';
-import {SmtpProvidersService} from '../../../../shared/services/smtp-providers.service';
+import {SmtpProvidersService} from '../../../../entity-services/services/smtp-providers.service';
 import {Token} from '../token-list/token-list.component';
 import {Subject, Subscription} from 'rxjs';
 

@@ -2,7 +2,7 @@ import {Component, OnInit, Input, Output, EventEmitter, OnDestroy} from '@angula
 import {Product} from '../../../../shared/models/product.model';
 import {Modes} from '../../../abstract-entity-view.component';
 import {FulfillmentProvider} from '../../../../shared/models/fulfillment-provider.model';
-import {FulfillmentProvidersService} from '../../../../shared/services/fulfillment-providers.service';
+import {FulfillmentProvidersService} from '../../../../entity-services/services/fulfillment-providers.service';
 import {Currency} from '../../../../shared/utils/currency/currency';
 import {isAllowedCurrency, isAllowedNumeric} from '../../../../shared/utils/form.utils';
 import {AsyncSubject} from 'rxjs';

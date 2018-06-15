@@ -11,6 +11,7 @@ import { FulfillmentProviderAddNewComponent } from './fulfillment-provider-view/
 import { FulfillmentProviderValidationComponent } from './fulfillment-provider-view/fulfillment-provider-validation/fulfillment-provider-validation.component';
 import {TranslationModule} from '../../translation/translation.module';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
+import {EntityServicesModule} from '../../entity-services/entity-services.module';
 
 @NgModule({
   imports : [
@@ -20,6 +21,7 @@ import {MaterialSelectionModule} from '../../material-selection/material-selecti
     MaterialSelectionModule,
     PageComponentsModule,
     SharedModule,
+    EntityServicesModule,
     TranslationModule
   ],
   declarations : [

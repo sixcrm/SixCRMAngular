@@ -21,6 +21,7 @@ import {DashboardSetupComponent} from './states/setup/dashboard-setup.component'
 import {DashboardFullComponent} from './states/full/dashboard-full.component'
 import {DashboardLowDataComponent} from './states/low-data/dashboard-low-data.component'
 import { DashboardAvailabilityService } from './dashboard-availability.service';
+import {EntityServicesModule} from '../../entity-services/entity-services.module';
 
 export function highchartsFactory() {
   let hc = require('highcharts');
@@ -37,6 +38,7 @@ export function highchartsFactory() {
   imports : [
     dashboardRouting,
     SharedModule,
+    EntityServicesModule,
     CommonModule,
     MaterialSelectionModule,
     ChartModule,

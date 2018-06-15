@@ -13,6 +13,7 @@ import {BillsModule} from '../bills-page/bills.module';
 import {TranslationModule} from '../../translation/translation.module';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 import { MarkdownModule } from 'angular2-markdown';
+import {EntityServicesModule} from '../../entity-services/entity-services.module';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { MarkdownModule } from 'angular2-markdown';
     MaterialSelectionModule,
     PageComponentsModule,
     SharedModule,
+    EntityServicesModule,
     TranslationModule,
     BillsModule,
     MarkdownModule

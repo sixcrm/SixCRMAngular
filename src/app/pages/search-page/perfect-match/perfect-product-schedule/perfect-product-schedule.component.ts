@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ProductSchedule} from '../../../../shared/models/product-schedule.model';
 import {AbstractPerfectMatch} from '../abstract-perfect-match.component';
-import {ProductScheduleService} from '../../../../shared/services/product-schedule.service';
+import {ProductScheduleService} from '../../../../entity-services/services/product-schedule.service';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 
 @Component({

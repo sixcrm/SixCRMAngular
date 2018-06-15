@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
 import {Transaction} from '../../../shared/models/transaction.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
-import {TransactionsService} from '../../../shared/services/transactions.service';
+import {TransactionsService} from '../../../entity-services/services/transactions.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';

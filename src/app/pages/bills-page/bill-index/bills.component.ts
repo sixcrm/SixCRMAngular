@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Bill} from '../../../shared/models/bill.model';
-import {BillsService} from '../../../shared/services/bills.service';
+import {BillsService} from '../../../entity-services/services/bills.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {PaginationService} from '../../../shared/services/pagination.service';

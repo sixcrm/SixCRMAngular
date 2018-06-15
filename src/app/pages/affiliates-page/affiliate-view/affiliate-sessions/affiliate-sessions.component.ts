@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, OnDestroy} from '@angular/core';
 import {Session} from '../../../../shared/models/session.model';
-import {SessionsService} from '../../../../shared/services/sessions.service';
+import {SessionsService} from '../../../../entity-services/services/sessions.service';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {ColumnParams} from '../../../../shared/models/column-params.model';

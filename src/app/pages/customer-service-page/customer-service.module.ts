@@ -17,6 +17,7 @@ import { CustomerServiceRebillsComponent } from './customer-service-order/custom
 import { CustomerServiceTransactionsComponent } from './customer-service-order/customer-service-transactions/customer-service-transactions.component';
 import { CustomerServiceReturnComponent } from './customer-service-order/customer-service-return/customer-service-return.component';
 import { CustomerServiceDashboardAutocompleteComponent } from './customer-service-dashboard/customer-service-dashboard-autocomplete/customer-service-dashboard-autocomplete.component';
+import {EntityServicesModule} from '../../entity-services/entity-services.module';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { CustomerServiceDashboardAutocompleteComponent } from './customer-servic
     customerServiceRouting,
     TranslationModule,
     SharedModule,
+    EntityServicesModule,
     InfiniteScrollModule
   ],
   declarations: [

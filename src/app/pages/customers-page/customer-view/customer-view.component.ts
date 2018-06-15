@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {Customer} from '../../../shared/models/customer.model';
-import {CustomersService} from '../../../shared/services/customers.service';
+import {CustomersService} from '../../../entity-services/services/customers.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {NavigationService} from '../../../navigation/navigation.service';

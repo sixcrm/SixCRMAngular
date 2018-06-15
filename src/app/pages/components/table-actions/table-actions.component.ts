@@ -1,5 +1,5 @@
 import {Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
-import {AbstractEntityService} from '../../../shared/services/abstract-entity.service';
+import {AbstractEntityService} from '../../../entity-services/services/abstract-entity.service';
 
 @Component({
   selector: 'table-actions',

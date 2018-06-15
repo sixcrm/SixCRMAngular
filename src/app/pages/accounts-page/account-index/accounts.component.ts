@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
-import {AccountsService} from '../../../shared/services/accounts.service';
+import {AccountsService} from '../../../entity-services/services/accounts.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';

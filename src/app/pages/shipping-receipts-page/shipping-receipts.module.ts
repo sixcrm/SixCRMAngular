@@ -10,6 +10,7 @@ import {ShippingReceiptsComponent} from './shipping-receipts-index/shipping-rece
 import {ClipboardModule} from 'ngx-clipboard';
 import {ShippingReceiptsAclGuard} from '../guards/shipping-receipts-acl-guard.service';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
+import {EntityServicesModule} from '../../entity-services/entity-services.module';
 
 @NgModule({
   imports : [
@@ -19,6 +20,7 @@ import {MaterialSelectionModule} from '../../material-selection/material-selecti
     PageComponentsModule,
     MaterialSelectionModule,
     SharedModule,
+    EntityServicesModule,
     TranslationModule,
     ClipboardModule
   ],

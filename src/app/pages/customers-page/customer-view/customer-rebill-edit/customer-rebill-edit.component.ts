@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import {Rebill} from '../../../../shared/models/rebill.model';
-import {RebillsService} from '../../../../shared/services/rebills.service';
+import {RebillsService} from '../../../../entity-services/services/rebills.service';
 import {Moment, utc} from 'moment';
 import {DaterangepickerConfig} from 'ng2-daterangepicker';
 import {Currency} from '../../../../shared/utils/currency/currency';

@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {ProductSchedule} from '../../../../shared/models/product-schedule.model';
 import {Modes} from '../../../abstract-entity-view.component';
-import {MerchantProviderGroupsService} from '../../../../shared/services/merchant-provider-groups.service';
+import {MerchantProviderGroupsService} from '../../../../entity-services/services/merchant-provider-groups.service';
 import {MerchantProviderGroup} from '../../../../shared/models/merchant-provider-group.model';
 
 @Component({

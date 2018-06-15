@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {RebillsService} from '../../../shared/services/rebills.service';
+import {RebillsService} from '../../../entity-services/services/rebills.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PaginationService} from '../../../shared/services/pagination.service';

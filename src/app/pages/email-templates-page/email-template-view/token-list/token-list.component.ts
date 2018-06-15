@@ -1,5 +1,5 @@
 import {Component, OnInit, EventEmitter, Output} from '@angular/core';
-import {EmailTemplatesService} from '../../../../shared/services/email-templates.service';
+import {EmailTemplatesService} from '../../../../entity-services/services/email-templates.service';
 
 @Component({
   selector: 'token-list',

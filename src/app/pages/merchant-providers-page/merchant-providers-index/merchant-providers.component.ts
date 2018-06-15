@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {MerchantProvidersService} from "../../../shared/services/merchant-providers.service";
+import {MerchantProvidersService} from "../../../entity-services/services/merchant-providers.service";
 import {MerchantProvider} from '../../../shared/models/merchant-provider/merchant-provider.model';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {PaginationService} from '../../../shared/services/pagination.service';

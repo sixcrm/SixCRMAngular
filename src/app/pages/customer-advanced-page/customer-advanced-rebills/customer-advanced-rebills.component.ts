@@ -2,7 +2,7 @@ import {Component, OnInit, Input} from '@angular/core';
 import {Rebill} from '../../../shared/models/rebill.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {Customer} from '../../../shared/models/customer.model';
-import {RebillsService} from '../../../shared/services/rebills.service';
+import {RebillsService} from '../../../entity-services/services/rebills.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {Router} from '@angular/router';
 import {utc} from 'moment';

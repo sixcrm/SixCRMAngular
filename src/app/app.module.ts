@@ -42,6 +42,7 @@ import { AddCustomerDialogComponent } from './dialog-modals/add-customer-dialog/
 import { ViewTransactionDialogComponent } from './dialog-modals/view-transaction-dialog/view-transaction-dialog.component';
 import { RefundDialogComponent } from './dialog-modals/refund-dialog/refund-dialog.component';
 import { ReturnDialogComponent } from './dialog-modals/return-dialog/return-dialog.component';
+import {EntityServicesModule} from './entity-services/entity-services.module';
 
 @NgModule({
   declarations : [
@@ -75,6 +76,7 @@ import { ReturnDialogComponent } from './dialog-modals/return-dialog/return-dial
   imports : [
     NavigationModule.forRoot(),
     SharedModule.forRoot(),
+    EntityServicesModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,

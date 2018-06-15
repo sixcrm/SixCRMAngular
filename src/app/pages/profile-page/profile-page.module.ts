@@ -15,6 +15,7 @@ import { DeviceToggleItemComponent } from './notification-devices/device-toggle-
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 import {AgreementsComponent} from "./agreements/agreements.component";
 import {MarkdownModule} from "angular2-markdown";
+import {EntityServicesModule} from '../../entity-services/entity-services.module';
 
 @NgModule({
   imports : [
@@ -23,6 +24,7 @@ import {MarkdownModule} from "angular2-markdown";
     FormsModule,
     MaterialSelectionModule,
     SharedModule,
+    EntityServicesModule,
     PageComponentsModule,
     TextMaskModule,
     TranslationModule,

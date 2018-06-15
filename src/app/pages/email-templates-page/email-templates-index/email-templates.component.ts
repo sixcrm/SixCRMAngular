@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {EmailTemplate} from '../../../shared/models/email-template.model';
 import {Modes} from '../../abstract-entity-view.component';
-import {EmailTemplatesService} from '../../../shared/services/email-templates.service';
+import {EmailTemplatesService} from '../../../entity-services/services/email-templates.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';

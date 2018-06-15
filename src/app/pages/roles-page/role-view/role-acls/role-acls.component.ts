@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 import {Acl} from '../../../../shared/models/acl.model';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
-import {AclsService} from '../../../../shared/services/acls.service';
+import {AclsService} from '../../../../entity-services/services/acls.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';

@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import {CustomerNote} from '../../../../shared/models/customer-note.model';
-import {CustomerNotesService} from '../../../../shared/services/customer-notes.service';
+import {CustomerNotesService} from '../../../../entity-services/services/customer-notes.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
 import {PaginationService} from '../../../../shared/services/pagination.service';

@@ -4,7 +4,7 @@ import * as jsPDF from 'jspdf';
 import {PrivacyPolicy} from "./privacy-policy.md";
 import {MatDialog} from "@angular/material";
 import {AuthenticationService} from "../../../authentication/authentication.service";
-import {UsersService} from "../../../shared/services/users.service";
+import {UsersService} from "../../../entity-services/services/users.service";
 import {TermsDialogComponent} from "../../../dialog-modals/terms-dialog/terms-dialog.component";
 import {CustomServerError} from "../../../shared/models/errors/custom-server-error";
 import {MarkdownService} from "angular2-markdown";

@@ -5,10 +5,10 @@ import {Acl} from '../../shared/models/acl.model';
 import {User} from '../../shared/models/user.model';
 import {Account} from '../../shared/models/account.model';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
-import {UsersService} from '../../shared/services/users.service';
+import {UsersService} from '../../entity-services/services/users.service';
 import {TermsDialogComponent} from '../../dialog-modals/terms-dialog/terms-dialog.component';
 import {MatDialog} from '@angular/material';
-import {AccountsService} from '../../shared/services/accounts.service';
+import {AccountsService} from '../../entity-services/services/accounts.service';
 import {environment} from '../../../environments/environment';
 
 interface Terms {

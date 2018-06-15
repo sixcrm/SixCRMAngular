@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Tracker} from '../../../shared/models/tracker.model';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
-import {TrackersService} from '../../../shared/services/trackers.service';
+import {TrackersService} from '../../../entity-services/services/trackers.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';

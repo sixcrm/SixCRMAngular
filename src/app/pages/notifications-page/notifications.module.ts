@@ -10,6 +10,7 @@ import {FormsModule} from '@angular/forms';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 import {ClipboardModule} from 'ngx-clipboard';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {EntityServicesModule} from '../../entity-services/entity-services.module';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MaterialSelectionModule,
     InfiniteScrollModule,
     SharedModule,
+    EntityServicesModule,
     TranslationModule,
     ClipboardModule,
     MatButtonToggleModule

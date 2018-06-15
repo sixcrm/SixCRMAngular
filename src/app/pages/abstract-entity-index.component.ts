@@ -1,4 +1,4 @@
-import {AbstractEntityService} from '../shared/services/abstract-entity.service';
+import {AbstractEntityService} from '../entity-services/services/abstract-entity.service';
 import {DeleteDialogComponent} from './delete-dialog.component';
 import {MatDialogRef, MatDialog} from '@angular/material';
 import {PaginationService} from '../shared/services/pagination.service';

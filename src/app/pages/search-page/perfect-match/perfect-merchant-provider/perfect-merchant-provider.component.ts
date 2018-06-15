@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractPerfectMatch} from '../abstract-perfect-match.component';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 import {MerchantProvider} from '../../../../shared/models/merchant-provider/merchant-provider.model';
-import {MerchantProvidersService} from '../../../../shared/services/merchant-providers.service';
+import {MerchantProvidersService} from '../../../../entity-services/services/merchant-providers.service';
 
 @Component({
   selector: 'perfect-merchant-provider',

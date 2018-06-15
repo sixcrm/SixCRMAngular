@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {SessionsService} from "../../../shared/services/sessions.service";
+import {SessionsService} from "../../../entity-services/services/sessions.service";
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {Session} from '../../../shared/models/session.model';
 import {PaginationService} from '../../../shared/services/pagination.service';

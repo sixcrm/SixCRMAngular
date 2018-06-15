@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 import {Bill} from '../../../../shared/models/bill.model';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
-import {BillsService} from '../../../../shared/services/bills.service';
+import {BillsService} from '../../../../entity-services/services/bills.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';

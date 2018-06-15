@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {ShippingReceiptsService} from "../../../shared/services/shipping-receipts.service";
+import {ShippingReceiptsService} from "../../../entity-services/services/shipping-receipts.service";
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {ShippingReceipt} from '../../../shared/models/shipping-receipt.model';
 import {PaginationService} from '../../../shared/services/pagination.service';

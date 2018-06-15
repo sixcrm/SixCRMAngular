@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {CreditCardsService} from '../../../shared/services/credit-cards.service';
+import {CreditCardsService} from '../../../entity-services/services/credit-cards.service';
 import {AbstractEntityIndexComponent} from '../../abstract-entity-index.component';
 import {CreditCard} from '../../../shared/models/credit-card.model';
 import {PaginationService} from '../../../shared/services/pagination.service';

@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy, ViewChild, ElementRef} from '@angular/core';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
-import {ProductScheduleService} from '../../../shared/services/product-schedule.service';
+import {ProductScheduleService} from '../../../entity-services/services/product-schedule.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {Schedule} from '../../../shared/models/schedule.model';
@@ -12,7 +12,7 @@ import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {AddScheduleComponent} from '../../../shared/components/add-schedule/add-schedule.component';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
-import {ProductsService} from '../../../shared/services/products.service';
+import {ProductsService} from '../../../entity-services/services/products.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
 import {utc, Moment} from 'moment'

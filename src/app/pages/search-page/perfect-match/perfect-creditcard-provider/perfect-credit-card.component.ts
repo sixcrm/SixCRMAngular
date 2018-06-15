@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AbstractPerfectMatch} from '../abstract-perfect-match.component';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
-import {CreditCardsService} from '../../../../shared/services/credit-cards.service';
+import {CreditCardsService} from '../../../../entity-services/services/credit-cards.service';
 import {CreditCard} from '../../../../shared/models/credit-card.model';
 
 @Component({

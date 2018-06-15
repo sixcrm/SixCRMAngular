@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Rebill} from '../../../shared/models/rebill.model';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
-import {RebillsService} from '../../../shared/services/rebills.service';
+import {RebillsService} from '../../../entity-services/services/rebills.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';

@@ -2,7 +2,7 @@ import {Component, OnInit, Output, EventEmitter, ViewChild, Input, ElementRef, A
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 import {Schedule} from '../../../shared/models/schedule.model';
 import {Product} from '../../../shared/models/product.model';
-import {ProductsService} from '../../../shared/services/products.service';
+import {ProductsService} from '../../../entity-services/services/products.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Moment} from 'moment';
 import {YesNoDialogComponent} from '../../yes-no-dialog.component';

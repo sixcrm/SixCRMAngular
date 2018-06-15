@@ -9,6 +9,7 @@ import {PlanPaymentComponent} from './plan-payment/plan-payment.component';
 import {FormsModule} from '@angular/forms';
 import {TranslationModule} from '../translation/translation.module';
 import {SharedModule} from '../shared/shared.module';
+import {EntityServicesModule} from '../entity-services/entity-services.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import {SharedModule} from '../shared/shared.module';
     FormsModule,
     TranslationModule,
     paymentRouting,
-    SharedModule
+    SharedModule,
+    EntityServicesModule
   ],
   declarations: [
     PaymentComponent,

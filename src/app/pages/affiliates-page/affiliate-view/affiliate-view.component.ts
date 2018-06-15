@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {Affiliate} from '../../../shared/models/affiliate.model';
-import {AffiliatesService} from '../../../shared/services/affiliates.service';
+import {AffiliatesService} from '../../../entity-services/services/affiliates.service';
 import {ActivatedRoute} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';

@@ -1,6 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {Customer} from '../../../shared/models/customer.model';
-import {TransactionsService} from '../../../shared/services/transactions.service';
+import {TransactionsService} from '../../../entity-services/services/transactions.service';
 import {Transaction} from '../../../shared/models/transaction.model';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {ColumnParams} from '../../../shared/models/column-params.model';

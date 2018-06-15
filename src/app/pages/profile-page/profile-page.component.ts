@@ -1,14 +1,14 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {AuthenticationService} from "../../authentication/authentication.service";
 import {User} from '../../shared/models/user.model';
-import {UsersService} from '../../shared/services/users.service';
+import {UsersService} from '../../entity-services/services/users.service';
 import {NavigationService} from '../../navigation/navigation.service';
 import {Acl} from '../../shared/models/acl.model';
 import {Subject} from 'rxjs';
 import {UserSettings} from '../../shared/models/user-settings';
-import {UserSettingsService} from '../../shared/services/user-settings.service';
+import {UserSettingsService} from '../../entity-services/services/user-settings.service';
 import {NotificationSettings, NotificationSettingsData} from '../../shared/models/notification-settings.model';
-import {NotificationSettingsService} from '../../shared/services/notification-settings.service';
+import {NotificationSettingsService} from '../../entity-services/services/notification-settings.service';
 import {conformToMask} from 'angular2-text-mask';
 import {getPhoneNumberMask} from '../../shared/utils/mask.utils';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';

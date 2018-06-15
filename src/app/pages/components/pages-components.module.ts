@@ -33,6 +33,7 @@ import {MaterialSelectionModule} from '../../material-selection/material-selecti
 import { BlueHeaderComponent } from './blue-header/blue-header.component';
 import { TableMemoryAdvancedComponent } from './table-memory-advanced/table-memory-advanced.component';
 import { TransactionStatusIconComponent } from './transaction-status-icon/transaction-status-icon.component';
+import {EntityServicesModule} from '../../entity-services/entity-services.module';
 
 @NgModule({
   imports : [
@@ -40,6 +41,7 @@ import { TransactionStatusIconComponent } from './transaction-status-icon/transa
     RouterModule,
     MaterialSelectionModule,
     SharedModule,
+    EntityServicesModule,
     FormsModule,
     TranslationModule,
     ClipboardModule,

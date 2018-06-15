@@ -12,6 +12,7 @@ import { RolesIndexCustomComponent } from './roles-index/roles-index-custom/role
 import { RoleAclsComponent } from './role-view/role-acls/role-acls.component';
 import { RoleAddNewComponent } from './roles-index/role-add-new/role-add-new.component';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
+import {EntityServicesModule} from '../../entity-services/entity-services.module';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import {MaterialSelectionModule} from '../../material-selection/material-selecti
     MaterialSelectionModule,
     PageComponentsModule,
     TranslationModule,
-    SharedModule
+    SharedModule,
+    EntityServicesModule
   ],
   declarations: [
     RolesComponent,

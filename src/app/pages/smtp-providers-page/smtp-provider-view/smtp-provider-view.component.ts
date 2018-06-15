@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {SmtpProvidersService} from '../../../shared/services/smtp-providers.service';
+import {SmtpProvidersService} from '../../../entity-services/services/smtp-providers.service';
 import {ActivatedRoute} from '@angular/router';
 import {AbstractEntityViewComponent} from '../../abstract-entity-view.component';
 import {SmtpProvider} from '../../../shared/models/smtp-provider.model';

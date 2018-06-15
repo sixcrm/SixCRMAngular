@@ -17,6 +17,7 @@ import { CustomerAdvancedSubscriptionsComponent } from './customer-advanced-subs
 import { InfoTableComponent } from './rebill-item-components/info-table/info-table.component';
 import { ProductItemComponent } from './rebill-item-components/product-item/product-item.component';
 import { RebillExpandedDetailsComponent } from './rebill-expanded-details/rebill-expanded-details.component';
+import {EntityServicesModule} from '../../entity-services/entity-services.module';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { RebillExpandedDetailsComponent } from './rebill-expanded-details/rebill
     customerAdvancedRouting,
     PageComponentsModule,
     SharedModule,
+    EntityServicesModule,
     MaterialSelectionModule,
     FormsModule
   ],

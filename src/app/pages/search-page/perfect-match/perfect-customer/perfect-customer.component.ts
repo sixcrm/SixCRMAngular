@@ -1,8 +1,8 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {CustomersService} from '../../../../shared/services/customers.service';
+import {CustomersService} from '../../../../entity-services/services/customers.service';
 import {Customer} from '../../../../shared/models/customer.model';
 import {Transaction} from '../../../../shared/models/transaction.model';
-import {TransactionsService} from '../../../../shared/services/transactions.service';
+import {TransactionsService} from '../../../../entity-services/services/transactions.service';
 import {AbstractPerfectMatch} from '../abstract-perfect-match.component';
 import {
   transactionsByCustomer,

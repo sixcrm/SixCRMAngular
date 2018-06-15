@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Rebill} from '../../../../shared/models/rebill.model';
 import {AbstractPerfectMatch} from '../abstract-perfect-match.component';
-import {RebillsService} from '../../../../shared/services/rebills.service';
+import {RebillsService} from '../../../../entity-services/services/rebills.service';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 
 @Component({

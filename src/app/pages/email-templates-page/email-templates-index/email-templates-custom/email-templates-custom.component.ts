@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy, Output, EventEmitter} from '@angular/core';
 import {EmailTemplate} from '../../../../shared/models/email-template.model';
 import {AbstractEntityIndexComponent} from '../../../abstract-entity-index.component';
-import {EmailTemplatesService} from '../../../../shared/services/email-templates.service';
+import {EmailTemplatesService} from '../../../../entity-services/services/email-templates.service';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {PaginationService} from '../../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {ProductSchedule} from '../../../../shared/models/product-schedule.model';
 import {Schedule} from '../../../../shared/models/schedule.model';
 import {Product} from '../../../../shared/models/product.model';
-import {ProductScheduleService} from '../../../../shared/services/product-schedule.service';
+import {ProductScheduleService} from '../../../../entity-services/services/product-schedule.service';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 
 @Component({

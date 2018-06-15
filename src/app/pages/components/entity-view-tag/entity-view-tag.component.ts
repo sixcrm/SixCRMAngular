@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, OnDestroy} from '@angular/core';
-import {TagsService} from '../../../shared/services/tags.service';
+import {TagsService} from '../../../entity-services/services/tags.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {Router, ActivatedRoute} from '@angular/router';

@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Plan} from '../plans/plan.model';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {SessionsService} from '../../shared/services/sessions.service';
+import {SessionsService} from '../../entity-services/services/sessions.service';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {CreditCard} from '../../shared/models/credit-card.model';
 import {Acl} from '../../shared/models/acl.model';
 import {environment} from '../../../environments/environment';
-import {BillsService} from '../../shared/services/bills.service';
+import {BillsService} from '../../entity-services/services/bills.service';
 import {Bill} from '../../shared/models/bill.model';
 import {UnpaidBills} from "../unpaid-bills.model";
 
