@@ -8,20 +8,22 @@
 
   <div class="line"></div>
 
-  <ng-container *ngFor="let searchItem of searchItems">
-    <div *ngIf="searchItem.children && searchItem.children.length > 0" class="side-search__item">
-      <div
-        (click)="nav(searchItem.name)"
-        class="side-search__item__title">
-        <span>{{searchItem.name}}</span>
+  <div class="side-search__list">
+    <ng-container *ngFor="let searchItem of searchItems">
+      <div *ngIf="searchItem.children && searchItem.children.length > 0" class="side-search__item">
+        <div
+          (click)="nav(searchItem.name)"
+          class="side-search__item__title">
+          <span>{{searchItem.name}}</span>
+        </div>
+        <div
+          *ngFor="let child of searchItem.children | filterSearchItems: filterString"
+          (click)="navigateTo(child, searchItem.name); selectedItem = searchItem.name + child"
+          class="side-search__item__child"
+          [class.selected]="searchItem.name + child === selectedItem">
+          <span>{{child}}</span>
+        </div>
       </div>
-      <div
-        *ngFor="let child of searchItem.children | filterSearchItems: filterString"
-        (click)="navigateTo(child, searchItem.name); selectedItem = searchItem.name + child"
-        class="side-search__item__child"
-        [class.selected]="searchItem.name + child === selectedItem">
-        <span>{{child}}</span>
-      </div>
-    </div>
-  </ng-container>
+    </ng-container>
+  </div>
 </div>

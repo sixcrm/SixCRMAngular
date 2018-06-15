@@ -6,8 +6,6 @@
 
   &__sidenav {
     border-right: 2px solid rgba(0, 0, 0, 0.2);
-    overflow-y: auto;
-    overflow-x: hidden;
     width: 360px;
     background: #F0F3F4;
     display: inline-block;
@@ -23,7 +21,7 @@
     background: #F0F3F4;
     display: inline-block;
     float: right;
-    height: calc(100vh - 170px);
+    height: calc(100vh - 220px);
   }
 
   mat-spinner {
