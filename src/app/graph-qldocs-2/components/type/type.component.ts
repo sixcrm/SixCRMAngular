@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {Type} from '../../models/type.model';
-import {environment} from '../../../../environments/environment';
 import {Field} from "../../models/field.model";
 
 @Component({

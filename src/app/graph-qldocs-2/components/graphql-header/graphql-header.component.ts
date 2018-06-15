@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NavigationService} from '../../../navigation/navigation.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,8 +11,7 @@ export class GraphqlHeaderComponent implements OnInit {
   @Input() path: string[];
 
   constructor(
-    private router: Router,
-    public navigationService: NavigationService
+    private router: Router
   ) { }
 
   ngOnInit() { }
