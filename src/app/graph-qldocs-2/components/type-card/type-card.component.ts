@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import {Field} from '../../models/field.model';
 import {Type} from '../../models/type.model';
 import {Router} from "@angular/router";
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'type-card',
@@ -30,6 +31,10 @@ export class TypeCardComponent implements OnInit {
 
   navigateToGraph() {
     this.router.navigate(['/documentation/graph2']);
+  }
+
+  getShareLink(): string {
+    return environment.auth0RedirectUrl + '/documentation/graph2/type/' + this.type.name;
   }
 
   showProperties() {

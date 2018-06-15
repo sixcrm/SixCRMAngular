@@ -3,6 +3,7 @@ import {Field} from '../../models/field.model';
 import {Type} from '../../models/type.model';
 import {Router} from "@angular/router";
 import {InputValue} from '../../models/input-value.model';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'query-mutation-card',
@@ -38,5 +39,9 @@ export class QueryMutationCardComponent implements OnInit {
 
   navigateToGraph() {
     this.router.navigate(['/documentation/graph2']);
+  }
+
+  getShareLink(): string {
+    return environment.auth0RedirectUrl + '/documentation/graph2/' + this.type.name.toLowerCase() + '/' + this.field.name;
   }
 }
