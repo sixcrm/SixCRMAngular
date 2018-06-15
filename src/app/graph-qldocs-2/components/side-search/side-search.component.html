@@ -20,7 +20,7 @@
         (click)="navigateTo(child, searchItem.name); selectedItem = searchItem.name + child"
         class="side-search__item__child"
         [class.selected]="searchItem.name + child === selectedItem">
-        <span matTooltip="{{child}}">{{child}}</span>
+        <span>{{child}}</span>
       </div>
     </div>
   </ng-container>
