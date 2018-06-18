@@ -71,6 +71,26 @@
       display: none;
     }
   }
+
+  &-mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background: rgba(44, 152, 240, 0.5);
+  }
+
+  &-mat-slide-toggle.mat-checked:not(.mat-disabled) {
+    .mat-slide-toggle-thumb {
+      background: #2C98F0;
+    }
+  }
+
+  &-mat-slide-toggle {
+    .mat-slide-toggle-thumb {
+      background: #F1F1F1;
+    }
+
+    .mat-slide-toggle-bar {
+      background: rgba(34, 31, 31, 0.26);
+    }
+  }
 }
 
 .six-spinner {

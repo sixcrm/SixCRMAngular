@@ -8,27 +8,23 @@
     <button mat-button (click)="fetch()">Reset all to defaults</button>
 
     <div class="flags" *ngIf="featureFlags">
-
-      <div class="flag flag-outer" *ngFor="let flag of featureFlags.flags">
-
+      <div class="flag flag-outer" *ngFor="let flag of featureFlags.flags; let i = index">
         <div class="header">
           <div class="name">{{flag.name}}</div>
-          <mat-slide-toggle [(ngModel)]="flag.isDefault" (change)="toggle(flag)"></mat-slide-toggle>
+          <mat-slide-toggle class="mrw-mat-slide-toggle" [checked]="flag.isDefault" (change)="toggle(flag)"></mat-slide-toggle>
         </div>
         <div class="description" *ngIf="flag.name !== flag.description">{{flag.description}}</div>
 
         <div  class="flag flag-inner" *ngFor="let f of flag.flags">
           <div class="header">
             <div class="name">{{f.name}}</div>
-            <mat-slide-toggle [(ngModel)]="f.isDefault" (change)="toggle(f)" [disabled]="!flag.isDefault" [checked]="f.isDefault"></mat-slide-toggle>
+            <mat-slide-toggle class="mrw-mat-slide-toggle" (change)="toggle(f)" [disabled]="!flag.isDefault" [checked]="f.isDefault"></mat-slide-toggle>
           </div>
           <div class="description" *ngIf="f.name !== f.description">{{f.description}}</div>
         </div>
 
-        <div class="line"></div>
-
+        <div class="line" *ngIf="i !== featureFlags.flags.length - 1"></div>
       </div>
-
     </div>
   </div>
 </div>
