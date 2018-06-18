@@ -3,6 +3,7 @@ import {AclsService} from '../../../entity-services/services/acls.service';
 import {FeatureFlagService} from "../../../authentication/feature-flag.service";
 import {AsyncSubject} from "rxjs";
 import {FeatureFlag, FeatureFlags} from "../../../shared/models/feature-flags.model";
+import {AuthenticationService} from "../../../authentication/authentication.service";
 
 @Component({
   selector: 'features',
@@ -16,7 +17,8 @@ export class FeaturesComponent implements OnInit, OnDestroy {
 
   constructor(
     public aclService: AclsService,
-    private featureFlagService: FeatureFlagService
+    private featureFlagService: FeatureFlagService,
+    private authService: AuthenticationService
   ) {}
 
   ngOnInit() {
@@ -37,6 +39,7 @@ export class FeaturesComponent implements OnInit, OnDestroy {
   save() {
     localStorage.setItem(this.featureFlagService.storageKey(), JSON.stringify(this.featureFlags.obj));
     this.featureFlagService.featureFlagsUpdated$.next(this.featureFlagService.localFeatureFlags());
+    this.authService.featureFlagsChanged$.next(true);
   }
 
   fetch() {

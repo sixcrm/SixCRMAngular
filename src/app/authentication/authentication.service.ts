@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
 import {BehaviorSubject, Observable} from 'rxjs';
-import 'rxjs/Rx';
+import{Subject} 'rxjs/Rx';
 import {environment} from '../../environments/environment';
 import {User} from '../shared/models/user.model';
 import {Acl} from '../shared/models/acl.model';
@@ -52,6 +52,7 @@ export class AuthenticationService {
   public activeAcl$: BehaviorSubject<Acl> = new BehaviorSubject<Acl>(new Acl());
   public actingAsAccount$: BehaviorSubject<Account> = new BehaviorSubject<Account>(null);
   public newSessionStarted$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public featureFlagsChanged$: Subject<boolean> = new Subject(true);
 
   private yesNoDialogRef: MatDialogRef<YesNoDialogComponent>;
 

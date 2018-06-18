@@ -48,6 +48,10 @@ export class NavigationService {
     this.featureFlagService.featureFlagsUpdated$.subscribe(() => {
       this.setMenuItems(menuItems(authService, this.authService.getActiveAcl(), featureFlagService));
     });
+
+    this.authService.featureFlagsChanged$.subscribe(() => {
+      this.setMenuItems(menuItems(authService, this.authService.getActiveAcl(), featureFlagService));
+    });
   }
 
   public goToNotFoundPage(): void {
