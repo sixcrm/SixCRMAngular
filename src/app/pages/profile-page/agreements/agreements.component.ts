@@ -34,23 +34,7 @@ export class AgreementsComponent implements OnInit, OnDestroy {
       if (user && user.id) {
         this.fetch();
       }
-    })
-
-    this.markdownService.renderer.table = (header: string, body: string) => {
-      if (body) {
-        body = '<tbody>' + body + '</tbody>'
-      }
-
-      return `
-        <br>
-        <table style="font-size: 6.5px;">
-          <thead>
-            ${header}
-          </thead>
-          ${body}
-        </table>`;
-
-    };
+    });
   }
 
   ngOnDestroy() {
@@ -90,13 +74,21 @@ export class AgreementsComponent implements OnInit, OnDestroy {
     const elementToPrint = document.getElementById(id);
     const pdf = new jsPDF('p', 'mm', 'a4');
 
-    pdf.fromHTML(elementToPrint.innerHTML.replace(/[^\x00-\x7F]/g, ""), 10, 10, {
+    elementToPrint.style.fontSize = 'x-small';
+
+    elementToPrint.innerHTML = this.stripNonAsciiCharacters(elementToPrint.innerHTML);
+
+    pdf.fromHTML(elementToPrint, 10, 10, {
       width: 185
     }, () => {
       pdf.save(`${id}.pdf`);
       this.downloadDisabled = false;
-    });
+    }, {top: 5, bottom: 0, left: 10, width: 185});
 
+  }
+
+  private stripNonAsciiCharacters(text: string) {
+    return text.replace(/[^\x00-\x7F]/g, "");
   }
 
   private openTerms(title: string, text: string) {
