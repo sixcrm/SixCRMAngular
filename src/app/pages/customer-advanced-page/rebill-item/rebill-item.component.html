@@ -33,9 +33,23 @@
       </ng-container>
 
       <ng-template #pastrebillactions>
-        <button mat-button (click)="openRefundDialog()" *ngIf="canRefund()">Refund</button>
-        <button mat-button (click)="openReturnDialog()" *ngIf="canReturn()">Return</button>
-        <button mat-button>Track Delivery</button>
+        <button mat-button
+                (click)="openRefundDialog()"
+                [class.button-disabled]="!canRefund()"
+                [disabled]="!canRefund()">
+          Refund
+        </button>
+        <button mat-button
+                (click)="openReturnDialog()"
+                [class.button-disabled]="!canReturn()"
+                [disabled]="!canReturn()">
+          Return
+        </button>
+        <button mat-button
+                class="button-disabled"
+                disabled>
+          Track Delivery
+        </button>
         <div class="separator separator--buttons"></div>
         <button mat-button (click)="rebillSelected.emit(rebill)">Order #{{rebill.parentSession.alias}} <mat-icon>keyboard_arrow_right</mat-icon></button>
       </ng-template>

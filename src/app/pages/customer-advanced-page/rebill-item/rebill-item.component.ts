@@ -57,10 +57,13 @@ export class RebillItemComponent implements OnInit {
   }
 
   canRefund() {
-    return this.rebill.transactions.filter(t => !t.chargeback && t.type !== 'refund').length > 0;
+    const numberOfSales = this.rebill.transactions.filter(t => t.type === 'sale');
+    const numberOfRefunds = this.rebill.transactions.filter(t => t.type === 'refund');
+
+    return numberOfSales > numberOfRefunds;
   }
 
   canReturn() {
-    return this.rebill.products.filter(p => !p.returns || p.returns.length === 0).length > 0;
+    return this.rebill.products.filter(p => !!p.product.ship && (!p.returns || p.returns.length === 0)).length > 0;
   }
 }
