@@ -1,33 +1,75 @@
-mat-form-field {
-  margin: 30px 30px 0 40px;
-  display: inline-block;
-  width: 100%;
-}
+.features {
+  background: #E5E5E5;
 
-.buttons {
-  margin: 0 0 0 30px;
-}
+  .container {
+    float: left;
+    padding: 20px;
+    margin-left: 20px;
+    margin-top: 20px;
+    max-width: 600px;
+    background: #FFFFFF;
+    border-radius: 4px;
+    border: 2px solid rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
 
-.flags {
-  max-width: 900px;
-  padding-left: 25px;
-  margin-bottom: 25px;
-  font-size: 14px;
-}
+    button {
+      text-transform: uppercase;
+      background: #1EBEA5;
+      color: #FFFFFF;
+      font-size: 14px;
+      line-height: 16px;
+      font-weight: 500;
+      height: 36px;
+    }
 
-.flag {
-  margin-left: 30px;
-  margin-top: 20px;
+    .flags {
+      margin-bottom: 25px;
+    }
 
-  .name {
-    font-weight: 500;
+    .flag {
+      .header {
+        display: flex;
+        justify-content: space-between;
+
+        .name {
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 24px;
+          color: #000000;
+        }
+      }
+
+      .description {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        color: #5F6368;
+        margin-right: 80px;
+      }
+    }
+
+    .flag-inner {
+      margin-left: 40px;
+
+      .name {
+        margin-top: 20px;
+      }
+
+      mat-slide-toggle {
+        margin-top: 20px;
+      }
+    }
+
+    .flag-outer {
+      margin-top: 30px;
+    }
+
+    .line {
+      margin: 20px 0;
+      height: 1px;
+      width: auto;
+      background: rgba(0, 0, 0, 0.12);
+    }
   }
-}
-
-.enabled:hover {
-  background-color: #fafafa;
-}
-
-mat-checkbox {
-  margin-right: 4px;
 }
