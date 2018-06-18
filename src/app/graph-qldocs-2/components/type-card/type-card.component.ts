@@ -3,6 +3,7 @@ import {Field} from '../../models/field.model';
 import {Type} from '../../models/type.model';
 import {Router} from "@angular/router";
 import {environment} from '../../../../environments/environment';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'type-card',
@@ -15,7 +16,8 @@ export class TypeCardComponent implements OnInit {
   @Input() isType: boolean;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private location: Location
   ) { }
 
   ngOnInit() { }
@@ -29,8 +31,8 @@ export class TypeCardComponent implements OnInit {
     this.router.navigate(['documentation/graph2/type', fieldName]);
   }
 
-  navigateToGraph() {
-    this.router.navigate(['/documentation/graph2']);
+  goBack() {
+    this.location.back();
   }
 
   getShareLink(): string {

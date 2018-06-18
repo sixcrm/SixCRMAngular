@@ -4,6 +4,7 @@ import {Type} from '../../models/type.model';
 import {Router} from "@angular/router";
 import {InputValue} from '../../models/input-value.model';
 import {environment} from '../../../../environments/environment';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'query-mutation-card',
@@ -18,7 +19,8 @@ export class QueryMutationCardComponent implements OnInit {
   @Input() isMutation: boolean;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private location: Location
   ) { }
 
   ngOnInit() { }
@@ -37,8 +39,8 @@ export class QueryMutationCardComponent implements OnInit {
     this.router.navigate(['documentation/graph2/type', fieldName]);
   }
 
-  navigateToGraph() {
-    this.router.navigate(['/documentation/graph2']);
+  goBack() {
+    this.location.back();
   }
 
   getShareLink(): string {

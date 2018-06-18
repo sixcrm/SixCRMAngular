@@ -4,7 +4,7 @@
       <div class="field__header">
         <div class="type__name">{{type.name}}</div>
         <div class="field__name">
-          <mat-icon *ngIf="isQuery || isMutation" class="arrow" (click)="navigateToGraph()">arrow_back</mat-icon>
+          <mat-icon *ngIf="isQuery || isMutation" class="arrow" (click)="goBack()">arrow_back</mat-icon>
           <div id="{{field.name}}" (click)="navigateTo()">{{field.name}}</div>
           <mat-icon class="link" matTooltip="Share, Copy to clipboard" ngxClipboard [cbContent]="getShareLink()">link</mat-icon>
         </div>
