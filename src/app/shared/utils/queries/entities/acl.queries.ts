@@ -63,9 +63,9 @@ export function deleteAclsMutation(id: string[]): string {
 }
 
 export function userAclResponseQuery(): string {
-  return `id user { id name first_name last_name } role { id name } account{ id name } created_at updated_at`;
+  return `id pending user { id name first_name last_name } role { id name } account{ id name } created_at updated_at`;
 }
 
 export function userAclInputQuery(acl: Acl, includeId?: boolean): string {
-  return `${addId(acl.id, includeId)}, user: "${acl.user.id}", account: "${acl.account.id}", role: "${acl.role.id}", ${addUpdatedAtApi(acl, includeId)}`;
+  return `${addId(acl.id, includeId)}, user: "${acl.user.id}", account: "${acl.account.id}", ${acl.pending ? `pending: "${acl.pending}"` : ''} role: "${acl.role.id}", ${addUpdatedAtApi(acl, includeId)}`;
 }
