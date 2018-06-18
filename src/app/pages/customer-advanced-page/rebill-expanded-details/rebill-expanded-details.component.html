@@ -27,8 +27,8 @@
         <div>{{rebill.amount.usd()}}</div>
       </ng-template>
 
-      <button style="margin-left: auto" mat-button>Refund All</button>
-      <button mat-button>Return All</button>
+      <button style="margin-left: auto" mat-button (click)="openRefundDialog()">Refund</button>
+      <button mat-button (click)="openReturnDialog()">Return</button>
     </div>
   </div>
 

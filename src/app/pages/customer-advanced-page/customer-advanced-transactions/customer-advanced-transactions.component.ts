@@ -56,8 +56,8 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
         .setMaterialIconBackgroundColorMapper((e: Transaction) => e.chargeback ? '#ffffff' : '#1EBEA5')
         .setMaterialIconColorMapper((e: Transaction) => e.chargeback ? '#DC2547' : '#ffffff'),
       new ColumnParams('CUSTOMER_TRANSACTION_AMOUNT', (e: Transaction) => e.amount.usd()),
-      new ColumnParams('CUSTOMER_TRANSACTION_REFUND', (e: Transaction) => '-').setAlign('center'),
-      new ColumnParams('CUSTOMER_TRANSACTION_CHARGEBACK', (e: Transaction) => '-').setAlign('center').setSeparator(true),
+      new ColumnParams('CUSTOMER_TRANSACTION_REFUND', (e: Transaction) => e.type === 'refund' ? e.amount.usd() : '-').setAlign('center'),
+      new ColumnParams('CUSTOMER_TRANSACTION_CHARGEBACK', (e: Transaction) => e.chargeback ? e.amount.usd() : '-').setAlign('center').setSeparator(true),
       new ColumnParams('CUSTOMER_TRANSACTION_DATE', (e: Transaction) => e.createdAt.tz(f).format('MM/DD/YY h:mm A')),
       new ColumnParams('CUSTOMER_TRANSACTION_MID', (e: Transaction) => e.merchantProvider.name).setClickable(true).setColor('#2C98F0'),
       new ColumnParams('CUSTOMER_TRANSACTION_ALIAS', (e: Transaction) => e.alias).setSeparator(true).setClickable(true).setColor('#2C98F0'),

@@ -152,11 +152,12 @@
   }
 
   .transactions {
+    max-height: 330px;
+    overflow: auto;
 
     &--chargeback {
       background: rgba(220, 37, 71, 0.1);
     }
-
 
     .chargeback-title {
       display: flex;
@@ -197,7 +198,7 @@
     }
 
     .transaction {
-      padding: 20px 25px;
+      padding: 20px 25px 0;
 
       div {
         margin-left: 22px;
@@ -261,7 +262,7 @@
     font-weight: 500;
   }
 
-  &--wrapper {
+  &-wrapper {
     display: flex;
     flex-wrap: wrap;
   }

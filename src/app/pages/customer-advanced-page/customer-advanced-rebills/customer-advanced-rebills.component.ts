@@ -63,7 +63,7 @@ export class CustomerAdvancedRebillsComponent implements OnInit {
         .setMaterialIconBackgroundColorMapper((e: Rebill) => e.hasChargeback() ? '#ffffff' : '#1EBEA5')
         .setMaterialIconColorMapper((e: Rebill) => e.hasChargeback() ? '#DC2547' : '#ffffff'),
       new ColumnParams('CUSTOMER_REBILL_AMOUNT', (e: Rebill) => e.amount.usd()),
-      new ColumnParams('CUSTOMER_REBILL_REFUND', (e: Rebill) => '-').setAlign('center'),
+      new ColumnParams('CUSTOMER_REBILL_REFUND', (e: Rebill) => e.hasRefund() ? e.refundedAmount().usd() : '-').setAlign('center'),
       new ColumnParams('CUSTOMER_REBILL_CHARGEBACK', (e: Rebill) => '-').setAlign('center').setSeparator(true),
       new ColumnParams('CUSTOMER_REBILL_BILLED',(e: Rebill) => e.billAt.tz(f).format('MM/DD/YY')),
       new ColumnParams('CUSTOMER_REBILL_ORDER',(e: Rebill) => e.parentSession.alias).setClickable(true).setColor('#2C98F0'),

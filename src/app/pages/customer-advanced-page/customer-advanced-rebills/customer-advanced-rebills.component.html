@@ -32,7 +32,7 @@
 
         <mat-tab>
           <div *ngIf="selectedRebill">
-            <rebill-expanded-details [rebill]="selectedRebill" (backButtonSelected)="viewAllRebills()"></rebill-expanded-details>
+            <rebill-expanded-details [rebill]="selectedRebill" (backButtonSelected)="viewAllRebills()" (transactionRefunded)="transactionRefunded.emit($event)"></rebill-expanded-details>
           </div>
         </mat-tab>
 
