@@ -7,6 +7,7 @@ import {MaterialSelectionModule} from "../../material-selection/material-selecti
 import {SharedModule} from "../../shared/shared.module";
 import {TranslationModule} from "../../translation/translation.module";
 import {FeaturesComponent} from "./features-index/features.component";
+import {FeaturesHeaderComponent} from './features-header/features-header.component';
 import {EntityServicesModule} from '../../entity-services/entity-services.module';
 
 @NgModule({
@@ -22,6 +23,7 @@ import {EntityServicesModule} from '../../entity-services/entity-services.module
   ],
   declarations: [
     FeaturesComponent,
+    FeaturesHeaderComponent
   ],
   providers: [ ]
 })
