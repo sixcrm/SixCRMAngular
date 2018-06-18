@@ -7,7 +7,7 @@ import {Notification} from '../shared/models/notification.model';
 import {TranslatedQuote} from "./translated-quote.model";
 import {utc} from 'moment';
 import { DefaultTranslationService } from './default-translation.service';
-import {FeatureFlagService} from "../authentication/feature-flag.service";
+import {FeatureFlagService} from "../shared/services/feature-flag.service";
 
 export interface LanguageDefinition {
   name: string,

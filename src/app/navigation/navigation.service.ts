@@ -3,11 +3,10 @@ import {Location} from '@angular/common';
 import {Subject, BehaviorSubject} from 'rxjs';
 import {MenuItem} from './menu-item';
 import {menuItems} from './menu-setup';
-import {StringUtils} from '../shared/utils/string-utils';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
-import {FeatureFlagService} from "../authentication/feature-flag.service";
+import {FeatureFlagService} from "../shared/services/feature-flag.service";
 
 @Injectable()
 export class NavigationService {
@@ -46,10 +45,6 @@ export class NavigationService {
     });
 
     this.featureFlagService.featureFlagsUpdated$.subscribe(() => {
-      this.setMenuItems(menuItems(authService, this.authService.getActiveAcl(), featureFlagService));
-    });
-
-    this.authService.featureFlagsChanged$.subscribe(() => {
       this.setMenuItems(menuItems(authService, this.authService.getActiveAcl(), featureFlagService));
     });
   }

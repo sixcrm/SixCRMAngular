@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 import {Session} from '../../../shared/models/session.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import { routerTransition } from '../../../routing.animations';
-import {FeatureFlagService} from '../../../authentication/feature-flag.service';
+import {FeatureFlagService} from '../../../shared/services/feature-flag.service';
 
 @Component({
   selector: 'customer-service-dashboard',

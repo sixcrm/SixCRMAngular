@@ -8,7 +8,7 @@ import {SearchService} from '../../shared/services/search.service';
 import {NotificationsQuickService} from '../../entity-services/services/notifications-quick.service';
 import {AutocompleteComponent} from '../../shared/components/autocomplete/autocomplete.component';
 import {TopnavDropdownOption} from './topnav-dropdown/topnav-dropdown.component';
-import {FeatureFlagService} from "../../authentication/feature-flag.service";
+import {FeatureFlagService} from "../../shared/services/feature-flag.service";
 
 @Component({
   selector : 'app-topnav',

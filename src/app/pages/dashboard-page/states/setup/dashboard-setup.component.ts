@@ -5,7 +5,7 @@ import {AsyncSubject, Observable} from 'rxjs';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 import {TranslationService} from "../../../../translation/translation.service";
 import {TranslatedQuote} from "../../../../translation/translated-quote.model";
-import {FeatureFlagService} from "../../../../authentication/feature-flag.service";
+import {FeatureFlagService} from "../../../../shared/services/feature-flag.service";
 import {Router} from "@angular/router";
 
 @Component({

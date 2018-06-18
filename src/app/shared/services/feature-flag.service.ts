@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {environment} from '../../environments/environment';
-import {generateHeaders, HttpWrapperService} from "../shared/services/http-wrapper.service";
-import {featureFlagsQuery} from "../shared/utils/queries/entities/feature-flag.queries";
-import {FeatureFlags} from "../shared/models/feature-flags.model";
-import {Acl} from "../shared/models/acl.model";
-import {AuthenticationService} from "./authentication.service";
+import {environment} from '../../../environments/environment';
+import {generateHeaders, HttpWrapperService} from "./http-wrapper.service";
+import {featureFlagsQuery} from "../utils/queries/entities/feature-flag.queries";
+import {FeatureFlags} from "../models/feature-flags.model";
+import {Acl} from "../models/acl.model";
+import {AuthenticationService} from "../../authentication/authentication.service";
 import {Subject} from "rxjs";
 
 @Injectable()

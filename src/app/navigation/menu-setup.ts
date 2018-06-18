@@ -1,7 +1,7 @@
 import {MenuItem} from './menu-item';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Acl} from '../shared/models/acl.model';
-import {FeatureFlagService} from "../authentication/feature-flag.service";
+import {FeatureFlagService} from "../shared/services/feature-flag.service";
 
 export function menuItems(authService: AuthenticationService, acl: Acl, featureFlagService: FeatureFlagService): MenuItem[] {
   let items: MenuItem[] = [];

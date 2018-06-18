@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {FeatureFlagService} from "../../../authentication/feature-flag.service";
+import {FeatureFlagService} from "../../../shared/services/feature-flag.service";
 import {AsyncSubject} from "rxjs";
 import {FeatureFlag, FeatureFlags} from "../../../shared/models/feature-flags.model";
 import {AuthenticationService} from "../../../authentication/authentication.service";
@@ -14,10 +14,7 @@ export class FeaturesComponent implements OnInit, OnDestroy {
   featureFlags: FeatureFlags;
   unsubscribe$: AsyncSubject<boolean> = new AsyncSubject();
 
-  constructor(
-    private featureFlagService: FeatureFlagService,
-    private authService: AuthenticationService
-  ) {}
+  constructor(private featureFlagService: FeatureFlagService) {}
 
   ngOnInit() {
     let flags = this.featureFlagService.localFeatureFlags();
@@ -39,7 +36,6 @@ export class FeaturesComponent implements OnInit, OnDestroy {
   save() {
     localStorage.setItem(this.featureFlagService.storageKey(), JSON.stringify(this.featureFlags.obj));
     this.featureFlagService.featureFlagsUpdated$.next(this.featureFlagService.localFeatureFlags());
-    this.authService.featureFlagsChanged$.next(true);
   }
 
   fetch() {
