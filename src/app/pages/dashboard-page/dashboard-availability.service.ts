@@ -48,6 +48,7 @@ export class DashboardAvailabilityService {
 
     });
 
+    this.transactionService.resetPagination();
     this.transactionService.transactionsUntil(this.eightDaysAgo);
   }
 
