@@ -1,0 +1,18 @@
+.process-dialog-wrapper {
+  display: flex;
+  flex-direction: column;
+  font-family: "Roboto", serif;
+
+  div {
+    margin: 35px auto auto;
+    font-size: 26px;
+    color: #ffffff;
+    font-weight: 500;
+  }
+
+  mat-spinner {
+    width: 150px;
+    height: 150px;
+    margin: auto;
+  }
+}

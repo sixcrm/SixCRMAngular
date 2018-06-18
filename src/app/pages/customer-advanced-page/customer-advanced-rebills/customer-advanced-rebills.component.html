@@ -24,7 +24,7 @@
 
             <div class="card-body">
               <ng-container *ngFor="let rebill of rebills">
-                <rebill-item [rebill]="rebill" (rebillSelected)="viewSingleRebill($event)"></rebill-item>
+                <rebill-item [rebill]="rebill" (rebillSelected)="viewSingleRebill($event)" (transactionRefunded)="transactionRefunded.emit($event)"></rebill-item>
               </ng-container>
             </div>
           </div>

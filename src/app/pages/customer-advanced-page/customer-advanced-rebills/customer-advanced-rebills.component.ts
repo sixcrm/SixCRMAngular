@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Rebill} from '../../../shared/models/rebill.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {Customer} from '../../../shared/models/customer.model';
@@ -7,6 +7,7 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {Router} from '@angular/router';
 import {utc} from 'moment';
 import {Return} from '../../../shared/models/return.model';
+import {Transaction} from '../../../shared/models/transaction.model';
 
 @Component({
   selector: 'customer-advanced-rebills',
@@ -34,6 +35,8 @@ export class CustomerAdvancedRebillsComponent implements OnInit {
       }
     }
   }
+
+  @Output() transactionRefunded: EventEmitter<Transaction> = new EventEmitter();
 
   lineBreakFunction = (previous: Rebill, current: Rebill) => {
     if (previous && previous.billAt.isAfter(utc()) && current.billAt.isBefore(utc())) {

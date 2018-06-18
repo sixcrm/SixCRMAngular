@@ -7,6 +7,7 @@ import {NavigationService} from '../../navigation/navigation.service';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {TabHeaderElement} from '../../shared/components/tab-header/tab-header.component';
 import {CustomerInfoNotesComponent} from './customer-info-notes/customer-info-notes.component';
+import {TransactionsService} from '../../entity-services/services/transactions.service';
 
 @Component({
   selector: 'customer-advanced',
@@ -40,7 +41,8 @@ export class CustomerAdvancedComponent  extends AbstractEntityViewComponent<Cust
   constructor(
     service: CustomersService,
     route: ActivatedRoute,
-    public navigation: NavigationService
+    public navigation: NavigationService,
+    private transactionsService: TransactionsService
   ) {
     super(service, route);
   }
@@ -65,6 +67,10 @@ export class CustomerAdvancedComponent  extends AbstractEntityViewComponent<Cust
     if (index === 1) {
       this.customerNotesComponent.scrollToBottom();
     }
+  }
+
+  refreshTransactions() {
+    this.transactionsService.getEntities();
   }
 
 }

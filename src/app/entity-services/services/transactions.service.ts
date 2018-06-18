@@ -53,6 +53,20 @@ export class TransactionsService extends AbstractEntityService<Transaction> {
     );
   }
 
+  public performTransactionRefund(transaction: Transaction, amount: string): Observable<Transaction> {
+    if (!this.hasWritePermission()) {
+      return Observable.of(null);
+    }
+
+    return this.queryRequest(refundTransactionMutation(transaction.id, amount)).map(data => {
+      if (data instanceof CustomServerError) {
+        return null;
+      }
+
+      return new Transaction(extractData(data).refund.transaction);
+    })
+  }
+
   public transactionsUntil(date: Moment): void {
     this.getEntities(20, null, {failStrategy: FailStrategy.Soft})
   }

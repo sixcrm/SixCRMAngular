@@ -11,6 +11,7 @@ import {
   transactionsInfoListQuery
 } from '../../../shared/utils/queries/entities/transaction.queries';
 import {IndexQueryParameters} from '../../../shared/utils/queries/index-query-parameters.model';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'customer-advanced-transactions',
@@ -40,6 +41,8 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
   options: string[] = ['Refund', 'Notify User', 'View Details'];
   bulkOptions: string[] = ['Refund'];
 
+  sub: Subscription;
+
   constructor(
     private transactionService: TransactionsService,
     private authService: AuthenticationService,
@@ -67,12 +70,16 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
 
   ngOnDestroy() {
     this.transactionService.indexQuery = transactionsInfoListQuery;
+
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 
   initialize() {
     this.transactionService.indexQuery = (params: IndexQueryParameters) => transactionsByCustomer(this._customer.id, params);
 
-    this.transactionService.entities$.take(1).subscribe(transactions => {
+    this.sub = this.transactionService.entities$.subscribe(transactions => {
       if (transactions instanceof CustomServerError) return;
 
       this.transactions = transactions;

@@ -2,12 +2,13 @@ import {Component, OnInit, AfterViewInit, ViewChild, ElementRef} from '@angular/
 import {NavigationService} from '../../navigation.service';
 import {HttpWrapperService} from '../../../shared/services/http-wrapper.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {MatSidenav} from '@angular/material';
+import {MatSidenav, MatDialog, MatDialogRef} from '@angular/material';
 import {PersistentNotificationsQuickComponent} from '../../persistent-notifications-quick/persistent-notifications-quick.component';
 import {Subscription, Observable} from 'rxjs';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {Acl} from '../../../shared/models/acl.model';
 import {User} from '../../../shared/models/user.model';
+import {ProcessingDialogComponent} from '../../../dialog-modals/processing-dialog/processing-dialog.component';
 
 @Component({
   templateUrl : './default.layout.component.html',
@@ -33,12 +34,15 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
 
   removeShadow: boolean;
 
+  processingDialogRef: MatDialogRef<ProcessingDialogComponent>;
+
   constructor(
     public navigation: NavigationService,
     public http: HttpWrapperService,
     public authService: AuthenticationService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -80,6 +84,20 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
         this.removeShadow = false;
       }
       this.showSidenav = showSidenav;
+    });
+
+    this.navigation.showProcessingOrderOverlay.subscribe(show => {
+      if (show) {
+        if (this.processingDialogRef) {
+          this.processingDialogRef.close();
+        }
+
+        this.processingDialogRef = this.dialog.open(ProcessingDialogComponent, {backdropClass: 'backdrop-blue', panelClass: 'panel-transparent'});
+      } else  {
+        if (this.processingDialogRef) {
+          this.processingDialogRef.close();
+        }
+      }
     });
 
     this.persistentNotifications.notificationsFiltered$.subscribe(() => {

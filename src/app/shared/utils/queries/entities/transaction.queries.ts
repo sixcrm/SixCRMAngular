@@ -45,7 +45,8 @@ export function transactionsByCustomer(customerId: string, params: IndexQueryPar
 export function refundTransactionMutation(transactionId: string, refundAmount: string): string {
   return `mutation {
 		refund(refund:{amount:"${refundAmount}", transaction:"${transactionId}"}) {
-			transaction { id }
+			transaction { ${transactionResponseQuery()} },
+			processor_response
 		}
 	}`
 }

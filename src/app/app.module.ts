@@ -43,6 +43,7 @@ import { ViewTransactionDialogComponent } from './dialog-modals/view-transaction
 import { RefundDialogComponent } from './dialog-modals/refund-dialog/refund-dialog.component';
 import { ReturnDialogComponent } from './dialog-modals/return-dialog/return-dialog.component';
 import {EntityServicesModule} from './entity-services/entity-services.module';
+import { ProcessingDialogComponent } from './dialog-modals/processing-dialog/processing-dialog.component';
 
 @NgModule({
   declarations : [
@@ -71,7 +72,8 @@ import {EntityServicesModule} from './entity-services/entity-services.module';
     AddCustomerDialogComponent,
     ViewTransactionDialogComponent,
     RefundDialogComponent,
-    ReturnDialogComponent
+    ReturnDialogComponent,
+    ProcessingDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -115,7 +117,8 @@ import {EntityServicesModule} from './entity-services/entity-services.module';
     AddCustomerDialogComponent,
     ViewTransactionDialogComponent,
     RefundDialogComponent,
-    ReturnDialogComponent
+    ReturnDialogComponent,
+    ProcessingDialogComponent
   ],
   bootstrap : [AppComponent]
 })

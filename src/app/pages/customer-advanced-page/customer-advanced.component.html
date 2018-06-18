@@ -14,7 +14,7 @@
         <customer-advanced-subscriptions [customer]="entity"></customer-advanced-subscriptions>
       </mat-tab>
       <mat-tab>
-        <customer-advanced-rebills [customer]="entity"></customer-advanced-rebills>
+        <customer-advanced-rebills [customer]="entity" (transactionRefunded)="refreshTransactions()"></customer-advanced-rebills>
       </mat-tab>
       <mat-tab>
         <customer-advanced-transactions [customer]="entity"></customer-advanced-transactions>

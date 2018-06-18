@@ -29,10 +29,6 @@
   <create-order (close)="navigation.setShowCreateNewOrderModal(false)"></create-order>
 </div>
 
-<div *ngIf="navigation.showProcessingOrderOverlay | async" class="processing-order-overlay">
-  <div>Processing Order</div>
-</div>
-
 <div *ngIf="userAclOutdated" class="terms-and-conditions-container">
   <terms-and-conditions [type]="'user'"></terms-and-conditions>
 </div>

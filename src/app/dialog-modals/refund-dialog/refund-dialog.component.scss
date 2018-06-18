@@ -78,10 +78,15 @@
       }
 
       &:last-of-type {
-        background: #2c98f0;
+        background: rgba(0,0,0,0.12);
         margin-left: 10px;
         color: white;
       }
+    }
+
+    .refund-enabled {
+      background: #2c98f0 !important;
+      color: white;
     }
   }
 
