@@ -118,21 +118,13 @@ export class CustomerServiceDashboardComponent implements OnInit {
     if (event instanceof Customer) {
       this.preventSearch = true;
 
-      if (this.featuresFlagService.isEnabled('advanced-session-model')) {
-        this.router.navigate(['/customer-advanced', event.id]);
-      } else {
-        this.router.navigate(['/customer-service', 'pair'], {queryParams: {customer: event.id}})
-      }
+      this.router.navigate(['/customer-advanced', event.id]);
     }
 
     if (event instanceof Session) {
       this.preventSearch = true;
 
-      if (this.featuresFlagService.isEnabled('advanced-session-model')) {
-        this.router.navigate(['/customer-advanced', 'session', event.id]);
-      } else {
-        this.router.navigate(['/customer-service', 'pair'], {queryParams: {session: event.id}})
-      }
+      this.router.navigate(['/customer-advanced', 'session', event.id]);
     }
 
   }
