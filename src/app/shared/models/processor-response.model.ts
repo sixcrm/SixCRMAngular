@@ -5,7 +5,7 @@ export class ProcessorResponse implements Entity<ProcessorResponse> {
   message: string;
   code: string;
   authCode: string;
-  responseText: any;
+  responseText: any = {};
   transactionId: string;
 
   constructor(obj?: any) {

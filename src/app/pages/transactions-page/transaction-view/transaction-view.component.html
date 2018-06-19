@@ -61,7 +61,7 @@
             </mat-form-field>
 
             <mat-form-field class="entity-view__card__content__item">
-              <input disabled matInput placeholder="{{'TRANSACTION_PROCESSOR_TEXT' | translate}}" [(ngModel)]="entity.processorResponse.responseText" type="text">
+              <textarea rows="4" disabled matInput placeholder="{{'TRANSACTION_PROCESSOR_TEXT' | translate}}" [(ngModel)]="entity.processorResponse.responseText.body" type="text"></textarea>
             </mat-form-field>
           </div>
         </div>
