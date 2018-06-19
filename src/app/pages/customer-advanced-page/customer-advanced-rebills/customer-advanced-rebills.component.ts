@@ -62,10 +62,13 @@ export class CustomerAdvancedRebillsComponent implements OnInit {
         .setMaterialIconMapper((e: Rebill) => e.hasChargeback() ? 'error' : 'done')
         .setMaterialIconBackgroundColorMapper((e: Rebill) => e.hasChargeback() ? '#ffffff' : '#1EBEA5')
         .setMaterialIconColorMapper((e: Rebill) => e.hasChargeback() ? '#DC2547' : '#ffffff'),
-      new ColumnParams('CUSTOMER_REBILL_AMOUNT', (e: Rebill) => e.amount.usd()),
-      new ColumnParams('CUSTOMER_REBILL_REFUND', (e: Rebill) => e.hasRefund() ? e.refundedAmount().usd() : '-').setAlign('center'),
-      new ColumnParams('CUSTOMER_REBILL_CHARGEBACK', (e: Rebill) => '-').setAlign('center').setSeparator(true),
       new ColumnParams('CUSTOMER_REBILL_BILLED',(e: Rebill) => e.billAt.tz(f).format('MM/DD/YY')),
+      new ColumnParams('CUSTOMER_REBILL_AMOUNT', (e: Rebill) => e.amount.usd()),
+      new ColumnParams('CUSTOMER_REBILL_ITEMS', (e: Rebill) => e.products.length + ''),
+      new ColumnParams('CUSTOMER_REBILL_RETURNS', (e: Rebill) => e.getReturned().length > 0 ? e.getReturns().length + '' : '-'),
+      new ColumnParams('CUSTOMER_REBILL_REFUND', (e: Rebill) => e.hasRefund() ? e.refundedAmount().usd() : '-').setAlign('center'),
+      new ColumnParams('CUSTOMER_REBILL_CHARGEBACK', (e: Rebill) => e.hasChargeback() ? e.chargebackAmount().usd() : '-').setAlign('center').setSeparator(true),
+      new ColumnParams('CUSTOMER_REBILL_TOTAL', (e: Rebill) => e.amountTotal().usd()).setAlign('center').setSeparator(true),
       new ColumnParams('CUSTOMER_REBILL_ORDER',(e: Rebill) => e.parentSession.alias).setClickable(true).setColor('#2C98F0'),
       new ColumnParams('CUSTOMER_REBILL_CAMPAIGN', (e: Rebill) => e.parentSession.campaign.name).setClickable(true).setColor('#2C98F0'),
       new ColumnParams('CUSTOMER_REBILL_TYPE', (e: Rebill) => '-').setAlign('center')
