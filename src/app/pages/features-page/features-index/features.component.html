@@ -1,9 +1,9 @@
 <features-header
   [path]="['SIX Administration', 'Features']">
 </features-header>
-<div class="features">
+<div class="features" *ngIf="featureFlags">
   <div class="container">
-    <div class="flags" *ngIf="featureFlags">
+    <div class="flags">
       <div class="flag flag-outer" *ngFor="let flag of featureFlags.flags; let i = index">
         <div class="header">
           <div class="name">{{flag.name}}</div>

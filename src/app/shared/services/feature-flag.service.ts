@@ -65,12 +65,14 @@ export class FeatureFlagService {
   }
 
   private storeFlagsInLocalStorage(flags): void {
+    if (!flags) return;
+
     localStorage.setItem(this.storageKey(), JSON.stringify(flags));
     this.featureFlagsStored$.next(true);
   }
 
   public storageKey(): string {
-    return `featureFlags:${this.authService.getActiveAcl().account.id}:${this.authService.getSixUser().email}`;
+    return `featureFlags:${this.authService.getActiveAcl().account.id}`;
   }
 
   public localFeatureFlags() {
