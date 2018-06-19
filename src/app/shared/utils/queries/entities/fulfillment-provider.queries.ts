@@ -77,7 +77,7 @@ export function fulfillmentProviderInputQuery(provider: FulfillmentProvider, inc
   }
 
   if (provider.provider.name === 'ShipStation') {
-    data += `, api_secret:"${provider.provider.apiSecret}", api_key:"${provider.provider.apiKey}", store_id: ${provider.provider.storeId}`;
+    data += `, api_secret:"${provider.provider.apiSecret}", api_key:"${provider.provider.apiKey}", ${provider.provider.storeId ? `store_id:${provider.provider.storeId},` : ''}`;
   }
 
   return `${addId(provider.id, includeId)} name: "${provider.name}", provider: { ${data} }, ${addUpdatedAtApi(provider, includeId)}`;
