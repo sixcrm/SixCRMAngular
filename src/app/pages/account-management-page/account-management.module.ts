@@ -7,7 +7,6 @@ import { AccountManagementUsersComponent } from './account-management-users/acco
 import { AccountManagementRolesComponent } from './account-management-roles/account-management-roles.component';
 import {AccountManagementApikeysComponent} from './account-management-apikeys/account-management-apikeys.component';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
-import { AccountManagementHeaderComponent } from './account-management-header/account-management-header.component';
 import {ClipboardModule} from 'ngx-clipboard';
 import {FormsModule} from '@angular/forms';
 import { AccountManagementBillingTransactionsChartComponent } from './account-management-billing/account-management-billing-transactions-chart/account-management-billing-transactions-chart.component';
@@ -18,6 +17,7 @@ import { AccountManagementRoleViewComponent } from './account-management-roles/a
 import {TextMaskModule} from 'angular2-text-mask';
 import { AccountManagementRolesSelectorComponent } from './account-management-roles-selector/account-management-roles-selector.component';
 import {EntityServicesModule} from '../../entity-services/entity-services.module';
+import {PageComponentsModule} from '../components/pages-components.module';
 
 @NgModule({
   imports: [
@@ -29,7 +29,8 @@ import {EntityServicesModule} from '../../entity-services/entity-services.module
     SharedModule,
     EntityServicesModule,
     ClipboardModule,
-    TextMaskModule
+    TextMaskModule,
+    PageComponentsModule
   ],
   declarations: [
     AccountManagementGeneralComponent,
@@ -37,7 +38,6 @@ import {EntityServicesModule} from '../../entity-services/entity-services.module
     AccountManagementUsersComponent,
     AccountManagementRolesComponent,
     AccountManagementApikeysComponent,
-    AccountManagementHeaderComponent,
     AccountManagementBillingTransactionsChartComponent,
     AccountManagementRoleViewComponent,
     AccountManagementRolesSelectorComponent

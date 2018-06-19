@@ -1,8 +1,12 @@
-<account-management-header
-  [path]="['General']"
-  [account]="account"
-  [showApiKey]="true">
-</account-management-header>
+<blue-header [items]="breadcrumbs" [titleValue]="account ? account.name : null">
+  <div class="app-id-container">
+    <div class="button" [class.button--active]="idExpanded" (click)="toggleExpanded()">APP ID</div>
+    <div *ngIf="account" class="content" [class.content--visible]="idExpanded">
+      <div>{{account.id}}</div>
+      <mat-icon matTooltip="Copy App ID" ngxClipboard [cbContent]="account.id">content_copy</mat-icon>
+    </div>
+  </div>
+</blue-header>
 
 <div class="account-management-body">
 

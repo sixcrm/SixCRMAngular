@@ -9,6 +9,7 @@ import {DeleteDialogComponent} from '../../delete-dialog.component';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {AccessKeysDialogComponent} from '../../../dialog-modals/access-keys-dialog/access-keys-dialog.component';
 import {Account} from '../../../shared/models/account.model';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'account-management-apikeys',
@@ -16,6 +17,11 @@ import {Account} from '../../../shared/models/account.model';
   styleUrls: ['./account-management-apikeys.component.scss']
 })
 export class AccountManagementApikeysComponent implements OnInit {
+
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'Account Management'},
+    {label: () => 'API Keys'}
+  ];
 
   account: Account;
   accessKeys: AccessKey[];

@@ -13,6 +13,7 @@ import {AuthenticationService} from '../../../../authentication/authentication.s
 import {AclsService} from '../../../../entity-services/services/acls.service';
 import {Acl} from '../../../../shared/models/acl.model';
 import {AccountsService} from '../../../../entity-services/services/accounts.service';
+import {BreadcrumbItem} from '../../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'account-management-role-view',
@@ -20,9 +21,6 @@ import {AccountsService} from '../../../../entity-services/services/accounts.ser
   styleUrls: ['./account-management-role-view.component.scss']
 })
 export class AccountManagementRoleViewComponent implements OnInit {
-
-  path = ['Roles'];
-  value: string;
 
   selectedIndex: number = 0;
 
@@ -57,6 +55,12 @@ export class AccountManagementRoleViewComponent implements OnInit {
   filterFunction = (acl: Acl) => `${acl.user.email} ${acl.user.name}`;
 
   usersEditMode: boolean;
+
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'Account Management'},
+    {label: () => 'Roles'},
+    {label: () => this.role ? this.role.name : ''}
+  ];
 
   constructor(
     public authService: AuthenticationService,
@@ -101,8 +105,6 @@ export class AccountManagementRoleViewComponent implements OnInit {
         this.isShared = false;
         this.role = role;
         this.roleBackup = this.role.copy();
-        this.path = ['Roles', this.role.name];
-        this.value = this.role.name;
       } else {
         this.sharedService.getEntity(this.entityId);
       }
@@ -116,8 +118,6 @@ export class AccountManagementRoleViewComponent implements OnInit {
         this.role = role;
         this.roleBackup = this.role.copy();
         this.service = this.sharedService;
-        this.path = ['Roles', this.role.name];
-        this.value = this.role.name;
       }
     });
 
@@ -163,8 +163,6 @@ export class AccountManagementRoleViewComponent implements OnInit {
       this.role = updatedRole;
       this.roleBackup = this.role.copy();
       this.formInvalid = false;
-      this.path = ['Roles', this.role.name];
-      this.value = this.role.name;
     });
 
     this.service.updateEntity(toUpdate);

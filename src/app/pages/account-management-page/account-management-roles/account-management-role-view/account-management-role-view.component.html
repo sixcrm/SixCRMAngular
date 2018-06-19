@@ -1,4 +1,4 @@
-<account-management-header [path]="path" [value]="value"></account-management-header>
+<blue-header [items]="breadcrumbs" [titleValue]="role ? role.name : null"></blue-header>
 
 <tab-header class="tab-header--account-management" [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 

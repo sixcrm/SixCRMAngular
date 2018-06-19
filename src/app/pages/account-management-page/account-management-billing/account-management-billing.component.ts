@@ -10,6 +10,7 @@ import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {CreditCard} from '../../../shared/models/credit-card.model';
 import {CardSwitcherDialogComponent} from '../../../dialog-modals/card-switcher-dialog/card-switcher-dialog.component';
 import {MatDialog} from '@angular/material';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'account-management-billing',
@@ -24,6 +25,11 @@ export class AccountManagementBillingComponent implements OnInit {
   lastBill: Rebill;
 
   defaultCreditCard: CreditCard;
+
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'Account Management'},
+    {label: () => 'Billing'}
+  ];
 
   constructor(
     private authService: AuthenticationService,

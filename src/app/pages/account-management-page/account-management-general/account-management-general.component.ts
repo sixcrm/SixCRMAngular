@@ -14,6 +14,7 @@ import {getPhoneNumberMask} from '../../../shared/utils/mask.utils';
 import {isValidEmail} from '../../../shared/utils/form.utils';
 import {AddCreditCardDialogComponent} from '../../../dialog-modals/add-credit-card-dialog/add-credit-card-dialog.component';
 import {DeleteDialogComponent} from '../../delete-dialog.component';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'account-management-general',
@@ -33,6 +34,12 @@ export class AccountManagementGeneralComponent implements OnInit {
   mask = getPhoneNumberMask();
   formInvalid: boolean;
 
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'Account Management'},
+    {label: () => 'General'}
+  ];
+
+  idExpanded: boolean;
 
   constructor(
     private accountService: AccountsService,
@@ -216,6 +223,9 @@ export class AccountManagementGeneralComponent implements OnInit {
     })
   }
 
+  toggleExpanded() {
+    this.idExpanded = this.account && !this.idExpanded
+  }
 
   private updateDefaultCreditCard(defaultCardId: string) {
     const customer = this.customer.copy();

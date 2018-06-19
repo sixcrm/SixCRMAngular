@@ -12,6 +12,7 @@ import {DeleteDialogComponent} from '../../delete-dialog.component';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {Router} from '@angular/router';
 import {AccountsService} from '../../../entity-services/services/accounts.service';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'account-management-roles',
@@ -31,6 +32,11 @@ export class AccountManagementRolesComponent implements OnInit {
   filterFunction = (role: Role) => role.name;
 
   acls: Acl[];
+
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'Account Management'},
+    {label: () => 'Roles'}
+  ];
 
   sortBy: {label: string, sortFunction: (f: Role, s: Role) => number}[] = [
     {label: 'Name', sortFunction: (f: Role, s: Role) => {

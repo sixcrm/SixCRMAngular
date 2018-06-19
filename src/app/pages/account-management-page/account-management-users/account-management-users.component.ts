@@ -14,6 +14,7 @@ import {MatDialog} from '@angular/material';
 import {InviteDialogComponent} from '../../../dialog-modals/invite-dialog/invite-dialog.component';
 import {UsersService} from '../../../entity-services/services/users.service';
 import {Subscription} from 'rxjs';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'account-management-users',
@@ -21,6 +22,11 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./account-management-users.component.scss']
 })
 export class AccountManagementUsersComponent implements OnInit, OnDestroy {
+
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'Account Management'},
+    {label: () => 'Users'}
+  ];
 
   account: Account;
   filterString: string;
