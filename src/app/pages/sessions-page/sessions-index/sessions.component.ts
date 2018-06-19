@@ -7,6 +7,7 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'sessions',
@@ -14,6 +15,8 @@ import {MatDialog} from '@angular/material';
   styleUrls: ['./sessions.component.scss']
 })
 export class SessionsComponent extends AbstractEntityIndexComponent<Session> implements OnInit, OnDestroy {
+
+  crumbItems: BreadcrumbItem[] = [{label: () => 'SESSION_INDEX_TITLE'}];
 
   constructor(
     sessionsService: SessionsService,

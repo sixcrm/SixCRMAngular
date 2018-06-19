@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'rebills',
@@ -14,6 +15,8 @@ import {MatDialog} from '@angular/material';
   styleUrls: ['./rebills.component.scss']
 })
 export class RebillsComponent extends AbstractEntityIndexComponent<Rebill> implements OnInit, OnDestroy {
+
+  crumbItems: BreadcrumbItem[] = [{label: () => 'REBILL_INDEX_TITLE'}];
 
   constructor(
     service: RebillsService,

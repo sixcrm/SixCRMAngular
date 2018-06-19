@@ -7,6 +7,7 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
+import {BreadcrumbItem} from "../../components/models/breadcrumb-item.model";
 
 @Component({
   selector: 'fulfillment-providers',
@@ -14,6 +15,8 @@ import {MatDialog} from '@angular/material';
   styleUrls: ['./fulfillment-providers.component.scss']
 })
 export class FulfillmentProvidersComponent extends AbstractEntityIndexComponent<FulfillmentProvider> implements OnInit, OnDestroy {
+
+  crumbItems: BreadcrumbItem[] = [{label: () => 'FULFILLMENT_INDEX_TITLE'}];
 
   constructor(
     fulfillmentProvidersService: FulfillmentProvidersService,

@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
 import {PaginationService} from '../../../shared/services/pagination.service';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'transactions',
@@ -14,6 +15,8 @@ import {PaginationService} from '../../../shared/services/pagination.service';
   styleUrls: ['./transactions.component.scss']
 })
 export class TransactionsComponent extends AbstractEntityIndexComponent<Transaction> implements OnInit, OnDestroy {
+
+  crumbItems: BreadcrumbItem[] = [{label: () => 'TRANSACTION_INDEX_TITLE'}];
 
   constructor(
     transactionsService: TransactionsService,

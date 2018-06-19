@@ -7,6 +7,7 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
+import {BreadcrumbItem} from "../../components/models/breadcrumb-item.model";
 
 @Component({
   selector: 'merchant-providers',
@@ -14,6 +15,8 @@ import {MatDialog} from '@angular/material';
   styleUrls: ['./merchant-providers.component.scss']
 })
 export class MerchantProvidersComponent extends AbstractEntityIndexComponent<MerchantProvider> implements OnInit, OnDestroy {
+
+  crumbItems: BreadcrumbItem[] = [{label: () => 'MERCHANTPROVIDER_INDEX_TITLE'}];
 
   constructor(
     merchantProvidersService: MerchantProvidersService,

@@ -1,7 +1,6 @@
 <div class="entity-index">
-  <div class="entity-index__title">
-    {{'TRACKER_INDEX_TITLE' | translate}}
-  </div>
+
+  <blue-header [items]="crumbItems" [titleValue]="'TRACKER_INDEX_TITLE'"></blue-header>
 
   <button mat-icon-button color="primary" (click)="openAddMode()" *ngIf="hasWritePermission()" class="entity-index__add"><mat-icon>add</mat-icon></button>
 

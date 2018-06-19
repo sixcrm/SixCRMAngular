@@ -10,6 +10,7 @@ import {Currency} from '../../../shared/utils/currency/currency';
 import {MerchantProviderGroupAssociationsService} from '../../../entity-services/services/merchant-provider-group-associations.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {MatDialog} from '@angular/material';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'campaigns',
@@ -17,6 +18,8 @@ import {MatDialog} from '@angular/material';
   styleUrls: ['./campaigns.component.scss']
 })
 export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> implements OnInit, OnDestroy {
+
+  crumbItems: BreadcrumbItem[] = [{label: () => 'CAMPAIGN_INDEX_TITLE'}];
 
   constructor(
     campaignService: CampaignsService,

@@ -7,6 +7,7 @@ import {PaginationService} from '../../../shared/services/pagination.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'products',
@@ -14,6 +15,8 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent extends AbstractEntityIndexComponent<Product> implements OnInit, OnDestroy {
+
+  crumbItems: BreadcrumbItem[] = [{label: () => 'PRODUCT_INDEX_TITLE'}];
 
   constructor(
     productsService: ProductsService,

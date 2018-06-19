@@ -7,6 +7,7 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'shipping-receipt',
@@ -14,6 +15,8 @@ import {MatDialog} from '@angular/material';
   styleUrls: ['./shipping-receipts.component.scss']
 })
 export class ShippingReceiptsComponent extends AbstractEntityIndexComponent<ShippingReceipt> implements OnInit, OnDestroy {
+
+  crumbItems: BreadcrumbItem[] = [{label: () => 'SHIPPINGRECEIPT_INDEX_TITLE'}];
 
   constructor(
     shippingReceiptsService: ShippingReceiptsService,

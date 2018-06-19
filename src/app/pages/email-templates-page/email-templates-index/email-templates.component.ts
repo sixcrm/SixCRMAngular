@@ -7,6 +7,7 @@ import {CustomServerError} from '../../../shared/models/errors/custom-server-err
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {SmtpProvider} from '../../../shared/models/smtp-provider.model';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'c-email-templates',
@@ -14,6 +15,8 @@ import {SmtpProvider} from '../../../shared/models/smtp-provider.model';
   styleUrls: ['./email-templates.component.scss']
 })
 export class EmailTemplatesComponent implements OnInit, OnDestroy {
+
+  crumbItems: BreadcrumbItem[] = [{label: () => 'EMAILTEMPLATE_INDEX_TITLE'}];
 
   modes = Modes;
   selectedIndex: number = 0;

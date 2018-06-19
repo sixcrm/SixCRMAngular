@@ -118,7 +118,7 @@ export class ProductScheduleViewComponent extends AbstractEntityViewComponent<Pr
 
   breadcrumbs: BreadcrumbItem[] = [
     {label: () => 'PRODUCTSCHEDULE_INDEX_TITLE', url: '/productschedules'},
-    {label: () => this.entity.name}
+    {label: () => `ID: ${this.entity.name}`}
   ];
 
   detailsElement: ElementRef;
