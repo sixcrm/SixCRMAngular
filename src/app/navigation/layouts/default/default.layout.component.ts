@@ -92,7 +92,10 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
           this.processingDialogRef.close();
         }
 
-        this.processingDialogRef = this.dialog.open(ProcessingDialogComponent, {backdropClass: 'backdrop-blue', panelClass: 'panel-transparent'});
+        this.processingDialogRef = this.dialog.open(
+          ProcessingDialogComponent,
+          {backdropClass: 'backdrop-blue', panelClass: 'panel-transparent', disableClose: true}
+        );
       } else  {
         if (this.processingDialogRef) {
           this.processingDialogRef.close();
