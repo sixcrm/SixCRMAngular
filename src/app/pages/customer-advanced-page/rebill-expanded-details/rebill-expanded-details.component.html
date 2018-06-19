@@ -121,6 +121,7 @@
               <div>{{transaction.createdAt | formatDateTime: 'MM/DD/YYYY h:mm A'}}</div>
               <div>{{transaction.processorResponse.getCard().brand}} {{transaction.processorResponse.getCard().last4}}</div>
               <div>{{transaction.amount.usd()}}</div>
+              <div *ngIf="transaction.type === 'refund'">Refund</div>
               <div class="details-link" (click)="showTransactionDetails(transaction)">Details</div>
             </ng-template>
           </div>
