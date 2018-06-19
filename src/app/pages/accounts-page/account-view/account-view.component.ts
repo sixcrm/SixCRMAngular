@@ -65,7 +65,6 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
   isOwner = (acl: Acl) => acl.role.name === 'Owner';
 
   selectedIndex: number = 0;
-  isBillingFocused: boolean;
 
   tabHeaders: TabHeaderElement[] = [
     {name: 'general', label: 'ACCOUNT_TAB_GENERAL'},
@@ -95,12 +94,6 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
   }
 
   ngOnInit() {
-    if (this.showBilling()) {
-      this.tabHeaders.push(
-        {name: 'billing', label: 'ACCOUNT_TAB_BILLING'}
-      )
-    }
-
     super.init(() => this.navigation.goToNotFoundPage());
 
     this.userService.entities$.takeUntil(this.unsubscribe$).subscribe(users => {
@@ -293,10 +286,6 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
     }
   }
 
-  showBilling(): boolean {
-    return false;
-  }
-
   showAgreements(): boolean {
     return this.isMasterOrOwner();
   }
@@ -309,10 +298,6 @@ export class AccountViewComponent extends AbstractEntityViewComponent<Account> i
 
   setIndex(index: number) {
     this.selectedIndex = index;
-
-    if (this.selectedIndex === 3) {
-      setTimeout(() => {this.isBillingFocused = true}, 300)
-    }
   }
 
   startActingAs() {

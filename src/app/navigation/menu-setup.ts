@@ -171,8 +171,6 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
 
     settings.push(new MenuItem('SIDENAV_SETTINGS_ROLE', 'roles'));
 
-    settings.push(new MenuItem('SIDENAV_SETTINGS_BILL', 'bills'));
-
     settings.push(new MenuItem('Features', 'features'));
 
     items.push(

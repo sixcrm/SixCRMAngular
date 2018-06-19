@@ -9,7 +9,6 @@ import { AccountViewComponent } from './account-view/account-view.component';
 import {AccountsComponent} from './account-index/accounts.component';
 import { AccountAddNewComponent } from './account-view/account-add-new/account-add-new.component';
 import {AccessKeysComponent} from '../access-keys-page/access-keys-index/access-keys.component';
-import {BillsModule} from '../bills-page/bills.module';
 import {TranslationModule} from '../../translation/translation.module';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 import { MarkdownModule } from 'angular2-markdown';
@@ -25,7 +24,6 @@ import {EntityServicesModule} from '../../entity-services/entity-services.module
     SharedModule,
     EntityServicesModule,
     TranslationModule,
-    BillsModule,
     MarkdownModule
   ],
   declarations: [

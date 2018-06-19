@@ -23,7 +23,6 @@ const appRoutes: Routes = [
     { path : 'affiliates', loadChildren : './pages/affiliates-page/affiliates.module#AffiliatesModule', canActivate: [AuthGuard] },
     { path : 'accounts', loadChildren : './pages/accounts-page/accounts.module#AccountsModule', canActivate: [AuthGuard] },
     { path : 'accountmanagement', loadChildren : './pages/account-management-page/account-management.module#AccountManagementModule', canActivate: [AuthGuard] },
-    { path : 'bills', loadChildren : './pages/bills-page/bills.module#BillsModule', canActivate: [AuthGuard] },
     { path : 'campaigns', loadChildren : './pages/campaigns-page/campaigns.module#CampaignsModule', canActivate: [AuthGuard] },
     { path : 'creditcards', loadChildren : './pages/credit-cards-page/credit-cards.module#CreditCardsModule', canActivate: [AuthGuard] },
     { path : 'customers', loadChildren : './pages/customers-page/customers.module#CustomersModule', canActivate: [AuthGuard] },
