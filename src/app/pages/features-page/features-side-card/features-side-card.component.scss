@@ -1,0 +1,31 @@
+.side-card {
+  float: left;
+  padding: 30px;
+  margin-left: 20px;
+  margin-top: 20px;
+  background: #FFFFFF;
+  border-radius: 4px;
+  border: 2px solid rgba(0, 0, 0, 0.12);
+  display: -webkit-box;
+  display: flex;
+  flex-direction: column;
+
+  button {
+    text-transform: uppercase;
+    background: #1EBEA5;
+    color: #FFFFFF;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 500;
+    height: 36px;
+    margin-right: auto;
+  }
+
+  .description {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #5F6368;
+    margin-bottom: 20px;
+  }
+}

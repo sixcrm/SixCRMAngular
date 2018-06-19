@@ -2,11 +2,7 @@
   [path]="['SIX Administration', 'Features']">
 </features-header>
 <div class="features">
-
   <div class="container">
-    <!--<button mat-button (click)="save()">Save</button>-->
-    <button mat-button (click)="fetch()">Reset all to defaults</button>
-
     <div class="flags" *ngIf="featureFlags">
       <div class="flag flag-outer" *ngFor="let flag of featureFlags.flags; let i = index">
         <div class="header">
@@ -27,5 +23,7 @@
       </div>
     </div>
   </div>
+
+  <features-side-card (fetchDefaultSettings)="fetch()"></features-side-card>
 </div>
 
