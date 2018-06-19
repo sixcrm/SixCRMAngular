@@ -8,7 +8,7 @@ import {SmtpProvidersService} from '../../../entity-services/services/smtp-provi
 import {Token} from './token-list/token-list.component';
 import {Subject} from 'rxjs';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
-import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {EmailTemplatesSharedService} from '../../../entity-services/services/email-templates-shared.service';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 

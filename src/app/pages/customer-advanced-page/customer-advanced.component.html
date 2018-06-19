@@ -1,4 +1,4 @@
-<blue-header [path]="path" [titleValue]="entity ? entity.firstName + ' ' + entity.lastName : null"></blue-header>
+<blue-header [items]="breadcrumbs" [titleValue]="entity ? entity.firstName + ' ' + entity.lastName : null"></blue-header>
 
 <div class="body">
   <div class="section" [class.section--full]="!infoVisible">

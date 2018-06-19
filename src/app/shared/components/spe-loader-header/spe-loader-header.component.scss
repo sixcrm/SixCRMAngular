@@ -1,17 +1,79 @@
-.dummy-image {
-  height: 60px;
-  width: 60px;
-  border-radius: 50%;
-}
+@import "../../../../assets/scss/variables";
 
-.dummy-date {
-  width: 150px;
-  height: 10px;
-  background: rgba(0,0,0,0.12);
-}
+.blue-header-container {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  height: 96px;
+  box-sizing: border-box;
+  background: $main-color;
 
-.dummy-name {
-  width: 200px;
-  height: 30px;
-  background: rgba(0,0,0,0.12);
+  .info-section {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .crumbs {
+      display: flex;
+      align-items: center;
+      color: rgba(255, 255, 255, 0.5);
+
+      .item {
+        line-height: 22px;
+        font-size: 12px;
+        font-weight: 500;
+
+        &--dummy {
+          width: 100px;
+          height: 16px;
+          background: rgba(0,0,0,0.2);
+        }
+      }
+
+      .arrow {
+        margin: 0 6px;
+        font-size: 22px;
+        height: 22px;
+        width: 22px;
+      }
+    }
+
+    .details {
+      display: flex;
+      margin-top: auto;
+      align-items: center;
+
+      .back {
+        padding: 2px;
+        color: rgba(255,255,255,0.5);
+        border-radius: 50%;
+        background: #3D6EB3;
+        border: 1px solid rgba(255,255,255,0.2);
+        cursor: pointer;
+      }
+
+      .title-placeholder {
+        margin: 0 15px;
+        width: 150px;
+        height: 23px;
+        background: rgba(0,0,0,0.2);
+      }
+
+    }
+  }
+
+  .icon {
+    display: flex;
+    margin-left: auto;
+    height: 44px;
+    width: 44px;
+    padding: 10px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+
+    img {
+      border-radius: 50%;
+    }
+  }
 }

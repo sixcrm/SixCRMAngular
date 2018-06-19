@@ -5,7 +5,7 @@ import {NavigationService} from '../../../navigation/navigation.service';
 import {ShippingReceipt} from '../../../shared/models/shipping-receipt.model';
 import {ShippingReceiptsService} from '../../../entity-services/services/shipping-receipts.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
-import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'shipping-receipt-view',

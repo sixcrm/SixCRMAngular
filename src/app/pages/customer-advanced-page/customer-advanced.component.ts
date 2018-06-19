@@ -8,6 +8,7 @@ import {CustomServerError} from '../../shared/models/errors/custom-server-error'
 import {TabHeaderElement} from '../../shared/components/tab-header/tab-header.component';
 import {CustomerInfoNotesComponent} from './customer-info-notes/customer-info-notes.component';
 import {TransactionsService} from '../../entity-services/services/transactions.service';
+import {BreadcrumbItem} from '../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'customer-advanced',
@@ -16,7 +17,10 @@ import {TransactionsService} from '../../entity-services/services/transactions.s
 })
 export class CustomerAdvancedComponent  extends AbstractEntityViewComponent<Customer> implements OnInit {
 
-  path = ['Home', 'Customers'];
+  breadcrumbs: BreadcrumbItem[] = [
+    {label: () => 'Home'},
+    {label: () => 'Customers'}
+  ];
 
   tabHeaders: TabHeaderElement[] = [
     {name: 'subscriptions', label: 'SUBSCRIPTIONS'},
@@ -51,7 +55,7 @@ export class CustomerAdvancedComponent  extends AbstractEntityViewComponent<Cust
     this.service.entity$.take(1).subscribe(customer => {
       if (customer instanceof CustomServerError) return;
 
-      this.path = [...this.path, `${customer.firstName} ${customer.lastName}`]
+      this.breadcrumbs = [...this.breadcrumbs, {label: () => `${customer.firstName} ${customer.lastName}`}]
     });
 
     this.init(() => this.navigation.goToNotFoundPage());

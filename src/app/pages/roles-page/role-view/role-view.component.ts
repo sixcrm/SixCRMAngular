@@ -3,7 +3,7 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
 import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
-import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {Role} from '../../../shared/models/role.model';
 import {RolesService} from '../../../entity-services/services/roles.service';
 import {ColumnParams, ColumnParamsInputType} from '../../../shared/models/column-params.model';

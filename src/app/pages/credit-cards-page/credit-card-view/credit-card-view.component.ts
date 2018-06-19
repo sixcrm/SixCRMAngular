@@ -3,12 +3,11 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
 import {CreditCard} from '../../../shared/models/credit-card.model';
 import {CreditCardsService} from '../../../entity-services/services/credit-cards.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NavigationService} from '../../../navigation/navigation.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {Customer} from '../../../shared/models/customer.model';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
-import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'credit-card-view',
@@ -47,8 +46,7 @@ export class CreditCardViewComponent extends AbstractEntityViewComponent<CreditC
   constructor(
     private router: Router,
     service: CreditCardsService,
-    route: ActivatedRoute,
-    public navigation: NavigationService
+    route: ActivatedRoute
   ) {
     super(service, route);
   }

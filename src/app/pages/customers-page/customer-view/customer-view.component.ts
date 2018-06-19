@@ -14,7 +14,7 @@ import {getStates} from '../../../shared/utils/address.utils';
 import {CustomerAddNewComponent} from './customer-add-new/customer-add-new.component';
 import {isValidZip, isAllowedZip} from '../../../shared/utils/form.utils';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
-import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'customer-view',

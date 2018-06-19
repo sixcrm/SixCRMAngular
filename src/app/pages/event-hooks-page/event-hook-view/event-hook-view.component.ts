@@ -3,7 +3,7 @@ import {AbstractEntityViewComponent} from '../../abstract-entity-view.component'
 import {EventHook} from '../../../shared/models/event-hook.model';
 import {EventHooksService} from '../../../entity-services/services/event-hooks.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
-import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {ActivatedRoute} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {EventHooksSharedService} from '../../../entity-services/services/event-hooks-shared.service';

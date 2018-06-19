@@ -12,7 +12,7 @@ import {TableMemoryTextOptions} from '../../components/table-memory/table-memory
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {ProductSchedule} from '../../../shared/models/product-schedule.model';
 import {Transaction} from '../../../shared/models/transaction.model';
-import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'rebill-view',

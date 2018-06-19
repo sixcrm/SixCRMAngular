@@ -14,7 +14,7 @@ import {TableMemoryTextOptions} from '../../components/table-memory/table-memory
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {ProductsService} from '../../../entity-services/services/products.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
-import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {utc, Moment} from 'moment'
 import {Subject} from 'rxjs';
 import {MatDialog} from '@angular/material';

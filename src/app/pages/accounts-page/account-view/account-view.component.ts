@@ -22,7 +22,7 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {SnackbarService} from '../../../shared/services/snackbar.service';
 import {BillsService} from '../../../entity-services/services/bills.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
-import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {RolesSharedService} from '../../../entity-services/services/roles-shared.service';
 import {MatDialogRef, MatDialog} from '@angular/material';
 import { RolesService } from '../../../entity-services/services/roles.service';

@@ -1,10 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-
-export interface BreadcrumbItem {
-  label: (any) => string;
-  url?: string
-  noTranslate?: boolean;
-}
+import {BreadcrumbItem} from '../models/breadcrumb-item.model';
 
 @Component({
   selector: 'entity-view-breadcrumbs',

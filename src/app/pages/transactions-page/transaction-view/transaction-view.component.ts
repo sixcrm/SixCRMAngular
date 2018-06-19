@@ -9,7 +9,7 @@ import {TableMemoryTextOptions} from '../../components/table-memory/table-memory
 import {Products} from '../../../shared/models/products.model';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
-import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {Currency} from '../../../shared/utils/currency/currency';
 
 @Component({

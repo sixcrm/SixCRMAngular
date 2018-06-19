@@ -17,7 +17,7 @@ import {CustomServerError} from '../../../shared/models/errors/custom-server-err
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {MerchantProviderGroupAssociationsService} from '../../../entity-services/services/merchant-provider-group-associations.service';
 import {MerchantProviderGroupAssociation} from '../../../shared/models/merchant-provider-group-association.model';
-import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'campaign-view',

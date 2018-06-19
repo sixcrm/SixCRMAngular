@@ -10,7 +10,6 @@ export class SpeLoaderComponent implements OnInit {
 
   @Input() numberOfTabs: number;
   @Input() numberOfCards: number;
-  @Input() showBreadcrumb: boolean = true;
   @Input() blue: boolean;
   @Input() images: boolean = true;
 

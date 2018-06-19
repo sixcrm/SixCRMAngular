@@ -13,7 +13,7 @@ import {Campaign} from '../../../shared/models/campaign.model';
 import {CampaignsService} from '../../../entity-services/services/campaigns.service';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
-import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'tracker-view',

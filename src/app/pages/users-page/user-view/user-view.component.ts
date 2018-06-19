@@ -17,7 +17,7 @@ import {TableMemoryTextOptions} from '../../components/table-memory/table-memory
 import {MessageDialogComponent} from '../../message-dialog.component';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
-import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {MatDialogRef, MatDialog} from '@angular/material';
 
 @Component({

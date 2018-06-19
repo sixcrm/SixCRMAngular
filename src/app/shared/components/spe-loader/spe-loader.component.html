@@ -1,13 +1,9 @@
 <div class="entity-view">
 
-  <spe-loader-breadcrumb [title]="title" [showBreadcrumb]="showBreadcrumb"></spe-loader-breadcrumb>
-
-  <div (click)="navigation.back()" class="entity-view__change-mode"><mat-icon>reply</mat-icon></div>
-
   <div>
 
     <spe-loader-blue-header *ngIf="blue; else common" [images]="images"></spe-loader-blue-header>
-    <ng-template #common><spe-loader-header></spe-loader-header></ng-template>
+    <ng-template #common><spe-loader-header [title]="title"></spe-loader-header></ng-template>
 
     <spe-loader-body [cardsExpression]="cardsExpression" [numberOfCards]="numberOfCards" [numberOfTabs]="numberOfTabs" [wrap]="wrap"></spe-loader-body>
 

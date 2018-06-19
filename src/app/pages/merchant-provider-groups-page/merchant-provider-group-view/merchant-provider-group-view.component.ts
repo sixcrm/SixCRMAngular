@@ -16,7 +16,7 @@ import {
 import {SingleInputDialogComponent} from '../../../dialog-modals/single-input-dialog.component';
 import {isAllowedFloatNumeric} from '../../../shared/utils/form.utils';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
-import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {MatDialog} from '@angular/material';
 
 @Component({

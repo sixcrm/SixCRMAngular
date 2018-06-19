@@ -1,15 +1,15 @@
 <div class="blue-header-container">
   <div class="info-section">
     <div class="crumbs">
-      <ng-container *ngFor="let p of path; let i = index">
-        <div class="item">{{p}}</div>
-        <mat-icon *ngIf="i + 1 < path.length" class="arrow">keyboard_arrow_right</mat-icon>
+      <ng-container *ngFor="let item of items; let i = index">
+        <div (click)="navigateTo(item)" class="item">{{item.label() | translate}}</div>
+        <mat-icon *ngIf="i + 1 < items.length" class="arrow">keyboard_arrow_right</mat-icon>
       </ng-container>
     </div>
 
     <div class="details">
       <mat-icon class="back" (click)="navigationService.back()">arrow_back</mat-icon>
-      <div class="title" *ngIf="titleValue; else titleplaceholder">{{titleValue}}</div>
+      <div class="title" *ngIf="titleValue; else titleplaceholder">{{titleValue | translate}}</div>
 
       <ng-template #titleplaceholder>
         <div class="title-placeholder"></div>

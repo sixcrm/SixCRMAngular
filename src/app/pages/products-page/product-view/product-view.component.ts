@@ -9,7 +9,7 @@ import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header
 import {DeleteDialogComponent} from '../../delete-dialog.component';
 import {ProductAttributes} from '../../../shared/models/product-attributes.model';
 import {SixImage} from '../../../shared/models/six-image.model';
-import {BreadcrumbItem} from '../../components/entity-view-breadcrumbs/entity-view-breadcrumbs.component';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {MatDialog} from '@angular/material';
 
 @Component({
