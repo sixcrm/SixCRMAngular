@@ -24,7 +24,11 @@
 
             <div class="card-body">
               <ng-container *ngFor="let rebill of rebills">
-                <rebill-item [rebill]="rebill" (rebillSelected)="viewSingleRebill($event)" (transactionRefunded)="transactionRefunded.emit($event)"></rebill-item>
+                <rebill-item [rebill]="rebill"
+                             (refund)="openRefundDialog($event)"
+                             (ret)="openReturnDialog($evet)"
+                             (rebillSelected)="viewSingleRebill($event)">
+                </rebill-item>
               </ng-container>
             </div>
           </div>
@@ -32,7 +36,11 @@
 
         <mat-tab>
           <div *ngIf="selectedRebill">
-            <rebill-expanded-details [rebill]="selectedRebill" (backButtonSelected)="viewAllRebills()" (transactionRefunded)="transactionRefunded.emit($event)"></rebill-expanded-details>
+            <rebill-expanded-details [rebill]="selectedRebill"
+                                     (backButtonSelected)="viewAllRebills()"
+                                     (refund)="openRefundDialog($event)"
+                                     (ret)="openReturnDialog($evet)">
+            </rebill-expanded-details>
           </div>
         </mat-tab>
 
@@ -48,6 +56,7 @@
         [rowColorFunction]="rowColorFunction"
         [lineBreakFunction]="lineBreakFunction"
         [options]="options"
+        (optionSelected)="optionSelected($event)"
         (itemClicked)="itemClicked($event)">
 
         <div class="switcher">

@@ -89,7 +89,7 @@ export class Rebill implements Entity<Rebill> {
     return new Currency(this.amount.amount - this.refundedAmount().amount);
   }
 
-  getReturned(): Products {
+  getReturned(): Products[] {
     if (!this.products || this.products.length === 0) return [];
 
     return this.products.filter(p => p.returns && p.returns.length > 0);
@@ -100,6 +100,21 @@ export class Rebill implements Entity<Rebill> {
     const chargebacked = this.chargebackAmount().amount;
 
     return new Currency(this.amount.amount - refunded - chargebacked);
+  }
+
+  canRefund(): boolean {
+    const transactions = this.transactions.filter(t => t.type === 'sale').length;
+    const refunded = this.transactions.filter(t => t.type === 'refund').length;
+
+    return transactions > refunded;
+  }
+
+  canReturn(): boolean {
+    return this.products.filter(p => p.product.ship && (!p.returns || p.returns.length === 0)).length > 0;
+  }
+
+  calculateCycle(): number {
+    return 0;
   }
 
   copy(): Rebill {

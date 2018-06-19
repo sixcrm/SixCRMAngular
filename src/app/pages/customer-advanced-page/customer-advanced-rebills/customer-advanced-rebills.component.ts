@@ -8,6 +8,11 @@ import {Router} from '@angular/router';
 import {utc} from 'moment';
 import {Return} from '../../../shared/models/return.model';
 import {Transaction} from '../../../shared/models/transaction.model';
+import {OptionItem} from '../../components/table-memory-advanced/table-memory-advanced.component';
+import {ReturnDialogComponent} from '../../../dialog-modals/return-dialog/return-dialog.component';
+import {MatDialog} from '@angular/material';
+import {RefundDialogComponent} from '../../../dialog-modals/refund-dialog/refund-dialog.component';
+import {firstIndexOf} from '../../../shared/utils/array.utils';
 
 @Component({
   selector: 'customer-advanced-rebills',
@@ -48,12 +53,21 @@ export class CustomerAdvancedRebillsComponent implements OnInit {
 
   columnParams: ColumnParams<Rebill>[] = [];
   rowColorFunction = (e: Rebill) => e.hasChargeback() ? 'rgba(220, 37, 71, 0.05)' : '#ffffff';
-  options: string[] = ['Refund', 'Return', 'Notify User', 'View Details'];
+
+  options: OptionItem[] = [
+    {label: 'Refund', visible: (e: Rebill) => e.canRefund()},
+    {label: 'Return', visible: (e: Rebill) => e.canReturn()},
+    {label: 'Notify User', visible: (e: Rebill) => true},
+    {label: 'View Details', visible: (e: Rebill) => true}
+  ];
+
+  originIndex: number;
 
   constructor(
     private rebillService: RebillsService,
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {
     let f = this.authService.getTimezone();
 
@@ -65,7 +79,7 @@ export class CustomerAdvancedRebillsComponent implements OnInit {
       new ColumnParams('CUSTOMER_REBILL_BILLED',(e: Rebill) => e.billAt.tz(f).format('MM/DD/YY')),
       new ColumnParams('CUSTOMER_REBILL_AMOUNT', (e: Rebill) => e.amount.usd()),
       new ColumnParams('CUSTOMER_REBILL_ITEMS', (e: Rebill) => e.products.length + ''),
-      new ColumnParams('CUSTOMER_REBILL_RETURNS', (e: Rebill) => e.getReturned().length > 0 ? e.getReturns().length + '' : '-'),
+      new ColumnParams('CUSTOMER_REBILL_RETURNS', (e: Rebill) => e.getReturned().length > 0 ? e.getReturned().length + '' : '-'),
       new ColumnParams('CUSTOMER_REBILL_REFUND', (e: Rebill) => e.hasRefund() ? e.refundedAmount().usd() : '-').setAlign('center'),
       new ColumnParams('CUSTOMER_REBILL_CHARGEBACK', (e: Rebill) => e.hasChargeback() ? e.chargebackAmount().usd() : '-').setAlign('center').setSeparator(true),
       new ColumnParams('CUSTOMER_REBILL_TOTAL', (e: Rebill) => e.amountTotal().usd()).setAlign('center').setSeparator(true),
@@ -120,10 +134,58 @@ export class CustomerAdvancedRebillsComponent implements OnInit {
   viewSingleRebill(rebill: Rebill) {
     this.selectedRebill = rebill.copy();
 
+    this.originIndex = this.selectedIndex;
     this.selectedGranularityIndex = 1;
+    this.selectedIndex = 0;
   }
 
   viewAllRebills() {
     this.selectedGranularityIndex = 0;
+
+    if (this.originIndex === 1) {
+      this.selectedIndex = 1;
+    }
+  }
+
+  optionSelected(event: {item: Rebill, option: OptionItem}) {
+    if (event.option.label === 'View Details') {
+      this.viewSingleRebill(event.item);
+    }
+  }
+
+  openReturnDialog(rebill: Rebill) {
+    let ref = this.dialog.open(ReturnDialogComponent, {backdropClass: 'backdrop-blue'});
+
+    ref.componentInstance.products = rebill.copy().products.filter(p => !p.returns || p.returns.length === 0);
+
+    ref.afterClosed().take(1).subscribe(() => {
+      ref = null;
+    })
+  }
+
+  openRefundDialog(rebill: Rebill) {
+    let ref = this.dialog.open(RefundDialogComponent, {backdropClass: 'backdrop-blue'});
+
+    ref.componentInstance.transactions = rebill.copy().transactions.filter(t => t.type !== 'refund');
+
+    ref.afterClosed().take(1).subscribe((result) => {
+      ref = null;
+
+      if (result && result.refundedTransaction) {
+        const index = firstIndexOf(this.rebills, (r: Rebill) => r.id === rebill.id);
+
+        if (index !== -1) {
+          this.rebills[index].transactions = [...this.rebills[index].transactions, result.refundedTransaction];
+          this.rebills = this.rebills.slice();
+        }
+
+        if (this.selectedRebill.id === rebill.id) {
+          this.selectedRebill.transactions = [...this.selectedRebill.transactions, result.refundedTransaction];
+          this.selectedRebill = this.selectedRebill.copy();
+        }
+
+        this.transactionRefunded.emit(result.refundedTransaction);
+      }
+    })
   }
 }

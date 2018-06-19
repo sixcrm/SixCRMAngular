@@ -2,6 +2,11 @@ import {Component, OnInit, Input, Output, EventEmitter, OnDestroy} from '@angula
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {Subject, Subscription} from 'rxjs';
 
+export interface OptionItem {
+  label: string,
+  visible: (el: any) => boolean
+}
+
 @Component({
   selector: 'table-memory-advanced',
   templateUrl: './table-memory-advanced.component.html',
@@ -13,13 +18,13 @@ export class TableMemoryAdvancedComponent implements OnInit, OnDestroy {
   @Input() columnParams: ColumnParams<any>[] = [];
   @Input() rowColorFunction: (any) => string;
   @Input() lineBreakFunction: (previous: any, next: any) => string;
-  @Input() options: string[];
+  @Input() options: OptionItem[];
   @Input() bulkOptions: string[];
   @Input() title: string;
   @Input() loading: boolean;
   @Input() loadingNumberOfRows: number = 3;
 
-  @Output() optionSelected: EventEmitter<{items: any[], option: string}> = new EventEmitter();
+  @Output() optionSelected: EventEmitter<{item: any, option: OptionItem}> = new EventEmitter();
   @Output() itemClicked: EventEmitter<{item: any, param: ColumnParams<any>}> = new EventEmitter();
 
   filterString: string;
@@ -81,5 +86,9 @@ export class TableMemoryAdvancedComponent implements OnInit, OnDestroy {
 
   getNumberOfVisible() {
     return !this.items || this.items.length === 0 ? 0 : this.items.filter(i => !i['hideAfterFilter']).length;
+  }
+
+  emitOptionSelected(item: any, option: OptionItem) {
+    this.optionSelected.emit({item: item, option: option})
   }
 }

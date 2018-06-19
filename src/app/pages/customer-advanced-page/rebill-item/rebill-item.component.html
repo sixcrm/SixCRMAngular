@@ -34,15 +34,15 @@
 
       <ng-template #pastrebillactions>
         <button mat-button
-                (click)="openRefundDialog()"
-                [class.button-disabled]="!canRefund()"
-                [disabled]="!canRefund()">
+                (click)="refund.emit(rebill)"
+                [class.button-disabled]="!rebill.canRefund()"
+                [disabled]="!rebill.canRefund()">
           Refund
         </button>
         <button mat-button
-                (click)="openReturnDialog()"
-                [class.button-disabled]="!canReturn()"
-                [disabled]="!canReturn()">
+                (click)="ret.emit(rebill)"
+                [class.button-disabled]="!rebill.canReturn()"
+                [disabled]="!rebill.canReturn()">
           Return
         </button>
         <button mat-button
@@ -56,6 +56,7 @@
 
     </div>
   </div>
+
 
   <info-table *ngIf="pending" [rebill]="rebill"></info-table>
 

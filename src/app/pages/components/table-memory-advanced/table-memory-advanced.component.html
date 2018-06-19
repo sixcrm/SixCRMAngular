@@ -79,7 +79,9 @@
           <td *ngIf="options && options.length > 0">
             <mat-icon class="menu-icon" [matMenuTriggerFor]="opts">more_vert</mat-icon>
             <mat-menu #opts="matMenu" x-position="before">
-              <button mat-menu-item *ngFor="let option of options">{{ option | translate}}</button>
+              <ng-container *ngFor="let option of options">
+                <button mat-menu-item *ngIf="option.visible(item)" (click)="emitOptionSelected(item, option)">{{ option.label | translate}}</button>
+              </ng-container>
             </mat-menu>
           </td>
         </tr>

@@ -16,7 +16,9 @@ export class RebillExpandedDetailsComponent implements OnInit {
   @Input() rebill: Rebill;
 
   @Output() backButtonSelected: EventEmitter<boolean> = new EventEmitter();
-  @Output() transactionRefunded: EventEmitter<Transaction> = new EventEmitter();
+
+  @Output() refund: EventEmitter<Rebill> = new EventEmitter();
+  @Output() ret: EventEmitter<Rebill> = new EventEmitter();
 
   showFulfillment: boolean = false;
 
@@ -29,10 +31,6 @@ export class RebillExpandedDetailsComponent implements OnInit {
     this.showFulfillment = !this.showFulfillment;
   }
 
-  calculateCycle() {
-    return 0;
-  }
-
   showTransactionDetails(transaction: Transaction) {
     let ref = this.dialog.open(ViewTransactionDialogComponent, {backdropClass: 'backdrop-blue'});
 
@@ -41,42 +39,6 @@ export class RebillExpandedDetailsComponent implements OnInit {
     ref.afterClosed().take(1).subscribe(() => {
       ref = null;
     })
-  }
-
-  openReturnDialog() {
-    let ref = this.dialog.open(ReturnDialogComponent, {backdropClass: 'backdrop-blue'});
-
-    ref.componentInstance.products = this.rebill.copy().products.filter(p => !p.returns || p.returns.length === 0);
-
-    ref.afterClosed().take(1).subscribe(() => {
-      ref = null;
-    })
-  }
-
-  openRefundDialog() {
-    let ref = this.dialog.open(RefundDialogComponent, {backdropClass: 'backdrop-blue'});
-
-    ref.componentInstance.transactions = this.rebill.copy().transactions.filter(t => t.type !== 'refund');
-
-    ref.afterClosed().take(1).subscribe((result) => {
-      ref = null;
-
-      if (result.refundedTransaction) {
-        this.rebill.transactions = [...this.rebill.transactions, result.refundedTransaction];
-        this.transactionRefunded.emit(result.refundedTransaction);
-      }
-    })
-  }
-
-  canRefund() {
-    const numberOfSales = this.rebill.transactions.filter(t => t.type === 'sale');
-    const numberOfRefunds = this.rebill.transactions.filter(t => t.type === 'refund');
-
-    return numberOfSales > numberOfRefunds;
-  }
-
-  canReturn() {
-    return this.rebill.products.filter(p => !!p.product.ship && (!p.returns || p.returns.length === 0)).length > 0;
   }
 
 }
