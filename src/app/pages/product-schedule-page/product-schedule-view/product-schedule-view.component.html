@@ -1,7 +1,7 @@
 <div class="entity-view__container">
   <div *ngIf="entity; else spinner" class="entity-view">
 
-    <blue-header [items]="breadcrumbs" [titleValue]="'ID: ' + entity.id"></blue-header>
+    <blue-header [items]="breadcrumbs" [titleValue]="entity.name"></blue-header>
 
     <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
