@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CustomerAdvancedComponent } from './customer-advanced.component';
-import {customerAdvancedRouting} from './customer-advanced.routing';
 import {PageComponentsModule} from '../components/pages-components.module';
 import {SharedModule} from '../../shared/shared.module';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
@@ -18,16 +17,17 @@ import { InfoTableComponent } from './rebill-item-components/info-table/info-tab
 import { ProductItemComponent } from './rebill-item-components/product-item/product-item.component';
 import { RebillExpandedDetailsComponent } from './rebill-expanded-details/rebill-expanded-details.component';
 import {EntityServicesModule} from '../../entity-services/entity-services.module';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
-    customerAdvancedRouting,
     PageComponentsModule,
     SharedModule,
     EntityServicesModule,
     MaterialSelectionModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
   declarations: [
     CustomerAdvancedComponent,
@@ -42,6 +42,9 @@ import {EntityServicesModule} from '../../entity-services/entity-services.module
     InfoTableComponent,
     ProductItemComponent,
     RebillExpandedDetailsComponent
+  ],
+  exports: [
+    CustomerAdvancedComponent
   ]
 })
 export class CustomerAdvancedModule { }

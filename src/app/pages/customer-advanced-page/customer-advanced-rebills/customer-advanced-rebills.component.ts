@@ -29,6 +29,8 @@ export class CustomerAdvancedRebillsComponent implements OnInit {
   selectedIndex: number = 0;
   selectedGranularityIndex: number = 0;
 
+  loaded: boolean;
+
   @Input() set customer(customer: Customer) {
     if (customer) {
       const performInit = !this._customer;
@@ -110,6 +112,8 @@ export class CustomerAdvancedRebillsComponent implements OnInit {
 
         return r;
       });
+
+      this.loaded = true;
     });
   }
 

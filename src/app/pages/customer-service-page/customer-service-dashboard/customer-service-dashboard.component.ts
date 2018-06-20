@@ -6,7 +6,6 @@ import {Router} from '@angular/router';
 import {Session} from '../../../shared/models/session.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import { routerTransition } from '../../../routing.animations';
-import {FeatureFlagService} from '../../../shared/services/feature-flag.service';
 
 @Component({
   selector: 'customer-service-dashboard',
@@ -34,8 +33,7 @@ export class CustomerServiceDashboardComponent implements OnInit {
   constructor(
     public authService: AuthenticationService,
     private searchService: SearchService,
-    private router: Router,
-    private featuresFlagService: FeatureFlagService
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -118,13 +116,13 @@ export class CustomerServiceDashboardComponent implements OnInit {
     if (event instanceof Customer) {
       this.preventSearch = true;
 
-      this.router.navigate(['/customer-advanced', event.id]);
+      this.router.navigate(['/customers', event.id]);
     }
 
     if (event instanceof Session) {
       this.preventSearch = true;
 
-      this.router.navigate(['/customer-advanced', 'session', event.id]);
+      this.router.navigate(['/sessions', event.id]);
     }
 
   }

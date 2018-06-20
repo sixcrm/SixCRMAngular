@@ -14,6 +14,8 @@ export class CustomerAdvancedSubscriptionsComponent implements OnInit {
 
   rebills: Rebill[] = [];
 
+  loaded: boolean;
+
   @Input() set customer(customer: Customer) {
     if (customer) {
       const performInit = !this._customer;
@@ -34,6 +36,8 @@ export class CustomerAdvancedSubscriptionsComponent implements OnInit {
   initialize() {
     this.rebillService.getPendingRebillsByCustomer(this._customer, {}).subscribe(rebills => {
       this.rebills = rebills;
+
+      this.loaded = true;
     });
   }
 }

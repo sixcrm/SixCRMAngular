@@ -9,7 +9,6 @@ import {Rebill} from '../../../../shared/models/rebill.model';
 export class InfoTableComponent implements OnInit {
 
   @Input() rebill: Rebill;
-  @Input() columnStyle: boolean;
 
   constructor() { }
 

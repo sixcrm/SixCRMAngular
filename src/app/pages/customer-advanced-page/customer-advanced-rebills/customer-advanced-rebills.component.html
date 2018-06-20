@@ -31,6 +31,10 @@
                 </rebill-item>
               </ng-container>
             </div>
+
+            <div *ngIf="loaded && (!rebills || rebills.length === 0)" class="no-data">
+              No Orders found.
+            </div>
           </div>
         </mat-tab>
 

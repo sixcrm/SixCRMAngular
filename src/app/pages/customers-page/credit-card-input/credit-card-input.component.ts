@@ -1,15 +1,15 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {CreditCard} from '../../../../shared/models/credit-card.model';
-import {CreditCardsService} from '../../../../entity-services/services/credit-cards.service';
-import {getStates, getCountries} from '../../../../shared/utils/address.utils';
-import {Address} from '../../../../shared/models/address.model';
-import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
-import {isValidZip, isAllowedZip} from '../../../../shared/utils/form.utils';
+import {CreditCard} from '../../../shared/models/credit-card.model';
+import {isValidZip, isAllowedZip} from '../../../shared/utils/form.utils';
+import {getStates, getCountries} from '../../../shared/utils/address.utils';
+import {Address} from '../../../shared/models/address.model';
+import {CreditCardsService} from '../../../entity-services/services/credit-cards.service';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'credit-card-input',
-  templateUrl: './credit-card-input.component.html',
-  styleUrls: ['./credit-card-input.component.scss']
+  templateUrl: 'credit-card-input.component.html',
+  styleUrls: ['credit-card-input.component.scss']
 })
 export class CreditCardInputComponent implements OnInit {
 

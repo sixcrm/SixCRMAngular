@@ -1,13 +1,13 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {Customer} from '../../../../shared/models/customer.model';
-import {getStates, getCountries} from '../../../../shared/utils/address.utils';
-import {getPhoneNumberMask} from '../../../../shared/utils/mask.utils';
-import {isValidZip, isAllowedZip} from '../../../../shared/utils/form.utils';
+import {Customer} from '../../../shared/models/customer.model';
+import {getCountries, getStates} from '../../../shared/utils/address.utils';
+import {getPhoneNumberMask} from '../../../shared/utils/mask.utils';
+import {isValidZip, isAllowedZip} from '../../../shared/utils/form.utils';
 
 @Component({
   selector: 'customer-add-new',
-  templateUrl: './customer-add-new.component.html',
-  styleUrls: ['./customer-add-new.component.scss']
+  templateUrl: 'customer-add-new.component.html',
+  styleUrls: ['customer-add-new.component.scss']
 })
 export class CustomerAddNewComponent implements OnInit {
 

@@ -18,8 +18,7 @@ import {BreadcrumbItem} from '../components/models/breadcrumb-item.model';
 export class CustomerAdvancedComponent  extends AbstractEntityViewComponent<Customer> implements OnInit {
 
   breadcrumbs: BreadcrumbItem[] = [
-    {label: () => 'Home'},
-    {label: () => 'Customers'}
+    {label: () => 'Customers', url: '/customers'}
   ];
 
   tabHeaders: TabHeaderElement[] = [
@@ -75,6 +74,10 @@ export class CustomerAdvancedComponent  extends AbstractEntityViewComponent<Cust
 
   refreshTransactions() {
     this.transactionsService.getEntities();
+  }
+
+  canDeactivate() {
+    return true;
   }
 
 }

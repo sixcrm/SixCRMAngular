@@ -17,6 +17,10 @@
         <rebill-item [rebill]="rebill" [pending]="true"></rebill-item>
       </ng-container>
     </div>
+
+    <div *ngIf="loaded && (!rebills || rebills.length === 0)" class="no-data">
+      No Subscriptions found.
+    </div>
   </div>
 
 </div>
