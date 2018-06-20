@@ -44,6 +44,7 @@ import { RefundDialogComponent } from './dialog-modals/refund-dialog/refund-dial
 import { ReturnDialogComponent } from './dialog-modals/return-dialog/return-dialog.component';
 import {EntityServicesModule} from './entity-services/entity-services.module';
 import { ProcessingDialogComponent } from './dialog-modals/processing-dialog/processing-dialog.component';
+import { ProductDetailsDialogComponent } from './dialog-modals/product-details-dialog/product-details-dialog.component';
 
 @NgModule({
   declarations : [
@@ -73,7 +74,8 @@ import { ProcessingDialogComponent } from './dialog-modals/processing-dialog/pro
     ViewTransactionDialogComponent,
     RefundDialogComponent,
     ReturnDialogComponent,
-    ProcessingDialogComponent
+    ProcessingDialogComponent,
+    ProductDetailsDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -118,7 +120,8 @@ import { ProcessingDialogComponent } from './dialog-modals/processing-dialog/pro
     ViewTransactionDialogComponent,
     RefundDialogComponent,
     ReturnDialogComponent,
-    ProcessingDialogComponent
+    ProcessingDialogComponent,
+    ProductDetailsDialogComponent
   ],
   bootstrap : [AppComponent]
 })

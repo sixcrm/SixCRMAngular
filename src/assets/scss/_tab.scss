@@ -64,6 +64,14 @@ mat-tab-body {
   }
 }
 
+.tab--full-height {
+  height: 100%;
+
+  .mat-tab-body-wrapper {
+    height: 100%;
+  }
+}
+
 .tab--dashboard-header {
   background: linear-gradient(180deg, #4277C2 8.44%, #2C98F0 100%);
 

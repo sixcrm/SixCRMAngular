@@ -32,7 +32,8 @@ $info-width: 290px;
 customer-info, customer-info-notes {
   display: block;
   width: $info-width;
-  height: $content-height;
+  min-height: $content-height;
+  height: 100%;
 }
 
 .info-icon {

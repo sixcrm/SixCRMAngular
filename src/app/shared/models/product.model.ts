@@ -61,7 +61,7 @@ export class Product implements Entity<Product> {
   getDefaultImagePath(): string {
     const image = this.getDefaultImage();
 
-    if (!image) return '';
+    if (!image) return '/assets/images/product-default-image.svg';
 
     return image.path;
   }
