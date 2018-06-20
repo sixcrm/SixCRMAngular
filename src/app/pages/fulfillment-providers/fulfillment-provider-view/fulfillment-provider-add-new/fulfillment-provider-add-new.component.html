@@ -16,7 +16,7 @@
       <input auto-focus required matInput [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_NAME' | translate}}" [(ngModel)]="entity.name" name="name" type="text">
     </mat-form-field>
 
-    <ng-container *ngIf="entity.provider.name && (entity.provider.name === 'Hashtag' || entity.provider.name === 'ThreePL')">
+    <ng-container *ngIf="entity.provider.name && (entity.provider.name === 'Hashtag' || entity.provider.name === 'iShip Solutions' || entity.provider.name === 'ThreePL')">
       <mat-form-field [class.error]="formInvalid && !entity.provider.username" class="entity-view__card__content__item">
         <input required matInput [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_USERNAME' | translate}}" [(ngModel)]="entity.provider.username" name="username" type="text">
       </mat-form-field>
@@ -26,7 +26,7 @@
       </mat-form-field>
 
       <mat-form-field [class.error]="formInvalid && !entity.provider.threeplKey" class="entity-view__card__content__item">
-        <input required matInput [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_THREEPLKEY' | translate}}" [(ngModel)]="entity.provider.threeplKey" name="threeplKey" type="text">
+        <input required matInput pattern=".{38,}" [disabled]="mode === modes.View" placeholder="{{'FULFILLMENT_INFO_THREEPLKEY' | translate}}" [(ngModel)]="entity.provider.threeplKey" name="threeplKey" type="text">
       </mat-form-field>
 
       <mat-form-field *ngIf="entity.provider.name === 'ThreePL'" [class.error]="formInvalid && (!entity.provider.threeplFacilityId && entity.provider.threeplFacilityId !== 0)" class="entity-view__card__content__item">

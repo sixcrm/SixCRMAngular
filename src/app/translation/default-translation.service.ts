@@ -651,7 +651,7 @@ export class DefaultTranslationService {
                 },
                 "fulfillment": {
                   "title": "Setup Fulfillment",
-                  "description": "A fulfillment provider serves as key logistical partner for getting products out the door and into the hands of customers. We currently support Hashtag, 3PL, and Shipstation."
+                  "description": "A fulfillment provider serves as key logistical partner for getting products out the door and into the hands of customers. We currently support iShip Solutions, 3PL, and Shipstation."
                 },
                 "smtp": {
                   "title": "Setup SMTP and E-Mails",

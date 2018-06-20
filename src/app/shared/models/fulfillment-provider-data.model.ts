@@ -25,6 +25,10 @@ export class FulfillmentproviderData {
     this.apiKey = obj.api_key || '';
     this.apiSecret = obj.api_secret || '';
     this.storeId = obj.store_id;
+
+    if (this.name === 'Hashtag') {
+      this.name = 'iShip Solutions'
+    }
   }
 
   copy(): FulfillmentproviderData {

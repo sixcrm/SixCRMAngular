@@ -20,11 +20,14 @@ export class FulfillmentProviderAddNewComponent implements OnInit {
   modes = Modes;
   formInvalid: boolean;
   isNumeric = isAllowedNumeric;
-  providers = ['Hashtag', 'ThreePL', 'ShipStation', 'Test'];
+  providers = ['iShip Solutions', 'ThreePL', 'ShipStation', 'Test'];
 
   constructor() { }
 
   ngOnInit() {
+    if (this.entity.provider.name === 'Hashtag') {
+      this.entity.provider.name = 'iShip Solutions'
+    }
   }
 
   enterEditMode() {
