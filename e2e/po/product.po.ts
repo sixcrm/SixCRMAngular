@@ -18,7 +18,7 @@ export class ProductPage {
   }
 
   getProductName() {
-    return element(by.css('.entity-view__info__data__name'));
+    return element(by.css('.title'));
   }
 
   getDetailsMenuButton() {

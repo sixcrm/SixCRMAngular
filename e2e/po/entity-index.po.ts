@@ -11,7 +11,7 @@ export class EntityIndexPage {
   }
 
   getTitle() {
-    return element(by.css('.entity-index__title'));
+    return element(by.css('.title'));
   }
 
   getTableHeaders() {

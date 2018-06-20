@@ -24,7 +24,7 @@ export class CampaignPage {
   }
 
   getCampaignNameInHeader() {
-    return element(by.css('.entity-view__info__data__name'));
+    return element(by.css('.title'));
   }
 
   getMenuButton() {
@@ -52,7 +52,7 @@ export class CampaignPage {
   }
 
   getCampaignIndexButton() {
-    return element(by.css('.entity-view__change-mode'));
+    return element(by.css('.crumbs'));
   }
 
 }

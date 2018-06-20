@@ -19,7 +19,7 @@ export class ProductSchedulePage {
   }
 
   getProductScheduleName() {
-    return element(by.css('.entity-view__header__title'));
+    return element(by.css('.title'));
   }
 
   getDetailsMenuButton() {
@@ -76,7 +76,7 @@ export class ProductSchedulePage {
   }
 
   getProductSchedIndexButton() {
-    return element(by.css('.entity-view__change-mode'));
+    return element(by.css('.crumbs'));
   }
 
 }
