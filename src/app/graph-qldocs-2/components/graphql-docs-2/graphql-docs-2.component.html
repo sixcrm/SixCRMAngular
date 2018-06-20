@@ -1,13 +1,7 @@
-<graphql-header
-  [path]="['API Documentation']">
-</graphql-header>
 <div class="docs">
   <mat-spinner *ngIf="!loaded; else load"></mat-spinner>
 
   <ng-template #load>
-    <div class="docs__sidenav">
-      <side-search (filterTypes)="filterTroughAllTypes($event)" [searchItems]="searchItems"></side-search>
-    </div>
     <div class="docs__content" [class.showSidenav]="showSidenav">
       <ng-container *ngIf="isAll">
         <doc-type *ngFor="let aType of queryMutationTypesFiltered" [type]="aType" [isAll]="true"></doc-type>

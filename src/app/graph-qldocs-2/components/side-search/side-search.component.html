@@ -4,7 +4,7 @@
       (focus)="focused = true"
       (blur)="focused = false"
       placeholder="Search" [(ngModel)]="filterString"
-      (input)="filterTypes.emit(filterString)">
+      (input)="addQueryParams($event)">
   </mat-form-field>
 
   <div class="line"></div>

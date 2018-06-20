@@ -4,11 +4,11 @@ import {NavigationService} from '../../../navigation/navigation.service';
 import {environment} from '../../../../environments/environment';
 
 @Component({
-  selector: 'graph-docs-2',
-  templateUrl: './graph-docs-2.component.html',
-  styleUrls: ['./graph-docs-2.component.scss']
+  selector: 'graph-docs-page',
+  templateUrl: './graph-docs-page.component.html',
+  styleUrls: ['./graph-docs-page.component.scss']
 })
-export class GraphDocs2Component implements OnInit {
+export class GraphDocsPageComponent implements OnInit {
 
   endpoint = environment.endpoint + '*';
   headers = [

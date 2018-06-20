@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { documentationRouting } from './documentation.routing';
 import {GraphDocsComponent} from './graph-docs/graph-docs.component';
-import {GraphDocs2Component} from './graph-docs-2/graph-docs-2.component';
+import {GraphDocsPageComponent} from './graph-docs-page/graph-docs-page.component';
 import {GraphqlDocsModule} from '../../graph-qldocs/graphql-docs.module';
 import {GraphqlDocs2Module} from '../../graph-qldocs-2/graphql-docs-2.module';
 
@@ -15,7 +15,7 @@ import {GraphqlDocs2Module} from '../../graph-qldocs-2/graphql-docs-2.module';
   ],
   declarations: [
     GraphDocsComponent,
-    GraphDocs2Component
+    GraphDocsPageComponent
   ]
 })
 export class DocumentationModule { }

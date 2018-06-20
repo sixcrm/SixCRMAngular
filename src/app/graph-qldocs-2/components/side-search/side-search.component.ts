@@ -1,7 +1,7 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {navigateToFieldByString} from '../../utils';
-import {NavigationEnd, Router} from "@angular/router";
-import {GraphqlDocs2Service} from "../../graphql-docs-2.service";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
+import {Subject} from "rxjs/Rx";
 
 export interface SearchItem {
   name: string;
@@ -17,11 +17,15 @@ export class SideSearchComponent implements OnInit {
 
   @Input() searchItems: SearchItem[];
   @Input() focused: boolean = false;
-  @Output() filterTypes: EventEmitter<string> = new EventEmitter();
+
+  filterString: string;
+  selectedItem: string;
+
+  private searchDebouncer: Subject<string> = new Subject();
 
   constructor(
     private router: Router,
-    private docsService: GraphqlDocs2Service
+    private route: ActivatedRoute
   ) {
     router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -39,7 +43,15 @@ export class SideSearchComponent implements OnInit {
       event.urlAfterRedirects.includes('documentation/graph2/type')
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.route.queryParams.take(1).subscribe(params => {
+      this.filterString = params['filter'] || '';
+    });
+
+    this.searchDebouncer.debounceTime(250).subscribe(value => {
+      this.router.navigate([], { queryParams: { filter: value} });
+    })
+  }
 
   nav(path: string): void {
     navigateToFieldByString(path);
@@ -49,19 +61,7 @@ export class SideSearchComponent implements OnInit {
     this.router.navigate(['documentation/graph2/', type.toLowerCase(), path]);
   }
 
-  get selectedItem(): string {
-    return this.docsService.selectedItem;
-  }
-
-  set selectedItem(item: string) {
-    this.docsService.selectedItem = item;
-  }
-
-  get filterString(): string {
-    return this.docsService.filterString;
-  }
-
-  set filterString(filter: string) {
-    this.docsService.filterString = filter;
+  addQueryParams(input) {
+    this.searchDebouncer.next(input.target.value);
   }
 }

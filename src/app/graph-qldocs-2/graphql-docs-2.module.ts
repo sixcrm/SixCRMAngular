@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GraphqlDocs2Component } from './components/graphql-docs-2/graphql-docs-2.component';
+import { GraphqlDocsLayoutComponent } from './components/graphql-docs-layout/graphql-docs-layout.component';
 import { GraphqlDocs2Service } from './graphql-docs-2.service';
 import { TypeComponent } from './components/type/type.component';
 import { QueryMutationCardComponent } from './components/query-mutation-card/query-mutation-card.component';
@@ -13,16 +14,19 @@ import { GraphqlHeaderComponent } from './components/graphql-header/graphql-head
 import {ClipboardModule} from 'ngx-clipboard';
 import {MaterialSelectionModule} from '../material-selection/material-selection.module';
 import {FormatGraphQlPipe} from "./pipes/format-graphql.pipe";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     MaterialSelectionModule,
     ClipboardModule
   ],
   exports: [
-    GraphqlDocs2Component
+    GraphqlDocs2Component,
+    GraphqlDocsLayoutComponent
   ],
   declarations: [
     GraphqlDocs2Component,
@@ -33,7 +37,8 @@ import {FormatGraphQlPipe} from "./pipes/format-graphql.pipe";
     TypeCardComponent,
     SideContainerComponent,
     FormatGraphQlPipe,
-    GraphqlHeaderComponent
+    GraphqlHeaderComponent,
+    GraphqlDocsLayoutComponent
   ],
   providers: [
     GraphqlDocs2Service

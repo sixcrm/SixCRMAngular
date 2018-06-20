@@ -4,15 +4,6 @@
   font-size: 16px;
   overflow: hidden;
 
-  &__sidenav {
-    border-right: 1px solid rgba(0, 0, 0, 0.12);
-    width: 360px;
-    background: #F0F3F4;
-    display: inline-block;
-    float: left;
-    height: calc(100vh - 170px);
-  }
-
   &__content {
     overflow-y: auto;
     overflow-x: hidden;
@@ -29,7 +20,7 @@
   }
 
   mat-spinner {
-    margin: 60px auto;
+    margin: 200px auto;
     height: 180px;
     width: 180px;
   }

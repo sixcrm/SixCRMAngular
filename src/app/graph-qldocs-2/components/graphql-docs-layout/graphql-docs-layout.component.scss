@@ -1,0 +1,13 @@
+.docs-layout {
+  background: #F0F3F4;
+  overflow: hidden;
+
+  &__sidenav {
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
+    width: 360px;
+    background: #F0F3F4;
+    display: inline-block;
+    float: left;
+    height: calc(100vh - 170px);
+  }
+}
