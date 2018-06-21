@@ -14,7 +14,7 @@
                 </mat-form-field>
               </div>
 
-              <div class="number-of">{{(rebills || []).length}} Orders</div>
+              <div class="number-of">{{(orders || []).length}} Orders</div>
 
               <div class="switcher">
                 <mat-icon class="icon" [class.icon--active]="selectedIndex === 0" (click)="setIndex(0)">view_agenda</mat-icon>
@@ -23,28 +23,28 @@
             </div>
 
             <div class="card-body">
-              <ng-container *ngFor="let rebill of rebills">
-                <rebill-item [rebill]="rebill"
-                             (refund)="openRefundDialog($event)"
-                             (ret)="openReturnDialog($evet)"
-                             (rebillSelected)="viewSingleRebill($event)">
-                </rebill-item>
+              <ng-container *ngFor="let order of orders">
+                <order-item [order]="order"
+                            (refund)="openRefundDialog($event)"
+                            (ret)="openReturnDialog($evet)"
+                            (orderSelected)="viewSingleOrder($event)">
+                </order-item>
               </ng-container>
             </div>
 
-            <div *ngIf="loaded && (!rebills || rebills.length === 0)" class="no-data">
+            <div *ngIf="loaded && (!orders || orders.length === 0)" class="no-data">
               No Orders found.
             </div>
           </div>
         </mat-tab>
 
         <mat-tab>
-          <div *ngIf="selectedRebill">
-            <rebill-expanded-details [rebill]="selectedRebill"
-                                     (backButtonSelected)="viewAllRebills()"
-                                     (refund)="openRefundDialog($event)"
-                                     (ret)="openReturnDialog($evet)">
-            </rebill-expanded-details>
+          <div *ngIf="selectedOrder">
+            <order-detailed [order]="selectedOrder"
+                            (backButtonSelected)="viewAllOrders()"
+                            (refund)="openRefundDialog($event)"
+                            (ret)="openReturnDialog($evet)">
+            </order-detailed>
           </div>
         </mat-tab>
 
@@ -55,10 +55,9 @@
     <mat-tab>
       <table-memory-advanced
         [title]="'Orders'"
-        [items]="rebills"
+        [items]="orders"
         [columnParams]="columnParams"
         [rowColorFunction]="rowColorFunction"
-        [lineBreakFunction]="lineBreakFunction"
         [options]="options"
         (optionSelected)="optionSelected($event)"
         (itemClicked)="itemClicked($event)">

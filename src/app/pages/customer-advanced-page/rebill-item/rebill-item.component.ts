@@ -1,10 +1,6 @@
-import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
+import {Component, Input, OnInit } from '@angular/core';
 import {Rebill} from '../../../shared/models/rebill.model';
 import {Router} from '@angular/router';
-import {MatDialog} from '@angular/material';
-import {ReturnDialogComponent} from '../../../dialog-modals/return-dialog/return-dialog.component';
-import {RefundDialogComponent} from '../../../dialog-modals/refund-dialog/refund-dialog.component';
-import {Transaction} from '../../../shared/models/transaction.model';
 
 @Component({
   selector: 'rebill-item',
@@ -14,12 +10,6 @@ import {Transaction} from '../../../shared/models/transaction.model';
 export class RebillItemComponent implements OnInit {
 
   @Input() rebill: Rebill;
-  @Input() pending: boolean;
-
-  @Output() rebillSelected: EventEmitter<Rebill> = new EventEmitter();
-
-  @Output() refund: EventEmitter<Rebill> = new EventEmitter();
-  @Output() ret: EventEmitter<Rebill> = new EventEmitter();
 
   constructor(private router: Router) { }
 

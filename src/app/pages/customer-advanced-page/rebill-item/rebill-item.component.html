@@ -1,66 +1,18 @@
 <div class="container">
 
-  <div class="chargeback" *ngIf="!pending && rebill.hasChargeback()">
-    CHARGEBACK
-  </div>
-
   <div class="header">
     <div class="info">
-      <div>{{pending ? 'Bills' : 'Billed'}} {{rebill.billAt | formatDateTime: 'MMMM DD, YYYY'}}</div>
-      <ng-container *ngIf="!pending">
-        <div class="separator"></div>
-        <div class="refund" *ngIf="rebill.hasRefund(); else norefund" [matMenuTriggerFor]="refundDetails">
-          {{rebill.amountAfterRefund().usd()}}
-          <mat-icon>keyboard_arrow_down</mat-icon>
-        </div>
-        <mat-menu #refundDetails="matMenu" x-position="before">
-          <div class="transactions-details-item" *ngFor="let transaction of rebill.transactions">
-            <div>{{transaction.chargeback ? 'Chargeback' : transaction.type === 'refund' ? 'Refund' : transaction.processorResponse.message}}</div>
-            <div>{{transaction.createdAt | formatDateTime: 'MM/DD/YYYY h:mm A'}}</div>
-            <div>{{transaction.processorResponse.getCard().brand}} {{transaction.processorResponse.getCard().last4}}</div>
-            <div>{{transaction.amount.usd()}}</div>
-          </div>
-        </mat-menu>
+      <div>Bills {{rebill.billAt | formatDateTime: 'MMMM DD, YYYY'}}</div>
 
-        <ng-template #norefund>
-          <div>{{rebill.amount.usd()}}</div>
-        </ng-template>
-      </ng-container>
-
-      <ng-container *ngIf="pending; else pastrebillactions">
-        <button mat-button>Cancel</button>
-        <button mat-button (click)="navigateToWatermark(rebill)">Edit</button>
-      </ng-container>
-
-      <ng-template #pastrebillactions>
-        <button mat-button
-                (click)="refund.emit(rebill)"
-                [class.button-disabled]="!rebill.canRefund()"
-                [disabled]="!rebill.canRefund()">
-          Refund
-        </button>
-        <button mat-button
-                (click)="ret.emit(rebill)"
-                [class.button-disabled]="!rebill.canReturn()"
-                [disabled]="!rebill.canReturn()">
-          Return
-        </button>
-        <button mat-button
-                class="button-disabled"
-                disabled>
-          Track Delivery
-        </button>
-        <div class="separator separator--buttons"></div>
-        <button mat-button (click)="rebillSelected.emit(rebill)">Order #{{rebill.parentSession.alias}} <mat-icon>keyboard_arrow_right</mat-icon></button>
-      </ng-template>
+      <button mat-button>Cancel</button>
+      <button mat-button (click)="navigateToWatermark(rebill)">Edit</button>
 
     </div>
   </div>
 
+  <info-table [rebill]="rebill"></info-table>
 
-  <info-table *ngIf="pending" [rebill]="rebill"></info-table>
-
-  <div class="products" [class.products--shadowed]="pending">
+  <div class="products">
 
     <ng-container *ngFor="let product of rebill.products">
       <product-item [product]="product"></product-item>

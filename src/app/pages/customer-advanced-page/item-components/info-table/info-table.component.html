@@ -1,7 +1,7 @@
 <div *ngIf="rebill" class="details">
   <div class="item">
-    <div>Order Number</div>
-    <div>{{rebill.parentSession.alias}}</div>
+    <div>Amount</div>
+    <div>{{rebill.amount.usd()}}</div>
   </div>
 
   <div class="item">

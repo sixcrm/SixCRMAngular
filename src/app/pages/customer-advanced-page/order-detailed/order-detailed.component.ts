@@ -1,24 +1,22 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {Rebill} from '../../../shared/models/rebill.model';
 import {Transaction} from '../../../shared/models/transaction.model';
 import {MatDialog} from '@angular/material';
 import {ViewTransactionDialogComponent} from '../../../dialog-modals/view-transaction-dialog/view-transaction-dialog.component';
-import {ReturnDialogComponent} from '../../../dialog-modals/return-dialog/return-dialog.component';
-import {RefundDialogComponent} from '../../../dialog-modals/refund-dialog/refund-dialog.component';
+import {Order} from '../../../shared/models/order.model';
 
 @Component({
-  selector: 'rebill-expanded-details',
-  templateUrl: './rebill-expanded-details.component.html',
-  styleUrls: ['./rebill-expanded-details.component.scss']
+  selector: 'order-detailed',
+  templateUrl: './order-detailed.component.html',
+  styleUrls: ['./order-detailed.component.scss']
 })
-export class RebillExpandedDetailsComponent implements OnInit {
+export class OrderDetailedComponent implements OnInit {
 
-  @Input() rebill: Rebill;
+  @Input() order: Order;
 
   @Output() backButtonSelected: EventEmitter<boolean> = new EventEmitter();
 
-  @Output() refund: EventEmitter<Rebill> = new EventEmitter();
-  @Output() ret: EventEmitter<Rebill> = new EventEmitter();
+  @Output() refund: EventEmitter<Order> = new EventEmitter();
+  @Output() ret: EventEmitter<Order> = new EventEmitter();
 
   showFulfillment: boolean = false;
 

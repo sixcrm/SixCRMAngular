@@ -1,6 +1,6 @@
 <div class="container">
 
-  <div class="chargeback" *ngIf="rebill.hasChargeback()">
+  <div class="chargeback" *ngIf="order.hasChargeback()">
     CHARGEBACK
   </div>
 
@@ -8,14 +8,14 @@
     <div class="info">
       <button mat-button (click)="backButtonSelected.emit(true)"><mat-icon>keyboard_arrow_left</mat-icon> All Orders</button>
 
-      <div>Billed {{rebill.billAt | formatDateTime: 'MMMM DD, YYYY'}}</div>
+      <div>Billed {{order.date | formatDateTime: 'MMMM DD, YYYY'}}</div>
       <div class="separator"></div>
-      <div class="refund" *ngIf="rebill.hasRefund(); else norefund" [matMenuTriggerFor]="refundDetails">
-        {{rebill.amountAfterRefund().usd()}}
+      <div class="refund" *ngIf="order.hasRefund(); else norefund" [matMenuTriggerFor]="refundDetails">
+        {{order.amountAfterRefund().usd()}}
         <mat-icon>keyboard_arrow_down</mat-icon>
       </div>
       <mat-menu #refundDetails="matMenu" x-position="before">
-        <div class="transactions-details-item" *ngFor="let transaction of rebill.transactions">
+        <div class="transactions-details-item" *ngFor="let transaction of order.rebill.transactions">
           <div>{{transaction.chargeback ? 'Chargeback' : transaction.type === 'refund' ? 'Refund' : transaction.processorResponse.message}}</div>
           <div>{{transaction.createdAt | formatDateTime: 'MM/DD/YYYY h:mm A'}}</div>
           <div>{{transaction.processorResponse.getCard().brand}} {{transaction.processorResponse.getCard().last4}}</div>
@@ -24,20 +24,20 @@
       </mat-menu>
 
       <ng-template #norefund>
-        <div>{{rebill.amount.usd()}}</div>
+        <div>{{order.amount.usd()}}</div>
       </ng-template>
 
       <button style="margin-left: auto"
               mat-button
-              [class.button-disabled]="!rebill.canRefund()"
-              [disabled]="!rebill.canRefund()"
-              (click)="refund.emit(rebill)">
+              [class.button-disabled]="!order.canRefund()"
+              [disabled]="!order.canRefund()"
+              (click)="refund.emit(order)">
         Refund
       </button>
       <button mat-button
-              [class.button-disabled]="!rebill.canReturn()"
-              [disabled]="!rebill.canReturn()"
-              (click)="ret.emit(rebill)">
+              [class.button-disabled]="!order.canReturn()"
+              [disabled]="!order.canReturn()"
+              (click)="ret.emit(order)">
         Return
       </button>
     </div>
@@ -46,7 +46,7 @@
   <div class="details-wrapper">
     <div class="details">
 
-      <div class="title" [class.title--fulfillment]="showFulfillment" [class.title--chargeback]="!showFulfillment && rebill.hasChargeback()">
+      <div class="title" [class.title--fulfillment]="showFulfillment" [class.title--chargeback]="!showFulfillment && order.hasChargeback()">
         <div>{{showFulfillment ? 'Fulfillment' : 'Transactions'}}</div>
         <div (click)="toggleShowFulfillment()">View {{!showFulfillment ? 'Fulfillment' : 'Transactions'}}</div>
       </div>
@@ -59,8 +59,8 @@
       </div>
 
       <ng-template #transactions>
-        <div class="transactions" [class.transactions--chargeback]="rebill.hasChargeback()">
-          <div class="transaction" *ngFor="let transaction of rebill.transactions; let i = index">
+        <div class="transactions" [class.transactions--chargeback]="order.hasChargeback()">
+          <div class="transaction" *ngFor="let transaction of order.rebill.transactions; let i = index">
             <div *ngIf="i !== 0" class="separator"></div>
 
             <ng-container *ngIf="transaction.chargeback; else successtransaction">
@@ -137,16 +137,16 @@
 
       <div class="general">
         <div class="key">Order Number</div>
-        <div class="value">{{rebill.parentSession.alias}}</div>
+        <div class="value">{{order.session.alias}}</div>
 
         <div class="key">Initial Order Date</div>
-        <div class="value">{{rebill.parentSession.createdAt | formatDateTime: 'MMMM D, YYYY'}}</div>
+        <div class="value">{{order.session.createdAt | formatDateTime: 'MMMM D, YYYY'}}</div>
 
         <div class="key">Campaign</div>
-        <div class="value details-link" [routerLink]="['/campaigns', rebill.parentSession.campaign.id]">{{rebill.parentSession.campaign.name}}</div>
+        <div class="value details-link" [routerLink]="['/campaigns', order.session.campaign.id]">{{order.session.campaign.name}}</div>
 
         <div class="key">Rebill No</div>
-        <div class="value">{{rebill.calculateCycle()}}</div>
+        <div class="value">{{order.rebill.calculateCycle()}}</div>
       </div>
     </div>
   </div>
@@ -155,7 +155,7 @@
     <div class="title">Products</div>
 
     <div class="products-wrapper">
-      <ng-container *ngFor="let product of rebill.products">
+      <ng-container *ngFor="let product of order.products">
         <product-item [product]="product"></product-item>
       </ng-container>
     </div>

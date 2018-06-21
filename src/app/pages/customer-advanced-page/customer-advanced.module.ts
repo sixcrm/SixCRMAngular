@@ -8,16 +8,17 @@ import { CustomerInfoComponent } from './customer-info/customer-info.component';
 import { CustomerInfoNotesComponent } from './customer-info-notes/customer-info-notes.component';
 import {FormsModule} from '@angular/forms';
 import { CustomerAdvancedTransactionsComponent } from './customer-advanced-transactions/customer-advanced-transactions.component';
-import { CustomerAdvancedRebillsComponent } from './customer-advanced-rebills/customer-advanced-rebills.component';
 import { CustomerAdvancedFulfillmentComponent } from './customer-advanced-fulfillment/customer-advanced-fulfillment.component';
 import { CustomerAdvancedEventsComponent } from './customer-advanced-events/customer-advanced-events.component';
 import { RebillItemComponent } from './rebill-item/rebill-item.component';
 import { CustomerAdvancedSubscriptionsComponent } from './customer-advanced-subscriptions/customer-advanced-subscriptions.component';
-import { InfoTableComponent } from './rebill-item-components/info-table/info-table.component';
-import { ProductItemComponent } from './rebill-item-components/product-item/product-item.component';
-import { RebillExpandedDetailsComponent } from './rebill-expanded-details/rebill-expanded-details.component';
+import { InfoTableComponent } from './item-components/info-table/info-table.component';
+import { ProductItemComponent } from './item-components/product-item/product-item.component';
 import {EntityServicesModule} from '../../entity-services/entity-services.module';
 import {RouterModule} from '@angular/router';
+import {CustomerAdvancedOrdersComponent} from './customer-advanced-orders/customer-advanced-orders.component';
+import {OrderDetailedComponent} from './order-detailed/order-detailed.component';
+import {OrderItemComponent} from './order-item/order-item.component';
 
 @NgModule({
   imports: [
@@ -34,14 +35,15 @@ import {RouterModule} from '@angular/router';
     CustomerInfoComponent,
     CustomerInfoNotesComponent,
     CustomerAdvancedTransactionsComponent,
-    CustomerAdvancedRebillsComponent,
+    CustomerAdvancedOrdersComponent,
     CustomerAdvancedFulfillmentComponent,
     CustomerAdvancedEventsComponent,
     RebillItemComponent,
+    OrderItemComponent,
     CustomerAdvancedSubscriptionsComponent,
     InfoTableComponent,
     ProductItemComponent,
-    RebillExpandedDetailsComponent
+    OrderDetailedComponent
   ],
   exports: [
     CustomerAdvancedComponent
