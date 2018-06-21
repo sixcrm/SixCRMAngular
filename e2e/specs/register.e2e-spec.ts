@@ -74,7 +74,7 @@ describe('Register', function() {
     browser.sleep(1500);
   });
 
-  it ('should enter incorrect CC info and then FAIL - incorrect number', () => {
+  xit ('should enter incorrect CC info and then FAIL - incorrect number', () => {
     browser.waitForAngularEnabled(false);
     // card number
     registerPage.getInputs().get(0).sendKeys(4242424242424241);
@@ -100,9 +100,6 @@ describe('Register', function() {
     browser.waitForAngularEnabled(false);
     browser.sleep(2000);
     // card number
-    registerPage.getInputs().get(0).clear();
-    registerPage.getInputs().get(1).clear();
-    registerPage.getInputs().get(2).clear();
     registerPage.getInputs().get(0).sendKeys(4242424242424242);
     // security code
     registerPage.getInputs().get(1).sendKeys(123);
@@ -118,7 +115,7 @@ describe('Register', function() {
     registerPage.getPaymentEntryCardMonth().get(4).click();
     browser.sleep(300);
     // Finish Registration
-    registerPage.getPaymentDeclineButton().click();
+    registerPage.getPaymentContinueButton().click();
     browser.sleep(14000);
     waitForUrlContains('/dashboard?w=true');
     browser.sleep(5000);
