@@ -22,6 +22,9 @@ exports.config = {
       './e2e/**/fulfillment-provider.e2e-spec.ts',
       './e2e/**/smtp-provider.e2e-spec.ts'
     ],
+    register_refresh: './e2e/**/register-refresh.e2e-spec.ts',
+    register_back: './e2e/**/register-back.e2e-spec.ts',
+    register_cardcheck: './e2e/**/register-cardcheck.e2e-spec.ts',
     invite: './e2e/**/accept-invite.e2e-spec.ts',
     register: './e2e/**/register.e2e-spec.ts',
     register_behaviors: './e2e/**/register-behaviors.e2e-spec.ts',

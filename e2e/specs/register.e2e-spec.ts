@@ -74,28 +74,6 @@ describe('Register', function() {
     browser.sleep(1500);
   });
 
-  xit ('should enter incorrect CC info and then FAIL - incorrect number', () => {
-    browser.waitForAngularEnabled(false);
-    // card number
-    registerPage.getInputs().get(0).sendKeys(4242424242424241);
-    // security code
-    registerPage.getInputs().get(1).sendKeys(123);
-    // name on card
-    registerPage.getInputs().get(2).sendKeys('Card Name');
-    // choose month
-    registerPage.getPaymentEntryCardDate().first().click();
-    browser.sleep(200);
-    registerPage.getPaymentEntryCardMonth().get(6).click();
-    // choose year
-    registerPage.getPaymentEntryCardDate().last().click();
-    browser.sleep(200);
-    registerPage.getPaymentEntryCardMonth().get(4).click();
-    // Finish Registration
-    registerPage.getPaymentContinueButton().click();
-    browser.sleep(8000);
-    expectPresent(registerPage.getDeclineError());
-  });
-
   it ('should enter CC info and then SUCCESS', () => {
     browser.waitForAngularEnabled(false);
     browser.sleep(2000);
