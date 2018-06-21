@@ -12,7 +12,7 @@ let registrationUsername = `tr${new Date().getTime()}@example.com`;
 let registrationPassword = 'testingregistrationpassword';
 let newCompany = `e2e_Company_${new Date().getTime()}`;
 
-describe('Register', function() {
+describe('Register with behaviors', function() {
   let authPage: AuthPage;
   let registerPage: RegisterPage;
   let appTopNav: TopnavPage;
@@ -74,10 +74,11 @@ describe('Register', function() {
     browser.sleep(1500);
   });
 
-  it ('should enter incorrect CC info and then FAIL - incorrect number', () => {
+  it ('should enter CC info and then refresh before continue and look for continue button', () => {
     browser.waitForAngularEnabled(false);
+    browser.sleep(2000);
     // card number
-    registerPage.getInputs().get(0).sendKeys(4242424242424241);
+    registerPage.getInputs().get(0).sendKeys(4242424242424242);
     // security code
     registerPage.getInputs().get(1).sendKeys(123);
     // name on card
@@ -90,10 +91,29 @@ describe('Register', function() {
     registerPage.getPaymentEntryCardDate().last().click();
     browser.sleep(200);
     registerPage.getPaymentEntryCardMonth().get(4).click();
+    browser.sleep(300);
     // Finish Registration
-    registerPage.getPaymentContinueButton().click();
-    browser.sleep(8000);
-    expectPresent(registerPage.getDeclineError());
+    browser.refresh();
+    browser.sleep(7000);
+    expect(registerPage.getPaymentSetupButtonText().getText()).toEqual('SETUP PAYMENT PLAN');
+  });
+
+  it ('should click the setup button and move to the payment screen', () => {
+    browser.waitForAngularEnabled(false);
+    browser.sleep(1000);
+    registerPage.getPaymentSetupButton().click();
+    browser.sleep(1000);
+    waitForUrlContains('/payment');
+    browser.sleep(5000);
+    expectUrlToContain('/payment');
+  });
+
+  it ('should choose Professional Plan and move to payment entry', () => {
+    browser.waitForAngularEnabled(false);
+    registerPage.getPaymentButtons().get(1).click();
+    browser.sleep(1500);
+    expect(registerPage.getPaymentEntryTitle().getText()).toEqual('You have chosen the SIX Professional Tier');
+    browser.sleep(1500);
   });
 
   it ('should enter CC info and then SUCCESS', () => {

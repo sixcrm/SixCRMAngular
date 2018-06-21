@@ -84,7 +84,7 @@ describe('Merchant Provider Group', function() {
   });
 
   it('should persist updated load balancer details', () => {
-    browser.sleep(2000);
+    browser.sleep(2500);
 
     expect(view.getEntityNameHeader().getText()).toEqual('e2e load balancer updated');
   });

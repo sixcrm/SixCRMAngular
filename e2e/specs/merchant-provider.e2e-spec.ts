@@ -123,7 +123,7 @@ describe('Merchant Provider', function() {
     merchantProvider.getMerchantDeleteButton().click();
     browser.sleep(200);
     merchantProvider.getMerchantDeleteModalButton().click();
-    browser.sleep(2500);
+    browser.sleep(3000);
     expect(merchantProvider.getMerchantIndividualCampaign().count()).toEqual(0);
   });
 

@@ -24,6 +24,7 @@ exports.config = {
     ],
     invite: './e2e/**/accept-invite.e2e-spec.ts',
     register: './e2e/**/register.e2e-spec.ts',
+    register_behaviors: './e2e/**/register-behaviors.e2e-spec.ts',
     login: './e2e/**/login.e2e-spec.ts',
     navigation: './e2e/**/navigation.e2e-spec.ts',
     campaign: './e2e/**/campaigns.e2e-spec.ts',

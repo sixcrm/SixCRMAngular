@@ -10,6 +10,10 @@ export class RegisterPage {
     return element(by.css('.registration-form__container'));
   }
 
+  getDeclineError() {
+    return element(by.css('.error-row-above'));
+  }
+
   getPaymentView() {
     return element(by.css('.plan'));
   }
@@ -40,6 +44,18 @@ export class RegisterPage {
 
   getPaymentContinueButton() {
     return element(by.css('.registration-column-right')).element(by.css('button'));
+  }
+
+  getPaymentDeclineButton() {
+    return element(by.css('.column.right')).element(by.css('button'));
+  }
+
+  getPaymentSetupButtonText() {
+    return element(by.css('.payment')).element(by.css('span'));
+  }
+
+  getPaymentSetupButton() {
+    return element(by.css('.payment'));
   }
 
   getWelcomeScreen() {
