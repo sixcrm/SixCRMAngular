@@ -76,7 +76,7 @@ export class ProductSchedulePage {
   }
 
   getProductSchedIndexButton() {
-    return element(by.css('.crumbs'));
+    return element(by.css('.back'));
   }
 
 }

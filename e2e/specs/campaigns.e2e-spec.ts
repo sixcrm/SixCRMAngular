@@ -104,7 +104,7 @@ describe('Campaigns', function() {
     expectUrlToContain('campaigns');
   });
 
-  xit( 'should delete the campaign', () => {
+  it( 'should delete the campaign', () => {
     browser.sleep(500);
     campaignPage.getCampaignDeleteButton().click();
     browser.sleep(200);

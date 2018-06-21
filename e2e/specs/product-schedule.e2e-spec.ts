@@ -116,7 +116,7 @@ describe('Product Schedules', function() {
     expectUrlToContain('campaigns');
   });
 
-  xit('should remove added schedule', () => {
+  it('should remove added schedule', () => {
     browser.sleep(500);
     productSchedulePage.getProductSchedIndexButton().click();
     browser.sleep(1200);
