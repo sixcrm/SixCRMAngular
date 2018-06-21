@@ -1,42 +1,18 @@
 <div *ngIf="entity; else spinner" class="entity-view">
-  <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
 
-  <div (click)="navigation.back()" class="entity-view__change-mode"><mat-icon>reply</mat-icon></div>
+  <blue-header [items]="breadcrumbs" [titleValue]="entityBackup.name"></blue-header>
 
-  <div>
-    <form #inputForm="ngForm" class="entity-view__info">
-      <div class="entity-view__info__image">
-        <img src="/assets/images/result-item-transaction-white.svg" alt="">
-      </div>
-      <div class="entity-view__info__data">
-        <div *ngIf="!addMode" class="entity-view__info__data__date">{{'SINGLEPAGE_CREATED' | translate}}: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
-        <div class="entity-view__info__data__name">
-          <span *ngIf="viewMode; else editableMode">
-            {{entityBackup.name}}
-          </span>
-          <ng-template #editableMode>
-            <mat-form-field *ngIf="updateMode || addMode; else viewName" [class.error]="formInvalid && !entity.name">
-              <input required #nameFieldAddMode matInput name="name" [(ngModel)]="entity.name">
-            </mat-form-field>
-          </ng-template>
-        </div>
-      </div>
+   <!--<form #inputForm="ngForm" class="entity-view__info">
       <div class="actions">
-        <div class="entity-view__info__edit">
-          <div *ngIf="viewMode; else editActions" class="entity-view__info__edit__update" (click)="setMode(modes.Update)">{{'MERCHANTPROVIDER_INFO_EDIT' | translate}}</div>
-
-          <ng-template #editActions>
-            <div *ngIf="addMode; else editActionsEdit" class="entity-view__info__edit__update" (click)="saveProvider(inputForm.form.valid)">{{'MERCHANTPROVIDER_INFO_SAVE' | translate}}</div>
-            <ng-template #editActionsEdit>
-              <div (click)="cancelEdit()">{{'MERCHANTPROVIDER_INFO_CANCEL' | translate}}</div>
-              <div class="entity-view__info__edit__update" (click)="saveProvider(entity)">{{'MERCHANTPROVIDER_INFO_UPDATE' | translate}}</div>
-            </ng-template>
-          </ng-template>
-        </div>
-
         <entity-view-tag *ngIf="tagsService.hasReadPermission()" [inAssociatedTags]="true" [entityId]="entityId"></entity-view-tag>
       </div>
     </form>
+
+    <ng-template #editableMode>
+      <mat-form-field *ngIf="updateMode || addMode; else viewName" [class.error]="formInvalid && !entity.name">
+        <input required #nameFieldAddMode matInput name="name" [(ngModel)]="entity.name">
+      </mat-form-field>
+    </ng-template>-->
 
     <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
@@ -71,7 +47,7 @@
         </table-memory>
       </mat-tab>
     </mat-tab-group>
-  </div>
+
 
 </div>
 

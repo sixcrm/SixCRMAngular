@@ -2,6 +2,12 @@
   <div class="entity-view__card" [class.entity-view__card--create]="mode === modes.Add">
     <div class="entity-view__card__header">
       <div class="entity-view__card__header__title">{{'MERCHANTPROVIDER_INFO_SETTINGS_TITLE' | translate}}</div>
+      <ng-container *ngIf="mode === modes.View">
+        <mat-icon [matMenuTriggerFor]="editOptions">more_vert</mat-icon>
+        <mat-menu #editOptions="matMenu" x-position="before">
+          <button mat-menu-item (click)="changeMode.emit(modes.Update); enableEdit()">{{'MERCHANTPROVIDER_INFO_EDIT' | translate}}</button>
+        </mat-menu>
+      </ng-container>
     </div>
 
     <div class="entity-view__card__content merchant-provider-view__details">
@@ -13,77 +19,99 @@
       <div class="flex-custom flex-custom--center merchant-provider-view__details__selectable">
         <mat-icon>power_settings_new</mat-icon>
         <span>{{'MERCHANTPROVIDER_INFO_SETTINGS_ENABLED' | translate}}</span>
-        <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View" name="enabled" [(ngModel)]="entity.enabled"></mat-checkbox>
+        <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditSettings)" name="enabled" [(ngModel)]="entity.enabled"></mat-checkbox>
       </div>
       <div class="flex-custom flex-custom--center merchant-provider-view__details__selectable">
         <mat-icon>credit_card</mat-icon>
         <span>{{'MERCHANTPROVIDER_INFO_SETTINGS_ALLOWPREPAID' | translate}}</span>
-        <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View" name="allowPrepaid" [(ngModel)]="entity.allowPrepaid"></mat-checkbox>
+        <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditSettings)" name="allowPrepaid" [(ngModel)]="entity.allowPrepaid"></mat-checkbox>
       </div>
 
       <div class="merchant-provider-view__details__subtitle" [class.error]="!entity.acceptedPaymentMethods.length">{{'MERCHANTPROVIDER_INFO_SETTINGS_ACCEPTED' | translate}}</div>
 
       <div *ngFor="let card of allCreditCards" class="flex-custom flex-custom--center merchant-provider-view__details__selectable">
         <span>{{card}}</span>
-        <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View" [checked]="entity.containsPaymentMethod(card) || (mode === modes.Add)" (change)="entity.togglePaymentMethod(card)"></mat-checkbox>
+        <mat-checkbox class="flex-align--right" [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditSettings)" [checked]="entity.containsPaymentMethod(card) || (mode === modes.Add)" (change)="entity.togglePaymentMethod(card)"></mat-checkbox>
       </div>
+
+    </div>
+    <div *ngIf="mode !== modes.View && shouldEditSettings" class="entity-view__card__actions merchant-provider--create__buttons">
+      <div (click)="cancel.emit(true)">{{'MERCHANTPROVIDER_INFO_CANCEL' | translate}}</div>
+      <div (click)="saveProvider(merchantProviderForm.form.valid)">{{'MERCHANTPROVIDER_INFO_SAVE' | translate}}</div>
     </div>
   </div>
 
   <div class="entity-view__card" [class.entity-view__card--create]="mode === modes.Add">
     <div class="entity-view__card__header">
       <div class="entity-view__card__header__title">{{'MERCHANTPROVIDER_INFO_PROCESSING_TITLE' | translate}}</div>
+      <ng-container *ngIf="mode === modes.View">
+        <mat-icon [matMenuTriggerFor]="editOptions">more_vert</mat-icon>
+        <mat-menu #editOptions="matMenu" x-position="before">
+          <button mat-menu-item (click)="changeMode.emit(modes.Update); enableEdit('shouldEditProcessing')">{{'MERCHANTPROVIDER_INFO_EDIT' | translate}}</button>
+        </mat-menu>
+      </ng-container>
     </div>
 
     <div class="entity-view__card__content merchant-provider-view__details">
       <mat-form-field class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_MONTHLYCAPD' | translate}}" name="monthlyCap" [(ngModel)]="entity.processing.monthlyCap" type="text">
+        <input [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditProcessing)" (keydown)="isFloatNumeric($event)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_MONTHLYCAPD' | translate}}" name="monthlyCap" [(ngModel)]="entity.processing.monthlyCap" type="text">
       </mat-form-field>
 
       <mat-form-field class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isNumeric($event)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_MONTHLYCAPC' | translate}}" name="monthlyCapCount" [(ngModel)]="entity.processing.transactionCounts.monthly" type="text">
+        <input [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditProcessing)" (keydown)="isNumeric($event)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_MONTHLYCAPC' | translate}}" name="monthlyCapCount" [(ngModel)]="entity.processing.transactionCounts.monthly" type="text">
       </mat-form-field>
 
       <mat-form-field class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isNumeric($event)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_WEEKLYCAP' | translate}}" name="weeklyCapCount" [(ngModel)]="entity.processing.transactionCounts.weekly" type="text">
+        <input [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditProcessing)" (keydown)="isNumeric($event)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_WEEKLYCAP' | translate}}" name="weeklyCapCount" [(ngModel)]="entity.processing.transactionCounts.weekly" type="text">
       </mat-form-field>
 
       <mat-form-field class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isNumeric($event)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_DAILYCAP' | translate}}" name="dailyCapCount" [(ngModel)]="entity.processing.transactionCounts.daily" type="text">
+        <input [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditProcessing)" (keydown)="isNumeric($event)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_DAILYCAP' | translate}}" name="dailyCapCount" [(ngModel)]="entity.processing.transactionCounts.daily" type="text">
       </mat-form-field>
 
       <mat-form-field class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isFloatNumeric($event)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_TRANSACTIONFEE' | translate}}" name="transactionFee" [(ngModel)]="entity.processing.transactionFee" type="text">
+        <input [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditProcessing)" (keydown)="isFloatNumeric($event)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_TRANSACTIONFEE' | translate}}" name="transactionFee" [(ngModel)]="entity.processing.transactionFee" type="text">
       </mat-form-field>
 
       <mat-form-field class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isPercentage($event,entity.processing.discountRate)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_DISCOUNTRATE' | translate}}" name="discountRate" [(ngModel)]="entity.processing.discountRate" type="text">
+        <input [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditProcessing)" (keydown)="isPercentage($event,entity.processing.discountRate)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_DISCOUNTRATE' | translate}}" name="discountRate" [(ngModel)]="entity.processing.discountRate" type="text">
       </mat-form-field>
 
       <mat-form-field class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isPercentage($event,entity.processing.maximumChargebackRatio)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_CHARGEBACK' | translate}}" name="maxChargebackRatio" [(ngModel)]="entity.processing.maximumChargebackRatio" type="text">
+        <input [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditProcessing)" (keydown)="isPercentage($event,entity.processing.maximumChargebackRatio)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_CHARGEBACK' | translate}}" name="maxChargebackRatio" [(ngModel)]="entity.processing.maximumChargebackRatio" type="text">
       </mat-form-field>
 
       <mat-form-field class="entity-view__card__content__item merchant-provider-view__details__input--numbers">
-        <input [disabled]="mode === modes.View" (keydown)="isPercentage($event,entity.processing.reserveRate)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_RESERVE' | translate}}" name="reserveRate" [(ngModel)]="entity.processing.reserveRate" type="text">
+        <input [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditProcessing)" (keydown)="isPercentage($event,entity.processing.reserveRate)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_PROCESSING_RESERVE' | translate}}" name="reserveRate" [(ngModel)]="entity.processing.reserveRate" type="text">
       </mat-form-field>
+
+    </div>
+    <div *ngIf="mode !== modes.View && shouldEditProcessing" class="entity-view__card__actions merchant-provider--create__buttons">
+      <div (click)="cancel.emit(true)">{{'MERCHANTPROVIDER_INFO_CANCEL' | translate}}</div>
+      <div (click)="saveProvider(merchantProviderForm.form.valid)">{{'MERCHANTPROVIDER_INFO_SAVE' | translate}}</div>
     </div>
   </div>
 
   <div class="entity-view__card" [class.entity-view__card--create]="mode === modes.Add">
     <div class="entity-view__card__header">
       <div class="entity-view__card__header__title">{{'MERCHANTPROVIDER_INFO_GATEWAY_TITLE' | translate}}</div>
+      <ng-container *ngIf="mode === modes.View">
+        <mat-icon [matMenuTriggerFor]="editOptions">more_vert</mat-icon>
+        <mat-menu #editOptions="matMenu" x-position="before">
+          <button mat-menu-item (click)="changeMode.emit(modes.Update); enableEdit('shouldEditGateway')">{{'MERCHANTPROVIDER_INFO_EDIT' | translate}}</button>
+        </mat-menu>
+      </ng-container>
     </div>
 
     <div class="entity-view__card__content merchant-provider-view__details">
 
       <mat-form-field class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.name">
-        <input required [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_NAME' | translate}}" name="gatewayName" [(ngModel)]="entity.gateway.name" type="text">
+        <input required [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditGateway)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_NAME' | translate}}" name="gatewayName" [(ngModel)]="entity.gateway.name" type="text">
       </mat-form-field>
 
       <dropdown-component
         [class.error]="formInvalid && !entity.gateway.isTypeSelected()"
-        [disabled]="mode === modes.View"
+        [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditGateway)"
         [options]="allProviders"
         [selected]="entity.gateway.getType()"
         [placeholder]="'MERCHANTPROVIDER_INFO_GATEWAY_TYPE' | translate"
@@ -92,70 +120,81 @@
 
       <ng-container *ngIf="entity.gateway.getType()">
         <mat-form-field *ngIf="entity.gateway.isNMI()" class="entity-view__card__content__item">
-          <input [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_PROCESSORID' | translate}}" name="processorId" [(ngModel)]="entity.gateway.processorId" type="text">
+          <input [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditGateway)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_PROCESSORID' | translate}}" name="processorId" [(ngModel)]="entity.gateway.processorId" type="text">
         </mat-form-field>
 
         <mat-form-field *ngIf="entity.gateway.isInnovio()" class="entity-view__card__content__item">
-          <input [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_PRODUCTID' | translate}}" name="productId" [(ngModel)]="entity.gateway.productId" type="text">
+          <input [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditGateway)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_PRODUCTID' | translate}}" name="productId" [(ngModel)]="entity.gateway.productId" type="text">
         </mat-form-field>
 
         <mat-form-field *ngIf="entity.gateway.isNMI() || entity.gateway.isInnovio() || entity.gateway.isPaymentXP()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.username && (entity.gateway.isNMI() || entity.gateway.isInnovio())">
-          <input [required]="entity.gateway.isNMI() || entity.gateway.isInnovio()" [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_USERNAME' | translate}}" name="username" [(ngModel)]="entity.gateway.username" type="text">
+          <input [required]="entity.gateway.isNMI() || entity.gateway.isInnovio()" [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditGateway)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_USERNAME' | translate}}" name="username" [(ngModel)]="entity.gateway.username" type="text">
         </mat-form-field>
 
         <mat-form-field *ngIf="entity.gateway.isNMI() || entity.gateway.isInnovio() || entity.gateway.isPaymentXP()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.password && (entity.gateway.isNMI() || entity.gateway.isInnovio())">
-          <input [required]="entity.gateway.isNMI() || entity.gateway.isInnovio()" [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_PASSWORD' | translate}}" name="password" [(ngModel)]="entity.gateway.password" type="text">
+          <input [required]="entity.gateway.isNMI() || entity.gateway.isInnovio()" [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditGateway)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_PASSWORD' | translate}}" name="password" [(ngModel)]="entity.gateway.password" type="text">
         </mat-form-field>
 
         <mat-form-field *ngIf="entity.gateway.isStripe()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.apiKey">
-          <input required [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_APIKEY' | translate}}" name="apikey" [(ngModel)]="entity.gateway.apiKey" type="text">
+          <input required [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditGateway)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_APIKEY' | translate}}" name="apikey" [(ngModel)]="entity.gateway.apiKey" type="text">
         </mat-form-field>
 
         <mat-form-field *ngIf="entity.gateway.isAuthorizeNet()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.apiKey">
-          <input required [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_APIKEY' | translate}}" name="apikey" [(ngModel)]="entity.gateway.apiKey" type="text">
+          <input required [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditGateway)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_APIKEY' | translate}}" name="apikey" [(ngModel)]="entity.gateway.apiKey" type="text">
         </mat-form-field>
 
         <mat-form-field *ngIf="entity.gateway.isAuthorizeNet()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.transactionKey">
-          <input required [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_TRANSACTIONKEY' | translate}}" name="transactionkey" [(ngModel)]="entity.gateway.transactionKey" type="text">
+          <input required [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditGateway)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_TRANSACTIONKEY' | translate}}" name="transactionkey" [(ngModel)]="entity.gateway.transactionKey" type="text">
         </mat-form-field>
 
         <mat-form-field *ngIf="entity.gateway.isPaymentXP()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.merchantId">
-          <input required [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_MERCHANTID' | translate}}" name="merchantid" [(ngModel)]="entity.gateway.merchantId" type="text">
+          <input required [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditGateway)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_MERCHANTID' | translate}}" name="merchantid" [(ngModel)]="entity.gateway.merchantId" type="text">
         </mat-form-field>
 
         <mat-form-field *ngIf="entity.gateway.isPaymentXP()" class="entity-view__card__content__item" [class.error]="formInvalid && !entity.gateway.merchantKey">
-          <input required [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_MERCHANTKEY' | translate}}" name="merchantkey" [(ngModel)]="entity.gateway.merchantKey" type="text">
+          <input required [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditGateway)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_GATEWAY_MERCHANTKEY' | translate}}" name="merchantkey" [(ngModel)]="entity.gateway.merchantKey" type="text">
         </mat-form-field>
       </ng-container>
+
+    </div>
+    <div *ngIf="mode !== modes.View && shouldEditGateway" class="entity-view__card__actions merchant-provider--create__buttons">
+      <div (click)="cancel.emit(true)">{{'MERCHANTPROVIDER_INFO_CANCEL' | translate}}</div>
+      <div (click)="saveProvider(merchantProviderForm.form.valid)">{{'MERCHANTPROVIDER_INFO_SAVE' | translate}}</div>
     </div>
   </div>
 
   <div class="entity-view__card" [class.entity-view__card--create]="mode === modes.Add">
     <div class="entity-view__card__header">
       <div class="entity-view__card__header__title">{{'MERCHANTPROVIDER_INFO_SERVICE_TITLE' | translate}}</div>
+      <ng-container *ngIf="mode === modes.View">
+        <mat-icon [matMenuTriggerFor]="editOptions">more_vert</mat-icon>
+        <mat-menu #editOptions="matMenu" x-position="before">
+          <button mat-menu-item (click)="changeMode.emit(modes.Update); enableEdit('shouldEditCustomerService')">{{'MERCHANTPROVIDER_INFO_EDIT' | translate}}</button>
+        </mat-menu>
+      </ng-container>
     </div>
 
     <div class="entity-view__card__content merchant-provider-view__details merchant-provider-view__details--align">
 
       <mat-form-field class="entity-view__card__content__item">
-        <input [disabled]="mode === modes.View" pattern="https?://.+" matInput placeholder="{{'MERCHANTPROVIDER_INFO_SERVICE_URI' | translate}}" name="url" [(ngModel)]="entity.customerService.url" type="text">
+        <input [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditCustomerService)" pattern="https?://.+" matInput placeholder="{{'MERCHANTPROVIDER_INFO_SERVICE_URI' | translate}}" name="url" [(ngModel)]="entity.customerService.url" type="text">
       </mat-form-field>
 
       <mat-form-field class="entity-view__card__content__item">
-        <input [disabled]="mode === modes.View" (keydown)="isEmail($event, entity.customerService.email)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_SERVICE_EMAIL' | translate}}" name="email" [(ngModel)]="entity.customerService.email" type="text">
+        <input [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditCustomerService)" (keydown)="isEmail($event, entity.customerService.email)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_SERVICE_EMAIL' | translate}}" name="email" [(ngModel)]="entity.customerService.email" type="text">
       </mat-form-field>
 
       <mat-form-field class="entity-view__card__content__item">
-        <input [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_SERVICE_PHONE' | translate}}" [textMask]="{mask: mask, guide: false}" name="phone" [(ngModel)]="entity.customerService.phone" type="text">
+        <input [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditCustomerService)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_SERVICE_PHONE' | translate}}" [textMask]="{mask: mask, guide: false}" name="phone" [(ngModel)]="entity.customerService.phone" type="text">
       </mat-form-field>
 
       <mat-form-field class="entity-view__card__content__item">
-        <input [disabled]="mode === modes.View" matInput placeholder="{{'MERCHANTPROVIDER_INFO_SERVICE_DESCRIPTION' | translate}}" name="description" [(ngModel)]="entity.customerService.description" type="text">
+        <input [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditCustomerService)" matInput placeholder="{{'MERCHANTPROVIDER_INFO_SERVICE_DESCRIPTION' | translate}}" name="description" [(ngModel)]="entity.customerService.description" type="text">
       </mat-form-field>
 
     </div>
 
-    <div *ngIf="mode === modes.Add" class="entity-view__card__actions merchant-provider--create__buttons">
+    <div *ngIf="mode === modes.Add || (mode === modes.Update && shouldEditCustomerService)" class="entity-view__card__actions merchant-provider--create__buttons">
       <div (click)="cancel.emit(true)">{{'MERCHANTPROVIDER_INFO_CANCEL' | translate}}</div>
       <div (click)="saveProvider(merchantProviderForm.form.valid)">{{'MERCHANTPROVIDER_INFO_SAVE' | translate}}</div>
     </div>

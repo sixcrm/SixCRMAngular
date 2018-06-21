@@ -36,15 +36,41 @@ export class MerchantProviderAddNewComponent implements OnInit {
   allCreditCards: string[] = ['American Express', 'Mastercard', 'Visa', 'Discover', 'LOCAL CARD'];
   allProviders: string[] = ['NMI', 'Innovio', 'Test', 'Stripe', 'AuthorizeNet', 'PaymentXP'];
 
+  shouldEditSettings: boolean;
+  shouldEditProcessing: boolean;
+  shouldEditGateway: boolean;
+  shouldEditCustomerService: boolean;
+
   constructor() { }
 
   ngOnInit() { }
 
   saveProvider(valid: boolean): void {
-    this.formInvalid = !valid || !this.entity.acceptedPaymentMethods.length;
+    this.formInvalid = !valid || !this.entity.acceptedPaymentMethods.length || !this.entity.gateway.name;
     if (this.formInvalid) return;
 
     this.save.emit(this.entity);
+  }
+
+  enableEdit(cardName: string) {
+    this.shouldEditSettings = false;
+    this.shouldEditProcessing = false;
+    this.shouldEditGateway = false;
+    this.shouldEditCustomerService = false;
+
+    switch (cardName) {
+      case 'shouldEditProcessing':
+        this.shouldEditProcessing = true;
+        break;
+      case 'shouldEditGateway':
+        this.shouldEditGateway = true;
+        break;
+      case 'shouldEditCustomerService':
+        this.shouldEditCustomerService = true;
+        break;
+      default:
+        this.shouldEditSettings = true;
+    }
   }
 
 }

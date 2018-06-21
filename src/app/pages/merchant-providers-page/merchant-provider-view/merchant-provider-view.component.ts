@@ -76,9 +76,6 @@ export class MerchantProviderViewComponent extends AbstractEntityViewComponent<M
   }
 
   saveProvider(entity: MerchantProvider): void {
-    this.formInvalid = !this.merchantProviderAddNewComponent.inputForm.valid || !entity.gateway.name;
-    if (this.formInvalid) return;
-
     this.saveOrUpdate(entity);
   }
 
