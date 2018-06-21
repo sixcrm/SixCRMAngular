@@ -7,19 +7,19 @@ export class EntityViewPage {
   }
 
   getEntityNameHeader() {
-    return element(by.css('.entity-view__info__data__name')).element(by.css('span'));
+    return element(by.css('.entity-view')).element(by.css('.title'));
   }
 
   getEntityNameHeaderSolo() {
-    return element(by.css('.entity-view__info__data__name'));
+    return element(by.css('.entity-view')).element(by.css('.title'));
   }
 
   getEntityNameFormHeader() {
-    return element(by.css('.entity-view__info__data__name')).element(by.css('input'));
+    return element(by.css('.entity-view')).element(by.css('input'));
   }
 
   getUpdateButtonHeader() {
-    return element(by.css('.entity-view__info__edit__update'));
+    return element(by.css('.entity-view__card__header')).element(by.css('mat-icon'));
   }
 
   getAddNewModal() {

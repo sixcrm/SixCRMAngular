@@ -91,7 +91,7 @@ describe('Merchant Provider', function() {
 
 
 
-  it('should merchant provider details', () => {
+  it('should show merchant provider details', () => {
     browser.sleep(2000);
     expect(view.getEntityNameHeader().getText()).toEqual('e2e merchant provider');
   });
@@ -99,7 +99,7 @@ describe('Merchant Provider', function() {
   it('should update merchant provider', () => {
     view.getUpdateButtonHeader().click();
     browser.sleep(200);
-
+    browser.pause();
     view.getEntityNameFormHeader().sendKeys(' updated');
     view.getUpdateButtonHeader().click();
   });
