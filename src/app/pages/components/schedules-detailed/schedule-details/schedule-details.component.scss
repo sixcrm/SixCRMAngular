@@ -141,3 +141,16 @@ $container-width: 350px;
 mat-form-field {
   width: 140px;
 }
+
+.cycle-input {
+  width: 30px;
+}
+
+.radio-buttons {
+  margin-top: 25px;
+  font-size: 13px;
+
+  mat-radio-button:first-of-type {
+    margin-bottom: 12px;
+  }
+}

@@ -48,12 +48,12 @@ export class Session implements Entity<Session> {
     this.subAffiliate3 = new Affiliate(obj.subaffiliate_3);
     this.subAffiliate4 = new Affiliate(obj.subaffiliate_4);
     this.subAffiliate5 = new Affiliate(obj.subaffiliate_5);
-    this.watermark = new Watermark(obj.watermark);
     this.cancelled = new SessionCancelation(obj.cancelled);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
     this.updatedAtAPI = obj.updated_at;
     this.startedAt = utc(obj.created_at).hour(0).minute(0).second(0).millisecond(0);
+    this.watermark = new Watermark(obj.watermark, this.createdAt.clone());
 
     if (obj.product_schedules) {
       this.productSchedules = obj.product_schedules.map(ps => new ProductSchedule(ps));

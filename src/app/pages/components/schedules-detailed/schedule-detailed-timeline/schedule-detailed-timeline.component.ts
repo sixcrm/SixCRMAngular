@@ -159,8 +159,10 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
     }
   }
 
-  dragResizeStarted(event, schedule: Schedule) {
+  dragResizeStarted(event, schedule: Schedule, cycleNum: number) {
     this.selected.emit(schedule);
+
+    if (schedule.sameDayOfMonth && cycleNum < (schedule.cycles.length - 1)) return;
 
     this.startX = event.clientX;
     for (let i = 0; i < schedule.cycles.length; i++) {
@@ -173,6 +175,8 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
   dragResize(event, schedule: Schedule, cycleNum: number) {
     if (event.clientX === 0) return;
 
+    if (schedule.sameDayOfMonth && cycleNum < (schedule.cycles.length - 1)) return;
+
     schedule.cycles[cycleNum].dragdiffDiff = event.clientX - this.startX;
 
     const dragdiffDays = Math.floor((event.clientX - this.startX) / (this.cellwidth / this._zoom));
@@ -184,11 +188,13 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
   }
 
   dragResizeEnded(event, schedule: Schedule, cycleNum: number) {
+    if (schedule.sameDayOfMonth && cycleNum < (schedule.cycles.length - 1)) return;
+
     this.changeDebouncer.next(true);
 
     let diffInDays = Math.floor((event.clientX - this.startX) / (this.cellwidth / this._zoom));
 
-    if (+schedule.period + diffInDays < 1) {
+    if (!schedule.sameDayOfMonth && +schedule.period > 0 && +schedule.period + diffInDays < 1) {
       diffInDays = 1 - +schedule.period;
     }
 

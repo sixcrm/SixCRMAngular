@@ -25,19 +25,15 @@
           <div class="body">
             <div class="body__row">
               <mat-form-field>
-                <input type="text" auto-focus matInput placeholder="Start" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.start" (input)="recalculate()">
+                <input type="text" auto-focus matInput placeholder="Start" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.start">
               </mat-form-field>
 
               <mat-form-field>
-                <input type="text" matInput placeholder="End" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.end" (input)="recalculate()">
+                <input type="text" matInput placeholder="End" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.end">
               </mat-form-field>
             </div>
 
             <div class="body__row">
-              <mat-form-field>
-                <input type="text" matInput placeholder="Cycle" (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.period" (input)="recalculate()">
-              </mat-form-field>
-
               <autocomplete-input
                 [fullWidth]="true"
                 [initialValue]="_scheduleBackup.product"
@@ -47,6 +43,22 @@
                 [mapFunction]="productMapper"
                 (selected)="_scheduleBackup.product = $event">
               </autocomplete-input>
+            </div>
+
+            <div class="radio-buttons">
+
+              <mat-radio-button class="radio-blue" (click)="setCycleNoRepeat()" [checked]="+_scheduleBackup.period === 0 && !_scheduleBackup.sameDayOfMonth">No cycle repeat</mat-radio-button>
+
+              <mat-radio-button class="radio-blue" (click)="setCycleSameDay()" [checked]="_scheduleBackup.sameDayOfMonth">Repeat cycle same day each month</mat-radio-button>
+
+              <mat-radio-button class="radio-blue" (click)="setCycleRepeatEvery()" [checked]="+_scheduleBackup.period > 0 && !_scheduleBackup.sameDayOfMonth">
+                Repeat cycle every
+                <mat-form-field class="cycle-input">
+                  <input type="text" matInput (keydown)="isNumeric($event)" [(ngModel)]="_scheduleBackup.period">
+                </mat-form-field>
+                Days
+              </mat-radio-button>
+
             </div>
           </div>
 

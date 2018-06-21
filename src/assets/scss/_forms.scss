@@ -263,7 +263,15 @@ dropdown-component {
     }
   }
 }
+.radio-blue.mat-radio-checked {
+  .mat-radio-outer-circle {
+    border-color: #4A90E2 !important;
+  }
 
+  .mat-radio-inner-circle {
+    background-color: #4A90E2 !important;
+  }
+}
 .checkbox-blue.mat-checkbox-checked {
   .mat-checkbox-background {
     background-color: #4A90E2;;

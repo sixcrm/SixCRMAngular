@@ -121,13 +121,12 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
     return null;
   }
 
-  recalculate() { }
-
   saveSchedule() {
     this._schedule.start = +this._scheduleBackup.start;
     this._schedule.end = +this._scheduleBackup.end;
     this._schedule.price = this._scheduleBackup.price;
     this._schedule.period = +this._scheduleBackup.period;
+    this._schedule.sameDayOfMonth = this._scheduleBackup.sameDayOfMonth;
     this._schedule.product = this._scheduleBackup.product.copy();
 
     this.save.emit(true);
@@ -186,5 +185,20 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
     }else if (this._product && !this.singleScheduleMode) {
       this.removeProduct();
     }
+  }
+
+  setCycleNoRepeat() {
+    this._scheduleBackup.period = 0;
+    this._scheduleBackup.sameDayOfMonth = false;
+  }
+
+  setCycleSameDay() {
+    this._scheduleBackup.period = 0;
+    this._scheduleBackup.sameDayOfMonth = true;
+  }
+
+  setCycleRepeatEvery() {
+    this._scheduleBackup.period = this._scheduleBackup.period  || 30;
+    this._scheduleBackup.sameDayOfMonth = false;
   }
 }

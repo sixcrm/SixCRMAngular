@@ -1,6 +1,5 @@
 import {Schedule} from './schedule.model';
 import {Entity} from './entity.interface';
-import {MerchantProviderGroup} from './merchant-provider-group.model';
 import {Moment, utc} from 'moment';
 import {Currency} from '../utils/currency/currency';
 
@@ -11,7 +10,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
   firstSchedulePrice: Currency = new Currency(0);
   firstSchedule: Schedule = new Schedule();
   schedules: Schedule[] = [];
-  schedulesOnDay: Schedule[] = [];
+  instantiationDate: Moment;
   createdAt: Moment;
   updatedAt: Moment;
   updatedAtAPI: string;
@@ -27,12 +26,19 @@ export class ProductSchedule implements Entity<ProductSchedule> {
     this.id = obj.id || '';
     this.name = obj.name || '';
     this.quantity = additional && additional.quantity ? additional.quantity : 1;
+    this.instantiationDate = additional && additional.instantiationDate ? additional.instantiationDate : null;
+
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
     this.updatedAtAPI = obj.updated_at;
 
     if (obj.schedule) {
-      this.schedules = obj.schedule.map(s => new Schedule(s, obj.days));
+      this.schedules = obj.schedule.map(s => {
+        s.instantiationDate = additional ? additional.instantiationDate : null;
+
+        return new Schedule(s, obj.days)
+      });
+
       this.firstSchedule = this.calculateFirstSchedule();
       this.firstSchedulePrice = this.firstSchedule ? this.firstSchedule.price : new Currency(0);
       this.start = this.getStart();
@@ -42,7 +48,7 @@ export class ProductSchedule implements Entity<ProductSchedule> {
 
   calculateFirstSchedule(): Schedule {
     let start = this.schedules[0] ? this.schedules[0].start : 0;
-    let schedule = this.schedules[0] ? this.schedules[0] : new Schedule;
+    let schedule = this.schedules[0] ? this.schedules[0] : new Schedule();
 
     for (let i = 0; i < this.schedules.length; i++) {
       if (this.schedules[i].start === 0) {
@@ -56,18 +62,6 @@ export class ProductSchedule implements Entity<ProductSchedule> {
     }
 
     return schedule;
-  }
-
-  calculateSchedulesOnDay(day: number): Schedule[] {
-    let schedules = [];
-
-    for (let i = 0; i < this.schedules.length; i++) {
-      if (this.schedules[i].start === day || (this.schedules[i].end <= day && this.schedules[i].period % day === 0)) {
-        schedules.push(this.schedules[i])
-      }
-    }
-
-    return schedules;
   }
 
   getStart(): number {
@@ -110,8 +104,13 @@ export class ProductSchedule implements Entity<ProductSchedule> {
     }
 
     let additional = {};
+
     if (this.quantity) {
       additional['quantity'] = this.quantity;
+    }
+
+    if (this.instantiationDate) {
+      additional['instantiationDate'] = this.instantiationDate;
     }
 
     return new ProductSchedule(obj, additional);

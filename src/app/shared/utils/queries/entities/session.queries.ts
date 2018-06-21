@@ -19,17 +19,6 @@ export function sessionsInfoListQuery(params: IndexQueryParameters): string {
 		}}`
 }
 
-export function sessionsByCustomer(customerId: string, params: IndexQueryParameters): string {
-  return `{
-		sessionlistbycustomer (customer:"${customerId}" ${paginationParamsQuery(params, true)}) {
-			sessions {
-			  ${sessionCustomerResponseQuery()}
-			}
-			${fullPaginationStringResponseQuery()}
-    }
-  }`
-}
-
 export function sessionsByAffiliate(affiliateId: string, params: IndexQueryParameters): string {
   return `{
 		sessionlistbyaffiliate (affiliate:"${affiliateId}" ${paginationParamsQuery(params, true)}) {
@@ -46,15 +35,6 @@ export function sessionQuery(id: string): string {
   {
 		session (id: "${id}") {
 			${sessionResponseQuery()}
-		}
-	}`
-}
-
-export function sessionDetailedQuery(id: string): string {
-  return `
-  {
-		session (id: "${id}") {
-			${sessionDetailedResponseQuery()}
 		}
 	}`
 }
@@ -167,29 +147,6 @@ export function sessionResponseQuery(): string {
     cancelled { cancelled cancelled_at cancelled_by { id name } }`;
 }
 
-export function sessionDetailedResponseQuery(): string {
-  return `
-    id alias created_at updated_at completed,
-    customer { id firstname lastname }
-    rebills {
-      id bill_at amount
-      product_schedules {
-        id, name,
-        schedule { price start end period product { id name sku } }
-      }
-      transactions {
-        id amount alias created_at updated_at processor_response
-        products { amount product { id name sku ship shipping_delay } }
-      }
-    },
-    cancelled { cancelled cancelled_at cancelled_by { id name } }`;
-}
-
-
 export function sessionInfoResponseQuery(): string {
   return `id alias created_at updated_at customer { id firstname lastname } product_schedules { id } rebills { id } campaign { id name }`;
-}
-
-export function sessionCustomerResponseQuery(): string {
-  return `id alias created_at updated_at product_schedules { id } rebills { id, bill_at, amount } campaign { id name }`;
 }

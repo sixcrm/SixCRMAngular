@@ -2,6 +2,7 @@ import {WatermarkProduct} from './watermark-product.model';
 import {WatermarkProductSchedule} from './watermark-product-schedule.model';
 import {ProductSchedule} from '../product-schedule.model';
 import {Product} from '../product.model';
+import {Moment} from 'moment';
 
 export class Watermark {
   products: WatermarkProduct[] = [];
@@ -10,10 +11,14 @@ export class Watermark {
   extractedProductSchedules: ProductSchedule[] = [];
   extractedProducts: Product[] = [];
 
-  constructor(obj?: any) {
+  private instantiationDate: Moment;
+
+  constructor(obj?: any, instantiationDate?: Moment) {
     if (!obj) {
       obj = {};
     }
+
+    this.instantiationDate = instantiationDate ? instantiationDate.clone() : null;
 
     if (obj.products) {
       this.products = obj.products.map(p => new WatermarkProduct(p));
@@ -33,13 +38,17 @@ export class Watermark {
         const productSchedule = ps.productSchedule.inverse();
         const additional = {quantity: ps.quantity};
 
+        if (this.instantiationDate) {
+          additional['instantiationDate'] = this.instantiationDate.clone();
+        }
+
         return new ProductSchedule(productSchedule, additional);
       });
     }
   }
 
   copy(): Watermark {
-    return new Watermark(this.inverse());
+    return new Watermark(this.inverse(), this.instantiationDate);
   }
 
   inverse() {
