@@ -147,19 +147,22 @@ export class GraphqlDocs2Component implements OnInit, OnDestroy {
 
   filterTroughAllTypes(): void {
     this.otherTypesFiltered = this.otherTypes;
-    this.otherTypesFiltered = this.otherTypes.filter( el => {
-      let name = el.name.toLowerCase();
-
-      return name.includes(this.filterString.toLowerCase());
-    });
-
     this.queryMutationTypesFiltered = JSON.parse(JSON.stringify(this.queryMutationTypes));
-    for(let i = 0; i < this.queryMutationTypes.length; i++) {
-      this.queryMutationTypesFiltered[i].fields = this.queryMutationTypes[i].fields.filter( el => {
+
+    if (this.filterString) {
+      this.otherTypesFiltered = this.otherTypes.filter(el => {
         let name = el.name.toLowerCase();
 
         return name.includes(this.filterString.toLowerCase());
       });
+
+      for (let i = 0; i < this.queryMutationTypes.length; i++) {
+        this.queryMutationTypesFiltered[i].fields = this.queryMutationTypes[i].fields.filter(el => {
+          let name = el.name.toLowerCase();
+
+          return name.includes(this.filterString.toLowerCase());
+        });
+      }
     }
   }
 }
