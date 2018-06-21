@@ -1,14 +1,8 @@
 .search-queries {
-  .mat-input-wrapper {
-    padding-bottom: 0;
-  }
 
-  .mat-input-infix {
+  .mat-form-field-infix {
     border-top: none;
-  }
-
-  .mat-input-underline {
-    display: none;
+    padding-top: 10px;
   }
 
   .mat-form-field-underline {
@@ -16,13 +10,14 @@
   }
 
   .mat-form-field-wrapper {
-    padding-bottom: 10px;
+    padding-bottom: 0px;
   }
 
   span {
     color: rgba(0, 0, 0, 0.54);
     font-size: 15px;
     margin-left: 14px;
+    top: -8px;
   }
 }
 
