@@ -1,0 +1,26 @@
+<div *ngIf="transactions" class="details">
+  <div class="head">
+    <div>Status</div>
+    <div>ID</div>
+    <div>Date</div>
+    <div>Card</div>
+    <div>Amount</div>
+  </div>
+
+  <div class="body">
+    <div class="row" *ngFor="let transaction of transactions">
+      <div>
+        <mat-icon class="error" *ngIf="transaction.chargeback || transaction.isError(); else successicon">error</mat-icon>
+        <ng-template #successicon>
+          <mat-icon class="success">done</mat-icon>
+        </ng-template>
+
+        {{transaction.getStatus()}}
+      </div>
+      <div>{{transaction.alias}}</div>
+      <div>{{transaction.createdAt | formatDateTime: 'MM/DD/YYYY h:mm a'}}</div>
+      <div>{{transaction.processorResponse.getCard().brand}} {{transaction.processorResponse.getCard().last4}}</div>
+      <div>{{transaction.amount.usd()}} <button mat-button (click)="showTransactionDetails(transaction)">View</button></div>
+    </div>
+  </div>
+</div>

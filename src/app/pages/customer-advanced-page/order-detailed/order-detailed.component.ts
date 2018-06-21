@@ -1,8 +1,13 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {Transaction} from '../../../shared/models/transaction.model';
-import {MatDialog} from '@angular/material';
-import {ViewTransactionDialogComponent} from '../../../dialog-modals/view-transaction-dialog/view-transaction-dialog.component';
 import {Order} from '../../../shared/models/order.model';
+import {ShippingReceipt} from '../../../shared/models/shipping-receipt.model';
+import {Products} from '../../../shared/models/products.model';
+import {firstIndexOf} from '../../../shared/utils/array.utils';
+
+interface Shipment {
+  shippingReceipt: ShippingReceipt,
+  products: Products[]
+}
 
 @Component({
   selector: 'order-detailed',
@@ -11,32 +16,50 @@ import {Order} from '../../../shared/models/order.model';
 })
 export class OrderDetailedComponent implements OnInit {
 
-  @Input() order: Order;
+  _order: Order;
+  shipments: Shipment[] = [];
+
+  @Input() set order(value: Order) {
+    this._order = value;
+
+    if (this._order) {
+      this.shipments = this.splitByShipment();
+    }
+  };
 
   @Output() backButtonSelected: EventEmitter<boolean> = new EventEmitter();
 
   @Output() refund: EventEmitter<Order> = new EventEmitter();
   @Output() ret: EventEmitter<Order> = new EventEmitter();
 
-  showFulfillment: boolean = false;
-
-  constructor(private dialog: MatDialog) { }
+  constructor() { }
 
   ngOnInit() {
   }
 
-  toggleShowFulfillment() {
-    this.showFulfillment = !this.showFulfillment;
-  }
+  splitByShipment(): Shipment[] {
+    let splitted: Shipment[] = [];
+    let noship: Shipment = {shippingReceipt: null, products: []};
 
-  showTransactionDetails(transaction: Transaction) {
-    let ref = this.dialog.open(ViewTransactionDialogComponent, {backdropClass: 'backdrop-blue'});
+    this._order.products.forEach(products => {
+      if (!products.shippingReceipt || !products.shippingReceipt.id) {
+        noship.products = [...noship.products, products];
+      } else {
+        const index = firstIndexOf(splitted, (el) => el.shippingReceipt.id === products.shippingReceipt.id);
 
-    ref.componentInstance.transaction = transaction.copy();
+        if (index !== -1) {
+          splitted[index].products = [...splitted[index].products, products];
+        } else {
+          splitted = [...splitted, {shippingReceipt: products.shippingReceipt.copy(), products: [products]}]
+        }
+      }
+    });
 
-    ref.afterClosed().take(1).subscribe(() => {
-      ref = null;
-    })
+    if (noship.products.length > 0) {
+      return [...splitted, noship];
+    }
+
+    return splitted;
   }
 
 }

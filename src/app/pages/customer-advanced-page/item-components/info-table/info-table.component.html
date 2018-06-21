@@ -19,3 +19,25 @@
     <div class="campaign" [routerLink]="['/campaigns', rebill.parentSession.campaign.id]">{{rebill.parentSession.campaign.name}}</div>
   </div>
 </div>
+
+<div *ngIf="order" class="details details--order">
+  <div class="item">
+    <div>Order Number</div>
+    <div>{{order.id}}</div>
+  </div>
+
+  <div class="item">
+    <div>Initial Order Date</div>
+    <div>{{order.session.createdAt | formatDateTime}}</div>
+  </div>
+
+  <div class="item">
+    <div>Rebill No</div>
+    <div>{{calculateCycle()}}</div>
+  </div>
+
+  <div class="item">
+    <div>Campaign</div>
+    <div class="campaign" [routerLink]="['/campaigns', order.session.campaign.id]">{{order.session.campaign.name}}</div>
+  </div>
+</div>

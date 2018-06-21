@@ -58,10 +58,10 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
 
     this.columnParams = [
       new ColumnParams('CUSTOMER_TRANSACTION_DATE', (e: Transaction) => e.createdAt.tz(f).format('MM/DD/YY h:mm A')),
-      new ColumnParams('CUSTOMER_TRANSACTION_STATUS', (e: Transaction) => e.chargeback ? 'Chargeback' : e.type)
-        .setMaterialIconMapper((e: Transaction) => e.chargeback ? 'error' : 'done')
-        .setMaterialIconBackgroundColorMapper((e: Transaction) => e.chargeback ? '#ffffff' : '#1EBEA5')
-        .setMaterialIconColorMapper((e: Transaction) => e.chargeback ? '#DC2547' : '#ffffff'),
+      new ColumnParams('CUSTOMER_TRANSACTION_STATUS', (e: Transaction) => e.getStatus())
+        .setMaterialIconMapper((e: Transaction) => e.chargeback || e.isError() ? 'error' : 'done')
+        .setMaterialIconBackgroundColorMapper((e: Transaction) => e.chargeback || e.isError() ? '#ffffff' : '#1EBEA5')
+        .setMaterialIconColorMapper((e: Transaction) => e.chargeback || e.isError() ? '#DC2547' : '#ffffff'),
       new ColumnParams('CUSTOMER_TRANSACTION_ORDER', (e: Transaction) => e.rebill.parentSession.alias).setClickable(true).setColor('#2C98F0').setSeparator(true),
       new ColumnParams('CUSTOMER_TRANSACTION_AMOUNT', (e: Transaction) => e.amount.usd()),
       new ColumnParams('CUSTOMER_TRANSACTION_REFUND', (e: Transaction) => e.type === 'refund' ? e.amount.usd() : '-').setAlign('center'),

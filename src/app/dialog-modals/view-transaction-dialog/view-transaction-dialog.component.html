@@ -1,6 +1,6 @@
 <div *ngIf="transaction" class="container">
 
-  <div class="title" [class.chargeback]="isChargeback()">
+  <div class="title" [class.chargeback]="transaction.chargeback || transaction.isError()">
     Transaction {{transaction.alias}}
   </div>
 
@@ -9,7 +9,7 @@
     <div class="item">
       <div class="key">Status</div>
       <div class="value">
-        <mat-icon class="icon" [class.icon--chargeback]="isChargeback()">{{isChargeback() ? 'error' : 'done'}}</mat-icon>
+        <mat-icon class="icon" [class.icon--chargeback]="transaction.chargeback || transaction.isError()">{{transaction.chargeback || transaction.isError() ? 'error' : 'done'}}</mat-icon>
         {{transaction.processorResponse.message}}
       </div>
     </div>

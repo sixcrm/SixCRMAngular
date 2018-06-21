@@ -41,6 +41,20 @@ export class Transaction implements Entity<Transaction>{
     }
   }
 
+  isError() {
+    return this.processorResponse.message === 'Error';
+  }
+
+  getStatus() {
+    if (this.chargeback) return 'Chargeback';
+
+    if (this.isError()) return 'Error';
+
+    if (this.type === 'refund') return 'Refund';
+
+    return 'Approved'
+  }
+
   copy(): Transaction {
     return new Transaction(this.inverse());
   }

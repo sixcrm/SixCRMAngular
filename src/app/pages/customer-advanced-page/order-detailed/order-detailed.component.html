@@ -1,6 +1,6 @@
 <div class="container">
 
-  <div class="chargeback" *ngIf="order.hasChargeback()">
+  <div class="chargeback" *ngIf="_order.hasChargeback()">
     CHARGEBACK
   </div>
 
@@ -8,14 +8,14 @@
     <div class="info">
       <button mat-button (click)="backButtonSelected.emit(true)"><mat-icon>keyboard_arrow_left</mat-icon> All Orders</button>
 
-      <div>Billed {{order.date | formatDateTime: 'MMMM DD, YYYY'}}</div>
+      <div>Billed {{_order.date | formatDateTime: 'MMMM DD, YYYY'}}</div>
       <div class="separator"></div>
-      <div class="refund" *ngIf="order.hasRefund(); else norefund" [matMenuTriggerFor]="refundDetails">
-        {{order.amountAfterRefund().usd()}}
+      <div class="refund" *ngIf="_order.hasRefund(); else norefund" [matMenuTriggerFor]="refundDetails">
+        {{_order.amountAfterRefund().usd()}}
         <mat-icon>keyboard_arrow_down</mat-icon>
       </div>
       <mat-menu #refundDetails="matMenu" x-position="before">
-        <div class="transactions-details-item" *ngFor="let transaction of order.rebill.transactions">
+        <div class="transactions-details-item" *ngFor="let transaction of _order.rebill.transactions">
           <div>{{transaction.chargeback ? 'Chargeback' : transaction.type === 'refund' ? 'Refund' : transaction.processorResponse.message}}</div>
           <div>{{transaction.createdAt | formatDateTime: 'MM/DD/YYYY h:mm A'}}</div>
           <div>{{transaction.processorResponse.getCard().brand}} {{transaction.processorResponse.getCard().last4}}</div>
@@ -24,142 +24,69 @@
       </mat-menu>
 
       <ng-template #norefund>
-        <div>{{order.amount.usd()}}</div>
+        <div>{{_order.amount.usd()}}</div>
       </ng-template>
 
       <button style="margin-left: auto"
               mat-button
-              [class.button-disabled]="!order.canRefund()"
-              [disabled]="!order.canRefund()"
-              (click)="refund.emit(order)">
+              [class.button-disabled]="!_order.canRefund()"
+              [disabled]="!_order.canRefund()"
+              (click)="refund.emit(_order)">
         Refund
       </button>
       <button mat-button
-              [class.button-disabled]="!order.canReturn()"
-              [disabled]="!order.canReturn()"
-              (click)="ret.emit(order)">
+              [class.button-disabled]="!_order.canReturn()"
+              [disabled]="!_order.canReturn()"
+              (click)="ret.emit(_order)">
         Return
       </button>
     </div>
   </div>
 
-  <div class="details-wrapper">
-    <div class="details">
-
-      <div class="title" [class.title--fulfillment]="showFulfillment" [class.title--chargeback]="!showFulfillment && order.hasChargeback()">
-        <div>{{showFulfillment ? 'Fulfillment' : 'Transactions'}}</div>
-        <div (click)="toggleShowFulfillment()">View {{!showFulfillment ? 'Fulfillment' : 'Transactions'}}</div>
-      </div>
-
-      <div *ngIf="showFulfillment; else transactions" class="fulfillment">
-        <div class="no-fulfillment">
-          <mat-icon>done</mat-icon>
-          <div>This order does not require fulfillment.</div>
-        </div>
-      </div>
-
-      <ng-template #transactions>
-        <div class="transactions" [class.transactions--chargeback]="order.hasChargeback()">
-          <div class="transaction" *ngFor="let transaction of order.rebill.transactions; let i = index">
-            <div *ngIf="i !== 0" class="separator"></div>
-
-            <ng-container *ngIf="transaction.chargeback; else successtransaction">
-              <div class="chargeback-title">
-                <transaction-status-icon [transaction]="transaction" [largeSize]="true"></transaction-status-icon>
-                <div>Chargeback</div>
-              </div>
-
-              <div class="column-items">
-                <div class="item">
-                  <div>Status</div>
-                  <div>{{transaction.processorResponse.message}}</div>
-                </div>
-
-                <div class="item">
-                  <div>Transaction Date</div>
-                  <div>{{transaction.createdAt | formatDateTime: 'MM/DD/YYYY h:mm A'}}</div>
-                </div>
-
-                <div class="item">
-                  <div>Card</div>
-                  <div>{{transaction.processorResponse.getCard().brand}} {{transaction.processorResponse.getCard().last4}}</div>
-                </div>
-
-                <div class="item">
-                  <div>Amount</div>
-                  <div>{{transaction.amount.usd()}}</div>
-                </div>
-
-                <div class="item">
-                  <div>MID</div>
-                  <div>{{transaction.merchantProvider.name}}</div>
-                </div>
-
-                <div class="item">
-                  <div>Type</div>
-                  <div>{{transaction.type}}</div>
-                </div>
-
-                <div class="item">
-                  <div>Response</div>
-                  <div>-</div>
-                </div>
-
-                <div class="item">
-                  <div>Message</div>
-                  <div>-</div>
-                </div>
-              </div>
-
-            </ng-container>
-
-            <ng-template #successtransaction>
-              <div class="status">
-                <transaction-status-icon [transaction]="transaction"></transaction-status-icon>
-                <div>{{transaction.processorResponse.message}}</div>
-              </div>
-              <div>{{transaction.createdAt | formatDateTime: 'MM/DD/YYYY h:mm A'}}</div>
-              <div>{{transaction.processorResponse.getCard().brand}} {{transaction.processorResponse.getCard().last4}}</div>
-              <div>{{transaction.amount.usd()}}</div>
-              <div *ngIf="transaction.type === 'refund'">Refund</div>
-              <div class="details-link" (click)="showTransactionDetails(transaction)">Details</div>
-            </ng-template>
-          </div>
-        </div>
-      </ng-template>
-
-    </div>
-
-    <div class="details">
-      <div class="title">
-        <div>General Information</div>
-      </div>
-
-      <div class="general">
-        <div class="key">Order Number</div>
-        <div class="value">{{order.session.alias}}</div>
-
-        <div class="key">Initial Order Date</div>
-        <div class="value">{{order.session.createdAt | formatDateTime: 'MMMM D, YYYY'}}</div>
-
-        <div class="key">Campaign</div>
-        <div class="value details-link" [routerLink]="['/campaigns', order.session.campaign.id]">{{order.session.campaign.name}}</div>
-
-        <div class="key">Rebill No</div>
-        <div class="value">{{order.rebill.calculateCycle()}}</div>
-      </div>
-    </div>
+  <div class="section">
+    <div class="title">General Information</div>
+    <info-table [order]="_order"></info-table>
   </div>
 
-  <div class="products">
-    <div class="title">Products</div>
+  <div class="section">
+    <div class="title">Transactions</div>
+    <transactions-table [transactions]="_order.rebill.transactions"></transactions-table>
+  </div>
 
-    <div class="products-wrapper">
-      <ng-container *ngFor="let product of order.products">
-        <product-item [product]="product"></product-item>
-      </ng-container>
-    </div>
+  <div *ngIf="shipments && shipments.length > 0" class="section">
+    <div class="title">Fulfillment</div>
 
+    <ng-container *ngFor="let shipment of shipments">
+      <div class="products--container">
+        <div class="heading">
+
+          <ng-container *ngIf="!shipment.shippingReceipt; else shipdetails">
+
+            <mat-icon>done</mat-icon>
+            <div>No Shipment Required</div>
+
+          </ng-container>
+
+          <ng-template #shipdetails>
+
+            <mat-icon *ngIf="shipment.shippingReceipt.status === 'delivered'; else pendingicon">done</mat-icon>
+            <ng-template #pendingicon>
+              <mat-icon class="pending-shipment" #pending>local_shipping</mat-icon>
+            </ng-template>
+            <div><span class="status">{{shipment.shippingReceipt.status}}</span> <span class="date">{{shipment.shippingReceipt.createdAt | formatDateTime: 'MMMM DD,YYYY h:mm a'}}</span></div>
+            <div class="link">Details</div>
+
+          </ng-template>
+
+        </div>
+
+        <div class="products--wrapper">
+          <ng-container *ngFor="let product of shipment.products">
+            <product-item [product]="product"></product-item>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
   </div>
 
 </div>

@@ -19,6 +19,7 @@ import {RouterModule} from '@angular/router';
 import {CustomerAdvancedOrdersComponent} from './customer-advanced-orders/customer-advanced-orders.component';
 import {OrderDetailedComponent} from './order-detailed/order-detailed.component';
 import {OrderItemComponent} from './order-item/order-item.component';
+import { TransactionsTableComponent } from './item-components/transactions-table/transactions-table.component';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import {OrderItemComponent} from './order-item/order-item.component';
     CustomerAdvancedSubscriptionsComponent,
     InfoTableComponent,
     ProductItemComponent,
-    OrderDetailedComponent
+    OrderDetailedComponent,
+    TransactionsTableComponent
   ],
   exports: [
     CustomerAdvancedComponent

@@ -20,8 +20,4 @@ export class ViewTransactionDialogComponent implements OnInit {
     this.dialogRef.close({});
   }
 
-  isChargeback() {
-    return this.transaction && this.transaction.chargeback;
-  }
-
 }
