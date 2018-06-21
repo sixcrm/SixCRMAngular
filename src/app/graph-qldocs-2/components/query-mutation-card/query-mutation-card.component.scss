@@ -28,6 +28,8 @@
 
     div {
       cursor: pointer;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 
@@ -53,6 +55,7 @@
   }
 
   table {
+    table-layout: fixed;
 
     thead{
       border-bottom: none;
@@ -74,6 +77,16 @@
 
         &:last-child {
           cursor: pointer;
+
+          @media only screen and (min-width: 1600px) {
+            max-width: 124px;
+            display: flex;
+          }
+
+          span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
         }
       }
     }
@@ -127,12 +140,26 @@
 
     .field__main {
       width: 33.33%;
+
+      @media only screen and (max-width: 1600px) {
+        width: 100%;
+      }
+    }
+
+    @media only screen and (max-width: 1600px) {
+      flex-wrap: wrap;
     }
   }
 
   side-container{
     width: 66.67%;
     height: calc(100vh - 210px);
+
+    @media only screen and (max-width: 1600px) {
+      width: 100%;
+      height: auto;
+      margin-bottom: -1px;
+    }
   }
 
   pre {
