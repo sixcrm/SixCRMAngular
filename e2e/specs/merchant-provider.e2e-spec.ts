@@ -96,7 +96,7 @@ describe('Merchant Provider', function() {
     expect(view.getEntityNameHeader().getText()).toEqual('e2e merchant provider');
   });
 
-  it('should update merchant provider', () => {
+  xit('should update merchant provider', () => {
     view.getUpdateButtonHeader().click();
     browser.sleep(200);
     browser.pause();
@@ -104,20 +104,20 @@ describe('Merchant Provider', function() {
     view.getUpdateButtonHeader().click();
   });
 
-  it('should persist updated merchant provider details', () => {
+  xit('should persist updated merchant provider details', () => {
     browser.sleep(2000);
 
     expect(view.getEntityNameHeader().getText()).toEqual('e2e merchant provider updated');
   });
 
-  it( 'should go back to campaign index', () =>  {
+  xit( 'should go back to campaign index', () =>  {
     merchantProvider.getMerchantIndexButton().click();
     browser.sleep(500);
     waitForUrlContains('merchantproviders');
     expectUrlToContain('merchantproviders');
   });
 
-  it('should delete merchant provider', () => {
+  xit('should delete merchant provider', () => {
 
     browser.sleep(500);
     merchantProvider.getMerchantDeleteButton().click();
