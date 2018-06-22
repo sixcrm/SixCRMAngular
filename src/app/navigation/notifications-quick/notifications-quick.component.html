@@ -1,3 +1,6 @@
+<div class="arrow">
+  <mat-icon>arrow_drop_up</mat-icon>
+</div>
 <div class="notifications-list">
   <div class="notifications-list__topnav">
     <span (click)="navigateAllNotifications()">{{'NOTIFICATIONSQUICK_VIEWALL' | translate}}</span>
@@ -6,9 +9,6 @@
     </div>
     <div class="notifications-list__topnav__options">
       <mat-icon (click)="navigateToSettings()">settings</mat-icon>
-    </div>
-    <div class="notifications-list__topnav__options">
-      <mat-icon class="arrow">arrow_drop_up</mat-icon>
     </div>
   </div>
   <div class="notifications-list__content">

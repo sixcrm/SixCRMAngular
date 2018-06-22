@@ -1,4 +1,7 @@
 .notifications-list {
+  position: fixed;
+  top: 71px;
+  right: 0;
 
   mat-icon {
     color: dimgrey;
@@ -12,14 +15,7 @@
     }
 
     &__options {
-      margin-right: -36px;
-
-      .arrow {
-        margin-left: -75px;
-        margin-top: -51px;
-        font-size: 42px;
-        color: white !important;
-      }
+      margin-right: 6px;
     }
   }
 
@@ -90,5 +86,16 @@
       margin-left: 4px;
     }
 
+  }
+}
+
+.arrow {
+  position: absolute;
+  top: -24px;
+  right: 25px;
+
+  mat-icon {
+    font-size: 42px;
+    color: white !important;
   }
 }
