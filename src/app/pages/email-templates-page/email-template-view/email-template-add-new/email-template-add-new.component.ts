@@ -5,6 +5,7 @@ import {SmtpProvider} from '../../../../shared/models/smtp-provider.model';
 import {SmtpProvidersService} from '../../../../entity-services/services/smtp-providers.service';
 import {Token} from '../token-list/token-list.component';
 import {Subject, Subscription} from 'rxjs';
+import {CustomServerError} from "../../../../shared/models/errors/custom-server-error";
 
 declare var tinymce;
 
@@ -67,7 +68,7 @@ export class EmailTemplateAddNewComponent implements OnInit, AfterViewInit, OnDe
   smtpProviderMapper = (smtp: SmtpProvider) => smtp.name;
 
   editor: any;
-  smtpProviders: SmtpProvider[] = [null];
+  smtpProviders: SmtpProvider[] | CustomServerError = [null];
 
   constructor(public smtpProviderService: SmtpProvidersService) { }
 
