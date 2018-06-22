@@ -55,7 +55,7 @@
         <div>You can send notifications to more of your devices and applications by adding them to Devices and Apps</div>
         <div class="icon"><div class="layer1"><div class="layer2"><div class="text">?</div></div></div></div>
       </div>
-      <div class="mrw-button test-button test-button--solo" [routerLink]="['/profile']" fragment="appsanddevices">APPS AND DEVICES</div>
+      <button mat-button class="mrw-button test-button test-button--solo" [routerLink]="['/profile']" fragment="appsanddevices">APPS AND DEVICES</button>
     </div>
 
     <div class="notifications-test-container">
@@ -63,11 +63,11 @@
         <div>You can send a test notification to every device and application based on your settings</div>
       </div>
       <div>
-        <div class="mrw-button test-button" (click)="sendTestAlert.emit(true)">TEST</div> <span class="test-text">Send alert level notification</span>
+        <button mat-button class="mrw-button test-button" (click)="sendTestAlert.emit(true)">TEST</button> <span class="test-text">Send alert level notification</span>
       </div>
 
       <div>
-        <div class="mrw-button test-button" (click)="sendTestNotification.emit(true)">TEST</div> <span class="test-text">Send general level notification</span>
+        <button mat-button class="mrw-button test-button" (click)="sendTestNotification.emit(true)">TEST</button> <span class="test-text">Send general level notification</span>
       </div>
     </div>
   </div>
