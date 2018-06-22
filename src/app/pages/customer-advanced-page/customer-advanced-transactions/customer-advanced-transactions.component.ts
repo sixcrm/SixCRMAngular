@@ -120,6 +120,16 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
     }
   }
 
+  multiOptionSelected(result: {items: Transaction[], option: string}) {
+    switch (result.option) {
+      case ('Refund'): {
+        this.openRefundDialog(result.items.filter(t => t.isRefundable()).map(t => t.copy()));
+        break
+      }
+      default: {}
+    }
+  }
+
   optionSelected(result: {item: Transaction, option: OptionItem}) {
     switch (result.option.label) {
       case ('View Details'): {

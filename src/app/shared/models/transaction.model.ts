@@ -55,6 +55,10 @@ export class Transaction implements Entity<Transaction>{
     return 'Approved'
   }
 
+  isRefundable() {
+    return !this.isError() && !this.chargeback && this.type !== 'refund';
+  }
+
   copy(): Transaction {
     return new Transaction(this.inverse());
   }

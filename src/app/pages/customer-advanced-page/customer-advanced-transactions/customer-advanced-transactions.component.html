@@ -6,6 +6,7 @@
     [rowColorFunction]="rowColorFunction"
     [options]="options"
     [bulkOptions]="bulkOptions"
+    (multiOptionSelected)="multiOptionSelected($event)"
     (optionSelected)="optionSelected($event)"
     (itemClicked)="itemClicked($event)">
   </table-memory-advanced>

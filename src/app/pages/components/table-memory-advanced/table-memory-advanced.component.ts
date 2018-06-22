@@ -24,6 +24,7 @@ export class TableMemoryAdvancedComponent implements OnInit, OnDestroy {
   @Input() loading: boolean;
   @Input() loadingNumberOfRows: number = 3;
 
+  @Output() multiOptionSelected: EventEmitter<{items: any[], option: string}> = new EventEmitter();
   @Output() optionSelected: EventEmitter<{item: any, option: OptionItem}> = new EventEmitter();
   @Output() itemClicked: EventEmitter<{item: any, param: ColumnParams<any>}> = new EventEmitter();
 
@@ -90,5 +91,14 @@ export class TableMemoryAdvancedComponent implements OnInit, OnDestroy {
 
   emitOptionSelected(item: any, option: OptionItem) {
     this.optionSelected.emit({item: item, option: option})
+  }
+
+  applyMultiOption() {
+    this.multiOptionSelected.emit(
+      {
+        items: this.items.filter(i => i['bulkSelected']),
+        option: this.selectedBulkOption
+      }
+    )
   }
 }

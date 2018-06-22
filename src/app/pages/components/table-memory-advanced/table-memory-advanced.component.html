@@ -15,14 +15,14 @@
 
       <div class="bulk-options">
         <div class="bulk-options__selection" [matMenuTriggerFor]="bulkOpts">
-          <span>{{selectedBulkOption || bulkOptions[0]}}</span> <mat-icon>keyboard_arrow_down</mat-icon>
+          <span>{{selectedBulkOption || 'Select Action'}}</span> <mat-icon>keyboard_arrow_down</mat-icon>
         </div>
 
         <mat-menu #bulkOpts="matMenu" x-position="before">
           <button mat-menu-item *ngFor="let option of bulkOptions" (click)="selectedBulkOption = option">{{ option | translate}}</button>
         </mat-menu>
 
-        <button mat-button [disabled]="getNumberOfSelected() === 0">APPLY</button>
+        <button mat-button [disabled]="getNumberOfSelected() === 0" (click)="applyMultiOption()">APPLY</button>
       </div>
     </ng-container>
 

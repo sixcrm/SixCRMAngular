@@ -4,40 +4,42 @@
     <mat-icon (click)="close()">close</mat-icon>
   </div>
 
-  <table>
-    <thead>
+  <div class="table-wrapper">
+    <table>
+      <thead>
       <th><mat-checkbox class="checkbox-blue" (change)="globalCheckboxClicked($event)"></mat-checkbox></th>
       <th>Card</th>
       <th>Date</th>
       <th>Reason for refund</th>
       <th>Total Charge</th>
       <th>Refund Amount</th>
-    </thead>
+      </thead>
 
-    <tbody>
-    <tr *ngFor="let transaction of transactions">
-      <td><mat-checkbox class="checkbox-blue" [(ngModel)]="transaction.selected"></mat-checkbox></td>
-      <td>
-        <div class="with-image">
-          <img src="{{'/assets/cards/' + (transaction.processorResponse.getCard().brand || '').toLowerCase() + '.svg'}}"> **** {{transaction.processorResponse.getCard().last4}}
-        </div>
-      </td>
-      <td>{{transaction.createdAt | formatDateTime}}</td>
-      <td>-</td>
-      <td>{{transaction.amount.usd()}}</td>
-      <td>
-        <mat-form-field>
-          <input currencyInput
-                 [initPrice]="transaction.amount"
-                 (priceChanged)="transaction.toBeRefunded = $event"
-                 type="text"
-                 matInput
-          >
-        </mat-form-field>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+      <tbody>
+      <tr *ngFor="let transaction of transactions">
+        <td><mat-checkbox class="checkbox-blue" [(ngModel)]="transaction.selected"></mat-checkbox></td>
+        <td>
+          <div class="with-image">
+            <img src="{{'/assets/cards/' + (transaction.processorResponse.getCard().brand || '').toLowerCase() + '.svg'}}"> **** {{transaction.processorResponse.getCard().last4}}
+          </div>
+        </td>
+        <td>{{transaction.createdAt | formatDateTime}}</td>
+        <td>-</td>
+        <td>{{transaction.amount.usd()}}</td>
+        <td>
+          <mat-form-field>
+            <input currencyInput
+                   [initPrice]="transaction.amount"
+                   (priceChanged)="transaction.toBeRefunded = $event"
+                   type="text"
+                   matInput
+            >
+          </mat-form-field>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
   <div class="total">
     <div>Total Refund to be Processed</div>

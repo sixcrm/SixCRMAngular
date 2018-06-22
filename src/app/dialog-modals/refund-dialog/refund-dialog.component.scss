@@ -15,6 +15,11 @@
     }
   }
 
+  .table-wrapper {
+    max-height: 55vh;
+    overflow: auto;
+  }
+
   table {
     th {
       color: #5F6368;

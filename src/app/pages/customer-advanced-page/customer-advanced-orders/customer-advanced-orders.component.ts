@@ -181,7 +181,7 @@ export class CustomerAdvancedOrdersComponent implements OnInit {
   openRefundDialog(order: Order) {
     let ref = this.dialog.open(RefundDialogComponent, {backdropClass: 'backdrop-blue'});
 
-    ref.componentInstance.transactions = order.rebill.copy().transactions.filter(t => t.type !== 'refund');
+    ref.componentInstance.transactions = order.rebill.copy().transactions.filter(t => t.isRefundable());
 
     ref.afterClosed().take(1).subscribe((result) => {
       ref = null;
