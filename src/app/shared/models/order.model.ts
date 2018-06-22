@@ -62,10 +62,11 @@ export class Order {
   }
 
   canRefund(): boolean {
-    const transactions = this.rebill.transactions.filter(t => t.type === 'sale').length;
-    const refunded = this.rebill.transactions.filter(t => t.type === 'refund').length;
+    for (let transaction of this.rebill.transactions) {
+      if (transaction.isRefundable()) return true;
+    }
 
-    return transactions > refunded;
+    return false;
   }
 
   canReturn(): boolean {

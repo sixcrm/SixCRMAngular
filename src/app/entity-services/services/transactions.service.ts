@@ -58,7 +58,7 @@ export class TransactionsService extends AbstractEntityService<Transaction> {
       return Observable.of(null);
     }
 
-    return this.queryRequest(refundTransactionMutation(transaction.id, amount)).map(data => {
+    return this.queryRequest(refundTransactionMutation(transaction.id, amount), {failStrategy: FailStrategy.Soft}).map(data => {
       if (data instanceof CustomServerError) {
         return null;
       }

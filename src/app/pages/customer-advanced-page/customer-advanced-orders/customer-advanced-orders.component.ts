@@ -194,7 +194,7 @@ export class CustomerAdvancedOrdersComponent implements OnInit {
           this.orders = this.orders.slice();
         }
 
-        if (this.selectedOrder.id === order.id) {
+        if (this.selectedOrder && this.selectedOrder.id === order.id) {
           this.selectedOrder.rebill.transactions = [...this.selectedOrder.rebill.transactions, result.refundedTransaction];
           this.selectedOrder = this.selectedOrder.copy();
         }

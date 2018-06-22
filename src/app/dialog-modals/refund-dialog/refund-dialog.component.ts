@@ -55,14 +55,18 @@ export class RefundDialogComponent implements OnInit {
     if (transactionsToBeRefunded.length > 0) {
 
     const firstTransactionToBeRefunded = transactionsToBeRefunded[0];
+    const refundAmount = firstTransactionToBeRefunded.toBeRefunded || firstTransactionToBeRefunded.amount;
 
     this.navigationService.setShowProcessingOrderOverlay(true);
 
     this.transactionService
-      .performTransactionRefund(firstTransactionToBeRefunded, firstTransactionToBeRefunded.toBeRefunded.amount.toFixed(2) + '')
+      .performTransactionRefund(firstTransactionToBeRefunded, refundAmount.amount.toFixed(2) + '')
       .subscribe(response => {
         this.navigationService.setShowProcessingOrderOverlay(false);
-        this.dialogRef.close({refundedTransaction: response})
+
+        if (response) {
+          this.dialogRef.close({refundedTransaction: response})
+        }
       });
     }
   }
