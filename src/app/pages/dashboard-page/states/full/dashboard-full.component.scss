@@ -14,7 +14,7 @@
 .quote {
   display: flex;
   flex-direction: column;
-  margin-top: 90px;
+  margin-top: 81px;
 
   .dashboard-message {
     color: #8EC9FD;
@@ -22,6 +22,7 @@
     font-size: 20px;
     font-weight: 400;
     margin-right: 30px;
+    margin-left: 30px;
 
     &__author {
       font-size: 16px;
