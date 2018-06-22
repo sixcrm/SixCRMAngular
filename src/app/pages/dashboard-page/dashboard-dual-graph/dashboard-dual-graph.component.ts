@@ -99,6 +99,7 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
         },
         lineColor: '#3967A8',
         tickLength: 0,
+        tickPixelInterval: 200,
         showLastLabel: true
       },
       tooltip: {
