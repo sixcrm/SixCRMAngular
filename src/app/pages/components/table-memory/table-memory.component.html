@@ -1,5 +1,5 @@
 <div class="entity-view__table-component">
-  <div *ngIf="showHeader" class="entity-view__table-component__header entity-view__table-component__header--homepage">
+  <div *ngIf="showHeader" class="entity-view__table-component__header entity-view__table-component__header--homepage" [class.campaign__header]="campaignHeader">
     <div class="entity-view__table-component__header__title">{{textOptions.title || 'Associated ' + title | translate}}</div>
     <mat-form-field *ngIf="filterEnabled" class="entity-view__table-component__header__filter">
       <input matInput placeholder="{{ 'INDEXPAGE_FILTER' | translate}}" [(ngModel)]="filterString" type="text">

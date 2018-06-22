@@ -60,6 +60,7 @@ export class TableMemoryComponent implements OnInit {
   @Input() loading: boolean;
   @Input() loadingNumberOfRows: number = 3;
   @Input() columnPreferencesEnabled: boolean = true;
+  @Input() campaignHeader: boolean = false;
 
   @Output() view: EventEmitter<boolean> = new EventEmitter();
   @Output() disassociate: EventEmitter<any> = new EventEmitter();

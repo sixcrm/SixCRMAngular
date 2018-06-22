@@ -25,7 +25,8 @@
             [associateDataMapper]="emailTemplateMapper"
             (associate)="associateEmailTemplate($event)"
             (disassociate)="disassociateEmailTemplate($event)"
-            (view)="viewEmailTemplate($event)">
+            (view)="viewEmailTemplate($event)"
+            [campaignHeader]="true">
           </table-memory>
         </div>
 
