@@ -1,40 +1,34 @@
 <div *ngIf="entity; else spinner" class="entity-view">
-  <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
 
-  <div (click)="navigation.back()" class="entity-view__change-mode"><mat-icon>reply</mat-icon></div>
-
-  <div class="entity-view__info">
-    <div class="entity-view__info__image">
-      <img src="/assets/images/result-item-transaction-white.svg" alt="">
-    </div>
-    <div class="entity-view__info__data">
-      <div *ngIf="!addMode" class="entity-view__info__data__date">{{'SINGLEPAGE_CREATED' | translate}}: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
-      <div class="entity-view__info__data__name">
-        <span *ngIf="viewMode; else createForm">
-          {{entityBackup.name}}
-        </span>
-        <ng-template #createForm>
-          <mat-form-field [class.error]="detailsFormInvalid && !entity.name">
-            <input required matInput placeholder="{{(addMode ? 'MERCHANTPROVIDERGROUP_INFO_NAME' : '') | translate}}" type="text" [(ngModel)]="entity.name">
-          </mat-form-field>
-        </ng-template>
-      </div>
-    </div>
-
-    <div class="entity-view__info__edit">
-      <div *ngIf="viewMode; else editButtons" class="entity-view__info__edit__update" (click)="setMode(modes.Update)">{{'MERCHANTPROVIDERGROUP_INFO_EDIT' | translate}}</div>
-      <ng-template #editButtons>
-        <div *ngIf="updateMode" (click)="cancelUpdate()">{{'MERCHANTPROVIDERGROUP_INFO_CANCEL' | translate}}</div>
-        <div class="entity-view__info__edit__update" (click)="updateMerchantProviderGroup()"> {{ (addMode ? 'MERCHANTPROVIDERGROUP_INFO_SAVE' : 'MERCHANTPROVIDERGROUP_INFO_UPDATE') | translate}}</div>
-      </ng-template>
-    </div>
-  </div>
+  <blue-header [items]="breadcrumbs" [titleValue]="entityBackup.name"></blue-header>
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
   <mat-tab-group [(selectedIndex)]="selectedIndex">
     <mat-tab>
       <div class="merchant-group__cards">
+        <div class="entity-view__card">
+          <div class="entity-view__card__header">
+            <div class="entity-view__card__header__title">{{'MERCHANTPROVIDERGROUP_MERCHANT_MERCHANT' | translate}}</div>
+            <ng-container *ngIf="viewMode">
+              <mat-icon [matMenuTriggerFor]="editOptions">more_vert</mat-icon>
+              <mat-menu #editOptions="matMenu" x-position="before">
+                <button mat-menu-item (click)="setMode(modes.Update)">{{'MERCHANTPROVIDERGROUP_INFO_EDIT' | translate}}</button>
+              </mat-menu>
+            </ng-container>
+          </div>
+          <form #merchantProviderInputForm="ngForm" class="entity-view__card__content">
+            <mat-form-field style="width: 110px" class="entity-view__card__content__item" [class.error]="detailsFormInvalid && !entity.name">
+              <input required [disabled]="viewMode" matInput placeholder="{{'MERCHANTPROVIDERGROUP_INFO_NAME' | translate}}"name="name" [(ngModel)]="entity.name" type="text">
+            </mat-form-field>
+          </form>
+
+          <div *ngIf="updateMode" class="entity-view__card__actions">
+            <div (click)="cancelUpdate()">{{'MERCHANTPROVIDERGROUP_INFO_CANCEL' | translate}}</div>
+            <div (click)="updateMerchantProviderGroup()">{{'MERCHANTPROVIDERGROUP_INFO_UPDATE' | translate}}</div>
+          </div>
+        </div>
+
         <div class="entity-view__card">
           <div class="entity-view__card__header">
             <div class="entity-view__card__header__title">{{'MERCHANTPROVIDERGROUP_MERCHANT_ADDTITLE' | translate}}</div>
