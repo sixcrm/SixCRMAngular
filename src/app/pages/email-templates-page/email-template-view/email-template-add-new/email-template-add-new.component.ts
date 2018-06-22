@@ -67,10 +67,15 @@ export class EmailTemplateAddNewComponent implements OnInit, AfterViewInit, OnDe
   smtpProviderMapper = (smtp: SmtpProvider) => smtp.name;
 
   editor: any;
+  smtpProviders: SmtpProvider[] = [null];
 
   constructor(public smtpProviderService: SmtpProvidersService) { }
 
   ngOnInit() {
+    this.smtpProviderService.entities$.take(1).subscribe((providers) => {
+      this.smtpProviders = providers;
+    });
+
     this.smtpProviderService.getEntities();
   }
 

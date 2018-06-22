@@ -31,14 +31,16 @@
     </dropdown-component>
 
     <dropdown-component class="email-template-view__dropdown"
+                        *ngIf="smtpProviders.length"
                         [class.error]="formInvalid && !entity.smtpProvider.id"
                         [disabled]="mode === modes.View"
-                        [options]="smtpProviderService.entities$ | async"
+                        [options]="smtpProviders"
                         [mapper]="smtpProviderMapper"
                         [selected]="entity.smtpProvider"
                         [placeholder]="'EMAILTEMPLATE_INFO_SMTPPROVIDER' | translate"
                         (onSelect)="entity.smtpProvider = $event">
     </dropdown-component>
+    <div [routerLink]="['/smtpproviders']" class="text" *ngIf="!smtpProviders.length">You need to create an SMTP provider first.</div>
 
     <mat-form-field [class.error]="formInvalid && !entity.subject" class="entity-view__card__content__item">
       <input required matInput [disabled]="mode === modes.View" name="subject" placeholder="{{'EMAILTEMPLATE_INFO_SUBJECT' | translate}}" [(ngModel)]="entity.subject" type="text">
