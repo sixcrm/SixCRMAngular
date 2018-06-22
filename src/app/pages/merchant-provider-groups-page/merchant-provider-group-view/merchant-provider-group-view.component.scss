@@ -3,3 +3,8 @@
     min-width: 450px;
   }
 }
+
+.merchant-group__cards {
+  display: flex;
+  flex-wrap: wrap;
+}

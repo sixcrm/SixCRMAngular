@@ -34,44 +34,46 @@
 
   <mat-tab-group [(selectedIndex)]="selectedIndex">
     <mat-tab>
-      <div class="entity-view__card">
-        <div class="entity-view__card__header">
-          <div class="entity-view__card__header__title">{{'MERCHANTPROVIDERGROUP_MERCHANT_ADDTITLE' | translate}}</div>
+      <div class="merchant-group__cards">
+        <div class="entity-view__card">
+          <div class="entity-view__card__header">
+            <div class="entity-view__card__header__title">{{'MERCHANTPROVIDERGROUP_MERCHANT_ADDTITLE' | translate}}</div>
+          </div>
+          <form #merchantProviderInputForm="ngForm" class="entity-view__card__content">
+            <mat-form-field style="width: 110px" class="entity-view__card__content__item" [class.error]="formInvalid && !providerToAdd.distribution">
+              <input matInput placeholder="{{'MERCHANTPROVIDERGROUP_MERCHANT_DISTRIBUTION' | translate}}" name="distribution" (keydown)="isFloatNumeric($event)" [(ngModel)]="providerToAdd.distribution" type="text">
+            </mat-form-field>
+
+            <autocomplete-input style="font-size: 14px;"
+                                [class.error]="formInvalid && !providerToAdd.merchantProvider.id"
+                                [mapFunction]="merchantProviderMapper"
+                                [initialValue]="providerToAdd.merchantProvider"
+                                [options]="merchantProviderService.entities$ | async"
+                                [placeholder]="'MERCHANTPROVIDERGROUP_MERCHANT_MERCHANT' | translate"
+                                (selected)="providerToAdd.merchantProvider = $event">
+            </autocomplete-input>
+          </form>
+
+          <div class="entity-view__card__actions">
+            <div (click)="clearAddProvider()">{{'MERCHANTPROVIDERGROUP_MERCHANT_CLEAR' | translate}}</div>
+            <div (click)="addProvider(providerToAdd.merchantProvider.id && providerToAdd.distribution)">{{'MERCHANTPROVIDERGROUP_MERCHANT_ADD' | translate}}</div>
+          </div>
         </div>
-        <form #merchantProviderInputForm="ngForm" class="entity-view__card__content">
-          <mat-form-field style="width: 110px" class="entity-view__card__content__item" [class.error]="formInvalid && !providerToAdd.distribution">
-            <input matInput placeholder="{{'MERCHANTPROVIDERGROUP_MERCHANT_DISTRIBUTION' | translate}}" name="distribution" (keydown)="isFloatNumeric($event)" [(ngModel)]="providerToAdd.distribution" type="text">
-          </mat-form-field>
 
-          <autocomplete-input style="font-size: 14px;"
-                              [class.error]="formInvalid && !providerToAdd.merchantProvider.id"
-                              [mapFunction]="merchantProviderMapper"
-                              [initialValue]="providerToAdd.merchantProvider"
-                              [options]="merchantProviderService.entities$ | async"
-                              [placeholder]="'MERCHANTPROVIDERGROUP_MERCHANT_MERCHANT' | translate"
-                              (selected)="providerToAdd.merchantProvider = $event">
-          </autocomplete-input>
-        </form>
-
-        <div class="entity-view__card__actions">
-          <div (click)="clearAddProvider()">{{'MERCHANTPROVIDERGROUP_MERCHANT_CLEAR' | translate}}</div>
-          <div (click)="addProvider(providerToAdd.merchantProvider.id && providerToAdd.distribution)">{{'MERCHANTPROVIDERGROUP_MERCHANT_ADD' | translate}}</div>
+        <div class="flex-custom">
+          <table-memory class="merchant-group__merchant-providers"
+                        [textOptions]="merchantText"
+                        [data]="entity.merchantProviderConfigurations"
+                        [associationEnabled]="false"
+                        [associateDataMapper]="merchantProviderConfigMapper"
+                        [columnParams]="merchantProviderColumnParams"
+                        [filterEnabled]="false"
+                        [customMenuOptions]="customOptions"
+                        (customMenuOptionSelected)="openEditMerchantProviderModal($event)"
+                        (view)="navigateToMerchantProvider($event)"
+                        (disassociate)="disassociateMerchantProvider($event)">
+          </table-memory>
         </div>
-      </div>
-
-      <div class="flex-custom">
-        <table-memory class="merchant-group__merchant-providers"
-                      [textOptions]="merchantText"
-                      [data]="entity.merchantProviderConfigurations"
-                      [associationEnabled]="false"
-                      [associateDataMapper]="merchantProviderConfigMapper"
-                      [columnParams]="merchantProviderColumnParams"
-                      [filterEnabled]="false"
-                      [customMenuOptions]="customOptions"
-                      (customMenuOptionSelected)="openEditMerchantProviderModal($event)"
-                      (view)="navigateToMerchantProvider($event)"
-                      (disassociate)="disassociateMerchantProvider($event)">
-        </table-memory>
       </div>
     </mat-tab>
   </mat-tab-group>
