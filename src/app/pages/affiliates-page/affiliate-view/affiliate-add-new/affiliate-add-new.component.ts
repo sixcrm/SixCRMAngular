@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Affiliate} from '../../../../shared/models/affiliate.model';
+import {Modes} from "../../../abstract-entity-view.component";
 
 @Component({
   selector: 'affiliate-add-new',
@@ -9,10 +10,14 @@ import {Affiliate} from '../../../../shared/models/affiliate.model';
 export class AffiliateAddNewComponent implements OnInit {
 
   @Input() entity: Affiliate;
+  @Input() displayInView: boolean = false;
+  @Input() mode: Modes;
 
   @Output() save: EventEmitter<Affiliate> = new EventEmitter();
   @Output() cancel: EventEmitter<boolean> = new EventEmitter();
+  @Output() changeMode: EventEmitter<Modes> = new EventEmitter();
 
+  modes = Modes;
   formInvalid: boolean;
 
   constructor() { }
@@ -21,6 +26,7 @@ export class AffiliateAddNewComponent implements OnInit {
   }
 
   saveAffiliate() {
+    console.log(this.entity.name, this.entity.affiliateId, this.entity)
     this.formInvalid = !this.entity.name || !this.entity.affiliateId;
     if (this.formInvalid) return;
 

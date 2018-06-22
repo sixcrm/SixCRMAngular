@@ -20,6 +20,7 @@ export class AffiliateViewComponent extends AbstractEntityViewComponent<Affiliat
   formInvalid: boolean;
 
   tabHeaders: TabHeaderElement[] = [
+    {name: 'general', label: 'AFFILIATE_TAB_GENERAL'},
     {name: 'tracking', label: 'AFFILIATE_TAB_TRACKING'},
     {name: 'sessions', label: 'AFFILIATE_TAB_SESSION'},
     {name: 'campaigns', label: 'AFFILIATE_TAB_CAMPAIGN'}
