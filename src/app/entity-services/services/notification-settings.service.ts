@@ -49,13 +49,13 @@ export class NotificationSettingsService extends AbstractEntityService<Notificat
 
   sendTestNotification(): void {
     this.queryRequest(sendTestNotification()).subscribe(() =>
-      this.notificationsQuickService.restartPoolingNotifications(2000)
+      this.notificationsQuickService.restartPoolingNotifications(500)
     )
   }
 
   sendTestAlert(): void {
     this.queryRequest(sendTestAlert()).subscribe(() =>
-      this.notificationsQuickService.restartPoolingNotifications(2000)
+      this.notificationsQuickService.restartPoolingNotifications(500)
     )
   }
 
