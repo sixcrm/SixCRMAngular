@@ -96,11 +96,15 @@ describe('Merchant Provider', function() {
     expect(view.getEntityNameHeader().getText()).toEqual('e2e merchant provider');
   });
 
-  xit('should update merchant provider', () => {
+  it('should update merchant provider', () => {
     view.getUpdateButtonHeader().click();
     browser.sleep(200);
-    browser.pause();
+    // browser.pause();
+    view.getUpdateMenuButton().click();
+    browser.sleep(500);
+
     view.getEntityNameFormHeader().sendKeys(' updated');
+    browser.sleep(5000);
     view.getUpdateButtonHeader().click();
   });
 

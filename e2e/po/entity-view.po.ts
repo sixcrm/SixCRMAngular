@@ -15,11 +15,15 @@ export class EntityViewPage {
   }
 
   getEntityNameFormHeader() {
-    return element(by.css('.entity-view')).element(by.css('input'));
+    return element(by.name('name'));
   }
 
   getUpdateButtonHeader() {
     return element(by.css('.entity-view__card__header')).element(by.css('mat-icon'));
+  }
+
+  getUpdateMenuButton() {
+    return element(by.css('.mat-menu-content')).element(by.css('button'));
   }
 
   getAddNewModal() {

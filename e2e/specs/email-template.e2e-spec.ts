@@ -1,7 +1,7 @@
 import {waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
 import {SidenavPage} from '../po/sidenav.po';
-import {doTOSCheck, login} from '../utils/action.utils';
+import {tosCheck, login} from '../utils/action.utils';
 import {browser} from 'protractor';
 import {expectUrlToContain, expectDefined} from '../utils/assertation.utils';
 import {EntityViewPage} from '../po/entity-view.po';
@@ -18,13 +18,13 @@ describe('Email Template', function() {
     view = new EntityViewPage();
   });
 
-  beforeAll(() => {
+  beforeAll((done) => {
     browser.driver.manage().window().setSize(1440, 900);
 
     browser.get('/');
     clearLocalStorage();
     login();
-    doTOSCheck();
+    tosCheck(done);
     waitForUrlContains('dashboard');
   });
 
