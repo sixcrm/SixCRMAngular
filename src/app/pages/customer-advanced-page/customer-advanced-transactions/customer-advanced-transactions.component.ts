@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Customer} from '../../../shared/models/customer.model';
 import {TransactionsService} from '../../../entity-services/services/transactions.service';
 import {Transaction} from '../../../shared/models/transaction.model';
@@ -13,6 +13,9 @@ import {
 import {IndexQueryParameters} from '../../../shared/utils/queries/index-query-parameters.model';
 import {Subscription} from 'rxjs';
 import {OptionItem} from '../../components/table-memory-advanced/table-memory-advanced.component';
+import {ViewTransactionDialogComponent} from '../../../dialog-modals/view-transaction-dialog/view-transaction-dialog.component';
+import {MatDialog} from '@angular/material';
+import {RefundDialogComponent} from '../../../dialog-modals/refund-dialog/refund-dialog.component';
 
 @Component({
   selector: 'customer-advanced-transactions',
@@ -32,10 +35,12 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
       this._customer = customer;
 
       if (performInit) {
-        this.initialize();
+        this.reinitialize();
       }
     }
   }
+
+  @Output() transactionRefunded: EventEmitter<boolean> = new EventEmitter();
 
   columnParams: ColumnParams<Transaction>[] = [];
   rowColorFunction = (e: Transaction) => e.chargeback ? 'rgba(220, 37, 71, 0.05)' : '#ffffff';
@@ -52,7 +57,8 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
   constructor(
     private transactionService: TransactionsService,
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {
     let f = this.authService.getTimezone();
 
@@ -83,7 +89,7 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
     }
   }
 
-  initialize() {
+  reinitialize() {
     this.transactionService.indexQuery = (params: IndexQueryParameters) => transactionsByCustomer(this._customer.id, params);
 
     this.sub = this.transactionService.entities$.subscribe(transactions => {
@@ -92,6 +98,7 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
       this.transactions = transactions;
     });
 
+    this.transactionService.resetPagination();
     this.transactionService.getEntities();
   }
 
@@ -111,6 +118,46 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
       }
       default: {}
     }
+  }
+
+  optionSelected(result: {item: Transaction, option: OptionItem}) {
+    switch (result.option.label) {
+      case ('View Details'): {
+        this.showTransactionDetails(result.item);
+        break
+      }
+      case ('Refund'): {
+        this.openRefundDialog([result.item.copy()]);
+        break
+      }
+      default: {}
+    }
+  }
+
+  showTransactionDetails(transaction: Transaction) {
+    let ref = this.dialog.open(ViewTransactionDialogComponent, {backdropClass: 'backdrop-blue'});
+
+    ref.componentInstance.transaction = transaction.copy();
+
+    ref.afterClosed().take(1).subscribe(() => {
+      ref = null;
+    })
+  }
+
+  openRefundDialog(transactions: Transaction[]) {
+    let ref = this.dialog.open(RefundDialogComponent, {backdropClass: 'backdrop-blue'});
+
+    ref.componentInstance.transactions = transactions;
+
+    ref.afterClosed().take(1).subscribe((result) => {
+      ref = null;
+
+      if (result && result.refundedTransaction) {
+        this.transactionService.resetPagination();
+        this.transactionService.getEntities();
+        this.transactionRefunded.emit(true);
+      }
+    })
   }
 
 }

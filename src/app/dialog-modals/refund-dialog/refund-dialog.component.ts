@@ -53,6 +53,7 @@ export class RefundDialogComponent implements OnInit {
     const transactionsToBeRefunded = this.transactions.filter(t => t.selected);
 
     if (transactionsToBeRefunded.length > 0) {
+
     const firstTransactionToBeRefunded = transactionsToBeRefunded[0];
 
     this.navigationService.setShowProcessingOrderOverlay(true);

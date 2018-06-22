@@ -1,13 +1,16 @@
 .container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   background: #ffffff;
-  width: 540px;
+  width: 480px;
   max-width: 50vw;
 
   .header {
     display: flex;
+    box-sizing: border-box;
     align-items: center;
+    width: 100%;
     padding: 18px 20px;
     color: #202124;
     font-size: 16px;
@@ -18,11 +21,54 @@
       width: 24px;
       height: 24px;
       font-size: 24px;
+      cursor: pointer;
     }
   }
 
   .body {
-    margin: 25px auto;
+    margin: 15px auto 40px;
+
+    .status-item {
+
+      .item {
+        display: flex;
+        position: relative;
+
+        .circle {
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: #1ebea5;
+        }
+
+        .details {
+          position: absolute;
+          top: 0;
+          left: 32px;
+          font-size: 16px;
+          color: #5F6368;
+          width: 200px;
+
+          div {
+            text-transform: capitalize;
+          }
+
+          div:nth-of-type(2) {
+            margin-top: 3px;
+            font-size: 12px;
+            color: #2C98F0;
+          }
+        }
+      }
+
+      .line {
+        margin: -1px 0 -1px 8px;
+        height: 36px;
+        width: 4px;
+        background: #1ebea5;
+      }
+
+    }
   }
 
 }

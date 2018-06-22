@@ -9,6 +9,8 @@ import {TabHeaderElement} from '../../shared/components/tab-header/tab-header.co
 import {CustomerInfoNotesComponent} from './customer-info-notes/customer-info-notes.component';
 import {TransactionsService} from '../../entity-services/services/transactions.service';
 import {BreadcrumbItem} from '../components/models/breadcrumb-item.model';
+import {CustomerAdvancedOrdersComponent} from './customer-advanced-orders/customer-advanced-orders.component';
+import {CustomerAdvancedTransactionsComponent} from './customer-advanced-transactions/customer-advanced-transactions.component';
 
 @Component({
   selector: 'customer-advanced',
@@ -16,6 +18,9 @@ import {BreadcrumbItem} from '../components/models/breadcrumb-item.model';
   styleUrls: ['./customer-advanced.component.scss']
 })
 export class CustomerAdvancedComponent  extends AbstractEntityViewComponent<Customer> implements OnInit {
+
+  @ViewChild(CustomerAdvancedOrdersComponent) ordersComponent: CustomerAdvancedOrdersComponent;
+  @ViewChild(CustomerAdvancedTransactionsComponent) transactionsComponent: CustomerAdvancedTransactionsComponent;
 
   breadcrumbs: BreadcrumbItem[] = [
     {label: () => 'Customers', url: '/customers'}
@@ -44,8 +49,7 @@ export class CustomerAdvancedComponent  extends AbstractEntityViewComponent<Cust
   constructor(
     service: CustomersService,
     route: ActivatedRoute,
-    public navigation: NavigationService,
-    private transactionsService: TransactionsService
+    public navigation: NavigationService
   ) {
     super(service, route);
   }
@@ -73,7 +77,15 @@ export class CustomerAdvancedComponent  extends AbstractEntityViewComponent<Cust
   }
 
   refreshTransactions() {
-    this.transactionsService.getEntities();
+    if (this.transactionsComponent) {
+      this.transactionsComponent.reinitialize();
+    }
+  }
+
+  refreshOrders() {
+    if (this.ordersComponent) {
+      this.ordersComponent.reinitialize();
+    }
   }
 
   canDeactivate() {

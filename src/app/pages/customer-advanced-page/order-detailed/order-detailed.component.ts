@@ -6,7 +6,8 @@ import {firstIndexOf} from '../../../shared/utils/array.utils';
 
 interface Shipment {
   shippingReceipt: ShippingReceipt,
-  products: Products[]
+  products: Products[],
+  showDetails?: boolean
 }
 
 @Component({

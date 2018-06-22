@@ -2,20 +2,31 @@
 
   <div class="header">
     <div>Delivery Details</div>
-    <mat-icon>close</mat-icon>
+    <mat-icon (click)="close.emit(true)">close</mat-icon>
   </div>
 
   <div *ngIf="shippingReceipt" class="body">
 
     <div class="status-item" *ngFor="let historyItem of shippingReceipt.history">
-      <div class="circle"></div>
-      <div class="label">{{historyItem.status}}</div>
+      <div class="item">
+        <div class="circle"></div>
+        <div class="details">
+          <div>{{historyItem.status}}</div>
+          <div>{{historyItem.details}} {{shippingReceipt.createdAt | formatDateTime: 'MM/DD/YY h:mm a'}}</div>
+        </div>
+      </div>
+
       <div class="line"></div>
     </div>
 
     <div class="status-item">
-      <div class="circle"></div>
-      <div class="label">Order placed</div>
+      <div class="item">
+        <div class="circle"></div>
+        <div class="details">
+          <div>Order placed</div>
+          <div>{{shippingReceipt.createdAt | formatDateTime: 'MM/DD/YY h:mm a'}}</div>
+        </div>
+      </div>
     </div>
 
   </div>

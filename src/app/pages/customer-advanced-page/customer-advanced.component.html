@@ -17,7 +17,7 @@
         <customer-advanced-orders [customer]="entity" (transactionRefunded)="refreshTransactions()"></customer-advanced-orders>
       </mat-tab>
       <mat-tab>
-        <customer-advanced-transactions [customer]="entity"></customer-advanced-transactions>
+        <customer-advanced-transactions [customer]="entity" (transactionRefunded)="refreshOrders()"></customer-advanced-transactions>
       </mat-tab>
       <mat-tab>
         <customer-advanced-fulfillments [customer]="entity"></customer-advanced-fulfillments>

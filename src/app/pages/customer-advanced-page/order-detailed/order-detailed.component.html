@@ -74,10 +74,13 @@
               <mat-icon class="pending-shipment" #pending>local_shipping</mat-icon>
             </ng-template>
             <div><span class="status">{{shipment.shippingReceipt.status}}</span> <span class="date">{{shipment.shippingReceipt.createdAt | formatDateTime: 'MMMM DD,YYYY h:mm a'}}</span></div>
-            <div class="link">
-              Details
+            <div class="shipment-details">
+              <div class="link" (click)="shipment.showDetails = true">Details</div>
 
-              <shipment-status [shippingReceipt]="shipment.shippingReceipt"></shipment-status>
+              <shipment-status *ngIf="shipment.showDetails"
+                               [shippingReceipt]="shipment.shippingReceipt"
+                               (close)="shipment.showDetails = false">
+              </shipment-status>
             </div>
 
           </ng-template>
