@@ -68,7 +68,7 @@ export class EmailTemplateAddNewComponent implements OnInit, AfterViewInit, OnDe
   smtpProviderMapper = (smtp: SmtpProvider) => smtp.name;
 
   editor: any;
-  smtpProviders: SmtpProvider[] | CustomServerError = [null];
+  smtpProviders: any = [null];
 
   constructor(public smtpProviderService: SmtpProvidersService) { }
 
