@@ -35,6 +35,6 @@ export class MerchantProviderGroupPage {
   }
 
   getMerchantProviderIndexButton() {
-    return element(by.css('.entity-view__change-mode'));
+    return element(by.css('.back'));
   }
 }

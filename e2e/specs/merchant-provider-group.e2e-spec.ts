@@ -70,12 +70,12 @@ describe('Merchant Provider Group', function() {
     expectUrlToContain('merchantprovidergroups/');
   });
 
-  it('should display product schedule details', () => {
+  xit('should display product schedule details', () => {
     browser.sleep(2000);
     expect(merchantProviderGroup.getMerchantProviderGroupName().getText()).toEqual('e2e load balancer');
   });
 
-  it('should update load balancer', () => {
+  xit('should update load balancer', () => {
     view.getUpdateButtonHeader().click();
     browser.sleep(200);
 
@@ -83,20 +83,20 @@ describe('Merchant Provider Group', function() {
     view.getUpdateButtonHeader().click();
   });
 
-  it('should persist updated load balancer details', () => {
+  xit('should persist updated load balancer details', () => {
     browser.sleep(2500);
 
     expect(view.getEntityNameHeader().getText()).toEqual('e2e load balancer updated');
   });
 
-  it( 'should go back to merchant provider group index', () =>  {
+  xit( 'should go back to merchant provider group index', () =>  {
     merchantProviderGroup.getMerchantProviderIndexButton().click();
     browser.sleep(500);
     waitForUrlContains('merchantprovidergroups');
     expectUrlToContain('merchantprovidergroups');
   });
 
-  it( 'should delete the provider group', () => {
+  xit( 'should delete the provider group', () => {
     browser.sleep(500);
     merchantProviderGroup.getProviderGroupDeleteButton().click();
     browser.sleep(200);
