@@ -1,6 +1,6 @@
 <div class="entity-view__card entity-view__card--create" style="margin: auto" [class.view-display]="displayInView">
   <div class="entity-view__card__header">
-    <div class="entity-view__card__header__title">{{(mode === modes.Add ? 'AFFILIATE_INFO_CREATETITLE' : 'AFFILIATE_TAB_GENERAL') | translate}}</div>
+    <div class="entity-view__card__header__title">{{(mode === modes.Add ? 'AFFILIATE_INFO_CREATETITLE' : 'AFFILIATE_INFO_GENERAL') | translate}}</div>
     <ng-container *ngIf="mode === modes.View">
       <mat-icon [matMenuTriggerFor]="editOptions">more_vert</mat-icon>
       <mat-menu #editOptions="matMenu" x-position="before">
