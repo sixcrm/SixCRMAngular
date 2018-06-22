@@ -23,7 +23,6 @@ import {RolesSharedService} from './services/roles-shared.service';
 import {CustomerNotesService} from './services/customer-notes.service';
 import {NotificationsService} from './services/notifications.service';
 import {AlertsService} from './services/alerts.service';
-import {NotificationsQuickService} from './services/notifications-quick.service';
 import {RebillsService} from './services/rebills.service';
 import {NotificationSettingsService} from './services/notification-settings.service';
 import {TrackersService} from './services/trackers.service';
@@ -68,7 +67,6 @@ import {OrdersService} from './services/orders.service';
     CustomerNotesService,
     NotificationsService,
     AlertsService,
-    NotificationsQuickService,
     RebillsService,
     NotificationSettingsService,
     TrackersService,

@@ -2,7 +2,7 @@ import {Component, Output, EventEmitter, OnInit, ElementRef, OnDestroy} from '@a
 import {Notification} from '../../shared/models/notification.model';
 import {utc} from 'moment';
 import {Router} from '@angular/router';
-import {NotificationsQuickService} from '../../entity-services/services/notifications-quick.service';
+import {NotificationsQuickService} from '../../shared/services/notifications-quick.service';
 import {EntitiesByDate} from '../../shared/models/entities-by-date.interface';
 import {AsyncSubject} from 'rxjs';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
@@ -11,7 +11,6 @@ import {
   updateLocally
 } from '../../shared/utils/notification.utils';
 import {firstIndexOf} from '../../shared/utils/array.utils';
-import { not } from 'rxjs/util/not';
 
 @Component({
   selector: 'notifications-quick',

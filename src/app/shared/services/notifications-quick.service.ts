@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Subscription, Observable, BehaviorSubject} from 'rxjs';
-import {AbstractEntityService} from './abstract-entity.service';
-import {Notification} from '../../shared/models/notification.model';
-import {HttpWrapperService, extractData} from '../../shared/services/http-wrapper.service';
+import {AbstractEntityService} from '../../entity-services/services/abstract-entity.service';
+import {Notification} from '../models/notification.model';
+import {HttpWrapperService, extractData} from './http-wrapper.service';
 import {
   notificationsQuickListQuery, updateNotificationMutation,
   notificationCountQuery, alertsListQuery, notificationsPersistentListQuery, updateManyNotificationsMutationQuery
-} from '../../shared/utils/queries/entities/notification.queries';
-import {CustomServerError} from '../../shared/models/errors/custom-server-error';
+} from '../utils/queries/entities/notification.queries';
+import {CustomServerError} from '../models/errors/custom-server-error';
 import {TranslationService} from '../../translation/translation.service';
 import {MatSnackBar} from '@angular/material';
 

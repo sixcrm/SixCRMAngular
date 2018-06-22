@@ -96,16 +96,16 @@ export class CustomerAdvancedOrdersComponent implements OnInit {
           return p;
         });
 
-        // const shipReceipt1 = new ShippingReceipt({id:"d6c96609-1d51-4263-967e-96a5671c1304",status:"pending",tracking:null,fulfillment_provider:{id:"1bd805d0-0062-499b-ae28-00c5d1b827ba",name:"Hashtag Fulfillment Provider"},history:[{"created_at":"2018-05-11T18:37:04.281Z",status:"pending",detail:"Fulfillment Provider notified."}],created_at:"2018-05-11T18:37:04.287Z",updated_at:"2018-05-11T18:37:04.287Z"});
-        // const shipReceipt2 = new ShippingReceipt({id:"d6c96609-1d51-4263-967e-96a5671c1222",status:"delivered",tracking:null,fulfillment_provider:{id:"1bd805d0-0062-499b-ae28-00c5d1b827ba",name:"Hashtag Fulfillment Provider"},history:[{"created_at":"2018-05-11T18:37:04.281Z",status:"pending",detail:"Fulfillment Provider notified."}],created_at:"2018-05-11T18:37:04.287Z",updated_at:"2018-05-11T18:37:04.287Z"});
-        //
-        // if (o.products[1]) {
-        //   o.products[1].shippingReceipt = shipReceipt1.copy();
-        // }
-        //
-        // if (o.products[2]) {
-        //   o.products[2].shippingReceipt = shipReceipt2.copy();
-        // }
+        const shipReceipt1 = new ShippingReceipt({id:"d6c96609-1d51-4263-967e-96a5671c1304",status:"pending",tracking:null,fulfillment_provider:{id:"1bd805d0-0062-499b-ae28-00c5d1b827ba",name:"Hashtag Fulfillment Provider"},history:[{"created_at":"2018-05-11T18:37:04.281Z",status:"pending",detail:"Fulfillment Provider notified."}],created_at:"2018-05-11T18:37:04.287Z",updated_at:"2018-05-11T18:37:04.287Z"});
+        const shipReceipt2 = new ShippingReceipt({id:"d6c96609-1d51-4263-967e-96a5671c1222",status:"delivered",tracking:null,fulfillment_provider:{id:"1bd805d0-0062-499b-ae28-00c5d1b827ba",name:"Hashtag Fulfillment Provider"},history:[{"created_at":"2018-05-11T18:37:04.281Z",status:"pending",detail:"Fulfillment Provider notified."}],created_at:"2018-05-11T18:37:04.287Z",updated_at:"2018-05-11T18:37:04.287Z"});
+
+        if (o.products[1]) {
+          o.products[1].shippingReceipt = shipReceipt1.copy();
+        }
+
+        if (o.products[2]) {
+          o.products[2].shippingReceipt = shipReceipt2.copy();
+        }
 
         o.rebill.transactions = o.rebill.transactions.map(t => {
           // t.chargeback = true;

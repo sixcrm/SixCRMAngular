@@ -3,7 +3,7 @@ import {NotificationSettings, NotificationSettingsData} from '../../shared/model
 import {AbstractEntityService} from './abstract-entity.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Subject} from 'rxjs';
-import {NotificationsQuickService} from './notifications-quick.service';
+import {NotificationsQuickService} from '../../shared/services/notifications-quick.service';
 import {HttpWrapperService, extractData} from '../../shared/services/http-wrapper.service';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {

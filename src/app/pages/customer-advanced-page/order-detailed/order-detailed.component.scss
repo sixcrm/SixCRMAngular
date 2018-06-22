@@ -126,10 +126,17 @@
       }
 
       .link {
+        position: relative;
         margin-left: 15px;
         color: #2C98F0;
         cursor: pointer;
         font-size: 13px;
+
+        shipment-status {
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
       }
 
       .date {
@@ -146,11 +153,6 @@
     display: flex;
     flex-wrap: wrap;
   }
-}
-
-.details-link {
-  color: #2C98F0 !important;
-  cursor: pointer;
 }
 
 .section {

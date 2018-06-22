@@ -34,6 +34,7 @@ import { BlueHeaderComponent } from './blue-header/blue-header.component';
 import { TableMemoryAdvancedComponent } from './table-memory-advanced/table-memory-advanced.component';
 import { TransactionStatusIconComponent } from './transaction-status-icon/transaction-status-icon.component';
 import {EntityServicesModule} from '../../entity-services/entity-services.module';
+import { ShipmentStatusComponent } from './shipment-status/shipment-status.component';
 
 @NgModule({
   imports : [
@@ -73,7 +74,8 @@ import {EntityServicesModule} from '../../entity-services/entity-services.module
     ScheduleDetailsTitleComponent,
     BlueHeaderComponent,
     TableMemoryAdvancedComponent,
-    TransactionStatusIconComponent
+    TransactionStatusIconComponent,
+    ShipmentStatusComponent
   ],
   exports : [
     TableActionsComponent,
@@ -91,7 +93,8 @@ import {EntityServicesModule} from '../../entity-services/entity-services.module
     SchedulesDetailedComponent,
     BlueHeaderComponent,
     TableMemoryAdvancedComponent,
-    TransactionStatusIconComponent
+    TransactionStatusIconComponent,
+    ShipmentStatusComponent
   ],
   providers: [
 

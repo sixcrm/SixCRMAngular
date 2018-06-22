@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  width: 540px;
+  max-width: 50vw;
+
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 18px 20px;
+    color: #202124;
+    font-size: 16px;
+    font-weight: 500;
+
+    mat-icon {
+      margin-left: auto;
+      width: 24px;
+      height: 24px;
+      font-size: 24px;
+    }
+  }
+
+  .body {
+    margin: 25px auto;
+  }
+
+}

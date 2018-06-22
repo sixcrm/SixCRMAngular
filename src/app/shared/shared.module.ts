@@ -63,8 +63,8 @@ import { DragScrollXDirective } from './directives/drag-scroll-x.directive';
 import {MaterialSelectionModule} from '../material-selection/material-selection.module';
 import { PaymentFormComponent } from './components/payment-form/payment-form.component';
 import {ClipboardModule} from 'ngx-clipboard';
-import {EntityServicesModule} from '../entity-services/entity-services.module';
 import {FeatureFlagService} from './services/feature-flag.service';
+import {NotificationsQuickService} from './services/notifications-quick.service';
 
 @NgModule({
   declarations : [
@@ -185,7 +185,8 @@ export class SharedModule {
         AffiliateReportService,
         TimeService,
         SnackbarService,
-        FeatureFlagService
+        FeatureFlagService,
+        NotificationsQuickService
       ]
     };
   }

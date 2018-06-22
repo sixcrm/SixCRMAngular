@@ -1,10 +1,10 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {NotificationsQuickService} from '../../entity-services/services/notifications-quick.service';
 import {Notification} from '../../shared/models/notification.model';
 import {Subscription} from 'rxjs';
 import {firstIndexOf} from '../../shared/utils/array.utils';
 import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {NotificationsService} from '../../entity-services/services/notifications.service';
+import {NotificationsQuickService} from '../../shared/services/notifications-quick.service';
 
 @Component({
   selector: 'alerts-quick',

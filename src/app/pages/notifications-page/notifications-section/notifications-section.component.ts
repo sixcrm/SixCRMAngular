@@ -6,7 +6,7 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Router} from '@angular/router';
-import {NotificationsQuickService} from '../../../entity-services/services/notifications-quick.service';
+import {NotificationsQuickService} from '../../../shared/services/notifications-quick.service';
 import {MatDialog} from '@angular/material';
 
 @Component({

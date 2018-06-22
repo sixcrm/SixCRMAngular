@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {User} from '../../shared/models/user.model';
 import {Acl} from '../../shared/models/acl.model';
 import {SearchService} from '../../shared/services/search.service';
-import {NotificationsQuickService} from '../../entity-services/services/notifications-quick.service';
+import {NotificationsQuickService} from '../../shared/services/notifications-quick.service';
 import {AutocompleteComponent} from '../../shared/components/autocomplete/autocomplete.component';
 import {TopnavDropdownOption} from './topnav-dropdown/topnav-dropdown.component';
 import {FeatureFlagService} from "../../shared/services/feature-flag.service";
