@@ -47,7 +47,7 @@ function cleanEscape(value: string): string {
   return value.replace(/\\/g, '\\\\');
 }
 
-function cleanQuote(value: string): string {
+export function cleanQuote(value: string): string {
   if (value.indexOf('"') === -1) return value;
 
   return value.replace(/"/g, '\\"');
