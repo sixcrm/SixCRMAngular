@@ -8,6 +8,7 @@ import {RebillStateHistory} from './rebill-state-history.model';
 import {ShippingReceipt} from './shipping-receipt.model';
 import {Products} from './products.model';
 import {firstIndexOf} from '../utils/array.utils';
+import {RebillPaidStatus} from './rebill-paid-status.model';
 
 export class Rebill implements Entity<Rebill> {
   id: string;
@@ -23,6 +24,7 @@ export class Rebill implements Entity<Rebill> {
   history: RebillStateHistory[] = [];
   shippingReceipts: ShippingReceipt[] = [];
   state: string;
+  paid: RebillPaidStatus;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -57,21 +59,25 @@ export class Rebill implements Entity<Rebill> {
     if (obj.history) {
       this.history = obj.history.map(h => new RebillStateHistory(h));
     }
+
+    if (obj.paid) {
+      this.paid = new RebillPaidStatus(this.paid);
+    }
   }
 
   hasChargeback() {
-    return this.transactions && (firstIndexOf(this.transactions, (t) => t.chargeback) !== -1);
+    return this.transactions && (firstIndexOf(this.transactions.filter(t => !t.isError()), (t) => t.chargeback) !== -1);
   }
 
   hasRefund() {
-    return this.transactions && (firstIndexOf(this.transactions, (t) => t.type === 'refund') !== -1);
+    return this.transactions && (firstIndexOf(this.transactions.filter(t => !t.isError()), (t) => t.type === 'refund') !== -1);
   }
 
   refundedAmount(): Currency {
     if (!this.transactions) return new Currency(0);
 
     return new Currency(
-      this.transactions.filter(t => t.type === 'refund').map(t => t.amount.amount).reduce((a,b) => a+b,0)
+      this.transactions.filter(t => !t.isError() && t.type === 'refund').map(t => t.amount.amount).reduce((a,b) => a+b,0)
     )
   }
 
@@ -79,7 +85,7 @@ export class Rebill implements Entity<Rebill> {
     if (!this.transactions) return new Currency(0);
 
     return new Currency(
-      this.transactions.filter(t => t.chargeback).map(t => t.amount.amount).reduce((a,b) => a+b,0)
+      this.transactions.filter(t => !t.isError() && t.chargeback).map(t => t.amount.amount).reduce((a,b) => a+b,0)
     )
   }
 
@@ -103,8 +109,8 @@ export class Rebill implements Entity<Rebill> {
   }
 
   canRefund(): boolean {
-    const transactions = this.transactions.filter(t => t.type === 'sale').length;
-    const refunded = this.transactions.filter(t => t.type === 'refund').length;
+    const transactions = this.transactions.filter(t => !t.isError() && t.type === 'sale').length;
+    const refunded = this.transactions.filter(t => !t.isError() && t.type === 'refund').length;
 
     return transactions > refunded;
   }
@@ -133,7 +139,8 @@ export class Rebill implements Entity<Rebill> {
       product_schedules: this.productSchedules.map(p => p.inverse()),
       shippingreceipts: this.shippingReceipts.map(r => r.inverse()),
       transactions: this.transactions.map(t => t.inverse()),
-      state: this.state
+      state: this.state,
+      paid: this.paid ? this.paid.inverse() : null
     }
   }
 

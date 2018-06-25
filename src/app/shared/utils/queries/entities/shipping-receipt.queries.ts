@@ -1,12 +1,23 @@
 import {
   fullPaginationStringResponseQuery,
-  deleteMutationQuery, deleteManyMutationQuery, listQueryParams
+  deleteMutationQuery, deleteManyMutationQuery, listQueryParams, paginationParamsQuery
 } from './entities-helper.queries';
 import {IndexQueryParameters} from '../index-query-parameters.model';
 
 export function shippingReceiptsListQuery(params: IndexQueryParameters): string {
   return `{
     shippingreceiptlist ${listQueryParams(params)} {
+			shippingreceipts {
+			  ${shippingReceiptInfoResponseQuery()}
+			}
+			${fullPaginationStringResponseQuery()}
+		}
+  }`;
+}
+
+export function shippingReceiptsByCustomer(customerId: string, params: IndexQueryParameters): string {
+  return `{
+    shippingreceiptbycustomerlist (customer:"${customerId}" ${paginationParamsQuery(params, true)}) {
 			shippingreceipts {
 			  ${shippingReceiptInfoResponseQuery()}
 			}

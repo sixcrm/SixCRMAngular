@@ -5,9 +5,12 @@ import {HttpWrapperService} from '../../shared/services/http-wrapper.service';
 import {ShippingReceipt} from '../../shared/models/shipping-receipt.model';
 import {
   shippingReceiptsListQuery, shippingReceiptQuery,
-  deleteShippingReceiptMutation, deleteShippingReceiptsMutation
+  deleteShippingReceiptMutation, deleteShippingReceiptsMutation, shippingReceiptsByCustomer
 } from '../../shared/utils/queries/entities/shipping-receipt.queries';
 import {MatSnackBar} from '@angular/material';
+import {Customer} from '../../shared/models/customer.model';
+import {IndexQueryParameters} from '../../shared/utils/queries/index-query-parameters.model';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class ShippingReceiptsService extends AbstractEntityService<ShippingReceipt> {
@@ -29,4 +32,7 @@ export class ShippingReceiptsService extends AbstractEntityService<ShippingRecei
     );
   }
 
+  getShippingReceiptsByCustomer(customer: Customer, params: IndexQueryParameters): Observable<ShippingReceipt[]> {
+    return this.planeCustomEntitiesQuery(shippingReceiptsByCustomer(customer.id, params));
+  }
 }

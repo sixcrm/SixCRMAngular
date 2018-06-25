@@ -35,28 +35,6 @@ export function rebillQuery(id: string): string {
   }`
 }
 
-export function rebillsByCustomer(customerId: string, params: IndexQueryParameters): string {
-  return `{
-		rebilllistbycustomer (customer:"${customerId}" ${paginationParamsQuery(params, true)}) {
-			rebills {
-			  ${rebillByCustomerResponseQuery()}
-			}
-			${fullPaginationStringResponseQuery()}
-		}
-  }`
-}
-
-export function pastRebillsByCustomer(customerId: string, params: IndexQueryParameters): string {
-  return `{
-		pastrebillsforcustomer (customer:"${customerId}" ${paginationParamsQuery(params, true)}) {
-			rebills {
-			  ${rebillByCustomerResponseQuery()}
-			}
-			${fullPaginationStringResponseQuery()}
-		}
-  }`
-}
-
 export function pendingRebillsByCustomer(customerId: string, params: IndexQueryParameters): string {
   return `{
 		pendingrebillsforcustomer (customer:"${customerId}" ${paginationParamsQuery(params, true)}) {
@@ -107,6 +85,7 @@ export function rebillResponseQuery(): string {
     shippingreceipts { id, status, tracking {id, carrier}, created_at, updated_at },
     state, previous_state,
     history { state entered_at exited_at error_message }
+    paid {detail updated_at}
   `
 }
 
@@ -119,7 +98,8 @@ export function rebillByCustomerResponseQuery(): string {
   products { quantity, amount, product { id, name, sku, ship }, returns { quantity, return{ id, alias, created_at }}}
   transactions { id amount alias created_at updated_at processor_response chargeback type merchant_provider {id name}}
   parentsession { id alias created_at campaign { id name } }
-  shippingreceipts { id, status, tracking {id, carrier}, created_at, updated_at }`
+  shippingreceipts { id, status, tracking {id, carrier}, created_at, updated_at }
+  paid {detail updated_at}`
 }
 
 export function rebillListByState(queueName: string, limit?: number, offset?: number): string {

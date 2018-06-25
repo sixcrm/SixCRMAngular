@@ -1,8 +1,4 @@
-import {
-  paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
-  addId, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
-} from './entities-helper.queries';
-import {Rebill} from '../../../models/rebill.model';
+import {paginationParamsQuery, fullPaginationStringResponseQuery} from './entities-helper.queries';
 import {IndexQueryParameters} from '../index-query-parameters.model';
 
 export function ordersByCustomer(customerId: string, params: IndexQueryParameters): string {
@@ -24,7 +20,8 @@ export function orderByCustomerResponseQuery(): string {
     shippingreceipt { id, status, tracking {id, carrier}, created_at, updated_at }
   }
   session { id alias created_at campaign { id name } }
-  rebill { id created_at updated_at
+  rebill { id resolved_amount created_at updated_at
     transactions { id amount alias created_at updated_at processor_response chargeback type merchant_provider {id name}}
+    paid {detail updated_at}
   }`
 }

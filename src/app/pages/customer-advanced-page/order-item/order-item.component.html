@@ -13,12 +13,14 @@
         <mat-icon>keyboard_arrow_down</mat-icon>
       </div>
       <mat-menu #refundDetails="matMenu" x-position="before">
-        <div class="transactions-details-item" *ngFor="let transaction of order.rebill.transactions">
-          <div>{{transaction.chargeback ? 'Chargeback' : transaction.type === 'refund' ? 'Refund' : transaction.processorResponse.message}}</div>
-          <div>{{transaction.createdAt | formatDateTime: 'MM/DD/YYYY h:mm A'}}</div>
-          <div>{{transaction.processorResponse.getCard().brand}} {{transaction.processorResponse.getCard().last4}}</div>
-          <div>{{transaction.amount.usd()}}</div>
-        </div>
+        <ng-container *ngFor="let transaction of order.rebill.transactions">
+          <div *ngIf="!transaction.isError()" class="transactions-details-item">
+            <div>{{transaction.chargeback ? 'Chargeback' : transaction.type === 'refund' ? 'Refund' : transaction.processorResponse.message}}</div>
+            <div>{{transaction.createdAt | formatDateTime: 'MM/DD/YYYY h:mm A'}}</div>
+            <div>{{transaction.processorResponse.getCard().brand}} {{transaction.processorResponse.getCard().last4}}</div>
+            <div>{{transaction.amount.usd()}}</div>
+          </div>
+        </ng-container>
       </mat-menu>
 
       <ng-template #norefund>

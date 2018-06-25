@@ -61,13 +61,9 @@ export class CustomerAdvancedFulfillmentComponent implements OnInit {
   }
 
   initialize() {
-    this.shippingReceiptsService.entities$.take(1).subscribe(receipts => {
-      if (receipts instanceof CustomServerError) return;
-
+    this.shippingReceiptsService.getShippingReceiptsByCustomer(this._customer, {}).subscribe(receipts => {
       this.receipts = receipts;
     });
-
-    this.shippingReceiptsService.getEntities(10);
   }
 
   itemClicked(option: {item: ShippingReceipt, param: ColumnParams<ShippingReceipt>}) {

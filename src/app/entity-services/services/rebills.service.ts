@@ -5,7 +5,7 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {HttpWrapperService} from '../../shared/services/http-wrapper.service';
 import {
   rebillsListQuery, rebillQuery, deleteRebillMutation,
-  updateRebillMutation, deleteRebillsMutation, pendingRebillsByCustomer, pastRebillsByCustomer
+  updateRebillMutation, deleteRebillsMutation, pendingRebillsByCustomer
 } from '../../shared/utils/queries/entities/rebill.queries';
 import {MatSnackBar} from '@angular/material';
 import {Customer} from '../../shared/models/customer.model';
@@ -34,10 +34,6 @@ export class RebillsService extends AbstractEntityService<Rebill>{
 
   getPendingRebillsByCustomer(customer: Customer, params: IndexQueryParameters): Observable<Rebill[]> {
     return this.planeCustomEntitiesQuery(pendingRebillsByCustomer(customer.id, params));
-  }
-
-  getPastRebillsByCustomer(customer: Customer, params: IndexQueryParameters): Observable<Rebill[]> {
-    return this.planeCustomEntitiesQuery(pastRebillsByCustomer(customer.id, params));
   }
 
 }
