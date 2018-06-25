@@ -1,4 +1,3 @@
-import {merchantProviderGroupResponseQuery} from './merchant-provider-group.queries';
 import {
   paginationParamsQuery, fullPaginationStringResponseQuery, deleteMutationQuery,
   addId, clean, deleteManyMutationQuery, listQueryParams, addUpdatedAtApi
