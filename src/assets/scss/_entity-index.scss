@@ -136,8 +136,10 @@ $title-color: #8D8888;
 
       tr th {
         position: relative;
-        padding: 10px 20px 10px 5px !important;
-        font-weight: 400;
+        padding: 15px 20px 15px 5px !important;
+        color: rgba(0, 0, 0, 0.54);
+        font-weight: 500;
+        font-size: 12px;
         cursor: pointer;
 
         &:first-child {
@@ -158,11 +160,11 @@ $title-color: #8D8888;
         }
 
         .up-icon {
-          top: 4px;
+          top: 9px;
         }
 
         .down-icon {
-          top: 10px;
+          top: 15px;
         }
 
         .icon-applied {
@@ -251,10 +253,10 @@ $title-color: #8D8888;
   &__pagination {
 
     &__buttons {
-      margin-top: 25px;
       margin-right: 15px;
       text-align: right;
       color: #757575;
+      font-size: 16px;
     }
 
     &--no-margin {

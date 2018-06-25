@@ -3,6 +3,35 @@
 
   <button mat-icon-button color="primary" *ngIf="hasWritePermission()" (click)="openAddMode()" class="entity-index__add"><mat-icon>add</mat-icon></button>
 
+  <advanced-entities-table
+    [data]="entities"
+    [loaded]="initialLoaded"
+    [columnParams]="columnParams"
+    [filterString]="filterValue"
+    [serverError]="serverError"
+    (selected)="viewEntity($event.id)"
+
+    [service]="service"
+    (viewClicked)="viewEntity($event.id)"
+    (copyClicked)="copyEntity($event.id)"
+    (exportClicked)="exportEntity($event.id)"
+    (editClicked)="editEntity($event.id)"
+    (deleteClicked)="deleteEntity($event.id)"
+    (deleteManyClicked)="deleteMany($event)"
+    (refreshData)="refreshData()"
+
+    [limit]="limit"
+    [paginationValues]="paginationValues"
+    [previousDisabled]="page <= 0"
+    [nextDisabled]="!hasMorePages()"
+    (previous)="previous()"
+    (next)="next()"
+    (updateLimit)="updateLimit($event)"
+    (filterChanged)="filterValue = $event"
+    (searchChanged)="setSearchString($event)"
+  >
+  </advanced-entities-table>
+
   <mat-card class="entity-index__card">
     <mat-card-content class="entity-index__card__content">
       <entities-table

@@ -1,8 +1,8 @@
 <div class="flex-custom flex-custom--center">
   <button mat-icon-button (click)="toggleFilterInput(searchInputField)"><mat-icon>filter_list</mat-icon></button>
 
-  <div class="search-container">
-    <mat-form-field [ngClass]="{'search-visible': filterVisible}">
+  <div class="search-container mrw-bi-input" [class.search-visible]="filterVisible">
+    <mat-form-field [floatLabel]="'never'">
       <input
         #searchInputField
         matInput

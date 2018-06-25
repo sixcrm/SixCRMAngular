@@ -1,0 +1,143 @@
+<div class="advanced-table-wrapper">
+  <server-error-message (refresh)="refreshData.emit(true)" *ngIf="serverError; else tableData;"></server-error-message>
+
+  <ng-template #tableData>
+
+    <div class="entity-index__options">
+      <filter-input style="margin-left: 72px" (valueChanged)="filterChanged.emit($event)"></filter-input>
+      <search-input (onSearch)="searchChanged.emit($event)"></search-input>
+      <table-density style="margin-left: auto" [density]="density" (densityChanged)="density = $event"></table-density>
+      <table-preferences class="entity-index__preferences" [columnParams]="columnParams"></table-preferences>
+    </div>
+
+    <table class="entity-index__table highlight">
+      <thead #head class="entity-index__table__header">
+      <tr visibleY [offset]="40" (visible)="visible($event)">
+        <th #bulkheader class="bulk-header">
+          <mat-checkbox class="checkbox-blue" (change)="globalBulkSelectChanged($event)"></mat-checkbox>
+        </th>
+        <ng-container *ngFor="let params of columnParams">
+          <ng-container *ngIf="params.selected">
+            <th #originalheader (click)="setSortParams(params)" [class.cell--align-right]="params.align === 'right'" [class.cell--codeblock]="params.code">
+              {{params.label | translate}}
+              <ng-container *ngIf="params.sortEnabled">
+                <mat-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'asc'" class="up-icon">arrow_drop_up</mat-icon>
+                <mat-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'desc'" class="down-icon">arrow_drop_down</mat-icon>
+              </ng-container>
+            </th>
+          </ng-container>
+        </ng-container>
+        <th #actionsheader></th>
+      </tr>
+      </thead>
+
+      <ng-container *ngIf="!headerVisible && footerVisible">
+        <thead class="entity-index__table__header header-float" [style.width]="getHeaderWidthByElement(head)">
+        <tr>
+          <th [style.width]="getHeaderWidthByElement(bulkheader)" class="bulk-header"></th>
+          <ng-container *ngFor="let params of columnParams;">
+            <ng-container *ngIf="params.selected">
+              <th [style.width]="getHeaderWidth(params)" (click)="setSortParams(params)" [class.cell--align-right]="params.align === 'right'" [class.cell--codeblock]="params.code">
+                {{params.label | translate}}
+                <ng-container *ngIf="params.sortEnabled">
+                  <mat-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'asc'" class="up-icon">arrow_drop_up</mat-icon>
+                  <mat-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'desc'" class="down-icon">arrow_drop_down</mat-icon>
+                </ng-container>
+              </th>
+            </ng-container>
+          </ng-container>
+          <th [style.width]="getHeaderWidthByElement(actionsheader)"></th>
+        </tr>
+        </thead>
+      </ng-container>
+
+      <tbody [class.density--s]="density === 0"  [class.density--l]="density === 2" [class.density--m]="density !== 0 && density !==2">
+      <ng-container *ngIf="data && loaded; else dataLoader">
+        <ng-container *ngFor="let entity of (data | filterEntitiesByParams: columnParams: filterString | sortEntities: sortParams.mappingFunction: sortParams.sortOrder)">
+          <tr [class.selected]="entity.bulkSelected">
+            <td class="bulk-option">
+              <mat-checkbox class="checkbox-blue" [(ngModel)]="entity.bulkSelected"></mat-checkbox>
+            </td>
+            <ng-container *ngFor="let param of columnParams">
+              <ng-container *ngIf="param.selected">
+                <td (click)="selected.emit(entity)" [class.cell--align-right]="param.align === 'right'">
+                  <div class="codeblock" *ngIf="param.code; else noCode">
+                    {{param.mappingFunction(entity)}}
+                  </div>
+                  <ng-template #noCode>
+                    <div class="wrapper">
+                      <div class="image" *ngIf="param.imageMapper && param.imageMapper(entity)" [style.background-image]="'url(' + param.imageMapper(entity) + ')'"></div>
+                      <ng-container *ngIf="param.number; else nan">{{param.mappingFunction(entity) | numberlocale}}</ng-container>
+                      <ng-template #nan>
+                        <ng-container *ngIf="param.translate; else notranslate">{{param.mappingFunction(entity) | translate}}</ng-container>
+                        <ng-template #notranslate>{{param.mappingFunction(entity)}}</ng-template>
+                      </ng-template>
+                    </div>
+                  </ng-template>
+                </td>
+              </ng-container>
+            </ng-container>
+            <td>
+              <table-actions
+                [service]="service"
+                [customText]="customOptionText"
+                [showView]="showView"
+                [showDelete]="showDelete"
+                [showCopy]="showCopy"
+                [dedicatedOptions]="dedicatedOptions"
+                (viewClicked)="viewClicked.emit(entity)"
+                (copyClicked)="copyClicked.emit(entity)"
+                (exportClicked)="exportClicked.emit(entity)"
+                (editClicked)="editClicked.emit(entity)"
+                (deleteClicked)="deleteClicked.emit(entity)"
+                (customClicked)="customOptionClicked.emit(entity)">
+              </table-actions>
+            </td>
+          </tr>
+        </ng-container>
+      </ng-container>
+
+      <ng-template #dataLoader>
+        <ng-container *ngTemplateOutlet="dataLoaderItem"></ng-container>
+        <ng-container *ngTemplateOutlet="dataLoaderItem"></ng-container>
+        <ng-container *ngTemplateOutlet="dataLoaderItem"></ng-container>
+        <ng-container *ngTemplateOutlet="dataLoaderItem"></ng-container>
+        <ng-container *ngTemplateOutlet="dataLoaderItem"></ng-container>
+        <ng-container *ngTemplateOutlet="dataLoaderItem"></ng-container>
+        <ng-container *ngTemplateOutlet="dataLoaderItem"></ng-container>
+        <ng-container *ngTemplateOutlet="dataLoaderItem"></ng-container>
+        <ng-container *ngTemplateOutlet="dataLoaderItem"></ng-container>
+        <ng-container *ngTemplateOutlet="dataLoaderItem"></ng-container>
+      </ng-template>
+
+      <ng-template #dataLoaderItem>
+        <tr>
+          <td class="bulk-option">
+            <mat-checkbox class="checkbox-blue"></mat-checkbox>
+          </td>
+          <ng-container *ngFor="let param of columnParams">
+            <ng-container *ngIf="param.selected">
+              <td><div class="blurred-line" [class.blurred-line--align-right]="param.align === 'right'"></div></td>
+            </ng-container>
+          </ng-container>
+          <td>
+
+          </td>
+        </tr>
+      </ng-template>
+      </tbody>
+    </table>
+
+    <table-pagination
+      visibleY [offset]="-40" (visible)="visibleFooter($event)"
+      [limit]="limit"
+      [paginationValues]="paginationValues"
+      [previousDisabled]="previousDisabled"
+      [nextDisabled]="nextDisabled"
+      (previous)="previous.emit(true)"
+      (next)="next.emit(true)"
+      (updateLimit)="updateLimit.emit($event)">
+    </table-pagination>
+  </ng-template>
+
+</div>
