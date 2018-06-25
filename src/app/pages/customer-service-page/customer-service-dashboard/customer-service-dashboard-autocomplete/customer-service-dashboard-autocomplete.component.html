@@ -10,7 +10,7 @@
         <div class="row">{{ customer.firstName }} {{customer.lastName}}</div>
         <div class="row"><span>EMAIL:</span> {{ customer.email }}</div>
         <div class="row"><span>PHONE:</span> {{ customer.phone }}</div>
-        <div class="row"><span>ZIP:</span> {{ customer.zip }}</div>
+        <div class="row"><span>ZIP:</span> {{ customer.address.zip }}</div>
       </div>
 
     </div>
@@ -28,7 +28,7 @@
           <div class="row"><span>NAME:</span> {{ session.customer.firstName }} {{session.customer.lastName}}</div>
           <div class="row"><span>EMAIL:</span> {{ session.customer.email }}</div>
           <div class="row"><span>PHONE:</span> {{ session.customer.phone }}</div>
-          <div class="row"><span>ZIP:</span> {{ session.customer.zip }}</div>
+          <div class="row"><span>ZIP:</span> {{ session.customer.address.zip }}</div>
         </div>
       </div>
     </ng-container>

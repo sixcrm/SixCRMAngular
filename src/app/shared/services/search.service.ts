@@ -49,7 +49,16 @@ export class SearchService {
   searchCustomers(value: string): Observable<Customer[]> {
     return this.searchByEntities(value, ['customer']).map(hits =>
       (hits.hit || []).map(hit =>
-        new Customer({ id: hit.id, firstname: hit.fields.firstname, lastname: hit.fields.lastname, email: hit.fields.email, phone: hit.fields.phone })
+        new Customer({
+          id: hit.id,
+          firstname: hit.fields.firstname,
+          lastname: hit.fields.lastname,
+          email: hit.fields.email,
+          phone: hit.fields.phone,
+          address: {
+            zip: hit.fields.zip
+          }
+        })
       )
     )
   }
