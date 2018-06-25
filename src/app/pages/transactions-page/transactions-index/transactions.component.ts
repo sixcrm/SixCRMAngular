@@ -8,6 +8,7 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
+import {FeatureFlagService} from '../../../shared/services/feature-flag.service';
 
 @Component({
   selector: 'transactions',
@@ -24,7 +25,8 @@ export class TransactionsComponent extends AbstractEntityIndexComponent<Transact
     dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute
+    activatedRoute: ActivatedRoute,
+    public featuresFlagService: FeatureFlagService
   ) {
     super(transactionsService, auth, dialog, paginationService, router, activatedRoute);
 

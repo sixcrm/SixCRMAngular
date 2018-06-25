@@ -13,28 +13,20 @@
   }
 }
 
-.params-container {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  z-index: 2;
-  background: white;
-  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+.option {
+  font-family: Roboto, serif;
+  padding: 8px 22px;
+  font-size: 16px;
+  font-weight: normal;
+  color: #4A4A4A;
+  cursor: pointer;
 
-  .option {
-    padding: 8px 22px;
-    font-size: 16px;
-    font-weight: normal;
-    color: #4A4A4A;
-    cursor: pointer;
+  &--selected {
+    font-weight: 600;
+  }
 
-    &--selected {
-      font-weight: 600;
-    }
-
-    &:hover {
-      background: rgba(0,0,0,0.1);
-    }
+  &:hover {
+    background: rgba(0,0,0,0.1);
   }
 }
 

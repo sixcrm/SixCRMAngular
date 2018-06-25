@@ -1,11 +1,11 @@
 <div class="container" [class.small]="small">
-  <mat-icon (click)="toggleMenu()">view_day</mat-icon>
+  <mat-icon [matMenuTriggerFor]="densityOptions">view_day</mat-icon>
 
-  <div *ngIf="showMenu" class="params-container">
+  <mat-menu #densityOptions="matMenu" x-position="before">
     <div class="option" [class.option--selected]="density === 0" (click)="changed(0)">Small</div>
     <div class="option" [class.option--selected]="density === 1" (click)="changed(1)">Medium</div>
     <div class="option" [class.option--selected]="density === 2" (click)="changed(2)">Large</div>
-  </div>
+  </mat-menu>
 
 </div>
 

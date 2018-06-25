@@ -4,9 +4,25 @@
   <ng-template #tableData>
 
     <div class="entity-index__options">
-      <filter-input style="margin-left: 72px" (valueChanged)="filterChanged.emit($event)"></filter-input>
+      <filter-input style="margin-left: 46px" (valueChanged)="filterChanged.emit($event)"></filter-input>
       <search-input (onSearch)="searchChanged.emit($event)"></search-input>
-      <table-density style="margin-left: auto" [density]="density" (densityChanged)="density = $event"></table-density>
+
+      <div class="bulk-selection" *ngIf="showDelete && service.hasWritePermission()">
+        <div class="selected"> {{getNumberOfSelected()}} Selected</div>
+
+        <div class="bulk-options">
+          <div class="bulk-options__selection" [matMenuTriggerFor]="bulkOpts">
+            <span>{{(selectedBulkOption || 'Select Action') | translate}}</span> <mat-icon>keyboard_arrow_down</mat-icon>
+          </div>
+
+          <mat-menu #bulkOpts="matMenu" x-position="before">
+            <button mat-menu-item (click)="selectedBulkOption = 'INDEXPAGE_DELETEALL'">{{'INDEXPAGE_DELETEALL' | translate}}</button>
+          </mat-menu>
+
+          <button mat-button [disabled]="getNumberOfSelected() === 0" (click)="deleteAll()">APPLY</button>
+        </div>
+      </div>
+      <table-density [density]="density" (densityChanged)="density = $event"></table-density>
       <table-preferences class="entity-index__preferences" [columnParams]="columnParams"></table-preferences>
     </div>
 
@@ -18,7 +34,7 @@
         </th>
         <ng-container *ngFor="let params of columnParams">
           <ng-container *ngIf="params.selected">
-            <th #originalheader (click)="setSortParams(params)" [class.cell--align-right]="params.align === 'right'" [class.cell--codeblock]="params.code">
+            <th #originalheader (click)="setSortParams(params)" [class.cell--separator]="params.separator" [class.cell--align-right]="params.align === 'right'" [class.cell--codeblock]="params.code">
               {{params.label | translate}}
               <ng-container *ngIf="params.sortEnabled">
                 <mat-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'asc'" class="up-icon">arrow_drop_up</mat-icon>
@@ -37,7 +53,7 @@
           <th [style.width]="getHeaderWidthByElement(bulkheader)" class="bulk-header"></th>
           <ng-container *ngFor="let params of columnParams;">
             <ng-container *ngIf="params.selected">
-              <th [style.width]="getHeaderWidth(params)" (click)="setSortParams(params)" [class.cell--align-right]="params.align === 'right'" [class.cell--codeblock]="params.code">
+              <th [style.width]="getHeaderWidth(params)" (click)="setSortParams(params)" [class.cell--separator]="params.separator" [class.cell--align-right]="params.align === 'right'" [class.cell--codeblock]="params.code">
                 {{params.label | translate}}
                 <ng-container *ngIf="params.sortEnabled">
                   <mat-icon [class.icon-applied]="params.sortApplied && params.sortOrder === 'asc'" class="up-icon">arrow_drop_up</mat-icon>
@@ -60,7 +76,7 @@
             </td>
             <ng-container *ngFor="let param of columnParams">
               <ng-container *ngIf="param.selected">
-                <td (click)="selected.emit(entity)" [class.cell--align-right]="param.align === 'right'">
+                <td (click)="selected.emit(entity)" [class.cell--separator]="param.separator" [class.cell--align-right]="param.align === 'right'">
                   <div class="codeblock" *ngIf="param.code; else noCode">
                     {{param.mappingFunction(entity)}}
                   </div>

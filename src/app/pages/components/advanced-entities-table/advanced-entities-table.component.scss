@@ -112,7 +112,64 @@ mat-checkbox {
 
 table-pagination {
   display: block;
-  padding: 10px 0;
   background: #ffffff;
+}
+
+.bulk-selection {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 14px;
+
+  .bulk-options {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    font-size: 13px;
+
+    &__selection {
+      align-items: center;
+      display: flex;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      border-radius: 4px;
+      padding: 6px 10px;
+      cursor: pointer;
+      background: #FAFAFA;
+      color: #828282;
+
+      span {
+        width: 80px;
+      }
+
+      mat-icon {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    button {
+      margin-left: 15px;
+      font-size: 13px;
+      border: 1px solid rgba(0,0,0,0.12);
+      height: 30px;
+      line-height: 30px;
+      padding: 0;
+      font-weight: normal;
+      background: #FAFAFA;
+      color: #828282;
+    }
+  }
+
+  .selected {
+    margin-left: auto;
+    color: rgba(0,0,0,0.54);
+    font-weight: 500;
+    font-size: 16px;
+  }
+}
+
+.cell--separator {
+  border-right: 1px solid rgba(0,0,0,0.12);
 }
 

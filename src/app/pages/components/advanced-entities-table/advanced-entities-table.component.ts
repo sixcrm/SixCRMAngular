@@ -61,6 +61,8 @@ export class AdvancedEntitiesTableComponent implements OnInit {
   headerVisible: boolean = true;
   footerVisible: boolean = true;
 
+  selectedBulkOption: string;
+
   constructor() { }
 
   ngOnInit() {
@@ -106,6 +108,10 @@ export class AdvancedEntitiesTableComponent implements OnInit {
 
   visibleFooter(visible) {
     this.footerVisible = visible;
+  }
+
+  getNumberOfSelected(): number {
+    return this.data.filter(d => d.bulkSelected).length;
   }
 
   getHeaderWidth(params) {

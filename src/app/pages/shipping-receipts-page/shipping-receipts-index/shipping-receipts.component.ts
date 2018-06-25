@@ -8,6 +8,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
+import {FeatureFlagService} from '../../../shared/services/feature-flag.service';
 
 @Component({
   selector: 'shipping-receipt',
@@ -24,7 +25,8 @@ export class ShippingReceiptsComponent extends AbstractEntityIndexComponent<Ship
     dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute
+    activatedRoute: ActivatedRoute,
+    public featuresFlagService: FeatureFlagService
   ) {
     super(shippingReceiptsService, auth, dialog, paginationService, router, activatedRoute);
 

@@ -3,8 +3,7 @@ import {Component, OnInit, Input, Output, EventEmitter, ElementRef} from '@angul
 @Component({
   selector: 'table-density',
   templateUrl: './table-density.component.html',
-  styleUrls: ['./table-density.component.scss'],
-  host: {'(document:click)': 'onClick($event)'}
+  styleUrls: ['./table-density.component.scss']
 })
 export class TableDensityComponent implements OnInit {
 
@@ -13,28 +12,12 @@ export class TableDensityComponent implements OnInit {
 
   @Output() densityChanged: EventEmitter<number> = new EventEmitter();
 
-  showMenu: boolean;
-
   constructor(private elementRef: ElementRef) { }
 
   ngOnInit() {}
 
-  toggleMenu() {
-    this.showMenu = !this.showMenu;
-  }
-
-  onClick(event): void {
-    if (!this.elementRef.nativeElement.contains(event.target)) {
-      if (this.showMenu) {
-        this.showMenu = false;
-      }
-    }
-  }
-
   changed(density: number) {
     this.densityChanged.emit(density);
-
-    this.showMenu = false;
   }
 
 }
