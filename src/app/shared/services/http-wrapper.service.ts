@@ -13,7 +13,8 @@ export interface RequestBehaviourOptions {
   ignoreProgress?: boolean;
   failStrategy?: FailStrategy;
   ignoreSnack?: boolean;
-  retry?: RetryOptions
+  retry?: RetryOptions;
+  ignorePermissions?: boolean
 }
 
 export enum RetryStrategy {

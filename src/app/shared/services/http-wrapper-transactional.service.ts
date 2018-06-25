@@ -9,6 +9,7 @@ import {CheckoutResponse} from '../models/checkout-response.model';
 import {TransactionalResponseError} from '../models/transactional-response-error.model';
 import {CreditCard} from '../models/credit-card.model';
 import {User} from '../models/user.model';
+import {AccessKey} from '../models/access-key.model';
 
 var sha1 = require('sha1');
 
@@ -17,32 +18,14 @@ export class HttpWrapperTransactionalService {
 
   constructor(private http: HttpClient, private authService: AuthenticationService) { }
 
-  acquireToken(campaignId: string, account?: string, secretKey?: string, accessKey?: string) {
-    const headers = new HttpHeaders()
-      .append('Content-Type', 'application/json')
-      .append('Authorization', this.createSignature(secretKey, accessKey));
-
-    const body = {campaign: campaignId};
-    const endpoint = environment.bareEndpoint + 'token/acquire/' + (account || this.authService.getActiveAcl().account.id);
-
-    return this.http.post<any>(endpoint, body, {observe: 'response', responseType: 'json', headers: headers})
-  }
-
-  private performCheckout(checkoutBody: CheckoutBody, token: string, account?: string) {
-    const headers = new HttpHeaders()
-      .append('Content-Type', 'application/json')
-      .append('Authorization', token);
-
-    const body = checkoutBody;
-    const endpoint = environment.bareEndpoint + 'checkout/' + (account || this.authService.getActiveAcl().account.id);
-
-    return this.http.post<any>(endpoint, body, {observe: 'response', responseType: 'json', headers: headers})
-  }
-
-  checkout(checkoutBody: CheckoutBody): Observable<CheckoutResponse | TransactionalResponseError> {
+  checkout(checkoutBody: CheckoutBody, keys: AccessKey): Observable<CheckoutResponse | TransactionalResponseError> {
     let response: Subject<CheckoutResponse | TransactionalResponseError> = new Subject();
 
-    this.acquireToken(checkoutBody.campaign).subscribe(acquireTokenResponse => {
+    const account = this.authService.getActiveAcl().account.id;
+    const secret = keys.secretKey;
+    const access = keys.accessKey;
+
+    this.acquireToken(checkoutBody.campaign, account, secret, access).subscribe(acquireTokenResponse => {
       this.performCheckout(checkoutBody, acquireTokenResponse.body.response).subscribe(checkoutResponse => {
         response.next(new CheckoutResponse(checkoutResponse.body.response));
       }, error => response.next(new TransactionalResponseError(error.status, error.body ? error.body.message: error.message)))
@@ -95,10 +78,30 @@ export class HttpWrapperTransactionalService {
     return response;
   }
 
-  private createSignature(secretKey?: string, accessKey?: string) {
+  private acquireToken(campaignId: string, account: string, secretKey: string, accessKey: string) {
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'application/json')
+      .append('Authorization', this.createSignature(secretKey, accessKey));
+
+    const body = {campaign: campaignId};
+    const endpoint = environment.bareEndpoint + 'token/acquire/' + account;
+
+    return this.http.post<any>(endpoint, body, {observe: 'response', responseType: 'json', headers: headers})
+  }
+
+  private performCheckout(checkoutBody: CheckoutBody, token: string, account?: string) {
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'application/json')
+      .append('Authorization', token);
+
+    const body = checkoutBody;
+    const endpoint = environment.bareEndpoint + 'checkout/' + (account || this.authService.getActiveAcl().account.id);
+
+    return this.http.post<any>(endpoint, body, {observe: 'response', responseType: 'json', headers: headers})
+  }
+
+  private createSignature(secretKey: string, accessKey: string) {
     let requestTime = utc().unix() * 1000;
-    secretKey = secretKey || '5d2ecbdfec89388c432bf4d8562aa8f6e0f513c9';
-    accessKey = accessKey || 'XKCEKXSQY9LU9SQECFY3STM1LVLVTGW3EXH9ZH7X';
     let signature = sha1(secretKey+requestTime);
 
     return accessKey+':'+requestTime+':'+signature;

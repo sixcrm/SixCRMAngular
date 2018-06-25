@@ -227,7 +227,7 @@ export abstract class AbstractEntityService<T> {
   }
 
   customEntitiesQuery(query: string, requestBehaviourOptions?: RequestBehaviourOptions): void {
-    if (!this.hasViewPermission()) {
+    if (!(requestBehaviourOptions && requestBehaviourOptions.ignorePermissions) && !this.hasViewPermission()) {
       return;
     }
 

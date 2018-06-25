@@ -270,3 +270,48 @@
 create-order-preview {
   margin-top: 15px;
 }
+
+.no-keys-container {
+  padding: 55px 25px;
+  text-align: center;
+
+  div {
+    color: rgba(0,0,0,0.7);
+
+    &:first-of-type {
+      font-size: 22px;
+    }
+
+    &:last-of-type {
+      margin-top: 15px;
+    }
+  }
+
+  span {
+    cursor: pointer;
+    color: #2897EF;
+  }
+
+  button {
+    font-size: 16px;
+    margin-top: 65px;
+    background: #2897EF;
+  }
+}
+
+.load {
+  padding: 25px;
+  width: calc(100% - 250px);
+
+  &__item {
+    background: rgba(0,0,0,0.06);
+    height: 48px;
+    width: 100%;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+
+    &--first {
+      margin-bottom: 16px;
+      height: 200px;
+    }
+  }
+}

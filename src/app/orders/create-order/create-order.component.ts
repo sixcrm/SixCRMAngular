@@ -29,6 +29,9 @@ import {CheckoutResponse} from '../../shared/models/checkout-response.model';
 import {SnackbarService} from '../../shared/services/snackbar.service';
 import {SearchService} from '../../shared/services/search.service';
 import {CampaignsService} from '../../entity-services/services/campaigns.service';
+import {AccessKey} from '../../shared/models/access-key.model';
+import {AccessKeysService} from '../../entity-services/services/access-keys.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'create-order',
@@ -97,6 +100,9 @@ export class CreateOrderComponent implements OnInit {
 
   plainMapper = (el) => el;
 
+  keys: AccessKey;
+  noKeysFound: boolean;
+
   constructor(
     private customerService: CustomersService,
     private productService: ProductsService,
@@ -105,7 +111,9 @@ export class CreateOrderComponent implements OnInit {
     private transactionalAPI: HttpWrapperTransactionalService,
     private navigationService: NavigationService,
     private snackService: SnackbarService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private router: Router,
+    public keysService: AccessKeysService
   ) { }
 
   ngOnInit() {
@@ -115,6 +123,15 @@ export class CreateOrderComponent implements OnInit {
       }
 
       this.customerSearchSub = this.searchService.searchCustomers(value).subscribe(customers => this.customers = customers);
+    });
+
+    this.keysService.entities$.take(1).subscribe((keys) => {
+      if (keys instanceof CustomServerError || !keys || keys.length === 0) {
+        this.noKeysFound = true;
+        return;
+      }
+
+      this.keys = keys[0];
     });
 
     this.campaignService.entities$.take(1).subscribe((campaigns) => {
@@ -150,6 +167,7 @@ export class CreateOrderComponent implements OnInit {
       this.shippings = shippings;
     });
 
+    this.keysService.getEntities(10, null, {ignorePermissions: true});
     this.campaignService.getEntities();
     this.productService.getEntities();
     this.productScheduleService.getEntities();
@@ -504,6 +522,8 @@ export class CreateOrderComponent implements OnInit {
   }
 
   processOrder() {
+    if (!this.keys || !this.keys.secretKey || !this.keys.accessKey) return;
+
     const shippingAddress: CheckoutAddress = {
       line1: this.selectedShippingAddress.line1,
       city: this.selectedShippingAddress.city,
@@ -580,7 +600,7 @@ export class CreateOrderComponent implements OnInit {
 
     this.navigationService.setShowProcessingOrderOverlay(true);
 
-    this.transactionalAPI.checkout(checkoutBody).subscribe(response => {
+    this.transactionalAPI.checkout(checkoutBody, this.keys).subscribe(response => {
       this.navigationService.setShowProcessingOrderOverlay(false);
 
       if (response instanceof CheckoutResponse) {
@@ -590,5 +610,10 @@ export class CreateOrderComponent implements OnInit {
         this.snackService.showErrorSnack(response.message, 6000);
       }
     })
+  }
+
+  navigateToApiKeys() {
+    this.router.navigate(['/accountmanagement', 'apikeys']);
+    this.close.emit(true);
   }
 }
