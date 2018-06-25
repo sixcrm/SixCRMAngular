@@ -13,6 +13,16 @@
       <button class="registration-form__accept" mat-button (click)="acceptInvite()">{{'ACCEPTINVITE_ACCEPT' | translate}}</button>
     </ng-container>
 
+    <ng-container *ngIf="serverError">
+      <div class="registration-form__main registration-form__main--left">
+        The invite that you're trying to accept either does not exist or has already been accepted.
+        If you believe this is a error, please contact your account administrator.
+        Otherwise, use the button below to login.
+      </div>
+
+      <button class="registration-form__accept" mat-button (click)="logout()">{{'ACCEPTINVITE_LOGIN' | translate}}</button>
+    </ng-container>
+
   </div>
 
 </div>

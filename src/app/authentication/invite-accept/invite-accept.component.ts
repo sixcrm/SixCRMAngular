@@ -4,6 +4,7 @@ import {AuthenticationService} from '../authentication.service';
 import {AcknowledgeInvite} from '../../shared/models/acknowledge-invite.model';
 import {Acl} from '../../shared/models/acl.model';
 import {environment} from '../../../environments/environment';
+import {CustomServerError} from "../../shared/models/errors/custom-server-error";
 
 @Component({
   selector: 'invite-accept',
@@ -18,6 +19,7 @@ export class InviteAcceptComponent implements OnInit {
 
   welcomeScreen: boolean;
   completeScreen: boolean;
+  serverError: boolean;
 
   formInvalid: boolean;
 
@@ -54,7 +56,14 @@ export class InviteAcceptComponent implements OnInit {
 
   private initiateAcknowledgeInvite() {
     this.authService.acknowledgeInvite(this.hash).subscribe(acknowledge => {
-      this.acknowledgeInvite = acknowledge;
+
+      if (acknowledge instanceof CustomServerError) {
+        this.serverError = true;
+        return;
+      }
+
+      this.serverError = false;
+      this.acknowledgeInvite = new AcknowledgeInvite(acknowledge.body.response.data.acknowledgeinvite);;
       this.welcomeScreen = true;
     });
   }

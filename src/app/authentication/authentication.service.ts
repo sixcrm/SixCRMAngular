@@ -328,14 +328,12 @@ export class AuthenticationService {
     return this.http.postWithError(endpoint, registerUser(user), {headers: generateHeaders(this.getToken())}, {failStrategy: FailStrategy.Soft, retry: { strategy: RetryStrategy.Retry }});
   }
 
-  public acknowledgeInvite(hash: string): Observable<AcknowledgeInvite> {
-    return this.http.post(
+  public acknowledgeInvite(hash: string): Observable<HttpResponse<any> | CustomServerError>{
+    return this.http.postWithError(
       environment.publicendpoint,
       acknowledgeInviteQuery(hash),
       null,
-      { failStrategy: FailStrategy.HardStandalone }
-    ).map(data =>
-      new AcknowledgeInvite(data.body.response.data.acknowledgeinvite)
+      {failStrategy: FailStrategy.Soft, ignoreSnack: true, retry: { strategy: RetryStrategy.Retry }}
     );
   }
 
