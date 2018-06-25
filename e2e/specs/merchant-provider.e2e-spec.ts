@@ -89,8 +89,6 @@ describe('Merchant Provider', function() {
     expectUrlToContain('merchantproviders/');
   });
 
-
-
   it('should show merchant provider details', () => {
     browser.sleep(2000);
     expect(view.getEntityNameHeader().getText()).toEqual('e2e merchant provider');
