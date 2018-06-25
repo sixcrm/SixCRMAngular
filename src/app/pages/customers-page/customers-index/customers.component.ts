@@ -49,6 +49,7 @@ export class CustomersComponent extends AbstractEntityIndexComponent<Customer> i
     ];
   }
 
+
   ngOnInit() {
     this.init();
   }
