@@ -34,6 +34,8 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
 
   removeShadow: boolean;
 
+  isStickyNotifications: boolean;
+
   processingDialogRef: MatDialogRef<ProcessingDialogComponent>;
 
   constructor(
@@ -147,6 +149,10 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.showOnHover = !!(!this.showSidenav && this.isHovering);
     }, 1)
+  }
+
+  onScroll(event: Event) {
+    this.isStickyNotifications = event.srcElement.scrollTop > 70;
   }
 
 }

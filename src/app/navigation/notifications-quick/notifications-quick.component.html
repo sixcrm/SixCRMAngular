@@ -1,7 +1,7 @@
 <div class="arrow">
   <mat-icon>arrow_drop_up</mat-icon>
 </div>
-<div class="notifications-list">
+<div class="notifications-list" [class.sticky]="sticky">
   <div class="notifications-list__topnav">
     <span (click)="navigateAllNotifications()">{{'NOTIFICATIONSQUICK_VIEWALL' | translate}}</span>
     <div class="notifications-list__topnav__options">

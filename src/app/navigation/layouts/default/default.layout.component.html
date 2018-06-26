@@ -9,14 +9,14 @@
     <app-sidenav [isHovering]="isHovering || showSidenav || navigation.mediumScreenAndDown"></app-sidenav>
   </mat-sidenav>
 
-  <mat-sidenav-content [class.container--hover]="!(navigation.showSidenav | async) && showOnHover">
+  <mat-sidenav-content (scroll)="onScroll($event)" [class.container--hover]="!(navigation.showSidenav | async) && showOnHover">
     <header>
       <app-topnav [isInvitedUser]="isInvitedUser" (invitedUserInstructionsDismissed)="isInvitedUser = false"></app-topnav>
     </header>
 
     <div class="container">
       <router-outlet></router-outlet>
-      <notifications-quick *ngIf="navigation.showNotifications | async" (close)="navigation.toggleNotifications(false)"></notifications-quick>
+      <notifications-quick *ngIf="navigation.showNotifications | async" (close)="navigation.toggleNotifications(false)" [sticky]="isStickyNotifications"></notifications-quick>
       <div class="notifications-popup" [style.display]="!(navigation.showNotifications | async) ? 'block' : 'none'">
         <alerts-quick></alerts-quick>
       </div>

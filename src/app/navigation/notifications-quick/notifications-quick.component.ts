@@ -1,4 +1,4 @@
-import {Component, Output, EventEmitter, OnInit, ElementRef, OnDestroy} from '@angular/core';
+import {Component, Output, EventEmitter, OnInit, ElementRef, OnDestroy, Input} from '@angular/core';
 import {Notification} from '../../shared/models/notification.model';
 import {utc} from 'moment';
 import {Router} from '@angular/router';
@@ -19,6 +19,8 @@ import {firstIndexOf} from '../../shared/utils/array.utils';
   host: {'(document:click)':'onClick($event)'}
 })
 export class NotificationsQuickComponent implements OnInit, OnDestroy {
+
+  @Input() sticky: boolean = false;
 
   @Output() close: EventEmitter<boolean> = new EventEmitter();
 

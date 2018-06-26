@@ -1,7 +1,6 @@
 .notifications-list {
-  position: fixed;
-  top: 71px;
   right: 0;
+  height: 100vh;
 
   mat-icon {
     color: dimgrey;
@@ -22,6 +21,7 @@
   &__content {
 
     overflow-x: hidden;
+    height: 100vh;
 
     &__notification {
 
@@ -97,4 +97,8 @@
     font-size: 42px;
     color: white !important;
   }
+}
+
+.sticky {
+  position: fixed;
 }
