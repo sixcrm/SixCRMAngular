@@ -54,7 +54,7 @@ export class HttpWrapperService {
     const failStrategy: FailStrategy = requestBehaviourOptions ? requestBehaviourOptions.failStrategy : FailStrategy.Ignore;
     const retryStrategy: RetryStrategy = (requestBehaviourOptions && requestBehaviourOptions.retry && requestBehaviourOptions.retry.strategy) ? requestBehaviourOptions.retry.strategy : RetryStrategy.None;
     let retryCount: number = this.determineRetryCount(requestBehaviourOptions);
-    const ignoreSnack: boolean = true; // Technical Debt: This should not be permanent.
+    const ignoreSnack: boolean = requestBehaviourOptions ? requestBehaviourOptions.ignoreSnack : false;
 
     if (!ignoreProgress) this.setInProgress();
 
@@ -108,7 +108,7 @@ export class HttpWrapperService {
     const failStrategy: FailStrategy = requestBehaviourOptions ? requestBehaviourOptions.failStrategy : FailStrategy.Ignore;
     const retryStrategy: RetryStrategy = (requestBehaviourOptions && requestBehaviourOptions.retry && requestBehaviourOptions.retry.strategy) ? requestBehaviourOptions.retry.strategy : RetryStrategy.None;
     let retryCount: number = this.determineRetryCount(requestBehaviourOptions);
-    const ignoreSnack: boolean = true; // Technical Debt: This should not be permanent.
+    const ignoreSnack: boolean = requestBehaviourOptions ? requestBehaviourOptions.ignoreSnack : false;
 
     if (!ignoreProgress) this.setInProgress();
 
