@@ -20,8 +20,6 @@ import {firstIndexOf} from '../../shared/utils/array.utils';
 })
 export class NotificationsQuickComponent implements OnInit, OnDestroy {
 
-  @Input() sticky: boolean = false;
-
   @Output() close: EventEmitter<boolean> = new EventEmitter();
 
   notsByDate: EntitiesByDate<Notification>[] = [
