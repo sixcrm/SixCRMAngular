@@ -6,6 +6,7 @@ import {RolesService} from '../../../entity-services/services/roles.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'roles',
@@ -24,6 +25,8 @@ export class RolesComponent implements OnInit, OnDestroy {
   showAddModal: boolean;
 
   sub: Subscription;
+
+  crumbItems: BreadcrumbItem[] = [{label: () => 'ROLE_INDEX_TITLE'}];
 
   constructor(
     public aclService: AclsService,

@@ -8,7 +8,6 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
-import {FeatureFlagService} from '../../../shared/services/feature-flag.service';
 
 @Component({
   selector: 'customers',
@@ -25,8 +24,7 @@ export class CustomersComponent extends AbstractEntityIndexComponent<Customer> i
     dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute,
-    public featuresFlagService: FeatureFlagService
+    activatedRoute: ActivatedRoute
   ) {
     super(customersService, auth, dialog, paginationService, router, activatedRoute);
 

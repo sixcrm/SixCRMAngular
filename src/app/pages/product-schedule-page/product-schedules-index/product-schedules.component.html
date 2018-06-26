@@ -4,40 +4,34 @@
 
   <button mat-icon-button color="primary" *ngIf="hasWritePermission()" class="entity-index__add" (click)="openAddMode()"><mat-icon>add</mat-icon></button>
 
-  <mat-card class="entity-index__card">
-    <mat-card-content class="entity-index__card__content">
+  <entities-table-wrapper
+    [data]="entities"
+    [loaded]="initialLoaded"
+    [columnParams]="columnParams"
+    [filterString]="filterValue"
+    (selected)="viewEntity($event.id)"
+    [serverError]="serverError"
 
-      <entities-table
-        [data]="entities"
-        [loaded]="initialLoaded"
-        [columnParams]="columnParams"
-        [filterString]="filterValue"
-        (selected)="viewEntity($event.id)"
-        [serverError]="serverError"
+    [service]="service"
+    (viewClicked)="viewEntity($event.id)"
+    (copyClicked)="copyEntity($event.id)"
+    (exportClicked)="exportEntity($event.id)"
+    (editClicked)="editEntity($event.id)"
+    (deleteClicked)="deleteEntity($event.id)"
+    (deleteManyClicked)="deleteMany($event)"
+    (refreshData)="refreshData()"
 
-        [service]="service"
-        (viewClicked)="viewEntity($event.id)"
-        (copyClicked)="copyEntity($event.id)"
-        (exportClicked)="exportEntity($event.id)"
-        (editClicked)="editEntity($event.id)"
-        (deleteClicked)="deleteEntity($event.id)"
-        (deleteManyClicked)="deleteMany($event)"
-        (refreshData)="refreshData()"
-
-        [limit]="limit"
-        [paginationValues]="paginationValues"
-        [previousDisabled]="page <= 0"
-        [nextDisabled]="!hasMorePages()"
-        (previous)="previous()"
-        (next)="next()"
-        (updateLimit)="updateLimit($event)"
-        (filterChanged)="filterValue = $event"
-        (searchChanged)="setSearchString($event)"
-      >
-      </entities-table>
-
-    </mat-card-content>
-  </mat-card>
+    [limit]="limit"
+    [paginationValues]="paginationValues"
+    [previousDisabled]="page <= 0"
+    [nextDisabled]="!hasMorePages()"
+    (previous)="previous()"
+    (next)="next()"
+    (updateLimit)="updateLimit($event)"
+    (filterChanged)="filterValue = $event"
+    (searchChanged)="setSearchString($event)"
+  >
+  </entities-table-wrapper>
 </div>
 
 <div *ngIf="addMode" (click)="overlayClicked($event)" class="full-overlay">

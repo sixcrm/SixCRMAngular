@@ -1,0 +1,79 @@
+<advanced-entities-table
+  *ngIf="featuresFlagService.isEnabled('advanced-index-tables'); else oldtable"
+
+  [data]="data"
+  [loaded]="loaded"
+  [columnParams]="columnParams"
+  [filterString]="filterString"
+  [serverError]="serverError"
+  [customOptionText]="customOptionText"
+  (selected)="selected.emit($event)"
+
+  [showView]="showView"
+  [showCopy]="showCopy"
+  [showDelete]="showDelete"
+  [dedicatedOptions]="dedicatedOptions"
+
+  [service]="service"
+  (viewClicked)="viewClicked.emit($event)"
+  (copyClicked)="copyClicked.emit($event)"
+  (exportClicked)="exportClicked.emit($event)"
+  (editClicked)="editClicked.emit($event)"
+  (deleteClicked)="deleteClicked.emit($event)"
+  (deleteManyClicked)="deleteManyClicked.emit($event)"
+  (refreshData)="refreshData.emit($event)"
+  (customOptionClicked)="customOptionClicked.emit($event)"
+
+  [limit]="limit"
+  [paginationValues]="paginationValues"
+  [previousDisabled]="previousDisabled"
+  [nextDisabled]="nextDisabled"
+  [paginationString]="paginationString"
+  (previous)="previous.emit($event)"
+  (next)="next.emit($event)"
+  (updateLimit)="updateLimit.emit($event)"
+  (filterChanged)="filterChanged.emit($event)"
+  (searchChanged)="searchChanged.emit($event)">
+</advanced-entities-table>
+
+<ng-template #oldtable>
+  <mat-card class="entity-index__card">
+    <mat-card-content class="entity-index__card__content">
+      <entities-table
+        [data]="data"
+        [loaded]="loaded"
+        [columnParams]="columnParams"
+        [filterString]="filterString"
+        [serverError]="serverError"
+        [customOptionText]="customOptionText"
+        (selected)="selected.emit($event)"
+
+        [showView]="showView"
+        [showCopy]="showCopy"
+        [showDelete]="showDelete"
+        [dedicatedOptions]="dedicatedOptions"
+
+        [service]="service"
+        (viewClicked)="viewClicked.emit($event)"
+        (copyClicked)="copyClicked.emit($event)"
+        (exportClicked)="exportClicked.emit($event)"
+        (editClicked)="editClicked.emit($event)"
+        (deleteClicked)="deleteClicked.emit($event)"
+        (deleteManyClicked)="deleteManyClicked.emit($event)"
+        (refreshData)="refreshData.emit($event)"
+        (customOptionClicked)="customOptionClicked.emit($event)"
+
+        [limit]="limit"
+        [paginationValues]="paginationValues"
+        [previousDisabled]="previousDisabled"
+        [nextDisabled]="nextDisabled"
+        [paginationString]="paginationString"
+        (previous)="previous.emit($event)"
+        (next)="next.emit($event)"
+        (updateLimit)="updateLimit.emit($event)"
+        (filterChanged)="filterChanged.emit($event)"
+        (searchChanged)="searchChanged.emit($event)">
+      </entities-table>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

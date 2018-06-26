@@ -14,6 +14,7 @@ import {Role} from '../../../shared/models/role.model';
 import {Account} from '../../../shared/models/account.model';
 import {AclsService} from '../../../entity-services/services/acls.service';
 import {MatDialog} from '@angular/material';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'c-users',
@@ -25,6 +26,8 @@ export class UsersComponent extends AbstractEntityIndexComponent<User> implement
   accounts: Account[] = [];
   roles: Role[] = [];
   ownerRole: Role;
+
+  crumbItems: BreadcrumbItem[] = [{label: () => 'USER_INDEX_TITLE'}];
 
   constructor(
     usersService: UsersService,

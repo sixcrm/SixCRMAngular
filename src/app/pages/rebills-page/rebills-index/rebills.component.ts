@@ -8,7 +8,6 @@ import {PaginationService} from '../../../shared/services/pagination.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
-import {FeatureFlagService} from '../../../shared/services/feature-flag.service';
 
 @Component({
   selector: 'rebills',
@@ -25,8 +24,7 @@ export class RebillsComponent extends AbstractEntityIndexComponent<Rebill> imple
     dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute,
-    public featuresFlagService: FeatureFlagService
+    activatedRoute: ActivatedRoute
   ) {
     super(service, auth, dialog, paginationService, router, activatedRoute);
 

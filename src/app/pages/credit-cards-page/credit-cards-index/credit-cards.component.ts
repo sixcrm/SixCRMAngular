@@ -8,7 +8,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
-import {FeatureFlagService} from '../../../shared/services/feature-flag.service';
 
 @Component({
   selector: 'c-credit-cards',
@@ -25,8 +24,7 @@ export class CreditCardsComponent extends AbstractEntityIndexComponent<CreditCar
     dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute,
-    public featuresFlagService: FeatureFlagService
+    activatedRoute: ActivatedRoute
 
   ) {
     super(creditCardsService, auth, dialog, paginationService, router, activatedRoute);

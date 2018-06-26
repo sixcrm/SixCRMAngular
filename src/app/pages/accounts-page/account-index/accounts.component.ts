@@ -8,6 +8,7 @@ import {ColumnParams} from '../../../shared/models/column-params.model';
 import {Account} from '../../../shared/models/account.model';
 import {Acl} from '../../../shared/models/acl.model';
 import {MatDialog} from '@angular/material';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'accounts',
@@ -17,6 +18,7 @@ import {MatDialog} from '@angular/material';
 export class AccountsComponent extends AbstractEntityIndexComponent<Account> implements OnInit, OnDestroy {
 
   actAsOptionText: string;
+  crumbItems: BreadcrumbItem[] = [{label: () => 'ACCOUNT_INDEX_TITLE'}];
 
   constructor(
     affiliatesService: AccountsService,

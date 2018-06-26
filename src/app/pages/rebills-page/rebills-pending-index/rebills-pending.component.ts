@@ -6,7 +6,6 @@ import {PaginationService} from '../../../shared/services/pagination.service';
 import {RebillsComponent} from "../rebills-index/rebills.component";
 import {rebillsListQuery, rebillsPendingListQuery} from "../../../shared/utils/queries/entities/rebill.queries";
 import {MatDialog} from '@angular/material';
-import {FeatureFlagService} from '../../../shared/services/feature-flag.service';
 
 @Component({
   selector: 'rebills-pending',
@@ -21,10 +20,9 @@ export class RebillsPendingComponent extends RebillsComponent implements OnInit,
     dialog: MatDialog,
     paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute,
-    featuresFlagService: FeatureFlagService
+    activatedRoute: ActivatedRoute
   ) {
-    super(service, auth, dialog, paginationService, router, activatedRoute, featuresFlagService);
+    super(service, auth, dialog, paginationService, router, activatedRoute);
   }
 
   ngOnInit() {
