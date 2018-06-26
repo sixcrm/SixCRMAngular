@@ -81,7 +81,7 @@ export function rebillResponseQuery(): string {
         product { id name sku }
       }
     },
-    transactions { id amount alias created_at updated_at processor_response}
+    transactions { id amount alias created_at updated_at processor_response type result}
     shippingreceipts { id, status, tracking {id, carrier}, created_at, updated_at },
     state, previous_state,
     history { state entered_at exited_at error_message }
@@ -96,7 +96,7 @@ export function rebillInfoResponseQuery(): string {
 export function rebillByCustomerResponseQuery(): string {
   return `id bill_at amount created_at updated_at state
   products { quantity, amount, product { id, name, sku, ship }, returns { quantity, return{ id, alias, created_at }}}
-  transactions { id amount alias created_at updated_at processor_response chargeback type merchant_provider {id name}}
+  transactions { id amount alias created_at updated_at processor_response chargeback type result merchant_provider {id name}}
   parentsession { id alias created_at campaign { id name } }
   shippingreceipts { id, status, tracking {id, carrier}, created_at, updated_at }
   paid {detail updated_at}`

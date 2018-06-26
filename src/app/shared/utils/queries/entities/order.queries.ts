@@ -21,7 +21,7 @@ export function orderByCustomerResponseQuery(): string {
   }
   session { id alias created_at campaign { id name } }
   rebill { id resolved_amount created_at updated_at
-    transactions { id amount alias created_at updated_at processor_response chargeback type merchant_provider {id name}}
+    transactions { id amount alias created_at updated_at processor_response chargeback type result merchant_provider {id name}}
     paid {detail updated_at}
   }`
 }

@@ -66,18 +66,18 @@ export class Rebill implements Entity<Rebill> {
   }
 
   hasChargeback() {
-    return this.transactions && (firstIndexOf(this.transactions.filter(t => !t.isError()), (t) => t.chargeback) !== -1);
+    return this.transactions && (firstIndexOf(this.transactions.filter(t => t.isSuccess()), (t) => t.chargeback) !== -1);
   }
 
   hasRefund() {
-    return this.transactions && (firstIndexOf(this.transactions.filter(t => !t.isError()), (t) => t.type === 'refund') !== -1);
+    return this.transactions && (firstIndexOf(this.transactions.filter(t => t.isSuccess()), (t) => t.isRefund()) !== -1);
   }
 
   refundedAmount(): Currency {
     if (!this.transactions) return new Currency(0);
 
     return new Currency(
-      this.transactions.filter(t => !t.isError() && t.type === 'refund').map(t => t.amount.amount).reduce((a,b) => a+b,0)
+      this.transactions.filter(t => !t.isError() && t.isRefund()).map(t => t.amount.amount).reduce((a,b) => a+b,0)
     )
   }
 
@@ -109,8 +109,8 @@ export class Rebill implements Entity<Rebill> {
   }
 
   canRefund(): boolean {
-    const transactions = this.transactions.filter(t => !t.isError() && t.type === 'sale').length;
-    const refunded = this.transactions.filter(t => !t.isError() && t.type === 'refund').length;
+    const transactions = this.transactions.filter(t => !t.isError() && t.isSale()).length;
+    const refunded = this.transactions.filter(t => !t.isError() && t.isRefund()).length;
 
     return transactions > refunded;
   }

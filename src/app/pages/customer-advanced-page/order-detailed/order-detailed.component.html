@@ -17,7 +17,7 @@
       <mat-menu #refundDetails="matMenu" x-position="before">
         <ng-container *ngFor="let transaction of _order.rebill.transactions">
           <div *ngIf="!transaction.isError()" class="transactions-details-item">
-            <div>{{transaction.chargeback ? 'Chargeback' : transaction.type === 'refund' ? 'Refund' : transaction.processorResponse.message}}</div>
+            <div>{{transaction.chargeback ? 'Chargeback' : transaction.isRefund() ? 'Refund' : transaction.processorResponse.message}}</div>
             <div>{{transaction.createdAt | formatDateTime: 'MM/DD/YYYY h:mm A'}}</div>
             <div>{{transaction.processorResponse.getCard().brand}} {{transaction.processorResponse.getCard().last4}}</div>
             <div>{{transaction.amount.usd()}}</div>

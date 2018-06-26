@@ -45,7 +45,7 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
   columnParams: ColumnParams<Transaction>[] = [];
   rowColorFunction = (e: Transaction) => e.chargeback ? 'rgba(220, 37, 71, 0.05)' : '#ffffff';
   options: OptionItem[] = [
-    {label: 'Refund', visible: (e: Transaction) => e.type === 'sale'},
+    {label: 'Refund', visible: (e: Transaction) => e.isSale()},
     {label: 'Notify User', visible: (e: Transaction) => true},
     {label: 'View Details', visible: (e: Transaction) => true}
   ];
@@ -70,7 +70,7 @@ export class CustomerAdvancedTransactionsComponent implements OnInit {
         .setMaterialIconColorMapper((e: Transaction) => e.chargeback || e.isError() ? '#DC2547' : '#ffffff'),
       new ColumnParams('CUSTOMER_TRANSACTION_ORDER', (e: Transaction) => e.rebill.parentSession.alias).setClickable(true).setColor('#2C98F0').setSeparator(true),
       new ColumnParams('CUSTOMER_TRANSACTION_AMOUNT', (e: Transaction) => e.amount.usd()),
-      new ColumnParams('CUSTOMER_TRANSACTION_REFUND', (e: Transaction) => e.type === 'refund' ? e.amount.usd() : '-').setAlign('center'),
+      new ColumnParams('CUSTOMER_TRANSACTION_REFUND', (e: Transaction) => e.isRefund() ? e.amount.usd() : '-').setAlign('center'),
       new ColumnParams('CUSTOMER_TRANSACTION_CHARGEBACK', (e: Transaction) => e.chargeback ? e.amount.usd() : '-').setAlign('center'),
       new ColumnParams('CUSTOMER_TRANSACTION_MID', (e: Transaction) => e.merchantProvider.name).setClickable(true).setColor('#2C98F0'),
       new ColumnParams('CUSTOMER_TRANSACTION_ALIAS', (e: Transaction) => e.alias).setSeparator(true).setClickable(true).setColor('#2C98F0'),

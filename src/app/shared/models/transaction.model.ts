@@ -18,6 +18,7 @@ export class Transaction implements Entity<Transaction>{
   products: Products[];
   chargeback: boolean;
   type: string;
+  result: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -35,14 +36,23 @@ export class Transaction implements Entity<Transaction>{
     this.chargeback = !!obj.chargeback;
     this.products = [];
     this.type = obj.type || 'sale';
+    this.result = obj.result || 'result';
 
     if (obj.products) {
       this.products = obj.products.map(p => new Products(p));
     }
   }
 
+  isDecline() {
+    return this.result === 'decline'
+  }
+
+  isSuccess() {
+    return this.result === 'success';
+  }
+
   isError() {
-    return this.processorResponse.message === 'Error';
+    return this.result === 'error';
   }
 
   getStatus() {
@@ -50,13 +60,23 @@ export class Transaction implements Entity<Transaction>{
 
     if (this.isError()) return 'Error';
 
+    if (this.isDecline()) return 'Decline';
+
     if (this.type === 'refund') return 'Refund';
 
     return 'Approved'
   }
 
+  isRefund() {
+    return this.type === 'refund';
+  }
+
+  isSale() {
+    return this.type === 'sale';
+  }
+
   isRefundable() {
-    return !this.isError() && !this.chargeback && this.type !== 'refund';
+    return this.isSuccess() && !this.chargeback && this.type !== 'refund';
   }
 
   copy(): Transaction {
@@ -74,7 +94,8 @@ export class Transaction implements Entity<Transaction>{
       rebill: this.rebill.inverse(),
       products: this.products.map(p => p.inverse()),
       chargeback: this.chargeback,
-      type: this.type
+      type: this.type,
+      result: this.result
     }
   }
 }
