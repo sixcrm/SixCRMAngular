@@ -26,7 +26,7 @@
               <ng-container *ngFor="let order of orders">
                 <order-item [order]="order"
                             (refund)="openRefundDialog($event)"
-                            (ret)="openReturnDialog($evet)"
+                            (ret)="openReturnDialog($event)"
                             (orderSelected)="viewSingleOrder($event)">
                 </order-item>
               </ng-container>
@@ -43,7 +43,7 @@
             <order-detailed [order]="selectedOrder"
                             (backButtonSelected)="viewAllOrders()"
                             (refund)="openRefundDialog($event)"
-                            (ret)="openReturnDialog($evet)">
+                            (ret)="openReturnDialog($event)">
             </order-detailed>
           </div>
         </mat-tab>

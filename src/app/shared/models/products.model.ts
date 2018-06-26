@@ -30,6 +30,14 @@ export class Products {
     }
   }
 
+  isReturnable() {
+    if (!this.product.ship) return false;
+
+    const returned = this.returns.map(r => r.quantity).reduce((a,b) => a+b,0);
+
+    return returned < this.quantity;
+  }
+
   copy(): Products {
     return new Products(this.inverse());
   }

@@ -26,6 +26,12 @@ export class ReturnDialogComponent implements OnInit {
     }
   }
 
+  processReturn() {
+    const allSelected = this.products.filter(p => p.selected);
+
+    if (!allSelected || allSelected.length === 0) return;
+  }
+
 }
 
 interface ReturnableProduct extends Products {

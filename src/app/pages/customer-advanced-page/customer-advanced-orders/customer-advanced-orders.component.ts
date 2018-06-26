@@ -13,6 +13,7 @@ import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {OrdersService} from '../../../entity-services/services/orders.service';
 import {Order} from '../../../shared/models/order.model';
 import {ShippingReceipt} from '../../../shared/models/shipping-receipt.model';
+import {utc} from 'moment';
 
 @Component({
   selector: 'customer-advanced-orders',
@@ -171,7 +172,7 @@ export class CustomerAdvancedOrdersComponent implements OnInit {
   openReturnDialog(order: Order) {
     let ref = this.dialog.open(ReturnDialogComponent, {backdropClass: 'backdrop-blue'});
 
-    ref.componentInstance.products = order.copy().products.filter(p => !p.returns || p.returns.length === 0);
+    ref.componentInstance.products = order.copy().products.filter(p => p.isReturnable());
 
     ref.afterClosed().take(1).subscribe(() => {
       ref = null;

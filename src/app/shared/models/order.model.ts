@@ -70,7 +70,11 @@ export class Order {
   }
 
   canReturn(): boolean {
-    return this.products.filter(p => p.product.ship && (!p.returns || p.returns.length === 0)).length > 0;
+    for (let product of this.products) {
+      if (product.isReturnable()) return true;
+    }
+
+    return false;
   }
 
   copy(): Order {
