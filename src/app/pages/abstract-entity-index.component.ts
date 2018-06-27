@@ -12,7 +12,6 @@ import {CustomServerError} from '../shared/models/errors/custom-server-error';
 import {areEntitiesIdentical} from '../shared/utils/entity.utils';
 import {YesNoDialogComponent} from './yes-no-dialog.component';
 import {Modes} from './abstract-entity-view.component';
-import 'rxjs/Rx';
 
 export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {
 

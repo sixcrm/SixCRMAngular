@@ -7,7 +7,7 @@ import {HttpWrapperService} from '../shared/services/http-wrapper.service';
 import {ActivatedRoute} from '@angular/router';
 import {navigateToFieldByString, sortFields, sortTypes} from './utils';
 import {SearchItem} from "./components/side-search/side-search.component";
-import {BehaviorSubject} from "rxjs/Rx";
+import {BehaviorSubject} from "rxjs";
 
 export interface HeadersInput {
   key: string;

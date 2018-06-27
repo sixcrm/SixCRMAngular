@@ -18,6 +18,7 @@ import {TableMemoryTextOptions} from "../components/table-memory/table-memory.co
 import {TabHeaderElement} from "../../shared/components/tab-header/tab-header.component";
 import {TranslationService} from '../../translation/translation.service';
 import {isValidEmail} from '../../shared/utils/form.utils';
+import {FeatureFlagService} from '../../shared/services/feature-flag.service';
 
 let moment = require('moment-timezone');
 
@@ -78,7 +79,8 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     private authService: AuthenticationService,
     public navigation: NavigationService,
     private router: Router,
-    public translationsService: TranslationService
+    public translationsService: TranslationService,
+    public featureFlagsService: FeatureFlagService
   ) { }
 
   ngOnInit() {
@@ -230,6 +232,12 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
   viewAccount(account: Acl) {
     this.router.navigate(['/accounts', account.account.id]);
+  }
+
+  getLanguages() {
+    return this.translationsService
+      .getLanguages()
+      .filter(l => this.featureFlagsService.isEnabled(`user-settings-languages|${l.toLowerCase()}`));
   }
 
   setLanguage(language: string) {

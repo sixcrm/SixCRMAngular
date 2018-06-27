@@ -2,7 +2,6 @@ import {AuthenticationService} from '../../authentication/authentication.service
 import {Router} from '@angular/router';
 import {YesNoDialogComponent} from '../yes-no-dialog.component';
 import {NavigationService} from '../../navigation/navigation.service';
-import 'rxjs/Rx';
 import {MatDialog} from '@angular/material';
 
 export class AbstractAclGuard {

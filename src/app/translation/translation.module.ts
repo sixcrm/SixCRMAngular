@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { TranslationPipe } from './translation.pipe';
 import {TranslationService} from './translation.service';
 import {NumberLocalePipe} from './number-locale.pipe';
-import { DefaultTranslationService } from './default-translation.service';
 
 @NgModule({
   imports: [
@@ -17,9 +16,7 @@ import { DefaultTranslationService } from './default-translation.service';
     TranslationPipe,
     NumberLocalePipe
   ],
-  providers : [
-    DefaultTranslationService
-  ]
+  providers : [ ]
 })
 export class TranslationModule {
   static forRoot(): ModuleWithProviders {
