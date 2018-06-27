@@ -94,9 +94,8 @@ describe('Register', function() {
     browser.sleep(300);
     // Finish Registration
     registerPage.getPaymentContinueButton().click();
-    browser.sleep(14000);
-    waitForUrlContains('/dashboard?w=true');
-    browser.sleep(5000);
+    waitForUrlContains('/dashboard?w=true', 20000);
+    browser.sleep(1000);
     expectUrlToContain('/dashboard?w=true');
   });
 
