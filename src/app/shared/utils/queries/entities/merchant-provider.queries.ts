@@ -59,12 +59,12 @@ export function merchantProviderResponseQuery(): string {
     }
     merchantprovidergroups { id name }
     gateway {
-      ... on NMI { name type username password processor_id }
-      ... on TestMerchantProvider { name type }
-      ... on Innovio { name type username password product_id }
-      ... on Stripe {name type api_key}
-      ... on AuthorizeNet {name type api_key transaction_key}
-      ... on PaymentXP {name type username password merchant_id merchant_key}
+      ... on NMI { name type username password processor_id processor midnumber descriptor }
+      ... on TestMerchantProvider { name type processor midnumber descriptor }
+      ... on Innovio { name type username password product_id processor midnumber descriptor }
+      ... on Stripe { name type api_key processor midnumber descriptor }
+      ... on AuthorizeNet { name type api_key transaction_key processor midnumber descriptor }
+      ... on PaymentXP { name type username password merchant_id merchant_key processor midnumber descriptor }
     }
     customer_service { email url description phone }`
 }
@@ -106,6 +106,9 @@ export function merchantProviderInputQuery(provider: MerchantProvider, includeId
       ${provider.gateway.isAuthorizeNet() ? `transaction_key:"${provider.gateway.transactionKey}",` : ''}
       ${provider.gateway.isPaymentXP() ? `merchant_id:"${provider.gateway.merchantId}",` : ''}
       ${provider.gateway.isPaymentXP() ? `merchant_key:"${provider.gateway.merchantKey}",` : ''}
+      processor:"${provider.gateway.processor}",
+      midnumber:"${provider.gateway.midnumber}",
+      descriptor:"${provider.gateway.descriptor}"
     },
     customer_service:{
       ${provider.customerService.email ? `email: "${provider.customerService.email}",` : ''}
