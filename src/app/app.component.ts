@@ -1,7 +1,9 @@
 import {Component, ElementRef, OnInit, HostListener} from '@angular/core';
 import {NavigationService} from './navigation/navigation.service';
+import {TranslationService} from './translation/translation.service';
 import {Router, Event, NavigationStart, NavigationEnd} from '@angular/router';
 import 'hammerjs';
+import 'rxjs/Rx';
 
 @Component({
   selector : 'app-root',
@@ -13,7 +15,8 @@ export class AppComponent implements OnInit {
   constructor(
     private _navigation: NavigationService,
     private _router: Router,
-    private _elementRef: ElementRef
+    private _elementRef: ElementRef,
+    private _translationService: TranslationService
   ) { }
 
   ngOnInit() {
@@ -30,6 +33,8 @@ export class AppComponent implements OnInit {
         }
       }
     });
+
+    this._translationService.loadTemporaryTranslations();
   }
 
   @HostListener('window:resize', ['$event'])

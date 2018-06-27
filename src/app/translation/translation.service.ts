@@ -6,8 +6,6 @@ import {HttpClient} from '@angular/common/http';
 import {Notification} from '../shared/models/notification.model';
 import {TranslatedQuote} from "./translated-quote.model";
 import {utc} from 'moment';
-import { DefaultTranslationService } from './default-translation.service';
-import {FeatureFlagService} from "../shared/services/feature-flag.service";
 
 export interface LanguageDefinition {
   name: string,
@@ -33,16 +31,13 @@ export class TranslationService {
 
   public selectedLanguage: string;
   public translationChanged$: Subject<boolean> = new Subject();
-  public allTranslationsFetched: Subject<boolean> = new Subject();
+  public allTranslationsFetched$: Subject<boolean> = new Subject();
 
   constructor(
     private authService: AuthenticationService,
-    private http: HttpClient,
-    public featureFlagService: FeatureFlagService
+    private http: HttpClient
   ) {
-    this.loadTemporaryTranslations();
     this.fetchLanguages();
-
     this.updateTranslation(this.authService.getUserSettings().language);
 
     this.authService.userSettings$.subscribe(userSettings => {
@@ -55,26 +50,27 @@ export class TranslationService {
   }
 
   loadTemporaryTranslations(): void {
-    this.selectedTranslation = { translations: DefaultTranslationService.en(), name: 'English' };
+    this.http.get<any>(environment.translationsUrl + 'en.json').subscribe(res => {
+      this.selectedTranslation = {name: 'English', translations: res};
+    });
   }
 
   fetchLanguages() {
     this.http.get<any>(environment.translationsUrl).subscribe(res => {
       this.allDefinitions = res;
 
-      this.allTranslationsFetched.next(true);
+      this.allTranslationsFetched$.next(true);
     });
   }
 
   getLanguages(): string[] {
     return this.allDefinitions
-      .map(l => l.name)
-      .filter(l => this.featureFlagService.isEnabled(`user-settings-languages|${l.toLowerCase()}`));
+      .map(l => l.name);
   }
 
   updateTranslation(language?: string) {
     if (!this.allDefinitions || this.allDefinitions.length === 0) {
-      this.allTranslationsFetched.take(1).subscribe(() => this.updateTranslation(language));
+      this.allTranslationsFetched$.take(1).subscribe(() => this.updateTranslation(language));
       return;
     }
 
@@ -100,7 +96,7 @@ export class TranslationService {
   translate(value: string) {
     if (!this.selectedTranslation) {
       return value
-    };
+    }
 
     const keys = value.toLowerCase().split('_');
 

@@ -1,7 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {navigateToFieldByString} from '../../utils';
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
-import {Subject} from "rxjs/Rx";
+import {Subject} from "rxjs";
 
 export interface SearchItem {
   name: string;

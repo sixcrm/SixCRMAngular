@@ -23,7 +23,9 @@ export class FeatureFlagService {
       this.fetchFeatureFlags(acl);
     });
 
-    this.authService.actingAsAccount$.subscribe(() => {
+    this.authService.actingAsAccount$.subscribe(account => {
+      if (!account || !account.id) return;
+
       this.fetchFeatureFlags(this.authService.getActiveAcl());
     });
   }
