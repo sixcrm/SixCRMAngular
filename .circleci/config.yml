@@ -135,7 +135,7 @@ jobs:
             name: Run local server
             command: npm run start
             background: true
-        -run:
+        - run:
             name: Wait for server to start
             command: sleep 60
         - run:
