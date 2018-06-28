@@ -63,22 +63,25 @@ describe('Merchant Provider', function() {
     merchantProvider.getNewFormInput(0).sendKeys('e2e merchant provider');
     merchantProvider.getNewFormCheckbox(3).click();
     merchantProvider.getNewFormInput(1).sendKeys('123');
-    merchantProvider.getNewFormInput(2).sendKeys('123');
-    merchantProvider.getNewFormInput(3).sendKeys('123');
+    merchantProvider.getNewFormInput(2).sendKeys('testp');
+    merchantProvider.getNewFormInput(3).sendKeys('testd');
     merchantProvider.getNewFormInput(4).sendKeys('123');
-    merchantProvider.getNewFormInput(5).sendKeys('1');
-    merchantProvider.getNewFormInput(6).sendKeys('0.1');
-    merchantProvider.getNewFormInput(7).sendKeys('0.1');
-    merchantProvider.getNewFormInput(8).sendKeys('0.1');
-    merchantProvider.getNewFormInput(9).sendKeys('MNI');
+    merchantProvider.getNewFormInput(5).sendKeys('123');
+    merchantProvider.getNewFormInput(6).sendKeys('123');
+    merchantProvider.getNewFormInput(7).sendKeys('123');
+    merchantProvider.getNewFormInput(8).sendKeys('1');
+    merchantProvider.getNewFormInput(9).sendKeys('0.1');
+    merchantProvider.getNewFormInput(10).sendKeys('0.1');
+    merchantProvider.getNewFormInput(11).sendKeys('0.1');
+    merchantProvider.getNewFormInput(12).sendKeys('MNI');
 
     merchantProvider.getDropdown(0).click();
     browser.sleep(1000);
     merchantProvider.getDropdownOption().click();
 
-    merchantProvider.getNewFormInput(10).sendKeys('123');
-    merchantProvider.getNewFormInput(11).sendKeys('123');
-    merchantProvider.getNewFormInput(12).sendKeys('123');
+    merchantProvider.getNewFormInput(13).sendKeys('123');
+    merchantProvider.getNewFormInput(14).sendKeys('123');
+    merchantProvider.getNewFormInput(15).sendKeys('123');
 
     expect(merchantProvider.getErrorInputs().count()).toEqual(0);
   });
@@ -112,21 +115,18 @@ describe('Merchant Provider', function() {
     expect(view.getEntityNameHeader().getText()).toEqual('e2e merchant provider updated');
   });
 
-  xit( 'should go back to campaign index', () =>  {
+  it( 'should go back to merchant providers index', () =>  {
     merchantProvider.getMerchantIndexButton().click();
     browser.sleep(500);
     waitForUrlContains('merchantproviders');
     expectUrlToContain('merchantproviders');
   });
 
-  xit('should delete merchant provider', () => {
-
+  it('should delete merchant provider', () => {
     browser.sleep(500);
     merchantProvider.getMerchantDeleteButton().click();
     browser.sleep(200);
     merchantProvider.getMerchantDeleteModalButton().click();
-    browser.sleep(3000);
-    expect(merchantProvider.getMerchantIndividualCampaign().count()).toEqual(0);
   });
 
 });
