@@ -1,15 +1,4 @@
 .type {
-  margin-bottom: 38px;
-
-  &__name {
-    font-size: 22px;
-    font-weight: 500;
-    cursor: pointer;
-  }
-
-  &__description {
-    margin-top: 4px;
-  }
 
   mat-icon {
     margin-left: 10px;
@@ -21,10 +10,6 @@
   &__content {
     transition: height 1s;
     overflow: hidden;
-
-    &__collapse {
-      height: 0;
-    }
   }
 
   .share-icon {

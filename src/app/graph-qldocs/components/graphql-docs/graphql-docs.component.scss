@@ -1,24 +1,26 @@
 .docs {
-  background: #fff;
-  height: calc(100vh - 70px);
+  background: #F0F3F4;
+  height: calc(100vh - 70px - 110px);
   font-size: 16px;
   overflow: hidden;
-  display: flex;
-
-  &__sidenav {
-    border-right: 2px solid rgba(0, 0, 0, 0.2);
-    overflow: auto;
-    min-width: 250px;
-  }
 
   &__content {
-    overflow: auto;
-    padding: 40px 20px;
-    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 20px 20px;
+    width: calc(100vw - 479px);
+    background: #F0F3F4;
+    display: inline-block;
+    float: right;
+    height: calc(100vh - 220px);
+  }
+
+  .showSidenav {
+    width: calc(100vw - 669px);
   }
 
   mat-spinner {
-    margin: 60px auto;
+    margin: 200px auto;
     height: 180px;
     width: 180px;
   }

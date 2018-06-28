@@ -1,14 +1,13 @@
 <div class="type">
-  <div class="type__name">
-    <a id="{{type.name}}"></a>
-    {{type.name}}
-    <mat-icon (click)="toggleShow()">{{show ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
-    <mat-icon class="share-icon" matTooltip="Share, Copy to clipboard" ngxClipboard [cbContent]="getShareLink()">link</mat-icon>
-  </div>
-
-  <div class="type__content" [class.type__content__collapse]="!show">
-    <div class="type__description">{{type.description}}</div>
-    <doc-field *ngFor="let field of type.fields" [field]="field" [enableLink]="type.name === 'Query' || type.name ==='Mutation'"></doc-field>
-    <doc-input-fields [inputFields]="type.inputFields"></doc-input-fields>
+  <div class="type__content">
+    <ng-container *ngIf="isAll && !otherTypes">
+      <query-mutation-card *ngFor="let field of type.fields" [field]="field" [type]="type" [isMutation]="isMutation" [isQuery]="isQuery"></query-mutation-card>
+    </ng-container>
+    <ng-container *ngIf="isQuery || isMutation">
+      <query-mutation-card [field]="field" [type]="type" [isMutation]="isMutation" [isQuery]="isQuery"></query-mutation-card>
+    </ng-container>
+    <ng-container *ngIf="isType || otherTypes">
+      <type-card [type]="type || otherTypes"></type-card>
+    </ng-container>
   </div>
 </div>

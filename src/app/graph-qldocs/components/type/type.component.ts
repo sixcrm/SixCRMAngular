@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {Type} from '../../models/type.model';
-import {environment} from '../../../../environments/environment';
+import {Field} from "../../models/field.model";
 
 @Component({
   selector: 'doc-type',
@@ -10,19 +10,15 @@ import {environment} from '../../../../environments/environment';
 export class TypeComponent implements OnInit {
 
   @Input() type: Type;
-
-  show: boolean = true;
+  @Input() otherTypes: Type;
+  @Input() field: Field;
+  @Input() isQuery: boolean;
+  @Input() isMutation: boolean;
+  @Input() isAll: boolean;
+  @Input() isType: boolean;
 
   constructor() { }
 
   ngOnInit() { }
-
-  toggleShow(): void {
-    this.show = !this.show;
-  }
-
-  getShareLink(): string {
-    return environment.auth0RedirectUrl + '/documentation/graph#' + this.type.name;
-  }
 
 }

@@ -1,14 +1,12 @@
 import {RouterModule} from '@angular/router';
-import {GraphDocsComponent} from './graph-docs/graph-docs.component';
 import {GraphDocsPageComponent} from './graph-docs-page/graph-docs-page.component';
-import {GraphqlDocs2Component} from '../../graph-qldocs-2/components/graphql-docs-2/graphql-docs-2.component';
+import {GraphqlDocsComponent} from '../../graph-qldocs/components/graphql-docs/graphql-docs.component';
 
 export const documentationRouting = RouterModule.forChild([
-  { path : 'graph', component : GraphDocsComponent },
-  { path : 'graph2', component : GraphDocsPageComponent, children: [
-    { path : '', component : GraphqlDocs2Component },
-    { path : 'query/:id', component : GraphqlDocs2Component },
-    { path : 'mutation/:id', component : GraphqlDocs2Component },
-    { path : 'type/:id', component : GraphqlDocs2Component },
+  { path : 'graph', component : GraphDocsPageComponent, children: [
+    { path : '', component : GraphqlDocsComponent },
+    { path : 'query/:id', component : GraphqlDocsComponent },
+    { path : 'mutation/:id', component : GraphqlDocsComponent },
+    { path : 'type/:id', component : GraphqlDocsComponent }
   ]}
 ]);

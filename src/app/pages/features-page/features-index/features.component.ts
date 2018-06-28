@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
 import {FeatureFlagService} from "../../../shared/services/feature-flag.service";
 import {AsyncSubject} from "rxjs";
 import {FeatureFlag, FeatureFlags} from "../../../shared/models/feature-flags.model";
-import {AuthenticationService} from "../../../authentication/authentication.service";
+import {BreadcrumbItem} from "../../components/models/breadcrumb-item.model";
 
 @Component({
   selector: 'features',
@@ -13,6 +13,7 @@ export class FeaturesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   featureFlags: FeatureFlags;
   unsubscribe$: AsyncSubject<boolean> = new AsyncSubject();
+  crumbItems: BreadcrumbItem[] = [{label: () => 'Features'}];
 
   constructor(private featureFlagService: FeatureFlagService) {}
 

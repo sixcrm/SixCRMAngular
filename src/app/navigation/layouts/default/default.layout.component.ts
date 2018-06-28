@@ -61,7 +61,7 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.removeShadow = this.showSidenav && this.router.url.includes('documentation/graph2');
+        this.removeShadow = this.showSidenav && this.router.url.includes('documentation/graph');
       }
     });
 
@@ -78,7 +78,7 @@ export class DefaultLayoutComponent implements OnInit, AfterViewInit {
     });
 
     this.navigation.showSidenav.subscribe(showSidenav => {
-      if (this.router.url.includes('documentation/graph2')) {
+      if (this.router.url.includes('documentation/graph')) {
         this.removeShadow = showSidenav;
       } else {
         this.removeShadow = false;

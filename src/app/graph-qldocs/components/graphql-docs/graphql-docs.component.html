@@ -2,11 +2,17 @@
   <mat-spinner *ngIf="!loaded; else load"></mat-spinner>
 
   <ng-template #load>
-    <div class="docs__sidenav">
-      <side-search [searchItems]="searchItems"></side-search>
-    </div>
-    <div class="docs__content">
-      <doc-type *ngFor="let type of types" [type]="type"></doc-type>
+    <div class="docs__content" [class.showSidenav]="showSidenav">
+      <ng-container *ngIf="isAll">
+        <doc-type *ngFor="let aType of queryMutationTypesFiltered" [type]="aType" [isAll]="true"></doc-type>
+        <doc-type *ngFor="let aType of otherTypesFiltered" [otherTypes]="aType" [isAll]="true"></doc-type>
+      </ng-container>
+      <ng-container *ngIf="isQuery || isMutation">
+        <doc-type [isMutation]="isMutation" [isQuery]="isQuery" [isType]=false [type]="type" [field]="field"></doc-type>
+      </ng-container>
+      <ng-container *ngIf="isType">
+        <type-card [isType]="isType" [type]="type"></type-card>
+      </ng-container>
     </div>
   </ng-template>
 </div>

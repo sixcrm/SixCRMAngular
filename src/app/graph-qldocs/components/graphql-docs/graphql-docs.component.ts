@@ -1,108 +1,168 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import {GraphqlDocsService, HeadersInput} from '../../graphql-docs.service';
 import {Type} from '../../models/type.model';
-import {sortTypes, sortFields} from '../../utils';
-import {SearchItem} from '../side-search/side-search.component';
+import {ActivatedRoute, ResolveEnd, Router} from "@angular/router";
+import {AsyncSubject} from "rxjs";
+import {Field} from "../../models/field.model";
+import {SearchItem} from "../side-search/side-search.component";
 
 @Component({
   selector: 'graphql-docs',
   templateUrl: './graphql-docs.component.html',
   styleUrls: ['./graphql-docs.component.scss']
 })
-export class GraphqlDocsComponent implements OnInit {
+export class GraphqlDocsComponent implements OnInit, OnDestroy {
 
   @Input() endpoint: string;
   @Input() headers: HeadersInput[];
+  @Input() showSidenav: boolean;
 
+  queryMutationTypes: Type[];
+  queryMutationTypesFiltered: Type[];
+  otherTypes: Type[];
+  otherTypesFiltered: Type[];
   types: Type[];
-  searchItems: SearchItem[] = [
-    {name: 'Query', children: []},
-    {name: 'Mutation', children: []},
-    {name: 'Type', children: []}
-  ];
+  searchItems: SearchItem[];
 
+  field: Field;
+  type: Type;
+
+  isQuery : boolean;
+  isMutation: boolean;
+  isType : boolean;
+  isAll : boolean;
   loaded: boolean = false;
+  filterString: string;
 
-  constructor(private graphqlService: GraphqlDocsService) { }
+  protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
+
+  constructor(
+    private route: ActivatedRoute,
+    private graphqlService: GraphqlDocsService,
+    private router: Router) { }
 
   ngOnInit() {
-    this.graphqlService.getSchemaTypes(this.endpoint, this.headers).subscribe((data: Type[]) => {
-      this.types = data
-        .filter(type => type.name.indexOf('__') === -1) // filter out meta types
-        .sort(sortTypes)  // sort types
-        .map(type => {  // sort fields
-          if (type.fields) {
-            type.fields = type.fields.sort(sortFields);
+    this.graphqlService.getFullWidth().subscribe(value => {
+      this.showSidenav = !value;
+    });
+
+    this.graphqlService.getSchemaTypes(this.endpoint, this.headers).subscribe((response: {types: Type[], searchItems: SearchItem[]}) => {
+      if (!response) return;
+
+      this.types = response.types;
+      this.searchItems = response.searchItems;
+      this.loaded = true;
+
+      this.graphqlService.navigateByAnchor();
+      this.determineParameters(this.router.url);
+      if (this.queryMutationTypes && this.otherTypes) {
+        this.filterTroughAllTypes();
+      }
+    });
+
+    this.router.events.takeUntil(this.unsubscribe$).subscribe((routeEvent) => {
+      if (routeEvent instanceof ResolveEnd) {
+        this.determineParameters(routeEvent.url);
+      }
+    });
+
+    this.route.queryParams.subscribe(params => {
+      this.filterString = params['filter'] || '';
+
+      if (this.queryMutationTypes && this.otherTypes) {
+        this.filterTroughAllTypes();
+      }
+    });
+
+    this.determineParameters(this.router.url);
+  }
+
+  private determineParameters(url: string) {
+    let baseUrl = '/documentation/graph/';
+    let query = url.replace(baseUrl + 'query/', '');
+    let mutation = url.replace(baseUrl + 'mutation/', '');
+    let type = url.replace(baseUrl + 'type/', '');
+
+    this.isQuery = query !== url;
+    this.isMutation = mutation !== url;
+    this.isType = type !== url;
+    this.isAll = !this.isQuery && !this.isMutation && !this.isType;
+
+    let fieldName;
+    if (this.types) {
+      if (!this.isAll) {
+        this.type = this.types.find(el => {
+          let name;
+
+          if (this.isQuery) {
+            fieldName = query;
+            name = 'Query';
           }
-          return type;
+
+          if (this.isMutation) {
+            fieldName = mutation;
+            name = 'Mutation';
+          }
+
+          if (this.isType) {
+            fieldName = type;
+            return (!this.isQueryOrMutation(el.name) && (el.name === fieldName));
+          }
+
+          return el.name === name
         });
 
-      // parse side search items
-      Object.keys(this.types).forEach(key => {
-        if (this.types[key].name === 'Query') {
-          this.searchItems[0].children = this.types[key].fields.map(field => field.name);
-        } else if (this.types[key].name === 'Mutation') {
-          this.searchItems[1].children = this.types[key].fields.map(field => field.name);
-        } else {
-          this.searchItems[2].children.push(this.types[key].name)
+        if (this.isQueryOrMutation(this.type.name)) {
+          this.field = this.type.fields.find(el => el.name === fieldName)
         }
+      }
+
+      if (this.isAll) {
+        this.separateTypes();
+      }
+    }
+  }
+
+  separateTypes() {
+    this.queryMutationTypes = this.types.filter(el => {
+      return this.isQueryOrMutation(el.name)
+    });
+
+    this.otherTypes = this.types.filter(el => {
+      return (!this.isQueryOrMutation(el.name));
+    });
+
+    this.queryMutationTypesFiltered = this.queryMutationTypes;
+    this.otherTypesFiltered = this.otherTypes;
+  }
+
+  isQueryOrMutation(typeName: string) {
+    return (typeName === 'Query') || (typeName === 'Mutation')
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next(true);
+    this.unsubscribe$.complete();
+  }
+
+  filterTroughAllTypes(): void {
+    this.otherTypesFiltered = this.otherTypes;
+    this.queryMutationTypesFiltered = JSON.parse(JSON.stringify(this.queryMutationTypes));
+
+    if (this.filterString) {
+      this.otherTypesFiltered = this.otherTypes.filter(el => {
+        let name = el.name.toLowerCase();
+
+        return name.includes(this.filterString.toLowerCase());
       });
 
-      this.loaded = true;
-      this.graphqlService.navigateByAnchor();
+      for (let i = 0; i < this.queryMutationTypes.length; i++) {
+        this.queryMutationTypesFiltered[i].fields = this.queryMutationTypes[i].fields.filter(el => {
+          let name = el.name.toLowerCase();
 
-      let queryExamples = generateTypes(this.types, 'Query');
-      for (let i = 0; i < this.types[0].fields.length; i++) {
-        this.types[0].fields[i].example = queryExamples[i];
+          return name.includes(this.filterString.toLowerCase());
+        });
       }
-
-      let mutationExamples = generateTypes(this.types, 'Mutation');
-      for (let i = 0; i < this.types[1].fields.length; i++) {
-        this.types[1].fields[i].example = mutationExamples[i];
-      }
-    })
+    }
   }
-}
-
-function generateTypes(types: Type[], parent: string): string[] {
-  let examples = [];
-  types.filter(t => t.name === parent).forEach(type => {
-    examples = [...examples,...type.fields.map(t => `${type.name} { ${t.name} ${generateInput(t.args, types)} ${generateResponse(t.type, types)} }`)];
-  });
-
-  return examples;
-}
-
-function generateInput(input, types: Type[]): string {
-  if (!input || input.length === 0) return '';
-
-  return `(${input.map(i => `${i.name}: ${generateInputValue(i, types)}`)})`;
-}
-
-function generateInputValue(value, types: Type[]): string {
-  let inputType = value.type ? value.type.kind : value.ofType.kind;
-
-  if (inputType === 'LIST') return `[ ${extractScalar(value.type.ofType, value.name)} ]`;
-  if (inputType === 'SCALAR') return extractScalar(value.type, value.name);
-  if (inputType === 'NON_NULL') return extractScalar(value.type.ofType, value.name);
-  if (inputType === 'INPUT_OBJECT') return generateInput(types.filter(t => t.name === (value.type ? value.type.name : value.ofType.name))[0].inputFields, types);
-
-  return '';
-}
-
-function extractScalar(type, value) {
-  if (type && type.name === 'String') return `"${value}"`;
-  if (type && type.name === 'Boolean') return 'true';
-  if (type && type.name === 'Int') return '10';
-
-  return '""';
-}
-
-function generateResponse(type, types: Type[]) {
-  let fullType = types.filter(t => t.name === type.name)[0];
-  if (!fullType || !fullType.fields) return '';
-
-  let value = fullType.fields.filter(f => f.type.kind === 'SCALAR' || f.type.kind === 'NON_NULL').map(f => f.name).reduce((a,b)=> `${a} ${b}`, '');
-
-  return `{ ${value} }`
 }

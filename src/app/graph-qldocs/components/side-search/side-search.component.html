@@ -1,21 +1,30 @@
 <div class="side-search">
-  <mat-form-field>
-    <input matInput placeholder="Filter by name" [(ngModel)]="filterString">
+  <mat-form-field [floatLabel]="'never'" class="search-queries" [class.search-queries--focused]="focused">
+    <input matInput
+      (focus)="focused = true"
+      (blur)="focused = false"
+      placeholder="Search" [(ngModel)]="filterString"
+      (input)="addQueryParams($event)">
   </mat-form-field>
 
-  <ng-container *ngFor="let searchItem of searchItems">
-    <div *ngIf="searchItem.children && searchItem.children.length > 0" class="side-search__item">
-      <div
-        (click)="nav(searchItem.name)"
-        class="side-search__item__title">
-        <span>{{searchItem.name === 'Query' ? 'Queries' : searchItem.name+'s'}}</span>
+  <div class="line"></div>
+
+  <div class="side-search__list">
+    <ng-container *ngFor="let searchItem of searchItems">
+      <div *ngIf="searchItem.children && searchItem.children.length > 0" class="side-search__item">
+        <div
+          (click)="nav(searchItem.name)"
+          class="side-search__item__title">
+          <span>{{searchItem.name}}</span>
+        </div>
+        <div
+          *ngFor="let child of searchItem.children | filterSearchItems: filterString"
+          (click)="navigateTo(child, searchItem.name); selectedItem = searchItem.name + child"
+          class="side-search__item__child"
+          [class.selected]="searchItem.name + child === selectedItem">
+          <span>{{child}}</span>
+        </div>
       </div>
-      <div
-        *ngFor="let child of searchItem.children | filterSearchItems: filterString"
-        (click)="nav(child)"
-        class="side-search__item__child">
-        - <span>{{child}}</span>
-      </div>
-    </div>
-  </ng-container>
+    </ng-container>
+  </div>
 </div>

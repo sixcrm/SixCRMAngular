@@ -9,4 +9,5 @@ export interface Field {
   isDeprecated: boolean;
   deprecationReason: string
   example?: string;
+  response?: string;
 }
