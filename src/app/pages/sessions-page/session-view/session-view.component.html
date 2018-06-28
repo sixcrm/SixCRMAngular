@@ -1,7 +1,15 @@
 <div class="entity-view__container" *ngIf="entity; else spinner">
 
   <div class="entity-view">
-    <blue-header [items]="breadcrumbs" [titleValue]="entity.alias"></blue-header>
+    <blue-header [items]="breadcrumbs" [titleValue]="entity.alias">
+      <div *ngIf="!entity.cancelled.cancelled; else cancelmessage" class="cancel">CANCEL</div>
+      <ng-template #cancelmessage>
+        <div class="cancelled-message">
+          <div>Session cancelled</div>
+          <div>by {{entity.cancelled.cancelledBy.name}} at {{entity.cancelled.cancelledAt.format('MM/DD/YY')}}</div>
+        </div>
+      </ng-template>
+    </blue-header>
 
     <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
