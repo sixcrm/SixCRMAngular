@@ -115,7 +115,7 @@ jobs:
       - run:
           name: Add/Update CloudFront Distribution
           command: node libs/deployment_scripts/src/deploy-cloudfront.js deployment/deploy-config.json
-  e2e_local_smoke:
+  e2e_local:
       <<: *job-defaults
       steps:
         - checkout
@@ -140,7 +140,7 @@ jobs:
             command: sleep 60
         - run:
             name: Run smoke e2e
-            command: npm run e2e.local -- --suite login
+            command: npm run e2e.local
             no_output_timeout: 20m
   e2e_register:
     <<: *job-defaults
