@@ -35,7 +35,7 @@ export class MerchantProviderPage {
   }
 
   getMerchantDeleteButton() {
-    return element(by.css('tbody')).all(by.css('tr')).last().element(by.buttonText('delete'));
+    return element(by.css('tbody')).all(by.css('tr')).last().element(by.css('button'));
   }
 
   getMerchantDeleteModalButton() {
@@ -43,6 +43,6 @@ export class MerchantProviderPage {
   }
 
   getMerchantIndexButton() {
-    return element(by.css('.entity-view__change-mode'));
+    return element(by.css('.back'));
   }
 }
