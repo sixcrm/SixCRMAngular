@@ -425,7 +425,7 @@ workflows:
       - deploy_cloudfront:
           requires:
             - deploy_s3
-      - e2e_local_smoke:
+      - e2e_local:
           requires:
             - install
           filters:
