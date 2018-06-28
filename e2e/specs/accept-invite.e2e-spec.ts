@@ -77,10 +77,9 @@ describe('Accept Invite', function () {
   it('should accept invite and proceed to auth0 sign up', () => {
     browser.waitForAngularEnabled(false);
     acceptInvitePage.getAcceptButton().click();
-    browser.sleep(3500);
+    browser.sleep(5000);
     waitForUrlContains('/signup');
     expectUrlToContain('/signup');
-    expect(acceptInvitePage.getAuth0SignUpTab().last().getText()).toEqual('Sign Up');
   });
 
   it('should fill sign up info and proceed', () => {
