@@ -141,8 +141,10 @@ export class TopnavComponent implements OnInit {
     this.navigation.toggleSidenav(!this.showSidenav);
   }
 
-  toggleCollapseMenu(): void {
-    this.showCollapseMenu = !this.showCollapseMenu;
+  openCollapseMenu(): void {
+    setTimeout(() => {
+      this.showCollapseMenu = true;
+    }, 50);
   }
 
   navigateToProfile(): void {
@@ -154,7 +156,8 @@ export class TopnavComponent implements OnInit {
   }
 
   hideElements(event): void {
-    if (!event.target.attributes.class || event.target.attributes.class.value !== 'topnav__items--collapsed__icon material-icons') {
+    if (!event.target.attributes.class
+        || event.target.attributes.class.value !== 'topnav__items--collapsed__icon material-icons') {
       this.showCollapseMenu = false;
     }
   }
