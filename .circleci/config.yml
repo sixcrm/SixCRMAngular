@@ -12,17 +12,17 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - run: git submodule update --init --remote --merge
       - run:
           name: npm install
           command: npm install
       - save_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
       - save_cache:
-          key: git-modules-{{ .Branch }}-{{ .Revision }}
+          key: v1-git-modules-{{ .Branch }}-{{ .Revision }}
           paths:
             - libs/deployment_scripts
   build:
@@ -30,9 +30,9 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - restore_cache:
-          key: git-modules-{{ .Branch }}-{{ .Revision }}
+          key: v1-git-modules-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Set version
           command: node libs/deployment_scripts/src/versioning.js
@@ -41,7 +41,7 @@ jobs:
           command: ./libs/deployment_scripts/src/build-angular.sh
           no_output_timeout: 20m
       - save_cache:
-          key: dist-{{ .Branch }}-{{ .Revision }}
+          key: v1-dist-{{ .Branch }}-{{ .Revision }}
           paths:
             - dist
   aws_sts:
@@ -49,14 +49,11 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - restore_cache:
-          key: git-modules-{{ .Branch }}-{{ .Revision }}
-      - run:
-          name: debugging
-          command: printenv
+          key: v1-git-modules-{{ .Branch }}-{{ .Revision }}
       - restore_cache:
-          key: deployment-credentials-{{ .Branch }}-{{ .Revision }}
+          key: v1-deployment-credentials-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Make Access Credentials directory
           command: mkdir -p deployment_credentials/
@@ -64,36 +61,27 @@ jobs:
           name: Create Credentials
           command: node ./libs/deployment_scripts/src/sts-assume-role.js $CIRCLE_BRANCH >> deployment_credentials/stscredentials
       - save_cache:
-          key: deployment-credentials-{{ .Branch }}-{{ .Revision }}
+          key: v1-deployment-credentials-{{ .Branch }}-{{ .Revision }}
           paths:
             - deployment_credentials
       - run:
           name: set credentials
           command: cat deployment_credentials/stscredentials >> $BASH_ENV
-      - run:
-          name: Debugging 2
-          command: printenv
   deploy_s3:
     <<: *job-defaults
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - restore_cache:
-          key: git-modules-{{ .Branch }}-{{ .Revision }}
+          key: v1-git-modules-{{ .Branch }}-{{ .Revision }}
       - restore_cache:
-          key: dist-{{ .Branch }}-{{ .Revision }}
+          key: v1-dist-{{ .Branch }}-{{ .Revision }}
       - restore_cache:
-          key: deployment-credentials-{{ .Branch }}-{{ .Revision }}
-      - run:
-          name: debugging
-          command: printenv
+          key: v1-deployment-credentials-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Set Credentials
           command: cat deployment_credentials/stscredentials >> $BASH_ENV
-      - run:
-          name: Debugging 2
-          command: printenv
       - run:
           name: Deploy App to s3
           command: node libs/deployment_scripts/src/deploy-s3.js deployment/deploy-config.json
@@ -102,13 +90,13 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - restore_cache:
-          key: git-modules-{{ .Branch }}-{{ .Revision }}
+          key: v1-git-modules-{{ .Branch }}-{{ .Revision }}
       - restore_cache:
-          key: deployment-credentials-{{ .Branch }}-{{ .Revision }}
+          key: v1-deployment-credentials-{{ .Branch }}-{{ .Revision }}
       - restore_cache:
-          key: dist-{{ .Branch }}-{{ .Revision }}
+          key: v1-dist-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Set Credentials
           command: cat deployment_credentials/stscredentials >> $BASH_ENV
@@ -120,7 +108,7 @@ jobs:
       steps:
         - checkout
         - restore_cache:
-            key: dependency-cache-{{ checksum "package-lock.json" }}
+            key: v1-dependency-cache-{{ checksum "package-lock.json" }}
         - run:
             name: Install Chrome
             command: |
@@ -147,7 +135,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - run:
           name: Install Chrome
           command: |
@@ -172,7 +160,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - run:
           name: Install Chrome
           command: |
@@ -197,7 +185,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - run:
           name: Install Chrome
           command: |
@@ -222,7 +210,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - run:
           name: Install Chrome
           command: |
@@ -247,7 +235,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - run:
           name: Install Chrome
           command: |
@@ -272,7 +260,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - run:
           name: Install Chrome
           command: |
@@ -297,7 +285,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - run:
           name: Install Chrome
           command: |
@@ -322,7 +310,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - run:
           name: Install Chrome
           command: |
@@ -347,7 +335,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - run:
           name: Install Chrome
           command: |
@@ -372,7 +360,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - run: git submodule update --init --remote --merge
       - run:
           name: Promote changes
@@ -382,7 +370,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
       - run: git submodule update --init --remote --merge
       - run:
           name: Promote changes
