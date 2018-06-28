@@ -20,6 +20,9 @@ export class MerchantProviderGateway {
   transactionKey: string;
   merchantId: string;
   merchantKey: string;
+  processor: string;
+  midnumber: string;
+  descriptor: string;
 
   constructor(obj?: any) {
     if (!obj) {
@@ -37,6 +40,9 @@ export class MerchantProviderGateway {
     this.transactionKey = obj.transaction_key || '';
     this.merchantId = obj.merchant_id || '';
     this.merchantKey = obj.merchant_key || '';
+    this.processor = obj.processor || '';
+    this.midnumber = obj.midnumber || '';
+    this.descriptor = obj.descriptor || '';
   }
 
   isNMI() {
@@ -121,7 +127,10 @@ export class MerchantProviderGateway {
       api_key: this.apiKey,
       transaction_key: this.transactionKey,
       merchant_id: this.merchantId,
-      merchant_key: this.merchantKey
+      merchant_key: this.merchantKey,
+      processor: this.processor,
+      midnumber: this.midnumber,
+      descriptor: this.descriptor
     }
   }
 }
