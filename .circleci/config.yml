@@ -17,9 +17,6 @@ jobs:
       - run:
           name: npm install
           command: npm install
-      - run:
-          name: Update webdriver
-          command: npm run pree2e
       - save_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
@@ -132,6 +129,9 @@ jobs:
               sudo apt-get update
               sudo apt-get -y install google-chrome-stable
         - run:
+            name: Update webdriver
+            command: npm run pree2e
+        - run:
             name: Run local server
             command: npm run start
             background: true
@@ -152,6 +152,9 @@ jobs:
             sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
             sudo apt-get update
             sudo apt-get -y install google-chrome-stable
+      - run:
+          name: Update webdriver
+          command: npm run pree2e
       - run:
           name: Run e2e register
           command: |
@@ -175,6 +178,9 @@ jobs:
             sudo apt-get update
             sudo apt-get -y install google-chrome-stable
       - run:
+          name: Update webdriver
+          command: npm run pree2e
+      - run:
           name: Run e2e accept invite
           command: |
             if [ "${CIRCLE_BRANCH}" == "development" ]; then
@@ -196,6 +202,9 @@ jobs:
             sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
             sudo apt-get update
             sudo apt-get -y install google-chrome-stable
+      - run:
+          name: Update webdriver
+          command: npm run pree2e
       - run:
           name: Run e2e login
           command: |
@@ -219,6 +228,9 @@ jobs:
             sudo apt-get update
             sudo apt-get -y install google-chrome-stable
       - run:
+          name: Update webdriver
+          command: npm run pree2e
+      - run:
           name: Run e2e navigation
           command: |
             if [ "${CIRCLE_BRANCH}" == "development" ]; then
@@ -240,6 +252,9 @@ jobs:
             sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
             sudo apt-get update
             sudo apt-get -y install google-chrome-stable
+      - run:
+          name: Update webdriver
+          command: npm run pree2e
       - run:
           name: Run e2e campaign
           command: |
@@ -263,6 +278,9 @@ jobs:
             sudo apt-get update
             sudo apt-get -y install google-chrome-stable
       - run:
+          name: Update webdriver
+          command: npm run pree2e
+      - run:
           name: Run e2e product
           command: |
             if [ "${CIRCLE_BRANCH}" == "development" ]; then
@@ -284,6 +302,9 @@ jobs:
             sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
             sudo apt-get update
             sudo apt-get -y install google-chrome-stable
+      - run:
+          name: Update webdriver
+          command: npm run pree2e
       - run:
           name: Run e2e product schedule
           command: |
@@ -307,6 +328,9 @@ jobs:
             sudo apt-get update
             sudo apt-get -y install google-chrome-stable
       - run:
+          name: Update webdriver
+          command: npm run pree2e
+      - run:
           name: Run e2e merchant provider
           command: |
             if [ "${CIRCLE_BRANCH}" == "development" ]; then
@@ -328,6 +352,9 @@ jobs:
             sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
             sudo apt-get update
             sudo apt-get -y install google-chrome-stable
+      - run:
+          name: Update webdriver
+          command: npm run pree2e
       - run:
           name: Run e2e merchant provider group
           command: |
