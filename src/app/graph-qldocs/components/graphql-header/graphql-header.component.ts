@@ -21,6 +21,6 @@ export class GraphqlHeaderComponent implements OnInit {
   }
 
   navigateToGraph() {
-    this.router.navigate(['/documentation/graph2']);
+    this.router.navigate(['/documentation/graph']);
   }
 }

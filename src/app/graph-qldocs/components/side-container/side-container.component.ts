@@ -19,6 +19,6 @@ export class SideContainerComponent implements OnInit {
   }
 
   navigateToResponseType(): void {
-    this.router.navigate(['documentation/graph2/type', this.fieldName]);
+    this.router.navigate(['documentation/graph/type', this.fieldName]);
   }
 }

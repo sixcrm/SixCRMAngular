@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, Output} from '@angular/core';
-import {GraphqlDocs2Service, HeadersInput} from "../../graphql-docs-2.service";
+import {GraphqlDocsService, HeadersInput} from "../../graphql-docs.service";
 import {Type} from "../../models/type.model";
 import {SearchItem} from "../side-search/side-search.component";
 
@@ -24,7 +24,7 @@ export class GraphqlDocsLayoutComponent implements OnInit {
     {name: 'Type', children: []}
   ];
 
-  constructor(private graphqlService: GraphqlDocs2Service) { }
+  constructor(private graphqlService: GraphqlDocsService) { }
 
   ngOnInit() {
     this.graphqlService.getSchemaTypes(this.endpoint, this.headers).subscribe((response: {types: Type[], searchItems: SearchItem[]}) => {

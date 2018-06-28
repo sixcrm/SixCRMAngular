@@ -8,7 +8,6 @@ import {SearchService} from '../../shared/services/search.service';
 import {NotificationsQuickService} from '../../shared/services/notifications-quick.service';
 import {AutocompleteComponent} from '../../shared/components/autocomplete/autocomplete.component';
 import {TopnavDropdownOption} from './topnav-dropdown/topnav-dropdown.component';
-import {FeatureFlagService} from "../../shared/services/feature-flag.service";
 
 @Component({
   selector : 'app-topnav',
@@ -46,15 +45,7 @@ export class TopnavComponent implements OnInit {
   ];
 
   supportOptions: TopnavDropdownOption[] = [
-    {label: 'API documentation', callback: () => {
-      let graphDocumentationRoute = 'graph';
-
-      if (this.featureFlagService.isEnabled('graphdocs-2.0')) {
-        graphDocumentationRoute = 'graph2';
-      }
-
-      this.router.navigate(['documentation', graphDocumentationRoute])}
-    },
+    {label: 'API documentation', callback: () => this.router.navigate(['documentation', 'graph'])},
     {label: 'Support', callback: () => window.open('https://six.zendesk.com', '_blank').focus()}
   ];
 
@@ -63,8 +54,7 @@ export class TopnavComponent implements OnInit {
     public authService: AuthenticationService,
     private router: Router,
     private searchService: SearchService,
-    private notificationsService: NotificationsQuickService,
-    private featureFlagService: FeatureFlagService
+    private notificationsService: NotificationsQuickService
   ) { }
 
   ngOnInit() {
