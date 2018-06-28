@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {navigateToFieldByString} from '../../utils';
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
+import {Subject} from "rxjs";
 
 export interface SearchItem {
   name: string;
@@ -14,13 +16,52 @@ export interface SearchItem {
 export class SideSearchComponent implements OnInit {
 
   @Input() searchItems: SearchItem[];
+  @Input() focused: boolean = false;
+
   filterString: string;
+  selectedItem: string;
 
-  constructor() { }
+  private searchDebouncer: Subject<string> = new Subject();
 
-  ngOnInit() { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        let shouldRedirect = this.checkUrlAfterRedirect(event);
+        if (!shouldRedirect) {
+          this.selectedItem = '';
+        }
+      }
+    });
+  }
+
+  checkUrlAfterRedirect(event) {
+    return event.urlAfterRedirects.includes('documentation/graph/query') ||
+      event.urlAfterRedirects.includes('documentation/graph/mutation') ||
+      event.urlAfterRedirects.includes('documentation/graph/type')
+  }
+
+  ngOnInit() {
+    this.route.queryParams.take(1).subscribe(params => {
+      this.filterString = params['filter'] || '';
+    });
+
+    this.searchDebouncer.debounceTime(250).subscribe(value => {
+      this.router.navigate([], { queryParams: { filter: value} });
+    })
+  }
 
   nav(path: string): void {
     navigateToFieldByString(path);
+  }
+
+  navigateTo(path: string, type: string): void {
+    this.router.navigate(['documentation/graph/', type.toLowerCase(), path]);
+  }
+
+  addQueryParams(input) {
+    this.searchDebouncer.next(input.target.value);
   }
 }

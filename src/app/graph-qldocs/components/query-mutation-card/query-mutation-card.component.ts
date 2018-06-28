@@ -26,17 +26,17 @@ export class QueryMutationCardComponent implements OnInit {
   ngOnInit() { }
 
   navigateTo(): void {
-    this.router.navigate(['documentation/graph2/', this.type.name.toLowerCase(), this.field.name]);
+    this.router.navigate(['documentation/graph/', this.type.name.toLowerCase(), this.field.name]);
   }
 
   navigateToType(arg: InputValue): void {
     let fieldName = arg.type.name || arg.type.ofType.name || arg.type.ofType.ofType.name;
-    this.router.navigate(['documentation/graph2/type', fieldName]);
+    this.router.navigate(['documentation/graph/type', fieldName]);
   }
 
   navigateToFieldType(): void {
     let fieldName = this.field.type.name || this.field.type.ofType.name || this.field.type.ofType.ofType.name;
-    this.router.navigate(['documentation/graph2/type', fieldName]);
+    this.router.navigate(['documentation/graph/type', fieldName]);
   }
 
   goBack() {
@@ -44,6 +44,6 @@ export class QueryMutationCardComponent implements OnInit {
   }
 
   getShareLink(): string {
-    return environment.auth0RedirectUrl + '/documentation/graph2/' + this.type.name.toLowerCase() + '/' + this.field.name;
+    return environment.auth0RedirectUrl + '/documentation/graph/' + this.type.name.toLowerCase() + '/' + this.field.name;
   }
 }

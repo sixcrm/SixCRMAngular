@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-import { tokenNotExpired } from 'angular2-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {User} from '../shared/models/user.model';
@@ -23,13 +23,12 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 import {AcknowledgeInvite} from '../shared/models/acknowledge-invite.model';
 import {CustomServerError} from '../shared/models/errors/custom-server-error';
 import {utc} from 'moment';
-
-declare var Auth0Lock: any;
+import Auth0Lock from 'auth0-lock';
 
 @Injectable()
 export class AuthenticationService {
 
-  private lock: any;
+  private lock: Auth0Lock;
   private redirectUrl: string = 'redirect_url';
   private accessToken: string = 'access_token';
   private idToken: string = 'id_token';
@@ -53,6 +52,8 @@ export class AuthenticationService {
   public newSessionStarted$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   private yesNoDialogRef: MatDialogRef<YesNoDialogComponent>;
+
+  private jwtHelper: JwtHelperService = new JwtHelperService();
 
   constructor(
     private router: Router,
@@ -148,7 +149,11 @@ export class AuthenticationService {
   }
 
   public authenticated(): boolean {
-    return tokenNotExpired();
+    const token = this.getToken();
+
+    if (!token) return false;
+
+    return !this.jwtHelper.isTokenExpired(token);
   }
 
   public active(): boolean {
@@ -516,7 +521,11 @@ export class AuthenticationService {
   }
 
   private shouldRedirectToDashboard(): boolean {
-    return this.router.url === '/';
+    return this.router.url === '/' || this.isCurrentUrlAuth0Redirect();
+  }
+
+  private isCurrentUrlAuth0Redirect(): boolean {
+    return this.router.url.indexOf('/#access_token=') === 0;
   }
 
   private getUserIntrospectionExternal(redirect: string): void {

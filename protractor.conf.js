@@ -41,7 +41,7 @@ exports.config = {
     useraccount: [
       './e2e/**/user.e2e-spec.ts',
       './e2e/**/account.e2e-spec.ts',
-      './e2e/**/profile.e2e-spec.ts',
+      './e2e/**/profile.e2e-spec.ts'
       ],
     base: [
       './e2e/**/login.e2e-spec.ts',

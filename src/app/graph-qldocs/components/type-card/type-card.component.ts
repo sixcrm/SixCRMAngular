@@ -23,12 +23,12 @@ export class TypeCardComponent implements OnInit {
   ngOnInit() { }
 
   navigateTo(): void {
-    this.router.navigate(['documentation/graph2/type', this.type.name]);
+    this.router.navigate(['documentation/graph/type', this.type.name]);
   }
 
   navigateToType(arg: Field): void {
     let fieldName = arg.type.name || arg.type.ofType.name || arg.type.ofType.ofType.name;
-    this.router.navigate(['documentation/graph2/type', fieldName]);
+    this.router.navigate(['documentation/graph/type', fieldName]);
   }
 
   goBack() {
@@ -36,7 +36,7 @@ export class TypeCardComponent implements OnInit {
   }
 
   getShareLink(): string {
-    return environment.auth0RedirectUrl + '/documentation/graph2/type/' + this.type.name;
+    return environment.auth0RedirectUrl + '/documentation/graph/type/' + this.type.name;
   }
 
   showProperties() {

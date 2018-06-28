@@ -2,11 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'features-header',
-  templateUrl: './features-header.component.html',
-  styleUrls: ['./features-header.component.scss']
+  selector: 'graphql-header',
+  templateUrl: './graphql-header.component.html',
+  styleUrls: ['./graphql-header.component.scss']
 })
-export class FeaturesHeaderComponent implements OnInit {
+export class GraphqlHeaderComponent implements OnInit {
 
   @Input() path: string[];
 
@@ -18,5 +18,9 @@ export class FeaturesHeaderComponent implements OnInit {
 
   navigateToHome() {
     this.router.navigate(['/dashboard']);
+  }
+
+  navigateToGraph() {
+    this.router.navigate(['/documentation/graph']);
   }
 }

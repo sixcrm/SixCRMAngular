@@ -74,16 +74,15 @@ describe('Accept Invite', function () {
     expectPresent(acceptInvitePage.getAcceptButton());
   });
 
-  xit('should accept invite and proceed to auth0 sign up', () => {
+  it('should accept invite and proceed to auth0 sign up', () => {
     browser.waitForAngularEnabled(false);
     acceptInvitePage.getAcceptButton().click();
-    browser.sleep(3500);
+    browser.sleep(5000);
     waitForUrlContains('/signup');
     expectUrlToContain('/signup');
-    expect(acceptInvitePage.getAuth0SignUpTab().last().getText()).toEqual('Sign Up');
   });
 
-  xit('should fill sign up info and proceed', () => {
+  it('should fill sign up info and proceed', () => {
     browser.waitForAngularEnabled(false);
     acceptInvitePage.getInputs().first().sendKeys(newEmail);
     acceptInvitePage.getInputs().last().sendKeys(newPassword);
@@ -94,7 +93,7 @@ describe('Accept Invite', function () {
     expectUrlToContain('/register');
   });
 
-  xit('should fill in the registration fields and and verify terms and conditions are present', () => {
+  it('should fill in the registration fields and and verify terms and conditions are present', () => {
     browser.waitForAngularEnabled(false);
     acceptInvitePage.getRegisterInputs(0).sendKeys('e2e First');
     acceptInvitePage.getRegisterInputs(1).sendKeys('e2e Last');
@@ -103,7 +102,7 @@ describe('Accept Invite', function () {
     expect(acceptInvitePage.getRegisterTerms().getText()).toEqual(`By accepting this invitation and creating a SIX account, you agree to the End User License Agreement.`);
   });
 
-  xit('should submit registration and proceed to dashboard', () => {
+  it('should submit registration and proceed to dashboard', () => {
     browser.waitForAngularEnabled(false);
     acceptInvitePage.getRegisterAcceptButton().click();
     browser.sleep(5000);

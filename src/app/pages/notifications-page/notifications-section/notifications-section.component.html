@@ -13,7 +13,7 @@
         <mat-button-toggle class="mrw-button" (click)="showAlerts()" value="buttonAlerts">{{'NOTIFICATIONS_TAB_ALERTS' | translate}}</mat-button-toggle>
         <mat-button-toggle class="mrw-button" (click)="showNotifications()" value="buttonNotifications">{{'NOTIFICATIONS_TAB_NOTIFICATIONS' | translate}}</mat-button-toggle>
       </mat-button-toggle-group>
-      <div class="mrw-button mark-read" (click)="markAllAsRead()">{{'NOTIFICATIONS_MARKALLASREAD' | translate}}</div>
+      <button mat-button class="mrw-button mark-read" (click)="markAllAsRead()">{{'NOTIFICATIONS_MARKALLASREAD' | translate}}</button>
     </div>
 
     <div class="notifications-container"
@@ -66,7 +66,7 @@
         <div class="text">Adjust your notification settings.</div>
         <div class="icon-wrapper"><mat-icon>settings</mat-icon></div>
       </div>
-      <div class="mrw-button test-button test-button--solo" [routerLink]="['/profile']" fragment="notificationpreferences">SETTINGS</div>
+      <button mat-button class="mrw-button test-button test-button--solo" [routerLink]="['/profile']" fragment="notificationpreferences">SETTINGS</button>
     </div>
 
     <div class="notifications-test-container">
@@ -74,7 +74,7 @@
         <div class="text">You can send notifications to more of your devices and applications by adding them to Devices and Apps</div>
         <div class="icon-wrapper"><mat-icon>help</mat-icon></div>
       </div>
-      <div class="mrw-button test-button test-button--solo" [routerLink]="['/profile']" fragment="appsanddevices">APPS AND DEVICES</div>
+      <button mat-button class="mrw-button test-button test-button--solo" [routerLink]="['/profile']" fragment="appsanddevices">APPS AND DEVICES</button>
     </div>
   </div>
 </div>

@@ -30,6 +30,34 @@
 
   .entity-view {
     width: 100%;
+
+    .cancel {
+      font-size: 12px;
+      line-height: 12px;
+      color: white;
+      background: #EF4339;
+      font-weight: 500;
+      padding: 6px 16px;
+      cursor: pointer;
+    }
+
+    .cancelled-message {
+      div {
+        text-align: right;
+        color: rgba(0,0,0,0.5);
+
+        &:first-of-type {
+          margin-bottom: 3px;
+          font-size: 16px;
+          font-weight: 500;
+          text-transform: uppercase;
+        }
+
+        &:last-of-type {
+          font-size: 12px;
+        }
+      }
+    }
   }
 }
 

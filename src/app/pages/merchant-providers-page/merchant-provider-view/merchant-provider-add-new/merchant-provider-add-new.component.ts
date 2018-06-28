@@ -40,6 +40,7 @@ export class MerchantProviderAddNewComponent implements OnInit {
   shouldEditProcessing: boolean;
   shouldEditGateway: boolean;
   shouldEditCustomerService: boolean;
+  shouldEditGeneral: boolean;
 
   constructor() { }
 
@@ -57,8 +58,12 @@ export class MerchantProviderAddNewComponent implements OnInit {
     this.shouldEditProcessing = false;
     this.shouldEditGateway = false;
     this.shouldEditCustomerService = false;
+    this.shouldEditGeneral = false;
 
     switch (cardName) {
+      case 'shouldEditSettings':
+        this.shouldEditSettings = true;
+        break;
       case 'shouldEditProcessing':
         this.shouldEditProcessing = true;
         break;
@@ -69,7 +74,7 @@ export class MerchantProviderAddNewComponent implements OnInit {
         this.shouldEditCustomerService = true;
         break;
       default:
-        this.shouldEditSettings = true;
+        this.shouldEditGeneral = true;
     }
   }
 

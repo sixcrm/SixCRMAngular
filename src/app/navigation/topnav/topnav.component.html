@@ -58,8 +58,9 @@
       </ng-template>
     </div>
   </div>
+
   <div class="topnav__items--collapsed">
-    <mat-icon class="topnav__items--collapsed__icon" (click)="toggleCollapseMenu()">more_vert</mat-icon>
+    <mat-icon class="topnav__items--collapsed__icon" (click)="openCollapseMenu()">more_vert</mat-icon>
 
     <div *ngIf="showCollapseMenu" class="topnav__items--collapsed__menu">
       <div class="topnav__items--collapsed__menu__profile topnav__items--collapsed__menu__button">
