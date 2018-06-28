@@ -1,6 +1,5 @@
-<features-header
-  [path]="['SIX Administration', 'Features']">
-</features-header>
+<blue-header [items]="crumbItems" [titleValue]="'Features'"></blue-header>
+
 <div class="features" *ngIf="featureFlags">
   <div class="container">
     <div class="flags">
@@ -26,4 +25,3 @@
 
   <features-side-card (fetchDefaultSettings)="fetch()"></features-side-card>
 </div>
-

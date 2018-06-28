@@ -6,7 +6,7 @@ import {MaterialSelectionModule} from "../../material-selection/material-selecti
 import {SharedModule} from "../../shared/shared.module";
 import {FeaturesComponent} from "./features-index/features.component";
 import {FeaturesSideCardComponent} from './features-side-card/features-side-card.component';
-import {FeaturesHeaderComponent} from './features-header/features-header.component';
+import {PageComponentsModule} from "../components/pages-components.module";
 
 @NgModule({
   imports: [
@@ -14,11 +14,11 @@ import {FeaturesHeaderComponent} from './features-header/features-header.compone
     CommonModule,
     FormsModule,
     MaterialSelectionModule,
-    SharedModule
+    SharedModule,
+    PageComponentsModule
   ],
   declarations: [
     FeaturesComponent,
-    FeaturesHeaderComponent,
     FeaturesSideCardComponent
   ],
   providers: [ ]
