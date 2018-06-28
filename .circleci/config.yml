@@ -135,6 +135,9 @@ jobs:
             name: Run local server
             command: npm run start
             background: true
+        -run:
+            name: Wait for server to start
+            run: sleep 60
         - run:
             name: Run smoke e2e
             command: npm run e2e.local -- --suite login
