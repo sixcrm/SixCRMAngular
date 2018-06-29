@@ -27,7 +27,7 @@
                       (timeFilterSelected)="selectTimeFilter($event)">
     </dashboard-header>
 
-    <dashboard-dual-graph [renderChart]="renderCharts" [graphData]="data" [graphTimeFilter]="graphTimeFilterData" [type]="seriesType"></dashboard-dual-graph>
+    <dashboard-dual-graph [renderLowChart]="renderFullChart" [graphData]="data" [graphTimeFilter]="graphTimeFilterData" [type]="seriesType"></dashboard-dual-graph>
   </div>
 
   <dashboard-issues-report [reports]="issueReports"></dashboard-issues-report>
@@ -37,6 +37,6 @@
 
     <top-subscriptions></top-subscriptions>
 
-    <funnel-graph [renderChart]="renderCharts"></funnel-graph>
+    <funnel-graph *ngIf="renderFullChart"></funnel-graph>
   </div>
 </div>

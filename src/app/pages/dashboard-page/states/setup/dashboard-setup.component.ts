@@ -1,5 +1,3 @@
-
-
 import {Component, Input, OnInit} from '@angular/core';
 import {AsyncSubject, Observable} from 'rxjs';
 import {AuthenticationService} from '../../../../authentication/authentication.service';

@@ -15,15 +15,14 @@ import { Observable } from 'rxjs';
 export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements OnInit, OnDestroy {
 
   public eventType: 'click' | 'lead' | 'main' | 'upsell' | 'confirm';
+
   @Input() simpleChart: boolean = false;
   @Input() period: string = 'DAY';
+
   showChart: boolean;
-  showStatisticDetails: boolean = false;
+  showEventOptions: boolean = false;
   numberOfDays: number = 30;
   startDate: Moment;
-
-  colors = ['#4383CC', '#4DABF5', '#9ADDFB', '#FDAB31', '#F28933'];
-
   chart;
   funnel: EventFunnel;
   funnelTimeseries : EventFunnelTimeseries;
@@ -86,7 +85,10 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
   }
 
   ngOnInit() {
-    this.analyticsService.eventFunnelSimple$.takeUntil(this.unsubscribe$).subscribe((funnel: EventFunnel | CustomServerError) => {
+    const funnelStream = this.simpleChart ? this.analyticsService.eventFunnelSimple$ : this.analyticsService.eventFunnel$;
+    const eventFunnelStream = this.simpleChart ? this.analyticsService.eventFunnelTimeseriesSimple$ : this.analyticsService.eventFunnelTimeseries$;
+
+    funnelStream.takeUntil(this.unsubscribe$).subscribe((funnel: EventFunnel | CustomServerError) => {
       if (funnel instanceof CustomServerError) {
         this.serverError = funnel;
         this.funnel = null;
@@ -101,7 +103,7 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
       }
     });
 
-    this.analyticsService.eventFunnelTimeseriesSimple$.takeUntil(this.unsubscribe$).subscribe((funnelTimeseries: EventFunnelTimeseries | CustomServerError) => {
+    eventFunnelStream.takeUntil(this.unsubscribe$).subscribe((funnelTimeseries: EventFunnelTimeseries | CustomServerError) => {
       if (funnelTimeseries instanceof CustomServerError) {
         this.serverError = funnelTimeseries;
         this.funnelTimeseries = null;
@@ -117,7 +119,7 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
     });
 
     Observable.timer(300).takeUntil(this.unsubscribe$).subscribe(() => {
-      this.showStatisticDetails = true;
+      this.showEventOptions = true;
       this.redrawChartData();
     });
 
@@ -141,13 +143,23 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
   fetch(): void {
     if (this.shouldFetch) {
       this.start = utc().subtract(this.numberOfDays, 'd');
-      this.analyticsService.getEventFunnelSimple(this.start.format(), this.end.format(), null, this.eventType, this.period);
+
+      if (this.simpleChart) {
+        this.analyticsService.getEventFunnelSimple(this.start.format(), this.end.format(), null, this.eventType, this.period);
+      } else {
+        this.analyticsService.getEventFunnel(this.start.format(), this.end.format(), null, this.eventType, this.period);
+      }
+
       this.shouldFetch = false;
     }
   }
 
   download(format: string): void {
-    this.analyticsService.getEventFunnelSimple(this.start.format(), this.end.format(), format);
+    if (this.simpleChart) {
+      this.analyticsService.getEventFunnelSimple(this.start.format(), this.end.format(), format);
+    } else {
+      this.analyticsService.getEventFunnel(this.start.format(), this.end.format(), format);
+    }
   }
 
   saveChart(chartInstance): void {
@@ -171,6 +183,11 @@ export class FunnelGraphSimpleComponent extends AbstractDashboardItem implements
   redrawChartData(): void {
 
     if (!this.chart || !this.funnelTimeseries || this.funnelTimeseries.datetime.length === 0) return;
+
+    if (!this.simpleChart) {
+      this.chartOptions.chart.height = 280;
+      this.chartOptions.chart['width'] = 700;
+    }
 
     let data = [];
     this.startDate = this.funnelTimeseries.datetime[0];
