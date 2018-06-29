@@ -21,11 +21,11 @@
         <tbody>
         <tr *ngFor="let arg of field.args; let i = index;">
           <td>{{arg.name}}</td>
-          <td><span class="field-type" (click)="navigateToType(arg)">{{arg.type.name || arg.type.ofType.name || arg.type.ofType.ofType.name}}</span></td>
+          <td><button mat-button class="field-type" (click)="navigateToType(arg)">{{arg.type.name || arg.type.ofType.name || arg.type.ofType.ofType.name}}</button></td>
         </tr>
         <tr class="returns">
           <td>Returns:</td>
-          <td><span class="field-type" (click)="navigateToFieldType()">{{field.type.name || field.type.ofType.name || field.type.ofType.ofType.name}}</span></td>
+          <td><button mat-button class="field-type" (click)="navigateToFieldType()">{{field.type.name || field.type.ofType.name || field.type.ofType.ofType.name}}</button></td>
         </tr>
         </tbody>
       </table>
