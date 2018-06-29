@@ -1,11 +1,11 @@
 import {Session} from './session.model';
 import {Customer} from './customer.model';
-import {Transaction} from './transaction.model';
+import {Order} from './order.model';
 
 export class CheckoutResponse {
   session: Session;
   customer: Customer;
-  transactions: Transaction[] = [];
+  orders: Order[] = [];
   success: boolean;
 
   constructor(obj?: any) {
@@ -15,7 +15,7 @@ export class CheckoutResponse {
 
     this.session = new Session(obj.session);
     this.customer = new Customer(obj.customer);
-    this.transactions = (obj.transactions || []).map(t => new Transaction(t));
+    this.orders = (obj.orders || []).map(t => new Order(t));
   }
 
   withSuccess(success: boolean): CheckoutResponse {
