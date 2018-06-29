@@ -1,5 +1,3 @@
-
-
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {AsyncSubject} from 'rxjs';
 import { DashboardType } from './dashboard-type';

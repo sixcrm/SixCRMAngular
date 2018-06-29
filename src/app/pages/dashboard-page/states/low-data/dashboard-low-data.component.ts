@@ -1,4 +1,3 @@
-
 import {DashboardIssueReportItem} from '../../dashboard-issues-report/dashboard-issues-report.component';
 import {Component, OnInit, Input} from '@angular/core';
 import {AsyncSubject, Observable} from 'rxjs';
@@ -10,7 +9,6 @@ import {CustomServerError} from "../../../../shared/models/errors/custom-server-
 import {Transaction} from "../../../../shared/models/transaction.model";
 import {HeroChartSeries} from "../../../../shared/models/hero-chart-series.model";
 import {AnalyticsService} from "../../../../shared/services/analytics.service";
-import {utc} from 'moment';
 
 @Component({
   selector: 'c-dashboard-low-data',
@@ -20,7 +18,7 @@ import {utc} from 'moment';
 export class DashboardLowDataComponent implements OnInit {
 
   @Input() quote: TranslatedQuote;
-  @Input() renderChart: boolean;
+  @Input() renderLowChart: boolean;
 
   issueReports: DashboardIssueReportItem[] = [
     {label: 'Orders', issues: []},
