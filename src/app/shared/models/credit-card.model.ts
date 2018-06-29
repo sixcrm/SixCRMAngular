@@ -104,6 +104,16 @@ export class CreditCard implements Entity<CreditCard> {
     return type !== 'visa' && type !== 'mastercard' && type !== 'amex' && type !== 'discover';
   }
 
+  parseLastFour() {
+    if (this.lastFour) return this.lastFour;
+
+    if (!this.ccnumber) return '';
+
+    const start = this.ccnumber.length < 4 ? this.ccnumber.length : this.ccnumber.length - 4;
+
+    return this.ccnumber.substr(start, this.ccnumber.length);
+  }
+
   private parseExpirationMonth() {
     if (!this.expiration || this.expiration.length !== 7) return '';
 

@@ -20,8 +20,8 @@ import {
 import {getPhoneNumberMask} from '../../shared/utils/mask.utils';
 import {HttpWrapperTransactionalService} from '../../shared/services/http-wrapper-transactional.service';
 import {
-  CheckoutBody, CheckoutAddress, CheckoutCustomer,
-  CheckoutCreditCard
+    CheckoutBody, CheckoutAddress, CheckoutCustomer,
+    CheckoutCreditCard, CheckoutProduct, CheckoutProductSchedule
 } from '../../shared/models/checkout-body.model';
 import {NavigationService} from '../../navigation/navigation.service';
 import {countryCode, stateCode, getCountries, getStates} from '../../shared/utils/address.utils';
@@ -393,7 +393,7 @@ export class CreateOrderComponent implements OnInit {
   }
 
   billingNextStep() {
-    if (!this.selectedCreditCard && this.newCardMode && this.paymentForm) {
+    if (this.newCardMode && this.paymentForm) {
       if (this.paymentForm.isValid()) {
         this.selectedCreditCard = this.newCreditCard.copy();
       } else {
@@ -524,27 +524,52 @@ export class CreateOrderComponent implements OnInit {
   processOrder() {
     if (!this.keys || !this.keys.secretKey || !this.keys.accessKey) return;
 
-    const shippingAddress: CheckoutAddress = {
-      line1: this.selectedShippingAddress.line1,
-      city: this.selectedShippingAddress.city,
-      state: stateCode(this.selectedShippingAddress.state),
-      zip: this.selectedShippingAddress.zip,
-      country: countryCode(this.selectedShippingAddress.country)
+    const checkoutBody: CheckoutBody = this.parseCheckoutBody();
+
+    this.navigationService.setShowProcessingOrderOverlay(true);
+
+    this.transactionalAPI.checkout(checkoutBody, this.keys).subscribe(response => {
+      this.navigationService.setShowProcessingOrderOverlay(false);
+
+      if (response instanceof CheckoutResponse) {
+
+        if (response.success) {
+          this.orderComplete = true;
+          this.checkoutResponse = response;
+        } else {
+          this.snackService.showErrorSnack('Error occurred while processing the order', 6000);
+        }
+
+      } else {
+        this.snackService.showErrorSnack(response.message, 6000);
+      }
+    })
+  }
+
+  private parseCheckoutBody(): CheckoutBody {
+    const customer = this.parseCustomer();
+    const creditCard = this.parseCreditCard();
+    const allProducts = this.parseProducts();
+
+    const checkoutBody: CheckoutBody = {
+      campaign: this.selectedCampaign.id,
+      customer: customer,
+      creditcard: creditCard
     };
 
-    if (this.selectedShippingAddress.line2) {
-      shippingAddress.line2 = this.selectedShippingAddress.line2;
+    if (allProducts.products && allProducts.products.length > 0) {
+      checkoutBody.products = allProducts.products;
     }
 
-    const customer: CheckoutCustomer = {
-      firstname: this.selectedCustomer.firstName,
-      lastname: this.selectedCustomer.lastName,
-      email: this.selectedCustomer.email,
-      phone: this.selectedCustomer.phone,
-      address: shippingAddress
-    };
+    if (allProducts.productSchedules && allProducts.productSchedules.length > 0) {
+      checkoutBody.product_schedules = allProducts.productSchedules;
+    }
 
-    const billingAddress: CheckoutAddress = {
+    return checkoutBody;
+  }
+
+  private parseCreditCard() {
+    const billingAddress: CheckoutAddress =  {
       line1: this.selectedCreditCard.address.line1,
       city: this.selectedCreditCard.address.city,
       state: stateCode(this.selectedCreditCard.address.state),
@@ -566,9 +591,34 @@ export class CreateOrderComponent implements OnInit {
     if (this.selectedCreditCard.ccv) {
       creditCard.ccv = this.selectedCreditCard.ccv;
     }
+    return creditCard;
+  }
 
-    let products = [];
-    let productSchedules = [];
+  private parseCustomer(): CheckoutCustomer {
+    const shippingAddress: CheckoutAddress = {
+      line1: this.selectedShippingAddress.line1,
+      city: this.selectedShippingAddress.city,
+      state: stateCode(this.selectedShippingAddress.state),
+      zip: this.selectedShippingAddress.zip,
+      country: countryCode(this.selectedShippingAddress.country)
+    };
+
+    if (this.selectedShippingAddress.line2) {
+      shippingAddress.line2 = this.selectedShippingAddress.line2;
+    }
+
+    return {
+      firstname: this.selectedCustomer.firstName,
+      lastname: this.selectedCustomer.lastName,
+      email: this.selectedCustomer.email,
+      phone: this.selectedCustomer.phone,
+      address: shippingAddress
+    };
+  }
+
+  private parseProducts(): {products: CheckoutProduct[], productSchedules: CheckoutProductSchedule[]} {
+    let products: CheckoutProduct[] = [];
+    let productSchedules: CheckoutProductSchedule[] = [];
 
     this.selectedProducts.forEach(p => {
       if (p instanceof Product) {
@@ -580,36 +630,13 @@ export class CreateOrderComponent implements OnInit {
       }
     });
 
-    if (this.shippings && this.shippings.length > 0) {
-      products = [...products,...this.selectedShippings.map(s => s.id)];
+    if (this.selectedShippings) {
+      products = [...products, ...this.selectedShippings.map(sp => {
+        return {quantity: sp.quantity || 1, price: sp.defaultPrice.amount || 0, product: sp.id}
+      })];
     }
 
-    const checkoutBody: CheckoutBody = {
-      campaign: this.selectedCampaign.id,
-      customer: customer,
-      creditcard: creditCard
-    };
-
-    if (products && products.length > 0) {
-      checkoutBody.products = products;
-    }
-
-    if (productSchedules && productSchedules.length > 0) {
-      checkoutBody.product_schedules = productSchedules;
-    }
-
-    this.navigationService.setShowProcessingOrderOverlay(true);
-
-    this.transactionalAPI.checkout(checkoutBody, this.keys).subscribe(response => {
-      this.navigationService.setShowProcessingOrderOverlay(false);
-
-      if (response instanceof CheckoutResponse) {
-        this.orderComplete = true;
-        this.checkoutResponse = response;
-      } else {
-        this.snackService.showErrorSnack(response.message, 6000);
-      }
-    })
+    return {products: products, productSchedules: productSchedules}
   }
 
   navigateToApiKeys() {

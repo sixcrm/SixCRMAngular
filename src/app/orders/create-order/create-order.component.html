@@ -32,15 +32,15 @@
             <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
               <mat-expansion-panel-header>
                 <div class="expansion-header">
-              <span class="title">
-                <mat-icon *ngIf="selectedCustomer && selectedCustomer.id; else placeholder">done</mat-icon>
-                Customer
-              </span>
+                  <span class="title">
+                    <mat-icon *ngIf="selectedCustomer && selectedCustomer.id; else placeholder">done</mat-icon>
+                    Customer
+                  </span>
 
                   <mat-chip-list  [selectable]="false">
                     <mat-chip *ngIf="selectedCustomer && selectedCustomer.id"
                               [removable]="true"
-                              (remove)="removeCustomer()">
+                              (removed)="removeCustomer()">
                       {{selectedCustomer.firstName}} {{selectedCustomer.lastName}}
                       <mat-icon matChipRemove>cancel</mat-icon>
                     </mat-chip>
@@ -96,15 +96,15 @@
             <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)">
               <mat-expansion-panel-header>
                 <div class="expansion-header">
-              <span class="title">
-                <mat-icon *ngIf="selectedCampaign && selectedCampaign.id; else placeholder">done</mat-icon>
-                Campaign
-              </span>
+                  <span class="title">
+                    <mat-icon *ngIf="selectedCampaign && selectedCampaign.id; else placeholder">done</mat-icon>
+                    Campaign
+                  </span>
 
                   <mat-chip-list  [selectable]="false">
                     <mat-chip *ngIf="selectedCampaign && selectedCampaign.id"
                               [removable]="true"
-                              (remove)="removeCampaign()">
+                              (removed)="removeCampaign()">
                       {{selectedCampaign.name}}
                       <mat-icon matChipRemove>cancel</mat-icon>
                     </mat-chip>
@@ -142,15 +142,15 @@
             <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)">
               <mat-expansion-panel-header>
                 <div class="expansion-header">
-              <span class="title">
-                <mat-icon *ngIf="selectedProducts && selectedProducts.length > 0; else placeholder">done</mat-icon>
-                Products
-              </span>
+                  <span class="title">
+                    <mat-icon *ngIf="selectedProducts && selectedProducts.length > 0; else placeholder">done</mat-icon>
+                    Products
+                  </span>
 
                   <mat-chip-list  [selectable]="false">
                     <mat-chip *ngFor="let product of selectedProducts"
                               [removable]="true"
-                              (remove)="removeProduct(product)">
+                              (removed)="removeProduct(product)">
                       {{product.name}}
                       <mat-icon matChipRemove>cancel</mat-icon>
                     </mat-chip>
@@ -220,15 +220,15 @@
             <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)">
               <mat-expansion-panel-header>
                 <div class="expansion-header">
-              <span class="title">
-                <mat-icon *ngIf="selectedShippingAddress; else placeholder">done</mat-icon>
-                Shipping Address
-              </span>
+                  <span class="title">
+                    <mat-icon *ngIf="selectedShippingAddress; else placeholder">done</mat-icon>
+                    Shipping Address
+                  </span>
 
                   <mat-chip-list  [selectable]="false">
                     <mat-chip *ngIf="selectedShippingAddress"
                               [removable]="true"
-                              (remove)="removeShippingAddress()">
+                              (removed)="removeShippingAddress()">
                       {{selectedShippingAddress.line1}}
                       <mat-icon matChipRemove>cancel</mat-icon>
                     </mat-chip>
@@ -287,15 +287,15 @@
             <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)">
               <mat-expansion-panel-header>
                 <div class="expansion-header">
-              <span class="title">
-                <mat-icon *ngIf="selectedShippings && selectedShippings.length > 0; else placeholder">done</mat-icon>
-                Shipping
-              </span>
+                  <span class="title">
+                    <mat-icon *ngIf="selectedShippings && selectedShippings.length > 0; else placeholder">done</mat-icon>
+                    Shipping
+                  </span>
 
                   <mat-chip-list  [selectable]="false">
                     <mat-chip *ngFor="let shipping of selectedShippings"
                               [removable]="true"
-                              (remove)="removeShipping(shipping)">
+                              (removed)="removeShipping(shipping)">
                       {{shipping.name}}
                       <mat-icon matChipRemove>cancel</mat-icon>
                     </mat-chip>
@@ -354,16 +354,16 @@
             <mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)">
               <mat-expansion-panel-header>
                 <div class="expansion-header">
-              <span class="title">
-                <mat-icon *ngIf="selectedCreditCard; else placeholder">done</mat-icon>
-                Billing
-              </span>
+                  <span class="title">
+                    <mat-icon *ngIf="selectedCreditCard; else placeholder">done</mat-icon>
+                    Billing
+                  </span>
 
                   <mat-chip-list [selectable]="false">
                     <mat-chip *ngIf="selectedCreditCard && (!selectedCreditCard.ccv || !ccvInvalid(selectedCreditCard))"
                               [removable]="true"
-                              (remove)="removeCreditCard()">
-                      ****{{selectedCreditCard.lastFour}}
+                              (removed)="removeCreditCard()">
+                      **** {{selectedCreditCard.parseLastFour()}}
                       <mat-icon matChipRemove>cancel</mat-icon>
                     </mat-chip>
                   </mat-chip-list>
