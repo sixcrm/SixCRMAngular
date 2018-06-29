@@ -82,11 +82,11 @@
             max-width: 124px;
             display: flex;
           }
+        }
 
-          span {
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
+        button {
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }

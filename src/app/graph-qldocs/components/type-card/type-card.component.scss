@@ -71,6 +71,8 @@
 
       td {
         color: #202124;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
         &:first-child {
           padding-left: 36px;
@@ -79,17 +81,11 @@
         &:nth-child(2) {
           cursor: pointer;
         }
-      }
-    }
 
-    .returns {
-      background: rgba(0, 0, 0, 0.03);
-      margin-top: 60px;
-
-      td {
-        &:first-child {
-          font-weight: 500;
-          font-size: 16px;
+        button {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 95%;
         }
       }
     }
