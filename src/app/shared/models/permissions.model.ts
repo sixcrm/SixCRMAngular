@@ -76,8 +76,8 @@ export class Permissions {
   inverse(): any {
     return {
       id: this.id,
-      allow: this.allow,
-      deny: this.deny
+      allow: this.allow.slice(),
+      deny: this.deny.slice()
     }
   }
 }

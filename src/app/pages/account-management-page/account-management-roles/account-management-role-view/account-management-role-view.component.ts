@@ -89,7 +89,7 @@ export class AccountManagementRoleViewComponent implements OnInit {
     this.service.entities$.take(1).subscribe(roles => {
       if (roles instanceof CustomServerError) return;
 
-      this.roles = roles;
+      this.roles = roles.filter(r => !r.isOwner());
     });
 
     this.sharedService.entities$.take(1).subscribe(roles => {
@@ -169,16 +169,28 @@ export class AccountManagementRoleViewComponent implements OnInit {
   }
 
   togglePermission(entity: string, action: string, value) {
-
     if (value.checked) {
       if (this.role.permissions.hasPermission(entity, action)) return;
 
       this.role.permissions.allow = [...this.role.permissions.allow, `${entity}/${action}`];
     } else {
-      const exactIndex = firstIndexOf(this.role.permissions.allow, (allowed) => allowed === `${entity}/${action}`);
+      const allIndex = firstIndexOf(this.role.permissions.allow, (allowed) => allowed === `${entity}/*`);
 
-      if (exactIndex !== -1) {
-        this.role.permissions.allow.splice(exactIndex, 1);
+      if (allIndex !== -1) {
+        this.role.permissions.allow.splice(allIndex, 1);
+
+        this.allActions.forEach(a => {
+          if (a !== action) {
+            this.role.permissions.allow = [...this.role.permissions.allow, `${entity}/${a}`];
+          }
+        })
+
+      } else {
+        const exactIndex = firstIndexOf(this.role.permissions.allow, (allowed) => allowed === `${entity}/${action}`);
+
+        if (exactIndex !== -1) {
+          this.role.permissions.allow.splice(exactIndex, 1);
+        }
       }
     }
   }
@@ -193,7 +205,7 @@ export class AccountManagementRoleViewComponent implements OnInit {
       if (role instanceof CustomServerError) return;
 
       this.role = role;
-      this.roleBackup = role;
+      this.roleBackup = this.role.copy();
     });
 
     this.service.updateEntity(this.role);
@@ -236,11 +248,25 @@ export class AccountManagementRoleViewComponent implements OnInit {
   }
 
   disableAllAction(action: string) {
-    this.role.permissions.allow = this.role.permissions.allow.filter(allowed => {
-      const splitted = allowed.split('/');
+    let allowed = [];
 
-      return splitted[1] !== action;
-    })
+    for (let allow of this.role.permissions.allow) {
+      const splitted = allow.split('/');
+
+      if (splitted[1] === '*') {
+
+        this.allActions.forEach(a => {
+          if (a !== action) {
+            allowed = [...allowed, `${splitted[0]}/${a}`];
+          }
+        })
+
+      } else if (splitted[1] !== action) {
+        allowed = [...allowed, allow];
+      }
+    }
+
+    this.role.permissions.allow = allowed.slice();
   }
 
   toggleActiveOnly(value) {
