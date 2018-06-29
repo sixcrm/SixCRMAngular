@@ -60,7 +60,7 @@ export class RoleAclsComponent extends AbstractEntityIndexComponent<Acl> impleme
 
   ngOnInit() {
     this.shareLimit = false;
-    this.limit = null;
+    this.limit = 10;
 
     this.service.entities$.takeUntil(this.unsubscribe$).subscribe(acls => {
       if (acls instanceof CustomServerError) return;
