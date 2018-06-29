@@ -7,7 +7,6 @@ import {ChartModule} from 'angular2-highcharts';
 import {HighchartsStatic} from 'angular2-highcharts/dist/HighchartsService';
 import {Daterangepicker} from 'ng2-daterangepicker';
 import { FunnelGraphComponent } from './funnel-graph/funnel-graph.component';
-import { FunnelGraphSimpleComponent } from './funnel-graph-simple/funnel-graph-simple.component';
 import { TopCampaignsComponent } from './top-campaigns/top-campaigns.component';
 import {ChartsModule} from '../../charts/charts.module';
 import {TranslationModule} from "../../translation/translation.module";
@@ -49,7 +48,6 @@ export function highchartsFactory() {
   declarations : [
     DashboardComponent,
     FunnelGraphComponent,
-    FunnelGraphSimpleComponent,
     TopCampaignsComponent,
     DashboardHeaderComponent,
     DashboardHeaderDropdownComponent,

@@ -73,9 +73,9 @@ export class Notification implements Entity<Notification> {
     let identifiableEntityId;
     let identifiableEntityName;
     for (let key in this.context) {
-      if (key.includes('.id')) {
+      if (key.includes('__id')) {
         identifiableEntityId = this.context[key];
-        identifiableEntityName = key.replace('.id', '');
+        identifiableEntityName = key.replace('__id', '');
       }
     }
     return `/${identifiableEntityName}s/${identifiableEntityId}`;

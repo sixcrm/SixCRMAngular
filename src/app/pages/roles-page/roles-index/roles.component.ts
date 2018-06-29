@@ -36,7 +36,7 @@ export class RolesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.aclService.getEntities();
+    this.aclService.getEntities(10);
   }
 
   ngOnDestroy() {

@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, Input} from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import {EventFunnel} from '../../../shared/models/event-funnel.model';
 import {EventFunnelTimeseries} from "../../../shared/models/event-funnel-timeseries.model";
 import {AbstractDashboardItem} from '../abstract-dashboard-item.component';
@@ -18,14 +18,11 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
 
   @Input() simpleChart: boolean = false;
   @Input() period: string = 'DAY';
-  @Input() renderChart: boolean;
 
-  showFunnelTable: boolean = false;
+  showChart: boolean;
+  showEventOptions: boolean = false;
   numberOfDays: number = 30;
   startDate: Moment;
-
-  colors = ['#4383CC', '#4DABF5', '#9ADDFB', '#FDAB31', '#F28933'];
-
   chart;
   funnel: EventFunnel;
   funnelTimeseries : EventFunnelTimeseries;
@@ -34,8 +31,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
     chart: {
       type: 'column',
       backgroundColor: '#FAFAFA',
-      height: 280,
-      width: 700
+      height: 370
     },
     title: { text: null },
     credits: { enabled: false },
@@ -89,7 +85,10 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
   }
 
   ngOnInit() {
-    this.analyticsService.eventFunnel$.takeUntil(this.unsubscribe$).subscribe((funnel: EventFunnel | CustomServerError) => {
+    const funnelStream = this.simpleChart ? this.analyticsService.eventFunnelSimple$ : this.analyticsService.eventFunnel$;
+    const eventFunnelStream = this.simpleChart ? this.analyticsService.eventFunnelTimeseriesSimple$ : this.analyticsService.eventFunnelTimeseries$;
+
+    funnelStream.takeUntil(this.unsubscribe$).subscribe((funnel: EventFunnel | CustomServerError) => {
       if (funnel instanceof CustomServerError) {
         this.serverError = funnel;
         this.funnel = null;
@@ -104,7 +103,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       }
     });
 
-    this.analyticsService.eventFunnelTimeseries$.takeUntil(this.unsubscribe$).subscribe((funnelTimeseries: EventFunnelTimeseries | CustomServerError) => {
+    eventFunnelStream.takeUntil(this.unsubscribe$).subscribe((funnelTimeseries: EventFunnelTimeseries | CustomServerError) => {
       if (funnelTimeseries instanceof CustomServerError) {
         this.serverError = funnelTimeseries;
         this.funnelTimeseries = null;
@@ -120,7 +119,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
     });
 
     Observable.timer(300).takeUntil(this.unsubscribe$).subscribe(() => {
-      this.showFunnelTable = true;
+      this.showEventOptions = true;
       this.redrawChartData();
     });
 
@@ -128,6 +127,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
     this.end = utc();
     this.eventType = 'click';
     this.shouldFetch = true;
+    this.showChart = true;
   }
 
   ngOnDestroy() {
@@ -143,13 +143,23 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
   fetch(): void {
     if (this.shouldFetch) {
       this.start = utc().subtract(this.numberOfDays, 'd');
-      this.analyticsService.getEventFunnel(this.start.format(), this.end.format(), null, this.eventType, this.period);
+
+      if (this.simpleChart) {
+        this.analyticsService.getEventFunnelSimple(this.start.format(), this.end.format(), null, this.eventType, this.period);
+      } else {
+        this.analyticsService.getEventFunnel(this.start.format(), this.end.format(), null, this.eventType, this.period);
+      }
+
       this.shouldFetch = false;
     }
   }
 
   download(format: string): void {
-    this.analyticsService.getEventFunnel(this.start.format(), this.end.format(), format);
+    if (this.simpleChart) {
+      this.analyticsService.getEventFunnelSimple(this.start.format(), this.end.format(), format);
+    } else {
+      this.analyticsService.getEventFunnel(this.start.format(), this.end.format(), format);
+    }
   }
 
   saveChart(chartInstance): void {
@@ -174,6 +184,11 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
 
     if (!this.chart || !this.funnelTimeseries || this.funnelTimeseries.datetime.length === 0) return;
 
+    if (!this.simpleChart) {
+      this.chartOptions.chart.height = 280;
+      this.chartOptions.chart['width'] = 700;
+    }
+
     let data = [];
     this.startDate = this.funnelTimeseries.datetime[0];
 
@@ -183,7 +198,7 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
       });
     }
 
-    let chartLineColor = '#1EBEA5';
+    const chartLineColor = '#1EBEA5';
 
     this.chart.series[0].update({
       color: chartLineColor,
@@ -191,5 +206,17 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
     });
 
     this.chart.series[0].setData(data, true, true);
+  }
+
+  drawMatSpinner(): boolean {
+    return (this.showEventOptions && !this.showChart) || (!this.showEventOptions && !this.funnel);
+  }
+
+  drawGraph(): boolean {
+    return this.showChart && this.showEventOptions;
+  }
+
+  drawTable(): boolean {
+    return this.funnel && !this.showEventOptions;
   }
 }

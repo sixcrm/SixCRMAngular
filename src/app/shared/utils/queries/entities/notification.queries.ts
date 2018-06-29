@@ -1,4 +1,9 @@
-import { paginationParamsQuery, fullPaginationStringResponseQuery, addUpdatedAtApi, cleanQuote } from './entities-helper.queries';
+import {
+  paginationParamsQuery,
+  fullPaginationStringResponseQuery,
+  addUpdatedAtApi,
+  jsonObject
+} from './entities-helper.queries';
 import {Notification} from '../../../models/notification.model'
 import {IndexQueryParameters} from '../index-query-parameters.model';
 
@@ -76,7 +81,7 @@ export function notificationsResponseQuery(): string {
 }
 
 export function notificationInputQuery(notification: Notification): string {
-  return `id: "${notification.id}", user: "${notification.user}", account: "${notification.account}", type: "${notification.type}", ${notification.category ? `category: "${notification.category}",` : ''} ${notification.context ? `context: ${cleanQuote(JSON.stringify(notification.context))}, ` : ''} name: "${notification.name}", read_at: ${notification.readAt ? `"${notification.readAt}"` : null}, ${addUpdatedAtApi(notification, true)}`;
+  return `id: "${notification.id}", user: "${notification.user}", account: "${notification.account}", type: "${notification.type}", ${notification.category ? `category: "${notification.category}",` : ''} ${notification.context ? `context: ${jsonObject(notification.context)}, ` : ''} name: "${notification.name}", read_at: ${notification.readAt ? `"${notification.readAt}"` : null}, ${addUpdatedAtApi(notification, true)}`;
 }
 
 function generateRandomString(length) {

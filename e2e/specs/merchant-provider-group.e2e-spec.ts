@@ -1,4 +1,4 @@
-import {waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
+import {waitForUrlContains, clearLocalStorage, waitForPresenceOf} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
 import {SidenavPage} from '../po/sidenav.po';
 import {login, tosCheck} from '../utils/action.utils';
@@ -89,20 +89,20 @@ describe('Merchant Provider Group', function() {
     expect(view.getEntityNameHeader().getText()).toEqual('e2e load balancer updated');
   });
 
-  xit( 'should go back to merchant provider group index', () =>  {
+  it( 'should go back to merchant provider group index', () =>  {
+    browser.sleep(1000);
     merchantProviderGroup.getMerchantProviderIndexButton().click();
-    browser.sleep(500);
     waitForUrlContains('merchantprovidergroups');
     expectUrlToContain('merchantprovidergroups');
   });
 
-  xit( 'should delete the provider group', () => {
-    browser.sleep(500);
+  it( 'should delete the provider group', () => {
+    browser.sleep(2000);
     merchantProviderGroup.getProviderGroupDeleteButton().click();
     browser.sleep(200);
     merchantProviderGroup.getProviderGroupDeleteModalButton().click();
-    browser.sleep(2000);
-    expect(merchantProviderGroup.getIndividualProvidergroup().count()).toEqual(0);
+    waitForPresenceOf(page.getSuccessSnackbar());
+    expect(page.getSuccessSnackbar().getText()).toEqual('Deleted Successfully!')
   });
 
 });

@@ -65,7 +65,7 @@ export class AccountManagementRolesComponent implements OnInit {
 
   constructor(
     private authService: AuthenticationService,
-    private roleService: RolesService,
+    public roleService: RolesService,
     private roleSharedService: RolesSharedService,
     private accountService: AccountsService,
     private dialog: MatDialog,

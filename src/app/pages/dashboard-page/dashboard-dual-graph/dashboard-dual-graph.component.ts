@@ -11,8 +11,6 @@ import {Moment, utc} from 'moment';
 })
 export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
 
-  colors = ['rgba(107, 176, 223, 1)', 'rgba(145, 213, 243, 1)'];
-
   chartInstance;
 
   data = [[],[]];
@@ -37,7 +35,7 @@ export class DashboardDualGraphComponent implements OnInit, AfterViewInit {
     this.refreshData();
   }
 
-  @Input() renderChart: boolean;
+  @Input() renderLowChart: boolean;
 
   initialLoad: boolean;
   options;

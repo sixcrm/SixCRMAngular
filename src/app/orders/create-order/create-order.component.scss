@@ -46,6 +46,7 @@
   .expansion-header {
     display: flex;
     align-items: center;
+    padding: 3px 0;
 
     .title {
       display: flex;
@@ -111,13 +112,6 @@
 
     mat-form-field {
       width: 250px;
-    }
-  }
-
-  .products-table {
-    td {
-      padding-top: 0;
-      padding-bottom: 0;
     }
   }
 

@@ -87,7 +87,7 @@ export class AccountManagementUsersComponent implements OnInit, OnDestroy {
     this.rolesService.entities$.take(1).subscribe(roles => {
       if (roles instanceof CustomServerError) return;
 
-      this.roles = roles;
+      this.roles = roles.filter(r => !r.isOwner());
     });
 
     this.rolesSharedService.entities$.take(1).subscribe(roles => {

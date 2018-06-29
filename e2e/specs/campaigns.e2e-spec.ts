@@ -1,4 +1,4 @@
-import {waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
+import {waitForUrlContains, clearLocalStorage, waitForPresenceOf} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
 import {SidenavPage} from '../po/sidenav.po';
 import {login, tosCheck} from '../utils/action.utils';
@@ -105,12 +105,12 @@ describe('Campaigns', function() {
   });
 
   it( 'should delete the campaign', () => {
-    browser.sleep(500);
+    browser.sleep(2000);
     campaignPage.getCampaignDeleteButton().click();
     browser.sleep(200);
     campaignPage.getCampaignDeleteModalButton().click();
-    browser.sleep(2000);
-    expect(campaignPage.getCampaignIndividualCampaign().count()).toEqual(0);
+    waitForPresenceOf(page.getSuccessSnackbar());
+    expect(page.getSuccessSnackbar().getText()).toEqual('Deleted Successfully!')
   });
 
 });
