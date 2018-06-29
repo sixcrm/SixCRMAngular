@@ -47,10 +47,24 @@ function cleanEscape(value: string): string {
   return value.replace(/\\/g, '\\\\');
 }
 
-export function cleanQuote(value: string): string {
+function cleanQuote(value: string): string {
   if (value.indexOf('"') === -1) return value;
 
   return value.replace(/"/g, '\\"');
+}
+
+export function jsonObject(obj: object): string {
+  let result: string = '{';
+
+  for (let key in obj) {
+    result += `${key.replace(/\./g, '__')}:"${obj[key]}",`;
+  }
+
+  if (result.length > 1) {
+    result = result.slice(0, -1); // remove last ','
+  }
+
+  return result + '}';
 }
 
 export function listQueryParams(params: IndexQueryParameters, ignoreBrackets?: boolean): string {
