@@ -1,4 +1,4 @@
-import {waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
+import {waitForUrlContains, clearLocalStorage, waitForPresenceOf} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
 import {SidenavPage} from '../po/sidenav.po';
 import {login, tosCheck} from '../utils/action.utils';
@@ -123,10 +123,12 @@ describe('Merchant Provider', function() {
   });
 
   it('should delete merchant provider', () => {
-    browser.sleep(500);
+    browser.sleep(2000);
     merchantProvider.getMerchantDeleteButton().click();
     browser.sleep(200);
     merchantProvider.getMerchantDeleteModalButton().click();
+    waitForPresenceOf(page.getSuccessSnackbar());
+    expect(page.getSuccessSnackbar().getText()).toEqual('Deleted Successfully!')
   });
 
 });

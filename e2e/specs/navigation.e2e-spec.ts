@@ -31,7 +31,7 @@ describe('Navigation', function() {
     browser.sleep(500);
     waitForUrlContains('/dashboard');
 
-    browser.sleep(500);
+    browser.sleep(2000);
     expect(sidenav.getItems().count()).toBe(32);
   });
 
