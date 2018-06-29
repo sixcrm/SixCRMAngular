@@ -30,4 +30,7 @@ export class EntityIndexPage {
     return this.getTableRow(row).all(by.css('td')).get(cell);
   }
 
+  getSuccessSnackbar() {
+    return element(by.css('.error-snack-bar--success'));
+  }
 }
