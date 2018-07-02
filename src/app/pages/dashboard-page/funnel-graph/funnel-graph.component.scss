@@ -59,6 +59,10 @@
   .event-type-options {
     margin-left: 20px;
   }
+
+  @media only screen and (max-width: 1270px) {
+    min-width: 140px;
+  }
 }
 
 .mat-icon {
