@@ -21,6 +21,13 @@ mat-checkbox {
   flex-wrap: wrap;
 }
 
+.cell--align-right {
+  .wrapper {
+    display: block;
+    text-align: right;
+  }
+}
+
 .header-float {
   position: fixed;
   width: 100%;
