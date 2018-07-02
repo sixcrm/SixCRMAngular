@@ -151,7 +151,11 @@ export class TransactionSummaryChartComponent extends AbstractDashboardItem impl
       if (!this.summaries || this.summaries.length === 0) {
         this.loaded = false;
       }
-      this.analyticsService.getTransactionSummaries(this.start.format(), flatUp(this.end).format(), this.filterTerms);
+      this.analyticsService.getTransactionSummaries({
+        start: this.start.format(),
+        end: flatUp(this.end).format(),
+        filters: this.filterTerms
+      });
       this.shouldFetch = false;
     }
   }
@@ -165,7 +169,12 @@ export class TransactionSummaryChartComponent extends AbstractDashboardItem impl
   }
 
   download(format: string): void {
-    this.analyticsService.getTransactionSummaries(this.start.format(), flatUp(this.end).format(), this.filterTerms, format);
+    this.analyticsService.getTransactionSummaries({
+      start: this.start.format(),
+      end: flatUp(this.end).format(),
+      filters: this.filterTerms,
+      downloadFormat: format
+    });
   }
 
   private redrawChart(): void {

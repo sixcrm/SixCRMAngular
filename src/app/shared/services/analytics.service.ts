@@ -59,8 +59,8 @@ export class AnalyticsService {
     })
   }
 
-  getHeroChartSeries(start: string, end: string, period: string, comparisonType: string, campaignId?: string): void {
-    this.queryRequest(heroChartQuery(start, end, period, comparisonType, campaignId)).subscribe(data => {
+  getHeroChartSeries(params: {start: string, end: string, period: string, comparisonType: string, campaignId?: string}): void {
+    this.queryRequest(heroChartQuery(params.start, params.end, params.period, params.comparisonType, params.campaignId)).subscribe(data => {
       this.handleResponse(
         data,
         this.heroChartSeries$,
@@ -70,17 +70,17 @@ export class AnalyticsService {
     })
   }
 
-  getTransactionSummaries(start: string, end: string, filters: FilterTerm[], downloadFormat?: string): void {
-    const summariesStorage = this.analyticsStorage.getTransactionSummaries(start, end, filters);
+  getTransactionSummaries(params: {start: string, end: string, filters: FilterTerm[], downloadFormat?: string}): void {
+    const summariesStorage = this.analyticsStorage.getTransactionSummaries(params.start, params.end, params.filters);
 
-    if (!downloadFormat && summariesStorage) {
+    if (!params.downloadFormat && summariesStorage) {
       this.transactionsSummaries$.next(summariesStorage);
       return;
     }
 
-    this.queryRequest(transactionSummaryQuery(start, end, filters), downloadFormat).subscribe(data => {
-      if (downloadFormat) {
-        downloadFile(data, 'transactions-summary', downloadFormat);
+    this.queryRequest(transactionSummaryQuery(params.start, params.end, params.filters), params.downloadFormat).subscribe(data => {
+      if (params.downloadFormat) {
+        downloadFile(data, 'transactions-summary', params.downloadFormat);
         return;
       }
 
@@ -92,21 +92,21 @@ export class AnalyticsService {
       );
 
       if (result) {
-        this.analyticsStorage.setTransactionSummaries(start, end, result, filters);
+        this.analyticsStorage.setTransactionSummaries(params.start, params.end, result, params.filters);
       }
     })
   }
 
-  getEventFunnel(start: string, end: string, downloadFormat?: string, eventType?: string, period?: string): void {
-    const funnelStorage = this.analyticsStorage.getEventFunnel(start, end);
-    if (!downloadFormat && funnelStorage && !eventType) {
+  getEventFunnel(params: {start: string, end: string, downloadFormat?: string, eventType?: string, period?: string}): void {
+    const funnelStorage = this.analyticsStorage.getEventFunnel(params.start, params.end);
+    if (!params.downloadFormat && funnelStorage && !params.eventType) {
       this.eventFunnel$.next(funnelStorage);
       return;
     }
 
-    this.queryRequest(eventsFunnelQuery(start, end), downloadFormat).subscribe(data => {
-      if (downloadFormat) {
-        downloadFile(data, 'events-by', downloadFormat);
+    this.queryRequest(eventsFunnelQuery(params.start, params.end), params.downloadFormat).subscribe(data => {
+      if (params.downloadFormat) {
+        downloadFile(data, 'events-by', params.downloadFormat);
         return;
       }
 
@@ -121,10 +121,10 @@ export class AnalyticsService {
       const funnel = new EventFunnel(extracted);
 
       this.eventFunnel$.next(funnel);
-      this.analyticsStorage.setEventFunnel(start, end, funnel);
+      this.analyticsStorage.setEventFunnel(params.start, params.end, funnel);
     });
 
-    this.queryRequest(eventsFunnelTimeseriesQuery(start, end, period || "DAY", eventType)).subscribe(data => {
+    this.queryRequest(eventsFunnelTimeseriesQuery(params.start, params.end, params.period || "DAY", params.eventType)).subscribe(data => {
       if (data instanceof CustomServerError) {
         this.eventFunnelTimeseries$.next(data);
 
@@ -139,16 +139,16 @@ export class AnalyticsService {
     })
   }
 
-  getEventFunnelSimple(start: string, end: string, downloadFormat?: string, eventType?: string, period?: string): void {
-    const funnelStorage = this.analyticsStorage.getEventFunnelSimple(start, end);
-    if (!downloadFormat && funnelStorage && !eventType) {
+  getEventFunnelSimple(params: {start: string, end: string, downloadFormat?: string, eventType?: string, period?: string}): void {
+    const funnelStorage = this.analyticsStorage.getEventFunnelSimple(params.start, params.end);
+    if (!params.downloadFormat && funnelStorage && !params.eventType) {
       this.eventFunnelSimple$.next(funnelStorage);
       return;
     }
 
-    this.queryRequest(eventsFunnelQuery(start, end), downloadFormat).subscribe(data => {
-      if (downloadFormat) {
-          downloadFile(data, 'events-by', downloadFormat);
+    this.queryRequest(eventsFunnelQuery(params.start, params.end), params.downloadFormat).subscribe(data => {
+      if (params.downloadFormat) {
+          downloadFile(data, 'events-by', params.downloadFormat);
           return;
         }
 
@@ -162,10 +162,10 @@ export class AnalyticsService {
         const funnel = new EventFunnel(extracted);
 
         this.eventFunnelSimple$.next(funnel);
-      this.analyticsStorage.setEventFunnelSimple(start, end, funnel);
+      this.analyticsStorage.setEventFunnelSimple(params.start, params.end, funnel);
     });
 
-    this.queryRequest(eventsFunnelTimeseriesQuery(start, end, period || "DAY", eventType)).subscribe(data => {
+    this.queryRequest(eventsFunnelTimeseriesQuery(params.start, params.end, params.period || "DAY", params.eventType)).subscribe(data => {
       if (data instanceof CustomServerError) {
           this.eventFunnelTimeseriesSimple$.next(data);
           return;
@@ -179,18 +179,17 @@ export class AnalyticsService {
     })
   }
 
+  getSubscriptionsByAmount(params: {start: string, end: string, downloadFormat?: string}): void {
+    const subsStorage = this.analyticsStorage.getSubscriptionsByAmount(params.start, params.end);
 
-        getSubscriptionsByAmount(start: string, end: string, downloadFormat?: string): void {
-    const subsStorage = this.analyticsStorage.getSubscriptionsByAmount(start, end);
-
-    if (!downloadFormat && subsStorage) {
+    if (!params.downloadFormat && subsStorage) {
       this.subscriptionsByAmount$.next(subsStorage);
       return;
     }
 
-    this.queryRequest(productSchedulesByAmountQuery(start, end), downloadFormat).subscribe(data => {
-      if (downloadFormat) {
-        downloadFile(data, 'subscriptions-by-amount', downloadFormat);
+    this.queryRequest(productSchedulesByAmountQuery(params.start, params.end), params.downloadFormat).subscribe(data => {
+      if (params.downloadFormat) {
+        downloadFile(data, 'subscriptions-by-amount', params.downloadFormat);
         return;
       }
 
@@ -201,21 +200,21 @@ export class AnalyticsService {
         (data: any) => extractData(data).analytics.records
       );
       if (result) {
-        this.analyticsStorage.setSubscriptionsByAmount(start, end, result);
+        this.analyticsStorage.setSubscriptionsByAmount(params.start, params.end, result);
       }
     })
   }
 
-  getCampaignsByAmount(start: string, end: string, downloadFormat?: string): void {
-    const campaignsStorage = this.analyticsStorage.getCampaignsByAmount(start, end);
-    if (!downloadFormat && campaignsStorage) {
+  getCampaignsByAmount(params: {start: string, end: string, downloadFormat?: string}): void {
+    const campaignsStorage = this.analyticsStorage.getCampaignsByAmount(params.start, params.end);
+    if (!params.downloadFormat && campaignsStorage) {
       this.campaignsByAmount$.next(campaignsStorage);
       return;
     }
 
-    this.queryRequest(campaignsByAmountQuery(start, end), downloadFormat).subscribe(data => {
-      if (downloadFormat) {
-        downloadFile(data, 'campaigns-by-amount', downloadFormat);
+    this.queryRequest(campaignsByAmountQuery(params.start, params.end), params.downloadFormat).subscribe(data => {
+      if (params.downloadFormat) {
+        downloadFile(data, 'campaigns-by-amount', params.downloadFormat);
         return;
       }
 
@@ -226,13 +225,13 @@ export class AnalyticsService {
         (data: any) => extractData(data).analytics.records
       );
       if (result) {
-        this.analyticsStorage.setCampaignsByAmount(start, end, result);
+        this.analyticsStorage.setCampaignsByAmount(params.start, params.end, result);
       }
     })
   }
 
-  getActivityByCustomer(start: string, end: string, customer: string, limit: number, offset: number) {
-    this.queryRequest(activitiesByCustomer(start, end, customer, limit, offset)).subscribe(data => {
+  getActivityByCustomer(params: {start: string, end: string, customer: string, limit: number, offset: number}) {
+    this.queryRequest(activitiesByCustomer(params.start, params.end, params.customer, params.limit, params.offset)).subscribe(data => {
       this.handleResponse(
         data,
         this.activitiesByCustomer$,

@@ -173,7 +173,15 @@ export class DashboardFullComponent implements OnInit, OnDestroy {
 
     if (!selectedTimeFilter || !this.selectedQuery) return;
 
-    this.analyticsService.getHeroChartSeries(selectedTimeFilter.start, selectedTimeFilter.end, 'day', this.selectedQuery.comparisonType, this.selectedCampaign ? this.selectedCampaign.id : null);
+    let campaignId = this.selectedCampaign ? this.selectedCampaign.id : null;
+
+    this.analyticsService.getHeroChartSeries({
+      start: selectedTimeFilter.start,
+      end: selectedTimeFilter.end,
+      period: 'day',
+      comparisonType: this.selectedQuery.comparisonType,
+      campaignId: campaignId
+    });
   }
 
   ngOnDestroy() {
