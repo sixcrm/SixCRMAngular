@@ -24,7 +24,7 @@
   </div>
 
   <div *ngIf="mode !== modes.View" class="entity-view__card__actions">
-    <div *ngIf="mode === modes.Update" (click)="cancel.emit(true)">{{ 'ACCOUNT_DETAILS_CANCEL' | translate}}</div>
+    <div (click)="cancel.emit(true)">{{ 'ACCOUNT_DETAILS_CANCEL' | translate}}</div>
     <div (click)="saveAccount()">{{ 'ACCOUNT_DETAILS_SAVE' | translate}}</div>
   </div>
 </div>
