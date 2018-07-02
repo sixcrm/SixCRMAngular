@@ -69,13 +69,13 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
   updateError: boolean;
   autosaveDebouncer: number = 3500;
 
-  constructor(service: SessionsService,
+  constructor(public sessionService: SessionsService,
               route: ActivatedRoute,
               public navigation: NavigationService,
               private authService: AuthenticationService,
               private router: Router
   ) {
-    super(service, route);
+    super(sessionService, route);
   }
 
   ngOnInit() {
@@ -177,6 +177,19 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
       this.productSchedulesWaitingForUpdate = productSchedules;
       this.saveDebouncer.next(productSchedules);
     }
+  }
+
+  cancelSession() {
+    this.sessionService.cancelSession(this.entity).subscribe(session => {
+      if (session instanceof CustomServerError) {
+        return;
+      }
+
+      this.updateError = false;
+      this.entity = session;
+      this.entityBackup = this.entity.copy();
+      this.productSchedulesWaitingForUpdate = null;
+    });
   }
 
 }

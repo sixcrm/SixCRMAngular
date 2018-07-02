@@ -42,13 +42,14 @@
     }
 
     .cancelled-message {
+      margin-left: 25px;
+
       div {
-        text-align: right;
-        color: rgba(0,0,0,0.5);
+        color: #ffffff;
 
         &:first-of-type {
           margin-bottom: 3px;
-          font-size: 16px;
+          font-size: 12px;
           font-weight: 500;
           text-transform: uppercase;
         }
