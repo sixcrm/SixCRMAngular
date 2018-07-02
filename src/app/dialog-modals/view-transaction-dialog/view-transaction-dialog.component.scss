@@ -1,6 +1,6 @@
 .item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 8px;
 
   .key {
@@ -19,6 +19,13 @@
     line-height: 24px;
     font-size: 15px;
     color: #202124;
+    max-width: 300px;
+    overflow: auto;
+    word-wrap: break-word;
+
+    &--capitalized {
+      text-transform: capitalize;
+    }
   }
 }
 

@@ -21,17 +21,23 @@
 
     <div class="item">
       <div class="key">Type</div>
-      <div class="value">{{transaction.type}}</div>
+      <div class="value value--capitalized">{{transaction.type}}</div>
     </div>
 
     <div class="item">
       <div class="key">Card</div>
-      <div class="value">{{transaction.processorResponse.getCard().brand}}</div>
+      <div class="value value--capitalized">{{transaction.processorResponse.getCard().brand}}</div>
     </div>
 
     <div class="item">
       <div class="key">Amount</div>
       <div class="value">{{transaction.amount.usd()}}</div>
+    </div>
+
+
+    <div class="item">
+      <div class="key">Response</div>
+      <div class="value">{{transaction.processorResponse.body}}</div>
     </div>
   </div>
 
