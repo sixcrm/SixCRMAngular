@@ -100,7 +100,11 @@ export class AccountManagementBillingTransactionsChartComponent implements OnIni
       }
     });
 
-    this.analyticsService.getTransactionSummaries(flatDown(utc().subtract(30, 'd')).format(), flatUp(utc()).format(), []);
+    this.analyticsService.getTransactionSummaries({
+      start: flatDown(utc().subtract(30, 'd')).format(),
+      end: flatUp(utc()).format(),
+      filters: []
+    });
   }
 
   ngOnDestroy() {

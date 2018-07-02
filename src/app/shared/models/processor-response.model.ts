@@ -3,12 +3,15 @@ import {Entity} from './entity.interface';
 export class ProcessorResponse implements Entity<ProcessorResponse> {
   id: string;
   message: string;
+  body: any;
   code: string;
-  authCode: string;
-  responseText: any = {};
-  transactionId: string;
+  response: any = {};
+
+  originalResponse: any;
 
   constructor(obj?: any) {
+    this.originalResponse = obj;
+
     if (obj) {
       obj = JSON.parse(obj);
 
@@ -16,35 +19,34 @@ export class ProcessorResponse implements Entity<ProcessorResponse> {
       this.code = obj.code || '';
 
       if (obj.result) {
-        this.responseText = obj.result.response || {};
-        this.authCode = obj.result.authcode || '';
-        this.transactionId = obj.result.transactionid || '';
+        this.response = obj.result.response || {};
+      } else if (obj.vendorresponse) {
+        this.response = obj.vendorresponse;
+      }
+
+      if (this.code === 'success') {
+        this.body = this.message;
+      } else if (obj.body) {
+        this.body = obj.body;
+      } else if (this.response) {
+        this.body = this.response.body;
       }
     }
   }
 
   getCard(): {brand?: string, last4?: string} {
-    if (!this.responseText || !this.responseText.body || !this.responseText.body.source || !this.responseText.body.source.card) {
+    if (!this.response || !this.response.body || !this.response.body.source || !this.response.body.source.card) {
       return {}
     }
 
-    return this.responseText.body.source.card;
+    return this.response.body.source.card;
   }
 
   copy(): ProcessorResponse {
-    return new ProcessorResponse(this.inverse());
+    return new ProcessorResponse(this.originalResponse);
   }
 
   inverse(): any {
-    return JSON.stringify({
-      id: this.id,
-      message: this.message,
-      code: this.code,
-      result: {
-        response: this.responseText,
-        authcode: this.authCode,
-        transactionid: this.transactionId
-      }
-    })
+    return this.originalResponse;
   }
 }

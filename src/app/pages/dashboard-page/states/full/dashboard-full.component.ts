@@ -110,7 +110,7 @@ export class DashboardFullComponent implements OnInit, OnDestroy {
   ];
 
   totalAmount: Currency = new Currency(0);
-  revenueMessage: string = 'Lifetime Total Revenue';
+  revenueMessage: string = 'Last 30 Days Revenue';
 
   name: string;
   quote: TranslatedQuote;
@@ -173,7 +173,15 @@ export class DashboardFullComponent implements OnInit, OnDestroy {
 
     if (!selectedTimeFilter || !this.selectedQuery) return;
 
-    this.analyticsService.getHeroChartSeries(selectedTimeFilter.start, selectedTimeFilter.end, 'day', this.selectedQuery.comparisonType, this.selectedCampaign ? this.selectedCampaign.id : null);
+    let campaignId = this.selectedCampaign ? this.selectedCampaign.id : null;
+
+    this.analyticsService.getHeroChartSeries({
+      start: selectedTimeFilter.start,
+      end: selectedTimeFilter.end,
+      period: 'day',
+      comparisonType: this.selectedQuery.comparisonType,
+      campaignId: campaignId
+    });
   }
 
   ngOnDestroy() {

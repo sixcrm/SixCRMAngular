@@ -60,6 +60,7 @@
 
     @media only screen and (max-width: 1300px) {
       flex-direction: column;
+      overflow-x: hidden;
     }
 
     .funnel-graph {
@@ -82,7 +83,7 @@
       margin-bottom: 25px;
 
       @media only screen and (max-width: 1300px) {
-        width: 100%
+        width: 96%;
       }
 
       .transactions-header {

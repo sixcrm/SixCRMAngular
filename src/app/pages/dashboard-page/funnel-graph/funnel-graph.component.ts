@@ -144,22 +144,26 @@ export class FunnelGraphComponent extends AbstractDashboardItem implements OnIni
     if (this.shouldFetch) {
       this.start = utc().subtract(this.numberOfDays, 'd');
 
-      if (this.simpleChart) {
-        this.analyticsService.getEventFunnelSimple(this.start.format(), this.end.format(), null, this.eventType, this.period);
-      } else {
-        this.analyticsService.getEventFunnel(this.start.format(), this.end.format(), null, this.eventType, this.period);
-      }
+      let params = {
+        start: this.start.format(),
+        end: this.end.format(),
+        eventType: this.eventType,
+        period: this.period
+      };
 
+      this.simpleChart ? this.analyticsService.getEventFunnelSimple(params) : this.analyticsService.getEventFunnel(params);
       this.shouldFetch = false;
     }
   }
 
   download(format: string): void {
-    if (this.simpleChart) {
-      this.analyticsService.getEventFunnelSimple(this.start.format(), this.end.format(), format);
-    } else {
-      this.analyticsService.getEventFunnel(this.start.format(), this.end.format(), format);
-    }
+    let params = {
+      start: this.start.format(),
+      end: this.end.format(),
+      downloadFormat: format
+    };
+
+    this.simpleChart ? this.analyticsService.getEventFunnelSimple(params) : this.analyticsService.getEventFunnel(params);
   }
 
   saveChart(chartInstance): void {

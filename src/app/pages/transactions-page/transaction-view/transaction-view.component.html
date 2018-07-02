@@ -41,7 +41,7 @@
 
           <div class="entity-view__card__content">
             <mat-form-field class="entity-view__card__content__item">
-              <input disabled matInput placeholder="{{'TRANSACTION_PROCESSOR_CODE' | translate}}" [(ngModel)]="entity.processorResponse.authCode" type="text">
+              <input disabled matInput placeholder="{{'TRANSACTION_PROCESSOR_CODE' | translate}}" type="text">
             </mat-form-field>
 
             <mat-form-field class="entity-view__card__content__item">
@@ -49,7 +49,7 @@
             </mat-form-field>
 
             <mat-form-field class="entity-view__card__content__item">
-              <textarea rows="4" disabled matInput placeholder="{{'TRANSACTION_PROCESSOR_TEXT' | translate}}" [(ngModel)]="entity.processorResponse.responseText.body" type="text"></textarea>
+              <textarea rows="2" disabled matInput placeholder="{{'TRANSACTION_PROCESSOR_TEXT' | translate}}" [(ngModel)]="entity.processorResponse.body" type="text"></textarea>
             </mat-form-field>
           </div>
         </div>

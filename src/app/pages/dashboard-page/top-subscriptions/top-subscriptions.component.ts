@@ -62,7 +62,7 @@ export class TopSubscriptionsComponent extends AbstractDashboardItem implements 
 
   fetch(): void {
     if (this.shouldFetch) {
-      this.analyticsService.getSubscriptionsByAmount(this.start.format(), this.end.format());
+      this.analyticsService.getSubscriptionsByAmount({start: this.start.format(), end: this.end.format()});
       this.shouldFetch = false;
     }
   }

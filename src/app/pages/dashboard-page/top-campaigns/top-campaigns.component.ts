@@ -65,7 +65,7 @@ export class TopCampaignsComponent extends AbstractDashboardItem implements OnIn
 
   fetch(): void {
     if (this.shouldFetch) {
-      this.analyticsService.getCampaignsByAmount(this.start.format(), this.end.format());
+      this.analyticsService.getCampaignsByAmount({start: this.start.format(), end: this.end.format()});
       this.shouldFetch = false;
     }
   }
