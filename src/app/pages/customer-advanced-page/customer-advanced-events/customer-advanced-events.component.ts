@@ -57,13 +57,13 @@ export class CustomerAdvancedEventsComponent implements OnInit {
       this.activities = activities;
     });
 
-    this.analyticsService.getActivityByCustomer(
-      utc().subtract(1, 'M').format(),
-      utc().format(),
-      this._customer.id,
-      10,
-      0
-    );
+    this.analyticsService.getActivityByCustomer({
+      start: utc().subtract(1, 'M').format(),
+      end: utc().format(),
+      customer: this._customer.id,
+      limit: 10,
+      offset: 0
+    });
   }
 
 }
