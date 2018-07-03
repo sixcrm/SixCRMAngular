@@ -21,7 +21,7 @@ export interface CheckoutCreditCard {
   name: string,
   number: string,
   expiration: string,
-  ccv?: string,
+  cvv?: string,
   address?: CheckoutAddress
 }
 
