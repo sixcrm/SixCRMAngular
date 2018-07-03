@@ -128,15 +128,15 @@ jobs:
             command: sleep 60
         - run:
             name: Run local login e2e
-            command: npm run e2e.local -- --suite login&
+            command: npm run e2e.local -- --suite login
             background: true
         - run:
             name: Run local register e2e
-            command: npm run e2e.local -- --suite register&
+            command: npm run e2e.local -- --suite register
             background: true
         - run:
             name: Run local navigation e2e
-            command: npm run e2e.local -- --suite navigation&
+            command: npm run e2e.local -- --suite navigation
             background: true
   e2e_register:
     <<: *job-defaults
