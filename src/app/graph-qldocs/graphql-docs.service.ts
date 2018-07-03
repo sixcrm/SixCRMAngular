@@ -175,16 +175,21 @@ function generateResponse(type, types: Type[], callChain?: string[]) {
 
   let result: string = '';
   fullType.fields.forEach(f => {
-    if (f.type.kind === 'SCALAR' || f.type.kind === 'NON_NULL') {
-      if (f.name !== 'pagination') {
-        result += `${f.name},`
-      }
+    if (f.type.kind === 'SCALAR' || (f.type.kind === 'NON_NULL' && f.type.ofType.kind === 'SCALAR')) {
+      result += `${f.name},`
     }
 
     if (f.type.kind === 'OBJECT') {
 
       if (callChain.indexOf(f.type.name) < 0) {
         result += `${f.name} {${generateResponse(f.type.name, types, [...callChain, f.type.name])}}`
+      }
+    }
+
+    if (f.type.kind === 'NON_NULL' && f.type.ofType.kind === 'OBJECT') {
+
+      if (callChain.indexOf(f.type.ofType.name) < 0) {
+        result += `${f.name} {${generateResponse(f.type.ofType.name, types, [...callChain, f.type.ofType.name])}}`
       }
     }
 
