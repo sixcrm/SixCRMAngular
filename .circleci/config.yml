@@ -127,24 +127,9 @@ jobs:
             name: Wait for server to start
             command: sleep 60
         - run:
-            name: Run local app e2e
-            command: npm run e2e.local -- --suite login
-            background: true
-        - run:
-            name: Run local login e2e
-            command: npm run e2e.local -- --suite login
-            background: true
-        - run:
-            name: Run local register e2e
-            command: npm run e2e.local -- --suite register
-            background: true
-        - run:
-            name: Run local navigation e2e
-            command: npm run e2e.local -- --suite navigation
-            background: true
-        - run:
-            name: Wait for tests to finish
-            command: sleep 180
+            name: Run local e2e
+            command: npm run e2e.local
+            no_output_timeout: 20m
   e2e_register:
     <<: *job-defaults
     steps:
