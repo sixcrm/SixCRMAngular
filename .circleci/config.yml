@@ -127,6 +127,10 @@ jobs:
             name: Wait for server to start
             command: sleep 60
         - run:
+            name: Run local app e2e
+            command: npm run e2e.local -- --suite login
+            background: true
+        - run:
             name: Run local login e2e
             command: npm run e2e.local -- --suite login
             background: true
@@ -140,7 +144,7 @@ jobs:
             background: true
         - run:
             name: Wait for tests to finish
-            command: while pgrep node;do sleep 5s;done
+            command: sleep 180
   e2e_register:
     <<: *job-defaults
     steps:
