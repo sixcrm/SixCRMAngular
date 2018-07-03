@@ -3,7 +3,7 @@ import {Field} from '../../models/field.model';
 import {Type} from '../../models/type.model';
 import {Router} from "@angular/router";
 import {environment} from '../../../../environments/environment';
-import {Location} from '@angular/common';
+import {NavigationService} from "../../../navigation/navigation.service";
 
 @Component({
   selector: 'type-card',
@@ -17,7 +17,7 @@ export class TypeCardComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private location: Location
+    public navigationService: NavigationService
   ) { }
 
   ngOnInit() { }
@@ -29,10 +29,6 @@ export class TypeCardComponent implements OnInit {
   navigateToType(arg: Field): void {
     let fieldName = arg.type.name || arg.type.ofType.name || arg.type.ofType.ofType.name;
     this.router.navigate(['documentation/graph/type', fieldName]);
-  }
-
-  goBack() {
-    this.location.back();
   }
 
   getShareLink(): string {

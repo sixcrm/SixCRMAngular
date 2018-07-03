@@ -11,9 +11,9 @@ import {MatDialog} from '@angular/material';
 import {TermsDialogComponent} from '../../dialog-modals/terms-dialog/terms-dialog.component';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {AccountsService} from '../../entity-services/services/accounts.service';
-import {Location} from '@angular/common';
 import {environment} from '../../../environments/environment';
 import {UnpaidBills} from "../unpaid-bills.model";
+import {NavigationService} from "../../navigation/navigation.service";
 
 @Component({
   selector: 'plan-payment',
@@ -60,7 +60,7 @@ export class PlanPaymentComponent implements OnInit {
     private userService: UsersService,
     private dialog: MatDialog,
     private authService: AuthenticationService,
-    private location: Location
+    public navigationService: NavigationService
   ) { }
 
   ngOnInit() {
@@ -207,10 +207,6 @@ export class PlanPaymentComponent implements OnInit {
 
   paymentInfoSecondPart() {
     return this.isRecurringPayment ? 'PAYMENT_DECLINEINFO' : 'PAYMENT_INFO_TIER';
-  }
-
-  cancel() {
-    this.location.back();
   }
 
   isDataInvalid() {

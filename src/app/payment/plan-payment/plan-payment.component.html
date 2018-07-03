@@ -1,7 +1,7 @@
 <div class="container" [class.recurring-payment]="isRecurringPayment">
   <div class="row above"  *ngIf="isRecurringPayment || transactionalError || generalError" [class.error-row-above]="transactionalError">
     <div class="title">{{paymentTitle() | translate}}</div>
-    <button *ngIf="isRecurringPayment" mat-button (click)="cancel()">{{'PAYMENT_CANCEL' | translate}}</button>
+    <button *ngIf="isRecurringPayment" mat-button (click)="navigationService.back()">{{'PAYMENT_CANCEL' | translate}}</button>
   </div>
   <div class="row below">
     <div class="column left" [class.registration-column-left]="!isRecurringPayment && !transactionalError">
