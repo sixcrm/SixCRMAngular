@@ -1,40 +1,35 @@
 <div *ngIf="entity; else spinner" class="entity-view">
-  <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
 
-  <div (click)="navigation.back()" class="entity-view__change-mode"><mat-icon>reply</mat-icon></div>
-
-  <div class="entity-view__header">
-
-    <entity-view-gallery [defaultImage]="'/assets/images/user-image-placeholder.svg'" [images]="images"></entity-view-gallery>
-
-    <div class="entity-view__header__title">
-      <ng-container *ngIf="updateMode; else viewmode">
-        <mat-form-field>
-          <input auto-focus matInput type="text" [(ngModel)]="entity.name">
-        </mat-form-field>
-      </ng-container>
-
-      <ng-template #viewmode>{{entity.name}}</ng-template>
-
-      <div *ngIf="!isShared && service.hasWritePermission()" class="entity-view__header__actions">
-        <ng-container *ngIf="updateMode; else viewoptions">
-          <span (click)="cancelUpdate()">cancel</span>
-          <span class="last" (click)="updateEntity(entity)">update</span>
-        </ng-container>
-        <ng-template #viewoptions>
-          <span (click)="setMode(modes.Update)">edit</span>
-        </ng-template>
-      </div>
-    </div>
-    <div class="entity-view__header__details">
-      <div class="date">{{'SINGLEPAGE_CREATED' | translate}}: {{entity.createdAt | formatDateTime: 'M/DD/YY h:mm A'}}</div>
-      <div class="id">ID: {{entity.id}}</div>
-    </div>
-  </div>
+  <blue-header [items]="breadcrumbs" [titleValue]="entity.name"></blue-header>
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
   <mat-tab-group [(selectedIndex)]="selectedIndex">
+
+    <mat-tab>
+      <div class="entity-view__card">
+        <div class="entity-view__card__header">
+          <div class="entity-view__card__header__title">{{'ROLE_TAB_GENERAL' | translate}}</div>
+          <ng-container *ngIf="viewMode && !isShared && service.hasWritePermission()">
+            <mat-icon [matMenuTriggerFor]="editOptions">more_vert</mat-icon>
+            <mat-menu #editOptions="matMenu" x-position="before">
+              <button mat-menu-item (click)="setMode(modes.Update)">{{'ROLE_INFO_EDIT' | translate}}</button>
+            </mat-menu>
+          </ng-container>
+        </div>
+        <form #merchantProviderInputForm="ngForm" class="entity-view__card__content">
+          <mat-form-field style="width: 110px" class="entity-view__card__content__item" [class.error]="!entity.name">
+            <input required [disabled]="viewMode" matInput placeholder="{{'ROLE_INFO_NAME' | translate}}" name="name" [(ngModel)]="entity.name" type="text">
+          </mat-form-field>
+        </form>
+
+        <div *ngIf="updateMode" class="entity-view__card__actions">
+          <div (click)="cancelUpdate()">{{'ROLE_INFO_CANCEL' | translate}}</div>
+          <div (click)="updateEntity(entity)">{{'ROLE_INFO_UPDATE' | translate}}</div>
+        </div>
+      </div>
+    </mat-tab>
+
     <mat-tab>
 
       <table-advanced [data]="entity.permissions.parsedAllowed"
