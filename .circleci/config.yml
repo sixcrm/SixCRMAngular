@@ -138,6 +138,9 @@ jobs:
             name: Run local navigation e2e
             command: npm run e2e.local -- --suite navigation
             background: true
+        - run:
+            name: Wait for tests to finish
+            command: sleep 60
   e2e_register:
     <<: *job-defaults
     steps:
