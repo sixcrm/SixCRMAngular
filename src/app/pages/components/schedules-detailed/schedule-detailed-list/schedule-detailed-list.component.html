@@ -4,7 +4,7 @@
   <div class="list__content">
 
     <div class="header" [class.header--collapsed]="!sideVisible">
-      <div (click)="toggleAddProductScheduleMode()">
+      <div *ngIf="editable" (click)="toggleAddProductScheduleMode()">
         <mat-icon>add</mat-icon>
         <span *ngIf="sideVisible">ADD</span>
       </div>

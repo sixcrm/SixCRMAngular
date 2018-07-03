@@ -3,7 +3,7 @@
   <div class="entity-view">
     <blue-header [items]="breadcrumbs" [titleValue]="entity.alias">
       <ng-container *ngIf="sessionService.hasWritePermission()">
-        <div *ngIf="!entity.cancelled.cancelled; else cancelmessage" (click)="cancelSession()" class="cancel">CANCEL</div>
+        <div *ngIf="!entity.cancelled.cancelled; else cancelmessage" (click)="openCancelSessionModal()" class="cancel">CANCEL</div>
         <ng-template #cancelmessage>
           <div class="cancelled-message">
             <div>Session cancelled</div>
@@ -85,6 +85,7 @@
           [productSchedules]="entity.watermark.extractedProductSchedules"
           [products]="entity.watermark.extractedProducts"
           [startDate]="entity.startedAt"
+          [editable]="!entity.cancelled.cancelled"
           (productSchedulesChanged)="updateItems($event)"
           [statusMessage]="updateError ? 'Error occured on save' : productSchedulesWaitingForUpdate ? 'Saving...' : 'All changes saved'"
           (detailsComponent)="setDetails($event)">
