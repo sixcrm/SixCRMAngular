@@ -50,8 +50,8 @@
       </mat-form-field>
 
       <div>
-        <mat-form-field class="code" [class.error]="formInvalid && ccvInvalid">
-          <input type="text" matInput placeholder="{{'PAYMENT_FORM_CODE' | translate}}" [(ngModel)]="creditCard.ccv" (keydown)="ccvInvalid=false;isAllowedNumericKey($event) && isShorterThan(5, creditCard.ccv, $event)">
+        <mat-form-field class="code" [class.error]="formInvalid && cvvInvalid">
+          <input type="text" matInput placeholder="{{'PAYMENT_FORM_CODE' | translate}}" [(ngModel)]="creditCard.cvv" (keydown)="cvvInvalid=false;isAllowedNumericKey($event) && isShorterThan(5, creditCard.cvv, $event)">
         </mat-form-field>
         <img class="code__image" src="/assets/images/security_code.png">
       </div>

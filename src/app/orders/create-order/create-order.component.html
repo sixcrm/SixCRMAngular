@@ -360,7 +360,7 @@
                   </span>
 
                   <mat-chip-list [selectable]="false">
-                    <mat-chip *ngIf="selectedCreditCard && (!selectedCreditCard.ccv || !ccvInvalid(selectedCreditCard))"
+                    <mat-chip *ngIf="selectedCreditCard && (!selectedCreditCard.cvv || !cvvInvalid(selectedCreditCard))"
                               [removable]="true"
                               (removed)="removeCreditCard()">
                       **** {{selectedCreditCard.parseLastFour()}}
@@ -383,8 +383,8 @@
                     <td style="width: 1px;"><mat-radio-button [checked]="selectedCreditCard?.id === ccard.id" (change)="ccChanged($event)" [value]="ccard"></mat-radio-button></td>
                     <td>
                       {{ccard.type}} ****{{ccard.lastFour}}
-                      <mat-form-field [class.error]="selectedCcvError && ccvInvalid(selectedCreditCard)" *ngIf="selectedCreditCard && selectedCreditCard.id === ccard.id">
-                        <input type="text" matInput placeholder="CCV" [(ngModel)]="selectedCreditCard.ccv">
+                      <mat-form-field [class.error]="selectedCvvError && cvvInvalid(selectedCreditCard)" *ngIf="selectedCreditCard && selectedCreditCard.id === ccard.id">
+                        <input type="text" matInput placeholder="CVV" [(ngModel)]="selectedCreditCard.cvv">
                       </mat-form-field>
                     </td>
                     <td>{{ccard.expirationFormatted}}</td>
@@ -411,7 +411,7 @@
           </mat-accordion>
 
           <create-order-preview
-            *ngIf="showPreview && selectedCustomer?.id && selectedProducts?.length > 0 && selectedCreditCard && (!selectedCreditCard.ccv || !ccvInvalid(selectedCreditCard)) && selectedShippingAddress && selectedCampaign?.id"
+            *ngIf="showPreview && selectedCustomer?.id && selectedProducts?.length > 0 && selectedCreditCard && (!selectedCreditCard.cvv || !cvvInvalid(selectedCreditCard)) && selectedShippingAddress && selectedCampaign?.id"
             [customer]="selectedCustomer"
             [creditCard]="selectedCreditCard"
             [shippingAddress]="selectedShippingAddress"
