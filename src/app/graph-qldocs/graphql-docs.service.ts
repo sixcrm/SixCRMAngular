@@ -176,7 +176,9 @@ function generateResponse(type, types: Type[], callChain?: string[]) {
   let result: string = '';
   fullType.fields.forEach(f => {
     if (f.type.kind === 'SCALAR' || f.type.kind === 'NON_NULL') {
-      result += `${f.name},`
+      if (f.name !== 'pagination') {
+        result += `${f.name},`
+      }
     }
 
     if (f.type.kind === 'OBJECT') {
