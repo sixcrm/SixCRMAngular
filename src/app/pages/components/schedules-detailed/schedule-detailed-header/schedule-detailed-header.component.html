@@ -12,17 +12,22 @@
     <mat-form-field [floatLabel]="'never'">
       <input class="search-input" matInput type="text" placeholder="Filter Items" (input)="filterChanged.emit($event.target.value)">
     </mat-form-field>
-    <div class="divider"></div>
+    <div *ngIf="editable" class="divider"></div>
   </ng-container>
 
-  <div class="actions-container" [class.actions-container--solo]="singleScheduleMode">
+  <div *ngIf="editable" class="actions-container" [class.actions-container--solo]="singleScheduleMode">
     <div class="revert" (click)="doRevert()" [class.action-inactive]="!undoEnabled">REVERT</div>
     <mat-icon (click)="doUndo()" [class.action-inactive]="!undoEnabled">undo</mat-icon>
     <mat-icon (click)="doRedo()" [class.action-inactive]="!redoEnabled">redo</mat-icon>
     <div class="saving"> {{ statusMessage }} </div>
   </div>
 
-  <mat-icon class="grid-icon" [class.icon-selected]="displayMode === modes.grid" (click)="displayModeChanged.emit(modes.grid)">grid_on</mat-icon>
+  <mat-icon class="grid-icon"
+            [class.icon-selected]="displayMode === modes.grid"
+            [class.icon-solo]="!editable"
+            (click)="displayModeChanged.emit(modes.grid)">
+    grid_on
+  </mat-icon>
 
   <div class="divider"></div>
 

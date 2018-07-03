@@ -16,6 +16,7 @@ export class ScheduleDetailedHeaderComponent implements OnInit {
   @Input() redoEnabled: boolean = true;
   @Input() infoEnabled: boolean = true;
   @Input() statusMessage: string;
+  @Input() editable: boolean = true;
 
   @Output() zoomChanged: EventEmitter<number> = new EventEmitter();
   @Output() filterChanged: EventEmitter<string> = new EventEmitter();

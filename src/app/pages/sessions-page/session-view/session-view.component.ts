@@ -18,6 +18,8 @@ import {CustomServerError} from '../../../shared/models/errors/custom-server-err
 import {Product} from '../../../shared/models/product.model';
 import {WatermarkProductSchedule} from '../../../shared/models/watermark/watermark-product-schedule.model';
 import {WatermarkProduct} from '../../../shared/models/watermark/watermark-product.model';
+import {MatDialog} from '@angular/material';
+import {YesNoDialogComponent} from '../../yes-no-dialog.component';
 
 @Component({
   selector: 'session-view',
@@ -73,7 +75,8 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
               route: ActivatedRoute,
               public navigation: NavigationService,
               private authService: AuthenticationService,
-              private router: Router
+              private router: Router,
+              private dialog: MatDialog
   ) {
     super(sessionService, route);
   }
@@ -190,6 +193,20 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
       this.entityBackup = this.entity.copy();
       this.productSchedulesWaitingForUpdate = null;
     });
+  }
+
+  openCancelSessionModal() {
+    let ref = this.dialog.open(YesNoDialogComponent);
+    ref.componentInstance.text = 'Are you sure you want to cancel this session?';
+
+    ref.afterClosed().subscribe(result => {
+      ref = null;
+
+      if (result && result.success) {
+        this.cancelSession();
+      }
+
+    })
   }
 
 }

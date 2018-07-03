@@ -12,7 +12,7 @@ export class SessionCancelation {
       obj = {};
     }
 
-    this.cancelled = obj.cancelled;
+    this.cancelled = !!obj.cancelled;
     this.cancelledAt = utc(obj.cancelled_at);
     this.cancelledBy = new User(obj.cancelled_by);
   }
