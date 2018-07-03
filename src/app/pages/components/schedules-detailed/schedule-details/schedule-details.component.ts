@@ -5,7 +5,7 @@ import {Product} from '../../../../shared/models/product.model';
 import {Products} from '../../../../shared/models/products.model';
 import {Moment, utc} from 'moment';
 import {isAllowedNumeric} from '../../../../shared/utils/form.utils';
-import {Subject, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {AuthenticationService} from '../../../../authentication/authentication.service';
 
 @Component({
@@ -51,6 +51,7 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
   @Input() allProducts: Products[] = [];
   @Input() startDate: Moment;
   @Input() singleScheduleMode: boolean;
+  @Input() editable: boolean = true;
 
   @Output() close: EventEmitter<boolean> = new EventEmitter();
   @Output() save: EventEmitter<boolean> = new EventEmitter();
@@ -176,6 +177,8 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
   }
 
   parseDeleteKey(key) {
+    if (!this.editable) return;
+
     if (key.key !== 'Delete') return;
 
     if (this._schedule) {
@@ -188,16 +191,22 @@ export class ScheduleDetailsComponent implements OnInit, OnDestroy {
   }
 
   setCycleNoRepeat() {
+    if (!this.editable) return;
+
     this._scheduleBackup.period = 0;
     this._scheduleBackup.sameDayOfMonth = false;
   }
 
   setCycleSameDay() {
+    if (!this.editable) return;
+
     this._scheduleBackup.period = 0;
     this._scheduleBackup.sameDayOfMonth = true;
   }
 
   setCycleRepeatEvery() {
+    if (!this.editable) return;
+
     this._scheduleBackup.period = this._scheduleBackup.period  || 30;
     this._scheduleBackup.sameDayOfMonth = false;
   }

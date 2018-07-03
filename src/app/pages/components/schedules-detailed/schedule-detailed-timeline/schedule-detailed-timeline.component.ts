@@ -38,6 +38,8 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
     this._zoom = value;
     this.measureArray = this.createRangeArray(this.days / this._zoom);
   }
+  @Input() editable: boolean = true;
+
   @Output() selected: EventEmitter<ProductSchedule | Schedule | Product> = new EventEmitter();
   @Output() scheduleChanged: EventEmitter<boolean> = new EventEmitter();
   @Output() loadMoreDays: EventEmitter<boolean> = new EventEmitter();
@@ -86,6 +88,8 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
   }
 
   dragStarted(event, schedule: Schedule, productSchedule: ProductSchedule) {
+    if (!this.editable) return;
+
     if (!productSchedule['detailedListOpened']) {
       this.selected.emit(productSchedule);
       for (let i = 0; i < productSchedule.schedules.length; i++) {
@@ -99,6 +103,8 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
   }
 
   private dragScheduleStarted(event, schedule: Schedule) {
+    if (!this.editable) return;
+
     this.startX = event.clientX;
     for (let i = 0; i < schedule.cycles.length; i++) {
       schedule.cycles[i].dragDiff = 0;
@@ -107,6 +113,8 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
   }
 
   drag(event, schedule: Schedule, productSchedule: ProductSchedule) {
+    if (!this.editable) return;
+
     if (!productSchedule['detailedListOpened']) {
       for (let i = 0; i < productSchedule.schedules.length; i++) {
         this.dragSchedule(event, productSchedule.schedules[i])
@@ -117,6 +125,8 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
   }
 
   private dragSchedule(event, schedule: Schedule) {
+    if (!this.editable) return;
+
     if (event.clientX === 0) return;
 
     const diff = event.clientX - this.startX;
@@ -127,6 +137,8 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
   }
 
   dragEnded(event, schedule: Schedule, productSchedule: ProductSchedule) {
+    if (!this.editable) return;
+
     this.changeDebouncer.next(true);
 
     if (!productSchedule['detailedListOpened']) {
@@ -160,6 +172,8 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
   }
 
   dragResizeStarted(event, schedule: Schedule, cycleNum: number) {
+    if (!this.editable) return;
+
     this.selected.emit(schedule);
 
     if (schedule.sameDayOfMonth && cycleNum < (schedule.cycles.length - 1)) return;
@@ -173,6 +187,8 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
   }
 
   dragResize(event, schedule: Schedule, cycleNum: number) {
+    if (!this.editable) return;
+
     if (event.clientX === 0) return;
 
     if (schedule.sameDayOfMonth && cycleNum < (schedule.cycles.length - 1)) return;
@@ -188,6 +204,8 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
   }
 
   dragResizeEnded(event, schedule: Schedule, cycleNum: number) {
+    if (!this.editable) return;
+
     if (schedule.sameDayOfMonth && cycleNum < (schedule.cycles.length - 1)) return;
 
     this.changeDebouncer.next(true);

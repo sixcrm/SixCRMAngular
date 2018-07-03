@@ -127,7 +127,7 @@ jobs:
             name: Wait for server to start
             command: sleep 60
         - run:
-            name: Run smoke e2e
+            name: Run local e2e
             command: npm run e2e.local
             no_output_timeout: 20m
   e2e_register:
@@ -355,31 +355,6 @@ jobs:
               npm run e2e.stage -- --suite merchant_provider_group
             fi
           no_output_timeout: 20m
-  merge_development:
-    <<: *job-defaults
-    steps:
-      - checkout
-      - restore_cache:
-          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
-      - run: git submodule update --init --remote --merge
-      - run:
-          name: Promote changes
-          command: node libs/deployment_scripts/src/merge-branches.js staging
-  merge_staging_production:
-    <<: *job-defaults
-    steps:
-      - checkout
-      - restore_cache:
-          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
-      - run: git submodule update --init --remote --merge
-      - run:
-          name: Promote changes
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "staging" ]; then
-              node libs/deployment_scripts/src/merge-branches.js production
-            elif [ "${CIRCLE_BRANCH}" == "production" ]; then
-              node libs/deployment_scripts/src/merge-branches.js priority
-            fi
 
 workflows:
   version: 2
@@ -495,40 +470,3 @@ workflows:
               only:
                 - development
                 - staging
-      - merge_development:
-          requires:
-            - deploy_cloudfront
-            - e2e_register
-            - e2e_accept_invite
-            - e2e_login
-            - e2e_navigation
-            - e2e_campaign
-            - e2e_product
-            - e2e_product_schedule
-            - e2e_merchant_provider
-            - e2e_merchant_provider_group
-          filters:
-            branches:
-              only:
-                - development
-      - hold:
-          type: approval
-          requires:
-            - deploy_cloudfront
-            - e2e_register
-            - e2e_accept_invite
-            - e2e_login
-            - e2e_navigation
-            - e2e_campaign
-            - e2e_product
-            - e2e_product_schedule
-            - e2e_merchant_provider
-            - e2e_merchant_provider_group
-          filters:
-            branches:
-              only:
-                - staging
-                - production
-      - merge_staging_production:
-          requires:
-            - hold

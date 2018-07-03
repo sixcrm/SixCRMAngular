@@ -92,7 +92,7 @@
                          [style.border-color]="schedule.detailedListSelected || productSchedule.detailedListSelected ? 'rgba(0,0,0,0.55)' : cycle.start < _diff ? greenSelected : blueSelected"
                          [style.background]="schedule.detailedListSelected || productSchedule.detailedListSelected ? cycle.start < _diff ? greenSelected : blueSelected : cycle.start < _diff ? green : blue">
                       <div class="body"
-                           draggable="true"
+                           [draggable]="editable"
                            [style.color]="schedule.detailedListSelected || productSchedule.detailedListSelected ? 'white' : cycle.start < _diff ? greenText : blueText"
                            (dragstart)="dragStarted($event, schedule, productSchedule)"
                            (drag)="drag($event, schedule, productSchedule)"
@@ -101,21 +101,21 @@
                           <span>{{ cycle.order }}</span>
                         </div>
                         <ng-container>
-                          <span class="name" draggable="true">
+                          <span class="name" [draggable]="editable">
                             {{ productSchedule['detailedListOpened'] ? cycle.start === schedule.start ? schedule.product.name : '' : cycle.stack === 1 ? cycle.start === schedule.start ? schedule.product.name : '' : cycle.stack + ' Items' }}
                           </span>
                           <ng-container *ngIf="productSchedule['detailedListOpened'] || cycle.stack < 2">
-                            <span *ngIf="schedule.sameDayOfMonth; else customduration" draggable="true" class="duration"><mat-icon>loop</mat-icon> Monthly</span>
+                            <span *ngIf="schedule.sameDayOfMonth; else customduration" [draggable]="editable" class="duration"><mat-icon>loop</mat-icon> Monthly</span>
 
                             <ng-template #customduration>
-                              <span draggable="true" class="duration" *ngIf="schedule.cycles.length === 1"> {{cycle.diff + (cycle.durationDragInProgress ? cycle.dragdiffDays : 0)}} Days </span>
-                              <span draggable="true" class="duration" *ngIf="cycleNum > 0 && (cycleNum === 1 || (cycleNum === (schedule.cycles.length - 1)))"> <mat-icon>loop</mat-icon> Every {{schedule.period + (cycle.periodDragInProgress ? cycle.dragdiffDays : 0)}} days </span>
+                              <span [draggable]="editable" class="duration" *ngIf="schedule.cycles.length === 1"> {{cycle.diff + (cycle.durationDragInProgress ? cycle.dragdiffDays : 0)}} Days </span>
+                              <span [draggable]="editable" class="duration" *ngIf="cycleNum > 0 && (cycleNum === 1 || (cycleNum === (schedule.cycles.length - 1)))"> <mat-icon>loop</mat-icon> Every {{schedule.period + (cycle.periodDragInProgress ? cycle.dragdiffDays : 0)}} days </span>
                             </ng-template>
                           </ng-container>
                         </ng-container>
                       </div>
                       <div class="resizer"
-                           draggable="true"
+                           [draggable]="editable"
                            (dragstart)="dragResizeStarted($event, schedule, cycleNum)"
                            (drag)="dragResize($event, schedule, cycleNum)"
                            (dragend)="dragResizeEnded($event, schedule, cycleNum)">

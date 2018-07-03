@@ -80,7 +80,7 @@ export class CreateOrderComponent implements OnInit {
   customerSearchSub: Subscription;
   customerSearchDebouncer: Subject<string> = new Subject();
 
-  selectedCcvError: boolean = false;
+  selectedCvvError: boolean = false;
   showPreview: boolean;
 
   isZipValid = isValidZip;
@@ -408,7 +408,7 @@ export class CreateOrderComponent implements OnInit {
   }
 
   allSelectedValid() {
-    this.selectedCcvError = false;
+    this.selectedCvvError = false;
 
     if (!this.selectedCustomer || !this.selectedCustomer.id) {
       this.setStep(0);
@@ -440,8 +440,8 @@ export class CreateOrderComponent implements OnInit {
       return false;
     }
 
-    if (this.selectedCreditCard.ccv && this.ccvInvalid(this.selectedCreditCard)) {
-      this.selectedCcvError = true;
+    if (this.selectedCreditCard.cvv && this.cvvInvalid(this.selectedCreditCard)) {
+      this.selectedCvvError = true;
       this.setStep(5);
 
       return false;
@@ -450,10 +450,10 @@ export class CreateOrderComponent implements OnInit {
     return true;
   }
 
-  ccvInvalid(creditCard: CreditCard): boolean {
-    if (!creditCard.ccv) return true;
+  cvvInvalid(creditCard: CreditCard): boolean {
+    if (!creditCard.cvv) return true;
 
-    return !/[0-9]/.test(creditCard.ccv) || creditCard.ccv.length < 3 || creditCard.ccv.length > 4;
+    return !/[0-9]/.test(creditCard.cvv) || creditCard.cvv.length < 3 || creditCard.cvv.length > 4;
   }
 
   getPrice() {
@@ -588,8 +588,8 @@ export class CreateOrderComponent implements OnInit {
       address: billingAddress
     };
 
-    if (this.selectedCreditCard.ccv) {
-      creditCard.ccv = this.selectedCreditCard.ccv;
+    if (this.selectedCreditCard.cvv) {
+      creditCard.cvv = this.selectedCreditCard.cvv;
     }
     return creditCard;
   }

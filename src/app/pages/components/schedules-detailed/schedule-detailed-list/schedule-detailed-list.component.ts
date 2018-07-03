@@ -17,6 +17,7 @@ export class ScheduleDetailedListComponent implements OnInit {
   @Input() sideVisible: boolean;
   @Input() singleScheduleMode: boolean;
   @Input() allProducts: Product[] = [];
+  @Input() editable: boolean = true;
 
   @Output() selected: EventEmitter<ProductSchedule | Schedule | Product> = new EventEmitter();
   @Output() newProductScheduleAdded: EventEmitter<ProductSchedule> = new EventEmitter();

@@ -13,6 +13,7 @@ export class ScheduleDetailsHeaderComponent implements OnInit {
   @Input() product: Product;
   @Input() schedule: Schedule;
   @Input() productSchedule: ProductSchedule;
+  @Input() editable: boolean = true;
 
   @Output() close: EventEmitter<boolean> = new EventEmitter();
   @Output() removeProduct: EventEmitter<boolean> = new EventEmitter();
