@@ -33,7 +33,7 @@ export class InputCreditCardComponent implements OnInit {
       return false;
     }
 
-    if (/[0-9]/.test(event.key) && ((this.mode === 'ccv' && this.inputValue.length >= 4) || this.inputValue.length >= 20) ) {
+    if (/[0-9]/.test(event.key) && ((this.mode === 'cvv' && this.inputValue.length >= 4) || this.inputValue.length >= 20) ) {
       event.preventDefault();
     }
 

@@ -47,10 +47,10 @@ export class PaymentFormComponent implements OnInit {
     return !/[0-9]/.test(creditCard.ccnumber) || creditCard.ccnumber.length < 12 || creditCard.ccnumber.length > 20;
   }
 
-  ccvInvalid(creditCard: CreditCard): boolean {
-    if (!creditCard.ccv) return true;
+  cvvInvalid(creditCard: CreditCard): boolean {
+    if (!creditCard.cvv) return true;
 
-    return !/[0-9]/.test(creditCard.ccv) || creditCard.ccv.length < 3 || creditCard.ccv.length > 4;
+    return !/[0-9]/.test(creditCard.cvv) || creditCard.cvv.length < 3 || creditCard.cvv.length > 4;
   }
 
   expirationMonthInvalid(creditCard: CreditCard): boolean {
@@ -76,7 +76,7 @@ export class PaymentFormComponent implements OnInit {
   isValid(): boolean {
     this.formInvalid = !this.creditCard.name
       || this.ccNumberInvalid(this.creditCard)
-      || (this.creditCard.ccv && this.ccvInvalid(this.creditCard))
+      || (this.creditCard.cvv && this.cvvInvalid(this.creditCard))
       || this.expirationMonthInvalid(this.creditCard)
       || this.expirationYearInvalid(this.creditCard)
       || !this.address.line1 || !this.isAddressValid(this.address.line1)

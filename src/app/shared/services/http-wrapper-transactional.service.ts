@@ -60,7 +60,7 @@ export class HttpWrapperTransactionalService {
         name: creditCard.name,
         number: creditCard.ccnumber,
         expiration: creditCard.expiration,
-        ccv: creditCard.ccv
+        cvv: creditCard.cvv
       },
       product_schedules: [{quantity: 1, product_schedule: planId}]
     };

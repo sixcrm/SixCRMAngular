@@ -1,5 +1,5 @@
 import { AuthPage } from '../po/auth.po';
-import {expectPresent} from '../utils/assertation.utils';
+import {expectPresent, expectNotPresent} from '../utils/assertation.utils';
 import {clearLocalStorage} from '../utils/navigation.utils';
 import {browser} from 'protractor';
 
@@ -20,5 +20,11 @@ describe('App load', function() {
     authPage.navigateTo();
 
     expectPresent(authPage.getAuthComponent());
+  });
+
+  it('should fail', () => {
+    authPage.navigateTo();
+
+    expectNotPresent(authPage.getAuthComponent());
   });
 });

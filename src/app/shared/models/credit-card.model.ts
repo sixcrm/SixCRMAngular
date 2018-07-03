@@ -6,7 +6,7 @@ import {Moment, utc} from 'moment'
 export class CreditCard implements Entity<CreditCard> {
   id: string;
   ccnumber: string;
-  ccv: string;
+  cvv: string;
   expiration: string;
   name: string;
   address: Address;
@@ -30,7 +30,7 @@ export class CreditCard implements Entity<CreditCard> {
 
     this.id = obj.id || '';
     this.ccnumber = obj.number || '';
-    this.ccv = obj.ccv || '';
+    this.cvv = obj.cvv || '';
     this.expiration = obj.expiration || '';
     this.expirationMonth = this.parseExpirationMonth();
     this.expirationYear = this.parseExpirationYear();
@@ -59,7 +59,7 @@ export class CreditCard implements Entity<CreditCard> {
     return {
       id: this.id,
       number: this.ccnumber,
-      ccv: this.ccv,
+      cvv: this.cvv,
       expiration: this.expiration,
       name: this.name,
       address: this.address.inverse(),
