@@ -9,8 +9,8 @@
       <input type="text" required matInput (keydown)="isAllowedNumericKey($event)" [(ngModel)]="creditCard.ccnumber" placeholder="{{'FORMINPUTS_CREDITCARD_NUMBER' | translate}}">
     </mat-form-field>
 
-    <mat-form-field [class.error]="formInvalid && ccvInvalid(creditCard)">
-      <input type="text" matInput (keydown)="isAllowedNumericKey($event)" [(ngModel)]="creditCard.ccv" placeholder="{{'FORMINPUTS_CREDITCARD_CCV' | translate}}">
+    <mat-form-field [class.error]="formInvalid && cvvInvalid(creditCard)">
+      <input type="text" matInput (keydown)="isAllowedNumericKey($event)" [(ngModel)]="creditCard.cvv" placeholder="{{'FORMINPUTS_CREDITCARD_CVV' | translate}}">
     </mat-form-field>
 
     <div class="row">

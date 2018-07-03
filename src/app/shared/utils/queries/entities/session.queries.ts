@@ -127,6 +127,14 @@ export function updateSessionMutation(session: Session): string {
 	  }`
 }
 
+export function cancelSessionMutation(session: Session, canceledBy: string): string {
+    return `mutation { cancelsession (session: { id: "${session.id}", cancelled: true, cancelled_by: "${canceledBy}" })
+        {
+            ${sessionResponseQuery()}
+        }
+     }`
+}
+
 export function sessionResponseQuery(): string {
   return `
     id alias created_at updated_at completed,

@@ -7,6 +7,7 @@
   [redoEnabled]="historyIndex < (schedulesHistory.length - 1)"
   [undoEnabled]="historyIndex !== 0 && (consecutiveUndo || historyIndex !== 1)"
   [infoEnabled]="infoEnabled"
+  [editable]="editable"
   (infoEnabledChanged)="infoEnabled = $event"
   (undo)="undo()"
   (redo)="redo()"
@@ -24,6 +25,7 @@
     [sideVisible]="sideVisible"
     [products]="products"
     [allProducts]="allProducts"
+    [editable]="editable"
     (newProductScheduleAdded)="addNewProductSchedule($event)"
     (newProductAdded)="addNewProduct($event)"
     (selected)="selectDetailsAndScroll($event)">
@@ -36,6 +38,7 @@
     [zoomLevel]="zoomLevel"
     [start]="startDate"
     [scrollTo]="scrollToElement"
+    [editable]="editable"
     (loadMoreDays)="loadMore()"
     (scheduleChanged)="createNewState(true)"
     (selected)="selectDetails($event)">
@@ -49,6 +52,7 @@
     [allProducts]="allProducts"
     [schedule]="selectedSchedule"
     [startDate]="startDate"
+    [editable]="editable"
     (focusSchedule)="selectDetails($event)"
     (save)="createNewState(true)"
     (deleteSchedule)="removeSchedule($event)"

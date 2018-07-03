@@ -48,7 +48,7 @@ export class AddCreditCardDialogComponent implements OnInit {
   }
 
   private isCardInvalid() {
-    return !this.creditCard.name || this.isCcNumberInvalid() || this.isCcvInvalid() || this.isExpirationMonthInvalid() || this.isExpirationYearInvalid();
+    return !this.creditCard.name || this.isCcNumberInvalid() || this.isCvvInvalid() || this.isExpirationMonthInvalid() || this.isExpirationYearInvalid();
   }
 
   isCcNumberInvalid(): boolean {
@@ -59,12 +59,12 @@ export class AddCreditCardDialogComponent implements OnInit {
     return !/[0-9]/.test(this.creditCard.ccnumber) || this.creditCard.ccnumber.length < 12 || this.creditCard.ccnumber.length > 20;
   }
 
-  isCcvInvalid(): boolean {
+  isCvvInvalid(): boolean {
     if (this.creditCard.id) return false;
 
-    if (!this.creditCard.ccv) return true;
+    if (!this.creditCard.cvv) return true;
 
-    return !/[0-9]/.test(this.creditCard.ccv) || this.creditCard.ccv.length < 3 || this.creditCard.ccv.length > 4;
+    return !/[0-9]/.test(this.creditCard.cvv) || this.creditCard.cvv.length < 3 || this.creditCard.cvv.length > 4;
   }
 
   isExpirationMonthInvalid(): boolean {

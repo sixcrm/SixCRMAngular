@@ -9,9 +9,9 @@ export class CreditCardMaskPipe implements PipeTransform {
     if (!value) return '';
     if (!mask) return value;
 
-    let ccv: boolean = mode === 'ccv';
+    let cvv: boolean = mode === 'cvv';
 
-    if (ccv || value.length < 13) {
+    if (cvv || value.length < 13) {
       return Array(value.length + 1).join('*');
     }
 

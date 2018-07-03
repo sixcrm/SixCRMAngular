@@ -37,7 +37,7 @@ export class PlanPaymentComponent implements OnInit {
 
   formInvalid: boolean;
   ccInvalid: boolean;
-  ccvInvalid: boolean;
+  cvvInvalid: boolean;
   nameInvalid: boolean;
   monthInvalid: boolean;
   yearInvalid: boolean;
@@ -83,7 +83,7 @@ export class PlanPaymentComponent implements OnInit {
 
   pay() {
     this.ccInvalid = this.isCcNumberInvalid();
-    this.ccvInvalid = this.isCcvInvalid();
+    this.cvvInvalid = this.isCvvInvalid();
     this.nameInvalid = !this.creditCard.name || this.creditCard.name.length < 2;
     this.monthInvalid = !this.creditCard.expirationMonth;
     this.yearInvalid = !this.creditCard.expirationYear;
@@ -145,10 +145,10 @@ export class PlanPaymentComponent implements OnInit {
     return !/[0-9]/.test(this.creditCard.ccnumber) || this.creditCard.ccnumber.length < 12 || this.creditCard.ccnumber.length > 20;
   }
 
-  isCcvInvalid(): boolean {
-    if (!this.creditCard.ccv) return true;
+  isCvvInvalid(): boolean {
+    if (!this.creditCard.cvv) return true;
 
-    return !/[0-9]/.test(this.creditCard.ccv) || this.creditCard.ccv.length < 3 || this.creditCard.ccv.length > 4;
+    return !/[0-9]/.test(this.creditCard.cvv) || this.creditCard.cvv.length < 3 || this.creditCard.cvv.length > 4;
   }
 
   openOwnerTerms() {
@@ -215,7 +215,7 @@ export class PlanPaymentComponent implements OnInit {
 
   isDataInvalid() {
     return this.isCcNumberInvalid()
-    || this.isCcvInvalid()
+    || this.isCvvInvalid()
     || !this.creditCard.expirationMonth
     || !this.creditCard.expirationYear
     || !this.creditCard.name

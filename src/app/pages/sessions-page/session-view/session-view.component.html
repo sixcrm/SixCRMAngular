@@ -2,13 +2,10 @@
 
   <div class="entity-view">
     <blue-header [items]="breadcrumbs" [titleValue]="entity.alias">
-      <div *ngIf="!entity.cancelled.cancelled; else cancelmessage" class="cancel">CANCEL</div>
-      <ng-template #cancelmessage>
-        <div class="cancelled-message">
-          <div>Session cancelled</div>
-          <div>by {{entity.cancelled.cancelledBy.name}} at {{entity.cancelled.cancelledAt.format('MM/DD/YY')}}</div>
-        </div>
-      </ng-template>
+      <div *ngIf="entity.cancelled.cancelled" class="cancelled-message">
+        <div>Session cancelled</div>
+        <div>by {{entity.cancelled.cancelledBy.name}} at {{entity.cancelled.cancelledAt.format('MM/DD/YY')}}</div>
+      </div>
     </blue-header>
 
     <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
@@ -83,6 +80,7 @@
           [productSchedules]="entity.watermark.extractedProductSchedules"
           [products]="entity.watermark.extractedProducts"
           [startDate]="entity.startedAt"
+          [editable]="!entity.cancelled.cancelled"
           (productSchedulesChanged)="updateItems($event)"
           [statusMessage]="updateError ? 'Error occured on save' : productSchedulesWaitingForUpdate ? 'Saving...' : 'All changes saved'"
           (detailsComponent)="setDetails($event)">

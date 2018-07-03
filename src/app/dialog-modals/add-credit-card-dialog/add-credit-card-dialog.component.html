@@ -17,8 +17,8 @@
         <input type="text" matInput placeholder="Number" [(ngModel)]="creditCard.ccnumber">
       </mat-form-field>
 
-      <mat-form-field (keydown)="isAllowedNumericKey($event)" [class.error]="formInvalid && isCcvInvalid()" *ngIf="!creditCard.id">
-        <input type="text" matInput placeholder="CCV" [(ngModel)]="creditCard.ccv">
+      <mat-form-field (keydown)="isAllowedNumericKey($event)" [class.error]="formInvalid && isCvvInvalid()" *ngIf="!creditCard.id">
+        <input type="text" matInput placeholder="CVV" [(ngModel)]="creditCard.cvv">
       </mat-form-field>
 
       <mat-form-field [class.error]="formInvalid && !creditCard.name">
