@@ -1,5 +1,46 @@
 // Protractor configuration file, see link for more information
 // https://github.com/angular/protractor/blob/master/docs/referenceConf.js
+const SpecReporter = require('jasmine-spec-reporter');
+const HtmlScreenshotReporter = require('protractor-jasmine2-screenshot-reporter');
+const uuidV4 = require('uuid/v4');
+
+const consoleReporter = new SpecReporter(
+  {
+    displayStacktrace: 'none',      // display stacktrace for each failed assertion, values: (all|specs|summary|none)
+    displaySuccessesSummary: false, // display summary of all successes after execution
+    displayFailuresSummary: true,   // display summary of all failures after execution
+    displayPendingSummary: true,    // display summary of all pending specs after execution
+    displaySuccessfulSpec: true,    // display each successful spec
+    displayFailedSpec: true,        // display each failed spec
+    displayPendingSpec: false,      // display each pending spec
+    displaySpecDuration: false,     // display each spec duration
+    displaySuiteNumber: false,      // display each suite number (hierarchical)
+    colors: {
+      success: 'green',
+      failure: 'red',
+      pending: 'yellow'
+    },
+    prefixes: {
+      success: '✓ ',
+      failure: '✗ ',
+      pending: '* '
+    },
+    customProcessors: []
+  }
+);
+
+const htmlReporter = new HtmlScreenshotReporter({
+  dest: 'e2e-html-report',
+  filename: 'index.html',
+  reportTitle: "Six e2e Test Report",
+  ignoreSkippedSpecs: true,
+  showQuickLinks: true,
+  reportOnlyFailedSpecs: false,
+  captureOnlyFailedSpecs: true,
+  pathBuilder: function(currentSpec, suites, browserCapabilities) {
+    return browserCapabilities.get('browserName') + '/' + uuidV4();
+  }
+});
 
 exports.config = {
   allScriptsTimeout: 110000,
@@ -22,6 +63,7 @@ exports.config = {
       './e2e/**/fulfillment-provider.e2e-spec.ts',
       './e2e/**/smtp-provider.e2e-spec.ts'
     ],
+    app: './e2e/**/app.e2e-spec.ts',
     register_refresh: './e2e/**/register-refresh.e2e-spec.ts',
     register_back: './e2e/**/register-back.e2e-spec.ts',
     register_cardcheck: './e2e/**/register-cardcheck.e2e-spec.ts',
@@ -51,7 +93,7 @@ exports.config = {
     ]
   },
   capabilities: {
-    'browserName': 'chrome',
+    'browserName': 'chrome'
   },
   directConnect: true,
   baseUrl: 'http://localhost:4200/',
@@ -66,33 +108,19 @@ exports.config = {
     require('ts-node').register({
       project: 'e2e/tsconfig.json'
     });
+
+    return new Promise(function(resolve){
+      htmlReporter.beforeLaunch(resolve);
+    });
   },
   onPrepare: function() {
-    /*global jasmine */
-    var SpecReporter = require('jasmine-spec-reporter');
-    jasmine.getEnv().addReporter(new SpecReporter(
-            {
-              displayStacktrace: 'none',      // display stacktrace for each failed assertion, values: (all|specs|summary|none)
-              displaySuccessesSummary: false, // display summary of all successes after execution
-              displayFailuresSummary: true,   // display summary of all failures after execution
-              displayPendingSummary: true,    // display summary of all pending specs after execution
-              displaySuccessfulSpec: true,    // display each successful spec
-              displayFailedSpec: true,        // display each failed spec
-              displayPendingSpec: false,      // display each pending spec
-              displaySpecDuration: false,     // display each spec duration
-              displaySuiteNumber: false,      // display each suite number (hierarchical)
-              colors: {
-                success: 'green',
-                failure: 'red',
-                pending: 'yellow'
-              },
-              prefixes: {
-                  success: '✓ ',
-                  failure: '✗ ',
-                  pending: '* '
-              },
-              customProcessors: []
-            }
-      ));
+    jasmine.getEnv().addReporter(consoleReporter);
+    jasmine.getEnv().addReporter(htmlReporter);
+  },
+
+  afterLaunch: function(exitCode) {
+    return new Promise(function(resolve){
+      htmlReporter.afterLaunch(resolve.bind(this, exitCode));
+    });
   }
 };
