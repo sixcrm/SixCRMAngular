@@ -27,6 +27,7 @@ testem.log
 # e2e
 /e2e/*.js
 /e2e/*.map
+/e2e-html-report
 
 #System Files
 .DS_Store
