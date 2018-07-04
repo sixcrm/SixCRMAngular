@@ -33,7 +33,7 @@ export class FormatGraphQlPipe implements PipeTransform {
           break;
         }
         case '}': {
-          this.closedCurlyBracket(c);
+          this.closedCurlyBracket(c, text[i+1]);
           break;
         }
         case ')': {
@@ -81,9 +81,14 @@ export class FormatGraphQlPipe implements PipeTransform {
     this.tabCounter++;
   }
 
-  closedCurlyBracket(c: string) {
+  closedCurlyBracket(c: string, next: string) {
     this.tabCounter--;
-    this.result += '\n' + this.tabs(this.tabCounter) + c + '\n' + this.tabs(this.tabCounter);
+
+    this.result += '\n' + this.tabs(this.tabCounter) + c;
+
+    if (next !== ',') {
+      this.result += '\n ' + this.tabs(this.tabCounter);
+    }
   }
 
   addWrap() {
