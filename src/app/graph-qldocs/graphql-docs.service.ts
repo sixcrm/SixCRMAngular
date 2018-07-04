@@ -158,7 +158,7 @@ function extractScalar(type, value) {
   if (type && type.name === 'Boolean') return 'true';
   if (type && type.name === 'Int') return '10';
 
-  return '""';
+  return `"${value}"`;
 }
 
 function generateResponse(type, types: Type[], callChain?: string[]) {
