@@ -133,10 +133,12 @@ function generateTypes(types: Type[], parent: string): string[] {
   return examples;
 }
 
-function generateInput(input, types: Type[]): string {
+function generateInput(input, types: Type[], inner?: boolean): string {
   if (!input || input.length === 0) return '';
 
-  return `(${input.map(i => `${i.name}: ${generateInputValue(i, types)}`)})`;
+  let inputProperty = `${input.map(i => `${i.name}: ${generateInputValue(i, types)}`)}`;
+
+  return inner ? `{${inputProperty}}` : `(${inputProperty})`;
 }
 
 function generateInputValue(value, types: Type[]): string {
@@ -146,7 +148,7 @@ function generateInputValue(value, types: Type[]): string {
   if (inputType === 'LIST') return `[ ${extractScalar(value.type.ofType, value.name)} ]`;
   if (inputType === 'SCALAR') return extractScalar(value.type, value.name);
   if (inputType === 'NON_NULL') return extractScalar(value.type.ofType, value.name);
-  if (inputType === 'INPUT_OBJECT') return generateInput(types.filter(t => t.name === (value.type ? value.type.name : value.ofType.name))[0].inputFields, types);
+  if (inputType === 'INPUT_OBJECT') return generateInput(types.filter(t => t.name === (value.type ? value.type.name : value.ofType.name))[0].inputFields, types, true);
 
   return '';
 }
