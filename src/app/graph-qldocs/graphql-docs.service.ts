@@ -184,6 +184,7 @@ function generateResponse(type, types: Type[], callChain?: string[]) {
 
   let result: string = '';
   fullType.fields.forEach(f => {
+
     if (f.type.kind === 'SCALAR' || (f.type.kind === 'NON_NULL' && f.type.ofType.kind === 'SCALAR')) {
       result += `${f.name},`
     }
@@ -207,7 +208,10 @@ function generateResponse(type, types: Type[], callChain?: string[]) {
       if (!name) {
         name = f.type.ofType.ofType.name;
       }
-      if (callChain.indexOf(name) < 0) {
+
+      if (f.type.ofType.kind === 'SCALAR') {
+        result += `${f.name},`
+      } else if (callChain.indexOf(name) < 0) {
         result += `${f.name} {${generateResponse(name, types, [...callChain, name])}}`
       }
     }
