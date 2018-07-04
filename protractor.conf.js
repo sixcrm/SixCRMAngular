@@ -53,7 +53,8 @@ exports.config = {
     './e2e/**/product.e2e-spec.ts',
     './e2e/**/product-schedule.e2e-spec.ts',
     './e2e/**/merchant-provider.e2e-spec.ts',
-    './e2e/**/merchant-provider-group.e2e-spec.ts'
+    './e2e/**/merchant-provider-group.e2e-spec.ts',
+    './e2e/**/create-order.e2e-spec.ts'
   ],
   suites:  {
     crm: [
@@ -80,6 +81,7 @@ exports.config = {
     user: './e2e/**/user.e2e-spec.ts',
     account: './e2e/**/account.e2e-spec.ts',
     current: './e2e/**/email-template.e2e-spec.ts',
+    create_order: './e2e/**/create-order.e2e-spec.ts',
     useraccount: [
       './e2e/**/user.e2e-spec.ts',
       './e2e/**/account.e2e-spec.ts',
