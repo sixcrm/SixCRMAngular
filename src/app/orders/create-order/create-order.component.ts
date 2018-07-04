@@ -74,8 +74,6 @@ export class CreateOrderComponent implements OnInit {
   selectedCreditCard: CreditCard;
   newCreditCard: CreditCard = new CreditCard();
 
-  newCardMode: boolean = true;
-
   customerSub: Subscription;
   customerSearchSub: Subscription;
   customerSearchDebouncer: Subject<string> = new Subject();
@@ -195,12 +193,8 @@ export class CreateOrderComponent implements OnInit {
       if (!this.selectedShippingAddress) {
         this.shippingAddress = this.selectedCustomer.address.copy();
       }
-
-      if (this.selectedCustomer.creditCards[0]) {
-        this.selectedCreditCard = this.selectedCustomer.creditCards[0].copy();
-        this.newCardMode = false;
-      }
     });
+
     this.customerService.getEntity(this.selectedCustomer.id);
 
     this.setStep(1);
@@ -345,17 +339,6 @@ export class CreateOrderComponent implements OnInit {
     this.shippingFilterValue = '';
   }
 
-  ccChanged(event) {
-    this.selectedCreditCard = event.value.copy();
-
-    this.newCardMode = false;
-  }
-
-  newCardSelected() {
-    this.selectedCreditCard = undefined;
-    this.newCardMode = true;
-  }
-
   removeCreditCard() {
     this.selectedCreditCard = undefined;
   }
@@ -393,7 +376,7 @@ export class CreateOrderComponent implements OnInit {
   }
 
   billingNextStep() {
-    if (this.newCardMode && this.paymentForm) {
+    if (this.paymentForm) {
       if (this.paymentForm.isValid()) {
         this.selectedCreditCard = this.newCreditCard.copy();
       } else {
