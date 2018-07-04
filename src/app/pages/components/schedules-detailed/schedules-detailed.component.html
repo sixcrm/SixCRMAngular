@@ -39,6 +39,7 @@
     [start]="startDate"
     [scrollTo]="scrollToElement"
     [editable]="editable"
+    [canceled]="canceled"
     (loadMoreDays)="loadMore()"
     (scheduleChanged)="createNewState(true)"
     (selected)="selectDetails($event)">
