@@ -38,6 +38,7 @@ export class SchedulesDetailedComponent implements OnInit, AfterViewInit {
   @Input() startDate: Moment;
   @Input() statusMessage: string;
   @Input() editable: boolean = true;
+  @Input() canceled: boolean;
 
   @Output() detailsComponent: EventEmitter<ElementRef> = new EventEmitter();
   @Output() productSchedulesChanged: EventEmitter<ProductSchedule[]> = new EventEmitter();

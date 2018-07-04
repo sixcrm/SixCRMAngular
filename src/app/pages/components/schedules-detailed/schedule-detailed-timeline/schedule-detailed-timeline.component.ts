@@ -39,6 +39,7 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
     this.measureArray = this.createRangeArray(this.days / this._zoom);
   }
   @Input() editable: boolean = true;
+  @Input() canceled: boolean;
 
   @Output() selected: EventEmitter<ProductSchedule | Schedule | Product> = new EventEmitter();
   @Output() scheduleChanged: EventEmitter<boolean> = new EventEmitter();
@@ -65,6 +66,8 @@ export class ScheduleDetailedTimelineComponent implements OnInit {
   blueText: string = '#3F587B';
   blueSelected: string = 'rgba(75,144,221,1)';
   blueBackground: string = 'rgba(83,131,195,0.12)';
+
+  grayBackground: string = 'rgba(0,0,0,0.32)';
 
   changeDebouncer: Subject<boolean> = new Subject();
   loadMoreDebouncer: Subject<boolean> = new Subject();
