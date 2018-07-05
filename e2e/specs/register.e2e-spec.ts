@@ -66,37 +66,45 @@ describe('Register', function() {
     expect(registerPage.getPaymentOptions().get(2).getText()).toEqual('Premium');
   });
 
-  it ('should choose Professional Plan and move to payment entry', () => {
+  it ('should choose Professional Plan and move to billing entry', () => {
     browser.waitForAngularEnabled(false);
     registerPage.getPaymentButtons().get(1).click();
-    browser.sleep(1500);
-    expect(registerPage.getPaymentEntryTitle().getText()).toEqual('You have chosen the SIX Professional Tier');
-    browser.sleep(1500);
+    browser.sleep(2000);
   });
 
-  it ('should enter CC info and then SUCCESS', () => {
+  it ('should enter CC info', () => {
     browser.waitForAngularEnabled(false);
     browser.sleep(2000);
-    // card number
     registerPage.getInputs().get(0).sendKeys(4242424242424242);
-    // security code
-    registerPage.getInputs().get(1).sendKeys(123);
-    // name on card
-    registerPage.getInputs().get(2).sendKeys('Card Name');
-    // choose month
+    registerPage.getInputs().get(1).sendKeys('Card Name');
+    registerPage.getInputs().get(2).sendKeys(123);
     registerPage.getPaymentEntryCardDate().first().click();
     browser.sleep(200);
     registerPage.getPaymentEntryCardMonth().get(6).click();
-    // choose year
     registerPage.getPaymentEntryCardDate().last().click();
     browser.sleep(200);
     registerPage.getPaymentEntryCardMonth().get(4).click();
-    browser.sleep(300);
-    // Finish Registration
-    registerPage.getPaymentContinueButton().click();
-    waitForUrlContains('/dashboard?w=true', 20000);
-    browser.sleep(1000);
-    expectUrlToContain('/dashboard?w=true');
+
+    registerPage.getInputs().get(3).sendKeys('1 test');
+    registerPage.getInputs().get(4).sendKeys('2 test');
+    registerPage.getInputs().get(5).sendKeys('New York');
+    registerPage.getInputs().get(6).sendKeys('21000');
+    registerPage.getInputs().get(7).sendKeys('Oregon');
+    registerPage.getInputs().get(8).sendKeys('United States');
   });
+
+  it('should continue to confirmation screen', () => {
+    registerPage.getBillingNextButton().click();
+
+    expectPresent(registerPage.getConfirmationScreen())
+  });
+
+  it('should successfully finish registration', () => {
+    browser.sleep(2000);
+
+    registerPage.getCompleteButton().click();
+    waitForUrlContains('/dashboard?w=true', 20000);
+    expectUrlToContain('/dashboard?w=true');
+  })
 
 });
