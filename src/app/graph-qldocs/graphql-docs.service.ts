@@ -127,7 +127,14 @@ function generateTypes(types: Type[], parent: string): string[] {
   let examples = [];
   types.filter(t => t.name === parent).forEach(type => {
     let typeName = type.name.toLowerCase();
-    examples = [...examples,...type.fields.map(t => `${typeName} { ${t.name} ${generateInput(t.args, types)} ${generateResponse(t.type, types)} }`)];
+    examples = [...examples,...type.fields.map(t => {
+      let whitespace = t.args.length > 0 ? " " : "";
+      return `${typeName} ` +
+        `{ ${t.name} ` +
+        `${generateInput(t.args, types)}` +
+        `${whitespace}` +
+        `{ ${generateResponse(t.type, types)} } }`;
+    })];
   });
 
   return examples;
@@ -189,17 +196,17 @@ function generateResponse(type, types: Type[], callChain?: string[]) {
       result += `${f.name},`
     }
 
-    if (f.type.kind === 'OBJECT') {
-
-      if (callChain.indexOf(f.type.name) < 0) {
-        result += `${f.name} {${generateResponse(f.type.name, types, [...callChain, f.type.name])}}`
-      }
-    }
-
     if (f.type.kind === 'NON_NULL' && f.type.ofType.kind === 'OBJECT') {
 
       if (callChain.indexOf(f.type.ofType.name) < 0) {
         result += `${f.name} {${generateResponse(f.type.ofType.name, types, [...callChain, f.type.ofType.name])}}`
+      }
+    }
+
+    if (f.type.kind === 'OBJECT') {
+
+      if (callChain.indexOf(f.type.name) < 0) {
+        result += `${f.name} {${generateResponse(f.type.name, types, [...callChain, f.type.name])}}`
       }
     }
 
