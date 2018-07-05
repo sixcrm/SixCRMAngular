@@ -196,39 +196,6 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
     });
   }
 
-  trimWatermark() {
-    const end = utc().diff(this.entity.createdAt, 'd');
-
-    this.entity.watermark.extractedProductSchedules = this.entity.watermark.extractedProductSchedules.map(watermarkProductSchedule => {
-      watermarkProductSchedule.schedules = watermarkProductSchedule.schedules.map(schedule => {
-        if (schedule.start > end) return null;
-
-        if (!schedule.end || schedule.end > end) {
-          schedule.end = end;
-        }
-
-        return schedule;
-      }).filter(schedule => !!schedule);
-
-      return watermarkProductSchedule;
-    }).filter(watermarkProductSchedule => watermarkProductSchedule.schedules.length > 0);
-
-    this.sessionService.entityUpdated$.take(1).subscribe(session => {
-      if (session instanceof CustomServerError) {
-        return;
-      }
-
-      this.updateError = false;
-      this.entity = session;
-      this.entityBackup = this.entity.copy();
-      this.productSchedulesWaitingForUpdate = null;
-
-      this.cancelSession();
-    });
-
-    this.sessionService.updateEntity(this.entity);
-  }
-
   openCancelSessionModal() {
     let ref = this.dialog.open(YesNoDialogComponent);
     ref.componentInstance.text = 'Are you sure you want to cancel this session?';
@@ -237,7 +204,7 @@ export class SessionViewComponent extends AbstractEntityViewComponent<Session> i
       ref = null;
 
       if (result && result.success) {
-        this.trimWatermark();
+        this.cancelSession();
       }
 
     })
