@@ -67,7 +67,7 @@ export class RegisterPage {
   }
 
   getInputs() {
-    return element(by.css('.form')).all(by.css('input'));
+    return element(by.css('.content')).all(by.css('input'));
   }
 
   getInvalidInputs() {
@@ -80,5 +80,17 @@ export class RegisterPage {
 
   getSuccessTitle() {
     return element(by.css('.registration-form__title__main--secondary'));
+  }
+
+  getBillingNextButton() {
+    return element(by.css('.buttons')).all(by.css('button')).last();
+  }
+
+  getConfirmationScreen() {
+    return element(by.css('plan-payment'));
+  }
+
+  getCompleteButton() {
+    return this.getConfirmationScreen().element(by.css('button'));
   }
 }

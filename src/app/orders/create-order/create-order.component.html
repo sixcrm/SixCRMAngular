@@ -370,38 +370,9 @@
                 </div>
               </mat-expansion-panel-header>
 
-              <mat-radio-group [selected]="false">
-                <table *ngIf="selectedCustomer && selectedCustomer.creditCards && selectedCustomer.creditCards.length > 0" class="highlight cards-table">
-                  <thead>
-                  <th></th>
-                  <th>Card</th>
-                  <th>Exp. Date</th>
-                  <th>Last used</th>
-                  </thead>
-                  <tbody>
-                  <tr *ngFor="let ccard of selectedCustomer.creditCards; let i = index">
-                    <td style="width: 1px;"><mat-radio-button [checked]="selectedCreditCard?.id === ccard.id" (change)="ccChanged($event)" [value]="ccard"></mat-radio-button></td>
-                    <td>
-                      {{ccard.type}} ****{{ccard.lastFour}}
-                      <mat-form-field [class.error]="selectedCvvError && cvvInvalid(selectedCreditCard)" *ngIf="selectedCreditCard && selectedCreditCard.id === ccard.id">
-                        <input type="text" matInput placeholder="CVV" [(ngModel)]="selectedCreditCard.cvv">
-                      </mat-form-field>
-                    </td>
-                    <td>{{ccard.expirationFormatted}}</td>
-                    <td></td>
-                  </tr>
-                  </tbody>
-                </table>
-
-                <div class="new-card">
-                  <mat-radio-button [checked]="!selectedCreditCard || !selectedCreditCard.id" (change)="newCardSelected()"></mat-radio-button>
-                  <button mat-button (click)="newCardSelected()">NEW CARD</button>
-                </div>
-
-                <div class="expansion-body" *ngIf="newCardMode">
-                  <payment-form #paymentForm [creditCard]="newCreditCard" [defaultAddress]="selectedShippingAddress"></payment-form>
-                </div>
-              </mat-radio-group>
+              <div class="expansion-body">
+                <payment-form #paymentForm [creditCard]="newCreditCard" [defaultAddress]="selectedShippingAddress"></payment-form>
+              </div>
 
               <div class="buttons">
                 <button mat-button (click)="setStep(4)">PREVIOUS</button>

@@ -1,23 +1,6 @@
 <div *ngIf="entity; else spinner" class="entity-view">
-  <entity-view-breadcrumbs [items]="breadcrumbs"></entity-view-breadcrumbs>
 
-  <div (click)="navigation.back()" class="entity-view__change-mode"><mat-icon>reply</mat-icon></div>
-
-  <div class="entity-view__info">
-    <div class="entity-view__info__image">
-      <img src="/assets/images/result-item-customer-white.svg" alt="">
-    </div>
-    <div class="entity-view__info__data">
-      <div class="entity-view__info__data__date">Created: {{entity.createdAt | formatDateTime: 'date-time'}}</div>
-      <div class="entity-view__info__data__name">
-        {{addMode ? 'Create new Account' : entityBackup.name}}
-      </div>
-      <div class="entity-view__info__data__other">
-        <span class="entity-view__info__data__other__label">ID:</span>
-        <span>{{entity.id}}</span>
-      </div>
-    </div>
-  </div>
+  <blue-header [items]="breadcrumbs" [titleValue]="entityBackup.name"></blue-header>
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 
