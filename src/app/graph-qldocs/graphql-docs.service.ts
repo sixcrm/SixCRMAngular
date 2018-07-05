@@ -154,7 +154,7 @@ function generateInputValue(value, types: Type[]): string {
 
   if (inputType === 'LIST') {
     if (value.type.ofType.kind === "INPUT_OBJECT") {
-      return `[ ${generateInput(types.filter(t => t.name === value.type.ofType.name)[0].inputFields, types, true)} ]`;
+      return `[${generateInput(types.filter(t => t.name === value.type.ofType.name)[0].inputFields, types, true)}]`;
     }
 
     return `[ ${extractScalar(value.type.ofType, value.name)} ]`;

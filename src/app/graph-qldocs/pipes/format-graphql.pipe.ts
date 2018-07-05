@@ -8,11 +8,9 @@ export class FormatGraphQlPipe implements PipeTransform {
   tab = '  ';
   result = '';
   tabCounter = 0;
-  bracketCounter = 0;
 
   transform(text: string): string {
     this.result = '';
-    this.bracketCounter = 0;
     this.tabCounter = 0;
 
     if (!text) return this.result;
@@ -20,11 +18,7 @@ export class FormatGraphQlPipe implements PipeTransform {
     for (let i = 0; i < text.length; i++) {
       let c = text[i];
       switch (c) {
-        case '(': {
-          this.bracketCounter++;
-          this.openBracket(c);
-          break;
-        }
+        case '(':
         case '{': {
           this.openBracket(c);
           break;
@@ -70,7 +64,7 @@ export class FormatGraphQlPipe implements PipeTransform {
     this.tabCounter--;
     this.result += '\n' + this.tabs(this.tabCounter) + c;
 
-    if (next !== ',') {
+    if (next !== ',' && next !== ']' && nextButOne !== ']') {
       if (next !== ')' && next !== '}' && (next !== ' ' && nextButOne !== '}')) {
         this.result += '\n';
       }
