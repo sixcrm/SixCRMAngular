@@ -1,66 +1,43 @@
-import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {Plan} from '../plans/plan.model';
 import {CreditCard} from '../../shared/models/credit-card.model';
-import {isAllowedNumeric, isShorterThan} from '../../shared/utils/form.utils';
-import {HttpWrapperTransactionalService} from '../../shared/services/http-wrapper-transactional.service';
-import {TransactionalResponseError} from '../../shared/models/transactional-response-error.model';
-import {AclsService} from '../../entity-services/services/acls.service';
-import {CustomServerError} from '../../shared/models/errors/custom-server-error';
 import {UsersService} from '../../entity-services/services/users.service';
-import {MatDialog} from '@angular/material';
-import {TermsDialogComponent} from '../../dialog-modals/terms-dialog/terms-dialog.component';
+import {CustomServerError} from '../../shared/models/errors/custom-server-error';
+import {HttpWrapperTransactionalService} from '../../shared/services/http-wrapper-transactional.service';
+import {AclsService} from '../../entity-services/services/acls.service';
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {AccountsService} from '../../entity-services/services/accounts.service';
-import {environment} from '../../../environments/environment';
-import {UnpaidBills} from "../unpaid-bills.model";
-import {NavigationService} from "../../navigation/navigation.service";
+import {MatDialog} from '@angular/material';
+import {TransactionalResponseError} from '../../shared/models/transactional-response-error.model';
+import {TermsDialogComponent} from '../../dialog-modals/terms-dialog/terms-dialog.component';
+import {NavigationService} from '../../navigation/navigation.service';
 
 @Component({
   selector: 'plan-payment',
-  templateUrl: 'plan-payment.component.html',
-  styleUrls: ['plan-payment.component.scss']
+  templateUrl: './plan-payment.component.html',
+  styleUrls: ['./plan-payment.component.scss']
 })
 export class PlanPaymentComponent implements OnInit {
 
   @Input() plan: Plan;
-  @Input() isRecurringPayment: boolean;
-  @Input() creditCards: CreditCard[] = [];
-  @Input() unpaidBills: UnpaidBills;
+  @Input() creditCard: CreditCard = new CreditCard();
 
+  @Output() changeCreditCard: EventEmitter<boolean> = new EventEmitter();
   @Output() changePlan: EventEmitter<boolean> = new EventEmitter();
-  @Output() paymentSuccessful: EventEmitter<boolean> = new EventEmitter();
 
-  months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
-  years = ['2018','2019','2020','2021','2022','2023','2024','2025','2026','2027','2028'];
-
-  creditCard: CreditCard = new CreditCard();
-
-  formInvalid: boolean;
-  ccInvalid: boolean;
-  cvvInvalid: boolean;
-  nameInvalid: boolean;
-  monthInvalid: boolean;
-  yearInvalid: boolean;
-
-  isAllowedNumericKey = isAllowedNumeric;
-  isShorterThan = isShorterThan;
-
-  paymentInProgress: boolean;
+  ownerTerms: { version?: string, title?: string, body?: string };
 
   transactionalError: boolean;
   generalError: boolean;
 
-  ownerTerms: { version?: string, title?: string, body?: string };
-  showGenericLoader = environment.branding && environment.branding.showGenericLoader;
-
   constructor(
+    private userService: UsersService,
     private transactionalApi: HttpWrapperTransactionalService,
     private aclService: AclsService,
     private accountService: AccountsService,
-    private userService: UsersService,
     private dialog: MatDialog,
     private authService: AuthenticationService,
-    public navigationService: NavigationService
+    private navigationService: NavigationService
   ) { }
 
   ngOnInit() {
@@ -73,35 +50,18 @@ export class PlanPaymentComponent implements OnInit {
     });
   }
 
-  setMonth(month) {
-    this.creditCard.expirationMonth = month;
-  }
-
-  setYear(year) {
-    this.creditCard.expirationYear = year;
-  }
-
   pay() {
-    this.ccInvalid = this.isCcNumberInvalid();
-    this.cvvInvalid = this.isCvvInvalid();
-    this.nameInvalid = !this.creditCard.name || this.creditCard.name.length < 2;
-    this.monthInvalid = !this.creditCard.expirationMonth;
-    this.yearInvalid = !this.creditCard.expirationYear;
-
-    this.formInvalid = this.isDataInvalid();
-
-    if (this.formInvalid || this.generalError) return;
-
-    this.creditCard.expiration = `${this.creditCard.expirationMonth}/${this.creditCard.expirationYear}`;
-
-    this.paymentInProgress = true;
-    this.transactionalError = false;
+    if (!this.creditCard) return;
 
     const acl = this.authService.getActiveAcl();
 
+    this.navigationService.setShowProcessingOrderOverlay(true);
+
     this.aclService.updateUserAclTermsAndConditions(acl, this.ownerTerms.version).take(1).subscribe(data => {
       if (data instanceof CustomServerError) {
-        this.paymentInProgress = false;
+        this.navigationService.setShowProcessingOrderOverlay(false);
+        this.transactionalError = false;
+        this.generalError = true;
         return;
       }
 
@@ -112,26 +72,27 @@ export class PlanPaymentComponent implements OnInit {
 
       this.transactionalApi.paySixPlan(this.plan.id, this.creditCard, user).subscribe(response => {
         if (response instanceof TransactionalResponseError) {
-          this.paymentInProgress = false;
           this.transactionalError = false;
           this.generalError = true;
+          this.navigationService.setShowProcessingOrderOverlay(false);
           return;
         }
 
         if (!response.success) {
-          this.paymentInProgress = false;
           this.transactionalError = true;
           this.generalError = false;
+          this.navigationService.setShowProcessingOrderOverlay(false);
           return;
         }
 
         this.accountService.activateAccount(this.authService.getActiveAcl().account, response.session).subscribe(res => {
           if (res instanceof CustomServerError) {
             this.generalError = true;
+            this.navigationService.setShowProcessingOrderOverlay(false);
             return;
           }
 
-          this.paymentSuccessful.emit(true);
+          this.accountPaymentFinished();
         })
       })
 
@@ -139,16 +100,12 @@ export class PlanPaymentComponent implements OnInit {
 
   }
 
-  isCcNumberInvalid(): boolean {
-    if (!this.creditCard.ccnumber) return true;
-
-    return !/[0-9]/.test(this.creditCard.ccnumber) || this.creditCard.ccnumber.length < 12 || this.creditCard.ccnumber.length > 20;
-  }
-
-  isCvvInvalid(): boolean {
-    if (!this.creditCard.cvv) return true;
-
-    return !/[0-9]/.test(this.creditCard.cvv) || this.creditCard.cvv.length < 3 || this.creditCard.cvv.length > 4;
+  paymentErrorMessage() {
+    if (this.transactionalError) {
+      return 'PAYMENT_ERRORMESSAGE'
+    } else if (this.generalError) {
+      return 'PAYMENT_GENERALERRORINFO'
+    }
   }
 
   openOwnerTerms() {
@@ -167,54 +124,9 @@ export class PlanPaymentComponent implements OnInit {
     });
   }
 
-  submitButtonText() {
-    if (this.isRecurringPayment) {
-      return 'PAYMENT_COMPLETEPURCHASEREACTIVATEACCOUNT'
-    } else if (this.transactionalError) {
-      return 'PAYMENT_RETRY'
-    } else {
-      return 'PAYMENT_INFO_FINISH'
-    }
-  }
+  accountPaymentFinished() {
+    this.authService.getUserIntrospection({}, '/dashboard?w=true');
 
-  paymentTitle() {
-    if (this.generalError) {
-      return 'PAYMENT_GENERALERRORTITLE'
-    } else if (this.isRecurringPayment && !this.transactionalError) {
-      return 'PAYMENT_RECURRINGTITLE'
-    } else if (this.transactionalError) {
-      return 'PAYMENT_ERRORTITLE'
-    } else {
-      return 'PAYMENT_TITLE'
-    }
-  }
-
-  paymentErrorMessage() {
-    if (this.transactionalError) {
-      return 'PAYMENT_ERRORMESSAGE'
-    } else if (this.generalError) {
-      return 'PAYMENT_GENERALERRORINFO'
-    }
-  }
-
-  paymentSummaryText() {
-    return this.isRecurringPayment ? 'PAYMENT_BALANCEDUE' : 'PAYMENT_INFO_TOTAL';
-  }
-
-  paymentInfoFirstPart() {
-    return this.isRecurringPayment ? 'PAYMENT_DECLINETITLE' : 'PAYMENT_INFO_TITLE';
-  }
-
-  paymentInfoSecondPart() {
-    return this.isRecurringPayment ? 'PAYMENT_DECLINEINFO' : 'PAYMENT_INFO_TIER';
-  }
-
-  isDataInvalid() {
-    return this.isCcNumberInvalid()
-    || this.isCvvInvalid()
-    || !this.creditCard.expirationMonth
-    || !this.creditCard.expirationYear
-    || !this.creditCard.name
-    || this.creditCard.name.length < 2;
+    this.navigationService.setShowProcessingOrderOverlay(false);
   }
 }

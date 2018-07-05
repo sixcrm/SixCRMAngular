@@ -5,11 +5,12 @@ import {MaterialSelectionModule} from '../material-selection/material-selection.
 import {paymentRouting} from './payment.routing';
 import {PaymentGuard} from './payment-guard.service';
 import {PlansComponent} from './plans/plans.component';
-import {PlanPaymentComponent} from './plan-payment/plan-payment.component';
+import {PlanBillingComponent} from './plan-billing/plan-billing.component';
 import {FormsModule} from '@angular/forms';
 import {TranslationModule} from '../translation/translation.module';
 import {SharedModule} from '../shared/shared.module';
 import {EntityServicesModule} from '../entity-services/entity-services.module';
+import { PlanPaymentComponent } from './plan-payment/plan-payment.component';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import {EntityServicesModule} from '../entity-services/entity-services.module';
   declarations: [
     PaymentComponent,
     PlansComponent,
+    PlanBillingComponent,
     PlanPaymentComponent,
   ],
   providers: [PaymentGuard]
