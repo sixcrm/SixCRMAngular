@@ -52,7 +52,6 @@ describe('Register', function() {
 
   it('should redirect to /payment and show payment views when register info is filled out', () => {
     browser.sleep(2000);
-    browser.waitForAngularEnabled(false);
     acceptInvitePage.getRegisterInputs(0).sendKeys('e2e First');
     acceptInvitePage.getRegisterInputs(1).sendKeys('e2e Last');
     acceptInvitePage.getRegisterInputs(2).sendKeys(newCompany);
@@ -73,7 +72,6 @@ describe('Register', function() {
   });
 
   it ('should enter CC info', () => {
-    browser.waitForAngularEnabled(false);
     browser.sleep(2000);
     registerPage.getInputs().get(0).sendKeys(4242424242424242);
     registerPage.getInputs().get(1).sendKeys('Card Name');
@@ -95,6 +93,17 @@ describe('Register', function() {
 
   it('should continue to confirmation screen', () => {
     registerPage.getBillingNextButton().click();
+
+    expect(registerPage.getCompleteButton().getText()).toContain('$150');
+    expect(registerPage.getConfirmCardDetails().get(0).getText()).toContain('4242');
+    expect(registerPage.getConfirmCardDetails().get(1).getText()).toContain('Card Name');
+    expect(registerPage.getConfirmCardDetails().get(2).getText()).toContain('07/2022');
+
+    expect(registerPage.getConfirmAddressDetails().get(0).getText()).toContain('1 test');
+    expect(registerPage.getConfirmAddressDetails().get(1).getText()).toContain('2 test');
+    expect(registerPage.getConfirmAddressDetails().get(2).getText()).toContain('Oregon');
+    expect(registerPage.getConfirmAddressDetails().get(2).getText()).toContain('21000');
+    expect(registerPage.getConfirmAddressDetails().get(3).getText()).toContain('United States');
 
     expectPresent(registerPage.getConfirmationScreen())
   });
