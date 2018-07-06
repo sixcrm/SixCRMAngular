@@ -22,10 +22,6 @@ export class RegisterPage {
     return element(by.css('.container')).all(by.css('.name'));
   }
 
-  getPaymentPlan() {
-    return element(by.css('.container')).all(by.css('.plan'));
-  }
-
   getPaymentButtons() {
     return element(by.css('.container')).all(by.css('button'));
   }
@@ -58,28 +54,8 @@ export class RegisterPage {
     return element(by.css('.payment'));
   }
 
-  getWelcomeScreen() {
-    return element(by.css('.registration-form__title'));
-  }
-
-  getWelcomeContinueButton() {
-    return element(by.css('.registration-form__button'));
-  }
-
   getInputs() {
     return element(by.css('.content')).all(by.css('input'));
-  }
-
-  getInvalidInputs() {
-    return element.all(by.css('input.ng-invalid'));
-  }
-
-  getContinueButton() {
-    return element(by.css('.registration-form__button'));
-  }
-
-  getSuccessTitle() {
-    return element(by.css('.registration-form__title__main--secondary'));
   }
 
   getBillingNextButton() {
@@ -90,7 +66,23 @@ export class RegisterPage {
     return element(by.css('plan-payment'));
   }
 
+  getConfirmCardDetails() {
+    return element(by.css('.card')).all(by.css('.column')).first().all(by.css('div'));
+  }
+
+  getConfirmAddressDetails() {
+    return element(by.css('.card')).all(by.css('.column')).last().all(by.css('div'));
+  }
+
   getCompleteButton() {
     return this.getConfirmationScreen().element(by.css('button'));
+  }
+
+  getErrorMessage() {
+    return this.getConfirmationScreen().element(by.css('.error-message'));
+  }
+
+  getLogoutButton() {
+    return element(by.css('button'));
   }
 }
