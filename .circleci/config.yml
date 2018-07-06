@@ -248,14 +248,6 @@ workflows:
                 - staging
                 - production
                 - priority
-      - e2e_register:
-          requires:
-            - deploy_cloudfront
-          filters:
-            branches:
-              only:
-                - development
-                - staging
       - e2e_auth:
           requires:
             - deploy_cloudfront
@@ -265,6 +257,14 @@ workflows:
                 - development
                 - staging
       - e2e_app:
+          requires:
+            - deploy_cloudfront
+          filters:
+            branches:
+              only:
+                - development
+                - staging
+      - e2e_crm:
           requires:
             - deploy_cloudfront
           filters:
