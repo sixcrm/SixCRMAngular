@@ -1,129 +1,52 @@
-<div class="container" [class.recurring-payment]="isRecurringPayment">
-  <div class="row above"  *ngIf="isRecurringPayment || transactionalError || generalError" [class.error-row-above]="transactionalError">
-    <div class="title">{{paymentTitle() | translate}}</div>
-    <button *ngIf="isRecurringPayment" mat-button (click)="cancel()">{{'PAYMENT_CANCEL' | translate}}</button>
-  </div>
-  <div class="row below">
-    <div class="column left" [class.registration-column-left]="!isRecurringPayment && !transactionalError">
+<div class="container">
 
-    <div class="title" *ngIf="!isRecurringPayment && !transactionalError && !generalError">{{paymentTitle() | translate}}</div>
-    <div *ngIf="transactionalError || generalError"  [class.error-message-recurring]="!transactionalError" class="error-message">{{paymentErrorMessage() | translate}}</div>
-
-    <div *ngIf="!isRecurringPayment || !creditCards.length" class="cards" [class.cards-layout]="isRecurringPayment">
-      <img *ngIf="creditCard.typeUnknown() || creditCard.getType() === 'visa'" src="/assets/cards/visa.svg">
-      <img *ngIf="!creditCard.typeUnknown() && creditCard.getType() !== 'visa'" src="/assets/cards/visa_grayed.svg">
-
-      <img *ngIf="creditCard.typeUnknown() || creditCard.getType() === 'mastercard'" src="/assets/cards/mastercard.svg">
-      <img *ngIf="!creditCard.typeUnknown() && creditCard.getType() !== 'mastercard'" src="/assets/cards/mastercard_grayed.svg">
-
-      <img *ngIf="creditCard.typeUnknown() || creditCard.getType() === 'amex'" src="/assets/cards/amex.svg">
-      <img *ngIf="!creditCard.typeUnknown() && creditCard.getType() !== 'amex'" src="/assets/cards/amex_grayed.svg">
-
-      <img *ngIf="creditCard.typeUnknown() || creditCard.getType() === 'discover'" src="/assets/cards/discover.svg">
-      <img *ngIf="!creditCard.typeUnknown() && creditCard.getType() !== 'discover'" src="/assets/cards/discover_grayed.svg">
-    </div>
-
-    <div *ngIf="isRecurringPayment && creditCards.length" class="cards-recurring">
-      <div class="title">{{'PAYMENT_EXISTINGCARD' | translate}}</div>
-      <mat-label class="saved-card">{{'PAYMENT_SAVEDCARD' | translate}}</mat-label>
-      <div class="switcher" [matMenuTriggerFor]="switcherOptions">
-        <div class="current">
-
-          <mat-icon>keyboard_arrow_down</mat-icon>
-        </div>
-
-        <mat-menu #switcherOptions="matMenu" x-position="before" *ngIf="creditCards.length > 0">
-          <button *ngFor="let card of creditCards"
-                  style="width: 260px"
-                  mat-menu-item>
-
-          </button>
-        </mat-menu>
-      </div>
-
-      <div class="title new-card">{{'PAYMENT_NEWCARD' | translate}}</div>
-    </div>
-
-    <div class="form">
-      <mat-form-field [class.error]="formInvalid && ccInvalid">
-        <input type="text" matInput placeholder="{{'PAYMENT_FORM_NUMBER' | translate}}" [(ngModel)]="creditCard.ccnumber" (keydown)="ccInvalid=false;isAllowedNumericKey($event) && isShorterThan(20, creditCard.ccnumber, $event)">
-      </mat-form-field>
-
-      <div>
-        <mat-form-field class="code" [class.error]="formInvalid && cvvInvalid">
-          <input type="text" matInput placeholder="{{'PAYMENT_FORM_CODE' | translate}}" [(ngModel)]="creditCard.cvv" (keydown)="cvvInvalid=false;isAllowedNumericKey($event) && isShorterThan(5, creditCard.cvv, $event)">
-        </mat-form-field>
-        <img class="code__image" src="/assets/images/security_code.png">
-      </div>
-
-      <mat-form-field [class.error]="formInvalid && nameInvalid">
-        <input type="text" matInput placeholder="{{'PAYMENT_FORM_NAME' | translate}}" [(ngModel)]="creditCard.name" (keydown)="nameInvalid=false;true">
-      </mat-form-field>
-
-      <div class="dates">
-        <div class="element"
-             [matMenuTriggerFor]="monthMenu"
-             [class.error]="formInvalid && monthInvalid"
-             [class.selected]="creditCard.expirationMonth">
-          <div>{{(creditCard.expirationMonth || 'PAYMENT_FORM_MONTH') | translate}}</div>
-          <mat-icon>keyboard_arrow_down</mat-icon>
-          <mat-menu #monthMenu="matMenu">
-            <button mat-menu-item *ngFor="let month of months" (click)="monthInvalid=false;setMonth(month)">{{month}}</button>
-          </mat-menu>
-        </div>
-
-        <div class="element"
-             [matMenuTriggerFor]="yearMenu"
-             [class.error]="formInvalid && yearInvalid"
-             [class.selected]="creditCard.expirationYear">
-          <div>{{(creditCard.expirationYear || 'PAYMENT_FORM_YEAR') | translate}}</div>
-          <mat-icon>keyboard_arrow_down</mat-icon>
-          <mat-menu #yearMenu="matMenu">
-            <button mat-menu-item *ngFor="let year of years" (click)="yearInvalid=false;setYear(year)">{{year}}</button>
-          </mat-menu>
-        </div>
-      </div>
-    </div>
+  <div *ngIf="transactionalError || generalError" class="error-message">
+    {{paymentErrorMessage() | translate}}
   </div>
 
-  <div class="column right" [class.registration-column-right]="!isRecurringPayment && !transactionalError">
-    <div class="title">{{paymentInfoFirstPart() | translate}} {{plan.name}} {{paymentInfoSecondPart() | translate}}</div>
-    <div class="subtitle" *ngIf="!isRecurringPayment" (click)="changePlan.emit(true)">{{'PAYMENT_INFO_CHANGE' | translate}}</div>
-    <div *ngIf="isRecurringPayment" [class.error-message-recurring]="!transactionalError" class="error-message">{{'PAYMENT_ERRORMESSAGE' | translate}}</div>
+  <div class="title">
+    Make Payment
+  </div>
 
-    <div class="fees">
-      <div *ngIf="isRecurringPayment">
-        <div *ngFor="let bill of unpaidBills.bills">
-          <div *ngFor="let detail of bill.detail">
-            <div class="fees-details">
-              <div>{{detail.description}}</div>
-              <div class="amount">{{detail.amount.usd() | numberlocale}}</div>
-            </div>
-          </div>
-          <div class="horizontal-line"></div>
-        </div>
-      </div>
+  <div class="card">
 
-      <div class="details" [class.details-registration] = "!isRecurringPayment">
-        <div>{{paymentSummaryText() | translate}}:</div>
-        <div *ngIf="!isRecurringPayment" class="line"></div>
-        <div *ngIf="!isRecurringPayment">${{plan.price}}</div>
-        <div *ngIf="isRecurringPayment" class="amount">{{unpaidBills.total().usd() | numberlocale }}</div>
+    <div class="row">
+      <img *ngIf="creditCard.type !== 'OTHER'" src="{{'/assets/cards/' + (creditCard.typeShort || '').toLowerCase() + '.svg'}}">
+      <div class="edit" (click)="changeCreditCard.emit(true)">Edit Card</div>
+    </div>
+
+    <div class="row row--columns">
+      <div class="column">
+        <div class="important">**** **** **** {{creditCard.parseLastFour()}}</div>
+        <div>{{creditCard.name}}</div>
+        <div>Expires {{creditCard.expiration}}</div>
       </div>
+      <div class="column">
+        <div>{{creditCard.address.line1}}</div>
+        <div>{{creditCard.address.line2}}</div>
+        <div>{{creditCard.address.state}} {{creditCard.address.zip}}</div>
+        <div>{{creditCard.address.country}}</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="plan">
+
+    <div class="row">
+      <div class="important">You have chose the Six {{plan.name}} Tier</div>
+      <div class="edit" (click)="changePlan.emit(true)">Edit Plan</div>
+    </div>
+
+    <div class="pricing-details">
+      <div>- {{plan.getPriceText()}}</div>
+      <div>- {{plan.getTransactionsText()}}</div>
+      <div>- {{plan.getCampaignText()}}</div>
     </div>
 
     <div class="terms">{{'PAYMENT_OWNERTERMS' | translate}} <span class="licenseagreement" (click)="openOwnerTerms()">{{'PAYMENT_LICENSEAGREEMENT' | translate}}</span>.</div>
-    <button mat-button (click)="pay()" [class.disable-pay]="formInvalid && isDataInvalid()">{{submitButtonText() | translate}}</button>
+
+    <button mat-button (click)="pay()">Complete Order: ${{plan.price}}</button>
   </div>
-  </div>
-</div>
 
-<div class="process-overlay" *ngIf="paymentInProgress">
-  <mat-spinner class="six-spinner" *ngIf="!showGenericLoader; else genericloader"></mat-spinner>
-
-  <ng-template #genericloader>
-    <mat-spinner class="six-spinner"></mat-spinner>
-  </ng-template>
-
-  <div>{{'PAYMENT_PROCESSING' | translate}}</div>
 </div>

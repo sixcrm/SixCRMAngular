@@ -115,7 +115,7 @@ describe('Merchant Provider', function() {
     expect(view.getEntityNameHeader().getText()).toEqual('e2e merchant provider updated');
   });
 
-  it( 'should go back to merchant providers index', () =>  {
+  it('should go back to merchant providers index', () =>  {
     merchantProvider.getMerchantIndexButton().click();
     browser.sleep(500);
     waitForUrlContains('merchantproviders');

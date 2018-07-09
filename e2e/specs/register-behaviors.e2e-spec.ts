@@ -2,8 +2,11 @@ import {AuthPage} from '../po/auth.po';
 import {RegisterPage} from '../po/register.po';
 import {AcceptInvitePage} from '../po/accept-invite.po';
 import {browser} from 'protractor';
-import {waitForPresenceOfLoginFields, waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
-import {doSignUp} from '../utils/action.utils';
+import {
+  waitForPresenceOfLoginFields, waitForUrlContains, clearLocalStorage,
+  waitForPresenceOf
+} from '../utils/navigation.utils';
+import {doSignUp, doLogin} from '../utils/action.utils';
 import {expectUrlToContain, expectPresent} from '../utils/assertation.utils';
 import {TopnavPage} from '../po/topnav.po';
 import {TermsAndConditionsPage} from '../po/terms-and-conditions.po';
@@ -52,7 +55,6 @@ describe('Register with behaviors', function() {
 
   it('should redirect to /payment and show payment views when register info is filled out', () => {
     browser.sleep(2000);
-    browser.waitForAngularEnabled(false);
     acceptInvitePage.getRegisterInputs(0).sendKeys('e2e First');
     acceptInvitePage.getRegisterInputs(1).sendKeys('e2e Last');
     acceptInvitePage.getRegisterInputs(2).sendKeys(newCompany);
@@ -67,82 +69,95 @@ describe('Register with behaviors', function() {
   });
 
   it ('should choose Professional Plan and move to payment entry', () => {
-    browser.waitForAngularEnabled(false);
     registerPage.getPaymentButtons().get(1).click();
-    browser.sleep(1500);
-    expect(registerPage.getPaymentEntryTitle().getText()).toEqual('You have chosen the SIX Professional Tier');
-    browser.sleep(1500);
   });
 
-  it ('should enter CC info and then refresh before continue and look for continue button', () => {
-    browser.waitForAngularEnabled(false);
+  it ('should refresh the page and navigate to account info screen', () => {
     browser.sleep(2000);
-    // card number
-    registerPage.getInputs().get(0).sendKeys(4242424242424242);
-    // security code
-    registerPage.getInputs().get(1).sendKeys(123);
-    // name on card
-    registerPage.getInputs().get(2).sendKeys('Card Name');
-    // choose month
-    registerPage.getPaymentEntryCardDate().first().click();
-    browser.sleep(200);
-    registerPage.getPaymentEntryCardMonth().get(6).click();
-    // choose year
-    registerPage.getPaymentEntryCardDate().last().click();
-    browser.sleep(200);
-    registerPage.getPaymentEntryCardMonth().get(4).click();
-    browser.sleep(300);
-    // Finish Registration
     browser.refresh();
-    browser.sleep(7000);
+    waitForUrlContains('account-info');
+    expectUrlToContain('account-info');
     expect(registerPage.getPaymentSetupButtonText().getText()).toEqual('SETUP PAYMENT PLAN');
   });
 
   it ('should click the setup button and move to the payment screen', () => {
-    browser.waitForAngularEnabled(false);
-    browser.sleep(1000);
     registerPage.getPaymentSetupButton().click();
-    browser.sleep(1000);
     waitForUrlContains('/payment');
-    browser.sleep(5000);
     expectUrlToContain('/payment');
   });
 
   it ('should choose Professional Plan and move to payment entry', () => {
-    browser.waitForAngularEnabled(false);
     registerPage.getPaymentButtons().get(1).click();
-    browser.sleep(1500);
-    expect(registerPage.getPaymentEntryTitle().getText()).toEqual('You have chosen the SIX Professional Tier');
-    browser.sleep(1500);
   });
 
-  it ('should enter CC info and then SUCCESS', () => {
-    browser.waitForAngularEnabled(false);
+  it ('should hit back button and navigate to account info screen', () => {
     browser.sleep(2000);
-    // card number
-    registerPage.getInputs().get(0).clear();
-    registerPage.getInputs().get(1).clear();
-    registerPage.getInputs().get(2).clear();
-    registerPage.getInputs().get(0).sendKeys(4242424242424242);
-    // security code
-    registerPage.getInputs().get(1).sendKeys(123);
-    // name on card
-    registerPage.getInputs().get(2).sendKeys('Card Name');
-    // choose month
+    browser.navigate().back();
+    waitForUrlContains('account-info');
+    expectUrlToContain('account-info');
+    expect(registerPage.getPaymentSetupButtonText().getText()).toEqual('SETUP PAYMENT PLAN');
+  });
+
+  it ('should click the setup button and move to the payment screen', () => {
+    registerPage.getPaymentSetupButton().click();
+    waitForUrlContains('/payment');
+    expectUrlToContain('/payment');
+  });
+
+  it ('should log out, log back in and display account info screen', () => {
+    registerPage.getLogoutButton().click();
+
+    waitForPresenceOfLoginFields(authPage);
+
+    doLogin(authPage, registrationUsername, registrationPassword);
+
+    waitForUrlContains('account-info');
+    expectUrlToContain('account-info');
+    expect(registerPage.getPaymentSetupButtonText().getText()).toEqual('SETUP PAYMENT PLAN');
+  });
+
+  it ('should click the setup button and move to the payment screen', () => {
+    registerPage.getPaymentSetupButton().click();
+    waitForUrlContains('/payment');
+    expectUrlToContain('/payment');
+  });
+
+  it ('should choose Professional Plan and move to payment entry', () => {
+    registerPage.getPaymentButtons().get(1).click();
+  });
+
+  it ('should enter CC info', () => {
+    browser.sleep(2000);
+    registerPage.getInputs().get(0).sendKeys(4242424242424241);
+    registerPage.getInputs().get(1).sendKeys('Card Name');
+    registerPage.getInputs().get(2).sendKeys(123);
     registerPage.getPaymentEntryCardDate().first().click();
     browser.sleep(200);
     registerPage.getPaymentEntryCardMonth().get(6).click();
-    // choose year
     registerPage.getPaymentEntryCardDate().last().click();
     browser.sleep(200);
     registerPage.getPaymentEntryCardMonth().get(4).click();
-    browser.sleep(300);
-    // Finish Registration
-    registerPage.getPaymentDeclineButton().click();
-    browser.sleep(14000);
-    waitForUrlContains('/dashboard?w=true');
-    browser.sleep(5000);
-    expectUrlToContain('/dashboard?w=true');
+
+    registerPage.getInputs().get(3).sendKeys('1 test');
+    registerPage.getInputs().get(4).sendKeys('2 test');
+    registerPage.getInputs().get(5).sendKeys('New York');
+    registerPage.getInputs().get(6).sendKeys('21000');
+    registerPage.getInputs().get(7).sendKeys('Oregon');
+    registerPage.getInputs().get(8).sendKeys('United States');
   });
+
+  it('should continue to confirmation screen', () => {
+    registerPage.getBillingNextButton().click();
+
+    expectPresent(registerPage.getConfirmationScreen())
+  });
+
+  it('should render error due to bad credit card number', () => {
+    browser.sleep(2000);
+
+    registerPage.getCompleteButton().click();
+    waitForPresenceOf(registerPage.getErrorMessage());
+    expect(registerPage.getErrorMessage().getText()).toEqual('Please check your card information and try again or use a different card');
+  })
 
 });

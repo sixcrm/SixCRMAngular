@@ -26,4 +26,12 @@ export class TopnavPage {
     return element(by.css('.profile-dropdown__menu__item'));
   }
 
+  getAddButton() {
+    return element(by.css('topnav-dropdown'));
+  }
+
+  getDropdownOptions() {
+    return this.getAddButton().element(by.css('.options')).all(by.css('div'));
+  }
+
 }

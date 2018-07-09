@@ -4,6 +4,8 @@ import {TranslationService} from './translation/translation.service';
 import {Router, Event, NavigationStart, NavigationEnd} from '@angular/router';
 import 'hammerjs';
 import 'rxjs/Rx';
+import {ProcessingDialogComponent} from './dialog-modals/processing-dialog/processing-dialog.component';
+import {MatDialogRef, MatDialog} from '@angular/material';
 
 @Component({
   selector : 'app-root',
@@ -12,11 +14,14 @@ import 'rxjs/Rx';
 })
 export class AppComponent implements OnInit {
 
+  processingDialogRef: MatDialogRef<ProcessingDialogComponent>;
+
   constructor(
     private _navigation: NavigationService,
     private _router: Router,
     private _elementRef: ElementRef,
-    private _translationService: TranslationService
+    private _translationService: TranslationService,
+    private _dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -35,6 +40,23 @@ export class AppComponent implements OnInit {
     });
 
     this._translationService.loadTemporaryTranslations();
+
+    this._navigation.showProcessingOrderOverlay.subscribe(show => {
+      if (show) {
+        if (this.processingDialogRef) {
+          this.processingDialogRef.close();
+        }
+
+        this.processingDialogRef = this._dialog.open(
+          ProcessingDialogComponent,
+          {backdropClass: 'backdrop-blue', panelClass: 'panel-transparent', disableClose: true}
+        );
+      } else  {
+        if (this.processingDialogRef) {
+          this.processingDialogRef.close();
+        }
+      }
+    });
   }
 
   @HostListener('window:resize', ['$event'])

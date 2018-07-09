@@ -42,6 +42,17 @@ export function login(user?: boolean) {
   expectUrlToContain('/dashboard');
 }
 
+export function customLogin(uname: string, pwd: string) {
+  authPage.navigateTo();
+  waitForPresenceOfLoginFields(authPage);
+  browser.sleep(2000);
+  browser.waitForAngularEnabled(false);
+  doLogin(authPage, uname, pwd);
+  // Wait for angular is disabled, so we need to tell protractor to wait for page to load
+  waitForUrlContains('dashboard');
+  expectUrlToContain('/dashboard');
+}
+
 export function tosCheck(doneCallback) {
   // give it some time to appear
   browser.sleep(1500);

@@ -1,14 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Plan} from '../plans/plan.model';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {SessionsService} from '../../entity-services/services/sessions.service';
-import {CustomServerError} from '../../shared/models/errors/custom-server-error';
-import {CreditCard} from '../../shared/models/credit-card.model';
 import {Acl} from '../../shared/models/acl.model';
 import {environment} from '../../../environments/environment';
-import {BillsService} from '../../entity-services/services/bills.service';
-import {Bill} from '../../shared/models/bill.model';
-import {UnpaidBills} from "../unpaid-bills.model";
+import {CreditCard} from '../../shared/models/credit-card.model';
 
 @Component({
   selector: 'payment',
@@ -19,53 +14,20 @@ export class PaymentComponent implements OnInit {
 
   planInProgress: boolean = true;
   paymentInProgress: boolean;
+  confirmationInProgress: boolean;
 
   plan: Plan;
-  isRecurringPayment: boolean = false;
-  creditCards: CreditCard[] = [];
-  unpaidBills: UnpaidBills;
-
   mapAcl = (acl: Acl) => acl.account.name;
 
   sidenavLogo = environment.branding ? environment.branding.sidenavLogo : 'logo-white.svg';
 
+  creditCard: CreditCard = new CreditCard();
+
   constructor(
-    public authService: AuthenticationService,
-    private sessionService: SessionsService,
-    private billService: BillsService
+    public authService: AuthenticationService
   ) { }
 
-  ngOnInit() {
-    this.isRecurringPayment = this.authService.isBillingDisabled();
-
-    let sessionId = this.authService.getActiveAcl().account.billing.session;
-
-    if (sessionId) {
-      this.sessionService.entity$.take(1).subscribe((response) => {
-        if (response instanceof CustomServerError) {
-          return;
-        }
-
-        this.creditCards = response.customer.creditCards;
-      });
-
-      this.sessionService.getEntity(sessionId);
-    }
-
-    if (this.isRecurringPayment) {
-      this.setSelectedPlan(Plan.ofServerName(this.authService.getActiveAcl().account.billing.plan));
-
-      this.billService.entities$.take(1).subscribe((response) => {
-        if (response instanceof CustomServerError) {
-          return;
-        }
-
-        this.unpaidBills = UnpaidBills.ofBills(response);
-      });
-
-      this.billService.getEntities();
-    }
-  }
+  ngOnInit() { }
 
   setSelectedPlan(plan: Plan) {
     this.plan = plan;
@@ -75,19 +37,25 @@ export class PaymentComponent implements OnInit {
   setPaymentInProgress() {
     this.planInProgress = false;
     this.paymentInProgress = true;
+    this.confirmationInProgress = false;
   }
 
-  changePlanEmitted() {
+  setPlanInProgress() {
     this.planInProgress = true;
     this.paymentInProgress = false;
+    this.confirmationInProgress = false;
+  }
+
+  setCreditCard(creditCard: CreditCard) {
+    this.creditCard = creditCard.copy();
+
+    this.planInProgress = false;
+    this.paymentInProgress = false;
+    this.confirmationInProgress = true;
   }
 
   changeAcl(acl: Acl) {
     this.authService.changeActiveAcl(acl);
-  }
-
-  accountPaymentFinished() {
-    this.authService.getUserIntrospection({}, '/dashboard?w=true');
   }
 
   signout() {
