@@ -4,5 +4,10 @@
     "names": {
       "priority": "admin.recursix.com"
     }
+  },
+  "report": {
+    "name": "admin-sixcrm.com-staging-e2e-report",
+    "srcPath": "e2e-html-report",
+    "clean": true
   }
 }

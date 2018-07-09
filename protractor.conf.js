@@ -37,6 +37,9 @@ const htmlReporter = new HtmlScreenshotReporter({
   showQuickLinks: true,
   reportOnlyFailedSpecs: false,
   captureOnlyFailedSpecs: true,
+  configurationStrings: {
+    "Time": new Date()
+  },
   pathBuilder: function(currentSpec, suites, browserCapabilities) {
     return browserCapabilities.get('browserName') + '/' + uuidV4();
   }
@@ -45,53 +48,47 @@ const htmlReporter = new HtmlScreenshotReporter({
 exports.config = {
   allScriptsTimeout: 110000,
   specs: [
-    './e2e/**/register.e2e-spec.ts',
-    './e2e/**/accept-invite.e2e-spec.ts',
     './e2e/**/login.e2e-spec.ts',
+    './e2e/**/register.e2e-spec.ts',
+    './e2e/**/register-behaviors.e2e-spec.ts',
+    './e2e/**/accept-invite.e2e-spec.ts',
+    './e2e/**/create-order.e2e-spec.ts',
     './e2e/**/navigation.e2e-spec.ts',
     './e2e/**/campaigns.e2e-spec.ts',
     './e2e/**/product.e2e-spec.ts',
     './e2e/**/product-schedule.e2e-spec.ts',
     './e2e/**/merchant-provider.e2e-spec.ts',
-    './e2e/**/merchant-provider-group.e2e-spec.ts',
-    './e2e/**/create-order.e2e-spec.ts'
+    './e2e/**/merchant-provider-group.e2e-spec.ts'
   ],
   suites:  {
-    crm: [
-      './e2e/**/email-template.e2e-spec.ts',
-      './e2e/**/affiliate.e2e-spec.ts',
-      './e2e/**/tracker.e2e-spec.ts',
-      './e2e/**/fulfillment-provider.e2e-spec.ts',
-      './e2e/**/smtp-provider.e2e-spec.ts'
+    smoke: [
+      './e2e/**/login.e2e-spec.ts',
+      './e2e/**/register.e2e-spec.ts',
+      './e2e/**/accept-invite.e2e-spec.ts',
+      './e2e/**/create-order.e2e-spec.ts',
+      './e2e/**/navigation.e2e-spec.ts',
+      './e2e/**/campaigns.e2e-spec.ts',
+      './e2e/**/product.e2e-spec.ts',
+      './e2e/**/product-schedule.e2e-spec.ts',
+      './e2e/**/merchant-provider.e2e-spec.ts',
+      './e2e/**/merchant-provider-group.e2e-spec.ts'
     ],
-    app: './e2e/**/app.e2e-spec.ts',
-    register_refresh: './e2e/**/register-refresh.e2e-spec.ts',
-    register_back: './e2e/**/register-back.e2e-spec.ts',
-    register_cardcheck: './e2e/**/register-cardcheck.e2e-spec.ts',
-    invite: './e2e/**/accept-invite.e2e-spec.ts',
-    register: './e2e/**/register.e2e-spec.ts',
-    register_behaviors: './e2e/**/register-behaviors.e2e-spec.ts',
-    login: './e2e/**/login.e2e-spec.ts',
-    navigation: './e2e/**/navigation.e2e-spec.ts',
-    campaign: './e2e/**/campaigns.e2e-spec.ts',
-    product: './e2e/**/product.e2e-spec.ts',
-    product_schedule: './e2e/**/product-schedule.e2e-spec.ts',
-    merchant_provider: './e2e/**/merchant-provider.e2e-spec.ts',
-    merchant_provider_group:'./e2e/**/merchant-provider-group.e2e-spec.ts',
-    user: './e2e/**/user.e2e-spec.ts',
-    account: './e2e/**/account.e2e-spec.ts',
-    current: './e2e/**/email-template.e2e-spec.ts',
-    create_order: './e2e/**/create-order.e2e-spec.ts',
-    useraccount: [
-      './e2e/**/user.e2e-spec.ts',
-      './e2e/**/account.e2e-spec.ts',
-      './e2e/**/profile.e2e-spec.ts'
-      ],
-    base: [
+    auth: [
       './e2e/**/login.e2e-spec.ts',
       './e2e/**/accept-invite.e2e-spec.ts',
       './e2e/**/register.e2e-spec.ts',
-      './e2e/**/user.e2e-spec.ts'
+      './e2e/**/register-behaviors.e2e-spec.ts'
+    ],
+    app: [
+      './e2e/**/navigation.e2e-spec.ts',
+      './e2e/**/create-order.e2e-spec.ts'
+    ],
+    crm: [
+      './e2e/**/campaigns.e2e-spec.ts',
+      './e2e/**/product.e2e-spec.ts',
+      './e2e/**/product-schedule.e2e-spec.ts',
+      './e2e/**/merchant-provider.e2e-spec.ts',
+      './e2e/**/merchant-provider-group.e2e-spec.ts'
     ]
   },
   capabilities: {
