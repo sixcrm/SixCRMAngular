@@ -37,6 +37,9 @@ const htmlReporter = new HtmlScreenshotReporter({
   showQuickLinks: true,
   reportOnlyFailedSpecs: false,
   captureOnlyFailedSpecs: true,
+  configurationStrings: {
+    "Time": new Date()
+  },
   pathBuilder: function(currentSpec, suites, browserCapabilities) {
     return browserCapabilities.get('browserName') + '/' + uuidV4();
   }
