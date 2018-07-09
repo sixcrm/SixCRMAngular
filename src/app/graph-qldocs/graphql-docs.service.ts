@@ -171,8 +171,9 @@ function extractScalar(type, value) {
   if (type && type.name === 'String') return `"${value}"`;
   if (type && type.name === 'Boolean') return 'true';
   if (type && type.name === 'Int') return '10';
+  if (type && type.name === 'Float') return '1.0';
 
-  return `"${value}"`;
+  return type.name ? `"${type.name}"` : `"${value}"`;
 }
 
 function generateResponse(type, types: Type[], callChain?: string[]) {
