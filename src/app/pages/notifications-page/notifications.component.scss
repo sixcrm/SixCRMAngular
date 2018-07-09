@@ -1,3 +1,5 @@
+@import "../../../assets/scss/colors";
+
 .entity-view__body {
   min-height: calc(100vh - 257px);
   box-sizing: border-box;
@@ -16,6 +18,10 @@
   display: inline-block;
 }
 
+.entity-view__title--blue {
+  background: $main-color-400 !important;
+}
+
 .notification-title-icon {
   margin-left: auto;
   margin-bottom: 30px;
@@ -23,7 +29,7 @@
   height: 85px;
   display: flex;
   border-radius: 50%;
-  background-color: #29366E;
+  background-color: $main-color-500;
 
   mat-icon {
     margin: auto;
@@ -31,6 +37,6 @@
     width: 65px;
     line-height: 65px;
     font-size: 65px;
-    color: #7393F3;
+    color: $main-color-200;
   }
 }

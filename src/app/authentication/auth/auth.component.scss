@@ -1,5 +1,7 @@
+@import './../../../assets/scss/colors';
+
 .background {
-  background: linear-gradient(to bottom left, #4277C2, #2C98F0);
+  background: $main-color-400;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,9 +21,4 @@
 .background > .wrapper > .spinner-wrapper {
   position: absolute;
   z-index: 1;
-}
-
-.sixLogo {
-  position: absolute;
-  z-index: 2;
 }

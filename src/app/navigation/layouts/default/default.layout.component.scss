@@ -1,3 +1,5 @@
+@import "../../../../assets/scss/colors";
+
 .container {
   position: relative;
   background-color: #E6EAF2;
@@ -5,7 +7,7 @@
 }
 
 .container--hover {
-  margin-left: 76px !important;
+  margin-left: 80px !important;
 }
 
 .notifications-popup {
@@ -47,7 +49,7 @@
   z-index: 2;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(to bottom left, #4277C2, #2C98F0);
+  background: $main-color-400;
   animation: fadeaway 1s;
   animation-delay: 1s;
 }
@@ -70,7 +72,7 @@
   z-index: 2;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(to bottom left, rgba(66, 119, 194, 0.75), rgba(44, 152, 240, 0.75));
+  background: rgba(41, 108, 204, 0.75);
 }
 
 terms-and-conditions {
@@ -90,7 +92,7 @@ terms-and-conditions {
     height: 120px;
     border-radius: 50%;
     box-shadow: 0 4px 4px rgba(0,0,0,0.25);
-    background: #1EBEA5;
+    background: $action-color;
     font-size: 120px;
     color: white;
   }

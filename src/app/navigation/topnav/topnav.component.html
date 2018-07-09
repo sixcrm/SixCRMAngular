@@ -4,7 +4,6 @@
   </button>
 
   <div class="topnav__search__wrapper">
-    <mat-icon class="topnav__search__icon">search</mat-icon>
     <div class="topnav__search__container">
       <mat-form-field id="topnav-search search-visible" [floatLabel]="'never'" class="topnav-search-input" [class.search--focused]="focused">
         <input
@@ -22,10 +21,10 @@
       </mat-form-field>
       <autocomplete #autocomplete *ngIf="showAutoComplete && options.length > 0" [options]="options" (select)="selectOption($event)"></autocomplete>
     </div>
-
+    <mat-icon class="topnav__search__icon">search</mat-icon>
   </div>
 
-  <topnav-dropdown [icon]="'add'" [options]="addOptions"></topnav-dropdown>
+  <topnav-dropdown [icon]="'add'" [text]="'NEW'" [action]="true" [options]="addOptions"></topnav-dropdown>
 
   <span class="app-flex-filler"></span>
 

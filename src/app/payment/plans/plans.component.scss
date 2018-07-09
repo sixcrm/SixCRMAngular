@@ -1,3 +1,5 @@
+@import "../../../assets/scss/colors";
+
 .container {
   display: flex;
   flex-wrap: wrap;
@@ -29,7 +31,7 @@
     }
 
     .name {
-      color: #4277C2;
+      color: $main-color-600;
       font-weight: 500;
       font-size: 20px;
       margin-bottom: 38px;
@@ -45,14 +47,14 @@
 
       .value {
         font-size: 40px;
-        color: #4277C2;
+        color: $main-color-300;
         font-weight: 300;
       }
     }
 
     button {
       margin-top: 10px;
-      background: #1EBEA5;
+      background: $action-color;
       color: white;
       border-radius: 2px;
       font-size: 14px;

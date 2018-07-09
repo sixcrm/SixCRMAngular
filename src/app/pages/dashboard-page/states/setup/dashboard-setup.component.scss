@@ -1,15 +1,17 @@
+@import "../../../../../assets/scss/colors";
+
 .setup-container {
   display: flex;
   flex-direction: column;
   color: white;
-  background: linear-gradient(180deg, #4277C2 8.44%, #2C98F0 100%);
+  background: $main-color-400;
   min-height: calc(100vh - 70px); //subtract height of top nav
-  font-family: Roboto;
+  font-family: Roboto, serif;
 
   &__header {
     display: flex;
     flex-direction: column;
-    margin: 15px 20px 0px 20px;
+    margin: 15px 20px 0 20px;
     min-height: 198px;
 
     .quote {
@@ -52,10 +54,10 @@
   }
 
   &__settings {
-    color: #8ed8fd;
+    color: $main-color-100;
     padding: 20px;
     margin: -60px 20px 20px 20px;
-    background-color: #36629f;
+    background-color: $main-color-500;
     border-radius: 4px;
     z-index: 0;
 

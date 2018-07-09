@@ -11,7 +11,7 @@ export class ComingSoonComponent implements OnInit {
 
   @Input() inPage: boolean = false;
 
-  comingSoonLogo = environment.branding ? environment.branding.comingSoonLogo : 'logo-blue.svg';
+  comingSoonLogo = environment.branding ? environment.branding.comingSoonLogo : 'logo-navigation-small.svg';
 
   constructor(public navigation: NavigationService) { }
 

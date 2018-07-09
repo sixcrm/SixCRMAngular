@@ -18,12 +18,11 @@ export class InviteAcceptComponent implements OnInit {
   acknowledgeInvite: AcknowledgeInvite;
 
   welcomeScreen: boolean;
-  completeScreen: boolean;
   serverError: boolean;
 
   formInvalid: boolean;
 
-  registrationLogo = environment.branding ? environment.branding.registrationLogo : 'logo-registration.svg';
+  registrationLogo = environment.branding ? environment.branding.registrationLogo : 'logo-navigation.svg';
 
   constructor(
     private route: ActivatedRoute,
