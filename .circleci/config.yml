@@ -205,12 +205,16 @@ jobs:
               npm run e2e.stage -- --suite app
             fi
           no_output_timeout: 20m
-  e2e_all:
+  e2e_all_deploy_s3:
     <<: *job-defaults
     steps:
       - checkout
       - restore_cache:
           key: v1-dependency-cache-{{ checksum "package-lock.json" }}
+      - restore_cache:
+          key: v1-git-modules-{{ .Branch }}-{{ .Revision }}
+      - restore_cache:
+          key: v1-deployment-credentials-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Install Chrome
           command: |
@@ -230,22 +234,6 @@ jobs:
               npm run e2e.stage
             fi
           no_output_timeout: 20m
-      - save_cache:
-          key: v1-e2e-html-report-{{ .Branch }}-{{ .Revision }}
-          paths:
-            - e2e-html-report
-  deploy_report_s3:
-    <<: *job-defaults
-    steps:
-      - checkout
-      - restore_cache:
-          key: v1-dependency-cache-{{ checksum "package-lock.json" }}
-      - restore_cache:
-          key: v1-git-modules-{{ .Branch }}-{{ .Revision }}
-      - restore_cache:
-          key: v1-e2e-html-report-{{ .Branch }}-{{ .Revision }}
-      - restore_cache:
-          key: v1-deployment-credentials-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Set Credentials
           command: cat deployment_credentials/stscredentials >> $BASH_ENV
@@ -316,16 +304,9 @@ workflows:
             branches:
               only:
                 - development
-      - e2e_all:
+      - e2e_all_deploy_s3:
           requires:
             - deploy_cloudfront
-          filters:
-            branches:
-              only:
-                - staging
-      - deploy_report_s3:
-          requires:
-            - e2e_all
           filters:
             branches:
               only:
