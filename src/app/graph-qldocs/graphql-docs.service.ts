@@ -125,28 +125,49 @@ export class GraphqlDocsService {
 
 function generateTypes(types: Type[], parent: string): string[] {
   let examples = [];
+
   types.filter(t => t.name === parent).forEach(type => {
+
     let typeName = type.name.toLowerCase();
-    examples = [...examples,...type.fields.map(t => `${typeName} { ${t.name} ${generateInput(t.args, types)} ${generateResponse(t.type, types)} }`)];
+
+    examples = [...examples,...type.fields.map(t => {
+
+      let whitespace = t.args.length > 0 ? " " : "";
+
+      return `${typeName} ` +
+        `{ ${t.name} ` +
+        `${generateInput(t.args, types)}` +
+        `${whitespace}` +
+        `{ ${generateResponse(t.type, types)} } }`;
+    })];
   });
 
   return examples;
 }
 
-function generateInput(input, types: Type[]): string {
+function generateInput(input, types: Type[], inner?: boolean): string {
   if (!input || input.length === 0) return '';
 
-  return `(${input.map(i => `${i.name}: ${generateInputValue(i, types)}`)})`;
+  let inputProperty = `${input.map(i => `${i.name}: ${generateInputValue(i, types)}`)}`;
+
+  return inner ? `{${inputProperty}}` : `(${inputProperty})`;
 }
 
 function generateInputValue(value, types: Type[]): string {
 
   let inputType = value.type ? value.type.kind : value.ofType.kind;
 
-  if (inputType === 'LIST') return `[ ${extractScalar(value.type.ofType, value.name)} ]`;
+  if (inputType === 'LIST') {
+    if (value.type.ofType.kind === "INPUT_OBJECT") {
+      return `[${generateInput(types.filter(t => t.name === value.type.ofType.name)[0].inputFields, types, true)}]`;
+    }
+
+    return `[ ${extractScalar(value.type.ofType, value.name)} ]`;
+  }
+
   if (inputType === 'SCALAR') return extractScalar(value.type, value.name);
   if (inputType === 'NON_NULL') return extractScalar(value.type.ofType, value.name);
-  if (inputType === 'INPUT_OBJECT') return generateInput(types.filter(t => t.name === (value.type ? value.type.name : value.ofType.name))[0].inputFields, types);
+  if (inputType === 'INPUT_OBJECT') return generateInput(types.filter(t => t.name === (value.type ? value.type.name : value.ofType.name))[0].inputFields, types, true);
 
   return '';
 }
@@ -155,34 +176,45 @@ function extractScalar(type, value) {
   if (type && type.name === 'String') return `"${value}"`;
   if (type && type.name === 'Boolean') return 'true';
   if (type && type.name === 'Int') return '10';
+  if (type && type.name === 'Float') return '1.0';
 
-  return '""';
+  return type.name ? `"${type.name}"` : `"${value}"`;
 }
 
-function generateResponse(type, types: Type[], callChain?: string[]) {
-
-  callChain = callChain || [];
-
-  let typeName = type.name;
-  if (!typeName) {
-    typeName = type;
-  }
-
-  let fullType = types.filter(t => t.name === typeName)[0];
-  if (!fullType || !fullType.fields) {
-    return ''
-  }
+function generatePossibleTypes(fullType: Type, types: Type[], callChain: string[]) {
 
   let result: string = '';
+
+  fullType.possibleTypes.forEach( p => {
+    if (callChain.indexOf(p.name) < 0) {
+      result +=  `... on ${p.name} {${generateResponse(p.name, types, [...callChain, p.name])}}`;
+    }
+  });
+
+  return result;
+}
+
+function generateFields (fullType: Type, types: Type[], callChain: string[]) {
+
+  let result: string = '';
+
   fullType.fields.forEach(f => {
-    if (f.type.kind === 'SCALAR' || f.type.kind === 'NON_NULL') {
+
+    if (f.type.kind === 'SCALAR' || (f.type.kind === 'NON_NULL' && f.type.ofType.kind === 'SCALAR')) {
       result += `${f.name},`
+    }
+
+    if (f.type.kind === 'NON_NULL' && f.type.ofType.kind === 'OBJECT') {
+
+      if (callChain.indexOf(f.type.ofType.name) < 0) {
+        result += `${f.name} {${generateResponse(f.type.ofType.name, types, [...callChain, f.type.ofType.name])}}`;
+      }
     }
 
     if (f.type.kind === 'OBJECT') {
 
       if (callChain.indexOf(f.type.name) < 0) {
-        result += `${f.name} {${generateResponse(f.type.name, types, [...callChain, f.type.name])}}`
+        result += `${f.name} {${generateResponse(f.type.name, types, [...callChain, f.type.name])}}`;
       }
     }
 
@@ -191,12 +223,36 @@ function generateResponse(type, types: Type[], callChain?: string[]) {
       if (!name) {
         name = f.type.ofType.ofType.name;
       }
-      if (callChain.indexOf(name) < 0) {
-        result += `${f.name} {${generateResponse(name, types, [...callChain, name])}}`
+
+      if (f.type.ofType.kind === 'SCALAR') {
+        result += `${f.name},`;
+      } else if (callChain.indexOf(name) < 0) {
+        result += `${f.name} {${generateResponse(name, types, [...callChain, name])}}`;
       }
     }
   });
 
+  return result;
+}
+
+function generateResponse(type, types: Type[], callChain?: string[]) {
+
+  callChain = callChain || [];
+
+  let typeName = type.name ? type.name : type;
+
+  let fullType = types.filter(t => t.name === typeName)[0];
+  if ((!fullType || !fullType.fields) && !fullType.possibleTypes) {
+    return '';
+  }
+
+  let result: string = '';
+
+  if (fullType.possibleTypes) {
+    result += generatePossibleTypes(fullType, types, callChain);
+  } else {
+    result += generateFields(fullType, types, callChain);
+  }
 
   if (result[result.length-1] === ',') {
     result = result.slice(0, -1);

@@ -61,7 +61,7 @@
                   <div *ngIf="(schedule.detailedListSelected && cycle.start === schedule.start) || (productSchedule.detailedListSelected && !productSchedule.detailedListOpened && cycle.order === 1)"
                        class="cycle-container--background"
                        [style.width]="days * cellwidth + 'px'"
-                       [style.background]="cycle.start < _diff ? greenBackground : blueBackground"
+                       [style.background]="canceled ? grayBackground : cycle.start < _diff ? greenBackground : blueBackground"
                        [style.top]="productSchedule.detailedListOpened ? (scheduleNum + 1) * cellheight + 'px' : 0">
                   </div>
                   <div *ngIf="cycle.dragInProgress"
@@ -70,7 +70,7 @@
                        [style.width]="(cycle.diff * cellwidth) / _zoom + 'px'"
                        [style.left]="(cycle.start * cellwidth) / _zoom + 8 + 'px'">
                     <div class="content"
-                         [style.color]="cycle.start < _diff ? greenText : blueText"
+                         [style.color]="canceled ? 'white' : cycle.start < _diff ? greenText : blueText"
                          [class.content--border-left]="cycle.start === schedule.start"
                          [class.content--border-right]="cycle.end === schedule.end">
                       <div [class.content--right]="(cycle.end === schedule.end && cycle.start !== schedule.start) || cycle.dragdiffDiff !== 0">
@@ -89,15 +89,15 @@
                          [class.bar--drag-in-progress]="cycle.dragInProgress"
                          [class.bar--border-left]="cycle.start === schedule.start"
                          [class.bar--border-right]="cycle.end === schedule.end"
-                         [style.border-color]="schedule.detailedListSelected || productSchedule.detailedListSelected ? 'rgba(0,0,0,0.55)' : cycle.start < _diff ? greenSelected : blueSelected"
-                         [style.background]="schedule.detailedListSelected || productSchedule.detailedListSelected ? cycle.start < _diff ? greenSelected : blueSelected : cycle.start < _diff ? green : blue">
+                         [style.border-color]="canceled || schedule.detailedListSelected || productSchedule.detailedListSelected ? 'rgba(0,0,0,0.55)' : cycle.start < _diff ? greenSelected : blueSelected"
+                         [style.background]="canceled ? grayBackground : (schedule.detailedListSelected || productSchedule.detailedListSelected) ? cycle.start < _diff ? greenSelected : blueSelected : cycle.start < _diff ? green : blue">
                       <div class="body"
                            [draggable]="editable"
-                           [style.color]="schedule.detailedListSelected || productSchedule.detailedListSelected ? 'white' : cycle.start < _diff ? greenText : blueText"
+                           [style.color]="schedule.detailedListSelected || productSchedule.detailedListSelected || canceled ? 'white' : cycle.start < _diff ? greenText : blueText"
                            (dragstart)="dragStarted($event, schedule, productSchedule)"
                            (drag)="drag($event, schedule, productSchedule)"
                            (dragend)="dragEnded($event, schedule, productSchedule)">
-                        <div *ngIf="cycle.start === schedule.start" class="order" [style.background]="cycle.start < _diff ? greenText : blueText">
+                        <div *ngIf="cycle.start === schedule.start" class="order" [style.background]="canceled ? 'black' : cycle.start < _diff ? greenText : blueText">
                           <span>{{ cycle.order }}</span>
                         </div>
                         <ng-container>

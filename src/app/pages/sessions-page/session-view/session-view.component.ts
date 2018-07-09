@@ -20,6 +20,7 @@ import {WatermarkProductSchedule} from '../../../shared/models/watermark/waterma
 import {WatermarkProduct} from '../../../shared/models/watermark/watermark-product.model';
 import {MatDialog} from '@angular/material';
 import {YesNoDialogComponent} from '../../yes-no-dialog.component';
+import {utc} from 'moment';
 
 @Component({
   selector: 'session-view',

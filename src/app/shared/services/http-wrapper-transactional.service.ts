@@ -10,6 +10,7 @@ import {TransactionalResponseError} from '../models/transactional-response-error
 import {CreditCard} from '../models/credit-card.model';
 import {User} from '../models/user.model';
 import {AccessKey} from '../models/access-key.model';
+import {stateCode, countryCode} from '../utils/address.utils';
 
 var sha1 = require('sha1');
 
@@ -41,12 +42,16 @@ export class HttpWrapperTransactionalService {
     const account = '3f4abaf6-52ac-40c6-b155-d04caeb0391f';
 
     const address: CheckoutAddress = {
-      line1: '1 Fake Street',
-      city: 'Fake City',
-      state: 'AL',
-      zip: '21000',
-      country: 'US'
+      line1: creditCard.address.line1,
+      city: creditCard.address.city,
+      state: stateCode(creditCard.address.state),
+      zip: creditCard.address.zip,
+      country: countryCode(creditCard.address.country)
     };
+
+    if (creditCard.address.line2) {
+      address.line2 = creditCard.address.line2;
+    }
 
     const checkoutBody: CheckoutBody = {
       campaign: campaignId,
@@ -60,7 +65,8 @@ export class HttpWrapperTransactionalService {
         name: creditCard.name,
         number: creditCard.ccnumber,
         expiration: creditCard.expiration,
-        cvv: creditCard.cvv
+        cvv: creditCard.cvv,
+        address: address
       },
       product_schedules: [{quantity: 1, product_schedule: planId}]
     };

@@ -27,6 +27,7 @@ export class RoleViewComponent extends AbstractEntityViewComponent<Role> impleme
   selectedIndex: number = 0;
 
   tabHeaders: TabHeaderElement[] = [
+    {name: 'general', label: 'ROLE_TAB_GENERAL'},
     {name: 'permissions', label: 'ROLE_TAB_PERMISSIONS'},
     {name: 'acls', label: 'ROLE_TAB_ACLS'}
   ];

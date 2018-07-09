@@ -6,7 +6,7 @@ import { GraphqlDocsService } from './graphql-docs.service';
 import { TypeComponent } from './components/type/type.component';
 import { QueryMutationCardComponent } from './components/query-mutation-card/query-mutation-card.component';
 import { TypeCardComponent } from './components/type-card/type-card.component';
-import { FilterSearchItemsPipe } from './filter-types.pipe';
+import { FilterSearchItemsPipe } from './pipes/filter-types.pipe';
 import {FormsModule} from '@angular/forms';
 import { SideSearchComponent } from './components/side-search/side-search.component';
 import { SideContainerComponent } from './components/side-container/side-container.component';
