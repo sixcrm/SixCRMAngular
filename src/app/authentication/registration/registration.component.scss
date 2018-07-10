@@ -1,10 +1,12 @@
+@import "../../../assets/scss/colors";
+
 .registration {
   position: absolute;
   display: flex;
   flex-direction: column;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(to bottom left, #4277C2, #2C98F0);
+  background: $main-color-400;
 }
 
 .progress {
@@ -44,8 +46,8 @@
   }
 
   .finished {
-    background: #1EBEA5;
-    border-color: #1EBEA5;
+    background: $action-color;
+    border-color: $action-color;
   }
 }
 
@@ -59,7 +61,7 @@
   text-align: left;
 
   .title {
-    color: #4277C2;
+    color: $main-color-400;
     font-size: 20px;
     margin-bottom: 18px;
   }
@@ -85,7 +87,7 @@
 
     .licenseagreement {
       cursor: pointer;
-      color: #2C98F0;
+      color: $main-color-200;
     }
   }
 
@@ -96,7 +98,7 @@
     button {
       margin: 0 0 0 auto;
       width: 140px;
-      background: #1EBEA5;
+      background: $action-color;
       color: white;
     }
 
@@ -114,5 +116,5 @@
 }
 
 mat-hint.error {
-  color: #b71c1c;
+  color: $danger-color;
 }

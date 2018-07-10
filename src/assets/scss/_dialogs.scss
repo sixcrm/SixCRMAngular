@@ -89,6 +89,11 @@ mat-dialog-container {
   background: $main-color;
   opacity: 0.65 !important;
 
+  &--processing {
+    opacity: 0.78 !important;
+    background: $processing-color;
+  }
+
   mat-dialog-container {
     padding: 0 !important;
   }

@@ -1,7 +1,9 @@
+@import "../../../../../assets/scss/colors";
+
 .lowdata-container {
   display: flex;
   flex-direction: column;
-  background: linear-gradient(180deg, #4277C2 0%, #2C98F0 100%);
+  background: $main-color-400;
   min-height: calc(100vh - 70px - 62px); //subtract height of top nav and height of dashboard state tabs
 
   &__header {
@@ -98,7 +100,7 @@
         .more {
           text-align: center;
           cursor: pointer;
-          color: #2C98F0;
+          color: $main-color-200;
 
           button {
             font-weight: 500;

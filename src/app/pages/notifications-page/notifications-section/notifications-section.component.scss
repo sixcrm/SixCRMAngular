@@ -1,3 +1,5 @@
+@import "../../../../assets/scss/colors";
+
 .container {
   display: flex;
   align-items: baseline;
@@ -80,9 +82,9 @@
 
 .apps-button {
   margin-top: 30px;
-  background-color: #00C9A6;
+  background-color: $action-color;
   color: white;
-  border-color: #00C9A6;
+  border-color: $action-color;
 }
 
 .mrw-bi-input {
@@ -127,7 +129,7 @@ table {
     color: #777777;
 
     mat-icon {
-      color: #FD1F47;
+      color: $danger-color;
       font-size: 17px;
     }
   }
@@ -141,7 +143,7 @@ table {
     }
 
     .unread {
-      color: #FD1F47;
+      color: $danger-color;
     }
 
   }
@@ -178,7 +180,7 @@ table {
   height: 18px;
   font-size: 18px;
   color: white;
-  background: #5383C3;
+  background: $main-color-200;
   border-radius: 50%;
   cursor: pointer;
 }

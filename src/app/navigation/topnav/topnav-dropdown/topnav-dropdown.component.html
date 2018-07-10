@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="icon-container" [class.icon-container--small]="small" (click)="dropdownVisible = !dropdownVisible">
+  <div class="icon-container" [class.icon-container--small]="small" [class.icon-container--action]="action" (click)="dropdownVisible = !dropdownVisible">
     <mat-icon *ngIf="icon">{{icon}}</mat-icon>
     <div *ngIf="text">{{text}}</div>
   </div>
