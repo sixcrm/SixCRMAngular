@@ -50,7 +50,7 @@ export class AccountManagementApikeysComponent implements OnInit {
 
   constructor(
     private authService: AuthenticationService,
-    private accessKeyService: AccessKeysService,
+    public accessKeyService: AccessKeysService,
     private router: Router,
     private dialog: MatDialog
   ) { }

@@ -31,7 +31,7 @@
 
       .change {
         margin-left: auto;
-        color: #2C98F0;
+        color: $main-color-200;
         cursor: pointer;
       }
     }
@@ -62,7 +62,7 @@
 
         &:last-of-type {
           color: white;
-          background: #2897EF;
+          background: $main-color-200;
         }
       }
 

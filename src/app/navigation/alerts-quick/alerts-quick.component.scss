@@ -1,3 +1,5 @@
+@import "../../../assets/scss/colors";
+
 alert-component {
   display: block;
   margin: 5px;
@@ -13,7 +15,7 @@ alert-component {
     padding: 20px 15px;
     align-items: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    background: #FD1F47;
+    background: $danger-color;
 
     &__count {
       font-size: 18px;
