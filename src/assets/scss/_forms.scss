@@ -1,5 +1,4 @@
-$error-color: #D00140 !important;
-$main-blue: #5383C3;
+@import "colors";
 
 .content {
 
@@ -34,15 +33,15 @@ $main-blue: #5383C3;
 .input-error-message {
   margin-top: -8px;
   font-size: 10px;
-  color: $error-color;
+  color: $danger-color;
 }
 
 .error {
-  color: $error-color;
+  color: $danger-color;
 
   .dropdown-component__text {
-    color: $error-color;
-    border-color: $error-color
+    color: $danger-color;
+    border-color: $danger-color
   }
 
   .dropdown-component__options {
@@ -50,18 +49,18 @@ $main-blue: #5383C3;
   }
 
   label {
-    color: $error-color;
+    color: $danger-color;
   }
 
   input {
-    color: $error-color;
+    color: $danger-color;
   }
 
   .mat-input-underline {
-    background-color: $error-color;
+    background-color: $danger-color;
 
     span {
-      background-color: $error-color;
+      background-color: $danger-color;
     }
   }
 }
@@ -265,16 +264,16 @@ dropdown-component {
 }
 .radio-blue.mat-radio-checked {
   .mat-radio-outer-circle {
-    border-color: #4A90E2 !important;
+    border-color: $main-color-400 !important;
   }
 
   .mat-radio-inner-circle {
-    background-color: #4A90E2 !important;
+    background-color: $main-color-400 !important;
   }
 }
 .checkbox-blue.mat-checkbox-checked {
   .mat-checkbox-background {
-    background-color: #4A90E2;;
+    background-color: $main-color-400 !important;
   }
 }
 .checkbox-standalone {
@@ -284,11 +283,11 @@ dropdown-component {
 }
 
 .slider-blue.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
-  background: $main-blue;
+  background: $main-color-400;
 }
 .slider-blue.mat-checked:not(.mat-disabled) {
   .mat-slide-toggle-thumb {
-    background-color: $main-blue !important;
+    background-color: $main-color-400 !important;
   }
 }
 .slider-blue {
