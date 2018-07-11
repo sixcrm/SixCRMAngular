@@ -1,35 +1,5 @@
 @import "colors";
 
-.content {
-
-  &__block {
-    &__first {
-      margin-top: 30px;
-      margin-left: 15px;
-    }
-
-    &__second {
-      margin-top: 20px;
-      margin-left: 15px;
-    }
-
-    &__third {
-      margin-top: 10px;
-      margin-left: 15px;
-    }
-
-    &__fourth {
-      margin-top: 15px;
-      margin-left: 15px;
-    }
-
-    &__fifth {
-      margin-top: 5px;
-      margin-left: 15px;
-    }
-  }
-}
-
 .input-error-message {
   margin-top: -8px;
   font-size: 10px;
@@ -73,12 +43,6 @@ dropdown-component {
     font-size: 14px;
     min-width: 130px;
     width: auto;
-
-    .dropdown-component--big {
-      .dropdown-component {
-        width: 100% !important;
-      }
-    }
 
     &__text {
       display: flex;

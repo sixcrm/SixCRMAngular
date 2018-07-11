@@ -1,19 +1,5 @@
 @import 'colors';
 
-.associate__dropdown {
-
-  .dropdown-component {
-    margin-top: 20px;
-    margin-bottom: 60px;
-    font-size: 14px !important;
-
-    &__options {
-      max-height: 200px;
-      overflow: auto;
-    }
-  }
-}
-
 associate-dialog {
   autocomplete-input {
     .default-autocomplete-input {
@@ -80,13 +66,13 @@ mat-dialog-container {
 .terms-switcher {
 
   .simple-dropdown__header {
-    color: #2C98F0 !important;
+    color: $main-color-400 !important;
   }
 
 }
 
 .backdrop-blue {
-  background: $main-color;
+  background: $main-color-400;
   opacity: 0.65 !important;
 
   &--processing {
@@ -150,18 +136,18 @@ mat-dialog-container {
         &:first-of-type {
           margin-left: auto;
           margin-right: 15px;
-          color: #2C98F0;
+          color: $main-color-200;
         }
 
         &:last-of-type {
           color: #ffffff;
-          background: #2C98F0;
+          background: $main-color-200;
         }
       }
     }
   }
 
   .error {
-    border-color: #D00140 !important;
+    border-color: $danger-color !important;
   }
 }

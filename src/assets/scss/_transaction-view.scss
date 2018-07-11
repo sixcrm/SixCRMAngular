@@ -1,4 +1,4 @@
-$card-title-color: #5B9BE1;
+@import "colors";
 
 .transaction-view {
 
@@ -124,7 +124,7 @@ $card-title-color: #5B9BE1;
           }
 
           &:last-child {
-            color: $card-title-color;
+            color: $main-color-200;
           }
         }
       }
