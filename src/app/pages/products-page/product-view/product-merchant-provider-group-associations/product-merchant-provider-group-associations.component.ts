@@ -5,7 +5,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {MerchantProviderGroupAssociation} from '../../../../shared/models/merchant-provider-group-association.model';
 import {MerchantProviderGroupAssociationsService} from '../../../../entity-services/services/merchant-provider-group-associations.service';
-import {DeleteDialogComponent} from '../../../delete-dialog.component';
+import {DeleteDialogComponent} from '../../../../dialog-modals/delete-dialog.component';
 import {MerchantProviderGroupsService} from '../../../../entity-services/services/merchant-provider-groups.service';
 import {CampaignsService} from '../../../../entity-services/services/campaigns.service';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';

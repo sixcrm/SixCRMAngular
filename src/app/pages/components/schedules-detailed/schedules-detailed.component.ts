@@ -5,7 +5,7 @@ import {Product} from '../../../shared/models/product.model';
 import {ProductsService} from '../../../entity-services/services/products.service';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Moment} from 'moment';
-import {YesNoDialogComponent} from '../../yes-no-dialog.component';
+import {YesNoDialogComponent} from '../../../dialog-modals/yes-no-dialog.component';
 import {MatDialog} from '@angular/material';
 
 export enum DisplayModes {
