@@ -142,7 +142,7 @@
 
       <dropdown-component
         [class.error]="formInvalid && !entity.gateway.isTypeSelected()"
-        [disabled]="mode === modes.View || (mode === modes.Update && !shouldEditGateway)"
+        [disabled]="mode !== modes.Add"
         [options]="allProviders"
         [selected]="entity.gateway.getType()"
         [placeholder]="'MERCHANTPROVIDER_INFO_GATEWAY_TYPE' | translate"
