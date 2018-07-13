@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {MerchantProvider} from '../../../../shared/models/merchant-provider/merchant-provider.model';
 import {Modes} from '../../../abstract-entity-view.component';
 import {
@@ -6,7 +6,6 @@ import {
   isAllowedPercentage
 } from '../../../../shared/utils/form.utils';
 import {getPhoneNumberMask} from '../../../../shared/utils/mask.utils';
-import {ActivatedRoute, UrlSegment} from '@angular/router';
 
 @Component({
   selector: 'merchant-provider-add-new',
@@ -14,8 +13,6 @@ import {ActivatedRoute, UrlSegment} from '@angular/router';
   styleUrls: ['./merchant-provider-add-new.component.scss']
 })
 export class MerchantProviderAddNewComponent implements OnInit {
-
-  @ViewChild('merchantProviderForm') inputForm;
 
   @Input() entity: MerchantProvider;
   @Input() mode: Modes;

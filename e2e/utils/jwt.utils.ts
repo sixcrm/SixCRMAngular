@@ -6,7 +6,7 @@ export function generateJWT(body: any, secretKey: string): string {
 }
 
 export function createTestAuth0JWT(email: string): string {
-  let secretKey = 'pO9HJmVXzTOagNP-xW9Es8-s0HGQt28hqlvAPJx6e6rHeryvnyBGDn-LJn_80XdV';
+  let secretKey = 'J-LR3RIOxrHIe-MH-NftFYr7VFTB8xO8W8T451s35hJ0-V55aGdUQGCl1hGZ1OG1';
 
   return generateJWT(getJwtContent(email), secretKey);
 }

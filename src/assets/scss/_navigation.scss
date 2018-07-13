@@ -1,17 +1,9 @@
 @import "mixins";
+@import "colors";
 
-$sidenav-width: 266px;
-$sidenav-width-collapsed: 76px;
+$sidenav-width: 256px;
+$sidenav-width-collapsed: 80px;
 $topnav-height: 70px;
-$sidebar-color-light: #385F8D;
-$sidebar-color-middle: #2C486F;
-$sidebar-color-dark: #171F38;
-
-$sidebar-color: #fff;
-$sidebar-text-color: #9B9B9B;
-$sidebar-text-color-hover: #5383C3;
-
-$navigation-color: #4277C2;
 
 .mat-sidenav {
   max-width: $sidenav-width;
@@ -28,7 +20,7 @@ $navigation-color: #4277C2;
   }
 
   .mat-toolbar {
-    padding: 0 72px 0 18px;
+    padding: 0 72px 0 21px;
     height: $topnav-height;
     width: $sidenav-width;
     background-color: white;
@@ -53,14 +45,17 @@ $navigation-color: #4277C2;
   }
 
   mat-icon {
-    margin-right: 10px;
+    margin-left: 30px;
+    margin-right: 25px;
     width: 20px;
     height: 20px;
     font-size: 20px !important;
+    color: rgba(0, 0, 0, 0.54);
   }
 
   .menu-item-image {
-    margin-right: 10px;
+    margin-left: 30px;
+    margin-right: 25px;
     padding: 1px;
     width: 19px;
     height: 20px;
@@ -111,24 +106,31 @@ $navigation-color: #4277C2;
 
       .mat-list-item {
         height: 38px;
-        font-size: 14px;
-      }
 
-      .placeholder {
-        margin-right: 47px;
+        .sidenav-item__text {
+          padding-left: 75px;
+          font-size: 13px;
+        }
       }
     }
 
     &.level2 {
-      .placeholder {
-        margin-right: 67px;
+      .mat-list-item {
+        height: 38px;
+
+        .sidenav-item__text {
+          padding-left: 95px;
+          font-size: 13px;
+        }
       }
     }
   }
 
   .mat-list-item-content {
     padding-left: 0 !important;
-    color: rgba(0,0,0,0.7);
+    color: $dark-color;
+    font-size: 14px;
+    font-weight: 500;
   }
 
   .placeholder {
@@ -139,14 +141,14 @@ $navigation-color: #4277C2;
   }
 
   .item-selected {
-    background: rgba(0, 0, 0, 0.04);
+    background: rgba(30, 177, 252, 0.1);
 
-    mat-icon {
-      color: #5383C3;
+    .sidenav-item__text {
+      color: $main-color-300;
     }
 
-    .placeholder {
-      background: #5383C3;
+    mat-icon {
+      color: $main-color-300;
     }
   }
 
@@ -172,13 +174,13 @@ mat-sidenav-container {
   img {
     height: 15px;
     margin-right: 5px;
-    margin-left: 25px;
+    margin-left: 30px;
     vertical-align: middle;
   }
 
   span {
     vertical-align: middle;
-    color: $sidebar-text-color;
+    color: $dark-color;
     font-size: 11px;
   }
 }
@@ -208,7 +210,6 @@ app-topnav {
   }
 
   #menu-toggler {
-    margin-right: 16px;
     margin-left: -16px;
     width: 64px;
     z-index: 1000;
@@ -229,15 +230,16 @@ app-topnav {
 }
 
 .topnav {
-  background-color: $navigation-color !important;
+  background-color: $main-color-400 !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.18);
 }
 
 .topnav-search-input {
   color: white;
   font-size: 16px;
 
-  .mat-input-wrapper {
-    padding-bottom: 0;
+  .mat-form-field-wrapper {
+    padding-bottom: 10px !important;
   }
 
   .mat-input-infix {
@@ -274,7 +276,7 @@ app-topnav {
   flex-direction: column;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(to bottom left, #4277C2, #2C98F0);
+  background: $main-color-400;
   font-family: "Roboto", sans-serif;
 
   .text {

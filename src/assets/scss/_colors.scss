@@ -1,3 +1,5 @@
+@import "_variables.scss";
+
 // Utility Color Classes
 
 //.success {
@@ -16,6 +18,17 @@ $colors: (
 
 $main-color: #5B9BE1;;
 
+$processing-color: rgb(41, 108, 204);
+
+$main-color-100: #99CCFF;
+$main-color-200: #4DA6FF;
+$main-color-300: #0080FF;
+$main-color-400: #296CCC;
+$main-color-500: #2962B3;
+$main-color-600: #294A78;
+$dark-color: #333333;
+$action-color: #1EBEA5;
+$danger-color: #DC2547;
 // Color Classes
 
 @each $color_name, $color in $colors {

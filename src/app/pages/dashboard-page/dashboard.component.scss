@@ -1,5 +1,7 @@
+@import "../../../assets/scss/colors";
+
 .dashboard {
-  background: linear-gradient(#5185C4, #39C2F4);
+  background: $main-color-400;
 }
 
 .dashboard-container {
@@ -9,7 +11,7 @@
 .animation-wrapper {
   min-height: calc(100vh - 70px);
   min-width: 100%;
-  background: linear-gradient(180deg, #4277C2 8.44%, #2C98F0 100%);
+  background: $main-color-400;
 }
 
 .info {
@@ -58,7 +60,7 @@
 
 .blue-tab-header {
   padding-left: 25px;
-  background: #4277C2 !important;
+  background: $main-color-400 !important;
   padding-top: 20px;
   height: 62px;
   line-height: 40px;

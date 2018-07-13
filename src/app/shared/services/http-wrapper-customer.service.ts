@@ -111,7 +111,7 @@ export class HttpWrapperCustomerService {
       "exp": (now + 3600),
       "iat": now
     };
-    const signingKey = '4K2VAY6MLHW6JAJHJQ9L';
+    const signingKey = 'FNKML6SA7EFR415H8ESWRL8LUQR5TW32U8RAZ7PH';
 
     return sign(body, signingKey);
   }

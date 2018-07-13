@@ -6,7 +6,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NavigationService} from '../../../navigation/navigation.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MerchantProviderGroup} from '../../../shared/models/merchant-provider-group.model';
-import {MerchantProviderAddNewComponent} from './merchant-provider-add-new/merchant-provider-add-new.component';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
@@ -20,7 +19,6 @@ import {TagsService} from '../../../entity-services/services/tags.service';
 export class MerchantProviderViewComponent extends AbstractEntityViewComponent<MerchantProvider> implements OnInit, OnDestroy {
 
   @ViewChild('nameFieldAddMode') nameField;
-  @ViewChild(MerchantProviderAddNewComponent) merchantProviderAddNewComponent: MerchantProviderAddNewComponent;
 
   selectedIndex: number = 0;
   formInvalid: boolean;

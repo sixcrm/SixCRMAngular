@@ -1,3 +1,5 @@
+@import "../../../assets/scss/colors";
+
 .body {
   display: flex;
   margin: auto;
@@ -62,13 +64,13 @@
     }
 
     .create {
-      background: #2C98F0;
+      background: $main-color-200;
     }
 
     .payment {
       padding: 16px 0;
       font-weight: 500;
-      background: #2C98F0;
+      background: $main-color-200;
       width: 100%;
     }
   }

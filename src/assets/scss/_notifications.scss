@@ -1,3 +1,5 @@
+@import "colors";
+
 .notifications-list {
   position: absolute;
   top: 0;
@@ -8,22 +10,10 @@
   background-color: white;
   box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.3);
 
-  &--standalone{
-    position: relative;
-    width: 720px;
-    max-width: 100%;
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.13);
-  }
-
   &__topnav {
     display: flex;
     padding: 14px 10px;
     align-items: center;
-
-    &--standalone {
-      padding: 14px 20px;
-      border-bottom: 1px solid #F5F5F5;
-    }
 
     span {
       font-size: 13px;
@@ -34,23 +24,9 @@
     &__options {
       display: flex;
       margin-left: auto;
-      color: #049AE4;
+      color: $main-color-200;
       font-size: 12px;
       font-weight: 500;
-
-      &--standalone {
-        div {
-          margin: 0 0 0 15px;
-        }
-      }
-
-      &__separator {
-        display: inline-block;
-        margin: 0 5px;
-        width: 2px;
-        height: 12px;
-        background: #049AE4;
-      }
 
       div {
         cursor: pointer;
@@ -61,10 +37,6 @@
   &__content {
     height: calc(100% - 54px);
     overflow: auto;
-
-    &--standalone {
-      height: calc(100% - 44px);
-    }
 
     &__no-results {
       padding: 30px 20px;
@@ -77,20 +49,12 @@
       font-size: 13px;
       font-weight: 500;
       color: #9B9B9B;
-
-      &--standalone {
-        padding: 10px 20px;
-      }
     }
 
     &__notification {
       display: flex;
       border-bottom: 1px solid rgba(0, 0, 0, 0.12);
       cursor: default;
-
-      &--standalone {
-        padding: 2px;
-      }
 
       &:hover {
         background-color: #EBF2FE;
@@ -113,10 +77,6 @@
         padding: 8px 0;
         font-size: 14px;
         min-height: 50px;
-
-        &--standalone {
-          width: 300px;
-        }
 
         div:first-of-type {
           margin-top: auto;
@@ -154,19 +114,6 @@
     }
   }
 
-  &__view-all {
-    border-top: 1px solid rgba(0, 0, 0, 0.12);
-    height: 50px;
-    text-align: center;
-
-    span {
-      line-height: 50px;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      color: #049AE4;
-    }
-  }
 }
 
 .notifications {
@@ -253,9 +200,9 @@ snack-bar-container {
 
   .test-button {
     margin-top: 18px;
-    background-color: #00C9A6;
-    color: white;
-    border-color: #00C9A6;
+    background-color: $action-color !important;
+    color: white !important;
+    border-color: $action-color;
     min-width: 60px;
 
     &--solo {

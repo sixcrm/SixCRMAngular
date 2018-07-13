@@ -74,7 +74,7 @@ export class AccountManagementUsersComponent implements OnInit, OnDestroy {
     private rolesSharedService: RolesSharedService,
     private aclService: AclsService,
     private dialog: MatDialog,
-    private userService: UsersService
+    public userService: UsersService
   ) { }
 
   ngOnInit() {

@@ -1,11 +1,11 @@
-$primary-blue-color: #4277C2;
+@import "../../../../../../assets/scss/colors";
 
 .schedule-container__header {
   display: flex;
   padding: 0 12px;
   align-items: center;
   height: 45px;
-  background: $primary-blue-color;
+  background: $main-color-400;
   color: white;
   font-size: 18px;
 
