@@ -23,7 +23,6 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 import {AcknowledgeInvite} from '../shared/models/acknowledge-invite.model';
 import {CustomServerError} from '../shared/models/errors/custom-server-error';
 import {utc} from 'moment';
-import {Auth0Lock} from 'auth0-lock';
 import * as auth0 from 'auth0-js';
 
 @Injectable()

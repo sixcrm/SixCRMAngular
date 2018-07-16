@@ -29,7 +29,7 @@
   <span class="app-flex-filler"></span>
 
   <div class="topnav__acting-as" *ngIf="authService.actingAsAccount$ | async">
-    {{'TOPNAV_ACTINGAS' | translate}} <span>{{(authService.actingAsAccount$ | async).name}}</span> <mat-icon (click)="authService.stopActingAs(null)">close</mat-icon>
+    {{'TOPNAV_ACTINGAS' | translate}} <span>{{(authService.actingAsAccount$ | async).name}}</span> <mat-icon (click)="authService.stopActingAs()">close</mat-icon>
   </div>
 
   <div class="topnav__items--expanded">
