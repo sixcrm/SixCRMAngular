@@ -1,9 +1,6 @@
 import {browser, protractor, ElementFinder} from 'protractor';
 import {AuthPage} from '../po/auth.po';
 import {createTestAuth0JWT, getJwtContent} from './jwt.utils';
-import {DashboardPage} from '../po/dashboard.po';
-
-let dashboardPage = new DashboardPage();
 
 export function navigateSuperuserToHomepage() {
   browser.get('/');
@@ -12,40 +9,9 @@ export function navigateSuperuserToHomepage() {
   waitForUrlContains('dashboard');
 }
 
-export function navigateSuperuserToAdvancedSearch() {
-  browser.get('/');
-  addSuperUserToken();
-  browser.get('/advanced-search');
-
-  waitForUrlContains('advanced-search');
-}
-
-export function navigateRegisteruserToRegistration() {
-  browser.get('/');
-  addRegisterUserToken();
-  browser.get('/');
-
-  waitForUrlContains('register');
-}
-
-export function navigateRegisteruserToAcceptInvite(link: string) {
-  browser.get(link);
-  addRegisterUserToken();
-  browser.get(link);
-
-  waitForUrlContains('acceptinvite');
-}
-
 export function addSuperUserToken() {
   let jwt = createTestAuth0JWT('super.user@test.com');
   let content = getJwtContent('super.user@test.com');
-
-  addToLocalStorage(jwt, content);
-}
-
-export function addRegisterUserToken() {
-  let jwt = createTestAuth0JWT('testingregistration@example.com');
-  let content = getJwtContent('testingregistration@example.com');
 
   addToLocalStorage(jwt, content);
 }
