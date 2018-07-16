@@ -2,7 +2,7 @@ import {AuthPage} from '../po/auth.po';
 import {DashboardPage} from '../po/dashboard.po';
 import {expectUrlToContain} from './assertation.utils';
 import {waitForUrlContains, waitForPresenceOfLoginFields} from './navigation.utils';
-import {browser, element, by, ExpectedConditions} from 'protractor';
+import {browser} from 'protractor';
 
 let username = 'e2e-test-admin@sixcrm.com';
 let password = '123456789';
@@ -25,10 +25,6 @@ export function doSignUp(authPage: AuthPage, email: string, password: string) {
   authPage.getEmailInput().sendKeys(email);
   authPage.getPasswordInput().sendKeys(password);
   authPage.getLoginButton().click();
-}
-
-export function doRegister(authPage: AuthPage, email: string, password: string) {
-  doLogin(authPage, email, password);
 }
 
 export function login(user?: boolean) {
