@@ -168,7 +168,7 @@ export class AuthenticationService {
 
   public showLogin(): void {
     this.initLock();
-    this.auth.authorize({login_hint: this.router.url === '/signup' ? 'signUp' : ''});
+    this.auth.authorize({login_hint: this.router.url === '/signup' ? 'signUp' : '', env: environment.name});
   }
 
   public logout(redirectUrl?: string): void {
