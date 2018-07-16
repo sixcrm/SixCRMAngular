@@ -15,6 +15,7 @@ export class TopnavDropdownComponent implements OnInit {
 
   @Input() icon: string;
   @Input() text: string;
+  @Input() action: boolean;
   @Input() small: boolean;
   @Input() openOnLeft: boolean;
   @Input() options: TopnavDropdownOption[] = [];

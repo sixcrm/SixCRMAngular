@@ -1,13 +1,15 @@
+@import "../../../assets/scss/colors";
+
 .container {
   background: white;
   font-family: Roboto, sans-serif;
 
   .header {
     padding: 40px 25px;
-    background: #4478BD;
+    background: $main-color-400;
 
     &--complete {
-      background: #1DBDA5;
+      background: $action-color;
     }
 
     div {
@@ -32,7 +34,7 @@
 
   .cancel {
     display: flex;
-    color: #2897EF;
+    color: $main-color-200;
     font-size: 12px;
     font-weight: 500;
     margin-top: 20px;
@@ -68,7 +70,7 @@
         width: 14px;
         font-size: 14px;
         border-radius: 50%;
-        background: #1DBDA5;
+        background: $action-color;
         color: white;
       }
     }
@@ -95,7 +97,7 @@
   }
 
   button {
-    background: #2897EF;
+    background: $main-color-200;
     color: white;
     font-size: 12px;
   }
@@ -222,11 +224,11 @@
       &:first-of-type {
         margin-left: auto;
         background: white;
-        color: #1DBDA5;
+        color: $action-color;
       }
 
       &:last-of-type {
-        background: #1DBDA5;
+        background: $action-color;
         color: white;
       }
     }
@@ -283,13 +285,13 @@ create-order-preview {
 
   span {
     cursor: pointer;
-    color: #2897EF;
+    color: $main-color-200;
   }
 
   button {
     font-size: 16px;
     margin-top: 65px;
-    background: #2897EF;
+    background: $main-color-200;
   }
 }
 

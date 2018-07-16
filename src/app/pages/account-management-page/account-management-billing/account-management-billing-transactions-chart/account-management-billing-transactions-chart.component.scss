@@ -1,3 +1,5 @@
+@import "../../../../../assets/scss/colors";
+
 .top-data {
   display: flex;
   padding: 15px 25px;
@@ -31,7 +33,7 @@
       box-sizing:  border-box;
 
       &--error {
-        background: #DC2547;
+        background: $danger-color;
       }
 
       .date {

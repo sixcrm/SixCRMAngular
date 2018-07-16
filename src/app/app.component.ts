@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
 
         this.processingDialogRef = this._dialog.open(
           ProcessingDialogComponent,
-          {backdropClass: 'backdrop-blue', panelClass: 'panel-transparent', disableClose: true}
+          {backdropClass: 'backdrop-blue--processing', panelClass: 'panel-transparent', disableClose: true}
         );
       } else  {
         if (this.processingDialogRef) {

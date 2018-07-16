@@ -1,8 +1,8 @@
-$primary-blue-color: #4277C2;
+@import "../../../../../../assets/scss/colors";
 
 .subheader {
   display: flex;
-  background: $primary-blue-color;
+  background: $main-color-400;
   align-items: center;
   padding: 0 15px;
 }

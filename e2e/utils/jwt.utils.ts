@@ -1,14 +1,26 @@
 import {sign} from 'jsonwebtoken';
 import {createTimestampSeconds} from './time.utils';
+import {getEnvModel} from './env.utils';
 
 export function generateJWT(body: any, secretKey: string): string {
   return sign(body, secretKey);
 }
 
 export function createTestAuth0JWT(email: string): string {
-  let secretKey = 'pO9HJmVXzTOagNP-xW9Es8-s0HGQt28hqlvAPJx6e6rHeryvnyBGDn-LJn_80XdV';
+  return generateJWT(getJwtContent(email), getSecretKey());
+}
 
-  return generateJWT(getJwtContent(email), secretKey);
+function getSecretKey() {
+  const env = getEnvModel();
+
+  switch (env.name) {
+    case 'staging': {
+      return 'QZwSFjU_3pBB1YPAtXtyO4cPXXq_Qn579mgMBpU4uJbEN2t-OG630wPhF351lMlr'
+    }
+    default: {
+      return 'J-LR3RIOxrHIe-MH-NftFYr7VFTB8xO8W8T451s35hJ0-V55aGdUQGCl1hGZ1OG1'
+    }
+  }
 }
 
 export function getJwtContent(email: string): any {

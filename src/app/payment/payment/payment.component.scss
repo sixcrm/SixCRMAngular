@@ -1,10 +1,12 @@
+@import "../../../assets/scss/colors";
+
 .payment {
   position: absolute;
   display: flex;
   flex-direction: column;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(to bottom left, #4277C2, #2C98F0);
+  background: $main-color-400;
 
   .blue-screen__account-switcher {
     button {
@@ -51,8 +53,8 @@
   }
 
   .finished {
-    background: #1EBEA5;
-    border-color: #1EBEA5;
+    background: $action-color;
+    border-color: $action-color;
   }
 }
 

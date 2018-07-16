@@ -237,9 +237,11 @@ jobs:
       - run:
           name: Set Credentials
           command: cat deployment_credentials/stscredentials >> $BASH_ENV
+          when: always
       - run:
           name: Deploy Report to s3
           command: node libs/deployment_scripts/src/deploy-report.js deployment/deploy-config.json
+          when: always
 
 workflows:
   version: 2

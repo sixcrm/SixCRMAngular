@@ -1,3 +1,5 @@
+@import "../../../assets/scss/colors";
+
 .container {
   display: flex;
   border-radius: 4px;
@@ -32,7 +34,7 @@
     display: flex;
     margin: 15px 25px 15px 25px;
     align-items: center;
-    color: #2C98F0;
+    color: $main-color-300;
 
     button {
       text-transform: uppercase;
@@ -41,7 +43,7 @@
 
     .accept {
       color: white;
-      background: #2C98F0;
+      background: $main-color-300;
     }
 
     .logout {

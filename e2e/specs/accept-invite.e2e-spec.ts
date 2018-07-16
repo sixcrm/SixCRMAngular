@@ -5,15 +5,12 @@ import {sendInvite} from '../utils/graph.utils';
 import {AcceptInvitePage} from '../po/accept-invite.po';
 import {waitForUrlContains} from '../utils/navigation.utils';
 import {ErrorPage} from '../po/error-page.po';
-import {environment} from '../../src/environments/environment';
-import * as environmentStage from '../../src/environments/environment.stage';
-import * as environmentProd from '../../src/environments/environment.prod';
 import {expectUrlToContain, expectPresent} from '../utils/assertation.utils';
 import {TopnavPage} from '../po/topnav.po';
 import {ProfilePage} from '../po/profile.po';
 import {AccountPage} from '../po/account.po';
 import {TermsAndConditionsPage} from '../po/terms-and-conditions.po';
-import {EnvironmentModel} from '../../src/environments/environment-model';
+import {getApiEndpoint} from '../utils/env.utils';
 
 var supertest = require('supertest');
 var crypto = require('crypto');
@@ -111,16 +108,3 @@ describe('Accept Invite', function () {
   });
 
 });
-
-function getApiEndpoint(): string {
-  const baseUrl = browser.baseUrl;
-  const environments: EnvironmentModel[] = [environment, environmentStage.environment, environmentProd.environment];
-
-  for (let env of environments) {
-    if (env.auth0RedirectUrl === baseUrl) {
-      return env.bareEndpoint;
-    }
-  }
-
-  return environment.bareEndpoint;
-}

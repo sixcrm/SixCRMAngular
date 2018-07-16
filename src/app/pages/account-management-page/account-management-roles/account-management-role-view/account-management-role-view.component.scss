@@ -1,3 +1,5 @@
+@import "../../../../../assets/scss/colors";
+
 .body {
   margin: 25px;
 
@@ -87,12 +89,12 @@
     &:first-of-type {
       margin-left: auto;
       margin-right: 15px;
-      color: #2C98F0;
+      color: $main-color-200;
     }
 
     &:last-of-type {
       color: #ffffff;
-      background: #2C98F0;
+      background: $main-color-200;
     }
   }
 }
@@ -116,7 +118,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 
   button {
-    background: #2C98F0;
+    background: $main-color-200;
     margin-right: 24px;
     color: white;
   }
@@ -156,7 +158,7 @@
 
       .title {
         margin-bottom: 20px;
-        color: #4277C2;
+        color: $main-color-400;
         font-size: 20px;
       }
 
@@ -256,7 +258,7 @@
     .avatar {
       font-size: 16px;
       color: rgba(255, 255, 255, 0.87);
-      background: #2C98F0;
+      background: $main-color-200;
       border-radius: 50%;
       min-height: 38px;
       min-width: 38px;
@@ -338,12 +340,12 @@
     &:first-of-type {
       margin-left: auto;
       margin-right: 15px;
-      color: #2C98F0;
+      color: $main-color-200;
     }
 
     &:last-of-type {
       color: #ffffff;
-      background: #2C98F0;
+      background: $main-color-200;
     }
   }
 }
