@@ -2,7 +2,7 @@
 
 <div class="body">
   <div class="header">
-    <button mat-button (click)="createNewAccessKey()">NEW</button>
+    <button mat-button (click)="createNewAccessKey()" *ngIf="accessKeyService.hasWritePermission()">NEW</button>
 
     <div class="mrw-bi-input">
       <mat-form-field [floatLabel]="'never'">

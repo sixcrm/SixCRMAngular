@@ -3,9 +3,9 @@
   flex-direction: column;
   font-family: "Roboto", serif;
 
-  div {
-    margin: 35px auto auto;
-    font-size: 26px;
+  .text {
+    margin: 45px auto auto;
+    font-size: 19px;
     color: #ffffff;
     font-weight: 500;
   }
@@ -15,4 +15,75 @@
     height: 150px;
     margin: auto;
   }
+
+  .process-dialog-container {
+    display: flex;
+
+    .symbol {
+      margin: auto;
+      width: 150px;
+      height: 150px;
+      animation: rotate 6s infinite linear;
+      fill: #99ccff;
+    }
+
+    .symbol1,
+    .symbol2,
+    .symbol3,
+    .symbol4,
+    .symbol5,
+    .symbol6 {
+      animation: scale 6s infinite ease-in-out;
+      transform-origin: center center;
+    }
+
+    .symbol1 {
+      animation-delay: 0s;
+    }
+    .symbol2 {
+      animation-delay: 0.25s;
+    }
+    .symbol3 {
+      animation-delay: 0.5s;
+    }
+    .symbol4 {
+      animation-delay: 0.75s;
+    }
+    .symbol5 {
+      animation-delay: 1s;
+    }
+    .symbol6 {
+      animation-delay: 1.25s;
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+      50% {
+        transform: rotate(360deg);
+      }
+      100% {
+        transform: rotate(720deg);
+      }
+    }
+
+    @keyframes scale {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+        fill: #99ccff;
+      }
+      12.5% {
+        transform: scale(0.25);
+        opacity: 0.5;
+        fill: #0080ff;
+      }
+      25% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  }
+
 }

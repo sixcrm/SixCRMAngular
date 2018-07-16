@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'processing-dialog',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class ProcessingDialogComponent implements OnInit {
 
   text: string = 'PAYMENT_PROCESSING';
-  showGenericLoader: boolean = true;
+  showGenericLoader: boolean = environment.branding && environment.branding.showGenericLoader;
 
   constructor() { }
 

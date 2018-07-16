@@ -1,3 +1,5 @@
+@import "../../../../assets/scss/colors";
+
 .options {
   display: flex;
   margin: 25px;
@@ -17,7 +19,7 @@
 
       button {
         margin-left: auto;
-        color: #2C98F0;
+        color: $main-color-200;
       }
     }
 
@@ -70,10 +72,10 @@
 
 .success-icon {
   color: #ffffff;
-  background: #1EBEA5;
+  background: $action-color;
   border-radius: 50%;
 }
 
 .error-icon {
-  color: #DC2547;
+  color: $danger-color;
 }
