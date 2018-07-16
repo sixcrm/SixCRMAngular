@@ -81,7 +81,7 @@ export class AuthenticationService {
     const options = {
       clientID: environment.clientID,
       domain: environment.domain,
-      responseType: 'token id_token',
+      responseType: 'token',
       redirectUri: environment.auth0RedirectUrl,
       scope: 'openid email name given_name family_name user_metadata app_metadata picture'
     };
@@ -184,7 +184,8 @@ export class AuthenticationService {
     localStorage.removeItem(this.idTokenPayload);
     localStorage.removeItem(this.sixUser);
 
-    this.auth.logout();
+    this.auth.logout({returnTo: '/'});
+
     this.router.navigate(['/']);
   }
 
@@ -194,6 +195,8 @@ export class AuthenticationService {
     localStorage.removeItem(this.activated);
     localStorage.removeItem(this.idTokenPayload);
     localStorage.removeItem(this.sixUser);
+
+    this.auth.logout({returnTo: '/'});
 
     this.router.navigate(['/signup']);
   }
