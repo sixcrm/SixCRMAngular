@@ -178,13 +178,14 @@ export class AuthenticationService {
       localStorage.removeItem(this.redirectUrl);
     }
 
-    this.router.navigate(['/']);
-
     localStorage.removeItem(this.accessToken);
     localStorage.removeItem(this.idToken);
     localStorage.removeItem(this.activated);
     localStorage.removeItem(this.idTokenPayload);
     localStorage.removeItem(this.sixUser);
+
+    this.auth.logout();
+    this.router.navigate(['/']);
   }
 
   public logoutToSignup(): void {
