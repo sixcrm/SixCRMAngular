@@ -438,8 +438,14 @@ export class AuthenticationService {
   }
 
   getUserIntrospection(profile: any, redirectUrl?: string, forceRedirect?: boolean): void {
-    this.http.post(environment.endpoint + '*', userIntrospection(), { headers: generateHeaders(this.getToken())}, { retry: { strategy: RetryStrategy.Retry } }).subscribe(
+    this.http.postWithError(environment.endpoint + '*', userIntrospection(), { headers: generateHeaders(this.getToken())}, { retry: { strategy: RetryStrategy.Retry }, failStrategy: FailStrategy.Soft }).subscribe(
       (data) => {
+        if (data instanceof CustomServerError) {
+          this.logout();
+          this.showLogin();
+          return;
+        }
+
         let user = extractData(data).userintrospection;
         if (user) {
           if (!user.active) {
