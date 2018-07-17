@@ -11,7 +11,7 @@ export const environment: EnvironmentModel = {
   endpoint: 'https://api.recursix.com/graph/',
   publicendpoint: 'https://api.recursix.com/publicgraph',
   jwtEndpoint: 'https://api.recursix.com/token/acquire',
-  clientID: 'JM1tC2j7tycbu62el3oBhyklpNbk5x6F',
+  clientID: 'nTFV5EwEykOuZKCJ7Pngear63udSUqNr',
   domain: 'sixcrm.auth0.com',
   auth0RedirectUrl: 'https://admin.recursix.com',
   translationsUrl: 'https://d3gac4cnrn5mn6.cloudfront.net/',
