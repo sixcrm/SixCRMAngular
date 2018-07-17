@@ -1,4 +1,4 @@
-import {waitForUrlContains, navigateSuperuserToHomepage} from '../utils/navigation.utils';
+import {waitForUrlContains, navigateSuperuserToHomepage, clearLocalStorage} from '../utils/navigation.utils';
 import {SidenavPage} from '../po/sidenav.po';
 import {browser} from 'protractor';
 import {expectUrlToContain, expectNotPresent, expectPresent} from '../utils/assertation.utils';
@@ -17,6 +17,11 @@ describe('Transaction Report', function() {
     browser.waitForAngularEnabled(false);
     navigateSuperuserToHomepage();
     waitForUrlContains('dashboard');
+  });
+
+  afterAll(() => {
+    clearLocalStorage();
+    browser.restart();
   });
 
   it('should navigate to transactions report page', () => {

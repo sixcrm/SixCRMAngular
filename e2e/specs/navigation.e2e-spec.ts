@@ -24,6 +24,7 @@ describe('Navigation', function() {
 
   afterAll(() => {
     clearLocalStorage();
+    browser.restart();
   });
 
   it('should render full sidenav when registered as master', () => {

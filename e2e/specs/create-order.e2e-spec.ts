@@ -25,6 +25,11 @@ describe('New Order', function() {
     tosCheck(done);
   });
 
+  afterAll(() => {
+    clearLocalStorage();
+    browser.restart();
+  });
+
   it('should open create order modal', () => {
     topnav.getAddButton().click();
     topnav.getDropdownOptions().first().click();

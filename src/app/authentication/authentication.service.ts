@@ -184,9 +184,7 @@ export class AuthenticationService {
     localStorage.removeItem(this.idTokenPayload);
     localStorage.removeItem(this.sixUser);
 
-    this.auth.logout({returnTo: '/'});
-
-    this.router.navigate(['/']);
+    this.auth.logout({returnTo: environment.auth0RedirectUrl});
   }
 
   public logoutToSignup(): void {
@@ -196,9 +194,7 @@ export class AuthenticationService {
     localStorage.removeItem(this.idTokenPayload);
     localStorage.removeItem(this.sixUser);
 
-    this.auth.logout({returnTo: '/'});
-
-    this.router.navigate(['/signup']);
+    this.auth.logout({returnTo: environment.auth0RedirectUrl + '/signup'});
   }
 
   public logoutWithJwt(jwt: string, url: string): void {

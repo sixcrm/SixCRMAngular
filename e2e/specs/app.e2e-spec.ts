@@ -14,6 +14,7 @@ describe('App load', function() {
   afterEach(() => {
     browser.waitForAngularEnabled(true);
     clearLocalStorage();
+    browser.restart();
   });
 
   it('should load Auth component', () => {

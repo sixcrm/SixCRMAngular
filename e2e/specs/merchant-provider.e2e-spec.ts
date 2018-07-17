@@ -28,6 +28,11 @@ describe('Merchant Provider', function() {
     tosCheck(done);
   });
 
+  afterAll(() => {
+    clearLocalStorage();
+    browser.restart();
+  });
+
   it('should navigate to merchant provider page', () => {
     const sidenav = new SidenavPage();
     sidenav.getLink(12).click();
