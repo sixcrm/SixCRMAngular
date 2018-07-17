@@ -18,7 +18,7 @@ import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {utc, Moment} from 'moment'
 import {Subject} from 'rxjs';
 import {MatDialog} from '@angular/material';
-import {DeleteDialogComponent} from '../../delete-dialog.component';
+import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
 
 @Component({
   selector: 'product-schedule-view',

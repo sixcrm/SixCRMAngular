@@ -26,6 +26,11 @@ describe('Profile', function() {
     waitForUrlContains('dashboard');
   });
 
+  afterAll(() => {
+    clearLocalStorage();
+    browser.restart();
+  });
+
   it('should navigate to profile/user settings page', () => {
     topnavPage.getProfileMenuButton().click();
     browser.sleep(200);

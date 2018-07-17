@@ -1,6 +1,6 @@
 import {AuthenticationService} from '../../authentication/authentication.service';
 import {Router} from '@angular/router';
-import {YesNoDialogComponent} from '../yes-no-dialog.component';
+import {YesNoDialogComponent} from '../../dialog-modals/yes-no-dialog.component';
 import {NavigationService} from '../../navigation/navigation.service';
 import {MatDialog} from '@angular/material';
 

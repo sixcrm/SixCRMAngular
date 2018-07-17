@@ -24,6 +24,11 @@ describe('Dashboard', function() {
     login();
   });
 
+  afterAll(() => {
+    clearLocalStorage();
+    browser.restart();
+  });
+
   it('should navigate to dashboard after login', () => {
     expectUrlToContain('dashboard');
   });

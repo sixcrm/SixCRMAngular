@@ -16,6 +16,7 @@ import {SharedHooksListComponent} from './event-hook-view/shared-hooks-list/shar
 import {FilterHooksByTypePipe} from './filter-hooks-by-type.pipe';
 import {MaterialSelectionModule} from '../../material-selection/material-selection.module';
 import {EntityServicesModule} from '../../entity-services/entity-services.module';
+import {EventHooksAclGuard} from '../guards/event-hooks-acl-guard.service';
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import {EntityServicesModule} from '../../entity-services/entity-services.module
     EventHooksCustomComponent,
     SharedHooksListComponent,
     FilterHooksByTypePipe
-  ]
+  ],
+  providers: [EventHooksAclGuard]
 })
 export class EventHooksModule {
 }

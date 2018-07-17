@@ -16,8 +16,7 @@ const appRoutes: Routes = [
   { path : '', component : DefaultLayoutComponent, children : [
     { path : 'search', loadChildren : './pages/search-page/search.module#SearchModule', canActivate: [AuthGuard] },
     { path : 'dashboard', loadChildren : './pages/dashboard-page/dashboard.module#DashboardModule', canActivate: [AuthGuard] },
-    { path : 'state-machine',
-      loadChildren : './pages/state-machine-page/state-machine.module#StateMachineModule', canActivate: [AuthGuard] },
+    { path : 'state-machine', component: ComingSoonComponent, canActivate: [AuthGuard] },
     { path : 'profile', loadChildren : './pages/profile-page/profile-page.module#ProfilePageModule', canActivate: [AuthGuard] },
     { path : 'notifications', loadChildren : './pages/notifications-page/notifications.module#NotificationsModule', canActivate: [AuthGuard] },
     { path : 'affiliates', loadChildren : './pages/affiliates-page/affiliates.module#AffiliatesModule', canActivate: [AuthGuard] },

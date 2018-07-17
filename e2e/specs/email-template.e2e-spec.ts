@@ -28,6 +28,11 @@ describe('Email Template', function() {
     waitForUrlContains('dashboard');
   });
 
+  afterAll(() => {
+    clearLocalStorage();
+    browser.restart();
+  });
+
   it('should navigate to email templates page', () => {
     const sidenav = new SidenavPage();
     sidenav.getLink(12).click();

@@ -7,7 +7,7 @@ import {Subscription} from 'rxjs';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 import {ProductsService} from '../../../../entity-services/services/products.service';
 import {ImageDialogComponent} from '../../../../dialog-modals/image-dialog/image-dialog.component';
-import {DeleteDialogComponent} from '../../../delete-dialog.component';
+import {DeleteDialogComponent} from '../../../../dialog-modals/delete-dialog.component';
 import {MatDialog} from '@angular/material';
 
 @Component({

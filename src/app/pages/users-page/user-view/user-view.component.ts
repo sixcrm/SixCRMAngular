@@ -12,9 +12,9 @@ import {CustomServerError} from '../../../shared/models/errors/custom-server-err
 import {Acl} from '../../../shared/models/acl.model';
 import {AclsService} from '../../../entity-services/services/acls.service';
 import {ColumnParams} from '../../../shared/models/column-params.model';
-import {AddUserAclDialogComponent} from '../../add-user-acl-dialog.component';
+import {AddUserAclDialogComponent} from '../../../dialog-modals/add-user-acl-dialog.component';
 import {TableMemoryTextOptions} from '../../components/table-memory/table-memory.component';
-import {MessageDialogComponent} from '../../message-dialog.component';
+import {MessageDialogComponent} from '../../../dialog-modals/message-dialog.component';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header.component';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';

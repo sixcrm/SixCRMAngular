@@ -22,6 +22,11 @@ describe('API Keys', function() {
     waitForUrlContains('dashboard');
   });
 
+  afterAll(() => {
+    clearLocalStorage();
+    browser.restart();
+  });
+
   it('should navigate to signing strings page', () => {
     waitForElementToBeClickable(sidenavPage.getLink(29));
     sidenavPage.getLink(29).click();

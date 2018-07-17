@@ -1,5 +1,5 @@
 import {AbstractEntityService} from '../entity-services/services/abstract-entity.service';
-import {DeleteDialogComponent} from './delete-dialog.component';
+import {DeleteDialogComponent} from '../dialog-modals/delete-dialog.component';
 import {MatDialogRef, MatDialog} from '@angular/material';
 import {PaginationService} from '../shared/services/pagination.service';
 import {AuthenticationService} from '../authentication/authentication.service';
@@ -10,7 +10,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../shared/models/column-params.model';
 import {CustomServerError} from '../shared/models/errors/custom-server-error';
 import {areEntitiesIdentical} from '../shared/utils/entity.utils';
-import {YesNoDialogComponent} from './yes-no-dialog.component';
+import {YesNoDialogComponent} from '../dialog-modals/yes-no-dialog.component';
 import {Modes} from './abstract-entity-view.component';
 
 export abstract class AbstractEntityIndexComponent<T extends Entity<T>> {

@@ -5,9 +5,9 @@ import {PaginationService} from '../../../../shared/services/pagination.service'
 import {ColumnParams} from '../../../../shared/models/column-params.model';
 import {Tracker} from '../../../../shared/models/tracker.model';
 import {TrackersService} from '../../../../entity-services/services/trackers.service';
-import {DeleteDialogComponent} from '../../../delete-dialog.component';
+import {DeleteDialogComponent} from '../../../../dialog-modals/delete-dialog.component';
 import {firstIndexOf} from '../../../../shared/utils/array.utils';
-import {AssociateDialogComponent} from '../../../associate-dialog.component';
+import {AssociateDialogComponent} from '../../../../dialog-modals/associate-dialog.component';
 import {Affiliate} from '../../../../shared/models/affiliate.model';
 import {
   trackersByAffiliateListQuery,

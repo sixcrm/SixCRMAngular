@@ -1,5 +1,0 @@
-<div class="fit-chart">
-  <chart [style.display]="stateMachineTimeseries.length > 0 ? 'block' : 'none'" [options]="chartOptions" (load)="saveChart($event.context)"></chart>
-  <chart [style.display]="stateMachineTimeseries.length === 0 ? 'block' : 'none'" [options]="chartEmptyOptions" (load)="saveEmptyChart($event.context)"></chart>
-  <div class="no-data" *ngIf="showNoData">{{'ORDERENGINE_DETAILS_NODATA' | translate}}</div>
-</div>

@@ -10,7 +10,7 @@ import {Role} from '../../../../shared/models/role.model';
 import {TableMemoryTextOptions} from '../../../components/table-memory/table-memory.component';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
 import {firstIndexOf} from '../../../../shared/utils/array.utils';
-import {YesNoDialogComponent} from '../../../yes-no-dialog.component';
+import {YesNoDialogComponent} from '../../../../dialog-modals/yes-no-dialog.component';
 import {MatDialog} from '@angular/material';
 
 @Component({
