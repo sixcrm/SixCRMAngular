@@ -16,7 +16,7 @@ import {
 } from '../shared/services/http-wrapper.service';
 import {HttpResponse} from '@angular/common/http';
 import {Account} from '../shared/models/account.model';
-import {YesNoDialogComponent} from '../pages/yes-no-dialog.component';
+import {YesNoDialogComponent} from '../dialog-modals/yes-no-dialog.component';
 import {UserSettings} from '../shared/models/user-settings';
 import {updateAccountForRegistrationMutation} from '../shared/utils/queries/entities/account.queries';
 import {MatDialog, MatDialogRef} from '@angular/material';

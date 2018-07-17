@@ -1,3 +1,5 @@
+@import "colors";
+
 .tracker-view {
   width: calc(100% - 20px);
   min-width: 500px;
@@ -105,12 +107,12 @@
         }
 
         .tracker-update {
-          color: #5B9BE1;
+          color: $main-color-200;
         }
 
         .tracker-save {
           margin-left: auto;
-          color: #5B9BE1;
+          color: $main-color-200;
         }
       }
     }

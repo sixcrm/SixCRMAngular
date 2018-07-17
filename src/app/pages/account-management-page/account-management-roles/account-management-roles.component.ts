@@ -8,7 +8,7 @@ import {RolesSharedService} from '../../../entity-services/services/roles-shared
 import {Acl} from '../../../shared/models/acl.model';
 import {MatDialog} from '@angular/material';
 import {RoleDialogComponent} from '../../../dialog-modals/role-dialog/role-dialog.component';
-import {DeleteDialogComponent} from '../../delete-dialog.component';
+import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {Router} from '@angular/router';
 import {AccountsService} from '../../../entity-services/services/accounts.service';

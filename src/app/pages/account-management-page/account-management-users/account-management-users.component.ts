@@ -9,7 +9,7 @@ import {RolesSharedService} from '../../../entity-services/services/roles-shared
 import {Role} from '../../../shared/models/role.model';
 import {AclsService} from '../../../entity-services/services/acls.service';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
-import {DeleteDialogComponent} from '../../delete-dialog.component';
+import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
 import {MatDialog} from '@angular/material';
 import {InviteDialogComponent} from '../../../dialog-modals/invite-dialog/invite-dialog.component';
 import {UsersService} from '../../../entity-services/services/users.service';

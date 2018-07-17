@@ -10,14 +10,14 @@ import {
   TableMemoryTextOptions, CustomMenuOption,
   CustomMenuOptionResult
 } from '../../components/table-memory/table-memory.component';
-import {AddUserAclDialogComponent} from '../../add-user-acl-dialog.component';
+import {AddUserAclDialogComponent} from '../../../dialog-modals/add-user-acl-dialog.component';
 import {Role} from '../../../shared/models/role.model';
 import {AclsService} from '../../../entity-services/services/acls.service';
 import {UsersService} from '../../../entity-services/services/users.service';
 import {User} from '../../../shared/models/user.model';
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
-import {MessageDialogComponent} from '../../message-dialog.component';
-import {InviteUserDialogComponent} from '../../invite-user-dialog.component';
+import {MessageDialogComponent} from '../../../dialog-modals/message-dialog.component';
+import {InviteUserDialogComponent} from '../../../dialog-modals/invite-user-dialog.component';
 import {AuthenticationService} from '../../../authentication/authentication.service';
 import {SnackbarService} from '../../../shared/services/snackbar.service';
 import {BillsService} from '../../../entity-services/services/bills.service';

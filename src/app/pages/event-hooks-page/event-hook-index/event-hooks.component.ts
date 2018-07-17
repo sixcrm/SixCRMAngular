@@ -3,6 +3,7 @@ import {TabHeaderElement} from '../../../shared/components/tab-header/tab-header
 import {EventHook} from '../../../shared/models/event-hook.model';
 import {Modes} from '../../abstract-entity-view.component';
 import {EventHooksService} from '../../../entity-services/services/event-hooks.service';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'event-hooks',
@@ -10,6 +11,8 @@ import {EventHooksService} from '../../../entity-services/services/event-hooks.s
   styleUrls: ['./event-hooks.component.scss']
 })
 export class EventHooksComponent implements OnInit, OnDestroy {
+
+  crumbItems: BreadcrumbItem[] = [{label: () => 'EVENTHOOK_INDEX_TITLE'}];
 
   tabHeaders: TabHeaderElement[] = [
     {name: 'custom', label: 'EVENTHOOK_TAB_CUSTOM'},

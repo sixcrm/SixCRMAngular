@@ -5,7 +5,7 @@
   </div>
 
   <div [class.invisible]="!loaded || (!reportsToDisplay || reportsToDisplay.length === 0)">
-    <chart style="display: block" [options]="chartOptions" (load)="saveChart($event.context)"></chart>
+    <chart class="fit-chart" style="display: block" [options]="chartOptions" (load)="saveChart($event.context)"></chart>
   </div>
   <chart style="display: block" *ngIf="!loaded" [options]="loaderOptions"></chart>
 

@@ -27,7 +27,6 @@ import {SimpleDropdownComponent} from './components/simple-dropdown/simple-dropd
 import { CreditCardFormatPipe } from './pipes/credit-card-format.pipe';
 import { CreditCardExpirationPipe } from './pipes/credit-card-expiration.pipe';
 import { InputCreditCardComponent } from './components/input-credit-card/input-credit-card.component';
-import { CreditCardMaskPipe } from './pipes/credit-card-mask.pipe';
 import { AutocompleteInputComponent } from './components/autocomplete-input/autocomplete-input.component';
 import { FilterStringsPipe } from './pipes/filter-strings.pipe';
 import { FilterEntitiesByFieldPipe } from './pipes/filter-entities-by-field.pipe';
@@ -53,7 +52,6 @@ import { TabHeaderComponent } from './components/tab-header/tab-header.component
 import { SearchInputComponent } from './components/search-input/search-input.component';
 import { FilterInputComponent } from './components/filter-input/filter-input.component';
 import { SpeLoaderBodyComponent } from './components/spe-loader-body/spe-loader-body.component';
-import {SpeLoaderHeaderBreadcrumbComponent} from './components/spe-loader-breadcrumb/spe-loader-breadcrumb.component';
 import { SpeLoaderHeaderComponent } from './components/spe-loader-header/spe-loader-header.component';
 import { SpeLoaderBlueHeaderComponent } from './components/spe-loader-blue-header/spe-loader-blue-header.component';
 import {VisibleYDirective} from './directives/visible-y.directive';
@@ -87,7 +85,6 @@ import {NotificationsQuickService} from './services/notifications-quick.service'
     CreditCardFormatPipe,
     CreditCardExpirationPipe,
     InputCreditCardComponent,
-    CreditCardMaskPipe,
     AutocompleteInputComponent,
     FilterStringsPipe,
     FilterEntitiesByParamsPipe,
@@ -107,7 +104,6 @@ import {NotificationsQuickService} from './services/notifications-quick.service'
     SearchInputComponent,
     FilterInputComponent,
     SpeLoaderBodyComponent,
-    SpeLoaderHeaderBreadcrumbComponent,
     SpeLoaderHeaderComponent,
     SpeLoaderBlueHeaderComponent,
     MultiselectComponent,
@@ -135,7 +131,6 @@ import {NotificationsQuickService} from './services/notifications-quick.service'
     DropdownComponent,
     CreditCardExpirationPipe,
     InputCreditCardComponent,
-    CreditCardMaskPipe,
     ComingSoonComponent,
     AutocompleteInputComponent,
     FilterStringsPipe,
