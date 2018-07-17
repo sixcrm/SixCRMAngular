@@ -9,7 +9,6 @@
 @import "assets/scss/_forms.scss";
 @import "assets/scss/_entity-index.scss";
 @import "assets/scss/_entity-view.scss";
-@import "assets/scss/_mixins.scss";
 @import "assets/scss/_tab.scss";
 @import "assets/scss/_menu.scss";
 @import "assets/scss/_dashboard.scss";
@@ -23,7 +22,6 @@
 @import "assets/scss/_reports-table.scss";
 @import "assets/scss/_tracker-view.scss";
 @import "assets/scss/_dialogs.scss";
-@import "assets/scss/_buttons.scss";
 @import "assets/scss/_registration.scss";
 @import "assets/scss/_login.scss";
 @import "assets/scss/_charts.scss";
@@ -36,11 +34,12 @@
 ***************/
 
 body {
-  @include font-body();
-
   margin: 0 !important;
 
   -webkit-font-smoothing: antialiased;
+
+  font-size: 14pt;
+  font-weight: 400;
 
   ::-webkit-scrollbar {
     width: 0.4em;

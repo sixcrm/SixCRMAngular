@@ -11,11 +11,9 @@ import {
   productScheduleListQuery
 } from '../../../../shared/utils/queries/entities/product-schedule.queries';
 import {CustomServerError} from '../../../../shared/models/errors/custom-server-error';
-import {AddProductScheduleDialogComponent} from '../../../add-product-schedule-dialog.component';
 import {Currency} from '../../../../shared/utils/currency/currency';
-import {Schedule} from '../../../../shared/models/schedule.model';
 import {IndexQueryParameters} from '../../../../shared/utils/queries/index-query-parameters.model';
-import {MatDialog, MatDialogRef} from '@angular/material';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'product-product-schedules',
@@ -26,8 +24,6 @@ export class ProductProductSchedulesComponent extends AbstractEntityIndexCompone
 
   @Input() id: string;
   @Input() defaultPrice: Currency = new Currency(0);
-
-  private addProductScheduleDialog: MatDialogRef<AddProductScheduleDialogComponent>;
 
   constructor(
     productScheduleService: ProductScheduleService,
@@ -67,29 +63,5 @@ export class ProductProductSchedulesComponent extends AbstractEntityIndexCompone
     });
 
     this.service.updateEntity(productSchedule);
-  }
-
-  showAddProductScheduleModal() {
-    this.service.indexQuery = productScheduleListQuery;
-    this.addProductScheduleDialog = this.deleteDialog.open(AddProductScheduleDialogComponent);
-    this.addProductScheduleDialog.componentInstance.scheduleToAdd = new Schedule({price: this.defaultPrice.amount});
-    this.addProductScheduleDialog.componentInstance.productId = this.id;
-
-    this.addProductScheduleDialog.afterClosed().take(1).subscribe(result => {
-      this.service.indexQuery = (params: IndexQueryParameters) => productSchedulesByProduct(this.id, params);
-      this.addProductScheduleDialog = null;
-
-      if (result && result.id) {
-        this.service.entityUpdated$.take(1).takeUntil(this.unsubscribe$).subscribe(entity => {
-          if (entity instanceof CustomServerError) return;
-
-          this.entitiesHolder.unshift(entity);
-          this.allEntities.emit(this.entitiesHolder);
-          this.reshuffleEntities();
-        });
-
-        this.service.updateEntity(result)
-      }
-    });
   }
 }

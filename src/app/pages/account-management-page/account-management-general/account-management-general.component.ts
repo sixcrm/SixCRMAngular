@@ -13,7 +13,7 @@ import {Customer} from '../../../shared/models/customer.model';
 import {getPhoneNumberMask} from '../../../shared/utils/mask.utils';
 import {isValidEmail} from '../../../shared/utils/form.utils';
 import {AddCreditCardDialogComponent} from '../../../dialog-modals/add-credit-card-dialog/add-credit-card-dialog.component';
-import {DeleteDialogComponent} from '../../delete-dialog.component';
+import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({

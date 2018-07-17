@@ -1,9 +1,0 @@
-<div class="entity__nav">
-  <mat-icon class="entity__nav__close" (click)="close.emit(true)">arrow_forward</mat-icon>
-  <mat-icon class="entity__nav__more" [matMenuTriggerFor]="topnavMenu">more_vert</mat-icon>
-  <mat-icon *ngIf="service.hasWritePermission()" class="entity__nav__add">add</mat-icon>
-
-  <mat-menu #topnavMenu="matMenu">
-    <button *ngIf="service.hasWritePermission() && mode !== 'add'" (click)="deleteEntity()" mat-menu-item>delete</button>
-  </mat-menu>
-</div>

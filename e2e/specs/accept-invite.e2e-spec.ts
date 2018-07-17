@@ -3,7 +3,7 @@ import {browser} from 'protractor';
 import {createTestAuth0JWT} from '../utils/jwt.utils';
 import {sendInvite} from '../utils/graph.utils';
 import {AcceptInvitePage} from '../po/accept-invite.po';
-import {waitForUrlContains} from '../utils/navigation.utils';
+import {waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
 import {ErrorPage} from '../po/error-page.po';
 import {expectUrlToContain, expectPresent} from '../utils/assertation.utils';
 import {TopnavPage} from '../po/topnav.po';
@@ -37,6 +37,11 @@ describe('Accept Invite', function () {
     termsAndConditionsPage = new TermsAndConditionsPage();
 
     browser.waitForAngularEnabled(true);
+  });
+
+  afterAll(() => {
+    clearLocalStorage();
+    browser.restart();
   });
 
   it('should send proper invite for user', (doneCallback) => {
@@ -74,13 +79,13 @@ describe('Accept Invite', function () {
   it('should accept invite and proceed to auth0 sign up', () => {
     browser.waitForAngularEnabled(false);
     acceptInvitePage.getAcceptButton().click();
-    browser.sleep(5000);
     waitForUrlContains('/signup');
     expectUrlToContain('/signup');
   });
 
   it('should fill sign up info and proceed', () => {
     browser.waitForAngularEnabled(false);
+    browser.sleep(5000);
     acceptInvitePage.getInputs().first().sendKeys(newEmail);
     acceptInvitePage.getInputs().last().sendKeys(newPassword);
     browser.sleep(500);

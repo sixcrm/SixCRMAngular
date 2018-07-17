@@ -5,7 +5,7 @@ import {AccessKeysService} from '../../../entity-services/services/access-keys.s
 import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
-import {DeleteDialogComponent} from '../../delete-dialog.component';
+import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
 import {AccessKeysDialogComponent} from '../../../dialog-modals/access-keys-dialog/access-keys-dialog.component';
 import {Account} from '../../../shared/models/account.model';

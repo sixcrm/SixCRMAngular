@@ -50,7 +50,7 @@ $title-color: #8D8888;
       left: 0;
       width: 100%;
       height: 60px;
-      background-color: #1976D2;
+      background-color: $main-color-400;
       color: white;
 
       span {
@@ -79,7 +79,7 @@ $title-color: #8D8888;
       display: flex;
       align-items: center;
       height: 0;
-      background: #4A90E2;
+      background: $main-color-400;
       transition: height 150ms ease-in-out;
 
       &--visible {
@@ -266,13 +266,6 @@ $title-color: #8D8888;
         margin: 0;
       };
     }
-  }
-}
-
-.invoice-table {
-  .entity-index__pagination__buttons {
-    margin-top: 0;
-    padding: 0;
   }
 }
 

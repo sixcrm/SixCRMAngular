@@ -25,6 +25,11 @@ describe('Login', function() {
     browser.driver.manage().window().setSize(1440, 900);
   });
 
+  afterAll(() => {
+    clearLocalStorage();
+    browser.restart();
+  });
+
   it ('should fail login when wrong email and password are used', () => {
     authPage.navigateTo();
     waitForPresenceOfLoginFields(authPage);
