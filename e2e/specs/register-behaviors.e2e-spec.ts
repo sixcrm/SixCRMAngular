@@ -34,6 +34,7 @@ describe('Register with behaviors', function() {
     browser.waitForAngularEnabled(true);
 
     clearLocalStorage();
+    browser.restart();
   });
 
   beforeAll(() => {

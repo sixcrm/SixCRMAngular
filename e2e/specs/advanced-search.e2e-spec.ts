@@ -28,6 +28,7 @@ describe('Advanced search', function() {
 
   afterAll(() => {
     clearLocalStorage();
+    browser.restart();
   });
 
   it('should navigate to advanced search page', () => {

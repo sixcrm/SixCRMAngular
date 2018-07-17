@@ -1,7 +1,5 @@
 <div class="entity-index">
-  <div class="entity-index__title">
-    {{'EVENTHOOK_INDEX_TITLE' | translate}}
-  </div>
+  <blue-header [items]="crumbItems" [titleValue]="'EVENTHOOK_INDEX_TITLE'"></blue-header>
 
   <tab-header [elements]="tabHeaders" [selectedIndex]="selectedIndex" (select)="setIndex($event)"></tab-header>
 

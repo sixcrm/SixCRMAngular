@@ -32,6 +32,7 @@ describe('Search', function() {
 
   afterAll(() => {
     clearLocalStorage();
+    browser.restart();
   });
 
   it('should navigate to search page', () => {

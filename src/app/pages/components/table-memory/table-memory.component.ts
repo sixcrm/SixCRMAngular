@@ -1,8 +1,8 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {ColumnParams} from '../../../shared/models/column-params.model';
-import {AssociateDialogComponent} from '../../associate-dialog.component';
+import {AssociateDialogComponent} from '../../../dialog-modals/associate-dialog.component';
 import {firstIndexOf} from '../../../shared/utils/array.utils';
-import {DeleteDialogComponent} from '../../delete-dialog.component';
+import {DeleteDialogComponent} from '../../../dialog-modals/delete-dialog.component';
 import {MatDialogRef, MatDialog} from '@angular/material';
 export interface TableMemoryTextOptions {
   title?: string,

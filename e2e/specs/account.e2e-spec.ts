@@ -1,4 +1,4 @@
-import {waitForUrlContains} from '../utils/navigation.utils';
+import {waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
 import {SidenavPage} from '../po/sidenav.po';
 import {browser} from 'protractor';
@@ -28,6 +28,11 @@ describe('Accounts', function() {
     browser.get('/');
     login();
     waitForUrlContains('dashboard');
+  });
+
+  afterAll(() => {
+    clearLocalStorage();
+    browser.restart();
   });
 
   it('should navigate to accounts page', () => {

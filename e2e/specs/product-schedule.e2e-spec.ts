@@ -25,6 +25,11 @@ describe('Product Schedules', function() {
     tosCheck(done);
   });
 
+  afterAll(() => {
+    clearLocalStorage();
+    browser.restart();
+  });
+
   it('should navigate to products page', () => {
     const sidenav = new SidenavPage();
     sidenav.getLink(12).click();

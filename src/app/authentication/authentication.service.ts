@@ -16,19 +16,20 @@ import {
 } from '../shared/services/http-wrapper.service';
 import {HttpResponse} from '@angular/common/http';
 import {Account} from '../shared/models/account.model';
-import {YesNoDialogComponent} from '../pages/yes-no-dialog.component';
+import {YesNoDialogComponent} from '../dialog-modals/yes-no-dialog.component';
 import {UserSettings} from '../shared/models/user-settings';
 import {updateAccountForRegistrationMutation} from '../shared/utils/queries/entities/account.queries';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import {AcknowledgeInvite} from '../shared/models/acknowledge-invite.model';
 import {CustomServerError} from '../shared/models/errors/custom-server-error';
 import {utc} from 'moment';
-import Auth0Lock from 'auth0-lock';
+import * as auth0 from 'auth0-js';
 
 @Injectable()
 export class AuthenticationService {
 
-  private lock: Auth0Lock;
+  private auth;
+
   private redirectUrl: string = 'redirect_url';
   private accessToken: string = 'access_token';
   private idToken: string = 'id_token';
@@ -76,44 +77,30 @@ export class AuthenticationService {
 
   }
 
-  private initLock(signup?: boolean) {
+  private initLock() {
     const options = {
-      auth: {
-        redirectUrl: environment.auth0RedirectUrl,
-        responseType: 'token',
-        params: {
-          scope: 'openid email name given_name family_name user_metadata app_metadata picture'
-        }
-      },
-      closeable: false,
-      theme: {
-        logo: '/assets/images/' + (environment.branding ? environment.branding.registrationLogo : 'logo-navigation.svg')
-      },
-      languageDictionary: {
-        title: ''
-      },
-      rememberLastLogin: false
+      clientID: environment.clientID,
+      domain: environment.domain,
+      responseType: 'token',
+      redirectUri: environment.auth0RedirectUrl,
+      scope: 'openid email name given_name family_name user_metadata app_metadata picture'
     };
 
-    if (signup) {
-      options['initialScreen'] = 'signUp';
-    }
+    this.auth = new auth0.WebAuth(options);
 
-    this.lock = new Auth0Lock(
-      environment.clientID,
-      environment.domain,
-      options
-    );
+    this.auth.parseHash((err, authResult) => {
+      if (authResult && authResult.accessToken && authResult.idToken) {
+        let sub = this.activeAcl$.subscribe(acl => {
+          if (acl && acl.id) {
+            this.newSessionStarted$.next(true);
+            sub.unsubscribe();
+          }
+        });
 
-    this.lock.on('authenticated', (authResult) => {
-      let sub = this.activeAcl$.subscribe(acl => {
-        if (acl && acl.id) {
-          this.newSessionStarted$.next(true);
-          sub.unsubscribe();
-        }
-      });
-
-      this.setUser(authResult);
+        this.setUser(authResult);
+      } else if (err) {
+        this.logout()
+      }
     });
   }
 
@@ -180,8 +167,8 @@ export class AuthenticationService {
   }
 
   public showLogin(): void {
-    this.initLock(this.router.url === '/signup');
-    this.lock.show();
+    this.initLock();
+    this.auth.authorize({login_hint: this.router.url === '/signup' ? 'signUp' : '', env: environment.name});
   }
 
   public logout(redirectUrl?: string): void {
@@ -191,13 +178,13 @@ export class AuthenticationService {
       localStorage.removeItem(this.redirectUrl);
     }
 
-    this.router.navigate(['/']);
-
     localStorage.removeItem(this.accessToken);
     localStorage.removeItem(this.idToken);
     localStorage.removeItem(this.activated);
     localStorage.removeItem(this.idTokenPayload);
     localStorage.removeItem(this.sixUser);
+
+    this.auth.logout({returnTo: environment.auth0RedirectUrl});
   }
 
   public logoutToSignup(): void {
@@ -207,7 +194,7 @@ export class AuthenticationService {
     localStorage.removeItem(this.idTokenPayload);
     localStorage.removeItem(this.sixUser);
 
-    this.router.navigate(['/signup']);
+    this.auth.logout({returnTo: environment.auth0RedirectUrl + '/signup'});
   }
 
   public logoutWithJwt(jwt: string, url: string): void {

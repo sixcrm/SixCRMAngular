@@ -34,6 +34,11 @@ describe('Customers', function() {
     waitForUrlContains('dashboard');
   });
 
+  afterAll(() => {
+    clearLocalStorage();
+    browser.restart();
+  });
+
   it('should navigate to customers index page', () => {
     new SidenavPage().getLink(11).click();
     browser.sleep(200);

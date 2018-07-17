@@ -27,6 +27,11 @@ describe('SMTP Provider', function() {
     waitForUrlContains('dashboard');
   });
 
+  afterAll(() => {
+    clearLocalStorage();
+    browser.restart();
+  });
+
   it('should navigate to providers page', () => {
     const sidenav = new SidenavPage();
     sidenav.getLink(17).click();
