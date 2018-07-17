@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Notification} from '../../shared/models/notification.model';
 import {AuthenticationService} from '../../authentication/authentication.service';
-import {Subscription, Subject} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {utc} from 'moment';
 import {NotificationsQuickService} from '../../shared/services/notifications-quick.service';
 
@@ -19,8 +19,6 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
   sessionSub: Subscription;
   notificationsSub: Subscription;
   aclSub: Subscription;
-
-  notificationsFiltered$: Subject<boolean> = new Subject();
 
   billingDisabledAlready: boolean;
 
@@ -126,8 +124,6 @@ export class PersistentNotificationsQuickComponent implements OnInit, OnDestroy 
 
     const filtered = this.persistentNotificationsToShow.filter(n => hiddenNotifications.indexOf(n.id) === -1);
     this.filteredPersistentNotification = filtered && filtered.length > 0 ? filtered[0] : undefined;
-
-    this.notificationsFiltered$.next(true);
   }
 
   ngOnDestroy() {

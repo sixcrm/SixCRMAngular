@@ -19,6 +19,7 @@ import {OrdersModule} from '../orders/orders.module';
 import {MaterialSelectionModule} from '../material-selection/material-selection.module';
 import {ClipboardModule} from 'ngx-clipboard';
 import {EntityServicesModule} from '../entity-services/entity-services.module';
+import { NavigationMenuComponent } from './navigation-menu/navigation-menu.component';
 
 @NgModule({
   imports : [
@@ -42,7 +43,8 @@ import {EntityServicesModule} from '../entity-services/entity-services.module';
     ProfileDropdownComponent,
     AlertsQuickComponent,
     PersistentNotificationsQuickComponent,
-    TopnavDropdownComponent
+    TopnavDropdownComponent,
+    NavigationMenuComponent
   ],
   exports : [
     SidenavComponent,
