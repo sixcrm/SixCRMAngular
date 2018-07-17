@@ -24,6 +24,11 @@ describe('Affiliates', function() {
     waitForUrlContains('dashboard');
   });
 
+  afterAll(() => {
+    clearLocalStorage();
+    browser.restart();
+  });
+
   it('should navigate to affiliates page', () => {
     const sidenav = new SidenavPage();
     sidenav.getLink(17).click();

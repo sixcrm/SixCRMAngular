@@ -25,6 +25,11 @@ describe('Campaigns', function() {
     tosCheck(done);
   });
 
+  afterAll(() => {
+    clearLocalStorage();
+    browser.restart();
+  });
+
   it('should navigate to campaigns page', () => {
     const sidenav = new SidenavPage();
     sidenav.getLink(12).click();

@@ -1,4 +1,4 @@
-import {waitForUrlContains, navigateSuperuserToHomepage} from '../utils/navigation.utils';
+import {waitForUrlContains, navigateSuperuserToHomepage, clearLocalStorage} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
 import {SidenavPage} from '../po/sidenav.po';
 import {browser} from 'protractor';
@@ -25,6 +25,8 @@ describe('Session', function() {
 
   afterAll(() => {
     browser.waitForAngularEnabled(false);
+    clearLocalStorage();
+    browser.restart();
   });
 
   it('should navigate to sessions page', () => {

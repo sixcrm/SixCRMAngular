@@ -1,7 +1,7 @@
-import {waitForUrlContains, navigateSuperuserToHomepage} from '../utils/navigation.utils';
+import {waitForUrlContains, navigateSuperuserToHomepage, clearLocalStorage} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
 import {SidenavPage} from '../po/sidenav.po';
-import {browser, element} from 'protractor';
+import {browser} from 'protractor';
 import {expectUrlToContain, expectDefined, expectPresent} from '../utils/assertation.utils';
 import {EntityViewPage} from '../po/entity-view.po';
 
@@ -22,6 +22,11 @@ describe('Users', function() {
     browser.waitForAngularEnabled(false);
     navigateSuperuserToHomepage();
     waitForUrlContains('dashboard');
+  });
+
+  afterAll(() => {
+    clearLocalStorage();
+    browser.restart();
   });
 
   it('should navigate to accounts page', () => {

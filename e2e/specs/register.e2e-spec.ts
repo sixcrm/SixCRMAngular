@@ -31,6 +31,7 @@ describe('Register', function() {
     browser.waitForAngularEnabled(true);
 
     clearLocalStorage();
+    browser.restart();
   });
 
   beforeAll(() => {
