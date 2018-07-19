@@ -1,6 +1,6 @@
 import {waitForUrlContains, clearLocalStorage, waitForPresenceOf} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
-import {SidenavPage} from '../po/sidenav.po';
+import {NavPage} from '../po/nav.po';
 import {login, tosCheck} from '../utils/action.utils';
 import {browser} from 'protractor';
 import {expectUrlToContain, expectDefined} from '../utils/assertation.utils';
@@ -34,10 +34,9 @@ describe('Merchant Provider Group', function() {
   });
 
   it('should navigate to merchantProviderGroup page', () => {
-    const sidenav = new SidenavPage();
-    sidenav.getLink(12).click();
-    browser.sleep(500);
-    sidenav.getLink(22).click();
+    const nav = new NavPage();
+    nav.getNavToggler().click();
+    nav.getLink(1).click();
     waitForUrlContains('merchantprovidergroup');
     expectUrlToContain('merchantprovidergroup');
   });

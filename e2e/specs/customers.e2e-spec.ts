@@ -4,7 +4,7 @@ import { generateUUID } from '../../src/app/shared/utils/queries/entities/entiti
 import { AppPage } from '../po/app.po';
 import { CustomerPage } from '../po/customer.po';
 import { EntityIndexPage } from '../po/entity-index.po';
-import { SidenavPage } from '../po/sidenav.po';
+import { NavPage } from '../po/nav.po';
 import { login } from '../utils/action.utils';
 import { expectDefined, expectUrlToContain } from '../utils/assertation.utils';
 import {
@@ -40,7 +40,9 @@ describe('Customers', function() {
   });
 
   it('should navigate to customers index page', () => {
-    new SidenavPage().getLink(11).click();
+    const nav = new NavPage();
+    nav.getNavToggler().click();
+    nav.getLink(1).click();
     browser.sleep(200);
     waitForUrlContains('customers');
   });

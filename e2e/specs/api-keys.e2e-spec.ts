@@ -2,13 +2,13 @@ import { browser } from 'protractor';
 
 import { EntityIndexPage } from '../po/entity-index.po';
 import { ProfilePage } from '../po/profile.po';
-import { SidenavPage } from '../po/sidenav.po';
+import { NavPage } from '../po/nav.po';
 import { login } from '../utils/action.utils';
 import { clearLocalStorage, waitForElementToBeClickable, waitForUrlContains, waitForVisibilityOf } from '../utils/navigation.utils';
 import { AccountPage } from '../po/account.po';
 
 describe('API Keys', function() {
-  const sidenavPage = new SidenavPage();
+  const nav = new NavPage();
   const page = new EntityIndexPage();
   const profilePage = new ProfilePage();
   const accountPage = new AccountPage();
@@ -28,12 +28,8 @@ describe('API Keys', function() {
   });
 
   it('should navigate to signing strings page', () => {
-    waitForElementToBeClickable(sidenavPage.getLink(29));
-    sidenavPage.getLink(29).click();
-    waitForElementToBeClickable(sidenavPage.getLink(32));
-    sidenavPage.getLink(32).click();
-    waitForElementToBeClickable(sidenavPage.getLink(33));
-    sidenavPage.getLink(33).click();
+    nav.getNavToggler().click();
+    nav.getLink(21).click();
     waitForUrlContains('profile#signingstrings');
   });
 
@@ -83,8 +79,8 @@ describe('API Keys', function() {
   });
 
   it('should navigate to access keys page', () => {
-    waitForElementToBeClickable(sidenavPage.getLink(34));
-    sidenavPage.getLink(34).click();
+    nav.getNavToggler().click();
+    nav.getLink(21).click();
     waitForUrlContains('#accesskeys');
   });
 

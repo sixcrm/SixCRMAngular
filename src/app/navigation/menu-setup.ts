@@ -153,6 +153,9 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
 
   const settings: NavigationMenuItem = { label: 'Account', icon: 'work', children: [ ] };
 
+  if ((authService.hasPermissions('account', 'read') || authService.isBillingDisabled())) {
+    settings.children.push({label: 'General', url: 'accountmanagement/general'});
+  }
   if ((authService.hasPermissions('billing', 'read') || authService.isBillingDisabled())) {
     settings.children.push({label: 'Billing', url: 'accountmanagement/billing'});
   }

@@ -1,6 +1,6 @@
 import {waitForUrlContains, navigateSuperuserToHomepage, clearLocalStorage} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
-import {SidenavPage} from '../po/sidenav.po';
+import {NavPage} from '../po/nav.po';
 import {browser} from 'protractor';
 import {expectUrlToContain, expectDefined, expectNotPresent} from '../utils/assertation.utils';
 import {EntityViewPage} from '../po/entity-view.po';
@@ -31,10 +31,9 @@ describe('Transactions', function() {
   });
 
   it('should navigate to transactions page', () => {
-    const sidenav = new SidenavPage();
-    sidenav.getLink(12).click();
-    browser.sleep(500);
-    sidenav.getLink(20).click();
+    const nav = new NavPage();
+    nav.getNavToggler().click();
+    nav.getLink(7).click();
     waitForUrlContains('transaction');
     expectUrlToContain('transaction');
   });

@@ -6,7 +6,7 @@ import {
 } from '../utils/assertation.utils';
 import {AppPage} from '../po/app.po';
 import {waitForNotPresenceOf, waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
-import {SidenavPage} from '../po/sidenav.po';
+import {NavPage} from '../po/nav.po';
 
 describe('Dashboard', function() {
   let dashboard: DashboardPage;
@@ -32,11 +32,7 @@ describe('Dashboard', function() {
   it('should navigate to dashboard after login', () => {
     expectUrlToContain('dashboard');
   });
-  /*
-  it('should display advanced filter component', () => {
-    expect(dashboard.getAdvancedFilterComponent()).toBeDefined();
-  });
-  */
+
   it('should display all chart component', () => {
     expectDefined(dashboard.getDashboardReports());
     expectDefined(dashboard.getEventsBy());
@@ -55,7 +51,9 @@ describe('Dashboard', function() {
   });
 
   it('should cache dashboard results', () => {
-    const sidenav = new SidenavPage();
+    const nav = new NavPage();
+    nav.getNavToggler().click();
+    nav.getLink(0).click();
 
     sidenav.getItems().get(2).click();
     browser.sleep(500);
