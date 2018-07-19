@@ -53,4 +53,7 @@ export class ProductPage {
     return element(by.css('.mat-card-actions')).element(by.css('div'));
   }
 
+  getConfirmDeleteButton() {
+    return element(by.css('.custom-dialog__buttons')).all(by.css('div')).last();
+  }
 }

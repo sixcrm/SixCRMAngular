@@ -105,14 +105,8 @@ describe('Products', function() {
   });
 
   it('should go to products details', () => {
-    const nav = new NavPage();
-    productPage.getDeletionModalButton().click();
-    nav.getNavToggler().click();
-    nav.getLink(13).click();
-    browser.sleep(1200);
+    productPage.getConfirmDeleteButton().click();
     waitForUrlContains('products');
-    productPage.getProductFromTable(0).click();
-    browser.sleep(500);
     expectUrlToContain('products');
   });
 
