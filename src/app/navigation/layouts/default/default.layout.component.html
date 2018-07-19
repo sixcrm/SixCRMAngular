@@ -5,7 +5,7 @@
 <div>
   <header>
     <app-topnav [isInvitedUser]="isInvitedUser" (invitedUserInstructionsDismissed)="isInvitedUser = false"></app-topnav>
-    <navigation-menu *ngIf="navigation.showSidenav | async"></navigation-menu>
+    <navigation-menu *ngIf="navigation.showNavMenu | async"></navigation-menu>
   </header>
 
   <div class="container">

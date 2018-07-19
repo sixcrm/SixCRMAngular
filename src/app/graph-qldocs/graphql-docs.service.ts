@@ -32,8 +32,6 @@ export class GraphqlDocsService {
 
   private schemaFetched: boolean = false;
 
-  private fullWidth: BehaviorSubject<boolean> = new BehaviorSubject(false);
-
   constructor(private http: HttpWrapperService, private route: ActivatedRoute) { }
 
   navigateByAnchor() {
@@ -61,14 +59,6 @@ export class GraphqlDocsService {
     }
 
     return this.parsedSchema$;
-  }
-
-  public getFullWidth(): BehaviorSubject<boolean> {
-    return this.fullWidth;
-  }
-
-  public setFullWidth(value: boolean) {
-    this.fullWidth.next(value);
   }
 
   private parseSchemaTypes(data: Type[]): {types: Type[], searchItems: SearchItem[]} {

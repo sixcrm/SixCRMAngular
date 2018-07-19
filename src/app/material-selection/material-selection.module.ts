@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import {
   MatInputModule, MatCardModule, MatIconModule, MatTabsModule, MatCheckboxModule,
   MatDialogModule, MatProgressBarModule, MatProgressSpinnerModule, MatSnackBarModule, MatTooltipModule,
-  MatMenuModule, MatToolbarModule, MatListModule, MatSidenavModule, MatButtonModule, MatFormFieldModule,
+  MatMenuModule, MatToolbarModule, MatListModule, MatButtonModule, MatFormFieldModule,
   MatSlideToggleModule, MatExpansionModule, MatAutocompleteModule, MatChipsModule, MatRadioModule
 } from '@angular/material';
 
@@ -24,7 +24,6 @@ import {
     MatMenuModule,
     MatToolbarModule,
     MatListModule,
-    MatSidenavModule,
     MatExpansionModule,
     MatAutocompleteModule,
     MatChipsModule,
@@ -47,7 +46,6 @@ import {
     MatMenuModule,
     MatToolbarModule,
     MatListModule,
-    MatSidenavModule,
     MatExpansionModule,
     MatAutocompleteModule,
     MatChipsModule,

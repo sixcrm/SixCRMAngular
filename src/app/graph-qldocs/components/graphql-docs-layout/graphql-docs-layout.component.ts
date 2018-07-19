@@ -12,9 +12,6 @@ export class GraphqlDocsLayoutComponent implements OnInit {
 
   @Input() endpoint: string;
   @Input() headers: HeadersInput[];
-  @Input() set showSidenav(value: boolean) {
-    this.graphqlService.setFullWidth(!value);
-  };
 
   @Output() types: Type[];
 

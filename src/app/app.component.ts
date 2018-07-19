@@ -1,11 +1,11 @@
 import {Component, ElementRef, OnInit, HostListener} from '@angular/core';
 import {NavigationService} from './navigation/navigation.service';
 import {TranslationService} from './translation/translation.service';
-import {Router, Event, NavigationStart, NavigationEnd} from '@angular/router';
-import 'hammerjs';
-import 'rxjs/Rx';
+import {Router, Event, NavigationEnd} from '@angular/router';
 import {ProcessingDialogComponent} from './dialog-modals/processing-dialog/processing-dialog.component';
 import {MatDialogRef, MatDialog} from '@angular/material';
+import 'hammerjs';
+import 'rxjs/Rx';
 
 @Component({
   selector : 'app-root',
@@ -26,12 +26,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this._router.events.subscribe((event: Event) => {
-      if(event instanceof NavigationStart) {
-        if(this._navigation.mediumScreenAndDown) {
-          this._navigation.toggleSidenav(false); // Hide nav on initial load if smaller than large screen
-        }
-      } else if(event instanceof NavigationEnd) {
-        this._navigation.setCurrentRoute((<NavigationEnd>event).urlAfterRedirects);
+      if(event instanceof NavigationEnd) {
         let routerOutletComponent: HTMLElement = this._elementRef.nativeElement.getElementsByTagName('app-topnav')[0];
         if(routerOutletComponent) {
           routerOutletComponent.scrollIntoView(); // Scroll back to top after route change

@@ -2,11 +2,9 @@ import {NgModule, ModuleWithProviders} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {SidenavComponent} from './sidenav/sidenav.component';
 import {TopnavComponent} from './topnav/topnav.component';
 import {SharedModule} from '../shared/shared.module';
 import {NavigationService} from './navigation.service';
-import {SidenavItemComponent} from './sidenav/sidenav-item/sidenav-item.component';
 import {DefaultLayoutComponent} from './layouts/default/default.layout.component';
 import {NotificationsQuickComponent} from './notifications-quick/notifications-quick.component';
 import { ProfileDropdownComponent } from './topnav/profile-dropdown/profile-dropdown.component';
@@ -20,6 +18,7 @@ import {MaterialSelectionModule} from '../material-selection/material-selection.
 import {ClipboardModule} from 'ngx-clipboard';
 import {EntityServicesModule} from '../entity-services/entity-services.module';
 import { NavigationMenuComponent } from './navigation-menu/navigation-menu.component';
+import { NavigationMenuItemComponent } from './navigation-menu/navigation-menu-item/navigation-menu-item.component';
 
 @NgModule({
   imports : [
@@ -35,22 +34,17 @@ import { NavigationMenuComponent } from './navigation-menu/navigation-menu.compo
     ClipboardModule
   ],
   declarations : [
-    SidenavComponent,
     TopnavComponent,
-    SidenavItemComponent,
     DefaultLayoutComponent,
     NotificationsQuickComponent,
     ProfileDropdownComponent,
     AlertsQuickComponent,
     PersistentNotificationsQuickComponent,
     TopnavDropdownComponent,
-    NavigationMenuComponent
+    NavigationMenuComponent,
+    NavigationMenuItemComponent
   ],
-  exports : [
-    SidenavComponent,
-    TopnavComponent,
-    DefaultLayoutComponent
-  ]
+  exports : [ DefaultLayoutComponent ]
 })
 export class NavigationModule {
   static forRoot(): ModuleWithProviders {
