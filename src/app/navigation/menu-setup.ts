@@ -115,6 +115,9 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
   if ((authService.hasPermissions('productschedule', 'read') || authService.isBillingDisabled())) {
     setup.children.push({label: 'Product Schedules', url: 'productschedules'});
   }
+  if ((authService.hasPermissions('emailtemplate', 'read') || authService.isBillingDisabled())) {
+    setup.children.push({label: 'Email Templates', url: 'emailtemplates'});
+  }
   if (setup.children.length > 0) {
     setup.children.unshift({label: 'Product Setup', isHeader: true});
 
@@ -131,6 +134,18 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
   }
   if (traffic.children.length > 0) {
     crmSection.items.push(traffic);
+  }
+
+  const merchants: NavigationMenuItem = { label: 'Merchants', children: [] };
+
+  if ((authService.hasPermissions('merchantprovider', 'read') || authService.isBillingDisabled())) {
+    merchants.children.push({label: 'Merchant Providers', url: 'merchantproviders'});
+  }
+  if ((authService.hasPermissions('merchantprovidergroup', 'read') || authService.isBillingDisabled())) {
+    merchants.children.push({label: 'Merchant Group', url: 'merchantprovidergroups'});
+  }
+  if (merchants.children.length > 0) {
+    crmSection.items.push(merchants);
   }
 
   const integrations: NavigationMenuItem = { label: '3rd Party Integrations', children: [] };

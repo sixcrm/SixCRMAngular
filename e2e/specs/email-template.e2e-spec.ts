@@ -36,7 +36,7 @@ describe('Email Template', function() {
   it('should navigate to email templates page', () => {
     const nav = new NavPage();
     nav.getNavToggler().click();
-    nav.getLink(1).click();
+    nav.getLink(15).click();
     waitForUrlContains('emailtemplates');
     expectUrlToContain('emailtemplates');
   });

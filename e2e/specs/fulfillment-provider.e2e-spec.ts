@@ -35,7 +35,7 @@ describe('Fulfillment Provider', function() {
   it('should navigate to providers page', () => {
     const nav = new NavPage();
     nav.getNavToggler().click();
-    nav.getLink(17).click();
+    nav.getLink(20).click();
     waitForUrlContains('fulfillmentproviders');
     expectUrlToContain('fulfillmentproviders');
   });

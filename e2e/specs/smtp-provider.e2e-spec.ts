@@ -35,7 +35,7 @@ describe('SMTP Provider', function() {
   it('should navigate to providers page', () => {
     const nav = new NavPage();
     nav.getNavToggler().click();
-    nav.getLink(18).click();
+    nav.getLink(21).click();
     waitForUrlContains('smtpproviders');
     expectUrlToContain('smtpproviders');
   });
