@@ -63,6 +63,7 @@ import { PaymentFormComponent } from './components/payment-form/payment-form.com
 import {ClipboardModule} from 'ngx-clipboard';
 import {FeatureFlagService} from './services/feature-flag.service';
 import {NotificationsQuickService} from './services/notifications-quick.service';
+import { FilterTableComponent } from './components/filter-table/filter-table.component';
 
 @NgModule({
   declarations : [
@@ -110,7 +111,8 @@ import {NotificationsQuickService} from './services/notifications-quick.service'
     CurrencyInputDirective,
     VisibleYDirective,
     DragScrollXDirective,
-    PaymentFormComponent
+    PaymentFormComponent,
+    FilterTableComponent
   ],
   exports : [
     AutocompleteComponent,
@@ -153,7 +155,8 @@ import {NotificationsQuickService} from './services/notifications-quick.service'
     CurrencyInputDirective,
     VisibleYDirective,
     DragScrollXDirective,
-    PaymentFormComponent
+    PaymentFormComponent,
+    FilterTableComponent
   ],
   imports : [
     FormsModule,

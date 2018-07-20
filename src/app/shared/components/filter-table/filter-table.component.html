@@ -1,0 +1,53 @@
+<div class="container">
+
+  <div class="header">
+    <div class="date"></div>
+
+    <div class="filters"></div>
+
+    <div class="options">
+      <div>Filters</div>
+      <div>Columns</div>
+      <div>Settings</div>
+    </div>
+
+  </div>
+
+  <div>
+
+    <div [style.width]="getHeaderWidthByElement(head)">
+      <div>
+        <div [style.width]="getHeaderWidthByElement(bulkheader)" class="bulk-header"></div>
+        <ng-container *ngFor="let params of columnParams;">
+          <div [style.width]="getHeaderWidth(params)">
+            {{params.label | translate}}
+          </div>
+        </ng-container>
+        <th [style.width]="getHeaderWidthByElement(actionsheader)"></th>
+      </div>
+    </div>
+
+
+    <table>
+      <thead>
+        <th #bulkheader></th>
+        <th #originalheader *ngFor="let param of columnParams">
+          {{param.label | translate}}
+        </th>
+        <th #actionsheader></th>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of items">
+          <td></td>
+          <td *ngFor="let param of columnParams">
+            {{param.mappingFunction(item)}}
+          </td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
