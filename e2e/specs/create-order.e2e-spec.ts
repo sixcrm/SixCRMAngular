@@ -74,7 +74,7 @@ describe('New Order', function() {
 
   it('should add address', () => {
     createOrderPage.getNewAddressInputs().get(0).sendKeys('1 test');
-    createOrderPage.getNewAddressInputs().get(1).sendKeys('2 test');
+    createOrderPage.getNewAddressInputs().get(1).sendKeys('line two');
     createOrderPage.getNewAddressInputs().get(2).sendKeys('New York');
     createOrderPage.getNewAddressInputs().get(3).sendKeys('21000');
     createOrderPage.getNewAddressInputs().get(4).click();
@@ -113,7 +113,7 @@ describe('New Order', function() {
   it('should display proper address summary', () => {
     expect(createOrderPage.getPreviewAddressItems().get(1).getText()).toContain('Test Customer FN Test Customer LN');
     expect(createOrderPage.getPreviewAddressItems().get(2).getText()).toContain('1 test');
-    expect(createOrderPage.getPreviewAddressItems().get(3).getText()).toContain('2 test');
+    expect(createOrderPage.getPreviewAddressItems().get(3).getText()).toContain('line two');
     expect(createOrderPage.getPreviewAddressItems().get(4).getText()).toContain('New York, Alabama 21000');
     expect(createOrderPage.getPreviewAddressItems().get(5).getText()).toContain('United States');
   });

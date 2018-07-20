@@ -52,11 +52,6 @@ export class PerfectCustomerComponent extends AbstractPerfectMatch implements On
         this.transactions = transactions
       }
     });
-
-    this.customersService.getEntity(this.id);
-
-    this.transactionsService.indexQuery = (params: IndexQueryParameters) => transactionsByCustomer(this.id, params);
-    this.refreshTransactions();
   }
 
   refreshTransactions() {
@@ -66,5 +61,15 @@ export class PerfectCustomerComponent extends AbstractPerfectMatch implements On
   ngOnDestroy() {
     super.destroy();
     this.transactionsService.indexQuery = transactionsInfoListQuery;
+  }
+
+  fetchPerfect(): void {
+    this.customer = undefined;
+    this.transactions = [];
+
+    this.transactionsService.indexQuery = (params: IndexQueryParameters) => transactionsByCustomer(this._id, params);
+    this.refreshTransactions();
+    this.customersService.getEntity(this._id);
+
   }
 }
