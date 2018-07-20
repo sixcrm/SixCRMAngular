@@ -53,7 +53,7 @@
         <input type="text" matInput placeholder="Address" [(ngModel)]="creditCard.address.line1">
       </mat-form-field>
 
-      <mat-form-field [class.error]="formInvalid && (creditCard.address.line2 && !isAddressValid(creditCard.address.line2))">
+      <mat-form-field>
         <input type="text" matInput placeholder="Address 2" [(ngModel)]="creditCard.address.line2">
       </mat-form-field>
 

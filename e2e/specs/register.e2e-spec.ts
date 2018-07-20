@@ -85,7 +85,7 @@ describe('Register', function() {
     registerPage.getPaymentEntryCardMonth().get(4).click();
 
     registerPage.getInputs().get(3).sendKeys('1 test');
-    registerPage.getInputs().get(4).sendKeys('2 test');
+    registerPage.getInputs().get(4).sendKeys('test line');
     registerPage.getInputs().get(5).sendKeys('New York');
     registerPage.getInputs().get(6).sendKeys('21000');
     registerPage.getInputs().get(7).sendKeys('Oregon');
@@ -101,7 +101,7 @@ describe('Register', function() {
     expect(registerPage.getConfirmCardDetails().get(2).getText()).toContain('07/2022');
 
     expect(registerPage.getConfirmAddressDetails().get(0).getText()).toContain('1 test');
-    expect(registerPage.getConfirmAddressDetails().get(1).getText()).toContain('2 test');
+    expect(registerPage.getConfirmAddressDetails().get(1).getText()).toContain('test line');
     expect(registerPage.getConfirmAddressDetails().get(2).getText()).toContain('Oregon');
     expect(registerPage.getConfirmAddressDetails().get(2).getText()).toContain('21000');
     expect(registerPage.getConfirmAddressDetails().get(3).getText()).toContain('United States');

@@ -58,7 +58,6 @@ export class AddCustomerDialogComponent implements OnInit {
 
   private isAddressInvalid() {
     return !this.customer.address.line1 || !this.isAddressValid(this.customer.address.line1)
-      || (this.customer.address.line2 && !this.isAddressValid(this.customer.address.line2))
       || !this.isCityValid(this.customer.address.city)
       || !this.isStateValid(this.customer.address.state)
       || !this.customer.address.zip || !this.isZipValid(this.customer.address.zip)

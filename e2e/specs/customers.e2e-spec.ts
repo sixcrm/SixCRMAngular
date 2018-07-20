@@ -4,7 +4,7 @@ import { generateUUID } from '../../src/app/shared/utils/queries/entities/entiti
 import { AppPage } from '../po/app.po';
 import { CustomerPage } from '../po/customer.po';
 import { EntityIndexPage } from '../po/entity-index.po';
-import { SidenavPage } from '../po/sidenav.po';
+import { NavPage } from '../po/nav.po';
 import { login } from '../utils/action.utils';
 import { expectDefined, expectUrlToContain } from '../utils/assertation.utils';
 import {
@@ -40,7 +40,9 @@ describe('Customers', function() {
   });
 
   it('should navigate to customers index page', () => {
-    new SidenavPage().getLink(11).click();
+    const nav = new NavPage();
+    nav.getNavToggler().click();
+    nav.getLink(1).click();
     browser.sleep(200);
     waitForUrlContains('customers');
   });
@@ -83,7 +85,7 @@ describe('Customers', function() {
     customerPage.getNewCustomerInputs().get(2).sendKeys('123456789');
     customerPage.getNewCustomerInputs().get(3).sendKeys('testcustomer@example.com');
     customerPage.getNewCustomerInputs().get(4).sendKeys('1 test customer address');
-    customerPage.getNewCustomerInputs().get(5).sendKeys('2 test customer address');
+    customerPage.getNewCustomerInputs().get(5).sendKeys('two test customer address');
     customerPage.getNewCustomerInputs().get(6).sendKeys('a');
     browser.sleep(200);
     customerPage.getFirstOption().click();
@@ -159,7 +161,7 @@ describe('Customers', function() {
     customerPage.getBillingInputs().get(1).sendKeys('4111111111111111');
     customerPage.getBillingInputs().get(2).sendKeys('999');
     customerPage.getBillingInputs().get(4).sendKeys('1 test customer address');
-    customerPage.getBillingInputs().get(5).sendKeys('2 test customer address');
+    customerPage.getBillingInputs().get(5).sendKeys('two test customer address');
     customerPage.getBillingInputs().get(6).sendKeys('City');
     customerPage.getBillingInputs().get(7).sendKeys('21000');
     const expirationMonth = customerPage.getBillingSelects().get(0);
@@ -207,7 +209,7 @@ describe('Customers', function() {
     customerPage.getBillingInputs().get(1).sendKeys('4111111111111111');
     customerPage.getBillingInputs().get(2).sendKeys('999');
     customerPage.getBillingInputs().get(4).sendKeys('1 test customer address');
-    customerPage.getBillingInputs().get(5).sendKeys('2 test customer address');
+    customerPage.getBillingInputs().get(5).sendKeys('two test customer address');
     customerPage.getBillingInputs().get(6).sendKeys('City');
     customerPage.getBillingInputs().get(7).sendKeys('21000');
     const expirationMonth = customerPage.getBillingSelects().get(0);
