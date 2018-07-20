@@ -28,11 +28,16 @@ export class PerfectMerchantProviderComponent extends AbstractPerfectMatch imple
       this.merchantProvider = merchantProvider
     });
 
-    this.merchantProviderService.getEntity(this.id);
   }
 
   ngOnDestroy() {
     this.destroy();
+  }
+
+  fetchPerfect() {
+    this.merchantProvider = undefined;
+
+    this.merchantProviderService.getEntity(this._id);
   }
 
 }

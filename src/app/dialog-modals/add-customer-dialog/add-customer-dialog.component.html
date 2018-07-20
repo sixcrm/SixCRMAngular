@@ -27,8 +27,8 @@
       <input matInput type="text" [(ngModel)]="customer.address.line1" placeholder="Address 1">
     </mat-form-field>
 
-    <mat-form-field [class.error]="formInvalid && (customer.address.line2 && !isAddressValid(customer.address.line2))">
-      <input matInput type="text" [(ngModel)]="customer.address.line2" placeholder="Address 1">
+    <mat-form-field>
+      <input matInput type="text" [(ngModel)]="customer.address.line2" placeholder="Address 2">
     </mat-form-field>
 
     <mat-form-field [class.error]="formInvalid && !isCityValid(customer.address.city)">

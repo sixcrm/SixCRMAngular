@@ -80,7 +80,6 @@ export class PaymentFormComponent implements OnInit {
       || this.expirationMonthInvalid(this.creditCard)
       || this.expirationYearInvalid(this.creditCard)
       || !this.address.line1 || !this.isAddressValid(this.address.line1)
-      || (this.address.line2 && !this.isAddressValid(this.address.line2))
       || !this.isCityValid(this.address.city)
       || !this.isStateValid(this.address.state)
       || !this.address.zip || !this.isZipValid(this.address.zip)
