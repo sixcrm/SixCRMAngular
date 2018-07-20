@@ -2,14 +2,14 @@ import { clearLocalStorage, waitForUrlContains } from '../utils/navigation.utils
 import {expectUrlToContain} from '../utils/assertation.utils';
 import {browser} from 'protractor';
 import {login, tosCheck} from '../utils/action.utils';
-import {SidenavPage} from '../po/sidenav.po';
+import {NavPage} from '../po/nav.po';
 
 describe('Navigation', function() {
 
-  let sidenav: SidenavPage;
+  let nav: NavPage;
 
   beforeEach(() => {
-    sidenav = new SidenavPage();
+    nav = new NavPage();
     browser.sleep(100);
   });
 
@@ -28,16 +28,17 @@ describe('Navigation', function() {
   });
 
   it('should render full sidenav when registered as master', () => {
-    sidenav.get();
     browser.sleep(500);
     waitForUrlContains('/dashboard');
 
     browser.sleep(2000);
-    expect(sidenav.getItems().count()).toBe(32);
+
+    nav.getNavToggler().click();
+    expect(nav.getItems().count()).toBe(29);
   });
 
   it('should navigate to dashboard', () => {
-    sidenav.getItems().get(0).click();
+    nav.getLink(0).click();
 
     waitForUrlContains('dashboard');
     expectUrlToContain('dashboard');
@@ -45,63 +46,73 @@ describe('Navigation', function() {
 
   // Orders
   it('should navigate to customers', () => {
-    sidenav.getItems().get(1).click();
-    browser.sleep(500);
-    sidenav.getLink(2).click();
+    nav.getNavToggler().click();
+    nav.getLink(1).click();
 
     waitForUrlContains('customers');
     expectUrlToContain('customers');
   });
 
-  it('should navigate to credit cards', () => {
-    sidenav.getItems().get(1).click();
-    browser.sleep(500);
-    sidenav.getLink(3).click();
+  it('should navigate to subscriptions', () => {
+    nav.getNavToggler().click();
+    nav.getLink(2).click();
 
-    waitForUrlContains('creditcards');
-    expectUrlToContain('creditcards');
+    waitForUrlContains('coming-soon');
+    expectUrlToContain('coming-soon');
+  });
+
+  it('should navigate to orders', () => {
+    nav.getNavToggler().click();
+    nav.getLink(3).click();
+
+    waitForUrlContains('coming-soon');
+    expectUrlToContain('coming-soon');
   });
 
   it('should navigate to sessions', () => {
-    sidenav.getLink(4).click();
+    nav.getNavToggler().click();
+    nav.getLink(4).click();
 
     waitForUrlContains('sessions');
     expectUrlToContain('sessions');
   });
 
-  it('should navigate to transactions', () => {
-    sidenav.getLink(5).click();
-
-    waitForUrlContains('transactions');
-    expectUrlToContain('transactions');
-  });
-
   it('should navigate to rebills', () => {
-    sidenav.getLink(6).click();
+    nav.getNavToggler().click();
+    nav.getLink(5).click();
 
     waitForUrlContains('rebills');
     expectUrlToContain('rebills');
   });
 
   it('should navigate to shippingreceipts', () => {
-    sidenav.getLink(7).click();
+    nav.getNavToggler().click();
+    nav.getLink(6).click();
 
     waitForUrlContains('shippingreceipts');
     expectUrlToContain('shippingreceipts');
   });
 
+  it('should navigate to transactions', () => {
+    nav.getNavToggler().click();
+    nav.getLink(7).click();
+
+    waitForUrlContains('transactions');
+    expectUrlToContain('transactions');
+  });
+
   // Reports
   it('should navigate to affiliate report', () => {
-    sidenav.getItems().get(8).click();
-    browser.sleep(500);
-    sidenav.getLink(10).click();
+    nav.getNavToggler().click();
+    nav.getLink(10).click();
 
     waitForUrlContains('affiliate');
     expectUrlToContain('affiliate');
   });
 
   it('should navigate to merchants report', () => {
-    sidenav.getLink(11).click();
+    nav.getNavToggler().click();
+    nav.getLink(11).click();
 
     waitForUrlContains('merchant');
     expectUrlToContain('merchant');
@@ -109,73 +120,139 @@ describe('Navigation', function() {
 
   // CRM Setup Section
   it('should navigate to campaigns', () => {
-    sidenav.getItems().get(12).click();
-    browser.sleep(1500);
-    sidenav.getLink(13).click();
+    nav.getNavToggler().click();
+    nav.getLink(12).click();
+
     waitForUrlContains('campaigns');
     expectUrlToContain('campaigns');
   });
 
   it('should navigate to products', () => {
-    sidenav.getLink(14).click();
+    nav.getNavToggler().click();
+    nav.getLink(13).click();
+
     waitForUrlContains('products');
     expectUrlToContain('products');
   });
 
   it('should navigate to product schedules', () => {
-    sidenav.getLink(15).click();
+    nav.getNavToggler().click();
+    nav.getLink(14).click();
 
     waitForUrlContains('productschedules');
     expectUrlToContain('productschedules');
   });
 
   it('should navigate to email templates', () => {
-    sidenav.getLink(16).click();
+    nav.getNavToggler().click();
+    nav.getLink(15).click();
 
     waitForUrlContains('emailtemplates');
     expectUrlToContain('emailtemplates');
   });
 
   it('should navigate to affiliates', () => {
-    sidenav.getLink(18).click();
+    nav.getNavToggler().click();
+    nav.getLink(16).click();
 
     waitForUrlContains('affiliates');
     expectUrlToContain('affiliates');
   });
 
   it('should navigate to trackers', () => {
-    sidenav.getLink(19).click();
+    nav.getNavToggler().click();
+    nav.getLink(17).click();
 
     waitForUrlContains('trackers');
     expectUrlToContain('trackers');
   });
 
   it('should navigate to merchant providers', () => {
-    sidenav.getLink(21).click();
+    nav.getNavToggler().click();
+    nav.getLink(18).click();
 
     waitForUrlContains('merchantproviders');
     expectUrlToContain('merchantproviders');
   });
 
-  it('should navigate to merchantProviderGroups', () => {
-    sidenav.getLink(22).click();
+  it('should navigate to merchant groups', () => {
+    nav.getNavToggler().click();
+    nav.getLink(19).click();
 
     waitForUrlContains('merchantprovidergroups');
     expectUrlToContain('merchantprovidergroups');
   });
 
   it('should navigate to fulfillment providers', () => {
-    sidenav.getLink(24).click();
+    nav.getNavToggler().click();
+    nav.getLink(20).click();
 
     waitForUrlContains('fulfillmentproviders');
     expectUrlToContain('fulfillmentproviders');
   });
 
   it('should navigate to smtp providers', () => {
-    sidenav.getLink(25).click();
+    nav.getNavToggler().click();
+    nav.getLink(21).click();
 
     waitForUrlContains('smtpproviders');
     expectUrlToContain('smtpproviders');
+  });
+
+  it('should navigate to account general', () => {
+    nav.getNavToggler().click();
+    nav.getLink(22).click();
+
+    waitForUrlContains('accountmanagement/general');
+    expectUrlToContain('accountmanagement/general');
+  });
+
+  it('should navigate to account billing', () => {
+    nav.getNavToggler().click();
+    nav.getLink(23).click();
+
+    waitForUrlContains('accountmanagement/billing');
+    expectUrlToContain('accountmanagement/billing');
+  });
+
+  it('should navigate to account keys', () => {
+    nav.getNavToggler().click();
+    nav.getLink(24).click();
+
+    waitForUrlContains('accountmanagement/apikeys');
+    expectUrlToContain('accountmanagement/apikeys');
+  });
+
+  it('should navigate to account roles', () => {
+    nav.getNavToggler().click();
+    nav.getLink(25).click();
+
+    waitForUrlContains('accountmanagement/roles');
+    expectUrlToContain('accountmanagement/roles');
+  });
+
+  it('should navigate to account users', () => {
+    nav.getNavToggler().click();
+    nav.getLink(26).click();
+
+    waitForUrlContains('accountmanagement/users');
+    expectUrlToContain('accountmanagement/users');
+  });
+
+  it('should navigate to profile', () => {
+    nav.getNavToggler().click();
+    nav.getLink(27).click();
+
+    waitForUrlContains('profile');
+    expectUrlToContain('profile');
+  });
+
+  it('should navigate to signing strings', () => {
+    nav.getNavToggler().click();
+    nav.getLink(28).click();
+
+    waitForUrlContains('profile#signingstrings');
+    expectUrlToContain('profile#signingstrings');
   });
 
 });

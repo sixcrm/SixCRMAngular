@@ -1,9 +1,9 @@
 import {waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
-import {SidenavPage} from '../po/sidenav.po';
+import {NavPage} from '../po/nav.po';
 import {login, tosCheck} from '../utils/action.utils';
 import {browser} from 'protractor';
-import {expectUrlToContain, expectDefined, expectPresent} from '../utils/assertation.utils';
+import {expectUrlToContain, expectDefined} from '../utils/assertation.utils';
 import {ProductPage} from '../po/product.po';
 
 describe('Products', function() {
@@ -31,10 +31,9 @@ describe('Products', function() {
   });
 
   it('should navigate to products page', () => {
-    const sidenav = new SidenavPage();
-    sidenav.getLink(12).click();
-    browser.sleep(500);
-    sidenav.getLink(14).click();
+    const nav = new NavPage();
+    nav.getNavToggler().click();
+    nav.getLink(13).click();
     waitForUrlContains('products');
     expectUrlToContain('products');
   });
@@ -106,13 +105,8 @@ describe('Products', function() {
   });
 
   it('should go to products details', () => {
-    const sidenav = new SidenavPage();
-    productPage.getDeletionModalButton().click();
-    sidenav.getLink(14).click();
-    browser.sleep(1200);
+    productPage.getConfirmDeleteButton().click();
     waitForUrlContains('products');
-    productPage.getProductFromTable(0).click();
-    browser.sleep(500);
     expectUrlToContain('products');
   });
 

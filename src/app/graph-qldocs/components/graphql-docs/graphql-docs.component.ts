@@ -15,7 +15,6 @@ export class GraphqlDocsComponent implements OnInit, OnDestroy {
 
   @Input() endpoint: string;
   @Input() headers: HeadersInput[];
-  @Input() showSidenav: boolean;
 
   queryMutationTypes: Type[];
   queryMutationTypesFiltered: Type[];
@@ -42,10 +41,6 @@ export class GraphqlDocsComponent implements OnInit, OnDestroy {
     private router: Router) { }
 
   ngOnInit() {
-    this.graphqlService.getFullWidth().subscribe(value => {
-      this.showSidenav = !value;
-    });
-
     this.graphqlService.getSchemaTypes(this.endpoint, this.headers).subscribe((response: {types: Type[], searchItems: SearchItem[]}) => {
       if (!response) return;
 

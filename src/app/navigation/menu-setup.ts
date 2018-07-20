@@ -2,183 +2,196 @@ import {MenuItem} from './menu-item';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Acl} from '../shared/models/acl.model';
 import {FeatureFlagService} from "../shared/services/feature-flag.service";
+import {NavigationMenuSection, NavigationMenuItem} from './navigation-menu/navigation-menu.component';
 
-export function menuItems(authService: AuthenticationService, acl: Acl, featureFlagService: FeatureFlagService): MenuItem[] {
-  let items: MenuItem[] = [];
+export function menuItems(authService: AuthenticationService, acl: Acl, featureFlagService: FeatureFlagService): NavigationMenuSection[] {
 
-  // Add dashboard
-  if (acl && acl.role.name === 'Customer Service') {
-    items.push(new MenuItem('SIDENAV_DASHBOARD', 'customer-service').setIcon('headset_mic'));
-  } else {
-    items.push(new MenuItem('SIDENAV_DASHBOARD', 'dashboard').setIcon('home'));
-  }
+  const result: NavigationMenuSection[] = [];
 
-  if (featureFlagService.isEnabled('state-machine') && acl && acl.role.name !== 'Customer Service') {
-    items.push(new MenuItem('SIDENAV_ORDERENGINE', 'state-machine').setIcon('device_hub'));
-  }
+  const mainSection: NavigationMenuSection = { subsections: [ ]};
 
-  // Add Order items
-  let orderItems: MenuItem[] = [];
+  const mainSub: NavigationMenuSection = { items: [ {label: 'Home', icon: 'home', url: acl && acl.role.isCustomerService() ? 'customer-service' : 'dashboard'} ] };
 
   if (authService.hasPermissions('customer', 'read') || authService.isBillingDisabled()) {
-    orderItems.push(new MenuItem('SIDENAV_ORDER_CUSTOMER', 'customers'));
-  }
-  if (authService.hasPermissions('creditcard', 'read') || authService.isBillingDisabled()) {
-    orderItems.push(new MenuItem('SIDENAV_ORDER_CREDITCARD', 'creditcards'));
-  }
-  if (authService.hasPermissions('session', 'read') || authService.isBillingDisabled()) {
-    orderItems.push(new MenuItem('SIDENAV_ORDER_SESSION', 'sessions'));
-  }
-  if (authService.hasPermissions('transaction', 'read') || authService.isBillingDisabled()) {
-    orderItems.push(new MenuItem('SIDENAV_ORDER_TRANSACTION', 'transactions'));
-  }
-  if (authService.hasPermissions('rebill', 'read') || authService.isBillingDisabled()) {
-    orderItems.push(new MenuItem('SIDENAV_ORDER_REBILL', 'rebills'));
-  }
-  if (authService.hasPermissions('shippingreceipt', 'read') || authService.isBillingDisabled()) {
-    orderItems.push(new MenuItem('SIDENAV_ORDER_SHIPPINGRECEIPT', 'shippingreceipts'));
-  }
-  if (featureFlagService.isEnabled('orders|pending-rebills') && authService.hasPermissions('rebill', 'read') || authService.isBillingDisabled()) {
-    orderItems.push(new MenuItem('SIDENAV_ORDER_PENDINGREBILL', 'rebills/pending'));
-  }
-
-  if (orderItems.length > 0) {
-    items.push(new MenuItem('SIDENAV_ORDER_TITLE', null, orderItems).setIcon('payment'));
-  }
-
-  // Add reports
-  let reportItems: MenuItem[] = [];
-  let cycle: MenuItem[] = [];
-  if (featureFlagService.isEnabled('cycle-reports|day-to-day') && (authService.hasPermissions('analytics', 'getDayToDay') || authService.isBillingDisabled())) {
-    cycle.push(new MenuItem('SIDENAV_REPORTS_CYCLE_DAYTODAY', 'reports/daytoday'))
-  }
-  if (featureFlagService.isEnabled('cycle-reports|cycle') && (authService.hasPermissions('analytics', 'getCycleReport') || authService.isBillingDisabled())) {
-    cycle.push(new MenuItem('SIDENAV_REPORTS_CYCLE_CYCLE', 'reports/cycle'))
-  }
-  if (cycle.length > 0) {
-    reportItems.push(new MenuItem('SIDENAV_REPORTS_CYCLE_TITLE', null, cycle));
-  }
-
-  let traffic: MenuItem[] = [];
-  if (authService.hasPermissions('analytics', 'getAffiliates') || authService.isBillingDisabled()) {
-    traffic.push(new MenuItem('SIDENAV_REPORTS_TRAFFIC_AFFILIATE', 'reports/affiliate'));
-  }
-  if (authService.hasPermissions('analytics', 'getMerchants') || authService.isBillingDisabled()) {
-    traffic.push(new MenuItem('SIDENAV_REPORTS_TRAFFIC_MERCHANT', 'reports/merchant'));
-  }
-  if (traffic.length > 0) {
-    reportItems.push(new MenuItem('SIDENAV_REPORTS_TRAFFIC_TITLE', null, traffic));
-  }
-
-  if (reportItems.length > 0) {
-    items.push(new MenuItem('SIDENAV_REPORTS_TITLE', null, reportItems).setIcon('insert_chart'));
-  }
-
-  // Add CRM menu items
-  if (featureFlagService.isEnabled('crm-setup')) {
-
-    let crmItems: MenuItem[] = [];
-    if (authService.hasPermissions('campaign', 'read') || authService.isBillingDisabled()) {
-      crmItems.push(new MenuItem('SIDENAV_CRM_CAMPAIGN', 'campaigns'));
-    }
-    if (authService.hasPermissions('product', 'read') || authService.isBillingDisabled()) {
-      crmItems.push(new MenuItem('SIDENAV_CRM_PRODUCT', 'products'));
-    }
-    if (authService.hasPermissions('productschedule', 'read') || authService.isBillingDisabled()) {
-      crmItems.push(new MenuItem('SIDENAV_CRM_PRODUCTSCHEDULE', 'productschedules'));
-    }
-    if (authService.hasPermissions('emailtemplate', 'read') || authService.isBillingDisabled()) {
-      crmItems.push(new MenuItem('SIDENAV_CRM_EMAILTEMPLATE', 'emailtemplates'));
-    }
-
-    if (featureFlagService.isEnabled('crm-setup|event-hooks') && (authService.hasPermissions('eventhook', 'read') || authService.isBillingDisabled())) {
-      crmItems.push(new MenuItem('SIDENAV_CRM_EVENTHOOK', 'eventhooks'));
-    }
-
-    let tracking: MenuItem[] = [];
-    if (authService.hasPermissions('affiliate', 'read') || authService.isBillingDisabled()) {
-      tracking.push(new MenuItem('SIDENAV_CRM_TRAFFIC_AFFILIATE', 'affiliates'));
-    }
-    if (authService.hasPermissions('tracker', 'read') || authService.isBillingDisabled()) {
-      tracking.push(new MenuItem('SIDENAV_CRM_TRAFFIC_TRACKER', 'trackers'));
-    }
-    if (tracking.length > 0) {
-      crmItems.push(new MenuItem('SIDENAV_CRM_TRAFFIC_TITLE', null, tracking));
-    }
-
-    // Add Merchants menu item
-    let merchants: MenuItem[] = [];
-    if (authService.hasPermissions('merchantprovider', 'read') || authService.isBillingDisabled()) {
-      merchants.push(new MenuItem('SIDENAV_CRM_MERCHANT_MERCHANTPROVIDER', 'merchantproviders'))
-    }
-    if (authService.hasPermissions('merchantprovidergroup', 'read') || authService.isBillingDisabled()) {
-      merchants.push(new MenuItem('SIDENAV_CRM_MERCHANT_MERCHANTPROVIDERGROUP', 'merchantprovidergroups'))
-    }
-    if (merchants.length > 0) {
-      crmItems.push(new MenuItem('SIDENAV_CRM_MERCHANT_TITLE', null, merchants));
-    }
-
-    // Add 3rd party providers to CRM menu
-    let thirdPartyProviders: MenuItem[] = [];
-    if (authService.hasPermissions('fulfillmentprovider', 'read') || authService.isBillingDisabled()) {
-      thirdPartyProviders.push(new MenuItem('SIDENAV_CRM_PROVIDERS_FULFILLMENT', 'fulfillmentproviders'))
-    }
-    if (authService.hasPermissions('smtpprovider', 'read') || authService.isBillingDisabled()) {
-      thirdPartyProviders.push(new MenuItem('SIDENAV_CRM_PROVIDERS_SMTP', 'smtpproviders'))
-    }
-    if (thirdPartyProviders.length > 0) {
-      crmItems.push(new MenuItem('SIDENAV_CRM_PROVIDERS_TITLE', null, thirdPartyProviders));
-    }
-
-    if (crmItems.length > 0) {
-      items.push(new MenuItem('SIDENAV_CRM_TITLE', null, crmItems).setIcon('apps'));
-    }
-
-  }
-
-  // Add Account Management menu item
-  let accountManagement: MenuItem[] = [];
-
-  if (featureFlagService.isEnabled('account-management')) {
-    if (authService.hasPermissions('account', 'read')) {
-      accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_GENERAL', 'accountmanagement/general'));
-    }
-    if (authService.hasPermissions('billing', 'read')) {
-      accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_BILLING', 'accountmanagement/billing'));
-    }
-    if (authService.hasPermissions('useracl', 'read')) {
-      accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_USERS', 'accountmanagement/users'));
-    }
-    if (authService.hasPermissions('role', 'read')) {
-      accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_ROLES', 'accountmanagement/roles'));
-    }
-    if (authService.hasPermissions('accesskey', 'read')) {
-      accountManagement.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_KEYS', 'accountmanagement/apikeys'));
-    }
-
-    if (accountManagement.length > 0) {
-      items.push(new MenuItem('SIDENAV_ACCOUNTMANAGEMENT_TITLE', null, accountManagement).setIcon('settings'));
-    }
+    mainSub.items.push({label: 'Customers', icon: 'person', url: 'customers'});
+    mainSub.items.push({label: 'Subscriptions', icon: 'date_range', url: 'coming-soon'})
   }
 
   if (authService.isActiveOrActingAclMasterAccount()) {
-    // Add Settings menu item
-    let settings: MenuItem[] = [];
+    const adminSub: NavigationMenuItem =
+    {
+      label: 'SIX Administration', image: 'logo-navigation-nav.svg',
+      children: [
+        {label: 'Accounts', url: 'accounts'},
+        {label: 'Features', url: 'features'},
+        {label: 'Users', url: 'users'},
+        {label: 'Roles', url: 'roles'}
+      ]
+    };
 
-    settings.push(new MenuItem('SIDENAV_SETTINGS_ACCOUNT', 'accounts'));
-
-    settings.push(new MenuItem('SIDENAV_SETTINGS_USER', 'users'));
-
-    settings.push(new MenuItem('SIDENAV_SETTINGS_ROLE', 'roles'));
-
-    settings.push(new MenuItem('Features', 'features'));
-
-    items.push(
-      new MenuItem('SIDENAV_SETTINGS_TITLE', null, settings)
-        .setImage('/assets/images/logo-navigation-sidenav.svg')
-        .setSeparator(true)
-    );
+    mainSub.items.unshift(adminSub);
   }
 
-  return items;
+  const salesSub: NavigationMenuSection = { items: [ {label: 'Sales', icon: 'credit_card', children: [] } ] };
+
+  if (authService.hasPermissions('rebill', 'read') || authService.isBillingDisabled()) {
+    salesSub.items[0].children.push({label: 'Orders', url: 'coming-soon'})
+  }
+
+  if (authService.hasPermissions('session', 'read') || authService.isBillingDisabled()) {
+    salesSub.items[0].children.push({label: 'Sessions', url: 'sessions'})
+  }
+
+  if (authService.hasPermissions('rebill', 'read') || authService.isBillingDisabled()) {
+    salesSub.items[0].children.push({label: 'Rebills', url: 'rebills'})
+  }
+
+  if (authService.hasPermissions('shippingreceipt', 'read') || authService.isBillingDisabled()) {
+    salesSub.items[0].children.push({label: 'Shipping Receipts', url: 'shippingreceipts'})
+  }
+
+  if (authService.hasPermissions('transaction', 'read') || authService.isBillingDisabled()) {
+    salesSub.items[0].children.push({label: 'Transactions', url: 'transactions'})
+  }
+
+  mainSection.subsections.push(mainSub);
+
+  if (salesSub.items[0].children.length > 0 && !authService.isActiveOrActingAclMasterAccount()) {
+    mainSection.subsections.push(salesSub);
+  }
+
+  result.push(mainSection);
+
+  const cycleReports: NavigationMenuItem = { label: 'Reports', icon: 'insert_chart', children: [ ] };
+
+  if ((authService.hasPermissions('analytics', 'getCycleReport') || authService.isBillingDisabled())) {
+    cycleReports.children.push({label: 'Cycle Report', url: 'coming-soon'});
+  }
+  if ((authService.hasPermissions('analytics', 'getDayToDay') || authService.isBillingDisabled())) {
+    cycleReports.children.push({label: 'Day-to-Day Report', url: 'coming-soon'});
+  }
+
+  if (cycleReports.children.length > 0) {
+    cycleReports.children.unshift({ label: 'Cycle Reports', isHeader: true});
+  }
+
+  const trafficReport: NavigationMenuItem = { label: 'Traffic Reports', children: [ ] };
+
+  if ((authService.hasPermissions('analytics', 'getAffiliates') || authService.isBillingDisabled())) {
+    trafficReport.children.push({label: 'Affiliates Report', url: 'reports/affiliate'});
+  }
+  if ((authService.hasPermissions('analytics', 'getMerchants') || authService.isBillingDisabled())) {
+    trafficReport.children.push({label: 'Merchants Report', url: 'reports/merchant'});
+  }
+
+  if (trafficReport.children.length > 0 || cycleReports.children.length > 0 || authService.isActiveOrActingAclMasterAccount()) {
+    const reportsSection = { subsections: [] };
+
+    if (authService.isActiveOrActingAclMasterAccount()) {
+      reportsSection.subsections.push(salesSub)
+    }
+
+    const analyticsSubsection = { items: [cycleReports] };
+
+    if (trafficReport.children.length > 0) {
+      analyticsSubsection.items.push(trafficReport)
+    }
+
+    reportsSection.subsections.push(analyticsSubsection);
+
+    result.push(reportsSection);
+  }
+
+  const crmSection: NavigationMenuSection = {items: []};
+
+  const setup: NavigationMenuItem = { label: 'CRM Setup', icon: 'apps', children: [] };
+
+  if ((authService.hasPermissions('campaign', 'read') || authService.isBillingDisabled())) {
+    setup.children.push({label: 'Campaigns', url: 'campaigns'});
+  }
+  if ((authService.hasPermissions('product', 'read') || authService.isBillingDisabled())) {
+    setup.children.push({label: 'Products', url: 'products'});
+  }
+  if ((authService.hasPermissions('productschedule', 'read') || authService.isBillingDisabled())) {
+    setup.children.push({label: 'Product Schedules', url: 'productschedules'});
+  }
+  if ((authService.hasPermissions('emailtemplate', 'read') || authService.isBillingDisabled())) {
+    setup.children.push({label: 'Email Templates', url: 'emailtemplates'});
+  }
+  if (setup.children.length > 0) {
+    setup.children.unshift({label: 'Product Setup', isHeader: true});
+
+    crmSection.items.push(setup);
+  }
+
+  const traffic: NavigationMenuItem = { label: 'Traffic', children: [] };
+
+  if ((authService.hasPermissions('affiliate', 'read') || authService.isBillingDisabled())) {
+    traffic.children.push({label: 'Affiliates', url: 'affiliates'});
+  }
+  if ((authService.hasPermissions('tracker', 'read') || authService.isBillingDisabled())) {
+    traffic.children.push({label: 'Tracking', url: 'trackers'});
+  }
+  if (traffic.children.length > 0) {
+    crmSection.items.push(traffic);
+  }
+
+  const merchants: NavigationMenuItem = { label: 'Merchants', children: [] };
+
+  if ((authService.hasPermissions('merchantprovider', 'read') || authService.isBillingDisabled())) {
+    merchants.children.push({label: 'Merchant Providers', url: 'merchantproviders'});
+  }
+  if ((authService.hasPermissions('merchantprovidergroup', 'read') || authService.isBillingDisabled())) {
+    merchants.children.push({label: 'Merchant Group', url: 'merchantprovidergroups'});
+  }
+  if (merchants.children.length > 0) {
+    crmSection.items.push(merchants);
+  }
+
+  const integrations: NavigationMenuItem = { label: '3rd Party Integrations', children: [] };
+
+  if ((authService.hasPermissions('fulfillmentprovider', 'read') || authService.isBillingDisabled())) {
+    integrations.children.push({label: 'Fulfillment Providers', url: 'fulfillmentproviders'});
+  }
+  if ((authService.hasPermissions('smtpprovider', 'read') || authService.isBillingDisabled())) {
+    integrations.children.push({label: 'SMTP Providers', url: 'smtpproviders'});
+  }
+  if (integrations.children.length > 0) {
+    crmSection.items.push(integrations);
+  }
+
+  if (crmSection.items.length > 0) {
+    result.push(crmSection);
+  }
+
+  const accountSection: NavigationMenuSection = {items: []};
+
+  const settings: NavigationMenuItem = { label: 'Account', icon: 'work', children: [ ] };
+
+  if ((authService.hasPermissions('account', 'read') || authService.isBillingDisabled())) {
+    settings.children.push({label: 'General', url: 'accountmanagement/general'});
+  }
+  if ((authService.hasPermissions('billing', 'read') || authService.isBillingDisabled())) {
+    settings.children.push({label: 'Billing', url: 'accountmanagement/billing'});
+  }
+  if ((authService.hasPermissions('accesskey', 'read') || authService.isBillingDisabled())) {
+    settings.children.push({label: 'API Access Keys', url: 'accountmanagement/apikeys'});
+  }
+  if ((authService.hasPermissions('role', 'read') || authService.isBillingDisabled())) {
+    settings.children.push({label: 'Roles', url: 'accountmanagement/roles'});
+  }
+  if ((authService.hasPermissions('user', 'read') || authService.isBillingDisabled())) {
+    settings.children.push({label: 'Users', url: 'accountmanagement/users'});
+  }
+  if (settings.children.length > 0) {
+    settings.children.unshift({label: 'Account Settings', isHeader: true});
+
+    accountSection.items.push(settings);
+  }
+
+  accountSection.items.push({ label: 'My Account', children: [ { label: 'Profile', url: 'profile' }, { label: 'Signing Strings', url: 'profile', fragment: 'signingstrings' } ] });
+
+  result.push(accountSection);
+
+  return result;
 }

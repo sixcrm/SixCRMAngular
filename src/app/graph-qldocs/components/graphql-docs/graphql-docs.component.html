@@ -2,7 +2,7 @@
   <mat-spinner *ngIf="!loaded; else load"></mat-spinner>
 
   <ng-template #load>
-    <div class="docs__content" [class.showSidenav]="showSidenav">
+    <div class="docs__content">
       <ng-container *ngIf="isAll">
         <doc-type *ngFor="let aType of queryMutationTypesFiltered" [type]="aType" [isAll]="true"></doc-type>
         <doc-type *ngFor="let aType of otherTypesFiltered" [otherTypes]="aType" [isAll]="true"></doc-type>

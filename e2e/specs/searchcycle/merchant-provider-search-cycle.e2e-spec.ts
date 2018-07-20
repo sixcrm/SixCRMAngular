@@ -3,7 +3,7 @@ import {SearchPage} from '../../po/search.po';
 import {browser, protractor} from 'protractor';
 import {clearLocalStorage, waitForUrlContains, waitForPresenceOf} from '../../utils/navigation.utils';
 import {login} from '../../utils/action.utils';
-import {SidenavPage} from '../../po/sidenav.po';
+import {NavPage} from '../../po/sidenav.po';
 import {expectUrlToContain} from '../../utils/assertation.utils';
 import {generateLetters} from '../../utils/generator.utils';
 import {TopnavPage} from '../../po/topnav.po';
@@ -14,7 +14,7 @@ describe('MerchantProviderSearchCycle', function() {
   let page: EntityIndexPage;
   let merchantProvider: MerchantProviderPage;
   let searchPage: SearchPage;
-  let sidenav: SidenavPage;
+  let sidenav: NavPage;
   let topnav: TopnavPage;
   let view: EntityViewPage;
 
@@ -24,7 +24,7 @@ describe('MerchantProviderSearchCycle', function() {
     page = new EntityIndexPage();
     merchantProvider = new MerchantProviderPage();
     searchPage = new SearchPage();
-    sidenav = new SidenavPage();
+    sidenav = new NavPage();
     topnav = new TopnavPage();
     view = new EntityViewPage();
   });

@@ -1,0 +1,24 @@
+<div class="item" *ngIf="item" [class.level0]="level === 0" [class.level1]="level === 1" [class.header]="item.isHeader">
+
+  <div class="content" [class.content--with-url]="item.url">
+    <mat-icon *ngIf="item.icon">{{item.icon}}</mat-icon>
+    <img *ngIf="item.image" src="{{'/assets/images/' + item.image}}" alt="">
+
+    <div class="label" [class.label--no-icon]="!item.icon && !item.image">
+      <button *ngIf="item.url; else nourl" mat-button (click)="navigateTo(item)">
+        {{item.label}}
+      </button>
+
+      <ng-template #nourl>
+        <div class="no-url">{{item.label}}</div>
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="children" *ngFor="let child of (item.children || [])">
+
+    <navigation-menu-item [item]="child" [level]="level+1"></navigation-menu-item>
+
+  </div>
+
+</div>
