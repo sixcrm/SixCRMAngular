@@ -28,11 +28,16 @@ export class PerfectCampaignComponent extends AbstractPerfectMatch implements On
       this.campaign = campaign
     });
 
-    this.campaignsService.getEntity(this.id);
   }
 
   ngOnDestroy() {
     this.destroy();
+  }
+
+  fetchPerfect() {
+    this.campaign = undefined;
+
+    this.campaignsService.getEntity(this._id);
   }
 
 }

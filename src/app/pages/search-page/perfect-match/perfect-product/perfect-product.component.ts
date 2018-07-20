@@ -27,12 +27,15 @@ export class PerfectProductComponent extends AbstractPerfectMatch implements OnI
       this.serverError = null;
       this.product = product
     });
-
-    this.productsService.getEntity(this.id);
   }
 
   ngOnDestroy() {
     this.destroy();
   }
 
+  fetchPerfect() {
+    this.product = undefined;
+
+    this.productsService.getEntity(this._id);
+  }
 }
