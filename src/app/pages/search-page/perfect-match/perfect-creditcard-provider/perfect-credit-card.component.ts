@@ -35,4 +35,10 @@ export class PerfectCreditCardComponent extends AbstractPerfectMatch implements 
     this.destroy();
   }
 
+  fetchPerfect() {
+    this.creditCard = undefined;
+
+    this.creditCardService.getEntity(this._id);
+  }
+
 }

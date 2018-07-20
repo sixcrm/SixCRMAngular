@@ -27,11 +27,15 @@ export class PerfectRebillComponent extends AbstractPerfectMatch implements OnIn
       this.serverError = null;
       this.rebill = rebill
     });
-
-    this.rebillsService.getEntity(this.id);
   }
 
   ngOnDestroy() {
     this.destroy();
+  }
+
+  fetchPerfect() {
+    this.rebill = undefined;
+
+    this.rebillsService.getEntity(this._id);
   }
 }

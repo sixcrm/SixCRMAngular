@@ -27,12 +27,16 @@ export class PerfectProductScheduleComponent extends AbstractPerfectMatch implem
       this.serverError = null;
       this.productSchedule = productSchedule
     });
-
-    this.productSchedulesService.getEntity(this.id);
   }
 
   ngOnDestroy() {
     this.destroy();
+  }
+
+  fetchPerfect() {
+    this.productSchedule = undefined;
+
+    this.productSchedulesService.getEntity(this._id);
   }
 
 }

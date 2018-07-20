@@ -79,7 +79,6 @@ export class PlanBillingComponent implements OnInit {
     || !this.creditCard.name
     || this.creditCard.name.length < 2
     || !this.isAddressValid(this.creditCard.address.line1)
-    || (this.creditCard.address.line2 && !this.isAddressValid(this.creditCard.address.line2))
     || !this.isCityValid(this.creditCard.address.city)
     || !this.isZipValid(this.creditCard.address.zip)
     || !this.isStateValid(this.creditCard.address.state)

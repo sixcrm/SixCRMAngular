@@ -27,12 +27,16 @@ export class PerfectTransactionComponent extends AbstractPerfectMatch implements
       this.serverError = null;
       this.transaction = transaction
     });
-
-    this.transactionService.getEntity(this.id);
   }
 
   ngOnDestroy() {
     this.destroy();
+  }
+
+  fetchPerfect() {
+    this.transaction = undefined;
+
+    this.transactionService.getEntity(this._id);
   }
 
 }
