@@ -89,7 +89,6 @@ export class AddCreditCardDialogComponent implements OnInit {
 
   private isAddressInvalid() {
     return !this.creditCard.address.line1 || !this.isAddressValid(this.creditCard.address.line1)
-    || (this.creditCard.address.line2 && !this.isAddressValid(this.creditCard.address.line2))
     || !this.isCityValid(this.creditCard.address.city)
     || !this.isStateValid(this.creditCard.address.state)
     || !this.creditCard.address.zip || !this.isZipValid(this.creditCard.address.zip)

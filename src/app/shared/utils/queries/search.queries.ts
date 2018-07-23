@@ -1,3 +1,4 @@
+import {clean} from './entities/entities-helper.queries';
 export function searchQuery(query: string, createdAtRange: string, sortBy: string, start: number, size: number, entityTypes?: string[]): string {
   let entityTypesQuery: string = buildEntityTypes(entityTypes);
 
@@ -9,7 +10,7 @@ export function searchQuery(query: string, createdAtRange: string, sortBy: strin
   let sort = buildSortBy(sortBy);
 
   return `{
-		search (search: {query: "'${query}*'" ${filterQuery ? `filterQuery:"${filterQuery}"` : ''} ${sort} start: "${start}" size: "${size}"}) {
+		search (search: {query: "'${clean(query)}*'" ${filterQuery ? `filterQuery:"${filterQuery}"` : ''} ${sort} start: "${start}" size: "${size}"}) {
 			status { timems rid }
 			hits { found start,
 				hit { id fields }
@@ -27,7 +28,7 @@ export function searchFacets(query: string, createdAtRange: string, entityTypes?
   }
 
   return `{
-		search (search: {query: "'${query}*'" ${filterQuery ? `filterQuery:"${filterQuery}"` : ''} facet:"{entity_type:{}}" return:"_no_fields"}) {
+		search (search: {query: "'${clean(query)}*'" ${filterQuery ? `filterQuery:"${filterQuery}"` : ''} facet:"{entity_type:{}}" return:"_no_fields"}) {
 			status { timems rid }
 			facets
 		}
@@ -78,7 +79,7 @@ export function searchAdvancedFacets(options: any, createdAtRange: string, entit
 
 export function suggestionsQuery(query: string): string {
   return `{
-		search (search: {query: "${query}*" queryOptions:"{fields:['suggestion_field_1']}" return:"suggestion_field_1" size:"10"}) {
+		search (search: {query: "${clean(query)}*" queryOptions:"{fields:['suggestion_field_1']}" return:"suggestion_field_1" size:"10"}) {
 			hits {
 				found start,
 				hit { fields }

@@ -140,7 +140,7 @@ describe('Register with behaviors', function() {
     registerPage.getPaymentEntryCardMonth().get(4).click();
 
     registerPage.getInputs().get(3).sendKeys('1 test');
-    registerPage.getInputs().get(4).sendKeys('2 test');
+    registerPage.getInputs().get(4).sendKeys('test line');
     registerPage.getInputs().get(5).sendKeys('New York');
     registerPage.getInputs().get(6).sendKeys('21000');
     registerPage.getInputs().get(7).sendKeys('Oregon');

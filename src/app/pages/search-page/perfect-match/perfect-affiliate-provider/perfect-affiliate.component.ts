@@ -28,11 +28,16 @@ export class PerfectAffiliateComponent extends AbstractPerfectMatch implements O
       this.affiliate = affiliate
     });
 
-    this.affiliateService.getEntity(this.id);
   }
 
   ngOnDestroy() {
     this.destroy();
+  }
+
+  fetchPerfect() {
+    this.affiliate = undefined;
+
+    this.affiliateService.getEntity(this._id);
   }
 
 }

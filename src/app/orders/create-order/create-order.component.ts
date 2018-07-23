@@ -284,7 +284,6 @@ export class CreateOrderComponent implements OnInit {
   confirmShippingAddress() {
     this.shippingAddressInvalid =
     !this.shippingAddress.line1 || !this.isAddressValid(this.shippingAddress.line1)
-    || (this.shippingAddress.line2 && !this.isAddressValid(this.shippingAddress.line2))
     || !this.isCityValid(this.shippingAddress.city)
     || !this.isStateValid(this.shippingAddress.state)
     || !this.shippingAddress.zip || !this.isZipValid(this.shippingAddress.zip)
