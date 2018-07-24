@@ -64,6 +64,7 @@ import {ClipboardModule} from 'ngx-clipboard';
 import {FeatureFlagService} from './services/feature-flag.service';
 import {NotificationsQuickService} from './services/notifications-quick.service';
 import { FilterTableComponent } from './components/filter-table/filter-table.component';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations : [
@@ -166,7 +167,8 @@ import { FilterTableComponent } from './components/filter-table/filter-table.com
     Daterangepicker,
     TextMaskModule,
     TranslationModule,
-    ClipboardModule
+    ClipboardModule,
+    InfiniteScrollModule
   ]
 })
 export class SharedModule {

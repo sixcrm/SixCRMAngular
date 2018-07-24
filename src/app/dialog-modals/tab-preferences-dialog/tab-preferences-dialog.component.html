@@ -1,0 +1,20 @@
+<div class="container">
+
+  <div class="header">
+    <div>Tab Settings</div>
+    <mat-icon (click)="close()">close</mat-icon>
+  </div>
+
+  <div class="content">
+    <div class="item" *ngFor="let tab of tabs">
+      <mat-checkbox [(ngModel)]="tab.visible"></mat-checkbox>
+      <div>{{tab.label | translate}}</div>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button mat-button (click)="close()">Cancel</button>
+    <button mat-button (click)="done()">Done</button>
+  </div>
+
+</div>

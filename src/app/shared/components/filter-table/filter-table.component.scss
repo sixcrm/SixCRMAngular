@@ -1,0 +1,221 @@
+@import "../../../../assets/scss/colors";
+
+.container {
+  height: 100%;
+  background: #ffffff;
+
+  .toolbar {
+    display: flex;
+    align-items: center;
+    margin: 0 20px;
+    height: 50px;
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+    font-size: 14px;
+    line-height: 24px;
+    color: $dark-color;
+    background: #ffffff;
+
+    .date {
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .tabs {
+      display: flex;
+      margin: 0 0 0 auto;
+      align-items: center;
+
+      &--no-date {
+        margin-left: 0;
+        margin-right: auto;
+      }
+
+      &__item {
+        margin: 0 4px;
+        padding: 14px 10px 10px;
+        border-bottom: 4px solid rgba(0,0,0,0);
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        color: $dark-color;
+
+        &:first-of-type {
+          margin-left: 0;
+        }
+
+        &:last-of-type {
+          margin-right: 0;
+        }
+
+        &--selected {
+          border-color: $main-color-300;
+        }
+      }
+    }
+
+    .options {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+
+      div {
+        display: flex;
+        align-items: center;
+        margin-left: 20px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+    }
+
+    mat-icon {
+      color: #5F6368;
+      margin-right: 6px;
+    }
+  }
+
+  .data {
+    height: calc(100% - 50px);
+    position: relative;
+
+    .floating-header {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+      z-index: 1;
+    }
+
+    .table-wrapper {
+      height: 100%;
+      overflow: auto;
+
+      .bulk-actions {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 4px;
+        padding: 12px;
+        width: 500px;
+        background: rgba(51, 51, 51, 0.8);
+
+        .number {
+          margin-left: auto;
+          color: #ffffff;
+          font-size: 16px;
+          font-weight: 500;
+        }
+
+        .options {
+          margin: 0 8px;
+
+          &__selected {
+            display: flex;
+            align-items: center;
+            padding: 5px 10px;
+            width: 180px;
+            box-sizing: border-box;
+            background: #ffffff;
+            border-radius: 2px;
+            cursor: pointer;
+
+            mat-icon {
+              margin-left: auto;
+              font-size: 18px;
+              width: 18px;
+              height: 18px;
+            }
+
+          }
+        }
+
+        button {
+          height: 32px;
+          line-height: 32px;
+          padding: 0 14px;
+          font-size: 13px;
+
+          &:first-of-type {
+            color: $dark-color;
+            background: #ffffff;
+          }
+
+          &:last-of-type {
+            color: white;
+            background: $main-color-300;
+          }
+        }
+      }
+    }
+
+    th, .head {
+      padding: 15px 10px;
+    }
+
+    td {
+      font-size: 13px;
+      padding: 10px;
+
+      &:last-of-type {
+        mat-icon {
+          color: $dark-color;
+          cursor: pointer;
+        }
+      }
+    }
+
+    th, .head {
+      font-size: 13px;
+      font-weight: 500;
+      color: #5F6368;
+    }
+
+    th, td, .head {
+      &:first-of-type {
+        padding-left: 20px;
+        width: 1px;
+      }
+
+      &:last-of-type {
+        padding-right: 20px;
+        width: 1px;
+      }
+    }
+
+    tbody {
+      tr {
+        &:nth-of-type(2n) {
+          background: #FAFAFA;
+        }
+      }
+    }
+
+    .head {
+      box-sizing: border-box;
+    }
+  }
+
+  .loader {
+
+    div {
+      width: calc(100% - 38px);
+      background: rgba(0,0,0,0.12);
+      margin: 20px;
+      height: 28px;
+      border-radius: 4px;
+    }
+
+  }
+}
+
+.datepicker__label {
+  display: flex;
+  align-items: center;
+}

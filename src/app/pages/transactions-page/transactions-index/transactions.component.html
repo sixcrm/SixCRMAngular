@@ -2,32 +2,15 @@
 
   <blue-header [items]="crumbItems" [titleValue]="'TRANSACTION_INDEX_TITLE'"></blue-header>
 
-  <entities-table-wrapper
-    [data]="entities"
-    [loaded]="initialLoaded"
-    [columnParams]="columnParams"
-    [filterString]="filterValue"
-    [serverError]="serverError"
-    (selected)="viewEntity($event.id)"
-
-    [service]="service"
-    (viewClicked)="viewEntity($event.id)"
-    (copyClicked)="copyEntity($event.id)"
-    (exportClicked)="exportEntity($event.id)"
-    (editClicked)="editEntity($event.id)"
-    (deleteClicked)="deleteEntity($event.id)"
-    (deleteManyClicked)="deleteMany($event)"
-    (refreshData)="refreshData()"
-
-    [limit]="limit"
-    [paginationValues]="paginationValues"
-    [previousDisabled]="page <= 0"
-    [nextDisabled]="!hasMorePages()"
-    (previous)="previous()"
-    (next)="next()"
-    (updateLimit)="updateLimit($event)"
-    (filterChanged)="filterValue = $event"
-    (searchChanged)="setSearchString($event)"
-  >
-  </entities-table-wrapper>
+  <filter-table [date]="date"
+                [columnParams]="columnParams"
+                [items]="entitiesHolder"
+                [tabs]="tabs"
+                [loading]="loadingData"
+                [singleOptions]="options"
+                (tabSelected)="selectTab($event)"
+                (dateChanged)="changeDate($event)"
+                (singleOptionSelected)="optionSelected($event)"
+                (loadMore)="loadMore()">
+  </filter-table>
 </div>

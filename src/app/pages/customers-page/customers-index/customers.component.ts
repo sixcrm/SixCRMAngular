@@ -8,6 +8,8 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
+import {FilterTableTab} from '../../../shared/components/filter-table/filter-table.component';
+import {utc, Moment} from 'moment';
 
 @Component({
   selector: 'customers',
@@ -17,6 +19,17 @@ import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 export class CustomersComponent extends AbstractEntityIndexComponent<Customer> implements OnInit, OnDestroy {
 
   crumbItems: BreadcrumbItem[] = [{label: () => 'CUSTOMER_INDEX_TITLE'}];
+
+  date: {start: Moment, end: Moment} = {start: utc().subtract(1,'M'), end: utc()};
+
+  tabs: FilterTableTab[] = [
+    {label: 'All', selected: true, visible: true},
+    {label: 'Active', selected: false, visible: true},
+    {label: 'Partial', selected: false, visible: true},
+    {label: 'Blacklisted', selected: false, visible: true}
+  ];
+
+  options = ['View'];
 
   constructor(
     customersService: CustomersService,
@@ -47,12 +60,55 @@ export class CustomersComponent extends AbstractEntityIndexComponent<Customer> i
     ];
   }
 
-
   ngOnInit() {
+    this.shareLimit = false;
+    this.limit = 25;
+    this.setInfiniteScroll(true);
+
     this.init();
   }
 
   ngOnDestroy() {
     this.destroy();
   }
+
+  selectTab(tab: FilterTableTab) {
+    this.tabs = this.tabs.map(t => {
+      t.selected = t.label === tab.label;
+
+      return t;
+    });
+
+    this.refetch();
+  }
+
+  changeDate(date: {start: Moment, end: Moment}) {
+    this.date = date;
+
+    this.refetch();
+  }
+
+  refetch() {
+    this.loadingData = true;
+    this.resetEntities();
+    this.service.getEntities(this.limit)
+  }
+
+  optionSelected(option: {item: any, option: string}) {
+    switch (option.option) {
+      case 'View': {
+        this.router.navigate(['/customers', option.item.id]);
+        break;
+      }
+    }
+  }
+
+  loadMore() {
+    if (!this.loadingData && this.hasMore) {
+      this.loadingData = true;
+      this.service.getEntities(20);
+    }
+  }
+
+
 }

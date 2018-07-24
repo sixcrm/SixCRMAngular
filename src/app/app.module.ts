@@ -44,6 +44,8 @@ import { ReturnDialogComponent } from './dialog-modals/return-dialog/return-dial
 import {EntityServicesModule} from './entity-services/entity-services.module';
 import { ProcessingDialogComponent } from './dialog-modals/processing-dialog/processing-dialog.component';
 import { ProductDetailsDialogComponent } from './dialog-modals/product-details-dialog/product-details-dialog.component';
+import { ColumnPreferencesDialogComponent } from './dialog-modals/column-preferences-dialog/column-preferences-dialog.component';
+import { TabPreferencesDialogComponent } from './dialog-modals/tab-preferences-dialog/tab-preferences-dialog.component';
 
 @NgModule({
   declarations : [
@@ -73,7 +75,9 @@ import { ProductDetailsDialogComponent } from './dialog-modals/product-details-d
     RefundDialogComponent,
     ReturnDialogComponent,
     ProcessingDialogComponent,
-    ProductDetailsDialogComponent
+    ProductDetailsDialogComponent,
+    ColumnPreferencesDialogComponent,
+    TabPreferencesDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -118,7 +122,9 @@ import { ProductDetailsDialogComponent } from './dialog-modals/product-details-d
     RefundDialogComponent,
     ReturnDialogComponent,
     ProcessingDialogComponent,
-    ProductDetailsDialogComponent
+    ProductDetailsDialogComponent,
+    ColumnPreferencesDialogComponent,
+    TabPreferencesDialogComponent
   ],
   bootstrap : [AppComponent]
 })

@@ -9,6 +9,8 @@ import {MatDialog} from '@angular/material';
 import {PaginationService} from '../../../shared/services/pagination.service';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {FeatureFlagService} from '../../../shared/services/feature-flag.service';
+import {Moment, utc} from 'moment';
+import {FilterTableTab} from '../../../shared/components/filter-table/filter-table.component';
 
 @Component({
   selector: 'transactions',
@@ -18,6 +20,18 @@ import {FeatureFlagService} from '../../../shared/services/feature-flag.service'
 export class TransactionsComponent extends AbstractEntityIndexComponent<Transaction> implements OnInit, OnDestroy {
 
   crumbItems: BreadcrumbItem[] = [{label: () => 'TRANSACTION_INDEX_TITLE'}];
+
+  date: {start: Moment, end: Moment} = {start: utc().subtract(1,'M'), end: utc()};
+
+  tabs: FilterTableTab[] = [
+    {label: 'All', selected: true, visible: true},
+    {label: 'Chargebacks', selected: false, visible: true},
+    {label: 'Refunds', selected: false, visible: true},
+    {label: 'Errors', selected: false, visible: true},
+    {label: 'Declines', selected: false, visible: true}
+  ];
+
+  options = ['View'];
 
   constructor(
     transactionsService: TransactionsService,
@@ -43,11 +57,53 @@ export class TransactionsComponent extends AbstractEntityIndexComponent<Transact
   }
 
   ngOnInit() {
+    this.shareLimit = false;
+    this.limit = 25;
+    this.setInfiniteScroll(true);
+
     this.init();
   }
 
   ngOnDestroy() {
     this.destroy();
+  }
+
+  selectTab(tab: FilterTableTab) {
+    this.tabs = this.tabs.map(t => {
+      t.selected = t.label === tab.label;
+
+      return t;
+    });
+
+    this.refetch();
+  }
+
+  changeDate(date: {start: Moment, end: Moment}) {
+    this.date = date;
+
+    this.refetch();
+  }
+
+  refetch() {
+    this.loadingData = true;
+    this.resetEntities();
+    this.service.getEntities(this.limit)
+  }
+
+  optionSelected(option: {item: any, option: string}) {
+    switch (option.option) {
+      case 'View': {
+        this.router.navigate(['/transactions', option.item.id]);
+        break;
+      }
+    }
+  }
+
+  loadMore() {
+    if (!this.loadingData && this.hasMore) {
+      this.loadingData = true;
+      this.service.getEntities(20);
+    }
   }
 
 }

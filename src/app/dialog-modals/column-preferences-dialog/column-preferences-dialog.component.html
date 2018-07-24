@@ -1,0 +1,20 @@
+<div class="container">
+
+  <div class="header">
+    <div>Column Settings</div>
+    <mat-icon (click)="close()">close</mat-icon>
+  </div>
+
+  <div class="content">
+    <div class="item" *ngFor="let params of columnParams">
+      <mat-checkbox [(ngModel)]="params.selected"></mat-checkbox>
+      <div>{{params.label | translate}}</div>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button mat-button (click)="close()">Cancel</button>
+    <button mat-button (click)="done()">Done</button>
+  </div>
+
+</div>

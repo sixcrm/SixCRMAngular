@@ -58,6 +58,16 @@
   }
 
   @import "bootstrap2";
+
+  &--filters {
+    .daterangepicker {
+      width: 487px;
+    }
+
+    .ranges {
+      float: right !important;
+    }
+  }
 }
 
 .datepicker-visible > .daterangepicker {
