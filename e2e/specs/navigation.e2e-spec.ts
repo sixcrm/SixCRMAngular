@@ -57,8 +57,8 @@ describe('Navigation', function() {
     nav.getNavToggler().click();
     nav.getLink(2).click();
 
-    waitForUrlContains('coming-soon');
-    expectUrlToContain('coming-soon');
+    waitForUrlContains('rebills/pending');
+    expectUrlToContain('rebills/pending');
   });
 
   it('should navigate to orders', () => {
