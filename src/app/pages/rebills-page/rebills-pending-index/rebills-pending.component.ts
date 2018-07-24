@@ -6,6 +6,8 @@ import {PaginationService} from '../../../shared/services/pagination.service';
 import {RebillsComponent} from "../rebills-index/rebills.component";
 import {rebillsListQuery, rebillsPendingListQuery} from "../../../shared/utils/queries/entities/rebill.queries";
 import {MatDialog} from '@angular/material';
+import {FilterTableTab} from '../../../shared/components/filter-table/filter-table.component';
+import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 
 @Component({
   selector: 'rebills-pending',
@@ -13,6 +15,16 @@ import {MatDialog} from '@angular/material';
   styleUrls: ['./../rebills-index/rebills.component.scss']
 })
 export class RebillsPendingComponent extends RebillsComponent implements OnInit, OnDestroy {
+
+  title = 'Subscriptions';
+
+  tabs: FilterTableTab[] = [
+    {label: 'All', selected: true, visible: true},
+    {label: 'Active', selected: false, visible: true},
+    {label: 'Canceled', selected: false, visible: true}
+  ];
+
+  crumbItems: BreadcrumbItem[] = [{label: () => this.title}];
 
   constructor(
     service: RebillsService,

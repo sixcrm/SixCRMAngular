@@ -18,7 +18,9 @@ import {FilterTableTab} from '../../../shared/components/filter-table/filter-tab
 })
 export class RebillsComponent extends AbstractEntityIndexComponent<Rebill> implements OnInit, OnDestroy {
 
-  crumbItems: BreadcrumbItem[] = [{label: () => 'REBILL_INDEX_TITLE'}];
+  title = 'REBILL_INDEX_TITLE';
+
+  crumbItems: BreadcrumbItem[] = [{label: () => this.title}];
 
   date: {start: Moment, end: Moment} = {start: utc().subtract(1,'M'), end: utc()};
 
