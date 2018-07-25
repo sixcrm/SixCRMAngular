@@ -14,11 +14,25 @@
     </div>
 
     <div class="tabs" [class.tabs--no-date]="!dateFilterEnabled">
-      <ng-container *ngFor="let tab of tabs">
-        <div *ngIf="tab.visible" class="tabs__item" [class.tabs__item--selected]="tab.selected" (click)="tabSelected.emit(tab)">
-          {{tab.label}}
+      <div *ngIf="showArrows()" class="icon">
+        <mat-icon (click)="moveTabsLeft()">keyboard_arrow_left</mat-icon>
+      </div>
+
+      <div #tabcontainer class="tabs--container">
+
+        <div #tabcontent class="tabs--content">
+          <ng-container *ngFor="let tab of tabs">
+            <div *ngIf="tab.visible" class="tabs__item" [class.tabs__item--selected]="tab.selected" (click)="tabSelected.emit(tab)">
+              {{tab.label}}
+            </div>
+          </ng-container>
         </div>
-      </ng-container>
+
+      </div>
+
+      <div *ngIf="showArrows()" class="icon">
+        <mat-icon (click)="moveTabsRight()">keyboard_arrow_right</mat-icon>
+      </div>
     </div>
 
     <div class="options">

@@ -26,6 +26,44 @@
       display: flex;
       margin: 0 0 0 auto;
       align-items: center;
+      max-width: calc(100% - 600px);
+
+      .icon {
+        display: flex;
+        align-items: center;
+        margin: 0 5px;
+        padding: 0 3px;
+        height: 52px;
+        border-left: 1px solid rgba(0,0,0,0.12);
+        border-right: 1px solid rgba(0,0,0,0.12);
+
+        mat-icon {
+          margin: 0;
+          cursor: pointer;
+          font-size: 24px;
+          height: 24px;
+          width: 24px;
+        }
+      }
+
+      &--container {
+        display: flex;
+        align-items: center;
+        max-width: 100%;
+        overflow: auto;
+
+        -ms-overflow-style: none;
+        overflow: -moz-scrollbars-none;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+
+      &--content {
+        display: flex;
+        align-items: center;
+      }
 
       &--no-date {
         margin-left: 0;

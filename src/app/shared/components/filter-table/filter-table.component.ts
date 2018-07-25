@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter, ViewChildren} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, ViewChildren, ViewChild} from '@angular/core';
 
 import { Moment } from 'moment';
 import {ColumnParams} from '../../models/column-params.model';
@@ -26,6 +26,8 @@ export interface FilterTableTab {
 })
 export class FilterTableComponent implements OnInit {
   @ViewChildren('originalheader') originalHeaders;
+  @ViewChild('tabcontainer') tabContainer;
+  @ViewChild('tabcontent') tabContent;
 
   _date: {start: Moment, end: Moment};
 
@@ -142,5 +144,37 @@ export class FilterTableComponent implements OnInit {
     } else {
       this.numberOfSelected = 0;
     }
+  }
+
+  moveTabsRight() {
+    const move = 60;
+
+    const width = this.tabContent.nativeElement.clientWidth;
+    const scroll = this.tabContainer.nativeElement.scrollLeft;
+
+    if (scroll + move > width) {
+      this.tabContainer.nativeElement.scrollLeft = width;
+    } else {
+      this.tabContainer.nativeElement.scrollLeft += move;
+    }
+  }
+
+  moveTabsLeft() {
+    const move = 60;
+
+    const scroll = this.tabContainer.nativeElement.scrollLeft;
+
+    if (scroll - move < 0) {
+      this.tabContainer.nativeElement.scrollLeft = 0;
+    } else {
+      this.tabContainer.nativeElement.scrollLeft -= move;
+    }
+  }
+
+  showArrows() {
+    const content = this.tabContent.nativeElement.clientWidth;
+    const container = this.tabContainer.nativeElement.clientWidth;
+
+    return content > container;
   }
 }
