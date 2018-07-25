@@ -10,6 +10,7 @@ import {MatDialog} from '@angular/material';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {FilterTableTab} from '../../../shared/components/filter-table/filter-table.component';
 import {utc, Moment} from 'moment';
+import {CustomerFiltersDialogComponent} from '../../../dialog-modals/customer-filters-dialog/customer-filters-dialog.component';
 
 @Component({
   selector: 'customers',
@@ -110,5 +111,16 @@ export class CustomersComponent extends AbstractEntityIndexComponent<Customer> i
     }
   }
 
+  openFiltersDialog() {
+    let filtersDialog = this.deleteDialog.open(CustomerFiltersDialogComponent, { disableClose : true });
+
+    filtersDialog.afterClosed().take(1).subscribe(result => {
+      filtersDialog = null;
+
+      if (result && result.filters) {
+        this.refetch();
+      }
+    });
+  }
 
 }

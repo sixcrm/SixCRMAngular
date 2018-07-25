@@ -109,4 +109,8 @@ export class RebillsComponent extends AbstractEntityIndexComponent<Rebill> imple
     }
   }
 
+  openFiltersDialog() {
+
+  }
+
 }

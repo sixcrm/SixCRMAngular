@@ -1,0 +1,10 @@
+<div class="dropdown-container" [matMenuTriggerFor]="optionsMenu">
+
+  <div class="dropdown-value">{{selectedOption && mapper(selectedOption) ? mapper(selectedOption) : placeholder}}</div>
+  <mat-icon class="dropdown-icon">keyboard_arrow_down</mat-icon>
+
+</div>
+
+<mat-menu #optionsMenu="matMenu" x-position="before">
+  <button mat-menu-item *ngFor="let option of options" (click)="optionSelected.emit(option)">{{mapper(option)}}</button>
+</mat-menu>

@@ -11,6 +11,7 @@ import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {FeatureFlagService} from '../../../shared/services/feature-flag.service';
 import {Moment, utc} from 'moment';
 import {FilterTableTab} from '../../../shared/components/filter-table/filter-table.component';
+import {TransactionFiltersDialogComponent} from '../../../dialog-modals/transaction-filters-dialog/transaction-filters-dialog.component';
 
 @Component({
   selector: 'transactions',
@@ -104,6 +105,18 @@ export class TransactionsComponent extends AbstractEntityIndexComponent<Transact
       this.loadingData = true;
       this.service.getEntities(20);
     }
+  }
+
+  openFiltersDialog() {
+    let filtersDialog = this.deleteDialog.open(TransactionFiltersDialogComponent, { disableClose : true });
+
+    filtersDialog.afterClosed().take(1).subscribe(result => {
+      filtersDialog = null;
+
+      if (result && result.filters) {
+        this.refetch();
+      }
+    });
   }
 
 }

@@ -8,6 +8,7 @@ import {rebillsListQuery, rebillsPendingListQuery} from "../../../shared/utils/q
 import {MatDialog} from '@angular/material';
 import {FilterTableTab} from '../../../shared/components/filter-table/filter-table.component';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
+import {SubscriptionFiltersDialogComponent} from '../../../dialog-modals/subscription-filters-dialog/subscription-filters-dialog.component';
 
 @Component({
   selector: 'rebills-pending',
@@ -49,5 +50,17 @@ export class RebillsPendingComponent extends RebillsComponent implements OnInit,
 
   viewEntity(id: string) {
     this.router.navigate(['/rebills', id]);
+  }
+
+  openFiltersDialog() {
+    let filtersDialog = this.deleteDialog.open(SubscriptionFiltersDialogComponent, { disableClose : true });
+
+    filtersDialog.afterClosed().take(1).subscribe(result => {
+      filtersDialog = null;
+
+      if (result && result.filters) {
+        this.refetch();
+      }
+    });
   }
 }

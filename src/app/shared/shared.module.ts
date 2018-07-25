@@ -65,6 +65,11 @@ import {FeatureFlagService} from './services/feature-flag.service';
 import {NotificationsQuickService} from './services/notifications-quick.service';
 import { FilterTableComponent } from './components/filter-table/filter-table.component';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import { ValueFilterComponent } from './components/value-filter/value-filter.component';
+import { ValueFilterDropdownComponent } from './components/value-filter-dropdown/value-filter-dropdown.component';
+import { LocationFilterComponent } from './components/location-filter/location-filter.component';
+import { FilterDaterangePickerComponent } from './components/filter-daterange-picker/filter-daterange-picker.component';
+import { SingleFilterComponent } from './components/single-filter/single-filter.component';
 
 @NgModule({
   declarations : [
@@ -113,7 +118,12 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
     VisibleYDirective,
     DragScrollXDirective,
     PaymentFormComponent,
-    FilterTableComponent
+    FilterTableComponent,
+    ValueFilterComponent,
+    ValueFilterDropdownComponent,
+    LocationFilterComponent,
+    FilterDaterangePickerComponent,
+    SingleFilterComponent
   ],
   exports : [
     AutocompleteComponent,
@@ -157,7 +167,11 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
     VisibleYDirective,
     DragScrollXDirective,
     PaymentFormComponent,
-    FilterTableComponent
+    FilterTableComponent,
+    ValueFilterComponent,
+    LocationFilterComponent,
+    FilterDaterangePickerComponent,
+    SingleFilterComponent
   ],
   imports : [
     FormsModule,

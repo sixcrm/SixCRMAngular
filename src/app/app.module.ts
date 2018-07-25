@@ -46,6 +46,11 @@ import { ProcessingDialogComponent } from './dialog-modals/processing-dialog/pro
 import { ProductDetailsDialogComponent } from './dialog-modals/product-details-dialog/product-details-dialog.component';
 import { ColumnPreferencesDialogComponent } from './dialog-modals/column-preferences-dialog/column-preferences-dialog.component';
 import { TabPreferencesDialogComponent } from './dialog-modals/tab-preferences-dialog/tab-preferences-dialog.component';
+import { TransactionFiltersDialogComponent } from './dialog-modals/transaction-filters-dialog/transaction-filters-dialog.component';
+import { Daterangepicker } from 'ng2-daterangepicker';
+import { CustomerFiltersDialogComponent } from './dialog-modals/customer-filters-dialog/customer-filters-dialog.component';
+import { SubscriptionFiltersDialogComponent } from './dialog-modals/subscription-filters-dialog/subscription-filters-dialog.component';
+import { ShippingreceiptFiltersDialogComponent } from './dialog-modals/shippingreceipt-filters-dialog/shippingreceipt-filters-dialog.component';
 
 @NgModule({
   declarations : [
@@ -77,7 +82,11 @@ import { TabPreferencesDialogComponent } from './dialog-modals/tab-preferences-d
     ProcessingDialogComponent,
     ProductDetailsDialogComponent,
     ColumnPreferencesDialogComponent,
-    TabPreferencesDialogComponent
+    TabPreferencesDialogComponent,
+    TransactionFiltersDialogComponent,
+    CustomerFiltersDialogComponent,
+    SubscriptionFiltersDialogComponent,
+    ShippingreceiptFiltersDialogComponent
   ],
   imports : [
     NavigationModule.forRoot(),
@@ -93,7 +102,8 @@ import { TabPreferencesDialogComponent } from './dialog-modals/tab-preferences-d
     ClipboardModule,
     TranslationModule.forRoot(),
     TextMaskModule,
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+    Daterangepicker
   ],
   exports: [ ],
   providers : [ HttpWrapperService, HttpWrapperTransactionalService, HttpWrapperCustomerService ],
@@ -124,7 +134,11 @@ import { TabPreferencesDialogComponent } from './dialog-modals/tab-preferences-d
     ProcessingDialogComponent,
     ProductDetailsDialogComponent,
     ColumnPreferencesDialogComponent,
-    TabPreferencesDialogComponent
+    TabPreferencesDialogComponent,
+    TransactionFiltersDialogComponent,
+    CustomerFiltersDialogComponent,
+    SubscriptionFiltersDialogComponent,
+    ShippingreceiptFiltersDialogComponent
   ],
   bootstrap : [AppComponent]
 })

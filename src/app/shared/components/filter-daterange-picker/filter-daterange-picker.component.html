@@ -1,0 +1,7 @@
+<div class="datepicker--custom datepicker--custom--filters--filter">
+  <div daterangepicker (selected)="emitDateSelected($event)">
+    <div class="date__label">
+      <mat-icon>date_range</mat-icon>{{_date.start | formatDateTime: 'MMMM D, YYYY'}} to {{_date.end | formatDateTime: 'MMMM D, YYYY'}}
+    </div>
+  </div>
+</div>

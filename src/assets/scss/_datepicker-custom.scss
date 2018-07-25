@@ -59,7 +59,7 @@
 
   @import "bootstrap2";
 
-  &--filters {
+  &--filters, &--filters--filter {
     .daterangepicker {
       width: 487px;
     }

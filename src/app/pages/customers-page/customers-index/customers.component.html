@@ -8,6 +8,7 @@
                 [loading]="loadingData"
                 [singleOptions]="options"
                 [dateFilterEnabled]="false"
+                (filtersSelected)="openFiltersDialog()"
                 (tabSelected)="selectTab($event)"
                 (dateChanged)="changeDate($event)"
                 (singleOptionSelected)="optionSelected($event)"

@@ -44,6 +44,7 @@ export class FilterTableComponent implements OnInit {
   @Output() dateChanged: EventEmitter<{start: Moment, end: Moment}> = new EventEmitter();
   @Output() tabSelected: EventEmitter<FilterTableTab> = new EventEmitter();
   @Output() loadMore: EventEmitter<boolean> = new EventEmitter();
+  @Output() filtersSelected: EventEmitter<boolean> = new EventEmitter();
   @Output() singleOptionSelected: EventEmitter<{item: any, option: string}> = new EventEmitter();
   @Output() bulkOptionSelected: EventEmitter<{items: any[], option: string}> = new EventEmitter();
 

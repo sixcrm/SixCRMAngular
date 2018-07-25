@@ -10,6 +10,7 @@ import {MatDialog} from '@angular/material';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {Moment, utc} from 'moment';
 import {FilterTableTab} from '../../../shared/components/filter-table/filter-table.component';
+import {ShippingreceiptFiltersDialogComponent} from '../../../dialog-modals/shippingreceipt-filters-dialog/shippingreceipt-filters-dialog.component';
 
 @Component({
   selector: 'shipping-receipt',
@@ -104,6 +105,18 @@ export class ShippingReceiptsComponent extends AbstractEntityIndexComponent<Ship
       this.loadingData = true;
       this.service.getEntities(20);
     }
+  }
+
+  openFiltersDialog() {
+    let filtersDialog = this.deleteDialog.open(ShippingreceiptFiltersDialogComponent, { disableClose : true });
+
+    filtersDialog.afterClosed().take(1).subscribe(result => {
+      filtersDialog = null;
+
+      if (result && result.filters) {
+        this.refetch();
+      }
+    });
   }
 
 }

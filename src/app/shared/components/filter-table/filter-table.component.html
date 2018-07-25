@@ -1,6 +1,7 @@
 <div class="container">
 
   <div class="toolbar">
+
     <div *ngIf="dateFilterEnabled" class="date">
       <div class="datepicker--custom datepicker--custom--filters">
         <div daterangepicker (selected)="dateSelected($event)">
@@ -21,7 +22,7 @@
     </div>
 
     <div class="options">
-      <div><mat-icon>filter_list</mat-icon>Filters</div>
+      <div (click)="filtersSelected.emit(true)"><mat-icon>filter_list</mat-icon>Filters</div>
       <div (click)="openColumnPreferencesDialog()"><mat-icon>view_column</mat-icon>Columns</div>
       <div (click)="openTabPreferencesDialog()"><mat-icon>settings</mat-icon>Settings</div>
     </div>

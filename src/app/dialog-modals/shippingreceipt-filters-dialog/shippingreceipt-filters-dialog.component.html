@@ -1,0 +1,62 @@
+<div class="container filters-dialog">
+
+  <div class="header">
+    <div>Filter Results</div>
+    <mat-icon (click)="close()">close</mat-icon>
+  </div>
+
+  <div class="content">
+
+    <div class="mrw-bi-input search-input-container">
+      <mat-form-field [floatLabel]="'never'">
+        <input type="text" matInput placeholder="Search">
+      </mat-form-field>
+      <mat-icon class="topnav__search__icon">search</mat-icon>
+    </div>
+
+    <div class="date">
+
+      <div class="date__title">Date Range</div>
+      <filter-daterange-picker [date]="date" (dateChanged)="dateSelected($event)"></filter-daterange-picker>
+
+    </div>
+
+    <div class="box-container">
+      <div class="box-row">
+        <div class="box box--single">
+          <div class="label">Status</div>
+          <mat-checkbox [checked]="true">All</mat-checkbox>
+          <mat-checkbox>Pending</mat-checkbox>
+          <mat-checkbox>Shipped</mat-checkbox>
+          <mat-checkbox>Delivered</mat-checkbox>
+          <mat-checkbox>Errors</mat-checkbox>
+        </div>
+      </div>
+
+      <div class="box-row">
+        <div class="box box--single">
+          <div class="label">Fulfillment Providers</div>
+          <mat-checkbox [checked]="true">All</mat-checkbox>
+          <mat-checkbox>PUSH</mat-checkbox>
+          <mat-checkbox>Provider 2</mat-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <div class="filter">
+      <div class="filter__title">Values</div>
+
+      <value-filter [columns]="filterColumns" [filters]="filters" (filterAdded)="addFilter()" (filterRemovedAtIndex)="removeFilterAtIndex($event)"></value-filter>
+    </div>
+
+  </div>
+
+  <div class="buttons-container">
+
+    <button mat-button class="save" (click)="save()">Save As...</button>
+    <button mat-button class="cancel" (click)="close()">Cancel</button>
+    <button mat-button class="filter" (click)="filter()">Filter</button>
+
+  </div>
+
+</div>
