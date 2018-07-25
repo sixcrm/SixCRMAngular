@@ -32,7 +32,7 @@
 
     <div [style.width]="getHeaderWidthByElement(head)" class="floating-header">
       <div class="head" [style.width]="getHeaderWidthByElement(bulkheader)">
-        <mat-checkbox (change)="toggleBulkSelection($event)"></mat-checkbox>
+        <mat-checkbox class="checkbox-blue" (change)="toggleBulkSelection($event)"></mat-checkbox>
       </div>
       <ng-container *ngFor="let params of columnParams;">
         <div class="head" *ngIf="params.selected" [style.width]="getHeaderWidth(params)">
@@ -52,7 +52,7 @@
       <table>
         <thead #head>
         <th #bulkheader>
-          <mat-checkbox></mat-checkbox>
+          <mat-checkbox class="checkbox-blue"></mat-checkbox>
         </th>
         <ng-container *ngFor="let param of columnParams">
           <th #originalheader *ngIf="param.selected">
@@ -64,7 +64,7 @@
 
         <tbody>
         <tr *ngFor="let item of items">
-          <td><mat-checkbox (change)="toggleSelection($event)" [(ngModel)]="item.bulkSelected"></mat-checkbox></td>
+          <td><mat-checkbox class="checkbox-blue" (change)="toggleSelection($event)" [(ngModel)]="item.bulkSelected"></mat-checkbox></td>
           <ng-container *ngFor="let param of columnParams">
             <td *ngIf="param.selected">
               {{param.mappingFunction(item)}}

@@ -252,6 +252,12 @@ mat-dialog-container {
             margin-top: 10px;
             font-size: 13px;
             color: $dark-color;
+
+            &.mat-checkbox-checked {
+              .mat-checkbox-background {
+                background-color: $main-color-400 !important;
+              }
+            }
           }
 
           &:first-of-type {
