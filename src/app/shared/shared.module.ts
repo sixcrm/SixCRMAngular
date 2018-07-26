@@ -70,6 +70,7 @@ import { ValueFilterDropdownComponent } from './components/value-filter-dropdown
 import { LocationFilterComponent } from './components/location-filter/location-filter.component';
 import { FilterDaterangePickerComponent } from './components/filter-daterange-picker/filter-daterange-picker.component';
 import { SingleFilterComponent } from './components/single-filter/single-filter.component';
+import { FilterSaveAsComponent } from './components/filter-save-as/filter-save-as.component';
 
 @NgModule({
   declarations : [
@@ -123,7 +124,8 @@ import { SingleFilterComponent } from './components/single-filter/single-filter.
     ValueFilterDropdownComponent,
     LocationFilterComponent,
     FilterDaterangePickerComponent,
-    SingleFilterComponent
+    SingleFilterComponent,
+    FilterSaveAsComponent
   ],
   exports : [
     AutocompleteComponent,
@@ -171,7 +173,8 @@ import { SingleFilterComponent } from './components/single-filter/single-filter.
     ValueFilterComponent,
     LocationFilterComponent,
     FilterDaterangePickerComponent,
-    SingleFilterComponent
+    SingleFilterComponent,
+    FilterSaveAsComponent
   ],
   imports : [
     FormsModule,

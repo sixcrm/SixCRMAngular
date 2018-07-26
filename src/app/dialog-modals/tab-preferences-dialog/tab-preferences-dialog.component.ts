@@ -8,7 +8,7 @@ import {MatDialogRef} from '@angular/material';
 })
 export class TabPreferencesDialogComponent implements OnInit {
 
-  tabs: {label: string, visible: boolean}[] = [];
+  tabs: {label: string, visible: boolean, custom: boolean, toBeRemoved?: boolean}[] = [];
 
   constructor(private dialogRef: MatDialogRef<TabPreferencesDialogComponent>) { }
 
@@ -21,6 +21,10 @@ export class TabPreferencesDialogComponent implements OnInit {
 
   done() {
     this.dialogRef.close({tabs: this.tabs});
+  }
+
+  removeTabAtIndex(index: number) {
+    this.tabs[index].toBeRemoved = true;
   }
 
 }

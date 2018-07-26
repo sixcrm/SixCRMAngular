@@ -5,47 +5,55 @@
     <mat-icon (click)="close()">close</mat-icon>
   </div>
 
-  <div class="content">
+  <div [class.content--invisible]="saveAsMode">
 
-    <div class="mrw-bi-input search-input-container">
-      <mat-form-field [floatLabel]="'never'">
-        <input type="text" matInput placeholder="Search Customers">
-      </mat-form-field>
-      <mat-icon class="topnav__search__icon">search</mat-icon>
-    </div>
+    <div class="content">
 
-    <div class="box-container">
-      <div class="box-row">
-        <div class="box box--single">
-          <div class="label">Status</div>
-          <mat-checkbox [checked]="true">All</mat-checkbox>
-          <mat-checkbox>Active</mat-checkbox>
-          <mat-checkbox>Partial</mat-checkbox>
-          <mat-checkbox>Blacklisted</mat-checkbox>
+      <div class="mrw-bi-input search-input-container">
+        <mat-form-field [floatLabel]="'never'">
+          <input type="text" matInput placeholder="Search Customers">
+        </mat-form-field>
+        <mat-icon class="topnav__search__icon">search</mat-icon>
+      </div>
+
+      <div class="box-container">
+        <div class="box-row">
+          <div class="box box--single">
+            <div class="label">Status</div>
+            <mat-checkbox [checked]="true">All</mat-checkbox>
+            <mat-checkbox>Active</mat-checkbox>
+            <mat-checkbox>Partial</mat-checkbox>
+            <mat-checkbox>Blacklisted</mat-checkbox>
+          </div>
         </div>
       </div>
+
+      <div class="filter">
+        <div class="filter__title">Locations</div>
+
+        <location-filter [locations]="locations" (locationAdded)="addLocation()" (locationRemovedAtIndex)="removeLocationAtIndex($event)"></location-filter>
+      </div>
+
+      <div class="filter">
+        <div class="filter__title">Values</div>
+
+        <value-filter [columns]="filterColumns" [filters]="filters" (filterAdded)="addFilter()" (filterRemovedAtIndex)="removeFilterAtIndex($event)"></value-filter>
+      </div>
+
     </div>
 
-    <div class="filter">
-      <div class="filter__title">Locations</div>
+    <div class="buttons-container">
 
-      <location-filter [locations]="locations" (locationAdded)="addLocation()" (locationRemovedAtIndex)="removeLocationAtIndex($event)"></location-filter>
-    </div>
+      <button mat-button class="save" (click)="setSaveAs(true)">Save As...</button>
+      <button mat-button class="cancel" (click)="close()">Cancel</button>
+      <button mat-button class="filter" (click)="filter()">Filter</button>
 
-    <div class="filter">
-      <div class="filter__title">Values</div>
-
-      <value-filter [columns]="filterColumns" [filters]="filters" (filterAdded)="addFilter()" (filterRemovedAtIndex)="removeFilterAtIndex($event)"></value-filter>
     </div>
 
   </div>
 
-  <div class="buttons-container">
-
-    <button mat-button class="save" (click)="save()">Save As...</button>
-    <button mat-button class="cancel" (click)="close()">Cancel</button>
-    <button mat-button class="filter" (click)="filter()">Filter</button>
-
+  <div [class.content--invisible]="!saveAsMode">
+    <filter-save-as (back)="setSaveAs(false)" (saveAs)="save($event)"></filter-save-as>
   </div>
 
 </div>

@@ -11,27 +11,16 @@ import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {Moment, utc} from 'moment';
 import {FilterTableTab} from '../../../shared/components/filter-table/filter-table.component';
 import {ShippingreceiptFiltersDialogComponent} from '../../../dialog-modals/shippingreceipt-filters-dialog/shippingreceipt-filters-dialog.component';
+import {AbstractEntityReportIndexComponent} from '../../abstract-entity-report-index.component';
 
 @Component({
   selector: 'shipping-receipt',
   templateUrl: './shipping-receipts.component.html',
   styleUrls: ['./shipping-receipts.component.scss']
 })
-export class ShippingReceiptsComponent extends AbstractEntityIndexComponent<ShippingReceipt> implements OnInit, OnDestroy {
+export class ShippingReceiptsComponent extends AbstractEntityReportIndexComponent<ShippingReceipt> implements OnInit, OnDestroy {
 
   crumbItems: BreadcrumbItem[] = [{label: () => 'SHIPPINGRECEIPT_INDEX_TITLE'}];
-
-  date: {start: Moment, end: Moment} = {start: utc().subtract(1,'M'), end: utc()};
-
-  tabs: FilterTableTab[] = [
-    {label: 'All', selected: true, visible: true},
-    {label: 'Pending', selected: false, visible: true},
-    {label: 'Shipping', selected: false, visible: true},
-    {label: 'Delivered', selected: false, visible: true},
-    {label: 'Errors', selected: false, visible: true}
-  ];
-
-  options = ['View'];
 
   constructor(
     shippingReceiptsService: ShippingReceiptsService,
@@ -54,41 +43,27 @@ export class ShippingReceiptsComponent extends AbstractEntityIndexComponent<Ship
       new ColumnParams('SHIPPINGRECEIPT_INDEX_HEADER_CREATED', (e: ShippingReceipt) => e.createdAt.tz(tz).format('MM/DD/YYYY')).setSelected(false),
       new ColumnParams('SHIPPINGRECEIPT_INDEX_HEADER_UPDATED', (e: ShippingReceipt) => e.updatedAt.tz(tz).format('MM/DD/YYYY')).setSelected(false)
     ];
+
+    this.date = {start: utc().subtract(1,'M'), end: utc()};
+
+    this.tabs = [
+      {label: 'All', selected: true, visible: true},
+      {label: 'Pending', selected: false, visible: true},
+      {label: 'Shipping', selected: false, visible: true},
+      {label: 'Delivered', selected: false, visible: true},
+      {label: 'Errors', selected: false, visible: true}
+    ];
+
+    this.options = ['View'];
   }
 
 
   ngOnInit() {
-    this.shareLimit = false;
-    this.limit = 25;
-    this.setInfiniteScroll(true);
-
     this.init();
   }
 
   ngOnDestroy() {
     this.destroy();
-  }
-
-  selectTab(tab: FilterTableTab) {
-    this.tabs = this.tabs.map(t => {
-      t.selected = t.label === tab.label;
-
-      return t;
-    });
-
-    this.refetch();
-  }
-
-  changeDate(date: {start: Moment, end: Moment}) {
-    this.date = date;
-
-    this.refetch();
-  }
-
-  refetch() {
-    this.loadingData = true;
-    this.resetEntities();
-    this.service.getEntities(this.limit)
   }
 
   optionSelected(option: {item: any, option: string}) {
@@ -100,23 +75,8 @@ export class ShippingReceiptsComponent extends AbstractEntityIndexComponent<Ship
     }
   }
 
-  loadMore() {
-    if (!this.loadingData && this.hasMore) {
-      this.loadingData = true;
-      this.service.getEntities(20);
-    }
-  }
-
   openFiltersDialog() {
-    let filtersDialog = this.deleteDialog.open(ShippingreceiptFiltersDialogComponent, { disableClose : true });
-
-    filtersDialog.afterClosed().take(1).subscribe(result => {
-      filtersDialog = null;
-
-      if (result && result.filters) {
-        this.refetch();
-      }
-    });
+    super.openFiltersDialog(ShippingreceiptFiltersDialogComponent);
   }
 
 }

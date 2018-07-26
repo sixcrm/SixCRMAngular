@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter, ViewChildren, ViewChild} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, ViewChildren, ViewChild, OnDestroy} from '@angular/core';
 
 import { Moment } from 'moment';
 import {ColumnParams} from '../../models/column-params.model';
@@ -7,6 +7,7 @@ import {MatDialog} from '@angular/material';
 import {ColumnPreferencesDialogComponent} from '../../../dialog-modals/column-preferences-dialog/column-preferences-dialog.component';
 import {DaterangepickerConfig} from 'ng2-daterangepicker';
 import {TabPreferencesDialogComponent} from '../../../dialog-modals/tab-preferences-dialog/tab-preferences-dialog.component';
+import {Subscription, Observable} from 'rxjs';
 
 export interface FilterTableFilter {
 
@@ -16,6 +17,7 @@ export interface FilterTableTab {
   label: string;
   selected: boolean;
   visible: boolean;
+  custom?: boolean;
   filter?: FilterTableFilter;
 }
 
@@ -24,7 +26,7 @@ export interface FilterTableTab {
   templateUrl: './filter-table.component.html',
   styleUrls: ['./filter-table.component.scss']
 })
-export class FilterTableComponent implements OnInit {
+export class FilterTableComponent implements OnInit, OnDestroy {
   @ViewChildren('originalheader') originalHeaders;
   @ViewChild('tabcontainer') tabContainer;
   @ViewChild('tabcontent') tabContent;
@@ -52,10 +54,18 @@ export class FilterTableComponent implements OnInit {
 
   numberOfSelected: number = 0;
 
+  intervalSub: Subscription;
+
   constructor(private dialog: MatDialog, private daterangepickerOptions: DaterangepickerConfig) { }
 
   ngOnInit() {
     this.updateDatepicker();
+  }
+
+  ngOnDestroy() {
+    if (this.intervalSub) {
+      this.intervalSub.unsubscribe();
+    }
   }
 
   updateDatepicker(): void {
@@ -97,17 +107,25 @@ export class FilterTableComponent implements OnInit {
   openTabPreferencesDialog() {
     let dialog = this.dialog.open(TabPreferencesDialogComponent, { disableClose : true });
 
-    let tabs = this.tabs.map(tab => { return {label: tab.label, visible: tab.visible} });
-
-    dialog.componentInstance.tabs = tabs;
+    dialog.componentInstance.tabs = this.tabs.map(tab => {
+      return {label: tab.label, visible: tab.visible, custom: tab.custom}
+    });
 
     dialog.afterClosed().take(1).subscribe(result => {
       dialog = null;
 
-      if (result) {
+      if (result && result.tabs) {
+        const parsedTabs = [];
+
         for (let i = 0; i < this.tabs.length; i++) {
-          this.tabs[i].visible = tabs[i].visible;
+          this.tabs[i].visible = result.tabs[i].visible;
+
+          if (!result.tabs[i].toBeRemoved) {
+            parsedTabs.push(this.tabs[i])
+          }
         }
+
+        this.tabs = parsedTabs;
       }
     });
   }
@@ -147,28 +165,36 @@ export class FilterTableComponent implements OnInit {
   }
 
   moveTabsRight() {
-    const move = 60;
+    if (this.intervalSub) {
+      this.intervalSub.unsubscribe();
+    }
+
+    const move = 80;
 
     const width = this.tabContent.nativeElement.clientWidth;
     const scroll = this.tabContainer.nativeElement.scrollLeft;
 
-    if (scroll + move > width) {
-      this.tabContainer.nativeElement.scrollLeft = width;
-    } else {
-      this.tabContainer.nativeElement.scrollLeft += move;
-    }
+    const moveDelta = (scroll + move > width) ? width - scroll : move;
+
+    this.intervalSub = Observable.interval(20).take(4).subscribe(() => {
+      this.tabContainer.nativeElement.scrollLeft += (moveDelta / 4)
+    })
   }
 
   moveTabsLeft() {
-    const move = 60;
+    if (this.intervalSub) {
+      this.intervalSub.unsubscribe();
+    }
+
+    const move = 80;
 
     const scroll = this.tabContainer.nativeElement.scrollLeft;
 
-    if (scroll - move < 0) {
-      this.tabContainer.nativeElement.scrollLeft = 0;
-    } else {
-      this.tabContainer.nativeElement.scrollLeft -= move;
-    }
+    const moveDelta = (scroll - move < 0) ? scroll : move;
+
+    this.intervalSub = Observable.interval(20).take(4).subscribe(() => {
+      this.tabContainer.nativeElement.scrollLeft -= (moveDelta / 4)
+    });
   }
 
   showArrows() {

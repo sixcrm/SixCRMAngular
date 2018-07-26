@@ -16,6 +16,8 @@ export class AbstractFilterDialog<T> {
 
   locations: LocationFilter[] = [];
 
+  saveAsMode: boolean = false;
+
   constructor(protected dialogRef: MatDialogRef<T>) {};
 
   close() {
@@ -26,8 +28,8 @@ export class AbstractFilterDialog<T> {
     this.dialogRef.close({filters: []});
   }
 
-  save() {
-    this.dialogRef.close({filters: []});
+  save(data: {name: string, apply: boolean}) {
+    this.dialogRef.close({filters: [], meta: data});
   }
 
   dateSelected(date: {start: Moment, end: Moment}) {
@@ -48,5 +50,9 @@ export class AbstractFilterDialog<T> {
 
   removeLocationAtIndex(index) {
     this.locations.splice(index, 1);
+  }
+
+  setSaveAs(value: boolean) {
+    this.saveAsMode = value;
   }
 }

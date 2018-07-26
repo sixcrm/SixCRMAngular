@@ -178,6 +178,10 @@ mat-dialog-container {
   .content {
     padding: 20px 25px;
 
+    &--invisible {
+      display: none;
+    }
+
     .search-input-container {
       background: rgba(0,0,0,0.06);
       width: 100%;

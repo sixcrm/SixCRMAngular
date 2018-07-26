@@ -1,0 +1,16 @@
+<div class="content">
+
+  <mat-form-field class="mrw-filter-input" [floatLabel]="'never'">
+    <input matInput type="text" placeholder="Filter Name..." [(ngModel)]="name">
+  </mat-form-field>
+
+  <mat-checkbox class="checkbox-blue" [(ngModel)]="apply">Apply after save</mat-checkbox>
+
+</div>
+
+<div class="buttons-container">
+
+  <button mat-button class="cancel" (click)="back.emit(true)">Back</button>
+  <button mat-button class="filter" (click)="save()">Save</button>
+
+</div>

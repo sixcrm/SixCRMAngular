@@ -9,8 +9,8 @@
   <div class="row" *ngFor="let filter of filters; let i = index">
     <value-filter-dropdown class="item" [selectedOption]="filter.column" [options]="columns" [mapper]="columnMapper" (optionSelected)="filter.column = $event"></value-filter-dropdown>
     <value-filter-dropdown class="item" [selectedOption]="filter.operator" [options]="operators" [mapper]="operatorMapper" (optionSelected)="filter.operator = $event"></value-filter-dropdown>
-    <mat-form-field class="item mrw-filter-input">
-      <input type="text" matInput [(ngModel)]="filter.value">
+    <mat-form-field class="item mrw-filter-input" [floatLabel]="'never'">
+      <input type="text" matInput [(ngModel)]="filter.value" placeholder="Value...">
     </mat-form-field>
 
     <mat-icon (click)="filterRemovedAtIndex.emit(i)">close</mat-icon>

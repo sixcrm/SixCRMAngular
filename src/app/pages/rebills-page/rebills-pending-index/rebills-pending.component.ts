@@ -52,15 +52,7 @@ export class RebillsPendingComponent extends RebillsComponent implements OnInit,
     this.router.navigate(['/rebills', id]);
   }
 
-  openFiltersDialog() {
-    let filtersDialog = this.deleteDialog.open(SubscriptionFiltersDialogComponent, { disableClose : true });
-
-    filtersDialog.afterClosed().take(1).subscribe(result => {
-      filtersDialog = null;
-
-      if (result && result.filters) {
-        this.refetch();
-      }
-    });
+  oFiltersDialog() {
+    super.openFiltersDialog(SubscriptionFiltersDialogComponent);
   }
 }

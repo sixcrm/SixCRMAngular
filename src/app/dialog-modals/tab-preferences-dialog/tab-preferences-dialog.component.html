@@ -6,10 +6,13 @@
   </div>
 
   <div class="content">
-    <div class="item" *ngFor="let tab of tabs">
-      <mat-checkbox [(ngModel)]="tab.visible"></mat-checkbox>
-      <div>{{tab.label | translate}}</div>
-    </div>
+    <ng-container *ngFor="let tab of tabs; let i = index">
+      <div class="item" *ngIf="!tab.toBeRemoved">
+        <mat-checkbox class="checkbox-blue" [(ngModel)]="tab.visible"></mat-checkbox>
+        <div class="label">{{tab.label | translate}}</div>
+        <mat-icon (click)="removeTabAtIndex(i)" *ngIf="tab.custom">delete</mat-icon>
+      </div>
+    </ng-container>
   </div>
 
   <div class="buttons">
