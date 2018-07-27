@@ -5,10 +5,12 @@
 <div>
   <header>
     <app-topnav [isInvitedUser]="isInvitedUser" (invitedUserInstructionsDismissed)="isInvitedUser = false"></app-topnav>
-    <navigation-menu *ngIf="navigation.showNavMenu | async"></navigation-menu>
   </header>
 
   <div class="container">
+    <div class="navigation-menu--overlay" *ngIf="navigation.showNavMenu | async">
+      <navigation-menu></navigation-menu>
+    </div>
     <router-outlet></router-outlet>
     <notifications-quick *ngIf="navigation.showNotifications | async" (close)="navigation.toggleNotifications(false)"></notifications-quick>
     <div class="notifications-popup" [style.display]="!(navigation.showNotifications | async) ? 'block' : 'none'">
