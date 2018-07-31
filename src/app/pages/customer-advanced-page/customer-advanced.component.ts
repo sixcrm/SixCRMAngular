@@ -79,7 +79,7 @@ export class CustomerAdvancedComponent implements OnInit, OnDestroy {
     private rebillService: RebillsService,
     private orderService: OrdersService,
     private customerService: CustomersService,
-    private sessionService: SessionsService,
+    public sessionService: SessionsService,
     private transactionService: TransactionsService,
     private shippingReceiptsService: ShippingReceiptsService,
     private route: ActivatedRoute,
