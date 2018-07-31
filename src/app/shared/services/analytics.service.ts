@@ -8,7 +8,7 @@ import {TransactionSummary} from '../models/transaction-summary.model';
 import {
   transactionSummaryQuery, eventsFunnelQuery, campaignsByAmountQuery,
   activitiesByCustomer, heroChartQuery, eventsFunnelTimeseriesQuery,
-  productSchedulesByAmountQuery
+  productSchedulesByAmountQuery, transactionsQuery
 } from '../utils/queries/analytics.queries';
 import {CampaignStats} from '../models/campaign-stats.model';
 import {AnalyticsStorageService} from './analytics-storage.service';
@@ -20,6 +20,7 @@ import {CustomServerError} from '../models/errors/custom-server-error';
 import {SubscriptionStats} from "../models/subscription-stats.model";
 import {HeroChartSeries} from '../models/hero-chart-series.model';
 import {EventFunnelTimeseries} from "../models/event-funnel-timeseries.model";
+import {TransactionAnalytics} from '../models/analytics/transaction-analytics.model';
 
 @Injectable()
 export class AnalyticsService {
@@ -31,6 +32,7 @@ export class AnalyticsService {
   transactionsSummaries$: BehaviorSubject<TransactionSummary[] | CustomServerError>;
   heroChartSeries$: BehaviorSubject<HeroChartSeries[] | CustomServerError>;
   campaignsByAmount$: BehaviorSubject<CampaignStats[] | CustomServerError>;
+  transactions$: BehaviorSubject<TransactionAnalytics[] | CustomServerError>;
   subscriptionsByAmount$: BehaviorSubject<SubscriptionStats[] | CustomServerError>;
 
   activitiesByCustomer$: Subject<Activity[] | CustomServerError>;
@@ -43,6 +45,7 @@ export class AnalyticsService {
     this.transactionsSummaries$ = new BehaviorSubject(null);
     this.heroChartSeries$ = new BehaviorSubject(null);
     this.campaignsByAmount$ = new BehaviorSubject(null);
+    this.transactions$ = new BehaviorSubject(null);
     this.subscriptionsByAmount$ = new BehaviorSubject(null);
 
     this.activitiesByCustomer$ = new Subject();
@@ -227,6 +230,17 @@ export class AnalyticsService {
       if (result) {
         this.analyticsStorage.setCampaignsByAmount(params.start, params.end, result);
       }
+    })
+  }
+
+  getTransactions(params: {start: string, end: string}): void {
+    this.queryRequest(transactionsQuery(params.start, params.end)).subscribe(data => {
+      this.handleResponse(
+        data,
+        this.transactions$,
+        (t: any) => new TransactionAnalytics(t),
+        (data: any) => extractData(data).analytics.records
+      );
     })
   }
 

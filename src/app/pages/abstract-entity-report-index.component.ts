@@ -1,14 +1,12 @@
-import {AbstractEntityService} from '../entity-services/services/abstract-entity.service';
 import {MatDialog} from '@angular/material';
-import {PaginationService} from '../shared/services/pagination.service';
 import {AuthenticationService} from '../authentication/authentication.service';
-import {Router, ActivatedRoute} from '@angular/router';
-import {AbstractEntityIndexComponent} from './abstract-entity-index.component';
-import {Entity} from '../shared/models/entity.interface';
+import {Router} from '@angular/router';
 import {Moment} from 'moment';
 import {FilterTableTab} from '../shared/components/filter-table/filter-table.component';
+import {AsyncSubject} from 'rxjs';
+import {ColumnParams} from '../shared/models/column-params.model';
 
-export abstract class AbstractEntityReportIndexComponent<T extends Entity<T>> extends AbstractEntityIndexComponent<T>{
+export abstract class AbstractEntityReportIndexComponent<T> {
 
   date: {start: Moment, end: Moment};
 
@@ -16,23 +14,27 @@ export abstract class AbstractEntityReportIndexComponent<T extends Entity<T>> ex
 
   options: string[] = [];
 
+  loadingData: boolean = false;
+
+  columnParams: ColumnParams<T>[] = [];
+
+  sortedColumnParams: ColumnParams<T> = new ColumnParams<T>();
+
+  protected unsubscribe$: AsyncSubject<boolean> = new AsyncSubject<boolean>();
+
   constructor(
-    service: AbstractEntityService<T>,
-    authService: AuthenticationService,
-    deleteDialog: MatDialog,
-    paginationService?: PaginationService,
-    router?: Router,
-    activatedRoute?: ActivatedRoute
-  ) {
-    super(service, authService, deleteDialog, paginationService, router, activatedRoute);
-  }
+    protected authService: AuthenticationService,
+    protected dialog: MatDialog,
+    protected router: Router,
+  ) { }
 
   init() {
-    this.shareLimit = false;
-    this.limit = 25;
-    this.setInfiniteScroll(true);
 
-    super.init();
+  }
+
+  destroy(): void {
+    this.unsubscribe$.next(true);
+    this.unsubscribe$.complete();
   }
 
   selectTab(tab: FilterTableTab) {
@@ -52,21 +54,15 @@ export abstract class AbstractEntityReportIndexComponent<T extends Entity<T>> ex
   }
 
   refetch() {
-    this.loadingData = true;
-    this.resetEntities();
-    this.service.getEntities(this.limit)
+
   }
 
-
   loadMore() {
-    if (!this.loadingData && this.hasMore) {
-      this.loadingData = true;
-      this.service.getEntities(20);
-    }
+
   }
 
   openFiltersDialog(component) {
-    let filtersDialog = this.deleteDialog.open(component, { disableClose : true });
+    let filtersDialog = this.dialog.open(component, { disableClose : true });
 
     filtersDialog.afterClosed().take(1).subscribe(result => {
       filtersDialog = null;

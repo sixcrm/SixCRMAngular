@@ -10,6 +10,7 @@ import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {utc} from 'moment';
 import {CustomerFiltersDialogComponent} from '../../../dialog-modals/customer-filters-dialog/customer-filters-dialog.component';
 import {AbstractEntityReportIndexComponent} from '../../abstract-entity-report-index.component';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'customers',
@@ -19,18 +20,15 @@ import {AbstractEntityReportIndexComponent} from '../../abstract-entity-report-i
 export class CustomersComponent extends AbstractEntityReportIndexComponent<Customer> implements OnInit, OnDestroy {
 
   crumbItems: BreadcrumbItem[] = [{label: () => 'CUSTOMER_INDEX_TITLE'}];
+  customers: Customer[] = [];
 
   constructor(
-    customersService: CustomersService,
+    protected service: CustomersService,
     auth: AuthenticationService,
     dialog: MatDialog,
-    paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute
   ) {
-    super(customersService, auth, dialog, paginationService, router, activatedRoute);
-
-    this.entityFactory = () => new Customer();
+    super(auth, dialog, router);
 
     let f = this.authService.getTimezone();
     this.columnParams = [
@@ -61,7 +59,16 @@ export class CustomersComponent extends AbstractEntityReportIndexComponent<Custo
   }
 
   ngOnInit() {
-    this.init();
+    this.service.entities$.takeUntil(this.unsubscribe$).subscribe(customers => {
+      if (customers instanceof CustomServerError) {
+        this.customers = [];
+        return;
+      }
+
+      this.customers = customers;
+    });
+
+    this.service.getEntities(20);
   }
 
   ngOnDestroy() {

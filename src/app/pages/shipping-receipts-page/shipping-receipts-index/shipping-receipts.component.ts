@@ -12,6 +12,7 @@ import {Moment, utc} from 'moment';
 import {FilterTableTab} from '../../../shared/components/filter-table/filter-table.component';
 import {ShippingreceiptFiltersDialogComponent} from '../../../dialog-modals/shippingreceipt-filters-dialog/shippingreceipt-filters-dialog.component';
 import {AbstractEntityReportIndexComponent} from '../../abstract-entity-report-index.component';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'shipping-receipt',
@@ -22,15 +23,15 @@ export class ShippingReceiptsComponent extends AbstractEntityReportIndexComponen
 
   crumbItems: BreadcrumbItem[] = [{label: () => 'SHIPPINGRECEIPT_INDEX_TITLE'}];
 
+  shippingReceipts: ShippingReceipt[] = [];
+
   constructor(
-    shippingReceiptsService: ShippingReceiptsService,
+    private service: ShippingReceiptsService,
     auth: AuthenticationService,
     dialog: MatDialog,
-    paginationService: PaginationService,
-    router: Router,
-    activatedRoute: ActivatedRoute
+    router: Router
   ) {
-    super(shippingReceiptsService, auth, dialog, paginationService, router, activatedRoute);
+    super(auth, dialog, router);
 
     const tz = this.authService.getTimezone();
 
@@ -59,7 +60,16 @@ export class ShippingReceiptsComponent extends AbstractEntityReportIndexComponen
 
 
   ngOnInit() {
-    this.init();
+    this.service.entities$.takeUntil(this.unsubscribe$).subscribe(shippingReceipts => {
+      if (shippingReceipts instanceof CustomServerError) {
+        this.shippingReceipts = [];
+        return;
+      }
+
+      this.shippingReceipts = shippingReceipts;
+    });
+
+    this.service.getEntities(20);
   }
 
   ngOnDestroy() {

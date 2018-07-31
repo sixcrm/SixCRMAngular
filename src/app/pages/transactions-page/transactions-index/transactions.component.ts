@@ -1,49 +1,52 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {TransactionsService} from "../../../entity-services/services/transactions.service";
-import {Transaction} from '../../../shared/models/transaction.model';
 import {AuthenticationService} from '../../../authentication/authentication.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {ColumnParams} from '../../../shared/models/column-params.model';
 import {MatDialog} from '@angular/material';
-import {PaginationService} from '../../../shared/services/pagination.service';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {FeatureFlagService} from '../../../shared/services/feature-flag.service';
 import {utc} from 'moment';
 import {TransactionFiltersDialogComponent} from '../../../dialog-modals/transaction-filters-dialog/transaction-filters-dialog.component';
 import {AbstractEntityReportIndexComponent} from '../../abstract-entity-report-index.component';
+import {AnalyticsService} from '../../../shared/services/analytics.service';
+import {TransactionAnalytics} from '../../../shared/models/analytics/transaction-analytics.model';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'transactions',
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.scss']
 })
-export class TransactionsComponent extends AbstractEntityReportIndexComponent<Transaction> implements OnInit, OnDestroy {
+export class TransactionsComponent extends AbstractEntityReportIndexComponent<TransactionAnalytics> implements OnInit, OnDestroy {
 
   crumbItems: BreadcrumbItem[] = [{label: () => 'TRANSACTION_INDEX_TITLE'}];
+  transactions: TransactionAnalytics[] = [];
 
   constructor(
-    transactionsService: TransactionsService,
     auth: AuthenticationService,
     dialog: MatDialog,
-    paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute,
-    public featuresFlagService: FeatureFlagService
+    public featuresFlagService: FeatureFlagService,
+    private analyticsService: AnalyticsService
   ) {
-    super(transactionsService, auth, dialog, paginationService, router, activatedRoute);
+    super(auth, dialog, router);
 
     let f = this.authService.getTimezone();
+
     this.columnParams = [
-      new ColumnParams('TRANSACTION_INDEX_HEADER_ID', (e: Transaction) => e.id).setSelected(false),
-      new ColumnParams('TRANSACTION_INDEX_HEADER_ALIAS', (e: Transaction) => e.alias),
-      new ColumnParams('TRANSACTION_INDEX_HEADER_AMOUNT', (e: Transaction) => e.amount.usd(), 'right').setNumberOption(true),
-      new ColumnParams('TRANSACTION_INDEX_HEADER_RESPONSE', (e: Transaction) => e.processorResponse.message),
-      new ColumnParams('TRANSACTION_INDEX_HEADER_PROCESSOR', (e: Transaction) => e.merchantProvider.name),
-      new ColumnParams('TRANSACTION_INDEX_HEADER_CREATED',(e: Transaction) => e.createdAt.tz(f).format('MM/DD/YYYY')).setSelected(false),
-      new ColumnParams('TRANSACTION_INDEX_HEADER_UPDATED',(e: Transaction) => e.updatedAt.tz(f).format('MM/DD/YYYY')).setSelected(false)
+      new ColumnParams('Date', (e: TransactionAnalytics) => e.date.tz(f).format('MM/DD/YYYY h:mm A')),
+      new ColumnParams('Chargeback', (e: TransactionAnalytics) => e.chargeback ? 'Yes' : 'No'),
+      new ColumnParams('Response', (e: TransactionAnalytics) => e.response || '-'),
+      new ColumnParams('Amount', (e: TransactionAnalytics) => e.amount.usd()),
+      new ColumnParams('Refund', (e: TransactionAnalytics) => e.refund.amount ? e.refund.usd() : '-'),
+      new ColumnParams('MID', (e: TransactionAnalytics) => e.merchantProvider || '-'),
+      new ColumnParams('Transaction ID', (e: TransactionAnalytics) => e.alias || '-'),
+      new ColumnParams('Order ID', (e: TransactionAnalytics) => e.rebillAlias || '-'),
+      new ColumnParams('Customer', (e: TransactionAnalytics) => e.customer || '-'),
+      new ColumnParams('Session', (e: TransactionAnalytics) => e.sessionAlias || '-')
     ];
 
-    this.date = {start: utc().subtract(1,'M'), end: utc()};
+    this.date = {start: utc().subtract(7,'d'), end: utc()};
 
     this.tabs = [
       {label: 'All', selected: true, visible: true},
@@ -57,7 +60,18 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
   }
 
   ngOnInit() {
-    this.init();
+    this.analyticsService.transactions$.takeUntil(this.unsubscribe$).subscribe(transactions => {
+      this.loadingData = false;
+
+      if (!transactions || transactions instanceof CustomServerError) {
+        this.transactions = [];
+        return;
+      }
+
+      this.transactions = transactions;
+    });
+
+    this.refetch();
   }
 
   ngOnDestroy() {
@@ -75,6 +89,12 @@ export class TransactionsComponent extends AbstractEntityReportIndexComponent<Tr
 
   openFiltersDialog() {
     super.openFiltersDialog(TransactionFiltersDialogComponent);
+  }
+
+  refetch() {
+    this.transactions = [];
+    this.loadingData = true;
+    this.analyticsService.getTransactions({start: this.date.start.clone().format(), end: this.date.end.clone().format()});
   }
 
 }

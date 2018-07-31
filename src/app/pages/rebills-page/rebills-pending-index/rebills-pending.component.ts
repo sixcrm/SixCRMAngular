@@ -9,6 +9,8 @@ import {MatDialog} from '@angular/material';
 import {FilterTableTab} from '../../../shared/components/filter-table/filter-table.component';
 import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {SubscriptionFiltersDialogComponent} from '../../../dialog-modals/subscription-filters-dialog/subscription-filters-dialog.component';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
+import {Rebill} from '../../../shared/models/rebill.model';
 
 @Component({
   selector: 'rebills-pending',
@@ -31,16 +33,14 @@ export class RebillsPendingComponent extends RebillsComponent implements OnInit,
     service: RebillsService,
     auth: AuthenticationService,
     dialog: MatDialog,
-    paginationService: PaginationService,
-    router: Router,
-    activatedRoute: ActivatedRoute
+    router: Router
   ) {
-    super(service, auth, dialog, paginationService, router, activatedRoute);
+    super(service, auth, dialog, router);
   }
 
   ngOnInit() {
     this.service.indexQuery = rebillsPendingListQuery;
-    this.init();
+    super.ngOnInit();
   }
 
   ngOnDestroy() {

@@ -11,6 +11,7 @@ import {BreadcrumbItem} from '../../components/models/breadcrumb-item.model';
 import {utc, Moment} from 'moment';
 import {FilterTableTab} from '../../../shared/components/filter-table/filter-table.component';
 import {AbstractEntityReportIndexComponent} from '../../abstract-entity-report-index.component';
+import {CustomServerError} from '../../../shared/models/errors/custom-server-error';
 
 @Component({
   selector: 'rebills',
@@ -23,15 +24,15 @@ export class RebillsComponent extends AbstractEntityReportIndexComponent<Rebill>
 
   crumbItems: BreadcrumbItem[] = [{label: () => this.title}];
 
+  rebills: Rebill[] = [];
+
   constructor(
-    service: RebillsService,
+    protected service: RebillsService,
     auth: AuthenticationService,
     dialog: MatDialog,
-    paginationService: PaginationService,
     router: Router,
-    activatedRoute: ActivatedRoute
   ) {
-    super(service, auth, dialog, paginationService, router, activatedRoute);
+    super(auth, dialog, router);
 
     let f = this.authService.getTimezone();
 
@@ -61,7 +62,16 @@ export class RebillsComponent extends AbstractEntityReportIndexComponent<Rebill>
   }
 
   ngOnInit() {
-    this.init();
+    this.service.entities$.takeUntil(this.unsubscribe$).subscribe(rebills => {
+      if (rebills instanceof CustomServerError) {
+        this.rebills = [];
+        return;
+      }
+
+      this.rebills = rebills;
+    });
+
+    this.service.getEntities(20);
   }
 
   ngOnDestroy() {

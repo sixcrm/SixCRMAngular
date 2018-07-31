@@ -104,6 +104,31 @@ export function campaignsByAmountQuery(start: string, end: string): string {
   `;
 }
 
+export function transactionsQuery(start: string, end: string): string {
+  return `
+    query {
+      analytics (
+        reportType: transactionDetail
+        facets: [{
+          facet: "start"
+            values: ["${start}"]
+          },
+          {
+            facet: "end"
+            values: ["${end}"]
+          }
+        ],
+        pagination: {
+          limit: 10,
+          offset: 0,
+          order: ["datetime"],
+          direction: "desc"
+        }
+      ) {records { key value }}
+    }
+  `;
+}
+
 export function productSchedulesByAmountQuery(start: string, end: string): string {
   return `
     query {
