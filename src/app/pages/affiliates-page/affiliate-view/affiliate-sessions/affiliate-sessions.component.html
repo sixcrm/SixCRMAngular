@@ -25,7 +25,7 @@
     <tr *ngFor="let entity of entities | filterEntities: filterValue | sortEntities: sortedColumnParams.mappingFunction: sortedColumnParams.sortOrder">
       <ng-container *ngFor="let params of columnParams">
         <ng-container *ngIf="params.selected">
-          <td [class.cell--align-right]="params.align === 'right'" [routerLink]="['/sessions', entity.id]">
+          <td [class.cell--align-right]="params.align === 'right'">
             <div class="codeblock" *ngIf="params.code; else noCode">
               {{params.mappingFunction(entity)}}
             </div>
@@ -39,7 +39,7 @@
       <td>
         <button mat-icon-button [matMenuTriggerFor]="actionsMenu"><mat-icon>more_vert</mat-icon></button>
         <mat-menu #actionsMenu="matMenu" x-position="before">
-          <button mat-menu-item [routerLink]="['/sessions', entity.id]">{{'AFFILIATE_SESSION_VIEW' | translate}}</button>
+          <button mat-menu-item>{{'AFFILIATE_SESSION_VIEW' | translate}}</button>
         </mat-menu>
       </td>
     </tr>

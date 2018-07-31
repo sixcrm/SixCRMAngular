@@ -5,14 +5,25 @@ export function ordersByCustomer(customerId: string, params: IndexQueryParameter
   return `{
 		orderbycustomerlist (customer:"${customerId}" ${paginationParamsQuery(params, true)}) {
 			orders {
-			  ${orderByCustomerResponseQuery()}
+			  ${orderResponseQuery()}
 			}
 			${fullPaginationStringResponseQuery()}
 		}
   }`
 }
 
-export function orderByCustomerResponseQuery(): string {
+export function ordersBySession(sessionId: string, params: IndexQueryParameters): string {
+  return `{
+		orderbysessionlist (session:"${sessionId}" ${paginationParamsQuery(params, true)}) {
+			orders {
+			  ${orderResponseQuery()}
+			}
+			${fullPaginationStringResponseQuery()}
+		}
+  }`
+}
+
+export function orderResponseQuery(): string {
   return `id, amount, date
   products { quantity, amount
     product { id, name, sku, ship }

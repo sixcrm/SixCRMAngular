@@ -7,6 +7,9 @@ import {Affiliate} from './affiliate.model';
 import {utc, Moment} from 'moment';
 import {Watermark} from './watermark/watermark.model';
 import {SessionCancelation} from './session-cancelation.model';
+import {Product} from './product.model';
+import {WatermarkProductSchedule} from './watermark/watermark-product-schedule.model';
+import {WatermarkProduct} from './watermark/watermark-product.model';
 
 export class Session implements Entity<Session> {
   id: string;
@@ -129,5 +132,21 @@ export class Session implements Entity<Session> {
       created_at: this.createdAt.clone().format(),
       updated_at: this.updatedAtAPI
     }
+  }
+
+  copyWithWatermark(productSchedules: ProductSchedule[], products: Product[]): Session {
+    let copy: Session = this.copy();
+
+    if (productSchedules) {
+      copy.watermark.productSchedules = productSchedules.map(ps => new WatermarkProductSchedule({quantity: ps.quantity, product_schedule: ps.inverse()}));
+      copy.watermark.extractedProductSchedules = productSchedules;
+    }
+
+    if (products) {
+      copy.watermark.products = products.map(p => new WatermarkProduct({quantity: p.quantity, price: p.price.amount, product: p.inverse()}));
+      copy.watermark.extractedProducts = products;
+    }
+
+    return copy;
   }
 }

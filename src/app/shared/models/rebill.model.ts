@@ -13,6 +13,7 @@ import {RebillPaidStatus} from './rebill-paid-status.model';
 export class Rebill implements Entity<Rebill> {
   id: string;
   amount: Currency;
+  alias: string;
   billAt: Moment;
   createdAt: Moment;
   updatedAt: Moment;
@@ -33,6 +34,7 @@ export class Rebill implements Entity<Rebill> {
 
     this.id = obj.id || '';
     this.amount = new Currency(obj.amount);
+    this.alias = obj.alias || '';
     this.billAt = utc(obj.bill_at);
     this.createdAt = utc(obj.created_at);
     this.updatedAt = utc(obj.updated_at);
@@ -131,6 +133,7 @@ export class Rebill implements Entity<Rebill> {
     return {
       id: this.id,
       amount: this.amount.amount,
+      alias: this.alias,
       bill_at: this.billAt.clone().format(),
       created_at: this.createdAt.clone().format(),
       updated_at: this.updatedAtAPI,

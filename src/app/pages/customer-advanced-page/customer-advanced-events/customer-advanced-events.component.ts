@@ -14,20 +14,17 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 })
 export class CustomerAdvancedEventsComponent implements OnInit {
 
-
-  _customer: Customer;
-
   activities: Activity[] = [];
 
-  @Input() set customer(customer: Customer) {
-    if (customer) {
-      const performInit = !this._customer;
-
-      this._customer = customer;
-
-      if (performInit) {
-        this.initialize();
-      }
+  @Input() set customerId(customerId: string) {
+    if (customerId) {
+      this.analyticsService.getActivityByCustomer({
+        start: utc().subtract(1, 'M').format(),
+        end: utc().format(),
+        customer: customerId,
+        limit: 10,
+        offset: 0
+      });
     }
   }
 
@@ -48,21 +45,11 @@ export class CustomerAdvancedEventsComponent implements OnInit {
       new ColumnParams('CUSTOMER_ACTIVITY_DESCRIPTION', (e: Activity) => e.description),
       new ColumnParams('CUSTOMER_ACTIVITY_AUTHOR', (e: Activity) => e.actor)
     ];
-  }
 
-  initialize() {
     this.analyticsService.activitiesByCustomer$.take(1).subscribe(activities => {
       if (activities instanceof CustomServerError) return;
 
       this.activities = activities;
-    });
-
-    this.analyticsService.getActivityByCustomer({
-      start: utc().subtract(1, 'M').format(),
-      end: utc().format(),
-      customer: this._customer.id,
-      limit: 10,
-      offset: 0
     });
   }
 
