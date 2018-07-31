@@ -55,8 +55,6 @@ export class CampaignsComponent extends AbstractEntityIndexComponent<Campaign> i
   }
 
   ngOnInit() {
-    this.viewAfterCrate = false;
-
     this.init();
   }
 

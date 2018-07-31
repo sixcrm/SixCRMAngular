@@ -1,5 +1,5 @@
 import {waitForUrlContains, navigateSuperuserToHomepage, clearLocalStorage} from '../utils/navigation.utils';
-import {SidenavPage} from '../po/sidenav.po';
+import {NavPage} from '../po/nav.po';
 import {browser} from 'protractor';
 import {expectUrlToContain, expectNotPresent, expectPresent} from '../utils/assertation.utils';
 import {ReportPage} from '../po/report.po';
@@ -25,10 +25,9 @@ describe('Transaction Report', function() {
   });
 
   it('should navigate to transactions report page', () => {
-    const sidenav = new SidenavPage();
-    sidenav.getLink(2).click();
-    browser.sleep(500);
-    sidenav.getLink(5).click();
+    const nav = new NavPage();
+    nav.getNavToggler().click();
+    nav.getLink(1).click();
     waitForUrlContains('reports/transaction');
     expectUrlToContain('reports/transaction');
   });

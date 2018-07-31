@@ -1,6 +1,6 @@
 import {waitForUrlContains, clearLocalStorage} from '../utils/navigation.utils';
 import {EntityIndexPage} from '../po/entity-index.po';
-import {SidenavPage} from '../po/sidenav.po';
+import {NavPage} from '../po/nav.po';
 import {login, tosCheck} from '../utils/action.utils';
 import {browser} from 'protractor';
 import {expectUrlToContain, expectDefined} from '../utils/assertation.utils';
@@ -31,10 +31,9 @@ describe('Product Schedules', function() {
   });
 
   it('should navigate to products page', () => {
-    const sidenav = new SidenavPage();
-    sidenav.getLink(12).click();
-    browser.sleep(500);
-    sidenav.getLink(15).click();
+    const nav = new NavPage();
+    nav.getNavToggler().click();
+    nav.getLink(14).click();
     waitForUrlContains('productschedules');
     expectUrlToContain('productschedules');
   });

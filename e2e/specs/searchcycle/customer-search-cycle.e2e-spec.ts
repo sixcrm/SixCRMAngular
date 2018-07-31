@@ -5,7 +5,7 @@ import {AdvancedSearchPage} from '../../po/advanced-search.po';
 import {browser, protractor} from 'protractor';
 import {clearLocalStorage, waitForUrlContains, waitForPresenceOf} from '../../utils/navigation.utils';
 import {login} from '../../utils/action.utils';
-import {SidenavPage} from '../../po/sidenav.po';
+import {NavPage} from '../../po/sidenav.po';
 import {expectUrlToContain} from '../../utils/assertation.utils';
 import {generateNumber, generateLetters} from '../../utils/generator.utils';
 import {TopnavPage} from '../../po/topnav.po';
@@ -15,7 +15,7 @@ describe('CustomerSearchCycle', function() {
   let customerPage: CustomerPage;
   let searchPage: SearchPage;
   let advancedSearchPage: AdvancedSearchPage;
-  let sidenav: SidenavPage;
+  let sidenav: NavPage;
   let topnav: TopnavPage;
 
   const customerName = generateLetters();
@@ -32,7 +32,7 @@ describe('CustomerSearchCycle', function() {
     customerPage = new CustomerPage();
     searchPage = new SearchPage();
     advancedSearchPage = new AdvancedSearchPage();
-    sidenav = new SidenavPage();
+    sidenav = new NavPage();
     topnav = new TopnavPage();
   });
 

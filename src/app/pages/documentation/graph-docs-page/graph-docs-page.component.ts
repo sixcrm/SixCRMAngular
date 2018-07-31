@@ -15,14 +15,11 @@ export class GraphDocsPageComponent implements OnInit {
     {key: 'Content-Type', value: 'application/json'},
     {key: 'Authorization', value: this.authService.getToken()}
   ];
-  showSidenav: boolean;
 
-  constructor(private authService: AuthenticationService, private navigationService: NavigationService) {}
+  constructor(private authService: AuthenticationService) {}
 
   ngOnInit() {
-    this.navigationService.showSidenav.subscribe(showSidenav => {
-      this.showSidenav = showSidenav;
-    });
+
   }
 
   ngOnDestroy() { }

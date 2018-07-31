@@ -1,0 +1,33 @@
+<div class="navigation-menu">
+
+  <div class="content">
+
+    <div class="section" *ngFor="let section of (sections || [])">
+
+      <div class="subsection" *ngFor="let subsection of (section.subsections || [])">
+
+        <ng-container *ngFor="let item of (subsection.items || [])">
+
+          <navigation-menu-item [item]="item"></navigation-menu-item>
+
+        </ng-container>
+
+      </div>
+
+      <div class="items">
+
+        <ng-container *ngFor="let item of (section.items || [])">
+          <navigation-menu-item [item]="item"></navigation-menu-item>
+        </ng-container>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="buttons">
+    <button mat-button (click)="closeMenu()">CLOSE</button>
+  </div>
+
+</div>
