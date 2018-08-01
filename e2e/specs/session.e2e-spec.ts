@@ -32,7 +32,7 @@ describe('Session', function() {
   it('should navigate to sessions page', () => {
     const nav = new NavPage();
     nav.getNavToggler().click();
-    nav.getLink(4).click();
+    nav.getLink(2).click();
     waitForUrlContains('sessions');
     expectUrlToContain('session');
   });

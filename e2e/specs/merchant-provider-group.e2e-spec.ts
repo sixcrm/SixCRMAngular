@@ -36,7 +36,7 @@ describe('Merchant Provider Group', function() {
   it('should navigate to merchantProviderGroup page', () => {
     const nav = new NavPage();
     nav.getNavToggler().click();
-    nav.getLink(19).click();
+    nav.getLink(15).click();
     waitForUrlContains('merchantprovidergroup');
     expectUrlToContain('merchantprovidergroup');
   });

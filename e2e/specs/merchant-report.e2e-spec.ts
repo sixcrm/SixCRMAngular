@@ -24,11 +24,10 @@ describe('Merchant Report', function() {
     browser.restart();
   });
 
-  it('should navigate to merchants report page', () => {
-    const sidenav = new NavPage();
-    sidenav.getLink(2).click();
-    browser.sleep(500);
-    sidenav.getLink(6).click();
+  it('should navigate to merchant report page', () => {
+    const nav = new NavPage();
+    nav.getNavToggler().click();
+    nav.getLink(7).click();
     waitForUrlContains('reports/merchant');
     expectUrlToContain('reports/merchant');
   });

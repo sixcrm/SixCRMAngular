@@ -27,7 +27,7 @@ describe('Affiliate Report', function() {
   it('should navigate to affiliate report page', () => {
     const nav = new NavPage();
     nav.getNavToggler().click();
-    nav.getLink(10).click();
+    nav.getLink(6).click();
     waitForUrlContains('reports/affiliate');
     expectUrlToContain('reports/affiliate');
   });

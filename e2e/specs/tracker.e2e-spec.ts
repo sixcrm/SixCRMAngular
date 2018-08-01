@@ -32,7 +32,7 @@ describe('Trackers', function() {
   it('should navigate to trackers page', () => {
     const nav = new NavPage();
     nav.getNavToggler().click();
-    nav.getLink(17).click();
+    nav.getLink(13).click();
     waitForUrlContains('trackers');
     expectUrlToContain('trackers');
   });

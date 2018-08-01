@@ -33,7 +33,7 @@ describe('Products', function() {
   it('should navigate to products page', () => {
     const nav = new NavPage();
     nav.getNavToggler().click();
-    nav.getLink(13).click();
+    nav.getLink(9).click();
     waitForUrlContains('products');
     expectUrlToContain('products');
   });
