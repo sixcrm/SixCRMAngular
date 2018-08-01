@@ -32,7 +32,7 @@ describe('Affiliates', function() {
   it('should navigate to affiliates page', () => {
     const nav = new NavPage();
     nav.getNavToggler().click();
-    nav.getLink(16).click();
+    nav.getLink(12).click();
     waitForUrlContains('affiliates');
     expectUrlToContain('affiliates');
   });

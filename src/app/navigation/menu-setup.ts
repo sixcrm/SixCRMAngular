@@ -14,7 +14,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
 
   if (authService.hasPermissions('customer', 'read') || authService.isBillingDisabled()) {
     mainSub.items.push({label: 'Customers', icon: 'person', url: 'customers'});
-    mainSub.items.push({label: 'Subscriptions', icon: 'date_range', url: 'coming-soon'})
+    // mainSub.items.push({label: 'Subscriptions', icon: 'date_range', url: 'coming-soon'})
   }
 
   if (authService.isActiveOrActingAclMasterAccount()) {
@@ -35,7 +35,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
   const salesSub: NavigationMenuSection = { items: [ {label: 'Sales', icon: 'credit_card', children: [] } ] };
 
   if (authService.hasPermissions('rebill', 'read') || authService.isBillingDisabled()) {
-    salesSub.items[0].children.push({label: 'Orders', url: 'coming-soon'})
+    // salesSub.items[0].children.push({label: 'Orders', url: 'coming-soon'})
   }
 
   if (authService.hasPermissions('session', 'read') || authService.isBillingDisabled()) {
@@ -75,13 +75,17 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
     cycleReports.children.unshift({ label: 'Cycle Reports', isHeader: true});
   }
 
-  const trafficReport: NavigationMenuItem = { label: 'Traffic Reports', children: [ ] };
+  const trafficReport: NavigationMenuItem = { label: 'Reports', icon: 'insert_chart', children: [ ] };
 
   if ((authService.hasPermissions('analytics', 'getAffiliates') || authService.isBillingDisabled())) {
     trafficReport.children.push({label: 'Affiliates Report', url: 'reports/affiliate'});
   }
   if ((authService.hasPermissions('analytics', 'getMerchants') || authService.isBillingDisabled())) {
     trafficReport.children.push({label: 'Merchants Report', url: 'reports/merchant'});
+  }
+
+  if (trafficReport.children.length > 0) {
+    trafficReport.children.unshift({ label: 'Traffic Reports', isHeader: true});
   }
 
   if (trafficReport.children.length > 0 || cycleReports.children.length > 0 || authService.isActiveOrActingAclMasterAccount()) {
@@ -91,7 +95,7 @@ export function menuItems(authService: AuthenticationService, acl: Acl, featureF
       reportsSection.subsections.push(salesSub)
     }
 
-    const analyticsSubsection = { items: [cycleReports] };
+    const analyticsSubsection = { items: [] };
 
     if (trafficReport.children.length > 0) {
       analyticsSubsection.items.push(trafficReport)

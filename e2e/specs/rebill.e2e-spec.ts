@@ -36,7 +36,7 @@ describe('Rebill', function() {
   it('should navigate to rebills page', () => {
     const nav = new NavPage();
     nav.getNavToggler().click();
-    nav.getLink(5).click();
+    nav.getLink(3).click();
     waitForUrlContains('rebills');
     expectUrlToContain('rebill');
   });
